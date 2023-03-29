@@ -1,7 +1,24 @@
 {
     "keyboard_name": "Cospad",
+    "manufacturer": "KPrepublic",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4B5C",
+        "pid": "0xB1E5",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "F7",
+        "on_state": 0
+    },
+    "indicators": {
+        "num_lock": "B2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["numpad_6x4", "ortho_6x4"],
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

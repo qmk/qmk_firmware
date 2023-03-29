@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Serpent65",
-    "url": "https",
+    "manufacturer": "Caffeinated Studios",
+    "url": "",
     "maintainer": "jrfhoutx",
+    "usb": {
+        "vid": "0x4353",
+        "pid": "0x6501",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

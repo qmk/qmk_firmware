@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DEVICE_VER      0x0001
-
 #define MATRIX_ROW_PINS { F5, F6, F4, F1, D4 }
 #define MATRIX_COL_PINS { D6, D7, B4, B5, B6, F0, D5 }
 

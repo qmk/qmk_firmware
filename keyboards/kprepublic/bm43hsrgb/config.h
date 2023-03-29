@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50
-#define PRODUCT_ID      0x6061
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KPRepublic
-#define PRODUCT         BM43 Hotswap RGB
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 /*
  * Keyboard Matrix Assignments

@@ -57,6 +57,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,   RGB_HUD, RGB_HUI,
     KC_NO,   RGB_SAD, RGB_SAI, KC_NO,
     KC_NO,   RGB_VAD, RGB_VAI,
-    KC_NO,            KC_NO,   KC_NLCK
+    KC_NO,            KC_NO,   KC_NUM
   ),
 };

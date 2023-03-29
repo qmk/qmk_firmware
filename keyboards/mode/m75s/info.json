@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "Mode 75S",
+    "keyboard_name": "75S",
+    "manufacturer": "Mode",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x00DE",
+        "pid": "0x7583",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "C6",
+        "levels": 20,
+        "as_caps_lock": true
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

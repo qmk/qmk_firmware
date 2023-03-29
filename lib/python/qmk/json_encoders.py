@@ -75,8 +75,8 @@ class InfoJSONEncoder(QMKJSONEncoder):
         """Encode info.json dictionaries.
         """
         if obj:
-            if self.indentation_level == 4:
-                # These are part of a layout, put them on a single line.
+            if set(("x", "y")).issubset(obj.keys()):
+                # These are part of a layout/led_config, put them on a single line.
                 return "{ " + ", ".join(f"{self.encode(key)}: {self.encode(element)}" for key, element in sorted(obj.items())) + " }"
 
             else:

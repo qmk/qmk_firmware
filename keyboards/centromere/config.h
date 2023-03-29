@@ -17,25 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Southpaw Design
-#define PRODUCT         centromere
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 10
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-//#define BACKLIGHT_LEVELS 3
 
 #define ONESHOT_TIMEOUT 500
 

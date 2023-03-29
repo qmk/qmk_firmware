@@ -1,0 +1,18 @@
+{
+    "usb": {
+        "pid": "0x6061",
+        "device_version": "0.0.2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A8", "pin_b": "A9"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "num_lock": "B12",
+        "scroll_lock": "B13"
+    },
+    "processor": "STM32F103", // GD32F303CCT6
+    "bootloader": "stm32duino"
+}

@@ -17,27 +17,11 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4C44 // "LD"
-#define PRODUCT_ID      0x0042
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    LAZYDESIGNERS
-#define PRODUCT         THE40
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 #define MATRIX_ROW_PINS { D0, D1, B6, F5 }
 #define MATRIX_COL_PINS { F4, F6, F7, B5, B4, D7, D6, D4, D5, D3, D2, B0 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN C7
 #ifdef RGB_DI_PIN
@@ -45,6 +29,15 @@
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_SLEEP 
-    #define RGBLIGHT_ANIMATIONS
+    #define RGBLIGHT_SLEEP
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #endif

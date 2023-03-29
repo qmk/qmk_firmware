@@ -1,7 +1,21 @@
 {
-    "keyboard_name": "BM980",
+    "keyboard_name": "BM980 Hotswap RGB",
+    "manufacturer": "KPrepublic",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0xEF61",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "C7",
+        "num_lock": "C6",
+        "scroll_lock": "E2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

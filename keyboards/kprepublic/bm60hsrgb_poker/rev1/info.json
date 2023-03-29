@@ -1,7 +1,16 @@
 {
-    "keyboard_name": "BM60HSRGB_POKER",
+    "keyboard_name": "BM60HSRGB Poker Rev1",
+    "manufacturer": "KPrepublic",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0xEF8D",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

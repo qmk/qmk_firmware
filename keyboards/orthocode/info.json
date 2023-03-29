@@ -1,7 +1,21 @@
 {
     "keyboard_name": "OrthoCode",
+    "manufacturer": "Jrodna",
     "url": "https://github.com/Jrodna/OrthoCode",
     "maintainer": "Jrodna",
+    "usb": {
+        "vid": "0x3415",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0", "resolution": 1}
+        ]
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
+    "debounce": 0,
     "layouts": {
         "LAYOUT": {
             "layout": [

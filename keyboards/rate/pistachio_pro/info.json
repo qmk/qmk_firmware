@@ -1,7 +1,20 @@
 {
     "keyboard_name": "PistachioPro",
+    "manufacturer": "rate",
     "url": "https://rates.booth.pm/items/2925303",
     "maintainer": "rate",
+    "usb": {
+        "vid": "0x5255",
+        "pid": "0xF40C",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D3"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

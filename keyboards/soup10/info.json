@@ -1,7 +1,18 @@
 {
     "keyboard_name": "Soup10",
+    "manufacturer": "icesoup",
     "url": "https://github.com/Sadeeed/soup10",
     "maintainer": "Sadeeed",
+    "usb": {
+        "vid": "0x5375",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

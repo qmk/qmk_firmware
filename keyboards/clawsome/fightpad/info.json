@@ -1,7 +1,15 @@
 {
     "keyboard_name": "FightPad",
+    "manufacturer": "AlisGraveNil",
     "url": "www.clawboards.xyz",
     "maintainer": "AlisGraveNil",
+    "usb": {
+        "vid": "0x7767",
+        "pid": "0x481C",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

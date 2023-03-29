@@ -141,16 +141,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                         |       |       |       | |       |       |       |
      *                         `-----------------------' '-----------------------'
      */
-    [_UPPER] = LAYOUT_wrapper( \
+    [_UPPER] = LAYOUT_wrapper(
          KC_GRV, _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, _______,
         _______, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, KC_BSLS,
         _______, _________________RAISE_L3__________________,                    _________________RAISE_R3__________________, _______,
                                          _______, _______, _______,        _______, _______, _______
     ),
 
-    [_ADJUST] = LAYOUT_wrapper( \
+    [_ADJUST] = LAYOUT_wrapper(
         _______, _________________ADJUST_L1_________________,                         _________________ADJUST_R1_________________, KC_RESET,
-        _______, _________________ADJUST_L2_________________,                         _________________ADJUST_R2_________________, EEP_RST,
+        _______, _________________ADJUST_L2_________________,                         _________________ADJUST_R2_________________, EE_CLR,
         _______, _________________ADJUST_L3_________________,                         _________________ADJUST_R3_________________, KC_MPLY,
                                             _______, _______, _______,        _______, _______, _______
     )
@@ -198,10 +198,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //    }
 //}
 //
-// bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+// bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+//    if (keycode == ALT_T(KC_A) || keycode == SH_BKSP) {
+//        return false;
+//    }
 //    switch (keycode) {
-//        case ALT_T(KC_A):
-//        case SH_BKSP:
+//        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
 //            return true;
 //        default:
 //            return false;

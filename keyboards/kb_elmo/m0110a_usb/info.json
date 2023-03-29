@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "m0110a usb", 
+    "keyboard_name": "M0110A USB", 
+    "manufacturer": "kb-elmo",
     "url": "https://github.com/kb-elmo/m0110a_usb", 
     "maintainer": "kb-elmo", 
+    "usb": {
+        "vid": "0xA68C",
+        "pid": "0xDB4B",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT": {
             "layout": [

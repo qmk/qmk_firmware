@@ -1,7 +1,15 @@
 {
     "keyboard_name": "The Galleon", 
+    "manufacturer": "Swiftrax",
     "url": "github.com/swiftrax", 
     "maintainer": "swiftrax", 
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xEA2D",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

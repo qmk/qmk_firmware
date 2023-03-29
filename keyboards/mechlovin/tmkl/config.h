@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C // ML
-#define PRODUCT_ID   0xC601 // Commissions 60v1
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Team Mechlovin
-#define PRODUCT      TMKL
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
 
 /*
  * Keyboard Matrix Assignments
@@ -45,17 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B8
-#define BACKLIGHT_BREATHING
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 3
-
-#define BACKLIGHT_LEVELS 3
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-#define LED_CAPS_LOCK_PIN B9
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

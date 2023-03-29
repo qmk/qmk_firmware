@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Aves65",
+    "manufacturer": "I/O Keyboards",
     "url": "",
     "maintainer": "Hund",
+    "usb": {
+        "vid": "0x9991",
+        "pid": "0x9038",
+        "device_version": "0.0.1"
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "D4",
+        "esc_output": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "community_layouts": ["65_ansi", "65_ansi_split_bs", "65_ansi_blocker", "65_ansi_blocker_split_bs", "65_iso", "65_iso_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

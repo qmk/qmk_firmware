@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┘
      KC_LSFT ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                          KC_UP   ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSFT ,KC_RSFT ,KC_UP   ,
   //├────────┼────────┼────────┼────────┼────────┼────────┐                         ├────────┼────────┼────────┴────────┼────────┼────────┼────────┼────────┼────────┤
-     LALT_T(KC_ESC),MO(_FN3),LT(_FN2,KC_DEL),LALT_T(KC_LANG2),LGUI_T(KC_ENT),KC_SPC, KC_DOWN,LGUI_T(KC_SPC),LALT_T(KC_LANG1),              KC_LEFT ,KC_DOWN ,KC_RIGHT
+     LALT_T(KC_ESC),MO(_FN3),LT(_FN2,KC_DEL),LALT_T(KC_LNG2),LGUI_T(KC_ENT),KC_SPC, KC_DOWN,LGUI_T(KC_SPC),LALT_T(KC_LNG1),              KC_LEFT ,KC_DOWN ,KC_RIGHT
   //└────────┴────────┴────────┴────────┴────────┴────────┘                         └────────┴────────┴────────┘                          └────────┴────────┴────────┘
   ),
 
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐                ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
      KC_GRV  ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F6   ,                 KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,KC_F12  ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                └────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,KC_DQUO ,KC_QUOT ,KC_HASH ,KC_ASTR ,KC_PLUS ,KC_TILD ,                          KC_LPRN ,KC_RPRN ,KC_PIPE ,KC_ASTR ,KC_TILD ,KC_CIRC ,KC_SLSH ,KC_JYEN ,
+     _______ ,KC_DQUO ,KC_QUOT ,KC_HASH ,KC_ASTR ,KC_PLUS ,KC_TILD ,                          KC_LPRN ,KC_RPRN ,KC_PIPE ,KC_ASTR ,KC_TILD ,KC_CIRC ,KC_SLSH ,KC_INT3 ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┘                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______ ,KC_AT   ,KC_COLN ,KC_GRV  ,_______ ,KC_MINS ,                                   KC_LBRC ,_______ ,KC_DOT  ,KC_SLSH ,KC_MINS ,_______ ,_______ ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┘

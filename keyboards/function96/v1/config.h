@@ -17,19 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x672A
-#define DEVICE_VER 0x0001
-#define MANUFACTURER JTM
-#define PRODUCT function96v1
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 19
 
 /*
  * Keyboard Matrix Assignments
@@ -43,10 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { F1, F0, C15, C14, C13, B9 }
 #define MATRIX_COL_PINS { A3, A4, A5, A6, A7, B0, B1, B2, B10, B12, A13, A14, A15, B3, B4, B5, B6, B7, B8}
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

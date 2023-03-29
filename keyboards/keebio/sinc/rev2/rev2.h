@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_NO, KC_NO, LB3, LB4, LB5, LB6, LB7, LB8, KC_NO }, \
     { KC_NO, KC_NO, LC3, LC4, LC5, LC6, LC7, LC8, KC_NO }, \
     { KC_NO, KC_NO, LD3, KC_NO, LD5, LD6, LD7, LD8, LD9 }, \
-    { KC_NO, KC_NO, LE3, LE4, LE5, LE6, KC_NO, LE8, KC_NO }, \
+    { KC_NO, KC_NO, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { KC_NO, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, KC_NO }, \
     { RB1, RB2, RB3, RB4, RB5, RB6, RB7, RB8, KC_NO }, \
@@ -63,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_NO, KC_NO, LB3, LB4, LB5, LB6, LB7, LB8, KC_NO }, \
     { KC_NO, KC_NO, LC3, LC4, LC5, LC6, LC7, LC8, KC_NO }, \
     { KC_NO, KC_NO, LD3, KC_NO, LD5, LD6, LD7, LD8, LD9 }, \
-    { KC_NO, KC_NO, LE3, LE4, LE5, LE6, KC_NO, LE8, KC_NO }, \
+    { KC_NO, KC_NO, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { KC_NO, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, RA9 }, \
     { RB1, RB2, RB3, RB4, RB5, RB6, RB7, RB8, RB9 }, \
@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { LB1, LB2, LB3, LB4, LB5, LB6, LB7, LB8, KC_NO }, \
     { LC1, LC2, LC3, LC4, LC5, LC6, LC7, LC8, KC_NO }, \
     { LD1, LD2, LD3, KC_NO, LD5, LD6, LD7, LD8, LD9 }, \
-    { LE1, LE2, LE3, LE4, LE5, LE6, KC_NO, LE8, KC_NO }, \
+    { LE1, LE2, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { LF1, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, KC_NO }, \
     { RB1, RB2, RB3, RB4, RB5, RB6, RB7, RB8, KC_NO }, \
@@ -109,7 +109,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { LB1, LB2, LB3, LB4, LB5, LB6, LB7, LB8, KC_NO }, \
     { LC1, LC2, LC3, LC4, LC5, LC6, LC7, LC8, KC_NO }, \
     { LD1, LD2, LD3, KC_NO, LD5, LD6, LD7, LD8, LD9 }, \
-    { LE1, LE2, LE3, LE4, LE5, LE6, KC_NO, LE8, KC_NO }, \
+    { LE1, LE2, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { LF1, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, RA9 }, \
     { RB1, RB2, RB3, RB4, RB5, RB6, RB7, RB8, RB9 }, \
@@ -132,7 +132,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_NO, KC_NO, LB3, LB4, LB5, LB6, LB7, LB8, KC_NO }, \
     { KC_NO, KC_NO, LC3, LC4, LC5, LC6, LC7, LC8, KC_NO }, \
     { KC_NO, KC_NO, LD3, LD4, LD5, LD6, LD7, LD8, LD9 }, \
-    { KC_NO, KC_NO, LE3, LE4, LE5, LE6, KC_NO, LE8, KC_NO }, \
+    { KC_NO, KC_NO, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { KC_NO, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, KC_NO }, \
     { RB1, RB2, RB3, RB4, RB5, RB6, RB7, KC_NO, KC_NO }, \
@@ -155,7 +155,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_NO, KC_NO, LB3, LB4, LB5, LB6, LB7, LB8, KC_NO }, \
     { KC_NO, KC_NO, LC3, LC4, LC5, LC6, LC7, LC8, KC_NO }, \
     { KC_NO, KC_NO, LD3, LD4, LD5, LD6, LD7, LD8, LD9 }, \
-    { KC_NO, KC_NO, LE3, LE4, LE5, LE6, KC_NO, LE8, KC_NO }, \
+    { KC_NO, KC_NO, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { KC_NO, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, RA9 }, \
     { RB1, RB2, RB3, RB4, RB5, RB6, RB7, KC_NO, RB9 }, \
@@ -178,7 +178,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { LB1, LB2, LB3, LB4, LB5, LB6, LB7, LB8, KC_NO }, \
     { LC1, LC2, LC3, LC4, LC5, LC6, LC7, LC8, KC_NO }, \
     { LD1, LD2, LD3, LD4, LD5, LD6, LD7, LD8, LD9 }, \
-    { LE1, LE2, LE3, LE4, LE5, LE6, KC_NO, LE8, KC_NO }, \
+    { LE1, LE2, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { LF1, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, KC_NO }, \
     { RB1, RB2, RB3, RB4, RB5, RB6, RB7, KC_NO, KC_NO }, \
@@ -201,7 +201,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { LB1, LB2, LB3, LB4, LB5, LB6, LB7, LB8, KC_NO }, \
     { LC1, LC2, LC3, LC4, LC5, LC6, LC7, LC8, KC_NO }, \
     { LD1, LD2, LD3, LD4, LD5, LD6, LD7, LD8, LD9 }, \
-    { LE1, LE2, LE3, LE4, LE5, LE6, KC_NO, LE8, KC_NO }, \
+    { LE1, LE2, LE3, LE4, LE5, LE6, LE7, LE8, KC_NO }, \
     { LF1, KC_NO, LF3, LF4, LF5, LF6, LF7, LF8, LF9 }, \
     { RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, RA9 }, \
     { RB1, RB2, RB3, RB4, RB5, RB6, RB7, KC_NO, RB9 }, \

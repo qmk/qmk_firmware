@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "Amber80 SOLDER",
+    "keyboard_name": "Amber80 Solder",
+    "manufacturer": "SawnsProjects X Yuutsu X Zlane",
     "url": "",
     "maintainer": "SawnsProjects",
+    "usb": {
+        "vid": "0x5350",
+        "pid": "0xA801",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "F5",
+        "scroll_lock": "B0",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,10 +1,19 @@
 {
     "keyboard_name": "Genesis Solder",
+    "manufacturer": "GG Keyboards",
     "url": "",
     "maintainer": "Spooknik",
+    "usb": {
+        "vid": "0xBB00",
+        "pid": "0xD4D2",
+        "device_version": "0.0.1"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

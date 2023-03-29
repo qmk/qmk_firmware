@@ -1,11 +1,26 @@
 {
   "keyboard_name": "Planck THK",
+  "manufacturer": "OLKB",
   "maintainer": "Erovia",
   "url": "https://olkb.com/planck",
+  "usb": {
+    "vid": "0x03A8",
+    "pid": "0x25A7",
+    "device_version": "0.0.1"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "B4", "pin_b": "B3"},
+      {"pin_a": "B2", "pin_b": "B1"}
+    ]
+  },
+  "processor": "atmega32a",
+  "bootloader": "usbasploader",
   "layout_aliases": {
     "LAYOUT_planck_grid": "LAYOUT_ortho_4x12",
     "LAYOUT_planck_mit": "LAYOUT_planck_1x2uC"
   },
+  "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_ortho_4x12": {
       "layout": [

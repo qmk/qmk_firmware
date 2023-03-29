@@ -15,31 +15,12 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x414C
-#define PRODUCT_ID      0x5050
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alabahuy
-#define PRODUCT         Rartand
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 7
 
 #define MATRIX_ROW_PINS { C3, B2, C2, B1, C1, D7, C0, B0 }
 #define MATRIX_COL_PINS { D0, D1, B4, B5, B3, D4, D6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-#define LED_CAPS_LOCK_PIN D5
-#define LED_PIN_ON_STATE 0
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

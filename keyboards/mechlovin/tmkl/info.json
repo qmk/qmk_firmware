@@ -1,6 +1,22 @@
 {
-    "keyboard_name": "tmkl",
+    "keyboard_name": "TMKL",
+    "manufacturer": "Team Mechlovin",
     "maintainer": "Team Mechlovin",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0xC601",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B8",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B9"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -18,33 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5052 // "PR"
-#define PRODUCT_ID      0x504D // "PM"
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    PrimeKB
-#define PRODUCT         Prime_M
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 6
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { C5, B5, B2, D5, D3 }
 #define MATRIX_COL_PINS { B3, C7, C6, D2, D1, D0 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN B7
-/*#define BACKLIGHT_BREATHING*/
-#define BACKLIGHT_LEVELS 4
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

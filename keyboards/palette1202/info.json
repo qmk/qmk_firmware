@@ -1,7 +1,21 @@
 {
   "keyboard_name": "Palette1202",
+  "manufacturer": "niltea",
   "url": "https://github.com/niltea/Palette1202",
   "maintainer": "niltea",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x1202",
+    "device_version": "0.0.1"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "F4", "pin_b": "F5", "resolution": 2},
+      {"pin_a": "F6", "pin_b": "F7", "resolution": 2}
+    ]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

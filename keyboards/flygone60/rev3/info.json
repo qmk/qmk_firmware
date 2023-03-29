@@ -1,7 +1,16 @@
 {
     "keyboard_name": "Flygone60 Rev3",
+    "manufacturer": "ShandonCodes",
     "url": "https://qmk.fm/keyboards/",
     "maintainer": "ShandonCodes",
+    "usb": {
+        "vid": "0x7877",
+        "pid": "0x0001",
+        "device_version": "0.0.3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["60_ansi_arrow"],
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [

@@ -1,7 +1,19 @@
 {
     "keyboard_name": "LB75", 
+    "manufacturer": "QUADH",
     "url": "", 
     "maintainer": "ai03", 
+    "usb": {
+    	"vid": "0xA103",
+    	"pid": "0x0007",
+    	"device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7",
+        "levels": 5
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_continuous_fnrow": {
             "layout": [

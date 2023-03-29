@@ -34,8 +34,15 @@ __attribute__((weak)) void bootloader_jump(void) {
     UCSR1B = 0;
     _delay_ms(5); // 5 seems to work fine
 
-    // watchdog reset
     reset_key = BOOTLOADER_RESET_KEY;
+    // watchdog reset
+    wdt_enable(WDTO_250MS);
+    for (;;)
+        ;
+}
+
+__attribute__((weak)) void mcu_reset(void) {
+    // watchdog reset
     wdt_enable(WDTO_250MS);
     for (;;)
         ;

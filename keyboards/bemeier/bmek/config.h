@@ -15,20 +15,9 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x626D // BeMeier
-#define PRODUCT_ID 0x656B // ErgonomicKeyboard
-#define MANUFACTURER Bemeier
-#define PRODUCT BMEK
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 20 
-
-/* Keyboard Matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -42,6 +31,5 @@
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_LIMIT_VAL 255
 
-#define DEBOUNCE 5
 //#define RETRO_TAPPING
 #define TAPPING_TERM 175

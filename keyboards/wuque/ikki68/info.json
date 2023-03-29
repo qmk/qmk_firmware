@@ -1,7 +1,16 @@
 {
     "keyboard_name": "ikki68",
+    "manufacturer": "wuque studio",
     "url": "https://ikki68.com/",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x696B",
+        "pid": "0x0003",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["68_ansi"],
     "layouts": {
         "LAYOUT_68_ansi": {
             "layout": [

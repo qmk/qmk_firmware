@@ -1,7 +1,18 @@
 {
+    "keyboard_name": "The Kudox Keyboard Columner",
+    "manufacturer": "Kumao Kobo",
     "url": "http://kumaokobo.com/",
     "maintainer": "Kumao Kobo",
-    "keyboard_name": "Kudox Keyboard Columner",
+    "usb": {
+        "vid": "0xABBA",
+        "pid": "0x9691",
+        "device_version": "1.0.0"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

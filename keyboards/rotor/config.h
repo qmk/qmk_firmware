@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xE8BE
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Densus Design
-#define PRODUCT         Rotor
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 18
 
 /* key matrix pins */
 

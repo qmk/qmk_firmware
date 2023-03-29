@@ -1,7 +1,21 @@
 {
-  "keyboard_name": "The Dora Board.",
+  "keyboard_name": "thedora",
+  "manufacturer": "ckeys",
   "url": "https://ckeys.org/slides/exboard",
   "maintainer": "brandenbyers",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "B13", "pin_b": "B15"}
+    ]
+  },
+  "processor": "STM32F303",
+  "bootloader": "stm32-dfu",
+  "board": "QMK_PROTON_C",
   "layouts": {
     "LAYOUT": {
       "layout": [

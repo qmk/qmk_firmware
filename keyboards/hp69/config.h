@@ -17,18 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x416B
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0011
-#define MANUFACTURER    Desiboards
-#define PRODUCT         hp69
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 /*
  * Keyboard Matrix Assignments
  *
@@ -46,12 +35,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN A3
 #define RGBLED_NUM 20
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_SLEEP
 
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4
 #define AUDIO_PIN_ALT_AS_NEGATIVE
-
-#define LED_CAPS_LOCK_PIN A6
-#define LED_SCROLL_LOCK_PIN A7

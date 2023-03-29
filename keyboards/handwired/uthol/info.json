@@ -1,9 +1,16 @@
 {
-    "keyboard_name": "Uthol",
+    "manufacturer": "Uthol",
     "url": "",
     "maintainer": "uthol",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x67F3"
+    },
+    "layout_aliases": {
+        "LAYOUT_uthol": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_uthol": {
+        "LAYOUT": {
             "layout": [
                 {
                     "x": 0,

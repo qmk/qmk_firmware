@@ -15,22 +15,9 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xE965
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Swiftrax
-#define PRODUCT         Feels65
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 /* default pinout */
 #define MATRIX_ROW_PINS { D5, D3, D2, D1, D0 }
 #define MATRIX_COL_PINS { B4, B5, B6, C6, C7, F7, F6, F5, F4, F1, F0, E6, B0, B1, B2, B3 }
-#define UNUSED_PINS
 
 #define DIODE_DIRECTION COL2ROW

@@ -85,8 +85,8 @@ static bool is_right_shift_pressed = false;
 // This will only work on linux with xkbmap option "compose:prsc"
 void press_umlaut_of(uint16_t keycode) {
   bool is_shift_pressed = (is_left_shift_pressed || is_right_shift_pressed);
-  register_code(KC_PSCREEN);
-  unregister_code(KC_PSCREEN);
+  register_code(KC_PRINT_SCREEN);
+  unregister_code(KC_PRINT_SCREEN);
   if (!is_shift_pressed) {
     register_code(KC_LSFT);
   }

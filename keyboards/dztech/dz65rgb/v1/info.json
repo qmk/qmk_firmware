@@ -1,0 +1,10 @@
+{
+    "usb": {
+        "pid": "0x1420",
+        "device_version": "1.0.0"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "debounce": 3
+}

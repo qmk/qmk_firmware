@@ -1,7 +1,25 @@
 {
-    "keyboard_name": "Tada68",
+    "keyboard_name": "TADA68",
+    "manufacturer": "TADA",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x5441",
+        "pid": "0x0001",
+        "device_version": "0.0.3"
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 4,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-ms",
+    "community_layouts": ["65_ansi", "65_iso"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

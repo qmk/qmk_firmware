@@ -1,10 +1,19 @@
 {
-    "keyboard_name": "CMM.Studio Saka68 Solder",
+    "keyboard_name": "Saka68 Solder",
+    "manufacturer": "CMM.Studio",
     "url": "",
     "maintainer": "CMMS-Freather",
+    "usb": {
+        "vid": "0x434D",
+        "pid": "0x534B",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_68_ansi"
     },
+    "community_layouts": ["68_ansi", "68_iso"],
     "layouts": {
         "LAYOUT_68_ansi": {
             "layout": [

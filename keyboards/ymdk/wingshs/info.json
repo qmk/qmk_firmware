@@ -1,7 +1,23 @@
 {
-    "keyboard_name": "YMDK Wings Hotswap",
+    "keyboard_name": "WINGS HOTSWAP",
+    "manufacturer": "YMDK",
     "url": "http://ymdkey.com/",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x594D",
+        "pid": "0x4975",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 5
+    },
+    "indicators": {
+        "caps_lock": "C7",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

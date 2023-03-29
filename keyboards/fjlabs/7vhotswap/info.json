@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "7V Hotswap PCBs",
+    "keyboard_name": "7V Hotswap",
+    "manufacturer": "FJLaboratories",
     "url": "http://www.fjlaboratories.com/",
     "maintainer": "mrnoisytiger",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x0014",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_75_all": {
             "layout": [

@@ -1,7 +1,20 @@
 {
     "keyboard_name": "hp69",
+    "manufacturer": "Desiboards",
     "url": "",
     "maintainer": "Ananya Kirti",
+    "usb": {
+        "vid": "0x416B",
+        "pid": "0x0001",
+        "device_version": "0.1.1"
+    },
+    "indicators": {
+        "caps_lock": "A6",
+        "scroll_lock": "A7"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "layouts": {
         "LAYOUT": {
             "layout": [

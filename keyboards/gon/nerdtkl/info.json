@@ -1,7 +1,21 @@
 {
-    "keyboard_name": "GON NerD TKL",
+    "keyboard_name": "NerD TKL",
+    "manufacturer": "GON",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4E45",
+        "pid": "0x5244",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "bootmagic": {
+        "matrix": [8, 0]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_tkl": {
             "layout": [

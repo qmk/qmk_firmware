@@ -1,0 +1,34 @@
+{
+    "keyboard_name": "Iris Rev. 5",
+    "usb": {
+        "pid": "0x5256",
+        "device_version": "5.0.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "B3"}
+        ]
+    },
+    "backlight": {
+        "pin": "B5",
+        "levels": 5
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "B1",
+        "esc_output": "F1",
+        "led": "B0",
+        "speaker": "C6"
+    },
+    "split": {
+        "soft_serial_pin": "D0",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "F7", "pin_b": "F6"}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu"
+}

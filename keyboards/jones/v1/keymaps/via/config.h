@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // when turn knob clockwise or counterclockwise.
 // This is handy to assign key codes by VIA.
 
-// Number of endoder
-#define ENCODERS 2
-
 // Mappings of encoder rotation to key position in key matrix.
 // First encoder,  Left side  : k85, k86
 // Second encoder, Right side : k95, k96

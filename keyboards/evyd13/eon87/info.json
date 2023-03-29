@@ -1,7 +1,16 @@
 {
     "keyboard_name": "Eon87",
+    "manufacturer": "Evyd13",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0xAA6B",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "community_layouts": ["tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,7 +1,15 @@
 {
     "keyboard_name": "DISCIPLINE", 
+    "manufacturer": "coseyfannitutti",
     "url": "https://github.com/coseyfannitutti/discipline", 
     "maintainer": "coseyfannitutti", 
+    "usb": {
+        "vid": "0x6B62",
+        "pid": "0x6869",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layout_aliases": {
         "LAYOUT_65_ansi_2_right_mods": "LAYOUT_65_ansi_blocker",
         "LAYOUT_65_iso_2_right_mods": "LAYOUT_65_iso_blocker",
@@ -10,6 +18,7 @@
         "LAYOUT_wkl_iso_2_right_mods": "LAYOUT_65_iso_wkl",
         "LAYOUT_wkl_iso_3_right_mods": "LAYOUT_65_iso_lwkl"
     },
+    "community_layouts": ["65_ansi", "65_ansi_blocker", "65_iso", "65_iso_blocker"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

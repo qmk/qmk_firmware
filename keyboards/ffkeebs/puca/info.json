@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Puca",
+    "manufacturer": "FootFingers",
     "url": "https://ffkeebs.com/collections/puca/",
     "maintainer": "Sleepdealr",
+    "usb": {
+        "vid": "0x4646",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F4", "pin_b": "F5"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },

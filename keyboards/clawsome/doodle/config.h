@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7767
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    AlisGraveNil
-#define PRODUCT         doodle
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
 
 /*
  * Keyboard Matrix Assignments

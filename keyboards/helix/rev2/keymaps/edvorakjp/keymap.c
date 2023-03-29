@@ -5,18 +5,18 @@
 // keymaps definitions are moved to keymap_Xrows.c.
 
 #ifdef RGBLIGHT_ENABLE
-uint32_t layer_state_set_keymap(uint32_t state) {
+layer_state_t layer_state_set_keymap(layer_state_t state) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case L_EDVORAKJP_LOWER:
-            rgblight_sethsv_noeeprom_red();
+            rgblight_sethsv_noeeprom(HSV_RED);
             break;
         case L_EDVORAKJP_RAISE:
-            rgblight_sethsv_noeeprom_green();
+            rgblight_sethsv_noeeprom(HSV_GREEN);
             break;
         default:  //  for any other layers, or the default layer
             rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT + 3);
-            rgblight_sethsv_red();
+            rgblight_sethsv(HSV_RED);
             break;
     }
     return state;

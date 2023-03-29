@@ -1,7 +1,17 @@
 {
     "keyboard_name": "Floorboard",
+    "manufacturer": "Kevin Lockwood",
     "url": "https://imgur.com/gJLgwQI",
     "maintainer": "Kevin Lockwood",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [

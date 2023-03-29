@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Galatea",
+    "manufacturer": "Studio Kestra",
     "url": "https://studiokestra.ca/galatea",
     "maintainer": "studiokestra",
+    "usb": {
+        "vid": "0x7C10",
+        "pid": "0x8801",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B5",
+        "scroll_lock": "D2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,7 +1,16 @@
 {
   "keyboard_name": "Frosty Flake",
+  "manufacturer": "Bathroom Epiphanies",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u2",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["tkl_ansi"],
   "layouts": {
     "LAYOUT": {
       "layout": [

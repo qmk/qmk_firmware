@@ -1,7 +1,22 @@
 {
-    "keyboard_name": "ALF X2",
+    "keyboard_name": "X2",
+    "manufacturer": "ALF",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "on_state": 0
+    },
+    "backlight": {
+        "pin": "B6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

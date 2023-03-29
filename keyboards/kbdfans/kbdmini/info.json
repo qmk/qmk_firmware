@@ -1,7 +1,16 @@
 {
-    "keyboard_name": "KBDMini", 
+    "keyboard_name": "KBDMINI", 
+    "manufacturer": "DZTECH",
     "url": "",
     "maintainer": "KBDFans",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x2001",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 3,
     "layouts": {
         "LAYOUT": {
             "layout": [

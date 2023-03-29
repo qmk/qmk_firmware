@@ -1,7 +1,16 @@
 {
     "keyboard_name": "TF60 ANSI",
+    "manufacturer": "FJLabs",
     "url": "https://www.fjlaboratories.com/",
     "maintainer": "FJLabs",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x1004",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

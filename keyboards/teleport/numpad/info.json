@@ -1,6 +1,15 @@
 {
-  "keyboard_name": "tlprt_NumPad",
+  "keyboard_name": "NumPad",
+  "manufacturer": "tlprt",
   "maintainer": "ebastler",
+  "usb": {
+    "vid": "0x7470",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["numpad_5x4"],
   "layouts": {
     "LAYOUT_numpad_5x4": {
       "layout": [

@@ -31,4 +31,4 @@ enum layers_user {
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
-uint32_t layer_state_set_keymap(uint32_t state);
+layer_state_t layer_state_set_keymap(layer_state_t state);

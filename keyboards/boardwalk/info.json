@@ -1,7 +1,16 @@
 {
     "keyboard_name": "Boardwalk",
+    "manufacturer": "shensmobile",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xCDCD",
+        "pid": "0x5337",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_5x14"],
     "layouts": {
         "LAYOUT_ortho_5x14": {
             "layout": [

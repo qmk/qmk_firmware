@@ -1,7 +1,21 @@
 {
     "keyboard_name": "neopad",
+    "manufacturer": "rookiebwoy",
     "url": "https://github.com/rookiebwoy/neopad)",
     "maintainer": "rookiebwoy",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0913",
+        "device_version": "0.1.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0"},
+            {"pin_a": "D4", "pin_b": "C6"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,7 +1,19 @@
 {
-    "keyboard_name": "work board",
-    "url": "",
+    "keyboard_name": "Work Board",
+    "manufacturer": "Work Louder",
+    "url": "https://worklouder.cc/",
     "maintainer": "Work Louder",
+    "usb": {
+      "vid": "0x574C",
+      "pid": "0xDCD1"
+    },
+    "encoder": {
+      "rotary": [
+        {"pin_a": "B0", "pin_b": "B1"}
+      ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_2u_space": {
             "layout": [

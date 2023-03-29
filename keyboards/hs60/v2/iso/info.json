@@ -1,7 +1,17 @@
 {
-  "keyboard_name": "HS60v2",
-  "maintainer": "yiancar",
+  "keyboard_name": "HS60 V2",
+  "manufacturer": "Yiancar-Designs",
   "url": "",
+  "maintainer": "yiancar",
+  "usb": {
+    "vid": "0x8968",
+    "pid": "0x4853",
+    "device_version": "0.0.2"
+  },
+  "processor": "STM32F303",
+  "bootloader": "stm32-dfu",
+  "board": "QMK_PROTON_C",
+  "community_layouts": ["60_iso"],
   "layouts": {
     "LAYOUT_60_iso": {
       "layout": [

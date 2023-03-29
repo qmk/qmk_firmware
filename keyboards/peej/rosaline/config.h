@@ -16,26 +16,11 @@
 
 #pragma once
 
-#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x706A
-#define PRODUCT_ID 0x0003
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Peej
-#define PRODUCT Rosaline
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 8
 #define MATRIX_ROW_PINS { C0, B5, B4, B3, B2, B1, C3, D5 }
 #define MATRIX_COL_PINS { B0, D7, D6, C2, D4, D1, D0, C1 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 #define USB_MAX_POWER_CONSUMPTION 100
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

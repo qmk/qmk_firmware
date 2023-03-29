@@ -1,7 +1,19 @@
 {
     "keyboard_name": "nano. slider",
+    "manufacturer": "keebwerk.",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x03A8",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

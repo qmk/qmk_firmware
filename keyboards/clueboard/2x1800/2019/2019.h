@@ -18,15 +18,11 @@
 #include "quantum.h"
 
 enum TWOx1800_keycodes {
-    ENC_BTN1 = SAFE_RANGE,
+    ENC_BTN1 = QK_KB_0,
     ENC_BTN2,
     ENC_BTN3,
     ENC_BTN4,
-    NEW_SAFE_RANGE
 };
-
-#undef SAFE_RANGE
-#define SAFE_RANGE NEW_SAFE_RANGE
 
 // Encoder update function that returns true/false
 bool encoder_update_keymap(uint8_t index, bool clockwise);

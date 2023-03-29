@@ -1,7 +1,25 @@
 {
-    "keyboard_name": "zoo.haus Wampus",
+    "keyboard_name": "Wampus",
+    "manufacturer": "zoo.haus",
     "url": "https://zoo.haus",
     "maintainer": "zoo",
+    "usb": {
+        "vid": "0x0200",
+        "pid": "0xE600",
+        "device_version": "0.0.1"
+    },
+    "backlight":  {
+        "pin": "A6",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B8",
+        "num_lock": "B0",
+        "scroll_lock": "B9"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

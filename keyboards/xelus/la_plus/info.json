@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "La+",
+    "keyboard_name": "MechaMaker La+",
+    "manufacturer": "Xelus",
     "url": "",
     "maintainer": "Xelus22",
+    "usb": {
+        "vid": "0x5845",
+        "pid": "0x4C50",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

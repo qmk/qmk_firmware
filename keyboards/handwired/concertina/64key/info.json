@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Concertina",
+    "manufacturer": "Viktor Eikman",
     "url": "https://viktor.eikman.se/article/the-concertina/",
     "maintainer": "veikman",
+    "usb": {
+        "vid": "0x444D",
+        "pid": "0x3632",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_64key": {
             "layout": [

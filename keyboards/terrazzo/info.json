@@ -1,7 +1,22 @@
 {
     "keyboard_name": "Terrazzo", 
+    "manufacturer": "MsMustard",
     "url": "", 
     "maintainer": "MsMustard", 
+    "usb": {
+        "vid": "0x4D4D",
+        "pid": "0x545A",
+        "device_version": "0.0.2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C6", "pin_b": "D4", "resolution": 2},
+            {"pin_a": "B7", "pin_b": "D5", "resolution": 2},
+            {"pin_a": "C7", "pin_b": "F1", "resolution": 2}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

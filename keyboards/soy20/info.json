@@ -1,7 +1,16 @@
 {
     "keyboard_name": "Soy20",
+    "manufacturer": "drewkeys",
     "url": "",
     "maintainer": "twholt",
+    "usb": {
+        "vid": "0x4452",
+        "pid": "0x534F",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_5x4"],
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [

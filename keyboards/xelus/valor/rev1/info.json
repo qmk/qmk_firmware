@@ -1,7 +1,16 @@
 {
-    "keyboard_name": "Xelus Valor rev1",
+    "keyboard_name": "Valor Rev1",
+    "manufacturer": "Xelus",
     "url": "",
     "maintainer": "Xelus22",
+    "usb": {
+        "vid": "0x5845",
+        "pid": "0x5652",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["alice_split_bs"],
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

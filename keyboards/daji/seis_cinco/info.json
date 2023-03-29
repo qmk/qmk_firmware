@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Seis Cinco",
+    "manufacturer": "Daji",
     "url": "",
     "maintainer": "toraifu",
+    "usb": {
+        "vid": "0xBF00",
+        "pid": "0xBF22",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_default": {
             "layout": [

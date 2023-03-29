@@ -17,19 +17,6 @@
  */
 
 #pragma once
-#include "config_common.h"
-
-// USB Device descriptor parameter
-#define VENDOR_ID    0xFC32
-#define PRODUCT_ID   0x1287
-#define DEVICE_VER   0x0002
-#define MANUFACTURER Keyhive
-#define PRODUCT      Sofle
-
-// Key matrix size
-// Rows are doubled-up. Added extra column for rotary encoder VIA mapping.
-#define MATRIX_ROWS  10
-#define MATRIX_COLS  7
 
 // wiring of each half
 #define MATRIX_ROW_PINS       { C6, D7, E6, B4, B5 }
@@ -39,19 +26,7 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE        5
-
-// Encoder support
-#define ENCODERS_PAD_A       { F5 }
-#define ENCODERS_PAD_B       { F4 }
-#define ENCODERS_PAD_A_RIGHT { F4 }
-#define ENCODERS_PAD_B_RIGHT { F5 }
-#define ENCODER_RESOLUTIONS  { 4, 2 }  // Left encoder seems to have double-output issue but right does not.
-
 #define TAP_CODE_DELAY  10
-
-// Communication between sides
-#define SOFT_SERIAL_PIN D2
 
 // OLED settings
 #define OLED_TIMEOUT    80000
