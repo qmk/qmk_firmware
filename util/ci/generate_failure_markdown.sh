@@ -19,3 +19,5 @@ dump_failure_info() {
 for failure_file in $(find "$qmk_firmware_dir/.build" -name 'failed.log.*' | sort); do
     dump_failure_info "$failure_file"
 done
+
+exit 0
