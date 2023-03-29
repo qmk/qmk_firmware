@@ -58,7 +58,7 @@ enum custom_keycodes {
 };
 
 
-int cur_dance (tap_dance_state_t *state);
+uint8_t cur_dance (tap_dance_state_t *state);
 void pn_finished (tap_dance_state_t *state, void *user_data);
 void pn_reset (tap_dance_state_t *state, void *user_data);
 
@@ -172,7 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * For the third point, there does exist the 'DOUBLE_SINGLE_TAP', however this is not fully tested
  *
  */
-int cur_dance(tap_dance_state_t *state) {
+uint8_t cur_dance(tap_dance_state_t *state) {
     if(state->count == 1) {
         if(state->interrupted || !state->pressed) return SINGLE_TAP;
         //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
