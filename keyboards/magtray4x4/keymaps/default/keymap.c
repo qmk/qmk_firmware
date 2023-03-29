@@ -22,7 +22,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * ┌───┐
-     * │TG1│
+     * │TOG│
      * ├───┼───┬───┬───┐
      * │ 7 │ 8 │ 9 │ + │
      * ├───┼───┼───┼───┤
@@ -35,15 +35,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [0] = LAYOUT_ortho_5x4(
         LAYER_INC,
-        KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
-        KC_P4,   KC_P5,   KC_P6,   KC_PERC,
-        KC_P1,   KC_P2,   KC_P3,   KC_EQL,
-        KC_P0,   KC_P00,  KC_PDOT, KC_PENT
+        KC_7,   KC_8,   KC_9,   KC_PPLS,
+        KC_4,   KC_5,   KC_6,   KC_PERC,
+        KC_1,   KC_2,   KC_3,   KC_EQL,
+        KC_0,   KC_P00,  KC_DOT, KC_PENT
     ),
 
     /*
      * ┌───┐
-     * │TG2│
+     * │TOG│
      * ├───┼───┬───┬───┐
      * │Hom│ ↑ │PgU│ 3 │
      * ├───┼───┼───┼───┤
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
      * ┌───┐
-     * │TG3│
+     * │TOG│
      * ├───┼───┬───┬───┐
      * │ 7 │ 8 │ 9 │ + │
      * ├───┼───┼───┼───┤
@@ -77,15 +77,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [2] = LAYOUT_ortho_5x4(
         LAYER_INC,
-        KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
-        KC_P4,   KC_P5,   KC_P6,   KC_PERC,
-        KC_P1,   KC_P2,   KC_P3,   KC_EQL,
-        KC_P0,   KC_P00,  KC_PDOT, KC_PENT
+        KC_7,   KC_8,   KC_9,   KC_PPLS,
+        KC_4,   KC_5,   KC_6,   KC_PERC,
+        KC_1,   KC_2,   KC_3,   KC_EQL,
+        KC_0,   KC_P00,  KC_DOT, KC_PENT
     ),
 
     /*
      * ┌───┐
-     * │TO0│
+     * │TOG│
      * ├───┼───┬───┬───┐
      * │ 7 │ 8 │ 9 │ + │
      * ├───┼───┼───┼───┤
@@ -98,10 +98,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [3] = LAYOUT_ortho_5x4(
         LAYER_INC,
-        KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
-        KC_P4,   KC_P5,   KC_P6,   KC_PERC,
-        KC_P1,   KC_P2,   KC_P3,   KC_EQL,
-        KC_P0,   KC_P00,  KC_PDOT, KC_PENT
+        KC_7,   KC_8,   KC_9,   KC_PPLS,
+        KC_4,   KC_5,   KC_6,   KC_PERC,
+        KC_1,   KC_2,   KC_3,   KC_EQL,
+        KC_0,   KC_P00,  KC_DOT, KC_PENT
     )
 };
 
@@ -109,8 +109,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
             case KC_P00:
-                tap_code(KC_P0);
-                tap_code(KC_P0);
+                tap_code(KC_0);
+                tap_code(KC_0);
                 return false;
             case LAYER_INC:
                 layer_move(++current_layer % 4);
