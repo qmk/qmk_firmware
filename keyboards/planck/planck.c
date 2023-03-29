@@ -1,4 +1,5 @@
-#include "planck.h"
+#include "quantum.h"
+#include QMK_KEYBOARD_H
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
