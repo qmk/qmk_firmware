@@ -44,11 +44,6 @@
         "mousekey": true,
         "nkro": false
     },
-
-    "bootmagic": {
-        "matrix": [0, 0]
-    },
-    
     "layouts": {
         "LAYOUT": {
             "layout": [
