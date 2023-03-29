@@ -179,7 +179,7 @@ report_mouse_t pointing_device_adjust_report(report_mouse_t report, uint8_t inde
     return report;
 }
 
-void pointing_device_add_and_clamp_report(report_mouse_t *report, report_mouse_t *additional_report) {
+void pointing_device_add_and_clamp_report(report_mouse_t* report, report_mouse_t* additional_report) {
     report->x = pointing_device_xy_clamp((clamp_range_t)report->x + additional_report->x);
     report->y = pointing_device_xy_clamp((clamp_range_t)report->y + additional_report->y);
     report->h = pointing_device_hv_clamp((clamp_range_t)report->h + additional_report->h);
@@ -205,7 +205,7 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
 
 report_mouse_t pointing_deivce_task_get_pointing_reports(bool* was_ready) {
     report_mouse_t temp_report = {0};
-    *was_ready = false;
+    *was_ready                 = false;
     for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
         report_mouse_t loop_report = {0};
 #if defined(SPLIT_KEYBOARD)
