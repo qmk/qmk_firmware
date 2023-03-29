@@ -13,15 +13,15 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["6", "7", "8", "9"],
-        "rows": ["A0", "10", "16", "14", "15"]
+        "cols": ["D7", "E6", "B4", "B5"],
+        "rows": ["F7", "B1", "B3", "B2", "B6"]
     },
     "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0002",
-        "vid": "0x4d54"
+        "vid": "0x4D54"
     },
     "layouts": {
         "LAYOUT_ortho_5x4": {
@@ -41,7 +41,12 @@
                 { "matrix": [3, 0], "x": 0, "y": 3 },
                 { "matrix": [3, 1], "x": 1, "y": 3 },
                 { "matrix": [3, 2], "x": 2, "y": 3 },
-                { "matrix": [3, 3], "x": 3, "y": 3 }
+                { "matrix": [3, 3], "x": 3, "y": 3 },
+
+                { "matrix": [4, 0], "x": 0, "y": 4 },
+                { "matrix": [4, 1], "x": 1, "y": 4 },
+                { "matrix": [4, 2], "x": 2, "y": 4 },
+                { "matrix": [4, 3], "x": 3, "y": 4 }
             ]
         }
     }

@@ -3,6 +3,10 @@
 
 #include QMK_KEYBOARD_H
 
+//make custom cycle keycode and function in process_user_record
+int current_layer = 0;
+int current_display_mode = 0;
+
 enum layers {
     NUM_P,
     ARROW,
@@ -10,14 +14,9 @@ enum layers {
     NUM3
 };
 
-enum display_level { // will change
-    CLOCK,
-    TOG,
-    MONK,
-};
-
 enum custom_keycodes {
-    KC_P00 = SAFE_RANGE
+    KC_P00 = SAFE_RANGE,
+    LAYER_INC
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -35,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┴───┴───┘
      */
     [0] = LAYOUT_ortho_5x4(
-        TG(1),
+        LAYER_INC,
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_P4,   KC_P5,   KC_P6,   KC_PERC,
         KC_P1,   KC_P2,   KC_P3,   KC_EQL,
@@ -56,11 +55,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┴───┘───┘
      */
     [1] = LAYOUT_ortho_5x4(
-        TG(2),
+        LAYER_INC,
         KC_HOME, KC_UP,   KC_PGUP, KC_3,
         KC_LEFT, XXXXXXX, KC_RGHT, KC_2,
         KC_END,  KC_DOWN, KC_PGDN, KC_1,
-        KC_INS,  KC_SPC,  KC_DEL,  KC_PENT,
+        KC_INS,  KC_SPC,  KC_DEL,  KC_PENT
     ),
 
     /*
@@ -77,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┴───┴───┘
      */
     [2] = LAYOUT_ortho_5x4(
-        TG(3),
+        LAYER_INC,
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_P4,   KC_P5,   KC_P6,   KC_PERC,
         KC_P1,   KC_P2,   KC_P3,   KC_EQL,
@@ -98,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┴───┴───┘
      */
     [3] = LAYOUT_ortho_5x4(
-        TO(0),
+        LAYER_INC,
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_P4,   KC_P5,   KC_P6,   KC_PERC,
         KC_P1,   KC_P2,   KC_P3,   KC_EQL,
@@ -113,6 +112,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_P0);
                 tap_code(KC_P0);
                 return false;
+            case LAYER_INC:
+                layer_move(++current_layer % 4);
         }
     }
     return true;
