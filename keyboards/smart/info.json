@@ -6,12 +6,6 @@
     "bootloader_instructions": "Press ESC(ROW0COL0), Plug USB. ",
     "development_board": "bluepill",
     "usb": {
-        "vid": "0x5343",
-        "polling_interval": 1
+        "vid": "0x5343"
     }
-
 }
-
-
-
-
