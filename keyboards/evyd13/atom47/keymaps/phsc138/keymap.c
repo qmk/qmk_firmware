@@ -58,9 +58,9 @@ enum custom_keycodes {
 };
 
 
-int cur_dance (qk_tap_dance_state_t *state);
-void pn_finished (qk_tap_dance_state_t *state, void *user_data);
-void pn_reset (qk_tap_dance_state_t *state, void *user_data);
+int cur_dance (tap_dance_state_t *state);
+void pn_finished (tap_dance_state_t *state, void *user_data);
+void pn_reset (tap_dance_state_t *state, void *user_data);
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QK_GESC,  KC_Q,     KC_W,     KC_E,        KC_R,        KC_T,       KC_Y,    KC_U,      KC_I,    KC_O,       KC_P,     KC_DEL,   KC_BSPC,
     KC_TAB,   KC_A,     KC_S,     KC_D,        KC_F,        KC_G,       KC_H,    KC_J,      KC_K,    KC_L,       KC_SCLN,            KC_ENT,
     KC_LSFT,  KC_Z,     KC_X,     KC_C,        KC_V,        KC_B,       KC_N,    KC_M,      KC_COMM, KC_DOT,     KC_RSFT,            MO(_FN1),
-    KC_LCTL,  KC_LGUI,  KC_LALT,  TD(PN_SWAP),              KC_SPC,              KC_SPC,             MO(_FN),    KC_RALT,  KC_APP,   KC_RCTRL),
+    KC_LCTL,  KC_LGUI,  KC_LALT,  TD(PN_SWAP),              KC_SPC,              KC_SPC,             MO(_FN),    KC_RALT,  KC_APP,   KC_RCTL),
 
 
 // LEFT AND RIGHT SHIFT: '(' and ')' when tapped, shift when held
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_PROG] = LAYOUT_split_space(
     _______,  _______,  _______,  _______,     _______,     _______,    _______, _______,   _______, _______,    _______,   _______, _______,
     _______,  _______,  _______,  _______,     _______,     _______,    _______, _______,   _______, _______,    _______,            _______,
-    KC_LSPO,  _______,  _______,  _______,     _______,     _______,    _______, _______,   _______, _______,    KC_RSPC,            _______,
+    SC_LSPO,  _______,  _______,  _______,     _______,     _______,    _______, _______,   _______, _______,    SC_RSPC,            _______,
     TD(LCPO), _______,  TD(LAPO), TO(_GAME),                _______,             _______,            _______,    TD(RAPC),  _______, TD(RCPC)),
 
 
@@ -108,9 +108,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 [_FN] = LAYOUT_split_space(
-    _______,  KC_VOLD,  KC_VOLU,  KC_MUTE,     RESET,       _______,    KC_CALC, KC_PGUP,   _______, KC_PGDN,    KC_PSCR,   KC_SLCK,  KC_PAUS,
+    _______,  KC_VOLD,  KC_VOLU,  KC_MUTE,     QK_RBT,      _______,    KC_CALC, KC_PGUP,   _______, KC_PGDN,    KC_PSCR,   KC_SCRL,  KC_PAUS,
     KC_CAPS,  KC_MPRV,  KC_MPLY,  KC_MNXT,     _______,     _______,    KC_LEFT, KC_DOWN,   KC_UP,   KC_RIGHT,   KC_INS,              _______,
-    _______,  _______,  _______,  _______,     _______,     KC_HOME,    KC_END,  BL_TOGG,   BL_DEC,  BL_INC,     _______,             _______,
+    _______,  _______,  _______,  _______,     _______,     KC_HOME,    KC_END,  BL_TOGG,   BL_DOWN,  BL_UP,     _______,             _______,
     _______,  _______,  _______,  _______,                  _______,             _______,            _______,    _______,   _______,  _______),
 
 
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______,  _______,     _______,     _______,    KC_7,    KC_8,      KC_9,    _______,    PROF_MAC,  _______,  _______,
     _______,  _______,  _______,  _______,     _______,     _______,    KC_4,    KC_5,      KC_6,    _______,    _______,             _______,
     _______,  _______,  _______,  _______,     _______,     KC_1,       KC_2,    KC_3,      KC_DOT,  _______,    _______,             _______,
-    _______,  _______,  _______,  _______,     _______,     KC_0,                 _______,           _______,    DEBUG,               RESET),
+    _______,  _______,  _______,  _______,     _______,     KC_0,                 _______,           _______,    DB_TOGG,             QK_BOOT),
 };
 
 
@@ -172,7 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * For the third point, there does exist the 'DOUBLE_SINGLE_TAP', however this is not fully tested
  *
  */
-int cur_dance(qk_tap_dance_state_t *state) {
+int cur_dance(tap_dance_state_t *state) {
     if(state->count == 1) {
         if(state->interrupted || !state->pressed) return SINGLE_TAP;
         //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
@@ -203,7 +203,7 @@ static tap pn_tap_state = {
     .state = 0
 };
 
-void pn_finished(qk_tap_dance_state_t *state, void *user_data) {
+void pn_finished(tap_dance_state_t *state, void *user_data) {
     pn_tap_state.state = cur_dance(state);
     switch(pn_tap_state.state) {
         case SINGLE_TAP: layer_on(_PROG); break;
@@ -217,7 +217,7 @@ void pn_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void pn_reset(qk_tap_dance_state_t *state, void *user_data) {
+void pn_reset(tap_dance_state_t *state, void *user_data) {
     switch(pn_tap_state.state) {
         //case SINGLE_TAP: unregister_code(KC_X); break;
         case SINGLE_HOLD: layer_off(_NUM); break;
@@ -233,7 +233,7 @@ static tap lalt_tap_state = {
     .state = 0
 };
 
-void lalt_finished(qk_tap_dance_state_t *state, void *user_data) {
+void lalt_finished(tap_dance_state_t *state, void *user_data) {
     lalt_tap_state.state = cur_dance(state);
     switch(lalt_tap_state.state) {
         case SINGLE_TAP: register_code(KC_LBRC); break;
@@ -241,7 +241,7 @@ void lalt_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void lalt_reset(qk_tap_dance_state_t *state, void *user_data) {
+void lalt_reset(tap_dance_state_t *state, void *user_data) {
     switch(lalt_tap_state.state) {
         case SINGLE_TAP: unregister_code(KC_LBRC); break;
         case SINGLE_HOLD: unregister_code(KC_LALT); break;
@@ -254,7 +254,7 @@ static tap ralt_tap_state = {
     .state = 0
 };
 
-void ralt_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ralt_finished(tap_dance_state_t *state, void *user_data) {
     ralt_tap_state.state = cur_dance(state);
     switch(ralt_tap_state.state) {
         case SINGLE_TAP: register_code(KC_RBRC); break;
@@ -262,7 +262,7 @@ void ralt_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ralt_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ralt_reset(tap_dance_state_t *state, void *user_data) {
     switch(ralt_tap_state.state) {
         case SINGLE_TAP: unregister_code(KC_RBRC); break;
         case SINGLE_HOLD: unregister_code(KC_RALT); break;
@@ -275,7 +275,7 @@ static tap rctl_tap_state = {
     .state = 0
 };
 
-void rctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+void rctl_finished(tap_dance_state_t *state, void *user_data) {
     rctl_tap_state.state = cur_dance(state);
     switch(rctl_tap_state.state) {
         case SINGLE_TAP: register_code(KC_RSFT); register_code(KC_RBRC); break;
@@ -283,9 +283,9 @@ void rctl_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void rctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+void rctl_reset(tap_dance_state_t *state, void *user_data) {
     switch(rctl_tap_state.state) {
-        case SINGLE_TAP: unregister_code(KC_RSHIFT); unregister_code(KC_RBRC); break;
+        case SINGLE_TAP: unregister_code(KC_RSFT); unregister_code(KC_RBRC); break;
         case SINGLE_HOLD: unregister_code(KC_RCTL); break;
     }
     rctl_tap_state.state = 0;
@@ -296,7 +296,7 @@ static tap lctl_tap_state = {
     .state = 0
 };
 
-void lctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+void lctl_finished(tap_dance_state_t *state, void *user_data) {
     lctl_tap_state.state = cur_dance(state);
     switch(lctl_tap_state.state) {
         case SINGLE_TAP: register_code(KC_LSFT); register_code(KC_LBRC); break;
@@ -304,9 +304,9 @@ void lctl_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void lctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+void lctl_reset(tap_dance_state_t *state, void *user_data) {
     switch(lctl_tap_state.state) {
-        case SINGLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_LBRC); break;
+        case SINGLE_TAP: unregister_code(KC_LSFT); unregister_code(KC_LBRC); break;
         case SINGLE_HOLD: unregister_code(KC_LCTL); break;
     }
     lctl_tap_state.state = 0;
@@ -320,7 +320,7 @@ static tap d20_tap_state = {
 int d20_srand = 0;
 uint32_t timer_seed;
 
-void d20_finished(qk_tap_dance_state_t *state, void *user_data) {
+void d20_finished(tap_dance_state_t *state, void *user_data) {
     d20_tap_state.state = cur_dance(state);
     switch(d20_tap_state.state) {
         case SINGLE_HOLD: {
@@ -376,11 +376,11 @@ void d20_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void d20_reset(qk_tap_dance_state_t *state, void *user_data) {
+void d20_reset(tap_dance_state_t *state, void *user_data) {
     d20_tap_state.state = 0;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [PN_SWAP]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, pn_finished, pn_reset),
     [LAPO]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lalt_finished, lalt_reset),
     [RAPC]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ralt_finished, ralt_reset),
