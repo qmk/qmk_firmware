@@ -190,16 +190,16 @@ void pointing_device_add_and_clamp_report(report_mouse_t *report, report_mouse_t
 __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t device_config, uint8_t index) {
     static fast_timer_t last_check[POINTING_DEVICE_COUNT] = {0};
     bool                ready                             = false;
-    if (device_config.throttle == 0 || timer_elapsed_fast(last_check[index]) >= device_config.throttle) {
-        last_check[index] = timer_read_fast();
-        if (device_config.motion.pin) { // check pin assigned
-            if (readPin(device_config.motion.pin) != device_config.motion.active_low) {
-                ready = true;
-            }
-        } else { // no motion pin but not throttled
+
+    if (device_config.motion.pin) { // check pin assigned
+        if (readPin(device_config.motion.pin) != device_config.motion.active_low) {
             ready = true;
         }
+    } else if (timer_elapsed_fast(last_check[index]) >= device_config.throttle) {
+        last_check[index] = timer_read_fast();
+        ready             = true;
     }
+
     return ready;
 }
 
