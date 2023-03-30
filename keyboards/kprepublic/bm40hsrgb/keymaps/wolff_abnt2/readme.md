@@ -57,6 +57,12 @@ The layer you'll access most often.
 
 ![bm40rgb-wolff-fun](https://user-images.githubusercontent.com/62627597/228708222-044c9ff2-af17-4259-ab36-490aef111fae.png)
 
+## Mouse Layer
+
+(Image)
+
+Emulates mouse action so you can perform simple tasks without reaching for the mouse.
+
 ## Adjust Layer (SYM + FUN)
 
 ![bm40rgb-wolff-adj](https://user-images.githubusercontent.com/62627597/228708232-9281bfb4-f7da-4999-9a62-9b102d6880a2.png)
