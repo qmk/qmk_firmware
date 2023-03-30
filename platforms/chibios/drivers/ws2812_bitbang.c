@@ -53,22 +53,22 @@ void sendByte(uint8_t byte) {
         // using something like wait_ns(is_one ? T1L : T0L) here throws off timings
         if (is_one) {
             // 1
-            writePinHigh(RGB_DI_PIN);
+            writePinHigh(WS2812_DI_PIN);
             wait_ns(WS2812_T1H);
-            writePinLow(RGB_DI_PIN);
+            writePinLow(WS2812_DI_PIN);
             wait_ns(WS2812_T1L);
         } else {
             // 0
-            writePinHigh(RGB_DI_PIN);
+            writePinHigh(WS2812_DI_PIN);
             wait_ns(WS2812_T0H);
-            writePinLow(RGB_DI_PIN);
+            writePinLow(WS2812_DI_PIN);
             wait_ns(WS2812_T0L);
         }
     }
 }
 
 void ws2812_init(void) {
-    palSetLineMode(RGB_DI_PIN, WS2812_OUTPUT_MODE);
+    palSetLineMode(WS2812_DI_PIN, WS2812_OUTPUT_MODE);
 }
 
 // Setleds for standard RGB
