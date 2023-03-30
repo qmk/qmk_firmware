@@ -8,7 +8,7 @@
 #include "shift_reg.h"
 #include "spi_master.h"
 #include "disp_array.h"
-#include "../fonts/base_font.h"
+#include "fonts/base_font.h"
 
 #define SSD1306_MEMORYMODE 0x20           ///< See datasheet
 #define SSD1306_COLUMNADDR 0x21           ///< See datasheet

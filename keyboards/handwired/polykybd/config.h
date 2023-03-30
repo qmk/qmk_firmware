@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_DISPLAY_128X64
 #define OLED_FONT_START	32
 #define OLED_FONT_END	126
-#define OLED_FONT_H "fonts/base_font.h"
+#define OLED_FONT_H "base/fonts/base_font.h"
 #define OLED_BRIGHTNESS 60
 #define OLED_TIMEOUT 0
 

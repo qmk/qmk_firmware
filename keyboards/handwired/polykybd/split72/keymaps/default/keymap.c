@@ -6,13 +6,13 @@
 #include "base/helpers.h"
 #include "base/spi_helper.h"
 #include "base/shift_reg.h"
-#include "fonts/gfx_used_fonts.h"
+#include "base/fonts/gfx_used_fonts.h"
 
 #include "quantum/quantum_keycodes.h"
 
 #include <transactions.h>
 
-#include "lang/lang_lut.h"
+#include "base/lang/lang_lut.h"
 
 #define FULL_BRIGHT 49
 #define FADE_TRANSITION_TIME 4000
@@ -883,18 +883,13 @@ void keyboard_pre_init_user(void) {
 
     set_displays(FULL_BRIGHT);
     show_splash_screen();
-
+    
 #ifdef OLED_ENABLE
     setPinInputHigh(I2C1_SDA_PIN);
 #endif
 }
 
 #ifdef OLED_ENABLE
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    //timer = timer_read32();
-    return OLED_ROTATION_180;
-}
 
 bool oled_task_user(void) {
     char buffer[32];
