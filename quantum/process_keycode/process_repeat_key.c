@@ -33,7 +33,7 @@ static bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record) {
 #ifndef NO_ACTION_ONESHOT // Ignore one-shot keys.
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
-#endif // NO_ACTION_ONESHOT
+#endif                  // NO_ACTION_ONESHOT
 #ifdef TRI_LAYER_ENABLE // Ignore Tri Layer keys.
         case QK_TRI_LAYER_LOWER:
         case QK_TRI_LAYER_UPPER:
@@ -88,4 +88,3 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record) {
 
     return true;
 }
-

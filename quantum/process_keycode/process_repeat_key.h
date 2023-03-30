@@ -35,4 +35,3 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record);
  * non-modifier, non-layer switch keys are eligible.
  */
 bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record);
-
