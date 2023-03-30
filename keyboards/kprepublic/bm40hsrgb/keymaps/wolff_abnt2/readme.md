@@ -45,26 +45,30 @@ One and a half octaves piano on the top rows, control signals in the bottom rows
 
 # Modifier layers
 
-## NAV Layer
+## Navigation Layer (NAV)
 
 (Image)
 
 The layer you'll access most often.
 
-## FUN Layer
+## Functions Layer (FUN)
 
 ![bm40rgb-wolff-fun](https://user-images.githubusercontent.com/62627597/228708222-044c9ff2-af17-4259-ab36-490aef111fae.png)
 
-## ADJUST Layer (SYM + FUN)
+## Adjust Layer (SYM + FUN)
 
 ![bm40rgb-wolff-adj](https://user-images.githubusercontent.com/62627597/228708232-9281bfb4-f7da-4999-9a62-9b102d6880a2.png)
 
 # Additional/utility layers (toggled by a key in the ADJ layer)
 
-## SWP Layer (Hand-swap layer, for one-hand typing)
+## Handswap Layer
 
 ![bm40rgb-swap-hands](https://user-images.githubusercontent.com/62627597/228708258-646bb5f8-54cd-47ed-84fc-e0d2d0e985bd.png)
+
+For one-hand typing. The three top rows are mirrorred when SWAP is held down.
 
 ## CPY Layer (One-hand navigation layer)
 
 ![bm40rgb-copy(1)](https://user-images.githubusercontent.com/62627597/228708266-6a96468d-cc18-48ae-906b-85bfccfc5ce1.png)
+
+For general navigation and quick copy-paste one-handed stuff. I don't like using it, but my job demands it sometimes.
