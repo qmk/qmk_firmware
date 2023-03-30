@@ -53,17 +53,3 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // USB待机时候停止灯效
 #define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
 //#define RGB_MATRIX_TYPING_HEATMAP_SLIM
-
-
-
-
-
-
-
-
-
-
-
-
-
-
