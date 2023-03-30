@@ -42,7 +42,9 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record) {
 // Default implementation of get_repeat_key_eligible().
 __attribute__((weak)) bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        // Ignore MO, TO, TG, and TT layer switch keys.
+        // Ignore MO, TO, TG, TT, and TL layer switch keys.
+        case QK_TRI_LAYER_LOWER:
+        case QK_TRI_LAYER_UPPER:
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
         case QK_TO ... QK_TO_MAX:
         case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
