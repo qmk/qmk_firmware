@@ -22,7 +22,7 @@ These are selected as the base by a button in the Adjust layer.
 
 ## Normal
 
-![bm40rgb-wolff-base](https://user-images.githubusercontent.com/62627597/228708154-8a7cf08c-8ae0-44c6-a22d-512bf690e8c7.png)
+![bm40rgb-wolff-base](https://user-images.githubusercontent.com/62627597/228847515-68802f2e-0cf7-4be1-bf19-9d1ba06766d6.png)
 
 QWERTY, Dvorak, Colemak and Workman are built-in.
 
@@ -54,7 +54,7 @@ The layer you'll access most often. Navigation keys right on the right-hand home
 
 ## Mouse Layer
 
-![bm40rgb-wolff-mouse](https://user-images.githubusercontent.com/62627597/228710855-89a8c642-fd34-459c-99fe-67267b8dc34d.png)
+![bm40rgb-wolff-mouse](https://user-images.githubusercontent.com/62627597/228847570-6ca1ca4a-c485-4fe0-9ff7-43369646b50f.png)
 
 Emulates mouse action so you can perform simple tasks without reaching for the mouse.
 
@@ -68,12 +68,12 @@ These are utility overlays toggled by a key in the Adjust layer.
 
 ## Handswap Layer
 
-![bm40rgb-swap-hands](https://user-images.githubusercontent.com/62627597/228708258-646bb5f8-54cd-47ed-84fc-e0d2d0e985bd.png)
+![bm40rgb-swap-hands](https://user-images.githubusercontent.com/62627597/228847606-0c5a33d1-a683-41c8-a2af-6df582f6ef65.png)
 
 For one-hand typing. The three top rows are mirrorred when SWAP is held down.
 
 ## CPY Layer (One-hand navigation layer)
 
-![bm40rgb-copy(1)](https://user-images.githubusercontent.com/62627597/228708266-6a96468d-cc18-48ae-906b-85bfccfc5ce1.png)
+![bm40rgb-copy](https://user-images.githubusercontent.com/62627597/228847641-4caa777e-c368-4921-a0a4-10c47afa2537.png)
 
 For general navigation and quick copy-paste one-handed stuff. I don't like using it, but my job demands it sometimes.
