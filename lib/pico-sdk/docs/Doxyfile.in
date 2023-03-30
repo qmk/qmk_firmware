@@ -1,0 +1,64 @@
+PROJECT_NAME            = "Raspberry Pi Pico SDK"
+PROJECT_BRIEF           = "Raspberry Pi Pico SDK documentation"
+PROJECT_NUMBER          = @PICO_SDK_VERSION_STRING@
+
+#STRIP_FROM_PATH        = @PROJECT_SOURCE_DIR@
+STRIP_FROM_PATH         = @DOXY_INPUT_DIRS@
+#                         @PROJECT_BINARY_DIR@
+#INPUT                  = @doxy_main_page@ \
+#                         @PROJECT_SOURCE_DIR@ \
+#                         @PROJECT_BINARY_DIR@
+
+FILE_PATTERNS          = *.h \
+                         *.cpp \
+                         *.c \
+                         *.S \
+                         *.s \
+                         *.md
+
+USE_MDFILE_AS_MAINPAGE = @PROJECT_SOURCE_DIR@/docs/mainpage.md
+LAYOUT_FILE = @PROJECT_SOURCE_DIR@/docs/DoxygenLayout.xml
+HTML_FOOTER = @PROJECT_SOURCE_DIR@/docs/footer.html
+HTML_HEADER = @PROJECT_SOURCE_DIR@/docs/header.html
+
+OPTIMIZE_OUTPUT_FOR_C = YES
+# HTML_EXTRA_STYLESHEET = @PROJECT_SOURCE_DIR@/docs/customdoxygen.css
+HTML_EXTRA_STYLESHEET  = @PROJECT_SOURCE_DIR@/docs/normalise.css @PROJECT_SOURCE_DIR@/docs/main.css @PROJECT_SOURCE_DIR@/docs/styles.css
+HTML_EXTRA_FILES       = @PROJECT_SOURCE_DIR@/docs/logo-mobile.svg @PROJECT_SOURCE_DIR@/docs/logo.svg @PROJECT_SOURCE_DIR@/docs/search.svg \
+                         @PROJECT_SOURCE_DIR@/docs/main.js @PROJECT_SOURCE_DIR@/docs/pico.jpg @PROJECT_SOURCE_DIR@/docs/rp2040.png
+GENERATE_TREEVIEW      = YES # This is needed as it wraps the content area in an HTML tag that we need to use
+HTML_COLORSTYLE_HUE = 350
+HTML_COLORSTYLE_SAT = 200
+HTML_COLORSTYLE_GAMMA = 150
+GENERATE_LATEX = NO
+GENERATE_XML = YES
+GROUP_GRAPHS = NO
+
+ALIASES += tag=@internal
+ALIASES += end=@internal
+
+OUTPUT_DIRECTORY       = @DOXY_OUTPUT_DIR@
+INPUT                  = @PROJECT_SOURCE_DIR@/docs/index.h @DOXY_INPUT_DIRS@ @PROJECT_SOURCE_DIR@/docs/
+
+#EXCLUDE               = @DOXY_EXCLUDE_DIRS@ @PROJECT_SOURCE_DIR@/src/rp2040
+EXCLUDE                = @DOXY_EXCLUDE_DIRS@
+RECURSIVE              = YES
+EXAMPLE_PATH           = @PICO_EXAMPLES_PATH@
+
+# This is needed as we have a number of static inline functions that need to be documented.
+EXTRACT_STATIC         = YES
+
+EXTRACT_ALL            = NO
+ALWAYS_DETAILED_SEC    = NO
+#REPEAT_BRIEF           = NO
+
+# Need these next options to ensure that functions with modifiers do not confuse the Doxygen parser.
+# And any further function modifiers here.
+MACRO_EXPANSION        = YES
+
+PREDEFINED             = __not_in_flash_func(x) \
+                         __time_critical_func(x) \
+                         __not_in_flash(x)= \
+                         __no_inline_not_in_flash(x)= \
+                         __attribute__(x)= \
+                         DOXYGEN_GENERATION=

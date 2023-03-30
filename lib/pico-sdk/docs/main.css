@@ -1,0 +1,105 @@
+/************************/
+/*       GENERAL        */
+/************************/
+
+body {
+    color: #1e1e1e;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, li, span, blockquote, input, textarea, select, label {
+    font-family: 'Roboto', sans-serif;
+}
+
+p {
+/*    font-size: 16px;
+    line-height: 25px;
+    margin-bottom: 20px;*/
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* Sidebar */
+#top {
+	background-color: #F5F5F5;
+	width: 275px;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	height: auto !important;
+    overflow: auto;
+    padding: 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+@media (max-width: 1012px) {
+	#top {
+		box-shadow: 5px 0px 10px 0px rgba(0,0,0,0.25);
+		position: fixed;
+		z-index: 9999;
+		left: -100%;
+		width: 450px;
+		background-color: #F5F5F5;
+		transition: 0.2s left;
+	}
+}
+@media (max-width: 767px) {
+	#top {
+		width: calc(100% - 50px);
+		padding: 20px;
+	}
+}
+@media (max-width: 1012px) {
+	#top.open {
+		left: 0;
+	}
+}
+
+
+/* Content */
+#doc-content {
+	padding: 25px 50px 25px 290px;
+	margin: 0 !important;
+	height: auto !important;
+}
+@media (max-width: 1012px) {
+    #doc-content {
+        padding: 110px 40px 40px 40px;
+    }
+}
+@media (max-width: 767px) {
+    #doc-content {
+        padding: 90px 20px 50px 20px;
+    }
+}
+
+
+/* Hide the default doxygen stuff that we dont want */
+.ui-resizable-handle {
+	display: none !important;
+}
+#nav-sync {
+	display: none !important;
+}
+#nav-tree {
+	height: 100% !important;
+	background: none;
+    overflow: auto;
+    padding: 35px;
+    box-sizing: border-box;
+}
+#nav-path, #side-nav {
+	display: none !important;
+}
+
+div.line,
+div.line a,
+div.line span {
+	font-family: monospace;
+}
+

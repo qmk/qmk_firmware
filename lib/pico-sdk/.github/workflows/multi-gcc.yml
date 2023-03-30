@@ -1,0 +1,169 @@
+name: Multi GCC
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'master'
+      - 'test_workflow'
+
+jobs:
+  build:
+    if: github.repository_owner == 'raspberrypi'
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+    - name: Clean workspace
+      run: |
+        echo "Cleaning up previous run"
+        rm -rf "${{ github.workspace }}"
+        mkdir -p "${{ github.workspace }}"
+
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Checkout submodules
+      run: git submodule update --init
+
+    - name: Get core count
+      id: core_count
+      run : cat /proc/cpuinfo  | grep processor | wc -l
+
+    - name: GCC 6.2.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-6_2-2016q4 -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 6.2.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-6_2-2016q4 -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 6.3.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-6-2017-q2-update -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 6.3.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-6-2017-q2-update -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 7.2.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-7-2017-q4-major -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 7.2.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-7-2017-q4-major -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 7.3.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-7-2018-q2-update -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 7.3.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-7-2018-q2-update -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 8.2.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-8-2018-q4-major -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 8.2.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-8-2018-q4-major -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 8.3.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-8-2019-q3-update -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 8.3.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-8-2019-q3-update -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 9.2.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-9-2019-q4-major -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 9.2.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-9-2019-q4-major -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 9.3.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-9-2020-q2-update -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 9.3.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-9-2020-q2-update -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 10.2.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-10-2020-q4-major -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 10.2.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-10-2020-q4-major -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 10.3.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-10.3-2021.10 -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 10.3.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-none-eabi-10.3-2021.10 -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 11.2.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 11.2.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 11.3.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-eabi -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 11.3.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/arm-gnu-toolchain-11.3.rel1-x86_64-arm-none-eabi -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 12.2.1 Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_TOOLCHAIN_PATH=/opt/arm/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: GCC 12.2.1 Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_TOOLCHAIN_PATH=/opt/arm/arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi -DPICO_BOARD=pico_w; make -j ${{steps.core_count.outputs.output}}
+
+    - name: Native Debug
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_PLATFORM=host; make -j ${{steps.core_count.outputs.output}}
+
+    - name: Native Release
+      if: always()
+      shell: bash
+      run: cd ${{github.workspace}}; mkdir -p build; rm -rf build/*; cd build; cmake ../ -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Release -DPICO_PLATFORM=host; make -j ${{steps.core_count.outputs.output}}

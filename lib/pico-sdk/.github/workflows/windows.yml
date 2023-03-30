@@ -1,0 +1,33 @@
+name: Build on Windows
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'develop'
+      - 'master'
+      - 'test_workflow'
+
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - name: Clean workspace
+        shell: bash
+        run: |
+          echo "Cleaning up previous run"
+          rm -rf "${{ github.workspace }}/pico-sdk"
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Checkout submodules
+        run: git submodule update --init
+      - name: Install dependencies
+        run: choco install .github/workflows/choco_packages.config
+
+      - name: Build Project
+        # bash required otherwise this mysteriously (no error) fails at "Generating cyw43_bus_pio_spi.pio.h"
+        shell: bash
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_BOARD=pico_w
+          cmake --build .

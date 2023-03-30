@@ -1,0 +1,45 @@
+name: Build on macOS
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'develop'
+      - 'master'
+      - 'test_workflow'
+
+jobs:
+  build:
+    runs-on: macos-12
+    steps:
+      - name: Clean workspace
+        run: |
+          echo "Cleaning up previous run"
+          rm -rf "${{ github.workspace }}"
+          mkdir -p "${{ github.workspace }}"
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Checkout submodules
+        run: git submodule update --init
+      - name: Install dependencies
+        run: |
+          brew install cmake
+          brew tap ArmMbed/homebrew-formulae
+          brew install arm-none-eabi-gcc
+
+      - name: Build Project
+        # bash required otherwise this mysteriously (no error) fails at "Generating cyw43_bus_pio_spi.pio.h"
+        shell: bash
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G "Unix Makefiles" -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_BOARD=pico_w
+          cmake --build .
+
+      - name: Build Native
+        # bash required otherwise this mysteriously (no error) fails at "Generating cyw43_bus_pio_spi.pio.h"
+        shell: bash
+        run: |
+          mkdir build_native
+          cd build_native
+          cmake .. -G "Unix Makefiles" -DPICO_SDK_TESTS_ENABLED=1 -DCMAKE_BUILD_TYPE=Debug -DPICO_PLATFORM=host
+          cmake --build .
