@@ -3,7 +3,7 @@
 A customizable 40% keyboard.
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
-* Hardware Supported: mk47 PCB w/ WB32FQ95
+* Hardware Supported: mk47
 
 Make example for this keyboard (after setting up your build environment):
 
