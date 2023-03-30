@@ -26,7 +26,6 @@
     },
     "rgblight": {
         "led_count": 16,
-        "pin": "E2",
         "hue_steps": 10,
         "saturation_steps": 17,
         "brightness_steps": 17,
@@ -42,6 +41,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "E2"
     },
     "layouts": {
         "LAYOUT_arisu": {

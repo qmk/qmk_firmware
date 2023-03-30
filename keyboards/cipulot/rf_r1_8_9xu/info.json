@@ -28,7 +28,6 @@
     "processor": "STM32F401",
     "rgblight": {
         "led_count": 22,
-        "pin": "A15",
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -41,6 +40,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "A15"
     },
     "url": "https://www.github.com/Cipulot/RF_R1_8-9Xu",
     "usb": {

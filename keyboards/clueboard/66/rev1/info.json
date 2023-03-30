@@ -42,8 +42,10 @@
     "brightness_steps": 17,
     "hue_steps": 10,
     "led_count": 14,
-    "pin": "B2",
     "saturation_steps": 17
+  },
+  "ws2812": {
+    "pin": "B2"
   },
   "usb": {
     "device_version": "0.0.1",

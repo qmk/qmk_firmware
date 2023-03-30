@@ -18,7 +18,6 @@
         "on_state": 1
     },
     "rgblight": {
-        "pin": "GP25",
         "led_count": 2,
         "hue_steps": 8,
         "saturation_steps": 8,
@@ -38,6 +37,7 @@
         }
     },
     "ws2812": {
+        "pin": "GP25",
         "driver": "vendor"
     },
     "matrix_pins": {

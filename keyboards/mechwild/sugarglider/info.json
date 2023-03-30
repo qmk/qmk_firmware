@@ -24,7 +24,6 @@
     "diode_direction": "COL2ROW",
     "rgblight": {
         "led_count": 10,
-        "pin": "B5",
         "max_brightness": 255,
         "hue_steps": 8,
         "saturation_steps": 8,
@@ -41,6 +40,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "B5"
     },
     "encoder": {
         "rotary": [

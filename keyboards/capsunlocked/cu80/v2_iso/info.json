@@ -39,8 +39,10 @@
     "hue_steps": 8,
     "led_count": 88,
     "max_brightness": 50,
-    "pin": "E6",
     "saturation_steps": 8
+  },
+  "ws2812": {
+    "pin": "E6"
   },
   "url": "https://caps-unlocked.com/cu80-round-2/",
   "usb": {
