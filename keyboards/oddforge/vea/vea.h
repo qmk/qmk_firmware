@@ -16,17 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+
 #include "quantum.h"
-#include "i2c_master.h"
-#include "rgblight.h"
-#include "ws2812.h"
-#include "led.h"
-
-#define WS2812_ADDRESS 0xb0
-#define WS2812_ADDRESS_SPLIT 0xb8
-#define WS2812_TIMEOUT 100
-
-void vea_setleds(LED_TYPE *ledarray, uint16_t leds);
 
 /*
 LEFT

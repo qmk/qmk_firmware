@@ -1,2 +1,1 @@
-# variant for WS2812 LEDs
-SRC += ws2812.c
+WS2812_DRIVER_REQUIRED = yes

@@ -22,7 +22,7 @@
 
 #define ws2812_setleds ws2812_rgb_setleds
 
-#include "ws2812.c"
+#include "ws2812_bitbang.c"
 
 void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
     ws2812_setleds(start_led, num_leds);

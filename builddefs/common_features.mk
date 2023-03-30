@@ -574,7 +574,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     endif
 endif
 
-VALID_WS2812_DRIVER_TYPES := bitbang pwm spi i2c vendor
+VALID_WS2812_DRIVER_TYPES := bitbang custom i2c pwm spi vendor
 
 WS2812_DRIVER ?= bitbang
 ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
@@ -584,15 +584,11 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
 
     OPT_DEFS += -DWS2812_DRIVER_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
 
-    ifeq ($(strip $(WS2812_DRIVER)), bitbang)
-        SRC += ws2812.c
-    else
-        SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+    SRC += ws2812_$(strip $(WS2812_DRIVER)).c
 
-        ifeq ($(strip $(PLATFORM)), CHIBIOS)
-            ifeq ($(strip $(WS2812_DRIVER)), pwm)
-                OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
-            endif
+    ifeq ($(strip $(PLATFORM)), CHIBIOS)
+        ifeq ($(strip $(WS2812_DRIVER)), pwm)
+            OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
         endif
     endif
 

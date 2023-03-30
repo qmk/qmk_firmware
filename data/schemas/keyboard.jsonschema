@@ -707,8 +707,10 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["bitbang", "i2c", "pwm", "spi", "vendor"]
-                }
+                    "enum": ["bitbang", "custom", "i2c", "pwm", "spi", "vendor"]
+                },
+                "i2c_address": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
+                "i2c_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         }
     }

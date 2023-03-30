@@ -9,6 +9,10 @@
 #    define WS2812_I2C_ADDRESS 0xB0
 #endif
 
+#ifndef WS2812_I2C_ADDRESS_RIGHT
+#    define WS2812_I2C_ADDRESS_RIGHT 0xB8
+#endif
+
 #ifndef WS2812_I2C_TIMEOUT
 #    define WS2812_I2C_TIMEOUT 100
 #endif
@@ -25,5 +29,6 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
         s_init = true;
     }
 
-    i2c_transmit(WS2812_I2C_ADDRESS, (uint8_t *)ledarray, sizeof(LED_TYPE) * leds, WS2812_I2C_TIMEOUT);
+    i2c_transmit(WS2812_I2C_ADDRESS, (uint8_t *)ledarray, sizeof(LED_TYPE) * (leds >> 1), WS2812_I2C_TIMEOUT);
+    i2c_transmit(WS2812_I2C_ADDRESS_RIGHT, (uint8_t *)ledarray+(sizeof(LED_TYPE) * (leds >> 1)), sizeof(LED_TYPE) * (leds - (leds >> 1)), WS2812_I2C_TIMEOUT);
 }
