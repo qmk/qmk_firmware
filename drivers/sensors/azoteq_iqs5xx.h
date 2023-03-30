@@ -22,7 +22,7 @@ typedef enum {
     AZOTEQ_IQS5XX_LP2,
 } azoteq_iqs5xx_charging_modes_t;
 
-typedef struct {
+typedef struct PACKED {
     uint8_t h : 8;
     uint8_t l : 8;
 } azoteq_iqs5xx_report_rate_t;
@@ -37,6 +37,7 @@ typedef struct PACKED {
     uint8_t _unused : 2;        // unused
 } azoteq_iqs5xx_gesture_events_0_t;
 
+typedef struct PACKED {
 typedef struct PACKED {
     bool    two_finger_tap : 1; // Two finger tap gesture status
     bool    scroll : 1;         // Scroll status
@@ -62,13 +63,12 @@ typedef struct PACKED {
     bool    switch_state : 1;     // Status of input pin SW_IN
     uint8_t _unused : 2;          // unused
 } azoteq_iqs5xx_system_info_1_t;
-
-typedef struct {
+typedef struct PACKED {
     uint8_t h : 8;
     uint8_t l : 8;
 } azoteq_iqs5xx_relative_xy_t;
 
-typedef struct {
+typedef struct PACKED {
     uint8_t                          previous_cycle_time;
     azoteq_iqs5xx_gesture_events_0_t gesture_events_0;
     azoteq_iqs5xx_gesture_events_1_t gesture_events_1;
@@ -81,7 +81,7 @@ typedef struct {
 
 _Static_assert(sizeof(azoteq_iqs5xx_base_data_t) == 10, "azoteq_iqs5xx_basic_report_t should be 10 bytes");
 
-typedef struct {
+typedef struct PACKED {
     uint8_t                     number_of_fingers;
     azoteq_iqs5xx_relative_xy_t x;
     azoteq_iqs5xx_relative_xy_t y;
@@ -176,18 +176,21 @@ typedef struct {
 #    define POINTING_DEVICE_TASK_THROTTLE_MS AZOTEQ_IQS5XX_REPORT_RATE
 #endif
 
-void           azoteq_iqs5xx_init(void);
-i2c_status_t   azoteq_iqs5xx_wake(void);
-report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report);
-i2c_status_t   azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_rate, azoteq_iqs5xx_charging_modes_t mode, bool end_session);
-i2c_status_t   azoteq_iqs5xx_set_report_rate(uint16_t report_rate_ms, azoteq_iqs5xx_charging_modes_t mode, bool end_session);
-i2c_status_t   azoteq_iqs5xx_set_event_mode(bool enabled, bool end_session);
-i2c_status_t   azoteq_iqs5xx_set_reati(bool enabled, bool end_session);
-i2c_status_t   azoteq_iqs5xx_set_gesture_config(bool end_session);
-i2c_status_t   azoteq_iqs5xx_set_xy_config(bool flip_x, bool flip_y, bool switch_xy, bool palm_reject, bool end_session);
-i2c_status_t   azoteq_iqs5xx_reset_suspend(bool reset, bool suspend, bool end_session);
-i2c_status_t   azoteq_iqs5xx_get_base_data(azoteq_iqs5xx_base_data_t *base_data);
-void           azoteq_iqs5xx_set_cpi(uint16_t cpi);
-uint16_t       azoteq_iqs5xx_get_cpi(void);
-uint16_t       azoteq_iqs5xx_get_product(void);
-void           azoteq_iqs5xx_setup_resolution(void);
+void           azoteq_iqs5xx_init(const pointing_device_i2c_config_t* i2c_config);
+i2c_status_t   azoteq_iqs5xx_wake(const pointing_device_i2c_config_t* i2c_config);
+report_mouse_t azoteq_iqs5xx_get_report(const pointing_device_i2c_config_t* i2c_config, report_mouse_t mouse_report);
+i2c_status_t   azoteq_iqs5xx_get_report_rate(const pointing_device_i2c_config_t* i2c_config, azoteq_iqs5xx_report_rate_t *report_rate, azoteq_iqs5xx_charging_modes_t mode, bool end_session);
+i2c_status_t   azoteq_iqs5xx_set_report_rate(const pointing_device_i2c_config_t* i2c_config, uint16_t report_rate_ms, azoteq_iqs5xx_charging_modes_t mode, bool end_session);
+i2c_status_t   azoteq_iqs5xx_set_event_mode(const pointing_device_i2c_config_t* i2c_config, bool enabled, bool end_session);
+i2c_status_t   azoteq_iqs5xx_set_reati(const pointing_device_i2c_config_t* i2c_config, bool enabled, bool end_session);
+i2c_status_t   azoteq_iqs5xx_set_gesture_config(const pointing_device_i2c_config_t* i2c_config, bool end_session);
+i2c_status_t   azoteq_iqs5xx_set_xy_config(const pointing_device_i2c_config_t* i2c_config, bool flip_x, bool flip_y, bool switch_xy, bool palm_reject, bool end_session);
+i2c_status_t   azoteq_iqs5xx_reset_suspend(const pointing_device_i2c_config_t* i2c_config, bool reset, bool suspend, bool end_session);
+i2c_status_t   azoteq_iqs5xx_get_base_data(const pointing_device_i2c_config_t* i2c_config, azoteq_iqs5xx_base_data_t *base_data);
+void           azoteq_iqs5xx_set_cpi(const pointing_device_i2c_config_t* i2c_config, uint16_t cpi);
+uint16_t       azoteq_iqs5xx_get_cpi(const pointing_device_i2c_config_t* i2c_config, void);
+uint16_t       azoteq_iqs5xx_get_product(const pointing_device_i2c_config_t* i2c_config);
+void           azoteq_iqs5xx_setup_resolution(const pointing_device_i2c_config_t* i2c_config);
+
+const pointing_device_driver_t azoteq_iqs5xx_driver_default;
+const pointing_device_i2c_config_t azoteq_iqs5xx_i2c_config_default;
