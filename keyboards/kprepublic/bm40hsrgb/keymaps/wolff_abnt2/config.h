@@ -33,10 +33,6 @@
 #define QUICK_TAP_TERM 0 //No autorepeat in tap-hold keys
 #define HOLD_ON_OTHER_KEY_PRESS //For fast typing
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50 // "KP"
-#define PRODUCT_ID      0x3430 // "40"
-#define DEVICE_VER      0x0001
 
 /* key matrix size */
 #define MATRIX_ROWS 4
