@@ -41,7 +41,9 @@ One and a half octaves piano on the top rows, control signals in the bottom rows
 
 ## Joystick
 
-(Image)
+![bm40rgb-wolff-game](https://user-images.githubusercontent.com/62627597/228709807-43f39b05-03a6-4e48-9fca-15ad28824f5b.png)
+
+Emulates a 32-button joystick for using as a button-box or dedicated game controller.
 
 # Modifier layers
 
