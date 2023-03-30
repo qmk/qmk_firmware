@@ -37,7 +37,7 @@ enum layers {
 };
 
 enum planck_keycodes {
-  WORKMAN = SAFE_RANGE,
+  WORKMAN = QK_USER,
   QWERTY,
   DVORAK,
   COLEMAK,

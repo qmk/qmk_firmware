@@ -1,6 +1,6 @@
 MCU = atmega32u4
 BOOTLOADER = atmel-dfu
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 TERMINAL_ENABLE = no
