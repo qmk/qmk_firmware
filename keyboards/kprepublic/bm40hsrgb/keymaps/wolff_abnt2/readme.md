@@ -22,7 +22,7 @@ These are selected as the base by a button in the Adjust layer.
 
 ## Normal
 
-![bm40rgb-wolff-base](https://user-images.githubusercontent.com/62627597/228847515-68802f2e-0cf7-4be1-bf19-9d1ba06766d6.png)
+![bm40rgb-wolff-base](https://user-images.githubusercontent.com/62627597/228848191-cb403c12-c090-4aeb-b207-506e5c80c547.png)
 
 QWERTY, Dvorak, Colemak and Workman are built-in.
 
@@ -68,7 +68,7 @@ These are utility overlays toggled by a key in the Adjust layer.
 
 ## Handswap Layer
 
-![bm40rgb-swap-hands](https://user-images.githubusercontent.com/62627597/228847606-0c5a33d1-a683-41c8-a2af-6df582f6ef65.png)
+![bm40rgb-swap-hands](https://user-images.githubusercontent.com/62627597/228848216-ae998d68-6807-4726-9306-6221a0f3b151.png)
 
 For one-hand typing. The three top rows are mirrorred when SWAP is held down.
 
