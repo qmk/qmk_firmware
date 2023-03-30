@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______,     _______,      KC_0,    KC_BSPC, BR_COMM, BR_EQL,  KC_ENT
 ),
 [_FUNCTION] = LAYOUT_planck_mit(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_LSCR, _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_INS,
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_SCRL, _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_INS,
     _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_NUM,  _______, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_PAUS,
     _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, _______, KC_F21,  KC_F22,  KC_F23,  KC_F24,  KC_APP,
     _______, _______, _______, _______, _______,     _______,      _______, _______, KC_MPRV, KC_MPLY, KC_MNXT
