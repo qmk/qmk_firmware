@@ -27,6 +27,8 @@ Bottom: Behavior when tapped (tap/hold)
 
 # Base Layers
 
+These are selected as the base by a button in the Adjust layer.
+
 ## Normal
 
 ![bm40rgb-wolff-base](https://user-images.githubusercontent.com/62627597/228708154-8a7cf08c-8ae0-44c6-a22d-512bf690e8c7.png)
@@ -46,6 +48,8 @@ One and a half octaves piano on the top rows, control signals in the bottom rows
 Emulates a 32-button joystick for using as a button-box or dedicated game controller.
 
 # Modifier layers
+
+These are activated by holding down modifier keys.
 
 ## Navigation Layer (NAV)
 
@@ -67,7 +71,9 @@ Emulates mouse action so you can perform simple tasks without reaching for the m
 
 ![bm40rgb-wolff-adj](https://user-images.githubusercontent.com/62627597/228708232-9281bfb4-f7da-4999-9a62-9b102d6880a2.png)
 
-# Additional/utility layers (toggled by a key in the ADJ layer)
+# Additional/utility layers
+
+These are utility overlays toggled by a key in the Adjust layer.
 
 ## Handswap Layer
 
