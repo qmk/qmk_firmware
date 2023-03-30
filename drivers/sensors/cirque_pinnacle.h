@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "pointing_device_internal.h"
+#include "pointing_device.h"
 
 #ifndef CIRQUE_PINNACLE_TIMEOUT
 #    define CIRQUE_PINNACLE_TIMEOUT 20 // I2C timeout in milliseconds
@@ -55,20 +56,18 @@
 #if !defined(POINTING_DEVICE_TASK_THROTTLE_MS)
 #    define POINTING_DEVICE_TASK_THROTTLE_MS 10 // Cirque Pinnacle in normal operation produces data every 10ms. Advanced configuration for pen/stylus usage might require lower values.
 #endif
-#if defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_i2c)
+#if defined(POINTING_DEVICE_DRIVER_CIRQUE_PINNACLE_I2C)
 #    include "i2c_master.h"
 // Cirque's 7-bit I2C Slave Address
 #    ifndef CIRQUE_PINNACLE_ADDR
 #        define CIRQUE_PINNACLE_ADDR I2C_ADDRESS_DEFAULT
 #    endif
-#elif defined(POINTING_DEVICE_DRIVER_cirque_pinnacle_spi)
+#endif
+#if defined(POINTING_DEVICE_DRIVER_CIRQUE_PINNACLE_SPI)
 #    include "spi_master.h"
 #    ifndef CIRQUE_PINNACLE_CLOCK_SPEED
 #        define CIRQUE_PINNACLE_CLOCK_SPEED 10000000
-#    endif
-#    ifndef CIRQUE_PINNACLE_SPI_LSBFIRST
-#        define CIRQUE_PINNACLE_SPI_LSBFIRST false
-#    endif
+#    endif\\s
 #    ifndef CIRQUE_PINNACLE_SPI_MODE
 #        define CIRQUE_PINNACLE_SPI_MODE 1
 #    endif
@@ -109,10 +108,34 @@ typedef struct {
 #endif
 } pinnacle_data_t;
 
-void            cirque_pinnacle_init(void);
-void            cirque_pinnacle_calibrate(void);
-void            cirque_pinnacle_cursor_smoothing(bool enable);
-pinnacle_data_t cirque_pinnacle_read_data(void);
+typedef struct {
+    void (*read)(const void* config, uint8_t regaddr, uint8_t* data, uint8_t length);
+    void (*write)(const void* config, uint8_t regaddr, uint8_t data);
+} cirque_rap_t;
+
+void            cirque_pinnacle_init(const cirque_rap_t* cirque_rap, const void* config);
+void            cirque_pinnacle_calibrate(const cirque_rap_t* cirque_rap, const void* config);
+void            cirque_pinnacle_cursor_smoothing(const cirque_rap_t* cirque_rap, const void* config, bool enable);
+pinnacle_data_t cirque_pinnacle_read_data(const cirque_rap_t* cirque_rap, const void* config);
 void            cirque_pinnacle_scale_data(pinnacle_data_t* coordinates, uint16_t xResolution, uint16_t yResolution);
-uint16_t        cirque_pinnacle_get_scale(void);
-void            cirque_pinnacle_set_scale(uint16_t scale);
+uint16_t        cirque_pinnacle_get_scale(const void* config);
+void            cirque_pinnacle_set_scale(const void* config, uint16_t scale);
+report_mouse_t  cirque_pinnacle_get_report(const cirque_rap_t* cirque_rap, const void* config);
+
+void cirque_read_i2c(const void* config, uint8_t regaddr, uint8_t* data, uint8_t count);
+void cirque_write_i2c(const void* config, uint8_t regaddr, uint8_t data);
+
+void cirque_read_spi(const void* config, uint8_t regaddr, uint8_t* data, uint8_t count);
+void cirque_write_spi(const void* config, uint8_t regaddr, uint8_t data);
+
+void           cirque_pinnacle_init_i2c(const void* config);
+report_mouse_t cirque_pinnacle_get_report_i2c(const void* config);
+
+void           cirque_pinnacle_init_spi(const void* config);
+report_mouse_t cirque_pinnacle_get_report_spi(const void* config);
+
+const cirque_rap_t cirque_read_write_i2c;
+const cirque_rap_t cirque_read_write_spi;
+
+const pointing_device_driver_t     cirque_driver_i2c_default;
+const pointing_device_i2c_config_t cirque_config_i2c_default;
