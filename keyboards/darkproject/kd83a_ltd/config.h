@@ -22,6 +22,7 @@
 #define TAP_CODE_DELAY 10
 
 #define MATRIX_IO_DELAY 5
+#define GPIO_INPUT_PIN_DELAY 2
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -58,5 +59,3 @@
 #define AW_SCALING_MAX 255
 // (Optional) Driver global current limit (0-255, higher values means the driver may consume more power). Default 150.
 #define AW_GLOBAL_CURRENT_MAX 255
-
-#define GPIO_INPUT_PIN_DELAY 2
