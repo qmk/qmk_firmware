@@ -17,6 +17,9 @@
         "rows": ["B2", "B1", "B0", "A7", "B10"]
     },
     "processor": "STM32F103",
+    "ws2812": {
+        "driver": "pwm"
+    },
     "rgb_matrix": {
         "animations": {
             "alphas_mods": true,
