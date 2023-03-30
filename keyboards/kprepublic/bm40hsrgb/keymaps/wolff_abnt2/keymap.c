@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //AUX LAYERS (NAV, SYM, NUM, FN)
 [_NAV] = LAYOUT_planck_mit(
     KC_CAPS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, KC_PGUP,  KC_HOME, KC_UP,   KC_END,  C(KC_V), C(KC_Z),
-    _______, KC_LALT, BR_QUOT, KC_LSFT, KC_LCTL, _______, KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, C(KC_C), C(KC_X),
+    _______, KC_LALT, KC_LGUI, KC_LSFT, KC_LCTL, _______, KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, C(KC_C), C(KC_X),
     _______, _______, _______, _______, _______, _______, KC_ENT,   KC_BSPC, KC_DEL,  KC_VOLD, KC_VOLU, _______,
     _______, _______, _______, _______, _______,      KC_ENT,       _______, _______, KC_MPRV, KC_MPLY, KC_MNXT
 ),
