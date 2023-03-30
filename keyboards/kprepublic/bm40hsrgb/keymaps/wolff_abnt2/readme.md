@@ -44,7 +44,7 @@ These are activated by holding down modifier keys.
 
 ## Navigation Layer (NAV)
 
-![bm40rgb-wolff-nav](https://user-images.githubusercontent.com/62627597/228712172-a3c42451-e43b-445d-8777-5e62aaf7d6a2.png)
+![bm40rgb-wolff-nav](https://user-images.githubusercontent.com/62627597/228853095-6c254027-adfb-4afb-9536-4f00e11ab3cb.png)
 
 The layer you'll access most often. Navigation keys right on the right-hand homerow, plus a few common utilities.
 
