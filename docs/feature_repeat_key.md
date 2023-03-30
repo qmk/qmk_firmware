@@ -145,10 +145,11 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
 Alternate Repeat can be configured more generally to perform an action that
 "complements" the last key. Alternate Repeat is not limited to reverse
-repeating, and it need not be symmetric. You can use it to eliminate the worst
-same-finger bigrams in your layout. The following addresses the top 5
-same-finger bigrams in QWERTY, so that for instance "`ed`" may be typed as
-<kbd>E</kbd>, <kbd>Alt Repeat</kbd>.
+repeating, and it need not be symmetric. You can use it to eliminate cases of
+same-finger bigrams in your layout, that is, pairs of letters typed by the same
+finger. The following addresses the top 5 same-finger bigrams in English on
+QWERTY, so that for instance "`ed`" may be typed as <kbd>E</kbd>, <kbd>Alt
+Repeat</kbd>.
 
 ```c
 uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
@@ -164,6 +165,40 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 }
 ```
 
+A useful possibility is having Alternate Repeat press [a
+macro](feature_macros.md). This way macros can be used without having to
+dedicate keys to them. The following defines a couple shortcuts.
+
+* Typing <kbd>K</kbd>, <kbd>Alt Repeat</kbd> produces "`keyboard`," with the
+  initial "`k`" typed as usual and the "`eybord`" produced by the macro. 
+* Typing <kbd>.</kbd>, <kbd>Alt Repeat</kbd> produces "`../`," handy for "up
+  directory" on the shell. Similary, <kbd>.</kbd> types the initial "`.`" and 
+  "`./`" is produced by the macro.
+
+```c
+enum custom_keycodes {
+    M_KEYBOARD = SAFE_RANGE,
+    M_UPDIR,
+    // Other custom keys...
+};
+
+uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    switch (keycode) {
+        case KC_K: return M_KEYBOARD;
+        case KC_DOT: return M_UPDIR;
+    }
+
+    return KC_NO;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case M_KEYBOARD: SEND_STRING(/*k*/"eyboard"); break;
+        case M_UPDIR: SEND_STRING(/*.*/"./"); break;
+    }
+    return true;
+}
+```
 
 ### Ignoring certain keys
 
@@ -309,4 +344,78 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 | `set_repeat_key_mods(mods)`    | Set the mods to apply when repeating.                                  |
 | `get_alt_repeat_key_keycode()` | Keycode to be used for alternate repeating.                            |
  
+
+## Additional "Alternate" keys
+
+By leveraging `get_repeat_key_keycode()` in macros, it is possible to define
+additional, distinct "Alternate Repeat"-like keys. The following defines two
+keys `ALTREP2` and `ALTREP3` and implements ten shortcuts with them for common
+English 5-gram letter patterns, taking inspiration from
+[Stenotype](feature_stenography.md):
+
+
+| Typing                           | Produces | Typing                           | Produces |
+|----------------------------------|----------|----------------------------------|----------|
+| <kbd>A</kbd>, <kbd>ALTREP2</kbd> | `ation`  | <kbd>A</kbd>, <kbd>ALTREP3</kbd> | `about`   |
+| <kbd>I</kbd>, <kbd>ALTREP2</kbd> | `ition`  | <kbd>I</kbd>, <kbd>ALTREP3</kbd> | `inter`   |
+| <kbd>S</kbd>, <kbd>ALTREP2</kbd> | `ssion`  | <kbd>S</kbd>, <kbd>ALTREP3</kbd> | `state`   |
+| <kbd>T</kbd>, <kbd>ALTREP2</kbd> | `their`  | <kbd>T</kbd>, <kbd>ALTREP3</kbd> | `there`   |
+| <kbd>W</kbd>, <kbd>ALTREP2</kbd> | `which`  | <kbd>W</kbd>, <kbd>ALTREP3</kbd> | `would`   |
+
+```c
+enum custom_keycodes {
+    ALTREP2 = SAFE_RANGE,
+    ALTREP3,
+};
+
+// Use ALTREP2 and ALTREP3 in your layout...
+
+bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case ALTREP2:
+        case ALTREP3:
+            return false;  // Ignore ALTREP keys.
+    }
+
+    return true;  // Other keys can be repeated.
+}
+
+static void process_altrep2(uint16_t keycode, uint8_t mods) {
+    switch (keycode) {
+        case KC_A: SEND_STRING(/*a*/"tion"); break;
+        case KC_I: SEND_STRING(/*i*/"tion"); break;
+        case KC_S: SEND_STRING(/*s*/"sion"); break;
+        case KC_T: SEND_STRING(/*t*/"heir"); break;
+        case KC_W: SEND_STRING(/*w*/"hich"); break;
+    }
+}
+
+static void process_altrep3(uint16_t keycode, uint8_t mods) {
+    switch (keycode) {
+        case KC_A: SEND_STRING(/*a*/"bout"); break;
+        case KC_I: SEND_STRING(/*i*/"nter"); break;
+        case KC_S: SEND_STRING(/*s*/"tate"); break;
+        case KC_T: SEND_STRING(/*t*/"here"); break;
+        case KC_W: SEND_STRING(/*w*/"ould"); break;
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case ALTREP2: 
+            if (record->event.pressed) {
+                process_altrep2(get_repeat_key_keycode(), get_repeat_key_mods());
+            }
+            return false;
+
+        case ALTREP3:
+            if (record->event.pressed) {
+                process_altrep3(get_repeat_key_keycode(), get_repeat_key_mods());
+            }
+            return false;
+    }
+
+    return true;
+}
+```
 
