@@ -25,14 +25,6 @@ void housekeeping_task_user(void) {
     writePin(C15, keymap_config.no_gui);
 };
 
-void keyboard_pre_init_user(void) {
-
-    setPinInputLow(C15);
-    writePin(C15, false);
-    setPinInputLow(C0);
-    writePin(C0, false);
-};
-
 enum custom_layers {
     Win,
     Mac,
@@ -90,6 +82,8 @@ void led_init_ports(void) {
   setPinOutput(C0);
   setPinOutput(C14);
   setPinOutput(C15);
+  writePinLow(C15);
+  writePinLow(C0);
 };
 
 
