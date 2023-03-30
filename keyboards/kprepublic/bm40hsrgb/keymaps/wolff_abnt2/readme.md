@@ -54,7 +54,7 @@ The layer you'll access most often. Navigation keys right on the right-hand home
 
 ## Mouse Layer
 
-![bm40rgb-wolff-mouse(1)](https://user-images.githubusercontent.com/62627597/228852011-ee4b4f29-ad39-4391-9bc0-e5aefb89ddc6.png)
+![bm40rgb-wolff-mouse](https://user-images.githubusercontent.com/62627597/228852117-12345073-d1dd-4453-ad14-7700ce8620ea.png)
 
 Emulates mouse action so you can perform simple tasks without reaching for the mouse.
 
