@@ -1,3 +1,4 @@
+
 # Build Options
 BOOTMAGIC_ENABLE = yes     # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes       # Mouse keys
@@ -12,6 +13,7 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+
 #ENCODER_ENABLE = yes
 
 RGB_MATRIX_ENABLE = yes
