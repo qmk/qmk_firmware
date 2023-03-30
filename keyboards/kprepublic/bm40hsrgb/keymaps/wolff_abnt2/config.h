@@ -1,4 +1,4 @@
-/* Copyright 2020 tominabox1
+/* Copyright 2020 lmlask
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#pragma once
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
@@ -30,8 +32,6 @@
 #define TAPPING_TERM 175 //For fast typing
 #define QUICK_TAP_TERM 0 //No autorepeat in tap-hold keys
 #define HOLD_ON_OTHER_KEY_PRESS //For fast typing
-
-#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x4B50 // "KP"
