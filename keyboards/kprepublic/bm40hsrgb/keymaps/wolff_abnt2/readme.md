@@ -22,7 +22,7 @@ These are selected as the base by a button in the Adjust layer.
 
 ## Normal
 
-![bm40rgb-wolff-base](https://user-images.githubusercontent.com/62627597/228708154-8a7cf08c-8ae0-44c6-a22d-512bf690e8c7.png)
+![bm40rgb-wolff-base](https://user-images.githubusercontent.com/62627597/228848191-cb403c12-c090-4aeb-b207-506e5c80c547.png)
 
 QWERTY, Dvorak, Colemak and Workman are built-in.
 
@@ -34,7 +34,7 @@ One and a half octaves piano on the top rows, control signals in the bottom rows
 
 ## Joystick
 
-![bm40rgb-wolff-game](https://user-images.githubusercontent.com/62627597/228709807-43f39b05-03a6-4e48-9fca-15ad28824f5b.png)
+![bm40rgb-wolff-game](https://user-images.githubusercontent.com/62627597/228849208-9fb10cf3-0a11-4799-877a-48eafe811078.png)
 
 Emulates a 32-button joystick for using as a button-box or dedicated game controller.
 
@@ -50,17 +50,17 @@ The layer you'll access most often. Navigation keys right on the right-hand home
 
 ## Functions Layer (FUN)
 
-![bm40rgb-wolff-fun](https://user-images.githubusercontent.com/62627597/228708222-044c9ff2-af17-4259-ab36-490aef111fae.png)
+![bm40rgb-wolff-fun](https://user-images.githubusercontent.com/62627597/228852255-3c12d3c8-733a-4680-888c-35a4162cd3a3.png)
 
 ## Mouse Layer
 
-![bm40rgb-wolff-mouse](https://user-images.githubusercontent.com/62627597/228710855-89a8c642-fd34-459c-99fe-67267b8dc34d.png)
+![bm40rgb-wolff-mouse](https://user-images.githubusercontent.com/62627597/228852117-12345073-d1dd-4453-ad14-7700ce8620ea.png)
 
 Emulates mouse action so you can perform simple tasks without reaching for the mouse.
 
 ## Adjust Layer (SYM + FUN)
 
-![bm40rgb-wolff-adj](https://user-images.githubusercontent.com/62627597/228708232-9281bfb4-f7da-4999-9a62-9b102d6880a2.png)
+![bm40rgb-wolff-adj](https://user-images.githubusercontent.com/62627597/228851675-ec61ad2b-95a9-402b-933a-009e9f52fbd3.png)
 
 # Additional/utility layers
 
@@ -68,12 +68,12 @@ These are utility overlays toggled by a key in the Adjust layer.
 
 ## Handswap Layer
 
-![bm40rgb-swap-hands](https://user-images.githubusercontent.com/62627597/228708258-646bb5f8-54cd-47ed-84fc-e0d2d0e985bd.png)
+![bm40rgb-swap-hands](https://user-images.githubusercontent.com/62627597/228849174-e3bca496-9f5a-49d6-a41e-9b65adbc6c34.png)
 
 For one-hand typing. The three top rows are mirrorred when SWAP is held down.
 
 ## CPY Layer (One-hand navigation layer)
 
-![bm40rgb-copy(1)](https://user-images.githubusercontent.com/62627597/228708266-6a96468d-cc18-48ae-906b-85bfccfc5ce1.png)
+![bm40rgb-copy](https://user-images.githubusercontent.com/62627597/228847641-4caa777e-c368-4921-a0a4-10c47afa2537.png)
 
 For general navigation and quick copy-paste one-handed stuff. I don't like using it, but my job demands it sometimes.
