@@ -167,57 +167,31 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 
 ### Ignoring certain keys
 
-By default, the Repeat Key and Alternate Repeat Key ignore modifier and layer
-switch keys in tracking what the "last" key was. This enables possibly setting
-some mods and changing layers between pressing a key and repeating it. To
-customize which keys are ignored, define `get_repeat_key_eligible()` in your
-keymap.c. The default implementation is
+In tracking what is "the last key" to be repeated or alternate repeated,
+modifier and layer switch keys are always ignored. This makes it possible to set
+some mods and change layers between pressing a key and repeating it.
+By default, all other (non-modifier, non-layer switch) keys are eligible for
+repeating. To configure additional keys to be ignored, define
+`get_repeat_key_eligible_user()` in your keymap.c. The following ignores the
+Backspace key:
 
 ```c
-bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record) {
+bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        // Ignore MO, TO, TG, and TT layer switch keys.
-        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
-        case QK_TO ... QK_TO_MAX:
-        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
-        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
-        // Ignore mod keys.
-        case KC_LCTL ... KC_RGUI:
-        case KC_HYPR:
-        case KC_MEH:
-        // Ignore one-shot keys.
-#ifndef NO_ACTION_ONESHOT
-        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
-        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
-#endif  // NO_ACTION_ONESHOT
-            return false;
-
-        // Ignore hold events on tap-hold keys.
-#ifndef NO_ACTION_TAPPING
-        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-#ifndef NO_ACTION_LAYER
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-#endif  // NO_ACTION_LAYER
-            if (record->tap.count == 0) {
-                return false;
-            }
-            break;
-#endif  // NO_ACTION_TAPPING
-
-#ifdef SWAP_HANDS_ENABLE
-        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
-            if (IS_SWAP_HANDS_KEYCODE(keycode) || record->tap.count == 0) {
-                return false;
-            }
-            break;
-#endif  // SWAP_HANDS_ENABLE
+        case KC_BSPC:
+            return false;  // Ignore backspace.
     }
 
-    return true;
+    return true;  // Other keys can be repeated.
 }
 ```
 
-This callback is called on every key press. Returning true indicates the key is
+Then for instance, the Repeat key in <kbd>Left Arrow</kbd>,
+<kbd>Backspace</kbd>, <kbd>Repeat</kbd> sends Left Arrow again instead of
+repeating Backspace.
+
+The `get_repeat_key_eligible_user()` callback is called on every key press
+excluding modifiers and layer switches. Returning true indicates the key is
 eligible for repeating (or alternate repeating), while false means it is
 ignored.
 
@@ -227,16 +201,12 @@ example, the following ignores keys on layer 2 as well as key combinations
 involving GUI:
 
 ```c
-bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record) {
+bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record) {
     if (IS_LAYER_ON(2) || (get_mods() & MOD_MASK_GUI)) {
-        return false;
+        return false;  // Ignore layer 2 keys and GUI chords.
     }
 
-    switch (keycode) {
-        // Same as above...
-    }
-
-    return true;
+    return true;  // Other keys can be repeated.
 }
 ```
 
@@ -330,12 +300,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 ## Functions
 
-| Function                      | Description                                                            |
-|-------------------------------|------------------------------------------------------------------------|
-| `get_repeat_key_count()`      | Signed count of times the key has been repeated or alternate repeated. |
-| `get_repeat_key_keycode()`    | The last key's keycode, the key to be repeated.                        |
-| `get_repeat_key_mods()`       | Mods to apply when repeating.                                          |
-| `set_repeat_key_keycode(kc)`  | Set the keycode to be repeated.                                        |
-| `set_repeat_key_mods(mods)`   | Set the mods to apply when repeating.                                  |
-|`get_alt_repeat_key_keycode()` | Keycode to be used for alternate repeating.                            |
+| Function                       | Description                                                            |
+|--------------------------------|------------------------------------------------------------------------|
+| `get_repeat_key_count()`       | Signed count of times the key has been repeated or alternate repeated. |
+| `get_repeat_key_keycode()`     | The last key's keycode, the key to be repeated.                        |
+| `get_repeat_key_mods()`        | Mods to apply when repeating.                                          |
+| `set_repeat_key_keycode(kc)`   | Set the keycode to be repeated.                                        |
+| `set_repeat_key_mods(mods)`    | Set the mods to apply when repeating.                                  |
+| `get_alt_repeat_key_keycode()` | Keycode to be used for alternate repeating.                            |
+ 
 

@@ -29,11 +29,10 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record);
 /**
  * @brief Optional callback defining which keys are eligible for repeating.
  *
- * The callback is called on every key press. Returning true means the key may
- * be repeated, and returning false means the key is ignored.
- *
- * The default implementation ignores modifier and layer switch keys so that it
- * is possible to set some mods and change layers between pressing a key and
- * repeating it.
+ * Modifier and layer switch keys are always ignored. For all other keys, this
+ * callback is called on every key press. Returning true means that the key
+ * is eligible for repeating, false means it is ignored. By default, all
+ * non-modifier, non-layer switch keys are eligible.
  */
-bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record);
+bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record);
+

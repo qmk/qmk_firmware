@@ -14,6 +14,56 @@
 
 #include "process_repeat_key.h"
 
+// Default implementation of get_repeat_key_eligible_user().
+__attribute__((weak)) bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record) {
+    return true;
+}
+
+static bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        // Ignore MO, TO, TG, TT, and TL layer switch keys.
+        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+        case QK_TO ... QK_TO_MAX:
+        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+        // Ignore mod keys.
+        case KC_LCTL ... KC_RGUI:
+        case KC_HYPR:
+        case KC_MEH:
+#ifndef NO_ACTION_ONESHOT // Ignore one-shot keys.
+        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+#endif // NO_ACTION_ONESHOT
+#ifdef TRI_LAYER_ENABLE // Ignore Tri Layer keys.
+        case QK_TRI_LAYER_LOWER:
+        case QK_TRI_LAYER_UPPER:
+#endif // TRI_LAYER_ENABLE
+            return false;
+
+            // Ignore hold events on tap-hold keys.
+#ifndef NO_ACTION_TAPPING
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+#    ifndef NO_ACTION_LAYER
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+#    endif // NO_ACTION_LAYER
+            if (record->tap.count == 0) {
+                return false;
+            }
+            break;
+#endif // NO_ACTION_TAPPING
+
+#ifdef SWAP_HANDS_ENABLE
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+            if (IS_SWAP_HANDS_KEYCODE(keycode) || record->tap.count == 0) {
+                return false;
+            }
+            break;
+#endif // SWAP_HANDS_ENABLE
+    }
+
+    return get_repeat_key_eligible_user(keycode, record);
+}
+
 bool process_repeat_key(uint16_t keycode, keyrecord_t* record) {
     if (get_repeat_key_count()) {
         return true;
@@ -39,47 +89,3 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-// Default implementation of get_repeat_key_eligible().
-__attribute__((weak)) bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        // Ignore MO, TO, TG, TT, and TL layer switch keys.
-        case QK_TRI_LAYER_LOWER:
-        case QK_TRI_LAYER_UPPER:
-        case QK_MOMENTARY ... QK_MOMENTARY_MAX:
-        case QK_TO ... QK_TO_MAX:
-        case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
-        case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
-        // Ignore mod keys.
-        case KC_LCTL ... KC_RGUI:
-        case KC_HYPR:
-        case KC_MEH:
-            // Ignore one-shot keys.
-#ifndef NO_ACTION_ONESHOT
-        case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
-        case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
-#endif // NO_ACTION_ONESHOT
-            return false;
-
-            // Ignore hold events on tap-hold keys.
-#ifndef NO_ACTION_TAPPING
-        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-#    ifndef NO_ACTION_LAYER
-        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-#    endif // NO_ACTION_LAYER
-            if (record->tap.count == 0) {
-                return false;
-            }
-            break;
-#endif // NO_ACTION_TAPPING
-
-#ifdef SWAP_HANDS_ENABLE
-        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
-            if (IS_SWAP_HANDS_KEYCODE(keycode) || record->tap.count == 0) {
-                return false;
-            }
-            break;
-#endif // SWAP_HANDS_ENABLE
-    }
-
-    return true;
-}
