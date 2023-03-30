@@ -18,7 +18,7 @@
 
 // place overrides here
 
-#define RGB_DI_PIN D3
+#define WS2812_DI_PIN D3
   #define RGBLED_NUM 9
   #define RGBLIGHT_HUE_STEP 16
   #define RGBLIGHT_SAT_STEP 16

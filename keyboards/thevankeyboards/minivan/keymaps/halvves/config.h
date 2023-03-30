@@ -14,7 +14,7 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-  #define RGB_DI_PIN D0
+  #define WS2812_DI_PIN D0
   #define RGBLED_NUM 3
   #define RGBLIGHT_EFFECT_BREATHING
 #endif

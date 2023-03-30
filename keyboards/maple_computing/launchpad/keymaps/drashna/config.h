@@ -17,8 +17,8 @@
 #pragma once
 
 /* Underlight Configuration */
-#undef RGB_DI_PIN
-#define RGB_DI_PIN F5
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN F5
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

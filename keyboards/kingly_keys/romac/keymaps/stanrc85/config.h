@@ -1,7 +1,7 @@
 #undef RGBLED_NUM
 #define RGBLED_NUM 16
 
-#define RGB_DI_PIN F4
+#define WS2812_DI_PIN F4
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8

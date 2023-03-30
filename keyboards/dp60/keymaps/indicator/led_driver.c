@@ -14,8 +14,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#undef RGB_DI_PIN
-#define RGB_DI_PIN RGB_INDICATOR_PIN
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN RGB_INDICATOR_PIN
 #define ws2812_setleds indicator_setleds
 #define ws2812_setleds_pin indicator_setleds_pin
 #include "ws2812_bitbang.c"

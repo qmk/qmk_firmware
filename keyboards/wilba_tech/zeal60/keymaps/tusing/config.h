@@ -20,7 +20,7 @@
 #define RGB_BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS 0
 
 // Set up RGB underglow.
-#define RGB_DI_PIN B0          // The pin your RGB strip is wired to
+#define WS2812_DI_PIN B0          // The pin your RGB strip is wired to
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
