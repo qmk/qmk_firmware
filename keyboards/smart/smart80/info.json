@@ -6,7 +6,6 @@
     },
 
     "bootmagic": {
-        "enabled": true,
         "matrix": [1, 1]
     },
     "diode_direction": "ROW2COL",
