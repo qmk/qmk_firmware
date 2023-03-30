@@ -60,7 +60,7 @@ Emulates mouse action so you can perform simple tasks without reaching for the m
 
 ## Adjust Layer (SYM + FUN)
 
-![bm40rgb-wolff-adj](https://user-images.githubusercontent.com/62627597/228708232-9281bfb4-f7da-4999-9a62-9b102d6880a2.png)
+![bm40rgb-wolff-adj](https://user-images.githubusercontent.com/62627597/228851675-ec61ad2b-95a9-402b-933a-009e9f52fbd3.png)
 
 # Additional/utility layers
 
