@@ -22,104 +22,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum layers {
     BASE,
+    GAMING,
     NAV_NUM,
     NUM_SYM_FN,
-    APP_NAV,
-    // MATH_SYMBOLS,
+    APP_NAV
 };
 
 enum custom_keycodes {
     SELECT_LINE =  SAFE_RANGE,
-    // NEXT_SENTENCE,
-    // ARROW,
-    STICKY_SYM,
+    SSYM_CALL,
     NEXT_VIEW,
     PREV_VIEW
 };
 
-// enum unicode_names {
-//     CONJUNCTION   ,
-//     DISJUNCTION   ,
-//     INTERSECTION  ,
-//     UNION         ,
-//     SUBSET        ,
-//     SUPERSET      ,
-//     UNIVERSAL     ,
-//     INFINITYSYM   ,
-//     EXISTENTIAL   ,
-//     DERIVATIVE    ,
-//     FALSUM        ,
-//     VERUM         ,
-//     TURNSTILE     ,
-//     ADJUNCTION    ,
-//     UPARROW       ,
-//     DOWNARROW     ,
-//     LEFTARROW     ,
-//     RIGHTARROW    ,
-//     LRARROW       ,
-//     BLQUADRANT    ,
-//     TLQUADRANT    ,
-//     NOTEQUAL      ,
-//     APPROXIMATELY ,
-//     STRONGEQUALITY,
-//     LTEQUAL       ,
-//     GTEQUAL       ,
-// };
-
-// const uint32_t unicode_map[] PROGMEM = {
-//     [CONJUNCTION]   = 0x22C0,
-//     [DISJUNCTION]   = 0x22C1,
-//     [INTERSECTION]  = 0x2229,
-//     [UNION]         = 0x222A,
-//     [SUBSET]        = 0x2282,
-//     [SUPERSET]      = 0x2283,
-//     [UNIVERSAL]     = 0x2200,
-//     [INFINITYSYM]   = 0x221E,
-//     [EXISTENTIAL]   = 0x2203,
-//     [DERIVATIVE]    = 0x2202,
-//     [FALSUM]        = 0x22A5,
-//     [VERUM]         = 0x22A4,
-//     [TURNSTILE]     = 0x22A2,
-//     [ADJUNCTION]    = 0x22A3,
-//     [UPARROW]       = 0x2191,
-//     [DOWNARROW]     = 0x2193,
-//     [LEFTARROW]     = 0x2190,
-//     [RIGHTARROW]    = 0x2192,
-//     [LRARROW]       = 0x2194,
-//     [BLQUADRANT]    = 0x23BE,
-//     [TLQUADRANT]    = 0x23BF,
-//     [NOTEQUAL]      = 0x2260,
-//     [APPROXIMATELY] = 0x2245,
-//     [STRONGEQUALITY]= 0x2261,
-//     [LTEQUAL]       = 0x2264,
-//     [GTEQUAL]       = 0x2265,
-// };
-
 // TAP DANCE SETUP------------------------------------------------------------------------------------------------------------------------------------------------
 
-void td_music_fn(qk_tap_dance_state_t *state, void *user_data) {
+void ctrl_left_home(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
-            tap_code16(KC_MPLY);
+            tap_code16(LCTL(KC_LEFT));
             break;
         case 2:
-            tap_code16(KC_MNXT);
+            tap_code(KC_HOME);
+    }
+}
+
+void ctrl_right_end(qk_tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            tap_code16(LCTL(KC_RIGHT));
             break;
-        case 3:
-            tap_code16(KC_MPRV);}
+        case 2:
+            tap_code(KC_END);
+    }
 }
 
 enum tap_dances {
-    TD_MUSIC = 0,
+    ND_LEFT = 0,
+    ND_RIGHT
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_MUSIC] = ACTION_TAP_DANCE_FN(td_music_fn),
+    [ND_LEFT] = ACTION_TAP_DANCE_FN(ctrl_left_home),
+    [ND_RIGHT] = ACTION_TAP_DANCE_FN(ctrl_right_end),
 };
 // CONVENIENCE MACROS---------------------------------------------------------------------------------------------------------------------------------------------
 
 #define BASE_SPACE LT(NAV_NUM,KC_SPC)
-#define NAV_NUM_SPACE LT(NUM_SYM_FN,KC_SPC)
+#define NN_SPACE LT(NUM_SYM_FN,KC_SPC)
 #define ALT_DEL LALT_T(KC_DEL)
 #define TAB_LEFT RCS(KC_TAB)
 #define TAB_RIGHT LCTL(KC_TAB)
@@ -130,42 +80,52 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define DESKTOP_LEFT LCTL(LGUI(KC_LEFT))
 #define DESKTOP_RIGHT LCTL(LGUI(KC_RIGHT))
 #define ALT_F4 LALT(KC_F4)
-#define MUSIC TD(TD_MUSIC)
+#define ND_LEFT TD(ND_LEFT)
+#define ND_RIGHT TD(ND_RIGHT)
 #define APPNAV_MO MO(APP_NAV)
 
 // KEYMAP AND LAYERS----------------------------------------------------------------------------------------------------------------------------------------------
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [BASE] = LAYOUT_split_3x6_3( // Base QWERTY layer
-        KC_ESC    , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T         , KC_Y         , KC_U      , KC_I      , KC_O         , KC_P        , KC_BSPC      ,
-        KC_TAB    , KC_A      , KC_S      , KC_D      , KC_F      , KC_G         , KC_H         , KC_J      , KC_K      , KC_L         , KC_QUOT     , KC_ENT       ,
-        KC_LSFT   , KC_Z      , KC_X      , KC_C      , KC_V      , KC_B         , KC_N         , KC_M      , KC_COMM   , KC_DOT       , KC_SLSH     , KC_RSFT      ,
-                                            KC_LCTL   , ALT_DEL   , BASE_SPACE   , BASE_SPACE   , KC_RGUI   , STICKY_SYM
+    [BASE] = LAYOUT( // Base QWERTY layer
+        KC_GRV    , KC_1      , KC_2      , KC_3      , KC_4      , KC_5                             , KC_6       , KC_7      , KC_8      , KC_9         , KC_0        , KC_MINS      ,
+        KC_ESC    , KC_Q      , KC_W      , KC_E      , KC_R      , KC_T                             , KC_Y       , KC_U      , KC_I      , KC_O         , KC_P        , KC_BSPC      ,
+        KC_TAB    , KC_A      , KC_S      , KC_D      , KC_F      , KC_G                             , KC_H       , KC_J      , KC_K      , KC_L         , KC_QUOT     , KC_ENT       ,
+        KC_LSFT   , KC_Z      , KC_X      , KC_C      , KC_V      , KC_B    , TO(GAMING) , TO(GAMING), KC_N       , KC_M      , KC_COMM   , KC_DOT       , KC_SLSH     , KC_RSFT      ,
+                                            KC_LCTL   , KC_RGUI   , ALT_DEL , BASE_SPACE , BASE_SPACE, KC_RALT    , KC_RGUI   , SSYM_CALL
     ),
-    [NAV_NUM] = LAYOUT_split_3x6_3( // Left-side navigation, right-side numpad layer
-        KC_GRV    , KC_HOME   , KC_UP     , KC_END    , KC_PLUS   , KC_LPRN      , KC_RPRN      , KC_7      , KC_8      , KC_9         , KC_DEL      , KC_BSPC      ,
-        KC_TAB    , KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_EQL    , KC_LCBR      , KC_RCBR      , KC_4      , KC_5      , KC_6         , KC_SCLN     , KC_ENT       ,
-        KC_LSFT   , KC_PIPE   , KC_UNDS   , KC_COLN   , KC_MINS   , KC_LBRC      , KC_RBRC      , KC_1      , KC_2      , KC_3         , KC_BSLS     , KC_RSFT      ,
-                                            KC_TRNS   , KC_TRNS   , NAV_NUM_SPACE, NAV_NUM_SPACE, KC_0      , KC_TRNS
+
+    [GAMING] = LAYOUT( // Gaming layer
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS                          , KC_TRNS    , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS     , KC_TRNS      ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS                          , KC_TRNS    , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS     , KC_TRNS      ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS                          , KC_TRNS    , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS     , KC_TRNS      ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS ,  TO(BASE)  , TO(BASE)  , KC_TRNS    , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS     , KC_TRNS      ,
+                                            KC_TRNS   , KC_NO     , KC_LALT ,  KC_SPACE  , BASE_SPACE, KC_TRNS    , KC_NO     , KC_TRNS
     ),
-    [NUM_SYM_FN] = LAYOUT_split_3x6_3( // Top-row numbers, middle-row symbols, bottom row function keys layer
-        KC_1      , KC_2      , KC_3      , KC_4      , KC_5      , KC_6         , KC_7         , KC_8      , KC_9      , KC_0         , KC_MINS     , KC_EQL       ,
-        KC_EXLM   , KC_AT     , KC_HASH   , KC_DLR    , KC_PERC   , KC_CIRC      , KC_AMPR      , KC_ASTR   , KC_LPRN   , KC_RPRN      , KC_UNDS     , KC_PLUS      ,
-        KC_F1     , KC_F2     , KC_F3     , KC_F4     , KC_F5     , KC_F6        , KC_F7        , KC_F8     , KC_F9     , KC_F10       , KC_F11      , KC_F12       ,
-                                            KC_CAPS   , KC_MPLY   , KC_TRNS      , KC_TRNS      , KC_MPRV   , KC_MNXT
+
+    [NAV_NUM] = LAYOUT( // Left-side navigation, right-side numpad layer
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS                          , KC_TRNS    , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS     , KC_TRNS      ,
+        KC_GRV    , ND_LEFT   , KC_UP     , ND_RIGHT  , KC_PLUS   , KC_LPRN                          , KC_RPRN    , KC_7      , KC_8      , KC_9         , KC_DEL      , KC_BSPC      ,
+        KC_TAB    , KC_LEFT   , KC_DOWN   , KC_RIGHT  , KC_EQL    , KC_LCBR                          , KC_RCBR    , KC_4      , KC_5      , KC_6         , KC_SCLN     , KC_ENT       ,
+        KC_LSFT   , KC_PIPE   , KC_UNDS   , KC_COLN   , KC_MINS   , KC_LBRC ,  KC_TRNS   , KC_TRNS   , KC_RBRC    , KC_1      , KC_2      , KC_3         , KC_BSLS     , KC_RSFT      ,
+                                            KC_TRNS   , KC_TRNS   , KC_TRNS ,  NN_SPACE  , NN_SPACE  , KC_0       , KC_TRNS   , KC_TRNS
     ),
-    [APP_NAV] = LAYOUT_split_3x6_3( // Transparent left-side, application navigation right-side
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , TAB_LEFT     , TAB_RIGHT, KC_HOME    , KC_UP        , KC_END      , ALT_F4       ,
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , BACK         , FORWARD  , KC_LEFT    , KC_DOWN      , KC_RIGHT    , SELECT_LINE  ,
-        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS      , ZOOM_OUT     , ZOOM_IN  , NEXT_VIEW  , PREV_VIEW    , DESKTOP_LEFT, DESKTOP_RIGHT,
-                                            KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS      , MUSIC    , KC_TRNS
+
+    [NUM_SYM_FN] = LAYOUT( // Top-row numbers, middle-row symbols, bottom row function keys layer
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS                          , KC_TRNS    , KC_TRNS   , KC_TRNS   , KC_TRNS      , KC_TRNS     , KC_TRNS      ,
+        KC_1      , KC_2      , KC_3      , KC_4      , KC_5      , KC_6                             , KC_7       , KC_8      , KC_9      , KC_0         , KC_MINS     , KC_EQL       ,
+        KC_EXLM   , KC_AT     , KC_HASH   , KC_DLR    , KC_PERC   , KC_CIRC                          , KC_AMPR    , KC_ASTR   , KC_LPRN   , KC_RPRN      , KC_UNDS     , KC_PLUS      ,
+        KC_F1     , KC_F2     , KC_F3     , KC_F4     , KC_F5     , KC_F6   ,  KC_TRNS   , KC_TRNS   , KC_F7      , KC_F8     , KC_F9     , KC_F10       , KC_F11      , KC_F12       ,
+                                            KC_CAPS   , KC_TRNS   , KC_TRNS ,  KC_TRNS   , KC_TRNS   , KC_TRNS    , KC_TRNS   , KC_TRNS
     ),
-    // [MATH_SYMBOLS] = LAYOUT_split_3x6_3( // Space Cadet symbols
-    //     KC_TRNS, X(CONJUNCTION), X(DISJUNCTION), X(INTERSECTION), X(UNION)        , X(SUPERSET)      , X(SUPERSET) , X(UNIVERSAL), X(INFINITYSYM), X(EXISTENTIAL), X(DERIVATIVE), KC_TRNS,
-    //     KC_TRNS, X(FALSUM)     , X(VERUM)      , X(TURNSTILE)   , X(ADJUNCTION)   , X(UPARROW)       , X(DOWNARROW), X(LEFTARROW), X(RIGHTARROW) , X(LRARROW)    , KC_TRNS      , KC_TRNS,
-    //     KC_TRNS, X(BLQUADRANT) , X(TLQUADRANT) , X(NOTEQUAL)    , X(APPROXIMATELY), X(STRONGEQUALITY), X(LTEQUAL)  , X(GTEQUAL)  , KC_TRNS       , KC_TRNS       , KC_TRNS      , KC_TRNS,
-    //                                              KC_TRNS        , KC_TRNS         , KC_TRNS          , KC_TRNS     , KC_TRNS     , KC_TRNS
-    // ),
+
+    [APP_NAV] = LAYOUT( // Transparent left-side, application navigation right-side
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS                          , KC_TRNS    , KC_TRNS  , KC_TRNS    , KC_TRNS      , KC_TRNS     , KC_TRNS      ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS                          , TAB_LEFT   , TAB_RIGHT, KC_HOME    , KC_UP        , KC_END      , ALT_F4       ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS                          , BACK       , FORWARD  , KC_LEFT    , KC_DOWN      , KC_RIGHT    , SELECT_LINE  ,
+        KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS   , KC_TRNS ,  KC_TRNS   , KC_TRNS   , ZOOM_OUT   , ZOOM_IN  , KC_TRNS    , KC_TRNS      , DESKTOP_LEFT, DESKTOP_RIGHT,
+                                            KC_TRNS   , KC_TRNS   , KC_TRNS ,  KC_TRNS   , KC_TRNS   , KC_TRNS    , KC_TRNS  , KC_TRNS
+    )
 };
 
 // KEY LOGGER SETUP-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -327,14 +287,14 @@ void remove_space(void) {
     }
 };
 
-// STICKY_SYM SETUP-----------------------------------------------------------------------------------------------------------------------------------------------
+// SSYM SETUP-----------------------------------------------------------------------------------------------------------------------------------------------
 
-#define sticky_sym_table_rows 9
-#define sticky_sym_table_cols 4
+#define SSYM_table_rows 9
+#define SSYM_table_cols 4
 
-char sticky_sym[sticky_sym_table_cols] = {'~', 't', 'i', 'l'};
+char SSYM[SSYM_table_cols] = {'~', 't', 'i', 'l'};
 
-const char sticky_sym_table[sticky_sym_table_rows][sticky_sym_table_rows] = {
+const char SSYM_table[SSYM_table_rows][SSYM_table_rows] = {
     {'!','e','x','c'},
     {'@','a','t','s'},
     {'#','p','o','u'},
@@ -346,7 +306,7 @@ const char sticky_sym_table[sticky_sym_table_rows][sticky_sym_table_rows] = {
     {'~','t','i','l'},
 };
 
-const char sticky_sym_table_shifted[sticky_sym_table_rows][sticky_sym_table_rows] = {
+const char SSYM_table_shifted[SSYM_table_rows][SSYM_table_rows] = {
     {'!','E','X','C'},
     {'@','A','T','S'},
     {'#','P','O','U'},
@@ -358,15 +318,15 @@ const char sticky_sym_table_shifted[sticky_sym_table_rows][sticky_sym_table_rows
     {'~','T','I','L'},
 };
 
-void send_sticky_sym_array(void){
-    SEND_STRING("\n<sticky_sym: {");
+void send_SSYM_array(void){
+    SEND_STRING("\n<SSYM: {");
 
-    for(int i = 0; i < sticky_sym_table_cols; i++){
+    for(int i = 0; i < SSYM_table_cols; i++){
         send_char('\'');
-        send_char(sticky_sym[i]);
+        send_char(SSYM[i]);
         send_char('\'');
 
-        if(i != sticky_sym_table_cols - 1){
+        if(i != SSYM_table_cols - 1){
             send_char(',');
         }
     }
@@ -374,24 +334,24 @@ void send_sticky_sym_array(void){
     SEND_STRING("}>\n");
 }
 
-bool update_sticky_sym(void){
-    for(int i = 0; i < sticky_sym_table_rows; i++){
+bool update_SSYM(void){
+    for(int i = 0; i < SSYM_table_rows; i++){
         if(
             (
-                (key_log[key_log_rows-1][key_log_cols-3] == sticky_sym_table[i][1] || key_log[key_log_rows-1][key_log_cols-3] == sticky_sym_table_shifted[i][1]) &&
-                (key_log[key_log_rows-1][key_log_cols-2] == sticky_sym_table[i][2] || key_log[key_log_rows-1][key_log_cols-2] == sticky_sym_table_shifted[i][2]) &&
-                (key_log[key_log_rows-1][key_log_cols-1] == sticky_sym_table[i][3] || key_log[key_log_rows-1][key_log_cols-1] == sticky_sym_table_shifted[i][3])
+                (key_log[key_log_rows-1][key_log_cols-3] == SSYM_table[i][1] || key_log[key_log_rows-1][key_log_cols-3] == SSYM_table_shifted[i][1]) &&
+                (key_log[key_log_rows-1][key_log_cols-2] == SSYM_table[i][2] || key_log[key_log_rows-1][key_log_cols-2] == SSYM_table_shifted[i][2]) &&
+                (key_log[key_log_rows-1][key_log_cols-1] == SSYM_table[i][3] || key_log[key_log_rows-1][key_log_cols-1] == SSYM_table_shifted[i][3])
             ) && !(
-                (sticky_sym_table[i][1] == sticky_sym[1] || sticky_sym_table_shifted[i][1] == sticky_sym[1]) &&
-                (sticky_sym_table[i][2] == sticky_sym[2] || sticky_sym_table_shifted[i][2] == sticky_sym[2]) &&
-                (sticky_sym_table[i][3] == sticky_sym[3] || sticky_sym_table_shifted[i][3] == sticky_sym[3])
+                (SSYM_table[i][1] == SSYM[1] || SSYM_table_shifted[i][1] == SSYM[1]) &&
+                (SSYM_table[i][2] == SSYM[2] || SSYM_table_shifted[i][2] == SSYM[2]) &&
+                (SSYM_table[i][3] == SSYM[3] || SSYM_table_shifted[i][3] == SSYM[3])
             )
         ) {
-            for(int j = 0; j < sticky_sym_table_cols; j++){
-                sticky_sym[j] = sticky_sym_table[i][j];
+            for(int j = 0; j < SSYM_table_cols; j++){
+                SSYM[j] = SSYM_table[i][j];
             }
 
-            for(int j = 0; j < sticky_sym_table_cols - 1; j++){
+            for(int j = 0; j < SSYM_table_cols - 1; j++){
                 tap_code(KC_BSPC);
             }
 
@@ -402,15 +362,15 @@ bool update_sticky_sym(void){
     return false;
 };
 
-void sticky_sym_fn(void){
-    update_sticky_sym();
-    if(sticky_sym[0] != ' '){
-        send_char(sticky_sym[0]);
+void SSYM_fn(void){
+    update_SSYM();
+    if(SSYM[0] != ' '){
+        send_char(SSYM[0]);
 
         for(int i = 0; i < key_log_rows; i++){
             for(int j = 0; j < key_log_cols; j++){
                 if(i == key_log_rows - 1 && j == key_log_cols - 1){
-                    key_log[i][j] = sticky_sym[0];
+                    key_log[i][j] = SSYM[0];
                 } else {
                     key_log[i][j] = key_log[i][j+1];
                 }
@@ -453,6 +413,9 @@ void sticky_sym_fn(void){
             case BASE:
                 oled_write("Base", false);
                 break;
+            case GAMING:
+                oled_write("Game", false);
+                break;
             case NAV_NUM:
                 oled_write("NNum", false);
                 break;
@@ -462,8 +425,6 @@ void sticky_sym_fn(void){
             case APP_NAV:
                 oled_write("ANav", false);
                 break;
-            case MATH_SYMBOLS:
-                oled_write("MSym", false);
         }
 
         // 2/5 CAPS LOCK--------------------------------------------------
@@ -474,14 +435,14 @@ void sticky_sym_fn(void){
         led_t led_state = host_keyboard_led_state();
         oled_write_P(led_state.caps_lock ? PSTR("On ") : PSTR("Off"), false);
 
-        // 3/5 STICKY_SYM-------------------------------------------------
+        // 3/5 SSYM-------------------------------------------------
 
         oled_set_cursor(0,8);
         oled_write("SSYM:", false);
 
-        for(int i = 0; i < sticky_sym_table_cols; i++) {
+        for(int i = 0; i < SSYM_table_cols; i++) {
             oled_set_cursor(i,9);
-            oled_write((char[2]) { (char) sticky_sym[i], '\0' },false);
+            oled_write((char[2]) { (char) SSYM[i], '\0' },false);
         }
 
         // 4,5/5 WPM------------------------------------------------------
@@ -517,7 +478,7 @@ void sticky_sym_fn(void){
 
     //STICKY SYM TABLE VIEW------------------------------------------------------------------------
 
-    void render_sticky_sym_table(void){
+    void render_SSYM_table(void){
 
         // VIEW HEADER----------------------------------------------------
 
@@ -530,14 +491,14 @@ void sticky_sym_fn(void){
 
         for(int i = 0; i < oled_portrait_rows; i++){
             for(int j = 0; j < oled_portrait_cols; j++){
-                if(i < sticky_sym_table_rows){
+                if(i < SSYM_table_rows){
                         oled_set_cursor(j,i+2);
                     if(j == 0) {
-                        oled_write((char[2]) { (char) sticky_sym_table[i][j], '\0' },false);
+                        oled_write((char[2]) { (char) SSYM_table[i][j], '\0' },false);
                     } else if(j == 1) {
                         oled_write(" ", false);
                     } else {
-                        oled_write((char[2]) { (char) sticky_sym_table[i][j-1], '\0' },false);
+                        oled_write((char[2]) { (char) SSYM_table[i][j-1], '\0' },false);
                     }
                 }
             }
@@ -545,8 +506,8 @@ void sticky_sym_fn(void){
 
         // VIEW FOOTER----------------------------------------------------
 
-        if(sticky_sym_table_rows < oled_portrait_rows - 2){
-            oled_set_cursor(0,sticky_sym_table_rows+2);
+        if(SSYM_table_rows < oled_portrait_rows - 2){
+            oled_set_cursor(0,SSYM_table_rows+2);
             oled_write("-----",false);
         }
     };
@@ -582,11 +543,11 @@ void sticky_sym_fn(void){
                         is_portrait = true;
                     }
 
-                    render_sticky_sym_table();
+                    render_SSYM_table();
                     break;
             }
         }else{
-            render_sticky_sym_table();
+            render_SSYM_table();
         }
 
         return false;
@@ -620,7 +581,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
     bool other_key_pressed = false;
     static uint16_t press_timer;
 
-    if(keycode != BASE_SPACE && keycode != NAV_NUM_SPACE){
+    if(keycode != BASE_SPACE && keycode != NN_SPACE){
         if(record->event.pressed){
             other_key_pressed = true;
         }
@@ -628,7 +589,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 
     switch (keycode) {
         case BASE_SPACE:
-        case NAV_NUM_SPACE:
+        case NN_SPACE:
             if (record->event.pressed) {
                 other_key_pressed = false;
                 press_timer = timer_read();
@@ -648,33 +609,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
             }
 
             return false;
-        // case NEXT_SENTENCE:
-        //     if (record->event.pressed) {
-        //         SEND_STRING(". ");
-        //         add_oneshot_mods(MOD_BIT(KC_LSFT));
-        //     }
 
-        //     return false;
-        // case ARROW:
-        //     if (record->event.pressed) {
-        //         if ((mods | oneshot_mods) & MOD_MASK_SHIFT) {
-        //             del_oneshot_mods(MOD_MASK_SHIFT);
-        //             unregister_mods(MOD_MASK_SHIFT);
-        //             SEND_STRING("=>");
-        //             register_mods(mods);
-        //         } else {
-        //             SEND_STRING("->");
-        //         }
-        //     }
-
-        //     return false;
-        case STICKY_SYM:
+        case SSYM_CALL:
             if (record->event.pressed) {
                 press_timer = timer_read();
                 layer_on(APP_NAV);
             } else {
                 if(timer_elapsed(press_timer) < 200){
-                    sticky_sym_fn();
+                    SSYM_fn();
                 }
 
                 layer_off(APP_NAV);
