@@ -38,7 +38,6 @@
 #define PRODUCT_ID      0x3430 // "40"
 #define DEVICE_VER      0x0001
 
-
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 12
