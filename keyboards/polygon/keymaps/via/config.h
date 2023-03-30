@@ -19,7 +19,4 @@
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2
 */
 
-/* defining an extra row for encoder assignment in VIA */
 
-#undef MATRIX_ROWS
-#define MATRIX_ROWS 6
