@@ -139,6 +139,18 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 }
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+  if (layer_state_is(GAMING)) {
+    switch (combo_index) {
+      case HOMEROW_UP:
+      case HOMEROW_LEFT:
+      case HOMEROW_RIGHT:
+      case HOMEROW_DOWN:
+      case HOMEROW_HOME:
+      case HOMEROW_END:
+        return false;
+    }
+  }
+
   return !layer_state_is(BASE) && !layer_state_is(WORKMAN);
 }
 

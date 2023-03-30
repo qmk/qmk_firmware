@@ -50,7 +50,6 @@ bool caps_word_on(void) {
   return hw_caps_on && !full_caps_mode;
 }
 
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     if (sarcasm_on) {
@@ -310,6 +309,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LMB_SPAM:
       if (record->event.pressed) {
         is_lmb_timer_active = ! is_lmb_timer_active;
+        led_show_variable_status(is_lmb_timer_active);
         lmb_timer = timer_read();
       }
       break;

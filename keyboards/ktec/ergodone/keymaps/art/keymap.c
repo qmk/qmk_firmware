@@ -42,6 +42,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case NAV:
     case CTRL_NAV:
     case SHIFT_NAV:
+    case GAMING:
       num_led_on();
       break;
     case FKEYS:
@@ -122,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,          _______,      _______,    _______,    _______,           _______,   _______,
   _______,          KC_Q,         KC_D,       KC_R,       KC_W,              KC_B,      _______,
   _______,          KC_A,         KC_S,       KC_H,       KC_T,              KC_G,
-  _______,          KC_Z,         KC_X,       KC_C,       KC_V,              KC_M,      _______,
+  _______,          KC_Z,         KC_X,       KC_C,       KC_V,              KC_M,      TO(GAMING),
   _______,          _______,      _______,    _______,    _______,
 
                                             _______,   _______,
@@ -240,7 +241,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TILD_BLOCK,       _______,          QUOTES_RU,        K_CUST1,          K_CUST2,          K_CUST3,          _______,
   _______,          _______,          _______,          NEUTRAL_COPY,     _______,          BEAT_BROWSER,     _______,
   _______,          ADMINS,           SARCASM,          ALL_BEST,         CTRL_CTV,         _______,
-  _______,          _______,          _______,          CTRL_CAV,         _______,          LMB_SPAM,         _______,
+  _______,          _______,          _______,          CTRL_CAV,         _______,          LMB_SPAM,         TO(GAMING),
   _______,          _______,          _______,          _______,          _______,
 
                                             _______,   _______,
@@ -403,6 +404,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,     XXXXXXX,    XXXXXXX
 ),
 
+[GAMING] = LAYOUT_ergodox(
+  // -----------------------------------------------------left hand-----------------------------------------------------
+  KC_GRAVE,         KC_1,         KC_2,       KC_3,       KC_4,              KC_5,      KC_ESCAPE,
+  KC_TAB,           KC_Q,         KC_W,       KC_E,       KC_R,              KC_T,      KC_BSLS,
+  KC_CAPS,          KC_A,         KC_S,       KC_D,       KC_F,              KC_G,
+  KC_LSFT,          KC_Z,         KC_X,       KC_C,       KC_V,              KC_B,      TO(WORKMAN),
+  KC_LCTL,          KC_LEFT,      KC_LWIN,    KC_LALT,    KC_RIGHT,
+
+                                           KC_INS,   KC_UP,
+                                                      KC_DOWN,
+                                  KC_SPC,  KC_BSPC,   KC_DEL,
+
+  // -----------------------------------------------------right hand-----------------------------------------------------
+  KC_MINS,          KC_6,         KC_7,       KC_8,       KC_9,              KC_0,      KC_RBRC,
+  KC_EQL,           KC_Y,         KC_U,       KC_I,       KC_O,              KC_P,      KC_LBRC,
+                    KC_H,         KC_J,       KC_K,       KC_L,              KC_SCLN,   KC_QUOT,
+  XXXXXXX,          KC_N,         KC_M,       KC_COMM,    KC_DOT,            KC_SLSH,   KC_RSFT,
+                                  KC_HOME,    KC_END,     TO(QWERTY),        KC_RALT,   KC_RCTL,
+
+    KC_LEFT,                KC_RIGHT,
+    KC_UP,
+    KC_DOWN,  XXXXXXX,      KC_ENT
+),
 
 /* Numpad
  *
