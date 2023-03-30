@@ -34,7 +34,7 @@ One and a half octaves piano on the top rows, control signals in the bottom rows
 
 ## Joystick
 
-![bm40rgb-wolff-game](https://user-images.githubusercontent.com/62627597/228709807-43f39b05-03a6-4e48-9fca-15ad28824f5b.png)
+![bm40rgb-wolff-game](https://user-images.githubusercontent.com/62627597/228849208-9fb10cf3-0a11-4799-877a-48eafe811078.png)
 
 Emulates a 32-button joystick for using as a button-box or dedicated game controller.
 
@@ -68,7 +68,7 @@ These are utility overlays toggled by a key in the Adjust layer.
 
 ## Handswap Layer
 
-![bm40rgb-swap-hands](https://user-images.githubusercontent.com/62627597/228848216-ae998d68-6807-4726-9306-6221a0f3b151.png)
+![bm40rgb-swap-hands](https://user-images.githubusercontent.com/62627597/228849174-e3bca496-9f5a-49d6-a41e-9b65adbc6c34.png)
 
 For one-hand typing. The three top rows are mirrorred when SWAP is held down.
 
