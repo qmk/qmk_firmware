@@ -29,32 +29,42 @@ Bottom: Behavior when tapped (tap/hold)
 
 ## Normal
 
-![bm40rgb-wolff-base](https://user-images.githubusercontent.com/62627597/228594776-c683da4e-a7fe-43d1-a3e8-740d6eda9e3e.png)
+![bm40rgb-wolff-base](https://user-images.githubusercontent.com/62627597/228708154-8a7cf08c-8ae0-44c6-a22d-512bf690e8c7.png)
 
 QWERTY, Dvorak, Colemak and Workman are built-in.
 
 ## MIDI
 
-![bm40rgb-wolff-midi](https://user-images.githubusercontent.com/62627597/228644387-0b7c99ad-9f4e-4052-ae50-07690794a11f.png)
+![bm40rgb-wolff-midi](https://user-images.githubusercontent.com/62627597/228708182-5ba2b9f4-e1f4-4e10-be6e-58ff373f274a.png)
 
 One and a half octaves piano on the top rows, control signals in the bottom rows. SYM and FUN remain accessible so the ADJ layer can be accessed.
 
-# Auxiliary layers
+## Joystick
+
+(Image)
+
+# Modifier layers
+
+## NAV Layer
+
+(Image)
+
+The layer you'll access most often.
 
 ## FUN Layer
 
-![bm40rgb-wolff-fun](https://user-images.githubusercontent.com/62627597/228640768-b2283b05-bc40-478e-83cf-957dbce9b476.png)
+![bm40rgb-wolff-fun](https://user-images.githubusercontent.com/62627597/228708222-044c9ff2-af17-4259-ab36-490aef111fae.png)
 
 ## ADJUST Layer (SYM + FUN)
 
-![bm40rgb-wolff-adj(1)](https://user-images.githubusercontent.com/62627597/228640331-5e445822-3661-4445-bf2b-7e96f6f47413.png)
+![bm40rgb-wolff-adj](https://user-images.githubusercontent.com/62627597/228708232-9281bfb4-f7da-4999-9a62-9b102d6880a2.png)
 
 # Additional/utility layers (toggled by a key in the ADJ layer)
 
 ## SWP Layer (Hand-swap layer, for one-hand typing)
 
-(Image)
+![bm40rgb-swap-hands](https://user-images.githubusercontent.com/62627597/228708258-646bb5f8-54cd-47ed-84fc-e0d2d0e985bd.png)
 
 ## CPY Layer (One-hand navigation layer)
 
-(Image)
+![bm40rgb-copy(1)](https://user-images.githubusercontent.com/62627597/228708266-6a96468d-cc18-48ae-906b-85bfccfc5ce1.png)
