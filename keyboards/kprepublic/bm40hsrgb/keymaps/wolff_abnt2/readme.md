@@ -16,15 +16,6 @@ It's built on the following principles:
 
 It will only work as intended if your system keyboard layout is set to Brazilian ABNT2. It may work with other international layouts, but some keys, including brackets and the ´ ` ~ ^ keys, will get broken. If your system layout is another one, it should be relatively easy to change keymap.c (search and replace each key with the equivalent one from the international keymaps file). 
 
-# Layers and functions
-
-In each key:
-Top left: SYM layer; 
-Top right: FUN layer;
-Bottom left: NAV layer;
-Bottom right: NUM layer;
-Bottom: Behavior when tapped (tap/hold)
-
 # Base Layers
 
 These are selected as the base by a button in the Adjust layer.
