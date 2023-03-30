@@ -9,9 +9,6 @@
         "enabled": true,
         "matrix": [1, 1]
     },
-    
-    "debounce" : 5,
-
     "diode_direction": "ROW2COL",
 
     "matrix_pins": {
