@@ -59,7 +59,7 @@ The layer you'll access most often.
 
 ## Mouse Layer
 
-(Image)
+![bm40rgb-wolff-mouse](https://user-images.githubusercontent.com/62627597/228710855-89a8c642-fd34-459c-99fe-67267b8dc34d.png)
 
 Emulates mouse action so you can perform simple tasks without reaching for the mouse.
 
