@@ -6,6 +6,7 @@
     },
     "diode_direction": "COL2ROW",
     "ws2812": {
+        "pin": "A6",
         "driver": "pwm"
     },
     "encoder": {

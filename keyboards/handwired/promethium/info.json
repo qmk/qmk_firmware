@@ -8,6 +8,9 @@
     "pid": "0x6048",
     "device_version": "0.0.1"
   },
+  "ws2812": {
+    "pin": "B5"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "layouts": {
