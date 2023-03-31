@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "via_sync.h"
 
 // Layers enum
 enum junco_layers { _QWERTY, _COLEMAK_DH, _SYMB, _EXT, _ADJUST };
@@ -14,10 +13,6 @@ enum custom_keycodes {
     KC_OS = MAGIC_TOGGLE_ALT_GUI,
     // Keycode for swapping the base layer between QWERTY and Colemak-DH
     KC_TOGGLE_BASE = SAFE_RANGE,
-    // Keycode for toggling Junco Sync On/Off
-    KC_JSYNC,
-    // Keycode for manually syncing VIA data
-    KC_VIASYNC,
     // Keycode for redo action (Ctrl + Y on windows, Ctrl + Shift + Z on macOS)
     KC_REDO,
     // Keycodes for next/previous word
@@ -26,9 +21,6 @@ enum custom_keycodes {
     // Keycode for sticking/unsticking the adjust layer
     KC_ADJST
 };
-
-// Whether VIA needs sync
-bool needs_via_sync = false;
 
 /* LED indicators */
 bool is_caps_lock_enabled(void) { // Caps lock
@@ -165,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ├────┼────┼────┼────┼────┼────┤               ├────┼────┼────┼────┼────┼────┤
         │SpdU│HueU│SatU│ValU│Rnxt│Stck│               │    │EClr│Rbt │DBUG│BOOT│    │
         ├────┼────┼────┼────┼────┼────┤               ├────┼────┼────┼────┼────┼────┤
-        │SpdD│HueD│SatD│ValD│Rprv│RTgl│               │    │LOUT│ OS │VSNC│TJSC│    │
+        │SpdD│HueD│SatD│ValD│Rprv│RTgl│               │    │LOUT│ OS │    │    │    │
         ├────┼────┼────┼────┼────┼────┼────┐     ┌────┼────┼────┼────┼────┼────┼────┤
         │    │    │    │    │    │    │RTgl│     │    │    │    │    │    │    │    │
         └────┴────┴────┴────┴────┴────┴────┘     └────┴────┴────┴────┴────┴────┴────┘
@@ -176,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_split4x6_r1(
         KC_NO,     KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,                       KC_NO,       KC_NO,          KC_NO,   KC_NO,      KC_NO,    KC_NO,
         RGB_SPI,   RGB_HUI,    RGB_SAI,    RGB_VAI,    RGB_MOD,    KC_ADJST,                    KC_NO,       EE_CLR,         QK_RBT,  DB_TOGG,    QK_BOOT,  KC_NO,
-        RGB_SPD,   RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_RMOD,   RGB_TOG,                     KC_NO,       KC_TOGGLE_BASE, KC_OS,   KC_VIASYNC, KC_JSYNC, KC_NO,
+        RGB_SPD,   RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_RMOD,   RGB_TOG,                     KC_NO,       KC_TOGGLE_BASE, KC_OS,   KC_NO,      KC_NO, KC_NO,
         KC_NO,     KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,   RGB_TOG,  KC_NO,    KC_NO,       KC_NO,          KC_NO,   KC_NO,      KC_NO,    KC_NO,
                                _______,    _______,    _______,    _______, _______,  _______,  _______,     _______,        _______, _______
     )
@@ -218,12 +210,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 #endif
 
-// User level post init
-void keyboard_post_init_user(void) {
-    // Register VIA Sync
-    via_sync_init();
-}
-
 // Called whenever a layer is changed
 layer_state_t layer_state_set_user(layer_state_t state) {
     // Make sure the adjust layer isn't sticky
@@ -245,24 +231,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     default_layer_set(1UL << _QWERTY);
                 }
-                // Junco Sync will automatically save and sync the default layer when we use DF(layer)
-                // in a keymap, but because we are manually setting the default layer we need
-                // to tell the keyboard a sync is needed.
-                kb_needs_sync = true;
-            }
-            return false;
-
-        // Toggle Junco Sync On/Off
-        case KC_JSYNC:
-            if (record->event.pressed) {
-                is_junco_sync_enabled() ? junco_sync_disable() : junco_sync_enable();
-            }
-            return false;
-
-        // Manually sync VIA data
-        case KC_VIASYNC:
-            if (record->event.pressed) {
-                needs_via_sync = true;
             }
             return false;
 
@@ -358,26 +326,4 @@ bool rgb_matrix_indicators_user(void) {
     if (is_adjust_layer_sticky(curr_layer_state)) rgb_matrix_set_color(ADJST_LED_INDEX, rgb.r, rgb.g, rgb.b);
 
     return false;
-}
-
-/*
-    - User level housekeeping -
-    Actually where the VIA sync get called. Housekeeping is called periodically,
-    so sync reties will happen automatically and it can be used as a loop
-    that doesn't block processing key events.
-*/
-void housekeeping_task_user(void) {
-    // See if a VIA sync needs to happen
-    if (!needs_via_sync) return;
-
-    /* Only for master side */
-    if (!is_keyboard_master()) return;
-
-    // Throttle packet sending
-    static uint32_t last_sync = 0;
-    if (timer_elapsed32(last_sync) < VIA_SYNC_THROTTLE) return;
-    last_sync = timer_read32();
-
-    // Want to stay true when retrying and sending packets
-    needs_via_sync = !via_sync();
 }

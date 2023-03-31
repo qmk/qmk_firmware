@@ -18,5 +18,3 @@ VIA_ENABLE = yes
 
 # Custom RGB Matrix Effect
 RGB_MATRIX_CUSTOM_USER = yes
-
-SRC += via_sync.c

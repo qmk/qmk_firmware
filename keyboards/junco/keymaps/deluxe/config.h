@@ -3,16 +3,6 @@
 
 #pragma once
 
-/*  - Junco Sync -
-    Enables a special feature that will sync
-    data between the halves of the split keyboard.
-    So no matter which side you plug in, your
-    default layer, RGB settings, and any changes made
-    via the Magic keycodes will be the same and saved
-    after powering off or using a different computer.
-*/
-#define JUNCO_SYNC_ENABLE
-
 /* Indicator LEDs */
 // LED index for caps lock key on the extension layer
 #define CAPS_LOCK_LED_INDEX 25
@@ -24,12 +14,6 @@
 // Number of Layers that can be used by VIA.
 // Change this if you want more layers
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
-/* Syncing VIA */
-// Time between each packet being sent (100ms), increase if issues
-#define VIA_SYNC_THROTTLE 100
-// User level sync ID
-#define SPLIT_TRANSACTION_IDS_USER USER_VIA_SYNC
 
 /* - Encoder settings - */
 #ifdef ENCODER_ENABLE

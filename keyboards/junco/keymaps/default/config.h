@@ -3,16 +3,6 @@
 
 #pragma once
 
-/*  - Junco Sync -
-    Uncomment to enable a special feature that will sync
-    data between the halves of the split keyboard.
-    So no matter which side you plug in, your
-    default layer, RGB settings, and any changes made
-    via the Magic keycodes will be the same and saved
-    after powering off or using a different computer.
-*/
-// #define JUNCO_SYNC_ENABLE
-
 /* - Encoder settings - */
 #ifdef ENCODER_ENABLE
 #    define ENCODER_RESOLUTION 4

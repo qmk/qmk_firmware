@@ -54,4 +54,4 @@ QWERTY is default when flashing your keyboard, but you can change it to Colemak-
 
 If you've never heard of it, Colemak is a keyboard layout that was designed to be a more ergonomic, modern, efficient, and comfortable replacement to QWERTY. Colemak was designed to place the most common letters in english on the home row along with many of the most common bigrams together (two letters typed in a row). Colemak-DH is a variant of Colemak that moves D and H to beneath the index fingers rather than the home row since most people find it easier and faster to reach the keys that way rather than the middle of the home row.
 
-![Junco's Colemak-DH Layout](https://i.imgur.com/u5iXszJh.png)
+![Junco's Colemak-DH Layout](https://i.imgur.com/8biZfn2h.png)

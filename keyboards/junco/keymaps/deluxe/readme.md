@@ -1,10 +1,6 @@
 # Deluxe Junco Keymap
 
-This is my personal keymap for Junco at time of writing. It has [VIA](https://www.caniusevia.com/) and [Junco Sync](../../README.md#junco-sync) enabled and departs from the [default layout](../default/README.md) with the encoder mappings and some extra keycodes.
-
-Also, this keymap implements the ability to sync VIA settings between the keyboard halves (key to trigger on the [adjust layer](#adjust-layer)). It did not make sense to add this feature at the keyboard level within Junco Sync as VIA is not fundamental like the default layer, RGB lighting, and Magic settings. VIA should be relegated to user keymaps.
-
-This keymap also adds indicators when caps lock and num lock are enabled. When enabled, that key will become a static white (green on the white backlight mode) but only when the layer that respective key is on is active.
+This is my personal keymap for Junco at time of writing. It departs from the [default layout](../default/README.md) with the encoder mappings and some extra keycodes. This keymap also adds indicators when caps lock and num lock are enabled. When enabled, that key will become a static white (green on the white backlight mode) but only when the layer that respective key is on is active.
 
 I wanted that classic rainbow barf RGB effect for the underglow even if the per-key lighting is something else, so I added 2 custom RGB matrix animations: white per-key lighting with rainbow underglow and pixel rain with rainbow underglow.
 
@@ -42,6 +38,6 @@ Encoders on the right side become undo/redo and scrolling horizontally by word.
 
 Pressing "Stick Adj Layer" will "stick" the adjust layer so you can use the rotary encoders for RGB settings rather than holding down both backspace and delete. To go back to the default layer, press that stick key again or press and release either Del or Backspace. When the adjust layer is currently "sticky" the sticky key will become the indicator color mentioned earlier.
 
-"Toggle Base" will toggle between QWERTY and Colemak-DH, toggle OS will toggle between macOS and Windows key-mappings (swapping WIN/Command with Alt/Option by the thumb keys and properly mapping redo/word scrolling), "VIA Sync" will sync the VIA settings between the keyboard halves (there isn't a way to do this automatically), and "Toggle Junco Sync" will disable/enable Junco Sync.
+"Toggle Base" will toggle between QWERTY and Colemak-DH and toggle OS will toggle between macOS and Windows key-mappings (swapping WIN/Command with Alt/Option by the thumb keys and properly mapping redo/word scrolling).
 
-![Adjust layer](https://i.imgur.com/fRsdlt3h.png)
+![Adjust layer](https://i.imgur.com/71ftNoNh.png)

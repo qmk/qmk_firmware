@@ -3,16 +3,6 @@
 
 #pragma once
 
-/*  - Junco Sync -
-    Uncomment to enable a special feature that will sync
-    data between the halves of the split keyboard.
-    So no matter which side you plug in, your
-    default layer, RGB settings, and any changes made
-    via the Magic keycodes will be the same and saved
-    after powering off or using a different computer.
-*/
-// #define JUNCO_SYNC_ENABLE
-
 // Number of Layers that can be used by VIA.
 // Change this if you want more layers
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
@@ -28,7 +18,7 @@
 
 /*
     - RGB -
-    Defines all effects so VIA can properly select them
+    Defines all effects so VIA can properly select them via index
 */
 #ifdef RGB_MATRIX_ENABLE
 

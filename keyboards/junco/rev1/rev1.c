@@ -1,58 +1,7 @@
 // Copyright 2022 Dane Skalski (@Daneski13)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "junco.h"
-
-// New default bootmagic lite, adds ability to manually set the handedness
-// and won't clear it. Mostly copied from the Core bootmagic_lite.
-__attribute__((weak)) void bootmagic_lite(void) {
-    // Multiple scans because debouncing can't be turned off.
-    matrix_scan();
-#if defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#else
-    wait_ms(30);
-#endif
-    matrix_scan();
-
-    uint8_t row = BOOTMAGIC_LITE_ROW;
-    uint8_t col = BOOTMAGIC_LITE_COLUMN;
-
-#if defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
-    if (!is_keyboard_left()) {
-        row = BOOTMAGIC_LITE_ROW_RIGHT;
-        col = BOOTMAGIC_LITE_COLUMN_RIGHT;
-    }
-#endif
-
-    if (is_keyboard_master()) {
-        // If key next to bootmagic is pressed
-        if (matrix_get_row(row) & (1 << (col + 1))) {
-            // Set left side
-            eeconfig_update_handedness(true);
-            soft_reset_keyboard();
-        }
-
-        // If key 2 over from bootmagic is pressed
-        if (matrix_get_row(row) & (1 << (col + 2))) {
-            // Set right side
-            eeconfig_update_handedness(false);
-            soft_reset_keyboard();
-        }
-    }
-
-    // Normal bootmagic
-    if (matrix_get_row(row) & (1 << col)) {
-        // Clear EEPROM
-#ifdef EE_HANDS
-        eeconfig_init_persist_handedness();
-#else
-        eeconfig_disable();
-#endif
-        // Jump to bootloader.
-        bootloader_jump();
-    }
-}
+#include "quantum.h"
 
 // Hand swap
 #ifdef SWAP_HANDS_ENABLE
