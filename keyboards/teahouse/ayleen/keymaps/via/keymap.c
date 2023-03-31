@@ -86,7 +86,7 @@ void eeconfig_init_user(void) {
     // Default values
     freather.caps.h       = 100;
     freather.caps.s       = 100;
-    freather.caps.v       = 100;
+    freather.caps.v       = 255;
     freather.caps.enabled = true;
     rgblight_set_effect_range(1,1);
     // Write default value to EEPROM now
@@ -97,7 +97,10 @@ void eeconfig_init_user(void) {
 void keyboard_post_init_user(void) {
     // Read custom menu variables from memory
     eeconfig_read_user_datablock(&freather);
+    rgblight_set_effect_range(1,1);
 }
+
+
 
 // Handle the data received by the keyboard from the VIA menus
 void freather_config_set_value(uint8_t *data) {

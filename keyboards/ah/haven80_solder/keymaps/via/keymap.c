@@ -83,7 +83,7 @@ void eeconfig_init_user(void) {
     // Default values
     freather.caps.h       = 60;
     freather.caps.s       = 100;
-    freather.caps.v       = 100;
+    freather.caps.v       = 200;
     freather.caps.enabled = true;
     rgblight_set_effect_range(1,20);
     // Write default value to EEPROM now
