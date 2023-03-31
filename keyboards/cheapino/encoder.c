@@ -7,18 +7,18 @@ static bool colABpressed = false;
 static bool encoderPressed = false;
 
 void clicked(void) {
-    tap_code(KC_MUTE);
+    tap_code(KC_MPLY);
 }
 
 void turned(bool clockwise) {
     if (IS_LAYER_ON(6)) {
-        tap_code(LGUI(clockwise ? KC_DOWN : KC_UP));
+        tap_code(clockwise ? KC_VOLU : KC_VOLD);
     } else if (IS_LAYER_ON(3)) {
-        tap_code(clockwise ? KC_TAB : LSFT(KC_TAB));
+        tap_code16(clockwise ? LCTL(KC_TAB) : LCTL(LSFT(KC_TAB)));
     } else if (IS_LAYER_ON(5)) {
         tap_code(clockwise ? KC_MS_WH_DOWN : KC_MS_WH_UP);
     } else {
-        tap_code(clockwise ? KC_VOLU : KC_VOLD);
+        tap_code16(clockwise ? LGUI(KC_Y) : LGUI(KC_Z));
     }
 }
 
