@@ -1,7 +1,20 @@
 {
     "keyboard_name": "iS0", 
+    "manufacturer": "Illuminati Works",
     "url": "", 
     "maintainer": "ai03", 
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0012",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7",
+        "levels": 5,
+        "breathing": true
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0.25, "y":0, "w":1.25, "h":2}]

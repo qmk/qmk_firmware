@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "iriskeyboards",
+    "keyboard_name": "Iris Rev0",
+    "manufacturer": "SonOfAres",
     "url": "",
     "maintainer": "SonOfAres",
+    "usb": {
+      "vid": "0x494B",
+      "pid": "0x3031",
+      "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
           "layout": [

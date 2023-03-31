@@ -1,7 +1,15 @@
 {
     "keyboard_name": "k8split",
+    "manufacturer": "Ckat",
     "url": "",
     "maintainer": "Ckath",
+    "usb": {
+        "vid": "0xC81D",
+        "pid": "0xC868",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

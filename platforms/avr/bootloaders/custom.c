@@ -15,5 +15,14 @@
  */
 
 #include "bootloader.h"
+#include <avr/wdt.h>
 
 __attribute__((weak)) void bootloader_jump(void) {}
+__attribute__((weak)) void mcu_reset(void) {
+    // setup watchdog timeout
+    wdt_enable(WDTO_60MS);
+
+    // wait for watchdog timer to trigger
+    while (1) {
+    }
+}

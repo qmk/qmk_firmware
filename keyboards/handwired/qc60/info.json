@@ -1,7 +1,18 @@
 {
   "keyboard_name": "QC60",
+  "manufacturer": "PeiorisBoards",
   "url": "",
   "maintainer": "coarse",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0C60",
+    "device_version": "1.0.0"
+  },
+  "split": {
+    "soft_serial_pin": "D0"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
       "layout": [

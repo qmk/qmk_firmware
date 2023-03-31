@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Omnikey-(ish)", 
+    "manufacturer": "Henrik O. Sørensen",
     "url": "https://github.com/henrikosorensen/keyboard_pcbs/tree/master/omnikeyish_pcb", 
     "maintainer": "qmk", 
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0666",
+        "device_version": "13.3.7"
+    },
+    "indicators": {
+        "caps_lock": "E1",
+        "num_lock": "E0",
+        "scroll_lock": "B7"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT_all": {
             "layout": [ {"label":"P11", "x":0, "y":0}, {"label":"P12", "x":1, "y":0}, {"label":"Esc", "x":2.6667, "y":0}, {"label":"F1", "x":4.6667, "y":0}, {"label":"F2", "x":5.6667, "y":0}, {"label":"F3", "x":6.6667, "y":0}, {"label":"F4", "x":7.6667, "y":0}, {"label":"F5", "x":9.1667, "y":0}, {"label":"F6", "x":10.1667, "y":0}, {"label":"F7", "x":11.1667, "y":0}, {"label":"F8", "x":12.1667, "y":0}, {"label":"F9", "x":13.6667, "y":0}, {"label":"F10", "x":14.6667, "y":0}, {"label":"F11", "x":15.6667, "y":0}, {"label":"F12", "x":16.6667, "y":0}, {"label":"PrtSc", "x":18.1667, "y":0}, {"label":"Scroll Lock", "x":19.1667, "y":0}, {"label":"Pause", "x":20.1667, "y":0}, {"x":21.6667, "y":0}, {"x":22.6667, "y":0}, {"x":23.6667, "y":0}, {"x":24.6667, "y":0},

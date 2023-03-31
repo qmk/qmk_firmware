@@ -1,8 +1,17 @@
 {
   "keyboard_name": "QWERTYYdox",
+  "manufacturer": "AYDENandDAD Youtube",
   "identifier": "0x1256",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xCEEB",
+    "pid": "0x1256",
+    "device_version": "1.0.0"
+  },
+  "split": {
+    "soft_serial_pin": "D0"
+  },
   "bootloader": "caterina",
   "processor": "atmega32u4",
   "layouts": {

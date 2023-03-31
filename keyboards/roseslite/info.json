@@ -1,7 +1,15 @@
 {
     "keyboard_name": "roses lite",
+    "manufacturer": "Delta Designs",
     "url": "delta-design.xyz",
     "maintainer": "Reason6/Vk2fgav",
+    "usb": {
+        "vid": "0xDE17",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

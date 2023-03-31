@@ -1,7 +1,28 @@
 {
-    "keyboard_name": "id96",
+    "keyboard_name": "ID96",
+    "manufacturer": "IDOBAO",
     "url": "https://www.idobao.net/collections/90/products/idobao-id96-aluminum-keyboard-kit",
     "maintainer": "vinorodrigues",
+    "usb": {
+        "vid": "0x6964",
+        "pid": "0x0096",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 7,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "C7",
+        "num_lock": "C6",
+        "on_state": 0
+    },
+    "bootmagic": {
+        "matrix": [5, 0]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,7 +1,18 @@
 {
   "keyboard_name": "ortho5by12",
+  "manufacturer": "/u/squeezeonein",
   "url": "https://github.com/itsnoteasy/misc/blob/master/ortho5by12.zip",
   "maintainer": "itsnoteasy",
+  "usb": {
+    "vid": "0x16C0",
+    "pid": "0x27DB",
+    "device_version": "0.0.2"
+  },
+  "bootmagic": {
+    "matrix": [7, 2]
+  },
+  "processor": "atmega328p",
+    "bootloader": "usbasploader",
   "layouts": {
     "LAYOUT_ortho_5x12_1x2uC": {
       "layout": [ 

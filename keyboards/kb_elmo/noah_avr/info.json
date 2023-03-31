@@ -1,12 +1,24 @@
 {
     "keyboard_name": "Noah AVR",
+    "manufacturer": "kb-elmo",
     "url": "https://github.com/kb-elmo/noah_avr",
     "maintainer": "kb-elmo",
+    "usb": {
+        "vid": "0xA68C",
+        "pid": "0x1DB0",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "D6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
         "LAYOUT_ansi_splitbs": "LAYOUT_65_ansi_blocker_split_bs",
         "LAYOUT_iso": "LAYOUT_65_iso_blocker"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_iso_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

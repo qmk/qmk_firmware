@@ -9,14 +9,14 @@
 #define _LAYER7 7
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_LAYER0] = LAYOUT( /* MAC */
-		KC_GESC,  KC_1, 	KC_2, 	  KC_3,  KC_4,  KC_5,  KC_6,	KC_7,  KC_8,	KC_9,	  KC_0,			   KC_MINS,  KC_EQL,  KC_BSPC,
+		QK_GESC,  KC_1, 	KC_2, 	  KC_3,  KC_4,  KC_5,  KC_6,	KC_7,  KC_8,	KC_9,	  KC_0,			   KC_MINS,  KC_EQL,  KC_BSPC,
 		KC_TAB,   KC_Q,     KC_W,     KC_E,  KC_R,  KC_T,  KC_Y,    KC_U,  KC_I,    KC_O,     KC_P,			   KC_LBRC,  KC_RBRC, KC_BSLS,
 		CTL_T(KC_CAPS),  KC_A,     KC_S,     KC_D,  KC_F,  KC_G,  KC_H,    KC_J,  KC_K,    KC_L,     KC_SCLN,         KC_QUOT,           KC_ENT,
 		KC_LSFT,  KC_Z,     KC_X,     KC_C,  KC_V,  KC_B,  KC_N,    KC_M,  KC_COMM, KC_DOT,   RSFT_T(KC_SLSH), KC_UP,             LT(2, KC_DEL),
 		KC_LCTL,  KC_LALT,  KC_LGUI,                KC_SPC,                KC_RGUI,  MO(1)  , KC_LEFT,         KC_DOWN,           KC_RGHT),
 	[_LAYER1] = LAYOUT( /* FN */
 		TO(3),    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_DEL,
-		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  LGUI(LSFT(KC_5)),   KC_SLCK,  KC_PAUS,  _______,  _______,   RESET,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  LGUI(LSFT(KC_5)),   KC_SCRL,  KC_PAUS,  _______,  _______,   QK_BOOT,
 		_______,  KC_VOLU,  KC_VOLD,  KC_MUTE,  KC_EJCT,  _______,  KC_ASTR,  KC_PSLS,  KC_HOME,  KC_PGUP,  _______,  _______,  _______,  _______,
 		_______,  _______,  _______,  _______,  _______,  KC_PPLS,  KC_PMNS,  KC_END,   KC_PGDN,  MO(5),              KC_MPLY,            _______,
 		_______,  _______,  _______,                      TO(4),                        _______,  _______, KC_MPRV,   KC_MSTP,            KC_MFFD),
@@ -27,22 +27,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______,    RGB_VAD,  RGB_VAI,  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    RGB_MOD,                _______,
 		_______,    _______,  _______,                          _______,                            _______,    _______,    RGB_SPD,    RGB_RMOD,               RGB_SPI),
 	[_LAYER3] = LAYOUT( /* NUMPAD */
-		KC_NLCK,  KC_PSLS,  KC_PAST,  KC_PMNS,  KC_PPLS,      _______,    _______,    _______,    _______,    KC_PSLS,  KC_PAST,  KC_PMNS,  KC_PPLS,  _______,
+		KC_NUM,   KC_PSLS,  KC_PAST,  KC_PMNS,  KC_PPLS,      _______,    _______,    _______,    _______,    KC_PSLS,  KC_PAST,  KC_PMNS,  KC_PPLS,  _______,
 		_______,    KC_P7,    KC_P8,    KC_P9,    _______,    _______,    _______,    _______,    KC_P7,    KC_P8,    KC_P9,    _______,    _______,    TO(0),
 		_______,    KC_P4,    KC_P5,    KC_P6,    _______,    _______,    _______,    _______,    KC_P4,    KC_P5,    KC_P6,    _______,              KC_PENT,
 		_______,    KC_P1,    KC_P2,    KC_P3,    _______,    _______,    _______,    _______,    KC_P1,    KC_P2,    KC_P3,    _______,              _______,
 		_______,    KC_P0,    KC_PDOT,                        KC_ENT,                             KC_P0,    KC_PDOT,  _______,  _______,              _______),
 	[_LAYER4] = LAYOUT( /* WIN */
-		KC_GESC,  KC_1,     KC_2,     KC_3,  KC_4,  KC_5,  KC_6,    KC_7,  KC_8,    KC_9,     KC_0,            KC_MINS,  KC_EQL,  KC_BSPC,
-		KC_TAB,   KC_Q,     KC_W,     KC_E,  KC_R,  KC_T,  KC_Y,    KC_U,  KC_I,    KC_O,     KC_P,            KC_LBRC,  KC_RBRC, KC_BSLASH,
+		QK_GESC,  KC_1,     KC_2,     KC_3,  KC_4,  KC_5,  KC_6,    KC_7,  KC_8,    KC_9,     KC_0,            KC_MINS,  KC_EQL,  KC_BSPC,
+		KC_TAB,   KC_Q,     KC_W,     KC_E,  KC_R,  KC_T,  KC_Y,    KC_U,  KC_I,    KC_O,     KC_P,            KC_LBRC,  KC_RBRC, KC_BSLS,
 		CTL_T(KC_CAPS),     KC_A,     KC_S,  KC_D,  KC_F,  KC_G,    KC_H,  KC_J,    KC_K,     KC_L,  KC_SCLN,  KC_QUOT,           KC_ENT,
 		KC_LSFT,  KC_Z,     KC_X,     KC_C,  KC_V,  KC_B,  KC_N,    KC_M,  KC_COMM, KC_DOT,   RSFT_T(KC_SLSH), KC_UP,             LT(2, KC_DEL),
 		KC_LCTL,  KC_LGUI,  KC_LALT,                KC_SPC,                KC_RALT,  MO(5)  , KC_LEFT,         KC_DOWN,           KC_RIGHT),
 	[_LAYER5] = LAYOUT( /* FN */
 		_______,  KC_BRID,  KC_BRIU, LCTL(KC_UP), LSFT(KC_F12),     KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_DEL,
-		_______,  _______,  KC_UP,    _______,  _______,  _______,  KC_CALC,  _______,  KC_INS,   _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,  RESET,
+		_______,  _______,  KC_UP,    _______,  _______,  _______,  KC_CALC,  _______,  KC_INS,   _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,  QK_BOOT,
 		_______,  KC_LEFT,  KC_DOWN,  KC_RIGHT, _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,  KC_PGUP,            _______,
-		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_END,   KC_PGDOWN, KC_VOLU,           KC_MUTE,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_END,   KC_PGDN, KC_VOLU,           KC_MUTE,
 		_______,  _______,  _______,                      TO(0),                        _______,  _______,  KC_MPRV,  KC_VOLD,            KC_MNXT),
 }
 ;
@@ -50,19 +50,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
     if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
         rgb_matrix_set_color( i, red, green, blue );
     }
   }
 }
 
-void rgb_matrix_indicators_user(void)
-{
+bool rgb_matrix_indicators_user(void) {
 	uint8_t this_led = host_keyboard_leds();
 
 	if (!g_suspend_state && rgb_matrix_config.enable) {
-		switch (biton32(layer_state)) {
+		switch (get_highest_layer(layer_state)) {
 		case _LAYER1:
 			rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
 
@@ -78,7 +77,7 @@ void rgb_matrix_indicators_user(void)
 		rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
 	}
 
-	switch (biton32(layer_state)) {
+	switch (get_highest_layer(layer_state)) {
 	case _LAYER3:
 		if (this_led & (1 << USB_LED_NUM_LOCK)) {
 			rgb_matrix_set_color(13, 0xFF, 0x00, 0x00);
@@ -151,6 +150,7 @@ void rgb_matrix_indicators_user(void)
 		rgb_matrix_set_color(62, 0x00, 0x00, 0x00);
 		break;
 	}
+    return false;
 }
 
 

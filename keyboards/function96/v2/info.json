@@ -1,7 +1,15 @@
 {
     "keyboard_name": "function96v2",
+    "manufacturer": "JTMDesign",
     "url": "jtmkeebdesign@gmail.com",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x2A34",
+        "pid": "0x672B",
+        "device_version": "0.0.2"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

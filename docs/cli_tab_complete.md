@@ -14,6 +14,10 @@ Add this to the end of your `.profile` or `.bashrc`:
 
 If you put `qmk_firmware` into another location you will need to adjust this path.
 
+Zsh users will need to load `bashcompinit`. The following can be added to `~/.zshrc` file:
+
+    autoload -Uz bashcompinit && bashcompinit
+
 ### System Wide Symlink
 
 If you want the tab completion available to all users of the system you can add a symlink to the `qmk_tab_complete.sh` script:

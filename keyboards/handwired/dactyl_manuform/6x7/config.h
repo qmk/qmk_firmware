@@ -18,16 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define PRODUCT_ID 0x3636
-#define DEVICE_VER 0x0001
-#define PRODUCT    Dactyl-Manuform (6x7)
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 14
-#define MATRIX_COLS 7
 
 // wiring of each half
 #define MATRIX_COL_PINS { D4, C6, D7, E6, B4, B5, B7 }

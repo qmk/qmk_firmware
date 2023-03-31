@@ -1,7 +1,21 @@
 {
     "keyboard_name": "KC60",
+    "manufacturer": "NPKC",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x530A",
+        "pid": "0x6FFC",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 5,
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

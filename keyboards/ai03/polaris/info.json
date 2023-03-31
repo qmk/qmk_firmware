@@ -1,7 +1,21 @@
 {
     "keyboard_name": "Polaris",
+    "manufacturer": "ai03 Design Studio",
     "url": "https://kb.ai03.me/projects/polaris.html",
     "maintainer": "ai03",
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0002",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7",
+        "levels": 5,
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      //_TRNS_END_LEFT_DOWN_RGHT_PGDN_DEL_TRNS  _TRNS_DEL_PGDN_LEFT_DOWN_RGHT_END_TRNS
      //_TRNS_PSCR_TRNS_TRNS_NO_NO              _NO_NO_TRNS_TRNS_PSCR_TRNS
        KC_NO, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_NO,               KC_NO,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       KC_NO, KC_NO,   KC_PAUS, KC_SLCK, KC_NO,   KC_NO,   KC_NO,               KC_NO,  KC_NO,   KC_NO,   KC_SLCK, KC_PAUS, KC_NO,   KC_F12,
+       KC_NO, KC_NO,   KC_PAUS, KC_SCRL, KC_NO,   KC_NO,   KC_NO,               KC_NO,  KC_NO,   KC_NO,   KC_SCRL, KC_PAUS, KC_NO,   KC_F12,
      _______, KC_HOME, KC_NO,   KC_UP,   KC_NO,   KC_PGUP, KC_INS,              KC_INS, KC_PGUP, KC_NO,   KC_UP,   KC_NO,   KC_HOME, _______,
      _______, KC_END,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_DEL, KC_NO,KC_NO, KC_DEL, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______,
      _______,          KC_PSCR, _______, _______, KC_NO,           KC_NO,KC_NO,         KC_NO,   _______, _______, KC_PSCR,          _______

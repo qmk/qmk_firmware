@@ -1,7 +1,24 @@
 {
     "keyboard_name": "dtisaac01",
+    "manufacturer": "DTIsaac",
     "url": "",
     "maintainer": "DTIsaac",
+    "usb": {
+        "vid": "0x4454",
+        "pid": "0x4973",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B6",
+        "breathing": true
+    },
+    "indicators": {
+    	"caps_lock": "D3",
+    	"scroll_lock": "D5",
+    	"on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

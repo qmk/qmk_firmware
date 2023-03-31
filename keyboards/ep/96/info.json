@@ -1,6 +1,14 @@
 {
     "keyboard_name": "ep96",
+    "manufacturer": "Elliot Powell",
     "maintainer": "e11i0t23",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x9696",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,7 +1,15 @@
 {
     "keyboard_name": "EndZone34",
+    "manufacturer": "takashicompany",
     "url": "https://github.com/takashicompany/endzone34",
     "maintainer": "takashicompany",
+    "usb": {
+        "vid": "0x7463",
+        "pid": "0x0006",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

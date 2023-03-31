@@ -1,7 +1,19 @@
 {
   "keyboard_name": "Dawn", 
+  "manufacturer": "Mech Studio",
   "url": "https://mech.studio/projects/dawn/", 
   "maintainer": "dejaeghered", 
+  "usb": {
+    "vid": "0x4D53",
+    "pid": "0x0004",
+    "device_version": "0.0.4"
+  },
+  "qmk_lufa_bootloader": {
+    "esc_input": "B1",
+    "esc_output": "F0"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "qmk-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

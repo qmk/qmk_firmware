@@ -1,7 +1,21 @@
 {
     "keyboard_name": "th-1800",
+    "manufacturer": "Team Mechlovin",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x1800",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "A0",
+        "num_lock": "A2",
+        "scroll_lock": "A1",
+        "on_state": 0
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT": {
             "layout": [

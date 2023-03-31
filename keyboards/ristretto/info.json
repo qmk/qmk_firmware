@@ -1,7 +1,20 @@
 {
     "keyboard_name": "ristretto",
+    "manufacturer": "fruitykeeb",
     "url": "https://www.fruitykeeb.xyz/product/ristretto",
     "maintainer": "Fruit",
+    "usb": {
+        "vid": "0x666B",
+        "pid": "0x7273",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D4", "pin_b": "D6"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

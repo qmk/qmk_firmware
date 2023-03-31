@@ -14,8 +14,6 @@ Tested combinations:
 
 Hardware configurations using Arm-based microcontrollers or different sizes of OLED modules may be compatible, but are untested.
 
-!> Warning: This OLED driver currently uses the new i2c_master driver from Split Common code. If your split keyboard uses I2C to communicate between sides, this driver could cause an address conflict (serial is fine). Please contact your keyboard vendor and ask them to migrate to the latest Split Common code to fix this. In addition, the display timeout system to reduce OLED burn-in also uses Split Common to detect keypresses, so you will need to implement custom timeout logic for non-Split Common keyboards.
-
 ## Usage
 
 To enable the OLED feature, there are two steps. First, when compiling your keyboard, you'll need to add the following to your `rules.mk`:
@@ -81,6 +79,11 @@ static void render_logo(void) {
     };
 
     oled_write_P(qmk_logo, false);
+}
+
+bool oled_task_user(void) {
+    render_logo();
+    return false;
 }
 ```
 
@@ -261,12 +264,12 @@ void oled_render(void);
 void oled_set_cursor(uint8_t col, uint8_t line);
 
 // Advances the cursor to the next page, writing ' ' if true
-// Wraps to the begining when out of bounds
+// Wraps to the beginning when out of bounds
 void oled_advance_page(bool clearPageRemainder);
 
 // Moves the cursor forward 1 character length
 // Advance page if there is not enough room for the next character
-// Wraps to the begining when out of bounds
+// Wraps to the beginning when out of bounds
 void oled_advance_char(void);
 
 // Writes a single character to the buffer at current cursor position

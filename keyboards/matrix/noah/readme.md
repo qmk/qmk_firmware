@@ -10,7 +10,7 @@ This was the first 65% keyboard made by the Matrix team, it had the following fe
 
 Keyboard Maintainer: [astro](https://github.com/yulei)  
 Hardware Supported: Matrix NOAH keyboard
-Hardware Availability: [NOAH Keybaord](https://geekhack.org/index.php?topic=102300.0)
+Hardware Availability: [NOAH Keyboard](https://geekhack.org/index.php?topic=102300.0)
 
 Make example for this keyboard (after setting up your build environment):
 

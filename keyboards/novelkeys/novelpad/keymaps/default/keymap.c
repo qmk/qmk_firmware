@@ -25,7 +25,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_NLCK, KC_PSLS, KC_PAST, KC_ESC,
+        KC_NUM,  KC_PSLS, KC_PAST, KC_ESC,
         KC_P7,   KC_P8,   KC_P9,   KC_PMNS,
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
         KC_P1,   KC_P2,   KC_P3,   KC_TAB,
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT(
-        _______, BL_STEP, RGB_M_SW, RESET,
+        _______, BL_STEP, RGB_M_SW, QK_BOOT,
         RGB_TOG, RGB_MOD, RGB_M_P,  RGB_M_SN,
         RGB_HUI, RGB_SAI, RGB_VAI,  RGB_M_K,
         RGB_HUD, RGB_SAD, RGB_VAD,  RGB_M_X,

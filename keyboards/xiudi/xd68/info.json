@@ -1,7 +1,26 @@
 {
-    "keyboard_name": "xd68",
+    "keyboard_name": "XD68",
+    "manufacturer": "xiudi",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x7844",
+        "pid": "0x6868",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "F5",
+        "levels": 6,
+        "breathing": true,
+        "on_state": 0
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi", "65_ansi_split_bs", "65_iso"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

@@ -1,0 +1,40 @@
+{
+    "keycodes": {
+        "0x7200": {
+            "group": "sequencer",
+            "key": "SQ_ON"
+        },
+        "0x7201": {
+            "group": "sequencer",
+            "key": "SQ_OFF"
+        },
+        "0x7202": {
+            "group": "sequencer",
+            "key": "SQ_TOG"
+        },
+        "0x7203": {
+            "group": "sequencer",
+            "key": "SQ_TMPD"
+        },
+        "0x7204": {
+            "group": "sequencer",
+            "key": "SQ_TMPU"
+        },
+        "0x7205": {
+            "group": "sequencer",
+            "key": "SQ_RESD"
+        },
+        "0x7206": {
+            "group": "sequencer",
+            "key": "SQ_RESU"
+        },
+        "0x7207": {
+            "group": "sequencer",
+            "key": "SQ_SALL"
+        },
+        "0x7208": {
+            "group": "sequencer",
+            "key": "SQ_SCLR"
+        }
+    }
+}

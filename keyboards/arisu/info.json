@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Arisu",
+    "manufacturer": "Fate",
     "url": "https://github.com/FateNozomi/arisu-pcb",
     "maintainer": "FateNozomi",
+    "usb": {
+        "vid": "0xFA7E",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

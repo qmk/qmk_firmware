@@ -1,7 +1,4 @@
 {
-  "keyboard_name": "Sun Type 3",
-  "url": "",
-  "maintainer": "qmk",
   "layouts": {
     "LAYOUT": {
       "layout": [

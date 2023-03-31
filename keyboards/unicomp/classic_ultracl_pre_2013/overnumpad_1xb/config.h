@@ -15,19 +15,8 @@
  */
 #pragma once
 
-#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x16C0
-#define PRODUCT_ID 0x27DB
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Unicomp/Purdea Andrei
-#define PRODUCT Unicomp Spacesaver M
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -49,13 +38,9 @@
 
 #define MATRIX_COL_PINS { C3, C2, C1, C0, A3, A4, A5, A6, A7, C4, C5, B0, B1, B10, B12, B13 }
 #define MATRIX_ROW_PINS { B14, B15, C6, C7, C8, C9, A8, A9 }
-//#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 #define MATRIX_HAS_GHOST
@@ -68,8 +53,3 @@
 #define SOLENOID_MIN_DWELL 4
 #define HAPTIC_OFF_IN_LOW_POWER 1
 #define NO_HAPTIC_MOD
-
-#define LED_NUM_LOCK_PIN C12
-#define LED_CAPS_LOCK_PIN C11
-#define LED_SCROLL_LOCK_PIN C10
-#define LED_ON_STATE 1

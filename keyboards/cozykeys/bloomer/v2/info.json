@@ -1,7 +1,9 @@
 {
-  "keyboard_name": "Bloomer",
-  "url": "https://github.com/cozykeys/bloomer",
-  "maintainer": "pcewing",
+  "usb": {
+    "device_version": "0.0.2"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
       "layout": [

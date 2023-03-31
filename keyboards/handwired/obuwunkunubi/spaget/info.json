@@ -1,7 +1,21 @@
 {
     "keyboard_name": "spaget",
+    "manufacturer": "obuwunkunubi",
     "url": "",
     "maintainer": "obuwunkunubi",
+    "usb": {
+        "vid": "0x1337",
+        "pid": "0x6969",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F4"},
+            {"pin_a": "F7", "pin_b": "F6"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

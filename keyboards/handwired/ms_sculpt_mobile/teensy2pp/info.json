@@ -1,0 +1,5 @@
+{
+    "keyboard_name": "sculpt mobile teensypp",
+    "processor": "at90usb1286",
+    "bootloader": "halfkay"
+}

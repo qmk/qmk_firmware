@@ -16,17 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define VENDOR_ID       0x414C
-#define PRODUCT_ID      0x6067
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Alabahuy
-#define PRODUCT         RART67M
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 8
 
 /*
  * Keyboard Matrix Assignments
@@ -41,13 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*                        0    1    2    3    4    5    6    7    8    9   10  11  12  13  14*/
 #define MATRIX_ROW_PINS { D3, D2, D4, F6, B3, B4, B2, B5 }
 #define MATRIX_COL_PINS { F4, F5, C6, F7, D7, B1, E6, B6 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

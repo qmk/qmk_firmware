@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Mokey64",
+    "manufacturer": "Mokey",
     "url": "",
     "maintainer": "mokey",
+    "usb": {
+        "vid": "0x6653",
+        "pid": "0x001A",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

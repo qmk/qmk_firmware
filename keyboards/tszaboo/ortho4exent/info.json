@@ -1,7 +1,18 @@
 {
     "keyboard_name": "Ortho4exent",
+    "manufacturer": "tszaboo",
     "url": "https://github.com/tszaboo/Ortho4Exent",
     "maintainer": "tszaboo",
+    "usb": {
+    	"vid": "0x5453",
+    	"pid": "0x7934",
+    	"device_version": "0.0.1"
+    },
+    "indicators": {
+    	"caps_lock": "E6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
       "LAYOUT": {
         "layout": [

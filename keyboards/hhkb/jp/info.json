@@ -1,9 +1,17 @@
 {
-  "keyboard_name": "HHKB JP",
+  "keyboard_name": "JP",
+  "manufacturer": "HHKB",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4848",
+    "pid": "0x0002",
+    "device_version": "1.0.4"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
-    "LAYOUT_JP": {
+    "LAYOUT_jp": {
       "layout": [
         { "label": "Esc", "x": 0, "y": 0 },
         { "label": "!", "x": 1, "y": 0 },

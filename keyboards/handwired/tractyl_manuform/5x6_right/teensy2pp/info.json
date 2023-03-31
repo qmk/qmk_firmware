@@ -1,0 +1,13 @@
+{
+    "keyboard_name": "Tractyl Manuform (5x6) Teensy 2.0++",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D5", "pin_b": "D4"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay"
+}

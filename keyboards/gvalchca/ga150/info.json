@@ -1,7 +1,19 @@
 {
     "keyboard_name": "GA15.0",
+    "manufacturer": "Gvalchca",
     "url": "",
     "maintainer": "Gvalchca",
+    "usb": {
+        "vid": "0x6776",
+        "pid": "0x6135",
+        "device_version": "0.0.1"
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "B1",
+        "esc_output": "E6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

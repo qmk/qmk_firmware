@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Borderland",
+    "manufacturer": "KiwiKey",
     "url": "https://kiwikey.vn/borderland/",
     "maintainer": "KiwiKey",
+    "usb": {
+        "vid": "0x4B57",
+        "pid": "0x424C",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F6"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -1,5 +1,8 @@
 name: Unit Tests
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -20,11 +23,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    container: qmkfm/base_container
+    container: qmkfm/qmk_cli
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         submodules: recursive
+    - name: Install dependencies
+      run: pip3 install -r requirements-dev.txt
     - name: Run tests
       run: make test:all

@@ -28,7 +28,6 @@
 
 * `ACTION_TAP_DANCE_DOUBLE(kc1, kc2)`: 1回タップすると `kc1` キーコードを送信し、2回タップすると `kc2` キーコードを送信します。キーを押し続けているときは、適切なキーコードが登録されます: キーを押し続けた場合は `kc1`、一度タップしてから続けてもう一度キーを押してそのまま押し続けたときは、 `kc2` が登録されます。
 * `ACTION_TAP_DANCE_LAYER_MOVE(kc, layer)`: 1回タップすると `kc` キーコードが送信され、2回タップすると `layer` レイヤーに移動します(これは `TO` レイヤーキーコードのように機能します)。
-    * この機能は `ACTION_TAP_DANCE_DUAL_ROLE` と同じですが、機能が明確になるように関数名を変更しました。どちらの関数名でも実行できます。
 * `ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer)`: 1回タップすると `kc` キーコードが送信され、2回タップすると `layer` の状態をトグルします(これは `TG` レイヤーキーコードのように機能します)。
 * `ACTION_TAP_DANCE_FN(fn)`: ユーザーキーマップに定義した指定の関数が呼び出されます。タップダンス実行の回数分タップすると、最後の時点で呼び出されます。
 * `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)`: タップする度にユーザーキーマップに定義した最初の関数が呼び出されます。タップダンスの実行が終わった時点で2番目の関数が呼び出され、タップダンスの実行をリセットするときに最後の関数が呼び出されます。
@@ -340,8 +339,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 ```
 
 これで、キーマップのどこでも簡単に `TD(X_CTL)` マクロが使えます。
-
-もし、この機能をユーザスペースで実現したい場合、 [DanielGGordon](https://github.com/qmk/qmk_firmware/tree/master/users/gordon) がユーザスペースでどのように実装しているか確認してください。
 
 > この設定の "hold" は、タップダンスのタイムアウト（`ACTION_TAP_DANCE_FN_ADVANCED_TIME` 参照）の **後** に起こります。即座に "hold" を得るためには、条件から `state->interrupted` の確認を除きます。結果として、複数回のタップのための時間をより多く持つことで快適な長いタップの期限を使うことができ、そして、"hold" のために長く待たないようにすることができます(2倍の `TAPPING TERM` で開始してみてください)。
 

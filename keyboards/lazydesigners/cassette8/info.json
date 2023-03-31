@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Cassette8",
+    "manufacturer": "LAZYDESIGNERS",
     "url": "http://lazydesigners.cn",
     "maintainer": "Jacky@LAZYDESIGNERS",
+    "usb": {
+        "vid": "0x4C44",
+        "pid": "0x0008",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

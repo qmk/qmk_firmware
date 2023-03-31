@@ -1,7 +1,20 @@
 {
     "keyboard_name": "ph100",
+    "manufacturer": "PhrygianDesign",
     "url": "https://phrygiandesign.com/products/ph100-mechanical-keyboard",
     "maintainer": "phrygiandesign",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0C61",
+        "device_version": "1.0.0"
+    },
+    "indicators": {
+        "caps_lock": "B15",
+        "num_lock": "B14"
+    },
+    "processor": "STM32F042",
+    "bootloader": "stm32-dfu",
+    "debounce": 10,
     "layouts": {
         "LAYOUT": {
             "layout": [

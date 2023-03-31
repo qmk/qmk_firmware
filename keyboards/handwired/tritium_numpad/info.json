@@ -1,7 +1,24 @@
 {
-  "keyboard_name": "Tritium_numpad",
+  "keyboard_name": "Tritium Numpad",
+  "manufacturer": "Handwired",
   "url": "https://www.thingiverse.com/thing:2855938",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6060",
+    "device_version": "0.0.3"
+  },
+  "backlight": {
+    "pin": "B6",
+    "levels": 4
+  },
+  "indicators": {
+    "num_lock": "D5",
+    "on_state": 0
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "community_layouts": ["numpad_6x4", "ortho_6x4"],
   "layouts": {
     "LAYOUT_numpad_6x4": {
       "layout": [{"label":"k00", "x":0, "y":0}, {"label":"k01", "x":1, "y":0}, {"label":"k02", "x":2, "y":0}, {"label":"k03", "x":3, "y":0}, {"label":"k10", "x":0, "y":1}, {"label":"k11", "x":1, "y":1}, {"label":"k12", "x":2, "y":1}, {"label":"k13", "x":3, "y":1}, {"label":"k20", "x":0, "y":2}, {"label":"k21", "x":1, "y":2}, {"label":"k22", "x":2, "y":2}, {"label":"k30", "x":0, "y":3}, {"label":"k31", "x":1, "y":3}, {"label":"k32", "x":2, "y":3}, {"label":"k23", "x":3, "y":2, "h":2}, {"label":"k40", "x":0, "y":4}, {"label":"k41", "x":1, "y":4}, {"label":"k42", "x":2, "y":4}, {"label":"k50", "x":0, "y":5, "w":2}, {"label":"k52", "x":2, "y":5}, {"label":"k43", "x":3, "y":4, "h":2}]

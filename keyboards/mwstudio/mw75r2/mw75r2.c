@@ -17,9 +17,12 @@
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
-  { 0,      1,      2,      3,      4,      5,      6,      7 },
-  { 8,      9,      10,     11,     12,     13,     14,    15 },
-  { 16,     17,     18,     19,     20 }
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
 }, {
     { 105, 60 }, { 70, 60 }, { 35, 60 }, { 0, 60 }, {  0, 40 }, { 0, 20 }, { 0, 0 }, { 42, 0 }, { 84, 0 }, { 126, 0 }, { 168, 0 }, { 210, 0 }, { 210, 20 }, { 210, 40 }, { 40, 20 }, { 120, 20 }, { 40, 40 }, { 120, 40 }, { 210, 60 }, { 175, 60 },{ 140, 60 }
 }, {

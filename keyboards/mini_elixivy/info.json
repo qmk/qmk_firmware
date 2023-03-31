@@ -1,7 +1,21 @@
 {
     "keyboard_name": "mini_elixivy",
+    "manufacturer": "minibois",
     "url": "https://github.com/minibois/elixivy",
     "maintainer": "minibois",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B0", "pin_b": "D5"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi", "65_iso"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout":[

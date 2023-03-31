@@ -91,7 +91,7 @@ QMK は他のコンピュータプログラムと何ら変わりないと考え�
 ```
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT(
-  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
+  KC_NUM, KC_PSLS, KC_PAST, KC_PMNS, \
   KC_P7,   KC_P8,   KC_P9,   KC_PPLS, \
   KC_P4,   KC_P5,   KC_P6, \
   KC_P1,   KC_P2,   KC_P3,   KC_PENT, \
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 ```
 
-キーマップと比較すると、押されたキーが KC_NLCK であることが分かります。ここから、`process_record` 関数群を呼び出します。
+キーマップと比較すると、押されたキーが KC_NUM であることが分かります。ここから、`process_record` 関数群を呼び出します。
 
 <!-- FIXME: Magic happens between here and process_record -->
 
@@ -161,7 +161,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * [`bool process_combo(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_combo.c#L115)
     * [`bool process_printer(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_printer.c#L77)
     * [`bool process_auto_shift(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_auto_shift.c#L94)
-    * [`bool process_terminal(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/process_keycode/process_terminal.c#L264)
     * [Quantum 固有のキーコードを識別して処理する](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/quantum/quantum.c#L291)
 
 この一連のイベントの中の任意のステップで (`process_record_kb()` のような)関数は `false` を返して、以降の処理を停止することができます。

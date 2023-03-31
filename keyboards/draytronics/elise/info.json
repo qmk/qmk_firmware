@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "Draytronics ELISE",
+    "keyboard_name": "ELISE",
+    "manufacturer": "Draytronics",
     "url": "https://www.draytronics.co.uk/elise",
     "maintainer": "ghostseven",
+    "usb": {
+        "vid": "0x4454",
+        "pid": "0x454C",
+        "device_version": "1.0.0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_65_ansi_right_lrg": "LAYOUT_65_ansi_rwkl",
         "LAYOUT_65_ansi_left_lrg": "LAYOUT_65_ansi_lwkl",
@@ -10,6 +18,7 @@
         "LAYOUT_65_iso_left_lrg": "LAYOUT_65_iso_lwkl",
         "LAYOUT_65_iso_lrg": "LAYOUT_65_iso_wkl"
     },
+    "community_layouts": ["65_ansi", "65_iso"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

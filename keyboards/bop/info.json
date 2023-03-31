@@ -1,7 +1,15 @@
 {
     "keyboard_name":  "bop",
+    "manufacturer": "fruitykeeb",
     "url": "https://github.com/blewis308/BOP-Keyboard",
     "maintainer": "Fruit",
+    "usb": {
+        "vid": "0x666B",
+        "pid": "0x626F",
+        "device_version": "0.0.1"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT": {
             "layout": [

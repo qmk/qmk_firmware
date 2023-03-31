@@ -1,7 +1,18 @@
 {
     "keyboard_name": "Midway60",
+    "manufacturer": "FJLabs",
     "url": "https://www.bolsakeyboardsupply.com",
     "maintainer": "FJLabs",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x1002",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "C7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

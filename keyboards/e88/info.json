@@ -1,7 +1,19 @@
 {
     "keyboard_name": "e88",
+    "manufacturer": "Pink Labs",
     "url": "",
     "maintainer": "2-n",
+    "usb": {
+        "vid": "0x4705",
+        "pid": "0x0187",
+        "device_version": "0.0.1"
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "B7",
+        "esc_output": "F0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

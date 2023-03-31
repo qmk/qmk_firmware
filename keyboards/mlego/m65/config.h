@@ -17,17 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define VENDOR_ID 0xBABA
-#define MANUFACTURER Alin Elena
-#define PRODUCT m65
-
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 13
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE

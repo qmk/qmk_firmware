@@ -1,7 +1,24 @@
 {
-    "keyboard_name": "Mun",
+    "keyboard_name": "Mün",
+    "manufacturer": "RGBKB",
     "url": "https://www.rgbkb.net/products/mun",
     "maintainer": "Legonut",
+    "usb": {
+        "vid": "0x3535",
+        "pid": "0x3505",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B8", "pin_b": "A14"},
+            {"pin_a": "B9", "pin_b": "A15"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "A9"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

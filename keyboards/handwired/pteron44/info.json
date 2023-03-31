@@ -1,7 +1,15 @@
 {
-  "keyboard_name": "pteron44",
+  "keyboard_name": "Pteron44",
+  "manufacturer": "QMK",
   "url": "",
   "maintainer": "fidelcoria",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x542C",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xADA0
-#define PRODUCT_ID      0x1800
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Ada
-#define PRODUCT         ada1800mini
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments

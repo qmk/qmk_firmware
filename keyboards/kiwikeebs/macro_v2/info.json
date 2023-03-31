@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "KiwiKeebs MacroBoard v.2.0",
+    "keyboard_name": "MacroBoard v.2.0",
+    "manufacturer": "KiwiKeebs",
     "url": "https://www.reddit.com/r/mechmarket/comments/ibijrd/ic_kiwikeebs_6key_macroboard_rotary_encoder_diy/",
     "maintainer": "KiwiKeebs",
+    "usb": {
+        "vid": "0x4B51",
+        "pid": "0x4712",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D7", "pin_b": "D6"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

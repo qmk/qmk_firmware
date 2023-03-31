@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Kinesis Classic/Advantage/Contoured",
+    "manufacturer": "QMK",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6060",
+        "device_version": "0.0.2"
+    },
+    "indicators": {
+        "caps_lock": "C1",
+        "num_lock": "C5",
+        "scroll_lock": "C4",
+        "compose": "C3",
+        "on_state": 0
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
+    "debounce": 20
+}

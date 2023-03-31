@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PSLS,   KC_PAST,  KC_PMNS,  KC_TRNS,
         KC_BSPC,   KC_EXECUTE,  KC_DEL,
         KC_LPRN,   KC_RPRN,  KC_PEQL,  KC_PENT,
-             KC_TAB,      KC_NLCK
+             KC_TAB,      KC_NUM
     ),
 
 
