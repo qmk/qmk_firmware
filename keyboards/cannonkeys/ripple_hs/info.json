@@ -28,10 +28,11 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "community_layouts": [ "tkl_f13_ansi_tsangan" ],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
-                { "matrix": [0, 0], "x": 0.0, "y": 0.0 },
+                { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1.25, "y": 0.0 },
                 { "matrix": [0, 2], "x": 2.25, "y": 0.0 },
                 { "matrix": [0, 3], "x": 3.25, "y": 0.0 },
