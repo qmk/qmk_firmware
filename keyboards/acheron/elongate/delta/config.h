@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1
 
-#define RGB_DI_PIN B15
 #define RGBLED_NUM 16
 #define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_SLEEP

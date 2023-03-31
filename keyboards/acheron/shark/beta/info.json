@@ -14,6 +14,9 @@
             {"pin_a": "C15", "pin_b": "C14"}
         ]
     },
+    "ws2812": {
+        "pin": "B15"
+    },
     "backlight": {
         "pin": "A6",
         "levels": 20,

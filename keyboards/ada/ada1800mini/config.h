@@ -17,7 +17,6 @@
 #pragma once
 
 //TODO: implement RGB matrix when I get the hardware
-#define RGB_DI_PIN F0
     #define RGBLED_NUM 100
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8

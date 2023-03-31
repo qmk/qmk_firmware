@@ -15,6 +15,9 @@
         "on_state": 0,
         "breathing": true
     },
+    "ws2812": {
+        "pin": "B15"
+    },
     "indicators": {
         "caps_lock": "A10"
     },
