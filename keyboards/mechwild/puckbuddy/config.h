@@ -4,19 +4,11 @@
 #pragma once
 
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 4
-
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 
 /* allows the "key" button on the blackpill to toggle caps lock for user testing before soldering */
 #define DIP_SWITCH_PINS { A0 }
-
-/* status light pins using the on board LED for the blackpill */
-#define LED_CAPS_LOCK_PIN C13
-#define LED_PIN_ON_STATE 0
 
 /* set the tapping term for glidepoint pad to register a tap click */
 //#define CIRQUE_PINNACLE_TAPPING_TERM 0 // This is set to 0 to disable it
@@ -25,19 +17,6 @@
  * defining it this way allows us to easily modify it with DYNAMIC_TAPPING_TERM_ENABLE
  */
 #define TAPPING_TERM 0
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { B12, B13, B14, B15 }
-#define MATRIX_COL_PINS { B10, A8, B4, B5 }
 
 /* spi config */
 #define SPI_DRIVER SPID1
@@ -50,20 +29,10 @@
 #define CIRQUE_PINNACLE_SPI_DIVISOR 8
 #define CIRQUE_PINNACLE_SPI_CS_PIN A4
 
-/* encoder pins */
-#define ENCODERS_PAD_A { B1, B3 }
-#define ENCODERS_PAD_B { B0, A15 }
-
-/* encoder resolution */
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /* RGB settings, uncomment this define to enable RGB */
 #define RGB_DI_PIN A3
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 3
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
@@ -79,13 +48,6 @@
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

@@ -67,6 +67,7 @@
                 }
             }
         },
+        "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
         "config": {"$ref": "qmk.keyboard.v1"},
         "notes": {
             "type": "string"

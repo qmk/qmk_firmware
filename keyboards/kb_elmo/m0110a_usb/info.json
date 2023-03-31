@@ -8,6 +8,11 @@
         "pid": "0xDB4B",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D7", "C0", "C1", "C2", "C3", "D1", "B4", "C6", "C7", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0"],
+        "rows": ["B0", "B1", "B2", "B3", "D5"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "layouts": {

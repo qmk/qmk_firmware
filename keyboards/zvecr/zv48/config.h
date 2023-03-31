@@ -15,41 +15,11 @@
  */
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 8 // Rows are doubled-up
-#define MATRIX_COLS 6
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_COL_PINS { B15, B10, B0, A5, A4, A3 }
-#define MATRIX_ROW_PINS { A10, A15, B3, B4 }
-#define MATRIX_COL_PINS_RIGHT { B10, B15, A10, A15, B3, B4 }
-#define MATRIX_ROW_PINS_RIGHT { B0, A5, A4, A3 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #define MATRIX_IO_DELAY 5
 
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
 #define SPLIT_HAND_PIN B9
-#define SOFT_SERIAL_PIN B6
 //#define SELECT_SOFT_SERIAL_SPEED 0
 #define SERIAL_USART_SPEED 921600
-
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { A2 }
 
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 48
@@ -92,9 +62,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-#define BOOTMAGIC_LITE_ROW_RIGHT 4
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0

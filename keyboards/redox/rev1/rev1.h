@@ -1,20 +1,6 @@
 #pragma once
 
-#include "redox.h"
-
-#if defined(KEYBOARD_redox_rev1_proton_c)
-#    include "proton_c.h"
-#endif
-
 #include "quantum.h"
-
-#ifdef USE_I2C
-#include <stddef.h>
-#ifdef __AVR__
-  #include <avr/io.h>
-  #include <avr/interrupt.h>
-#endif
-#endif
 
 #define LAYOUT( \
   k00, k01, k02, k03, k04, k05,                          k08, k09, k10, k11, k12, k13, \

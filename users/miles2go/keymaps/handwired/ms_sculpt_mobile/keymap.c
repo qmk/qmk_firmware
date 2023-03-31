@@ -248,9 +248,7 @@ void keyboard_post_init_user(void) {
 
 void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
-    #ifdef RGB_DI_PIN
         rgblight_setrgb(RGB_GREEN);
-    #endif
     #endif //RGB_matrix  
 }
 

@@ -8,6 +8,11 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B4", "D7", "D6", "D4", "C6", "D5", "D3", "D2", "D1", "D0", "B7", "B3", "B2", "B1", "B0", "E6", "F7"],
+        "rows": ["C7", "F0", "F1", "F4", "F5", "F6"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
@@ -90,14 +95,14 @@
                 { "label": ">", "x": 10.25, "y": 4.5 },
                 { "label": "?", "x": 11.25, "y": 4.5 },
                 { "label": "Shift", "x": 12.25, "y": 4.5, "w": 1.75 },
-                { "label": "Shift2", "x": 14, "y": 4.5, "w": 1 },
+                { "label": "Shift2", "x": 14, "y": 4.5 },
                 { "label": "Up", "x": 16.25, "y": 4.5 },
                 { "label": "Ctrl", "x": 0, "y": 5.5, "w": 1.5 },
-                { "label": "Win", "x": 1.5, "y": 5.5, "w": 1 },
+                { "label": "Win", "x": 1.5, "y": 5.5 },
                 { "label": "Alt", "x": 2.5, "y": 5.5, "w": 1.5 },
                 { "label": "Space", "x": 4, "y": 5.5, "w": 7 },
                 { "label": "Alt", "x": 11, "y": 5.5, "w": 1.5 },
-                { "label": "Win", "x": 12.5, "y": 5.5, "w": 1 },
+                { "label": "Win", "x": 12.5, "y": 5.5 },
                 { "label": "Ctrl", "x": 13.5, "y": 5.5, "w": 1.5 },
                 { "label": "Left", "x": 15.25, "y": 5.5 },
                 { "label": "Down", "x": 16.25, "y": 5.5 },

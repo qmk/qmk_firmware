@@ -17,15 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // RevA
 // #define DIODE_DIRECTION COL2ROW
-// #define MATRIX_ROWS 5
-// #define MATRIX_COLS 16
 // #define MATRIX_ROW_PINS {B7, F7, F6, F5, F4}
 // #define MATRIX_COL_PINS {F0, F1, D2, D3, D5, D4, D6, D7, B4, B5, B6, C7, B3, B2, B1, B0}
 
 // RevB
 #define DIODE_DIRECTION COL2ROW
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 #define MATRIX_ROW_PINS {D6, D7, E0, C3, C4}
 #define MATRIX_COL_PINS {F2, C5, E5, E4, B7, B6, B5, B4, B3, B2, B1, B0, E1, C0, C1, C2}
 #define RGBLED_NUM 20     // Number of LEDs
@@ -35,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_VOICES
 #define AUDIO_PIN C6
 
-#define BACKLIGHT_LEVELS 8
 #define BACKLIGHT_PWM_MAP {8, 16, 40, 55, 70, 128, 200, 255}
 
 #define RGB_DI_PIN C7  // Have to set it to something to get the ws2812 code to compile

@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
-#define MATRIX_ROW_PINS { A9, B13, B14, B15, B3 }
-#define MATRIX_COL_PINS { B8, B9, B10, B11 }
-#define DIODE_DIRECTION COL2ROW
-
-/* Bootmagic key - row 4, col 1 */
-#define BOOTMAGIC_LITE_ROW 4
-#define BOOTMAGIC_LITE_COLUMN 1
-
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -50,12 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Allows for rotary encoder volume control
 #define TAP_CODE_DELAY 20
-
-/* Encoder stuff */
-#define ENCODERS_PAD_A \
-    { A0, A2 }
-#define ENCODERS_PAD_B \
-    { A1, A3 }
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE

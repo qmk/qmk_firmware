@@ -34,6 +34,9 @@
 		"twinkle": true
         }
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "encoder": {
 	"enabled": true,
         "rotary": [
@@ -52,7 +55,7 @@
     "layouts": {
         "LAYOUT_k1": {
             "layout": [
-                { "label":"Mute", "x": 0, "y": 0 }
+                { "x": 0, "y": 0, "matrix": [0, 0] }
             ]
         }
     },

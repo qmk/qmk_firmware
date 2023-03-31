@@ -17,56 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
-/* encoder pads */
-#define ENCODERS_PAD_A { B6 }
-#define ENCODERS_PAD_B { B7 }
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS {B4, A15, B10, B2}
-#define MATRIX_COL_PINS {B1, B12, A1, A7, A5, A4, A3, A2, A0, C15, C14, C13}
-//{C13, C14, C15, A0,A2,A3,A4,A5,A6, A1,B12,B1}
-/* Unused pins, in the default layout, are:
-EncA (B6) because it is not used in the default PCB
-All Extra pins (A8, B15, B14, B13, B3, B5, B8, B9) , for the same reason;
-B0, which is unconnected on the PCB
-*/
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN B0
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 3
-
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-//   #define RGBLED_NUM 16
-//   #define RGBLIGHT_HUE_STEP 8
-//   #define RGBLIGHT_SAT_STEP 8
-//   #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== customize breathing effect ==*/
-//   /*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//   #define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-//   /*==== use exp() and sin() ====*/
-//   #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//   #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-// #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

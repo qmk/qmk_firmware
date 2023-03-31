@@ -18,6 +18,9 @@
         "pid": "0x0001",
         "vid": "0xBEEB"
     },
+    "bootmagic": {
+        "matrix": [0, 5]
+    },
     "matrix_pins": {
         "direct": [
             ["GP5", "GP4", "GP11", "GP15", "GP3", "GP2"],

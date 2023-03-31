@@ -34,14 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS {D6, A5, A4, A3, A6}
 
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_BREATHING
-
-#define LED_NUM_LOCK_PIN B1
-#define LED_CAPS_LOCK_PIN B0
-#define LED_SCROLL_LOCK_PIN B2
-#define LED_PIN_ON_STATE 1
-
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN B3
 #define RGBLED_NUM 24

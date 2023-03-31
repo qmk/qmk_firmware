@@ -15,11 +15,7 @@
  */
 #pragma once
 
-#define ENCODERS_PAD_A { D1 }
-#define ENCODERS_PAD_B { D0 }
-
 #define RGB_DI_PIN B2
-#ifdef RGB_DI_PIN
   #define RGBLED_NUM 7
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
@@ -36,4 +32,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif

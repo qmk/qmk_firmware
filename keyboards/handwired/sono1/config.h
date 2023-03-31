@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 15
-#define MATRIX_COLS 8
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* mechanical locking support. NumLock key on the numpad uses Alps SKCL Lock switch */
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE

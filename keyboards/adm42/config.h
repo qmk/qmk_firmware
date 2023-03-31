@@ -16,12 +16,6 @@
 
 #pragma once
 
-
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-
-#define DIODE_DIRECTION ROW2COL
-
 #define TAP_CODE_DELAY 1
 
 #if defined(CONSOLE_ENABLE)

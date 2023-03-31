@@ -37,15 +37,6 @@
 #define SPI_MOSI_PIN GP27
 #define SPI_MISO_PIN GP28
 
-/* Encoders */
-#define ENCODERS_PAD_A { GP18 }
-#define ENCODERS_PAD_B { GP17 }
-
-/* Bootmagic lite */
-/* (Press the key below the encoder button while plugging the keyboard to enter the bootloader and clear flash) */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 2
-
 /* Double tap the side button to enter bootloader */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP13

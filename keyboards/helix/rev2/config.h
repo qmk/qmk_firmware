@@ -25,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 
-/* Soft Serial defines */
-#define SOFT_SERIAL_PIN D2
-
 /* Select hand configuration */
 #define MASTER_LEFT
 // #define MASTER_RIGHT

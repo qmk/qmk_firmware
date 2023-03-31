@@ -174,7 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      case REFLASH:
         eeconfig_init();
         eeconfig_update_rgb_matrix_default();
-        writePinLow(QMK_LED);
+        writePinLow(ADM42_LED);
         reset_keyboard();
         return false;
 
@@ -184,21 +184,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void keyboard_pre_init_kb(void) {
-    setPinOutput(QMK_LED);
-    writePinHigh(QMK_LED);
+    setPinOutput(ADM42_LED);
+    writePinHigh(ADM42_LED);
 }
 
 void keyboard_post_init_kb(void) {
     debug_enable = true;
     debug_matrix = false;
     debug_keyboard = false;
-    writePinHigh(QMK_LED);
+    writePinHigh(ADM42_LED);
 }
 
 void suspend_power_down_kb(void) {
-    writePinLow(QMK_LED);
+    writePinLow(ADM42_LED);
 }
 
 void suspend_wakeup_init_kb(void) {
-  writePinHigh(QMK_LED);
+  writePinHigh(ADM42_LED);
 }

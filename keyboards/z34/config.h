@@ -21,9 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D2
-
 // EE_HANDS MASTER_RIGHT MASTER_LEFT
 #define MASTER_RIGHT
 

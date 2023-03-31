@@ -8,14 +8,10 @@
 #    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 
-#define ENCODERS_PAD_A { C7, D7 }
-#define ENCODERS_PAD_B { B5, D4 }
-#define ENCODERS 2
 #define ENCODERS_CW_KEY  { { 1, 1 }, { 3, 1 } }
 #define ENCODERS_CCW_KEY { { 0, 1 }, { 2, 1 } }
 
 #define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 16
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
@@ -31,7 +27,6 @@
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
-#endif
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

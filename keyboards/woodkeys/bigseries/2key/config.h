@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 2
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B0 }
-#define MATRIX_COL_PINS { B4, B3 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* key combination for command */
 #define IS_COMMAND() ( \
     false \

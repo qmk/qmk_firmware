@@ -16,24 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS {C2,D0,B0,D6,D5}
-#define MATRIX_COL_PINS {C4,C5,D2,C6,C7,B7,B6,B5,B4,B3,B2,B1,D1,D4}
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-#define QMK_ESC_OUTPUT C2 // usually COL
-#define QMK_ESC_INPUT C4 // usually ROW
-
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 1
-#define BACKLIGHT_LEVELS 5
 
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8

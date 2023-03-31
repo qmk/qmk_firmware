@@ -8,6 +8,11 @@
         "pid": "0xCACA",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D5", "D6", "A4", "B16", "B17", "A1", "A2", "D7"],
+        "rows": ["B2", "B1", "B0", "C0", "D1", "D0", "D3", "D4", "D2", "C3"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "MKL26Z64",
     "bootloader": "halfkay",
     "layouts": {

@@ -17,30 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 19
-
-// ROWS: Top to bottom, COLS: Left to right
-/* Row pin configuration
-*/
-#define MATRIX_ROW_PINS { F4, F3, F2, F1, F0, E1, E0 }
-/* Column pin configuration
- */
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, C1, C0, F5, F6, F7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-#define LED_NUM_LOCK_PIN D2
-#define LED_CAPS_LOCK_PIN D3
-#define LED_SCROLL_LOCK_PIN D4
-
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
-
 /* Underlight configuration
  */
 #define RGB_DI_PIN D7
@@ -63,11 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define QMK_ESC_OUTPUT A0 // usually COL
-#define QMK_ESC_INPUT F4 // usually ROW
-#define QMK_LED D2 // NumLock on TKC1800
-//#define QMK_SPEAKER C6
 
 /*
  * Feature disable options

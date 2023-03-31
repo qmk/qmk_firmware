@@ -8,6 +8,14 @@
         "pid": "0x4F52",
         "device_version": "0.0.2"
     },
+    "backlight": {
+        "driver": "custom",
+        "pins": ["B1", "B2", "B3", "E6"],
+        "levels": 10
+    },
+    "bootmagic": {
+        "matrix": [4, 10]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["tkl_ansi"],

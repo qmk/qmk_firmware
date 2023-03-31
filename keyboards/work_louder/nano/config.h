@@ -17,29 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS  1
-#define MATRIX_COLS  3
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS \
-    { F7 }
-#define MATRIX_COL_PINS \
-    { B5, B6, C6 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION        COL2ROW
-
 #define USB_MAX_POWER_CONSUMPTION 100
 
 #define RGBLIGHT_DI_PIN        C7
@@ -61,14 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_LIGHT
 #define RGBLIGHT_DEFAULT_HUE          170
-
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-//#endif
 
 #define RGB_DI_PIN                    F6
 #define RGB_MATRIX_LED_COUNT              2
@@ -142,12 +111,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW    0
-#define BOOTMAGIC_LITE_COLUMN 2
-
-#define ENCODERS_PAD_A \
-    { D7 }
-#define ENCODERS_PAD_B \
-    { B4 }

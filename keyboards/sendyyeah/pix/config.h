@@ -19,9 +19,6 @@
 #define OLED_FONT_H "keymaps/default/glcdfont.c"
 #define OLED_TIMEOUT 600000 // Turn of after 10 minutes
 
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B3 }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -31,7 +28,6 @@
 #define USB_MAX_POWER_CONSUMPTION 500
 
 #define RGB_DI_PIN B5
-#ifdef RGB_DI_PIN
 #define RGBLED_NUM 15
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
@@ -50,4 +46,3 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYER_BLINK
-#endif

@@ -16,43 +16,10 @@
 
 #pragma once
 
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
-
 /* Select hand configuration */
 #define MASTER_LEFT
 //#define MASTER_RIGHT
 //#define EE_HANDS
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 3*2
-#define MATRIX_COLS 5
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { D7, E6, B4 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-// #define RGBLED_NUM 16
-// #define RGBLIGHT_HUE_STEP 8
-// #define RGBLIGHT_SAT_STEP 8
-// #define RGBLIGHT_VAL_STEP 8
-// #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

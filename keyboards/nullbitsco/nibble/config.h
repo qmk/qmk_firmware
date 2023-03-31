@@ -52,7 +52,3 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_SLEEP
-
-/* Optional encoder pins */
-#define ENCODERS_PAD_A { B5 }
-#define ENCODERS_PAD_B { B4 }

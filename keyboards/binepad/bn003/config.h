@@ -16,17 +16,6 @@
 
 #pragma once
 
-
-/* Key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 3
-
-#define MATRIX_ROW_PINS { C6 }
-#define MATRIX_COL_PINS { B4, B5, B6 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

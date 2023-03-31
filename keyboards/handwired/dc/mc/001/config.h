@@ -18,16 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /*
-    RE_CHANNEL_A          = _BV(6),
-    RE_CHANNEL_B          = _BV(5),
-*/
-#define ENCODERS_PAD_A \
-    { B6 }
-#define ENCODERS_PAD_B \
-    { B5 }
-#define ENCODER_RESOLUTION 4
-
-/*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
@@ -42,11 +32,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_LAYER
 #define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-// The (default) Stop key
-// Doesn't work, though. Maybe becuase of the bootloader that's in use?
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 1
 
 #define USB_MAX_POWER_CONSUMPTION 100

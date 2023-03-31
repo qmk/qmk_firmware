@@ -23,6 +23,7 @@
         }
     },
     "type": "object",
+    "not": { "required": [ "vendorId", "productId" ] }, // reject via keys...
     "properties": {
         "keyboard_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
         "keyboard_folder": {"$ref": "qmk.definitions.v1#/keyboard"},
@@ -34,7 +35,7 @@
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris"]
         },
         "pin_compatible": {
             "type": "string",
@@ -95,6 +96,19 @@
                 "unknown"
             ]
         },
+        "apa102": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "data_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "clock_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "default_brightness": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 31
+                }
+            }
+        },
         "audio": {
             "type": "object",
             "additionalProperties": false,
@@ -108,6 +122,10 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["pwm", "software", "timer", "custom"]
+                },
                 "breathing": {"type": "boolean"},
                 "breathing_period": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "levels": {
@@ -118,7 +136,8 @@
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "on_state": {"$ref": "qmk.definitions.v1#/bit"}
+                "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                "as_caps_lock": {"type": "boolean"}
             }
         },
         "bluetooth": {
@@ -240,6 +259,7 @@
                 "on_state": {"$ref": "qmk.definitions.v1#/bit"}
             }
         },
+        "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
         "layout_aliases": {
             "type": "object",
             "additionalProperties": {"$ref": "qmk.definitions.v1#/layout_macro"}
@@ -679,6 +699,18 @@
                 "esc_input": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "led": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "speaker": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+            }
+        },
+        "ws2812": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["bitbang", "custom", "i2c", "pwm", "spi", "vendor"]
+                },
+                "i2c_address": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
+                "i2c_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }
         }
     }

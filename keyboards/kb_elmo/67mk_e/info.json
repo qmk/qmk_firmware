@@ -8,6 +8,14 @@
         "pid": "0xD03E",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B3", "B2", "B1", "D4", "D2", "D3", "C7", "C6", "B5", "B6", "F7", "F6", "F5", "F0", "F1", "F4"],
+        "rows": ["D7", "B4", "D6", "D5", "B0"]
+    },
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "B7"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan", "65_iso_blocker", "65_iso_blocker_split_bs"],
