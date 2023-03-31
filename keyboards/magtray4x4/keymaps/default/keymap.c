@@ -15,7 +15,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-    KC_P00 = SAFE_RANGE,
+    KC_00 = SAFE_RANGE,
     LAYER_INC
 };
 
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_7,   KC_8,   KC_9,   KC_PPLS,
         KC_4,   KC_5,   KC_6,   KC_PERC,
         KC_1,   KC_2,   KC_3,   KC_EQL,
-        KC_0,   KC_P00,  KC_DOT, KC_PENT
+        KC_0,   KC_00,  KC_DOT, KC_PENT
     ),
 
     /*
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_7,   KC_8,   KC_9,   KC_PPLS,
         KC_4,   KC_5,   KC_6,   KC_PERC,
         KC_1,   KC_2,   KC_3,   KC_EQL,
-        KC_0,   KC_P00,  KC_DOT, KC_PENT
+        KC_0,   KC_00,  KC_DOT, KC_PENT
     ),
 
     /*
@@ -101,19 +101,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_7,   KC_8,   KC_9,   KC_PPLS,
         KC_4,   KC_5,   KC_6,   KC_PERC,
         KC_1,   KC_2,   KC_3,   KC_EQL,
-        KC_0,   KC_P00,  KC_DOT, KC_PENT
+        KC_0,   KC_00,  KC_DOT, KC_PENT
     )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
-            case KC_P00:
+            case KC_00:
                 tap_code(KC_0);
                 tap_code(KC_0);
                 return false;
             case LAYER_INC:
                 layer_move(++current_layer % 4);
+                return false;
         }
     }
     return true;
@@ -135,7 +136,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case 3:
             
             break;
-        default: //  for any other layers, or the default layer
+        default: // for any other layers, or the default layer
             
             break;
     }
