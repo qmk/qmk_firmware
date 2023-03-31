@@ -17,7 +17,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 
-#    define RGB_DI_PIN B5
 #    define RGBLED_NUM 1
 
 #    define RGBLIGHT_LAYERS
