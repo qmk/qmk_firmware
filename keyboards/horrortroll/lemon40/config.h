@@ -23,7 +23,6 @@
 #ifdef RGBLIGHT_ENABLE
    
     /* RGB light pin */
-    #define RGB_DI_PIN F4
     #define RGBLED_NUM 15
 
     /* RGB light effect */

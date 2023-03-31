@@ -38,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //EITHERWAY is supported through a custom matrix
 //#define DIODE_DIRECTION EITHERWAY
 
-#define RGB_DI_PIN B0
    #define RGBLED_NUM 27
    #define RGBLIGHT_HUE_STEP 8
    #define RGBLIGHT_SAT_STEP 8

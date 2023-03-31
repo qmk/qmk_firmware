@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { F5, F6, F7, D7, B5, F5, F6, F7, D7, B5 }
 #define MATRIX_COL_PINS { B4, E6, C6, B6, B2 }
 
- #define RGB_DI_PIN D3
    #define RGBLED_NUM 10
    #define RGBLIGHT_SPLIT
    #define RGBLED_SPLIT { 5, 5 }

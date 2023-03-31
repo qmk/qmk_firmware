@@ -24,6 +24,9 @@
         "pid": "0x4466",
         "vid": "0x3141"
     },
+    "ws2812": {
+        "pin": "A4"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [

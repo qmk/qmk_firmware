@@ -21,7 +21,6 @@
 
 #ifdef RGBLIGHT_ENABLE
     /* RGB Lighting config */
-    #define RGB_DI_PIN E2
     #define RGBLED_NUM 24
 
     /* RGB Lighting effect */

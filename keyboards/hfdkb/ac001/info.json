@@ -13,6 +13,9 @@
         "rows": ["B15"]
     },
     "diode_direction": "ROW2COL",
+    "ws2812": {
+        "pin": "A1"
+    },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "layouts": {
