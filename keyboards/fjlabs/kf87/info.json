@@ -17,6 +17,9 @@
         "caps_lock": "C4",
         "scroll_lock": "C6"
     },
+    "ws2812": {
+        "pin": "C2"
+    },
     "processor": "at90usb646",
     "bootloader": "atmel-dfu",
     "layouts": {
