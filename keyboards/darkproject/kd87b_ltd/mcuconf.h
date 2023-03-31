@@ -31,6 +31,3 @@
 
 #undef WB32_USBPRE
 #define WB32_USBPRE WB32_USBPRE_DIV2
-
-//Experimental section
-#define WB32_USB_USE_FAST_COPY TRUE
