@@ -8,8 +8,8 @@
     "tags": ["split", "RP2040" ],    
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0xCA04",
-        "vid": "0x0027"
+        "vid": "0xCA04",
+        "pid": "0x0027"
     },
     "build": {
         "lto":true
