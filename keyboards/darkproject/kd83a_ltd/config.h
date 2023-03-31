@@ -22,7 +22,7 @@
 #define TAP_CODE_DELAY 10
 
 #define MATRIX_IO_DELAY 5
-#define GPIO_INPUT_PIN_DELAY 2
+#define GPIO_INPUT_PIN_DELAY 0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
