@@ -16,12 +16,10 @@
 
 #pragma once
 
-#define RGB_DI_PIN E6
 #define RGB_MATRIX_LED_COUNT 80
 
 /* RGB LED */
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN E6
 #define RGBLED_NUM 80    // Number of LEDs. backlight x69
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17

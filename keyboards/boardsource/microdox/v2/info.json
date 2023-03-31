@@ -9,6 +9,9 @@
   "usb": {
     "device_version": "2.0.0"
   },
+  "ws2812": {
+    "pin": "B5"
+  },
   "encoder": {
     "enabled": true,
     "rotary": [
