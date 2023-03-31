@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Backlight configuration
  */
-#define RGB_DI_PIN B7
 #define RGB_MATRIX_LED_COUNT 77
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 
