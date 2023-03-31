@@ -18,6 +18,9 @@
             {"pin_a": "B4", "pin_b": "B5"}
         ]
     },
+    "ws2812": {
+        "pin": "B15"
+    },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan", "65_iso_blocker", "65_iso_blocker_split_bs"],

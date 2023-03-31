@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN B6
 #define RGBLED_NUM 14
 #define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 13, 12,11, 10, 9, 8, 7}
 #define RGBLIGHT_EFFECT_BREATHING
