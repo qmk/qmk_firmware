@@ -50,18 +50,9 @@ def _valid_community_layout(layout):
     return (Path('layouts/default') / layout).exists()
 
 
-def _validate(keyboard, info_data):
-    """Perform various validation on the provided info.json data
+def _additional_validation(keyboard, info_data):
+    """Non schema checks
     """
-    # First validate against the jsonschema
-    try:
-        validate(info_data, 'qmk.api.keyboard.v1')
-
-    except jsonschema.ValidationError as e:
-        json_path = '.'.join([str(p) for p in e.absolute_path])
-        cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
-        exit(1)
-
     layouts = info_data.get('layouts', {})
     layout_aliases = info_data.get('layout_aliases', {})
     community_layouts = info_data.get('community_layouts', [])
@@ -102,6 +93,27 @@ def _validate(keyboard, info_data):
     for layout_name in community_layouts_names:
         if layout_name not in layouts and layout_name not in layout_aliases:
             _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
+
+    # keycodes with length > 7 must have short forms for visualisation purposes
+    for decl in info_data.get('keycodes', []):
+        if len(decl["key"]) > 7:
+            if not decl.get("aliases", []):
+                _log_error(info_data, f'Keycode {decl["key"]} has no short form alias')
+
+
+def _validate(keyboard, info_data):
+    """Perform various validation on the provided info.json data
+    """
+    # First validate against the jsonschema
+    try:
+        validate(info_data, 'qmk.api.keyboard.v1')
+
+        _additional_validation(keyboard, info_data)
+
+    except jsonschema.ValidationError as e:
+        json_path = '.'.join([str(p) for p in e.absolute_path])
+        cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
+        exit(1)
 
 
 def info_json(keyboard):

@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "beta.h"
+#include "quantum.h"
+
 void board_init(void) {
 	setPinInput(B6);
 	setPinInput(B7);

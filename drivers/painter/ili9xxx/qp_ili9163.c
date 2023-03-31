@@ -58,7 +58,7 @@ __attribute__((weak)) bool qp_ili9163_init(painter_device_t device, painter_rota
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver vtable
 
-const struct tft_panel_dc_reset_painter_driver_vtable_t ili9163_driver_vtable = {
+const tft_panel_dc_reset_painter_driver_vtable_t ili9163_driver_vtable = {
     .base =
         {
             .init            = qp_ili9163_init,
@@ -93,8 +93,8 @@ painter_device_t qp_ili9163_make_spi_device(uint16_t panel_width, uint16_t panel
     for (uint32_t i = 0; i < ILI9163_NUM_DEVICES; ++i) {
         tft_panel_dc_reset_painter_device_t *driver = &ili9163_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&ili9163_driver_vtable;
-            driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
+            driver->base.driver_vtable         = (const painter_driver_vtable_t *)&ili9163_driver_vtable;
+            driver->base.comms_vtable          = (const painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
             driver->base.rotation              = QP_ROTATION_0;

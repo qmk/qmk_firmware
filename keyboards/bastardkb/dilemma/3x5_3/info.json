@@ -12,6 +12,9 @@
     "split": {
         "soft_serial_pin": "GP1"
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "processor": "RP2040",
     "bootloader": "rp2040",
     "community_layouts": ["split_3x5_3"],

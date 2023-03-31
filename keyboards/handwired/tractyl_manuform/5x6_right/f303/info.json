@@ -5,6 +5,9 @@
         "rows": ["B10", "B11", "B12", "A14", "A13", "A15"]
     },
     "diode_direction": "COL2ROW",
+    "ws2812": {
+        "driver": "pwm"
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A7", "pin_b": "A8"}

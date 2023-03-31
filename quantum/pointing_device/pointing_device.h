@@ -97,8 +97,8 @@ typedef int16_t clamp_range_t;
 #endif
 
 void           pointing_device_init(void);
-void           pointing_device_task(void);
-void           pointing_device_send(void);
+bool           pointing_device_task(void);
+bool           pointing_device_send(void);
 report_mouse_t pointing_device_get_report(void);
 void           pointing_device_set_report(report_mouse_t mouse_report);
 uint16_t       pointing_device_get_cpi(void);

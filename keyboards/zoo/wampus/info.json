@@ -17,6 +17,9 @@
         "pin": "A6",
         "breathing": true
     },
+    "ws2812": {
+        "driver": "spi"
+    },
     "indicators": {
         "caps_lock": "B8",
         "num_lock": "B0",

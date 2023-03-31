@@ -16,6 +16,9 @@
     "backlight": {
         "pin": "D4"
     },
+    "ws2812": {
+        "driver": "i2c"
+    },
     "indicators": {
         "caps_lock": "D1",
         "num_lock": "D6"
