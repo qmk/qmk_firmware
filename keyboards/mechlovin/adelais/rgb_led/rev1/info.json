@@ -15,5 +15,8 @@
         "caps_lock": "B2",
         "num_lock": "C15",
         "scroll_lock": "B9"
+    },
+    "ws2812": {
+        "pin": "A7"
     }
 }

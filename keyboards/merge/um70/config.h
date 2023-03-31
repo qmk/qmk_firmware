@@ -20,7 +20,6 @@
 #define MASTER_LEFT
 #define SPLIT_MODS_ENABLE
 
-#define RGB_DI_PIN D3
 #define RGBLIGHT_SPLIT
 #define RGBLED_NUM 83
 #define RGBLED_SPLIT { 39, 44 }

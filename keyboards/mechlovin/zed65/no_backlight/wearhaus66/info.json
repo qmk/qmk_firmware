@@ -17,6 +17,7 @@
         "caps_lock": "C14"
     },
     "ws2812": {
+        "pin": "B15",
         "driver": "spi"
     },
     "layout_aliases": {

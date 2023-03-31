@@ -1,6 +1,5 @@
 #pragma once
 
-#define RGB_DI_PIN A7
 #define RGB_MATRIX_LED_COUNT 91
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)

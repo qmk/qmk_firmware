@@ -17,7 +17,6 @@
 #pragma once
 
 /* RGB Underglow */
-#define RGB_DI_PIN F7
   #define RGBLED_NUM 16
   #define RGBLIGHT_SLEEP
   #define RGBLIGHT_EFFECT_BREATHING
