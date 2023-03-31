@@ -15,6 +15,45 @@
  */
 
 #include "quantum.h"
+#include <ctype.h>
+#include <stdio.h>
+
+#if defined(RGB_MATRIX_EFFECT)
+#    undef RGB_MATRIX_EFFECT
+#endif // defined(RGB_MATRIX_EFFECT)
+
+#define RGB_MATRIX_EFFECT(x) RGB_MATRIX_EFFECT_##x,
+enum {
+    RGB_MATRIX_EFFECT_NONE,
+#include "rgb_matrix_effects.inc"
+#undef RGB_MATRIX_EFFECT
+#ifdef RGB_MATRIX_CUSTOM_KB
+#    include "rgb_matrix_kb.inc"
+#endif
+#ifdef RGB_MATRIX_CUSTOM_USER
+#    include "rgb_matrix_user.inc"
+#endif
+};
+
+#define RGB_MATRIX_EFFECT(x)    \
+    case RGB_MATRIX_EFFECT_##x: \
+        return #x;
+const char* rgb_matrix_name(uint8_t effect) {
+    switch (effect) {
+        case RGB_MATRIX_EFFECT_NONE:
+            return "NONE";
+#include "rgb_matrix_effects.inc"
+#undef RGB_MATRIX_EFFECT
+#ifdef RGB_MATRIX_CUSTOM_KB
+#    include "rgb_matrix_kb.inc"
+#endif
+#ifdef RGB_MATRIX_CUSTOM_USER
+#    include "rgb_matrix_user.inc"
+#endif
+        default:
+            return "UNKNOWN";
+    }
+}
 
 #ifdef OLED_ENABLE
 
@@ -109,144 +148,57 @@ void user_oled_magic(void) {
     oled_write_P(led_state.num_lock ? PSTR("Num(x) ") : PSTR("Num( ) "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("Scrl(x)") : PSTR("Scrl( )"), false);
 
+    char *mode_name = strdup(rgb_matrix_name(rgb_matrix_get_mode()));
+    if (mode_name != NULL) {
+        int len = strlen(mode_name);
+        bool capitalize_next = true;
+        for (int i = 0; i < len; i++) {
+            if (i == 21 && mode_name[i] == '_') {
+                continue; // Skip the underscore if it's the 22nd character
+            }
+            if (mode_name[i] == '_') {
+                mode_name[i] = ' ';
+                capitalize_next = true;
+            } else if (capitalize_next) {
+                mode_name[i] = mode_name[i] >= 'a' && mode_name[i] <= 'z' ? mode_name[i] - 'a' + 'A' : mode_name[i];
+                capitalize_next = false;
+            } else {
+                mode_name[i] = mode_name[i] >= 'A' && mode_name[i] <= 'Z' ? mode_name[i] - 'A' + 'a' : mode_name[i];
+            }
+        }
 
-    switch (rgb_matrix_get_mode()) {
-        case 1:
-            oled_write_P(PSTR("Solid Color\n                  "), false);
-            break;
-        case 2:
-            oled_write_P(PSTR("Alphas Mods\n                  "), false);
-            break;
-        case 3:
-            oled_write_P(PSTR("Gradient Up Down\n                  "), false);
-            break;
-        case 4:
-            oled_write_P(PSTR("Gradient Left Right\n                  "), false);
-            break;
-        case 5:
-            oled_write_P(PSTR("Breathing\n                  "), false);
-            break;
-        case 6:
-            oled_write_P(PSTR("Band Sat\n                  "), false);
-            break;
-        case 7:
-            oled_write_P(PSTR("Band Val\n                  "), false);
-            break;
-        case 8:
-            oled_write_P(PSTR("Band Pinwheel Sat\n                  "), false);
-            break;
-        case 9:
-            oled_write_P(PSTR("Band Pinwheel Val\n                  "), false);
-            break;
-        case 10:
-            oled_write_P(PSTR("Band Spiral Sat\n                  "), false);
-            break;
-        case 11:
-            oled_write_P(PSTR("Band Spiral Val\n                  "), false);
-            break;
-        case 12:
-            oled_write_P(PSTR("Cycle All\n                  "), false);
-            break;
-        case 13:
-            oled_write_P(PSTR("Cycle Left Right\n                  "), false);
-            break;
-        case 14:
-            oled_write_P(PSTR("Cycle Up Down\n                  "), false);
-            break;
-        case 15:
-            oled_write_P(PSTR("Rainbow\nMoving Chevron    "), false);
-            break;
-        case 16:
-            oled_write_P(PSTR("Cycle Out In\n                  "), false);
-            break;
-        case 17:
-            oled_write_P(PSTR("Cycle Out In Dual\n                  "), false);
-            break;
-        case 18:
-            oled_write_P(PSTR("Cycle Pinwheel\n                  "), false);
-            break;
-        case 19:
-            oled_write_P(PSTR("Cycle Spiral\n                  "), false);
-            break;
-        case 20:
-            oled_write_P(PSTR("Dual Beacon\n                  "), false);
-            break;
-        case 21:
-            oled_write_P(PSTR("Rainbow Beacon\n                  "), false);
-            break;
-        case 22:
-            oled_write_P(PSTR("Rainbow Pinwheels\n                  "), false);
-            break;
-        case 23:
-            oled_write_P(PSTR("Raindrops\n                  "), false);
-            break;
-        case 24:
-            oled_write_P(PSTR("Jellybean Raindrops\n                  "), false);
-            break;
-        case 25:
-            oled_write_P(PSTR("Hue Breathing\n                  "), false);
-            break;
-        case 26:
-            oled_write_P(PSTR("Hue Pendulum\n                  "), false);
-            break;
-        case 27:
-            oled_write_P(PSTR("Hue Wave\n                  "), false);
-            break;
-        case 28:
-            oled_write_P(PSTR("Pixel Rain\n                  "), false);
-            break;
-        case 29:
-            oled_write_P(PSTR("Pixel Flow\n                  "), false);
-            break;
-        case 30:
-            oled_write_P(PSTR("Pixel Fractal\n                  "), false);
-            break;
-        case 31:
-            oled_write_P(PSTR("Typing Heatmap\n                  "), false);
-            break;
-        case 32:
-            oled_write_P(PSTR("Digital Rain\n                  "), false);
-            break;
-        case 33:
-            oled_write_P(PSTR("Solid Reactive\nSimple            "), false);
-            break;
-        case 34:
-            oled_write_P(PSTR("Solid Reactive\n                  "), false);
-            break;
-        case 35:
-            oled_write_P(PSTR("Solid Reactive\nWide              "), false);
-            break;
-        case 36:
-            oled_write_P(PSTR("Solid Reactive\nMultiwide         "), false);
-            break;
-        case 37:
-            oled_write_P(PSTR("Solid Reactive\nCross             "), false);
-            break;
-        case 38:
-            oled_write_P(PSTR("Solid Reactive\nMulticross        "), false);
-            break;
-        case 39:
-            oled_write_P(PSTR("Solid Reactive\nNexus             "), false);
-            break;
-        case 40:
-            oled_write_P(PSTR("Solid Reactive\nMultinexus        "), false);
-            break;
-        case 41:
-            oled_write_P(PSTR("Splash\n                  "), false);
-            break;
-        case 42:
-            oled_write_P(PSTR("Multisplash\n                  "), false);
-            break;
-        case 43:
-            oled_write_P(PSTR("Solid Splash\n                  "), false);
-            break;
-        case 44:
-            oled_write_P(PSTR("Solid Multisplash\n                  "), false);
-            break;
-        default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("Undefined\n                  "), false);
-    }
+        // Add line break and spaces if necessary
+        if (len < 19) {
+            strcat(mode_name, "\n");
+            for (int i = 0; i < 21; i++) {
+                strcat(mode_name, " ");
+            }
+        } else {
+            // Find the most recent ' ' before the 21st character and replace it with a line break
+            int break_pos = -1;
+            for (int i = 18; i >= 0; i--) {
+                if (mode_name[i] == ' ') {
+                    break_pos = i;
+                    break;
+                }
+            }
+            if (break_pos >= 0) {
+                mode_name[break_pos] = '\n';
+                for (int i = 0; i < (21 - (len - break_pos - 1)); i++) {
+                    strcat(mode_name, " ");
+                }
+            } else {
+                // No '_' found, just add spaces
+                for (int i = 0; i < (21 - len); i++) {
+                    strcat(mode_name, " ");
+                }
+            }
+        }
+        
+        oled_write_P(PSTR(mode_name), false);
+        free(mode_name);
+    } 
+
 
 }
 
