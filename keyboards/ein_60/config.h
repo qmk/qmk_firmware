@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define AUDIO_DAC_SAMPLE_MAX 4095U
 #endif
 
-#define RGB_DI_PIN E7
 #    define RGBLED_NUM         38
 #    define RGBLIGHT_HUE_STEP  4
 #    define RGBLIGHT_SAT_STEP  8

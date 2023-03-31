@@ -18,6 +18,9 @@
         "esc_output": "F0",
         "led": "B1"
     },
+    "ws2812": {
+        "pin": "B7"
+    },
     "indicators": {
         "caps_lock": "B2",
         "num_lock": "B1",

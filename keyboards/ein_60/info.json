@@ -19,6 +19,9 @@
             {"pin_a": "C5", "pin_b": "C4"}
         ]
     },
+    "ws2812": {
+        "pin": "E7"
+    },
     "processor": "at90usb1286",
     "bootloader": "qmk-dfu",
     "layouts": {
