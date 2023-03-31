@@ -6,7 +6,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D4
 #define RGBLED_NUM 1   // Number of LEDs
 
 #define RGBLIGHT_HUE_STEP 6
