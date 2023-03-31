@@ -57,6 +57,3 @@
 #define AW_SCALING_MAX 255
 // (Optional) Driver global current limit (0-255, higher values means the driver may consume more power). Default 150.
 #define AW_GLOBAL_CURRENT_MAX 255
-
-#define DEBUG_MATRIX_SCAN_RATE
-#define KEYBOARD_SHARED_EP
