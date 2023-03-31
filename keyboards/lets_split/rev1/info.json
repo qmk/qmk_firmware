@@ -14,6 +14,9 @@
     "split": {
         "soft_serial_pin": "D0"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x12"
     },
