@@ -20,6 +20,9 @@
             {"pin_a": "A3", "pin_b": "A4"}
         ]
     },
+    "ws2812": {
+        "pin": "A10"
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layouts": {

@@ -18,9 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* RGB Underglow
- * F5 PIN for DO60's pre-soldered WS2812 LEDs
  */
-#define RGB_DI_PIN F5
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

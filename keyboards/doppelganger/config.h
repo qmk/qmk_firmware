@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define USE_I2C
 
-#define RGB_DI_PIN B4
 #define RGBLED_NUM 2
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 1, 1 }
