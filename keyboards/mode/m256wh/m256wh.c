@@ -24,8 +24,9 @@ enum via_secondrow_enable {
 
 // At the keyboard start, retrieves PMEM stored configs
 void keyboard_post_init_kb(void) {
-    wait_ms(20);
-   // rgblight_reload_from_eeprom();
+    rgblight_disable_noeeprom();
+    wait_ms(100);
+    rgblight_enable_noeeprom();
     eeconfig_read_kb_datablock(&is_second_rgb_row_active);
 }
 
