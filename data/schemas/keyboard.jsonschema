@@ -406,13 +406,6 @@
                 }
             }
         },
-        "repeat_key": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled": {"type": "boolean"}
-            }
-        },
         "rgb_matrix": {
             "type": "object",
             "properties": {

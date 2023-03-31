@@ -29,9 +29,24 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record);
 /**
  * @brief Optional callback defining which keys are eligible for repeating.
  *
+ * @param keycode          Keycode that was just pressed
+ * @param record           keyrecord_t structure
+ * @param remembered_mods  Mods that will be remembered with this key
+ * @return true            Key is eligible for repeating
+ * @return false           Key is ignored
+ *
  * Modifier and layer switch keys are always ignored. For all other keys, this
  * callback is called on every key press. Returning true means that the key
  * is eligible for repeating, false means it is ignored. By default, all
  * non-modifier, non-layer switch keys are eligible.
+ *
+ * The `remembered_mods` arg represents the mods that will be remembered with
+ * this key. It can be modified to forget certain mods, for instance to forget
+ * capitalization when repeating shifted letters:
+ *
+ *     // Forget Shift on letter keys.
+ *     if (KC_A <= keycode && keycode <= KC_Z && (*remembered_mods & ~MOD_MASK_SHIFT) == 0) {
+ *         *remembered_mods = 0;
+ *     }
  */
-bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record);
+bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods);

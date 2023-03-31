@@ -98,9 +98,7 @@ with mods, like Ctrl + Left &harr; Ctrl + Right Arrow.
 (where above, "mod" is Ctrl, Alt, or GUI)
 
 
-## Customization
-
-### Defining alternate keys
+## Defining alternate keys
 
 Use the `get_alt_repeat_key_keycode_user()` callback to define the "alternate"
 for additional keys or override the default definitions. For example, to define
@@ -146,6 +144,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
 }
 ```
 
+#### Eliminating SFBs
+
 Alternate Repeat can be configured more generally to perform an action that
 "complements" the last key. Alternate Repeat is not limited to reverse
 repeating, and it need not be symmetric. You can use it to eliminate cases of
@@ -167,6 +167,8 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     return KC_TRNS;
 }
 ```
+
+#### Typing shortcuts
 
 A useful possibility is having Alternate Repeat press [a
 macro](feature_macros.md). This way macros can be used without having to
@@ -203,18 +205,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 ```
 
-### Ignoring certain keys
+## Ignoring certain keys and mods
 
 In tracking what is "the last key" to be repeated or alternate repeated,
 modifier and layer switch keys are always ignored. This makes it possible to set
 some mods and change layers between pressing a key and repeating it.
 By default, all other (non-modifier, non-layer switch) keys are eligible for
 repeating. To configure additional keys to be ignored, define
-`get_repeat_key_eligible_user()` in your keymap.c. The following ignores the
-Backspace key:
+`get_repeat_key_eligible_user()` in your keymap.c. 
+
+#### Ignoring a key
+
+The following ignores the Backspace key:
 
 ```c
-bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record) {
+bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record,
+                                  uint8_t* remembered_mods) {
     switch (keycode) {
         case KC_BSPC:
             return false;  // Ignore backspace.
@@ -233,13 +239,39 @@ excluding modifiers and layer switches. Returning true indicates the key is
 eligible for repeating (or alternate repeating), while false means it is
 ignored.
 
+#### Filtering remembered mods
+
+The `remembered_mods` arg represents the mods that will be remembered with
+this key. It can be modified to forget certain mods. This may be
+useful to forget capitalization when repeating shifted letters, so that "Aaron"
+does not becom "AAron":
+
+```c
+bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record,
+                                  uint8_t* remembered_mods) {
+    // Forget Shift on letter keys when Shift or AltGr are the only mods.
+    switch (keycode) {
+        case KC_A ... KC_Z:
+            if ((*remembered_mods & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT))) == 0) {
+                *remembered_mods &= ~MOD_MASK_SHIFT;
+            }
+            break;
+    }
+
+    return true;
+}
+```
+
+#### Further conditions
+
 Besides checking the keycode, this callback could also make conditions based on
 the current layer state (with `IS_LAYER_ON(layer)`) or mods (`get_mods()`). For
 example, the following ignores keys on layer 2 as well as key combinations
 involving GUI:
 
 ```c
-bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record) {
+bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record,
+                                  uint8_t* remembered_mods) {
     if (IS_LAYER_ON(2) || (get_mods() & MOD_MASK_GUI)) {
         return false;  // Ignore layer 2 keys and GUI chords.
     }
@@ -253,7 +285,7 @@ State](feature_advanced_keycodes.md#checking-modifier-state) for further
 details.
  
 
-### Handle how a key is repeated
+## Handle how a key is repeated
 
 By default, pressing the Repeat Key will simply behave as if the last key
 were pressed again. This also works with macro keys with custom handlers,
@@ -291,7 +323,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 ```
 
-### Handle how a key is alternate repeated
+## Handle how a key is alternate repeated
 
 Pressing the Alternate Repeat Key behaves as if the "alternate" of the last
 pressed key were pressed, if an alternate is defined. To define how a particular

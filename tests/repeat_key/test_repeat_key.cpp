@@ -33,12 +33,20 @@ bool process_record_user_default(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-// Indirection so that process_record_user() can be replaced with other
-// functions in the test cases below.
-std::function<bool(uint16_t, keyrecord_t*)> process_record_user_fun = process_record_user_default;
+bool get_repeat_key_eligible_user_default(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    return true;
+}
+
+// Indirection so that process_record_user() and get_repeat_key_eligible_user()
+// can be replaced with other functions in the test cases below.
+std::function<bool(uint16_t, keyrecord_t*)>           process_record_user_fun          = process_record_user_default;
+std::function<bool(uint16_t, keyrecord_t*, uint8_t*)> get_repeat_key_eligible_user_fun = get_repeat_key_eligible_user_default;
 
 extern "C" bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return process_record_user_fun(keycode, record);
+}
+extern "C" bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    return get_repeat_key_eligible_user_fun(keycode, record, remembered_mods);
 }
 
 class RepeatKey : public TestFixture {
@@ -47,7 +55,8 @@ class RepeatKey : public TestFixture {
 
     void SetUp() override {
         autoshift_disable();
-        process_record_user_fun = process_record_user_default;
+        process_record_user_fun          = process_record_user_default;
+        get_repeat_key_eligible_user_fun = get_repeat_key_eligible_user_default;
     }
 
     void ExpectProcessRecordUserCalledWith(bool expected_press, uint16_t expected_keycode, int8_t expected_repeat_key_count) {
@@ -592,6 +601,70 @@ TEST_F(RepeatKey, AutoShift) {
 
     tap_key(key_repeat);
     tap_key(key_repeat, AUTO_SHIFT_TIMEOUT + 1);
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
+// Defines `get_repeat_key_eligible_user()` to forget the Shift mod and types:
+// "Ctrl+A, Repeat, Shift+A, Repeat, Shift+Repeat".
+TEST_F(RepeatKey, FilterRememberedMods) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_ctrl(0, 1, 0, KC_LCTL);
+    KeymapKey  key_shift(0, 2, 0, KC_LSFT);
+    KeymapKey  key_repeat(0, 3, 0, QK_REP);
+    set_keymap({key_a, key_ctrl, key_shift, key_repeat});
+
+    get_repeat_key_eligible_user_fun = [](uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+        *remembered_mods &= ~MOD_MASK_SHIFT;
+        return true;
+    };
+
+    // Allow any number of reports with no keys or only mods.
+    // clang-format off
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
+                KeyboardReport(),
+                KeyboardReport(KC_LCTL),
+                KeyboardReport(KC_LSFT),
+                KeyboardReport(KC_LCTL, KC_LSFT))))
+        .Times(AnyNumber());
+    // clang-format on
+
+    { // Expect: "Ctrl+A, Ctrl+A, Shift+A, A, Shift+A".
+        InSequence seq;
+        EXPECT_REPORT(driver, (KC_LCTL, KC_A));
+        EXPECT_REPORT(driver, (KC_LCTL, KC_A));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+        EXPECT_REPORT(driver, (KC_A));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+    }
+
+    key_ctrl.press();
+    run_one_scan_loop();
+    tap_key(key_a);
+
+    EXPECT_EQ(get_repeat_key_mods(), MOD_BIT(KC_LCTL));
+
+    key_ctrl.release();
+    run_one_scan_loop();
+
+    tap_key(key_repeat);
+    key_shift.press();
+    run_one_scan_loop();
+    tap_key(key_a);
+
+    EXPECT_EQ(get_repeat_key_mods(), 0); // Shift should be forgotten.
+
+    key_shift.release();
+    run_one_scan_loop();
+
+    tap_key(key_repeat);
+
+    key_shift.press();
+    run_one_scan_loop();
+    tap_key(key_repeat);
+    key_shift.release();
+    run_one_scan_loop();
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
