@@ -116,14 +116,17 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
         }
     }
 
-    return KC_NO;
+    return KC_TRNS;  // Defer to default definitions.
 }
 ```
 
 The `keycode` and `mods` args are the keycode and mods that were active with the
-last pressed key. The function returns the keycode for the alternate key, or
-`KC_NO` to defer to the default definitions. Any keycode may be returned as a
-alternate key, including custom keycodes.
+last pressed key. The meaning of the return value from this function is:
+
+* `KC_NO` &ndash; do nothing (any predefined alternate key is not used);
+* `KC_TRNS` &ndash; use the default alternate key if it exists;
+* anything else &ndash; use the specified keycode. Any keycode may be returned
+  as an alternate key, including custom keycodes.
 
 Another example, defining Shift + Tab as the alternate of Tab, and vice versa:
 
@@ -139,7 +142,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
             }
     }
 
-    return KC_NO;
+    return KC_TRNS;
 }
 ```
 
@@ -161,7 +164,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
         case KC_U: return KC_N;  // For "UN" bigram.
     }
 
-    return KC_NO;
+    return KC_TRNS;
 }
 ```
 
@@ -188,7 +191,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
         case KC_DOT: return M_UPDIR;
     }
 
-    return KC_NO;
+    return KC_TRNS;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -305,7 +308,7 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
     switch (keycode) {
         case MY_MACRO: return MY_MACRO;  // MY_MACRO is its own alternate.
     }
-    return KC_NO;
+    return KC_TRNS;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {

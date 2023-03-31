@@ -29,7 +29,7 @@ using ::testing::InSequence;
 namespace {
 
 uint16_t get_alt_repeat_key_keycode_user_default(uint16_t keycode, uint8_t mods) {
-    return KC_NO;
+    return KC_TRNS;
 }
 
 bool process_record_user_default(uint16_t keycode, keyrecord_t* record) {
