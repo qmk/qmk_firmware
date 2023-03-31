@@ -277,6 +277,6 @@ void alt_repeat_key_invoke(const keyevent_t* event) {
 
 // Default implementation of get_alt_repeat_key_keycode_user().
 __attribute__((weak)) uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
-    return KC_NO;
+    return KC_TRANSPARENT;
 }
 #endif // NO_ALT_REPEAT_KEY
