@@ -133,7 +133,7 @@ uint16_t get_alt_repeat_key_keycode(void) {
     // alternate key definitions that follow.
     uint16_t alt_keycode = get_alt_repeat_key_keycode_user(keycode, mods);
 
-    if (alt_keycode) {
+    if (alt_keycode != KC_TRANSPARENT) {
         return alt_keycode;
     }
 
