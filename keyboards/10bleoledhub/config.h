@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #pragma once
 
 #define SSD1306OLED
-#define RGB_DI_PIN B7
 
 #define RGBLED_NUM 4
 

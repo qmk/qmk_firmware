@@ -19,7 +19,6 @@
 
 #define MOUSEKEY_MOVE_DELTA 25
 
-#define RGB_DI_PIN B5
 #define RGB_MATRIX_LED_COUNT 20
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #    define RGBLIGHT_LIMIT_VAL 255

@@ -16,6 +16,9 @@
     "indicators": {
         "caps_lock": "B7"
     },
+    "ws2812": {
+        "pin": "B2"
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

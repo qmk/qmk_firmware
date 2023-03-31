@@ -25,6 +25,7 @@
         "rgblight": false
     },
     "ws2812": {
+        "pin": "GP6",
         "driver": "vendor"
     },
     "matrix_pins": {
