@@ -16,6 +16,9 @@
   "backlight": {
     "pin": "B5"
   },
+  "ws2812": {
+    "pin": "D3"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "community_layouts": ["ortho_3x10"],

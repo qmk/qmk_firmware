@@ -15,6 +15,9 @@
     "indicators": {
         "caps_lock": "C6"
     },
+    "ws2812": {
+        "pin": "F0"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["75_ansi"],

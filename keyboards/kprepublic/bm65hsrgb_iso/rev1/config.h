@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Force NKRO */
 #define FORCE_NKRO
 
-#define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 74
     #define RGBLED_NUM 74
     #define RGB_MATRIX_KEYPRESSES

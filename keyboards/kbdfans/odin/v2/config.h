@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN B15
-
     #define RGBLED_NUM 4
     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

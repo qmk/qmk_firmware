@@ -22,6 +22,9 @@
         "pin": "A6",
         "levels": 7
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layout_aliases": {

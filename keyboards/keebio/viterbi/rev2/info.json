@@ -16,6 +16,9 @@
         "pin": "B6",
         "levels": 7
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_5x14"
     },
