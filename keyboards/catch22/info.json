@@ -6,6 +6,9 @@
         "pid": "0xCA22",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "F6"
+    },
     "matrix_pins": {
         "cols": ["B5", "B4", "E6", "D7", "C6"],
         "rows": ["B6", "B2", "B3", "B1", "F7"]

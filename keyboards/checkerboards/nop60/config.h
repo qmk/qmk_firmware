@@ -20,7 +20,6 @@ Copyright 2021 Nathan Spears
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 
 // ws2812 options
-#define RGB_DI_PIN D2 // pin the DI on the ws2812 is hooked-up to
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
