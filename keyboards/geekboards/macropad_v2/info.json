@@ -9,6 +9,7 @@
     "device_version": "0.0.2"
   },
   "ws2812": {
+    "pin": "A7",
     "driver": "pwm"
   },
   "processor": "STM32F072",
