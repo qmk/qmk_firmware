@@ -21,6 +21,9 @@
     "split": {
       "soft_serial_pin": "D3"
     },
+    "ws2812": {
+      "pin": "B6"
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 
 #ifdef RGBLIGHT_ENABLE
-  #define RGB_DI_PIN D3
   #define RGBLED_NUM 66 // Number of LEDs
   #define RGBLIGHT_SPLIT
   #define RGBLED_SPLIT { 33, 33 }
