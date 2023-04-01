@@ -713,7 +713,7 @@ _Note: The Cirque pinnacle track pad already implements a custom activation func
 When using a custom pointing device (overwriting `pointing_device_task`) the following code should be somewhere in the `pointing_device_task_*` stack:
 
 ```c
-void pointing_device_task(void) {
+bool pointing_device_task(void) {
     //...Custom pointing device task code
     
     // handle automatic mouse layer (needs report_mouse_t as input)
@@ -721,7 +721,7 @@ void pointing_device_task(void) {
     
     //...More custom pointing device task code
     
-    pointing_device_send();
+    return pointing_device_send();
 }
 ```
 
