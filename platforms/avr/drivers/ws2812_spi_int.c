@@ -34,7 +34,7 @@
 
 #include <avr/interrupt.h>
 #include "gpio.h"
-#include "rgblight.h"
+#include "ws2812.h"
 
 #if F_CPU != 16000000L
 #    error "The SPI WS2812 driver supports only the 16 MHz CPU clock"
