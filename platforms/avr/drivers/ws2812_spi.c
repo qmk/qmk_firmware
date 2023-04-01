@@ -27,7 +27,7 @@
  * uncommon), and the leds connected to the PB2 pin. Also,
  * it can manage a maximum of 85 leds.
  *
- * It uses 38 bytes less than the WS2812 driver.
+ * It uses 36 bytes less than the WS2812 driver.
  */
 
 #include <avr/interrupt.h>
