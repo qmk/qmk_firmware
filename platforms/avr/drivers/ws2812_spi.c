@@ -52,35 +52,35 @@ void ws2812_setleds(LED_TYPE *ledarray, uint8_t leds) {
     SPCR = (1 << SPE) | (1 << MSTR) | (1 << CPHA);
     asm volatile(
 #ifdef RGBW
-                 "            add   %0, %0\n\t"
-                 "            add   %0, %0\n\t"   // %0 = leds * 4
+        "            add   %0, %0\n\t"
+        "            add   %0, %0\n\t"   // %0 = leds * 4
 #else
-                 "            mov  r24, %0\n\t"
-                 "            add  r24, r24\n\t"  // r24 = leds * 2
-                 "            add   %0, r24\n\t"  // %0 = leds * 3
+        "            mov  r24, %0\n\t"
+        "            add  r24, r24\n\t"  // r24 = leds * 2
+        "            add   %0, r24\n\t"  // %0 = leds * 3
 #endif
-                 "            in   r27, 0x2D\n\t" // clear SPIF
-                 "            out  0x2E, r1\n\t"  // out SPDR, 0 (R1 always has zero)
-                                                  // this begins a full-zero SPI transfer, to ensure that SPIF is zero but will
-                                                  // contain a 1 "in the future". This ensures that the first LED bit won't be
-                                                  // sent partially because there is a collision, and that the "wait_ready"
-                                                  // loop won't hang.
-                 "loop_byte:  ld   r24, Z+\n\t"   // r24 contains the byte to send to the led
-                 "            ldi  r25, 8\n\t"    // 8 bits to send
-                 "loop_bits:  ldi  r26, 0xE0\n\t" // 11100000 -> zero bit (375ns up)
-                 "            sbrc r24, 7\n\t"
-                 "            ldi  r26, 0xFE\n\t" // 11111110 -> one bit (875ns up)
-                 "            add  r24, r24\n\t"  // rotate data one bit to the left.
-                 "wait_ready: in   r27, 0x2D\n\t" // in r27, SPSR
-                 "            andi r27, 0x80\n\t" // check SPIF to know if the transfer is complete.
-                 "            breq wait_ready\n\t"
-                 "            out  0x2E, r26\n\t" // out SPDR, r26; continue the SPI transfer
-                 "            subi r25, 1\n\t" // are there more bits to send in this byte?
-                 "            brne loop_bits\n\t"
-                 "            subi  %0, 1\n\t"
-                 "            brne loop_byte\n\t"
-                 :
-                 : "a"(leds), "z"(ledarray));
+        "            in   r27, 0x2D\n\t" // clear SPIF
+        "            out  0x2E, r1\n\t"  // out SPDR, 0 (R1 always has zero)
+                                         // this begins a full-zero SPI transfer, to ensure that SPIF is zero but will
+                                         // contain a 1 "in the future". This ensures that the first LED bit won't be
+                                         // sent partially because there is a collision, and that the "wait_ready"
+                                         // loop won't hang.
+        "loop_byte:  ld   r24, Z+\n\t"   // r24 contains the byte to send to the led
+        "            ldi  r25, 8\n\t"    // 8 bits to send
+        "loop_bits:  ldi  r26, 0xE0\n\t" // 11100000 -> zero bit (375ns up)
+        "            sbrc r24, 7\n\t"
+        "            ldi  r26, 0xFE\n\t" // 11111110 -> one bit (875ns up)
+        "            add  r24, r24\n\t"  // rotate data one bit to the left.
+        "wait_ready: in   r27, 0x2D\n\t" // in r27, SPSR
+        "            andi r27, 0x80\n\t" // check SPIF to know if the transfer is complete.
+        "            breq wait_ready\n\t"
+        "            out  0x2E, r26\n\t" // out SPDR, r26; continue the SPI transfer
+        "            subi r25, 1\n\t" // are there more bits to send in this byte?
+        "            brne loop_bits\n\t"
+        "            subi  %0, 1\n\t"
+        "            brne loop_byte\n\t"
+        :
+        : "a"(leds), "z"(ledarray));
     // restore interrupts previous state
     SREG = sreg_prev;
     _delay_us(WS2812_TRST_US);
