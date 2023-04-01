@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "serneity65.h"
+#include "quantum.h"
 
 #ifdef VIA_ENABLE
 static uint8_t encoder_state[NUM_ENCODERS] = {0};

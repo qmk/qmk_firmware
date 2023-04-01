@@ -17,9 +17,7 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_durgod_dgk6x_hades
-#   include "hades.h"
-#elif defined KEYBOARD_durgod_dgk6x_venus
+#if defined KEYBOARD_durgod_dgk6x_venus
 #   include "venus.h"
 #elif defined KEYBOARD_durgod_dgk6x_galaxy
 #   include "galaxy.h"

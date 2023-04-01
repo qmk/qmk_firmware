@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mini_elixivy.h"
+#include "quantum.h"
 
 /* Rotary Encoder's function (currently volume up/down) */
 bool encoder_update_kb(uint8_t index, bool clockwise) {
