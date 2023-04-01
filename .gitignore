@@ -52,7 +52,7 @@ quantum/version.h
 .history/
 build/
 cmake-build-debug
-CMakeLists.txt
+# CMakeLists.txt
 *.pdf
 
 # Let these ones be user specific, since we have so many different configurations

@@ -1,0 +1,9 @@
+[
+    {
+        "name": "AVR GCC",
+        "compilers": {
+            "CC": "C:\\QMK_MSYS\\mingw64\\bin\\avr-gcc.exe",
+            "CXX": "C:\\QMK_MSYS\\mingw64\\bin\\avr-g++.exe"
+        }
+    }
+]
