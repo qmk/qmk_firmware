@@ -8,6 +8,7 @@
         "device_version": "0.0.1"
     },
     "ws2812": {
+        "pin": "B9",
         "driver": "pwm"
     },
     "matrix_pins": {
@@ -24,9 +25,6 @@
         "pin": "A10",
         "levels": 5,
         "breathing": true
-    },
-    "ws2812": {
-        "pin": "B9"
     },
     "indicators": {
         "caps_lock": "A9",
