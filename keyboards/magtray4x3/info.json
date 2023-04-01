@@ -13,8 +13,8 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["PB2", "PB1", "PB0"],
-        "rows": ["PA10", "PC9", "PA8", "PA9"]
+        "cols": ["B2", "B1", "B0"],
+        "rows": ["A10", "C9", "A8", "A9"]
     },
     "processor": "STM32F072",
     "url": "",
