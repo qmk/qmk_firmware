@@ -1,4 +1,5 @@
 /*
+ * (C) 2023 Raster Software Vigo
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,12 +22,12 @@
  * or 11111110 for a one. The extra time to prepare the
  * next bit ensures the timming after each bit.
  *
- * It requires a 16MHz CPU clock and the pins PB0 and PB1
+ * It requires a 16MHz CPU clock and the pins PB1 and PB3
  * unused (they are part of the ISP interface, so it's not
  * uncommon), and the leds connected to the PB2 pin. Also,
  * it can manage a maximum of 85 leds.
  *
- * It uses 40 bytes less than the WS2812 driver.
+ * It uses 38 bytes less than the WS2812 driver.
  */
 
 #include <avr/interrupt.h>
