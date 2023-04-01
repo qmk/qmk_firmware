@@ -31,6 +31,8 @@
  */
 
 #include <avr/interrupt.h>
+#include <util/delay.h>
+#include "gpio.h"
 #include "ws2812.h"
 
 #if F_CPU != 16000000L
@@ -39,6 +41,9 @@
 
 void ws2812_setleds(LED_TYPE *ledarray, uint8_t leds) {
     // Initialize SPI for the WS2812/SK6812 driver
+    // Disable interrupts, preserving the old state
+    uint8_t sreg_prev = SREG;
+    cli();
     // Set PB2 and PB0 as output (not doing it freezes the SPI)
     setPinOutput(B2);
     setPinOutput(B0);
@@ -52,7 +57,7 @@ void ws2812_setleds(LED_TYPE *ledarray, uint8_t leds) {
                  "            ldi  r25, 8\n\t"    // 8 bits to send
                  "loop_bits:  ldi  r26, 0xE0\n\t" // 11100000 -> zero bit (375ns up)
                  "            sbrc r24, 7\n\t"
-                 "            ldi  r26, 0xF8\n\t" // 11111110 -> one bit (875ns up)
+                 "            ldi  r26, 0xFE\n\t" // 11111110 -> one bit (875ns up)
                  "            out  0x2E, r26\n\t" // out SPDR, r26; begin the SPI transfer
                  "            add  r24, r24\n\t"  // rotate data one bit to the left
                  "wait_ready: in   r27, 0x2D\n\t" // in r27, SPSR
@@ -64,5 +69,7 @@ void ws2812_setleds(LED_TYPE *ledarray, uint8_t leds) {
                  "            brne loop_byte\n\t"
                  :
                  : "a"(leds), "z"(ledarray));
+    // restore interrupts previous state
+    SREG = sreg_prev;
     _delay_us(WS2812_TRST_US);
 }

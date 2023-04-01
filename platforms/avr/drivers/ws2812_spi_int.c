@@ -33,7 +33,12 @@
  */
 
 #include <avr/interrupt.h>
+#include "gpio.h"
 #include "rgblight.h"
+
+#if F_CPU != 16000000L
+#    error "The SPI WS2812 driver supports only the 16 MHz CPU clock"
+#endif
 
 uint8_t *led_data;
 uint8_t  nbytes;
@@ -45,8 +50,8 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
     remaining_bits = 8;
     // Initialize SPI for the WS2812/SK6812 driver
     // Set PB2 and PB0 as output (not doing it freezes the SPI)
-    DDRB |= (1 << PB2);
-    DDRB |= (1 << PB0);
+    setPinOutput(B2);
+    setPinOutput(B0);
     // Enable SPI, Master, set clock rate fck/2, MODE1, and enable interrupts
     SPSR = (1 << SPI2X);
     SPCR = (1 << SPIE) | (1 << SPE) | (1 << MSTR) | (1 << CPHA);
