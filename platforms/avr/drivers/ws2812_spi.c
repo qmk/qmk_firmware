@@ -31,7 +31,6 @@
  */
 
 #include <avr/interrupt.h>
-#include "rgblight.h"
 #include "ws2812.h"
 
 void ws2812_setleds(LED_TYPE *ledarray, uint8_t leds) {
