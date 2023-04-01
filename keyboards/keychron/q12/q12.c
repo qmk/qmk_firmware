@@ -50,7 +50,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     return true;
 }
-#endif
+#endif // ENCODER_ENABLE
 
 #if defined(RGB_MATRIX_ENABLE) && (defined(CAPS_LOCK_LED_INDEX) || defined(NUM_LOCK_LED_INDEX))
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
