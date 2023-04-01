@@ -72,6 +72,9 @@ ISR(SPI_STC_vect, ISR_NAKED) {                //                                
                  "        sbrc r24, 7\n\t"              // else
                  "        ldi  r25, 0xFE\n\t"           //     r25 = 0xFE;          11111110 -> one bit (875ns up)
                  "        add  r24, r24\n\t"            // *Z <<= 2;                rotate the current byte one bit to the left
+                 "        brcc nocarry\n\t"             //                          and if the carry is 1, that means that the top bit was 1
+                 "        ori  r24, 0x01\n\t"           //                          so we have to insert it to the left to preserve the data
+                 "nocarry:\n\t"
                  "        st   Z+, r24\n\t"             // Z++;                     store it in memory and point to the next byte (the incremented value won't be
                  "        lds  r24, remaining_bits\n\t" //                          stored unless there are no more bits, so this saves one instruction)
                  "        subi r24, 1\n\t"              // remaining_bits--;
