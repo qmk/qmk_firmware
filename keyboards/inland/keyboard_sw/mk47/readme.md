@@ -7,11 +7,11 @@ A customizable 40% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make hfdkb/keyboard_sw/mk47:default
+    make inland/keyboard_sw/mk47:default
 
 Flashing example for this keyboard:
 
-    make hfdkb/keyboard_sw/mk47:default:flash
+    make inland/keyboard_sw/mk47:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, which programmed as *Esc* while plugging in the keyboard.
 

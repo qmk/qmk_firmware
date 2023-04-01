@@ -1,6 +1,6 @@
 {
     "keyboard_name": "MK47",
-    "manufacturer": "http://www.hfdic.com/",
+    "manufacturer": "https://www.microcenter.com",
     "maintainer": "hfd",
     "usb": {
         "vid": "0xFFFE",
