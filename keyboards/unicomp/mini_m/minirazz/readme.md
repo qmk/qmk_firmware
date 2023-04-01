@@ -14,6 +14,13 @@ To place the keyboard into bootloader mode in order to flash it, hold the ESC ke
 It's possible to make this feature not work, by flashing the wrong firmware onto the keyboard.
 If that happens, open up the keyboard, and hold the pushbutton on the controller while plugging in the keyboard.
 
+A couple features of this keyboard implementation:
+* The QK_USER_0 keycode is defined as Scroll Lock, when pressed without modifiers, and Num Lock when pressed with shift.
+  * You can disable this with `#define DISABLE_CUSTOM_NUMSLCK_KEYCODE` in your keymap's config.h
+* Layer 1 is a special layer that is activated when the NumLock locklight is on. This is in order to support the embedded numpad.
+  * You can disable this with `#define DISABLE_NUMPAD_LAYER` in your keymap's config.h
+  * You can change the number of the activated layer by `#define NUMPAD_LAYER <number>` in your keymap's config.h
+
 Make example for this keyboard (after setting up your build environment):
 
     make unicomp/mini_m/minirazz:default
