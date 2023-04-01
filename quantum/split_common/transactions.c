@@ -795,13 +795,14 @@ static void haptic_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 static bool activity_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t             last_update = 0;
     split_slave_activity_sync_t activity_sync;
-    activity_sync.matrix_timestamp  = last_matrix_activity_time();
-    activity_sync.encoder_timestamp = last_encoder_activity_time();
+    activity_sync.matrix_timestamp          = last_matrix_activity_time();
+    activity_sync.encoder_timestamp         = last_encoder_activity_time();
+    activity_sync.pointing_device_timestamp = last_pointing_device_activity_time();
     return send_if_data_mismatch(PUT_ACTIVITY, &last_update, &activity_sync, &split_shmem->activity_sync, sizeof(activity_sync));
 }
 
 static void activity_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    set_activity_timestamps(split_shmem->activity_sync.matrix_timestamp, split_shmem->activity_sync.encoder_timestamp);
+    set_activity_timestamps(split_shmem->activity_sync.matrix_timestamp, split_shmem->activity_sync.encoder_timestamp, split_shmem->activity_sync.pointing_device_timestamp);
 }
 
 // clang-format off

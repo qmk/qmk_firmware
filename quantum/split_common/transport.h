@@ -127,6 +127,7 @@ typedef struct _split_slave_haptic_sync_t {
 typedef struct _split_slave_activity_sync_t {
     uint32_t matrix_timestamp;
     uint32_t encoder_timestamp;
+    uint32_t pointing_device_timestamp;
 } split_slave_activity_sync_t;
 #endif // defined(SPLIT_ACTIVITY_ENABLE)
 
