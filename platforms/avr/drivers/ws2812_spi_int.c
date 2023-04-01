@@ -23,10 +23,10 @@
  * to prepare the next bit ensures the timming after
  * each bit.
  *
- * It requires a 16MHz CPU clock and the pins PB1 and PB3
+ * It requires a 16MHz CPU clock, the pins PB1 and PB3
  * unused (they are part of the ISP interface, so it's not
- * uncommon), and the leds connected to the PB2 pin. Also,
- * it can manage a maximum of 85 leds.
+ * uncommon), PB0 as output, and the leds connected to the
+ * PB2 pin. Also, it can manage a maximum of 85 leds.
  *
  * It uses 40 bytes more than the WS2812 driver, but being interrupt
  * based, allows to multiplex the LEDs with other tasks.
@@ -49,7 +49,7 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
     nbytes         = 3 * leds;
     remaining_bits = 8;
     // Initialize SPI for the WS2812/SK6812 driver
-    // Set PB2 and PB0 as output (not doing it freezes the SPI)
+    // Set PB0 and PB2 as output (not doing it freezes the SPI)
     setPinOutput(B2);
     setPinOutput(B0);
     // Enable SPI, Master, set clock rate fck/2, MODE1, and enable interrupts
