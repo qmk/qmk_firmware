@@ -1,6 +1,6 @@
 # unicomp/mini_m/minirazz
 
-![unicomp/mini_m/minirazz](https://i.imgur.com/JFXIz4O.jpeg)
+![unicomp/mini_m/minirazz](https://i.imgur.com/JFXIz4Oh.jpeg)
 
 Supports the Unicomp Mini M keyboard, with the "MiniRazz" open hardware replacement controller.
 
