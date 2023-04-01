@@ -37,8 +37,8 @@
 void ws2812_setleds(LED_TYPE *ledarray, uint8_t leds) {
     // Initialize SPI for the WS2812/SK6812 driver
     // Set PB2 and PB0 as output (not doing it freezes the SPI)
-    DDRB |= (1 << PB2);
-    DDRB |= (1 << PB0);
+    setPinOutput(B2);
+    setPinOutput(B0);
     // Enable SPI, Master, set clock rate fck/2, MODE1
     SPSR = 1 << SPI2X;
     SPCR = (1 << SPE) | (1 << MSTR) | (1 << CPHA);
