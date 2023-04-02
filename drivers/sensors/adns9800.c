@@ -77,20 +77,23 @@
 #define MSB1              0x80
 // clang-format on
 
-void adns9800_spi_start(void) {
-    spi_start(ADNS9800_CS_PIN, false, ADNS9800_SPI_MODE, ADNS9800_SPI_DIVISOR);
+const pointing_device_driver_t     adns9800_driver_spi_default = {.init = adns9800_init, .get_report = adns9800_get_report, .set_cpi = adns9800_set_cpi, .get_cpi = adns9800_get_cpi};
+const pointing_device_spi_config_t adns9800_config_spi_default = {.cs = ADNS9800_CS_PIN, .mode = ADNS9800_SPI_MODE, .divisor = ADNS9800_SPI_DIVISOR};
+
+void adns9800_spi_start(pointing_device_spi_config_t* spi_config) {
+    spi_start(spi_config->cs, false, spi_config->mode, spi_config->divisor);
 }
 
-void adns9800_write(uint8_t reg_addr, uint8_t data) {
-    adns9800_spi_start();
+void adns9800_write(pointing_device_spi_config_t* spi_config, uint8_t reg_addr, uint8_t data) {
+    adns9800_spi_start(spi_config);
     spi_write(reg_addr | MSB1);
     spi_write(data);
     spi_stop();
     wait_us(US_BETWEEN_WRITES);
 }
 
-uint8_t adns9800_read(uint8_t reg_addr) {
-    adns9800_spi_start();
+uint8_t adns9800_read(pointing_device_spi_config_t* spi_config, uint8_t reg_addr) {
+    adns9800_spi_start(spi_config);
     spi_write(reg_addr & 0x7f);
     uint8_t data = spi_read();
     spi_stop();
@@ -99,39 +102,41 @@ uint8_t adns9800_read(uint8_t reg_addr) {
     return data;
 }
 
-void adns9800_init(void) {
-    gpio_set_pin_output(ADNS9800_CS_PIN);
+void adns9800_init(const void * config) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
+    gpio_set_pin_output(spi_config->cs);
+
 
     spi_init();
 
     // reboot
-    adns9800_write(REG_Power_Up_Reset, 0x5a);
+    adns9800_write(spi_config, REG_Power_Up_Reset, 0x5a);
     wait_ms(50);
 
     // read registers and discard
-    adns9800_read(REG_Motion);
-    adns9800_read(REG_Delta_X_L);
-    adns9800_read(REG_Delta_X_H);
-    adns9800_read(REG_Delta_Y_L);
-    adns9800_read(REG_Delta_Y_H);
+    adns9800_read(spi_config, REG_Motion);
+    adns9800_read(spi_config,REG_Delta_X_L);
+    adns9800_read(spi_config,REG_Delta_X_H);
+    adns9800_read(spi_config,REG_Delta_Y_L);
+    adns9800_read(spi_config,REG_Delta_Y_H);
 
     // upload firmware
 
     // 3k firmware mode
-    adns9800_write(REG_Configuration_IV, 0x02);
+    adns9800_write(spi_config,REG_Configuration_IV, 0x02);
 
     // enable initialisation
-    adns9800_write(REG_SROM_Enable, 0x1d);
+    adns9800_write(spi_config,REG_SROM_Enable, 0x1d);
 
     // wait a frame
     wait_ms(10);
 
     // start SROM download
-    adns9800_write(REG_SROM_Enable, 0x18);
+    adns9800_write(spi_config,REG_SROM_Enable, 0x18);
 
     // write the SROM file
 
-    adns9800_spi_start();
+    adns9800_spi_start(spi_config);
 
     spi_write(REG_SROM_Load_Burst | 0x80);
     wait_us(15);
@@ -147,30 +152,32 @@ void adns9800_init(void) {
     wait_ms(10);
 
     // enable laser
-    uint8_t laser_ctrl0 = adns9800_read(REG_LASER_CTRL0);
-    adns9800_write(REG_LASER_CTRL0, laser_ctrl0 & 0xf0);
+    uint8_t laser_ctrl0 = adns9800_read(spi_config,REG_LASER_CTRL0);
+    adns9800_write(spi_config,REG_LASER_CTRL0, laser_ctrl0 & 0xf0);
 
-    adns9800_set_cpi(ADNS9800_CPI);
+    adns9800_set_cpi(config, ADNS9800_CPI);
 }
 
-config_adns9800_t adns9800_get_config(void) {
-    uint8_t cpival = adns9800_read(REG_Configuration_I);
+config_adns9800_t adns9800_get_config(pointing_device_spi_config_t* spi_config) {
+    uint8_t cpival = adns9800_read(spi_config,REG_Configuration_I);
     return (config_adns9800_t){(cpival & 0xFF) * CPI_STEP};
 }
 
-void adns9800_set_config(config_adns9800_t config) {
+void adns9800_set_config(pointing_device_spi_config_t* spi_config, config_adns9800_t config) {
     uint8_t config_1 = (CLAMP_CPI(config.cpi) / CPI_STEP) & 0xFF;
-    adns9800_write(REG_Configuration_I, config_1);
+    adns9800_write(spi_config, REG_Configuration_I, config_1);
 }
 
-uint16_t adns9800_get_cpi(void) {
-    uint8_t cpival = adns9800_read(REG_Configuration_I);
+uint16_t adns9800_get_cpi(const void* config) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
+    uint8_t cpival = adns9800_read(spi_config, REG_Configuration_I);
     return (uint16_t)(cpival & 0xFF) * CPI_STEP;
 }
 
-void adns9800_set_cpi(uint16_t cpi) {
+void adns9800_set_cpi(const void* config, uint16_t cpi) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
     uint8_t config_1 = (CLAMP_CPI(cpi) / CPI_STEP) & 0xFF;
-    adns9800_write(REG_Configuration_I, config_1);
+    adns9800_write(spi_config, REG_Configuration_I, config_1);
 }
 
 static int16_t convertDeltaToInt(uint8_t high, uint8_t low) {
@@ -183,10 +190,12 @@ static int16_t convertDeltaToInt(uint8_t high, uint8_t low) {
     return twos_comp;
 }
 
-report_adns9800_t adns9800_get_report(void) {
-    report_adns9800_t report = {0};
+report_mouse_t adns9800_get_report(const void *config) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
+    report_mouse_t report = {0};
 
-    adns9800_spi_start();
+
+    adns9800_spi_start(spi_config);
 
     // start burst mode
     spi_write(REG_Motion_Burst & 0x7f);
