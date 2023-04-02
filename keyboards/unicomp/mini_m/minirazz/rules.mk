@@ -8,12 +8,10 @@ CONSOLE_ENABLE = no        # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = yes           # USB Nkey Rollover
 
+QUANTUM_LIB_SRC += spi_master.c
 SRC += matrix.c
 CUSTOM_MATRIX = lite
 DEBOUNCE_TYPE = sym_eager_pk
 
 HAPTIC_ENABLE = yes
 HAPTIC_DRIVER = SOLENOID
-
-VPATH += lib/pico-sdk/src/rp2_common/hardware_spi/include
-SRC += lib/pico-sdk/src/rp2_common/hardware_spi/spi.c

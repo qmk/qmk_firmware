@@ -15,7 +15,7 @@
  */
 
 #include "quantum.h"
-#include <hardware/spi.h>
+#include "spi_master.h"
 #include <hardware/gpio.h>
 #include <hardware/structs/pads_qspi.h>
 
@@ -38,23 +38,17 @@ void matrix_init_custom(void) {
         writePinLow(i);
         setPinInputHigh(i);
     }
-    spi_init(spi1, 5000000);
-    spi_cpol_t cccpol = 1;
-    spi_cpha_t cccpha = 0;
-    spi_set_format(spi1, 8, cccpol, cccpha, SPI_MSB_FIRST);
-    gpio_set_function(26, GPIO_FUNC_SPI); // SCK
-    gpio_set_function(24, GPIO_FUNC_SPI); // RX (MISO)
+
     writePinLow(SHIFTREG_SHLD);
     setPinOutput(SHIFTREG_SHLD);
 
-    for (int gpio=0;gpio<NUM_BANK0_GPIOS;gpio++) {
-        gpio_set_drive_strength(gpio, GPIO_DRIVE_STRENGTH_2MA);
-    }
+    spi_init();
+    /* pico-sdk configures system clock to 125MHz, so 125Mhz / 32 = 3.90625 MHz */
+    spi_start(NO_PIN, false, 2, 32);
 
     for (int gpio=0;gpio<NUM_QSPI_GPIOS;gpio++) {
         pads_qspi_hw->io[gpio] &= ~((3 << 4) | (1 << 0));
     }
-
 }
 
 bool matrix_has_it_changed(const matrix_row_t current_matrix[]) {
@@ -136,16 +130,18 @@ uint8_t reverse_bitorder(uint8_t value) {
 #endif
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-    uint8_t data;
     for (int row=0; row<12; row++) {
         setPinOutput_writeLow(8 + row);
         matrix_output_select_delay();
         writePinHigh(SHIFTREG_SHLD);
         uint8_t high_byte = gpio_get_all() & 0xff;
         setPinInputHigh(8 + row);
-        spi_read_blocking(spi1, 0, &data, 1);
+        spi_status_t read_result = spi_read();
+        if (read_result == SPI_STATUS_TIMEOUT) {
+            continue;
+        }
         writePinLow(SHIFTREG_SHLD);
-        matrix_row_t current_row_value = ~(reverse_bitorder(data) | (reverse_bitorder(high_byte) << 8));
+        matrix_row_t current_row_value = ~(reverse_bitorder(read_result) | (reverse_bitorder(high_byte) << 8));
         matrix_output_unselect_delay(row, current_row_value != 0);
         current_matrix[row] = current_row_value;
     }
