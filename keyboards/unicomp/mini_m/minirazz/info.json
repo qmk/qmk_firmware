@@ -5,7 +5,9 @@
     "board": "GENERIC_RP_RP2040",
     "matrix_pins": {
         "ghost": true,
-        "io_delay": 4
+        "io_delay": 4,
+        "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+        "rows": [null, null, null, null, null, null, null, null, null, null, null, null]
     },
     "indicators": {
         "on_state": 0,
