@@ -16,7 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #define FORCE_NKRO
-
-//#define DEBOUNCE 2
-//#undef RGB_MATRIX_LED_FLUSH_LIMIT 
-//#define RGB_MATRIX_LED_FLUSH_LIMIT 10
