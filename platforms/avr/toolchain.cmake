@@ -9,7 +9,6 @@ set(TRIPLE "avr")
 # find the toolchain root directory
 
 if(UNIX)
-find_program()
     set(OS_SUFFIX "")
     find_path(TOOLCHAIN_ROOT
         NAMES
@@ -43,7 +42,7 @@ set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR avr)
 set(CMAKE_CROSS_COMPILING 1)
 
-set(CMAKE_MAKE_PROGRAM "${TOOLCHAIN_ROOT}/make.exe"                      CACHE PATH "make"    FORCE)
+set(CMAKE_MAKE_PROGRAM "${TOOLCHAIN_ROOT}/make${OS_SUFFIX}"                      CACHE PATH "make"    FORCE)
 set(CMAKE_C_COMPILER   "${TOOLCHAIN_ROOT}/${TRIPLE}-gcc${OS_SUFFIX}"     CACHE PATH "gcc"     FORCE)
 set(CMAKE_CXX_COMPILER "${TOOLCHAIN_ROOT}/${TRIPLE}-g++${OS_SUFFIX}"     CACHE PATH "g++"     FORCE)
 set(CMAKE_AR           "${TOOLCHAIN_ROOT}/${TRIPLE}-ar${OS_SUFFIX}"      CACHE PATH "ar"      FORCE)
@@ -80,7 +79,7 @@ add_compile_options(
     -Wstrict-prototypes
     -fcommon
     # -g
-    --param=min-pagesize=0
+    $<$<BOOL:${WIN32}>:--param=min-pagesize=0>
     -funsigned-char
     -funsigned-bitfields
     -ffunction-sections
