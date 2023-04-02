@@ -1,12 +1,27 @@
-macro(add_keyboard KEYBOARD_CMAKE)
-  get_filename_component(KEYBOARD_FULL_DIRECTORY "${KEYBOARD_CMAKE}" DIRECTORY)
+macro(add_keyboard KEYBOARD_FOLDER)  
+  # not entirely sure why this is necessary
+  set(TEMP_PATH ${KEYBOARD_FOLDER})
+  cmake_path(IS_RELATIVE TEMP_PATH IS_FOLDER_RELATIVE)
+  if(${IS_FOLDER_RELATIVE})
+    set(KEYBOARD_FOLDER_ABS ${CMAKE_SOURCE_DIR}/keyboards/${KEYBOARD_FOLDER})
+    if(NOT EXISTS ${KEYBOARD_FOLDER_ABS})
+      message(FATAL_ERROR "Keyboard does not exist in QMK - try using an absolute path to the keyboard folder")
+    endif()
+  else()
+    set(KEYBOARD_FOLDER_ABS ${KEYBOARD_FOLDER})
+    if(NOT EXISTS ${KEYBOARD_FOLDER_ABS})
+      message(FATAL_ERROR "Absolute path to keyboard does not exist")
+    endif()
+  endif()
 
   # find the right toolchain
-  file(READ ${KEYBOARD_FULL_DIRECTORY}/info.json JSON_STRING)
+  message(STATUS "Reading config from ${KEYBOARD_FOLDER_ABS}/info.json")
+  file(READ ${KEYBOARD_FOLDER_ABS}/info.json JSON_STRING)
   string(JSON PROCESSOR GET ${JSON_STRING} processor)
   if(${PROCESSOR} MATCHES "^at.*")
     set(PLATFORM "avr")
-    # find_package(avr-gcc)
+    include(FindAVRToolchain)
+    find_avr_toolchain()
   elseif(
     ${PROCESSOR} MATCHES "^STM.*" OR
     ${PROCESSOR} MATCHES "^WB32.*" OR
@@ -14,16 +29,20 @@ macro(add_keyboard KEYBOARD_CMAKE)
     ${PROCESSOR} MATCHES "RP2040" OR
     ${PROCESSOR} MATCHES "^GD32.*")
     set(PLATFORM "chibios")
+    include(FindARMToolchain)
+    find_arm_toolchain()
   endif()
   if(NOT DEFINED PLATFORM)
-    message(FATAL_ERROR "Could not find platform for ${KEYBOARD_FULL_DIRECTORY}")
+    message(FATAL_ERROR "Could not find platform for ${KEYBOARD_FOLDER}")
   endif()
 
-  include(FindToolChain)
-  find_toolchain()
+  if(${IS_FOLDER_RELATIVE})
+    string(REPLACE "/" "_" KEYBOARD_NAME ${KEYBOARD_FOLDER})
+  else()
+    string(JSON KEYBOARD_NAME GET ${JSON_STRING} keyboard_name)
+    string(REPLACE " " "_" KEYBOARD_NAME ${KEYBOARD_NAME})
+  endif()
 
-  file(RELATIVE_PATH KEYBOARD_FOLDER "${CMAKE_SOURCE_DIR}/keyboards" "${KEYBOARD_FULL_DIRECTORY}")
-  string(REPLACE "/" "." KEYBOARD_NAME ${KEYBOARD_FOLDER})
   ExternalProject_Add(${KEYBOARD_NAME}
     SOURCE_DIR ${CMAKE_SOURCE_DIR}
     PREFIX ${CMAKE_SOURCE_DIR}/build/keyboards/${KEYBOARD_FOLDER}

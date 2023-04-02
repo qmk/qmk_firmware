@@ -1,20 +1,12 @@
-#
-# AVR GCC Toolchain file
-#
-# @author Natesh Narain
-# @since Feb 06 2016
-
-set(TRIPLE "avr")
+set(TRIPLE "arm-none-eabi")
 
 if(UNIX)
     set(OS_SUFFIX "")
 elseif(WIN32)
     set(OS_SUFFIX ".exe")
 endif()
-# include(FindAVRToolchain)
-# find_avr_toolchain()
-
-# setup the AVR compiler variables
+# include(FindARMToolchain)
+# find_arm_toolchain()
 
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR avr)
@@ -33,21 +25,6 @@ set(CMAKE_STRIP        "${TOOLCHAIN_ROOT}/${TRIPLE}-strip${OS_SUFFIX}"   CACHE P
 set(CMAKE_RANLIB       "${TOOLCHAIN_ROOT}/${TRIPLE}-ranlib${OS_SUFFIX}"  CACHE PATH "ranlib"  FORCE)
 set(AVR_SIZE           "${TOOLCHAIN_ROOT}/${TRIPLE}-size${OS_SUFFIX}"    CACHE PATH "size"    FORCE)
 
-# set(CMAKE_EXE_LINKER_FLAGS "-L /usr/lib/gcc/avr/4.8.2")
-
-# avr uploader config
-find_program(AVR_UPLOAD
-    NAME
-        avrdude
-    PATHS
-        /usr/bin/
-        $ENV{AVR_ROOT}
-)
-
-# setup the avr exectable macro
-
-# set(AVR_LINKER_LIBS "-lc -lm -lgcc -Wl,-lprintf_flt -Wl,-u,vfprintf")
-
 add_compile_options(
     $<$<COMPILE_LANGUAGE:C>:-std=gnu11>
     $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++14>
@@ -57,14 +34,12 @@ add_compile_options(
     -Wstrict-prototypes
     -fcommon
     # -g
-    $<$<BOOL:${WIN32}>:--param=min-pagesize=0>
     -funsigned-char
     -funsigned-bitfields
     -ffunction-sections
     -fdata-sections
     -fpack-struct
     -fshort-enums
-    -mcall-prologues
     -fno-builtin-printf
     $<$<COMPILE_LANGUAGE:C>:-fno-inline-small-functions>
     $<$<COMPILE_LANGUAGE:C>:-fno-strict-aliasing>
@@ -82,9 +57,6 @@ add_compile_definitions(
 
 macro(add_qmk_executable target_name)
 
-    # add_subdirectory(${CMAKE_SOURCE_DIR}/platforms/avr platforms/avr)
-    # add_subdirectory(${CMAKE_SOURCE_DIR}/tmk_core/protocol/lufa tmk_core/protocol/lufa)
-
     set(elf_file ${target_name}-${QMK_MCU}.elf)
     set(map_file ${target_name}-${QMK_MCU}.map)
     set(hex_file ${target_name}-${QMK_MCU}.hex)
@@ -101,9 +73,7 @@ macro(add_qmk_executable target_name)
     PUBLIC 
         quantum 
         tmk_core_protocol
-        tmk_core_protocol_lufa
         platforms
-        platforms_avr
     )
 
     # set_target_properties(

@@ -1,0 +1,1 @@
+add_qmk_executable(planck.rev6 rev6.c planck.c)

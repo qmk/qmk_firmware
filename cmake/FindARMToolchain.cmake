@@ -1,7 +1,7 @@
 macro(find_gcc TRIPLE)
 if(UNIX)
     set(OS_SUFFIX "")
-    find_path(TOOLCHAIN_ROOT
+    find_path(ARM_TOOLCHAIN_ROOT
         NAMES
             ${TRIPLE}-gcc${OS_SUFFIX}
         PATHS
@@ -23,7 +23,7 @@ if(UNIX)
     )
 elseif(WIN32)
     set(OS_SUFFIX ".exe")
-    find_path(TOOLCHAIN_ROOT
+    find_path(ARM_TOOLCHAIN_ROOT
         NAMES
             ${TRIPLE}-gcc${OS_SUFFIX}
         PATHS
@@ -45,22 +45,19 @@ else(UNIX)
 endif(UNIX)
 endmacro(find_gcc)
 
-macro(find_toolchain TRIPLE)
-    find_gcc(${TRIPLE})
+macro(find_arm_toolchain)
+    find_gcc(arm-none-eabi)
 
-    if(NOT TOOLCHAIN_ROOT)
-        if("${TRIPLE}" STREQUAL "avr")
-            include(GetAVRToolchain)
-        else()
-            include(GetARMToolchain)
-        endif()
-        find_gcc(${TRIPLE})
+    if(NOT ARM_TOOLCHAIN_ROOT)
+        include(GetARMToolchain)
+        find_gcc(arm-none-eabi)
     endif()
 
-    if(NOT TOOLCHAIN_ROOT)
-        message(FATAL_ERROR "Toolchain could not be found")
+    if(NOT ARM_TOOLCHAIN_ROOT)
+        message(FATAL_ERROR "ARM Toolchain could not be found")
     endif()
 
-    message("Found toolchain for ${TRIPLE}: ${TOOLCHAIN_ROOT}")
+    set(TOOLCHAIN_ROOT ${ARM_TOOLCHAIN_ROOT})
+    message("ARM toolchain found: ${ARM_TOOLCHAIN_ROOT}")
     message("Found make: ${MAKE_ROOT}")
 endmacro()

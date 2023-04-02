@@ -1,19 +1,24 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.20)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include(UpdateSubmodule)
 
+# early declaration of macro defined in toolchain
 macro(add_qmk_executable _)
 endmacro(add_qmk_executable)
 
 if(NOT DEFINED QMK_KEYBOARD)
+
+# configure step - populate targets
 
 project(qmk_firmware)
 
 add_subdirectory(keyboards)
 
 else()
+
+# build step
 
 set(QMK_KEYBOARD_CURRENT_FOLDER ${QMK_KEYBOARD_FOLDER})
 set(QMK_KEYBOARD_FOLDERS)
@@ -72,7 +77,7 @@ endif()
 
 # list(GET QMK_KEYBOARD_FOLDERS 0 QMK_KEYBOARD_BASE_FOLDER)
 list(GET QMK_KEYBOARD_KEYMAPS 0 QMK_KEYBOARD_KEYMAP)
-list(GET QMK_KEYBOARD_HEADERS 0 QMK_KEYBOARD_HEADER)
+list(GET QMK_KEYBOARD_HEADERS -1 QMK_KEYBOARD_HEADER)
 
 project(${QMK_KEYBOARD} 
   LANGUAGES C CXX ASM 

@@ -2,11 +2,13 @@ include(ExternalProject)
 include(AddKeyboard)
 
 if(DEFINED QMK_KEYBOARD_FOLDER)
-  add_keyboard(${CMAKE_SOURCE_DIR}/keyboards/${QMK_KEYBOARD_FOLDER}/CMakeFiles.txt)
+  add_keyboard(${QMK_KEYBOARD_FOLDER})
 endif()
 
 file(GLOB_RECURSE KEYBOARDS **/CMakeLists.txt)
 
 foreach(KEYBOARD_CMAKE ${KEYBOARDS})
-  add_keyboard(${KEYBOARD_CMAKE})
+  get_filename_component(KEYBOARD_FOLDER_ABS "${KEYBOARD_CMAKE}" DIRECTORY)
+  file(RELATIVE_PATH KEYBOARD_FOLDER "${CMAKE_SOURCE_DIR}/keyboards" "${KEYBOARD_FOLDER_ABS}")
+  add_keyboard(${KEYBOARD_FOLDER})
 endforeach()
