@@ -52,7 +52,7 @@ As per the AVR configuration, you may choose any other standard GPIO as a slave 
 If a complete SPI interface is not required, then the following can be done to disable certain SPI pins, so they don't occupy a GPIO unnecessarily:
  - in `config.h`: `#define SPI_MISO_PIN NO_PIN`
  - in `config.h`: `#define SPI_MOSI_PIN NO_PIN`
- - in `mcuconf.h`: `#define SPI_SELECT_MODE SPI_SELECT_MODE_NONE`, in this case the `slavePin` argument passed to spi_start is ignored. (You can use `NO_PIN` to avoid confusion).
+ - in `mcuconf.h`: `#define SPI_SELECT_MODE SPI_SELECT_MODE_NONE`, in this case the `slavePin` argument passed to `spi_start()` may be `NO_PIN` if the slave select pin is not used.
 
 ## Functions
 

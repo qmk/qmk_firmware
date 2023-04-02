@@ -20,6 +20,10 @@
 
 static bool spiStarted = false;
 
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+static pin_t currentSlavePin;
+#endif
+
 #if SPI_SELECT_MODE != SPI_SELECT_MODE_NONE
 #    if defined(K20x) || defined(KL2x) || defined(RP2040)
 static SPIConfig spiConfig = {NULL, 0, 0, 0};
@@ -72,13 +76,14 @@ __attribute__((weak)) void spi_init(void) {
 }
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
-#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
     if (spiStarted) {
-#else
-    if (spiStarted || slavePin == NO_PIN) {
-#endif
         return false;
     }
+#if SPI_SELECT_MODE != SPI_SELECT_MODE_NONE
+    if (slavePin == NO_PIN) {
+        return false;
+    }
+#endif
 
 #if !(defined(WB32F3G71xx) || defined(WB32FQ95xx))
     uint16_t roundedDivisor = 2;
@@ -272,16 +277,28 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 #endif
 
     spiStarted = true;
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    currentSlavePin = slavePin;
+#endif
 #if SPI_SELECT_MODE == SPI_SELECT_MODE_PAD
     spiConfig.ssport = PAL_PORT(slavePin);
     spiConfig.sspad  = PAL_PAD(slavePin);
     setPinOutput(slavePin);
-#elif SPI_SELECT_MODE != SPI_SELECT_MODE_NONE
+#elif SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    if (slavePin != NO_PIN) {
+        setPinOutput(slavePin);
+    }
+#else
 #    error "Unsupported SPI_SELECT_MODE"
 #endif
 
     spiStart(&SPI_DRIVER, &spiConfig);
     spiSelect(&SPI_DRIVER);
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+    if (slavePin != NO_PIN) {
+        writePinLow(slavePin);
+    }
+#endif
 
     return true;
 }
@@ -312,6 +329,11 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 
 void spi_stop(void) {
     if (spiStarted) {
+#if SPI_SELECT_MODE == SPI_SELECT_MODE_NONE
+        if (currentSlavePin != NO_PIN) {
+            writePinHigh(currentSlavePin);
+        }
+#endif
         spiUnselect(&SPI_DRIVER);
         spiStop(&SPI_DRIVER);
         spiStarted = false;
