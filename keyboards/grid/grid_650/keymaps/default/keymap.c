@@ -24,20 +24,6 @@ enum layer_names {
 };
 
 
-enum my_keycodes {
-    LED_BLE = QK_USER,
-  BLE_PWR_OFF,
-  BLE_PWR_ON,
-  BLE_DFU,
-  BREATHING,
-  ON,
-  RED,
-  BLUE,
-  ORANGE
-};
-
-
-
 // USB keymap for user
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
@@ -60,90 +46,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-
-
-
-
-// uint8_t white_led = 1;
-uint8_t orange_led = 1;
-uint8_t red_led = 1;
-uint8_t ble_led = 1;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-
-    switch (keycode) {
-        // case LED_RED:
-        //     if (record->event.pressed) {
-        //         // Do something when pressed
-        //         PORTB |= (1 << 0);
-        //     } else {
-        //         // Do something else when release
-        //     }
-        //     return true; 
-        // case KC_E:
-        //     if (record->event.pressed) {
-        //         // Do something when pressed
-        //         PORTB &= ~(1 << 0);
-        //     } else {
-        //         // Do something else when release
-        //     }
-        //     return true; 
-        
-        
-        case BLE_PWR_OFF:
-        if (record->event.pressed) {
-            
-            //BLE_PWR(PD5) LOW
-            writePinLow(D5);
-
-            //BLE_OE(PD2) HIGH
-            writePinHigh(D2);
-
-            //DFU_MCU(PC6) HIGH
-            // PORTC |= 1 << 6;   //set high
-            
-        } else {
-            // Do something else when release
-        }
-            return true;      
-        case BLE_PWR_ON:
-        if (record->event.pressed) {
-            
-            //BLE_PWR(PD5) HIGH
-            writePinHigh(D5);
-
-            //BLE_OE(PD2) LOW
-            writePinLow(D2);
-
-            //DFU_MCU(PC6) HIGH
-            // PORTC |= 1 << 6;   //set high
-                
-        } else {
-            // Do something else when release
-        }
-            return true;         
-        case BLE_DFU:
-        if (record->event.pressed) {
-            //DFU_MCU(PC6) HIGH
-            writePinHigh(C6);
-              
-        } else {
-            // Do something else when release
-            //DFU_MCU(PC6) LOW
-            writePinLow(C6);
-        }
-            return true; 
-        // case KC_ENTER:
-        //     // Play a tone when enter is pressed
-        //     if (record->event.pressed) {
-        //         PLAY_NOTE_ARRAY(tone_qwerty);
-        //     }
-        //     return true; // Let QMK send the enter press/release events
-        default:
-            return true; // Process all other keycodes normally
-    }
-}
 
 /*
 void matrix_init_user(void) {
