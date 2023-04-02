@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,21 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "oled/oled_stuff.h"
-#include <string.h>
-#include <math.h>
+#include "horrortroll.h"
 
-#include <lib/lib8tion/lib8tion.h>
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-
-enum layer_names {
-    _BASE,
-    _FN,
-};
+#include "rgb_matrix.h"
 
 // For CUSTOM_GRADIENT
 HSV gradient_0          = {205, 250, 255};
@@ -42,69 +30,7 @@ typedef struct {
     bool reflected;
 } CUSTOM_PRESETS;
 
-enum user_rgb_mode {
-    RGB_MODE_ALL,
-    RGB_MODE_KEYLIGHT,
-    RGB_MODE_UNDERGLOW,
-    RGB_MODE_NONE,
-};
-
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t rgb_mode :8;
-    };
-} user_config_t;
-
-user_config_t user_config;
-
-enum layer_keycodes {
-    //Custom Gradient control keycode
-    G1_HUI = SAFE_RANGE, //Custom gradient color 1 hue increase
-    G1_HUD,              //Custom gradient color 1 hue decrease
-    G1_SAI,              //Custom gradient color 1 saturation increase
-    G1_SAD,              //Custom gradient color 1 saturation decrease
-    G1_VAI,              //Custom gradient color 1 value increase
-    G1_VAD,              //Custom gradient color 1 value decrease
-    G2_HUI,              //Custom gradient color 2 hue increase
-    G2_HUD,              //Custom gradient color 2 hue decrease
-    G2_SAI,              //Custom gradient color 2 saturation increase
-    G2_SAD,              //Custom gradient color 2 saturation decrease
-    G2_VAI,              //Custom gradient color 2 value increase
-    G2_VAD,              //Custom gradient color 2 value decrease
-    G_PRE,               //Gradient presets
-    REF_G,               //Toggle between linear and reflected gradient
-    G_FLIP,              //Flip the gradient colors
-
-    //Custom led effect keycode
-    RGB_C_E,             //Cycle user effect
-};
-
-void keyboard_post_init_user(void) {
-    user_config.raw = eeconfig_read_user();
-    switch (user_config.rgb_mode) {
-        case RGB_MODE_ALL:
-            rgb_matrix_set_flags(LED_FLAG_ALL);
-            rgb_matrix_enable_noeeprom();
-            break;
-        case RGB_MODE_KEYLIGHT:
-            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-        case RGB_MODE_UNDERGLOW:
-            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-        case RGB_MODE_NONE:
-            rgb_matrix_set_flags(LED_FLAG_NONE);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    process_record_user_oled(keycode, record);
-
     uint8_t color_adj_step = 5;
 
     CUSTOM_PRESETS gradient_presets[] = {
@@ -118,7 +44,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     {{205, 250, 255}, {140, 215, 125}, false },
     };
 
-    uint8_t gp_length = ARRAY_SIZE(gradient_presets);
+    uint8_t gp_length = sizeof(gradient_presets)/sizeof(gradient_presets[0]);
 
     switch (keycode) {
         case G1_HUI:
@@ -226,12 +152,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         rgb_matrix_mode(RGB_MATRIX_CUSTOM_FLOWER_BLOOMING);
                         return false;
                     case RGB_MATRIX_CUSTOM_FLOWER_BLOOMING:
-                        rgb_matrix_mode(RGB_MATRIX_CUSTOM_RAINBOW_REACTIVE_SIMPLE);
-                        return false;
-                    case RGB_MATRIX_CUSTOM_RAINBOW_REACTIVE_SIMPLE:
-                        rgb_matrix_mode(RGB_MATRIX_CUSTOM_KITT);
-                        return false;
-                    case RGB_MATRIX_CUSTOM_KITT:
                         rgb_matrix_mode(RGB_MATRIX_CUSTOM_RANDOM_BREATH_RAINBOW);
                         return false;
                     default:
@@ -240,66 +160,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case RGB_TOG:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_KEYLIGHT;
-                    }
-                    break;
-                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
-                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_UNDERGLOW;
-                    }
-                    break;
-                    case (LED_FLAG_UNDERGLOW): {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_NONE;
-                    }
-                    break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                        rgb_matrix_enable_noeeprom();
-                        user_config.rgb_mode = RGB_MODE_ALL;
-                    }
-                    break;
-                }
-                eeconfig_update_user(user_config.raw);
-            }
-            return false;
 	}
-
     return true;
-}
-
-bool rgb_matrix_indicators_user(void) {
-    HSV      hsv = rgb_matrix_config.hsv;
-    uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
-    hsv.h        = time;
-    RGB      rgb = hsv_to_rgb(hsv);
-
-    if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
-        if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-        }
-        if (host_keyboard_led_state().scroll_lock) {
-            rgb_matrix_set_color(73, rgb.r, rgb.g, rgb.b);
-        }
-    } else {
-        if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(25, rgb.r, rgb.g, rgb.b);
-        } else {
-            rgb_matrix_set_color(25, 0, 0, 0);
-        }
-        if (host_keyboard_led_state().scroll_lock) {
-            rgb_matrix_set_color(73, rgb.r, rgb.g, rgb.b);
-        } else {
-            rgb_matrix_set_color(73, 0, 0, 0);
-        }
-    }
-    return false;
 }

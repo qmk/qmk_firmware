@@ -1,4 +1,4 @@
-/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,13 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+# My personal keymap with custom LED
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
+### Custom LED effect list:
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2
-
-#ifdef RGB_MATRIX_ENABLE
-    #define RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
-#endif
+- Custom gradient ([ported from SirTimmyTimbit code](https://github.com/SirTimmyTimbit/customizable-gradient-effect-for-drop-alt))
+- Cool diagonal ([ported from pleasuretek code](https://github.com/pleasuretek/qmk_firmware))
+- Flower Blooming
+- Random breath rainbow ([based from daed code](https://github.com/daed/qmk_firmware/blob/master/keyboards/massdrop/alt/keymaps/daed) and modify by me)
