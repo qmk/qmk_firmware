@@ -1,5 +1,4 @@
-# set(LUFA_PATH ${QMK_ROOT}/lib/lufa)
-set(LUFA_PATH ${QMK_ROOT}/lib/lufa)
+set(LUFA_PATH ${CMAKE_SOURCE_DIR}/lib/lufa)
 set(ARCH AVR8)
 set(USE_STATIC_OPTIONS "(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)")
 
@@ -26,7 +25,7 @@ target_include_directories(tmk_core_protocol_lufa PUBLIC ${LUFA_PATH})
 
 target_link_libraries(tmk_core_protocol_lufa PUBLIC quantum)
 
-set(LUFA_ROOT_PATH ${QMK_ROOT}/lib/lufa/LUFA)
+set(LUFA_ROOT_PATH ${CMAKE_SOURCE_DIR}/lib/lufa/LUFA)
 
 target_sources(tmk_core_protocol_lufa
 PUBLIC

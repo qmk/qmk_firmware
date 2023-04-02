@@ -26,10 +26,13 @@ target_include_directories(quantum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/keymap_ext
 target_include_directories(quantum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/process_keycode)
 target_include_directories(quantum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/sequencer)
 target_include_directories(quantum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/bootmagic)
+
 target_link_libraries(quantum PUBLIC platforms)
-target_link_libraries(quantum PUBLIC platforms_avr)
+if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "avr")
+    target_link_libraries(quantum PUBLIC platforms_avr)
+endif()
 target_link_libraries(quantum PUBLIC tmk_core_protocol)
 
 # if no printf
-# target_sources(quantum PRIVATE ${QMK_ROOT}/lib/printf/src/printf/printf.c)
-# target_include_directories(quantum PUBLIC ${QMK_ROOT}/lib/printf/src/)
+# target_sources(quantum PRIVATE ${CMAKE_SOURCE_DIR}/lib/printf/src/printf/printf.c)
+# target_include_directories(quantum PUBLIC ${CMAKE_SOURCE_DIR}/lib/printf/src/printf)

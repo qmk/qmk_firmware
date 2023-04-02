@@ -9,32 +9,26 @@ set(TRIPLE "avr")
 # find the toolchain root directory
 
 if(UNIX)
-
+find_program()
     set(OS_SUFFIX "")
     find_path(TOOLCHAIN_ROOT
         NAMES
             ${TRIPLE}-gcc${OS_SUFFIX}
-
         PATHS
             /usr/bin/
             /usr/local/bin
             /bin/
-
             $ENV{AVR_ROOT}
     )
-
 elseif(WIN32)
-
     set(OS_SUFFIX ".exe")
     find_path(TOOLCHAIN_ROOT
         NAMES
             ${TRIPLE}-gcc${OS_SUFFIX}
-
         PATHS
             "C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/bin/"
             $ENV{AVR_ROOT}
     )
-
 else(UNIX)
     message(FATAL_ERROR "toolchain not supported on this OS")
 endif(UNIX)
@@ -68,7 +62,6 @@ set(AVR_SIZE           "${TOOLCHAIN_ROOT}/${TRIPLE}-size${OS_SUFFIX}"    CACHE P
 find_program(AVR_UPLOAD
     NAME
         avrdude
-
     PATHS
         /usr/bin/
         $ENV{AVR_ROOT}
@@ -78,52 +71,49 @@ find_program(AVR_UPLOAD
 
 # set(AVR_LINKER_LIBS "-lc -lm -lgcc -Wl,-lprintf_flt -Wl,-u,vfprintf")
 
+add_compile_options(
+    $<$<COMPILE_LANGUAGE:C>:-std=gnu11>
+    $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++14>
+    # -flto
+    -Os
+    -Wall
+    -Wstrict-prototypes
+    -fcommon
+    # -g
+    --param=min-pagesize=0
+    -funsigned-char
+    -funsigned-bitfields
+    -ffunction-sections
+    -fdata-sections
+    -fpack-struct
+    -fshort-enums
+    -mcall-prologues
+    -fno-builtin-printf
+    $<$<COMPILE_LANGUAGE:C>:-fno-inline-small-functions>
+    $<$<COMPILE_LANGUAGE:C>:-fno-strict-aliasing>
+    $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>
+)
+
+add_compile_definitions(
+    F_CPU=16000000
+    F_USB=16000000UL
+    __AVR_ATmega32U4__
+    # LTO_ENABLE
+)
+
+include_directories("C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/avr/include")
+
 macro(add_qmk_executable target_name)
 
-    add_compile_options(
-        $<$<COMPILE_LANGUAGE:C>:-std=gnu11>
-        $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++14>
-        # -flto
-        -Os
-        -Wall
-        -Wstrict-prototypes
-        -fcommon
-        # -g
-        --param=min-pagesize=0
-        -funsigned-char
-        -funsigned-bitfields
-        -ffunction-sections
-        -fdata-sections
-        -fpack-struct
-        -fshort-enums
-        -mcall-prologues
-        -fno-builtin-printf
-        $<$<COMPILE_LANGUAGE:C>:-fno-inline-small-functions>
-        $<$<COMPILE_LANGUAGE:C>:-fno-strict-aliasing>
-        $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>
-    )
-
-    add_compile_definitions(
-        F_CPU=16000000
-        F_USB=16000000UL
-        __AVR_ATmega32U4__
-        # LTO_ENABLE
-    )
-
-    add_link_options(-Wl,--gc-sections,-Map=${map_file})
-
-    include(${QMK_ROOT}/platforms/toolchain.cmake)
-    add_qmk_executable_common(${target_name})
-
-    add_subdirectory(${QMK_ROOT}/platforms/avr platforms/avr)
-    add_subdirectory(${QMK_ROOT}/tmk_core/protocol/lufa tmk_core/protocol/lufa)
-
-    include_directories("C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/avr/include")
+    # add_subdirectory(${CMAKE_SOURCE_DIR}/platforms/avr platforms/avr)
+    # add_subdirectory(${CMAKE_SOURCE_DIR}/tmk_core/protocol/lufa tmk_core/protocol/lufa)
 
     set(elf_file ${target_name}-${QMK_MCU}.elf)
     set(map_file ${target_name}-${QMK_MCU}.map)
     set(hex_file ${target_name}-${QMK_MCU}.hex)
     set(lst_file ${target_name}-${QMK_MCU}.lst)
+
+    add_link_options(-Wl,--gc-sections,-Map=${map_file})
 
     # create elf file
     add_executable(${elf_file}

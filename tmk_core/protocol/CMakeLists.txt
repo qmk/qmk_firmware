@@ -11,3 +11,7 @@ add_compile_definitions(
 )
 target_include_directories(tmk_core_protocol PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(tmk_core_protocol PUBLIC quantum)
+
+if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "avr")
+    add_subdirectory(lufa)
+endif()
