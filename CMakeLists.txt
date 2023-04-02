@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.3)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
+include(UpdateSubmodule)
+
 macro(add_qmk_executable _)
 endmacro(add_qmk_executable)
 
@@ -7,33 +11,7 @@ if(NOT DEFINED QMK_KEYBOARD)
 
 project(qmk_firmware)
 
-include(ExternalProject)
-
-macro(add_keyboard KEYBOARD_CMAKE)
-  get_filename_component(KEYBOARD_FULL_DIRECTORY "${KEYBOARD_CMAKE}" DIRECTORY)
-  file(RELATIVE_PATH KEYBOARD_FOLDER "${CMAKE_SOURCE_DIR}/keyboards" "${KEYBOARD_FULL_DIRECTORY}")
-  string(REPLACE "/" "." KEYBOARD_NAME ${KEYBOARD_FOLDER})
-  ExternalProject_Add(${KEYBOARD_NAME}
-    SOURCE_DIR ${CMAKE_SOURCE_DIR}
-    TMP_DIR ${CMAKE_SOURCE_DIR}/build
-    INSTALL_COMMAND cmake -E echo "No install needed"
-    CMAKE_GENERATOR "Unix Makefiles"
-    CMAKE_ARGS 
-      -DCMAKE_TOOLCHAIN_FILE=${CMAKE_CURRENT_SOURCE_DIR}/platforms/avr/toolchain.cmake
-      -DQMK_KEYBOARD=${KEYBOARD_NAME}
-      -DQMK_KEYBOARD_FOLDER=${KEYBOARD_FOLDER}
-  )
-endmacro(add_keyboard)
-
-if(DEFINED QMK_KEYBOARD_FOLDER)
-  add_keyboard(${CMAKE_SOURCE_DIR}/keyboards/${QMK_KEYBOARD_FOLDER}/CMakeFiles.txt)
-endif()
-
-file(GLOB_RECURSE KEYBOARDS keyboards/**/CMakeLists.txt)
-
-foreach(KEYBOARD_CMAKE ${KEYBOARDS})
-  add_keyboard(${KEYBOARD_CMAKE})
-endforeach()
+add_subdirectory(keyboards)
 
 else()
 
@@ -47,31 +25,40 @@ while(NOT ${QMK_KEYBOARD_CURRENT_FOLDER} STREQUAL "")
   get_filename_component(QMK_KEYBOARD_CURRENT_FOLDER ${QMK_KEYBOARD_CURRENT_FOLDER} DIRECTORY)
 endwhile()
 
-file(READ keyboards/${QMK_KEYBOARD_FOLDER}/info.json JSON_STRING)
-string(JSON KEYBOARD_NAME GET ${JSON_STRING} keyboard_name)
-string(JSON MANUFACTURER GET ${JSON_STRING} manufacturer)
-string(JSON QMK_MCU GET ${JSON_STRING} processor)
-string(JSON VENDOR_ID GET ${JSON_STRING} usb vid)
-string(JSON PRODUCT_ID GET ${JSON_STRING} usb pid)
-string(JSON DEVICE_VER GET ${JSON_STRING} usb device_version)
+# would be nice to also do validation here
+file(READ keyboards/${QMK_KEYBOARD_FOLDER}/info.json QMK_KEYBOARD_INFO_JSON_STRING)
+string(JSON KEYBOARD_NAME GET ${QMK_KEYBOARD_INFO_JSON_STRING} keyboard_name)
+string(JSON MANUFACTURER GET ${QMK_KEYBOARD_INFO_JSON_STRING} manufacturer)
+string(JSON QMK_MCU GET ${QMK_KEYBOARD_INFO_JSON_STRING} processor)
+string(JSON VENDOR_ID GET ${QMK_KEYBOARD_INFO_JSON_STRING} usb vid)
+string(JSON PRODUCT_ID GET ${QMK_KEYBOARD_INFO_JSON_STRING} usb pid)
+string(JSON DEVICE_VER GET ${QMK_KEYBOARD_INFO_JSON_STRING} usb device_version)
 
 foreach(FOLDER ${QMK_KEYBOARD_FOLDERS})
   include_directories(${CMAKE_SOURCE_DIR}/keyboards/${FOLDER})
+  # assuming every keyboard has a config at some level
   if(EXISTS ${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/config.h)
     list(APPEND QMK_KEYBOARD_CONFIG_HS "${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/config.h")
   endif()
+  # assuming every keyboard has a default/keymap.c at some level
   if(EXISTS ${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/keymaps/default/keymap.c)
     list(APPEND QMK_KEYBOARD_KEYMAPS "${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/keymaps/default/keymap.c")
   endif()
-  # not sure if merging is needed, since info.json is required iirc
+  get_filename_component(LAST_PART ${FOLDER} NAME)
+  # assuming every keyboard has a header.h at some level
+  if(EXISTS ${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/${LAST_PART}.h)
+    # use just the filename, since the folder is already in our include path (maybe it should only be the base keyboard folder?)
+    list(APPEND QMK_KEYBOARD_HEADERS "${LAST_PART}.h")
+  endif()
+  # not sure if merging is needed, since info.json is required per level? iirc
   # if(EXISTS keyboards/${FOLDER}/info.json)
-  #   file(READ keyboards/${FOLDER}/info.json JSON_STRING)
-  #   string(JSON KEYBOARD_NAME GET ${JSON_STRING} keyboard_name)
-  #   string(JSON MANUFACTURER GET ${JSON_STRING} manufacturer)
-  #   string(JSON QMK_MCU GET ${JSON_STRING} processor)
-  #   string(JSON VENDOR_ID GET ${JSON_STRING} usb vid)
-  #   string(JSON PRODUCT_ID GET ${JSON_STRING} usb pid)
-  #   string(JSON DEVICE_VER GET ${JSON_STRING} usb device_version)
+  #   file(READ keyboards/${FOLDER}/info.json QMK_KEYBOARD_INFO_JSON_STRING)
+  #   string(JSON KEYBOARD_NAME GET ${QMK_KEYBOARD_INFO_JSON_STRING} keyboard_name)
+  #   string(JSON MANUFACTURER GET ${QMK_KEYBOARD_INFO_JSON_STRING} manufacturer)
+  #   string(JSON QMK_MCU GET ${QMK_KEYBOARD_INFO_JSON_STRING} processor)
+  #   string(JSON VENDOR_ID GET ${QMK_KEYBOARD_INFO_JSON_STRING} usb vid)
+  #   string(JSON PRODUCT_ID GET ${QMK_KEYBOARD_INFO_JSON_STRING} usb pid)
+  #   string(JSON DEVICE_VER GET ${QMK_KEYBOARD_INFO_JSON_STRING} usb device_version)
   # endif()
 endforeach()
 
@@ -79,9 +66,13 @@ if(NOT DEFINED QMK_KEYBOARD_KEYMAPS)
   message(FATAL_ERROR "Keymap not found")
 endif()
 
-list(GET QMK_KEYBOARD_FOLDERS 0 QMK_KEYBOARD_BASE_FOLDER)
+if(NOT DEFINED QMK_KEYBOARD_HEADERS)
+  message(FATAL_ERROR "Header not found")
+endif()
+
+# list(GET QMK_KEYBOARD_FOLDERS 0 QMK_KEYBOARD_BASE_FOLDER)
 list(GET QMK_KEYBOARD_KEYMAPS 0 QMK_KEYBOARD_KEYMAP)
-list(GET QMK_KEYBOARD_FOLDER_PARTS -1 QMK_KEYBOARD_FOLDER_LAST_PART)
+list(GET QMK_KEYBOARD_HEADERS 0 QMK_KEYBOARD_HEADER)
 
 project(${QMK_KEYBOARD} 
   LANGUAGES C CXX ASM 
@@ -93,7 +84,6 @@ set(VERSION_MINOR ${CMAKE_MATCH_2})
 set(VERSION_PATCH ${CMAKE_MATCH_3})
 math(EXPR VERSION_C_EVAL "${VERSION_MAJOR} * 10000 + ${VERSION_MINOR} * 100 + ${VERSION_PATCH}" OUTPUT_FORMAT HEXADECIMAL)
 
-
 add_compile_options(
     -include ${QMK_KEYBOARD_CONFIG_HS}
     -mmcu=${QMK_MCU}
@@ -104,7 +94,7 @@ add_link_options(
 )
 
 add_compile_definitions(
-    QMK_KEYBOARD_H="${QMK_KEYBOARD_FOLDER_LAST_PART}.h"
+    QMK_KEYBOARD_H="${QMK_KEYBOARD_HEADER}"
     KEYMAP_C="${QMK_KEYBOARD_KEYMAP}"
     MATRIX_ROWS=6
     MATRIX_COLS=15
@@ -119,16 +109,8 @@ add_subdirectory(quantum)
 add_subdirectory(platforms)
 add_subdirectory(tmk_core/protocol)
 
-# option(OLED_ENABLE "" TRUE)
-# if(${OLED_ENABLE})
-#     target_sources(quantum PUBLIC 
-#       ${CMAKE_SOURCE_DIR}/drivers/oled/ssd1306_sh1106.c 
-#       ${CMAKE_SOURCE_DIR}/platforms/${CMAKE_SYSTEM_PROCESSOR}/drivers/i2c_master.c)
-#     add_compile_definitions(OLED_ENABLE)
-#     target_include_directories(quantum PUBLIC ${CMAKE_SOURCE_DIR}/drivers)
-#     target_include_directories(quantum PUBLIC ${CMAKE_SOURCE_DIR}/drivers/oled)
-#     target_include_directories(quantum PUBLIC ${CMAKE_SOURCE_DIR}/platforms/${CMAKE_SYSTEM_PROCESSOR}/drivers)
-# endif()
+include(features/oled)
+include(features/backlight)
 
 if(EXISTS keyboards/${QMK_KEYBOARD_FOLDER}/CMakeLists.txt)
   add_subdirectory(keyboards/${QMK_KEYBOARD_FOLDER})

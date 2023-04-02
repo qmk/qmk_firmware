@@ -55,6 +55,9 @@ cmake-build-debug
 # CMakeLists.txt
 *.pdf
 
+# cmake toolchain downloads
+toolchains
+
 # Let these ones be user specific, since we have so many different configurations
 *.code-workspace
 .stfolder

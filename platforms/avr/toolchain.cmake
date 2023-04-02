@@ -6,52 +6,12 @@
 
 set(TRIPLE "avr")
 
-# find the toolchain root directory
-
 if(UNIX)
     set(OS_SUFFIX "")
-    find_path(TOOLCHAIN_ROOT
-        NAMES
-            ${TRIPLE}-gcc${OS_SUFFIX}
-        PATHS
-            /usr/bin/
-            /usr/local/bin
-            /bin/
-            $ENV{AVR_ROOT}
-    )
-    find_path(MAKE_ROOT
-        NAMES
-            make${OS_SUFFIX}
-        PATHS
-            /usr/bin/
-            /usr/local/bin
-            /bin/
-            $ENV{AVR_ROOT}
-    )
 elseif(WIN32)
     set(OS_SUFFIX ".exe")
-    find_path(TOOLCHAIN_ROOT
-        NAMES
-            ${TRIPLE}-gcc${OS_SUFFIX}
-        PATHS
-            "C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/bin/"
-            $ENV{AVR_ROOT}
-    )
-    set(OS_SUFFIX ".exe")
-    find_path(MAKE_ROOT
-        NAMES
-            make${OS_SUFFIX}
-        PATHS
-            "C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/bin/"
-            $ENV{AVR_ROOT}
-    )
-else(UNIX)
-    message(FATAL_ERROR "toolchain not supported on this OS")
-endif(UNIX)
+endif()
 
-if(NOT TOOLCHAIN_ROOT)
-    message(FATAL_ERROR "Toolchain root could not be found!!!")
-endif(NOT TOOLCHAIN_ROOT)
 
 # setup the AVR compiler variables
 
@@ -117,7 +77,7 @@ add_compile_definitions(
     # LTO_ENABLE
 )
 
-include_directories("C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/avr/include")
+# include_directories("C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/avr/include")
 
 macro(add_qmk_executable target_name)
 
