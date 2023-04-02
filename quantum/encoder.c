@@ -77,7 +77,15 @@ __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
-    return encoder_update_user(index, clockwise);
+    bool res = encoder_update_user(index, clockwise);
+    if (res) {
+      if (clockwise) {
+          tap_code_delay(KC_VOLU, 10);
+      } else {
+          tap_code_delay(KC_VOLD, 10);
+      }
+    }
+    return res;
 }
 
 __attribute__((weak)) bool should_process_encoder(void) {
