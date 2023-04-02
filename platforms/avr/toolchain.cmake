@@ -19,11 +19,28 @@ if(UNIX)
             /bin/
             $ENV{AVR_ROOT}
     )
+    find_path(MAKE_ROOT
+        NAMES
+            make${OS_SUFFIX}
+        PATHS
+            /usr/bin/
+            /usr/local/bin
+            /bin/
+            $ENV{AVR_ROOT}
+    )
 elseif(WIN32)
     set(OS_SUFFIX ".exe")
     find_path(TOOLCHAIN_ROOT
         NAMES
             ${TRIPLE}-gcc${OS_SUFFIX}
+        PATHS
+            "C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/bin/"
+            $ENV{AVR_ROOT}
+    )
+    set(OS_SUFFIX ".exe")
+    find_path(make_ROOT
+        NAMES
+            make${OS_SUFFIX}
         PATHS
             "C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/bin/"
             $ENV{AVR_ROOT}
@@ -42,7 +59,7 @@ set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR avr)
 set(CMAKE_CROSS_COMPILING 1)
 
-set(CMAKE_MAKE_PROGRAM "${TOOLCHAIN_ROOT}/make${OS_SUFFIX}"                      CACHE PATH "make"    FORCE)
+set(CMAKE_MAKE_PROGRAM "${MAKE_ROOT}/make${OS_SUFFIX}"                   CACHE PATH "make"    FORCE)
 set(CMAKE_C_COMPILER   "${TOOLCHAIN_ROOT}/${TRIPLE}-gcc${OS_SUFFIX}"     CACHE PATH "gcc"     FORCE)
 set(CMAKE_CXX_COMPILER "${TOOLCHAIN_ROOT}/${TRIPLE}-g++${OS_SUFFIX}"     CACHE PATH "g++"     FORCE)
 set(CMAKE_AR           "${TOOLCHAIN_ROOT}/${TRIPLE}-ar${OS_SUFFIX}"      CACHE PATH "ar"      FORCE)
