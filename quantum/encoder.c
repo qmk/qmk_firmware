@@ -80,9 +80,18 @@ __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
     bool res = encoder_update_user(index, clockwise);
     if (res) {
       if (clockwise) {
+#ifdef EXTRAKEY_ENABLE
           tap_code_delay(KC_VOLU, 10);
+#else
+          tap_code_delay(KC_PGDN, 10);
+#endif
       } else {
+#ifdef EXTRAKEY_ENABLE
           tap_code_delay(KC_VOLD, 10);
+#else
+          tap_code_delay(KC_PGUP, 10);
+#endif
+
       }
     }
     return res;
