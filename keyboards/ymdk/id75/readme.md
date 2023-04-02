@@ -1,6 +1,6 @@
 # Idobao x YMDK ID75
 
-![Idobao x YMDK ID75](https://imgur.com/bhVfzrzh.jpg)
+![Idobao x YMDK ID75](https://i.imgur.com/bhVfzrzh.jpg)
 
 A 75-key, 5-row ortholinear keyboard with per-key and underglow RGB LEDs.
 
