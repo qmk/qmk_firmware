@@ -691,7 +691,7 @@ Remove the spread effect entirely.
 ```
 
 It's also possible to adjust the tempo of *heating up*. It's defined as the number of shades that are
-increased on the [HSV scale](https://en.wikipedia.org/wiki/HSL_and_HSV). . Decreasing this value increases
+increased on the [HSV scale](https://en.wikipedia.org/wiki/HSL_and_HSV). Decreasing this value increases
 the number of keystrokes needed to fully heat up the key.
 
 ```c
