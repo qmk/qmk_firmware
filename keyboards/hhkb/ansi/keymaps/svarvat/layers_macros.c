@@ -402,6 +402,26 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 register_code16(KC_LCTL);
             }
             return false;
+        case MA_ESC:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_ESC);
+            }
+            return false;
+        case MA_UP:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_UP);
+            }
+            return false;
+        case MA_BSPC:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_BSPC);
+            }
+            return false;
+        case MA_CS:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_CS);
+            }
+            return false;
         case MA_0:
             if (record->event.pressed) {
                 tap_code16_wrap_lctl(FR_0);
@@ -537,7 +557,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 if (IS_LAYER_ON(LA_MOUSE)) {
                     tap_code16(KC_MS_BTN1);
                 } else {
-                    tap_code16(KC_DEL);
+                    tap_code16_wrap_lctl(KC_DEL);
                 }
             }
             return false;
