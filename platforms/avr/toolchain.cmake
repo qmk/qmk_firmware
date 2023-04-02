@@ -38,7 +38,7 @@ elseif(WIN32)
             $ENV{AVR_ROOT}
     )
     set(OS_SUFFIX ".exe")
-    find_path(make_ROOT
+    find_path(MAKE_ROOT
         NAMES
             make${OS_SUFFIX}
         PATHS
