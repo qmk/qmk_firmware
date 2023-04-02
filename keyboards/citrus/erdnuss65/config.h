@@ -21,3 +21,5 @@
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE//尝试使开关状态与键盘指示灯状态保持一致
+
+#define GRAVE_ESC_CTRL_OVERRIDE

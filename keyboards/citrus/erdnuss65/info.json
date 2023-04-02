@@ -67,7 +67,7 @@
                 {"label": "] (B1,A4)", "matrix": [1, 12], "x": 12.5, "y": 1},
                 {"label": "\" (B1,A5)", "matrix": [1, 13], "x": 13.5, "y": 1, "w": 1.5},
                 {"label": "DEL (B1,B11)", "matrix": [1, 14], "x": 15, "y": 1},
-                {"label": "CAPSLOCK (B0,B12)", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.25},
+                {"label": "CAPSLOCK (B0,B12)", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
                 {"label": "A (B0,B14)", "matrix": [2, 1], "x": 1.75, "y": 2},
                 {"label": "S (B0,B15)", "matrix": [2, 2], "x": 2.75, "y": 2},
                 {"label": "D (B0,A8)", "matrix": [2, 3], "x": 3.75, "y": 2},
