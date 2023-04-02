@@ -48,7 +48,7 @@ static uint8_t mcp23018_reset_loop;
 void matrix_init_custom(void) {
   // initialize row and col
 
-  mcp23018_status = init_mcp23018();
+  mcp23018_status = init_mcp23018_custom();
 
   unselect_rows();
   // init_cols();
@@ -64,7 +64,7 @@ void matrix_init_custom(void) {
 }
 
 void matrix_power_up(void) {
-  mcp23018_status = init_mcp23018();
+  mcp23018_status = init_mcp23018_custom();
 
   unselect_rows();
   // init_cols();
@@ -89,7 +89,7 @@ static inline bool store_raw_matrix_row(uint8_t index) {
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     if (mcp23018_status) {  // if there was an error
         if (++mcp23018_reset_loop == 0) {
-            mcp23018_status = init_mcp23018();
+            mcp23018_status = init_mcp23018_custom();
 
         }
     }

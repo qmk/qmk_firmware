@@ -79,5 +79,5 @@
 #define I2C_TIMEOUT 100
 extern i2c_status_t mcp23018_status;
 
-uint8_t init_mcp23018(void);
+uint8_t init_mcp23018_custom(void);
 

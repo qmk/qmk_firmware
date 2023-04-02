@@ -37,21 +37,15 @@ __asm__ __volatile__ (  \
 #define LED_CONTROL
 // #define FAKE_BAT_LEVEL
 #define BAT_LEVEL_STEP_10
-
-
-
-
 #endif
 
 #include "grid_650.h"
-
-
+#include "mcp23018.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
 // These are only required if you want to perform custom actions.
 
-bool i2c_initialized = 0;
 i2c_status_t mcp23018_status = 0x20;
 // bool ble_pwr_on = true;
 int batt_level = 50;
@@ -584,22 +578,11 @@ void suspend_power_down_kb(void)
     suspend_power_down_user();
 }
 
-uint8_t init_mcp23018(void) {
+uint8_t init_mcp23018_custom(void) {
     mcp23018_status = 0x20;
 
     // I2C subsystem
-
-    // uint8_t sreg_prev;
-    // sreg_prev=SREG;
-    // cli();
-
-    if (i2c_initialized == 0) {
-        i2c_init();  // on pins D(1,0)
-        i2c_initialized = true;
-        wait_ms(1000);
-    }
-    // i2c_init(); // on pins D(1,0)
-    // _delay_ms(1000);
+    mcp23018_init(I2C_ADDR);
 
     // set pin direction  (all to input)
     // - unused  : input  : 1

@@ -65,9 +65,8 @@ DEBOUNCE_TYPE = sym_defer_pk
 CUSTOM_MATRIX = lite
 
 # SRC += analog.c
-
-SRC += matrix.c
-
+VPATH += drivers/gpio
+SRC += mcp23018.c matrix.c
 	   
 QUANTUM_LIB_SRC += i2c_master.c
 
