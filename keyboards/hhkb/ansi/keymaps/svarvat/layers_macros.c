@@ -268,7 +268,9 @@ bool processKeycodeIfLCapslock(uint16_t keycode, keyrecord_t* record) {
     || keycode == KC_DOWN
     || keycode == MA_HOME
     || keycode == MA_END
-    || keycode == KC_ENT)) {
+    || keycode == KC_ENT
+    || keycode == KC_RSFT
+    || keycode == KC_LSFT)) {
         if (record->event.pressed) {
             isCapswordStarted = false;
             layer_off(LA_CAPSLOCK);
