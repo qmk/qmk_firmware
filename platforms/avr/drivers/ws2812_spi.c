@@ -60,9 +60,9 @@ void ws2812_setleds(LED_TYPE *ledarray, uint8_t leds) {
                  "            add   %0, %0\n\t"
                  "            add   %0, %0\n\t" // %0 = leds * 4
 #else
-                  "            mov  r24, %0\n\t"
-                  "            add  r24, r24\n\t" // r24 = leds * 2
-                  "            add   %0, r24\n\t" // %0 = leds * 3
+                 "            mov  r24, %0\n\t"
+                 "            add  r24, r24\n\t" // r24 = leds * 2
+                 "            add   %0, r24\n\t" // %0 = leds * 3
 #endif
                  "loop_byte:  ld   r24, Z+\n\t"   // r24 contains the byte to send to the led
                  "            ldi  r25, 8\n\t"    // 8 bits to send
