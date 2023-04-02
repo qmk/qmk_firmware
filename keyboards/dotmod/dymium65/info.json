@@ -19,9 +19,9 @@
 		"bootmagic": true,
 		"extrakey": true,
 		"console": false,
-		"command": true,
+		"command": false,
 		"nkro": true,
-		"mousekey": false,
+		"mousekey": true,
 		"rgb_matrix": true
     },
     "build": {
