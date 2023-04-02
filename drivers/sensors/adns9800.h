@@ -17,6 +17,7 @@
 #pragma once
 
 #include <stdint.h>
+#include "pointing_device.h"
 
 #ifndef ADNS9800_CPI
 #    define ADNS9800_CPI 1600
@@ -55,15 +56,13 @@ typedef struct {
     uint16_t cpi;
 } config_adns9800_t;
 
-typedef struct {
-    int16_t x;
-    int16_t y;
-} report_adns9800_t;
+const pointing_device_driver_t     adns9800_driver_spi_default;
+const pointing_device_spi_config_t adns9800_config_spi_default;
 
-void              adns9800_init(void);
-config_adns9800_t adns9800_get_config(void);
-void              adns9800_set_config(config_adns9800_t);
-uint16_t          adns9800_get_cpi(void);
-void              adns9800_set_cpi(uint16_t cpi);
+void              adns9800_init(const void* config);
+config_adns9800_t adns9800_get_config(pointing_device_spi_config_t* spi_config);
+void              adns9800_set_config(pointing_device_spi_config_t* spi_config, config_adns9800_t);
+uint16_t          adns9800_get_cpi(const void* config);
+void              adns9800_set_cpi(const void* config, uint16_t cpi);
 /* Reads and clears the current delta values on the ADNS sensor */
-report_adns9800_t adns9800_get_report(void);
+report_mouse_t adns9800_get_report(const void* config);
