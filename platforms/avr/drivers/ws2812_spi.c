@@ -69,10 +69,10 @@ void ws2812_setleds(LED_TYPE *ledarray, uint8_t leds) {
                  "loop_bits:  ldi  r26, 0xE0\n\t" // 11100000 -> zero bit (375ns up)
                  "            sbrc r24, 7\n\t"
                  "            ldi  r26, 0xFE\n\t" // 11111110 -> one bit (875ns up)
-                 "            add  r24, r24\n\t"  // rotate data one bit to the left.
                  "wait_ready: in   r27, 0x2D\n\t" // in r27, SPSR
                  "            andi r27, 0x80\n\t" // check SPIF to know if the transfer is complete.
                  "            breq wait_ready\n\t"
+                 "            add  r24, r24\n\t"  // rotate data one bit to the left.
                  "            out  0x2E, r26\n\t" // out SPDR, r26; continue the SPI transfer
                  "            subi r25, 1\n\t"    // are there more bits to send in this byte?
                  "            brne loop_bits\n\t"
