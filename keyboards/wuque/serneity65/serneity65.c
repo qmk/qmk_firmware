@@ -61,15 +61,4 @@ bool encoder_update_kb(uint8_t index, bool clockwise)
     encoder_action_register(index, clockwise);
     return true;
 };
-#else
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    } 
-    return true;
-}
 #endif
