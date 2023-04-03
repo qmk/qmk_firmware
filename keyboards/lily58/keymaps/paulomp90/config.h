@@ -23,11 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 #define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
 
 #define QUICK_TAP_TERM 0
-#define TAPPING_TERM 100
+#define TAPPING_TERM 150
 
 #undef RGBLED_NUM
 #define RGBLIGHT_EFFECT_BREATHING
@@ -47,10 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 17
 
 #define TAP_CODE_DELAY 10
-
-// Underglow
-/*
-#undef RGBLED_NUM
-#define RGBLED_NUM 14    // Number of LEDs
-#define RGBLIGHT_SLEEP
-*/

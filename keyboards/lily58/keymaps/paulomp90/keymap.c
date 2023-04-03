@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap_portuguese.h"
+#include "features/custom_shift_keys.h"
 
 enum layer_number {
   _QWERTY = 0,
@@ -8,6 +9,36 @@ enum layer_number {
   _ADJUST,
 };
 
+//-----------------------------
+// tap dance shifts
+
+typedef struct {
+  bool is_press_action;
+  int state;
+} tap;
+
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+};
+
+//Tap dance enums
+enum {
+  LEFT_SHIFT = 0,
+  RIGHT_SHIFT = 1
+};
+//---------------------
+//Shifted values
+
+
+
+const custom_shift_key_t custom_shift_keys[] = {
+  {KC_BSPC , KC_DEL}, // Shift . is ?
+};
+uint8_t NUM_CUSTOM_SHIFT_KEYS =
+    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
+
+//----------------------
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 
@@ -19,33 +50,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  +*  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |LShift|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   Ç  |  ~   |
- * |------+------+------+------+------+------|  DEL  |    |  BACK |------+------+------+------+------+------|
+ * |LShift|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   Ç  | BACK |
+ * |------+------+------+------+------+------|  <>   |    |  ´`   |------+------+------+------+------+------|
  * |LCTRL |   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   -  |Shift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | Alt  | LGUI |LOWER | /Space  /       \Enter \  |RAISE | RGUI |  \|  |
+ *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE | RGUI | RAlt |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `-------------------''-------'           '------''--------------------'
  */
  [_QWERTY] = LAYOUT(
   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_EQL,
-  KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_DEL,  KC_BSPC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_LSFT,
-                      KC_LALT, KC_LGUI, LOWER, KC_SPC,   KC_ENT,   RAISE,  KC_RGUI, KC_BSLS
+  TD(LEFT_SHIFT),  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_BSPC,
+  KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_GRV,  KC_RBRC,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  TD(RIGHT_SHIFT),
+                      KC_LALT, KC_LGUI, LOWER, KC_SPC,   KC_ENT,   RAISE,  KC_RGUI, KC_RALT
 ),
 
-/* LOWER+
+/* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |      | BRG- | BRG+ | VOL- | VOL+ |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      | MUTE | PREV | PLAY | NEXT |      |-------.    ,-------|      |      |  <>  |  ºª  |  ´`  |      |
+ * |      | MUTE | PREV | PLAY | NEXT |      |-------.    ,-------|      |      |  \|  |  ºª  |  ~^  |      |
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | Alt  | LGUI |LOWER | /Space  /       \Enter \  |RAISE | RGUI |  \|  |
+ *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE | RGUI | RAlt |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `-------------------''-------'           '------''--------------------'
  */
@@ -53,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT(
   _______, _______, _______, _______, _______, _______,                   _______, _______, _______,_______, _______, _______,
   _______, KC_BRID, KC_BRIU, KC_VOLD, KC_VOLU, _______,                   _______, _______, _______, _______, _______, _______,
-  _______, KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, _______,                   _______, _______, KC_GRV, KC_LBRC, KC_RBRC, _______,
+  _______, KC_MUTE, KC_MPRV, KC_MPLY, KC_MNXT, _______,                   _______, _______, KC_BSLS, KC_LBRC, KC_QUOT, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______,
                              _______, _______, _______, _______, _______,  _______, _______, _______
 ),
@@ -68,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | Alt  | LGUI |LOWER | /Space  /       \Enter \  |RAISE | RGUI |  \|  |
+ *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE | RGUI | RAlt |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `-------------------''-------'           '------''--------------------'
  */
@@ -91,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
  * | MODE | HUE- | SAT- | VAL- |      |      |-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | Alt  | LGUI |LOWER | /Space  /       \Enter \  |RAISE | RGUI |  \|  |
+ *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE | RGUI | RAlt | 
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -146,6 +177,7 @@ bool oled_task_user(void) {
 #endif // OLED_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_custom_shift_keys(keycode, record)) { return false; }
   if (record->event.pressed) {
 #ifdef OLED_ENABLE
     set_keylog(keycode, record);
@@ -154,3 +186,64 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+
+//---------------------------------
+// Tap dance shifts
+
+int cur_dance (tap_dance_state_t *state) {
+  if (state->count == 1) {
+    if (state->pressed) return SINGLE_HOLD;
+    else return SINGLE_TAP;
+  }
+  else return 0;
+}
+
+static tap lshifttap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+static tap rshifttap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void lshift_finished (tap_dance_state_t *state, void *user_data) {
+  lshifttap_state.state = cur_dance(state);
+  switch (lshifttap_state.state) {
+    case SINGLE_TAP: register_code16(LALT(KC_LEFT)); break;
+    case SINGLE_HOLD: register_code(KC_LSFT); break;
+  }
+}
+
+void lshift_reset (tap_dance_state_t *state, void *user_data) {
+  switch (lshifttap_state.state) {
+    case SINGLE_TAP: unregister_code16(LALT(KC_LEFT)); break;
+    case SINGLE_HOLD: unregister_code(KC_LSFT); break;
+  }
+  lshifttap_state.state = 0;
+}
+
+void rshift_finished (tap_dance_state_t *state, void *user_data) {
+  rshifttap_state.state = cur_dance(state);
+  switch (rshifttap_state.state) {
+    case SINGLE_TAP: register_code16(LALT(KC_RGHT)); break;
+    case SINGLE_HOLD: register_code(KC_RSFT); break;
+  }
+}
+
+void rshift_reset (tap_dance_state_t *state, void *user_data) {
+  switch (rshifttap_state.state) {
+    case SINGLE_TAP: unregister_code16(LALT(KC_RGHT)); break;
+    case SINGLE_HOLD: unregister_code(KC_RSFT); break;
+  }
+  rshifttap_state.state = 0;
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+  [LEFT_SHIFT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lshift_finished, lshift_reset),
+  [RIGHT_SHIFT]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rshift_finished, rshift_reset),
+};
+
+//-----------------
