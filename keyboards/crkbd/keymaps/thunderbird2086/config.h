@@ -8,7 +8,6 @@
 
 // #define RGB_LAYER_ENABLE
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 
 #if defined(TAPPING_TERM)

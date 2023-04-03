@@ -10,7 +10,6 @@
 
 // #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 300
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #ifdef RGBLIGHT_ENABLE
 #    undef RGBLED_NUM
