@@ -41,6 +41,7 @@
         "driver": "CKLED2001",
         "animations": {
             "band_spiral_val": true,
+            "breathing": true,
             "cycle_all": true,
             "cycle_left_right": true,
             "cycle_up_down": true,
