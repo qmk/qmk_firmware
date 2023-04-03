@@ -34,10 +34,26 @@ endwhile()
 file(READ keyboards/${QMK_KEYBOARD_FOLDER}/info.json QMK_KEYBOARD_INFO_JSON_STRING)
 string(JSON KEYBOARD_NAME GET ${QMK_KEYBOARD_INFO_JSON_STRING} keyboard_name)
 string(JSON MANUFACTURER GET ${QMK_KEYBOARD_INFO_JSON_STRING} manufacturer)
+string(JSON URL GET ${QMK_KEYBOARD_INFO_JSON_STRING} url)
 string(JSON QMK_MCU GET ${QMK_KEYBOARD_INFO_JSON_STRING} processor)
 string(JSON VENDOR_ID GET ${QMK_KEYBOARD_INFO_JSON_STRING} usb vid)
 string(JSON PRODUCT_ID GET ${QMK_KEYBOARD_INFO_JSON_STRING} usb pid)
 string(JSON DEVICE_VER GET ${QMK_KEYBOARD_INFO_JSON_STRING} usb device_version)
+
+if(NOT DEFINED QMK_KEYMAP_FOLDER)
+  set(QMK_KEYMAP_FOLDER "default")
+endif()
+
+set(TEMP_PATH ${QMK_KEYMAP_FOLDER})
+cmake_path(IS_RELATIVE TEMP_PATH IS_KEYMAP_FOLDER_RELATIVE)
+
+if(NOT ${IS_KEYMAP_FOLDER_RELATIVE})
+  if(EXISTS "${QMK_KEYMAP_FOLDER}/keymap.c")
+    set(QMK_KEYBOARD_KEYMAP "${QMK_KEYMAP_FOLEDR}/keymap.c")
+  else()
+    message(FATAL_ERROR "Could not find keymap.c in keymap folder")
+  endif()
+endif()
 
 foreach(FOLDER ${QMK_KEYBOARD_FOLDERS})
   include_directories(${CMAKE_SOURCE_DIR}/keyboards/${FOLDER})
@@ -45,9 +61,11 @@ foreach(FOLDER ${QMK_KEYBOARD_FOLDERS})
   if(EXISTS ${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/config.h)
     list(APPEND QMK_KEYBOARD_CONFIG_HS "${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/config.h")
   endif()
-  # assuming every keyboard has a default/keymap.c at some level
-  if(EXISTS ${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/keymaps/default/keymap.c)
-    list(APPEND QMK_KEYBOARD_KEYMAPS "${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/keymaps/default/keymap.c")
+  if(${IS_KEYMAP_FOLDER_RELATIVE})
+    # assuming every keyboard has a default/keymap.c at some level
+    if(EXISTS ${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/keymaps/${QMK_KEYMAP_FOLDER}/keymap.c)
+      list(APPEND QMK_KEYBOARD_KEYMAPS "${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/keymaps/${QMK_KEYMAP_FOLDER}/keymap.c")
+    endif()
   endif()
   get_filename_component(LAST_PART ${FOLDER} NAME)
   # assuming every keyboard has a header.h at some level
@@ -67,8 +85,11 @@ foreach(FOLDER ${QMK_KEYBOARD_FOLDERS})
   # endif()
 endforeach()
 
-if(NOT DEFINED QMK_KEYBOARD_KEYMAPS)
-  message(FATAL_ERROR "Keymap not found")
+if(${IS_KEYMAP_FOLDER_RELATIVE})
+  if(NOT DEFINED QMK_KEYBOARD_KEYMAPS)
+    message(FATAL_ERROR "Keymap not found")
+  endif()
+  list(GET QMK_KEYBOARD_KEYMAPS 0 QMK_KEYBOARD_KEYMAP)
 endif()
 
 if(NOT DEFINED QMK_KEYBOARD_HEADERS)
@@ -76,11 +97,11 @@ if(NOT DEFINED QMK_KEYBOARD_HEADERS)
 endif()
 
 # list(GET QMK_KEYBOARD_FOLDERS 0 QMK_KEYBOARD_BASE_FOLDER)
-list(GET QMK_KEYBOARD_KEYMAPS 0 QMK_KEYBOARD_KEYMAP)
 list(GET QMK_KEYBOARD_HEADERS -1 QMK_KEYBOARD_HEADER)
 
 project(${QMK_KEYBOARD} 
   LANGUAGES C CXX ASM 
+  HOMEPAGE_URL ${URL}
   VERSION ${DEVICE_VER})
 
 string(REGEX MATCH "^([0-9]+)\\.([0-9]+)\\.([0-9]+)" VERSION_MATCH ${DEVICE_VER})
