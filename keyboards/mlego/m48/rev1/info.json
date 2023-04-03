@@ -1,8 +1,4 @@
 {
-    "usb": {
-        "pid": "0x6261",
-        "device_version": "0.0.1"
-    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
@@ -50,7 +46,7 @@
         "led_count": 20,
         "pin": "B15"
     },
-    "url": "https://gitlab.com/m-lego/m48",
+    "url": "https://mlego.elena.space/m48",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6261",
