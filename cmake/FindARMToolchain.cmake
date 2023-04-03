@@ -58,6 +58,6 @@ macro(find_arm_toolchain)
     endif()
 
     set(TOOLCHAIN_ROOT ${ARM_TOOLCHAIN_ROOT})
-    message("ARM toolchain found: ${ARM_TOOLCHAIN_ROOT}")
-    message("Found make: ${MAKE_ROOT}")
+    message(STATUS "ARM toolchain found: ${ARM_TOOLCHAIN_ROOT}")
+    message(STATUS "Found make: ${MAKE_ROOT}")
 endmacro()

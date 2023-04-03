@@ -57,6 +57,6 @@ macro(find_avr_toolchain)
     endif()
 
     set(TOOLCHAIN_ROOT ${AVR_TOOLCHAIN_ROOT})
-    message("AVR toolchain found: ${AVR_TOOLCHAIN_ROOT}")
-    message("Found make: ${MAKE_ROOT}")
+    message(STATUS "AVR toolchain found: ${AVR_TOOLCHAIN_ROOT}")
+    message(STATUS "Found make: ${MAKE_ROOT}")
 endmacro()

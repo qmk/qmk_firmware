@@ -9,7 +9,7 @@ endif()
 # find_arm_toolchain()
 
 set(CMAKE_SYSTEM_NAME Generic)
-set(CMAKE_SYSTEM_PROCESSOR avr)
+set(CMAKE_SYSTEM_PROCESSOR arm)
 set(CMAKE_CROSS_COMPILING 1)
 
 set(CMAKE_MAKE_PROGRAM "${MAKE_ROOT}/make${OS_SUFFIX}"                   CACHE PATH "make"    FORCE)
@@ -32,26 +32,34 @@ add_compile_options(
     -Os
     -Wall
     -Wstrict-prototypes
-    -fcommon
+    # -fcommon
     # -g
-    -funsigned-char
-    -funsigned-bitfields
+    -fomit-frame-pointer
     -ffunction-sections
     -fdata-sections
-    -fpack-struct
-    -fshort-enums
+    -fno-common
+    -fshort-wchar
     -fno-builtin-printf
-    $<$<COMPILE_LANGUAGE:C>:-fno-inline-small-functions>
-    $<$<COMPILE_LANGUAGE:C>:-fno-strict-aliasing>
-    $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>
+    # -funsigned-char
+    # -funsigned-bitfields
+    # -ffunction-sections
+    # -fdata-sections
+    # -fpack-struct
+    # -fshort-enums
+    # -fno-builtin-printf
+    # $<$<COMPILE_LANGUAGE:C>:-fno-inline-small-functions>
+    # $<$<COMPILE_LANGUAGE:C>:-fno-strict-aliasing>
+    # $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>
 )
 
 add_compile_definitions(
-    F_CPU=16000000
-    F_USB=16000000UL
-    __AVR_ATmega32U4__
+    # F_CPU=16000000
+    # F_USB=16000000UL
+    # __AVR_ATmega32U4__
     # LTO_ENABLE
 )
+
+add_link_options(--specs=nosys.specs)
 
 # include_directories("C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/avr/include")
 
@@ -62,7 +70,7 @@ macro(add_qmk_executable target_name)
     set(hex_file ${target_name}-${QMK_MCU}.hex)
     set(lst_file ${target_name}-${QMK_MCU}.lst)
 
-    add_link_options(-Wl,--gc-sections,-Map=${map_file})
+    add_link_options(-Wl,--gc-sections,-nostartfiles)
 
     # create elf file
     add_executable(${elf_file}

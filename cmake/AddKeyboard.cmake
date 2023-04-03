@@ -27,8 +27,11 @@ macro(add_keyboard KEYBOARD_FOLDER KEYMAP_FOLDER)
   endif()
 
   # find the right toolchain
-  message(STATUS "Reading config from ${KEYBOARD_FOLDER_ABS}/info.json")
-  file(READ ${KEYBOARD_FOLDER_ABS}/info.json JSON_STRING)
+  
+  # not sure we need to validate here
+  include(ValidateJSON)
+  validate_json(${KEYBOARD_FOLDER_ABS}/info.json keyboard JSON_STRING)
+
   string(JSON PROCESSOR GET ${JSON_STRING} processor)
   if(${PROCESSOR} MATCHES "^at.*")
     set(PLATFORM "avr")

@@ -31,7 +31,9 @@ while(NOT ${QMK_KEYBOARD_CURRENT_FOLDER} STREQUAL "")
 endwhile()
 
 # would be nice to also do validation here
-file(READ keyboards/${QMK_KEYBOARD_FOLDER}/info.json QMK_KEYBOARD_INFO_JSON_STRING)
+include(ValidateJSON)
+validate_json(keyboards/${QMK_KEYBOARD_FOLDER}/info.json keyboard QMK_KEYBOARD_INFO_JSON_STRING)
+
 string(JSON KEYBOARD_NAME GET ${QMK_KEYBOARD_INFO_JSON_STRING} keyboard_name)
 string(JSON MANUFACTURER GET ${QMK_KEYBOARD_INFO_JSON_STRING} manufacturer)
 string(JSON URL GET ${QMK_KEYBOARD_INFO_JSON_STRING} url)

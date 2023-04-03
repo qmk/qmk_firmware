@@ -14,15 +14,15 @@
     },
     "hex_number_2d": {
         "type": "string",
-        "pattern": "^0x[0-9A-F]{2}$"
+        "pattern": "^0x[0-9A-F][0-9A-F]$"
     },
     "hex_number_4d": {
         "type": "string",
-        "pattern": "^0x[0-9A-F]{4}$"
+        "pattern": "^0x[0-9A-F][0-9A-F][0-9A-F][0-9A-F]$"
     },
     "bcd_version": {
         "type": "string",
-        "pattern": "^[0-9]{1,2}\\.[0-9]\\.[0-9]$"
+        "pattern": "^[0-9][0-9]?\\.[0-9]\\.[0-9]$"
     },
     "text_identifier": {
         "type": "string",
@@ -83,15 +83,15 @@
             },
             {
                 "type": "string",
-                "pattern": "^[A-K]\\d{1,2}$"
+                "pattern": "^[A-K]\\d\\d?$"
             },
             {
                 "type": "string",
-                "pattern": "^LINE_PIN\\d{1,2}$"
+                "pattern": "^LINE_PIN\\d\\d?$"
             },
             {
                 "type": "string",
-                "pattern": "^GP\\d{1,2}$"
+                "pattern": "^GP\\d\\d?$"
             },
             {
                 "type": "integer"
