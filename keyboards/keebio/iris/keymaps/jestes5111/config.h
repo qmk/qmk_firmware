@@ -17,11 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// Set keyboard "handedness"
 #define EE_HANDS
-
-// Set the master to right hand
 #define MASTER_RIGHT
-
-// RGB stuff
 #define RGBLIGHT_SPLIT
+#define ENABLE_COMPILE_KEYCODE
