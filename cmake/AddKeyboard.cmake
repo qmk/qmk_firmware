@@ -27,7 +27,7 @@ macro(add_keyboard KEYBOARD_FOLDER KEYMAP_FOLDER)
   endif()
 
   # find the right toolchain
-  
+
   # not sure we need to validate here
   include(ValidateJSON)
   validate_json(${KEYBOARD_FOLDER_ABS}/info.json keyboard JSON_STRING)
@@ -52,10 +52,10 @@ macro(add_keyboard KEYBOARD_FOLDER KEYMAP_FOLDER)
   endif()
 
   if(${IS_KEYBOARD_FOLDER_RELATIVE})
-    string(REPLACE "/" "_" KEYBOARD_NAME ${KEYBOARD_FOLDER})
+    string(MAKE_C_IDENTIFIER ${KEYBOARD_FOLDER} KEYBOARD_NAME)
   else()
     string(JSON KEYBOARD_NAME GET ${JSON_STRING} keyboard_name)
-    string(REPLACE " " "_" KEYBOARD_NAME ${KEYBOARD_NAME})
+    string(MAKE_C_IDENTIFIER ${KEYBOARD_NAME} KEYBOARD_NAME)
   endif()
 
   ExternalProject_Add(${KEYBOARD_NAME}_${KEYMAP_NAME}
