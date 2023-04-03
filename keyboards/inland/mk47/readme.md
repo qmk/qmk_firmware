@@ -4,14 +4,15 @@ A customizable 40% keyboard.
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
 * Hardware Supported: mk47
+* Hardware Availability: [Inland](https://www.microcenter.com/product/661264/inland-47-keys-hot-swappable-rgb-wired-mechanical-keyboard,)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make inland/keyboard_sw/mk47:default
+    make inland/mk47:default
 
 Flashing example for this keyboard:
 
-    make inland/keyboard_sw/mk47:default:flash
+    make inland/mk47:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, which programmed as *Esc* while plugging in the keyboard.
 
