@@ -153,15 +153,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
 
-      // If we are within the range, but not on the last layer, turn next layer ON
-      if (current_layer < LAYER_CYCLE_END) {
-          layer_on(current_layer + 1);
-          return false;
+      uint8_t next_layer = current_layer + 1;
+      if (next_layer > LAYER_CYCLE_END) {
+          next_layer = LAYER_CYCLE_START;
       }
-
-      // Getting here means we are on the last layer of the cycle, move back to starting layer.
-      //    Note: `layer_move` turns OFF all other layers but default one (which is always ON)
-      layer_move(LAYER_CYCLE_START);
+      layer_move(next_layer);
       return false;
 
     // Process other keycodes normally
