@@ -1,4 +1,7 @@
 {
+    "manufacturer": "Alin Elena",
+    "keyboard_name": "mlego/m48 rev1",
+    "maintainer": "alin elena",
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
