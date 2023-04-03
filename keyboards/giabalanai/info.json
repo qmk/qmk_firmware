@@ -13,10 +13,22 @@
         "rows": ["B5", "B4", "E6", "D7", "C6", "D4"]
     },
     "diode_direction": "COL2ROW",
+    "features": {
+        "midi": true,
+        "extrakey": true,
+        "encoder": true,
+        "bootmagic": false,
+        "console": false,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": false,
+        "audio": false
+    },
     "encoder": {
         "rotary": []
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D2",
         "encoder": {
             "right": {
