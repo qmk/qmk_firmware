@@ -1,7 +1,8 @@
 {
     "keyboard_name": "MK47",
-    "manufacturer": "https://www.microcenter.com",
-    "maintainer": "hfd",
+    "manufacturer": "Inland",
+    "maintainer": "jonylee@hfd",
+    "url":"",
     "usb": {
         "vid": "0xFFFE",
         "pid": "0x0002",
