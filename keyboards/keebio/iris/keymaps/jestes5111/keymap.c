@@ -17,7 +17,7 @@
 #define DISCORD LCA(KC_D)
 #define SPOTIFY LCA(KC_V)
 #define UNLOCK LCA(KC_DEL)
-#define FILL_BW RCS(L)
+#define FILL_BW RCS(KC_L)
 
 enum custom_keycodes {
     QWERTY = SAFE_RANGE, 
@@ -25,7 +25,8 @@ enum custom_keycodes {
     RAISE, 
     ADJUST, 
     FUNC, 
-    THUMB
+    THUMB,
+    FLASH
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -64,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
         RGB_TOG, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_LPRN,                            KC_RPRN, KC_NO,   KC_NO,   KC_NO,   KC_NO,   QK_BOOT,
     // ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-        FILL_BW, KC_MPRV, KC_MNXT, KC_VOLU, KC_NO,   KC_LBRC,                            KC_RBRC, KC_NO,   KC_NO,   KC_NO,   RGB_VAI, KC_NO,
+        FILL_BW, KC_MPRV, KC_MNXT, KC_VOLU, KC_NO,   KC_LBRC,                            KC_RBRC, KC_NO,   KC_NO,   KC_NO,   RGB_VAI, FLASH,
     // ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         KC_MUTE, KC_MSTP, KC_MPLY, KC_VOLD, KC_NO,   KC_LCBR, KC_MENU,          KC_NO,   KC_RCBR, KC_END,  RGB_HUD, RGB_SAD, RGB_VAD, KC_NO,
     // └────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
@@ -115,6 +116,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             case THUMB:
                 SEND_STRING(":disguised_face: :thumbsup:");
+                SEND_STRING(SS_DELAY(100) SS_TAP(X_ENTER));
+                return false;
+
+            case FLASH:
+                SEND_STRING("qmk flash -kb keebio/iris/rev4 -km jestes5111");
                 SEND_STRING(SS_DELAY(100) SS_TAP(X_ENTER));
                 return false;
         }
