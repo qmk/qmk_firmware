@@ -15,11 +15,6 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "diode_direction": "COL2ROW",
-    "matrix_pins": {
-        "rows": ["F0", "F1", "F4", "F6", "F7"],
-        "cols": ["F5", "D5", "B1", "B2", "B3", "D3", "D2", "C7", "C6", "B6", "B5", "B4", "D7", "D6"]
-    },
     "community_layouts": ["60_ansi_split_bs_rshift"],
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_60_ansi_split_bs_rshift"
