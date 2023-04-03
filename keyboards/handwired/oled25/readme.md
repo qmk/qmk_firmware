@@ -1,6 +1,6 @@
 # oled25
 
-![oled25](https://i.imgur.com/b3ODB4g.jpg)
+![oled25](https://i.imgur.com/b3ODB4gh.jpg)
 
 A small numberpad/macropad 5x5 sized, with an OLED display.
 
