@@ -1,8 +1,8 @@
 #include QMK_KEYBOARD_H
 
 enum encoder_names {
-  LEFT_HALF_ENC = 0,
-  RIGHT_HALF_ENC1 = 2,
+  LEFT_HALF_ENC,
+  RIGHT_HALF_ENC1,
   RIGHT_HALF_ENC2,
 };
 
@@ -34,3 +34,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______,                   _______, _______, _______, _______
   )
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] =  { ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_UP, KC_DOWN)  },
+    [1] =  { ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_UP, KC_DOWN)  },
+    [2] =  { ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_UP, KC_DOWN)  }
+};
+#endif

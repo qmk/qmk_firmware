@@ -17,12 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-// Key matrix size
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
-
 // Key matrix pins
 // ROWS: AVR pins used for rows, top to bottom
 // COLS: AVR pins used for columns, left to right
@@ -33,15 +27,6 @@
 // COL2ROW: COL => Anode (+), ROW => Cathode (-)
 // ROW2COL: ROW => Anode (+), COL => Cathode (-)
 #define DIODE_DIRECTION COL2ROW
-
-// Delay when reading the value of the pin; set to `0' if debouncing is not needed
-#define DEBOUNCE 5
-
-// Disable mechanical locking support (`KC_LCAP', `KC_LNUM', or `KC_LSCR')
-#undef LOCKING_SUPPORT_ENABLE
-
-// Disable switch state consistency with keyboard LED state
-#undef LOCKING_RESYNC_ENABLE
 
 // RGB matrix
 #ifdef RGB_MATRIX_ENABLE

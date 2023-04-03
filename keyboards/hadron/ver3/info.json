@@ -1,5 +1,13 @@
 {
     "usb": {
         "device_version": "0.0.3"
-    }
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B13", "pin_b": "B14"}
+        ]
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C"
 }

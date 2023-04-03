@@ -8,6 +8,11 @@
         "pid": "0xB4A2",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [{"x":0, "y":0},

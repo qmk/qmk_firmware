@@ -111,7 +111,7 @@ int16_t joystick_read_axis(uint8_t axis) {
     return ranged_val;
 }
 
-void joystick_read_axes() {
+void joystick_read_axes(void) {
 #if JOYSTICK_AXIS_COUNT > 0
     for (int i = 0; i < JOYSTICK_AXIS_COUNT; ++i) {
         if (joystick_axes[i].input_pin == JS_VIRTUAL_AXIS) {

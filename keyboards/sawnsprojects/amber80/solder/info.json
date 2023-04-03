@@ -8,6 +8,13 @@
         "pid": "0xA801",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F5",
+        "scroll_lock": "B0",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
