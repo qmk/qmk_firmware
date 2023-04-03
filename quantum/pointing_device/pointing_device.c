@@ -154,18 +154,21 @@ __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, boo
 }
 
 report_mouse_t pointing_device_adjust_report(report_mouse_t report, uint8_t index) {
+    mouse_xy_report_t x = 0, y = 0;
+    x = report.x;
+    y = report.y;
     switch (pointing_device_configs[index].rotation) {
         case ROTATE_90:
-            report.x = report.y;
-            report.y = -report.x;
+            report.x = y;
+            report.y = -x;
             break;
         case ROTATE_180:
-            report.x = -report.x;
-            report.y = -report.y;
+            report.x = -x;
+            report.y = -y;
             break;
         case ROTATE_270:
-            report.x = -report.y;
-            report.y = report.x;
+            report.x = -y;
+            report.y = x;
             break;
         default:
             break;
