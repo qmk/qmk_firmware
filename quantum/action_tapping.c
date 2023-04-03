@@ -11,10 +11,8 @@
 
 #    if defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
 #        error "IGNORE_MOD_TAP_INTERRUPT_PER_KEY has been removed; the code needs to be ported to use HOLD_ON_OTHER_KEY_PRESS_PER_KEY instead."
-#    elif !defined(IGNORE_MOD_TAP_INTERRUPT)
-#        if !defined(PERMISSIVE_HOLD) && !defined(PERMISSIVE_HOLD_PER_KEY) && !defined(HOLD_ON_OTHER_KEY_PRESS) && !defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
-#            pragma message "The default behavior of mod-taps will change to mimic IGNORE_MOD_TAP_INTERRUPT in the future.\nIf you wish to keep the old default behavior of mod-taps, please use HOLD_ON_OTHER_KEY_PRESS."
-#        endif
+#    elif defined(IGNORE_MOD_TAP_INTERRUPT)
+#        error "IGNORE_MOD_TAP_INTERRUPT is no longer necessary as it is now the default behavior of mod-tap keys. Please remove it from your config."
 #    endif
 
 #    define IS_TAPPING() IS_EVENT(tapping_key.event)
@@ -162,12 +160,6 @@ void action_tapping_process(keyrecord_t record) {
 #        define TAP_GET_HOLD_ON_OTHER_KEY_PRESS false
 #    endif
 
-#    if defined(IGNORE_MOD_TAP_INTERRUPT)
-#        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT true
-#    else
-#        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT false
-#    endif
-
 /** \brief Tapping
  *
  * Rule: Tap key is typed(pressed and released) within TAPPING_TERM.
@@ -217,9 +209,8 @@ bool process_tapping(keyrecord_t *keyp) {
                                 (TAP_IS_MT && TAP_GET_HOLD_ON_OTHER_KEY_PRESS)
                                 )
                             )
-                            // Makes Retro Shift ignore [IGNORE_MOD_TAP_INTERRUPT's
-                            // effects on nested taps for MTs and the default
-                            // behavior of LTs] below TAPPING_TERM or RETRO_SHIFT.
+                            // Makes Retro Shift ignore the default behavior of
+                            // MTs and LTs on nested taps below TAPPING_TERM or RETRO_SHIFT
                             || (
                                 TAP_IS_RETRO
                                 && (event.key.col != tapping_key.event.key.col || event.key.row != tapping_key.event.key.row)

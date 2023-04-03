@@ -9,8 +9,5 @@
     "development_board": "elite_c",
     "split": {
         "enabled": true
-    },
-    "build": {
-        "lto": true
     }
 }
