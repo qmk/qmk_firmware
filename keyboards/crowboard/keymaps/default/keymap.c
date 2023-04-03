@@ -43,16 +43,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LCTL_T(KC_A):
             // Do not force the mod-tap key press to be handled as a modifier
             // if any other key was pressed while the mod-tap key is held down.
-            return true;
+            return false;
         default:
             // Force the mod-tap key press to be handled as a modifier if any
             // other key was pressed while the mod-tap key is held down.
-            return false;
+            return true;
     }
 }
 
