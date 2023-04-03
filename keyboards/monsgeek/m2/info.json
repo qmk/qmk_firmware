@@ -1,7 +1,7 @@
 {
     "keyboard_name": "MonsGeek Keyboard",
-    "manufacturer": "www.hfd.cn",
-    "maintainer": "hfd",
+    "manufacturer": "monsgeek",
+    "maintainer": "jonylee@hfd",
     "usb": {
         "vid": "0xFFFE",
         "pid": "0x0008",
