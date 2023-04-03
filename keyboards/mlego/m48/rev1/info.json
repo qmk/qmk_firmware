@@ -27,6 +27,8 @@
         "rows": ["A6", "A7", "B0", "B10"]
     },
     "processor": "STM32F401",
+    "bootloader": "tinyuf2",
+    "board": "BLACKPILL_STM32_F401",
     "rgblight": {
         "animations": {
             "alternating": true,
