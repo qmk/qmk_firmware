@@ -3,4 +3,4 @@
 
 #pragma once
 
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
