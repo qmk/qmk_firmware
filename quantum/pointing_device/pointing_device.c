@@ -131,12 +131,12 @@ __attribute__((weak)) void pointing_device_init(void) {
     }
 }
 
-__attribute__((weak)) void pointing_device_send(void) {
+__attribute__((weak)) bool pointing_device_send(void) {
     static report_mouse_t old_report   = {};
     report_mouse_t        empty_report = {0};
-
+    bool report_changed = has_mouse_report_changed(&local_report, &old_report) || (report_ready && (memcmp(&local_report, &empty_report, sizeof(report_mouse_t)) != 0));
     // If you need to do other things, like debugging, this is the place to do it.
-    if (has_mouse_report_changed(&local_report, &old_report) || (report_ready && (memcmp(&local_report, &empty_report, sizeof(report_mouse_t)) != 0))) { // report should be sent if it has movement when the device was ready.
+    if (report_changed) { // report should be sent if it has movement when the device was ready.
         host_mouse_send(&local_report);
     }
     // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device
@@ -144,6 +144,7 @@ __attribute__((weak)) void pointing_device_send(void) {
     memset(&local_report, 0, sizeof(local_report));
     local_report.buttons = buttons;
     memcpy(&old_report, &local_report, sizeof(local_report));
+    return report_changed;
 }
 
 __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, bool pressed) {
@@ -228,7 +229,7 @@ report_mouse_t pointing_deivce_task_get_pointing_reports(bool* was_ready) {
     return temp_report;
 }
 
-__attribute__((weak)) void pointing_device_task(void) {
+__attribute__((weak)) bool pointing_device_task(void) {
     local_report = pointing_deivce_task_get_pointing_reports(&report_ready);
 
     // automatic mouse layer function
@@ -260,11 +261,12 @@ __attribute__((weak)) void pointing_device_task(void) {
                 counter++;
             }
         }
-        return;
+        return report_ready;
     }
 #endif
 
-    pointing_device_send();
+    return pointing_device_send();
+
 }
 
 /**
