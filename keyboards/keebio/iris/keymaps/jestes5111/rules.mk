@@ -12,13 +12,14 @@ MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = no            # Enable N-Key Rollover
+NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight
 KEY_LOCK_ENABLE = yes		# Enable the use of KC_LOCK
+UNICODE_ENABLE = yes        # Basic unicode
 
 SPLIT_KEYBOARD = yes
-ENCODER_ENABLE = yes
+ENCODER_ENABLE = no
 
 LTO_ENABLE = yes
