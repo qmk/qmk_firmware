@@ -79,20 +79,19 @@ __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
 __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
     bool res = encoder_update_user(index, clockwise);
     if (res) {
-      if (clockwise) {
+        if (clockwise) {
 #ifdef EXTRAKEY_ENABLE
-          tap_code_delay(KC_VOLU, 10);
+            tap_code_delay(KC_VOLU, 10);
 #else
-          tap_code_delay(KC_PGDN, 10);
+            tap_code_delay(KC_PGDN, 10);
 #endif
-      } else {
+        } else {
 #ifdef EXTRAKEY_ENABLE
-          tap_code_delay(KC_VOLD, 10);
+            tap_code_delay(KC_VOLD, 10);
 #else
-          tap_code_delay(KC_PGUP, 10);
+            tap_code_delay(KC_PGUP, 10);
 #endif
-
-      }
+        }
     }
     return res;
 }
@@ -108,7 +107,7 @@ void encoder_init(void) {
     thisCount = isLeftHand ? NUM_ENCODERS_LEFT : NUM_ENCODERS_RIGHT;
     thatCount = isLeftHand ? NUM_ENCODERS_RIGHT : NUM_ENCODERS_LEFT;
 #else // SPLIT_KEYBOARD
-    thisCount                = NUM_ENCODERS;
+    thisCount = NUM_ENCODERS;
 #endif
 
 #ifdef ENCODER_TESTS
