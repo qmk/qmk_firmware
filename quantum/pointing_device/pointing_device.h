@@ -99,6 +99,25 @@ typedef enum {
     POINTING_DEVICE_BUTTON8,
 } pointing_device_buttons_t;
 
+#if defined(POINTING_DEVICE_DRIVER_ADNS9800)
+#include "adns9800.h"
+#endif
+#if defined(POINTING_DEVICE_DRIVER_AZOTEQ_IQS5XX)
+#include "azoteq_iqs5xx.h"
+#endif
+#if defined(POINTING_DEVICE_DRIVER_CIRQUE_PINNACLE_I2C) || defined(POINTING_DEVICE_DRIVER_CIRQUE_PINNACLE_SPI)
+#include "cirque_pinnacle.h"
+#endif
+#if defined(POINTING_DEVICE_DRIVER_PIMORONI_TRACKBALL)
+#include "pimoroni_trackball.h"
+#endif 
+#if defined(POINTING_DEVICE_DRIVER_PMW3360)
+#include "pmw3360.h"
+#endif 
+#if defined(POINTING_DEVICE_DRIVER_PMW3389)
+#include "pmw3389.h"
+#endif 
+
 #ifdef MOUSE_EXTENDED_REPORT
 #    define XY_REPORT_MIN INT16_MIN
 #    define XY_REPORT_MAX INT16_MAX
