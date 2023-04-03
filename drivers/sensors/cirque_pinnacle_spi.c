@@ -19,7 +19,6 @@ const pointing_device_spi_config_t cirque_config_spi_default = {.cs = CIRQUE_PIN
 void cirque_read_spi(const void *config, uint8_t regaddr, uint8_t* data, uint8_t count) {
     uint8_t cmdByte = READ_MASK | regaddr; // Form the READ command byte
     pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
-    if (touchpad_init) {
         if (spi_start(spi_config->cs , false, spi_config->mode , spi_config->divisor)) {
             spi_write(cmdByte);     // write command byte, receive filler
             spi_write(FILLER_BYTE); // write & receive filler
@@ -29,29 +28,27 @@ void cirque_read_spi(const void *config, uint8_t regaddr, uint8_t* data, uint8_t
             }
         } else {
             pd_dprintf("error cirque_pinnacle spi_start read\n");
-            touchpad_init = false;
         }
         spi_stop();
-    }
+
 }
 
 // Writes single-byte <data> to <address>
 void cirque_write_spi(const void *config, uint8_t regaddr, uint8_t data) {
     uint8_t cmdByte = WRITE_MASK | regaddr; // Form the WRITE command byte
     pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
-    if (touchpad_init) {
         if (spi_start(spi_config->cs, false, spi_config->mode, spi_config->divisor)) {
             spi_write(cmdByte);
             spi_write(data);
         } else {
             pd_dprintf("error cirque_pinnacle spi_start write\n");
-            touchpad_init = false;
         }
         spi_stop();
-    }
+
 }
 
 void cirque_pinnacle_init_spi(const void *config) {
+    spi_init();
     cirque_pinnacle_init(&cirque_rap_spi, config);
 }
 report_mouse_t cirque_pinnacle_get_report_spi(const void *config) {

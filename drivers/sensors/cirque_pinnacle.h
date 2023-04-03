@@ -67,7 +67,7 @@
 #    include "spi_master.h"
 #    ifndef CIRQUE_PINNACLE_CLOCK_SPEED
 #        define CIRQUE_PINNACLE_CLOCK_SPEED 10000000
-#    endif\\s
+#    endif
 #    ifndef CIRQUE_PINNACLE_SPI_MODE
 #        define CIRQUE_PINNACLE_SPI_MODE 1
 #    endif
@@ -139,3 +139,6 @@ const cirque_rap_t cirque_read_write_spi;
 
 const pointing_device_driver_t     cirque_driver_i2c_default;
 const pointing_device_i2c_config_t cirque_config_i2c_default;
+
+const pointing_device_driver_t     cirque_driver_spi_default;
+const pointing_device_spi_config_t cirque_config_spi_default;
