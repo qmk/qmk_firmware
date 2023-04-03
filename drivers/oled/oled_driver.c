@@ -15,9 +15,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifdef OLED_DRIVER_SPI
+#if defined(OLED_TRANSPORT_SPI)
 #    include "spi_master.h"
-#else
+#elif defined(OLED_TRANSPORT_I2C)
 #    include "i2c_master.h"
 #endif
 #include "oled_driver.h"
@@ -158,7 +158,7 @@ uint32_t oled_scroll_timeout;
 uint16_t oled_update_timeout;
 #endif
 
-#ifdef OLED_DRIVER_SPI
+#if defined(OLED_TRANSPORT_SPI)
 #    ifndef OLED_DC_PIN
 #        error "The OLED driver in SPI needs a D/C pin defined"
 #    endif
@@ -171,15 +171,15 @@ uint16_t oled_update_timeout;
 #    ifndef OLED_SPI_DIVISOR
 #        define OLED_SPI_DIVISOR 2
 #    endif
-#else
+#elif defined(OLED_TRANSPORT_I2C)
 #    if !defined(OLED_DISPLAY_ADDRESS)
 #        define OLED_DISPLAY_ADDRESS 0x3C
 #    endif
 #endif
 
 // Transmit/Write Funcs.
-bool oled_cmd(const uint8_t *data, uint16_t size) {
-#ifdef OLED_DRIVER_SPI
+__attribute__((weak)) bool oled_cmd(const uint8_t *data, uint16_t size) {
+#if defined(OLED_TRANSPORT_SPI)
     spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR);
     // Command Mode
     writePinLow(OLED_DC_PIN);
@@ -190,15 +190,27 @@ bool oled_cmd(const uint8_t *data, uint16_t size) {
     }
     spi_stop();
     return true;
-#else
+#elif defined(OLED_TRANSPORT_I2C)
     i2c_status_t status = i2c_transmit((OLED_DISPLAY_ADDRESS << 1), data, size, OLED_I2C_TIMEOUT);
 
     return (status == I2C_STATUS_SUCCESS);
 #endif
 }
 
-bool oled_cmd_P(const uint8_t *data, uint16_t size) {
-#if defined(__AVR__) && !defined(OLED_DRIVER_SPI)
+__attribute__((weak)) bool oled_cmd_P(const uint8_t *data, uint16_t size) {
+#if defined(__AVR__)
+#    if defined(OLED_TRANSPORT_SPI)
+    spi_status_t status = spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR);
+    // Command Mode
+    writePinLow(OLED_DC_PIN);
+    // Send the commands
+    for (uint16_t i = 0; i < size && status >= 0; i++) {
+        status = spi_write(pgm_read_byte((const char *)data++)));
+        if (status) break;
+    }
+    spi_stop();
+    return (status == SPI_STATUS_SUCCESS);
+#    elif defined(OLED_TRANSPORT_I2C)
     i2c_status_t status = i2c_start((OLED_DISPLAY_ADDRESS << 1) | I2C_WRITE, OLED_I2C_TIMEOUT);
 
     for (uint16_t i = 0; i < size && status >= 0; i++) {
@@ -209,13 +221,14 @@ bool oled_cmd_P(const uint8_t *data, uint16_t size) {
     i2c_stop();
 
     return (status == I2C_STATUS_SUCCESS);
+#    endif
 #else
     return oled_cmd(data, size);
 #endif
 }
 
-bool oled_write_reg(const uint8_t *data, uint16_t size) {
-#ifdef OLED_DRIVER_SPI
+__attribute__((weak)) bool oled_write_reg(const uint8_t *data, uint16_t size) {
+#if defined(OLED_TRANSPORT_SPI)
     spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR);
     // Command Mode
     writePinHigh(OLED_DC_PIN);
@@ -226,14 +239,14 @@ bool oled_write_reg(const uint8_t *data, uint16_t size) {
     }
     spi_stop();
     return true;
-#else
+#elif defined(OLED_TRANSPORT_I2C)
     i2c_status_t status = i2c_writeReg((OLED_DISPLAY_ADDRESS << 1), I2C_DATA, data, size, OLED_I2C_TIMEOUT);
     return (status == I2C_STATUS_SUCCESS);
 #endif
 }
 
-void oled_driver_init(void) {
-#ifdef OLED_DRIVER_SPI
+__attribute__((weak)) void oled_driver_init(void) {
+#if defined(OLED_TRANSPORT_SPI)
     spi_init();
     setPinOutput(OLED_CS_PIN);
     writePinHigh(OLED_CS_PIN);
@@ -248,7 +261,7 @@ void oled_driver_init(void) {
     writePinHigh(OLED_RST_PIN);
     wait_ms(20);
 #    endif
-#else
+#elif defined(OLED_TRANSPORT_I2C)
     i2c_init();
 #endif
 }
@@ -263,7 +276,7 @@ static void InvertCharacter(uint8_t *cursor) {
 }
 
 bool oled_init(oled_rotation_t rotation) {
-#if defined(USE_I2C) && defined(SPLIT_KEYBOARD)
+#if defined(USE_I2C) && defined(SPLIT_KEYBOARD) && defined(OLED_TRANSPORT_I2C)
     if (!is_keyboard_master()) {
         return true;
     }

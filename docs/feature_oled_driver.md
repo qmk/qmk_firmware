@@ -26,14 +26,24 @@ OLED_ENABLE = yes
 ```
 
 ## OLED type
-|OLED Driver        |
-|-------------------|
-|I2C (default)      |
-|SPI                |
+
+|OLED Driver        |Supported Device                    |
+|-------------------|------------------------------------|
+|SSD1306 (default)  |For both SSD1306, SH1106, and SH1107|
 
 e.g.
 ```make
-OLED_DRIVER = I2C
+OLED_DRIVER = SSD1306
+```
+
+|OLED Transport |                                                |
+|---------------|------------------------------------------------|
+|i2c (default)  | Uses I2C for communication with the OLED panel |
+|spi            | Uses SPI for communication with the OLED panel |
+
+e.g.
+```make
+OLED_TRANSPORT = i2c
 ```
 
 Then in your `keymap.c` file, implement the OLED task call. This example assumes your keymap has three layers named `_QWERTY`, `_FN` and `_ADJ`:
@@ -180,9 +190,12 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_BRIGHTNESS`          |`255`            |The default brightness level of the OLED, from 0 to 255.                                                                  |
 |`OLED_UPDATE_INTERVAL`     |`0`              |Set the time interval for updating the OLED display in ms. This will improve the matrix scan rate.                        |
 
+### I2C Configuration
 |Define                     |Default          |Description                                                                                                               |
 |---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
 |`OLED_DISPLAY_ADDRESS`     |`0x3C`           |The i2c address of the OLED Display                                                                                       |
+
+### SPI Configuration
 
 |Define                     |Default          |Description                                                                                                               |
 |---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
@@ -191,8 +204,7 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_SPI_MODE`            |`3` (default)    |The SPI Mode for the OLED Display (not typically changed).                                                                |
 |`OLED_SPI_DIVISOR`         |`2` (default)    |The SPI Multiplier to use for the OLED Display.                                                                           |
 
-
- ## 128x64 & Custom sized OLED Displays
+## 128x64 & Custom sized OLED Displays
 
  The default display size for this feature is 128x32 and all necessary defines are precalculated with that in mind. We have added a define, `OLED_DISPLAY_128X64`, to switch all the values to be used in a 128x64 display, as well as added a custom define, `OLED_DISPLAY_CUSTOM`, that allows you to provide the necessary values to the driver.
 
@@ -218,7 +230,6 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_COM_PIN_OFFSET`|`0`            |Number of the first COM pin used by the OLED matrix.                                                                                    |
 |`OLED_SOURCE_MAP`    |`{ 0, ... N }` |Precalculated source array to use for mapping source buffer to target OLED memory in 90 degree rendering.                               |
 |`OLED_TARGET_MAP`    |`{ 24, ... N }`|Precalculated target array to use for mapping source buffer to target OLED memory in 90 degree rendering.                               |
-
 
 ### 90 Degree Rotation - Technical Mumbo Jumbo
 
