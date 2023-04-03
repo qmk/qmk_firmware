@@ -197,6 +197,24 @@ The Pimoroni Trackball module is a I2C based breakout board with an RGB enable t
 | `PIMORONI_TRACKBALL_DEBOUNCE_CYCLES` | (Optional) The number of scan cycles used for debouncing on the ball press.        | `20`    |
 | `PIMORONI_TRACKBALL_ERROR_COUNT`     | (Optional) Specifies the number of read/write errors until the sensor is disabled. | `10`    |
 
+### PMW3320 Sensor
+
+To use the PMW3320 sensor, add this to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = pmw3320
+```
+
+The PMW3320 sensor uses a serial type protocol for communication, and requires an additional light source (it could work without one, but expect it to be out of service early).
+
+| Setting             | Description                                                         | Default                    |
+| ------------------- | ------------------------------------------------------------------- | -------------------------- |
+| `PMW3320_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.        | `POINTING_DEVICE_SCLK_PIN` |
+| `PMW3320_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         | `POINTING_DEVICE_SDIO_PIN` |
+| `PMW3320_CS_PIN`   | (Required) The pin connected to the cable select pin of the sensor. | `POINTING_DEVICE_CS_PIN`   |
+
+The CPI range is 500-3500, in increments of 250. Defaults to 1000 CPI.
+
 ### PMW 3360 and PMW 3389 Sensor
 
 This drivers supports both the PMW 3360 and PMW 3389 sensor as well as multiple sensors of the same type _per_ controller, so 2 can be attached at the same side for split keyboards (or unsplit keyboards).
@@ -713,7 +731,7 @@ _Note: The Cirque pinnacle track pad already implements a custom activation func
 When using a custom pointing device (overwriting `pointing_device_task`) the following code should be somewhere in the `pointing_device_task_*` stack:
 
 ```c
-void pointing_device_task(void) {
+bool pointing_device_task(void) {
     //...Custom pointing device task code
     
     // handle automatic mouse layer (needs report_mouse_t as input)
@@ -721,7 +739,7 @@ void pointing_device_task(void) {
     
     //...More custom pointing device task code
     
-    pointing_device_send();
+    return pointing_device_send();
 }
 ```
 

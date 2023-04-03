@@ -6,6 +6,9 @@
     "bootmagic": {
         "matrix": [0, 6]
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "mousekey": true,
         "bootmagic": true,
