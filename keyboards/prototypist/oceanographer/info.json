@@ -13,6 +13,12 @@
         "nkro": true 
     },
 
+    "encoder":{
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "B1", "resolution": 2}
+        ]
+    },
+
     "rgblight" : {
         "led_count": 3,
         "pin": "B3",
@@ -195,7 +201,7 @@
                 { "matrix": [3, 0], "label": "Ctrl", "x": 0, "y": 3 },
                 { "matrix": [3, 1], "label": "Win", "x": 1, "y": 3 },
                 { "matrix": [3, 2], "label": "Alt", "x": 2, "y": 3 },
-                { "matrix": [3, 3], "w":6.25, "x": 3, "y": 3 },
+                { "matrix": [3, 5], "w":6.25, "x": 3, "y": 3 },
                 { "matrix": [3, 8], "label": "Ctrl", "x": 9.25, "y": 3 },
                 { "matrix": [3, 10], "label": "\u2190", "x": 10.75, "y": 3 },
                 { "matrix": [3, 11], "label": "\u2193", "x": 11.75, "y": 3 },

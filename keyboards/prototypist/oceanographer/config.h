@@ -18,8 +18,3 @@
 #define AUDIO_INIT_DELAY
 
 #endif
-
-// Encoder Settings
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B1 }
-#define ENCODER_RESOLUTION 2

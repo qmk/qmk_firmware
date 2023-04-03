@@ -17,19 +17,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QK_GESC,   KC_Q,     KC_W,      KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,      KC_BSPC,
     KC_TAB,    KC_A,     KC_S,      KC_D,      KC_F,      KC_G,      KC_H,      KC_J,      KC_K,      KC_L,      KC_SCLN,   KC_ENT,
     KC_LSFT,   KC_Z,     KC_X,      KC_C,      KC_V,      KC_B,      KC_N,      KC_M,      KC_COMMA,  KC_DOT,    KC_SLSH,   KC_UP,     RGB_MOD,
-    KC_LCTL,   KC_LALT,  KC_LGUI,                         KC_SPC,                          KC_RCTL,              KC_LEFT,   KC_DOWN,   KC_RIGHT
+    KC_LCTL,   KC_LALT,  MO(_FN1),                        KC_SPC,                          KC_RCTL,              KC_LEFT,   KC_DOWN,   KC_RIGHT
   ),
   [1] = LAYOUT_625(
     KC_F1,     KC_F2,    KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
     KC_CAPS,   KC_1,     KC_2,      KC_3,      KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      KC_ENT,
     KC_SCRL,   KC_Z,     KC_X,      KC_C,      KC_V,      KC_B,      KC_N,      KC_M,      KC_COMMA,  KC_DOT,    CK_TOGG,   RGB_SAI,   RGB_TOG,
-    KC_NUM,    KC_LALT,  MO(_FN2),                        KC_SPC,                          KC_RCTL,              RGB_HUD,   RGB_SAD,   RGB_HUI
+    KC_NUM,    MO(_FN2), _______,                        KC_SPC,                          KC_RCTL,              RGB_HUD,   RGB_SAD,   RGB_HUI
   ),
   [2] = LAYOUT_625(
     _______,   _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
     _______,   _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
     _______,   _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
-    _______,   MO(_FN3), _______,                         _______,                         _______,              _______,   _______,   _______
+    MO(_FN3),  _______,  _______,                         _______,                         _______,              _______,   _______,   _______
   ),
   [3] = LAYOUT_625(
     _______,   _______,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
@@ -46,55 +46,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_FN2] = { ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP)},
     [_FN3] = { ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)}
 };
-#endif
-
-#ifdef OLED_ENABLE  //Special thanks to Sickbabies for this great OLED widget!
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_90;  // rotates for proper orientation
-}
-
-bool oled_task_user(void) {
-    
-    oled_write_ln_P(PSTR("LAYER"), false);
-
-    switch (get_highest_layer(layer_state)) {
-
-        case _QWERTY:
-            oled_write_ln_P(PSTR("L1"), false);
-            break;
-
-        case _FN1:
-            oled_write_ln_P(PSTR("L2"), false);
-            break;
-
-        case _FN2:
-            oled_write_ln_P(PSTR("L3"), false);
-            break;
-
-        case _FN3:
-            oled_write_ln_P(PSTR("L4"), false);
-            break;
-
-        default:
-            oled_write_ln_P(PSTR(" "), false);
-
-    }
-
-    oled_write_ln_P(PSTR("     "), false);
-
-    oled_write_ln_P(PSTR("LOCK:"), false);
-    
-    led_t led_state = host_keyboard_led_state();
-    
-    oled_write_P(led_state.caps_lock ? PSTR ("CAPS ") : PSTR("     "), false);
-    oled_write_P(led_state.scroll_lock ? PSTR ("SCROL") : PSTR("     "), false);
-    oled_write_ln_P(led_state.num_lock ? PSTR ("NUM ") : PSTR("     "), false);
-
-    return false;
-}
-
-
-
 #endif
 
 const rgblight_segment_t PROGMEM _caps_layer[] = RGBLIGHT_LAYER_SEGMENTS(
