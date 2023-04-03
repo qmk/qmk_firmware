@@ -1,7 +1,7 @@
 // Copyright 2023 Anjheos (@Anjheos)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "oceanographer.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
@@ -9,6 +9,9 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 }
 
 bool oled_task_kb(void) {
+    if (!oled_task_user()){
+        return false;
+    }
     
     oled_write_ln_P(PSTR("LAYER"), false);
 

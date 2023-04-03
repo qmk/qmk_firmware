@@ -11,17 +11,11 @@
 Make example for this keyboard (after setting up your build environment):
 
     make prototypist/oceanographer:default
-    make prototypist/oceanographer:default_625
-    make prototypist/oceanographer:split_225_2
-    make prototypist/oceanographer:via
-
+    
 Flashing example for this keyboard:
 
     make prototypist/oceanographer:default:flash
-    make prototypist/oceanographer:default_625:flash
-    make prototypist/oceanographer:split_225_2:flash
-    make prototypist/oceanographer:via:flash
-
+    
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
