@@ -18,7 +18,6 @@
 
 /*Modtaps*/
 #define TAPPING_TERM 165
-#define IGNORE_MOD_TAP_INTERRUPT
 
 /*Combos*/
 #ifdef COMBO_ENABLE
