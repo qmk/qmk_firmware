@@ -3,13 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-enum layer_names {
-    _QW = 0,
-    _LWR,
-    _RSE,
-    _ADJ
-};
-
 #ifdef RGBLIGHT_ENABLE
 
 const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_PURPLE});
@@ -17,16 +10,7 @@ const rgblight_segment_t PROGMEM my_lwr_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0,
 const rgblight_segment_t PROGMEM my_rse_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_RED});
 const rgblight_segment_t PROGMEM my_adj_layer[]    = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_GREEN});
 
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_qwerty_layer, my_lwr_layer, my_rse_layer, my_adj_layer);
-#endif
-
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_QW]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_LWR] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI) },
-    [_RSE] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
-    [_ADJ] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
-};
+const rgblight_segment_t* const PROGMEM my_rgb[] = RGBLIGHT_LAYERS_LIST(my_qwerty_layer, my_lwr_layer, my_rse_layer, my_adj_layer);
 #endif
 
 #define LOWER TT(_LWR)
@@ -110,24 +94,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_QW] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+#    ifdef RGBLIGHT_ENABLE
+    [_LWR] = {ENCODER_CCW_CW(RGB_HUD, RGB_HUI)},
+    [_RSE] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [_ADJ] = {ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)},
+#    else
+    [_LWR] = {ENCODER_CCW_CW(KC_MNXT, KC_MPRV)},
+    [_RSE] = {ENCODER_CCW_CW(KC_MFFD, KC_MRWD)},
+    [_ADJ] = {ENCODER_CCW_CW(KC_PGDN, KC_PGUP)},
+#    endif
+};
+#endif
+
 // let us assume we start with both layers off
 bool toggle_lwr = false;
 bool toggle_rse = false;
 
-bool led_update_user(led_t led_state) {
-    // Disable the default LED update code, so that lock LEDs could be reused to show layer status.
-    return false;
-}
-
 void matrix_scan_user(void) {
-    led_lwr(toggle_lwr);
-    led_rse(toggle_rse);
-    led_t led_state = host_keyboard_led_state();
-    led_caps(led_state.caps_lock);
-    if (layer_state_is(_ADJ)) {
-        led_lwr(true);
-        led_rse(true);
-    }
+    toggle_leds(toggle_lwr, toggle_rse);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -168,44 +155,12 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(0, layer_state_cmp(state, _QW));
     return state;
 }
+#endif
 
 void keyboard_post_init_user(void) {
-    // Enable the LED layers
-    rgblight_layers = my_rgb_layers;
-}
+#ifdef RGBLIGHT_ENABLE
+    rgblight_layers = my_rgb;
 #endif
 
-#ifdef ENCODER_ENABLE
-
-#    define MEDIA_KEY_DELAY 10
-
-static inline void my_encoders(const uint8_t index, const bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (IS_LAYER_ON(_LWR)) {
-            if (clockwise) {
-                rgblight_decrease_val_noeeprom();
-            } else {
-                rgblight_increase_val_noeeprom();
-            }
-        } else if (IS_LAYER_ON(_RSE)) {
-            if (clockwise) {
-                rgblight_decrease_hue_noeeprom();
-            } else {
-                rgblight_increase_hue_noeeprom();
-            }
-
-        } else {
-            if (clockwise) {
-                tap_code_delay(KC_VOLD, MEDIA_KEY_DELAY);
-            } else {
-                tap_code_delay(KC_VOLU, MEDIA_KEY_DELAY);
-            }
-        }
-    }
+    init_lwr_rse_led();
 }
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    my_encoders(index, clockwise);
-    return true;
-}
-#endif
