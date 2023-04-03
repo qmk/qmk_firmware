@@ -21,6 +21,23 @@
 #    include "pmw3389.h"
 #endif
 
+typedef struct {
+    uint8_t Product_ID;
+    uint8_t Motion;
+    uint8_t Delta_X_L;
+    uint8_t Delta_X_H;
+    uint8_t Delta_Y_L;
+    uint8_t Delta_Y_H;
+    uint8_t Config2;
+    uint8_t Angle_Tune;
+    uint8_t SROM_Enable;
+    uint8_t SROM_ID;
+    uint8_t Inverse_Product_ID;
+    uint8_t Motion_Burst;
+    uint8_t SROM_Load_Burst;
+    uint8_t Lift_Config;
+    uint8_t Power_Up_Reset;
+} pmw33xx_regs_common_t;
 typedef struct __attribute__((packed)) {
     union {
         struct {
@@ -65,108 +82,12 @@ _Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.moti
 #    error ROTATIONAL_TRANSFORM_ANGLE has to be in the range of +/- 127 for all PMW33XX sensors.
 #endif
 
-// Support single and plural spellings
-#ifndef PMW33XX_CS_PINS
-#    ifndef PMW33XX_CS_PIN
-#        ifdef POINTING_DEVICE_CS_PIN
-#            define PMW33XX_CS_PIN POINTING_DEVICE_CS_PIN
-#            define PMW33XX_CS_PINS \
-                { PMW33XX_CS_PIN }
-#        else
-#            error "No chip select pin defined -- missing PMW33XX_CS_PIN or PMW33XX_CS_PINS"
-#        endif
-#    else
-#        define PMW33XX_CS_PINS \
-            { PMW33XX_CS_PIN }
-#    endif
-#endif
-
-// Support single spelling and default to be the same as left side
-#if !defined(PMW33XX_CS_PINS_RIGHT)
-#    if !defined(PMW33XX_CS_PIN_RIGHT)
-#        define PMW33XX_CS_PIN_RIGHT PMW33XX_CS_PIN
-#    endif
-#    define PMW33XX_CS_PINS_RIGHT \
-        { PMW33XX_CS_PIN_RIGHT }
-#endif
-
-// Defines so the old variable names are swapped by the appropiate value on each half
-#define cs_pins (is_keyboard_left() ? cs_pins_left : cs_pins_right)
-#define in_burst (is_keyboard_left() ? in_burst_left : in_burst_right)
-#define pmw33xx_number_of_sensors (is_keyboard_left() ? ARRAY_SIZE((pin_t[])PMW33XX_CS_PINS) : ARRAY_SIZE((pin_t[])PMW33XX_CS_PINS_RIGHT))
-
-#if PMW33XX_CPI > PMW33XX_CPI_MAX || PMW33XX_CPI < PMW33XX_CPI_MIN || (PMW33XX_CPI % PMW33XX_CPI_STEP) != 0U
-#    pragma message "PMW33XX_CPI has to be in the range of " STR(PMW33XX_CPI_MAX) "-" STR(PMW33XX_CPI_MIN) " in increments of " STR(PMW33XX_CPI_STEP) ". But it is " STR(PMW33XX_CPI) "."
-#    error Use correct PMW33XX_CPI value.
-#endif
-
 #define CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
-/**
- * @brief Initializes the given sensor so it is in a working state and ready to
- * be polled for data.
- *
- * @param sensor Index of the sensors chip select pin
- * @return true Initialization was a success
- * @return false Initialization failed, do not proceed operation
- */
-bool __attribute__((cold)) pmw33xx_init(uint8_t sensor);
-
-/**
- * @brief Gets the currently set CPI value from the sensor. CPI is often
- * refereed to as the sensors sensitivity.
- *
- * @param sensor Index of the sensors chip select pin
- * @return uint16_t Current CPI value of the sensor
- */
-uint16_t pmw33xx_get_cpi(uint8_t sensor);
-
-/**
- * @brief Sets the given CPI value for the given PMW33XX sensor. CIP is often
- * refereed to as the sensors sensitivity. Values outside of the allow range are
- * constrained into legal values.
- *
- * @param sensor Index of the sensors chip select pin
- * @param cpi CPI value to set, legal range depends on the PMW sensor type
- */
-void pmw33xx_set_cpi(uint8_t sensor, uint16_t cpi);
-
-/**
- * @brief Sets the given CPI value to all registered PMW33XX sensors. CPI is
- * often refereed to as the sensors sensitivity. Values outside of the allow
- * range are constrained into legal values.
- *
- * @param sensor Index of the sensors chip select pin
- * @param cpi CPI value to set, legal range depends on the PMW sensor type
- */
-void pmw33xx_set_cpi_all_sensors(uint16_t cpi);
-
-/**
- * @brief Reads and clears the current delta, and motion register values on the
- * given sensor.
- *
- * @param sensor Index of the sensors chip select pin
- * @return pmw33xx_report_t Current values of the sensor, if errors occurred all
- * fields are set to zero
- */
-pmw33xx_report_t pmw33xx_read_burst(uint8_t sensor);
-
-/**
- * @brief Read one byte of data from the given register on the sensor
- *
- * @param sensor Index of the sensors chip select pin
- * @param reg_addr Register address to read from
- * @return uint8_t
- */
-uint8_t pmw33xx_read(uint8_t sensor, uint8_t reg_addr);
-
-/**
- * @brief Writes one byte of data to the given register on the sensor
- *
- * @param sensor Index of the sensors chip select pin
- * @param reg_addr Registers address to write to
- * @param data Data to write to the register
- * @return true Write was a success
- * @return false Write failed, do not proceed operation
- */
-bool pmw33xx_write(uint8_t sensor, uint8_t reg_addr, uint8_t data);
+bool __attribute__((cold)) pmw33xx_init(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, const uint8_t *firmware_data, const uint16_t firmware_length, const uint8_t *firmware_signature);
+uint16_t         pmw33xx_get_cpi(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg);
+void             pmw33xx_set_cpi(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, uint16_t cpi);
+pmw33xx_report_t pmw33xx_read_burst(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg);
+uint8_t          pmw33xx_read(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, uint8_t addr);
+bool             pmw33xx_write(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg, uint8_t addr, uint8_t data);
+report_mouse_t   pmw33xx_get_report(pointing_device_spi_config_t *spi_config, const pmw33xx_regs_common_t *reg);

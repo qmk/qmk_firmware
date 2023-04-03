@@ -6,34 +6,65 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "pmw33xx_common.h"
+#include "pmw3389.h"
 #include "progmem.h"
 
-uint16_t pmw33xx_get_cpi(uint8_t sensor) {
-    if (sensor >= pmw33xx_number_of_sensors) {
-        return 0;
-    }
+const pointing_device_driver_t     pmw3389_driver_spi_default = {.init = pmw3389_init, .get_report = pmw3389_get_report, .set_cpi = pmw3389_set_cpi, .get_cpi = pmw3389_get_cpi};
+const pointing_device_spi_config_t pmw3389_config_spi_default = {.cs = PMW33XX_CS_PIN, .mode = 3, .divisor = PMW33XX_SPI_DIVISOR};
 
-    uint16_t cpival = (pmw33xx_read(sensor, REG_Resolution_H) << 8) | pmw33xx_read(sensor, REG_Resolution_L);
-    return (uint16_t)((cpival + 1) & 0xFFFF) * PMW33XX_CPI_STEP;
+const uint8_t pmw3389_firmware_signature[3] PROGMEM;
+const uint8_t pmw3389_firmware_data[PMW3389_FIRMWARE_LENGTH] PROGMEM;
+
+// clang-format off
+const pmw33xx_regs_common_t pmw3389_common_regs = {
+    .Product_ID = PMW3389_REG_Product_ID,
+    .Motion = PMW3389_REG_Motion,
+    .Delta_X_L = PMW3389_REG_Delta_X_L,
+    .Delta_X_H = PMW3389_REG_Delta_X_H,
+    .Delta_Y_L = PMW3389_REG_Delta_Y_L,
+    .Delta_Y_H = PMW3389_REG_Delta_Y_H,
+    .Config2 = PMW3389_REG_Config2,
+    .Angle_Tune = PMW3389_REG_Angle_Tune,
+    .SROM_Enable = PMW3389_REG_SROM_Enable,
+    .SROM_ID = PMW3389_REG_SROM_ID,
+    .Inverse_Product_ID = PMW3389_REG_Inverse_Product_ID,
+    .Motion_Burst = PMW3389_REG_Motion_Burst,
+    .SROM_Load_Burst = PMW3389_REG_SROM_Load_Burst,
+    .Lift_Config = PMW3389_REG_Lift_Config,
+    .Power_Up_Reset = PMW3389_REG_Power_Up_Reset
+};
+// clang-format on
+
+uint16_t pmw3389_get_cpi(const void *config) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
+    uint16_t                      cpival     = (pmw33xx_read(spi_config, &pmw3389_common_regs, PMW3389_REG_Resolution_H) << 8) | pmw33xx_read(spi_config, &pmw3389_common_regs,PMW3389_REG_Resolution_L);
+    return (uint16_t)((cpival + 1) & 0xFFFF) * PMW3389_CPI_STEP;
 }
 
-void pmw33xx_set_cpi(uint8_t sensor, uint16_t cpi) {
-    if (sensor >= pmw33xx_number_of_sensors) {
-        return;
-    }
-
-    uint16_t cpival = CONSTRAIN((cpi / PMW33XX_CPI_STEP), (PMW33XX_CPI_MIN / PMW33XX_CPI_STEP), (PMW33XX_CPI_MAX / PMW33XX_CPI_STEP)) - 1U;
+void pmw3389_set_cpi(const void *config, uint16_t cpi) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
+    uint16_t                      cpival     = CONSTRAIN((cpi / PMW3389_CPI_STEP) - 1, 0, (PMW3389_CPI_MAX / PMW3389_CPI_STEP) - 1U);
     // Sets upper byte first for more consistent setting of cpi
-    pmw33xx_write(sensor, REG_Resolution_H, (cpival >> 8) & 0xFF);
-    pmw33xx_write(sensor, REG_Resolution_L, cpival & 0xFF);
+    pmw33xx_write(spi_config, &pmw3389_common_regs,PMW3389_REG_Resolution_H, (cpival >> 8) & 0xFF);
+    pmw33xx_write(spi_config, &pmw3389_common_regs,PMW3389_REG_Resolution_L, cpival & 0xFF);
+}
+
+void pmw3389_init(const void *config) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
+    pmw33xx_init(spi_config,&pmw3389_common_regs, pmw3389_firmware_data, PMW3389_FIRMWARE_LENGTH,pmw3389_firmware_signature);
+}
+
+report_mouse_t pmw3389_get_report(const void *config) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
+    return pmw33xx_get_report(spi_config, &pmw3389_common_regs);
 }
 
 // PID, Inverse PID, SROM version
-const uint8_t pmw33xx_firmware_signature[3] PROGMEM = {0x42, 0xBD, 0x04};
+const uint8_t pmw3389_firmware_signature[3] PROGMEM = {0x42, 0xBD, 0x04};
 
 // Firmware Blob for PMW3389
 // clang-format off
-const uint8_t pmw33xx_firmware_data[PMW33XX_FIRMWARE_LENGTH] PROGMEM = {
+const uint8_t pmw3389_firmware_data[PMW3389_FIRMWARE_LENGTH] PROGMEM = {
     0x01, 0xe8, 0xba, 0x26, 0x0b, 0xb2, 0xbe, 0xfe, 0x7e, 0x5f, 0x3c, 0xdb, 0x15, 0xa8, 0xb3,
     0xe4, 0x2b, 0xb5, 0xe8, 0x53, 0x07, 0x6d, 0x3b, 0xd1, 0x20, 0xc2, 0x06, 0x6f, 0x3d, 0xd9,
     0x11, 0xa0, 0xc2, 0xe7, 0x2d, 0xb9, 0xd1, 0x20, 0xa3, 0xa5, 0xc8, 0xf3, 0x64, 0x4a, 0xf7,

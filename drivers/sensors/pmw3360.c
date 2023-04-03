@@ -7,35 +7,66 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "pmw33xx_common.h"
+#include "pmw3360.h"
 #include "progmem.h"
 
-uint16_t pmw33xx_get_cpi(uint8_t sensor) {
-    if (sensor >= pmw33xx_number_of_sensors) {
-        return 0;
-    }
+const pointing_device_driver_t     pmw3360_driver_spi_default = {.init = pmw3360_init, .get_report = pmw3360_get_report, .set_cpi = pmw3360_set_cpi, .get_cpi = pmw3360_get_cpi};
+const pointing_device_spi_config_t pmw3360_config_spi_default = {.cs = PMW33XX_CS_PIN, .mode = 3, .divisor = PMW33XX_SPI_DIVISOR};
 
-    uint8_t cpival = pmw33xx_read(sensor, REG_Config1);
+const uint8_t pmw3360_firmware_signature[3] PROGMEM;
+const uint8_t pmw3360_firmware_data[PMW3360_FIRMWARE_LENGTH] PROGMEM;
+
+// clang-format off
+const pmw33xx_regs_common_t pmw3360_common_regs = {
+    .Product_ID = PMW3360_REG_Product_ID,
+    .Motion = PMW3360_REG_Motion,
+    .Delta_X_L = PMW3360_REG_Delta_X_L,
+    .Delta_X_H = PMW3360_REG_Delta_X_H,
+    .Delta_Y_L = PMW3360_REG_Delta_Y_L,
+    .Delta_Y_H = PMW3360_REG_Delta_Y_H,
+    .Config2 = PMW3360_REG_Config2,
+    .Angle_Tune = PMW3360_REG_Angle_Tune,
+    .SROM_Enable = PMW3360_REG_SROM_Enable,
+    .SROM_ID = PMW3360_REG_SROM_ID,
+    .Inverse_Product_ID = PMW3360_REG_Inverse_Product_ID,
+    .Motion_Burst = PMW3360_REG_Motion_Burst,
+    .SROM_Load_Burst = PMW3360_REG_SROM_Load_Burst,
+    .Lift_Config = PMW3360_REG_Lift_Config,
+    .Power_Up_Reset = PMW3360_REG_Power_Up_Reset
+};
+// clang-format on
+
+uint16_t pmw3360_get_cpi(const void *config) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
+    uint8_t cpival = pmw33xx_read(spi_config,&pmw3360_common_regs, PMW3360_REG_Config1);
     // In some cases (100, 900, 1700, 2500), reading the CPI corrupts the firmware and the sensor stops responding.
     // To avoid this, we write the value back to the sensor, which seems to prevent the corruption.
-    pmw33xx_write(sensor, REG_Config1, cpival);
-    return (uint16_t)((cpival + 1) & 0xFF) * PMW33XX_CPI_STEP;
+    pmw33xx_write(spi_config,&pmw3360_common_regs, PMW3360_REG_Config1, cpival);
+    return (uint16_t)((cpival + 1) & 0xFF) * PMW3360_CPI_STEP;
 }
 
-void pmw33xx_set_cpi(uint8_t sensor, uint16_t cpi) {
-    if (sensor >= pmw33xx_number_of_sensors) {
-        return;
-    }
+void pmw3360_set_cpi(const void *config, uint16_t cpi) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
+    uint8_t cpival = CONSTRAIN((cpi / PMW3360_CPI_STEP) - 1, 0, (PMW3360_CPI_MAX / PMW3360_CPI_STEP) - 1U);
+    pmw33xx_write(spi_config,&pmw3360_common_regs, PMW3360_REG_Config1, cpival);
+}
 
-    uint8_t cpival = CONSTRAIN((cpi / PMW33XX_CPI_STEP), (PMW33XX_CPI_MIN / PMW33XX_CPI_STEP), (PMW33XX_CPI_MAX / PMW33XX_CPI_STEP)) - 1U;
-    pmw33xx_write(sensor, REG_Config1, cpival);
+void pmw3360_init(const void *config) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
+    pmw33xx_init(spi_config,&pmw3360_common_regs, pmw3360_firmware_data, PMW3360_FIRMWARE_LENGTH,pmw3360_firmware_signature);
+}
+
+report_mouse_t pmw3360_get_report(const void *config) {
+    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t *)config;
+    return pmw33xx_get_report(spi_config, &pmw3360_common_regs);
 }
 
 // PID, Inverse PID, SROM version
-const uint8_t pmw33xx_firmware_signature[3] PROGMEM = {0x42, 0xBD, 0x04};
+const uint8_t pmw3360_firmware_signature[3] PROGMEM = {0x42, 0xBD, 0x04};
 
 // Firmware Blob for PMW3360
 // clang-format off
-const uint8_t pmw33xx_firmware_data[PMW33XX_FIRMWARE_LENGTH] PROGMEM = {
+const uint8_t pmw3360_firmware_data[PMW3360_FIRMWARE_LENGTH] PROGMEM = {
     0x01, 0x04, 0x8E, 0x96, 0x6E, 0x77, 0x3E, 0xFE, 0x7E, 0x5F, 0x1D, 0xB8, 0xF2, 0x66, 0x4E, 0xFF,
     0x5D, 0x19, 0xB0, 0xC2, 0x04, 0x69, 0x54, 0x2A, 0xD6, 0x2E, 0xBF, 0xDD, 0x19, 0xB0, 0xC3, 0xE5,
     0x29, 0xB1, 0xE0, 0x23, 0xA5, 0xA9, 0xB1, 0xC1, 0x00, 0x82, 0x67, 0x4C, 0x1A, 0x97, 0x8D, 0x79,
