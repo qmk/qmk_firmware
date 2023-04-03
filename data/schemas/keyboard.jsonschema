@@ -241,6 +241,11 @@
             "type": "array",
             "items": {"$ref": "qmk.definitions.v1#/filename"}
         },
+        "eeprom": {
+            "properties": {
+                "driver": {"type": "string"}
+            }
+        },
         "encoder": {
             "$ref": "#/definitions/encoder_config",
             "properties": {

@@ -65,8 +65,10 @@ void    clear_oneshot_mods(void);
 bool    has_oneshot_mods_timed_out(void);
 
 uint8_t get_oneshot_locked_mods(void);
+void    add_oneshot_locked_mods(uint8_t mods);
 void    set_oneshot_locked_mods(uint8_t mods);
 void    clear_oneshot_locked_mods(void);
+void    del_oneshot_locked_mods(uint8_t mods);
 
 typedef enum { ONESHOT_PRESSED = 0b01, ONESHOT_OTHER_KEY_PRESSED = 0b10, ONESHOT_START = 0b11, ONESHOT_TOGGLED = 0b100 } oneshot_fullfillment_t;
 void    set_oneshot_layer(uint8_t layer, uint8_t state);

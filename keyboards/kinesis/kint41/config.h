@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // The Teensy 4.1 consumes about 100 mA of current at its full speed of 600 MHz
 // as per https://www.pjrc.com/store/teensy41.html
 #define USB_MAX_POWER_CONSUMPTION 100

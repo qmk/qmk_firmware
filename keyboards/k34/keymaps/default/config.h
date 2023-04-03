@@ -20,5 +20,4 @@
 
 // mod taps for home row mods
 #define TAPPING_TERM_PER_KEY
-#define IGNORE_MOD_TAP_INTERRUPT
 
