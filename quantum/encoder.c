@@ -77,7 +77,29 @@ __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
-    return encoder_update_user(index, clockwise);
+    bool res = encoder_update_user(index, clockwise);
+#if !defined(ENCODER_TESTS)
+    if (res) {
+        if (clockwise) {
+#    if defined(EXTRAKEY_ENABLE)
+            tap_code_delay(KC_VOLU, 10);
+#    elif defined(MOUSEKEY_ENABLE)
+            tap_code_delay(KC_MS_WH_UP, 10);
+#    else
+            tap_code_delay(KC_PGDN, 10);
+#    endif
+        } else {
+#    if defined(EXTRAKEY_ENABLE)
+            tap_code_delay(KC_VOLD, 10);
+#    elif defined(MOUSEKEY_ENABLE)
+            tap_code_delay(KC_MS_WH_DOWN, 10);
+#    else
+            tap_code_delay(KC_PGUP, 10);
+#    endif
+        }
+    }
+#endif // ENCODER_TESTS
+    return res;
 }
 
 __attribute__((weak)) bool should_process_encoder(void) {

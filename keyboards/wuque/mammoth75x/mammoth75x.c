@@ -61,10 +61,4 @@ bool encoder_update_kb(uint8_t index, bool clockwise)
     encoder_action_register(index, clockwise);
     return true;
 };
-#else
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-	tap_code_delay(clockwise ? KC_VOLU : KC_VOLD, 10);
-    return true;
-}
 #endif
