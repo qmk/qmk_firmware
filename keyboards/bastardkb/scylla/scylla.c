@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "scylla.h"
+#include "quantum.h"
 
 // clang-format off
 #ifdef RGB_MATRIX_ENABLE

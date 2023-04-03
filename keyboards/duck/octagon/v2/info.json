@@ -8,6 +8,10 @@
         "pid": "0x4F32",
         "device_version": "0.0.2"
     },
+    "backlight": {
+        "driver": "custom",
+        "levels": 1
+    },
     "bootmagic": {
         "matrix": [5, 10]
     },

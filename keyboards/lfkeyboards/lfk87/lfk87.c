@@ -3,7 +3,6 @@
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
 #include "lfk87.h"
-#include "keymap.h"
 #include "issi.h"
 #include "TWIlib.h"
 #include "lighting.h"

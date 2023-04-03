@@ -41,11 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // No need to define DIODE_DIRECTION for Jones' custom Round-Robin matrix.
 //#define DIODE_DIRECTION COL2ROW
 
-/* Rotary Encoder */
-#define ENCODERS_PAD_A { F6, B3 }
-#define ENCODERS_PAD_B { F7, B2 }
-#define ENCODER_RESOLUTION 4  //the default & suggested is 4
-
 /* Audio */
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN C6
@@ -54,7 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define RGB_DI_PIN B7
-#ifdef RGB_DI_PIN
   #define RGBLED_NUM 6 // Left(4) + Right(2)
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
@@ -74,7 +68,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
   // #define RGBLIGHT_EFFECT_RGB_TEST
   // #define RGBLIGHT_EFFECT_ALTERNATING
-#endif
 
 /*
  * Feature disable options

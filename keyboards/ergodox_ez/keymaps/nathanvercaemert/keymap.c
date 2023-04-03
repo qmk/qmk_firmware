@@ -27,7 +27,7 @@
 #define NO_BSLS_ALT KC_EQUAL
 
 enum custom_keycodes {
-  RGB_SLD = EZ_SAFE_RANGE,
+  RGB_SLD = SAFE_RANGE,
   MS_WH_UP,
   MS_WH_DOWN,
   MS_WH_RIGHT,

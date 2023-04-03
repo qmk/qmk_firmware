@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 200
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
 
 #ifdef RGBLIGHT_ENABLE
@@ -54,9 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
-
-// fix for me putting alt under A and being a fast typist
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define LAYER_STATE_8BIT
 #define SPLIT_WPM_ENABLE

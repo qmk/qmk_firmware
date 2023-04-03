@@ -27,8 +27,3 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
-
-/* keyboard matrix assignments */
-#define MATRIX_ROW_PINS { D5, D0, F0, F5, F4 }
-#define MATRIX_COL_PINS { E6, D4, D6, D7, B4, B5, B6, C6, C7, D1, D2, D3, F1, F6 }
-#define DIODE_DIRECTION COL2ROW

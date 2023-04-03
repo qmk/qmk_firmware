@@ -17,14 +17,6 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B3, B4, B9, B8 }
-#define MATRIX_COL_PINS { B14, B13, B12, B0, A7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
@@ -37,10 +29,6 @@
     /* Use the custom font */
     #define OLED_FONT_H "./lib/glcdfont.c"
 #endif
-
-/* Encoder pins */
-#define ENCODERS_PAD_A { B5, A1, A3 }
-#define ENCODERS_PAD_B { B6, A2, A4 }
 
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */

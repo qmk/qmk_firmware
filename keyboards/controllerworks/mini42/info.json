@@ -26,6 +26,9 @@
     "rgblight": {
         "pin": "GP0"
      },
+     "ws2812": {
+         "driver": "vendor"
+     },
     "split": {
         "enabled": true,
         "main": "left",

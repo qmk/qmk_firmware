@@ -16,23 +16,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { B9, A9, A8, B15 }
-#define MATRIX_COL_PINS { B10, B2, A3, A4, B7, B6, A10, C13, C14, C15, F0, F1 }
-#define ENCODERS_PAD_A { A1 }
-#define ENCODERS_PAD_B { A2 }
 #define TAP_CODE_DELAY 10
-#define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN A6
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1
-#define BACKLIGHT_LEVELS 7
 
 #define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
   #define RGBLED_NUM 4
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
@@ -49,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

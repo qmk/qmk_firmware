@@ -20,10 +20,3 @@
 #define RED_LED D0
 #define BLUE_LED B5
 #define GREEN_LED B6
-
-/* encoder pins*/
-#define ENCODERS_PAD_A { D2 }
-#define ENCODERS_PAD_B { D3 }
-#define ENCODER_RESOLUTION 1
-
-

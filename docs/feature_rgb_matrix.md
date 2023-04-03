@@ -383,9 +383,9 @@ Configure the hardware via your `config.h`:
 
 ```c
 // The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN D7
+#define APA102_DI_PIN D7
 // The pin connected to the clock pin of the LEDs
-#define RGB_CI_PIN D6
+#define APA102_CI_PIN D6
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 70
 ```

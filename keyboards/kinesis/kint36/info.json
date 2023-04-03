@@ -6,6 +6,11 @@
         "pid": "0x345C",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B3", "D1", "C0", "D5", "C1", "B2", "D4"],
+        "rows": ["D3", "C3", "C4", "C6", "D2", "B0", "D7", "A12", "A13", "B17", "B16", "D0", "B1", "C2", "D6"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "C7",
         "num_lock": "A14",

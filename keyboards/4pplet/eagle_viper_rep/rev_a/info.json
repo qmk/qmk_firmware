@@ -8,6 +8,19 @@
         "pid": "0x0007",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["A0", "B1", "B0", "A4", "B5", "B4", "B3"],
+        "rows": ["A2", "A1", "B8", "A10", "C15", "A15", "B7", "B6", "C14", "C13"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "pin": "A3",
+        "levels": 10,
+        "breathing": true
+    },
+    "ws2812": {
+        "driver": "spi"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {
@@ -69,7 +82,7 @@
                 { "label": ">", "x": 10.25, "y": 3 },
                 { "label": "?", "x": 11.25, "y": 3 },
                 { "label": "Shift", "x": 12.25, "y": 3, "w": 1.75 },
-                { "label": "Fn", "x": 14, "y": 3, "w": 1 },
+                { "label": "Fn", "x": 14, "y": 3 },
                 { "label": "Ctrl", "x": 0, "y": 4, "w": 1.25 },
                 { "label": "Win", "x": 1.25, "y": 4, "w": 1.25 },
                 { "label": "Alt", "x": 2.5, "y": 4, "w": 1.25 },

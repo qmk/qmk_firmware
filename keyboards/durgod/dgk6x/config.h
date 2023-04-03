@@ -19,9 +19,6 @@
 
 #define WAIT_US_TIMER           GPTD3
 
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
-
 // Dynamic EEPROM
 // Something sensible or else VIA may crash
 // Users may enable more if they wish

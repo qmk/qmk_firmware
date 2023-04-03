@@ -3,18 +3,7 @@
 
 #pragma once
 
-// Encoder pins.
-// Encoder numbering (assuming the default board orientation with encoders on
-// the top side):
-//   0 - left
-//   1 - center (with a longer shaft and a larger knob)
-//   2 - right
-#define ENCODERS_PAD_A { F1, B0, B3 }
-#define ENCODERS_PAD_B { F0, B1, B7 }
-#define ENCODER_RESOLUTION 4
-
 // Encoder mappings (used for VIA).
-#define ENCODERS 3
 #define ENCODERS_CW_KEY  { { 22, 0 }, { 18, 0 }, { 20, 0 } }
 #define ENCODERS_CCW_KEY { { 23, 0 }, { 19, 0 }, { 21, 0 } }
 

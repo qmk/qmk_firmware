@@ -35,11 +35,7 @@ typedef union {
 user_config_t user_config;
 
 enum custom_keycodes {
-#ifdef VIA_ENABLE
-    KC_LIGHT_TAB_TOGGLE = USER00,
-#else
-    KC_LIGHT_TAB_TOGGLE = SAFE_RANGE,
-#endif
+    KC_LIGHT_TAB_TOGGLE = QK_KB_2, // TECH DEBT: Starts at QK_KB_2 to maintain ordering with VIA definitions. See #19884. Revert to QK_KB_0 when VIA catches up with QMK.
     KC_LIGHT_ALPHAS_TOGGLE,
     KC_FN_LAYER_TRANSPARENT_KEYS_TOGGLE,
     KC_FN_LAYER_COLOR_TOGGLE
@@ -115,7 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 user_config.caps_lock_light_tab ^= 1; // bitwise xor to toggle status bit
                 eeconfig_update_user(user_config.raw);
-            } 
+            }
             return false;  // Skip all further processing of this key
         case KC_LIGHT_ALPHAS_TOGGLE:
             if (record->event.pressed) {

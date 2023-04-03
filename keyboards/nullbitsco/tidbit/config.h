@@ -22,13 +22,6 @@
 // Workaround for freezing after MacOS sleep
 #define USB_SUSPEND_WAKEUP_DELAY 200
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B1, E6, D7, C6, D4 }
-#define MATRIX_COL_PINS { NO_PIN, NO_PIN, F4, F5, F6, F7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* Optional SMT LED pins */
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 8
@@ -42,8 +35,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-/* Optional encoder pins */
-// Encoders are defined in order. 1: B2 & B3, 2: B4 & B5, 3: D0 & D1, 4: D2 & D3
-#define ENCODERS_PAD_A { B2, B4, D0, D3 }
-#define ENCODERS_PAD_B { B3, B5, D1, D2 }

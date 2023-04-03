@@ -150,6 +150,8 @@ In the above example,
   * It must conform to the [layout guidelines](hardware_keyboard_guidelines.md#ltkeyboard_namehgt)
 * `"matrix": [0, 0]` defines the electrical position
 
+?> See also: [Split Keyboard Layout Macro](https://docs.qmk.fm/#/feature_split_keyboard?id=layout-macro) and [Matrix to Physical Layout](https://docs.qmk.fm/#/understanding_qmk?id=matrix-to-physical-layout-map).
+
 ## Additional Configuration
 
 There are a lot of features that can be turned on or off, configured or tuned. Some of these have yet to be migrated over to [Data Driven Configuration](data_driven_config.md). The following sections cover the process for when an `info.json` option is unavailable.

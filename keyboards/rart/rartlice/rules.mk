@@ -11,7 +11,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 SLEEP_LED_ENABLE = yes
-WS2812_DRIVER = spi
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 

@@ -2,25 +2,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-
-#define MATRIX_ROW_PINS { B0, F1, F5, F6, F7, D1, F4, D4, C6, C7 }
-#define MATRIX_COL_PINS { D6, D7, B4, B5, B6, B7, B3, B2, B1, F0 }
-
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define BACKLIGHT_PIN D0
-
 #define RGB_DI_PIN D5
-#ifdef RGB_DI_PIN
    #define RGBLED_NUM 3
    #define RGBLIGHT_HUE_STEP 12
    #define RGBLIGHT_SAT_STEP 25
@@ -37,4 +24,3 @@
    #define RGBLIGHT_EFFECT_RGB_TEST
    #define RGBLIGHT_EFFECT_ALTERNATING
    #define RGBLIGHT_EFFECT_TWINKLE
-#endif

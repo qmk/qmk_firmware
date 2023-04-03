@@ -1,8 +1,5 @@
 #pragma once
 
-#define ENCODERS_PAD_A { D7, B1 }
-#define ENCODERS_PAD_B { E6, B3 }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -10,7 +7,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define RGB_DI_PIN B5
-#ifdef RGB_DI_PIN
 #define RGBLED_NUM 5
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
@@ -29,4 +25,3 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYER_BLINK
-#endif

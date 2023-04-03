@@ -21,6 +21,7 @@
 #include "rgblight.h"
 #include "color.h"
 #include "debug.h"
+#include "util.h"
 #include "led_tables.h"
 #include <lib/lib8tion/lib8tion.h>
 #ifdef EEPROM_ENABLE
@@ -28,13 +29,6 @@
 #endif
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
-#endif
-
-#ifndef MIN
-#    define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#endif
-#ifndef MAX
-#    define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
 #ifdef RGBLIGHT_SPLIT
@@ -420,6 +414,10 @@ void rgblight_disable_noeeprom(void) {
     rgblight_timer_disable();
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
     rgblight_set();
+}
+
+void rgblight_enabled_noeeprom(bool state) {
+    state ? rgblight_enable_noeeprom() : rgblight_disable_noeeprom();
 }
 
 bool rgblight_is_enabled(void) {

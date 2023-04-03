@@ -8,8 +8,16 @@
         "pid": "0x0108",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP18", "pin_b": "GP17"}
+        ]
+    },
     "bootmagic": {
         "matrix": [1, 2]
+    },
+    "ws2812": {
+        "driver": "vendor"
     },
     "processor": "RP2040",
     "bootloader": "rp2040",

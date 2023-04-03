@@ -14,7 +14,6 @@ ENCODER_ENABLE = yes
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 
-WS2812_DRIVER = pwm
 AUDIO_DRIVER = pwm_hardware
 
 RGB_MATRIX_ENABLE = no # Do not enable with RGBLIGHT

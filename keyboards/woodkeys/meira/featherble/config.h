@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS_SCANNED { C7, B7, B6, C6 }
 #define LED_EN_PIN D2
 
-#define QMK_SPEAKER B5
 #define AUDIO_PIN B5
 #define AUDIO_VOICES
 

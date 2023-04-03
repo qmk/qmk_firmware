@@ -16,14 +16,6 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { C5, C4, C6, C7, B7 }
-#define MATRIX_COL_PINS { B4, B5, B6, B3, C2, B2, D6, D2, D3, D4, D5, B1 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -46,8 +38,3 @@
 #define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
 #define RGBLIGHT_SAT_STEP 12 // units to step when in/decresing saturation
 #define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
-
-// rotary encoder parameters
-#define ENCODERS_PAD_A { B0 }
-#define ENCODERS_PAD_B { D1 }
-#define ENCODER_RESOLUTION 4

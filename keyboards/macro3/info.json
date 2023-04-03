@@ -8,8 +8,22 @@
         "pid": "0x3388",
         "device_version": "0.0.3"
     },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D3"},
+            {"pin_a": "F7", "pin_b": "F6"}
+        ]
+    },
+    "development_board": "promicro",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "encoder": true
+    },
+    "bootmagic": {
+        "matrix": [0, 3]
+    },
     "matrix_pins": {
         "direct": [
             ["D7", "C6", "D4", "D1"],

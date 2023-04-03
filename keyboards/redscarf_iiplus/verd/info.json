@@ -8,6 +8,9 @@
     "pid": "0x7778",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B7"
+  },
   "indicators": {
     "caps_lock": "C6",
     "num_lock": "E6",

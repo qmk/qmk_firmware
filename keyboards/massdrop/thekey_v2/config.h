@@ -16,15 +16,6 @@
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- */
-#define MATRIX_ROW_PINS { D4 }
-#define MATRIX_COL_PINS { D2, D1, D0 }
-
-#define DIODE_DIRECTION ROW2COL
-
 #define RGB_DI_PIN B1
 #define RGBLED_NUM 5
 #define RGBLIGHT_LED_MAP {4, 0, 1, 2, 3}

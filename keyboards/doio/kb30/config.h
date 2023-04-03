@@ -17,21 +17,10 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { B3, B4, B9, B8, A5, A6 }
-#define MATRIX_COL_PINS { B14, B13, B12, B0, A7, A9, A8 }
-#define DIODE_DIRECTION COL2ROW // COL2ROW or ROW2COL
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key encoders pins*/
-#define ENCODERS_PAD_A { B5 , A1 , A3 }
-#define ENCODERS_PAD_B { B6 , A2 , A4 }
-#define ENCODER_RESOLUTIONS \
-    { 4, 4, 2 }
 
 // #define QMK_KEYS_PER_SCAN 12
 

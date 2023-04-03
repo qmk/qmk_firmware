@@ -74,6 +74,11 @@
             "processor": "RP2040",
             "bootloader": "rp2040",
             "board": "QMK_PM2040"
+        },
+        "liatris": {
+            "processor": "RP2040",
+            "bootloader": "rp2040",
+            "board": "QMK_PM2040"
         }
     }
 }

@@ -20,6 +20,9 @@
         "pid": "0x0001",
         "device_version": "2.0.0"
     },
+    "ws2812": {
+        "driver": "vendor"
+    },
     "processor": "RP2040",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",

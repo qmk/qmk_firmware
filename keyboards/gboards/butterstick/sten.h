@@ -5,9 +5,10 @@
 //
 // Amen.
 
-#include QMK_KEYBOARD_H
+#pragma once
+
+#include "butterstick.h"
 #include "mousekey.h"
-#include "keymap.h"
 #include "keymap_steno.h"
 #include "wait.h"
 

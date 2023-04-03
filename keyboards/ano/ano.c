@@ -15,27 +15,3 @@
  */
  
 #include "ano.h"
-
-/* The encoder_update_user is a function.
- * It'll be called by QMK every time you turn the encoder.
- *
- * The index parameter tells you which encoder was turned. If you only have
- * one encoder, the index will always be zero.
- * 
- * The clockwise parameter tells you the direction of the encoder. It'll be
- * true when you turned the encoder clockwise, and false otherwise.
- */
- 
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (index == 0) { 
-        if (clockwise) {
-            tap_code(KC_AUDIO_VOL_UP);
-        } else {
-            tap_code(KC_AUDIO_VOL_DOWN);
-        }
-    }
-    return true; 
-}
-#endif

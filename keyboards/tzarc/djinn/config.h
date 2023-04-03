@@ -1,20 +1,6 @@
-// Copyright 2018-2022 Nick Brassel (@tzarc)
+// Copyright 2018-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
-
-// Encoders -- right-side is reversed
-#define ENCODERS_PAD_A \
-    { C14 }
-#define ENCODERS_PAD_B \
-    { C15 }
-#define ENCODERS_PAD_A_RIGHT \
-    { C15 }
-#define ENCODERS_PAD_B_RIGHT \
-    { C14 }
-
-#ifndef ENCODER_RESOLUTION
-#    define ENCODER_RESOLUTION 2
-#endif // ENCODER_RESOLUTION
 
 // Bootloader
 #define STM32_BOOTLOADER_DUAL_BANK TRUE
@@ -30,6 +16,7 @@
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
 #define SPLIT_WPM_ENABLE
+#define SPLIT_ACTIVITY_ENABLE
 
 // SPI Configuration
 #define SPI_DRIVER SPID3
@@ -49,7 +36,6 @@
 #endif // LCD_ACTIVITY_TIMEOUT
 
 // Backlight driver (to control LCD backlight)
-#define BACKLIGHT_LEVELS 4
 #define BACKLIGHT_PWM_DRIVER PWMD17
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1

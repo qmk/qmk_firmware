@@ -95,7 +95,7 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
     strategy:
       fail-fast: false
       matrix:
@@ -105,6 +105,9 @@ jobs:
 # End of json file list
 
     steps:
+
+    - name: Disable git safe directory checks
+      run : git config --global --add safe.directory '*'
 
     - name: Checkout QMK
       uses: actions/checkout@v3

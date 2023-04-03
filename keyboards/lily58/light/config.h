@@ -20,17 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring of each half
-#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
-
 #define RGB_DI_PIN D3
 #define RGBLED_SPLIT { 35, 35 }
 #define RGBLED_NUM 70
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_LIMIT_VAL 120
-
-#define ENCODERS_PAD_A { F4 }
-#define ENCODERS_PAD_B { F5 }
-#define ENCODERS_PAD_A_RIGHT { F5 }
-#define ENCODERS_PAD_B_RIGHT { F4 }

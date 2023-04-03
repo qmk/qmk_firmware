@@ -8,6 +8,11 @@
         "pid": "0xDB9F",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F6", "F5", "B1", "B3", "E6", "D7", "D4"],
+        "rows": ["D0", "C6", "B2", "B6", "B5"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

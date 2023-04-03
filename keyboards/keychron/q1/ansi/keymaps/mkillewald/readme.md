@@ -18,16 +18,16 @@ This keymap builds on the keymap by Grayson Carr (gtg465x) but adds a couple opt
         - Fn+V will toggle lighting the defined Fn layer keys with the static color set with FN_LAYER_COLOR (default: static color off)
 
 - All custom keycodes can be moved to different keys in VIA by using the ANY key with the following keycodes:
-    - USER00 (default: F3) macOS Mission Control
-    - USER01 (default: F4) macOS Launchpad
-    - USER02 (default: Fn+Z) Caps Lock light Tab toggle
-    - USER03 (default: Fn+X) Caps Lock light alphas toggle
-    - USER04 (default: Fn+C) Fn layer non-defined keys RGB toggle
-    - USER05 (default: Fn+V) Fn layer defined keys static color toggle
+    - USER(0) (default: F3) macOS Mission Control
+    - USER(1) (default: F4) macOS Launchpad
+    - USER(2) (default: Fn+Z) Caps Lock light Tab toggle
+    - USER(3) (default: Fn+X) Caps Lock light alphas toggle
+    - USER(4) (default: Fn+C) Fn layer non-defined keys RGB toggle
+    - USER(5) (default: Fn+V) Fn layer defined keys static color toggle
 
 RGB must be toggled on for all indicators to function. If you do not want an RGB mode active but still want the indicators, toggle RGB on and turn the brightness all the way off. The indicators will remain at full brightness.
 
-Please make sure to save any customizations you have made in VIA to a .json file before flashing the firmware. Sometimes it has been necessary to re-apply those changes in VIA after flashing the firmware. If that is the case, you will most likely need to manually add the USER00 through USER05 custom keycodes after loading your customizations from the saved .json file. Then re-save a new .json file which will have your previous customizations and the custom keycodes for future use as needed.
+Please make sure to save any customizations you have made in VIA to a .json file before flashing the firmware. Sometimes it has been necessary to re-apply those changes in VIA after flashing the firmware. If that is the case, you will most likely need to manually add the USER(0) through USER(5) custom keycodes after loading your customizations from the saved .json file. Then re-save a new .json file which will have your previous customizations and the custom keycodes for future use as needed.
     
 #### USE AT YOUR OWN RISK
 

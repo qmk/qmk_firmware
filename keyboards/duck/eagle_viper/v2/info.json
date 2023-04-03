@@ -6,6 +6,9 @@
         "pid": "0x4556",
         "device_version": "0.0.2"
     },
+    "backlight": {
+        "driver": "custom"
+    },
     "bootmagic": {
         "matrix": [4, 10]
     },

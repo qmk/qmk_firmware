@@ -9,5 +9,8 @@
     "rotary": [
       { "pin_a": "GP8", "pin_b": "GP9" }
     ]
+  },
+  "ws2812": {
+    "driver": "vendor"
   }
 }

@@ -15,21 +15,6 @@
  */
 #pragma once
 
-
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS { B4, D5, D0, B2, B3, B0 }
-#define MATRIX_COL_PINS { B1, F0, F1, F4, F5, F6, F7, C7, C6, D3, E6, D7, D6, D4, D2, D1 }
-
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_BREATHING
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -37,7 +22,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define RGB_DI_PIN E2
-#ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -52,4 +36,3 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif

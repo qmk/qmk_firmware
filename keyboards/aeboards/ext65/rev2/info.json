@@ -7,6 +7,14 @@
         "pid": "0xA652",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B5",
+        "levels": 6,
+        "breathing": true
+    },
+    "ws2812": {
+        "driver": "spi"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",

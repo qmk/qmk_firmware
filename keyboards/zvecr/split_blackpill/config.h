@@ -15,25 +15,6 @@
  */
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_COL_PINS { B11, B10, B1, B0, A7, A6 }
-#define MATRIX_ROW_PINS { B15, B14, B13, B12 }
-#define MATRIX_COL_PINS_RIGHT { B12, B13, B14, B15, A8, A9 }
-#define MATRIX_ROW_PINS_RIGHT { B0, B1, B10, B11 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #define MATRIX_IO_DELAY 5
 
 #define SPLIT_HAND_PIN B3

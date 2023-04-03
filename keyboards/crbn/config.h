@@ -16,21 +16,6 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B3, B1, F7, F6 }
-#define MATRIX_COL_PINS { D3, D2, D1, D0, D4, C6, D7, E6, B4, B5, B6, B2 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/*Rotary Encoder Pins*/
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
-
-/*Sets the number of pulses per increment*/
-#define ENCODER_RESOLUTION 2
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

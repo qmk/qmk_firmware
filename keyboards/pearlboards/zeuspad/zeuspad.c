@@ -16,24 +16,6 @@
 
 #include "zeuspad.h"
 
-// Encoder rotate function
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
-    /* First encoder */
-    if (index == 0) {
-        if (clockwise) {
-            tap_code_delay(KC_AUDIO_VOL_UP, 10);
-        } else {
-            tap_code_delay(KC_AUDIO_VOL_DOWN, 10);
-        }
-    }
-    return true;
-}
-#endif
-
 // 21 characters max
 #ifdef OLED_ENABLE
 bool oled_task_kb(void) {

@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define ENCODERS_PAD_A { D1, F5 }
-#define ENCODERS_PAD_B { D0, F6 }
-
 #ifdef RGBLIGHT_ENABLE
 #    define RGB_DI_PIN D3
 #    define RGBLED_NUM 13

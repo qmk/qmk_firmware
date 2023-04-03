@@ -19,12 +19,12 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. - We have custom RGB
 
 RGB_MATRIX_ENABLE = yes     # Enable RGB matrix effects.
 RGB_MATRIX_DRIVER = custom  # Enable RGB matrix effects.
+WS2812_DRIVER_REQUIRED = yes
 
 COMMON_VPATH += $(DRIVER_PATH)/issi
 
 # project specific files
-SRC +=  drivers/led/issi/is31fl3731.c \
-        ws2812.c
+SRC +=  drivers/led/issi/is31fl3731.c
 
 QUANTUM_LIB_SRC += i2c_master.c 
 

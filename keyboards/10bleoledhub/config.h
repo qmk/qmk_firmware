@@ -16,12 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { F0, F5, F4, F6 }
-#define MATRIX_COL_PINS { D6, D7, B5 }
-
-#define DIODE_DIRECTION ROW2COL
-
 #define SSD1306OLED
 #define RGB_DI_PIN B7
 
@@ -40,8 +34,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
 #define OLED_FONT_H "./lib/glcdfont.c"
-
-#define ENCODERS_PAD_A { C7 }
-#define ENCODERS_PAD_B { F7 }
-
-#define ENCODER_RESOLUTION 4

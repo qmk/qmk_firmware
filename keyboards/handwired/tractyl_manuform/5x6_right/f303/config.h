@@ -18,17 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring of each half
-#define MATRIX_COL_PINS \
-    { B0, B1, B2, B3, B4, B5 }
-#define MATRIX_ROW_PINS \
-    { B10, B11, B12, A14, A13, A15 }
-// B2 used for BOOT1, has internal pull down?
-// A9 has internal pull-down
-// A11 and A12 are used for USB sense.  DO NOT USE.
-
-#define DIODE_DIRECTION     COL2ROW
-
 // #define USB_VBUS_PIN        B10
 #define SPLIT_HAND_PIN      C14  // high = left, low = right
 
@@ -69,12 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SCL_PAL_MODE        4
 #define I2C1_SDA_PAL_MODE        4
 #define I2C1_CLOCK_SPEED         400000
-
-/* encoder config */
-#define ENCODERS_PAD_A \
-    { A7 }
-#define ENCODERS_PAD_B \
-    { A8 }
 
 /* spi config for eeprom and pmw3360 sensor */
 #define SPI_DRIVER                           SPID2

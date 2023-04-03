@@ -3,13 +3,11 @@
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
 #include "mini1800.h"
-#include "keymap.h"
 #include "issi.h"
 #include "TWIlib.h"
 #include "lighting.h"
 #include "debug.h"
 
-#define BACKLIGHT_BREATHING
 #include "quantum.h"
 
 uint16_t click_hz = CLICK_HZ;

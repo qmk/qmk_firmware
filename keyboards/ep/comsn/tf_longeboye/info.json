@@ -7,6 +7,11 @@
         "pid": "0x9696",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6", "F0", "F1", "C7", "D5", "B7", "E6", "D7", "C6", "D4", "D0"],
+        "rows": ["B5", "B4", "D1", "D2", "D3"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

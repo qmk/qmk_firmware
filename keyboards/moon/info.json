@@ -8,6 +8,9 @@
         "pid": "0xFCB8",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "C6"
+    },
     "indicators": {
         "caps_lock": "B5",
         "scroll_lock": "B6"

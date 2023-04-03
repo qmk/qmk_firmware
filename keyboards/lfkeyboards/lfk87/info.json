@@ -8,6 +8,10 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "driver": "custom",
+    "levels": 10
+  },
   "community_layouts": ["tkl_ansi", "tkl_iso"],
   "layouts": {
     "LAYOUT_tkl_ansi": {

@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "gust.h"
-
 #include "quantum.h"
 
 #define LAYOUT( \

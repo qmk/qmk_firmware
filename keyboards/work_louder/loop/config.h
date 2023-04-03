@@ -17,25 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS \
-    { F5 }
-#define MATRIX_COL_PINS { B3, B2, B1, D6, D7, B4, B5, B6, C6, C7, F7, F6 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-
 #define USB_MAX_POWER_CONSUMPTION 100
 
 #define RGBLIGHT_DI_PIN E6
@@ -130,6 +111,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#define ENCODERS_PAD_A { D0, D2, D5 }
-#define ENCODERS_PAD_B { D1, D3, D4 }

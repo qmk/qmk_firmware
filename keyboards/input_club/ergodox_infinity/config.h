@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE  1
 
 #define TAPPING_TERM    200
-#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -39,19 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
-// For some reason, the rows are colums in the schematic, and vice versa
-#define MATRIX_ROW_PINS { B2, B3, B18, B19, C0, C9, C10, C11, D0 }
-#define MATRIX_COL_PINS { D1, D4, D5, D6, D7 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* Serial config (for communication between halves) */
 #define SERIAL_USART_DRIVER SD1  // Only true for the master half
 #define SERIAL_USART_CONFIG { (SERIAL_USART_SPEED), } // Only field is speed
 #define SERIAL_USART_FULL_DUPLEX
-
-#define BACKLIGHT_LEVELS 3
 
 #define LED_BRIGHTNESS_LO       100
 #define LED_BRIGHTNESS_HI       255
