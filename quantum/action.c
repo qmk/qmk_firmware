@@ -435,39 +435,32 @@ void process_action(keyrecord_t *record, action_t action) {
                     } else {
                         if (event.pressed) {
                             if (tap_count == 0) {
+                                // Not a tap, but a hold: register the held mod
                                 ac_dprintf("MODS_TAP: Oneshot: 0\n");
-                                register_mods(mods | get_oneshot_mods());
+                                register_mods(mods);
                             } else if (tap_count == 1) {
                                 ac_dprintf("MODS_TAP: Oneshot: start\n");
-                                set_oneshot_mods(mods | get_oneshot_mods());
+                                add_oneshot_mods(mods);
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
                                 ac_dprintf("MODS_TAP: Toggling oneshot");
                                 register_mods(mods);
-                                clear_oneshot_mods();
-                                set_oneshot_locked_mods(mods | get_oneshot_locked_mods());
+                                del_oneshot_mods(mods);
+                                add_oneshot_locked_mods(mods);
 #        endif
-                            } else {
-                                register_mods(mods | get_oneshot_mods());
                             }
                         } else {
                             if (tap_count == 0) {
-                                clear_oneshot_mods();
+                                // Release hold: unregister the held mod and its variants
                                 unregister_mods(mods);
-                            } else if (tap_count == 1) {
-                                // Retain Oneshot mods
+                                del_oneshot_mods(mods);
+                                del_oneshot_locked_mods(mods);
 #        if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
-                                if (mods & get_mods()) {
-                                    unregister_mods(mods);
-                                    clear_oneshot_mods();
-                                    set_oneshot_locked_mods(~mods & get_oneshot_locked_mods());
-                                }
-                            } else if (tap_count == ONESHOT_TAP_TOGGLE) {
-                                // Toggle Oneshot Layer
-#        endif
-                            } else {
+                            } else if (tap_count == 1 && (mods & get_mods())) {
                                 unregister_mods(mods);
-                                clear_oneshot_mods();
+                                del_oneshot_mods(mods);
+                                del_oneshot_locked_mods(mods);
+#        endif
                             }
                         }
                     }
