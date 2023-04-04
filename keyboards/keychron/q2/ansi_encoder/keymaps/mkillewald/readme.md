@@ -34,7 +34,7 @@ RGB must be toggled on for all indicators to function. If you do not want an RGB
 
 Please make sure to save any customizations you have made in VIA to a .json file before flashing the firmware. Sometimes it has been necessary to re-apply those changes in VIA after flashing the firmware. If that is the case, you will most likely need to manually add the custom keycodes back in.
 
-## This keymap also makes the following layout changes over the factory firmware.
+## This keymap also makes the following layout changes over the factory firmware
 
 - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
 
