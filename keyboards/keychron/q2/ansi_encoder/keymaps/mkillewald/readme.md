@@ -35,7 +35,7 @@ Please make sure to save any customizations you have made in VIA to a .json file
 
 ## Optional .json Configuration File
 
-[https://drive.google.com/file/d/1aLno7NCXyGtsXduB4LRbHoctklYt4Psh/view?usp=share_link](keychron_q2_ansi_knob_configure_mkillewald.json)
+[keychron_q2_ansi_knob_configure_mkillewald.json](https://drive.google.com/file/d/1aLno7NCXyGtsXduB4LRbHoctklYt4Psh/view?usp=share_link)
 
 I have included an optional .json configuration file which can be loaded in VIA on the Configure Tab (keyboard icon) to make the following layout changes:
 
