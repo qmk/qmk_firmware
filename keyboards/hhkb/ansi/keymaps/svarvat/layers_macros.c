@@ -551,11 +551,7 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_GE:
             if (record->event.pressed) {
-                if (IS_LAYER_ON(LA_MOUSE)) {
-                    tap_code16(KC_MS_BTN1);
-                } else {
-                    tap_code16_wrap_lctl(KC_DEL);
-                }
+                tap_code16_wrap_lctl(KC_DEL);
             }
             return false;
         case MA_F1:
@@ -1029,6 +1025,7 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isLThumbEMoPristine) {
                     tap_code16(C(KC_F));
+                    isLThumbEMoPristine = false;
                 } else {
                     isLThumbEMoPristine = true;
                 }
@@ -1070,6 +1067,7 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isLThumbDMoPristine) {
                     tap_code16(RSG(KC_D));
+                    isLThumbDMoPristine = false;
                 } else {
                     isLThumbDMoPristine = true;
                 }
