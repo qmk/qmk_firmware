@@ -173,8 +173,8 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_SHFT|B_Z               , .kana = "ho"      }, // ほ
   {.key = B_SHFT|B_F               , .kana = "ma"      }, // ま
   {.key = B_SHFT|B_B               , .kana = "mi"      }, // み
-  {.key = B_SHFT|B_COMM            , .kana = "mu"      }, // む
-  {.key = B_SHFT|B_S               , .kana = "me"      }, // め
+  {.key = B_SHFT|B_S               , .kana = "mu"      }, // む
+  {.key = B_SHFT|B_COMM            , .kana = "me"      }, // め
   {.key = B_SHFT|B_K               , .kana = "mo"      }, // も
   {.key = B_SHFT|B_H               , .kana = "ya"      }, // や
   {.key = B_SHFT|B_P               , .kana = "yu"      }, // ゆ
