@@ -133,7 +133,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case VERSION: // Output firmware info.
             if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION QMK_GIT_HASH " | " QMK_BUILDDATE);
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " " QMK_GIT_HASH " | " QMK_BUILDDATE);
             }
             break;
     }
