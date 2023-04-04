@@ -6,7 +6,6 @@
     "features": {
         "midi": true,
         "extrakey": true,
-        "encoder": true,
         "bootmagic": false,
         "command": false,
         "console": false,
@@ -16,7 +15,7 @@
         "audio": false
     },
     "encoder": {
-        "rotary": []
+        "enabled": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

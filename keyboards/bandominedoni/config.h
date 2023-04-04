@@ -141,10 +141,3 @@
 #endif  //  MIDI_ENABLE
 
 #define TAP_CODE_DELAY 10
-
-/*
- * Encoder options
- */
-#ifdef ENCODER_ENABLE
-#   define ENCODER_RESOLUTIONS_RIGHT { 4 }
-#endif  // ENCODER_ENABLE
