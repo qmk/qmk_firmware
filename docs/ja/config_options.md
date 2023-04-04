@@ -159,9 +159,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * 詳細は [Permissive Hold](ja/tap_hold.md#permissive-hold) を見てください
 * `#define PERMISSIVE_HOLD_PER_KEY`
   * キーごとの `PERMISSIVE_HOLD` 設定の処理を有効にします
-* `#define IGNORE_MOD_TAP_INTERRUPT`
-  * 両方のキーに `TAPPING_TERM` を適用することで、ホールド時に他のキーに変換するキーを使ってローリングコンボ (zx) をすることができるようにします
-  * 詳細は [Ignore Mod Tap Interrupt](ja/tap_hold.md#ignore-mod-tap-interrupt) を見てください
 * `#define TAPPING_FORCE_HOLD`
   * タップされた直後に、デュアルロールキーを修飾子として使用できるようにします
   * [Tapping Force Hold](ja/tap_hold.md#tapping-force-hold)を見てください

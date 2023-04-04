@@ -16,13 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "evolv.h"
-
-#ifndef MEDIA_KEY_DELAY
-#     define MEDIA_KEY_DELAY 100
-#endif
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
-    tap_code_delay(clockwise ? KC_VOLU : KC_VOLD, MEDIA_KEY_DELAY);
-    return true;
-}
