@@ -230,7 +230,6 @@ bool cirque_pinnacle_connected(void) {
 
 /*  Pinnacle-based TM040040/TM035035/TM023023 Functions  */
 void cirque_pinnacle_init(const cirque_rap_t* cirque_rap, const void* config) {
-
     // send a RESET command now, in case QMK had a soft-reset without a power cycle
     cirque_rap->write(config, HOSTREG__SYSCONFIG1, HOSTREG__SYSCONFIG1__RESET);
     wait_ms(30); // Pinnacle needs 10-15ms to boot, so wait long enough before configuring
@@ -378,7 +377,7 @@ report_mouse_t cirque_pinnacle_get_report(const cirque_rap_t* cirque_rap, const 
     static uint16_t   x = 0, y = 0, last_scale = 0;
 
 #    if defined(CIRQUE_PINNACLE_TAP_ENABLE)
-    mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+    temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, false, POINTING_DEVICE_BUTTON1);
 #    endif
 #    ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
     cursor_glide_t glide_report = {0};
