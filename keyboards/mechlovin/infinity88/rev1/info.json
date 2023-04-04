@@ -1,0 +1,48 @@
+{
+    "usb": {
+        "pid": "0x8802",
+        "device_version": "0.0.1"
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "rows": ["A10", "B13", "B12", "B11", "C14", "C15"],
+        "cols": ["C13", "B9", "B4", "B7", "B8", "B5", "B6", "A9", "A5", "A6", "A7", "B1", "B2", "B10", "B3", "B14", "B15"]
+    },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "rgblight": {
+        "led_count": 26,
+        "pin": "A15",
+        "animations": {
+            "knight": true,
+            "rainbow_swirl": true,
+            "rainbow_mood": true,
+            "snake": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true,
+            "breathing": true
+        },
+    },
+    "backlight": {
+        "pin": "B0",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "A4",
+        "num_lock": "A3"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C"
+}
