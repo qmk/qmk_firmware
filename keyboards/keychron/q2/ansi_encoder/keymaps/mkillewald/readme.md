@@ -1,7 +1,7 @@
-## Keychron Q2 ANSI STM32L432 ENC11 (with knob) Keymap v1.0.0
+## Keychron Q2 ANSI STM32L432 ENC11 (with knob) Keymap v1.0.1
 
 ## Features:
-- Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others. 
+- Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others.
 
 - Caps Word enabled with RGB indicator ([https://docs.qmk.fm/#/feature_caps_word](https://docs.qmk.fm/#/feature_caps_word))
     - Activated by double tapping left Shift
@@ -23,20 +23,18 @@
         - Fn2+C (keycode: TKTOG) will toggle turning off RGB for keys with no definition (default: RGB off)
         - Fn2+V (keycode: FCTOG) will toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR or FN2_LAYER_COLOR (default: static color off)
 
-All custom keycodes described above can be moved to different keys in VIA by using the following keycodes:
-- CUSTOM(64) = LTTOG (default: Fn2+Z) Caps Lock Light Tab Toggle
-- CUSTOM(65) = LATOG (default: Fn2+X) Caps Lock Light Alpha Toggle
-- CUSTOM(66) = TKTOG (default: Fn2+C) Fn layer Trasnparent Key Toggle
-- CUSTOM(67) = FCTOG (default: Fn2+V) Fn layer Color Toggle
+All custom keycodes described in this readme can be moved to different keys in VIA by using the following keycodes:
+- CUSTOM(64) = KC_LTTOG (default: Fn2+Z) Caps Lock Light Tab Toggle
+- CUSTOM(65) = KC_LATOG (default: Fn2+X) Caps Lock Light Alpha Toggle
+- CUSTOM(66) = KC_TKTOG (default: Fn2+C) Fn layer Trasnparent Key Toggle
+- CUSTOM(67) = KC_FCTOG (default: Fn2+V) Fn layer Color Toggle
+- CUSTOM(68) = KC_LBMAC (default Mac Only: Fn1+Q) Lock and Blank Mac
 
 RGB must be toggled on for all indicators to function. If you do not want an RGB mode active but still want the indicators, toggle RGB on and turn the brightness all the way off. The indicators will remain at full brightness.
 
 Please make sure to save any customizations you have made in VIA to a .json file before flashing the firmware. Sometimes it has been necessary to re-apply those changes in VIA after flashing the firmware. If that is the case, you will most likely need to manually add the custom keycodes back in.
 
-## Optional .json Configuration File
-
-
-I have included an optional .json configuration file which can be loaded in VIA on the Configure Tab (keyboard icon) to make the following layout changes:
+## This keymap also makes the following layout changes over the factory firmware.
 
 - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
 
@@ -44,7 +42,8 @@ I have included an optional .json configuration file which can be loaded in VIA 
 
 - Uses Grave Escape on key to the left of the 1 key:
     - Base Layer: key functions as ESC, shift+key gives ~
-    - Fn1 and Fn2 Layer: Fn+key gives `
+    - Fn1 Layer: Fn1+key gives `
+    - Fn2 Layer: Fn2+key gives ~
 
 - Changes the two vertical keys under the knob as follows:
     - Base Layer: PGUP and PGDN
@@ -55,18 +54,22 @@ I have included an optional .json configuration file which can be loaded in VIA 
     - Base Layer: volume up, down Press: mute
     - Fn1 Layer:  zoom in, out Press: return to 100% zoom
     - Fn2 Layer:  LED brighness inc, dec Press: backlight toggle
-    
+
 ## Known Issues
 
-1. Keychron factory reset (clear eeprom) Fn1+J+Z is not working 
+1. Keychron factory reset (clear eeprom) Fn1+J+Z is not working
 2. Keychron LED test Fn1+Home+Right is not working
 
 It seems Keychron has not pushed the relavant code to the main QMK repo yet. I see the code is in Keychron's fork, and I may manually add that code here at some point.
- 
+
 
 #### USE AT YOUR OWN RISK
 
 ## Changelog:
 
-v1.0.0  March 19, 2023 
+v1.0.1  April 4, 2023
+- made requested changes by QMK reveiwers
+- removed optional .json file and baked my layout changes into the firmware
+
+v1.0.0  March 19, 2023
 - Carried over features from my Q1V2 keymap.
