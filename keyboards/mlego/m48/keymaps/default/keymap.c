@@ -161,6 +161,4 @@ void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_layers = my_rgb;
 #endif
-
-    init_lwr_rse_led();
 }
