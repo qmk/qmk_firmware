@@ -1,6 +1,6 @@
-#Haven80 Hotswap
+#Haven80 Solder
 
-![haven 80 hotswap](https://i.imgur.com/lXKf8Cih.png)
+![haven 80 hotswap](https://i.imgur.com/TBXFqE5.png)
 
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
@@ -8,13 +8,13 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ah/haven80_hotswap:default
+    make ah/haven80/solder:default
 
 Flashing example for this keyboard:
 
-    make ah/haven80_hotswap:default:flash
+    make ah/haven80/solder:default:flash
 
-##Bootloader Atmel-DFU 
+##Bootloader Atmel-DFU
 
 For reset instruction, use the physical reset button on the back of the keyboard to enter bootloader mode
 

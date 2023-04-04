@@ -1,6 +1,6 @@
-#Haven80 Solder
+#Haven80 Hotswap
 
-![haven 80 hotswap](https://i.imgur.com/TBXFqE5.png)
+![haven 80 hotswap](https://i.imgur.com/lXKf8Cih.png)
 
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
@@ -8,11 +8,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ah/haven80_solder:default
+    make ah/haven80/hotswap:default
 
 Flashing example for this keyboard:
 
-    make ah/haven80_solder:default:flash
+    make ah/haven80/hotswap:default:flash
 
 ##Bootloader Atmel-DFU
 
