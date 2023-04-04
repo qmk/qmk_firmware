@@ -113,6 +113,10 @@ enum serial_transaction_id {
     SPLIT_TRANSACTION_IDS_USER,
 #endif // SPLIT_TRANSACTION_IDS_USER
 
+#if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+    PUT_DETECTED_OS,
+#endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+
     NUM_TOTAL_TRANSACTIONS
 };
 
