@@ -56,7 +56,7 @@ cmake-build-debug
 *.pdf
 
 # cmake toolchain downloads
-toolchains
+/toolchains
 
 # Let these ones be user specific, since we have so many different configurations
 *.code-workspace

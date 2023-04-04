@@ -17,7 +17,7 @@ if(${BACKLIGHT_ENABLE} AND NOT ${NO_BACKLIGHT_PIN} STREQUAL "backlight-NOTFOUND"
     else()
         target_sources(backlight PRIVATE quantum/backlight/backlight_driver_common.c)
         if(${BACKLIGHT_DRIVER} STREQUAL "pwm")
-            target_sources(backlight PRIVATE quantum/backlight/backlight_${CMAKE_SYSTEM_PROCESSOR}.c)
+            target_sources(backlight PRIVATE quantum/backlight/backlight_${QMK_PLATFORM}.c)
         else()
             target_sources(backlight PRIVATE quantum/backlight/backlight_${BACKLIGHT_DRIVER}.c)
         endif()

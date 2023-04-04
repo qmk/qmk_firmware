@@ -5,6 +5,8 @@
 # @since Feb 06 2016
 
 set(TRIPLE "avr")
+set(QMK_PLATFORM "avr")
+set(QMK_PROTOCOL "lufa")
 
 if(UNIX)
     set(OS_SUFFIX "")

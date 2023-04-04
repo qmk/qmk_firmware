@@ -5,8 +5,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(UpdateSubmodule)
 
 # early declaration of macro defined in toolchain
-macro(add_qmk_executable _)
-endmacro(add_qmk_executable)
+# macro(add_qmk_executable _)
+# endmacro(add_qmk_executable)
 
 if(NOT DEFINED QMK_KEYBOARD)
 
@@ -19,6 +19,8 @@ add_subdirectory(keyboards)
 else()
 
 # build step
+include(ResolveKeyboard)
+resolve_keyboard(${QMK_KEYBOARD_FOLDER} QMK_KEYBOARD_FOLDER_ABS)
 
 set(TEMP_PATH ${QMK_KEYBOARD_FOLDER})
 cmake_path(IS_RELATIVE TEMP_PATH IS_KEYBOARD_FOLDER_RELATIVE)
@@ -29,9 +31,11 @@ endif()
 
 set(TEMP_PATH ${QMK_KEYMAP_FOLDER})
 cmake_path(IS_RELATIVE TEMP_PATH IS_KEYMAP_FOLDER_RELATIVE)
+if(${IS_KEYBOARD_FOLDER_RELATIVE} AND NOT EXISTS ${CMAKE_SOURCE_DIR}/keyboards/${QMK_KEYMAP_FOLDER})
+  set(IS_KEYBOARD_FOLDER_RELATIVE FALSE)
+endif()
 
 if(${IS_KEYBOARD_FOLDER_RELATIVE})
-set(QMK_KEYBOARD_FOLDER_ABS ${CMAKE_SOURCE_DIR}/keyboards/${QMK_KEYBOARD_FOLDER})
   set(QMK_KEYBOARD_CURRENT_FOLDER ${QMK_KEYBOARD_FOLDER})
   set(QMK_KEYBOARD_FOLDERS)
   set(QMK_KEYBOARD_FOLDER_PARTS)
@@ -52,6 +56,8 @@ set(QMK_KEYBOARD_FOLDER_ABS ${CMAKE_SOURCE_DIR}/keyboards/${QMK_KEYBOARD_FOLDER}
       # assuming every keyboard has a default/keymap.c at some level
       if(EXISTS ${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/keymaps/${QMK_KEYMAP_FOLDER}/keymap.c)
         list(APPEND QMK_KEYBOARD_KEYMAPS "${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/keymaps/${QMK_KEYMAP_FOLDER}/keymap.c")
+      elseif(EXISTS ${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/keymap.c)
+        list(APPEND QMK_KEYBOARD_KEYMAPS "${CMAKE_SOURCE_DIR}/keyboards/${FOLDER}/keymap.c")
       endif()
     endif()
     get_filename_component(LAST_PART ${FOLDER} NAME)
@@ -91,11 +97,15 @@ set(QMK_KEYBOARD_FOLDER_ABS ${CMAKE_SOURCE_DIR}/keyboards/${QMK_KEYBOARD_FOLDER}
 
   list(GET QMK_KEYBOARD_HEADERS -1 QMK_KEYBOARD_HEADER)
 else(${IS_KEYBOARD_FOLDER_RELATIVE})
-  set(QMK_KEYBOARD_FOLDER_ABS ${QMK_KEYBOARD_FOLDER})
-
+  include_directories(${QMK_KEYBOARD_FOLDER_ABS})
+  if(EXISTS ${QMK_KEYBOARD_FOLDER_ABS}/config.h)
+    list(APPEND QMK_KEYBOARD_CONFIG_HS "${QMK_KEYBOARD_FOLDER_ABS}/config.h")
+  endif()
   if(${IS_KEYMAP_FOLDER_RELATIVE})
-    if(EXISTS "${QMK_KEYBOARD_FOLDER}/keymaps/${QMK_KEYMAP_FOLDER}/keymap.c")
-      set(QMK_KEYBOARD_KEYMAP "${QMK_KEYBOARD_FOLDER}/keymaps/{QMK_KEYMAP_FOLDER}/keymap.c")
+    if(EXISTS "${QMK_KEYBOARD_FOLDER_ABS}/keymaps/${QMK_KEYMAP_FOLDER}/keymap.c")
+      set(QMK_KEYBOARD_KEYMAP "${QMK_KEYBOARD_FOLDER_ABS}/keymaps/${QMK_KEYMAP_FOLDER}/keymap.c")
+    elseif(EXISTS "${QMK_KEYBOARD_FOLDER_ABS}/keymap.c")
+      set(QMK_KEYBOARD_KEYMAP "${QMK_KEYBOARD_FOLDER_ABS}/keymap.c")
     else()
       message(FATAL_ERROR "Could not find keymap in keymap folder '${QMK_KEYMAP_FOLDER}'")
     endif()
@@ -108,8 +118,12 @@ else(${IS_KEYBOARD_FOLDER_RELATIVE})
   endif()
 
   if(NOT DEFINED QMK_KEYBOARD_HEADER)
-    get_filename_component((LAST_PART ${QMK_KEYBOARD_FOLDER}) NAME)
-    set(QMK_KEYBOARD_HEADER "${LAST_PART}.h")
+    get_filename_component(LAST_PART ${QMK_KEYBOARD_FOLDER_ABS} NAME)
+    if(EXISTS "${QMK_KEYBOARD_FOLDER_ABS}/${LAST_PART}.h")
+      set(QMK_KEYBOARD_HEADER "${LAST_PART}.h")
+    elseif(EXISTS "${QMK_KEYBOARD_FOLDER_ABS}/keyboard.h")
+      set(QMK_KEYBOARD_HEADER "keyboard.h")
+    endif()
   endif()
 endif()
 
@@ -137,11 +151,6 @@ math(EXPR VERSION_C_EVAL "${VERSION_MAJOR} * 10000 + ${VERSION_MINOR} * 100 + ${
 
 add_compile_options(
     -include ${QMK_KEYBOARD_CONFIG_HS}
-    -mmcu=${QMK_MCU}
-)
-
-add_link_options(
-    -mmcu=${QMK_MCU}
 )
 
 add_compile_definitions(
@@ -163,10 +172,11 @@ add_subdirectory(tmk_core/protocol)
 include(features/oled)
 include(features/backlight)
 
-if(EXISTS keyboards/${QMK_KEYBOARD_FOLDER}/CMakeLists.txt)
-  add_subdirectory(keyboards/${QMK_KEYBOARD_FOLDER})
+if(EXISTS ${QMK_KEYBOARD_FOLDER_ABS}/CMakeLists.txt)
+  add_subdirectory(${QMK_KEYBOARD_FOLDER_ABS})
 else()
-  file(GLOB KEYBOARD_SRC "keyboards/${QMK_KEYBOARD_FOLDER}/*.c")
+  file(GLOB KEYBOARD_SRC "${QMK_KEYBOARD_FOLDER_ABS}/*.c")
+  list(REMOVE_ITEM KEYBOARD_SRC "${QMK_KEYBOARD_KEYMAP}")
   add_qmk_executable(${QMK_KEYBOARD} ${KEYBOARD_SRC})
 endif()
 

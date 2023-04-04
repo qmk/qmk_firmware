@@ -1,4 +1,6 @@
 set(TRIPLE "arm-none-eabi")
+set(QMK_PLATFORM "chibios")
+set(QMK_PROTOCOL "chibios")
 
 if(UNIX)
     set(OS_SUFFIX "")
@@ -28,12 +30,14 @@ set(AVR_SIZE           "${TOOLCHAIN_ROOT}/${TRIPLE}-size${OS_SUFFIX}"    CACHE P
 add_compile_options(
     $<$<COMPILE_LANGUAGE:C>:-std=gnu11>
     $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++14>
+    $<$<COMPILE_LANGUAGE:CXX>:-fno-rtti>
     # -flto
     -Os
     -Wall
     -Wstrict-prototypes
     # -fcommon
     # -g
+
     -fomit-frame-pointer
     -ffunction-sections
     -fdata-sections
@@ -53,13 +57,38 @@ add_compile_options(
 )
 
 add_compile_definitions(
-    # F_CPU=16000000
-    # F_USB=16000000UL
-    # __AVR_ATmega32U4__
-    # LTO_ENABLE
+    THUMB_PRESENT
+    THUMB_NO_INTERWORKING
+    PROTOCOL_CHIBIOS
+    MCU_${MCU_FAMILY}
+    PLATFORM_SUPPORTS_SYNCHRONIZATION
+    PORT_IGNORE_GCC_VERSION_CHECK=1
 )
 
-add_link_options(--specs=nosys.specs)
+add_link_options(
+    -Wl,--gc-sections
+    -nostartfiles
+    -Wl,--no-wchar-size-warning
+    --specs=nano.specs
+    -mthumb
+    -mno-thumb-interwork
+    -mno-unaligned-access
+)
+
+if(${USE_FPU})
+    add_compile_definitions(
+        CORTEX_USE_FPU=TRUE
+    )
+    add_link_options(
+        -mfloat-abi=hard
+        -mfpu=fpv4-sp-d16
+        -fsingle-precision-constant
+    )
+else()
+    add_compile_definitions(
+        CORTEX_USE_FPU=FALSE
+    )
+endif()
 
 # include_directories("C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/avr/include")
 
@@ -70,7 +99,7 @@ macro(add_qmk_executable target_name)
     set(hex_file ${target_name}-${QMK_MCU}.hex)
     set(lst_file ${target_name}-${QMK_MCU}.lst)
 
-    add_link_options(-Wl,--gc-sections,-nostartfiles)
+    # add_link_options(-Wl,--gc-sections,-nostartfiles)
 
     # create elf file
     add_executable(${elf_file}
