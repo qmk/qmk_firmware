@@ -53,7 +53,8 @@ find_program(AVR_UPLOAD
 add_compile_options(
     $<$<COMPILE_LANGUAGE:C>:-std=gnu11>
     $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++14>
-    # -flto
+    -flto
+    # -mrelax
     -Os
     -Wall
     -Wstrict-prototypes
@@ -77,7 +78,11 @@ add_compile_definitions(
     F_CPU=16000000
     F_USB=16000000UL
     __AVR_ATmega32U4__
-    # LTO_ENABLE
+    LTO_ENABLE
+)
+
+add_link_options(
+    -Wl,--gc-sections
 )
 
 # include_directories("C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/avr/include")
@@ -92,7 +97,7 @@ macro(add_qmk_executable target_name)
     set(hex_file ${target_name}-${QMK_MCU}.hex)
     set(lst_file ${target_name}-${QMK_MCU}.lst)
 
-    add_link_options(-Wl,--gc-sections,-Map=${map_file})
+    add_link_options(-Wl,-Map=${map_file})
 
     # create elf file
     add_executable(${elf_file}

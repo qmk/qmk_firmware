@@ -1,0 +1,137 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Load Keyboard & Refresh Outline",
+            "dependsOrder": "sequence",
+            "dependsOn":[
+                "Load Keyboard",
+                "Configure CMake"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Load Keyboard",
+            "type": "shell",
+            "command": "cmake -Bbuild -DQMK_KEYBOARD_FOLDER=${input:keyboard}",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure CMake",
+            "type": "cmake",
+            "command": "configure"
+            // "command": "${command:cmake.configure}",
+            // "problemMatcher": [],
+        },
+        {
+            "label": "Build",
+            "problemMatcher": [
+                {
+                    "base": "$gcc",
+                    "fileLocation": ["relative", "${workspaceRoot}/build"]
+                },
+            ],
+            "options": {
+                "environment": {
+                    "CLICOLOR_FORCE": "1"
+                }
+            },
+            "type": "cmake",
+            "command": "build",
+            "targets":[
+                "${input:keyboard_safe}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            // "type": "shell",
+            // "command": "cmake --build build --target ${input:keyboard_safe}",
+            // "problemMatcher": [],
+            // "group": {
+            //     "kind": "build",
+            //     "isDefault": true
+            // }
+            // "type": "cmake",
+            // "command": "build",
+            // "targets":[
+            //     "${input:keyboard_safe}"
+            // ]
+        },
+        {
+            "label": "Rebuild",
+            // "type": "process",
+            // "command": "cmake",
+            // "args": [
+            //     "--build",
+            //     "build",
+            //     "--target",
+            //     "${input:keyboard_safe}",
+            //     "--clean-first"
+            // ],
+            "problemMatcher": [
+                {
+                    "base": "$gcc",
+                    "fileLocation": ["relative", "${workspaceRoot}/build"]
+                },
+            ],
+            "options": {
+                "environment": {
+                    "CLICOLOR_FORCE": "1"
+                }
+            },
+            "type": "cmake",
+            "command": "cleanRebuild",
+            "targets":[
+                "${input:keyboard_safe}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        }
+    ],
+    "inputs": [
+        {
+            "id": "keyboard",
+            "description": "Keyboard:",
+            "type": "pickString",
+            "options":[
+                "planck/rev5",
+                "olkb/planck/rev3"
+            ]
+        },
+        {
+            "id": "keyboard_safe",
+            "description": "Keyboard:",
+            "type": "pickString",
+            "options":[
+                "planck_rev5_default",
+                "olkb_planck_rev3_default"
+            ]
+        },
+        // {
+        //     "type": "command",
+        //     "id": "keyboard",
+        //     "command": "extension.commandvariable.pickStringRemember",
+        //     "args": {
+        //       "description": "select an option :",
+        //       "options": [
+        //         ["always 1", "5000"],
+        //         ["always 2", "5100"]
+        //       ],
+        //       "default": "",
+        //       "fileName": "${workspaceFolder}/data/keyboards.json",
+        //       "pattern": {
+        //         "regexp": "^\\s*(?!#)([^=]+?)\\s*=\\s*(?:(\\{.+\\})|(.+))$",
+        //         "label": "$1",
+        //         "json": "$2",
+        //         "value": "$3"
+        //       }
+        //     }
+        //   }
+    ]
+}
