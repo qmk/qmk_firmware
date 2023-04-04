@@ -17,3 +17,12 @@ foreach(KEYBOARD_CMAKE ${KEYBOARDS})
   file(RELATIVE_PATH KEYBOARD_FOLDER "${CMAKE_SOURCE_DIR}/keyboards" "${KEYBOARD_FOLDER_ABS}")
   add_keyboard(${KEYBOARD_FOLDER} "default")
 endforeach()
+
+file(GLOB_RECURSE POSSIBLE_KEYBOARDS **/info.json)
+
+file(WRITE "${CMAKE_SOURCE_DIR}/build/all_keyboards" "")
+foreach(KEYBOARD_INFO ${POSSIBLE_KEYBOARDS})
+  get_filename_component(KEYBOARD_FOLDER_ABS "${KEYBOARD_INFO}" DIRECTORY)
+  file(RELATIVE_PATH KEYBOARD_FOLDER "${CMAKE_SOURCE_DIR}/keyboards" "${KEYBOARD_FOLDER_ABS}")
+  file(APPEND "${CMAKE_SOURCE_DIR}/build/all_keyboards" "${KEYBOARD_FOLDER}\n")
+endforeach()

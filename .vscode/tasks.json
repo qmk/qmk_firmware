@@ -16,7 +16,7 @@
         {
             "label": "Load Keyboard",
             "type": "shell",
-            "command": "cmake -Bbuild -DQMK_KEYBOARD_FOLDER=${input:keyboard}",
+            "command": "cmake -Bbuild -DQMK_KEYBOARD_FOLDER=${input:all_keyboards}",
             "problemMatcher": []
         },
         {
@@ -89,6 +89,15 @@
                 "command": "type build\\targets",
                 "description": "Target:",
                 "fieldSeparator": "|"
+            },
+        },
+        {
+            "id": "all_keyboards",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "type build\\all_keyboards",
+                "description": "Keyboard:"
             },
         }
     ]

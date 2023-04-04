@@ -103,6 +103,8 @@ endif()
 
 add_library(qmk)
 
+resolve_keyboard_includes(${QMK_KEYBOARD_FOLDER_ABS})
+
 add_subdirectory(quantum)
 add_subdirectory(platforms)
 add_subdirectory(tmk_core/protocol)

@@ -4,7 +4,7 @@ target_sources(qmk PUBLIC
     usb_device_state.c
     usb_util.c
 )
-add_compile_definitions(
+target_compile_definitions(
     # MOUSE_ENABLED
     # EXTRAKEY_ENABLE
     # NKRO_ENABLE
