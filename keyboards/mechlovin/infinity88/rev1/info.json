@@ -1,6 +1,5 @@
 {
     "usb": {
-        "pid": "0x8802",
         "device_version": "0.0.1"
     },
     "diode_direction": "COL2ROW",
@@ -40,7 +39,8 @@
     },
     "indicators": {
         "caps_lock": "A4",
-        "num_lock": "A3"
+        "num_lock": "A3",
+        "scroll_lock": "A8"
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
