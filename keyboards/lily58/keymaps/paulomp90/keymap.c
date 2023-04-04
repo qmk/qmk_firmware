@@ -31,10 +31,13 @@ typedef struct {
     int  state;
 } tap;
 
-enum {
-    SINGLE_TAP  = 1,
-    SINGLE_HOLD = 2,
-};
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_TAP
+} td_state_t;
 
 enum { LEFT_SHIFT = 0, RIGHT_SHIFT = 1 };
 
@@ -43,9 +46,6 @@ const custom_shift_key_t custom_shift_keys[] = {
 };
 
 uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
-
-#define RAISE MO(_RAISE)
-#define LOWER MO(_LOWER)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -73,23 +73,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* LOWER
     * ,-----------------------------------------.                    ,-----------------------------------------.
-    * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+    * |      |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  | F10  |  F11 |      |
     * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-    * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                    | PgUp | HOME |  Up  | END  |  ºª  |      |
+    * |  F1  |      |      |      |      |      |                    | PgUp | HOME |  Up  | END  |  ºª  | F12  |
     * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-    * |      |  F6  |  F7  |  F8  |  F9  | F10  |-------.    ,-------| PgDn | Left | Down |Right |  ~^  |      |
+    * |      |      |      |      |      |      |-------.    ,-------| PgDn | Left | Down |Right |  ~^  |      |
     * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
-    * |      |  F11 |  F12 |  <<  |  >|| |  >>  |-------|    |-------|      | Vol+ | Vol- | Mute |  \|  |      |
+    * |      |      |      |  <<  |  >|| |  >>  |-------|    |-------|      | Vol+ | Vol- | Mute |  \|  |      |
     * `-----------------------------------------/       /     \      \-----------------------------------------'
     *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE | RGUI | RAlt |
     *                   |      |      |      |/       /         \      \ |      |      |      |
     *                   `-------------------''-------'           '------''--------------------'
     */
     [_LOWER] = LAYOUT(
-        _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______,  
-        KC_F1,     KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                  KC_PGUP, KC_HOME, KC_UP,  KC_END, KC_LBRC,  _______,
-        KC_F7,     KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,                  KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUOT, _______,
-        _______, _______, _______, _______, _______, _______,   _______, _______, _______, KC_VOLU,  KC_VOLD, KC_MUTE, KC_BSLS, _______,
+        _______,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                 KC_F7,     KC_F8, KC_F9,  KC_F10,  KC_F11, _______,  
+          KC_F1, _______, _______, _______, _______, _______,                 KC_PGUP, KC_HOME, KC_UP,  KC_END, KC_LBRC,  KC_F12,
+        _______, _______, _______, _______, _______, _______,                 KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUOT, _______,
+        _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT,   _______, _______, _______, KC_VOLU,  KC_VOLD, KC_MUTE, KC_BSLS, _______,
                                     _______, _______, _______,  _______, _______,  _______, _______, _______
     ),
 
@@ -179,66 +179,90 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 /* Tap dance shifts */
-int cur_dance(tap_dance_state_t *state) {
+td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
-        if (state->pressed)
-            return SINGLE_HOLD;
-        else
-            return SINGLE_TAP;
-    } else
-        return 0;
+        if (state->interrupted || !state->pressed) {
+            return TD_SINGLE_TAP;
+        } else {
+            return TD_SINGLE_HOLD;
+        }
+    } else if (state->count == 2) {
+        return TD_DOUBLE_TAP;
+    }
+
+    return TD_UNKNOWN;
 }
 
-static tap lshifttap_state = {.is_press_action = true, .state = 0};
+static tap lshifttap_state = {.is_press_action = true, .state = TD_NONE};
 
-static tap rshifttap_state = {.is_press_action = true, .state = 0};
+static tap rshifttap_state = {.is_press_action = true, .state = TD_NONE};
 
 void lshift_finished(tap_dance_state_t *state, void *user_data) {
     lshifttap_state.state = cur_dance(state);
+
     switch (lshifttap_state.state) {
-        case SINGLE_TAP:
+        case TD_SINGLE_TAP:
             register_code16(LALT(KC_LEFT));
             break;
-        case SINGLE_HOLD:
+        case TD_SINGLE_HOLD:
             register_code(KC_LSFT);
+            break;
+        case TD_DOUBLE_TAP:
+            tap_code16(LALT(KC_LEFT));
+            register_code16(LALT(KC_LEFT));
+            break;
+        default:
             break;
     }
 }
 
 void lshift_reset(tap_dance_state_t *state, void *user_data) {
     switch (lshifttap_state.state) {
-        case SINGLE_TAP:
+        case TD_SINGLE_TAP:
             unregister_code16(LALT(KC_LEFT));
             break;
-        case SINGLE_HOLD:
+        case TD_SINGLE_HOLD:
             unregister_code(KC_LSFT);
             break;
+        case TD_DOUBLE_TAP:
+            unregister_code16(LALT(KC_LEFT));
+            break;
     }
-    lshifttap_state.state = 0;
+    lshifttap_state.state = TD_NONE;
 }
 
 void rshift_finished(tap_dance_state_t *state, void *user_data) {
     rshifttap_state.state = cur_dance(state);
+
     switch (rshifttap_state.state) {
-        case SINGLE_TAP:
+        case TD_SINGLE_TAP:
             register_code16(LALT(KC_RGHT));
             break;
-        case SINGLE_HOLD:
+        case TD_SINGLE_HOLD:
             register_code(KC_RSFT);
+            break;
+        case TD_DOUBLE_TAP:
+            tap_code16(LALT(KC_RGHT));
+            register_code16(LALT(KC_RGHT));
+            break;
+        default:
             break;
     }
 }
 
 void rshift_reset(tap_dance_state_t *state, void *user_data) {
     switch (rshifttap_state.state) {
-        case SINGLE_TAP:
+        case TD_SINGLE_TAP:
             unregister_code16(LALT(KC_RGHT));
             break;
-        case SINGLE_HOLD:
+        case TD_SINGLE_HOLD:
             unregister_code(KC_RSFT);
             break;
+        case TD_DOUBLE_TAP:
+            unregister_code16(LALT(KC_RGHT));
+            break;
     }
-    rshifttap_state.state = 0;
+    rshifttap_state.state = TD_NONE;
 }
 
 tap_dance_action_t tap_dance_actions[] = {
