@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Block67 Hotswap",
+    "manufacturer": "FJLabs",
     "url": "https://engstudio.co",
     "maintainer": "FJLabs",
+    "usb": {
+        "vid": "0x7074",
+        "pid": "0x1821",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_65_ansi_blocker_all": {
             "layout": [
