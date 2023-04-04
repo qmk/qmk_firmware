@@ -172,6 +172,8 @@ For example, to build a firmware for a Clueboard 66% you would use:
 
     qmk compile -kb clueboard/66/rev3 -km default
 
+?> The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev3`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
+
 When it is done you should have a lot of output that ends similar to this:
 
 ```

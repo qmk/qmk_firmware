@@ -57,12 +57,14 @@ void set_custom_encoder_mode_user(bool custom_mode) {
 
 keyevent_t encoder_ccw = {
     .key = (keypos_t){.row = 4, .col = 7},
-    .pressed = false
+    .pressed = false,
+	.type = KEY_EVENT
 };
 
 keyevent_t encoder_cw = {
     .key = (keypos_t){.row = 4, .col = 10},
-    .pressed = false
+    .pressed = false,
+	.type = KEY_EVENT
 };
 
 
@@ -70,12 +72,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 	if (custom_encoder_mode) {
 	    if (clockwise) {
 	        encoder_cw.pressed = true;
-		    encoder_cw.time = (timer_read() | 1);
+		    encoder_cw.time = timer_read();
 		    action_exec(encoder_cw);
 	    }
 	    else {
 		    encoder_ccw.pressed = true;
-		    encoder_ccw.time = (timer_read() | 1);
+		    encoder_ccw.time = timer_read();
 		    action_exec(encoder_ccw);
 	    }
 		return false;
@@ -86,13 +88,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 void matrix_scan_user(void) {
 	if (IS_PRESSED(encoder_ccw)) {
 		encoder_ccw.pressed = false;
-		encoder_ccw.time = (timer_read() | 1);
+		encoder_ccw.time = timer_read();
 		action_exec(encoder_ccw);
 	}
 
 	if (IS_PRESSED(encoder_cw)) {
 		encoder_cw.pressed = false;
-		encoder_cw.time = (timer_read() | 1);
+		encoder_cw.time = timer_read();
 		action_exec(encoder_cw);
 	}
 }

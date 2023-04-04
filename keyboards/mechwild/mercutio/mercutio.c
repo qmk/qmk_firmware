@@ -17,25 +17,6 @@
 
 #include "mercutio.h"
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if(!encoder_update_user(index, clockwise)) {
-        return false;
-    }
-
-    switch (index) {
-        case 0:
-            if (clockwise) {
-                tap_code(KC_VOLU);
-            } else {
-                tap_code(KC_VOLD);
-            }
-        break;
-    }
-    return true;
-}
-#endif
-
 #ifdef OLED_ENABLE
 static const char PROGMEM mercutio_name[] = {
     0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0xB6, 0x95, 0xB5, 0x96, 0xD5, 0xB6, 0xB6,
