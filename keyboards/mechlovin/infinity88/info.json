@@ -5,6 +5,7 @@
     "maintainer": "mechlovin",
     "usb": {
         "vid": "0x4D4C",
+        "pid": "0x8802",
     },
     "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],
     "layouts": {
