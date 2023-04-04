@@ -3,11 +3,7 @@
  */
 #define __DELAY_BACKWARD_COMPATIBLE__
 
-// Need to disable GCC's "maybe-uninitialized" warning for this file, as it causes issues when running `KEEP_INTERMEDIATES=yes`.
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
-#include <util/delay.h>
-#pragma GCC diagnostic pop
+#include <wait.h>
 
 #include "platforms/timer.h"
 
@@ -32,3 +28,4 @@ void init(void)
 {
     timer_init();
 }
+ 
