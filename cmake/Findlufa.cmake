@@ -2,7 +2,7 @@ include(UpdateSubmodule)
 update_submodule(lib/lufa)
 set(LUFA_PATH ${CMAKE_SOURCE_DIR}/lib/lufa)
 set(LUFA_ROOT_PATH ${LUFA_PATH}/LUFA)
-add_library(lufa 
+target_sources(qmk PUBLIC
     ${LUFA_ROOT_PATH}/Drivers/USB/Core/${ARCH}/USBController_${ARCH}.c
     ${LUFA_ROOT_PATH}/Drivers/USB/Core/${ARCH}/USBInterrupt_${ARCH}.c
     ${LUFA_ROOT_PATH}/Drivers/USB/Core/ConfigDescriptors.c
@@ -21,9 +21,7 @@ add_library(lufa
     ${LUFA_ROOT_PATH}/Drivers/USB/Core/DeviceStandardReq.c
     ${LUFA_PATH}/LUFA/Drivers/USB/USB.h
 )
-target_include_directories(lufa PUBLIC ${LUFA_PATH})
-
-# target_link_libraries(lufa qmk)
+target_include_directories(qmk PUBLIC ${LUFA_PATH})
 # target_link_libraries(lufa ${QMK_TARGET})
 # target_link_libraries(lufa tmk_core_protocol)
 # target_link_libraries(lufa tmk_core_protocol_lufa)

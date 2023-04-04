@@ -101,7 +101,7 @@ else()
   add_qmk_executable(${QMK_KEYBOARD} ${KEYBOARD_SRC})
 endif()
 
-add_library(qmk)
+# add_library(qmk)
 
 resolve_keyboard_includes(${QMK_KEYBOARD_FOLDER_ABS})
 

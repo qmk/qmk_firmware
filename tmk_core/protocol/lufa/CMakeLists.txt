@@ -20,9 +20,10 @@ target_sources(qmk PUBLIC
 )
 
 find_package(lufa REQUIRED)
+# target_compile_definitions(lufa PUBLIC ${COMPILE_DEFINITIONS})
 
 target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(qmk lufa)
+# target_link_libraries(qmk lufa)
 
 # target_link_libraries(tmk_core_protocol_lufa ${QMK_TARGET})
 # target_link_libraries(tmk_core_protocol_lufa quantum)

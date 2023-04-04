@@ -63,8 +63,8 @@ find_program(CMAKE_MAKE_PROGRAM NAME make
 add_compile_options(
     $<$<COMPILE_LANGUAGE:C>:-std=gnu11>
     $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++14>
-    # -flto
-    -mrelax
+    -flto
+    # -mrelax
     -Os
     -Wall
     -Wstrict-prototypes
@@ -88,7 +88,7 @@ add_compile_definitions(
     F_CPU=16000000
     F_USB=16000000UL
     __AVR_ATmega32U4__
-    # LTO_ENABLE
+    LTO_ENABLE
 )
 
 add_link_options(
@@ -114,9 +114,13 @@ macro(add_qmk_executable target_name)
     )
 
     # create elf file
-    add_executable(${QMK_TARGET} ${ARGN})
+    add_executable(qmk ${ARGN})
 
-    target_link_libraries(${QMK_TARGET} qmk)
+    set_target_properties(qmk
+        PROPERTIES OUTPUT_NAME ${QMK_TARGET}
+    )
+
+    # target_link_libraries(${QMK_TARGET} qmk)
 
     # set_target_properties(${QMK_TARGET}
     #     PROPERTIES
@@ -134,7 +138,8 @@ macro(add_qmk_executable target_name)
     # create hex file
     add_custom_command(
         OUTPUT ${hex_file}
-        COMMAND ${CMAKE_OBJCOPY} -j .text -j .data -O ihex ${QMK_TARGET} ${hex_file}
+        # COMMAND ${CMAKE_OBJCOPY} -j .text -j .data -O ihex ${QMK_TARGET} ${hex_file}
+        COMMAND ${CMAKE_OBJCOPY} -O ihex -R .eeprom -R .fuse -R .lock -R .signature ${QMK_TARGET} ${hex_file}
         DEPENDS ${QMK_TARGET}
     )
 
