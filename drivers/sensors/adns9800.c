@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "pointing_device_internal.h"
 #include "spi_master.h"
 #include "adns9800_srom_A6.h"
 #include "adns9800.h"
@@ -101,18 +102,17 @@ uint8_t adns9800_read(pointing_device_spi_config_t* spi_config, uint8_t reg_addr
 
     return data;
 }
-bool adns9800_check_device(const void *config){
+bool adns9800_check_device(const void* config) {
     pointing_device_spi_config_t* spi_config = (pointing_device_spi_config_t*)config;
-    uint8_t product_id = adns9800_read(spi_config, REG_Product_ID);
-    uint8_t inverse_id = adns9800_read(spi_config, REG_Inverse_Product_ID);
+    uint8_t                       product_id = adns9800_read(spi_config, REG_Product_ID);
+    uint8_t                       inverse_id = adns9800_read(spi_config, REG_Inverse_Product_ID);
     pd_dprintf("ADNS9800: PID: %x IID: %x\n", product_id, inverse_id);
     return (product_id == 0x33 && inverse_id == 0xCC);
 }
 
-void adns9800_init(const void * config) {
-    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
+void adns9800_init(const void* config) {
+    pointing_device_spi_config_t* spi_config = (pointing_device_spi_config_t*)config;
     gpio_set_pin_output(spi_config->cs);
-
 
     spi_init();
 
@@ -122,24 +122,24 @@ void adns9800_init(const void * config) {
 
     // read registers and discard
     adns9800_read(spi_config, REG_Motion);
-    adns9800_read(spi_config,REG_Delta_X_L);
-    adns9800_read(spi_config,REG_Delta_X_H);
-    adns9800_read(spi_config,REG_Delta_Y_L);
-    adns9800_read(spi_config,REG_Delta_Y_H);
+    adns9800_read(spi_config, REG_Delta_X_L);
+    adns9800_read(spi_config, REG_Delta_X_H);
+    adns9800_read(spi_config, REG_Delta_Y_L);
+    adns9800_read(spi_config, REG_Delta_Y_H);
 
     // upload firmware
 
     // 3k firmware mode
-    adns9800_write(spi_config,REG_Configuration_IV, 0x02);
+    adns9800_write(spi_config, REG_Configuration_IV, 0x02);
 
     // enable initialisation
-    adns9800_write(spi_config,REG_SROM_Enable, 0x1d);
+    adns9800_write(spi_config, REG_SROM_Enable, 0x1d);
 
     // wait a frame
     wait_ms(10);
 
     // start SROM download
-    adns9800_write(spi_config,REG_SROM_Enable, 0x18);
+    adns9800_write(spi_config, REG_SROM_Enable, 0x18);
 
     // write the SROM file
 
@@ -159,14 +159,14 @@ void adns9800_init(const void * config) {
     wait_ms(10);
 
     // enable laser
-    uint8_t laser_ctrl0 = adns9800_read(spi_config,REG_LASER_CTRL0);
-    adns9800_write(spi_config,REG_LASER_CTRL0, laser_ctrl0 & 0xf0);
+    uint8_t laser_ctrl0 = adns9800_read(spi_config, REG_LASER_CTRL0);
+    adns9800_write(spi_config, REG_LASER_CTRL0, laser_ctrl0 & 0xf0);
 
     adns9800_set_cpi(config, ADNS9800_CPI);
 }
 
 config_adns9800_t adns9800_get_config(pointing_device_spi_config_t* spi_config) {
-    uint8_t cpival = adns9800_read(spi_config,REG_Configuration_I);
+    uint8_t cpival = adns9800_read(spi_config, REG_Configuration_I);
     return (config_adns9800_t){(cpival & 0xFF) * CPI_STEP};
 }
 
@@ -176,14 +176,14 @@ void adns9800_set_config(pointing_device_spi_config_t* spi_config, config_adns98
 }
 
 uint16_t adns9800_get_cpi(const void* config) {
-    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
-    uint8_t cpival = adns9800_read(spi_config, REG_Configuration_I);
+    pointing_device_spi_config_t* spi_config = (pointing_device_spi_config_t*)config;
+    uint8_t                       cpival     = adns9800_read(spi_config, REG_Configuration_I);
     return (uint16_t)(cpival & 0xFF) * CPI_STEP;
 }
 
 void adns9800_set_cpi(const void* config, uint16_t cpi) {
-    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
-    uint8_t config_1 = (CLAMP_CPI(cpi) / CPI_STEP) & 0xFF;
+    pointing_device_spi_config_t* spi_config = (pointing_device_spi_config_t*)config;
+    uint8_t                       config_1   = (CLAMP_CPI(cpi) / CPI_STEP) & 0xFF;
     adns9800_write(spi_config, REG_Configuration_I, config_1);
 }
 
@@ -197,10 +197,9 @@ static int16_t convertDeltaToInt(uint8_t high, uint8_t low) {
     return twos_comp;
 }
 
-report_mouse_t adns9800_get_report(const void *config) {
-    pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
-    report_mouse_t report = {0};
-
+report_mouse_t adns9800_get_report(const void* config) {
+    pointing_device_spi_config_t* spi_config = (pointing_device_spi_config_t*)config;
+    report_mouse_t                report     = {0};
 
     adns9800_spi_start(spi_config);
 
