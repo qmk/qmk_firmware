@@ -69,5 +69,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 //#define TAPPING_TERM 150
-//#define IGNORE_MOD_TAP_INTERRUPT
 //#define QUICK_TAP_TERM 0

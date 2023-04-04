@@ -462,7 +462,7 @@ static inline void generate_tick_event(void) {
     static uint16_t last_tick = 0;
     const uint16_t  now       = timer_read();
     if (TIMER_DIFF_16(now, last_tick) != 0) {
-        action_exec(TICK_EVENT);
+        action_exec(MAKE_TICK_EVENT);
         last_tick = now;
     }
 }

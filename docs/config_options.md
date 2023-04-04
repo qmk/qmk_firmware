@@ -150,7 +150,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define TAPPING_TERM_PER_KEY`
   * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
-  * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
+  * tap anyway, even after `TAPPING_TERM`, if there was no other key interruption between press and release
   * See [Retro Tapping](tap_hold.md#retro-tapping) for details
 * `#define RETRO_TAPPING_PER_KEY`
   * enables handling for per key `RETRO_TAPPING` settings
@@ -161,9 +161,6 @@ If you define these options you will enable the associated feature, which may in
   * See [Permissive Hold](tap_hold.md#permissive-hold) for details
 * `#define PERMISSIVE_HOLD_PER_KEY`
   * enabled handling for per key `PERMISSIVE_HOLD` settings
-* `#define IGNORE_MOD_TAP_INTERRUPT`
-  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
-  * See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for details
 * `#define QUICK_TAP_TERM 100`
   * tap-then-hold timing to use a dual role key to repeat keycode
   * See [Quick Tap Term](tap_hold.md#quick-tap-term)

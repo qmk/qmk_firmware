@@ -21,7 +21,6 @@
 
 // Defaults for usable home row mods
 #define TAPPING_TERM 230
-#define IGNORE_MOD_TAP_INTERRUPT
 
 // Improved mouse key defaults
 // Delay between pressing a key and cursor movement
