@@ -2,9 +2,7 @@
  * To keep Timer0 for common/timer.c override arduino/wiring.c.
  */
 #define __DELAY_BACKWARD_COMPATIBLE__
-
 #include <wait.h>
-
 #include "platforms/timer.h"
 
 
@@ -28,4 +26,3 @@ void init(void)
 {
     timer_init();
 }
- 
