@@ -27,19 +27,18 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "k00", "x": 0, "y": 0},
-                {"label": "k01", "x": 1, "y": 0},
-                {"label": "k02", "x": 2, "y": 0},
-
-                {"label": "k03", "x": 3, "y": 0},
-                {"label": "k04", "x": 4, "y": 0},
-                {"label": "k05", "x": 5, "y": 0},
-                {"label": "k06", "x": 6, "y": 0},
-                {"label": "k07", "x": 7, "y": 0},
-                {"label": "k08", "x": 8, "y": 0},
-                {"label": "k09", "x": 9, "y": 0},
-                {"label": "k0a", "x": 10, "y": 0},
-                {"label": "k0b", "x": 11, "y": 0}
+                {"label": "k00", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "k01", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "k02", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "k03", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "k04", "matrix": [0, 4], "x": 4, "y": 0},
+                {"label": "k05", "matrix": [0, 5], "x": 5, "y": 0},
+                {"label": "k06", "matrix": [0, 6], "x": 6, "y": 0},
+                {"label": "k07", "matrix": [0, 7], "x": 7, "y": 0},
+                {"label": "k08", "matrix": [0, 8], "x": 8, "y": 0},
+                {"label": "k09", "matrix": [0, 9], "x": 9, "y": 0},
+                {"label": "k0a", "matrix": [0, 10], "x": 10, "y": 0},
+                {"label": "k0b", "matrix": [0, 11], "x": 11, "y": 0}
             ]
         }
     }
