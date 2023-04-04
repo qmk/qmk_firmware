@@ -1,4 +1,4 @@
-# magtray4x4
+# magtray4x3
 
 ![magtray4x3](imgur.com image replace me!)
 
