@@ -1,5 +1,5 @@
 {
-    "manufacturer": "Alabahuy",
+    "manufacturer": "Jaykeeb Studio",
     "keyboard_name": "kamigakushi",
     "maintainer": "Alabahuy",
     "bootloader": "rp2040",
@@ -15,7 +15,7 @@
     },
     "indicators": {
         "caps_lock": "GP17",
-        "on_state": 1
+        "on_state": 0
     },
     "rgblight": {
         "led_count": 2,
@@ -45,7 +45,7 @@
         "rows": ["GP24", "GP29", "GP6", "GP15", "GP16"]
     },
     "processor": "RP2040",
-    "url": "",
+    "url": "https://www.tokopedia.com/jaykeeb",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0765",
