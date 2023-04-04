@@ -19,6 +19,10 @@
 #include <ch.h>
 #include <hal.h>
 
+// Need to disable GCC's "tautological-compare" warning for this file, as it causes issues when running `KEEP_INTERMEDIATES=yes`. Corresponding pop at the end of the file.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wtautological-compare"
+
 /*
   Audio Driver: DAC
 
@@ -335,3 +339,5 @@ void audio_driver_start(void) {
     active_tones_snapshot_length = 0;
     state                        = OUTPUT_SHOULD_START;
 }
+
+#pragma GCC diagnostic pop
