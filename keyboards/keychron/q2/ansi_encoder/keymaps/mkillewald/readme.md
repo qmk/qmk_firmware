@@ -35,13 +35,17 @@ Please make sure to save any customizations you have made in VIA to a .json file
 
 ## Optional .json Configuration File
 
-keychron_q2_ansi_knob_configure_mkillewald.json
+[https://drive.google.com/file/d/1aLno7NCXyGtsXduB4LRbHoctklYt4Psh/view?usp=share_link](keychron_q2_ansi_knob_configure_mkillewald.json)
 
 I have included an optional .json configuration file which can be loaded in VIA on the Configure Tab (keyboard icon) to make the following layout changes:
 
 - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
 
 - Fn1+Q in Mac mode will lock and sleep display
+
+- Uses Grave Escape on key to the left of the 1 key:
+    - Base Layer: key functions as ESC, shift+key gives ~
+    - Fn1 and Fn2 Layer: Fn+key gives `
 
 - Changes the two vertical keys under the knob as follows:
     - Base Layer: PGUP and PGDN
@@ -67,5 +71,3 @@ It seems Keychron has not pushed the relavant code to the main QMK repo yet. I s
 
 v1.0.0  March 19, 2023 
 - Carried over features from my Q1V2 keymap.
-
- 
