@@ -28,6 +28,7 @@
     "BOOTMAGIC_LITE_COLUMN_RIGHT": {"info_key": "split.bootmagic.matrix.1", "value_type": "int"},
     "BOTH_SHIFTS_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.both_shifts_turns_on", "value_type": "bool"},
     "CAPS_WORD_IDLE_TIMEOUT": {"info_key": "caps_word.idle_timeout", "value_type": "int"},
+    "CAPS_WORD_INVERT_ON_SHIFT": {"info_key": "caps_word.invert_on_shift", "value_type": "bool"},
     "COMBO_COUNT": {"info_key": "combo.count", "value_type": "int"},
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
     "DEBOUNCE": {"info_key": "debounce", "value_type": "int"},
@@ -133,7 +134,7 @@
     "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true},
     "TAPPING_FORCE_HOLD": {"info_key": "tapping.force_hold", "value_type": "bool", "deprecated": true},
     "TAPPING_FORCE_HOLD_PER_KEY": {"info_key": "tapping.force_hold_per_key", "value_type": "bool", "deprecated": true},
-    "IGNORE_MOD_TAP_INTERRUPT": {"info_key": "_deprecated.ignore_mod_tap_interrupt", "value_type": "bool", "deprecated": true},
+    "IGNORE_MOD_TAP_INTERRUPT": {"info_key": "_invalid.ignore_mod_tap_interrupt", "value_type": "bool", "invalid": true},
     "IGNORE_MOD_TAP_INTERRUPT_PER_KEY": {"info_key": "_invalid.ignore_mod_tap_interrupt_per_key", "invalid": true}
 
     // USB params, need to mark as failure when specified in config.h, rather than deprecated

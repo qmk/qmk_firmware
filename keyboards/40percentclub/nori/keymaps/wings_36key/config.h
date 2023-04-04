@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define IGNORE_MOD_TAP_INTERRUPT  // MT key must be held longer than tapping term for
-                                  // modifer to be registered
 #define RETRO_TAPPING_PER_KEY
 #define TAPPING_TERM_PER_KEY
 

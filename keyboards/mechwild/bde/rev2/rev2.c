@@ -16,22 +16,6 @@
 
 #include "quantum.h"
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    switch (index) {
-        case 0:
-            if (clockwise) {
-                tap_code(KC_VOLU);
-            } else {
-                tap_code(KC_VOLD);
-            }
-        break;
-    }
-    return true;
-}
-#endif
-
 #ifdef OLED_ENABLE
 static const char PROGMEM mw_logo[] = {
     0x8A, 0x8B, 0x8C, 0x8D, '\r',
