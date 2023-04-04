@@ -21,7 +21,6 @@
         "rgb_matrix": true,
         "rgblight": false
     },
-    "debounce": 5,
     "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
