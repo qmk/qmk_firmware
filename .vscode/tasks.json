@@ -2,10 +2,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Load Keyboard & Refresh Outline",
+            "label": "Load Keyboard",
             "dependsOrder": "sequence",
             "dependsOn":[
-                "Load Keyboard",
+                "Only Load Keyboard",
                 "Configure CMake"
             ],
             "group": {
@@ -14,9 +14,9 @@
             }
         },
         {
-            "label": "Load Keyboard",
+            "label": "Only Load Keyboard",
             "type": "shell",
-            "command": "cmake -Bbuild -DQMK_KEYBOARD_FOLDER=${input:all_keyboards}",
+            "command": "cmake -D QMK_KEYBOARD_FOLDER=\"${input:all_keyboards}\" -D QMK_KEYMAP_FOLDER=\"${input:keymap}\" -P ${workspaceFolder}/cmake/ConfigureKeyboard.cmake",
             "problemMatcher": []
         },
         {
@@ -73,15 +73,6 @@
     ],
     "inputs": [
         {
-            "id": "keyboard",
-            "description": "Keyboard:",
-            "type": "pickString",
-            "options":[
-                "planck/rev5",
-                "olkb/planck/rev3"
-            ]
-        },
-        {
             "id": "keyboard_target",
             "type": "command",
             "command": "shellCommand.execute",
@@ -97,8 +88,17 @@
             "command": "shellCommand.execute",
             "args": {
                 "command": "type build\\all_keyboards",
-                "description": "Keyboard:"
+                "description": "Keyboard:",
+                "default": ""
             },
-        }
+        },
+        {
+            "id": "keymap",
+            "description": "Keymap:",
+            "type": "pickString",
+            "options":[
+                "default"
+            ]
+        },
     ]
 }

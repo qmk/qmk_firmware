@@ -72,5 +72,5 @@ macro(add_keyboard KEYBOARD_FOLDER KEYMAP_FOLDER)
       -DTARGET_NAME=${TARGET_NAME}
   )
   
-file(APPEND "${CMAKE_SOURCE_DIR}/build/targets" "${TARGET_NAME}|${KEYBOARD_NAME} with ${KEYMAP_FOLDER}|${KEYBOARD_FOLDER}|Made by: ${MANUFACTURER}\n")
+# file(APPEND "${CMAKE_SOURCE_DIR}/build/targets" "${TARGET_NAME}|${KEYBOARD_NAME} with ${KEYMAP_FOLDER}|${KEYBOARD_FOLDER}|Made by: ${MANUFACTURER}\n")
 endmacro(add_keyboard)

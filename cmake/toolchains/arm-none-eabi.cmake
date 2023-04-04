@@ -30,8 +30,8 @@ set(AVR_SIZE           "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-size${OS_SUFFIX}"    
 
 find_program(CMAKE_MAKE_PROGRAM NAME make
     PATHS
-    $<$<WIN32>:"${CMAKE_SOURCE_DIR}/toolchains/avr-gcc-12.1.0-x64-windows/bin/">
-    $<$UNIX>:"${CMAKE_SOURCE_DIR}/toolchains/avr-gcc-12.1.0-x64-linux/bin/">
+    "${CMAKE_SOURCE_DIR}/toolchains/avr-gcc-12.1.0-x64-windows/bin/"
+    "${CMAKE_SOURCE_DIR}/toolchains/avr-gcc-12.1.0-x64-linux/bin/"
     /usr/bin/
     /usr/local/bin
     /bin/
@@ -100,36 +100,17 @@ else()
     )
 endif()
 
-# include_directories("C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/avr/include")
-
 macro(add_qmk_executable target_name)
 
-    set(elf_file ${target_name}-${QMK_MCU}.elf)
-    set(map_file ${target_name}-${QMK_MCU}.map)
-    set(hex_file ${target_name}-${QMK_MCU}.hex)
-    set(lst_file ${target_name}-${QMK_MCU}.lst)
-
-    # add_link_options(-Wl,--gc-sections,-nostartfiles)
+    set(elf_file ${target_name}.elf)
+    set(map_file ${target_name}.map)
+    set(hex_file ${target_name}.hex)
+    set(lst_file ${target_name}.lst)
 
     # create elf file
-    add_executable(${elf_file}
-        ${ARGN}
-    )
+    add_executable(${elf_file} ${ARGN})
 
-    target_link_libraries(${elf_file} 
-    PUBLIC 
-        quantum 
-        tmk_core_protocol
-        platforms
-    )
-
-    # set_target_properties(
-    #     ${elf_file}
-
-    #     PROPERTIES
-    #         COMPILE_FLAGS "-mmcu=${QMK_MCU} -g -w -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics"
-    #         LINK_FLAGS    "-mmcu=${QMK_MCU} -Wl,-Map,${map_file}"
-    # )
+    target_link_libraries(${elf_file} qmk)
 
     # generate the lst file
     add_custom_command(
@@ -169,11 +150,16 @@ macro(add_qmk_executable target_name)
         DEPENDS ${hex_file}
     )
 
+    add_custom_target(copy_hex
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${elf_file}> ${CMAKE_SOURCE_DIR}/build/${target_name}.hex
+        DEPENDS ${hex_file}
+    )
+
     # build the intel hex file for the device
     add_custom_target(
         ${target_name}
         ALL
-        DEPENDS ${hex_file} ${lst_file} "print-size-${elf_file}" "print-size-${hex_file}"
+        DEPENDS ${hex_file} ${lst_file} "print-size-${elf_file}" "print-size-${hex_file}" copy_hex
     )
 
     set_target_properties(

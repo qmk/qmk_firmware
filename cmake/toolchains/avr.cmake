@@ -95,8 +95,6 @@ add_link_options(
     -Wl,--gc-sections
 )
 
-# include_directories("C:/Users/Jack/Downloads/avr-gcc-12.1.0-x64-windows/avr/include")
-
 macro(add_qmk_executable target_name)
 
     set(elf_file ${target_name}.elf)

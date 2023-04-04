@@ -44,7 +44,7 @@ resolve_keymap_c(${QMK_KEYBOARD_FOLDER_ABS} ${QMK_KEYMAP_FOLDER} QMK_KEYMAP_C)
 
 message(STATUS "config.h: ${QMK_KEYBOARD_CONFIG_H}")
 message(STATUS "keyboard.h: ${QMK_KEYBOARD_H}")
-message(STATUS "Keymap.c: ${QMK_KEYMAP_C}")
+message(STATUS "keymap.c: ${QMK_KEYMAP_C}")
 
 validate_json(${QMK_KEYBOARD_FOLDER_ABS}/info.json keyboard QMK_KEYBOARD_INFO_JSON_STRING)
 
