@@ -272,6 +272,9 @@
     "jones": {
         "target": "jones/v03_1"
     },
+    "kamigakushi": {
+        "target": "jaykeeb/kamigakushi"
+    },
     "katana60": {
         "target": "rominronin/katana60/rev1"
     },
