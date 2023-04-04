@@ -23,15 +23,13 @@
             "label": "Configure CMake",
             "type": "cmake",
             "command": "configure"
-            // "command": "${command:cmake.configure}",
-            // "problemMatcher": [],
         },
         {
             "label": "Build",
             "problemMatcher": [
                 {
                     "base": "$gcc",
-                    "fileLocation": ["relative", "${workspaceRoot}/build"]
+                    "fileLocation": ["relative", "${workspaceFolder}/build"]
                 },
             ],
             "options": {
@@ -42,57 +40,36 @@
             "type": "cmake",
             "command": "build",
             "targets":[
-                "${input:keyboard_safe}"
+                "${input:keyboard_target}"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            // "type": "shell",
-            // "command": "cmake --build build --target ${input:keyboard_safe}",
-            // "problemMatcher": [],
-            // "group": {
-            //     "kind": "build",
-            //     "isDefault": true
-            // }
-            // "type": "cmake",
-            // "command": "build",
-            // "targets":[
-            //     "${input:keyboard_safe}"
-            // ]
         },
-        {
-            "label": "Rebuild",
-            // "type": "process",
-            // "command": "cmake",
-            // "args": [
-            //     "--build",
-            //     "build",
-            //     "--target",
-            //     "${input:keyboard_safe}",
-            //     "--clean-first"
-            // ],
-            "problemMatcher": [
-                {
-                    "base": "$gcc",
-                    "fileLocation": ["relative", "${workspaceRoot}/build"]
-                },
-            ],
-            "options": {
-                "environment": {
-                    "CLICOLOR_FORCE": "1"
-                }
-            },
-            "type": "cmake",
-            "command": "cleanRebuild",
-            "targets":[
-                "${input:keyboard_safe}"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-        }
+        // {
+        //     "label": "Rebuild",
+        //     "problemMatcher": [
+        //         {
+        //             "base": "$gcc",
+        //             "fileLocation": ["relative", "${workspaceFolder}/build"]
+        //         },
+        //     ],
+        //     "options": {
+        //         "environment": {
+        //             "CLICOLOR_FORCE": "1"
+        //         }
+        //     },
+        //     "type": "cmake",
+        //     "command": "cleanRebuild",
+        //     "targets":[
+        //         "${input:keyboard_target}"
+        //     ],
+        //     "group": {
+        //         "kind": "build",
+        //         "isDefault": true
+        //     },
+        // }
     ],
     "inputs": [
         {
@@ -105,33 +82,14 @@
             ]
         },
         {
-            "id": "keyboard_safe",
-            "description": "Keyboard:",
-            "type": "pickString",
-            "options":[
-                "planck_rev5_default",
-                "olkb_planck_rev3_default"
-            ]
-        },
-        // {
-        //     "type": "command",
-        //     "id": "keyboard",
-        //     "command": "extension.commandvariable.pickStringRemember",
-        //     "args": {
-        //       "description": "select an option :",
-        //       "options": [
-        //         ["always 1", "5000"],
-        //         ["always 2", "5100"]
-        //       ],
-        //       "default": "",
-        //       "fileName": "${workspaceFolder}/data/keyboards.json",
-        //       "pattern": {
-        //         "regexp": "^\\s*(?!#)([^=]+?)\\s*=\\s*(?:(\\{.+\\})|(.+))$",
-        //         "label": "$1",
-        //         "json": "$2",
-        //         "value": "$3"
-        //       }
-        //     }
-        //   }
+            "id": "keyboard_target",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "type build\\targets",
+                "description": "Target:",
+                "fieldSeparator": "|"
+            },
+        }
     ]
 }

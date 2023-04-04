@@ -20,6 +20,7 @@ add_library(quantum
     debounce/sym_defer_g.c
     bootmagic/magic.c
 )
+
 target_include_directories(quantum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(quantum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/logging)
 target_include_directories(quantum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/keymap_extras)
@@ -27,11 +28,11 @@ target_include_directories(quantum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/process_ke
 target_include_directories(quantum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/sequencer)
 target_include_directories(quantum PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/bootmagic)
 
-target_link_libraries(quantum PUBLIC platforms)
-if(${CMAKE_SYSTEM_PROCESSOR} STREQUAL "avr")
-    target_link_libraries(quantum PUBLIC platforms_avr)
-endif()
-target_link_libraries(quantum PUBLIC tmk_core_protocol)
+target_link_libraries(quantum ${QMK_TARGET})
+target_link_libraries(quantum platforms)
+target_link_libraries(quantum platforms_${QMK_PLATFORM})
+target_link_libraries(quantum tmk_core_protocol)
+target_link_libraries(quantum tmk_core_protocol_${QMK_PROTOCOL})
 
 # if no printf
 # target_sources(quantum PRIVATE ${CMAKE_SOURCE_DIR}/lib/printf/src/printf/printf.c)

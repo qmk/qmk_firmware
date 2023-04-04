@@ -23,5 +23,9 @@ find_package(lufa REQUIRED)
 
 target_include_directories(tmk_core_protocol_lufa PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(tmk_core_protocol_lufa PUBLIC lufa)
-target_link_libraries(tmk_core_protocol_lufa PUBLIC quantum)
+target_link_libraries(tmk_core_protocol_lufa ${QMK_TARGET})
+target_link_libraries(tmk_core_protocol_lufa quantum)
+target_link_libraries(tmk_core_protocol_lufa tmk_core_protocol)
+target_link_libraries(tmk_core_protocol_lufa lufa)
+target_link_libraries(tmk_core_protocol_lufa platforms)
+target_link_libraries(tmk_core_protocol_lufa platforms_${QMK_PLATFORM})

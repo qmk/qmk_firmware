@@ -1,5 +1,7 @@
 include(ExternalProject)
 include(AddKeyboard)
+  
+file(WRITE "${CMAKE_SOURCE_DIR}/build/targets" "")
 
 if(DEFINED QMK_KEYBOARD_FOLDER)
   if(NOT DEFINED QMK_KEYMAP_FOLDER)

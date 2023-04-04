@@ -19,5 +19,10 @@ add_library(lufa
     ${LUFA_ROOT_PATH}/Drivers/USB/Core/${ARCH}/Endpoint_${ARCH}.c
     ${LUFA_ROOT_PATH}/Drivers/USB/Core/${ARCH}/EndpointStream_${ARCH}.c
     ${LUFA_ROOT_PATH}/Drivers/USB/Core/DeviceStandardReq.c
+    ${LUFA_PATH}/LUFA/Drivers/USB/USB.h
 )
 target_include_directories(lufa PUBLIC ${LUFA_PATH})
+
+target_link_libraries(lufa ${QMK_TARGET})
+target_link_libraries(lufa tmk_core_protocol)
+target_link_libraries(lufa tmk_core_protocol_lufa)

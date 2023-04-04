@@ -1,4 +1,6 @@
-set(TRIPLE "arm-none-eabi")
+include(ResolveToolchain)
+
+set(QMK_TOOLCHAIN "arm-none-eabi")
 set(QMK_PLATFORM "chibios")
 set(QMK_PROTOCOL "chibios")
 
@@ -7,25 +9,33 @@ if(UNIX)
 elseif(WIN32)
     set(OS_SUFFIX ".exe")
 endif()
-# include(FindARMToolchain)
-# find_arm_toolchain()
+
+find_toolchain(arm-none-eabi TOOLCHAIN_ROOT)
 
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
 set(CMAKE_CROSS_COMPILING 1)
 
-set(CMAKE_MAKE_PROGRAM "${MAKE_ROOT}/make${OS_SUFFIX}"                   CACHE PATH "make"    FORCE)
-set(CMAKE_C_COMPILER   "${TOOLCHAIN_ROOT}/${TRIPLE}-gcc${OS_SUFFIX}"     CACHE PATH "gcc"     FORCE)
-set(CMAKE_CXX_COMPILER "${TOOLCHAIN_ROOT}/${TRIPLE}-g++${OS_SUFFIX}"     CACHE PATH "g++"     FORCE)
-set(CMAKE_AR           "${TOOLCHAIN_ROOT}/${TRIPLE}-ar${OS_SUFFIX}"      CACHE PATH "ar"      FORCE)
-set(CMAKE_AS           "${TOOLCHAIN_ROOT}/${TRIPLE}-as${OS_SUFFIX}"      CACHE PATH "as"      FORCE)
-set(CMAKE_LINKER       "${TOOLCHAIN_ROOT}/${TRIPLE}-ld${OS_SUFFIX}"      CACHE PATH "linker"  FORCE)
-set(CMAKE_NM           "${TOOLCHAIN_ROOT}/${TRIPLE}-nm${OS_SUFFIX}"      CACHE PATH "nm"      FORCE)
-set(CMAKE_OBJCOPY      "${TOOLCHAIN_ROOT}/${TRIPLE}-objcopy${OS_SUFFIX}" CACHE PATH "objcopy" FORCE)
-set(CMAKE_OBJDUMP      "${TOOLCHAIN_ROOT}/${TRIPLE}-objdump${OS_SUFFIX}" CACHE PATH "objdump" FORCE)
-set(CMAKE_STRIP        "${TOOLCHAIN_ROOT}/${TRIPLE}-strip${OS_SUFFIX}"   CACHE PATH "strip"   FORCE)
-set(CMAKE_RANLIB       "${TOOLCHAIN_ROOT}/${TRIPLE}-ranlib${OS_SUFFIX}"  CACHE PATH "ranlib"  FORCE)
-set(AVR_SIZE           "${TOOLCHAIN_ROOT}/${TRIPLE}-size${OS_SUFFIX}"    CACHE PATH "size"    FORCE)
+set(CMAKE_C_COMPILER   "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-gcc${OS_SUFFIX}"     CACHE PATH "gcc"     FORCE)
+set(CMAKE_CXX_COMPILER "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-g++${OS_SUFFIX}"     CACHE PATH "g++"     FORCE)
+set(CMAKE_AR           "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-ar${OS_SUFFIX}"      CACHE PATH "ar"      FORCE)
+set(CMAKE_AS           "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-as${OS_SUFFIX}"      CACHE PATH "as"      FORCE)
+set(CMAKE_LINKER       "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-ld${OS_SUFFIX}"      CACHE PATH "linker"  FORCE)
+set(CMAKE_NM           "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-nm${OS_SUFFIX}"      CACHE PATH "nm"      FORCE)
+set(CMAKE_OBJCOPY      "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-objcopy${OS_SUFFIX}" CACHE PATH "objcopy" FORCE)
+set(CMAKE_OBJDUMP      "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-objdump${OS_SUFFIX}" CACHE PATH "objdump" FORCE)
+set(CMAKE_STRIP        "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-strip${OS_SUFFIX}"   CACHE PATH "strip"   FORCE)
+set(CMAKE_RANLIB       "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-ranlib${OS_SUFFIX}"  CACHE PATH "ranlib"  FORCE)
+set(AVR_SIZE           "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-size${OS_SUFFIX}"    CACHE PATH "size"    FORCE)
+
+find_program(CMAKE_MAKE_PROGRAM NAME make
+    PATHS
+    $<$<WIN32>:"${CMAKE_SOURCE_DIR}/toolchains/avr-gcc-12.1.0-x64-windows/bin/">
+    $<$UNIX>:"${CMAKE_SOURCE_DIR}/toolchains/avr-gcc-12.1.0-x64-linux/bin/">
+    /usr/bin/
+    /usr/local/bin
+    /bin/
+)
 
 add_compile_options(
     $<$<COMPILE_LANGUAGE:C>:-std=gnu11>
