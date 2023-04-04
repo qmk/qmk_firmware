@@ -1,14 +1,14 @@
 {
     "usb": {
-        "device_version": "0.0.1"
+        "device_version": "0.0.3"
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
-        "rows": ["A10", "B13", "B12", "B11", "C14", "C15"],
-        "cols": ["C13", "B9", "B4", "B7", "B8", "B5", "B6", "A9", "A5", "A6", "A7", "B1", "B2", "B10", "B3", "B14", "B15"]
+        "rows": ["A8", "A9", "A10", "B11", "C13", "C14"],
+        "cols": ["B14", "B13", "B12", "B2", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "A15", "B3", "B4"]
     },
     "features": {
-        "backlight": true,
+        "backlight": false,
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
@@ -19,7 +19,7 @@
     },
     "rgblight": {
         "led_count": 26,
-        "pin": "A15",
+        "pin": "B15",
         "animations": {
             "knight": true,
             "rainbow_swirl": true,
@@ -33,16 +33,11 @@
             "breathing": true
         },
     },
-    "backlight": {
-        "pin": "B0",
-        "breathing": true
-    },
     "indicators": {
-        "caps_lock": "A4",
-        "num_lock": "A3",
-        "scroll_lock": "A8"
+        "caps_lock": "B10",
+        "scroll_lock": "B5"
     },
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C"
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "board": "STM32_F103_STM32DUINO"
 }

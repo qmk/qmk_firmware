@@ -1,6 +1,6 @@
-# infinity87
+# infinity88
 
-![infinity87](https://i.imgur.com/9JGxJjVl.png)
+![infinity88](https://i.imgur.com/9JGxJjVl.png)
 
 A replacement PCB for TKL keyboard. South-facing stabilisers.  
 
