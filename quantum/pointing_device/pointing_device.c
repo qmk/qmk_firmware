@@ -27,8 +27,8 @@
 
 extern const pointing_device_config_t pointing_device_configs[POINTING_DEVICE_COUNT];
 
-report_mouse_t local_report = {0};
-bool           report_ready = false;
+const report_mouse_t empty_report = {0};
+report_mouse_t       local_report = {0};
 
 #if defined(SPLIT_KEYBOARD)
 report_mouse_t               shared_report                     = {0};
@@ -115,6 +115,14 @@ __attribute__((weak)) uint8_t pointing_device_handle_buttons(uint8_t buttons, bo
     return buttons;
 }
 
+bool pointing_device_report_ready(report_mouse_t* last_report, report_mouse_t* new_report, bool* device_was_ready) {
+    bool ready = has_mouse_report_changed(last_report, new_report);
+    if (device_was_ready) {
+        ready |= memcmp(new_report, &empty_report, sizeof(report_mouse_t)) != 0; // report is should be sent if the device was ready and not zero
+    }
+    return ready;
+}
+
 __attribute__((weak)) void pointing_device_init(void) {
     for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
 #if defined(SPLIT_KEYBOARD)
@@ -131,56 +139,47 @@ __attribute__((weak)) void pointing_device_init(void) {
     }
 }
 
-__attribute__((weak)) bool pointing_device_send(void) {
-    static report_mouse_t old_report   = {};
-    report_mouse_t        empty_report = {0};
-    bool report_changed = has_mouse_report_changed(&local_report, &old_report) || (report_ready && (memcmp(&local_report, &empty_report, sizeof(report_mouse_t)) != 0));
-    // If you need to do other things, like debugging, this is the place to do it.
-    if (report_changed) { // report should be sent if it has movement when the device was ready.
-        host_mouse_send(&local_report);
-    }
+__attribute__((weak)) void pointing_device_send(report_mouse_t* sending_report) {
+    host_mouse_send(sending_report);
+
     // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device
-    uint8_t buttons = local_report.buttons;
-    memset(&local_report, 0, sizeof(local_report));
-    local_report.buttons = buttons;
-    memcpy(&old_report, &local_report, sizeof(local_report));
-    return report_changed;
+    uint8_t buttons = sending_report->buttons;
+    memset(sending_report, 0, sizeof(report_mouse_t));
+    sending_report->buttons = buttons;
 }
 
 __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, bool pressed) {
     if IS_MOUSEKEY_BUTTON (keycode) {
         local_report.buttons = pointing_device_handle_buttons(local_report.buttons, pressed, keycode - KC_MS_BTN1);
-        pointing_device_send();
+        pointing_device_send(&local_report);
     }
 }
 
-report_mouse_t pointing_device_adjust_report(report_mouse_t report, uint8_t index) {
-    mouse_xy_report_t x = 0, y = 0;
-    x = report.x;
-    y = report.y;
+void pointing_device_adjust_report(report_mouse_t* report, uint8_t index) {
+    mouse_xy_report_t x = report->x;
+    mouse_xy_report_t y = report->y;
     switch (pointing_device_configs[index].rotation) {
         case ROTATE_90:
-            report.x = y;
-            report.y = -x;
+            report->x = y;
+            report->y = -x;
             break;
         case ROTATE_180:
-            report.x = -x;
-            report.y = -y;
+            report->x = -x;
+            report->y = -y;
             break;
         case ROTATE_270:
-            report.x = -y;
-            report.y = x;
+            report->x = -y;
+            report->y = x;
             break;
         default:
             break;
     }
     if (pointing_device_configs[index].invert == INVERT_X || pointing_device_configs[index].invert == INVERT_XY) {
-        report.x = -report.x;
+        report->x = -report->x;
     }
     if (pointing_device_configs[index].invert == INVERT_Y || pointing_device_configs[index].invert == INVERT_XY) {
-        report.y = -report.y;
+        report->y = -report->y;
     }
-    return report;
 }
 
 void pointing_device_add_and_clamp_report(report_mouse_t* report, report_mouse_t* additional_report) {
@@ -207,9 +206,8 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
     return ready;
 }
 
-report_mouse_t pointing_deivce_task_get_pointing_reports(bool* was_ready) {
-    report_mouse_t temp_report = {0};
-    *was_ready                 = false;
+bool pointing_deivce_task_get_pointing_reports(report_mouse_t* report) {
+    bool device_was_ready = false;
     for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
         report_mouse_t loop_report = {0};
 #if defined(SPLIT_KEYBOARD)
@@ -217,56 +215,70 @@ report_mouse_t pointing_deivce_task_get_pointing_reports(bool* was_ready) {
             continue; // skip processing devices not on this side
         }
 #endif
-        bool device_ready = pointing_device_is_ready(pointing_device_configs[i], i);
-        *was_ready |= device_ready;
-        if (device_ready) {
-            loop_report = pointing_device_configs[i].driver->get_report ? pointing_device_configs[i].driver->get_report(pointing_device_configs[i].config) : loop_report;
-            loop_report = pointing_device_adjust_report(loop_report, i);
-            loop_report = pointing_device_task_kb(loop_report, i);
-            pointing_device_add_and_clamp_report(&temp_report, &loop_report);
+        if (pointing_device_configs[i].driver->get_report && pointing_device_is_ready(pointing_device_configs[i], i)) { // get_report is not NULL and device is ready
+            device_was_ready = true;
+            loop_report      = pointing_device_configs[i].driver->get_report(pointing_device_configs[i].config);
+            pointing_device_adjust_report(&loop_report, i);
+            loop_report = pointing_device_task_kb(loop_report, i); // Maybe simpler to not pass pointer to user?
+            pointing_device_add_and_clamp_report(report, &loop_report);
         }
     }
-    return temp_report;
+    return device_was_ready;
+}
+
+bool pointing_device_task_handle_shared_report(report_mouse_t* local_report, bool* device_was_ready) {
+    static uint8_t counter = 0;
+
+    if (is_keyboard_master()) {
+        if (counter != shared_report.report_id) {
+            pointing_device_add_and_clamp_report(local_report, &shared_report);
+            counter           = shared_report.report_id;
+            *device_was_ready = true;
+            return true;
+        }
+    } else {
+        if (*device_was_ready) {
+            if (pointing_device_report_ready(&shared_report, local_report, device_was_ready)) {
+                memcpy(&shared_report, local_report, sizeof(report_mouse_t));
+                shared_report.report_id = counter; // FIX ME - can't use the report id for this counter.
+                if (counter == UINT8_MAX) {
+                    counter = 0;
+                } else {
+                    counter++;
+                }
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 __attribute__((weak)) bool pointing_device_task(void) {
-    local_report = pointing_deivce_task_get_pointing_reports(&report_ready);
+    bool device_was_ready = pointing_deivce_task_get_pointing_reports(&local_report);
 
-    // automatic mouse layer function
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-    pointing_device_task_auto_mouse(local_report);
+#if defined(SPLIT_KEYBOARD)
+    pointing_device_task_handle_shared_report(&local_report, &device_was_ready);
 #endif
+
     // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
     report_mouse_t mousekey_report = mousekey_get_report();
     local_report.buttons           = local_report.buttons | mousekey_report.buttons;
 #endif
 
-#if defined(SPLIT_KEYBOARD)
-    if (is_keyboard_master()) {
-        static report_mouse_t last_shared_report = {0};
-        if (memcmp(&last_shared_report, &shared_report, sizeof(report_mouse_t)) != 0) { // ensure shared report has changed, the target may have not updated this yet due to throttle or motion pin.
-            pointing_device_add_and_clamp_report(&local_report, &shared_report);
-            last_shared_report = shared_report;
-            report_ready       = true;
-        }
-    } else {
-        if (report_ready) { // even if the device produces the same or zero movement but was ready it should be sent, counter is used to ensure report is different. Note: implement debug prints for missed reports
-            shared_report           = local_report;
-            static uint8_t counter  = 0;
-            shared_report.report_id = counter; // FIX ME - can't use the report id for this counter.
-            if (counter == UINT8_MAX) {
-                counter = 0;
-            } else {
-                counter++;
-            }
-        }
-        return report_ready;
-    }
+    report_mouse_t last_sent_report    = {0};
+    bool           report_is_different = pointing_device_report_ready(&last_sent_report, &local_report, &device_was_ready);
+    if (report_is_different) {
+        // automatic mouse layer function
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+        pointing_device_task_auto_mouse(local_report);
 #endif
 
-    return pointing_device_send();
+        memcpy(&last_sent_report, &local_report, sizeof(report_mouse_t));
+        pointing_device_send(&local_report);
+    }
 
+    return report_is_different;
 }
 
 /**

@@ -49,8 +49,8 @@ typedef enum {
 } pointing_device_invert_t;
 
 typedef struct {
-    pin_t   cs;
-    uint8_t mode;
+    pin_t    cs;
+    uint8_t  mode;
     uint16_t divisor;
 } pointing_device_spi_config_t;
 
@@ -100,23 +100,23 @@ typedef enum {
 } pointing_device_buttons_t;
 
 #if defined(POINTING_DEVICE_DRIVER_ADNS9800)
-#include "adns9800.h"
+#    include "adns9800.h"
 #endif
 #if defined(POINTING_DEVICE_DRIVER_AZOTEQ_IQS5XX)
-#include "azoteq_iqs5xx.h"
+#    include "azoteq_iqs5xx.h"
 #endif
 #if defined(POINTING_DEVICE_DRIVER_CIRQUE_PINNACLE_I2C) || defined(POINTING_DEVICE_DRIVER_CIRQUE_PINNACLE_SPI)
-#include "cirque_pinnacle.h"
+#    include "cirque_pinnacle.h"
 #endif
 #if defined(POINTING_DEVICE_DRIVER_PIMORONI_TRACKBALL)
-#include "pimoroni_trackball.h"
-#endif 
+#    include "pimoroni_trackball.h"
+#endif
 #if defined(POINTING_DEVICE_DRIVER_PMW3360)
-#include "pmw3360.h"
-#endif 
+#    include "pmw3360.h"
+#endif
 #if defined(POINTING_DEVICE_DRIVER_PMW3389)
-#include "pmw3389.h"
-#endif 
+#    include "pmw3389.h"
+#endif
 
 #ifdef MOUSE_EXTENDED_REPORT
 #    define XY_REPORT_MIN INT16_MIN
@@ -132,13 +132,12 @@ typedef int16_t clamp_range_t;
     { 0 }
 #define POINTING_DEVICE_THIS_SIDE(index) (pointing_device_configs[index].side == (is_keyboard_left() ? LEFT : RIGHT))
 
-
 #define CONSTRAIN_HID(amt) ((amt) < INT8_MIN ? INT8_MIN : ((amt) > INT8_MAX ? INT8_MAX : (amt)))
 #define CONSTRAIN_HID_XY(amt) ((amt) < XY_REPORT_MIN ? XY_REPORT_MIN : ((amt) > XY_REPORT_MAX ? XY_REPORT_MAX : (amt)))
 
 void           pointing_device_init(void);
 bool           pointing_device_task(void);
-bool           pointing_device_send(void);
+void           pointing_device_send(report_mouse_t *sending_report);
 report_mouse_t pointing_device_get_report(void);
 void           pointing_device_set_report(report_mouse_t mouse_report);
 uint16_t       pointing_device_get_cpi(void);
@@ -152,9 +151,9 @@ void           pointing_device_init_user(void);
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report, uint8_t index);
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report, uint8_t index);
 uint8_t        pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button);
-report_mouse_t pointing_device_adjust_by_defines(report_mouse_t mouse_report);
+void           pointing_device_adjust_by_defines(report_mouse_t *report);
 void           pointing_device_keycode_handler(uint16_t keycode, bool pressed);
-report_mouse_t pointing_deivce_task_get_pointing_reports(bool *was_ready);
+bool           pointing_deivce_task_get_pointing_reports(report_mouse_t *report);
 
 void                          pointing_device_set_shared_report(report_mouse_t report);
 report_mouse_t                pointing_device_get_shared_report(void);
