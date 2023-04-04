@@ -28,6 +28,7 @@
     "BOOTMAGIC_LITE_COLUMN_RIGHT": {"info_key": "split.bootmagic.matrix.1", "value_type": "int"},
     "BOTH_SHIFTS_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.both_shifts_turns_on", "value_type": "bool"},
     "CAPS_WORD_IDLE_TIMEOUT": {"info_key": "caps_word.idle_timeout", "value_type": "int"},
+    "CAPS_WORD_INVERT_ON_SHIFT": {"info_key": "caps_word.invert_on_shift", "value_type": "bool"},
     "COMBO_COUNT": {"info_key": "combo.count", "value_type": "int"},
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
     "DEBOUNCE": {"info_key": "debounce", "value_type": "int"},
