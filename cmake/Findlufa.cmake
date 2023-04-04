@@ -23,6 +23,7 @@ add_library(lufa
 )
 target_include_directories(lufa PUBLIC ${LUFA_PATH})
 
-target_link_libraries(lufa ${QMK_TARGET})
-target_link_libraries(lufa tmk_core_protocol)
-target_link_libraries(lufa tmk_core_protocol_lufa)
+# target_link_libraries(lufa qmk)
+# target_link_libraries(lufa ${QMK_TARGET})
+# target_link_libraries(lufa tmk_core_protocol)
+# target_link_libraries(lufa tmk_core_protocol_lufa)

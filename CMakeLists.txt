@@ -101,6 +101,8 @@ else()
   add_qmk_executable(${QMK_KEYBOARD} ${KEYBOARD_SRC})
 endif()
 
+add_library(qmk)
+
 add_subdirectory(quantum)
 add_subdirectory(platforms)
 add_subdirectory(tmk_core/protocol)

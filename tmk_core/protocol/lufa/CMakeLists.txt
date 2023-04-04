@@ -1,7 +1,7 @@
 set(ARCH AVR8)
 set(USE_STATIC_OPTIONS "(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)")
 
-add_compile_definitions(
+target_compile_definitions(qmk PUBLIC
     PROTOCOL_LUFA
     ARCH=ARCH_${ARCH}
     BOARD=BOARD_NONE
@@ -13,7 +13,7 @@ add_compile_definitions(
     FIXED_NUM_CONFIGURATIONS=1
 )
 
-add_library(tmk_core_protocol_lufa 
+target_sources(qmk PUBLIC 
     lufa.c
     ../usb_descriptor.c
     usb_util.c 
@@ -21,11 +21,12 @@ add_library(tmk_core_protocol_lufa
 
 find_package(lufa REQUIRED)
 
-target_include_directories(tmk_core_protocol_lufa PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(qmk lufa)
 
-target_link_libraries(tmk_core_protocol_lufa ${QMK_TARGET})
-target_link_libraries(tmk_core_protocol_lufa quantum)
-target_link_libraries(tmk_core_protocol_lufa tmk_core_protocol)
-target_link_libraries(tmk_core_protocol_lufa lufa)
-target_link_libraries(tmk_core_protocol_lufa platforms)
-target_link_libraries(tmk_core_protocol_lufa platforms_${QMK_PLATFORM})
+# target_link_libraries(tmk_core_protocol_lufa ${QMK_TARGET})
+# target_link_libraries(tmk_core_protocol_lufa quantum)
+# target_link_libraries(tmk_core_protocol_lufa tmk_core_protocol)
+# target_link_libraries(tmk_core_protocol_lufa lufa)
+# target_link_libraries(tmk_core_protocol_lufa platforms)
+# target_link_libraries(tmk_core_protocol_lufa platforms_${QMK_PLATFORM})

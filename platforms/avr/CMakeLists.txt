@@ -4,7 +4,7 @@
 # add_link_options(
 #     -mmcu=${QMK_MCU}
 # )
-add_library(platforms_avr 
+target_sources(qmk PUBLIC 
     hardware_id.c
     platform.c
     suspend.c
@@ -13,7 +13,7 @@ add_library(platforms_avr
     bootloaders/bootloadhid.c
     xprintf.S
 )
-target_include_directories(platforms_avr PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-target_link_libraries(platforms_avr ${QMK_TARGET})
-target_link_libraries(platforms_avr quantum)
+# target_link_libraries(platforms_avr ${QMK_TARGET})
+# target_link_libraries(platforms_avr quantum)

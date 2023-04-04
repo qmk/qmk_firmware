@@ -116,7 +116,7 @@ macro(add_qmk_executable target_name)
     # create elf file
     add_executable(${QMK_TARGET} ${ARGN})
 
-    target_link_libraries(${QMK_TARGET} quantum)
+    target_link_libraries(${QMK_TARGET} qmk)
 
     # set_target_properties(${QMK_TARGET}
     #     PROPERTIES
