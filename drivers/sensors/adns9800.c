@@ -101,6 +101,13 @@ uint8_t adns9800_read(pointing_device_spi_config_t* spi_config, uint8_t reg_addr
 
     return data;
 }
+bool adns9800_check_device(const void *config){
+    pointing_device_spi_config_t* spi_config = (pointing_device_spi_config_t*)config;
+    uint8_t product_id = adns9800_read(spi_config, REG_Product_ID);
+    uint8_t inverse_id = adns9800_read(spi_config, REG_Inverse_Product_ID);
+    pd_dprintf("ADNS9800: PID: %x IID: %x\n", product_id, inverse_id);
+    return (product_id == 0x33 && inverse_id == 0xCC);
+}
 
 void adns9800_init(const void * config) {
     pointing_device_spi_config_t *spi_config = (pointing_device_spi_config_t*)config;
