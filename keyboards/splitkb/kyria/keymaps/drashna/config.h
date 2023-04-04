@@ -19,9 +19,10 @@
 #define EE_HANDS
 
 #ifdef OLED_ENABLE
-#    define OLED_IC OLED_IC_SH1107
-#    undef OLED_DISPLAY_128X64
-#    define OLED_DISPLAY_128X128
+#    ifdef OLED_DRIVER_SH1107
+#        undef OLED_DISPLAY_128X64
+#        define OLED_DISPLAY_128X128
+#    endif
 #endif
 
 #ifdef RGBLIGHT_ENABLE
