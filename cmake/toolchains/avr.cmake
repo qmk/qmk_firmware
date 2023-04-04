@@ -99,10 +99,10 @@ add_link_options(
 
 macro(add_qmk_executable target_name)
 
-    set(QMK_TARGET ${target_name}-${QMK_MCU}.elf)
-    set(map_file ${target_name}-${QMK_MCU}.map)
-    set(hex_file ${target_name}-${QMK_MCU}.hex)
-    set(lst_file ${target_name}-${QMK_MCU}.lst)
+    set(elf_file ${target_name}.elf)
+    set(map_file ${target_name}.map)
+    set(hex_file ${target_name}.hex)
+    set(lst_file ${target_name}.lst)
 
     add_compile_options(
         -mmcu=${QMK_MCU}
@@ -114,15 +114,16 @@ macro(add_qmk_executable target_name)
     )
 
     # create elf file
-    add_executable(qmk ${ARGN})
+    add_executable(${elf_file} ${ARGN})
 
-    set_target_properties(qmk
-        PROPERTIES OUTPUT_NAME ${QMK_TARGET}
-    )
+    # add_executable(qmk ${ARGN})
+    # set_target_properties(qmk
+        # PROPERTIES OUTPUT_NAME ${elf_file}
+    # )
 
-    # target_link_libraries(${QMK_TARGET} qmk)
+    target_link_libraries(${elf_file} qmk)
 
-    # set_target_properties(${QMK_TARGET}
+    # set_target_properties(${elf_file}
     #     PROPERTIES
     #         COMPILE_FLAGS "-mmcu=${QMK_MCU} ${COMPILE_OPTIONS}"
     #         LINK_FLAGS    "-mmcu=${QMK_MCU} ${LINK_OPTIONS}"
@@ -131,22 +132,22 @@ macro(add_qmk_executable target_name)
     # generate the lst file
     add_custom_command(
         OUTPUT ${lst_file}
-        COMMAND ${CMAKE_OBJDUMP} -h -S ${QMK_TARGET} > ${lst_file}
-        DEPENDS ${QMK_TARGET}
+        COMMAND ${CMAKE_OBJDUMP} -h -S ${elf_file} > ${lst_file}
+        DEPENDS ${elf_file}
     )
 
     # create hex file
     add_custom_command(
         OUTPUT ${hex_file}
-        # COMMAND ${CMAKE_OBJCOPY} -j .text -j .data -O ihex ${QMK_TARGET} ${hex_file}
-        COMMAND ${CMAKE_OBJCOPY} -O ihex -R .eeprom -R .fuse -R .lock -R .signature ${QMK_TARGET} ${hex_file}
-        DEPENDS ${QMK_TARGET}
+        # COMMAND ${CMAKE_OBJCOPY} -j .text -j .data -O ihex ${elf_file} ${hex_file}
+        COMMAND ${CMAKE_OBJCOPY} -O ihex -R .eeprom -R .fuse -R .lock -R .signature ${elf_file} ${hex_file}
+        DEPENDS ${elf_file}
     )
 
     add_custom_command(
-        OUTPUT "print-size-${QMK_TARGET}"
-        COMMAND ${AVR_SIZE} ${QMK_TARGET}
-        DEPENDS ${QMK_TARGET}
+        OUTPUT "print-size-${elf_file}"
+        COMMAND ${AVR_SIZE} ${elf_file}
+        DEPENDS ${elf_file}
     )
 
     add_custom_command(
@@ -155,12 +156,17 @@ macro(add_qmk_executable target_name)
         DEPENDS ${hex_file}
     )
 
+    add_custom_target(copy_hex
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${elf_file}> ${CMAKE_SOURCE_DIR}/build/${target_name}.hex
+        DEPENDS ${hex_file}
+    )
+
     # build the intel hex file for the device
     add_custom_target(${target_name} ALL
-        DEPENDS ${hex_file} ${lst_file} "print-size-${QMK_TARGET}" "print-size-${hex_file}"
+        DEPENDS ${hex_file} ${lst_file} "print-size-${elf_file}" "print-size-${hex_file}" copy_hex
     )
 
     set_target_properties(${target_name}
-        PROPERTIES OUTPUT_NAME ${QMK_TARGET}
+        PROPERTIES OUTPUT_NAME ${elf_file}
     )
 endmacro(add_qmk_executable)

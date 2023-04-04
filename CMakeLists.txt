@@ -8,10 +8,6 @@ include(ValidateJSON)
 
 set(QMK_KEYBOARDS_FOLDER "${CMAKE_SOURCE_DIR}/keyboards")
 
-# early declaration of macro defined in toolchain
-# macro(add_qmk_executable _)
-# endmacro(add_qmk_executable)
-
 function (_get_all_cmake_targets out_var current_dir)
     get_property(targets DIRECTORY ${current_dir} PROPERTY BUILDSYSTEM_TARGETS)
     get_property(subdirs DIRECTORY ${current_dir} PROPERTY SUBDIRECTORIES)
@@ -31,12 +27,6 @@ if(NOT DEFINED QMK_KEYBOARD)
 project(qmk_firmware)
 
 add_subdirectory(keyboards)
-
-# Run at end of top-level CMakeLists
-# _get_all_cmake_targets(all_targets ${CMAKE_SOURCE_DIR})
-# message(STATUS "All: ${all_targets}")
-# list(JOIN all_targets "\n" TARGET_FILE)
-# file(WRITE "${CMAKE_SOURCE_DIR}/build/targets" ${TARGET_FILE})
 
 else()
 
@@ -93,15 +83,15 @@ add_compile_definitions(
     PRODUCT="${KEYBOARD_NAME}"
 )
 
-if(EXISTS ${QMK_KEYBOARD_FOLDER_ABS}/CMakeLists.txt)
-  add_subdirectory(${QMK_KEYBOARD_FOLDER_ABS})
-else()
+# if(EXISTS ${QMK_KEYBOARD_FOLDER_ABS}/CMakeLists.txt)
+  # add_subdirectory(${QMK_KEYBOARD_FOLDER_ABS})
+# else()
   file(GLOB KEYBOARD_SRC "${QMK_KEYBOARD_FOLDER_ABS}/*.c")
   list(REMOVE_ITEM KEYBOARD_SRC "${QMK_KEYBOARD_KEYMAP}")
-  add_qmk_executable(${QMK_KEYBOARD} ${KEYBOARD_SRC})
-endif()
+  add_qmk_executable(${TARGET_NAME} ${KEYBOARD_SRC})
+# endif()
 
-# add_library(qmk)
+add_library(qmk)
 
 resolve_keyboard_includes(${QMK_KEYBOARD_FOLDER_ABS})
 
