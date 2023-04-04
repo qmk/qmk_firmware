@@ -51,7 +51,7 @@ typedef enum {
 typedef struct {
     pin_t   cs;
     uint8_t mode;
-    uint8_t divisor;
+    uint16_t divisor;
 } pointing_device_spi_config_t;
 
 typedef struct {
