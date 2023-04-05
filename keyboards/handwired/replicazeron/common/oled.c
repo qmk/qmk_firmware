@@ -20,78 +20,72 @@ uint8_t shiftbits =32 ;
 
 //////////// OLED output helpers //////////////
 void draw_mode(controller_state_t controller_state) {
-  //draw oled row showing thumbstick mode
-  oled_write_P(PSTR("Mode: "), false);
-  if (controller_state.wasdShiftMode) {
-    oled_write_ln_P(PSTR("WASD + Shift"), false);
-  } else if (controller_state.wasdMode) {
-    oled_write_ln_P(PSTR("WASD"), false);
-  } else {
-    oled_write_ln_P(PSTR("JoyStick"), false);
-  }
+    //draw oled row showing thumbstick mode
+    oled_write_P(PSTR("Mode: "), false);
+    if (controller_state.wasdShiftMode) {
+        oled_write_ln_P(PSTR("WASD + Shift"), false);
+    } else if (controller_state.wasdMode) {
+        oled_write_ln_P(PSTR("WASD"), false);
+    } else {
+        oled_write_ln_P(PSTR("JoyStick"), false);
+    }
 }
 
 void draw_wasd_key(wasd_state_t wasd_state) {
-  //draw oled row showing active keypresses emulated from thumbstick
-  const char* keys = "wasd" ;
-  bool keystates [] = {wasd_state.w, wasd_state.a, wasd_state.s, wasd_state.d } ;
-  // iterate over keystates
-  for ( int i = 0 ; i < 4 ; i++ ){
-    if ( keystates[i]) {
-      char k = keys[i] ;
-      //bitshift char to upper case
-      if (wasd_state.shift) {
-        k &= ~shiftbits;
-      }
-      sprintf (stringbuffer , "%c", k);
-      oled_write(stringbuffer , false);
+    //draw oled row showing active keypresses emulated from thumbstick
+    const char* keys = "wasd";
+    bool keystates [] = { wasd_state.w, wasd_state.a, wasd_state.s, wasd_state.d };
+    // iterate over keystates
+    for (uint8_t i = 0 ; i < ARRAY_SIZE(keystates); ++i) {
+        if (keystates[i]) {
+            char k = keys[i] ;
+            //bitshift char to upper case
+            if (wasd_state.shift) {
+                k &= ~shiftbits;
+            }
+            sprintf(stringbuffer, "%c", k);
+            oled_write(stringbuffer, false);
+        } else {
+            oled_write_P(PSTR(" "), false);
+        }
     }
-    else {
-      oled_write_P(PSTR(" "), false);
-    }
-  }
 }
 
 void draw_thumb_debug(thumbstick_polar_position_t thumbstick_polar_position) {
-  //draw oled row showing thumbstick direction and distance from center
-  oled_write_P(PSTR("Dir: "), false);
-  sprintf (stringbuffer , "%d", thumbstick_polar_position.angle);
-  oled_write(stringbuffer , false);
-  oled_write_P(PSTR(" Dist: "), false);
-  sprintf (stringbuffer , "%d", thumbstick_polar_position.distance);
-  oled_write_ln(stringbuffer , false);
-  //print registered key codes
-  oled_write_P(PSTR("Keycodes: "), false);
-  draw_wasd_key( wasd_state );
+    //draw oled row showing thumbstick direction and distance from center
+    oled_write_P(PSTR("Dir: "), false);
+    sprintf (stringbuffer , "%d", thumbstick_polar_position.angle);
+    oled_write(stringbuffer , false);
+    oled_write_P(PSTR(" Dist: "), false);
+    sprintf (stringbuffer , "%d", thumbstick_polar_position.distance);
+    oled_write_ln(stringbuffer , false);
+    //print registered key codes
+    oled_write_P(PSTR("Keycodes: "), false);
+    draw_wasd_key( wasd_state );
 }
 
 //////////// draw OLED output //////////////
 void draw_oled(controller_state_t controller_state) {
-  oled_write_P(PSTR("Layer: "), false);
+    oled_write_P(PSTR("Layer: "), false);
 
-  switch (controller_state.activeLayer) {
-    case LAYER_SHOOTER:
-      oled_write_ln_P(PSTR("Shooter"), false);
-      draw_mode(controller_state);
-      oled_write_ln_P(PSTR(" "), false);
-      oled_write_ln_P(PSTR(" "), false);
-      break;
-    case LAYER_MISC:
-      oled_write_ln_P(PSTR("Misc"), false);
-      draw_mode(controller_state);
-      oled_write_ln_P(PSTR(" "), false);
-      oled_write_ln_P(PSTR(" "), false);
-      break;
-    case LAYER_SETTINGS:
-      oled_write_ln_P(PSTR("Settings"), false);
-      draw_mode(controller_state);
-      draw_thumb_debug(thumbstick_polar_position);
-      oled_write_ln_P(PSTR(" "), false);
-      break;
-    default:
-      oled_write_ln_P(PSTR("Default"), false);
-      draw_mode(controller_state);
-      oled_write_ln_P(PSTR(" "), false);
-      oled_write_ln_P(PSTR(" "), false);
-  }
+    switch (controller_state.highestActiveLayer) {
+        case _SHOOTER:
+            oled_write_ln_P(PSTR("Shooter"), false);
+            break;
+
+        case _MISC:
+            oled_write_ln_P(PSTR("Misc"), false);
+            break;
+
+        case _SETTINGS:
+            oled_write_ln_P(PSTR("Settings"), false);
+            break;
+
+        default:
+            oled_write_ln_P(PSTR("Default"), false);
+    }
+
+    draw_mode(controller_state);
+    oled_write_ln_P(PSTR(" "), false);
+    oled_write_ln_P(PSTR(" "), false);
 }
