@@ -32,9 +32,9 @@ user_config_t user_config;
 void eeconfig_init_user(void) {
     user_config.raw = 0;
     user_config.caps_lock_light_tab = false;
-    user_config.caps_lock_light_alphas = false;
-    user_config.fn_layer_transparent_keys_off = true;
-    user_config.fn_layer_color_enable = false;
+    user_config.caps_lock_light_alphas = true;
+    user_config.fn_layer_transparent_keys_off = false;
+    user_config.fn_layer_color_enable = true;
     eeconfig_update_user(user_config.raw);
 }
 
