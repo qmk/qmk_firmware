@@ -1,3 +1,5 @@
+set(CMAKE_EXPORT_COMPILE_COMMANDS on)
+
 include(ResolveToolchain)
 
 set(QMK_TOOLCHAIN "arm-none-eabi")

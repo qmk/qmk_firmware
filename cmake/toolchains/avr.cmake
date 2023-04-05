@@ -4,6 +4,8 @@
 # @author Natesh Narain
 # @since Feb 06 2016
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS on)
+
 include(ResolveToolchain)
 
 set(QMK_TOOLCHAIN "avr")
@@ -127,6 +129,11 @@ macro(add_qmk_executable target_name)
     #         LINK_FLAGS    "-mmcu=${QMK_MCU} ${LINK_OPTIONS}"
     # )
 
+    # add_custom_target(compileOptions
+    #     COMMAND cmake -P ${CMAKE_SOURCE_DIR}/cmake/WriteCompileOptions.cmake
+    #     COMMENT "Writing compile_flags.txt"
+    # )
+
     # generate the lst file
     add_custom_command(
         OUTPUT ${lst_file}
@@ -161,14 +168,12 @@ macro(add_qmk_executable target_name)
 
     # build the intel hex file for the device
     add_custom_target(${target_name} ALL
-        DEPENDS ${hex_file} ${lst_file} "print-size-${elf_file}" "print-size-${hex_file}" copy_hex
+        DEPENDS ${hex_file} ${lst_file} "print-size-${elf_file}" "print-size-${hex_file}" copy_hex 
     )
 
     set_target_properties(${target_name}
         PROPERTIES OUTPUT_NAME ${elf_file}
     )
 
-    # list(JOIN COMPILE_OPTIONS "\n" COMPILE_FLAGS_TXT)
-    # file(WRITE ${CMAKE_SOURCE_DIR}/compile_flags.txt ${COMPILE_FLAGS_TXT})
 
 endmacro(add_qmk_executable)

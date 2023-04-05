@@ -1,0 +1,2 @@
+CompileFlags:
+    Remove: -mcall-prologues

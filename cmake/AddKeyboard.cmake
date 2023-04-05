@@ -61,7 +61,7 @@ macro(add_keyboard KEYBOARD_FOLDER KEYMAP_FOLDER)
     STAMP_DIR ${CMAKE_SOURCE_DIR}/build/stamp
     LOG_DIR ${CMAKE_SOURCE_DIR}/build/log
     INSTALL_DIR ${CMAKE_SOURCE_DIR}/build/install
-    INSTALL_COMMAND ${CMAKE_COMMAND} -E echo "nothing to install" #copy ${CMAKE_SOURCE_DIR}/build/keyboards/${KEYBOARD_FOLDER}/Build/* ${CMAKE_SOURCE_DIR}/build/keyboards/${KEYBOARD_FOLDER}/Install/
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/build/${TARGET_NAME}.hex ${CMAKE_SOURCE_DIR}/${TARGET_NAME}.hex
     # this seems to work well for all systems so far - not sure if it'd be useful to customize
     CMAKE_GENERATOR "Unix Makefiles"
     CMAKE_ARGS 
@@ -70,6 +70,13 @@ macro(add_keyboard KEYBOARD_FOLDER KEYMAP_FOLDER)
       -DQMK_KEYBOARD_FOLDER=${KEYBOARD_FOLDER}
       -DQMK_KEYMAP_FOLDER=${KEYMAP_FOLDER}
       -DTARGET_NAME=${TARGET_NAME}
+  )
+  ExternalProject_Add_Step(${TARGET_NAME} copy_compile_commands
+    DEPENDEES configure
+    DEPENDERS build
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/build/keyboards/${TARGET_NAME}/compile_commands.json ${CMAKE_SOURCE_DIR}/compile_commands.json
+    # BYPRODUCTS ${CMAKE_SOURCE_DIR}/compile_commands.json
+    ALWAYS TRUE
   )
   
 # file(APPEND "${CMAKE_SOURCE_DIR}/build/targets" "${TARGET_NAME}|${KEYBOARD_NAME} with ${KEYMAP_FOLDER}|${KEYBOARD_FOLDER}|Made by: ${MANUFACTURER}\n")
