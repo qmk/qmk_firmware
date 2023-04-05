@@ -60,6 +60,15 @@ void pointing_device_reset_shared_cpi_update_flags(void) {
     }
 }
 
+bool pointing_device_check_shared_cpi_update_flags(void) {
+    for (uint8_t i = 0; i < POINTING_DEVICE_COUNT; i++) {
+        if (shared_cpi[i].update) {
+            return true;
+        }
+    }
+    return false;
+}
+
 #endif
 
 /**

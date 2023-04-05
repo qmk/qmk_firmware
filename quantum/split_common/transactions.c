@@ -724,11 +724,14 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
         }
     }
 
+        if (pointing_device_check_shared_cpi_update_flags()) {
     memcpy(&temp_cpi, pointing_device_get_shared_cpi(), sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
     if (memcmp(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT) != 0) { // target cpi doesn't match initiator cpi
         okay = transport_write(PUT_POINTING_CPI, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
         if (okay) {
             pointing_device_reset_shared_cpi_update_flags();
+        }
+            }
         }
     }
 
