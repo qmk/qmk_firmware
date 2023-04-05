@@ -1,8 +1,6 @@
 
 # SmartPro
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [Jacky](https://github.com/jackyjia73)
 * Hardware Supported: *GD32F303*
 * Hardware Availability: *www.i-chip.cn*
