@@ -1,0 +1,41 @@
+{
+    "MKL26Z64" : {
+        "MCU" : "cortex-m0plus",
+        "ARMV": 6,
+        "MCU_FAMILY": "KINETIS",
+        "MCU_SERIES": "KL2x",
+        "MCU_LDSCRIPT": "MKL26Z64",
+        "MCU_STARTUP": "kl2x",
+        "BOARD": "PJRC_TEENSY_LC"
+    },
+    "MK20DX128" : {
+        "MCU" : "cortex-m4",
+        "ARMV": 7,
+        "MCU_FAMILY": "KINETIS",
+        "MCU_SERIES": "K20x",
+        "MCU_LDSCRIPT": "MK20DX128",
+        "MCU_STARTUP": "k20x5",
+        "BOARD": "PJRC_TEENSY_3"
+    },
+    "MK20DX256" : {
+        "MCU" : "cortex-m4",
+        "ARMV": 7,
+        "MCU_FAMILY": "KINETIS",
+        "MCU_SERIES": "K20x",
+        "MCU_LDSCRIPT": "MK20DX256",
+        "MCU_STARTUP": "k20x7",
+        "BOARD": "PJRC_TEENSY_3_1"
+    },
+    "STM32F303" : {
+        "MCU" : "cortex-m4",
+        "ARMV": 7,
+        "MCU_FAMILY": "STM32",
+        "MCU_SERIES": "STM32F3xx",
+        "MCU_LDSCRIPT": "STM32F303xC",
+        "MCU_STARTUP": "stm32f3xx",
+        "BOARD": "GENERIC_STM32_F303XC",
+        "USE_FPU": true,
+        "UF2_FAMILY": "STM32F3",
+        "STM32_BOOTLOADER_ADDRESS": "0x1FFFD800"
+    }
+}

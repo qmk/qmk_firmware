@@ -1,10 +1,10 @@
-add_compile_definitions(
+target_compile_definitions(qmk PUBLIC
     PROTOCOL_CHIBIOS
     FIXED_CONTROL_ENDPOINT_SIZE=64
     FIXED_NUM_CONFIGURATIONS=1
 )
 
-add_library(tmk_core_protocol_chibios
+target_sources(qmk PUBLIC
     usb_main.c
     chibios.c
     ../usb_descriptor.c
@@ -12,10 +12,7 @@ add_library(tmk_core_protocol_chibios
     usb_util.c
 )
 
-# find_package(lufa REQUIRED)
+find_package(chibios REQUIRED)
 
-target_include_directories(tmk_core_protocol_chibios PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_include_directories(tmk_core_protocol_chibios PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lufa_utils)
-
-# target_link_libraries(tmk_core_protocol_chibios PUBLIC lufa)
-target_link_libraries(tmk_core_protocol_chibios PUBLIC quantum)
+target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lufa_utils)

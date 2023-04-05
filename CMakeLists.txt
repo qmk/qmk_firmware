@@ -101,5 +101,6 @@ add_subdirectory(tmk_core/protocol)
 
 include(features/oled)
 include(features/backlight)
+include(features/eeprom)
 
 endif()

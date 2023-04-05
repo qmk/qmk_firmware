@@ -68,23 +68,11 @@ add_compile_options(
     # $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>
 )
 
-add_compile_definitions(
-    THUMB_PRESENT
-    THUMB_NO_INTERWORKING
-    PROTOCOL_CHIBIOS
-    MCU_${MCU_FAMILY}
-    PLATFORM_SUPPORTS_SYNCHRONIZATION
-    PORT_IGNORE_GCC_VERSION_CHECK=1
-)
-
 add_link_options(
     -Wl,--gc-sections
     -nostartfiles
     -Wl,--no-wchar-size-warning
     --specs=nano.specs
-    -mthumb
-    -mno-thumb-interwork
-    -mno-unaligned-access
 )
 
 if(${USE_FPU})
