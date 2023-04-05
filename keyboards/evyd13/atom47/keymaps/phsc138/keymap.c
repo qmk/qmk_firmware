@@ -54,7 +54,7 @@ enum {
 };
 
 enum custom_keycodes {
-    PROF_MAC = SAFE_RANGE
+    PROF_MAC = QK_USER
 };
 
 
