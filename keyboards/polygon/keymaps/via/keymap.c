@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  encoder codes:
     KC_WH_U, KC_WH_D),
     [2] = LAYOUT_via(
-      RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,           _______,
   	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
   	_______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                 _______,           _______,
@@ -52,13 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_VOLD, KC_VOLU)
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-    uint8_t layer = get_highest_layer(layer_state);
-    if (index == 0) {
-        if (clockwise) {
-            tap_code16(dynamic_keymap_get_keycode(layer, 5, 1));
-        } else {
-            tap_code16(dynamic_keymap_get_keycode(layer, 5, 0));
-        }
-    }
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [_BASE] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [_RAISE] =  { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)}
+};
+#endif
