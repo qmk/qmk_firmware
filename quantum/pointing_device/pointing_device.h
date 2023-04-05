@@ -99,6 +99,11 @@ typedef enum {
     POINTING_DEVICE_BUTTON8,
 } pointing_device_buttons_t;
 
+typedef struct {
+    report_mouse_t report;
+    uint8_t        counter;
+} pointing_device_shared_report_t;
+
 #if defined(POINTING_DEVICE_DRIVER_ADNS9800)
 #    include "adns9800.h"
 #endif
@@ -155,6 +160,11 @@ void           pointing_device_adjust_by_defines(report_mouse_t *report);
 void           pointing_device_keycode_handler(uint16_t keycode, bool pressed);
 bool           pointing_deivce_task_get_pointing_reports(report_mouse_t *report);
 
+void                             pointing_device_set_shared_report(pointing_device_shared_report_t report);
+pointing_device_shared_report_t  pointing_device_get_shared_report(void);
+void                             pointing_device_set_shared_cpi(pointing_device_shared_cpi_t *cpi);
+pointing_device_shared_cpi_t    *pointing_device_get_shared_cpi(void);
+void                             pointing_device_reset_shared_cpi_update_flags(void);
 void                          pointing_device_set_shared_report(report_mouse_t report);
 report_mouse_t                pointing_device_get_shared_report(void);
 void                          pointing_device_set_shared_cpi(pointing_device_shared_cpi_t cpi[]);
