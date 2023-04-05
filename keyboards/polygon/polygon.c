@@ -21,7 +21,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
       return false; /* Don't process further events if user function exists and returns false */
     }
-    if (index == 0) { /* First encoder */
+    if (index == 0) { /* Encoder index */
         if (clockwise) {
             tap_code_delay(KC_VOLU, 4);
         } else {
