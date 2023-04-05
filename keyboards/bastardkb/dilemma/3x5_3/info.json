@@ -2,7 +2,7 @@
     "keyboard_name": "Dilemma (3x5+3) Assembled",
     "usb": {
         "device_version": "2.0.0",
-        "pid": "0x1835"
+        "pid": "0x1836"
     },
     "rgb_matrix": {
         "driver": "ws2812"
