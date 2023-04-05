@@ -35,11 +35,7 @@ void rgb_matrix_init_user(void) {
 }
 
 bool dip_switch_update_user(uint8_t index, bool active) { 
-    if(index == 0 && active) { 
-        win_mode = true;
-    } else {
-        win_mode = false;
-    }
+    win_mode = (index == 0 && active ? true : false);
     return true;
 }
 
