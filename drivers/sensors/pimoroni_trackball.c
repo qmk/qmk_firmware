@@ -29,6 +29,7 @@
 #define PIMORONI_TRACKBALL_REG_RIGHT   0x05
 #define PIMORONI_TRACKBALL_REG_UP      0x06
 #define PIMORONI_TRACKBALL_REG_DOWN    0x07
+#define PIMORONI_TRACKBALL_REG_INT     0xF9
 // clang-format on
 
 static uint16_t precision = 128;
