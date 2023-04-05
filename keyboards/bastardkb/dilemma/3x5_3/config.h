@@ -29,6 +29,12 @@
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
 
+/* Encoders. */
+#define ENCODERS_PAD_A \
+    { GP25 }
+#define ENCODERS_PAD_B \
+    { GP24 }
+
 /* Cirque trackpad over SPI. */
 #define SPI_DRIVER SPID0
 #define SPI_SCK_PIN GP22

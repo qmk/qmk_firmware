@@ -2,6 +2,7 @@
  * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
  * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
  * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
+ * Copyright 2023 casuanoob <casuanoob@hotmail.com> (@casuanoob)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Publicw License as published by
