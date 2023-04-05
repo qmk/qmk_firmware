@@ -1,7 +1,13 @@
 ## Keychron Q2 ANSI STM32L432 ENC11 (with knob) Keymap v1.0.1
 
+## This is my personal build with custom layout changes and different base layer LED colors
+
 ## Features:
 - Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others.
+
+- Different hues set for Mac Base and Win Base layers in config.h
+    - Set Mac Base hue using HUE_MAC_BASE in config.h
+    - Set Win Base hue using HUE_WIN_BASE in config.h
 
 - Caps Word enabled with RGB indicator ([https://docs.qmk.fm/#/feature_caps_word](https://docs.qmk.fm/#/feature_caps_word))
     - Activated by double tapping left Shift
@@ -39,6 +45,12 @@ Please make sure to save any customizations you have made in VIA to a .json file
 - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
 
 - Fn1+Q in Mac mode will lock and sleep display
+
+- Mac mode
+    - Fn1+< sets my secondary display to 0° rotation
+    - Fn1+> sets my secondary display to 90° rotation
+
+- Fn2+Backspace enters DFU mode (but does not reset eeprom)
 
 - Uses Grave Escape on key to the left of the 1 key:
     - Base Layer: key functions as ESC, shift+key gives ~
