@@ -14,12 +14,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "stm32f103.h"
+#pragma once
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
-}
+// FIXME: The "common/" prefixes can probably be removed using VPATH or whatever on the mk file
+
+#include "common/state.h"
+
+#ifdef LEDS_ENABLE
+#    include "common/leds.h"
+#endif
+
+#ifdef OLED_ENABLE
+#    include "common/oled.h"
+#endif
+
+#ifdef THUMBSTICK_ENABLE
+#    include "common/thumbstick.h"
+#endif
+
+enum kb_layers {
+    _BASE,
+    _SHOOTER,
+    _MISC,
+    _SETTINGS,
+};
+
+enum kb_keycodes {
+    JOYMODE = QK_KB,
+    AUTORUN,
+    M_UP,
+    M_DWN,
+    M_L,
+    M_R,
+    M_SEL
+};

@@ -14,12 +14,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "promicro.h"
+#pragma once
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
-}
+#define THUMBSTICK_DEBUG
+
+/* joystick configuration */
+#define JOYSTICK_BUTTON_COUNT 0
+#define JOYSTICK_AXIS_COUNT 2
+#define JOYSTICK_AXIS_RESOLUTION 10
+
+#define _DEADZONE  100  // 0 to _SHIFTZONE-1
+#define _SHIFTZONE 350  // _DEADZONE+1 to 600
+#define _THUMBSTICK_ROTATION 100 //degrees, adjusts forward direction
+
+/* Locking resynchronize hack */
+#define LOCKING_RESYNC_ENABLE
+
+/* RGB Config */
+#define RGB_DI_PIN B14
+#define RGBLED_NUM 6
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_TWINKLE

@@ -17,117 +17,92 @@
 #include "thumbstick.h"
 
 void init_wasd_state (void) {
-wasd_state.w = wasd_state.a = wasd_state.s = wasd_state.d = false ;
-last_wasd_state = wasd_state ;
-wasd_state.shift = false ;
+    wasd_state.w = wasd_state.a = wasd_state.s = wasd_state.d = false;
+    wasd_state.shift = false;
 }
 
-thumbstick_polar_position_t get_thumbstick_polar_position (int x, int y ) {
-  thumbstick_polar_position_t position ;
-  int x_centered = x - 512;
-  int y_centered = y - 512;
+thumbstick_polar_position_t get_thumbstick_polar_position(int16_t x, int16_t y) {
+    static thumbstick_polar_position_t position;
+
+    int16_t x_centered = x - 512;
+    int16_t y_centered = y - 512;
 
 #ifdef THUMBSTICK_DEBUG
-  print("xN: ");
-  uprintf("%4d", x_centered);
-  print(" yN: ");
-  uprintf("%4d", y_centered);
+    dprintf("xN: %4d yN: %4d\n", x_centered, y_centered);
 #endif
 
-  //transform to carthesian coordinates to  polar coordinates
-  //get distance from center as int in range [0-600]
-  position.distance = (double)sqrt( (double)x_centered * (double)x_centered + (double)y_centered * (double)y_centered );
-  //get direction as int in range [0 to 359]
-  position.angle = (double) atan2( y_centered, x_centered ) * (180 /M_PI)+180;
+    //transform to carthesian coordinates to  polar coordinates
+    //get distance from center as int in range [0-600]
+    position.distance = (double)sqrt((double)x_centered * (double)x_centered + (double)y_centered * (double)y_centered);
+    //get direction as int in range [0 to 359]
+    position.angle = (double)atan2(y_centered, x_centered) * (180 /M_PI) + 180;
 
-  //apply thumbstick rotation const to modify forward direction
-  position.angle = ( position.angle + _THUMBSTICK_ROTATION )%360 ;
+    //apply thumbstick rotation const to modify forward direction
+    position.angle = (position.angle + _THUMBSTICK_ROTATION) % 360;
 
-  return  position;
+    return position;
 }
 
-bool update_keystate( bool keystate, int angle_from, int angle_to, int angle ){
-  if (angle_from < angle && angle <= angle_to ) {
-    keystate = true ;
-  }
-  if (angle <= angle_from || angle_to < angle ) {
-    keystate = false ;
-  }
-  return keystate ;
+bool update_keystate(uint16_t angle_from, uint16_t angle_to, uint16_t angle) {
+    return (angle_from < angle && angle <= angle_to);
 }
 
-void update_keycode(uint16_t keycode, bool keystate, bool last_keystate) {
-  if (keystate && keystate != last_keystate ) {
-    register_code(keycode);
-  }
-  else if (!keystate) {
-    unregister_code (keycode) ;
-  }
+void update_keycode(uint16_t keycode, bool keystate) {
+    if (keystate) {
+        register_code16(keycode);
+    } else {
+        unregister_code16(keycode);
+    }
 }
 
 void thumbstick(controller_state_t controller_state) {
+    // FIXME: Can't you use the builtin/default joytstick configuration for scanning it?
+    yPos = analogReadPin(B1);
+    xPos = analogReadPin(B0);
 
-  yPos = analogReadPin(B1);
-  xPos = analogReadPin(B0);
-
-  thumbstick_polar_position = get_thumbstick_polar_position (xPos, yPos);
-
-#ifdef THUMBSTICK_DEBUG
-  print(" distance: ");
-  uprintf("%5d", thumbstick_polar_position.angle);
-  print(" angle: ");
-  uprintf("%5d", thumbstick_polar_position.distance);
-  print("\n");
-#endif
-
-  // Update WASD state depending on thumbstick position
-  // if thumbstick out of of deadzone
-  if ( thumbstick_polar_position.distance >= _DEADZONE ) {
-    wasd_state.w = update_keystate (wasd_state.w,   0,  90, thumbstick_polar_position.angle);
-    if ( !wasd_state.w ) {
-      wasd_state.w = update_keystate (wasd_state.w, 315, 360, thumbstick_polar_position.angle);
-    }
-    // A angle:  45 - 180
-    wasd_state.a = update_keystate (wasd_state.a,  45, 181, thumbstick_polar_position.angle);
-    // S angle: 135 - 270
-    wasd_state.s = update_keystate (wasd_state.s, 135, 270, thumbstick_polar_position.angle);
-    // D angle: 225 - 359
-    wasd_state.d = update_keystate (wasd_state.d, 225, 359, thumbstick_polar_position.angle);
-  }
-  //reset WASD state when in _DEADZONE
-  else {
-    init_wasd_state () ;
-  }
+    thumbstick_polar_position = get_thumbstick_polar_position(xPos, yPos);
 
 #ifdef THUMBSTICK_DEBUG
-  print(" w: ");
-  uprintf("%2d", wasd_state.w);
-  print(" a: ");
-  uprintf("%2d", wasd_state.a);
-  print(" s: ");
-  uprintf("%2d", wasd_state.s);
-  print(" d: ");
-  uprintf("%2d", wasd_state.d);
-  print("\n");
+    dprintf("distance: %5d angle: %5d\n", thumbstick_polar_position.distance, thumbstick_polar_position.angle);
 #endif
 
-update_keycode (KC_W, wasd_state.w, last_wasd_state.w) ;
-update_keycode (KC_A, wasd_state.a, last_wasd_state.a) ;
-update_keycode (KC_S, wasd_state.s, last_wasd_state.s) ;
-update_keycode (KC_D, wasd_state.d, last_wasd_state.d) ;
+    // Update WASD state depending on thumbstick position
+    // if thumbstick out of of deadzone
+    if (thumbstick_polar_position.distance >= _DEADZONE) {
+        wasd_state.w = update_keystate(  0,  90, thumbstick_polar_position.angle);
+        // A angle:  45 - 180
+        wasd_state.a = update_keystate( 45, 181, thumbstick_polar_position.angle);
+        // S angle: 135 - 270
+        wasd_state.s = update_keystate(135, 270, thumbstick_polar_position.angle);
+        // D angle: 225 - 359
+        wasd_state.d = update_keystate(225, 359, thumbstick_polar_position.angle);
 
-last_wasd_state = wasd_state ;
+        if (!wasd_state.w ) {
+            wasd_state.w = update_keystate(315, 360, thumbstick_polar_position.angle);
+        }
+    } else {
+        //reset WASD state when in _DEADZONE
+        init_wasd_state();
+    }
 
-  // handle WASD-Shift mode
-  if (controller_state.wasdShiftMode) {
-    bool Shifted = thumbstick_polar_position.distance > _SHIFTZONE;
-    if (!wasd_state.shift && Shifted) {
-      register_code(KC_LSFT);
-      wasd_state.shift = true;
+#ifdef THUMBSTICK_DEBUG
+    dprintf("w: %2d a: %2d s: %2d d: %2d\n", wasd_state.w, wasd_state.a, wasd_state.s, wasd_state.d);
+#endif
+
+    update_keycode(KC_W, wasd_state.w);
+    update_keycode(KC_A, wasd_state.a);
+    update_keycode(KC_S, wasd_state.s);
+    update_keycode(KC_D, wasd_state.d);
+
+    // handle WASD-Shift mode
+    if (controller_state.wasdShiftMode) {
+        bool Shifted = thumbstick_polar_position.distance > _SHIFTZONE;
+        if (!wasd_state.shift && Shifted) {
+            register_code(KC_LSFT);
+            wasd_state.shift = true;
+        } else if (wasd_state.shift && !Shifted) {
+            unregister_code(KC_LSFT);
+            wasd_state.shift = false;
+        }
     }
-    else if (wasd_state.shift && !Shifted) {
-      unregister_code(KC_LSFT);
-      wasd_state.shift = false;
-    }
-  }
 }

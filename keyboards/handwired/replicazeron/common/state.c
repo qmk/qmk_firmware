@@ -17,12 +17,12 @@
 #include "state.h"
 
 controller_state_t init_state (void) {
-  controller_state_t  controller_state = {
-    .wasdMode = true ,
-    .wasdShiftMode = false ,
-    .autoRun = false ,
-    .activeLayer = 0,
-  } ;
+    controller_state_t  controller_state = {
+        .wasdMode = true,
+        .wasdShiftMode = false,
+        .autoRun = false,
+        .highestActiveLayer = 0,
+    };
 
- return controller_state;
+    return controller_state;
 }
