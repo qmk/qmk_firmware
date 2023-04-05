@@ -20,6 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_RX_PIN GP13
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
-#define I2C_DRIVER I2CD2
+#define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN GP15
 #define I2C1_SDA_PIN GP14
