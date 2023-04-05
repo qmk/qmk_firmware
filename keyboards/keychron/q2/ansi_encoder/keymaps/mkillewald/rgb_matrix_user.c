@@ -21,6 +21,7 @@
 #include "keymap_user_config.h"
 
 keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
+static bool win_mode;
 
 void rgb_matrix_init_user(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
@@ -33,11 +34,27 @@ void rgb_matrix_init_user(void) {
     }
 }
 
+bool dip_switch_update_user(uint8_t index, bool active) { 
+    if(index == 0 && active) { 
+        win_mode = true;
+    } else {
+        win_mode = false;
+    }
+    return true;
+}
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {    
     uint8_t current_layer = get_highest_layer(layer_state);
     switch (current_layer) {
         case MAC_BASE:
         case WIN_BASE:
+#if defined HUE_WIN_BASE && defined HUE_MAC_BASE
+            if (win_mode) {
+                rgb_matrix_sethsv_noeeprom(HUE_WIN_BASE, rgb_matrix_get_sat(), rgb_matrix_get_val());
+            } else {
+                rgb_matrix_sethsv_noeeprom(HUE_MAC_BASE, rgb_matrix_get_sat(), rgb_matrix_get_val());
+            }
+#endif
 #ifdef CAPS_LOCK_INDICATOR_COLOR
             if (host_keyboard_led_state().caps_lock) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
