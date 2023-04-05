@@ -76,9 +76,23 @@ i2c_status_t read_pimoroni_trackball(const pointing_device_i2c_config_t* i2c_con
     return status;
 }
 
+i2c_status_t pimoroni_trackball_enable_interrupt_pin(const pointing_device_i2c_config_t* i2c_config, bool int_pin_en) {
+    typedef struct __attribute__((packed)) {
+        bool    int_triggered : 1;
+        bool    int_pin_en : 1;
+        uint8_t _unknown : 6;
+    } pimoroni_trackball_reg_int_t;
+
+    pimoroni_trackball_reg_int_t int_reg = {0};
+    i2c_status_t status = i2c_readReg(i2c_config->address << 1, PIMORONI_TRACKBALL_REG_INT, (uint8_t*)&int_reg, sizeof(uint8_t), i2c_config->timeout);
+    int_reg.int_pin_en = int_pin_en;
+    status = i2c_writeReg(i2c_config->address << 1, PIMORONI_TRACKBALL_REG_INT, (uint8_t*)&int_reg, sizeof(uint8_t), i2c_config->timeout);
+    return status;
+}
+
 __attribute__((weak)) void pimoroni_trackball_device_init(const void* i2c_config) {
     i2c_init();
-    pimoroni_trackball_set_rgbw((pointing_device_i2c_config_t*)i2c_config, 0x00, 0x00, 0x00, 0x00);
+    pimoroni_trackball_enable_interrupt_pin((pointing_device_i2c_config_t*)i2c_config, true);
 }
 
 int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
