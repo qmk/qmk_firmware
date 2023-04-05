@@ -167,4 +167,8 @@ macro(add_qmk_executable target_name)
     set_target_properties(${target_name}
         PROPERTIES OUTPUT_NAME ${elf_file}
     )
+
+    # list(JOIN COMPILE_OPTIONS "\n" COMPILE_FLAGS_TXT)
+    # file(WRITE ${CMAKE_SOURCE_DIR}/compile_flags.txt ${COMPILE_FLAGS_TXT})
+
 endmacro(add_qmk_executable)
