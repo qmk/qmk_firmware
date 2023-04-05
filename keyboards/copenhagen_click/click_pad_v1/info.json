@@ -21,7 +21,9 @@
     "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-            "layout": [{"x":0, "y":0}]
+            "layout": [
+                {"label": "k00", "matrix": [0, 0], "x": 0, "y": 0}
+            ]
         }
     }
 }

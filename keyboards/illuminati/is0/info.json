@@ -22,7 +22,9 @@
     "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-            "layout": [{"x":0.25, "y":0, "w":1.25, "h":2}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0.25, "y": 0, "w": 1.25, "h": 2}
+            ]
         }
     }
 }
