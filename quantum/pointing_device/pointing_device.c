@@ -126,8 +126,8 @@ __attribute__((weak)) uint8_t pointing_device_handle_buttons(uint8_t buttons, bo
 
 bool pointing_device_report_ready(report_mouse_t* last_report, report_mouse_t* new_report, bool* device_was_ready) {
     bool ready = has_mouse_report_changed(last_report, new_report);
-    if (device_was_ready) {
-        ready |= memcmp(new_report, &empty_report, sizeof(report_mouse_t)) != 0; // report is should be sent if the device was ready and not zero
+    if (!ready && device_was_ready) {
+        ready = memcmp(new_report, &empty_report, sizeof(report_mouse_t)) != 0;
     }
     return ready;
 }
