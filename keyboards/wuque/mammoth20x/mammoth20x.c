@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mammoth20x.h"
-
+#include "quantum.h"
 
 static uint8_t encoder_state[NUM_ENCODERS] = {0};
 static keypos_t encoder_cw[NUM_ENCODERS] = ENCODERS_CW_KEY;
