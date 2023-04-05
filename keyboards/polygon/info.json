@@ -20,6 +20,10 @@
     "encoder": {
         "rotary": [{ "pin_a": "D3", "pin_b": "D5", "resolution": 4 }]
     },
+    "bootmagic": {
+        "enabled":true,
+        "matrix": [0, 0]
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
@@ -27,7 +31,6 @@
     "community_layouts": [ "65_ansi_blocker", "65_iso_blocker" ],
     "layouts": {
         "LAYOUT_65_iso_blocker": [
-
                 {"matrix": [0,0], "x": 0, "y": 0 },
                 {"matrix": [0,1], "x": 1, "y": 0 },
                 {"matrix": [0,2], "x": 2, "y": 0 },
