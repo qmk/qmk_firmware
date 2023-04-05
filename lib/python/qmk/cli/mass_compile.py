@@ -9,6 +9,7 @@ from milc import cli
 
 from qmk.constants import QMK_FIRMWARE
 from qmk.commands import _find_make, get_make_parallel_args
+from qmk.keyboard import resolve_keyboard
 from qmk.search import search_keymap_targets
 
 
@@ -39,7 +40,7 @@ def mass_compile(cli):
     makefile = builddir / 'parallel_kb_builds.mk'
 
     if len(cli.args.builds) > 0:
-        targets = [(e[0], e[1]) for e in [b.split(':') for b in cli.args.builds]]
+        targets = list(sorted(set([(resolve_keyboard(e[0]), e[1]) for e in [b.split(':') for b in cli.args.builds]])))
     else:
         targets = search_keymap_targets(cli.args.keymap, cli.args.filter)
 
