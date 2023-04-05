@@ -4,7 +4,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include(UpdateSubmodule)
 include(ResolveKeyboard)
-include(ValidateJSON)
+include(ValidateJson)
 
 set(QMK_KEYBOARDS_FOLDER "${CMAKE_SOURCE_DIR}/keyboards")
 

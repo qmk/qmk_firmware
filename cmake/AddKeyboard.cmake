@@ -1,5 +1,5 @@
 include(ResolveKeyboard)
-include(ValidateJSON)
+include(ValidateJson)
 include(ResolveToolchain)
 
 macro(add_keyboard KEYBOARD_FOLDER KEYMAP_FOLDER)  
