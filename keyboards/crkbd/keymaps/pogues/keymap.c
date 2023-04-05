@@ -16,8 +16,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* TODO XXX  
+ *     fix the oneshot mods with the tap toggle
+ *     have constants for the light layers?
+ *     tidy up the oneshot lighting hold code
+ * */
+
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 #include "features/casemodes.h"
 #include "features/compose.h"
 
@@ -121,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
             XXXXXXX, C(KC_Z), C(KC_X), C(KC_C),   KC_NO, C(KC_V),                        KC_NO,  KC_TAB, KC_PGDN, KC_PGUP,   KC_NO, XXXXXXX,
         //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              _______, TO(LCMK), _______,     _______,   KC_NO, _______
+                                              _______,    KC_NO, _______,     _______,   KC_NO, _______
                                             //`--------------------------'  `--------------------------'
     ),
     [LMSE] = LAYOUT_split_3x6_3(
@@ -159,6 +164,31 @@ void set_mods_lights(uint16_t keycode, bool active) {
             break;
         case KC_LALT:
             rgblight_set_layer_state(14, active);
+            break;
+    // we have to process the oneshot mod versions separately. this method is called from
+    // process_record_user so is called for the key up event after the oneshot mod is tapped
+    // and in that case we dont want to turn off the LEDs, though we do want lights for OSM
+    // hold functions
+        case OSM_SFT:
+            if (!(get_oneshot_mods() & MOD_MASK_SHIFT)) {
+                // only try and detect when the OSM is not active
+                rgblight_set_layer_state(12, active);
+            }
+            break;
+        case OSM_CTL:
+            if (!(get_oneshot_mods() & MOD_MASK_CTRL)) {
+                rgblight_set_layer_state(11, active);
+            }
+            break;
+        case OSM_GUI:
+            if (!(get_oneshot_mods() & MOD_MASK_GUI)) {
+                rgblight_set_layer_state(13, active);
+            }
+            break;
+        case OSM_ALT:
+            if (!(get_oneshot_mods() & MOD_MASK_ALT)) {
+                rgblight_set_layer_state(14, active);
+            }
             break;
     }
 }
@@ -541,24 +571,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void oneshot_mods_changed_user(uint8_t mods) {
-    rgblight_set_layer_state(11, false);
-    rgblight_set_layer_state(12, false);
-    rgblight_set_layer_state(13, false);
-    rgblight_set_layer_state(14, false);
-
-    if (mods & MOD_MASK_SHIFT) {
-        rgblight_set_layer_state(12, true);
-    }
-    if (mods & MOD_MASK_CTRL) {
-        rgblight_set_layer_state(11, true);
-    }
-    if (mods & MOD_MASK_ALT) {
-        rgblight_set_layer_state(14, true);
-    }
-    if (mods & MOD_MASK_GUI) {
-        rgblight_set_layer_state(13, true);
-    }
+    rgblight_set_layer_state(11, mods & MOD_MASK_CTRL);
+    rgblight_set_layer_state(12, mods & MOD_MASK_SHIFT);
+    rgblight_set_layer_state(13, mods & MOD_MASK_GUI);
+    rgblight_set_layer_state(14, mods & MOD_MASK_ALT);
 }
+
 /*******************************************************************************
  * END RGB lighting on layer change
  ******************************************************************************/

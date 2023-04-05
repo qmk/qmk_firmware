@@ -32,9 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // This stops rolling [D(a), D(b), U(a), U(b)] from triggering the modified version
 #define IGNORE_MOD_TAP_INTERRUPT
 
-// the following removes auto repeat on keys, but allows a key to be tapped then immediately
-// held to activate the modifier.  (without this tap and hold would autorepeat)
-#define TAPPING_FORCE_HOLD
 // when you tap then hold - setting quick tap term to 0 means you get the hold action,
 // otherwise the tap to hold time must be below this to activate autorepeat.
 #define QUICK_TAP_TERM 0
@@ -47,8 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 175
 
-#define ONESHOT_TAP_TOGGLE 2
-#define ONESHOT_TIMEOUT 2500
+#define ONESHOT_TIMEOUT 3000
 
 // Turn off Caps Word after 5 seconds.
 //#define CAPS_WORD_IDLE_TIMEOUT 5000
