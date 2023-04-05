@@ -27,6 +27,9 @@
 // left one, uncomment the following line.
 //#define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
 
+/* VBUS detection. */
+#define USB_VBUS_PIN GP19
+
 /* CRC. */
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED
