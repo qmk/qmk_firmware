@@ -1,4 +1,4 @@
-find_package(chibios REQUIRED)
+find_package(Chibios REQUIRED)
 
 target_link_options(qmk PUBLIC
     -mcpu=${QMK_MCU}
@@ -30,8 +30,12 @@ else()
     )
 endif()
 
-# add_library(platforms_chibios)
+target_sources(qmk PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/syscall-fallbacks.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/wait.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/synchronization_util.c
+)
+
 target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/boards/common/configs)
 target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/boards/${BOARD}/configs)
-# target_link_libraries(platforms_chibios ${QMK_TARGET})

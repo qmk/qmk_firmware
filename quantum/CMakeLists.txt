@@ -33,7 +33,3 @@ target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/bootmagic)
 # target_link_libraries(quantum platforms_${QMK_PLATFORM})
 # target_link_libraries(quantum tmk_core_protocol)
 # target_link_libraries(quantum tmk_core_protocol_${QMK_PROTOCOL})
-
-# if no printf
-target_sources(qmk PUBLIC ${CMAKE_SOURCE_DIR}/lib/printf/src/printf/printf.c)
-target_include_directories(qmk PUBLIC ${CMAKE_SOURCE_DIR}/lib/printf/src/printf)

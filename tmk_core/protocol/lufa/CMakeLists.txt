@@ -19,7 +19,7 @@ target_sources(qmk PUBLIC
     usb_util.c 
 )
 
-find_package(lufa REQUIRED)
+find_package(Lufa REQUIRED)
 # target_compile_definitions(lufa PUBLIC ${COMPILE_DEFINITIONS})
 
 target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

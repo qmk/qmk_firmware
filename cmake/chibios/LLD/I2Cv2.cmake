@@ -1,0 +1,7 @@
+if(${USE_HAL_I2C_FALLBACK})
+    target_sources(qmk PUBLIC ${CHIBIOS}/os/hal/ports/${MCU_PORT_NAME}/LLD/I2C/hal_i2c_lld.c)
+    target_include_directories(qmk PUBLIC ${CHIBIOS}/os/hal/ports/${MCU_PORT_NAME}/LLD/I2C)
+else()
+    target_sources(qmk PUBLIC ${CHIBIOS}/os/hal/ports/${MCU_PORT_NAME}/LLD/I2Cv2/hal_i2c_lld.c)
+    target_include_directories(qmk PUBLIC ${CHIBIOS}/os/hal/ports/${MCU_PORT_NAME}/LLD/I2Cv2)
+endif()
