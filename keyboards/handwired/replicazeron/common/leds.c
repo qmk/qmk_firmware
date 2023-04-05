@@ -18,30 +18,24 @@
 
 //////////// Status LEDs //////////////
 void init_leds(void) {
-  setPinOutput(STATUS_LED_A_PIN) ;
-  setPinOutput(STATUS_LED_B_PIN) ;
-  writePinHigh(STATUS_LED_A_PIN) ; //Led0 off
-  writePinHigh(STATUS_LED_B_PIN) ; //Led1 off
+    // Both LEDs off, they have inverted logic
+    setPinOutput(STATUS_LED_A_PIN);
+    setPinOutput(STATUS_LED_B_PIN);
+    writePinHigh(STATUS_LED_A_PIN);
+    writePinHigh(STATUS_LED_B_PIN);
 }
 
-void set_leds(int active_layer) {
-  //display active layer in binary
-  switch (active_layer) {
-    case 1:
-      writePinLow(STATUS_LED_A_PIN);  //Led0 on
-      writePinHigh(STATUS_LED_B_PIN); //Led1 off
-      break;
-    case 2:
-      writePinHigh(STATUS_LED_A_PIN);  //Led0 off
-      writePinLow(STATUS_LED_B_PIN); //Led1 on
-      break;
-    case 3:
-      writePinLow(STATUS_LED_A_PIN); //Led0 on
-      writePinLow(STATUS_LED_B_PIN);  //Led1 on
-      break;
-    default:
-      writePinHigh(STATUS_LED_A_PIN); //Led0 off
-      writePinHigh(STATUS_LED_B_PIN); //Led1 off
-      break;
-  }
+void set_leds(uint8_t highest_active_layer) {
+    // any layer other than 0-3, quit and LEDs off
+    if (highest_active_layer > 3) {
+        writePinHigh(STATUS_LED_A_PIN);
+        writePinHigh(STATUS_LED_B_PIN);
+        return;
+    }
+
+    // use bitwise operations to display active layer in binary
+    bool bit1 = !(highest_active_layer & 1);
+    bool bit2 = !(highest_active_layer & 2);
+    writePin(STATUS_LED_A_PIN, bit1);
+    writePin(STATUS_LED_A_PIN, bit2);
 }

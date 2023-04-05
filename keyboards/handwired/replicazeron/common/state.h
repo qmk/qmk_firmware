@@ -14,13 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "quantum.h"
+
+#include "stdbool.h"
+#include "stdint.h"
 
 typedef struct {
-  bool wasdMode;
-  bool wasdShiftMode;
-  bool autoRun;
-  int activeLayer;
-}controller_state_t ; 
+    bool wasdMode;
+    bool wasdShiftMode;
+    bool autoRun;
+    uint8_t highestActiveLayer;
+} controller_state_t;
 
-controller_state_t init_state (void) ;
+controller_state_t init_state(void);

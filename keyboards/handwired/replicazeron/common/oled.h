@@ -15,30 +15,22 @@
  */
 #pragma once
 
-#include "print.h"
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 
+#include "oled_driver.h"
+#include "print.h"
 #include "state.h"
+#include "stdio.h"
 #include "thumbstick.h"
 
-uint8_t shiftbits ;
+uint8_t shiftbits;
 
-char stringbuffer[8] ;
+char stringbuffer[8];
 
-enum keymap_layers {
-  LAYER_BASE = 0,
-  LAYER_SHOOTER,
-  LAYER_MISC,
-  LAYER_SETTINGS,
-};
+void draw_oled(controller_state_t controller_state);
 
-void draw_oled(controller_state_t controller_state) ;
+void draw_mode(controller_state_t controller_state);
 
-void draw_mode(controller_state_t controller_state) ;
+void draw_thumb_debug(thumbstick_polar_position_t thumbstick_polar_position);
 
-void draw_thumb_debug(thumbstick_polar_position_t thumbstick_polar_position) ;
-
-void draw_wasd_key(wasd_state_t wasd_state) ;
-
-void draw_settings(void) ;
+void draw_wasd_key(wasd_state_t wasd_state);

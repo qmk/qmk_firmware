@@ -14,8 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#pragma once
 
-void init_leds(void) ;
+#include "gpio.h"
+#include "stdbool.h"
 
-void set_leds(int active_layer) ;
+void init_leds(void);
+
+void set_leds(uint8_t active_layer);

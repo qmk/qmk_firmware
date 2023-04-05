@@ -15,43 +15,38 @@
  */
 #pragma once
 
-#define _DEADZONE  100  // 0 to _SHIFTZONE-1
-#define _SHIFTZONE 350  // _DEADZONE+1 to 600
-#define _THUMBSTICK_ROTATION 100 //degrees, adjusts forward direction
-
-#include QMK_KEYBOARD_H
 #include "analog.h"
-#include <math.h>
-
+#include "debug.h"
+#include "math.h"
+#include "quantum.h"
 #include "state.h"
 
-int xPos;
-int yPos;
+int16_t xPos;
+int16_t yPos;
 
 typedef struct {
-  int angle;
-  int distance;
+    uint16_t angle;
+    uint16_t  distance;
 } thumbstick_polar_position_t;
 
 typedef struct {
-  bool w;
-  bool a;
-  bool s;
-  bool d;
-  bool shift;
+    bool w;
+    bool a;
+    bool s;
+    bool d;
+    bool shift;
 } wasd_state_t;
 
 thumbstick_polar_position_t thumbstick_polar_position ;
 
 wasd_state_t wasd_state;
-wasd_state_t last_wasd_state;
 
-void init_wasd_state (void) ;
+void init_wasd_state(void);
 
-thumbstick_polar_position_t get_thumbstick_polar_position (int x, int y ) ;
+thumbstick_polar_position_t get_thumbstick_polar_position(int16_t x, int16_t y);
 
-bool update_keystate(bool keyheld , int angle_from, int angle_to, int angle ) ;
+bool update_keystate(uint16_t angle_from, uint16_t angle_to, uint16_t angle);
 
-void update_keycode(uint16_t keycode, bool keystate, bool last_keystate) ;
+void update_keycode(uint16_t keycode, bool keystate);
 
-void thumbstick(controller_state_t controller_state) ;
+void thumbstick(controller_state_t controller_state);
