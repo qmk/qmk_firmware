@@ -708,7 +708,7 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
     bool okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &target_report, &split_shmem->pointing.report, sizeof(pointing_device_shared_report_t));
     if (okay) {
         if (counter != target_report.counter) {
-        pointing_device_set_shared_report(target_report);
+            pointing_device_set_shared_report(target_report);
         }
     }
 
@@ -716,23 +716,26 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
     static pointing_device_shared_cpi_t last_target_cpi[POINTING_DEVICE_COUNT] = {0};
     pointing_device_shared_cpi_t        temp_cpi[POINTING_DEVICE_COUNT]        = {0};
 
-    okay = read_if_checksum_mismatch(GET_POINTING_CPI_CHECKSUM, GET_POINTING_CPI, &last_cpi_update, &temp_cpi, &split_shmem->pointing.cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
-    if (okay) {
-        if (memcmp(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT) != 0) {
-            memcpy(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
-            pointing_device_set_shared_cpi(last_target_cpi);
-        }
-    }
-
-        if (pointing_device_check_shared_cpi_update_flags()) {
-    memcpy(&temp_cpi, pointing_device_get_shared_cpi(), sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
-    if (memcmp(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT) != 0) { // target cpi doesn't match initiator cpi
-        okay = transport_write(PUT_POINTING_CPI, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
+    static fast_timer_t cpi_sync_throttle = 0;
+    if (timer_elapsed_fast(cpi_sync_throttle) > 10) {
+        okay = read_if_checksum_mismatch(GET_POINTING_CPI_CHECKSUM, GET_POINTING_CPI, &last_cpi_update, &temp_cpi, &split_shmem->pointing.cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
         if (okay) {
-            pointing_device_reset_shared_cpi_update_flags();
-        }
+            if (memcmp(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT) != 0) {
+                memcpy(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
+                pointing_device_set_shared_cpi(last_target_cpi);
             }
         }
+
+        if (pointing_device_check_shared_cpi_update_flags()) {
+            memcpy(&temp_cpi, pointing_device_get_shared_cpi(), sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
+            if (memcmp(&last_target_cpi, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT) != 0) { // target cpi doesn't match initiator cpi
+                okay = transport_write(PUT_POINTING_CPI, &temp_cpi, sizeof(pointing_device_shared_cpi_t) * POINTING_DEVICE_COUNT);
+                if (okay) {
+                    pointing_device_reset_shared_cpi_update_flags();
+                }
+            }
+        }
+        cpi_sync_throttle = timer_read_fast();
     }
 
     return okay;
