@@ -25,6 +25,9 @@
 // #define SPLIT_HAND_PIN GP13
 // #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.
 
+/* VBUS detection. */
+#define USB_VBUS_PIN GP25
+
 /* Reset. */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
