@@ -27,5 +27,5 @@
 #    define HUE_WIN_BASE  80 // HSV green hue component
 #    define CAPS_LOCK_INDICATOR_COLOR RGB_RED
 #    define FN1_LAYER_COLOR 0xFE, 0x23, 0x00
-#    define FN2_LAYER_COLOR RGB_GREEN
+#    define FN2_LAYER_COLOR RGB_YELLOW
 #endif
