@@ -22,6 +22,7 @@
 
 keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
 static bool win_mode;
+static bool win_mode_was_activated;
 
 void rgb_matrix_init_user(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
@@ -46,7 +47,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         case WIN_BASE:
 #ifdef HUE_WIN_BASE
             if (win_mode) {
+                win_mode_was_activated = true;
                 rgb_matrix_sethsv_noeeprom(HUE_WIN_BASE, rgb_matrix_get_sat(), rgb_matrix_get_val());
+            } else {
+                if (win_mode_was_activated) {
+                    win_mode_was_activated = false;
+                    rgb_matrix_reload_from_eeprom();
+                }
             }
 #endif
 #ifdef CAPS_LOCK_INDICATOR_COLOR
