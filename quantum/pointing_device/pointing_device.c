@@ -275,7 +275,7 @@ __attribute__((weak)) bool pointing_device_task(void) {
     local_report.buttons           = local_report.buttons | mousekey_report.buttons;
 #endif
 
-    report_mouse_t last_sent_report = {0};
+    static report_mouse_t last_sent_report = {0};
     if (!report_is_different) {
         report_is_different = pointing_device_report_ready(&last_sent_report, &local_report, &device_was_ready);
     }
