@@ -1,6 +1,6 @@
 # ZodZero
 
-![ZodZero](https://imgur.com/a/4Wyke4m)
+![ZodZero](https://i.imgur.com/iOvyZLM.jpeg)
 
 A split keyboard with 4x8 including a thumbcluster, encoders on each side (Panasonic Roller Encoder on the left), per key RGB, and 2x I2C headers per side, supporiting 1.3"/.96" 128x64 OLEDs (the 1.3" is an SSH1106 OLED, refer to QMK documentation for limitations), .91" 128x32 OLEDs. Also uses the Lil-CC interconnect daughter board for split communication over a USB-C to USB-C cable.
 
