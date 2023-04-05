@@ -27,8 +27,9 @@
 
 extern const pointing_device_config_t pointing_device_configs[POINTING_DEVICE_COUNT];
 
-const report_mouse_t empty_report = {0};
-report_mouse_t       local_report = {0};
+const report_mouse_t empty_report                   = {0};
+report_mouse_t       local_report                   = {0};
+uint8_t              buttons[POINTING_DEVICE_COUNT] = {0};
 
 #if defined(SPLIT_KEYBOARD)
 pointing_device_shared_report_t shared_report                     = {0};
@@ -150,11 +151,7 @@ __attribute__((weak)) void pointing_device_init(void) {
 
 __attribute__((weak)) void pointing_device_send(report_mouse_t* sending_report) {
     host_mouse_send(sending_report);
-
-    // send it and 0 it out except for buttons, so those stay until they are explicity over-ridden using update_pointing_device
-    uint8_t buttons = sending_report->buttons;
     memset(sending_report, 0, sizeof(report_mouse_t));
-    sending_report->buttons = buttons;
 }
 
 __attribute__((weak)) void pointing_device_keycode_handler(uint16_t keycode, bool pressed) {
@@ -229,7 +226,13 @@ bool pointing_deivce_task_get_pointing_reports(report_mouse_t* report) {
             loop_report      = pointing_device_configs[i].driver->get_report(pointing_device_configs[i].config);
             pointing_device_adjust_report(&loop_report, i);
             loop_report = pointing_device_task_kb(loop_report, i); // Maybe simpler to not pass pointer to user?
+            buttons[i]  = loop_report.buttons;
             pointing_device_add_and_clamp_report(report, &loop_report);
+        } else {
+            if (buttons[i]) {
+                report->buttons |= buttons[i];
+                device_was_ready = true;
+            }
         }
     }
     return device_was_ready;
