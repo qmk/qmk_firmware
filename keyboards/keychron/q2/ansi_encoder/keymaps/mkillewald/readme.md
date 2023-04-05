@@ -44,9 +44,8 @@ Please make sure to save any customizations you have made in VIA to a .json file
 
 - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
 
-- Fn1+Q in Mac mode will lock and sleep display
-
 - Mac mode
+    - Fn1+Q will lock and sleep display
     - Fn1+< sets my secondary display to 0° rotation
     - Fn1+> sets my secondary display to 90° rotation
 
@@ -80,6 +79,7 @@ It seems Keychron has not pushed the relavant code to the main QMK repo yet. I s
 ## Changelog:
 
 v1.0.1  April 4, 2023
+- added different hue for Mac Base and Win Base layers
 - made requested changes by QMK reveiwers
 - removed optional .json file and baked my layout changes into the firmware
 
