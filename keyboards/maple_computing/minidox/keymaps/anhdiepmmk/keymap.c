@@ -10,6 +10,14 @@
 #define HO_L MT(MOD_RSFT, KC_L)
 #define HO_SCLN MT(MOD_RCTL, KC_SCLN)
 
+// thumb
+#define TH_NAV LT(NAV, KC_TAB) 
+#define TH_NUM LT(NUM, KC_BSPC) 
+#define TH_SYM LT(SYM, KC_ENT) 
+#define TH_MED LT(MED, KC_ESC) 
+#define TH_FUN LT(FUN, KC_DEL) 
+#define TH_MOU LT(MOU, KC_SPC) 
+
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -25,13 +33,13 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-  _BASE = SAFE_RANGE,
-  _NAV,
-  _NUM,
-  _SYM,
-  _MED,
-  _FUN,
-  _MOU,
+  BASE = SAFE_RANGE,
+  NAV,
+  NUM,
+  SYM,
+  MED,
+  FUN,
+  MOU,
 };
 
 // Defines for task manager and such
@@ -47,13 +55,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
   HO_A,    HO_S,    HO_D,    HO_F,    KC_G,         KC_H,    HO_J,    HO_K,    HO_L,    HO_SCLN,
   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
-                    TH_MED,  TH_NAV,  TH_MOU,       TH_SYM,  TH_NUM,  TH_FUN,
+                    TH_MED,  TH_NAV,  TH_MOU,       TH_SYM,  TH_NUM,  TH_FUN
 ),
 
 /* 
  * NAV
  */
-[_NAV] = LAYOUT_split_3x5_3(
+[_NAV] = LAYOUT(
   _______, _______, _______, _______, _______,      _______, KC_HOME, _______, KC_END  , KC_PAGE_UP  ,
   _______, _______, _______, _______, _______,      KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, KC_PAGE_DOWN,
   _______, _______, _______, _______, _______,      _______, _______, _______, _______ , _______     ,
@@ -89,16 +97,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* 
  * FUN
  */
-[_FUN] = LAYOUT(
+[_FUN] = LAYOUT_split_3x5_3(
   KC_F12 , KC_F7  , KC_F8  , KC_F9  , KC_PSCR,      _______, _______, _______, _______, _______,
   KC_F11 , KC_F4  , KC_F5  , KC_F6  , KC_SCRL,      _______, _______, _______, _______, _______,
   KC_F10 , KC_F1  , KC_F2  , KC_F3  , KC_PAUS,      _______, _______, _______, _______, _______,
-                    _______, _______, _______,      _______, _______, _______, 
+                    _______, _______, _______,      _______, _______, _______ 
 ),
 /* 
  * MOU
  */
-[_MOU] = LAYOUT(
+[_MOU] = LAYOUT_split_3x5_3(
   _______, _______, _______, _______, _______,      _______      , _______      , _______    , _______       , _______,
   _______, _______, _______, _______, _______,      KC_MS_LEFT   , KC_MS_DOWN   , KC_MS_UP   , KC_MS_RIGHT   , _______,
   _______, _______, _______, _______, _______,      KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, _______, 
