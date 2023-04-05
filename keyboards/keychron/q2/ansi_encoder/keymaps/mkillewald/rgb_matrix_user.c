@@ -44,11 +44,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     switch (current_layer) {
         case MAC_BASE:
         case WIN_BASE:
-#if defined HUE_WIN_BASE && defined HUE_MAC_BASE
+#ifdef HUE_WIN_BASE
             if (win_mode) {
                 rgb_matrix_sethsv_noeeprom(HUE_WIN_BASE, rgb_matrix_get_sat(), rgb_matrix_get_val());
-            } else {
-                rgb_matrix_sethsv_noeeprom(HUE_MAC_BASE, rgb_matrix_get_sat(), rgb_matrix_get_val());
             }
 #endif
 #ifdef CAPS_LOCK_INDICATOR_COLOR

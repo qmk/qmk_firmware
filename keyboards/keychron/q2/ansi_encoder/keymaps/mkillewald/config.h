@@ -23,11 +23,10 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-#   define HUE_MAC_BASE 170 // HSV blue hue
-#   define HUE_WIN_BASE  80 // HSV green hue
 #   define CAPS_LOCK_INDICATOR_COLOR RGB_RED
 #   define FN1_LAYER_COLOR 0xFE, 0x23, 0x00
 #   define FN2_LAYER_COLOR RGB_YELLOW
 #   define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
 #   define RGB_MATRIX_DEFAULT_HUE 170 // HSV blue hue
+#   define HUE_WIN_BASE  80 // HSV green hue
 #endif
