@@ -19,8 +19,6 @@
 
 #if defined KEYBOARD_durgod_dgk6x_venus
 #   include "venus.h"
-#elif defined KEYBOARD_durgod_dgk6x_galaxy
-#   include "galaxy.h"
 #endif
 
 /* Function Prototype */
