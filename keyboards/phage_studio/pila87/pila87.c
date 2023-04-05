@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pila87.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
