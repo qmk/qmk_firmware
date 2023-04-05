@@ -31,14 +31,14 @@ const report_mouse_t empty_report = {0};
 report_mouse_t       local_report = {0};
 
 #if defined(SPLIT_KEYBOARD)
-report_mouse_t               shared_report                     = {0};
-pointing_device_shared_cpi_t shared_cpi[POINTING_DEVICE_COUNT] = {0};
+pointing_device_shared_report_t shared_report                     = {0};
+pointing_device_shared_cpi_t    shared_cpi[POINTING_DEVICE_COUNT] = {0};
 
-void pointing_device_set_shared_report(report_mouse_t report) {
+void pointing_device_set_shared_report(pointing_device_shared_report_t report) {
     shared_report = report;
 }
 
-report_mouse_t pointing_device_get_shared_report(void) {
+pointing_device_shared_report_t pointing_device_get_shared_report(void) {
     return shared_report;
 }
 
@@ -230,17 +230,17 @@ bool pointing_device_task_handle_shared_report(report_mouse_t* local_report, boo
     static uint8_t counter = 0;
 
     if (is_keyboard_master()) {
-        if (counter != shared_report.report_id) {
-            pointing_device_add_and_clamp_report(local_report, &shared_report);
-            counter           = shared_report.report_id;
+        if (counter != shared_report.counter) {
+            pointing_device_add_and_clamp_report(local_report, &shared_report.report);
+            counter           = shared_report.counter;
             *device_was_ready = true;
             return true;
         }
     } else {
         if (*device_was_ready) {
-            if (pointing_device_report_ready(&shared_report, local_report, device_was_ready)) {
+            if (pointing_device_report_ready(&shared_report.report, local_report, device_was_ready)) {
                 memcpy(&shared_report, local_report, sizeof(report_mouse_t));
-                shared_report.report_id = counter; // FIX ME - can't use the report id for this counter.
+                shared_report.counter = counter; // FIX ME - can't use the report id for this counter.
                 if (counter == UINT8_MAX) {
                     counter = 0;
                 } else {
@@ -254,10 +254,10 @@ bool pointing_device_task_handle_shared_report(report_mouse_t* local_report, boo
 }
 
 __attribute__((weak)) bool pointing_device_task(void) {
-    bool device_was_ready = pointing_deivce_task_get_pointing_reports(&local_report);
-
+    bool device_was_ready    = pointing_deivce_task_get_pointing_reports(&local_report);
+    bool report_is_different = false;
 #if defined(SPLIT_KEYBOARD)
-    pointing_device_task_handle_shared_report(&local_report, &device_was_ready);
+    report_is_different = pointing_device_task_handle_shared_report(&local_report, &device_was_ready);
 #endif
 
     // combine with mouse report to ensure that the combined is sent correctly
@@ -266,8 +266,10 @@ __attribute__((weak)) bool pointing_device_task(void) {
     local_report.buttons           = local_report.buttons | mousekey_report.buttons;
 #endif
 
-    report_mouse_t last_sent_report    = {0};
-    bool           report_is_different = pointing_device_report_ready(&last_sent_report, &local_report, &device_was_ready);
+    report_mouse_t last_sent_report = {0};
+    if (!report_is_different) {
+        report_is_different = pointing_device_report_ready(&last_sent_report, &local_report, &device_was_ready);
+    }
     if (report_is_different) {
         // automatic mouse layer function
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE

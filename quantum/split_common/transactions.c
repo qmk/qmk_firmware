@@ -701,12 +701,15 @@ static void st7565_handlers_slave(matrix_row_t master_matrix[], matrix_row_t sla
 #if defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    static uint32_t last_update   = 0;
-    report_mouse_t  target_report = {0};
+    static uint32_t                 last_update   = 0;
+    pointing_device_shared_report_t target_report = {0};
+    static uint8_t                  counter       = 0;
 
-    bool okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &target_report, &split_shmem->pointing.report, sizeof(report_mouse_t));
+    bool okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &target_report, &split_shmem->pointing.report, sizeof(pointing_device_shared_report_t));
     if (okay) {
+        if (counter != target_report.counter) {
         pointing_device_set_shared_report(target_report);
+        }
     }
 
     static uint32_t                     last_cpi_update                        = 0;
@@ -746,7 +749,7 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
     pointing_device_reset_shared_cpi_update_flags();
 
     pointing.report   = pointing_device_get_shared_report();
-    pointing.checksum = crc8(&pointing.report, sizeof(report_mouse_t));
+    pointing.checksum = crc8(&pointing.report, sizeof(pointing_device_shared_report_t));
 
     split_shared_memory_lock();
     memcpy(&split_shmem->pointing, &pointing, sizeof(split_slave_pointing_sync_t));
