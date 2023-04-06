@@ -912,9 +912,9 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
-        case MA_MS_BTN1_TAP:
+        case MA_MS_BTN2:
             if (isWeakLaMouseStarted) {
-                tap_code16(KC_MS_BTN1);
+                tap_code16(KC_MS_BTN2);
                 return false;
             } else {
                 tap_code16(KC_LGUI);
