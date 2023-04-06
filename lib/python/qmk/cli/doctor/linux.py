@@ -7,11 +7,7 @@ from pathlib import Path
 from milc import cli
 
 from qmk.constants import QMK_FIRMWARE, BOOTLOADER_VIDS_PIDS
-from .check import CheckStatus, release_info
-
-
-def _is_wsl():
-    return 'microsoft' in platform.uname().release.lower()
+from .check import CheckStatus
 
 
 def _udev_rule(vid, pid=None, *args):
@@ -82,13 +78,10 @@ def check_udev_rules():
 
         # Collect all rules from the config files
         for rule_file in udev_rules:
-            try:
-                for line in rule_file.read_text(encoding='utf-8').split('\n'):
-                    line = line.strip()
-                    if not line.startswith("#") and len(line):
-                        current_rules.add(line)
-            except PermissionError:
-                cli.log.debug("Failed to read: %s", rule_file)
+            for line in rule_file.read_text(encoding='utf-8').split('\n'):
+                line = line.strip()
+                if not line.startswith("#") and len(line):
+                    current_rules.add(line)
 
         # Check if the desired rules are among the currently present rules
         for bootloader, rules in desired_rules.items():
@@ -134,22 +127,17 @@ def check_modem_manager():
 def os_test_linux():
     """Run the Linux specific tests.
     """
-    info = release_info()
-    release_id = info.get('PRETTY_NAME', info.get('ID', 'Unknown'))
-    plat = 'WSL, ' if _is_wsl() else ''
-
-    cli.log.info(f"Detected {{fg_cyan}}Linux ({plat}{release_id}){{fg_reset}}.")
-
     # Don't bother with udev on WSL, for now
-    if _is_wsl():
+    if 'microsoft' in platform.uname().release.lower():
+        cli.log.info("Detected {fg_cyan}Linux (WSL){fg_reset}.")
+
         # https://github.com/microsoft/WSL/issues/4197
         if QMK_FIRMWARE.as_posix().startswith("/mnt"):
             cli.log.warning("I/O performance on /mnt may be extremely slow.")
             return CheckStatus.WARNING
 
+        return CheckStatus.OK
     else:
-        rc = check_udev_rules()
-        if rc != CheckStatus.OK:
-            return rc
+        cli.log.info("Detected {fg_cyan}Linux{fg_reset}.")
 
-    return CheckStatus.OK
+        return check_udev_rules()
