@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = halfkay
-
 # If you have Left LEDs (see
 # https://geekhack.org/index.php?topic=22780.msg873819#msg873819 for
 # details), include the following define:
@@ -30,8 +24,6 @@ DEBOUNCE_TYPE = sym_eager_pr
 SRC += matrix.c \
 	   led_i2c.c
 QUANTUM_LIB_SRC += i2c_master.c
-
-LAYOUTS = ergodox
 
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no

@@ -46,16 +46,7 @@ Before starting, you will want to make sure that you have all of the build tools
 
 This part is super simple.  However, there is some configuration that we need to do to ensure things are configured correctly.
 
-### Configuring VS Code
-
-First, we need to set up IntelliSense. This isn't strictly required, but it will make your life a LOT easier. To do this, we need to create the `.vscode/c_cpp_properties.json` file in the QMK Firmware folder, You can do this all manually, but I've done most of the work already. 
-
-Grab [this file](https://gist.github.com/drashna/48e2c49ce877be592a1650f91f8473e8) and save it.  You may need to edit this file, if you didn't install MSYS2 to the default location, or are using WSL/LxSS.  
-
-Once you have saved this file, you will need to reload VS Code, if it was already running. 
-
-?> You should see an `extensions.json` and `settings.json` file in the `.vscode` folder, as well.
-
+#### MSYS2 Setup
 
 Now, we will set up the MSYS2 window to show up in VSCode as the integrated terminal.  This has a number of advantages. Mostly, you can control+click on errors and jump to those files.  This makes debugging much easier.  It's also nice, in that you don't have to jump to another window. 
 
@@ -97,7 +88,7 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
 No, really, that's it.  The paths needed are already included when installing the packages, and it is much better about detecting the current workspace files and parsing them for IntelliSense. 
 
-## Plugins
+## Extensions
 
 There are a number of extensions that you may want to install:
 
@@ -110,8 +101,50 @@ This installs a bunch of Git related tools that may make using Git with QMK Firm
 Restart once you've installed any extensions
 
 # Configure VS Code for QMK
+
 1. Click <kbd><kbd>File</kbd> > <kbd>Open Folder</kbd></kbd>
 2. Open the QMK Firmware folder that you cloned from GitHub. 
 3. Click <kbd><kbd>File</kbd> > <kbd>Save Workspace As...</kbd></kbd>
 
+## Configuring VS Code
+
+Using the [standard `compile_commands.json` database](https://clang.llvm.org/docs/JSONCompilationDatabase.html), we can get VS code C/C++ extension to use the exact same includes and defines used for your keyboard and keymap. 
+
+1. Run `qmk generate-compilation-database -kb <keyboard> -km <keymap>` to generate the `compile_commands.json`.
+1. Create `.vscode/c_cpp_properties.json` with the following content:
+```
+{
+    "configurations": [
+        {
+            "name": "qmk",
+            "compilerArgs": ["-mmcu=atmega32u4"],
+            "compilerPath": "/usr/bin/avr-gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++14",
+            "compileCommands": "${workspaceFolder}/compile_commands.json",
+            "intelliSenseMode": "linux-gcc-arm",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}
+```
+
+Change values in `.vscode/c_cpp_properties.json` for your environment:
+
+1. Copy the `-mmcu` argument from `compile_commands.json` into your `compilerArgs`. This is to work around a [bug in vscode c/c++ extension](https://github.com/microsoft/vscode-cpptools/issues/6478).
+1. Use the `compilerPath` from `compile_commands.json`.
+1. Modify `cStandard`, `cppStandard` and `intelliSenseMode` values to the correct values for your platform. See [this section](https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference#_configuration-properties) for reference. For WSL, it should still be gcc-x64.
+
 And now you're ready to code QMK Firmware in VS Code
+
+
+## Troubleshooting VSCode C/C++ extension
+
+If the defines are not matching what you expect, open the source code and run action `C/C++: Log Diagnostics`. This will list the exact list of defines and include paths defined in `compile_commands.json`, and if it's not part of your compilation database, it will tell you so.

@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* rgb */
 #define RGB_DI_PIN D2
@@ -19,5 +18,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#define DEBOUNCE 5

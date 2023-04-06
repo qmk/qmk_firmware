@@ -8,6 +8,14 @@
         "pid": "0x6967",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D6", "pin_b": "D4", "resolution": 1}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 0,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

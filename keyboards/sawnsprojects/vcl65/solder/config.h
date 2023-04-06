@@ -15,25 +15,13 @@
  */
 
 #pragma once
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { F6, F7, F0, F4, B1 }
 #define MATRIX_COL_PINS { B2, B5, F5, C7, B4, C6, D7, D6, D4, D5, D3, D2, B6, D1, D0 }
 
-/* indicator */
-//  #define LED_CAPS_LOCK_PIN F0
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-/* Caps Lock */
-#define LED_CAPS_LOCK_PIN F1
-#define LED_PIN_ON_STATE 0
-/* rotary */
 
 #define RGB_DI_PIN B7
 #ifdef RGB_DI_PIN

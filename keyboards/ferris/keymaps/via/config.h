@@ -7,3 +7,7 @@
 #define TAPPING_TERM 230
 #define IGNORE_MOD_TAP_INTERRUPT
 
+// Handle master/slave detection on low cost Promicro
+#ifdef __AVR__
+#    define SPLIT_USB_DETECT
+#endif

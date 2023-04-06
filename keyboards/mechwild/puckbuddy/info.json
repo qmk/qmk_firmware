@@ -8,6 +8,19 @@
         "pid": "0x170F",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B1", "pin_b": "B0"},
+            {"pin_a": "B3", "pin_b": "A15"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "C13",
+        "on_state": 0
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F401",
     "layouts": {
         "LAYOUT": {
             "layout": [
