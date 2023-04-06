@@ -19,15 +19,7 @@
 
 #define ENCODER_DIRECTION_FLIP
 
-#define TAP_CODE_DELAY 5
-
-#define MATRIX_IO_DELAY 5
 #define GPIO_INPUT_PIN_DELAY 0
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
