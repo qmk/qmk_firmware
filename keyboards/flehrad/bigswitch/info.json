@@ -17,7 +17,9 @@
     "debounce": 50,
     "layouts": {
         "LAYOUT": {
-            "layout": [{"x":0, "y":0, "w":4, "h":4}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 4, "h": 4}
+            ]
         }
     }
 }
