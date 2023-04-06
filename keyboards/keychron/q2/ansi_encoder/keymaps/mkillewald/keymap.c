@@ -47,6 +47,8 @@ enum my_keycodes {
 #define KC_FCTOG KC_FN_LAYER_COLOR_TOGGLE
 #define KC_LBMAC KC_LOCK_BLANK_MAC
 
+static bool win_mode;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_67(
         QK_GESC, KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,          KC_MUTE,
@@ -99,6 +101,16 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
+void matrix_init_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_init_user();
+#endif
+}
+
+void keyboard_post_init_user(void) {
+    user_config_read_eeprom();
+}
+
 void housekeeping_task_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     switch(bootloader_state) {
@@ -127,29 +139,67 @@ void housekeeping_task_user(void) {
     housekeeping_task_keychron();
 }
 
-void matrix_init_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init_user();
-#endif
+bool dip_switch_update_user(uint8_t index, bool active) {
+    win_mode = (index == 0 && active ? true : false);
+    return true;
 }
 
-void keyboard_post_init_user(void) {
-    user_config_read();
-}
+bool is_win_mode(void) { return win_mode; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_keychron(keycode, record)) {
         switch (keycode) {
-            case QK_BOOT:
 #ifdef RGB_MATRIX_ENABLE
+            case QK_BOOT:
                 // We want to turn off LEDs before calling bootloader, so here
                 // we call rgb_matrix_disable_noeeprom() and set a flag because
                 // the LEDs won't be updated until the next frame.
                 rgb_matrix_disable_noeeprom();
                 bootloader_state = BOOTLOADER_PRESSED;
                 return false;  // Skip all further processing of this key
-#endif
-                return true;  // Allow further processing of this key
+            case RGB_HUI:
+                if (win_mode) {
+                    rgb_matrix_increase_hue_noeeprom();
+                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    return false;  // Skip all further processing of this key
+                 }
+                 return true; // Allow further processing of this key
+            case RGB_HUD:
+                if (win_mode) {
+                    rgb_matrix_decrease_hue_noeeprom();
+                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    return false;  // Skip all further processing of this key
+                 }
+                 return true; // Allow further processing of this key
+            case RGB_SAI:
+                if (win_mode) {
+                    rgb_matrix_increase_sat_noeeprom();
+                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    return false;  // Skip all further processing of this key
+                 }
+                 return true; // Allow further processing of this key
+            case RGB_SAD:
+                if (win_mode) {
+                    rgb_matrix_decrease_sat_noeeprom();
+                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    return false;  // Skip all further processing of this key
+                 }
+                 return true; // Allow further processing of this key
+            case RGB_VAI:
+                if (win_mode) {
+                    rgb_matrix_increase_val_noeeprom();
+                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    return false;  // Skip all further processing of this key
+                 }
+                 return true; // Allow further processing of this key
+            case RGB_VAD:
+                if (win_mode) {
+                    rgb_matrix_decrease_val_noeeprom();
+                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    return false;  // Skip all further processing of this key
+                 }
+                 return true; // Allow further processing of this key
+#endif // RGB_MATRIX_ENABLE
             case KC_LIGHT_TAB_TOGGLE:
                 if (record->event.pressed) {
                     user_config_toggle_caps_lock_light_tab();

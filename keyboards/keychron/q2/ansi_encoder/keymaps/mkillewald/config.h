@@ -28,5 +28,7 @@
 #   define FN2_LAYER_COLOR RGB_YELLOW
 #   define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
 #   define RGB_MATRIX_DEFAULT_HUE 170 // HSV blue hue
+#   define RGB_MATRIX_DEFAULT_SAT 255
+#   define RGB_MATRIX_DEFAULT_VAL 255
 #   define HUE_WIN_BASE  80 // HSV green hue
 #endif

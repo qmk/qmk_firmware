@@ -13,11 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #pragma once
 
-void user_config_read(void);
-void user_config_write(void);
+void user_config_read_eeprom(void);
+void user_config_write_eeprom(void);
 bool user_config_get_caps_lock_light_tab(void);
 bool user_config_get_caps_lock_light_alphas(void);
 bool user_config_get_fn_layer_transparent_keys_off(void);
@@ -26,3 +26,14 @@ void user_config_toggle_caps_lock_light_tab(void);
 void user_config_toggle_caps_lock_light_alphas(void);
 void user_config_toggle_fn_layer_transparent_keys_off(void);
 void user_config_toggle_fn_layer_color_enable(void);
+
+void user_colors_read_eeprom(void);
+void user_colors_write_eeprom(void);
+HSV user_colors_get_hsv_win_base(void);
+HSV user_colors_get_hsv_mac_fn1(void);
+HSV user_colors_get_hsv_win_fn1(void);
+HSV user_colors_get_hsv_fn2(void);
+void user_colors_set_hsv_win_base(HSV hsv);
+void user_colors_set_hsv_mac_fn1(HSV hsv);
+void user_colors_set_hsv_win_fn1(HSV hsv);
+void user_colors_set_hsv_fn2(HSV hsv);

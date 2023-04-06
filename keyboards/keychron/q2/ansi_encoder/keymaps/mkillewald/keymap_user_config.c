@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include QMK_KEYBOARD_H
 #include "keymap_user_config.h"
 
@@ -29,6 +29,15 @@ typedef union {
 
 user_config_t user_config;
 
+typedef struct {
+    HSV hsv_win_base;
+    HSV hsv_mac_fn1;
+    HSV hsv_win_fn1;
+    HSV hsv_fn2;
+} user_colors_t;
+
+user_colors_t user_colors;
+
 void eeconfig_init_user(void) {
     user_config.raw = 0;
     user_config.caps_lock_light_tab = false;
@@ -36,13 +45,17 @@ void eeconfig_init_user(void) {
     user_config.fn_layer_transparent_keys_off = false;
     user_config.fn_layer_color_enable = true;
     eeconfig_update_user(user_config.raw);
+
+    user_colors.hsv_win_base.h = HUE_WIN_BASE;
+    user_colors.hsv_win_base.s = RGB_MATRIX_DEFAULT_SAT;
+    user_colors.hsv_win_base.v = RGB_MATRIX_DEFAULT_VAL;
 }
 
-void user_config_read(void) {
+void user_config_read_eeprom(void) {
     user_config.raw = eeconfig_read_user();
 }
 
-void user_config_write(void) {
+void user_config_write_eeprom(void) {
     eeconfig_update_user(user_config.raw);
 }
 
@@ -64,20 +77,65 @@ bool user_config_get_fn_layer_color_enable(void) {
 
 void user_config_toggle_caps_lock_light_tab(void) {
     user_config.caps_lock_light_tab ^= 1; // bitwise xor to toggle status bit
-    user_config_write();
+    user_config_write_eeprom();
 }
 
 void user_config_toggle_caps_lock_light_alphas(void) {
     user_config.caps_lock_light_alphas ^= 1;
-    user_config_write();
+    user_config_write_eeprom();
 }
 
 void user_config_toggle_fn_layer_transparent_keys_off(void) {
     user_config.fn_layer_transparent_keys_off ^= 1;
-    user_config_write();
+    user_config_write_eeprom();
 }
 
 void user_config_toggle_fn_layer_color_enable(void) {
     user_config.fn_layer_color_enable ^= 1;
-    user_config_write();
+    user_config_write_eeprom();
 }
+
+void user_colors_read_eeprom(void) {
+    eeconfig_read_user_datablock(&user_colors);
+}
+
+void user_colors_write_eeprom(void) {
+    eeconfig_update_user_datablock(&user_colors);
+}
+
+HSV user_colors_get_hsv_win_base(void) {
+    return user_colors.hsv_win_base;
+}
+
+HSV user_colors_get_hsv_mac_fn1(void) {
+    return user_colors.hsv_mac_fn1;
+}
+
+HSV user_colors_get_hsv_win_fn1(void) {
+    return user_colors.hsv_win_fn1;
+}
+
+HSV user_colors_get_hsv_fn2(void) {
+    return user_colors.hsv_fn2;
+}
+
+void user_colors_set_hsv_win_base(HSV hsv) {
+    user_colors.hsv_win_base = hsv;
+    user_colors_write_eeprom();
+}
+
+void user_colors_set_hsv_mac_fn1(HSV hsv) {
+    user_colors.hsv_mac_fn1 = hsv;
+    user_colors_write_eeprom();
+}
+
+void user_colors_set_hsv_win_fn1(HSV hsv) {
+    user_colors.hsv_win_fn1 = hsv;
+    user_colors_write_eeprom();
+}
+
+void user_colors_set_hsv_fn2(HSV hsv) {
+    user_colors.hsv_fn2 = hsv;
+    user_colors_write_eeprom();
+}
+

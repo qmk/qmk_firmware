@@ -21,7 +21,7 @@
 #include "keymap_user_config.h"
 
 keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
-static bool win_mode;
+
 static bool win_mode_was_activated;
 
 void rgb_matrix_init_user(void) {
@@ -35,20 +35,17 @@ void rgb_matrix_init_user(void) {
     }
 }
 
-bool dip_switch_update_user(uint8_t index, bool active) { 
-    win_mode = (index == 0 && active ? true : false);
-    return true;
-}
-
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {    
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t current_layer = get_highest_layer(layer_state);
     switch (current_layer) {
         case MAC_BASE:
         case WIN_BASE:
 #ifdef HUE_WIN_BASE
-            if (win_mode) {
+            if (is_win_mode()) {
                 win_mode_was_activated = true;
-                rgb_matrix_sethsv_noeeprom(HUE_WIN_BASE, rgb_matrix_get_sat(), rgb_matrix_get_val());
+                rgb_matrix_sethsv_noeeprom(user_colors_get_hsv_win_base.h,
+                                           user_colors_get_hsv_win_base.s,
+                                           user_colors_get_hsv_win_base.h);
             } else {
                 if (win_mode_was_activated) {
                     win_mode_was_activated = false;
@@ -63,9 +60,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #endif
 #ifdef CAPS_WORD_INDICATOR_COLOR
             if (is_caps_word_on()) {
-                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_word_indicator, CAPS_WORD_INDICATOR_COLOR); 
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_word_indicator, CAPS_WORD_INDICATOR_COLOR);
             }
-#endif 
+#endif
             break;
         case _FN1:
         case _FN2:

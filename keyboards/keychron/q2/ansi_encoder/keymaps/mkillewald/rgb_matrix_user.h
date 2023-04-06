@@ -25,3 +25,4 @@ bool is_caps_word_indicator(uint16_t keycode);
 bool is_transparent(uint16_t keycode);
 bool is_not_transparent(uint16_t keycode);
 
+void set_hsv_win_base(HSV hsv);

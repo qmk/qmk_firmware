@@ -23,3 +23,5 @@ enum layers{
     _FN2,           // Win Fn1      (layer 3)
     _FN3            // Mac/Win Fn2  (layer 4)
 };
+
+bool is_win_mode(void);
