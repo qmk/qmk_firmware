@@ -549,6 +549,11 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
                 tap_code16_wrap_lctl(FR_SLSH);
             }
             return false;
+        case MA_SPC:
+            if (record->event.pressed) {
+                tap_code16_wrap_lctl(KC_SPC);
+            }
+            return false;
         case MA_GE:
             if (record->event.pressed) {
                 tap_code16_wrap_lctl(KC_DEL);
