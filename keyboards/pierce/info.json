@@ -4,7 +4,7 @@
     "url": "https://github.com/durken1/pierce",
     "maintainer": "durken1",
     "usb": {
-        "vid": "0xFEED",
+        "vid": "0x6431",
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
