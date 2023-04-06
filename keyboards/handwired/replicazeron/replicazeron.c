@@ -27,7 +27,7 @@ joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
 #endif
 
 #ifdef THUMBSTICK_ENABLE
-void housekeeping_tak_user(void) {
+void housekeeping_task_user(void) {
     if (controller_state.wasdMode) {
         thumbstick(controller_state);
     }
