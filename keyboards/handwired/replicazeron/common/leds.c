@@ -37,5 +37,5 @@ void set_leds(uint8_t highest_active_layer) {
     bool bit1 = !(highest_active_layer & 1);
     bool bit2 = !(highest_active_layer & 2);
     writePin(STATUS_LED_A_PIN, bit1);
-    writePin(STATUS_LED_A_PIN, bit2);
+    writePin(STATUS_LED_B_PIN, bit2);
 }
