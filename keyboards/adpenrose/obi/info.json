@@ -7,6 +7,13 @@
         "pid": "0x0002",
         "vid": "0x4450"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F1", "pin_b": "F0"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

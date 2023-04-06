@@ -45,7 +45,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     backlight_level(6);
   }
 
-  if (IS_MOD(keycode)) {
+  if (IS_MODIFIER_KEYCODE(keycode)) {
     if (record->event.pressed) {
       rgblight_setrgb(RGB_RED);
     } else {

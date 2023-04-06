@@ -105,7 +105,7 @@ bool touch_encoder_tapped_kb(uint8_t index, uint8_t section) {
     return false;
 }
 
-void matrix_slave_scan_kb() {
+void matrix_slave_scan_kb(void) {
     dip_switch_read(false);
     matrix_slave_scan_user();
 }

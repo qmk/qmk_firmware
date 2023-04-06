@@ -15,11 +15,6 @@
  */
 
 #pragma once
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B1, B2, D4, F1, F0 }
@@ -27,16 +22,8 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-/* Caps Lock */
-#define LED_CAPS_LOCK_PIN B0
-#define LED_PIN_ON_STATE 0
 
 /* Encoders */
-
-#define ENCODERS 1
-
-#define ENCODERS_PAD_A { D1 }
-#define ENCODERS_PAD_B { D2 }
 
 #define ENCODERS_CW_KEY  { { 12, 3 } }
 #define ENCODERS_CCW_KEY { { 12, 4 } }

@@ -8,6 +8,8 @@
         "pid": "0x7068",
         "vid": "0x6168"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
 		"LAYOUT_tkl_ansi": {
 			"layout": [

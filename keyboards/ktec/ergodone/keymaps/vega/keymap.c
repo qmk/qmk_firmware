@@ -320,7 +320,7 @@ enum unicode_names {
     nullpic, // Null picture - ␀
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     // MATH
     [neq]          = 0x2260, //≠
     [intgrl]       = 0x222B, //∫
