@@ -8,6 +8,10 @@
         "pid": "0x4A13",
         "device_version": "1.0.0"
     },
+    "ws2812": {
+        "pin": "GP15",
+        "driver": "vendor"
+    },
     "processor": "RP2040",
     "bootloader": "rp2040",
     "layouts": {
