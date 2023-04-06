@@ -18,6 +18,9 @@
             {"pin_a": "F6", "pin_b": "F5", "resolution": 2}
         ]
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "bootmagic": {
         "matrix": [0, 1]
     },

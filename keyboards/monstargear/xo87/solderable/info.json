@@ -17,6 +17,9 @@
         "driver": "custom",
         "pin": "F0"
     },
+    "ws2812": {
+        "pin": "D7"
+    },
     "processor": "at90usb646",
     "bootloader": "lufa-dfu",
     "layouts": {

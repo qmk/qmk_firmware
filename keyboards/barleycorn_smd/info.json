@@ -11,6 +11,9 @@
         "caps_lock": "B2",
         "num_lock": "B3"
     },
+    "ws2812": {
+        "pin": "E6"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

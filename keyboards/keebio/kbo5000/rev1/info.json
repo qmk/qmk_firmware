@@ -21,6 +21,9 @@
     "backlight": {
         "pin": "B5"
     },
+    "ws2812": {
+        "pin": "E6"
+    },
     "split": {
         "soft_serial_pin": "D0",
         "encoder": {

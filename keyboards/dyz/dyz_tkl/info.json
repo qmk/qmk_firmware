@@ -10,7 +10,6 @@
     },
     "rgblight": {
         "led_count": 25,
-        "pin": "D1",
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -23,6 +22,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "D1"
     },
     "usb": {
         "vid": "0xD772",

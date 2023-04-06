@@ -62,6 +62,9 @@
             { "flags": 4, "matrix": [0, 3], "x": 163, "y": 64 }
         ]
     },
+    "ws2812": {
+        "pin": "D0"
+    },
     "layouts": {
         "LAYOUT_36": {
             "layout": [

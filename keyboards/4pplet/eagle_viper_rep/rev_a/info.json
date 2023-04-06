@@ -19,6 +19,7 @@
         "breathing": true
     },
     "ws2812": {
+        "pin": "A7",
         "driver": "spi"
     },
     "processor": "STM32F072",

@@ -48,7 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define AUDIO_CLICKY
 #endif
 
-#define RGB_DI_PIN F0
   #define RGBLED_NUM 14 // Left(4) + Right(2) + Under(8)
   #define RGBLIGHT_LED_MAP {0,1,2,3,13,12,4,5,6,7,8,9,10,11} // Left --> Right --> Under
   #define RGBLIGHT_HUE_STEP 8

@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB LED */
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
 #define RGBLED_NUM 69    // Number of LEDs. backlight x69
 #define RGBLED_SPLIT { 34, 35 }
 #define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */

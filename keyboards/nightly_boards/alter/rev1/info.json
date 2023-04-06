@@ -18,6 +18,9 @@
     	"num_lock": "D7",
     	"scroll_lock": "B4"
     },
+    "ws2812": {
+    	"pin": "F1"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["alice_split_bs"],

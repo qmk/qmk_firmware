@@ -117,7 +117,9 @@
         ]
     },
     "rgblight": {
-        "led_count": 8,
+        "led_count": 8
+    },
+    "ws2812": {
         "pin": "F0"
     }
 }

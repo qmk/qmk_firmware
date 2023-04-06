@@ -17,6 +17,9 @@
         "pin": "F7",
         "on_state": 0
     },
+    "ws2812": {
+        "pin": "F6"
+    },
     "indicators": {
         "num_lock": "B2",
         "on_state": 0

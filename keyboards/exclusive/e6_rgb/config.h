@@ -6,7 +6,6 @@
 
 //rgb light setting
 #define RGBLED_NUM      6
-#define RGB_DI_PIN      B7
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

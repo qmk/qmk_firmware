@@ -33,13 +33,15 @@
     },
     "rgblight": {
         "led_count": 23,
-        "pin": "D4",
         "max_brightness": 191,
         "animations": {
             "breathing": true,
             "rainbow_swirl": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "D4"
     },
     "backlight": {
         "levels": 6,

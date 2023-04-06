@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
 // keyboard RGB LED support
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #define RGBLED_NUM 6

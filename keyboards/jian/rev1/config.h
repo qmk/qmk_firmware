@@ -72,7 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // SCROLL_NMOSFET
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D4
 #define RGBLIGHT_TIMER
 #define RGBLED_NUM 7    // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING

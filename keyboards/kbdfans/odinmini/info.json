@@ -41,11 +41,11 @@
         "hue_steps": 8,
         "led_count": 4,
         "max_brightness": 180,
-        "pin": "GP12",
         "saturation_steps": 8,
         "sleep": true
     },
     "ws2812": {
+        "pin": "GP12",
         "driver": "vendor"
     },
     "usb": {

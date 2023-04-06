@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN B3
 #define RGBLIGHT_SLEEP
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200

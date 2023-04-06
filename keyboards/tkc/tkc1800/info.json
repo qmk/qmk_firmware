@@ -27,6 +27,9 @@
     "num_lock": "D2",
     "scroll_lock": "D4"
   },
+  "ws2812": {
+    "pin": "D7"
+  },
   "processor": "at90usb1286",
   "bootloader": "qmk-dfu",
   "layouts": {

@@ -12,6 +12,9 @@
     "pin": "D7",
     "breathing": true
   },
+  "ws2812": {
+    "pin": "F4"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "matrix_pins": {

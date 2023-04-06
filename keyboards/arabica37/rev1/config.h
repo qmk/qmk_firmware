@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
 #define RGBLED_NUM 50    // Number of LEDs
 #define RGBLED_SPLIT {25, 25}
 /*

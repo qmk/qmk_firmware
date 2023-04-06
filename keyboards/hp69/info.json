@@ -17,6 +17,9 @@
         "caps_lock": "A6",
         "scroll_lock": "A7"
     },
+    "ws2812": {
+        "pin": "A3"
+    },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",

@@ -19,6 +19,9 @@
             {"pin_a": "D0", "pin_b": "D1"}
         ]
     },
+    "ws2812": {
+        "pin": "D4"
+    },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
     "layout_aliases": {

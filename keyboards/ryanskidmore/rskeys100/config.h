@@ -27,8 +27,6 @@
  * the diode direction is COL(umn) to ROW */
 #define DIODE_DIRECTION COL2ROW
 
-/* RGB Data Pin */
-#define RGB_DI_PIN C7
 /* The number of RGB LEDs connected */
 #define RGB_MATRIX_LED_COUNT 105
 /* Set the maximum brightness to 110 to avoid going over 500 mA.

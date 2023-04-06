@@ -24,6 +24,9 @@
         "pid": "0x6F21",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+      "pin": "B4"
+    },
     "bootmagic": {
         "matrix": [1, 1]
     },

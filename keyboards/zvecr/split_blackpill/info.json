@@ -26,6 +26,7 @@
         }
     },
     "ws2812": {
+        "pin": "B4",
         "driver": "pwm"
     },
     "processor": "STM32F103",

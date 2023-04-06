@@ -8,6 +8,9 @@
         "pid": "0x6074",
         "device_version": "0.0.2"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {

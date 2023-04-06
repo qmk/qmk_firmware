@@ -23,6 +23,9 @@
         "num_lock": "B12",
         "scroll_lock": "B13"
     },
+    "ws2812": {
+        "pin": "A8"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

@@ -77,7 +77,7 @@ Configure the hardware via your config.h:
 ```
 
 ### SPI
-Targeting STM32 boards where WS2812 support is offloaded to an SPI hardware device. The advantage is that the use of DMA offloads processing of the WS2812 protocol from the MCU. `RGB_DI_PIN` for this driver is the configured SPI MOSI pin. Due to the nature of repurposing SPI to drive the LEDs, the other SPI pins, MISO and SCK, **must** remain unused. To configure it, add this to your rules.mk:
+Targeting STM32 boards where WS2812 support is offloaded to an SPI hardware device. The advantage is that the use of DMA offloads processing of the WS2812 protocol from the MCU. `WS2812_DI_PIN` for this driver is the configured SPI MOSI pin. Due to the nature of repurposing SPI to drive the LEDs, the other SPI pins, MISO and SCK, **must** remain unused. To configure it, add this to your rules.mk:
 
 ```make
 WS2812_DRIVER = spi
@@ -183,7 +183,7 @@ This can be configured for bitbang, PWM and SPI.
 
 Note: This only applies to STM32 boards.
 
- To configure the `RGB_DI_PIN` to open drain configuration add this to your config.h file: 
+ To configure the `WS2812_DI_PIN` to open drain configuration add this to your config.h file: 
 ```c
 #define WS2812_EXTERNAL_PULLUP
 ```

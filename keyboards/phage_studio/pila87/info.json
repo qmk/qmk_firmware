@@ -19,6 +19,9 @@
         "caps_lock": "C14",
         "scroll_lock": "A0"
     },
+    "ws2812": {
+        "pin": "A4"
+    },
     "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {

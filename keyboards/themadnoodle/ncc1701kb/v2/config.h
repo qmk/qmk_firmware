@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* RGB BackLight */
-#define RGB_DI_PIN B7
 #define RGBLED_NUM 4
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING

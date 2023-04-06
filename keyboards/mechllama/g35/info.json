@@ -7,6 +7,9 @@
         "vid": "0xCEEB",
         "pid": "0x0035"
     },
+    "ws2812": {
+        "pin": "F7"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

@@ -53,7 +53,6 @@
 #define DIP_SWITCH_PINS_RIGHT { A14, B0 }
 
 /* RGB LED Configuration */
-#define RGB_DI_PIN B5
 #define RGBLED_NUM 156
 #define RGBLED_SPLIT { 78, 78 }
 #define RGBLIGHT_LIMIT_VAL 255

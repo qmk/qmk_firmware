@@ -16,6 +16,9 @@
     "bootmagic": {
         "matrix": [0, 6]
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "split": {
         "soft_serial_pin": "D0",
         "bootmagic": {

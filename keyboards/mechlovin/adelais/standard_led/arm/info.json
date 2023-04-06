@@ -9,6 +9,9 @@
         "pin": "B0",
         "breathing": true
     },
+    "ws2812": {
+        "pin": "A7"
+    },
     "indicators": {
         "caps_lock": "B2",
         "num_lock": "C15",

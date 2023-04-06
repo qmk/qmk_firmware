@@ -39,7 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_DEFAULT_MODE         RGBLIGHT_MODE_STATIC_LIGHT
 #define RGBLIGHT_DEFAULT_HUE          170
 
-#define RGB_DI_PIN                    F6
 #define RGB_MATRIX_LED_COUNT              2
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #define RGB_MATRIX_DISABLE_KEYCODES

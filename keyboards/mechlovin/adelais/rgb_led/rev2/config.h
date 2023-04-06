@@ -1,6 +1,5 @@
 #pragma once
 
-#define RGB_DI_PIN A15
 #define RGBLED_NUM      23
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

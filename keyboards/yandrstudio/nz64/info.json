@@ -5,6 +5,7 @@
         "device_version": "1.0.0"
     },
     "ws2812": {
+        "pin": "A7",
         "driver": "pwm"
     },
     "matrix_pins": {

@@ -1,6 +1,6 @@
 {
     "keyboard_name": "Ayleen",
-    "manufacturer": "Teahouse"
+    "manufacturer": "Teahouse",
     "url": "https://keyspensory.store/products/fcfs-ayleen-tkl-by-teahouse-extra-parts?_pos=1&_sid=e33d5f339&_ss=r",
     "maintainer": "Freather",
     "processor": "atmega32u4",
@@ -28,6 +28,9 @@
         "B5",
         "B6"
       ]
+    },
+    "ws2812": {
+        "pin": "C7"
     },
     "usb":{
       "vid":      "0x5448",

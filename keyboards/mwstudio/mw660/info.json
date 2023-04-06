@@ -12,6 +12,9 @@
         "nkro": true,
         "rgblight": true
     },
+    "ws2812": {
+        "pin": "B8"
+    },
     "matrix_pins": {
         "cols": ["A7", "B0", "B1", "B10", "B11", "B12", "B13", "B14", "B15", "A15", "B3", "B4", "B5", "B6", "B7" ],
         "rows": ["A3", "A4", "A5", "A6", "A2" ]

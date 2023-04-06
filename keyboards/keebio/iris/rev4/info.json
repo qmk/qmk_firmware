@@ -18,6 +18,9 @@
         "pin": "B5",
         "levels": 5
     },
+    "ws2812": {
+        "pin": "D6"
+    },
     "qmk_lufa_bootloader": {
         "esc_input": "B1",
         "esc_output": "F1",

@@ -32,6 +32,9 @@
             {"pin_a": "D6", "pin_b": "D7", "resolution": 2}
         ]
     },
+    "ws2812": {
+        "pin": "F6"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [

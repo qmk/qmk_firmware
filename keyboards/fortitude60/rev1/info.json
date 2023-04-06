@@ -17,6 +17,9 @@
     "pin": "B5",
     "levels": 9
   },
+  "ws2812": {
+    "pin": "B5"
+  },
   "split": {
     "soft_serial_pin": "D2"
   },

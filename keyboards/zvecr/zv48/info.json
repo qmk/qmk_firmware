@@ -19,6 +19,7 @@
         ]
     },
     "ws2812": {
+        "pin": "B1",
         "driver": "pwm"
     },
     "split": {

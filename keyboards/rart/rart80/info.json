@@ -17,6 +17,9 @@
         "caps_lock": "D4",
         "on_state": 0
     },
+    "ws2812": {
+        "pin": "D5"
+    },
     "bootmagic": {
         "matrix": [0, 1]
     },

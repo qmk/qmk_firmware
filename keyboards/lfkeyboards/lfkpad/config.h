@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN C7  // Have to set it to something to get the ws2812 code to compile
 #    define RGBLED_NUM 28
 #    define RGBLIGHT_HUE_STEP 10
 #    define RGBLIGHT_SAT_STEP 17

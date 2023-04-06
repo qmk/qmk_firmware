@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN E6 //reserved pin for potential underglow rgb
     #define RGBLED_NUM 10
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8

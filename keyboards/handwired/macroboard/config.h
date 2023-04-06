@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN B9
 #define WS2812_PWM_DRIVER   PWMD4
 #define WS2812_PWM_CHANNEL  4
 #define WS2812_PWM_PAL_MODE 2

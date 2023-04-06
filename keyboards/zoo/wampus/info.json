@@ -18,6 +18,7 @@
         "breathing": true
     },
     "ws2812": {
+        "pin": "B15",
         "driver": "spi"
     },
     "indicators": {

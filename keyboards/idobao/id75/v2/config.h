@@ -16,8 +16,6 @@
 
 #pragma once
 
-#undef RGB_DI_PIN
-#define RGB_DI_PIN F0
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_COUNT 85 /* 10 Bottom 75 top*/
 // RGB Matrix Animation modes. Explicitly enabled

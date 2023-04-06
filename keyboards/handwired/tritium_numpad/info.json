@@ -21,6 +21,9 @@
     "num_lock": "D5",
     "on_state": 0
   },
+  "ws2812": {
+    "pin": "D2"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "community_layouts": ["numpad_6x4", "ortho_6x4"],

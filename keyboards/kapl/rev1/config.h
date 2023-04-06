@@ -5,8 +5,6 @@
 /* Select hand configuration */
 #define MASTER_LEFT
 
-
-#define RGB_DI_PIN D4
 #define RGBLED_NUM 88
 #define RGBLED_SPLIT { 44, 44 }
 #define RGBLIGHT_SPLIT

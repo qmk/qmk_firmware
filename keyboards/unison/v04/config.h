@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* RGB Lighting */
-#define RGB_DI_PIN B7
   #define RGBLED_NUM 7 // Layer Indicator(2) + Rotary Encoder(5)
   #define RGBLIGHT_LED_MAP {1, 2, 0, 3, 4, 5, 6} // align LEDs from Left to Right
   #define RGBLIGHT_HUE_STEP 4

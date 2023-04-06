@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN D3
 #define RGBLED_SPLIT {32, 37}
 #    define RGBLED_NUM 69
 #    define RGBLIGHT_HUE_STEP 8

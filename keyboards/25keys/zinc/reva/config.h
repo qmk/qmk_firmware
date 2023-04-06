@@ -25,9 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MASTER_RIGHT
 //#define EE_HANDS
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

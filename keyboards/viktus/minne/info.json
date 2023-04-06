@@ -32,13 +32,15 @@
     },
     "rgblight": {
         "led_count": 14,
-        "pin": "F6",
         "max_brightness": 191,
         "animations": {
             "breathing": true,
             "rainbow_swirl": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "F6"
     },
     "layouts": {
         "LAYOUT_all": {

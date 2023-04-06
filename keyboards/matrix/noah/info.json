@@ -8,6 +8,9 @@
     "pid": "0x0065",
     "device_version": "0.0.1"
   },
+  "ws2812": {
+    "pin": "B1"
+  },
   "community_layouts": ["65_iso_blocker"],
   "layouts": {
     "LAYOUT_default": {

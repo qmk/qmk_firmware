@@ -30,7 +30,6 @@
 
 
 //TODO: implement RGB Matrix
-#define RGB_DI_PIN F0
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 4
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses

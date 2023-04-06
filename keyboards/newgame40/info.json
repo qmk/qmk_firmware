@@ -13,6 +13,9 @@
     "rows": ["F7", "B1", "B3", "B2"]
   },
   "diode_direction": "COL2ROW",
+  "ws2812": {
+    "pin": "F6"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "community_layouts": ["ortho_4x10"],

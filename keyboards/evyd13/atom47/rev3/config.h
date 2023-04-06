@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN F5    // The pin the LED strip is connected to
 #define RGBLED_NUM 6     // Number of LEDs in your strip
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

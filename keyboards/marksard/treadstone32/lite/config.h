@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN D3
   #define RGBLED_NUM 6
   #ifndef IOS_DEVICE_ENABLE
     #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */

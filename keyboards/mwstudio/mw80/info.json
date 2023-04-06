@@ -23,11 +23,11 @@
         "caps_lock": "A0"
     },
     "ws2812": {
+        "pin": "B8",
         "driver": "pwm"
     },
     "rgblight": {
         "led_count": 16,
-        "pin": "B8",
         "hue_steps": 10,
         "saturation_steps": 17,
         "brightness_steps": 17,

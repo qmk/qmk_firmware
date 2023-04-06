@@ -37,8 +37,10 @@
     "brightness_steps": 17,
     "hue_steps": 10,
     "led_count": 4,
-    "pin": "F6",
     "saturation_steps": 17
+  },
+  "ws2812": {
+    "pin": "F6"
   },
   "url": "",
   "usb": {

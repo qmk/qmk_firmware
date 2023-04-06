@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_MATRIX_GRID D4,D3
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D2
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 38, 46 }
 #define RGBLED_NUM 84

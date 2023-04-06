@@ -25,7 +25,6 @@
 
 /* RGB Definitions */
 
-#define RGB_DI_PIN D2
 #define RGBLED_NUM 84
 #define RGBLIGHT_MAX_LAYERS 32
 #define RGBLIGHT_HUE_STEP 10

@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN B5
 #define RGB_MATRIX_LED_COUNT 16
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

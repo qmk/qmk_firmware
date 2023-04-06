@@ -24,6 +24,9 @@
         "scroll_lock": "C3",
         "on_state": 0
     },
+    "ws2812": {
+        "pin": "D5"
+    },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
     "layouts": {

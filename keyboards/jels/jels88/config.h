@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* ws2812b RGB LEDs */
-#define RGB_DI_PIN B6
-
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 20  // Number of LEDs
 #define RGBLIGHT_SLEEP

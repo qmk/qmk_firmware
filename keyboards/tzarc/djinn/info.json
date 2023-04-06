@@ -34,6 +34,7 @@
     "levels": 4
   },
   "ws2812": {
+    "pin": "B2",
     "driver": "pwm"
   },
   "split": {

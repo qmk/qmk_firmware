@@ -8,13 +8,14 @@
     },
     "rgblight": {
         "led_count": 3,
-        "pin": "B5",
         "max_brightness": 40,
         "animations": {
             "breathing": true,
             "rainbow_mood": true,
             "rainbow_swirl": true
         }
+    },
+    "ws2812": {
+        "pin": "B5"
     }
-
 }

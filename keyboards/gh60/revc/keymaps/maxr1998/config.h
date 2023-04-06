@@ -20,7 +20,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #include "../../config.h"
 
-#define RGB_DI_PIN          F4 // pin the DI on the WS2812B is hooked-up to
+#define WS2812_DI_PIN          F4 // pin the DI on the WS2812B is hooked-up to
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
