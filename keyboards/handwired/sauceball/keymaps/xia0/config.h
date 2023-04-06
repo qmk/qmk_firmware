@@ -13,7 +13,7 @@
 // since we are implementing our own drag scroll, we should disable default behaviour which will allow us to drag with middle mouse without scrolling.
 // by default, this behaviour is set to middle mouse as i think the ps/2 functionality of qmk has trackpoint modules in mind.
 // comment out the next line to use the default behaviour (middle mouse = drag scroll)
-//#define PS2_MOUSE_SCROLL_BTN_MASK 0
+#define PS2_MOUSE_SCROLL_BTN_MASK 0
 #define PS2_MOUSE_SCROLL_BTN_SEND 300
 
 // define custom key to activate drag scroll when held
