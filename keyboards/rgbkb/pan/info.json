@@ -8,6 +8,9 @@
         "pid": "0x8C9C",
         "device_version": "0.0.2"
     },
+    "rgb_matrix": {
+        "driver": "custom"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
