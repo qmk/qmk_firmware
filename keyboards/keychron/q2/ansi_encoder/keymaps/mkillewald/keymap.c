@@ -157,10 +157,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgb_matrix_disable_noeeprom();
                 bootloader_state = BOOTLOADER_PRESSED;
                 return false;  // Skip all further processing of this key
+            case RGB_MOD:
+                if (win_mode) {
+                    // need to fix mode indexing, currently hosed
+                    rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
+                    rgb_matrix_step_noeeprom();
+                    user_config_set_mode_win_base(rgb_matrix_get_mode());
+                    return false;  // Skip all further processing of this key
+                 }
+                 return true; // Allow further processing of this key
+            case RGB_RMOD:
+                if (win_mode) {
+                    // need to fix mode indexing, currently hosed
+                    rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
+                    rgb_matrix_step_reverse_noeeprom();
+                    user_config_set_mode_win_base(rgb_matrix_get_mode());
+                    return false;  // Skip all further processing of this key
+                 }
+                 return true; // Allow further processing of this key
             case RGB_HUI:
                 if (win_mode) {
                     rgb_matrix_increase_hue_noeeprom();
-                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    user_config_set_mode_win_base(rgb_matrix_get_mode());
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
@@ -196,6 +214,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (win_mode) {
                     rgb_matrix_decrease_val_noeeprom();
                     user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    return false;  // Skip all further processing of this key
+                 }
+                 return true; // Allow further processing of this key
+            case RGB_SPI:
+                if (win_mode) {
+                    rgb_matrix_increase_speed_noeeprom();
+                    user_config_set_spd_win_base(rgb_matrix_get_speed());
+                    return false;  // Skip all further processing of this key
+                 }
+                 return true; // Allow further processing of this key
+            case RGB_SPD:
+                if (win_mode) {
+                    rgb_matrix_decrease_speed_noeeprom();
+                    user_config_set_spd_win_base(rgb_matrix_get_speed());
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key

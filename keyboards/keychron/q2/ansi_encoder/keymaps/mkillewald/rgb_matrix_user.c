@@ -41,16 +41,16 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         case MAC_BASE:
         case WIN_BASE:
 #ifdef HUE_WIN_BASE
-            if (is_win_mode()) {
+            if (is_win_mode() && !win_mode_was_activated) {
                 win_mode_was_activated = true;
+                rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
+                rgb_matrix_set_speed_noeeprom(user_config_get_spd_win_base());
                 rgb_matrix_sethsv_noeeprom(user_config_get_hsv_win_base().h,
                                            user_config_get_hsv_win_base().s,
                                            user_config_get_hsv_win_base().v);
-            } else {
-                if (win_mode_was_activated) {
-                    win_mode_was_activated = false;
-                    rgb_matrix_reload_from_eeprom();
-                }
+            } else if (!is_win_mode() && win_mode_was_activated) {
+                win_mode_was_activated = false;
+                rgb_matrix_reload_from_eeprom();
             }
 #endif
 #ifdef CAPS_LOCK_INDICATOR_COLOR

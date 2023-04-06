@@ -22,6 +22,8 @@ typedef struct {
     bool caps_lock_light_alphas :1;
     bool fn_layer_transparent_keys_off :1;
     bool fn_layer_color_enable :1;
+    uint8_t mode_win_base;
+    uint8_t spd_win_base;
     HSV hsv_win_base;
     HSV hsv_mac_fn1;
     HSV hsv_win_fn1;
@@ -35,6 +37,9 @@ void eeconfig_init_user(void) {
     user_config.caps_lock_light_alphas = true;
     user_config.fn_layer_transparent_keys_off = false;
     user_config.fn_layer_color_enable = true;
+    
+    user_config.mode_win_base = RGB_MATRIX_DEFAULT_MODE;
+    user_config.spd_win_base = RGB_MATRIX_DEFAULT_SPD;
 
     user_config.hsv_win_base.h = HUE_WIN_BASE;
     user_config.hsv_win_base.s = RGB_MATRIX_DEFAULT_SAT;
@@ -52,6 +57,7 @@ void user_config_write_eeprom(void) {
 }
 
 // getters
+
 bool user_config_get_caps_lock_light_tab(void) {
     return user_config.caps_lock_light_tab;
 }
@@ -66,6 +72,14 @@ bool user_config_get_fn_layer_transparent_keys_off(void) {
 
 bool user_config_get_fn_layer_color_enable(void) {
     return user_config.fn_layer_color_enable;
+}
+
+uint8_t user_config_get_mode_win_base(void) {
+    return user_config.mode_win_base;
+}
+
+uint8_t user_config_get_spd_win_base(void) {
+    return user_config.spd_win_base;
 }
 
 HSV user_config_get_hsv_win_base(void) {
@@ -85,6 +99,37 @@ HSV user_config_get_hsv_fn2(void) {
 }
 
 // setters
+
+void user_config_toggle_caps_lock_light_tab(void) {
+    user_config.caps_lock_light_tab ^= 1; // bitwise xor to toggle status bit
+    user_config_write_eeprom();
+}
+
+void user_config_toggle_caps_lock_light_alphas(void) {
+    user_config.caps_lock_light_alphas ^= 1;
+    user_config_write_eeprom();
+}
+
+void user_config_toggle_fn_layer_transparent_keys_off(void) {
+    user_config.fn_layer_transparent_keys_off ^= 1;
+    user_config_write_eeprom();
+}
+
+void user_config_toggle_fn_layer_color_enable(void) {
+    user_config.fn_layer_color_enable ^= 1;
+    user_config_write_eeprom();
+}
+
+void user_config_set_mode_win_base(uint8_t mode) {
+    user_config.mode_win_base = mode;
+    user_config_write_eeprom();
+}
+
+void user_config_set_spd_win_base(uint8_t spd) {
+    user_config.spd_win_base = spd;
+    user_config_write_eeprom();
+}
+
 void user_config_set_hsv_win_base(HSV hsv) {
     user_config.hsv_win_base = hsv;
     user_config_write_eeprom();
@@ -105,26 +150,7 @@ void user_config_set_hsv_fn2(HSV hsv) {
     user_config_write_eeprom();
 }
 
-// toggles
-void user_config_toggle_caps_lock_light_tab(void) {
-    user_config.caps_lock_light_tab ^= 1; // bitwise xor to toggle status bit
-    user_config_write_eeprom();
-}
 
-void user_config_toggle_caps_lock_light_alphas(void) {
-    user_config.caps_lock_light_alphas ^= 1;
-    user_config_write_eeprom();
-}
-
-void user_config_toggle_fn_layer_transparent_keys_off(void) {
-    user_config.fn_layer_transparent_keys_off ^= 1;
-    user_config_write_eeprom();
-}
-
-void user_config_toggle_fn_layer_color_enable(void) {
-    user_config.fn_layer_color_enable ^= 1;
-    user_config_write_eeprom();
-}
 
 
 
