@@ -273,6 +273,5 @@
             { "matrix": [0, 5], "x": 207, "y": 66, "flags": 4 }, //  86, Right
         ],
         "center_point": [ 103, 33 ],
-        //"timeout": 1200000
     }
 }
