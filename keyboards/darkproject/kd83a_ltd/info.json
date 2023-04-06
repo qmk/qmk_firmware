@@ -28,6 +28,7 @@
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
+        "io_delay": 5,
         "cols": ["A0", "A1", "A2", "A3", "A4", "A8", "A9", "A10"],
         "rows": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10"] // For default scanning matrix add B12 to the end and change code below accordingly.
     }, // Pin B12 is present in matix for only one button and is used during scan of B9 pin row so it was removed for optimization.
@@ -36,6 +37,9 @@
         "rotary": [
             { "pin_a": "C2", "pin_b": "C3" }
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 5,
     },
     "bootmagic": {
         "matrix": [1, 3] // Hold ESC on start up to clear EEPROM and boot into bootloader mode
