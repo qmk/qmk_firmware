@@ -1,7 +1,7 @@
 find_package(Chibios REQUIRED)
 
 target_link_options(qmk PUBLIC
-    -mcpu=${QMK_MCU}
+    -mcpu=${MCU}
     -mthumb
     -mno-thumb-interwork
     -mno-unaligned-access
@@ -30,12 +30,26 @@ else()
     )
 endif()
 
+# bootloader
+if(${BOOTLOADER} STREQUAL "stm32-dfu")
+    target_compile_definitions(qmk PUBLIC BOOTLOADER_STM32_DFU)
+    set(BOOTLOADER_TYPE stm32_dfu)
+endif()
+
 target_sources(qmk PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/syscall-fallbacks.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/wait.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/synchronization_util.c
+    syscall-fallbacks.c
+    wait.c
+    synchronization_util.c
+    hardware_id.c
+	platform.c
+	suspend.c
+	timer.c
+	bootloaders/${BOOTLOADER_TYPE}.c
 )
 
 target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/boards/common/configs)
 target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/boards/${BOARD}/configs)
+
+# mabye this should be in a different place
+add_subdirectory(${CMAKE_SOURCE_DIR}/quantum/logging logging)

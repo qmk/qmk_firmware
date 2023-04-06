@@ -24,9 +24,10 @@ file(STRINGS "${CMAKE_SOURCE_DIR}/build/targets" TARGETS)
 
 while(TARGETS)
     list(POP_FRONT TARGETS LINE)
-    if (LINE MATCHES "(.+)\\|(.+)\\|(.+)\\|(.+)")
+    if (LINE MATCHES "(.+)\\|(.+)\\|(.+):(.+)\\|(.+)")
       set(KEYBOARD_FOLDER ${CMAKE_MATCH_3})
-      add_keyboard(${KEYBOARD_FOLDER} "default")
+      set(KEYMAP_FOLDER ${CMAKE_MATCH_4})
+      add_keyboard(${KEYBOARD_FOLDER} ${KEYMAP_FOLDER})
     endif()
 endwhile()
 

@@ -6,15 +6,43 @@ set(MCU "cortex-m4")
 set(ARMV 7)
 set(MCU_FAMILY "STM32")
 set(MCU_SERIES "STM32F3xx")
+string(TOUPPER ${MCU_SERIES} MCU_SERIES_UPPER)
 set(MCU_LDSCRIPT "STM32F303xC")
 set(MCU_STARTUP "stm32f3xx")
 set(BOARD "GENERIC_STM32_F303XC")
 set(USE_FPU TRUE)
 set(UF2_FAMILY "STM32F3")
 set(STM32_BOOTLOADER_ADDRESS 0x1FFFD800)
-set(EEPROM_DRIVER "wear_leveling" CACHE STRING "" FORCE)
+set(EEPROM_DRIVER "wear_leveling" FORCE)
+set(WEAR_LEVELING_DRIVER "embedded_flash" FORCE)
+
+target_compile_definitions(qmk PUBLIC
+  QMK_MCU_FAMILY_${MCU_FAMILY}
+  QMK_MCU_SERIES_${MCU_SERIES_UPPER}
+)
+
+target_compile_options(qmk PUBLIC
+    -march=armv7-m
+)
+
+target_compile_definitions(qmk PUBLIC
+    MCU_${MCU_FAMILY}
+    __ARM_ARCH_7M__
+)
 
 # platforms/chibios/platform.mk
+
+if(NOT DEFINED USE_PROCESS_STACKSIZE)
+    set(USE_PROCESS_STACKSIZE 0x800)
+endif()
+
+if(NOT DEFINED USE_EXCEPTIONS_STACKSIZE)
+    set(USE_EXCEPTIONS_STACKSIZE 0x400)
+endif()
+
+target_link_options(qmk PUBLIC
+    -Wl,--defsym=__process_stack_size__=${USE_PROCESS_STACKSIZE},--defsym=__main_stack_size__=${USE_EXCEPTIONS_STACKSIZE}
+)
 
 if(NOT DEFINED MCU_PORT_NAME)
     set(MCU_PORT_NAME ${MCU_FAMILY})
@@ -42,6 +70,7 @@ find_file(STARTUP_MK startup_${MCU_STARTUP}.mk
     ${CHIBIOS}/os/common/startup/ARMCMx/compilers/GCC/mk
     ${CHIBIOS_CONTRIB}/os/common/startup/ARMCMx/compilers/GCC/mk
 )
+get_filename_component(STARTUP_DIR ${STARTUP_MK} DIRECTORY)
 ParseMakefile(${STARTUP_MK})
 target_sources(qmk PUBLIC ${STARTUPSRC} ${STARTUPASM})
 target_include_directories(qmk PUBLIC ${STARTUPINC})
@@ -54,14 +83,41 @@ NAMES
 PATHS
     ${QMK_KEYBOARD_FOLDER}/boards/${BOARD}
     ${CMAKE_SOURCE_DIR}/platforms/chibios/boards/${BOARD}
+    ${CHIBIOS}/os/hal/
+    ${CHIBIOS_CONTRIB}/os/hal/
 )
+# if(EXISTS ${BOARD_PATH}/rules.mk)
+#     ParseMakefile(${BOARD_PATH}/rules.mk)
+# endif()
+
+if(EXISTS ${BOARD_PATH}/configs/config.h)
+target_precompile_headers(qmk PUBLIC
+    ${BOARD_PATH}/configs/config.h
+)
+endif()
+
+if(EXISTS ${BOARD_PATH}/configs/post_config.h)
+    target_precompile_headers(qmk PUBLIC
+        ${BOARD_PATH}/configs/post_config.h
+    )
+endif()
+
 find_file(BOARD_MK board.mk
     ${BOARD_PATH}/boards/${BOARD}
     ${BOARD_PATH}/board
 )
 ParseMakefile(${BOARD_MK})
+
 target_sources(qmk PUBLIC ${BOARDSRC})
 target_include_directories(qmk PUBLIC ${BOARDINC})
+
+# allow board.c to be overriden
+file(RELATIVE_PATH INIT_HOOK_RELATIVE ${CMAKE_BINARY_DIR}
+    "${CMAKE_SOURCE_DIR}/tmk_core/protocol/chibios/init_hooks.h")
+set_source_files_properties(${BOARDSRC} TARGET_DIRECTORY qmk PROPERTIES 
+    # COMPILE_OPTIONS "-include ../../../tmk_core/protocol/chibios/init_hooks.h"
+    COMPILE_OPTIONS "-include ${INIT_HOOK_RELATIVE}"
+)
 
 # bootloader
 if(DEFINED STM32_BOOTLOADER_ADDRESS)
@@ -101,6 +157,13 @@ find_file(LDSCRIPT ${MCU_LDSCRIPT}.ld
     ${QMK_KEYBOARD_FOLDER}/ld
     ${CMAKE_SOURCE_DIR}/platforms/chibios/boards/${BOARD}/ld
     ${CMAKE_SOURCE_DIR}/platforms/chibios/boards/common/ld
+    ${STARTUPLD}
+    ${STARTUPLD_CONTRIB}
+)
+get_filename_component(LDSCRIPT_PATH ${LDSCRIPT} DIRECTORY)
+target_link_options(qmk PUBLIC
+    -T ${LDSCRIPT}
+    -L ${LDSCRIPT_PATH}
 )
 
 # os/hal/hal.mk

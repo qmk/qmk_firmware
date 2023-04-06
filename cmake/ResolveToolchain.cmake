@@ -4,6 +4,7 @@ function(resolve_toolchain PROCESSOR TOOLCHAIN_STR)
         ${PROCESSOR} MATCHES "^at.*"
         )
             set(${TOOLCHAIN_STR} "avr" PARENT_SCOPE)
+            set(QMK_EXTENSION ".hex" PARENT_SCOPE)
             include(FindAVRToolchain)
             find_avr_toolchain()
     elseif(
@@ -14,12 +15,14 @@ function(resolve_toolchain PROCESSOR TOOLCHAIN_STR)
         ${PROCESSOR} MATCHES "^GD32.*"
         )
             set(${TOOLCHAIN_STR} "arm-none-eabi" PARENT_SCOPE)
+            set(QMK_EXTENSION ".bin" PARENT_SCOPE)
             include(FindARMToolchain)
             find_arm_toolchain()
     elseif(
         ${PROCESSOR} MATCHES "risc-v"
         )
             set(${TOOLCHAIN_STR} "riscv32-unknown-elf" PARENT_SCOPE)
+            set(QMK_EXTENSION ".bin" PARENT_SCOPE)
     else()
         message(FATAL_ERROR "Could not find toolchain for ${PROCESSOR}")
     endif()

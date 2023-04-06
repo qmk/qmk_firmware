@@ -13,10 +13,7 @@ target_sources(qmk PUBLIC
 )
 
 find_package(Chibios REQUIRED)
+# include(FindChibios)
 
 target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(qmk PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lufa_utils)
-
-# if no printf
-target_sources(qmk PUBLIC ${CMAKE_SOURCE_DIR}/lib/printf/src/printf/printf.c)
-target_include_directories(qmk PUBLIC ${CMAKE_SOURCE_DIR}/lib/printf/src/printf)

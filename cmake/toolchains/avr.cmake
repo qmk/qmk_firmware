@@ -11,6 +11,7 @@ include(ResolveToolchain)
 set(QMK_TOOLCHAIN "avr")
 set(QMK_PLATFORM "avr")
 set(QMK_PROTOCOL "lufa")
+set(QMK_EXTENSION ".hex")
 
 if(UNIX)
     set(OS_SUFFIX "")
@@ -114,14 +115,15 @@ macro(add_qmk_executable target_name)
     )
 
     # create elf file
-    add_executable(${elf_file} ${ARGN})
+    # add_executable(${elf_file} ${ARGN})
+    # target_link_libraries(${elf_file} qmk)
 
-    # add_executable(qmk ${ARGN})
-    # set_target_properties(qmk
-        # PROPERTIES OUTPUT_NAME ${elf_file}
-    # )
+    add_executable(qmk ${ARGN})
+    set_target_properties(qmk
+        PROPERTIES
+            OUTPUT_NAME ${elf_file}
+    )
 
-    target_link_libraries(${elf_file} qmk)
 
     # set_target_properties(${elf_file}
     #     PROPERTIES
@@ -162,7 +164,7 @@ macro(add_qmk_executable target_name)
     )
 
     add_custom_target(copy_hex
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${elf_file}> ${CMAKE_SOURCE_DIR}/build/${target_name}.hex
+        COMMAND ${CMAKE_COMMAND} -E copy ${hex_file} ${CMAKE_SOURCE_DIR}/build/${hex_file}
         DEPENDS ${hex_file}
     )
 
@@ -172,7 +174,8 @@ macro(add_qmk_executable target_name)
     )
 
     set_target_properties(${target_name}
-        PROPERTIES OUTPUT_NAME ${elf_file}
+        PROPERTIES
+            OUTPUT_NAME ${hex_file}
     )
 
 

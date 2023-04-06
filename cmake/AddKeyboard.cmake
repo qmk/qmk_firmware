@@ -61,7 +61,7 @@ macro(add_keyboard KEYBOARD_FOLDER KEYMAP_FOLDER)
     STAMP_DIR ${CMAKE_SOURCE_DIR}/build/stamp
     LOG_DIR ${CMAKE_SOURCE_DIR}/build/log
     INSTALL_DIR ${CMAKE_SOURCE_DIR}/build/install
-    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/build/${TARGET_NAME}.hex ${CMAKE_SOURCE_DIR}/${TARGET_NAME}.hex
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/build/${TARGET_NAME}${QMK_EXTENSION} ${CMAKE_SOURCE_DIR}/${TARGET_NAME}${QMK_EXTENSION}
     # this seems to work well for all systems so far - not sure if it'd be useful to customize
     CMAKE_GENERATOR "Unix Makefiles"
     CMAKE_ARGS 

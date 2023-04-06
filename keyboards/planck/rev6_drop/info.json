@@ -15,6 +15,7 @@
   },
   "processor": "STM32F303",
   "bootloader": "stm32-dfu",
+  "diode_direction": "COL2ROW",
   "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_ortho_4x12": {

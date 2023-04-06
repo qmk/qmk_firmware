@@ -16,7 +16,7 @@
         {
             "label": "Only Load Keyboard",
             "type": "shell",
-            "command": "cmake -D QMK_KEYBOARD_FOLDER=\"${input:all_keyboards}\" -D QMK_KEYMAP_FOLDER=\"${input:keymap}\" -P ${workspaceFolder}/cmake/ConfigureKeyboard.cmake",
+            "command": "cmake -D QMK_KEYBOARD_FOLDER=\"${input:all_keyboards}\" -D QMK_KEYMAP_FOLDER=\"${input:keyboard_keymap}\" -P ${workspaceFolder}/cmake/ConfigureKeyboard.cmake",
             "problemMatcher": []
         },
         {
@@ -99,6 +99,16 @@
             "options":[
                 "default"
             ]
+        },
+        {
+            "id": "keyboard_keymap",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "cmake -D QMK_KEYBOARD_FOLDER=\"${input:all_keyboards}\" -P ${workspaceFolder}/cmake/GetKeymaps.cmake && type build\\keyboard_keymaps",
+                "description": "Keymap:",
+                "default": ""
+            },
         },
     ]
 }

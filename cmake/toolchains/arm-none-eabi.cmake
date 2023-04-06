@@ -5,6 +5,7 @@ include(ResolveToolchain)
 set(QMK_TOOLCHAIN "arm-none-eabi")
 set(QMK_PLATFORM "chibios")
 set(QMK_PROTOCOL "chibios")
+set(QMK_EXTENSION ".bin")
 
 if(UNIX)
     set(OS_SUFFIX "")
@@ -28,7 +29,7 @@ set(CMAKE_OBJCOPY      "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-objcopy${OS_SUFFIX}" 
 set(CMAKE_OBJDUMP      "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-objdump${OS_SUFFIX}" CACHE PATH "objdump" FORCE)
 set(CMAKE_STRIP        "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-strip${OS_SUFFIX}"   CACHE PATH "strip"   FORCE)
 set(CMAKE_RANLIB       "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-ranlib${OS_SUFFIX}"  CACHE PATH "ranlib"  FORCE)
-set(AVR_SIZE           "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-size${OS_SUFFIX}"    CACHE PATH "size"    FORCE)
+set(CMAKE_SIZE         "${TOOLCHAIN_ROOT}/${QMK_TOOLCHAIN}-size${OS_SUFFIX}"    CACHE PATH "size"    FORCE)
 
 find_program(CMAKE_MAKE_PROGRAM NAME make
     PATHS
@@ -73,89 +74,71 @@ add_link_options(
     -nostartfiles
     -Wl,--no-wchar-size-warning
     --specs=nano.specs
+    -lm
 )
-
-if(${USE_FPU})
-    add_compile_definitions(
-        CORTEX_USE_FPU=TRUE
-    )
-    add_link_options(
-        -mfloat-abi=hard
-        -mfpu=fpv4-sp-d16
-        -fsingle-precision-constant
-    )
-else()
-    add_compile_definitions(
-        CORTEX_USE_FPU=FALSE
-    )
-endif()
 
 macro(add_qmk_executable target_name)
 
     set(elf_file ${target_name}.elf)
     set(map_file ${target_name}.map)
-    set(hex_file ${target_name}.hex)
+    set(bin_file ${target_name}.bin)
     set(lst_file ${target_name}.lst)
 
-    # create elf file
-    add_executable(${elf_file} ${ARGN})
+    add_link_options(
+        -Wl,-Map=${map_file},--cref
+    )
 
-    target_link_libraries(${elf_file} qmk)
+    # create elf file
+    add_executable(qmk ${ARGN})
+    # add_executable(${elf_file} ${ARGN})
+    # target_link_libraries(${elf_file} qmk)
+
+    set_target_properties(qmk
+        PROPERTIES
+            OUTPUT_NAME ${elf_file}
+    )
 
     # generate the lst file
     add_custom_command(
         OUTPUT ${lst_file}
-
-        COMMAND
-            ${CMAKE_OBJDUMP} -h -S ${elf_file} > ${lst_file}
-
-        DEPENDS ${elf_file}
+        COMMAND ${CMAKE_OBJDUMP} -h -S ${elf_file} > ${lst_file}
+        DEPENDS qmk
     )
 
-    # create hex file
-    add_custom_command(
-        OUTPUT ${hex_file}
+    # add_custom_command(
+    #     OUTPUT "print-size-${elf_file}"
 
-        COMMAND
-            ${CMAKE_OBJCOPY} -j .text -j .data -O ihex ${elf_file} ${hex_file}
+    #     COMMAND
+    #         ${CMAKE_SIZE} ${elf_file}
 
-        DEPENDS ${elf_file}
-    )
+    #     DEPENDS ${elf_file}
+    # )
 
-    add_custom_command(
-        OUTPUT "print-size-${elf_file}"
+    # add_custom_command(
+    #     OUTPUT "print-size-${bin_file}"
 
-        COMMAND
-            ${AVR_SIZE} ${elf_file}
+    #     COMMAND
+    #         ${CMAKE_SIZE} ${bin_file} sizeafter
 
-        DEPENDS ${elf_file}
-    )
+    #     DEPENDS ${bin_file}
+    # )
 
     add_custom_command(
-        OUTPUT "print-size-${hex_file}"
-
-        COMMAND
-            ${AVR_SIZE} ${hex_file}
-
-        DEPENDS ${hex_file}
-    )
-
-    add_custom_target(copy_hex
-        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${elf_file}> ${CMAKE_SOURCE_DIR}/build/${target_name}.hex
-        DEPENDS ${hex_file}
+        TARGET qmk
+        POST_BUILD
+        COMMAND ${CMAKE_OBJCOPY} -O binary ${elf_file} ${CMAKE_SOURCE_DIR}/build/${bin_file}
+        # COMMAND ${CMAKE_COMMAND} -E copy ${elf_file} ${CMAKE_SOURCE_DIR}/build/${elf_file}
+        # COMMAND ${CMAKE_COMMAND} -E copy ${lst_file} ${CMAKE_SOURCE_DIR}/build/${lst_file}
+        # COMMAND ${CMAKE_COMMAND} -E copy ${map_file} ${CMAKE_SOURCE_DIR}/build/${map_file}
     )
 
     # build the intel hex file for the device
-    add_custom_target(
-        ${target_name}
-        ALL
-        DEPENDS ${hex_file} ${lst_file} "print-size-${elf_file}" "print-size-${hex_file}" copy_hex
+    add_custom_target(${target_name} ALL
+        DEPENDS ${elf_file} ${lst_file}
     )
 
-    set_target_properties(
-        ${target_name}
-
+    set_target_properties(${target_name}
         PROPERTIES
-            OUTPUT_NAME ${elf_file}
+            OUTPUT_NAME ${bin_file}
     )
 endmacro(add_qmk_executable)

@@ -3,7 +3,7 @@ set(BACKLIGHT_DRIVER "pwm" CACHE STRING "Backlight driver")
 set_property(CACHE BACKLIGHT_DRIVER PROPERTY STRINGS pwm timer software custom)
 
 string(JSON BACKLIGHT_PIN ERROR_VARIABLE NO_BACKLIGHT_PIN GET ${QMK_KEYBOARD_INFO_JSON_STRING} backlight pin)
-if(${BACKLIGHT_ENABLE} AND NOT ${NO_BACKLIGHT_PIN} STREQUAL "backlight-NOTFOUND")
+if(${BACKLIGHT_ENABLE} AND NOT ${BACKLIGHT_PIN} STREQUAL "backlight-NOTFOUND")
     target_sources(qmk PUBLIC
       quantum/backlight/backlight.c 
       quantum/process_keycode/process_backlight.c

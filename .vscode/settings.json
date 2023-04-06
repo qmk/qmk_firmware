@@ -6,7 +6,7 @@
     "files.exclude": {
         "**/.build": true,
         // "**/*.hex": true,
-        "**/*.bin": true,
+        // "**/*.bin": true,
         "**/*.uf2": true
     },
     "files.associations": {
