@@ -3,7 +3,6 @@ BACKLIGHT_ENABLE = no
 COMMAND_ENABLE = no
 JOYSTICK_ENABLE = yes
 JOYSTICK_DRIVER = analog
-LTO_ENABLE = yes # FIXME: If im not mistaken, this can cause issues on ARM (ie STM32)
 OLED_ENABLE = yes
 TAP_DANCE_ENABLE = no
 
