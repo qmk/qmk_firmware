@@ -83,3 +83,6 @@
 //          However, It enables to decide the handedness by the HW by adding one condition: "not to press any keys (especially r30) dusing startup."
 bool is_keyboard_left(void);
 
+#ifdef MIDI_ENABLE
+extern MidiDevice midi_device;
+#endif  //  MIDI_ENABLE
