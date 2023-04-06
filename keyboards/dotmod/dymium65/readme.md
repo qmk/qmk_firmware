@@ -2,7 +2,7 @@
 
 A customizable 65% encoder keyboard.
 
-![dymium65](https://imgur.com/5qAl7hg)
+![dymium65](https://i.imgur.com/5qAl7hgh.png)
 
 * Keyboard Maintainer: [LiWenLiu](https://github.com/LiuLiuQMK)
 * Hardware Supported: dymium65 PCB with atmega32u4 microcontroller
