@@ -19,7 +19,6 @@
 controller_state_t controller_state;
 
 #ifdef JOYSTICK_ENABLE
-// FIXME: Can't you use the builtin/default joytstick configuration for scanning it?
 joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
     JOYSTICK_AXIS_IN(ANALOG_AXIS_PIN_X , 0, 512, 1023),
     JOYSTICK_AXIS_IN(ANALOG_AXIS_PIN_Y , 0, 512, 1023)
