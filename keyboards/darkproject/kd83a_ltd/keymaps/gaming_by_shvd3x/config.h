@@ -17,4 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define FORCE_NKRO
 
+#define NO_ACTION_ONESHOT //If you need this feature just remove this string
+
 //#define DEBOUNCE 2        //Uncomment to set your preferred debounce time. Default is 5. Value is set in ms.
