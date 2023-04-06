@@ -1,20 +1,20 @@
-# skeletonkbd/frost68
+# skeletonkbd/skeleton68
 
-![skeletonkbd/frost68](imgur.com image replace me!)
+![skeletonkbd/skeleton68](https://i.imgur.com/ZrtbBNP.jpg)
 
-_A short description of the keyboard/project_
+Alice layout keyboard with acrylic case.
 
--   Keyboard Maintainer: [skeletonkbd](https://github.com/skeletonkbd)
--   Hardware Supported: _The PCBs, controllers supported_
--   Hardware Availability: _Links to where you can find this hardware_
+-   Keyboard Maintainer: [SkeletonKBD](https://github.com/skeletonkbd)
+-   Hardware Supported: Frost68
+-   Hardware Availability: https://github.com/skeletonkbd/Frost68
 
 Make example for this keyboard (after setting up your build environment):
 
-    make skeletonkbd/frost68:default
+    make skeletonkbd/skeleton68:default
 
 Flashing example for this keyboard:
 
-    make skeletonkbd/frost68:default:flash
+    make skeletonkbd/skeleton68:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
