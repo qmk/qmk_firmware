@@ -10,11 +10,10 @@ on:
 
 jobs:
   ci_builds:
+    if: github.repository == 'qmk/qmk_firmware'
     name: "CI Build"
     runs-on: self-hosted
     timeout-minutes: 1380
-
-    if: github.repository == 'qmk/qmk_firmware'
 
     strategy:
       fail-fast: false
@@ -58,3 +57,12 @@ jobs:
           *.hex
           *.uf2
           .build/failed.*
+
+    - name: 'CI Discord Notification'
+      if: always()
+      working-directory: util/ci/
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
+      run: |
+        python3 -m pip install -r requirements.txt
+        python3 ./discord-results.py --branch ${{ matrix.branch }} --keymap ${{ matrix.keymap }} --url ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}
