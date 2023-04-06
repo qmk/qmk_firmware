@@ -49,7 +49,6 @@ void keyboard_post_init_kb(void) {
     init_wasd_state();
 #endif // THUMBSTICK_ENABLE
 
-    // FIXME: This was inside the thumbstick's ifdef, moved it out assuming it was a typo
     controller_state = init_state();
 
     keyboard_post_init_user();

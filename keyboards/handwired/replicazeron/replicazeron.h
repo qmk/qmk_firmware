@@ -16,20 +16,18 @@
 
 #pragma once
 
-// FIXME: The "common/" prefixes can probably be removed using VPATH or whatever on the mk file
-
-#include "common/state.h"
+#include "state.h"
 
 #ifdef LEDS_ENABLE
-#    include "common/leds.h"
+#    include "leds.h"
 #endif
 
 #ifdef OLED_ENABLE
-#    include "common/oled.h"
+#    include "oled.h"
 #endif
 
 #ifdef THUMBSTICK_ENABLE
-#    include "common/thumbstick.h"
+#    include "thumbstick.h"
 #endif
 
 enum kb_layers {
