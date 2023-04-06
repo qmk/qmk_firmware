@@ -23,3 +23,6 @@
 
 #define STATUS_LED_A_PIN B13
 #define STATUS_LED_B_PIN B12
+
+#define ANALOG_AXIS_PIN_X B0
+#define ANALOG_AXIS_PIN_Y B1
