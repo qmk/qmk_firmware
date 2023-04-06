@@ -160,42 +160,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case RGB_HUI:
                 if (win_mode) {
                     rgb_matrix_increase_hue_noeeprom();
-                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_HUD:
                 if (win_mode) {
                     rgb_matrix_decrease_hue_noeeprom();
-                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_SAI:
                 if (win_mode) {
                     rgb_matrix_increase_sat_noeeprom();
-                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_SAD:
                 if (win_mode) {
                     rgb_matrix_decrease_sat_noeeprom();
-                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_VAI:
                 if (win_mode) {
                     rgb_matrix_increase_val_noeeprom();
-                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_VAD:
                 if (win_mode) {
                     rgb_matrix_decrease_val_noeeprom();
-                    user_colors_set_hsv_win_base(rgb_matrix_get_hsv());
+                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key

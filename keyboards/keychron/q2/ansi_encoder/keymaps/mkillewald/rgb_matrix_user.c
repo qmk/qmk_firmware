@@ -43,9 +43,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #ifdef HUE_WIN_BASE
             if (is_win_mode()) {
                 win_mode_was_activated = true;
-                rgb_matrix_sethsv_noeeprom(user_colors_get_hsv_win_base.h,
-                                           user_colors_get_hsv_win_base.s,
-                                           user_colors_get_hsv_win_base.h);
+                rgb_matrix_sethsv_noeeprom(user_config_get_hsv_win_base().h,
+                                           user_config_get_hsv_win_base().s,
+                                           user_config_get_hsv_win_base().v);
             } else {
                 if (win_mode_was_activated) {
                     win_mode_was_activated = false;
