@@ -17,6 +17,9 @@
     "pin": "B6",
     "levels": 4
   },
+  "ws2812": {
+    "pin": "E2"
+  },
   "indicators": {
     "num_lock": "D6",
     "on_state": 0

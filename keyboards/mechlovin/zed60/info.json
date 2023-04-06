@@ -17,6 +17,7 @@
         "caps_lock": "A4"
     },
     "ws2812": {
+        "pin": "A7",
         "driver": "spi"
     },
     "processor": "STM32F103",

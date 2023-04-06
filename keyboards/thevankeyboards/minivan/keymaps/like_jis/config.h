@@ -36,7 +36,7 @@
 
 // LED Setting: if you have KUMO you can use RGBLIGHT_ENABLE = yes
 #ifdef RGBLIGHT_ENABLE
-  #define RGB_DI_PIN D0
+  #define WS2812_DI_PIN D0
   #define RGBLIGHT_TIMER
   #define RGBLED_NUM 3
 #endif

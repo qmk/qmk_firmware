@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #define MASTER_RIGHT
 
-#define RGB_DI_PIN D2
 #    define RGBLED_NUM 12
 #    define RGBLIGHT_SPLIT
 #    define RGBLED_SPLIT {6, 6}

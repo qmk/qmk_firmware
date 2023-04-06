@@ -23,7 +23,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 // ws2812 options
-#define RGB_DI_PIN D0 // pin the DI on the ws2812 is hooked-up to
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

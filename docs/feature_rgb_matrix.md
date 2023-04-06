@@ -361,7 +361,7 @@ Configure the hardware via your `config.h`:
 
 ```c
 // The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN D7
+#define WS2812_DI_PIN D7
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 70
 ```

@@ -18,6 +18,9 @@
         "num_lock": "D7",
         "on_state": 0
     },
+    "ws2812": {
+        "pin": "B6"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {

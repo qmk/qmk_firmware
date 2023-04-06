@@ -18,6 +18,9 @@
         "levels": 8,
         "breathing": true
     },
+    "ws2812": {
+        "pin": "B1"
+    },
     "indicators": {
         "caps_lock": "F0"
     },

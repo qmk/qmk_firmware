@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN D0
 #   define RGBLED_NUM 22
 
 /* RGB LED logical order map */

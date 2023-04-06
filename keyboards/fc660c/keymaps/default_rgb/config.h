@@ -20,7 +20,7 @@
 
 /*RGB*/
 /*Repurpose Insert LED */
-#define RGB_DI_PIN B5
+#define WS2812_DI_PIN B5
    #define RGBLED_NUM 16
    #define RGBLIGHT_DEFAULT_HUE 127
    #define RGBLIGHT_HUE_STEP 8

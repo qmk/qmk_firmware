@@ -21,7 +21,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 53
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #    define RGBLIGHT_LIMIT_VAL 180 // Limit to vendor-recommended value

@@ -25,6 +25,7 @@
         "rgblight": false
     },
     "ws2812": {
+        "pin": "GP17",
         "driver": "vendor"
     },
     "matrix_pins": {

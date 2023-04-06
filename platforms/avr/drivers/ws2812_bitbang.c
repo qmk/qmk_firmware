@@ -38,10 +38,10 @@
 static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi);
 
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
-    DDRx_ADDRESS(RGB_DI_PIN) |= pinmask(RGB_DI_PIN);
+    DDRx_ADDRESS(WS2812_DI_PIN) |= pinmask(WS2812_DI_PIN);
 
-    uint8_t masklo = ~(pinmask(RGB_DI_PIN)) & PORTx_ADDRESS(RGB_DI_PIN);
-    uint8_t maskhi = pinmask(RGB_DI_PIN) | PORTx_ADDRESS(RGB_DI_PIN);
+    uint8_t masklo = ~(pinmask(WS2812_DI_PIN)) & PORTx_ADDRESS(WS2812_DI_PIN);
+    uint8_t maskhi = pinmask(WS2812_DI_PIN) | PORTx_ADDRESS(WS2812_DI_PIN);
 
     ws2812_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(LED_TYPE), masklo, maskhi);
 
@@ -165,7 +165,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                      "       dec   %0    \n\t" //  '1' [+2] '0' [+2]
                      "       brne  loop%=\n\t" //  '1' [+3] '0' [+4]
                      : "=&d"(ctr)
-                     : "r"(curbyte), "I"(_SFR_IO_ADDR(PORTx_ADDRESS(RGB_DI_PIN))), "r"(maskhi), "r"(masklo));
+                     : "r"(curbyte), "I"(_SFR_IO_ADDR(PORTx_ADDRESS(WS2812_DI_PIN))), "r"(maskhi), "r"(masklo));
     }
 
     SREG = sreg_prev;

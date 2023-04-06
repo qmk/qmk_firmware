@@ -19,6 +19,9 @@
         {"pin_a": "A8", "pin_b": "A9"}
       ]
     },
+    "ws2812": {
+      "pin": "B15"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

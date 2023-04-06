@@ -23,8 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 // Rows are doubled-up
 
-#undef RGB_DI_PIN
-#define RGB_DI_PIN F5
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN F5
 
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN D0

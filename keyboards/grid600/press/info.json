@@ -12,6 +12,9 @@
         "cols": ["F1", "F4", "F5", "F6"],
         "rows": ["F0"]
     },
+    "ws2812": {
+        "pin": "B6"
+    },
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

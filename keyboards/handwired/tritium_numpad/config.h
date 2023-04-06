@@ -24,8 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Underlight configuration
  */
-
-#define RGB_DI_PIN D2
 #define RGBLED_NUM 4     // Number of LEDs
 
 /*

@@ -13,6 +13,9 @@
         "rows": ["A9", "A8", "A3", "A5"]
     },
     "diode_direction": "COL2ROW",
+    "ws2812": {
+        "pin": "B15"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

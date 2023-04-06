@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN E2
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 73
     #define RGBLED_NUM 73

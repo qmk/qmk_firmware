@@ -27,6 +27,7 @@
         "rgblight": false
     },
     "ws2812": {
+        "pin": "GP19",
         "driver": "vendor"
     },
     "matrix_pins": {

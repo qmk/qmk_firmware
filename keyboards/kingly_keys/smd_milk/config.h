@@ -24,7 +24,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN B3
 #define RGBLED_NUM 4  // Number of LEDs
 
 #define RGBLIGHT_EFFECT_BREATHING

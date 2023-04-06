@@ -17,7 +17,6 @@
 #pragma once
 
 /* RGB Glow */
-#define RGB_DI_PIN F4     // The pin the LED strip is connected to
 #define RGBLED_NUM 5     // Number of LEDs in your strip
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

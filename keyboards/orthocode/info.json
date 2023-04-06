@@ -18,6 +18,9 @@
             {"pin_a": "D1", "pin_b": "D0", "resolution": 1}
         ]
     },
+    "ws2812": {
+        "pin": "D5"
+    },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
     "debounce": 0,

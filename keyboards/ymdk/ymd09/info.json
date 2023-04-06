@@ -24,6 +24,9 @@
         "nkro": true,
         "rgb_matrix": true,
     },
+    "ws2812": {
+        "pin": "E2"
+    },
     "build": {
         "lto": true
     },

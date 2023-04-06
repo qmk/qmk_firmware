@@ -18,6 +18,9 @@
             {"pin_a": "B5", "pin_b": "B4"}
         ]
     },
+    "ws2812": {
+        "pin": "C7"
+    },
     "split": {
         "soft_serial_pin": "D2",
         "encoder": {

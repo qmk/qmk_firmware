@@ -17,7 +17,6 @@
 #pragma once
 
 //TODO: implement RGB Matrix
-#define RGB_DI_PIN F0
 // #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 
 

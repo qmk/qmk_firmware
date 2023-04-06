@@ -49,7 +49,6 @@
 #ifdef RGB_MATRIX_ENABLE
 
      /* RGB Defines */
-#    define RGB_DI_PIN GP19
 #    define RGB_MATRIX_LED_COUNT 12
 #    define RGBLED_NUM 12
 

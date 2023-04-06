@@ -17,6 +17,9 @@
     "caps_lock": "D3",
     "on_state": 0
   },
+  "ws2812": {
+    "pin": "F4"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "layouts": {

@@ -9,7 +9,7 @@
     "backlight": {
         "pin": "B8"
     },
-    "rgblight": {
+    "ws2812": {
         "pin": "A0"
     },
     "apa102": {

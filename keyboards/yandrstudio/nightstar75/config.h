@@ -17,7 +17,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 
-#    define RGB_DI_PIN A7
 #    define RGBLED_NUM 4
 #    define RGBLIGHT_LIMIT_VAL 180
 

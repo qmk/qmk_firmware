@@ -8,6 +8,9 @@
         "pid": "0x0303",
         "device_version": "0.0.2"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6"],
         "rows": ["B6", "B5", "B4"]

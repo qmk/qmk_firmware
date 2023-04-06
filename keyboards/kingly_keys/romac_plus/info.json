@@ -18,6 +18,9 @@
       {"pin_a": "B3", "pin_b": "B2"}
     ]
   },
+  "ws2812": {
+    "pin": "F7"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "layouts": {

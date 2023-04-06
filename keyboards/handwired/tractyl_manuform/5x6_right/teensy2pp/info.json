@@ -13,6 +13,9 @@
     "split": {
         "soft_serial_pin": "D2"
     },
+    "ws2812": {
+        "pin": "E7"
+    },
     "processor": "at90usb1286",
     "bootloader": "halfkay"
 }

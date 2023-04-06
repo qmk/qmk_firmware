@@ -17,6 +17,9 @@
         "pin": "B7",
         "breathing": true
     },
+    "ws2812": {
+        "pin": "E2"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["ortho_4x12"],

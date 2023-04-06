@@ -16,6 +16,9 @@
     "backlight": {
         "pin": "B6"
     },
+    "ws2812": {
+        "pin": "E2"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

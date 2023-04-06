@@ -29,7 +29,6 @@
         "brightness_steps": 10,
         "hue_steps": 10,
         "led_count": 20,
-        "pin": "B3",
         "saturation_steps": 10,
         "sleep": true,
         "animations": {
@@ -44,6 +43,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "B3"
     },
     "url": "",
     "usb": {

@@ -17,6 +17,9 @@
         "driver": "custom",
         "levels": 10
     },
+    "ws2812": {
+        "pin": "F4"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

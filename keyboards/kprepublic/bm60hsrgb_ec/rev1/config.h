@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 69
     #define RGBLED_NUM 69
     #define RGB_MATRIX_KEYPRESSES

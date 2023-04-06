@@ -2,6 +2,9 @@
     "split": {
         "soft_serial_pin": "D2"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "bootloader": "caterina",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x6_3"

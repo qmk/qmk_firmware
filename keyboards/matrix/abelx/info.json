@@ -8,6 +8,9 @@
     "pid": "0xAB87",
     "device_version": "0.0.1"
   },
+  "ws2812": {
+    "pin": "B4"
+  },
   "layouts": {
     "LAYOUT_tkl_ansi": {
       "layout": [

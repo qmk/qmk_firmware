@@ -214,7 +214,7 @@ If you define these options you will enable the associated feature, which may in
 
 ## RGB Light Configuration
 
-* `#define RGB_DI_PIN D7`
+* `#define WS2812_DI_PIN D7`
   * pin the DI on the WS2812 is hooked-up to
 * `#define RGBLIGHT_LAYERS`
   * Lets you define [lighting layers](feature_rgblight.md?id=lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
@@ -230,7 +230,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define RGBLIGHT_SPLIT`
   * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
 * `#define RGBLED_SPLIT { 6, 6 }`
-  * number of LEDs connected that are directly wired to `RGB_DI_PIN` on each half of a split keyboard
+  * number of LEDs connected that are directly wired to the RGB pin on each half of a split keyboard
   * First value indicates number of LEDs for left half, second value is for the right half
   * When RGBLED_SPLIT is defined, RGBLIGHT_SPLIT is implicitly defined.
 * `#define RGBLIGHT_HUE_STEP 12`

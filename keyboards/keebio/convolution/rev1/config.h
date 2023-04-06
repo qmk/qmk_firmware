@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // RGB Matrix
-#define RGB_DI_PIN GP26
 #define RGB_MATRIX_LED_COUNT 16
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 

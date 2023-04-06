@@ -17,6 +17,9 @@
     "esc_input": "B7",
     "esc_output": "F0"
   },
+  "ws2812": {
+    "pin": "B7"
+  },
   "processor": "atmega32u2",
   "bootloader": "qmk-dfu",
   "community_layouts": ["ortho_4x12"],

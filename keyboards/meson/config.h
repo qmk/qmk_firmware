@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_I2C
 
-#define RGB_DI_PIN B5
    #define RGBLED_NUM 10
    #define RGBLIGHT_SPLIT
    #define RGBLED_SPLIT { 5, 5 }

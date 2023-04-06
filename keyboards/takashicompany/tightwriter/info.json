@@ -39,7 +39,6 @@
     },
     "rgblight": {
         "led_count": 10,
-        "pin": "D3",
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -52,6 +51,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "D3"
     },
     "layouts": {
         "LAYOUT": {

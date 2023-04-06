@@ -19,5 +19,4 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGB_DI_PIN D3
 #define RGBLED_NUM 4

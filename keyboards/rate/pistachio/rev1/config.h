@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_I2C
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D2
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 1, 1 }
 #define RGBLED_NUM 2

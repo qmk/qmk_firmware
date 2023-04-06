@@ -7,6 +7,9 @@
       "pid": "0x534B",
       "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "B0"
+    },
     "bootloader": "atmel-dfu",
     "features": {
       "bootmagic": true,

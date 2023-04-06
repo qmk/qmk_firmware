@@ -16,6 +16,9 @@
         "num_lock": "C15",
         "scroll_lock": "B9"
     },
+    "ws2812": {
+        "pin": "A7"
+    },
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_alice_split_bs"
     },

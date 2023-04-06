@@ -21,6 +21,7 @@
         "scroll_lock": "C15"
     },
     "ws2812": {
+        "pin": "A7",
         "driver": "spi"
     },
     "layout_aliases": {

@@ -13,6 +13,9 @@
             {"pin_a": "A4", "pin_b": "A3"}
         ]
     },
+    "ws2812": {
+        "pin": "A15"
+    },
     "processor": "STM32F303",
     "board": "QMK_PROTON_C",
     "bootloader": "stm32-dfu",

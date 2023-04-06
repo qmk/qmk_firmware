@@ -18,8 +18,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN B9
-
 #define RGB_MATRIX_KEYPRESSES
 #define RGBLED_NUM 68
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM

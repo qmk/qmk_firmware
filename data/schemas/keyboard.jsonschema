@@ -492,7 +492,10 @@
                 },
                 "led_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "pin": {
+                    "$ref": "qmk.definitions.v1#/mcu_pin",
+                    "$comment": "Deprecated: use ws2812.pin instead"
+                },
                 "rgbw": {"type": "boolean"},
                 "saturation_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "sleep": {"type": "boolean"},
@@ -715,6 +718,7 @@
                     "type": "string",
                     "enum": ["bitbang", "custom", "i2c", "pwm", "spi", "vendor"]
                 },
+                "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "i2c_address": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
                 "i2c_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
             }

@@ -18,6 +18,9 @@
         "levels": 5,
         "breathing": true
     },
+    "ws2812": {
+        "pin": "E2"
+    },
     "indicators": {
         "caps_lock": "E6",
         "on_state": 0

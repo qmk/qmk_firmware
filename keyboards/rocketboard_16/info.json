@@ -24,6 +24,9 @@
     "bootmagic": {
         "matrix": [4, 1]
     },
+    "ws2812": {
+        "pin": "A4"
+    },
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT"
     },

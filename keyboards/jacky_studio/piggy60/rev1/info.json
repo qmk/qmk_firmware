@@ -27,7 +27,6 @@
     },
     "rgblight": {
         "led_count": 14,
-        "pin": "E2",
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -41,5 +40,8 @@
             "twinkle": true
         },
         "sleep": true
+    },
+    "ws2812": {
+        "pin": "E2"
     }
 }

@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // LED Setting: if you have KUMO you can use RGBLIGHT_ENABLE = yes
 #ifdef RGBLIGHT_ENABLE
-  #define RGB_DI_PIN B5
+  #define WS2812_DI_PIN B5
   #define RGBLIGHT_TIMER
 
   #define RGBLED_NUM 6

@@ -19,6 +19,3 @@
 
 /* Handedness. */
 #define MASTER_RIGHT
-
-/* RGB settings. */
-#define RGB_DI_PIN D3

@@ -17,8 +17,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN D3
-
 #ifdef RGBLIGHT_ENABLE
     #define RGBLED_NUM 14
     #define RGBLIGHT_SLEEP  

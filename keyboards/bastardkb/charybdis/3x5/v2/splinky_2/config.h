@@ -25,9 +25,6 @@
 // #define SPLIT_HAND_PIN GP13
 // #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.
 
-/* RGB settings. */
-#define RGB_DI_PIN GP0
-
 /* SPI & PMW3360 settings. */
 #define SPI_DRIVER SPID0
 #define SPI_SCK_PIN GP18

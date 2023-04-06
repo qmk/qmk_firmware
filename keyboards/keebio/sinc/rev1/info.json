@@ -48,7 +48,6 @@
         "pin": "B5"
     },
     "rgblight": {
-        "pin": "E6",
         "led_count" : 16,
         "split_count": [8, 8],
         "animations": {
@@ -64,7 +63,9 @@
             "twinkle": true
         }
     },
-
+    "ws2812": {
+        "pin": "E6"
+    },
     "layouts": {
         "LAYOUT_75": {
             "layout": [

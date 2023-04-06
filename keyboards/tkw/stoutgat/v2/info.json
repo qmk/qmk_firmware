@@ -9,6 +9,7 @@
         "device_version": "0.0.2"
     },
     "ws2812": {
+        "pin": "B1",
         "driver": "pwm"
     },
     "matrix_pins": {

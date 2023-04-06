@@ -8,6 +8,9 @@
         "pid": "0xE8CF",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "D7", "pin_b": "E6", "resolution": 3}

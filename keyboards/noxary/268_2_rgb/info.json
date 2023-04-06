@@ -16,6 +16,9 @@
     "backlight": {
       "pin": "B7"
     },
+    "ws2812": {
+      "pin": "B5"
+    },
     "indicators": {
       "caps_lock": "B0"
     },

@@ -15,7 +15,6 @@
 	"rgblight": true
     },
     "rgblight": {
-        "pin": "GP12",
         "led_count": 1,
 	"hue_steps": 10,
 	"saturation_steps": 17,
@@ -35,6 +34,7 @@
         }
     },
     "ws2812": {
+        "pin": "GP12",
         "driver": "vendor"
     },
     "encoder": {

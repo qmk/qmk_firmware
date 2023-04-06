@@ -29,6 +29,9 @@
         "scroll_lock": "D2",
         "on_state": 0
     },
+    "ws2812": {
+        "pin": "D4"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

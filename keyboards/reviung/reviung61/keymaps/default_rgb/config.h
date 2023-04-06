@@ -19,7 +19,7 @@
 // place overrides here
 
 // ---  RGB underglow  ---
-#define RGB_DI_PIN B7
+#define WS2812_DI_PIN B7
   #define RGBLED_NUM 12
   #define RGBLIGHT_HUE_STEP 16
   #define RGBLIGHT_SAT_STEP 16

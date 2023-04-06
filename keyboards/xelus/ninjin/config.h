@@ -17,7 +17,6 @@
 #pragma once
 
 /* RGB Underglow */
-#define RGB_DI_PIN A10
 #define RGBLED_NUM 26
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

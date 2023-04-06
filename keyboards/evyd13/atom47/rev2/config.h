@@ -22,5 +22,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN D0    // The pin the LED strip is connected to
 #define RGBLED_NUM 1     // Number of LEDs in your strip

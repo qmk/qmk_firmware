@@ -16,6 +16,9 @@
   "backlight": {
     "pin": "B6"
   },
+  "ws2812": {
+    "pin": "F6"
+  },
   "processor": "at90usb1286",
   "bootloader": "atmel-dfu",
   "layouts": {

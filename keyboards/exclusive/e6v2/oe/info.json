@@ -19,6 +19,9 @@
         "breathing": true,
         "breathing_period": 3
     },
+    "ws2812": {
+        "pin": "E2"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["60_ansi"],

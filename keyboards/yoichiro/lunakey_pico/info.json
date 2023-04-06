@@ -26,7 +26,6 @@
     },
     "rgblight": {
         "led_count": 12,
-        "pin": "GP6",
         "sleep": true,
         "split": true,
         "split_count": [6, 6],
@@ -51,6 +50,7 @@
         "enabled": true
     },
     "ws2812": {
+        "pin": "GP6",
         "driver": "vendor"
     },
     "layout_aliases": {

@@ -11,8 +11,6 @@
 #define AUDIO_ENABLE_TONE_MULTIPLEXING
 #define AUDIO_TONE_MULTIPLEXING_RATE_DEFAULT 10
 
-// The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN F4
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 27
 #define RGB_MATRIX_CENTER { 60, 77 }

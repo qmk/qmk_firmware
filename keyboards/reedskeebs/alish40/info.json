@@ -40,8 +40,10 @@
         "brightness_steps": 17,
         "hue_steps": 10,
         "led_count": 10,
-        "pin": "F5",
         "saturation_steps": 17
+    },
+    "ws2812": {
+        "pin": "F5"
     },
     "url": "https://mechwild.com/product/alish/",
     "usb": {

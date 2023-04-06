@@ -16,6 +16,9 @@
         "cols": ["B6", "B1", "B3", "B2"],
         "rows": ["F7", "F6", "F5", "F4"]
     },
+    "ws2812": {
+        "pin": "B5"
+    },
     "development_board": "promicro",
     "url": "",
     "usb": {

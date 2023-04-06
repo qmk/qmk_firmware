@@ -12,6 +12,9 @@
     "bootmagic": {
         "matrix": [4, 10]
     },
+    "ws2812": {
+        "pin": "D6"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {

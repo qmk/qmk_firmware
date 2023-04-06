@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN B1
 #define RGBLED_NUM 5
 #define RGBLIGHT_LED_MAP {4, 0, 1, 2, 3}
 #define RGBLIGHT_EFFECT_BREATHING

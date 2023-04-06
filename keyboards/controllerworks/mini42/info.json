@@ -23,12 +23,10 @@
             ["GP20", "GP21", "GP22", null, null, null]
         ]
     },
-    "rgblight": {
-        "pin": "GP0"
-     },
-     "ws2812": {
-         "driver": "vendor"
-     },
+    "ws2812": {
+        "pin": "GP0",
+        "driver": "vendor"
+    },
     "split": {
         "enabled": true,
         "main": "left",

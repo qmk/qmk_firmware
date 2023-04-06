@@ -17,6 +17,9 @@
             "matrix": [4, 5]
         }
     },
+    "ws2812": {
+        "pin": "E7"
+    },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
     "layouts": {

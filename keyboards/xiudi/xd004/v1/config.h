@@ -28,7 +28,6 @@ This will not be used, as RGBLIGHT_ENABLE is set to 'no' in rules.mk
 We do not have enough space in the flash for this at the moment, maybe
 further optimizations can be done on that side.
 */
-#define RGB_DI_PIN C6
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #define RGBLED_NUM 2

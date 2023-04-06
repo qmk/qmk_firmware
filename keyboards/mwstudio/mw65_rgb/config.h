@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* RGB Matrix config */
-#define RGB_DI_PIN B3
-
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 83
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
