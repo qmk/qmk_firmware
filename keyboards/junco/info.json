@@ -12,6 +12,9 @@
         "pin": "GP15",
         "driver": "vendor"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "processor": "RP2040",
     "bootloader": "rp2040",
     "layouts": {

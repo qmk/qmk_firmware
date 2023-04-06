@@ -37,6 +37,9 @@
     "pin": "B2",
     "driver": "pwm"
   },
+  "rgb_matrix": {
+    "driver": "WS2812"
+  },
   "split": {
     "enabled": true,
     "main": "pin",

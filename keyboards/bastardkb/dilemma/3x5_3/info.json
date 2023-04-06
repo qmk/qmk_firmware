@@ -4,6 +4,9 @@
         "device_version": "2.0.0",
         "pid": "0x1835"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "matrix_pins": {
         "cols": ["GP8", "GP9", "GP7", "GP6", "GP28"],
         "rows": ["GP4", "GP5", "GP27", "GP26"]
