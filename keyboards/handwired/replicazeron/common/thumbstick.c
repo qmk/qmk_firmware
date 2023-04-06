@@ -25,18 +25,15 @@ void init_wasd_state (void) {
 thumbstick_polar_position_t get_thumbstick_polar_position(int16_t x, int16_t y) {
     static thumbstick_polar_position_t position;
 
-    int16_t x_centered = x - 512;
-    int16_t y_centered = y - 512;
-
 #ifdef THUMBSTICK_DEBUG
-    dprintf("xN: %4d yN: %4d\n", x_centered, y_centered);
+    dprintf("xN: %4d yN: %4d\n", x, y);
 #endif
 
     //transform to carthesian coordinates to  polar coordinates
     //get distance from center as int in range [0-600]
-    position.distance = (double)sqrt((double)x_centered * (double)x_centered + (double)y_centered * (double)y_centered);
+    position.distance = (double)sqrt((double)x * (double)x + (double)y * (double)y);
     //get direction as int in range [0 to 359]
-    position.angle = (double)atan2(y_centered, x_centered) * (180 /M_PI) + 180;
+    position.angle = (double)atan2(y, x) * (180 /M_PI) + 180;
 
     //apply thumbstick rotation const to modify forward direction
     position.angle = (position.angle + _THUMBSTICK_ROTATION) % 360;
@@ -57,9 +54,8 @@ void update_keycode(uint16_t keycode, bool keystate, bool last_keystate) {
 }
 
 void thumbstick(controller_state_t controller_state) {
-    // FIXME: Can't you use the builtin/default joytstick configuration for scanning it?
-    xPos = analogReadPin(ANALOG_AXIS_PIN_X);
-    yPos = analogReadPin(ANALOG_AXIS_PIN_Y);
+    xPos = joystick_state.axes[0];
+    yPos = joystick_state.axes[1];
 
     thumbstick_polar_position = get_thumbstick_polar_position(xPos, yPos);
 
