@@ -57,8 +57,8 @@ void update_keycode(uint16_t keycode, bool keystate) {
 
 void thumbstick(controller_state_t controller_state) {
     // FIXME: Can't you use the builtin/default joytstick configuration for scanning it?
-    yPos = analogReadPin(B1);
-    xPos = analogReadPin(B0);
+    xPos = analogReadPin(ANALOG_AXIS_PIN_X);
+    yPos = analogReadPin(ANALOG_AXIS_PIN_Y);
 
     thumbstick_polar_position = get_thumbstick_polar_position(xPos, yPos);
 
