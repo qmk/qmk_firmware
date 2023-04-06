@@ -18,6 +18,7 @@
 
 void init_wasd_state (void) {
     wasd_state.w = wasd_state.a = wasd_state.s = wasd_state.d = false;
+    last_wasd_state = wasd_state;
     wasd_state.shift = false;
 }
 
@@ -47,10 +48,10 @@ bool update_keystate(uint16_t angle_from, uint16_t angle_to, uint16_t angle) {
     return (angle_from < angle && angle <= angle_to);
 }
 
-void update_keycode(uint16_t keycode, bool keystate) {
-    if (keystate) {
+void update_keycode(uint16_t keycode, bool keystate, bool last_keystate) {
+    if (keystate && keystate != last_keystate) {
         register_code16(keycode);
-    } else {
+    } else if (!keystate) {
         unregister_code16(keycode);
     }
 }
@@ -89,10 +90,12 @@ void thumbstick(controller_state_t controller_state) {
     dprintf("w: %2d a: %2d s: %2d d: %2d\n", wasd_state.w, wasd_state.a, wasd_state.s, wasd_state.d);
 #endif
 
-    update_keycode(KC_W, wasd_state.w);
-    update_keycode(KC_A, wasd_state.a);
-    update_keycode(KC_S, wasd_state.s);
-    update_keycode(KC_D, wasd_state.d);
+    update_keycode(KC_W, wasd_state.w, last_wasd_state.w);
+    update_keycode(KC_A, wasd_state.a, last_wasd_state.a);
+    update_keycode(KC_S, wasd_state.s, last_wasd_state.s);
+    update_keycode(KC_D, wasd_state.d, last_wasd_state.d);
+
+    last_wasd_state = wasd_state ;
 
     // handle WASD-Shift mode
     if (controller_state.wasdShiftMode) {
