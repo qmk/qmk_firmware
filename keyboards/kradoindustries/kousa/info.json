@@ -16,7 +16,9 @@
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": true
+        "nkro": true,
+        "encoder": true,
+        "rgblight": true
     },
     "encoder": {
         "rotary": [
@@ -26,9 +28,6 @@
     "rgblight": {
         "led_count": 18,
         "pin": "GP4",
-        "hue_steps": 10,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
         "sleep": true,
         "animations": {
             "alternating": true,
