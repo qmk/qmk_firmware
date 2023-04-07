@@ -708,6 +708,7 @@ static bool pointing_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
     bool okay = read_if_checksum_mismatch(GET_POINTING_CHECKSUM, GET_POINTING_DATA, &last_update, &target_report, &split_shmem->pointing.report, sizeof(pointing_device_shared_report_t));
     if (okay) {
         if (counter != target_report.counter) {
+            counter = target_report.counter;
             pointing_device_set_shared_report(target_report);
         }
     }
