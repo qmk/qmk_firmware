@@ -25,7 +25,6 @@ static lv_style_t style_button_active;
 static lv_obj_t *screen_home;
 static lv_obj_t *screen_volume;
 static lv_obj_t *screen_media;
-// static lv_obj_t *screen_fine;
 
 /* home screen content */
 static lv_obj_t *label_time;
@@ -35,6 +34,8 @@ static lv_obj_t *label_ctrl;
 static lv_obj_t *label_alt;
 static lv_obj_t *label_gui;
 static lv_obj_t *label_layer;
+static lv_obj_t *label_caps;
+static lv_obj_t *label_caps_word;
 static lv_obj_t *icon_layout;
 
 /* volume screen content */
@@ -46,12 +47,9 @@ static lv_obj_t *label_media_artist;
 static lv_obj_t *label_media_title;
 
 LV_IMG_DECLARE(flag_ru);
-LV_IMG_DECLARE(flag_pl);
-/* can be replaced with UK flag (update rules.mk as well) */
-// LV_IMG_DECLARE(flag_uk);
-
-// LV_IMG_DECLARE(fine);
-// static lv_obj_t *fine_img;
+LV_IMG_DECLARE(flag_uk);
+/* can be replaced with PL flag (update rules.mk as well) */
+// LV_IMG_DECLARE(flag_pl);
 
 enum data_type {
     _TIME = 0,
@@ -66,7 +64,7 @@ enum layout { _EN = 0, _RU };
 void set_layout_icon(uint8_t layout) {
     switch (layout) {
         case _EN:
-            lv_img_set_src(icon_layout, &flag_pl);
+            lv_img_set_src(icon_layout, &flag_uk);
             break;
 
         case _RU:
@@ -82,7 +80,7 @@ void read_string(uint8_t *data, char *string_data) {
 }
 
 void start_home_screen_timer(void) {
-    dprint("reset home screen \n");
+    dprint("reset home screen\n");
     home_screen_timer = timer_read();
 }
 
@@ -105,6 +103,10 @@ void init_styles(void) {
     lv_style_set_height(&style_container, LV_SIZE_CONTENT);
 
     lv_style_init(&style_button);
+    lv_style_set_pad_top(&style_button, 4);
+    lv_style_set_pad_bottom(&style_button, 4);
+    lv_style_set_pad_left(&style_button, 4);
+    lv_style_set_pad_right(&style_button, 4);
     lv_style_set_radius(&style_button, 6);
     lv_style_set_text_color(&style_button, lv_palette_main(LV_PALETTE_AMBER));
 
@@ -134,6 +136,13 @@ void init_screen_home(void) {
     label_time = lv_label_create(screen_home);
     lv_label_set_text(label_time, "00:00");
     lv_obj_set_style_text_font(label_time, &montserrat_48_digits, LV_PART_MAIN);
+
+    lv_obj_t *caps = lv_obj_create(screen_home);
+    lv_obj_add_style(caps, &style_container, 0);
+    use_flex_row(caps);
+
+    label_caps      = create_button(caps, "CAPS");
+    label_caps_word = create_button(caps, "CAPS WORD");
 
     lv_obj_t *bottom_row = lv_obj_create(screen_home);
     lv_obj_add_style(bottom_row, &style_container, 0);
@@ -176,13 +185,13 @@ void init_screen_media(void) {
     label_media_artist = lv_label_create(screen_media);
     lv_label_set_text(label_media_artist, "N/A");
     lv_label_set_long_mode(label_media_artist, LV_LABEL_LONG_WRAP);
-    lv_obj_set_width(label_media_artist, lv_pct(100));
+    lv_obj_set_width(label_media_artist, lv_pct(90));
     lv_obj_set_style_text_align(label_media_artist, LV_TEXT_ALIGN_CENTER, 0);
 
     label_media_title = lv_label_create(screen_media);
     lv_label_set_text(label_media_title, "N/A");
     lv_label_set_long_mode(label_media_title, LV_LABEL_LONG_WRAP);
-    lv_obj_set_width(label_media_title, lv_pct(100));
+    lv_obj_set_width(label_media_title, lv_pct(90));
     lv_obj_set_style_text_align(label_media_title, LV_TEXT_ALIGN_CENTER, 0);
 }
 
@@ -195,7 +204,7 @@ bool display_init(void) {
 
     if (!qp_init(display, QP_ROTATION_180) || !qp_power(display, true) || !qp_lvgl_attach(display)) return false;
 
-    dprint("qp_init \n");
+    dprint("qp_init\n");
 
     lv_disp_t  *lv_display = lv_disp_get_default();
     lv_theme_t *lv_theme   = lv_theme_default_init(lv_display, lv_palette_main(LV_PALETTE_AMBER), lv_palette_main(LV_PALETTE_BLUE), true, LV_FONT_DEFAULT);
@@ -205,12 +214,6 @@ bool display_init(void) {
     init_screen_home();
     init_screen_volume();
     init_screen_media();
-
-    // screen_fine = lv_obj_create(NULL);
-
-    // fine_img = lv_img_create(screen_fine);
-    // lv_img_set_src(fine_img, &fine);
-    // lv_obj_center(fine_img);
 
     return true;
 }
@@ -264,17 +267,10 @@ void display_process_record(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
             case KC_VOLU:
             case KC_VOLD:
-            case KC_ESC:
                 data[0] = _VOLUME;
                 lv_scr_load(screen_volume);
                 start_home_screen_timer();
                 break;
-            case KC_Q:
-                lv_scr_load(screen_media);
-                break;
-                // case KC_W:
-                //     lv_scr_load(screen_fine);
-                //     break;
         }
 
         if (data[0]) {
@@ -282,18 +278,6 @@ void display_process_record(uint16_t keycode, keyrecord_t *record) {
             raw_hid_send(data, sizeof(data));
         }
     }
-}
-
-void display_refresh_data(void) {
-    if (home_screen_timer && timer_elapsed(home_screen_timer) > 5000) {
-        home_screen_timer = 0;
-        lv_scr_load(screen_home);
-    }
-
-    toggle_state(label_shift, LV_STATE_PRESSED, MODS_SHIFT);
-    toggle_state(label_ctrl, LV_STATE_PRESSED, MODS_CTRL);
-    toggle_state(label_alt, LV_STATE_PRESSED, MODS_ALT);
-    toggle_state(label_gui, LV_STATE_PRESSED, MODS_GUI);
 }
 
 void display_process_layer_state(uint8_t layer) {
@@ -323,4 +307,24 @@ void display_process_layer_state(uint8_t layer) {
             lv_label_set_text(label_layer, "SYSTEM");
             break;
     }
+}
+
+void display_process_caps(bool active) {
+    toggle_state(label_caps, LV_STATE_PRESSED, active);
+}
+
+void display_process_caps_word(bool active) {
+    toggle_state(label_caps_word, LV_STATE_PRESSED, active);
+}
+
+void display_refresh_data(void) {
+    if (home_screen_timer && timer_elapsed(home_screen_timer) > 5000) {
+        home_screen_timer = 0;
+        lv_scr_load(screen_home);
+    }
+
+    toggle_state(label_shift, LV_STATE_PRESSED, MODS_SHIFT);
+    toggle_state(label_ctrl, LV_STATE_PRESSED, MODS_CTRL);
+    toggle_state(label_alt, LV_STATE_PRESSED, MODS_ALT);
+    toggle_state(label_gui, LV_STATE_PRESSED, MODS_GUI);
 }
