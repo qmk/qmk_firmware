@@ -23,7 +23,6 @@
         "led_count": 14,
         "pin": "B2",
         "hue_steps": 12,
-        "sleep": false,
         "saturation_steps": 15,
         "brightness_steps": 12,
         "sleep": true,
