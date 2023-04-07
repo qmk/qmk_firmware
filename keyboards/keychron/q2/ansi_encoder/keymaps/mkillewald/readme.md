@@ -19,6 +19,8 @@
         #define RGB_MATRIX_DEFAULT_VAL 25
 ```
 
+    - Note: RGB mode can only be toggled on/off when keyboard mode switch set to Mac. The RGB toggle will have no effect if the keyboard mode switch is set to Win.
+
 - Autocorrect is enabled ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
     - Use Fn1+Shift to toggle it on/off.
     - Uses getreuer's 400 entry library   
@@ -35,14 +37,14 @@
     - the Caps Lock key will light when Caps Lock is enabled with the following options:
         - #define CAPS_LOCK_INDICATOR_COLOR [color] in config.h to set the backlight color used for the indicator when Caps Lock is enabled (default: red)
         - Fn2+Z (keycode: LTTOG) will toggle lighting the TAB key when Caps Lock is enabled. This is useful with non backlit keycaps/legends. (default: off)
-        - Fn2+X (keycode: LATOG) will toggle lighting all the alpha keys when Caps Lock is enabled. (default: off)
+        - Fn2+X (keycode: LATOG) will toggle lighting all the alpha keys when Caps Lock is enabled. (default: on)
 
 - Dynamic Fn layer RGB indicator
     - When either Fn1 or Fn2 is held down, any keys defined on the Fn layers in this firmware or in VIA will be highlighted with the following options:
         - #define FN1_LAYER_COLOR [color] in config.h to set a static color for defined keys on Fn1 layer (default: orange)
-        - #define FN2_LAYER_COLOR [color] in config.h to set a static color for defined keys on Fn2 layer (default: green)
+        - #define FN2_LAYER_COLOR [color] in config.h to set a static color for defined keys on Fn2 layer (default: yellow)
         - Fn2+C (keycode: TKTOG) will toggle turning off RGB for keys with no definition (default: RGB off)
-        - Fn2+V (keycode: FCTOG) will toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR or FN2_LAYER_COLOR (default: static color off)
+        - Fn2+V (keycode: FCTOG) will toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR or FN2_LAYER_COLOR (default: static color on)
 
 All custom keycodes described in this readme can be moved to different keys in VIA by using the following keycodes:
 - CUSTOM(64) = KC_LTTOG (default: Fn2+Z) Caps Lock Light Tab Toggle
