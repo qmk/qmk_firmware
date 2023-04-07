@@ -802,6 +802,16 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 return false;
             }
             return true;
+        case KC_BSPC:
+            if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
+                if (record->event.pressed) {
+                    unregister_code16(KC_LSFT);
+                    tap_code16(KC_BSPC);
+                    register_code16(KC_LSFT);
+                }
+                return false;
+            }
+            return true;
         case MA_TAB:
             if (record->event.pressed) {
                 if (!isCtlTabStarted) {
