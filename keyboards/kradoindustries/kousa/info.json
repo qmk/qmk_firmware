@@ -18,7 +18,11 @@
         "command": false,
         "nkro": true
     },
-
+    "encoder": {
+        "rotary": [
+            { "pin_a": "GP10", "pin_b": "GP9" }
+        ]
+    },
     "rgblight": {
         "led_count": 18,
         "pin": "GP4",
