@@ -18,10 +18,10 @@
 #include "keymap_user_config.h"
 
 typedef struct {
-    bool caps_lock_light_tab :1;
-    bool caps_lock_light_alphas :1;
-    bool fn_layer_transparent_keys_off :1;
-    bool fn_layer_color_enable :1;
+    bool caps_lock_light_tab;
+    bool caps_lock_light_alphas;
+    bool fn_layer_transparent_keys_off;
+    bool fn_layer_color_enable;
     uint8_t mode_win_base;
     uint8_t spd_win_base;
     HSV hsv_win_base;
@@ -41,7 +41,7 @@ void eeconfig_init_user(void) {
     user_config.mode_win_base = RGB_MATRIX_DEFAULT_MODE;
     user_config.spd_win_base = RGB_MATRIX_DEFAULT_SPD;
 
-    user_config.hsv_win_base.h = HUE_WIN_BASE;
+    user_config.hsv_win_base.h = DEFAULT_HUE_WIN_BASE;
     user_config.hsv_win_base.s = RGB_MATRIX_DEFAULT_SAT;
     user_config.hsv_win_base.v = RGB_MATRIX_DEFAULT_VAL;
 

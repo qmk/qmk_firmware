@@ -40,7 +40,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     switch (current_layer) {
         case MAC_BASE:
         case WIN_BASE:
-#ifdef HUE_WIN_BASE
             if (is_win_mode() && !win_mode_was_activated) {
                 win_mode_was_activated = true;
                 rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
@@ -52,7 +51,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 win_mode_was_activated = false;
                 rgb_matrix_reload_from_eeprom();
             }
-#endif
 #ifdef CAPS_LOCK_INDICATOR_COLOR
             if (host_keyboard_led_state().caps_lock) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);

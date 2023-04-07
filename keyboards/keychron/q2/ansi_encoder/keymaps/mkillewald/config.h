@@ -27,11 +27,10 @@
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
 #   define RGB_MATRIX_DEFAULT_SPD 127
-#   define RGB_MATRIX_DEFAULT_HUE 170 // HSV blue hue
+#   define RGB_MATRIX_DEFAULT_HUE 170 // HSV blue hue  (Mac Base layer)
+#   define DEFAULT_HUE_WIN_BASE  80   // HSV green hue (Win Base layer)
 #   define RGB_MATRIX_DEFAULT_SAT 255
 #   define RGB_MATRIX_DEFAULT_VAL 255
-
-#   define HUE_WIN_BASE  80 // HSV green hue
 
 #   define CAPS_LOCK_INDICATOR_COLOR RGB_RED
 #   define FN1_LAYER_COLOR 0xFE, 0x23, 0x00  // RGB orange

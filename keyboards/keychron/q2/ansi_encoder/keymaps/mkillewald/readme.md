@@ -1,13 +1,21 @@
-## Keychron Q2 ANSI STM32L432 ENC11 (with knob) Keymap v1.0.1
+## Keychron Q2 SVR'd RGB ANSI STM32L432 ENC11 (with knob) Keymap v2.0.0
 
-## This is my personal build with custom layout changes and different base layer LED colors
+## Highly Recommended: you should clear your eeprom before or after flashing this firmware. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cord, this should reset your eeprom.
 
 ## Features:
 - Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others.
 
-- Different hues set for Mac Base and Win Base layers in config.h
-    - Set Mac Base hue using HUE_MAC_BASE in config.h
-    - Set Win Base hue using HUE_WIN_BASE in config.h
+- SEVERED! Different RGB settings for Mac Base and Win Base layers
+    - You can set different animations, colors, brightness and speed for each base layer using the standard RGB keyboard shortcuts
+
+    - There following default settings can be changed in config.h (these defaults will be applied when the eeprom is reset):
+
+        #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
+        #define RGB_MATRIX_DEFAULT_SPD 127
+        #define RGB_MATRIX_DEFAULT_HUE 170 // HSV blue hue  (Mac Base layer)
+        #define DEFAULT_HUE_WIN_BASE  80   // HSV green hue (Win Base layer)
+        #define RGB_MATRIX_DEFAULT_SAT 255
+        #define RGB_MATRIX_DEFAULT_VAL 255
 
 - Caps Word enabled with RGB indicator ([https://docs.qmk.fm/#/feature_caps_word](https://docs.qmk.fm/#/feature_caps_word))
     - Activated by double tapping left Shift
@@ -78,8 +86,10 @@ It seems Keychron has not pushed the relavant code to the main QMK repo yet. I s
 
 ## Changelog:
 
+v2.0.0  April 7, 2023
+- added different RGB settings for Mac Base and Win Base layers
+
 v1.0.1  April 4, 2023
-- added different hue for Mac Base and Win Base layers
 - made requested changes by QMK reveiwers
 - removed optional .json file and baked my layout changes into the firmware
 

@@ -24,14 +24,12 @@
 
 // clang-format off
 
-#ifdef RGB_MATRIX_ENABLE
 enum my_bootloader_state {
     BOOTLOADER_INACTIVE,
     BOOTLOADER_PRESSED,
     BOOTLOADER_WAIT,
     BOOTLOADER_DO
 } bootloader_state;
-#endif
 
 enum my_keycodes {
     KC_LIGHT_TAB_TOGGLE = QK_USER_0,
@@ -112,7 +110,6 @@ void keyboard_post_init_user(void) {
 }
 
 void housekeeping_task_user(void) {
-#ifdef RGB_MATRIX_ENABLE
     switch(bootloader_state) {
         case BOOTLOADER_DO:
             // bootloader was pressed two frames ago. RGB should now be off,
@@ -134,7 +131,6 @@ void housekeeping_task_user(void) {
         default:
             break;
         }
-#endif
 
     housekeeping_task_keychron();
 }
@@ -149,89 +145,105 @@ bool is_win_mode(void) { return win_mode; }
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_keychron(keycode, record)) {
         switch (keycode) {
-#ifdef RGB_MATRIX_ENABLE
             case QK_BOOT:
                 // We want to turn off LEDs before calling bootloader, so here
                 // we call rgb_matrix_disable_noeeprom() and set a flag because
                 // the LEDs won't be updated until the next frame.
-                rgb_matrix_disable_noeeprom();
-                bootloader_state = BOOTLOADER_PRESSED;
+                if (record->event.pressed) {
+                    rgb_matrix_disable_noeeprom();
+                    bootloader_state = BOOTLOADER_PRESSED;
+                }
                 return false;  // Skip all further processing of this key
             case RGB_MOD:
                 if (win_mode) {
-                    // need to fix mode indexing, currently hosed
-                    rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
-                    rgb_matrix_step_noeeprom();
-                    user_config_set_mode_win_base(rgb_matrix_get_mode());
+                    if (record->event.pressed) {
+                        rgb_matrix_step_noeeprom();
+                        user_config_set_mode_win_base(rgb_matrix_get_mode());
+                    }
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_RMOD:
                 if (win_mode) {
-                    // need to fix mode indexing, currently hosed
-                    rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
-                    rgb_matrix_step_reverse_noeeprom();
-                    user_config_set_mode_win_base(rgb_matrix_get_mode());
+                    if (record->event.pressed) {
+                        rgb_matrix_step_reverse_noeeprom();
+                        user_config_set_mode_win_base(rgb_matrix_get_mode());
+                    }
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_HUI:
                 if (win_mode) {
-                    rgb_matrix_increase_hue_noeeprom();
-                    user_config_set_mode_win_base(rgb_matrix_get_mode());
+                    if (record->event.pressed) {
+                        rgb_matrix_increase_hue_noeeprom();
+                        user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    }
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_HUD:
                 if (win_mode) {
-                    rgb_matrix_decrease_hue_noeeprom();
-                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    if (record->event.pressed) {
+                        rgb_matrix_decrease_hue_noeeprom();
+                        user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    }
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_SAI:
                 if (win_mode) {
-                    rgb_matrix_increase_sat_noeeprom();
-                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    if (record->event.pressed) {
+                        rgb_matrix_increase_sat_noeeprom();
+                        user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    }
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_SAD:
                 if (win_mode) {
-                    rgb_matrix_decrease_sat_noeeprom();
-                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    if (record->event.pressed) {
+                        rgb_matrix_decrease_sat_noeeprom();
+                        user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    }
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_VAI:
                 if (win_mode) {
-                    rgb_matrix_increase_val_noeeprom();
-                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    if (record->event.pressed) {
+                        rgb_matrix_increase_val_noeeprom();
+                        user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    }
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_VAD:
                 if (win_mode) {
-                    rgb_matrix_decrease_val_noeeprom();
-                    user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    if (record->event.pressed) {
+                        rgb_matrix_decrease_val_noeeprom();
+                        user_config_set_hsv_win_base(rgb_matrix_get_hsv());
+                    }
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_SPI:
                 if (win_mode) {
-                    rgb_matrix_increase_speed_noeeprom();
-                    user_config_set_spd_win_base(rgb_matrix_get_speed());
+                    if (record->event.pressed) {
+                        rgb_matrix_increase_speed_noeeprom();
+                        user_config_set_spd_win_base(rgb_matrix_get_speed());
+                    }
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
             case RGB_SPD:
                 if (win_mode) {
-                    rgb_matrix_decrease_speed_noeeprom();
-                    user_config_set_spd_win_base(rgb_matrix_get_speed());
+                    if (record->event.pressed) {
+                        rgb_matrix_decrease_speed_noeeprom();
+                        user_config_set_spd_win_base(rgb_matrix_get_speed());
+                    }
                     return false;  // Skip all further processing of this key
                  }
                  return true; // Allow further processing of this key
-#endif // RGB_MATRIX_ENABLE
             case KC_LIGHT_TAB_TOGGLE:
                 if (record->event.pressed) {
                     user_config_toggle_caps_lock_light_tab();
