@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "f411.h"
+#include "5x6_right.h"
 
 void keyboard_pre_init_sub(void) { setPinInputHigh(A0); }
 

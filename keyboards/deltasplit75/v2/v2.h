@@ -1,7 +1,5 @@
 #pragma once
 
-#include "deltasplit75.h"
-
 #include "quantum.h"
 
 //matrix is defined in a weird way here; the layout on both sides are asymmetrical, but the "matrix" is symmetrical but with empty gaps

@@ -16,13 +16,6 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { F0, F1, F4, E6, C6 }
-#define MATRIX_COL_PINS { F7, F6, F5, C7, B0, B1, B2, B3, B4, D7, D6, D4, D5, D3, D2}
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    define USB_SUSPEND_WAKEUP_DELAY 5000

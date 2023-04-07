@@ -13,6 +13,9 @@
         "num_lock": "D0",
         "scroll_lock": "D6"
     },
+    "ws2812": {
+        "driver": "i2c"
+    },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
     "layouts": {

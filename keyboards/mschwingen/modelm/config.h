@@ -70,7 +70,6 @@
 #endif
 
 // 3* WS2812 LEDs instead of singlecolor GPIO LEDs
-#define RGB_DI_PIN B6
 #define RGBLED_NUM 3
 
 // disabled, needs PCB patch.

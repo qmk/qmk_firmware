@@ -28,7 +28,6 @@
     },
     "rgblight": {
         "led_count": 22,
-        "pin": "F4",
         "hue_steps": 10,
         "saturation_steps": 17,
         "brightness_steps": 17,
@@ -42,6 +41,9 @@
             "static_gradient": true,
             "alternating": true
         }
+    },
+    "ws2812": {
+        "pin": "F4"
     },
     "layouts": {
         "LAYOUT_ansi": {

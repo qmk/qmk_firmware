@@ -16,15 +16,7 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { E0 }
-#define MATRIX_COL_PINS { E6, B2, B7, D1, D2, D3 }
-
-#define DIODE_DIRECTION COL2ROW
-
-
 //TODO: implement RGB Matrix
-#define RGB_DI_PIN F0
 // #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 
 

@@ -9,10 +9,6 @@
 
 #pragma once
 
-
-// Last pins reserved for encoder / touch encoder support
-#define MATRIX_ROW_PINS { A1, A3, B3, A13, B15, NO_PIN, NO_PIN }
-#define MATRIX_COL_PINS { A0, B11, B0, B10, B12, B2, A8 }
 #define MATRIX_IO_DELAY 5
 
 #define BUSY_WAIT
@@ -24,9 +20,6 @@
 #define TOUCH_TERM 350 // time of a "button" touch, longer inputs will be a swipe
 #define TOUCH_RESOLUTION 25 // sensitivity of swipes, lower=faster
 #define TOUCH_SEGMENTS 3
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /* CRC Configuration */
 #define CRC8_OPTIMIZE_SPEED
@@ -56,7 +49,6 @@
 #define SPLIT_TRANSACTION_IDS_KB TOUCH_ENCODER_SYNC, RGB_MENU_SYNC
 
 /* RGB LED Configuration */
-#define RGB_DI_PIN B5
 #define RGBLED_NUM 98
 #define RGBLED_SPLIT { 49, 49 }
 #define RGBLIGHT_EFFECT_BREATHING

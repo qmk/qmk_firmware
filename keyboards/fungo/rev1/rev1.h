@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "fungo.h"
 #include "quantum.h"
 
 #define LAYOUT( \

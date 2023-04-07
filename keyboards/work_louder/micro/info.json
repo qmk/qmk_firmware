@@ -39,6 +39,9 @@
         "max_brightness": 150,
         "saturation_steps": 8
     },
+    "ws2812": {
+        "pin": "D1"
+    },
     "url": "https://worklouder.cc/",
     "usb": {
         "device_version": "1.0.0",

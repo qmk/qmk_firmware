@@ -8,6 +8,11 @@
         "pid": "0x0223",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B5", "B6", "C6", "C7", "F7", "F6", "B0", "B1", "B2", "B3", "B7", "D2", "D3", "D5"],
+        "rows": ["F0", "F1", "F4", "F5", "B4"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "debounce": 3,

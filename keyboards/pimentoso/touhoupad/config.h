@@ -15,14 +15,6 @@
  */
 #pragma once
 
-
-#define MATRIX_ROW_PINS { D4 }
-#define MATRIX_COL_PINS { C6,D7,E6,B4,B6,B2,B3,B1,F7,F6 }
-
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN F4
-#ifdef RGB_DI_PIN
   #define RGBLED_NUM 12
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
@@ -33,4 +25,3 @@
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#endif

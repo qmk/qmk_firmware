@@ -8,6 +8,11 @@
         "pid": "0x8F7E",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D6", "D5", "D1", "D0", "D7", "C0", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "A7", "A6", "A5", "A4", "A3"],
+        "rows": ["B1", "A0", "B2", "A2", "A1"]
+    },
+    "diode_direction": "COL2ROW",
     "bootmagic": {
         "matrix": [4, 5]
     },

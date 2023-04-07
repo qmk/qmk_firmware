@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_COL_PINS { A5 , A10, C13, B9 , B8 , B5 , B4 , B3 , A15, A0 , A1 , A2 }
-#define MATRIX_ROW_PINS { A8 , B14, A4 , A3 }
-#define DIODE_DIRECTION COL2ROW
-
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
 
@@ -29,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_PAL_MODE      2
 
-#define RGB_DI_PIN B15
 #define RGBLED_NUM 24
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

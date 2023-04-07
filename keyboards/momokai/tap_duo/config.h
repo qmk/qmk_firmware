@@ -16,13 +16,6 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { E0 }
-#define MATRIX_COL_PINS { E6, B2, D1, D2, D3 }
-
-#define DIODE_DIRECTION COL2ROW
-
-
 // Tweak how the mouse cursor moves. https://docs.qmk.fm/#/feature_mouse_keys
 // Accelerated mode (default).
 #define MOUSEKEY_DELAY  10
@@ -37,7 +30,6 @@
 
 
 //TODO: implement RGB Matrix
-#define RGB_DI_PIN F0
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 4
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses

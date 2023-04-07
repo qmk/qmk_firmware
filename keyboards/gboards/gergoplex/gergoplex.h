@@ -35,21 +35,3 @@ extern i2c_status_t mcp23018_status;
 #define OLATA 0x14  // output latch register
 
 uint8_t init_mcp23018(void);
-
-#define LAYOUT_split_3x5_3( \
-    L00, L01, L02, L03, L04,        R00, R01, R02, R03, R04, \
-    L10, L11, L12, L13, L14,        R10, R11, R12, R13, R14, \
-    L20, L21, L22, L23, L24,        R20, R21, R22, R23, R24, \
-                L30, L31, L32,    R30, R31, R32 \
-) { \
-    { L04, L14, L24, XXX }, \
-    { L03, L13, L23, L32 }, \
-    { L02, L12, L22, L31 }, \
-    { L01, L11, L21, L30 }, \
-    { L00, L10, L20, XXX }, \
-    { R00, R10, R20, XXX }, \
-    { R01, R11, R21, R30 }, \
-    { R02, R12, R22, R31 }, \
-    { R03, R13, R23, R32 }, \
-    { R04, R14, R24, XXX } \
-}

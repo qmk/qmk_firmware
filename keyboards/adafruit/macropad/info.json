@@ -16,6 +16,10 @@
     "bootmagic": {
         "matrix": [1, 2]
     },
+    "ws2812": {
+        "pin": "GP19",
+        "driver": "vendor"
+    },
     "processor": "RP2040",
     "bootloader": "rp2040",
     "matrix_pins": {

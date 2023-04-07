@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DIODE_DIRECTION COL2ROW
-// wiring of each half
-#define MATRIX_ROW_PINS { B1, B2, C7, B4, D7, B0 }
-#define MATRIX_COL_PINS { F4, NO_PIN, F0, B7, B3, D2, D3, D5, D4, NO_PIN }
-#define MATRIX_ROW_PINS_RIGHT { B3, B2, B6, B4, D7, B0 }
-#define MATRIX_COL_PINS_RIGHT { F1, F0, F4, F5, F6, D5, D2, D3, B7, B1 }
 #define SPLIT_HAND_PIN F7
 
 #define CAPS_LOCK_LED_PIN B6
@@ -34,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN E6
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

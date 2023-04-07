@@ -8,6 +8,11 @@
         "pid": "0x6012",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F5", "B3", "D5"],
+        "rows": ["F1", "B2", "D3"]
+    },
+    "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "D2"
     },
@@ -16,9 +21,9 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":0, "y":0},
-                {"x":1, "y":0},
-                {"x":2, "y":0}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 1], "x": 1, "y": 0},
+                {"matrix": [2, 2], "x": 2, "y": 0}
             ]
         }
     }

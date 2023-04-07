@@ -3,7 +3,6 @@
     "keyboard_name": "Tiger80",
     "maintainer": "kbdfans",
     "bootloader": "atmel-dfu",
-    "diode_direction": "COL2ROW",
     "features": {
         "audio": false,
         "backlight": false,
@@ -15,23 +14,38 @@
         "nkro": true,
         "rgblight": true
     },
+    "matrix_pins": {
+        "cols": ["F7", "F6", "F5", "F4", "F1", "F0", "D3", "D5", "D4", "D6", "D7", "B5", "B6", "C6", "E2", "D0"],
+        "rows": ["B0", "E6", "B1", "B4", "D1", "D2"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "C7",
         "on_state": 1,
         "scroll_lock": "B2"
-    },
-    "matrix_pins": {
-        "cols": ["F7", "F6", "F5", "F4", "F1", "F0", "D3", "D5", "D4", "D6", "D7", "B5", "B6", "C6", "E2", "D0"],
-        "rows": ["B0", "E6", "B1", "B4", "D1", "D2"]
     },
     "processor": "atmega32u4",
     "rgblight": {
         "brightness_steps": 10,
         "hue_steps": 10,
         "led_count": 20,
-        "pin": "B3",
         "saturation_steps": 10,
-        "sleep": true
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B3"
     },
     "url": "",
     "usb": {

@@ -16,15 +16,6 @@
 
 #pragma once
 
-#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* SK6812 RGB LED */
-#define RGB_DI_PIN D3
-
 #ifdef RGBLIGHT_ENABLE
 #   define RGBLED_NUM 60  // Total number of LEDs
 #   define RGBLED_SPLIT { 30, 30 } // LEDs per side

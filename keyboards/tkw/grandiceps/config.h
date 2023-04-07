@@ -15,20 +15,11 @@
  */
 #pragma once
 
-
-#define MATRIX_COL_PINS { B0, A7, A3, A5, A4, A2 }
-#define MATRIX_ROW_PINS { B12, A6, B13, B9, B8 }
-#define MATRIX_COL_PINS_RIGHT { B0, A7, A3, A5, A4, A2 }
-#define MATRIX_ROW_PINS_RIGHT  { B12, A6, B13, B9, B8 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #define SELECT_SOFT_SERIAL_SPEED 1
 
 #define MATRIX_IO_DELAY 5
 #define TAP_CODE_DELAY 10
 
-#define RGB_DI_PIN B1
 #define RGBLED_NUM 16
 #define RGBLED_SPLIT { 8,8 }
 #define RGBLIGHT_LIMIT_VAL 120
