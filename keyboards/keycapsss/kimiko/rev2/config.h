@@ -16,19 +16,6 @@
 
 #pragma once
 
-/* key matrix size */
-// rows are doubled-up for split-keyboard
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 6
-#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* SK6812 RGB LED are used for lightning*/
 #ifdef RGBLIGHT_ENABLE
 #   define RGBLED_NUM 60  // Total number of LEDs
