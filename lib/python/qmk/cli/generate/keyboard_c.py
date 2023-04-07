@@ -25,17 +25,17 @@ def _gen_led_config(info_data):
     if not config_type:
         return lines
 
-    matrix = [['NO_LED'] * cols for i in range(rows)]
+    matrix = [['NO_LED'] * cols for _ in range(rows)]
     pos = []
     flags = []
 
-    led_config = info_data[config_type]['layout']
-    for index, item in enumerate(led_config, start=0):
-        if 'matrix' in item:
-            (x, y) = item['matrix']
-            matrix[x][y] = str(index)
-        pos.append(f'{{ {item.get("x", 0)},{item.get("y", 0)} }}')
-        flags.append(str(item.get('flags', 0)))
+    led_layout = info_data[config_type]['layout']
+    for index, led_data in enumerate(led_layout):
+        if 'matrix' in led_data:
+            row, col = led_data['matrix']
+            matrix[row][col] = str(index)
+        pos.append(f'{{{led_data.get("x", 0)}, {led_data.get("y", 0)}}}')
+        flags.append(str(led_data.get('flags', 0)))
 
     if config_type == 'rgb_matrix':
         lines.append('#ifdef RGB_MATRIX_ENABLE')
@@ -47,10 +47,10 @@ def _gen_led_config(info_data):
     lines.append('__attribute__ ((weak)) led_config_t g_led_config = {')
     lines.append('  {')
     for line in matrix:
-        lines.append(f'    {{ {",".join(line)} }},')
+        lines.append(f'    {{ {", ".join(line)} }},')
     lines.append('  },')
-    lines.append(f'  {{ {",".join(pos)} }},')
-    lines.append(f'  {{ {",".join(flags)} }},')
+    lines.append(f'  {{ {", ".join(pos)} }},')
+    lines.append(f'  {{ {", ".join(flags)} }},')
     lines.append('};')
     lines.append('#endif')
 

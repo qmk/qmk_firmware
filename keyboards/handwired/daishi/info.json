@@ -8,6 +8,13 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F1", "pin_b": "F0", "resolution": 2}
+        ]
+    },
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

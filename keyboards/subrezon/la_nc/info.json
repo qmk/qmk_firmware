@@ -6,6 +6,8 @@
         "pid": "0x1A7C",
         "device_version": "1.0.0"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

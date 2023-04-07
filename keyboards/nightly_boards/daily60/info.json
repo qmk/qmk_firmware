@@ -7,6 +7,8 @@
     	"pid": "0x0024",
     	"device_version": "0.0.1"
     },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -25,7 +25,7 @@ void rgb_init(void);
 void set_rgb_color(uint8_t pin, uint8_t value, uint8_t timer_value);
 
 enum my_keycodes {
-  RGB_RI = SAFE_RANGE,
+  RGB_RI = QK_KB_0,
   RGB_RD,
   RGB_GI,
   RGB_GD,

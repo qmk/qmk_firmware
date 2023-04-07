@@ -70,7 +70,7 @@
 /********************************************************************************/
 // For an Adjust layer. Like RBB with audio, flash, etc.
 #define ___ADJUST_L1___ ___RGB_HUE_SAT_INT_UP___,       RGB_TOG
-#define ___ADJUST_L2___ MU_TOG, CK_TOGG, AU_ON, AU_OFF, CG_NORM
+#define ___ADJUST_L2___ MU_TOGG, CK_TOGG, AU_ON, AU_OFF, CG_NORM
 #define ___ADJUST_L3___ ___RGB_HUE_SAT_INT_DN___,       KC_RGB_T
 
 #define ___ADJUST_R1___  ___, KC_MAKE, VRSN, MG_NKRO, KC_RESET
