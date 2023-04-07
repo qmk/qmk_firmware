@@ -8,8 +8,6 @@ on:
   push:
     branches: [master, develop]
 
-concurrency: ci_build
-
 jobs:
   ci_builds:
     if: github.repository == 'qmk/qmk_firmware'
@@ -22,6 +20,8 @@ jobs:
       matrix:
         branch: [master, develop]
         keymap: [default, via]
+
+    concurrency: ci_build-${{ matrix.branch }}-${{ matrix.keymap }}
 
     container: qmkfm/qmk_cli
 
