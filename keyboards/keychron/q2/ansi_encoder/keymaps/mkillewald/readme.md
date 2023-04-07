@@ -19,6 +19,11 @@
         #define RGB_MATRIX_DEFAULT_VAL 25
 ```
 
+- Autocorrect is enabled ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
+    - Use Fn1+Shift to toggle it on/off.
+    - Uses getreuer's 400 entry library   
+    [https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict_extra.txt](https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict_extra.txt)  
+
 - Caps Word enabled with RGB indicator ([https://docs.qmk.fm/#/feature_caps_word](https://docs.qmk.fm/#/feature_caps_word))
     - Activated by double tapping left Shift
         - can change activation to tapping both left and right Shift by replacing define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD with #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD in config.h
