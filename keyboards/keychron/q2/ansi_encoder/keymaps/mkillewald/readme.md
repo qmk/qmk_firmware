@@ -66,7 +66,7 @@ Please make sure to save any customizations you have made in VIA to a .json file
     - Fn1+< sets my secondary display to 0° rotation
     - Fn1+> sets my secondary display to 90° rotation
     
-    Note: display rotation requires additional software and changes made, see this link for more information:
+    Note: display rotation requires additional software and changes made, see this link for more information:   
     [https://www.reddit.com/r/Keychron/comments/1254g36/howto_macos_rotate_screen_from_keyboard_shortcut/](https://www.reddit.com/r/Keychron/comments/1254g36/howto_macos_rotate_screen_from_keyboard_shortcut/)
     
 - Fn2+Backspace enters DFU mode (but does not reset eeprom)
