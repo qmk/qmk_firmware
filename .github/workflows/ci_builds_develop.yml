@@ -1,4 +1,4 @@
-name: CI Builds
+name: CI Builds (develop)
 
 permissions:
   contents: read
@@ -6,7 +6,7 @@ permissions:
 on:
   workflow_dispatch:
   push:
-    branches: [master, develop]
+    branches: [develop]
 
 jobs:
   ci_builds:
@@ -18,10 +18,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [master, develop]
         keymap: [default, via]
 
-    concurrency: ci_build-${{ matrix.branch }}-${{ matrix.keymap }}
+    concurrency: ci_build-${{ github.ref }}-${{ matrix.keymap }}
 
     container: qmkfm/qmk_cli
 
@@ -32,7 +31,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: recursive
-        ref: ${{ matrix.branch }}
+        ref: ${{ github.ref }}
 
     - name: Install dependencies
       run: pip3 install -r requirements.txt
@@ -52,7 +51,7 @@ jobs:
       uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: artifacts-${{ matrix.branch }}-${{ matrix.keymap }}
+        name: artifacts-${{ github.ref }}-${{ matrix.keymap }}
         if-no-files-found: ignore
         path: |
           *.bin
@@ -67,4 +66,4 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
       run: |
         python3 -m pip install -r requirements.txt
-        python3 ./discord-results.py --branch ${{ matrix.branch }} --keymap ${{ matrix.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        python3 ./discord-results.py --branch ${{ github.ref }} --keymap ${{ matrix.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
