@@ -154,6 +154,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     bootloader_state = BOOTLOADER_PRESSED;
                 }
                 return false;  // Skip all further processing of this key
+            case RGB_TOG:
+                if (win_mode) {
+                    if (record->event.pressed) {
+                        // disable RGB toggle if switch is on Win mode
+                        return false;  // Skip all further processing of this key
+                    }
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case RGB_MOD:
                 if (win_mode) {
                     if (record->event.pressed) {
@@ -161,8 +170,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         user_config_set_mode_win_base(rgb_matrix_get_mode());
                     }
                     return false;  // Skip all further processing of this key
-                 }
-                 return true; // Allow further processing of this key
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case RGB_RMOD:
                 if (win_mode) {
                     if (record->event.pressed) {
@@ -170,8 +180,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         user_config_set_mode_win_base(rgb_matrix_get_mode());
                     }
                     return false;  // Skip all further processing of this key
-                 }
-                 return true; // Allow further processing of this key
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case RGB_HUI:
                 if (win_mode) {
                     if (record->event.pressed) {
@@ -179,8 +190,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     }
                     return false;  // Skip all further processing of this key
-                 }
-                 return true; // Allow further processing of this key
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case RGB_HUD:
                 if (win_mode) {
                     if (record->event.pressed) {
@@ -188,8 +200,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     }
                     return false;  // Skip all further processing of this key
-                 }
-                 return true; // Allow further processing of this key
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case RGB_SAI:
                 if (win_mode) {
                     if (record->event.pressed) {
@@ -197,8 +210,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     }
                     return false;  // Skip all further processing of this key
-                 }
-                 return true; // Allow further processing of this key
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case RGB_SAD:
                 if (win_mode) {
                     if (record->event.pressed) {
@@ -206,8 +220,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     }
                     return false;  // Skip all further processing of this key
-                 }
-                 return true; // Allow further processing of this key
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case RGB_VAI:
                 if (win_mode) {
                     if (record->event.pressed) {
@@ -215,8 +230,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     }
                     return false;  // Skip all further processing of this key
-                 }
-                 return true; // Allow further processing of this key
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case RGB_VAD:
                 if (win_mode) {
                     if (record->event.pressed) {
@@ -224,8 +240,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         user_config_set_hsv_win_base(rgb_matrix_get_hsv());
                     }
                     return false;  // Skip all further processing of this key
-                 }
-                 return true; // Allow further processing of this key
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case RGB_SPI:
                 if (win_mode) {
                     if (record->event.pressed) {
@@ -233,8 +250,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         user_config_set_spd_win_base(rgb_matrix_get_speed());
                     }
                     return false;  // Skip all further processing of this key
-                 }
-                 return true; // Allow further processing of this key
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case RGB_SPD:
                 if (win_mode) {
                     if (record->event.pressed) {
@@ -242,8 +260,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         user_config_set_spd_win_base(rgb_matrix_get_speed());
                     }
                     return false;  // Skip all further processing of this key
-                 }
-                 return true; // Allow further processing of this key
+                } else {
+                    return true; // Allow further processing of this key
+                }
             case KC_LIGHT_TAB_TOGGLE:
                 if (record->event.pressed) {
                     user_config_toggle_caps_lock_light_tab();

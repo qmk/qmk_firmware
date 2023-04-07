@@ -37,14 +37,11 @@ void eeconfig_init_user(void) {
     user_config.caps_lock_light_alphas = true;
     user_config.fn_layer_transparent_keys_off = false;
     user_config.fn_layer_color_enable = true;
-    
     user_config.mode_win_base = RGB_MATRIX_DEFAULT_MODE;
     user_config.spd_win_base = RGB_MATRIX_DEFAULT_SPD;
-
     user_config.hsv_win_base.h = DEFAULT_HUE_WIN_BASE;
     user_config.hsv_win_base.s = RGB_MATRIX_DEFAULT_SAT;
     user_config.hsv_win_base.v = RGB_MATRIX_DEFAULT_VAL;
-
     user_config_write_eeprom();
 }
 
