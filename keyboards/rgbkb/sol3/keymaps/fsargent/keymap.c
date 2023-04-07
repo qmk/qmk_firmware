@@ -69,94 +69,94 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	/* Mac
 	* ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐  ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐
-	* │ GESC │   1  │   2  │   3  │   4  │   5  │   -  │  │   =  │   6  │   7  │   8  │   9  │   0  │   -  │
+	* │ GESC │   1  │   2  │   3  │   4  │   5  │ ESC  │  │      │   6  │   7  │   8  │   9  │   0  │   -  │
+	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├ OLED ┼──────┼──────┼──────┼──────┼──────┼──────┤
+	* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │  │      │   Y  │   U  │   I  │   O  │   P  │   \  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   =  │  │   ]  │   Y  │   U  │   I  │   O  │   P  │   \  │
+	* |MEHESC│   A  │   S  │   D  │   F  │   G  │   (  │  │VOLUP │   H  │   J  │   K  │   L  │   ;  │   '  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* |MEHESC│   A  │   S  │   D  │   F  │   G  │   (  │  │ PGUP │   H  │   J  │   K  │   L  │   ;  │   '  │
+	* │Shift │   Z  │   X  │  C   │   V  │   B  │   [  │  │VOLDN │   N  │   M  │   ,  │   .  │   /  │Shift │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │Shift │   Z  │   X  │  C  │   V  │   B  │   {  │  │ PGDN │   N  │   M  │   ,  │   .  │   /  │Shift │
-	* ├──────┼──────┼──────┼──────┼───────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │ Ctrl │  Alt │  Win │  SYM │ NAV  │      │2Sym  │  │2Ctrl │      │  +   │   -  │   =  │   _  │RCTRL │
-	* └──────┴──────┴──────┴──────┴───────┤1BSpc ├──────┤  ├──────┤3Spc ├──────┴──────┴──────┴──────┴──────┘
+	* │ Ctrl │  Alt │  Win │  SYM │ NAV  │      │2Sym  │  │2Ctrl │      │  _   │   =  │RGUI  │RALT  │RCTRL │
+	* └──────┴──────┴──────┴──────┴──────┤1BSpc ├──────┤  ├──────┤ 3Spc ├──────┴──────┴──────┴──────┴──────┘
 	*                                    │      │3Ctrl │  │1Enter│      │
 	*                                    └──────┴──────┘  └──────┴──────┘
 	*/
 
 	[_MAC] = LAYOUT(
-	LT(_MEH,KC_GRV),	KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	TO(_WIN),			KC_NO,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_MINUS,
-	KC_TAB,			KC_Q,	KC_W,	KC_E,	KC_R,	KC_T,	TO(_GAME),		KC_NO,	KC_Y,	KC_U,	KC_I,	KC_O,	KC_P,	KC_BSLS,
-	MEHESC,			KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	KC_LBRC,			KC_VOLU,	KC_H,	KC_J,	KC_K,	KC_L,	KC_SCLN,	KC_QUOT,
-	KC_LSFT,			KC_Z,	KC_X,	KC_C,	KC_V,	KC_B,	KC_LCBR,			KC_VOLD,	KC_N,	KC_M,	KC_COMM,	KC_DOT,	KC_SLSH,	KC_RSFT,
+	LT(_MEH,KC_GRV),	KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	KC_ESC,		KC_NO,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_MINUS,
+	KC_TAB,			KC_Q,	KC_W,	KC_E,	KC_R,	KC_T,	TO(_MAC),			KC_NO,	KC_Y,	KC_U,	KC_I,	KC_O,	KC_P,	KC_BSLS,
+	MEHESC,			KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	TO(_WIN),			KC_VOLU,	KC_H,	KC_J,	KC_K,	KC_L,	KC_SCLN,	KC_QUOT,
+	KC_LSFT,			KC_Z,	KC_X,	KC_C,	KC_V,	KC_B,	TO(_GAME),			KC_VOLD,	KC_N,	KC_M,	KC_COMM,	KC_DOT,	KC_SLSH,	KC_RSFT,
+	KC_LCTL,			LBRC,	RBRC,	MO(_SYM),		MO(_NAV),
 
-	KC_LCTL,	LBRC,	RBRC,	MO(_SYM),		MO(_NAV),
 	CMD_T(KC_BSPC),	MT(MOD_LALT, KC_DEL),	MT(MOD_LCTL, KC_ENT),
-																	KC_ENT,	KC_LCTL,	KC_SPC,
-																					KC_MINUS,	KC_EQL,	MOD_RGUI,	MOD_RALT,	KC_RCTL,
+																			KC_ENT,	KC_MPLY,	KC_SPC,
+																			LT(_NAV, KC_MINUS),	LT(_SYM, KC_EQL),	KC_RGUI,	KC_RALT,	KC_RCTL,
 
-	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,							 TO(_WIN),	TO(_GAME),	KC_NO,	KC_NO,	KC_NO,	KC_NO,
+	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,									KC_MNXT,	KC_MPRV,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 	KC_WH_D,	KC_WH_U,	KC_LBRC,	KC_LPRN,	KC_LCBR,													KC_H,	KC_J,	KC_MNXT,	KC_MPLY,	KC_MPRV
 	),
 
 	/* Win
 	* ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐  ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐
-	* │ GESC │   1  │   2  │   3  │   4  │   5  │   -  │  │   =  │   6  │   7  │   8  │   9  │   0  │   -  │
+	* │ GESC │   1  │   2  │   3  │   4  │   5  │   -  │  │      │   6  │   7  │   8  │   9  │   0  │   -  │
+	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  │ OLED │──────┼──────┼──────┼──────┼──────┼──────┤
+	* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │  │      │   Y  │   U  │   I  │   O  │   P  │   \  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   =  │  │   ]  │   Y  │   U  │   I  │   O  │   P  │   \  │
+	* |MEHESC│   A  │   S  │   D  │   F  │   G  │   (  │  │VOLUP │   H  │   J  │   K  │   L  │   ;  │   '  │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* |MEHESC│   A  │   S  │   D  │   F  │   G  │   (  │  │ PGUP │   H  │   J  │   K  │   L  │   ;  │   '  │
+	* │Shift │   Z  │   X  │   C  │   V  │   B  │   [  │  │VOLDN │   N  │   M  │   ,  │   .  │   /  │Shift │
 	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │Shift │   Z  │   X  │   C  │   V  │   B  │   {  │  │ PGDN │   N  │   M  │   ,  │   .  │   /  │Shift │
-	* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-	* │ Ctrl │  Alt │  Win │  SYM │ NAV  │ CTLR │2ALTDEL│  │2Ctrl │      │  +   │   -  │   =  │   _  │RCTRL │
-	* └──────┴──────┴──────┴──────┴──────┤1Space├──────┤  ├──────┤3Bspc ├──────┴──────┴──────┴──────┴──────┘
-	*                                    │      │3ALTENT │  │1Enter│      │
+	* │ Ctrl │  Alt │  Win │  SYM │ NAV  │ CTLR │2 GUI │  │2Ctrl │      │  _   │   =  │RGUI  │RALT  │RCTRL │
+	* └──────┴──────┴──────┴──────┴──────┤1BSpc ├──────┤  │──────│3Spc  ├──────┴──────┴──────┴──────┴──────┘
+	*                                    │      │3 ALT │  │1Enter│      │
 	*                                    └──────┴──────┘  └──────┴──────┘
 	*/
 
 	[_WIN] = LAYOUT(
-LT(_MEH,KC_GRV),_______,	_______,	_______,	_______,	_______,	TO(_GAME),		_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	_______,	_______,	_______,	_______,	_______,	_______,	TO(_MAC),			_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	LT(_MEH,KC_GRV),_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	MEHESC,	_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,			_______,	_______,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	MO(_WINNAV),
-	CTL_T(KC_BSPC),	KC_LGUI, MT(MOD_LALT, KC_ENT),
+	CTL_T(KC_BSPC),		MT(MOD_LALT, KC_DEL),	MT(MOD_LALT, KC_DEL),
 																	_______,	KC_LGUI,	_______,
 																					_______,	_______,	_______,	_______,	_______,
 
-	_______,	_______,	_______,	_______,	_______,	_______,							 TO(_GAME),TO(_MAC),_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,							KC_WH_U,	KC_WH_D,_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,											_______,	_______,	_______,	_______,	_______
 	),
 
 	[_NAV] = LAYOUT(
-	C(KC_GRV),	KC_F1,		KC_F2,		KC_F3,	KC_F4,		KC_F5,		KC_F11,					_______,	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	KC_DEL,
-	C(KC_TAB),	A(KC_BSPC),	A(KC_LEFT),	KC_UP,	A(KC_RGHT),	A(KC_DEL),	KC_F12,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
-	KC_MEH,		G(KC_LEFT),	KC_LEFT,		KC_DOWN,	KC_RGHT,		G(KC_RGHT),	KC_RPRN,					KC_PGUP,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
-	KC_LSFT,		KC_HOME,		G(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,		KC_RBRC,					KC_PGDN,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
-	_______,		_______,		_______,		_______,	_______,		_______,		_______,	_______,	KC_BTN2,	KC_BTN3,	KC_BTN1,	KC_APP,	_______,	_______,	_______,	_______,
+	C(KC_GRV),	KC_F1,		KC_F2,		KC_F3,	KC_F4,		KC_F5,		TO(_MAC),					_______,	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	KC_DEL,
+	C(KC_TAB),	A(KC_BSPC),	A(KC_LEFT),	KC_UP,	A(KC_RGHT),	A(KC_DEL),	KC_RCBR,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
+	KC_MEH,		G(KC_LEFT),	KC_LEFT,		KC_DOWN,	KC_RGHT,		G(KC_RGHT),	KC_RPRN,					KC_F11,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
+	KC_LSFT,		KC_HOME,		G(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,		KC_RBRC,					KC_F12,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
+	_______,		_______,		_______,		_______,	_______,		_______,		_______,	_______,	KC_BTN2,	KC_MPLY,	KC_BTN1,	KC_APP,	_______,	_______,	_______,	_______,
 
-	_______,	_______,	_______,	_______,	_______,	_______,														 _______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,														KC_MNXT,	KC_MPRV,	_______,	_______,	_______,	_______,
 	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,																		_______,	_______,	_______,	_______,	_______
 	),
 
 	[_GAME] = LAYOUT(
-	KC_GRV,	_______,	_______,	_______,	_______,	_______,	TO(_MAC),					_______,	_______,	_______,	_______,	_______,	_______,	KC_BSPC,
-	_______,	_______,	_______,	_______,	_______,	_______,	TO(_WIN),					_______,	_______,	_______,	_______,	_______,	_______,	_______,
-	KC_ESC,	_______,	_______,	_______,	_______,	_______,	_______,					KC_ESC,	_______,	_______,	_______,	_______,	_______,	_______,
-	_______,	_______,	_______,	_______,	_______,	_______,	_______,					KC_GRV,	_______,	_______,	_______,	_______,	_______,	_______,
+	KC_GRV,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	KC_BSPC,
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	KC_ESC,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	MO(_WINNAV),
-	KC_SPC,	MT(MOD_LCTL, KC_BSPC), MT(MOD_LALT, KC_SPC),
+	KC_SPC,	MO(_SYM), KC_LALT,
 																			KC_ENT,	KC_ESC,	KC_SPC,
 																							_______,	_______,	_______,	_______,	_______,
 
-	_______,	_______,	_______,	_______,	_______,	_______,									TO(_MAC),	TO(_WIN),	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,									KC_WH_U,	KC_WH_D,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
 	),
 
 	[_SYM] = LAYOUT(
-	KC_GRV,	_______,	KC_NUM,	KC_PSLS,	KC_PAST,	KC_PMNS,	KC_NUM,					KC_NO,	_______,	_______,	_______,	_______,	_______,	RESET,
+	KC_GRV,		_______,KC_NUM,		KC_PSLS,	KC_PAST,	KC_PMNS,	KC_NUM,						KC_NO,	_______,	_______,	_______,	_______,	_______,	RESET,
 	_______,	KC_EQL,	KC_KP_7,	KC_KP_8,	KC_KP_9,	KC_PMNS,	MENU_UP,					KC_NO,	RGB_HUI,	RGB_SAI,	RGB_VAI,	RGB_SPI,	RGB_MOD,	KC_NO,
 	_______,	KC_0,	KC_KP_4,	KC_KP_5,	KC_KP_6,	KC_PPLS,	MENU_BTN,					RGB_MOD,	RGB_HUD,	RGB_SAD,	RGB_VAD,	RGB_SPD,	RGB_RMOD,	KC_NO,
 	_______,	KC_DOT,	KC_KP_1,	KC_KP_2,	KC_KP_3,	KC_PENT,	MENU_DN,					RGB_RMOD,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
@@ -165,30 +165,30 @@ LT(_MEH,KC_GRV),_______,	_______,	_______,	_______,	_______,	TO(_GAME),		_______
 																			RGB_TOG,	RGB_RST,	RGB_MOD,
 																			RGB_RMOD,	RGB_MOD,	_______,	_______,	_______,
 
-	_______,	_______,	_______,	_______,	_______,	_______,									_______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,									MENU_UP,	MENU_DN,	MENU_BTN,	_______,	_______,	_______,
 	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,													_______,	_______,	_______,	_______,	_______
 	),
 
 	[_WINNAV] = LAYOUT(
-	KC_GRV,		KC_F1,		KC_F2,		KC_F3,	KC_F4,		KC_F5,		KC_F11,					_______,	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	KC_DEL,
-	C(KC_TAB),	C(KC_BSPC),	C(KC_LEFT),	KC_UP,	C(KC_RGHT),	C(KC_DEL),	KC_F12,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
-	KC_MEH,		KC_HOME,		KC_LEFT,		KC_DOWN,	KC_RGHT,		KC_END,		KC_RPRN,					KC_PGUP,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
-	KC_LSFT,		KC_HOME,		C(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,		KC_RBRC,					KC_PGDN,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
+	KC_GRV,		KC_F1,		KC_F2,		KC_F3,	KC_F4,		KC_F5,		TO(_WIN),					_______,	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	KC_DEL,
+	C(KC_TAB),	C(KC_BSPC),	C(KC_LEFT),	KC_UP,	C(KC_RGHT),	C(KC_DEL),	KC_RCBR,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
+	KC_MEH,		KC_HOME,		KC_LEFT,		KC_DOWN,	KC_RGHT,		KC_END,		KC_RPRN,					KC_F11,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
+	KC_LSFT,		KC_HOME,		C(KC_DOWN),	KC_PGDN,	A(KC_DOWN),	KC_END,		KC_RBRC,					KC_F12,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
 	_______,		_______,		_______,		_______,	_______,		_______,		_______,	_______,	KC_BTN3,	KC_BTN2,	KC_BTN1,	_______,	_______,	_______,	_______,	_______,
 
-	_______,	_______,	_______,	_______,	_______,	_______,														 _______,	_______,	_______,	_______,	_______,	_______,
+	_______,	_______,	_______,	_______,	_______,	_______,												 _______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	KC_RBRC,	KC_RPRN,	KC_RCBR,																		_______,	_______,	_______,	_______,	_______
 
 	),
 
     [_MEH]=LAYOUT(
-	_______,	MEH(KC_1),	MEH(KC_2),	MEH(KC_3),	MEH(KC_4),	MEH(KC_5),	_______,			_______,	MEH(KC_6),	MEH(KC_7),	MEH(KC_8),	MEH(KC_9),	MEH(KC_0),	MEH(KC_MINUS),
-	_______,	MEH(KC_Q),	MEH(KC_W),	MEH(KC_E),	MEH(KC_R),	MEH(KC_T),	_______,			_______,	MEH(KC_Y),	MEH(KC_U),	MEH(KC_I),	MEH(KC_O),	MEH(KC_P),	MEH(KC_BSLS),
-	_______,	MEH(KC_A),	MEH(KC_S),	MEH(KC_D),	MEH(KC_F),	MEH(KC_G),	_______,			KC_VOLU,	MEH(KC_H),	MEH(KC_J),	MEH(KC_K),	MEH(KC_L),	MEH(KC_SCLN),	MEH(KC_QUOT),
+	_______,	MEH(KC_1),	MEH(KC_2),	MEH(KC_3),	MEH(KC_4),	MEH(KC_5),	TO(_MAC),			_______,	MEH(KC_6),	MEH(KC_7),	MEH(KC_8),	MEH(KC_9),	MEH(KC_0),	MEH(KC_MINUS),
+	_______,	MEH(KC_Q),	MEH(KC_W),	MEH(KC_E),	MEH(KC_R),	MEH(KC_T),	TO(_WIN),			_______,	MEH(KC_Y),	MEH(KC_U),	MEH(KC_I),	MEH(KC_O),	MEH(KC_P),	MEH(KC_BSLS),
+	_______,	MEH(KC_A),	MEH(KC_S),	MEH(KC_D),	MEH(KC_F),	MEH(KC_G),	TO(_GAME),		KC_VOLU,	MEH(KC_H),	MEH(KC_J),	MEH(KC_K),	MEH(KC_L),	MEH(KC_SCLN),	MEH(KC_QUOT),
 	_______,	MEH(KC_Z),	MEH(KC_X),	MEH(KC_C),	MEH(KC_V),	MEH(KC_B),	_______,			KC_VOLD,	MEH(KC_N),	MEH(KC_M),	MEH(KC_COMM),	MEH(KC_DOT),	MEH(KC_SLSH),	MEH(KC_RSFT),
 	_______,	_______,		RGB_RMOD,		RGB_TOG,		RGB_MOD, 		KC_LGUI, KC_LALT, KC_LCTL,
 																						KC_MNXT,	KC_MPRV,	KC_MPLY,
-																						TO(_MAC),	TO(_WIN),		TO(_GAME),		TO(_SYM),		_______,
+																						TO(_MAC),	TO(_WIN),		TO(_GAME),		_______,		_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,												 _______,	_______,	_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,																_______,	_______,	_______,	_______,	_______
@@ -242,16 +242,16 @@ void render_layer_status(void) {
 			oled_write_ln_P(PSTR(" Nav "),	true);
 			break;
 		case _GAME:
-			oled_write_ln_P(PSTR(" Game"),	true);
+			oled_write_ln_P(PSTR("Game "),	true);
 			break;
 		case _SYM:
 			oled_write_ln_P(PSTR(" Sym "),	true);
 			break;
+		case _WINNAV:
+			oled_write_ln_P(PSTR("WNav "),	true);
+			break;
 		case _MEH:
 			oled_write_ln_P(PSTR(" Meh "),	true);
-			break;
-		case _WINNAV:
-			oled_write_ln_P(PSTR("WinNv"),	true);
 			break;
 		default:
 			oled_write_ln_P(PSTR("Undef"),	false);
@@ -481,8 +481,8 @@ uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
     if (is_keyboard_master()) {
         os_type = detected_host_os();
         if (os_type) {
-            bool is_mac                  = (os_type == OS_MACOS) || (os_type == OS_IOS);
-            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = is_mac;
+          //   bool is_mac                  = (os_type == OS_MACOS) || (os_type == OS_IOS);
+          //   keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = is_mac;
 #    ifdef UNICODE_COMMON_ENABLE
             uint8_t mode = is_mac ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE;
             if (mode != get_unicode_input_mode()) {
@@ -498,6 +498,7 @@ uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
                     break;
                 case OS_WINDOWS:
                     xprintf("Windows Detected\n");
+				layer_move(_WIN);
                     break;
 #    if 0
                 case OS_WINDOWS_UNSURE:
@@ -506,9 +507,11 @@ uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
 #    endif
                 case OS_MACOS:
                     xprintf("MacOS Detected\n");
+				layer_move(_MAC);
                     break;
                 case OS_IOS:
                     xprintf("iOS Detected\n");
+				layer_move(_MAC);
                     break;
 #    if 0
                 case OS_PS5:
