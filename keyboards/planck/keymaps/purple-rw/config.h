@@ -5,7 +5,7 @@
 // #define STARTUP_SONG SONG(NO_SOUND)
 
 #    define DEFAULT_LAYER_SONGS \
-        { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND) }
+        { SONG(COLEMAK_SOUND), SONG(QWERTY_SOUND), SONG(DVORAK_SOUND) }
 #endif
 
 /*
@@ -29,10 +29,7 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
-// Most tactile encoders have detents every 4 stages
-#define ENCODER_RESOLUTION 4
-
-// Tapping toggle and timeout
+/* Tapping toggle and timeout */
 #define TAPPING_TOGGLE 3
 #define ONESHOT_TAP_TOGGLE 3  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 3000  /* Time (in ms) before the one shot key is released */
