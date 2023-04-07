@@ -16,15 +16,14 @@
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": true
+        "nkro": true,
+        "encoder": true,
+        "rgblight": true
     },
 
     "rgblight": {
         "led_count": 14,
         "pin": "B2",
-        "hue_steps": 12,
-        "saturation_steps": 15,
-        "brightness_steps": 12,
         "sleep": true,
         "animations": {
             "alternating": true,
@@ -128,6 +127,3 @@
         }
     }
 }
-// Replace label with matrix formula 
-// Find "label"\:"(\d+),(\d+)"
-// Replace "matrix": \[\1, \2\]
