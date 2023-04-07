@@ -4,7 +4,6 @@ permissions:
   contents: read
 
 on:
-  workflow_dispatch:
   push:
     branches: [master, develop]
 
