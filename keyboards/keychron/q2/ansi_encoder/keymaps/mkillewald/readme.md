@@ -1,4 +1,4 @@
-## Keychron Q2 SVR'd RGB ANSI STM32L432 ENC11 (with knob) Keymap v2.0.
+## Keychron Q2 SVR'd RGB ANSI STM32L432 ENC11 (with knob) Keymap v2.0.0
 
 ## Highly Recommended: you should clear your eeprom before or after flashing this firmware. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should reset your eeprom.
 
