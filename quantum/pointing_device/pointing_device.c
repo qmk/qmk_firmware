@@ -338,6 +338,7 @@ void pointing_device_set_cpi_by_index(uint16_t cpi, uint8_t index) {
     shared_cpi[index].cpi = cpi;
     if (!POINTING_DEVICE_THIS_SIDE(index)) {
         shared_cpi[index].update = true;
+        return;
     }
 #endif
     pointing_device_configs[index].driver->set_cpi(pointing_device_configs[index].config, cpi);
