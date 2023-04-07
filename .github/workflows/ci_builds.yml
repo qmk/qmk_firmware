@@ -1,4 +1,4 @@
-name: CI Builds (develop)
+name: CI Builds
 
 permissions:
   contents: read
@@ -6,7 +6,9 @@ permissions:
 on:
   workflow_dispatch:
   push:
-    branches: [develop]
+    branches: [master, develop]
+
+concurrency: ci_build-${{ github.ref }}
 
 jobs:
   ci_builds:
@@ -19,8 +21,6 @@ jobs:
       fail-fast: false
       matrix:
         keymap: [default, via]
-
-    concurrency: ci_build-${{ github.ref }}-${{ matrix.keymap }}
 
     container: qmkfm/qmk_cli
 
