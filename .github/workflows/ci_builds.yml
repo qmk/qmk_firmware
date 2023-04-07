@@ -5,8 +5,10 @@ permissions:
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0,12 * * *'
+  push:
+    branches: [master, develop]
+
+concurrency: ci_build
 
 jobs:
   ci_builds:
