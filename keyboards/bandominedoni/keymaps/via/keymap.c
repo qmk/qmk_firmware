@@ -29,10 +29,6 @@ enum layer_names {
     _FN
 };
 
-enum custom_keycodes {
-    VERSION = QK_KB_0
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_OPEN] = LAYOUT(
                   MI_Gs1, MI_As1, MI_Cs2, MI_F2, MI_Gs3,
@@ -133,7 +129,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case VERSION: // Output firmware info.
             if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " | " QMK_BUILDDATE);
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " " QMK_GIT_HASH " | " QMK_BUILDDATE);
             }
             break;
     }

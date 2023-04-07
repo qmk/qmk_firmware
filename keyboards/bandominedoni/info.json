@@ -3,6 +3,20 @@
     "manufacturer": "3araht",
     "url": "https://github.com/3araht",
     "maintainer": "3araht",
+    "features": {
+        "midi": true,
+        "extrakey": true,
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": false,
+        "audio": false
+    },
+    "encoder": {
+        "enabled": true
+    },
     "usb": {
         "vid": "0xFEED",
         "pid": "0xF4B5",
@@ -14,6 +28,7 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D2",
         "encoder": {
             "right": {

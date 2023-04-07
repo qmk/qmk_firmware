@@ -16,6 +16,32 @@
 
 #include "bandominedoni.h"
 
+void my_process_midi4single_note(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint8_t *my_tone_status) {
+    uint8_t  mytone    = keycode - MY_TONE_MIN;
+    uint16_t mykeycode = mytone + MIDI_TONE_MIN;
+    // uint16_t mykeycode = keycode - MY_TONE_MIN;
+    // uint8_t  mytone    = mykeycode - MIDI_TONE_MIN;
+    uint8_t  velocity  = midi_config.velocity;
+    // uprintf("keycode=%u,mykeycode=%u,mytone =%u,velo = %u\n", keycode, mykeycode, mytone, velocity);
+    if (record->event.pressed) {
+        if (my_tone_status[mytone] == MIDI_INVALID_NOTE) {
+            uint8_t note = midi_compute_note(mykeycode);
+            midi_send_noteon(&midi_device, channel, note, velocity);
+            dprintf("midi noteon channel:%d note:%d mytone:%d velocity:%d\n", channel, note, mytone, velocity);
+            // uprintf("midi noteon channel:%d note:%d mytone:%d velocity:%d\n", channel, note, mytone, velocity);
+            my_tone_status[mytone] = note;  // store root_note status.
+        }
+    } else {
+        uint8_t note = my_tone_status[mytone];
+        if (note != MIDI_INVALID_NOTE) {
+            midi_send_noteoff(&midi_device, channel, note, velocity);
+            dprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
+            // uprintf("midi noteoff channel:%d note:%d velocity:%d\n", channel, note, velocity);
+        }
+        my_tone_status[mytone] = MIDI_INVALID_NOTE;
+    }
+}
+
 #ifdef RGB_MATRIX_ENABLE
 
 led_config_t g_led_config = {
