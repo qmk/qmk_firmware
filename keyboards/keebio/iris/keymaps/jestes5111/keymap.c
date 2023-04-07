@@ -1,22 +1,36 @@
-#include QMK_KEYBOARD_H
+/*
+Copyright 2023 Jesse Estes (@jestes5111)
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
-#define _ADJUST 3
-#define _FUNC 4
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include QMK_KEYBOARD_H
 
 // Combinations of two keystrokes for easier reading
 #define CSFT LCTL(KC_LSFT)
 #define GSFT LGUI(KC_LSFT)
 
+enum layers {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _ADJUST,
+    _FUNC,
+    _PASTA,
+};
+
 enum custom_keycodes {
-    QWERTY = SAFE_RANGE, 
-    LOWER, 
-    RAISE, 
-    ADJUST, 
-    FUNC, 
-    THUMB,
+    THUMB = QK_USER,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -30,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┐        ┌──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
         KC_LSFT,   KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      KC_LALT,            KC_RALT,   KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH,   KC_RSFT,
     // └──────────┴──────────┴──────────┴────┬─────┴────┬─────┴────┬─────┴────┬─────┘        └────┬─────┴────┬─────┴────┬─────┴────┬─────┴──────────┴──────────┴──────────┘
-                                              KC_LGUI,   LOWER,     KC_SPC,                        KC_ENT,    RAISE,     KC_RGUI
+                                              KC_LGUI,   TL_LOWR,   KC_SPC,                        KC_ENT,    TL_UPPR,   KC_RGUI
     //                                       └──────────┴──────────┴──────────┘                   └──────────┴──────────┴──────────┘
     ), 
     
@@ -38,13 +52,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐                              ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
         KC_MSTP,   KC_MPLY,   KC_MPRV,   KC_MNXT,   KC_VOLU,   KC_VOLD,                                  KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_INS,    KC_DEL,
     // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-        KC_NO,     KC_F13,    KC_F14,    KC_F15,    KC_F16,    KC_NO,                                    THUMB,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
+        KC_NO,     KC_F13,    KC_F14,    KC_F15,    KC_F16,    KC_NO,                                    KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
     // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-        KC_NO,     KC_F17,    KC_F18,    KC_F19,    KC_F20,    KC_NO,                                    KC_LEFT,   KC_DOWN,   KC_UP,     KC_RGHT,   KC_NO,     RCS(KC_L),
+        CSFT,      KC_F17,    KC_F18,    KC_F19,    KC_F20,    KC_NO,                                    KC_LEFT,   KC_DOWN,   KC_UP,     KC_RGHT,   KC_NO,     RCS(KC_L),
     // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┐        ┌──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-        CSFT,      KC_F21,    KC_F22,    KC_F23,    KC_F24,    KC_WHOM,   KC_NO,              KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
+        GSFT,      KC_F21,    KC_F22,    KC_F23,    KC_F24,    KC_WHOM,   KC_NO,              KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
     // └──────────┴──────────┴──────────┴────┬─────┴────┬─────┴────┬─────┴────┬─────┘        └────┬─────┴────┬─────┴────┬─────┴────┬─────┴──────────┴──────────┴──────────┘
-                                              KC_NO,     KC_NO,     KC_NO,                         KC_UNDS,   KC_NO,     KC_NO
+                                              KC_NO,     KC_TRNS,   KC_NO,                         KC_UNDS,   KC_TRNS,   KC_NO
     //                                       └──────────┴──────────┴──────────┘                   └──────────┴──────────┴──────────┘
     ),
 
@@ -58,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┐        ┌──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
         KC_CAPS,   KC_NO,     KC_NO,     KC_NO,     KC_LABK,   KC_LCBR,   KC_MENU,            KC_NO,     KC_RCBR,   KC_RABK,   KC_NO,     KC_NO,     KC_NO,     KC_NO,
     // └──────────┴──────────┴──────────┴────┬─────┴────┬─────┴────┬─────┴────┬─────┘        └────┬─────┴────┬─────┴────┬─────┴────┬─────┴──────────┴──────────┴──────────┘
-                                              KC_NO,     KC_NO,     KC_UNDS,                       KC_NO,     KC_NO,     KC_NO
+                                              KC_NO,     KC_TRNS,   KC_UNDS,                       KC_NO,     KC_TRNS,   KC_NO
     //                                       └──────────┴──────────┴──────────┘                   └──────────┴──────────┴──────────┘
     ),
 
@@ -66,13 +80,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐                              ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
         RGB_TOG,   KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,                                    KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
     // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-        TO(FUNC),  KC_NO,     KC_NO,     KC_NO,     KC_NO,     LCA(KC_T),                                KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     QK_BOOT,
+        KC_NO,     KC_NO,     KC_NO,     KC_NO,     LCA(KC_R), LCA(KC_T),                                KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     QK_BOOT,
     // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-        KC_NO,     KC_NO,     LCA(KC_V), LCA(KC_D), KC_NO,     LCA(KC_R),                                KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     QK_MAKE,
+        KC_NO,     KC_NO,     LCA(KC_V), LCA(KC_D), KC_NO,     KC_NO,                                    KC_NO,     TO(_FUNC), KC_NO,     KC_NO,    TO(_PASTA), QK_MAKE,
     // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┐        ┌──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
         KC_LSFT,   KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,              KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     EE_CLR,
     // └──────────┴──────────┴──────────┴────┬─────┴────┬─────┴────┬─────┴────┬─────┘        └────┬─────┴────┬─────┴────┬─────┴────┬─────┴──────────┴──────────┴──────────┘
-                                              KC_NO,     KC_NO,     KC_NO,                         KC_NO,     KC_NO,     KC_NO
+                                              KC_NO,     KC_TRNS,   KC_NO,                         KC_NO,     KC_TRNS,   KC_NO
     //                                       └──────────┴──────────┴──────────┘                   └──────────┴──────────┴──────────┘
     ),
 
@@ -86,57 +100,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┐        ┌──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
         KC_LSFT,   KC_1,      KC_2,      KC_3,      KC_0,      KC_ENT,    KC_LALT,            KC_BTN2,   KC_BTN1,   KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
     // └──────────┴──────────┴──────────┴────┬─────┴────┬─────┴────┬─────┴────┬─────┘        └────┬─────┴────┬─────┴────┬─────┴────┬─────┴──────────┴──────────┴──────────┘
-                                             TO(QWERTY), KC_CIRC,   KC_SPC,                        KC_ENT,    KC_BTN5,   KC_BTN4
+                                            TO(_QWERTY), KC_CIRC,   KC_SPC,                        KC_ENT,    KC_BTN5,   KC_BTN4
     //                                       └──────────┴──────────┴──────────┘                   └──────────┴──────────┴──────────┘
-    )
+    ),
+
+    [_PASTA] = LAYOUT(
+    // ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐                              ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
+        KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,                                    KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
+    // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+        KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,                                    THUMB,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
+    // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤                              ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+        KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,                                    KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
+    // ├──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┐        ┌──────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+        KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,              KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
+    // └──────────┴──────────┴──────────┴────┬─────┴────┬─────┴────┬─────┴────┬─────┘        └────┬─────┴────┬─────┴────┬─────┴────┬─────┴──────────┴──────────┴──────────┘
+                                            TO(_QWERTY), KC_TRNS,   KC_NO,                         KC_NO,     KC_TRNS,   KC_NO
+    //                                       └──────────┴──────────┴──────────┘                   └──────────┴──────────┴──────────┘
+    ),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // Layers
-        case QWERTY:
-            if (record-> event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case LOWER:
-            if (record->event.pressed) {
-                layer_on(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_LOWER);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-        case RAISE:
-            if (record->event.pressed) {
-                layer_on(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            } else {
-                layer_off(_RAISE);
-                update_tri_layer(_LOWER, _RAISE, _ADJUST);
-            }
-            return false;
-        case ADJUST:
-            if (record->event.pressed) {
-                layer_on(_ADJUST);
-            } else {
-                layer_off(_ADJUST);
-            }
-            return false;
-        case FUNC:
-            if (record->event.pressed) {
-                layer_on(_FUNC);
-            } else {
-                layer_off(_FUNC);
-            }
-            return false;
-
-        // Macros
         case THUMB:
             if (record->event.pressed) {
                 SEND_STRING(":disguised_face: :thumbsup:");
-                SEND_STRING(SS_DELAY(100) SS_TAP(X_ENTER));
+                wait_ms(100);
+                tap_code(KC_ENTER);
             }
             return false;
             break;
@@ -157,7 +146,7 @@ void eeconfig_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case _LOWER:
             rgblight_sethsv_noeeprom(HSV_GREEN);
             break;
@@ -170,9 +159,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         case _FUNC:
             rgblight_sethsv_noeeprom(HSV_BLUE);
             break;
+        case _PASTA:
+            rgblight_sethsv_noeeprom(HSV_ORANGE);
+            break;
         default:
             rgblight_sethsv_noeeprom(HSV_PURPLE);
             break;
     }
-    return state;
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }

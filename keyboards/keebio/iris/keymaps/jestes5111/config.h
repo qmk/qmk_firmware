@@ -1,5 +1,5 @@
 /*
-Copyright 2023 Jesse Estes
+Copyright 2023 Jesse Estes (@jestes5111)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,10 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define TAPPING_TERM 200
-
 #define EE_HANDS
-#define MASTER_RIGHT
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_SLEEP
 #define ENABLE_COMPILE_KEYCODE
