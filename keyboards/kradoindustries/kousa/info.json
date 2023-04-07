@@ -30,11 +30,6 @@
         }
     },
 
-    "encoder": {
-        "rotary": [
-            {"pin_a": "GP10", "pin_b": "GP9"}
-        ]
-    },
 
   "diode_direction": "COL2ROW",
   "matrix_pins": {
