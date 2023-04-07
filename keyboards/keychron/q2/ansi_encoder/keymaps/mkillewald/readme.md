@@ -1,6 +1,6 @@
 ## Keychron Q2 SVR'd RGB ANSI STM32L432 ENC11 (with knob) Keymap v2.0.0
 
-## Highly Recommended: you should clear your eeprom before or after flashing this firmware. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should reset your eeprom.
+## Highly Recommended: you should clear your eeprom before or after flashing this firmware. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear your eeprom.
 
 ## Features:
 - Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others.
@@ -19,7 +19,7 @@
         #define RGB_MATRIX_DEFAULT_VAL 25
 ```   
 
-    - Note: RGB mode can only be toggled on/off when keyboard mode switch set to Mac. The RGB toggle will have no effect if the keyboard mode switch is set to Win.
+Note: RGB mode can only be toggled on/off when keyboard mode switch set to Mac. The RGB toggle will have no effect if the keyboard mode switch is set to Win.
 
 - Autocorrect is enabled ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
     - Use Fn1+Shift to toggle it on/off.
