@@ -128,7 +128,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_ENTER);
             }
             return false;
-            break;
     }
     return true;
 }
@@ -137,12 +136,6 @@ void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
     rgblight_sethsv_noeeprom(HSV_PURPLE);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-}
-
-void eeconfig_init_user(void) {
-    rgblight_enable();
-    rgblight_sethsv(HSV_PURPLE);
-    rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -166,5 +159,5 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgblight_sethsv_noeeprom(HSV_PURPLE);
             break;
     }
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    return state;
 }
