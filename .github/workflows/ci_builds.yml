@@ -65,4 +65,4 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
       run: |
         python3 -m pip install -r requirements.txt
-        python3 ./discord-results.py --branch ${{ matrix.branch }} --keymap ${{ matrix.keymap }} --url ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}
+        python3 ./discord-results.py --branch ${{ matrix.branch }} --keymap ${{ matrix.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
