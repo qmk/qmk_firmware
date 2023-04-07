@@ -41,12 +41,6 @@ typedef enum {
 
 enum { LEFT_SHIFT = 0, RIGHT_SHIFT = 1 };
 
-const custom_shift_key_t custom_shift_keys[] = {
-    {KC_BSPC, KC_DEL},
-};
-
-uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* QWERTY
@@ -77,8 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
     * |  F1  |      |      |      |      |      |                    | PgUp | HOME |  Up  | END  |  ºª  | F12  |
     * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-    * |      |      |      |      |      |      |-------.    ,-------| PgDn | Left | Down |Right |  ~^  |      |
-    * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
+    * |      |      |      |      |      |      |-------.    ,-------| PgDn | Left | Down |Right |  ~^  | DEL  |
+    * |------+------+------+------+------+------|  <>   |    |  ´`   |------+------+------+------+------+------|
     * |      |      |      |  <<  |  >|| |  >>  |-------|    |-------|      | Vol+ | Vol- | Mute |  \|  |      |
     * `-----------------------------------------/       /     \      \-----------------------------------------'
     *                   | LAlt | LGUI |LOWER | /Space  /       \Enter \  |RAISE | RGUI | RAlt |
@@ -88,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LOWER] = LAYOUT(
         _______,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                 KC_F7,     KC_F8, KC_F9,  KC_F10,  KC_F11, _______,  
           KC_F1, _______, _______, _______, _______, _______,                 KC_PGUP, KC_HOME, KC_UP,  KC_END, KC_LBRC,  KC_F12,
-        _______, _______, _______, _______, _______, _______,                 KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUOT, _______,
+        _______, _______, _______, _______, _______, _______,                 KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUOT, KC_DEL,
         _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT,   _______, _______, _______, KC_VOLU,  KC_VOLD, KC_MUTE, KC_BSLS, _______,
                                     _______, _______, _______,  _______, _______,  _______, _______, _______
     ),
@@ -166,15 +160,14 @@ bool oled_task_user(void) {
 }
 #endif // OLED_ENABLE
 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_custom_shift_keys(keycode, record)) {
-        return false;
-    }
     if (record->event.pressed) {
-#ifdef OLED_ENABLE
+    #ifdef OLED_ENABLE
         set_keylog(keycode, record);
-#endif
+    #endif
     }
+
     return true;
 }
 
