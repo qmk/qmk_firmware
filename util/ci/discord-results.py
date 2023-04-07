@@ -37,9 +37,9 @@ if len(failed_builds) > 0:
             break
         failstr += f'{f}\n'
 
-    embed = DiscordEmbed(title=f':infinity: CI Build Failure ({args.branch}, {args.keymap})', description=f'{successful_builds} builds succeeded, {len(failed_builds)} builds failed:```{failstr}```', color='ff9999')
+    embed = DiscordEmbed(title=f':infinity: CI Build Failure ({args.branch}, {args.keymap})', description=f'**{successful_builds}** builds succeeded, **{len(failed_builds)}** builds failed:```{failstr}```', color='ff9999')
 else:
-    embed = DiscordEmbed(title=f':infinity: CI Build Success ({args.branch}, {args.keymap})', description=f'{successful_builds} builds succeeded.', color='99ff99')
+    embed = DiscordEmbed(title=f':infinity: CI Build Success ({args.branch}, {args.keymap})', description=f'**{successful_builds}** builds succeeded.', color='99ff99')
 
 embed.add_embed_field(name='Build Target', value=f'[**{args.branch}**](https://github.com/qmk/qmk_firmware/tree/{args.branch}) / **{args.keymap}** keymap')
 embed.add_embed_field(name='Workflow Run', value=f'[**Link**]({args.url})')
