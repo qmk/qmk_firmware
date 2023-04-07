@@ -20,7 +20,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 /* Define RGB */
 #define RGBLED_NUM 87
 #define RGB_MATRIX_LED_COUNT 87
-#define RGB_DI_PIN D2
 
 #ifdef RGB_MATRIX_ENABLE
 

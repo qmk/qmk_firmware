@@ -20,7 +20,6 @@
 #define MIDI_ADVANCED
 
 /* RGB Matrix configuration */
-#define RGB_DI_PIN F7
 #ifdef RGB_MATRIX_ENABLE
 #    define RGBLED_NUM 22
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM

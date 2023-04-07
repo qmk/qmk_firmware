@@ -18,7 +18,6 @@
 
 #define INDICATOR_PIN_0 B13
 
-#define RGB_DI_PIN A10
     #define RGBLED_NUM 19
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8

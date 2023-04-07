@@ -24,8 +24,6 @@
 
 #define TAPPING_TOGGLE 2
 
-#define RGB_DI_PIN C2 // pin the DI on the ws2812 is hooked-up to
-
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 51
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses

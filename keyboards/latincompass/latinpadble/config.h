@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 // #define NO_ACTION_TAPPING
 // #define NO_ACTION_ONESHOT
 
-#define RGB_DI_PIN B7
-
 #define RGBLED_NUM 4
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 

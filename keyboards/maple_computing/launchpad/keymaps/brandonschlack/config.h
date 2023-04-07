@@ -16,8 +16,8 @@
 #pragma once
 
 /* Underlight Configuration */
-    #undef RGB_DI_PIN
-    #define RGB_DI_PIN F4
+    #undef WS2812_DI_PIN
+    #define WS2812_DI_PIN F4
     #undef RGBLED_NUM
     #define RGBLED_NUM 2  // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING // Only have Breathing Animation

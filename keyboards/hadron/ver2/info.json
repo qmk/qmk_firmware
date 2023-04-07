@@ -7,6 +7,9 @@
         "rows": ["D7", "E6", "B4", "B5", "B6"]
     },
     "diode_direction": "COL2ROW",
+    "ws2812": {
+        "pin": "D4"
+    },
     "processor": "atmega32u4",
     "bootloader": "halfkay"
 }

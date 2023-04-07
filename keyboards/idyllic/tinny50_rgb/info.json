@@ -29,6 +29,10 @@
     "rgb_matrix": {
         "driver": "WS2812"
     },
+    "ws2812": {
+        "pin": "GP10",
+        "driver": "vendor"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

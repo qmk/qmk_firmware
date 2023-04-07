@@ -3,6 +3,9 @@
     "usb": {
         "device_version": "0.0.2"
     },
+    "ws2812": {
+        "pin": "D1"
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B2", "pin_b": "B3"}

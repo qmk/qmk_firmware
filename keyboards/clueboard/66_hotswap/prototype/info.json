@@ -42,8 +42,10 @@
     "brightness_steps": 17,
     "hue_steps": 32,
     "led_count": 26,
-    "pin": "D7",
     "saturation_steps": 17
+  },
+  "ws2812": {
+    "pin": "D7"
   },
   "usb": {
     "device_version": "0.0.1",

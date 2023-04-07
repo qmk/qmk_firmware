@@ -13,6 +13,9 @@
         "rows": ["B4", "B5", "B6", "C0", "E1", "E0"]
     },
     "diode_direction": "COL2ROW",
+    "ws2812": {
+        "pin": "B7"
+    },
     "processor": "at90usb646",
     "bootloader": "atmel-dfu",
     "layouts": {

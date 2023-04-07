@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0
 #pragma once
 
-#define RGB_DI_PIN B10
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 #define RGBLED_NUM 5

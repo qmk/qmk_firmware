@@ -28,7 +28,6 @@
     },
     "rgblight": {
         "led_count": 8,
-        "pin": "F0",
         "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
@@ -44,6 +43,9 @@
             "alternating": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "F0"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

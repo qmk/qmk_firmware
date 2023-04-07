@@ -17,6 +17,7 @@
     "BACKLIGHT_DRIVER": {"info_key": "backlight.driver"},
     "CAPS_WORD_ENABLE": {"info_key": "caps_word.enabled", "value_type": "bool"},
     "DEBOUNCE_TYPE": {"info_key": "build.debounce_type"},
+    "EEPROM_DRIVER": {"info_key": "eeprom.driver"},
     "ENCODER_ENABLE": {"info_key": "encoder.enabled", "value_type": "bool"},
     "FIRMWARE_FORMAT": {"info_key": "build.firmware_format"},
     "KEYBOARD_SHARED_EP": {"info_key": "usb.shared_endpoint.keyboard", "value_type": "bool"},
@@ -38,6 +39,7 @@
     "PS2_ENABLE": {"info_key": "ps2.enabled", "value_type": "bool"},
     "PS2_MOUSE_ENABLE": {"info_key": "ps2.mouse_enabled", "value_type": "bool"},
     "PS2_DRIVER": {"info_key": "ps2.driver"},
+    "WS2812_DRIVER": {"info_key": "ws2812.driver"},
 
     "PLATFORM_KEY": {"info_key": "platform_key", "to_json": false},
 

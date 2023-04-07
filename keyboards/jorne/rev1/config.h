@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#define RGB_DI_PIN D3
 #define RGBLED_SPLIT { 28, 28 }
 #define RGBLED_NUM 56
 

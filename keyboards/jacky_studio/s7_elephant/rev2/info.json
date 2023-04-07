@@ -12,6 +12,9 @@
         "cols": ["D0", "D1", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "F7", "F6", "F5", "F4", "F1", "F0", "E6"],
         "rows": ["B0", "B1", "B2", "B3", "B7"]
     },
+    "ws2812": {
+        "pin": "E2"
+    },
     "diode_direction": "ROW2COL",
     "backlight": {
         "pin": "B6",

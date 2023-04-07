@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Layer Count */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 
-#define RGB_DI_PIN D3
   #define RGBLED_NUM 5
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8

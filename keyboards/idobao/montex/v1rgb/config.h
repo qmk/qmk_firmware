@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN B1
-
 #if defined(RGB_MATRIX_ENABLE)
 
     // The number of LEDs connected

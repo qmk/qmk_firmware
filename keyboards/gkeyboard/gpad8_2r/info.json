@@ -61,6 +61,10 @@
             { "flags": 2, "x": 196, "y": 60 }
         ]
     },
+    "ws2812": {
+        "pin": "GP19",
+        "driver": "vendor"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

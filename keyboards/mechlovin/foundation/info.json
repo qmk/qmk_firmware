@@ -22,6 +22,9 @@
         "caps_lock": "A1",
         "on_state": 0
     },
+    "ws2812": {
+        "pin": "B15"
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layout_aliases": {

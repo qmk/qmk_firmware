@@ -127,6 +127,7 @@ typedef struct _split_slave_haptic_sync_t {
 typedef struct _split_slave_activity_sync_t {
     uint32_t matrix_timestamp;
     uint32_t encoder_timestamp;
+    uint32_t pointing_device_timestamp;
 } split_slave_activity_sync_t;
 #endif // defined(SPLIT_ACTIVITY_ENABLE)
 
@@ -140,6 +141,10 @@ typedef struct _rpc_sync_info_t {
     } payload;
 } rpc_sync_info_t;
 #endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+
+#if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+#    include "os_detection.h"
+#endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 
 typedef struct _split_shared_memory_t {
 #ifdef USE_I2C
@@ -221,6 +226,10 @@ typedef struct _split_shared_memory_t {
     uint8_t         rpc_m2s_buffer[RPC_M2S_BUFFER_SIZE];
     uint8_t         rpc_s2m_buffer[RPC_S2M_BUFFER_SIZE];
 #endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+
+#if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+    os_variant_t detected_os;
+#endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 } split_shared_memory_t;
 
 extern split_shared_memory_t *const split_shmem;

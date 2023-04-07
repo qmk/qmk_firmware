@@ -18,6 +18,9 @@
         "num_lock": "B9",
         "on_state": 0
     },
+    "ws2812": {
+        "pin": "B15"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "debounce": 15,

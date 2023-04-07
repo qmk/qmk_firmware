@@ -29,7 +29,8 @@ RGB_MATRIX_DRIVER = IS31FL3731
 
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
+WS2812_DRIVER_REQUIRED = yes
 
 CUSTOM_MATRIX = yes
 # project specific files
-SRC += ws2812.c matrix.c
+SRC += matrix.c

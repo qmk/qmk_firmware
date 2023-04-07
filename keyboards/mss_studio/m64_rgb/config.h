@@ -27,9 +27,6 @@
     #define RGB_MATRIX_KEYPRESSES
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
-    /* RGB Matrix config */
-    #define RGB_DI_PIN B15
-
     /* RGB Matrix effect */
     #define ENABLE_RGB_MATRIX_ALPHAS_MODS
     #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

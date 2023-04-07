@@ -33,7 +33,6 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define RGB_DI_PIN B7
 #define RGBLED_NUM 102
 #define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,\
 	12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, \

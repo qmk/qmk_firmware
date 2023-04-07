@@ -3,7 +3,6 @@
 #pragma once
 
 /* rgb underglow */
-#define RGB_DI_PIN E6
 #define RGBLED_NUM 6
 
 /* misc */

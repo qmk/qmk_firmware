@@ -37,10 +37,12 @@
 
     "rgblight": {
         "led_count": 5,
-        "pin": "D3",
         "split": true,
         "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8
+    },
+    "ws2812": {
+        "pin": "D3"
     }
 }

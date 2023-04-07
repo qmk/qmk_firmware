@@ -17,7 +17,6 @@
 /* LED Matrix & Animations */
 #ifdef RGB_MATRIX_ENABLE
 
-    #define RGB_DI_PIN B3
     #define RGB_MATRIX_LED_COUNT 42
 
     #define RGB_DISABLE_WHEN_USB_SUSPENDED     // turn off effects when suspended

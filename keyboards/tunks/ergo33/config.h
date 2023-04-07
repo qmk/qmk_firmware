@@ -17,7 +17,6 @@
 #pragma once
 
 /* Underglow + top RGB configuration */
-#define RGB_DI_PIN D4
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

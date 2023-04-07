@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN C6
 #define RGBLED_NUM 33
 #define RGBLIGHT_LED_MAP { \
    0, 1, 2, 3, \

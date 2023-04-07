@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN F7
-
 #define RGBLED_NUM 1    // Number of LEDs
 
 #define TAPPING_TERM 200

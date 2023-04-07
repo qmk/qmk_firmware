@@ -26,6 +26,9 @@
         "cols": ["F6", "F7", "D3", "D6"],
         "rows": ["F0", "B4", "B5", "B6", "C6", "C7", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"]
     },
+    "ws2812": {
+        "pin": "B7"
+    },
     "encoder": {
         "rotary": [{
             "pin_a": "D2",

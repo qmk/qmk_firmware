@@ -21,7 +21,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 // RGBLIGHT configuation
-#define RGB_DI_PIN B2
    #define RGBLED_NUM 2
    #define RGBLIGHT_HUE_STEP 8
    #define RGBLIGHT_SAT_STEP 8

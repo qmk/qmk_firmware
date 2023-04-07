@@ -4,7 +4,6 @@
 #pragma once
 
 // RGB configuration
-#define RGB_DI_PIN B7
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT  81
 #    define RGBLED_NUM 81

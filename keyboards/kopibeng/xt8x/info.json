@@ -17,6 +17,9 @@
         "caps_lock": "B3",
         "scroll_lock": "A15"
     },
+    "ws2812": {
+        "pin": "A10"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

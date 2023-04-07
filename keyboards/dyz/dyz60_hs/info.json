@@ -10,7 +10,6 @@
     },
     "rgblight": {
         "led_count": 16,
-        "pin": "B7",
         "hue_steps": 10,
         "saturation_steps": 10,
         "brightness_steps": 10,
@@ -26,6 +25,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "B7"
     },
     "indicators": {
         "caps_lock": "F1"

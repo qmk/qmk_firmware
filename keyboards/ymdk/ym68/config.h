@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN E2
 #if defined(RGBLIGHT_ENABLE)
     #define RGBLED_NUM 20
     #define RGBLIGHT_HUE_STEP 8

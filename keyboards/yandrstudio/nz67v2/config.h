@@ -21,7 +21,6 @@
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 
-#    define RGB_DI_PIN B5
 #    define RGBLED_NUM 86
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 

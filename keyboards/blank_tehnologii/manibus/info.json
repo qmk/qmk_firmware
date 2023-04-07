@@ -10,16 +10,16 @@
         "device_version": "0.0.2"
     },
     "matrix_pins": {
-        "cols": ["B5", "B4", "D7", "D6", "F0", "F1", "C6"],
-        "rows": ["F6", "F5", "F4", "B6", "D3"]
+        "cols": ["D7", "B4", "B5", "B6", "F0", "D4", "D6"],
+        "rows": ["F4", "F5", "F6", "D3", "C6"]
     },
     "diode_direction": "COL2ROW",
     "split": {
         "soft_serial_pin": "D0",
         "matrix_pins": {
             "right": {
-                "cols": ["B1", "B2", "B3", "F1", "F4", "F5", "F6"],
-                "rows": ["D6", "D7", "B4", "F7", "E6"]
+                "cols": ["B6", "B5", "D6", "D5", "D3", "D7", "B4"],
+                "rows": ["F5", "F1", "B2", "B1", "C6"]
             }
         }
     },

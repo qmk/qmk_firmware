@@ -12,6 +12,9 @@
         "caps_lock": "B6",
         "scroll_lock": "B5"
     },
+    "ws2812": {
+        "pin": "B8"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

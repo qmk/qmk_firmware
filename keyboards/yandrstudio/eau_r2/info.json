@@ -11,6 +11,9 @@
         "rows": ["A3", "B9", "B8", "A4", "C14", "C13"]
     },
     "diode_direction": "COL2ROW",
+    "ws2812": {
+        "pin": "A8"
+    },
     "debounce": 8,
     "layouts": {
         "LAYOUT": {

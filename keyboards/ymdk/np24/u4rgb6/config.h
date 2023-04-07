@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#define RGB_DI_PIN E2
 # define RGBLED_NUM 6
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

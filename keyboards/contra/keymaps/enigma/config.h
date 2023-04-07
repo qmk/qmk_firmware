@@ -16,7 +16,7 @@
 
 #pragma once
 
-#define RGB_DI_PIN F7
+#define WS2812_DI_PIN F7
     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
     #define RGBLIGHT_EFFECT_SNAKE
     #define RGBLED_NUM 12

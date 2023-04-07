@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define GRAVE_ESC_CTRL_OVERRIDE
 
-#define RGB_DI_PIN E6
    #define RGBLED_NUM 10
    #define RGBLIGHT_HUE_STEP 12
    #define RGBLIGHT_SAT_STEP 25

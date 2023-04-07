@@ -32,8 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_KNIGHT
 
 // #define RGBLED_SPLIT { 5, 5 }
-#undef RGB_DI_PIN
-#define RGB_DI_PIN D3
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN D3
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 #define RGBLIGHT_SLEEP
@@ -50,5 +50,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define COMBO_COUNT 1
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM 220

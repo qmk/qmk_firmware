@@ -17,7 +17,6 @@
 #pragma once
 
 /* LEDs are not used in the standard 64key configuration. */
-#define RGB_DI_PIN D3
 #define RGBLED_NUM 0
 
 #define PERMISSIVE_HOLD

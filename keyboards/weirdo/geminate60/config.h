@@ -15,7 +15,6 @@
   */ 
 #pragma once
 
-#define RGB_DI_PIN A6
 #define RGBLED_NUM 1
 //#define RGBLIGHT_DISABLE_KEYCODES
 

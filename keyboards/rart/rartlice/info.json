@@ -19,6 +19,10 @@
         "scroll_lock": "A9",
         "on_state": 0
     },
+    "ws2812": {
+        "pin": "B15",
+        "driver": "spi"
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layouts": {

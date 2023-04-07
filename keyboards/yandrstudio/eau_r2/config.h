@@ -17,7 +17,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 
-#    define RGB_DI_PIN A8
 #    define RGBLED_NUM 12
 #    define RGBLIGHT_SLEEP
 #    define RGBLIGHT_VAL_STEP 5

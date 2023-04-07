@@ -15,6 +15,9 @@
         "pid": "0x6060",
         "vid": "0xFEED"
     },
+    "ws2812": {
+        "pin": "B7"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

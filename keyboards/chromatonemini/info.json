@@ -17,6 +17,9 @@
         "rgblight": false,
         "audio": false
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": [ "F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6" ],

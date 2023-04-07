@@ -63,9 +63,11 @@
         "hue_steps": 8,
         "led_count": 8,
         "max_brightness": 120,
-        "pin": "D1",
         "saturation_steps": 8,
         "sleep": true
+    },
+    "ws2812": {
+        "pin": "D1"
     },
     "layouts": {
         "LAYOUT_ortho_4x4": {

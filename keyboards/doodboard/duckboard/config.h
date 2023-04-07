@@ -19,9 +19,6 @@
 /* media key slowdown for windows */
 #define TAP_CODE_DELAY 20
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 8    // Number of LEDs
 #endif

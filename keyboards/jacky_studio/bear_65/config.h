@@ -9,7 +9,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN E2
 #define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_DEFAULT_VAL 50
 #define RGBLIGHT_EFFECT_BREATHING

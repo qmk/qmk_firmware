@@ -17,7 +17,6 @@
 #define SPLIT_OLED_ENABLE
 
 /* RGB options */
-#define RGB_DI_PIN B6
 #    define RGBLED_NUM 16
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
