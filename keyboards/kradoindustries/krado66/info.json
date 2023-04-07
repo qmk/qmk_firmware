@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Krado66 v2", 
+    "keyboard_name": "Krado66", 
     "manufacturer": "Krado Industries",
     "url": "https://www.kradoindustries.com/", 
     "maintainer": "Krado Industries", 
@@ -8,6 +8,8 @@
         "pid": "0x1166",
         "device_version": "2.0.0"
     },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-ms",
     "features": {
         "bootmagic": true,
         "mousekey": true,
@@ -25,11 +27,7 @@
         "saturation_steps": 15,
         "brightness_steps": 12,
         "animations": {
-            "breathing": true,
-            "knight": true,
-            "rainbow_swirl": true,
-            "rainbow_mood": true,
-            "twinkle": true
+            "all": true,
         }
     },
 

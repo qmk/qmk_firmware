@@ -1,1 +1,1 @@
-# The via keymap for Boardwalk
+# The via keymap for Promenade

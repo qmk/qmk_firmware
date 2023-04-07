@@ -1,5 +1,5 @@
 /*
-Copyright 2022 Matt F
+Copyright 2023 Matt F
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -37,8 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { GP2, GP29, GP28, GP19, GP12, GP11}
-#define MATRIX_COL_PINS { GP27, GP26, GP25, GP24, GP23, GP22, GP20, GP21, GP14, GP15, GP16, GP17, GP18, GP13, GP0, GP1, GP3}
+
 #define ENCODERS_PAD_A { GP10 }
 #define ENCODERS_PAD_B { GP9 }
 
@@ -46,16 +45,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 // (Defined in info.json) #define DIODE_DIRECTION COL2ROW
 
-#define RGB_DI_PIN GP4
-  #define RGBLED_NUM 18
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 10
-  #define RGBLIGHT_VAL_STEP 10
-  #define RGBLIGHT_LIMIT_VAL 225 /* The maximum brightness level */
-  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-  #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-  #define RGBLIGHT_EFFECT_TWINKLE
+
+#define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

@@ -2,12 +2,15 @@
     "keyboard_name": "Promenade",
     "manufacturer": "krado industries",
     "url": "https://www.kradoindustries.com/",
-    "maintainer": "qmk",
+    "maintainer": "Krado Industries",
     "usb": {
         "vid": "0x12D0",
         "pid": "0x706D",
         "device_version": "1.0.0"
     },
+
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "features": {
         "bootmagic": true,
         "mousekey": true,
@@ -17,16 +20,12 @@
         "nkro": true
     },
 
-    "rgblight": {
-        "led_count": 14,
-        "pin": "B7",
-        "hue_steps": 10,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
-        "animations": {
-            "all": true
-        }
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": [ "F4", "C7", "D7", "B4", "B5", "B6", "C6", "D6", "D4", "D5", "D3", "D2", "D1", "D0"], 
+        "rows": [ "F1", "F5", "E6", "F7", "F6"]
     },
+
 
     "layouts": {
         "LAYOUT": {

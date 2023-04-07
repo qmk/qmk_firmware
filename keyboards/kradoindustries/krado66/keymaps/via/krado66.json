@@ -1,7 +1,28 @@
-[
-  {
-    "name": "Krado 66v2 VIA - Enc"
-  },
+{
+  "name": "Krado66 v2",
+  "vendorId": "0x12D0",
+  "productId": "0x1166",
+  "matrix": {
+  "rows": 10, 
+  "cols": 8
+},
+  "keycodes": ["qmk_lighting"],
+  "menus": ["qmk_rgblight"],
+  "layouts": {
+    "labels": [
+      "Top Left Encoder",
+      "Unsplit Backspace Left",
+      "Split Backspace Right",
+      "Pipe/Bslash Swap",
+      "Enter Swap",
+      "2.75u Right Shift ",
+      "Right Side Encoder",
+      "Lower Left Encoder",
+      ["Spacebar", "6.25u", "1.25u-2.25u-2.75u", "2.75u-1.25u-2.25u", "2.75u-Encoder-2.25u"],
+      ["Right Modifiers", "Three 1u", "Two 1.25u", "1.25u - 1u", "Two 1u and Encoder"]
+    ],
+    
+    "keymap": [
   [
     {
       "c": "#777777"
@@ -288,5 +309,7 @@
       "c": "#777777"
     },
     "8,6\n\n\n9,3\n\n\n\n\n\ne1"
-  ]
-]
+      ]
+    ]
+  }
+}

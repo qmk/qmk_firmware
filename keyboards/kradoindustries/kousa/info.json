@@ -27,7 +27,6 @@
         "brightness_steps": 17,
         "animations": {
             "all": true,
-            "rainbow_swirl": true,
         }
     },
 

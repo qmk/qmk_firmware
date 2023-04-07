@@ -1,4 +1,3 @@
-# The default keymap for KBD8X MKII
+# The default keymap for Kousa TKL
 
-A typical setup. Nothing special.  
-A nice starting point for customizing.
+

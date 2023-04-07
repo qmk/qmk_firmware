@@ -1,9 +1,20 @@
-[
-  {
-    "name": "Promenade-VIA"
+{
+  "name": "Promenade",
+  "vendorId": "0x12D0",
+  "productId": "0x706D",
+  "matrix": {
+    "rows": 5,
+    "cols": 14
   },
-  [
-    {
+  "keycodes": ["qmk_lighting"],
+  "menus": ["qmk_rgblight"],
+  "layouts": {
+    "labels": [
+      ["Bottom Row", "Two 3u", "6u", "Two 2u", "7u"]
+    ],
+    "keymap": [
+      [
+        {
       "c": "#777777",
       "w": 1.5
     },
@@ -200,5 +211,7 @@
       "w": 1.5
     },
     "4,11\n\n\n0,3"
-  ]
-]
+      ]
+    ]
+  }
+}
