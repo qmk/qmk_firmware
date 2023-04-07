@@ -8,6 +8,31 @@
 #include "manna-harbour_miryoku.h"
 
 
+enum unicode_names {
+    AE_L,
+    AE_U,
+    OE_L,
+    OE_U,
+    AA_L,
+    AA_U,
+    IRONY,
+    SNEK
+};
+
+const uint32_t unicode_map[] PROGMEM = {
+    [AE_L]  = 0x00E6,  // æ
+    [AE_U]  = 0x00C6,  // Æ
+    [OE_L]  = 0x00F8,  // ø
+    [OE_U]  = 0x00D8,  // Ø
+    [AA_L]  = 0x00E5,  // å
+    [AA_U]  = 0x00C5,  // Å
+    [SNEK]  = 0x1F40D, // 🐍
+};
+
+#define KC_AE XP(AE_L,AE_U)
+#define KC_OE XP(OE_L,OE_U)
+#define KC_AA XP(AA_L,AA_U)
+
 // Additional Features double tap guard
 
 enum {
