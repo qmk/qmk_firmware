@@ -15,8 +15,10 @@
        "rows": ["A10", "A15", "C13", "A7" , "B0"]
    },
    "rgblight": {
-       "led_count": 1,
-       "pin": "B15"
+       "led_count": 1
+   },
+   "ws2812": {
+      "pin": "B15"
    },
    "diode_direction": "COL2ROW",
     "layouts": {

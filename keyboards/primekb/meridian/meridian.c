@@ -24,11 +24,12 @@ void keyboard_pre_init_kb(void){
 }
 
 //Initialize all RGB indicators to 'off'
-__attribute__((weak))
-void keyboard_post_init_user(void) {
+#ifdef RGBLIGHT_ENABLE
+void keyboard_post_init_kb(void) {
     rgblight_setrgb_at(0, 0, 0, 0); // [..., 0] = top LED
     rgblight_setrgb_at(0, 0, 0, 1); // [..., 1] = middle LED
     rgblight_setrgb_at(0, 0, 0, 2); // [..., 2] = bottom LED
+    keyboard_post_init_user();
 }
 
 //Indicator light function
@@ -54,6 +55,7 @@ bool led_update_kb(led_t led_state) {
 }
     return res;
 }
+#endif
 
 //Below is an exmaple of layer indication using one of the RGB indicatiors. As configured, uses the bottom indicator (2) to light up red when layer 1 is in use. 
 /*

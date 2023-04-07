@@ -18,12 +18,9 @@
 
 /* RGB Stuff */
 #ifdef RGB_MATRIX_ENABLE
-
-#    define RGB_DI_PIN GP15 // Pin for RGB logic
 #    define RGB_MATRIX_LED_COUNT 74
 #    define RGB_MATRIX_SPLIT \
         { 37, 37 } // 37 LEDs on each side
-
 #endif
 
 /* Rotary Encoders Definition */

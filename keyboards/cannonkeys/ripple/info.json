@@ -25,7 +25,6 @@
     },
     "rgblight": {
         "led_count": 20,
-        "pin": "B15",
         "hue_steps": 17,
         "saturation_steps": 17,
         "brightness_steps": 17,
@@ -35,6 +34,10 @@
             "rainbow_mood": true,
             "rainbow_swirl": true
         }
+    },
+    "ws2812": {
+      "pin": "B15",
+      "driver": "spi"
     },
     "backlight": {
         "pin": "A6",

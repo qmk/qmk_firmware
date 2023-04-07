@@ -33,7 +33,6 @@
     },
 
     "rgblight": {
-        "pin": "A8",
         "led_count": 16,
         "animations": {
             "alternating": true,
@@ -48,7 +47,9 @@
             "twinkle": true
         }
     },
-
+    "ws2812": {
+      "pin": "A8"
+    },
     "indicators": {
         "caps_lock": "A10",
         "on_state": 0
