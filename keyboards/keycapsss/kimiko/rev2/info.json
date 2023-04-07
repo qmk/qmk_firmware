@@ -8,6 +8,20 @@
         "pid": "0x4B69",
         "device_version": "2.0.0"
     },
+	"encoder": {
+        "rotary": [
+            {"pin_a": "F4", "pin_b": "F5"}
+        ]
+    },
+    "split": {
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "F4", "pin_b": "F5"}
+                ]
+            }
+        }
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
