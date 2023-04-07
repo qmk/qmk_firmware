@@ -149,6 +149,3 @@
         }
     }
 }
-// Replace label with matrix formula 
-// Find "label"\:"(\d+),(\d+)"
-// Replace "matrix": \[\1, \2\]
