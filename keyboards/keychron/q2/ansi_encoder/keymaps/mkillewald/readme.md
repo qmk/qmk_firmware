@@ -17,7 +17,7 @@
         #define DEFAULT_HUE_WIN_BASE  80   // HSV green hue (Win Base layer)
         #define RGB_MATRIX_DEFAULT_SAT 255
         #define RGB_MATRIX_DEFAULT_VAL 25
-```
+```   
 
     - Note: RGB mode can only be toggled on/off when keyboard mode switch set to Mac. The RGB toggle will have no effect if the keyboard mode switch is set to Win.
 
