@@ -30,7 +30,13 @@
             "all": true,
         }
     },
-
+    "encoder": {
+        "rotary": [
+            { "pin_a": "B1", "pin_b": "B0" },
+            { "pin_a": "D7", "pin_b": "D6" },
+            { "pin_a": "F7", "pin_b": "F6" }            
+        ]
+    },
   "diode_direction": "COL2ROW",
   "matrix_pins": {
     "cols": [ "C7", "B3", "D0", "D1", "D2", "D3", "D5", "D4"],
