@@ -27,7 +27,7 @@
     "python.formatting.provider": "yapf",
     "[json]": {
 	    "editor.formatOnSave": false
-    },
+    }
     "terminal.integrated.profiles.windows": {
         "QMK_MSYS": {
             "path": "C:/QMK_MSYS/usr/bin/bash.exe",
