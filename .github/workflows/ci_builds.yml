@@ -6,8 +6,14 @@ permissions:
 on:
   push:
     branches: [master, develop]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build'
+        required: true
+        default: 'master'
 
-concurrency: ci_build-${{ github.ref }}
+concurrency: ci_build-${{ github.ref || github.event.inputs.branch }}
 
 jobs:
   ci_builds:
@@ -30,7 +36,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: recursive
-        ref: ${{ github.ref }}
+        ref: ${{ github.ref || github.event.inputs.branch }}
 
     - name: Install dependencies
       run: pip3 install -r requirements.txt
@@ -50,7 +56,7 @@ jobs:
       uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: artifacts-${{ github.ref }}-${{ matrix.keymap }}
+        name: artifacts-${{ github.ref || github.event.inputs.branch }}-${{ matrix.keymap }}
         if-no-files-found: ignore
         path: |
           *.bin
@@ -65,4 +71,4 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
       run: |
         python3 -m pip install -r requirements.txt
-        python3 ./discord-results.py --branch ${{ github.ref }} --keymap ${{ matrix.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        python3 ./discord-results.py --branch ${{ github.ref || github.event.inputs.branch }} --keymap ${{ matrix.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
