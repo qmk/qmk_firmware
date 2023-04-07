@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 include(UpdateSubmodule)
@@ -34,9 +36,9 @@ else()
     endif()
 
     resolve_keyboard(${QMK_KEYBOARD_FOLDER} QMK_KEYBOARD_FOLDER_ABS)
-    process_keyboard()
     cmake_path(IS_PREFIX QMK_KEYBOARDS_FOLDER "${QMK_KEYBOARD_FOLDER_ABS}" IS_KEYBOARDS_FOLDER)
     resolve_config_h(${QMK_KEYBOARD_FOLDER_ABS} QMK_KEYBOARD_CONFIG_H)
+    process_keyboard()
     resolve_keyboard_h(${QMK_KEYBOARD_FOLDER_ABS} QMK_KEYBOARD_H)
     resolve_keymap_c(${QMK_KEYBOARD_FOLDER_ABS} ${QMK_KEYMAP_FOLDER} QMK_KEYMAP_C)
 
@@ -50,12 +52,6 @@ else()
         HOMEPAGE_URL ${URL}
         VERSION ${DEVICE_VER})
 
-    string(REGEX MATCH "^([0-9]+)\\.([0-9]+)\\.([0-9]+)" VERSION_MATCH ${DEVICE_VER})
-    set(VERSION_MAJOR ${CMAKE_MATCH_1})
-    set(VERSION_MINOR ${CMAKE_MATCH_2})
-    set(VERSION_PATCH ${CMAKE_MATCH_3})
-    math(EXPR VERSION_C_EVAL "${VERSION_MAJOR} * 10000 + ${VERSION_MINOR} * 100 + ${VERSION_PATCH}" OUTPUT_FORMAT HEXADECIMAL)
-
     # add_compile_options(
     # -include ${QMK_KEYBOARD_CONFIG_H}
     # )
@@ -65,11 +61,6 @@ else()
         KEYMAP_C="${QMK_KEYMAP_C}"
         MATRIX_ROWS=8
         MATRIX_COLS=6
-        VENDOR_ID=${VENDOR_ID}
-        PRODUCT_ID=${PRODUCT_ID}
-        DEVICE_VER=${VERSION_C_EVAL}
-        MANUFACTURER="${MANUFACTURER}"
-        PRODUCT="${KEYBOARD_NAME}"
     )
 
     if(DEFINED DIODE_DIRECTION)

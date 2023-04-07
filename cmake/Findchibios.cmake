@@ -72,7 +72,8 @@ find_file(STARTUP_MK startup_${MCU_STARTUP}.mk
 )
 get_filename_component(STARTUP_DIR ${STARTUP_MK} DIRECTORY)
 ParseMakefile(${STARTUP_MK})
-target_sources(qmk PUBLIC ${STARTUPSRC} ${STARTUPASM})
+target_sources(qmk PUBLIC ${STARTUPSRC})
+target_sources(qmk PUBLIC ${STARTUPASM})
 target_include_directories(qmk PUBLIC ${STARTUPINC})
 
 # board paths - we should just standardize these
