@@ -48,6 +48,7 @@ For QMK specifics, please see [Miryoku QMK](https://github.com/manna-harbour/mir
 
 Variants with keymap for Miryoku:  
 - 4x5
+- 4x5_5
 - 4x6
 - 4x6_5
 - 5x6
