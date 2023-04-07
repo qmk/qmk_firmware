@@ -14,18 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "overnumpad_1xb.h"
+#include "quantum.h"
 
 void keyboard_post_init_kb(void)
 {
     // Led pins:
-    // C12 is the left-most led, normally Num Lock, but on Spacesaver M it's Caps Lock. Configured in config.h
+    // C12 is the left-most led, normally Num Lock, but on Spacesaver M it's Caps Lock. Configured in info.json
     setPinOutput(C11); // middle led, always off on Spacesaver M
     writePin(C11, 0);
     setPinOutput(C10); // right-most led, normally Scroll Lock, but on Spacesaver M indicates function layer
-
-    //debug_enable=true;
-    //debug_matrix=true;
 }
 
 
