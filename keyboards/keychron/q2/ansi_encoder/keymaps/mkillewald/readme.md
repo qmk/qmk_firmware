@@ -1,6 +1,6 @@
-## Keychron Q2 SVR'd RGB ANSI STM32L432 ENC11 (with knob) Keymap v2.0.0
+## Keychron Q2 SVR'd RGB ANSI STM32L432 ENC11 (with knob) Keymap v2.0.
 
-## Highly Recommended: you should clear your eeprom before or after flashing this firmware. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cord, this should reset your eeprom.
+## Highly Recommended: you should clear your eeprom before or after flashing this firmware. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should reset your eeprom.
 
 ## Features:
 - Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others.
@@ -10,12 +10,14 @@
 
     - There following default settings can be changed in config.h (these defaults will be applied when the eeprom is reset):
 
+```
         #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
         #define RGB_MATRIX_DEFAULT_SPD 127
         #define RGB_MATRIX_DEFAULT_HUE 170 // HSV blue hue  (Mac Base layer)
         #define DEFAULT_HUE_WIN_BASE  80   // HSV green hue (Win Base layer)
         #define RGB_MATRIX_DEFAULT_SAT 255
-        #define RGB_MATRIX_DEFAULT_VAL 255
+        #define RGB_MATRIX_DEFAULT_VAL 25
+```
 
 - Caps Word enabled with RGB indicator ([https://docs.qmk.fm/#/feature_caps_word](https://docs.qmk.fm/#/feature_caps_word))
     - Activated by double tapping left Shift
