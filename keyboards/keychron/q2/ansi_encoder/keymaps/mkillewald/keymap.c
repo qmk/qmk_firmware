@@ -157,7 +157,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case RGB_TOG:
                 if (win_mode) {
                     if (record->event.pressed) {
-                        // disable RGB toggle if switch is on Win mode
+                        // disables RGB toggle if switch is on Win mode. If RGB is toggled
+                        // off while on win mode, it can cause Win mode RGB settings to
+                        // overwrite the Mac mode RGB settings. 
                         return false;  // Skip all further processing of this key
                     }
                 } else {

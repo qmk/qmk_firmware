@@ -16,23 +16,36 @@
 
 #pragma once
 
-#define EECONFIG_USER_DATA_SIZE 15
+#define EECONFIG_USER_DATA_SIZE 15  // size of eeprom data, do not change.
 
-#ifdef CAPS_WORD_ENABLE
-#   define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
-#   define CAPS_WORD_INDICATOR_COLOR RGB_RED
-#   define CAPS_WORD_LIGHT_LOWER_LEFT_CORNER
-#endif
+// default options applied when eeprom is cleared
+#define DEFAULT_CAPS_LOCK_LIGHT_TAB      false        // true=enable, false=disable
+#define DEFAULT_CAPS_LOCK_LIGHT_ALPHA    true         // true=enable, false=disable
+#define DEFAULT_FN_LAYER_TRANSPARENT_OFF false        // true=enable, false=disable
+#define DEFAULT_FN_LAYER_COLOR           true         // true=enable, false=disable
+#define RGB_MATRIX_DEFAULT_HUE           170          // HSV blue hue  (Mac Base layer)
+#define DEFAULT_HUE_WIN_BASE             80           // HSV green hue (Win Base layer)
+#define RGB_MATRIX_DEFAULT_SAT           255          // Both Win/Mac Base layers
+#define RGB_MATRIX_DEFAULT_VAL           25           // Both Win/Mac Base layers
+#define RGB_MATRIX_DEFAULT_SPD           127          // Both Win/Mac Base layers
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING  // Both Win/Mac Base layers
 
-#ifdef RGB_MATRIX_ENABLE
-#   define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
-#   define RGB_MATRIX_DEFAULT_SPD 127
-#   define RGB_MATRIX_DEFAULT_HUE 170 // HSV blue hue  (Mac Base layer)
-#   define DEFAULT_HUE_WIN_BASE  80   // HSV green hue (Win Base layer)
-#   define RGB_MATRIX_DEFAULT_SAT 255
-#   define RGB_MATRIX_DEFAULT_VAL 255
+// Caps Lock RGB indicator color
+#define CAPS_LOCK_INDICATOR_COLOR RGB_RED
 
-#   define CAPS_LOCK_INDICATOR_COLOR RGB_RED
-#   define FN1_LAYER_COLOR 0xFE, 0x23, 0x00  // RGB orange
-#   define FN2_LAYER_COLOR RGB_YELLOW
-#endif
+// Dynamic Fn Layer RGB indicator options
+#define FN1_LAYER_COLOR 0xFE, 0x23, 0x00  // RGB orange
+#define FN2_LAYER_COLOR RGB_YELLOW
+
+// Caps Word is activated by double-tapping left Shift. Replace this with 
+// #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD if you want to activate Caps Word 
+// by single-tapping both left and right Shift togeter. 
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+
+// Caps Word RGB indicator color
+#define CAPS_WORD_INDICATOR_COLOR RGB_RED
+
+// Caps Word will light left Shift, left Control and left Option (or left Windows
+// key) when acitvated. Remove this line if you want Caps Word to only light left
+// Shift when enabled.
+#define CAPS_WORD_LIGHT_LOWER_LEFT_CORNER

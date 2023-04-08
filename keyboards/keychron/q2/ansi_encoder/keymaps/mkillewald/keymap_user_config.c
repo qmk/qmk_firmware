@@ -33,10 +33,10 @@ typedef struct {
 user_config_t user_config;
 
 void eeconfig_init_user(void) {
-    user_config.caps_lock_light_tab = false;
-    user_config.caps_lock_light_alphas = true;
-    user_config.fn_layer_transparent_keys_off = false;
-    user_config.fn_layer_color_enable = true;
+    user_config.caps_lock_light_tab = DEFAULT_CAPS_LOCK_LIGHT_TAB;
+    user_config.caps_lock_light_alphas = DEFAULT_CAPS_LOCK_LIGHT_ALPHA;
+    user_config.fn_layer_transparent_keys_off = DEFAULT_FN_LAYER_TRANSPARENT_OFF;
+    user_config.fn_layer_color_enable = DEFAULT_FN_LAYER_COLOR;
     user_config.mode_win_base = RGB_MATRIX_DEFAULT_MODE;
     user_config.spd_win_base = RGB_MATRIX_DEFAULT_SPD;
     user_config.hsv_win_base.h = DEFAULT_HUE_WIN_BASE;
