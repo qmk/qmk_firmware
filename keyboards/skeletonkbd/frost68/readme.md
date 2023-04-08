@@ -1,6 +1,6 @@
 # skeletonkbd/skeleton68
 
-![skeletonkbd/skeleton68](https://i.imgur.com/ZrtbBNP.jpg)
+![skeletonkbd/skeleton68](https://i.imgur.com/ZrtbBNPh.jpg)
 
 Alice layout keyboard with acrylic case.
 
