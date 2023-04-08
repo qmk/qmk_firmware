@@ -13,6 +13,8 @@
     "bootloader": "rp2040",
     "board": "GENERIC_RP_RP2040",
     "matrix_pins": {
-        "io_delay": 4
+        "io_delay": 4,
+        "cols": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+        "rows": [null, null, null, null, null, null, null, null]
     },
 }
