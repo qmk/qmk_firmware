@@ -16,7 +16,6 @@
 
 #include "quantum.h"
 #include "spi_master.h"
-#include <hardware/gpio.h>
 #include <hardware/structs/pads_qspi.h>
 
 #define SHIFTREG_SHLD GP27
@@ -134,7 +133,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         setPinOutput_writeLow(8 + row);
         matrix_output_select_delay();
         writePinHigh(SHIFTREG_SHLD);
-        uint8_t high_byte = gpio_get_all() & 0xff;
+        uint8_t high_byte = palReadPort(PAL_PORT(GP0)) & 0xff;
         setPinInputHigh(8 + row);
         spi_status_t read_result = spi_read();
         if (read_result == SPI_STATUS_TIMEOUT) {
