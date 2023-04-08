@@ -15,10 +15,11 @@
  */
 
 #include "quantum.h"
-#include "spi_master.h"
 #include <hardware/structs/pads_qspi.h>
 
+#define SHIFTREG_CLK GP26
 #define SHIFTREG_SHLD GP27
+#define SHIFTREG_DATA GP24
 
 matrix_row_t previous_matrix[MATRIX_ROWS];
 
@@ -38,12 +39,11 @@ void matrix_init_custom(void) {
         setPinInputHigh(i);
     }
 
+    setPinInput(SHIFTREG_DATA);
+    writePinLow(SHIFTREG_CLK);
+    setPinOutput(SHIFTREG_CLK);
     writePinLow(SHIFTREG_SHLD);
     setPinOutput(SHIFTREG_SHLD);
-
-    spi_init();
-    /* pico-sdk configures system clock to 125MHz, so 125Mhz / 32 = 3.90625 MHz */
-    spi_start(NO_PIN, false, 2, 32);
 
     for (int gpio=0;gpio<NUM_QSPI_GPIOS;gpio++) {
         pads_qspi_hw->io[gpio] &= ~((3 << 4) | (1 << 0));
@@ -135,9 +135,14 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         writePinHigh(SHIFTREG_SHLD);
         uint8_t high_byte = palReadPort(PAL_PORT(GP0)) & 0xff;
         setPinInputHigh(8 + row);
-        spi_status_t read_result = spi_read();
-        if (read_result == SPI_STATUS_TIMEOUT) {
-            continue;
+        uint8_t read_result = 0;
+        for (int column=7;column>=0;column--) {
+            int bit = !!(readPin(SHIFTREG_DATA));
+            writePinHigh(SHIFTREG_CLK);
+            asm volatile ("nop;nop;nop;nop;nop;nop;nop;nop;" ::: "memory");
+            read_result |= bit << column;
+            writePinLow(SHIFTREG_CLK);
+            asm volatile ("nop;nop;nop;nop;nop;nop;nop;nop;" ::: "memory");
         }
         writePinLow(SHIFTREG_SHLD);
         matrix_row_t current_row_value = ~(reverse_bitorder(read_result) | (reverse_bitorder(high_byte) << 8));
