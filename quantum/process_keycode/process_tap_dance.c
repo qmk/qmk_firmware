@@ -96,7 +96,9 @@ static inline void process_tap_dance_action_on_each_tap(tap_dance_action_t *acti
 }
 
 #ifdef TAP_DANCE_ON_EACH_RELEASE
-static inline void process_tap_dance_action_on_each_release(tap_dance_action_t *action) { _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_release); }
+static inline void process_tap_dance_action_on_each_release(tap_dance_action_t *action) {
+    _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_release);
+}
 #endif
 
 static inline void process_tap_dance_action_on_reset(tap_dance_action_t *action) {
