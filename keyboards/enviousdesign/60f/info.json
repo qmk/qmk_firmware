@@ -8,6 +8,13 @@
         "pid": "0xA400",
         "device_version": "1.0.0"
     },
+  "bootloader": "rp2040",
+  "processor": "RP2040",
+  "diode_direction": "COL2ROW",
+  "matrix_pins": {
+      "cols": ["GP10", "GP9", "GP8", "GP7", "GP6", "GP5", "GP16", "GP17", "GP18", "GP19", "GP20", "GP21", "GP22", "GP26", "GP27"],
+      "rows": ["GP11", "GP12", "GP13", "GP14", "GP15"]
+  },
   "community_layouts": [ "60_ansi", "60_iso" ],
   "layouts": {
     "LAYOUT_all": {
