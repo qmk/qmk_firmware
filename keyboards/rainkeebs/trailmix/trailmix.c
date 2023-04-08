@@ -16,8 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "quantum.h"
-#include "trailmix.h"
 
+enum layers { _BASE, _LOWER, _RAISE, _ADJUST };
+
+#ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
         case _BASE:
@@ -83,3 +85,4 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     return true;
 }
+#endif

@@ -15,6 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
+enum layers { _BASE, _LOWER, _RAISE, _ADJUST };
+
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
