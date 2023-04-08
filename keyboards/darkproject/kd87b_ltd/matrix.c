@@ -28,7 +28,7 @@ extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 // ultra fast read_cols code.
 static inline matrix_row_t read_cols(void) {
     return (((((PAL_PORT(A0))->IDR) & ((1U << 5) - 1U)) ^ ((1U << 5) - 1U)) |
-            ((((((PAL_PORT(A0))->IDR) >> (PAL_PAD(A8))) & ((1U << 3) - 1U)) ^ ((1U << 3) - 1U)) << 5));
+            (((((PAL_PORT(A0))->IDR) >> (PAL_PAD(A8) - 5)) & (((1U << 3) - 1U) << 5)) ^ (((1U << 3) - 1U)) << 5));
 }
 
 
