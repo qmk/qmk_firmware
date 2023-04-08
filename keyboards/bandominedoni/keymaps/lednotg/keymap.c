@@ -14,37 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "version.h"
-
-#define DF_COLE  DF(_COLEMAK)
-
-static uint8_t midi_sub_ch = DEFAULT_SUB_CH_NUMBER;       //  By default, DEFAULT_SUB_CH_NUMBER is used for sub ch.
-
-//  By default( when use_alt_ch_gr == false), DEFAULT ch group (DEFAULT_MAIN_CH_NUMBER for entirely, or right side when separated, DEFAULT_SUB_CH_NUMBER for left side) is used.
-//  When false, ALT ch group (ALT_MAIN_CH_NUMBER for entirely, or right side when separated, ALT_SUB_CH_NUMBER for left side) is used.
-static bool use_alt_ch_gr = false;
-
-#define _________________QWERTY_L1_________________ KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define _________________QWERTY_L2_________________ KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-#define _________________QWERTY_L3_________________ KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-
-#define _________________QWERTY_R1_________________ KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#define _________________QWERTY_R2_________________ KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
-#define _________________QWERTY_R3_________________ KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
-
-#define _________________COLEMAK_L1________________ KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
-#define _________________COLEMAK_L2________________ KC_A,    KC_R,    KC_S,    KC_T,    KC_D
-#define _________________COLEMAK_L3________________ KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-
-#define _________________COLEMAK_R1________________ KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
-#define _________________COLEMAK_R2________________ KC_H,    KC_N,    KC_E,    KC_I,    KC_O
-#define _________________COLEMAK_R3________________ KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
-
-#define _________________NUMBER_L__________________ KC_1,    KC_2,    KC_3,    KC_4,    KC_5
-// #define _________________NUMBER_R__________________ KC_6,    KC_7,    KC_8,    KC_9,    KC_0
-
-#define _________________FUNC__L___________________ KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
-// #define _________________FUNC__R___________________ KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -60,8 +29,6 @@ enum layer_names {
     _MISC,
     _FN
 };
-
-static uint8_t my_tone_status[MY_TONE_COUNT];
 
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
@@ -168,65 +135,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_FN]       = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
 };
 #endif
-
-void my_init(void){
-    for (uint8_t i = 0; i < MY_TONE_COUNT; i++) {
-        my_tone_status[i] = MIDI_INVALID_NOTE;
-    }
-    //  Set octave to 0
-    midi_config.octave = QK_MIDI_OCTAVE_0 - MIDI_OCTAVE_MIN;
-
-    // avoid using 127 since it is used as a special number in some sound sources.
-    midi_config.velocity = MIDI_INITIAL_VELOCITY;
-}
-
-void eeconfig_init_user(void) {  // EEPROM is getting reset!
-    midi_init();
-    my_init();
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_enable();
-    rgb_matrix_set_speed(RGB_MATRIX_DEFAULT_SPD);
-    rgb_matrix_sethsv(HSV_BLUE);
-
-    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE);
-    // rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-#endif
-}
-
-void keyboard_post_init_user(void) {
-    my_init();
-
-    //  party mode (for LED soldering test. Enable rainbow color effect, and disable led_indicator to check all LEDs)
-    rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case VERSION: // Output firmware info.
-            if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " " QMK_GIT_HASH " | " QMK_BUILDDATE);
-            }
-            break;
-
-        case TGLCHGR:
-            if (record->event.pressed) {
-                use_alt_ch_gr = !use_alt_ch_gr;
-                if (use_alt_ch_gr) {
-                    midi_sub_ch = ALT_SUB_CH_NUMBER;
-                } else {  //  default
-                    midi_sub_ch = DEFAULT_SUB_CH_NUMBER;
-                }
-            }
-            break;
-
-        case  MY_TONE_MIN ... MY_TONE_MAX:  // MY tone
-            // uprintf("keycode=%u, MY_C3=%u, MY_Db2 =%u, MY_MIN = %u, MY_MAX = %u\n", keycode, MY_C3, MY_Db2, MY_TONE_MIN, MY_TONE_MAX);
-            //  DO NOT THROW BELOW into 'if (record->event.pressed) {}' STATEMENT SINCE IT IS USED IN THE FUNCTION BELOW.
-            my_process_midi4single_note(midi_sub_ch, keycode, record, my_tone_status);
-            break;
-    }
-    return true;
-}
 
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_user(void) {

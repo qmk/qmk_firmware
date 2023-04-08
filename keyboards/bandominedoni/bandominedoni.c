@@ -15,6 +15,15 @@
  */
 
 #include "bandominedoni.h"
+#include "version.h"
+
+static uint8_t midi_sub_ch = DEFAULT_SUB_CH_NUMBER;       //  By default, DEFAULT_SUB_CH_NUMBER is used for sub ch.
+
+//  By default( when use_alt_ch_gr == false), DEFAULT ch group (DEFAULT_MAIN_CH_NUMBER for entirely, or right side when separated, DEFAULT_SUB_CH_NUMBER for left side) is used.
+//  When false, ALT ch group (ALT_MAIN_CH_NUMBER for entirely, or right side when separated, ALT_SUB_CH_NUMBER for left side) is used.
+static bool use_alt_ch_gr = false;
+
+static uint8_t my_tone_status[MY_TONE_COUNT];
 
 void my_process_midi4single_note(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint8_t *my_tone_status) {
     uint8_t  mytone    = keycode - MY_TONE_MIN;
@@ -142,4 +151,79 @@ static enum { UNKNOWN, LEFT, RIGHT } hand_side = UNKNOWN;
     } else {
         return (hand_side == LEFT);
     }
+}
+
+void my_init(void){
+#ifndef VIA_ENABLE
+    for (uint8_t i = 0; i < MY_TONE_COUNT; i++) {
+        my_tone_status[i] = MIDI_INVALID_NOTE;
+    }
+#endif
+
+    //  Set octave to 0
+    midi_config.octave = QK_MIDI_OCTAVE_0 - MIDI_OCTAVE_MIN;
+
+    // avoid using 127 since it is used as a special number in some sound sources.
+    midi_config.velocity = MIDI_INITIAL_VELOCITY;
+}
+
+void eeconfig_init_kb(void) {
+    midi_init();
+    my_init();
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_enable();
+    rgb_matrix_set_speed(RGB_MATRIX_DEFAULT_SPD);
+    rgb_matrix_sethsv(HSV_BLUE);
+
+    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE);
+    // rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+#endif
+    eeconfig_init_user();
+}
+
+void keyboard_post_init_kb(void) {
+    my_init();
+
+#ifdef RGB_MATRIX_ENABLE
+#   ifndef VIA_ENABLE
+    //  party mode (for LED soldering test. Enable rainbow color effect, and disable led_indicator to check all LEDs)
+    rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+#   else
+    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE);
+#   endif
+#endif
+
+    keyboard_post_init_user();
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+
+    switch (keycode) {
+        case VERSION: // Output firmware info.
+            if (record->event.pressed) {
+                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " " QMK_GIT_HASH " | " QMK_BUILDDATE);
+            }
+            break;
+
+        case TGLCHGR:
+            if (record->event.pressed) {
+                use_alt_ch_gr = !use_alt_ch_gr;
+                if (use_alt_ch_gr) {
+                    midi_sub_ch = ALT_SUB_CH_NUMBER;
+                } else {  //  default
+                    midi_sub_ch = DEFAULT_SUB_CH_NUMBER;
+                }
+            }
+            break;
+
+        case  MY_TONE_MIN ... MY_TONE_MAX:  // MY tone
+            // uprintf("keycode=%u, MY_C3=%u, MY_Db2 =%u, MY_MIN = %u, MY_MAX = %u\n", keycode, MY_C3, MY_Db2, MY_TONE_MIN, MY_TONE_MAX);
+            //  DO NOT THROW BELOW into 'if (record->event.pressed) {}' STATEMENT SINCE IT IS USED IN THE FUNCTION BELOW.
+            my_process_midi4single_note(midi_sub_ch, keycode, record, my_tone_status);
+            break;
+    }
+    return true;
 }

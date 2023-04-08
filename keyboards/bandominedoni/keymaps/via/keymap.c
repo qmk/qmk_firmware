@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "version.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -99,42 +98,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_FN]       = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
 };
 #endif
-
-void my_init(void){
-    //  Set octave to 0
-    midi_config.octave = QK_MIDI_OCTAVE_0 - MIDI_OCTAVE_MIN;
-
-    // avoid using 127 since it is used as a special number in some sound sources.
-    midi_config.velocity = MIDI_INITIAL_VELOCITY;
-}
-
-void eeconfig_init_user(void) {  // EEPROM is getting reset!
-    midi_init();
-    my_init();
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_enable();
-    rgb_matrix_set_speed(RGB_MATRIX_DEFAULT_SPD);
-    rgb_matrix_sethsv(HSV_BLUE);
-
-    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE);
-    // rgb_matrix_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-#endif
-}
-
-void keyboard_post_init_user(void) {
-    my_init();
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case VERSION: // Output firmware info.
-            if (record->event.pressed) {
-                SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " " QMK_GIT_HASH " | " QMK_BUILDDATE);
-            }
-            break;
-    }
-    return true;
-}
 
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_user(void) {
