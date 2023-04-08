@@ -182,12 +182,6 @@ endif
 QUANTUM_PAINTER_ENABLE ?= no
 ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
     include $(QUANTUM_DIR)/painter/rules.mk
-    # add any keyboard-, keymap-, or user- level fonts and images
-    # TODO: generate a header file (with CLI) which includes all the headers found (?)
-    QP_DIRS := $(KEYBOARD_PATHS) $(KEYMAP_PATH) $(USER_PATH)
-    QP_FONTS := $(foreach dir,$(QP_DIRS),$(wildcard $(dir)/painter/fonts/*.qff.c))
-    QP_IMGS := $(foreach dir,$(QP_DIRS),$(wildcard $(dir)/painter/images/*.qgf.c))
-    SRC += $(QP_FONTS) $(QP_IMGS)
 endif
 
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling legacy_stm32_flash
