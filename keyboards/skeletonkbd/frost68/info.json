@@ -47,7 +47,7 @@
 		"pid": "0x68A0"
 	},
 	"layouts": {
-		"LAYOUT_alice": {
+		"LAYOUT": {
 			"layout": [
 				{
 					"matrix": [
