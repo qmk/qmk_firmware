@@ -3,6 +3,9 @@
     "usb": {
         "device_version": "1.0.0"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "ws2812": {
         "pin": "A1",
         "driver": "pwm"

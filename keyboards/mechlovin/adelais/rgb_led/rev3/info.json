@@ -3,6 +3,9 @@
     "usb": {
         "pid": "0xAEC3"
     },
+    "rgb_matrix": {
+        "driver": "IS31FL3741"
+    },
     "matrix_pins": {
         "cols": ["B10", "B11", "B2", "B1", "B0", "A6", "A5", "A10", "A9", "A15", "B3", "B4", "B5", "B8", "B9"],
         "rows": ["A4", "A3", "C13", "A1", "A2"]

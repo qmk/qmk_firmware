@@ -8,6 +8,9 @@
         "pid": "0x111C",
         "device_version": "1.0.0"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "D1", "pin_b": "D0"},

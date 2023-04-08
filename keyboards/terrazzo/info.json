@@ -20,6 +20,9 @@
             {"pin_a": "C7", "pin_b": "F1", "resolution": 2}
         ]
     },
+    "led_matrix": {
+        "driver": "IS31FL3731"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

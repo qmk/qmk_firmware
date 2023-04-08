@@ -5,5 +5,8 @@
     },
     "ws2812": {
         "pin": "E2"
+    },
+    "rgb_matrix": {
+        "driver": "IS31FL3731"
     }
 }

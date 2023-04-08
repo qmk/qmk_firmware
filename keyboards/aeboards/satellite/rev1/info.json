@@ -8,6 +8,9 @@
         "pid": "0x6553",
         "device_version": "0.0.1"
     },
+    "rgb_matrix": {
+        "driver": "custom"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",

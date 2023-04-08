@@ -20,8 +20,11 @@
         "rows": ["GP29", "GP26", "GP22", "GP24", "GP17"],
         "cols": ["GP25", "GP23", "GP7", "GP0", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10", "GP6", "GP5", "GP4", "GP3", "GP2", "GP1"]
     },
+    "ws2812": {
+        "pin": "GP21",
+        "driver": "vendor"
+    },
 	"rgblight": {
-	"pin": "GP21",
 	"led_count": 16,
 	"hue_steps": 8,
 	"saturation_steps": 8,

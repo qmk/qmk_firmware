@@ -27,9 +27,11 @@
         "cols": ["F5", "F0", "D3", "D5"],
         "rows": ["F1", "F4", "D4", "D7", "D6"]
     },
+    "ws2812": {
+        "pin": "C7"
+    },
     "rgblight": {
         "led_count": 9,
-        "pin": "C7",
         "max_brightness": 191,
         "animations": {
             "breathing": true,

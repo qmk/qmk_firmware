@@ -10,6 +10,9 @@
         "vid": "0x7470",
         "device_version": "1.0.0"
     },
+    "rgb_matrix": {
+        "driver": "IS31FL3733"
+    },
     "features": {
         "bootmagic": true,
         "command": false,
