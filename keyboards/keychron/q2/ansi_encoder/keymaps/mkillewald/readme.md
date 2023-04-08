@@ -42,11 +42,13 @@ Default options (these defaults will be applied whenever the eeprom is cleared):
 ```   
 
 Caps Lock RGB indicator option:
+
 ```
     #define CAPS_LOCK_INDICATOR_COLOR RGB_RED
 ```
 
 Dynamic Fn Layer RGB indicator options:
+
 ```
     #define FN1_LAYER_COLOR 0xFE, 0x23, 0x00  // RGB orange
     #define FN2_LAYER_COLOR RGB_YELLOW
