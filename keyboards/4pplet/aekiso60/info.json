@@ -5,6 +5,9 @@
     "usb": {
         "vid": "0x4444"
     },
+    "community_layouts": [
+        "60_iso_tsangan"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
