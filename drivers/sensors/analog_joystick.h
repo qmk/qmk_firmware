@@ -18,13 +18,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-
-#ifndef ANALOG_JOYSTICK_X_AXIS_PIN
-#    error No pin specified for X Axis
-#endif
-#ifndef ANALOG_JOYSTICK_Y_AXIS_PIN
-#    error No pin specified for Y Axis
-#endif
+#include "pointing_device.h"
 
 #ifndef ANALOG_JOYSTICK_AXIS_MIN
 #    define ANALOG_JOYSTICK_AXIS_MIN 0
@@ -35,17 +29,34 @@
 #ifndef ANALOG_JOYSTICK_SPEED_REGULATOR
 #    define ANALOG_JOYSTICK_SPEED_REGULATOR 20
 #endif
-#ifndef ANALOG_JOYSTICK_READ_INTERVAL
-#    define ANALOG_JOYSTICK_READ_INTERVAL 10
-#endif
 #ifndef ANALOG_JOYSTICK_SPEED_MAX
 #    define ANALOG_JOYSTICK_SPEED_MAX 2
 #endif
+#ifndef ANALOG_JOYSTICK_CLICK_PIN
+#    define ANALOG_JOYSTICK_CLICK_PIN NO_PIN
+#endif
+typedef struct {
+    pin_t    x;
+    pin_t    y;
+    pin_t    button;
+    uint16_t axis_min;
+    uint16_t axis_max;
+    uint8_t  speed_regulator;
+    uint8_t  speed_max;
+} analog_joystick_config_t;
 
 typedef struct {
     int8_t x;
     int8_t y;
     bool   button;
 } report_analog_joystick_t;
-report_analog_joystick_t analog_joystick_read(void);
-void                     analog_joystick_init(void);
+
+const pointing_device_driver_t analog_joystick_driver_default;
+
+#if defined(ANALOG_JOYSTICK_X_AXIS_PIN) & defined(ANALOG_JOYSTICK_Y_AXIS_PIN)
+const analog_joystick_config_t analog_joystick_config_default;
+#endif
+
+report_analog_joystick_t analog_joystick_read(analog_joystick_config_t* analog_config);
+void                     analog_joystick_init(const void* config);
+report_mouse_t           analog_joystick_get_report(const void* config);
