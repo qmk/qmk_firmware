@@ -19,9 +19,9 @@
 
 ##### Notes:   
 
-###### RGB mode can only be toggled on/off when keyboard mode switch set to Mac. The RGB toggle will have no effect if the keyboard mode switch is set to Win. 
-###### Toggling RGB mode off will disable RGB for all layers and indicators. RGB must be toggled on for all indicators to function. If you do not want an RGB mode active but still want the indicators, toggle RGB on and turn the brightness all the way off for each base layer. The indicators will remain at full brightness. 
-
+###### RGB mode can only be toggled on/off when keyboard mode switch set to Mac. The RGB toggle will have no effect if the keyboard mode switch is set to Win.
+###### Toggling RGB mode off will disable RGB for all layers and indicators. RGB must be toggled on for all indicators to function. If you do not want an RGB mode active but still want the indicators, toggle RGB on and turn the brightness all the way off for each base layer. The indicators will remain at full brightness.
+###### Changing RGB settings with VIA lighting tab is unsupported at this time and may have undesired effects. Keymap changes with VIA is supported.
 
 ## Config.h options
 
