@@ -104,6 +104,10 @@ typedef struct {
     uint8_t        counter;
 } pointing_device_shared_report_t;
 
+
+#if defined(POINTING_DEVICE_DRIVER_ADNS5050)
+#    include "adns5050.h"
+#endif
 #if defined(POINTING_DEVICE_DRIVER_ADNS9800)
 #    include "adns9800.h"
 #endif
