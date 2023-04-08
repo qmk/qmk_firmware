@@ -1,4 +1,4 @@
-# v15fix版（仮2/13版）
+# v15fix版（4/3版）
 
 tanda = <<ETANDA
 ゔ|き|て|し|{←}|{→}|{BS}|る|す|へ|@|[  |
@@ -105,8 +105,10 @@ gairai << %w(うぃ うぇ うぉ ゔぁ ゔぃ ゔぇ ゔぉ ゔゅ)
 r_gairai << %w(wi we uxo va vi ve vo vuxyu)
 gairai << %w(くぁ くぃ くぇ くぉ くゎ ぐぁ ぐぃ ぐぇ ぐぉ ぐゎ)
 r_gairai << %w(kuxa kuxi kuxe kuxo kuxwa guxa guxi guxe guxo guxwa)
-gairai << %w(つぁ つぃ つぇ つぉ)
-r_gairai << %w(tsa tsi tse tso)
+# gairai << %w(つぁ つぃ つぇ つぉ)
+# r_gairai << %w(tsa tsi tse tso)
+gairai << %w(つぁ)
+r_gairai << %w(tsa)
 
 kumiawase.flatten!
 r_kumiawase.flatten!
