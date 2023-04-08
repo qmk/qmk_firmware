@@ -26,3 +26,26 @@
     { XXX, R41, R42, R43, XXX, XXX }, \
     { R50, R51, R52, R53, XXX, XXX } \
 }
+
+#define LAYOUT_split_3x5_3( \
+    XXX, XXX, XXX, XXX, XXX, XXX,                          XXX, XXX, XXX, XXX, XXX, XXX, \
+    XXX, L11, L12, L13, L14, L15,                          R10, R11, R12, R13, R14, XXX, \
+    XXX, L21, L22, L23, L24, L25,                          R20, R21, R22, R23, R24, XXX, \
+    XXX, L31, L32, L33, L34, L35,                          R30, R31, R32, R33, R34, XXX, \
+              XXX, XXX,      L44, L55, L53,      R52, R50, R41,      XXX, XXX, \
+                                  XXX, XXX,      XXX, XXX \
+) { \
+    { XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, L11, L12, L13, L14, L15 }, \
+    { XXX, L21, L22, L23, L24, L25 }, \
+    { XXX, L31, L32, L33, L34, L35 }, \
+    { XXX, XXX, XXX, XXX, L44, XXX }, \
+    { XXX, XXX, XXX, L53, XXX, L55 }, \
+\
+    { XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { R10, R11, R12, R13, R14, XXX }, \
+    { R20, R21, R22, R23, R24, XXX }, \
+    { R30, R31, R32, R33, R34, XXX }, \
+    { XXX, R41, XXX, XXX, XXX, XXX }, \
+    { R50, XXX, R52, XXX, XXX, XXX } \
+}
