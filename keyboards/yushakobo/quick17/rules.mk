@@ -13,7 +13,6 @@ AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 RGB_MATRIX_CUSTOM_KB = yes
 
 SRC += quick17_prefs.c

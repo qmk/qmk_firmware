@@ -8,6 +8,9 @@
         "pid": "0x5053",
         "device_version": "0.0.2"
     },
+    "rgb_matrix": {
+        "driver": "custom"
+    },
     "matrix_pins": {
         "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A10", "A9"],
         "rows": ["A5", "A6", "B0", "A7", "A8", "B1", "B4", "B5", "A15", "B3", "A13", "A14"]

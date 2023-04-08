@@ -18,6 +18,9 @@
     "ws2812": {
         "pin": "B7"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

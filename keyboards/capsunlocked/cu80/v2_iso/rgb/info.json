@@ -3,6 +3,9 @@
   "features": {
     "rgblight": false
   },
+  "rgb_matrix": {
+    "driver": "WS2812"
+  },
   "usb": {
     "pid": "0x0083"
   }

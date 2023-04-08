@@ -13,7 +13,6 @@ AUDIO_ENABLE = yes          # Audio output
 CUSTOM_MATRIX = yes
 # Do not enable RGB_MATRIX_ENABLE together with RGBLIGHT_ENABLE
 RGB_MATRIX_ENABLE = no
-RGB_MATRIX_DRIVER = WS2812
 ENCODER_ENABLE = yes
 DIP_SWITCH_ENABLE = yes
 

@@ -15,6 +15,9 @@
             {"pin_a": "B6", "pin_b": "C6"}
         ]
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu"
 }
