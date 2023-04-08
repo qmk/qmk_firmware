@@ -32,8 +32,8 @@ Default options (these defaults will be applied whenever the eeprom is cleared):
     #define DEFAULT_CAPS_LOCK_LIGHT_ALPHA    true         // true=enable, false=disable
     #define DEFAULT_FN_LAYER_TRANSPARENT_OFF false        // true=enable, false=disable
     #define DEFAULT_FN_LAYER_COLOR           true         // true=enable, false=disable
-    #define RGB_MATRIX_DEFAULT_HUE           170          // HSV blue hue  (Mac Base layer)
     #define DEFAULT_HUE_WIN_BASE             80           // HSV green hue (Win Base layer)
+    #define RGB_MATRIX_DEFAULT_HUE           170          // HSV blue hue  (Mac Base layer)
     #define RGB_MATRIX_DEFAULT_SAT           255          // Both Win/Mac Base layers 
     #define RGB_MATRIX_DEFAULT_VAL           25           // Both Win/Mac Base layers 
     #define RGB_MATRIX_DEFAULT_SPD           127          // Both Win/Mac Base layers 
