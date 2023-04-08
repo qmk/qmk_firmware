@@ -8,6 +8,9 @@
         "pid": "0x0152",
         "device_version": "1.0.0"
     },
+    "rgb_matrix": {
+        "driver": "CKLED2001"
+    },
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",
     "layouts": {

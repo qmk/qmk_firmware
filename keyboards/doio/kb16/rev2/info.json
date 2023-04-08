@@ -8,6 +8,9 @@
         "pid": "0x1601",
         "device_version": "0.0.2"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "matrix_pins": {
         "cols": ["B14", "B13", "B12", "B0", "A7"],
         "rows": ["B3", "B4", "B9", "B8"]

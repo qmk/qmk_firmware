@@ -14,4 +14,3 @@ AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no	    # Enable this and unable RGB_MATRIX_ENABLE to use RGB light effect
 
 RGB_MATRIX_ENABLE = yes		# Enable this and unable RGBLIGHT_ENABLE to use RGB Matrix effect 
-RGB_MATRIX_DRIVER = WS2812	# Comment out this line when RGBLIGHTING is enabled

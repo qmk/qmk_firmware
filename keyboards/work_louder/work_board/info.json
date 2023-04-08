@@ -7,6 +7,9 @@
       "vid": "0x574C",
       "pid": "0xDCD1"
     },
+    "rgb_matrix": {
+      "driver": "WS2812"
+    },
     "matrix_pins": {
       "cols": ["D3", "D5", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7", "F6", "E6"],
       "rows": ["F0", "F1", "F4", "F5"]

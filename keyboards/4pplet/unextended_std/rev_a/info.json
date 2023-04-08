@@ -32,8 +32,10 @@
         "audio": false
     },
 
+    "ws2812": {
+        "pin": "A8"
+    },
     "rgblight": {
-        "pin": "A8",
         "led_count": 16,
         "animations": {
             "alternating": true,

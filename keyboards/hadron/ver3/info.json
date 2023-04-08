@@ -2,6 +2,9 @@
     "usb": {
         "device_version": "0.0.3"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "matrix_pins": {
         "cols": ["B8", "B2", "B10", "A0", "A1", "A2", "B0", "A3", "B1", "A6", "A7", "B12", "C13", "B11", "B9"],
         "rows": ["C15", "C14", "A10", "A9", "A8"]
