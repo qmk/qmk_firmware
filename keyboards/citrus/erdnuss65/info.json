@@ -30,8 +30,10 @@
         "rgblight": true,
         "audio": false
     },
+    "ws2812": {
+        "pin": "A15"
+    },
     "rgblight": {
-        "pin": "A15",
         "led_count": 1
     },
     "layouts": {

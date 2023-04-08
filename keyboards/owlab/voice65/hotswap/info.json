@@ -8,6 +8,9 @@
         "pid": "0x564F",
         "device_version": "0.0.1"
     },
+    "rgb_matrix": {
+        "driver": "IS31FL3741"
+    },
     "matrix_pins": {
         "cols": ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A15", "B8", "B9", "B12", "B13"],
         "rows": ["B0", "B1", "B2", "B10", "B11"]
