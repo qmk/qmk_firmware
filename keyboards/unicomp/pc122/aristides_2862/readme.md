@@ -1,6 +1,6 @@
 # unicomp/pc122/aristides_2862
 
-![unicomp/pc122/aristides_2862](https://sharktastica.co.uk/resources/images/model_ms/shark_UB40T56_unicomp.jpg)
+![unicomp/pc122/aristides_2862](https://i.imgur.com/cMeSBdjh.jpg)
 
 Will support the Unicomp PC122 keyboard
 

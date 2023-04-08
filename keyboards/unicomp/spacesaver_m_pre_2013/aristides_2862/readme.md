@@ -4,6 +4,10 @@
 
 Support Unicomp Spacesaver M keyboards with pre-2013 bottom row.
 
+Note that the above image shows a post-2013 bottom row keyboard.
+Please consult the following document to understand the difference between the various bottom row variants:
+https://www.pckeyboard.com/mm5/graphics/ProductNews7-25-13.pdf
+
 * Keyboard Maintainer: [Purdea Andrei](https://github.com/purdeaandrei)
 * Hardware Supported: The "new" OEM controllers from Unicomp, called Aristides 2862.
 * Hardware Availability:

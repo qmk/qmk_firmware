@@ -1,6 +1,10 @@
 # unicomp/classic_ultracl_pre_2013/aristides_2862
 
-![unicomp/classic_ultracl_pre_2013/aristides_2862](https://www.pckeyboard.com/mm5/graphics/00000001/UB4ZPHA_800x343.jpg)
+![unicomp/classic_ultracl_pre_2013/aristides_2862](https://www.pckeyboard.com/mm5/graphics/00000001/Classic104%20white1000x1000_800x800.jpg)
+
+Note that the above image shows a post-2013 bottom row "Classic" keyboard.
+Please consult the following document to understand the difference between the various bottom row variants:
+https://www.pckeyboard.com/mm5/graphics/ProductNews7-25-13.pdf
 
 Will support the following Unicomp Classic and Ultra Classic keyboards:
   * 104-key ANSI and 105-key ISO keyboards with pre-2013 bottom row are supported.
