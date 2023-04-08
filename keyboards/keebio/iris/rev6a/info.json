@@ -4,6 +4,9 @@
         "pid": "0x6356",
         "device_version": "6.1.0"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "matrix_pins": {
         "cols": ["F1", "F4", "B5", "C7", "D4", "D6"],
         "rows": ["B1", "F0", "F5", "B4", "D7"]

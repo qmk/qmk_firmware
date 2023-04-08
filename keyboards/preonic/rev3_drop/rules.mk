@@ -16,6 +16,5 @@ DIP_SWITCH_ENABLE = yes
 
 # Do not enable RGB_MATRIX_ENABLE together with RGBLIGHT_ENABLE
 RGB_MATRIX_ENABLE = no
-RGB_MATRIX_DRIVER = WS2812
 
 SRC += matrix.c

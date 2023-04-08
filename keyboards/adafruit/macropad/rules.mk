@@ -13,7 +13,6 @@ AUDIO_ENABLE = yes          # Audio output
 AUDIO_DRIVER = pwm_hardware
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 OLED_ENABLE = yes
 OLED_DRIVER = custom
 # Project specific files

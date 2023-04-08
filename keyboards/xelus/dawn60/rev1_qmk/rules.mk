@@ -18,7 +18,6 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. - We have custom RGB underglow
 
 RGB_MATRIX_ENABLE = yes     # Enable RGB matrix effects.
-RGB_MATRIX_DRIVER = custom  # Enable RGB matrix effects.
 WS2812_DRIVER_REQUIRED = yes
 
 COMMON_VPATH += $(DRIVER_PATH)/issi

@@ -11,6 +11,9 @@
     "ws2812": {
         "pin": "D7"
     },
+    "rgb_matrix": {
+        "driver": "IS31FL3731"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {

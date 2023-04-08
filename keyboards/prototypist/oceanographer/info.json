@@ -19,9 +19,11 @@
         ]
     },
 
+    "ws2812": {
+        "pin": "B3"
+    },
     "rgblight" : {
         "led_count": 3,
-        "pin": "B3",
         "sleep": true,
         "hue_steps": 10,
         "saturation_steps": 17,

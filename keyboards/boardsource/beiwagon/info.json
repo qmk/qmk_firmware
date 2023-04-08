@@ -25,6 +25,7 @@
     "vid": "0x4273"
   },
   "rgb_matrix": {
+    "driver": "WS2812",
     "layout": [
       { "flags": 2, "x": 16, "y": 38 },
       { "flags": 2, "x": 16, "y": 113 },

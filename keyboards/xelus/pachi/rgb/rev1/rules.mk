@@ -14,7 +14,6 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 EEPROM_DRIVER = i2c
 
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = custom
 
 COMMON_VPATH += $(DRIVER_PATH)/issi
 SRC += drivers/led/issi/is31fl3741.c

@@ -12,6 +12,9 @@
         "pin": "B5",
         "driver": "pwm"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "matrix_pins": {
         "cols": ["A0", "B11", "B0", "B10", "B12", "B2", "A8"],
         "rows": ["A1", "A3", "B3", "A13", "B15", null, null]

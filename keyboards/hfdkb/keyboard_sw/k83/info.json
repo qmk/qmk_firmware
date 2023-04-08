@@ -7,6 +7,9 @@
         "pid": "0x0007",
         "device_version": "1.0.0"
     },
+    "rgb_matrix": {
+        "driver": "IS31FL3733"
+    },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "matrix_pins": {

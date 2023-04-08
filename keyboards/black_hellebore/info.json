@@ -28,7 +28,8 @@
         "pid": "0x4467",
         "vid": "0x3141"
     },
-    "rgb_matrix": {		
+    "rgb_matrix": {	
+        "driver": "WS2812",
         "layout": [
             { "flags": 4, "matrix": [0, 0] , "x": 7  , "y": 5 } ,
             { "flags": 4, "matrix": [0, 1] , "x": 22 , "y": 5 } ,
