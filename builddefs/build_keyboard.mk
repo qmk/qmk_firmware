@@ -182,7 +182,12 @@ $(KEYMAP_OUTPUT)/src/config.h: $(KEYMAP_JSON)
 	$(eval CMD=$(QMK_BIN) generate-config-h --quiet --output $(KEYMAP_H) $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
-generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c
+$(KEYMAP_OUTPUT)/src/keymap.h: $(KEYMAP_JSON)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-keymap-h --quiet --output $(KEYMAP_OUTPUT)/src/keymap.h $(KEYMAP_JSON))
+	@$(BUILD_CMD)
+
+generated-files: $(KEYMAP_OUTPUT)/src/config.h $(KEYMAP_OUTPUT)/src/keymap.c $(KEYMAP_OUTPUT)/src/keymap.h
 
 endif
 
