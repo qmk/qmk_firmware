@@ -19,7 +19,6 @@
 // #define NO_ACTION_TAPPING
 // #define NO_ACTION_ONESHOT
 
-#define DEBOUNCE 50
 #define WS2812_PIO_USE_PIO1
 
 #ifdef RGB_MATRIX_ENABLE
