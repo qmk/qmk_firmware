@@ -23,20 +23,19 @@
 #include <stdint.h>
 #include "pointing_device.h"
 
-// CPI values
-// clang-format off
-#define CPI125  0x11
-#define CPI250  0x12
-#define CPI375  0x13
-#define CPI500  0x14
-#define CPI625  0x15
-#define CPI750  0x16
-#define CPI875  0x17
-#define CPI1000 0x18
-#define CPI1125 0x19
-#define CPI1250 0x1a
-#define CPI1375 0x1b
-// clang-format on
+enum adns5050_cpi {
+    ADNS5050_CPI125  = 0x11,
+    ADNS5050_CPI250  = 0x12,
+    ADNS5050_CPI375  = 0x13,
+    ADNS5050_CPI500  = 0x14,
+    ADNS5050_CPI625  = 0x15,
+    ADNS5050_CPI750  = 0x16,
+    ADNS5050_CPI875  = 0x17,
+    ADNS5050_CPI1000 = 0x18,
+    ADNS5050_CPI1125 = 0x19,
+    ADNS5050_CPI1250 = 0x1a,
+    ADNS5050_CPI1375 = 0x1b,
+};
 
 #define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
