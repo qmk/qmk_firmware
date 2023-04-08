@@ -28,12 +28,10 @@
 }
 
 #define LAYOUT_split_3x5_3( \
-    XXX, XXX, XXX, XXX, XXX, XXX,                          XXX, XXX, XXX, XXX, XXX, XXX, \
-    XXX, L11, L12, L13, L14, L15,                          R10, R11, R12, R13, R14, XXX, \
-    XXX, L21, L22, L23, L24, L25,                          R20, R21, R22, R23, R24, XXX, \
-    XXX, L31, L32, L33, L34, L35,                          R30, R31, R32, R33, R34, XXX, \
-              XXX, XXX,      L44, L55, L53,      R52, R50, R41,      XXX, XXX, \
-                                  XXX, XXX,      XXX, XXX \
+    L11, L12, L13, L14, L15,                          R10, R11, R12, R13, R14, \
+    L21, L22, L23, L24, L25,                          R20, R21, R22, R23, R24, \
+    L31, L32, L33, L34, L35,                          R30, R31, R32, R33, R34, \
+                        L44, L55, L53,      R52, R50, R41 \
 ) { \
     { XXX, XXX, XXX, XXX, XXX, XXX }, \
     { XXX, L11, L12, L13, L14, L15 }, \
