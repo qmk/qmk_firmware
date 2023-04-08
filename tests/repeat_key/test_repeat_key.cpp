@@ -735,6 +735,7 @@ TEST_F(RepeatKey, RepeatKeyInvoke) {
     event.key     = {0, 0};
     event.pressed = true;
     event.time    = timer_read();
+    event.type    = KEY_EVENT;
     repeat_key_invoke(&event);
     run_one_scan_loop();
     EXPECT_TRUE(process_record_user_was_called_);
