@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include QMK_KEYBOARD_H
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
