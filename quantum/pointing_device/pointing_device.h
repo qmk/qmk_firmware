@@ -112,6 +112,9 @@ typedef struct {
 #if defined(POINTING_DEVICE_DRIVER_ADNS9800)
 #    include "adns9800.h"
 #endif
+#if defined(POINTING_DEVICE_DRIVER_ANALOG_JOYSTICK)
+#    include "analog_joystick.h"
+#endif
 #if defined(POINTING_DEVICE_DRIVER_AZOTEQ_IQS5XX)
 #    include "azoteq_iqs5xx.h"
 #endif
