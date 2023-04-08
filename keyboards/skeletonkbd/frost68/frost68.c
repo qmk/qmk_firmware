@@ -1,7 +1,7 @@
 // Copyright 2023 skeletonkbd (@skeletonkbd)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "frost68.h"
+#include "quantum.h"
 
 // clang-format off
 led_config_t g_led_config = { {
