@@ -3,7 +3,7 @@
 #include QMK_KEYBOARD_H
 
 enum layers{
-    _BASE,
+    _QWERTY,
     _LOWER,
     _RAISE,
     _BLANK
