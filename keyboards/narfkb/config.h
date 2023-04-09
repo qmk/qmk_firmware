@@ -23,9 +23,6 @@ SOFTWARE.
 
 #pragma once
 
-#define SPLIT_USB_DETECT
-#define USE_SERIAL
-
 // If you don't want to use full duplex, you can specify GP12/GP13 below and use the remaining pin for something else
 // #define SOFT_SERIAL_PIN GP13
 // #define SERIAL_PIO_USE_PIO1
