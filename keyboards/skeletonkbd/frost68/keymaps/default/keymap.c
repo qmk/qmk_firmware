@@ -4,7 +4,10 @@
 #include QMK_KEYBOARD_H
 
 // Defines names for use in layer keycodes and the keymap
-enum layer_names { _BASE, _L1, _L2, _L3 };
+enum layer_names { 
+    _BASE, 
+    _L1,
+};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
