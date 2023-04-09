@@ -372,8 +372,8 @@ def _save(im, fp, filename):
             delta_descriptor = QGFFrameDeltaDescriptorV1()
             delta_descriptor.left = location[0]
             delta_descriptor.top = location[1]
-            delta_descriptor.right = location[0] + size[0]
-            delta_descriptor.bottom = location[1] + size[1]
+            delta_descriptor.right = location[0] + size[0] - 1
+            delta_descriptor.bottom = location[1] + size[1] - 1
 
             # Write the delta frame to the output
             vprint(f'{f"Frame {idx:3d} delta":26s} {fp.tell():5d}d / {fp.tell():04X}h')
