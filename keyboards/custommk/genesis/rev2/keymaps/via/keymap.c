@@ -113,7 +113,7 @@ keyevent_t encoder_right_ccw = {
 
 keyevent_t encoder_right_cw = {
     .key = (keypos_t){.row = 5, .col = 3},
-    .pressed = false
+    .pressed = false,
 	.type = KEY_EVENT
 };
 
