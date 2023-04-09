@@ -16,7 +16,7 @@
     },
 	"features": {
         "mousekey": true,
-        "extrakey": true,
+        "extrakey": true
     },
     "bootmagic": {
         "enabled": false,
