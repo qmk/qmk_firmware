@@ -20,17 +20,12 @@ Then, in your `keymap.c` file, you'll need to define the array `key_overrides`, 
 
 The `key_override_t` struct has many options that allow you to precisely tune your overrides. The full reference is shown below. Instead of manually creating a `key_override_t` value, it is recommended to use these dedicated initializers:
 
-#### `ko_make_basic(modifiers, key, replacement)`
-Returns a `key_override_t`, which sends `replacement` (can be a key-modifer combination), when `key` and `modifiers` are all pressed down. This override still activates if any additional modifiers not specified in `modifiers` are also pressed down. See `ko_make_with_layers_and_negmods` to customize this behavior.
-
-#### `ko_make_with_layers(modifiers, key, replacement, layers)`
-Additionally takes a bitmask `layers` that defines on which layers the override is used.
-
-#### `ko_make_with_layers_and_negmods(modifiers, key, replacement, layers, negative_mods)`
-Additionally takes a bitmask `negative_mods` that defines which modifiers may not be pressed for this override to activate.
-
-#### `ko_make_with_layers_negmods_and_options(modifiers, key, replacement, layers, negative_mods, options)`
-Additionally takes a bitmask `options` that specifies additional options. See `ko_option_t` for available options.
+| Function | Description |
+| -------- | ----------- |
+| `ko_make_basic(modifiers, key, replacement)` | Returns a `key_override_t`, which sends `replacement` (can be a key-modifer combination), when `key` and `modifiers` are all pressed down. This override still activates if any additional modifiers not specified in `modifiers` are also pressed down. See `ko_make_with_layers_and_negmods` to customize this behavior. |
+| `ko_make_with_layers(modifiers, key, replacement, layers)` | Additionally takes a bitmask `layers` that defines on which layers the override is used. |
+| `ko_make_with_layers_and_negmods(modifiers, key, replacement, layers, negative_mods)` | Additionally takes a bitmask `negative_mods` that defines which modifiers may not be pressed for this override to activate. |
+| `ko_make_with_layers_negmods_and_options(modifiers, key, replacement, layers, negative_mods, options)` | Additionally takes a bitmask `options` that specifies additional options. See `ko_option_t` for available options. |
 
 For more customization possibilities, you may directly create a `key_override_t`, which allows you to customize even more behavior. Read further below for details and examples.
 
