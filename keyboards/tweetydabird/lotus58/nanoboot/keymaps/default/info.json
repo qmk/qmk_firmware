@@ -1,0 +1,13 @@
+{                                                                                                 
+    "features": {                                                                                   
+		"encoder_map": true, 		
+        "auto_shift": true,                                                                       
+    },                                                                                            
+   "qmk": {                                                                                      
+        "tap_keycode_delay": 10                                                                   
+    },                                                                                            
+"tapping": {                                                                                  
+        "term": 175,                                                                              
+        "toggle": 2                                                                               
+    },                                                                                            
+}                                                                                                 
