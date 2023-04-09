@@ -21,6 +21,8 @@
 #define SHIFTREG_SHLD GP27
 #define SHIFTREG_DATA GP24
 
+#define SHIFTREG_DELAY_CYCLES 8 /* 64 ns at 125 MHz */
+
 matrix_row_t previous_matrix[MATRIX_ROWS];
 
 static inline void setPinOutput_writeLow(pin_t pin) {
@@ -139,10 +141,10 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         for (int column=7;column>=0;column--) {
             int bit = !!(readPin(SHIFTREG_DATA));
             writePinHigh(SHIFTREG_CLK);
-            asm volatile ("nop;nop;nop;nop;nop;nop;nop;nop;" ::: "memory");
+            wait_cpuclock(SHIFTREG_DELAY_CYCLES);
             read_result |= bit << column;
             writePinLow(SHIFTREG_CLK);
-            asm volatile ("nop;nop;nop;nop;nop;nop;nop;nop;" ::: "memory");
+            wait_cpuclock(SHIFTREG_DELAY_CYCLES);
         }
         writePinLow(SHIFTREG_SHLD);
         matrix_row_t current_row_value = ~(reverse_bitorder(read_result) | (reverse_bitorder(high_byte) << 8));
