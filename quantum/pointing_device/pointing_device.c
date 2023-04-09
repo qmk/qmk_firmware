@@ -71,6 +71,32 @@ bool pointing_device_check_shared_cpi_update_flags(void) {
     return false;
 }
 
+bool pointing_device_task_handle_shared_report(report_mouse_t* local_report, bool* device_was_ready) {
+    static uint8_t counter = 0;
+    if (is_keyboard_master()) {
+        if (counter != shared_report.counter) {
+#if defined(POINTING_DEVICE_DEBUG)
+            if (shared_report.counter != (((uint16_t)counter + 1) & UINT8_MAX)) {
+                pd_dprintf("POINTING DEVICE: Missed shared report - last report: %d, new report: %d\n", counter, shared_report.counter);
+            }
+#endif
+            pointing_device_add_and_clamp_report(local_report, &shared_report.report);
+            counter           = shared_report.counter;
+            *device_was_ready = true;
+            return true;
+        }
+    } else {
+        if (*device_was_ready) {
+            if (pointing_device_report_ready(&shared_report.report, local_report, device_was_ready)) {
+                memcpy(&shared_report, local_report, sizeof(report_mouse_t));
+                shared_report.counter = counter;
+                counter               = (((uint16_t)counter + 1) & UINT8_MAX);
+                return true;
+            }
+        }
+    }
+    return false;
+}
 #endif
 
 /**
@@ -237,33 +263,6 @@ bool pointing_deivce_task_get_pointing_reports(report_mouse_t* report) {
         }
     }
     return device_was_ready;
-}
-
-bool pointing_device_task_handle_shared_report(report_mouse_t* local_report, bool* device_was_ready) {
-    static uint8_t counter = 0;
-    if (is_keyboard_master()) {
-        if (counter != shared_report.counter) {
-#if defined(POINTING_DEVICE_DEBUG)
-            if (shared_report.counter != (((uint16_t)counter + 1) & UINT8_MAX)) {
-                pd_dprintf("POINTING DEVICE: Missed shared report - last report: %d, new report: %d\n", counter, shared_report.counter);
-            }
-#endif
-            pointing_device_add_and_clamp_report(local_report, &shared_report.report);
-            counter           = shared_report.counter;
-            *device_was_ready = true;
-            return true;
-        }
-    } else {
-        if (*device_was_ready) {
-            if (pointing_device_report_ready(&shared_report.report, local_report, device_was_ready)) {
-                memcpy(&shared_report, local_report, sizeof(report_mouse_t));
-                shared_report.counter = counter;
-                counter               = (((uint16_t)counter + 1) & UINT8_MAX);
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 __attribute__((weak)) bool pointing_device_task(void) {
