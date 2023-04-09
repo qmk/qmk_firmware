@@ -8,6 +8,17 @@
         "pid": "0x3636",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
+    "split": {
+        "enabled": true
+    },
     "layouts": {
         "LAYOUT_6x6": {
             "layout": [

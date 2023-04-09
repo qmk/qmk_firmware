@@ -11,7 +11,7 @@
 // of the thumb cluster extending along the sides of the finger
 // cluster so that everything can be contained in a 6x6 pattern.
 
-#define LAYOUT_62key( \
+#define LAYOUT_dmote_62( \
     LA_20, LA_10, LF_35, LF_25, LF_15, LF_05, \
     LF_55, LF_45, LF_34, LF_24, LF_14, LF_04, \
     LF_54, LF_44, LF_33, LF_23, LF_13, LF_03, \

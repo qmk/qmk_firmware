@@ -7,7 +7,7 @@
 enum custom_layers {
     _QWERTY,
     _LOWER,
-    _RAISE,
+    _RAISE
 };
 
 #define RAISE MO(_RAISE)
@@ -48,5 +48,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, KC_INS ,                         _______, _______,
                                             _______, _______,                         _______, _______,
                                             _______, _______,                         _______, _______
-    ),
+    )
 };

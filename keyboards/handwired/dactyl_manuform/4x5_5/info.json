@@ -8,7 +8,16 @@
         "pid": "0x3435",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0"
     },
     "processor": "atmega32u4",
