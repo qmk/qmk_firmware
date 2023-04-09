@@ -41,7 +41,7 @@
 		]
 	},
 	"processor": "RP2040",
-	"url": "https://skeletonkbd.com/products/frost68",
+	"url": "https://pid.codes/1209/68A0/",
 	"usb": {
 		"device_version": "1.0.0",
 		"vid": "0x1209",
