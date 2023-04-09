@@ -4,8 +4,7 @@
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
-AUDIO_ENABLE = no           # Audio output
-ENCODER_MAP_ENABLE = yes
+ENCODER_MAP_ENABLE = yes	# Enable encoder mapping
 
 
 RGB_MATRIX_ENABLE = yes
