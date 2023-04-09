@@ -1,13 +1,13 @@
-# Dactyl Manuform (4x5, 5x6, 5x7, 6x6, 6x7)
+# Dactyl Manuform
 
 the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
 ![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
 
 ## First Time Setup
 
-Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to generate the default .hex using:
+Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to complie the default .hex using:
 
-Depending on your Layout chose one of the follwing commands:
+Depending on your keymap, chose one of the following commands:
 
 ```
 $ make handwired/dactyl_manuform/YOUR_LAYOUT:YOUR_KEYMAP_NAME
@@ -29,74 +29,42 @@ For more information on customizing keymaps, take a look at the primary document
 
 ## Keymaps
 
-### [Keymaps 4x5](/keyboards/handwired/dactyl_manuform/4x5/keymaps/)
+### Default
 
-#### Default
+The default functional layout, based on QWERTY, and every variant has this keymap; used as a starting point/template for custom keymaps and for debugging purposes when soldering key matrix to controller.
 
-Simple QWERTY layout with 3 Layers.
+### Via
+Similar to Default but adds support for the [Via](https://www.caniusevia.com/) keymap configurator. Reduces the number of layers to 4 to comply with Via defaults, and remaps some keys to accomodate that constraint.
 
-#### Dvorak
+Variants with keymap for Via:
+- 4x6
+- 5x6_5
+- 5x7
 
-### [Keymaps 5x6](/keyboards/handwired/dactyl_manuform/5x6/keymaps/)
+### Manna-harbour_miryoku
 
-#### Default
+For more information on this layout schematic, please see the [Miryoku Reference Manual](https://github.com/manna-harbour/miryoku/tree/master/docs/reference).  
+For QMK specifics, please see [Miryoku QMK](https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku) 
 
-Just a copy of the Impstyle keymap. Feel free to adjust it.
+Variants with keymap for Miryoku:  
+- 4x5
+- 4x5_5
+- 4x6
+- 4x6_5
+- 5x6
 
-#### Impstyle
-
-A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and the Left ist the master.
-
-### [Keymaps 5x6_5](/keyboards/handwired/dactyl_manuform/5x6_5/keymaps/)
-
-Similar layout to 5x6 but with only 5 thumb keys per side instead of 6.
-
-#### Default
-QWERTY layout with 7 Layers.
-
-#### Via
-Similar to Default but adds support for the [Via](https://www.caniusevia.com/) keymap configurator. Reduces the number of layers to 4 to comply with Via defaults, and remaps
-some keys to accomodate that constraint.
-
-### [Keymaps 5x7 aka almost Ergodox](/keyboards/handwired/dactyl_manuform/5x7/keymaps/)
-
-#### Default
-
-Keymap of Loligagger from geekhack.
-
-### [Keymaps 6x6](/keyboards/handwired/dactyl_manuform/6x6/keymaps/)
-
-#### Default
-
-Simple QWERTY layout with 3 Layers.
-
-### [Keymaps 6x7](/keyboards/handwired/dactyl_manuform/6x7/keymaps/)
-
-#### Default
-
-Simple QWERTY layout with 3 Layers.
-
-### [Keymaps 3x5_3](/keyboards/handwired/dactyl_manuform/3x5_3/keymaps/)
-
-#### Dlford
-
-QWERTY/Colemak layout with per key RGB and other features
+Variants with support for Miryoku without a specific keymap:  
+- 3x5_3
 
 ## Required Hardware
 
-Apart from diodes and key switches for the keyboard matrix in each half, you
-will need:
+Apart from diodes and key switches for the keyboard matrix in each half, you will need:
+-   2 Arduino Pro Micro controllers. You can find these on AliExpress for ≈3.50USD each.
+-   2 TRRS sockets and 1 TRRS cable (for 4 wire communication), or 2 TRS sockets and 1 TRS cable (for 3 wire communication)
 
--   2 Arduino Pro Micros. You can find these on AliExpress for ≈3.50USD each.
--   2 TRRS sockets and 1 TRRS cable, or 2 TRS sockets and 1 TRS cable
-
-Alternatively, you can use any sort of cable and socket that has at least 3
+Alternatively, you can use any matching cable and socket type that has at least 3
 wires. If you want to use I2C to communicate between halves, you will need a
-cable with at least 4 wires and 2x 4.7kΩ pull-up resistors
-
-## Optional Hardware
-
-A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and turned on via `AUDIO_ENABLE`.
+cable with at least 4 wires and 2x 4.7kΩ pull-up resistors.
 
 ## Wiring
 
@@ -118,11 +86,16 @@ The pull-up resistors may be placed on either half. It is also possible
 to use 4 resistors and have the pull-ups in both halves, but this is
 unnecessary in simple use cases.
 
-You can change your configuration between serial and i2c by modifying your `config.h` file.
+You can change your configuration between serial and i2c by modifying your `config.h` file. [Split Keyboard documentation](https://docs.qmk.fm/#/feature_split_keyboard)
 
-## Notes on Software Configuration
+## Optional Hardware
 
-the keymaps in here are for the 4x5 layout of the keyboard only.
+A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and turned on via `AUDIO_ENABLE`.
+
+## Non-Pro Micro Controller Compilation
+
+If building a Dactyl Manuform with a controller that isn't a pro micro, the Converter feature of QMK will allow compilation of firmware for the intended variant and supported controller without having to create a new QMK keyboard/keymap.  
+Please see [Converters documentation](https://docs.qmk.fm/#/feature_converters?id=supported-converters) for list of controllers that are supported converting from `promicro` and conversion implementation.
 
 ## Flashing
 
