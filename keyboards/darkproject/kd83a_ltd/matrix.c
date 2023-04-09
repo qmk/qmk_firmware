@@ -134,6 +134,18 @@ void matrix_init_custom(void) {
                                             PAL_WB32_OTYPE_PUSHPULL | 
                                             PAL_WB32_OSPEED_HIGH | 
                                             PAL_WB32_CURRENT_LEVEL3));
+        pal_lld_setport(PAL_PORT(B0),   PAL_PORT_BIT(PAL_PAD(B0)) | 
+                                        PAL_PORT_BIT(PAL_PAD(B1)) |
+                                        PAL_PORT_BIT(PAL_PAD(B2)) |
+                                        PAL_PORT_BIT(PAL_PAD(B3)) |
+                                        PAL_PORT_BIT(PAL_PAD(B4)) |
+                                        PAL_PORT_BIT(PAL_PAD(B5)) |
+                                        PAL_PORT_BIT(PAL_PAD(B6)) |
+                                        PAL_PORT_BIT(PAL_PAD(B7)) |
+                                        PAL_PORT_BIT(PAL_PAD(B8)) |
+                                        PAL_PORT_BIT(PAL_PAD(B9)) |
+                                        PAL_PORT_BIT(PAL_PAD(B10)) |
+                                        PAL_PORT_BIT(PAL_PAD(B12)));
         pal_lld_setgroupmode(PAL_PORT(A0),  PAL_PORT_BIT(PAL_PAD(A0)) | 
                                             PAL_PORT_BIT(PAL_PAD(A1)) |
                                             PAL_PORT_BIT(PAL_PAD(A2)) |
