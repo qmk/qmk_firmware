@@ -1,0 +1,22 @@
+# Cover60
+
+![Cover60](https://github.com/TW59420/MWStudio/blob/d80316c10025d03d656762652afe83eaa133c8a8/PCB_Picture/Cover60.jpg)
+
+Support STM32F103 keyboard.
+
+* Keyboard Maintainer: [TW59420](https://github.com/TW59420)
+* Hardware Supported: STM32F103
+
+Make example for this keyboard (after setting up your build environment):
+
+    make mwstudio/cover60:default 
+
+Flashing example for this keyboard:
+
+    make mwstudio/cover60:default:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+* **Physical reset button**: Short press the button on the back of the PCB to enter the Bootloader and flash the firmware
+* **Keycode in layout**: Press the key mapped to QK_BOOT if it is available
