@@ -1,6 +1,6 @@
 # Cover60
 
-![Cover60](https://github.com/TW59420/MWStudio/blob/d80316c10025d03d656762652afe83eaa133c8a8/PCB_Picture/Cover60.jpg)
+![Cover60](https://github.com/TW59420/MWStudio/blob/main/PCB_Picture/Cover60.jpg)
 
 Support STM32F103 keyboard.
 
