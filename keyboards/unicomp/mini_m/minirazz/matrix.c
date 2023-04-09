@@ -46,10 +46,6 @@ void matrix_init_custom(void) {
     setPinOutput(SHIFTREG_CLK);
     writePinLow(SHIFTREG_SHLD);
     setPinOutput(SHIFTREG_SHLD);
-
-    for (int gpio=0;gpio<NUM_QSPI_GPIOS;gpio++) {
-        pads_qspi_hw->io[gpio] &= ~((3 << 4) | (1 << 0));
-    }
 }
 
 bool matrix_has_it_changed(const matrix_row_t current_matrix[]) {
