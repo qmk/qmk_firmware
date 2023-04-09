@@ -3,7 +3,7 @@
 This is a 65% with macro keys PCB. It supports VIA and full per-key RGB.
 
 * Keyboard Maintainer: [Yiancar](https://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
-* Hardware Supported: A TKL keyboard with STM32F072CB or APM compatible
+* Hardware Supported: A 65% with macro keys keyboard with STM32F072CB or APM compatible
 * Hardware Availability: https://novelkeys.com/
 
 ## Instructions
@@ -29,4 +29,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 - Unplug
 - Hold Escape
 - Plug In
-- Flash using QMK Toolbox or dfu-util (`make nk87b:<keymap>:dfu-util`)
+- Flash using QMK Toolbox or dfu-util (`make novelkeys/nk_plus:<keymap>:dfu-util`)
