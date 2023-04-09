@@ -1,4 +1,4 @@
-# The default VIA keymap for NK+. VIA support enabled.
+# The default VIA keymap for NK+.
 
 ![Layer 0](https://imgur.com/YRrfNtP.png)
 

@@ -9,5 +9,4 @@ OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 # Build Options
 #   change yes to no to disable
 #
-RGB_MATRIX_DRIVER = WS2812  # Per-key RGB Drive
 WS2812_DRIVER = pwm         # Per-key RGB MCU Driver
