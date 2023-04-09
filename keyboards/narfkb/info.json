@@ -16,7 +16,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
