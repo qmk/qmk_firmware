@@ -4,7 +4,7 @@
     "url": "https://www.kradoindustries.com/",
     "maintainer": "Krado Industries",
     "usb": {
-        "vid": "0x12D0",
+        "vid": "0x4B72",
         "pid": "0x706D",
         "device_version": "1.0.0"
     },

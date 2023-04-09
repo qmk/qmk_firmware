@@ -6,7 +6,7 @@
     "processor": "RP2040",
     "bootloader": "rp2040",
     "usb": {
-        "vid": "0x12D0",
+        "vid": "0x4B72",
         "pid": "0x4B4F",
         "device_version": "1.0.0"
     },

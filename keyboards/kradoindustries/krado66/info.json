@@ -4,8 +4,8 @@
     "url": "https://www.kradoindustries.com/", 
     "maintainer": "Krado Industries", 
     "usb": {
-        "vid": "0x12D0",
-        "pid": "0x1166",
+        "vid": "0x4B72",
+        "pid": "0x6664",
         "device_version": "2.0.0"
     },
     "processor": "atmega32u4",
