@@ -168,7 +168,9 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
         changed |= (current_matrix[current_row] != cols);
         current_matrix[current_row] = cols;
  
-        wait_us(MATRIX_IO_DELAY);
+        while (read_cols() != 0)
+            wait_us(1);
+        //wait_us(MATRIX_IO_DELAY);
 
     }
 
