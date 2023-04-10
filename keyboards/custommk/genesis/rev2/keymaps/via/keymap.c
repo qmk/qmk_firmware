@@ -101,13 +101,13 @@ keyevent_t encoder_left_ccw = {
 
 keyevent_t encoder_left_cw = {
     .key = (keypos_t){.row = 5, .col = 1},
-    .pressed = false
+    .pressed = false,
 	.type = KEY_EVENT
 };
 
 keyevent_t encoder_right_ccw = {
     .key = (keypos_t){.row = 5, .col = 2},
-    .pressed = false
+    .pressed = false,
 	.type = KEY_EVENT
 };
 
