@@ -1,0 +1,169 @@
+[
+    {
+        "type": "Group",
+        "name": "DZ60RGB",
+        "parent_id": "mLhWHK8JODI27QRc",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "8iayZo4tfXnPAlzD"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb\\keymaps\\T4CORUN",
+        "parent_id": "8iayZo4tfXnPAlzD",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb\\keymaps\\T4CORUN",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "okzvlpL82dNty1cb"
+    },
+    {
+        "type": "Group",
+        "name": "Keymap",
+        "parent_id": null,
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "mLhWHK8JODI27QRc",
+        "iconColor": "rgb(0, 255, 0)"
+    },
+    {
+        "type": "Group",
+        "name": "Planck",
+        "parent_id": "mLhWHK8JODI27QRc",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "QDn9WK7Uhz2YfB0X"
+    },
+    {
+        "type": "Group",
+        "name": "CRKBD",
+        "parent_id": "mLhWHK8JODI27QRc",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "20k3S7tNwT6jVcQC"
+    },
+    {
+        "type": "Group",
+        "name": "Userspace",
+        "parent_id": null,
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "D8YR096kpqUjKbVC",
+        "iconColor": "rgb(255, 0, 255)"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\planck\\keymaps\\T4CORUN",
+        "parent_id": "QDn9WK7Uhz2YfB0X",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\planck\\keymaps\\T4CORUN",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "xMekGQC1oEd4bc9i"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb\\keymaps\\T4CORUN",
+        "parent_id": "20k3S7tNwT6jVcQC",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb\\keymaps\\T4CORUN",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "KcuAP691bCsjV5MX"
+    },
+    {
+        "type": "Group",
+        "name": "Beiwagon",
+        "parent_id": "mLhWHK8JODI27QRc",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "fDFUKuyP2CmlN3zM"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\boardsource\\beiwagon\\keymaps\\Jolit",
+        "parent_id": "fDFUKuyP2CmlN3zM",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\boardsource\\beiwagon\\keymaps\\Jolit",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "S5X176ZkIMLzxor3"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\users\\T4CORUN",
+        "parent_id": "D8YR096kpqUjKbVC",
+        "fsPath": "d:\\Repo\\qmk_firmware\\users\\T4CORUN",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "PHkXUA0FLD45ZEiI"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\users\\drashna",
+        "parent_id": "D8YR096kpqUjKbVC",
+        "fsPath": "d:\\Repo\\qmk_firmware\\users\\drashna",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "HgpCjOKsXwqIYd2u"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\users\\manna-harbour_miryoku",
+        "parent_id": "D8YR096kpqUjKbVC",
+        "fsPath": "d:\\Repo\\qmk_firmware\\users\\manna-harbour_miryoku",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "qpeDSR7JN3tGhOBg"
+    },
+    {
+        "type": "Group",
+        "name": "Keyboard",
+        "parent_id": null,
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "rlqehj6L1QPbAfIx",
+        "iconColor": "rgb(255, 255, 255)"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\bastardkb\\charybdis",
+        "parent_id": "rlqehj6L1QPbAfIx",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\bastardkb\\charybdis",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "V2InRuDelYqdJxHU"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\boardsource\\beiwagon",
+        "parent_id": "rlqehj6L1QPbAfIx",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\boardsource\\beiwagon",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "7xEByj54NObLtnQT"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\crkbd",
+        "parent_id": "rlqehj6L1QPbAfIx",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\crkbd",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "mv2Monw0AIfSGc7O"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb",
+        "parent_id": "rlqehj6L1QPbAfIx",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "KxHioZdveaUOFSLz"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\planck",
+        "parent_id": "rlqehj6L1QPbAfIx",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\planck",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "h1pPNQZrJGD3ExHs"
+    }
+]

@@ -2,6 +2,7 @@
 {
     // Unofficially, QMK uses spaces for indentation
     "editor.insertSpaces": true,
+    "editor.tabSize": 2,
     // Configure glob patterns for excluding files and folders.
     "files.exclude": {
         "**/.build": true,

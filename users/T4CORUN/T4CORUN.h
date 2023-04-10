@@ -1,0 +1,87 @@
+#pragma once
+#include QMK_KEYBOARD_H
+
+#include "wrappers.h"
+
+#ifdef TAP_DANCE_ENABLE
+# include "tap_dances.h"
+#endif  // TAP_DANCE_ENABLE
+
+enum layers {
+  _QWERTY = 0,
+  FIRST_DEFAULT_LAYER = 0,  
+  _COLEMAK_DH,
+  _NUMBER,
+  _NAVIGATION,
+  _FUNCTION,
+  _MOUSE,
+  _ADJUST
+};
+
+enum keycodes {
+  QWERTY = SAFE_RANGE,
+  CLMAKDH
+};
+
+#define _DEFAULT_LAYER_1 FIRST_DEFAULT_LAYER
+#define _DEFAULT_LAYER_2 (FIRST_DEFAULT_LAYER + 1)
+#define _DEFAULT_LAYER_3 (FIRST_DEFAULT_LAYER + 2)
+
+#ifdef TAP_DANCE_ENABLE
+//Tap Dance Declarations
+# define TD_LBKT TD(TD_LEFTBRACKETS)
+# define TD_RBKT TD(TD_RIGHTBRACKETS)
+# define TD_QUOT TD(TD_QUOTES)
+# define TD_SCLN TD(TD_COLONS)
+#endif  // TAP_DANCE_ENABLE
+
+//Momentary Layer
+#define ADJUST  MO(_ADJUST)
+#define NAV     MO(_NAVIGATION)
+#define NUMBER  MO(_NUMBER)
+#define FUNC    MO(_FUNCTION)
+#define MOUSE   MO(_MOUSE)
+
+//Layer Tap
+#define MOU_SPC LT(_MOUSE, KC_SPC)
+#define MOU_N   LT(_MOUSE, KC_N)
+#define MOU_K   LT(_MOUSE, KC_K)
+#define NAV_TAB LT(_NAVIGATION, KC_TAB)
+#define NUM_BSP LT(_NUMBER, KC_BSPC)
+#define FUN_Z   LT(_FUNCTION, KC_Z)
+#define FUN_DEL LT(_FUNCTION, KC_DEL)
+#define AD_SLSH LT(_ADJUST, KC_SLSH)
+
+//Windows Shortcuts
+#define SC_COPY LCTL(KC_C)
+#define SC_CUT  LCTL(KC_X)
+#define SC_UNDO LCTL(KC_Z)
+#define SC_PAST LCTL(KC_V)
+#define SC_REDO LCTL(KC_Y)
+
+//Alias to make the keymap easier to read
+#define ___x___ KC_NO
+
+//Home Row Mods QWERTY
+#define LGUI_A  LGUI_T(KC_A)
+#define LALT_S  LALT_T(KC_S)
+#define CTRL_D  LCTL_T(KC_D)
+#define SHFT_F  LSFT_T(KC_F)
+
+#define SHFT_J  LSFT_T(KC_J)
+#define CTRL_K  LCTL_T(KC_K)
+#define LALT_L  LALT_T(KC_L)
+#define LGUI_QT LGUI_T(KC_QUOT)
+
+//Home Row Mods COLEMAKDH
+#define LALT_R  LALT_T(KC_R)
+#define CTRL_S  LCTL_T(KC_S)
+#define SHFT_T  LSFT_T(KC_T)
+
+#define SHFT_N  LSFT_T(KC_N)
+#define CTRL_E  LCTL_T(KC_E)
+#define LALT_I  LALT_T(KC_I)
+#define LGUI_O  LGUI_T(KC_O)
+
+//Chrome shortcuts
+#define CLSETAB LCTL(KC_W)
