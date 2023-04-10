@@ -7,10 +7,10 @@ A relatively straightforward 75% layout with some extras.
 ## At A Glance
 
 Here's my Keychron V1 with some "AF SA" profile keycaps:
-![Keychron V1](http://toykeeper.net/keyboard/qmk/keychron-v1/front.2.jpg)
+![Keychron V1](https://i.imgur.com/mcUacZg.jpg)
 
 This is the layout internally, showing all the functions for each key:
-![TK V1](http://toykeeper.net/keyboard/qmk/tk-v1-q1.png)
+![TK V1](https://i.imgur.com/FY7lNRE.png)
 
 This layout diagram can be edited [here](http://www.keyboard-layout-editor.com/#/gists/cd13a756e9e519476489ab21df8140ba).
 
@@ -63,19 +63,18 @@ Things which differ from other models:
 
 ## More Pics
 
-StarLock (Fn2 Lock) activated:
-![StarLock](http://toykeeper.net/keyboard/qmk/keychron-v1/starlock.1.jpg)
+MouseLock activated:
+![MouseLock](https://i.imgur.com/8gvYCdq.jpg)
 
 A bit closer:
-![Detail](http://toykeeper.net/keyboard/qmk/keychron-v1/starlock.3.jpg)
+![Detail](https://i.imgur.com/L9vMx4J.jpg)
 
 Fn1 (Moon) activated:
-![Fn1 Detail](http://toykeeper.net/keyboard/qmk/keychron-v1/fn1.1.jpg)
+![Fn1 Detail](https://i.imgur.com/azUl7lG.jpg)
 
-Fn3 (swirl) activated:
-![Fn3 Detail](http://toykeeper.net/keyboard/qmk/keychron-v1/fn3.1.jpg)
+Fn2 (Star) activated:
+![Fn2 Detail](https://i.imgur.com/M38XD0S.jpg)
 
 Side view, showing the keycap profile:
-![Side View](http://toykeeper.net/keyboard/qmk/keychron-v1/side.1.jpg)
-
+![Side View](https://i.imgur.com/cGBCahm.jpg)
 

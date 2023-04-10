@@ -8,10 +8,10 @@ A 69% layout with some extras.
 ## At A Glance
 
 Here's my Keychron Q65 with MT3 profile black+purple keycaps:
-![Keychron Q65](http://toykeeper.net/keyboard/qmk/q65/full/q65.07.jpg)
+![Keychron Q65](https://i.imgur.com/pQcKpFL.jpg)
 
 This is the layout internally, showing all the functions for each key:
-![TK Q65](http://toykeeper.net/keyboard/qmk/tk-q65.png)
+![TK Q65](https://i.imgur.com/a3kwQzG.png)
 
 This layout diagram can be edited
 [here](http://www.keyboard-layout-editor.com/#/gists/9e5289cc338d78520da1495d697ed72a).
@@ -64,8 +64,8 @@ Things which differ from other models:
 
 ## More Pics
 
-![Keychron Q65](http://toykeeper.net/keyboard/qmk/q65/full/q65.10.jpg)
-![Keychron Q65](http://toykeeper.net/keyboard/qmk/q65/full/q65.01.jpg)
-![Keychron Q65](http://toykeeper.net/keyboard/qmk/q65/full/q65.04.jpg)
-![Keychron Q65](http://toykeeper.net/keyboard/qmk/q65/full/q65.05.jpg)
+![Keychron Q65](https://i.imgur.com/RtwSV6V.jpg)
+![Keychron Q65](https://i.imgur.com/ewCJIun.jpg)
+![Keychron Q65](https://i.imgur.com/P3XALA7.jpg)
+![Keychron Q65](https://i.imgur.com/UIzoxXF.jpg)
 

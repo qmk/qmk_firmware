@@ -7,7 +7,7 @@ A butterfly-shaped split keyboard with a unique layout.
 ## At A Glance
 
 This is the layout internally, showing all the functions for each key:
-![TK Model01](http://toykeeper.net/keyboard/qmk/tk-keyboardio.png)
+![TK Model01](https://i.imgur.com/n7XcXgW.png)
 
 This layout diagram can be edited
 [here](http://www.keyboard-layout-editor.com/#/gists/0b83353e391f27c7c19f82da0aecc56b).

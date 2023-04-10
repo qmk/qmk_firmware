@@ -24,35 +24,35 @@ Here's how each one looks:
 
 [KLE](http://www.keyboard-layout-editor.com/#/gists/9e5289cc338d78520da1495d697ed72a)
 
-![TK Q65](http://toykeeper.net/keyboard/qmk/tk-q65.png)
+![TK Q65](https://i.imgur.com/a3kwQzG.png)
 
 ### V1 / Q1
 
 [KLE](http://www.keyboard-layout-editor.com/#/gists/cd13a756e9e519476489ab21df8140ba)
 
-![Keychron V1](http://toykeeper.net/keyboard/qmk/keychron-v1/front.2.jpg)
+![Keychron V1](https://i.imgur.com/mcUacZg.jpg)
 
-![TK V1](http://toykeeper.net/keyboard/qmk/tk-v1-q1.png)
+![TK V1](https://i.imgur.com/FY7lNRE.png)
 
 ### NK65
 
 [KLE](http://www.keyboard-layout-editor.com/#/gists/565ca8abb5825d160f962226fb9d58b7)
 
-![NovelKeys NK65](http://toykeeper.net/keyboard/qmk/nk65-front-bright-blue.jpg)
+![NovelKeys NK65](https://i.imgur.com/3FFkRNo.jpg)
 
-![TK NK65](http://toykeeper.net/keyboard/qmk/tk-nk65.png)
+![TK NK65](https://i.imgur.com/pm8CbAX.png)
 
 ### Whitefox
 
 [KLE](http://www.keyboard-layout-editor.com/#/gists/25056bbe508ab0bb45d8e9688c23a478)
 
-![TK Whitefox](http://toykeeper.net/keyboard/qmk/tk-whitefox.png)
+![TK Whitefox](https://i.imgur.com/g2TTBfl.png)
 
 ### Keyboardio Model-01
 
 [KLE](http://www.keyboard-layout-editor.com/#/gists/0b83353e391f27c7c19f82da0aecc56b)
 
-![TK Keyboardio](http://toykeeper.net/keyboard/qmk/tk-keyboardio.png)
+![TK Keyboardio](https://i.imgur.com/n7XcXgW.png)
 
 
 ## Concept

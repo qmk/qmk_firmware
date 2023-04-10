@@ -6,10 +6,10 @@ A relatively straightforward 65% layout with some extras.
 ## At A Glance
 
 Here's my NovelKeys NK65 with blue/white DSA PBT keycaps:
-![NovelKeys NK65](http://toykeeper.net/keyboard/qmk/nk65-front-bright-blue.jpg)
+![NovelKeys NK65](https://i.imgur.com/3FFkRNo.jpg)
 
 This is the layout internally, showing all the functions for each key:
-![TK NK65](http://toykeeper.net/keyboard/qmk/tk-nk65.png)
+![TK NK65](https://i.imgur.com/pm8CbAX.png)
 
 This layout diagram can be edited [here](http://www.keyboard-layout-editor.com/#/gists/565ca8abb5825d160f962226fb9d58b7).
 

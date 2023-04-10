@@ -6,7 +6,7 @@ A relatively straightforward 65% "truefox" layout with some extras.
 ## At A Glance
 
 This is how the layout looks with all layers combined into a single image:
-![TK WhiteFox](http://toykeeper.net/keyboard/qmk/tk-whitefox.png)
+![TK WhiteFox](https://i.imgur.com/g2TTBfl.png)
 
 This layout diagram can be edited
 [here](http://www.keyboard-layout-editor.com/#/gists/25056bbe508ab0bb45d8e9688c23a478).
