@@ -1,6 +1,6 @@
 # lilith
 
-![lilith]([img]https://i.imgur.com/aHr3Iia.jpg)
+![lilith]([https://i.imgur.com/aHr3Iia.jpg)
 
 Lilith by nix studio. 65% keyboard with gasket mount
 
