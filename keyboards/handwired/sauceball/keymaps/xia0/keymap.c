@@ -73,7 +73,7 @@ void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
   // if drag-scrolling, replace the h and v values with x and y
   if (is_drag_scrolling == 1) {
     mouse_report->h = mouse_report->x;
-    mouse_report->v = mouse_report->y * DRAG_SCROLL_NATURAL;
+    mouse_report->v = mouse_report->y * DRAG_SCROLL_DIRECTION;
     mouse_report->x = 0;
     mouse_report->y = 0;
   }

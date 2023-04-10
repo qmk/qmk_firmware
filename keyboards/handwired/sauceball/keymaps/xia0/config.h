@@ -1,8 +1,6 @@
 // Copyright 2023 xia0 (@xia0)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-
-
 // modify movement rates as a percentage
 // use this to reduce mouse sensitivity especially for drag-scrolling
 #define SENSITIVITY_X 50
@@ -17,7 +15,8 @@
 #define PS2_MOUSE_SCROLL_BTN_SEND 300
 
 // define custom key to activate drag scroll when held
-#define DRAG_SCROLL_KEY KC_MS_BTN3
+#define DRAG_SCROLL_KEY KC_BTN3
 
-// scrolling method. 1 = natural, -1 = reverse
-#define DRAG_SCROLL_NATURAL -1
+// scrolling direction
+//   1 = natural, -1 = reverse
+#define DRAG_SCROLL_DIRECTION -1
