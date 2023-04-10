@@ -195,7 +195,7 @@ __attribute__((weak)) void pointing_device_init(void) {
 }
 
 __attribute__((weak)) void pointing_device_send(report_mouse_t* sending_report) {
-    host_mouse_send(sending_report);
+        host_mouse_send(sending_report);
     memset(sending_report, 0, sizeof(report_mouse_t));
 }
 
@@ -278,7 +278,6 @@ bool pointing_deivce_task_get_pointing_reports(report_mouse_t* report) {
         } else {
             if (buttons[i]) {
                 report->buttons |= buttons[i];
-                device_was_ready = true;
             }
         }
     }
