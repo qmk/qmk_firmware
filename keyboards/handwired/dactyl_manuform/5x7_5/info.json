@@ -33,7 +33,7 @@
         "led_count": 12
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_5x7_5": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
