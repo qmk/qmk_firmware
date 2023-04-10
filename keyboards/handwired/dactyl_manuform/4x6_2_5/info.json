@@ -1,0 +1,101 @@
+{
+    "keyboard_name": "Dactyl Manuform 4x6_2_5",
+    "manufacturer": "tshort",
+    "url": "https://github.com/tshort/dactyl-keyboard",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x444D",
+        "pid": "0x3436",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": true,
+        "nkro": false
+    },
+    "matrix_pins": {
+        "rows": ["F7", "B1", "B3", "B2", "B6"],
+        "cols": ["D4", "C6", "D7", "E6", "B4", "B5"]
+     },    
+    "diode_direction": "COL2ROW",
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0},
+                {"x": 1, "y": 0},
+                {"x": 2, "y": 0},
+                {"x": 3, "y": 0},
+                {"x": 4, "y": 0},
+                {"x": 5, "y": 0},
+
+                {"x": 11, "y": 0},
+                {"x": 12, "y": 0},
+                {"x": 13, "y": 0},
+                {"x": 14, "y": 0},
+                {"x": 15, "y": 0},
+                {"x": 16, "y": 0},
+
+                {"x": 0, "y": 1},
+                {"x": 1, "y": 1},
+                {"x": 2, "y": 1},
+                {"x": 3, "y": 1},
+                {"x": 4, "y": 1},
+                {"x": 5, "y": 1},
+
+                {"x": 11, "y": 1},
+                {"x": 12, "y": 1},
+                {"x": 13, "y": 1},
+                {"x": 14, "y": 1},
+                {"x": 15, "y": 1},
+                {"x": 16, "y": 1},
+
+                {"x": 0, "y": 2},
+                {"x": 1, "y": 2},
+                {"x": 2, "y": 2},
+                {"x": 3, "y": 2},
+                {"x": 4, "y": 2},
+                {"x": 5, "y": 2},
+
+                {"x": 11, "y": 2},
+                {"x": 12, "y": 2},
+                {"x": 13, "y": 2},
+                {"x": 14, "y": 2},
+                {"x": 15, "y": 2},
+                {"x": 16, "y": 2},
+
+                {"x": 0, "y": 3},
+                {"x": 1, "y": 3},
+                {"x": 2, "y": 3},
+                {"x": 3, "y": 3},
+
+                {"x": 13, "y": 3},
+                {"x": 14, "y": 3},
+                {"x": 15, "y": 3},
+                {"x": 16, "y": 3},
+
+                {"x": 4, "y": 4},
+                {"x": 5, "y": 4},
+                {"x": 6, "y": 4},
+
+                {"x": 10, "y": 4},
+                {"x": 11, "y": 4},
+                {"x": 12, "y": 4},
+
+                {"x": 5, "y": 5},
+                {"x": 6, "y": 5},
+
+                {"x": 10, "y": 5},
+                {"x": 11, "y": 5}
+            ] 
+        }
+    }
+}
