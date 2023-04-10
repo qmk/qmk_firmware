@@ -75,11 +75,11 @@ bool pointing_device_task_handle_shared_report(report_mouse_t* local_report, boo
     static uint8_t counter = 0;
     if (is_keyboard_master()) {
         if (counter != shared_report.counter) {
-#if defined(POINTING_DEVICE_DEBUG)
+#    if defined(POINTING_DEVICE_DEBUG)
             if (shared_report.counter != (((uint16_t)counter + 1) & UINT8_MAX)) {
                 pd_dprintf("POINTING DEVICE: Missed shared report - last report: %d, new report: %d\n", counter, shared_report.counter);
             }
-#endif
+#    endif
             pointing_device_add_and_clamp_report(local_report, &shared_report.report);
             counter           = shared_report.counter;
             *device_was_ready = true;
@@ -245,13 +245,15 @@ __attribute__((weak)) bool pointing_device_is_ready(pointing_device_config_t dev
     static fast_timer_t last_check[POINTING_DEVICE_COUNT] = {0};
     bool                ready                             = false;
 
-    if (device_config.motion.pin) { // check pin assigned
-        if (readPin(device_config.motion.pin) != device_config.motion.active_low) {
+    if (timer_elapsed_fast(last_check[index]) >= device_config.throttle) {
+        last_check[index] = timer_read_fast();
+        if (device_config.motion.pin) { // FIX ME
+            if (readPin(device_config.motion.pin) != device_config.motion.active_low) {
+                ready = true;
+            }
+        } else {
             ready = true;
         }
-    } else if (timer_elapsed_fast(last_check[index]) >= device_config.throttle) {
-        last_check[index] = timer_read_fast();
-        ready             = true;
     }
 
     return ready;
@@ -292,11 +294,10 @@ __attribute__((weak)) bool pointing_device_task(void) {
 
     local_report = pointing_device_task_kb(local_report);
 
-        // automatic mouse layer function
+    // automatic mouse layer function
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-        pointing_device_task_auto_mouse(local_report);
+    pointing_device_task_auto_mouse(local_report);
 #endif
-
 
     // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
