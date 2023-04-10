@@ -272,6 +272,12 @@ __attribute__((weak)) bool pointing_device_task(void) {
     report_is_different = pointing_device_task_handle_shared_report(&local_report, &device_was_ready);
 #endif
 
+        // automatic mouse layer function
+#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+        pointing_device_task_auto_mouse(local_report);
+#endif
+
+
     // combine with mouse report to ensure that the combined is sent correctly
 #ifdef MOUSEKEY_ENABLE
     report_mouse_t mousekey_report = mousekey_get_report();
@@ -283,11 +289,6 @@ __attribute__((weak)) bool pointing_device_task(void) {
         report_is_different = pointing_device_report_ready(&last_sent_report, &local_report, &device_was_ready);
     }
     if (report_is_different) {
-        // automatic mouse layer function
-#ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-        pointing_device_task_auto_mouse(local_report);
-#endif
-
         memcpy(&last_sent_report, &local_report, sizeof(report_mouse_t));
         pointing_device_send(&local_report);
     }
