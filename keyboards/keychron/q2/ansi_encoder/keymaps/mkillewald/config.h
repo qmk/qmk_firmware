@@ -16,13 +16,15 @@
 
 #pragma once
 
-#define EECONFIG_USER_DATA_SIZE 15  // size of eeprom data, do not change.
+#define EECONFIG_USER_DATA_SIZE 17  // size of eeprom data, do not change.
 
 // default options applied when eeprom is cleared
-#define DEFAULT_CAPS_LOCK_LIGHT_TAB      false        // true=enable, false=disable
-#define DEFAULT_CAPS_LOCK_LIGHT_ALPHA    true         // true=enable, false=disable
-#define DEFAULT_FN_LAYER_TRANSPARENT_OFF false        // true=enable, false=disable
-#define DEFAULT_FN_LAYER_SHOW_COLOR      true         // true=enable, false=disable
+#define DEFAULT_CAPS_LOCK_LIGHT_TAB      false        // true = enable, false = disable
+#define DEFAULT_CAPS_LOCK_LIGHT_ALPHA    true         // true = enable, false = disable
+#define DEFAULT_FN_LAYER_TRANSPARENT_OFF false        // true = enable, false = disable
+#define DEFAULT_FN_LAYER_SHOW_COLOR      true         // true = enable, false = disable
+#define DEFAULT_ENABLE_MAC_BASE          1            // 1 = enable, 0 = disable
+#define DEFAULT_ENABLE_WIN_BASE          1            // 1 = enable, 0 = disable
 #define DEFAULT_HUE_WIN_BASE             80           // HSV green hue (Win Base layer)
 #define RGB_MATRIX_DEFAULT_HUE           170          // HSV blue hue  (Mac Base layer)
 #define RGB_MATRIX_DEFAULT_SAT           255          // Both Win/Mac Base layers
@@ -37,9 +39,9 @@
 #define FN1_LAYER_COLOR 0xFE, 0x23, 0x00  // RGB orange
 #define FN2_LAYER_COLOR RGB_YELLOW
 
-// Caps Word is activated by double-tapping left Shift. Replace this with 
-// #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD if you want to activate Caps Word 
-// by single-tapping both left and right Shift togeter. 
+// Caps Word is activated by double-tapping left Shift. Replace this with
+// #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD if you want to activate Caps Word
+// by single-tapping both left and right Shift togeter.
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
 // Caps Word RGB indicator color

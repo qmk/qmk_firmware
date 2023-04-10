@@ -155,16 +155,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;  // Skip all further processing of this key
             case RGB_TOG:
-                if (win_mode) {
-                    if (record->event.pressed) {
-                        // disables RGB toggle if switch is on Win mode. If RGB is toggled
-                        // off while on win mode, it can cause Win mode RGB settings to
-                        // overwrite the Mac mode RGB settings. 
-                        return false;  // Skip all further processing of this key
+                if (record->event.pressed) {
+                    rgb_matrix_toggle_noeeprom();
+                    if (win_mode) {
+                        user_config_toggle_enable_win_base();
+                    } else {
+                        user_config_toggle_enable_mac_base();
                     }
-                } else {
-                    return true; // Allow further processing of this key
                 }
+                return false;  // Skip all further processing of this key
             case RGB_MOD:
                 if (win_mode) {
                     if (record->event.pressed) {

@@ -22,6 +22,8 @@ typedef struct {
     bool caps_lock_light_alphas;
     bool fn_layer_transparent_keys_off;
     bool fn_layer_color_enable;
+    uint8_t enable_mac_base;
+    uint8_t enable_win_base;
     uint8_t mode_win_base;
     uint8_t spd_win_base;
     HSV hsv_win_base;
@@ -37,6 +39,8 @@ void eeconfig_init_user(void) {
     user_config.caps_lock_light_alphas = DEFAULT_CAPS_LOCK_LIGHT_ALPHA;
     user_config.fn_layer_transparent_keys_off = DEFAULT_FN_LAYER_TRANSPARENT_OFF;
     user_config.fn_layer_color_enable = DEFAULT_FN_LAYER_SHOW_COLOR;
+    user_config.enable_mac_base = DEFAULT_ENABLE_MAC_BASE;
+    user_config.enable_win_base = DEFAULT_ENABLE_WIN_BASE;
     user_config.mode_win_base = RGB_MATRIX_DEFAULT_MODE;
     user_config.spd_win_base = RGB_MATRIX_DEFAULT_SPD;
     user_config.hsv_win_base.h = DEFAULT_HUE_WIN_BASE;
@@ -69,6 +73,14 @@ bool user_config_get_fn_layer_transparent_keys_off(void) {
 
 bool user_config_get_fn_layer_color_enable(void) {
     return user_config.fn_layer_color_enable;
+}
+
+uint8_t user_config_get_enable_mac_base(void) {
+    return user_config.enable_mac_base;
+}
+
+uint8_t user_config_get_enable_win_base(void) {
+    return user_config.enable_win_base;
 }
 
 uint8_t user_config_get_mode_win_base(void) {
@@ -114,6 +126,16 @@ void user_config_toggle_fn_layer_transparent_keys_off(void) {
 
 void user_config_toggle_fn_layer_color_enable(void) {
     user_config.fn_layer_color_enable ^= 1;
+    user_config_write_eeprom();
+}
+
+void user_config_toggle_enable_mac_base(void) {
+    user_config.enable_mac_base ^= 1;
+    user_config_write_eeprom();
+}
+
+void user_config_toggle_enable_win_base(void) {
+    user_config.enable_win_base ^= 1;
     user_config_write_eeprom();
 }
 
