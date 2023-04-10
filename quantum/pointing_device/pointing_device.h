@@ -171,10 +171,15 @@ void           pointing_device_set_cpi(uint16_t cpi);
 uint16_t pointing_device_get_cpi_by_index(uint8_t index);
 void     pointing_device_set_cpi_by_index(uint16_t cpi, uint8_t index);
 
+
+void           pointing_device_init_kb_by_index(uint8_t index);
+void           pointing_device_init_user_by_index(uint8_t index);
 void           pointing_device_init_kb(void);
 void           pointing_device_init_user(void);
-report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report, uint8_t index);
-report_mouse_t pointing_device_task_user(report_mouse_t mouse_report, uint8_t index);
+report_mouse_t pointing_device_task_kb_by_index(report_mouse_t mouse_report, uint8_t index);
+report_mouse_t pointing_device_task_user_by_index(report_mouse_t mouse_report, uint8_t index);
+report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report);
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report);
 uint8_t        pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button);
 void           pointing_device_keycode_handler(uint16_t keycode, bool pressed);
 bool           pointing_deivce_task_get_pointing_reports(report_mouse_t *report);
