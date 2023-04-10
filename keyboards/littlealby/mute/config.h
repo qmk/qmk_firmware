@@ -18,6 +18,5 @@
 #define USB_MAX_POWER_CONSUMPTION 100
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN B6
 #define RGBLED_NUM 1
 #endif

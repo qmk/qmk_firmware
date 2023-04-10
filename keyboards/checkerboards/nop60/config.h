@@ -17,18 +17,9 @@ Copyright 2021 Nathan Spears
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { F0, F1, E6, B7, C6 }
-#define MATRIX_COL_PINS { F6, F5, F4, D0, D7, D3, D4, D5, D6, F7, C7, B4, B6, B5 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 
 // ws2812 options
-#define RGB_DI_PIN D2 // pin the DI on the ws2812 is hooked-up to
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

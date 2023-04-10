@@ -8,6 +8,11 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F4", "D2", "F5", "D1", "F6", "D0", "F7", "D4", "B1", "C6", "E6", "D7"],
+        "rows": ["B4", "B5", "B3", "B2", "B6"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
@@ -67,11 +72,11 @@
                 
                 {"label": "ctrl", "x": 0, "y": 4, "w": 1.25},
                 {"label": "qui", "x": 1.25, "y": 4, "w": 1.25},
-                {"label": "alt", "x": 2.50, "y": 4, "w": 1.25},
+                {"label": "alt", "x": 2.5, "y": 4, "w": 1.25},
                 {"label": "del", "x": 3.75, "y": 4, "w": 1.25},
                 {"label": "enter", "x": 5, "y": 4, "w": 1.75},
                 {"label": "space", "x": 6.75, "y": 4, "w": 1.75},
-                {"label": "'", "x": 8.50, "y": 4, "w": 1.5},
+                {"label": "'", "x": 8.5, "y": 4, "w": 1.5},
                 {"label": "left", "x": 10, "y": 4},
                 {"label": "down", "x": 11, "y": 4},
                 {"label": "right", "x": 12, "y": 4}

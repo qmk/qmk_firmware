@@ -17,21 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// ROWS: Top to bottom, COLS: Left to right
-/* Row pin configuration
-*/
-#define MATRIX_ROW_PINS { F1, F5, F6, F7, B6 }
-/* Column pin configuration
- */
-#define MATRIX_COL_PINS { F0, F4, B5, B4, D7, D6, B0, B1, B3, D2, B7, D0, D1, D3, C6, C7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* Underlight configuration
  */
-#define RGB_DI_PIN B2
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

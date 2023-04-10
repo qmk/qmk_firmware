@@ -1,0 +1,10 @@
+{
+    "ws2812": {
+        "pin": "D2"
+    },
+    "matrix_pins": {
+        "cols": ["B6", "B2", "B3", "B1", "F7", "F6", "F5", "F4", "D3"],
+        "rows": ["B5", "B4", "E6", "D7", "C6", "D4"]
+    },
+    "diode_direction": "COL2ROW"
+}

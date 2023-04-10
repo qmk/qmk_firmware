@@ -291,7 +291,7 @@ def test_generate_version_h():
 def test_format_json_keyboard():
     result = check_subcommand('format-json', '--format', 'keyboard', 'lib/python/qmk/tests/minimal_info.json')
     check_returncode(result)
-    assert result.stdout == '{\n    "keyboard_name": "tester",\n    "maintainer": "qmk",\n    "layouts": {\n        "LAYOUT": {\n            "layout": [\n                { "label": "KC_A", "matrix": [0, 0], "x": 0, "y": 0 }\n            ]\n        }\n    }\n}\n'
+    assert result.stdout == '{\n    "keyboard_name": "tester",\n    "maintainer": "qmk",\n    "layouts": {\n        "LAYOUT": {\n            "layout": [\n                {"label": "KC_A", "matrix": [0, 0], "x": 0, "y": 0}\n            ]\n        }\n    }\n}\n'
 
 
 def test_format_json_keymap():
@@ -303,7 +303,7 @@ def test_format_json_keymap():
 def test_format_json_keyboard_auto():
     result = check_subcommand('format-json', '--format', 'auto', 'lib/python/qmk/tests/minimal_info.json')
     check_returncode(result)
-    assert result.stdout == '{\n    "keyboard_name": "tester",\n    "maintainer": "qmk",\n    "layouts": {\n        "LAYOUT": {\n            "layout": [\n                { "label": "KC_A", "matrix": [0, 0], "x": 0, "y": 0 }\n            ]\n        }\n    }\n}\n'
+    assert result.stdout == '{\n    "keyboard_name": "tester",\n    "maintainer": "qmk",\n    "layouts": {\n        "LAYOUT": {\n            "layout": [\n                {"label": "KC_A", "matrix": [0, 0], "x": 0, "y": 0}\n            ]\n        }\n    }\n}\n'
 
 
 def test_format_json_keymap_auto():

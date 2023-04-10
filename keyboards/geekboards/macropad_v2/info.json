@@ -8,6 +8,10 @@
     "pid": "0xA372",
     "device_version": "0.0.2"
   },
+  "ws2812": {
+    "pin": "A7",
+    "driver": "pwm"
+  },
   "processor": "STM32F072",
   "bootloader": "stm32-dfu",
   "matrix_pins": {

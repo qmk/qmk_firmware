@@ -1,4 +1,9 @@
 {
+    "matrix_pins": {
+        "cols": ["B7", "D6", "F7", "F6", "B6", "D4", "E6", "B4", "B5", "C6", "D7"],
+        "rows": ["D0", "D1", "D3", "D2"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "caterina"
 }

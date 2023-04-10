@@ -7,6 +7,9 @@
         "vid": "0x20A0",
         "pid": "0x422D"
     },
+    "ws2812": {
+        "pin": "E2"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

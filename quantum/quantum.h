@@ -18,7 +18,7 @@
 #include "platform_deps.h"
 #include "wait.h"
 #include "matrix.h"
-#include "keymap.h"
+#include "keyboard.h"
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -36,6 +36,9 @@
 #    include "rgb_matrix.h"
 #endif
 
+#include "keymap_common.h"
+#include "quantum_keycodes.h"
+#include "keycode_config.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"
@@ -44,10 +47,12 @@
 #include "sync_timer.h"
 #include "gpio.h"
 #include "atomic_util.h"
+#include "host.h"
 #include "led.h"
 #include "action_util.h"
 #include "action_tapping.h"
 #include "print.h"
+#include "debug.h"
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>

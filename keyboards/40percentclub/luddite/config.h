@@ -1,12 +1,5 @@
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { D3, D2, D1, D0, D4, C6, D7, E6 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6 }
-
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -14,7 +7,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN B4
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

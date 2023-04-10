@@ -18,19 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring of each half
-#define MATRIX_COL_PINS \
-    { A15, B3, B4, B5, B6, B7 }
-#define MATRIX_ROW_PINS \
-    { B12, B13, B14, B15, A8, A10 }
-
-#define DIODE_DIRECTION     COL2ROW
-
 // #define USB_VBUS_PIN        B10 // doesn't seem to work for me on one of my controllers... */
 #define SPLIT_HAND_PIN      C14  // high = left, low = right
 
 // WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN          A1
 #define WS2812_PWM_DRIVER   PWMD2  // default: PWMD2
 #define WS2812_PWM_CHANNEL  2      // default: 2
 #define WS2812_PWM_PAL_MODE 1      // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2

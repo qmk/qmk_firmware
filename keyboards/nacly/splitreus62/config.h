@@ -18,22 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// wiring of each half
-#define MATRIX_ROW_PINS { D3, D2, D1, D4, C6, D7 }
-#define MATRIX_COL_PINS { E6, B4, B5, B6, B2, B3 }
-
-#define DIODE_DIRECTION ROW2COL
-
 #define SPLIT_HAND_PIN F4
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B1
 
 #define RGBLED_NUM 12    // Number of LEDs
 

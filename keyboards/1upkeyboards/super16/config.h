@@ -17,27 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS \
-    { D1, D0, F4, F5 }
-#define MATRIX_COL_PINS \
-    { D4, C6, F6, F7 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 16  // Add 12 if attaching the RGB LED ring
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    ifdef RGBLIGHT_ENABLE
@@ -109,7 +88,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #    endif
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

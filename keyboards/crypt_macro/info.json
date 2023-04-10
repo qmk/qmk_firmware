@@ -8,6 +8,10 @@
         "pid": "0x434D",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "B4",
+        "driver": "pwm"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "matrix_pins": {

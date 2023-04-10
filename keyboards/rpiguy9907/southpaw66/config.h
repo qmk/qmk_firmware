@@ -19,14 +19,6 @@
 
 #define TAPPING_TERM 400
 
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS { D7, C6, D4, D0, D1, D2, D3 }
-#define MATRIX_COL_PINS { E6, B4, B5, F4, F5, F6, F7, B1, B3, B2 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -15,15 +15,7 @@
  */
 #pragma once
 
-/* PRKL30 feather pinout */
-#define MATRIX_ROW_PINS { F4, F1, F0, D2}
-#define MATRIX_COL_PINS { D3, D1, B7, D6, C7, B6, B5, D7, C6, D0}
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* RGB Light Configuration */
-
-#define RGB_DI_PIN D1
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

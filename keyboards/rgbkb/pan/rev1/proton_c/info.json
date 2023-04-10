@@ -1,4 +1,9 @@
 {
+    "matrix_pins": {
+        "cols": ["A8", "A6", "B0", "B1", "B2", "B4", "B5", "A1", "A2", "B3", "B9", "A10", "A9"],
+        "rows": ["A15", "B10", "A14", "A13", "A7"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",
@@ -7,5 +12,8 @@
             {"pin_a": "B14", "pin_b": "B15"},
             {"pin_a": "B11", "pin_b": "B12"}
         ]
+    },
+    "ws2812": {
+        "pin": "A3"
     }
 }

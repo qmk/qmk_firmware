@@ -1,6 +1,5 @@
 #pragma once
 
-#include "pico.h"
 #include "quantum.h"
 
 #define LAYOUT( \

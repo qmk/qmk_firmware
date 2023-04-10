@@ -17,13 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS {D3, F4, D2, F5, D7, B4, C6, E6}
-#define MATRIX_COL_PINS {D1, F6, F7, B1, B3, B2, B6}
-
 /* WS2812 RGB LED */
-#define RGB_DI_PIN D4
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -35,8 +29,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 14
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 #define TAPPING_TERM 200

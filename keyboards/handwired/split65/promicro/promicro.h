@@ -15,7 +15,7 @@
  */
 #pragma once 
 
-#include "split65.h"
+#include "quantum.h"
 
 #define LAYOUT( \
     L00, L01, L02, L03, L04, L05, L06, R07, R06, R05, R04, R03, R02, R01, R00, \

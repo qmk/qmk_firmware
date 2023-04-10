@@ -24,12 +24,15 @@
     },
     "rgblight": {
         "led_count": 1,
-        "pin": "GP12",
         "split": true,
         "layers": {
             "enabled": true,
             "max": 3
         }
+    },
+    "ws2812": {
+        "pin": "GP12",
+        "driver": "vendor"
     },
     "split": {
         "enabled": true,

@@ -31,6 +31,9 @@
         "key_lock": false,
         "rgb_matrix": true
     },
+    "ws2812": {
+        "pin": "E6"
+    },
     "community_layouts": [ "65_iso" ],
     "layouts": {
         "LAYOUT_65_iso": {

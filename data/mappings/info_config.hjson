@@ -10,6 +10,9 @@
     // deprecated: Default `false`. Set to `true` to turn on warning when a value exists
     // invalid: Default `false`. Set to `true` to generate errors when a value exists
     // replace_with: use with a key marked deprecated or invalid to designate a replacement
+    "APA102_DI_PIN": {"info_key": "apa102.data_pin"},
+    "APA102_CI_PIN": {"info_key": "apa102.clock_pin"},
+    "APA102_DEFAULT_BRIGHTNESS": {"info_key": "apa102.default_brightness", "value_type": "int"},
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "bool"},
     "BREATHING_PERIOD": {"info_key": "backlight.breathing_period", "value_type": "int"},
@@ -25,6 +28,7 @@
     "BOOTMAGIC_LITE_COLUMN_RIGHT": {"info_key": "split.bootmagic.matrix.1", "value_type": "int"},
     "BOTH_SHIFTS_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.both_shifts_turns_on", "value_type": "bool"},
     "CAPS_WORD_IDLE_TIMEOUT": {"info_key": "caps_word.idle_timeout", "value_type": "int"},
+    "CAPS_WORD_INVERT_ON_SHIFT": {"info_key": "caps_word.invert_on_shift", "value_type": "bool"},
     "COMBO_COUNT": {"info_key": "combo.count", "value_type": "int"},
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
     "DEBOUNCE": {"info_key": "debounce", "value_type": "int"},
@@ -69,7 +73,6 @@
     "PS2_DATA_PIN": {"info_key": "ps2.data_pin"},
     "RETRO_TAPPING": {"info_key": "tapping.retro", "value_type": "bool"},
     "RETRO_TAPPING_PER_KEY": {"info_key": "tapping.retro_per_key", "value_type": "bool"},
-    "RGB_DI_PIN": {"info_key": "rgblight.pin"},
     "RGBLED_NUM": {"info_key": "rgblight.led_count", "value_type": "int"},
     "RGBLED_SPLIT": {"info_key": "rgblight.split_count", "value_type": "array.int"},
     "RGBLIGHT_LAYER_BLINK": {"info_key": "rgblight.layers.blink", "value_type": "bool"},
@@ -116,8 +119,12 @@
     "USB_MAX_POWER_CONSUMPTION": {"info_key": "usb.max_power", "value_type": "int"},
     "USB_POLLING_INTERVAL_MS": {"info_key": "usb.polling_interval", "value_type": "int"},
     "USB_SUSPEND_WAKEUP_DELAY": {"info_key": "usb.suspend_wakeup_delay", "value_type": "int"},
+    "WS2812_DI_PIN": {"info_key": "ws2812.pin"},
+    "WS2812_I2C_ADDRESS": {"info_key": "ws2812.i2c_address", "value_type": "hex"},
+    "WS2812_I2C_TIMEOUT": {"info_key": "ws2812.i2c_timeout", "value_type": "int"},
 
     // Items we want flagged in lint
+    "RGB_DI_PIN": {"info_key": "rgblight.pin", "invalid": true, "replace_with": "WS2812_DI_PIN or APA102_DI_PIN"},
     "NO_ACTION_MACRO": {"info_key": "_invalid.no_action_macro", "invalid": true},
     "NO_ACTION_FUNCTION": {"info_key": "_invalid.no_action_function", "invalid": true},
     "DESCRIPTION": {"info_key": "_invalid.usb_description", "invalid": true},
@@ -128,7 +135,7 @@
     "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true},
     "TAPPING_FORCE_HOLD": {"info_key": "tapping.force_hold", "value_type": "bool", "deprecated": true},
     "TAPPING_FORCE_HOLD_PER_KEY": {"info_key": "tapping.force_hold_per_key", "value_type": "bool", "deprecated": true},
-    "IGNORE_MOD_TAP_INTERRUPT": {"info_key": "_deprecated.ignore_mod_tap_interrupt", "value_type": "bool", "deprecated": true},
+    "IGNORE_MOD_TAP_INTERRUPT": {"info_key": "_invalid.ignore_mod_tap_interrupt", "value_type": "bool", "invalid": true},
     "IGNORE_MOD_TAP_INTERRUPT_PER_KEY": {"info_key": "_invalid.ignore_mod_tap_interrupt_per_key", "invalid": true}
 
     // USB params, need to mark as failure when specified in config.h, rather than deprecated

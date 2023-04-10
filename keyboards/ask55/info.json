@@ -38,9 +38,11 @@
         "hue_steps": 8,
         "led_count": 8,
         "max_brightness": 255,
-        "pin": "F4",
         "saturation_steps": 8,
         "sleep": true
+    },
+    "ws2812": {
+        "pin": "F4"
     },
     "usb": {
         "device_version": "0.0.1",

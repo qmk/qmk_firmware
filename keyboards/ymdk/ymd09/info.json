@@ -8,6 +8,11 @@
         "pid": "0x4409",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D6", "D2", "D1"],
+        "rows": ["F5", "F4", "F1"]
+    },
+    "diode_direction": "ROW2COL",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "features": {
@@ -19,13 +24,11 @@
         "nkro": true,
         "rgb_matrix": true,
     },
+    "ws2812": {
+        "pin": "E2"
+    },
     "build": {
         "lto": true
-    },
-    "diode_direction": "ROW2COL",
-    "matrix_pins": {
-        "cols": ["D6", "D2", "D1"],
-        "rows": ["F5", "F4", "F1"]
     },
     "layouts": {
         "LAYOUT": {

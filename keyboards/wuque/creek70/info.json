@@ -45,6 +45,9 @@
     "caps_lock": "F6",
     "on_state": 0
   },
+  "ws2812": {
+    "pin": "D0"
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

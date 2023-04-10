@@ -8,6 +8,11 @@
         "pid": "0x6520",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["B7", "B6", "B5", "B4", "B3", "B2", "B14", "B1", "B15", "B0", "B9", "B10", "B11", "B12", "A14", "A13", "A4", "A5", "A7", "A8", "A15"],
+        "rows": ["A6", "B13", "B8", "A0", "A1", "A2"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",

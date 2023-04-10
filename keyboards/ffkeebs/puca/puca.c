@@ -29,17 +29,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (clockwise) {
-        tap_code_delay(KC_VOLU, 10);  // Right
-    } else {
-        tap_code_delay(KC_VOLD, 10);  // Left
-    }
-    return false;
-}
-
-
 // OLED
 #ifdef OLED_ENABLE
 __attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }

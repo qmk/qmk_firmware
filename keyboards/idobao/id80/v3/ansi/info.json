@@ -25,6 +25,9 @@
         "pid": "0x0380",
         "device_version": "3.0.0"
     },
+    "ws2812": {
+        "pin": "E2"
+    },
     "bootmagic": {
         "matrix": [0, 5]
     },

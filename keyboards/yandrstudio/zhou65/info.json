@@ -4,6 +4,11 @@
         "pid": "0xAAAD",
         "device_version": "1.0.0"
     },
+    "matrix_pins": {
+        "cols": ["B9", "B6", "B5", "B4", "B3", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A8", "B15", "B14"],
+        "rows": ["A2", "A1", "B8", "B7", "C15"]
+    },
+    "diode_direction": "ROW2COL",
     "indicators": {
         "caps_lock": "A15",
         "on_state": 0

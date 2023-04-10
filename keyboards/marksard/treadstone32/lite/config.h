@@ -17,24 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { B6, B2, F7, F6, B3, B1, F4, F5 }
-#define MATRIX_COL_PINS { B5, B4, E6, D7, C6 }
-
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION COL2ROW
-#define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
   #define RGBLED_NUM 6
   #ifndef IOS_DEVICE_ENABLE
     #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
@@ -55,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //   #define RGBLIGHT_EFFECT_RGB_TEST
 //   #define RGBLIGHT_EFFECT_ALTERNATING
-#endif
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for treadstone32 keyboard

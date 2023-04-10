@@ -2,18 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-// wiring of each half
-#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2, B6 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Select hand configuration */
 #define MASTER_LEFT
 
-
-#define RGB_DI_PIN D4
 #define RGBLED_NUM 88
 #define RGBLED_SPLIT { 44, 44 }
 #define RGBLIGHT_SPLIT

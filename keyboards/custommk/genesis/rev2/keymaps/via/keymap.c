@@ -95,46 +95,50 @@ void keyboard_post_init_user(void) {
 
 keyevent_t encoder_left_ccw = {
     .key = (keypos_t){.row = 5, .col = 0},
-    .pressed = false
+    .pressed = false,
+	.type = KEY_EVENT
 };
 
 keyevent_t encoder_left_cw = {
     .key = (keypos_t){.row = 5, .col = 1},
     .pressed = false
+	.type = KEY_EVENT
 };
 
 keyevent_t encoder_right_ccw = {
     .key = (keypos_t){.row = 5, .col = 2},
     .pressed = false
+	.type = KEY_EVENT
 };
 
 keyevent_t encoder_right_cw = {
     .key = (keypos_t){.row = 5, .col = 3},
     .pressed = false
+	.type = KEY_EVENT
 };
 
 void matrix_scan_user(void) {
     if (IS_PRESSED(encoder_left_ccw)) {
         encoder_left_ccw.pressed = false;
-        encoder_left_ccw.time = (timer_read() | 1);
+        encoder_left_ccw.time = timer_read();
         action_exec(encoder_left_ccw);
     }
 
     if (IS_PRESSED(encoder_left_cw)) {
         encoder_left_cw.pressed = false;
-        encoder_left_cw.time = (timer_read() | 1);
+        encoder_left_cw.time = timer_read();
         action_exec(encoder_left_cw);
     }
 
     if (IS_PRESSED(encoder_right_ccw)) {
         encoder_right_ccw.pressed = false;
-        encoder_right_ccw.time = (timer_read() | 1);
+        encoder_right_ccw.time = timer_read();
         action_exec(encoder_right_ccw);
     }
 
     if (IS_PRESSED(encoder_right_cw)) {
         encoder_right_cw.pressed = false;
-        encoder_right_cw.time = (timer_read() | 1);
+        encoder_right_cw.time = timer_read();
         action_exec(encoder_right_cw);
     }
 	
@@ -145,21 +149,21 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 	if (index == 0) {
 		if (clockwise) {
 			encoder_left_cw.pressed = true;
-			encoder_left_cw.time = (timer_read() | 1);
+			encoder_left_cw.time = timer_read();
 			action_exec(encoder_left_cw);
 		} else {
 			encoder_left_ccw.pressed = true;
-			encoder_left_ccw.time = (timer_read() | 1);
+			encoder_left_ccw.time = timer_read();
 			action_exec(encoder_left_ccw);
 		}
 	} else {
 		if (clockwise) {
 			encoder_right_cw.pressed = true;
-			encoder_right_cw.time = (timer_read() | 1);
+			encoder_right_cw.time = timer_read();
 			action_exec(encoder_right_cw);
 		} else {
 			encoder_right_ccw.pressed = true;
-			encoder_right_ccw.time = (timer_read() | 1);
+			encoder_right_ccw.time = timer_read();
 			action_exec(encoder_right_ccw);
 		}
 	}
