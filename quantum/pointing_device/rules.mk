@@ -2,7 +2,7 @@
 POINTING_DEVICE_DRIVERS ?=
 
 # The list of permissible drivers that can be listed in POINTING_DEVICE_DRIVERS
-VALID_POINTING_DEVICE_DRIVERS := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3360 pmw3389 pimoroni_trackball custom_i2c custom_spi
+VALID_POINTING_DEVICE_DRIVERS := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3320 pmw3360 pmw3389 pimoroni_trackball custom_i2c custom_spi
 
 OPT_DEFS += -DPOINTING_DEVICE_ENABLE
 MOUSE_ENABLE := yes
