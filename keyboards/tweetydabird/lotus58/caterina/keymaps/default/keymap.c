@@ -45,6 +45,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
+#ifdef OLED_ENABLE
 static void print_status_narrow(void) {
 	// Create OLED content
     oled_write_P(PSTR("\n"), false);
@@ -71,7 +72,6 @@ static void print_status_narrow(void) {
             oled_write_P(PSTR("Undef"), false);
     }
 	
-	// Display autoshift
     oled_write_P(PSTR("\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("Caps- lock"), led_usb_state.caps_lock);
@@ -89,3 +89,4 @@ bool oled_task_user(void) {
     }
 	return false;
 }
+#endif

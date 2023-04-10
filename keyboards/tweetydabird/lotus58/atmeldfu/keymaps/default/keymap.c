@@ -45,6 +45,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
+#ifdef OLED_ENABLE
 static void print_status_narrow(void) {
 	// Create OLED content
     oled_write_P(PSTR("\n"), false);
@@ -89,3 +90,4 @@ bool oled_task_user(void) {
     }
 	return false;
 }
+#endif
