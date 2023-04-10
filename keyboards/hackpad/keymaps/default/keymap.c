@@ -28,12 +28,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             RGB_M_SW, RGB_M_SN, RGB_M_K,  RGB_HUD,
                             RGB_M_X,  RGB_M_G,  RGB_M_TW, RGB_VAI,
                             RGB_TOG,  RGB_SAI,  RGB_SAD,  RGB_VAD)};
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code_delay(KC_VOLU, 10);
-    } else {
-        tap_code_delay(KC_VOLD, 10);
-    }
-    return false;
-}
