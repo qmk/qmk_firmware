@@ -38,13 +38,6 @@
 #define DRIVER_COUNT 2
 
 
-/* UART Config  */
-
-#define SERIAL_DRIVER SD1
-#define SD1_TX_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
-
-
-
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 //#define RGB_MATRIX_KEYRELEASES         // reacts to keyreleases (instead of keypresses)
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
