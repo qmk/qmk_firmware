@@ -27,6 +27,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "pin_compatible":"promicro",
+    "rgblight":{
+        "pin": "D3",
+        "led_count": 12
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
