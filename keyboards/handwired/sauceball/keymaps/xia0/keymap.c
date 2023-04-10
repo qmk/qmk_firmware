@@ -23,30 +23,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       drag_scroll_key_timer = timer_read();
     }
     else if (timer_elapsed(drag_scroll_key_timer) < PS2_MOUSE_SCROLL_BTN_SEND) {  // key was released within ms defined by PS2_MOUSE_SCROLL_BTN_SEND (default 300)
-      //tap_code(DRAG_SCROLL_KEY);  // TODO why does this not work? keys other than KC_BTN# seem to work
-
+      
       /*
-      // following code from https://github.com/qmk/qmk_firmware/blob/master/keyboards/bpiphany/kitten_paw/keymaps/ickerwx/keymap.c
-      mousekey_clear();
-      register_mods(MOD_BIT(KC_LCTL));
-      send_keyboard_report();
-      wait_ms(5);
-      mousekey_on(KC_BTN1);
-      mousekey_send();
-      wait_ms(10);
-      mousekey_off(KC_BTN1);
-      mousekey_send();
-      wait_ms(5);
-      unregister_mods(MOD_BIT(KC_LCTL));
-      send_keyboard_report();
+        following code adapted from https://github.com/qmk/qmk_firmware/blob/master/keyboards/bpiphany/kitten_paw/keymaps/ickerwx/keymap.c
+        required due to tap_code not working with PS2_MOUSE_ENABLE 
       */
 
-      mousekey_clear();
-      mousekey_on(DRAG_SCROLL_KEY);
-      mousekey_send();
-      wait_ms(10);
-      mousekey_off(DRAG_SCROLL_KEY);
-      mousekey_send();
+      // tap_code(KC_BTN#) does not work with PS2_MOUSE_ENABLE
+      switch (DRAG_SCROLL_KEY) {
+        case KC_BTN1:
+        case KC_BTN2:
+        case KC_BTN3:
+        case KC_BTN4:
+        case KC_BTN5:
+        case KC_BTN6:
+        case KC_BTN7:
+        case KC_BTN8:
+          mousekey_clear();
+          mousekey_on(DRAG_SCROLL_KEY);
+          mousekey_send();
+          wait_ms(10);
+          mousekey_off(DRAG_SCROLL_KEY);
+          mousekey_send();
+          break;
+        default:
+          tap_code(DRAG_SCROLL_KEY);
+          break;
+      }
+      
     }
 
     is_drag_scrolling = record->event.pressed;
