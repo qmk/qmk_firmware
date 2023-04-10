@@ -371,6 +371,11 @@ INSTANTIATE_TEST_CASE_P(
             "OSL", OSL(1), 1, KC_NO, true},
         CapsWordPressUserParams{
             "LT_held", LT_1_KC_A, TAPPING_TERM + 1, KC_NO, true},
+        // Tri-Layer keys are ignored and continue Caps Word.
+        CapsWordPressUserParams{
+            "TL_LOWR", TL_LOWR, 1, KC_NO, true},
+        CapsWordPressUserParams{
+            "TL_UPPR", TL_UPPR, 1, KC_NO, true},
         // AltGr keys are ignored and continue Caps Word.
         CapsWordPressUserParams{
             "KC_RALT", KC_RALT, 1, KC_NO, true},
