@@ -23,8 +23,3 @@ void bootloader_jump(void) {
 void mcu_reset(void) {
     NVIC_SystemReset();
 }
-
-//void enter_bootloader_mode_if_requested(void) {
-//    BKP->DR1 = 0x5343;
-//    NVIC_SystemReset();
-//
