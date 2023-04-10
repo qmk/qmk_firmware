@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define XXX KC_NO
 
-#define LAYOUT_5x7_5( \
+#define LAYOUT( \
     L11, L12, L13, L14, L15, L16, L17, \
     L21, L22, L23, L24, L25, L26, L27, \
     L31, L32, L33, L34, L35, L36, L37, \
