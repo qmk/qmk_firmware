@@ -46,11 +46,11 @@
 // clang-format on
 
 const pointing_device_driver_t     adns5050_driver_default = {.init = adns5050_init, .get_report = adns5050_get_report, .set_cpi = adns5050_set_cpi, .get_cpi = adns5050_get_cpi};
-const adns5050_config_t adns5050_config_default = {.cs = ADNS5050_CS_PIN, .sclk = ADNS5050_SCLK_PIN, .sdio = ADNS5050_SDIO_PIN};
+const pointing_device_3wire_spi_config_t adns5050_config_default = {.cs = ADNS5050_CS_PIN, .sclk = ADNS5050_SCLK_PIN, .sdio = ADNS5050_SDIO_PIN};
 
 
 void adns5050_init(const void* config) {
-    adns5050_config_t* adns5050_config = (adns5050_config_t*)config;
+    pointing_device_3wire_spi_config_t* adns5050_config = (pointing_device_3wire_spi_config_t*)config;
 
     // Initialize the ADNS serial pins.
     gpio_set_pin_output(adns5050_config->sclk);
@@ -74,21 +74,21 @@ void adns5050_init(const void* config) {
 // Perform a synchronization with the ADNS.
 // Just as with the serial protocol, this is used by the slave to send a
 // synchronization signal to the master.
-void adns5050_sync(adns5050_config_t* adns5050_config) {
+void adns5050_sync(pointing_device_3wire_spi_config_t* adns5050_config) {
     gpio_write_pin_low(adns5050_config->cs);
     wait_us(1);
     gpio_write_pin_high(adns5050_config->cs);
 }
 
-void adns5050_cs_select(adns5050_config_t* adns5050_config) {
+void adns5050_cs_select(pointing_device_3wire_spi_config_t* adns5050_config) {
     gpio_write_pin_low(adns5050_config->cs);
 }
 
-void adns5050_cs_deselect(adns5050_config_t* adns5050_config) {
+void adns5050_cs_deselect(pointing_device_3wire_spi_config_t* adns5050_config) {
     gpio_write_pin_high(adns5050_config->cs);
 }
 
-uint8_t adns5050_serial_read(adns5050_config_t* adns5050_config) {
+uint8_t adns5050_serial_read(pointing_device_3wire_spi_config_t* adns5050_config) {
     gpio_set_pin_input(adns5050_config->sdio);
     uint8_t byte = 0;
 
@@ -105,8 +105,7 @@ uint8_t adns5050_serial_read(adns5050_config_t* adns5050_config) {
     return byte;
 }
 
-
-void adns5050_serial_write(adns5050_config_t* adns5050_config, uint8_t data) {
+void adns5050_serial_write(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t data) {
     gpio_set_pin_output(adns5050_config->sdio);
 
     for (int8_t b = 7; b >= 0; b--) {
@@ -133,7 +132,7 @@ void adns5050_serial_write(adns5050_config_t* adns5050_config, uint8_t data) {
 
 // Read a byte of data from a register on the ADNS.
 // Don't forget to use the register map (as defined in the header file).
-uint8_t adns5050_read_reg(adns5050_config_t* adns5050_config, uint8_t reg_addr) {
+uint8_t adns5050_read_reg(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t reg_addr) {
     adns5050_cs_select(adns5050_config);
 
     adns5050_serial_write(adns5050_config, reg_addr);
@@ -156,14 +155,14 @@ uint8_t adns5050_read_reg(adns5050_config_t* adns5050_config, uint8_t reg_addr) 
     return byte;
 }
 
-void adns5050_write_reg(adns5050_config_t* adns5050_config, uint8_t reg_addr, uint8_t data) {
+void adns5050_write_reg(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t reg_addr, uint8_t data) {
     adns5050_cs_select(adns5050_config);
     adns5050_serial_write(adns5050_config, 0b10000000 | reg_addr);
     adns5050_serial_write(adns5050_config, data);
     adns5050_cs_deselect(adns5050_config);
 }
 
-report_adns5050_t adns5050_read_burst(adns5050_config_t* adns5050_config) {
+report_adns5050_t adns5050_read_burst(pointing_device_3wire_spi_config_t* adns5050_config) {
     adns5050_cs_select(adns5050_config);
 
     report_adns5050_t data;
@@ -201,19 +200,19 @@ int8_t convert_twoscomp(uint8_t data) {
 
 // Don't forget to use the definitions for CPI in the header file.
 void adns5050_set_cpi(const void* config, uint16_t cpi) {
-    adns5050_config_t* adns5050_config = (adns5050_config_t*)config;
+    pointing_device_3wire_spi_config_t* adns5050_config = (pointing_device_3wire_spi_config_t*)config;
     uint8_t cpival = constrain((cpi / 125), 0x1, 0xD); // limits to 0--119
 
     adns5050_write_reg(adns5050_config, REG_MOUSE_CONTROL2, 0b10000 | cpival);
 }
 
 uint16_t adns5050_get_cpi(const void* config) {
-    adns5050_config_t* adns5050_config = (adns5050_config_t*)config;
+    pointing_device_3wire_spi_config_t* adns5050_config = (pointing_device_3wire_spi_config_t*)config;
     uint8_t cpival = adns5050_read_reg(adns5050_config, REG_MOUSE_CONTROL2);
     return (uint16_t)((cpival & 0b10000) * 125);
 }
 
-bool adns5050_check_signature(adns5050_config_t* adns5050_config) {
+bool adns5050_check_signature(pointing_device_3wire_spi_config_t* adns5050_config) {
     uint8_t pid  = adns5050_read_reg(adns5050_config, REG_PRODUCT_ID);
     uint8_t rid  = adns5050_read_reg(adns5050_config, REG_REVISION_ID);
     uint8_t pid2 = adns5050_read_reg(adns5050_config, REG_PRODUCT_ID2);
@@ -222,7 +221,7 @@ bool adns5050_check_signature(adns5050_config_t* adns5050_config) {
 }
 
 report_mouse_t adns5050_get_report(const void* config) {
-    adns5050_config_t* adns5050_config = (adns5050_config_t*)config;
+    pointing_device_3wire_spi_config_t* adns5050_config = (pointing_device_3wire_spi_config_t*)config;
 
     report_adns5050_t data = adns5050_read_burst(adns5050_config);
     report_mouse_t mouse_report = {0};
