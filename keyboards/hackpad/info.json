@@ -2,7 +2,7 @@
     "manufacturer": "Nico Stuhlmueller",
     "keyboard_name": "hackpad",
     "maintainer": "ThePurox",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,
@@ -23,16 +23,17 @@
             {"pin_a" : "F5", "pin_b" : "F4"}
         ]
     },
-    "processor": "atmega32u4",
     "url": "https://git.imaginaerraum.de/Purox/Hackpad",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0xFEED"
     },
+    "ws2812": {
+        "pin": "D4"
+    },
     "rgblight" : {
         "led_count" : 16,
-        "pin": "D4",
         "hue_steps" : 20,
         "brightness_steps" : 10,
         "saturation_steps" : 20,
@@ -52,7 +53,7 @@
         },
     },
     "layouts": {
-        "LAYOUT_numpad_4x4": {
+        "LAYOUT": {
             "layout": [
                 { "matrix": [0, 3], "x": 3, "y": 0 },
                 { "matrix": [1, 0], "x": 0, "y": 1 },
