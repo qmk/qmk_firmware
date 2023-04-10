@@ -44,30 +44,24 @@ typedef struct {
     int8_t dy;
 } report_adns5050_t;
 
-typedef struct {
-    pin_t sdio;
-    pin_t sclk;
-    pin_t cs;
-} adns5050_config_t;
-
 const pointing_device_driver_t adns5050_driver_default;
 
 #if defined(ADNS5050_SCLK_PIN) & defined(ADNS5050_SDIO_PIN) & defined(ADNS5050_CS_PIN)
-const adns5050_config_t adns5050_config_default;
+const pointing_device_3wire_spi_config_t adns5050_config_default;
 #endif
 
 // A bunch of functions to implement the ADNS5050-specific serial protocol.
 // Note that the "serial.h" driver is insufficient, because it does not
 // manually manipulate a serial clock signal.
 void              adns5050_init(const void* config);
-void              adns5050_sync(adns5050_config_t* adns5050_config);
-uint8_t           adns5050_serial_read(adns5050_config_t* adns5050_config);
-void              adns5050_serial_write(adns5050_config_t* adns5050_config, uint8_t data);
-uint8_t           adns5050_read_reg(adns5050_config_t* adns5050_config, uint8_t reg_addr);
-void              adns5050_write_reg(adns5050_config_t* adns5050_config, uint8_t reg_addr, uint8_t data);
-report_adns5050_t adns5050_read_burst(adns5050_config_t* adns5050_config);
+void              adns5050_sync(pointing_device_3wire_spi_config_t* adns5050_config);
+uint8_t           adns5050_serial_read(pointing_device_3wire_spi_config_t* adns5050_config);
+void              adns5050_serial_write(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t data);
+uint8_t           adns5050_read_reg(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t reg_addr);
+void              adns5050_write_reg(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t reg_addr, uint8_t data);
+report_adns5050_t adns5050_read_burst(pointing_device_3wire_spi_config_t* adns5050_config);
 void              adns5050_set_cpi(const void* config, uint16_t cpi);
 uint16_t          adns5050_get_cpi(const void* config);
 int8_t            convert_twoscomp(uint8_t data);
-bool              adns5050_check_signature(adns5050_config_t* adns5050_config);
+bool              adns5050_check_signature(pointing_device_3wire_spi_config_t* adns5050_config);
 report_mouse_t    adns5050_get_report(const void* config);
