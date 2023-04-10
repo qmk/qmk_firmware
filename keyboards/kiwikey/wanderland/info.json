@@ -8,6 +8,17 @@
         "pid": "0x574C",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B6",
+        "num_lock": "C6",
+        "scroll_lock": "B5"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

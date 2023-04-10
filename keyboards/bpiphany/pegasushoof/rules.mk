@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u2
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -16,7 +10,5 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
-
-LAYOUTS = tkl_ansi
 
 DEFAULT_FOLDER=bpiphany/pegasushoof/2013

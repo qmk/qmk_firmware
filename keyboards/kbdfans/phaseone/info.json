@@ -8,6 +8,13 @@
         "pid": "0x0103",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "D6",
+        "num_lock": "D7",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_65_ansi_wkl": "LAYOUT_65_ansi_blocker_tsangan_wkl"
     },

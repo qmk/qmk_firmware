@@ -16,20 +16,9 @@
 
 #pragma once
 
-
-
-#include "config_common.h"
-
-#define SOFT_SERIAL_PIN D3	// RX8
-
 /* select keyboard  master board  - I2C or Serial communication master    */
 #define MASTER_RIGHT
 
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 7
 
 // wiring of each half
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2}
@@ -52,9 +41,6 @@
 
 #define MATRIX_IO_DELAY 15  // default  30
 #define TAP_CODE_DELAY  50   // default 0, disabled
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 3
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

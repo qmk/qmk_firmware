@@ -8,6 +8,8 @@
         "pid": "0xDFA3",
         "device_version": "0.2.0"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_base": {
             "layout": [

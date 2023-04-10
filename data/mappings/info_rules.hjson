@@ -12,7 +12,9 @@
     // replace_with: use with a key marked deprecated or invalid to designate a replacement
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
+    "BOOTMAGIC_ENABLE": {"info_key": "bootmagic.enabled", "value_type": "bool"},
     "BLUETOOTH_DRIVER": {"info_key": "bluetooth.driver"},
+    "BACKLIGHT_DRIVER": {"info_key": "backlight.driver"},
     "CAPS_WORD_ENABLE": {"info_key": "caps_word.enabled", "value_type": "bool"},
     "DEBOUNCE_TYPE": {"info_key": "build.debounce_type"},
     "ENCODER_ENABLE": {"info_key": "encoder.enabled", "value_type": "bool"},
@@ -36,6 +38,8 @@
     "PS2_ENABLE": {"info_key": "ps2.enabled", "value_type": "bool"},
     "PS2_MOUSE_ENABLE": {"info_key": "ps2.mouse_enabled", "value_type": "bool"},
     "PS2_DRIVER": {"info_key": "ps2.driver"},
+
+    "PLATFORM_KEY": {"info_key": "platform_key", "to_json": false},
 
     // Items we want flagged in lint
     "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},

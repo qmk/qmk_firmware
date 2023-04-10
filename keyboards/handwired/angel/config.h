@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
-
 /*
  * Keyboard Matrix Assignments
  * COLS: AVR pins used for columns, left to right
@@ -35,9 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // https://docs.qmk.fm/using-qmk/software-features/tap_hold
 #define TAPPING_TERM 200
 #define IGNORE_MOD_TAP_INTERRUPT
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 #define MATRIX_HAS_GHOST

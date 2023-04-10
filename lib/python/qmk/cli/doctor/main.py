@@ -119,13 +119,15 @@ def doctor(cli):
     # Make sure the basic CLI tools we need are available and can be executed.
     bin_ok = check_binaries()
 
-    if not bin_ok:
+    if bin_ok == CheckStatus.ERROR:
         if yesno('Would you like to install dependencies?', default=True):
             cli.run(['util/qmk_install.sh', '-y'], stdin=DEVNULL, capture_output=False)
             bin_ok = check_binaries()
 
-    if bin_ok:
+    if bin_ok == CheckStatus.OK:
         cli.log.info('All dependencies are installed.')
+    elif bin_ok == CheckStatus.WARNING:
+        cli.log.warning('Issues encountered while checking dependencies.')
     else:
         status = CheckStatus.ERROR
 
@@ -142,7 +144,7 @@ def doctor(cli):
     if sub_ok == CheckStatus.OK:
         cli.log.info('Submodules are up to date.')
     else:
-        if yesno('Would you like to clone the submodules?', default=True):
+        if git_check_repo() and yesno('Would you like to clone the submodules?', default=True):
             submodules.update()
             sub_ok = check_submodules()
 

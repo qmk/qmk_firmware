@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u2
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -23,5 +17,3 @@ ENCODER_ENABLE = yes	    # Enable Rotary Encoders
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no
 BACKLIGHT_SUPPORTED = no
-
-LAYOUTS = ortho_4x12 planck_mit

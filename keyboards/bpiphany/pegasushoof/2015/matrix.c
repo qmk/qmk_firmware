@@ -70,7 +70,7 @@ void matrix_init(void)
     matrix_debouncing[i] = 0;
   }
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -90,7 +90,7 @@ uint8_t matrix_scan(void)
   }
 
   debounce(matrix_debouncing, matrix, matrix_rows(), changed);
-  matrix_scan_quantum();
+  matrix_scan_kb();
 
   return (uint8_t)changed;
 }
