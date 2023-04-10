@@ -61,6 +61,12 @@ typedef struct {
 } pointing_device_i2c_config_t;
 
 typedef struct {
+    pin_t sdio;
+    pin_t sclk;
+    pin_t cs;
+} pointing_device_3wire_spi_config_t;
+
+typedef struct {
     pin_t pin;
     bool  active_low;
 } pointing_device_motion_t;
@@ -127,6 +133,9 @@ typedef struct {
 #if defined(POINTING_DEVICE_DRIVER_PIMORONI_TRACKBALL)
 #    include "pimoroni_trackball.h"
 #endif
+#if defined(POINTING_DEVICE_DRIVER_PMW3320)
+#    include "pmw3320.h"
+#endif
 #if defined(POINTING_DEVICE_DRIVER_PMW3360)
 #    include "pmw3360.h"
 #endif
@@ -167,9 +176,11 @@ void           pointing_device_init_user(void);
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report, uint8_t index);
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report, uint8_t index);
 uint8_t        pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button);
-void           pointing_device_adjust_by_defines(report_mouse_t *report);
 void           pointing_device_keycode_handler(uint16_t keycode, bool pressed);
 bool           pointing_deivce_task_get_pointing_reports(report_mouse_t *report);
+void pointing_device_add_and_clamp_report(report_mouse_t* report, report_mouse_t* additional_report);
+bool pointing_device_report_ready(report_mouse_t* last_report, report_mouse_t* new_report, bool* device_was_ready);
+
 
 void                             pointing_device_set_shared_report(pointing_device_shared_report_t report);
 pointing_device_shared_report_t  pointing_device_get_shared_report(void);
