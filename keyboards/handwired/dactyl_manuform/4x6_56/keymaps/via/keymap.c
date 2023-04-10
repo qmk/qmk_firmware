@@ -26,7 +26,7 @@ enum layers {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT(
+    [_BASE] = LAYOUT_4x6_56(
          KC_ESC,    KC_Q,    KC_W,     KC_E,    KC_R,    KC_T,               KC_Y,   KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
          KC_TAB,    KC_A,    KC_S,     KC_D,    KC_F,    KC_G,               KC_H,   KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
         KC_LSFT,    KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,               KC_N,   KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              KC_CAPS,  KC_GRV,            KC_LGUI, KC_APP
     ),
 
-    [_LOWER] = LAYOUT(
+    [_LOWER] = LAYOUT_4x6_56(
         _______, _______, _______, _______, _______, KC_LBRC,             KC_RBRC, KC_P7,   KC_P8,   KC_P9,   QK_BOOT, KC_PLUS,
         _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END , KC_LPRN,             KC_RPRN, KC_P4,   KC_P5,   KC_P6,   KC_MINS, KC_PIPE,
         _______, _______, _______, _______, _______, _______,             _______, KC_P1,   KC_P2,   KC_P3,   KC_EQL,  KC_UNDS,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, _______,             _______, _______
     ),
 
-    [_RAISE] = LAYOUT(
+    [_RAISE] = LAYOUT_4x6_56(
         _______, QK_BOOT, _______, _______, _______, _______,             _______, _______, KC_NUM, KC_INS,  KC_SCRL, KC_MUTE,
         _______, _______, _______, _______, _______, _______,             _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_VOLU,
         _______, _______, _______, _______, _______, _______,             _______, _______, _______, _______, _______, KC_VOLD,
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______, _______,             _______, _______,
                                             _______, _______,             _______, _______
     ),
-    [_BLANK] = LAYOUT(
+    [_BLANK] = LAYOUT_4x6_56(
         _______, _______, _______, _______, _______, _______,             _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,             _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,             _______, _______, _______, _______, _______, _______,
