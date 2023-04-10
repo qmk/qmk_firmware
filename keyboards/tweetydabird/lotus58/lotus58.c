@@ -3,12 +3,9 @@
 
 #include "quantum.h"
 
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-	// Rotate OLED to fit
-    if (is_keyboard_left()) {
         return OLED_ROTATION_270;
-	}
-    return OLED_ROTATION_270;
 }
 
 void render_logo(void) {
