@@ -112,7 +112,8 @@ enum custom_keycodes {
     TGLCHGR,  //  ToGgLe CH GRoup
 
    // MY tone to distinguish the notes to avoid sustain effect, etc.
-    MY_TONE_MIN,
+   // Since the # of codes exceeds the limit of QK_KB range (=64), these are stated here.
+    MY_TONE_MIN  = QK_USER,
 
     MY_C = MY_TONE_MIN,
     MY_Cs,
