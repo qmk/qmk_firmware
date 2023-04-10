@@ -24,7 +24,8 @@
     "console": false,
     "extrakey": true,
     "mousekey": true,
-    "nkro": true
+    "nkro": true,
+    "encoder": true
   },
   "matrix_pins": {
     "rows": ["F4", "F1", "F0", "C6", "B6", "F5"],
