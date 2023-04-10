@@ -5,7 +5,7 @@
 ## Features:
 - Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others.
 
-- SEVERED! Different RGB settings for Mac Base and Win Base layers. You can set different RGB animations, colors, brightness and speed for the Mac and Win base layers using the standard RGB keyboard shortcuts. (Hi kids, whats for dinner?)
+- SEVERED! Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed for the Mac and Win base layers using the standard RGB keyboard shortcuts. (Hi kids, whats for dinner?)
 
 - Autocorrect is enabled. ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
     - Uses getreuer's 400 entry autocorrect dictionary.   
