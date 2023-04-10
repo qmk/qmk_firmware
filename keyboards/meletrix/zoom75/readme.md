@@ -4,7 +4,7 @@ More Info at [meletrix](https://meletrix.com/)
 ​
 
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
-* Hardware Supported: zoom 75
+* Hardware Supported: Zoom75
 * Hardware Availability: [zoom75](https://meletrix.com/collections/zoom75-collection#)  
 ​
 
@@ -21,7 +21,7 @@ Flashing example for this keyboard:
 Enter the bootloader using one of the following methods:
 
 * Tap the Reset switch mounted on the PCB
-* In the case of the default keymap, use the key combination Fn + Delect
+* In the case of the default keymap, use the key combination Fn + Delete
 * Hold the Esc key while connecting the USB cable (also erases persistent settings)
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

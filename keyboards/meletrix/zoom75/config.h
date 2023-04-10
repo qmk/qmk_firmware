@@ -15,7 +15,3 @@
  */
 
 #pragma once
-
-// Loaction { { col, row } )
-#define ENCODERS_CW_KEY  { { 3, 5 } }
-#define ENCODERS_CCW_KEY { { 4, 5 } }
