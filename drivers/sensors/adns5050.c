@@ -23,31 +23,40 @@
 #include "gpio.h"
 
 // Registers
-// clang-format off
-#define REG_PRODUCT_ID     0x00
-#define REG_REVISION_ID    0x01
-#define REG_MOTION         0x02
-#define REG_DELTA_X        0x03
-#define REG_DELTA_Y        0x04
-#define REG_SQUAL          0x05
-#define REG_SHUTTER_UPPER  0x06
-#define REG_SHUTTER_LOWER  0x07
-#define REG_MAXIMUM_PIXEL  0x08
-#define REG_PIXEL_SUM      0x09
-#define REG_MINIMUM_PIXEL  0x0a
-#define REG_PIXEL_GRAB     0x0b
-#define REG_MOUSE_CONTROL  0x0d
-#define REG_MOUSE_CONTROL2 0x19
-#define REG_LED_DC_MODE    0x22
-#define REG_CHIP_RESET     0x3a
-#define REG_PRODUCT_ID2    0x3e
-#define REG_INV_REV_ID     0x3f
-#define REG_MOTION_BURST   0x63
-// clang-format on
+typedef enum {
+    ADNS5050_REG_PRODUCT_ID     = 0x00,
+    ADNS5050_REG_REVISION_ID    = 0x01,
+    ADNS5050_REG_MOTION         = 0x02,
+    ADNS5050_REG_DELTA_X        = 0x03,
+    ADNS5050_REG_DELTA_Y        = 0x04,
+    ADNS5050_REG_SQUAL          = 0x05,
+    ADNS5050_REG_SHUTTER_UPPER  = 0x06,
+    ADNS5050_REG_SHUTTER_LOWER  = 0x07,
+    ADNS5050_REG_MAXIMUM_PIXEL  = 0x08,
+    ADNS5050_REG_PIXEL_SUM      = 0x09,
+    ADNS5050_REG_MINIMUM_PIXEL  = 0x0a,
+    ADNS5050_REG_PIXEL_GRAB     = 0x0b,
+    ADNS5050_REG_MOUSE_CONTROL  = 0x0d,
+    ADNS5050_REG_MOUSE_CONTROL2 = 0x19,
+    ADNS5050_REG_LED_DC_MODE    = 0x22,
+    ADNS5050_REG_CHIP_RESET     = 0x3a,
+    ADNS5050_REG_PRODUCT_ID2    = 0x3e,
+    ADNS5050_REG_INV_REV_ID     = 0x3f,
+    ADNS5050_REG_MOTION_BURST   = 0x63,
+} adns5050_regs;
 
-const pointing_device_driver_t     adns5050_driver_default = {.init = adns5050_init, .get_report = adns5050_get_report, .set_cpi = adns5050_set_cpi, .get_cpi = adns5050_get_cpi};
+const pointing_device_driver_t adns5050_driver_default = {.init = adns5050_init, .get_report = adns5050_get_report, .set_cpi = adns5050_set_cpi, .get_cpi = adns5050_get_cpi};
+#if defined(ADNS5050_SCLK_PIN) & defined(ADNS5050_SDIO_PIN) & defined(ADNS5050_CS_PIN)
 const pointing_device_3wire_spi_config_t adns5050_config_default = {.cs = ADNS5050_CS_PIN, .sclk = ADNS5050_SCLK_PIN, .sdio = ADNS5050_SDIO_PIN};
+#endif
 
+void              adns5050_sync(pointing_device_3wire_spi_config_t* adns5050_config);
+uint8_t           adns5050_serial_read(pointing_device_3wire_spi_config_t* adns5050_config);
+void              adns5050_serial_write(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t data);
+uint8_t           adns5050_read_reg(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t reg_addr);
+void              adns5050_write_reg(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t reg_addr, uint8_t data);
+report_adns5050_t adns5050_read_burst(pointing_device_3wire_spi_config_t* adns5050_config);
+int8_t            adns5050_convert_twoscomp(uint8_t data);
 
 void adns5050_init(const void* config) {
     pointing_device_3wire_spi_config_t* adns5050_config = (pointing_device_3wire_spi_config_t*)config;
@@ -59,7 +68,7 @@ void adns5050_init(const void* config) {
 
     // reboot the adns.
     // if the adns hasn't initialized yet, this is harmless.
-    adns5050_write_reg(adns5050_config, REG_CHIP_RESET, 0x5a);
+    adns5050_write_reg(adns5050_config, ADNS5050_REG_CHIP_RESET, 0x5a);
 
     // wait maximum time before adns is ready.
     // this ensures that the adns is actuall ready after reset.
@@ -132,7 +141,7 @@ void adns5050_serial_write(pointing_device_3wire_spi_config_t* adns5050_config, 
 
 // Read a byte of data from a register on the ADNS.
 // Don't forget to use the register map (as defined in the header file).
-uint8_t adns5050_read_reg(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t reg_addr) {
+uint8_t adns5050_read_reg(pointing_device_3wire_spi_config_t* adns5050_config, adns5050_regs reg_addr) {
     adns5050_cs_select(adns5050_config);
 
     adns5050_serial_write(adns5050_config, reg_addr);
@@ -155,7 +164,7 @@ uint8_t adns5050_read_reg(pointing_device_3wire_spi_config_t* adns5050_config, u
     return byte;
 }
 
-void adns5050_write_reg(pointing_device_3wire_spi_config_t* adns5050_config, uint8_t reg_addr, uint8_t data) {
+void adns5050_write_reg(pointing_device_3wire_spi_config_t* adns5050_config, adns5050_regs reg_addr, uint8_t data) {
     adns5050_cs_select(adns5050_config);
     adns5050_serial_write(adns5050_config, 0b10000000 | reg_addr);
     adns5050_serial_write(adns5050_config, data);
@@ -169,7 +178,7 @@ report_adns5050_t adns5050_read_burst(pointing_device_3wire_spi_config_t* adns50
     data.dx = 0;
     data.dy = 0;
 
-    adns5050_serial_write(adns5050_config, REG_MOTION_BURST);
+    adns5050_serial_write(adns5050_config, ADNS5050_REG_MOTION_BURST);
 
     // We don't need a minimum tSRAD here. That's because a 4ms wait time is
     // already included in adns5050_serial_write(), so we're good.
@@ -183,15 +192,15 @@ report_adns5050_t adns5050_read_burst(pointing_device_3wire_spi_config_t* adns50
     // Setting CS to high ends burst mode early.
     adns5050_cs_deselect(adns5050_config);
 
-    data.dx = convert_twoscomp(x);
-    data.dy = convert_twoscomp(y);
+    data.dx = adns5050_convert_twoscomp(x);
+    data.dy = adns5050_convert_twoscomp(y);
 
     return data;
 }
 
 // Convert a two's complement byte from an unsigned data type into a signed
 // data type.
-int8_t convert_twoscomp(uint8_t data) {
+int8_t adns5050_convert_twoscomp(uint8_t data) {
     if ((data & 0x80) == 0x80)
         return -128 + (data & 0x7F);
     else
@@ -201,21 +210,21 @@ int8_t convert_twoscomp(uint8_t data) {
 // Don't forget to use the definitions for CPI in the header file.
 void adns5050_set_cpi(const void* config, uint16_t cpi) {
     pointing_device_3wire_spi_config_t* adns5050_config = (pointing_device_3wire_spi_config_t*)config;
-    uint8_t cpival = constrain((cpi / 125), 0x1, 0xD); // limits to 0--119
+    uint8_t                             cpival          = constrain((cpi / 125), 0x1, 0xD); // limits to 0--119
 
-    adns5050_write_reg(adns5050_config, REG_MOUSE_CONTROL2, 0b10000 | cpival);
+    adns5050_write_reg(adns5050_config, ADNS5050_REG_MOUSE_CONTROL2, 0b10000 | cpival);
 }
 
 uint16_t adns5050_get_cpi(const void* config) {
     pointing_device_3wire_spi_config_t* adns5050_config = (pointing_device_3wire_spi_config_t*)config;
-    uint8_t cpival = adns5050_read_reg(adns5050_config, REG_MOUSE_CONTROL2);
+    uint8_t                             cpival          = adns5050_read_reg(adns5050_config, ADNS5050_REG_MOUSE_CONTROL2);
     return (uint16_t)((cpival & 0b10000) * 125);
 }
 
 bool adns5050_check_signature(pointing_device_3wire_spi_config_t* adns5050_config) {
-    uint8_t pid  = adns5050_read_reg(adns5050_config, REG_PRODUCT_ID);
-    uint8_t rid  = adns5050_read_reg(adns5050_config, REG_REVISION_ID);
-    uint8_t pid2 = adns5050_read_reg(adns5050_config, REG_PRODUCT_ID2);
+    uint8_t pid  = adns5050_read_reg(adns5050_config, ADNS5050_REG_PRODUCT_ID);
+    uint8_t rid  = adns5050_read_reg(adns5050_config, ADNS5050_REG_REVISION_ID);
+    uint8_t pid2 = adns5050_read_reg(adns5050_config, ADNS5050_REG_PRODUCT_ID2);
 
     return (pid == 0x12 && rid == 0x01 && pid2 == 0x26);
 }
@@ -223,8 +232,8 @@ bool adns5050_check_signature(pointing_device_3wire_spi_config_t* adns5050_confi
 report_mouse_t adns5050_get_report(const void* config) {
     pointing_device_3wire_spi_config_t* adns5050_config = (pointing_device_3wire_spi_config_t*)config;
 
-    report_adns5050_t data = adns5050_read_burst(adns5050_config);
-    report_mouse_t mouse_report = {0};
+    report_adns5050_t data         = adns5050_read_burst(adns5050_config);
+    report_mouse_t    mouse_report = {0};
 
     if (data.dx != 0 || data.dy != 0) {
         pd_dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
