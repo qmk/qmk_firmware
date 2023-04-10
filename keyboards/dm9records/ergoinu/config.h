@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B6
-
 #define RGBLED_NUM 7
 
 #ifndef IOS_DEVICE_ENABLE

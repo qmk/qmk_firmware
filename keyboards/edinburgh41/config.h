@@ -5,7 +5,6 @@
 
 // Underglow LED settings
 
-#define RGB_DI_PIN D0
 #define RGBLED_NUM 10
 
 // Thumbstick settings

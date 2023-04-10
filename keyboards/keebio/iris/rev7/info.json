@@ -4,6 +4,9 @@
         "pid": "0x7256",
         "device_version": "7.0.0"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "matrix_pins": {
         "cols": ["F1", "F4", "B5", "C7", "D4", "D6"],
         "rows": ["B1", "F0", "F5", "B4", "D7"]
@@ -14,6 +17,9 @@
             {"pin_a": "B3", "pin_b": "B2"},
             {"pin_a": "F6", "pin_b": "F7"}
         ]
+    },
+    "ws2812": {
+        "pin": "E6"
     },
     "split": {
         "soft_serial_pin": "D0",

@@ -46,7 +46,6 @@
 
     "rgblight": {
         "led_count": 8,
-        "pin": "D2",
         "hue_steps": 8,
         "saturation_steps": 17,
         "brightness_steps": 17,
@@ -57,6 +56,9 @@
             "rainbow_mood": true,
             "static_gradient": true
         }
+    },
+    "ws2812": {
+        "pin": "D2"
     },
     
     "layouts": {

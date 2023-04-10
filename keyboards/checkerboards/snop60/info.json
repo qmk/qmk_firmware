@@ -23,6 +23,9 @@
         "levels": 6,
         "breathing": true
     },
+    "ws2812": {
+        "pin": "B1"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {

@@ -21,7 +21,6 @@
 #define TAP_CODE_DELAY 5
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN A1
 #define RGB_MATRIX_LED_COUNT 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

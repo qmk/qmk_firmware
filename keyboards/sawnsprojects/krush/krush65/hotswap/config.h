@@ -22,8 +22,6 @@
 #define ENCODERS_CCW_KEY { { 12, 4 } }
 
 /* RGB */
-#define RGB_DI_PIN E6
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 20
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
@@ -41,4 +39,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif

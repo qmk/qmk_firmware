@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D3
 #define RGBLED_NUM 6
 #define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_HUE_STEP 5

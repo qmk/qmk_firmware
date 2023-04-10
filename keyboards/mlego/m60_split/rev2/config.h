@@ -26,7 +26,6 @@
 
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN B15
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_LAYERS
 #define RGBLED_NUM 16

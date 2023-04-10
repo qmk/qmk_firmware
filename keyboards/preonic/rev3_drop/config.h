@@ -45,7 +45,6 @@
 /*
  * WS2812 Underglow Matrix options
  */
-#define RGB_DI_PIN A1
 #define RGBLED_NUM 9
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

@@ -21,9 +21,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
 #undef RGBLED_NUM
 #define RGBLED_NUM 14    // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING

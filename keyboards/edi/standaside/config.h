@@ -10,7 +10,6 @@
 /*
  * Enable RGB Underlighting
  */
-#define RGB_DI_PIN C7
 #define RGBLED_NUM 12
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

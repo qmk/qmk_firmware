@@ -26,6 +26,9 @@
         "pid": "0x7070",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "A10"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

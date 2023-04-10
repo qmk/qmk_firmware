@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN F4
-
 #define RGBLED_NUM 72    // Number of LEDs
 
 #define RGBLED_SPLIT { 36, 36 }

@@ -8,6 +8,9 @@
         "pid": "0x1969",
         "device_version": "0.0.1"
     },
+    "rgb_matrix": {
+        "driver": "IS31FL3731"
+    },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "layouts": {

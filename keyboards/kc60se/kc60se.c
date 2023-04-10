@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#include "kc60se.h"
 
 void matrix_init_kb(void){
     setPinOutput(B2);

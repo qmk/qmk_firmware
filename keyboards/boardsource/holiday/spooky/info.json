@@ -22,7 +22,6 @@
   },
   "rgblight": {
     "led_count": 5,
-    "pin": "D3",
     "sleep": true,
     "animations": {
       "alternating": true,
@@ -36,6 +35,9 @@
       "static_gradient": true,
       "twinkle": true
     }
+  },
+  "ws2812": {
+    "pin": "D3"
   },
   "community_layouts": [
     "ortho_2x3"

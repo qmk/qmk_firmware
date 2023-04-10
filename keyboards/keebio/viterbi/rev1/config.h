@@ -23,6 +23,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D3
 #define RGBLED_NUM 14
 #define RGBLED_SPLIT { 7, 7 }

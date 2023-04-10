@@ -23,6 +23,9 @@
         "levels": 6,
         "breathing": true
     },
+    "ws2812": {
+        "pin": "A5"
+    },
     "indicators": {
         "caps_lock": "A1",
         "num_lock": "A0",

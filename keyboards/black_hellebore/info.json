@@ -13,6 +13,10 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "ws2812": {
+        "pin": "A7",
+        "driver": "pwm"
+    },
     "matrix_pins": {
         "cols": ["B15", "B14", "B13", "A9", "A2", "B1", "B9", "B7", "B5", "B4", "B0", "A8", "B6", "B3"],
         "rows": ["A15", "B8", "A4", "A3", "B2"]
@@ -24,7 +28,8 @@
         "pid": "0x4467",
         "vid": "0x3141"
     },
-    "rgb_matrix": {		
+    "rgb_matrix": {	
+        "driver": "WS2812",
         "layout": [
             { "flags": 4, "matrix": [0, 0] , "x": 7  , "y": 5 } ,
             { "flags": 4, "matrix": [0, 1] , "x": 22 , "y": 5 } ,

@@ -18,6 +18,9 @@
         "num_lock": "B12",
         "scroll_lock": "B13"
     },
+    "ws2812": {
+        "pin": "B15"
+    },
     "split": {
         "bootmagic": {
             "matrix": [5, 0]

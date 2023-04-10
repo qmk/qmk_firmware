@@ -18,6 +18,9 @@
         "levels": 24,
         "breathing": true
     },
+    "ws2812": {
+        "pin": "B4"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

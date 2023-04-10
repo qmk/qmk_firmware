@@ -33,7 +33,6 @@
         "key_lock": false
     },
     "rgblight": {
-        "pin": "B0",
         "led_count": 7,
         "hue_steps": 8,
         "saturation_steps": 8,
@@ -52,6 +51,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "B0"
     },
     "layouts": {
         "LAYOUT": {

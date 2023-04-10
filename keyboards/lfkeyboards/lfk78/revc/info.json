@@ -17,6 +17,9 @@
         "driver": "custom",
         "levels": 8
     },
+    "ws2812": {
+        "pin": "C7"
+    },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
     "layouts": {

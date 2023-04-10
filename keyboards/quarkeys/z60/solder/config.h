@@ -14,7 +14,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN D6
 #define RGBLED_NUM 77
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8

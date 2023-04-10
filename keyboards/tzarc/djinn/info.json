@@ -33,6 +33,13 @@
     "pin": "A7",
     "levels": 4
   },
+  "ws2812": {
+    "pin": "B2",
+    "driver": "pwm"
+  },
+  "rgb_matrix": {
+    "driver": "WS2812"
+  },
   "split": {
     "enabled": true,
     "main": "pin",

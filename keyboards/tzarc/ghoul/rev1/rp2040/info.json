@@ -11,5 +11,9 @@
         "resolution": 2
       }
     ]
+  },
+  "ws2812": {
+    "pin": "GP13",
+    "driver": "vendor"
   }
 }

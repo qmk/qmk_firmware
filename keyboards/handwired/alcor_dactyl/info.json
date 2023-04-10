@@ -33,6 +33,10 @@
             {"x":16.5, "y":0.38}
         ]
     },
+    "ws2812": {
+        "pin": "GP16",
+        "driver": "vendor"
+    },
     "layouts": {
         "LAYOUT":{
             "layout":[

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #pragma once
 
-
 // Matrix configuration
 #define SPI_MATRIX_CHIP_SELECT_PIN GP21
 #define SPI_MATRIX_DIVISOR 16
@@ -23,7 +22,6 @@
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN GP2
 
 // RGB configuration
-#define RGB_DI_PIN GP13
 #define RGB_ENABLE_PIN GP6
 
 // ADC Configuration

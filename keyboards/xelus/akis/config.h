@@ -17,7 +17,6 @@
 #pragma once
 
 /* RGB Lighting */
-#define RGB_DI_PIN B0
 #define RGBLED_NUM 23
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

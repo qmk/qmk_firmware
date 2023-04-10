@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "h87a.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here

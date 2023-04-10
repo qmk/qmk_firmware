@@ -20,6 +20,10 @@
         "rgblight": false,
         "rgb_matrix": true
     },
+    "ws2812": {
+        "pin": "GP26",
+        "driver": "vendor"
+    },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["GP0",  "GP1",  "GP2",  "GP3",  "GP4",  "GP5",  "GP6",
@@ -103,8 +107,7 @@
         }
     },
     "rgblight": {
-        "led_count": 70,
-        "pin": "GP26"
+        "led_count": 70
     },
     "rgb_matrix": {
         "driver": "WS2812",

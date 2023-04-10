@@ -20,7 +20,6 @@
 #define MATRIX_IO_DELAY 5
 #define TAP_CODE_DELAY 10
 
-#define RGB_DI_PIN B1
 #define RGBLED_NUM 16
 #define RGBLED_SPLIT { 8,8 }
 #define RGBLIGHT_LIMIT_VAL 120

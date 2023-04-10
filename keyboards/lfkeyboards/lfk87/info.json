@@ -12,6 +12,9 @@
     "driver": "custom",
     "levels": 10
   },
+  "ws2812": {
+    "pin": "F4"
+  },
   "community_layouts": ["tkl_ansi", "tkl_iso"],
   "layouts": {
     "LAYOUT_tkl_ansi": {

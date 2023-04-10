@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN D3
 #define RGB_MATRIX_LED_COUNT 36
 #define RGB_MATRIX_SPLIT { 18, 18 }
 #define RGB_MATRIX_CENTER { 133, 54 }

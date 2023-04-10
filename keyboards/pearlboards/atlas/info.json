@@ -24,6 +24,9 @@
         "scroll_lock": "F6",
         "on_state": 0
     },
+    "ws2812": {
+        "pin": "B6"
+    },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
     "layouts": {

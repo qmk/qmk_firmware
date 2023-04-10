@@ -1,7 +1,7 @@
 #include "../../config.h"
 
 /* WS2812B RGB Underglow LED */
-#define RGB_DI_PIN F5   // See readme.md for wiring your led's
+#define WS2812_DI_PIN F5   // See readme.md for wiring your led's
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

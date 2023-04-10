@@ -18,5 +18,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /*RGB TINGS*/
-#define RGB_DI_PIN E6
 #define RGBLED_NUM 12

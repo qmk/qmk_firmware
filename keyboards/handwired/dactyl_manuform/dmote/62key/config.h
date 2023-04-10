@@ -5,6 +5,5 @@
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #define RGBLIGHT_EFFECT_CHRISTMAS
 #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
-#define RGB_DI_PIN D1
 #define RGBLED_NUM 6           // Used when chaining strips
 #define RGBLED_SPLIT { 3, 3 }  // Used when not chaining strips

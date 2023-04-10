@@ -20,7 +20,7 @@ see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
 for more options.
 */
 
-#define RGB_DI_PIN D3
+#define WS2812_DI_PIN D3
 
 #ifdef RGB_MATRIX_ENABLE
 

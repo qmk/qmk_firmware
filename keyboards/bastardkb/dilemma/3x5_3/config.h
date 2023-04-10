@@ -21,10 +21,6 @@
 #define SPLIT_HAND_PIN GP29
 #define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
 
-/* RGB settings. */
-#define RGB_DI_PIN GP0  // Per-key.
-// #define RGB_DI_PIN GP10 // Underglow.
-
 /* CRC. */
 #define CRC8_USE_TABLE
 #define CRC8_OPTIMIZE_SPEED

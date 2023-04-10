@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_HAND_PIN      C14  // high = left, low = right
 
 // WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN          A1
 #define WS2812_PWM_DRIVER   PWMD2  // default: PWMD2
 #define WS2812_PWM_CHANNEL  2      // default: 2
 #define WS2812_PWM_PAL_MODE 1      // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2

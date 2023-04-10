@@ -56,9 +56,11 @@
         },
         "led_count": 10,
         "max_brightness": 128,
-        "pin": "B2",
         "saturation_steps": 16,
         "sleep": true
+    },
+    "ws2812": {
+        "pin": "B2"
     },
     "layouts": {
         "LAYOUT_ortho_4x12": {

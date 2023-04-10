@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_DMA_CHANNEL 5
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
-#define RGB_DI_PIN B15
 #define RGBLED_NUM 36
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8

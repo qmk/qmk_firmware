@@ -22,7 +22,7 @@
   //#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
 
 /* ws2812 RGB LED
-#define RGB_DI_PIN B5
+#define WS2812_DI_PIN B5
 #define RGBLED_NUM 8     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17

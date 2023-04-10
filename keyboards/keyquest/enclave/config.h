@@ -14,7 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* RGB light setup*/
-#define RGB_DI_PIN B5
 #define RGBLED_NUM 2
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_HUE_STEP 10

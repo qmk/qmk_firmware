@@ -3,6 +3,9 @@
     "usb": {
         "device_version": "0.1.5"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "matrix_pins": {
         "cols": ["B5", "B4", "E6", "D7", "C6"],
         "rows": ["B6", "B2", "F7", "F6", "B3", "B1", "F4", "F5"]

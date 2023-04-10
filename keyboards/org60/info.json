@@ -17,6 +17,9 @@
         "pin": "F5",
         "levels": 6
     },
+    "ws2812": {
+        "pin": "F6"
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["60_ansi"],

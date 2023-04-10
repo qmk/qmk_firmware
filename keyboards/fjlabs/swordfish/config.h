@@ -23,7 +23,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE 
 
 /* Define RGB */
-#define RGB_DI_PIN D3
 #define RGBLED_NUM 1
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

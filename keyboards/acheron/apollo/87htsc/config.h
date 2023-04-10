@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-#define RGB_DI_PIN B15
 #define RGB_MATRIX_LED_COUNT 86
 
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT

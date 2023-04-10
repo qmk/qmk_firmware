@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // https://docs.qmk.fm/using-qmk/software-features/tap_hold
 #define TAPPING_TERM 200
-#define IGNORE_MOD_TAP_INTERRUPT
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 #define MATRIX_HAS_GHOST

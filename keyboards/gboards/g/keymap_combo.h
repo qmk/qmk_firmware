@@ -1,3 +1,5 @@
+#pragma once
+
 // Keymap helpers
 // define reference layers per layer.
 #define REF_LAYER_FOR_LAYER(LAYER, REF_LAYER)   \

@@ -23,9 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B6
-
 #define RGBLED_NUM 12    // Number of LEDs
 #define RGBLIGHT_LED_MAP { 0, 1, 3, 2, 2, 3, 2, 3, 4, 5, 6, 7 }
 

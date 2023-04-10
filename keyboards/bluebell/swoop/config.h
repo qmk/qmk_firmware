@@ -24,8 +24,6 @@
 #endif
 
 // RGB underglow and per key
-#define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
@@ -39,4 +37,3 @@
   #define RGBLIGHT_SAT_STEP 17
   #define RGBLIGHT_VAL_STEP 17
   #define RGBLIGHT_SLEEP
-#endif

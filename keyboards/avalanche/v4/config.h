@@ -4,7 +4,6 @@
 #pragma once
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGB_DI_PIN D3
 #    define RGBLED_NUM 64
 #    define RGBLED_SPLIT { 32, 32 }
 #    define RGBLIGHT_SPLIT

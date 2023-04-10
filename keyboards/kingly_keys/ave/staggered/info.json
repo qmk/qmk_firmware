@@ -18,6 +18,9 @@
         {"pin_a": "B2", "pin_b": "B1"}
      ]
   },
+  "ws2812": {
+     "pin": "B7"
+  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layouts": {

@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
-#define RGB_DI_PIN B15
 #define RGBLED_NUM 4
 #define RGBLIGHT_DEFAULT_VAL 0
 

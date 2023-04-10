@@ -16,13 +16,15 @@
     "diode_direction": "COL2ROW",
     "rgblight": {
         "led_count": 8,
-        "pin": "B6",
         "animations": {
             "rainbow_swirl": true
         },
         "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8
+    },
+    "ws2812": {
+        "pin": "B6"
     },
     "layouts": {
         "LAYOUT": {

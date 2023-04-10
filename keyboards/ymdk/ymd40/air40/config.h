@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 51
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses

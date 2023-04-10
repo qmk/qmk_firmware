@@ -17,11 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN E2
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 87
 
-#ifdef RGB_DI_PIN
 #define RGBLED_NUM 87
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 //#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
@@ -84,10 +82,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 // does not work for some reason, might revisit
-
-
-
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
