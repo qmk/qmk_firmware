@@ -21,8 +21,6 @@
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][1] = {
     [0] = {  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [1] = {  ENCODER_CCW_CW(KC_MNXT, KC_MPRV)  },
-    [2] = {  ENCODER_CCW_CW(_______, _______)  },
-    [3] = {  ENCODER_CCW_CW(_______, _______)  },
 };
 #endif
 
