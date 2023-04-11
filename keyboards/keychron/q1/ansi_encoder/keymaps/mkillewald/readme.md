@@ -8,8 +8,8 @@
 - Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed for the Mac and Win base layers using the standard RGB keyboard shortcuts.
 
 - Autocorrect is enabled. ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
-    - Uses getreuer's 400 entry autocorrect dictionary.   
-    [https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict_extra.txt](https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict_extra.txt)
+    - Uses getreuer's autocorrect dictionary.
+    [https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict.txt](https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict.txt)
 
 - Caps Word enabled with RGB indicator. ([https://docs.qmk.fm/#/feature_caps_word](https://docs.qmk.fm/#/feature_caps_word))
 
@@ -17,7 +17,7 @@
 
 - Dynamic Fn layer RGB indicator. When either Fn1 or Fn2 is held down, any keys defined on the Fn layers in this firmware or in VIA will be highlighted.
 
-##### Notes:   
+##### Notes:
 
 ###### Toggling RGB mode off will disable RGB and indicators separately for each base layer (Mac or Win). RGB must be toggled on for all indicators to function. If you do not want an RGB mode active but still want the indicators, toggle RGB on and turn the brightness all the way off. The indicators will remain at full brightness.
 ###### Changing RGB settings with VIA lighting tab is unsupported at this time and may have undesired effects. Keymap changes with VIA is supported.
@@ -27,10 +27,10 @@
 Default options (these defaults will be applied whenever the eeprom is cleared):
 
 ```
-    #define DEFAULT_CAPS_LOCK_LIGHT_TAB      false        // true = enable, false = disable
-    #define DEFAULT_CAPS_LOCK_LIGHT_ALPHA    true         // true = enable, false = disable
-    #define DEFAULT_FN_LAYER_TRANSPARENT_OFF false        // true = enable, false = disable
-    #define DEFAULT_FN_LAYER_SHOW_COLOR      true         // true = enable, false = disable
+    #define DEFAULT_CAPS_LOCK_LIGHT_TAB      0            // 1 = enable, 0 = disable
+    #define DEFAULT_CAPS_LOCK_LIGHT_ALPHA    1            // 1 = enable, 0 = disable
+    #define DEFAULT_FN_LAYER_TRANSPARENT_OFF 0            // 1 = enable, 0 = disable
+    #define DEFAULT_FN_LAYER_SHOW_COLOR      1            // 1 = enable, 0 = disable
     #define DEFAULT_ENABLE_MAC_BASE          1            // 1 = enable, 0 = disable
     #define DEFAULT_ENABLE_WIN_BASE          1            // 1 = enable, 0 = disable
     #define DEFAULT_HUE_WIN_BASE             80           // HSV green hue (Win Base layer)
@@ -39,7 +39,7 @@ Default options (these defaults will be applied whenever the eeprom is cleared):
     #define RGB_MATRIX_DEFAULT_VAL           255          // Both Win/Mac Base layers
     #define RGB_MATRIX_DEFAULT_SPD           127          // Both Win/Mac Base layers
     #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING  // Both Win/Mac Base layers
-```   
+```
 
 Caps Lock RGB indicator option:
 
@@ -56,9 +56,9 @@ Dynamic Fn Layer RGB indicator options:
 Caps Word options:
 
 ```
-    // Caps Word is activated by double-tapping left Shift. Replace this with 
-    // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD if you want to activate Caps Word 
-    // by single-tapping both left and right Shift togeter. 
+    // Caps Word is activated by double-tapping left Shift. Replace this with
+    // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD if you want to activate Caps Word
+    // by single-tapping both left and right Shift togeter.
     #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
     // Caps Word RGB indicator color
@@ -76,20 +76,20 @@ Caps Word options:
 - Fn+Left Shift toggles Autocorrect on/off
 - Fn+Backspace enters DFU mode (but does not reset eeprom)
 - Fn+Z (KC_LTTOG) Caps Lock Light Tab Toggle (default: off)
-    - toggle lighting the Tab key when Caps Lock is enabled. This is useful with non backlit keycaps/legends. 
+    - toggle lighting the Tab key when Caps Lock is enabled. This is useful with non backlit keycaps/legends.
 - Fn+X (KC_LATOG) Caps Lock Light Alpha Toggle (default: on)
-    - toggle lighting all the alpha keys when Caps Lock is enabled. 
+    - toggle lighting all the alpha keys when Caps Lock is enabled.
 - Fn+C (KC_TKTOG) Fn layer Trasnparent Key Off Toggle (default: RGB on)
-    - toggle turning off RGB for keys with no definition 
+    - toggle turning off RGB for keys with no definition
 - Fn+V (KC_FCTOG) Fn layer Color Toggle (default: static color on)
-    - toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR or FN2_LAYER_COLOR 
+    - toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR or FN2_LAYER_COLOR
 
 - Mac mode only
     - Fn+Esc (KC_LBMAC) will lock and sleep display
     - Fn1+< sets my secondary display to 0° rotation
     - Fn1+> sets my secondary display to 90° rotation
-    
-    Note: display rotation requires additional software and changes made, see this link for more information:   
+
+    Note: display rotation requires additional software and changes made, see this link for more information:
     [https://www.reddit.com/r/Keychron/comments/1254g36/howto_macos_rotate_screen_from_keyboard_shortcut/](https://www.reddit.com/r/Keychron/comments/1254g36/howto_macos_rotate_screen_from_keyboard_shortcut/)
 
 All custom keycodes can be moved to different keys in VIA by using the following:
