@@ -4,7 +4,8 @@
     "maintainer": "Jacky",
     "bootloader": "custom",
     "bootloader_instructions": "Press ESC(ROW0COL0), Plug USB. ",
-    "development_board": "bluepill",
+    "processor": "STM32F103",
+    "board": "STM32_F103_STM32DUINO",
     "usb": {
         "vid": "0x5343"
     }

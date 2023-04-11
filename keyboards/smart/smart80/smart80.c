@@ -110,5 +110,4 @@ const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {1, CS4_SW7, CS5_SW7, CS6_SW7}  //  86, →, k5A
 
 };
-// clang-format on
 #endif

@@ -17,8 +17,6 @@
 
 #pragma once
 
-//#define DEBUG_MATRIX_SCAN_RATE
-
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 21
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -38,13 +36,6 @@
 #define DRIVER_2_EN C13
 
 #define DRIVER_COUNT 2
-
-
-/* UART Config  */
-
-#define SERIAL_DRIVER SD1
-#define SD1_TX_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
-
 
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
