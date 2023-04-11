@@ -63,8 +63,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  _______,  _______,                                 QK_RBT,	  _______,  _______,  KC_MPRV,   KC_VOLD,  KC_MNXT)};
 
 
-// Load leader externals
-LEADER_EXTERNS();
 // define the seed
 uint32_t seed;
 // Subtract these from 2^30 to get a prime
@@ -253,14 +251,8 @@ void leader_end(void) {
 
 
 
-// Matrix override for leader
-// void matrix_scan_user(void) {
-// It's better to place this under the housekeeping tasks
-// This function is run at the end of all QMK processing, later that matrix_scan_user
-
-void housekeeping_task_user(void) {
-    // Leader code should fall in here
-    LEADER_DICTIONARY() {
+// leader
+void leader_end_user(void) {
         leading = false;
         // Debug mode
         if (leader_sequence[0] == KC_D) {
