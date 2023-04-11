@@ -10,21 +10,21 @@
 * Hardware Design: [GitHub](https://github.com/TweetyDaBird/Lotus58)
 
 
-#### This keyboard firmware contains three different versions, all for the same PCB/hardware, but depending on your choice of bootloader. 
+#### This keyboard firmware contains three different versions, all for the same PCB/hardware, but depending on your choice of controller/bootloader. 
 
 
-* Caterina - The default Pro Micro bootloader.
-* Atmel-DFU - The default bootloader for Elite C.
-* nanoBoot - A tiny 512 byte bootloader giving far more usable memory for features.
+* promicro - This uses the default Caterina bootloader.
+* elite_c - This uses the Atmel-DFU bootloader.
+* nanoBoot - A tiny 512 byte bootloader giving far more usable memory for features (can be used on both Elite C and Pro Micro).
 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tweetydabird/lotus58/caterina:default
+    make tweetydabird/lotus58/promicro:default
 
 Flashing example for this keyboard:
 
-    make tweetydabird/lotus58/caterina:default:flash
+    make tweetydabird/lotus58/elite_c:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -32,6 +32,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the top outer key for each hand and plug in the keyboard
+* **Bootmagic reset**: Hold down the top outer key for each hand as it is plugged in
 * **Physical reset**: Briefly short the marked pads on PCB
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if mapped (not in default keymap)
