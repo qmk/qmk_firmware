@@ -15,11 +15,11 @@
  */
  #include "quantum.h"
 
-void bootloader_jump(void) {
-    BKP->DR1 = 0x5343;
-    NVIC_SystemReset();
-}
+//void bootloader_jump(void) {
+//    BKP->DR1 = 0x5343;
+//    NVIC_SystemReset();
+//}
 
-void mcu_reset(void) {
-    NVIC_SystemReset();
-}
+//void mcu_reset(void) {
+//    NVIC_SystemReset();
+//}

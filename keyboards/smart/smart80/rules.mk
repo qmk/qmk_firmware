@@ -1,1 +1,0 @@
-MCU_LDSCRIPT = smartbootloader
