@@ -21,13 +21,10 @@
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1011111
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID \
-    {                          \
-        { 0, 1 }               \
-    }
-
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 59
 #define DRIVER_2_LED_TOTAL 23
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+
+/* DIP switch */
+#define DIP_SWITCH_MATRIX_GRID { { 0, 1 } }
