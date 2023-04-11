@@ -18,10 +18,10 @@
 #include "keymap_user_config.h"
 
 typedef struct {
-    bool caps_lock_light_tab;
-    bool caps_lock_light_alphas;
-    bool fn_layer_transparent_keys_off;
-    bool fn_layer_color_enable;
+    uint8_t caps_lock_light_tab;
+    uint8_t caps_lock_light_alphas;
+    uint8_t fn_layer_transparent_keys_off;
+    uint8_t fn_layer_color_enable;
     uint8_t enable_mac_base;
     uint8_t enable_win_base;
     uint8_t mode_win_base;
@@ -59,19 +59,19 @@ void user_config_write_eeprom(void) {
 
 // getters
 
-bool user_config_get_caps_lock_light_tab(void) {
+uint8_t user_config_get_caps_lock_light_tab(void) {
     return user_config.caps_lock_light_tab;
 }
 
-bool user_config_get_caps_lock_light_alphas(void) {
+uint8_t user_config_get_caps_lock_light_alphas(void) {
     return user_config.caps_lock_light_alphas;
 }
 
-bool user_config_get_fn_layer_transparent_keys_off(void) {
+uint8_t user_config_get_fn_layer_transparent_keys_off(void) {
     return user_config.fn_layer_transparent_keys_off;
 }
 
-bool user_config_get_fn_layer_color_enable(void) {
+uint8_t user_config_get_fn_layer_color_enable(void) {
     return user_config.fn_layer_color_enable;
 }
 

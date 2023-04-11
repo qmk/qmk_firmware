@@ -21,10 +21,10 @@ void user_config_write_eeprom(void);
 
 // getters
 
-bool user_config_get_caps_lock_light_tab(void);
-bool user_config_get_caps_lock_light_alphas(void);
-bool user_config_get_fn_layer_transparent_keys_off(void);
-bool user_config_get_fn_layer_color_enable(void);
+uint8_t user_config_get_caps_lock_light_tab(void);
+uint8_t user_config_get_caps_lock_light_alphas(void);
+uint8_t user_config_get_fn_layer_transparent_keys_off(void);
+uint8_t user_config_get_fn_layer_color_enable(void);
 uint8_t user_config_get_enable_mac_base(void);
 uint8_t user_config_get_enable_win_base(void);
 uint8_t user_config_get_mode_win_base(void);
