@@ -15,7 +15,7 @@
 
 - Caps Lock RGB indicator. Will light Caps Lock key with options to also light Tab key (useful for some keycap sets), and/or light all alpha keys.
 
-- Dynamic Fn layer RGB indicator. When either Fn1 or Fn2 is held down, any keys defined on the Fn layers in this firmware or in VIA will be highlighted.
+- Dynamic Fn layer RGB indicator. When Fn key is held down, any keys defined on the Fn layer in this firmware or in VIA will be highlighted.
 
 ##### Notes:
 
