@@ -46,7 +46,6 @@ enum my_keycodes {
 #define KC_LBMAC KC_LOCK_BLANK_MAC
 
 static bool win_mode;
-//static bool win_mode_was_activated;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_67(
@@ -141,53 +140,37 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     return true;
 }
 
-bool is_win_mode(void) { return win_mode; }
-
-/*layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t default_layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case MAC_BASE:
-            if (!is_win_mode() && win_mode_was_activated) {
-                // switch was moved to mac mode
-                win_mode_was_activated = false;
-
-                // check enable/disable
-                if (user_config_get_enable_mac_base()) {
-//                    rgb_matrix_enable_noeeprom();
-
-                    // load mac base settings
-                    rgb_matrix_reload_from_eeprom();
-
-                    rgb_matrix_enable_noeeprom();
-                } else {
-                    rgb_matrix_disable_noeeprom();
-                }
+            // load mac base settings
+            rgb_matrix_enable_noeeprom();  
+            rgb_matrix_reload_from_eeprom();
+            
+            // check disable
+            if (!user_config_get_enable_mac_base()) {
+                rgb_matrix_disable_noeeprom();
             }
             break;
         case WIN_BASE:
-            if (is_win_mode() && !win_mode_was_activated) {
-                // switch was moved to win mode
-                win_mode_was_activated = true;
-
-                // check enable/disable
-                if (user_config_get_enable_win_base()) {
-                    rgb_matrix_enable_noeeprom();
-
-                    // load win base settings
-                    rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
-                    rgb_matrix_set_speed_noeeprom(user_config_get_spd_win_base());
-                    rgb_matrix_sethsv_noeeprom(user_config_get_hsv_win_base().h,
-                                               user_config_get_hsv_win_base().s,
-                                               user_config_get_hsv_win_base().v);
-                } else {
-                   rgb_matrix_disable_noeeprom();
-                }
+            // load win base settings
+            rgb_matrix_enable_noeeprom();  
+            rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
+            rgb_matrix_set_speed_noeeprom(user_config_get_spd_win_base());
+            rgb_matrix_sethsv_noeeprom(user_config_get_hsv_win_base().h,
+                                       user_config_get_hsv_win_base().s,
+                                       user_config_get_hsv_win_base().v);
+                                       
+            // check disable
+            if (!user_config_get_enable_win_base()) {
+                rgb_matrix_disable_noeeprom();
             }
             break;
-        default: //  for any other layers, or the default layer
+        default:
             break;
     }
-  return state;
-}*/
+    return state;
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_keychron(keycode, record)) {

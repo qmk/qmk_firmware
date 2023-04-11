@@ -22,8 +22,6 @@
 
 keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
 
-static bool win_mode_was_activated;
-
 void rgb_matrix_init_user(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
@@ -40,39 +38,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     switch (current_layer) {
         case MAC_BASE:
         case WIN_BASE:
-            if (is_win_mode() && !win_mode_was_activated) {
-                // switch was moved to win mode
-                win_mode_was_activated = true;
-
-                // check enable/disable
-                if (user_config_get_enable_win_base()) {
-                    rgb_matrix_enable_noeeprom();
-
-                    // load win base settings
-                    rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
-                    rgb_matrix_set_speed_noeeprom(user_config_get_spd_win_base());
-                    rgb_matrix_sethsv_noeeprom(user_config_get_hsv_win_base().h,
-                                               user_config_get_hsv_win_base().s,
-                                               user_config_get_hsv_win_base().v);
-                } else {
-                   rgb_matrix_disable_noeeprom();
-                }
-            } else if (!is_win_mode() && win_mode_was_activated) {
-                // switch was moved to mac mode
-                win_mode_was_activated = false;
-
-                // check enable/disable
-                if (user_config_get_enable_mac_base()) {
-                    rgb_matrix_enable_noeeprom();
-
-                    // load mac base settings
-                    rgb_matrix_reload_from_eeprom();
-
-                    rgb_matrix_enable_noeeprom();
-                } else {
-                    rgb_matrix_disable_noeeprom();
-                }
-            }
 #ifdef CAPS_LOCK_INDICATOR_COLOR
             if (host_keyboard_led_state().caps_lock) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
