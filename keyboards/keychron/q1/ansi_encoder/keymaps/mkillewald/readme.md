@@ -1,11 +1,11 @@
-## Keychron Q2 SEVERED RGB ANSI STM32L432 ENC11 (knob) Keymap v2.0.0
+## Keychron Q1 RGB ANSI ATMEGA32U4 ENC11 (knob) Keymap v2.0.0
 
 ### Highly Recommended: You should clear your eeprom before or after flashing this firmware. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing your eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear your eeprom even if you take it out of DFU mode at this point without flashing.
 
 ## Features:
 - Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others.
 
-- SEVERED! Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed for the Mac and Win base layers using the standard RGB keyboard shortcuts. (Hi kids, whats for dinner?)
+- Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed for the Mac and Win base layers using the standard RGB keyboard shortcuts.
 
 - Autocorrect is enabled. ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
     - Uses getreuer's 400 entry autocorrect dictionary.   
@@ -52,7 +52,6 @@ Dynamic Fn Layer RGB indicator options:
 
 ```
     #define FN1_LAYER_COLOR 0xFE, 0x23, 0x00  // RGB orange
-    #define FN2_LAYER_COLOR RGB_YELLOW
 ```
 
 Caps Word options:
@@ -75,34 +74,19 @@ Caps Word options:
 ## This keymap makes the following layout changes over the factory firmware
 
 - Removes redundant lighting and NKRO keycodes from Fn1 layer (they remain on Fn2 layer)
-- Fn2+Left Shift toggles Autocorrect on/off
-- Fn2+Backspace enters DFU mode (but does not reset eeprom)
-- Fn2+Z (KC_LTTOG) Caps Lock Light Tab Toggle (default: off)
+- Fn+Left Shift toggles Autocorrect on/off
+- Fn+Backspace enters DFU mode (but does not reset eeprom)
+- Fn+Z (KC_LTTOG) Caps Lock Light Tab Toggle (default: off)
     - toggle lighting the Tab key when Caps Lock is enabled. This is useful with non backlit keycaps/legends. 
-- Fn2+X (KC_LATOG) Caps Lock Light Alpha Toggle (default: on)
+- Fn+X (KC_LATOG) Caps Lock Light Alpha Toggle (default: on)
     - toggle lighting all the alpha keys when Caps Lock is enabled. 
-- Fn2+C (KC_TKTOG) Fn layer Trasnparent Key Off Toggle (default: RGB on)
+- Fn+C (KC_TKTOG) Fn layer Trasnparent Key Off Toggle (default: RGB on)
     - toggle turning off RGB for keys with no definition 
-- Fn2+V (KC_FCTOG) Fn layer Color Toggle (default: static color on)
+- Fn+V (KC_FCTOG) Fn layer Color Toggle (default: static color on)
     - toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR or FN2_LAYER_COLOR 
 
-- Uses Grave Escape on key to the left of the 1 key:
-    - Base Layer: key functions as ESC, shift+key gives ~
-    - Fn1 Layer: Fn1+key gives `
-    - Fn2 Layer: Fn2+key gives ~
-
-- Changes the two vertical keys under the knob as follows:
-    - Base Layer: PGUP and PGDN
-    - Fn1 Layer: Home and End (Mac mode does Cmd-left and Cmd-right)
-    - Fn2 Layer: Delete and Home (Mac mode Home returns to top of page)
-
-- Changes the knob to function as follows:
-    - Base Layer: volume up, down Press: mute
-    - Fn1 Layer:  zoom in, out Press: return to 100% zoom
-    - Fn2 Layer:  LED brighness inc, dec Press: backlight toggle
-
 - Mac mode only
-    - Fn1+Q (KC_LBMAC) will lock and sleep display
+    - Fn+Esc (KC_LBMAC) will lock and sleep display
     - Fn1+< sets my secondary display to 0° rotation
     - Fn1+> sets my secondary display to 90° rotation
     
@@ -128,12 +112,5 @@ It seems Keychron has not pushed the relavant code to the main QMK repo yet. I s
 
 ## Changelog:
 
-v2.0.0  April 7, 2023
-- added different RGB settings for Mac Base and Win Base layers
-
-v1.0.1  April 4, 2023
-- made requested changes by QMK reveiwers
-- removed optional .json file and baked my layout changes into the firmware
-
-v1.0.0  March 19, 2023
-- Carried over features from my Q1V2 keymap.
+v2.0.0  April 11, 2023
+- copied code from Q2 v2.0.0 firware over
