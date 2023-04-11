@@ -32,7 +32,7 @@ static inline matrix_row_t read_cols(void) {
 }
 
 
-static void unselect_rows(void) {
+static inline void unselect_rows(void) {
     ATOMIC_BLOCK_FORCEON {
     pal_lld_setport(PAL_PORT(B0),   PAL_PORT_BIT(PAL_PAD(B0)) | 
                                     PAL_PORT_BIT(PAL_PAD(B1)) |
