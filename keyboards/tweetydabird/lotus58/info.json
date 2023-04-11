@@ -43,7 +43,6 @@
         "hue_steps": 17,
         "led_count": 70,
         "pin": "D3",
-        "saturation_steps": 17,
         "split": true,
         "split_count": [35, 35]
     },
