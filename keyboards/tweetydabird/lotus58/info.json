@@ -17,22 +17,17 @@
         ]
     },
     "features": {
-        "audio": false,
         "bootmagic": true,
         "command": false,
         "console": false,
         "encoder": true,
         "extrakey": true,
-        "grave_esc": false,
-        "magic": false,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
         "oled": true,
         "rgblight": true,
-        "space_cadet": false,
         "split": true,
-        "tap_dance": false,
-		"tri_layer": true
+	"tri_layer": true
     },
     "matrix_pins": {
         "cols": ["B1", "B2", "B3", "B6", "F7", "F6"],
