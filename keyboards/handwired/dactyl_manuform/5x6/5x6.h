@@ -28,3 +28,47 @@
     { R40, R41, R42, R43, XXX, XXX }, \
     { R50, R51, R52, R53, XXX, XXX } \
 }
+
+#define LAYOUT_split_3x6_3( \
+    L10, L11, L12, L13, L14, L15,                          R10, R11, R12, R13, R14, R15, \
+    L20, L21, L22, L23, L24, L25,                          R20, R21, R22, R23, R24, R25, \
+    L30, L31, L32, L33, L34, L35,                          R30, R31, R32, R33, R34, R35, \
+                             L44, L45,                R40, R41, \
+                                       L54,       R51 \
+) { \
+    { XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { L10, L11, L12, L13, L14, L15 }, \
+    { L20, L21, L22, L23, L24, L25 }, \
+    { L30, L31, L32, L33, L34, L35 }, \
+    { XXX, XXX, XXX, XXX, L44, L45 }, \
+    { XXX, XXX, XXX, XXX, L54, XXX }, \
+\
+    { XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { R10, R11, R12, R13, R14, R15 }, \
+    { R20, R21, R22, R23, R24, R25 }, \
+    { R30, R31, R32, R33, R34, R35 }, \
+    { R40, R41, XXX, XXX, XXX, XXX }, \
+    { XXX, R51, XXX, XXX, XXX, XXX } \
+}
+
+#define LAYOUT_split_3x5_3( \
+    L11, L12, L13, L14, L15,                          R10, R11, R12, R13, R14, \
+    L21, L22, L23, L24, L25,                          R20, R21, R22, R23, R24, \
+    L31, L32, L33, L34, L35,                          R30, R31, R32, R33, R34, \
+                        L44, L45,                R40, R41, \
+                                  L54,       R51 \
+) { \
+    { XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, L11, L12, L13, L14, L15 }, \
+    { XXX, L21, L22, L23, L24, L25 }, \
+    { XXX, L31, L32, L33, L34, L35 }, \
+    { XXX, XXX, XXX, XXX, L44, L45 }, \
+    { XXX, XXX, XXX, XXX, L54, XXX }, \
+\
+    { XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { R10, R11, R12, R13, R14, XXX }, \
+    { R20, R21, R22, R23, R24, XXX }, \
+    { R30, R31, R32, R33, R34, XXX }, \
+    { R40, R41, XXX, XXX, XXX, XXX }, \
+    { XXX, R51, XXX, XXX, XXX, XXX } \
+}
