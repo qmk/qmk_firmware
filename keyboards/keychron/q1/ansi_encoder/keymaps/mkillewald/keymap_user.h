@@ -22,5 +22,3 @@ enum layers{
     WIN_BASE,
     WIN_FN
 };
-
-bool is_win_mode(void);

@@ -1,4 +1,4 @@
-## Keychron Q1 RGB ANSI ATMEGA32U4 ENC11 (knob) Keymap v2.0.0
+## Keychron Q1 RGB ANSI ATMEGA32U4 ENC11 (knob) Keymap v2.0.1
 
 ### Highly Recommended: You should clear your eeprom before or after flashing this firmware. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing your eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear your eeprom even if you take it out of DFU mode at this point without flashing.
 
@@ -19,8 +19,7 @@
 
 ##### Notes:   
 
-###### RGB mode can only be toggled on/off when keyboard mode switch set to Mac. The RGB toggle will have no effect if the keyboard mode switch is set to Win.
-###### Toggling RGB mode off will disable RGB for all layers and indicators. RGB must be toggled on for all indicators to function. If you do not want an RGB mode active but still want the indicators, toggle RGB on and turn the brightness all the way off for each base layer. The indicators will remain at full brightness.
+###### Toggling RGB mode off will disable RGB for and indicators separately for each base layer (Mac or Win). RGB must be toggled on for all indicators to function. If you do not want an RGB mode active but still want the indicators, toggle RGB on and turn the brightness all the way off. The indicators will remain at full brightness.
 ###### Changing RGB settings with VIA lighting tab is unsupported at this time and may have undesired effects. Keymap changes with VIA is supported.
 
 ## Config.h options
@@ -111,6 +110,9 @@ It seems Keychron has not pushed the relavant code to the main QMK repo yet. I s
 #### USE AT YOUR OWN RISK
 
 ## Changelog:
+
+v2.0.1  April 11, 2023
+- enabled separate RGB toggle for each base layer (Mac / Win)
 
 v2.0.0  April 11, 2023
 - copied code from Q2 v2.0.0 firware over
