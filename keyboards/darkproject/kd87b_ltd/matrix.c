@@ -180,7 +180,7 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
         changed |= (current_matrix[current_row] != cols);
         current_matrix[current_row] = cols;
  
-        while (read_cols() != 0)
+        while ((((PAL_PORT(A0))->IDR) & ((((1U << 5) - 1U)) | (((1U << 3) - 1U) << 8))) != ((((1U << 5) - 1U)) | (((1U << 3) - 1U) << 8)))    // Wait for all Col signals to go HIGH
             wait_us(1);
         //wait_us(MATRIX_IO_DELAY);
 
