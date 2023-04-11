@@ -1,7 +1,7 @@
 VIA_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 CAPS_WORD_ENABLE = yes
-AUTOCORRECT_ENABLE = yes
+AUTOCORRECT_ENABLE = no
 
 SRC += keymap_user_config.c
 
