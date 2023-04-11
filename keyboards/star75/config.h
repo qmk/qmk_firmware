@@ -3,11 +3,6 @@ Copyright 2022 Horns Lyn (@hornslyn)
 SPDX-License-Identifier: GPL-2.0-or-later */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B7, D0, D1, D2, D3, D5 }
@@ -15,17 +10,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* number of backlight levels */
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
-
-/* encoder definitions */
-#ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B1 }
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

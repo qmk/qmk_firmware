@@ -3,7 +3,7 @@
 from enum import Enum
 import re
 import shutil
-from subprocess import DEVNULL
+from subprocess import DEVNULL, TimeoutExpired
 
 from milc import cli
 from qmk import submodules
@@ -41,9 +41,8 @@ def _parse_gcc_version(version):
 def _check_arm_gcc_version():
     """Returns True if the arm-none-eabi-gcc version is not known to cause problems.
     """
-    if 'output' in ESSENTIAL_BINARIES['arm-none-eabi-gcc']:
-        version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
-        cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
+    version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
+    cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
 
     return CheckStatus.OK  # Right now all known arm versions are ok
 
@@ -51,44 +50,37 @@ def _check_arm_gcc_version():
 def _check_avr_gcc_version():
     """Returns True if the avr-gcc version is not known to cause problems.
     """
-    rc = CheckStatus.ERROR
-    if 'output' in ESSENTIAL_BINARIES['avr-gcc']:
-        version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
+    version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
+    cli.log.info('Found avr-gcc version %s', version_number)
 
-        cli.log.info('Found avr-gcc version %s', version_number)
-        rc = CheckStatus.OK
+    parsed_version = _parse_gcc_version(version_number)
+    if parsed_version['major'] > 8:
+        cli.log.warning('{fg_yellow}We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
+        return CheckStatus.WARNING
 
-        parsed_version = _parse_gcc_version(version_number)
-        if parsed_version['major'] > 8:
-            cli.log.warning('{fg_yellow}We do not recommend avr-gcc newer than 8. Downgrading to 8.x is recommended.')
-            rc = CheckStatus.WARNING
-
-    return rc
+    return CheckStatus.OK
 
 
 def _check_avrdude_version():
-    if 'output' in ESSENTIAL_BINARIES['avrdude']:
-        last_line = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')[-2]
-        version_number = last_line.split()[2][:-1]
-        cli.log.info('Found avrdude version %s', version_number)
+    last_line = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')[-2]
+    version_number = last_line.split()[2][:-1]
+    cli.log.info('Found avrdude version %s', version_number)
 
     return CheckStatus.OK
 
 
 def _check_dfu_util_version():
-    if 'output' in ESSENTIAL_BINARIES['dfu-util']:
-        first_line = ESSENTIAL_BINARIES['dfu-util']['output'].split('\n')[0]
-        version_number = first_line.split()[1]
-        cli.log.info('Found dfu-util version %s', version_number)
+    first_line = ESSENTIAL_BINARIES['dfu-util']['output'].split('\n')[0]
+    version_number = first_line.split()[1]
+    cli.log.info('Found dfu-util version %s', version_number)
 
     return CheckStatus.OK
 
 
 def _check_dfu_programmer_version():
-    if 'output' in ESSENTIAL_BINARIES['dfu-programmer']:
-        first_line = ESSENTIAL_BINARIES['dfu-programmer']['output'].split('\n')[0]
-        version_number = first_line.split()[1]
-        cli.log.info('Found dfu-programmer version %s', version_number)
+    first_line = ESSENTIAL_BINARIES['dfu-programmer']['output'].split('\n')[0]
+    version_number = first_line.split()[1]
+    cli.log.info('Found dfu-programmer version %s', version_number)
 
     return CheckStatus.OK
 
@@ -96,11 +88,16 @@ def _check_dfu_programmer_version():
 def check_binaries():
     """Iterates through ESSENTIAL_BINARIES and tests them.
     """
-    ok = True
+    ok = CheckStatus.OK
 
     for binary in sorted(ESSENTIAL_BINARIES):
-        if not is_executable(binary):
-            ok = False
+        try:
+            if not is_executable(binary):
+                ok = CheckStatus.ERROR
+        except TimeoutExpired:
+            cli.log.debug('Timeout checking %s', binary)
+            if ok != CheckStatus.ERROR:
+                ok = CheckStatus.WARNING
 
     return ok
 
@@ -108,8 +105,22 @@ def check_binaries():
 def check_binary_versions():
     """Check the versions of ESSENTIAL_BINARIES
     """
+    checks = {
+        'arm-none-eabi-gcc': _check_arm_gcc_version,
+        'avr-gcc': _check_avr_gcc_version,
+        'avrdude': _check_avrdude_version,
+        'dfu-util': _check_dfu_util_version,
+        'dfu-programmer': _check_dfu_programmer_version,
+    }
+
     versions = []
-    for check in (_check_arm_gcc_version, _check_avr_gcc_version, _check_avrdude_version, _check_dfu_util_version, _check_dfu_programmer_version):
+    for binary in sorted(ESSENTIAL_BINARIES):
+        if 'output' not in ESSENTIAL_BINARIES[binary]:
+            cli.log.warning('Unknown version for %s', binary)
+            versions.append(CheckStatus.WARNING)
+            continue
+
+        check = checks[binary]
         versions.append(check())
     return versions
 
@@ -119,10 +130,8 @@ def check_submodules():
     """
     for submodule in submodules.status().values():
         if submodule['status'] is None:
-            cli.log.error('Submodule %s has not yet been cloned!', submodule['name'])
             return CheckStatus.ERROR
         elif not submodule['status']:
-            cli.log.warning('Submodule %s is not up to date!', submodule['name'])
             return CheckStatus.WARNING
 
     return CheckStatus.OK
@@ -149,3 +158,21 @@ def is_executable(command):
 
     cli.log.error("{fg_red}Can't run `%s %s`", command, version_arg)
     return False
+
+
+def release_info(file='/etc/os-release'):
+    """Parse release info to dict
+    """
+    ret = {}
+    try:
+        with open(file) as f:
+            for line in f:
+                if '=' in line:
+                    key, value = map(str.strip, line.split('=', 1))
+                    if value.startswith('"') and value.endswith('"'):
+                        value = value[1:-1]
+                    ret[key] = value
+    except (PermissionError, FileNotFoundError):
+        pass
+
+    return ret

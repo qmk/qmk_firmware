@@ -72,7 +72,7 @@ void matrix_init(void)
     for (uint8_t i=0; i < MATRIX_ROWS; i++) _matrix0[i] = 0x00;
     matrix = _matrix0;
 
-	matrix_init_quantum();
+	matrix_init_kb();
     return;
 }
 
@@ -96,7 +96,7 @@ uint8_t matrix_scan(void)
         print("["); print_hex8(key); print("]\n");
     }
     
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

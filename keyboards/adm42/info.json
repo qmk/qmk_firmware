@@ -3,11 +3,14 @@
     "manufacturer": "Lorenzo Leonini",
     "url": "https://adm42.dev/",
     "maintainer": "lleonini",
+    "debounce": 10,
     "usb": {
         "vid": "0x04D8",
         "pid": "0xE873",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_adm42_3x12_6": "LAYOUT"
     },

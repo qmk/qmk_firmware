@@ -76,7 +76,7 @@ void backlight_set(uint8_t level)
   backlight_toggle_rgb(level & BACKLIGHT_RGB);
 }
 
-void backlight_update_state()
+void backlight_update_state(void)
 {
   cli();
   send_color(backlight_state_led & (1<<STATE_LED_SCROLL_LOCK) ? 255 : 0,

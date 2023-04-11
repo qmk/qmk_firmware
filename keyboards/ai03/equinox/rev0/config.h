@@ -20,8 +20,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Fix for prototype missing COL0, COL1, using backlight and RGB underglow I/O pins
 #undef MATRIX_COL_PINS
 #define MATRIX_COL_PINS { C4, B7, C6, C7, B6, B5, B4, B3, B2, B1, B0, D6 }
-
-// This directs backlight code to use a disconnected pin, so the firwmare still has
-// backlight code and VIA support even though it doesn't do anything.
-#undef BACKLIGHT_PIN
-#define BACKLIGHT_PIN D1

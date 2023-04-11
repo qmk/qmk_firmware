@@ -109,7 +109,7 @@ void double_shift(uint16_t keycode, uint8_t layer)
 }
 
 // tap dance LT (LAYER, KEY) emulation with <KEY><DOWN> -> <KEY><SHIFT> and auto-repeat extensions!
-void tap_shift(qk_tap_dance_state_t *state, uint16_t keycode, uint8_t layer)
+void tap_shift(tap_dance_state_t *state, uint16_t keycode, uint8_t layer)
 {
   // double tap plus down
   if (state->count > 2) {
@@ -152,23 +152,23 @@ void tap_reset(uint16_t keycode, uint8_t layer)
 }
 
 // augment pseudo LT (_RSHIFT, KC_ENT) handling below for rapid <ENTER><SHIFT> sequences
-void enter(qk_tap_dance_state_t *state, void *user_data)
+void enter(tap_dance_state_t *state, void *user_data)
 {
   tap_shift(state, KC_ENT, _RSHIFT);
 }
 
-void enter_reset(qk_tap_dance_state_t *state, void *user_data)
+void enter_reset(tap_dance_state_t *state, void *user_data)
 {
   tap_reset(KC_ENT, _RSHIFT);
 }
 
 // augment pseudo LT (_LSHIFT, KC_SPC) handling below for rapid <SPACE><SHIFT> sequences
-void space(qk_tap_dance_state_t *state, void *user_data)
+void space(tap_dance_state_t *state, void *user_data)
 {
   tap_shift(state, KC_SPC, _LSHIFT);
 }
 
-void space_reset(qk_tap_dance_state_t *state, void *user_data)
+void space_reset(tap_dance_state_t *state, void *user_data)
 {
   tap_reset(KC_SPC, _LSHIFT);
 }
@@ -191,7 +191,7 @@ void double_max(uint8_t count, uint8_t shift, uint16_t keycode)
   }
 }
 
-void colon(qk_tap_dance_state_t *state, void *user_data)
+void colon(tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 2) {
     tap_key  (KC_SPC);
@@ -205,7 +205,7 @@ void colon(qk_tap_dance_state_t *state, void *user_data)
   reset_tap_dance(state);
 }
 
-void eql(qk_tap_dance_state_t *state, void *user_data)
+void eql(tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 2) {
     tap_key(KC_SPC);
@@ -219,7 +219,7 @@ void eql(qk_tap_dance_state_t *state, void *user_data)
   reset_tap_dance(state);
 }
 
-void greater(qk_tap_dance_state_t *state, void *user_data)
+void greater(tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 2) {
     tap_key  (KC_SPC);
@@ -233,7 +233,7 @@ void greater(qk_tap_dance_state_t *state, void *user_data)
   reset_tap_dance(state);
 }
 
-void lesser(qk_tap_dance_state_t *state, void *user_data)
+void lesser(tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 2) {
     tap_key  (KC_SPC);
@@ -247,7 +247,7 @@ void lesser(qk_tap_dance_state_t *state, void *user_data)
   reset_tap_dance(state);
 }
 
-void tilde(qk_tap_dance_state_t *state, void *user_data)
+void tilde(tap_dance_state_t *state, void *user_data)
 {
   // double tap plus down: repeating keycode
   if (state->count > 2) {
@@ -264,7 +264,7 @@ void tilde(qk_tap_dance_state_t *state, void *user_data)
   }
 }
 
-void tilde_reset(qk_tap_dance_state_t *state, void *user_data)
+void tilde_reset(tap_dance_state_t *state, void *user_data)
 {
   unregister_code(KC_GRV);
   unregister_code(KC_LSFT);
@@ -293,7 +293,7 @@ void symbol_pair(uint8_t shift, uint16_t left, uint16_t right)
 #define CLOSE 1
 
 // tap dance symbol pairs
-void tap_pair(qk_tap_dance_state_t *state, uint8_t shift, uint16_t left, uint16_t right, uint16_t modifier, uint8_t close)
+void tap_pair(tap_dance_state_t *state, uint8_t shift, uint16_t left, uint16_t right, uint16_t modifier, uint8_t close)
 {
   // triple tap: left right with cursor between symbol pair a la vim :-)
   if (state->count > 2) {
@@ -324,69 +324,69 @@ void tap_pair(qk_tap_dance_state_t *state, uint8_t shift, uint16_t left, uint16_
   }
 }
 
-void doublequote(qk_tap_dance_state_t *state, void *user_data)
+void doublequote(tap_dance_state_t *state, void *user_data)
 {
   tap_pair(state, S_ALWAYS, KC_QUOT, KC_QUOT, 0, 0);
 }
 
-void grave(qk_tap_dance_state_t *state, void *user_data)
+void grave(tap_dance_state_t *state, void *user_data)
 {
   tap_pair(state, S_NEVER, KC_GRV, KC_GRV, 0, 0);
 }
 
-void lbrace(qk_tap_dance_state_t *state, void *user_data)
+void lbrace(tap_dance_state_t *state, void *user_data)
 {
   tap_pair(state, S_NEVER, KC_LBRC, KC_RBRC, 0, 0);
 }
 
-void lcurly(qk_tap_dance_state_t *state, void *user_data)
+void lcurly(tap_dance_state_t *state, void *user_data)
 {
   tap_pair(state, S_ALWAYS, KC_LBRC, KC_RBRC, 0, 0);
 }
 
-void lparen(qk_tap_dance_state_t *state, void *user_data)
+void lparen(tap_dance_state_t *state, void *user_data)
 {
   tap_pair(state, S_ALWAYS, KC_9, KC_0, KC_LCTL, 0);
 }
 
-void lparen_reset(qk_tap_dance_state_t *state, void *user_data)
+void lparen_reset(tap_dance_state_t *state, void *user_data)
 {
   unregister_code(KC_LCTL);
 }
 
-void quote(qk_tap_dance_state_t *state, void *user_data)
+void quote(tap_dance_state_t *state, void *user_data)
 {
   tap_pair(state, S_NEVER, KC_QUOT, KC_QUOT, 0, 0);
 }
 
-void rangle(qk_tap_dance_state_t *state, void *user_data)
+void rangle(tap_dance_state_t *state, void *user_data)
 {
   tap_pair(state, S_ALWAYS, KC_COMM, KC_DOT, 0, CLOSE);
 }
 
-void rbrace(qk_tap_dance_state_t *state, void *user_data)
+void rbrace(tap_dance_state_t *state, void *user_data)
 {
   tap_pair(state, S_NEVER, KC_LBRC, KC_RBRC, 0, CLOSE);
 }
 
-void rcurly(qk_tap_dance_state_t *state, void *user_data)
+void rcurly(tap_dance_state_t *state, void *user_data)
 {
   tap_pair(state, S_ALWAYS, KC_LBRC, KC_RBRC, 0, CLOSE);
 }
 
-void rparen(qk_tap_dance_state_t *state, void *user_data)
+void rparen(tap_dance_state_t *state, void *user_data)
 {
   tap_pair(state, S_ALWAYS, KC_9, KC_0, 0, CLOSE);
 }
 
-void rparen_reset(qk_tap_dance_state_t *state, void *user_data)
+void rparen_reset(tap_dance_state_t *state, void *user_data)
 {
   unregister_code(KC_LCTL);
 }
 
 // ............................................................ Tap Dance Insert
 
-void comma(qk_tap_dance_state_t *state, void *user_data)
+void comma(tap_dance_state_t *state, void *user_data)
 {
   tap_key(KC_COMM);
   if (state->count > 1) {
@@ -395,7 +395,7 @@ void comma(qk_tap_dance_state_t *state, void *user_data)
   reset_tap_dance(state);
 }
 
-void dot(qk_tap_dance_state_t *state, void *user_data)
+void dot(tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 1) {
     shift_key(KC_COLN);
@@ -407,7 +407,7 @@ void dot(qk_tap_dance_state_t *state, void *user_data)
 }
 
 // compile time macro string, see functions/hardware planck script
-void private(qk_tap_dance_state_t *state, void *user_data)
+void private(tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 1) {
 #ifdef PRIVATE_STRING
@@ -418,7 +418,7 @@ void private(qk_tap_dance_state_t *state, void *user_data)
 }
 
 // config.h defined string
-void send(qk_tap_dance_state_t *state, void *user_data)
+void send(tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 1) {
     SEND_STRING(PUBLIC_STRING);
@@ -428,7 +428,7 @@ void send(qk_tap_dance_state_t *state, void *user_data)
 
 // .......................................................... Tap Dance One Shot
 
-void caps(qk_tap_dance_state_t *state, void *user_data)
+void caps(tap_dance_state_t *state, void *user_data)
 {
   if (state->count > 1) {
     tap_key(KC_CAPS);
@@ -439,14 +439,14 @@ void caps(qk_tap_dance_state_t *state, void *user_data)
   }
 }
 
-void caps_reset(qk_tap_dance_state_t *state, void *user_data)
+void caps_reset(tap_dance_state_t *state, void *user_data)
 {
   unregister_code(KC_LSFT);
 }
 
 // ................................................................... Tap Dance
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, caps, caps_reset)
  ,[_COLN] = ACTION_TAP_DANCE_FN         (colon)
  ,[_COMM] = ACTION_TAP_DANCE_FN         (comma)
