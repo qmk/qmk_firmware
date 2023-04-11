@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Smart80",
     "usb": {
-        "pid": "0x5044",
+        "pid": "0x0080",
         "device_version": "0.0.1"
     },
 
