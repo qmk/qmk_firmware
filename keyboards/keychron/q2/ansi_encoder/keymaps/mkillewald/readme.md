@@ -27,10 +27,10 @@
 Default options (these defaults will be applied whenever the eeprom is cleared):
 
 ```
-    #define DEFAULT_CAPS_LOCK_LIGHT_TAB      false        // true = enable, false = disable
-    #define DEFAULT_CAPS_LOCK_LIGHT_ALPHA    true         // true = enable, false = disable
-    #define DEFAULT_FN_LAYER_TRANSPARENT_OFF false        // true = enable, false = disable
-    #define DEFAULT_FN_LAYER_SHOW_COLOR      true         // true = enable, false = disable
+    #define DEFAULT_CAPS_LOCK_LIGHT_TAB      0            // 1 = enable, 0 = disable
+    #define DEFAULT_CAPS_LOCK_LIGHT_ALPHA    1            // 1 = enable, 0 = disable
+    #define DEFAULT_FN_LAYER_TRANSPARENT_OFF 0            // 1 = enable, 0 = disable
+    #define DEFAULT_FN_LAYER_SHOW_COLOR      1            // 1 = enable, 0 = disable
     #define DEFAULT_ENABLE_MAC_BASE          1            // 1 = enable, 0 = disable
     #define DEFAULT_ENABLE_WIN_BASE          1            // 1 = enable, 0 = disable
     #define DEFAULT_HUE_WIN_BASE             80           // HSV green hue (Win Base layer)
