@@ -1,1 +1,1 @@
-# DEFAULT_FOLDER = mwstudio/mw660/apm32f103
+# This file intentionally left blank
