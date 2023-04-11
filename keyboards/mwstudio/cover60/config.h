@@ -18,7 +18,6 @@
 #define FORCE_NKRO
 
 #define RGB_DI_PIN B8
-#define DRIVER_LED_TOTAL 19
 #define RGBLED_NUM 19
 
 #define WS2812_PWM_DRIVER PWMD4               // default: PWMD2
