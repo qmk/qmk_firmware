@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Mike Killewald
+/* Copyright 2023 @ Mike Killewald (https://github.com/mkillewald)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,18 +16,9 @@
 
 #pragma once
 
-// clang-format off
-
-enum layers {
+enum layers{
     MAC_BASE,
     MAC_FN,
     WIN_BASE,
     WIN_FN
 };
-
-// clang-format on
-
-bool get_caps_lock_light_tab(void);
-bool get_caps_lock_light_alphas(void);
-bool get_fn_layer_transparent_keys_off(void);
-bool get_fn_layer_color_enable(void);

@@ -1,0 +1,85 @@
+# Copyright 2021-2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+:guage        -> gauge
+:the the:     -> the
+:thier        -> their
+:ture         -> true
+accomodate    -> accommodate
+acommodate    -> accommodate
+aparent       -> apparent
+aparrent      -> apparent
+apparant      -> apparent
+apparrent     -> apparent
+aquire        -> acquire
+becuase       -> because
+cauhgt        -> caught
+cheif         -> chief
+choosen       -> chosen
+cieling       -> ceiling
+collegue      -> colleague
+concensus     -> consensus
+contians      -> contains
+cosnt         -> const
+dervied       -> derived
+dosen't       -> doesn't
+fales         -> false
+fasle         -> false
+fitler        -> filter
+flase         -> false
+foward        -> forward
+frequecy      -> frequency
+gaurantee     -> guarantee
+guaratee      -> guarantee
+heigth        -> height
+heirarchy     -> hierarchy
+inclued       -> include
+interator     -> iterator
+intput        -> input
+invliad       -> invalid
+lenght        -> length
+liasion       -> liaison
+libary        -> library
+listner       -> listener
+looses:       -> loses
+looup         -> lookup
+manefist      -> manifest
+namesapce     -> namespace
+namespcae     -> namespace
+occassion     -> occasion
+occured       -> occurred
+ouptut        -> output
+ouput         -> output
+overide       -> override
+postion       -> position
+priviledge    -> privilege
+psuedo        -> pseudo
+recieve       -> receive
+refered       -> referred
+relevent      -> relevant
+repitition    -> repetition
+reuslt        -> result
+retrun        -> return
+retun         -> return
+reutrn        -> return
+saftey        -> safety
+seperate      -> separate
+singed        -> signed
+stirng        -> string
+strign        -> string
+swithc        -> switch
+swtich        -> switch
+thresold      -> threshold
+udpate        -> update
+widht         -> width

@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Mike Killewald
+/* Copyright 2023 @ Mike Killewald (https://github.com/mkillewald)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,8 +15,10 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "keychron_common.h"
 #include "rgb_matrix_user.h"
 #include "keymap_user.h"
+#include "keymap_user_config.h"
 
 keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
 
@@ -41,15 +43,20 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
             }
 #endif
+#ifdef CAPS_WORD_INDICATOR_COLOR
+            if (is_caps_word_on()) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_word_indicator, CAPS_WORD_INDICATOR_COLOR);
+            }
+#endif
             break;
         case MAC_FN:
         case WIN_FN:
-#ifdef FN_LAYER_COLOR
-            if (get_fn_layer_color_enable()) {
-                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, FN_LAYER_COLOR);
+#ifdef FN1_LAYER_COLOR
+            if (user_config_get_fn_layer_color_enable()) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, FN1_LAYER_COLOR);
             }
 #endif
-            if (get_fn_layer_transparent_keys_off()) {
+            if (user_config_get_fn_layer_transparent_keys_off()) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, RGB_OFF);
             }
             break;
@@ -69,15 +76,23 @@ void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t l
 bool is_caps_lock_indicator(uint16_t keycode) {
     bool indicator = keycode == KC_CAPS;
 
-    if (get_caps_lock_light_tab()) {
+    if (user_config_get_caps_lock_light_tab()) {
         indicator = keycode == KC_TAB || keycode == KC_CAPS;
     }
 
-    if (get_caps_lock_light_alphas()) {
+    if (user_config_get_caps_lock_light_alphas()) {
         return (KC_A <= keycode && keycode <= KC_Z) || indicator;
     } else {
         return indicator;
     }
+}
+
+bool is_caps_word_indicator(uint16_t keycode) {
+    bool indicator = keycode == KC_LSFT;
+#ifdef CAPS_WORD_LIGHT_LOWER_LEFT_CORNER
+    indicator = keycode == KC_LSFT || keycode == KC_LCTL || keycode == KC_LOPT;
+#endif
+    return indicator;
 }
 
 bool is_transparent(uint16_t keycode) { return keycode == KC_TRNS; }
