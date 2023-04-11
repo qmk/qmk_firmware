@@ -1,4 +1,4 @@
-## Keychron Q2 SEVERED RGB ANSI STM32L432 ENC11 (knob) Keymap v2.0.0
+## Keychron Q2 SEVERED RGB ANSI STM32L432 ENC11 (knob) Keymap v2.0.1
 
 ### Highly Recommended: You should clear your eeprom before or after flashing this firmware. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing your eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear your eeprom even if you take it out of DFU mode at this point without flashing.
 
@@ -126,6 +126,9 @@ It seems Keychron has not pushed the relavant code to the main QMK repo yet. I s
 #### USE AT YOUR OWN RISK
 
 ## Changelog:
+
+v2.0.1  April 11, 2023
+- enabled separate RGB toggle for each base layer (Mac / Win)
 
 v2.0.0  April 7, 2023
 - added different RGB settings for Mac Base and Win Base layers
