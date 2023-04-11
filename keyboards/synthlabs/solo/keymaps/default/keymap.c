@@ -6,7 +6,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_all(
                                        KC_J,    KC_U,    KC_K,    KC_I,    KC_L,    KC_O, KC_SCLN,
-        _______, KC_MUTE, _______,
+        KC_MUTE,
                                        KC_J,    KC_U,    KC_K,    KC_I,    KC_L,    KC_O, KC_SCLN
     )
 };
