@@ -371,13 +371,14 @@ TEST_F(OneShot, OSLWithOsmAndAdditionalKeypress) {
 
     /* Press regular key */
     EXPECT_REPORT(driver, (osm_key.report_code, regular_key.report_code)).Times(1);
+    EXPECT_EMPTY_REPORT(driver);
     regular_key.press();
     run_one_scan_loop();
     EXPECT_FALSE(layer_state_is(1));
     VERIFY_AND_CLEAR(driver);
 
     /* Release regular key */
-    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_NO_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
