@@ -60,8 +60,8 @@
                 {"matrix":[0,11], "label":"_", "x":11.75, "y":0}, 
                 {"matrix":[0,12], "label":"+", "x":12.75, "y":0}, 
                 {"matrix":[0,13], "label":"Back", "x":14, "y":0}, 
-                {"matrix":[0,14], "label":"Insert", "x":15.25, "y":0}, 
-                {"matrix":[0,15], "label":"Home", "x":16.25, "y":0}, 
+                {"matrix":[2,13], "label":"Insert", "x":15.25, "y":0}, 
+                {"matrix":[2,14], "label":"Home", "x":16.25, "y":0}, 
                 {"matrix":[1,15], "label":"PgUp", "x":17.25, "y":0}, 
 
                 {"matrix":[1,0], "label":"Tab", "x":0, "y":1.25, "w":1.5}, 
