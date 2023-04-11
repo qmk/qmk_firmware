@@ -26,7 +26,7 @@
 #define DEFAULT_ENABLE_MAC_BASE          1            // 1 = enable, 0 = disable
 #define DEFAULT_ENABLE_WIN_BASE          1            // 1 = enable, 0 = disable
 #define DEFAULT_HUE_WIN_BASE             80           // HSV green hue (Win Base layer)
-#define RGB_MATRIX_DEFAULT_HUE           170          // HSV blue hue  (Mac Base layer)
+#define RGB_MATRIX_DEFAULT_HUE           37           // HSV gold hue  (Mac Base layer)
 #define RGB_MATRIX_DEFAULT_SAT           255          // Both Win/Mac Base layers
 #define RGB_MATRIX_DEFAULT_VAL           255          // Both Win/Mac Base layers
 #define RGB_MATRIX_DEFAULT_SPD           127          // Both Win/Mac Base layers
@@ -36,7 +36,7 @@
 #define CAPS_LOCK_INDICATOR_COLOR RGB_RED
 
 // Dynamic Fn Layer RGB indicator options
-#define FN1_LAYER_COLOR 0xFE, 0x23, 0x00  // RGB orange
+#define FN1_LAYER_COLOR RGB_TEAL
 
 // Caps Word is activated by double-tapping left Shift. Replace this with
 // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD if you want to activate Caps Word
