@@ -3,12 +3,6 @@
 
 #pragma once
 
-// Bootmagic Lite key configuration (these do not transfer to Vial in info.json)
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-#define BOOTMAGIC_LITE_ROW_RIGHT 5
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
-
 // Options not yet fully implemented in info.json
 #define RGBLIGHT_LIMIT_VAL 175
 #define RGBLIGHT_DEFAULT_VAL ( RGBLIGHT_LIMIT_VAL / 2 )
