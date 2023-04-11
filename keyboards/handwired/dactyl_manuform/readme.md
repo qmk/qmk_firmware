@@ -1,31 +1,51 @@
 # Dactyl Manuform
 
-the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
+The [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth/dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [ManuForm](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. All information needed for making one is in the first link.
 ![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
+*Pair of Dactyl Manuform 4x6*
+
+## Variants
+
+Dactyl Manuform's are built in variations that cater for different row and column counts, and thumb clusters.  
+
+As standard: 
+- The finger keywell bottom row has 2 keys, 1 each in ring and middle columns
+    - Exception to this rule is the 7 column variants, that have two additional keys in this row
+- The thumb cluster has 6 keys, arranged in 2 columns by 3 rows 
+
+Variants are denoted as `RowCount`x`ColumnCount`_`Alteration(s)`
+
+### Rows
+**3**: Alpha numerics only  
+**4**: Alpha numerics, and finger keywell bottom row  
+**5**: Alpha numerics, number row, and finger keywell bottom row  
+**6**: Alpha numerics, number row, function key row, and finger keywell bottom row   
+
+### Columns
+**5** - A column for each finger with additional column for first finger  
+**6** - As `5` with additional pinky finger column  
+**7** - As `6` with additional first finger column  
+
+### Alterations
+**_3**: Thumb cluster is reduced to three keys  
+**_5**: Thumb cluster is reduced to five keys  
+**_2_5**: Thumb cluster is reduced to five keys, two additional keys added to finger keywell bottom row  
+**_kinesis**: Thumb cluster is shaped to resemble the Kinesis Advantage keyboard  
 
 ## First Time Setup
 
-Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to complie the default .hex using:
+Download or clone the `qmk/qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to compile a firmware file.
 
-Depending on your keymap, chose one of the following commands:
+ `qmk compile -kb handwired/dactyl_manuform/`*variant*` -kb` *keymap*
 
+Example:
 ```
-$ make handwired/dactyl_manuform/YOUR_LAYOUT:YOUR_KEYMAP_NAME
+qmk compile -kb handwired/dactyl_manuform/4x6 -km default
 ```
-
-example:
-
+If everything worked correctly you will see a file named, in the case of the above example:
 ```
-$ make handwired/dactyl_manuform/4x5:default
+handwired_dactyl_manuform_4x6_default.hex
 ```
-
-If everything worked correctly you will see a file:
-
-```
-dactyl_manuform_YOUR_LAYOUT_YOUR_KEYMAP_NAME.hex
-```
-
-For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
 
 ## Keymaps
 
@@ -34,7 +54,7 @@ For more information on customizing keymaps, take a look at the primary document
 The default functional layout, based on QWERTY, and every variant has this keymap; used as a starting point/template for custom keymaps and for debugging purposes when soldering key matrix to controller.
 
 ### Via
-Similar to Default but adds support for the [Via](https://www.caniusevia.com/) keymap configurator. Reduces the number of layers to 4 to comply with Via defaults, and remaps some keys to accomodate that constraint.
+Similar to Default but adds support for the [VIA](https://usevia.app/) keymap configurator. Reduces the number of layers to 4 to comply with VIA defaults, and remaps some keys to accommodate that constraint.
 
 Variants with keymap for Via:
 - 4x6
@@ -56,6 +76,11 @@ Variants with keymap for Miryoku:
 Variants with support for Miryoku without a specific keymap:  
 - 3x5_3
 
+### Custom Keymaps
+
+For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
+
+
 ## Required Hardware
 
 Apart from diodes and key switches for the keyboard matrix in each half, you will need:
@@ -71,9 +96,6 @@ cable with at least 4 wires and 2x 4.7kΩ pull-up resistors.
 The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and digital pin 3 (i.e.
 PD0 on the ATmega32u4) between the two Pro Micros.
 
-Next, wire your key matrix to any of the remaining 17 IO pins of the pro micro
-and modify the `matrix.c` accordingly.
-
 The wiring for serial:
 
 ![serial wiring](https://i.imgur.com/C3D1GAQ.png)
@@ -86,7 +108,9 @@ The pull-up resistors may be placed on either half. It is also possible
 to use 4 resistors and have the pull-ups in both halves, but this is
 unnecessary in simple use cases.
 
-You can change your configuration between serial and i2c by modifying your `config.h` file. [Split Keyboard documentation](https://docs.qmk.fm/#/feature_split_keyboard)
+You can change your configuration between serial and i2c by modifying your `config.h` file. [Split Keyboard documentation](https://docs.qmk.fm/#/feature_split_keyboard).
+
+Next, wire the switch matrix in sequence as specified by the chosen variant's column and row definitions.
 
 ## Optional Hardware
 
@@ -94,68 +118,65 @@ A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and t
 
 ## Non-Pro Micro Controller Compilation
 
-If building a Dactyl Manuform with a controller that isn't a pro micro, the Converter feature of QMK will allow compilation of firmware for the intended variant and supported controller without having to create a new QMK keyboard/keymap.  
+If building a Dactyl Manuform with controllers that aren't a pro micro, the Converter feature of QMK will allow compilation of firmware for the intended variant and supported controller without having to create a new QMK keyboard/keymap.  
 Please see [Converters documentation](https://docs.qmk.fm/#/feature_converters?id=supported-converters) for list of controllers that are supported converting from `promicro` and conversion implementation.
 
 ## Flashing
 
-To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
+To flash your board with generated firmware file, please see [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
 
-## Choosing which board to plug the USB cable into (choosing Master)
+## Choosing which half to plug host cable
 
-Because the two boards are identical, the firmware has logic to differentiate the left and right board.
+Because the two halves are identical, the firmware has logic to differentiate.  
+It uses two strategies to figure things out: Checking EEPROM or has defined which half the host cable should be plugged into.
 
-It uses two strategies to figure things out: looking at the EEPROM (memory on the chip) or looking if the current board has the usb cable.
+The EEPROM approach requires additional setup but allows you to swap the host cable to either half.
 
-The EEPROM approach requires additional setup (flashing the eeprom) but allows you to swap the usb cable to either side.
+Half defined approach is easier to setup and if you just want the host cable on the left half, you do not need any additional configuration.
 
-The USB cable approach is easier to setup and if you just want the usb cable on the left board, you do not need to do anything extra.
+### Setting left half as master
 
-### Setting the left hand as master
+If you always plug the host cable into the left half, nothing extra is needed as this is the default. Comment out in `config.h` file `EE_HANDS`, `I2C_MASTER_RIGHT`, and `MASTER_RIGHT` if for some reason they are defined.
 
-If you always plug the usb cable into the left board, nothing extra is needed as this is the default. Comment out `EE_HANDS` and comment out `I2C_MASTER_RIGHT` or `MASTER_RIGHT` if for some reason it was set.
+### Setting right half as master
 
-### Setting the right hand as master
-
-If you always plug the usb cable into the right board, add an extra flag to your `config.h`
+If you always plug the host cable into the right half, add the following into the respective variant's `config.h` file:
 
 ```
  #define MASTER_RIGHT
 ```
 
-### Setting EE_hands to use either hands as master
+### Setting EE_hands to use either half as master
 
-If you define `EE_HANDS` in your `config.h`, you will need to set the
-EEPROM for the left and right halves.
+You will need to flash the EEPROM for the left and right halves.
 
-The EEPROM is used to store whether the
-half is left handed or right handed. This makes it so that the same firmware
-file will run on both hands instead of having to flash left and right handed
-versions of the firmware to each half. To flash the EEPROM file for the left
-half run:
+The EEPROM in each half is flashed to code, into controller, their half designation.
+This requires a firmware file compiled and flashed for each half.
+
+To flash the EEPROM file for the **left** half, run:
 
 ```
 make handwired/dactyl_promicro:default:dfu-split-left
+```
+For the **right** half, run:
+```
 make handwired/dactyl_promicro:default:dfu-split-right
 ```
 
-After you have flashed the EEPROM, you then need to set `EE_HANDS` in your config.h, rebuild the hex files and reflash.
-
-Note that you need to program both halves, but you have the option of using
-different keymaps for each half. You could program the left half with a QWERTY
-layout and the right half with a Colemak layout using bootmagic's default layout option.
-Then if you connect the left half to a computer by USB the keyboard will use QWERTY and Colemak when the
-right half is connected.
-
-## Notes on Using Pro Micro 3.3V
-
-Do update the `F_CPU` parameter in `rules.mk` to `8000000` which reflects
-the frequency on the 3.3V board.
-
-Also, if the slave board is producing weird characters in certain columns,
-update the following line in `matrix.c` to the following:
-
+After you have flashed the EEPROM for both havles, you then need to set EE_HANDS in `config.h` file,
 ```
-// wait_us(30);  // without this wait read unstable value.
-wait_us(300);  // without this wait read unstable value.
+#define EE_HANDS
+```
+re-compile the firmware (.hex) file as normal, and flash board as normal.
+
+### Handedness configurations
+
+See [Handedness](https://docs.qmk.fm/#/config_options?id=setting-handedness) documentation for more information on configuring handedness.
+
+## VIA configuration 
+
+Variants with a `via` keymap are VIA capable. 
+Compile firmware, for capable variant, with it's `via` keymap and flash board with this firmware file.
+```
+qmk compile -kb handwired/dactyl_manuform/4x6 -km via
 ```
