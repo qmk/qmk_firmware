@@ -253,164 +253,163 @@ void leader_end(void) {
 
 // leader
 void leader_end_user(void) {
-        leading = false;
-        // Debug mode
-        if (leader_sequence[0] == KC_D) {
-            // If only d is pressed, toggle debugging
-            if (leader_sequence_size == 1) {
-                dprint("Debugging toggle triggered\n");
-                if (debug_enable) {
-                    print("Disabling debug mode\n");
-                    debug_enable = false;
-                } else {
-                    print("Enabling debug mode\n");
-                    debug_enable = true;
-                }
-            }
-            // Enable debugging
-            if (leader_sequence[1] == KC_1 || leader_sequence[1] == KC_E) {
-                    print("Enabling debug mode\n");
-                    debug_enable = true;
-            }
-            // Disable debugging
-            if (leader_sequence[1] == KC_0 || leader_sequence[1] == KC_D) {
-                    print("Disabling debug mode\n");
-                    debug_enable = false;
-            }
-            // Print the RGB mode
-            if (leader_sequence[1] == KC_M) {
-                printf("Current RGB mode number: %d\n", rgb_matrix_get_mode());
-                if (debug_enable) {
-                    char out_str[8];
-                    sprintf(out_str, "%d", rgb_matrix_get_mode());
-                    SEND_STRING(out_str);
-                }
-            }
-            // Print the system time
-            if (leader_sequence[1] == KC_T) {
-                printf("Current system time: %ld\n", chVTGetSystemTimeX());
-                if (debug_enable) {
-                    char out_str[16];
-                    sprintf(out_str, "%ld", chVTGetSystemTimeX());
-                    SEND_STRING(out_str);
-                }
-            }
-            // Print the WPM
-            if (leader_sequence[1] == KC_W) {
-                printf("Current WPM: %d\n", get_current_wpm());
-                if (debug_enable) {
-                    char out_str[8];
-                    sprintf(out_str, "%d", get_current_wpm());
-                    SEND_STRING(out_str);
-                }
-            }
-        }
-        // Random mode
-        if (leader_sequence[0] == KC_R) {
-            if (leader_sequence[1] == KC_C) {
-                custom_random_mode = true;
-                dprint("Custom random mode enabled\n");
-                return;
-            } else if (leader_sequence[1] == KC_B) {
-                custom_random_mode = false;
-                dprint("Builtin random mode enabled\n");
-                return;
-            }
-            // Print the RNG string rekey interval
-            if (leader_sequence[1] == KC_K) {
-                printf("Current RNG rekey inerval: %d\n", rekey_interval);
-                if (debug_enable) {
-                    char out_str[8];
-                    sprintf(out_str, "%d", rekey_interval);
-                    SEND_STRING(out_str);
-                }
-                return;
-            }
-            // Print the RNG string length
-            if (leader_sequence[1] == KC_L) {
-                printf("Current RNG string length: %d\n", random_string_length);
-                if (debug_enable) {
-                    char out_str[8];
-                    sprintf(out_str, "%d", random_string_length);
-                    SEND_STRING(out_str);
-                }
-                return;
-            }
-            // Print the RNG mode
-            if (leader_sequence[1] == KC_M) {
-                printf("Current RNG mode: %s\n", (custom_random_mode) ? "Random mode: Custom\n" : "Random mode: Builtin\n");
-                if (debug_enable) {
-                    char out_str[24];
-                    sprintf(out_str, "%s", (custom_random_mode) ? "Random mode: Custom\n" : "Random mode: Builtin\n");
-                    SEND_STRING(out_str);
-                }
-                return;
-            }
-            // Print the curent prime
-            if (leader_sequence[1] == KC_P) {
-                printf("Current prime: %ld\n", prime);
-                if (debug_enable) {
-                    char out_str[16];
-                    sprintf(out_str, "%ld", prime);
-                    SEND_STRING(out_str);
-                }
-                return;
-            }
-            // Print the current seed
-            if (leader_sequence[1] == KC_S) {
-                printf("Current RNG seed: %ld\n", seed);
-                if (debug_enable) {
-                    char out_str[8];
-                    sprintf(out_str, "%ld", seed);
-                    SEND_STRING(out_str);
-                }
-                return;
-            }
-            dprintf("Sequence size: %d\n", leader_sequence_size);
-
-            // The number of digits to be processed
-            uint8_t digits = leader_sequence_size - 1;
-            dprintf("Digits: %d\n", digits);
-
-            // Calculated random string length
-            uint16_t calculated_number = 0;
-
-            // Starting magnitude
-            uint16_t magnitude = 1;
-
-            // Iterate from the back of the leader to the front to calculate the input
-            for (uint8_t i=digits; i>0; i--) {
-                // The scaled value of the key being pressed
-                uint16_t place_value = 0;
-                // The integer value of a keypress
-                uint8_t key_value = 0;
-                // Name the key
-                uint16_t key_code = leader_sequence[i];
-
-                // 1-9, both because keycode 0 is greater than 9, and because nothing needs to be done in the case of 0
-                if (key_code >= KC_1 && key_code <= KC_9) {
-                    // Calculate key value by seeing the differnce between it and KC_1, with an offset of 1
-                    key_value = 1 + key_code - KC_1;
-                    // Calculate the value given the place
-                    place_value = key_value * magnitude;
-                    dprintf("i: %d\n", i);
-                    dprintf("key value: %d\n", key_value);
-                    dprintf("magnitude: %d\n", magnitude);
-                    dprintf("place value: %d\n", place_value);
-                    calculated_number += place_value;
-                    magnitude *= 10;
-                } else if (key_code == KC_0) {
-                    // Still iterate magnitude in case of 0
-                    magnitude *= 10;
-                } else {
-                    // Debug print
-                    dprintf("Invalid character: %d\n", leader_sequence[i]);
-                }
-            }
-            // update the random string as long as the calculated number is not 0
-            random_string_length = (calculated_number == 0) ? random_string_length : calculated_number;
-            send_random_str();
-        }
-        leader_end();
+    leading = false;
+    // Debug mode
+    if (leader_sequence[0] == KC_D) {
+	// If only d is pressed, toggle debugging
+	if (leader_sequence_size == 1) {
+	    dprint("Debugging toggle triggered\n");
+	    if (debug_enable) {
+		print("Disabling debug mode\n");
+		debug_enable = false;
+	    } else {
+		print("Enabling debug mode\n");
+		debug_enable = true;
+	    }
+	}
+	// Enable debugging
+	if (leader_sequence[1] == KC_1 || leader_sequence[1] == KC_E) {
+		print("Enabling debug mode\n");
+		debug_enable = true;
+	}
+	// Disable debugging
+	if (leader_sequence[1] == KC_0 || leader_sequence[1] == KC_D) {
+		print("Disabling debug mode\n");
+		debug_enable = false;
+	}
+	// Print the RGB mode
+	if (leader_sequence[1] == KC_M) {
+	    printf("Current RGB mode number: %d\n", rgb_matrix_get_mode());
+	    if (debug_enable) {
+		char out_str[8];
+		sprintf(out_str, "%d", rgb_matrix_get_mode());
+		SEND_STRING(out_str);
+	    }
+	}
+	// Print the system time
+	if (leader_sequence[1] == KC_T) {
+	    printf("Current system time: %ld\n", chVTGetSystemTimeX());
+	    if (debug_enable) {
+		char out_str[16];
+		sprintf(out_str, "%ld", chVTGetSystemTimeX());
+		SEND_STRING(out_str);
+	    }
+	}
+	// Print the WPM
+	if (leader_sequence[1] == KC_W) {
+	    printf("Current WPM: %d\n", get_current_wpm());
+	    if (debug_enable) {
+		char out_str[8];
+		sprintf(out_str, "%d", get_current_wpm());
+		SEND_STRING(out_str);
+	    }
+	}
     }
+    // Random mode
+    if (leader_sequence[0] == KC_R) {
+	if (leader_sequence[1] == KC_C) {
+	    custom_random_mode = true;
+	    dprint("Custom random mode enabled\n");
+	    return;
+	} else if (leader_sequence[1] == KC_B) {
+	    custom_random_mode = false;
+	    dprint("Builtin random mode enabled\n");
+	    return;
+	}
+	// Print the RNG string rekey interval
+	if (leader_sequence[1] == KC_K) {
+	    printf("Current RNG rekey inerval: %d\n", rekey_interval);
+	    if (debug_enable) {
+		char out_str[8];
+		sprintf(out_str, "%d", rekey_interval);
+		SEND_STRING(out_str);
+	    }
+	    return;
+	}
+	// Print the RNG string length
+	if (leader_sequence[1] == KC_L) {
+	    printf("Current RNG string length: %d\n", random_string_length);
+	    if (debug_enable) {
+		char out_str[8];
+		sprintf(out_str, "%d", random_string_length);
+		SEND_STRING(out_str);
+	    }
+	    return;
+	}
+	// Print the RNG mode
+	if (leader_sequence[1] == KC_M) {
+	    printf("Current RNG mode: %s\n", (custom_random_mode) ? "Random mode: Custom\n" : "Random mode: Builtin\n");
+	    if (debug_enable) {
+		char out_str[24];
+		sprintf(out_str, "%s", (custom_random_mode) ? "Random mode: Custom\n" : "Random mode: Builtin\n");
+		SEND_STRING(out_str);
+	    }
+	    return;
+	}
+	// Print the curent prime
+	if (leader_sequence[1] == KC_P) {
+	    printf("Current prime: %ld\n", prime);
+	    if (debug_enable) {
+		char out_str[16];
+		sprintf(out_str, "%ld", prime);
+		SEND_STRING(out_str);
+	    }
+	    return;
+	}
+	// Print the current seed
+	if (leader_sequence[1] == KC_S) {
+	    printf("Current RNG seed: %ld\n", seed);
+	    if (debug_enable) {
+		char out_str[8];
+		sprintf(out_str, "%ld", seed);
+		SEND_STRING(out_str);
+	    }
+	    return;
+	}
+	dprintf("Sequence size: %d\n", leader_sequence_size);
+
+	// The number of digits to be processed
+	uint8_t digits = leader_sequence_size - 1;
+	dprintf("Digits: %d\n", digits);
+
+	// Calculated random string length
+	uint16_t calculated_number = 0;
+
+	// Starting magnitude
+	uint16_t magnitude = 1;
+
+	// Iterate from the back of the leader to the front to calculate the input
+	for (uint8_t i=digits; i>0; i--) {
+	    // The scaled value of the key being pressed
+	    uint16_t place_value = 0;
+	    // The integer value of a keypress
+	    uint8_t key_value = 0;
+	    // Name the key
+	    uint16_t key_code = leader_sequence[i];
+
+	    // 1-9, both because keycode 0 is greater than 9, and because nothing needs to be done in the case of 0
+	    if (key_code >= KC_1 && key_code <= KC_9) {
+		// Calculate key value by seeing the differnce between it and KC_1, with an offset of 1
+		key_value = 1 + key_code - KC_1;
+		// Calculate the value given the place
+		place_value = key_value * magnitude;
+		dprintf("i: %d\n", i);
+		dprintf("key value: %d\n", key_value);
+		dprintf("magnitude: %d\n", magnitude);
+		dprintf("place value: %d\n", place_value);
+		calculated_number += place_value;
+		magnitude *= 10;
+	    } else if (key_code == KC_0) {
+		// Still iterate magnitude in case of 0
+		magnitude *= 10;
+	    } else {
+		// Debug print
+		dprintf("Invalid character: %d\n", leader_sequence[i]);
+	    }
+	}
+	// update the random string as long as the calculated number is not 0
+	random_string_length = (calculated_number == 0) ? random_string_length : calculated_number;
+	send_random_str();
+    }
+    leader_end();
 }
