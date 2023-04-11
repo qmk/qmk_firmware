@@ -46,7 +46,7 @@ enum my_keycodes {
 #define KC_LBMAC KC_LOCK_BLANK_MAC
 
 static bool win_mode;
-static bool win_mode_was_activated;
+//static bool win_mode_was_activated;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_67(
@@ -143,7 +143,7 @@ bool dip_switch_update_user(uint8_t index, bool active) {
 
 bool is_win_mode(void) { return win_mode; }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+/*layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case MAC_BASE:
             if (!is_win_mode() && win_mode_was_activated) {
@@ -187,7 +187,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
     }
   return state;
-}
+}*/
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (process_record_keychron(keycode, record)) {
