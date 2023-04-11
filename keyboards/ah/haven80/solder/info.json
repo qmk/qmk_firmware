@@ -9,36 +9,6 @@
         "rows": ["F0", "F1", "F4", "F5", "C6", "B1", "B2", "B3", "D3", "D5", "D6"],
         "cols": ["D0", "D1", "D2", "B0", "C7", "B5", "D7", "B4", "B6"]
     },
-    "diode_direction": "COL2ROW",
-    "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "console": false,
-        "command": false,
-        "nkro": true,
-        "backlight": false,
-        "rgblight": true,
-        "audio": false,
-        "key_lock": false
-    },
-    "rgblight": {
-        "pin": "E6",
-        "led_count": 21,
-        "sleep": true,
-        "animations": {
-            "alternating": true,
-            "breathing": true,
-            "christmas": true,
-            "knight": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "rgb_test": true,
-            "snake": true,
-            "static_gradient": true,
-            "twinkle": true
-        }
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [

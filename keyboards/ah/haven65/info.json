@@ -19,13 +19,9 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": false,
         "command": true,
         "nkro": true,
-        "backlight": false,
-        "rgblight": true,
-        "audio": false,
-        "key_lock": false
+        "rgblight": true
     },
     "rgblight": {
         "pin": "C7",
@@ -124,6 +120,5 @@
               { "label": "right",           "matrix":[4,13],"x": 15, "y": 4 }
             ]
         }
-    },
-    "meta": "https://noroadsleft.github.io/kbf_qmk_converter/"
+    }
 }

@@ -9,13 +9,8 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "nkro": true,
-        "backlight": false,
-        "rgblight": true,
-        "audio": false,
-        "key_lock": false
+        "rgblight": true
     },
     "rgblight": {
         "pin": "E6",
