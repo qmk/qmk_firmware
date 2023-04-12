@@ -14,7 +14,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tidbit.h"
+#include "quantum.h"
+#include "common/remote_kb.h"
+#include "common/bitc_led.h"
 
 typedef struct PACKED {
     uint8_t r;

@@ -3,7 +3,7 @@
 #include "quantum.h"
 
 #if defined(KEYBOARD_lfkeyboards_lfk78_revb)
-#    include "revb.h"
+#    include QMK_KEYBOARD_H
 #elif defined(KEYBOARD_lfkeyboards_lfk78_revc)
 #    include "revc.h"
 #elif defined(KEYBOARD_lfkeyboards_lfk78_revj)
