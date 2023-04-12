@@ -1,4 +1,4 @@
-/* Copyright 2019
+/* Copyright 2021 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,5 +16,9 @@
 
 #pragma once
 
-// WS2812 RGB LED strip input and number of LEDs
-#define RGBLED_NUM 12
+#define HAL_USE_SERIAL TRUE
+
+#define PAL_USE_CALLBACKS TRUE
+#define PAL_USE_WAIT TRUE
+
+#include_next <halconf.h>

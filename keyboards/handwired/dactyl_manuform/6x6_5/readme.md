@@ -1,10 +1,10 @@
-# Dactyl Manufrom 6x6
+# Dactyl Manufrom 6x6_5
 
-![Dactyl Manufrom 6x6](https://i.imgur.com/j8dsBgs.jpeg)
+![Dactyl Manufrom 6x6_5](https://i.imgur.com/C7FRiwd.jpeg)
 
 ## Description
 
-* Keyboard Maintainer: [dumam](https://github.com/DuMaM) and others
+* Keyboard Maintainer: [dumam for 5thumb](https://github.com/DuMaM) and others
 * Hardware Supported: STM32F4BlackPill, Promicro and clones
 
 Basic guide how to build 6x6 board is in root keyboard dir. This will help you to to create your own board with 6key based cluster with promicro. [For more click here](../readme.md).
@@ -42,16 +42,16 @@ After setting up your build environment you can try to build it with those comma
 
 Make Promicro based img:
 
-    qmk compile -kb keyboards/handwired/dactyl_manuform/6x6 -km default
+    qmk compile -kb keyboards/handwired/dactyl_manuform/6x6_5 -km default
 
 Make BlackPill one:
 
-    qmk compile -kb keyboards/handwired/dactyl_manuform/6x6/blackpill_f411 -km default
+    qmk compile -kb keyboards/handwired/dactyl_manuform/6x6_5/blackpill_f411 -km default
 
 ## Bootloader for BlackPill
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at F1 for left side, and F7 for right side.
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT`, in dumam keymap it's assigned to F1 and F12 keys on mod layers.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT`, in dumam keymap it's assigned to F1 and F12 keys on mod layers
