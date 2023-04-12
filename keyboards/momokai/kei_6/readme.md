@@ -3,7 +3,8 @@
 A 6 key keypad with a rotary encoder
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
-
+* Hardware Supported: Kei 6
+* Hardware Availability: [Momokai](https://www.momokai.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
