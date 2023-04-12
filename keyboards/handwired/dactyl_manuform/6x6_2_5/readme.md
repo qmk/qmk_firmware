@@ -4,9 +4,9 @@
 
 ## Description
 
-This variant of a Dactyl Manuform 4x6 has a 4 key bottom row, like the 5x7 variant, instead of the default 2. Totalling the amount of keys for this variant to 76.
+This variant of the 6x6_5 (Dactyl Manuform Mini) has a 4 key bottom row, like the 5x7 variant, instead of the default 2.
 
-`4x6`*(Base variant)*`_2`*(Two extra keys on bottom row)*`_5`*(Five key thumb cluster)*
+`6x6`*(Base variant)*`_2`*(Two extra keys on bottom row)*`_5`*(Five key thumb cluster)*
 
 * Keyboard Maintainer: dmik
 * Hardware Supported: 2x [Arduino Pro Micro](https://www.sparkfun.com/products/12640) controller

@@ -28,8 +28,10 @@
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "pin_compatible":"promicro",
+    "ws2812": {
+        "pin": "D3"
+    },
     "rgblight":{
-        "pin": "D3",
         "led_count": 12
     },
     "layouts": {
