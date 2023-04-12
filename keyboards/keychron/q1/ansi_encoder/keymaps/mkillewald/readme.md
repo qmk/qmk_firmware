@@ -89,7 +89,7 @@ Caps Word options:
 - Fn+C (KC_TKTOG) Fn layer Trasnparent Key Off Toggle (default: RGB on)
     - toggle turning off RGB for keys with no definition
 - Fn+V (KC_FCTOG) Fn layer Color Toggle (default: static color on)
-    - toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR or FN2_LAYER_COLOR
+    - toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR
 
 - Mac mode only
     - Fn+Esc (KC_LBMAC) will lock and sleep display
