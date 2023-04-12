@@ -12,8 +12,7 @@
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true,
-        "rgblight": false,
-        "encoder_map": true
+        "rgblight": false
     },
     "bootmagic": {
         "matrix": [1, 0]
