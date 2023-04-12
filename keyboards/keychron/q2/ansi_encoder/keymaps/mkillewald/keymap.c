@@ -107,6 +107,11 @@ void matrix_init_user(void) {
 
 void keyboard_post_init_user(void) {
     user_config_read_eeprom();
+
+#ifdef AUTOCORRECT_OFF_AT_STARTUP
+    // toggle autocorrect off at startup
+    if (autocorrect_is_enabled()) { autocorrect_toggle(); }
+#endif
 }
 
 void housekeeping_task_user(void) {
@@ -144,9 +149,9 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case MAC_BASE:
             // load mac base settings
-            rgb_matrix_enable_noeeprom();  
+            rgb_matrix_enable_noeeprom();
             rgb_matrix_reload_from_eeprom();
-            
+
             // check disable
             if (!user_config_get_enable_mac_base()) {
                 rgb_matrix_disable_noeeprom();
@@ -154,13 +159,13 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
             break;
         case WIN_BASE:
             // load win base settings
-            rgb_matrix_enable_noeeprom();  
+            rgb_matrix_enable_noeeprom();
             rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
             rgb_matrix_set_speed_noeeprom(user_config_get_spd_win_base());
             rgb_matrix_sethsv_noeeprom(user_config_get_hsv_win_base().h,
                                        user_config_get_hsv_win_base().s,
                                        user_config_get_hsv_win_base().v);
-                                       
+
             // check disable
             if (!user_config_get_enable_win_base()) {
                 rgb_matrix_disable_noeeprom();
