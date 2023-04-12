@@ -89,27 +89,27 @@ Caps Word options:
 - Fn+C (KC_TKTOG) Fn layer Trasnparent Key Off Toggle (default: RGB on)
     - toggle turning off RGB for keys with no definition
 - Fn+V (KC_FCTOG) Fn layer Color Toggle (default: static color on)
-    - toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR or FN2_LAYER_COLOR
+    - toggle lighting the defined Fn layer keys with the static color set with FN1_LAYER_COLOR
 
 - Mac mode only
     - Fn+Esc (KC_LBMAC) will lock and sleep display
-    - Fn1+< sets my secondary display to 0° rotation
-    - Fn1+> sets my secondary display to 90° rotation
+    - Fn+< sets my secondary display to 0° rotation
+    - Fn+> sets my secondary display to 90° rotation
 
     Note: display rotation requires additional software and changes made, see this link for more information:
     [https://www.reddit.com/r/Keychron/comments/1254g36/howto_macos_rotate_screen_from_keyboard_shortcut/](https://www.reddit.com/r/Keychron/comments/1254g36/howto_macos_rotate_screen_from_keyboard_shortcut/)
 
 All custom keycodes can be moved to different keys in VIA by using the following:
-- CUSTOM(64) = KC_LTTOG (default: Fn2+Z) Caps Lock Light Tab Toggle
-- CUSTOM(65) = KC_LATOG (default: Fn2+X) Caps Lock Light Alpha Toggle
-- CUSTOM(66) = KC_TKTOG (default: Fn2+C) Fn layer Trasnparent Key Off Toggle
-- CUSTOM(67) = KC_FCTOG (default: Fn2+V) Fn layer Color Toggle
-- CUSTOM(68) = KC_LBMAC (default Mac Only: Fn1+Q) Lock and Blank Mac
+- CUSTOM(64) = KC_LTTOG (default: Fn+Z) Caps Lock Light Tab Toggle
+- CUSTOM(65) = KC_LATOG (default: Fn+X) Caps Lock Light Alpha Toggle
+- CUSTOM(66) = KC_TKTOG (default: Fn+C) Fn layer Trasnparent Key Off Toggle
+- CUSTOM(67) = KC_FCTOG (default: Fn+V) Fn layer Color Toggle
+- CUSTOM(68) = KC_LBMAC (default Mac Only: Fn+Esc) Lock and Blank Mac
 
 ## Known Issues
 
-1. Keychron factory reset (clear eeprom) Fn1+J+Z is not working
-2. Keychron LED test Fn1+Home+Right is not working
+1. Keychron factory reset (clear eeprom) Fn+J+Z is not working
+2. Keychron LED test Fn+Home+Right is not working
 
 It seems Keychron has not pushed the relavant code to the main QMK repo yet. I see the code is in Keychron's fork, and I may manually add that code here at some point.
 
