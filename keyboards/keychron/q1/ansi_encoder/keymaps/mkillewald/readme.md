@@ -100,11 +100,11 @@ Caps Word options:
     [https://www.reddit.com/r/Keychron/comments/1254g36/howto_macos_rotate_screen_from_keyboard_shortcut/](https://www.reddit.com/r/Keychron/comments/1254g36/howto_macos_rotate_screen_from_keyboard_shortcut/)
 
 All custom keycodes can be moved to different keys in VIA by using the following:
-- CUSTOM(64) = KC_LTTOG (default: Fn2+Z) Caps Lock Light Tab Toggle
-- CUSTOM(65) = KC_LATOG (default: Fn2+X) Caps Lock Light Alpha Toggle
-- CUSTOM(66) = KC_TKTOG (default: Fn2+C) Fn layer Trasnparent Key Off Toggle
-- CUSTOM(67) = KC_FCTOG (default: Fn2+V) Fn layer Color Toggle
-- CUSTOM(68) = KC_LBMAC (default Mac Only: Fn1+Q) Lock and Blank Mac
+- CUSTOM(64) = KC_LTTOG (default: Fn+Z) Caps Lock Light Tab Toggle
+- CUSTOM(65) = KC_LATOG (default: Fn+X) Caps Lock Light Alpha Toggle
+- CUSTOM(66) = KC_TKTOG (default: Fn+C) Fn layer Trasnparent Key Off Toggle
+- CUSTOM(67) = KC_FCTOG (default: Fn+V) Fn layer Color Toggle
+- CUSTOM(68) = KC_LBMAC (default Mac Only: Fn+Esc) Lock and Blank Mac
 
 ## Known Issues
 
