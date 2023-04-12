@@ -8,6 +8,7 @@
 - Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed for the Mac and Win base layers using the standard RGB keyboard shortcuts.
 
 - Autocorrect is enabled. ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
+    - Autocorrect is disabled at startup, but can be enabled using keycode AC_TOGG (Fn+Left Shift)
     - Uses getreuer's autocorrect dictionary.
     [https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict.txt](https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict.txt)
 
