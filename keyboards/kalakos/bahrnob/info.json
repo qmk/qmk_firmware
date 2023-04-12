@@ -21,8 +21,7 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "encoder": true,
-        "encoder_map": true
+        "encoder": true
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
