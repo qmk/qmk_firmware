@@ -135,7 +135,7 @@ void housekeeping_task_user(void) {
             break;
         default:
             break;
-        }
+    }
 
     housekeeping_task_keychron();
 }
