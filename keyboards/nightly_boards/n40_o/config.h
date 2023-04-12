@@ -28,10 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-/* Encoders */
-#define ENCODERS_CW_KEY  { { 2, 4 },{ 4, 4 },{ 6, 4 } }
-#define ENCODERS_CCW_KEY { { 1, 4 },{ 3, 4 },{ 5, 4 } }
-
 /* Audio */
 
 #define AUDIO_PIN B7
