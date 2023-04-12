@@ -90,7 +90,7 @@ enum {
 #define L_BOTTOM (L_COLEMAK+1)  // lowest non-default layer
 
 enum custom_keycodes {
-    TK_INFO = SAFE_RANGE,  // print build version / info
+    TK_INFO = QK_USER,  // print build version / info
     // activate base layers like DF(N), and save them to the current switch slot
     TK_DF_0,  // qwerty
     TK_DF_1,  // dvorak
