@@ -108,8 +108,8 @@ All custom keycodes can be moved to different keys in VIA by using the following
 
 ## Known Issues
 
-1. Keychron factory reset (clear eeprom) Fn1+J+Z is not working
-2. Keychron LED test Fn1+Home+Right is not working
+1. Keychron factory reset (clear eeprom) Fn+J+Z is not working
+2. Keychron LED test Fn+Home+Right is not working
 
 It seems Keychron has not pushed the relavant code to the main QMK repo yet. I see the code is in Keychron's fork, and I may manually add that code here at some point.
 
