@@ -93,6 +93,9 @@ void matrix_init_user(void) {
 
 void keyboard_post_init_user(void) {
     user_config_read_eeprom();
+    
+    // toggle autocorrect off at startup
+    if (autocorrect_is_enabled()) { autocorrect_toggle(); }
 }
 
 void housekeeping_task_user(void) {

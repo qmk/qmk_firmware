@@ -47,9 +47,6 @@ void eeconfig_init_user(void) {
     user_config.hsv_win_base.s = RGB_MATRIX_DEFAULT_SAT;
     user_config.hsv_win_base.v = RGB_MATRIX_DEFAULT_VAL;
     user_config_write_eeprom();
-    
-    // toggle autocorrect off by default 
-    if (autocorrect_is_enabled()) { autocorrect_toggle(); }
 }
 
 void user_config_read_eeprom(void) {
