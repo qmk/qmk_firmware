@@ -122,7 +122,7 @@ v2.0.1  April 11, 2023
 - enabled separate RGB toggle for each base layer (Mac / Win)
 
 v2.0.0  April 11, 2023
-- copied code from Q2 v2.0.0 firware over
+- copied code from Q2 v2.0.0 keymap over
 
 v1.0.4  October 9, 2021
 - Caps Lock and Fn layer toggles are now stored in eeprom so settings will remain when Q1 is unplugged
