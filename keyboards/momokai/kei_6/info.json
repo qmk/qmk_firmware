@@ -35,8 +35,8 @@
         "enabled": true,
         "rotary": [
             {
-                "pin_a": "B1",
-                "pin_b": "B2"
+                "pin_a": "B2",
+                "pin_b": "B1"
             }
         ]
     },
