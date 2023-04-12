@@ -22,8 +22,6 @@
 #    include "rgb_matrix_user.h"
 #endif
 
-#include "print.h"
-
 // clang-format off
 
 enum my_bootloader_state {
