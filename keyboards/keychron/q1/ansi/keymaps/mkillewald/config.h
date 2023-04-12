@@ -32,19 +32,23 @@
 #define RGB_MATRIX_DEFAULT_SPD           127          // Both Win/Mac Base layers
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING  // Both Win/Mac Base layers
 
+// Autocorrect is off at start up. If you want Autocorrect to be on at startup,
+// remove or comment out the following line
+#define AUTOCORRECT_OFF_AT_STARTUP
+
 // Caps Lock RGB indicator color
 #define CAPS_LOCK_INDICATOR_COLOR RGB_WHITE
 
 // Dynamic Fn Layer RGB indicator options
 #define FN1_LAYER_COLOR RGB_YELLOW
 
+// Caps Word RGB indicator color
+#define CAPS_WORD_INDICATOR_COLOR RGB_WHITE
+
 // Caps Word is activated by double-tapping left Shift. Replace this with
 // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD if you want to activate Caps Word
 // by single-tapping both left and right Shift togeter.
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
-
-// Caps Word RGB indicator color
-#define CAPS_WORD_INDICATOR_COLOR RGB_WHITE
 
 // Caps Word will light left Shift, left Control and left Option (or left Windows
 // key) when acitvated. Remove this line if you want Caps Word to only light left

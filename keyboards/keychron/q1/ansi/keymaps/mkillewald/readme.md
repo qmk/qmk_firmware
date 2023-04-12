@@ -8,7 +8,6 @@
 - Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed for the Mac and Win base layers using the standard RGB keyboard shortcuts.
 
 - Autocorrect is enabled. ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
-    - Autocorrect is disabled at startup, but can be enabled using keycode AC_TOGG (Fn+Left Shift)
     - Uses getreuer's autocorrect dictionary.
     [https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict.txt](https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict.txt)
 
@@ -42,6 +41,14 @@ Default options (these defaults will be applied whenever the eeprom is cleared):
     #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING  // Both Win/Mac Base layers
 ```
 
+Autocorrect option:
+
+```
+    // Autocorrect is off at start up. If you want Autocorrect to be on at startup,
+    // remove or comment out the following line
+    #define AUTOCORRECT_OFF_AT_STARTUP
+```
+
 Caps Lock RGB indicator option:
 
 ```
@@ -57,13 +64,13 @@ Dynamic Fn Layer RGB indicator options:
 Caps Word options:
 
 ```
+    // Caps Word RGB indicator color
+    #define CAPS_WORD_INDICATOR_COLOR RGB_WHITE
+    
     // Caps Word is activated by double-tapping left Shift. Replace this with
     // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD if you want to activate Caps Word
     // by single-tapping both left and right Shift togeter.
     #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
-
-    // Caps Word RGB indicator color
-    #define CAPS_WORD_INDICATOR_COLOR RGB_WHITE
 
     // Caps Word will light left Shift, left Control and left Option (or left Windows
     // key) when acitvated. Remove this line if you want Caps Word to only light left
