@@ -1,5 +1,8 @@
 /*
-Copyright 2023 Matt F
+This is the c configuration file for the keymap
+
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,11 +18,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-<<<<<<<< HEAD:keyboards/kradoindustries/kousa/config.h
 #pragma once
 
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
-========
-#include "4x6_56.h"
->>>>>>>> 8f6bdc232b (variants added and renamed):keyboards/handwired/dactyl_manuform/4x6_56/4x6_56.c
+/* Select hand configuration */
+// #define MASTER_LEFT
+// #define MASTER_RIGHT
+
+#define EE_HANDS
