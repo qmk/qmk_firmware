@@ -17,4 +17,4 @@ LTO_ENABLE = yes
 
 RGB_MATRIX_ENABLE = yes
 
-DEFAULT_FOLDER=durgod/dgk6x/hades
+DEFAULT_FOLDER=durgod/dgk6x/hades_ansi
