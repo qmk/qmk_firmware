@@ -53,11 +53,11 @@ void draw_wasd_key(wasd_state_t wasd_state) {
 
 void draw_thumb_debug(thumbstick_polar_position_t thumbstick_polar_position) {
     //draw oled row showing thumbstick direction and distance from center
-    oled_write_P(PSTR("Dir: "), false);
-    sprintf (stringbuffer , "%d", thumbstick_polar_position.angle);
+    oled_write_P(PSTR("Dir:"), false);
+    sprintf (stringbuffer , "%4d", thumbstick_polar_position.angle);
     oled_write(stringbuffer , false);
-    oled_write_P(PSTR(" Dist: "), false);
-    sprintf (stringbuffer , "%d", thumbstick_polar_position.distance);
+    oled_write_P(PSTR(" Dist:"), false);
+    sprintf (stringbuffer , "%4d", thumbstick_polar_position.distance);
     oled_write_ln(stringbuffer , false);
     //print registered key codes
     oled_write_P(PSTR("Keycodes: "), false);
@@ -86,6 +86,11 @@ void draw_oled(controller_state_t controller_state) {
     }
 
     draw_mode(controller_state);
-    oled_write_ln_P(PSTR(" "), false);
+    if (controller_state.highestActiveLayer == _SETTINGS ) {
+        draw_thumb_debug(thumbstick_polar_position);
+    }
+    else {
+        oled_write_ln_P(PSTR(" "), false);
+    }
     oled_write_ln_P(PSTR(" "), false);
 }
