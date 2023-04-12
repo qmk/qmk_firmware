@@ -26,7 +26,7 @@ joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
 #endif
 
 #ifdef THUMBSTICK_ENABLE
-void housekeeping_task_user(void) {
+void housekeeping_task_kb(void) {
     if (controller_state.wasdMode) {
         thumbstick(controller_state);
     }
@@ -92,6 +92,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 };
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
+    state = layer_state_set_user(state);
     controller_state.highestActiveLayer = get_highest_layer(state) ;
 
 #ifdef LEDS_ENABLE
