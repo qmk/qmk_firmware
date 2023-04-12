@@ -1,11 +1,11 @@
 # zoom75
 
-More Info at [meletrix](https://meletrix.com/)
+More Info at [zoom75 wired version](https://meletrix.com/products/zoom75-essential-edition-black-wired)
 ​
 
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
-* Hardware Supported: Zoom75
-* Hardware Availability: [zoom75](https://meletrix.com/collections/zoom75-collection#)  
+* Hardware Supported: Zoom75 Wired
+* Hardware Availability: [zoom75](https://meletrix.com/products/zoom75-essential-edition-black-wired)  
 ​
 
 Make example for this keyboard (after setting up your build environment):  
