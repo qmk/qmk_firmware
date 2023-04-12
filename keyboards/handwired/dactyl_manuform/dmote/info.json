@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "DMOTE (62-key)",
-    "manufacturer": "tshort",
-    "url": "",
+    "keyboard_name": "DMOTE",
+    "manufacturer": "veikman",
+    "url": "https://github.com/veikman/dactyl-keyboard",
     "maintainer": "veikman",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
@@ -27,7 +27,7 @@
         "soft_serial_pin": "D0"
     },
     "layouts": {
-        "LAYOUT_62key": {
+        "LAYOUT_dmote": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
