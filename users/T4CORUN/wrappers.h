@@ -22,6 +22,7 @@ a mapping
 I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 */
 
+#define              _____BLANK_2____                       _______, _______
 #define          _________BLANK_3_________                  _______, _______, _______
 #define __________________BLANK_5__________________         _______, _______, _______, _______, _______
 
@@ -31,6 +32,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #define          _________BASE_L3_________                  KC_MPLY, NUMBER,  KC_LSFT
 #define          _________BASE_R3_________                  KC_SPC,  NAV_TAB, KC_MUTE
+#define              _____BASE_R2____                       KC_SPC,  NAV_TAB
 
 #define          _________MEDIA_R3________                  KC_VOLD, KC_VOLU, KC_MUTE
 
@@ -74,12 +76,19 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 */
 
 #define _________________QWERTY_L1_________________         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define _________________QWERTY_L2_________________         LGUI_A,  LALT_S,  CTRL_D,  SHFT_F,  KC_G
 #define _________________QWERTY_L3_________________         FUN_Z,   KC_X,    KC_C,    KC_V,    KC_B
 
 #define _________________QWERTY_R1_________________         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#define _________________QWERTY_R2_________________         KC_H,    SHFT_J,  CTRL_K,  LALT_L,  LGUI_QT
-#define _________________QWERTY_R3_________________         MOU_N,   KC_M,    KC_COMM, KC_DOT,  AD_SLSH
+#define _________________QWERTY_R3_________________         KC_N,    KC_M,    KC_COMM, KC_DOT,  AD_SLSH
+
+#ifdef HOMEROWMOD_ENABLE
+# define _________________QWERTY_L2_________________         LGUI_A,  LALT_S,  CTRL_D,  SHFT_F,  KC_G
+# define _________________QWERTY_R2_________________         KC_H,    SHFT_J,  CTRL_K,  LALT_L,  LGUI_QT
+#else
+# define _________________QWERTY_L2_________________         KC_A,    KC_S,    KC_D,    KC_F,    KC_G
+# define _________________QWERTY_R2_________________         KC_H,    KC_J,    KC_K,    KC_L,    KC_QUOT
+#endif //HOMEROWMOD_ENABLE
+
 
 /*
 * For 3x5 configuration
@@ -96,12 +105,18 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 */
 
 #define ______________COLEMAK_MOD_DH_L1____________         KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
-#define ______________COLEMAK_MOD_DH_L2____________         LGUI_A,  LALT_R,  CTRL_S,  SHFT_T,  KC_G
 #define ______________COLEMAK_MOD_DH_L3____________         FUN_Z,   KC_X,    KC_C,    KC_D,    KC_V
 
 #define ______________COLEMAK_MOD_DH_R1____________         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
-#define ______________COLEMAK_MOD_DH_R2____________         KC_M,    SHFT_N,  CTRL_E,  LALT_I,  LGUI_O
-#define ______________COLEMAK_MOD_DH_R3____________         MOU_K,   KC_H,    KC_COMM, KC_DOT,  AD_SLSH
+#define ______________COLEMAK_MOD_DH_R3____________         KC_K,    KC_H,    KC_COMM, KC_DOT,  AD_SLSH
+
+#ifdef HOMEROWMOD_ENABLE
+# define ______________COLEMAK_MOD_DH_L2____________         LGUI_A,  LALT_R,  CTRL_S,  SHFT_T,  KC_G
+# define ______________COLEMAK_MOD_DH_R2____________         KC_M,    SHFT_N,  CTRL_E,  LALT_I,  LGUI_O
+#else
+# define ______________COLEMAK_MOD_DH_L2____________         KC_A,    KC_R,    KC_S,    KC_T,    KC_G
+# define ______________COLEMAK_MOD_DH_R2____________         KC_M,    KC_N,    KC_E,    KC_I,    KC_O
+#endif //HOMEROWMOD_ENABLE
 
 
 
@@ -136,7 +151,6 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #define _______________NUMBER_PAD_R3_______________         KC_MINS, KC_1,    KC_2,    KC_3,    KC_BSLS
 #define          ______NUMBER_PAD_R4______                  KC_SPC,  KC_0,    ___x___
-
 
 #define _______________NUMBER_ROW_L1_______________         KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _______________NUMBER_ROW_R1_______________         KC_6,    KC_7,    KC_8,    KC_9,    KC_0
@@ -194,16 +208,16 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |      |      |Ms Up |      | MsWU |    | Ins  |      |      |      |      |
+*   |MouTog|      |Ms Up |      | MsWU |    | Ins  |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |      | Ms L |Ms Dn |Ms R  | MsWD |    | Del  | Shft | Ctrl | Alt  | GUI  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Undo | Cut  | Copy | Pste | Redo |    |      | Spc  | Tab  |      | App  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |MS B3 |Ms B2 |Ms B1 |    |LyrTap|      |      |
+*                 |MS B3 |Ms B2 |Ms B1 |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
 */
-#define _________________MOUSE_L1__________________         ___x___, ___x___, KC_MS_U, ___x___, KC_WH_U
+#define _________________MOUSE_L1__________________         MOU_TOG, ___x___, KC_MS_U, ___x___, KC_WH_U
 #define _________________MOUSE_L2__________________         ___x___, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D
 #define _________________MOUSE_L3__________________         _______________MOD_CMDS_L3_________________
 #define          ________MOUSE_L4_________                  KC_BTN3, KC_BTN2, KC_BTN1
@@ -211,7 +225,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #define _________________MOUSE_R1__________________         _______________MOD_CMDS_R1_________________
 #define _________________MOUSE_R2__________________         _______________MOD_CMDS_R2_________________
 #define _________________MOUSE_R3__________________         _______________MOD_CMDS_R3_________________
-#define          ________MOUSE_R4_________                  _______, ___x___, ___x___
+#define          ________MOUSE_R4_________                  _________NONE_3__________
 
 /*
 *   ,----------------------------------.    ,----------------------------------.

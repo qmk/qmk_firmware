@@ -60,15 +60,6 @@
         "id": "xMekGQC1oEd4bc9i"
     },
     {
-        "type": "Directory",
-        "name": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb\\keymaps\\T4CORUN",
-        "parent_id": "20k3S7tNwT6jVcQC",
-        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb\\keymaps\\T4CORUN",
-        "workspaceRoot": null,
-        "workspacePath": null,
-        "id": "KcuAP691bCsjV5MX"
-    },
-    {
         "type": "Group",
         "name": "Beiwagon",
         "parent_id": "mLhWHK8JODI27QRc",
@@ -165,5 +156,31 @@
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "h1pPNQZrJGD3ExHs"
+    },
+    {
+        "type": "Group",
+        "name": "Charybdis Nano",
+        "parent_id": "mLhWHK8JODI27QRc",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "DSrVku96vXUhL5KH"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\bastardkb\\charybdis\\3x5\\keymaps\\T4CORUN",
+        "parent_id": "DSrVku96vXUhL5KH",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\bastardkb\\charybdis\\3x5\\keymaps\\T4CORUN",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "BnRx4FP1ZiYgy0Iv"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\crkbd\\keymaps\\T4CORUN",
+        "parent_id": "20k3S7tNwT6jVcQC",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\crkbd\\keymaps\\T4CORUN",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "rhzGOBfZbQFpCVKw"
     }
 ]

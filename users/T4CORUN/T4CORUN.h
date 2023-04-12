@@ -43,14 +43,14 @@ enum keycodes {
 #define MOUSE   MO(_MOUSE)
 
 //Layer Tap
-#define MOU_SPC LT(_MOUSE, KC_SPC)
-#define MOU_N   LT(_MOUSE, KC_N)
-#define MOU_K   LT(_MOUSE, KC_K)
 #define NAV_TAB LT(_NAVIGATION, KC_TAB)
 #define NUM_BSP LT(_NUMBER, KC_BSPC)
 #define FUN_Z   LT(_FUNCTION, KC_Z)
 #define FUN_DEL LT(_FUNCTION, KC_DEL)
 #define AD_SLSH LT(_ADJUST, KC_SLSH)
+
+//Toggle Layer
+#define MOU_TOG TG(_MOUSE)
 
 //Windows Shortcuts
 #define SC_COPY LCTL(KC_C)

@@ -2,6 +2,10 @@
 
 /* This file is designed to have settings that apply to all my keyboards */
 
+/* Turn off settings we won't use*/
+
+
+
 /* Clear out variables that we may be setting */
 #ifdef USB_POLLING_INTERVAL_MS
 # undef USB_POLLING_INTERVAL_MS
@@ -12,6 +16,9 @@
 #endif
 
 /* Common configuration across all keyboards */
+
+
+
 #define USB_POLLING_INTERVAL_MS 1
 
 #define HOLD_ON_OTHER_KEY_PRESS

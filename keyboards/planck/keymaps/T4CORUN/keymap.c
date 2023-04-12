@@ -200,7 +200,7 @@ bool music_mask_user(uint16_t keycode) {
     //Layer Taps do add delays to sounds. Probably the mod Taps too
     case FUN_Z:
     case AD_SLSH:
-    case MOU_SPC:
+    case MOU_TOG:
     case NAV_TAB:
     case NUM_BSP:
       return false;

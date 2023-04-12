@@ -1,3 +1,7 @@
+# Settings to add/override what is in both
+# $qmk_firmware\keyboards\crkbd\rev1\rules.mk
+# $qmk_firmware\keyboards\crkbd\rules.mk
+
 USER_NAME := T4CORUN
 LTO_ENABLE = yes
 
@@ -11,7 +15,7 @@ NKRO_ENABLE = yes
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 TAP_DANCE_ENABLE = yes
-COMBO_ENABLE = no
+COMBO_ENABLE = yes
 
 # disable options to save space on controller. Limit 28K
 # the following options are enabled by default in common_features.mk
@@ -27,3 +31,4 @@ RGBLIGHT_ENABLE = no
 # My Custom Paremeters
 ONESHOTKEY_ENABLE = no
 KEYLOG_ENABLE = no
+HOMEROWMOD_ENABLE = yes

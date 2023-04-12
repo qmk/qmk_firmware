@@ -11,9 +11,9 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += $(USER_PATH)/oled_stuff.c
 endif
 
-COMBO_ENABLE ?= no
+COMBO_ENABLE ?= yes
 ifeq ($(strip $(COMBO_ENABLE)), yes)
-	VPATH += keyboards/gboards/
+	SRC += $(USER_PATH)/combos.c
 endif
 
 KEYLOG_ENABLE ?= no
@@ -26,3 +26,7 @@ ifeq ($(strip $(ONESHOTKEY_ENABLE)), yes)
     OPT_DEFS += -DONESHOTKEY_ENABLE
 endif
 
+HOMEROWMOD_ENABLE ?= yes
+ifeq ($(strip $(HOMEROWMOD_ENABLE)), yes)
+    OPT_DEFS += -DHOMEROWMOD_ENABLE
+endif
