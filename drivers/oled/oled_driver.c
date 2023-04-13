@@ -100,6 +100,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef OLED_BLOCK_SIZE
 #    define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
 #endif
+// Default display clock
+#if !defined(OLED_DISPLAY_CLOCK)
+#    define OLED_DISPLAY_CLOCK 0x80
+#endif
+// Default VCom Detect value
+#if !defined(OLED_VCOM_DETECT)
+#    define OLED_VCOM_DETECT 0x20
+#endif
 
 #define OLED_ALL_BLOCKS_MASK (((((OLED_BLOCK_TYPE)1 << (OLED_BLOCK_COUNT - 1)) - 1) << 1) | 1)
 
@@ -294,7 +302,7 @@ bool oled_init(oled_rotation_t rotation) {
         I2C_CMD,
         DISPLAY_OFF,
         DISPLAY_CLOCK,
-        0x80,
+        OLED_DISPLAY_CLOCK,
         MULTIPLEX_RATIO,
 #if OLED_IC_COM_PINS_ARE_COLUMNS
         OLED_DISPLAY_WIDTH - 1,
@@ -307,6 +315,8 @@ bool oled_init(oled_rotation_t rotation) {
 #else
         DISPLAY_START_LINE | 0x00,
 #endif
+        VCOM_DETECT,
+        OLED_VCOM_DETECT,
         CHARGE_PUMP,
         0x14,
 #if OLED_IC_HAS_HORIZONTAL_MODE
