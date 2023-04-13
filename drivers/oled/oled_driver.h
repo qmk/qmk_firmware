@@ -145,6 +145,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if !defined(OLED_BRIGHTNESS)
 #    define OLED_BRIGHTNESS 255
 #endif
+// Default display clock
+#if !defined(OLED_DISPLAY_CLOCK)
+#    define OLED_DISPLAY_CLOCK 0x80
+#endif
+// Default VCom Detect value
+#if !defined(OLED_VCOM_DETECT)
+#    define OLED_VCOM_DETECT 0x20
+#endif
 
 #if !defined(OLED_TIMEOUT)
 #    if defined(OLED_DISABLE_TIMEOUT)
