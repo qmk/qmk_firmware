@@ -13,30 +13,47 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "keymap_danish.h"
-#include "version.h"
+#include "cflye.h"
 
-#include QMK_KEYBOARD_H
-
-enum qmmk_layers {
-    _COLEMAK,
-    _QWERTY,
-    _LOWER,
-   _RAISE,
-   _ADJUST,
-};
-
-enum custom_keycodes {
-   VRSN = SAFE_RANGE,
-   COLEMAK,
-   QWERTY
-};
-
-#define ESC_CTL LCTL_T(KC_ESC)
-#define ENT_CTL LCTL_T(KC_ENT)
-#define SPC_CTL LCTL_T(KC_SPC)
+#define LAYOUT_gmmk_pro_iso_wrapper(...) LAYOUT(__VA_ARGS__)
 
 #define TOG_WS MT(MOD_LGUI | MOD_LSFT, KC_PSCR)
+#define ESC_CTL LCTL_T(KC_ESC)
+
+#define LAYOUT_gmmk_pro_iso_base(\
+     K00, K01, K02, K03, K04,                K05, K06, K07, K08, K09,\
+     K10, K11, K12, K13, K14,                K15, K16, K17, K18, K19,\
+     K20, K21, K22, K23, K24,                K25, K26, K27, K28, K29,\
+     N30, N31, K32, K33, K34,                K35, K36, K37, N38, N39\
+) \
+LAYOUT_gmmk_pro_iso_wrapper(\
+    KC_ESC,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  TOG_WS,      KC_MPLY,\
+    KC_GRV,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXX,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_BSPC,     KC_DEL,\
+    KC_TAB,     K00,     K01,     K02,     K03,     K04,     XXX,     K05,     K06,     K07,     K08,     K09,     XXX,                  KC_PGUP,\
+    KC_ESC,     K10,     K11,     K12,     K13,     K14,     KC_AA,   K15,     K16,     K17,     K18,     K19,     XXX,     KC_ENT,      KC_PGDN,\
+    KC_LSFT,    K20,     K21,     K22,     K23,     K24,     KC_AE,   KC_OE,   K25,     K26,     K27,     K28,     KC_RSFT,     KC_UP,   KC_END,\
+    KC_LGUI,    K32,     K33,                            KC_SPC,                       K36, K37, KC_LGUI,              KC_LEFT, KC_DOWN, KC_RGHT\
+)
+
+#define LAYOUT_gmmk_pro_iso_gaming(\
+     K00, K01, K02, K03, K04,                K05, K06, K07, K08, K09,\
+     K10, K11, K12, K13, K14,                K15, K16, K17, K18, K19,\
+     K20, K21, K22, K23, K24,                K25, K26, K27, K28, K29,\
+     N30, N31, K32, K33, K34,                K35, K36, K37, N38, N39\
+) \
+LAYOUT_gmmk_pro_iso_wrapper(\
+    KC_ESC,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  TOG_WS,      KC_MPLY,\
+    KC_GRV,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXX,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_BSPC,     KC_DEL,\
+    KC_TAB,     K00,     K01,     K02,     K03,     K04,     XXX,     K05,     K06,     K07,     K08,     K09,     XXX,                  KC_PGUP,\
+    KC_LCTL,    K10,     K11,     K12,     K13,     K14,     KC_AA,   K15,     K16,     K17,     K18,     K19,     XXX,     KC_ENT,      KC_PGDN,\
+    KC_LSFT,    K20,     K21,     K22,     K23,     K24,     KC_AE,   KC_OE,   K25,     K26,     K27,     K28,     KC_RSFT,     KC_UP,   KC_END,\
+    K32,        K33,     KC_LALT,                         KC_SPC,                       K36, K37, KC_LGUI,             KC_LEFT, KC_DOWN, KC_RGHT\
+)
+
+
+#define LAYOUT_base_wrapper(...) LAYOUT_gmmk_pro_iso_base(__VA_ARGS__)
+#define LAYOUT_gaming_wrapper(...) LAYOUT_gmmk_pro_iso_gaming(__VA_ARGS__)
+
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -74,100 +91,74 @@ TODO: hold print to hold win+lshift (to then press s for snippet, c for color)
 https://docs.qmk.fm/#/one_shot_keys - to tap for symbols
 
 */
+[_BASE] = LAYOUT_base_wrapper(
+    _________________COLEMAK_L1_________________, _________________COLEMAK_R1_________________,
+    _________________COLEMAK_L2_________________, _________________COLEMAK_R2_________________,
+    _________________COLEMAK_L3_________________, _________________COLEMAK_R3_________________,
+    _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
+),
+[_GAMING] = LAYOUT_gaming_wrapper(
+    _________________GAMING_L1__________________, _________________GAMING_R1__________________,
+    _________________GAMING_L2__________________, _________________GAMING_R2__________________,
+    _________________GAMING_L3__________________, _________________GAMING_R3__________________,
+    _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
+),
+[_SYM] = LAYOUT_base_wrapper(
+    ___________________SYM_L1___________________, ___________________SYM_R1___________________,
+    ___________________SYM_L2___________________, ___________________SYM_R2___________________,
+    ___________________SYM_L3___________________, ___________________SYM_R3___________________,
+    ___________________BLANK___________________,  ___________________BLANK___________________
+),
+[_NUM] = LAYOUT_base_wrapper(
+    ___________________NUM_L1___________________, ___________________NUM_R1___________________,
+    ___________________NUM_L2___________________, ___________________NUM_R2___________________,
+    ___________________NUM_L3___________________, ___________________NUM_R3___________________,
+    ___________________NUM_L4___________________,  ___________________BLANK___________________
+),
+[_FUN] = LAYOUT_base_wrapper(
+    ___________________FUN_L1___________________, ___________________FUN_R1___________________,
+    ___________________FUN_L2___________________, ___________________FUN_R2___________________,
+    ___________________FUN_L3___________________, ___________________FUN_R3___________________,
+    ___________________FUN_L4___________________, ___________________FUN_R4___________________
+),
+[_MEDIA] = LAYOUT_base_wrapper(
+    __________________MEDIA_L1__________________, __________________MEDIA_R1__________________,
+    __________________MEDIA_L2__________________, __________________MEDIA_R2__________________,
+    __________________MEDIA_L3__________________, __________________MEDIA_R3__________________,
+    __________________MEDIA_L4__________________,  __________________MEDIA_R4__________________
+),
+[_NAV] = LAYOUT_base_wrapper(
+    ___________________NAV_L1___________________, ___________________NAV_R1___________________,
+    ___________________NAV_L2___________________, ___________________NAV_R2___________________,
+    ___________________NAV_L3___________________, ___________________NAV_R3___________________,
+    ___________________NAV_L4___________________, ___________________NAV_R4___________________
+),
+[_MOUSE] = LAYOUT_base_wrapper(
+    __________________MOUSE_L1__________________, __________________MOUSE_R1__________________,
+    __________________MOUSE_L2__________________, __________________MOUSE_R2__________________,
+    __________________MOUSE_L3__________________, __________________MOUSE_R3__________________,
+    __________________MOUSE_L4__________________, __________________MOUSE_R4__________________
+),
 
-    // The FN key by default maps to a momentary toggle to layer 1 to provide access to the QK_BOOT key (to put the board into bootloader mode). Without
-    // this mapping, you have to open the case to hit the button on the bottom of the PCB (near the USB cable attachment) while plugging in the USB
-    // cable to get the board into bootloader mode - definitely not fun when you're working on your QMK builds. Remove this and put it back to KC_RGUI
-    // if that's your preference.
-    //
-    // To put the keyboard in bootloader mode, use FN+backspace. If you accidentally put it into bootloader, you can just unplug the USB cable and
-    // it'll be back to normal when you plug it back in.
-    //
-    // This keyboard defaults to 6KRO instead of NKRO for compatibility reasons (some KVMs and BIOSes are incompatible with NKRO).
-    // Since this is, among other things, a "gaming" keyboard, a key combination to enable NKRO on the fly is provided for convenience.
-    // Press Fn+N to toggle between 6KRO and NKRO. This setting is persisted to the EEPROM and thus persists between restarts.
-
-    [_COLEMAK] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  TOG_WS,           KC_MPLY,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX, KC_BSPC,          KC_DEL,
-        KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    XXXXXXX, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_RBRC,                   KC_PGUP,
-        ESC_CTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    DK_ARNG, KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_NUHS, ENT_CTL,          KC_PGDN,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    DK_AE,   DK_OSTR, KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_RSFT,          KC_UP,   KC_END,
-        KC_LALT, KC_LGUI, MO(_LOWER),                            KC_SPC,                           MO(_RAISE), KC_LGUI, KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT
-    ),
-    [_QWERTY] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, _______,                   _______,
-        _______, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, _______, _______,          _______,
-        _______, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,          _______, _______,
-        _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______
-    ),
-    [_LOWER] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSLS, KC_PAST, KC_PMNS, _______, _______,          _______,
-        _______, _______, _______, KC_UP,   _______, _______, _______, _______, KC_P7  , KC_P8  , KC_P9  , KC_PPLS, _______,                   _______,
-        _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, KC_P4  , KC_P5  , KC_P6  , KC_DOT,  DK_COLN, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_P1  , KC_P2  , KC_P3  , _______,          _______, _______,
-        _______, _______, _______,                            _______,                            _______, KC_P0, _______, _______, _______, _______
-    ),
-    [_RAISE] = LAYOUT(
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, DK_EXLM, DK_AT,   DK_HASH, DK_DLR,  DK_PERC, _______, DK_CIRC, DK_AMPR, DK_ASTR, DK_MINS, DK_UNDS, _______,                   _______,
-        _______, DK_GRV,  DK_LCBR, DK_LBRC, DK_LPRN, DK_LABK, XXXXXXX, DK_QUOT, DK_DQUO, DK_QUES, DK_PLUS, DK_SCLN, DK_COLN, _______,          _______,
-        _______, DK_TILD, DK_RCBR, DK_RBRC, DK_RPRN, DK_RABK, XXXXXXX, XXXXXXX, DK_EQL,  DK_BSLS, DK_SLSH, DK_PIPE, _______,          _______, _______,
-        _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______
-    ),
-    
-    [_ADJUST] = LAYOUT(
-        _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,          _______,
-        _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,          _______,
-        _______, _______, _______, KC_MS_U, _______, _______, _______, _______, _______, _______, KC_MUTE, _______, _______,                   _______,
-        _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, VRSN,   _______, KC_MPRV, KC_MNXT, KC_VOLU,  _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, KC_BTN2, QWERTY,  COLEMAK,_______, KC_MSTP, KC_MPLY, KC_VOLD,  _______,          RGB_MOD, _______,
-        _______, _______, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
-    ),
 };
 // clang-format on
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [2] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [3] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-    [4] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) }
+    [_BASE]    = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [_GAMING]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [_NUM]     = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [_SYM]     = { ENCODER_CCW_CW(RGB_RMOD,RGB_MOD)},
+    [_FUN]     = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
+    [_MEDIA]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
+    [_NAV]     = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
+    [_MOUSE]   = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS)}
 };  
 #endif
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  //debug_matrix=true;
-  debug_keyboard=true;
-  //debug_mouse=true;
-}
-
-
 layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-        switch (keycode) {
-            case QWERTY: 
-                set_single_persistent_default_layer(_QWERTY);
-                return false;   
-            case COLEMAK: 
-                set_single_persistent_default_layer(_COLEMAK);
-                return false;      
-            case VRSN:
-                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-                return false;
-        }
-    }
-    return true;
+    state = update_tri_layer_state(state, _NUM, _SYM, _FUN);
+    state = update_tri_layer_state(state, _NAV, _MEDIA, _MOUSE);
+    return state;
 }
 
 /*

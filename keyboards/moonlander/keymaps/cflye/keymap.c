@@ -16,94 +16,95 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
-#include "version.h"
-#include "keymap_danish.h"
+#include "cflye.h"
+#include "print.h"
 
 #define ESC_CTL LCTL_T(KC_ESC)
 #define TOG_WS MT(MOD_LGUI | MOD_LSFT, KC_PSCR)
 
-enum layers {
-    _COLEMAK,
-    _QWERTY,
-    _LOWER,
-    _RAISE,
-    _ADJUST,
-};
+#define LAYOUT_moonlander_wrapper(...) LAYOUT_moonlander(__VA_ARGS__)
 
-enum custom_keycodes {
-    VRSN = SAFE_RANGE,
-    COLEMAK,
-    QWERTY
+#define LAYOUT_moonlander_base( \
+     K00, K01, K02, K03, K04,               K05, K06, K07, K08, K09,\
+     K10, K11, K12, K13, K14,               K15, K16, K17, K18, K19,\
+     K20, K21, K22, K23, K24,               K25, K26, K27, K28, K29,\
+     N30, N31, K32, K33, K34,               K35, K36, K37, N38, N39\
+    ) \
+    LAYOUT_moonlander_wrapper( \
+        KC_GRV,  ________________NUMBER_LEFT________________, XXX,         XXX, ________________NUMBER_RIGHT_______________,     XXX,\
+        KC_TAB,  K00,     K01,     K02,     K03,     K04,     XXX,         KC_AA,   K05,     K06,     K07,     K08,     K09,     XXX,\
+        KC_LCTL, K10,     K11,     K12,     K13,     K14,     KC_AE,       KC_OE,   K15,     K16,     K17,     K18,     K19,     XXX,\
+        XXX,     K20,     K21,     K22,     K23,     K24,                           K25,     K26,     K27,     K28,     K29,     XXX,\
+        XXX,     XXX,     XXX,     XXX,     K32,              K34,         K35,              K37,     XXX,     XXX,     XXX,     XXX,\
+                                            K33,     XXX,     XXX,         XXX,     XXX,     K36\
+    )
+#define LAYOUT_moonlander_gaming( \
+     K00, K01, K02, K03, K04,               K05, K06, K07, K08, K09,\
+     K10, K11, K12, K13, K14,               K15, K16, K17, K18, K19,\
+     K20, K21, K22, K23, K24,               K25, K26, K27, K28, K29,\
+     N30, N31, K32, K33, K34,               K35, K36, K37, N38, N39\
+    ) \
+    LAYOUT_moonlander_wrapper( \
+        KC_GRV,  ________________NUMBER_LEFT________________, XXX,         XXX, ________________NUMBER_RIGHT_______________,     XXX,\
+        KC_TAB,     K00,     K01,     K02,     K03,     K04,     XXX,         KC_AA,   K05,     K06,     K07,     K08,     K09,     XXX,\
+        KC_LCTL, K10,     K11,     K12,     K13,     K14,     KC_AE,       KC_OE,   K15,     K16,     K17,     K18,     K19,     XXX,\
+        XXX,     K20,     K21,     K22,     K23,     K24,                           K25,     K26,     K27,     K28,     K29,     XXX,\
+        XXX,     XXX,     XXX,     XXX,     KC_LALT,             K34,         K35,              K37,     XXX,     XXX,     XXX,     XXX,\
+                                            KC_SPC,     K32,     K33,         XXX,     XXX,     K36\
+    )
 
-};
+
+#define LAYOUT_base_wrapper(...) LAYOUT_moonlander_base(__VA_ARGS__)
+#define LAYOUT_gaming_wrapper(...) LAYOUT_moonlander_gaming(__VA_ARGS__)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    
-    [_COLEMAK] = LAYOUT_moonlander(
-        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,           _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    TOG_WS,
-        KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    _______,           DK_ARNG, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_DEL,
-        ESC_CTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    DK_AE,             DK_OSTR, KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_RCTL,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                                KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-        _______, _______, _______, KC_LALT, MO(_LOWER),  KC_BSPC,                         KC_RGUI, MO(_RAISE), KC_LALT, _______, _______, _______,
-                                     KC_SPC,  KC_BSPC, KC_RGUI,                  KC_RGUI, KC_LALT, KC_ENT
+    [_BASE] = LAYOUT_base_wrapper(
+        _________________COLEMAK_L1_________________, _________________COLEMAK_R1_________________,
+        _________________COLEMAK_L2_________________, _________________COLEMAK_R2_________________,
+        _________________COLEMAK_L3_________________, _________________COLEMAK_R3_________________,
+        _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
-    [_QWERTY] = LAYOUT_moonlander(
-        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,           _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-        _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______,           _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    _______,
-        _______, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______,           _______, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, _______,
-        _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, _______,
-        _______,_______,_______,_______,  _______,       _______,                        _______,  _______, _______, _______, _______, _______,
-                                          _______,  _______, _______,                  _______, _______, _______
+    [_GAMING] = LAYOUT_gaming_wrapper(
+        _________________GAMING_L1__________________, _________________GAMING_R1__________________,
+        _________________GAMING_L2__________________, _________________GAMING_R2__________________,
+        _________________GAMING_L3__________________, _________________GAMING_R3__________________,
+        _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
     ),
-
-
-    [_LOWER] = LAYOUT_moonlander(                                                                      
-        _______, _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, KC_UP,   _______, _______, _______,           _______, DK_ARNG, KC_7,    KC_8,    KC_9,    KC_0,    _______,
-        _______, KC_WH_U, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGUP, _______,           _______, DK_OSTR, KC_4,    KC_5,    KC_6,    KC_PLUS, _______,
-        _______, KC_WH_D, _______, KC_HOME, KC_END,  KC_PGDN,                             DK_AE,   KC_1,    KC_2,    KC_3,    KC_MINS, _______,
-        _______, _______, _______, _______, _______,       _______,                 _______,       _______, KC_0,    _______, _______, _______,
-                                            _______, _______, _______,           _______, _______, _______
+    [_SYM] = LAYOUT_base_wrapper(
+        ___________________SYM_L1___________________, ___________________SYM_R1___________________,
+        ___________________SYM_L2___________________, ___________________SYM_R2___________________,
+        ___________________SYM_L3___________________, ___________________SYM_R3___________________,
+        ___________________BLANK___________________,  ___________________BLANK___________________
     ),
-
-    [_RAISE] = LAYOUT_moonlander(
-        _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,           _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-        _______, DK_EXLM, DK_AT,   DK_HASH, DK_DLR,  DK_PERC, _______,           _______, DK_CIRC, DK_AMPR, DK_ASTR, DK_MINS, DK_UNDS, KC_F12,
-        _______, DK_GRV,  DK_LCBR, DK_LBRC, DK_LPRN, DK_LABK, _______,           _______, DK_QUOT, DK_DQUO, DK_QUES, DK_PLUS, DK_SCLN, _______,
-        _______, DK_TILD, DK_RCBR, DK_RBRC, DK_RPRN, DK_RABK,                             DK_EQL,  DK_BSLS, DK_SLSH, DK_PIPE, DK_COLN, _______,
-        EE_CLR,  _______, _______, _______, _______,       _______,                   _______,     _______, _______, _______, _______, _______,
-                                            _______, _______, _______,             _______,_______, _______
+    [_NUM] = LAYOUT_base_wrapper(
+        ___________________NUM_L1___________________, ___________________NUM_R1___________________,
+        ___________________NUM_L2___________________, ___________________NUM_R2___________________,
+        ___________________NUM_L3___________________, ___________________NUM_R3___________________,
+        ___________________NUM_L4___________________,  ___________________BLANK___________________
     ),
-
-    [_ADJUST] = LAYOUT_moonlander(
-        RGB_TOG, _______, _______, _______, _______, _______, QWERTY,            COLEMAK, _______, _______, _______, _______, _______, _______,
-        QK_BOOT, _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,           VRSN,    _______, _______, _______, KC_MUTE, _______, _______,
-      LED_LEVEL, KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, _______,           _______, _______, KC_MPRV, KC_MNXT, KC_VOLU, _______, _______,
-        _______, KC_WH_D, _______, _______, _______, KC_BTN2,                             _______, KC_MSTP, KC_MPLY, KC_VOLD, _______, _______,
-        _______, _______, _______, _______, _______,       _______,                 _______,       _______, _______, _______, _______, _______,
-                                            _______, _______, _______,           _______, _______, _______
+    [_FUN] = LAYOUT_base_wrapper(
+        ___________________FUN_L1___________________, ___________________FUN_R1___________________,
+        ___________________FUN_L2___________________, ___________________FUN_R2___________________,
+        ___________________FUN_L3___________________, ___________________FUN_R3___________________,
+        ___________________FUN_L4___________________, ___________________FUN_R4___________________
+    ),
+    [_MEDIA] = LAYOUT_base_wrapper(
+        __________________MEDIA_L1__________________, __________________MEDIA_R1__________________,
+        __________________MEDIA_L2__________________, __________________MEDIA_R2__________________,
+        __________________MEDIA_L3__________________, __________________MEDIA_R3__________________,
+        __________________MEDIA_L4__________________,  __________________MEDIA_R4__________________
+    ),
+    [_NAV] = LAYOUT_base_wrapper(
+        ___________________NAV_L1___________________, ___________________NAV_R1___________________,
+        ___________________NAV_L2___________________, ___________________NAV_R2___________________,
+        ___________________NAV_L3___________________, ___________________NAV_R3___________________,
+        ___________________NAV_L4___________________, ___________________NAV_R4___________________
+    ),
+    [_MOUSE] = LAYOUT_base_wrapper(
+        __________________MOUSE_L1__________________, __________________MOUSE_R1__________________,
+        __________________MOUSE_L2__________________, __________________MOUSE_R2__________________,
+        __________________MOUSE_L3__________________, __________________MOUSE_R3__________________,
+        __________________MOUSE_L4__________________, __________________MOUSE_R4__________________
     ),
 };
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case QWERTY: 
-                set_single_persistent_default_layer(_QWERTY);
-                return false;   
-            case COLEMAK: 
-                set_single_persistent_default_layer(_COLEMAK);
-                return false;      
-            case VRSN:
-                SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-                return false;
-        }
-    }
-    return true;
-}
