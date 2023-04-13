@@ -1,4 +1,4 @@
-/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
+/* Copyright 2022 JasonRen(biu)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,16 +16,7 @@
 
 #pragma once
 
-#include_next <halconf.h>
+#include_next <board.h>
 
-#undef HAL_USE_SPI
-#define HAL_USE_SPI TRUE
-
-#undef SPI_USE_WAIT
-#define SPI_USE_WAIT TRUE
-
-#undef SPI_SELECT_MODE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-
-#undef HAL_USE_PWM
-#define HAL_USE_PWM TRUE
+#undef STM32_HSECLK
+#define STM32_HSECLK 16000000

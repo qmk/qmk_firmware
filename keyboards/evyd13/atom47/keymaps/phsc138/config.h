@@ -1,4 +1,4 @@
-/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
+/* Copyright 2022 PHSC138
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,19 +13,5 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
-
-#include_next <halconf.h>
-
-#undef HAL_USE_SPI
-#define HAL_USE_SPI TRUE
-
-#undef SPI_USE_WAIT
-#define SPI_USE_WAIT TRUE
-
-#undef SPI_SELECT_MODE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-
-#undef HAL_USE_PWM
-#define HAL_USE_PWM TRUE
+#define TAPPING_TERM 150 // Tap dance time limit

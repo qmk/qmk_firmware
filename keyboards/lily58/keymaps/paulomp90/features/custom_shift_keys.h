@@ -1,8 +1,8 @@
-/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
+/* Copyright 2023 Paulo Pereira
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -14,18 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 #pragma once
+#include QMK_KEYBOARD_H
 
-#include_next <halconf.h>
+typedef struct {
+  uint16_t keycode;
+  uint16_t shifted_keycode;
+} custom_shift_key_t;
 
-#undef HAL_USE_SPI
-#define HAL_USE_SPI TRUE
+extern const custom_shift_key_t custom_shift_keys[];
+extern uint8_t NUM_CUSTOM_SHIFT_KEYS;
 
-#undef SPI_USE_WAIT
-#define SPI_USE_WAIT TRUE
-
-#undef SPI_SELECT_MODE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-
-#undef HAL_USE_PWM
-#define HAL_USE_PWM TRUE
+bool process_custom_shift_keys(uint16_t keycode, keyrecord_t *record);

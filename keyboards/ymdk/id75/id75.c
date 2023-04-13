@@ -1,4 +1,4 @@
-/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
+/* Copyright 2021 MT
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,18 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "quantum.h"
 
-#include_next <halconf.h>
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
 
-#undef HAL_USE_SPI
-#define HAL_USE_SPI TRUE
-
-#undef SPI_USE_WAIT
-#define SPI_USE_WAIT TRUE
-
-#undef SPI_SELECT_MODE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-
-#undef HAL_USE_PWM
-#define HAL_USE_PWM TRUE
+    if (host_keyboard_led_state().caps_lock) { // Capslock = RED
+        rgb_matrix_set_color(44, 200, 0, 0);
+    }
+    return true;
+}
+#endif

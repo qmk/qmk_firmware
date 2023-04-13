@@ -1,8 +1,8 @@
-/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
+/* Copyright 2023 Paulo Pereira
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
+ * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -16,16 +16,7 @@
 
 #pragma once
 
-#include_next <halconf.h>
 
-#undef HAL_USE_SPI
-#define HAL_USE_SPI TRUE
-
-#undef SPI_USE_WAIT
-#define SPI_USE_WAIT TRUE
-
-#undef SPI_SELECT_MODE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-
-#undef HAL_USE_PWM
-#define HAL_USE_PWM TRUE
+#define QUICK_TAP_TERM 0
+#define TAPPING_TERM 150
+#define TAP_CODE_DELAY 10

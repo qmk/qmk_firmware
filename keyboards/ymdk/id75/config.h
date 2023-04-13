@@ -1,4 +1,4 @@
-/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
+/* Copyright 2021 MT
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,16 +16,16 @@
 
 #pragma once
 
-#include_next <halconf.h>
+#define RGB_DI_PIN B9
+#define RGB_MATRIX_LED_COUNT 89
 
-#undef HAL_USE_SPI
-#define HAL_USE_SPI TRUE
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-#undef SPI_USE_WAIT
-#define SPI_USE_WAIT TRUE
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
-#undef SPI_SELECT_MODE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-
-#undef HAL_USE_PWM
-#define HAL_USE_PWM TRUE
+#define WS2812_PWM_DRIVER PWMD4
+#define WS2812_PWM_CHANNEL 4
+#define WS2812_PWM_PAL_MODE 2
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM7
+#define WS2812_DMA_CHANNEL 7
