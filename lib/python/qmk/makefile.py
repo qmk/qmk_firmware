@@ -18,7 +18,7 @@ def parse_rules_mk_file(file, rules_mk=None):
 
     file = Path(file)
     if file.exists():
-        rules_mk_lines = file.read_text().split("\n")
+        rules_mk_lines = file.read_text(encoding='utf-8').split("\n")
 
         for line in rules_mk_lines:
             # Filter out comments
