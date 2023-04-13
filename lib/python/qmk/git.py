@@ -145,13 +145,13 @@ def git_get_qmk_hash():
 
     return output.stdout.strip()
 
+
 def git_get_qmk_major_minor_patch():
     output = cli.run(['git', 'describe', '--tags'])
     if output.returncode != 0:
-        # we dont want to return numbers here, as it would make stuff like (#if QMK_MAJOR > 19)
-        # to compile just fine, and run into undefined behaviours
-        # instead, making it a string should break compilation
-        return "NA", "NA", "NA"
+        # we intentionally return zero here, as it would automatically disable things when using
+        # patterns such as (#if QMK_MAJOR > 19).
+        return 0, 0, 0
 
     # output is major.minor.patch-<whatever>
     versions = output.stdout.strip().split("-")[0]

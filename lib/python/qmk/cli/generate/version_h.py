@@ -34,9 +34,7 @@ def generate_version_h(cli):
         git_qmk_hash = "NA"
         chibios_version = "NA"
         chibios_contrib_version = "NA"
-        # these variable aren't wrapped on quotes when generating the version file as they are number when git isn't skipped
-        # we add double quoting here such that generated code is valid
-        qmk_major, qmk_minor, qmk_patch, qmk_global = ['"NA"'] * 4
+        qmk_major, qmk_minor, qmk_patch = 0, 0, 0
     else:
         git_dirty = git_is_dirty()
         git_version = git_get_version() or current_time
@@ -44,10 +42,6 @@ def generate_version_h(cli):
         chibios_version = git_get_version("chibios", "os") or current_time
         chibios_contrib_version = git_get_version("chibios-contrib", "os") or current_time
         qmk_major, qmk_minor, qmk_patch = git_get_qmk_major_minor_patch()
-        # number that can be used to order all versions, eg '#if __QMK__ == 000020005' (for 0.20.5)
-        # TODO: proper handling when function fails and returns "NA", so int() doesn't error out (?)
-        # FIXME: may need to reserve more than 3 digits for each number
-        qmk_global = int(f"{qmk_major:03}{qmk_minor:03}{qmk_patch:03}")
 
     dirty_indicator = "*" if git_dirty else ""
 
@@ -59,7 +53,8 @@ def generate_version_h(cli):
         f'#define QMK_MAJOR {qmk_major}',
         f'#define QMK_MINOR {qmk_minor}',
         f'#define QMK_PATCH {qmk_patch}',
-        f'#define __QMK__ {qmk_global}',
+        f'// number that can be used to order all versions, eg: "#if __QMK__ == 0x00200005ul" (for 0.20.5) -- prefer to have a 0x prefix otherwise leading zeros would be interpreted as octal numbers.',
+        f'#define __QMK__ 0x{qmk_major:02}{qmk_minor:02}{qmk_patch:04}ul',
         f'#define QMK_BUILDDATE "{current_time}"',
         f'#define QMK_GIT_HASH  "{git_qmk_hash}{dirty_indicator}"',
         f'#define CHIBIOS_VERSION "{chibios_version}"',
