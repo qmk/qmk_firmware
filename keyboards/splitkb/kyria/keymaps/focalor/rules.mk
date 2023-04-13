@@ -1,5 +1,6 @@
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
+LTO_ENABLE = true
 ENCODER_ENABLE = yes
 RGB_MATRIX_ENABLE = no
 RGBLIGHT_ENABLE = no
@@ -11,3 +12,8 @@ UNICODE_ENABLE = yes
 SPLIT_KEYBOARD = yes
 AUTO_SHIFT_ENABLE = yes
 TAP_DANCE_ENABLE = yes
+CONSOLE_ENABLE = yes
+COMMAND_ENABLE = no
+NKRO_ENABLE = no
+BACKLIGHT_ENABLE = no
+##qmk flash -kb splitkb/kyria/rev3 -km focalor -e CONVERT_TO=elite_pi
