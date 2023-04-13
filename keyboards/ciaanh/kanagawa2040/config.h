@@ -1,24 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xC1E0
-#define PRODUCT_ID 0x0010
-#define DEVICE_VER 0x0002
-#define MANUFACTURER Ciaanh
-#define PRODUCT Kanagawa
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
-
-#define MATRIX_ROW_PINS { GP28, GP27, GP26, GP22, GP21, GP20 }
-#define MATRIX_COL_PINS { GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, GP13, GP14, GP15, GP16, GP17, GP18 }
-// #define DEBUG_MATRIX_SCAN_RATE
-
-#define DIODE_DIRECTION COL2ROW
-
 /* OLED SPI Defines */
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X32
@@ -32,27 +13,12 @@
 #    define I2C1_SCL_PIN GP1
 #endif
 
-/* Encoder */
-#define ENCODERS_PAD_A { GP2 }
-#define ENCODERS_PAD_B { GP3 }
 
-#define DEBOUNCE 5
-
-/* Bootmagic lite */
-/* (Press the encoder button while plugging the keyboard to enter the bootloader and clear flash) */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 13
-
-/* Double tap the side button to enter bootloader */
-// #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-// #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP13
-// #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
 #ifdef RGB_MATRIX_ENABLE
      /* RGB Defines */
 #    define RGB_DI_PIN GP4
-#    define DRIVER_LED_TOTAL 83
-#    define RGBLED_NUM 83
+#    define RGB_MATRIX_LED_COUNT 83
 
      /* Enable Framebuffer and keypress effects */
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -102,3 +68,6 @@
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
+
+
+
