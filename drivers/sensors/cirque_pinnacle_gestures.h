@@ -107,4 +107,4 @@ void cirque_pinnacle_configure_cursor_glide(float trigger_px);
 #endif
 
 /* Process available gestures */
-bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touchData);
+bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, void* touchData);

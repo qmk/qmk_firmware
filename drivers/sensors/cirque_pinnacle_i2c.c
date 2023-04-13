@@ -38,8 +38,8 @@ void cirque_write_i2c(const void *config, uint8_t regaddr, uint8_t data) {
 
 void cirque_pinnacle_init_i2c(const void *config) {
     i2c_init();
-    cirque_pinnacle_init(&cirque_rap_i2c, config);
+    cirque_pinnacle_init(&cirque_rap_i2c, &cirque_init_config_default, config);
 }
 report_mouse_t cirque_pinnacle_get_report_i2c(const void *config) {
-    return cirque_pinnacle_get_report(&cirque_rap_i2c, config);
+    return cirque_pinnacle_get_report(&cirque_rap_i2c, &cirque_init_config_default, config);
 }

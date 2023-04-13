@@ -204,7 +204,7 @@ void cirque_pinnacle_configure_circular_scroll(uint8_t outer_ring_pct, uint8_t t
 }
 #endif
 
-bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, pinnacle_data_t touchData) {
+bool cirque_pinnacle_gestures(report_mouse_t* mouse_report, void* touchData) {
     bool suppress_mouse_update = false;
 
 #ifdef CIRQUE_PINNACLE_CIRCULAR_SCROLL_ENABLE
