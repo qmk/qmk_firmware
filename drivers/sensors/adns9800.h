@@ -43,26 +43,17 @@
 #    endif
 #endif
 
-#ifndef ADNS9800_CS_PIN
-#    ifdef POINTING_DEVICE_CS_PIN
-#        define ADNS9800_CS_PIN POINTING_DEVICE_CS_PIN
-#    else
-#        error "No chip select pin defined -- missing POINTING_DEVICE_CS_PIN or ADNS9800_CS_PIN"
-#    endif
-#endif
-
 typedef struct {
     /* 200 - 8200 CPI supported */
     uint16_t cpi;
 } config_adns9800_t;
 
-const pointing_device_driver_t     adns9800_driver_spi_default;
+const pointing_device_driver_t adns9800_driver_spi_default;
+#if defined(ADNS9800_CS_PIN)
 const pointing_device_spi_config_t adns9800_config_spi_default;
+#endif
 
-void              adns9800_init(const void* config);
-config_adns9800_t adns9800_get_config(pointing_device_spi_config_t* spi_config);
-void              adns9800_set_config(pointing_device_spi_config_t* spi_config, config_adns9800_t);
-uint16_t          adns9800_get_cpi(const void* config);
-void              adns9800_set_cpi(const void* config, uint16_t cpi);
-/* Reads and clears the current delta values on the ADNS sensor */
+void           adns9800_init(const void* config);
+uint16_t       adns9800_get_cpi(const void* config);
+void           adns9800_set_cpi(const void* config, uint16_t cpi);
 report_mouse_t adns9800_get_report(const void* config);
