@@ -149,6 +149,15 @@
     "durgod/k320": {
         "target": "durgod/k3x0/k320"
     },
+    "durgod/hades": {
+        "target": "durgod/dgk6x/hades_ansi"
+    },
+    "durgod/hades_ansi": {
+        "target": "durgod/dgk6x/hades_ansi"
+    },
+    "durgod/hades_iso": {
+        "target": "durgod/dgk6x/hades_iso"
+    },
     "dztech/dz60rgb": {
         "target": "dztech/dz60rgb/v1"
     },
