@@ -18,7 +18,8 @@
     },
     "processor": "STM32F103",
     "ws2812": {
-        "driver": "pwm"
+        "driver": "pwm",
+        "pin": "B9"
     },
     "rgb_matrix": {
         "animations": {
