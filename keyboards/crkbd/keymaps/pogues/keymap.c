@@ -16,12 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* TODO XXX  
- *     fix the oneshot mods with the tap toggle
- *     have constants for the light layers?
- *     tidy up the oneshot lighting hold code
- * */
-
 #include QMK_KEYBOARD_H
 #include "features/casemodes.h"
 #include "features/compose.h"
@@ -216,6 +210,7 @@ enum combo_keys {
     // left hand only
     WF_ESC,
     CD_TAB,
+    ZX_Q,
 
     RESET_COMBO,
 
@@ -236,25 +231,26 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM combo_esc[] = {CTL_W, KC_F, COMBO_END};
 const uint16_t PROGMEM combo_tab[] = {KC_C, KC_D, COMBO_END};
-//const uint16_t PROGMEM combo_reset[] = {KC_PSCR, KC_NO, COMBO_END};
 const uint16_t PROGMEM combo_reset[] = {KC_ESC, KC_TAB, COMBO_END};
 const uint16_t PROGMEM combo_del[] = {KC_U, CTL_Y, COMBO_END};
-const uint16_t PROGMEM combo_num_del[] = {KC_8, KC_9, COMBO_END};
+// const uint16_t PROGMEM combo_num_del[] = {KC_8, KC_9, COMBO_END};
 const uint16_t PROGMEM combo_ent[] = {KC_H, KC_COMM, COMBO_END};
-const uint16_t PROGMEM combo_num_ent[] = {KC_1, KC_2, COMBO_END};
+// const uint16_t PROGMEM combo_num_ent[] = {KC_1, KC_2, COMBO_END};
+const uint16_t PROGMEM combo_q[] = {SFT_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM combo_bspc[] = {KC_J, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_mouse[] = {CTL_W, CTL_Y, COMBO_END};
 
 combo_t key_combos[] = {
     [WF_ESC] = COMBO(combo_esc, KC_ESC),
     [CD_TAB] = COMBO(combo_tab, KC_TAB),
+    [ZX_Q] = COMBO(combo_q, KC_Q),
 
     [RESET_COMBO] = COMBO(combo_reset, QK_BOOTLOADER),
 
     [UY_DEL] = COMBO(combo_del, KC_DEL),
-    [NUM_89_DEL] = COMBO(combo_num_del, KC_DEL),
+    //[NUM_89_DEL] = COMBO(combo_num_del, KC_DEL),
     [HCOM_ENT] = COMBO(combo_ent, KC_ENT),
-    [NUM_12_ENT] = COMBO(combo_num_ent, KC_ENT),
+    //[NUM_12_ENT] = COMBO(combo_num_ent, KC_ENT),
     [JY_CTLBSP] = COMBO(combo_bspc, LCTL(KC_BSPC)),
 
     [WY_LMSE] = COMBO(combo_mouse, TO(LMSE)),
