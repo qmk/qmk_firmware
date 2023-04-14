@@ -15,20 +15,29 @@
 
 #pragma once
 
+// All of these config options can be changed by keyboard in their config.h
+// These are all just the defaults I like for most of my keyboards
+
+// If the keyboard is unused for 20 minutes then just turn off RGB
 #define RGB_MATRIX_TIMEOUT 1200000     // 20 minutes (20 * 60 * 1000ms)
 
 // When caps lock is pressed, the letter keys, caps lock, and both shift keys, will light up this color.
 #define CAPS_LOCK_INDICATOR_COLOR RGB_RED
 
-// When caps lock is pressed, all other keys will light up this color. If undefined, they keys will adhere to the rgb profile
+// Also light up alphabet keys when either shift is held
+#define INDICATOR_ON_SHIFT
+
+// When caps lock is pressed, all other keys will light up this color
 // #define CAPS_LOCK_INDICATOR_OTHER RGB_WHITE
 
-// If defined, all alphabet keys will light up, otherwise just caps lock.
+// All alphabet keys will light up, otherwise just caps lock.
 #define CAPS_LOCK_INDICATOR_LIGHT_ALPHAS
 
-// If defined, keys not defined in the current layer will turn off their RGB
-#define FN_LAYER_TRANSPARENT_KEYS_OFF
+// Keys not defined in the current layer will use this color
+#define FN_LAYER_TRANSPARENT_KEYS_COLOR RGB_OFF
 
-// Below added per: https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_rgb_matrix#suspended-state-id-suspended-state
+// Keys defined in the current layer will use this color
+// #define FN_LAYER_KEYS_COLOR RGB_WHITE
+
+// Don't light up my whole room when the pc is asleep
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-

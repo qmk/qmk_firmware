@@ -19,7 +19,12 @@
 #include "keymap_user.h"
 
 keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
+
+#ifdef INDICATOR_ON_SHIFT
 #define is_shift_pressed (get_mods() & MOD_MASK_SHIFT)
+#else
+#define is_shift_pressed false
+#endif
 
 void rgb_matrix_init_user(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
@@ -38,7 +43,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         case WIN_BASE:
         case MAC_BASE:
 #ifdef CAPS_LOCK_INDICATOR_COLOR
-            if (host_keyboard_led_state().caps_lock || (is_shift_pressed != host_keyboard_led_state().caps_lock)) {
+            if (host_keyboard_led_state().caps_lock || is_shift_pressed) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
 #ifdef CAPS_LOCK_INDICATOR_OTHER
                 rgb_matrix_set_color_by_not_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_OTHER);
@@ -47,8 +52,11 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #endif
             break;
         default:
-#ifdef FN_LAYER_TRANSPARENT_KEYS_OFF
-            rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, RGB_OFF);
+#ifdef FN_LAYER_TRANSPARENT_KEYS_COLOR
+            rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, FN_LAYER_TRANSPARENT_KEYS_COLOR);
+#endif
+#ifdef FN_LAYER_KEYS_COLOR
+            rgb_matrix_set_color_by_not_keycode(led_min, led_max, current_layer, is_transparent, FN_LAYER_KEYS_COLOR);
 #endif
             break;
     }
