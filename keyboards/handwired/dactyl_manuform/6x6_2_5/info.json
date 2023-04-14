@@ -14,7 +14,10 @@
         "extrakey": true,
         "console": false,
         "command": true,
-        "nkro": false
+        "nkro": false,
+        "audio": false,
+        "rgblight": false,
+        "backlight": false
     },
     "ws2812": {
         "pin": "D3"

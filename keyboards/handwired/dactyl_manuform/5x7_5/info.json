@@ -14,7 +14,10 @@
         "extrakey": true,
         "console": false,
         "command": true,
-        "nkro": false
+        "nkro": false,
+        "audio": false,
+        "rgblight": false,
+        "backlight": false
     },
     "matrix_pins": {
         "rows": ["D4", "C6", "D7", "E6", "B4", "B5"],
