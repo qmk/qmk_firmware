@@ -3,7 +3,7 @@
  * https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md
  */
 
-#include "gergoplex.h"
+#include QMK_KEYBOARD_H
 #include "g/keymap_combo.h"
 
 enum {

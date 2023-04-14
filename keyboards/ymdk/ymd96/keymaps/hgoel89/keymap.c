@@ -1,5 +1,4 @@
-#include "ymd96.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 /*
 #define _QWERTY 0
