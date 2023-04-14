@@ -104,10 +104,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if !defined(OLED_DISPLAY_CLOCK)
 #    define OLED_DISPLAY_CLOCK 0x80
 #endif
-// Default VCom Detect value
+// Default VCOMH deselect value
 #if !defined(OLED_VCOM_DETECT)
 #    define OLED_VCOM_DETECT 0x20
 #endif
+#if !defined(OLED_PRE_CHARGE_PERIOD)
+#    define OLED_PRE_CHARGE_PERIOD 0xF1
+#endif
+
 
 #define OLED_ALL_BLOCKS_MASK (((((OLED_BLOCK_TYPE)1 << (OLED_BLOCK_COUNT - 1)) - 1) << 1) | 1)
 
@@ -315,8 +319,6 @@ bool oled_init(oled_rotation_t rotation) {
 #else
         DISPLAY_START_LINE | 0x00,
 #endif
-        VCOM_DETECT,
-        OLED_VCOM_DETECT,
         CHARGE_PUMP,
         0x14,
 #if OLED_IC_HAS_HORIZONTAL_MODE
@@ -351,7 +353,7 @@ bool oled_init(oled_rotation_t rotation) {
         }
     }
 
-    static const uint8_t PROGMEM display_setup2[] = {I2C_CMD, COM_PINS, OLED_COM_PINS, CONTRAST, OLED_BRIGHTNESS, PRE_CHARGE_PERIOD, 0xF1, VCOM_DETECT, 0x20, DISPLAY_ALL_ON_RESUME, NORMAL_DISPLAY, DEACTIVATE_SCROLL, DISPLAY_ON};
+    static const uint8_t PROGMEM display_setup2[] = {I2C_CMD, COM_PINS, OLED_COM_PINS, CONTRAST, OLED_BRIGHTNESS, PRE_CHARGE_PERIOD, OLED_PRE_CHARGE_PERIOD, VCOM_DETECT, OLED_VCOM_DETECT, DISPLAY_ALL_ON_RESUME, NORMAL_DISPLAY, DEACTIVATE_SCROLL, DISPLAY_ON};
     if (!oled_cmd_P(display_setup2, ARRAY_SIZE(display_setup2))) {
         print("display_setup2 failed\n");
         return false;
