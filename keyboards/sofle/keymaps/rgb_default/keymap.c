@@ -330,7 +330,8 @@ const rgblight_segment_t PROGMEM layer_colemakdh_lights[] = RGBLIGHT_LAYER_SEGME
 // _NUM,
 // Light on outer column and underglow
 const rgblight_segment_t PROGMEM layer_num_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-	SET_LAYER_ID(HSV_TEAL)
+	//SET_LAYER_ID(HSV_TEAL)
+    {0, 29, HSV_YELLOW}
 
 );
 // _SYMBOL,
