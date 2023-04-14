@@ -40,7 +40,7 @@ extern uint8_t expander_status;
 extern uint8_t expander_input_pin_mask;
 extern bool i2c_initialized;
 
-void init_dactyl(void);
+void init_dactyl_teensy2(void);
 void init_expander(void);
 
 #define XXX KC_NO
