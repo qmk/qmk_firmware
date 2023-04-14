@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = handwired/dactyl/dactyl/promicro
+DEFAULT_FOLDER = handwired/dactyl/base/promicro
