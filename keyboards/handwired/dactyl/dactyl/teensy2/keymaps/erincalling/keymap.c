@@ -1,9 +1,11 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define BASE 0 // default layer
-#define CONT 1 // control layer
-#define QWER 2 // qwerty layer
+enum custom_layers {
+  BASE = SAFE_RANGE,
+  CONT,
+  QWER 
+};
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // ensure these codes start after the highest keycode defined in Quantum

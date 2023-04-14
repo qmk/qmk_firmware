@@ -8,12 +8,23 @@
     "pid": "0x3060",
     "device_version": "0.0.1"
   },
+  "features":{
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "console": false,
+    "command": true,
+    "nkro": false,
+    "rgblight": false,
+    "audio": false
+  },
   "matrix_pins": {
     "cols": ["D4", "C6", "D7", "E6", "B4", "B5"],
     "rows": ["F6", "F7", "B1", "B3", "B2", "B6"]
   },
   "diode_direction": "COL2ROW",
   "split": {
+    "enabled": true,
     "soft_serial_pin": "D0"
   },
   "processor": "atmega32u4",

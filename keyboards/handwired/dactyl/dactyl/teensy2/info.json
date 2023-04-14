@@ -1,8 +1,4 @@
 {
-  "keyboard_name": "Dactyl",
-  "manufacturer": "Adereth",
-  "url": "",
-  "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
     "pid": "0x1308",
@@ -10,6 +6,16 @@
   },
   "processor": "atmega32u4",
   "bootloader": "halfkay",
+  "features":{
+    "rgblight": true,
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "console": false,
+    "command": false,
+    "nkro": true
+  },
+  "diode_direction": "ROW2COL",
   "debounce": 15,
   "layouts": {
     "LAYOUT_dactyl": {

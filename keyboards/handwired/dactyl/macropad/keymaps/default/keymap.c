@@ -7,7 +7,7 @@ bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
 enum layer_names {
-    _BASE,
+    _BASE = SAFE_RANGE,
     _MTG,
     _MAC
 };
