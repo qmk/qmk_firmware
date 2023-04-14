@@ -5,9 +5,11 @@
 
 extern keymap_config_t keymap_config;
 
-#define _QWERTY 0
-#define _LOWER 1
-#define _RAISE 2
+enum layers {
+   _QWERTY = SAFE_RANGE,
+   _LOWER,
+   _RAISE
+};
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
