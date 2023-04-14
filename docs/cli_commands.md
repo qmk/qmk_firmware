@@ -189,7 +189,7 @@ options:
   -p PRINT, --print PRINT
                         For each matched target, print the value of the supplied info.json key. May be passed multiple times.
   -f FILTER, --filter FILTER
-                        Filter the list of keyboards based on their info.json data. Accepts the formats key=value, function(key), or function(key)=value, eg. 'features.rgblight=true'. Valid functions are 'exists', 'absent' and 'length'. May be passed multiple times; all filters need to match. Value may include wildcards such as '*' and '?'.
+                        Filter the list of keyboards based on their info.json data. Accepts the formats key=value, function(key), or function(key,value), eg. 'features.rgblight=true'. Valid functions are 'absent', 'contains', 'exists' and 'length'. May be passed multiple times; all filters need to match. Value may include wildcards such as '*' and '?'.
 ```
 
 ## `qmk console`
