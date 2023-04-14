@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-//#define MASTER_LEFT // Comment this line for the right half firmware
 
 // wiring of each half
 #define MATRIX_ROW_PINS { F5, B1, F6, B3, F7 }
