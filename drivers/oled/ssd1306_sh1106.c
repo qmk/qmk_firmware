@@ -185,8 +185,6 @@ bool oled_init(oled_rotation_t rotation) {
         DISPLAY_OFFSET,
         0x00,
         DISPLAY_START_LINE | 0x00,
-        VCOM_DETECT,
-        OLED_VCOM_DETECT,
         CHARGE_PUMP,
         0x14,
 #if (OLED_IC != OLED_IC_SH1106)
