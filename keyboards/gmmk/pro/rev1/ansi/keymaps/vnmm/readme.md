@@ -1,4 +1,4 @@
-# Vnmm's ANSI GMMKV2 65% Layout
+# Vnmm's ANSI GMMK pro layout
 
 This keymap builds on the default but with a more sensible FN layer.
 

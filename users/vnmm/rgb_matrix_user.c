@@ -19,7 +19,7 @@
 #include "keymap_user.h"
 
 keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
-bool is_shift_pressed = false;
+#define is_shift_pressed (get_mods() & MOD_MASK_SHIFT)
 
 void rgb_matrix_init_user(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
@@ -30,17 +30,6 @@ void rgb_matrix_init_user(void) {
             }
         }
     }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_LSFT:
-        case KC_RSFT:
-            is_shift_pressed = record->event.pressed;
-            break;
-    }
-
-    return true;
 }
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
