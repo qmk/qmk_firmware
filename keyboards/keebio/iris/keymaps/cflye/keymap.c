@@ -9,11 +9,11 @@
      N30, N31, K32, K33, K34,                K35, K36, K37, N38, N39\
 )\
 LAYOUT_iris_rev2_wrapper(\
-   XXX, XXX, XXX, XXX, XXX, XXX,                XXX, XXX, XXX, XXX, XXX, XXX,\
-   XXX, K00, K01, K02, K03, K04,                K05, K06, K07, K08, K09, XXX,\
-   XXX, K10, K11, K12, K13, K14,                K15, K16, K17, K18, K19, XXX,\
-   XXX, K20, K21, K22, K23, K24, K34,      K35, K25, K26, K27, K28, K29, XXX,\
-                     K32, K33, XXX,      XXX, K36, K37\
+   XXX, ________________NUMBER_LEFT________________,                    ________________NUMBER_RIGHT_______________, XXX,\
+   XXX,     K00,     K01,     K02,     K03,     K04,                    K05,     K06,     K07,     K08,     K09,     XXX,\
+   XXX,     K10,     K11,     K12,     K13,     K14,                    K15,     K16,     K17,     K18,     K19,     XXX,\
+   XXX,     K20,     K21,     K22,     K23,     K24,     K34,  K35,     K25,     K26,     K27,     K28,     K29,     XXX,\
+                                    XXX,     K32,     K33,        K36,     K37,     XXX\
 )
 
 #define LAYOUT_base_wrapper(...) LAYOUT_iris_rev2_base(__VA_ARGS__)
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __________________MEDIA_L1__________________, __________________MEDIA_R1__________________,
         __________________MEDIA_L2__________________, __________________MEDIA_R2__________________,
         __________________MEDIA_L3__________________, __________________MEDIA_R3__________________,
-        __________________MEDIA_L4__________________,  __________________MEDIA_R4__________________
+        __________________MEDIA_L4__________________, __________________MEDIA_R4__________________
     ),
     [_NAV] = LAYOUT_base_wrapper(
         ___________________NAV_L1___________________, ___________________NAV_R1___________________,

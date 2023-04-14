@@ -51,7 +51,7 @@ enum unicode_names {
 // Right-hand home row mods
 #define HOME_N RSFT_T(KC_N)
 #define HOME_E RCTL_T(KC_E)
-#define HOME_I RALT_T(KC_I)
+#define HOME_I LALT_T(KC_I)
 #define HOME_O RGUI_T(KC_O)
 
 #define U_RDO C(KC_Y)
