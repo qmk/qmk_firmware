@@ -3,6 +3,14 @@
 
 #pragma once
 
+/* maybe need this
+#define I2C1_OPMODE	OPMODE_I2C
+#define I2C1_CLOCK_SPEED 100000
+#define I2C1_DUTY_CYCLE	STD_DUTY_CYCLE
+*/
+
+#define OLED_TIMEOUT 180000
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
