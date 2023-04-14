@@ -1040,7 +1040,7 @@ static void render_animation(void) {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     };
 
-    // Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = 13728/2)
+    // Array of all bitmaps for convenience. (Total bytes used to store images in PROGMEM = 13728)
     const char* epd_bitmap_allArray[26] = {
         epd_bitmap_monkeylong1,
         epd_bitmap_monkeylong2,
@@ -1251,22 +1251,18 @@ static void render_layers(void) {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 
         0x3f, 0x3f, 0x3f, 0x3f, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     };
-    //oled_set_cursor(0, 1);
+    
     switch(current_layer) {
         case 0:
-            //oled_write("first layer", false);
             oled_write_raw_P(big1, sizeof(big1));
             break;
         case 1:
-            //oled_write("second layer", false);
             oled_write_raw_P(big2, sizeof(big2));
             break;
         case 2:
-            //oled_write("third layer", false);
             oled_write_raw_P(big3, sizeof(big3));
             break;
         case 3:
-            //oled_write("fourth layer", false);
             oled_write_raw_P(big4, sizeof(big4));
             break;
     }
