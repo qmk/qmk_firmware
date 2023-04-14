@@ -36,6 +36,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t current_layer = get_highest_layer(layer_state);
     switch (current_layer) {
         case WIN_BASE:
+        case MAC_BASE:
 #ifdef CAPS_LOCK_INDICATOR_COLOR
             if (host_keyboard_led_state().caps_lock || (is_shift_pressed != host_keyboard_led_state().caps_lock)) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
@@ -45,7 +46,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
 #endif
             break;
-        case WIN_FN:
+        default:
 #ifdef FN_LAYER_TRANSPARENT_KEYS_OFF
             rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, RGB_OFF);
 #endif

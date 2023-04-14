@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Grayson Carr
+/* Copyright 2021
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,13 +16,26 @@
 
 #pragma once
 
+#ifdef DYNAMIC_KEYMAP_LAYER_COUNT
+#undef DYNAMIC_KEYMAP_LAYER_COUNT
+#endif
+#define DYNAMIC_KEYMAP_LAYER_COUNT 5
+
 #define WIN_F MO(WIN_FN)
+#define MAC_F MO(MAC_FN)
+#define EXT_F MO(EXTRA_FN)
+
+#define DF_WIN DF(WIN_BASE)
+#define DF_MAC DF(MAC_BASE)
 
 // clang-format off
 
 enum layers {
     WIN_BASE,
-    WIN_FN
+    MAC_BASE,
+    WIN_FN,
+    MAC_FN,
+    EXTRA_FN
 };
 
 // clang-format on
