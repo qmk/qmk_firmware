@@ -15,10 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "keymap_user.h"
-#ifdef RGB_MATRIX_ENABLE
-#    include "rgb_matrix_user.h"
-#endif
+#include "vnmm.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_BASE] = LAYOUT(
@@ -58,18 +55,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void matrix_init_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init_user();
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [WIN_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [MAC_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [WIN_FN] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    [MAC_FN] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+};
 #endif
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
-    }
-    //return true; //set to return false to counteract enabled encoder in pro.c
-    return false;
-}

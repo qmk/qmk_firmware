@@ -1,4 +1,4 @@
-/* Copyright 2021 @ Grayson Carr
+/*
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
-/* RGB Matrix Configuration */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define CAPS_LOCK_INDICATOR_COLOR RGB_RED
-// #define CAPS_LOCK_INDICATOR_OTHER RGB_WHITE
-#define CAPS_LOCK_INDICATOR_LIGHT_ALPHAS
-#define FN_LAYER_TRANSPARENT_KEYS_OFF
+#include "keymap_user.h"
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix_user.h"
+#endif

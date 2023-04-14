@@ -15,10 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_user.h"
-#ifdef RGB_MATRIX_ENABLE
-#    include "rgb_matrix_user.h"
-#endif
+#include "vnmm.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap WIN_BASE: Base Layer (Default Layer)
@@ -58,9 +55,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_MUTE,  _______,  _______,  _______,         _______,     KC_VOLU,  KC_MPLY,
   EE_CLR,   _______,  _______,                                QK_BOOT,                                _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT),
 };
-
-void matrix_init_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init_user();
-#endif
-}

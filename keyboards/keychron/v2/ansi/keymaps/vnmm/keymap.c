@@ -15,15 +15,9 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_user.h"
-#ifdef RGB_MATRIX_ENABLE
-#    include "rgb_matrix_user.h"
-#endif
+#include "vnmm.h"
 
 // clang-format off
-
-#define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_67(
@@ -61,9 +55,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,           _______,  _______, _______, _______, _______, _______, _______, _______, _______,  _______,            _______, _______,
         _______, _______,  _______,                             QK_BOOT,                            _______,  _______,  _______,  _______, _______, _______)
 };
-
-void matrix_init_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init_user();
-#endif
-}
