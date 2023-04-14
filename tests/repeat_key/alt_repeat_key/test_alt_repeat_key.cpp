@@ -185,6 +185,8 @@ TEST_F(AltRepeatKey, GetAltRepeatKeyKeycode) {
           {KC_B, MOD_BIT(KC_LSFT), S(KC_W)},
           {KC_W, MOD_BIT(KC_LSFT), S(KC_B)},
           {KC_E, MOD_BIT(KC_LSFT), S(KC_B)},
+          {KC_O, MOD_BIT(KC_LCTL), C(KC_I)},
+          {KC_I, MOD_BIT(KC_LCTL), C(KC_O)},
           // Other.
           {KC_DEL, 0, KC_BSPC},
           {KC_LBRC, 0, KC_RBRC},

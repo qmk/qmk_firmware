@@ -91,6 +91,7 @@ with mods, like Ctrl + Left &harr; Ctrl + Right Arrow.
 |mod + `KC_D` &harr; mod + `KC_U`   | Down &harr; Up                    |
 |mod + `KC_N` &harr; mod + `KC_P`   | Next &harr; Previous              |
 |mod + `KC_A` &harr; mod + `KC_E`   | Home &harr; End                   |
+|mod + `KC_O` &harr; mod + `KC_I`   | Vim jump list Older &harr; Newer  |
 |`KC_J` &harr; `KC_K`               | Down &harr; Up                    |
 |`KC_H` &harr; `KC_L`               | Left &harr; Right                 |
 |`KC_W` &harr; `KC_B`               | Forward &harr; Backward by Word   |
