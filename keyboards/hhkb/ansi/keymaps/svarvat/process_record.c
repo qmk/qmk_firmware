@@ -7,11 +7,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     mod_state = get_mods();
 
     if (IS_LAYER_ON(LA_LTHUMB) || IS_LAYER_ON(LA_LTHUMBMS)) {
-        if (IS_LAYER_ON(LA_LTHUMBW)) {
-            if (!processKeycodeIfLThumbW(keycode, record)) {return false;}
+        if (IS_LAYER_ON(LA_LTHUMBEMO)) {
+            if (!processKeycodeIfLThumbEMo(keycode, record)) {return false;}
         }
-        if (IS_LAYER_ON(LA_LTHUMBQ)) {
-            if (!processKeycodeIfLThumbQ(keycode, record)) {return false;}
+        if (IS_LAYER_ON(LA_LTHUMBDMO)) {
+            if (!processKeycodeIfLThumbDMo(keycode, record)) {return false;}
         }
         if (IS_LAYER_ON(LA_LTHUMB3MO)) {
             if (!processKeycodeIfLThumb3Mo(keycode, record)) {return false;}
@@ -22,17 +22,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         if (IS_LAYER_ON(LA_LTHUMB1MO)) {
             if (!processKeycodeIfLThumb1Mo(keycode, record)) {return false;}
         }
-        if (IS_LAYER_ON(LA_LTHUMBDOSL)) {
-            if(!processKeycodeIfLThumbDOsl(keycode, record)) {return false;}
+        if (IS_LAYER_ON(LA_LTHUMBDSTRONG)) {
+            if(!processKeycodeIfLThumbDStrong(keycode, record)) {return false;}
         }
-        if (IS_LAYER_ON(LA_LTHUMBEOSL)) {
-            if(!processKeycodeIfLThumbEOsl(keycode, record)) {return false;}
+        if (IS_LAYER_ON(LA_LTHUMBESTRONG)) {
+            if(!processKeycodeIfLThumbEStrong(keycode, record)) {return false;}
         }
-        if (IS_LAYER_ON(LA_LTHUMBDMO)) {
-            if (!processKeycodeIfLThumbDMo(keycode, record)) {return false;}
+        if (IS_LAYER_ON(LA_LTHUMBDWEAK)) {
+            if (!processKeycodeIfLThumbDWeak(keycode, record)) {return false;}
         }
-        if (IS_LAYER_ON(LA_LTHUMBEMO)) {
-            if (!processKeycodeIfLThumbEMo(keycode, record)) {return false;}
+        if (IS_LAYER_ON(LA_LTHUMBEWEAK)) {
+            if (!processKeycodeIfLThumbEWeak(keycode, record)) {return false;}
         }
         if (IS_LAYER_ON(LA_LTHUMBMS)) {
             if (!processKeycodeIfLThumbMs(keycode, record)) {return false;}

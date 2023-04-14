@@ -1,4 +1,4 @@
-bool editModeLthumbOslStarted = false;
+bool editModeLThumbStrongStarted = false;
 bool isCtlTabStarted = false;
 bool isAltTabStarted = false;
 //bool isDeadKeyCircStarted = false;
@@ -19,10 +19,10 @@ bool isScrollX2Started = false;
 bool isScrollX4Started = false;
 bool isWeakLaMouseStarted = false;
 bool isCapswordStarted = false;
-bool isLThumbEMoPristine = true;
-bool isLThumbDMoPristine = true;
-bool isLThumbQPristine = true;
-bool isLThumbWPristine = true;
+bool isLThumbEWeakPristine = true;
+bool isLThumbDWeakPristine = true;
+bool isLThumbEWeakPristine = true;
+bool isLThumbDWeakPristine = true;
 
 void tap_code16_wrap_lctl(uint16_t keycode) {
     unregister_code16(KC_LCTL);
@@ -649,8 +649,8 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
     && (keycode != KC_DOWN)
     && (keycode != KC_LEFT)
     && (keycode != KC_RIGHT)
-    && (keycode != MA_LTHUMBQ)
-    && (keycode != MA_LTHUMBW)
+    && (keycode != MA_LTHUMBD)
+    && (keycode != MA_LTHUMBE)
     && (keycode != KC_LSFT)) {
         isCtlTabStarted = false;
         unregister_code16(KC_LCTL);
@@ -668,16 +668,16 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 layer_off(LA_LTHUMB);
             }
             return false;
-        case MA_LTHUMBQ:
+        case MA_LTHUMBD:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBQ);
-                isLThumbQPristine = true;
+                isLThumbDWeakPristine = true;
             }
             return false;
-        case MA_LTHUMBW:
+        case MA_LTHUMBE:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBW);
-                isLThumbWPristine = true;
+                isLThumbEWeakPristine = true;
             }
             return false;
         case MA_LPINKY:
@@ -876,13 +876,13 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 mouseLeft = false;
             }
             return false;
-        case MA_LTHUMBQ:
+        case MA_LTHUMBD:
             if (record->event.pressed) {
                 isMouseX2Started = true;
                 isWeakLaMouseStarted = true;
             }
             return false;
-        case MA_LTHUMBW:
+        case MA_LTHUMBE:
             if (record->event.pressed) {
                 isMouseX4Started = true;
                 isWeakLaMouseStarted = true;
@@ -972,18 +972,18 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
-bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
     if ((keycode != MA_LTHUMB) &
         (keycode != MA_LTHUMBMS) &
         (keycode != MA_LTHUMBD) &
         (keycode != MA_LTHUMBE) &
         (keycode != MA_CF)) {
-        isLThumbEMoPristine = false;
+        isLThumbEWeakPristine = false;
     }
     switch (keycode) {
         case MA_LTHUMBD:
             if (record->event.pressed) {
-                isLThumbEMoPristine = true;
+                isLThumbEWeakPristine = true;
                 layer_off(LA_LTHUMBEMO);
                 layer_on(LA_LTHUMBDMO);
             }
@@ -992,31 +992,31 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMBEMO);
-                if(isLThumbEMoPristine) {
+                if(isLThumbEWeakPristine) {
                     layer_on(LA_LTHUMBEOSL);
                 } else {
-                    isLThumbEMoPristine = true;
+                    isLThumbEWeakPristine = true;
                     layer_off(LA_LTHUMBMS);
                     layer_off(LA_LTHUMB);
                 }
             }
             return false;
-        case MA_LTHUMBQ:
+        case MA_LTHUMBD:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBQ);
-                isLThumbQPristine = true;
+                isLThumbDWeakPristine = true;
             } else {
-                if (isLThumbQPristine) {
+                if (isLThumbDWeakPristine) {
                     tap_code16(C(KC_V));
                 }
             }
             return false;
-        case MA_LTHUMBW:
+        case MA_LTHUMBE:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBW);
-                isLThumbWPristine = true;
+                isLThumbEWeakPristine = true;
             } else {
-                if (isLThumbWPristine) {
+                if (isLThumbEWeakPristine) {
                     tap_code16(C(KC_C));
                 }
             }
@@ -1033,29 +1033,29 @@ bool processKeycodeIfLThumbEMo(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_CF:
             if (record->event.pressed) {
-                if (isLThumbEMoPristine) {
+                if (isLThumbEWeakPristine) {
                     tap_code16(C(KC_F));
-                    isLThumbEMoPristine = false;
+                    isLThumbEWeakPristine = false;
                 } else {
-                    isLThumbEMoPristine = true;
+                    isLThumbEWeakPristine = true;
                 }
             }
             return false;
     }
     return true;
 }
-bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
     if ((keycode != MA_LTHUMB) &
         (keycode != MA_LTHUMBMS) &
         (keycode != MA_LTHUMBE) &
         (keycode != MA_LTHUMBD) &
         (keycode != MA_RSGD)) {
-        isLThumbDMoPristine = false;
+        isLThumbDWeakPristine = false;
     }
     switch (keycode) {
         case MA_LTHUMBE:
             if (record->event.pressed) {
-                isLThumbDMoPristine = true;
+                isLThumbDWeakPristine = true;
                 layer_off(LA_LTHUMBDMO);
                 layer_on(LA_LTHUMBEMO);
             }
@@ -1064,79 +1064,79 @@ bool processKeycodeIfLThumbDMo(uint16_t keycode, keyrecord_t* record) {
         case MA_LTHUMBMS:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMBDMO);
-                if(isLThumbDMoPristine) {
+                if(isLThumbDWeakPristine) {
                     layer_on(LA_LTHUMBDOSL);
                 } else {
-                    isLThumbDMoPristine = true;
+                    isLThumbDWeakPristine = true;
                     layer_off(LA_LTHUMBMS);
                     layer_off(LA_LTHUMB);
                 }
             }
             return false;
-        case MA_LTHUMBQ:
+        case MA_LTHUMBD:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBQ);
-                isLThumbQPristine = true;
+                isLThumbDWeakPristine = true;
             } else {
-                if (isLThumbQPristine) {
+                if (isLThumbDWeakPristine) {
                     tap_code16(RSG(KC_Q));
                 }
             }
             return false;
-        case MA_LTHUMBW:
+        case MA_LTHUMBE:
             if (record->event.pressed) {
                 layer_on(LA_LTHUMBW);
-                isLThumbWPristine = true;
+                isLThumbEWeakPristine = true;
             } else {
-                if (isLThumbWPristine) {
+                if (isLThumbEWeakPristine) {
                     tap_code16(RSG(KC_W));
                 }
             }
             return false;
         case MA_RSGD:
             if (record->event.pressed) {
-                if (isLThumbDMoPristine) {
+                if (isLThumbDWeakPristine) {
                     tap_code16(RSG(KC_D));
-                    isLThumbDMoPristine = false;
+                    isLThumbDWeakPristine = false;
                 } else {
-                    isLThumbDMoPristine = true;
+                    isLThumbDWeakPristine = true;
                 }
             }
             return false;
     }
     return true;
 }
-bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLThumbEStrong(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMBE:
             return false;
         case KC_SPC:
             register_code16(KC_LCTL);
-            editModeLthumbOslStarted = true;
+            editModeLThumbStrongStarted = true;
             return false;
         case MA_NONE:
-            if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
+            if (editModeLThumbStrongStarted) {unregister_code16(KC_RCTL);}
             if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
             else {layer_off(LA_LTHUMB);}
             layer_off(LA_LTHUMBDOSL);
             return false;
         case MA_LTHUMB:
         case MA_LTHUMBMS:
-            if (editModeLthumbOslStarted) {unregister_code16(KC_LCTL);}
+            if (editModeLThumbStrongStarted) {unregister_code16(KC_LCTL);}
             layer_off(LA_LTHUMBEOSL);
             return false;
         case KC_LALT:
         case KC_LSFT:
         case MA_LPINKY:
         case MO(LA_RTHUMB):
-            if (editModeLthumbOslStarted) {unregister_code16(KC_LCTL);}
+            if (editModeLThumbStrongStarted) {unregister_code16(KC_LCTL);}
             if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
             else {layer_off(LA_LTHUMB);}
             layer_off(LA_LTHUMBEOSL);
             return true;
         default:
             if (!(record->event.pressed)) {
-                if (editModeLthumbOslStarted) {unregister_code16(KC_LCTL);}
+                if (editModeLThumbStrongStarted) {unregister_code16(KC_LCTL);}
                 if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
                 else {layer_off(LA_LTHUMB);}
                 layer_off(LA_LTHUMBEOSL);
@@ -1145,37 +1145,37 @@ bool processKeycodeIfLThumbEOsl(uint16_t keycode, keyrecord_t* record) {
     }
 
 }
-bool processKeycodeIfLThumbDOsl(uint16_t keycode, keyrecord_t* record) {
+bool processKeycodeIfLThumbDStrong(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MA_LTHUMBD:
             return false;
         case KC_SPC:
             register_code16(KC_RCTL);
-            editModeLthumbOslStarted = true;
+            editModeLThumbStrongStarted = true;
             return false;
         case MA_NONE:
-            if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
+            if (editModeLThumbStrongStarted) {unregister_code16(KC_RCTL);}
             if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
             else {layer_off(LA_LTHUMB);}
             layer_off(LA_LTHUMBDOSL);
             return false;
         case MA_LTHUMB:
         case MA_LTHUMBMS:
-            if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
+            if (editModeLThumbStrongStarted) {unregister_code16(KC_RCTL);}
             layer_off(LA_LTHUMBDOSL);
             return false;
         case KC_LALT:
         case KC_LSFT:
         case MA_LPINKY:
         case MO(LA_RTHUMB):
-            if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
+            if (editModeLThumbStrongStarted) {unregister_code16(KC_RCTL);}
             if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
             else {layer_off(LA_LTHUMB);}
             layer_off(LA_LTHUMBDOSL);
             return true;
         default:
             if (!(record->event.pressed)) {
-                if (editModeLthumbOslStarted) {unregister_code16(KC_RCTL);}
+                if (editModeLThumbStrongStarted) {unregister_code16(KC_RCTL);}
                 if (IS_LAYER_ON(LA_LTHUMBMS)) {layer_off(LA_LTHUMBMS);}
                 else {layer_off(LA_LTHUMB);}
                 layer_off(LA_LTHUMBDOSL);
@@ -1262,12 +1262,12 @@ bool processKeycodeIfLThumb3Mo(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
-bool processKeycodeIfLThumbQ(uint16_t keycode, keyrecord_t* record) {
-    if (isLThumbQPristine && (keycode != MA_LTHUMBQ)) {
-        isLThumbQPristine = false;
+bool processKeycodeIfLThumbDWeak(uint16_t keycode, keyrecord_t* record) {
+    if (isLThumbDWeakPristine && (keycode != MA_LTHUMBD)) {
+        isLThumbDWeakPristine = false;
     }
     switch (keycode) {
-        case MA_LTHUMBQ:
+        case MA_LTHUMBD:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMBQ);
             }
@@ -1340,12 +1340,12 @@ bool processKeycodeIfLThumbQ(uint16_t keycode, keyrecord_t* record) {
     }
     return true;
 }
-bool processKeycodeIfLThumbW(uint16_t keycode, keyrecord_t* record) {
-    if (isLThumbWPristine && (keycode != MA_LTHUMBW)) {
-        isLThumbWPristine = false;
+bool processKeycodeIfLThumbEWeak(uint16_t keycode, keyrecord_t* record) {
+    if (isLThumbEWeakPristine && (keycode != MA_LTHUMBE)) {
+        isLThumbEWeakPristine = false;
     }
     switch (keycode) {
-        case MA_LTHUMBW:
+        case MA_LTHUMBE:
             if (!(record->event.pressed)) {
                 layer_off(LA_LTHUMBW);
             }

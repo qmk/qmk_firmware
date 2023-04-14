@@ -101,8 +101,6 @@ enum custom_keycodes {
     MA_CAPSA,
     MA_MS_WH_UP,
     MA_MS_WH_DOWN,
-    MA_LTHUMBQ,
-    MA_LTHUMBW,
     MA_MS_BTN1_UNREG,
     MA_MS_BTN1_REG,
     MA_MS_BTN1_TAP,
