@@ -4,7 +4,7 @@
     "url": "https://github.com/LiuLiuQMK",
     "maintainer": "LiWenLiu",
     "usb": {
-        "vid": "0x320F",
+        "vid": "0x5678",
         "pid": "0x5058",
         "device_version": "0.0.1"
     },
