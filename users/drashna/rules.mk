@@ -94,12 +94,6 @@ endif
 
 CUSTOM_OLED_DRIVER ?= yes
 ifeq ($(strip $(OLED_ENABLE)), yes)
-    ifeq ($(strip $(OLED_DRIVER)), custom)
-        OPT_DEFS += -DOLED_ENABLE \
-            -DOLED_DRIVER_SH1107
-        SRC += $(USER_PATH)/oled/sh110x.c
-        QUANTUM_LIB_SRC += i2c_master.c
-    endif
     ifeq ($(strip $(CUSTOM_OLED_DRIVER)), yes)
         OPT_DEFS += -DCUSTOM_OLED_DRIVER
         SRC += $(USER_PATH)/oled/oled_stuff.c
