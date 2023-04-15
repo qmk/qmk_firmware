@@ -1,6 +1,6 @@
 // Copyright 2021 Christoph Rehmann (crehmann)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "rev1.h"
+#include "quantum.h"
 
 #ifdef HAPTIC_ENABLE
 #include "drivers/haptic/DRV2605L.h"
