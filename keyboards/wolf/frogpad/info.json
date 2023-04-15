@@ -19,8 +19,8 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "F4", "pin_b": "F1" },
-            { "pin_a": "B1", "pin_b": "B2" }
+            {"pin_a": "F4", "pin_b": "F1"},
+            {"pin_a": "B1", "pin_b": "B2"}
         ]
     },
     "processor": "atmega32u4",

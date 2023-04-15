@@ -28,16 +28,8 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {
-                "pin_a": "GP29",
-                "pin_b": "GP28",
-                "resolution": 4
-            },
-            {
-                "pin_a": "GP2",
-                "pin_b": "GP3",
-                "resolution": 4
-            }
+            {"pin_a": "GP29", "pin_b": "GP28", "resolution": 4},
+            {"pin_a": "GP2", "pin_b": "GP3", "resolution": 4}
         ]
     },
     "rgb_matrix": {

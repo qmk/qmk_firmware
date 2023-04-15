@@ -27,7 +27,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "GP28", "pin_b": "GP29" }
+            {"pin_a": "GP28", "pin_b": "GP29"}
         ]
     },
     "backlight": {

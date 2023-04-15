@@ -37,7 +37,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "D1", "pin_b": "D0" }
+            {"pin_a": "D1", "pin_b": "D0"}
          ]
     },
     "url": "https://github.com/takashicompany/goat51",

@@ -30,10 +30,9 @@
         "pin": "B7"
     },
     "encoder": {
-        "rotary": [{
-            "pin_a": "D2",
-            "pin_b": "D1"
-        }]
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D1"}
+        ]
     },
     "layouts": {
         "LAYOUT": {

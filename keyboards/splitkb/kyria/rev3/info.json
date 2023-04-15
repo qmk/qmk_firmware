@@ -144,10 +144,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {
-                "pin_a": "F4",
-                "pin_b": "F5"
-            }
+            {"pin_a": "F4", "pin_b": "F5"}
         ]
     },
     "split": {
@@ -165,10 +162,7 @@
         "encoder": {
             "right": {
                 "rotary": [
-                    {
-                        "pin_a": "F4",
-                        "pin_b": "F5"
-                    }
+                    {"pin_a": "F4", "pin_b": "F5"}
                 ]
             }
         }
