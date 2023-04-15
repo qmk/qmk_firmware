@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef RGB_MATRIX_ENABLE
-#include "rgb_matrix_user.h"
+#include "vnmm.h"
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
+#ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init_user();
-}
 #endif
+}
