@@ -46,10 +46,10 @@ enum planck_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BASE] = LAYOUT_planck_grid(
-           KC_TAB, KC_K   ,KC_D   ,KC_N    ,KC_F   ,KC_Q,    KC_J   ,KC_BSPC,KC_R   ,KC_U   ,KC_P,    KC_BSPC,
+           KC_TAB, KC_K   ,KC_D   ,KC_N    ,KC_F   ,KC_Q,    KC_J   ,KC_BSPC,KC_R   ,KC_U   ,KC_P,    KC_QUOT,
     CMD_T(KC_ESC), KC_W   ,KC_I   ,KC_S    ,KC_A   ,KC_G,    KC_Y   ,KC_E   ,KC_T   ,KC_H   ,KC_B    ,KC_SCLN,
           KC_LSFT, KC_Z   ,KC_X   ,KC_V    ,KC_C   ,KC_L,    KC_M   ,KC_O   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_UP ,
-          KC_LCTL, KC_LALT, KC_LGUI, LOWER,XXXXXXX, KC_SPC,XXXXXXX  ,KC_ENT , RAISE ,KC_LEFT,KC_DOWN, KC_RGHT
+          KC_LCTL, KC_LALT,KC_LGUI,LOWER   ,XXXXXXX,LSFT_T(KC_SPC)  ,XXXXXXX,LSFT_T(KC_ENT) ,RAISE   ,KC_LEFT,KC_DOWN, KC_RGHT
 ),
 
 [_LOWER] = LAYOUT_planck_grid(
