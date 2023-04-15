@@ -80,13 +80,7 @@ static void print_status_narrow(void) {
 
 bool oled_task_user(void) {
 	// Render the OLED
-	if (is_keyboard_left()) {
 		print_status_narrow();
-		//render_logo();
-    } else {
-		print_status_narrow();
-        //render_logo();
-    }
 	return false;
 }
 #endif
