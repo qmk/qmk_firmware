@@ -19,6 +19,7 @@
         "rgblight": false,
         "backlight": false
     },
+    "pin_compatible": "promicro",
     "split": {
         "enabled": true
     },
