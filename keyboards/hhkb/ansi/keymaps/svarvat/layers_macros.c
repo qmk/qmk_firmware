@@ -202,8 +202,10 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isMsBtn1Reg) {
                     unregister_code16(KC_MS_BTN1);
+                    isMsBtn1Reg = false;
                 } else {
                     register_code16(KC_MS_BTN1);
+                    isMsBtn1Reg = true;
                 }
             }
             return false;
@@ -211,8 +213,10 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 if (isMsBtn3Reg) {
                     unregister_code16(KC_MS_BTN3);
+                    isMsBtn3Reg = false;
                 } else {
                     register_code16(KC_MS_BTN3);
+                    isMsBtn3Reg = true;
                 }
             }
             return false;
@@ -900,7 +904,7 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 isMouseX2Started = false;
             }
             return false;
-        case MA_MS_BTN2:
+        case MA_MS_BTN2_TAP:
             if (isWeakLaMouseStarted) {
                 tap_code16(KC_MS_BTN2);
                 return false;
@@ -913,8 +917,10 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 if (isWeakLaMouseStarted) {
                     if (isMsBtn1Reg) {
                         unregister_code16(KC_MS_BTN1);
+                        isMsBtn1Reg = false;
                     } else {
                         register_code16(KC_MS_BTN1);
+                        isMsBtn1Reg = true;
                     }
                 } else {
                     tap_code16(KC_AUDIO_VOL_UP);
@@ -926,8 +932,10 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 if (isWeakLaMouseStarted) {
                     if (isMsBtn3Reg) {
                         unregister_code16(KC_MS_BTN3);
+                        isMsBtn3Reg = false;
                     } else {
                         register_code16(KC_MS_BTN3);
+                        isMsBtn3Reg = true;
                     }
                 } else {
                     tap_code16(KC_AUDIO_VOL_DOWN);
