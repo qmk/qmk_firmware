@@ -17,6 +17,8 @@ bool scrollDown = false;
 bool isScrollX1Started = false;
 bool isScrollX2Started = false;
 bool isScrollX4Started = false;
+bool isMsBtn1Reg = false;
+bool isMsBtn3Reg = false;
 bool isWeakLaMouseStarted = false;
 bool isCapswordStarted = false;
 bool isLThumbEWeakPristine = true;
@@ -196,19 +198,32 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 layer_off(LA_LTHUMBMS);
             }
             return false;
-        case MA_MS_BTN1_UNREG:
-            if (record->event.pressed) {
-                unregister_code16(KC_MS_BTN1);
-            }
-            return false;
         case MA_MS_BTN1_REG:
             if (record->event.pressed) {
-                register_code16(KC_MS_BTN1);
+                if (isMsBtn1Reg) {
+                    unregister_code16(KC_MS_BTN1);
+                } else {
+                    register_code16(KC_MS_BTN1);
+                }
+            }
+            return false;
+        case MA_MS_BTN3_REG:
+            if (record->event.pressed) {
+                if (isMsBtn3Reg) {
+                    unregister_code16(KC_MS_BTN3);
+                } else {
+                    register_code16(KC_MS_BTN3);
+                }
             }
             return false;
         case MA_MS_BTN1_TAP:
             if (record->event.pressed) {
                 tap_code16(KC_MS_BTN1);
+            }
+            return false;
+        case MA_MS_BTN2_TAP:
+            if (record->event.pressed) {
+                tap_code16(KC_MS_BTN2);
             }
             return false;
         case MA_MS_WH_DOWN:
@@ -893,6 +908,32 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_LGUI);
             }
             return true;
+        case MA_MS_BTN1_REG:
+            if (record->event.pressed) {
+                if (isWeakLaMouseStarted) {
+                    if (isMsBtn1Reg) {
+                        unregister_code16(KC_MS_BTN1);
+                    } else {
+                        register_code16(KC_MS_BTN1);
+                    }
+                } else {
+                    tap_code16(KC_AUDIO_VOL_UP);
+                }
+            }
+            return false;
+        case MA_MS_BTN3_REG:
+            if (record->event.pressed) {
+                if (isWeakLaMouseStarted) {
+                    if (isMsBtn3Reg) {
+                        unregister_code16(KC_MS_BTN3);
+                    } else {
+                        register_code16(KC_MS_BTN3);
+                    }
+                } else {
+                    tap_code16(KC_AUDIO_VOL_DOWN);
+                }
+            }
+            return false;
         case MA_LTHUMB1:
             if (record->event.pressed) {
                 if (isWeakLaMouseStarted) {
