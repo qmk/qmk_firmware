@@ -35,21 +35,27 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) {
         if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    } else if (index == 1) {
-        if (clockwise) {
             tap_code(KC_VOLU);
         } else {
             tap_code(KC_VOLD);
         }
+    } else if (index == 1) {
+        if (clockwise) {
+            register_code(KC_LEFT_CTRL);
+            tap_code(KC_KP_PLUS);
+            unregister_code(KC_LEFT_CTRL);
+        } else {
+            register_code(KC_LEFT_CTRL);
+            tap_code(KC_KP_MINUS);
+            unregister_code(KC_LEFT_CTRL);
+        }
     } else if (index == 2) {
         if (clockwise) {
-            tap_code(KC_DOWN);
+            tap_code(KC_PGDN);
+            tap_code(KC_PGDN);
         } else {
-            tap_code(KC_UP);
+            tap_code(KC_PGUP);
+            tap_code(KC_PGUP);
         }
     }
     return false;
