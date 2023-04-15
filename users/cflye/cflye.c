@@ -1,4 +1,5 @@
 #include "cflye.h"
+#include "features/achordion.h"
 
 const uint32_t unicode_map[] PROGMEM = {
     [AE_L]  = 0x00E6,  // æ
@@ -16,6 +17,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_achordion(keycode, record)) { return false; }
+
   #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
   #endif 
@@ -33,6 +36,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return process_record_keymap(keycode, record);
 }
+
+__attribute__((weak)) void matrix_scan_keymap(void) {}
+
+// No global matrix scan code, so just run keymap's matix
+// scan function
+void matrix_scan_user(void) { achordion_task(); }
 
 void fn_boot(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {

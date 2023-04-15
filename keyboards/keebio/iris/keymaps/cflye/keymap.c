@@ -68,3 +68,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         __________________MOUSE_L4__________________, __________________MOUSE_R4__________________
     ),
 };
+
+bool achordion_chord(uint16_t tap_hold_keycode,
+                     keyrecord_t* tap_hold_record,
+                     uint16_t other_keycode,
+                     keyrecord_t* other_record) {
+  if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 4|| tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4 ) { return true; }
+
+  // Otherwise, follow the opposite hands rule.
+  return achordion_opposite_hands(tap_hold_record, other_record);
+}
