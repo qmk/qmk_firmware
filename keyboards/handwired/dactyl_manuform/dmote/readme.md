@@ -1,7 +1,5 @@
 # DMOTE
 
-![DMOTE original](https://camo.githubusercontent.com/09e9ce3409bf5d0385e8616639d6295851546cca0743501d8e66615467c0eed2/687474703a2f2f76696b746f722e65696b6d616e2e73652f696d6167652f646d6f74652d322d746f702d646f776e2d766965772f646973706c6179)
-
 The “Dactyl-ManuForm: Opposable Thumb Edition” is made from a Clojure
 application maintained [here](https://github.com/veikman/dactyl-keyboard).
 The application supports varied physical layouts and therefore matrices.
