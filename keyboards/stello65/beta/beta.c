@@ -1,7 +1,7 @@
 // Copyright 2021 @wekey (@@wekey)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "beta.h"
+#include "quantum.h"
 #include "encoder_actions.h"
 
 void matrix_scan_kb(void) {
