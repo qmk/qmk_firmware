@@ -3,9 +3,6 @@
     "keyboard_name": "Lotus 58 Glow (QMK)",
     "maintainer": "TweetyDaBird",
     "bootloader_instructions": "Short marked pads on PCB, or hold top-outer key when plugging in each hand.",
-	"bootmagic": {
-        "matrix": [0, 0]
-    },
     "build": {
         "lto": true
     },
