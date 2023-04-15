@@ -9,8 +9,8 @@
  #define LA_LTHUMBDWEAK 8 // RSG
  #define LA_LTHUMBEsTRONG 9 // LAG - CAG
  #define LA_LTHUMBDSTRONG 10 // LSA - CSA
- #define LA_LTHUMB1MO 11 // C(A)
- #define LA_LTHUMB2MO 12 // RCS
- #define LA_LTHUMB3MO 13 // LALT
+ #define LA_LTHUMB1WEAK 11 // C(A)
+ #define LA_LTHUMB2WEAK 12 // RCS
+ #define LA_LTHUMB3WEAK 13 // LALT
  #define LA_LTHUMBDMO 14
  #define LA_LTHUMBEMO 15
