@@ -5,6 +5,7 @@
     "maintainer": "kpagratis",
     "bootloader": "caterina",
     "processor": "atmega32u4",
+    "pin_compatible":"promicro",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0016",
