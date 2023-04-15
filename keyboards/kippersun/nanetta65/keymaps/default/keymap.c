@@ -47,3 +47,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 };
+
+
+led_config_t g_led_config = {
+    {
+        // Key Matrix to LED Index
+        //假设你的键盘上3行3列，就在这里写上3行3列的NO_LED。注意最后一行末尾没有逗号
+        {NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED},
+        {NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED},
+        {NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED},
+				{NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED},
+			  {NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED,NO_LED, NO_LED, NO_LED}
+    },
+    {
+        // LED Index to Physical Position
+        //LED的坐标，你只有一个灯所以坐标没必要，就0,0好了
+	{0,0}
+    },
+    {
+        // LED Index to Flag
+        //用于给灯分组，一个灯就不用分组了
+        1
+    }
+};
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)
+{
+    if (host_keyboard_led_state().caps_lock)
+    {	//CapsLock锁定时强制0号LED的颜色
+        RGB_MATRIX_INDICATOR_SET_COLOR(0, 200,0, 0);
+    }
+    else
+    {	//CapsLock解锁时强制0号LED的颜色
+    }
+	return false;
+}
