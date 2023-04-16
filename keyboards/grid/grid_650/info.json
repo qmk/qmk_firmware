@@ -10,6 +10,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,
