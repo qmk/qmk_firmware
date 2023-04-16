@@ -30,7 +30,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
-    "pin_compatible": "promicro",
+    "development_board": "promicro",
     "ws2812": {
         "pin": "D3"
     },
