@@ -9,6 +9,6 @@ NKRO_ENABLE = no
 AUDIO_ENABLE = no
 
 # the source files to include
-#SRC += pogues.c
+SRC += pogues.c
 SRC += features/casemodes.c
 SRC += features/compose.c
