@@ -16,3 +16,9 @@ ifeq ($(strip $(KEYBOARD)), fractal)
     BOOTLOADER                  = qmk-dfu
     CUSTOM_UNICODE_ENABLE       = no
 endif
+
+ifeq ($(strip $(MCU)), atmega32u4)
+    BOOTLOADER                  = qmk-dfu
+    BOOTLOADER_SIZE             = 512
+    LTO_ENABLE                  = yes
+endif

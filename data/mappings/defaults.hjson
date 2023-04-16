@@ -13,38 +13,32 @@
         "elite_pi": {
             "processor": "RP2040",
             "bootloader": "rp2040",
-            "board": "QMK_PM2040",
-            "pin_compatible": "promicro"
+            "board": "QMK_PM2040"
         },
         "proton_c": {
             "processor": "STM32F303",
             "bootloader": "stm32-dfu",
-            "board": "QMK_PROTON_C",
-            "pin_compatible": "promicro"
+            "board": "QMK_PROTON_C"
         },
         "kb2040": {
             "processor": "RP2040",
             "bootloader": "rp2040",
-            "board": "QMK_PM2040",
-            "pin_compatible": "promicro"
+            "board": "QMK_PM2040"
         },
         "promicro_rp2040": {
             "processor": "RP2040",
             "bootloader": "rp2040",
-            "board": "QMK_PM2040",
-            "pin_compatible": "promicro"
+            "board": "QMK_PM2040"
         },
         "blok": {
             "processor": "RP2040",
             "bootloader": "rp2040",
-            "board": "QMK_PM2040",
-            "pin_compatible": "promicro"
+            "board": "QMK_PM2040"
         },
         "bit_c_pro": {
             "processor": "RP2040",
             "bootloader": "rp2040",
-            "board": "QMK_PM2040",
-            "pin_compatible": "promicro"
+            "board": "QMK_PM2040"
         },
         "bluepill": {
             "processor": "STM32F103",
@@ -64,14 +58,12 @@
         "stemcell": {
             "processor": "STM32F411",
             "bootloader": "tinyuf2",
-            "board": "STEMCELL",
-            "pin_compatible": "promicro"
+            "board": "STEMCELL"
         },
         "bonsai_c4": {
             "processor": "STM32F411",
             "bootloader": "stm32-dfu",
-            "board": "BONSAI_C4",
-            "pin_compatible": "promicro"
+            "board": "BONSAI_C4"
         }
     }
 }

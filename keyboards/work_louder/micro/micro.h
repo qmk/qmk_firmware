@@ -20,3 +20,4 @@ extern void work_louder_micro_led_2_set(uint8_t n);
 extern void work_louder_micro_led_3_set(uint8_t n);
 
 extern void work_louder_micro_led_all_set(uint8_t n);
+void work_louder_led_init_animation(void);

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include_next "mcuconf.h"
+#include_next <mcuconf.h>
 
 // Underglow uses TIM4, Backlight TIM1, so both are enabled here.
 #undef STM32_PWM_USE_TIM1

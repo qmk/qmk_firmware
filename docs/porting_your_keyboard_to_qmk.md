@@ -147,7 +147,7 @@ Next is configuring Layout Macro(s). These define the physical arrangement of ke
 In the above example, 
 
 * `LAYOUT_ortho_4x4` defines the name of the layout macro
-  * It must conform to [hardware_keyboard_guidelines.md#ltkeyboard_namehgt]
+  * It must conform to the [layout guidelines](hardware_keyboard_guidelines.md#ltkeyboard_namehgt)
 * `"matrix": [0, 0]` defines the electrical position
 
 ## Additional Configuration
@@ -155,8 +155,7 @@ In the above example,
 There are a lot of features that can be turned on or off, configured or tuned. Some of these have yet to be migrated over to [Data Driven Configuration](data_driven_config.md). The following sections cover the process for when an `info.json` option is unavailable.
 
 ### Configuration Options
-
-For available options for `config.h`, you should see the [Config Options](config_options.md) page for more details.
+For available options for `config.h`, you should see the [Config Options](config_options.md#the-configh-file) page for more details.
 
 ### Build Options
 

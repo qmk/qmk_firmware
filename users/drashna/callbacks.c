@@ -20,22 +20,6 @@ void                       keyboard_pre_init_user(void) {
 // functions in the keymaps
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
-__attribute__((weak)) void matrix_init_keymap(void) {}
-__attribute__((weak)) void matrix_init_secret(void) {}
-void                       matrix_init_user(void) {
-#if defined(BOOTLOADER_CATERINA) && defined(__AVR__) && defined(__AVR_ATmega32U4__)
-    DDRD &= ~(1 << 5);
-    PORTD &= ~(1 << 5);
-
-    DDRB &= ~(1 << 0);
-    PORTB &= ~(1 << 0);
-#endif
-#ifdef CUSTOM_UNICODE_ENABLE
-    matrix_init_unicode();
-#endif
-    matrix_init_secret();
-    matrix_init_keymap();
-}
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 void                       keyboard_post_init_user(void) {
@@ -50,6 +34,17 @@ void                       keyboard_post_init_user(void) {
 #endif
 #ifdef I2C_SCANNER_ENABLE
     keyboard_post_init_i2c();
+#endif
+#ifdef CUSTOM_UNICODE_ENABLE
+    keyboard_post_init_unicode();
+#endif
+
+#if defined(BOOTLOADER_CATERINA) && defined(__AVR__) && defined(__AVR_ATmega32U4__)
+    DDRD &= ~(1 << 5);
+    PORTD &= ~(1 << 5);
+
+    DDRB &= ~(1 << 0);
+    PORTB &= ~(1 << 0);
 #endif
 
     keyboard_post_init_keymap();
@@ -106,7 +101,6 @@ void                       suspend_wakeup_init_user(void) {
 // No global matrix scan code, so just run keymap's matrix
 // scan function
 __attribute__((weak)) void matrix_scan_keymap(void) {}
-__attribute__((weak)) void matrix_scan_secret(void) {}
 void                       matrix_scan_user(void) {
     static bool has_ran_yet;
     if (!has_ran_yet) {
@@ -117,9 +111,6 @@ void                       matrix_scan_user(void) {
 #ifdef TAP_DANCE_ENABLE // Run Diablo 3 macro checking code.
     run_diablo_macro_check();
 #endif // TAP_DANCE_ENABLE
-#ifdef CAPS_WORD_ENABLE
-    caps_word_task();
-#endif
 #if defined(CUSTOM_RGB_MATRIX)
     matrix_scan_rgb_matrix();
 #endif
@@ -129,7 +120,6 @@ void                       matrix_scan_user(void) {
 #ifdef CUSTOM_OLED_DRIVER
     matrix_scan_oled();
 #endif
-    matrix_scan_secret();
 
     matrix_scan_keymap();
 }

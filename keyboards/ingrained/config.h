@@ -12,10 +12,6 @@
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
 #define MATRIX_COLS_PER_SIDE (MATRIX_COLS / 2)
 
-#define UNUSED_MCU 13
-#define UNUSED_MCP 6
-
-
 // wiring
 #define MATRIX_ROW_PINS_MCU \
     { B0, B1, B2, B3 }

@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include "config_common.h"
+
 /* Pointing device configuration. */
 
 // Enable use of pointing device on slave split.

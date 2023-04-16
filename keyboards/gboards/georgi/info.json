@@ -8,8 +8,11 @@
         "pid": "0x1337",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT_georgi": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_georgi": {
+        "LAYOUT": {
             "layout": [
                 {"x": 0, "y": 0.5},
                 {"x": 1, "y": 0.5},

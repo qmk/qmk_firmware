@@ -67,18 +67,22 @@ static const char PROGMEM code_to_name[256] = {
  * @param record keyrecord_t data structure
  */
 void add_keylog(uint16_t keycode, keyrecord_t *record) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
-        if (((keycode & 0xFF) == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
-            memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
-            return;
-        }
-        if (record->tap.count) {
-            keycode &= 0xFF;
-        } else if (keycode > 0xFF) {
-            return;
-        }
+    if (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) {
+        keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+    } else if (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) {
+        keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+    } else if (keycode >= QK_MODS && keycode <= QK_MODS_MAX) {
+        keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
     }
-    if (keycode > 0xFF) {
+
+
+    if ((keycode == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
+        memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
+        return;
+    }
+    if (record->tap.count) {
+        keycode &= 0xFF;
+    } else if (keycode > 0xFF) {
         return;
     }
 
@@ -426,13 +430,14 @@ void render_bootmagic_status(uint8_t col, uint8_t line) {
         oled_write_P(logo[0][0], !is_bootmagic_on);
     }
 #ifndef OLED_DISPLAY_VERBOSE
+    oled_write_P(PSTR(" "), false);
     oled_write_P(logo[1][1], is_bootmagic_on);
     oled_write_P(logo[0][1], !is_bootmagic_on);
 #endif
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
-#if defined(AUTOCORRECTION_ENABLE) || defined(AUTOCORRECT_ENABLE)
+#if defined(AUTOCORRECT_ENABLE)
     oled_write_P(PSTR("CRCT"), autocorrect_is_enabled());
     oled_write_P(PSTR(" "), false);
 #else
@@ -732,33 +737,8 @@ void render_kitty(uint8_t col, uint8_t line) {
 void render_unicode_mode(uint8_t col, uint8_t line) {
 #ifdef CUSTOM_UNICODE_ENABLE
     oled_set_cursor(col, line);
-    oled_write_ln_P(PSTR("Unicode:"), false);
-    switch (typing_mode) {
-        case UCTM_WIDE:
-            oled_write_P(PSTR("        Wide"), false);
-            break;
-        case UCTM_SCRIPT:
-            oled_write_P(PSTR("      Script"), false);
-            break;
-        case UCTM_BLOCKS:
-            oled_write_P(PSTR("      Blocks"), false);
-            break;
-        case UCTM_REGIONAL:
-            oled_write_P(PSTR("    Regional"), false);
-            break;
-        case UCTM_AUSSIE:
-            oled_write_P(PSTR("      Aussie"), false);
-            break;
-        case UCTM_ZALGO:
-            oled_write_P(PSTR("       Zalgo"), false);
-            break;
-        case UCTM_NO_MODE:
-            oled_write_P(PSTR("      Normal"), false);
-            break;
-        default:
-            oled_write_P(PSTR("     Unknown"), false);
-            break;
-    }
+    oled_write_P(PSTR("Unicode:"), false);
+    oled_write_P(unicode_mode_str[unicode_typing_mode], false);
 #endif
 }
 

@@ -19,8 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_mechlovin_zed65_retro66
+#ifdef KEYBOARD_mechlovin_zed65_no_backlight_retro66
     #include "retro66.h"
-#elif KEYBOARD_mechlovin_zed65_wearhaus66
+#elif KEYBOARD_mechlovin_zed65_no_backlight_wearhaus66
     #include "wearhaus66.h"
+#elif KEYBOARD_mechlovin_zed65_no_backlight_cor65
+    #include "cor65.h"
+#elif KEYBOARD_mechlovin_zed65_mono_led
+    #include "mono_led.h"
 #endif

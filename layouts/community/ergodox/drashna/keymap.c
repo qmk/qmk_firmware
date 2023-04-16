@@ -268,7 +268,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_scan_keymap(void) {  // runs frequently to update info
+void housekeeping_task_keymap(void) {  // runs frequently to update info
     uint8_t modifiers     = get_mods();
     uint8_t led_usb_state = host_keyboard_leds();
     uint8_t one_shot      = get_oneshot_mods();

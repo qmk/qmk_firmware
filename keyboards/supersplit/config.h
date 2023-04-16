@@ -35,4 +35,3 @@
 
 #define SOFT_SERIAL_PIN D2
 #define MASTER_LEFT
-

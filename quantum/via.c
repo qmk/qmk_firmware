@@ -704,11 +704,11 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
             break;
         }
         case id_qmk_rgb_matrix_effect_speed: {
-            rgblight_set_speed_noeeprom(value_data[0]);
+            rgb_matrix_set_speed_noeeprom(value_data[0]);
             break;
         }
         case id_qmk_rgb_matrix_color: {
-            rgblight_sethsv_noeeprom(value_data[0], value_data[1], rgb_matrix_get_val());
+            rgb_matrix_sethsv_noeeprom(value_data[0], value_data[1], rgb_matrix_get_val());
             break;
         }
     }

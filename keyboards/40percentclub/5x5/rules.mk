@@ -16,4 +16,4 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-LAYOUTS = ortho_5x15
+LAYOUTS = ortho_5x5 ortho_5x10 ortho_5x15

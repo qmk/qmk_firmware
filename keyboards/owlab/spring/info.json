@@ -8,8 +8,11 @@
         "pid": "0x5350",
         "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT_spring": "LAYOUT"
+      },
     "layouts": {
-        "LAYOUT_spring": {
+        "LAYOUT": {
             "layout": [
                 {"x":0.5, "y":0},
                 {"x":1.75, "y":0},

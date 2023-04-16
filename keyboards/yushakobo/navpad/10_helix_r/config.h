@@ -37,7 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS_RIGHT { D4, C6, D7, E6, B4 }
 #define MATRIX_COL_PINS       { F5, F6, B2, B3, B1, F7, NO_PIN }
 #define MATRIX_COL_PINS_RIGHT { F4, F5, F6, F7, B1, B3, B2 }
-#define UNUSED_PIN            { D0, D1 }
 
 #define EE_HANDS
 

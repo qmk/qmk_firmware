@@ -132,6 +132,9 @@ ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
    AUTOCORRECT_ENABLE = yes
 endif
 
-ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
-    SRC += bootmagic_better.c
+CUSTOM_BOOTMAGIC_ENABLE ?= yes
+ifeq ($(strip $(CUSTOM_BOOTMAGIC_ENABLE)), yes)
+    ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+        SRC += bootmagic_better.c
+    endif
 endif

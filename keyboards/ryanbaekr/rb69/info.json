@@ -3,6 +3,8 @@
     "manufacturer": "ryanbaekr",
     "url": "",
     "maintainer": "ryanbaekr",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "usb": {
         "vid": "0x7262",
         "pid": "0x0069",

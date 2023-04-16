@@ -1,6 +1,5 @@
 """Functions that help us generate and use info.json files.
 """
-from glob import glob
 from pathlib import Path
 
 import jsonschema
@@ -19,11 +18,66 @@ from qmk.math import compute
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
 
+# TODO: reduce this list down
+SAFE_LAYOUT_TOKENS = {
+    'ansi',
+    'iso',
+    'wkl',
+    'tkl',
+    'preonic',
+    'planck',
+}
+
 
 def _valid_community_layout(layout):
     """Validate that a declared community list exists
     """
     return (Path('layouts/default') / layout).exists()
+
+
+def _validate(keyboard, info_data):
+    """Perform various validation on the provided info.json data
+    """
+    # First validate against the jsonschema
+    try:
+        validate(info_data, 'qmk.api.keyboard.v1')
+
+    except jsonschema.ValidationError as e:
+        json_path = '.'.join([str(p) for p in e.absolute_path])
+        cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
+        exit(1)
+
+    layouts = info_data.get('layouts', {})
+    layout_aliases = info_data.get('layout_aliases', {})
+    community_layouts = info_data.get('community_layouts', [])
+    community_layouts_names = list(map(lambda layout: f'LAYOUT_{layout}', community_layouts))
+
+    # Make sure we have at least one layout
+    if len(layouts) == 0:
+        _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in info.json.')
+
+    # Providing only LAYOUT_all "because I define my layouts in a 3rd party tool"
+    if len(layouts) == 1 and 'LAYOUT_all' in layouts:
+        _log_warning(info_data, '"LAYOUT_all" should be "LAYOUT" unless additional layouts are provided.')
+
+    # Extended layout name checks - ignoring community_layouts and "safe" values
+    name_fragments = set(keyboard.split('/')) - SAFE_LAYOUT_TOKENS
+    potential_layouts = set(layouts.keys()) - set(community_layouts_names)
+    for layout in potential_layouts:
+        if any(fragment in layout for fragment in name_fragments):
+            _log_warning(info_data, f'Layout "{layout}" should not contain name of keyboard.')
+
+    # Filter out any non-existing community layouts
+    for layout in community_layouts:
+        if not _valid_community_layout(layout):
+            # Ignore layout from future checks
+            info_data['community_layouts'].remove(layout)
+            _log_error(info_data, 'Claims to support a community layout that does not exist: %s' % (layout))
+
+    # Make sure we supply layout macros for the community layouts we claim to support
+    for layout_name in community_layouts_names:
+        if layout_name not in layouts and layout_name not in layout_aliases:
+            _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
 
 
 def info_json(keyboard):
@@ -72,34 +126,8 @@ def info_json(keyboard):
     # Merge in data from <keyboard.c>
     info_data = _extract_led_config(info_data, str(keyboard))
 
-    # Validate against the jsonschema
-    try:
-        validate(info_data, 'qmk.api.keyboard.v1')
-
-    except jsonschema.ValidationError as e:
-        json_path = '.'.join([str(p) for p in e.absolute_path])
-        cli.log.error('Invalid API data: %s: %s: %s', keyboard, json_path, e.message)
-        exit(1)
-
-    # Make sure we have at least one layout
-    if not info_data.get('layouts'):
-        _find_missing_layouts(info_data, keyboard)
-
-    if not info_data.get('layouts'):
-        _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in the keyboard.h or info.json.')
-
-    # Filter out any non-existing community layouts
-    for layout in info_data.get('community_layouts', []):
-        if not _valid_community_layout(layout):
-            # Ignore layout from future checks
-            info_data['community_layouts'].remove(layout)
-            _log_error(info_data, 'Claims to support a community layout that does not exist: %s' % (layout))
-
-    # Make sure we supply layout macros for the community layouts we claim to support
-    for layout in info_data.get('community_layouts', []):
-        layout_name = 'LAYOUT_' + layout
-        if layout_name not in info_data.get('layouts', {}) and layout_name not in info_data.get('layout_aliases', {}):
-            _log_error(info_data, 'Claims to support community layout %s but no %s() macro found' % (layout, layout_name))
+    # Validate
+    _validate(keyboard, info_data)
 
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
@@ -699,30 +727,6 @@ def _search_keyboard_h(keyboard):
                     aliases[alias] = alias_text
 
     return layouts, aliases
-
-
-def _find_missing_layouts(info_data, keyboard):
-    """Looks for layout macros when they aren't found other places.
-
-    If we don't find any layouts from info.json or keyboard.h we widen our search. This is error prone which is why we want to encourage people to follow the standard above.
-    """
-    _log_warning(info_data, '%s: Falling back to searching for KEYMAP/LAYOUT macros.' % (keyboard))
-
-    for file in glob('keyboards/%s/*.h' % keyboard):
-        these_layouts, these_aliases = find_layouts(file)
-
-        if these_layouts:
-            for layout_name, layout_json in these_layouts.items():
-                if not layout_name.startswith('LAYOUT_kc'):
-                    layout_json['c_macro'] = True
-                    info_data['layouts'][layout_name] = layout_json
-
-        for alias, alias_text in these_aliases.items():
-            if alias_text in these_layouts:
-                if 'layout_aliases' not in info_data:
-                    info_data['layout_aliases'] = {}
-
-                info_data['layout_aliases'][alias] = alias_text
 
 
 def _log_error(info_data, message):

@@ -24,9 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
 #define MATRIX_COLS_PER_SIDE (MATRIX_COLS / 2)
 
-#define UNUSED_MCU 24
-#define UNUSED_MCP 7
-
 // wiring
 #define MATRIX_ROW_PINS_MCU \
     { B7, B6, B5, A2 }

@@ -23,7 +23,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-    writePinLow(LED1);
     writePin(LED2, state);
 
     return layer_state_set_user(state);

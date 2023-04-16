@@ -5,7 +5,7 @@
 
 #include "quantum.h"
 
-void          matrix_init_keymap(void);
+void          keyboard_post_init_keymap(void);
 void          matrix_init_secret(void);
 void          shutdown_keymap(void);
 void          suspend_power_down_keymap(void);
@@ -19,7 +19,7 @@ void          eeconfig_init_keymap(void);
 void          housekeeping_task_keymap(void);
 
 #ifdef CUSTOM_UNICODE_ENABLE
-void matrix_init_unicode(void);
+void keyboard_post_init_unicode(void);
 #endif
 #ifdef SPLIT_KEYBOARD
 void matrix_slave_scan_keymap(void);
