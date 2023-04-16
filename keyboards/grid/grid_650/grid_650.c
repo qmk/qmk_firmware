@@ -121,9 +121,9 @@ void keyboard_pre_init_kb(void) {
 
 void set_status_led(enum LED_STAT led_stat,enum LED_STAT current_stat){
     static bool red_is_on = false;
-    // xprintf("led stat = %d\n",led_stat);
-    // xprintf("bklt_level = %d\n",get_backlight_level());
-    // xprintf("is_breathing = %d\n",is_breathing());
+    dprintf("led stat = %d\n",led_stat);
+    dprintf("bklt_level = %d\n",get_backlight_level());
+    dprintf("is_breathing = %d\n",is_breathing());
     // if((led_stat == current_stat) && (led_stat != RED_BLINK)){
     if(led_stat == current_stat){
         //led stats not changed
