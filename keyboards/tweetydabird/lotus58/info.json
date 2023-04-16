@@ -33,10 +33,12 @@
     "processor": "atmega32u4",
     "rgblight": {
         "led_count": 70,
-        "pin": "D3",
         "split": true,
         "split_count": [35, 35],
         "sleep": true
+    },
+    "ws2812": {
+        "pin": "D3"
     },
     "split": {
 		"bootmagic": {
