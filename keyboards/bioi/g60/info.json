@@ -83,8 +83,8 @@
                 {"label": ",", "matrix": [3, 9], "x": 9, "y": 3},
                 {"label": ".", "matrix": [3, 10], "x": 10, "y": 3},
                 {"label": "/", "matrix": [3, 11], "x": 11, "y": 3},
-                {"label": "\u2191", "matrix": [4, 7], "x": 12, "y": 3},
-                {"label": "Shift", "matrix": [3, 13], "x": 13, "y": 3},
+                {"label": "Shift", "matrix": [3, 13], "x": 12, "y": 3},
+                {"label": "\u2191", "matrix": [4, 7], "x": 13, "y": 3},
                 {"label": "Fn", "matrix": [3, 12], "x": 14, "y": 3},
 
                 {"label": "Ctrl", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
