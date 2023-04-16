@@ -29,10 +29,10 @@
     "bootloader": "stm32-dfu",
     "encoder": {
         "rotary": [
-            { "pin_a": "B3", "pin_b": "A15" },
-            { "pin_a": "B4", "pin_b": "B5" },
-            { "pin_a": "B9", "pin_b": "B8" },
-            { "pin_a": "F0", "pin_b": "F1" }
+            {"pin_a": "B3", "pin_b": "A15"},
+            {"pin_a": "B4", "pin_b": "B5"},
+            {"pin_a": "B9", "pin_b": "B8"},
+            {"pin_a": "F0", "pin_b": "F1"}
         ]
     },
     "layouts": {

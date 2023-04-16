@@ -36,14 +36,8 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {
-                "pin_a": "GP27",
-                "pin_b": "GP28"
-            },
-            {
-                "pin_a": "GP4",
-                "pin_b": "GP3"
-            }
+            {"pin_a": "GP27", "pin_b": "GP28"},
+            {"pin_a": "GP4", "pin_b": "GP3"}
         ]
     },
     "rgb_matrix": {

@@ -230,7 +230,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "B5", "pin_b": "B4", "resolution": 2 }
+            {"pin_a": "B5", "pin_b": "B4", "resolution": 2}
         ]
     }
 }

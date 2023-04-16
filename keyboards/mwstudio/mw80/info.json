@@ -46,7 +46,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "B9", "pin_b": "B7" }
+            {"pin_a": "B9", "pin_b": "B7"}
         ]
     },
     "usb": {

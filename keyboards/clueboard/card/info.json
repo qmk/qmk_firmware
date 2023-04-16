@@ -21,6 +21,9 @@
     "rgblight": true,
     "unicode": false
   },
+  "build": {
+    "lto": true
+  },
   "matrix_pins": {
     "cols": ["F1", "F7", "F6"],
     "rows": ["F0", "F5", "F4", "B4"]
