@@ -91,3 +91,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+
+const uint16_t PROGMEM esc_combo[] = {GUI_A, GUI_SCLN, COMBO_END};
+const uint16_t PROGMEM caps_word[] = {KC_Z, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM minus_combo[] = {KC_R, KC_U, COMBO_END};
+const uint16_t PROGMEM under_combo[] = {KC_V, KC_M, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(esc_combo, KC_ESC),
+    COMBO(caps_word, CW_TOGG),
+    COMBO(minus_combo, KC_MINUS),
+    COMBO(under_combo, LSFT(KC_MINUS)),
+};
