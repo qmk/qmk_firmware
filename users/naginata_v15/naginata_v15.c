@@ -625,35 +625,18 @@ void ng_send_unicode_string(const char *str) {
 static int n_modifier = 0;
 
 bool process_modifier(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case KC_LEFT_CTRL:
-    case KC_LEFT_SHIFT:
-    case KC_LEFT_ALT:
-    case KC_LEFT_GUI:
-    case KC_RIGHT_CTRL:
-    case KC_RIGHT_SHIFT:
-    case KC_RIGHT_ALT:
-    case KC_RIGHT_GUI:
-    case LCTL_T(0x01) ... LCTL_T(0xFF):
-    case LSFT_T(0x01) ... LSFT_T(0xFF):
-    case LALT_T(0x01) ... LALT_T(0xFF):
-    case LGUI_T(0x01) ... LGUI_T(0xFF):
-    case RCTL_T(0x01) ... RCTL_T(0xFF):
-    case RSFT_T(0x01) ... RSFT_T(0xFF):
-    case RALT_T(0x01) ... RALT_T(0xFF):
-    case RGUI_T(0x01) ... RGUI_T(0xFF):
-      if (record->event.pressed) {
-        n_modifier++;
-        layer_off(naginata_layer);
-      } else {
-        n_modifier--;
-        if (n_modifier <= 0) {
-          n_modifier = 0;
-          layer_on(naginata_layer);
-        }
+  if (IS_MODIFIER_KEYCODE(keycode) || IS_QK_MOD_TAP(keycode)) {
+    if (record->event.pressed) {
+      n_modifier++;
+      layer_off(naginata_layer);
+    } else {
+      n_modifier--;
+      if (n_modifier <= 0) {
+        n_modifier = 0;
+        layer_on(naginata_layer);
       }
-      return true;
-      break;
+    }
+    return true;
   }
   return false;
 }
@@ -704,41 +687,25 @@ bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
       fghj_buf = 0;
 
       // Shift + Jで、先にShiftを外した場合にShiftがリリースされない不具合対策
-      switch (keycode) {
-        case KC_LEFT_CTRL:
-        case KC_LEFT_SHIFT:
-        case KC_LEFT_ALT:
-        case KC_LEFT_GUI:
-        case KC_RIGHT_CTRL:
-        case KC_RIGHT_SHIFT:
-        case KC_RIGHT_ALT:
-        case KC_RIGHT_GUI:
-          unregister_code(keycode);
-          break;
-        case LCTL_T(0x01) ... LCTL_T(0xFF):
+      if (IS_MODIFIER_KEYCODE(keycode)) {
+        unregister_code(keycode);
+      } else if (IS_QK_MOD_TAP(keycode)) {
+        if (keycode & (MOD_LCTL << 8))
           unregister_code(KC_LEFT_CTRL);
-          break;
-        case LSFT_T(0x01) ... LSFT_T(0xFF):
+        if (keycode & (MOD_LSFT << 8))
           unregister_code(KC_LEFT_SHIFT);
-          break;
-        case LALT_T(0x01) ... LALT_T(0xFF):
+        if (keycode & (MOD_LALT << 8))
           unregister_code(KC_LEFT_ALT);
-          break;
-        case LGUI_T(0x01) ... LGUI_T(0xFF):
+        if (keycode & (MOD_LGUI << 8))
           unregister_code(KC_LEFT_GUI);
-          break;
-        case RCTL_T(0x01) ... RCTL_T(0xFF):
+        if (keycode & (MOD_RCTL << 8))
           unregister_code(KC_RIGHT_CTRL);
-          break;
-        case RSFT_T(0x01) ... RSFT_T(0xFF):
+        if (keycode & (MOD_RSFT << 8))
           unregister_code(KC_RIGHT_SHIFT);
-          break;
-        case RALT_T(0x01) ... RALT_T(0xFF):
+        if (keycode & (MOD_RALT << 8))
           unregister_code(KC_RIGHT_ALT);
-          break;
-        case RGUI_T(0x01) ... RGUI_T(0xFF):
+        if (keycode & (MOD_RGUI << 8))
           unregister_code(KC_RIGHT_GUI);
-          break;
       }
       return false;
     }
