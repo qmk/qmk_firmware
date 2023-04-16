@@ -1,10 +1,10 @@
-# zoom75
+# Zoom75
 
-More Info at [zoom75 wired version](https://meletrix.com/products/zoom75-essential-edition-black-wired)
+More Info at [Zoom75 Wired Version](https://meletrix.com/products/zoom75-essential-edition-black-wired)
 ​
 
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
-* Hardware Supported: Zoom75 Wired
+* Hardware Supported: Zoom75 Wired Version
 * Hardware Availability: [zoom75](https://meletrix.com/products/zoom75-essential-edition-black-wired)  
 ​
 
