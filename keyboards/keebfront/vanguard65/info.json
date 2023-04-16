@@ -10,6 +10,36 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "cols": ["F0", "B1", "B2", "B3", "B7", "D0", "D1", "D2", "D3", "D5", "D7", "B4", "B5", "B6", "C6"],
+        "rows": ["F4", "F1", "F7", "F6", "F5"]
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "E6",
+                "pin_b": "D4"
+            }
+        ]
+    },
+    "rgblight": {
+        "led_count": 36,
+        "pin": "C7"
+        "val_step": 12,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
