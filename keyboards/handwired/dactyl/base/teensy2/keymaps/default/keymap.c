@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 
 enum custom_layers {
-  BASE = SAFE_RANGE,
+  BASE,
   SYMB,
   MDIA 
 };

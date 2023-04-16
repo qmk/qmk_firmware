@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    BASE = SAFE_RANGE,
+    BASE,
     NAV
 };
 

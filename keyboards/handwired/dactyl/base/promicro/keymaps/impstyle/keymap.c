@@ -6,7 +6,7 @@
 extern keymap_config_t keymap_config;
 
 enum layers {
-   _QWERTY = SAFE_RANGE,
+   _QWERTY,
    _LOWER,
    _RAISE
 };

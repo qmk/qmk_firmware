@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _QWERTY = SAFE_RANGE, 
+    _QWERTY, 
     _LOWER, 
     _RAISE,
     _BLANK
