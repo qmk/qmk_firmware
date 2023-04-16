@@ -7,11 +7,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {
-                "pin_a": "GP4",
-                "pin_b": "GP21",
-                "resolution": 2
-            }
+            {"pin_a": "GP4", "pin_b": "GP21", "resolution": 2}
         ]
     },
     "features": {
@@ -37,10 +33,7 @@
         "encoder": {
             "right": {
                 "rotary": [
-                    {
-                        "pin_a": "GP21",
-                        "pin_b": "GP4"
-                    }
+                    {"pin_a": "GP21", "pin_b": "GP4"}
                 ]
             }
         }

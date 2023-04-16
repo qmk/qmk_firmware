@@ -37,10 +37,7 @@
     },
     "encoder": {
         "rotary": [
-            {
-            "pin_a": "B13",
-            "pin_b": "B12"
-            }
+            {"pin_a": "B13", "pin_b": "B12"}
         ]
     },
     "tapping": {

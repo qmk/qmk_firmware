@@ -20,8 +20,8 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {"pin_a": "GP19", "pin_b": "GP18" },
-            {"pin_a": "GP14", "pin_b": "GP15" }
+            {"pin_a": "GP19", "pin_b": "GP18"},
+            {"pin_a": "GP14", "pin_b": "GP15"}
         ]
     },
     "ws2812": {

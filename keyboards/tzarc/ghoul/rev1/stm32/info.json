@@ -9,11 +9,7 @@
   },
   "encoder": {
     "rotary": [
-      {
-        "pin_a": "B10",
-        "pin_b": "B1",
-        "resolution": 2
-      }
+      {"pin_a": "B10", "pin_b": "B1", "resolution": 2}
     ]
   }
 }

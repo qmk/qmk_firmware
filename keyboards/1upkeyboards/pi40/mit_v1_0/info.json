@@ -36,10 +36,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {
-                "pin_a": "GP14",
-                "pin_b": "GP13"
-            }
+            {"pin_a": "GP14", "pin_b": "GP13"}
         ]
     },
     "rgb_matrix": {

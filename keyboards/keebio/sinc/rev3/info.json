@@ -18,7 +18,7 @@
         "encoder": {
             "right": {
                 "rotary": [
-                    {"pin_a": "GP5", "pin_b": "GP6" }
+                    {"pin_a": "GP5", "pin_b": "GP6"}
                 ]
             }
         },
@@ -36,7 +36,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {"pin_a": "GP21", "pin_b": "GP20" }
+            {"pin_a": "GP21", "pin_b": "GP20"}
         ]
     },
     "ws2812": {

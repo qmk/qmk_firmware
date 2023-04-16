@@ -17,10 +17,7 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {
-                "pin_a": "F0",
-                "pin_b": "F1"
-            }
+            {"pin_a": "F0", "pin_b": "F1"}
         ]
     },
     "layouts":{

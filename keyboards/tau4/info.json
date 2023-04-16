@@ -30,7 +30,7 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            { "pin_a": "B3", "pin_b": "B7", "resolution": 1 }
+            {"pin_a": "B3", "pin_b": "B7", "resolution": 1}
         ]
     },
     "rgblight": {
