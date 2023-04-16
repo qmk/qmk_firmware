@@ -18,8 +18,11 @@
         "cols": ["E6", "D5", "B2", "B3", "B7", "F6", "F7", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4"],
         "rows": ["B0", "B1", "F0", "F4", "F1"]
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_65_ansi_rwkl"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_65_ansi_rwkl": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
