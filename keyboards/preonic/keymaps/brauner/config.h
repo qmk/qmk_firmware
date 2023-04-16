@@ -25,6 +25,7 @@
 #define MUSIC_MASK (keycode != KC_NO)
 
 #define PERMISSVE_HOLD
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 #define LEADER_PER_KEY_TIMING
 
