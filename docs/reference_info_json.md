@@ -211,7 +211,7 @@ The following items can be set. Not every value is required.
 * `pin`
     * The GPIO pin that your LED strip is connected to
 * `animations`
-    * A dictionary that lists enabled and disabled animations. See [RGB Light Animations](#rgb_light_animations) below.
+    * A dictionary that lists enabled and disabled animations. See [RGB Light Animations](#rgb-light-animations) below.
 * `sleep`
     * Set to `true` to enable lighting during host sleep
 * `split`
@@ -246,7 +246,7 @@ Example:
 }
 ```
 
-### RGBLight Animations
+### RGB Light Animations
 
 The following animations can be enabled:
 
@@ -262,6 +262,131 @@ The following animations can be enabled:
 |`snake`          |Enable snake animation mode.          |
 |`static_gradient`|Enable static gradient mode.          |
 |`twinkle`        |Enable twinkle animation mode.        |
+
+## RGB Matrix
+
+The following items can be set. Not every value is required.
+
+* `animations`
+    * A dictionary that lists enabled and disabled animations. See [RGB Matrix Animations](#rgb-matrix-animations) below.
+* `driver`
+    * The driver for the RGB matrix, permissible values could be found in [RGB Matrix Lighting](feature_rgb_matrix.md)
+* `center_point`
+    * Center point for RGB matrix effects, default value is `[112, 32]`
+* `max_brightness`
+    * Limits maximum brightness of LEDs out of 255. If not defined maximum brightness is set to 255
+* `timeout`
+    * Number of milliseconds to wait until rgb automatically turns off
+* `hue_steps`
+    * How many steps of adjustment to have for hue
+* `sat_steps`
+    * How many steps of adjustment to have for sat
+* `val_steps`
+    * How many steps of adjustment to have for val
+* `speed_steps`
+    * How many steps of adjustment to have for speed
+* `split_count`
+    * (Optional) For split keyboards, the number of LEDs connected on each half, in the form of `[X, Y]` X = left, Y = Right.
+* `layout`
+    * How the LEDs are laid out, and how do they correspond with key locations
+        * `flags`
+            * a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type [List of flags](feature_rgb_matrix.md#flags)
+        * `matrix`
+            * which matrix location to associate this led with
+        * `x`
+            * the x spacial position, an example formula is `x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION`. Limited to224 to accomendate for some effects
+        * `y`
+            * the y spacial position, an example formula is `y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION`
+
+
+Example:
+
+```json
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            { "flags": 4, "matrix": [2, 0], "x": 51, "y": 51 },
+            { "flags": 4, "matrix": [1, 0], "x": 51, "y": 38 },
+            { "flags": 4, "matrix": [1, 1], "x": 102, "y": 38 },
+            { "flags": 4, "matrix": [2, 1], "x": 102, "y": 51 },
+            { "flags": 4, "matrix": [2, 2], "x": 154, "y": 51 },
+            { "flags": 4, "matrix": [1, 2], "x": 154, "y": 38 },
+            { "flags": 2,  "x": 77, "y": 12 },
+            { "flags": 2,  "x": 128, "y": 26 },
+            { "flags": 2,  "x": 77, "y": 26 },
+            { "flags": 2,  "x": 128, "y": 12 }
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 2},
+                {"matrix": [1, 1], "x": 1, "y": 2},
+                {"matrix": [1, 2], "x": 2, "y": 2},
+                {"matrix": [2, 0], "x": 0, "y": 3},
+                {"matrix": [2, 1], "x": 1, "y": 3},
+                {"matrix": [2, 2], "x": 2, "y": 3}
+            ]
+        }
+    }
+}
+```
+
+### RGB Matrix Animations
+
+The following animations can be enabled:
+
+
+```json
+        "animations": {
+            "solid_color": true,
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "rainbow_moving_chevron": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_fractal": true,
+            "pixel_flow": true,
+            "pixel_rain": true,
+            "typing_heatmap": true,
+            "digital_rain": true,           
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+```
+
 
 ## USB
 
