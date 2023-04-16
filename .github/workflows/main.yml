@@ -72,9 +72,7 @@ jobs:
             git status
           done
       - name: Submodules
-        run: |
-          git config --global --add safe.directory '*'
-          make git-submodule
+        run: make git-submodule
       - name: Process inputs
         id: inputs
         run: |
