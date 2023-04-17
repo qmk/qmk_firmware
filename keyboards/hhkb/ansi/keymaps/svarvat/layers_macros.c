@@ -897,36 +897,26 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
                 tap_code16(KC_LGUI);
             }
             return true;
-        case MA_MS_BTN1_REG:
+        case KC_MS_BTN1:
             if (record->event.pressed) {
                 if (isWeakLaMouseStarted) {
-                    if (isMsBtn1Reg) {
-                        unregister_code16(KC_MS_BTN1);
-                        isMsBtn1Reg = false;
-                    } else {
-                        register_code16(KC_MS_BTN1);
-                        isMsBtn1Reg = true;
-                    }
+                    return true;
                 } else {
                     tap_code16(KC_AUDIO_VOL_UP);
+                    return false;
                 }
             }
-            return false;
-        case MA_MS_BTN3_REG:
+            return true;
+        case KC_MS_BTN3:
             if (record->event.pressed) {
                 if (isWeakLaMouseStarted) {
-                    if (isMsBtn3Reg) {
-                        unregister_code16(KC_MS_BTN3);
-                        isMsBtn3Reg = false;
-                    } else {
-                        register_code16(KC_MS_BTN3);
-                        isMsBtn3Reg = true;
-                    }
+                    return true;
                 } else {
                     tap_code16(KC_AUDIO_VOL_DOWN);
+                    return false;
                 }
             }
-            return false;
+            return true;
         case MA_LTHUMB1:
             if (record->event.pressed) {
                 if (isWeakLaMouseStarted) {
