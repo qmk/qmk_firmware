@@ -20,8 +20,8 @@
     "url": "https://www.theteleport.de/",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0187",
-        "vid": "0x4705"
+        "pid": "0x0004",
+        "vid": "0x7470"
     },
     "layouts": {
         "LAYOUT_tkl_all": {
