@@ -12,5 +12,4 @@ Questions:
 
 Can I make it like the KBP V60 cursor layout? Layout in ~/Dropbox/hardware/kbparadise/
 ESC as mod-tap for layer 2, regular is `/~?
-Caps lock as ESC instead
 Set default colour in config
