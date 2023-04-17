@@ -81,7 +81,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #define _________________QWERTY_R1_________________         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define _________________QWERTY_R3_________________         KC_N,    KC_M,    KC_COMM, KC_DOT,  AD_SLSH
 
-#ifdef HOMEROWMOD_ENABLE
+#if defined(HOMEROWMOD_ENABLE)
 # define _________________QWERTY_L2_________________         LGUI_A,  LALT_S,  CTRL_D,  SHFT_F,  KC_G
 # define _________________QWERTY_R2_________________         KC_H,    SHFT_J,  CTRL_K,  LALT_L,  LGUI_QT
 #else
@@ -110,7 +110,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #define ______________COLEMAK_MOD_DH_R1____________         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
 #define ______________COLEMAK_MOD_DH_R3____________         KC_K,    KC_H,    KC_COMM, KC_DOT,  AD_SLSH
 
-#ifdef HOMEROWMOD_ENABLE
+#if defined(HOMEROWMOD_ENABLE)
 # define ______________COLEMAK_MOD_DH_L2____________         LGUI_A,  LALT_R,  CTRL_S,  SHFT_T,  KC_G
 # define ______________COLEMAK_MOD_DH_R2____________         KC_M,    SHFT_N,  CTRL_E,  LALT_I,  LGUI_O
 #else
@@ -139,8 +139,8 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #define _______________NUMBER_PAD_L3_______________         _______________MOD_CMDS_L3_________________
 #define          ______NUMBER_PAD_L4______                  ___x___, _______, ___x___
 
-
-#ifdef TAP_DANCE_ENABLE
+//ifdef TAP_DANCE_ENABLE
+#if defined(TAP_DANCE_ENABLE)
 # define _______________NUMBER_PAD_R1_______________         TD_LBKT, KC_7,    KC_8,    KC_9,    TD_RBKT
 # define _______________NUMBER_PAD_R2_______________         KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL
 #else

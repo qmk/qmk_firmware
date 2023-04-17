@@ -1,23 +1,12 @@
-# Settings to add/override what is in
-# $qmk_firmware\keyboards\planck\rev6\rules.mk
-
-SRC += muse.c
+# baseline
 USER_NAME := T4CORUN
+SRC += muse.c
+
+# override userspace
+# $Repo\qmk_firmware\users\T4CORUN\rules.mk
+
+# override
+# $qmk_firmware\keyboards\planck\rev6\rules.mk
 COMMAND_ENABLE = no
 ENCODER_ENABLE = no
 DIP_SWITCH_ENABLE = no
-TAP_DANCE_ENABLE = yes
-# COMBO_ENABLE = yes
-
-# these are disabled by default in common_features.mk
-DYNAMIC_MACRO_ENABLE = yes
-RGB_MATRIX_ENABLE = no
-RGBLIGHT_ENABLE = yes
-
-# disable options to save space on controller
-# the following options are enabled by default in common_features.mk
-SPACE_CADET_ENABLE = no
-GRAVE_ESC_ENABLE = no
-
-# My custom parameters
-# HOMEROWMOD_ENABLE = yes

@@ -29,7 +29,7 @@
     K01,     K02,     K03,     K04,     K05,     _____NONE_2_____, K06,     K07,     K08,     K09,     K0A, \
     K11,     K12,     K13,     K14,     K15,     _____NONE_2_____, K16,     K17,     K18,     K19,     K1A, \
     K21,     K22,     K23,     K24,     K25,     _____NONE_2_____, K26,     K27,     K28,     K29,     K2A, \
-    _________NONE_3__________, _________BASE_L3_________, _________BASE_R3_________, _____NONE_2_____, KC_ESC \
+    _____NONE_2_____, _________BASE_L3_________, _____NONE_2_____, _________BASE_R3_________, ___x___, KC_ESC \
   )
 #define LAYOUT_base_wrapper(...)       LAYOUT_ortho_4x12_base(__VA_ARGS__)
 
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______________NUMBER_PAD_L1_______________, _____NONE_2_____, _______________NUMBER_PAD_R1_______________,
         _______________NUMBER_PAD_L2_______________, _____NONE_2_____, _______________NUMBER_PAD_R2_______________,
         _______________NUMBER_PAD_L3_______________, _____NONE_2_____, _______________NUMBER_PAD_R3_______________,
-        _________NONE_3__________, ______NUMBER_PAD_L4______, ______NUMBER_PAD_R4______, _____NONE_2_____, KC_ESC
+        _____NONE_2_____, ______NUMBER_PAD_L4______, _____NONE_2_____, ______NUMBER_PAD_R4______, ___x___, KC_ESC
     ),
 
     [_NAVIGATION] = LAYOUT_ortho_4x12_wrapper(
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______________NAVIGATION_L1_______________, _____NONE_2_____, _______________NAVIGATION_R1_______________,
         _______________NAVIGATION_L2_______________, _____NONE_2_____, _______________NAVIGATION_R2_______________,
         _______________NAVIGATION_L3_______________, _____NONE_2_____, _______________NAVIGATION_R3_______________,
-        _________NONE_3__________, ______NAVIGATION_L4______, ______NAVIGATION_R4______, _____NONE_2_____, KC_ESC
+        _____NONE_2_____, ______NAVIGATION_L4______, _____NONE_2_____, ______NAVIGATION_R4______, ___x___, KC_ESC
     ),
 
     [_FUNCTION] = LAYOUT_ortho_4x12_wrapper(
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ______________FUNCTION_PAD_L1______________, _____NONE_2_____, ______________FUNCTION_PAD_R1______________,
         ______________FUNCTION_PAD_L2______________, _____NONE_2_____, ______________FUNCTION_PAD_R2______________,
         ______________FUNCTION_PAD_L3______________, _____NONE_2_____, ______________FUNCTION_PAD_R3______________,
-        _________NONE_3__________, _____FUNCTION_PAD_L4_____, _____FUNCTION_PAD_R4_____, _____NONE_2_____, KC_ESC
+        _____NONE_2_____, _____FUNCTION_PAD_L4_____, _____NONE_2_____, _____FUNCTION_PAD_R4_____, ___x___, KC_ESC
     ),
 
     [_MOUSE] = LAYOUT_ortho_4x12_wrapper(
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________MOUSE_L1__________________, _____NONE_2_____, _________________MOUSE_R1__________________,
         _________________MOUSE_L2__________________, _____NONE_2_____, _________________MOUSE_R2__________________,
         _________________MOUSE_L3__________________, _____NONE_2_____, _________________MOUSE_R3__________________,
-        _________NONE_3__________, ________MOUSE_L4_________, ________MOUSE_R4_________, _____NONE_2_____, KC_ESC
+        _____NONE_2_____, ________MOUSE_L4_________, _____NONE_2_____, ________MOUSE_R4_________, ___x___, KC_ESC
     ),
 
     [_ADJUST] = LAYOUT_ortho_4x12_wrapper(
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________ADJUST_L1_________________, _____NONE_2_____, _________________ADJUST_R1_________________,
         _________________ADJUST_L2_________________, _____NONE_2_____, _________________ADJUST_R2_________________,
         _________________ADJUST_L3_________________, _____NONE_2_____, _________________ADJUST_R3_________________,
-        _________NONE_3__________, ________ADJUST_L4________, ________ADJUST_R4________, _____NONE_2_____, KC_ESC
+        _____NONE_2_____, ________ADJUST_L4________, _____NONE_2_____, ________ADJUST_R4________, ___x___, KC_ESC
     )
 
 };

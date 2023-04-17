@@ -1,9 +1,11 @@
-# Settings to add/override what is in 
-# $qmk_firmware\keyboards\dztech\dz60rgb\v2_1\rules.mk
-
+#baseline
 USER_NAME := T4CORUN
-MOUSEKEY_ENABLE = yes
-GRAVE_ESC_ENABLE = yes
+
+#override userspace
+# $Repo\qmk_firmware\users\T4CORUN\rules.mkds
+HOMEROWMOD_ENABLE = no
 COMBO_ENABLE = no
 
-HOMEROWMOD_ENABLE = no
+#override 
+# $qmk_firmware\keyboards\dztech\dz60rgb\v2_1\rules.mk
+GRAVE_ESC_ENABLE = yes
