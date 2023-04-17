@@ -22,6 +22,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
+    "community_layouts": [
+        "tkl_nofrow_ansi"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
