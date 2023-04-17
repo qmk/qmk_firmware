@@ -61,7 +61,7 @@ bool qp_lvgl_attach(painter_device_t device) {
     qp_lvgl_detach();
 
     painter_driver_t *driver = (painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_lvgl_attach: fail (validation_ok == false)\n");
         qp_lvgl_detach();
         return false;
