@@ -27,13 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 // Configure the global tapping term (default: 200ms)
 #define TAPPING_TERM 150
 // Configure per key tapping term to increase hold time for pinky mods in keymap.c
 #define TAPPING_TERM_PER_KEY
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
+// Enable permissive hold, which will make nested keypresses use the modifier key
+#define PERMISSIVE_HOLD
 
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
