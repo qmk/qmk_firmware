@@ -52,64 +52,12 @@ static inline void unselect_rows(void) {
 }
 
 
-static void select_row(uint8_t row) {
-    switch (row) {
-        case 0:
-            ATOMIC_BLOCK_FORCEON {
-            pal_lld_clearport(PAL_PORT(B0), PAL_PORT_BIT(PAL_PAD(B0)));
-            }
-            break;
-        case 1:
-            ATOMIC_BLOCK_FORCEON {
-            pal_lld_clearport(PAL_PORT(B1), PAL_PORT_BIT(PAL_PAD(B1)));
-            }
-            break;
-        case 2:
-            ATOMIC_BLOCK_FORCEON {
-            pal_lld_clearport(PAL_PORT(B2), PAL_PORT_BIT(PAL_PAD(B2)));
-            }
-            break;
-        case 3:
-            ATOMIC_BLOCK_FORCEON {
-            pal_lld_clearport(PAL_PORT(B3), PAL_PORT_BIT(PAL_PAD(B3)));
-            }
-            break;
-        case 4:
-            ATOMIC_BLOCK_FORCEON {
-            pal_lld_clearport(PAL_PORT(B4), PAL_PORT_BIT(PAL_PAD(B4)));
-            }
-            break;
-        case 5:
-            ATOMIC_BLOCK_FORCEON {
-            pal_lld_clearport(PAL_PORT(B5), PAL_PORT_BIT(PAL_PAD(B5)));
-            }
-            break;
-        case 6:
-            ATOMIC_BLOCK_FORCEON {
-            pal_lld_clearport(PAL_PORT(B6), PAL_PORT_BIT(PAL_PAD(B6)));
-            }
-            break;
-        case 7:
-            ATOMIC_BLOCK_FORCEON {
-            pal_lld_clearport(PAL_PORT(B7), PAL_PORT_BIT(PAL_PAD(B7)));
-            }
-            break;
-        case 8:
-            ATOMIC_BLOCK_FORCEON {
-            pal_lld_clearport(PAL_PORT(B8), PAL_PORT_BIT(PAL_PAD(B8)));
-            }
-            break;
-        case 9: // Pin B12 was removed from matrix definition. This row can be scanned during scan of B9 row
-            ATOMIC_BLOCK_FORCEON {
-                pal_lld_clearport(PAL_PORT(B9), PAL_PORT_BIT(PAL_PAD(B9)) | 
-                                                PAL_PORT_BIT(PAL_PAD(B12)));
-            }
-            break;
-        case 10:
-            ATOMIC_BLOCK_FORCEON {
-            pal_lld_clearport(PAL_PORT(B10), PAL_PORT_BIT(PAL_PAD(B10)));
-            }
-            break;
+static inline void select_row(uint8_t row) {
+    ATOMIC_BLOCK_FORCEON {
+    if (row != 9)
+        pal_lld_clearport(PAL_PORT(B0), PAL_PORT_BIT(row));
+    else // Pin B12 was removed from matrix definition. This row can be scanned during scan of B9 row
+        pal_lld_clearport(PAL_PORT(B9), PAL_PORT_BIT(PAL_PAD(B9)) | PAL_PORT_BIT(PAL_PAD(B12)));
     }
 }
 
