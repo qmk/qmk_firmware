@@ -278,24 +278,24 @@
  */
 /* Thumb keys scylla
  *          ,-----------------.              ,-----------------.
- *          | SFT |SP/R | GUI |              | ENT |BSP/L| SFT |
+ *          | TAB | SPC | SFT |              | SFT | BSP | ENT |
  *          '-----|-----+-----|              |-----+-----+-----'
- *                | TAB | ALT |              |ALTGr| CTL |
+ *                | GUI | ALT |              |ALTGr| CTL |
  *                '-----------'              `-----------'
  */
 #define _______________Y_COLEMAK_L0________________       _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _______________Y_COLEMAK_L1________________       _______, ______________HM_COLEMAK_L1________________
-#define _______________Y_COLEMAK_L2________________        KC_ESC, ______________HM_COLEMAK_L2________________
-#define _______________Y_COLEMAK_L3________________       KC_LSFT, ______________HM_COLEMAK_L3________________
-#define __Y_THUMB_L0___                                   KC_LSFT,  RAISE, KC_TAB
-#define __Y_THUMB_L1___                                           KC_LGUI, KC_LALT
+#define _______________Y_COLEMAK_L2________________       KC_LSFT, ______________HM_COLEMAK_L2________________
+#define _______________Y_COLEMAK_L3________________       KC_LCTL, ______________HM_COLEMAK_L3________________
+#define __Y_THUMB_L0___                                   ST_CTAB,   RAISE, KC_LSFT
+#define __Y_THUMB_L1___                                            KC_LGUI, KC_LALT
 
 
 #define _______________Y_COLEMAK_R0________________          KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______
 #define _______________Y_COLEMAK_R1________________       ______________HM_COLEMAK_R1________________, _______
-#define _______________Y_COLEMAK_R2________________       ______________HM_COLEMAK_R2________________, KC_LGUI
-#define _______________Y_COLEMAK_R3________________       ______________HM_COLEMAK_R3________________, KC_LSFT
-#define __Y_THUMB_R0___                                    KC_ENT,   LOWER,  KC_LSFT
+#define _______________Y_COLEMAK_R2________________       ______________HM_COLEMAK_R2________________, KC_LSFT
+#define _______________Y_COLEMAK_R3________________       ______________HM_COLEMAK_R3________________, KC_LCTL
+#define __Y_THUMB_R0___                                   KC_LSFT,   LOWER, ST_CENT
 #define __Y_THUMB_R1___                                   KC_RALT, KC_LCTL
 
 #define __Y_THUMB_N0___                                   _______,  _______, _______
