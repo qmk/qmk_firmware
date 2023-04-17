@@ -10,7 +10,6 @@
         "pid": "0x5606",
         "device_version": "1.0.0"
     },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "dynamic_keymap": {
         "layer_count": 10
