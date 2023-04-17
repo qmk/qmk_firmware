@@ -33,6 +33,9 @@
             {"pin_a": "C7", "pin_b": "D1"}
         ]
     },
+    "ws2812": {
+        "pin": "D7"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "animations": {
