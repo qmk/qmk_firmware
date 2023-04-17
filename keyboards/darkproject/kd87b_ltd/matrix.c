@@ -53,12 +53,14 @@ static inline void unselect_rows(void) {
 
 
 static inline void select_row(uint8_t row) {
-    ATOMIC_BLOCK_FORCEON {
     if (row != 11)
+        ATOMIC_BLOCK_FORCEON {
         pal_lld_clearport(PAL_PORT(B0), PAL_PORT_BIT(row));
+        }
     else
+        ATOMIC_BLOCK_FORCEON {
         pal_lld_clearport(PAL_PORT(B12), PAL_PORT_BIT(PAL_PAD(B12)));
-    }
+        }
 }
 
 
