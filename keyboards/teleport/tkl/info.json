@@ -23,6 +23,7 @@
         "pid": "0x0004",
         "vid": "0x7470"
     },
+    "community_layouts": [ "tkl_ansi", "tkl_iso" ],
     "layouts": {
         "LAYOUT_tkl_all": {
             "layout": [
