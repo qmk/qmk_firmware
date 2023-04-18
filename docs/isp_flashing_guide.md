@@ -41,7 +41,7 @@ To use a 5V/16MHz Pro Micro as an ISP flashing tool, you will first need to load
 [Arduino Uno](https://store.arduino.cc/products/arduino-uno-rev3)
 [Arduino Micro](https://store.arduino.cc/products/arduino-micro)
 
-A standard 5v/16MMhz Uno or Pro Micro can be used as an ISP flashing tool using the [example "ArduinoISP" sketch](https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP#load-the-sketch) to emulate a stk500 ISP.
+A standard Uno or Micro can be used as an ISP flashing tool using the [example "ArduinoISP" sketch](https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP#load-the-sketch) to emulate an STK500 ISP. Also works with Sparkfun Pro Micros and clones.
 
 **AVRDUDE Programmer**: `stk500v1`  
 **AVRDUDE Port**: Serial
