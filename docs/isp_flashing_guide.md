@@ -66,7 +66,7 @@ A standard Uno or Micro can be used as an ISP flashing tool using the [example "
 |`16` (`B2`)|`MOSI`  |
 |`14` (`B3`)|`MISO`  |
 
-!> Note that the `10` pin on the Uno/Pro-Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Uno/Pro-Micro to the `RESET` on the keyboard.
+!> Note that the `10` pin on the Uno/Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Uno/Micro to the `RESET` on the keyboard.
 
 
 ### Teensy 2.0 as ISP
