@@ -4,6 +4,8 @@
 COMBO_ENABLE = yes
 
 # some general settings
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
 EXTRAKEY_ENABLE = no
 NKRO_ENABLE = no
 AUDIO_ENABLE = no
