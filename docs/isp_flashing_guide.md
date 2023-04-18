@@ -36,8 +36,10 @@ To use a 5V/16MHz Pro Micro as an ISP flashing tool, you will first need to load
 !> Note that the `10` pin on the Pro Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Pro Micro to the `RESET` on the keyboard.
 
 
-### Uno/Pro-Micro as ISP
-[Arduino Uno](https://store.arduino.cc/products/arduino-uno-rev3) or Pro Micro 
+### Arduino Uno / Micro as ISP
+
+[Arduino Uno](https://store.arduino.cc/products/arduino-uno-rev3)
+[Arduino Micro](https://store.arduino.cc/products/arduino-micro)
 
 A standard 5v/16MMhz Uno or Pro Micro can be used as an ISP flashing tool using the [example "ArduinoISP" sketch](https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP#load-the-sketch) to emulate a stk500 ISP.
 
