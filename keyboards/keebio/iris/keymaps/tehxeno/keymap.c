@@ -1,10 +1,28 @@
+/* Copyright 2021 Vince Yoong (@tehxeno)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ 
 #include QMK_KEYBOARD_H
 
-#define _QWERTY 0
-#define _NAVI 1
-#define _NUMB 2
-#define _MOUSE 3
-#define _MEDIA 4
+enum layers {
+   _QWERTY,
+   _NAVI,
+   _NUMB,
+   _MOUSE,
+   _MEDIA   
+};
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
@@ -51,7 +69,7 @@ bool is_alt_tab_active = false;
 uint16_t alt_tab_timer = 0;
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
+  QWERTY = QK_USER,
   NAVI,
   NUMB,
   MOUSE,
@@ -132,7 +150,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (!encoder_update_user(index, clockwise)) return false;
   //Note: index == 1 is the right encoder. My Iris Rev4 does not have a left encoder, so nothing is encoded for it until the default layer.
   switch(get_highest_layer(layer_state)) {
     case _QWERTY:        //if you're on layer 0
@@ -223,7 +240,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       }
       break;
   }
-  return true;
+  return false;
 }
 
 void matrix_scan_user(void) {
