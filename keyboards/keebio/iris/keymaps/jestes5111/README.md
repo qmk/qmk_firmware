@@ -1,4 +1,4 @@
-![Imgur](https://imgur.com/mPKFzVW.png)
+![Keymap SVG](https://i.imgur.com/mPKFzVWh.png)
 
 # My Iris
 
