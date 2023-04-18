@@ -23,5 +23,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the top left key and plug in the keyboard. This will also clear emulated EEPROM, so it is a good first step if the keyboard is misbehaving.
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Briefly press the button on the back of the PCB, located on the top right
 * **Keycode in layout**: There is no key mapped to `QK_BOOT` in the pre-created keymaps, but you may assign this key in any keymaps you create.
