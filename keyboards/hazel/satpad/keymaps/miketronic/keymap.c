@@ -22,25 +22,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │     │     │     │     │     │     │   │     │     │     │     │PASTE│LEFT │
   * └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
   */
-/* Workman Home Layer
- * ,----------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |      |      |      |      |
- * |   Q  |   D  |   R  |   W  |   B  |      |   J  |   F  |   U  |   P  |  ;   |
- * |Escape|  FN  |      |      |SYMBOL|      |SYMBOL|      |      |      |BKSPC |
- * |------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |
- * |   A  |   S  |   H  |   T  |   G  |      |   Y  |   N  |   E  |   O  |   I  |
- * | Shift|      |      |EXTRAS| OSkey|      | OSkey|      |      |      | Enter|
- * |------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |
- * |   Z  |   X  |   M  |   C  |   V  |      |   K  |   L  | Space| Space|  /\  |
- * |  FN  | CTRL |  OS  |  ALT |LOWER |      | RAISE|  Alt |   ,  |   .  |      |
- * '----------------------------------------------------------------------------'
- * 
+ /* WORKMAN
+  * ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
+  * │ Q   │ D   │ R   │ W   │ B   │   │ J   │ F   │ U   │ P   │ BSPC│
+  * │ ESC │     │     │     │ SYM │   │ SYM │     │     │     │     │
+  * ├─────┼─────┼─────╆━━━━━╅─────┤   ├─────╆━━━━━╅─────┼─────┼─────┤
+  * │ A   │ S   │ H   ┃ T   ┃ G   │   │ Y   ┃ N   ┃ E   │ O   │ I   │
+  * │SHIFT│     │     ┃ EX  ┃     │   │     ┃     ┃     │     │ENTER│
+  * ├─────┼─────┼─────╄━━━━━╃─────┤   ├─────╄━━━━━╃─────┼─────┼─────┤
+  * │ Z   │ X   │ M   │ C   │     │   │     │     │  ,  │  .  │  ?  │
+  * │ FN  │ CTRL│ OS  │ ALT │     │   │     │     │     │     │     │
+  * └─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┘
  *   http://www.keyboard-layout-editor.com/#/gists/fcc6c759cf335abf31f6c200db3b9aca
  *   
  */
-  [_WM] = LAYOUT (
+  [_WM] = LAYOUT_3x11_wrapper (
     _____________WORKMAN_311_001_L_____________, _____________WORKMAN_311_001_R_____________,
     _____________WORKMAN_311_002_L_____________, _____________WORKMAN_311_002_R_____________,
     _____________WORKMAN_311_003_L_____________, _____________WORKMAN_311_003_R_____________
@@ -99,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * └─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┘
  */
 
-  [_EXTRAS] = LAYOUT_3x11_wrapper (
+  [_EX] = LAYOUT_3x11_wrapper (
         KC_EXLM,  _______, _______, _______, _______, _______, _______,     T_SL, KC_LBRC, KC_RBRC, KC_SCLN,
         KC_LSFT,  _______, _______, _______, _______, _______, _______,  _______, KC_LPRN, KC_RPRN, KC_QUOT,
         _______,  _______, _______, _______, _______, KC_ENT,  _______,  _______, KC_COMM, KC_DOT,  KC_QUES
@@ -168,52 +164,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_SYMB] = { ENCODER_CCW_CW(KC_SPC, KC_ENT) }
 };
  
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation){   
-    return OLED_ROTATION_270;
-}
-
-
-
-#ifdef OLED_ENABLE
-bool oled_task_user(void) {
-    // Host Keyboard Layer Status
-    oled_write_P(PSTR("LAYER\n-----\n"), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case _WM:
-            oled_write_P(PSTR("WMAN"), false);
-            break;
-        case _QW:
-            oled_write_P(PSTR("QW"), false);
-            break;
-        case _LOWER:
-            oled_write_P(PSTR("LOWER"), false);
-            break;
-        case _RAISE:
-            oled_write_P(PSTR("RSE"), false);
-            break;
-        case _EX:
-            oled_write_P(PSTR(" EX "), false);
-            break;
-        case _FN:
-            oled_write_P(PSTR(" FN "), false);
-            break;
-        case _SYMB:
-            oled_write_P(PSTR("SYMB"), false);
-            break;            
-        default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("HOME"), false);
-    }
-
-// Host Keyboard LED Status
-   // led_t led_state = host_keyboard_led_state();
-   // oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-   // oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-   // oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-  
- return false;
-}
-#endif
-
