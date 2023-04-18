@@ -50,12 +50,12 @@ A standard Uno or Micro can be used as an ISP flashing tool using the [example "
 
 |Uno        |Keyboard|
 |-----------|--------|
-|`5v`       |`VCC`   |
+|`5V`       |`VCC`   |
 |`GND`      |`GND`   |
-|`10`       |`RESET` |
-|`13`       |`SCLK`  |
-|`11`       |`MOSI`  |
-|`12`       |`MISO`  |
+|`10` (`B2`)|`RESET` |
+|`13` (`B5`)|`SCLK`  |
+|`11` (`B3`)|`MOSI`  |
+|`12` (`B4`)|`MISO`  |
 
 |Pro-Micro  |Keyboard|
 |-----------|--------|
