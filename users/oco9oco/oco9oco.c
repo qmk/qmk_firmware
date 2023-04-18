@@ -344,7 +344,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 // Get hold on other key press
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record){
     switch (keycode) {
-        case SFTT_A:
+        // case SFTT_A:
             return true;
         default:
             return false;
