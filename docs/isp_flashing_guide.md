@@ -50,12 +50,21 @@ A standard 5v/16MMhz Uno or Pro Micro can be used as an ISP flashing tool using 
 |-----------|--------|
 |`5v`       |`VCC`   |
 |`GND`      |`GND`   |
+|`10`       |`RESET` |
+|`13`       |`SCLK`  |
+|`11`       |`MOSI`  |
+|`12`       |`MISO`  |
+
+|Pro-Micro  |Keyboard|
+|-----------|--------|
+|`VCC`      |`VCC`   |
+|`GND`      |`GND`   |
 |`10` (`B6`)|`RESET` |
 |`15` (`B1`)|`SCLK`  |
 |`16` (`B2`)|`MOSI`  |
 |`14` (`B3`)|`MISO`  |
 
-!> Note that the `10` pin on the Uno/Pro Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Uno/Pro Micro to the `RESET` on the keyboard.
+!> Note that the `10` pin on the Uno/Pro-Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Uno/Pro-Micro to the `RESET` on the keyboard.
 
 
 ### Teensy 2.0 as ISP
