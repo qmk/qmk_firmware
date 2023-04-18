@@ -19,7 +19,6 @@
         "rgblight": false,
         "backlight": false
     },
-    "development_board": "promicro",
     "split": {
         "enabled": true
     },
