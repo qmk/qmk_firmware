@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
+  title: 'QMK',
   tagline: 'Dinosaurs are cool',
   favicon: 'img/favicon.ico',
 
@@ -53,14 +53,14 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/qmk/qmk_firmware/edit/master/docs/',
         },
         // blog: {
         //   showReadingTime: true,
         //   // Please change this to your repo.
         //   // Remove this to remove the "edit this page" links.
         //   editUrl:
-        //     'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+        //     'https://github.com/qmk/qmk_firmware/edit/master/docs/',
         // },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -75,21 +75,20 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'My Site',
+        title: 'QMK Firmware Docs',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
         },
-        items: [
+        items: [            
+          // {
+          //   type: 'docSidebar',
+          //   sidebarId: 'summary',
+          //   position: 'left',
+          //   label: 'Summary',
+          // },
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/qmk/qmk_firmware',
             label: 'GitHub',
             position: 'right',
           },
@@ -138,7 +137,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} QMK, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} QMK. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
