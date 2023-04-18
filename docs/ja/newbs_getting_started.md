@@ -18,7 +18,11 @@
 * [Toolbox (オプション)](https://github.com/qmk/qmk_toolbox)
   * Windows と macOS で使える GUI を備えたプログラムで、カスタムキーボードのプログラミングとデバッグの両方ができます。
 
-?> もし、Linux か Unix のコマンドを使ったことがない場合、こちらで基本的な概念や各種コマンドを学んでください。[これらの教材](ja/newbs_learn_more_resources.md#command-line-resources)で QMK を使うのに必要なことを学ぶことができます。
+:::tip
+
+もし、Linux か Unix のコマンドを使ったことがない場合、こちらで基本的な概念や各種コマンドを学んでください。[これらの教材](ja/newbs_learn_more_resources.md#command-line-resources)で QMK を使うのに必要なことを学ぶことができます。
+
+:::
 
 ## 2. ビルド環境を準備する :id=set-up-your-environment
 
@@ -39,7 +43,11 @@ QMK は、MSYS2、CLI、および必要な全ての依存関係のバンドル�
 <details>
   <summary>手動インストール</summary>
 
-?> `QMK MSYS` を使う場合、次のステップは無視してください。
+:::tip
+
+`QMK MSYS` を使う場合、次のステップは無視してください。
+
+:::
 
 #### 前提条件
 
@@ -47,7 +55,11 @@ MSYS2 と Git と Python をインストールする必要があります。http
 
 MSYS2 をインストールしたら、開いている MSYS の全ターミナル画面を閉じて、新しい MinGW 64-bit ターミナル画面を開きます。
 
-!> **注意:** MinGW 64-bit ターミナルは、インストールが完了した時に開く MSYS ターミナルと*同じではありません*。プロンプトには、「MSYS」ではなく、紫色のテキストで「MINGW64」と表示されます。違いについての詳細は[このページ](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems)を参照してください。
+:::caution
+
+**注意:** MinGW 64-bit ターミナルは、インストールが完了した時に開く MSYS ターミナルと*同じではありません*。プロンプトには、「MSYS」ではなく、紫色のテキストで「MINGW64」と表示されます。違いについての詳細は[このページ](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems)を参照してください。
+
+:::
 
 それから、次のように実行します:
 
@@ -77,7 +89,11 @@ Homebrew のインストールが必要です。https://brew.sh の手順に従�
 
 ### ** Linux/WSL **
 
-?> **WSL ユーザーへの注意**: デフォルトでは、インストールプロセスは QMK リポジトリを WSL ホームディレクトリに clone しますが、手動で clone した場合、Windows ファイルシステムではなく、WSL インスタンス内にある(つまり `/mnt` 内にない)ことを確認してください。これは、現在アクセスが[非常に遅い](https://github.com/microsoft/WSL/issues/4197)ためです。
+:::tip
+
+**WSL ユーザーへの注意**: デフォルトでは、インストールプロセスは QMK リポジトリを WSL ホームディレクトリに clone しますが、手動で clone した場合、Windows ファイルシステムではなく、WSL インスタンス内にある(つまり `/mnt` 内にない)ことを確認してください。これは、現在アクセスが[非常に遅い](https://github.com/microsoft/WSL/issues/4197)ためです。
+
+:::
 
 #### 前提条件
 
@@ -165,9 +181,17 @@ QMK のインストール後に、このコマンドで設定できます:
 
 <!-- tabs:end -->
 
-?> qmk ホームフォルダは、セットアップ時に `qmk setup -H <path>` を使って指定し、[cli 構成](ja/cli_configuration.md?id=single-key-example)と変数 `user.qmk_home` を使って変更できます。利用可能な全てのオプションについては、`qmk setup --help` を実行します。
+:::tip
 
-?> 既に GitHub の使い方を知っている場合、[これらの手順に従うことをお勧めします](ja/getting_started_github.md)。そして `qmk setup <github_username>/qmk_firmware` を使って個人用の fork から clone します。この一文の意味が分からない場合、このメッセージは無視してかまいません。
+qmk ホームフォルダは、セットアップ時に `qmk setup -H <path>` を使って指定し、[cli 構成](ja/cli_configuration.md?id=single-key-example)と変数 `user.qmk_home` を使って変更できます。利用可能な全てのオプションについては、`qmk setup --help` を実行します。
+
+:::
+
+:::tip
+
+既に GitHub の使い方を知っている場合、[これらの手順に従うことをお勧めします](ja/getting_started_github.md)。そして `qmk setup <github_username>/qmk_firmware` を使って個人用の fork から clone します。この一文の意味が分からない場合、このメッセージは無視してかまいません。
+
+:::
 
 ## 4. ビルド環境の確認
 

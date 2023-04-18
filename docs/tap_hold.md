@@ -8,7 +8,11 @@ These options let you modify the behavior of the Tap-Hold keys.
 
 The crux of all of the following features is the tapping term setting.  This determines what is a tap and what is a hold.  The exact timing for this to feel natural can vary from keyboard to keyboard, from switch to switch, and from key to key.
 
-?> `DYNAMIC_TAPPING_TERM_ENABLE` enables three special keys that can help you quickly find a comfortable tapping term for you. See "Dynamic Tapping Term" for more details.
+:::tip
+
+`DYNAMIC_TAPPING_TERM_ENABLE` enables three special keys that can help you quickly find a comfortable tapping term for you. See "Dynamic Tapping Term" for more details.
+
+:::
 
 You can set the global time for this by adding the following setting to your `config.h`:
 
@@ -38,7 +42,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-### Dynamic Tapping Term :id=dynamic-tapping-term
+### Dynamic Tapping Term {#dynamic-tapping-term}
 
 `DYNAMIC_TAPPING_TERM_ENABLE` is a feature you can enable in `rules.mk` that lets you use three special keys in your keymap to configure the tapping term on the fly.
 
@@ -126,7 +130,7 @@ The code which decides between the tap and hold actions of dual-role keys suppor
 
 Note that until the tap-or-hold decision completes (which happens when either the dual-role key is released, or the tapping term has expired, or the extra condition for the selected decision mode is satisfied), key events are delayed and not transmitted to the host immediately.  The default mode gives the most delay (if the dual-role key is held down, this mode always waits for the whole tapping term), and the other modes may give less delay when other keys are pressed, because the hold action may be selected earlier.
 
-### Comparison :id=comparison
+### Comparison {#comparison}
 
 To better illustrate the tap-or-hold decision modes, let us compare the expected output of each decision mode in a handful of tapping scenarios involving a mod-tap key (`LSFT_T(KC_A)`) and a regular key (`KC_B`) with the `TAPPING_TERM` set to 200ms.
 
@@ -134,7 +138,7 @@ By default, mod-taps behave like `HOLD_ON_OTHER_KEY_PRESS`, while layer-taps beh
 
 Note: "`kc` held" in the "Physical key event" column means that the key wasn't physically released yet at this point in time.
 
-#### Distinct taps (AABB) :id=distinct-taps
+#### Distinct taps (AABB) {#distinct-taps}
 
 | Time | Physical key event |Ignore Interrupt| `PERMISSIVE_HOLD` |  `HOLD_ON_OTHER_KEY_PRESS` |
 |------|--------------------|----------------|-------------------|----------------------------|
@@ -151,7 +155,7 @@ Note: "`kc` held" in the "Physical key event" column means that the key wasn't p
 | 205  | `KC_B`      down   | b              | b                 |  b                         |
 | 210  | `KC_B`      up     | b              | b                 |  b                         |
 
-#### Nested tap (ABBA) :id=nested-tap
+#### Nested tap (ABBA) {#nested-tap}
 
 | Time | Physical key event |Ignore Interrupt| `PERMISSIVE_HOLD` |  `HOLD_ON_OTHER_KEY_PRESS` |
 |------|--------------------|----------------|-------------------|----------------------------|
@@ -176,7 +180,7 @@ Note: "`kc` held" in the "Physical key event" column means that the key wasn't p
 | 210  | `KC_B` up          | B              | B                 | B                          |
 | 220  | `LSFT_T(KC_A)` up  | B              | B                 | B                          |
 
-#### Rolling keys (ABAB) :id=rolling-keys
+#### Rolling keys (ABAB) {#rolling-keys}
 
 | Time | Physical key event |Ignore Interrupt| `PERMISSIVE_HOLD` |  `HOLD_ON_OTHER_KEY_PRESS` |
 |------|--------------------|----------------|-------------------|----------------------------|
@@ -300,7 +304,11 @@ However, this slightly different sequence will not be affected by the “permiss
 
 In the sequence above the dual-role key is released before the other key is released, and if that happens within the tapping term, the “permissive hold” mode will still choose the tap action for the dual-role key, and the sequence will be registered as `al` by the host. We could describe this as a “rolling press” (the two keys' key down and key up events behave as if you were rolling a ball across the two keys, first pressing each key down in sequence and then releasing them in the same order).
 
-?> The `PERMISSIVE_HOLD` option is not noticeable if you also enable `HOLD_ON_OTHER_KEY_PRESS` because the latter option considers both the “nested tap” and “rolling press” sequences like shown above as a hold action, not the tap action. `HOLD_ON_OTHER_KEY_PRESS` makes the Tap-Or-Hold decision earlier in the chain of key events, thus taking a precedence over `PERMISSIVE_HOLD`.  This remark also applies to default mod-taps.
+:::tip
+
+The `PERMISSIVE_HOLD` option is not noticeable if you also enable `HOLD_ON_OTHER_KEY_PRESS` because the latter option considers both the “nested tap” and “rolling press” sequences like shown above as a hold action, not the tap action. `HOLD_ON_OTHER_KEY_PRESS` makes the Tap-Or-Hold decision earlier in the chain of key events, thus taking a precedence over `PERMISSIVE_HOLD`.  This remark also applies to default mod-taps.
+
+:::
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -356,7 +364,11 @@ An example of a sequence that is affected by the “hold on other key press” m
 
 Normally, if you do all this within the `TAPPING_TERM` (default: 200ms), this will be registered as `al` by the firmware and host system.  With the `HOLD_ON_OTHER_KEY_PRESS` option enabled, the Layer Tap key is considered as a layer switch if another key is pressed, and the above sequence would be registered as `KC_RGHT` (the mapping of `L` on layer 2).
 
-?> The `HOLD_ON_OTHER_KEY_PRESS` option is essentially redundant with the default mod-tap behaviour. The only notable difference is that `HOLD_ON_OTHER_KEY_PRESS` reduces the delay before the key events are made visible to the host.
+:::tip
+
+The `HOLD_ON_OTHER_KEY_PRESS` option is essentially redundant with the default mod-tap behaviour. The only notable difference is that `HOLD_ON_OTHER_KEY_PRESS` reduces the delay before the key events are made visible to the host.
+
+:::
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -388,7 +400,11 @@ To enable this setting, add this to your `config.h`:
 #define IGNORE_MOD_TAP_INTERRUPT
 ```
 
-?> This option affects only the Mod Tap keys; it does not affect other dual-role keys such as Layer Tap.
+:::tip
+
+This option affects only the Mod Tap keys; it does not affect other dual-role keys such as Layer Tap.
+
+:::
 
 By default, the tap-or-hold decision for Mod Tap keys strongly prefers the hold action.  If you press a Mod Tap key, then press another key while still holding the Mod Tap key down, the Mod Tap press will be handled as a modifier hold even if the Mod Tap key is then released within the tapping term, and irrespective of the order in which those keys are released.  Using options such as `PERMISSIVE_HOLD` or `HOLD_ON_OTHER_KEY_PRESS` will not affect the functionality of Mod Tap keys in a major way (these options would still affect the delay until the common code for dual-role keys finishes its tap-or-hold decision, but then the special code for Mod Tap keys will override the result of that decision and choose the hold action if another key was pressed).  In fact, by default, the tap-or-hold decision for Mod Tap keys is done in the same way as if the `HOLD_ON_OTHER_KEY_PRESS` option was enabled, but without the decreased delay provided by `HOLD_ON_OTHER_KEY_PRESS`.
 
@@ -423,7 +439,11 @@ For more granular control of this feature, you can add the following to your `co
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 ```
 
-?> This option affects *all* dual-role keys.
+:::tip
+
+This option affects *all* dual-role keys.
+
+:::
 
 You can then add the following function to your keymap:
 
@@ -444,7 +464,11 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 
 Note that you must return `false` in `get_hold_on_other_key_press` in order to apply `IGNORE_MOD_TAP_INTERRUPT` for a certain mod-tap key.
 
-?> `IGNORE_MOD_TAP_INTERRUPT[_PER_KEY]` is being progressively phased out to align the (default) behavior and configuration of mod-taps with the rest of dual-role keys.
+:::tip
+
+`IGNORE_MOD_TAP_INTERRUPT[_PER_KEY]` is being progressively phased out to align the (default) behavior and configuration of mod-taps with the rest of dual-role keys.
+
+:::
 
 ## Quick Tap Term
 
@@ -467,7 +491,11 @@ With default settings, `a` will be sent on the first release, then `a` will be s
 
 With `QUICK_TAP_TERM` configured, the timing between `SFT_T(KC_A)` up and `SFT_T(KC_A)` down must be within `QUICK_TAP_TERM` to trigger auto repeat. Otherwise the second press will be sent as a Shift. If `QUICK_TAP_TERM` is set to `0`, the second press will always be sent as a Shift, effectively disabling auto-repeat.
 
-!> `QUICK_TAP_TERM` timing will also impact anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tap Toggle).
+:::caution
+
+`QUICK_TAP_TERM` timing will also impact anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tap Toggle).
+
+:::
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -488,7 +516,11 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-?> If `QUICK_TAP_TERM` is set higher than `TAPPING_TERM`, it will default to `TAPPING_TERM`.
+:::tip
+
+If `QUICK_TAP_TERM` is set higher than `TAPPING_TERM`, it will default to `TAPPING_TERM`.
+
+:::
 
 ## Retro Tapping
 

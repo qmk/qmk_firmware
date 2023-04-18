@@ -1,8 +1,8 @@
-# I2C Master Driver :id=i2c-master-driver
+# I2C Master Driver {#i2c-master-driver}
 
 The I2C Master drivers used in QMK have a set of common functions to allow portability between MCUs.
 
-## I2C Addressing :id=note-on-i2c-addresses
+## I2C Addressing {#note-on-i2c-addresses}
 
 All of the addresses expected by this driver should be pushed to the upper 7 bits of the address byte. Setting
 the lower bit (indicating read/write) will be done by the respective functions. Almost all I2C addresses listed 
@@ -17,7 +17,7 @@ You can either do this on each call to the functions below, or once in your defi
 
 See https://www.robot-electronics.co.uk/i2c-tutorial for more information about I2C addressing and other technical details.
 
-## AVR Configuration :id=avr-configuration
+## AVR Configuration {#avr-configuration}
 
 The following defines can be used to configure the I2C master driver:
 
@@ -34,9 +34,13 @@ No further setup is required - just connect the `SDA` and `SCL` pins of your I2C
 |ATmega32A         |`C0` |`C1` |
 |ATmega328/P       |`C5` |`C4` |
 
-?> The ATmega16/32U2 does not possess I2C functionality, and so cannot use this driver.
+:::tip
 
-## ChibiOS/ARM Configuration :id=arm-configuration
+The ATmega16/32U2 does not possess I2C functionality, and so cannot use this driver.
+
+:::
+
+## ChibiOS/ARM Configuration {#arm-configuration}
 
 You'll need to determine which pins can be used for I2C -- a an example, STM32 parts generally have multiple I2C peripherals, labeled I2C1, I2C2, I2C3 etc.
 
@@ -72,7 +76,7 @@ Configuration-wise, you'll need to set up the peripheral as per your MCU's datas
 
 The following configuration values depend on the specific MCU in use.
 
-### I2Cv1 :id=i2cv1
+### I2Cv1 {#i2cv1}
 
 * STM32F1xx
 * STM32F2xx
@@ -88,7 +92,7 @@ See [this page](https://www.playembedded.org/blog/stm32-i2c-chibios/#7_I2Cv1_con
 |`I2C1_CLOCK_SPEED` |`100000`        |
 |`I2C1_DUTY_CYCLE`  |`STD_DUTY_CYCLE`|
 
-### I2Cv2 :id=i2cv2
+### I2Cv2 {#i2cv2}
 
 * STM32F0xx
 * STM32F3xx
@@ -105,7 +109,7 @@ See [this page](https://www.playembedded.org/blog/stm32-i2c-chibios/#8_I2Cv2_I2C
 |`I2C1_TIMINGR_SCLH`  |`38U`  |
 |`I2C1_TIMINGR_SCLL`  |`129U` |
 
-## Functions :id=functions
+## Functions {#functions}
 
 ### `void i2c_init(void)`
 

@@ -4,7 +4,7 @@ For a lot of people a custom keyboard is about more than sending button presses 
 
 This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk.md) will help you understand what is going on at a more fundamental level.
 
-## A Word on Core vs Keyboards vs Keymap :id=a-word-on-core-vs-keyboards-vs-keymap
+## A Word on Core vs Keyboards vs Keymap {#a-word-on-core-vs-keyboards-vs-keymap}
 
 We have structured QMK as a hierarchy:
 
@@ -34,7 +34,7 @@ enum my_keycodes {
 };
 ```
 
-## Programming the Behavior of Any Keycode :id=programming-the-behavior-of-any-keycode
+## Programming the Behavior of Any Keycode {#programming-the-behavior-of-any-keycode}
 
 When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()` and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up to you to send any key up or down events that are required.
 
@@ -98,7 +98,11 @@ These are the three main initialization functions, listed in the order that they
 * `matrix_init_*` - Happens midway through the firmware's startup process. Hardware is initialized, but features may not be yet.
 * `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part.
 
-!> For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is where you want to set up things for RGB Underglow.
+:::caution
+
+For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is where you want to set up things for RGB Underglow.
+
+:::
 
 ## Keyboard Pre Initialization code
 
@@ -144,7 +148,7 @@ This is useful for setting up stuff that you may need elsewhere, but isn't hardw
 * Keyboard/Revision: `void matrix_init_kb(void)`
 * Keymap: `void matrix_init_user(void)`
 
-### Low-level Matrix Overrides Function Documentation :id=low-level-matrix-overrides
+### Low-level Matrix Overrides Function Documentation {#low-level-matrix-overrides}
 
 * GPIO pin initialisation: `void matrix_init_pins(void)`
   * This needs to perform the low-level initialisation of all row and column pins. By default this will initialise the input/output state of each of the GPIO pins listed in `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`, based on whether or not the keyboard is set up for `ROW2COL`, `COL2ROW`, or `DIRECT_PINS`. Should the keyboard designer override this function, no initialisation of pin state will occur within QMK itself, instead deferring to the keyboard's override.
@@ -283,7 +287,7 @@ void suspend_wakeup_init_user(void) {
 * Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 
-# Deferred Execution :id=deferred-execution
+# Deferred Execution {#deferred-execution}
 
 QMK has the ability to execute a callback after a specified period of time, rather than having to manually manage timers. To enable this functionality, set `DEFERRED_EXEC_ENABLE = yes` in rules.mk.
 
@@ -305,7 +309,11 @@ The second argument `cb_arg` is the same argument passed into `defer_exec()` bel
 
 The return value is the number of milliseconds to use if the function should be repeated -- if the callback returns `0` then it's automatically unregistered. In the example above, a hypothetical `my_deferred_functionality()` is invoked to determine if the callback needs to be repeated -- if it does, it reschedules for a `500` millisecond delay, otherwise it informs the deferred execution background task that it's done, by returning `0`.
 
-?> Note that the returned delay will be applied to the intended trigger time, not the time of callback invocation. This allows for generally consistent timing even in the face of occasional late execution.
+:::tip
+
+Note that the returned delay will be applied to the intended trigger time, not the time of callback invocation. This allows for generally consistent timing even in the face of occasional late execution.
+
+:::
 
 ## Deferred executor registration
 
@@ -349,14 +357,14 @@ If registrations fail, then you can increase this value in your keyboard or keym
 #define MAX_DEFERRED_EXECUTORS 16
 ```
 
-# Advanced topics :id=advanced-topics
+# Advanced topics {#advanced-topics}
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
-## Layer Change Code :id=layer-change-code
+## Layer Change Code {#layer-change-code}
 
 [Layer change code](feature_layers.md#layer-change-code)
 
-## Persistent Configuration (EEPROM) :id=persistent-configuration-eeprom
+## Persistent Configuration (EEPROM) {#persistent-configuration-eeprom}
 
 [Persistent Configuration (EEPROM)](feature_eeprom.md)

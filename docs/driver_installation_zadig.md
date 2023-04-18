@@ -16,7 +16,11 @@ Alternatively, hold `BOOT` while inserting the USB cable.
 
 Zadig should automatically detect the bootloader device, but you may sometimes need to check **Options → List All Devices** and select the device from the dropdown instead.
 
-!> If Zadig lists one or more devices with the `HidUsb` driver, your keyboard is probably not in bootloader mode. The arrow will be colored orange and you will be asked to confirm modifying a system driver. **Do not** proceed if this is the case!
+:::caution
+
+If Zadig lists one or more devices with the `HidUsb` driver, your keyboard is probably not in bootloader mode. The arrow will be colored orange and you will be asked to confirm modifying a system driver. **Do not** proceed if this is the case!
+
+:::
 
 If the arrow appears green, select the driver, and click **Install Driver**. See the [list of known bootloaders](#list-of-known-bootloaders) for the correct driver to install.
 
@@ -40,7 +44,11 @@ Right-click each entry and hit **Uninstall device**. Make sure to tick **Delete 
 
 Click **Action → Scan for hardware changes**. At this point, you should be able to type again. Double check in Zadig that the keyboard device(s) are using the `HidUsb` driver. If so, you're all done, and your board should be functional again! Otherwise, repeat this process until Zadig reports the correct driver.
 
-?> A full reboot of your computer may sometimes be necessary at this point, to get Windows to pick up the new driver.
+:::tip
+
+A full reboot of your computer may sometimes be necessary at this point, to get Windows to pick up the new driver.
+
+:::
 
 ## Uninstallation
 
@@ -60,7 +68,11 @@ Run `pnputil /delete-driver oemXX.inf /uninstall`. This will delete the driver a
 
 As with the previous section, this process may need to be repeated multiple times, as multiple drivers can be applicable to the same device.
 
-!> **WARNING:** Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`.
+:::caution
+
+**WARNING:** Be *extremely careful* when doing this! You could potentially uninstall the driver for some other critical device. If you are unsure, double check the output of `/enum-drivers`, and omit the `/uninstall` flag when running `/delete-driver`.
+
+:::
 
 ## List of Known Bootloaders
 

@@ -18,7 +18,11 @@ ps2avr(GB)基于一片ATmega32A微控制器及特殊的bootloader，无法使用
 
 ## 用于bootloadHID刷写的构建目标
 
-?> 使用QMK安装脚本，具体[参见这里](zh-cn/newbs_getting_started.md)，所需的bootloadHID工具应自动被安装上。
+:::tip
+
+使用QMK安装脚本，具体[参见这里](zh-cn/newbs_getting_started.md)，所需的bootloadHID工具应自动被安装上。
+
+:::
 
 若希望通过命令行进行刷写，通过如下命令指定 `:bootloadhid` 构建目标：
 

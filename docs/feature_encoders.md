@@ -67,9 +67,13 @@ Additionally, if one side does not have an encoder, you can specify `{}` for the
 #define ENCODER_RESOLUTIONS_RIGHT { 4 }
 ```
 
-!> Keep in mind that whenver you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
+:::caution
 
-## Encoder map :id=encoder-map
+Keep in mind that whenver you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
+
+:::
+
+## Encoder map {#encoder-map}
 
 Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's `rules.mk`:
 
@@ -90,7 +94,11 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 ```
 
-?> This should only be enabled at the keymap level.
+:::tip
+
+This should only be enabled at the keymap level.
+
+:::
 
 Using encoder mapping pumps events through the normal QMK keycode processing pipeline, resulting in a _keydown/keyup_ combination pushed through `process_record_xxxxx()`. To configure the amount of time between the encoder "keyup" and "keydown", you can add the following to your `config.h`:
 
@@ -98,13 +106,21 @@ Using encoder mapping pumps events through the normal QMK keycode processing pip
 #define ENCODER_MAP_KEY_DELAY 10
 ```
 
-?> By default, the encoder map delay matches the value of `TAP_CODE_DELAY`.
+:::tip
+
+By default, the encoder map delay matches the value of `TAP_CODE_DELAY`.
+
+:::
 
 ## Callbacks
 
 When not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
 
-?> Those who are adding new keyboard support where encoders are enabled at the keyboard level should include basic encoder functionality at the keyboard level (`<keyboard>.c`) using the `encoder_update_kb()` function, that way it works for QMK Configuator users and exists in general.
+:::tip
+
+Those who are adding new keyboard support where encoders are enabled at the keyboard level should include basic encoder functionality at the keyboard level (`<keyboard>.c`) using the `encoder_update_kb()` function, that way it works for QMK Configuator users and exists in general.
+
+:::
 
 ```c
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -149,7 +165,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-!> If you return `true` in the keymap level `_user` function, it will allow the keyboard level encoder code to run on top of your own. Returning `false` will override the keyboard level function, if setup correctly. This is generally the safest option to avoid confusion.
+:::caution
+
+If you return `true` in the keymap level `_user` function, it will allow the keyboard level encoder code to run on top of your own. Returning `false` will override the keyboard level function, if setup correctly. This is generally the safest option to avoid confusion.
+
+:::
 
 ## Hardware
 

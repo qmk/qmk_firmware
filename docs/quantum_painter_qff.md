@@ -1,4 +1,4 @@
-# QMK Font Format :id=qmk-font-format
+# QMK Font Format {#qmk-font-format}
 
 QMK uses a font format _("Quantum Font Format" - QFF)_ specifically for resource-constrained systems.
 
@@ -16,11 +16,11 @@ The general structure of the file is:
 * _Font palette block_ (optional, depending on frame format)
 * _Font data block_
 
-## Block Header :id=qff-block-header
+## Block Header {#qff-block-header}
 
 The block header is identical to [QGF's block header](quantum_painter_qgf.md#qgf-block-header), and is present for all blocks, including the font descriptor.
 
-## Font descriptor block :id=qff-font-descriptor
+## Font descriptor block {#qff-font-descriptor}
 
 * _typeid_ = 0x00
 * _length_ = 20
@@ -49,7 +49,7 @@ typedef struct __attribute__((packed)) qff_font_descriptor_v1_t {
 
 The values for `format`, `flags`, `compression_scheme`, and `transparency_index` match [QGF's frame descriptor block](quantum_painter_qgf.md#qgf-frame-descriptor), with the exception that the `delta` flag is ignored by QFF.
 
-## ASCII glyph table :id=qff-ascii-table
+## ASCII glyph table {#qff-ascii-table}
 
 * _typeid_ = 0x01
 * _length_ = 290
@@ -69,7 +69,7 @@ typedef struct __attribute__((packed)) qff_ascii_glyph_table_v1_t {
 // _Static_assert(sizeof(qff_ascii_glyph_table_v1_t) == (sizeof(qgf_block_header_v1_t) + 285), "qff_ascii_glyph_table_v1_t must be 290 bytes in v1 of QFF");
 ```
 
-## Unicode glyph table :id=qff-unicode-table
+## Unicode glyph table {#qff-unicode-table}
 
 * _typeid_ = 0x02
 * _length_ = variable
@@ -86,7 +86,7 @@ typedef struct __attribute__((packed)) qff_unicode_glyph_table_v1_t {
 } qff_unicode_glyph_table_v1_t;
 ```
 
-## Font palette block :id=qff-palette-descriptor
+## Font palette block {#qff-palette-descriptor}
 
 * _typeid_ = 0x03
 * _length_ = variable
@@ -95,7 +95,7 @@ The _font palette block_ is identical to [QGF's frame palette block](quantum_pai
 
 It is only specified in the QFF if the font is palette-based, and follows the _unicode glyph block_ if the font contains any Unicode glyphs, or the _ASCII glyph block_ if the font contains only ASCII glyphs.
 
-## Font data block :id=qff-data-descriptor
+## Font data block {#qff-data-descriptor}
 
 * _typeid_ = 0x04
 * _length_ = variable

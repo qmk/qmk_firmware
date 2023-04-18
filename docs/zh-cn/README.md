@@ -13,11 +13,19 @@ QMK (*Quantum Mechanical Keyboard*) 是一个社区维护的用于开发计算�
 
 <div class="flex-container">
 
-?> **基础方式** [QMK配置器](zh-cn/newbs_building_firmware_configurator.md) <br>
+:::caution
+
+**基础方式** [QMK配置器](zh-cn/newbs_building_firmware_configurator.md) <br />
 用户友好的图形界面工具，无需具备编程知识基础。
 
-?> **进阶方式** [基于源代码](zh-cn/newbs.md) <br> 
+:::
+
+:::caution
+
+**进阶方式** [基于源代码](zh-cn/newbs.md) <br /> 
 功能更强大，但门槛较高。
+
+:::
 
 </div>
 

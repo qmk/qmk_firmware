@@ -29,8 +29,12 @@ enum {
 } os_variant_t;
 ```
 
-?> Note that it takes some time after firmware is booted to detect the OS.
+:::caution
+
+Note that it takes some time after firmware is booted to detect the OS.
 This time is quite short, probably hundreds of milliseconds, but this data may be not ready in keyboard and layout setup functions which run very early during firmware startup.
+
+:::
 
 ## Debug
 

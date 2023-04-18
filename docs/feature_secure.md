@@ -2,7 +2,11 @@
 
 The secure feature aims to prevent unwanted interaction without user intervention.
 
-?> Secure does **not** currently implement encryption/decryption/etc and should not be a replacement where a strong hardware/software based solution is required.
+:::tip
+
+Secure does **not** currently implement encryption/decryption/etc and should not be a replacement where a strong hardware/software based solution is required.
+
+:::
 
 ### Unlock sequence
 

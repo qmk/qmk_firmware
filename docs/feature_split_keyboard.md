@@ -8,9 +8,17 @@ QMK Firmware has a generic implementation that is usable by any board, as well a
 
 For this, we will mostly be talking about the generic implementation used by the Let's Split and other keyboards. 
 
-!> ARM split supports most QMK subsystems when using the 'serial' and 'serial_usart' drivers. I2C slave is currently unsupported.
+:::caution
 
-!> Both sides must use the same MCU family, for eg two Pro Micro-compatible controllers or two Blackpills. Currently, mixing AVR and ARM is not possible as ARM vs AVR uses different method for serial communication, and are not compatible. Moreover Blackpill's uses 3.3v logic, and atmega32u4 uses 5v logic.
+ARM split supports most QMK subsystems when using the 'serial' and 'serial_usart' drivers. I2C slave is currently unsupported.
+
+:::
+
+:::caution
+
+Both sides must use the same MCU family, for eg two Pro Micro-compatible controllers or two Blackpills. Currently, mixing AVR and ARM is not possible as ARM vs AVR uses different method for serial communication, and are not compatible. Moreover Blackpill's uses 3.3v logic, and atmega32u4 uses 5v logic.
+
+:::
 
 ## Compatibility Overview
 
@@ -45,13 +53,21 @@ Another option is to use phone cables (as in, old school RJ-11/RJ-14 cables). Ma
 
 However, USB cables, SATA cables, and even just 4 wires have been known to be used for communication between the controllers. 
 
-!> Using USB cables for communication between the controllers works just fine, but the connector could be mistaken for a normal USB connection and potentially short out the keyboard, depending on how it's wired.  For this reason, they are not recommended for connecting split keyboards.  
+:::caution
+
+Using USB cables for communication between the controllers works just fine, but the connector could be mistaken for a normal USB connection and potentially short out the keyboard, depending on how it's wired.  For this reason, they are not recommended for connecting split keyboards.  
+
+:::
 
 ### Serial Wiring
 
 The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and D0/D1/D2/D3 (aka PD0/PD1/PD2/PD3) between the two Pro Micros. 
 
-?> Note that the pin used here is actually set by `SOFT_SERIAL_PIN` below.
+:::tip
+
+Note that the pin used here is actually set by `SOFT_SERIAL_PIN` below.
+
+:::
 
 <img alt="sk-pd0-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296488-28e9ad80-ef70-11ea-98be-c40cb48a0319.JPG" width="48%"/>
 <img alt="sk-pd2-connection-mono" src="https://user-images.githubusercontent.com/2170248/92296490-2d15cb00-ef70-11ea-801f-5ace313013e6.JPG" width="48%"/>
@@ -146,10 +162,10 @@ Next, you will have to flash the correct handedness option to the controller on 
 
 |Microcontroller Type|Bootloader Parameter|
 |--------------------|--------------------|
-|AVR controllers with Caterina bootloader<br>(e.g. Pro Micro)|`avrdude-split-left`<br>`avrdude-split-right`|
-|AVR controllers with the stock Amtel DFU or DFU compatible bootloader<br>(e.g. Elite-C)|`dfu-split-left`<br>`dfu-split-right`|
-|ARM controllers with a DFU compatible bootloader<br>(e.g. Proton-C)|`dfu-util-split-left`<br>`dfu-util-split-right`|
-|ARM controllers with a UF2 compatible bootloader<br>(e.g. RP2040)|`uf2-split-left`<br>`uf2-split-right`|
+|AVR controllers with Caterina bootloader<br />(e.g. Pro Micro)|`avrdude-split-left`<br />`avrdude-split-right`|
+|AVR controllers with the stock Amtel DFU or DFU compatible bootloader<br />(e.g. Elite-C)|`dfu-split-left`<br />`dfu-split-right`|
+|ARM controllers with a DFU compatible bootloader<br />(e.g. Proton-C)|`dfu-util-split-left`<br />`dfu-util-split-right`|
+|ARM controllers with a UF2 compatible bootloader<br />(e.g. RP2040)|`uf2-split-left`<br />`uf2-split-right`|
 
 Example for `crkbd/rev1` keyboard with normal AVR Pro Micro MCUs, reset the left controller and run:
 ```
@@ -160,11 +176,19 @@ Reset the right controller and run:
 qmk flash -kb crkbd/rev1 -km default -bl avrdude-split-right
 ```
 
-?> Some controllers (e.g. Blackpill with DFU compatible bootloader) will need to be flashed with handedness bootloader parameter every time because it is not retained between flashes.
+:::tip
 
-?> [QMK Toolbox]() can also be used to flash EEPROM handedness files. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
+Some controllers (e.g. Blackpill with DFU compatible bootloader) will need to be flashed with handedness bootloader parameter every time because it is not retained between flashes.
 
-This setting is not changed when re-initializing the EEPROM using the `EE_CLR` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox]()'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
+:::
+
+:::tip
+
+[QMK Toolbox](/toolbox) can also be used to flash EEPROM handedness files. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
+
+:::
+
+This setting is not changed when re-initializing the EEPROM using the `EE_CLR` key, or using the `eeconfig_init()` function.  However, if you reset the EEPROM outside of the firmware's built in options (such as flashing a file that overwrites the `EEPROM`, like how the [QMK Toolbox](/toolbox)'s "Reset EEPROM" button works), you'll need to re-flash the controller with the `EEPROM` files. 
 
 You can find the `EEPROM` files in the QMK firmware repo, [here](https://github.com/qmk/qmk_firmware/tree/master/quantum/split_common).
 
@@ -183,7 +207,11 @@ If the USB cable is always connected to the left side, add the following to your
 #define MASTER_LEFT
 ```
 
-?> If neither options are defined, the handedness defaults to `MASTER_LEFT`.
+:::tip
+
+If neither options are defined, the handedness defaults to `MASTER_LEFT`.
+
+:::
 
 
 ### Communication Options
@@ -292,7 +320,11 @@ This enables transmitting the current ST7565 on/off status to the slave side of 
 
 This enables transmitting the pointing device status to the master side of the split keyboard. The purpose of this feature is to enable use pointing devices on the slave side. 
 
-!> There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
+:::caution
+
+There is additional required configuration for `SPLIT_POINTING_ENABLE` outlined in the [pointing device documentation](feature_pointing_device.md?id=split-keyboard-configuration).
+
+:::
 
 ```c
 #define SPLIT_HAPTIC_ENABLE
@@ -300,7 +332,7 @@ This enables transmitting the pointing device status to the master side of the s
 
 This enables triggering of haptic feedback on the slave side of the split keyboard. For DRV2605L this will send the mode, but for solenoids it is expected that the desired mode is already set up on the slave.
 
-### Custom data sync between sides :id=custom-data-sync
+### Custom data sync between sides {#custom-data-sync}
 
 QMK's split transport allows for arbitrary data transactions at both the keyboard and user levels. This is modelled on a remote procedure call, with the master invoking a function on the slave side, with the ability to send data from master to slave, process it slave side, and send data back from slave to master.
 
@@ -356,7 +388,11 @@ void housekeeping_task_user(void) {
 }
 ```
 
-!> It is recommended that any data sync between halves happens during the master side's _housekeeping task_. This ensures timely retries should failures occur.
+:::caution
+
+It is recommended that any data sync between halves happens during the master side's _housekeeping task_. This ensures timely retries should failures occur.
+
+:::
 
 If only one-way data transfer is needed, helper methods are provided:
 
@@ -411,7 +447,11 @@ This option enables synchronization of the RGB Light modes between the controlle
 
 This sets how many LEDs are directly connected to each controller.  The first number is the left side, and the second number is the right side.  
 
-?> This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable it, if it's not.
+:::tip
+
+This setting implies that `RGBLIGHT_SPLIT` is enabled, and will forcibly enable it, if it's not.
+
+:::
 
 
 ```c
@@ -424,7 +464,11 @@ Without this option, the master is the half that can detect voltage on the physi
 
 Enabled by default on ChibiOS/ARM.
 
-?> This setting will stop the ability to demo using battery packs.
+:::tip
+
+This setting will stop the ability to demo using battery packs.
+
+:::
 
 ```c
 #define SPLIT_USB_TIMEOUT 2000

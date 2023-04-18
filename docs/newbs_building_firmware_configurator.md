@@ -8,6 +8,10 @@ Watch the [Video Tutorial](https://www.youtube.com/watch?v=-imgglzDMdY). Many pe
 
 The QMK Configurator works best with Chrome or Firefox.
 
-!> **Note: Files from other tools such as Keyboard Layout Editor (KLE), or kbfirmware will not be compatible with QMK Configurator. Do not load them, do not import them. QMK Configurator is a DIFFERENT tool.**
+:::caution
+
+**Note: Files from other tools such as Keyboard Layout Editor (KLE), or kbfirmware will not be compatible with QMK Configurator. Do not load them, do not import them. QMK Configurator is a DIFFERENT tool.**
+
+:::
 
 Please refer to [QMK Configurator: Step by Step](configurator_step_by_step.md).

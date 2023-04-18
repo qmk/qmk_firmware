@@ -1,4 +1,4 @@
-# Bootmagic Lite :id=bootmagic-lite
+# Bootmagic Lite {#bootmagic-lite}
 
 The Bootmagic Lite feature that only handles jumping into the bootloader. This is great for boards that don't have a physical reset button, giving you a way to jump into the bootloader
 
@@ -19,7 +19,11 @@ By default, these are set to 0 and 0, which is usually the "ESC" key on a majori
 
 And to trigger the bootloader, you hold this key down when plugging the keyboard in. Just the single key.
 
-!> Using Bootmagic Lite will **always reset** the EEPROM, so you will lose any settings that have been saved.
+:::caution
+
+Using Bootmagic Lite will **always reset** the EEPROM, so you will lose any settings that have been saved.
+
+:::
 
 ## Split Keyboards
 
@@ -51,7 +55,11 @@ If you pick the top right key for the right half, it is `R05` on the top layout.
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 4
 ```
 
-?> These values are not set by default.
+:::tip
+
+These values are not set by default.
+
+:::
 
 ## Advanced Bootmagic Lite
 

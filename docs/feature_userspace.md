@@ -22,7 +22,11 @@ For example,
 
 Will include the `/users/jack/` folder in the path, along with `/users/jack/rules.mk`.  
 
-!> This `name` can be [overridden](#override-default-userspace), if needed.  
+:::caution
+
+This `name` can be [overridden](#override-default-userspace), if needed.  
+
+:::
 
 ## `Rules.mk`
 

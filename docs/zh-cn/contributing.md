@@ -85,7 +85,11 @@ The kerpleplork was intermittently failing with error code 23. The root cause wa
 Limited experimentation on the devices I have available shows that 7 is high enough to avoid confusing the kerpleplork, but I'd like to get some feedback from people with ARM devices to be sure.
 ```
 
-!> **特别留意：** 若你要对其它QMK使用者提交的代码进行功能修改或尝试修复bug，例如非默认的键映射、用户空间和配列部分，须在PR中标记出代码的原始提交者。很多QMK使用者都会对自己提交的代码在不知晓的情况下产生了改动感到困惑和沮丧，无论他的Git及Github经验丰富与否。
+:::caution
+
+**特别留意：** 若你要对其它QMK使用者提交的代码进行功能修改或尝试修复bug，例如非默认的键映射、用户空间和配列部分，须在PR中标记出代码的原始提交者。很多QMK使用者都会对自己提交的代码在不知晓的情况下产生了改动感到困惑和沮丧，无论他的Git及Github经验丰富与否。
+
+:::
 
 ## 文档
 

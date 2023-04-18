@@ -18,7 +18,11 @@ QMK は HID 仕様で定義された5つの LED の読み取りメソッドを�
 * `bool led_update_kb(led_t led_state)` あるいは `_user(led_t led_state)` を実装する、または
 * `led_t host_keyboard_led_state()` を呼び出す
 
-!> `host_keyboard_led_state()` は `led_update_user()` が呼ばれる前に新しい値を既に反映している場合があります。
+:::caution
+
+`host_keyboard_led_state()` は `led_update_user()` が呼ばれる前に新しい値を既に反映している場合があります。
+
+:::
 
 LED の状態を `uint8_t` として提供する2つの非推奨の関数があります:
 
@@ -53,7 +57,11 @@ LED の状態を `uint8_t` として提供する2つの非推奨の関数があ�
 - LED がオンあるいはオフになった時に音楽を再生する。
    - `_kb` 関数を実行したいので、`true` を返します。これはデフォルトの LED の挙動に追加されます。
 
-?> `led_set_*` 関数は `bool` の代わりに `void` を返すため、キーボードの LED 制御を上書きすることができません。従って、代わりに `led_update_*` を使うことをお勧めします。
+:::tip
+
+`led_set_*` 関数は `bool` の代わりに `void` を返すため、キーボードの LED 制御を上書きすることができません。従って、代わりに `led_update_*` を使うことをお勧めします。
+
+:::
 
 ### `led_update_kb()` の実装例
 

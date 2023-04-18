@@ -1,10 +1,10 @@
-# Stenography in QMK :id=stenography-in-qmk
+# Stenography in QMK {#stenography-in-qmk}
 
 [Stenography](https://en.wikipedia.org/wiki/Stenotype) is a method of writing most often used by court reports, closed-captioning, and real-time transcription for the deaf. In stenography words are chorded syllable by syllable with a mixture of spelling, phonetic, and shortcut (briefs) strokes. Professional stenographers can reach 200-300 WPM without any of the strain usually found in standard typing and with far fewer errors (>99.9% accuracy).
 
 The [Open Steno Project](https://www.openstenoproject.org/) has built an open-source program called Plover that provides real-time translation of steno strokes into words and commands. It has an established dictionary and supports
 
-## Plover with QWERTY Keyboard :id=plover-with-qwerty-keyboard
+## Plover with QWERTY Keyboard {#plover-with-qwerty-keyboard}
 
 Plover can work with any standard QWERTY keyboard, although it is more efficient if the keyboard supports NKRO (n-key rollover) to allow Plover to see all the pressed keys at once. An example keymap for Plover can be found in `planck/keymaps/default`. Switching to the `PLOVER` layer adjusts the position of the keyboard to support the number bar.
 
@@ -12,7 +12,7 @@ To enable NKRO, add `NKRO_ENABLE = yes` in your `rules.mk` and make sure to pres
 
 You may also need to adjust your layout, either in QMK or in Plover, if you have anything other than a standard layout. You may also want to purchase some steno-friendly keycaps to make it easier to hit multiple keys.
 
-## Plover with Steno Protocol :id=plover-with-steno-protocol
+## Plover with Steno Protocol {#plover-with-steno-protocol}
 
 Plover also understands the language of several steno machines. QMK can speak a couple of these languages: TX Bolt and GeminiPR. An example layout can be found in `planck/keymaps/steno`.
 
@@ -22,14 +22,18 @@ In this mode, Plover expects to speak with a steno machine over a serial port so
 
 > Note: Due to hardware limitations, you might not be able to run both a virtual serial port and mouse emulation at the same time.
 
-!> Serial stenography protocols are not supported on [V-USB keyboards](compatible_microcontrollers#atmel-avr).
+:::caution
+
+Serial stenography protocols are not supported on [V-USB keyboards](compatible_microcontrollers#atmel-avr).
+
+:::
 
 To enable stenography protocols, add the following lines to your `rules.mk`:
 ```mk
 STENO_ENABLE = yes
 ```
 
-### TX Bolt :id=tx-bolt
+### TX Bolt {#tx-bolt}
 
 TX Bolt communicates the status of 24 keys over a simple protocol in variable-sized (1&ndash;4 bytes) packets.
 
@@ -53,7 +57,7 @@ Examples of steno strokes and the associated packet:
 - `WAZ`     = `00010000 01000010 11001000`
 - `PHAPBGS` = `00101000 01000010 10101100 11000010`
 
-### GeminiPR :id=geminipr
+### GeminiPR {#geminipr}
 
 GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything that is necessary for standard stenography, GeminiPR opens up many more options, including differentiating between top and bottom `S-`, and supporting non-English theories.
 
@@ -80,7 +84,7 @@ Examples of steno strokes and the associated packet:
 - `WAZ`     = `10000000 00000010 00100000 00000000 00000000 00000001`
 - `PHAPBGS` = `10000000 00000101 00100000 00000000 01101010 00000000`
 
-### Switching protocols on the fly :id=switching-protocols-on-the-fly
+### Switching protocols on the fly {#switching-protocols-on-the-fly}
 
 If you wish to switch the serial protocol used to transfer the steno chords without having to recompile your keyboard firmware every time, you can press the `QK_STENO_BOLT` and `QK_STENO_GEMINI` keycodes in order to switch protocols on the fly.
 
@@ -98,11 +102,15 @@ Naturally, this option takes the most amount of firmware space as it needs to co
 
 The default value for `STENO_PROTOCOL` is `all`.
 
-## Configuring QMK for Steno :id=configuring-qmk-for-steno
+## Configuring QMK for Steno {#configuring-qmk-for-steno}
 
 After enabling stenography and optionally selecting a protocol, you may also need disable mouse keys, extra keys, or another USB endpoint to prevent conflicts. The builtin USB stack for some processors only supports a certain number of USB endpoints and the virtual serial port needed for steno fills 3 of them.
 
-!> If you had *explicitly* set `VIRSTER_ENABLE = no`, none of the serial stenography protocols (GeminiPR, TX Bolt) will work properly. You are expected to either set it to `yes`, remove the line from your `rules.mk` or send the steno chords yourself in an alternative way using the [provided interceptable hooks](#interfacing-with-the-code).
+:::caution
+
+If you had *explicitly* set `VIRSTER_ENABLE = no`, none of the serial stenography protocols (GeminiPR, TX Bolt) will work properly. You are expected to either set it to `yes`, remove the line from your `rules.mk` or send the steno chords yourself in an alternative way using the [provided interceptable hooks](#interfacing-with-the-code).
+
+:::
 
 In your keymap, create a new layer for Plover, that you can fill in with the [steno keycodes](#keycode-reference) (you will need to include `keymap_steno.h`, see `planck/keymaps/steno/keymap.c` for an example). Remember to create a key to switch to the layer as well as a key for exiting the layer.
 
@@ -110,13 +118,13 @@ Once you have your keyboard flashed, launch Plover. Click the 'Configure...' but
 
 To test your keymap, you can chord keys on your keyboard and either look at the output of the 'paper tape' (Tools > Paper Tape) or that of the 'layout display' (Tools > Layout Display). If your strokes correctly show up, you are now ready to steno!
 
-## Learning Stenography :id=learning-stenography
+## Learning Stenography {#learning-stenography}
 
 * [Learn Plover!](https://sites.google.com/site/learnplover/)
 * [Steno Jig](https://joshuagrams.github.io/steno-jig/)
 * More resources at the Plover [Learning Stenography](https://github.com/openstenoproject/plover/wiki/Learning-Stenography) wiki
 
-## Interfacing with the code :id=interfacing-with-the-code
+## Interfacing with the code {#interfacing-with-the-code}
 
 The steno code has three interceptable hooks. If you define these functions, they will be called at certain points in processing; if they return true, processing continues, otherwise it's assumed you handled things.
 
@@ -147,7 +155,7 @@ This is not always equal to the number of bits set to 1 (aka the [Hamming weight
 At the end of this scenario given as an example, `chord` would have five bits set to 1 but
 `n_pressed_keys` would be set to 2 because there are only two keys currently being pressed down.
 
-## Keycode Reference :id=keycode-reference
+## Keycode Reference {#keycode-reference}
 
 You must include `keymap_steno.h` to your `keymap.c` with `#include "keymap_steno.h"` before you can use these keycodes
 

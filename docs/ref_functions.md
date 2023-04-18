@@ -2,7 +2,7 @@
 
 There are a lot of hidden functions in QMK that are incredibly useful, or may add a bit of functionality that you've been wanting.  Functions that are specific to certain features are not included here, as those will be on their respective feature page.
 
-## (OLKB) Tri Layers :id=olkb-tri-layers
+## (OLKB) Tri Layers {#olkb-tri-layers}
 
 There are actually separate functions that you can use there, depending on what you're after.
 
@@ -83,7 +83,11 @@ To configure the default layer sounds, you would want to define this in your `co
 ```
 
 
-?> There are a large number of predefined songs in [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) that you can use.
+:::tip
+
+There are a large number of predefined songs in [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) that you can use.
+
+:::
 
 ## Resetting the keyboard
 
@@ -105,7 +109,11 @@ To wipe the EEPROM, run `eeconfig_init()` from your function or macro to reset m
 
 If you want to send a random character to the host computer, you can use the `tap_random_base64()` function. This [pseudorandomly](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) selects a number between 0 and 63, and then sends a key press based on that selection. (0–25 is `A`–`Z`, 26–51 is `a`–`z`, 52–61 is `0`–`9`, 62 is `+` and 63 is `/`).
 
-?> Needless to say, but this is _not_ a cryptographically secure method of generating random Base64 keys or passwords.
+:::tip
+
+Needless to say, but this is _not_ a cryptographically secure method of generating random Base64 keys or passwords.
+
+:::
 
 ## Software Timers
 

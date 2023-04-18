@@ -148,10 +148,10 @@ The default display size for this feature is 128x32 and all necessary defines ar
 |-----------------------|----------|-----------------------------------------------------------------------------------------------------------|
 |`ST7565_DISPLAY_WIDTH` |`128`     |The width of the display.                                                                                  |
 |`ST7565_DISPLAY_HEIGHT`|`32`      |The height of the display.                                                                                 |
-|`ST7565_MATRIX_SIZE`   |`512`     |The local buffer size to allocate.<br>`(ST7565_DISPLAY_HEIGHT / 8 * ST7565_DISPLAY_WIDTH)`.                |
+|`ST7565_MATRIX_SIZE`   |`512`     |The local buffer size to allocate.<br />`(ST7565_DISPLAY_HEIGHT / 8 * ST7565_DISPLAY_WIDTH)`.                |
 |`ST7565_BLOCK_TYPE`    |`uint16_t`|The unsigned integer type to use for dirty rendering.                                                      |
-|`ST7565_BLOCK_COUNT`   |`16`      |The number of blocks the display is divided into for dirty rendering.<br>`(sizeof(ST7565_BLOCK_TYPE) * 8)`.|
-|`ST7565_BLOCK_SIZE`    |`32`      |The size of each block for dirty rendering<br>`(ST7565_MATRIX_SIZE / ST7565_BLOCK_COUNT)`.                 |
+|`ST7565_BLOCK_COUNT`   |`16`      |The number of blocks the display is divided into for dirty rendering.<br />`(sizeof(ST7565_BLOCK_TYPE) * 8)`.|
+|`ST7565_BLOCK_SIZE`    |`32`      |The size of each block for dirty rendering<br />`(ST7565_MATRIX_SIZE / ST7565_BLOCK_COUNT)`.                 |
 
 ## API
 

@@ -8,15 +8,24 @@ The serial driver powers the [Split Keyboard](feature_split_keyboard.md) feature
 | [USART Half-duplex](#usart-half-duplex) |                    | :heavy_check_mark: | Efficient single wire communication. One wire is used for reception and transmission.         |
 | [USART Full-duplex](#usart-full-duplex) |                    | :heavy_check_mark: | Efficient two wire communication. Two distinct wires are used for reception and transmission. |
 
-?> Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
 
-<hr>
+:::note
+
+Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
+
+:::
+
+<hr />
 
 ## Bitbang
 
 This is the Default driver, the absence of configuration assumes this driver. It works by [bit banging](https://en.wikipedia.org/wiki/Bit_banging) a GPIO pin using the CPU. It is therefore not as efficient as a dedicated hardware peripheral, which the Half-duplex and Full-duplex drivers use.
 
-!> On ARM platforms the bitbang driver causes connection issues when using it together with the bitbang WS2812 driver. Choosing alternate drivers for both serial and WS2812 (instead of bitbang) is strongly recommended.
+:::caution
+
+On ARM platforms the bitbang driver causes connection issues when using it together with the bitbang WS2812 driver. Choosing alternate drivers for both serial and WS2812 (instead of bitbang) is strongly recommended.
+
+:::
 
 ### Pin configuration
 
@@ -53,7 +62,7 @@ SERIAL_DRIVER = bitbang
 
 * In `halconf.h` add the line `#define PAL_USE_CALLBACKS TRUE`.
 
-<hr>
+<hr />
 
 ## USART Half-duplex
 
@@ -107,7 +116,7 @@ For STM32 MCUs several GPIO configuration options can be changed as well. See th
 
 4. Decide either for `SERIAL`, `SIO` or `PIO` subsystem, see the section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
-<hr>
+<hr />
 
 ## USART Full-duplex
 
@@ -167,7 +176,7 @@ For STM32 MCUs several GPIO configuration options, including the ability for `TX
 
 1. Decide either for `SERIAL`, `SIO` or `PIO` subsystem, see the section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
-<hr>
+<hr />
 
 ## Choosing a driver subsystem
 
@@ -242,7 +251,7 @@ Configure the hardware via your config.h:
 
 The Serial PIO program uses 2 state machines, 13 instructions and the complete interrupt handler of the PIO peripheral it is running on.
 
-<hr>
+<hr />
 
 ## Advanced Configuration
 
@@ -275,7 +284,7 @@ This is the default time window in milliseconds in which a successful communicat
 #define SERIAL_USART_TIMEOUT 20    // USART driver timeout. default 20
 ```
 
-<hr>
+<hr />
 
 ## Troubleshooting
 
@@ -285,7 +294,11 @@ If you're having issues withe serial communication, you can enable debug message
 #define SERIAL_DEBUG
 ```
  
-?> The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+:::tip
+
+The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+
+:::
 
 ## Alternate Functions for selected STM32 MCUs
 

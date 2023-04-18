@@ -1,4 +1,4 @@
-# PS/2 Mouse Support :id=ps2-mouse-support
+# PS/2 Mouse Support {#ps2-mouse-support}
 
 Its possible to hook up a PS/2 mouse (for example touchpads or trackpoints) to your keyboard as a composite device.
 
@@ -6,7 +6,7 @@ To hook up a Trackpoint, you need to obtain a Trackpoint module (i.e. harvest fr
 
 There are three available modes for hooking up PS/2 devices: USART (best), interrupts (better) or busywait (not recommended).
 
-## The Circuitry between Trackpoint and Controller :id=the-circuitry-between-trackpoint-and-controller
+## The Circuitry between Trackpoint and Controller {#the-circuitry-between-trackpoint-and-controller}
 
 To get the things working, a 4.7K drag is needed between the two lines DATA and CLK and the line 5+. 
 
@@ -24,7 +24,7 @@ MODULE    5+  --------+--+--------- PWR   CONTROLLER
 ```
 
 
-## Busywait Version :id=busywait-version
+## Busywait Version {#busywait-version}
 
 Note: This is not recommended, you may encounter jerky movement or unsent inputs. Please use interrupt or USART version if possible.
 
@@ -45,7 +45,7 @@ In your keyboard config.h:
 #endif
 ```
 
-### Interrupt Version (AVR/ATMega32u4) :id=interrupt-version-avr
+### Interrupt Version (AVR/ATMega32u4) {#interrupt-version-avr}
 
 The following example uses D2 for clock and D5 for data. You can use any INT or PCINT pin for clock, and any pin for data.
 
@@ -78,7 +78,7 @@ In your keyboard config.h:
 #endif
 ```
 
-### Interrupt Version (ARM chibios) :id=interrupt-version-chibios
+### Interrupt Version (ARM chibios) {#interrupt-version-chibios}
 
 Pretty much any two pins can be used for the (software) interrupt variant on ARM cores. The example below uses A8 for clock, and A9 for data.
 
@@ -103,7 +103,7 @@ And in the chibios specifig halconf.h:
 ```
 
 
-### USART Version :id=usart-version
+### USART Version {#usart-version}
 
 To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. If one of those are unavailable, you need to use interrupt version.
 
@@ -155,9 +155,9 @@ In your keyboard config.h:
 #endif
 ```
 
-## Additional Settings :id=additional-settings
+## Additional Settings {#additional-settings}
 
-### PS/2 Mouse Features :id=ps2-mouse-features
+### PS/2 Mouse Features {#ps2-mouse-features}
 
 These enable settings supported by the PS/2 mouse protocol.
 
@@ -198,7 +198,7 @@ void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
 void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
 ```
 
-### Fine Control :id=fine-control
+### Fine Control {#fine-control}
 
 Use the following defines to change the sensitivity and speed of the mouse.
 Note: you can also use `ps2_mouse_set_resolution` for the same effect (not supported on most touchpads).
@@ -209,7 +209,7 @@ Note: you can also use `ps2_mouse_set_resolution` for the same effect (not suppo
 #define PS2_MOUSE_V_MULTIPLIER 1
 ```
 
-### Scroll Button :id=scroll-button
+### Scroll Button {#scroll-button}
 
 If you're using a trackpoint, you will likely want to be able to use it for scrolling.
 It's possible to enable a "scroll button/s" that when pressed will cause the mouse to scroll instead of moving.
@@ -256,7 +256,7 @@ Fine control over the scrolling is supported with the following defines:
 #define PS2_MOUSE_SCROLL_DIVISOR_V 2
 ```
 
-### Invert Mouse buttons :id=invert-buttons
+### Invert Mouse buttons {#invert-buttons}
 
 To invert the left & right buttons you can put:
 
@@ -266,7 +266,7 @@ To invert the left & right buttons you can put:
 
 into config.h.
 
-### Invert Mouse and Scroll Axes :id=invert-mouse-and-scroll-axes
+### Invert Mouse and Scroll Axes {#invert-mouse-and-scroll-axes}
 
 To invert the X and Y axes you can put:
 
@@ -286,7 +286,7 @@ To reverse the scroll axes you can put:
 
 into config.h.
 
-### Rotate Mouse Axes :id=rotate-mouse-axes
+### Rotate Mouse Axes {#rotate-mouse-axes}
 
 Transform the output of the device with a clockwise rotation of 90, 180, or 270
 degrees.
@@ -305,7 +305,7 @@ be North-facing, compensate as follows:
 #define PS2_MOUSE_ROTATE 90 /* Compensate for West-facing device orientation. */
 ```
 
-### Debug Settings :id=debug-settings
+### Debug Settings {#debug-settings}
 
 To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
 
@@ -315,7 +315,7 @@ To debug the mouse, add `debug_mouse = true` or enable via bootmagic.
 #define PS2_MOUSE_DEBUG_RAW
 ```
 
-### Movement Hook :id=movement-hook
+### Movement Hook {#movement-hook}
 
 Process mouse movement in the keymap before it is sent to the host.  Example
 uses include filtering noise, adding acceleration, and automatically activating

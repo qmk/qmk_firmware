@@ -23,7 +23,6 @@ If you read nothing else you should read the documents in this section. After re
 These topics start to dig into some of the features that QMK supports. You don't have to read all of these documents, but some of the documents in the Advanced Topics section won't make sense if you skip over some of these.
 
 * **Learn How To Configure Features**
-    <!-- * Configuration Overview  FIXME(skullydazed/anyone): write this document -->
     * [Audio](feature_audio.md)
     * Lighting
         * [Backlight](feature_backlight.md)

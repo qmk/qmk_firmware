@@ -167,7 +167,11 @@ The available keycodes for audio are:
 |`QK_AUDIO_OFF`           |`AU_OFF` |Turns off Audio Feature                    |
 |`QK_AUDIO_TOGGLE`        |`AU_TOGG`|Toggles Audio state                        |
 
-!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+:::caution
+
+These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely.
+
+:::
 
 ## Audio Config
 

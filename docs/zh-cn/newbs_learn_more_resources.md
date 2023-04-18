@@ -16,7 +16,7 @@
 ### 命令行操作参考资料 :id=command-line-resources
 
 * [Good General Tutorial on Command Line](https://www.codecademy.com/learn/learn-the-command-line)
-* [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br>
+* [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br />
 * [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
 ### 文本编辑器相关参考资料 :id=text-editor-resources

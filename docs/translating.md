@@ -13,7 +13,7 @@ All links to other docs pages must also be prefixed with the language folder. If
 ```markdown
 [建立你的环境](zh-cn/newbs-getting-started.md#set-up-your-environment)
 
-## 建立你的环境 :id=set-up-your-environment
+## 建立你的环境 {#set-up-your-environment}
 ```
 
 Once you've finished translating a new language, you'll also need to modify the following files:

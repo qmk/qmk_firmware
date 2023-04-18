@@ -10,7 +10,11 @@ Most people new to QMK only have 1 keyboard. You can set this keyboard as your d
 
     qmk config user.keyboard=clueboard/66/rev4
 
-?> The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev4`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
+:::tip
+
+The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev4`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
+
+:::
 
 You can also set your default keymap name. Most people use their GitHub username like the keymap name from the previous steps:
 
@@ -40,7 +44,11 @@ Open your `keymap.c` file in your text editor. Inside this file you'll find the 
 
 This line indicates where the list of Layers begins. Below that you'll find lines containing `LAYOUT`, and these lines indicate the start of a layer. Below that line is the list of keys that comprise a particular layer.
 
-!> When editing your keymap file be careful not to add or remove any commas. If you do, you will prevent your firmware from compiling and it may not be easy to figure out where the extra, or missing, comma is.
+:::caution
+
+When editing your keymap file be careful not to add or remove any commas. If you do, you will prevent your firmware from compiling and it may not be easy to figure out where the extra, or missing, comma is.
+
+:::
 
 ## Customize The Layout To Your Liking
 
@@ -51,9 +59,13 @@ How to complete this step is entirely up to you. Make the one change that's been
 * [Grave/Escape](feature_grave_esc.md)
 * [Mouse keys](feature_mouse_keys.md)
 
-?> While you get a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.
+:::tip
 
-## Build Your Firmware :id=build-your-firmware
+While you get a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.
+
+:::
+
+## Build Your Firmware {#build-your-firmware}
 
 When your changes to the keymap are complete you will need to build the firmware. To do so go back to your terminal window and run the compile command:
 

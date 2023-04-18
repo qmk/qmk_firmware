@@ -1,6 +1,6 @@
 # Miscellaneous FAQ
 
-## How do I test my keyboard? :id=testing
+## How do I test my keyboard? {#testing}
 
 Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. You can use [QMK Configurator](https://config.qmk.fm/#/test/)'s test mode to check your keyboard, even if it doesn't run QMK.
 

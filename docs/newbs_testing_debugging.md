@@ -4,6 +4,6 @@
 
 [Moved here](faq_misc.md#testing)
 
-## Debugging :id=debugging
+## Debugging {#debugging}
 
 [Moved here](faq_debug.md#debugging)

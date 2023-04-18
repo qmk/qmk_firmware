@@ -13,6 +13,10 @@
 
 QMK配置器在Chrome及Firefox中工作良好。
 
-!> **来自于第三方工具的文件数据无法保证与QMK兼容，如Keyboard Layout Editor(KLE)或kbfirmware，请不要加载或导入这些文件。QMK配置器是一个独立的工具。**
+:::caution
+
+**来自于第三方工具的文件数据无法保证与QMK兼容，如Keyboard Layout Editor(KLE)或kbfirmware，请不要加载或导入这些文件。QMK配置器是一个独立的工具。**
+
+:::
 
 更多信息请参见[QMK配置器: 入门](zh-cn/configurator_step_by_step.md)。

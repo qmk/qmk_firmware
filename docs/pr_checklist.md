@@ -155,7 +155,7 @@ Also, specific to ChibiOS:
     - `__early_init()` should be replaced by either `early_hardware_init_pre()` or `early_hardware_init_post()` as appropriate
     - `boardInit()` should be migrated to `board_init()`
 
-## Core PRs :id=core-pr
+## Core PRs {#core-pr}
 
 - all core PRs must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
 - as indicated above, the smallest set of changes to core components should be included in each PR

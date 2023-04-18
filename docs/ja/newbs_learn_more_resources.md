@@ -23,7 +23,7 @@ _日本語のリソース情報を募集中です。_
 ### 英語 :id=english-resources-cli
 
 * [Good General Tutorial on Command Line](https://www.codecademy.com/learn/learn-the-command-line)
-* [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br>
+* [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br />
 * [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
 ### 日本語 :id=japanese-resources-cli

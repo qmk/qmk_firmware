@@ -21,7 +21,7 @@ QMK は、Unicode 入力を有効にし、キーマップに Unicode 文字を�
 
 ほとんどのユーザには Basic Unicode で十分です。ただし、サポートされる文字の範囲が広い(絵文字、珍しい記号など)ことが必要な場合には、Unicode Map を使う必要があります。
 
-<br>
+<br />
 
 ### 1.1. Basic Unicode :id=basic-unicode
 
@@ -35,7 +35,7 @@ UNICODE_ENABLE = yes
 
 次に、`UC(c)` キーコードをキーマップに追加します。ここで、_c_ は目的の文字のコードポイントです (できれば16進数で最大4桁の長さが望ましいです)。例えば、`UC(0x40B)` は [Ћ](https://unicode-table.com/en/040B/) を出力し、`UC(0x30C4)` は [ツ](https://unicode-table.com/en/30C4) を出力します。
 
-<br>
+<br />
 
 ### 1.2. Unicode Map :id=unicode-map
 
@@ -73,7 +73,7 @@ const uint32_t PROGMEM unicode_map[] = {
 
 キーコードのサイズの制約により、_i_ と _j_ はそれぞれ `unicode_map` の最初の128文字のうち1つだけを参照できます。別の言い方をすると、0 ≤ _i_ ≤ 127 かつ 0 ≤ _j_ ≤ 127 です。これはほとんどのユースケースで十分ですが、インデックス計算をカスタマイズしたい場合は、[`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L36) 関数をオーバーライドすることができます。これにより、例えば Shift/Caps の代わりに Ctrl をチェックすることもできます。
 
-<br>
+<br />
 
 ### 1.3. UCIS :id=ucis
 
@@ -122,9 +122,17 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
   有効にするには、_システム環境設定 > キーボード > 入力ソース_ に移動し、(_その他_ の下の) _Unicode 16進数入力_ をリストに追加し、次にメニューバーの入力ドロップダウンからそれをアクティブにします。
   デフォルトでは、このモードは Unicode 入力のために左 Option キー (`KC_LALT`) を使いますが、これは他のキーで [`UNICODE_KEY_MAC`](#input-key-configuration) を定義することで変更できます。
 
-  !> _Unicode 16進数入力_ 入力ソースの使用は、Option + 左矢印および Option + 右矢印 のような、幾つかの Option ベースのショートカットを無効にするかもしれません。
+  :::caution
 
-  !> `UC_OSX` は `UC_MAC` の非推奨のエイリアスで、QMK の将来のバージョンで削除されます。全ての新しいキーマップは、`UC_MAC` を使うべきです。
+_Unicode 16進数入力_ 入力ソースの使用は、Option + 左矢印および Option + 右矢印 のような、幾つかの Option ベースのショートカットを無効にするかもしれません。
+
+:::
+
+  :::caution
+
+`UC_OSX` は `UC_MAC` の非推奨のエイリアスで、QMK の将来のバージョンで削除されます。全ての新しいキーマップは、`UC_MAC` を使うべきです。
+
+:::
 
 * **`UC_LNX`**: Linux の組み込み IBus Unicode 入力。`0x10FFFF` までのコードポイント(全ての利用可能なコードポイント)をサポートします。
 
@@ -178,7 +186,11 @@ QMK での Unicode の入力は、マクロのように、OS への一連の文�
 
 コード内で `set_unicode_input_mode(x)` を呼び出すことで、入力モードを切り替えることもできます。ここで、_x_ は上記の入力モード定数のいずれか (例えば、`UC_LNX`) です。
 
-?> `matrix_init_user()` または同様の関数の中で `set_unicode_input_mode()` を呼び出すよりも、`UNICODE_SELECTED_MODES` を使うほうが望ましいです。Unicode システムとの統合性が高く、EEPROM への不要な書き込みを回避できるという利点があるからです。
+:::tip
+
+`matrix_init_user()` または同様の関数の中で `set_unicode_input_mode()` を呼び出すよりも、`UNICODE_SELECTED_MODES` を使うほうが望ましいです。Unicode システムとの統合性が高く、EEPROM への不要な書き込みを回避できるという利点があるからです。
+
+:::
 
 #### オーディオフィードバック
 

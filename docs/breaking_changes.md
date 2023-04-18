@@ -73,7 +73,7 @@ This section documents various processes we use when running the Breaking Change
 ### 1 Week Before Merge
 
 * `develop` is now closed to PR merges, only critical bugfixes may be included
-* Announce that master will be closed from <2 Days Before> to <Day of Merge> -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
+* Announce that master will be closed from `<2 Days Before>` to `<Day of Merge>` -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
     * `@Breaking Changes Updates -- Hey folks, last day for functional PRs to be merged into qmk_firmware for this breaking changes cycle is today. After that, we're handling bugfixes only.`
 
 ### 2 Days Before Merge

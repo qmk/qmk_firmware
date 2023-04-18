@@ -1,4 +1,4 @@
-# QMK QGF/QFF RLE data schema :id=qmk-qp-rle-schema
+# QMK QGF/QFF RLE data schema {#qmk-qp-rle-schema}
 
 There are two "modes" to the RLE algorithm used in both [QGF](quantum_painter_qgf.md)/[QFF](quantum_painter_qff.md):
 

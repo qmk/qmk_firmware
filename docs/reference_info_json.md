@@ -37,7 +37,11 @@ The `info.json` file is a JSON formatted dictionary. The first six keys noted he
     * Configure the [RGB Lighting feature](feature_rgblight.md). See the [RGB Lighting](#rgb-lighting) section for more detail.
 
 
-?> For all the available keys and their allowed values refer back to the [`data/schemas/keyboard.jsonschema`](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema) file.
+:::tip
+
+For all the available keys and their allowed values refer back to the [`data/schemas/keyboard.jsonschema`](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema) file.
+
+:::
 
 ## Layout Format
 

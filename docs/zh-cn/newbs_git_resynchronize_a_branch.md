@@ -7,7 +7,11 @@
 
 假设你在自己的 `master` 分支之上有提交，并且想和QMK仓库进行同步，可以通过 `git pull` 拉取QMK的 `master` 分支到你的库，但同时Github也会提醒你当前分支相比 `qmk:master` 有几个领先的提交，会在你向QMK发起pr时造成麻烦。
 
-?> 本文中的场景基于[在你Fork的主干上：频繁更新，不要提交](zh-cn/newbs_git_using_your_master_branch.md)一文。如果你对那篇文章不熟悉，请先阅读它，再回来继续。
+:::tip
+
+本文中的场景基于[在你Fork的主干上：频繁更新，不要提交](zh-cn/newbs_git_using_your_master_branch.md)一文。如果你对那篇文章不熟悉，请先阅读它，再回来继续。
+
+:::
 
 ## 备份你在自己的主干分支上的所有变更（可选）
 
@@ -71,6 +75,10 @@ git reset --hard upstream/master
 git push --force-with-lease
 ```
 
-!> **不要**在其它使用者也会提交的分支上执行 `git push --force-with-lease`，否则会覆盖掉他人的提交。
+:::caution
+
+**不要**在其它使用者也会提交的分支上执行 `git push --force-with-lease`，否则会覆盖掉他人的提交。
+
+:::
 
 此时你的Github fork，本地文件副本，以及QMK仓库就是一致的了。之后再进行变更（[在分支上！](zh-cn/newbs_git_using_your_master_branch.md#making-changes)）和提交。

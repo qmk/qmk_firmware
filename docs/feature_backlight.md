@@ -1,4 +1,4 @@
-# Backlighting :id=backlighting
+# Backlighting {#backlighting}
 
 Many keyboards support backlit keys by way of individual LEDs placed through or underneath the keyswitches. This feature is distinct from both the [RGB underglow](feature_rgblight.md) and [RGB matrix](feature_rgb_matrix.md) features as it usually allows for only a single colour per switch, though you can obviously install multiple different single coloured LEDs on a keyboard.
 
@@ -12,7 +12,7 @@ Most keyboards have backlighting enabled by default if they support it, but if i
 BACKLIGHT_ENABLE = yes
 ```
 
-## Keycodes :id=keycodes
+## Keycodes {#keycodes}
 
 Once enabled, the following keycodes below can be used to change the backlight level.
 
@@ -26,7 +26,7 @@ Once enabled, the following keycodes below can be used to change the backlight l
 | `QK_BACKLIGHT_DOWN`             | `BL_DOWN` | Decrease the backlight level        |
 | `QK_BACKLIGHT_TOGGLE_BREATHING` | `BL_BRTG` | Toggle backlight breathing          |
 
-## Functions :id=functions
+## Functions {#functions}
 
 These functions can be used to change the backlighting in custom code:
 
@@ -50,7 +50,7 @@ If backlight breathing is enabled (see below), the following functions are also 
 |`breathing_enable()` |Turns on backlight breathing          |
 |`breathing_disable()`|Turns off backlight breathing         |
 
-## Configuration :id=configuration
+## Configuration {#configuration}
 
 To select which driver to use, configure your `rules.mk` with the following:
 
@@ -76,14 +76,14 @@ To configure the backlighting, `#define` these in your `config.h`:
 
 Unless you are designing your own keyboard, you generally should not need to change the `BACKLIGHT_PIN` or `BACKLIGHT_ON_STATE`.
 
-### Backlight On State :id=backlight-on-state
+### Backlight On State {#backlight-on-state}
 
 Most backlight circuits are driven by an N-channel MOSFET or NPN transistor. This means that to turn the transistor *on* and light the LEDs, you must drive the backlight pin, connected to the gate or base, *high*.
 Sometimes, however, a P-channel MOSFET, or a PNP transistor is used. In this case, when the transistor is on, the pin is driven *low* instead.
 
 This functionality is configured at the keyboard level with the `BACKLIGHT_ON_STATE` define.
 
-### AVR Driver :id=avr-driver
+### AVR Driver {#avr-driver}
 
 The `pwm` driver is configured by default, however the equivalent setting within `rules.mk` would be:
 
@@ -91,7 +91,7 @@ The `pwm` driver is configured by default, however the equivalent setting within
 BACKLIGHT_DRIVER = pwm
 ```
 
-#### Caveats :id=avr-caveats
+#### Caveats {#avr-caveats}
 
 On AVR boards, QMK automatically decides which driver to use according to the following table:
 
@@ -121,7 +121,7 @@ All other pins will use timer-assisted software PWM:
 
 When both timers are in use for Audio, the backlight PWM cannot use a hardware timer, and will instead be triggered during the matrix scan. In this case, breathing is not supported, and the backlight might flicker, because the PWM computation may not be called with enough timing precision.
 
-#### Hardware PWM Implementation :id=hardware-pwm-implementation
+#### Hardware PWM Implementation {#hardware-pwm-implementation}
 
 When using the supported pins for backlighting, QMK will use a hardware timer configured to output a PWM signal. This timer will count up to `ICRx` (by default `0xFFFF`) before resetting to 0.
 The desired brightness is calculated and stored in the `OCRxx` register. When the counter reaches this value, the backlight pin will go low, and is pulled high again when the counter resets.
@@ -130,7 +130,7 @@ In this way `OCRxx` essentially controls the duty cycle of the LEDs, and thus th
 The breathing effect is achieved by registering an interrupt handler for `TIMER1_OVF_vect` that is called whenever the counter resets, roughly 244 times per second.
 In this handler, the value of an incrementing counter is mapped onto a precomputed brightness curve. To turn off breathing, the interrupt handler is simply disabled, and the brightness reset to the level stored in EEPROM.
 
-#### Timer Assisted PWM Implementation :id=timer-assisted-implementation
+#### Timer Assisted PWM Implementation {#timer-assisted-implementation}
 
 When `BACKLIGHT_PIN` is not set to a hardware backlight pin, QMK will use a hardware timer configured to trigger software interrupts. This time will count up to `ICRx` (by default `0xFFFF`) before resetting to 0.
 When resetting to 0, the CPU will fire an OVF (overflow) interrupt that will turn the LEDs on, starting the duty cycle.
@@ -139,7 +139,7 @@ In this way `OCRxx` essentially controls the duty cycle of the LEDs, and thus th
 
 The breathing effect is the same as in the hardware PWM implementation.
 
-### ARM Driver :id=arm-configuration
+### ARM Driver {#arm-configuration}
 
 While still in its early stages, ARM backlight support aims to eventually have feature parity with AVR. The `pwm` driver is configured by default, however the equivalent setting within `rules.mk` would be:
 
@@ -147,7 +147,7 @@ While still in its early stages, ARM backlight support aims to eventually have f
 BACKLIGHT_DRIVER = pwm
 ```
 
-#### ChibiOS Configuration :id=arm-configuration
+#### ChibiOS Configuration {#arm-configuration}
 
 The following `#define`s apply only to ARM-based keyboards:
 
@@ -159,11 +159,11 @@ The following `#define`s apply only to ARM-based keyboards:
 
 See the ST datasheet for your particular MCU to determine these values. Unless you are designing your own keyboard, you generally should not need to change them.
 
-#### Caveats :id=arm-caveats
+#### Caveats {#arm-caveats}
 
 Currently only hardware PWM is supported, not timer assisted, and does not provide automatic configuration.
 
-### Software PWM Driver :id=software-pwm-driver
+### Software PWM Driver {#software-pwm-driver}
 
 In this mode, PWM is "emulated" while running other keyboard tasks. It offers maximum hardware compatibility without extra platform configuration. The tradeoff is the backlight might jitter when the keyboard is busy. To enable, add this to your `rules.mk`:
 
@@ -171,7 +171,7 @@ In this mode, PWM is "emulated" while running other keyboard tasks. It offers ma
 BACKLIGHT_DRIVER = software
 ```
 
-#### Multiple Backlight Pins :id=multiple-backlight-pins
+#### Multiple Backlight Pins {#multiple-backlight-pins}
 
 Most keyboards have only one backlight pin which controls all backlight LEDs (especially if the backlight is connected to a hardware PWM pin).
 In software PWM, it is possible to define multiple backlight pins, which will be turned on and off at the same time during the PWM duty cycle.
@@ -184,7 +184,7 @@ To activate multiple backlight pins, add something like this to your `config.h`,
 #define BACKLIGHT_PINS { F5, B2 }
 ```
 
-### Custom Driver :id=custom-driver
+### Custom Driver {#custom-driver}
 
 If none of the above drivers apply to your board (for example, you are using a separate IC to control the backlight), you can implement a custom backlight driver using this simple API provided by QMK. To enable, add this to your `rules.mk`:
 

@@ -88,7 +88,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 ```
 
 
-?> [quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) に使用できる多くの定義済みの曲があります。
+:::tip
+
+[quantum/audio/song_list.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/audio/song_list.h) に使用できる多くの定義済みの曲があります。
+
+:::
 
 ## キーボードのリセット
 
@@ -106,7 +110,11 @@ EEPROM を消去するには、関数またはマクロから `eeconfig_init()` 
 
 ランダムな文字をホストコンピュータに送信する場合は、`tap_random_base64()` 関数を使うことができます。これは[疑似乱数的に](https://en.wikipedia.org/wiki/Pseudorandom_number_generator)0から63の数字を選択し、その選択に基づいてキー押下を送信します。(0–25 は `A`–`Z`、26–51 は `a`–`z`、52–61 は `0`–`9`、62 は `+`、63 は `/`)。
 
-?> 言うまでもないですが、これはランダムに Base64 キーあるいはパスワードを生成する暗号的に安全な方法では _ありません_。
+:::tip
+
+言うまでもないですが、これはランダムに Base64 キーあるいはパスワードを生成する暗号的に安全な方法では _ありません_。
+
+:::
 
 ## ソフトウェアタイマー
 

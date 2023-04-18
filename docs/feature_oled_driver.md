@@ -87,7 +87,11 @@ bool oled_task_user(void) {
 }
 ```
 
-?> The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
+:::tip
+
+The default font file is located at `drivers/oled/glcdfont.c` and its location can be overwritten with the `OLED_FONT_H` configuration option. Font file content can be edited with external tools such as [Helix Font Editor](https://helixfonteditor.netlify.app/) and [Logo Editor](https://joric.github.io/qle/).
+
+:::
 
 ## Buffer Read Example
 For some purposes, you may need to read the current state of the OLED display
@@ -184,21 +188,25 @@ These configuration options should be placed in `config.h`. Example:
 |Define               |Default        |Description                                                                                                                             |
 |---------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------|
 |`OLED_DISPLAY_128X64`|*Not defined*  |Changes the display defines for use with 128x64 displays.                                                                               |
-|`OLED_DISPLAY_CUSTOM`|*Not defined*  |Changes the display defines for use with custom displays.<br>Requires user to implement the below defines.                              |
+|`OLED_DISPLAY_CUSTOM`|*Not defined*  |Changes the display defines for use with custom displays.<br />Requires user to implement the below defines.                              |
 |`OLED_DISPLAY_WIDTH` |`128`          |The width of the OLED display.                                                                                                          |
 |`OLED_DISPLAY_HEIGHT`|`32`           |The height of the OLED display.                                                                                                         |
-|`OLED_MATRIX_SIZE`   |`512`          |The local buffer size to allocate.<br>`(OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)`.                                                 |
+|`OLED_MATRIX_SIZE`   |`512`          |The local buffer size to allocate.<br />`(OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)`.                                                 |
 |`OLED_BLOCK_TYPE`    |`uint16_t`     |The unsigned integer type to use for dirty rendering.                                                                                   |
-|`OLED_BLOCK_COUNT`   |`16`           |The number of blocks the display is divided into for dirty rendering.<br>`(sizeof(OLED_BLOCK_TYPE) * 8)`.                               |
-|`OLED_BLOCK_SIZE`    |`32`           |The size of each block for dirty rendering<br>`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`.                                                  |
-|`OLED_COM_PINS`      |`COM_PINS_SEQ` |How the SSD1306 chip maps it's memory to display.<br>Options are `COM_PINS_SEQ`, `COM_PINS_ALT`, `COM_PINS_SEQ_LR`, & `COM_PINS_ALT_LR`.|
+|`OLED_BLOCK_COUNT`   |`16`           |The number of blocks the display is divided into for dirty rendering.<br />`(sizeof(OLED_BLOCK_TYPE) * 8)`.                               |
+|`OLED_BLOCK_SIZE`    |`32`           |The size of each block for dirty rendering<br />`(OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)`.                                                  |
+|`OLED_COM_PINS`      |`COM_PINS_SEQ` |How the SSD1306 chip maps it's memory to display.<br />Options are `COM_PINS_SEQ`, `COM_PINS_ALT`, `COM_PINS_SEQ_LR`, & `COM_PINS_ALT_LR`.|
 |`OLED_SOURCE_MAP`    |`{ 0, ... N }` |Precalculated source array to use for mapping source buffer to target OLED memory in 90 degree rendering.                               |
 |`OLED_TARGET_MAP`    |`{ 24, ... N }`|Precalculated target array to use for mapping source buffer to target OLED memory in 90 degree rendering.                               |
 
 
 ### 90 Degree Rotation - Technical Mumbo Jumbo
 
-!> Rotation is unsupported on the SH1106.
+:::caution
+
+Rotation is unsupported on the SH1106.
+
+:::
 
 ```c
 // OLED Rotation enum values are flags
@@ -386,7 +394,11 @@ uint8_t oled_max_chars(void);
 uint8_t oled_max_lines(void);
 ```
 
-!> Scrolling and rotation are unsupported on the SH1106.
+:::caution
+
+Scrolling and rotation are unsupported on the SH1106.
+
+:::
 
 ## SSD1306.h Driver Conversion Guide
 

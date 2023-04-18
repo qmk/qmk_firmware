@@ -78,7 +78,11 @@ Do change the `manufacturer` and `keyboard_name` lines to accurately reflect you
     },
 ```
 
-?> Windows and macOS will display the `manufacturer` and `keyboard_name` in the list of USB devices. `lsusb` on Linux instead prefers the values in the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html). By default, it will only use `manufacturer` and `keyboard_name` if the list does not contain that `usb.vid` / `usb.pid`. `sudo lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
+:::tip
+
+Windows and macOS will display the `manufacturer` and `keyboard_name` in the list of USB devices. `lsusb` on Linux instead prefers the values in the list maintained by the [USB ID Repository](http://www.linux-usb.org/usb-ids.html). By default, it will only use `manufacturer` and `keyboard_name` if the list does not contain that `usb.vid` / `usb.pid`. `sudo lsusb -v` will show the values reported by the device, and they are also present in kernel logs after plugging it in.
+
+:::
 
 
 ### Matrix Configuration
@@ -150,7 +154,11 @@ In the above example,
   * It must conform to the [layout guidelines](hardware_keyboard_guidelines.md#ltkeyboard_namehgt)
 * `"matrix": [0, 0]` defines the electrical position
 
-?> See also: [Split Keyboard Layout Macro](https://docs.qmk.fm/#/feature_split_keyboard?id=layout-macro) and [Matrix to Physical Layout](https://docs.qmk.fm/#/understanding_qmk?id=matrix-to-physical-layout-map).
+:::tip
+
+See also: [Split Keyboard Layout Macro](https://docs.qmk.fm/#/feature_split_keyboard?id=layout-macro) and [Matrix to Physical Layout](https://docs.qmk.fm/#/understanding_qmk?id=matrix-to-physical-layout-map).
+
+:::
 
 ## Additional Configuration
 

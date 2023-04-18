@@ -2,8 +2,12 @@
 
 This is an intermediate QMK tutorial to setup an out-of-tree build environment with a personal GitHub repository. It avoids using a fork of the QMK firmware to store and build your keymap within its source tree. Keymap files will instead be stored in your own personal GitHub repository, in [Userspace](https://docs.qmk.fm/#/feature_userspace) format, and built with an action workflow. Unlike the [default tutorial](https://docs.qmk.fm/#/newbs), this guide requires some familiarity with using Git.
 
-?> **Is This Guide For Me?**<br>
+:::caution
+
+**Is This Guide For Me?**<br />
 This is a lean setup to avoid space-consuming local build environment in your computer. Troubleshooting compile-time errors will be slower with commit uploads to GitHub for the compiler workflow.
+
+:::
 
 
 ## Prerequisites
@@ -20,7 +24,11 @@ The following are required to get started:
 
 ## Environment Setup
 
-?> If you are familiar with using [github.dev](https://docs.github.com/en/codespaces/the-githubdev-web-based-editor), you can skip to [step 2](#_2-create-github-repository) and commit the code files that follows directly on GitHub using the web-based VSCode editor.
+:::tip
+
+If you are familiar with using [github.dev](https://docs.github.com/en/codespaces/the-githubdev-web-based-editor), you can skip to [step 2](#_2-create-github-repository) and commit the code files that follows directly on GitHub using the web-based VSCode editor.
+
+:::
 
 ### 1. Install Git
 
@@ -74,7 +82,11 @@ echo "SRC += source.c" > ~/qmk_keymap/rules.mk
 echo "#include QMK_KEYBOARD_H" > ~/qmk_keymap/source.c
 ```
 
-?> For Windows user running MSYS, those commands will create the folder `qmk_keymap/` and its content in the `C:\Users\<windows_username>\qmk_keymap\` path location.
+:::tip
+
+For Windows user running MSYS, those commands will create the folder `qmk_keymap/` and its content in the `C:\Users\<windows_username>\qmk_keymap\` path location.
+
+:::
 
 ### Add a JSON keymap
 
@@ -135,7 +147,11 @@ jobs:
 ```
 Replace `username.json` with the JSON file name that was downloaded from [QMK Configurator](https://config.qmk.fm/#/) in the previous step.
 
-!> Do note that the `build.yml` file requires ***proper indentation*** for every line. Incorrect spacing will trigger workflow syntax errors.
+:::caution
+
+Do note that the `build.yml` file requires ***proper indentation*** for every line. Incorrect spacing will trigger workflow syntax errors.
+
+:::
 
 ### Commit files to GitHub
 
@@ -160,7 +176,11 @@ git branch -M main
 git remote add origin https://github.com/gh-username/qmk_keymap.git
 git push -u origin main
 ```
-?> Use your GitHub personal access token at the password prompt. If you have setup SSH access, replace `https://github.com/gh-username/qmk_keymap.git` with `git@github.com:gh-username/qmk_keymap.git` in the remote origin command above.
+:::tip
+
+Use your GitHub personal access token at the password prompt. If you have setup SSH access, replace `https://github.com/gh-username/qmk_keymap.git` with `git@github.com:gh-username/qmk_keymap.git` in the remote origin command above.
+
+:::
 
 ### Review workflow output
 

@@ -87,7 +87,11 @@ QMK を使い始めたばかりの場合は、全てを単純にしたいでし�
 | `default_layer_state_set_kb(layer_state_t state)`   | キーボードレベルのデフォルトレイヤー関数のためのコールバック。キーボードの初期化時に呼ばれます。 |
 | `default_layer_state_set_user(layer_state_t state)` | ユーザレベルのデフォルトレイヤー関数のためのコールバック。キーボードの初期化時に呼ばれます。     |
 
-?> これらのコールバックを使うための追加の情報については、[レイヤー変換コード](ja/custom_quantum_functions.md#layer-change-code)のドキュメントを調べてください。
+:::tip
+
+これらのコールバックを使うための追加の情報については、[レイヤー変換コード](ja/custom_quantum_functions.md#layer-change-code)のドキュメントを調べてください。
+
+:::
 
 次の関数やマクロを使って、特定のレイヤーの状態を確認することもできます。
 

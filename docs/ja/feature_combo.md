@@ -23,7 +23,11 @@ combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
 
 これは、A と B のキーを押した場合に、"Escape" を送信します。
 
-!> このメソッドは[基本的なキーコード](ja/keycodes_basic.md)のみをサポートします。詳細な制御については例を見てください。
+:::caution
+
+このメソッドは[基本的なキーコード](ja/keycodes_basic.md)のみをサポートします。詳細な制御については例を見てください。
+
+:::
 
 ## 例
 

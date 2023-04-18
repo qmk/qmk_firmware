@@ -32,7 +32,7 @@ a modern alternative to Caps Lock:
   shift](#configure-which-keys-are-word-breaking).
 
 
-## How do I enable Caps Word :id=how-do-i-enable-caps-word
+## How do I enable Caps Word {#how-do-i-enable-caps-word}
 
 In your `rules.mk`, add:
 
@@ -65,7 +65,7 @@ Next, use one the following methods to activate Caps Word:
   combo](feature_combo.md) or [tap dance](feature_tap_dance.md) or any means
   you like.
 
-### Troubleshooting: Command :id=troubleshooting-command
+### Troubleshooting: Command {#troubleshooting-command}
 
 When using `BOTH_SHIFTS_TURNS_ON_CAPS_WORD`, you might see a compile message
 **"BOTH_SHIFTS_TURNS_ON_CAPS_WORD and Command should not be enabled at the same
@@ -88,9 +88,9 @@ by defining `IS_COMMAND()` in config.h:
 ```
 
 
-## Customizing Caps Word :id=customizing-caps-word
+## Customizing Caps Word {#customizing-caps-word}
 
-### Idle timeout :id=idle-timeout
+### Idle timeout {#idle-timeout}
 
 Caps Word turns off automatically if no keys are pressed for
 `CAPS_WORD_IDLE_TIMEOUT` milliseconds. The default is 5000 (5 seconds).
@@ -104,7 +104,7 @@ Setting `CAPS_WORD_IDLE_TIMEOUT` to 0 configures Caps Word to never time out.
 Caps Word then remains active indefinitely until a word breaking key is pressed.
 
 
-### Functions :id=functions
+### Functions {#functions}
 
 Functions to manipulate Caps Word:
 
@@ -116,7 +116,7 @@ Functions to manipulate Caps Word:
 | `is_caps_word_on()`     | Returns true if Caps Word is currently on.     |
 
 
-### Configure which keys are "word breaking" :id=configure-which-keys-are-word-breaking
+### Configure which keys are "word breaking" {#configure-which-keys-are-word-breaking}
 
 You can define the `caps_word_press_user(uint16_t keycode)` callback to
 configure which keys should be shifted and which keys are considered "word
@@ -151,7 +151,7 @@ bool caps_word_press_user(uint16_t keycode) {
 ```
 
 
-### Representing Caps Word state :id=representing-caps-word-state
+### Representing Caps Word state {#representing-caps-word-state}
 
 Define `caps_word_set_user(bool active)` to get callbacks when Caps Word turns
 on or off. This is useful to represent the current Caps Word state, e.g. by

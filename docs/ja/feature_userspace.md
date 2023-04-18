@@ -27,7 +27,11 @@
 
 は、`/users/jack/rules.mk` に加えて、パスに `/users/jack/` フォルダを含めます。
 
-!> この `name` は必要に応じて[上書き](#override-default-userspace)することができます。
+:::caution
+
+この `name` は必要に応じて[上書き](#override-default-userspace)することができます。
+
+:::
 
 ## `Rules.mk`
 

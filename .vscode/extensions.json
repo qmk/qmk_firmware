@@ -1,10 +1,11 @@
 // Suggested extensions
 {
   "recommendations": [
-    "EditorConfig.EditorConfig",
+    "editorconfig.editorconfig",
     "xaver.clang-format",
     "ms-vscode.cpptools",
     "bierner.github-markdown-preview",
-    "donjayamanne.git-extension-pack"
+    "donjayamanne.git-extension-pack",
+    "kevgo.vscode-markdown-ide"
   ]
 }

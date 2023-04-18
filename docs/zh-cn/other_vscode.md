@@ -59,7 +59,11 @@
 
 在保存妥当后，如果你有已打开的VS Code，你需要reload一下。
 
-?> 在 `.vscode` 目录下你应该还能看到 `extensions.json` 和 `settings.json` 文件。
+:::tip
+
+在 `.vscode` 目录下你应该还能看到 `extensions.json` 和 `settings.json` 文件。
+
+:::
 
 现在，我们配置MSYS2作为VSCode的集成终端。这么做有很多好处，最主要的是可以通过按住control点击错误消息直接跳转到文件，调试起来会简单得多，另外的好处是，你不用在窗口间切换。
 
@@ -86,7 +90,11 @@
 
    如果该文件内已经有一些配置项，将上面的内容粘贴在最外层的花括号内，并用一个逗号将新旧内容分隔开。
 
-?> 如果你的MSYS2安装在不同的目录下，你需要将 `terminal.integrated.shell.windows` 更改为你系统中正确的目录。
+:::tip
+
+如果你的MSYS2安装在不同的目录下，你需要将 `terminal.integrated.shell.windows` 更改为你系统中正确的目录。
+
+:::
 
 4. 点击Ctrl-<code>&#96;</code> (Grave) 或在 <kbd><kbd>视图</kbd> > <kbd>终端</kbd></kbd> 可以打开终端界面 (`workbench.action.terminal.toggleTerminal` 命令)。如果没有终端它会自动打开一个。
 

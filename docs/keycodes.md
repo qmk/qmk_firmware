@@ -4,7 +4,7 @@ When defining a [keymap](keymap.md) each key needs a valid key definition. This 
 
 This is a reference only. Each group of keys links to the page documenting their functionality in more detail.
 
-## Basic Keycodes :id=basic-keycodes
+## Basic Keycodes {#basic-keycodes}
 
 See also: [Basic Keycodes](keycodes_basic.md)
 
@@ -219,7 +219,7 @@ See also: [Basic Keycodes](keycodes_basic.md)
 <sup>5. Skips the entire track in iTunes when tapped, seeks within the current track when held.</sup><br/>
 <sup>6. WMP does not recognize the Rewind key, but both alter playback speed in VLC.</sup>
 
-## Quantum Keycodes :id=quantum-keycodes
+## Quantum Keycodes {#quantum-keycodes}
 
 See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
@@ -231,7 +231,7 @@ See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 |`QK_MAKE`        |         |Sends `qmk compile -kb (keyboard) -km (keymap)`, or `qmk flash` if shift is held. Puts keyboard into bootloader mode if shift & control are held |
 |`QK_REBOOT`      |`QK_RBT` |Resets the keyboard. Does not load the bootloader                                                                                                |
 
-## Audio Keys :id=audio-keys
+## Audio Keys {#audio-keys}
 
 See also: [Audio](feature_audio.md)
 
@@ -253,7 +253,7 @@ See also: [Audio](feature_audio.md)
 |`QK_AUDIO_VOICE_NEXT`    |`AU_NEXT`|Cycles through the audio voices            |
 |`QK_AUDIO_VOICE_PREVIOUS`|`AU_PREV`|Cycles through the audio voices in reverse |
 
-## Auto Shift :id=auto-shift
+## Auto Shift {#auto-shift}
 
 See also: [Auto Shift](feature_auto_shift.md)
 
@@ -266,7 +266,7 @@ See also: [Auto Shift](feature_auto_shift.md)
 |`QK_AUTO_SHIFT_OFF`   |`AS_OFF` |Turns off the Auto Shift Function           |
 |`QK_AUTO_SHIFT_TOGGLE`|`AS_TOGG`|Toggles the state of the Auto Shift feature |
 
-## Autocorrect :id=autocorrect
+## Autocorrect {#autocorrect}
 
 See also: [Autocorrect](feature_autocorrect.md)
 
@@ -276,7 +276,7 @@ See also: [Autocorrect](feature_autocorrect.md)
 |`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
 |`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
 
-## Backlighting :id=backlighting
+## Backlighting {#backlighting}
 
 See also: [Backlighting](feature_backlight.md)
 
@@ -290,7 +290,7 @@ See also: [Backlighting](feature_backlight.md)
 | `QK_BACKLIGHT_DOWN`             | `BL_DOWN` | Decrease the backlight level        |
 | `QK_BACKLIGHT_TOGGLE_BREATHING` | `BL_BRTG` | Toggle backlight breathing          |
 
-## Bluetooth :id=bluetooth
+## Bluetooth {#bluetooth}
 
 See also: [Bluetooth](feature_bluetooth.md)
 
@@ -300,7 +300,7 @@ See also: [Bluetooth](feature_bluetooth.md)
 |`QK_OUTPUT_USB`      |`OU_USB` |USB only                                      |
 |`QK_OUTPUT_BLUETOOTH`|`OU_BT`  |Bluetooth only                                |
 
-## Caps Word :id=caps-word
+## Caps Word {#caps-word}
 
 See also: [Caps Word](feature_caps_word.md)
 
@@ -308,7 +308,7 @@ See also: [Caps Word](feature_caps_word.md)
 |---------------------|---------|------------------------------|
 |`QK_CAPS_WORD_TOGGLE`|`CW_TOGG`|Toggles Caps Word             |
 
-## Dynamic Macros :id=dynamic-macros
+## Dynamic Macros {#dynamic-macros}
 
 See also: [Dynamic Macros](feature_dynamic_macros.md)
 
@@ -320,7 +320,7 @@ See also: [Dynamic Macros](feature_dynamic_macros.md)
 |`QK_DYNAMIC_MACRO_PLAY_2`        |`DM_PLY2`|Replay Macro 2                                    |
 |`QK_DYNAMIC_MACRO_RECORD_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
 
-## Grave Escape :id=grave-escape
+## Grave Escape {#grave-escape}
 
 See also: [Grave Escape](feature_grave_esc.md)
 
@@ -328,7 +328,7 @@ See also: [Grave Escape](feature_grave_esc.md)
 |-----------------|---------|------------------------------------------------------------------|
 |`QK_GRAVE_ESCAPE`|`QK_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
 
-## Joystick :id=joystick
+## Joystick {#joystick}
 
 See also: [Joystick](feature_joystick.md)
 
@@ -367,7 +367,7 @@ See also: [Joystick](feature_joystick.md)
 |`QK_JOYSTICK_BUTTON_30`|`JS_30`|Button 30  |
 |`QK_JOYSTICK_BUTTON_31`|`JS_31`|Button 31  |
 
-## Key Lock :id=key-lock
+## Key Lock {#key-lock}
 
 See also: [Key Lock](feature_key_lock.md)
 
@@ -375,7 +375,7 @@ See also: [Key Lock](feature_key_lock.md)
 |---------|--------------------------------------------------------------|
 |`QK_LOCK`|Hold down the next key pressed, until the key is pressed again|
 
-## Layer Switching :id=layer-switching
+## Layer Switching {#layer-switching}
 
 See also: [Layer Switching](feature_layers.md#switching-and-toggling-layers)
 
@@ -390,7 +390,7 @@ See also: [Layer Switching](feature_layers.md#switching-and-toggling-layers)
 |`TO(layer)`     |Turns on `layer` and turns off all other layers, except the default layer |
 |`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
 
-## Leader Key :id=leader-key
+## Leader Key {#leader-key}
 
 See also: [Leader Key](feature_leader_key.md)
 
@@ -398,7 +398,7 @@ See also: [Leader Key](feature_leader_key.md)
 |---------|------------------------|
 |`QK_LEAD`|Begins a leader sequence|
 
-## Magic Keycodes :id=magic-keycodes
+## Magic Keycodes {#magic-keycodes}
 
 See also: [Magic Keycodes](keycodes_magic.md)
 
@@ -440,7 +440,7 @@ See also: [Magic Keycodes](keycodes_magic.md)
 |`QK_MAGIC_EE_HANDS_LEFT`             |`EH_LEFT`|Set the master half of a split keyboard as the left hand (for `EE_HANDS`) |
 |`QK_MAGIC_EE_HANDS_RIGHT`            |`EH_RGHT`|Set the master half of a split keyboard as the right hand (for `EE_HANDS`)|
 
-## MIDI :id=midi
+## MIDI {#midi}
 
 See also: [MIDI](feature_midi.md)
 
@@ -591,7 +591,7 @@ See also: [MIDI](feature_midi.md)
 |`QK_MIDI_PITCH_BEND_DOWN`      |`MI_BNDD`         |Bend pitch down                  |
 |`QK_MIDI_PITCH_BEND_UP`        |`MI_BNDU`         |Bend pitch up                    |
 
-## Mouse Keys :id=mouse-keys
+## Mouse Keys {#mouse-keys}
 
 See also: [Mouse Keys](feature_mouse_keys.md)
 
@@ -614,7 +614,7 @@ See also: [Mouse Keys](feature_mouse_keys.md)
 |`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
 |`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
 
-## Modifiers :id=modifiers
+## Modifiers {#modifiers}
 
 See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 
@@ -642,7 +642,7 @@ See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
 |`KC_MEH`  |                                  |Left Control, Shift and Alt                           |
 |`KC_HYPR` |                                  |Left Control, Shift, Alt and GUI                      |
 
-## Mod-Tap Keys :id=mod-tap-keys
+## Mod-Tap Keys {#mod-tap-keys}
 
 See also: [Mod-Tap](mod_tap.md)
 
@@ -671,7 +671,7 @@ See also: [Mod-Tap](mod_tap.md)
 |`MEH_T(kc)`  |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped       |
 |`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 
-## Tapping Term Keys :id=tapping-term-keys
+## Tapping Term Keys {#tapping-term-keys}
 
 See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
 
@@ -681,7 +681,7 @@ See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
 |`QK_DYNAMIC_TAPPING_TERM_UP`   |`DT_UP`  | Increases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
 |`QK_DYNAMIC_TAPPING_TERM_DOWN` |`DT_DOWN`| Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
 
-## RGB Lighting :id=rgb-lighting
+## RGB Lighting {#rgb-lighting}
 
 See also: [RGB Lighting](feature_rgblight.md)
 
@@ -706,7 +706,7 @@ See also: [RGB Lighting](feature_rgblight.md)
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red,Green,Blue test animation mode                                  |
 
-## RGB Matrix Lighting :id=rgb-matrix-lighting
+## RGB Matrix Lighting {#rgb-matrix-lighting}
 
 See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
 
@@ -724,7 +724,7 @@ See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
 |`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
 |`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
 
-## US ANSI Shifted Symbols :id=us-ansi-shifted-symbols
+## US ANSI Shifted Symbols {#us-ansi-shifted-symbols}
 
 See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 
@@ -752,7 +752,7 @@ See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
 |`KC_QUESTION`           |`KC_QUES`          |`?`        |
 
-## One Shot Keys :id=one-shot-keys
+## One Shot Keys {#one-shot-keys}
 
 See also: [One Shot Keys](one_shot_keys.md)
 
@@ -764,7 +764,7 @@ See also: [One Shot Keys](one_shot_keys.md)
 |`QK_ONE_SHOT_ON`    |`OS_ON`  |Turns One Shot keys on            |
 |`QK_ONE_SHOT_OFF`   |`OS_OFF` |Turns One Shot keys off           |
 
-## Programmable Button Support :id=programmable-button
+## Programmable Button Support {#programmable-button}
 
 See also: [Programmable Button](feature_programmable_button.md)
 
@@ -803,7 +803,7 @@ See also: [Programmable Button](feature_programmable_button.md)
 |`QK_PROGRAMMABLE_BUTTON_31`|`PB_31`|Programmable button 31|
 |`QK_PROGRAMMABLE_BUTTON_32`|`PB_32`|Programmable button 32|
 
-## Space Cadet :id=space-cadet
+## Space Cadet {#space-cadet}
 
 See also: [Space Cadet](feature_space_cadet.md)
 
@@ -817,7 +817,7 @@ See also: [Space Cadet](feature_space_cadet.md)
 |`QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE`  |`SC_RAPC`|Right Alt when held, `)` when tapped    |
 |`QK_SPACE_CADET_RIGHT_SHIFT_ENTER`            |`SC_SENT`|Right Shift when held, Enter when tapped|
 
-## Swap Hands :id=swap-hands
+## Swap Hands {#swap-hands}
 
 See also: [Swap Hands](feature_swap_hands.md)
 
@@ -832,7 +832,7 @@ See also: [Swap Hands](feature_swap_hands.md)
 |`QK_SWAP_HANDS_TAP_TOGGLE`   |`SH_TT`  |Momentary swap when held, toggle when tapped        |
 |`QK_SWAP_HANDS_ONE_SHOT`     |`SH_OS`  |Turn on hand swap while held or until next key press|
 
-## Unicode Support :id=unicode-support
+## Unicode Support {#unicode-support}
 
 See also: [Unicode Support](feature_unicode.md)
 

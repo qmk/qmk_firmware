@@ -30,22 +30,38 @@ This page covers my super cool feature. You can use this feature to make coffee,
 ### 重要なもの
 
 ```
-!> This is important
+:::caution
+
+This is important
 ```
+
+:::
 
 以下のように表示されます:
 
-!> This is important
+:::caution
+
+This is important
+
+:::
 
 ### 一般的なヒント
 
 ```
-?> This is a helpful tip.
+:::caution
+
+This is a helpful tip.
 ```
+
+:::
 
 以下のように表示されます:
 
-?> This is a helpful tip.
+:::tip
+
+This is a helpful tip.
+
+:::
 
 
 # 機能を文章化する

@@ -16,7 +16,11 @@
 * [QMK工具箱(可选)](https://github.com/qmk/qmk_toolbox)
   * 在Windows及macOS上可用的图形程序，用于编辑及调试你的键盘
 
-?> 如果你没有Linux/Unix命令行使用经验，有些基本概念需要先学习一下。[这些资料](zh-cn/newbs_learn_more_resources.md#command-line-resources)是个使用QMK很好的参考。
+:::tip
+
+如果你没有Linux/Unix命令行使用经验，有些基本概念需要先学习一下。[这些资料](zh-cn/newbs_learn_more_resources.md#command-line-resources)是个使用QMK很好的参考。
+
+:::
 
 ## 2. 准备构建环境 :id=set-up-your-environment
 
@@ -37,7 +41,11 @@ QMK有维护一套基于MSYS2的软件包，所有命令行程序和依赖都是
 <details>
   <summary>自行安装</summary>
 
-?> 若决定使用 `QMK MSYS`，请跳过此节.
+:::tip
+
+若决定使用 `QMK MSYS`，请跳过此节.
+
+:::
 
 #### 依赖项
 
@@ -45,7 +53,11 @@ QMK有维护一套基于MSYS2的软件包，所有命令行程序和依赖都是
 
 在MSYS2安装完毕后，关闭所有的MSYS终端，启动新的MinGW 64-bit终端。
 
-!> **注意:** MinGW 64-bit 终端*不同于*安装包最后打开的MSYS终端，窗口标题应当是紫色的"MINGW64"而不是"MSYS"。具体的差异可以[参考这里](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems)。
+:::caution
+
+**注意:** MinGW 64-bit 终端*不同于*安装包最后打开的MSYS终端，窗口标题应当是紫色的"MINGW64"而不是"MSYS"。具体的差异可以[参考这里](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems)。
+
+:::
 
 执行如下命令：
 
@@ -75,7 +87,11 @@ QMK维护了一套Homebrew tap和formula以用于自动安装命令行程序及�
 
 ### ** Linux/WSL **
 
-?> **WSL用户注意**: 默认情况下，QMK仓库会被clone到home目录下，如果想指定其它目录，务必留意要放在WSL文件系统中（即，非 `/mnt` 目录下），否则文件读写会[非常慢](https://github.com/microsoft/WSL/issues/4197).
+:::tip
+
+**WSL用户注意**: 默认情况下，QMK仓库会被clone到home目录下，如果想指定其它目录，务必留意要放在WSL文件系统中（即，非 `/mnt` 目录下），否则文件读写会[非常慢](https://github.com/microsoft/WSL/issues/4197).
+
+:::
 
 #### 依赖项
 
@@ -163,9 +179,17 @@ Arch系环境下可以使用官方源安装命令行程序（在写这份文档�
 
 <!-- tabs:end -->
 
-?> QMK的home目录可以在安装时通过 `qmk setup -H <path>` 来指定，安装后也可以通过[命令行程序来配置](zh-cn/cli_configuration.md?id=single-key-example)`user.qmk_home`变量，可以通过 `qmk setup --help` 查看所有可用配置。
+:::tip
 
-?> 若你熟悉GitHub，[推荐阅读这份指引](zh-cn/getting_started_github.md)通过 `qmk setup <github_username>/qmk_firmware` 来clone你自己的fork。如果你看不懂这一段啥意思，忽略就是了。
+QMK的home目录可以在安装时通过 `qmk setup -H <path>` 来指定，安装后也可以通过[命令行程序来配置](zh-cn/cli_configuration.md?id=single-key-example)`user.qmk_home`变量，可以通过 `qmk setup --help` 查看所有可用配置。
+
+:::
+
+:::tip
+
+若你熟悉GitHub，[推荐阅读这份指引](zh-cn/getting_started_github.md)通过 `qmk setup <github_username>/qmk_firmware` 来clone你自己的fork。如果你看不懂这一段啥意思，忽略就是了。
+
+:::
 
 ## 4. 测试你的构建环境
 

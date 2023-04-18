@@ -9,7 +9,7 @@ These resources are aimed at giving new members in the QMK community more unders
 ### Command Line resources
 
 * [Good General Tutorial on Command Line](https://www.codecademy.com/learn/learn-the-command-line)
-* [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br>
+* [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br />
 * [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
 ### Text Editor resources

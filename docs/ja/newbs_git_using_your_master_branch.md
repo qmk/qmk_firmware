@@ -66,7 +66,11 @@ git push --set-upstream origin dev_branch
 この引数は最初のプッシュでのみ使用する必要があります。
 その後、残りの引数なしで `git push` または `git pull` を安全に使用できます。
 
-?> `git push` では、`-set-upstream` の代わりに `-u` を使用できます、 `-u` は `--set-upstream` のエイリアスです。
+:::tip
+
+`git push` では、`-set-upstream` の代わりに `-u` を使用できます、 `-u` は `--set-upstream` のエイリアスです。
+
+:::
 
 ブランチにはほぼ任意の名前を付けることができますが、あなたが行なう変更を表す名前を付けることをお勧めします。
 
@@ -92,7 +96,11 @@ git commit -m "My commit message."
 これには、`git commit` によって *コミット* される変更が含まれており、リポジトリへの変更が保存されます。
 変更内容が一目でわかるように、説明的なコミットメッセージを使用します。
 
-?> 複数のファイルを変更した場合、`git add -- path/to/file1 path/to/file2 ...` を実行すれば、あなたの望むファイルを追加できます。
+:::tip
+
+複数のファイルを変更した場合、`git add -- path/to/file1 path/to/file2 ...` を実行すれば、あなたの望むファイルを追加できます。
+
+:::
 
 ## 変更を公開する
 

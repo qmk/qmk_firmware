@@ -26,7 +26,11 @@ Configurator がキーボードをどのように理解するかを理解する�
 |---------------|
 ```
 
-?> レイアウトマクロの詳細については、[QMK の理解: マトリックススキャン](ja/understanding_qmk.md?id=matrix-scanning) と [QMK の理解: マトリックスから物理レイアウトへのマップ](ja/understanding_qmk.md?id=matrix-to-physical-layout-map) を見てください。
+:::tip
+
+レイアウトマクロの詳細については、[QMK の理解: マトリックススキャン](ja/understanding_qmk.md?id=matrix-scanning) と [QMK の理解: マトリックスから物理レイアウトへのマップ](ja/understanding_qmk.md?id=matrix-to-physical-layout-map) を見てください。
+
+:::
 
 Configurator の API はキーボードの `.h` ファイルを `qmk_firmware/keyboards/<keyboard>/<keyboard>.h` から読み取ります。numpad の場合、このファイルは `qmk_firmware/keyboards/numpad/numpad.h` です:
 
@@ -70,9 +74,17 @@ QMK は `KC_NO` を使って、スイッチマトリックス内のスイッチ�
 }
 ```
 
-!> この使用方法はキーマップマクロと異なります。キーマップマクロはほとんど常に`KC_NO`については`XXXXXXX` (7つの大文字の X) を、`KC_TRNS` については `_______` (7つのアンダースコア)を使います。
+:::caution
 
-!> ユーザの混乱を防ぐために、`KC_NO` を使うことをお勧めします。
+この使用方法はキーマップマクロと異なります。キーマップマクロはほとんど常に`KC_NO`については`XXXXXXX` (7つの大文字の X) を、`KC_TRNS` については `_______` (7つのアンダースコア)を使います。
+
+:::
+
+:::caution
+
+ユーザの混乱を防ぐために、`KC_NO` を使うことをお勧めします。
+
+:::
 
 レイアウトマクロは、キーボードに17個のキーがあり、4列それぞれが5行に配置されていることを Configurator に伝えます。スイッチの位置は、0から始まる `k<row><column>` という名前が付けられています。キーマップからキーコードを受け取る上部セクションと、マトリックス内の各キーの位置を指定する下部セクションとが一致する限り、名前自体は実際には問題ではありません。
 
@@ -146,7 +158,11 @@ JSON ファイルをビルドする最も簡単な方法は、[Keyboard Layout E
 
 一部のオブジェクトには、それぞれキーの幅と高さを表す `"w"` 属性キーと `"h"` 属性キーがあります。
 
-?> `info.json` ファイルの詳細については、[`info.json` 形式](ja/reference_info_json.md) を参照してください。
+:::tip
+
+`info.json` ファイルの詳細については、[`info.json` 形式](ja/reference_info_json.md) を参照してください。
+
+:::
 
 
 ## Configurator がキーをプログラムする方法

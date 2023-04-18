@@ -17,7 +17,11 @@
 git remote add upstream https://github.com/qmk/qmk_firmware.git
 ```
 
-?> 名称 `upstream` 部分可以任意，这里给的是常用的；你可以将QMK远程仓库名称改成你想要的。Git的 `remote` 命令语法为 `git remote add <name> <url>`, `<name>` 是远程仓库的简写名称，这个名称可以在很多Git命令中使用，包括但不限于 `fetch`，`pull` 及 `push`，以指定目标远程仓库。
+:::tip
+
+名称 `upstream` 部分可以任意，这里给的是常用的；你可以将QMK远程仓库名称改成你想要的。Git的 `remote` 命令语法为 `git remote add <name> <url>`, `<name>` 是远程仓库的简写名称，这个名称可以在很多Git命令中使用，包括但不限于 `fetch`，`pull` 及 `push`，以指定目标远程仓库。
+
+:::
 
 要验证是否添加成功，可以执行 `git remote -v`，输出应该类似于：
 
@@ -53,7 +57,11 @@ git push --set-upstream origin dev_branch
 
 以上操作会创建 `dev_branch` 新分支，检出（check out）并保存到你的fork中。`--set-upstream` 参数用于告知git使用你的fork仓库来处理 `dev_branch` 分支下的 `git push` 及 `git pull` 命令，且仅需要在第一次执行push命令时指定，之后再次执行 `git push` 或是 `git pull` 都无需加入该参数了。
 
-?> 在 `git push` 时，可以使用 `-u` 替代 `--set-upstram` &mdash; `-u` 为 `--set-upsream` 参数的别名。
+:::tip
+
+在 `git push` 时，可以使用 `-u` 替代 `--set-upstram` &mdash; `-u` 为 `--set-upsream` 参数的别名。
+
+:::
 
 你可以任意命名该分支，但仍建议对分支起一个可以描述将在该分支下要做的工作的名称。
 
@@ -72,7 +80,11 @@ git commit -m "My commit message."
 
 `git add` 会将更改后的文件放到Git的*暂存区*，也称作Git的“装载区”。这里留存着即将通过 `git commit` 所提交并保存到仓库中的变更。请使用确切的描述来填写提交日志，以便于快速了解改动内容。
 
-?> 如果更改了多个文件，可以通过 `git add -- path/to/file1 path/to/file2 ...` 来添加所有项目。
+:::tip
+
+如果更改了多个文件，可以通过 `git add -- path/to/file1 path/to/file2 ...` 来添加所有项目。
+
+:::
 
 ## 发布变更
 

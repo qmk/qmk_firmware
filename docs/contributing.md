@@ -79,7 +79,11 @@ The kerpleplork was intermittently failing with error code 23. The root cause wa
 Limited experimentation on the devices I have available shows that 7 is high enough to avoid confusing the kerpleplork, but I'd like to get some feedback from people with ARM devices to be sure.
 ```
 
-!> **IMPORTANT:** If you would like to contribute a bugfix or improvement to user code, such as non-default keymaps, userspace and layouts, be sure to tag the original submitter of the code in your PR. Many users, regardless of skill level with Git and GitHub, may be confused or frustrated at their code being modified without their knowledge.
+:::caution
+
+**IMPORTANT:** If you would like to contribute a bugfix or improvement to user code, such as non-default keymaps, userspace and layouts, be sure to tag the original submitter of the code in your PR. Many users, regardless of skill level with Git and GitHub, may be confused or frustrated at their code being modified without their knowledge.
+
+:::
 
 ## Documentation
 
@@ -101,7 +105,7 @@ enum my_keycodes {
 };
 ```
 
-### Previewing the Documentation :id=previewing-the-documentation
+### Previewing the Documentation {#previewing-the-documentation}
 
 Before opening a pull request, you can preview your changes if you have set up the development environment by running this command from the `qmk_firmware/` folder:
 

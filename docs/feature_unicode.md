@@ -10,15 +10,15 @@ In order to enable Unicode support on your keyboard, you will need to do the fol
 4. Add Unicode keycodes to your keymap.
 
 
-## 1. Methods :id=methods
+## 1. Methods {#methods}
 
 QMK supports three different methods for enabling Unicode input and adding Unicode characters to your keymap. Each has its pros and cons in terms of flexibility and ease of use. Choose the one that best fits your use case.
 
 The Basic method should be enough for most users. However, if you need a wider range of supported characters (including emoji, rare symbols etc.), you should use Unicode Map.
 
-<br>
+<br />
 
-### 1.1. Basic Unicode :id=basic-unicode
+### 1.1. Basic Unicode {#basic-unicode}
 
 The easiest to use method, albeit somewhat limited. It stores Unicode characters as keycodes in the keymap itself, so it only supports code points up to `0x7FFF`. This covers characters for most modern languages (including East Asian), as well as symbols, but it doesn't cover emoji.
 
@@ -30,9 +30,9 @@ UNICODE_ENABLE = yes
 
 Then add `UC(c)` keycodes to your keymap, where _c_ is the code point of the desired character (preferably in hexadecimal, up to 4 digits long). For example, `UC(0x40B)` will output [Ћ](https://unicode-table.com/en/040B/), and `UC(0x30C4)` will output [ツ](https://unicode-table.com/en/30C4).
 
-<br>
+<br />
 
-### 1.2. Unicode Map :id=unicode-map
+### 1.2. Unicode Map {#unicode-map}
 
 In addition to standard character ranges, this method also covers emoji, ancient scripts, rare symbols etc. In fact, all possible code points (up to `0x10FFFF`) are supported. Here, Unicode characters are stored in a separate mapping table. You need to maintain a `unicode_map` array in your keymap file, which may contain at most 16384 entries.
 
@@ -68,9 +68,9 @@ This is most useful when creating a keymap for an international layout with spec
 
 Due to keycode size constraints, _i_ and _j_ can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127. This is enough for most use cases, but if you'd like to customize the index calculation, you can override the [`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L36) function. This also allows you to, say, check Ctrl instead of Shift/Caps.
 
-<br>
+<br />
 
-### 1.3. UCIS :id=ucis
+### 1.3. UCIS {#ucis}
 
 This method also supports all possible code points. As with the Unicode Map method, you need to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you have to create a custom keycode or function that invokes this functionality.
 
@@ -106,7 +106,7 @@ There are several functions that you can define in your keymap to customize the 
 You can find the default implementations of these functions in [`process_ucis.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_ucis.c).
 
 
-## 2. Input Modes :id=input-modes
+## 2. Input Modes {#input-modes}
 
 Unicode input in QMK works by inputting a sequence of characters to the OS, sort of like a macro. Unfortunately, the way this is done differs for each platform. Specifically, each platform requires a different combination of keys to trigger Unicode input. Therefore, a corresponding input mode has to be set in QMK.
 
@@ -117,7 +117,11 @@ The following input modes are available:
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_MAC`](#input-key-configuration) with a different keycode.
 
-  !> Using the _Unicode Hex Input_ input source may disable some Option-based shortcuts, such as Option+Left and Option+Right.
+  :::caution
+
+Using the _Unicode Hex Input_ input source may disable some Option-based shortcuts, such as Option+Left and Option+Right.
+
+:::
 
 * **`UNICODE_MODE_LINUX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
@@ -139,7 +143,7 @@ The following input modes are available:
   By default, this mode uses right Alt (`KC_RALT`) as the Compose key, but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with a different keycode.
 
 
-## 3. Setting the Input Mode :id=setting-the-input-mode
+## 3. Setting the Input Mode {#setting-the-input-mode}
 
 To set your desired input mode, add the following define to your `config.h`:
 
@@ -174,7 +178,11 @@ You can switch the input mode at any time by using the following keycodes. Addin
 
 You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UNICODE_MODE_LINUX`).
 
-?> Using `UNICODE_SELECTED_MODES` is preferable to calling `set_unicode_input_mode()` in `matrix_init_user()` or similar functions, since it's better integrated into the Unicode system and has the added benefit of avoiding unnecessary writes to EEPROM.
+:::tip
+
+Using `UNICODE_SELECTED_MODES` is preferable to calling `set_unicode_input_mode()` in `matrix_init_user()` or similar functions, since it's better integrated into the Unicode system and has the added benefit of avoiding unnecessary writes to EEPROM.
+
+:::
 
 #### Audio Feedback
 
@@ -272,7 +280,7 @@ AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
 If you enable the US International layout on the system, it will use punctuation to accent the characters. For instance, typing "\`a" will result in à.
 You can find details on how to enable this [here](https://support.microsoft.com/en-us/help/17424/windows-change-keyboard-layout).
 
-## Software keyboard layout on Linux :id=custom-linux-layout
+## Software keyboard layout on Linux {#custom-linux-layout}
 
 This method does not require Unicode support on the keyboard itself but instead uses a custom keyboard layout for Xorg. This is how special characters are inserted by regular keyboards. This does not require IBus and works in practically all software. Help on creating a custom layout can be found [here](https://www.linux.com/news/creating-custom-keyboard-layouts-x11-using-xkb/), [here](http://karols.github.io/blog/2013/11/18/creating-custom-keyboard-layouts-for-linux/) and [here](https://wiki.archlinux.org/index.php/X_keyboard_extension). An example of how you could edit the `us` layout to gain 🤣 on `RALT(KC_R)`:
 
