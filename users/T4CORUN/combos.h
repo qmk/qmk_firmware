@@ -3,8 +3,9 @@
 
 
 enum combos {
-  RT_MOU,
-  PB_MOU,
+  WR_MOU,
+  B45_MOU,
+  UO_MOU,
   COMBO_LENGTH
 };
 
