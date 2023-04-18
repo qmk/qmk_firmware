@@ -1,3 +1,6 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Building QMK with GitHub Userspace
 
 This is an intermediate QMK tutorial to setup an out-of-tree build environment with a personal GitHub repository. It avoids using a fork of the QMK firmware to store and build your keymap within its source tree. Keymap files will instead be stored in your own personal GitHub repository, in [Userspace](https://docs.qmk.fm/#/feature_userspace) format, and built with an action workflow. Unlike the [default tutorial](https://docs.qmk.fm/#/newbs), this guide requires some familiarity with using Git.
@@ -34,17 +37,19 @@ If you are familiar with using [github.dev](https://docs.github.com/en/codespace
 
 A working Git client is required for your local operating system to commit and push changes to GitHub.
 
-<!-- tabs:start -->
+<Tabs groupId="operating-systems">
 
-### ** Windows **
+<TabItem value="windows" label="Windows" default>
 
 QMK maintains a bundle of MSYS2, the CLI and all necessary dependencies including Git. Install [QMK MSYS](https://msys.qmk.fm/) with the latest release [here](https://github.com/qmk/qmk_distro_msys/releases/latest). Git will be part of the bundle.
 
-### ** macOS **
+</TabItem>
+<TabItem value="macOS" label="macOS">
 
 Install Homebrew following the instructions on https://brew.sh. Git will be part of the bundle.
 
-### ** Linux/WSL **
+</TabItem>
+<TabItem value="linux" label="Linux/WSL">
 
 It's very likely that you already have Git installed. If not, use one of the following commands:
 
@@ -56,7 +61,8 @@ It's very likely that you already have Git installed. If not, use one of the fol
 * Sabayon: `sudo equo install dev-vcs/git`
 * Gentoo: `sudo emerge dev-vcs/git`
 
-<!-- tabs:end -->
+</TabItem>
+</Tabs>
 
 ### 2. GitHub authentication
 

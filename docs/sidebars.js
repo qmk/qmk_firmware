@@ -98,9 +98,7 @@ const sidebars = {
             ],
         },
         {
-            type: "category",
-            label: "Using QMK",
-            items: [
+            "Using QMK": [
                 {
                     Guides: [
                         "custom_quantum_functions",
@@ -216,6 +214,105 @@ const sidebars = {
                         "porting_your_keyboard_to_qmk",
                         "hand_wire",
                         "isp_flashing_guide",
+                    ],
+                },
+            ],
+        },
+        {
+            "Developing QMK": [
+                "pr_checklist",
+                {
+                    type: "category",
+                    label: "Breaking Changes",
+                    link: {
+                        type: "doc",
+                        id: "breaking_changes",
+                    },
+                    items: [
+                        "breaking_changes_instructions",
+                        "ChangeLog/20230226",
+                        "breaking_changes_history",
+                    ],
+                },
+                {
+                    "C Development": [
+                        "arm_debugging",
+                        "coding_conventions_c",
+                        "compatible_microcontrollers",
+                        "hardware_drivers",
+                        "adc_driver",
+                        "audio_driver",
+                        "i2c_driver",
+                        "spi_driver",
+                        "ws2812_driver",
+                        "eeprom_driver",
+                        "flash_driver",
+                        "serial_driver",
+                        "uart_driver",
+                        "gpio_control",
+                        "hardware_keyboard_guidelines",
+                    ],
+                },
+                {
+                    "Python Development": [
+                        "coding_conventions_python",
+                        "cli_development",
+                    ],
+                },
+                {
+                    "Configurator Development": [
+                        {
+                            "QMK API": [
+                                "api_development_environment",
+                                "api_development_overview",
+                            ],
+                        },
+                    ],
+                },
+                {
+                    "Hardware Platform Development": [
+                        {
+                            "Arm/ChibiOS": [
+                                "platformdev_selecting_arm_mcu",
+                                "platformdev_chibios_earlyinit",
+                                "platformdev_rp2040",
+                                "platformdev_proton_c",
+                                "platformdev_blackpill_f4x1",
+                            ],
+                        },
+                    ],
+                },
+                {
+                    "QMK Reference": [
+                        "contributing",
+                        "translating",
+                        "config_options",
+                        "data_driven_config",
+                        "getting_started_make_guide",
+                        "documentation_best_practices",
+                        "documentation_templates",
+                        "feature_layouts",
+                        "unit_testing",
+                        "ref_functions",
+                        "reference_info_json",
+                    ],
+                },
+                {
+                    "For a Deeper Understanding": [
+                        "how_keyboards_work",
+                        "how_a_matrix_works",
+                        "understanding_qmk",
+                    ],
+                },
+                {
+                    "QMK Internals": [
+                        "internals/defines",
+                        "internals/input_callback_reg",
+                        "internals/midi_device",
+                        "internals/midi_device_setup_process",
+                        "internals/midi_util",
+                        "internals/send_functions",
+                        "internals/sysex_tools",
                     ],
                 },
             ],

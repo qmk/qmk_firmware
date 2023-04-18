@@ -1,3 +1,6 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Quantum Painter {#quantum-painter}
 
 Quantum Painter is the standardised API for graphical displays. It currently includes support for basic drawing primitives, as well as custom images, animations, and fonts.
@@ -51,9 +54,7 @@ Drivers have their own set of configurable options, and are described in their r
 
 ## Quantum Painter CLI Commands {#quantum-painter-cli}
 
-<!-- tabs:start -->
-
-### ** `qmk painter-convert-graphics` **
+### `qmk painter-convert-graphics`
 
 This command converts images to a format usable by QMK, i.e. the QGF File Format.
 
@@ -104,7 +105,7 @@ Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/my_image.qgf.h...
 Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/my_image.qgf.c...
 ```
 
-### ** `qmk painter-make-font-image` **
+### `qmk painter-make-font-image`
 
 This command converts a TTF font to an intermediate format for editing, before converting to the QFF File Format.
 
@@ -137,7 +138,7 @@ The `UNICODE_GLYPHS` argument allows for specifying extra unicode glyphs to gene
 $ qmk painter-make-font-image --font NotoSans-ExtraCondensedBold.ttf --size 11 -o noto11.png --unicode-glyphs "ĄȽɂɻɣɈʣ"
 ```
 
-### ** `qmk painter-convert-font-image` **
+### `qmk painter-convert-font-image`
 
 This command converts an intermediate font image to the QFF File Format.
 
@@ -182,13 +183,10 @@ Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.h...
 Writing /home/qmk/qmk_firmware/keyboards/my_keeb/generated/noto11.qff.c...
 ```
 
-<!-- tabs:end -->
-
 ## Quantum Painter Display Drivers {#quantum-painter-drivers}
 
-<!-- tabs:start -->
-
-### ** Common: Standard TFT (SPI + D/C + RST) **
+<Tabs>
+<TabItem label="Common: Standard TFT (SPI + D/C + RST)" value="Common: Standard TFT (SPI + D/C + RST)">
 
 Most TFT display panels use a 5-pin interface -- SPI SCK, SPI MOSI, SPI CS, D/C, and RST pins.
 
@@ -196,9 +194,8 @@ For these displays, QMK's `spi_master` must already be correctly configured for 
 
 The pin assignments for SPI CS, D/C, and RST are specified during device construction.
 
-<!-- tabs:start -->
-
-#### ** GC9A01 **
+<Tabs>
+<TabItem label="GC9A01" value="GC9A01">
 
 Enabling support for the GC9A01 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -224,7 +221,8 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb565 is compatible with GC9A01
 
-#### ** ILI9163 **
+</TabItem>
+<TabItem label="ILI9163" value="ILI9163">
 
 Enabling support for the ILI9163 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -250,7 +248,8 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb565 is compatible with ILI9163
 
-#### ** ILI9341 **
+</TabItem>
+<TabItem label="ILI9341" value="ILI9341">
 
 Enabling support for the ILI9341 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -276,7 +275,8 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb565 is compatible with ILI9341
 
-#### ** ILI9488 **
+</TabItem>
+<TabItem label="ILI9488" value="ILI9488">
 
 Enabling support for the ILI9488 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -302,7 +302,8 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb888 is compatible with ILI9488
 
-#### ** SSD1351 **
+</TabItem>
+<TabItem label="SSD1351" value="SSD1351">
 
 Enabling support for the SSD1351 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -328,7 +329,8 @@ The maximum number of displays can be configured by changing the following in yo
 
 Native color format rgb565 is compatible with SSD1351
 
-#### ** ST7735 **
+</TabItem>
+<TabItem label="ST7735" value="ST7735">
 
 Enabling support for the ST7735 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -360,7 +362,8 @@ Some ST7735 devices are known to have different drawing offsets -- despite being
 
 :::
 
-#### ** ST7789 **
+</TabItem>
+<TabItem label="ST7789" value="ST7789">
 
 Enabling support for the ST7789 in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -392,9 +395,11 @@ Some ST7789 devices are known to have different drawing offsets -- despite being
 
 :::
 
-<!-- tabs:end -->
+</TabItem>
+</Tabs>
 
-### ** Common: Surfaces **
+</TabItem>
+<TabItem label="Common: Surfaces" value="Common: Surfaces">
 
 Quantum Painter has surface drivers which are able to target a buffer in RAM. In general, surfaces keep track of the "dirty" region -- the area that has been drawn to since the last flush -- so that when transferring to the display they can transfer the minimal amount of data to achieve the end result.
 
@@ -404,9 +409,11 @@ These generally require significant amounts of RAM, so at large sizes and/or hig
 
 :::
 
-<!-- tabs:start -->
+</TabItem>
+</Tabs>
 
-#### ** RGB565 Surface **
+<Tabs>
+<TabItem label="RGB565 Surface" value="RGB565 Surface">
 
 Enabling support for RGB565 surfaces in Quantum Painter is done by adding the following to `rules.mk`:
 
@@ -457,9 +464,11 @@ Calling `qp_flush()` on the surface resets its dirty region. Copying the surface
 
 :::
 
-<!-- tabs:end -->
+</TabItem>
+</Tabs>
 
-<!-- tabs:end -->
+<!-- </TabItem> -->
+<!-- </Tabs> -->
 
 ## Quantum Painter Drawing API {#quantum-painter-api}
 
@@ -469,8 +478,6 @@ To use any of the APIs, you need to include `qp.h`:
 ```c
 #include <qp.h>
 ```
-
-<!-- tabs:start -->
 
 ### ** General Notes **
 
@@ -496,9 +503,8 @@ Colors used in Quantum Painter are not subject to the RGB lighting CIE curve, if
 
 ### ** Device Control **
 
-<!-- tabs:start -->
-
-#### ** Display Initialisation **
+<Tabs>
+<TabItem label="Display Initialisation" value="Display Initialisation">
 
 ```c
 bool qp_init(painter_device_t device, painter_rotation_t rotation);
@@ -513,8 +519,8 @@ void keyboard_post_init_kb(void) {
     qp_init(display, QP_ROTATION_0);   // Initialise the display
 }
 ```
-
-#### ** Display Power **
+</TabItem>
+<TabItem label="Display Power" value="Display Power">
 
 ```c
 bool qp_power(painter_device_t device, bool power_on);
@@ -548,8 +554,8 @@ void suspend_wakeup_init_user(void) {
     last_backlight = 255;
 }
 ```
-
-#### ** Display Clear **
+</TabItem>
+<TabItem label="Display Clear" value="Display Clear">
 
 ```c
 bool qp_clear(painter_device_t device);
@@ -557,7 +563,8 @@ bool qp_clear(painter_device_t device);
 
 The `qp_clear` function clears the display's screen.
 
-#### ** Display Flush **
+</TabItem>
+<TabItem label="Display Flush" value="Display Flush">
 
 ```c
 bool qp_flush(painter_device_t device);
@@ -583,13 +590,13 @@ void housekeeping_task_user(void) {
 }
 ```
 
-<!-- tabs:end -->
+</TabItem>
+</Tabs>
 
 ### ** Drawing Primitives **
 
-<!-- tabs:start -->
-
-#### ** Set Pixel **
+<Tabs>
+<TabItem label="Set Pixel" value="Set Pixel">
 
 ```c
 bool qp_setpixel(painter_device_t device, uint16_t x, uint16_t y, uint8_t hue, uint8_t sat, uint8_t val);
@@ -616,8 +623,8 @@ void housekeeping_task_user(void) {
     }
 }
 ```
-
-#### ** Draw Line **
+</TabItem>
+<TabItem label="Draw Line" value="Draw Line">
 
 ```c
 bool qp_line(painter_device_t device, uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint8_t hue, uint8_t sat, uint8_t val);
@@ -638,8 +645,8 @@ void housekeeping_task_user(void) {
     }
 }
 ```
-
-#### ** Draw Rect **
+</TabItem>
+<TabItem label="Draw Rect" value="Draw Rect">
 
 ```c
 bool qp_rect(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
@@ -660,8 +667,8 @@ void housekeeping_task_user(void) {
     }
 }
 ```
-
-#### ** Draw Circle **
+</TabItem>
+<TabItem label="Draw Circle" value="Draw Circle">
 
 ```c
 bool qp_circle(painter_device_t device, uint16_t x, uint16_t y, uint16_t radius, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
@@ -682,8 +689,8 @@ void housekeeping_task_user(void) {
     }
 }
 ```
-
-#### ** Draw Ellipse **
+</TabItem>
+<TabItem label="Draw Ellipse" value="Draw Ellipse">
 
 ```c
 bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex, uint16_t sizey, uint8_t hue, uint8_t sat, uint8_t val, bool filled);
@@ -705,7 +712,8 @@ void housekeeping_task_user(void) {
 }
 ```
 
-<!-- tabs:end -->
+</TabItem>
+</Tabs>
 
 ### ** Image Functions **
 
@@ -720,9 +728,8 @@ SRC += my_image.qgf.c
 #include "my_image.qgf.h"
 ```
 
-<!-- tabs:start -->
-
-#### ** Load Image **
+<Tabs>
+<TabItem label="Load Image" value="Load Image">
 
 ```c
 painter_image_handle_t qp_load_image_mem(const void *buffer);
@@ -747,16 +754,16 @@ Image information is available through accessing the handle:
 | Width       | `image->width`       |
 | Height      | `image->height`      |
 | Frame Count | `image->frame_count` |
-
-#### ** Unload Image **
+</TabItem>
+<TabItem label="Unload Image" value="Unload Image">
 
 ```c
 bool qp_close_image(painter_image_handle_t image);
 ```
 
 The `qp_close_image` function releases resources related to the loading of the supplied image.
-
-#### ** Draw image **
+</TabItem>
+<TabItem label="Draw image" value="Draw image">
 
 ```c
 bool qp_drawimage(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image);
@@ -775,8 +782,8 @@ void keyboard_post_init_kb(void) {
     }
 }
 ```
-
-#### ** Animate Image **
+</TabItem>
+<TabItem label="Animate Image" value="Animate Image">
 
 ```c
 deferred_token qp_animate(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image);
@@ -800,8 +807,8 @@ void keyboard_post_init_kb(void) {
     }
 }
 ```
-
-#### ** Stop Animation **
+</TabItem>
+<TabItem label="Stop Animation" value="Stop Animation">
 
 ```c
 void qp_stop_animation(deferred_token anim_token);
@@ -816,7 +823,8 @@ void housekeeping_task_user(void) {
 }
 ```
 
-<!-- tabs:end -->
+</TabItem>
+</Tabs>
 
 ### ** Font Functions **
 
@@ -831,9 +839,8 @@ SRC += noto11.qff.c
 #include "noto11.qff.h"
 ```
 
-<!-- tabs: start -->
-
-#### ** Load Font **
+<Tabs>
+<TabItem label="Load Font" value="Load Font">
 
 ```c
 painter_font_handle_t qp_load_font_mem(const void *buffer);
@@ -856,24 +863,24 @@ Font information is available through accessing the handle:
 | Property    | Accessor             |
 |-------------|----------------------|
 | Line Height | `image->line_height` |
-
-#### ** Unload Font **
+</TabItem>
+<TabItem label="Unload Font" value="Unload Font">
 
 ```c
 bool qp_close_font(painter_font_handle_t font);
 ```
 
 The `qp_close_font` function releases resources related to the loading of the supplied font.
-
-#### ** Measure Text **
+</TabItem>
+<TabItem label="Measure Text" value="Measure Text">
 
 ```c
 int16_t qp_textwidth(painter_font_handle_t font, const char *str);
 ```
 
 The `qp_textwidth` function allows measurement of how many pixels wide the supplied string would result in, for the given font.
-
-#### ** Draw Text **
+</TabItem>
+<TabItem label="Draw Text" value="Draw Text">
 
 ```c
 int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str);
@@ -895,37 +902,37 @@ void keyboard_post_init_kb(void) {
 }
 ```
 
-<!-- tabs:end -->
+</TabItem>
+</Tabs>
 
 ### ** Advanced Functions **
 
-<!-- tabs:start -->
-
-#### ** Get Geometry **
+<Tabs>
+<TabItem label="Get Geometry" value="Get Geometry">
 
 ```c
 void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y);
 ```
 
 The `qp_get_geometry` function allows external code to retrieve the current width, height, rotation, and drawing offsets.
-
-#### ** Set Viewport Offsets **
+</TabItem>
+<TabItem label="Set Viewport Offsets" value="Set Viewport Offsets">
 
 ```c
 void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_t offset_y);
 ```
 
 The `qp_set_viewport_offsets` function can be used to offset all subsequent drawing operations. For example, if a display controller is internally 240x320, but the display panel is 240x240 and has a Y offset of 80 pixels, you could invoke `qp_set_viewport_offsets(display, 0, 80);` and the drawing positioning would be corrected.
-
-#### ** Set Viewport **
+</TabItem>
+<TabItem label="Set Viewport" value="Set Viewport">
 
 ```c
 bool qp_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom);
 ```
 
 The `qp_viewport` function controls where raw pixel data is written to.
-
-#### ** Stream Pixel Data **
+</TabItem>
+<TabItem label="Stream Pixel Data" value="Stream Pixel Data">
 
 ```c
 bool qp_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count);
@@ -939,6 +946,5 @@ Under normal circumstances, users will not need to manually call either `qp_view
 
 :::
 
-<!-- tabs:end -->
-
-<!-- tabs:end -->
+</TabItem>
+</Tabs>

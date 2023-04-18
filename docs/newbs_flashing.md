@@ -1,3 +1,6 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Flashing Your Keyboard
 
 Now that you've built a custom firmware file you'll want to flash your keyboard.
@@ -37,21 +40,25 @@ Begin by opening the QMK Toolbox application. You'll want to locate the firmware
 
 If you are on Windows or macOS, there are commands you can use to easily open the current folder in Explorer or Finder.
 
-<!-- tabs:start -->
+<Tabs groupId="operating-systems">
 
-#### ** Windows **
+<TabItem value="windows" label="Windows" default>
 
 ```
 start .
 ```
 
-#### ** macOS **
+</TabItem>
+
+<TabItem value="macOS" label="macOS">
 
 ```
 open .
 ```
 
-<!-- tabs:end -->
+</TabItem>
+
+</Tabs>
 
 The firmware file always follows this naming format:
 
