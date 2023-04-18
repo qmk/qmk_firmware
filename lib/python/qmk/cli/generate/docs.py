@@ -26,7 +26,8 @@ def generate_docs(cli):
     if DOXYGEN_PATH.exists():
         shutil.rmtree(DOXYGEN_PATH)
 
-    shutil.copytree(DOCS_PATH, BUILD_DOCS_PATH)
+    # ignore node_modules when we're testing locally
+    shutil.copytree(DOCS_PATH, BUILD_DOCS_PATH, ignore=shutil.ignore_patterns("node_modules"))
 
     # When not verbose we want to hide all output
     args = {

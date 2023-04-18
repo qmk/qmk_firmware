@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "qmk_firmware_docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {

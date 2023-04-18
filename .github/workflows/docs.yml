@@ -26,15 +26,28 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 1
+        
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: yarn
 
     - name: Install dependencies
       run: |
         apt-get update && apt-get install -y rsync nodejs npm doxygen
         npm install -g moxygen
 
-    - name: Build docs
+    - name: Build doxygen docs
       run: |
         qmk --verbose generate-docs
+
+    - name: Install yarn dependencies
+      working-directory: .build/docs
+      run: yarn install --frozen-lockfile
+
+    - name: Build Docusaurus
+      working-directory: .build/docs
+      run: yarn build
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.4.1
@@ -42,5 +55,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BASE_BRANCH: master
         BRANCH: gh-pages
-        FOLDER: .build/docs
+        FOLDER: .build/docs/build
         GIT_CONFIG_EMAIL: hello@qmk.fm
