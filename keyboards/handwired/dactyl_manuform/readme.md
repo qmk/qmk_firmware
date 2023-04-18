@@ -13,24 +13,29 @@ As standard:
     - Exception to this rule is the 7 column variants, that have two additional keys in this row
 - The thumb cluster has 6 keys, arranged in 2 columns by 3 rows 
 
-Variants are denoted as `RowCount`x`ColumnCount`_`Alteration(s)`
+Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 
-### Rows
-**3**: Alpha numerics only  
-**4**: Alpha numerics, and finger keywell bottom row  
-**5**: Alpha numerics, number row, and finger keywell bottom row  
-**6**: Alpha numerics, number row, function key row, and finger keywell bottom row   
+### Row
+| Count | Description |
+| --- | --- |
+| 4 | Three rows, typically for alphabet and some puncuation characters, with 2 key (finger keywell) bottom row |
+| 5 | As *4 row* with number row above |
+| 6 | As *5 row* with function row above |
 
-### Columns
-**5** - A column for each finger with additional column for first finger  
-**6** - As `5` with additional pinky finger column  
-**7** - As `6` with additional first finger column  
+### Column
+| Count | Description |
+| --- | --- |
+| 5 | A column for each finger with additional column for first finger |  
+| 6 | As *5 column* with additional pinky finger column |
+| 7 | As *6 column* with either an additional first finger column (`5x7`) or additional pinky column (`6x7`) |  
 
-### Alterations
-**_3**: Thumb cluster is reduced to three keys  
-**_5**: Thumb cluster is reduced to five keys  
-**_2_5**: Thumb cluster is reduced to five keys, two additional keys added to finger keywell bottom row  
-**_kinesis**: Thumb cluster is shaped to resemble the Kinesis Advantage keyboard  
+### Alteration
+| Code | Description |
+| --- | --- |
+| 3 | Thumb cluster reduced to three keys |
+| 5 | Thumb cluster reduced to five keys | 
+| 2_5 | Two additional keys added to finger keywell bottom row, thumb cluster is reduced to five keys |
+| kinesis | Thumb cluster is shaped to resemble the Kinesis Advantage keyboard |
 
 ## First Time Setup
 
