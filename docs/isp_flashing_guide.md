@@ -35,6 +35,29 @@ To use a 5V/16MHz Pro Micro as an ISP flashing tool, you will first need to load
 
 !> Note that the `10` pin on the Pro Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Pro Micro to the `RESET` on the keyboard.
 
+
+### Uno/Pro-Micro as ISP
+[Arduino Uno](https://store.arduino.cc/products/arduino-uno-rev3) or Pro Micro 
+
+A standard 5v/16MMhz Uno or Pro Micro can be used as an ISP flashing tool using the [example "ArduinoISP" sketch](https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP#load-the-sketch) to emulate a stk500 ISP.
+
+**AVRDUDE Programmer**: `stk500v1`  
+**AVRDUDE Port**: Serial
+
+#### Wiring
+
+|Uno        |Keyboard|
+|-----------|--------|
+|`5v`       |`VCC`   |
+|`GND`      |`GND`   |
+|`10` (`B6`)|`RESET` |
+|`15` (`B1`)|`SCLK`  |
+|`16` (`B2`)|`MOSI`  |
+|`14` (`B3`)|`MISO`  |
+
+!> Note that the `10` pin on the Uno/Pro Micro should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Uno/Pro Micro to the `RESET` on the keyboard.
+
+
 ### Teensy 2.0 as ISP
 
 [PJRC Teensy 2.0](https://www.pjrc.com/store/teensy.html)
@@ -56,6 +79,7 @@ To use a Teensy 2.0 as an ISP flashing tool, you will first need to load a [spec
 |`B3`  |`MISO`  |
 
 !> Note that the `B0` pin on the Teensy should be wired to the `RESET` pin on the keyboard's controller. ***DO NOT*** connect the `RESET` pin on the Teensy to the `RESET` on the keyboard.
+
 
 ### SparkFun PocketAVR / USBtinyISP
 
