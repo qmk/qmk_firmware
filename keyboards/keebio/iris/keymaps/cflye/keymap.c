@@ -1,4 +1,5 @@
 #include "cflye.h"
+#include "features/achordion.h"
 
 #define LAYOUT_iris_rev2_wrapper(...) LAYOUT(__VA_ARGS__)
 
@@ -73,6 +74,16 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
+  uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, kc: 0x%04X, col: %2u, row: %2u, res %2u\n", other_keycode, other_record->event.key.col, other_record->event.key.row, tap_hold_keycode, tap_hold_record->event.key.col, tap_hold_record->event.key.row, tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4);
+
+  // Exceptionally consider the following chords as holds, even though they
+  // are on the same hand in Dvorak.
+  switch (tap_hold_keycode) {
+    case HOME_S:  // S + D and S + W.
+      if (other_keycode == KC_D || other_keycode == KC_W || other_keycode == KC_P) { return true; }
+      break;
+  }
+
   if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 4|| tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4 ) { return true; }
 
   // Otherwise, follow the opposite hands rule.
