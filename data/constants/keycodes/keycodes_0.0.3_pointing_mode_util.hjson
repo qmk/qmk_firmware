@@ -1,0 +1,28 @@
+{
+    "keycodes": {
+        "0x5300": {
+            "group": "pointing_mode_util",
+            "key": "QK_PM_CYCLE_DEVICES",
+            "label": "Cycle pointing mode device",
+            "aliases": [
+                "PMR_CYD"
+            ]
+        },
+        "0x5301": {
+            "group": "pointing_mode_util",
+            "key": "QK_PM_DEVICE_RIGHT",
+            "label": "Set pointing mode device to PM_RIGHT_SIDE",
+            "aliases": [
+                "PMR_RGHT"
+            ]
+        },
+        "0x5302": {
+            "group": "pointing_mode_util",
+            "key": "QK_PM_DEVICE_LEFT",
+            "label": "Set pointing mode device to PM_LEFT_SIDE",
+            "aliases": [
+                "PMR_LEFT"
+            ]
+        }
+    }
+}
