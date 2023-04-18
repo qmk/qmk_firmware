@@ -1,6 +1,8 @@
 {
     "keyboard_name": "Cypher Rev6",
     "manufacturer": "cablecardesigns",
+    "maintainer": "westfoxtrot",
+    "url": "https://github.com/westfoxtrot/Cypher_PCB",
     "usb": {
       "vid": "0x41FF",
       "pid": "0xAA99",
