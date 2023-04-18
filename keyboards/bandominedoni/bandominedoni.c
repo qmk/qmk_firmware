@@ -25,7 +25,7 @@ static bool use_alt_ch_gr = false;
 
 static uint8_t my_tone_status[MY_TONE_COUNT];
 
-void my_process_midi4single_note(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint8_t *my_tone_status) {
+static void st_process_midi4single_note(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint8_t *my_tone_status) {
     uint8_t  mytone    = keycode - MY_TONE_MIN;
     uint16_t mykeycode = mytone + MIDI_TONE_MIN;
     // uint16_t mykeycode = keycode - MY_TONE_MIN;
@@ -49,6 +49,10 @@ void my_process_midi4single_note(uint8_t channel, uint16_t keycode, keyrecord_t 
         }
         my_tone_status[mytone] = MIDI_INVALID_NOTE;
     }
+}
+
+void my_process_midi4single_note(uint16_t keycode, keyrecord_t *record) {
+    st_process_midi4single_note(midi_sub_ch, keycode, record, my_tone_status);
 }
 
 #ifdef RGB_MATRIX_ENABLE
@@ -206,6 +210,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION " " QMK_GIT_HASH " | " QMK_BUILDDATE);
             }
+            return false;
             break;
 
         case TGLCHGR:
@@ -217,12 +222,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     midi_sub_ch = DEFAULT_SUB_CH_NUMBER;
                 }
             }
+            return false;
             break;
 
         case  MY_TONE_MIN ... MY_TONE_MAX:  // MY tone
             // uprintf("keycode=%u, MY_C3=%u, MY_Db2 =%u, MY_MIN = %u, MY_MAX = %u\n", keycode, MY_C3, MY_Db2, MY_TONE_MIN, MY_TONE_MAX);
             //  DO NOT THROW BELOW into 'if (record->event.pressed) {}' STATEMENT SINCE IT IS USED IN THE FUNCTION BELOW.
-            my_process_midi4single_note(midi_sub_ch, keycode, record, my_tone_status);
+            my_process_midi4single_note(keycode, record);
+            return false;
             break;
     }
     return true;

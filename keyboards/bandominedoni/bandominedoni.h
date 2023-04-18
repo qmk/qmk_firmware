@@ -224,12 +224,14 @@ enum custom_keycodes {
     MY_B5,
 
     MY_C6,
-    MY_TONE_MAX = MY_C6
+    MY_TONE_MAX = MY_C6,
+
+    MYMOSWP   //  MY MO SWaP, an alternative of MO_SWAP to enable bellow shake!
 };
 
 #define MY_TONE_COUNT (MY_TONE_MAX - MY_TONE_MIN + 1)
 
-void my_process_midi4single_note(uint8_t channel, uint16_t keycode, keyrecord_t *record, uint8_t *my_tone_status);
+void my_process_midi4single_note(uint16_t keycode, keyrecord_t *record);
 
 //  Overriding is_keyboard_left() in qmk_firmware/quantum/split_common/split_util.c to limit the handedness check only once.
 //  reason: bandoMIneDonI has no space on right hand side to use "SPLIT_HAND_MATRIX_GRID".

@@ -30,6 +30,14 @@ enum layer_names {
     _FN
 };
 
+//  Layer State
+#define _LS_OPEN     (1UL << _OPEN)
+#define _LS_CLOSE    (1UL << _CLOSE)
+
+// Force notes ON / OFF
+#define KEYS_STATUS_OFF (false)
+#define KEYS_STATUS_ON  (true)
+
 // Alias layout macros that expand groups of keys.
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
@@ -41,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        MY_E2, MY_Gs2, MY_B2, MY_D3, MY_Fs3, MY_Cs3, MY_Fs1,
      MY_D1, MY_B1, MY_G3, MY_A3, MY_Ds3, MY_Fs2, MY_Ds1, MY_C1,
 
-     MO_SWAP,    MI_B5, MI_Gs5, MI_G5, MI_F5,     FN_MUTE,
+     MYMOSWP,    MI_B5, MI_Gs5, MI_G5, MI_F5,     FN_MUTE,
          MI_Cs3, MI_A5, MI_Fs5, MI_E5, MI_Ds5,
         MI_C3, MI_D3, MI_G3, MI_As4, MI_C5, MI_D5,
      TG_SWAP, MI_B2, MI_E3, MI_Cs4, MI_Fs3, MI_A3, MI_C4, MI_E4,
@@ -56,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        MY_A1, MY_E2, MY_A2, MY_Cs3, MY_E3, MY_Gs2, MY_B1,
      MY_E1, MI_E2, MY_Fs3, MY_Gs3, MY_B3, MY_F2, MY_Cs1, MY_F1,
 
-     MO_SWAP,    MI_A5, MI_Gs5, MI_Fs5, MI_F5,     FN_MUTE,
+     MYMOSWP,    MI_A5, MI_Gs5, MI_Fs5, MI_F5,     FN_MUTE,
          MI_C3, MI_G5, MI_As4, MI_C5, MI_Ds5,
         MI_D3, MI_Cs3, MI_Gs3, MI_As3, MI_C4, MI_D5,
      TG_SWAP, MI_B2, MI_Fs3, MI_Fs4, MI_G3, MI_B3, MI_D4, MI_G4,
@@ -187,3 +195,68 @@ bool rgb_matrix_indicators_user(void) {
     return false;
 }
 #endif
+
+/**
+ * @brief This task scans the keyboards matrix and processes any key presses
+ * that occur.
+ *
+ * @return true Matrix did change
+ * @return false Matrix didn't change
+ */
+static void my_bellow_task(bool keys_status) {
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        const matrix_row_t current_row = matrix_get_row(row);
+
+        if (!current_row) {     // If there is no key pressed, continue.
+            continue;
+        }
+
+        matrix_row_t col_mask = 1;
+        for (uint8_t col = 0; col < MATRIX_COLS; col++, col_mask <<= 1) {
+            const bool key_pressed = current_row & col_mask;
+            if (key_pressed) {
+                keyrecord_t record = {.event = MAKE_KEYEVENT(row, col, keys_status)};
+                uint16_t keycode = get_record_keycode(&record, true);
+
+                // my_bellow_task runs when MYMOSWP is pressed. MYMOSWP has to be ignored here.
+                // All MIDI notes will be turned ON when keys_status is KEYS_STATUS_ON, and vice versa.
+                my_process_midi4single_note(keycode, &record);
+                process_midi(keycode, &record);
+            }
+        }
+    }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MYMOSWP:
+            if (record->event.pressed) {
+                // 1, turn OFF all pressed notes
+                my_bellow_task(KEYS_STATUS_OFF);
+
+                // 2, change layer
+#ifndef PEDAL_NORMALLY_CLOSED
+                layer_state_set(_LS_CLOSE);
+#else
+                layer_state_set(_LS_OPEN);
+#endif
+                // 3, turn ON all pressed notes
+                my_bellow_task(KEYS_STATUS_ON);
+            } else {
+                // 1, turn OFF all pressed notes
+                my_bellow_task(KEYS_STATUS_OFF);
+
+                // 2, change layer
+#ifndef PEDAL_NORMALLY_CLOSED
+                layer_state_set(_LS_OPEN);
+#else
+                layer_state_set(_LS_CLOSE);
+#endif
+                // 3, turn ON all pressed notes
+                my_bellow_task(KEYS_STATUS_ON);
+            }
+            return false;
+            break;
+    }
+    return true;
+}
