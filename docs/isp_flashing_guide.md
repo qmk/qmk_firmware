@@ -57,7 +57,7 @@ A standard 5v/16MMhz Uno or Pro Micro can be used as an ISP flashing tool using 
 
 |Pro-Micro  |Keyboard|
 |-----------|--------|
-|`VCC`      |`VCC`   |
+|`5V`       |`VCC`   |
 |`GND`      |`GND`   |
 |`10` (`B6`)|`RESET` |
 |`15` (`B1`)|`SCLK`  |
