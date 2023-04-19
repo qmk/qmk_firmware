@@ -29,7 +29,7 @@
     K01,     K02,     K03,     K04,     K05,     _____NONE_2_____, K06,     K07,     K08,     K09,     K0A, \
     K11,     K12,     K13,     K14,     K15,     _____NONE_2_____, K16,     K17,     K18,     K19,     K1A, \
     K21,     K22,     K23,     K24,     K25,     _____NONE_2_____, K26,     K27,     K28,     K29,     K2A, \
-    _____NONE_2_____, _________BASE_L3_________, _____NONE_2_____, _________BASE_R3_________, ___x___, KC_ESC \
+    _____NONE_2_____, _________BASE_L4_________, _____NONE_2_____, _________BASE_R4_________, ___x___, KC_ESC \
   )
 #define LAYOUT_base_wrapper(...)       LAYOUT_ortho_4x12_base(__VA_ARGS__)
 
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _____NONE_2_____, _____FUNCTION_PAD_L4_____, _____NONE_2_____, _____FUNCTION_PAD_R4_____, ___x___, KC_ESC
     ),
 
-    [_MOUSE] = LAYOUT_ortho_4x12_wrapper(
+    [_MOUSEKEYS] = LAYOUT_ortho_4x12_wrapper(
       //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
         _______________MOUSE_KEYS_L1_______________, _____NONE_2_____, _______________MOUSE_KEYS_R1_______________,
         _______________MOUSE_KEYS_L2_______________, _____NONE_2_____, _______________MOUSE_KEYS_R2_______________,

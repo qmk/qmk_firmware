@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     ___x___, K01,     K02,     K03,     K04,     K05,     K06,     K07,     K08,     K09,     K0A,     ___x___,   \
     ___x___, K11,     K12,     K13,     K14,     K15,     K16,     K17,     K18,     K19,     K1A,     ___x___,   \
     ___x___, K21,     K22,     K23,     K24,     K25,     K26,     K27,     K28,     K29,     K2A,     ___x___,   \
-                               _________BASE_L3_________, _________BASE_R3_________                               \
+                               _________BASE_L4_________, _________BASE_R4_________                               \
   )
 #define LAYOUT_base_wrapper(...)       LAYOUT_split_3x6_3_base(__VA_ARGS__)
 
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _____FUNCTION_PAD_L4_____, _____FUNCTION_PAD_R4_____
   ),
 
-  [_MOUSE] = LAYOUT_split_3x6_3_wrapper(
+  [_MOUSEKEYS] = LAYOUT_split_3x6_3_wrapper(
   //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     ___x___, _______________MOUSE_KEYS_L1_______________, _______________MOUSE_KEYS_R1_______________, ___x___,
     ___x___, _______________MOUSE_KEYS_L2_______________, _______________MOUSE_KEYS_R2_______________, ___x___,

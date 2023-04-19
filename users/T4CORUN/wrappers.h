@@ -30,9 +30,13 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #define          _________NONE_3__________                  ___x___, ___x___, ___x___
 #define __________________NONE_5___________________         ___x___, ___x___, ___x___, ___x___, ___x___
 
-#define          _________BASE_L3_________                  KC_MPLY, NUMBER,  KC_LSFT
-#define          _________BASE_R3_________                  KC_SPC,  NAV_TAB, KC_MUTE
-#define              _____BASE_R2____                       KC_SPC,  NAV_TAB
+#define          _________BASE_L4_________                  KC_MPLY, NUMBER,  KC_LSFT
+
+#if defined(KEYBOARD_bastardkb_charybdis_3x5)
+# define          _________BASE_R4_________                 KC_SPC,  NAV_TAB
+#else
+# define          _________BASE_R4_________                 KC_SPC,  NAV_TAB, KC_MUTE
+#endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #define          _________MEDIA_R3________                  KC_VOLD, KC_VOLU, KC_MUTE
 
@@ -142,15 +146,18 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 //ifdef TAP_DANCE_ENABLE
 #if defined(TAP_DANCE_ENABLE)
 # define _______________NUMBER_PAD_R1_______________         TD_LBKT, KC_7,    KC_8,    KC_9,    TD_RBKT
-# define _______________NUMBER_PAD_R2_______________         KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL
 #else
 # define _______________NUMBER_PAD_R1_______________         KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC
-# define _______________NUMBER_PAD_R2_______________         KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL
 #endif //TAP_DANCE_ENABLE
 
-
+#define _______________NUMBER_PAD_R2_______________         KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL
 #define _______________NUMBER_PAD_R3_______________         KC_MINS, KC_1,    KC_2,    KC_3,    KC_BSLS
-#define          ______NUMBER_PAD_R4______                  KC_SPC,  KC_0,    ___x___
+
+#if defined(KEYBOARD_bastardkb_charybdis_3x5)
+# define          ______NUMBER_PAD_R4______                 KC_SPC,  KC_0
+#else
+# define          ______NUMBER_PAD_R4______                 KC_SPC,  KC_0,    ___x___
+#endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #define _______________NUMBER_ROW_L1_______________         KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _______________NUMBER_ROW_R1_______________         KC_6,    KC_7,    KC_8,    KC_9,    KC_0
@@ -175,7 +182,12 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #define _______________NAVIGATION_R1_______________         _______________MOD_CMDS_R1_________________
 #define _______________NAVIGATION_R2_______________         _______________MOD_CMDS_R2_________________
 #define _______________NAVIGATION_R3_______________         _______________MOD_CMDS_R3_________________
-#define          ______NAVIGATION_R4______                  ___x___, _______, ___x___
+
+#if defined(KEYBOARD_bastardkb_charybdis_3x5)
+# define          ______NAVIGATION_R4______                 ___x___, _______
+#else
+# define          ______NAVIGATION_R4______                 ___x___, _______, ___x___
+#endif //KEYBOARD_bastardkb_charybdis_3x5
 
 
 
@@ -200,7 +212,12 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #define ______________FUNCTION_PAD_R1______________         KC_PSCR, KC_F7,   KC_F8,   KC_F9,   KC_F12
 #define ______________FUNCTION_PAD_R2______________         KC_SCRL, KC_F4,   KC_F5,   KC_F6,   KC_F11
 #define ______________FUNCTION_PAD_R3______________         KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F10
+
+#if defined(KEYBOARD_bastardkb_charybdis_3x5)
+#define          _____FUNCTION_PAD_R4_____                  ___x___, ___x___
+#else
 #define          _____FUNCTION_PAD_R4_____                  _________MEDIA_R3________
+#endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #define ______________FUNCTION_ROW_L1______________         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define ______________FUNCTION_ROW_M1______________         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
@@ -226,6 +243,29 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #define _______________MOUSE_KEYS_R2_______________         _______________MOD_CMDS_R2_________________
 #define _______________MOUSE_KEYS_R3_______________         _______________MOD_CMDS_R3_________________
 #define          ______MOUSE_KEYS_R4______                  _________NONE_3__________
+
+
+/*
+*   ,----------------------------------.    ,----------------------------------.
+*   | Esc  |      |      |   ~  |   `  |    |      |Ms B4 | MsWU |Ms B5 |      |
+*   +------+------+------+------+------|    +------+------+------+------+------+
+*   | GUI  | Alt  | Ctrl | Shft |   .  |    |      |Ms B1 | MsWD |Ms B2 |      |
+*   +------+------+------+------+------|    +------+------+------+------+------+
+*   | Undo | Cut  | Copy | Pste | Redo |    |      | MsWL |Ms B3 | MsWR |      |
+*   `------+------+------+------+------+    +------+------+------+------+------'
+*                 | Del  |      | Ent  |    |      |      |      |
+*                 `------+------+------'    `------+------+------'
+*/
+#define _________________MOUSE_L1__________________         _______________MOD_CMDS_L1_________________
+#define _________________MOUSE_L2__________________         _______________MOD_CMDS_L2_________________
+#define _________________MOUSE_L3__________________         _______________MOD_CMDS_L3_________________
+#define          ________MOUSE_L4_________                  KC_DEL,  ___x___, KC_ENT
+
+#define _________________MOUSE_R1__________________         ___x___, KC_BTN4, KC_WH_U, KC_BTN5, ___x___
+#define _________________MOUSE_R2__________________         ___x___, KC_BTN1, KC_WH_D, KC_BTN2, ___x___
+#define _________________MOUSE_R3__________________         ___x___, KC_WH_L, KC_BTN3, KC_WH_R, ___x___
+#define          ________MOUSE_R4_________                  ___x___, ___x___
+
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
@@ -268,8 +308,13 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 # define _________________ADJUST_R3_________________         QK_RBT,  QK_BOOT, ___x___, ___x___, _______
 #endif //AUDIO_ENABLE
 
-#if defined(DYNAMIC_MACRO_ENABLE)
+
+#if (defined(KEYBOARD_bastardkb_charybdis_3x5) && defined(DYNAMIC_MACRO_ENABLE))
+# define          ________ADJUST_R4________                  ___x___, ___x___
+#elif defined(KEYBOARD_bastardkb_charybdis_3x5)
+# define          ________ADJUST_R4________                  ___x___, ___x___
+#elif defined(DYNAMIC_MACRO_ENABLE)
 # define          ________ADJUST_R4________                  DM_PLY2, DM_REC2, DM_RSTP
 #else
 # define          ________ADJUST_R4________                  _________NONE_3__________
-#endif //DYNAMIC_MACRO_ENABLE
+#endif

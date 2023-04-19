@@ -14,6 +14,7 @@ enum layers {
   _NUMBER,
   _NAVIGATION,
   _FUNCTION,
+  _MOUSEKEYS,
   _MOUSE,
   _ADJUST
 };
