@@ -19,22 +19,16 @@
     },
     "features":{
         "bootmagic": true,
-        "mousekey": false,
+        "mousekey": true,
         "extrakey": true,
         "nkro": true,
         "console": false,
         "command": false,
-        "backlight": false,
-        "rgblight": false,
-        "audio": false,
-        "lto": false,
-        "dip_switch": false,
         "rgb_matrix": true
     },
     "rgb_matrix":{
         "driver": "IS31FL3741",
         "max_brightness": 150,
-        "val_steps": 50,
         "animations":{
             "alphas_mods": true,
             "gradient_up_down": true,
