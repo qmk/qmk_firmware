@@ -17,6 +17,7 @@
 #include "eeconfig.h"
 #include "quantum.h"
 
+#ifdef VIA_ENABLE
 bool is_second_rgb_row_active;
 enum via_secondrow_enable {
     id_is_second_rgb_row_active = 0
@@ -143,5 +144,5 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     // Return the unhandled state
     *command_id = id_unhandled;
 
-    // DO NOT call raw_hid_send(data,length) here, let caller do this
 }
+#endif // VIA ENABLE
