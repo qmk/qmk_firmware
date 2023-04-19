@@ -49,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
 
   [_LOWER] = LAYOUT_3x11_wrapper (
-     TD_XX,     TD_YY,     TD_SL,  XXXX,    XXXX,    TD_SL,      KC_7,  KC_8,  KC_9,  MT(MOD_RSFT, KC_0),
+     TD_XX,     TD_YY,    TD_SL,  XXXX,    XXXX,    TD_SL,      KC_7,  KC_8,  KC_9,  MT(MOD_RSFT, KC_0),
     TD_ATH,   TD_PRAM,  _______,  XXXX,    XXXX,    TD_YY,      KC_4,  KC_5,  KC_6,  MT(MOD_RSFT, KC_DEL),
-     XXXX,     XXXX,     XXXX,  XXXX, _______,  KC_ENT,   _______,  KC_1,  KC_2,  KC_3,          TD_DENT
+      XXXX,      XXXX,     XXXX,  XXXX, _______,   KC_ENT,   _______,  KC_1,  KC_2,  KC_3,          TD_DENT
   ),
 
 
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT_3x11_wrapper (
         QK_BOOT, DB_TOGG, _______, _______, MAKE,      TD_SL,  KC_F7,    KC_F8,   KC_F9,   KC_F10,
         _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, TD_UMIN,  KC_F4,    KC_F5,   KC_F6,   KC_F11,
-        _______, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_ENT,  _______,  KC_F1,   KC_F2,   KC_F3,   KC_F12
+        _______, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,  KC_ENT,  _______,  KC_F1,   KC_F2,    KC_F3,   KC_F12
   ),
    
 
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
   [_EX] = LAYOUT_3x11_wrapper (
-        KC_EXLM,  _______, _______, _______, _______, _______,     TD_SL, KC_LBRC, KC_RBRC, KC_SCLN,
+        KC_EXLM,  _______, _______, _______, _______, _______,    TD_SL, KC_LBRC, KC_RBRC, KC_SCLN,
         KC_LSFT,  _______, _______, _______, _______, _______,  _______, KC_LPRN, KC_RPRN, KC_QUOT,
         _______,  _______, _______, _______, _______,  KC_ENT,  _______, _______, KC_COMM,  KC_DOT,  KC_QUES
 ),
@@ -112,9 +112,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
   [_FN] = LAYOUT_3x11_wrapper (
-        TD_CP,      CLIP,     SS,  _______,   _______,    TD_SL,  _______,   KC_UP,   _______, KC_DEL,
-        KC_TAB,     M05,    M06,      M07,       M08, _______,  KC_LEFT, KC_DOWN,   KC_RGHT,   TD_UR,
-        _______,    M01,    M02,      M03,       M04,  KC_ENT,  _______,  TD_QEXC,   KC_COMM, KC_DOT,  TD_DL
+          TD_CP,   CLIP,     SS,  _______,   _______,   TD_SL,  _______,   KC_UP,   _______, KC_DEL,
+         KC_TAB,    M05,    M06,      M07,       M08, _______,  KC_LEFT, KC_DOWN,   KC_RGHT,  TD_UR,
+        _______,    M01,    M02,      M03,       M04,  KC_ENT,  _______, TD_QEXC,   KC_COMM, KC_DOT,  TD_DL
   ),
 
 
