@@ -91,7 +91,6 @@
     "layout_aliases": {
         "LAYOUT_planck_mit": "LAYOUT_ortho_4x12_1x2uC"
     },
-    "debounce": 5,
     "layouts": {
         "LAYOUT_ortho_4x12_1x2uC": {
             "layout": [
