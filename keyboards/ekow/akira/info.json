@@ -3,6 +3,14 @@
     "manufacturer": "Keeboyzlab",
     "maintainer": "eugenepy",
     "url": "http://github.com/EugenePY",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "nkro": true
+    },
     "usb": {
         "vid": "0x4B59",
         "pid": "0x414B",
@@ -16,6 +24,7 @@
     "processor": "STM32F042",
     "bootloader": "stm32-dfu",
     "debounce": 3,
+    "community_layouts": ["60_hhkb"],
      "layouts": {
         "LAYOUT_60_hhkb": {
             "layout": [
