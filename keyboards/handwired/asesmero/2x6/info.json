@@ -20,11 +20,6 @@
         "mousekey": true,
         "nkro": false
     },
-	 
-	"matrix_size": {
-        "cols": 6,
-        "rows": 2
-    },
 	
 	"matrix_pins": {
         "cols": ["D1", "D0", "D4", "C6", "D7", "E6"],
