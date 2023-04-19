@@ -8,7 +8,7 @@
         "cols": ["B14", "B13", "B12", "B2", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "A15", "B3", "B4"]
     },
     "features": {
-        "backlight": false,
+        "backlight": true,
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
@@ -32,6 +32,11 @@
             "twinkle": true,
             "breathing": true
         },
+    },
+    "backlight": {
+        "pin": "B8",
+        "levels": 5,
+        "breathing": true
     },
     "indicators": {
         "caps_lock": "B10",
