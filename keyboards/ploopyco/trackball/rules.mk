@@ -21,6 +21,6 @@ OPTS_DEF += -DENCODER_ENABLE
 
 ANALOG_DRIVER_REQUIRED = yes
 
-SRC += opt_encoder.c
+OPT_ENCODER_TYPE ?= default
 
 DEFAULT_FOLDER = ploopyco/trackball/rev1_005
