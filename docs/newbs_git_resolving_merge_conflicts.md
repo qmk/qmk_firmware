@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+sidebar_label: Merge Conflicts
+---
+
 # Resolving Merge Conflicts
 
 Sometimes when your work in a branch takes a long time to complete, changes that have been made by others conflict with changes you have made to your branch when you open a pull request. This is called a *merge conflict*, and is what happens when multiple people edit the same parts of the same files.

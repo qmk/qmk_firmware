@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+sidebar_label: Keyboard Support
+---
+
 # Supporting Your Keyboard in QMK Configurator
 
 This page covers how to properly support keyboards in the [QMK Configurator](https://config.qmk.fm/).

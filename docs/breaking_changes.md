@@ -1,3 +1,8 @@
+---
+sidebar_position: 0
+sidebar_label: Overview
+---
+
 # Breaking Changes
 
 This document describes QMK's Breaking Change process. A Breaking Change is any change which modifies how QMK behaves in a way that in incompatible or potentially dangerous. We limit these changes so that users can have confidence that updating their QMK tree will not break their keymaps.

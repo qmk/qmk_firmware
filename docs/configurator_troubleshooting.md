@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+sidebar_label: Troubleshooting
+---
+
 # Configurator Troubleshooting
 
 ## My .json file is not working

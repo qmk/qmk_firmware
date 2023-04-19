@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: API Documentation
+---
+
 # QMK API
 
 This page describes using the QMK API. If you are an application developer you can use this API to compile firmware for any [QMK](https://qmk.fm) Keyboard.

@@ -1,3 +1,8 @@
+---
+sidebar_position: 3
+sidebar_label: Debugging QMK
+---
+
 # Debugging FAQ
 
 This page details various common questions people have about troubleshooting their keyboards.

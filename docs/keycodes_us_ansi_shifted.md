@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: US ANSI Shifted Keys
+---
+
 # US ANSI Shifted Symbols
 
 These keycodes correspond to characters that are "shifted" on a standard US ANSI keyboard. They do not have keycodes of their own but are simply shortcuts for `LSFT(kc)`, and as such send a Left Shift with the unshifted keycode, not the symbol itself.

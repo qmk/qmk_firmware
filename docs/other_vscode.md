@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: Using VSCode with QMK
+---
+
 # Setting up Visual Studio Code for QMK Development
 
 [Visual Studio Code](https://code.visualstudio.com/) (VS Code) is an open-source code editor that supports many different programming languages. 

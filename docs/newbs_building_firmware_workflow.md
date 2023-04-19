@@ -1,3 +1,8 @@
+---
+sidebar_position: 4
+sidebar_label: Building with Github Userspace
+---
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 

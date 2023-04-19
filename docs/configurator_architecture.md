@@ -1,3 +1,8 @@
+---
+sidebar_position: 4
+sidebar_label: Architecture
+---
+
 # QMK Configurator Architecture
 
 This page describes the web architecture behind QMK Configurator at a high level. If you are interested in the architecture of the QMK Configurator code itself you should start at the [qmk_configurator](https://github.com/qmk/qmk_configurator) repository.

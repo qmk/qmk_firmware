@@ -1,3 +1,8 @@
+---
+sidebar_position: 0
+sidebar_label: Overview
+---
+
 # QMK Configurator
 
 [![QMK Configurator Screenshot](https://i.imgur.com/anw9cOL.png)](https://config.qmk.fm/)

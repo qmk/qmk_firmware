@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: Driver Installation with Zadig
+---
+
 # Bootloader Driver Installation with Zadig
 
 QMK presents itself to the host as a regular HID keyboard device, and as such requires no special drivers. However, in order to flash your keyboard on Windows, the bootloader device that appears when you reset the board often *does*.

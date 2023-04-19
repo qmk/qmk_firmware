@@ -1,3 +1,8 @@
+---
+sidebar_position: 5
+sidebar_label: Userspace
+---
+
 # Userspace: Sharing Code Between Keymaps
 
 If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your GitHub username, `<name>`) with the following structure:

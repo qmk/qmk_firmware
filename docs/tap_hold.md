@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: Tap-Hold Configuration
+---
+
 # Tap-Hold Configuration Options
 
 While Tap-Hold options are fantastic, they are not without their issues.  We have tried to configure them with reasonable defaults, but that may still cause issues for some people.

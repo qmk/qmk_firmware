@@ -1,3 +1,8 @@
+---
+sidebar_position: 3
+sidebar_label: Tab Completion
+---
+
 # Tab Completion for QMK
 
 If you are using Bash 4.2 or later, Zsh, or FiSH you can enable Tab Completion for the QMK CLI. This will let you tab complete the names of flags, keyboards, files, and other `qmk` options.

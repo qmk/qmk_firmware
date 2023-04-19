@@ -1,3 +1,8 @@
+---
+sidebar_position: 4
+sidebar_label: Debounce API
+---
+
 # Contact bounce / contact chatter
 
 Mechanical switches often don't have a clean single transition between pressed and unpressed states.

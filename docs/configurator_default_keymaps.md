@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+sidebar_label: Adding Default Keymaps
+---
+
 # Adding Default Keymaps to QMK Configurator {#adding-default-keymaps}
 
 This page covers how to add a default keymap for a keyboard to QMK Configurator.

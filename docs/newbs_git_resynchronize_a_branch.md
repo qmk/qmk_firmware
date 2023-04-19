@@ -1,3 +1,8 @@
+---
+sidebar_position: 3
+sidebar_label: Fixing Your Branch
+---
+
 # Resynchronizing an Out-of-Sync Git Branch
 
 Suppose you have committed to your `master` branch, and now need to update your QMK repository. You could `git pull` QMK's `master` branch into your own, but GitHub will tell you that your branch is a number of commits ahead of `qmk:master`, which can create issues if you want to make a pull request to QMK.

@@ -1,3 +1,7 @@
+---
+sidebar_label: How Keyboards Work
+---
+
 # How Keys Are Registered, and Interpreted by Computers
 
 In this file, you can will learn the concepts of how keyboards work over USB,

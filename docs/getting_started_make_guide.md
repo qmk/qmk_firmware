@@ -1,3 +1,7 @@
+---
+sidebar_label: Make Documentation
+---
+
 # More Detailed `make` Instructions
 
 The full syntax of the `make` command is `<keyboard_folder>:<keymap>:<target>`, where:

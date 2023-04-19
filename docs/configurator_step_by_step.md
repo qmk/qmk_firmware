@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: Step by Step
+---
+
 # QMK Configurator: Step by Step
 
 This page describes the steps for building your firmware in QMK Configurator.

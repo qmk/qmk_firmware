@@ -1,3 +1,8 @@
+---
+sidebar_position: 5
+sidebar_label: Tap Dance
+---
+
 # Tap Dance: A Single Key Can Do 3, 5, or 100 Different Things
 
 ## Introduction {#introduction}

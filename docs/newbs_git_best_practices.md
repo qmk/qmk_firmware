@@ -1,3 +1,8 @@
+---
+sidebar_position: 0
+sidebar_label: Introduction
+---
+
 # Best Git Practices for Working with QMK
 
 ## Or, "How I Learned to Stop Worrying and Love Git."

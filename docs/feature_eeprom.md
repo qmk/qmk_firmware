@@ -1,3 +1,8 @@
+---
+sidebar_position: 5
+sidebar_label: EEPROM
+---
+
 # Persistent Configuration (EEPROM)
 
 This allows you to configure persistent settings for your keyboard.  These settings are stored in the EEPROM of your controller, and are retained even after power loss. The settings can be read with `eeconfig_read_kb` and `eeconfig_read_user`, and can be written to using `eeconfig_update_kb` and `eeconfig_update_user`. This is useful for features that you want to be able to toggle (like toggling rgb layer indication).  Additionally, you can use `eeconfig_init_kb` and `eeconfig_init_user` to set the default values for the EEPROM.

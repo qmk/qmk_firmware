@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: Auto Shift
+---
+
 # Auto Shift: Why Do We Need a Shift Key?
 
 Tap a key and you get its character. Tap a key, but hold it *slightly* longer

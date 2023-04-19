@@ -1,3 +1,8 @@
+---
+sidebar_position: 0
+sidebar_label: Instructions and Bootloader Information
+---
+
 # Flashing Instructions and Bootloader Information
 
 There are quite a few different types of bootloaders that keyboards use, and almost all of them use their own flashing method and tools. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to support as many of them as possible, but this article will describe the different types of bootloaders, and available methods for flashing them.

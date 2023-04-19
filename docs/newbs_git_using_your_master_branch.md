@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: Your Fork
+---
+
 # Your Fork's Master: Update Often, Commit Never
 
 It is highly recommended for QMK development, regardless of what is being done or where, to keep your `master` branch updated, but ***never*** commit to it. Instead, do all your changes in a development branch and issue pull requests from your branches when you're developing.

@@ -1,3 +1,7 @@
+---
+sidebar_label: info.json Format
+---
+
 # `info.json`
 
 The information contained in `info.json` is combined with the `config.h` and `rules.mk` files, dynamically generating the necessary configuration for your keyboard at compile time. It is also used by the [QMK API](https://github.com/qmk/qmk_api), and contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. Its key/value pairs are ruled by the [`data/schemas/keyboard.jsonschema`](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema) file. To learn more about the why and how of the schema file see the [Data Driven Configuration](https://docs.qmk.fm/#/data_driven_config) page.

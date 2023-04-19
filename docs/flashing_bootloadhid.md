@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: Flashing ATmega32A (ps2avrgb)
+---
+
 # BootloadHID Flashing Instructions and Bootloader Information
 
 ps2avr(GB) boards use an ATmega32A microcontroller and a different bootloader. It is not flashable using the regular QMK methods.

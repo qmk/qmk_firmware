@@ -1,3 +1,8 @@
+---
+sidebar_position: 3
+sidebar_label: Leader Key
+---
+
 # The Leader Key: A New Kind of Modifier {#the-leader-key}
 
 If you're a Vim user, you probably know what a Leader key is. In contrast to [Combos](feature_combo.md), the Leader key allows you to hit a *sequence* of up to five keys instead, which triggers some custom functionality once complete.

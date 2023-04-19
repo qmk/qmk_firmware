@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: Build/Compile QMK
+---
+
 # Frequently Asked Build Questions
 
 This page covers questions about building QMK. If you haven't yet done so, you should read the [Build Environment Setup](getting_started_build_tools.md) and [Make Instructions](getting_started_make_guide.md) guides.

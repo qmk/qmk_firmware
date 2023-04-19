@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: Configuration
+---
+
 # QMK CLI Configuration
 
 This document explains how `qmk config` works.

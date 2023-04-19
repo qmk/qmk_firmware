@@ -29,7 +29,7 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en'],//, 'ja', 'zh-cn'],
   },
 
   presets: [
@@ -76,11 +76,20 @@ const config = {
         },
         items: [
           {
+            type: 'localeDropdown',
+            position: 'right',
+          },
+          {
             href: 'https://github.com/qmk/qmk_firmware',
             label: 'GitHub',
             position: 'right',
           },
         ],
+      },
+      docs: {
+        sidebar: {
+          autoCollapseCategories: false
+        }
       },
       footer: {
         style: 'dark',

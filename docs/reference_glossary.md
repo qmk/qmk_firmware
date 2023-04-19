@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+sidebar_label: Glossary
+---
+
 # Glossary of QMK Terms
 
 ## ARM

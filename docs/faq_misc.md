@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+sidebar_label: Troubleshooting QMK
+---
+
 # Miscellaneous FAQ
 
 ## How do I test my keyboard? {#testing}

@@ -1,3 +1,8 @@
+---
+sidebar_position: 0
+sidebar_label: Full List
+---
+
 # Keycodes Overview
 
 When defining a [keymap](keymap.md) each key needs a valid key definition. This page documents the symbols that correspond to keycodes that are available to you in QMK.

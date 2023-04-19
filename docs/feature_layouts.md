@@ -1,3 +1,7 @@
+---
+sidebar_label: Community Layouts
+---
+
 # Layouts: Using a Keymap with Multiple Keyboards
 
 The `layouts/` folder contains different physical key layouts that can apply to different keyboards.

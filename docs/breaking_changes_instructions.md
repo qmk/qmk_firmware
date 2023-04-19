@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: My Pull Request Was Flagged
+---
+
 # Breaking Changes: My Pull Request Was Flagged
 
 A QMK member may have replied to your pull request stating that your submission is a breaking change. In their judgment, the changes you have proposed have greater implications for either QMK, or its users.

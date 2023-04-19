@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+sidebar_label: Commands
+---
+
 # QMK CLI Commands
 
 # User Commands
