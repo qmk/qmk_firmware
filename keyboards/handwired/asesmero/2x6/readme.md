@@ -1,4 +1,3 @@
-
 # Asesmero 2x6
 
 ! Asesmero 2x6(https://bit.ly/3UEU0hc)
