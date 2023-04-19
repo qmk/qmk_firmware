@@ -20,11 +20,7 @@ enum custom_layers {
     _LOWER
 };
 
-
-enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
-    LOWER
-};
+ff#define LOWER MO(_LOWER)
 
 /*
     L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05,
@@ -61,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                            KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSLS,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐     ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      KC_LCTL, KC_HOME, KC_INS,  KC_DEL,  KC_LGUI, KC_SPC,  KC_LALT,       KC_ENT,  KC_BSPC, MO(LOWER),KC_LBRC,KC_RBRC,  KC_END,  KC_GRV
+      KC_LCTL, KC_HOME, KC_INS,  KC_DEL,  KC_LGUI, KC_SPC,  KC_LALT,       KC_ENT,  KC_BSPC, LOWER,   KC_LBRC, KC_RBRC,  KC_END,  KC_GRV
 //   └────────┴────────┴────────┴────────┴────────┴────────┴────────┘     └────────┴────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 
