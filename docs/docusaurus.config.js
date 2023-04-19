@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'QMK',
-  tagline: 'Dinosaurs are cool',
+  title: 'QMK Firmware',
+  tagline: 'Potatoes are cool',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -50,18 +50,10 @@ const config = {
             "gitbook",
             // "ChangeLog"
           ],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/qmk/qmk_firmware/edit/master/docs/',
         },
-        // blog: {
-        //   showReadingTime: true,
-        //   // Please change this to your repo.
-        //   // Remove this to remove the "edit this page" links.
-        //   editUrl:
-        //     'https://github.com/qmk/qmk_firmware/edit/master/docs/',
-        // },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -72,21 +64,17 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/qmk-social-card.jpg',
       navbar: {
         title: 'QMK Firmware Docs',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'QMK Firmware',
+          src: 'img/qmk-new-light.svg',
+          srcDark: 'img/qmk-new-dark.svg',
+          width: 32,
+          height: 32,
         },
-        items: [            
-          // {
-          //   type: 'docSidebar',
-          //   sidebarId: 'summary',
-          //   position: 'left',
-          //   label: 'Summary',
-          // },
+        items: [
           {
             href: 'https://github.com/qmk/qmk_firmware',
             label: 'GitHub',
@@ -102,7 +90,7 @@ const config = {
             items: [
               {
                 label: 'Docs',
-                to: '/docs/',
+                to: '/',
               },
             ],
           },
@@ -110,16 +98,12 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
                 label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                href: 'https://discord.gg/Uq7gcHh',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'Reddit',
+                href: 'https://reddit.com/r/olkb',
               },
             ],
           },
@@ -127,12 +111,8 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/qmk/qmk_firmware',
               },
             ],
           },
@@ -142,7 +122,38 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-      },
+      },  
+      // applied for - will fill out once we hear back
+      //
+      // algolia: {
+      //   // The application ID provided by Algolia
+      //   appId: 'YOUR_APP_ID',
+
+      //   // Public API key: it is safe to commit it
+      //   apiKey: 'YOUR_SEARCH_API_KEY',
+
+      //   indexName: 'YOUR_INDEX_NAME',
+
+      //   // Optional: see doc section below
+      //   contextualSearch: true,
+
+      //   // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
+      //   externalUrlRegex: 'external\\.com|domain\\.com',
+
+      //   // Optional: Replace parts of the item URLs from Algolia. Useful when using the same search index for multiple deployments using a different baseUrl. You can use regexp or string in the `from` param. For example: localhost:3000 vs myCompany.com/docs
+      //   replaceSearchResultPathname: {
+      //     from: '/docs/', // or as RegExp: /\/docs\//
+      //     to: '/',
+      //   },
+
+      //   // Optional: Algolia search parameters
+      //   searchParameters: {},
+
+      //   // Optional: path for search page that enabled by default (`false` to disable it)
+      //   searchPagePath: 'search',
+
+      //   //... other Algolia params
+      // },
     }),
 };
 
