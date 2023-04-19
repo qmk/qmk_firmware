@@ -39,17 +39,18 @@ void rgb_matrix_init_user(void) {
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t current_layer = get_highest_layer(layer_state);
+    bool caps = host_keyboard_led_state().caps_lock;
     switch (current_layer) {
         case WIN_BASE:
         case MAC_BASE:
+            if ((caps && !is_shift_pressed) || (is_shift_pressed && !caps)) {
 #ifdef CAPS_LOCK_INDICATOR_COLOR
-            if (host_keyboard_led_state().caps_lock || is_shift_pressed) {
                 rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
+#endif // CAPS_LOCK_INDICATOR_COLOR
 #ifdef CAPS_LOCK_INDICATOR_OTHER
                 rgb_matrix_set_color_by_not_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_OTHER);
-#endif
+#endif // CAPS_LOCK_INDICATOR_OTHER
             }
-#endif
             break;
         default:
 #ifdef FN_LAYER_TRANSPARENT_KEYS_COLOR
@@ -57,6 +58,14 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 #endif
 #ifdef FN_LAYER_KEYS_COLOR
             rgb_matrix_set_color_by_not_keycode(led_min, led_max, current_layer, is_transparent, FN_LAYER_KEYS_COLOR);
+#endif
+#ifdef CURRENT_LAYER_INDICATOR_COLOR
+            rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_default_layer, CURRENT_LAYER_INDICATOR_COLOR);
+#endif
+#ifdef NKRO_INDICATOR_COLOR
+            if(keymap_config.nkro) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_nkro_indicator, NKRO_INDICATOR_COLOR);
+            }
 #endif
             break;
     }
@@ -88,5 +97,17 @@ bool is_caps_lock_indicator(uint16_t keycode) {
     return keycode == KC_CAPS;
 #endif
 }
+
+#ifdef CURRENT_LAYER_INDICATOR_COLOR
+bool is_default_layer(uint16_t keycode) {
+    return keycode == DF(get_highest_layer(default_layer_state));
+}
+#endif
+
+#ifdef NKRO_INDICATOR_COLOR
+bool is_nkro_indicator(uint16_t keycode) {
+    return keycode == NK_TOGG;
+}
+#endif
 
 bool is_transparent(uint16_t keycode) { return keycode == KC_TRNS; }
