@@ -1,2 +1,1 @@
-DEFAULT_FOLDER = handwired/asesmero/2x6
-
+# This file intentionally left blank
