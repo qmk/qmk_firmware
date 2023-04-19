@@ -5,7 +5,6 @@
 	"url": "https://github.com/asesmero"
     "bootloader": "caterina",
 	"processor": "atmega32u4",
-	"keyboard_folder": "handwired/asesmero/2x6",
 	
     "usb": {
         "device_version": "0.0.1",
