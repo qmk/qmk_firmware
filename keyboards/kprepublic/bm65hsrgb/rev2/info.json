@@ -6,7 +6,7 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "usb": {
-        "device_ver": "0x0002",
+        "device_version": "0.0.2",
         "pid": "0x1133",
         "vid": "0x4B50"
     },

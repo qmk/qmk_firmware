@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* USB Device descriptor parameter */
 // #define VENDOR_ID    0x4B50 //KP
@@ -45,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-#define UNUSED_PINS
+// #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 //#define DIODE_DIRECTION COL2ROW
@@ -53,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN E2
 // The number of LEDs connected
-//#define DRIVER_LED_TOTAL 73
+#define DRIVER_LED_TOTAL 73
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 6
     #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
@@ -113,8 +112,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 /* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+// #define NO_ACTION_MACRO
+// #define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
@@ -137,7 +136,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define WS2812_LED_TOTAL RGBLED_NUM
 #endif
 
-#define DRIVER_LED_TOTAL (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (ISSI_LED_TOTAL + WS2812_LED_TOTAL)
 
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
