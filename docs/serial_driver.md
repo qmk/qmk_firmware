@@ -107,7 +107,7 @@ SERIAL_DRIVER = vendor
 #define SERIAL_USART_TX_PIN B6     // The GPIO pin that is used split communication.
 ```
 
-For STM32 MCUs several GPIO configuration options can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](alternate-functions-for-selected-stm32-mcus).
+For STM32 MCUs several GPIO configuration options can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](#alternate-functions-for-selected-stm32-mcus).
 
 ```c
 #define USART1_REMAP               // Remap USART TX and RX pins on STM32F103 MCUs, see table below.
@@ -166,7 +166,7 @@ SERIAL_DRIVER = vendor
 #define SERIAL_USART_RX_PIN B7     // USART RX pin
 ```
 
-For STM32 MCUs several GPIO configuration options, including the ability for `TX` to `RX` pin swapping, can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](alternate-functions-for-selected-stm32-mcus).
+For STM32 MCUs several GPIO configuration options, including the ability for `TX` to `RX` pin swapping, can be changed as well. See the section ["Alternate Functions for selected STM32 MCUs"](#alternate-functions-for-selected-stm32-mcus).
 
 ```c
 #define SERIAL_USART_PIN_SWAP      // Swap TX and RX pins if keyboard is master halve. (Only available on some MCUs)
@@ -300,7 +300,7 @@ The messages will be printed out to the `CONSOLE` output. For additional informa
 
 :::
 
-## Alternate Functions for selected STM32 MCUs
+## Alternate Functions for selected STM32 MCUs {#alternate-functions-for-selected-stm32-mcus}
 
 Pins for USART Peripherals with 
 

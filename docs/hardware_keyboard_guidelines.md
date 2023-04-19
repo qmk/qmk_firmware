@@ -272,4 +272,4 @@ The core of QMK is licensed under the [GNU General Public License](https://www.g
 
 ## Technical Details
 
-If you're looking for more information on making your keyboard work with QMK, [check out the hardware section](hardware.md)!
+If you're looking for more information on making your keyboard work with QMK, [check out the hardware section](platformdev_selecting_arm_mcu.md)!

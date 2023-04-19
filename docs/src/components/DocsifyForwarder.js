@@ -6,7 +6,9 @@ function removeHashSlash(url) {
 }
 
 export default function DocsifyForwarder(props) {
-    const history = useHistory();
+  const history = useHistory();
+
+  useEffect(() => {
     const currentUrl = window.location.href;
     if (currentUrl.includes('/#/')) {
       const newUrl = removeHashSlash(currentUrl);
@@ -14,5 +16,7 @@ export default function DocsifyForwarder(props) {
       const relativePath = new URL(newUrl).pathname;
       history.push(relativePath);
     }
-    return "";
+  }, [history]);
+
+  return "";
 }

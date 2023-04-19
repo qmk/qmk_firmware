@@ -9,63 +9,48 @@ const config = {
     title: "QMK Firmware",
     tagline: "The full documentation of the open-source firmware",
     favicon: "img/favicon.ico",
-
-    // Set the production url of your site here
     url: "https://docs.qmk.fm",
-    // Set the /<baseUrl>/ pathname under which your site is served
-    // For GitHub pages deployment, it is often '/<projectName>/'
     baseUrl: "/",
-
-    // GitHub pages deployment config.
-    // If you aren't using GitHub pages, you don't need these.
-    organizationName: "qmk", // Usually your GitHub org/user name.
-    projectName: "qmk_firmware", // Usually your repo name.
-
-    onBrokenLinks: "throw",
+    organizationName: "qmk",
+    projectName: "qmk_firmware",
+    onBrokenLinks: "warn",
     onBrokenMarkdownLinks: "warn",
-
-    // Even if you don't use internalization, you can use this field to set useful
-    // metadata like html lang. For example, if your site is Chinese, you may want
-    // to replace "en" with "zh-Hans".
     i18n: {
         defaultLocale: "en",
         locales: ["en"], //, 'ja', 'zh-cn'],
     },
-
-    presets: [
+    themes: [
         [
             "classic",
-            /** @type {import('@docusaurus/preset-classic').Options} */
-            ({
-                docs: {
-                    sidebarPath: require.resolve("./sidebars.js"),
-                    path: ".",
-                    routeBasePath: "/",
-                    exclude: [
-                        "node_modules",
-                        "src",
-                        "static",
-                        "ja",
-                        "zh-cn",
-                        "gitbook",
-                        // "ChangeLog"
-                    ],
-                    editUrl:
-                        "https://github.com/qmk/qmk_firmware/edit/master/docs/",
-                },
-                blog: false,
-                theme: {
-                    customCss: require.resolve("./src/css/custom.css"),
-                },
-            }),
+            {
+                customCss: require.resolve("./src/css/custom.css"),
+            }
         ],
     ],
-
     plugins: [
+        [
+            "@docusaurus/plugin-content-docs",
+            {
+                sidebarPath: require.resolve("./sidebars.js"),
+                path: ".",
+                routeBasePath: "/",
+                exclude: [
+                    "node_modules",
+                    "src",
+                    "static",
+                    "ja",
+                    "zh-cn",
+                    "gitbook",
+                    // "ChangeLog"
+                ],
+                editUrl:
+                    "https://github.com/qmk/qmk_firmware/edit/master/docs/",
+            },
+        ],
         [
             "@docusaurus/plugin-client-redirects",
             {
-                fromExtensions: ['md', 'html'],
+                // fromExtensions: ['md', 'html'],
                 redirects: [
                     // from index.html
                     {
@@ -101,8 +86,8 @@ const config = {
                         to: '/getting_started_make_guide',
                     },
                     {
-                        from: '/space_cadet_shift',
-                        to: '/feature_space_cadet_shift',
+                        from: ['/space_cadet_shift', '/feature_space_cadet_shift'],
+                        to: '/feature_space_cadet',
                     },
                     {
                         from: '/getting_started_getting_help',

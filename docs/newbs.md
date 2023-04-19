@@ -25,7 +25,7 @@ This guide is suitable for everyone who wants to build a keyboard firmware using
 2. [Building Your First Firmware](newbs_building_firmware.md)
 3. [Flashing Firmware](newbs_flashing.md)
 
-This guide is focused on helping someone who has never compiled software before. It makes choices and recommendations based on that viewpoint. There are alternative methods for many of these procedures, and we support most of those alternatives. If you have any doubt about how to accomplish a task you can [ask us for guidance](getting_started_getting_help.md).
+This guide is focused on helping someone who has never compiled software before. It makes choices and recommendations based on that viewpoint. There are alternative methods for many of these procedures, and we support most of those alternatives. If you have any doubt about how to accomplish a task you can [ask us for guidance](support.md).
 
 ## Additional Resources
 
