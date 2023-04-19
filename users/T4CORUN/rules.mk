@@ -7,18 +7,17 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 endif
 
 OLED_ENABLE ?= no
+KEYLOG_ENABLE ?= no
 ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += $(USER_PATH)/oled_stuff.c
+	ifeq ($(strip $(KEYLOG_ENABLE)), yes)
+	    OPT_DEFS += -DKEYLOG_ENABLE
+	endif
 endif
 
 COMBO_ENABLE ?= yes
 ifeq ($(strip $(COMBO_ENABLE)), yes)
 	SRC += $(USER_PATH)/combos.c
-endif
-
-KEYLOG_ENABLE ?= no
-ifeq ($(strip $(KEYLOG_ENABLE)), yes)
-    OPT_DEFS += -DKEYLOG_ENABLE
 endif
 
 HOMEROWMOD_ENABLE ?= yes

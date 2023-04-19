@@ -36,5 +36,6 @@
 
 #ifdef COMBO_ENABLE 
 # define EXTRA_SHORT_COMBOS
+# define COMBO_MUST_PRESS_IN_ORDER
 # define COMBO_TERM 50
 #endif //COMBO_ENABLE
