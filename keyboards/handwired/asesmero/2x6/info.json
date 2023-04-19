@@ -3,9 +3,7 @@
     "keyboard_name": "2x6 promicro",
     "maintainer": "asesmero",
 	"url": "https://github.com/asesmero"
-    "bootloader": "caterina",
-	"processor": "atmega32u4",
-	
+    "development_board": "promicro",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0026",
