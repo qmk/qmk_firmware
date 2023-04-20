@@ -18,6 +18,7 @@
 
 #include "quantum.h"
 
+#ifdef RGB_MATRIX_ENABLE
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -94,4 +95,4 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS2_SW6, CS1_SW6, CS3_SW6},
     {0, CS2_SW7, CS1_SW7, CS3_SW7}
 };
-
+#endif
