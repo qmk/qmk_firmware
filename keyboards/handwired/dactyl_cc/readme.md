@@ -6,9 +6,13 @@
 ![ErgoS-1](https://wizardkeyboards.com/wp-content/uploads/2021/11/20211108_233645-1024x498.jpg)  
 *Ergo S-1*
 
+Modelled on the *Kinesis Advantage* (KA) 1|2, though missing it's function and program row, board(s) retain the finger and thumb key placements of the KA but opted to psychically split the handed key-wells instead.
+
+Electronically both the Dactyl-CC and Ergo S-1 are indentical, though psychically the Ergo S-1 has larger casing designed to be used as a palm rest.
+
 * Hardware Supported: Pro micro controller or clones of
 
-## Dactyl-CC
+### Dactyl-CC
 * Keyboard Maintainer: [Michael Johns](https://github.com/mjohns)
 * Hardware Availability: [Dactyl CC GitHub](https://github.com/mjohns/dactyl-cc)
 
@@ -21,11 +25,11 @@ Flashing example for this keyboard:
     make handwired/dactyl_cc:default:flash
 ```
     
-## Ergo S-1
+### Ergo S-1
 * Keyboard Maintainer: [Andrew Wells](https://github.com/wizarddata)
 * Hardware Availability: [Ergo S-1 GitHub](https://github.com/wizarddata/Ergo-S-1)
 
-`handwired/ergo_s-1` is an alias of `handwired/dactly_cc`
+*`handwired/ergo_s-1` is an alias of `handwired/dactly_cc`*
 
 Make example for this keyboard (after setting up your build environment):
 ```
