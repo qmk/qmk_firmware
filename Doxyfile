@@ -21,7 +21,7 @@ DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "QMK Firmware"
 PROJECT_NUMBER         = https://github.com/qmk/qmk_firmware
 PROJECT_BRIEF          = "Keyboard controller firmware for Atmel AVR and ARM USB families"
-OUTPUT_DIRECTORY       = .build/doxygen
+OUTPUT_DIRECTORY       = .build/docs/static
 ALLOW_UNICODE_NAMES    = NO
 OUTPUT_LANGUAGE        = English
 BRIEF_MEMBER_DESC      = YES
@@ -183,7 +183,7 @@ IGNORE_PREFIX          =
 # Configuration options related to disabled outputs
 #---------------------------------------------------------------------------
 
-GENERATE_HTML          = NO
+GENERATE_HTML          = YES
 GENERATE_LATEX         = NO
 GENERATE_RTF           = NO
 GENERATE_MAN           = NO
@@ -192,10 +192,17 @@ GENERATE_AUTOGEN_DEF   = NO
 GENERATE_PERLMOD       = NO
 
 #---------------------------------------------------------------------------
+# Configuration options related to the HTML output
+#---------------------------------------------------------------------------
+
+HTML_OUTPUT            = doxygen
+# HTML_FILE_EXTENSION    = 
+
+#---------------------------------------------------------------------------
 # Configuration options related to the XML output
 #---------------------------------------------------------------------------
 
-GENERATE_XML           = YES
+GENERATE_XML           = NO
 XML_OUTPUT             = xml
 XML_PROGRAMLISTING     = YES
 

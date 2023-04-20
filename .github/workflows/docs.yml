@@ -30,7 +30,7 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-        cache: yarn
+        cache: npm
 
     - name: Install dependencies
       run: |
@@ -40,14 +40,6 @@ jobs:
     - name: Build doxygen docs
       run: |
         qmk --verbose generate-docs
-
-    - name: Install yarn dependencies
-      working-directory: .build/docs
-      run: yarn install --frozen-lockfile
-
-    - name: Build Docusaurus
-      working-directory: .build/docs
-      run: yarn build
 
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.4.1

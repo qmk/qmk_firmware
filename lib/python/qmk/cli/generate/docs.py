@@ -9,8 +9,8 @@ from milc import cli
 DOCS_PATH = Path('docs/')
 BUILD_PATH = Path('.build/')
 BUILD_DOCS_PATH = BUILD_PATH / 'docs'
-DOXYGEN_PATH = BUILD_PATH / 'doxygen'
-MOXYGEN_PATH = BUILD_DOCS_PATH / 'internals'
+DOXYGEN_PATH = BUILD_DOCS_PATH / 'static' / 'doxygen'
+# MOXYGEN_PATH = BUILD_DOCS_PATH / 'internals'
 
 
 @cli.subcommand('Build QMK documentation.', hidden=False if cli.config.user.developer else True)
@@ -26,8 +26,9 @@ def generate_docs(cli):
     if DOXYGEN_PATH.exists():
         shutil.rmtree(DOXYGEN_PATH)
 
-    # ignore node_modules when we're testing locally
-    shutil.copytree(DOCS_PATH, BUILD_DOCS_PATH, ignore=shutil.ignore_patterns("node_modules"))
+    cli.log.info('Copying %s folder to %s', DOCS_PATH, BUILD_DOCS_PATH)
+    # ignore .gitignore'd folders when we're testing locally
+    shutil.copytree(DOCS_PATH, BUILD_DOCS_PATH, ignore=shutil.ignore_patterns("node_modules", "build", ".docusaurus"))
 
     # When not verbose we want to hide all output
     args = {
@@ -36,10 +37,14 @@ def generate_docs(cli):
         'stdin': DEVNULL,
     }
 
-    cli.log.info('Generating docs...')
-
-    # Generate internal docs
+    cli.log.info('Generating doxygen docs at %s', DOXYGEN_PATH)
     cli.run(['doxygen', 'Doxyfile'], **args)
-    cli.run(['moxygen', '-q', '-g', '-o', MOXYGEN_PATH / '%s.md', DOXYGEN_PATH / 'xml'], **args)
+    # cli.run(['moxygen', '-q', '-g', '-o', MOXYGEN_PATH / '%s.md', DOXYGEN_PATH / 'xml'], **args)
+
+    cli.log.info('Installing docusaurus dependencies')
+    cli.run(['npm', 'ci', '--prefix', BUILD_DOCS_PATH], **args)
+
+    cli.log.info('Building docusarus docs')
+    cli.run(['npm', 'run', '--prefix', BUILD_DOCS_PATH, 'build'], **args)
 
     cli.log.info('Successfully generated docs to %s.', BUILD_DOCS_PATH)

@@ -13,6 +13,7 @@ const config = {
     baseUrl: "/",
     organizationName: "qmk",
     projectName: "qmk_firmware",
+    deploymentBranch: "gh-pages",
     onBrokenLinks: "warn",
     onBrokenMarkdownLinks: "warn",
     i18n: {
