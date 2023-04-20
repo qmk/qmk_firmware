@@ -6,7 +6,7 @@
 ![ErgoS-1](https://wizardkeyboards.com/wp-content/uploads/2021/11/20211108_233645-1024x498.jpg)  
 *Ergo S-1*
 
-Modelled on the *Kinesis Advantage* (KA) 1|2, though missing it's function and program row, board(s) retain the finger and thumb key placements of the KA but opted to psychically split the handed key-wells instead.
+Modelled on the *Kinesis Advantage* (KA) 1|2, though missing it's function and program row, board(s) retain the finger and thumb key placements of the KA but opt to psychically split the handed key-wells instead.
 
 Electronically both the Dactyl-CC and Ergo S-1 are indentical, though psychically the Ergo S-1 has larger casing designed to be used as a palm rest.
 
