@@ -13,7 +13,7 @@
 
 
 enum layer_names {
-  _WM = SAFE_RANGE,
+  _WM,
   _QW,
   _LOWER,
   _RAISE,
