@@ -4,7 +4,7 @@
 
 A custom 64-key mechanical keyboard comprised of Legos.
 
-* Keyboard Maintainer: KBDCraft
+* Keyboard Maintainer: The QMK Community
 * Hardware Supported: STM32F401
 * Hardware Availability: https://kbdcraft.store/products/adam
 
