@@ -137,9 +137,9 @@
             {"flags": 4, "matrix": [4, 13], "x": 208, "y": 40 }
         ]
     },
-    "community_layouts": [ "60_ansi_arrow" ],
+    "community_layouts": [ "64_ansi" ],
     "layouts": {
-        "LAYOUT_60_ansi_arrow": {
+        "LAYOUT_64_ansi": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
