@@ -27,8 +27,6 @@
 #define DRIVER_ADDR_1 0b0110000
 #define RGB_MATRIX_LED_COUNT 64
 
-#define TAP_CODE_DELAY 50
-
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
