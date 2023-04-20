@@ -26,9 +26,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #define          _________BLANK_3_________                  _______, _______, _______
 #define __________________BLANK_5__________________         _______, _______, _______, _______, _______
 
-#define              _____NONE_2_____                       ___x___, ___x___
-#define          _________NONE_3__________                  ___x___, ___x___, ___x___
-#define __________________NONE_5___________________         ___x___, ___x___, ___x___, ___x___, ___x___
+#define               _____NONE_2_____                      ___x___, ___x___
+#define          __________NONE_3_________                  ___x___, ___x___, ___x___
+#define ___________________NONE_5__________________         ___x___, ___x___, ___x___, ___x___, ___x___
 
 #define          _________BASE_L4_________                  KC_MPLY, NUMBER,  KC_LSFT
 
@@ -108,18 +108,18 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *                 `------+------+------'    `------+------+------'
 */
 
-#define ______________COLEMAK_MOD_DH_L1____________         KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
-#define ______________COLEMAK_MOD_DH_L3____________         FUN_Z,   KC_X,    KC_C,    KC_D,    KC_V
+#define ________________COLEMAKDH_L1_______________         KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
+#define ________________COLEMAKDH_L3_______________         FUN_Z,   KC_X,    KC_C,    KC_D,    KC_V
 
-#define ______________COLEMAK_MOD_DH_R1____________         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
-#define ______________COLEMAK_MOD_DH_R3____________         KC_K,    KC_H,    KC_COMM, KC_DOT,  AD_SLSH
+#define ________________COLEMAKDH_R1_______________         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
+#define ________________COLEMAKDH_R3_______________         KC_K,    KC_H,    KC_COMM, KC_DOT,  AD_SLSH
 
 #if defined(HOMEROWMOD_ENABLE)
-# define ______________COLEMAK_MOD_DH_L2____________         LGUI_A,  LALT_R,  CTRL_S,  SHFT_T,  KC_G
-# define ______________COLEMAK_MOD_DH_R2____________         KC_M,    SHFT_N,  CTRL_E,  LALT_I,  LGUI_O
+# define ________________COLEMAKDH_L2_______________        LGUI_A,  LALT_R,  CTRL_S,  SHFT_T,  KC_G
+# define ________________COLEMAKDH_R2_______________        KC_M,    SHFT_N,  CTRL_E,  LALT_I,  LGUI_O
 #else
-# define ______________COLEMAK_MOD_DH_L2____________         KC_A,    KC_R,    KC_S,    KC_T,    KC_G
-# define ______________COLEMAK_MOD_DH_R2____________         KC_M,    KC_N,    KC_E,    KC_I,    KC_O
+# define ________________COLEMAKDH_L2_______________        KC_A,    KC_R,    KC_S,    KC_T,    KC_G
+# define ________________COLEMAKDH_R2_______________        KC_M,    KC_N,    KC_E,    KC_I,    KC_O
 #endif //HOMEROWMOD_ENABLE
 
 
@@ -138,29 +138,29 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *                 `------+------+------'    `------+------+------'
 */
 
-#define _______________NUMBER_PAD_L1_______________         _______________MOD_CMDS_L1_________________
-#define _______________NUMBER_PAD_L2_______________         _______________MOD_CMDS_L2_________________
-#define _______________NUMBER_PAD_L3_______________         _______________MOD_CMDS_L3_________________
-#define          ______NUMBER_PAD_L4______                  ___x___, _______, ___x___
+#define _________________NUMPAD_L1_________________         _______________MOD_CMDS_L1_________________
+#define _________________NUMPAD_L2_________________         _______________MOD_CMDS_L2_________________
+#define _________________NUMPAD_L3_________________         _______________MOD_CMDS_L3_________________
+#define          ________NUMPAD_L4________                  ___x___, _______, ___x___
 
 //ifdef TAP_DANCE_ENABLE
 #if defined(TAP_DANCE_ENABLE)
-# define _______________NUMBER_PAD_R1_______________         TD_LBKT, KC_7,    KC_8,    KC_9,    TD_RBKT
+# define _________________NUMPAD_R1_________________        TD_LBKT, KC_7,    KC_8,    KC_9,    TD_RBKT
 #else
-# define _______________NUMBER_PAD_R1_______________         KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC
+# define _________________NUMPAD_R1_________________        KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC
 #endif //TAP_DANCE_ENABLE
 
-#define _______________NUMBER_PAD_R2_______________         KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL
-#define _______________NUMBER_PAD_R3_______________         KC_MINS, KC_1,    KC_2,    KC_3,    KC_BSLS
+#define _________________NUMPAD_R2_________________         KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL
+#define _________________NUMPAD_R3_________________         KC_MINS, KC_1,    KC_2,    KC_3,    KC_BSLS
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-# define          ______NUMBER_PAD_R4______                 KC_SPC,  KC_0
+# define          ________NUMPAD_R4________                 KC_SPC,  KC_0
 #else
-# define          ______NUMBER_PAD_R4______                 KC_SPC,  KC_0,    ___x___
+# define          ________NUMPAD_R4________                 KC_SPC,  KC_0,    ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
-#define _______________NUMBER_ROW_L1_______________         KC_1,    KC_2,    KC_3,    KC_4,    KC_5
-#define _______________NUMBER_ROW_R1_______________         KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+#define __________________NUMROW_L_________________         KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+#define __________________NUMROW_R_________________         KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
 /*
 *
@@ -174,19 +174,19 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *                 |ClseTb| Bpsc | Ent  |    |      |LyrTap|      |
 *                 `------+------+------'    `------+------+------'
 */
-#define _______________NAVIGATION_L1_______________         KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
-#define _______________NAVIGATION_L2_______________         KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
-#define _______________NAVIGATION_L3_______________         _______________MOD_CMDS_L3_________________
-#define          ______NAVIGATION_L4______                  _________EDIT_L3_________
+#define ___________________NAV_L1__________________         KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
+#define ___________________NAV_L2__________________         KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
+#define ___________________NAV_L3__________________         _______________MOD_CMDS_L3_________________
+#define          __________NAV_L4_________                  _________EDIT_L3_________
 
-#define _______________NAVIGATION_R1_______________         _______________MOD_CMDS_R1_________________
-#define _______________NAVIGATION_R2_______________         _______________MOD_CMDS_R2_________________
-#define _______________NAVIGATION_R3_______________         _______________MOD_CMDS_R3_________________
+#define ___________________NAV_R1__________________         _______________MOD_CMDS_R1_________________
+#define ___________________NAV_R2__________________         _______________MOD_CMDS_R2_________________
+#define ___________________NAV_R3__________________         _______________MOD_CMDS_R3_________________
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-# define          ______NAVIGATION_R4______                 ___x___, _______
+# define          __________NAV_R4_________                 ___x___, _______
 #else
-# define          ______NAVIGATION_R4______                 ___x___, _______, ___x___
+# define          __________NAV_R4_________                 ___x___, _______, ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 
@@ -204,24 +204,24 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *                 `------+------+------'    `------+------+------'
 */
 
-#define ______________FUNCTION_PAD_L1______________         _______________MOD_CMDS_L1_________________
-#define ______________FUNCTION_PAD_L2______________         _______________MOD_CMDS_L2_________________
-#define ______________FUNCTION_PAD_L3______________         _______, ___x___, ___x___, ___x___, ___x___
-#define          _____FUNCTION_PAD_L4_____                  _________NONE_3__________
+#define _________________FUNCPAD_L1________________         _______________MOD_CMDS_L1_________________
+#define _________________FUNCPAD_L2________________         _______________MOD_CMDS_L2_________________
+#define _________________FUNCPAD_L3________________         _______, ___x___, ___x___, ___x___, ___x___
+#define          ________FUNCPAD_L4_______                  __________NONE_3_________
 
-#define ______________FUNCTION_PAD_R1______________         KC_PSCR, KC_F7,   KC_F8,   KC_F9,   KC_F12
-#define ______________FUNCTION_PAD_R2______________         KC_SCRL, KC_F4,   KC_F5,   KC_F6,   KC_F11
-#define ______________FUNCTION_PAD_R3______________         KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F10
+#define _________________FUNCPAD_R1________________         KC_PSCR, KC_F7,   KC_F8,   KC_F9,   KC_F12
+#define _________________FUNCPAD_R2________________         KC_SCRL, KC_F4,   KC_F5,   KC_F6,   KC_F11
+#define _________________FUNCPAD_R3________________         KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F10
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#define          _____FUNCTION_PAD_R4_____                  ___x___, ___x___
+#define          ________FUNCPAD_R4_______                  ___x___, ___x___
 #else
-#define          _____FUNCTION_PAD_R4_____                  _________MEDIA_R3________
+#define          ________FUNCPAD_R4_______                  _________MEDIA_R3________
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
-#define ______________FUNCTION_ROW_L1______________         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
-#define ______________FUNCTION_ROW_M1______________         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
-#define            ___FUNCROW_R1___                         KC_F11,  KC_F12
+#define _________________FUNCROW_L_________________         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+#define _________________FUNCROW_M_________________         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
+#define              ____FUNCROW_R___                       KC_F11,  KC_F12
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
@@ -234,15 +234,15 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *                 |MS B3 |Ms B2 |Ms B1 |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
 */
-#define _______________MOUSE_KEYS_L1_______________         ___x___, KC_BTN4, KC_MS_U, KC_BTN5, KC_WH_U
-#define _______________MOUSE_KEYS_L2_______________         ___x___, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D
-#define _______________MOUSE_KEYS_L3_______________         __________________NONE_5___________________
-#define          ______MOUSE_KEYS_L4______                  KC_BTN3, KC_BTN2, KC_BTN1
+#define ________________MOUSEKEY_L1________________         ___x___, KC_BTN4, KC_MS_U, KC_BTN5, KC_WH_U
+#define ________________MOUSEKEY_L2________________         ___x___, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D
+#define ________________MOUSEKEY_L3________________         ___________________NONE_5__________________
+#define          _______MOUSEKEY_L4_______                  KC_BTN3, KC_BTN2, KC_BTN1
 
-#define _______________MOUSE_KEYS_R1_______________         _______________MOD_CMDS_R1_________________
-#define _______________MOUSE_KEYS_R2_______________         _______________MOD_CMDS_R2_________________
-#define _______________MOUSE_KEYS_R3_______________         _______________MOD_CMDS_R3_________________
-#define          ______MOUSE_KEYS_R4______                  _________NONE_3__________
+#define ________________MOUSEKEY_R1________________         _______________MOD_CMDS_R1_________________
+#define ________________MOUSEKEY_R2________________         _______________MOD_CMDS_R2_________________
+#define ________________MOUSEKEY_R3________________         _______________MOD_CMDS_R3_________________
+#define          _______MOUSEKEY_R4_______                  __________NONE_3_________
 
 
 /*
@@ -256,15 +256,16 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *                 | Del  |      | Ent  |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
 */
-#define _________________MOUSE_L1__________________         _______________MOD_CMDS_L1_________________
-#define _________________MOUSE_L2__________________         _______________MOD_CMDS_L2_________________
-#define _________________MOUSE_L3__________________         _______________MOD_CMDS_L3_________________
-#define          ________MOUSE_L4_________                  KC_DEL,  ___x___, KC_ENT
 
-#define _________________MOUSE_R1__________________         ___x___, KC_BTN4, KC_WH_U, KC_BTN5, ___x___
-#define _________________MOUSE_R2__________________         ___x___, KC_BTN1, KC_WH_D, KC_BTN2, ___x___
-#define _________________MOUSE_R3__________________         ___x___, KC_WH_L, KC_BTN3, KC_WH_R, ___x___
-#define          ________MOUSE_R4_________                  ___x___, ___x___
+#define ________________MOUSEPTR_L1________________         _______________MOD_CMDS_L1_________________
+#define ________________MOUSEPTR_L2________________         _______________MOD_CMDS_L2_________________
+#define ________________MOUSEPTR_L3________________         _______________MOD_CMDS_L3_________________
+#define          _______MOUSEPTR_L4_______                  KC_DEL,  ___x___, KC_ENT
+
+#define ________________MOUSEPTR_R1________________         ___x___, KC_BTN4, KC_WH_U, KC_BTN5, ___x___
+#define ________________MOUSEPTR_R2________________         ___x___, KC_BTN1, KC_WH_D, KC_BTN2, ___x___
+#define ________________MOUSEPTR_R3________________         ___x___, KC_WH_L, KC_BTN3, KC_WH_R, ___x___
+#define          _______MOUSEPTR_R4_______                 ___x___, ___x___
 
 
 /*
@@ -284,15 +285,15 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 # define _________________ADJUST_L2_________________         RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, ___x___
 # define _________________ADJUST_L3_________________         RGB_TOG, RGB_MOD, RGB_RMOD, QK_BOOT, QK_RBT
 #else
-# define _________________ADJUST_L1_________________         __________________NONE_5___________________
-# define _________________ADJUST_L2_________________         __________________NONE_5___________________
-# define _________________ADJUST_L3_________________         _________NONE_3__________, QK_BOOT, QK_RBT
+# define _________________ADJUST_L1_________________         ___________________NONE_5__________________
+# define _________________ADJUST_L2_________________         ___________________NONE_5__________________
+# define _________________ADJUST_L3_________________         __________NONE_3_________, QK_BOOT, QK_RBT
 #endif //RGB_MATRIX_ENABLE || RGBLIGHT_ENABLE
 
 #if defined(DYNAMIC_MACRO_ENABLE)
 # define          ________ADJUST_L4________                  DM_RSTP, DM_REC1, DM_PLY1
 #else
-# define          ________ADJUST_L4________                  _________NONE_3__________
+# define          ________ADJUST_L4________                  __________NONE_3_________
 #endif //DYNAMIC_MACRO_ENABLE
 
 
@@ -304,7 +305,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 # define _________________ADJUST_R3_________________         QK_RBT,  QK_BOOT, CK_DOWN, CK_DOWN, _______
 #else
 # define _________________ADJUST_R1_________________         QWERTY,  CLMAKDH, ___x___, ___x___, ___x___
-# define _________________ADJUST_R2_________________         __________________NONE_5___________________
+# define _________________ADJUST_R2_________________         ___________________NONE_5__________________
 # define _________________ADJUST_R3_________________         QK_RBT,  QK_BOOT, ___x___, ___x___, _______
 #endif //AUDIO_ENABLE
 
@@ -316,5 +317,5 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #elif defined(DYNAMIC_MACRO_ENABLE)
 # define          ________ADJUST_R4________                  DM_PLY2, DM_REC2, DM_RSTP
 #else
-# define          ________ADJUST_R4________                  _________NONE_3__________
+# define          ________ADJUST_R4________                  __________NONE_3_________
 #endif
