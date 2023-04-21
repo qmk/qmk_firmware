@@ -8,9 +8,9 @@ Wiring is a 6x6 Matrix like the [Dactyl Manuform](https://github.com/qmk/qmk_fir
 
 ## Build the Firmware:
 
-  - Build the firmware with `make handwired/dactyl_promicro:<keymapname>`, for example `make handwired/dactyl:default`
-  - This will result in a hex file called `handwired_dactyl_promicro_<keymapname>.hex`, e.g.
-    `handwired_dactyl_promicro_default.hex`
+  - Build the firmware with `make handwired/dactyl/base/promicro:<keymapname>`, for example `make handwired/dactyl/base/promicro:default`
+  - This will result in a hex file called `handwired_dactyl_base_promicro_<keymapname>.hex`, e.g.
+    `handwired_dactyl_base_promicro_default.hex`
 
 How to setup your build enviroment can be found here: [Installing Build Tools](https://docs.qmk.fm/#/getting_started_build_tools)
 

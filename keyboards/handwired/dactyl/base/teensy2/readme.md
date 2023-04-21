@@ -30,9 +30,9 @@ To flash with ´teensy-loader-cli´:
 
   - Build the firmware as above
 
-  - Run `<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w handwired_dactyl_teensy2_<keymapname>.hex`
+  - Run `<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w handwired_dactyl_base_teensy2_<keymapname>.hex`
 
-  - If you like, you can do both at once: `make handwired/dactyl/teensy2:<keymapname>:teensy`
+  - If you like, you can do both at once: `make handwired/dactyl/base/teensy2:<keymapname>:teensy`
 
   - Put the Teensy in firmware-loading mode:
     * If your current layout has a `QK_BOOT` key, press it.
