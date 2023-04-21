@@ -1,7 +1,6 @@
 // Copyright 2023 @miketronic -- Mike B <mxb540@gmail.com>
 // SPDX-License-Identifier: GPL-2.0+
 
-#include QMK_KEYBOARD_H
 #include "miketronic.h"
 
 
