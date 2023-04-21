@@ -26,11 +26,12 @@ __attribute__ ((weak)) layer_state_t layer_state_set_keymap (layer_state_t state
     return state;
 }
 // Init effect for RGB boards only
-#ifdef RGB_MATRIX_ENABLE
 void matrix_init_user(void) {
+#ifdef RGB_MATRIX_ENABLE
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-}
 #endif
+    matrix_init_keymap();
+}
 
 
 /*
