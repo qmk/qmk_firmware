@@ -1,6 +1,6 @@
-# bento_box
+# synthandkeys/bento_box
 
-![bento_box](https://imgur.com/a/udxikUT)
+![synthandkeys/bento_box](https://i.imgur.com/J8NkYO8.jpeg)
 
 The Bento Box is a 15-key, 3-encoder macropad running on QMK.
 
