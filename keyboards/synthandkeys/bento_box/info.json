@@ -5,11 +5,13 @@
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
+        "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true
     },
     "matrix_pins": {
         "direct": [
@@ -19,6 +21,16 @@
             ["A7","A4","A1","B8","B5"],
             ["A6","A3","A0","B7","B4"]
         ]
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "B2", "pin_b": "B1" },
+            { "pin_a": "A13", "pin_b": "A14" },
+            { "pin_a": "A15", "pin_b": "B3" }
+        ]
+    },
+    "bootmagic": {
+        "matrix": [2, 0]
     },
     "processor": "STM32F072",
     "url": "",

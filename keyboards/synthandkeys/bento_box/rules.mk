@@ -1,4 +1,1 @@
-ENCODER_ENABLE = yes
-BOOTMAGIC_ENABLE = yes
-BOOTLOADER = stm32-dfu
-MCU = STM32F072
+# This file intentionally left blank
