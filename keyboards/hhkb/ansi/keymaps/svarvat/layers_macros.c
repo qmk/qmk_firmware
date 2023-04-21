@@ -197,28 +197,6 @@ bool processKeycodeIfLMouse(uint16_t keycode, keyrecord_t* record) {
                 layer_off(LA_LTHUMBMS);
             }
             return false;
-        case MA_MS_BTN1_REG:
-            if (record->event.pressed) {
-                if (isMsBtn1Reg) {
-                    unregister_code16(KC_MS_BTN1);
-                    isMsBtn1Reg = false;
-                } else {
-                    register_code16(KC_MS_BTN1);
-                    isMsBtn1Reg = true;
-                }
-            }
-            return false;
-        case MA_MS_BTN3_REG:
-            if (record->event.pressed) {
-                if (isMsBtn3Reg) {
-                    unregister_code16(KC_MS_BTN3);
-                    isMsBtn3Reg = false;
-                } else {
-                    register_code16(KC_MS_BTN3);
-                    isMsBtn3Reg = true;
-                }
-            }
-            return false;
         case MA_MS_BTN1_TAP:
             if (record->event.pressed) {
                 tap_code16(KC_MS_BTN1);
@@ -898,25 +876,25 @@ bool processKeycodeIfLThumbMs(uint16_t keycode, keyrecord_t* record) {
             }
             return true;
         case KC_MS_BTN1:
-            if (record->event.pressed) {
-                if (isWeakLaMouseStarted) {
-                    return true;
-                } else {
+            if (isWeakLaMouseStarted) {
+                return true;
+            } else {
+                if (record->event.pressed) {
                     tap_code16(KC_AUDIO_VOL_UP);
                     return false;
                 }
             }
-            return true;
+            return false;
         case KC_MS_BTN3:
-            if (record->event.pressed) {
-                if (isWeakLaMouseStarted) {
-                    return true;
-                } else {
+            if (isWeakLaMouseStarted) {
+                return true;
+            } else {
+                if (record->event.pressed) {
                     tap_code16(KC_AUDIO_VOL_DOWN);
                     return false;
                 }
             }
-            return true;
+            return false;
         case MA_LTHUMB1:
             if (record->event.pressed) {
                 if (isWeakLaMouseStarted) {
