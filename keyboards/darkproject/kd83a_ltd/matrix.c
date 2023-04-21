@@ -79,7 +79,8 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
         current_matrix[current_row] = cols;
         
         while ((((PAL_PORT(A0))->IDR) & ((((1U << 5) - 1U)) | (((1U << 3) - 1U) << 8))) != ((((1U << 5) - 1U)) | (((1U << 3) - 1U) << 8)))    // Wait for all Col signals to go HIGH
-            wait_us(1);
+            chSysPolledDelayX(RTC2US(REALTIME_COUNTER_CLOCK, 48));
+            //wait_us(1);
         //wait_us(MATRIX_IO_DELAY);
         //matrix_output_unselect_delay(current_row, cols != 0);
 
