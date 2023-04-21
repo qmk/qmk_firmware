@@ -1,0 +1,66 @@
+#include QMK_KEYBOARD_H
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /*
+    * ----------------------------------------------------------------
+    * |        |         |         |     Ctrl+0      |  GUI+Shift+S  |
+    * ----------------------------------------------------------------
+    * |        |  Mute   |         |      Copy       |     Paste     |
+    * ----------------------------------------------------------------
+    * |  Prev  |  Pause  |  Next   |                 |               |
+    * ----------------------------------------------------------------
+    * |  Home  |   Up    |   End   |     Ctrl+T      |    Ctrl+W     |
+    * ----------------------------------------------------------------
+    * |  Left  |  Down   |  Right  |  Shift+Alt+Tab  |    Alt+Tab    |
+    * ----------------------------------------------------------------
+     */
+    [0] = LAYOUT(
+                                             (C(KC_0)),  (G(S(KC_S))),
+                   KC_MUTE,                  (C(KC_C)),     (C(KC_V)),
+        KC_MPRV,   KC_MPLY,    KC_MNXT,
+        KC_HOME,     KC_UP,     KC_END,      (C(KC_T)),     (C(KC_W)),
+        KC_LEFT,   KC_DOWN,   KC_RIGHT, (S(C(KC_TAB))),   (C(KC_TAB))
+    )
+};
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+/* MAIN ENCODER */
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+            tap_code(KC_VOLD);
+        }
+    }
+/* TOP LEFT*/
+    else if (index == 1) {
+        if (clockwise) {
+            tap_code16(C(KC_EQUAL));
+        } else {
+            tap_code16(C(KC_MINUS));
+        }
+    }
+/* TOP RIGHT*/
+    else if (index == 2) {
+        if (clockwise) {
+            tap_code16(C(KC_Y));
+        } else {
+            tap_code16(C(KC_Z));
+        }
+    }
+    return true;
+}
+
+    /* LAYER TEMPLATE
+    * ------------------------------------
+    * |      |      |      |      |      |
+    * ------------------------------------
+    * |      |      |      |      |      |
+    * ------------------------------------
+    * |      |      |      |      |      |
+    * ------------------------------------
+    * |      |      |      |      |      |
+    * ------------------------------------
+    * |      |      |      |      |      |
+    * ------------------------------------
+     */
