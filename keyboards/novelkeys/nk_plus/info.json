@@ -108,7 +108,7 @@
         ],
         "max_brightness": 120
     },
-    "rgblight": {
+    "ws2812": {
         "pin": "B4"
     },
     "layouts": {
