@@ -434,6 +434,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 This allows you to toggle between scrolling and cursor movement by pressing the DRAG_SCROLL key.  
 
+### Advanced Drag Scroll
+
+Sometimes, like with the Cirque trackpad, you will run into issues where the scrolling may be too fast.
+
+Here is a slightly more advanced example of drag scrolling. You will be able to change the scroll speed based on the values in set in `SCROLL_DIVISOR_H` and `SCROLL_DIVISOR_V`. This bit of code is also set up so that instead of toggling the scrolling state with set_scrolling = !set_scrolling, the set_scrolling variable is set directly to record->event.pressed. This way, the drag scrolling will only be active while the DRAG_SCROLL button is held down.
+
+```c
+enum custom_keycodes {
+    DRAG_SCROLL = SAFE_RANGE,
+};
+
+bool set_scrolling = false;
+
+// Modify these values to adjust the scrolling speed
+#define SCROLL_DIVISOR_H 10
+#define SCROLL_DIVISOR_V 10
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        mouse_report.h = mouse_report.x / SCROLL_DIVISOR_H;
+        mouse_report.v = mouse_report.y / SCROLL_DIVISOR_V;
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DRAG_SCROLL:
+            set_scrolling = record->event.pressed;
+            break;
+        default:
+            break;
+    }
+    return true;
+}
+
+```
+
+
 ## Split Examples
 
 The following examples make use the `SPLIT_POINTING_ENABLE` functionality and show how to manipulate the mouse report for a scrolling mode.
