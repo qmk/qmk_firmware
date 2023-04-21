@@ -46,10 +46,10 @@ enum layer_names {
 #define SLSHFT  MT(MOD_RSFT, KC_SLSH)   // Tap for Slash, hold for Shift
 
 // MISC
-#define CALTDEL LCTL(LALT(KC_DEL))	   // Ctrl Alt Del
-#define TSKMGR LCTL(LSFT(KC_ESC))	     // Task Manager
-#define CLIP LCTL(LALT(KC_Q))	    	   // Clipboard
-#define SS LCTL(LALT(KC_G))		         // Greenshot region
+#define CALTDEL LCTL(LALT(KC_DEL))	    // Ctrl Alt Del
+#define TSKMGR LCTL(LSFT(KC_ESC))	    // Task Manager
+#define CLIP LCTL(LALT(KC_Q))	    	// Clipboard (Ditto)
+#define SS LCTL(LALT(KC_G))		        // Greenshot region
 #define NUM  LSFT(KC_3)
 #define AT   LSFT(KC_2)
 #define COPY LCTL(KC_C)
