@@ -27,6 +27,10 @@
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT"
     },
+    "community_layouts": [
+        "tkl_nofrow_ansi",
+        "tkl_nofrow_iso"
+    ],
     "layouts": {
         "LAYOUT": {
             "layout": [
