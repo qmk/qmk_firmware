@@ -85,12 +85,25 @@ typedef uint32_t swap_state_row_t;
 #    endif
 
 /**
+ * @brief Enable swap hands
+ */
+void swap_hands_on(void);
+/**
+ * @brief Disable swap hands
+ */
+void swap_hands_off(void);
+/**
+ * @brief Toggle swap hands enable state
+ */
+void swap_hands_toggle(void);
+/**
  * @brief Get the swap hands enable state
  *
  * @return true
  * @return false
  */
 bool is_swap_hands_on(void);
+
 void process_hand_swap(keyevent_t *record);
 #endif
 

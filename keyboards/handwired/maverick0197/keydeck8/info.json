@@ -11,7 +11,7 @@
 	},
 	"encoder": {
 	    "rotary": [
-	        { "pin_a": "D3", "pin_b": "D2", "resolution": 4 }
+	        {"pin_a": "D3", "pin_b": "D2", "resolution": 4}
 	    ]
 	},
 	"matrix_pins": {

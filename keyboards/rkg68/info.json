@@ -14,13 +14,15 @@
 		"cols": [ "F0", "F1", "E6", "C7", "C6", "B6", "D4", "B1", "B7", "B5", "B4", "D7", "D6", "B3", "F4" ],
 		"rows": [ "D0", "D1", "D2", "D3", "D5" ]
 	},
+	"ws2812": {
+		"pin": "B3"
+	},
 	"rgblight": {
 		"animations": {
 			"knight": true,
 			"rainbow_swirl": true
 		},
-		"led_count": 4,
-		"pin": "B3"
+		"led_count": 4
 	},
 	"url": "http://en.rkgaming.com/",
 	"usb": {

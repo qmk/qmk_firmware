@@ -11,7 +11,6 @@ BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 RGB_MATRIX_ENABLE = no
-RGB_MATRIX_DRIVER = WS2812
 
 DEFAULT_FOLDER = 25keys/zinc/rev1
 

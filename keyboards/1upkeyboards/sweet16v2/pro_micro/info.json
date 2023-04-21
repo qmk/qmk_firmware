@@ -34,14 +34,8 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {
-                "pin_a": "F6",
-                "pin_b": "F5"
-            },
-            {
-                "pin_a": "D4",
-                "pin_b": "D0"
-            }
+            {"pin_a": "F6", "pin_b": "F5"},
+            {"pin_a": "D4", "pin_b": "D0"}
         ]
     },
     "rgb_matrix": {

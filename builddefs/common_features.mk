@@ -809,9 +809,9 @@ endif
 
 ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
     PS2_ENABLE := yes
+    MOUSE_ENABLE := yes
     SRC += ps2_mouse.c
     OPT_DEFS += -DPS2_MOUSE_ENABLE
-    OPT_DEFS += -DMOUSE_ENABLE
 endif
 
 VALID_PS2_DRIVER_TYPES := busywait interrupt usart vendor

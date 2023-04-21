@@ -32,11 +32,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {
-                "pin_a": "B5",
-                "pin_b": "B6",
-                "resolution": 4
-            }
+            {"pin_a": "B5", "pin_b": "B6", "resolution": 4}
         ]
     },
     "rgb_matrix": {

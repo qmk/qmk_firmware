@@ -18,7 +18,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 150
 #define EE_HANDS
-
-#ifdef SUBPROJECT_rev1
-    #include "../../rev1/config.h"
-#endif

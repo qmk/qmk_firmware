@@ -4,9 +4,16 @@ permissions:
   contents: read
 
 on:
+  push:
+    branches: [master, develop]
   workflow_dispatch:
-  schedule:
-    - cron: '0 0,12 * * *'
+    inputs:
+      branch:
+        type: choice
+        description: 'Branch to build'
+        options: [master, develop]
+
+concurrency: ci_build-${{ github.event.inputs.branch || github.ref_name }}
 
 jobs:
   ci_builds:
@@ -18,7 +25,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: [master, develop]
         keymap: [default, via]
 
     container: ghcr.io/qmk/qmk_cli
@@ -30,7 +36,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: recursive
-        ref: ${{ matrix.branch }}
+        ref: ${{ github.event.inputs.branch || github.ref }}
 
     - name: Install dependencies
       run: pip3 install -r requirements.txt
@@ -50,7 +56,7 @@ jobs:
       uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: artifacts-${{ matrix.branch }}-${{ matrix.keymap }}
+        name: artifacts-${{ github.event.inputs.branch || github.ref_name }}-${{ matrix.keymap }}
         if-no-files-found: ignore
         path: |
           *.bin
@@ -65,4 +71,4 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
       run: |
         python3 -m pip install -r requirements.txt
-        python3 ./discord-results.py --branch ${{ matrix.branch }} --keymap ${{ matrix.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        python3 ./discord-results.py --branch ${{ github.event.inputs.branch || github.ref_name }} --keymap ${{ matrix.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

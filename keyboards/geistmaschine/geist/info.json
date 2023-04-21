@@ -26,11 +26,7 @@
     },
     "encoder": {
         "rotary": [
-            { 
-                "pin_a": "B0", 
-                "pin_b": "B7",
-                "resolution": 2
-            }
+            {"pin_a": "B0", "pin_b": "B7", "resolution": 2}
         ]
     },
     "community_layouts": ["65_ansi", "65_iso"],
