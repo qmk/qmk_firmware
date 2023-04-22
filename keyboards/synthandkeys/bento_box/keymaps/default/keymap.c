@@ -26,34 +26,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-/* MAIN ENCODER */
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-/* TOP LEFT*/
-    else if (index == 1) {
-        if (clockwise) {
-            tap_code16(C(KC_EQUAL));
-        } else {
-            tap_code16(C(KC_MINUS));
-        }
-    }
-/* TOP RIGHT*/
-    else if (index == 2) {
-        if (clockwise) {
-            tap_code16(C(KC_Y));
-        } else {
-            tap_code16(C(KC_Z));
-        }
-    }
-    return true;
-}
-
     /* LAYER TEMPLATE
     * ------------------------------------
     * |      |      |      |      |      |
