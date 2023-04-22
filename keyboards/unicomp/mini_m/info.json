@@ -1,12 +1,4 @@
 {
-    "manufacturer": "Unicomp",
-    "maintainer": "purdeaandrei",
-    "url": "",
-    "usb": {
-        "device_version": "0.0.1",
-        "pid": "0x27DB",
-        "vid": "0x16C0"
-    },
     "community_layouts": [
         "tkl_ansi",
         "tkl_ansi_tsangan",

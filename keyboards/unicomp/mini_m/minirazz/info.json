@@ -1,4 +1,12 @@
 {
+    "manufacturer": "Unicomp",
+    "maintainer": "purdeaandrei",
+    "url": "https://github.com/purdeaandrei/MiniRazz",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x27DB",
+        "vid": "0x16C0"
+    },
     "keyboard_name": "Mini M (MiniRazz)",
     "processor": "RP2040",
     "bootloader": "rp2040",
