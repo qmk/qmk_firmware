@@ -52,7 +52,35 @@ static void st_process_midi4single_note(uint8_t channel, uint16_t keycode, keyre
 }
 
 void my_process_midi4single_note(uint16_t keycode, keyrecord_t *record) {
-    st_process_midi4single_note(midi_sub_ch, keycode, record, my_tone_status);
+    switch (keycode) {
+        case  MY_TONE_MIN ... MY_TONE_MAX:  // MY tone
+            st_process_midi4single_note(midi_sub_ch, keycode, record, my_tone_status);
+            break;
+    }
+}
+
+void my_bellow_task(bool keys_status) {
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        const matrix_row_t current_row = matrix_get_row(row);
+
+        if (!current_row) {     // If there is no key pressed, continue.
+            continue;
+        }
+
+        matrix_row_t col_mask = 1;
+        for (uint8_t col = 0; col < MATRIX_COLS; col++, col_mask <<= 1) {
+            const bool key_pressed = current_row & col_mask;
+            if (key_pressed) {
+                keyrecord_t record = {.event = MAKE_KEYEVENT(row, col, keys_status)};
+                uint16_t keycode = get_record_keycode(&record, true);
+
+                // my_bellow_task runs when MYMOSWP is pressed. MYMOSWP has to be ignored here.
+                // All MIDI notes will be turned ON when keys_status is KEYS_STATUS_ON, and vice versa.
+                my_process_midi4single_note(keycode, &record);
+                process_midi(keycode, &record);
+            }
+        }
+    }
 }
 
 #ifdef RGB_MATRIX_ENABLE
@@ -228,7 +256,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case  MY_TONE_MIN ... MY_TONE_MAX:  // MY tone
             // uprintf("keycode=%u, MY_C3=%u, MY_Db2 =%u, MY_MIN = %u, MY_MAX = %u\n", keycode, MY_C3, MY_Db2, MY_TONE_MIN, MY_TONE_MAX);
             //  DO NOT THROW BELOW into 'if (record->event.pressed) {}' STATEMENT SINCE IT IS USED IN THE FUNCTION BELOW.
-            my_process_midi4single_note(keycode, record);
+            st_process_midi4single_note(midi_sub_ch, keycode, record, my_tone_status);
             return false;
             break;
     }

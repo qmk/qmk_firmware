@@ -28,6 +28,14 @@ enum layer_names {
     _FN
 };
 
+//  Layer State
+#define _LS_OPEN     (1UL << _OPEN)
+#define _LS_CLOSE    (1UL << _CLOSE)
+
+// Force notes ON / OFF
+#define KEYS_STATUS_OFF (false)
+#define KEYS_STATUS_ON  (true)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_OPEN] = LAYOUT(
                   MI_Gs1, MI_As1, MI_Cs2, MI_F2, MI_Gs3,
@@ -36,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        MI_E2, MI_Gs2, MI_B2, MI_D3, MI_Fs3, MI_Cs3, MI_Fs1,
      MI_D1, MI_B1, MI_G3, MI_A3, MI_Ds3, MI_Fs2, MI_Ds1, MI_C1,
 
-     MO_SWAP,    MI_B5, MI_Gs5, MI_G5, MI_F5,     FN_MUTE,
+     MYMOSWP,    MI_B5, MI_Gs5, MI_G5, MI_F5,     FN_MUTE,
          MI_Cs3, MI_A5, MI_Fs5, MI_E5, MI_Ds5,
         MI_C3, MI_D3, MI_G3, MI_As4, MI_C5, MI_D5,
      TG_SWAP, MI_B2, MI_E3, MI_Cs4, MI_Fs3, MI_A3, MI_C4, MI_E4,
@@ -51,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        MI_A1, MI_E2, MI_A2, MI_Cs3, MI_E3, MI_Gs2, MI_B1,
      MI_E1, MI_E2, MI_Fs3, MI_Gs3, MI_B3, MI_F2, MI_Cs1, MI_F1,
 
-     MO_SWAP,    MI_A5, MI_Gs5, MI_Fs5, MI_F5,     FN_MUTE,
+     MYMOSWP,    MI_A5, MI_Gs5, MI_Fs5, MI_F5,     FN_MUTE,
          MI_C3, MI_G5, MI_As4, MI_C5, MI_Ds5,
         MI_D3, MI_Cs3, MI_Gs3, MI_As3, MI_C4, MI_D5,
      TG_SWAP, MI_B2, MI_Fs3, MI_Fs4, MI_G3, MI_B3, MI_D4, MI_G4,
@@ -139,3 +147,37 @@ bool rgb_matrix_indicators_user(void) {
     return false;
 }
 #endif
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MYMOSWP:
+            if (record->event.pressed) {
+                // 1, turn OFF all pressed notes
+                my_bellow_task(KEYS_STATUS_OFF);
+
+                // 2, change layer
+#ifndef PEDAL_NORMALLY_CLOSED
+                layer_state_set(_LS_CLOSE);
+#else
+                layer_state_set(_LS_OPEN);
+#endif
+                // 3, turn ON all pressed notes
+                my_bellow_task(KEYS_STATUS_ON);
+            } else {
+                // 1, turn OFF all pressed notes
+                my_bellow_task(KEYS_STATUS_OFF);
+
+                // 2, change layer
+#ifndef PEDAL_NORMALLY_CLOSED
+                layer_state_set(_LS_OPEN);
+#else
+                layer_state_set(_LS_CLOSE);
+#endif
+                // 3, turn ON all pressed notes
+                my_bellow_task(KEYS_STATUS_ON);
+            }
+            return false;
+            break;
+    }
+    return true;
+}

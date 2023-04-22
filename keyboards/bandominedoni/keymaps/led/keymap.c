@@ -196,37 +196,6 @@ bool rgb_matrix_indicators_user(void) {
 }
 #endif
 
-/**
- * @brief This task scans the keyboards matrix and processes any key presses
- * that occur.
- *
- * @return true Matrix did change
- * @return false Matrix didn't change
- */
-static void my_bellow_task(bool keys_status) {
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        const matrix_row_t current_row = matrix_get_row(row);
-
-        if (!current_row) {     // If there is no key pressed, continue.
-            continue;
-        }
-
-        matrix_row_t col_mask = 1;
-        for (uint8_t col = 0; col < MATRIX_COLS; col++, col_mask <<= 1) {
-            const bool key_pressed = current_row & col_mask;
-            if (key_pressed) {
-                keyrecord_t record = {.event = MAKE_KEYEVENT(row, col, keys_status)};
-                uint16_t keycode = get_record_keycode(&record, true);
-
-                // my_bellow_task runs when MYMOSWP is pressed. MYMOSWP has to be ignored here.
-                // All MIDI notes will be turned ON when keys_status is KEYS_STATUS_ON, and vice versa.
-                my_process_midi4single_note(keycode, &record);
-                process_midi(keycode, &record);
-            }
-        }
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case MYMOSWP:

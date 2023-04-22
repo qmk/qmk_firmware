@@ -231,7 +231,7 @@ enum custom_keycodes {
 
 #define MY_TONE_COUNT (MY_TONE_MAX - MY_TONE_MIN + 1)
 
-void my_process_midi4single_note(uint16_t keycode, keyrecord_t *record);
+void my_bellow_task(bool keys_status);
 
 //  Overriding is_keyboard_left() in qmk_firmware/quantum/split_common/split_util.c to limit the handedness check only once.
 //  reason: bandoMIneDonI has no space on right hand side to use "SPLIT_HAND_MATRIX_GRID".
