@@ -46,10 +46,10 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "B0",  "pin_b": "A2",  "resolution": 4 },
-            { "pin_a": "B3",  "pin_b": "A15", "resolution": 4 },
-            { "pin_a": "B9",  "pin_b": "B8",  "resolution": 4 },
-            { "pin_a": "C15", "pin_b": "C14", "resolution": 4 }
+            {"pin_a": "B0", "pin_b": "A2", "resolution": 4},
+            {"pin_a": "B3", "pin_b": "A15", "resolution": 4},
+            {"pin_a": "B9", "pin_b": "B8", "resolution": 4},
+            {"pin_a": "C15", "pin_b": "C14", "resolution": 4}
         ]
     },
     "layouts": {

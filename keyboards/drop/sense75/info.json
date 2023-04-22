@@ -113,6 +113,7 @@
         }
     },
     "rgb_matrix": {
+        "driver": "IS31FL3733",
         "layout": [
             { "flags": 2, "x": 2, "y": 0 },
             { "flags": 2, "x": 22, "y": 0 },
@@ -229,7 +230,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "B5", "pin_b": "B4", "resolution": 2 }
+            {"pin_a": "B5", "pin_b": "B4", "resolution": 2}
         ]
     }
 }

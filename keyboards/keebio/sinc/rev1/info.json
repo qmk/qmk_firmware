@@ -23,7 +23,7 @@
         "encoder": {
             "right": {
                 "rotary": [
-                    {"pin_a": "D6", "pin_b": "D4" }
+                    {"pin_a": "D6", "pin_b": "D4"}
                 ]
             }
         },
@@ -41,7 +41,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {"pin_a": "F5", "pin_b": "F6" }
+            {"pin_a": "F5", "pin_b": "F6"}
         ]
     },
     "backlight":{

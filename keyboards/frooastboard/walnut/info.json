@@ -14,6 +14,9 @@
         "mousekey": false,
         "nkro": true
     },
+    "rgb_matrix": {
+        "driver": "IS31FL3737"
+    },
     "build": {
         "lto": true
     },

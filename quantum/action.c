@@ -165,6 +165,18 @@ void set_swap_hands_state(size_t index, uint8_t *swap_state, bool on) {
     }
 }
 
+void swap_hands_on(void) {
+    swap_hands = true;
+}
+
+void swap_hands_off(void) {
+    swap_hands = false;
+}
+
+void swap_hands_toggle(void) {
+    swap_hands = !swap_hands;
+}
+
 bool is_swap_hands_on(void) {
     return swap_hands;
 }

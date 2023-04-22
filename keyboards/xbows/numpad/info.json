@@ -8,6 +8,9 @@
         "pid": "0x4E75",
         "device_version": "0.0.1"
     },
+    "rgb_matrix": {
+        "driver": "IS31FL3731"
+    },
     "matrix_pins": {
         "cols": ["D4", "D6", "B2", "B1"],
         "rows": ["B5", "B4", "C6", "B6", "D7", "B3"]

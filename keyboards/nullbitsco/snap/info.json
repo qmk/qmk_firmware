@@ -7,6 +7,9 @@
         "pid": "0x6063",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "B2"
+    },
     "debounce": 10,
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

@@ -79,7 +79,7 @@ typedef union {
 work_louder_config_t work_louder_config;
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     {   ENCODER_CCW_CW(KC_VOLD, KC_VOLU),   ENCODER_CCW_CW(CK_UNDO, CK_REDO)    },
     {   ENCODER_CCW_CW(_______, _______),   ENCODER_CCW_CW(_______, _______)    },
     {   ENCODER_CCW_CW(_______, _______),   ENCODER_CCW_CW(_______, _______)    },
