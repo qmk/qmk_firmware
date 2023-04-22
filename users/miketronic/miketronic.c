@@ -25,7 +25,10 @@ __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
 __attribute__ ((weak)) layer_state_t layer_state_set_keymap (layer_state_t state) {
     return state;
 }
+
+
 // Init effect for RGB boards only
+// Study documentation.  housekeeping_task_user, and keyboard_post_init_user are better options for the init and scan functions. @drashna
 void matrix_init_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
