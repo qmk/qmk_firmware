@@ -69,7 +69,8 @@
 
 enum custom_keycodes {
     VERSION = QK_KB,
-    TGLCHGR,  //  ToGgLe CH GRoup
+    TGLCHGR,  //  ToGgLe CH GRoup,
+    MYMOSWP,  //  MY MO SWaP, an alternative of MO_SWAP to enable bellow shake!
 
    // MY tone to distinguish the notes to avoid sustain effect, etc.
    // Since the # of codes exceeds the limit of QK_KB range (=64), these are stated here.
@@ -184,9 +185,7 @@ enum custom_keycodes {
     MY_B5,
 
     MY_C6,
-    MY_TONE_MAX = MY_C6,
-
-    MYMOSWP   //  MY MO SWaP, an alternative of MO_SWAP to enable bellow shake!
+    MY_TONE_MAX = MY_C6
 };
 
 #define MY_TONE_COUNT (MY_TONE_MAX - MY_TONE_MIN + 1)
