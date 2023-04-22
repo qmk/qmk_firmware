@@ -167,8 +167,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+#ifndef NUM_DIRECTIONS
+#    define NUM_DIRECTIONS 2
+#endif
+
 #if defined(ENCODER_MAP_ENABLE) && defined(KEYBOARD_1upkeyboards_pi40_mit_v1_0)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_WM]   =  { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
     [_QW] =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
     [_LOWER]   =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
