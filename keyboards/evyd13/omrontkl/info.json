@@ -8,6 +8,8 @@
         "pid": "0xEA78",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

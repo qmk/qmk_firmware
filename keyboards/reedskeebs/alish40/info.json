@@ -8,8 +8,7 @@
         "rotary": [
             {
                 "pin_a": "B4",
-                "pin_b": "B5",
-                "resolution": 4
+                "pin_b": "B5"
             }
         ]
     },

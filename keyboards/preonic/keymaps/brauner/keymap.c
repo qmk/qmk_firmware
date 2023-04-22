@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `----------------------------------------------------------------------------------------------------------'
      */
     [_QWERTY] = LAYOUT_preonic_grid(
-      KC_CAPS,          KC_1,    KC_2,     KC_3,    KC_4,   KC_5,  KC_6,         KC_7,    KC_8,    KC_9,     KC_0,       KC_LEAD,
+      KC_CAPS,          KC_1,    KC_2,     KC_3,    KC_4,   KC_5,  KC_6,         KC_7,    KC_8,    KC_9,     KC_0,       QK_LEAD,
       KC_LCTL,          KC_Q,    KC_W,     KC_E,    KC_R,   KC_T,  LT_COPY_Y,    LT_UE_U, KC_I,    LT_OE_O,  LT_PASTE_P, KC_RCTL,
       MOD_TAP_LSFT_ESC, LT_AE_A, LT_SZ_S,  KC_D,    KC_F,   KC_G,  KC_H,         KC_J,    KC_K,    KC_L,     KC_QUOT,    MOD_TAP_LSFT_ENT,
       LM_COMP_LALT,     KC_Z,    LT_CUT_X, KC_C,    KC_V,   KC_B,  KC_N,         KC_M,    KC_COMM, KC_DOT,   KC_SLSH,    LM_COMP_LALT,
@@ -363,44 +363,35 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     return true;
 }
 
-LEADER_EXTERNS();
-
 static inline void register_ctrl_sequence(uint16_t keycode) {
     tap_code16(RCTL(keycode));
 }
 
-static inline void leader_bindings(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
+void leader_end_user(void) {
+    if (leader_sequence_three_keys(KC_A, KC_C, KC_K)) {
+        SEND_STRING("Acked-by: Christian Brauner <brauner@kernel.org>");
+    }
 
-        SEQ_THREE_KEYS(KC_A, KC_C, KC_K) {
-            SEND_STRING("Acked-by: Christian Brauner <brauner@kernel.org>");
-        }
+    if (leader_sequence_three_keys(KC_R, KC_V, KC_B)) {
+        SEND_STRING("Reviewed-by: Christian Brauner <brauner@kernel.org>");
+    }
 
-        SEQ_THREE_KEYS(KC_R, KC_V, KC_B) {
-            SEND_STRING("Reviewed-by: Christian Brauner <brauner@kernel.org>");
-        }
+    if (leader_sequence_three_keys(KC_S, KC_O, KC_B)) {
+        SEND_STRING("Signed-off-by: Christian Brauner <brauner@kernel.org>");
+    }
 
-        SEQ_THREE_KEYS(KC_S, KC_O, KC_B) {
-            SEND_STRING("Signed-off-by: Christian Brauner <brauner@kernel.org>");
-        }
+    /* Support vim-style copy. */
+    if (leader_sequence_one_key(KC_Y)) {
+        tap_code16(C(S(KC_C)));
+    }
 
-        /* Support vim-style copy. */
-        SEQ_ONE_KEY(KC_Y) {
-            tap_code16(C(S(KC_C)));
-        }
-
-        /* Support vim-style paste. */
-        SEQ_ONE_KEY(KC_P) {
-            tap_code16(C(S(KC_V)));
-        }
+    /* Support vim-style paste. */
+    if (leader_sequence_one_key(KC_P)) {
+        tap_code16(C(S(KC_V)));
     }
 }
 
 void matrix_scan_user(void) {
-    leader_bindings();
-
 #ifdef AUDIO_ENABLE
     if (muse_mode) {
         if (muse_counter == 0) {

@@ -27,7 +27,6 @@
     },
     "backlight": {
         "breathing": true,
-        "breathing_period": 6,
         "levels": 15,
         "pin": "GP0"
     },

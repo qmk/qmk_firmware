@@ -18,7 +18,7 @@
 uint16_t layer_timer;
 
 enum layer_keycodes {
-  TG_LAYER = USER00
+  TG_LAYER = QK_KB_0
 };
 
 uint8_t get_hold_layer(void) {

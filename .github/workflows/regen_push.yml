@@ -1,0 +1,46 @@
+name: Regenerate Files
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+    - master
+    - develop
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+
+    container: qmkfm/qmk_cli
+
+    steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
+    - uses: actions/checkout@v3
+
+    - name: Run qmk generators
+      run: |
+        util/regen.sh
+        git diff
+
+    - uses: rlespinasse/github-slug-action@v3.x
+
+    - name: Become QMK Bot
+      run: |
+        git config user.name 'QMK Bot'
+        git config user.email 'hello@qmk.fm'
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      if: ${{ github.repository == 'qmk/qmk_firmware'}}
+      with:
+        token: ${{ secrets.QMK_BOT_TOKEN }}
+        delete-branch: true
+        branch: bugfix/regen_${{ env.GITHUB_REF_SLUG }}
+        author: QMK Bot <hello@qmk.fm>
+        committer: QMK Bot <hello@qmk.fm>
+        commit-message: Regenerate Files
+        title: '[CI] Regenerate Files'
