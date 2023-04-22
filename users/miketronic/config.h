@@ -14,6 +14,7 @@
 #endif
 #define ENCODER_RESOLUTION 4
 #define MACRO_TIMER 5
+#define ENABLE_COMPILE_KEYCODE
 
 //////////////
 // For Pi40 //
