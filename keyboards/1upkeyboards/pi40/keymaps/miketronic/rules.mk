@@ -1,18 +1,12 @@
 # Common feature for all keyboards
-BOOTMAGIC_ENABLE  = yes
-EXTRAKEY_ENABLE   = yes
-TAP_DANCE_ENABLE  = yes
+BOOTMAGIC_ENABLE  = yes		# Enable Bootmagic Lite
+EXTRAKEY_ENABLE   = yes		# Audio control and System control
+TAP_DANCE_ENABLE  = yes       	# Tap Dance keys
+NKRO_ENABLE       = yes     	# Enable N-Key Rollover
 MACROS_ENABLED    = yes
-RGBLIGHT_ENABLE   = no
-RGB_MATRIX_ENABLE = no
+
 
 # Keyboard specific
-BOOTMAGIC_ENABLE      = yes       # Enable Bootmagic Lite
-EXTRAKEY_ENABLE       = yes       # Audio control and System control
-TAP_DANCE_ENABLE      = yes       # Tap Dance keys
-NKRO_ENABLE           = yes       # Enable N-Key Rollover
-MACROS_ENABLED        = yes
-
 AUTO_SHIFT_ENABLE     = no 
 CONSOLE_ENABLE        = no        # Console for debug
 COMMAND_ENABLE        = no        # Commands for debug and configuration
