@@ -7,6 +7,7 @@
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+uint16_t copy_paste_timer;
 
 enum custom_keycodes {
   WM = QK_USER,
