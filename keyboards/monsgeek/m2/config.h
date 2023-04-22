@@ -19,7 +19,6 @@
 /* Use 5 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
-#define RGB_TRIGGER_ON_KEYDOWN
 /* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
 #define FORCE_NKRO
 
@@ -32,6 +31,8 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+/* sets the number of milliseconds to pause after sending a wakeup packet. Disabled by default, you might want to set this to 200 (or higher) if the keyboard does not wake up properly after suspending.*/
+#define USB_SUSPEND_WAKEUP_DELAY 400
 
 /* SPI Config for spi flash*/
 #define SPI_DRIVER SPIDQ
@@ -57,8 +58,8 @@
 #define DRIVER_2_LED_TOTAL 38
 #define RGB_MATRIX_LED_COUNT    (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
+#define RGB_TRIGGER_ON_KEYDOWN
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_KEYRELEASES
