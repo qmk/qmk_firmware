@@ -106,7 +106,7 @@
 
 
 
-#define _____________FUNCTION_412_L1_______________        TD_CP,      CLIP,      SS, _______, _______,    CCCV
+#define _____________FUNCTION_412_L1_______________        CCCV,       CLIP,      SS, _______, _______, _______
 #define _____________FUNCTION_412_L2_______________        KC_TAB,      M05,     M06,     M07,     M08, _______
 #define _____________FUNCTION_412_L3_______________        _______,     M01,     M02,     M03,     M04, _______
 #define _____________FUNCTION_412_L4_______________        _______, _______, _______, _______, _______, _______
@@ -135,7 +135,7 @@
 #define _____________WORKMAN_310_003_L_____________        FNZ,      CTRLX,   MGUI,    CALT,     VLOWER
 #define _____________WORKMAN_310_003_R_____________        KRAISE,   L_ALT,   TD_CSPC, TD_DSPC,  KC_SLSH
 #define _____________WORKMAN_310_004_L_____________        FN,       KC_LCTL, KC_LGUI, KC_LALT,  LOWER
-#define _____________WORKMAN_310_004_R_____________        RAISE,    SS,      CLIP,    TD_CP,    FN
+#define _____________WORKMAN_310_004_R_____________        RAISE,    SS,      CLIP,    CCCV,     FN
 
 #define _____________WORKMAN_410_003_L_____________        FNZ,      KC_X,    KC_M,    KC_C,    KC_V
 #define _____________WORKMAN_410_003_R_____________        KC_K,     KC_L,    TD_CSPC,  TD_DSPC,  SLSHFT
@@ -154,7 +154,7 @@
 #define _____________WORKMAN_412_003_L_____________        KC_LSFT,  KC_Z,    KC_X,    KC_M,    KC_C,     KC_V
 #define _____________WORKMAN_412_003_R_____________        KC_K,     KC_L,    TD_CSPC, TD_DSPC, KC_SLSH,  TD_UR
 #define _____________WORKMAN_412_004_L_____________        FN,       KC_LCTL, KC_LGUI, KC_LALT, LOWER,    TD_SE
-#define _____________WORKMAN_412_004_R_____________        TD_SE,     RAISE,   SS,      CLIP,   TD_CP,    TD_DL 
+#define _____________WORKMAN_412_004_R_____________        TD_SE,     RAISE,   SS,      CLIP,   CCCV,     TD_DL 
 
 
 
