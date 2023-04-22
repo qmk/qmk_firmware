@@ -400,6 +400,9 @@ check-size:
 		    fi ; \
 		fi ; \
 	fi
+	$(eval END_POINTER=$(shell if [ -f $(BUILD_DIR)/$(TARGET).elf ]; then avr-objdump -t $(BUILD_DIR)/$(TARGET).elf | grep -e '\b_end\b' | cut -c -8; else printf 1; fi))
+	$(eval STACK_POINTER=$(shell if [ -f $(BUILD_DIR)/$(TARGET).elf ]; then avr-objdump -t $(BUILD_DIR)/$(TARGET).elf | grep -e '\b__stack\b' | cut -c -8; else printf 0; fi))
+	printf " * Available stack size: %d bytes\n" $$(( ( 0x$(STACK_POINTER) - 0x$(END_POINTER) + 1 ) & 0xffff ))
 else
 check-size:
 	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
