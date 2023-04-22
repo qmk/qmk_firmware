@@ -1,5 +1,5 @@
 /*
- Copyright 2022 Gondolindrim <gondolindrim@acheronproject.com>
+Copyright 2023 ThePanduuh <thepanduuh.kb@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,5 +14,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
 
-#include "m75s.h"
+// ROWS: Top to bottom, COLS: Left to right
+
+#define MATRIX_ROW_PINS { D5, D6, D7, B4, B5, B6 }
+#define MATRIX_COL_PINS { F4, F5, B1, D3 }
+
+#define ENCODERS_PAD_A { F1 }
+#define ENCODERS_PAD_B { F0 }
+
+/* COL2ROW or ROW2COL */
+#define DIODE_DIRECTION COL2ROW
