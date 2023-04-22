@@ -6,11 +6,8 @@
 
 /*  Pattern adapted from users/drashna/wrapper.h
     Define per-layout keymap sections. Also requires a wrapper.
-
     Example:
-
         #define LAYOUT_:name_wrapper(...)            LAYOUT_:name(__VA_ARGS__)
-
         const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_MODS] = LAYOUT_:name _wrapper(
             _______, ___________________BLANK___________________, ...
@@ -22,6 +19,7 @@
 
 // clang-format off
 #define LAYOUT_ortho_4x12_wrapper(...)  LAYOUT_ortho_4x12(__VA_ARGS__)
+#define LAYOUT_planck_grid_wrapper(...)  LAYOUT_planck_grid(__VA_ARGS__)
 #define LAYOUT_3x11_wrapper(...)  LAYOUT(__VA_ARGS__)
 
 
@@ -52,8 +50,8 @@
 #define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
-#define __________________LONG_FUNC_LEFT___________________       KC_F1,  KC_F2,  KC_F3, KC_F4,  KC_F5,  KC_F6
-#define __________________LONG_FUNC_RIGHT__________________       KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12
+#define ______________LONG_FUNC_LEFT_______________       KC_F1,  KC_F2,  KC_F3, KC_F4,  KC_F5,  KC_F6
+#define ______________LONG_FUNC_RIGHT______________       KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12
 
 #define _________________BLANK_5___________________        _______, _______, _______, _______, _______
 #define _________________BLANK_6___________________        _______, _______, _______, _______, _______, _______
@@ -66,15 +64,15 @@
 #define _________________LOWER_R2__________________        _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR
 #define _________________LOWER_R3__________________        _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
-#define _______________LOWER_412_L1________________        TD_XX,   TD_YY,     TD_SL, _______, _______, _______
-#define _______________LOWER_412_L2________________        TD_ATH,  TD_PRAM, _______, _______, _______, _______
+#define _______________LOWER_412_L1________________        _______, TD_XX,     TD_YY,   TD_SL, _______, _______
+#define _______________LOWER_412_L2________________        _______, TD_ATH,  TD_PRAM, _______, _______, _______
 #define _______________LOWER_412_L3________________        _______, _______, _______, _______, _______, _______
 #define _______________LOWER_412_L4________________        _______, _______, _______, _______, _______, _______
 
-#define _______________LOWER_412_R1________________        _______, _______, KC_7,    KC_8,    KC_9,   KC_0   
-#define _______________LOWER_412_R2________________        _______, _______, KC_4,    KC_5,    KC_6,   _______
-#define _______________LOWER_412_R3________________        _______, _______, KC_1,    KC_2,    KC_3,   TD_UR
-#define _______________LOWER_412_R4________________        _______, _______, KC_BSPC, KC_SPC,  TD_DENT, TD_DL
+#define _______________LOWER_412_R1________________        _______,    KC_7,    KC_8,    KC_9, _______, _______
+#define _______________LOWER_412_R2________________        _______,    KC_4,    KC_5,    KC_6, _______, _______
+#define _______________LOWER_412_R3________________           KC_0,    KC_1,   TD_20,    KC_3, _______,   TD_UR
+#define _______________LOWER_412_R4________________        _______, _______, KC_BSPC, KC_SPC,  TD_DENT,   TD_DL
 
 
 
@@ -86,13 +84,39 @@
 #define _________________RAISE_R2__________________        _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC
 #define _________________RAISE_R3__________________        _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 
-#define _______________RAISE_412_L1________________        QK_BOOT, DB_TOGG, _______, _______, _______, _______
-#define _______________RAISE_412_L2________________        _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, _______
-#define _______________RAISE_412_L3________________        _______, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______
+#define _______________RAISE_412_L1________________        QK_BOOT, DB_TOGG, _______, _______, _______, QK_MAKE
+#define _______________RAISE_412_L2________________        _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, WM
+#define _______________RAISE_412_L3________________        _______, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, QW
 
 #define _______________RAISE_412_R1________________        _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10
 #define _______________RAISE_412_R2________________        _______, _______, KC_F4,   KC_F5,   KC_F6,   KC_F11
 #define _______________RAISE_412_R3________________        _______, TD_UMIN, KC_F1,   KC_F2,   KC_F3,   KC_F12
+
+
+
+#define ______________EXTRAS_412_L1________________        _______, KC_EXLM, _______, _______, _______, _______
+#define ______________EXTRAS_412_L2________________        KC_LSFT, _______, _______, _______, _______, _______
+#define ______________EXTRAS_412_L3________________        _______, _______, _______, _______, _______, _______
+#define ______________EXTRAS_412_L4________________        _______, _______, _______, _______, _______, TD_SE
+
+#define ______________EXTRAS_412_R1________________        _______,    T_SL, KC_LBRC, KC_RBRC, KC_SCLN, _______
+#define ______________EXTRAS_412_R2________________        _______, _______, KC_LPRN, KC_RPRN, KC_QUOT, _______
+#define ______________EXTRAS_412_R3________________        _______, _______, KC_COMM, KC_DOT,  KC_QUES, _______
+#define ______________EXTRAS_412_R4________________        TD_SE,   _______, _______, _______, _______, _______
+
+
+
+#define _____________FUNCTION_412_L1_______________        TD_CP,      CLIP,      SS, _______, _______,    CCCV
+#define _____________FUNCTION_412_L2_______________        KC_TAB,      M05,     M06,     M07,     M08, _______
+#define _____________FUNCTION_412_L3_______________        _______,     M01,     M02,     M03,     M04, _______
+#define _____________FUNCTION_412_L4_______________        _______, _______, _______, _______, _______, _______
+
+#define _____________FUNCTION_412_R1_______________        _______,    T_SL,   KC_UP, _______, _______,  KC_DEL
+#define _____________FUNCTION_412_R2_______________        _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,    T_UR
+#define _____________FUNCTION_412_R3_______________        _______, _______,  T_QEXC, KC_COMM,  KC_DOT,    T_DL
+#define _____________FUNCTION_412_R4_______________        _______, _______, _______, _______, _______, _______
+
+
 
 #define _________________ADJUST_L1_________________        RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
 #define _________________ADJUST_L2_________________        MU_TOGG, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
@@ -101,6 +125,8 @@
 #define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
 #define _________________ADJUST_R2_________________        AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
 #define _________________ADJUST_R3_________________        MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
+
+
 
 #define _____________WORKMAN_310_001_L_____________        TD_QESC,  KC_D,    KC_R,    KC_W,     BSYM
 #define _____________WORKMAN_310_001_R_____________        JSYM,     KC_F,    KC_U,    KC_P,     KC_BSPC
@@ -120,7 +146,6 @@
 #define _____________WORKMAN_311_002_R_____________        KC_Y,      KC_N,    KC_E,    KC_O,    TD_IENT
 #define _____________WORKMAN_311_003_L_____________        FNZ,       CTRLX,   MGUI,    CALT,    VLOWER,   KC_ENT
 #define _____________WORKMAN_311_003_R_____________        KRAISE,    L_ALT,   TD_CSPC, TD_DSPC, KC_SLSH
-
 
 #define _____________WORKMAN_412_001_L_____________        TD_TE,    TD_QESC, KC_D,    KC_R,    KC_W,     BSYM
 #define _____________WORKMAN_412_001_R_____________        JSYM,     KC_F,    KC_U,    KC_P,    KC_BSPC,  KC_BSPC
