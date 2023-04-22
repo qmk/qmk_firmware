@@ -2,8 +2,10 @@
 
 #pragma once
 
+#define DEF_SERIAL_NUMBER "purdea.ro:minirazz"
+
 #ifndef SERIAL_NUMBER
-#define SERIAL_NUMBER "purdea.ro:minirazz"
+#define SERIAL_NUMBER DEF_SERIAL_NUMBER
 #endif
 
 #define MATRIX_ROWS 12
