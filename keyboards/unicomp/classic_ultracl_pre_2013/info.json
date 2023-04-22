@@ -1,12 +1,4 @@
 {
-    "matrix_pins": {
-        "ghost": true
-    },
-    "usb": {
-        "vid": "0x16C0",
-        "pid": "0x27DB",
-        "device_version": "0.0.1"
-    },
     "community_layouts": ["fullsize_ansi", "fullsize_iso"],
     "layouts": {
         "LAYOUT_all": {
