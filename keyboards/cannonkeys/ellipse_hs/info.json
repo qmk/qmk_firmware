@@ -26,6 +26,9 @@
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_60_tsangan_hhkb"
     },
+    "community_layouts": [
+        "60_tsangan_hhkb"
+    ],
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [
