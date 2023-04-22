@@ -9,7 +9,7 @@
 #    define WINRY315_DEFAULT_ORIENTATION WINRY315_ORIENTATION_TOP
 #endif
 
-#if !defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
+#ifdef ENCODER_ENABLE
 #    ifndef MEDIA_KEY_DELAY
 #        define MEDIA_KEY_DELAY 10
 #    endif
