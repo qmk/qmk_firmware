@@ -72,6 +72,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
+        case CCCV: // One key copy/paste
+            if (record->event.pressed) {
+                copy_paste_timer = timer_read();
+            } else {
+                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) { // Hold, copy
+                    tap_code16(LCTL(KC_C));
+                } else { // Tap, paste
+                    tap_code16(LCTL(KC_V));
+                }
+            }
+            break;
+
 #if defined(KEYBOARD_1upkeyboards_pi40_v1_0) && defined(RGBLIGHT_ENABLE)
         case WM:
             if (record->event.pressed) {

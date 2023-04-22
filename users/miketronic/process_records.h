@@ -29,5 +29,6 @@ enum custom_keycodes {
   RGB2,	
   RGB3,
   RGB4,
-  RGB5
+  RGB5,
+  CCCV
 };
