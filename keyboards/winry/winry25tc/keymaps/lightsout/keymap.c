@@ -121,8 +121,15 @@ uint8_t initial_moves = 1;
 
 void start_game(void) {
     rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-    for (uint8_t i = 0; i < initial_moves; i++) {
-        do_move(random() % 5, random() % 5);
+    srand(timer_read32());
+    while (true) {
+        for (uint8_t i = 0; i < initial_moves; i++) {
+            do_move(rand() % 5, rand() % 5);
+        }
+        if (!is_blank()) {
+            // Catch the "we picked the same location 2*N times" case
+            break;
+        }
     }
     refresh_leds();
 }
