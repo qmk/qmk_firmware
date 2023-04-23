@@ -10,7 +10,8 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false
+        "nkro": false,
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["GP0", "GP0", "GP1", "GP1", "GP2", "GP2", "GP29", "GP29", "GP28", "GP28", "GP27", "GP27"],
@@ -23,6 +24,11 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            { "flags": 4, "matrix": [0, 0] , "x": 4  , "y": 0.25 }
+        ]},
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [
