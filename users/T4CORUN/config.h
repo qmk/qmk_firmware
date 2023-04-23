@@ -8,11 +8,11 @@
 #undef LOCKING_RESYNC_ENABLE
 
 /* Clear out variables that we may be setting */
-#ifdef USB_POLLING_INTERVAL_MS
+#if defined(USB_POLLING_INTERVAL_MS)
 # undef USB_POLLING_INTERVAL_MS
 #endif
 
-#ifdef TAPPING_TERM
+#if defined(TAPPING_TERM)
 # undef TAPPING_TERM
 #endif
 
@@ -27,15 +27,20 @@
 #define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
 
-#ifdef MOUSEKEY_ENABLE
+#if defined(MOUSEKEY_ENABLE)
 # define MOUSEKEY_INTERVAL 12
 # define MOUSEKEY_MAX_SPEED 6
 # define MOUSEKEY_TIME_TO_MAX 50
 # define MOUSEKEY_DELAY 20
 #endif //MOUSEKEY_ENABLE
 
-#ifdef COMBO_ENABLE 
+#if defined(COMBO_ENABLE)
 # define EXTRA_SHORT_COMBOS
-# define COMBO_MUST_PRESS_IN_ORDER
+//# define COMBO_MUST_PRESS_IN_ORDER
 # define COMBO_TERM 50
 #endif //COMBO_ENABLE
+
+#if defined(AUTOMOUSE_ENABLED)
+# define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+# define AUTO_MOUSE_TIME 300
+#endif //AUTOMOUSE_ENABLED

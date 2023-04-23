@@ -1,5 +1,9 @@
+#Anything that says ENABLED is not part of standard QMK
+#these custom ones will need to be added to OPT_DEFS
+
 SRC += $(USER_PATH)/T4CORUN.c \
-		$(USER_PATH)/tapping.c
+		$(USER_PATH)/tapping.c \
+		$(USER_PATH)/processor.c
 
 TAP_DANCE_ENABLE ?= yes
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -7,11 +11,11 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 endif
 
 OLED_ENABLE ?= no
-KEYLOG_ENABLE ?= no
+KEYLOG_ENABLED ?= no
 ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += $(USER_PATH)/oled_stuff.c
-	ifeq ($(strip $(KEYLOG_ENABLE)), yes)
-	    OPT_DEFS += -DKEYLOG_ENABLE
+	ifeq ($(strip $(KEYLOG_ENABLED)), yes)
+	  OPT_DEFS += -DKEYLOG_ENABLED
 	endif
 endif
 
@@ -20,9 +24,25 @@ ifeq ($(strip $(COMBO_ENABLE)), yes)
 	SRC += $(USER_PATH)/combos.c
 endif
 
-HOMEROWMOD_ENABLE ?= yes
-ifeq ($(strip $(HOMEROWMOD_ENABLE)), yes)
-    OPT_DEFS += -DHOMEROWMOD_ENABLE
+HOMEROWMOD_ENABLED ?= yes
+ifeq ($(strip $(HOMEROWMOD_ENABLED)), yes)
+  OPT_DEFS += -DHOMEROWMOD_ENABLED
+endif
+
+#AUTO_MOUSE_ENABLED is custom
+POINTING_DEVICE_ENABLE ?= no
+AUTOMOUSE_ENABLED ?= no
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+	SRC += $(USER_PATH)/pointing.c
+	OPT_DEFS += -DMOUSELAYER_ENABLED
+	ifeq ($(strip $(AUTOMOUSE_ENABLED)), yes)
+	  OPT_DEFS += -DAUTOMOUSE_ENABLED
+	endif
+endif
+
+MOUSEKEY_ENABLE ?= no
+ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
+	OPT_DEFS += -DMOUSELAYER_ENABLED
 endif
 
 SPACE_CADET_ENABLE ?= no

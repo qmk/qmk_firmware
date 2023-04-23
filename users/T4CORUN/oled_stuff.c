@@ -1,6 +1,6 @@
 #include "oled_stuff.h"
 
-#ifdef KEYLOG_ENABLE
+#ifdef KEYLOG_ENABLED
 char     keylog_str[KEYLOG_LEN] = {0};
 uint8_t  keylogs_str_idx        = 0;
 uint16_t log_timer              = 0;
@@ -39,7 +39,7 @@ void render_keylogger_status(void) {
   oled_write_P(PSTR(OLED_RENDER_KEYLOGGER_NAME), false);
   oled_write(keylog_str, false);
 }
-#endif // KEYLOG_ENABLE
+#endif // KEYLOG_ENABLED
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (is_keyboard_master()) {
@@ -122,9 +122,9 @@ void render_oled_main(void) {
   render_mod_status(get_mods());
   render_layer_state();
   //render_bootmagic_status();
-  #ifdef KEYLOG_ENABLE
+  #ifdef KEYLOG_ENABLED
   render_keylogger_status();
-  #endif // KEYLOG_ENABLE
+  #endif // KEYLOG_ENABLED
 }
 
 void render_oled_secondary(void) {
@@ -134,7 +134,7 @@ void render_oled_secondary(void) {
 
 bool oled_task_user(void) {
   
-  #ifdef KEYLOG_ENABLE
+  #ifdef KEYLOG_ENABLED
   update_log();
   #endif //KEYLOG ENABLE
 

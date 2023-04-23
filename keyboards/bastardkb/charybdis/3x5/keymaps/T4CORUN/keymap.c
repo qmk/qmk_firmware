@@ -17,36 +17,26 @@
 
 #include "T4CORUN.h"
 
-#define LAYOUT_charybdis_3x5_wrapper(...) LAYOUT_charybdis_3x5(__VA_ARGS__)
-#define LAYOUT_charybdis_3x5_base(                            \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A,       \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A,       \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A        \
-  ) \
-  LAYOUT_charybdis_3x5_wrapper( \
-    K01,     K02,     K03,     K04,     K05,     K06,     K07,     K08,     K09,     K0A, \
-    K11,     K12,     K13,     K14,     K15,     K16,     K17,     K18,     K19,     K1A, \
-    K21,     K22,     K23,     K24,     K25,     K26,     K27,     K28,     K29,     K2A, \
-                      _________BASE_L4_________, _________BASE_R4_________                \
-  )
-#define LAYOUT_base_wrapper(...) LAYOUT_charybdis_3x5_base(__VA_ARGS__)
+#define LAYOUT_wrapper(...) LAYOUT_charybdis_3x5(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-// Review $qmkroot\users\T4CORUN\wrappers.h for definitions
-  [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
+  // Review $qmkroot\users\T4CORUN\wrappers.h for definitions
+  [_DEFAULT_LAYER_1] = LAYOUT_wrapper(
     _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
     _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
-    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
+    _________________QWERTY_L3_________________, _________________QWERTY_R3_________________,
+                      _________BASE_L4_________, _________BASE_R4_________
   ),
 
-  [_DEFAULT_LAYER_2] = LAYOUT_base_wrapper(
+  [_DEFAULT_LAYER_2] = LAYOUT_wrapper(
     ________________COLEMAKDH_L1_______________, ________________COLEMAKDH_R1_______________,
     ________________COLEMAKDH_L2_______________, ________________COLEMAKDH_R2_______________,
-    ________________COLEMAKDH_L3_______________, ________________COLEMAKDH_R3_______________
+    ________________COLEMAKDH_L3_______________, ________________COLEMAKDH_R3_______________,
+                      _________BASE_L4_________, _________BASE_R4_________
   ),
 
-  [_NUMBER] = LAYOUT_charybdis_3x5_wrapper(
+  [_NUMBER] = LAYOUT_wrapper(
   //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _________________NUMPAD_L1_________________, _________________NUMPAD_R1_________________,
     _________________NUMPAD_L2_________________, _________________NUMPAD_R2_________________,
@@ -54,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ________NUMPAD_L4________, ________NUMPAD_R4________
   ),
 
-  [_NAVIGATION] = LAYOUT_charybdis_3x5_wrapper(
+  [_NAVIGATION] = LAYOUT_wrapper(
   //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     ___________________NAV_L1__________________, ___________________NAV_R1__________________,
     ___________________NAV_L2__________________, ___________________NAV_R2__________________,
@@ -62,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       __________NAV_L4_________, __________NAV_R4_________
   ),
 
-  [_FUNCTION] = LAYOUT_charybdis_3x5_wrapper(
+  [_FUNCTION] = LAYOUT_wrapper(
   //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _________________FUNCPAD_L1________________, _________________FUNCPAD_R1________________,
     _________________FUNCPAD_L2________________, _________________FUNCPAD_R2________________,
@@ -70,15 +60,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ________FUNCPAD_L4_______, ________FUNCPAD_R4_______
   ),
 
-  [_MOUSE] = LAYOUT_charybdis_3x5_wrapper(
-  //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    ________________MOUSEPTR_L1________________, ________________MOUSEPTR_R1________________,
-    ________________MOUSEPTR_L2________________, ________________MOUSEPTR_R2________________,
-    ________________MOUSEPTR_L3________________, ________________MOUSEPTR_R3________________,
-                      _______MOUSEPTR_L4_______, _______MOUSEPTR_R4_______
-  ),
+#if defined(MOUSELAYER_ENABLED)
+    [_MOUSE] = LAYOUT_wrapper(
+    //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      __________________MOUSE_L1_________________, __________________MOUSE_R1_________________,
+      __________________MOUSE_L2_________________, __________________MOUSE_R2_________________,
+      __________________MOUSE_L3_________________, __________________MOUSE_R3_________________,
+                        _________MOUSE_L4________, _________MOUSE_R4________
+    ),
+#endif //MOUSELAYER_ENABLED
 
-  [_ADJUST] = LAYOUT_charybdis_3x5_wrapper(
+
+  [_ADJUST] = LAYOUT_wrapper(
   //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _________________ADJUST_L1_________________, _________________ADJUST_R1_________________,
     _________________ADJUST_L2_________________, _________________ADJUST_R2_________________,
