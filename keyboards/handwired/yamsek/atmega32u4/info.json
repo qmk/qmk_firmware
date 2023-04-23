@@ -1,4 +1,10 @@
 {
     "processor": "atmega32u4",
-    "bootloader": "caterina"
+    "bootloader": "caterina",
+    "ws2812": {
+        "pin": "B6"
+    },
+    "rgblight": {
+        "led_count": 3
+    }
 }

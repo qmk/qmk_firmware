@@ -55,11 +55,6 @@ static matrix_col_t raw_matrix[MATRIX_COLS];
   hence the code "selects" column pins by pulling them low,
   and continues to read all row-pins into a 'matrix_col_t'
 */
-#if (DIODE_DIRECTION == COL2ROW)
-#    pragma error "DIODE_DIRECTION = COL2ROW is not supported (yet)"
-// TODO: implement like it is done in keyboards/handwired/dactyl/matrix.c?
-#endif
-
 
 /* Column pin configuration
  *

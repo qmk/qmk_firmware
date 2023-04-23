@@ -16,7 +16,11 @@
         "pid": "0x6060",
         "vid": "0xFEED"
     },
-     "layouts": {
+    "matrix_size": {
+        "cols": 6,
+        "rows": 8
+    },
+    "layouts": {
         "LAYOUT": {
             "layout": [
                 {"matrix":[0,0], "label":"Y", "x":13, "y":1.25},

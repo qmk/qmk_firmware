@@ -1,4 +1,3 @@
-![Yet another Modular split ergonomic Keybard](https://cdn.hackaday.io/images/8060711492102546379.jpg)
 Find build documentation at the Hackaday.io site for [Yet another Modular split ergonomic Keyboard](https://hackaday.io/project/21164-yamsek)
 
 a split keyboard, following the dactyl style of slightly curved keybard halves; and only one MCU running the whole show alongside an I2C portexpander in 'the other half'

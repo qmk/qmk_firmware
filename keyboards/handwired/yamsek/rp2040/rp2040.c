@@ -20,5 +20,5 @@
     Row 3 is the thumb-cluster
 */
 
-const pin_t row_pins_MCU[MATRIX_ROWS / 2] = {5, 6, 7, 8};
-const pin_t col_pins_MCU[MATRIX_COLS]     = {14, 15, 26, 27, 28, 29};
+const pin_t row_pins_MCU[MATRIX_ROWS / 2] = {GP5, GP6, GP7, GP8};
+const pin_t col_pins_MCU[MATRIX_COLS]     = {GP14, GP15, GP26, GP27, GP28, GP29};
