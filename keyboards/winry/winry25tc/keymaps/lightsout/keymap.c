@@ -117,11 +117,11 @@ void refresh_leds(void) {
     rgblight_set();
 }
 
-#define INITIAL_MOVES 1
+uint8_t initial_moves = 1;
 
 void start_game(void) {
     rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-    for (uint8_t i = 0; i < INITIAL_MOVES; i++) {
+    for (uint8_t i = 0; i < initial_moves; i++) {
         do_move(random() % 5, random() % 5);
     }
     refresh_leds();
@@ -138,6 +138,7 @@ bool    won       = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         if (won) {
+            initial_moves++;
             won = false;
             start_game();
         } else {
