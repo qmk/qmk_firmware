@@ -57,8 +57,8 @@ bool twpair_on_jis(uint16_t keycode, keyrecord_t *record) {
   if (!record->event.pressed) return true;
 
   uint16_t skeycode; // シフトビットを反映したキーコード
-  bool lshifted = keyboard_report->mods & MOD_BIT(KC_LSFT); // シフトキーの状態
-  bool rshifted = keyboard_report->mods & MOD_BIT(KC_RSFT);
+  bool lshifted = get_mods() & MOD_BIT(KC_LSFT); // シフトキーの状態
+  bool rshifted = get_mods() & MOD_BIT(KC_RSFT);
   bool shifted = lshifted | rshifted;
 
   if (shifted) {
