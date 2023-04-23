@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-
 #ifdef RGB_MATRIX_ENABLE
 #    define DRIVER_ADDR_1 0x50
 #    define DRIVER_ADDR_2 0x52
@@ -35,9 +34,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_2_LED_TOTAL 26
 #    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED
+#    define RGB_MATRIX_TIMEOUT 900000     // 15 minutes (15 * 60 * 1000ms)
+
     // RGB Matrix Animation modes. Explicitly enabled
     // For full list of effects, see:
     // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
+
+    // Heatmap, Rain
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+    // REACTIVE, SPLASH modes
+#    define RGB_MATRIX_KEYPRESSES
+
 #    define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #    define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #    define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
