@@ -21,6 +21,9 @@ enum layers { _BASE, _LOWER, _RAISE, _ADJUST };
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+        return false;
+    }
     switch (get_highest_layer(layer_state)) {
         case _BASE:
             if (index == 0) {
