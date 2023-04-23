@@ -28,3 +28,5 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_LIMIT_VAL 150 /* The maximum brightness level */
+
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
