@@ -22,12 +22,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_K    ,KC_D    ,KC_N    ,KC_F      ,KC_Q          ,KC_J          ,KC_BSPC   ,KC_R    ,KC_U    ,KC_P    ,
         KC_W    ,KC_I    ,KC_S    ,KC_A      ,KC_G          ,KC_Y          ,KC_E      ,KC_T    ,KC_H    ,KC_B    ,
         KC_Z    ,KC_X    ,KC_V    ,KC_C      ,KC_L          ,KC_M          ,KC_O      ,KC_COMM ,KC_DOT  ,KC_SLSH ,
-        KC_LALT ,KC_LSFT ,KC_LCTL ,MO(_LOWER),LSFT_T(KC_SPC),LSFT_T(KC_ENT),MO(_RAISE),KC_RCTL ,KC_RSFT ,KC_RALT
+        KC_LWIN ,KC_LSFT ,KC_LCTL ,MO(_LOWER),LSFT_T(KC_SPC),LSFT_T(KC_ENT),MO(_RAISE),KC_RCTL ,KC_RSFT ,KC_RALT
     ),
 
     [_LOWER] = LAYOUT_ortho_4x10(
-        XXXXXXX ,XXXXXXX ,KC_COLN ,KC_SCLN ,XXXXXXX ,KC_SLSH ,KC_7    ,KC_8    ,KC_9    ,KC_MINS ,
-        XXXXXXX ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LT   ,KC_ASTR ,KC_4    ,KC_5    ,KC_6    ,KC_PLUS ,
+        KC_TAB  ,XXXXXXX ,KC_COLN ,KC_SCLN ,XXXXXXX ,KC_SLSH ,KC_7    ,KC_8    ,KC_9    ,KC_MINS ,
+        KC_ESC  ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LT   ,KC_ASTR ,KC_4    ,KC_5    ,KC_6    ,KC_PLUS ,
         XXXXXXX ,KC_RBRC ,KC_RCBR ,KC_RPRN ,KC_GT   ,KC_0    ,KC_1    ,KC_2    ,KC_3    ,KC_EQL  ,
         _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______
     ),
