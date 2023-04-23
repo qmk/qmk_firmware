@@ -8,6 +8,13 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C7",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 3,
     "layout_aliases": {
         "LAYOUT_60_ansi_7u_spc": "LAYOUT_60_ansi_tsangan",
         "LAYOUT_60_iso_7u_spc_split_bs_rshift": "LAYOUT_60_iso_tsangan_split_bs_rshift",
@@ -22,6 +29,7 @@
         "LAYOUT_60_iso_1u_lshift_split_bs_rshift": "LAYOUT_60_iso_split_bs_rshift",
         "LAYOUT_60_iso_1u_lshift_7u_spc_split_bs_rshift": "LAYOUT_60_iso_tsangan_split_bs_rshift"
     },
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

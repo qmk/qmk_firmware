@@ -11,7 +11,6 @@
         "mousekey": true,
         "nkro": true
     },
-    "debounce": 5,
     "processor": "RP2040",
     "url": "https://github.com/beekeeb/piantor",
     "usb": {
@@ -19,9 +18,31 @@
         "pid": "0x0001",
         "vid": "0xBEEB"
     },
-    "split": {
-        "enabled": true
+    "bootmagic": {
+        "matrix": [0, 5]
     },
+    "matrix_pins": {
+        "direct": [
+            ["GP5", "GP4", "GP11", "GP15", "GP3", "GP2"],
+            ["GP22", "GP20", "GP10", "GP14", "GP9", "GP8"],
+            ["GP21", "GP19", "GP6", "GP7", "GP13", "GP12"],
+            ["GP17", "GP18", "GP16", null, null, null]
+        ]
+    },
+    "split": {
+        "enabled": true,
+        "matrix_pins": {
+            "right": {
+                "direct": [
+                    ["GP22", "GP21", "GP2", "GP5", "GP8", "GP11"],
+                    ["GP20", "GP19", "GP3", "GP6", "GP9", "GP12"],
+                    ["GP18", "GP17", "GP4", "GP7", "GP10", "GP13"],
+                    ["GP15", "GP14", "GP16", null, null, null]
+                ]
+            }
+        }
+    },
+    "community_layouts": ["split_3x6_3"],
     "layouts": {
         "LAYOUT_split_3x6_3": {
             "layout": [

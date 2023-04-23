@@ -20,13 +20,13 @@ To use the ADNS 5050 sensor, add this to your `rules.mk`
 POINTING_DEVICE_DRIVER = adns5050
 ```
 
-The ADNS 5050 sensor uses a serial type protocol for communication, and requires an additional light source. 
+The ADNS 5050 sensor uses a serial type protocol for communication, and requires an additional light source.
 
-| Setting             | Description                                                         | Default                    |
-| ------------------- | ------------------------------------------------------------------- | -------------------------- |
-| `ADNS5050_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.        | `POINTING_DEVICE_SCLK_PIN` |
-| `ADNS5050_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         | `POINTING_DEVICE_SDIO_PIN` |
-| `ADNS5050_CS_PIN`   | (Required) The pin connected to the cable select pin of the sensor. | `POINTING_DEVICE_CS_PIN`   |
+| Setting (`config.h`) | Description                                                        | Default                    |
+| -------------------- | ------------------------------------------------------------------ | -------------------------- |
+| `ADNS5050_SCLK_PIN`  | (Required) The pin connected to the clock pin of the sensor.       | `POINTING_DEVICE_SCLK_PIN` |
+| `ADNS5050_SDIO_PIN`  | (Required) The pin connected to the data pin of the sensor.        | `POINTING_DEVICE_SDIO_PIN` |
+| `ADNS5050_CS_PIN`    | (Required) The pin connected to the Chip Select pin of the sensor. | `POINTING_DEVICE_CS_PIN`   |
 
 
 
@@ -40,15 +40,15 @@ To use the ADNS 9800 sensor, add this to your `rules.mk`
 POINTING_DEVICE_DRIVER = adns9800
 ```
 
-The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surface tracking. 
+The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surface tracking.
 
-| Setting                 | Description                                                            | Default                  |
+| Setting (`config.h`)    | Description                                                            | Default                  |
 | ----------------------- | ---------------------------------------------------------------------- | ------------------------ |
 | `ADNS9800_CLOCK_SPEED`  | (Optional) Sets the clock speed that the sensor runs at.               | `2000000`                |
 | `ADNS9800_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`                  |
 | `ADNS9800_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `3`                      |
 | `ADNS9800_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_                 |
-| `ADNS9800_CS_PIN`       | (Required) Sets the Cable Select pin connected to the sensor.          | `POINTING_DEVICE_CS_PIN` |
+| `ADNS9800_CS_PIN`       | (Required) Sets the Chip Select pin connected to the sensor.           | `POINTING_DEVICE_CS_PIN` |
 
 
 The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI. 
@@ -63,7 +63,7 @@ POINTING_DEVICE_DRIVER = analog_joystick
 
 The Analog Joystick is an analog (ADC) driven sensor.  There are a variety of joysticks that you can use for this.
 
-| Setting                           | Description                                                                | Default       |
+| Setting (`config.h`)              | Description                                                                | Default       |
 | --------------------------------- | -------------------------------------------------------------------------- | ------------- |
 | `ANALOG_JOYSTICK_X_AXIS_PIN`      | (Required) The pin used for the vertical/X axis.                           | _not defined_ |
 | `ANALOG_JOYSTICK_Y_AXIS_PIN`      | (Required) The pin used for the horizontal/Y axis.                         | _not defined_ |
@@ -124,7 +124,7 @@ Default attenuation is set to 4X, although if you are using a thicker overlay (s
 | `CIRQUE_PINNACLE_SPI_LSBFIRST` | (Optional) Sets the Least/Most Significant Byte First setting for SPI. | `false`                  |
 | `CIRQUE_PINNACLE_SPI_MODE`     | (Optional) Sets the SPI Mode for the sensor.                           | `1`                      |
 | `CIRQUE_PINNACLE_SPI_DIVISOR`  | (Optional) Sets the SPI Divisor used for SPI communication.            | _varies_                 |
-| `CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Cable Select pin connected to the sensor.          | `POINTING_DEVICE_CS_PIN` |
+| `CIRQUE_PINNACLE_SPI_CS_PIN`   | (Required) Sets the Chip Select pin connected to the sensor.           | `POINTING_DEVICE_CS_PIN` |
 
 Default Scaling is 1024. Actual CPI depends on trackpad diameter.
 
@@ -153,7 +153,7 @@ Additionally, `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE` is supported in thi
 
 #### Relative mode gestures
 
-| Gesture Setting                        | Description                                                                                                                                                                               | Default       |
+| Gesture Setting (`config.h`)           | Description                                                                                                                                                                               | Default       |
 | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `CIRQUE_PINNACLE_TAP_ENABLE`           | (Optional) Enable tap to "left click". Works on both sides of a split keyboard.                                                                                                           | _not defined_ |
 | `CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE` | (Optional) Tap in upper right corner (half of the finger needs to be outside of the trackpad) of the trackpad will result in "right click". `CIRQUE_PINNACLE_TAP_ENABLE` must be enabled. | _not defined_ |
@@ -172,10 +172,10 @@ POINTING_DEVICE_DRIVER = paw3204
 
 The paw 3204 sensor uses a serial type protocol for communication, and requires an additional light source. 
 
-| Setting            | Description                                                    | Default                    |
-| ------------------ |--------------------------------------------------------------- | -------------------------- |
-| `PAW3204_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.   | `POINTING_DEVICE_SCLK_PIN` |
-| `PAW3204_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.    | `POINTING_DEVICE_SDIO_PIN` |
+| Setting (`config.h`) | Description                                                    | Default                    |
+| -------------------- |--------------------------------------------------------------- | -------------------------- |
+| `PAW3204_SCLK_PIN`   | (Required) The pin connected to the clock pin of the sensor.   | `POINTING_DEVICE_SCLK_PIN` |
+| `PAW3204_SDIO_PIN`   | (Required) The pin connected to the data pin of the sensor.    | `POINTING_DEVICE_SDIO_PIN` |
 
 The CPI range is 400-1600, with supported values of (400, 500, 600, 800, 1000, 1200 and 1600).  Defaults to 1000 CPI.
 
@@ -189,7 +189,7 @@ POINTING_DEVICE_DRIVER = pimoroni_trackball
 
 The Pimoroni Trackball module is a I2C based breakout board with an RGB enable trackball. 
 
-| Setting                              | Description                                                                        | Default |
+| Setting (`config.h`)                 | Description                                                                        | Default |
 | ------------------------------------ | ---------------------------------------------------------------------------------- | ------- |
 | `PIMORONI_TRACKBALL_ADDRESS`         | (Required) Sets the I2C Address for the Pimoroni Trackball.                        | `0x0A`  |
 | `PIMORONI_TRACKBALL_TIMEOUT`         | (Optional) The timeout for i2c communication with the trackball in milliseconds.   | `100`   |
@@ -218,11 +218,14 @@ POINTING_DEVICE_DRIVER = pmw3389
 The CPI range is 50-16000, in increments of 50. Defaults to 2000 CPI.
 
 Both PMW 3360 and PMW 3389 are SPI driven optical sensors, that use a built in IR LED for surface tracking.
+If you have different CS wiring on each half you can use `PMW33XX_CS_PIN_RIGHT` or `PMW33XX_CS_PINS_RIGHT` in combination with `PMW33XX_CS_PIN` or `PMW33XX_CS_PINS` to configure both sides independently. If `_RIGHT` values aren't provided, they default to be the same as the left ones.
 
-| Setting                      | Description                                                                                 | Default                  |
+| Setting (`config.h`)         | Description                                                                                 | Default                  |
 | ---------------------------- | ------------------------------------------------------------------------------------------- | ------------------------ |
-| `PMW33XX_CS_PIN`             | (Required) Sets the Cable Select pin connected to the sensor.                               | `POINTING_DEVICE_CS_PIN` |
-| `PMW33XX_CS_PINS`            | (Alternative) Sets the Cable Select pins connected to multiple sensors.                     | _not defined_            |
+| `PMW33XX_CS_PIN`             | (Required) Sets the Chip Select pin connected to the sensor.                                | `POINTING_DEVICE_CS_PIN` |
+| `PMW33XX_CS_PINS`            | (Alternative) Sets the Chip Select pins connected to multiple sensors.                      | `{PMW33XX_CS_PIN}`       |
+| `PMW33XX_CS_PIN_RIGHT`       | (Optional) Sets the Chip Select pin connected to the sensor on the right half.              | `PMW33XX_CS_PIN`         |
+| `PMW33XX_CS_PINS_RIGHT`      | (Optional) Sets the Chip Select pins connected to multiple sensors on the right half.       | `{PMW33XX_CS_PIN_RIGHT}` |
 | `PMW33XX_CPI`                | (Optional) Sets counts per inch sensitivity of the sensor.                                  | _varies_                 |
 | `PMW33XX_CLOCK_SPEED`        | (Optional) Sets the clock speed that the sensor runs at.                                    | `2000000`                |
 | `PMW33XX_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                 | _varies_                 |

@@ -43,7 +43,7 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 // Reduce firmware size
 // 	https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/

@@ -1,0 +1,74 @@
+name: CI Builds
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [master, develop]
+  workflow_dispatch:
+    inputs:
+      branch:
+        type: choice
+        description: 'Branch to build'
+        options: [master, develop]
+
+concurrency: ci_build-${{ github.event.inputs.branch || github.ref_name }}
+
+jobs:
+  ci_builds:
+    if: github.repository == 'qmk/qmk_firmware'
+    name: "CI Build"
+    runs-on: self-hosted
+    timeout-minutes: 1380
+
+    strategy:
+      fail-fast: false
+      matrix:
+        keymap: [default, via]
+
+    container: qmkfm/qmk_cli
+
+    steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        ref: ${{ github.event.inputs.branch || github.ref }}
+
+    - name: Install dependencies
+      run: pip3 install -r requirements.txt
+
+    - name: Run `qmk mass-compile` (keymap ${{ matrix.keymap }})
+      run: |
+        export NCPUS=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
+        qmk mass-compile -t -j $NCPUS -km ${{ matrix.keymap }} -e DUMP_CI_METADATA=yes || touch .failed
+        # Generate the step summary markdown
+        ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
+        # Truncate to a maximum of 1MB to deal with GitHub workflow limit
+        truncate --size='<960K' $GITHUB_STEP_SUMMARY || true
+        # Exit with failure if the compilation stage failed
+        [ ! -f .failed ] || exit 1
+
+    - name: 'Upload artifacts'
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: artifacts-${{ github.event.inputs.branch || github.ref_name }}-${{ matrix.keymap }}
+        if-no-files-found: ignore
+        path: |
+          *.bin
+          *.hex
+          *.uf2
+          .build/failed.*
+
+    - name: 'CI Discord Notification'
+      if: always()
+      working-directory: util/ci/
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.CI_DISCORD_WEBHOOK }}
+      run: |
+        python3 -m pip install -r requirements.txt
+        python3 ./discord-results.py --branch ${{ github.event.inputs.branch || github.ref_name }} --keymap ${{ matrix.keymap }} --url ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

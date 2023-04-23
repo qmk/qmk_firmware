@@ -2,5 +2,17 @@
     "keyboard_name": "Uno rev2",
     "usb": {
         "device_version": "0.0.2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "B3"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["D0"]
+        ]
     }
 }

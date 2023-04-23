@@ -36,28 +36,28 @@ enum layer_names {
 #define BS_RA LT(RAISE, KC_BSPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_reviung33(
+  [_BASE] = LAYOUT(
     CT_Q,    JP_W,    JP_E,    JP_R,    JP_T,   JP_Y,    JP_U,    JP_I,    JP_O,    JP_P,
     JP_A,    JP_S,    JP_D,    JP_F,    JP_G,   JP_H,    JP_J,    JP_K,    JP_L,    KC_ENT,
     SF_Z,    AL_X,    JP_C,    JP_V,    JP_B,   JP_N,    JP_M,    CT_CM,   AL_DT,   SF_SS,
     TB_LO,                                  KC_SPC,                                 BS_RA
   ),
 
-  [_LOWER] = LAYOUT_reviung33(
+  [_LOWER] = LAYOUT(
     JP_EXLM, JP_AT,   JP_HASH, JP_DLR,  JP_PERC, JP_CIRC, JP_AMPR, JP_ASTR, JP_LPRN, JP_RPRN,
     JP_UNDS, JP_PLUS, JP_LCBR, JP_RCBR, JP_PIPE, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, JP_SCLN,
     KC_LSFT, KC_ESC,  KC_LGUI, KC_LALT, JP_QUOT, KC_HOME, KC_END,  KC_PGUP, KC_PGDN, KC_RSFT,
     _______,                                _______,                                 _______
   ),
   
-  [_RAISE] = LAYOUT_reviung33(
+  [_RAISE] = LAYOUT(
     JP_1,    JP_2,    JP_3,    JP_4,    JP_5,    JP_6,    JP_7,    JP_8,    JP_9,    JP_0,
     JP_MINS, JP_EQL,  JP_LBRC, JP_RBRC, JP_YEN,  JP_BSLS, XXXXXXX, JP_GRV,  JP_TILD, JP_COLN,
     KC_LSFT, KC_ESC,  KC_RGUI, KC_LALT, JP_DQUO, KC_TAB,  XXXXXXX, KC_RCTL, KC_RALT, KC_RSFT,
     _______,                                KC_DEL,                                  _______
   ),
   
-  [_ADJUST] = LAYOUT_reviung33(
+  [_ADJUST] = LAYOUT(
     RGB_VAI, RGB_SAI, RGB_HUI, RGB_MOD, RGB_TOG, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  
     RGB_VAD, RGB_SAD, RGB_HUD, RGB_RMOD,XXXXXXX, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, 
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,   KC_F11,  KC_F12,  KC_CAPS, XXXXXXX, KC_PSCR,

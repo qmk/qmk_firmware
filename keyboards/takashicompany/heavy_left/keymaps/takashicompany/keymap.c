@@ -18,7 +18,7 @@
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    KC_00 = USER00,
+    KC_00 = QK_KB_0,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

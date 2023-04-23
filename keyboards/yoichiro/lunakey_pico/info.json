@@ -18,7 +18,6 @@
         "cols": ["GP21", "GP20", "GP19", "GP18", "GP17", "GP16"],
         "rows": ["GP12", "GP13", "GP14", "GP15"]
     },
-    "debounce": 5,
     "processor": "RP2040",
     "usb": {
         "device_version": "3.0.0",

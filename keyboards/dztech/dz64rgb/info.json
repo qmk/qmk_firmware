@@ -8,6 +8,8 @@
         "pid": "0x1013",
         "device_version": "0.0.2"
     },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-ms",
     "layouts": {
         "LAYOUT_64_ansi": {
             "layout": [

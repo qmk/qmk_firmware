@@ -15,24 +15,10 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-#define LED_NUM_LOCK_PIN B12
-#define LED_SCROLL_LOCK_PIN B13
-#define LED_CAPS_LOCK_PIN C13
-
-#ifdef ENCODER_ENABLE
 #define MATRIX_ROW_PINS \
     { A6, A7, B0, B1, B10 }
 #define MATRIX_COL_PINS \
     { A10, A15, B3, B4, B5, B7, B6, A1, A2, A3, A4, A5 }
-
-#define ENCODERS_PAD_A \
-    { A0 }
-#define ENCODERS_PAD_B \
-    { B8 }
-
-#endif
 
 #ifdef RGBLIGHT_ENABLE
 

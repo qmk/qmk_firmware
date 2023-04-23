@@ -29,6 +29,11 @@ KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
 KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
 
+ifeq ($(strip $(DUMP_CI_METADATA)),yes)
+    $(info CI Metadata: KEYBOARD=$(KEYBOARD))
+    $(info CI Metadata: KEYMAP=$(KEYMAP))
+endif
+
 # Force expansion
 TARGET := $(TARGET)
 
@@ -46,11 +51,12 @@ ifdef SKIP_VERSION
 endif
 
 # Generate the version.h file
+VERSION_H_FLAGS :=
 ifdef SKIP_VERSION
-VERSION_H_FLAGS := --skip-all
+VERSION_H_FLAGS += --skip-all
 endif
 ifdef SKIP_GIT
-VERSION_H_FLAGS := --skip-git
+VERSION_H_FLAGS += --skip-git
 endif
 
 # Generate the board's version.h file.
@@ -182,7 +188,14 @@ endif
 
 include $(BUILDDEFS_PATH)/converters.mk
 
-include $(BUILDDEFS_PATH)/mcu_selection.mk
+MCU_ORIG := $(MCU)
+include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
+
+# PLATFORM_KEY should be detected in info.json via key 'processor' (or rules.mk 'MCU')
+ifeq ($(PLATFORM_KEY),)
+    $(call CATASTROPHIC_ERROR,Platform not defined)
+endif
+PLATFORM=$(shell echo $(PLATFORM_KEY) | tr '[:lower:]' '[:upper:]')
 
 # Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
@@ -255,24 +268,6 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_4)/$(KEYBOARD_FOLDER_4).h)","")
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/$(KEYBOARD_FOLDER_5).h)","")
     FOUND_KEYBOARD_H = $(KEYBOARD_FOLDER_5).h
-endif
-
-# Determine and set parameters based on the keyboard's processor family.
-# We can assume a ChibiOS target When MCU_FAMILY is defined since it's
-# not used for LUFA
-ifdef MCU_FAMILY
-    PLATFORM=CHIBIOS
-    PLATFORM_KEY=chibios
-    FIRMWARE_FORMAT?=bin
-    OPT_DEFS += -DMCU_$(MCU_FAMILY)
-else ifdef ARM_ATSAM
-    PLATFORM=ARM_ATSAM
-    PLATFORM_KEY=arm_atsam
-    FIRMWARE_FORMAT=bin
-else
-    PLATFORM=AVR
-    PLATFORM_KEY=avr
-    FIRMWARE_FORMAT?=hex
 endif
 
 # Find all of the config.h files and add them to our CONFIG_H define.
@@ -433,13 +428,6 @@ SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
 
-SKIP_COMPILE := no
-ifneq ($(REQUIRE_PLATFORM_KEY),)
-    ifneq ($(REQUIRE_PLATFORM_KEY),$(PLATFORM_KEY))
-        SKIP_COMPILE := yes
-    endif
-endif
-
 -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/bootloader.mk
 include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
 -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/flash.mk
@@ -479,28 +467,28 @@ $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
-ifeq ($(SKIP_COMPILE),no)
 all: build check-size
-else
-all:
-	echo "skipped" >&2
-endif
 
 build: elf cpfirmware
 check-size: build
 check-md5: build
 objs-size: build
 
+ifneq ($(strip $(TOP_SYMBOLS)),)
 ifeq ($(strip $(TOP_SYMBOLS)),yes)
+NUM_TOP_SYMBOLS := 10
+else
+NUM_TOP_SYMBOLS := $(strip $(TOP_SYMBOLS))
+endif
 all: top-symbols
 check-size: top-symbols
 top-symbols: build
 	echo "###########################################"
 	echo "# Highest flash usage:"
-	$(NM) -Crtd --size-sort $(BUILD_DIR)/$(TARGET).elf | grep -i ' [t] ' | head -n10 | sed -e 's#^0000000#       #g' -e 's#^000000#      #g' -e 's#^00000#     #g' -e 's#^0000#    #g' -e 's#^000#   #g' -e 's#^00#  #g' -e 's#^0# #g'
+	$(NM) -Crtd --size-sort $(BUILD_DIR)/$(TARGET).elf | grep -i ' [t] ' | head -n$(NUM_TOP_SYMBOLS) | sed -e 's#^0000000#       #g' -e 's#^000000#      #g' -e 's#^00000#     #g' -e 's#^0000#    #g' -e 's#^000#   #g' -e 's#^00#  #g' -e 's#^0# #g'
 	echo "###########################################"
 	echo "# Highest RAM usage:"
-	$(NM) -Crtd --size-sort $(BUILD_DIR)/$(TARGET).elf | grep -i ' [dbv] ' | head -n10 | sed -e 's#^0000000#       #g' -e 's#^000000#      #g' -e 's#^00000#     #g' -e 's#^0000#    #g' -e 's#^000#   #g' -e 's#^00#  #g' -e 's#^0# #g'
+	$(NM) -Crtd --size-sort $(BUILD_DIR)/$(TARGET).elf | grep -i ' [dbv] ' | head -n$(NUM_TOP_SYMBOLS) | sed -e 's#^0000000#       #g' -e 's#^000000#      #g' -e 's#^00000#     #g' -e 's#^0000#    #g' -e 's#^000#   #g' -e 's#^00#  #g' -e 's#^0# #g'
 	echo "###########################################"
 endif
 

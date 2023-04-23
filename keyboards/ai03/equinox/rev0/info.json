@@ -1,0 +1,9 @@
+{
+    "backlight": {
+        "pin": "D1",
+        "levels": 5,
+        "breathing": true
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu"
+}

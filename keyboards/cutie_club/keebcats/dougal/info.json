@@ -8,6 +8,11 @@
         "pid": "0xB265",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
