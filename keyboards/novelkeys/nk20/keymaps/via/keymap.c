@@ -16,7 +16,7 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = LAYOUT_all( /* Base */
+[0] = LAYOUT( /* Base */
     KC_VOLD, KC_VOLU, KC_MUTE,
     MO(1),   KC_PSLS, KC_PAST, KC_PMNS,
     KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
@@ -24,15 +24,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P1,   KC_P2,   KC_P3,   KC_PENT,
     KC_P0,            KC_PDOT),
 
-[1] = LAYOUT_all( /* FN */
-    KC_NLCK, KC_TRNS, KC_TRNS,
+[1] = LAYOUT( /* FN */
+    KC_NUM,  KC_TRNS, KC_TRNS,
     KC_TRNS, RGB_SPD, RGB_SPI, KC_TRNS,
     RGB_TOG, RGB_MOD, RGB_HUD, KC_TRNS,
     RGB_SAD, RGB_SAI, RGB_HUI,
     RGB_VAD, RGB_VAI, KC_TRNS, KC_TRNS,
     KC_TRNS,          KC_TRNS),
 
-[2] = LAYOUT_all( /* Empty for dynamic keymaps */
+[2] = LAYOUT( /* Empty for dynamic keymaps */
     KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS,          KC_TRNS),
 
-[3] = LAYOUT_all( /* Empty for dynamic keymaps */
+[3] = LAYOUT( /* Empty for dynamic keymaps */
     KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,

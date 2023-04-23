@@ -13,6 +13,10 @@
 
 ## Changelog
 
+### 2022-12-09 - 1.2
+
+- Add ENCODER_MAP_ENABLE from default VIA definition
+
 ### 2022-03-04 - 1.1
 
 - Correct function row to change LED backlights, not underglow

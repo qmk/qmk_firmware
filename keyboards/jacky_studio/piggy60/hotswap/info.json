@@ -1,3 +1,4 @@
 {
-    "diode_direction": "ROW2COL"
+    "diode_direction": "ROW2COL",
+    "community_layouts": ["60_hhkb", "60_tsangan_hhkb"]
 }

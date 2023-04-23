@@ -170,6 +170,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define OLED_UPDATE_INTERVAL 50
 #endif
 
+#if !defined(OLED_UPDATE_PROCESS_LIMIT)
+#    define OLED_UPDATE_PROCESS_LIMIT 1
+#endif
+
 typedef struct __attribute__((__packed__)) {
     uint8_t *current_element;
     uint16_t remaining_element_count;
@@ -260,7 +264,7 @@ void oled_write_ln_P(const char *data, bool invert);
 void oled_write_raw_P(const char *data, uint16_t size);
 #else
 #    define oled_write_P(data, invert) oled_write(data, invert)
-#    define oled_write_ln_P(data, invert) oled_write(data, invert)
+#    define oled_write_ln_P(data, invert) oled_write_ln(data, invert)
 #    define oled_write_raw_P(data, size) oled_write_raw(data, size)
 #endif // defined(__AVR__)
 

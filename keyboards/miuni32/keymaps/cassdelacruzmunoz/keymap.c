@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   /* Level 4: F-keys and Media Layer
      * ,---------------------------------------------------------------------------------------.
-     * | RESET |  MUTE |  VOLU |  MPLY |  TRNS |   F1  |   F2  |   F3  |   F4  |   F5  |   F6  |
+     * | QK_BOOT |  MUTE |  VOLU |  MPLY |  TRNS |   F1  |   F2  |   F3  |   F4  |   F5  |   F6  |
      * |---------------------------------------------------------------------------------------|
      * |  LGUI |  MPRV |  VOLD |  MNXT |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS |  TRNS | TG(4) |
      * |---------------------------------------------------------------------------------------|
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------------------------------|
      */
   [4] = LAYOUT(
-    RESET,   KC_MUTE, KC_VOLU, KC_MPLY, KC_NO, KC_F1, KC_F2, KC_F3, KC_F4,  KC_F5,  KC_F6,
+    QK_BOOT, KC_MUTE, KC_VOLU, KC_MPLY, KC_NO, KC_F1, KC_F2, KC_F3, KC_F4,  KC_F5,  KC_F6,
     KC_LGUI, KC_MPRV, KC_VOLD, KC_MNXT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,  TG(4),
     KC_NO,   KC_NO,   KC_NO,   KC_NO,          KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12
   ),
@@ -114,9 +114,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |---------------------------------------------------------------------------------------|
      */
   [6] = LAYOUT(
-    MI_C_1,  MI_E_1,  MI_G_1,   MI_B_1,   MI_D_2,  MI_F_2, MI_A_2, MI_C_3, MI_E_3, MI_G_3, KC_NO,
-    MI_D_1,  MI_F_1,  MI_A_1,   MI_C_2,   MI_E_2,  MI_G_2, MI_B_2, MI_D_3, MI_F_3, MI_A_3, TG(6),
-    MI_OCTD, MI_OCTU, MI_TRNSD, MI_TRNSU,          KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
+    MI_C1,   MI_E1,   MI_G1,    MI_B1,    MI_D2,   MI_F2,  MI_A2,  MI_C3,  MI_E3,  MI_G3,  KC_NO,
+    MI_D1,   MI_F1,   MI_A1,    MI_C2,    MI_E2,   MI_G2,  MI_B2,  MI_D3,  MI_F3,  MI_A3,  TG(6),
+    MI_OCTD, MI_OCTU, MI_TRSD,  MI_TRSU,           KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
   )
 };
 

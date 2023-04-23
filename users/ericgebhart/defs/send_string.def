@@ -1,0 +1,7 @@
+// key to be defined and string to send.
+
+//SEND_STR(MYKEY, "this is a test")
+//SEND_STR_DELAY(MYKEY4, "this is another test")
+
+SEND_STR_DELAY(VRSN, QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE)
+// SEND_STR_DELAY(VRSN, QMK_KEYBOARD ":" QMK_KEYMAP " # @ " QMK_VERSION)

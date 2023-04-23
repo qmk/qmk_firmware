@@ -22,7 +22,7 @@
 #    include "is31fl3733.h"
 #    include "ws2812.h"
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, B_1, A_1, C_1 },
     { 0, B_2, A_2, C_2 },
     { 0, B_3, A_3, C_3 },
@@ -130,11 +130,14 @@ led_config_t g_led_config = {
     }
 };
 
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(28, 0xFF, 0xFF, 0xFF);
     }
+    return true;
 }
 
 

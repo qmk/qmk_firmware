@@ -1,14 +1,19 @@
 {
     "manufacturer": "keyquest",
     "keyboard_name": "Enclave-1",
-    "maintainer": "the keyquest team",
+    "maintainer": "keyquesttech",
     "usb": {
         "vid": "0x1117",
         "pid": "0x0E0E",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_3x3"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_3x3": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },

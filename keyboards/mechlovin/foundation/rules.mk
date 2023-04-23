@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F103
-BOARD = STM32_F103_STM32DUINO
-
-# Bootloader selection
-BOOTLOADER = stm32duino
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,4 +11,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes
 AUDIO_ENABLE = no           # Audio output
-ENCODER_MAP_ENABLE = yes

@@ -26,4 +26,4 @@ Enter the bootloader in 2 ways:
 
 * **Physical reset button**: Power up the board while having the `Reset/Boot0` pad shorted.
 
-* **Keycode in layout**: Press the `GRV` key on layer 1 which is mapped to `RESET`
+* **Keycode in layout**: Press the `GRV` key on layer 1 which is mapped to `QK_BOOT`

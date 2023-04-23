@@ -8,6 +8,11 @@
     "pid": "0x0A0C",
     "device_version": "1.0.0"
   },
+  "split": {
+    "soft_serial_pin": "D0"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
       "layout": [
@@ -58,10 +63,10 @@
  
           {"label":"L30", "x":0, "y":3, "w":1},
           {"label":"L34", "x":4, "y":3, "w":1},
-          {"label":"L35", "x":5, "y":3, "w":2},
-          {"label":"L36", "x":6, "y":3, "w":2},
-          {"label":"R30", "x":7, "y":3, "w":2},
-          {"label":"R31", "x":8, "y":3, "w":2},
+          {"label":"L35", "x":5, "y":3, "h":2},
+          {"label":"L36", "x":6, "y":3, "h":2},
+          {"label":"R30", "x":7, "y":3, "h":2},
+          {"label":"R31", "x":8, "y":3, "h":2},
           {"label":"R32", "x":9, "y":3, "w":1},
           {"label":"R36", "x":13, "y":3, "w":1}
       ]

@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 6
 
 /*
  * Keyboard Matrix Assignments
@@ -34,13 +29,9 @@
  */
 #define MATRIX_ROW_PINS { C4, C5, C6, D1, D2, D3 }
 #define MATRIX_COL_PINS { D4, D5, D6, B0, B1, B2 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

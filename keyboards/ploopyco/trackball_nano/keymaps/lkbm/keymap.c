@@ -107,7 +107,7 @@ uint32_t command_timeout(uint32_t trigger_time, void *cb_arg) {
             break;
         case CMD_RESET:
 #           ifdef CONSOLE_ENABLE
-            uprint("RESET)\n");
+            uprint("QK_BOOT)\n");
 #           endif
             reset_keyboard();
             break;

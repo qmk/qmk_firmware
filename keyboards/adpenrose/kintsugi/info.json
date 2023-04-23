@@ -1,15 +1,22 @@
 {
     "keyboard_name": "Kintsugi",
-    "manufacturer": "adpenrose",
+    "manufacturer": "ADPenrose",
     "url": "https://github.com/ADPenrose/kintsugi_keeb",
-    "maintainer": "adpenrose",
+    "maintainer": "Arturo Avila",
     "usb": {
         "vid": "0x4450",
         "pid": "0x0001",
-        "device_version": "0.0.1"
+        "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B7", "pin_b": "D5"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
-        "LAYOUT_65_ansi_blocker": {
+        "LAYOUT": {
             "layout": [
               {"label":"Esc", "x":0, "y":0},
               {"label":"1", "x":1, "y":0},

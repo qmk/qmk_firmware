@@ -2,14 +2,19 @@
     "keyboard_name": "ibis 80",
     "manufacturer": "Mokey",
     "url": "",
-    "maintainer": "Mokey",
+    "maintainer": "Runheme",
     "usb": {
         "vid": "0x6653",
         "pid": "0x3380",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_f13_ansi_tsangan"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
                 {"label": "k00", "x": 0, "y": 0},
                 {"label": "k01", "x": 1.25, "y": 0},
@@ -48,7 +53,7 @@
                 {"label": "k1E", "x": 15.25, "y": 1.5},
                 {"label": "k1F", "x": 16.25, "y": 1.5},
                 {"label": "k1G", "x": 17.25, "y": 1.5},
-                
+
                 {"label": "k20", "x": 0, "y": 2.5, "w": 1.5},
                 {"label": "k21", "x": 1.5, "y": 2.5},
                 {"label": "k22", "x": 2.5, "y": 2.5},
@@ -110,7 +115,7 @@
                 {"label": "k5G", "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_all": {
+        "LAYOUT_tkl_f13_ansi_wkl": {
             "layout": [
                 {"label": "k00", "x": 0, "y": 0},
                 {"label": "k01", "x": 1.25, "y": 0},
@@ -149,7 +154,7 @@
                 {"label": "k1E", "x": 15.25, "y": 1.5},
                 {"label": "k1F", "x": 16.25, "y": 1.5},
                 {"label": "k1G", "x": 17.25, "y": 1.5},
-                
+
                 {"label": "k20", "x": 0, "y": 2.5, "w": 1.5},
                 {"label": "k21", "x": 1.5, "y": 2.5},
                 {"label": "k22", "x": 2.5, "y": 2.5},
@@ -163,7 +168,7 @@
                 {"label": "k2A", "x": 10.5, "y": 2.5},
                 {"label": "k2B", "x": 11.5, "y": 2.5},
                 {"label": "k2C", "x": 12.5, "y": 2.5},
-                {"label": "k3D", "x": 13.75, "y": 2.5, "w": 1.25, "h": 2},
+                {"label": "k2D", "x": 13.5, "y": 2.5},
 
                 {"label": "k2E", "x": 15.25, "y": 2.5},
                 {"label": "k2F", "x": 16.25, "y": 2.5},
@@ -181,7 +186,7 @@
                 {"label": "k39", "x": 9.75, "y": 3.5},
                 {"label": "k3A", "x": 10.75, "y": 3.5},
                 {"label": "k3B", "x": 11.75, "y": 3.5},
-                {"label": "k2C", "x": 12.75, "y": 3.5},
+                {"label": "k3D", "x": 12.75, "y": 3.5, "w": 2.25},
 
                 {"label": "k40", "x": 0, "y": 4.5, "w": 2.25},
                 {"label": "k41", "x": 2.25, "y": 4.5},
@@ -208,6 +213,6 @@
                 {"label": "k5F", "x": 16.25, "y": 5.5},
                 {"label": "k5G", "x": 17.25, "y": 5.5}
             ]
-        }        
+        }
     }
 }

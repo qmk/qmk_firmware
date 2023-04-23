@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ),
 
     [_FUNCTN] = LAYOUT_stagger5(
-        RESET,   RGB_TOG,                                                                                     RGB_HUD,  RGB_VAD, RGB_SAD,
+        QK_BOOT, RGB_TOG,                                                                                     RGB_HUD,  RGB_VAD, RGB_SAD,
         KC_F5,   KC_TAB,  KC_Q,    KC_PGUP,     KC_E,    KC_R,    KC_T,    KC_QUOT,    KC_U,        KC_UP,       KC_O,     KC_P,    KC_BSPC,
         KC_F6,   KC_CAPS,   KC_HOME, KC_PGDN,     KC_END,  KC_F,    KC_MINS, KC_EQL,  KC_LEFT,     KC_DOWN,     KC_RIGHT,          KC_ENT,
         KC_F7,   KC_LSFT,       KC_Z,    KC_X,        KC_C,    KC_V,    KC_LBRC, KC_RBRC, KC_M,        KC_COMM,     KC_DOT,   RSFT_T(KC_BSLS),

@@ -8,6 +8,12 @@
         "pid": "0x1302",
         "device_version": "0.0.2"
     },
+    "backlight": {
+        "pin": "B7",
+        "max_brightness": 84
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

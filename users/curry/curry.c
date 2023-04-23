@@ -58,7 +58,7 @@ void shutdown_user(void) {
 #if defined(RGBLIGHT_ENABLE)
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
-    rgblight_setrgb_red();
+    rgblight_setrgb(RGB_RED);
 #endif
 
 #if defined(RGB_MATRIX_ENABLE)

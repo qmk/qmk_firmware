@@ -1,4 +1,7 @@
 {
     "manufacturer": "QMK Community",
-    "maintainer": "Drashna Jael're"
+    "maintainer": "Drashna Jael're",
+    "usb": {
+        "vid": "0x44DD"
+    }
 }

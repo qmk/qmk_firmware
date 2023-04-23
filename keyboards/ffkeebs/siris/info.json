@@ -8,6 +8,14 @@
         "pid": "0xE96C",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D3", "pin_b": "D5"},
+            {"pin_a": "C6", "pin_b": "B6"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

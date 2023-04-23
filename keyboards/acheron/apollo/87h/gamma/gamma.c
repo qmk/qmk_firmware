@@ -17,13 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "gamma.h"
 
-void board_init(void) {
-    setPinInput(B9);
-    setPinInput(B10);
-}
-
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -125,7 +120,6 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS24_SW3, CS23_SW3, CS22_SW3  }, //RIGHT 86
 
 };
-
 
 led_config_t g_led_config = { {
     { 0        , 1          , 2          , 3          , 4          , 5          , 6          , 7          , 8          , 9          , 10         , 11         , 12         , 13         , 14         , 15        },

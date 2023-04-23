@@ -24,6 +24,11 @@
         "pid": "0x8086",
         "vid": "0x2022"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D3", "pin_b": "D2"}
+        ]
+    },
     "layout_aliases": {
         "LAYOUT_numpad_4x4": "LAYOUT_ortho_4x4"
     },

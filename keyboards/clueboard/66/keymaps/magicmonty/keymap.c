@@ -47,7 +47,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: Base Layer (Default Layer) */
   [_BL] = LAYOUT(
-    KC_GESC,    KC_1,    KC_2,   KC_3,     KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,     KC_0, KC_MINS,   KC_EQL, _______, KC_BSPC,          KC_INS,
+    QK_GESC,    KC_1,    KC_2,   KC_3,     KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,     KC_0, KC_MINS,   KC_EQL, _______, KC_BSPC,          KC_INS,
     HPR_TAB,    KC_Q,    KC_W,   KC_E,     KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,     KC_P, KC_LBRC,  KC_RBRC, KC_BSLS,                   KC_DEL,
     ESC_FUN,    KC_A,    KC_S,   KC_D,     KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,  KC_SCLN, KC_QUOT,  KC_NUHS,  KC_ENT,
     KC_LSFT, KC_NUBS,    KC_Z,   KC_X,     KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,   KC_DOT, KC_SLSH,  _______, KC_RSFT,          KC_UP,
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12, _______, _______,          BL_STEP,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, _______,  KC_PAUS, _______,  _______, _______,                   _______,
     _______, _______,  MO_CTL, _______, _______, _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,  _______, _______,  _______, _______,
-    KC_LSPO, _______, _______, _______, _______, _______, _______, _______,   MEDIA, _______,  _______, TO_MIDI,  _______, KC_RSPC,          KC_PGUP,
+    SC_LSPO, _______, _______, _______, _______, _______, _______, _______,   MEDIA, _______,  _______, TO_MIDI,  _______, SC_RSPC,          KC_PGUP,
     _______, _______, _______, _______,                   _______, _______,                    _______, _______,  _______, MO_FUNC, KC_HOME, KC_PGDN, KC_END),
 
   /* Keymap _ME: Media layer */
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _CL: Control layer */
   [_CL] = LAYOUT(
     _______, RGB_RST, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______, RGB_TOG,          RGB_VAI,
-    _______, _______, _______, _______, RESET,   _______, _______, _______, _______, _______,  _______, _______,  _______, _______,                   RGB_VAD,
+    _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______,  _______, _______,  _______, _______,                   RGB_VAD,
     _______, _______,  MO_CTL, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,  _______, _______,          RGB_SAI,
     _______, _______, _______, _______,                   RGB_MOD, RGB_MOD,                    _______, _______,  _______, _______, RGB_HUD, RGB_SAD, RGB_HUI),
@@ -88,11 +88,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
   /* Keymap _MI: MIDI layer (Advanced)*/
   [_MI] = LAYOUT(
-    TO_BASE,MI_VEL_1,MI_VEL_2,MI_VEL_3,MI_VEL_4,MI_VEL_5,MI_VEL_6,MI_VEL_7,MI_VEL_8,MI_VEL_9,MI_VEL_10,  MI_CHD,   MI_CHU, XXXXXXX, XXXXXXX,          XXXXXXX,
-    XXXXXXX, XXXXXXX,   MI_Cs,   MI_Ds, XXXXXXX,   MI_Fs,   MI_Gs,   MI_As, XXXXXXX, MI_Cs_1,  MI_Ds_1, XXXXXXX,  MI_Fs_1, XXXXXXX,                   XXXXXXX,
-     MI_MOD,    MI_C,    MI_D,    MI_E,    MI_F,    MI_G,    MI_A,    MI_B,  MI_C_1,  MI_D_1,   MI_E_1,  MI_F_1,   MI_G_1, XXXXXXX,
-     MI_SUS, XXXXXXX, MI_OCTD, MI_OCTU,MI_MODSD,MI_MODSU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MI_TRNSD,MI_TRNSU,MI_TRNS_0,  MI_SUS,          XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,                 MI_ALLOFF, MI_ALLOFF,                   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),
+    TO_BASE,  MI_VL1,  MI_VL2,  MI_VL3,  MI_VL4,  MI_VL5,  MI_VL6,  MI_VL7,  MI_VL8,  MI_VL9,  MI_VL10, MI_CHND,  MI_CHNU, XXXXXXX, XXXXXXX,          XXXXXXX,
+    XXXXXXX, XXXXXXX,   MI_Cs,   MI_Ds, XXXXXXX,   MI_Fs,   MI_Gs,   MI_As, XXXXXXX, MI_Cs1,  MI_Ds1, XXXXXXX,  MI_Fs1, XXXXXXX,                   XXXXXXX,
+     MI_MOD,    MI_C,    MI_D,    MI_E,    MI_F,    MI_G,    MI_A,    MI_B,  MI_C1,  MI_D1,   MI_E1,  MI_F1,   MI_G1, XXXXXXX,
+    MI_SUST, XXXXXXX, MI_OCTD, MI_OCTU, MI_MODD, MI_MODU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  MI_TRSD, MI_TRSU,   MI_TR0, MI_SUST,          XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   MI_AOFF, MI_AOFF,                    XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX),
 #elif defined(MIDI_ENABLE) && defined(MIDI_BASIC)
   /* Keymap _MI: MIDI layer (Basic)*/
   [_MI] = LAYOUT(
@@ -199,7 +199,7 @@ void matrix_scan_user(void) {
 
     if (!rgblight_config.enable || rgblight_config.mode != 1) { return; }
 
-    uint32_t layer = layer_state;
+    layer_state_t layer = layer_state;
     uint8_t val = rgblight_config.val;
 
     if (layer & (1<<_FL)) {

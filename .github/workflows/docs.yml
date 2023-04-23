@@ -1,5 +1,8 @@
 name: Generate Docs
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -34,7 +37,7 @@ jobs:
         qmk --verbose generate-docs
 
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@v4.4.0
+      uses: JamesIves/github-pages-deploy-action@v4.4.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BASE_BRANCH: master

@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
 
 /*
  * Keyboard Matrix Assignments
@@ -34,13 +29,6 @@
 */
 #define MATRIX_ROW_PINS { B1, B2, B3, B4 }
 #define MATRIX_COL_PINS { C5, C4, C3, D0, C2, D1, C1, C0, D4, B0, D7, D6, B5 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST

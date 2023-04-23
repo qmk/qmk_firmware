@@ -1,13 +1,19 @@
 {
-    "keyboard_name": "Momoka Ergo", 
+    "keyboard_name": "Momoka Ergo",
     "manufacturer": "StefanGrindelwald",
-    "url": "", 
-    "maintainer": "StefanGrindelwald", 
+    "url": "",
+    "maintainer": "StefanGrindelwald",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
+        "vid": "0x4F4D",
+        "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "split": {
+        "soft_serial_pin": "D1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 3,
     "layouts": {
         "LAYOUT": {
             "layout": [

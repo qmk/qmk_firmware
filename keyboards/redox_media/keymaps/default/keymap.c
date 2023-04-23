@@ -28,7 +28,7 @@ enum custom_keycodes {
 };
 
 // Shortcut to make keymap more readable
-#define KC_BKSL KC_BSLASH
+#define KC_BKSL KC_BSLS
 #define SYM_L   MO(_SYMB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

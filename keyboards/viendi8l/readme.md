@@ -14,7 +14,7 @@ The 8L 80% (60% plus southpaw numpad) keyboard designed by Viendi, with PCB by G
 
 * **Bootmagic reset**: hold down the key at (0,0) in the matrix (the encoder push) and plug in the keyboard, waiting for five seconds
 * **Physical reset button**: press the button on the front of the PCB or use pliers to short the reset contacts, for at least five seconds
-* **Keycode in layout**: press the key mapped to `RESET` if it is available (ESC key at layer 1 in the default layout)
+* **Keycode in layout**: press the key mapped to `QK_BOOT` if it is available (ESC key at layer 1 in the default layout)
 
 ## Compile firmware
 

@@ -15,11 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 10
 
 /*
  * Keyboard Matrix Assignments
@@ -33,13 +28,9 @@
 */
 #define MATRIX_ROW_PINS { E6 }
 #define MATRIX_COL_PINS { D7, B6, F0, D6, B5, F1, D4, B4, F4, F5 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
- 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -48,7 +39,7 @@
 
 // IS31FL3731 driver
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 12
+#define RGB_MATRIX_LED_COUNT 12
 
 // Enable WT RGB backlight
 #define RGB_BACKLIGHT_ENABLED 1
@@ -104,6 +95,3 @@
 // Backlight config starts after VIA's EEPROM usage,
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 51
-
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE

@@ -8,6 +8,13 @@
         "pid": "0x6776",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B6",
+        "scroll_lock": "B5",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -1,13 +1,20 @@
 {
-    "keyboard_name": "8L", 
+    "keyboard_name": "8L",
     "manufacturer": "Viendi",
-    "url": "https://viendi.co/", 
-    "maintainer": "gondolindrim", 
+    "url": "https://viendi.co/",
+    "maintainer": "gondolindrim",
     "usb": {
         "vid": "0x8673",
         "pid": "0x0877",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B10", "pin_b": "B12", "resolution": 2}
+        ]
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -30,6 +37,7 @@
                 {"label":"=", "x":16.5, "y":0},
                 {"label":"Bksp", "x":17.5, "y":0},
                 {"label":"Bksp", "x":18.5, "y":0},
+
                 {"label":"-", "x":0, "y":1},
                 {"label":"7", "x":1, "y":1},
                 {"label":"8", "x":2, "y":1},
@@ -48,6 +56,7 @@
                 {"label":"{", "x":16, "y":1},
                 {"label":"}", "x":17, "y":1},
                 {"label":"|", "x":18, "y":1, "w":1.5},
+
                 {"label":"+", "x":0, "y":2},
                 {"label":"4", "x":1, "y":2},
                 {"label":"5", "x":2, "y":2},
@@ -66,6 +75,7 @@
                 {"label":"\"", "x":16.25, "y":2},
                 {"x":17.25, "y":2},
                 {"label":"Enter", "x":18.25, "y":2, "w":1.25},
+
                 {"label":"Enter", "x":0, "y":3},
                 {"label":"1", "x":1, "y":3},
                 {"label":"2", "x":2, "y":3},
@@ -84,6 +94,7 @@
                 {"label":"Shift", "x":15.75, "y":3, "w":1.75},
                 {"label":"\u2191", "x":17.5, "y":3},
                 {"x":18.5, "y":3},
+
                 {"label":"Enter", "x":0, "y":4},
                 {"label":".", "x":1, "y":4},
                 {"label":".", "x":2, "y":4},

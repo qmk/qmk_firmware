@@ -4,7 +4,7 @@
 
 An unsplit, modified version of a Lily58 having a baby with a Sofle keyboard
 
-* Keyboard Maintainer: [Jesus Climent](https://github.com/Jesus Climent)
+* Keyboard Maintainer: [Jesus Climent](https://github.com/climent)
 * Hardware Supported: AtreyuKeyboard PCB, ProMicro
 * Hardware Availability: [PCB and case data](https://github.com/climent/atreyu)
 
@@ -22,7 +22,7 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 
 ## More information
 
