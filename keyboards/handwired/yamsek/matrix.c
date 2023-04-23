@@ -218,8 +218,9 @@ void matrix_init(void) {
 
     // Unless hardware debouncing - Init the configured debounce routine
     debounce_init(MATRIX_ROWS);
+
     // This *must* be called for correct keyboard behavior
-    matrix_init_quantum();
+    matrix_init_kb();
 
 #ifdef RGBLIGHT_ENABLE
     if (mcp23018_errors) {
@@ -257,7 +258,7 @@ uint8_t matrix_scan(void) {
     debounce(raw_matrix, matrix, MATRIX_COLS, changed);
 
     // This *must* be called for correct keyboard behavior
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return changed;
 }

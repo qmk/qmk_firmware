@@ -16,8 +16,8 @@
         "pid": "0x6060",
         "vid": "0xFEED"
     },
-    "layouts": {
-        "LAYOUT_yamsek": {
+     "layouts": {
+        "LAYOUT": {
             "layout": [
                 {"matrix":[0,0], "label":"Y", "x":13, "y":1.25},
                 {"matrix":[0,1], "label":"U", "x":14, "y":1.125},

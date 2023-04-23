@@ -10,6 +10,10 @@
 // black mark on diode facing columns
 #define DIODE_DIRECTION ROW2COL
 
+/* key matrix size */
+#define MATRIX_ROWS 8
+#define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
+#define MATRIX_COLS 6
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

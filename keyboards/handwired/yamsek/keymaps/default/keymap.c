@@ -3,14 +3,14 @@
 
 #include QMK_KEYBOARD_H
 
-enum layer_names {
+enum layers {
     BASE, // default layer
     NPAD, // numberpad (blender)
     ARRO, // arrows and symbols
     FUNC, // F[1-10] and number key rows
     MOUS, // mouse
     GAME,
-    LEDS
+    LEDS,
 };
 
 #define KC_ALDL RALT_T(KC_DEL)
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS    ,KC_KP_PLUS ,KC_KP_7    ,KC_KP_8    ,KC_KP_9    ,KC_KP_SLASH,                 KC_TRNS    ,KC_TRNS    ,KC_MPRV    ,KC_MPLY    ,KC_MNXT    ,KC_TRNS,
         KC_TRNS    ,KC_KP_MINUS,KC_KP_4    ,KC_KP_5    ,KC_KP_6    ,KC_KP_ASTERISK,              KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS,
         KC_TRNS    ,KC_KP_0    ,KC_KP_1    ,KC_KP_2    ,KC_KP_3    ,KC_KP_COMMA,                 KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS,
-        KC_LOCK    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS,                     KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
+        QK_LOCK    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS,                     KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
         ),
     [FUNC] = LAYOUT(// function and numbers
         //left                                                                                   //right
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS    ,KC_WH_U    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS,                     KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS,
         KC_TRNS    ,KC_WH_D    ,KC_MS_L    ,KC_MS_UP   ,KC_MS_R    ,KC_TRNS,                     KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS,
         KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_MS_DOWN ,KC_TRNS    ,KC_TRNS,                     KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS,
-        KC_LOCK    ,KC_LGUI    ,KC_TRNS    ,KC_MS_BTN1 ,KC_MS_BTN2 ,KC_BTN3,                     KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
+        QK_LOCK    ,KC_LGUI    ,KC_TRNS    ,KC_MS_BTN1 ,KC_MS_BTN2 ,KC_BTN3,                     KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS    ,KC_TRNS
         ),
     [LEDS] = LAYOUT( /* RGBLIGHT */
         //left                                                                                   //right
