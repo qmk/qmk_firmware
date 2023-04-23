@@ -81,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_RAISE] = LAYOUT(
-    _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,XXXXXXX,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_HOME   ,KC_UP     ,KC_END    ,XXXXXXX   ,KC_DEL    , \
-    _______   ,KC_CIRC   ,KC_AMPR   ,KC_QUES   ,KC_PERC   ,KC_INT3,   XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
+    _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,XXXXXXX,      XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_HOME   ,KC_UP     ,KC_END    ,XXXXXXX   ,KC_DEL    , \
+    _______   ,KC_CIRC   ,KC_AMPR   ,KC_QUES   ,KC_PERC   ,KC_INT3,      XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
     _______   ,KC_GRV    ,KC_PIPE   ,KC_EXLM   ,KC_UNDS   ,LALT(KC_INT3),XXXXXXX, XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,_______   , \
     _______   ,_______   ,_______   ,_______   ,_______   ,EISUON      ,           _______        ,_______   ,_______   ,_______   ,_______   ,_______
   ),
@@ -98,8 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAGINATA] = LAYOUT(
     _______,NG_Q   ,NG_W   ,NG_E   ,NG_R   ,NG_T   ,_______, _______,NG_Y   ,NG_U   ,NG_I   ,NG_O   ,NG_P   ,_______, \
     _______,NG_A   ,NG_S   ,NG_D   ,NG_F   ,NG_G   ,_______, _______,NG_H   ,NG_J   ,NG_K   ,NG_L   ,NG_SCLN,_______, \
-    _______,NG_Z   ,NG_X   ,NG_C   ,NG_V   ,NG_B   ,_______, _______
-     ,NG_N   ,NG_M   ,NG_COMM,NG_DOT ,NG_SLSH,_______, \
+    _______,NG_Z   ,NG_X   ,NG_C   ,NG_V   ,NG_B   ,_______, _______,NG_N   ,NG_M   ,NG_COMM,NG_DOT ,NG_SLSH,_______, \
     _______,_______,_______,_______,_______,   NG_SHFT,         NG_SHFT2,_______,_______,_______,_______,_______
   ),
 
