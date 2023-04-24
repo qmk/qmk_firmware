@@ -11,7 +11,7 @@
 
 #define OLED_TIMEOUT 180000
 #define I2C1_SCL_PAL_MODE 1
-#define I2C1_SDA_PAL_MODE 3
+#define I2C1_SDA_PAL_MODE 1
 
 /*
  * Feature disable options
