@@ -32,6 +32,16 @@
         "pid": "0x000A",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "F1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

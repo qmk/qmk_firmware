@@ -205,7 +205,7 @@ void taphold_tapped(uint8_t index, bool pressed) {
     }
 }
 
-void matrix_scan_user() {
+void matrix_scan_user(void) {
     for (uint8_t index = 0 ; index < TH_EVENTS_COUNT ; ++index ) {
         tap_hold_t *th_event = &th_events[index];
         if ( th_event->is_pressed && timer_elapsed(th_event->timer) > LONGPRESS_DELAY) {

@@ -45,6 +45,12 @@
         "pid": "0xE6E3",
         "vid": "0x574C"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D4", "pin_b": "D6"},
+            {"pin_a": "B0", "pin_b": "B1"}
+        ]
+    },
     "build": {
         "lto": true
     },

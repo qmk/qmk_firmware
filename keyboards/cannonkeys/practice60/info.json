@@ -8,6 +8,14 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "A8",
+    "levels": 6,
+    "breathing": true
+  },
+  "processor": "STM32F103",
+  "bootloader": "stm32duino",
+  "community_layouts": ["60_ansi"],
   "layouts": {
     "LAYOUT_60_ansi": {
       "layout": [

@@ -7,6 +7,18 @@
       "pid": "0x0005",
       "device_version": "0.0.1"
     },
+    "backlight": {
+      "pin": "B5",
+      "breathing": true
+    },
+    "indicators": {
+      "caps_lock": "C7",
+      "num_lock": "B6",
+      "scroll_lock": "C6",
+      "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
       "LAYOUT_alice": {
         "layout": [

@@ -8,6 +8,14 @@
     "pid": "0x4845",
     "device_version": "0.0.1"
   },
+  "indicators": {
+    "caps_lock": "B3",
+    "scroll_lock": "B2",
+    "on_state": 0
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["tkl_ansi"],
   "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [

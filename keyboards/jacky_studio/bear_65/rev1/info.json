@@ -10,6 +10,13 @@
         "pid": "0x000A",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6"
+    },
+    "indicators": {
+        "caps_lock": "C7",
+        "on_state": 0
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

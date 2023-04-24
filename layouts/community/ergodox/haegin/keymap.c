@@ -167,7 +167,7 @@ static fib_tap fib_bspc = {
   .state = BSPC_LETTER
 };
 
-void cur_backspace (qk_tap_dance_state_t *state) {
+void cur_backspace (tap_dance_state_t *state) {
   int next_fib = fib_bspc.a + fib_bspc.b;
   fib_bspc.a = fib_bspc.b;
   fib_bspc.b = next_fib;
@@ -177,7 +177,7 @@ void cur_backspace (qk_tap_dance_state_t *state) {
   }
 }
 
-void dance_backspace (qk_tap_dance_state_t *state, void *user_data) {
+void dance_backspace (tap_dance_state_t *state, void *user_data) {
   // If we're at the fifth tap, switch to deleting by words, and reset the fib
   // counter
   if (state->count == 4) {
@@ -197,7 +197,7 @@ void dance_backspace (qk_tap_dance_state_t *state, void *user_data) {
   }
 };
 
-void dance_backspace_ended (qk_tap_dance_state_t *state, void *user_data) {
+void dance_backspace_ended (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     if (state->pressed) {
       fib_bspc.state = HOLD_CTRL;
@@ -208,7 +208,7 @@ void dance_backspace_ended (qk_tap_dance_state_t *state, void *user_data) {
   }
 };
 
-void dance_backspace_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_backspace_reset (tap_dance_state_t *state, void *user_data) {
   switch (fib_bspc.state) {
     case HOLD_CTRL: unregister_code(KC_LCTL); break;
     case BSPC_WORD: unregister_code(KC_BSPC); unregister_code(KC_LALT); break;
@@ -219,7 +219,7 @@ void dance_backspace_reset (qk_tap_dance_state_t *state, void *user_data) {
   fib_bspc.state = BSPC_LETTER;
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_BSPC] = ACTION_TAP_DANCE_FN_ADVANCED (dance_backspace, dance_backspace_ended, dance_backspace_reset)
 };
 

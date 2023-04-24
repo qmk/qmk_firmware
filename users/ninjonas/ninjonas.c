@@ -22,7 +22,7 @@ layer_state_t layer_state_set_user (layer_state_t state) {
 #ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
 #endif
-void keyboard_post_init_user() {
+void keyboard_post_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
      // Cycles through the entire hue wheel and resetting to default color
      uint16_t default_hue = rgblight_config.hue;
