@@ -15,16 +15,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,
     _______, _______, _______
   ),
-  [2] = LAYOUT_numpad_3x4(
-    RGB_TOG , RGB_MOD , RGB_HUI, _______,
-    _______, _______, _______,
-    _______, _______, _______
-  ),
-  [3] = LAYOUT_numpad_3x4(
-    _______, _______, _______, _______,
-    _______, _______, _______,
-    _______, _______, _______
-  ),
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
