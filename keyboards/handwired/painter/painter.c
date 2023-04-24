@@ -10,10 +10,10 @@ uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
     // each keymap creates its display handle
     qp_dprintf("Initialising display...\n");
     keyboard_post_init_user();
+    qp_init(display, QP_ROTATION_0);
 
     // draw sample code, just a red line on black background
     qp_dprintf("Drawing sample code...\n");
-    qp_init(display, QP_ROTATION_0);
     qp_rect(display, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, HSV_BLACK, true);
     qp_line(display, 0, 0, 20, 20, HSV_RED);
 
