@@ -58,7 +58,8 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_STENOMODE, 0);
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
     eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
-    eeprom_update_block(0, EECONFIG_RGB_MATRIX, sizeof(uint64_t));
+    uint64_t dummy = 0;
+    eeprom_update_block(&dummy, EECONFIG_RGB_MATRIX, sizeof(uint64_t));
 
 #if defined(HAPTIC_ENABLE)
     haptic_reset();
