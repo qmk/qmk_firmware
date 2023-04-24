@@ -8,10 +8,13 @@
 #define I2C1_CLOCK_SPEED 100000
 #define I2C1_DUTY_CYCLE	STD_DUTY_CYCLE
 */
-
-#define OLED_TIMEOUT 180000
 #define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1
+
+#define MY_I2C_ADDRESS (0x18 << 1)
+
+#define OLED_TIMEOUT 180000
+
 
 /*
  * Feature disable options
