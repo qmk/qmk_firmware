@@ -13,7 +13,6 @@
         "nkro": true,
         "rgblight": true,
         "encoder": true,
-        "encoder_map": true
     },
     "rgblight": {
         "led_count": 12,
