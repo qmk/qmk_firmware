@@ -31,7 +31,7 @@
 
 #ifndef SHIFT_INDICATOR_COLOR
 // If defined also light up alphabet keys when either shift is held
-#    define SHIFT_INDICATOR_COLOR
+#    define SHIFT_INDICATOR_COLOR RGB_WHITE
 #endif
 
 #ifndef CAPS_LOCK_INDICATOR_OTHER
