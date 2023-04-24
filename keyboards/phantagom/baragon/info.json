@@ -47,7 +47,7 @@
         "cols": [ "GP11", "GP12", "GP13", "GP14" ]
     },
     "processor": "RP2040",
-    "url": "",
+    "url": "https://github.com/dkruyt/mk/tree/main/baragon",
     "usb": {
         "vid": "0xF8E8",
         "pid": "0x0004",
