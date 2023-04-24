@@ -17,7 +17,7 @@
 */
 
 
-
+#include QMK_KEYBOARD_H
 #include "moonlander.h"
 
 keyboard_config_t keyboard_config;
