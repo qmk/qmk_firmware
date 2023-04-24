@@ -91,7 +91,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case KC_ESC:
         // Detect the activation of only Left Alt
-        if ((get_mods() & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT)) {
+        if (get_mods() == MOD_BIT(KC_LALT)) {
             if (record->event.pressed) {
                 // No need to register KC_LALT because it's already active.
                 // The Alt modifier will apply on this KC_TAB.
