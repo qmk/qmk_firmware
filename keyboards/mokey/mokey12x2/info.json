@@ -11,7 +11,7 @@
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["A6", "A5", "A4", "A3", "B9"],
-        "rows": ["A2", "A1", "A0", "NO_PIN"]
+        "rows": ["A2", "A1", "A0", "A7"]
     },
     "rgblight": {
         "pin": "B1"

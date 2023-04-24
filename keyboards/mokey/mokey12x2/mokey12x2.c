@@ -16,12 +16,10 @@
 
 #include "quantum.h"
 
-#include "quantum.h"
-
 #if defined(ENCODER_ENABLE)
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_kb(index, clockwise)) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
       return false; /* Don't process further events if user function exists and returns false */
     }
     if (index == 0) { /* First encoder */
