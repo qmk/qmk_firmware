@@ -29,6 +29,9 @@
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_64_ansi"
     },
+    "community_layouts": [
+        "64_ansi"
+    ],
     "layouts": {
         "LAYOUT_64_ansi": {
             "layout": [
