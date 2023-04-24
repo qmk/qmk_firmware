@@ -81,7 +81,7 @@ typedef struct PACKED {
 } led_config_t;
 
 typedef union {
-    uint32_t raw;
+    uint64_t raw;
     struct PACKED {
         uint8_t     enable : 2;
         uint8_t     mode : 6;
@@ -91,6 +91,8 @@ typedef union {
         led_flags_t flags;
     };
 } led_eeconfig_t;
+
+_Static_assert(sizeof(led_eeconfig_t) == sizeof(uint64_t), "LED Matrix EECONFIG out of spec.");
 
 #if defined(_MSC_VER)
 #    pragma pack(pop)

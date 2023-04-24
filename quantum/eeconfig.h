@@ -47,11 +47,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_LED_MATRIX (uint32_t *)28
 #define EECONFIG_RGB_MATRIX (uint32_t *)28
 // Speed & Flags
-#define EECONFIG_LED_MATRIX_EXTENDED (uint16_t *)32
-#define EECONFIG_RGB_MATRIX_EXTENDED (uint16_t *)32
+#define EECONFIG_LED_MATRIX_EXTENDED (uint32_t *)32
+#define EECONFIG_RGB_MATRIX_EXTENDED (uint32_t *)32
 
 // Size of EEPROM being used for core data storage
-#define EECONFIG_BASE_SIZE 34
+#define EECONFIG_BASE_SIZE 36
 
 // Size of EEPROM dedicated to keyboard- and user-specific data
 #ifndef EECONFIG_KB_DATA_SIZE
