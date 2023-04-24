@@ -14,9 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_ROW_PINS { GP2, GP3, GP4, GP5, GP26, GP27, GP28, GP29 }
-#define MATRIX_COL_PINS { GP6, GP7, GP8, GP9, GP23, GP20, GP22 }
-
 #define ENCODERS_PAD_A { GP0 }
 #define ENCODERS_PAD_B { GP1 }
 
