@@ -17,11 +17,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-			if (clockwise) {
-				tap_code(KC_VOLD);
-			} else {
-				tap_code(KC_VOLU);
-			}
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [1] = { ENCODER_CCW_CW(KC_MRWD, KC_MFFD)  },
+};
+#endif
