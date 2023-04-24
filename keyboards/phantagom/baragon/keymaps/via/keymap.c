@@ -3,10 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-enum Layer {
-    _NUMPAD = 0,      // Standard QWERTY layer
-};
-#define _NP _NUMPAD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_numpad_3x4( /* Base */
