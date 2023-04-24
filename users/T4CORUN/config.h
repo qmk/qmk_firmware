@@ -1,5 +1,9 @@
 #pragma once
 
+#if defined(RGB_MATRIX_ENABLE)
+# include "rgb_matrix_config.h"
+#endif
+
 /* This file is designed to have settings that apply to all my keyboards */
 
 /* Turn off settings we won't use*/

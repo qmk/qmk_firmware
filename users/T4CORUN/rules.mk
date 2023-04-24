@@ -45,6 +45,12 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
 	OPT_DEFS += -DMOUSELAYER_ENABLED
 endif
 
+RGB_MATRIX_ENABLE ?=no
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+	SRC += $(USER_PATH)/rgb_matrix_stuff.c
+endif
+
+
 SPACE_CADET_ENABLE ?= no
 GRAVE_ESC_ENABLE ?= no
 DYNAMIC_MACRO_ENABLE ?= yes
