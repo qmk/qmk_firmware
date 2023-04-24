@@ -147,24 +147,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
          SEND_STRING("Colemak Rocks!\n");
       }
       return false;
+      break;
    case LT(0,KC_X):
       if (!record->tap.count && record->event.pressed) {
             tap_code16(G(KC_X)); // Intercept hold function to send GUI-X
             return false;
       }
       return true;
+      break;
    case LT(0,KC_C):
       if (!record->tap.count && record->event.pressed) {
             tap_code16(G(KC_C)); // Intercept hold function to send GUI-C
             return false;
       }
       return true;
+      break;
    case LT(0,KC_V):
       if (!record->tap.count && record->event.pressed) {
             tap_code16(G(KC_V)); // Intercept hold function to send GUI-V
             return false;
       }
       return true;
+      break;
    }
   return true;
 }
