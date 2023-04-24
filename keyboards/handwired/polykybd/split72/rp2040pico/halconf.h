@@ -30,11 +30,7 @@
 
 #undef HAL_USE_SPI
 #define HAL_USE_SPI TRUE
-//#define SPI_USE_WAIT TRUE
-//#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
 
-//#undef HAL_USE_PWM
-//#define HAL_USE_PWM TRUE
 #define SERIAL_PIO_USE_PIO1
 
 //0	460800 baud
@@ -43,7 +39,7 @@
 //3	57600 baud
 //4	38400 baud
 //5	19200 baud
-#define SELECT_SOFT_SERIAL_SPEED 1
+#define SELECT_SOFT_SERIAL_SPEED 0
 
 //for split keyboard setup
 //#define PAL_USE_CALLBACKS TRUE

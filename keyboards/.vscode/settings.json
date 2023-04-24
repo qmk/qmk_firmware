@@ -3,6 +3,13 @@
         "spi_helper.h": "c",
         "helpers.h": "c",
         "polykybd.h": "c",
-        "lang_lut.h": "c"
+        "lang_lut.h": "c",
+        "*.tcc": "c",
+        "string_view": "c",
+        "algorithm": "c",
+        "random": "c",
+        "limits": "c",
+        "numeric": "c",
+        "ranges": "c"
     }
 }

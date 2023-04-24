@@ -16,4 +16,7 @@
 
 #pragma once
 
+#define PK_MIN(x, y) (((x) < (y)) ? (x) : (y))
+#define PK_MAX(x, y) (((x) > (y)) ? (x) : (y))
+
 #include "quantum.h"

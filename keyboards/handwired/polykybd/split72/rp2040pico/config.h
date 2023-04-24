@@ -81,8 +81,8 @@ TRES  > 280µs
 //This number can be calculated by dividing the MCU’s clock speed
 //by the desired SPI clock speed. For example, an MCU running at 8 MHz
 //wanting to talk to an SPI device at 4 MHz would set the divisor to 2
-#define SPI_DIVISOR (CPU_CLOCK / 1000000) //rp1040 runs at 133Mhz, SPI at 16Mhz (for new Board)
-//#define SPI_DIVISOR (CPU_CLOCK / 16000000) //rp1040 runs at 133Mhz, SPI at 16Mhz
+//#define SPI_DIVISOR (CPU_CLOCK / 1000000) //rp1040 runs at 133Mhz, SPI at 16Mhz (for new Board)
+#define SPI_DIVISOR (CPU_CLOCK / 16000000) //rp1040 runs at 133Mhz, SPI at 16Mhz
 //#define SPI_MISO_PAL_MODE 5
 
 // Shift register to select the display
