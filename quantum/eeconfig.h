@@ -44,11 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_HAPTIC (uint32_t *)24
 
 // Mutually exclusive
-#define EECONFIG_LED_MATRIX (uint32_t *)28
-#define EECONFIG_RGB_MATRIX (uint32_t *)28
-// Speed & Flags
-#define EECONFIG_LED_MATRIX_EXTENDED (uint32_t *)32
-#define EECONFIG_RGB_MATRIX_EXTENDED (uint32_t *)32
+#define EECONFIG_LED_MATRIX (uint64_t *)28
+#define EECONFIG_RGB_MATRIX (uint64_t *)28
 
 // Size of EEPROM being used for core data storage
 #define EECONFIG_BASE_SIZE 36
