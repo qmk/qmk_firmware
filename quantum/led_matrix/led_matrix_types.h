@@ -87,7 +87,7 @@ typedef union {
         uint8_t     mode : 6;
         uint16_t    reserved;
         uint8_t     val;
-        uint8_t     speed; // EECONFIG needs to be increased to support this
+        uint8_t     speed;
         led_flags_t flags;
     };
 } led_eeconfig_t;
