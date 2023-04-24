@@ -33,3 +33,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case QK_KB_0:
+            if (record->event.pressed) {
+                process_magic(GUI_TOG, record);
+            }
+            return false;
+        case QK_KB_1:
+            if (record->event.pressed) {
+                process_magic(AG_TOGG, record);
+            }
+            return false;
+        case QK_KB_2:
+            if (record->event.pressed) {
+                process_magic(CG_TOGG, record);
+            }
+            return false;
+        case QK_KB_3:
+            if (record->event.pressed) {
+                register_code(KC_MISSION_CONTROL);
+            } else {
+                unregister_code(KC_MISSION_CONTROL);
+            }
+            return false;
+        case QK_KB_4:
+            if (record->event.pressed) {
+                register_code(KC_LAUNCHPAD);
+            } else {
+                unregister_code(KC_LAUNCHPAD);
+            }
+            return false;
+        default:
+            return true;
+    }
+    return true;
+}

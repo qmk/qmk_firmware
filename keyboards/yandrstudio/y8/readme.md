@@ -1,20 +1,20 @@
 # Y·8
 
-![Y·8](imgur.com image replace me!)
+![Y·8](https://i.imgur.com/uGEDnYeh.png)
 
 *A 80% keyboard*
 
 * Keyboard Maintainer: [Y&R](https://github.com/Oh-My-Mechanical-Keyboard)
-* Hardware Supported: APM32F103, 16M, 1.0mm PCB
+* Hardware Supported: STM32F103, 16M, 1.0mm PCB
 * Hardware Availability: [Keyno Y·8](https://geekhack.org/index.php?topic=119074.0)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make y8:default
+    make yandrstudio/y8:default
 
 Flashing example for this keyboard:
 
-    make y8:default:flash
+    make yandrstudio/y8:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
