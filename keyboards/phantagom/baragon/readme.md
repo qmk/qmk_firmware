@@ -7,7 +7,8 @@
 A marco pad, 3x3 with rgb ring and rotary encoder, via compatible. Key's can be rotated, so marcopad is useable at different angles.
 
 * Keyboard Maintainer: [Dennis Kruyt](https://github.com/dkruyt)
-* Project page: [baragon](https://github.com/dkruyt/mk/tree/main/baragon* Hardware Supported: *RP2040-Zero*
+* Project page: [baragon](https://github.com/dkruyt/mk/tree/main/baragon)
+* Hardware Supported: *RP2040-Zero*
 
 Make example for this keyboard (after setting up your build environment):
 
