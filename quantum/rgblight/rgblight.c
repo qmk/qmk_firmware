@@ -491,7 +491,7 @@ void rgblight_increase_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed < 3) rgblight_config.speed++;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED?
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(rgblight_config.raw); // EECONFIG needs to be increased to support this
+        eeconfig_update_rgblight(rgblight_config.raw);
     }
 }
 void rgblight_increase_speed(void) {
@@ -505,7 +505,7 @@ void rgblight_decrease_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed > 0) rgblight_config.speed--;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED??
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(rgblight_config.raw); // EECONFIG needs to be increased to support this
+        eeconfig_update_rgblight(rgblight_config.raw);
     }
 }
 void rgblight_decrease_speed(void) {
@@ -614,7 +614,7 @@ uint8_t rgblight_get_speed(void) {
 void rgblight_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
     rgblight_config.speed = speed;
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(rgblight_config.raw); // EECONFIG needs to be increased to support this
+        eeconfig_update_rgblight(rgblight_config.raw);
         dprintf("rgblight set speed [EEPROM]: %u\n", rgblight_config.speed);
     } else {
         dprintf("rgblight set speed [NOEEPROM]: %u\n", rgblight_config.speed);

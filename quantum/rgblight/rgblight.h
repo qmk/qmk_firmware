@@ -244,7 +244,6 @@ extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 extern const uint8_t  RGBLED_TWINKLE_INTERVALS[3] PROGMEM;
 extern bool           is_rgblight_initialized;
 
-// Should stay in sycn with rgb matrix config as we reuse eeprom storage for both (for now)
 typedef union {
     uint64_t raw;
     struct {
