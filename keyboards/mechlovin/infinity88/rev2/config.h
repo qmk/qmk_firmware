@@ -28,3 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS { D5, D2, D4, D3, D0, D1 }
+
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 17
