@@ -44,6 +44,8 @@ typedef union {
     };
 } backlight_config_t;
 
+_Static_assert(sizeof(backlight_config_t) == sizeof(uint8_t), "Backlight EECONFIG out of spec.");
+
 void    backlight_init(void);
 void    backlight_toggle(void);
 void    backlight_enable(void);
