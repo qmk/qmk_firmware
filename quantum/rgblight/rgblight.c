@@ -179,9 +179,7 @@ void rgblight_check_config(void) {
 
 uint64_t eeconfig_read_rgblight(void) {
 #ifdef EEPROM_ENABLE
-    uint64_t temp;
-    eeprom_read_block(&temp, EECONFIG_RGBLIGHT, sizeof(uint64_t));
-    return temp;
+    return (uint64_t)((eeprom_read_dword(EECONFIG_RGBLIGHT))|((uint64_t)eeprom_read_byte(EECONFIG_RGBLIGHT_EXTENDED) << 32));
 #else
     return 0;
 #endif
@@ -190,7 +188,8 @@ uint64_t eeconfig_read_rgblight(void) {
 void eeconfig_update_rgblight(uint64_t val) {
 #ifdef EEPROM_ENABLE
     rgblight_check_config();
-    eeprom_update_block(&val, EECONFIG_RGBLIGHT, sizeof(uint64_t));
+    eeprom_update_dword(EECONFIG_RGBLIGHT, val & 0xFFFFFFFF);
+    eeprom_update_byte(EECONFIG_RGBLIGHT_EXTENDED, (val >> 32) & 0xFF);
 #endif
 }
 
