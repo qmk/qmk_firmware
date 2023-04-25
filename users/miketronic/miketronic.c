@@ -28,12 +28,14 @@ __attribute__ ((weak)) layer_state_t layer_state_set_keymap (layer_state_t state
 
 
 // Init effect for RGB boards only
-// Study documentation.  housekeeping_task_user, and keyboard_post_init_user are better options for the init and scan functions. @drashna
-void matrix_init_user(void) {
+// https://github.com/qmk/qmk_firmware/blob/master/docs/custom_quantum_functions.md
+void keyboard_post_init_user(void) {
 #ifdef RGB_MATRIX_ENABLE
+    rgblight_enable_noeeprom(); // enables Rgb, without saving settings
+    rgblight_sethsv_noeeprom(180, 255, 255); // sets the color to teal/cyan without saving
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
 #endif
-    matrix_init_keymap();
+        matrix_init_keymap();
 }
 
 
