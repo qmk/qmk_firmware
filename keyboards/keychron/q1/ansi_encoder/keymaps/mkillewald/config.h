@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define EECONFIG_USER_DATA_SIZE 20  // size of eeprom data, do not change.
-
 // default options applied when eeprom is cleared
 #define DEFAULT_CAPS_LOCK_LIGHT_TAB      0            // 1 = enable, 0 = disable
 #define DEFAULT_CAPS_LOCK_LIGHT_ALPHA    1            // 1 = enable, 0 = disable
