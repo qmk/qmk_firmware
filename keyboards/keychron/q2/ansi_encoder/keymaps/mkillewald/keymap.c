@@ -16,8 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
-#include "keymap_user.h"
-#include "keymap_user_config.h"
+#include "eeprom_user_config.h"
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix_user.h"
 #endif
@@ -46,6 +45,14 @@ enum my_keycodes {
 #define KC_LBMAC KC_LOCK_BLANK_MAC
 
 static bool win_mode;
+
+enum layers{
+    MAC_BASE,       // Mac Base     (layer 0)
+    WIN_BASE,       // Win Base     (layer 1)
+    _FN1,           // Mac Fn1      (layer 2)
+    _FN2,           // Win Fn1      (layer 3)
+    _FN3            // Mac/Win Fn2  (layer 4)
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_ansi_67(
@@ -175,6 +182,47 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
             break;
     }
     return state;
+}
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    uint8_t current_layer = get_highest_layer(layer_state);
+    switch (current_layer) {
+        case MAC_BASE:
+        case WIN_BASE:
+#ifdef CAPS_LOCK_INDICATOR_COLOR
+            if (host_keyboard_led_state().caps_lock) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
+            }
+#endif
+#ifdef CAPS_WORD_INDICATOR_COLOR
+            if (is_caps_word_on()) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_word_indicator, CAPS_WORD_INDICATOR_COLOR);
+            }
+#endif
+            break;
+        case _FN1:
+        case _FN2:
+#ifdef FN1_LAYER_COLOR
+            if (user_config_get_fn_layer_color_enable()) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, FN1_LAYER_COLOR);
+            }
+#endif
+            if (user_config_get_fn_layer_transparent_keys_off()) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, RGB_OFF);
+            }
+            break;
+        case _FN3:
+#ifdef FN2_LAYER_COLOR
+            if (user_config_get_fn_layer_color_enable()) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, FN2_LAYER_COLOR);
+            }
+#endif
+            if (user_config_get_fn_layer_transparent_keys_off()) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, RGB_OFF);
+            }
+            break;
+    }
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

@@ -15,7 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_user_config.h"
+#include "eeprom_user_config.h"
 
 typedef struct {
     uint8_t caps_lock_light_tab;

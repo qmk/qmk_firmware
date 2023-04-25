@@ -16,10 +16,4 @@
 
 #pragma once
 
-enum layers{
-    MAC_BASE,       // Mac Base     (layer 0)
-    WIN_BASE,       // Win Base     (layer 1)
-    _FN1,           // Mac Fn1      (layer 2)
-    _FN2,           // Win Fn1      (layer 3)
-    _FN3            // Mac/Win Fn2  (layer 4)
-};
+#define EECONFIG_USER_DATA_SIZE 20  // size of eeprom data, do not change.
