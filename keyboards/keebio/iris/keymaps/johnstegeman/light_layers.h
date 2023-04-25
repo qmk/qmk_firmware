@@ -62,17 +62,17 @@ const rgblight_segment_t PROGMEM COLEMAK_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS
 
 const rgblight_segment_t PROGMEM NAVNUM_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 14, HSV_BLACK},
-    {14, 3, HSV_RED},
+    {14, 3, HSV_GREEN},
     {17, 2, HSV_BLACK},
-    {19, 1, HSV_RED},
+    {19, 1, HSV_GREEN},
     {20, 21, HSV_BLACK},
-    {41, 3, HSV_AZURE},
+    {41, 3, HSV_GREEN},
     {44, 4, HSV_BLACK},
-    {48, 3, HSV_AZURE},
+    {48, 3, HSV_GREEN},
     {51, 2, HSV_BLACK},
-    {53, 3, HSV_AZURE},
+    {53, 3, HSV_GREEN},
     {56, 2, HSV_BLACK},
-    {58, 1, HSV_AZURE},
+    {58, 1, HSV_GREEN},
     {59, 9, HSV_BLACK} 
 );
 
