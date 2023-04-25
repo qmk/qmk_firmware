@@ -30,16 +30,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_DEBUG (uint8_t *)2
 #define EECONFIG_DEFAULT_LAYER (uint8_t *)3
 #define EECONFIG_KEYMAP (uint16_t *)4
-#define EECONFIG_BACKLIGHT (uint8_t *)6
-#define EECONFIG_AUDIO (uint8_t *)7
-#define EECONFIG_RGBLIGHT (uint64_t *)8
-#define EECONFIG_UNICODEMODE (uint8_t *)16
-#define EECONFIG_STENOMODE (uint8_t *)17
+#define EECONFIG_RGBLIGHT (uint64_t *)6
 // EEHANDS for two handed boards
-#define EECONFIG_HANDEDNESS (uint8_t *)18
-#define EECONFIG_KEYBOARD (uint32_t *)19
-#define EECONFIG_USER (uint32_t *)23
-#define EECONFIG_VELOCIKEY (uint8_t *)27
+#define EECONFIG_HANDEDNESS (uint8_t *)14
+#define EECONFIG_VELOCIKEY (uint8_t *)15
+#define EECONFIG_BACKLIGHT (uint8_t *)16
+#define EECONFIG_AUDIO (uint8_t *)17
+#define EECONFIG_UNICODEMODE (uint8_t *)18
+#define EECONFIG_STENOMODE (uint8_t *)19
+#define EECONFIG_KEYBOARD (uint32_t *)20
+#define EECONFIG_USER (uint32_t *)24
 // Mutually exclusive
 #define EECONFIG_LED_MATRIX (uint32_t *)28
 #define EECONFIG_RGB_MATRIX (uint64_t *)28

@@ -54,12 +54,12 @@ void eeconfig_init_quantum(void) {
     default_layer_state = 0;
     // Enable oneshot and autocorrect by default: 0b0001 0100 0000 0000
     eeprom_update_word(EECONFIG_KEYMAP, 0x1400);
+    eeprom_update_block(&dummy, EECONFIG_RGBLIGHT, sizeof(uint64_t));
+    xeeprom_update_byte(EECONFIG_VELOCIKEY, 0);
     eeprom_update_byte(EECONFIG_BACKLIGHT, 0);
     eeprom_update_byte(EECONFIG_AUDIO, 0xFF); // On by default
-    eeprom_update_block(&dummy, EECONFIG_RGBLIGHT, sizeof(uint64_t));
     eeprom_update_byte(EECONFIG_UNICODEMODE, 0);
     eeprom_update_byte(EECONFIG_STENOMODE, 0);
-    eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
     eeprom_update_block(&dummy, EECONFIG_RGB_MATRIX, sizeof(uint64_t));
     eeprom_update_dword(EECONFIG_HAPTIC, 0);
 #if defined(HAPTIC_ENABLE)
