@@ -1,5 +1,5 @@
 /*
-Copyright 2022 Álvaro "Gondolindrim" Volpato <alvaro.volpato@usp.br>
+Copyright 2023 Gondolindrim <gondolindrim@acheronproject.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,15 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-
+#define RGB_DI_PIN B15
 #define RGB_MATRIX_LED_COUNT 87
 
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT
@@ -84,3 +76,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+
+// EECONFIG data size: each indicator takes 5 bytes; there are four possible indicators.
+#define EECONFIG_KB_DATA_SIZE (4*6)
+
+#define WEAR_LEVELING_LOGICAL_SIZE 2048
+#define WEAR_LEVELING_BACKING_SIZE 4096	
