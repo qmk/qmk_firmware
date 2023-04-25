@@ -39,9 +39,6 @@
 /* I2C Config for LED Driver */
 #define DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110100
-#define I2C1_SDA_PIN B7
-#define I2C1_SCL_PIN B6
-#define I2C1_SCL_PAL_MODE 4
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 400000 /* 400000 */
 
