@@ -32,23 +32,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_KEYMAP (uint16_t *)4
 #define EECONFIG_BACKLIGHT (uint8_t *)6
 #define EECONFIG_AUDIO (uint8_t *)7
-#define EECONFIG_RGBLIGHT (uint64_t *)8
-#define EECONFIG_UNICODEMODE (uint8_t *)16
-#define EECONFIG_STENOMODE (uint8_t *)17
+#define EECONFIG_RGBLIGHT (uint32_t *)8
+#define EECONFIG_UNICODEMODE (uint8_t *)12
+#define EECONFIG_STENOMODE (uint8_t *)13
 // EEHANDS for two handed boards
-#define EECONFIG_HANDEDNESS (uint8_t *)18
-#define EECONFIG_KEYBOARD (uint32_t *)19
-#define EECONFIG_USER (uint32_t *)23
-#define EECONFIG_VELOCIKEY (uint8_t *)27
+#define EECONFIG_HANDEDNESS (uint8_t *)14
+#define EECONFIG_KEYBOARD (uint32_t *)15
+#define EECONFIG_USER (uint32_t *)19
+#define EECONFIG_VELOCIKEY (uint8_t *)23
+
+#define EECONFIG_HAPTIC (uint32_t *)24
+
 // Mutually exclusive
 #define EECONFIG_LED_MATRIX (uint32_t *)28
 #define EECONFIG_RGB_MATRIX (uint64_t *)28
-// Note: anything after 32 is truncated on input club boards due to EEPROM being misconfigured.
-//       LED Matrix EE Config ends just within that range.
-#define EECONFIG_HAPTIC (uint32_t *)36
 
 // Size of EEPROM being used for core data storage
-#define EECONFIG_BASE_SIZE 40
+#define EECONFIG_BASE_SIZE 36
 
 // Size of EEPROM dedicated to keyboard- and user-specific data
 #ifndef EECONFIG_KB_DATA_SIZE

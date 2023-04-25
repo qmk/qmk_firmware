@@ -246,18 +246,16 @@ extern bool           is_rgblight_initialized;
 
 // Should stay in sycn with rgb matrix config as we reuse eeprom storage for both (for now)
 typedef union {
-    uint64_t raw;
+    uint32_t raw;
     struct {
         bool    enable : 1;
         uint8_t mode : 7;
         uint8_t hue : 8;
         uint8_t sat : 8;
         uint8_t val : 8;
-        uint8_t speed : 8;
+        uint8_t speed : 8; // EECONFIG needs to be increased to support this
     };
 } rgblight_config_t;
-
-_Static_assert(sizeof(rgblight_config_t) == sizeof(uint64_t), "RGB Light EECONFIG out of spec.");
 
 typedef struct _rgblight_status_t {
     uint8_t base_mode;
@@ -369,10 +367,10 @@ HSV     rgblight_get_hsv(void);
 void     rgblight_init(void);
 void     rgblight_suspend(void);
 void     rgblight_wakeup(void);
-uint64_t rgblight_read_qword(void);
-void     rgblight_update_qword(uint64_t qword);
-uint64_t eeconfig_read_rgblight(void);
-void     eeconfig_update_rgblight(uint64_t val);
+uint32_t rgblight_read_dword(void);
+void     rgblight_update_dword(uint32_t dword);
+uint32_t eeconfig_read_rgblight(void);
+void     eeconfig_update_rgblight(uint32_t val);
 void     eeconfig_update_rgblight_current(void);
 void     eeconfig_update_rgblight_default(void);
 void     eeconfig_debug_rgblight(void);

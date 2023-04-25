@@ -177,20 +177,18 @@ void rgblight_check_config(void) {
     }
 }
 
-uint64_t eeconfig_read_rgblight(void) {
+uint32_t eeconfig_read_rgblight(void) {
 #ifdef EEPROM_ENABLE
-    uint64_t temp;
-    eeprom_read_block(&temp, EECONFIG_RGBLIGHT, sizeof(uint64_t));
-    return temp;
+    return eeprom_read_dword(EECONFIG_RGBLIGHT);
 #else
     return 0;
 #endif
 }
 
-void eeconfig_update_rgblight(uint64_t val) {
+void eeconfig_update_rgblight(uint32_t val) {
 #ifdef EEPROM_ENABLE
     rgblight_check_config();
-    eeprom_update_block(&val, EECONFIG_RGBLIGHT, sizeof(uint64_t));
+    eeprom_update_dword(EECONFIG_RGBLIGHT, val);
 #endif
 }
 
@@ -265,13 +263,13 @@ void rgblight_reload_from_eeprom(void) {
     }
 }
 
-uint64_t rgblight_read_qword(void) {
+uint32_t rgblight_read_dword(void) {
     return rgblight_config.raw;
 }
 
-void rgblight_update_qword(uint64_t qword) {
+void rgblight_update_dword(uint32_t dword) {
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
-    rgblight_config.raw = qword;
+    rgblight_config.raw = dword;
     if (rgblight_config.enable)
         rgblight_mode_noeeprom(rgblight_config.mode);
     else {

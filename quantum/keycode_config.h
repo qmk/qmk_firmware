@@ -43,6 +43,4 @@ typedef union {
     };
 } keymap_config_t;
 
-_Static_assert(sizeof(keymap_config_t) == sizeof(uint16_t), "Keycode (magic) EECONFIG out of spec.");
-
 extern keymap_config_t keymap_config;

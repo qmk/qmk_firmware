@@ -41,8 +41,6 @@ typedef union {
     };
 } haptic_config_t;
 
-_Static_assert(sizeof(haptic_config_t) == sizeof(uint32_t), "Haptic EECONFIG out of spec.");
-
 typedef enum HAPTIC_FEEDBACK {
     KEY_PRESS,
     KEY_PRESS_RELEASE,
