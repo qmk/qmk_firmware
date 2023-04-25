@@ -4,7 +4,7 @@ A customizable 75% encoder keyboard.
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
 * Hardware Supported: 5075
-* Hardware Availability: [monsgeek](https://www.akkogear.com/)
+* Hardware Availability: [akko](https://www.akkogear.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
