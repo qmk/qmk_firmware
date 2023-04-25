@@ -3,12 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-#ifdef OLED_ENABLE
-//#include <stdio.h>
-//#include <time.h>
-bool oled_task_user(void);
-#endif
-
 uint8_t current_layer = 0;
 uint8_t current_display_mode = 0;
 
@@ -89,29 +83,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
     return true;
-}
-
-// when the layer is changed, flash the layer number on the screen
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-        case 0:
-            // flash layer 1 on the screen. write function for this
-            break;
-        case 1:
-            // if display != 2 flash layer on screen,
-            // else cycle picture (maybe function?)
-            break;
-        case 2:
-            
-            break;
-        case 3:
-            
-            break;
-        default: // for any other layers, or the default layer
-            
-            break;
-    }
-  return state;
 }
 
 #ifdef OLED_ENABLE
@@ -1277,7 +1248,7 @@ bool oled_task_user() {
             render_layers();
             break;
         case 2:
-            //render_clock();
+            // third display mode
             break;
     }
     return false;
