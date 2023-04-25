@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define RGB_DI_PIN B15
 #define RGB_MATRIX_LED_COUNT 87
 
 #define WS2812_PWM_COMPLEMENTARY_OUTPUT
