@@ -76,16 +76,11 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 
 void matrix_init_user(void) {
-    matrix_init_user_mkillewald();
+    matrix_init_mkillewald();
 }
 
 void keyboard_post_init_user(void) {
-    user_config_read_eeprom();
-
-#ifdef AUTOCORRECT_OFF_AT_STARTUP
-    // toggle autocorrect off at startup
-    if (autocorrect_is_enabled()) { autocorrect_toggle(); }
-#endif
+    keyboard_post_init_mkillewald();
 }
 
 void housekeeping_task_user(void) {
@@ -95,7 +90,7 @@ void housekeeping_task_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_keychron(keycode, record)) { return false; }
-    if (!process_record_user_mkillewald(keycode, record)) { return false; }
+    if (!process_record_mkillewald(keycode, record)) { return false; }
     return true;
 }
 

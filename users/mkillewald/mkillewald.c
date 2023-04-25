@@ -58,9 +58,18 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void matrix_init_user_mkillewald(void) {
+void matrix_init_mkillewald(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init_user();
+#endif
+}
+
+void keyboard_post_init_mkillewald(void) {
+    user_config_read_eeprom();
+
+#ifdef AUTOCORRECT_OFF_AT_STARTUP
+    // toggle autocorrect off at startup
+    if (autocorrect_is_enabled()) { autocorrect_toggle(); }
 #endif
 }
 
@@ -88,7 +97,7 @@ void housekeeping_task_mkillewald(void) {
     }
 }
 
-bool process_record_user_mkillewald(uint16_t keycode, keyrecord_t *record) {
+bool process_record_mkillewald(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QK_BOOT:
             // We want to turn off LEDs before calling bootloader, so here
