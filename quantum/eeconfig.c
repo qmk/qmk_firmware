@@ -55,7 +55,7 @@ void eeconfig_init_quantum(void) {
     // Enable oneshot and autocorrect by default: 0b0001 0100 0000 0000
     eeprom_update_word(EECONFIG_KEYMAP, 0x1400);
     eeprom_update_block(&dummy, EECONFIG_RGBLIGHT, sizeof(uint64_t));
-    xeeprom_update_byte(EECONFIG_VELOCIKEY, 0);
+    eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
     eeprom_update_byte(EECONFIG_BACKLIGHT, 0);
     eeprom_update_byte(EECONFIG_AUDIO, 0xFF); // On by default
     eeprom_update_byte(EECONFIG_UNICODEMODE, 0);
