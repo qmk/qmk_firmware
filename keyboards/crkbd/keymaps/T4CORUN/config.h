@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define SPLIT_OLED_ENABLE
 
 
+
 #ifdef RGBLIGHT_ENABLE
 //#   define RGBLIGHT_ANIMATIONS
 //#   define RGBLIGHT_EFFECT_BREATHING
@@ -43,6 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGBLIGHT_SAT_STEP 17
 #   define RGBLIGHT_VAL_STEP 17
 #endif
+
+/*
 
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED true
@@ -112,6 +115,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #   define ENABLE_RGB_MATRIX_MULTISPLASH
 #endif
+
+*/
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 

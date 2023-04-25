@@ -7,31 +7,26 @@
 //KEYBOARD_dztech_dz60rgb_v2_1 ???
 //the planck is RGBLIGHT not RGB MATRIX
 
-//you are in the middle of trying to customize the RGB matrix for the keyboards
-//you just looked at all the stock config.h. now you are about to pull up all the config.h from each board to consolidate
+//Clear variables that might have been defined elsewhere
+#undef SPLIT_TRANSPORT_MIRROR
+#undef RGB_DISABLE_WHEN_USB_SUSPENDED
+#undef RGB_MATRIX_DEFAULT_HUE
+#undef RGB_MATRIX_DEFAULT_SAT
+#undef RGB_MATRIX_DEFAULT_VAL
+#undef RGB_MATRIX_DEFAULT_SPD
+#undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#undef RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#undef RGB_MATRIX_KEYPRESSES
+#undef RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS
+#undef RGB_MATRIX_TYPING_HEATMAP_SPREAD
+#undef RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT
+#undef RGB_MATRIX_TYPING_HEATMAP_SLIM
+#undef RGB_MATRIX_DEFAULT_MODE
 
-//these are the ones i vetted
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+// For full list of effects, see:
+// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
 
-#define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5
-#define RGB_MATRIX_LED_FLUSH_LIMIT 16
-
-#define RGB_MATRIX_DEFAULT_HUE 4
-#define RGB_MATRIX_DEFAULT_SAT 79
-#define RGB_MATRIX_DEFAULT_VAL 59
-#define RGB_MATRIX_DEFAULT_SPD 32
-
-#if defined(SPLIT_KEYBOARD)
-# define SPLIT_TRANSPORT_MIRROR
-#endif
-
-//end of vetting
-
-#define RGB_MATRIX_KEYPRESSES
-//#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
-//First undefine all the RGB Animations
+//Then undefine all the RGB Animations
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
 #undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #undef ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -61,11 +56,9 @@
 #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #undef ENABLE_RGB_MATRIX_PIXEL_FLOW
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
-
 //These modes also require the RGB_MATRIX_FRAMEBUFFER_EFFECTS define to be available.
 #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
-
 //These modes also require the RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES define to be available.
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
@@ -80,12 +73,76 @@
 #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effectsz
-#define ENABLE_RGB_MATRIX_BREATHING
-#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#define ENABLE_RGB_MATRIX_MULTISPLASH
+
+
+
+
+//Set common configuration for all keyboards
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+
+#define RGB_MATRIX_DEFAULT_HUE 4
+#define RGB_MATRIX_DEFAULT_SAT 79
+#define RGB_MATRIX_DEFAULT_VAL 59
+#define RGB_MATRIX_DEFAULT_SPD 32
+
+#if defined(SPLIT_KEYBOARD)
+# define SPLIT_TRANSPORT_MIRROR
+#endif //SPLIT_KEYBOARD
+
+
+//Set per keyboard configuration
+#if defined(KEYBOARD_bastardkb_charybdis_3x5) || defined(KEYBOARD_dztech_dz60rgb_v2_1)
+#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+#   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#   define RGB_MATRIX_KEYPRESSES
+//no extra defines required
+#   define ENABLE_RGB_MATRIX_BREATHING
+#   define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+#   define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#   define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+#   define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+#   define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+#   define ENABLE_RGB_MATRIX_DUAL_BEACON
+#   define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#   define ENABLE_RGB_MATRIX_HUE_BREATHING
+//requires RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#   define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#   define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+//requires RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES
+#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#   define ENABLE_RGB_MATRIX_SPLASH
+#   define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+
+//MT32U4 has limited memory
+#elif defined(KEYBOARD_crkbd_rev1)
+#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+#   define RGB_MATRIX_KEYPRESSES
+//no extra defines required
+#   define ENABLE_RGB_MATRIX_BREATHING
+#   define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+//requires RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES
+#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+
+//enable minimal effects to save memory
+#else
+#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 75
+#   define ENABLE_RGB_MATRIX_BREATHING
+#   define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+#endif //defined(KEYBOARD_bastardkb_charybdis_3x5) || defined(KEYBOARD_dztech_dz60rgb_v2_1)
+
+
+
+//post configuration
+
+#if defined(ENABLE_RGB_MATRIX_TYPING_HEATMAP)
+#   define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50    //default 25
+#   define RGB_MATRIX_TYPING_HEATMAP_SPREAD 40               //40
+#   define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 16           //16
+//#   define RGB_MATRIX_TYPING_HEATMAP_SLIM
+#endif //ENABLE_RGB_MATRIX_TYPING_HEATMAP
 
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
+
+
 

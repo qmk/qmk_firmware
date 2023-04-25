@@ -2,8 +2,7 @@
 #include "T4CORUN.h"
 
 enum combos {
-  BN_MOU,
-  VK_MOU,
+  COMDOT_MOU,
   COMBO_LENGTH
 };
 

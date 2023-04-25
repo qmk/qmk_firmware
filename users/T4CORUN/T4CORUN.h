@@ -4,15 +4,8 @@
 #include "wrappers.h"
 
 #if defined(TAP_DANCE_ENABLE)
-# include "tap_dances.h"
+#   include "tap_dances.h"
 #endif  //TAP_DANCE_ENABLE
-#if defined(POINTING_DEVICE_ENABLE)
-# include "pointing.h"
-#endif //POINTING_DEVICE_ENABLE
-#if defined(OLED_ENABLE)
-#    include "oled_stuff.h"
-#endif //OLED_ENABLE
-
 
 enum layers {
   _QWERTY = 0,
@@ -34,10 +27,12 @@ enum keycodes {
 #define _DEFAULT_LAYER_2 (FIRST_DEFAULT_LAYER + 1)
 #define _DEFAULT_LAYER_3 (FIRST_DEFAULT_LAYER + 2)
 
-#if defined(TAP_DANCE_ENABLE)
+#define ___x___ KC_NO
+
 //Tap Dance Declarations
-# define TD_LBKT TD(TD_LEFTBRACKETS)
-# define TD_RBKT TD(TD_RIGHTBRACKETS)
+#if defined(TAP_DANCE_ENABLE)
+#   define TD_LBKT TD(TD_LEFTBRACKETS)
+#   define TD_RBKT TD(TD_RIGHTBRACKETS)
 #endif  // TAP_DANCE_ENABLE
 
 //Layer transitions
@@ -48,12 +43,13 @@ enum keycodes {
 #define MOUSE   MO(_MOUSE)
 
 #define FUN_DEL LT(_FUNCTION, KC_DEL)
+#define FUN_Z LT(_FUNCTION, KC_Z)
 #define AD_SLSH LT(_ADJUST, KC_SLSH)
 
 //Toggle Layer
 #if defined(MOUSELAYER_ENABLED)
-# define MOU_Z   LT(_MOUSE, KC_Z)
-# define MOU_TOG TG(_MOUSE)
+#   define MOU_Z   LT(_MOUSE, KC_Z)
+#   define MOU_TOG TG(_MOUSE)
 #endif //MOUSELAYER_ENABLED
 
 //Windows Shortcuts
@@ -63,28 +59,25 @@ enum keycodes {
 #define SC_PAST LCTL(KC_V)
 #define SC_REDO LCTL(KC_Y)
 
-//Alias to make the keymap easier to read
-#define ___x___ KC_NO
-
 //Home Row Mods QWERTY
 #if defined(HOMEROWMOD_ENABLED)
-# define LGUI_A  LGUI_T(KC_A)
-# define LALT_S  LALT_T(KC_S)
-# define CTRL_D  LCTL_T(KC_D)
-# define SHFT_F  LSFT_T(KC_F)
+#   define LGUI_A  LGUI_T(KC_A)
+#   define LALT_S  LALT_T(KC_S)
+#   define CTRL_D  LCTL_T(KC_D)
+#   define SHFT_F  LSFT_T(KC_F)
 
-# define SHFT_J  LSFT_T(KC_J)
-# define CTRL_K  LCTL_T(KC_K)
-# define LALT_L  LALT_T(KC_L)
-# define LGUI_QT LGUI_T(KC_QUOT)
+#   define SHFT_J  LSFT_T(KC_J)
+#   define CTRL_K  LCTL_T(KC_K)
+#   define LALT_L  LALT_T(KC_L)
+#   define LGUI_QT LGUI_T(KC_QUOT)
 
 //Home Row Mods COLEMAKDH
-# define LALT_R  LALT_T(KC_R)
-# define CTRL_S  LCTL_T(KC_S)
-# define SHFT_T  LSFT_T(KC_T)
+#   define LALT_R  LALT_T(KC_R)
+#   define CTRL_S  LCTL_T(KC_S)
+#   define SHFT_T  LSFT_T(KC_T)
 
-# define SHFT_N  LSFT_T(KC_N)
-# define CTRL_E  LCTL_T(KC_E)
-# define LALT_I  LALT_T(KC_I)
-# define LGUI_O  LGUI_T(KC_O)
+#   define SHFT_N  LSFT_T(KC_N)
+#   define CTRL_E  LCTL_T(KC_E)
+#   define LALT_I  LALT_T(KC_I)
+#   define LGUI_O  LGUI_T(KC_O)
 #endif //HOMEROWMOD_ENABLED
