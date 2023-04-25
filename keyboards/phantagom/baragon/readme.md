@@ -2,7 +2,7 @@
 
 [Baragon](https://en.wikipedia.org/wiki/Baragon) is a fictional monster, or kaiju, which first appeared in Ishirō Honda's 1965 film Frankenstein vs. Baragon.
 
-![phantagom/baragon](https://i.imgur.com/17RkGUP.jpeg)
+![phantagom/baragon](https://i.imgur.com/17RkGUPh.jpeg)
 
 A marco pad, 3x3 with rgb ring and rotary encoder, via compatible. Key's can be rotated, so marcopad is useable at different angles.
 
