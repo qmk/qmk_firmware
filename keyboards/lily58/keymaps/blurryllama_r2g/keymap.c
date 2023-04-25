@@ -442,7 +442,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else { // windows action
                 register_mods(mod_config(MOD_LCTL));
                 register_mods(mod_config(MOD_LSFT));
-                register_code(KC_J);
+                register_code(KC_I);
             }
         } else {
             if (keymap_config.swap_lctl_lgui) { // mac action
@@ -452,7 +452,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else { // windows action
                 unregister_mods(mod_config(MOD_LCTL));
                 unregister_mods(mod_config(MOD_LSFT));
-                unregister_code(KC_J);
+                unregister_code(KC_I);
             }
         }
         return false;
