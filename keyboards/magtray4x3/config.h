@@ -15,7 +15,7 @@
 #define I2C1_SDA_PIN B7
 #define I2C1_SDA_PAL_MODE 1
 
-#define MY_I2C_ADDRESS (0x18 << 1)
+//#define MY_I2C_ADDRESS (0x18 << 1)
 
 #define OLED_TIMEOUT 180000
 
