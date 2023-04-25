@@ -14,7 +14,20 @@
         "rows": ["A2", "A1", "A0", "A7"]
     },
     "rgblight": {
-        "pin": "B1"
+        "pin": "B1",
+        "led_count": 19,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
     },
     "encoder": {
         "rotary": [
@@ -24,6 +37,16 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true,
+        "encoder": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
