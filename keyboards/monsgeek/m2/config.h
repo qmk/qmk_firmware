@@ -16,7 +16,7 @@
 
 #pragma once
 
-/* Use 5 dynamic keymap layers */
+/* Use 6 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
 /* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
@@ -26,6 +26,7 @@
 #define LED_NUM_LOCK_PIN        A15
 #define LED_CAPS_LOCK_PIN       C10
 // #define LED_SCROLL_LOCK_PIN     C11
+#define LED_WIN_LOCK_PIN        C11
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -48,9 +49,7 @@
 #define DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110111
-#define I2C1_SDA_PIN B7
-#define I2C1_SCL_PIN B6
-#define I2C1_SCL_PAL_MODE 4
+
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 400000 /* 400000 */
 
@@ -87,5 +86,5 @@
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 /* The maximum brightness level */
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 /* The maximum brightness level */
 

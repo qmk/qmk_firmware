@@ -255,8 +255,6 @@ led_config_t g_led_config = {
 
 #endif //RGB_MATRIX_ENABLE
 
-#define LED_WIN_LOCK_PIN C11
-
 enum __layers {
     WIN_B,
     WIN_WASD,
