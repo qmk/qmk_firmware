@@ -16,13 +16,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+
+#include "print.h"
 #include "light_layers.h"
 
 enum layers {
-_COLEMAK=0,
-_LOWER,
-_RAISE,
-_ADJUST,
+_COLEMAK,
+_NAVNUM,
+_CONTROL,
 };
 
 // Enter when tapped, shift when held
@@ -39,11 +40,7 @@ _ADJUST,
 #define SHSP MT(MOD_RSFT, KC_SPC)
 
 enum custom_keycodes {
-  COLEMAK = SAFE_RANGE,   
-  LOWER,
-  RAISE,
-  ADJUST,
-  SS_P,
+  COLEMAK = QK_USER,   
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -62,21 +59,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
-  [_LOWER] = LAYOUT(
+  [_NAVNUM] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                            KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     QK_BOOT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+     QK_BOOT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_P6,   KC_P7,   KC_P8,   KC_P9,   KC_P0,    _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_DEL,  _______, KC_LEFT, KC_RGHT, KC_UP,   KC_LBRC,                            KC_RBRC, KC_P4,   KC_P5,   KC_P6,   KC_PLUS, KC_PIPE,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, SS_P,    _______, _______, KC_DOWN, KC_LCBR, KC_END,           KC_RALT, KC_RCBR, KC_P1,   KC_P2,   KC_P3,   KC_MINS, _______,
+     _______, _______,    _______, _______, KC_DOWN, KC_LCBR, KC_END,           KC_RALT, KC_RCBR, KC_P1,   KC_P2,   KC_P3,   KC_MINS, _______,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     _______, _______, KC_DEL,                    KC_DEL,  _______, KC_P0
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
-  [_RAISE] = LAYOUT(
+  [_CONTROL] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -88,66 +85,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     _______, _______, _______,                   _______, _______, _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
-  ),
-
-  [_ADJUST] = LAYOUT(
-  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
-  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
-  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
-  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______,
-  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, _______, _______,                   _______, _______, _______
-                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   )
 };     
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-   case SS_P:
-      if (record->event.pressed) {
-         SEND_STRING("Colemak Rocks!\n");
-      }
-      return false;
-      break;
    case LT(0,KC_X):
       if (!record->tap.count && record->event.pressed) {
             tap_code16(G(KC_X)); // Intercept hold function to send GUI-X
@@ -173,18 +116,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// Light layers
-
-void keyboard_post_init_user(void) {
-    rgblight_layers = MY_LIGHT_LAYERS;
-}
-
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(_COLEMAK, layer_state_cmp(state, _COLEMAK));
-
-    return state;
-}
-
 // Key overrides
 
 // GUI + esc = ~
@@ -202,3 +133,19 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 //    &shift_bkspc_override,
     NULL
 };
+
+
+void keyboard_post_init_user(void) {
+    rgblight_layers = MY_LIGHT_LAYERS;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+   //int layer = get_highest_layer(state);
+    //uprintf("Layer %4u\n", layer);
+ 
+    rgblight_set_layer_state(_COLEMAK, layer_state_cmp(state, _COLEMAK));
+    rgblight_set_layer_state(_NAVNUM, layer_state_cmp(state, _NAVNUM));
+    //rgblight_set_layer_state(0, true);
+    //rgblight_set_layer_state(1, true);
+    return state;
+}

@@ -60,13 +60,24 @@ const rgblight_segment_t PROGMEM COLEMAK_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS
     {65, 3, HSV_BLUE} // underglow
 );
 
-const rgblight_segment_t LOWER_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
+const rgblight_segment_t PROGMEM NAVNUM_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 14, HSV_BLACK},
     {14, 3, HSV_RED},
-    {19, 1, HSV_RED}
+    {17, 2, HSV_BLACK},
+    {19, 1, HSV_RED},
+    {20, 21, HSV_BLACK},
+    {41, 3, HSV_AZURE},
+    {44, 4, HSV_BLACK},
+    {48, 3, HSV_AZURE},
+    {51, 2, HSV_BLACK},
+    {53, 3, HSV_AZURE},
+    {56, 2, HSV_BLACK},
+    {58, 1, HSV_AZURE},
+    {59, 9, HSV_BLACK} 
 );
 
 
 const rgblight_segment_t* const PROGMEM MY_LIGHT_LAYERS[] = RGBLIGHT_LAYERS_LIST(
     COLEMAK_LIGHT_LAYER,
-    LOWER_LIGHT_LAYER
+    NAVNUM_LIGHT_LAYER
 );
