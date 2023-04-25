@@ -17,9 +17,9 @@
     "split": {
         "enabled": true,
         "matrix_pins": {
-            "right":{
-                "cols": ["GP29", "GP28", "GP27", "GP26", "GP25", "GP21", "GP20", "GP7", "GP8"],
-                "rows": ["GP2", "GP3", "GP5", "GP6", "GP19"]
+            "right": {
+                "cols": ["GP29", "GP28", "GP27", "GP26", "GP25", "GP21", "GP15", "GP9", "GP10"],
+                "rows": ["GP2", "GP3", "GP5", "GP8", "GP19"]
             }
         }
     },
