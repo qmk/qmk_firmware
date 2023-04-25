@@ -85,4 +85,4 @@
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160 /* The maximum brightness level */
 
-
+//#define DISABLE_M3_KEYCODES /*if you need to change or restore the default QMK button function, please open it*/
