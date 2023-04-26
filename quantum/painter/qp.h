@@ -64,6 +64,14 @@
 #    define QUANTUM_PAINTER_CONCURRENT_ANIMATIONS 4
 #endif // QUANTUM_PAINTER_CONCURRENT_ANIMATIONS
 
+#ifndef QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS
+/**
+ * @def This controls the maximum number of scrolling texts that Quantum Painter can play simultaneously. Increasing this
+ *      number in order to play more scrolling texts at the same time increases the amount of RAM required.
+ */
+#    define QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS 4
+#endif // QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS
+
 #ifndef QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE
 /**
  * @def This controls the maximum size of the pixel data buffer used for single blocks of transmission. Larger buffers
@@ -452,6 +460,49 @@ int16_t qp_drawtext(painter_device_t device, uint16_t x, uint16_t y, painter_fon
  * @return the width (in pixels) used when drawing the specified string
  */
 int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
+
+/**
+ * Draws a scrolling text to the display.
+ *
+ * @param device[in] the handle of the device to control
+ * @param x[in] the x-position where the text should be drawn onto the device
+ * @param y[in] the y-position where the text should be drawn onto the device
+ * @param font[in] the handle of the font
+ * @param str[in] the string to draw
+ * @param n_chars[in] the amount of chars to draw each time
+ * @param delay[in] the time (in ms) between iterations
+ * @return the \ref deferred_token to use with \ref qp_stop_scrolling_text in order to stop scrolling
+ * @return INVALID_DEFERRED_TOKEN if scrolling the text failed
+ */
+deferred_token qp_scrolling_text(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay);
+
+/**
+ * Draws a scrolling text to the display, recoloring monochrome fonts to the desired foreground/background.
+ *
+ * @param device[in] the handle of the device to control
+ * @param x[in] the x-position where the text should be drawn onto the device
+ * @param y[in] the y-position where the text should be drawn onto the device
+ * @param font[in] the handle of the font
+ * @param str[in] the string to draw
+ * @param n_chars[in] the amount of chars to draw each time
+ * @param delay[in] the time (in ms) between iterations
+ * @param hue_fg[in] the foreground hue to use, with 0-360 mapped to 0-255
+ * @param sat_fg[in] the foreground saturation to use, with 0-100% mapped to 0-255
+ * @param val_fg[in] the foreground value to use, with 0-100% mapped to 0-255
+ * @param hue_bg[in] the background hue to use, with 0-360 mapped to 0-255
+ * @param sat_bg[in] the background saturation to use, with 0-100% mapped to 0-255
+ * @param val_bg[in] the background value to use, with 0-100% mapped to 0-255
+ * @return the \ref deferred_token to use with \ref qp_stop_scrolling_text in order to stop scrolling
+ * @return INVALID_DEFERRED_TOKEN if scrolling the text failed
+ */
+deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
+
+/**
+ * Cancels a running scrolling text.
+ *
+ * @param scrolling_token[in] the scrolling token returned by \ref qp_scrolling_text, or \ref qp_scrolling_text_recolor.
+ */
+void qp_stop_scrolling_text(deferred_token scrolling_token);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter Drivers

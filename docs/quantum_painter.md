@@ -32,18 +32,19 @@ Supported devices:
 
 ## Quantum Painter Configuration :id=quantum-painter-config
 
-| Option                                   | Default | Purpose                                                                                                                                                                                      |
-|------------------------------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `QUANTUM_PAINTER_DISPLAY_TIMEOUT`        | `30000` | This controls the amount of time (in milliseconds) that all displays will remain on after the last user input. If set to `0`, the display will remain on indefinitely.                       |
-| `QUANTUM_PAINTER_TASK_THROTTLE`          | `1`     | This controls the amount of time (in milliseconds) that the Quantum Painter internal task will wait between each execution. Affects animations, display timeout, and LVGL timing if enabled. |
-| `QUANTUM_PAINTER_NUM_IMAGES`             | `8`     | The maximum number of images/animations that can be loaded at any one time.                                                                                                                  |
-| `QUANTUM_PAINTER_NUM_FONTS`              | `4`     | The maximum number of fonts that can be loaded at any one time.                                                                                                                              |
-| `QUANTUM_PAINTER_CONCURRENT_ANIMATIONS`  | `4`     | The maximum number of animations that can be executed at the same time.                                                                                                                      |
-| `QUANTUM_PAINTER_LOAD_FONTS_TO_RAM`      | `FALSE` | Whether or not fonts should be loaded to RAM. Relevant for fonts stored in off-chip persistent storage, such as external flash.                                                              |
-| `QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE`    | `32`    | The limit of the amount of pixel data that can be transmitted in one transaction to the display. Higher values require more RAM on the MCU.                                                  |
-| `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`   | `FALSE` | If 256-color palettes are supported. Requires significantly more RAM on the MCU.                                                                                                             |
-| `QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS` | `FALSE` | If native color range is supported. Requires significantly more RAM on the MCU.                                                                                                              |
-| `QUANTUM_PAINTER_DEBUG`                  | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation, use only for debugging.                                                      |
+| Option                                       | Default | Purpose                                                                                                                                                                                      |
+|----------------------------------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `QUANTUM_PAINTER_DISPLAY_TIMEOUT`            | `30000` | This controls the amount of time (in milliseconds) that all displays will remain on after the last user input. If set to `0`, the display will remain on indefinitely.                       |
+| `QUANTUM_PAINTER_TASK_THROTTLE`              | `1`     | This controls the amount of time (in milliseconds) that the Quantum Painter internal task will wait between each execution. Affects animations, display timeout, and LVGL timing if enabled. |
+| `QUANTUM_PAINTER_NUM_IMAGES`                 | `8`     | The maximum number of images/animations that can be loaded at any one time.                                                                                                                  |
+| `QUANTUM_PAINTER_NUM_FONTS`                  | `4`     | The maximum number of fonts that can be loaded at any one time.                                                                                                                              |
+| `QUANTUM_PAINTER_CONCURRENT_ANIMATIONS`      | `4`     | The maximum number of animations that can be executed at the same time.                                                                                                                      |
+| `QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS` | `4`     | The maximum number of scrolling texts that can be executed at the same time.                                                                                                                 |
+| `QUANTUM_PAINTER_LOAD_FONTS_TO_RAM`          | `FALSE` | Whether or not fonts should be loaded to RAM. Relevant for fonts stored in off-chip persistent storage, such as external flash.                                                              |
+| `QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE`        | `32`    | The limit of the amount of pixel data that can be transmitted in one transaction to the display. Higher values require more RAM on the MCU.                                                  |
+| `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`       | `FALSE` | If 256-color palettes are supported. Requires significantly more RAM on the MCU.                                                                                                             |
+| `QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS`     | `FALSE` | If native color range is supported. Requires significantly more RAM on the MCU.                                                                                                              |
+| `QUANTUM_PAINTER_DEBUG`                      | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation, use only for debugging.                                                      |
 
 Drivers have their own set of configurable options, and are described in their respective sections.
 
@@ -848,6 +849,23 @@ void keyboard_post_init_kb(void) {
     }
 }
 ```
+
+#### ** Draw Scrolling Text **
+
+```c
+deferred_token qp_scrolling_text(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay);
+deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
+```
+
+The `qp_scrolling_text` and `qp_scrolling_text_recolor` functions animate the supplied string to the screen at the given location using the font supplied, drawing `n_chars` chars each time, moving the text one position to the left every `delay` milliseconds, with the latter function allowing for monochrome-based fonts to be recolored.
+
+#### ** Stop Srolling Text **
+
+```c
+void qp_stop_scrolling_text(deferred_token scrolling_token);
+```
+
+The `qp_stop_scrolling_text` function stops the previously-started animation.
 
 <!-- tabs:end -->
 

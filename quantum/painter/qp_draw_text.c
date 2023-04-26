@@ -461,3 +461,146 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
     qp_comms_stop(device);
     return ret ? (state.xpos - x) : 0;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter External API: qp_scrolling_text
+
+deferred_token qp_scrolling_text(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay) {
+    return qp_scrolling_text_recolor(device, x, y, font, str, n_chars, delay, 0, 0, 255, 0, 0, 0);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter External API: qp_scrolling_text_recolor
+
+typedef struct scrolling_text_state_t {
+    painter_device_t      device;
+    uint16_t              x;
+    uint16_t              y;
+    painter_font_handle_t font;
+    const char *          str;
+    uint8_t               n_chars; // Chars being drawn each time
+    uint16_t              delay;
+    uint8_t               char_number; // Current positon
+    uint8_t               spaces; // Whitespaces between string repetition
+    qp_pixel_t            fg;
+    qp_pixel_t            bg;
+    deferred_token        defer_token;
+} scrolling_text_state_t;
+
+static deferred_executor_t    scrolling_text_executors[QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS] = {0};
+static scrolling_text_state_t scrolling_text_states[QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS]    = {0};
+
+static bool qp_render_scrolling_text_state(scrolling_text_state_t *state) {
+    qp_dprintf("qp_render_scrolling_text_state: entry (char #%d)\n", (int)state->char_number);
+
+    // prepare string slice
+    char *slice = malloc(state->n_chars + 1); // +1 for null terminator
+    if (slice == NULL) {
+        qp_dprintf("qp_render_scrolling_text_state: could not allocate\n");
+        return false;
+    }
+    memset(slice, 0, state->n_chars + 1);
+
+    uint8_t len = strlen(state->str);
+
+    for (uint8_t i = 0; i < state->n_chars; ++i) {
+        uint8_t index = (state->char_number + i);
+
+        // wrap to string length (plus spaces)
+        uint8_t wrapped = index % (len + state->spaces);
+
+        // copy a char or add separator whitespaces
+        if (wrapped < len) {
+            slice[i] = state->str[wrapped];
+        } else {
+            slice[i] = ' ';
+        }
+    }
+
+
+    // draw it
+    bool ret = qp_drawtext_recolor(state->device, state->x, state->y, state->font, slice, state->fg.hsv888.h, state->fg.hsv888.s, state->fg.hsv888.v, state->bg.hsv888.h, state->bg.hsv888.s, state->bg.hsv888.v);
+    free((void *)slice); // de-allocate after use
+
+    // update position
+    if (ret) {
+        ++state->char_number;
+        if (state->char_number == len + state->spaces + 1) {
+            state->char_number = 0;
+        }
+    }
+    qp_dprintf("qp_render_scrolling_text_state: %s\n", ret ? "ok" : "fail");
+    return ret;
+}
+
+static uint32_t scrolling_text_callback(uint32_t trigger_time, void *cb_arg) {
+    scrolling_text_state_t *state = (scrolling_text_state_t *)cb_arg;
+    bool                    ret = qp_render_scrolling_text_state(state);
+    if (!ret) {
+        // Setting the device to NULL clears the scrolling slot
+        state->device = NULL;
+    }
+    // If we're successful, keep scrolling -- returning 0 cancels the deferred execution
+    return ret ? state->delay : 0;
+}
+
+deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg) {
+    qp_dprintf("qp_scrolling_text_recolor: entry\n");
+
+    scrolling_text_state_t *scrolling_state = NULL;
+    for (int i = 0; i < QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS; ++i) {
+        if (scrolling_text_states[i].device == NULL) {
+            scrolling_state = &scrolling_text_states[i];
+            break;
+        }
+    }
+
+    if (!scrolling_state) {
+        qp_dprintf("qp_scrolling_text_recolor: fail (could not find free scrolling slot)\n");
+        return INVALID_DEFERRED_TOKEN;
+    }
+
+    // Prepare the scrolling state
+    scrolling_state->device      = device;
+    scrolling_state->x           = x;
+    scrolling_state->y           = y;
+    scrolling_state->font        = font;
+    scrolling_state->str         = str;
+    scrolling_state->n_chars     = n_chars;
+    scrolling_state->delay       = delay;
+    scrolling_state->char_number = 0;
+    scrolling_state->spaces      = 2; // TODO: Receive as argument?
+    scrolling_state->fg          = (qp_pixel_t){.hsv888 = {.h = hue_fg, .s = sat_fg, .v = val_fg}};
+    scrolling_state->bg          = (qp_pixel_t){.hsv888 = {.h = hue_bg, .s = sat_bg, .v = val_bg}};
+
+    // Draw the first string
+    if (!qp_render_scrolling_text_state(scrolling_state)) {
+        scrolling_state->device = NULL; // disregard the allocated scroling slot
+        qp_dprintf("qp_scrolling_text_recolor: fail (could not render first string)\n");
+        return INVALID_DEFERRED_TOKEN;
+    }
+
+    // Set up the timer
+    scrolling_state->defer_token = defer_exec_advanced(scrolling_text_executors, QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS, delay, scrolling_text_callback, scrolling_state);
+    if (scrolling_state->defer_token == INVALID_DEFERRED_TOKEN) {
+        scrolling_state->device = NULL; // disregard the allocated scrolling slot
+        qp_dprintf("qp_scrolling_text_recolor: fail (could not set up scrolling executor)\n");
+        return INVALID_DEFERRED_TOKEN;
+    }
+
+    qp_dprintf("qp_scrolling_text_recolor: ok (deferred token = %d)\n", (int)scrolling_state->defer_token);
+    return scrolling_state->defer_token;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter External API: qp_stop_scrolling_text
+
+void qp_stop_scrolling_text(deferred_token scrolling_token) {
+    for (int i = 0; i < QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS; ++i) {
+        if (scrolling_text_states[i].defer_token == scrolling_token) {
+            cancel_deferred_exec_advanced(scrolling_text_executors, QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS, scrolling_token);
+            scrolling_text_states[i].device = NULL;
+            return;
+        }
+    }
+}
