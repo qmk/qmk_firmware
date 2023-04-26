@@ -56,12 +56,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-uint8_t tiles[5][5] = {
-    {0,0,0,0,0},
-    {0,0,0,0,0},
-    {0,0,0,0,0},
-    {0,0,0,0,0},
-    {0,0,0,0,0},
+bool tiles[5][5] = {
+    {false, false, false, false, false},
+    {false, false, false, false, false},
+    {false, false, false, false, false},
+    {false, false, false, false, false},
+    {false, false, false, false, false},
 };
 
 /* Because snake pattern of leds */
@@ -78,7 +78,7 @@ const uint8_t remap[25] = {
 bool is_blank(void) {
     for (uint8_t y = 0; y < 5; y++) {
         for (uint8_t x = 0; x < 5; x++) {
-            if (tiles[x][y] == 1) {
+            if (tiles[x][y]) {
                 return false;
             }
         }
@@ -87,18 +87,18 @@ bool is_blank(void) {
 }
 
 void do_move(uint8_t x, uint8_t y) {
-    tiles[x][y] ^= 1;
+    tiles[x][y] ^= true;
     if (x > 0) {
-        tiles[x - 1][y] ^= 1;
+        tiles[x - 1][y] ^= true;
     }
     if (y > 0) {
-        tiles[x][y - 1] ^= 1;
+        tiles[x][y - 1] ^= true;
     }
     if (x < 4) {
-        tiles[x + 1][y] ^= 1;
+        tiles[x + 1][y] ^= true;
     }
     if (y < 4) {
-        tiles[x][y + 1] ^= 1;
+        tiles[x][y + 1] ^= true;
     }
 }
 
@@ -107,7 +107,7 @@ void refresh_leds(void) {
         for (uint8_t x = 0; x < 5; x++) {
             uint8_t tile  = tiles[x][y];
             uint8_t index = (y * 5) + x;
-            if (tile == 1) {
+            if (tile) {
                 setrgb(RGB_RED, &led[remap[index]]);
             } else {
                 setrgb(RGB_WHITE, &led[remap[index]]);
@@ -139,8 +139,7 @@ void keyboard_post_init_user(void) {
     start_game();
 }
 
-uint8_t led_index = 0;
-bool    won       = false;
+bool won = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
