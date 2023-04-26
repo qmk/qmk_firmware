@@ -22,3 +22,7 @@ enum layers{
     WIN_BASE,
     WIN_FN
 };
+
+#define MAC_FN1     MAC_FN
+#define WIN_FN1     WIN_FN
+#define MAC_WIN_FN2 255  // not used, keymap does not have fn2 key
