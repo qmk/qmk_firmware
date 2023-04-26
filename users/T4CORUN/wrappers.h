@@ -253,7 +253,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #if defined(POINTING_DEVICE_ENABLE)
 #   define __________________MOUSE_L1_________________        KC_ESC,  SNP_TOG, KC_BTN3, DPI_MOD, S_D_MOD
-#   define __________________MOUSE_L2_________________        KC_BTN5, KC_BTN4, DRG_TOG, KC_BTN1, KC_BTN2
+#   define __________________MOUSE_L2_________________        KC_BTN5, KC_BTN4, DRGSCRL, KC_BTN1, KC_BTN2
 #   define __________________MOUSE_L3_________________        __________________UCCPR_L__________________
 #   define          _________MOUSE_L4________                 _______, ___x___, ___x___
 
