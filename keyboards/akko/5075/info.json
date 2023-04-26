@@ -18,6 +18,7 @@
         "command": false,
         "nkro": true,
         "encoder": true,
+        "dip_switch": true,
         "rgb_matrix": true
     },
     "matrix_pins": {
