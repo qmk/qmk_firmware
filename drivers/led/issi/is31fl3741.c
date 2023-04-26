@@ -104,9 +104,7 @@ void IS31FL3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 }
 
 bool IS31FL3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // unlock the command register and select PG2
-    IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-    IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM0);
+    // Assume PG1 is already selected
 
     for (int i = 0; i < 342; i += 18) {
         if (i == 180) {
@@ -222,6 +220,10 @@ void IS31FL3741_set_led_control_register(uint8_t index, bool red, bool green, bo
 
 void IS31FL3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
+        // unlock the command register and select PG2
+        IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
+        IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM0);
+
         IS31FL3741_write_pwm_buffer(addr, g_pwm_buffer[index]);
     }
 
