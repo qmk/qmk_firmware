@@ -18,43 +18,17 @@
 #include QMK_KEYBOARD_H
 
 // clang-format off
-enum my_keycodes {
-    K00 = QK_USER,
-    K01,
-    K02,
-    K03,
-    K04,
-    K05,
-    K06,
-    K07,
-    K08,
-    K09,
-    K10,
-    K11,
-    K12,
-    K13,
-    K14,
-    K15,
-    K16,
-    K17,
-    K18,
-    K19,
-    K20,
-    K21,
-    K22,
-    K23,
-    K24
-};
 
+// Exact keymap is irrelevant as we're using rows/cols
+// but we need _something_ set so we're using no-ops
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        K00, K01, K02, K03, K04,
-        K05, K06, K07, K08, K09,
-        K10, K11, K12, K13, K14,
-        K15, K16, K17, K18, K19,
-        K20, K21, K22, K23, K24
-    )
-};
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+    )};
 
 bool tiles[5][5] = {
     {false, false, false, false, false},
@@ -148,10 +122,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             won = false;
             start_game();
         } else {
-            uint8_t offset = keycode - K00;
-            div_t   coords = div(offset, 5);
-            uint8_t x      = coords.rem;
-            uint8_t y      = coords.quot;
+            uint8_t x = record->event.key.col;
+            uint8_t y = record->event.key.row;
             do_move(x, y);
             if (is_blank()) {
                 rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
