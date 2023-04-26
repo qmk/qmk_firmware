@@ -6,7 +6,6 @@
 
 
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Workman  
@@ -25,23 +24,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
   */
 
- [_WM] = LAYOUT_ortho_4x12_wrapper (
-                                                                                         RGB_TOG, 
+  [_WM] = LAYOUT_planck_grid_wrapper(
         _____________WORKMAN_412_001_L_____________, _____________WORKMAN_412_001_R_____________,
         _____________WORKMAN_412_002_L_____________, _____________WORKMAN_412_002_R_____________,
         _____________WORKMAN_412_003_L_____________, _____________WORKMAN_412_003_R_____________,
         _____________WORKMAN_412_004_L_____________, _____________WORKMAN_412_004_R_____________
   ),
 
- [_QW] = LAYOUT_ortho_4x12_wrapper (
-                                                                                                           RGB_TOG,
-        KC_TAB,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSPC,
-        KC_ESC,  _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT,
-        KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_ENT,
-                 _____________WORKMAN_412_004_L_____________, _____________WORKMAN_412_004_R_____________
+  [_QW] = LAYOUT_planck_grid_wrapper(
+        KC_TAB,  _________________QWERTY_L1_________________,    _________________QWERTY_R1_________________, KC_BSPC,
+        KC_ESC,  _________________QWERTY_L2_________________,    _________________QWERTY_R2_________________, KC_QUOT,
+        KC_LSFT, _________________QWERTY_L3_________________,    _________________QWERTY_R3_________________, KC_ENT,
+                 _____________WORKMAN_412_004_L_____________,    _____________WORKMAN_412_004_R_____________
     ),
-
-
 
 
   /* Lower 
@@ -59,8 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │     │     │     │     │     │     │   │     │     │     │ ENT │     │LEFT │
   * └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
   */
-    [_LOWER] = LAYOUT_ortho_4x12_wrapper (
-                                                                                         KC_MUTE,
+  [_LOWER] = LAYOUT_planck_grid_wrapper (
         _______________LOWER_412_L1________________, _______________LOWER_412_R1________________,
         _______________LOWER_412_L2________________, _______________LOWER_412_R2________________,
         _______________LOWER_412_L3________________, _______________LOWER_412_R3________________,
@@ -83,13 +77,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │     │     │     │     │     │     │   │     │     │     │     │     │     │
   * └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
   */
-    [_RAISE] = LAYOUT_ortho_4x12_wrapper (
-                                                                                         KC_MUTE,
+  [_RAISE] = LAYOUT_planck_grid_wrapper(
         _______________RAISE_412_L1________________, _______________RAISE_412_R1________________,
         _______________RAISE_412_L2________________, _______________RAISE_412_R2________________,
         _______________RAISE_412_L3________________, _______________RAISE_412_R3________________,
         _________________BLANK_6___________________, _________________BLANK_6___________________
-    ),
+  ),
 
 
   /* EXTRAS
@@ -97,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │     │ !   │     │     │     │     │   │     │ /\  |  [  |  ]  |  ;  │     │
   * │     │     │     │     │     │     │   │     │     │     │     │     │     │
   * ├─────┼─────┼─────┼─────╆━━━━━╅─────┤   ├─────╆━━━━━╅─────┼─────┼─────┼─────┤
-  * │SHIFT│     |     |EXTRA┃     ┃     │   │     ┃     ┃  (  |  )  |  '  |     │
+  * │SHIFT│     |     |     ┃EXTRA┃     │   │     ┃     ┃  (  |  )  |  '  |     │
   * │     │     │     │     ┃     ┃     │   │     ┃     ┃     │     │     │     │
   * ├─────┼─────┼─────┼─────╄━━━━━╃─────┤   ├─────╄━━━━━╃─────┼─────┼─────┼─────┤
   * │     │     │     │     │     │     │   │     │     │  ,  |  .  |  ?  │     │
@@ -107,14 +100,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │     │     │     │     │     │     │   │     │     │     │     │     │     │
   * └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
   */
-  [_EX] = LAYOUT_ortho_4x12_wrapper (
-                                                                                         KC_MUTE,
+  [_EX] = LAYOUT_planck_grid_wrapper(
         ______________EXTRAS_412_L1________________, ______________EXTRAS_412_R1________________,
         ______________EXTRAS_412_L2________________, ______________EXTRAS_412_R2________________,
         ______________EXTRAS_412_L3________________, ______________EXTRAS_412_R3________________,
         ______________EXTRAS_412_L4________________, ______________EXTRAS_412_R4________________
   ),
-
 
 
   /* FUNCTION
@@ -132,8 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │     │     │     │     │     │     │   │     │     │     │     │     │     │
   * └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
   */
-  [_FN] = LAYOUT_ortho_4x12_wrapper (
-                                                                                           KC_MUTE,
+  [_FN] = LAYOUT_planck_grid_wrapper(
         _____________FUNCTION_412_L1_______________,   _____________FUNCTION_412_R1_______________,
         _____________FUNCTION_412_L2_______________,   _____________FUNCTION_412_R2_______________,
         _____________FUNCTION_412_L3_______________,   _____________FUNCTION_412_R3_______________,
@@ -156,9 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * │     │     │     │     │     │     │   │     │     │     │     │     │     │
   * └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
   */
-
-  [_SYMB] = LAYOUT_ortho_4x12_wrapper (
-                                                                                                                       KC_MUTE,
+  [_SYMB] = LAYOUT_planck_grid_wrapper(
         _______,  KC_DLR,   KC_CIRC,  KC_LABK,  KC_RABK,  _______,  _______, KC_PIPE,   KC_LBRC,   KC_RBRC,  KC_MINS,  _______,
         _______,  KC_PERC,  KC_COLN,  KC_SCLN,  KC_PLUS,  KC_EQL,   _______, _______,   KC_LPRN,   KC_RPRN,  KC_UNDS,  _______,
         _______,  KC_AMPR,  KC_QUOT,  KC_DQUO,  KC_ASTR,  KC_HASH,  KC_EXLM,   KC_QUES,   KC_SLSH,  KC_BSLS,   KC_AT,  _______,
@@ -171,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #    define NUM_DIRECTIONS 2
 #endif
 
-#if defined(ENCODER_MAP_ENABLE) && defined(KEYBOARD_1upkeyboards_pi40_mit_v1_0)
+#if defined(ENCODER_MAP_ENABLE) && defined(KEYBOARD_planck_rev6)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_WM]   =  { ENCODER_CCW_CW(LCTL(KC_V), LCTL(KC_C)) },
     [_QW] =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
