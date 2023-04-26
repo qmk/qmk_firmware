@@ -297,7 +297,7 @@ static uint8_t  alarm_cnt        = 0;
 static uint8_t  RGB_HSV_level;
 HSV             hsv;
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     kb_config.raw = eeconfig_read_kb(); // Read status from EEPROM
     if (kb_config.MacMode_flag) { 
         layer_on(MAC_B);
@@ -433,7 +433,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 layer_state_set(1 << WIN_B);
                 kb_config.MacMode_flag     = false;
                 kb_config._WASD_layer_flag = false;
-                eeconfig_update_user(kb_config.raw);
+                eeconfig_update_kb(kb_config.raw);
             }
             return false;
         case DF(MAC_B):
@@ -448,7 +448,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 eeconfig_update_keymap(keymap_config.raw);
                 kb_config.MacMode_flag     = true;
                 kb_config._WASD_layer_flag = false;
-                eeconfig_update_user(kb_config.raw);
+                eeconfig_update_kb(kb_config.raw);
             }
             return false;
         case TG(WIN_W):
@@ -457,7 +457,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 rgb_matrix_toggle_noeeprom();
                 current_time                 = timer_read();
                 kb_config._WASD_layer_flag = !layer_state_is(WIN_W);
-                eeconfig_update_user(kb_config.raw);
+                eeconfig_update_kb(kb_config.raw);
             }
             return true;
         case TG(MAC_W):
@@ -466,7 +466,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 rgb_matrix_toggle_noeeprom();
                 current_time                 = timer_read();
                 kb_config._WASD_layer_flag = !layer_state_is(MAC_W);
-                eeconfig_update_user(kb_config.raw);
+                eeconfig_update_kb(kb_config.raw);
             }
             return true;
         case GU_TOGG:
