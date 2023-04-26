@@ -482,7 +482,7 @@ typedef struct scrolling_text_state_t {
     uint8_t               n_chars; // Chars being drawn each time
     uint32_t              delay;
     uint8_t               char_number; // Current positon
-    uint8_t               spaces; // Whitespaces between string repetition
+    uint8_t               spaces;      // Whitespaces between string repetition
     qp_pixel_t            fg;
     qp_pixel_t            bg;
     deferred_token        defer_token;
@@ -518,7 +518,6 @@ static bool qp_render_scrolling_text_state(scrolling_text_state_t *state) {
         }
     }
 
-
     // draw it
     bool ret = qp_drawtext_recolor(state->device, state->x, state->y, state->font, slice, state->fg.hsv888.h, state->fg.hsv888.s, state->fg.hsv888.v, state->bg.hsv888.h, state->bg.hsv888.s, state->bg.hsv888.v);
     free((void *)slice); // de-allocate after use
@@ -536,7 +535,7 @@ static bool qp_render_scrolling_text_state(scrolling_text_state_t *state) {
 
 static uint32_t scrolling_text_callback(uint32_t trigger_time, void *cb_arg) {
     scrolling_text_state_t *state = (scrolling_text_state_t *)cb_arg;
-    bool                    ret = qp_render_scrolling_text_state(state);
+    bool                    ret   = qp_render_scrolling_text_state(state);
     if (!ret) {
         // Setting the device to NULL clears the scrolling slot
         state->device = NULL;
