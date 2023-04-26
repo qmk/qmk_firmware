@@ -321,7 +321,7 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
         writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-        writePin(LED_MAC_OS_PIN, user_config.MacMode_flag);
+        writePin(LED_MAC_OS_PIN, kb_config.MacMode_flag);
         writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
     }
     return res;
@@ -337,7 +337,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             fn_make_flag = record->event.pressed;
             return true;
         case KC_RGUI:
-            if (user_config.MacMode_flag) {
+            if (kb_config.MacMode_flag) {
                 return true;
             }
             Rwin_make_flag = false;
@@ -355,7 +355,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             }
             return true;
         case KC_LGUI:
-            if (user_config.MacMode_flag) {
+            if (kb_config.MacMode_flag) {
                 return true;
             }
             Lwin_make_flag = false;
@@ -373,7 +373,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             }
             return true;
         case KC_RALT:
-            if (!user_config.MacMode_flag) {
+            if (!kb_config.MacMode_flag) {
                 return true;
             }
             Rwin_make_flag = false;
@@ -391,7 +391,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             }
             return true;
         case KC_LALT:
-            if (!user_config.MacMode_flag) {
+            if (!kb_config.MacMode_flag) {
                 return true;
             }
             Lwin_make_flag = false;
@@ -431,9 +431,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
                 set_single_persistent_default_layer(WIN_B);
                 layer_state_set(1 << WIN_B);
-                user_config.MacMode_flag     = false;
-                user_config._WASD_layer_flag = false;
-                eeconfig_update_user(user_config.raw);
+                kb_config.MacMode_flag     = false;
+                kb_config._WASD_layer_flag = false;
+                eeconfig_update_user(kb_config.raw);
             }
             return false;
         case DF(MAC_B):
@@ -446,9 +446,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 layer_state_set(1 << MAC_B);
                 keymap_config.no_gui = 0;
                 eeconfig_update_keymap(keymap_config.raw);
-                user_config.MacMode_flag     = true;
-                user_config._WASD_layer_flag = false;
-                eeconfig_update_user(user_config.raw);
+                kb_config.MacMode_flag     = true;
+                kb_config._WASD_layer_flag = false;
+                eeconfig_update_user(kb_config.raw);
             }
             return false;
         case TG(WIN_W):
@@ -456,8 +456,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 alarm_flag = true;
                 rgb_matrix_toggle_noeeprom();
                 current_time                 = timer_read();
-                user_config._WASD_layer_flag = !layer_state_is(WIN_W);
-                eeconfig_update_user(user_config.raw);
+                kb_config._WASD_layer_flag = !layer_state_is(WIN_W);
+                eeconfig_update_user(kb_config.raw);
             }
             return true;
         case TG(MAC_W):
@@ -465,8 +465,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 alarm_flag = true;
                 rgb_matrix_toggle_noeeprom();
                 current_time                 = timer_read();
-                user_config._WASD_layer_flag = !layer_state_is(MAC_W);
-                eeconfig_update_user(user_config.raw);
+                kb_config._WASD_layer_flag = !layer_state_is(MAC_W);
+                eeconfig_update_user(kb_config.raw);
             }
             return true;
         case GU_TOGG:
