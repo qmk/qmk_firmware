@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	)
 };
 
-void tap_dance_choose_layer (qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_choose_layer (tap_dance_state_t *state, void *user_data) {
 	switch (state->count) {
 		case 1:
 			layer_on(_LOWER);
@@ -119,7 +119,7 @@ void tap_dance_choose_layer (qk_tap_dance_state_t *state, void *user_data) {
 	}
 }
 
-void tap_dance_choose_layer_reset (qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_choose_layer_reset (tap_dance_state_t *state, void *user_data) {
 	switch (state->count) {
 		case 1:
 			layer_off(_LOWER);
@@ -138,7 +138,7 @@ void tap_dance_choose_layer_reset (qk_tap_dance_state_t *state, void *user_data)
 	}
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
 	[TD_SWAP_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_choose_layer, tap_dance_choose_layer_reset)
 };
 

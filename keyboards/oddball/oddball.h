@@ -36,7 +36,7 @@
     }
 
 enum custom_keycodes {
-    KC_SCROLL = SAFE_RANGE,
+    KC_SCROLL = QK_KB_0,
     KC_CPI_1,
     KC_CPI_2,
     KC_CPI_3

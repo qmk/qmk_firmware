@@ -1,6 +1,6 @@
 #include "jotpad16.h"
 
-void keyboard_pre_init_kb() {
+void keyboard_pre_init_kb(void) {
     setPinOutput(JOTPAD16_LED1);
     setPinOutput(JOTPAD16_LED2);
     
