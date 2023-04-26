@@ -525,7 +525,7 @@ static bool qp_render_scrolling_text_state(scrolling_text_state_t *state) {
     // update position
     if (ret) {
         ++state->char_number;
-        if (state->char_number == len + state->spaces + 1) {
+        if (state->char_number == len + state->spaces) {
             state->char_number = 0;
         }
     }
