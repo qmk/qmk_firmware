@@ -29,6 +29,11 @@ KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
 KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
 
+ifeq ($(strip $(DUMP_CI_METADATA)),yes)
+    $(info CI Metadata: KEYBOARD=$(KEYBOARD))
+    $(info CI Metadata: KEYMAP=$(KEYMAP))
+endif
+
 # Force expansion
 TARGET := $(TARGET)
 
