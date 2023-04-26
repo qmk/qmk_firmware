@@ -36,8 +36,8 @@
         KC_TAB,  K00,     K01,     K02,     K03,     K04,     XXX,         KC_AA,   K05,     K06,     K07,     K08,     K09,     XXX,\
         KC_LCTL, K10,     K11,     K12,     K13,     K14,     KC_AE,       KC_OE,   K15,     K16,     K17,     K18,     K19,     XXX,\
         XXX,     K20,     K21,     K22,     K23,     K24,                           K25,     K26,     K27,     K28,     K29,     XXX,\
-        XXX,     XXX,     XXX,     XXX,     K32,              K34,         K35,              K37,     XXX,     XXX,     XXX,     XXX,\
-                                            K33,     XXX,     XXX,         XXX,     XXX,     K36\
+        XXX,     XXX,     XXX,     XXX,     K32,              XXX,         XXX,              K37,     XXX,     XXX,     XXX,     XXX,\
+                                            K33,     K34,     XXX,         XXX,     K35,     K36\
     )
 #define LAYOUT_moonlander_gaming( \
      K00, K01, K02, K03, K04,               K05, K06, K07, K08, K09,\
@@ -115,7 +115,13 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, kc: 0x%04X, col: %2u, row: %2u, res %2u\n", other_keycode, other_record->event.key.col, other_record->event.key.row, tap_hold_keycode, tap_hold_record->event.key.col, tap_hold_record->event.key.row, tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4);
-
+  // Exceptionally consider the following chords as holds, even though they
+  // are on the same hand in Dvorak.
+  switch (tap_hold_keycode) {
+    case HOME_S:  // S + D and S + W.
+      if (other_keycode == KC_D || other_keycode == KC_W || other_keycode == KC_P) { return true; }
+      break;
+  }
   // Also allow same-hand holds when the other key is in the rows below the
   // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split.
   if (other_record->event.key.row % (MATRIX_ROWS / 2) >= 4|| tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4 ) { return true; }

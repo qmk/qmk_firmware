@@ -4,7 +4,6 @@
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
-#undef PERMISSIVE_HOLD
 #define PERMISSIVE_HOLD
 #undef TAPPING_TERM
 #define TAPPING_TERM 220
@@ -22,12 +21,3 @@
 #define MOUSEKEY_MAX_SPEED      6
 #undef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX    64
-
-
-#if defined (KEYBOARD_keebio_iris_rev2)
-// https://github.com/qmk/qmk_firmware/blob/master/docs/squeezing_avr.md
-#undef LOCKING_SUPPORT_ENABLE
-#undef LOCKING_RESYNC_ENABLE
-#define NO_MUSIC_MODE
-#define LAYER_STATE_16BIT
-#endif
