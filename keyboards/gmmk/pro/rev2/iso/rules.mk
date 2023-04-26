@@ -18,3 +18,8 @@ RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = AW20216
 EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = spi_flash
+
+LTO_ENABLE = yes
+
+# Enter lower-power sleep mode when on the ChibiOS idle thread
+OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
