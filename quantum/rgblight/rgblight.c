@@ -792,8 +792,7 @@ static void rgblight_layers_write(void) {
 #    ifdef RGBLIGHT_LAYERS_RETAIN_VAL
                 if (segment.val == 0) {
                     sethsv(segment.hue, segment.sat, segment.val, led_ptr);
-                }
-                else {
+                } else {
                     sethsv(segment.hue, segment.sat, current_val, led_ptr);
                 }
 #    else
