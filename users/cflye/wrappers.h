@@ -41,12 +41,15 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________SYM_R2___________________    KC_PIPE,           KC_LPRN,           KC_RPRN,           KC_UNDS,           KC_QUES
 #define ___________________SYM_R3___________________    KC_TILD,           KC_LCBR,           KC_RCBR,           KC_DLR,            KC_AT
 
-#define ___________________NUM_L1___________________    KC_LBRC,           KC_7,              KC_8,              KC_9,              KC_RBRC
-#define ___________________NUM_L2___________________    KC_SCLN,           KC_4,              KC_5,              KC_6,              KC_EQL
-#define ___________________NUM_L3___________________    KC_GRV,            KC_1,              KC_2,              KC_3,              KC_BSLS
-#define ___________________NUM_L4___________________    XXXXXXX,           XXXXXXX,           KC_DOT,            KC_0,              KC_MINS
+#define ___________________SYM_LM2__________________    HOME_EXLM,         HOME_MINS,         HOME_PLUS,         HOME_EQL,          KC_HASH
+#define ___________________SYM_RM2__________________    KC_PIPE,           HOME_LPRN,         HOME_RPRN,         HOME_UNDS,         HOME_QUES
 
-#define ___________________NUM_R1___________________    KC_AA,             XXXXXXX,           XXXXXXX,           XXXXXXX,           TD(TD_BOOT)
+#define ___________________NUM_L1___________________    KC_SLSH,           KC_7,              KC_8,              KC_9,              KC_ASTR
+#define ___________________NUM_L2___________________    KC_SCLN,           KC_4,              KC_5,              KC_6,              KC_MINS
+#define ___________________NUM_L3___________________    KC_0,              KC_1,              KC_2,              KC_3,              KC_PLUS
+#define ___________________NUM_L4___________________    ___________________BLANK___________________
+
+#define ___________________NUM_R1___________________    KC_AA,             TD(TD_BASE),       TD(TD_GAMING),     TD(TD_EECLEAR),    TD(TD_BOOT)
 #define ___________________NUM_R2___________________    KC_OE,             KC_LSFT,           KC_LCTL,           KC_LALT,           KC_LGUI
 #define ___________________NUM_R3___________________    KC_AE,             KC_DLR,            KC_LCBR,           KC_ALGR,           XXXXXXX
 #define ___________________NUM_R4___________________    ___________________BLANK___________________
@@ -57,12 +60,12 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________FUN_L4___________________    ___________________BLANK___________________
 // TODO: kc_app 
 
-#define ___________________FUN_R1___________________    XXXXXXX,           TD(TD_BASE),    TD(TD_GAMING),        TD(TD_EECLEAR),    TD(TD_BOOT)
+#define ___________________FUN_R1___________________    XXXXXXX,           TD(TD_BASE),       TD(TD_GAMING),     TD(TD_EECLEAR),    TD(TD_BOOT)
 #define ___________________FUN_R2___________________    XXXXXXX,           KC_LSFT,           KC_LCTL,           KC_LALT,           KC_LGUI
 #define ___________________FUN_R3___________________    ___________________BLANK___________________
 #define ___________________FUN_R4___________________    ___________________BLANK___________________
 
-#define __________________MEDIA_L1__________________    TD(TD_BOOT),       XXXXXXX,           XXXXXXX,           XXXXXXX,        XXXXXXX
+#define __________________MEDIA_L1__________________    TD(TD_BOOT),       TD(TD_EECLEAR),    TD(TD_GAMING),     TD(TD_BASE),       XXXXXXX
 #define __________________MEDIA_L2__________________    KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NA
 #define __________________MEDIA_L3__________________    ___________________BLANK___________________
 #define __________________MEDIA_L4__________________    ___________________BLANK___________________
