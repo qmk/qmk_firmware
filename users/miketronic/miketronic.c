@@ -4,8 +4,9 @@
 #include "miketronic.h"
 
 
+__attribute__ ((weak)) void keyboard_post_init_keymap(void) { }
+
 // Init effect for RGB boards only
-// https://github.com/qmk/qmk_firmware/blob/master/docs/custom_quantum_functions.md
 void keyboard_post_init_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgblight_enable_noeeprom(); // enables Rgb, without saving settings
