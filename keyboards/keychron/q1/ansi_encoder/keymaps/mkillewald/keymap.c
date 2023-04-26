@@ -68,14 +68,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
-void matrix_init_user(void) {
-    matrix_init_mkillewald();
-}
-
-void keyboard_post_init_user(void) {
-    keyboard_post_init_mkillewald();
-}
-
 void housekeeping_task_user(void) {
     housekeeping_task_keychron();
     housekeeping_task_mkillewald();
@@ -87,33 +79,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    uint8_t current_layer = get_highest_layer(layer_state);
-    switch (current_layer) {
-        case MAC_BASE:
-        case WIN_BASE:
-#ifdef CAPS_LOCK_INDICATOR_COLOR
-            if (host_keyboard_led_state().caps_lock) {
-                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
-            }
-#endif
-#ifdef CAPS_WORD_INDICATOR_COLOR
-            if (is_caps_word_on()) {
-                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_word_indicator, CAPS_WORD_INDICATOR_COLOR);
-            }
-#endif
-            break;
-        case MAC_FN:
-        case WIN_FN:
-#ifdef FN1_LAYER_COLOR
-            if (user_config_get_fn_layer_color_enable()) {
-                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, FN1_LAYER_COLOR);
-            }
-#endif
-            if (user_config_get_fn_layer_transparent_keys_off()) {
-                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, RGB_OFF);
-            }
-            break;
-    }
-    return false;
-}
