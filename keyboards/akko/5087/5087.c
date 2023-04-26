@@ -279,9 +279,9 @@ typedef union {
         bool MacMode_flag : 1;
         bool _WASD_layer_flag : 1;
     };
-} user_config_t;
+} kb_config_t;
 
-user_config_t user_config;
+kb_config_t kb_config;
 
 static bool     fn_make_flag     = false;
 static bool     Rwin_make_flag   = false;
