@@ -17,13 +17,15 @@
      /* RGB Defines */
 #    define RGB_DI_PIN GP4
 
-#ifdef KEYBOARD_ciaanh_kanagawa_ansi
-#   define RGB_MATRIX_LED_COUNT 82
-#endif 
+#    ifdef KEYBOARD_ciaanh_kanagawa_ansi
+#         define RGB_MATRIX_LED_COUNT 82
+#    endif 
 
-#ifdef KEYBOARD_ciaanh_kanagawa_iso
-#   define RGB_MATRIX_LED_COUNT 83
-#endif 
+#    ifdef KEYBOARD_ciaanh_kanagawa_iso
+#         define RGB_MATRIX_LED_COUNT 83
+#    endif 
+
+#    define RGB_MATRIX_CENTER { 73, 32 }
 
      /* Enable Framebuffer and keypress effects */
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
