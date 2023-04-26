@@ -29,5 +29,6 @@ enum layer_names {
 		MEH(KC_M), MEH(KC_N), MEH(KC_O), MEH(KC_P), MEH(KC_Q), MEH(KC_R), 
 		MEH(KC_S), MEH(KC_T), MEH(KC_U), MEH(KC_V), MEH(KC_W), MEH(KC_X), 
 		MEH(KC_Y), MEH(KC_Z), MEH(KC_1), MEH(KC_2), MEH(KC_3), MEH(KC_4), 
-		MEH(KC_5), MEH(KC_6), MEH(KC_7), MEH(KC_8), MEH(KC_9), MEH(KC_0)),
-	};
+		MEH(KC_5), MEH(KC_6), MEH(KC_7), MEH(KC_8), MEH(KC_9), MEH(KC_0)
+	)	
+};

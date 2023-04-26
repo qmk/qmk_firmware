@@ -1,6 +1,6 @@
 # Asesmero 6x6
 
-! Asesmero 6x6(https://bit.ly/3mM9xPz)
+! Asesmero 6x6(https://i.imgur.com/wG2Lpggh.jpg)
 
 A simple 6x6 Keyboard made for use it as a streamdeck.
 
