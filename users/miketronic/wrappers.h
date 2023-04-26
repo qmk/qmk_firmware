@@ -20,7 +20,12 @@
 // clang-format off
 #define LAYOUT_ortho_4x12_wrapper(...)  LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_planck_grid_wrapper(...)  LAYOUT_planck_grid(__VA_ARGS__)
-#define LAYOUT_3x11_wrapper(...)  LAYOUT(__VA_ARGS__)
+#if (defined(KEYBOARD_hazel_satpad))
+#   define LAYOUT_3x11_wrapper(...)  LAYOUT(__VA_ARGS__)
+#endif
+#if (defined(KEYBOARD_mechwild_bde_rev2))
+#   define LAYOUT_3x14_wrapper(...)  LAYOUT(__VA_ARGS__)
+#endif
 
 
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T

@@ -175,9 +175,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_WM]   =  { ENCODER_CCW_CW(LCTL(KC_V), LCTL(KC_C)) },
     [_QW] =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
-    [_LOWER]   =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
-    [_RAISE] =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
-    [_EX] =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
+    [_LOWER]   =  { ENCODER_CCW_CW(____,  ____) },
+    [_RAISE] =  { ENCODER_CCW_CW(____,  ____) },
+    [_EX] =  { ENCODER_CCW_CW(____,  ____) },
     [_FN]  =  { ENCODER_CCW_CW(RGB_MOD,  RGB_RMOD) },
     [_SYMB]  =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) }
 };
