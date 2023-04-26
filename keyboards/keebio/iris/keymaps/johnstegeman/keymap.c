@@ -39,10 +39,6 @@ _CONTROL,
 // Space when tapped, shift when held 
 #define SHSP MT(MOD_RSFT, KC_SPC)
 
-enum custom_keycodes {
-  COLEMAK = QK_USER,   
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK] = LAYOUT(
@@ -55,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT, KC_Z,     CTX,     CPC,    KC_D,     PSV,    KC_HOME,          KC_RALT,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_EQL,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                 LT(1,KC_SPC), ALEN,  KC_LGUI,                  KC_BSPC,   SHSP,  LT(2,KC_ENT)
+                                     MO(1),    ALEN,  KC_LGUI,                  KC_BSPC,   SHSP,  LT(2,KC_ENT)
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -140,12 +136,9 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-   //int layer = get_highest_layer(state);
-    //uprintf("Layer %4u\n", layer);
  
     rgblight_set_layer_state(_COLEMAK, layer_state_cmp(state, _COLEMAK));
     rgblight_set_layer_state(_NAVNUM, layer_state_cmp(state, _NAVNUM));
-    //rgblight_set_layer_state(0, true);
-    //rgblight_set_layer_state(1, true);
+
     return state;
 }
