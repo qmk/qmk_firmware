@@ -8,9 +8,10 @@
 #include "wrappers.h"
 #include "action.h"
 #include "version.h"
-#include "tapdances.h"
 #include "process_records.h"
-
+#ifdef TAP_DANCE_ENABLE
+#    include "tapdances.h"
+#endif
 
 enum layer_names {
   _WM,
@@ -54,7 +55,6 @@ enum layer_names {
 #define AT   LSFT(KC_2)
 #define COPY LCTL(KC_C)
 #define PASTE LCTL(KC_V)
+#define ____ KC_TRNS
 #define XXXX KC_NO
 #define XXXXXXX KC_NO
-#define XXXXXXXX KC_NO
-#define ________ KC_TRNS
