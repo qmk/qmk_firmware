@@ -21,9 +21,19 @@
 
 static bool win_mode;
 
+__attribute__ ((weak))
+bool dip_switch_update_keymap(uint8_t index, bool active) {
+  return true;
+}
+
 bool dip_switch_update_user(uint8_t index, bool active) {
     win_mode = (index == 0 && active ? true : false);
-    return true;
+    return dip_switch_update_keymap(index, active);
+}
+
+__attribute__ ((weak))
+layer_state_t default_layer_state_set_keymap(layer_state_t state) {
+  return state;
 }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
@@ -55,22 +65,36 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
         default:
             break;
     }
-    return state;
+    return default_layer_state_set_keymap(state);
 }
 
-void matrix_init_mkillewald(void) {
+__attribute__ ((weak))
+void matrix_init_keymap(void) {
+  return;
+}
+
+void matrix_init_user(void) {
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init_user();
 #endif
+
+    matrix_init_keymap();
 }
 
-void keyboard_post_init_mkillewald(void) {
+__attribute__ ((weak))
+void keyboard_post_init_keymap(void) {
+  return;
+}
+
+void keyboard_post_init_user(void) {
     user_config_read_eeprom();
 
 #ifdef AUTOCORRECT_OFF_AT_STARTUP
     // toggle autocorrect off at startup
     if (autocorrect_is_enabled()) { autocorrect_toggle(); }
 #endif
+
+    keyboard_post_init_keymap();
 }
 
 void housekeeping_task_mkillewald(void) {

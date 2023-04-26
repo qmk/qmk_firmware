@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifndef USERSPACE
 #define USERSPACE
 
@@ -41,8 +40,6 @@ enum my_keycodes {
 #define KC_FCTOG KC_FN_LAYER_COLOR_TOGGLE
 #define KC_LBMAC KC_LOCK_BLANK_MAC
 
-void matrix_init_mkillewald(void);
-void keyboard_post_init_mkillewald(void);
 void housekeeping_task_mkillewald(void);
 bool process_record_mkillewald(uint16_t keycode, keyrecord_t *record);
 

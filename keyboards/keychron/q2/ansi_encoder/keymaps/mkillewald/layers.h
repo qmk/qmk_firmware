@@ -22,3 +22,7 @@ enum layers{
     _FN2,           // Win Fn1      (layer 3)
     _FN3            // Mac/Win Fn2  (layer 4)
 };
+
+#define MAC_FN1     _FN1
+#define WIN_FN1     _FN2
+#define MAC_WIN_FN2 _FN3

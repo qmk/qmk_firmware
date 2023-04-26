@@ -18,6 +18,7 @@
 #include "keychron_common.h"
 #include "rgb_matrix_user.h"
 #include "eeprom_user_config.h"
+#include "layers.h"
 
 keypos_t led_index_key_position[RGB_MATRIX_LED_COUNT];
 
@@ -32,12 +33,68 @@ void rgb_matrix_init_user(void) {
     }
 }
 
+__attribute__ ((weak))
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+  return false;
+}
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    uint8_t current_layer = get_highest_layer(layer_state);
+    switch (current_layer) {
+        case MAC_BASE:
+        case WIN_BASE:
+#ifdef CAPS_LOCK_INDICATOR_COLOR
+            if (host_keyboard_led_state().caps_lock) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_lock_indicator, CAPS_LOCK_INDICATOR_COLOR);
+            }
+#endif
+#ifdef CAPS_WORD_INDICATOR_COLOR
+            if (is_caps_word_on()) {
+                rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_caps_word_indicator, CAPS_WORD_INDICATOR_COLOR);
+            }
+#endif
+            break;
+        case MAC_FN1:
+        case WIN_FN1:
+            set_fn1_layer_color(led_min, led_max, current_layer);
+            break;
+        case MAC_WIN_FN2:
+            set_fn2_layer_color(led_min, led_max, current_layer);
+            break;
+    }
+    return rgb_matrix_indicators_advanced_keymap(led_min, led_max);
+}
+
 void rgb_matrix_set_color_by_keycode(uint8_t led_min, uint8_t led_max, uint8_t layer, bool (*is_keycode)(uint16_t), uint8_t red, uint8_t green, uint8_t blue) {
     for (uint8_t i = led_min; i < led_max; i++) {
         uint16_t keycode = keymap_key_to_keycode(layer, led_index_key_position[i]);
         if ((*is_keycode)(keycode)) {
             rgb_matrix_set_color(i, red, green, blue);
         }
+    }
+}
+
+void set_fn1_layer_color(uint8_t led_min, uint8_t led_max, uint8_t current_layer) {
+#ifdef FN1_LAYER_COLOR
+    if (user_config_get_fn_layer_color_enable()) {
+        rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, FN1_LAYER_COLOR);
+    }
+#endif
+    check_fn_layer_transparent_keys_toggle(led_min, led_max, current_layer);
+}
+
+void set_fn2_layer_color(uint8_t led_min, uint8_t led_max, uint8_t current_layer) {
+#ifdef FN2_LAYER_COLOR
+    if (user_config_get_fn_layer_color_enable()) {
+        rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_not_transparent, FN2_LAYER_COLOR);
+    }
+#endif
+    check_fn_layer_transparent_keys_toggle(led_min, led_max, current_layer);
+}
+
+void check_fn_layer_transparent_keys_toggle(uint8_t led_min, uint8_t led_max, uint8_t current_layer) {
+    if (user_config_get_fn_layer_transparent_keys_off()) {
+        rgb_matrix_set_color_by_keycode(led_min, led_max, current_layer, is_transparent, RGB_OFF);
     }
 }
 
