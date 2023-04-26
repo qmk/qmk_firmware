@@ -116,7 +116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case RGB4:
             if (record->event.pressed) {
-                rgblight_sethsv_noeeprom(HSV_YELLOW);
+                rgblight_sethsv_noeeprom(HSV_WHITE);
             }
             break;
 
