@@ -298,10 +298,12 @@ static uint8_t  RGB_HSV_level;
 HSV             hsv;
 
 void keyboard_post_init_user(void) {
-    user_config.raw = eeconfig_read_user(); // Read status from EEPROM
-    if (user_config.MacMode_flag) layer_on(MAC_B);
-    if (user_config._WASD_layer_flag) {
-        user_config.MacMode_flag ? layer_on(MAC_W) : layer_on(WIN_W);
+    kb_config.raw = eeconfig_read_kb(); // Read status from EEPROM
+    if (kb_config.MacMode_flag) { 
+        layer_on(MAC_B);
+    }
+    if (kb_config._WASD_layer_flag) {
+        kb_config.MacMode_flag ? layer_on(MAC_W) : layer_on(WIN_W);
     }
 }
 
