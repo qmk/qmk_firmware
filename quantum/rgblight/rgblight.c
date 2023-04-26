@@ -790,7 +790,12 @@ static void rgblight_layers_write(void) {
             LED_TYPE *const limit = &led[MIN(segment.index + segment.count, RGBLED_NUM)];
             for (LED_TYPE *led_ptr = &led[segment.index]; led_ptr < limit; led_ptr++) {
 #    ifdef RGBLIGHT_LAYERS_RETAIN_VAL
-                sethsv(segment.hue, segment.sat, current_val, led_ptr);
+                if (segment.val == 0) {
+                    sethsv(segment.hue, segment.sat, segment.val, led_ptr);
+                }
+                else {
+                    sethsv(segment.hue, segment.sat, current_val, led_ptr);
+                }
 #    else
                 sethsv(segment.hue, segment.sat, segment.val, led_ptr);
 #    endif
