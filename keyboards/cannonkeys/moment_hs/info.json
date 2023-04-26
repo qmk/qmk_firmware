@@ -27,8 +27,14 @@
         "vid": "0xCA04",
         "pid": "0x0013"
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_60_tsangan_hhkb"
+    },
+    "community_layouts": [
+        "60_tsangan_hhkb"
+    ],
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "!", "matrix": [0, 1], "x": 1, "y": 0 },
