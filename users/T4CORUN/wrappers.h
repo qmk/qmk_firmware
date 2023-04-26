@@ -31,7 +31,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 
 #if defined(MOUSELAYER_ENABLED)
-#   define         _________BASE_L4_________                  MOU_TOG, NUMBER,  KC_LSFT
+#   define         _________BASE_L4_________                  MOUSE,   NUMBER,  KC_LSFT
 #else
 #   define         _________BASE_L4_________                  ___x___, NUMBER,  KC_LSFT
 #endif //MOUSELAYER_ENABLED
@@ -229,17 +229,17 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   ,----------------------------------.    ,----------------------------------.
 *   |  Esc |SniTog|MBtn3 | DPI  | sDPI |    | sDPI | DPI  |      |SniTog| Mute |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      |MBtn5 |DrgScr|MBtn4 |      |    |      | Shft | Ctrl | Alt  | GUI  |
+*   |MBtn5 |MBtn4 |DrgTog|MBtn1 |MBtn2 |    |      | Shft | Ctrl | Alt  | GUI  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |MBtn3 |MBtn1 |DrgTog|MBtn4 |MBtn5 |
+*   | Undo | Cut  | Copy | Pste | Redo |    |MBtn2 |MBtn1 |DrgTog|MBtn4 |MBtn5 |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |MOUTOG|MBtn1 |MBtn2 |    |MOUTOG|MBtn2 |      |
+*                 |LyrTap|      |      |    |MOUTOG|MBtn3 |      |
 *                 `------+------+------'    `------+------+------'
 */
 
 //this is designed for the cnano (R4)
 //two hands for productive, but able to use one hand for causal internet surfing (won't be able to select text one handed)
-#if defined(POINTING_DEVICE_ENABLE)
+#if defined(POINTING_DEVICE_ENABLE_OFF)
 #   define __________________MOUSE_L1_________________        KC_ESC,  SNP_TOG, KC_BTN3, DPI_MOD, S_D_MOD
 #   define __________________MOUSE_L2_________________        ___x___, KC_BTN5, DRGSCRL, KC_BTN4, ___x___
 #   define __________________MOUSE_L3_________________        __________________UCCPR_L__________________
@@ -249,6 +249,18 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define __________________MOUSE_R2_________________        ___x___, _____________SCAG_MODS____________
 #   define __________________MOUSE_R3_________________        KC_BTN3, KC_BTN1, DRG_TOG, KC_BTN4, KC_BTN5
 #   define          _________MOUSE_R4________                 MOU_TOG, KC_BTN2
+#endif //POINTING_DEVICE_ENABLE
+
+#if defined(POINTING_DEVICE_ENABLE)
+#   define __________________MOUSE_L1_________________        KC_ESC,  SNP_TOG, KC_BTN3, DPI_MOD, S_D_MOD
+#   define __________________MOUSE_L2_________________        KC_BTN5, KC_BTN4, DRG_TOG, KC_BTN1, KC_BTN2
+#   define __________________MOUSE_L3_________________        __________________UCCPR_L__________________
+#   define          _________MOUSE_L4________                 _______, ___x___, ___x___
+
+#   define __________________MOUSE_R1_________________        S_D_MOD, DPI_MOD, ___x___, SNP_TOG, KC_MUTE
+#   define __________________MOUSE_R2_________________        ___x___, _____________SCAG_MODS____________
+#   define __________________MOUSE_R3_________________        KC_BTN2, KC_BTN1, DRG_TOG, KC_BTN4, KC_BTN5
+#   define          _________MOUSE_R4________                 MOU_TOG, KC_BTN3
 #endif //POINTING_DEVICE_ENABLE
 
 /*

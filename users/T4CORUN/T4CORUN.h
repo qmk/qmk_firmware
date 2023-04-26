@@ -40,7 +40,6 @@ enum keycodes {
 #define NAV     MO(_NAVIGATION)
 #define NUMBER  MO(_NUMBER)
 #define FUNC    MO(_FUNCTION)
-#define MOUSE   MO(_MOUSE)
 
 #define FUN_DEL LT(_FUNCTION, KC_DEL)
 #define FUN_Z LT(_FUNCTION, KC_Z)
@@ -48,6 +47,7 @@ enum keycodes {
 
 //Toggle Layer
 #if defined(MOUSELAYER_ENABLED)
+#   define MOUSE   MO(_MOUSE)
 #   define MOU_Z   LT(_MOUSE, KC_Z)
 #   define MOU_TOG TG(_MOUSE)
 #endif //MOUSELAYER_ENABLED
