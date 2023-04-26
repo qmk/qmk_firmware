@@ -474,7 +474,7 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
  * @return the \ref deferred_token to use with \ref qp_stop_scrolling_text in order to stop scrolling
  * @return INVALID_DEFERRED_TOKEN if scrolling the text failed
  */
-deferred_token qp_scrolling_text(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay);
+deferred_token qp_scrolling_text(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint32_t delay);
 
 /**
  * Draws a scrolling text to the display, recoloring monochrome fonts to the desired foreground/background.
@@ -495,7 +495,7 @@ deferred_token qp_scrolling_text(painter_device_t device, uint16_t x, uint16_t y
  * @return the \ref deferred_token to use with \ref qp_stop_scrolling_text in order to stop scrolling
  * @return INVALID_DEFERRED_TOKEN if scrolling the text failed
  */
-deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
+deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint32_t delay, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
 
 /**
  * Cancels a running scrolling text.

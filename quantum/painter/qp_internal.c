@@ -81,6 +81,10 @@ void qp_internal_task(void) {
     void qp_internal_animation_tick(void);
     qp_internal_animation_tick();
 
+    // Handle scrolling texts
+    void qp_internal_scrolling_text_tick(void);
+    qp_internal_scrolling_text_tick();
+
 #ifdef QUANTUM_PAINTER_LVGL_INTEGRATION_ENABLE
     // Run LVGL ticks
     void qp_lvgl_internal_tick(void);

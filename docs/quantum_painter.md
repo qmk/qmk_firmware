@@ -853,8 +853,8 @@ void keyboard_post_init_kb(void) {
 #### ** Draw Scrolling Text **
 
 ```c
-deferred_token qp_scrolling_text(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay);
-deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
+deferred_token qp_scrolling_text(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint32_t delay);
+deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint32_t delay, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg);
 ```
 
 The `qp_scrolling_text` and `qp_scrolling_text_recolor` functions animate the supplied string to the screen at the given location using the font supplied, drawing `n_chars` chars each time, moving the text one position to the left every `delay` milliseconds, with the latter function allowing for monochrome-based fonts to be recolored.

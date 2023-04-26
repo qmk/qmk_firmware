@@ -465,7 +465,7 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter External API: qp_scrolling_text
 
-deferred_token qp_scrolling_text(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay) {
+deferred_token qp_scrolling_text(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint32_t delay) {
     return qp_scrolling_text_recolor(device, x, y, font, str, n_chars, delay, 0, 0, 255, 0, 0, 0);
 }
 
@@ -479,7 +479,7 @@ typedef struct scrolling_text_state_t {
     painter_font_handle_t font;
     const char *          str;
     uint8_t               n_chars; // Chars being drawn each time
-    uint16_t              delay;
+    uint32_t              delay;
     uint8_t               char_number; // Current positon
     uint8_t               spaces; // Whitespaces between string repetition
     qp_pixel_t            fg;
@@ -544,7 +544,7 @@ static uint32_t scrolling_text_callback(uint32_t trigger_time, void *cb_arg) {
     return ret ? state->delay : 0;
 }
 
-deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint16_t delay, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg) {
+deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, uint16_t y, painter_font_handle_t font, const char *str, uint8_t n_chars, uint32_t delay, uint8_t hue_fg, uint8_t sat_fg, uint8_t val_fg, uint8_t hue_bg, uint8_t sat_bg, uint8_t val_bg) {
     qp_dprintf("qp_scrolling_text_recolor: entry\n");
 
     scrolling_text_state_t *scrolling_state = NULL;
@@ -603,4 +603,12 @@ void qp_stop_scrolling_text(deferred_token scrolling_token) {
             return;
         }
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter Core API: qp_internal_scrolling_text_tick
+
+void qp_internal_scrolling_text_tick(void) {
+    static uint32_t last_scrolling_text_exec = 0;
+    deferred_exec_advanced_task(scrolling_text_executors, QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS, &last_scrolling_text_exec);
 }
