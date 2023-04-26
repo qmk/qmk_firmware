@@ -19,7 +19,7 @@
 
 // clang-format off
 enum my_keycodes {
-    K00 = SAFE_RANGE,
+    K00 = QK_USER,
     K01,
     K02,
     K03,
