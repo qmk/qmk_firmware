@@ -687,8 +687,8 @@ void clear_eeprom(void) {
     }
     layer_off(WIN_W);
     layer_off(MAC_W);
-    user_config._WASD_layer_flag = false;
-    eeconfig_update_user(user_config.raw);
+    kb_config._WASD_layer_flag = false;
+    eeconfig_update_kb(kb_config.raw);
     keymap_config.no_gui = false;
     writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
     eeconfig_update_keymap(keymap_config.raw);
