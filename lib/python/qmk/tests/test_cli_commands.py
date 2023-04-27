@@ -168,7 +168,7 @@ def test_json2c_wrong_json():
 
 
 def test_json2c_no_json():
-    result = check_subcommand('json2c', 'keyboards/handwired/pytest/pytest.h')
+    result = check_subcommand('json2c', 'keyboards/handwired/pytest/config.h')
     check_returncode(result, [1])
     assert 'Invalid JSON encountered' in result.stdout
 
@@ -188,7 +188,11 @@ def test_info_keyboard_render():
     assert 'Keyboard Name: pytest' in result.stdout
     assert 'Processor: atmega32u4' in result.stdout
     assert 'Layouts:' in result.stdout
-    assert 'k0' in result.stdout
+
+    if is_windows:
+        assert '|  |' in result.stdout
+    else:
+        assert '│  │' in result.stdout
 
 
 def test_info_keymap_render():
