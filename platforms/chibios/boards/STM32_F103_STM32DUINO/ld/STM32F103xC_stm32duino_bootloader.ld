@@ -15,7 +15,7 @@
 */
 
 /*
- * STM32F103xB memory setup for use with the STM32Duino bootloader.
+ * STM32F103xC memory setup for use with the STM32Duino bootloader.
  */
 f103_flash_size = 256k;
 f103_ram_size = 48k;
