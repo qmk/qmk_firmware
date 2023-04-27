@@ -478,7 +478,7 @@ typedef struct scrolling_text_state_t {
     uint16_t              x;
     uint16_t              y;
     painter_font_handle_t font;
-    const char *          str;
+    char *                str;
     uint8_t               n_chars; // Chars being drawn each time
     uint32_t              delay;
     uint8_t               char_number; // Current positon
@@ -563,19 +563,18 @@ deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, ui
     // make a copy of the string, to prevent issues if the original variable is removed
     // note: input is expected to end in null terminator
     uint8_t len = strlen(str) + 1; // add one to also allocate/copy the terminator
-    char *copied_str = malloc(len);
-    if (copied_str == NULL) {
+    scrolling_state->str = malloc(len);
+    if (scrolling_state->str == NULL) {
         qp_dprintf("qp_scrolling_text_recolor: fail (could not allocate)\n");
         return false;
     }
-    memcpy(copied_str, str, len);
+    memcpy(scrolling_state->str, str, len);
 
     // Prepare the scrolling state
     scrolling_state->device      = device;
     scrolling_state->x           = x;
     scrolling_state->y           = y;
     scrolling_state->font        = font;
-    scrolling_state->str         = copied_str;
     scrolling_state->n_chars     = n_chars;
     scrolling_state->delay       = delay;
     scrolling_state->char_number = 0;
@@ -610,7 +609,7 @@ void qp_stop_scrolling_text(deferred_token scrolling_token) {
         if (scrolling_text_states[i].defer_token == scrolling_token) {
             cancel_deferred_exec_advanced(scrolling_text_executors, QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS, scrolling_token);
             scrolling_text_states[i].device = NULL;
-            free((void *)scrolling_text_states[i].str);
+            free(scrolling_text_states[i].str);
             return;
         }
     }
