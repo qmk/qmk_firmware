@@ -107,8 +107,6 @@ bool is_swap_hands_on(void);
 void process_hand_swap(keyevent_t *record);
 #endif
 
-bool pre_process_record_quantum(keyrecord_t *record);
-bool pre_process_record_quantum_user(keyrecord_t *record);
 void process_record_nocache(keyrecord_t *record);
 void process_record(keyrecord_t *record);
 void process_record_handler(keyrecord_t *record);

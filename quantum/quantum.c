@@ -132,6 +132,14 @@ __attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t 
 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
 
+__attribute__((weak)) bool pre_process_record_quantum_kb(keyrecord_t *record) {
+    return pre_process_record_quantum_user(record);
+}
+
+__attribute__((weak)) bool pre_process_record_quantum_user(keyrecord_t *record) {
+    return true;
+}
+
 void shutdown_quantum(void) {
     clear_keyboard();
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
@@ -209,7 +217,7 @@ bool pre_process_record_quantum(keyrecord_t *record) {
             true)) {
         return false;
     }
-    return pre_process_record_quantum_user(record);
+    return pre_process_record_quantum_kb(record);
 }
 
 /* Get keycode, and then call keyboard function */
