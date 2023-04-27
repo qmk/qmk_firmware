@@ -17,13 +17,13 @@ Electronically both the Dactyl-CC and Ergo S-1 are indentical, though psychicall
 * Hardware Availability: [Dactyl CC GitHub](https://github.com/mjohns/dactyl-cc)
 
 Make example for this keyboard (after setting up your build environment):
-```
+
     make handwired/dactyl_cc:default
-```
+
 Flashing example for this keyboard:
-```
+
     make handwired/dactyl_cc:default:flash
-```
+
     
 ### Ergo S-1
 * Keyboard Maintainer: [Andrew Wells](https://github.com/wizarddata)
