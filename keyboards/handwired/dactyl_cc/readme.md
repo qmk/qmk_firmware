@@ -1,6 +1,6 @@
 # Dactyl-CC / Ergo S-1
 
-![DactylCC](https://i.imgur.com/CUbPLZC.jpeg)  
+![DactylCC](https://i.imgur.com/CUbPLZCh.jpeg)
 *Dactyl-CC*
 
 ![ErgoS-1](https://wizardkeyboards.com/wp-content/uploads/2021/11/20211108_233645-1024x498.jpg)  
