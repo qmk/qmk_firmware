@@ -209,7 +209,7 @@ bool pre_process_record_quantum(keyrecord_t *record) {
             true)) {
         return false;
     }
-    return true; // continue processing
+    return pre_process_record_quantum_user(record);
 }
 
 /* Get keycode, and then call keyboard function */

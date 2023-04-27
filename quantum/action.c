@@ -66,6 +66,10 @@ __attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *reco
 #endif
 
 __attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) {
+    return pre_process_record_quantum_user(record);
+}
+
+__attribute__((weak)) bool pre_process_record_quantum_user(keyrecord_t *record) {
     return true;
 }
 
