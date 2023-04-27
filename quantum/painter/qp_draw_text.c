@@ -562,7 +562,7 @@ deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, ui
 
     // make a copy of the string, to prevent issues if the original variable is removed
     // note: input is expected to end in null terminator
-    uint8_t len = strlen(str) + 1; // add one to also allocate/copy the terminator
+    uint8_t len          = strlen(str) + 1; // add one to also allocate/copy the terminator
     scrolling_state->str = malloc(len);
     if (scrolling_state->str == NULL) {
         qp_dprintf("qp_scrolling_text_recolor: fail (could not allocate)\n");
