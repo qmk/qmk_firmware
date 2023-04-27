@@ -1,4 +1,4 @@
-/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
  */
 
 #pragma once
+
+#define HAL_USE_ADC TRUE
 
 #define HAL_USE_PWM TRUE
 

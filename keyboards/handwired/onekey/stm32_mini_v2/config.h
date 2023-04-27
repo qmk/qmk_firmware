@@ -1,4 +1,4 @@
-/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,8 +15,6 @@
  */
 
 #pragma once
-
-#include "config_common.h"
 
 // SPI configuration
 #define SPI_DRIVER SPID1
@@ -44,5 +42,3 @@
     #define BACKLIGHT_PWM_DRIVER  PWMD2
     #define BACKLIGHT_PWM_CHANNEL 1
 #endif
-
-#define RGB_CI_PIN A2

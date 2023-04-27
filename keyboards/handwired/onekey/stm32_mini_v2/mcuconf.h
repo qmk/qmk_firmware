@@ -1,4 +1,4 @@
-/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,9 @@
 #pragma once
 
 #include_next <mcuconf.h>
+
+#undef STM32_ADC_USE_ADC1
+#define STM32_ADC_USE_ADC1 TRUE
 
 #undef STM32_PWM_USE_TIM2
 #define STM32_PWM_USE_TIM2 TRUE
