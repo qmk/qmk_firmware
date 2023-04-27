@@ -114,6 +114,14 @@ __attribute__((weak)) void tap_code16(uint16_t code) {
     tap_code16_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
 }
 
+__attribute__((weak)) bool pre_process_record_quantum_kb(keyrecord_t *record) {
+    return pre_process_record_quantum_user(record);
+}
+
+__attribute__((weak)) bool pre_process_record_quantum_user(keyrecord_t *record) {
+    return true;
+}
+
 __attribute__((weak)) bool process_action_kb(keyrecord_t *record) {
     return true;
 }
@@ -131,14 +139,6 @@ __attribute__((weak)) void post_process_record_kb(uint16_t keycode, keyrecord_t 
 }
 
 __attribute__((weak)) void post_process_record_user(uint16_t keycode, keyrecord_t *record) {}
-
-__attribute__((weak)) bool pre_process_record_quantum_kb(keyrecord_t *record) {
-    return pre_process_record_quantum_user(record);
-}
-
-__attribute__((weak)) bool pre_process_record_quantum_user(keyrecord_t *record) {
-    return true;
-}
 
 void shutdown_quantum(void) {
     clear_keyboard();
