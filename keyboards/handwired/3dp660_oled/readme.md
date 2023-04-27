@@ -1,6 +1,6 @@
-# handwired/3dp660/oled
+# handwired/3dp660_oled
 
-![handwired/3dp660/oled](https://i.imgur.com/AQ6VQfgh.jpg)
+![handwired/3dp660_oled](https://i.imgur.com/AQ6VQfgh.jpg)
 
 A handwired FC660 layout with OLED display support.
 
