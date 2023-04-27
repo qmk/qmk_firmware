@@ -117,60 +117,12 @@ static void render_animation(void) {
 bool oled_task_user() {
     // Render Bongo Cat
     render_animation();
-
     
     // WPM text
     oled_set_cursor(0, 0);
     sprintf(wpm_str, "%03d", get_current_wpm()); // %03d defines digits to display
     oled_write(wpm_str, false);
     
-    /*
-    // Layer text
-    oled_set_cursor(0, 1);
-    switch (get_highest_layer(layer_state)) {
-        case _MAC_DEFAULT :
-            oled_write_P(PSTR("MAC"), false);
-            oled_set_cursor(0, 2);
-            oled_write_P(PSTR("MAIN"), false);
-            break;
-        case _MAC_CODE :
-            oled_write_P(PSTR("MAC"), false);
-            oled_set_cursor(0, 2);
-            oled_write_P(PSTR("CODE"), false);
-            break;
-        case _MAC_NUM :
-            oled_write_P(PSTR("MAC"), false);
-            oled_set_cursor(0, 2);
-            oled_write_P(PSTR("NUM"), false);
-            break;
-        case _MAC_FUNC :
-            oled_write_P(PSTR("MAC"), false);
-            oled_set_cursor(0, 2);
-            oled_write_P(PSTR("FUNC"), false);
-            break;
-        case _WIN_DEFAULT :
-            oled_write_P(PSTR("WIN"), false);
-            oled_set_cursor(0, 2);
-            oled_write_P(PSTR("MAIN"), false);
-            break;
-        case _WIN_CODE :
-            oled_write_P(PSTR("WIN"), false);
-            oled_set_cursor(0, 2);
-            oled_write_P(PSTR("CODE"), false);
-            break;
-        case _WIN_NUM :
-            oled_write_P(PSTR("WIN"), false);
-            oled_set_cursor(0, 2);
-            oled_write_P(PSTR("NUM"), false);
-            break;
-        case _WIN_FUNC :
-            oled_write_P(PSTR("WIN"), false);
-            oled_set_cursor(0, 2);
-            oled_write_P(PSTR("FUNC"), false);
-            break;  
-    }
-    */
-
     // Caps lock text
     led_t led_state = host_keyboard_led_state();
     oled_set_cursor(0, 3);
