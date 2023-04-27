@@ -6,7 +6,7 @@ A handwired FC660 layout with OLED display support.
 
 * Keyboard Maintainer: [xia0](https://github.com/xia0)
 * Hardware Supported: ATmega32U4 e.g. Arduino Pro Micro or Teensy 2.0
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: [Printables](https://www.printables.com/model/464322-3dp-fc660-v3-oled-hand-wired-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
