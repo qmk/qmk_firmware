@@ -86,4 +86,4 @@
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 /* The maximum brightness level */
 
-
+//#define DISABLE_5087_KEYKODES/*If you need to change or restore the default QMK button function, please open it*/
