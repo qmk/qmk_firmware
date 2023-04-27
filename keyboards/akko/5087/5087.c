@@ -332,7 +332,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         return false;
     }
     switch (keycode) {
-#ifndefine DISABLE_5085_KEYCODES
+#ifndef DISABLE_5085_KEYCODES
         case MO(WIN_FN):
         case MO(MAC_FN):
             fn_make_flag = record->event.pressed;
