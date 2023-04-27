@@ -332,6 +332,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         return false;
     }
     switch (keycode) {
+#ifndefine DISABLE_5085_KEYCODES
         case MO(WIN_FN):
         case MO(MAC_FN):
             fn_make_flag = record->event.pressed;
@@ -576,6 +577,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 rgb_matrix_enable();
             }
             return false;
+#endif //DISABLE_5087_KEYKODES
         default:
             return true;
     }
