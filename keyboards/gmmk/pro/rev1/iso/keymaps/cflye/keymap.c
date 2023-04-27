@@ -106,7 +106,7 @@ https://docs.qmk.fm/#/one_shot_keys - to tap for symbols
 ),
 [_SYM] = LAYOUT_base_wrapper(
     ___________________SYM_L1___________________, ___________________SYM_R1___________________,
-    ___________________SYM_LM2__________________, ___________________SYM_RM2__________________,
+    ___________________SYM_L2___________________, ___________________SYM_R2___________________,
     ___________________SYM_L3___________________, ___________________SYM_R3___________________,
     ___________________BLANK___________________,  ___________________BLANK___________________
 ),
@@ -166,7 +166,7 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
-uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, kc: 0x%04X, col: %2u, row: %2u, res %2u\n", other_keycode, other_record->event.key.col, other_record->event.key.row, tap_hold_keycode, tap_hold_record->event.key.col, tap_hold_record->event.key.row, tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4);
+uprintf("achordion_chord: kc: 0x%04X, col: %2u, row: %2u, kc: 0x%04X, col: %2u, row: %2u, res %2u\n", other_keycode, other_record->event.key.col, other_record->event.key.row, tap_hold_keycode, tap_hold_record->event.key.col, tap_hold_record->event.key.row, tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4);
   // Exceptionally consider the following chords as holds, even though they
   // are on the same hand in Dvorak.
   switch (tap_hold_keycode) {

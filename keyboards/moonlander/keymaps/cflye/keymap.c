@@ -33,9 +33,9 @@
     ) \
     LAYOUT_moonlander_wrapper( \
         KC_GRV,  ________________NUMBER_LEFT________________, XXX,         XXX, ________________NUMBER_RIGHT_______________,     XXX,\
-        KC_TAB,  K00,     K01,     K02,     K03,     K04,     XXX,         KC_AA,   K05,     K06,     K07,     K08,     K09,     XXX,\
-        KC_LCTL, K10,     K11,     K12,     K13,     K14,     KC_AE,       KC_OE,   K15,     K16,     K17,     K18,     K19,     XXX,\
-        XXX,     K20,     K21,     K22,     K23,     K24,                           K25,     K26,     K27,     K28,     K29,     XXX,\
+        KC_LALT, K00,     K01,     K02,     K03,     K04,     XXX,         KC_AA,   K05,     K06,     K07,     K08,     K09,     KC_RALT,\
+        KC_LCTL, K10,     K11,     K12,     K13,     K14,     KC_AE,       KC_OE,   K15,     K16,     K17,     K18,     K19,     KC_RCTL,\
+        KC_LSFT, K20,     K21,     K22,     K23,     K24,                           K25,     K26,     K27,     K28,     K29,     KC_RSFT,\
         XXX,     XXX,     XXX,     XXX,     K32,              XXX,         XXX,              K37,     XXX,     XXX,     XXX,     XXX,\
                                             K33,     K34,     XXX,         XXX,     K35,     K36\
     )
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SYM] = LAYOUT_base_wrapper(
         ___________________SYM_L1___________________, ___________________SYM_R1___________________,
-        ___________________SYM_LM2__________________, ___________________SYM_RM2__________________,
+        ___________________SYM_L2___________________, ___________________SYM_R2___________________,
         ___________________SYM_L3___________________, ___________________SYM_R3___________________,
         ___________________BLANK___________________,  ___________________BLANK___________________
     ),

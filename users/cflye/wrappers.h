@@ -41,8 +41,8 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________SYM_R2___________________    KC_PIPE,           KC_LPRN,           KC_RPRN,           KC_UNDS,           KC_QUES
 #define ___________________SYM_R3___________________    KC_TILD,           KC_LCBR,           KC_RCBR,           KC_DLR,            KC_AT
 
-#define ___________________SYM_LM2__________________    HOME_EXLM,         HOME_MINS,         HOME_PLUS,         HOME_EQL,          KC_HASH
-#define ___________________SYM_RM2__________________    KC_PIPE,           HOME_LPRN,         HOME_RPRN,         HOME_UNDS,         HOME_QUES
+#define ___________________SYM_LM2__________________    KC_EXLM,           KC_MINS,           KC_PLUS,           KC_EQL,            KC_HASH
+#define ___________________SYM_RM2__________________    KC_PIPE,           KC_LPRN,           KC_RPRN,           KC_UNDS,           KC_QUES
 
 #define ___________________NUM_L1___________________    KC_SLSH,           KC_7,              KC_8,              KC_9,              KC_ASTR
 #define ___________________NUM_L2___________________    KC_SCLN,           KC_4,              KC_5,              KC_6,              KC_MINS
