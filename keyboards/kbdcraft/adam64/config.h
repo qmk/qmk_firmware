@@ -1,4 +1,6 @@
-/* Copyright 2021 SamuraiKek
+/* 
+ * Copyright 2023 KBDCraft
+ * Copyright 2023 Adophoxia <andyao1528@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,4 +17,18 @@
  */
 
 #pragma once
-#define EE_HANDS
+
+#define I2C1_SCL_PIN        B8
+#define I2C1_SDA_PIN        B9
+#define I2C1_CLOCK_SPEED	400000
+#define I2C1_DUTY_CYCLE	FAST_DUTY_CYCLE_16_9
+
+#define DRIVER_COUNT 1
+#define DRIVER_ADDR_1 0b0110000
+#define RGB_MATRIX_LED_COUNT 64
+
+/* turn off effects when suspended */
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#define RGB_MATRIX_KEYPRESSES

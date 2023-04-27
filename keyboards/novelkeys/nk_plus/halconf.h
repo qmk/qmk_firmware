@@ -1,4 +1,4 @@
-/* Copyright 2021 SamuraiKek
+/* Copyright 2022 Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,4 +15,7 @@
  */
 
 #pragma once
-#define EE_HANDS
+
+#define HAL_USE_PWM TRUE
+
+#include_next <halconf.h>

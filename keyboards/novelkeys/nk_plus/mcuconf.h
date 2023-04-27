@@ -1,4 +1,4 @@
-/* Copyright 2021 SamuraiKek
+/* Copyright 2022 Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,4 +15,8 @@
  */
 
 #pragma once
-#define EE_HANDS
+
+#include_next <mcuconf.h>
+
+#undef STM32_PWM_USE_TIM3
+#define STM32_PWM_USE_TIM3 TRUE
