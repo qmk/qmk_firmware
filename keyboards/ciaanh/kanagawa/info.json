@@ -8,17 +8,6 @@
         "pid": "0x0010",
         "device_version": "2.1.0"
     },
-    "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": false,
-        "nkro": false,
-        "rgblight": false
-    },
     "bootmagic": {
         "matrix": [0, 13]
     },
