@@ -1,4 +1,6 @@
-/* Copyright 2021 SamuraiKek
+/* 
+ * Copyright 2023 KBDCraft
+ * Copyright 2023 Adophoxia <andyao1528@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,4 +17,8 @@
  */
 
 #pragma once
-#define EE_HANDS
+
+#include_next <mcuconf.h>
+
+#undef STM32_I2C_USE_I2C1
+#define STM32_I2C_USE_I2C1 TRUE
