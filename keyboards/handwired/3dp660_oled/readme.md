@@ -1,20 +1,20 @@
 # handwired/3dp660/oled
 
-![handwired/3dp660/oled](imgur.com image replace me!)
+![handwired/3dp660/oled](https://i.imgur.com/AQ6VQfgh.jpg)
 
-*A short description of the keyboard/project*
+A handwired FC660 layout with OLED display support.
 
 * Keyboard Maintainer: [xia0](https://github.com/xia0)
-* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Supported: ATmega32U4 e.g. Arduino Pro Micro or Teensy 2.0
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/3dp660/oled:default
+    make handwired/3dp660_oled:default
 
 Flashing example for this keyboard:
 
-    make handwired/3dp660/oled:default:flash
+    make handwired/3dp660_oled:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -23,5 +23,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Briefly press the button on the MCU or short RST to GND.
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
