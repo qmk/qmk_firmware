@@ -520,7 +520,7 @@ static bool qp_render_scrolling_text_state(scrolling_text_state_t *state) {
 
     // draw it
     bool ret = qp_drawtext_recolor(state->device, state->x, state->y, state->font, slice, state->fg.hsv888.h, state->fg.hsv888.s, state->fg.hsv888.v, state->bg.hsv888.h, state->bg.hsv888.s, state->bg.hsv888.v);
-    free((void *)slice); // de-allocate after use
+    free(slice); // de-allocate after use
 
     // update position
     if (ret) {
@@ -560,12 +560,22 @@ deferred_token qp_scrolling_text_recolor(painter_device_t device, uint16_t x, ui
         return INVALID_DEFERRED_TOKEN;
     }
 
+    // make a copy of the string, to prevent issues if the original variable is removed
+    // note: input is expected to end in null terminator
+    uint8_t len = strlen(str) + 1; // add one to also allocate/copy the terminator
+    char *copied_str = malloc(len);
+    if (copied_str == NULL) {
+        qp_dprintf("qp_scrolling_text_recolor: fail (could not allocate)\n");
+        return false;
+    }
+    memcpy(copied_str, str, len);
+
     // Prepare the scrolling state
     scrolling_state->device      = device;
     scrolling_state->x           = x;
     scrolling_state->y           = y;
     scrolling_state->font        = font;
-    scrolling_state->str         = str;
+    scrolling_state->str         = copied_str;
     scrolling_state->n_chars     = n_chars;
     scrolling_state->delay       = delay;
     scrolling_state->char_number = 0;
@@ -600,6 +610,7 @@ void qp_stop_scrolling_text(deferred_token scrolling_token) {
         if (scrolling_text_states[i].defer_token == scrolling_token) {
             cancel_deferred_exec_advanced(scrolling_text_executors, QUANTUM_PAINTER_CONCURRENT_SCROLLING_TEXTS, scrolling_token);
             scrolling_text_states[i].device = NULL;
+            free((void *)scrolling_text_states[i].str);
             return;
         }
     }
