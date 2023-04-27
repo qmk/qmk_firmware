@@ -2,7 +2,7 @@
     "keyboard_name": "Charon",
     "manufacturer": "Charue Design",
     "url": "https://charue-design.com/products/charon",
-    "maintainer": "ILWrites",
+    "maintainer": "PiKeeb",
     "usb": {
         "vid": "0x4344",
         "pid": "0x4348",
