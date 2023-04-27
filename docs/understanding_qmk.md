@@ -130,6 +130,8 @@ The `process_record()` function itself is deceptively simple, but hidden within 
 * [`void action_exec(keyevent_t event)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/action.c#L78-L140)
     * [`void pre_process_record_quantum(keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/quantum.c#L204)
       * [`bool process_combo(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_combo.c#L521)
+      * [`bool pre_process_record_quantum_kb(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/3a9b9fcb0cd8f7eef3936d4b530d8162a5304b74/quantum/quantum.c#L135)
+        * [`bool pre_process_record_quantum_user(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/3a9b9fcb0cd8f7eef3936d4b530d8162a5304b74/quantum/quantum.c#L139)
   * [`void process_record(keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/action.c#L254)
     * [`bool process_record_quantum(keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/quantum.c#L224)
       * [Map this record to a keycode](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/quantum.c#L225)
