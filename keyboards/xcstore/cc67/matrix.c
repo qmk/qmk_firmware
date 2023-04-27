@@ -1,6 +1,6 @@
 /* Copyright 2022 XCStore
  * Copyright 2022 JasonRen (biu) <https://github.com/jiaxin96>
- * Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+ * Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

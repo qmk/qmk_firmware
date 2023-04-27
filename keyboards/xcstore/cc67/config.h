@@ -17,10 +17,6 @@
 
 #pragma once
 
-/* Bootmagic reset */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
