@@ -136,7 +136,6 @@
                 {"label": "Enter", "matrix": [9, 9], "x": 21, "y": 3, "h": 2}
             ]
         },
-
         "LAYOUT_ansi_wkl_split_bs_rshift": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -244,7 +243,6 @@
                 {"label": "Enter", "matrix": [9, 9], "x": 21, "y": 3, "h": 2}
             ]
         },
-
         "LAYOUT_ansi_wkl": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -350,7 +348,6 @@
                 {"label": "Enter", "matrix": [9, 9], "x": 21, "y": 3, "h": 2}
             ]
         },
-
         "LAYOUT_iso_wkl": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -457,7 +454,6 @@
                 {"label": "Enter", "matrix": [9, 9], "x": 21, "y": 3, "h": 2}
             ]
         },
-
         "LAYOUT_iso_wkl_split_bs_rshift": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
