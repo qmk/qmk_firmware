@@ -43,10 +43,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           KC_TAB,    KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC, KC_RBRC, KC_BSLS,  KC_HOME,  \
          KC_CAPS,    KC_A, LT(0,KC_S),       KC_D,       KC_F,       KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,  KC_ENT,            KC_END,  \
          KC_LSFT, XXXXXXX,       KC_Z, LT(0,KC_X), LT(0,KC_C), LT(0,KC_V),    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,    KC_UP,           \
-         KC_LCTL, KC_LGUI,    KC_LALT,      L_FNC,        KC_SPC,        KC_SPC,             KC_RALT, TO_CODE, KC_RCTL,           KC_LEFT, KC_DOWN, KC_RGHT   \
+         KC_LCTL, KC_LGUI,    KC_LALT,     L_CODE,        KC_SPC,        KC_SPC,             TO_FUNC, KC_RALT, KC_RCTL,           KC_LEFT, KC_DOWN, KC_RGHT   \
     ),
 
-    [_FUNC] = LAYOUT_ansi(
+    [_CODE] = LAYOUT_ansi(
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,  \
 
        _SCRNSHOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
@@ -57,14 +57,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 
-    [_CODE] = LAYOUT_ansi(
+    [_FUNC] = LAYOUT_ansi(
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             RGB_TOG,  \
 
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_VAI,  \
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              RGB_VAD,  \
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_HUI,           \
-         XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              XXXXXXX, TO_BASE, XXXXXXX,     RGB_SAD, RGB_HUD, RGB_SAI   \
+         XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              TO_BASE, RGB_SPD, RGB_SPI,     RGB_SAD, RGB_HUD, RGB_SAI   \
     ),
 
 };
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 21 characters per line
         // 16 cols / 4 rows
 
-        oled_write_P(PSTR("    Kanagawa rev 2.0   "), false);
+        oled_write_P(PSTR("    Kanagawa rev 2.1   "), false);
         //oled_write_ln("", false);
 
         // Host Keyboard Layer Status
@@ -214,8 +214,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_FUNC] =  { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
-    [_CODE] =   { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
+    [_CODE] =  { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
+    [_FUNC] =   { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
 };
 #endif
 
