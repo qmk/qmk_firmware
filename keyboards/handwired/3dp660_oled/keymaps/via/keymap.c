@@ -113,13 +113,14 @@ bool oled_task_user() {
     
     // WPM text
     oled_set_cursor(0, 0);
-    sprintf(wpm_str, "%03d", get_current_wpm()); // %03d defines digits to display
-    oled_write(wpm_str, false);
-
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
+    
     // Caps lock text
     led_t led_state = host_keyboard_led_state();
     oled_set_cursor(0, 3);
-    oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR(""), false);
+    if (led_state.caps_lock) {
+        oled_write_P(PSTR("CAPS"), false);
+    }
     
     return false;
 }
