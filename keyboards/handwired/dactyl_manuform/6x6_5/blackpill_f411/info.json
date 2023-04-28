@@ -11,10 +11,5 @@
     "features": {
         "command": true,
         "console": true
-    },
-    "split":{
-        "transport": {
-            "protocol": "serial_usart"
-        }
     }
 }
