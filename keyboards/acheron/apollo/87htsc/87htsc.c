@@ -107,7 +107,6 @@ void rgb_matrix_startup(void) {
     rgb_matrix_disable_noeeprom();
     wait_ms(20);
     rgb_matrix_reload_from_eeprom();
-    rgb_matrix_enable_noeeprom();
 }
 
 // At the keyboard start, retrieves PMEM stored configs

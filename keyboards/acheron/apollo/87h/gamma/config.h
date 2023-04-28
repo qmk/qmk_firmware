@@ -1,5 +1,5 @@
 /*
-Copyright 2022 Álvaro "Gondolindrim" Volpato <alvaro.volpato@usp.br>
+Copyright 2023 Gondolindrim <gondolindrim@acheronproject.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,21 +14,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#pragma once
-
-//                        C0 , C1 , C2 , C3 , C4 , C5 , C6 , C7 , C8 , C9 , C10, C11, C12, C13, C14, C15 }
-#define MATRIX_COL_PINS { B3 , A15, A10, A8 , B14, B12, B10, B1 , B0 , A7 , A4 , A5 , A6 , C15, A0 , A1  }
-//                        R0 , R1 , R2 , R3 , R4 , R5
-#define MATRIX_ROW_PINS { C14, C13, B9 , B4 , A3 , A2 }
-#define DIODE_DIRECTION COL2ROW
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-#define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
 
 // RGB Matrix defines
 #define DRIVER_ADDR_1 0b0110000
