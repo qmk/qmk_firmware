@@ -583,8 +583,6 @@ void led_test(uint8_t color) {
 
 void clear_eeprom(void) {
     eeconfig_init();
-    layer_off(WIN_W);
-    layer_off(MAC_W);
     keymap_config.no_gui = 0;
     eeconfig_update_keymap(keymap_config.raw);
 #ifdef VIA_ENABLE
