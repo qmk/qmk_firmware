@@ -16,8 +16,8 @@
 enum layers 
 { 
     _BASE,
-    _FUNC, 
-    _CODE
+    _CODE, 
+    _FUNC
 };
 
 enum custom_keycodes 
@@ -27,8 +27,8 @@ enum custom_keycodes
 };
 
 #define TO_BASE     TO(_BASE)
-#define TO_CODE     TG(_CODE)
+#define TO_FUNC     TG(_FUNC)
 
-#define L_FNC      MO(_FUNC)
+#define L_CODE      MO(_CODE)
 
 #define _SCRNSHOT LSFT(LGUI(KC_S))

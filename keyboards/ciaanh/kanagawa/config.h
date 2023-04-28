@@ -25,7 +25,7 @@
 #         define RGB_MATRIX_LED_COUNT 83
 #    endif 
 
-#    define RGB_MATRIX_CENTER { 73, 32 }
+#    define RGB_MATRIX_CENTER { 90, 28 }
 
      /* Enable Framebuffer and keypress effects */
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
