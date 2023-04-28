@@ -1,6 +1,3 @@
-// Copyright 2023 Kibou (@Kibou)
-// SPDX-License-Identifier: GPL-2.0-or-later
-
 #pragma once
 
 /* Set 0 if debouncing isn't needed */
