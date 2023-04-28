@@ -125,7 +125,9 @@ bool oled_task_user() {
     // Caps lock text
     led_t led_state = host_keyboard_led_state();
     oled_set_cursor(0, 3);
-    oled_write_P(led_state.caps_lock ? PSTR("CAPS") : PSTR(""), false);
+    if (led_state.caps_lock) {
+        oled_write_P(PSTR("CAPS"), false);
+    }
     
     return false;
 }
