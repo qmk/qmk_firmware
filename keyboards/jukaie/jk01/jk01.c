@@ -162,11 +162,11 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 #endif
 
-void keyboard_pre_init_user(void) {
+void keyboard_pre_init_kb(void) {
     setPinOutput(C0);
     setPinOutput(C15);
+    keyboard_pre_init_user();
 };
-
-void housekeeping_task_user(void) {
+void housekeeping_task_kb(void) {
     writePin(C15, keymap_config.no_gui);
 };
