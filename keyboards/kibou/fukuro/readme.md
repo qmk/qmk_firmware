@@ -1,15 +1,16 @@
-# kibou/fukuro
+# fukuro
 
-* Keyboard Maintainer: [Kibou.](https://kibou.store/)  
-* Hardware Supported: fukuro PCBs, STM32F072
+* Keyboard Maintainer: [Kibou](https://github.com/biubomm-jun)
+* Hardware Supported: *fukuro PCBs, STM32F072*
+* Hardware Availability: *https://kibou.store/*
 
 Make example for this keyboard (after setting up your build environment):
 
-    make fukuro:default
+    make kibou/fukuro:default
 
 Flashing example for this keyboard:
 
-    make fukuro:default:flash
+    make kibou/fukuro:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
