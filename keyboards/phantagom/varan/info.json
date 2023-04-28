@@ -40,6 +40,7 @@
         "pid": "0x0002",
         "device_version": "0.0.3"
     },
+    "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [
