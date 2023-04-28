@@ -43,6 +43,9 @@
             "enabled": true
         }
     },
+    "ws2812": {
+        "pin": "B2"
+    },
     "layouts": {
         "LAYOUT_iso": {
             "layout": [
