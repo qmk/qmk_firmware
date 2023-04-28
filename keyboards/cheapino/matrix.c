@@ -33,14 +33,6 @@ static const pin_t row_pins[] = MATRIX_ROW_PINS;
 static const pin_t col_pins[] = MATRIX_COL_PINS;
 static matrix_row_t previous_matrix[MATRIX_ROWS];
 
-void keyboard_post_init_user(void) {
-    // Customise these values to desired behaviour
-    debug_enable=true;
-    debug_matrix=true;
-    debug_keyboard=true;
-    //debug_mouse=true;
-}
-
 static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
     writePinLow(row_pins[row]);
@@ -150,3 +142,4 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     return has_matrix_changed(current_matrix);
 }
+
