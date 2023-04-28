@@ -1,6 +1,6 @@
 # phantagom/varan
 
-[Varan](https://en.wikipedia.org/wiki/Varan) s a fictional monster, or kaiju, which first appeared in the 1958 film Varan the Unbelievable
+[Varan](https://en.wikipedia.org/wiki/Varan) is a fictional monster, or kaiju, which first appeared in the 1958 film Varan the Unbelievable
 
 ![phantagom/varan](https://i.imgur.com/EuGAMyeh.jpeg)
 ![phantagom/varan](https://i.imgur.com/zO2ju9Ah.jpeg)
@@ -8,7 +8,7 @@
 A numpad with RGB strip based on a RP2040 controller.
 
 * Keyboard Maintainer: [Dennis Kruyt](https://github.com/dkruyt)
-* Project page: [baragon](https://github.com/dkruyt/mk/tree/main/varan)
+* Project page: [varan](https://github.com/dkruyt/mk/tree/main/varan)
 * Hardware Supported: *RP2040-Zero*
 
 Make example for this keyboard (after setting up your build environment):
