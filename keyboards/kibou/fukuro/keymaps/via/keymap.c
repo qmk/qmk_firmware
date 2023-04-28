@@ -1,4 +1,4 @@
-// Copyright 2023 Kibou (@xKibou)
+// Copyright 2023 Kibou (@Kibou)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
