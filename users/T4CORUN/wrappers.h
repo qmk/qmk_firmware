@@ -227,40 +227,28 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |  Esc |SniTog|MBtn3 | DPI  | sDPI |    | sDPI | DPI  |      |SniTog| Mute |
+*   |  Esc |      |      | DPI  | sDPI |    | sDPI | DPI  |      |      |MOUTOG|
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |MBtn5 |MBtn4 |DrgTog|MBtn1 |MBtn2 |    |      | Shft | Ctrl | Alt  | GUI  |
+*   |Sniper| MB2  |DrgScr| MB1  | MB3  |    | Mute | Shft | Ctrl | Alt  | GUI  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |MBtn2 |MBtn1 |DrgTog|MBtn4 |MBtn5 |
+*   | Undo | Cut  | Copy | Pste | Redo |    | MB3  | MB1  |DrgTog| MB2  |SniTog|
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |LyrTap|      |      |    |MOUTOG|MBtn3 |      |
+*                 |LyrTap|      |      |    | MB5  | MB4  |      |
 *                 `------+------+------'    `------+------+------'
 */
 
 //this is designed for the cnano (R4)
 //two hands for productive, but able to use one hand for causal internet surfing (won't be able to select text one handed)
-#if defined(POINTING_DEVICE_ENABLE_OFF)
-#   define __________________MOUSE_L1_________________        KC_ESC,  SNP_TOG, KC_BTN3, DPI_MOD, S_D_MOD
-#   define __________________MOUSE_L2_________________        ___x___, KC_BTN5, DRGSCRL, KC_BTN4, ___x___
-#   define __________________MOUSE_L3_________________        __________________UCCPR_L__________________
-#   define          _________MOUSE_L4________                 MOU_TOG, KC_BTN1, KC_BTN2
-
-#   define __________________MOUSE_R1_________________        S_D_MOD, DPI_MOD, ___x___, SNP_TOG, KC_MUTE
-#   define __________________MOUSE_R2_________________        ___x___, _____________SCAG_MODS____________
-#   define __________________MOUSE_R3_________________        KC_BTN3, KC_BTN1, DRG_TOG, KC_BTN4, KC_BTN5
-#   define          _________MOUSE_R4________                 MOU_TOG, KC_BTN2
-#endif //POINTING_DEVICE_ENABLE
-
 #if defined(POINTING_DEVICE_ENABLE)
-#   define __________________MOUSE_L1_________________        KC_ESC,  SNP_TOG, KC_BTN3, DPI_MOD, S_D_MOD
-#   define __________________MOUSE_L2_________________        KC_BTN5, KC_BTN4, DRGSCRL, KC_BTN1, KC_BTN2
+#   define __________________MOUSE_L1_________________        KC_ESC,  ___x___, ___x___, ___x___, ___x___
+#   define __________________MOUSE_L2_________________        SNIPING, KC_BTN2, DRGSCRL, KC_BTN1, KC_BTN3
 #   define __________________MOUSE_L3_________________        __________________UCCPR_L__________________
 #   define          _________MOUSE_L4________                 _______, ___x___, ___x___
 
-#   define __________________MOUSE_R1_________________        S_D_MOD, DPI_MOD, ___x___, SNP_TOG, KC_MUTE
-#   define __________________MOUSE_R2_________________        ___x___, _____________SCAG_MODS____________
-#   define __________________MOUSE_R3_________________        KC_BTN2, KC_BTN1, DRG_TOG, KC_BTN4, KC_BTN5
-#   define          _________MOUSE_R4________                 MOU_TOG, KC_BTN3
+#   define __________________MOUSE_R1_________________        S_D_MOD, DPI_MOD, ___x___, ___x___, MOU_TOG
+#   define __________________MOUSE_R2_________________        KC_MUTE, _____________SCAG_MODS____________
+#   define __________________MOUSE_R3_________________        KC_BTN3, KC_BTN1, DRG_TOG, KC_BTN2, SNP_TOG
+#   define          _________MOUSE_R4________                 KC_BTN5, KC_BTN4
 #endif //POINTING_DEVICE_ENABLE
 
 /*
