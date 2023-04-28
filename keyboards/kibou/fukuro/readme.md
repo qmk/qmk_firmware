@@ -1,6 +1,6 @@
 # fukuro
 
-* Keyboard Maintainer: [Kibou](https://github.com/biubomm-jun)
+* Keyboard Maintainer: [Kibou](https://github.com/biuboom-jun)
 * Hardware Supported: *fukuro PCBs, STM32F072*
 * Hardware Availability: *https://kibou.store/*
 
