@@ -24,7 +24,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-    A_CW = USER00,
+    A_CW = QK_KB_0,
     A_CCW
 };
 
