@@ -46,25 +46,11 @@
     "indicators": {
         "caps_lock": "C14"
     },
-    "keyboard_folder": "jukaie/jk01",
-    "keymaps": {},
     "matrix_pins": {
         "cols": ["A0", "A1", "A2", "A3", "A4", "A8", "A9", "A10"],
         "rows": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B12"]
     },
-    "matrix_size": {
-        "cols": 8,
-        "rows": 12
-    },
-    "mouse_key": {
-        "enabled": true
-    },
-    "parse_errors": [],
-    "parse_warnings": [],
-    "platform_key": "chibios",
     "processor": "WB32FQ95",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "qmk": {
         "tap_keycode_delay": 10
     },
@@ -167,9 +153,6 @@
     },
     "layouts": {
         "LAYOUT": {
-            "c_macro": true,
-            "filename": "keyboards/jukaie/jk01/jk01.h",
-            "json_layout": true,
             "layout": [
                 { "label": "ESC", "matrix": [1, 3], "w": 1, "x": 0, "y": 0 },
                 { "label": "F1", "matrix": [2, 6], "w": 1, "x": 2, "y": 0 },
