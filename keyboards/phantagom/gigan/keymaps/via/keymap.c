@@ -1,4 +1,4 @@
-// Copyright 2021 QMK / NachoxMacho
+// Copyright 2022 Dennis Kruyt
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
