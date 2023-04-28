@@ -116,7 +116,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4}
             ]
         },
-
         "LAYOUT_65_xt_ansi_blocker": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -208,7 +207,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4}
             ]
         },
-
         "LAYOUT_65_xt_ansi_blocker_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -301,7 +299,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4}
             ]
         },
-
         "LAYOUT_65_xt_ansi_blocker_tsangan": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -392,7 +389,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4}
             ]
         },
-
         "LAYOUT_65_xt_ansi_blocker_tsangan_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
