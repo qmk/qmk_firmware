@@ -104,7 +104,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_UP);
                 return false;
             }
-            return true;
         } break;
         case KC_A: {
             if (confinfo.dkey_states) {
@@ -114,7 +113,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_LEFT);
                 return false;
             }
-            return true;
         } break;
         case KC_S: {
             if (confinfo.dkey_states) {
@@ -124,7 +122,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_DOWN);
                 return false;
             }
-            return true;
         } break;
         case KC_D: {
             if (confinfo.dkey_states) {
@@ -134,7 +131,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_RIGHT);
                 return false;
             }
-            return true;
         } break;
         default: {
             return true;
