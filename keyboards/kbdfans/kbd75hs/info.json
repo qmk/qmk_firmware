@@ -5,7 +5,8 @@
     "usb": {
         "vid": "0x4B42",
         "pid": "0x6062",
-        "device_version": "0.0.3"
+        "device_version": "0.0.3",
+        "force_nkro": true
     },
     "matrix_pins": {
         "cols": ["F7", "F6", "F5", "F4", "F1", "D0", "D1", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "B5"],

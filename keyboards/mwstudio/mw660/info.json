@@ -25,7 +25,8 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x6601",
-        "vid": "0x7BA1"
+        "vid": "0x7BA1",
+        "force_nkro": true
     },
     "layouts": {
         "LAYOUT": {

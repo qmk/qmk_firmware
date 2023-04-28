@@ -17,5 +17,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define SOLENOID_PIN A2
-
-#define FORCE_NKRO
