@@ -113,7 +113,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 16.25, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_blocker": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -203,7 +202,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 16.25, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_blocker_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -294,7 +292,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 16.25, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_blocker_tsangan": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -383,7 +380,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 16.25, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_blocker_tsangan_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -473,7 +469,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 16.25, "y": 4}
             ]
         },
-
         "LAYOUT_iso_blocker": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -564,7 +559,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 16.25, "y": 4}
             ]
         },
-
         "LAYOUT_iso_blocker_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -656,7 +650,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 16.25, "y": 4}
             ]
         },
-
         "LAYOUT_iso_blocker_tsangan": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -746,7 +739,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 16.25, "y": 4}
             ]
         },
-
         "LAYOUT_iso_blocker_tsangan_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
