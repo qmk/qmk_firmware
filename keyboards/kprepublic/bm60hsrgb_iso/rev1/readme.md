@@ -1,4 +1,4 @@
-# BM60HSRGB_ISO/rev2
+# BM60HSRGB_ISO/rev1
 
 ![BM60HSRGB_ISO](https://i.imgur.com/i3gk2vql.jpg)
 
