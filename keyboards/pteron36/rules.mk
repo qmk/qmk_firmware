@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,5 +13,3 @@ AUDIO_ENABLE = no           # Audio output
 OLED_ENABLE = yes           # OLED display
 ENCODER_ENABLE = yes        # Encoder support
 SPLIT_KEYBOARD = yes        # Split enable
-
-LAYOUTS = split_3x5_3

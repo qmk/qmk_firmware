@@ -15,14 +15,10 @@
  */
 #pragma once
 
-#include "config_common.h"
 
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
 #define MATRIX_ROW_PINS { F7, F6, F5, F4, F1, F0 }
 #define MATRIX_COL_PINS { B0, B1, B2, B3, B7, D2, D3, D5, D4, D6, D7, B4, B5, B6, C6 }
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 3
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 18

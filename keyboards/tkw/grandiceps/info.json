@@ -6,6 +6,17 @@
         "vid": "0xFEED",
         "pid": "0x7812"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B14", "pin_b": "B15"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "A15"
+    },
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F411",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -153,38 +153,13 @@ __attribute__((weak)) void via_set_device_indication(uint8_t value) {
 bool process_record_via(uint16_t keycode, keyrecord_t *record) {
     // Handle macros
     if (record->event.pressed) {
-        if (keycode >= MACRO00 && keycode <= MACRO15) {
-            uint8_t id = keycode - MACRO00;
+        if (keycode >= QK_MACRO && keycode <= QK_MACRO_MAX) {
+            uint8_t id = keycode - QK_MACRO;
             dynamic_keymap_macro_send(id);
             return false;
         }
     }
 
-    // TODO: ideally this would be generalized and refactored into
-    // QMK core as advanced keycodes, until then, the simple case
-    // can be available here to keyboards using VIA
-    switch (keycode) {
-        case FN_MO13:
-            if (record->event.pressed) {
-                layer_on(1);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(1);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-        case FN_MO23:
-            if (record->event.pressed) {
-                layer_on(2);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(2);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-    }
     return true;
 }
 
@@ -303,25 +278,22 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     break;
                 }
                 case id_switch_matrix_state: {
-// Round up to the nearest number of bytes required to hold row state.
-// Multiply by number of rows to get the required size in bytes.
-// Guard against this being too big for the HID message.
-#if (((MATRIX_COLS + 7) / 8) * MATRIX_ROWS <= 28)
-                    uint8_t i = 1;
-                    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-                        matrix_row_t value = matrix_get_row(row);
-#    if (MATRIX_COLS > 24)
+                    uint8_t offset = command_data[1];
+                    uint8_t rows   = 28 / ((MATRIX_COLS + 7) / 8);
+                    uint8_t i      = 2;
+                    for (uint8_t row = 0; row < rows && row + offset < MATRIX_ROWS; row++) {
+                        matrix_row_t value = matrix_get_row(row + offset);
+#if (MATRIX_COLS > 24)
                         command_data[i++] = (value >> 24) & 0xFF;
-#    endif
-#    if (MATRIX_COLS > 16)
+#endif
+#if (MATRIX_COLS > 16)
                         command_data[i++] = (value >> 16) & 0xFF;
-#    endif
-#    if (MATRIX_COLS > 8)
+#endif
+#if (MATRIX_COLS > 8)
                         command_data[i++] = (value >> 8) & 0xFF;
-#    endif
+#endif
                         command_data[i++] = value & 0xFF;
                     }
-#endif
                     break;
                 }
                 case id_firmware_version: {
@@ -704,11 +676,11 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
             break;
         }
         case id_qmk_rgb_matrix_effect_speed: {
-            rgblight_set_speed_noeeprom(value_data[0]);
+            rgb_matrix_set_speed_noeeprom(value_data[0]);
             break;
         }
         case id_qmk_rgb_matrix_color: {
-            rgblight_sethsv_noeeprom(value_data[0], value_data[1], rgb_matrix_get_val());
+            rgb_matrix_sethsv_noeeprom(value_data[0], value_data[1], rgb_matrix_get_val());
             break;
         }
     }

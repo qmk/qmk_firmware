@@ -23,14 +23,22 @@
         "pid": "0x0006",
         "vid": "0x4C58"
     },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
     "indicators": {
         "num_lock": "D2",
         "caps_lock": "D3",
         "scroll_lock": "D5",
         "on_state": 0
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_split_bs",
+        "LAYOUT_em8_all": "LAYOUT_split_bs",
+        "LAYOUT_em8_2u_backsp": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_em8_2u_backsp": {
+        "LAYOUT": {
             "layout": [
                 {"x":0, "y":0, "matrix":[1,0] },
                 {"x":1.25, "y":0, "matrix":[0,0] },
@@ -108,7 +116,7 @@
             ]
         },
 
-        "LAYOUT_em8_all": {
+        "LAYOUT_split_bs": {
             "layout": [
                 {"x":0, "y":0, "matrix":[1,0] },
                 {"x":1.25, "y":0, "matrix":[0,0] },

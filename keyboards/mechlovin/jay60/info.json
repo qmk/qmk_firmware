@@ -8,6 +8,11 @@
         "pid": "0x0600",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "D4"
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
