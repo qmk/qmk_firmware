@@ -20,8 +20,8 @@
     "url": "https://github.com/bschwind/key-ripper",
     "usb": {
         "device_version": "0.2.0",
-        "pid": "0x0200",
-        "vid": "0xFEED"
+        "pid": "0x0001",
+        "vid": "0xB501"
     },
     "layouts": {
         "LAYOUT": {
