@@ -3,34 +3,27 @@
     "keyboard_name": "Lotus 58 Glow (QMK)",
     "maintainer": "TweetyDaBird",
     "bootloader_instructions": "Short marked pads on PCB, or hold top-outer key when plugging in each hand.",
-	"bootmagic": {
-        "matrix": [0, 0]
-    },
     "build": {
         "lto": true
     },
-   "diode_direction": "COL2ROW",
+    "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {
-                "pin_a": "F5",
-                "pin_b": "F4",
-                "resolution": 2
-            }
+            { "pin_a": "F5", "pin_b": "F4", "resolution": 2 }
         ]
     },
     "features": {
         "bootmagic": true,
         "command": false,
         "console": false,
-        "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "oled": true,
+        "encoder": true,
         "rgblight": true,
         "split": true,
-	"tri_layer": true
+	    "tri_layer": true
     },
     "matrix_pins": {
         "cols": ["B1", "B2", "B3", "B6", "F7", "F6"],
@@ -42,7 +35,8 @@
         "led_count": 70,
         "pin": "D3",
         "split": true,
-        "split_count": [35, 35]
+        "split_count": [35, 35],
+        "sleep": true
     },
     "split": {
 		"bootmagic": {
@@ -52,11 +46,7 @@
         "encoder": {
             "right": {
                 "rotary": [
-                    {
-                        "pin_a": "F4",
-                        "pin_b": "F5",
-                        "resolution": 2
-                    }
+                    { "pin_a": "F4", "pin_b": "F5", "resolution": 2 }
                 ]
             }
         },
@@ -67,17 +57,15 @@
             "sync_modifiers": true
         },
         "usb_detect": {
-            "enabled": true,
-            "polling_interval": 10,
-            "timeout": 2000
+            "enabled": true
         }
     },
     "url": "https://lectronz.com/stores/tweetys-wild-thinking",
     "usb": {
-        "device_version": "1.2.3",
-        "force_nkro": true,
+        "vid": "0xFEED",
         "pid": "0x23B0",
-        "vid": "0xFEED"
+        "device_version": "1.2.3",
+        "force_nkro": true
     },
     "layouts": {
         "LAYOUT": {
@@ -137,8 +125,8 @@
                 { "label": "Win", "matrix": [4, 1], "x": 2.5, "y": 4.25 },
                 { "label": "Lower", "matrix": [4, 2], "x": 3.5, "y": 4.25 },
                 { "label": "Alt", "matrix": [4, 3], "x": 4.5, "y": 4.5 },
-                { "h": 1.25, "label": "Space", "matrix": [4, 4], "x": 6, "y": 4.25 },
-                { "h": 1.25, "label": "Enter", "matrix": [9, 4], "x": 8, "y": 4.25 },
+                { "label": "Space", "matrix": [4, 4], "x": 6, "y": 4.25, "h": 1.25 },
+                { "label": "Enter", "matrix": [9, 4], "x": 8, "y": 4.25, "h": 1.25 },
                 { "label": "AltGr", "matrix": [9, 3], "x": 9.5, "y": 4.5 },
                 { "label": "Raise", "matrix": [9, 2], "x": 10.5, "y": 4.25 },
                 { "label": "BckSp", "matrix": [9, 1], "x": 11.5, "y": 4.25 }

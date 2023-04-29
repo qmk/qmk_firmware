@@ -1,1 +1,1 @@
-BOOTLOADER = caterina
+# This file intentionally left blank
