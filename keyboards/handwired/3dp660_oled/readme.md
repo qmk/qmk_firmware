@@ -2,7 +2,7 @@
 
 ![handwired/3dp660_oled](https://i.imgur.com/AQ6VQfgh.jpg)
 
-A handwired FC660 layout with OLED display support.
+*A handwired FC660 layout with OLED display support.*
 
 * Keyboard Maintainer: [xia0](https://github.com/xia0)
 * Hardware Supported: ATmega32U4 e.g. Arduino Pro Micro or Teensy 2.0
