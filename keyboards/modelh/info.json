@@ -1,16 +1,12 @@
 {
+    "manufacturer": "KEEBD",
     "keyboard_name": "modelh",
     "url": "https://keebd.com/products/model-h-usb-controller-upgrade-ibm-model-m",
     "maintainer": "KEEBD",
-    "properties": {
-        "manufacturer": "KEEBD"
-    }
     "usb": {
-        "properties": {
-            "pid": "0xB155",
-            "vid": "0xFEED",
-            "device_version": "0x0100"
-        }
+        "pid": "0xB155",
+        "vid": "0xFEED",
+        "device_version": "0.0.1"
     }
     "width": 3,
     "height": 2,

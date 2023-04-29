@@ -25,14 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MODELH_STATUS_LED C13
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0xB155
-#define DEVICE_VER   0x0100
-#define MANUFACTURER KEEBD
-#define PRODUCT      Model H Keyboard
-#define DESCRIPTION  USB controller for Model M keyboards
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 16
@@ -49,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B6, B5, B4, A15, B3, A0, A2, A1 }
 #define MATRIX_COL_PINS { A10, A9, A8, B15, B14, B13, B12, B11, B10, B1, B0, A7, A6, A5, A4, A3 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -143,15 +134,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* disable print */
 //#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
