@@ -88,16 +88,16 @@ void qp_internal_task(void) {
 #endif
 
     // Flush (render) dirty regions to corresponding displays
-#if defined(QP_DEBUG_DISABLE_INTERNAL_FLUSH_OUTPUT)
+#if !defined(QP_DEBUG_ENABLE_INTERNAL_FLUSH_OUTPUT)
     bool debug_state = debug_enable;
     debug_enable     = false;
-#endif // defined(QP_DEBUG_DISABLE_INTERNAL_FLUSH_OUTPUT)
+#endif // defined(QP_DEBUG_ENABLE_INTERNAL_FLUSH_OUTPUT)
     for (uint8_t i = 0; i < QP_NUM_DEVICES; i++) {
         if (qp_devices[i] != NULL) {
             qp_flush(qp_devices[i]);
         }
     }
-#if defined(QP_DEBUG_DISABLE_INTERNAL_FLUSH_OUTPUT)
+#if !defined(QP_DEBUG_ENABLE_INTERNAL_FLUSH_OUTPUT)
     debug_enable = debug_state;
-#endif // defined(QP_DEBUG_DISABLE_INTERNAL_FLUSH_OUTPUT)
+#endif // defined(QP_DEBUG_ENABLE_INTERNAL_FLUSH_OUTPUT)
 }
