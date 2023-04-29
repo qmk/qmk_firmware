@@ -20,19 +20,19 @@
 static const pin_t led_pins[3] = MODELH_LED_PINS;
 
 bool led_update_kb(led_t led_state) {
-  bool res = led_update_user(led_state);
-  if(res) {
-    writePin(led_pins[0], !led_state.num_lock);
-    writePin(led_pins[1], !led_state.caps_lock);
-    writePin(led_pins[2], !led_state.scroll_lock);
-  }
-  return res;
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(led_pins[0], !led_state.num_lock);
+        writePin(led_pins[1], !led_state.caps_lock);
+        writePin(led_pins[2], !led_state.scroll_lock);
+    }
+    return res;
 }
 
 void led_init_ports() {
-  setPinOutput(led_pins[0]);
-  setPinOutput(led_pins[1]);
-  setPinOutput(led_pins[2]);
+    setPinOutput(led_pins[0]);
+    setPinOutput(led_pins[1]);
+    setPinOutput(led_pins[2]);
 }
 
 #else
@@ -40,9 +40,9 @@ void led_init_ports() { }
 #endif
 
 void keyboard_pre_init_kb(void) {
-  setPinOutput(MODELH_STATUS_LED);
-  writePin(MODELH_STATUS_LED, 0);
+    setPinOutput(MODELH_STATUS_LED);
+    writePin(MODELH_STATUS_LED, 0);
 
-  led_init_ports();
-  keyboard_pre_init_user();
+    led_init_ports();
+    keyboard_pre_init_user();
 }
