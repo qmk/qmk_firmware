@@ -2,7 +2,7 @@
     "keyboard_name": "Avalon",
     "manufacturer": "Trailblazer Keyboards",
     "url": "https://fjlaboratories.com/",
-    "maintainer": "FJLaboratories",
+    "maintainer": "mrnoisytiger",
     "usb": {
         "vid": "0x7074",
         "pid": "0x0015",
