@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	CMD_T(KC_BSPC),	MT(MOD_LALT, KC_DEL),	MT(MOD_LCTL, KC_ENT),
 																			KC_ENT,	KC_MPLY,	KC_SPC,
-																			LT(_NAV, KC_MINUS),	LT(_SYM, KC_EQL),	KC_RGUI,	KC_RALT,	KC_RCTL,
+																			LT(_SYM, KC_MINUS),	LT(_NAV, KC_EQL),	KC_RGUI,	KC_RALT,	KC_RCTL,
 
 	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,									KC_MNXT,	KC_MPRV,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 	KC_WH_D,	KC_WH_U,	KC_LBRC,	KC_LPRN,	KC_LCBR,													KC_H,	KC_J,	KC_MNXT,	KC_MPLY,	KC_MPRV
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,					_______,	_______,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	MO(_WINNAV),
-	KC_SPC,	MO(_SYM), KC_LALT,
+	KC_SPC,	LT(_SYM, KC_DEL), KC_LALT,
 																			KC_ENT,	KC_ESC,	KC_SPC,
 																							_______,	_______,	_______,	_______,	_______,
 
@@ -242,13 +242,13 @@ void render_layer_status(void) {
 			oled_write_ln_P(PSTR(" Nav "),	true);
 			break;
 		case _GAME:
-			oled_write_ln_P(PSTR("Game "),	true);
+			oled_write_ln_P(PSTR(" Game"),	true);
 			break;
 		case _SYM:
 			oled_write_ln_P(PSTR(" Sym "),	true);
 			break;
 		case _WINNAV:
-			oled_write_ln_P(PSTR("WNav "),	true);
+			oled_write_ln_P(PSTR("WinNv"),	true);
 			break;
 		case _MEH:
 			oled_write_ln_P(PSTR(" Meh "),	true);
