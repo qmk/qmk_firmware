@@ -2,7 +2,7 @@
     "keyboard_name": "Midway60",
     "manufacturer": "FJLabs",
     "url": "https://www.bolsakeyboardsupply.com",
-    "maintainer": "FJLabs",
+    "maintainer": "mrnoisytiger",
     "usb": {
         "vid": "0x7074",
         "pid": "0x1002",
