@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Model M PC/3270 122 key",
     "manufacturer": "IBM",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/ibm/model_m_122/m122_3270",
     "maintainer": "jmaynard",
     "usb": {
         "vid": "0x1209",

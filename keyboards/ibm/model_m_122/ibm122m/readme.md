@@ -26,6 +26,6 @@ Pins:    C6 GND B6 GND
 
 Make example for this keyboard (after setting up your build environment):
 
-    make modelm/ibm122m:default
+    make ibm/model_m_122/ibm122m:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

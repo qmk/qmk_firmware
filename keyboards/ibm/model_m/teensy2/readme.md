@@ -18,12 +18,12 @@ Status LEDs: CapsLock +5V ScrollLock NumLock
 Pins:        E6       5V  -         -  
 ```  
 
-Keyboard Maintainer: [wangfuco](https://github.com/wangfuco)  
+Keyboard Maintainer: [wangfuco](https://github.com/wangfuco)
 Hardware Supported: Teensy 2.0 board by PJRC  
 Hardware Availability: https://www.pjrc.com/store/teensy.html 
 
 Make example for this keyboard (after setting up your build environment):
 
-    make modelm/teensy2:default:teensy
+    make ibm/model_m/teensy2:default:teensy
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

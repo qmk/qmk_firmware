@@ -12,8 +12,9 @@ keyboard's functioning as possible while still being usable on a PC.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make modelm/m122_3270/blackpill:default
-    make modelm/m122_3270/teensy:default
+    make ibm/model_m_122/m122_3270/blackpill:default
+    make ibm/model_m_122/m122_3270/bluepill:default
+    make ibm/model_m_122/m122_3270/teensy:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
 and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide)

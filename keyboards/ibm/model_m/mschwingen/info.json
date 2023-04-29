@@ -1,7 +1,7 @@
 {
     "keyboard_name": "atmega32U4 board for IBM Model M",
     "manufacturer": "mschwingen",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/modelm/mschwingen",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/ibm/model_m/mschwingen",
     "maintainer": "mschwingen",
     "usb": {
         "vid": "0xFEED",

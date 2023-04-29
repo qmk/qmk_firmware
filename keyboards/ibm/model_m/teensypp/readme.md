@@ -37,6 +37,6 @@ Please note that some versions of Model M have LED connected with a ribbon cable
 
 Make example for this keyboard (after setting up your build environment):
 
-    make modelm/teensypp:default:teensy
+    make ibm/model_m/teensypp:default:teensy
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

@@ -2,11 +2,11 @@
 
 ![IBM Model M Space-Saving Keyboard](https://i.imgur.com/CSXrQI5.jpg)
 
-This is a QMK firmware configuration for the IBM Model M Space-Saving Keyboard (SSK). Based on [this project](https://github.com/qmk/qmk_firmware/tree/master/keyboards/modelm/teensypp), it features a few slight improvements and, most importantly, a full remapping to match the SSK's matrix, which differs from its full-sized cousins. The modification is easily reversible, as no part of the keyboard is permanently changed. Just take out the replacement controller and reinstall the original, should you desire.
+This is a QMK firmware configuration for the IBM Model M Space-Saving Keyboard (SSK). Based on [this project](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ibm/model_m/teensypp), it features a few slight improvements and, most importantly, a full remapping to match the SSK's matrix, which differs from its full-sized cousins. The modification is easily reversible, as no part of the keyboard is permanently changed. Just take out the replacement controller and reinstall the original, should you desire.
 
 The numpad layer (accessed with Shift + Scroll Lock as with the original controller) is mapped to layer 7 by default. All non-numpad keys are transparent.
 
-**Note:** As of this writing, this configuration has only been tested on the 1392464 SSK. It's possible other models differ in their internal matrices. Should the provided matrix not work for you (and you are certain of your connections), you can enable debugging with `CONSOLE_ENABLE = yes` in `rules.mk` and by following the directions in `default/keymap.c`. Once done, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) will display row/col information to help you remap `modelm_ssk.h`.
+**Note:** As of this writing, this configuration has only been tested on the 1392464 SSK. It's possible other models differ in their internal matrices. Should the provided matrix not work for you (and you are certain of your connections), you can enable debugging with `CONSOLE_ENABLE = yes` in `rules.mk` and by following the directions in `default/keymap.c`. Once done, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) will display row/col information to help you remap `keymap.c`.
 
 ## Requirements
 
@@ -48,7 +48,7 @@ This configuration will not work out of the box with the [Unicomp Mini M](https:
 
 Make example for this keyboard (after setting up your build environment):
 
-    make converter/modelm_ssk:default
+    make ibm/model_m_ssk/teensypp_ssk:default
 
 You must press the button on the Teensy to enter the bootloader the first time. Afterward, so long as you keep `COMMAND_ENABLE = yes` in `rules.mk` (enabled by default), you can use `Left Shift + Right Shift + B` to enter the bootloader. With this method, you can omit `:teensy` from the end of the `make` command.
 
