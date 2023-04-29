@@ -10,9 +10,9 @@
 * Hardware Design: [GitHub](https://github.com/TweetyDaBird/Lotus58)
 
 
-#### This keyboard firmware contains three different versions, all for the same PCB/hardware, but depending on your choice of controller/bootloader. 
+#### This keyboard firmware contains different versions, all for the same PCB/hardware, but depending on your choice of controller (and bootloader). 
 
-
+* blok - This uses the blok rp2040 Pro Micro replacement
 * promicro - This uses the default Caterina bootloader.
 * elite_c - This uses the Atmel-DFU bootloader.
 * nanoBoot - A tiny 512 byte bootloader giving far more usable memory for features (can be used on both Elite C and Pro Micro).
