@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
 /* Model H customizations */
 #define MODELH_LED_PINS { B9, B8, B7 }
 
