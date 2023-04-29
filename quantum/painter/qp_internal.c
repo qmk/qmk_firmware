@@ -97,7 +97,7 @@ void qp_internal_task(void) {
             qp_flush(qp_devices[i]);
         }
     }
-#if !defined(QP_DEBUG_ENABLE_INTERNAL_FLUSH_OUTPUT)
-    debug_enable = debug_state;
-#endif // defined(QP_DEBUG_ENABLE_INTERNAL_FLUSH_OUTPUT)
+#if !defined(QUANTUM_PAINTER_DEBUG_ENABLE_FLUSH_TASK_OUTPUT)
+    debug_enable = old_debug_state;
+#endif // defined(QUANTUM_PAINTER_DEBUG_ENABLE_FLUSH_TASK_OUTPUT)
 }
