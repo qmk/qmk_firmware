@@ -2,7 +2,7 @@
     "keyboard_name": "Sinanju WK",
     "manufacturer": "FJLabs",
     "url": "https://www.fjlaboratories.com",
-    "maintainer": "FJLabs",
+    "maintainer": "mrnoisytiger",
     "usb": {
         "vid": "0x7074",
         "pid": "0x1023",
