@@ -18,7 +18,7 @@
 #include QMK_KEYBOARD_H
 #include "oled.c"
 
-#if defined ENCODER_ENABLE && defined ENCODER_MAP_ENABLE
+#ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
     [1] = { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______) },
