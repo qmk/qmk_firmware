@@ -13,6 +13,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * rotary encoder functionality heavily cribbed from /u/hansolo71
+ * https://www.reddit.com/r/MechanicalKeyboards/comments/s52e51/added_alttab_to_my_rotary_encoder_on_my_qmk_board/
+ */
+
+/*
+ * left encoder is GUI+TAB for switching windows
+ * middle encoder is CTRL+TAB for switch tabs
+ * right encoder is volume
+ */
+
 #include QMK_KEYBOARD_H
 
 bool is_gui_tab_active = false;
@@ -45,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT(
         KC_ENT, KC_ENT, KC_MUTE,
-				KC_WH_U, KC_TAB, KC_RGUI,
+		KC_WH_U, KC_TAB, KC_RGUI,
         KC_WH_D, _______, KC_TAB
     ),
 };
