@@ -1,9 +1,10 @@
 # modelh
 
-![modelh](./modelh.jpg)
+![modelh](https://modelh.club/modelh_assembled.jpg)
 
 *A short description of the keyboard/project*
 
+* Keyboard Creator: [John Hawthorn](https://github.com/jhawthorn)
 * Keyboard Maintainer: [KEEBD](https://github.com/keebd)
 * Hardware Supported: IBM Model M Keyboards
 * Hardware Availability: [KEEBD](https://keebd.com/products/model-h-usb-controller-upgrade-ibm-model-m)
