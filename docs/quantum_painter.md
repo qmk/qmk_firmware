@@ -44,7 +44,7 @@ Supported devices:
 | `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`   | `FALSE` | If 256-color palettes are supported. Requires significantly more RAM on the MCU.                                                                                                             |
 | `QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS` | `FALSE` | If native color range is supported. Requires significantly more RAM on the MCU.                                                                                                              |
 | `QUANTUM_PAINTER_DEBUG`                  | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation, use only for debugging.                                                      |
-| `QP_DEBUG_ENABLE_INTERNAL_FLUSH_OUTPUT`  | _unset_ | By default, debug is disabled while internal task is flushing the display(s). If you want want it to keep enabled, add this. Note: Console will get clogged.                                 |
+| `QUANTUM_PAINTER_DEBUG_ENABLE_FLUSH_TASK_OUTPUT`  | _unset_ | By default, debug output is disabled while the internal task is flushing the display(s). If you want to keep it enabled, add this to your `config.h`. Note: Console will get clogged.                                 |
 
 
 Drivers have their own set of configurable options, and are described in their respective sections.
