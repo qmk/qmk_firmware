@@ -26,15 +26,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_LOWER] = LAYOUT_ortho_4x10(
-        KC_TAB  ,XXXXXXX ,KC_COLN ,KC_SCLN ,XXXXXXX ,KC_SLSH ,KC_7    ,KC_8    ,KC_9    ,KC_MINS ,
-        KC_ESC  ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LT   ,KC_ASTR ,KC_4    ,KC_5    ,KC_6    ,KC_PLUS ,
-        XXXXXXX ,KC_RBRC ,KC_RCBR ,KC_RPRN ,KC_GT   ,KC_0    ,KC_1    ,KC_2    ,KC_3    ,KC_EQL  ,
+        KC_TAB  ,KC_COLN ,KC_SCLN ,KC_DQT  ,KC_QUOT ,KC_SLSH ,KC_7    ,KC_8    ,KC_9    ,KC_MINS ,
+        KC_ESC  ,KC_LBRC ,KC_LCBR ,KC_LPRN ,XXXXXXX ,KC_ASTR ,KC_4    ,KC_5    ,KC_6    ,KC_PLUS ,
+        XXXXXXX ,KC_RBRC ,KC_RCBR ,KC_RPRN ,XXXXXXX ,KC_0    ,KC_1    ,KC_2    ,KC_3    ,KC_EQL  ,
         _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______
     ),
 
     [_RAISE] = LAYOUT_ortho_4x10(
-        KC_TILD ,KC_AT   ,KC_HASH ,KC_DLR  ,XXXXXXX      ,XXXXXXX ,KC_HOME ,KC_UP   ,KC_END  ,KC_BSPC ,
-        KC_CIRC ,KC_AMPR ,KC_QUES ,KC_PERC ,KC_INT3      ,XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_DEL  ,
+        KC_TILD ,KC_AT   ,KC_HASH ,KC_DLR  ,XXXXXXX      ,XXXXXXX ,KC_HOME ,KC_UP   ,KC_END  ,KC_DEL  ,
+        KC_CIRC ,KC_AMPR ,KC_QUES ,KC_PERC ,KC_INT3      ,XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RGHT ,KC_BSPC ,
         KC_GRV  ,KC_PIPE ,KC_EXLM ,KC_UNDS ,LALT(KC_INT3),XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
         _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______
     ),
