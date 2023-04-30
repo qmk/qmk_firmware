@@ -12,6 +12,7 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
     return true;
 }
 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
@@ -78,6 +79,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else { // Tap, paste
                     tap_code16(LCTL(KC_V));
                 }
+            }
+            break;
+
+        case IENTER: // Tap for letter "i", slight hold for "enter"
+            if (record->event.pressed) {
+                copy_paste_timer = timer_read();
+            } else {
+                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) { // Hold, enter
+                    tap_code16(KC_ENT);
+                } else { // Tap, "i"
+                    tap_code16(KC_I);
+                }
+            }
+            break;
+
+        case PRN:
+            if (record->event.pressed) {
+                SEND_STRING("()");
+                tap_code(KC_LEFT);
+            }
+            break;
+
+        case BRACES:
+            if (record->event.pressed) {
+                uint8_t shifted = get_mods() & (MOD_MASK_SHIFT);
+                    if (shifted) {
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_RSFT);
+                        SEND_STRING("<>"SS_TAP(X_LEFT));
+                    }
+                    else {
+                        SEND_STRING("[]"SS_TAP(X_LEFT));
+                    }
             }
             break;
 

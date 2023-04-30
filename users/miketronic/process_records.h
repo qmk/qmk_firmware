@@ -31,5 +31,8 @@ enum custom_keycodes {
   RGB3,
   RGB4,
   RGB5,
+  IENTER,
+  PRN,
+  BRACES,
   CCCV
 };
