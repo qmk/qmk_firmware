@@ -77,7 +77,7 @@ uint8_t g_twi_transfer_buffer[20];
 // buffers and the transfers in IS31FL3736_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
 uint8_t g_pwm_buffer[DRIVER_COUNT][192];
-bool    g_pwm_buffer_update_required = false;
+bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
 uint8_t g_led_control_registers[DRIVER_COUNT][24] = {{0}, {0}};
 bool    g_led_control_registers_update_required   = false;
@@ -169,10 +169,10 @@ void IS31FL3736_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
-        g_pwm_buffer[led.driver][led.r] = red;
-        g_pwm_buffer[led.driver][led.g] = green;
-        g_pwm_buffer[led.driver][led.b] = blue;
-        g_pwm_buffer_update_required    = true;
+        g_pwm_buffer[led.driver][led.r]          = red;
+        g_pwm_buffer[led.driver][led.g]          = green;
+        g_pwm_buffer[led.driver][led.b]          = blue;
+        g_pwm_buffer_update_required[led.driver] = true;
     }
 }
 
@@ -230,9 +230,9 @@ void IS31FL3736_mono_set_brightness(int index, uint8_t value) {
     if (index >= 0 && index < 96) {
         // Index in range 0..95 -> A1..A8, B1..B8, etc.
         // Map index 0..95 to registers 0x00..0xBE (interleaved)
-        uint8_t pwm_register          = index * 2;
-        g_pwm_buffer[0][pwm_register] = value;
-        g_pwm_buffer_update_required  = true;
+        uint8_t pwm_register            = index * 2;
+        g_pwm_buffer[0][pwm_register]   = value;
+        g_pwm_buffer_update_required[0] = true;
     }
 }
 
