@@ -5,6 +5,7 @@ CUSTOM_BOOTMAGIC_ENABLE          = no
 CUSTOM_UNICODE_ENABLE            = no
 HAPTIC_ENABLE                    = no
 OLED_ENABLE                      = no
+OLED_DRIVER                      = custom
 RGBLIGHT_ENABLE                  = no
 SWAP_HANDS_ENABLE                = no
 TAP_DANCE_ENABLE                 = no
