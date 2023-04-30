@@ -412,7 +412,13 @@ bool processKeycodeIfLPinky(uint16_t keycode, keyrecord_t* record) {
             return false;
         case MA_UP:
             if (record->event.pressed) {
-                tap_code16_wrap_lctl(KC_UP);
+                if ((mod_state & MOD_BIT(KC_LSFT)) == MOD_BIT(KC_LSFT)) {
+                    unregister_code16(KC_LSFT);
+                    tap_code16_wrap_lctl(KC_DOWN);
+                    register_code16(KC_LSFT);
+                } else {
+                    tap_code16_wrap_lctl(KC_UP);
+                }
             }
             return false;
         case MA_BSPC:
