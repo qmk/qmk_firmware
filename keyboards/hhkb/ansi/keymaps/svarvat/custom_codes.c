@@ -2,6 +2,7 @@
 
 enum custom_keycodes {
     MA_BACKTICK = SAFE_RANGE,
+    MA_LCTL,
     MA_NONE,
     MA_HOME,
     MA_END,
