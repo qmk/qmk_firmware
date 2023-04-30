@@ -21,6 +21,11 @@
 #include "util.h"
 #include <string.h>
 
+#if defined(NKRO_ENABLE) && defined(APPLE_FN_ENABLE)
+    #error "Cannot define NKRO_ENABLE & APPLE_FN_ENABLE at the same time"
+#endif
+
+
 #ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
 #    define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
 #    define RO_SUB(a, b) ((a - b + KEYBOARD_REPORT_KEYS) % KEYBOARD_REPORT_KEYS)
@@ -241,12 +246,18 @@ void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
  * FIXME: Needs doc
  */
 void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key) {
+#ifdef APPLE_FN_ENABLE
+    if (KC_APPLE_FN == key) {
+        keyboard_report->reserved = 1;
+        return;
+    }
+#endif // APPLE_FN_ENABLE
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
         add_key_bit(keyboard_report, key);
         return;
     }
-#endif
+#endif // NKRO_ENABLE
     add_key_byte(keyboard_report, key);
 }
 
@@ -255,12 +266,18 @@ void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key) {
  * FIXME: Needs doc
  */
 void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key) {
+#ifdef APPLE_FN_ENABLE
+    if (KC_APPLE_FN == key) {
+        keyboard_report->reserved = 0;
+        return;
+    }
+#endif // APPLE_FN_ENABLE
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
         del_key_bit(keyboard_report, key);
         return;
     }
-#endif
+#endif // NKRO_ENABLE
     del_key_byte(keyboard_report, key);
 }
 

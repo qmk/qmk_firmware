@@ -53,7 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * ACT_SWAP_HANDS(0110):
  * 0110|xxxx| keycode     Swap hands (keycode on tap, or options)
  *
- * 0111|xxxx xxxx xxxx    (reserved)
+ * ACT_APPLE_FN(0111):
+ * 0111|0000|0000|0000    Apple Fn
  *
  * Layer Actions(10xx)
  * -------------------
@@ -95,6 +96,10 @@ enum action_kind_id {
     ACT_MOUSEKEY = 0b0101,
     /* One-hand Support */
     ACT_SWAP_HANDS = 0b0110,
+#ifdef APPLE_FN_ENABLE
+    /* Apple Fn */
+    ACT_APPLE_FN = 0b0111,
+#endif // APPLE_FN_ENABLE
     /* Layer Actions */
     ACT_LAYER         = 0b1000,
     ACT_LAYER_MODS    = 0b1001,
@@ -182,6 +187,9 @@ enum usage_pages {
 
 #define ACTION_USAGE_SYSTEM(id) ACTION(ACT_USAGE, PAGE_SYSTEM << 10 | (id))
 #define ACTION_USAGE_CONSUMER(id) ACTION(ACT_USAGE, PAGE_CONSUMER << 10 | (id))
+#ifdef APPLE_FN_ENABLE
+#define ACTION_APPLE_FN() ACTION(ACT_APPLE_FN, 0)
+#endif // APPLE_FN_ENABLE
 #define ACTION_MOUSEKEY(key) ACTION(ACT_MOUSEKEY, key)
 
 /** \brief Layer Actions

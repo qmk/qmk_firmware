@@ -547,6 +547,16 @@ void process_action(keyrecord_t *record, action_t action) {
             }
             break;
 #endif // EXTRAKEY_ENABLE
+#ifdef APPLE_FN_ENABLE
+        /* Apple Fn */
+        case ACT_APPLE_FN:
+            if (event.pressed) {
+                register_code(KC_APPLE_FN);
+            } else {
+                unregister_code(KC_APPLE_FN);
+            }
+            break;
+#endif // APPLE_FN_ENABLE
         /* Mouse key */
         case ACT_MOUSEKEY:
             register_mouse(action.key.code, event.pressed);
@@ -934,6 +944,12 @@ __attribute__((weak)) void register_code(uint8_t code) {
         host_consumer_send(KEYCODE2CONSUMER(code));
 #endif
 
+#ifdef APPLE_FN_ENABLE
+    } else if (KC_APPLE_FN == code) {
+        add_key(code);
+        send_keyboard_report();
+#endif
+
     } else if (IS_MOUSE_KEYCODE(code)) {
         register_mouse(code, true);
     }
@@ -989,6 +1005,12 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
         host_system_send(0);
     } else if (IS_CONSUMER_KEYCODE(code)) {
         host_consumer_send(0);
+#endif
+
+#ifdef APPLE_FN_ENABLE
+    } else if (KC_APPLE_FN == code) {
+        del_key(code);
+        send_keyboard_report();
 #endif
 
     } else if (IS_MOUSE_KEYCODE(code)) {
@@ -1188,6 +1210,11 @@ void debug_action(action_t action) {
         case ACT_USAGE:
             ac_dprintf("ACT_USAGE");
             break;
+#ifdef APPLE_FN_ENABLE
+        case ACT_APPLE_FN:
+            dprint("ACT_APPLE_FN");
+            break;
+#endif
         case ACT_MOUSEKEY:
             ac_dprintf("ACT_MOUSEKEY");
             break;

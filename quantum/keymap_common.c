@@ -66,6 +66,11 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
 #endif
+#ifdef APPLE_FN_ENABLE
+        case KC_APPLE_FN:
+            action.code = ACTION_APPLE_FN();
+            break;
+#endif
         case KC_MS_UP ... KC_MS_ACCEL2:
             action.code = ACTION_MOUSEKEY(keycode);
             break;
