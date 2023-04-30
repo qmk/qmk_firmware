@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <string.h>
 #include "aw20216.h"
 #include "wait.h"
 #include "spi_master.h"

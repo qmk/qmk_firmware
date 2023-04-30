@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <string.h>
 #include "ckled2001-simple.h"
 #include "i2c_master.h"
 #include "wait.h"

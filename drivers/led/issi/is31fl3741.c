@@ -17,10 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "wait.h"
-
-#include "is31fl3741.h"
 #include <string.h>
+#include "wait.h"
+#include "is31fl3741.h"
 #include "i2c_master.h"
 #include "progmem.h"
 
