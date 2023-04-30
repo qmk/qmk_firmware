@@ -107,9 +107,7 @@ void IS31FL3736_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
         // copy the data from i to i+15
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x00-0x0F, 0x10-0x1F, etc. in one transfer
-        for (int j = 0; j < 16; j++) {
-            g_twi_transfer_buffer[1 + j] = pwm_buffer[i + j];
-        }
+        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, 16);
 
 #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
@@ -262,16 +260,15 @@ void IS31FL3736_mono_set_led_control_register(uint8_t index, bool enabled) {
     g_led_control_registers_update_required = true;
 }
 
-void IS31FL3736_update_pwm_buffers(uint8_t addr1, uint8_t addr2) {
-    if (g_pwm_buffer_update_required) {
+void IS31FL3736_update_pwm_buffers(uint8_t addr, uint8_t index) {
+    if (g_pwm_buffer_update_required[index]) {
         // Firstly we need to unlock the command register and select PG1
-        IS31FL3736_write_register(addr1, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-        IS31FL3736_write_register(addr1, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
+        IS31FL3736_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
+        IS31FL3736_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM);
 
-        IS31FL3736_write_pwm_buffer(addr1, g_pwm_buffer[0]);
-        // IS31FL3736_write_pwm_buffer(addr2, g_pwm_buffer[1]);
+        IS31FL3736_write_pwm_buffer(addr, g_pwm_buffer[index]);
     }
-    g_pwm_buffer_update_required = false;
+    g_pwm_buffer_update_required[index] = false;
 }
 
 void IS31FL3736_update_led_control_registers(uint8_t addr1, uint8_t addr2) {
