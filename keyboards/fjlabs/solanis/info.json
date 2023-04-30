@@ -2,7 +2,7 @@
     "keyboard_name": "Solanis",
     "manufacturer": "FJLaboratories",
     "url": "http://www.fjlaboratories.com/",
-    "maintainer": "FJLabs",
+    "maintainer": "mrnoisytiger",
     "usb": {
         "vid": "0x7074",
         "pid": "0x0017",
