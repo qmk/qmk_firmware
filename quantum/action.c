@@ -1212,7 +1212,7 @@ void debug_action(action_t action) {
             break;
 #ifdef APPLE_FN_ENABLE
         case ACT_APPLE_FN:
-            dprint("ACT_APPLE_FN");
+            ac_dprintf("ACT_APPLE_FN");
             break;
 #endif
         case ACT_MOUSEKEY:

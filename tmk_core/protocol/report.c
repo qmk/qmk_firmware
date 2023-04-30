@@ -22,9 +22,8 @@
 #include <string.h>
 
 #if defined(NKRO_ENABLE) && defined(APPLE_FN_ENABLE)
-    #error "Cannot define NKRO_ENABLE & APPLE_FN_ENABLE at the same time"
+#    error "Cannot define NKRO_ENABLE & APPLE_FN_ENABLE at the same time"
 #endif
-
 
 #ifdef RING_BUFFERED_6KRO_REPORT_ENABLE
 #    define RO_ADD(a, b) ((a + b) % KEYBOARD_REPORT_KEYS)
