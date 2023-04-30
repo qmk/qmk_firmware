@@ -720,6 +720,13 @@ bool processKeycodeIfLThumb(uint16_t keycode, keyrecord_t* record) {
                 isWeakLaMouseStarted = true;
             }
             return false;
+        case MA_LCTL:
+            if (record->event.pressed) {
+                register_mods(MOD_MASK_CTRL);
+            } else {
+                unregister_mods(MOD_MASK_CTRL);
+            }
+            return false;
         case KC_UP:
             if (record->event.pressed) {
                 if (isCtlTabStarted) {
