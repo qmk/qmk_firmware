@@ -15,7 +15,7 @@
   "encoder": {
     "enabled": true,
     "rotary": [
-      { "pin_a": "E6", "pin_b": "B2"}
+      {"pin_a": "E6", "pin_b": "B2"}
     ]
   },
   "split": {
@@ -29,7 +29,7 @@
     "encoder": {
       "right": {
         "rotary": [
-          { "pin_a": "B6", "pin_b": "B2" }
+          {"pin_a": "B6", "pin_b": "B2"}
         ]
       }
     }

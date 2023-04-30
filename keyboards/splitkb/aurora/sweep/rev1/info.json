@@ -70,14 +70,8 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {
-                "pin_a": "B5",
-                "pin_b": "B4"
-            },
-            {
-                "pin_a": "B3",
-                "pin_b": "B2"
-            }
+            {"pin_a": "B5", "pin_b": "B4"},
+            {"pin_a": "B3", "pin_b": "B2"}
         ]
     },
     "split": {
@@ -95,14 +89,8 @@
         "encoder": {
             "right": {
                 "rotary": [
-                    {
-                        "pin_a": "B2",
-                        "pin_b": "B6"
-                    },
-                    {
-                        "pin_a": "F5",
-                        "pin_b": "D4"
-                    }
+                    {"pin_a": "B2", "pin_b": "B6"},
+                    {"pin_a": "F5", "pin_b": "D4"}
                 ]
             }
         }

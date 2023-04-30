@@ -15,7 +15,9 @@
         "extrakey": true,
         "console": true,
         "command": true,
-        "nkro": true,
+        "nkro": true
+    },
+    "build": {
         "lto": true
     },
     "processor": "atmega32u4",

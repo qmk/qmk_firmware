@@ -45,21 +45,9 @@
     "encoder": {
     "enabled": true,
         "rotary": [
-        {
-            "pin_a": "GP27",
-            "pin_b": "GP28",
-            "resolution": 2
-        },
-        {
-            "pin_a": "GP4",
-            "pin_b": "GP3",
-            "resolution": 2
-        },
-        {
-            "pin_a": "GP1",
-            "pin_b": "GP2",
-            "resolution": 2
-        }
+            {"pin_a": "GP27", "pin_b": "GP28", "resolution": 2},
+            {"pin_a": "GP4", "pin_b": "GP3", "resolution": 2},
+            {"pin_a": "GP1", "pin_b": "GP2", "resolution": 2}
         ]
     },
     "layouts": {
