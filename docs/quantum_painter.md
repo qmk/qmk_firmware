@@ -19,16 +19,18 @@ The QMK CLI can be used to convert from normal images such as PNG files or anima
 
 Supported devices:
 
-| Display Panel  | Panel Type         | Size             | Comms Transport | Driver                                      |
-|----------------|--------------------|------------------|-----------------|---------------------------------------------|
-| GC9A01         | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += gc9a01_spi`     |
-| ILI9163        | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9163_spi`    |
-| ILI9341        | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi`    |
-| ILI9488        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi`    |
-| SSD1351        | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi`    |
-| ST7735         | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`     |
-| ST7789         | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`     |
-| RGB565 Surface | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += rgb565_surface` |
+| Display Panel | Panel Type         | Size             | Comms Transport | Driver                                   |
+|---------------|--------------------|------------------|-----------------|------------------------------------------|
+| GC9A01        | RGB LCD (circular) | 240x240          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += gc9a01_spi`  |
+| ILI9163       | RGB LCD            | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9163_spi` |
+| ILI9341       | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi` |
+| ILI9488       | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi` |
+| SSD1351       | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi` |
+| ST7735        | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`  |
+| ST7789        | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`  |
+| SH1106 (SPI)  | Monochrome OLED    | 128x64           | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += sh1106_spi`  |
+| SH1106 (I2C)  | Monochrome OLED    | 128x64           | I2C             | `QUANTUM_PAINTER_DRIVERS += sh1106_i2c`  |
+| Surface       | Virtual            | User-defined     | None            | `QUANTUM_PAINTER_DRIVERS += surface`     |
 
 ## Quantum Painter Configuration :id=quantum-painter-config
 
@@ -394,47 +396,55 @@ Quantum Painter has surface drivers which are able to target a buffer in RAM. In
 
 <!-- tabs:start -->
 
-#### ** RGB565 Surface **
+#### ** Surface **
 
-Enabling support for RGB565 surfaces in Quantum Painter is done by adding the following to `rules.mk`:
+Enabling support for surfaces in Quantum Painter is done by adding the following to `rules.mk`:
 
 ```make
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS += rgb565_surface
+QUANTUM_PAINTER_DRIVERS += surface
 ```
 
-Creating a RGB565 surface in firmware can then be done with the following API:
+Creating a surface in firmware can then be done with the following APIs:
 
 ```c
-painter_device_t qp_rgb565_make_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
+// 16bpp RGB565 surface:
+painter_device_t qp_make_rgb565_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
+// 1bpp monochrome surface:
+painter_device_t qp_make_mono1bpp_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
 ```
 
-The `buffer` is a user-supplied area of memory, and is assumed to be of the size `sizeof(uint16_t) * panel_width * panel_height`.
+The `buffer` is a user-supplied area of memory, which can be allocated using `SURFACE_REQUIRED_BUFFER_BYTE_SIZE`:
 
-The device handle returned from the `qp_rgb565_make_surface` function can be used to perform all other drawing operations.
+```c
+// Buffer required for a 240x80 16bpp surface:
+uint8_t framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(240, 80, 16)];
+```
+
+The device handle returned from the `qp_make_?????_surface` function can be used to perform all other drawing operations.
 
 Example:
 
 ```c
 static painter_device_t my_surface;
-static uint16_t my_framebuffer[320 * 240]; // Allocate a buffer for a 320x240 RGB565 display
+uint8_t framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(240, 80, 16)]; // Allocate a buffer for a 16bpp 240x80 RGB565 display
 void keyboard_post_init_kb(void) {
-    my_surface = qp_rgb565_make_surface(320, 240, my_framebuffer);
+    my_surface = qp_rgb565_make_surface(240, 80, my_framebuffer);
     qp_init(my_surface, QP_ROTATION_0);
 }
 ```
 
-The maximum number of RGB565 surfaces can be configured by changing the following in your `config.h` (default is 1):
+The maximum number of surfaces can be configured by changing the following in your `config.h` (default is 1):
 
 ```c
 // 3 surfaces:
-#define RGB565_SURFACE_NUM_DEVICES 3
+#define SURFACE_NUM_DEVICES 3
 ```
 
-To transfer the contents of the RGB565 surface to another display, the following API can be invoked:
+To transfer the contents of the surface to another display of the same pixel format, the following API can be invoked:
 
 ```c
-bool qp_rgb565_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y);
+bool qp_surface_draw(painter_device_t surface, painter_device_t display, uint16_t x, uint16_t y);
 ```
 
 The `surface` is the surface to copy out from. The `display` is the target display to draw into. `x` and `y` are the target location to draw the surface pixel data. Under normal circumstances, the location should be consistent, as the dirty region is calculated with respect to the `x` and `y` coordinates -- changing those will result in partial, overlapping draws.
