@@ -690,6 +690,14 @@ Remove the spread effect entirely.
 #define RGB_MATRIX_TYPING_HEATMAP_SLIM
 ```
 
+It's also possible to adjust the tempo of *heating up*. It's defined as the number of shades that are
+increased on the [HSV scale](https://en.wikipedia.org/wiki/HSL_and_HSV). Decreasing this value increases
+the number of keystrokes needed to fully heat up the key.
+
+```c
+#define RGB_MATRIX_TYPING_HEATMAP_INCREASE_STEP 32
+```
+
 ### RGB Matrix Effect Solid Reactive :id=rgb-matrix-effect-solid-reactive
 
 Solid reactive effects will pulse RGB light on key presses with user configurable hues. To enable gradient mode that will automatically change reactive color, add the following define:
