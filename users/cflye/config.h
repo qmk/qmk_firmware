@@ -6,7 +6,8 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 #undef TAPPING_TERM
-#define TAPPING_TERM 400
+#define TAPPING_TERM 280 // 400
+#define TAPPING_TERM_PER_KEY
 
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
 #define QUICK_TAP_TERM 0

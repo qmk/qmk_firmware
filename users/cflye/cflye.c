@@ -1,5 +1,6 @@
 #include "cflye.h"
 #include "features/achordion.h"
+#include "print.h"
 
 const uint32_t unicode_map[] PROGMEM = {
     [AE_L]  = 0x00E6,  // æ
@@ -74,3 +75,17 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_GAMING] = ACTION_TAP_DANCE_FN(fn_gaming),
     [TD_EECLEAR] = ACTION_TAP_DANCE_FN(fn_eeclear),
 };
+
+#ifdef TAPPING_TERM_PER_KEY
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case HOME_O:
+        case HOME_A:
+          return TAPPING_TERM + 180;
+        case HOME_S:
+          return TAPPING_TERM - 80;
+        default:
+          return TAPPING_TERM;
+    }
+}
+#endif

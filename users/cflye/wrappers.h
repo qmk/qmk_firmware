@@ -18,13 +18,13 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ________________CLIPBOARD_R________________     U_RDO,             U_PST,             U_CPY,             U_CUT,             U_UND
 
 #define _________________COLEMAK_L1_________________    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B
-#define _________________COLEMAK_L2_________________    HOME_A,            HOME_R,            HOME_S,            HOME_T,            KC_G
-#define _______________COLEMAK_L2_NO_HOME______________    KC_A,              KC_R,              KC_S,              KC_T,              KC_G
+#define _________________COLEMAK_L2_________________    HOME_A,            HOME_R,            HOME_S,            KC_T,              KC_G
+#define _______________COLEMAK_L2_NO_HOME___________    KC_A,              KC_R,              KC_S,              KC_T,              KC_G
 #define _________________COLEMAK_L3_________________    KC_Z,              KC_X,              KC_C,              KC_D,              KC_V
 
 #define _________________COLEMAK_R1_________________    KC_J,              KC_L,              KC_U,              KC_Y,              KC_SCLN
-#define _________________COLEMAK_R2_________________    KC_M,              HOME_N,            HOME_E,            HOME_I,            HOME_O
-#define _______________COLEMAK_R2_NO_HOME______________    KC_M,              KC_N,              KC_E,              KC_I,              KC_O
+#define _________________COLEMAK_R2_________________    KC_M,              KC_N,              HOME_E,            HOME_I,            HOME_O
+#define _______________COLEMAK_R2_NO_HOME___________    KC_M,              KC_N,              KC_E,              KC_I,              KC_O
 #define _________________COLEMAK_R3_________________    KC_K,              KC_H,              KC_COMM,           KC_DOT,            KC_SLASH
 
 #define _________________GAMING_L1__________________    KC_Q,              KC_W,              KC_F,              KC_P,              KC_B
