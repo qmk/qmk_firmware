@@ -1,5 +1,5 @@
 /* Copyright 2022 Epomaker
- * Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+ * Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,10 +15,46 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "th66.h"
+#include "quantum.h"
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+      return false; /* Don't process further events if user function exists and returns false */
+    }
+    if (index == 0) { /* First encoder */
+        if (layer_state_is(0)) {
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+        } else if (layer_state_is(1)) {
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+        } else if (layer_state_is(2)) {
+            if (clockwise) {
+                tap_code(KC_TRNS);
+            } else {
+                tap_code(KC_TRNS);
+            }
+        } else if (layer_state_is(3)) {
+            if (clockwise) {
+                tap_code(KC_TRNS);
+            } else {
+                tap_code(KC_TRNS);
+            }
+        }
+    }
+    return true;
+}
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  B location
@@ -162,28 +198,48 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 //  {1, L_16, K_16, J_16}, //      Unused LED
 };
 
-led_config_t g_led_config = { {
-    {     77, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED,      0,      1,      2,      3,      4,      5,      6,      7,      8,      9,     10,     11,     12, NO_LED, NO_LED },
-    {     15,     16,     17,     18,     19,     20,     21,     22,     23,     24,     25,     26,     27,     28, NO_LED, NO_LED },
-    {     31,     32,     33,     34,     35,     36,     37,     38,     39,     40,     41,     42, NO_LED,     43,     80,     81 },
-    {     46, NO_LED,     47,     48,     49,     50,     51,     52,     53,     54,     55,     56, NO_LED,     57,     44, NO_LED },
-    {     78,     79,     13, NO_LED, NO_LED, NO_LED,     14, NO_LED, NO_LED,     29,     30, NO_LED,     45,     58,     59,     60 }
-}, {
-               {15 ,  0}, {29 ,  0}, {44 ,  0}, {59 ,  0}, {73 ,  0}, {88 ,  0}, {103,  0}, {118,  0}, {132,  0}, {147,  0}, {162,  0}, {176,  0}, {198,  0}, {39 , 64}, {94 , 64},
-    {4  , 16}, {22 , 16}, {37 , 16}, {51 , 16}, {66 , 16}, {81 , 16}, {95 , 16}, {110, 16}, {125, 16}, {140, 16}, {154, 16}, {169, 16}, {184, 16}, {202, 16}, {147, 64}, {162, 64},
-    {6  , 32}, {26 , 32}, {40 , 32}, {55 , 32}, {70 , 32}, {84 , 32}, {99 , 32}, {114, 32}, {129, 32}, {143, 32}, {158, 32}, {173, 32}, {196, 32}, {206, 48},            {176, 64},
-    {9  , 48},            {33 , 48}, {48 , 48}, {62 , 48}, {77 , 48}, {92 , 48}, {106, 48}, {121, 48}, {136, 48}, {151, 48}, {165, 48}, {185, 48}, {191, 64}, {206, 64}, {220, 64},
-    {92 ,  8}, {62 ,  8}, {33 ,  8}, {11 , 16}, {13 , 32}, {17 , 52}, {51 , 56}, {84 , 56}, {110, 56}, {147, 52}, {173, 52}, {198, 52}, {202, 28}, {206,  8}, {165,  8}, {136,  8},
-    {0  ,  0},                                                                                                                                                {2  , 64}, {20 , 64},
-                                                                                            {224, 20},                       {224, 36},
-}, {
-       4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 4,
-    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,
-    8, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 4,    1,
-    1,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 4, 4, 4,
-    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    4,                                        1, 1,
-                            4,       4
-} };
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RGB_TOG:
+            if (record->event.pressed) {
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
+                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
+                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
+                    case (LED_FLAG_UNDERGLOW): {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    }
+                    break;
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                        rgb_matrix_enable_noeeprom();
+                    }
+                    break;
+                }
+            }
+            return false;
+    }
+    return process_record_user(keycode, record);
+}
+
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(31, RGB_RED);
+    } else if (!(rgb_matrix_get_flags() & LED_FLAG_INDICATOR)) {
+        rgb_matrix_set_color(31, 0, 0, 0);
+    }
+    return true;
+}
 #endif

@@ -1,5 +1,5 @@
 /* Copyright 2022 Epomaker
- * Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
+ * Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,10 +32,9 @@ enum layer_names {
 };
 
 enum layer_keycodes {
-    KC_MCTL = SAFE_RANGE,
-    KC_SIRI,
+    KC_SIRI = SAFE_RANGE,
     WIN_MOD,
-    MAC_MOD,
+    MAC_MOD
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -135,13 +134,6 @@ void housekeeping_task_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_MCTL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
         case KC_SIRI:
             if (record->event.pressed && siri_timer_buffer == 0) {
                 register_code(KC_LGUI);
@@ -159,52 +151,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_single_persistent_default_layer(_BASE_MAC);
             }
             return false;
-        case RGB_TOG:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
-                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    case (LED_FLAG_UNDERGLOW): {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                        rgb_matrix_enable_noeeprom();
-                    }
-                    break;
-                }
-            }
-            return false;
 	}
-
     return true;
 }
-
- void rgb_matrix_indicators_user(void) {
-
-    if ((rgb_matrix_get_flags() & LED_FLAG_KEYLIGHT)) {
-        if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(31, 255, 0, 0);
-        }
-    } else {
-        if (host_keyboard_led_state().caps_lock) {
-            rgb_matrix_set_color(31, 255, 0, 0);
-        } else {
-            rgb_matrix_set_color(31, 0, 0, 0);
-        }
-    }
-}
-
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
