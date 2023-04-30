@@ -1,7 +1,7 @@
 {
     "keycodes": {
         "0x00C3": {
-            "group": "reserved",
+            "group": "apple_fn",
             "key": "KC_APPLE_FN",
             "label": "Apple Fn/Globe",
             "aliases": [

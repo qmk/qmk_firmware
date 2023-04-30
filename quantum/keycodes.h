@@ -283,6 +283,7 @@ enum qk_keycode_defines {
     KC_ASSISTANT = 0x00C0,
     KC_MISSION_CONTROL = 0x00C1,
     KC_LAUNCHPAD = 0x00C2,
+    KC_APPLE_FN = 0x00C3,
     KC_MS_UP = 0x00CD,
     KC_MS_DOWN = 0x00CE,
     KC_MS_LEFT = 0x00CF,
@@ -902,6 +903,7 @@ enum qk_keycode_defines {
     KC_ASST    = KC_ASSISTANT,
     KC_MCTL    = KC_MISSION_CONTROL,
     KC_LPAD    = KC_LAUNCHPAD,
+    KC_APFN    = KC_APPLE_FN,
     KC_MS_U    = KC_MS_UP,
     KC_MS_D    = KC_MS_DOWN,
     KC_MS_L    = KC_MS_LEFT,
@@ -1400,6 +1402,7 @@ enum qk_keycode_defines {
 #define IS_BASIC_KEYCODE(code) ((code) >= KC_A && (code) <= KC_EXSEL)
 #define IS_SYSTEM_KEYCODE(code) ((code) >= KC_SYSTEM_POWER && (code) <= KC_SYSTEM_WAKE)
 #define IS_CONSUMER_KEYCODE(code) ((code) >= KC_AUDIO_MUTE && (code) <= KC_LAUNCHPAD)
+#define IS_APPLE_FN_KEYCODE(code) ((code) >= KC_APPLE_FN && (code) <= KC_APPLE_FN)
 #define IS_MOUSE_KEYCODE(code) ((code) >= KC_MS_UP && (code) <= KC_MS_ACCEL2)
 #define IS_MODIFIER_KEYCODE(code) ((code) >= KC_LEFT_CTRL && (code) <= KC_RIGHT_GUI)
 #define IS_SWAP_HANDS_KEYCODE(code) ((code) >= QK_SWAP_HANDS_TOGGLE && (code) <= QK_SWAP_HANDS_ONE_SHOT)

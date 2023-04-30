@@ -945,7 +945,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
 #endif
 
 #ifdef APPLE_FN_ENABLE
-    } else if (KC_APPLE_FN == code) {
+    } else if (IS_APPLE_FN_KEYCODE(code)) {
         add_key(code);
         send_keyboard_report();
 #endif
@@ -1008,7 +1008,7 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
 #endif
 
 #ifdef APPLE_FN_ENABLE
-    } else if (KC_APPLE_FN == code) {
+    } else if (IS_APPLE_FN_KEYCODE(code)) {
         del_key(code);
         send_keyboard_report();
 #endif

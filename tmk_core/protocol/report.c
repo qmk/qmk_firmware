@@ -246,7 +246,7 @@ void del_key_bit(report_keyboard_t* keyboard_report, uint8_t code) {
  */
 void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key) {
 #ifdef APPLE_FN_ENABLE
-    if (KC_APPLE_FN == key) {
+    if (IS_APPLE_FN_KEYCODE(key)) {
         keyboard_report->reserved = 1;
         return;
     }
@@ -266,7 +266,7 @@ void add_key_to_report(report_keyboard_t* keyboard_report, uint8_t key) {
  */
 void del_key_from_report(report_keyboard_t* keyboard_report, uint8_t key) {
 #ifdef APPLE_FN_ENABLE
-    if (KC_APPLE_FN == key) {
+    if (IS_APPLE_FN_KEYCODE(key)) {
         keyboard_report->reserved = 0;
         return;
     }
