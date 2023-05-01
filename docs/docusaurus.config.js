@@ -27,6 +27,13 @@ const config = {
                 customCss: require.resolve("./src/css/custom.css"),
             }
         ],
+        [
+            require.resolve("@easyops-cn/docusaurus-search-local"),
+            {
+                indexBlog: false,
+                docsRouteBasePath: '/'
+            },
+        ],
     ],
     plugins: [
         [
