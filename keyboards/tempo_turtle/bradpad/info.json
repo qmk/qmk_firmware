@@ -4,14 +4,14 @@
     "url": "https://tempoturtle.com",
     "maintainer": "wxyangf",
     "diode_direction": "ROW2COL",
-    "matrix_pins":{
+    "matrix_pins": {
         "rows": ["B7", "D5", "C7", "D2", "D3"],
         "cols": ["D7", "E6", "B4", "F1"]
     },
-    "usb":{
-        "vid":"0x7474",
-        "pid":"0x6270",
-        "device_version":"0.0.1"
+    "usb": {
+        "vid": "0x7474",
+        "pid": "0x6270",
+        "device_version": "0.0.1"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

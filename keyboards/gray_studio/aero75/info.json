@@ -2,7 +2,7 @@
     "keyboard_name": "Aero 75",
     "url": "https://graystudio.site/en/aero75/",
     "maintainer": "edwardslau",
-    "manufacturer":"GrayStudio",
+    "manufacturer": "GrayStudio",
     "usb": {
         "vid": "0x4753",
         "pid": "0x3075",
