@@ -186,8 +186,6 @@ If you define these options you will enable the associated feature, which may in
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
   * how many taps before oneshot toggle is triggered
-* `#define COMBO_COUNT 2`
-  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature. Or leave it undefined and programmatically set the count.
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 * `#define COMBO_MUST_HOLD_MODS`

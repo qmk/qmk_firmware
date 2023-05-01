@@ -25,7 +25,6 @@
 #define PERMISSIVE_HOLD
 
 // Combo settings
-#define COMBO_COUNT 3
 #define COMBO_TERM 35
 
 #ifdef PS2_DRIVER_USART

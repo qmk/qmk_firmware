@@ -2,8 +2,7 @@
 
 // Define some combos to use for the test, including overlapping combos and
 // combos that chord tap-hold keys.
-enum combo_events { AB_COMBO, BC_COMBO, AD_COMBO, DE_COMBO, FGHI_COMBO, COMBO_LENGTH };
-uint16_t COMBO_LEN = COMBO_LENGTH;
+enum combo_events { AB_COMBO, BC_COMBO, AD_COMBO, DE_COMBO, FGHI_COMBO };
 
 const uint16_t ab_combo[] PROGMEM   = {KC_A, KC_B, COMBO_END};
 const uint16_t bc_combo[] PROGMEM   = {KC_B, KC_C, COMBO_END};

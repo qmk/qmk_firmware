@@ -32,7 +32,7 @@ enum combo_events {
 
 const uint16_t PROGMEM reset_combo[] = {KC_LCTL, KC_PAUS, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [CTRL_PAUS_RESET] = COMBO_ACTION(reset_combo),
 };
 
