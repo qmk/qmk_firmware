@@ -18,7 +18,7 @@ PCBは可能な限りの省スペース化がされており、まるでHand-wir
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
 * Hardware Supported: Ergomirage PCB, Pro Micro
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: https://github.com/takashicompany/ergomirage
 
 Make example for this keyboard (after setting up your build environment):
 
