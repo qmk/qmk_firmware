@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x9954",
         "pid": "0x9970",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "force_nkro": true
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",

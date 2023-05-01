@@ -27,9 +27,6 @@
 /* Disable DIP switch in matrix data */
 #define MATRIX_MASKED
 
-/* NKRO */
-#define FORCE_NKRO
-
 /* Disable RGB lighting when PC is in suspend */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
