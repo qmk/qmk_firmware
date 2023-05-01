@@ -1,11 +1,23 @@
 # takashicompany/ergomirage
 
-![takashicompany/ergomirage](imgur.com image replace me!)
+![takashicompany/ergomirage](https://i.imgur.com/PbaRAn8h.jpg)
 
-*A short description of the keyboard/project*
+Ergomirage (Ergo-Mirage) is a 44-key Tron-inspired keyboard.  
+Although the layout is distinctive, we aimed for a key layout that fits the shape of the human hand.  
+The key layout is such that the keys can be typed by moving the fingers vertically.  
+
+The PCB is as space-saving as possible and has a transparent design that looks like hand-wired.  
+Combined with a transparent acrylic case, it can create a space where only the keys seem to float.  
+
+Ergomirage(Ergo-Mirage)は44キーのTron配列に影響を受けたキーボードです。  
+特徴的なレイアウトですが、人間の手のカタチに合うようなキー配列を目指しました。  
+指を縦方向を動かすことで打鍵が可能なキー配置になっています。  
+
+PCBは可能な限りの省スペース化がされており、まるでHand-wiredのような透明感のあるデザインとなっております。  
+透明なアクリルケースと組み合わせることで、キーだけが浮き出るような空間を演出することができます。  
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Supported: Ergomirage PCB, Pro Micro
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
