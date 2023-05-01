@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Nodu", 
+    "keyboard_name": "Nodu",
     "manufacturer": "Swiftrax",
-    "url": "github.com/swiftrax", 
-    "maintainer": "Swiftrax", 
+    "url": "github.com/swiftrax",
+    "maintainer": "Swiftrax",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xEA6E",

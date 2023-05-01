@@ -111,7 +111,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_tkl_nofrow_ansi": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -195,7 +194,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_tkl_nofrow_ansi_split_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -280,7 +278,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_tkl_nofrow_ansi_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -363,7 +360,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_tkl_nofrow_ansi_tsangan_split_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -447,7 +443,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_tkl_nofrow_isoenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -531,7 +526,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_tkl_nofrow_isoenter_split_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -616,7 +610,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_tkl_nofrow_isoenter_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -699,7 +692,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_tkl_nofrow_isoenter_tsangan_split_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

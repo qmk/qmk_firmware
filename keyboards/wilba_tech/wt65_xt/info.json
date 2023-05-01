@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "WT65-XT", 
+    "keyboard_name": "WT65-XT",
     "manufacturer": "wilba.tech",
-    "url": "https://wilba.tech", 
-    "maintainer": "Wilba", 
+    "url": "https://wilba.tech",
+    "maintainer": "Wilba",
     "usb": {
         "vid": "0x6582",
         "pid": "0x001D",

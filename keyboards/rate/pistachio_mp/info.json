@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "pistachio_mp", 
+    "keyboard_name": "pistachio_mp",
     "manufacturer": "rate",
-    "url": "", 
-    "maintainer": "rate", 
+    "url": "",
+    "maintainer": "rate",
     "usb": {
         "vid": "0x5255",
         "pid": "0xE212",

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Koalafications", 
+    "keyboard_name": "Koalafications",
     "manufacturer": "Swiftrax",
-    "url": "https://github.com/swiftrax", 
-    "maintainer": "swiftrax", 
+    "url": "https://github.com/swiftrax",
+    "maintainer": "swiftrax",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xEA44",

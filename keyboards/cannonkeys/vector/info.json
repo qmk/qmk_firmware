@@ -106,7 +106,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_60_ansi_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -175,7 +174,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -246,7 +244,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_60_iso_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -316,7 +313,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_60_iso_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

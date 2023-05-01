@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "KBD75 Hotswap", 
+    "keyboard_name": "KBD75 Hotswap",
     "manufacturer": "KBDfans",
-    "maintainer": "DZTECH", 
+    "maintainer": "DZTECH",
     "usb": {
         "vid": "0x4B42",
         "pid": "0x6062",

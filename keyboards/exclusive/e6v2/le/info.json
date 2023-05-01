@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "E6-V2 LE", 
+    "keyboard_name": "E6-V2 LE",
     "manufacturer": "Exclusive / E-Team",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6060",

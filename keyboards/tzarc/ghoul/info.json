@@ -19,8 +19,8 @@
     "driver": "WS2812"
   },
   "matrix_pins": {
-    "rows": ["NO_PIN","NO_PIN","NO_PIN","NO_PIN","NO_PIN","NO_PIN"],
-    "cols": ["NO_PIN","NO_PIN","NO_PIN","NO_PIN","NO_PIN","NO_PIN","NO_PIN","NO_PIN"]
+    "rows": ["NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"],
+    "cols": ["NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN", "NO_PIN"]
   },
   "usb": {
     "vid": "0x1209",

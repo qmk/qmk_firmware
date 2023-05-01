@@ -22,7 +22,7 @@
     },
     "layouts": {
         "LAYOUT": {
-            "layout":[
+            "layout": [
                 {"label": "K00 (B10,B9)", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01 (B10,B8)", "matrix": [0, 1], "x": 1, "y": 0},
                 {"label": "K02 (B10,B7)", "matrix": [0, 2], "x": 2, "y": 0},

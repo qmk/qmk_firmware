@@ -85,7 +85,6 @@
                 {"label": "\u2192", "matrix": [3, 14], "x": 14.25, "y": 3.25}
             ]
         },
-
         "LAYOUT_rwkl": {
             "layout": [
                 { "label": "Esc/~", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -145,7 +144,6 @@
                 { "label": "Right", "matrix": [3, 14], "x": 14.25, "y": 3.25 }
             ]
         },
-
         "LAYOUT_wkl": {
             "layout": [
                 { "label": "Esc/~", "matrix": [0, 0], "x": 0, "y": 0 },

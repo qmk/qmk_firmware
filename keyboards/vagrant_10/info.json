@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "Vagrant 10", 
+  "keyboard_name": "Vagrant 10",
   "manufacturer": "Shanduur",
-  "url": "https://github.com/Sho-Keebs/Vagrant-10", 
-  "maintainer": "Shanduur", 
+  "url": "https://github.com/Sho-Keebs/Vagrant-10",
+  "maintainer": "Shanduur",
   "usb": {
     "vid": "0x534C",
     "pid": "0x5E99",

@@ -114,7 +114,6 @@
                 {"label": "\u2192", "matrix": [5, 15], "x": 15, "y": 5}
             ]
         },
-
         "LAYOUT_ansi": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -205,7 +204,6 @@
                 { "label": "\u2192", "matrix": [5, 15], "x": 15, "y": 5 }
             ]
         },
-
         "LAYOUT_iso": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },

@@ -161,7 +161,6 @@
                 {"label": "\u2192", "matrix": [7, 9], "x": 19.75, "y": 5.75}
             ]
         },
-
         "LAYOUT_ansi_split_bs": {
             "layout": [
                 { "label": "Fn", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -279,7 +278,6 @@
                 { "label": "\u2192", "matrix": [7, 9], "x": 19.75, "y": 5.75 }
             ]
         },
-
         "LAYOUT_iso_split_bs": {
             "layout": [
                 { "label": "Fn", "matrix": [0, 0], "x": 0, "y": 0 },

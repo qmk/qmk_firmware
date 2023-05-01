@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "BMEK", 
+    "keyboard_name": "BMEK",
     "manufacturer": "Bemeier",
-    "url": "https://github.com/Bemeier/bmek", 
-    "maintainer": "Bemeier", 
+    "url": "https://github.com/Bemeier/bmek",
+    "maintainer": "Bemeier",
     "usb": {
         "vid": "0x626D",
         "pid": "0x656B"

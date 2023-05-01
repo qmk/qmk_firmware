@@ -15,8 +15,8 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": [ "B3", "E6", "B1", "D7", "F7", "C6" ],
-        "rows": [ "F5", "F6", "B2", "B5", "F4", "D4", "B4", "B6" ]
+        "cols": ["B3", "E6", "B1", "D7", "F7", "C6"],
+        "rows": ["F5", "F6", "B2", "B5", "F4", "D4", "B4", "B6"]
     },
     "processor": "atmega32u4",
     "url": "https://aidansmith.dev",

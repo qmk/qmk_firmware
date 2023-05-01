@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Gothic50", 
+    "keyboard_name": "Gothic50",
     "manufacturer": "Worldspawn00",
-    "url": "https://qmk.fm/keyboards", 
-    "maintainer": "worldspawn00", 
+    "url": "https://qmk.fm/keyboards",
+    "maintainer": "worldspawn00",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x04EF",

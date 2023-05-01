@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Frog Mini FM-H", 
+    "keyboard_name": "Frog Mini FM-H",
     "manufacturer": "GeonWorks",
-    "url": "https://geon.works", 
-    "maintainer": "gondolindrim", 
+    "url": "https://geon.works",
+    "maintainer": "gondolindrim",
     "usb": {
         "vid": "0x6777",
         "pid": "0x2D28",

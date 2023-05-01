@@ -26,7 +26,7 @@
     "matrix_pins": {
         "cols": ["D3", "F4", "F5", "F6", "F7", "D7", "C6", "D4", "D2"],
         "rows": ["B3", "B1", "B6", "B2", "F0", "F1", "B5", "B4", "E6"]
-    },    
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -116,5 +116,5 @@
         "rotary": [
                 {"pin_a": "B7", "pin_b": "D5"}
             ]
-    }       
+    }
 }

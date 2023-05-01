@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Volcano660", 
+    "keyboard_name": "Volcano660",
     "manufacturer": "DZTech",
-    "url": "", 
-    "maintainer": "dztech", 
+    "url": "",
+    "maintainer": "dztech",
     "usb": {
         "vid": "0x445A",
         "pid": "0x0002",

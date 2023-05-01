@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "bubble75", 
-    "url": "", 
+    "keyboard_name": "bubble75",
+    "url": "",
     "manufacturer": "phl",
-    "maintainer": "velocifire", 
+    "maintainer": "velocifire",
     "usb": {
         "vid": "0x4242",
         "pid": "0x5A4C",
