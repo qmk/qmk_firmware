@@ -1,4 +1,4 @@
-# 向QMK配置器中添加默认键映射 :id=adding-default-keymaps
+# 向QMK配置器中添加默认键映射 {#adding-default-keymaps}
 
 <!---
   original document: 0.15.12:docs/configurator_default_keymaps.md
@@ -8,7 +8,7 @@
 本章节描述了如何向QMK配置器中添加一款键盘的默认键映射
 
 
-## 技术信息 :id=technical-information
+## 技术信息 {#technical-information}
 
 QMK配置器使用JSON作为键映射的本地文件格式。我们尽力确保其行为与在 `qmk_firmware` 中 执行 `make <keyboard>:default` 时一致。
 
@@ -32,7 +32,7 @@ f14629ed1cd7c7ec9089604d64f29a99981558e8 Remove/migrate action_get_macro()s from
 本例中，`f14629ed1cd7c7ec9089604d64f29a99981558e8` 即应为 `commit` 的值。
 
 
-## 示例 :id=example
+## 示例 {#example}
 
 若某人想添加H87a Hineybush键盘的默认键映射方案，应到 `qmk_firmware` 下H87a的默认键映射下执行上述 `git log` 命令：
 
@@ -101,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 `layers` 数组中的空白区域不影响键映射功能，仅为了方便阅读。
 
 
-## 附加说明 :id=caveats
+## 附加说明 {#caveats}
 
-### 层定义只能通过序号进行引用 :id=layer-references
+### 层定义只能通过序号进行引用 {#layer-references}
 
 QMK中常见的一种做法是通过一系列 `#define` 或 `enum` 类型声明来对层定义进行命名：
 
@@ -117,11 +117,11 @@ enum layer_names {
 
 对于C代码来讲可行，但对于配置器来讲，你*必须*使用层序号 - 上例中的`MO(_FN)` 应使用 `MO(2)`。
 
-### 不支持任何形式的定制化代码 :id=custom-code
+### 不支持任何形式的定制化代码 {#custom-code}
 
 需要在 keymap.c 文件中添加函数代码的功能，如Tap Dance或是Unicode，都*完全*无法在配置器中构建。即便是在 `qmk_firmware` 代码库中在键盘定义中设置了 `TAP_DANCE_ENABLE = yes`，也只会导致*任何*固件构建在配置器中行不通。这是由API及JSON格式的键映射数据同时造成的限制。
 
-### 对自定义键码的不完全支持 :id=custom-keycodes
+### 对自定义键码的不完全支持 {#custom-keycodes}
 
 仅有一个方案可以支持自定义键码：若自定义键码的逻辑实现是在 qmk_firmware 下的键盘定义中完成的，而非在键映射中，那么这个键码*可以*在配置器中使用且*可以*编译运行。（因此，）相对于在 `keymap.c` 中使用如下代码段：
 
@@ -193,6 +193,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 注意最后的 `process_record_user()` 调用，若用户需要添加自定义键码到键映射中，须使用 `NEW_SAFE_RANGE` 替代 `SAFE_RANGE`，而其定义来自于上面键盘层定义中。
 
 
-## 更多资料 :id=additional-reading
+## 更多资料 {#additional-reading}
 
 为了让QMK配置器支持你的键盘，你的键盘定义必须存在于 `qmk_firmware` 代码库的 `master` 分支中。相关操作指引，请参见[在QMK配置器中支持你的键盘](zh-cn/reference_configurator_support.md).

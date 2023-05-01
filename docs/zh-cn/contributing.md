@@ -26,7 +26,7 @@
   * https://opensource.com/life/16/10/how-ask-technical-questions
   * http://www.catb.org/esr/faqs/smart-questions.html
 
-# 项目概况 :id=project-overview
+# 项目概况 {#project-overview}
 
 QMK很大一部分是C语言编写的，小部分特性是C++的。QMK的设计目标是在键盘上的嵌入式处理器中工作，如AVR([LUFA](https://www.fourwalledcubicle.com/LUFA.php))和ARM ([ChibiOS](https://www.chibios.org))。如果您对Arduino很熟悉的话，会发现优缺点也基本是相似的。但无论你之前是否有Arduino使用经验，都不会影响你参与到QMK贡献中来。
 
@@ -58,14 +58,14 @@ QMK很大一部分是C语言编写的，小部分特性是C++的。QMK的设计�
 14. 维护人员会通知您要更改什么地方，然后您就按照建议改一改。
 15. 你的pull request合并成功了，恭喜！
 
-# 代码规范 :id=coding-conventions
+# 代码规范 {#coding-conventions}
 
 我们的编码风格很容易掌握，如果你有C语言或Python编码经验，跟随我们的编码风格不会有什么困难。
 
 * [编码规范 - C](zh-cn/coding_conventions_c.md)
 * [编码规范 - Python](zh-cn/coding_conventions_python.md)
 
-# 基本准则 :id=general-guidelines
+# 基本准则 {#general-guidelines}
 
 在QMK中存在多种类型的修改需求，因此也会有审查严格性上的差异。请在做出任何修改时留意，你的改动隶属于什么类型。
 
@@ -111,7 +111,7 @@ enum my_keycodes {
 };
 ```
 
-### 预览文档 :id=previewing-the-documentation
+### 预览文档 {#previewing-the-documentation}
 
 在发起pull request前，请通过文档预览来检查你的本地更改。可以在 `qmk_firmware/` 目录下执行以下命令来配置文档开发环境：
 
@@ -174,6 +174,6 @@ QMK的最终归宿是键盘。有些键盘是社区维护的，有一些是制�
 
 为了保持QMK脉络清晰，QMK的深度重构工作已在规划中，并会通过合作者进行相应的修改。如果你有重构的思路或建议请[创建一个issue](https://github.com/qmk/qmk_firmware/issues), 我们很乐意讨论一下QMK可以如何改进。
 
-# 行为守则对于我来说有何意义？ :id=what-does-the-code-of-conduct-mean-for-me
+# 行为守则对于我来说有何意义？ {#what-does-the-code-of-conduct-mean-for-me}
 
 我们的[行为守则](https://qmk.fm/coc/) 指出您有责任尊重并礼貌地对待项目中的每个人，无论他们的身份如何。如果你是我们行为守则所描述的不当行为的受害者，我们将站在你这边，尽最大努力对施暴者进行谴责。

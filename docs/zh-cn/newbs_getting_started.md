@@ -22,7 +22,7 @@
 
 :::
 
-## 2. 准备构建环境 :id=set-up-your-environment
+## 2. 准备构建环境 {#set-up-your-environment}
 
 我们已经尽力让QMK易于配置了，你只要准备好Linux或Unix环境，剩余的交给QMK来安装。
 
@@ -135,7 +135,7 @@ Arch系环境下可以使用官方源安装命令行程序（在写这份文档�
 
 <!-- tabs:end -->
 
-## 3. 执行QMK配置 :id=set-up-qmk
+## 3. 执行QMK配置 {#set-up-qmk}
 *译注：由于setup过程中需要从github clone依赖项，请先确保科学上网*
 
 <!-- tabs:start -->

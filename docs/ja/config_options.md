@@ -141,7 +141,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define STRICT_LAYER_RELEASE`
   * キーリリースがどのレイヤーから来たのかを覚えるのではなく、現在のレイヤースタックを使って強制的に評価されるようにします (高度なケースに使われます)
 
-## 設定可能な挙動 :id=behaviors-that-can-be-configured
+## 設定可能な挙動 {#behaviors-that-can-be-configured}
 
 * `#define TAPPING_TERM 200`
   * タップがホールドになるまでの時間。
@@ -188,7 +188,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
 * `#define TAP_HOLD_CAPS_DELAY 80`
   * MacOS で特別な処理が行われるため、`KC_CAPSLOCK` を使う時にタップホールドキー (`LT`, `MT`) に遅延を設定します。この値はミリ秒で、定義されていない場合はデフォルトは80msです。macOS については、これを200以上に設定すると良いでしょう。
 
-## RGB ライト設定 :id=rgb-light-configuration
+## RGB ライト設定 {#rgb-light-configuration}
 
 * `#define RGB_DI_PIN D7`
   * WS2812 の DI 端子につなぐピン
@@ -347,7 +347,7 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * `bootloadHID`
   * `USBasp`
 
-## 機能オプション :id=feature-options
+## 機能オプション {#feature-options}
 
 これらを使って特定の機能のビルドを有効または無効にします。有効にすればするほどファームウェアが大きくなり、MCU には大きすぎるファームウェアを構築するリスクがあります。
 

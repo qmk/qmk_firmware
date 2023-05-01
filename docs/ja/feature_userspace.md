@@ -61,7 +61,7 @@ ifdef RGB_ENABLE
 endif
 ```
 
-### デフォルトのユーザスペースの上書き :id=override-default-userspace
+### デフォルトのユーザスペースの上書き {#override-default-userspace}
 
 デフォルトでは、使用されるユーザスペース名はキーマップ名と同じです。状況によってはこれは望ましくありません。例えば、[レイアウト](ja/feature_layouts.md)機能を使う場合、異なるキーマップに同じ名前 (例えば、ANSI および ISO) を使うことができません。レイアウトに `mylayout-ansi` や `mylayout-iso` という名前を付け、以下の行をレイアウトの `rules.mk` に追加します:
 
@@ -124,7 +124,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 より複雑な例については、[`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna) のユーザスペースを調べてください。
 
 
-### カスタマイズされた関数 :id=customized-functions
+### カスタマイズされた関数 {#customized-functions}
 
 QMK には、[`_quantum`、`_kb` および `_user` バージョン](ja/custom_quantum_functions.md#a-word-on-core-vs-keyboards-vs-keymap)を持つ使用可能な[関数](custom_quantum_functions.md)が山ほどあります。 ほとんどの場合、これらの関数のユーザバージョンを使う必要があります。しかし問題はそれらをユーザスペースで使う場合、キーマップで使うことができるバージョンが無いことです。
 

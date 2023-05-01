@@ -13,13 +13,13 @@
 
 * [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – 一个站在新人视角，探讨如何使用QMK固件的个人博客。
 
-### 命令行操作参考资料 :id=command-line-resources
+### 命令行操作参考资料 {#command-line-resources}
 
 * [Good General Tutorial on Command Line](https://www.codecademy.com/learn/learn-the-command-line)
 * [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br />
 * [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
-### 文本编辑器相关参考资料 :id=text-editor-resources
+### 文本编辑器相关参考资料 {#text-editor-resources}
 
 对文本编辑器有选择困难？
 * [a great introduction to the subject](https://learntocodewith.me/programming/basics/text-editors/)

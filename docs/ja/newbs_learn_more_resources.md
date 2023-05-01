@@ -10,35 +10,35 @@
 
 ## QMK に関するリソース
 
-### 英語 :id=english-resources-qmk
+### 英語 {#english-resources-qmk}
 
 * [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – 新規ユーザーの視点から見た QMK ファームウェアの使い方の基本を網羅した、ユーザー作成のブログ。
 
-### 日本語 :id=japanese-resources-qmk
+### 日本語 {#japanese-resources-qmk}
 
 _日本語のリソース情報を募集中です。_
 
-## コマンドラインに関するリソース :id=command-line-resources
+## コマンドラインに関するリソース {#command-line-resources}
 
-### 英語 :id=english-resources-cli
+### 英語 {#english-resources-cli}
 
 * [Good General Tutorial on Command Line](https://www.codecademy.com/learn/learn-the-command-line)
 * [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br />
 * [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
-### 日本語 :id=japanese-resources-cli
+### 日本語 {#japanese-resources-cli}
 
 _日本語のリソース情報を募集中です。_
 
-## テキストエディタに関するリソース :id=text-editor-resources
+## テキストエディタに関するリソース {#text-editor-resources}
 
 どのテキストエディタを使えば良いか分かりませんか？
 
-### 英語 :id=english-resources-text-editor
+### 英語 {#english-resources-text-editor}
 
 * [a great introduction to the subject](https://learntocodewith.me/programming/basics/text-editors/)
 
-### 日本語 :id=japanese-resources-text-editor
+### 日本語 {#japanese-resources-text-editor}
 
 _日本語のリソース情報を募集中です。_
 
@@ -48,13 +48,13 @@ _日本語のリソース情報を募集中です。_
 
 ## Git に関するリソース
 
-### 英語 :id=english-resources-git
+### 英語 {#english-resources-git}
 
 * [Great General Tutorial](https://www.codecademy.com/learn/learn-git)
 * [Flight Rules For Git](https://github.com/k88hudson/git-flight-rules)
 * [Git Game To Learn From Examples](https://learngitbranching.js.org/)
 
-### 日本語 :id=japanese-resources-git
+### 日本語 {#japanese-resources-git}
 
 _日本語のリソース情報を募集中です。_
 

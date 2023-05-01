@@ -9,7 +9,7 @@
 
 このページは参照のみです。それぞれのキーの種類毎のリンク先のページに、それぞれのキーの機能についてもっと詳細に記載しています。
 
-## 基本的なキーコード :id=basic-keycodes
+## 基本的なキーコード {#basic-keycodes}
 
 [基本的なキーコード](ja/keycodes_basic.md) も見てください。
 
@@ -231,7 +231,7 @@
 <sup>5. iTunes では、タップすると1曲全体がスキップされます。押していると曲の中で早送り/巻き戻しになります。</sup><br/>
 <sup>6. Windows Media Player は巻き戻しキーを識別しませんが、VLC では早送り/巻き戻しキーで再生速度が変更されます。</sup>
 
-## Quantum キーコード :id=quantum-keycodes
+## Quantum キーコード {#quantum-keycodes}
 
 [Quantum キーコード](ja/quantum_keycodes.md#qmk-keycodes) も見てください。
 
@@ -241,7 +241,7 @@
 |`QK_DEBUG_TOGGLE`|`DB_TOGG`|デバッグモードを切り替えます                             |
 |`QK_CLEAR_EEPROM`|`EE_CLR` |キーボードの EEPROM (不揮発メモリ) を再初期化します      |
 
-## オーディオキー :id=audio-keys
+## オーディオキー {#audio-keys}
 
 [オーディオ](ja/feature_audio.md) も見てください。
 
@@ -259,7 +259,7 @@
 |`MU_TOG`        |            |音楽モードを切り替えます               |
 |`MU_MOD`        |            |音楽モードを循環します                 |
 
-## バックライト :id=backlighting
+## バックライト {#backlighting}
 
 [バックライト](ja/feature_backlight.md) も見てください。
 
@@ -273,7 +273,7 @@
 |`BL_DEC` |バックライトのレベルを下げる         |
 |`BL_BRTG`|バックライトの明滅動作を切り替える   |
 
-## ブートマジック :id=bootmagic
+## ブートマジック {#bootmagic}
 
 [ブートマジック](ja/feature_bootmagic.md) も見てください。
 
@@ -309,7 +309,7 @@
 | `MAGIC_EE_HANDS_LEFT`              | `EH_LEFT` | 分割キーボードのマスター側を左手に設定(`EE_HANDS` 用) |
 | `MAGIC_EE_HANDS_RIGHT`             | `EH_RGHT` | 分割キーボードのマスター側を右手に設定(`EE_HANDS` 用) |
 
-## Bluetooth :id=bluetooth
+## Bluetooth {#bluetooth}
 
 [Bluetooth](ja/feature_bluetooth.md) も見てください。
 
@@ -320,7 +320,7 @@
 |`OUT_USB` |USB のみ                              |
 |`OUT_BT`  |Bluetooth のみ                        |
 
-## 動的マクロ :id=dynamic-macros
+## 動的マクロ {#dynamic-macros}
 
 [動的マクロ](ja/feature_dynamic_macros.md) も見てください。 
 
@@ -332,7 +332,7 @@
 |`DYN_MACRO_PLAY2`|`DM_PLY2`|マクロ 2 を再生します                |
 |`DYN_REC_STOP`   |`DM_RSTP`|現在記録中のマクロの記録を終了します |
 
-## グレイブエスケープ :id=grave-escape
+## グレイブエスケープ {#grave-escape}
 
 [グレイブエスケープ](ja/feature_grave_esc.md) も見てください。
 
@@ -340,7 +340,7 @@
 |-----------|---------|------------------------------------------------------------------|
 |`GRAVE_ESC`|`KC_GESC`|押された場合に Escape。Shift あるいは GUI が押されたままの場合は <code>&#96;</code>|
 
-## キーロック :id=key-lock
+## キーロック {#key-lock}
 
 [キーロック](ja/feature_key_lock.md) も見てください。
 
@@ -348,7 +348,7 @@
 |---------|--------------------------------------------------|
 |`KC_LOCK`|キーが再び押されるまで次のキーを押したままにします |
 
-## レイヤー切り替え :id=layer-switching
+## レイヤー切り替え {#layer-switching}
 
 [レイヤー切り替え](ja/feature_layers.md#switching-and-toggling-layers) も見てください。
 
@@ -363,7 +363,7 @@
 |`TO(layer)`     |`layer` をオンにして、デフォルトレイヤーを除く他のレイヤーをオフにします。 |
 |`TT(layer)`     |複数回タップしない限り `MO` のように動作し、複数回タップすると `layer` をオンにトグルします。 |
 
-## リーダーキー :id=leader-key
+## リーダーキー {#leader-key}
 
 [リーダーキー](ja/feature_leader_key.md) も見てください。
 
@@ -371,7 +371,7 @@
 |---------|-------------------------------|
 |`KC_LEAD`|リーダーキーのシーケンスを開始 |
 
-## マウスキー :id=mouse-keys
+## マウスキー {#mouse-keys}
 
 [マウスキー](ja/feature_mouse_keys.md) も見てください。
 
@@ -394,7 +394,7 @@
 |`KC_MS_ACCEL1`  |`KC_ACL1`|速度を1に設定            |
 |`KC_MS_ACCEL2`  |`KC_ACL2`|速度を2に設定            |
 
-## 修飾キー :id=modifiers
+## 修飾キー {#modifiers}
 
 [修飾キー](ja/feature_advanced_keycodes.md#modifier-keys) も見てください。
 
@@ -420,7 +420,7 @@
 | `KC_HYPR`  |                                 | 左 Control、Shift、Alt、GUI                                   |
 
 
-## モッドタップキー :id=mod-tap-keys
+## モッドタップキー {#mod-tap-keys}
 
 [モッドタップキー](ja/mod_tap.md) も見てください。
 
@@ -446,7 +446,7 @@
 | `MEH_T(kc)`  |                                                                   | 押したままの場合は左 Control、Shift、Alt、タップした場合は `kc`        |
 | `HYPR_T(kc)` | `ALL_T(kc)`                                                       | 押したままの場合は左 Control、Shift、Alt、GUI、タップした場合は `kc` - より詳しくは[ここ](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)を見てください |
 
-## RGB ライト :id=rgb-lighting
+## RGB ライト {#rgb-lighting}
 
 [RGB ライト](ja/feature_rgblight.md) も見てください。
 
@@ -471,7 +471,7 @@
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |固定階調アニメーションモード                                         |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |赤、緑、青のテストアニメーションモード                               |
 
-## RGB マトリックスライト :id=rgb-matrix-lighting
+## RGB マトリックスライト {#rgb-matrix-lighting}
 
 [RGB マトリックスライト](ja/feature_rgb_matrix.md) も見てください。
 
@@ -489,7 +489,7 @@
 |`RGB_SPI`          |          |エフェクトのスピード (EEPROM はまだサポートしていません) を増加させ、Shift を押していると減少させます。 |
 |`RGB_SPD`          |          |エフェクトのスピード (EEPROM はまだサポートしていません) を減少させ、Shift を押していると増加させます。 |
 
-## 感熱式プリンタ :id=thermal-printer
+## 感熱式プリンタ {#thermal-printer}
 
 [感熱式プリンタ](ja/feature_thermal_printer.md) も見てください。
 
@@ -498,7 +498,7 @@
 |`PRINT_ON` |ユーザが入力した全ての印刷を開始 |
 |`PRINT_OFF`|ユーザが入力した全ての印刷を停止 |
 
-## US ANSI シフト済シンボル :id=us-ansi-shifted-symbols
+## US ANSI シフト済シンボル {#us-ansi-shifted-symbols}
 
 [US ANSI シフト済シンボル](ja/keycodes_us_ansi_shifted.md) も見てください。
 
@@ -526,7 +526,7 @@
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
 |`KC_QUESTION`           |`KC_QUES`          |`?`        |
 
-## ワンショットキー :id=one-shot-keys
+## ワンショットキー {#one-shot-keys}
 
 [ワンショットキー](ja/one_shot_keys.md) も見てください。
 
@@ -535,7 +535,7 @@
 |`OSM(mod)`  | 次のキーが押されるまで、`mod` を押したままにします |
 |`OSL(layer)`| 次のキーが押されるまで、一時的にレイヤーをアクティブにします |
 
-## Space Cadet :id=space-cadet
+## Space Cadet {#space-cadet}
 
 [Space Cadet](ja/feature_space_cadet.md) も見てください。
 
@@ -549,7 +549,7 @@
 |`KC_RAPC`  |押したままの場合は右 Alt、タップした場合は `)`、   |
 |`KC_SFTENT`|押したままの場合は右 Shift、タップした場合は Enter |
 
-## スワップハンド :id=swap-hands
+## スワップハンド {#swap-hands}
 
 [スワップハンド](ja/feature_swap_hands.md) も見てください。
 
@@ -564,7 +564,7 @@
 | `SH_TT`     | タップで切り替える。押している時に一時的に切り替える。                               |
 | `SH_OS`     | ワンショットスワップハンド: 押している時あるいは次のキーを押すまで切り替える。 |
 
-## ユニコードサポート :id=unicode-support
+## ユニコードサポート {#unicode-support}
 
 [ユニコードサポート](ja/feature_unicode.md) も見てください。
 

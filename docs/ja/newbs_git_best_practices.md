@@ -1,4 +1,4 @@
-# QMK における Git 運用作法 :id=best-git-practices-for-working-with-qmk
+# QMK における Git 運用作法 {#best-git-practices-for-working-with-qmk}
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh

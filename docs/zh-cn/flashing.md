@@ -256,7 +256,7 @@ BOOTLOADER = stm32-dfu
 * `:st-link-cli`: 通过ST-Link CLI工具集而非dfu-util进行刷写，需要有ST-Link电子狗。
 * `:st-flash`: 通过[STLink工具](https://github.com/stlink-org/stlink)内的 `st-flash` 工具而非dfu-util进行刷写，需要有ST-Link电子狗。
 
-## STM32duino :id=stm32duino
+## STM32duino {#stm32duino}
 
 该bootloader几乎是STM32F103板专用，该型号出厂不带USB DFU bootloader。其源代码及预编译好的二进制文件[在这里](https://github.com/rogerclarkmelbourne/STM32duino-bootloader)。
 

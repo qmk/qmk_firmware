@@ -51,7 +51,7 @@
 
 :::
 
-## 构建固件 :id=build-your-firmware
+## 构建固件 {#build-your-firmware}
 
 对键映射做完修改后，该编译固件了。回到终端中使用编译命令：
 

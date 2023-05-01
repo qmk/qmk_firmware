@@ -33,7 +33,7 @@
 
 首先从安装键轴及卫星轴开始，考虑厚度及材质的影响，可能需要热熔胶来固定。
 
-## 设计矩阵 :id=planning-the-matrix
+## 设计矩阵 {#planning-the-matrix}
 
 如果你在参考已有的手工搭建指南（比如[自制键盘固件目录](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired)下的键盘），可以跳过该步骤，确保是按照文中的矩阵方案连线即可。
 
@@ -51,7 +51,7 @@
 
 必须时刻留意矩阵的行列数总和不能超出控制器的IO引脚数，因此上图的方案可以使用 Proton C 或 Teensy++ 控制器，但常规 Teensy 或 Pro Micro 不行。
 
-### 常见微控制器板 :id=common-microcontroller-boards
+### 常见微控制器板 {#common-microcontroller-boards}
 
 | 控制器板       | 控制器方案     | # I/O引脚数  | 引脚图 |
 | :------------ |:-------------:| ------:| ------ |
@@ -250,6 +250,6 @@ Keyboard Firmware Builder提供的源代码是QMK的，但版本是2017年初的
 
 以前本页内还有其它内容，现在我们已经将他们单独分离出去了。以下的内容是一些重定向链接，以供那些从老链接地址过来的人能找到自己要找的内容。
 
-## 序: 键盘矩阵是如何工作的（以及为什么需要二极管） :id=preamble-how-a-keyboard-matrix-works-and-why-we-need-diodes
+## 序: 键盘矩阵是如何工作的（以及为什么需要二极管） {#preamble-how-a-keyboard-matrix-works-and-why-we-need-diodes}
 
 * [键盘矩阵是如何工作的](zh-cn/how_a_matrix_works.md)

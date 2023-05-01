@@ -26,7 +26,7 @@ QMK について質問したい場合は、[OLKB Subreddit](https://reddit.com/r
    * https://opensource.com/life/16/10/how-ask-technical-questions
    * http://www.catb.org/esr/faqs/smart-questions.html
 
-# プロジェクトの概要 :id=project-overview
+# プロジェクトの概要 {#project-overview}
 
 QMK は主に C で書かれており、特定の機能と部品は C++ で書かれています。QMK は、キーボードの中の組み込みプロセッサ、特に AVR ([LUFA](https://www.fourwalledcubicle.com/LUFA.php)) と ARM ([ChibiOS](https://www.chibios.org)) を対象にしています。すでに Arduino プログラミングに精通している場合は、多くの概念と制限がおなじみのものです。QMK に貢献するには Arduino を使用した経験は必要ありません。
 
@@ -57,14 +57,14 @@ QMK は主に C で書かれており、特定の機能と部品は C++ で書�
 14. レビューをしているメンテナが変更を推奨する場合は、プルリクエストに変更を加えます。
 15. プルリクエストがマージされた後で成功を祝います！
 
-# コーディング規約 :id=coding-conventions
+# コーディング規約 {#coding-conventions}
 
 私たちのスタイルのほとんどは簡単に理解できます。C あるいは Python のいずれかに精通している場合は、ローカルスタイルにそれほど問題はないはずです。
 
 * [コーディング規約 - C](ja/coding_conventions_c.md)
 * [コーディング規約 - Python](ja/coding_conventions_python.md)
 
-# 一般的なガイドライン :id=general-guidelines
+# 一般的なガイドライン {#general-guidelines}
 
 QMK には幾つかの異なるタイプの変更があり、それぞれ異なるレベルの厳密さが必要です。どのような種類の変更を行っても、次のガイドラインに留意してください。
 
@@ -110,7 +110,7 @@ enum my_keycodes {
 };
 ```
 
-### ドキュメントのプレビュー :id=previewing-the-documentation
+### ドキュメントのプレビュー {#previewing-the-documentation}
 
 開発環境をセットアップした場合は、プルリクエストを開く前に以下のコマンドを `qmk_firmware/` フォルダから実行することで、あなたの変更をプレビューすることができます:
 
@@ -172,6 +172,6 @@ enum my_keycodes {
 
 QMK で物事がどのようにレイアウトされるかについて明確なビジョンを維持するために、私たちはリファクタリングを詳細に計画し、変更をする協力者がいます。リファクタリングのアイデアあるいは提案がある場合は、[issue を開いてください](https://github.com/qmk/qmk_firmware/issues)。QMK を改善する方法についてお話ししたいと思います。
 
-# 行動規範は私にとって何を意味しますか？ :id=what-does-the-code-of-conduct-mean-for-me
+# 行動規範は私にとって何を意味しますか？ {#what-does-the-code-of-conduct-mean-for-me}
 
 私たちの[行動規範](https://github.com/qmk/qmk_firmware/blob/master/CODE_OF_CONDUCT.md)は、身元に関係なくあなたがプロジェクトの全員を敬意と礼儀を持って扱う責任があることを意味します。あなたが行動規範に記載されている不適切な行動やコメントの被害者である場合は、私たちはあなたのためにここにおり、私たちのコードに従って虐待者が適切に懲戒されるように最善を尽くします。

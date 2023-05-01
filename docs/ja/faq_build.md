@@ -22,7 +22,7 @@
 
 `make` を `sudo` で実行することは一般的には良い考えでは***なく***、可能であれば前者の方法のいずれかを使うべきです。
 
-### Linux の `udev` ルール :id=linux-udev-rules
+### Linux の `udev` ルール {#linux-udev-rules}
 
 Linux では、ブートローダデバイスと通信するには適切な権限が必要です。ファームウェアを書き込む時に `sudo` を使うか(非推奨)、`/etc/udev/rules.d/` に[このファイル](https://github.com/qmk/qmk_firmware/tree/master/util/udev/50-qmk.rules)を配置することで、通信することができます。
 

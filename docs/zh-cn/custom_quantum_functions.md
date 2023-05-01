@@ -9,7 +9,7 @@
 
 本页不要求任何额外的QMK知识基础，但阅读[理解QMK](zh-cn/understanding_qmk.md)将会在更基础的层面帮你理解发生了什么。
 
-## 核心/键盘/键映射的概念 :id=a-word-on-core-vs-keyboards-vs-keymap
+## 核心/键盘/键映射的概念 {#a-word-on-core-vs-keyboards-vs-keymap}
 
 QMK基于如下层级组成：
 
@@ -38,7 +38,7 @@ enum my_keycodes {
 };
 ```
 
-## 编程设计你的键码的行为 :id=programming-the-behavior-of-any-keycode
+## 编程设计你的键码的行为 {#programming-the-behavior-of-any-keycode}
 
 当你覆盖一个已存在按键的行为时，或是给新按键设计功能时，请使用 `process_record_kb()` 和 `process_record_user()` 函数。QMK会在响应并处理按键事件前调用这些函数，如果这些函数返回值为 `true`，QMK将继续用常规的方式处理键码，这样可以很方便的扩展键码的功能而不需要替换代码实现。如果函数返回`false` QMK会跳过常规的键处理逻辑，需要发送的按键按下或抬起事件则需交由你负责完成。
 
@@ -152,7 +152,7 @@ void keyboard_pre_init_user(void) {
 * 键盘/各子版本：`void matrix_init_kb(void)`
 * 键映射：`void matrix_init_user(void)`
 
-### 低级矩阵函数的重写 :id=low-level-matrix-overrides
+### 低级矩阵函数的重写 {#low-level-matrix-overrides}
 
 * GPIO引脚初始化：`void matrix_init_pins(void)`
   * 此处须完成低级行列引脚的初始化。默认实现中，这里会参考可选的键盘设置项 `ROW2COL`，`COL2ROW` 及 `DIRECT_PINS` 来初始化所有 `MATRIX_ROW_PINS` 及 `MATRIX_COL_PINS` 中定义的GPIO引脚的输入/输出状态。当键盘设计者重写该函数后，QMK本身不会进行任何引脚的初始化，只会听从重写的函数的实现逻辑。
@@ -234,7 +234,7 @@ void suspend_wakeup_init_user(void) {
 * 键盘/各子版本：`void suspend_power_down_kb(void)` 和 `void suspend_wakeup_init_user(void)`
 * 键映射：`void suspend_power_down_kb(void)` 和 `void suspend_wakeup_init_user(void)`
 
-# 层切换代码 :id=layer-change-code
+# 层切换代码 {#layer-change-code}
 
 每当层发生切换时被执行，可用于感知层切换事件，或自定义层处理逻辑。
 
@@ -413,7 +413,7 @@ void eeconfig_init_user(void) {  // EEPROM被重置
 
 `val` 是你想写入EEPROM的值，`eeconfig_read_*`函数会从EEPROM返回一个32位(双字)的值。
 
-### 定时执行 :id=deferred-execution
+### 定时执行 {#deferred-execution}
 
 QMK支持在特定时间间隔后执行回调，以代替手动的计时器管理。
 

@@ -78,7 +78,7 @@ Zadig可以自动检测到bootloader设备，但有时你需要在 **Options（�
 
 :::
 
-## 已知驱动列表 :id=list-of-known-bootloaders
+## 已知驱动列表 {#list-of-known-bootloaders}
 
 该表列出了已知的bootloader设备及其USB VID（厂商ID）和PID（产品ID），以及可用于QMK刷写固件的驱动。留意usbser及HidUsb驱动是随Windows附带的，无法通过Zadig安装 - 如果你的设备驱动不符，请参照上节来卸载这些驱动。
 

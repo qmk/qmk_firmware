@@ -18,7 +18,7 @@
 ```markdown
 [建立你的环境](zh-cn/newbs-getting-started.md#set-up-your-environment)
 
-## 建立你的环境 :id=set-up-your-environment
+## 建立你的环境 {#set-up-your-environment}
 ```
 
 新しい言語の翻訳が完了したら、以下のファイルも修正する必要があります:

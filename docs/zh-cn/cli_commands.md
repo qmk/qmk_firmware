@@ -89,7 +89,7 @@ qmk compile -j <num_jobs> -kb <keyboard_name>
 qmk compile -j 0 -kb <keyboard_name>
 ```
 
-## `qmk flash` :id=qmk-flash
+## `qmk flash` {#qmk-flash}
 
 该命令与 `qmk compile` 类似，但额外地可以指定bootloader。bootloader参数是可选的，默认会指定为 `:flash`。可通过 `-bl <bootloader>` 来指定bootloader。请查阅[刷写固件](zh-cn/flashing.md)指引以深入了解可用的bootloader信息。
 
