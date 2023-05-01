@@ -2,7 +2,7 @@
     "keyboard_name": "split_65",
     "manufacturer": "jtallbean",
     "url": "",
-    "maintainer": "jtallbean",
+    "maintainer": "samlli",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",
