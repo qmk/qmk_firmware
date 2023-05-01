@@ -9,18 +9,18 @@
     "device_version": "1.0.0"
   },
   "processor": "RP2040",
-  "bootloader": "rp2040",  
+  "bootloader": "rp2040",
   "matrix_size": {
     "cols": 8,
     "rows": 5
-  },  
+  },
   "diode_direction": "COL2ROW",
   "features": {
     "bootmagic": true,
     "deferred_exec": true,
     "nkro": false
   },
-  "community_layouts": [ "split_3x5_3" ],
+  "community_layouts": ["split_3x5_3"],
   "layouts": {
     "LAYOUT_split_3x5_3": {
       "layout": [
@@ -60,7 +60,7 @@
         { "label": "K47", "matrix": [4, 7], "w": 1, "x": 7, "y": 3.47 },
         { "label": "K37", "matrix": [3, 7], "w": 1, "x": 8, "y": 3.36 },
         { "label": "K27", "matrix": [2, 7], "w": 1, "x": 9, "y": 3.25 }
-      ] 
+      ]
     }
-  } 
+  }
 }

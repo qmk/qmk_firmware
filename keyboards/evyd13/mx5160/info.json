@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "MX-5160", 
+    "keyboard_name": "MX-5160",
     "manufacturer": "Evyd13",
-    "url": "https://github.com/evyd13/mx-5160", 
-    "maintainer": "qmk", 
+    "url": "https://github.com/evyd13/mx-5160",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x4705",
         "pid": "0x5160",

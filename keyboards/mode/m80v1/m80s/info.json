@@ -1,12 +1,12 @@
 {
-    "keyboard_name": "Eighty", 
+    "keyboard_name": "Eighty",
     "manufacturer": "Mode",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
-    	"vid": "0x00DE",
-    	"pid": "0x0080",
-    	"device_version": "0.8.3"
+        "vid": "0x00DE",
+        "pid": "0x0080",
+        "device_version": "0.8.3"
     },
     "matrix_pins": {
         "cols": ["B8", "B7", "B6", "B5", "B4", "A2", "A1", "A0", "F1", "F0", "C15", "C14", "C13", "A7", "A6", "A5"],

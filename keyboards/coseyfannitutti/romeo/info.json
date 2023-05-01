@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "ROMEO", 
+    "keyboard_name": "ROMEO",
     "manufacturer": "coseyfannitutti",
-    "url": "https://github.com/coseyfannitutti/romeo", 
-    "maintainer": "coseyfannitutti", 
+    "url": "https://github.com/coseyfannitutti/romeo",
+    "maintainer": "coseyfannitutti",
     "usb": {
         "vid": "0x6B62",
         "pid": "0x4069",

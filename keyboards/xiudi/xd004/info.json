@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "XD004", 
+    "keyboard_name": "XD004",
     "manufacturer": "XIUDI",
-    "maintainer": "qmk", 
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x7844",
         "pid": "0x0404",

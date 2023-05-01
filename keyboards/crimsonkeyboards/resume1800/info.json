@@ -15,8 +15,8 @@
     },
     "diode_direction": "COL2ROW",
     "indicators": {
-    	"caps_lock": "B6",
-    	"num_lock": "B5"
+        "caps_lock": "B6",
+        "num_lock": "B5"
     },
     "processor": "atmega32a",
     "bootloader": "usbasploader",

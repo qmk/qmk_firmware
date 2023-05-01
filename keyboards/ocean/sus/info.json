@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Sus", 
+    "keyboard_name": "Sus",
     "manufacturer": "Ocean",
-    "url": " ", 
-    "maintainer": "Ocean", 
+    "url": " ",
+    "maintainer": "Ocean",
     "usb": {
       "vid": "0x9624",
       "pid": "0x0009",

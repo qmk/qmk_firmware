@@ -111,7 +111,6 @@
                 {"label": "\u2192", "matrix": [4, 13], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_ansi_blocker": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -187,7 +186,6 @@
                 { "label": "\u2192", "matrix": [4, 13], "x": 15, "y": 4 }
             ]
         },
-
         "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -264,7 +262,6 @@
                 { "label": "\u2192", "matrix": [4, 13], "x": 15, "y": 4 }
             ]
         },
-
         "LAYOUT_65_ansi_blocker_tsangan": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -339,7 +336,6 @@
                 { "label": "\u2192", "matrix": [4, 13], "x": 15, "y": 4 }
             ]
         },
-
         "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -415,7 +411,6 @@
                 { "label": "\u2192", "matrix": [4, 13], "x": 15, "y": 4 }
             ]
         },
-
         "LAYOUT_65_iso_blocker": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -492,7 +487,6 @@
                 { "label": "\u2192", "matrix": [4, 13], "x": 15, "y": 4 }
             ]
         },
-
         "LAYOUT_65_iso_blocker_split_bs": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -570,7 +564,6 @@
                 { "label": "\u2192", "matrix": [4, 13], "x": 15, "y": 4 }
             ]
         },
-
         "LAYOUT_65_iso_blocker_tsangan": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -646,7 +639,6 @@
                 { "label": "\u2192", "matrix": [4, 13], "x": 15, "y": 4 }
             ]
         },
-
         "LAYOUT_65_iso_blocker_tsangan_split_bs": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },

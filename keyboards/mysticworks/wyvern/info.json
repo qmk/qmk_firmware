@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Wyvern", 
+    "keyboard_name": "Wyvern",
     "manufacturer": "Mystic Works",
-    "url": "https://mysticworks.xyz", 
-    "maintainer": "mysticworks", 
+    "url": "https://mysticworks.xyz",
+    "maintainer": "mysticworks",
     "usb": {
         "vid": "0x4D59",
         "pid": "0x0001",

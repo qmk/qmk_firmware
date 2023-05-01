@@ -156,7 +156,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_ansi_split_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -285,7 +284,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_ansi_split_bs_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -415,7 +413,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_ansi_wkl_split_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -541,7 +538,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_ansi_wkl_split_bs_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -668,7 +664,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_iso_split_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -798,7 +793,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_iso_split_bs_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -929,7 +923,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_iso_wkl_split_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -1056,7 +1049,6 @@
                 {"label": "Enter", "matrix": [9, 8], "x": 18.5, "y": 6}
             ]
         },
-
         "LAYOUT_1800_f13_iso_wkl_split_bs_numenter": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

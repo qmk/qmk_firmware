@@ -41,7 +41,7 @@
         "driver": "vendor"
     },
     "matrix_pins": {
-        "cols": ["GP28", "GP5", "GP4", "GP3", "GP2", "GP1", "GP0", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7" ],
+        "cols": ["GP28", "GP5", "GP4", "GP3", "GP2", "GP1", "GP0", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7"],
         "rows": ["GP24", "GP29", "GP6", "GP15", "GP16"]
     },
     "processor": "RP2040",

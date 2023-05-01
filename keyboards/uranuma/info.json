@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "UraNuma", 
+  "keyboard_name": "UraNuma",
   "manufacturer": "yohewi",
-  "url": "", 
-  "maintainer": "yohewi", 
+  "url": "",
+  "maintainer": "yohewi",
   "usb": {
     "vid": "0xFEED",
     "pid": "0x112D",

@@ -78,7 +78,6 @@
         {"label":"&rarr;", "matrix": [3, 11], "x":11, "y":3}
       ]
     },
-
     "LAYOUT_planck_mit": {
       "layout": [
         {"label":"Tab", "matrix": [0, 0], "x":0, "y":0},

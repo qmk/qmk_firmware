@@ -3,7 +3,6 @@
     "keyboard_name": "Allaro",
     "maintainer": "ramonimbao",
     "development_board": "promicro",
-
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "DISCIPAD", 
+    "keyboard_name": "DISCIPAD",
     "manufacturer": "coseyfannitutti",
-    "url": "https://github.com/coseyfannitutti/discipad", 
-    "maintainer": "coseyfannitutti", 
+    "url": "https://github.com/coseyfannitutti/discipad",
+    "maintainer": "coseyfannitutti",
     "usb": {
         "vid": "0x6B62",
         "pid": "0x1769",

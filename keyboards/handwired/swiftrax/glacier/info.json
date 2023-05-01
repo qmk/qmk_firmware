@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Glacier", 
+    "keyboard_name": "Glacier",
     "manufacturer": "Digital Carpentry",
-    "url": "https://www.github.com/swiftrax", 
-    "maintainer": "swiftrax", 
+    "url": "https://www.github.com/swiftrax",
+    "maintainer": "swiftrax",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xE890",

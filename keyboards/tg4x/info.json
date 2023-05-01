@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "TG4x", 
+    "keyboard_name": "TG4x",
     "manufacturer": "MythosMann",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x4D4D",
         "pid": "0x0458",

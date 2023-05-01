@@ -83,7 +83,6 @@
         {"matrix": [3, 11], "x": 11, "y": 3}
       ]
     },
-
     "LAYOUT_ortho_4x12": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
@@ -139,7 +138,6 @@
         {"matrix": [3, 11], "x": 11, "y": 3}
       ]
     },
-
     "LAYOUT_planck_1x2uR": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "CU80", 
+    "keyboard_name": "CU80",
     "manufacturer": "CapsUnlocked",
-    "url": "https://caps-unlocked.com/group-buy-cu80/", 
-    "maintainer": "aHolland909", 
+    "url": "https://caps-unlocked.com/group-buy-cu80/",
+    "maintainer": "aHolland909",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

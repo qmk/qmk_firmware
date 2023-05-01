@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "GetawayVan", 
+    "keyboard_name": "GetawayVan",
     "manufacturer": "esca",
-    "url": "", 
-    "maintainer": "esca", 
+    "url": "",
+    "maintainer": "esca",
     "usb": {
         "vid": "0xE5CA",
         "pid": "0x0401",

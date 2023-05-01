@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "NumDiscipline", 
+    "keyboard_name": "NumDiscipline",
     "manufacturer": "ELau",
-    "url": "https://github.com/ericrlau/NumDiscipline", 
-    "maintainer": "ericrlau", 
+    "url": "https://github.com/ericrlau/NumDiscipline",
+    "maintainer": "ericrlau",
     "usb": {
         "vid": "0x454C",
         "pid": "0x0001",

@@ -144,7 +144,6 @@
                 {"label": ".", "matrix": [5, 17], "x": 17.5, "y": 5.25}
             ]
         },
-
         "LAYOUT_ansi": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -253,7 +252,6 @@
                 { "label": ".", "matrix": [5, 17], "x": 17.5, "y": 5.25 }
             ]
         },
-
         "LAYOUT_ansi_split_bs": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -363,7 +361,6 @@
                 { "label": ".", "matrix": [5, 17], "x": 17.5, "y": 5.25 }
             ]
         },
-
         "LAYOUT_iso": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
@@ -473,7 +470,6 @@
                 { "label": ".", "matrix": [5, 17], "x": 17.5, "y": 5.25 }
             ]
         },
-
         "LAYOUT_iso_split_bs": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
