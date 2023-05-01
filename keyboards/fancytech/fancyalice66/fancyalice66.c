@@ -1,4 +1,4 @@
-/* Copyright 2022 chent7 <https://github.com/chent7>
+/* Copyright 2023 Adophoxia <https://github.com/Adophoxia>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
