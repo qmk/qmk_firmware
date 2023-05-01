@@ -42,7 +42,7 @@ const config = {
             "@docusaurus/plugin-content-docs",
             {
                 sidebarPath: require.resolve("./sidebars.js"),
-                path: ".",
+                path: "../../docs",
                 routeBasePath: "/",
                 exclude: [
                     "node_modules",
