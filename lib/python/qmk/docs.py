@@ -12,8 +12,10 @@ BUILD_PATH = QMK_FIRMWARE / '.build'
 BUILD_DOCS_PATH = BUILD_PATH / 'docs'
 DOXYGEN_PATH = BUILD_DOCS_PATH / 'static' / 'doxygen'
 
-def run_docs_command(cmd, capture_output = False if cli.config.general.verbose else True):
+
+def run_docs_command(cmd, capture_output=False if cli.config.general.verbose else True):
     cli.run(['npm', 'run', '--prefix', BUILD_DOCS_PATH, cmd], capture_output=capture_output, check=True, stdin=DEVNULL)
+
 
 def prepare_docs_build_area():
     if BUILD_DOCS_PATH.exists():
