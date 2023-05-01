@@ -4,8 +4,8 @@
 
 FancyAlice66 is a Alice layout mechanical keyboard produced by FancyTech, powered by ATM32U4.
 
-* Keyboard Maintainer: [chent7](https://github.com/chent7)
-* Hardware Supported: FancyAlice66 PCB (ATM32U4)
+* Keyboard Maintainer: [Adophoxia](https://github.com/Adophoxia)
+* Hardware Supported: FancyAlice66 PCB (Atmega32U4)
 * Hardware Availability: [AliExpress](https://www.aliexpress.com/item/1005004272392611.html) [TaoBao](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.13892e8dGQ8r0o&id=674705234595)
 
 Make example for this keyboard (after setting up your build environment):
@@ -24,4 +24,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
