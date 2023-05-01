@@ -6,7 +6,7 @@
     "usb": {
         "pid": "0x0080",
         "vid": "0x6964",
-        "device_version": "0.1.0"
+        "device_version": "0.1.2"
     },
     "backlight": {
         "pin": "B6",
