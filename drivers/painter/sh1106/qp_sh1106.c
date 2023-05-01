@@ -16,7 +16,7 @@
 typedef struct sh1106_device_t {
     oled_panel_painter_device_t oled;
 
-    uint8_t framebuffer[128 * 64 / 8];
+    uint8_t framebuffer[SURFACE_REQUIRED_BUFFER_BYTE_SIZE(128, 64, 1)];
 } sh1106_device_t;
 
 static sh1106_device_t sh1106_drivers[SH1106_NUM_DEVICES] = {0};
