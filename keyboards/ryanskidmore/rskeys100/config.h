@@ -42,6 +42,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Set the max power consumption for the keyboard, which is 500 mA. */
-#define USB_MAX_POWER_CONSUMPTION 500

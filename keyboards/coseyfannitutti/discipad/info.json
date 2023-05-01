@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x6B62",
         "pid": "0x1769",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "max_power": 100
     },
     "matrix_pins": {
         "cols": ["C0", "C1", "C2", "C3"],
