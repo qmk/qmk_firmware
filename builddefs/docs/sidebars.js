@@ -251,9 +251,9 @@ const sidebars = {
                             type: 'category',
                             label: "Past Breaking Changes",
                             link: {
-                              type: 'generated-index',
-                              title: 'Past Breaking Changes',
-                              slug: '/breaking_changes/all',
+                                type: 'generated-index',
+                                title: 'Past Breaking Changes',
+                                slug: '/breaking_changes/all',
                             },
                             items: [
                                 {
