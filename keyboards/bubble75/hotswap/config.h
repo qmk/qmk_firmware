@@ -22,8 +22,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define FORCE_NKRO
-
 /* WS2812 RGB */
 #ifdef RGB_MATRIX_ENABLE
 #define RGBLED_NUM 81

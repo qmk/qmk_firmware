@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VERSION "v1.1: ClayM"
 #define VERBOSE
 
-#define FORCE_NKRO
 #define NO_ACTION_ONESHOT
 
 /* key matrix size */
