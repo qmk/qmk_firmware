@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* The Model M as a membrane based keyboard without diodes has ghost keys */
 #define MATRIX_HAS_GHOST
 
-#define USB_MAX_POWER_CONSUMPTION 200
-
 /* As we replace the caps lock key with the win key, enable by default the
  * Caps Word feature by double tapping the shift key */
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD

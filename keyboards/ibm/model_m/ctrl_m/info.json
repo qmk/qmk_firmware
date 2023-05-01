@@ -6,7 +6,8 @@
   "usb": {
     "vid": "0x1D50",
     "pid": "0x6180",
-    "device_version": "1.0.0"
+    "device_version": "1.0.0",
+    "max_power": 100
   },
   "debounce": 5,
   "matrix_pins": {
