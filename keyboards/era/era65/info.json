@@ -11,8 +11,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-		"backlight": true
-		
+        "backlight": true
     },
     "matrix_pins": {
         "cols": ["GP29", "GP28", "GP27", "GP26", "GP25", "GP24", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP22", "GP23", "GP3"],
@@ -79,10 +78,10 @@
                 { "matrix": [2, 10], "x": 10.75, "y": 2 },
                 { "matrix": [2, 11], "x": 11.75, "y": 2 },
                 { "matrix": [2, 12], "x": 12.75, "y": 2 },
-				{ "matrix": [2, 13], "w": 1.25, "x": 13.75, "y": 2 },
+                { "matrix": [2, 13], "w": 1.25, "x": 13.75, "y": 2 },
                 { "matrix": [2, 14], "x": 15.5, "y": 2 },
                 { "matrix": [3, 0], "w": 1.25, "x": 0, "y": 3 },
-				{ "matrix": [3, 1], "x": 1.25, "y": 3 },
+                { "matrix": [3, 1], "x": 1.25, "y": 3 },
                 { "matrix": [3, 2], "x": 2.25, "y": 3 },
                 { "matrix": [3, 3], "x": 3.25, "y": 3 },
                 { "matrix": [3, 4], "x": 4.25, "y": 3 },

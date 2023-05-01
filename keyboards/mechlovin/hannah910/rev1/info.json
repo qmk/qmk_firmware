@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Hannah910", 
+    "keyboard_name": "Hannah910",
     "manufacturer": "Mechlovin",
-    "url": "", 
-    "maintainer": "Mechlovin'", 
+    "url": "",
+    "maintainer": "Mechlovin'",
     "usb": {
         "vid": "0x4D4C",
         "pid": "0x9101",

@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "XO87 RGB", 
+  "keyboard_name": "XO87 RGB",
   "manufacturer": "Monstargear",
-  "url": "https://www.monstargears.com/", 
-  "maintainer": "qmk", 
+  "url": "https://www.monstargears.com/",
+  "maintainer": "qmk",
   "usb": {
     "vid": "0x4D47",
     "pid": "0x584F",

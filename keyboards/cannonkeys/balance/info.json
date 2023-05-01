@@ -133,7 +133,6 @@
                 {"label": "Enter", "matrix": [4, 19], "x": 19.5, "y": 4.25}
             ]
         },
-
         "LAYOUT_ansi": {
             "layout": [
                 { "label": "~", "matrix": [0, 0], "x": 0, "y": 0.25 },
@@ -228,7 +227,6 @@
                 { "label": "Enter", "matrix": [4, 19], "x": 19.5, "y": 4.25 }
             ]
         },
-
         "LAYOUT_ansi_split_bs": {
             "layout": [
                 { "label": "~", "matrix": [0, 0], "x": 0, "y": 0.25 },
@@ -324,7 +322,6 @@
                 { "label": "Enter", "matrix": [4, 19], "x": 19.5, "y": 4.25 }
             ]
         },
-
         "LAYOUT_iso": {
             "layout": [
                 { "label": "~", "matrix": [0, 0], "x": 0, "y": 0.25 },
@@ -420,7 +417,6 @@
                 { "label": "Enter", "matrix": [4, 19], "x": 19.5, "y": 4.25 }
             ]
         },
-
         "LAYOUT_iso_split_bs": {
             "layout": [
                 { "label": "~", "matrix": [0, 0], "x": 0, "y": 0.25 },

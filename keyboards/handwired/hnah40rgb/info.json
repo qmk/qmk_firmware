@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Hnah40V2", 
+    "keyboard_name": "Hnah40V2",
     "manufacturer": "HnahKB",
     "url": "",
-    "maintainer": "HnahKB", 
+    "maintainer": "HnahKB",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

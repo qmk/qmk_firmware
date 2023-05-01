@@ -116,7 +116,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_ansi": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -207,7 +206,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -299,7 +297,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_iso": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
@@ -393,7 +390,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.25, "y": 4}
             ]
         },
-
         "LAYOUT_iso_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},

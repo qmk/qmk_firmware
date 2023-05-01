@@ -20,7 +20,7 @@
         "nkro": true
     },
     "bootmagic": {
-        "matrix": [1,0]
+        "matrix": [1, 0]
     },
     "build": {
         "lto": true

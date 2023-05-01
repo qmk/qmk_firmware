@@ -6,7 +6,7 @@
     },
     "matrix_pins": {
         "rows": ["D1", "D7", "D3"],
-        "cols": [ "B4", "B5", "E6", "C6", "D4", "D0", "F4", "F5", "F6", "B3", "B2", "B6", "B1", "F7"]
+        "cols": ["B4", "B5", "E6", "C6", "D4", "D0", "F4", "F5", "F6", "B3", "B2", "B6", "B1", "F7"]
     },
     "diode_direction": "ROW2COL",
     "rgblight": {
@@ -55,7 +55,7 @@
                 { "matrix": [1, 7], "label":"K", "x":7, "y":1 },
                 { "matrix": [1, 8], "label":"L", "x":8, "y":1 },
                 { "matrix": [1, 9], "label":"Esc", "x":9, "y":1 },
-                { "matrix": [1, 10], "label":"Enter", "x":10, "y":1 , "h":2 },
+                { "matrix": [1, 10], "label":"Enter", "x":10, "y":1, "h":2 },
                 { "matrix": [1, 11], "label":"4", "x":11, "y":1 },
                 { "matrix": [1, 12], "label":"5", "x":12, "y":1 },
                 { "matrix": [1, 13], "label":"6", "x":13, "y":1 },

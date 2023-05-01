@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Gingham", 
+    "keyboard_name": "Gingham",
     "manufacturer": "Yiancar-Designs",
-    "url": "https://yiancar-designs.com/product/gingham/", 
-    "maintainer": "Yiancar", 
+    "url": "https://yiancar-designs.com/product/gingham/",
+    "maintainer": "Yiancar",
     "usb": {
         "vid": "0x8968",
         "pid": "0x4748",

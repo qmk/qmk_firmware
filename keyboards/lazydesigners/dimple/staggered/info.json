@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Dimple", 
+    "keyboard_name": "Dimple",
     "manufacturer": "LazyDesigners",
-    "url": "http://lazydesigners.cn", 
-    "maintainer": "Erovia", 
+    "url": "http://lazydesigners.cn",
+    "maintainer": "Erovia",
     "usb": {
         "vid": "0x4C44",
         "pid": "0x0040",

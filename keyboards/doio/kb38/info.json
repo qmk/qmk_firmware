@@ -2,7 +2,7 @@
     "manufacturer": "Doio",
     "keyboard_name": "doio/kb38",
     "maintainer": "PepperKats",
-    "url":  "https://www.keebmonkey.com/products/megalodon-doio-triple-knob-38-keyboard-with-oled-screen",
+    "url": "https://www.keebmonkey.com/products/megalodon-doio-triple-knob-38-keyboard-with-oled-screen",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
@@ -46,7 +46,7 @@
             {"flags": 4, "matrix": [0, 5], "x":174.2, "y":0},
             {"flags": 4, "matrix": [0, 6], "x":199.1, "y":0},
             {"flags": 4, "matrix": [0, 7], "x":224, "y":0},
-            
+
             {"flags": 4, "matrix": [1, 0], "x":0, "y":12.8},
             {"flags": 4, "matrix": [1, 1], "x":24.9, "y":12.8},
             {"flags": 4, "matrix": [1, 2], "x":49.8, "y":12.8},

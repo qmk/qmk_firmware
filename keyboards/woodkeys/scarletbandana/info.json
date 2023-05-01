@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Scarlet Bandana Version IV Mark 2", 
+    "keyboard_name": "Scarlet Bandana Version IV Mark 2",
     "manufacturer": "WoodKeys.click",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6969",

@@ -1,7 +1,7 @@
 {
     "manufacturer": "kbdfans",
     "maintainer": "moyi4681",
-    "keyboard_name": "D45V2",    
+    "keyboard_name": "D45V2",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {

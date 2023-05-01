@@ -5,8 +5,8 @@
     "maintainer": "wxyangf",
     "diode_direction": "ROW2COL",
     "matrix_pins":{
-        "rows":["B7", "D5", "C7", "D2", "D3"],
-        "cols":["D7", "E6", "B4", "F1"]
+        "rows": ["B7", "D5", "C7", "D2", "D3"],
+        "cols": ["D7", "E6", "B4", "F1"]
     },
     "usb":{
         "vid":"0x7474",
@@ -17,7 +17,7 @@
     "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-            "layout":[
+            "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},

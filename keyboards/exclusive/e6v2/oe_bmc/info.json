@@ -1,7 +1,7 @@
 {
     "keyboard_name": "E6-V2 OE BMC",
     "manufacturer": "Exclusive / E-Team",
-    "maintainer": "qmk", 
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x4558",
         "pid": "0xE62B",

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "YMD96", 
+    "keyboard_name": "YMD96",
     "manufacturer": "YMDK",
-    "url": "", 
-    "maintainer": "sparkyman215", 
+    "url": "",
+    "maintainer": "sparkyman215",
     "usb": {
         "vid": "0x20A0",
         "pid": "0x422D",

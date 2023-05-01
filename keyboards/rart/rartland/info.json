@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "RARTLAND", 
+    "keyboard_name": "RARTLAND",
     "manufacturer": "Alabahuy",
-    "url": " ", 
-    "maintainer": "Alabahuy", 
+    "url": " ",
+    "maintainer": "Alabahuy",
     "usb": {
         "vid": "0x414C",
         "pid": "0x6065",

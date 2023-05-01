@@ -118,7 +118,6 @@
                 {"label": "\u2192", "matrix": [5, 15], "x": 15, "y": 5.25}
             ]
         },
-
         "LAYOUT_ansi_blocker": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -209,7 +208,6 @@
                 {"label": "\u2192", "matrix": [5, 15], "x": 15, "y": 5.25}
             ]
         },
-
         "LAYOUT_ansi_blocker_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -301,7 +299,6 @@
                 {"label": "\u2192", "matrix": [5, 15], "x": 15, "y": 5.25}
             ]
         },
-
         "LAYOUT_iso_blocker": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -393,7 +390,6 @@
                 {"label": "\u2192", "matrix": [5, 15], "x": 15, "y": 5.25}
             ]
         },
-
         "LAYOUT_iso_blocker_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
