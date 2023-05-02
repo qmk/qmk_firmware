@@ -89,7 +89,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             _delay_ms(500);
             board_connected = I2C_SUCCESS(init_io_expander());
             // Update leds to reflect the keyboards state
-            led_update_kb((led_t)host_keyboard_leds());
+            led_update_kb(host_keyboard_led_state());
         }
     } else {
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
