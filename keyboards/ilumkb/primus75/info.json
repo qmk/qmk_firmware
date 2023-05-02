@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Primus75", 
+    "keyboard_name": "Primus75",
     "manufacturer": "moyi4681",
-    "url": "", 
-    "maintainer": "moyi4681", 
+    "url": "",
+    "maintainer": "moyi4681",
     "usb": {
         "vid": "0x445A",
         "pid": "0x1014",
@@ -124,5 +124,4 @@
             ]
         }
     }
-
 }

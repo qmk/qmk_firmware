@@ -1,8 +1,8 @@
 {
-    "name": "Gentleman 65", 
+    "name": "Gentleman 65",
     "manufacturer": "JJ48_24 & Omar Afzal",
-    "url": "https://jkeys.design/products/gentleman-65", 
-    "maintainer": "0marA", 
+    "url": "https://jkeys.design/products/gentleman-65",
+    "maintainer": "0marA",
     "usb": {
         "vid": "0x00FA",
         "pid": "0x2020",

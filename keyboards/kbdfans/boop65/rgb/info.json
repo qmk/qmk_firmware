@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "Boop65 RGB", 
+  "keyboard_name": "Boop65 RGB",
   "manufacturer": "KBDfans",
-  "url": "", 
-  "maintainer": "moyi4681", 
+  "url": "",
+  "maintainer": "moyi4681",
   "usb": {
     "vid": "0x4B42",
     "pid": "0x1000",

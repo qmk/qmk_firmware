@@ -143,7 +143,6 @@
                 {"label": "Enter", "matrix": [5, 17], "x": 18.5, "y": 5.25}
             ]
         },
-
         "LAYOUT_ansi_rwkl": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -253,7 +252,6 @@
                 {"label": "Enter", "matrix": [5, 17], "x": 18.5, "y": 5.25}
             ]
         },
-
         "LAYOUT_ansi_rwkl_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -364,7 +362,6 @@
                 {"label": "Enter", "matrix": [5, 17], "x": 18.5, "y": 5.25}
             ]
         },
-
         "LAYOUT_ansi_wkl": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -473,7 +470,6 @@
                 {"label": "Enter", "matrix": [5, 17], "x": 18.5, "y": 5.25}
             ]
         },
-
         "LAYOUT_ansi_wkl_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -583,7 +579,6 @@
                 {"label": "Enter", "matrix": [5, 17], "x": 18.5, "y": 5.25}
             ]
         },
-
         "LAYOUT_iso_rwkl": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -694,7 +689,6 @@
                 {"label": "Enter", "matrix": [5, 17], "x": 18.5, "y": 5.25}
             ]
         },
-
         "LAYOUT_iso_rwkl_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -806,7 +800,6 @@
                 {"label": "Enter", "matrix": [5, 17], "x": 18.5, "y": 5.25}
             ]
         },
-
         "LAYOUT_iso_wkl": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -916,7 +909,6 @@
                 {"label": "Enter", "matrix": [5, 17], "x": 18.5, "y": 5.25}
             ]
         },
-
         "LAYOUT_iso_wkl_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

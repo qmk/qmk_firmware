@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "DDG_56", 
+  "keyboard_name": "DDG_56",
   "manufacturer": "Spaceman",
-  "url": "", 
-  "maintainer": "spaceman", 
+  "url": "",
+  "maintainer": "spaceman",
   "usb": {
     "vid": "0xFEED",
     "pid": "0xB195",

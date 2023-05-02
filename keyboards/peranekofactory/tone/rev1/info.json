@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "tone", 
+    "keyboard_name": "tone",
     "manufacturer": "PeranekoFactory",
-    "url": "https://shop.yushakobo.jp/collections/keyboard-1/products/consign_tone-note", 
-    "maintainer": "PeranekoFactory", 
+    "url": "https://shop.yushakobo.jp/collections/keyboard-1/products/consign_tone-note",
+    "maintainer": "PeranekoFactory",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

@@ -16,7 +16,7 @@
 
 // not much here ... just indicator LEDs
 
-#include "jels88.h"
+#include "quantum.h"
 
 // LED indicator pins
 #define CAPS_LED D5

@@ -1,7 +1,8 @@
 {
     "keyboard_name": "Chavdai40",
     "usb": {
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "max_power": 100
     },
     "matrix_pins": {
         "cols": ["B8", "B4", "B3", "B2", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1"],

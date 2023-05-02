@@ -4,7 +4,8 @@
     "usb": {
         "vid": "0x7BA1",
         "pid": "0x3201",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "force_nkro": true
     },
     "matrix_pins": {
         "cols": ["A10", "A9", "A8", "B15", "B14", "B13", "B12", "A4", "A2", "A1", "B6", "B5", "B4", "B3", "A15"],

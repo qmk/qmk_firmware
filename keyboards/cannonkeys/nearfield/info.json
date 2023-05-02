@@ -105,7 +105,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 17.5, "y": 5.5}
             ]
         },
-
         "LAYOUT_3u_space": {
             "layout": [
                 { "label": "~", "matrix": [0, 0], "x": 0, "y": 0 },
