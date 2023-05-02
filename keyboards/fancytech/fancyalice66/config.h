@@ -3,9 +3,6 @@
 
 #pragma once
 
-/* RGB Matrix config */
-#define RGB_DI_PIN B0
-
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 82
 
