@@ -1,5 +1,5 @@
 /*
-Copyright 2022 Cutie Club
+Copyright 2023 Cutie Club
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,11 +25,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PCAL_ADDRESS (0b0100000 << 1)
 #define PCAL_ROW_PINS { PCAL_1_5, PCAL_1_0, PCAL_1_1, PCAL_1_2, PCAL_1_3 }
 #define PCAL_COL_PINS { PCAL_1_4, PCAL_0_5, PCAL_0_4, PCAL_0_3, PCAL_0_2 }
-
-#define NUM_LOCK_PCAL_PINS { PCAL_0_0, PCAL_0_1 }
-
-// #define NUMBER_OF_SCROLL_LOCK_LEDS 2
-// #define SCROLL_LOCK_PCAL_PINS { PCAL_0_0, PCAL_0_1 }
-
-// #define NUMBER_OF_CAPS_LOCK_LEDS 2
-// #define CAPS_LOCK_PCAL_PINS { PCAL_0_0, PCAL_0_1 }

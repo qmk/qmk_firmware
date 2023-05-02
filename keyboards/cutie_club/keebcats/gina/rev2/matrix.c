@@ -1,3 +1,20 @@
+/*
+Copyright 2023 Cutie Club
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include <stdint.h>
 #include <stdbool.h>
 #include "quantum.h"
@@ -36,7 +53,6 @@ static i2c_status_t update_matrix_for_row(uint8_t row, matrix_row_t current_matr
 }
 
 static i2c_status_t init_io_expander(void) {
-    RETURN_STATUS_IF_I2C_FAIL(indicator_leds_init());
     RETURN_STATUS_IF_I2C_FAIL(set_pin_array_direction(column_pins, MATRIX_COLS, INPUT_PULLUP));
     RETURN_STATUS_IF_I2C_FAIL(set_pin_array_initial_state(row_pins, MATRIX_ROWS, HIGH));
     return I2C_STATUS_SUCCESS;
@@ -48,7 +64,7 @@ static bool board_connected = false;
 
 void matrix_init_custom(void) {
     i2c_init();
-    board_connected = I2C_SUCCESS(init_io_expander());
+    board_connected = I2C_SUCCESS(init_io_expander()) && indicator_leds_init() == 0;
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
@@ -78,7 +94,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     } else {
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
             bool row_changed = false;
-            
+
             board_connected = I2C_SUCCESS(update_matrix_for_row(row, current_matrix, &row_changed));
             if(!board_connected) break;
 
