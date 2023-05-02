@@ -6,7 +6,7 @@
 #include "mousekey.h"
 
 enum custom_keycodes {
-  NO_SCROLL = SAFE_RANGE,
+  NO_SCROLL = SAFE_RANGE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
