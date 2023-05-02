@@ -8,7 +8,7 @@
         "rotary": [
             {"pin_a": "F0", "pin_b": "F1", "resolution": 2}
         ]
-	},
+    },
     "features": {
         "bootmagic": true,
         "encoder": false,
