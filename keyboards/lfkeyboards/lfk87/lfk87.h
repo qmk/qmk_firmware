@@ -1,6 +1,5 @@
 #pragma once
 
-#include QMK_KEYBOARD_H
 #include "quantum.h"
 #include "matrix.h"
 #include <avr/sfr_defs.h>
