@@ -3,6 +3,7 @@
 
 # Production
 /build
+/static/doxygen
 
 # Generated files
 .docusaurus

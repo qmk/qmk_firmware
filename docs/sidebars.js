@@ -336,8 +336,10 @@ const sidebars = {
                 },
                 {
                     type: 'link',
-                    label: 'Doxygen',
-                    href: '/doxygen/'
+                    label: 'Doxygen Documentation',
+                    // needs to be an external link to be unmanaged by docusaurus
+                    // other solutions: https://stackoverflow.com/a/63365741/1530201
+                    href: 'https://docusaurus.qmk.fm/doxygen/'
                 }
             ],
         },
