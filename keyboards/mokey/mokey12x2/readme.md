@@ -1,6 +1,5 @@
 # mokey12x2
 
-*mokey12x2*
 A Blue Pill STM32F103C8T6-based keyboard.
 
 * Keyboard Maintainer: [rhmokey](https://github.com/rhmokey)
