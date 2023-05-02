@@ -65,7 +65,7 @@
             "solid_reactive_wide": true,
             "solid_splash": true,
             "splash": true
-    	},
+        },
         "driver": "WS2812",
         "layout": [
             {"flags": 1, "matrix": [0, 0], "x": 0, "y": 0},
