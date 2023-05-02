@@ -6,7 +6,7 @@ An O ring mount 60%, akin to the otd 356mini
 
 * Keyboard Maintainer: [Zeix](https://github.com/itsme-zeix)
 * Hardware Supported: SBL Solder PCB rev1
-* Hardware Availability: N/A
+* Hardware Availability: https://dnworks.co/products/sbl
 
 Make example for this keyboard (after setting up your build environment):
 
