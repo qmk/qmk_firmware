@@ -242,6 +242,10 @@ __attribute__((weak)) void post_process_record_quantum(keyrecord_t *record) {}
  * FIXME: Needs documentation.
  */
 void process_record_tap_hint(keyrecord_t *record) {
+    if (!IS_KEYEVENT(record->event)) {
+        return;
+    }
+
     action_t action = layer_switch_get_action(record->event.key);
 
     switch (action.kind.id) {
