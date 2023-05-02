@@ -164,7 +164,7 @@
         "force_nkro": true,
         "pid": "0x3663",
         "vid": "0xECED"
-	},
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
