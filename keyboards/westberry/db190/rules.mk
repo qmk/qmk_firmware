@@ -1,4 +1,4 @@
-RGB_MATRIX_CUSTOM_USER = yes # Enable custom RGB effect
+RGB_MATRIX_CUSTOM_KB = yes
 EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = embedded_flash
 
