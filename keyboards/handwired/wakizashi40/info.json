@@ -29,10 +29,10 @@
         "device_version": "0.0.1"
     },
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_all"
+        "LAYOUT_all": "LAYOUT"
     },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"label": "Tab", "matrix": [0, 0], "x": 0, "y": 0, "w": 1.5},
                 {"label": "Q", "matrix": [0, 2], "x": 1.5, "y": 0},
