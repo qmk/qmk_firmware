@@ -4,25 +4,10 @@
     "maintainer": "Jukaie",
     "bootloader": "wb32-dfu",
     "bootmagic": {
-        "enabled": true,
         "matrix": [1, 3]
-    },
-    "config_h_features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "encoder": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
     },
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {
                 "pin_a": "C2",
