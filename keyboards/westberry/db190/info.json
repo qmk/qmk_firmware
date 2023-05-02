@@ -25,7 +25,6 @@
         "encoder": true,
         "rgb_matrix": true,
         "rgblight": false,
-        "magic_keycode": true
     },
     "bootmagic": {
         "matrix": [0, 0]
