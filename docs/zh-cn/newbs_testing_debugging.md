@@ -8,7 +8,7 @@
 
 [已移到这里](zh-cn/faq_misc.md#testing)
 
-## 调试 :id=debugging
+## 调试 {#debugging}
 
 [已移到这里](zh-cn/faq_debug.md#debugging)
 

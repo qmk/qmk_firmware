@@ -9,7 +9,7 @@
 
 このページでは、QMK に関する特別な知識は想定していませんが、[QMK の理解](ja/understanding_qmk.md)を読むとより根本的なレベルで何が起きているかを理解するのに役立ちます。
 
-## コア、キーボード、キーマップ階層 :id=a-word-on-core-vs-keyboards-vs-keymap
+## コア、キーボード、キーマップ階層 {#a-word-on-core-vs-keyboards-vs-keymap}
 
 私たちは QMK を階層として構造化しました:
 
@@ -39,7 +39,7 @@ enum my_keycodes {
 };
 ```
 
-## 任意のキーコードの挙動のプログラミング :id=programming-the-behavior-of-any-keycode
+## 任意のキーコードの挙動のプログラミング {#programming-the-behavior-of-any-keycode}
 
 既存のキーの挙動を上書きしたい場合、あるいは新しいキーについて挙動を定義する場合、`process_record_kb()` および `process_record_user()` 関数を使うべきです。これらは実際のキーイベントが処理される前のキー処理中に QMK によって呼び出されます。これらの関数が `true` を返す場合、QMK はキーコードを通常通りに処理します。これは、キーを置き換えるのではなく、キーの機能を拡張するのに便利です。これらの関数が `false` を返す場合、QMK は通常のキー処理をスキップし、必要なキーのアップまたはダウンイベントを送信するのかはユーザ次第です。
 
@@ -136,7 +136,7 @@ void keyboard_pre_init_user(void) {
 }
 ```
 
-### `keyboard_pre_init_*` 関数のドキュメント :id=keyboard_pre_init_-function-documentation
+### `keyboard_pre_init_*` 関数のドキュメント {#keyboard_pre_init_-function-documentation}
 
 * キーボード/リビジョン: `void keyboard_pre_init_kb(void)`
 * キーマップ: `void keyboard_pre_init_user(void)`
@@ -177,7 +177,7 @@ void keyboard_post_init_user(void) {
 * キーボード/リビジョン: `void keyboard_post_init_kb(void)`
 * キーマップ: `void keyboard_post_init_user(void)`
 
-# マトリックススキャンコード :id=matrix-scanning-code
+# マトリックススキャンコード {#matrix-scanning-code}
 
 可能であれば常に `process_record_*()` を使ってキーボードをカスタマイズし、その方法でイベントをフックし、コードがキーボードのパフォーマンスに悪影響を与えないようにします。ただし、まれにマトリックススキャンにフックする必要があります。これらの関数は1秒あたり少なくとも10回は呼び出されるため、これらの関数のコードのパフォーマンスに非常に注意してください。
 
@@ -194,7 +194,7 @@ void keyboard_post_init_user(void) {
 
 カスタムマトリックススキャンコードが必要な場合は、この関数を使う必要があります。また、カスタムステータス出力 (LED あるいはディスプレイなど)や、ユーザが入力していない場合でも定期的にトリガーするその他の機能のために使うことができます。
 
-# キーボードハウスキーピング :id=keyboard-housekeeping
+# キーボードハウスキーピング {#keyboard-housekeeping}
 
 * キーボード/リビジョン: `void housekeeping_task_kb(void)`
 * キーマップ: `void housekeeping_task_user(void)`
@@ -228,7 +228,7 @@ void suspend_wakeup_init_user(void) {
 * キーボード/リビジョン : `void suspend_power_down_kb(void)` および `void suspend_wakeup_init_user(void)`
 * キーマップ: `void suspend_power_down_kb(void)` および `void suspend_wakeup_init_user(void)`
 
-# レイヤー切り替えコード :id=layer-change-code
+# レイヤー切り替えコード {#layer-change-code}
 
 これはレイヤーが切り替えられるたびにコードを実行します。レイヤー表示あるいはカスタムレイヤー処理に役立ちます。
 

@@ -24,7 +24,7 @@
 
 :::
 
-## 2. ビルド環境を準備する :id=set-up-your-environment
+## 2. ビルド環境を準備する {#set-up-your-environment}
 
 私たちは、QMK を可能な限り簡単に構築できるように努力しています。Linux か Unix 環境を用意するだけで、QMK に残りをインストールさせることができます。
 
@@ -137,7 +137,7 @@ AUR から `qmk-git` パッケージを試すこともできます:
 
 <!-- tabs:end -->
 
-## 3. QMK の設定を行う :id=set-up-qmk
+## 3. QMK の設定を行う {#set-up-qmk}
 
 <!-- tabs:start -->
 

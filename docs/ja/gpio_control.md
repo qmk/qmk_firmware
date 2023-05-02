@@ -1,4 +1,4 @@
-# GPIO 制御 :id=gpio-control
+# GPIO 制御 {#gpio-control}
 
 <!---
   original document: 0.13.15:docs/gpio_control.md
@@ -7,7 +7,7 @@
 
 QMK には、マイクロコントローラに依存しない GPIO 制御抽象レイヤーがあります。これは異なるプラットフォーム間でピン制御に簡単にアクセスできるようにするためのものです。
 
-## 関数 :id=functions
+## 関数 {#functions}
 
 以下の関数は GPIO の基本的な制御を提供し、`quantum/quantum.h` にあります。
 
@@ -23,11 +23,11 @@ QMK には、マイクロコントローラに依存しない GPIO 制御抽象�
 | `readPin(pin)` | ピンのレベルを返す | `_SFR_IO8(pin >> 4) & _BV(pin & 0xF)` | `palReadLine(pin)` |
 | `togglePin(pin)` | ピンレベルを反転 (ピンを出力として設定してあると仮定) | `PORTB ^= (1<<2)` | `palToggleLine(pin)` |
 
-## 高度な設定 :id=advanced-settings
+## 高度な設定 {#advanced-settings}
 
 各マイクロコントローラは GPIO に関して複数の高度な設定を持つことができます。この抽象レイヤーは、アーキテクチャー固有の機能の使用法を制限しません。上級ユーザは、目的のデバイスのデータシートを参照し、必要なライブラリを含めてください。AVR については、標準 avr/io.h ライブラリが使われます; STM32 については ChibiOS [PAL ライブラリ](https://chibios.sourceforge.net/docs3/hal/group___p_a_l.html)が使われます。
 
-## アトミック操作 :id=atomic-operation
+## アトミック操作 {#atomic-operation}
 
 上記の関数は、必ずしもアトミックに動作することが保証されているわけではありません。そのため、上記の関数を複数組み合わせて使用する際に、操作の途中での割り込みを防ぎたい場合は、以下の `ATOMIC_BLOCK_FORCEON` マクロを使用してください。
 

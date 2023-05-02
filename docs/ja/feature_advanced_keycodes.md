@@ -1,4 +1,4 @@
-# 修飾キー :id=modifier-keys
+# 修飾キー {#modifier-keys}
 
 <!---
   original document: 0.14.6:docs/feature_advanced_keycodes.md
@@ -31,7 +31,7 @@
 
 また、それらを繋げることができます。例えば、`LCTL(LALT(KC_DEL))` または  `C(A(KC_DEL))` は1回のキー押下で Control+Alt+Delete を送信するキーを作成します。
 
-# モディファイアの状態を確認 :id=checking-modifier-state
+# モディファイアの状態を確認 {#checking-modifier-state}
 
 
 現在のモディファイアの状態は、2つの関数によって主にアクセスされます。: `get_mods()` 関数は通常のモディファイアとモッドタップの状態を、`get_oneshot_mods()` 関数はワンショットモディファイアの状態を確認する関数です。(ワンショットモディファイアはキーが押されていない限り、通常のモディファイアキーのように動作します。)
@@ -84,10 +84,10 @@ C 言語におけるビット演算のより詳しい情報は、[ここ](https:
 * `set_oneshot_mods(mods)`: `mods` で現在のワンショットモディファイアの状態を上書きします
 * `clear_oneshot_mods()`: 全てのワンショットモディファイアを無効にすることによって、ワンショットモディファイアの状態をリセットします。
 
-## 例 :id=examples
+## 例 {#examples}
 
 次の例は、[マクロについてのページ](ja/feature_macros.md) で読める [高度なマクロ](ja/feature_macros.md?id=advanced-macro-functions) を使っています。
-### Alt + Tab の代わりの Alt + Escape :id=alt-escape-for-alt-tab
+### Alt + Tab の代わりの Alt + Escape {#alt-escape-for-alt-tab}
 
 左 Alt と `KC_ESC` が押されたときに、アプリ切り替えの（左 Alt と） `KC_TAB` のように振る舞うことを実現する単純な例です。この例は、左 Alt だけがアクティブになっているかを厳格に確認します。つまり、Alt+Shift+Esc によるアプリの逆順での切り替えはできません。また、この例は、実際の Alt+Escape キーボードショートカットを起動することはできなくなりますが、AltGr+Escape キーボードショートカットを起動することはできることに留意してください。
 
@@ -116,7 +116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-### Delete の代わりの Shift + Backspace :id=shift-backspace-for-delete
+### Delete の代わりの Shift + Backspace {#shift-backspace-for-delete}
 
 `KC_BSPC` と組み合わせることで Shift の本来の動作が取り消され、そして、`KC_DEL` に完全に置き換えられる高度な例です。この例を適切に動作させるために2つのメイン変数が作られます。: `mod_state` と `delkey_registered` です。最初の1つ目の変数は、モディファイアの状態を記憶し、`KC_DEL` を登録した後に元に戻すために使われます。2つ目の変数はブール型変数 (true または false) で、`KC_DEL` の状態を追跡して Backspace/Delete キー全体のリリースを正確に管理します。
 
@@ -164,22 +164,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 ```
-# 過去の内容 :id=legacy-content
+# 過去の内容 {#legacy-content}
 
 このページには多くの機能が含まれていました。このページを構成していた多くのセクションをそれぞれのページに移動しました。これより下は全て単なるリダイレクトであるため、web上で古いリンクをたどっている人は探しているものを見つけることができます。
 
-## レイヤー :id=switching-and-toggling-layers
+## レイヤー {#switching-and-toggling-layers}
 
 * [レイヤー](ja/feature_layers.md)
 
-## モッドタップ :id=mod-tap
+## モッドタップ {#mod-tap}
 
 * [モッドタップ](ja/mod_tap.md)
 
-## ワンショットキー :id=one-shot-keys
+## ワンショットキー {#one-shot-keys}
 
 * [ワンショットキー](ja/one_shot_keys.md)
 
-## タップホールド設定オプション :id=tap-hold-configuration-options
+## タップホールド設定オプション {#tap-hold-configuration-options}
 
 * [タップホールド設定オプション](ja/tap_hold.md)

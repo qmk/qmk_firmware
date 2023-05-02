@@ -1,4 +1,4 @@
-# QMK での速記 :id=stenography-in-qmk
+# QMK での速記 {#stenography-in-qmk}
 
 <!---
   original document: 0.13.15:docs/feature_stenography.md
@@ -9,13 +9,13 @@
 
 [Open Steno Project](https://www.openstenoproject.org/)は、速記ストロークを単語とコマンドにリアルタイムに変換する Plover と呼ばれるオープンソースプログラムを構築しました。確立された辞書とサポートがあります。
 
-## QWERTY キーボードを使った Plover :id=plover-with-qwerty-keyboard
+## QWERTY キーボードを使った Plover {#plover-with-qwerty-keyboard}
 
 Plover は全ての標準的な QWERTY キーボードで動作しますが、キーボードが NKRO (n-キーロールオーバー)をサポートする場合は Plover は一度に押された全てのキーが分かるためより効率的です。Plover 用のキーマップの例は `planck/keymaps/default` で見つかります。`PLOVER` レイヤーに切り替えると、数字バーをサポートするためにキーボードの位置が調整されます。
 
 QMK で Plover を使うには、NKRO を有効にし、標準レイアウト以外のレイアウトの場合はオプションでレイアウトを調整します。複数のキーを押しやすくするために、なんらかの速記フレンドリなキーキャップを購入することもできます。
 
-## 速記プロトコルを使った Plover :id=plover-with-steno-protocol
+## 速記プロトコルを使った Plover {#plover-with-steno-protocol}
 
 Plover は幾つかの速記マシンの言語も理解します。QMK はこれらの言語の内2つの言語、TX Bolt と GeminiPR を話すことができます。レイアウトの例は `planck/keymaps/steno` で見つけることができます。
 
@@ -25,15 +25,15 @@ QMKが steno プロトコルを使って Plover と話す場合は、Plover は�
 
 > 注意: ハードウェアの制限により、仮想シリアルポートとマウスエミュレーションの両方を同時に実行することができないかもしれません。
 
-### TX Bolt :id=tx-bolt
+### TX Bolt {#tx-bolt}
 
 TX Bolt は可変サイズ(1-5バイト)のパケットで非常に単純なプロトコルを介して24個のキーのステータスを通信します。
 
-### GeminiPR :id=geminipr
+### GeminiPR {#geminipr}
 
 GeminiPR は42個のキーを6バイトのパケットにエンコードします。TX Bolt は標準的な速記に必要な全てを含んでいますが、GeminiPR は英語以外の速記法のサポートを含む、より多くのオプションにも開け放たれています。
 
-## 速記のための QMK の設定 :id=configuring-qmk-for-steno
+## 速記のための QMK の設定 {#configuring-qmk-for-steno}
 
 最初にキーマップの Makefile で速記を有効にします。競合を避けるために、マウスキー、追加キーあるいはその他の USB エンドポイントを無効にする必要もあります。幾つかのプロセッサの内蔵の USB スタックは一定数の USB エンドポイントと仮想シリアルポートのみをサポートし、速記はそれらのうちの3つを使います。
 
@@ -54,13 +54,13 @@ void eeconfig_init_user() {
 
 ディスプレイタブで 'Open stroke display' をクリックします。Plover を無効にすると、キーボードのキーを押すとストローク表示ウィンドウにそれらが表示されるはずです。これを使ってキーマップが正しくセットアップされたことを確認してください。これで速記をする準備ができました！
 
-## 速記の学習 :id=learning-stenography
+## 速記の学習 {#learning-stenography}
 
 * [Learn Plover!](https://sites.google.com/site/learnplover/)
 * [Steno Jig](https://joshuagrams.github.io/steno-jig/)
 * Plover [Learning Stenography](https://github.com/openstenoproject/plover/wiki/Learning-Stenography) wiki のより多くのリソース
 
-## コードとのインターフェイス :id=interfacing-with-the-code
+## コードとのインターフェイス {#interfacing-with-the-code}
 
 速記コードには3つの捕捉可能なフックがあります。これらの関数を定義した場合、処理の特定のポイントでそれらが呼び出されます; それらが true を返す場合処理が継続され、そうでなければあなたが物事を処理すると想定します。
 
@@ -83,7 +83,7 @@ bool post_process_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t
 この関数はキーが処理された後、ただしコードを送信するかどうかを決める前に呼び出されます。`IS_PRESSED(record->event)` が false で、`pressed` が 0 または 1 の場合は、コードはまもなく送信されますが、まだ送信されてはいません。ここが速記コードあるいはキーのライブ表示などのフックを配置する場所です。
 
 
-## キーコードリファレンス :id=keycode-reference
+## キーコードリファレンス {#keycode-reference}
 
 `keymap_steno.h` で定義されています。
 

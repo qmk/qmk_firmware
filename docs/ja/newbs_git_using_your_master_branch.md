@@ -52,7 +52,7 @@ git push origin master
 
 これにより、あなたの `master` ブランチに切り替わり、QMK リポジトリから 'refs' を取得し、現在の QMK の `master` ブランチをコンピュータにダウンロードしてから、あなたのフォークにアップロードします。
 
-## 変更を行なう :id=making-changes
+## 変更を行なう {#making-changes}
 
 変更するには、以下を入力して新しいブランチを作成します:
 

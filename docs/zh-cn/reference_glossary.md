@@ -171,7 +171,7 @@ USB主机就是你的电脑，或者你的键盘所插的任何设备。
 
 [新建一个issue](https://github.com/qmk/qmk_firmware/issues) ，想好你的问题，或许你所问的术语就会添加到这里。创建一个PR帮我们添加需要添加的术语当然坠吼了:)
 
-## 中文翻译术语特别说明（terms of Chinese translation）:id=terms-of-zh-cn-translate
+## 中文翻译术语特别说明（terms of Chinese translation）{#terms-of-zh-cn-translate}
 !>如果你对QMK文档翻译中的细节不关心，请跳过该节
 
 由于语言及文化差异，QMK英文文档中的部分内容，很难在**保持原句结构**的情况下，完美地翻译为中文，而保持翻译前后的语句结构一致对于开源代码的文档翻译来讲十分重要，这样才能确保不同的文档贡献者不会*夹带私货*，防止不同的翻译风格、不同的翻译水准、不同的理解与润色最终产生糟糕的混合。

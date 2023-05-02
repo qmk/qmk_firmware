@@ -7,7 +7,7 @@
 
 このページでは、新しいキーマップやキーボードを QMK に提出する際に使うべきテンプレートをまとめています。
 
-## キーマップ `readme.md` テンプレート :id=keyboard-readmemd-template
+## キーマップ `readme.md` テンプレート {#keyboard-readmemd-template}
 
 ほとんどのキーマップには、レイアウトを表す画像があります。画像を作成するには、[Keyboard Layout Editor](https://keyboard-layout-editor.com) を使うことができます。画像は [Imgur](https://imgur.com) や別のホスティングサービスにアップロードし、プルリクエストに画像を含めないでください。
 

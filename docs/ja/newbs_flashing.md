@@ -103,7 +103,7 @@ QMK Toolbox の `Flash` ボタンをクリックします。次のような出�
 *** DFU device disconnected: Atmel Corp: ATmega32U4 (03EB:2FF4:0000)
 ```
 
-## コマンドラインでファームウェアを書き込む :id=flash-your-keyboard-from-the-command-line
+## コマンドラインでファームウェアを書き込む {#flash-your-keyboard-from-the-command-line}
 
 これは、以前のものと比較して非常に単純になりました。
 ファームウェアをコンパイルして書き込む準備ができたら、ターミナルウィンドウを開いて書き込みコマンドを実行します:

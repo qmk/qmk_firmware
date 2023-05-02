@@ -15,7 +15,7 @@ Unicode 文字はキーボードから直接入力することができます！
 4. キーマップに Unicode キーコードを追加します。
 
 
-## 1. メソッド :id=methods
+## 1. メソッド {#methods}
 
 QMK は、Unicode 入力を有効にし、キーマップに Unicode 文字を追加するための3つの異なる方法をサポートします。それぞれに柔軟性と使いやすさの点で長所と短所があります。あなたの使い方に最適なものを選んでください。
 
@@ -23,7 +23,7 @@ QMK は、Unicode 入力を有効にし、キーマップに Unicode 文字を�
 
 <br />
 
-### 1.1. Basic Unicode :id=basic-unicode
+### 1.1. Basic Unicode {#basic-unicode}
 
 多少制限はありますが、最も使いやすい方法です。Unicode 文字をキーコードとしてキーマップ自体に格納するため、`0x7FFF` までのコードポイントのみをサポートします。これは、ほとんどの現代言語(東アジアを含む)の文字と記号を対象としますが、絵文字は対象外です。
 
@@ -37,7 +37,7 @@ UNICODE_ENABLE = yes
 
 <br />
 
-### 1.2. Unicode Map :id=unicode-map
+### 1.2. Unicode Map {#unicode-map}
 
 このメソッドは、標準の文字の範囲に加えて、絵文字、古代文字、珍しい記号なども対象にしています。実際、可能な全てのコードポイント(`0x10FFFF`まで)がサポートされています。Unicode 文字は独立のマッピングテーブルに格納されています。キーマップファイルに `unicode_map` 配列を維持する必要があります。これには最大 16384 エントリを含めることができます。
 
@@ -75,7 +75,7 @@ const uint32_t PROGMEM unicode_map[] = {
 
 <br />
 
-### 1.3. UCIS :id=ucis
+### 1.3. UCIS {#ucis}
 
 この方法も全ての可能なコードポイントをサポートします。Unicode Map の方法と同様に、キーマップファイル内にマッピングテーブルを保持する必要があります。ただし、この機能のための組み込みのキーコードはありません — この機能を起動するカスタムキーコードあるいは関数を作成する必要があります。
 
@@ -111,7 +111,7 @@ UCIS 入力を使うには、`qk_ucis_start()` を呼び出します。次に、
 [`process_ucis.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_ucis.c) でこれらの関数のデフォルトの実装を見つけることができます。
 
 
-## 2. Input モード :id=input-modes
+## 2. Input モード {#input-modes}
 
 QMK での Unicode の入力は、マクロのように、OS への一連の文字列を入力することで動作します。残念ながら、これが行われる方法はプラットフォームによって異なります。特に各プラットフォームでは Unicode 入力を引き起こすために、異なるキーの組み合わせが必要です。従って、対応する入力モードが QMK で設定されなければなりません。
 
@@ -152,7 +152,7 @@ _Unicode 16進数入力_ 入力ソースの使用は、Option + 左矢印およ�
   デフォルトでは、このモードは Compose キーとして右 Alt (`KC_RALT`) を使いますが、これは WinCompose 設定と他のキーで [`UNICODE_KEY_WINC`](#input-key-configuration) を定義することで変更できます。
 
 
-## 3. 入力モードの設定 :id=setting-the-input-mode
+## 3. 入力モードの設定 {#setting-the-input-mode}
 
 目的の入力モードを設定するには、以下の定義を `config.h` に追加します:
 

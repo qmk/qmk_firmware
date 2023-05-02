@@ -1,4 +1,4 @@
-# I2C マスタドライバ :id=i2c-master-driver
+# I2C マスタドライバ {#i2c-master-driver}
 
 <!---
   grep --no-filename "^[ ]*git diff" docs/ja/*.md | sh
@@ -8,7 +8,7 @@
 
 QMK で使われる I2C マスタドライバには、MCU 間のポータビリティを提供するための一連の関数が用意されています。
 
-## I2C アドレスについての重要なメモ :id=note-on-i2c-addresses
+## I2C アドレスについての重要なメモ {#note-on-i2c-addresses}
 
 このドライバが期待する全てのアドレスは、アドレスバイトの上位7ビットにプッシュする必要があります。最下位ビットの設定(読み込み/書き込みを示す)は、それぞれの関数によって行われます。データシートやインターネットで列挙されているほとんど全ての I2C アドレスは、下位7ビットを占める7ビットとして表され、1ビット左(より上位)にシフトする必要があります。これは、ビット単位のシフト演算子 `<< 1` を使用して簡単に実行できます。
 
@@ -18,7 +18,7 @@ QMK で使われる I2C マスタドライバには、MCU 間のポータビリ�
 
 I2C アドレスと他の技術詳細について、さらなる情報を得るためには https://www.robot-electronics.co.uk/i2c-tutorial を見てください。
 
-## 使用できる関数 :id=available-functions
+## 使用できる関数 {#available-functions}
 
 | 関数                                                                                                        | 説明                                                                                                                                                                                |
 |-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -30,7 +30,7 @@ I2C アドレスと他の技術詳細について、さらなる情報を得る�
 | `i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout);`  | `i2c_receive` と同様ですが、 `regaddr` でスレーブのデータ読み込み先のレジスタを指定します。                                                                                     |
 | `i2c_status_t i2c_stop(void);`                                                                                   | I2C トランザクションを終了します。                                                                                                                                                  |
 
-### 関数の戻り値 :id=function-return
+### 関数の戻り値 {#function-return}
 
 `void i2c_init(void)` を除く上にあるすべての関数は、次の真理値表にある値を返します。
 
@@ -40,9 +40,9 @@ I2C アドレスと他の技術詳細について、さらなる情報を得る�
 |`I2C_STATUS_ERROR`  |-1 |処理に失敗しました。        |
 |`I2C_STATUS_TIMEOUT`|-2 |処理がタイムアウトしました。|
 
-## AVR :id=avr
+## AVR {#avr}
 
-### 設定 :id=avr-configuration
+### 設定 {#avr-configuration}
 
 I2Cマスタドライバを設定するために、次の定義が使えます。
 
@@ -53,11 +53,11 @@ I2Cマスタドライバを設定するために、次の定義が使えます�
 
 AVR は通常 I2C ピンとして使う GPIO が設定されているので、これ以上の設定は必要ありません。
 
-## ARM :id=arm
+## ARM {#arm}
 
 ARM の場合は、内部に ChibiOS I2C HAL ドライバがあります。この節では STM32 MCU を使用していると仮定します。
 
-### 設定 :id=arm-configuration
+### 設定 {#arm-configuration}
 
 ARM MCU 用の設定はしばしば非常に複雑です。これは、多くの場合複数の I2C ドライバをさまざまなポートに対して割り当てられるためです。
 
@@ -89,7 +89,7 @@ ChibiOS I2C ドライバの設定項目は STM32 MCU の種類に依存します
     STM32F1xx, STM32F2xx, STM32F4xx, STM32L0xx, STM32L1xx では I2Cv1 が使われます。
     STM32F0xx, STM32F3xx, STM32F7xx, STM32L4xx では I2Cv2 が使われます。
 
-#### I2Cv1 :id=i2cv1
+#### I2Cv1 {#i2cv1}
 
 STM32 MCU の I2Cv1 では、クロック周波数とデューティ比を次の変数で変更できます。詳しくは <https://www.playembedded.org/blog/stm32-i2c-chibios/#I2Cv1_configuration_structure> を参照してください。
 
@@ -99,7 +99,7 @@ STM32 MCU の I2Cv1 では、クロック周波数とデューティ比を次の
 | `I2C1_CLOCK_SPEED` | `100000`         |
 | `I2C1_DUTY_CYCLE`  | `STD_DUTY_CYCLE` |
 
-#### I2Cv2 :id=i2cv2
+#### I2Cv2 {#i2cv2}
 
 STM32 MCU の I2Cv2 では、信号のタイミングパラメータを次の変数で変更できます。詳しくは <https://www.st.com/en/embedded-software/stsw-stm32126.html> を参照してください。
 
@@ -118,7 +118,7 @@ STM32 MCU では GPIO ピンを設定するとき、別の「代替機能」モ�
 | `I2C1_SCL_PAL_MODE` | `4`    |
 | `I2C1_SDA_PAL_MODE` | `4`    |
 
-#### その他 :id=other
+#### その他 {#other}
 
 `void i2c_init(void)` 関数は `weak` 属性が付いており、オーバーロードすることができます。この場合、上記で設定した変数は使用されません。可能な GPIO の設定については、 MCU のデータシートを参照してください。次に示すのは初期化関数の例です：
 

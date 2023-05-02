@@ -22,7 +22,7 @@
 
 但请留意，用 `sudo` 来执行 `make` 通常***不是***一个好主意，请尽量考虑使用上面的办法。
 
-### Linux `udev` 规则 :id=linux-udev-rules
+### Linux `udev` 规则 {#linux-udev-rules}
 
 在linux下，需要足够的权限才能读写bootloader设备，可以使用 `sudo` 来刷写固件（不推荐），也可以将[这个文件](https://github.com/qmk/qmk_firmware/tree/master/util/udev/50-qmk.rules) 放到 `/etc/udev/rules.d/` 目录下。
 

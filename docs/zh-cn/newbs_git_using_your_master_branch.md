@@ -46,7 +46,7 @@ git push origin master
 
 以上操作会切换到 `master` 分支，从QMK仓库拉取refs，下载QMK `master` 分支的当前版本，并上传至你的fork中。
 
-## 进行编辑 :id=making-changes
+## 进行编辑 {#making-changes}
 
 要进行编辑，通过如下命令创建一个新分支：
 

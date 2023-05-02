@@ -27,13 +27,22 @@ const config = {
                 customCss: require.resolve("./src/css/custom.css"),
             }
         ],
+        [
+            require.resolve("@easyops-cn/docusaurus-search-local"),
+            {
+                indexBlog: false,
+                docsRouteBasePath: '/',
+                searchResultLimits: 12,
+                searchBarShortcut: false,
+            },
+        ],
     ],
     plugins: [
         [
             "@docusaurus/plugin-content-docs",
             {
                 sidebarPath: require.resolve("./sidebars.js"),
-                path: ".",
+                path: "../../docs",
                 routeBasePath: "/",
                 exclude: [
                     "node_modules",
