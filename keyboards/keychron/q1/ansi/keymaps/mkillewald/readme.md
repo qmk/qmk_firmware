@@ -1,6 +1,9 @@
 ## Keychron Q1 RGB ANSI ATMEGA32U4 (no knob) Keymap v2.0.1
 
-### Highly Recommended: You should clear your eeprom before or after flashing this firmware. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing your eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear your eeprom even if you take it out of DFU mode at this point without flashing.
+<img src="https://raw.githubusercontent.com/mkillewald/glamour_shots/main/keyboards/keychron/q1/IMG_5479.jpg" alt="Keychron Q1 ANSI" width="1000">
+
+### Highly Recommended:
+When you flash this firmware for the first time, you should clear the eeprom before or after flashing so that the eeprom defaults are properly set. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing the eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear the eeprom even if you take it out of DFU mode at that point without flashing.
 
 ## Features:
 - Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others.
