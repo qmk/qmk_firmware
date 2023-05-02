@@ -26,9 +26,6 @@
         "rgb_matrix": true,
         "rgblight": false,
     },
-    "bootmagic": {
-        "matrix": [0, 0]
-    },
     "encoder": {
         "rotary": [
             {"pin_a": "A15", "pin_b": "C10"}
