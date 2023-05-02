@@ -2,7 +2,7 @@
     "keyboard_name": "Mokey12x2",
     "manufacturer": "Mokey",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "Mokey",
     "usb": {
         "vid": "0x6653",
         "pid": "0x012A",
@@ -11,23 +11,10 @@
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["A6", "A5", "A4", "A3", "B9"],
-        "rows": ["A2", "A1", "A0", "A7"]
+        "rows": ["A2", "A1", "A0"]
     },
     "rgblight": {
-        "pin": "B1",
-        "led_count": 19,
-        "animations": {
-            "alternating": true,
-            "breathing": true,
-            "christmas": true,
-            "knight": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "rgb_test": true,
-            "snake": true,
-            "static_gradient": true,
-            "twinkle": true
-        }
+        "pin": "B1"
     },
     "encoder": {
         "rotary": [
@@ -37,42 +24,23 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
-    "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgblight": true,
-        "encoder": true
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"matrix": [0, 0], "x":0.25, "y":2.75},
-                {"matrix": [0, 1], "x":1.25, "y":2.75},
-                {"matrix": [0, 2], "x":2.25, "y":2.75},
-                {"matrix": [0, 3], "x":3.25, "y":2.75},
-
-                {"matrix": [0, 4], "x":0.25, "y":0, "w":1.5, "h":1.5},
-
-                {"matrix": [1, 0], "x":0.25, "y":3.75},
-                {"matrix": [1, 1], "x":1.25, "y":3.75},
-                {"matrix": [1, 2], "x":2.25, "y":3.75},
-                {"matrix": [1, 3], "x":3.25, "y":3.75},
-
-                {"matrix": [1, 4], "x":2.75, "y":0, "w":1.5, "h":1.5},
-
-                {"matrix": [2, 0], "x":0.25, "y":4.75},
-                {"matrix": [2, 1], "x":1.25, "y":4.75},
-                {"matrix": [2, 2], "x":2.25, "y":4.75},
-                {"matrix": [2, 3], "x":3.25, "y":4.75},
-                
-                {"matrix": [3, 0], "x":0, "y":1.5},
-                {"matrix": [3, 1], "x":1, "y":1.5},
-                {"matrix": [3, 2], "x":2.5, "y":1.5},
-                {"matrix": [3, 3], "x":3.5, "y":1.5}
+                {"matrix": [0, 0], "x":0, "y":2},
+                {"matrix": [0, 1], "x":1, "y":2},
+                {"matrix": [0, 2], "x":2, "y":2},
+                {"matrix": [0, 3], "x":3, "y":2},
+                {"matrix": [0, 4], "x":0, "y":0, "w":1.5, "h":1.5},
+                {"matrix": [1, 0], "x":0, "y":3},
+                {"matrix": [1, 1], "x":1, "y":3},
+                {"matrix": [1, 2], "x":2, "y":3},
+                {"matrix": [1, 3], "x":3, "y":3},
+                {"matrix": [1, 4], "x":2.5, "y":0, "w":1.5, "h":1.5},
+                {"matrix": [2, 0], "x":0, "y":4},
+                {"matrix": [2, 1], "x":1, "y":4},
+                {"matrix": [2, 2], "x":2, "y":4},
+                {"matrix": [2, 3], "x":3, "y":4}
             ]
         }
     }

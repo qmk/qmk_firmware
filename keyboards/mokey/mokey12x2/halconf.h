@@ -14,29 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
 
-#include "quantum.h"
+#define HAL_USE_SPI TRUE
 
-#if defined(ENCODER_ENABLE)
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_kb(index, clockwise)) {
-      return false; /* Don't process further events if user function exists and returns false */
-    }
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code_delay(KC_MPRV, 10);
-        } else {
-            tap_code_delay(KC_MNXT, 10);
-        }
-    } else if (index == 1) { /* Second encoder */
-        if (clockwise) {
-            tap_code_delay(KC_PGDN, 10);
-        } else {
-            tap_code_delay(KC_PGUP, 10);
-        }
-    }
-    return true;
-}
-
-#endif
+#include_next <halconf.h>

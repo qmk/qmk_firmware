@@ -14,29 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
 
-#include "quantum.h"
+#define RGBLED_NUM 19
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
-#if defined(ENCODER_ENABLE)
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_kb(index, clockwise)) {
-      return false; /* Don't process further events if user function exists and returns false */
-    }
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code_delay(KC_MPRV, 10);
-        } else {
-            tap_code_delay(KC_MNXT, 10);
-        }
-    } else if (index == 1) { /* Second encoder */
-        if (clockwise) {
-            tap_code_delay(KC_PGDN, 10);
-        } else {
-            tap_code_delay(KC_PGUP, 10);
-        }
-    }
-    return true;
-}
-
-#endif
