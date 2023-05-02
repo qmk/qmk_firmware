@@ -17,6 +17,10 @@
         "command": false,
         "nkro": true
     },
+    "indicators": {
+        "caps_lock": "GP29",
+        "on_state": 1
+    },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "rows": ["GP6","GP5","GP4","GP0","GP12"],
