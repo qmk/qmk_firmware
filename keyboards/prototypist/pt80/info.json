@@ -120,7 +120,6 @@
                 { "matrix": [5, 16], "label": "\u2192", "x": 17.25, "y": 5.25 }
             ]
         },
-
         "LAYOUT_tkl_iso": {
             "layout": [
                 { "matrix": [0, 0], "label": "Esc", "x": 0, "y": 0 },
@@ -136,7 +135,7 @@
                 { "matrix": [0, 10], "label": "F10", "x": 12, "y": 0 },
                 { "matrix": [0, 11], "label": "F11", "x": 13, "y": 0 },
                 { "matrix": [0, 12], "label": "F12", "x": 14, "y": 0 },
-                
+
                 { "matrix": [0, 14], "label": "PrtSc", "x": 15.25, "y": 0 },
                 { "matrix": [0, 15], "label": "Scroll Lock", "x": 16.25, "y": 0 },
                 { "matrix": [0, 16], "label": "Pause", "x": 17.25, "y": 0 },
@@ -154,7 +153,7 @@
                 { "matrix": [1, 11], "label": "_", "x": 11, "y": 1.25 },
                 { "matrix": [1, 12], "label": "+", "x": 12, "y": 1.25 },
                 { "matrix": [1, 13], "label": "Backspace", "w": 2, "x": 13, "y": 1.25 },
-                
+
                 { "matrix": [1, 14], "label": "Insert", "x": 15.25, "y": 1.25 },
                 { "matrix": [1, 15], "label": "Home", "x": 16.25, "y": 1.25 },
                 { "matrix": [1, 16], "label": "PgUp", "x": 17.25, "y": 1.25 },
@@ -201,7 +200,7 @@
                 { "matrix": [4, 10], "label": ">", "x": 10.25, "y": 4.25 },
                 { "matrix": [4, 11], "label": "?", "x": 11.25, "y": 4.25 },
                 { "matrix": [4, 12], "label": "Shift", "w": 2.75, "x": 12.25, "y": 4.25 },
-               
+
                 { "matrix": [4, 15], "label": "\u2191", "x": 16.25, "y": 4.25 },
                 { "matrix": [5, 0], "label": "Ctrl", "w": 1.25, "x": 0, "y": 5.25 },
                 { "matrix": [5, 1], "label": "Win", "w": 1.25, "x": 1.25, "y": 5.25 },
@@ -216,7 +215,6 @@
                 { "matrix": [5, 16], "label": "\u2192", "x": 17.25, "y": 5.25 }
             ]
         },
-
         "LAYOUT_tkl_ansi": {
             "layout": [
                 { "matrix": [0, 0], "label": "Esc", "x": 0, "y": 0 },
@@ -232,7 +230,7 @@
                 { "matrix": [0, 10], "label": "F10", "x": 12, "y": 0 },
                 { "matrix": [0, 11], "label": "F11", "x": 13, "y": 0 },
                 { "matrix": [0, 12], "label": "F12", "x": 14, "y": 0 },
-                
+
                 { "matrix": [0, 14], "label": "PrtSc", "x": 15.25, "y": 0 },
                 { "matrix": [0, 15], "label": "Scroll Lock", "x": 16.25, "y": 0 },
                 { "matrix": [0, 16], "label": "Pause", "x": 17.25, "y": 0 },
@@ -250,7 +248,7 @@
                 { "matrix": [1, 11], "label": "_", "x": 11, "y": 1.25 },
                 { "matrix": [1, 12], "label": "+", "x": 12, "y": 1.25 },
                 { "matrix": [1, 13], "label": "Backspace", "w": 2, "x": 13, "y": 1.25 },
-                
+
                 { "matrix": [1, 14], "label": "Insert", "x": 15.25, "y": 1.25 },
                 { "matrix": [1, 15], "label": "Home", "x": 16.25, "y": 1.25 },
                 { "matrix": [1, 16], "label": "PgUp", "x": 17.25, "y": 1.25 },
@@ -285,7 +283,7 @@
                 { "matrix": [3, 11], "label": "@", "x": 11.75, "y": 3.25 },
                 { "matrix": [3, 12], "label": "Enter", "w": 2.25, "x": 12.75, "y": 3.25 },
                 { "matrix": [4, 0], "label": "Shift", "w": 2.25, "x": 0, "y": 4.25 },
-                
+
                 { "matrix": [4, 2], "label": "Z", "x": 2.25, "y": 4.25 },
                 { "matrix": [4, 3], "label": "X", "x": 3.25, "y": 4.25 },
                 { "matrix": [4, 4], "label": "C", "x": 4.25, "y": 4.25 },
@@ -297,7 +295,7 @@
                 { "matrix": [4, 10], "label": ">", "x": 10.25, "y": 4.25 },
                 { "matrix": [4, 11], "label": "?", "x": 11.25, "y": 4.25 },
                 { "matrix": [4, 12], "label": "Shift", "w": 2.75, "x": 12.25, "y": 4.25 },
-                
+
                 { "matrix": [4, 15], "label": "\u2191", "x": 16.25, "y": 4.25 },
                 { "matrix": [5, 0], "label": "Ctrl", "w": 1.25, "x": 0, "y": 5.25 },
                 { "matrix": [5, 1], "label": "Win", "w": 1.25, "x": 1.25, "y": 5.25 },

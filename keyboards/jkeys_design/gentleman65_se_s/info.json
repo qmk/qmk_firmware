@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Gentleman 65", 
+    "keyboard_name": "Gentleman 65",
     "manufacturer": "JJ48_24 & Omar Afzal",
-    "url": "https://jkeys.design/products/gentleman-65-suited-edition", 
-    "maintainer": "OmarA", 
+    "url": "https://jkeys.design/products/gentleman-65-suited-edition",
+    "maintainer": "OmarA",
     "usb": {
         "vid": "0x00FA",
         "pid": "0x2322",

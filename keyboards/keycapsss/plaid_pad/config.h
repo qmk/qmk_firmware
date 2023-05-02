@@ -16,7 +16,5 @@
 
 #pragma once
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 // Fix for volume controll with encoder (steadily in/decrease)
 #define TAP_CODE_DELAY 60

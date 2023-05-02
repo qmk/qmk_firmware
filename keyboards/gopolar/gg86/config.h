@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 /* Use the custom font */
 #define OLED_FONT_H "lib/glcdfont.c"
 

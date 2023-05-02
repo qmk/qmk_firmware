@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "Yeehaw", 
+  "keyboard_name": "Yeehaw",
   "manufacturer": "squashkb",
-  "url": "https://squashkb.com/product/yeehaw", 
-  "maintainer": "Tsquash", 
+  "url": "https://squashkb.com/product/yeehaw",
+  "maintainer": "Tsquash",
   "usb": {
     "vid": "0x5351",
     "pid": "0x5458",

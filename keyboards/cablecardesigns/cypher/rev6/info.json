@@ -127,7 +127,6 @@
                 {"label": "Backspace", "matrix": [9, 8], "x": 18.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -224,7 +223,6 @@
                 {"label": ".", "matrix": [9, 7], "x": 17.5, "y": 4}
             ]
         },
-
         "LAYOUT_iso": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

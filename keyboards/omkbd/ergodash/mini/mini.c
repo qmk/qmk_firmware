@@ -1,4 +1,4 @@
-#include "mini.h"
+#include "quantum.h"
 
 #ifdef AUDIO_ENABLE
     float tone_startup[][2] = SONG(STARTUP_SOUND);

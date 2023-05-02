@@ -78,7 +78,7 @@
                 {"label":"K", "x":8.25, "y":1, "matrix": [1, 8]},
                 {"label":"L", "x":9.25, "y":1, "matrix": [1, 9]},
                 {"label":"'", "x":10.25, "y":1, "matrix": [1, 10]},
-                {"label":"Enter", "x":11.25, "y":0, "w":1.25,"h":2, "matrix": [1, 11]},
+                {"label":"Enter", "x":11.25, "y":0, "w":1.25, "h":2, "matrix": [1, 11]},
 
                 {"label":"Shift", "x":0, "y":2, "w":1.75, "matrix": [2, 0]},
                 {"label":"Z", "x":1.75, "y":2, "matrix": [2, 1]},

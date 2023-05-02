@@ -10,16 +10,13 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
-
     "matrix_pins": {
         "rows":
-        ["B14","B15","B6","B5","B4"],
+        ["B14", "B15", "B6", "B5", "B4"],
         "cols":
-        ["B2","A4","A1","A2","F1","F0","C15","C14","C13","B9","B8","B7","B12","B3"]
+        ["B2", "A4", "A1", "A2", "F1", "F0", "C15", "C14", "C13", "B9", "B8", "B7", "B12", "B3"]
     },
-
     "diode_direction": "COL2ROW",
-
     "features": {
         "bootmagic": true,
         "mousekey": true,
@@ -31,7 +28,6 @@
         "rgblight": true,
         "audio": false
     },
-
     "ws2812": {
         "pin": "A8"
     },
@@ -50,12 +46,10 @@
             "twinkle": true
         }
     },
-
     "indicators": {
         "caps_lock": "A10",
         "on_state": 0
     },
-
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -185,7 +179,7 @@
                 {"label":"opt", "matrix": [4, 1], "x":1, "y":4},
                 {"label":"Cmd", "matrix": [4, 2], "x":2, "y":4, "w":1.75},
                 {"label":"`", "matrix": [4, 3], "x":3.75, "y":4},
-                {"label":"Space", "matrix": [4, 6],"x":4.75, "y":4, "w":4.75},
+                {"label":"Space", "matrix": [4, 6], "x":4.75, "y":4, "w":4.75},
                 {"label":"\\", "matrix": [4, 8], "x":9.5, "y":4},
                 {"label":"\u2190", "matrix": [4, 9], "x":10.5, "y":4},
                 {"label":"\u2192", "matrix": [4, 10], "x":11.5, "y":4},

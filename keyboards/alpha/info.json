@@ -1,7 +1,7 @@
 {
-  "keyboard_name": "Alpha", 
+  "keyboard_name": "Alpha",
   "manufacturer": "PyroL",
-  "maintainer": "qmk", 
+  "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
     "pid": "0x6060",

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "smAllice", 
+    "keyboard_name": "smAllice",
     "manufacturer": "quark",
-    "url": "https://keyhive.xyz/shop/smallice", 
-    "maintainer": "https://github.com/Armastardo", 
+    "url": "https://keyhive.xyz/shop/smallice",
+    "maintainer": "https://github.com/Armastardo",
     "usb": {
         "vid": "0x514B",
         "pid": "0x5341",

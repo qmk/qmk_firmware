@@ -29,7 +29,7 @@
         "driver": "vendor"
     },
     "matrix_pins": {
-        "cols": ["GP2",  "GP9", "GP8",  "GP7"],
+        "cols": ["GP2", "GP9", "GP8", "GP7"],
         "rows": ["GP26", "GP1", "GP18", "GP5"]
     },
     "diode_direction": "COL2ROW",

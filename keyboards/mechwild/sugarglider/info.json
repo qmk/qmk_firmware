@@ -19,7 +19,8 @@
     "usb": {
         "vid": "0x6D77",
         "pid": "0x1710",
-        "device_version": "0.2.0"
+        "device_version": "0.2.0",
+        "force_nkro": true
     },
     "diode_direction": "COL2ROW",
     "rgblight": {

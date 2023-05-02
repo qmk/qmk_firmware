@@ -24,8 +24,6 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 #define ADNS5050_SCLK_PIN         B7
 #define ADNS5050_SDIO_PIN         C6
 #define ADNS5050_CS_PIN           B4

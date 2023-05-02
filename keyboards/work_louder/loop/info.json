@@ -5,7 +5,8 @@
     "maintainer": "Work Louder",
     "usb": {
         "vid": "0x574C",
-        "pid": "0x1DF9"
+        "pid": "0x1DF9",
+        "max_power": 100
     },
     "rgb_matrix": {
         "driver": "WS2812"
