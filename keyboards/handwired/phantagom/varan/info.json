@@ -13,9 +13,11 @@
         "nkro": true,
         "rgblight": true
     },
+    "ws2812": {
+        "pin": "GP28"
+    },
     "rgblight": {
         "led_count": 23,
-        "pin": "GP28",
         "animations": {
             "alternating": true,
             "breathing": true,

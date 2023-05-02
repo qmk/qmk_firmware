@@ -14,9 +14,11 @@
         "rgblight": true,
         "encoder": true,
     },
+    "ws2812": {
+        "pin": "GP15"
+    },
     "rgblight": {
         "led_count": 12,
-        "pin": "GP15",
         "animations": {
             "alternating": true,
             "breathing": true,
