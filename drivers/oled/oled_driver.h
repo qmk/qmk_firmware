@@ -150,9 +150,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifndef OLED_DISPLAY_HEIGHT
 #        define OLED_DISPLAY_HEIGHT 128
 #    endif
-#    ifndef OLED_COLUMN_OFFSET
-#        define OLED_COLUMN_OFFSET 32
-#    endif
 #    ifndef OLED_MATRIX_SIZE
 #        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
 #    endif
