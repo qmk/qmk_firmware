@@ -1,6 +1,6 @@
 # SBL
 
-![SBL](https://i.imgur.com/HqRfr4b.jpg)
+![SBL](https://i.imgur.com/HqRfr4bh.jpg)
 
 An O ring mount 60%, akin to the otd 356mini
 
