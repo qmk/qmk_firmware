@@ -5,8 +5,12 @@
 #include "print.h"
 #include "mousekey.h"
 
+enum custom_keycodes {
+  NO_SCROLL = SAFE_RANGE,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_mouse(KC_BTN1, KC_BTN3, KC_BTN4, KC_BTN2)
+  [0] = LAYOUT_mouse(KC_BTN1, KC_BTN3, NO_SCROLL, KC_BTN2)
 };
 
 int is_drag_scrolling = 0;              // should we be scrolling or just moving the cursor
@@ -14,6 +18,18 @@ uint16_t drag_scroll_key_timer;         // keep track of how long the drag key i
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   //uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+
+  switch (keycode) {
+    // Extra keycode for drag scroll key but don't scroll
+    case NO_SCROLL:
+      if (record->event.pressed) {
+        register_code(DRAG_SCROLL_KEY);
+      } else {
+        unregister_code(DRAG_SCROLL_KEY);
+      }
+      break;
+
+  }
 
 #ifdef PS2_MOUSE_SCROLL_BTN_MASK
   if (PS2_MOUSE_SCROLL_BTN_MASK == 0 && keycode == DRAG_SCROLL_KEY) {
@@ -28,8 +44,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         following code adapted from https://github.com/qmk/qmk_firmware/blob/master/keyboards/bpiphany/kitten_paw/keymaps/ickerwx/keymap.c
         required due to tap_code not working with PS2_MOUSE_ENABLE 
       */
-
-      // tap_code(KC_BTN#) does not work with PS2_MOUSE_ENABLE
       switch (DRAG_SCROLL_KEY) {
         case KC_BTN1:
         case KC_BTN2:
