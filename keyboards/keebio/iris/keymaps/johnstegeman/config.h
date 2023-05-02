@@ -1,4 +1,5 @@
-/* Copyright 2022 vertex
+/*
+Copyright 2023 John Stegeman
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,21 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define SOLENOID_PIN A2
+// #define USE_I2C
+#define EE_HANDS
 
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-#define RGB_DI_PIN B15
-#define RGBLED_NUM 9
-#define WS2812_SPI SPID2
-#define WS2812_SPI_MOSI_PAL_MODE 5
+#define RGBLIGHT_LAYERS
 
-#define FORCE_NKRO
+#define TAPPING_TOGGLE 1 // tap just once for TT() to toggle the layer
+#define TAPPING_TERM 200
+#define IGNORE_MOD_TAP_INTERRUPT
+#define RGBLIGHT_LAYERS_RETAIN_VAL
