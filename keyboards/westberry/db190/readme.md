@@ -1,9 +1,6 @@
 
 # WestBerryTech DB190 keyboard
 
-
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [JoyLee](https://github.com/itarze)
 * Hardware Supported: WestBerryTech bd190 pcb
 * Hardware Availability: [WestBerryTech](http://www.westberrytech.com)
