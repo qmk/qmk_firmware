@@ -25,8 +25,8 @@
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
-        "cols": [ "F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6" ],
-        "rows": [ "E6", "D7", "C6", "D4", "D0", "D1" ]
+        "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6"],
+        "rows": ["E6", "D7", "C6", "D4", "D0", "D1"]
     },
     "usb": {
         "vid": "0xFEED",

@@ -28,7 +28,7 @@
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
-    "community_layouts": [ "tkl_f13_ansi_tsangan" ],
+    "community_layouts": ["tkl_f13_ansi_tsangan"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [

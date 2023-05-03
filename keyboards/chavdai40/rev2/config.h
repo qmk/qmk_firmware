@@ -19,6 +19,3 @@
 
 
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
-
-/* usb power settings */
-#define USB_MAX_POWER_CONSUMPTION 100

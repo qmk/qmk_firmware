@@ -1,12 +1,12 @@
 {
-    "keyboard_name": "M80S V2", 
+    "keyboard_name": "M80S V2",
     "manufacturer": "Mode",
-    "url": "https://shop.modedesigns.com/collections/eighty", 
-    "maintainer": "Gondolindrim", 
+    "url": "https://shop.modedesigns.com/collections/eighty",
+    "maintainer": "Gondolindrim",
     "usb": {
-    	"vid": "0x00DE",
-    	"pid": "0x0082",
-    	"device_version": "0.0.2"
+        "vid": "0x00DE",
+        "pid": "0x0082",
+        "device_version": "0.0.2"
     },
     "matrix_pins": {
         "cols": ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1", "B10", "A8", "A10", "B15", "A15", "B5", "B8", "C13"],
@@ -14,8 +14,8 @@
     },
     "diode_direction": "COL2ROW",
     "indicators": {
-    	"caps_lock": "A0",
-    	"on_state": 0
+        "caps_lock": "A0",
+        "on_state": 0
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

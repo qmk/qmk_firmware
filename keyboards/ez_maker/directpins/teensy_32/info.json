@@ -11,19 +11,19 @@
     },
     "matrix_pins": {
         "direct": [
-            ["LINE_PIN0",  null,         null],
-            ["LINE_PIN1",  null,         null],
-            ["LINE_PIN2",  null,         "LINE_PIN23"],
-            ["LINE_PIN3",  "LINE_PIN24", "LINE_PIN22"],
-            ["LINE_PIN4",  "LINE_PIN25", "LINE_PIN21"],
-            ["LINE_PIN5",  null,         "LINE_PIN20"],
-            ["LINE_PIN6",  null,         "LINE_PIN19"],
-            ["LINE_PIN7",  null,         "LINE_PIN18"],
-            ["LINE_PIN8",  null,         "LINE_PIN17"],
-            ["LINE_PIN9",  null,         "LINE_PIN16"],
-            ["LINE_PIN10", null,         "LINE_PIN15"],
-            ["LINE_PIN11", null,         "LINE_PIN14"],
-            ["LINE_PIN12", "E30",        "LINE_PIN13"]
+            ["LINE_PIN0", null, null],
+            ["LINE_PIN1", null, null],
+            ["LINE_PIN2", null, "LINE_PIN23"],
+            ["LINE_PIN3", "LINE_PIN24", "LINE_PIN22"],
+            ["LINE_PIN4", "LINE_PIN25", "LINE_PIN21"],
+            ["LINE_PIN5", null, "LINE_PIN20"],
+            ["LINE_PIN6", null, "LINE_PIN19"],
+            ["LINE_PIN7", null, "LINE_PIN18"],
+            ["LINE_PIN8", null, "LINE_PIN17"],
+            ["LINE_PIN9", null, "LINE_PIN16"],
+            ["LINE_PIN10", null, "LINE_PIN15"],
+            ["LINE_PIN11", null, "LINE_PIN14"],
+            ["LINE_PIN12", "E30", "LINE_PIN13"]
         ]
     },
     "usb": {

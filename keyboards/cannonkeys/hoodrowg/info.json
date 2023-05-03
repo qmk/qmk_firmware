@@ -132,7 +132,6 @@
                 {"label": "\u2192", "matrix": [11, 8], "x": 17.25, "y": 5.5}
             ]
         },
-
         "LAYOUT_tkl_ansi_tsangan": {
             "layout": [
                 { "label": "Esc", "matrix": [1, 0], "x": 0, "y": 0 },
@@ -234,7 +233,6 @@
                 { "label": "Right", "matrix": [11, 8], "x": 17.25, "y": 5.5 }
             ]
         },
-
         "LAYOUT_tkl_iso_tsangan": {
             "layout": [
                 { "label": "Esc", "matrix": [1, 0], "x": 0, "y": 0 },
