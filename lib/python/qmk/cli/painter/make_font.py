@@ -3,7 +3,7 @@
 
 from io import BytesIO
 from qmk.path import normpath
-from qmk.painter_qff import QFFFont
+from qmk.painter_qff import _generate_font_glyphs_list, QFFFont
 from qmk.painter import generate_subs, render_header, render_source, valid_formats
 from milc import cli
 
@@ -61,7 +61,7 @@ def painter_convert_font_image(cli):
         return
 
     # Work out the text substitutions for rendering the output data
-    metadata = {"glyphs": cli.args.unicode_glyphs}
+    metadata = {"glyphs": _generate_font_glyphs_list(not cli.args.no_ascii, cli.args.unicode_glyphs)}
     subs = generate_subs(cli, out_bytes, font_metadata=metadata)
 
     # Render and write the header file
