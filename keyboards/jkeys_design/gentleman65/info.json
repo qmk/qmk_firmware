@@ -106,7 +106,6 @@
                 {"label": "\u2192", "matrix": [4, 15], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_isoenter_rwkl_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
