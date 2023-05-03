@@ -16,29 +16,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
-#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+// Set the mouse settings to a comfortable speed/accuracy trade-off,
+// assuming a screen refresh rate of 60 Htz or higher
+// The default is 50. This makes the mouse ~3 times faster and more accurate
+#define MOUSEKEY_INTERVAL 16
+// The default is 20. Since we made the mouse about 3 times faster with the previous setting,
+// give it more time to accelerate to max speed to retain precise control over short distances.
+#define MOUSEKEY_TIME_TO_MAX 40
+// The default is 300. Let's try and make this as low as possible while keeping the cursor responsive
+#define MOUSEKEY_DELAY 100
+// It makes sense to use the same delay for the mouseweel
+#define MOUSEKEY_WHEEL_DELAY 100
+// The default is 100
+#define MOUSEKEY_WHEEL_INTERVAL 50
+// The default is 40
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 
 // Pick good defaults for enabling homerow modifiers
-#define TAPPING_TERM 240
+#define TAPPING_TERM 200
 // #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
-//
-#undef MATRIX_COL_PINS
-#define MATRIX_COL_PINS \
-     { B1, B10, B4, B3, B8 }
-#undef MATRIX_COL_PINS_RIGHT
-#define MATRIX_COL_PINS_RIGHT \
-     { B1, B10, B3, B4, B5 }
-
-#undef MATRIX_ROW_PINS
-#define MATRIX_ROW_PINS \
-     { A2, B5, B9, A8 }
-#undef MATRIX_ROW_PINS_RIGHT
-#define MATRIX_ROW_PINS_RIGHT \
-     { A2, B8, A8, B9 }
 
 // Underglow configuration
 #ifdef RGBLIGHT_ENABLE
@@ -48,13 +47,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_VAL_STEP 8
 #endif
 
- /* Top left key on left half */
-  #undef BOOTMAGIC_LITE_ROW
-  #undef BOOTMAGIC_LITE_COLUMN
-  #define BOOTMAGIC_LITE_ROW    0
-  #define BOOTMAGIC_LITE_COLUMN 0
-  /* Top right key on right half */
-  #undef BOOTMAGIC_LITE_ROW_RIGHT
-  #undef BOOTMAGIC_LITE_COLUMN_RIGHT
-  #define BOOTMAGIC_LITE_ROW_RIGHT    4
-  #define BOOTMAGIC_LITE_COLUMN_RIGHT 4
+//#define UNICODE_SELECTED_MODES UC_MAC

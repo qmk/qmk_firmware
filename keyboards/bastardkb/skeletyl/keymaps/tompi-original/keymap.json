@@ -39,8 +39,8 @@
       "KC_SLSH",
       "LT(6,KC_ESC)",
       "LT(3,KC_SPC)",
-      "LT(5,KC_TAB)",
-      "LT(1,KC_DEL)",
+      "KC_TAB",
+      "TO(2)",
       "LT(2,KC_BSPC)",
       "LT(4,KC_ENT)"
     ],
@@ -54,7 +54,7 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "QK_RBT",
+      "ANY(QK_RBT)",
       "KC_MS_L",
       "KC_BTN2",
       "KC_BTN1",
@@ -114,9 +114,9 @@
       "KC_BTN3",
       "KC_BTN4",
       "KC_NO",
-      "KC_TRNS",
-      "KC_TRNS",
       "KC_NO",
+      "TO(0)",
+      "KC_TRNS",
       "KC_NO",
       "KC_NO"
     ],
@@ -159,11 +159,11 @@
       "KC_NO"
     ],
     [
-      "KC_EQL",
+      "KC_GRV",
       "KC_CIRC",
       "KC_LT",
       "KC_GT",
-      "KC_SCLN",
+      "KC_QUOT",
       "KC_NO",
       "KC_NO",
       "KC_NO",
@@ -197,7 +197,7 @@
       "KC_NO"
     ],
     [
-      "QK_RBT",
+      "ANY(QK_RBT)",
       "KC_NO",
       "KC_NO",
       "KC_NO",
@@ -268,7 +268,7 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "KC_0",
+      "TO(0)",
       "KC_COMM",
       "KC_P0"
     ]
