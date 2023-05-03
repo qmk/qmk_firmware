@@ -154,7 +154,7 @@ def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
         subs.update({
             "generated_type": "font",
             "var_prefix": "font",
-            "generator_command": f"qmk painter-convert-font-image -i {cli.args.input.name} -f {cli.args.format}",
+            "generator_command": f"qmk painter-convert-font-image -i {cli.args.input.name} -f {cli.args.format} {'--no-ascii' if cli.args.no_ascii else ''}",
             # not using triple quotes to avoid extra indentation/weird formatted code
             "metadata": "\n".join([
                 "// Font's metadata",
