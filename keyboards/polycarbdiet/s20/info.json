@@ -53,7 +53,7 @@
                 {"matrix": [4, 3], "x": 3, "y": 4}
             ]
         },
-        "LAYOUT_numpad_5x4":{
+        "LAYOUT_numpad_5x4": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
