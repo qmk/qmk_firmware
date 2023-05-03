@@ -19,20 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* Model H customizations */
-#define MODELH_LED_PINS { B9, B8, B7 }
 
 #define MODELH_STATUS_LED C13
-
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 16
-
-
-// Model H should use absolute maximum 80mA when all LEDs are on and it is in
-// use. Only requesting 100mA should allow it to work with devices only
-// supporting USB 1.0 power levels like some iPads.
-#define USB_MAX_POWER_CONSUMPTION 100
 
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
