@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "Bounce75 Hotswap", 
+    "keyboard_name": "Bounce75 Hotswap",
     "manufacturer": "KBDfans",
-    "maintainer": "moyi4681", 
+    "maintainer": "moyi4681",
     "usb": {
         "vid": "0x4B42",
         "pid": "0x7001",
@@ -21,8 +21,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ansi_rwkl"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ansi_rwkl": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
 
