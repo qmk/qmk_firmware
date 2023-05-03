@@ -175,7 +175,6 @@ bool process_tapping(keyrecord_t *keyp) {
             // into the "pressed" tapping key state
             ac_dprintf("Tapping: Start(Press tap key).\n");
             tapping_key = *keyp;
-            process_record_tap_hint(&tapping_key);
             waiting_buffer_scan_tap();
             debug_tapping_key();
         } else {

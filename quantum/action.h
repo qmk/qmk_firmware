@@ -128,10 +128,6 @@ void layer_switch(uint8_t new_layer);
 bool is_tap_record(keyrecord_t *record);
 bool is_tap_action(action_t action);
 
-#ifndef NO_ACTION_TAPPING
-void process_record_tap_hint(keyrecord_t *record);
-#endif
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Helpers
 
