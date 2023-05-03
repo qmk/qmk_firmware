@@ -99,7 +99,6 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 16.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_alice_split_bs": {
             "layout": [
                 {"label": "Delete", "matrix": [0, 0], "x": 0.5, "y": 0},
@@ -174,7 +173,6 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 16.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_alice_full_rshift": {
             "layout": [
                 {"label": "Delete", "matrix": [0, 0], "x": 0.5, "y": 0},
@@ -247,7 +245,6 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 16.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_alice_split_bs_full_rshift": {
             "layout": [
                 {"label": "Delete", "matrix": [0, 0], "x": 0.5, "y": 0},
