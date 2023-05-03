@@ -42,12 +42,7 @@ __asm__ __volatile__ (  \
 #include "grid_650.h"
 #include "mcp23018.h"
 
-// Optional override functions below.
-// You can leave any or all of these undefined.
-// These are only required if you want to perform custom actions.
-
 i2c_status_t mcp23018_status = 0x20;
-// bool ble_pwr_on = true;
 int batt_level = 50;
  
 
@@ -95,7 +90,6 @@ void keyboard_pre_init_kb(void) {
 
     //set VBUS DET(PD7) input
     setPinInput(D7);
-    // setPinInputLow(D7);
 
     //set CHG(PD3) input pullup
     setPinInput(D3);
@@ -109,8 +103,6 @@ void keyboard_pre_init_kb(void) {
     //set orange led low
     setPinOutput(B7);
     writePinLow(B7);
-
-
     #endif        
 
     keyboard_pre_init_user();
@@ -176,7 +168,6 @@ void set_status_led(enum LED_STAT led_stat,enum LED_STAT current_stat){
             case WHITE_ON:{
                 //stop breathing
                 //turn off white led
-                // breathing_disable();
                 backlight_level_noeeprom(0);  
             }break;
             case BLE_ON:{
@@ -200,9 +191,7 @@ void set_status_led(enum LED_STAT led_stat,enum LED_STAT current_stat){
             case RED_BLINK:{
                 //blink red
                 writePinHigh(B5); 
-                //how to blink?
                 red_is_on = true;
-
             }break;
             case WHITE_BREATHING:{
                 //enable breathing
@@ -234,35 +223,19 @@ void set_status_led(enum LED_STAT led_stat,enum LED_STAT current_stat){
 #ifdef BLE_ENABLE
 uint8_t battery_level(void) {
 
-    // disable adc doesn't really help power consumption?    
-
-    //get three times and get avg
-
     int16_t adc_raw = analogReadPin(D6);
     int16_t adc_raw1 = analogReadPin(D6);
     int16_t adc_raw2 = analogReadPin(D6);
     int16_t adc_raw3 = analogReadPin(D6);
     int16_t adc_raw4 = analogReadPin(D6);
-    // int16_t adc_raw = 900;
-
-    //debug
-    // xprintf("adc raw = [ %d, %d, %d, %d, %d ]\n",adc_raw,adc_raw1,adc_raw2,adc_raw3,adc_raw4);    
-
+    
     adc_raw = (adc_raw+adc_raw1+adc_raw2+adc_raw3+adc_raw4)/5;
-    //xprintf("adc avg = %d\n",adc_raw);
-
-    int level;
-    // float voltage = adc_raw * 3.3 / 1023; //unit V
+    
+    int level;  
     float voltage = adc_raw * 3.3 / 1.023; //unit mV
-    //xprintf("voltage = %d mV\n",(int)voltage);
-    //linear level
-    // level = (voltage - MIN_VOLTAGE) / (MAX_VOLTAGE - MIN_VOLTAGE) * 100;
-    // if (voltage < MIN_VOLTAGE) level = 0; 
-    //battery curve leve
     if(voltage >= BAT_LEVEL_100) {
         int16_t dig1 = ((voltage - BAT_LEVEL_100) / (BAT_LEVEL_110 - BAT_LEVEL_100)) * 10;
         level = 100 + dig1;
-        // level = 102; //to refresh the batlevel
     }else if(voltage >= BAT_LEVEL_90){
         int16_t dig1 = ((voltage - BAT_LEVEL_90) / (BAT_LEVEL_100 - BAT_LEVEL_90)) * 10;
         level = 90 + dig1;
@@ -297,10 +270,6 @@ uint8_t battery_level(void) {
         level = 0;
     }
     
-              
-    
-    // _delay_ms(100);
-   
     #ifdef FAKE_BAT_LEVEL
     // fake bat level
     static bool bat_level_dir = false;
@@ -315,7 +284,7 @@ uint8_t battery_level(void) {
     level = fake_bat_Level;
     #endif
 
-    //xprintf("Battery Level is %d\n",level);
+    dprintf("Battery Level is %d\n",level);
 
     #ifdef BAT_LEVEL_STEP_10
     //change bat level step to 10%
@@ -326,13 +295,9 @@ uint8_t battery_level(void) {
     if(is_first_time || (not_charging != (PIND & 0b00001000))){
         is_first_time = false;
         not_charging = PIND & 0b00001000;
-        curr_bat_level = level / 10 * 10;
-        //curr_bat_level = level;
-    // }else if( (level%10 >= 2) && (level%10 <= 7)){
+        curr_bat_level = level / 10 * 10;        
     }else if( (level%10 >= 4) && (level%10 <= 6)){ //try to make it district to change batlevel 0304
-
-        curr_bat_level = level / 10 * 10;
-        //curr_bat_level = level;
+        curr_bat_level = level / 10 * 10;        
     }
 
     //may junmp from 50% to 100%
@@ -340,10 +305,10 @@ uint8_t battery_level(void) {
         //if not charging & usb is pluged & bat_level<90
         //battery is not set or has some problem
         curr_bat_level = 50;
-        //xprintf("No Battery\n");
+        dprintf("No Battery\n");
     }
 
-    //xprintf("Battery Level 10 is %d\n",curr_bat_level);
+    dprintf("Battery Level 10 is %d\n",curr_bat_level);
     if (curr_bat_level>=100) curr_bat_level = 100;
     
     return curr_bat_level;
@@ -361,7 +326,6 @@ void housekeeping_task_kb(void) {
     // runs every cycle (a lot)
 
     #ifdef BLE_ENABLE
-    // counter = 1500
     static uint16_t counter = BASIC_CNT - 500;
     #endif
     
@@ -374,16 +338,11 @@ void housekeeping_task_kb(void) {
    
     #ifdef BATTERY_LEVEL
     static uint16_t bat_counter = BATTERY_POLL;
-    // static uint8_t bat_level[5] = {}; //default bat level 50%
-    // static uint8_t bat_level_index = 0;
-    // static bool bat_level_buf_ready = 0;
     #endif
 
     #ifdef BLE_ENABLE
     counter++;
     
-    // xprintf("B:%d\n",get_backlight_level());
-    // if 1500++ > 20000
     if (counter > BASIC_CNT) {
         // restart counter
         counter = 0;
@@ -396,7 +355,6 @@ void housekeeping_task_kb(void) {
         #endif
         #ifdef ENABLE_SLEEP
         if(sleep_activated==0) sleep_counter++;
-        //xprintf("Sleep Count = %d\n",sleep_counter);
         #endif
                         
 
@@ -406,27 +364,8 @@ void housekeeping_task_kb(void) {
         #else
         if(bat_counter >= BATTERY_POLL){
         #endif
-        // if(bat_counter >= 1){
+        
             bat_counter = 0;
-            // bat_level[bat_level_index] = battery_level();
-            // xprintf("bat_level[%d] = %d\n",bat_level_index,bat_level[bat_level_index]);
-            // bat_level_index++;
-            // if(bat_level_index>=5){
-            //     bat_level_index = 0;
-            //     bat_level_buf_ready = 1;
-            // }             
-            // if(bat_level_buf_ready){
-            //     uint16_t bat_level_sum = 0;
-            //     for(uint8_t i=0;i<5;i++){                    
-            //         bat_level_sum += bat_level[i]; 
-            //     }
-            //     xprintf("bat_level_sum is %d\n",bat_level_sum);
-            //     bat_level_sum = bat_level_sum/5;
-            //     xprintf("AVG bat_level = %d\n",bat_level_sum);
-            //     bluefruit_le_send_batlevel(bat_level_sum);
-            // }
-
-            //xprintf("send bat level to BT\n");
             batt_level = battery_level();
             #ifdef BLE_BATTERY_REPORT
             bluefruit_le_send_batlevel(batt_level);
@@ -434,11 +373,7 @@ void housekeeping_task_kb(void) {
         }
         #endif
 
-        #ifdef LED_CONTROL
-
-        // static enum LED_STAT curr_stat = NONE;  
-        // xprintf("BLE PWR STAT:%d\n",ble_pwr_on);
-       
+        #ifdef LED_CONTROL       
         if((PIND & 0b00001000) == 0){
             //is charging
             //if batlevel over threthold white on
@@ -454,7 +389,6 @@ void housekeeping_task_kb(void) {
             } else 
             #endif
             //not charging                 
-            // if((battery_level() <= 15) && ((PIND & 0b10000000) == 0)){
             if((batt_level <= 15) && ((PIND & 0b10000000) == 0)){                
                 //if batlevel less than low battery threthold red blink
                 //and usb is not connected (in case battery not connected)
@@ -491,7 +425,6 @@ void housekeeping_task_kb(void) {
 
     #ifdef ENABLE_SLEEP
     if (has_anykey(keyboard_report) || (PIND & 0b10000000)) {
-    // if (has_anykey(keyboard_report)) {
         // has key press clr counter
         sleep_counter = 0;
         sleep_activated = 0;
@@ -503,7 +436,7 @@ void housekeeping_task_kb(void) {
         // backlight_enable();
         // breathing_enable();
     } else if (sleep_counter <= SLEEP_WAIT) {
-        // // always goto IDLE mode to save power
+        // always goto IDLE mode to save power
         
     } else if (sleep_counter > SLEEP_WAIT) {
         //when counter is big enough goto POWERDOWN mode
@@ -513,24 +446,14 @@ void housekeeping_task_kb(void) {
         
         #ifdef ENABLE_DEEP_SLEEP
             ble_off();
-        #endif
-            // suspend_power_down(); //use qmk provided api not working properly
-
-            // breathing_disable();
-            // backlight_disable();     
-
+        #endif            
             set_status_led(NONE,curr_stat);
             curr_stat = NONE;    
 
             // Watchdog Interrupt Mode
-            wdt_intr_enable_copy(WDTO_60MS);
-
-            // cli();
-            
-            // set_sleep_mode(SLEEP_MODE_IDLE);
+            wdt_intr_enable_copy(WDTO_60MS);            
             set_sleep_mode(SLEEP_MODE_PWR_DOWN);//power down mode saves better but resets the system
-            sleep_enable();
-            // sleep_bod_disable(); //try to disable bod reset
+            sleep_enable();            
             sei();
             
             sleep_cpu();
@@ -605,12 +528,6 @@ uint8_t init_mcp23018_custom(void) {
 
 out:
     i2c_stop();
-
-// #ifdef LEFT_LEDS
-//     if (!mcp23018_status) mcp23018_status = ergodox_left_leds_update();
-// #endif // LEFT_LEDS
-
-    // SREG=sreg_prev;
 
     return mcp23018_status;
 }
