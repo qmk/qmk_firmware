@@ -1293,5 +1293,8 @@
     },
     "zinc/reva": {
         "target": "25keys/zinc/reva"
+    }，
+    "hfdkb/keyboard_sw/k83":{
+        "target":"inland/kb83"
     }
 }
