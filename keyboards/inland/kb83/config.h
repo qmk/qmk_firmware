@@ -16,13 +16,9 @@
 
 #pragma once
 
-
 #define RGB_TRIGGER_ON_KEYDOWN
 /* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
 #define FORCE_NKRO
-
-/* encoder resolution */
-#define TAP_CODE_DELAY 15
 
 /* DIP switch */
 #define DIP_SWITCH_PINS \
@@ -47,9 +43,6 @@
 #define DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110111
-#define I2C1_SDA_PIN B7
-#define I2C1_SCL_PIN B6
-#define I2C1_SCL_PAL_MODE 4
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 400000 /* 400000 */
 

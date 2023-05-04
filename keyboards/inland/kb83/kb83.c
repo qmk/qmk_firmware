@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "k83.h"
+#include "quantum.h"
 // clang-format off
 #ifdef RGB_MATRIX_ENABLE
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
@@ -582,10 +582,9 @@ void led_test(uint8_t color) {
 }
 
 void clear_eeprom(void) {
-    layer_state_t default_layer_temp = default_layer_state;
     eeconfig_init();
-    default_layer_set(default_layer_temp);
-
+    keymap_config.no_gui = 0;
+    eeconfig_update_keymap(keymap_config.raw);
 #ifdef VIA_ENABLE
     // This resets the layout options
     via_set_layout_options(VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT);
