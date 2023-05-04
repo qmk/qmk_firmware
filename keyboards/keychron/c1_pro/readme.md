@@ -1,6 +1,6 @@
 # Keychron C1 Pro
 
-![Keychron C1 Pro](https://i.imgur.com/Svdm4lp.jpg)
+![Keychron C1 Pro](https://i.imgur.com/Svdm4lph.jpg)
 
 A customizable 80% TKL keyboard.
 
