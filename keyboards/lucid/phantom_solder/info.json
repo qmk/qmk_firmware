@@ -2,7 +2,7 @@
     "keyboard_name": "Phantom Solder",
     "manufacturer": "Lucid",
     "url": "http://www.lucidkb.com",
-    "maintainer": "Lucid",
+    "maintainer": "mrnoisytiger",
     "usb": {
         "vid": "0x7667",
         "pid": "0x0002",
