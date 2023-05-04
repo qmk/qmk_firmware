@@ -2,7 +2,7 @@
     "keyboard_name": "Alexa Solder",
     "manufacturer": "Maker Keyboards",
     "url": "http://www.makerkeyboards.com",
-    "maintainer": "Maker Keyboards",
+    "maintainer": "mrnoisytiger",
     "usb": {
         "vid": "0x7667",
         "pid": "0x0006",
