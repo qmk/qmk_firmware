@@ -1,17 +1,14 @@
 {
     "keyboard_name": "Cepstrum Rev. 1",
-    "usb": {
-        "pid": "0x1557",
-        "device_version": "1.0.0"
-    },
+    "usb": {"pid": "0x1557", "device_version": "1.0.0"},
     "processor": "RP2040",
     "bootloader": "rp2040",
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
-        "console": true,
-        "rgblight": false,
-        "backlight": false,
+        "console"   : true ,
+        "rgblight"  : false,
+        "backlight" : false,
         "rgb_matrix": true
     },
     "split": {
@@ -56,11 +53,11 @@
             {"matrix": [2,5], "flags":4, "x":74, "y":32},
             {"matrix": [2,6], "flags":4, "x":86, "y":32},
             {"matrix": [2,7], "flags":4, "x":98, "y":32},
-            {"matrix": [3,7], "flags":4, "x":104, "y":46},
-            {"matrix": [3,6], "flags":4, "x":92, "y":46},
-            {"matrix": [3,5], "flags":4, "x":80, "y":46},
-            {"matrix": [3,4], "flags":4, "x":68, "y":46},
-            {"matrix": [3,3], "flags":4, "x":55, "y":46},
+            {"matrix": [3,8], "flags":4, "x":104, "y":46},
+            {"matrix": [3,7], "flags":4, "x":92, "y":46},
+            {"matrix": [3,6], "flags":4, "x":80, "y":46},
+            {"matrix": [3,5], "flags":4, "x":68, "y":46},
+            {"matrix": [3,4], "flags":4, "x":55, "y":46},
             {"matrix": [3,2], "flags":4, "x":35, "y":46},
             {"matrix": [4,2], "flags":4, "x":29, "y":60},
             {"matrix": [4,3], "flags":4, "x":44, "y":60},
@@ -75,7 +72,7 @@
             {"matrix": [2,0], "flags":4, "x":0, "y":32},
             {"matrix": [2,1], "flags":4, "x":12, "y":32},
             {"matrix": [1,1], "flags":4, "x":12, "y":18},
-            {"matrix": [1,7], "flags":4, "x":0, "y":18},
+            {"matrix": [1,0], "flags":4, "x":0, "y":18},
             {"flags":2, "x":6, "y":14},
             {"matrix": [0,1], "flags":4, "x":12, "y":4},
             {"matrix": [0,0], "flags":4, "x":0, "y":4},
