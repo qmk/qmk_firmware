@@ -53,13 +53,13 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-            { "label": "Play", "matrix": [0, 2], "x": 2, "y": 0, "w": 2, "h": 2 },
+                {"label": "Play", "matrix": [0, 2], "x": 2, "y": 0, "w": 2, "h": 2},
 
-            { "label": "F1", "matrix": [0, 0], "x": 0, "y": 0 },
-            { "label": "F2", "matrix": [0, 1], "x": 1, "y": 0 },
+                {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "F2", "matrix": [0, 1], "x": 1, "y": 0},
 
-            { "label": "F3", "matrix": [1, 0], "x": 0, "y": 1 },
-            { "label": "F4", "matrix": [1, 1], "x": 1, "y": 1 }
+                {"label": "F3", "matrix": [1, 0], "x": 0, "y": 1},
+                {"label": "F4", "matrix": [1, 1], "x": 1, "y": 1}
             ]
         }
     }
