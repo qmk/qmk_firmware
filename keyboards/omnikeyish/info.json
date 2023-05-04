@@ -1,6 +1,6 @@
 {
     "keyboard_name": "Omnikey-(ish)",
-    "manufacturer": "Henrik O. Sørensen",
+    "manufacturer": "Henrik O. S\u00f8rensen",
     "url": "https://github.com/henrikosorensen/keyboard_pcbs/tree/master/omnikeyish_pcb",
     "maintainer": "qmk",
     "usb": {
