@@ -38,8 +38,8 @@ SOFTWARE.
 #define MA_L LALT_T(KC_L)
 #define MG_SCLN LGUI_T(KC_SCLN)
 #define TASKM RCS(KC_ESC)
-#define LY1SPC LT(1, KC_SPC)
-#define LY2BS LT(2, KC_BSPC)
+#define L1_SPC LT(1, KC_SPC)
+#define L2_BS LT(2, KC_BSPC)
 #define DTMGR LGUI(KC_TAB)
 #define REDO LCTL(KC_Y)
 
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Q, KC_W, KC_E, KC_R, KC_T,                                                         KC_Y, KC_U,   KC_I,    KC_O,    KC_P,
         MG_A, MA_S, MC_D, MS_F, KC_G, KC_MUTE,                                         TASKM, KC_H, MS_J,   MC_K,    MA_L, MG_SCLN,
         KC_Z, KC_X, KC_C, KC_V, KC_B,     CUT,   COPY,   PSTE,          SLCTA, APPFW,   UNDO, KC_N, KC_M, KC_DOT, KC_COMM, KC_SLSH,
-                                       KC_ESC, LY1SPC, KC_TAB,         KC_ENT, LY2BS, KC_DEL
+                                       KC_ESC, L1_SPC, KC_TAB,         KC_ENT, L2_BS, KC_DEL
     ),
     [1] = LAYOUT_split_3x5_6(
         KC_F1,     KC_F2, KC_F3,   KC_F4,  KC_F5,                                                                KC_F6,   KC_F7,   KC_F8,   KC_F9, KC_F10,
