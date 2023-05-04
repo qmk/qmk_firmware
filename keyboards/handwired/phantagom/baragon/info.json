@@ -34,7 +34,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "GP6", "pin_b": "GP7", "resolution": 2 }
+            {"pin_a": "GP6", "pin_b": "GP7", "resolution": 2}
         ]
     },
     "matrix_pins": {
