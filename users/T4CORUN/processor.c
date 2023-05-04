@@ -18,6 +18,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           default_layer_set(1UL<<_COLEMAK_DH);
       }
       return false;
+    case GAMING:
+      if (record->event.pressed) {  
+          default_layer_set(1UL<<_GAMING_BASE);
+      }
+      return false;
   }
   return true;
 }

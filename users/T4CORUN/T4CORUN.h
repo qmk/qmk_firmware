@@ -11,6 +11,8 @@ enum layers {
   _QWERTY = 0,
   FIRST_DEFAULT_LAYER = 0,  
   _COLEMAK_DH,
+  _GAMING_BASE,
+  _GAMING_NUM,
   _NUMBER,
   _NAVIGATION,
   _FUNCTION,
@@ -20,7 +22,8 @@ enum layers {
 
 enum keycodes {
   QWERTY = SAFE_RANGE,
-  CLMAKDH
+  CLMAKDH,
+  GAMING
 };
 
 #define _DEFAULT_LAYER_1 FIRST_DEFAULT_LAYER
@@ -40,6 +43,7 @@ enum keycodes {
 #define NAV     MO(_NAVIGATION)
 #define NUMBER  MO(_NUMBER)
 #define FUNC    MO(_FUNCTION)
+#define GAMENO  MO(_GAMING_NUM)
 
 #define FUN_DEL LT(_FUNCTION, KC_DEL)
 #define FUN_Z LT(_FUNCTION, KC_Z)
