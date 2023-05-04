@@ -8,6 +8,13 @@
         "pid": "0x0101",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E6", "pin_b": "B7"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ansi_82": {
             "layout": [
@@ -24,8 +31,8 @@
                 {"matrix":[0,11], "x":10.75, "y":0},
                 {"matrix":[0,12], "x":11.75, "y":0},
                 {"matrix":[0,13], "x":12.75, "y":0},
-                {"matrix":[0,14], "x":14, "y":0},
-                {"matrix":[4,14], "x":15.25, "y":0},
+                {"matrix":[4,14], "x":14, "y":0},
+                {"matrix":[0,14], "x":15.25, "y":0},
 
                 {"matrix":[1, 0], "x":0, "y":1},
                 {"matrix":[1, 1], "x":1, "y":1},

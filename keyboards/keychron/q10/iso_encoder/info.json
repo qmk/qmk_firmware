@@ -8,6 +8,16 @@
         "pid": "0x01A3",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A10", "pin_b": "A8"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_iso_90": {
             "layout": [
@@ -75,7 +85,7 @@
                 {"matrix":[3,12], "x":14.75, "y":3.25},
                 {"matrix":[3,13], "x":15.75, "y":3.25},
                 {"matrix":[3,14], "x":16.75, "y":3.25},
-                {"matrix":[2,14], "x":17.75, "y":3.25, "w":1.25, "h":2},
+                {"matrix":[2,14], "x":17.75, "y":2.25, "w":1.25, "h":2},
                 {"matrix":[3,15], "x":19.5, "y":3.25},
 
                 {"matrix":[4, 0], "x":0, "y":4.25},

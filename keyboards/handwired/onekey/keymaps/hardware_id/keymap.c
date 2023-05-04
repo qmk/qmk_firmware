@@ -17,7 +17,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 char buffer[100];
                 sprintf(buffer, "ID:%lu:%lu:%lu:%lu\n", id.data[0], id.data[1], id.data[2], id.data[3]);
 #ifdef CONSOLE_ENABLE
-                    printf(buffer);
+                    uprintf("%s", buffer);
 #else
                     send_string(buffer);
 #endif

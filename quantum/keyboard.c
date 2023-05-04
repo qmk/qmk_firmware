@@ -105,6 +105,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word.h"
 #endif
+#ifdef LEADER_ENABLE
+#    include "leader.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -168,9 +171,9 @@ static matrix_row_t get_real_keys(uint8_t row, matrix_row_t rowdata) {
     matrix_row_t out = 0;
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         // read each key in the row data and check if the keymap defines it as a real key
-        if (keycode_at_keymap_location(0, row, col) && (rowdata & (1 << col))) {
+        if (keycode_at_keymap_location(0, row, col) && (rowdata & (((matrix_row_t)1) << col))) {
             // this creates new row data, if a key is defined in the keymap, it will be set here
-            out |= 1 << col;
+            out |= ((matrix_row_t)1) << col;
         }
     }
     return out;
@@ -238,7 +241,7 @@ __attribute__((weak)) void keyboard_pre_init_kb(void) {
  * FIXME: needs doc
  */
 
-__attribute__((weak)) void keyboard_post_init_user() {}
+__attribute__((weak)) void keyboard_post_init_user(void) {}
 
 /** \brief keyboard_post_init_kb
  *
@@ -247,6 +250,14 @@ __attribute__((weak)) void keyboard_post_init_user() {}
 
 __attribute__((weak)) void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
+}
+
+/** \brief matrix_can_read
+ *
+ * Allows overriding when matrix scanning operations should be executed.
+ */
+__attribute__((weak)) bool matrix_can_read(void) {
+    return true;
 }
 
 /** \brief keyboard_setup
@@ -446,10 +457,14 @@ static inline void generate_tick_event(void) {
  * @return false Matrix didn't change
  */
 static bool matrix_task(void) {
+    if (!matrix_can_read()) {
+        generate_tick_event();
+        return false;
+    }
+
     static matrix_row_t matrix_previous[MATRIX_ROWS];
 
     matrix_scan();
-
     bool matrix_changed = false;
     for (uint8_t row = 0; row < MATRIX_ROWS && !matrix_changed; row++) {
         matrix_changed |= matrix_previous[row] ^ matrix_get_row(row);
@@ -544,6 +559,10 @@ void quantum_task(void) {
 
 #ifdef COMBO_ENABLE
     combo_task();
+#endif
+
+#ifdef LEADER_ENABLE
+    leader_task();
 #endif
 
 #ifdef WPM_ENABLE

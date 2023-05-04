@@ -8,6 +8,16 @@
         "pid": "0x6072",
         "device_version": "0.0.2"
     },
+    "backlight": {
+        "pin": "B6",
+        "levels": 4
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -3,7 +3,7 @@
 // help for fast typist+dual function keys?
 #define PERMISSIVE_HOLD
 // Let me type `ls -l` more quickly.
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 // where is the cord plugged in?
 #define MASTER_RIGHT

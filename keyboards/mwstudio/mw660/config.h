@@ -16,10 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 #define FORCE_NKRO
 
 

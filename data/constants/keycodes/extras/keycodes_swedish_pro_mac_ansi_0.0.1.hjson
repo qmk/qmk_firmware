@@ -1,0 +1,642 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
+ * │ < │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ + │ ´ │     │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
+ * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ Å │ ¨ │ ' │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Ö │ Ä │      │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴──────┤
+ * │        │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ - │        │
+ * ├─────┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
+ * │     │    │     │                       │     │    │     │
+ * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
+ */
+        "KC_GRV": {
+            "key": "SE_LABK",
+            "label": "<",
+        }
+        "KC_1": {
+            "key": "SE_1",
+            "label": "1",
+        }
+        "KC_2": {
+            "key": "SE_2",
+            "label": "2",
+        }
+        "KC_3": {
+            "key": "SE_3",
+            "label": "3",
+        }
+        "KC_4": {
+            "key": "SE_4",
+            "label": "4",
+        }
+        "KC_5": {
+            "key": "SE_5",
+            "label": "5",
+        }
+        "KC_6": {
+            "key": "SE_6",
+            "label": "6",
+        }
+        "KC_7": {
+            "key": "SE_7",
+            "label": "7",
+        }
+        "KC_8": {
+            "key": "SE_8",
+            "label": "8",
+        }
+        "KC_9": {
+            "key": "SE_9",
+            "label": "9",
+        }
+        "KC_0": {
+            "key": "SE_0",
+            "label": "0",
+        }
+        "KC_MINS": {
+            "key": "SE_PLUS",
+            "label": "+",
+        }
+        "KC_EQL": {
+            "key": "SE_ACUT",
+            "label": "´ (dead)",
+        }
+        "KC_Q": {
+            "key": "SE_Q",
+            "label": "Q",
+        }
+        "KC_W": {
+            "key": "SE_W",
+            "label": "W",
+        }
+        "KC_E": {
+            "key": "SE_E",
+            "label": "E",
+        }
+        "KC_R": {
+            "key": "SE_R",
+            "label": "R",
+        }
+        "KC_T": {
+            "key": "SE_T",
+            "label": "T",
+        }
+        "KC_Y": {
+            "key": "SE_Y",
+            "label": "Y",
+        }
+        "KC_U": {
+            "key": "SE_U",
+            "label": "U",
+        }
+        "KC_I": {
+            "key": "SE_I",
+            "label": "I",
+        }
+        "KC_O": {
+            "key": "SE_O",
+            "label": "O",
+        }
+        "KC_P": {
+            "key": "SE_P",
+            "label": "P",
+        }
+        "KC_LBRC": {
+            "key": "SE_ARNG",
+            "label": "Å",
+        }
+        "KC_RBRC": {
+            "key": "SE_DIAE",
+            "label": "¨ (dead)",
+        }
+        "KC_NUHS": {
+            "key": "SE_QUOT",
+            "label": "'",
+        }
+        "KC_A": {
+            "key": "SE_A",
+            "label": "A",
+        }
+        "KC_S": {
+            "key": "SE_S",
+            "label": "S",
+        }
+        "KC_D": {
+            "key": "SE_D",
+            "label": "D",
+        }
+        "KC_F": {
+            "key": "SE_F",
+            "label": "F",
+        }
+        "KC_G": {
+            "key": "SE_G",
+            "label": "G",
+        }
+        "KC_H": {
+            "key": "SE_H",
+            "label": "H",
+        }
+        "KC_J": {
+            "key": "SE_J",
+            "label": "J",
+        }
+        "KC_K": {
+            "key": "SE_K",
+            "label": "K",
+        }
+        "KC_L": {
+            "key": "SE_L",
+            "label": "L",
+        }
+        "KC_SCLN": {
+            "key": "SE_ODIA",
+            "label": "Ö",
+        }
+        "KC_QUOT": {
+            "key": "SE_ADIA",
+            "label": "Ä",
+        }
+        "KC_Z": {
+            "key": "SE_Z",
+            "label": "Z",
+        }
+        "KC_X": {
+            "key": "SE_X",
+            "label": "X",
+        }
+        "KC_C": {
+            "key": "SE_C",
+            "label": "C",
+        }
+        "KC_V": {
+            "key": "SE_V",
+            "label": "V",
+        }
+        "KC_B": {
+            "key": "SE_B",
+            "label": "B",
+        }
+        "KC_N": {
+            "key": "SE_N",
+            "label": "N",
+        }
+        "KC_M": {
+            "key": "SE_M",
+            "label": "M",
+        }
+        "KC_COMM": {
+            "key": "SE_COMM",
+            "label": ",",
+        }
+        "KC_DOT": {
+            "key": "SE_DOT",
+            "label": ".",
+        }
+        "KC_SLSH": {
+            "key": "SE_MINS",
+            "label": "-",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
+ * │ > │ ! │ " │ # │ € │ % │ & │ / │ ( │ ) │ = │ ? │ ` │     │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
+ * │     │   │   │   │   │   │   │   │   │   │   │   │ ^ │ * │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
+ * │      │   │   │   │   │   │   │   │   │   │   │   │      │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴──────┤
+ * │        │   │   │   │   │   │   │   │ ; │ : │ _ │        │
+ * ├─────┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
+ * │     │    │     │                       │     │    │     │
+ * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
+ */
+        "S(SE_LABK)": {
+            "key": "SE_RABK",
+            "label": ">",
+        }
+        "S(SE_1)": {
+            "key": "SE_EXLM",
+            "label": "!",
+        }
+        "S(SE_2)": {
+            "key": "SE_DQUO",
+            "label": "\"",
+        }
+        "S(SE_3)": {
+            "key": "SE_HASH",
+            "label": "#",
+        }
+        "S(SE_4)": {
+            "key": "SE_EURO",
+            "label": "€",
+        }
+        "S(SE_5)": {
+            "key": "SE_PERC",
+            "label": "%",
+        }
+        "S(SE_6)": {
+            "key": "SE_AMPR",
+            "label": "&",
+        }
+        "S(SE_7)": {
+            "key": "SE_SLSH",
+            "label": "/",
+        }
+        "S(SE_8)": {
+            "key": "SE_LPRN",
+            "label": "(",
+        }
+        "S(SE_9)": {
+            "key": "SE_RPRN",
+            "label": ")",
+        }
+        "S(SE_0)": {
+            "key": "SE_EQL",
+            "label": "=",
+        }
+        "S(SE_PLUS)": {
+            "key": "SE_QUES",
+            "label": "?",
+        }
+        "S(SE_ACUT)": {
+            "key": "SE_GRV",
+            "label": "`",
+        }
+        "S(SE_DIAE)": {
+            "key": "SE_CIRC",
+            "label": "^ (dead)",
+        }
+        "S(SE_QUOT)": {
+            "key": "SE_ASTR",
+            "label": "*",
+        }
+        "S(SE_COMM)": {
+            "key": "SE_SCLN",
+            "label": ";",
+        }
+        "S(SE_DOT)": {
+            "key": "SE_COLN",
+            "label": ":",
+        }
+        "S(SE_MINS)": {
+            "key": "SE_UNDS",
+            "label": "_",
+        }
+/* Alted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
+ * │ ≤ │ © │ @ │ £ │ $ │ ∞ │ § │ | │ [ │ ] │ ≈ │ ± │   │     │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
+ * │     │ • │ Ω │ É │ ® │ † │ µ │ Ü │ ı │ Œ │ π │ ˙ │ ~ │ ™ │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
+ * │      │  │ ß │ ∂ │ ƒ │ ¸ │ ˛ │ √ │ ª │ ﬁ │ Ø │ Æ │      │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴──────┤
+ * │        │ ÷ │   │ Ç │ ‹ │ › │ ‘ │ ’ │ ‚ │ … │ – │        │
+ * ├─────┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
+ * │     │    │     │                       │     │    │     │
+ * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
+ * 
+ */
+        "A(SE_LABK)": {
+            "key": "SE_LTEQ",
+            "label": "≤",
+        }
+        "A(SE_1)": {
+            "key": "SE_COPY",
+            "label": "©",
+        }
+        "A(SE_2)": {
+            "key": "SE_AT",
+            "label": "@",
+        }
+        "A(SE_3)": {
+            "key": "SE_PND",
+            "label": "£",
+        }
+        "A(SE_4)": {
+            "key": "SE_DLR",
+            "label": "$",
+        }
+        "A(SE_5)": {
+            "key": "SE_INFN",
+            "label": "∞",
+        }
+        "A(SE_6)": {
+            "key": "SE_SECT",
+            "label": "§",
+        }
+        "A(SE_7)": {
+            "key": "SE_PIPE",
+            "label": "|",
+        }
+        "A(SE_8)": {
+            "key": "SE_LBRC",
+            "label": "[",
+        }
+        "A(SE_9)": {
+            "key": "SE_RBRC",
+            "label": "]",
+        }
+        "A(SE_0)": {
+            "key": "SE_AEQL",
+            "label": "≈",
+        }
+        "A(SE_PLUS)": {
+            "key": "SE_PLMN",
+            "label": "±",
+        }
+        "A(SE_Q)": {
+            "key": "SE_BULT",
+            "label": "•",
+        }
+        "A(SE_W)": {
+            "key": "SE_OMEG",
+            "label": "Ω",
+        }
+        "A(SE_E)": {
+            "key": "SE_EACU",
+            "label": "É",
+        }
+        "A(SE_R)": {
+            "key": "SE_REGD",
+            "label": "®",
+        }
+        "A(SE_T)": {
+            "key": "SE_DAGG",
+            "label": "†",
+        }
+        "A(SE_Y)": {
+            "key": "SE_MICR",
+            "label": "µ",
+        }
+        "A(SE_U)": {
+            "key": "SE_UDIA",
+            "label": "Ü",
+        }
+        "A(SE_I)": {
+            "key": "SE_DLSI",
+            "label": "ı",
+        }
+        "A(SE_O)": {
+            "key": "SE_OE",
+            "label": "Œ",
+        }
+        "A(SE_P)": {
+            "key": "SE_PI",
+            "label": "π",
+        }
+        "A(SE_ARNG)": {
+            "key": "SE_DOTA",
+            "label": "˙",
+        }
+        "A(SE_DIAE)": {
+            "key": "SE_TILD",
+            "label": "~ (dead)",
+        }
+        "A(SE_QUOT)": {
+            "key": "SE_TM",
+            "label": "™",
+        }
+        "A(SE_A)": {
+            "key": "SE_APPL",
+            "label": " (Apple logo)",
+        }
+        "A(SE_S)": {
+            "key": "SE_SS",
+            "label": "ß",
+        }
+        "A(SE_D)": {
+            "key": "SE_PDIF",
+            "label": "∂",
+        }
+        "A(SE_F)": {
+            "key": "SE_FHK",
+            "label": "ƒ",
+        }
+        "A(SE_G)": {
+            "key": "SE_CEDL",
+            "label": "¸",
+        }
+        "A(SE_H)": {
+            "key": "SE_OGON",
+            "label": "˛",
+        }
+        "A(SE_J)": {
+            "key": "SE_SQRT",
+            "label": "√",
+        }
+        "A(SE_K)": {
+            "key": "SE_FORD",
+            "label": "ª",
+        }
+        "A(SE_L)": {
+            "key": "SE_FI",
+            "label": "ﬁ",
+        }
+        "A(SE_ODIA)": {
+            "key": "SE_OSTR",
+            "label": "Ø",
+        }
+        "A(SE_ADIA)": {
+            "key": "SE_AE",
+            "label": "Æ",
+        }
+        "A(SE_Z)": {
+            "key": "SE_DIV",
+            "label": "÷",
+        }
+        "A(SE_C)": {
+            "key": "SE_CCED",
+            "label": "Ç",
+        }
+        "A(SE_V)": {
+            "key": "SE_LSAQ",
+            "label": "‹",
+        }
+        "A(SE_B)": {
+            "key": "SE_RSAQ",
+            "label": "›",
+        }
+        "A(SE_N)": {
+            "key": "SE_LSQU",
+            "label": "‘",
+        }
+        "A(SE_M)": {
+            "key": "SE_RSQU",
+            "label": "’",
+        }
+        "A(SE_COMM)": {
+            "key": "SE_SLQU",
+            "label": "‚",
+        }
+        "A(SE_DOT)": {
+            "key": "SE_ELLP",
+            "label": "…",
+        }
+        "A(SE_MINS)": {
+            "key": "SE_NDSH",
+            "label": "–",
+        }
+/* Shift+Alted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┐
+ * │ ≥ │ ¡ │   │ ¥ │ ¢ │ ‰ │ ¶ │ \ │ { │ } │ ≠ │ ¿ │   │     │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬───┤
+ * │     │ ° │ ˝ │   │   │ ‡ │ ˜ │   │ ˆ │   │ ∏ │ ˚ │   │   │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴───┤
+ * │      │ ◊ │ ∑ │ ∆ │ ∫ │ ¯ │ ˘ │ ¬ │ º │ ﬂ │   │   │      │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴──────┤
+ * │        │ ⁄ │ ˇ │   │ « │ » │ “ │ ” │ „ │ · │ — │        │
+ * ├─────┬──┴─┬─┴───┼───┴───┴───┴───┴───┴───┼───┴─┬─┴──┬─────┤
+ * │     │    │     │                       │     │    │     │
+ * └─────┴────┴─────┴───────────────────────┴─────┴────┴─────┘
+ * 
+ */
+        "S(A(SE_LABK))": {
+            "key": "SE_GTEQ",
+            "label": "≥",
+        }
+        "S(A(SE_1))": {
+            "key": "SE_IEXL",
+            "label": "¡",
+        }
+        "S(A(SE_3))": {
+            "key": "SE_YEN",
+            "label": "¥",
+        }
+        "S(A(SE_4))": {
+            "key": "SE_CENT",
+            "label": "¢",
+        }
+        "S(A(SE_5))": {
+            "key": "SE_PERM",
+            "label": "‰",
+        }
+        "S(A(SE_6))": {
+            "key": "SE_PILC",
+            "label": "¶",
+        }
+        "S(A(SE_7))": {
+            "key": "SE_BSLS",
+            "label": "\\",
+        }
+        "S(A(SE_8))": {
+            "key": "SE_LCBR",
+            "label": "{",
+        }
+        "S(A(SE_9))": {
+            "key": "SE_RCBR",
+            "label": "}",
+        }
+        "S(A(SE_0))": {
+            "key": "SE_NEQL",
+            "label": "≠",
+        }
+        "S(A(SE_PLUS))": {
+            "key": "SE_IQUE",
+            "label": "¿",
+        }
+        "S(A(SE_Q))": {
+            "key": "SE_DEG",
+            "label": "°",
+        }
+        "S(A(SE_W))": {
+            "key": "SE_DACU",
+            "label": "˝",
+        }
+        "S(A(SE_T))": {
+            "key": "SE_DDAG",
+            "label": "‡",
+        }
+        "S(A(SE_Y))": {
+            "key": "SE_STIL",
+            "label": "˜",
+        }
+        "S(A(SE_I))": {
+            "key": "SE_DCIR",
+            "label": "ˆ",
+        }
+        "S(A(SE_P))": {
+            "key": "SE_NARP",
+            "label": "∏",
+        }
+        "S(A(SE_ARNG))": {
+            "key": "SE_RNGA",
+            "label": "˚",
+        }
+        "S(A(SE_A))": {
+            "key": "SE_LOZN",
+            "label": "◊",
+        }
+        "S(A(SE_S))": {
+            "key": "SE_NARS",
+            "label": "∑",
+        }
+        "S(A(SE_D))": {
+            "key": "SE_INCR",
+            "label": "∆",
+        }
+        "S(A(SE_F))": {
+            "key": "SE_INTG",
+            "label": "∫",
+        }
+        "S(A(SE_G))": {
+            "key": "SE_MACR",
+            "label": "¯",
+        }
+        "S(A(SE_H))": {
+            "key": "SE_BREV",
+            "label": "˘",
+        }
+        "S(A(SE_J))": {
+            "key": "SE_NOT",
+            "label": "¬",
+        }
+        "S(A(SE_K))": {
+            "key": "SE_MORD",
+            "label": "º",
+        }
+        "S(A(SE_L))": {
+            "key": "SE_FL",
+            "label": "ﬂ",
+        }
+        "S(A(SE_Z))": {
+            "key": "SE_FRSL",
+            "label": "⁄",
+        }
+        "S(A(SE_X))": {
+            "key": "SE_CARN",
+            "label": "ˇ",
+        }
+        "S(A(SE_V))": {
+            "key": "SE_LDAQ",
+            "label": "«",
+        }
+        "S(A(SE_B))": {
+            "key": "SE_RDAQ",
+            "label": "»",
+        }
+        "S(A(SE_N))": {
+            "key": "SE_LDQU",
+            "label": "“",
+        }
+        "S(A(SE_M))": {
+            "key": "SE_RDQU",
+            "label": "”",
+        }
+        "S(A(SE_COMM))": {
+            "key": "SE_DLQU",
+            "label": "„",
+        }
+        "S(A(SE_DOT))": {
+            "key": "SE_MDDT",
+            "label": "·",
+        }
+        "S(A(SE_MINS))": {
+            "key": "SE_MDSH",
+            "label": "—",
+        }
+    }
+}

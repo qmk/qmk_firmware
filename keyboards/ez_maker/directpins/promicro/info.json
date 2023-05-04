@@ -2,8 +2,7 @@
     "manufacturer": "Zach White",
     "keyboard_name": "DirectPins ProMicro",
     "maintainer": "skullydazed",
-    "bootloader": "atmel-dfu",
-    "debounce": 5,
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -23,7 +22,6 @@
             ["B5", "B6"]
         ]
     },
-    "processor": "atmega32u4",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x2320",

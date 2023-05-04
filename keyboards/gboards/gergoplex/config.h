@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Copy and worked on with love from the EZ team
 
 #pragma once
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -38,5 +37,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
-
-#define DEBOUNCE 5

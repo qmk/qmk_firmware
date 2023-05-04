@@ -14,17 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 1
-
-/* Milk default pinout */
-#define DIRECT_PINS { \
-    {D4}, \
-    {C6}  \
-}
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN B6
