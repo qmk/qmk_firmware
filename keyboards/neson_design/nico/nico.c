@@ -17,7 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "nico.h"
+#include "quantum.h"
 #ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
 
