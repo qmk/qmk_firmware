@@ -7,7 +7,7 @@ The *Dactyl Lightcycle* is a variation of the [Dactyl](/keyboards/handwired/dact
 1. Top (number) row removed
 2. Five key thumb cluster; one less than the *Dactyl's* six
 
-This modernise rendition of the *Dactyl Lightcycle* requires two Pro Micro controllers, rather than the *Dactyl's* original implementation of a micro controller and I/O expander.
+This modernised rendition of the *Dactyl Lightcycle* requires two Pro Micro controllers, rather than the *Dactyl's* original implementation of a micro controller and I/O expander.
 
 Keyboard Maintainer: [Matt Aderth](https://github.com/adereth/)  
 Hardware Supported: 2x Pro Micro micro controller, or clone of  
