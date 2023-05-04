@@ -123,6 +123,24 @@
     },
     "led_matrix": {
         "driver": "CKLED2001",
+        "animations": {
+            "none": true,
+            "solid": true,
+            "breathing": true,
+            "band_pinwheel": true,
+            "band_spiral": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "dual_beacon": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_multinexus": true,
+            "solid_splash": true,
+            "wave_left_right": true,
+            "wave_up_down": true,
+            "effect_max": true
+        },
         "layout": [
             {"matrix":[0, 0],  "flags":1, "x":0,   "y":0},
             {"matrix":[0, 1],  "flags":1, "x":21,  "y":0},
