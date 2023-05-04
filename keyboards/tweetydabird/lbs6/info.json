@@ -56,15 +56,15 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-            { "label": "Play", "matrix": [0, 1], "x": 1, "y": 0 },
+            {"label": "Play", "matrix": [0, 1], "x": 1, "y": 0},
 
-            { "label": "F1", "matrix": [1, 0], "x": 0, "y": 1 },
-            { "label": "F2", "matrix": [1, 1], "x": 1, "y": 1 },
-            { "label": "F3", "matrix": [1, 2], "x": 2, "y": 1 },
+            {"label": "F1", "matrix": [1, 0], "x": 0, "y": 1},
+            {"label": "F2", "matrix": [1, 1], "x": 1, "y": 1},
+            {"label": "F3", "matrix": [1, 2], "x": 2, "y": 1},
 
-            { "label": "F4", "matrix": [2, 0], "x": 0, "y": 2 },
-            { "label": "F5", "matrix": [2, 1], "x": 1, "y": 2 },
-            { "label": "F6", "matrix": [2, 2], "x": 2, "y": 2 }
+            {"label": "F4", "matrix": [2, 0], "x": 0, "y": 2},
+            {"label": "F5", "matrix": [2, 1], "x": 1, "y": 2},
+            {"label": "F6", "matrix": [2, 2], "x": 2, "y": 2}
             ]
         }
     }
