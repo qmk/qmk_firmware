@@ -2,12 +2,7 @@
     "manufacturer": "IBM",
     "keyboard_name": "Model M",
     "maintainer": "jhawthorn",
-    "board": "STM32_F103_STM32DUINO",
     "bootloader": "stm32duino",
-    "bootmagic": {
-        "enabled": false
-    },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,
@@ -23,27 +18,12 @@
         "num_lock": "B9",
         "scroll_lock": "B7"
     },
-    "keyboard_folder": "modelh",
-    "keymaps": {},
     "matrix_pins": {
         "cols": ["A10", "A9", "A8", "B15", "B14", "B13", "B12", "B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4", "A3"],
         "ghost": false,
         "rows": ["B6", "B5", "B4", "A15", "B3", "A0", "A2", "A1"]
     },
-    "matrix_size": {
-        "cols": 16,
-        "rows": 8
-    },
-    "mouse_key": {
-        "enabled": false
-    },
-    "parse_errors": [],
-    "parse_warnings": [],
-    "platform": "STM32",
-    "platform_key": "chibios",
     "processor": "STM32F103",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "url": "modelh.club",
     "usb": {
         "device_version": "1.0.0",
@@ -53,9 +33,6 @@
     },
     "layouts": {
         "LAYOUT_fullsize_ansi_wkl": {
-            "c_macro": true,
-            "filename": "keyboards/modelh/modelh.h",
-            "json_layout": true,
             "layout": [
                 { "label": "Esc", "matrix": [0, 2], "w": 1, "x": 0, "y": 0 },
                 { "label": "F1", "matrix": [2, 3], "w": 1, "x": 2, "y": 0 },
@@ -161,9 +138,6 @@
             ]
         },
         "LAYOUT_fullsize_iso_wkl": {
-            "c_macro": true,
-            "filename": "keyboards/modelh/modelh.h",
-            "json_layout": true,
             "layout": [
                 { "label": "Esc", "matrix": [0, 2], "w": 1, "x": 0, "y": 0 },
                 { "label": "F1", "matrix": [2, 3], "w": 1, "x": 2, "y": 0 },
