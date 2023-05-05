@@ -304,7 +304,7 @@ void send_keyboard_report(void) {
         wait_ms(KEYBOARD_MOD_PACKET_DELAY);
     }
 #endif
-#if (KEYBOARD_GENERAL_PACKET_DELAY > 0)
+#if ((KEYBOARD_GENERAL_PACKET_DELAY) > 0)
     // Wait for a fixed amount of time to allow the host to process the report
     wait_ms(KEYBOARD_GENERAL_PACKET_DELAY);
 #endif
