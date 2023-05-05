@@ -115,21 +115,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-#if defined(KEYBOARD_1upkeyboards_pi40_v1_0) && defined(RGBLIGHT_ENABLE)
-        case WM:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_WM);
-                rgblight_sethsv_noeeprom(HSV_WHITE);
-            }
-            break;
-
-        case QW:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QW);
-                rgblight_sethsv_noeeprom(HSV_MAGENTA);
-            }
-            break;
-
+#if defined(RGBLIGHT_ENABLE)
         case RGB1:
             if (record->event.pressed) {
                 rgblight_sethsv_noeeprom(HSV_BLUE);

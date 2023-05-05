@@ -3,7 +3,7 @@
 
 #pragma once
 
-#    define TAPPING_TERM 170
+#    define TAPPING_TERM 160 // 30APR23 was 170
 #    define TAPPING_TERM_PER_KEY
 #    define QUICK_TAP_TERM TAPPING_TERM / 2
 #    define QUICK_TAP_TERM_PER_KEY

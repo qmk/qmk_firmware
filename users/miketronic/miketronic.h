@@ -45,16 +45,18 @@ enum layer_names {
 #define L_ALT   MT(MOD_RALT, KC_L)      // Tap for "L", hold for Alt
 #define TBSHFT  MT(MOD_LSFT, KC_TAB)    // Tap for Tab, hold for Shift
 #define SLSHFT  MT(MOD_RSFT, KC_SLSH)   // Tap for Slash, hold for Shift
+#define SFT_ENT RSFT_T(KC_ENT)          // Tap for Enter, hold for Shift
+#define OSSFT   OSM(MOD_LSFT)           // One shot left Shift
 
 // MISC
 #define CALTDEL LCTL(LALT(KC_DEL))	    // Ctrl Alt Del
-#define TSKMGR LCTL(LSFT(KC_ESC))	    // Task Manager
-#define CLIP LCTL(LALT(KC_Q))	    	// Clipboard (Ditto)
-#define SS LCTL(LALT(KC_G))		        // Greenshot region
-#define NUM  LSFT(KC_3)
-#define AT   LSFT(KC_2)
-#define COPY LCTL(KC_C)
-#define PASTE LCTL(KC_V)
-#define ____ KC_TRNS
-#define XXXX KC_NO
+#define TSKMGR  LCTL(LSFT(KC_ESC))	    // Task Manager
+#define CLIP    LCTL(LALT(KC_Q))	    	// Clipboard (Ditto)
+#define SS      LCTL(LALT(KC_G))		    // Greenshot region
+#define NUM     LSFT(KC_3)
+#define AT      LSFT(KC_2)
+#define COPY    LCTL(KC_C)
+#define PASTE   LCTL(KC_V)
+#define ____    KC_TRNS
+#define XXXX    KC_NO
 #define XXXXXXX KC_NO
