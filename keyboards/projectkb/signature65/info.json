@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Signature65", 
+    "keyboard_name": "Signature65",
     "manufacturer": "Project Keyboard",
-    "url": "https://store.projectkeyboard.com", 
-    "maintainer": "projectkeyboard", 
+    "url": "https://store.projectkeyboard.com",
+    "maintainer": "projectkeyboard",
     "usb": {
         "vid": "0x0159",
         "pid": "0x0165",

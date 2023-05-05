@@ -1,12 +1,12 @@
 {
-    "keyboard_name": "KBDPAD-MKII", 
+    "keyboard_name": "KBDPAD-MKII",
     "manufacturer": "KBDfans",
-    "url": "https://kb.ai03.me/projects/kbdpad-mkii.html", 
-    "maintainer": "ai03", 
+    "url": "https://kb.ai03.me/projects/kbdpad-mkii.html",
+    "maintainer": "ai03",
     "usb": {
-    	"vid": "0xA103",
-    	"pid": "0x0006",
-    	"device_version": "0.0.1"
+        "vid": "0xA103",
+        "pid": "0x0006",
+        "device_version": "0.0.1"
     },
     "matrix_pins": {
         "cols": ["C4", "C5", "B3", "B2"],
@@ -14,16 +14,16 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
-    	"pin": "B7",
-    	"levels": 5,
-    	"breathing": true
+        "pin": "B7",
+        "levels": 5,
+        "breathing": true
     },
     "ws2812": {
         "pin": "B5"
     },
     "indicators": {
-    	"num_lock": "B4",
-    	"on_state": 0
+        "num_lock": "B4",
+        "on_state": 0
     },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",

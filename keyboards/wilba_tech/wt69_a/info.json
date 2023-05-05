@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "WT69-A", 
+    "keyboard_name": "WT69-A",
     "manufacturer": "wilba.tech",
-    "url": "https://wilba.tech", 
-    "maintainer": "Wilba", 
+    "url": "https://wilba.tech",
+    "maintainer": "Wilba",
     "usb": {
         "vid": "0x6582",
         "pid": "0x069A",

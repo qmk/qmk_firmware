@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Retropad", 
+    "keyboard_name": "Retropad",
     "manufacturer": "Swiftrax",
-    "url": "https://github.com/swiftrax", 
-    "maintainer": "swiftrax", 
+    "url": "https://github.com/swiftrax",
+    "maintainer": "swiftrax",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xEB0C",

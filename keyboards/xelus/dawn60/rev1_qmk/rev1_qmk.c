@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev1_qmk.h"
+#include "quantum.h"
 
 #include "i2c_master.h"
 #include "led_tables.h"
