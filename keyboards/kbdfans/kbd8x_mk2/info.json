@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "KBD8X-MKII", 
+    "keyboard_name": "KBD8X-MKII",
     "manufacturer": "KBDfans",
-    "url": "https://kb.ai03.me/projects/kbd8x-mkii.html", 
-    "maintainer": "ai03", 
+    "url": "https://kb.ai03.me/projects/kbd8x-mkii.html",
+    "maintainer": "ai03",
     "usb": {
         "vid": "0xA103",
         "pid": "0x0005",

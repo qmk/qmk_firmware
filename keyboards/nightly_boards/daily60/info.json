@@ -1,11 +1,11 @@
 {
-    "keyboard_name": "Daily60", 
+    "keyboard_name": "Daily60",
     "manufacturer": "DeskDaily",
     "maintainer": "DeskDaily",
     "usb": {
-    	"vid": "0xD812",
-    	"pid": "0x0024",
-    	"device_version": "0.0.1"
+        "vid": "0xD812",
+        "pid": "0x0024",
+        "device_version": "0.0.1"
     },
     "matrix_pins": {
         "cols": ["GP22", "GP0", "GP1", "GP2", "GP5", "GP7", "GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15"],

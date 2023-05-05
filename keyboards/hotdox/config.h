@@ -34,8 +34,6 @@
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
 
-#define USB_MAX_POWER_CONSUMPTION 500
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

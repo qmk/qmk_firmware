@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Noon", 
+    "keyboard_name": "Noon",
     "manufacturer": "ZTBoards",
-    "url": "ztb.mx", 
-    "maintainer": "phlopsuh", 
+    "url": "ztb.mx",
+    "maintainer": "phlopsuh",
     "usb": {
         "vid": "0x0927",
         "pid": "0x0002",

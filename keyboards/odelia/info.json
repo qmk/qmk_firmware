@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Odelia", 
+    "keyboard_name": "Odelia",
     "manufacturer": "InterpolKeeb",
-    "url": "", 
-    "maintainer": "kb-elmo", 
+    "url": "",
+    "maintainer": "kb-elmo",
     "usb": {
         "vid": "0x6BE3",
         "pid": "0xA129",

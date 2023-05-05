@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "WT75-B", 
+    "keyboard_name": "WT75-B",
     "manufacturer": "wilba.tech",
-    "url": "https://wilba.tech", 
-    "maintainer": "Wilba", 
+    "url": "https://wilba.tech",
+    "maintainer": "Wilba",
     "usb": {
         "vid": "0x6582",
         "pid": "0x075B",
