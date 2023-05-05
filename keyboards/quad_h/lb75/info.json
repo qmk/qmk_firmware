@@ -1,12 +1,12 @@
 {
-    "keyboard_name": "LB75", 
+    "keyboard_name": "LB75",
     "manufacturer": "QUADH",
-    "url": "", 
-    "maintainer": "ai03", 
+    "url": "",
+    "maintainer": "ai03",
     "usb": {
-    	"vid": "0xA103",
-    	"pid": "0x0007",
-    	"device_version": "0.0.1"
+        "vid": "0xA103",
+        "pid": "0x0007",
+        "device_version": "0.0.1"
     },
     "matrix_pins": {
         "cols": ["D2", "D1", "D0", "F1", "F4", "F5", "F6", "F7"],
@@ -18,7 +18,7 @@
         "levels": 5
     },
     "ws2812": {
-    	"pin": "B0"
+        "pin": "B0"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

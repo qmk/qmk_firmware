@@ -48,7 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 /* USB config */
-#define USB_MAX_POWER_CONSUMPTION 100
 #define USB_COUNT_SOF 0
 #define USB_INTR_CFG_SET (1 << ISC01)
 #define USB_INTR_ENABLE_BIT INT0

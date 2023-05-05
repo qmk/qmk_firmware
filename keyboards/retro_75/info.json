@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Retro75", 
+    "keyboard_name": "Retro75",
     "manufacturer": "PheonixStarr",
-    "url": "", 
-    "maintainer": "zvecr", 
+    "url": "",
+    "maintainer": "zvecr",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x5275",

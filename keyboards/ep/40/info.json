@@ -1,7 +1,7 @@
 {
-    "keyboard_name":"ep40",
+    "keyboard_name": "ep40",
     "manufacturer": "Elliot Powell",
-    "maintainer":"e11i0t23",
+    "maintainer": "e11i0t23",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x4040",

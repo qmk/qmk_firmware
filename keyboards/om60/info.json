@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "OM60", 
+  "keyboard_name": "OM60",
   "manufacturer": "jun10000",
-  "url": "https://github.com/jun10000", 
-  "maintainer": "jun10000", 
+  "url": "https://github.com/jun10000",
+  "maintainer": "jun10000",
   "usb": {
       "vid": "0x6A6E",
       "pid": "0x0001",

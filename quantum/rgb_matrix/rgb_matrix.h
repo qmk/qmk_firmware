@@ -28,6 +28,8 @@
 #    include "is31fl3731.h"
 #elif defined(IS31FL3733)
 #    include "is31fl3733.h"
+#elif defined(IS31FL3736)
+#    include "is31fl3736.h"
 #elif defined(IS31FL3737)
 #    include "is31fl3737.h"
 #elif defined(IS31FL3741)

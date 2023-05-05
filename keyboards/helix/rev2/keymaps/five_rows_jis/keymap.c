@@ -43,7 +43,6 @@ enum custom_keycodes {
 #define ML_RAIE MO(_RAI_E)
 #define ML_ADJ  MO(_ADJUST)
 
-#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Qwerty JIS Normal
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -192,10 +191,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 };
-
-#else
-#error "undefined keymaps"
-#endif
 
 #if defined(SSD1306OLED) || defined(OLED_ENABLE)
 char keylog[24] = {};
