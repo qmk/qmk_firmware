@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Wang V2", 
+    "keyboard_name": "Wang V2",
     "manufacturer": "Ocean",
-    "url": "", 
-    "maintainer": "Ocean", 
+    "url": "",
+    "maintainer": "Ocean",
     "usb": {
         "vid": "0x9624",
         "pid": "0x0004",

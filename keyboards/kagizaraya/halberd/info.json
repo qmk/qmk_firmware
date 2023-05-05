@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Halberd", 
+    "keyboard_name": "Halberd",
     "manufacturer": "Kagizaraya",
-    "url": "", 
-    "maintainer": "ka2hiro", 
+    "url": "",
+    "maintainer": "ka2hiro",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

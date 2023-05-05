@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "California", 
+    "keyboard_name": "California",
     "manufacturer": "TKC",
-    "url": "", 
-    "maintainer": "TerryMathews", 
+    "url": "",
+    "maintainer": "TerryMathews",
     "usb": {
         "vid": "0x544B",
         "pid": "0x0009",

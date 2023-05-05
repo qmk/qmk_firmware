@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Solheim68", 
+    "keyboard_name": "Solheim68",
     "manufacturer": "Evyd13",
-    "url": "https://github.com/evyd13/solheim68", 
-    "maintainer": "evyd13", 
+    "url": "https://github.com/evyd13/solheim68",
+    "maintainer": "evyd13",
     "usb": {
         "vid": "0x4705",
         "pid": "0x7BFF",

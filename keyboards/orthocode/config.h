@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 #define TAP_CODE_DELAY 10
 
   #define RGBLED_NUM 10  /*Change for the number of leds on the strip you attach*/

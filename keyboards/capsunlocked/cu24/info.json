@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "CU24", 
+    "keyboard_name": "CU24",
     "manufacturer": "Yiancar/CapsUnlocked",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",
