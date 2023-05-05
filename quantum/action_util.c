@@ -297,7 +297,7 @@ void send_keyboard_report(void) {
     }
 #endif
 
-#if (KEYBOARD_MOD_PACKET_DELAY > 0)
+#if ((KEYBOARD_MOD_PACKET_DELAY) > 0)
     // If the mods are changing...
     if (keyboard_report->mods != old_mods) {
         // Wait for a fixed amount of time to allow the host to process the report
