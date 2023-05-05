@@ -82,39 +82,13 @@ void matrix_init_user(void) {
   setPinOutput(LED_4_PIN);
 }
 
-void matrix_scan_user(void) {
-  // Do matrix scanning
-
-  // Get the highest active layer
-  uint32_t layer = get_highest_layer(layer_state);
-
-  // Turn off all LEDs first
-  writePinLow(LED_0_PIN);
-  writePinLow(LED_1_PIN);
-  writePinLow(LED_2_PIN);
-  writePinLow(LED_3_PIN);
-  writePinLow(LED_4_PIN);
-
-  // Turn on the LED for the active layer
-  switch (layer) {
-    case 0:
-      writePinHigh(LED_1_PIN);
-      break;
-    case 1:
-      writePinHigh(LED_2_PIN);
-      break;
-    case 2:
-      writePinHigh(LED_3_PIN);
-      break;
-    case 3:
-      writePinHigh(LED_4_PIN);
-      break;
-    case 4:
-      writePinHigh(LED_0_PIN);
-      break;
-    default:
-      break;
-  }
+layer_state_t layer_state_set_user(layer_state_t state) {
+    writePin(LED_0_PIN, layer_state_cmp(state, 0));
+    writePin(LED_1_PIN, layer_state_cmp(state, 1));
+    writePin(LED_2_PIN, layer_state_cmp(state, 2));
+    writePin(LED_3_PIN, layer_state_cmp(state, 3));
+    writePin(LED_4_PIN, layer_state_cmp(state, 4));
+    return state;
 }
 
 
