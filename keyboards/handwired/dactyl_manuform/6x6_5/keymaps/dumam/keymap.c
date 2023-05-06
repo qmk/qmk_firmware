@@ -18,7 +18,7 @@ enum custom_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_6x6_5(
+  [_QWERTY] = LAYOUT(
 
     KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,                          KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,
     KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,                          KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,
@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_LCTL,KC_LALT,          KC_RALT,KC_RCTL
   ),
 
-  [_CONF] = LAYOUT_6x6_5(
+  [_CONF] = LAYOUT(
 
     RESET__,XXXXXXX,XXXXXXX,XXXXXXX,KC_SLEP,KC_WAKE,                          XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,RESET__,
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                          XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             _______,_______,          _______,_______
   ),
 
-  [_MOVE] = LAYOUT_6x6_5(
+  [_MOVE] = LAYOUT(
 
     RESET__,XXXXXXX,XXXXXXX,KC_MPRV,KC_MPLY,KC_MPLY,                          KC_MUTE,KC_VOLD,KC_VOLU,XXXXXXX,XXXXXXX,RESET__,
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                          XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
