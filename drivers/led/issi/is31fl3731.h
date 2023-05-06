@@ -19,6 +19,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 #include "progmem.h"
 
 typedef struct is31_led {

@@ -1,12 +1,12 @@
 {
-    "keyboard_name": "Conde60", 
+    "keyboard_name": "Conde60",
     "manufacturer": "DeskDaily",
-    "url": "", 
-    "maintainer": "DeskDaily", 
+    "url": "",
+    "maintainer": "DeskDaily",
     "usb": {
-    	"vid": "0xD812",
-    	"pid": "0x0015",
-    	"device_version": "0.0.1"
+        "vid": "0xD812",
+        "pid": "0x0015",
+        "device_version": "0.0.1"
     },
     "matrix_pins": {
         "cols": ["B0", "B3", "B7", "B6", "C6", "C7", "F7", "F6", "F5", "D4", "D6", "D7", "B4", "B5"],
@@ -14,7 +14,7 @@
     },
     "diode_direction": "COL2ROW",
     "ws2812": {
-    	"pin": "D5"
+        "pin": "D5"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

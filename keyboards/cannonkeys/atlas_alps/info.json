@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Atlas", 
+    "keyboard_name": "Atlas",
     "manufacturer": "CannonKeys",
-    "url": "https://geekhack.org/index.php?topic=106683.msg2975081#msg2975081", 
-    "maintainer": "Nasp", 
+    "url": "https://geekhack.org/index.php?topic=106683.msg2975081#msg2975081",
+    "maintainer": "Nasp",
     "usb": {
         "vid": "0xCA04",
         "pid": "0xA7A5",

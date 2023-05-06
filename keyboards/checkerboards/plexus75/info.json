@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Plexus75", 
+    "keyboard_name": "Plexus75",
     "manufacturer": "Nasp",
-    "url": "", 
-    "maintainer": "npspears", 
+    "url": "",
+    "maintainer": "npspears",
     "usb": {
         "vid": "0x7070",
         "pid": "0x5338",

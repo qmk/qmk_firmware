@@ -1,7 +1,7 @@
 // Copyright 2022 Simon Benezan (@Frooastside)
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "walnut.h"
+#include "quantum.h"
 
 #if defined(RGB_MATRIX_ENABLE)
 
