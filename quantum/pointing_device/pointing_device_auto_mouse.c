@@ -20,7 +20,11 @@
 #    include "pointing_device_auto_mouse.h"
 
 /* local data structure for tracking auto mouse */
-static auto_mouse_context_t auto_mouse_context = {.config.layer = (uint8_t)AUTO_MOUSE_DEFAULT_LAYER};
+static auto_mouse_context_t auto_mouse_context = {
+    .config.layer    = (uint8_t)(AUTO_MOUSE_DEFAULT_LAYER),
+    .config.timeout  = (uint16_t)(AUTO_MOUSE_TIME),
+    .config.debounce = (uint8_t)(AUTO_MOUSE_DEBOUNCE),
+};
 
 /* local functions */
 static bool is_mouse_record(uint16_t keycode, keyrecord_t* record);
@@ -60,6 +64,24 @@ bool get_auto_mouse_enable(void) {
  */
 uint8_t get_auto_mouse_layer(void) {
     return auto_mouse_context.config.layer;
+}
+
+/**
+ * @brief Get the current timeout to turn off mouse layer
+ *
+ * @return uint16_t timeout in ms
+ */
+uint16_t get_auto_mouse_timeout(void) {
+    return auto_mouse_context.config.timeout;
+}
+
+/**
+ * @brief Get the auto mouse debouncing timeout
+ *
+ * @return uint8_t
+ */
+uint8_t get_auto_mouse_debounce(void) {
+    return auto_mouse_context.config.debounce;
 }
 
 /**
@@ -111,6 +133,28 @@ void set_auto_mouse_layer(uint8_t layer) {
     // skip if unchanged
     if (auto_mouse_context.config.layer == layer) return;
     auto_mouse_context.config.layer = layer;
+    auto_mouse_reset();
+}
+
+/**
+ * @brief Changes the timeout for the mouse auto layer to be disabled
+ *
+ * @param timeout
+ */
+void set_auto_mouse_timeout(uint16_t timeout) {
+    if (auto_mouse_context.config.timeout == timeout) return;
+    auto_mouse_context.config.timeout = timeout;
+    auto_mouse_reset();
+}
+
+/**
+ * @brief Set the auto mouse key debounce
+ *
+ * @param debounce
+ */
+void set_auto_mouse_debounce(uint8_t debounce) {
+    if (auto_mouse_context.config.debounce == debounce) return;
+    auto_mouse_context.config.debounce = debounce;
     auto_mouse_reset();
 }
 
@@ -181,7 +225,7 @@ __attribute__((weak)) bool auto_mouse_activation(report_mouse_t mouse_report) {
  */
 void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
     // skip if disabled, delay timer running, or debounce
-    if (!(AUTO_MOUSE_ENABLED) || timer_elapsed(auto_mouse_context.timer.active) <= AUTO_MOUSE_DEBOUNCE || timer_elapsed(auto_mouse_context.timer.delay) <= AUTO_MOUSE_DELAY) {
+    if (!(AUTO_MOUSE_ENABLED) || timer_elapsed(auto_mouse_context.timer.active) <= auto_mouse_context.config.debounce || timer_elapsed(auto_mouse_context.timer.delay) <= AUTO_MOUSE_DELAY) {
         return;
     }
     // update activation and reset debounce
@@ -192,7 +236,7 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
         if (!layer_state_is((AUTO_MOUSE_TARGET_LAYER))) {
             layer_on((AUTO_MOUSE_TARGET_LAYER));
         }
-    } else if (layer_state_is((AUTO_MOUSE_TARGET_LAYER)) && timer_elapsed(auto_mouse_context.timer.active) > AUTO_MOUSE_TIME) {
+    } else if (layer_state_is((AUTO_MOUSE_TARGET_LAYER)) && timer_elapsed(auto_mouse_context.timer.active) > auto_mouse_context.config.timeout) {
         layer_off((AUTO_MOUSE_TARGET_LAYER));
         auto_mouse_context.timer.active = 0;
     }
