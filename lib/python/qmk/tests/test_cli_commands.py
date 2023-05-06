@@ -168,7 +168,7 @@ def test_json2c_wrong_json():
 
 
 def test_json2c_no_json():
-    result = check_subcommand('json2c', 'keyboards/handwired/pytest/config.h')
+    result = check_subcommand('json2c', 'keyboards/handwired/pytest/basic/keymaps/default/keymap.c')
     check_returncode(result, [1])
     assert 'Invalid JSON encountered' in result.stdout
 
