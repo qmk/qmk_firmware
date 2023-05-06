@@ -33,8 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // for SH1106: https://www.velleman.eu/downloads/29/infosheets/sh1106_datasheet.pdf
 // for SH1107: https://www.displayfuture.com/Display/datasheet/controller/SH1107.pdf
 
-#include "progmem.h"
-
 // Fundamental Commands
 #define CONTRAST 0x81
 #define DISPLAY_ALL_ON 0xA5
@@ -192,7 +190,9 @@ uint16_t oled_update_timeout;
 // Transmit/Write Funcs.
 __attribute__((weak)) bool oled_cmd(const uint8_t *data, uint16_t size) {
 #if defined(OLED_TRANSPORT_SPI)
-    spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR);
+    if (!spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR)) {
+        return false;
+    }
     // Command Mode
     writePinLow(OLED_DC_PIN);
     // Send the commands
@@ -212,22 +212,23 @@ __attribute__((weak)) bool oled_cmd(const uint8_t *data, uint16_t size) {
 __attribute__((weak)) bool oled_cmd_P(const uint8_t *data, uint16_t size) {
 #if defined(__AVR__)
 #    if defined(OLED_TRANSPORT_SPI)
-    spi_status_t status = spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR);
+    if (!spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR)) {
+        return false;
+    }
+    spi_status_t status = SPI_STATUS_SUCCESS;
     // Command Mode
     writePinLow(OLED_DC_PIN);
     // Send the commands
-    for (uint16_t i = 0; i < size && status >= 0; i++) {
-        status = spi_write(pgm_read_byte((const char *)data++)));
-        if (status) break;
+    for (uint16_t i = 1; i < size && status >= 0; i++) {
+        status = spi_write(pgm_read_byte((const char *)&data[i])));
     }
     spi_stop();
-    return (status == SPI_STATUS_SUCCESS);
+    return (status >= 0);
 #    elif defined(OLED_TRANSPORT_I2C)
     i2c_status_t status = i2c_start((OLED_DISPLAY_ADDRESS << 1) | I2C_WRITE, OLED_I2C_TIMEOUT);
 
     for (uint16_t i = 0; i < size && status >= 0; i++) {
         status = i2c_write(pgm_read_byte((const char *)data++), OLED_I2C_TIMEOUT);
-        if (status) break;
     }
 
     i2c_stop();
@@ -242,7 +243,7 @@ __attribute__((weak)) bool oled_cmd_P(const uint8_t *data, uint16_t size) {
 __attribute__((weak)) bool oled_write_reg(const uint8_t *data, uint16_t size) {
 #if defined(OLED_TRANSPORT_SPI)
     spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR);
-    // Command Mode
+    // Data Mode
     writePinHigh(OLED_DC_PIN);
     // Send the commands
     if (spi_transmit(data, size) != SPI_STATUS_SUCCESS) {

@@ -203,6 +203,7 @@ These configuration options should be placed in `config.h`. Example:
 |---------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------|
 |`OLED_DC_PIN`              | Required        |The pin used for the DC connection of the OLED Display.                                                                   |
 |`OLED_CS_PIN`              | Required        |The pin used for the CS connection of the OLED Display.                                                                   |
+|`OLED_RST_PIN`             | *Not defined*   |The pin used for the RST connection of the OLED Display (may be left undefined if the RST pin is not connected).          |
 |`OLED_SPI_MODE`            |`3` (default)    |The SPI Mode for the OLED Display (not typically changed).                                                                |
 |`OLED_SPI_DIVISOR`         |`2` (default)    |The SPI Multiplier to use for the OLED Display.                                                                           |
 
