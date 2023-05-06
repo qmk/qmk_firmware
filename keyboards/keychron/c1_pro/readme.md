@@ -16,7 +16,7 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make keychron/c1/ansi/rgb:default:flash
-    make keychron/c1/ansi/rbg:default:flash
+    make keychron/c1/ansi/white:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 
