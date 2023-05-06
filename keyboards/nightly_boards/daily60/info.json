@@ -14,6 +14,15 @@
     "diode_direction": "COL2ROW",
     "processor": "RP2040",
     "bootloader": "rp2040",
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan",
+        "60_tsangan_hhkb",
+        "60_iso",
+        "60_iso_split_bs_rshift",
+        "60_iso_tsangan"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
