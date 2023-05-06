@@ -4,7 +4,7 @@
     "author": "Duncan Sutherland",
     "keyboard": "handwired/dactyl_manuform/5x7_5",
     "keymap": "default",
-    "layout": "LAYOUT_5x7_5",
+    "layout": "LAYOUT",
     "layers": [
         [
             "KC_ESC",
