@@ -202,13 +202,13 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Undo | Cut  | Copy | Pste | Redo |    |      | Spc  | Tab  |      | App  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      | Bpsc | Ent  |    |      |LyrTap|      |
+*                 | Tab  | Bpsc | Ent  |    |      |LyrTap|      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ___________________NAV_L1__________________        KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
 #   define ___________________NAV_L2__________________        KC_A,    KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
 #   define ___________________NAV_L3__________________        __________________UCCPR_L__________________
-#   define          __________NAV_L4_________                 ___x___, KC_BSPC, KC_ENT
+#   define          __________NAV_L4_________                 KC_TAB,  KC_BSPC, KC_ENT
 
 #   define ___________________NAV_R1__________________        KC_INS,  ___x___, ___x___, ___x___, ___x___
 #   define ___________________NAV_R2__________________        KC_DEL,  _____________SCAG_MODS____________

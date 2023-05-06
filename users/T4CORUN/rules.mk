@@ -5,7 +5,7 @@ SRC += $(USER_PATH)/T4CORUN.c \
 		$(USER_PATH)/tapping.c \
 		$(USER_PATH)/processor.c
 
-TAP_DANCE_ENABLE ?= yes
+TAP_DANCE_ENABLE ?= no
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 	SRC += $(USER_PATH)/tap_dances.c
 endif

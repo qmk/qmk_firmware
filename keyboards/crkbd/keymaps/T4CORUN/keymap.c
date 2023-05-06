@@ -99,6 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+/*
 void suspend_wakeup_init_user(void) {
   #ifdef OLED_ENABLE
     oled_on();
@@ -118,3 +119,4 @@ void suspend_power_down_user(void) {
     rgb_matrix_set_suspend_state(true);
   #endif
 }
+*/

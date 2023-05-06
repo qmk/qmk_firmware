@@ -81,15 +81,17 @@ void render_layer_state(void) {
   oled_write_P(PSTR(OLED_RENDER_LAYER_NAME), false);
 
   oled_write_P(PSTR(OLED_RENDER_LAYER_BASE), layer_state_is(0));
+#if defined(GAMELAYER_ENABLE)
+  oled_write_P(PSTR(OLED_RENDER_LAYER_NUMBER), layer_state_is(_GAMING_NUM) || layer_state_is(_NUMBER));
+#else
   oled_write_P(PSTR(OLED_RENDER_LAYER_NUMBER), layer_state_is(_NUMBER));
+#endif //GAMELAYER_ENABLE  
   oled_write_P(PSTR(OLED_RENDER_LAYER_NAVIGATION), layer_state_is(_NAVIGATION));
   oled_write_P(PSTR(OLED_RENDER_LAYER_FUNCTION), layer_state_is(_FUNCTION));
   oled_write_P(PSTR(OLED_RENDER_LAYER_MOUSE), layer_state_is(_MOUSE));
   oled_write_P(PSTR(OLED_RENDER_LAYER_ADJUST), layer_state_is(_ADJUST));
 
-#if defined(GAMELAYER_ENABLE)
-  oled_write_P(PSTR(OLED_RENDER_LAYER_NUMBER), layer_state_is(_GAMING_NUM));
-#endif //GAMELAYER_ENABLE  
+
 }
 
 void render_keylock_status(uint8_t led_usb_state) {
