@@ -16,8 +16,11 @@
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_tkl_f13_ansi_tsangan"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
 
