@@ -5,5 +5,5 @@
 
 // #define DYNAMIC_KEYMAP_LAYER_COUNT 7
 
-#define ENCODERS_CW_KEY  { { 0, 13 }}
-#define ENCODERS_CCW_KEY { { 0, 14 }}
+// #define ENCODERS_CW_KEY  { { 0, 13 }}
+// #define ENCODERS_CCW_KEY { { 0, 14 }}

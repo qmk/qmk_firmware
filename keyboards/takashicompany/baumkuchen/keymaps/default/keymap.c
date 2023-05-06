@@ -9,7 +9,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+bool encoder_update_user(uint8_t index, bool clockwise) {
 
+    if (clockwise) {
+        tap_code(KC_N);
+    } else {
+        tap_code(KC_M);
+    }
+
+    return true;
+}
+
+/*
 //------------------------------------------------------------------------------
 // Rotary Encoder
 //------------------------------------------------------------------------------
@@ -50,3 +61,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     encoder_action_register(index, clockwise);
     return true;
 }
+*/
