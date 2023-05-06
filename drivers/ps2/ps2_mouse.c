@@ -168,6 +168,7 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate) {
 #define X_IS_OVF (mouse_report->buttons & (1 << PS2_MOUSE_X_OVFLW))
 #define Y_IS_OVF (mouse_report->buttons & (1 << PS2_MOUSE_Y_OVFLW))
 static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report) {
+#ifndef MOUSE_EXTENDED_REPORT
     // PS/2 mouse data is '9-bit integer'(-256 to 255) which is comprised of sign-bit and 8-bit value.
     // bit: 8    7 ... 0
     //      sign \8-bit/
@@ -177,6 +178,11 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
     // This converts PS/2 data into HID value. Use only -127-127 out of PS/2 9-bit.
     mouse_report->x = X_IS_NEG ? ((!X_IS_OVF && -127 <= mouse_report->x && mouse_report->x <= -1) ? mouse_report->x : -127) : ((!X_IS_OVF && 0 <= mouse_report->x && mouse_report->x <= 127) ? mouse_report->x : 127);
     mouse_report->y = Y_IS_NEG ? ((!Y_IS_OVF && -127 <= mouse_report->y && mouse_report->y <= -1) ? mouse_report->y : -127) : ((!Y_IS_OVF && 0 <= mouse_report->y && mouse_report->y <= 127) ? mouse_report->y : 127);
+#else
+    // Sign extend if negative, otherwise leave positive 8-bits as-is
+    mouse_report->x = X_IS_NEG ? (mouse_report->x | ~0xFF) : mouse_report->x;
+    mouse_report->y = Y_IS_NEG ? (mouse_report->y | ~0xFF) : mouse_report->y;
+#endif
 
 #ifdef PS2_MOUSE_INVERT_BUTTONS
     // swap left & right buttons
@@ -197,8 +203,8 @@ static inline void ps2_mouse_convert_report_to_hid(report_mouse_t *mouse_report)
 #endif
 
 #ifdef PS2_MOUSE_ROTATE
-    int8_t x = mouse_report->x;
-    int8_t y = mouse_report->y;
+    mouse_xy_report_t x = mouse_report->x;
+    mouse_xy_report_t y = mouse_report->y;
 #    if PS2_MOUSE_ROTATE == 90
     mouse_report->x = y;
     mouse_report->y = -x;
