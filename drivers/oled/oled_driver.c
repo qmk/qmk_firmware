@@ -136,9 +136,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_CMD 0x00
 #define I2C_DATA 0x40
 
-#undef ARRAY_SIZE
-#define ARRAY_SIZE(arr) sizeof(arr) / sizeof(arr[0])
-
 #define HAS_FLAGS(bits, flags) ((bits & flags) == flags)
 
 // Display buffer's is the same as the OLED memory layout
