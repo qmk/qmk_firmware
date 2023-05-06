@@ -1,36 +1,27 @@
-# Included Keyboards
+# DT40
 
-QMK runs on a diverse range of keyboards. Some of these keyboards are well maintained and see constant community contributions, while others are part of the repository for historical reasons.
+![qk196](imgur.com image replace me!)
 
-## Official QMK Keyboards
+*A short description of the keyboard/project*
 
-### Ortholinear Keyboards - Jack Humbert
+* Keyboard Maintainer: [linlin](https://github.com/yourusername)
+* Hardware Supported: *The PCBs, controllers supported*
+* Hardware Availability: *Links to where you can find this hardware*
 
-What makes OLKB keyboards shine is a combo of lean aesthetics, compact size, and killer tactile feel. These are available through [olkb.com](http://olkb.com) as well as through [Massdrop](http://massdrop.com) from time to time, as easy to assemble kits.
+Make example for this keyboard (after setting up your build environment):
 
-* [Planck](/keyboards/planck/) &mdash; A 40% DIY powerhouse of customizability and modification capability. It's a lean, mean, typing machine.
-* [Preonic](/keyboards/preonic/) &mdash; Like the Planck, but bigger. 50%.
-* [Atomic](/keyboards/atomic/) &mdash; Imagine the size of the Planck. Now imagine the size of the Preonic. Now imagine _bigger_. That is the Atomic. A 60% keyboard.
+    make qk196:default
 
-### Clueboard - Zach White
+Flashing example for this keyboard:
 
-Designed and built in Felton, CA, Clueboards keyboard emphasize quality and locally sourced components.
+    make qk196:default:flash
 
-* [Clueboard](/keyboards/clueboard/66/) &mdash; The 66% custom keyboard.
-* [Cluecard](/keyboards/clueboard/card/) &mdash; A small board to help you hack on QMK.
-* [Cluepad](/keyboards/clueboard/17/) &mdash; A mechanical numpad with QMK superpowers.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-### Moonlander, ErgoDox EZ and Planck EZ - ZSA Technology Labs
+## Bootloader
 
-[ZSA Technology Labs](https://zsa.io) maintains its own [fork of QMK](https://github.com/zsa/qmk_firmware) which feeds its [configurator](https://configure.zsa.io), for stability and legal purposes. The ZSA boards are:
+Enter the bootloader in 3 ways:
 
-* [Moonlander Mark I](/keyboards/moonlander/) &mdash; A next-gen split, ergonomic keyboard with an active left side, USB type C, integrated wrist rest, and a thumb cluster that can move.
-* [ErgoDox EZ](/keyboards/ergodox_ez/) &mdash; A powerful split mechanical keyboard.
-* [Planck EZ](/keyboards/planck/ez) &mdash; A 40% DIY powerhouse of customizability and modification capability. It's a lean, mean, typing machine, which ships fully assembled with a two-year warranty.
-
-
-## Community-supported QMK Keyboards
-
-These keyboards are part of the QMK repository, but their manufacturers are not official maintainers of the repository.
-
-Since there are too many to list here and keep updated, please see the folder listing instead.
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `RESET` if it is available
