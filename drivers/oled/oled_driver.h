@@ -380,8 +380,6 @@ void oled_write_ln(const char *data, bool invert);
 // Useful for moving the screen in preparation for new drawing
 void oled_pan(bool left);
 
-void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_start, uint16_t x_end);
-
 // Returns a pointer to the requested start index in the buffer plus remaining
 // buffer length as struct
 oled_buffer_reader_t oled_read_raw(uint16_t start_index);
