@@ -240,7 +240,7 @@ __attribute__((weak)) bool oled_cmd_P(const uint8_t *data, uint16_t size) {
 #endif
 }
 
-__attribute__((weak)) bool oled_write_reg(const uint8_t *data, uint16_t size) {
+__attribute__((weak)) bool oled_data(const uint8_t *data, uint16_t size) {
 #if defined(OLED_TRANSPORT_SPI)
     spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR);
     // Data Mode
@@ -489,7 +489,7 @@ void oled_render(void) {
 
         if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
             // Send render data chunk as is
-            if (!oled_write_reg(&oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE)) {
+            if (!oled_data(&oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE)) {
                 print("oled_render data failed\n");
                 return;
             }
@@ -506,7 +506,7 @@ void oled_render(void) {
 
 #if OLED_IC_HAS_HORIZONTAL_MODE
             // Send render data chunk after rotating
-            if (!oled_write_reg(&temp_buffer[0], OLED_BLOCK_SIZE)) {
+            if (!oled_data(&temp_buffer[0], OLED_BLOCK_SIZE)) {
                 print("oled_render90 data failed\n");
                 return;
             }
@@ -524,7 +524,7 @@ void oled_render(void) {
                     }
                 }
                 // Send data for the page
-                if (!oled_write_reg(&temp_buffer[columns_in_block * i], columns_in_block)) {
+                if (!oled_data(&temp_buffer[columns_in_block * i], columns_in_block)) {
                     print("oled_render90 data failed\n");
                     return;
                 }
