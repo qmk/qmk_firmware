@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef AUDIO_ENABLE
+#if defined(AUDIO_ENABLE)
     #define STARTUP_SONG SONG(PLANCK_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
 
@@ -8,9 +8,9 @@
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND) \
                                 }
-#endif
+#endif //AUDIO_ENABLE
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
 #   undef RGBLED_NUM
 //#   define RGBLIGHT_ANIMATIONS
 //#   define RGBLIGHT_EFFECT_BREATHING
@@ -20,7 +20,7 @@
 #   define RGBLIGHT_HUE_STEP 12
 #   define RGBLIGHT_SAT_STEP 12
 #   define RGBLIGHT_VAL_STEP 12
-#endif
+#endif //RGBLIGHT_ENABLE
 
 /*
 #ifdef RGBLIGHT_ENABLE

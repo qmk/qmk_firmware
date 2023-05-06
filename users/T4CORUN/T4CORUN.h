@@ -11,8 +11,10 @@ enum layers {
   _QWERTY = 0,
   FIRST_DEFAULT_LAYER = 0,  
   _COLEMAK_DH,
-  _GAMING_BASE,
+#if defined(GAMELAYER_ENABLE)
+  _GAMING,
   _GAMING_NUM,
+#endif //GAMELAYER_ENABLE
   _NUMBER,
   _NAVIGATION,
   _FUNCTION,
@@ -23,7 +25,9 @@ enum layers {
 enum keycodes {
   QWERTY = SAFE_RANGE,
   CLMAKDH,
+#if defined(GAMELAYER_ENABLE)
   GAMING
+#endif //GAMELAYER_ENABLE  
 };
 
 #define _DEFAULT_LAYER_1 FIRST_DEFAULT_LAYER
@@ -50,11 +54,11 @@ enum keycodes {
 #define AD_SLSH LT(_ADJUST, KC_SLSH)
 
 //Toggle Layer
-#if defined(MOUSELAYER_ENABLED)
+#if defined(MOUSELAYER_ENABLE)
 #   define MOUSE   MO(_MOUSE)
 #   define MOU_Z   LT(_MOUSE, KC_Z)
 #   define MOU_TOG TG(_MOUSE)
-#endif //MOUSELAYER_ENABLED
+#endif //MOUSELAYER_ENABLE
 
 //Windows Shortcuts
 #define SC_COPY LCTL(KC_C)
@@ -64,7 +68,7 @@ enum keycodes {
 #define SC_REDO LCTL(KC_Y)
 
 //Home Row Mods QWERTY
-#if defined(HOMEROWMOD_ENABLED)
+#if defined(HOMEROWMOD_ENABLE)
 #   define LGUI_A  LGUI_T(KC_A)
 #   define LALT_S  LALT_T(KC_S)
 #   define CTRL_D  LCTL_T(KC_D)
@@ -84,4 +88,4 @@ enum keycodes {
 #   define CTRL_E  LCTL_T(KC_E)
 #   define LALT_I  LALT_T(KC_I)
 #   define LGUI_O  LGUI_T(KC_O)
-#endif //HOMEROWMOD_ENABLED
+#endif //HOMEROWMOD_ENABLE

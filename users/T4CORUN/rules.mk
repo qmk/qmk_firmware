@@ -11,11 +11,11 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 endif
 
 OLED_ENABLE ?= no
-KEYLOG_ENABLED ?= no
+KEYLOG_ENABLE ?= no
 ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += $(USER_PATH)/oled_stuff.c
-	ifeq ($(strip $(KEYLOG_ENABLED)), yes)
-	  OPT_DEFS += -DKEYLOG_ENABLED
+	ifeq ($(strip $(KEYLOG_ENABLE)), yes)
+	  OPT_DEFS += -DKEYLOG_ENABLE
 	endif
 endif
 
@@ -24,30 +24,36 @@ ifeq ($(strip $(COMBO_ENABLE)), yes)
 	SRC += $(USER_PATH)/combos.c
 endif
 
-HOMEROWMOD_ENABLED ?= yes
-ifeq ($(strip $(HOMEROWMOD_ENABLED)), yes)
-  OPT_DEFS += -DHOMEROWMOD_ENABLED
+HOMEROWMOD_ENABLE ?= yes
+ifeq ($(strip $(HOMEROWMOD_ENABLE)), yes)
+  OPT_DEFS += -DHOMEROWMOD_ENABLE
 endif
 
-#AUTO_MOUSE_ENABLED is custom
+#AUTOMOUSE_ENABLE is custom
 POINTING_DEVICE_ENABLE ?= no
-AUTOMOUSE_ENABLED ?= no
+AUTOMOUSE_ENABLE ?= no
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
 	SRC += $(USER_PATH)/pointing.c
-	OPT_DEFS += -DMOUSELAYER_ENABLED
+	OPT_DEFS += -DMOUSELAYER_ENABLE
 	ifeq ($(strip $(AUTOMOUSE_ENABLED)), yes)
-	  OPT_DEFS += -DAUTOMOUSE_ENABLED
+	  OPT_DEFS += -DAUTOMOUSE_ENABLE
 	endif
 endif
 
 MOUSEKEY_ENABLE ?= no
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
-	OPT_DEFS += -DMOUSELAYER_ENABLED
+	OPT_DEFS += -DMOUSELAYER_ENABLE
 endif
 
 RGB_MATRIX_ENABLE ?=no
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 	SRC += $(USER_PATH)/rgb_matrix_stuff.c
+endif
+
+#GAMING_ENABLED is custom
+GAMELAYER_ENABLE ?=no
+ifeq ($(strip $(GAMELAYER_ENABLE)), yes)
+	OPT_DEFS += -DGAMELAYER_ENABLE
 endif
 
 

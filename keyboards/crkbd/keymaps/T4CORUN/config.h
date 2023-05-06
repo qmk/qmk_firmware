@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE)
 //#   define RGBLIGHT_ANIMATIONS
 //#   define RGBLIGHT_EFFECT_BREATHING
 //#   define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGBLIGHT_HUE_STEP 10
 #   define RGBLIGHT_SAT_STEP 17
 #   define RGBLIGHT_VAL_STEP 17
-#endif
+#endif //RGBLIGHT_ENABLE
 
 /*
 

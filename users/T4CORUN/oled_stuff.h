@@ -3,13 +3,20 @@
 #include "T4CORUN.h"
 #include "oled_driver.h"
 
-#define OLED_RENDER_KEYLOGGER_NAME    "KLog:"
 #define OLED_RENDER_KEYLOCK_NAME      "Lock:"
 #define OLED_RENDER_MODS_NAME         "Mods:"
+
+#if defined(KEYLOG_ENABLE)
+# define OLED_RENDER_KEYLOGGER_NAME    "KLog:"
+#endif
 
 #define OLED_RENDER_LAYOUT_NAME       "Lyout"
 #define OLED_RENDER_LAYOUT_QWERTY     " QRTY"
 #define OLED_RENDER_LAYOUT_COLEMAK_DH " cmDH"
+
+#if defined(GAMELAYER_ENABLE)
+# define OLED_RENDER_LAYOUT_GAMING     " game"
+#endif //GAMELAYER_ENABLE
 
 #define OLED_RENDER_RGB_NAME          "RGB: "
 #define OLED_RENDER_RGB_ON            " On  "

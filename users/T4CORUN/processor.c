@@ -1,11 +1,12 @@
 #include "processor.h"
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef KEYLOG_ENABLE
+
+#if defined(KEYLOG_ENABLE)
   if (record->event.pressed) {
     add_keylog(keycode);
   }
-  #endif //KEYLOG_ENABLE
+#endif //KEYLOG_ENABLE
   
   switch (keycode) {
     case QWERTY:
@@ -18,11 +19,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           default_layer_set(1UL<<_COLEMAK_DH);
       }
       return false;
+
+#if defined(GAMELAYER_ENABLE)
     case GAMING:
       if (record->event.pressed) {  
-          default_layer_set(1UL<<_GAMING_BASE);
+          default_layer_set(1UL<<_GAMING);
       }
       return false;
+#endif
+
   }
   return true;
 }
