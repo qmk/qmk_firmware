@@ -1,7 +1,21 @@
 {
-    "keyboard_name": "cb1800",
+    "keyboard_name": "CB1800",
+    "manufacturer": "CherryB.Studio",
     "url": "https://discord.gg/qVwv3gcq83",
     "maintainer": "duongaanh",
+    "usb": {
+        "vid": "0x4342",
+        "pid": "0x1818",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "F5",
+        "num_lock": "F6",
+        "scroll_lock": "F7",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

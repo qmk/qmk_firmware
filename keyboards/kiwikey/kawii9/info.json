@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Kawii9",
+    "manufacturer": "KiwiKey",
     "url": "http://kiwikey.vn/kawii9/",
     "maintainer": "KiwiKey",
+    "usb": {
+        "vid": "0x4B57",
+        "pid": "0x0303",
+        "device_version": "0.0.2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [

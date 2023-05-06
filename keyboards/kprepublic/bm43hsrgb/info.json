@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "BM43HSRGB",
+    "keyboard_name": "BM43 Hotswap RGB",
+    "manufacturer": "KPRepublic",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x4B50",
+        "pid": "0x6061",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x9856  // "Gamdias"
-#define PRODUCT_ID      0x7070
-#define DEVICE_VER      0x0001
-#define MANUFACTURER   Gamdias
-#define PRODUCT         teclado_oscar
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 21
 
 /*
  * Keyboard Matrix Assignments
@@ -41,18 +29,6 @@
  */
 #define MATRIX_ROW_PINS { C0, B4, F3, F4, F5, F6 }
 #define MATRIX_COL_PINS { C2, C1, E0, D4, D5, A4, A0, B2, B0, E7, E6, D6, B1, B3, D3, D2, B6, F7, F0, F1, F2 }
-
-/*Row 0, resistor R132, Pin A1
-*Row 1, R131, Pin B5
-*Row 2, R130, Pin E4
-*Row 3, R129, Pin A2
-*Row 4, R128, Pin E5
-*Row 5, R127, Pin A7
-#define LED_CAPS_LOCK_PIN C7
-#define LED_SCROLL_LOCK_PIN A3
-#define LED_NUM_LOCK_PIN C6
-#define BACKLIGHT_PINS { B5, E5, E4, A7, A1, A2 }
-#define BACKLIGHT_LEVELS 1*/
 
 #define DIODE_DIRECTION ROW2COL
 

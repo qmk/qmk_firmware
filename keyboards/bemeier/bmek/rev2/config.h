@@ -15,15 +15,10 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-#define DEVICE_VER      0x0002
 
 #define MATRIX_ROW_PINS \
     { F4, F5, D7, B5, B4 }
 #define MATRIX_COL_PINS \
-    { F6, B0, B1, F7, C7, C6, B6, F1, B2, B3, D6, D3, D2, D1, D0 } 
-#define UNUSED_PINS \
-    { D4, D5, F0, B7 }
+    { F6, B0, B1, F7, C7, C6, B6, F1, B2, B3, D6, D3, D2, D1, D0 }
 
 #define RGB_DI_PIN E6

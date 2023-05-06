@@ -16,3 +16,4 @@
 #pragma once
 
 #define LONG_TAPPING_TERM 1000
+#define PERMISSIVE_HOLD

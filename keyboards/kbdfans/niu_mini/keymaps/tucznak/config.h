@@ -3,8 +3,8 @@
 #undef MANUFACTURER
 #undef PRODUCT
 
-#define MANUFACTURER    Potato Inc.
-#define PRODUCT         Qt3.14
+#define MANUFACTURER    "Potato Inc."
+#define PRODUCT         "Qt3.14"
 
 /* turn off RGB when computer sleeps */
 #ifdef RGB_DI_PIN

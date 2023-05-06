@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "Levinson Rev. 1",
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "usb": {
+        "pid": "0x1146",
+        "device_version": "1.0.0"
+    },
+    "backlight": {
+        "pin": "C6",
+        "levels": 7
+    }
+}

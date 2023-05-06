@@ -1,7 +1,15 @@
 {
     "keyboard_name": "68keys",
+    "manufacturer": "Sowbug",
     "url": "github.com/sowbug",
     "maintainer": "sowbug",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x8888",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
     "layouts": {
         "LAYOUT_default": {
             "layout": [

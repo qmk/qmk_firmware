@@ -18,7 +18,7 @@ The DFU state in the bootloader can be accessed in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key, escape in the default keymap) and plug in the keyboard;
 * **Physical reset button**: press the button on the front of the PCB, next to caps lock, for at least five seconds;
-* **Keycode in layout**: Press the key mapped to `RESET`; in the default layout, that is top left key ('escape') in layer 1.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT`; in the default layout, that is top left key ('escape') in layer 1.
 
 ### How to compile and flash
 

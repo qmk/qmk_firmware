@@ -1,7 +1,21 @@
 {
     "keyboard_name": "Elongate",
+    "manufacturer": "Acheron Project",
     "url": "http://gondolindrim.github.io/AcheronDocs/elongate/introduction.html",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x4150",
+        "pid": "0x454D",
+        "device_version": "0.0.2"
+    },
+    "backlight": {
+        "pin": "A6",
+        "levels": 20,
+        "breathing": true,
+        "breathing_period": 3
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

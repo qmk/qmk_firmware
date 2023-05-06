@@ -15,18 +15,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xABBE  
-#define PRODUCT_ID      0x4C4D
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Labbe
-#define PRODUCT         Labbe Mini V1
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
 
 /*
  * Keyboard Matrix Assignments
@@ -40,13 +28,9 @@
  */
 #define MATRIX_ROW_PINS { F5, F6 }
 #define MATRIX_COL_PINS { F0, F1, F4 }
-#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

@@ -1,7 +1,15 @@
 {
     "keyboard_name": "kuku65",
+    "manufacturer": "ToastyStoemp",
     "url": "",
     "maintainer": "ToastyStoemp",
+    "usb": {
+        "vid": "0x5453",
+        "pid": "0x0052",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

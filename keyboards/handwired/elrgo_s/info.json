@@ -1,7 +1,18 @@
 {
     "keyboard_name": "Elrgo S",
+    "manufacturer": "Eloren",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x454C",
+        "pid": "0x3436",
+        "device_version": "0.0.1"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_split_3x6_5": {
             "layout": [

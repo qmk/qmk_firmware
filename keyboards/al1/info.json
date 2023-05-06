@@ -1,7 +1,25 @@
 {
     "keyboard_name": "AL1",
+    "manufacturer": "Alsoran",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x544C",
+        "pid": "0x6050",
+        "device_version": "1.0.4"
+    },
+    "backlight": {
+        "pin": "B6",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B7",
+        "num_lock": "D0",
+        "scroll_lock": "D1",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

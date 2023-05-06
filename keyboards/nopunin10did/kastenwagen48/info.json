@@ -1,7 +1,21 @@
 {
     "keyboard_name": "Kastenwagen 48",
+    "manufacturer": "NoPunIn10Did",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/nopunin10did/kastenwagen48",
     "maintainer": "NoPunIn10Did",
+    "usb": {
+        "vid": "0x4E50",
+        "pid": "0x4B30",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"},
+            {"pin_a": "D3", "pin_b": "D2"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

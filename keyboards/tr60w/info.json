@@ -1,7 +1,18 @@
 {
     "keyboard_name": "TR60W",
+    "manufacturer": "Triangle Lab",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x4140",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [

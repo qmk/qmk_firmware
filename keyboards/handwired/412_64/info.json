@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "412-64",
+    "keyboard_name": "412-64 Model 00",
+    "manufacturer": "EDI/SCI",
     "url": "",
     "maintainer": "fateeverywhere",
+    "usb": {
+        "vid": "0xF7E0",
+        "pid": "0x0412",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ortho_4x16": {
             "layout": [

@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Technika",
+    "manufacturer": "TealTechnik",
     "url": "",
     "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x8484",
+        "pid": "0x6049",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B3",
+        "num_lock": "A15",
+        "scroll_lock": "B4"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

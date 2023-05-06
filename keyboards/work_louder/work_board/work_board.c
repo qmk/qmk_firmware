@@ -16,7 +16,7 @@
 
 #include "work_board.h"
 
-#if !defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
+#if defined(ENCODER_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
         return false;
@@ -106,7 +106,10 @@ bool via_layout_2u = false;
 void via_set_layout_options_kb(uint32_t value) { via_layout_2u = (bool)value; }
 #    endif  // VIA_ENABLE
 
-__attribute__((weak)) void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
 #    ifdef VIA_ENABLE
     if (via_layout_2u) {
         rgb_matrix_set_color(5, 0, 0, 0);
@@ -118,6 +121,7 @@ __attribute__((weak)) void rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(5, 0, 0, 0);
     rgb_matrix_set_color(7, 0, 0, 0);
 #    endif
+    return true;
 }
 
 void keyboard_pre_init_kb(void) {

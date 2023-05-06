@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Paddino02 rev2 (left)",
+    "manufacturer": "Pimentoso",
     "url": "",
     "maintainer": "Pimentoso",
+    "usb": {
+        "vid": "0xD00D",
+        "pid": "0x0021",
+        "device_version": "0.0.2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

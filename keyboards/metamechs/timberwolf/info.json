@@ -1,7 +1,24 @@
 {
     "keyboard_name": "Timber Wolf",
+    "manufacturer": "MetaMechs",
     "url": "https://geekhack.org/index.php?topic=102520.0",
     "maintainer": "Croktopus",
+    "usb": {
+        "vid": "0x6D6D",
+        "pid": "0x5754",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "C6",
+        "levels": 16
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B7", "pin_b": "B3", "resolution": 2}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

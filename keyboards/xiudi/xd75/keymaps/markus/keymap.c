@@ -160,10 +160,10 @@ MO(_FN2), ________, ________, ________, ________, KC_PENT,  KC_P0,    DE_DOT,   
  */
 [_FN3] = LAYOUT_ortho_5x15(
 KC_F13,   KC_F14,   KC_F15,   KC_F16,   KC_F17,   KC_F18,   KC_BRID,  ___xx___, KC_BRIU,  KC_F19,   KC_F20,   KC_F21,   KC_F22,   KC_F23,   KC_F24,
-________, QWERTZ,   UC_M_LN,  ___xx___, ___xx___, KC_PWR,   RGB_TOG,  RGB_M_P,  RGB_MOD,  ___xx___, KC_PGUP,  KC_UP,    KC_PGDN,  ___xx___, ___xx___,
-________, QWERTY,   UC_M_WC,  UC(L'›'), UC(L'‹'), KC_SLEP,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_END,   ________,
-________, GAMING,   UC_M_MA,  UC(L'»'), UC(L'«'), KC_WAKE,  RGB_HUD,  RGB_SAD,  RGB_VAD,  UC(L' '), UC(L' '), UC(L' '), UC(L' '), UC(L'‑'), ________,
-________, ________, ________, ________, ________, ________, ________, RESET,    ________, ________, ________, ________, ________, ________, ________
+________, QWERTZ,   UC_LINX,  ___xx___, ___xx___, KC_PWR,   RGB_TOG,  RGB_M_P,  RGB_MOD,  ___xx___, KC_PGUP,  KC_UP,    KC_PGDN,  ___xx___, ___xx___,
+________, QWERTY,   UC_WINC,  UC(L'›'), UC(L'‹'), KC_SLEP,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_END,   ________,
+________, GAMING,   UC_MAC,   UC(L'»'), UC(L'«'), KC_WAKE,  RGB_HUD,  RGB_SAD,  RGB_VAD,  UC(L' '), UC(L' '), UC(L' '), UC(L' '), UC(L'‑'), ________,
+________, ________, ________, ________, ________, ________, ________, QK_BOOT,  ________, ________, ________, ________, ________, ________, ________
 )
 
 };

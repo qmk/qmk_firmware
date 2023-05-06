@@ -20,7 +20,8 @@
 #    error "chSysPolledDelayX method not supported on this platform"
 #else
 #    undef wait_us
-#    define wait_us(x) chSysPolledDelayX(US2RTC(CPU_CLOCK, x))
+// Force usage of polled waiting - in case WAIT_US_TIMER is activated
+#    define wait_us(us) chSysPolledDelayX(US2RTC(REALTIME_COUNTER_CLOCK, us))
 #endif
 
 #ifndef SELECT_SOFT_SERIAL_SPEED
@@ -87,10 +88,7 @@ static THD_FUNCTION(Thread1, arg) {
     chRegSetThreadName("blinker");
     while (true) {
         palWaitLineTimeout(SOFT_SERIAL_PIN, TIME_INFINITE);
-
-        split_shared_memory_lock();
         interrupt_handler(NULL);
-        split_shared_memory_unlock();
     }
 }
 
@@ -155,6 +153,7 @@ static void __attribute__((noinline)) serial_write_byte(uint8_t data) {
 
 // interrupt handle to be used by the slave device
 void interrupt_handler(void *arg) {
+    split_shared_memory_lock_autounlock();
     chSysLockFromISR();
 
     sync_send();
@@ -212,6 +211,8 @@ void interrupt_handler(void *arg) {
 static inline bool initiate_transaction(uint8_t sstd_index) {
     if (sstd_index > NUM_TOTAL_TRANSACTIONS) return false;
 
+    split_shared_memory_lock_autounlock();
+
     split_transaction_desc_t *trans = &split_transaction_table[sstd_index];
 
     // TODO: remove extra delay between transactions
@@ -233,7 +234,7 @@ static inline bool initiate_transaction(uint8_t sstd_index) {
     // check if the slave is present
     if (serial_read_pin()) {
         // slave failed to pull the line low, assume not present
-        dprintf("serial::NO_RESPONSE\n");
+        serial_dprintf("serial::NO_RESPONSE\n");
         chSysUnlock();
         return false;
     }
@@ -269,7 +270,7 @@ static inline bool initiate_transaction(uint8_t sstd_index) {
     serial_delay();
 
     if ((checksum_computed) != (checksum_received)) {
-        dprintf("serial::FAIL[%u,%u,%u]\n", checksum_computed, checksum_received, sstd_index);
+        serial_dprintf("serial::FAIL[%u,%u,%u]\n", checksum_computed, checksum_received, sstd_index);
         serial_output();
         serial_high();
 
@@ -292,8 +293,5 @@ static inline bool initiate_transaction(uint8_t sstd_index) {
 //
 // this code is very time dependent, so we need to disable interrupts
 bool soft_serial_transaction(int sstd_index) {
-    split_shared_memory_lock();
-    bool result = initiate_transaction((uint8_t)sstd_index);
-    split_shared_memory_unlock();
-    return result;
+    return initiate_transaction((uint8_t)sstd_index);
 }

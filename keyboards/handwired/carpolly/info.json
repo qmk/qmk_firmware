@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Carpolly",
+    "manufacturer": "paul",
     "url": "https://github.com/PollyV1",
     "maintainer": "Paul Enrico N. Viola",
+    "usb": {
+        "vid": "0x6532",
+        "pid": "0x0017",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

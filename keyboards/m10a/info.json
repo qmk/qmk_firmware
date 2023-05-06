@@ -1,7 +1,19 @@
 {
-    "keyboard_name": "Rama Works X Machine Industries M10-A Macropad",
+    "keyboard_name": "M10-A",
+    "manufacturer": "RAMA WORKS",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x5241",
+        "pid": "0x00AA",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7",
+        "levels": 6
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

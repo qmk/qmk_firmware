@@ -48,12 +48,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl |  GUI |  ALt |Lower |    Space    | Enter| Bksp |AltGr | Raise|      |      |      |      |      |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_QWERTY] = LAYOUT_ortho_5x15( \
-  HU_0,                  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    HU_ODIA,  HU_UDIA, HU_OACU, KC_INS,  KC_PGUP, \
-  KC_TAB,                KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HU_Z,    KC_U,    KC_I,    KC_O,    KC_P,     HU_ODAC, HU_UACU, KC_DEL,  KC_PGDN,  \
-  KC_ESC,                KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    HU_EACU,  HU_AACU, HU_UDAC,  _______, KC_HOME, \
-  MT(MOD_LSFT, KC_NUBS), HU_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    HU_COMM, HU_DOT,  HU_MINS,  KC_RSFT, HU_EQL,  KC_UP,   KC_END,  \
-  KC_LCTL,               KC_LGUI, KC_LALT, TT(_LOWER),   KC_SPC,  _______, KC_ENT,  KC_BSPC, KC_RALT, TT(_RAISE),   _______,  _______, KC_LEFT, KC_DOWN, KC_RIGHT  \
+[_QWERTY] = LAYOUT_ortho_5x15(
+  HU_0,                  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    HU_ODIA,  HU_UDIA, HU_OACU, KC_INS,  KC_PGUP,
+  KC_TAB,                KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HU_Z,    KC_U,    KC_I,    KC_O,    KC_P,     HU_ODAC, HU_UACU, KC_DEL,  KC_PGDN,
+  KC_ESC,                KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    HU_EACU,  HU_AACU, HU_UDAC,  _______, KC_HOME,
+  MT(MOD_LSFT, KC_NUBS), HU_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    HU_COMM, HU_DOT,  HU_MINS,  KC_RSFT, HU_EQL,  KC_UP,   KC_END,
+  KC_LCTL,               KC_LGUI, KC_LALT, TT(_LOWER),   KC_SPC,  _______, KC_ENT,  KC_BSPC, KC_RALT, TT(_RAISE),   _______,  _______, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
 
@@ -70,12 +70,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl |  GUI |  ALt |Raise |    Space    | Enter| Bksp |AltGr | Lower|      |      |      |      |      |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_GAME] = LAYOUT_ortho_5x15( \
-  HU_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    HU_ODIA,  HU_UDIA,  HU_OACU, KC_INS,  KC_PGUP, \
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HU_Z,    KC_U,    KC_I,    KC_O,    KC_P,     HU_ODAC,  HU_UACU, KC_DEL,  KC_PGDN,  \
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    HU_EACU,  HU_AACU,  HU_UDAC,  _______, KC_HOME, \
-  KC_LSFT, HU_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    HU_COMM, HU_DOT,  HU_MINS,  KC_RSFT,  HU_EQL,  KC_UP,   KC_END,  \
-  KC_LCTL, KC_LGUI, KC_LALT, TT(_RAISE),   KC_SPC,  _______, KC_ENT,  KC_BSPC, KC_RALT, TT(_LOWER),   _______,  _______,  KC_LEFT, KC_DOWN, KC_RIGHT  \
+[_GAME] = LAYOUT_ortho_5x15(
+  HU_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    HU_ODIA,  HU_UDIA,  HU_OACU, KC_INS,  KC_PGUP,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HU_Z,    KC_U,    KC_I,    KC_O,    KC_P,     HU_ODAC,  HU_UACU, KC_DEL,  KC_PGDN,
+  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    HU_EACU,  HU_AACU,  HU_UDAC,  _______, KC_HOME,
+  KC_LSFT, HU_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    HU_COMM, HU_DOT,  HU_MINS,  KC_RSFT,  HU_EQL,  KC_UP,   KC_END,
+  KC_LCTL, KC_LGUI, KC_LALT, TT(_RAISE),   KC_SPC,  _______, KC_ENT,  KC_BSPC, KC_RALT, TT(_LOWER),   _______,  _______,  KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
 
@@ -92,12 +92,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      | Home |PageDn|PageUp|  End |      |      |      |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_LOWER] = LAYOUT_ortho_5x15( \
-  _______, _______, _______, _______, _______, _______, _______, HU_7,    HU_8,    HU_9,    HU_PLUS,   _______,     _______, _______, _______, \
-  _______, _______, KC_UP,   _______, _______, _______, _______, HU_4,    HU_5,    HU_6,    HU_MINS,   _______,     _______, _______, _______,  \
-  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, HU_1,    HU_2,    HU_3,    HU_ASTR,   _______,     _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, HU_0,    _______, _______, HU_SLSH,   HU_EQL,      _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_GAME), TO(_QWERTY), _______, _______, _______  \
+[_LOWER] = LAYOUT_ortho_5x15(
+  _______, _______, _______, _______, _______, _______, _______, HU_7,    HU_8,    HU_9,    HU_PLUS,   _______,     _______, _______, _______,
+  _______, _______, KC_UP,   _______, _______, _______, _______, HU_4,    HU_5,    HU_6,    HU_MINS,   _______,     _______, _______, _______,
+  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, HU_1,    HU_2,    HU_3,    HU_ASTR,   _______,     _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, HU_0,    _______, _______, HU_SLSH,   HU_EQL,      _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_GAME), TO(_QWERTY), _______, _______, _______
 ),
 
 /* Raise
@@ -113,12 +113,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      | Home |PageDn|PageUp|  End |      |      |      |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_RAISE] = LAYOUT_ortho_5x15( \
-  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,    KC_F11,      KC_F12,  _______, _______, \
-  _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______,   _______,     _______, _______, _______,  \
-  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______,   _______,     _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______,     _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_GAME), TO(_QWERTY), _______, _______, _______  \
+[_RAISE] = LAYOUT_ortho_5x15(
+  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,    KC_F11,      KC_F12,  _______, _______,
+  _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______,   _______,     _______, _______, _______,
+  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______,   _______,     _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______,     _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_GAME), TO(_QWERTY), _______, _______, _______
 ),
 
 

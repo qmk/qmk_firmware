@@ -7,9 +7,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include <string.h>
-
-#include "config_common.h"
+#include "report.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,6 +24,8 @@ extern bool bluefruit_le_query_is_connected(void);
  * calling ble_task() periodically. */
 extern bool bluefruit_le_is_connected(void);
 
+extern void bluefruit_le_init(void);
+
 /* Call this periodically to process BLE-originated things */
 extern void bluefruit_le_task(void);
 
@@ -34,18 +34,16 @@ extern void bluefruit_le_task(void);
  * this set of keys.
  * Also sends a key release indicator, so that the keys do not remain
  * held down. */
-extern void bluefruit_le_send_keys(uint8_t hid_modifier_mask, uint8_t *keys, uint8_t nkeys);
+extern void bluefruit_le_send_keyboard(report_keyboard_t *report);
 
 /* Send a consumer usage.
  * (milliseconds) */
-extern void bluefruit_le_send_consumer_key(uint16_t usage);
+extern void bluefruit_le_send_consumer(uint16_t usage);
 
-#ifdef MOUSE_ENABLE
 /* Send a mouse/wheel movement report.
  * The parameters are signed and indicate positive or negative direction
  * change. */
-extern void bluefruit_le_send_mouse_move(int8_t x, int8_t y, int8_t scroll, int8_t pan, uint8_t buttons);
-#endif
+extern void bluefruit_le_send_mouse(report_mouse_t *report);
 
 /* Compute battery voltage by reading an analog pin.
  * Returns the integer number of millivolts */

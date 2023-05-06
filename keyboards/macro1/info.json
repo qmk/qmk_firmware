@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "MACRO1", 
+    "keyboard_name": "MACRO-1", 
+    "manufacturer": "Laneware Peripherals",
     "url": "", 
     "maintainer": "qmk", 
+    "usb": {
+      "vid": "0x4C50",
+      "pid": "0x9999",
+      "device_version": "0.0.1"
+    },
+    "encoder": {
+      "rotary": [
+        {"pin_a": "F0", "pin_b": "F1"}
+      ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts":{
       "LAYOUT_numpad":{
         "layout":[

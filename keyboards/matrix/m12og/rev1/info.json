@@ -1,7 +1,17 @@
 {
-    "keyboard_name": "Matrix 8XV1.2 OG rev1",
+    "keyboard_name": "m12og_v1",
+    "manufacturer": "Matrix",
     "url": "",
     "maintainer": "kb-elmo",
+    "usb": {
+        "vid": "0x4D58",
+        "pid": "0x0369",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "B6",
+        "scroll_lock": "B5"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

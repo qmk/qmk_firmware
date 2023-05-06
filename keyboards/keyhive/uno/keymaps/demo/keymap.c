@@ -73,7 +73,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     default:
                         if (timeElapsed < CUSTOM_LONGPRESS) {
                             // Normal press.  We're going to send the current letter and increment the counter.
-                            SEND_STRING(SS_TAP(X_BSPACE));
+                            SEND_STRING(SS_TAP(X_BACKSPACE));
                             send_string(stringToSend);
                             stringToSend[0]++;
                             if (stringToSend[0] > maxLetter) {

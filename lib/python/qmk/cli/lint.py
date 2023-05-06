@@ -10,6 +10,9 @@ from qmk.keyboard import keyboard_completer, list_keyboards
 from qmk.keymap import locate_keymap, list_keymaps
 from qmk.path import is_keyboard, keyboard
 from qmk.git import git_get_ignored_files
+from qmk.c_parse import c_source_files
+
+CHIBIOS_CONF_CHECKS = ['chconf.h', 'halconf.h', 'mcuconf.h', 'board.h']
 
 
 def _list_defaultish_keymaps(kb):
@@ -25,6 +28,29 @@ def _list_defaultish_keymaps(kb):
     return keymaps
 
 
+def _get_code_files(kb, km=None):
+    """Return potential keyboard/keymap code files
+    """
+    search_path = locate_keymap(kb, km).parent if km else keyboard(kb)
+
+    code_files = []
+    for file in c_source_files([search_path]):
+        # Ignore keymaps when only globing keyboard files
+        if not km and 'keymaps' in file.parts:
+            continue
+        code_files.append(file)
+
+    return code_files
+
+
+def _has_license(file):
+    """Check file has a license header
+    """
+    # Crude assumption that first line of license header is a comment
+    fline = open(file).readline().rstrip()
+    return fline.startswith(("/*", "//"))
+
+
 def _handle_json_errors(kb, info):
     """Convert any json errors into lint errors
     """
@@ -38,6 +64,15 @@ def _handle_json_errors(kb, info):
         ok = False
         cli.log.error(f'{kb}: Warnings found when generating info.json (Strict mode enabled.)')
     return ok
+
+
+def _chibios_conf_includenext_check(target):
+    """Check the ChibiOS conf.h for the correct inclusion of the next conf.h
+    """
+    for i, line in enumerate(target.open()):
+        if f'#include_next "{target.name}"' in line:
+            return f'Found `#include_next "{target.name}"` on line {i} of {target}, should be `#include_next <{target.name}>` (use angle brackets, not quotes)'
+    return None
 
 
 def _rules_mk_assignment_only(kb):
@@ -87,10 +122,21 @@ def keymap_check(kb, km):
         return ok
 
     # Additional checks
-    invalid_files = git_get_ignored_files(keymap_path.parent)
+    invalid_files = git_get_ignored_files(keymap_path.parent.as_posix())
     for file in invalid_files:
         cli.log.error(f'{kb}/{km}: The file "{file}" should not exist!')
         ok = False
+
+    for file in _get_code_files(kb, km):
+        if not _has_license(file):
+            cli.log.error(f'{kb}/{km}: The file "{file}" does not have a license header!')
+            ok = False
+
+        if file.name in CHIBIOS_CONF_CHECKS:
+            check_error = _chibios_conf_includenext_check(file)
+            if check_error is not None:
+                cli.log.error(f'{kb}/{km}: {check_error}')
+                ok = False
 
     return ok
 
@@ -118,6 +164,17 @@ def keyboard_check(kb):
             continue
         cli.log.error(f'{kb}: The file "{file}" should not exist!')
         ok = False
+
+    for file in _get_code_files(kb):
+        if not _has_license(file):
+            cli.log.error(f'{kb}: The file "{file}" does not have a license header!')
+            ok = False
+
+        if file.name in CHIBIOS_CONF_CHECKS:
+            check_error = _chibios_conf_includenext_check(file)
+            if check_error is not None:
+                cli.log.error(f'{kb}: {check_error}')
+                ok = False
 
     return ok
 

@@ -25,7 +25,7 @@ enum custom_keycodes {
 
 #define KC_LOWR LOWER
 #define KC_RASE RAISE
-#define KC_RST RESET
+#define KC_RST QK_BOOT
 #define KC_BL_S BL_STEP
 #define KC_QWRT QWERTY
 #define KC_CLMK COLEMAK

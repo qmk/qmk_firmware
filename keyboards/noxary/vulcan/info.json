@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "vulcan", 
+    "keyboard_name": "Vulcan", 
+    "manufacturer": "Noxary",
     "url": "https://noxary.co/products/vulcan-pro-base", 
     "maintainer": "ai03", 
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0011",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

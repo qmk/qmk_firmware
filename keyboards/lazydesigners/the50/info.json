@@ -1,7 +1,19 @@
 {
     "keyboard_name": "THE50", 
+    "manufacturer": "LazyDesigners",
     "url": "http://lazydesigners.cn", 
     "maintainer": "qmk", 
+    "usb": {
+        "vid": "0x4C44",
+        "pid": "0x0050",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 6
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

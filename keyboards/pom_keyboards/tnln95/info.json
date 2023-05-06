@@ -1,7 +1,24 @@
 {
     "keyboard_name": "tnln95",
+    "manufacturer": "POM_keyboard",
     "url": "http://www.keyboard-layout-editor.com/#/gists/45aee74c726e32a063130a715fc494d3",
     "maintainer": "HoangNM",
+    "usb": {
+        "vid": "0x544E",
+        "pid": "0x3931",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7",
+        "levels": 10,
+        "breathing": true
+    },
+    "bootmagic": {
+        "matrix": [0, 4]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 8,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

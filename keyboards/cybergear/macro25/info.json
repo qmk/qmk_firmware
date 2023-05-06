@@ -1,5 +1,6 @@
 {
-    "keyboard_name": "Macro225 (mk-macro-01)",
+    "keyboard_name": "Macro25 (mk-macro-01)",
+    "manufacturer": "CyberGear",
     "url": "https://github.com/CyberGear/mk-macro-01",
     "maintainer": "CyberGear",
     "usb": {
@@ -7,6 +8,8 @@
         "pid": "0x69A1",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT_ortho_2x5": {

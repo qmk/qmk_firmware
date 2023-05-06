@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # this is split keyboard.
 SPLIT_KEYBOARD = yes
 

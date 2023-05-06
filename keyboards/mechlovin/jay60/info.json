@@ -1,7 +1,18 @@
 {
     "keyboard_name": "Jay60",
+    "manufacturer": "Mechlovin Studio",
     "url": "",
     "maintainer": "Mechlovin' Studio",
+    "usb": {
+        "vid": "0x4D4C",
+        "pid": "0x0600",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "D4"
+    },
+    "processor": "atmega32a",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -54,7 +54,7 @@
 #    endif
 #endif
 
-void solenoidbuzz_on(void);
+void solenoid_buzz_on(void);
 void solenoid_buzz_off(void);
 void solenoid_set_buzz(uint8_t buzz);
 

@@ -15,19 +15,6 @@
   */ 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6E78
-#define PRODUCT_ID      0x3630
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nix Studio
-#define PRODUCT         N60A
-
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments

@@ -16,18 +16,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x456B
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ErgoKB
-#define PRODUCT         Phoenix
-
-/* key matrix size */
-#define MATRIX_ROWS 12
-#define MATRIX_COLS 7
 
 #define MOUSEKEY_INTERVAL    10
 #define MOUSEKEY_DELAY       0
@@ -45,6 +33,5 @@
 
 #define HAL_USE_SERIAL TRUE
 #define SPLIT_HAND_PIN B9
-#define SOFT_SERIAL_PIN A9
 #define SERIAL_USART_DRIVER SD1
 #define SERIAL_USART_TX_PAL_MODE 7

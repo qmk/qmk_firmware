@@ -1,7 +1,24 @@
 {
-  "keyboard_name": "winkeyless.kr B.mini EX",
+  "keyboard_name": "B.mini EX",
+  "manufacturer": "Winkeyless",
   "url": "https://winkeyless.kr/product/b-mini-ex-x2-pcb/",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x20A0",
+    "pid": "0x4258",
+    "device_version": "2.0.0"
+  },
+  "backlight": {
+    "pin": "D4",
+    "levels": 5
+  },
+  "indicators": {
+    "caps_lock": "D1",
+    "num_lock": "D0",
+    "scroll_lock": "D6"
+  },
+  "processor": "atmega32a",
+  "bootloader": "bootloadhid",
   "layouts": {
     "LAYOUT": {
       "layout": [

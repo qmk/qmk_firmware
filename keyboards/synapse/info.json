@@ -1,7 +1,21 @@
 {
   "keyboard_name": "synapse",
+  "manufacturer": "drmmr",
   "url": "",
   "maintainer": "qpockets",
+  "usb": {
+  	"vid": "0x7170",
+  	"pid": "0x5359",
+  	"device_version": "0.0.1"
+  },
+  "encoder": {
+  	"rotary": [
+  		{"pin_a": "D7", "pin_b": "D6"},
+  		{"pin_a": "C7", "pin_b": "C6"}
+  	]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT_default": {
 	  "layout": [

@@ -1,7 +1,21 @@
 {
   "keyboard_name": "Practice 60",
+  "manufacturer": "CannonKeys",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0xCA04",
+    "pid": "0x6060",
+    "device_version": "0.0.1"
+  },
+  "backlight": {
+    "pin": "A8",
+    "levels": 6,
+    "breathing": true
+  },
+  "processor": "STM32F103",
+  "bootloader": "stm32duino",
+  "community_layouts": ["60_ansi"],
   "layouts": {
     "LAYOUT_60_ansi": {
       "layout": [

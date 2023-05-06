@@ -1,7 +1,25 @@
 {
-    "keyboard_name": "kbd8x_mk2", 
+    "keyboard_name": "KBD8X-MKII", 
+    "manufacturer": "KBDfans",
     "url": "https://kb.ai03.me/projects/kbd8x-mkii.html", 
     "maintainer": "ai03", 
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0005",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "scroll_lock": "B2",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT": {
             "layout": [

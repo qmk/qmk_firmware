@@ -1,7 +1,15 @@
 {
     "keyboard_name": "Dimple", 
+    "manufacturer": "LazyDesigners",
     "url": "http://lazydesigners.cn", 
     "maintainer": "Jacky@LAZYDESIGNERS", 
+    "usb": {
+        "vid": "0x4C44",
+        "pid": "0x0040",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ortho_2u": {
             "layout": [

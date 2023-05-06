@@ -17,7 +17,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "encoder_actions.h"
 #include "rgb_functions.h"
 
 /* This is a shortcut to help you visually see your layout.

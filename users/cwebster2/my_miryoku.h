@@ -35,7 +35,7 @@
 #define _______NAKED_R___T____ KC_ENT,   KC_BSPC,  KC_DEL
 #define _______NAKED_L___T____ KC_ESC,   KC_SPC,   KC_TAB
 
-#define _______INACTIVE_R1____ KC_LOCK,  KC_TRNS,  KC_TRNS,  KC_TRNS,  RESET
+#define _______INACTIVE_R1____ KC_LOCK,  KC_TRNS,  KC_TRNS,  KC_TRNS,  QK_BOOT
 #define _______INACTIVE_R2____ KC_TRNS,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI
 #define _______INACTIVE_R3____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_RALT,  KC_TRNS
 
@@ -56,7 +56,7 @@
 #define _______NUM______L3____ KC_GRV,   KC_1,  KC_2,  KC_3,  KC_BSLS
 #define _______NUM_______T____ KC_DOT,   KC_0,  KC_MINS
 
-#define _______FN_______L1____ KC_F12,   KC_F7,   KC_F8,  KC_F9,  KC_SYSREQ
+#define _______FN_______L1____ KC_F12,   KC_F7,   KC_F8,  KC_F9,  KC_SYRQ
 #define _______FN_______L2____ KC_F11,   KC_F4,   KC_F5,  KC_F6,  KC_TRNS
 #define _______FN_______L3____ KC_F10,   KC_F1,   KC_F2,  KC_F3,  KC_PAUSE
 #define _______FN________T____ KC_MENU,  KC_SPC,  KC_TAB

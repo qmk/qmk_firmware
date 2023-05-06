@@ -1,0 +1,23 @@
+{
+    "keyboard_name": "BDN9 Rev. 2",
+    "usb": {
+        "pid": "0x2133",
+        "device_version": "2.0.0"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A8", "pin_b": "A4"},
+            {"pin_a": "B3", "pin_b": "A15"},
+            {"pin_a": "A10", "pin_b": "A9"}
+        ]
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["B12", "B5", "B6"],
+            ["B14", "B4", "B7"],
+            ["A3", "F1", "F0"]
+        ]
+    }
+}

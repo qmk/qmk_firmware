@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "Charybdis Nano (3x5) Elite-C",
+    "usb": {
+        "device_version": "1.0.0"
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

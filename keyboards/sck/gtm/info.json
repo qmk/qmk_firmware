@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "Grand Theft Macro Pad",
+    "keyboard_name": "GTM Pad",
+    "manufacturer": "SpaceCityKeyboards",
     "url": "",
     "maintainer": "jrfhoutx",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x6090",
+        "device_version": "0.0.2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D3", "resolution": 1}
+        ]
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

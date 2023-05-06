@@ -4,7 +4,6 @@
   "maintainer": "skullydazed",
   "processor": "at90usb1286",
   "bootloader": "halfkay",
-  "debounce": 5,
   "diode_direction": "ROW2COL",
   "features": {
     "audio": true,
@@ -29,7 +28,16 @@
   },
   "rgblight": {
     "animations": {
-      "all": true
+      "alternating": true,
+      "breathing": true,
+      "christmas": true,
+      "knight": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "rgb_test": true,
+      "snake": true,
+      "static_gradient": true,
+      "twinkle": true
     },
     "brightness_steps": 8,
     "hue_steps": 8,

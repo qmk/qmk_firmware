@@ -1,6 +1,14 @@
 {
     "keyboard_name": "ASH-1800",
+    "manufacturer": "Hasyim Ashari",
     "maintainer": "angelbirth",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1800",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

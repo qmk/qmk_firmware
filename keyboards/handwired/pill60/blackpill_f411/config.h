@@ -20,6 +20,3 @@
     { A8, B2, B1, B15, A10, A0, A1, A2, A3, A4, A5, A6, A7, B0 }
 #define MATRIX_ROW_PINS \
     { B4, B3, A15, B13, B5 }
-#define UNUSED_PINS \
-    { A9, A11, A12, C13, C14, C15, B10 }
-

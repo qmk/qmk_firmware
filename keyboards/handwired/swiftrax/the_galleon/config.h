@@ -17,18 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x04D8
-#define PRODUCT_ID      0xEA2D
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Swiftrax
-#define PRODUCT         The Galleon
-
-/* key matrix size */
-#define MATRIX_ROWS 14
-#define MATRIX_COLS 9
 
 // ROWS: Top to bottom, COLS: Left to right
 
@@ -38,12 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /*EEPROM for via*/
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3

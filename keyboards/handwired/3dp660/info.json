@@ -1,7 +1,15 @@
 {
     "keyboard_name": "3dp660",
+    "manufacturer": "gooberpsycho",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x676F",
+        "pid": "0x3660",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT_66_ansi": {
 

@@ -19,10 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* enable RGB matrix */
 #define CU80_RGB
 
-/* update the product for RGB Matrix variant in VIA/VIAL and Remap-keys.app */
-#undef PRODUCT
-#define PRODUCT         CU80 v2 ANSI RGB
-
 /* moved to RGB specific */
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
@@ -76,7 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 /* RGB firmware override */
-#undef RGBLIGHT_ANIMATIONS
 #undef RGBLIGHT_HUE_STEP
 #undef RGBLIGHT_SAT_STEP
 #undef RGBLIGHT_VAL_STEP

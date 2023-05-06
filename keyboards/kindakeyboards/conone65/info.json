@@ -1,7 +1,20 @@
 {
     "keyboard_name": "Conone 65",
+    "manufacturer": "Kindakeyboards",
     "url": "https://kindakeyboards.be/conone65",
     "maintainer": "evyd13",
+    "usb": {
+        "vid": "0x9133",
+        "pid": "0x6AAB",
+        "device_version": "0.0.1"
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "D5",
+        "esc_output": "B7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["65_ansi", "65_ansi_split_bs", "65_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

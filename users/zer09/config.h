@@ -1,10 +1,6 @@
 #ifndef USERSPACE_CONFIG_H
 #define USERSPACE_CONFIG_H
 
-#ifndef QMK_KEYS_PER_SCAN
-#define QMK_KEYS_PER_SCAN 4
-#endif // !QMK_KEYS_PER_SCAN
-
 // this makes it possible to do rolling combos (zx) with keys that
 // convert to other keys on hold (z becomes ctrl when you hold it,
 // and when this option isn't enabled, z rapidly followed by x

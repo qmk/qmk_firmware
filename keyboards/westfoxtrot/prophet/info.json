@@ -1,7 +1,15 @@
 {
-    "keyboard_name": "Prophet",
+    "keyboard_name": "prophet",
+    "manufacturer": "westfoxtrot",
     "url": "",
     "maintainer": "westfoxtrot",
+    "usb": {
+        "vid": "0xFF21",
+        "pid": "0xAA03",
+        "device_version": "0.0.1"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

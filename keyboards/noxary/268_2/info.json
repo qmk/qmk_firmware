@@ -1,7 +1,19 @@
 {
-  "keyboard_name": "Noxary 268.2",
+  "keyboard_name": "268.2",
+  "manufacturer": "Noxary",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4E58",
+    "pid": "0x0A7A",
+    "device_version": "0.0.2"
+  },
+  "backlight": {
+    "pin": "B7"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["65_ansi_blocker"],
   "layouts": {
     "LAYOUT_65_ansi_blocker": {
       "layout": [

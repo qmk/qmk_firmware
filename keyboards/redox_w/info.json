@@ -1,7 +1,15 @@
 {
   "keyboard_name": "Redox Wireless",
+  "manufacturer": "Mattia Dal Ben",
   "url": "",
   "maintainer": "qmk",
+  "usb": {
+    "vid": "0x4D44",
+    "pid": "0x5257",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
       "layout": [

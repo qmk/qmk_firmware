@@ -1,7 +1,20 @@
 {
     "keyboard_name": "io_mini1800",
+    "manufacturer": "jpuerto96",
     "url": "https://github.com/jpuerto96",
     "maintainer": "jpuerto96 (s8erdude)",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B0", "pin_b": "B1"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_625u": {
             "layout": [

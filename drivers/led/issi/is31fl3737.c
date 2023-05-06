@@ -69,6 +69,10 @@
 #    define ISSI_CSPULLUP PUR_0R
 #endif
 
+#ifndef ISSI_GLOBALCURRENT
+#    define ISSI_GLOBALCURRENT 0xFF
+#endif
+
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20];
 
@@ -161,7 +165,7 @@ void IS31FL3737_init(uint8_t addr) {
     // Set de-ghost pull-down resistors (CSx)
     IS31FL3737_write_register(addr, ISSI_REG_CSPULLUP, ISSI_CSPULLUP);
     // Set global current to maximum.
-    IS31FL3737_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
+    IS31FL3737_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
     // Disable software shutdown.
     IS31FL3737_write_register(addr, ISSI_REG_CONFIGURATION, ((ISSI_PWM_FREQUENCY & 0b111) << 3) | 0x01);
 
@@ -171,7 +175,7 @@ void IS31FL3737_init(uint8_t addr) {
 
 void IS31FL3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31_led led;
-    if (index >= 0 && index < DRIVER_LED_TOTAL) {
+    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         g_pwm_buffer[led.driver][led.r]          = red;
@@ -182,7 +186,7 @@ void IS31FL3737_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3737_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         IS31FL3737_set_color(i, red, green, blue);
     }
 }

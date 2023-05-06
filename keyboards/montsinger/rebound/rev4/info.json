@@ -1,7 +1,21 @@
 {
-    "keyboard":"montsinger/rebound/rev4",
+    "keyboard":"Rebound Rev4",
+    "manufacturer": "Montsinger",
     "url": "https://montsinger.net",
     "maintainer": "rossman360",
+    "usb": {
+        "vid": "0x524D",
+        "pid": "0x0001",
+        "device_version": "0.0.2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D3"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

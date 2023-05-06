@@ -1,10 +1,22 @@
 {
     "keyboard_name": "Manibus",
+    "manufacturer": "Blank Tehnologii",
     "url": "https://blank.computer/",
     "maintainer": "SamuraiKek",
+    "debounce": 2,
+    "usb": {
+        "vid": "0x424D",
+        "pid": "0x4D4E",
+        "device_version": "1.0.0"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-            "layout":  [
+            "layout": [
                 {"label":"Esc", "x":0, "y":0.75},
                 {"label":"1", "x":1, "y":0.5},
                 {"label":"2", "x":2, "y":0.25},

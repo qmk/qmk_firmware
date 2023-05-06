@@ -1,7 +1,20 @@
 {
-  "keyboard_name": "The Ave. (Staggered Ed. PCB)",
+  "keyboard_name": "The Ave. Staggered",
+  "manufacturer": "Kingly-Keys",
   "url": "",
   "maintainer": "the-royal",
+  "usb": {
+     "vid": "0x4B4B",
+     "pid": "0x1225",
+     "device_version": "0.1.1"
+  },
+  "encoder": {
+     "rotary": [
+        {"pin_a": "B2", "pin_b": "B1"}
+     ]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
      "LAYOUT_staggered": {
         "layout": [

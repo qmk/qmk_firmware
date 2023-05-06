@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#include_next "board.h"
+#include_next <board.h>
 
 #undef STM32L432xx
 #define STM32L422xx

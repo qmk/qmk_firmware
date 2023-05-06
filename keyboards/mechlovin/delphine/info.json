@@ -1,7 +1,17 @@
 {
     "keyboard_name": "Delphine",
+    "manufacturer": "Mechlovin",
     "url": "",
     "maintainer": "mechlovin",
+    "usb": {
+        "vid": "0x4D4C"
+    },
+    "indicators": {
+        "num_lock": "B5"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["numpad_6x4", "ortho_6x4"],
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

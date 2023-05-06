@@ -1,7 +1,23 @@
 {
     "keyboard_name": "zplit",
+    "manufacturer": "fluxlab",
     "url": "https://github.com/cccywj/qmk_firmware",
     "maintainer": "flxlb",
+    "usb": {
+        "vid": "0x7076",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B0", "pin_b": "D2"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

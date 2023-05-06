@@ -1,7 +1,23 @@
 {
     "keyboard_name": "halfcliff", 
+    "manufacturer": "n2",
     "url": "https://github.com/N2-Sumikko", 
     "maintainer": "n2", 
+    "usb": {
+        "vid": "0x0335",
+        "pid": "0x0021",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D4", "pin_b": "F4", "resolution": 2}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

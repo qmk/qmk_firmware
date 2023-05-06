@@ -1,7 +1,18 @@
 {
     "keyboard_name": "Southpaw66",
+    "manufacturer": "rpiguy9907",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x9907",
+        "pid": "0x5366",
+        "device_version": "0.0.1"
+    },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
 

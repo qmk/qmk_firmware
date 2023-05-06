@@ -16,18 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xB23B
-#define PRODUCT_ID      0x1688 
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    ThomasLT
-#define PRODUCT         Chaos65
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
@@ -35,9 +23,6 @@
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* NKRO */
 #define FORCE_NKRO

@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "ymd40v2",
+    "keyboard_name": "YMD40 v2",
+    "manufacturer": "YMDK",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0x594D",
+        "pid": "0x4440",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [

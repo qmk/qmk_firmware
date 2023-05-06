@@ -1,7 +1,20 @@
 {
-    "keyboard_name": "twelvekey", 
+    "keyboard_name": "Twelvekey", 
+    "manufacturer": "kb-elmo",
     "url": "https://github.com/kb-elmo/twelvekey", 
     "maintainer": "kb-elmo", 
+    "usb": {
+        "vid": "0xA68C",
+        "pid": "0x9879",
+        "device_version": "0.0.1"
+    },
+    "backlight": {
+        "pin": "B1",
+        "levels": 8,
+        "on_state": 0
+    },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT_ortho_3x4": {
             "layout": [{"x":0, "y":0},
