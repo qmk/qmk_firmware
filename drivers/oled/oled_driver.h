@@ -333,9 +333,9 @@ typedef enum {
 bool oled_init(oled_rotation_t rotation);
 
 // Send commands and data to screen
-bool oled_cmd(const uint8_t *data, uint16_t size);
-bool oled_cmd_P(const uint8_t *data, uint16_t size);
-bool oled_data(const uint8_t *data, uint16_t size);
+bool oled_send_cmd(const uint8_t *data, uint16_t size);
+bool oled_send_cmd_P(const uint8_t *data, uint16_t size);
+bool oled_send_data(const uint8_t *data, uint16_t size);
 void oled_driver_init(void);
 
 // Called at the start of oled_init, weak function overridable by the user

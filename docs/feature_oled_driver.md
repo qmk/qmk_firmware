@@ -294,9 +294,9 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation);
 oled_rotation_t oled_init_user(oled_rotation_t rotation);
 
 // Send commands/data to screen
-bool oled_cmd(const uint8_t *data, uint16_t size);
-bool oled_cmd_P(const uint8_t *data, uint16_t size);
-bool oled_data(const uint8_t *data, uint16_t size);
+bool oled_send_cmd(const uint8_t *data, uint16_t size);
+bool oled_send_cmd_P(const uint8_t *data, uint16_t size);
+bool oled_send_data(const uint8_t *data, uint16_t size);
 
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
 void oled_clear(void);
