@@ -217,7 +217,7 @@ __attribute__((weak)) bool oled_send_cmd_P(const uint8_t *data, uint16_t size) {
     writePinLow(OLED_DC_PIN);
     // Send the commands
     for (uint16_t i = 1; i < size && status >= 0; i++) {
-        status = spi_write(pgm_read_byte((const char *)&data[i])));
+        status = spi_write(pgm_read_byte((const char *)&data[i]));
     }
     spi_stop();
     return (status >= 0);
