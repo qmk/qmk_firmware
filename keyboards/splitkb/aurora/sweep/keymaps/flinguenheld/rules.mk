@@ -15,8 +15,5 @@ AUTO_SHIFT_MODIFIERS = no
 COMBO_ENABLE = yes
 LEADER_ENABLE = yes
 
-# Recommended for space cadet shift
-COMMAND_ENABLE = no
-
 UNICODE_ENABLE = yes
 SEND_STRING_ENABLE = yes

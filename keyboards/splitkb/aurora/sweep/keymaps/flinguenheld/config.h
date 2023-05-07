@@ -24,17 +24,15 @@
 #undef OLED_FONT_H
 #define OLED_FONT_H "./oled/glcdfont.c"
 
-#define  OLED_TIMEOUT 25000
-#define OLED_BRIGHTNESS 60 // Protect my eyesss
+#define OLED_TIMEOUT 25000
+#define OLED_BRIGHTNESS 50 // Protect my eyesss
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
 #define SPLIT_OLED_ENABLE
 
 /* Auto shift ♥ */
 #define AUTO_SHIFT_TIMEOUT 115
-
-/* Redefine CTRL + space (See space cadet shift) */
-#define LCPO_KEYS KC_LCTL, KC_TRNS, KC_SPC
+#define TAPPING_TERM 155
 
 /* Unicode */
 // #define UNICODE_SELECTED_MODES UC_LNX
