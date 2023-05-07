@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pogues.h"
 
+void set_mods_lights(uint16_t keycode, bool active);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // colemak-dh
@@ -93,52 +94,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /******************************************************************************
  * user specific key processing
  ******************************************************************************/
-void set_mods_lights(uint16_t keycode, bool active) {
-    switch (keycode) {
-        case KC_LSFT:
-        case SFT_BSP:
-        case SFT_Z:
-        case SFT_SLS:
-            rgblight_set_layer_state(12, active);
-            break;
-        case KC_LCTL:
-        case CTL_Y:
-        case CTL_W:
-            rgblight_set_layer_state(11, active);
-            break;
-        case KC_LGUI:
-            rgblight_set_layer_state(13, active);
-            break;
-        case KC_LALT:
-            rgblight_set_layer_state(14, active);
-            break;
-    // we have to process the oneshot mod versions separately. this method is called from
-    // process_record_user so is called for the key up event after the oneshot mod is tapped
-    // and in that case we dont want to turn off the LEDs, though we do want lights for OSM
-    // hold functions
-        case OSM_SFT:
-            if (!(get_oneshot_mods() & MOD_MASK_SHIFT)) {
-                // only try and detect when the OSM is not active
-                rgblight_set_layer_state(12, active);
-            }
-            break;
-        case OSM_CTL:
-            if (!(get_oneshot_mods() & MOD_MASK_CTRL)) {
-                rgblight_set_layer_state(11, active);
-            }
-            break;
-        case OSM_GUI:
-            if (!(get_oneshot_mods() & MOD_MASK_GUI)) {
-                rgblight_set_layer_state(13, active);
-            }
-            break;
-        case OSM_ALT:
-            if (!(get_oneshot_mods() & MOD_MASK_ALT)) {
-                rgblight_set_layer_state(14, active);
-            }
-            break;
-    }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (!process_compose(keycode, record, MY_COMP)) {
@@ -154,39 +109,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-
-/******************************************************************************
- * compose key rgb lighting
- ******************************************************************************/
-void compose_start(void) {
-    rgblight_set_layer_state(8, true);
-}
-
-
-void compose_end(uint8_t state) {
-    rgblight_set_layer_state(8, false);
-    // show cancelled and error as the same state- we can only cancel by hitting the compose again
-    if (state == COMPOSE_ERROR || state == COMPOSE_CANCELLED) {
-        rgblight_blink_layer(9, 900);
-    } else {
-        // the compose action was activated
-        rgblight_blink_layer(15, 900);
-    }
-}
-/******************************************************************************
- * compose end
- ******************************************************************************/
-
-
-/*******************************************************************************
- * case_mode rgb lighting
- *******************************************************************************/
-void case_mode_set_user(bool active) {
-    rgblight_set_layer_state(10, active);
-}
-/******************************************************************************
- * case_mode end
- ******************************************************************************/
 
 
 
@@ -268,30 +190,49 @@ const rgblight_segment_t PROGMEM layer_no_lights[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 54, HSV_OFF}
 );
 
+enum lighting_layers {
+    RGBL_NO = 0,
+    RGBL_DEFAULT,
+    RGBL_SYMBOLS,
+    RGBL_NUMPAD,
+    RGBL_FUNCTIONS,
+    RGBL_MOTION,
+    RGBL_MOUSE,
+    RGBL_CAPS_WORD,
+    RGBL_COMPOSE,
+    RGBL_COMPOSE_CXL,
+    RGBL_SNAKE_CASE,
+    RGBL_OSM_CTL,
+    RGBL_OSM_SFT,
+    RGBL_OSM_GUI,
+    RGBL_OSM_ALT,
+    RGBL_COMPOSE_OK,
+};
+
 // now we need the array of layers
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    layer_no_lights,
-    layer_default_lights,
-    layer_symbols_lights,
-    layer_numpad_lights,
-    layer_functions_lights,
-    layer_motion_lights,
-    layer_mouse_lights,
-    caps_word_lights,
-    compose_mode_lights,
-    compose_cancel_lights,
-    snake_case_lights,
-    oneshot_ctrl_active,
-    oneshot_shift_active,
-    oneshot_gui_active,
-    oneshot_alt_active,
-    compose_success_lights
+    [RGBL_NO] = layer_no_lights,
+    [RGBL_DEFAULT] = layer_default_lights,
+    [RGBL_SYMBOLS] = layer_symbols_lights,
+    [RGBL_NUMPAD] = layer_numpad_lights,
+    [RGBL_FUNCTIONS] = layer_functions_lights,
+    [RGBL_MOTION] = layer_motion_lights,
+    [RGBL_MOUSE] = layer_mouse_lights,
+    [RGBL_CAPS_WORD] = caps_word_lights,
+    [RGBL_COMPOSE] = compose_mode_lights,
+    [RGBL_COMPOSE_CXL] = compose_cancel_lights,
+    [RGBL_SNAKE_CASE] = snake_case_lights,
+    [RGBL_OSM_CTL] = oneshot_ctrl_active,
+    [RGBL_OSM_SFT] = oneshot_shift_active,
+    [RGBL_OSM_GUI] = oneshot_gui_active,
+    [RGBL_OSM_ALT] = oneshot_alt_active,
+    [RGBL_COMPOSE_OK] = compose_success_lights
 );
 
 void keyboard_post_init_user(void) {
     //enable the LED layers
     rgblight_layers = my_rgb_layers;
-    rgblight_set_layer_state(0, true);
+    rgblight_set_layer_state(RGBL_NO, true);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -299,30 +240,119 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, LNUM, LSYM, LFUN);
 
     // set the led status to indicate layer
-    rgblight_set_layer_state(1, layer_state_cmp(state, LCMK));
-    rgblight_set_layer_state(2, layer_state_cmp(state, LSYM));
-    rgblight_set_layer_state(3, layer_state_cmp(state, LNUM));
-    rgblight_set_layer_state(4, layer_state_cmp(state, LFUN));
-    rgblight_set_layer_state(5, layer_state_cmp(state, LMOV));
-    rgblight_set_layer_state(6, layer_state_cmp(state, LMSE));
+    rgblight_set_layer_state(RGBL_DEFAULT, layer_state_cmp(state, LCMK));
+    rgblight_set_layer_state(RGBL_SYMBOLS, layer_state_cmp(state, LSYM));
+    rgblight_set_layer_state(RGBL_NUMPAD, layer_state_cmp(state, LNUM));
+    rgblight_set_layer_state(RGBL_FUNCTIONS, layer_state_cmp(state, LFUN));
+    rgblight_set_layer_state(RGBL_MOTION, layer_state_cmp(state, LMOV));
+    rgblight_set_layer_state(RGBL_MOUSE, layer_state_cmp(state, LMSE));
     return state;
 }
 
 void oneshot_mods_changed_user(uint8_t mods) {
-    rgblight_set_layer_state(11, mods & MOD_MASK_CTRL);
-    rgblight_set_layer_state(12, mods & MOD_MASK_SHIFT);
-    rgblight_set_layer_state(13, mods & MOD_MASK_GUI);
-    rgblight_set_layer_state(14, mods & MOD_MASK_ALT);
+    rgblight_set_layer_state(RGBL_OSM_CTL, mods & MOD_MASK_CTRL);
+    rgblight_set_layer_state(RGBL_OSM_SFT, mods & MOD_MASK_SHIFT);
+    rgblight_set_layer_state(RGBL_OSM_GUI, mods & MOD_MASK_GUI);
+    rgblight_set_layer_state(RGBL_OSM_ALT, mods & MOD_MASK_ALT);
 }
 
 
 void oneshot_locked_mods_changed_user(uint8_t mods) {
     rgblight_blink_layer(9, 5000);
-    rgblight_set_layer_state(11, mods & MOD_MASK_CTRL);
-    rgblight_set_layer_state(12, mods & MOD_MASK_SHIFT);
-    rgblight_set_layer_state(13, mods & MOD_MASK_GUI);
-    rgblight_set_layer_state(14, mods & MOD_MASK_ALT);
+    rgblight_set_layer_state(RGBL_OSM_CTL, mods & MOD_MASK_CTRL);
+    rgblight_set_layer_state(RGBL_OSM_SFT, mods & MOD_MASK_SHIFT);
+    rgblight_set_layer_state(RGBL_OSM_GUI, mods & MOD_MASK_GUI);
+    rgblight_set_layer_state(RGBL_OSM_ALT, mods & MOD_MASK_ALT);
 }
+
+/*******************************************************************************
+ * lighting changes for modifiers (including one shot...)
+ *******************************************************************************/
+void set_mods_lights(uint16_t keycode, bool active) {
+    switch (keycode) {
+        case KC_LSFT:
+        case SFT_BSP:
+        case SFT_Z:
+        case SFT_SLS:
+            rgblight_set_layer_state(RGBL_OSM_SFT, active);
+            break;
+        case KC_LCTL:
+        case CTL_Y:
+        case CTL_W:
+            rgblight_set_layer_state(RGBL_OSM_CTL, active);
+            break;
+        case KC_LGUI:
+            rgblight_set_layer_state(RGBL_OSM_GUI, active);
+            break;
+        case KC_LALT:
+            rgblight_set_layer_state(RGBL_OSM_ALT, active);
+            break;
+    // we have to process the oneshot mod versions separately. this method is called from
+    // process_record_user so is called for the key up event after the oneshot mod is tapped
+    // and in that case we dont want to turn off the LEDs, though we do want lights for OSM
+    // hold functions
+        case OSM_SFT:
+            if (!(get_oneshot_mods() & MOD_MASK_SHIFT)) {
+                // only try and detect when the OSM is not active
+                rgblight_set_layer_state(RGBL_OSM_SFT, active);
+            }
+            break;
+        case OSM_CTL:
+            if (!(get_oneshot_mods() & MOD_MASK_CTRL)) {
+                rgblight_set_layer_state(RGBL_OSM_CTL, active);
+            }
+            break;
+        case OSM_GUI:
+            if (!(get_oneshot_mods() & MOD_MASK_GUI)) {
+                rgblight_set_layer_state(RGBL_OSM_GUI, active);
+            }
+            break;
+        case OSM_ALT:
+            if (!(get_oneshot_mods() & MOD_MASK_ALT)) {
+                rgblight_set_layer_state(RGBL_OSM_ALT, active);
+            }
+            break;
+    }
+}
+/******************************************************************************
+ * compose key rgb lighting
+ ******************************************************************************/
+void compose_start(void) {
+    rgblight_set_layer_state(RGBL_COMPOSE, true);
+}
+
+
+void compose_end(uint8_t state) {
+    rgblight_set_layer_state(RGBL_COMPOSE, false);
+    // show cancelled and error as the same state- we can only cancel by hitting the compose again
+    if (state == COMPOSE_ERROR || state == COMPOSE_CANCELLED) {
+        rgblight_blink_layer(RGBL_COMPOSE_CXL, 900);
+    } else {
+        // the compose action was activated
+        rgblight_blink_layer(RGBL_COMPOSE_OK, 900);
+    }
+}
+/******************************************************************************
+ * compose end
+ ******************************************************************************/
+
+
+/*******************************************************************************
+ * case_mode/caps word rgb lighting
+ *******************************************************************************/
+/* for now find the case mode too much mental overhead, generally want it for
+ * this_style or THIS_STYLE but easy enough to hit the _!
+void case_mode_set_user(bool active) {
+    rgblight_set_layer_state(RGBL_SNAKE_CASE, active);
+}*/
+
+void caps_word_set_user(bool active) {
+    rgblight_set_layer_state(RGBL_CAPS_WORD, active);
+}
+/******************************************************************************
+ * case_mode end
+ ******************************************************************************/
+
 
 /*******************************************************************************
  * END RGB lighting on layer change
