@@ -1,6 +1,6 @@
 # Narfkb
 
-![NarfKb](https://raw.githubusercontent.com/sebastian-stumpf/narfkb/master/pictures/narfkb.jpg)
+![NarfKb](https://i.imgur.com/mS8wlpZ.jpg)
 
 Built using two Waveshare RP2040-Zero controllers, this custom split PCB based design isn't quite the typical 3x5_3 physical layout.
 
