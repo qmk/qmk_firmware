@@ -1,6 +1,6 @@
 # ziyoulang_k3_mod
 
-![ziyoulang_k3_mod](https://i.imgur.com/z9mUvIo.jpg)
+![ziyoulang_k3_mod](https://i.imgur.com/z9mUvIoh.jpg)
 
 *This is a modifier to replace the Ziyoulang K3 keyboard controller with QMK.*
 
@@ -22,7 +22,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Requires hand wired
 
-![explanation](https://i.imgur.com/yvhvhoB.png)
+![explanation](https://i.imgur.com/yvhvhoBh.png)
 
 ## Bootloader
 
