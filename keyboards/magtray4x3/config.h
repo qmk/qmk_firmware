@@ -3,19 +3,17 @@
 
 #pragma once
 
-/* maybe need this
-#define I2C1_OPMODE	OPMODE_I2C
-#define I2C1_CLOCK_SPEED 100000
-#define I2C1_DUTY_CYCLE	STD_DUTY_CYCLE
-*/
-
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN B6
-#define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PIN B7
+#define I2C1_SCL_PAL_MODE 1
 #define I2C1_SDA_PAL_MODE 1
-
-//#define MY_I2C_ADDRESS (0x18 << 1)
+//#define I2C1_TIMINGR_PRESC 0x00U
+//#define I2C1_TIMINGR_SCLDEL 0x03U
+//#define I2C1_TIMINGR_SDADEL 0x01U
+//#define I2C1_TIMINGR_SCLH 0x03U
+//#define I2C1_TIMINGR_SCLL 0x09U
+#define MY_I2C_ADDRESS (0x3C << 1)
 
 #define OLED_TIMEOUT 180000
 
