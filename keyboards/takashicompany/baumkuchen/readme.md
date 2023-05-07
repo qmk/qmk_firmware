@@ -1,12 +1,16 @@
-# takashicompany/baumkuchen
+# Baumkuchen
 
-![takashicompany/baumkuchen](imgur.com image replace me!)
+![takashicompany/baumkuchen](https://i.imgur.com/NS39x44h.png)
 
-*A short description of the keyboard/project*
+Baumkuchen is a 13-key macropad with a radial key layout.  
+The board can be used as a circuit or as a switch plate by cutting out the keyswitch Pro Micro part.  
+It is compatible with Cherry MX compatible keyswitches, and a rotary encoder can be optionally installed.  
+LEDs can also be mounted to make it glow.  
+The board is reversible, allowing you to choose the arrangement of keys and Pro Micro according to your usage style.
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Baumkuchen PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/baumkuchen
 
 Make example for this keyboard (after setting up your build environment):
 
