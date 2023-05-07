@@ -19,22 +19,6 @@
               }
             }
           ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "f19",
-            "modifiers": {
-              "mandatory": ["control"]
-            }
-          },
-          "to": [
-            {
-              "select_input_source": {
-                "language": "^ja$"
-              }
-            }
-          ]
         }
       ]
     }

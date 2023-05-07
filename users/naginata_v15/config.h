@@ -1,3 +1,6 @@
-// Mac, LinuxでUNICODE入力を安定化
-#define USB_POLLING_INTERVAL_MS 8
-#define TAP_CODE_DELAY 24
+// LinuxでUNICODE入力を安定化
+// #define USB_POLLING_INTERVAL_MS 8
+// 入力が遅くなるのでunicode.cにwaitを入れるべき
+
+// UNICODE入力を安定化
+#define UNICODE_TYPE_DELAY 32

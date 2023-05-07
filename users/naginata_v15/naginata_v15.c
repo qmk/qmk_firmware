@@ -610,13 +610,17 @@ void ng_send_unicode_string(const char *str) {
       tap_code(KC_ENT);
       break;
     case NG_MAC: // Karabiner-Elementsが必要
+      // TODO 未確定の文字列が残っていたら確定しておきたい
       register_code(KC_LCTL); // Unicode HEX Inputへ切り替え
       tap_code(KC_F20);
       unregister_code(KC_LCTL);
+      wait_ms(UNICODE_TYPE_DELAY);
       send_unicode_string(str);
-      register_code(KC_LCTL); // 日本語入力へ切り替え
-      tap_code(KC_F19);
-      unregister_code(KC_LCTL);
+      wait_ms(UNICODE_TYPE_DELAY);
+      register_code(KC_LSFT); // 日本語入力へ切り替え。再変換にならないように「shift+かな」「かな」の2打にする。
+      tap_code(KC_LANGUAGE_1);
+      unregister_code(KC_LSFT);
+      tap_code(KC_LANGUAGE_1);
       break;
   }
 }
