@@ -18,10 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 #include "quantum.h"
-#include "i2c_master.h"
-#include "print.h"
 
-#include "pcal6416a/pcal6416a.h"
+#include "lib/pcal6416a/pcal6416a.h"
 #include "indicator_leds.h"
 #include "lib/i2c_helpers.h"
 
@@ -46,9 +44,7 @@ static i2c_status_t update_matrix_for_row(uint8_t row, matrix_row_t current_matr
     RETURN_STATUS_IF_I2C_FAIL(pcal_write_pin(row_pins[row], HIGH));
 
     *row_changed = previous_row_state != current_matrix[row];
-    if (*row_changed){
-        uprintf("Row %d Changed\n", row);
-    }
+
     return I2C_STATUS_SUCCESS;
 }
 
@@ -63,7 +59,6 @@ static i2c_status_t init_io_expander(void) {
 static bool board_connected = false;
 
 void matrix_init_custom(void) {
-    i2c_init();
     board_connected = I2C_SUCCESS(init_io_expander()) && indicator_leds_init() == 0;
 }
 
@@ -89,7 +84,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             _delay_ms(500);
             board_connected = I2C_SUCCESS(init_io_expander());
             // Update leds to reflect the keyboards state
-            led_update_kb(host_keyboard_led_state());
+            SYNCHRONISE_HOST_LED_STATUS();
         }
     } else {
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {

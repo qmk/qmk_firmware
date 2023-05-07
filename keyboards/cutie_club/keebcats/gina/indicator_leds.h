@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Cutie Club
+Copyright 2023 Cutie Club
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,11 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "mcp23X17/mcp23X17.h"
+#define SYNCHRONISE_HOST_LED_STATUS() led_update_kb(host_keyboard_led_state());
 
-/*
- * Keyboard Matrix Assignments
- */
-#define MCP_ADDRESS (0b0100000 << 1)
-#define MCP_ROW_PINS { MCP_B4, MCP_A4, MCP_A5, MCP_A6, MCP_A7 }
-#define MCP_COL_PINS { MCP_B0, MCP_A3, MCP_A2, MCP_A1, MCP_A0 }
+enum indicator_key {
+    NUM_LOCK = 0,
+    SCROLL_LOCK = 1,
+    CAPS_LOCK = 2
+};
+
+int indicator_leds_init(void);
+
+void set_enabled_indicator_key(enum indicator_key key);
+enum indicator_key get_enabled_indicator_key(void);

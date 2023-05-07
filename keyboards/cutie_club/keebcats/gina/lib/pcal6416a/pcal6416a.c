@@ -3,15 +3,15 @@
 
 #include "i2c_master.h"
 #include "lib/i2c_helpers.h"
-#include "pcal6416a/pcal6416a.h"
+#include "lib/pcal6416a/pcal6416a.h"
 
 i2c_status_t pcal_read_pin(pcal_gpio_pin pin, pcal_gpio_state *pin_state) {
     uint8_t input_register = REGISTER_FOR_PIN(pin, INPUT);
     uint8_t register_data;
     RETURN_STATUS_IF_I2C_FAIL(i2c_readReg(PCAL_ADDRESS, input_register, &register_data, 1, 20));
-    
+
     *pin_state = (register_data >> GET_PIN_NUMBER(pin)) & 1;
-    
+
     return I2C_STATUS_SUCCESS;
 }
 

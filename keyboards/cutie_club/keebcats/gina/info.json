@@ -5,6 +5,7 @@
     "maintainer": "Cutie Club",
     "usb": {
         "vid": "0xFB9C",
+        "pid": "0xB225",
         "device_version": "0.0.1"
     }
 }

@@ -1,9 +1,0 @@
-#pragma once
-
-#define NUM_LOCK_PCAL_PINS { PCAL_0_0, PCAL_0_1 }
-
-// #define NUMBER_OF_SCROLL_LOCK_LEDS 2
-// #define SCROLL_LOCK_PCAL_PINS { PCAL_0_0, PCAL_0_1 }
-
-// #define NUMBER_OF_CAPS_LOCK_LEDS 2
-// #define CAPS_LOCK_PCAL_PINS { PCAL_0_0, PCAL_0_1 }

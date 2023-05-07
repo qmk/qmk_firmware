@@ -19,6 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t indicator_key: 8;
+  };
+} keyboard_config_t;
+
 #define LAYOUT_right_all( \
     k00_00, k00_01, k00_02, k00_03, k00_04, \
     k01_00, k01_01, k01_02, k01_03, k01_04, \
