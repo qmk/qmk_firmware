@@ -35,9 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WAITING_BUFFER_SIZE 8
 
 #ifndef NO_ACTION_TAPPING
-uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
-uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
-void     action_tapping_process(keyrecord_t record);
+uint16_t    get_record_keycode(keyrecord_t *record, bool update_layer_cache);
+uint16_t    get_event_keycode(keyevent_t event, bool update_layer_cache);
+void        action_tapping_process(keyrecord_t record);
+keyrecord_t get_next_tapping_record(void);
 #endif
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record);

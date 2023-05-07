@@ -544,4 +544,13 @@ static void debug_waiting_buffer(void) {
     ac_dprintf("}\n");
 }
 
+/**
+ * @brief Get next tapping record from buffer
+ *
+ * @return keyrecord_t
+ */
+keyrecord_t get_next_tapping_record(void) {
+    return waiting_buffer[waiting_buffer_tail];
+}
+
 #endif
