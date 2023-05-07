@@ -209,7 +209,7 @@ These configuration options should be placed in `config.h`. Example:
 
 ## 128x64 & Custom sized OLED Displays
 
- The default display size for this feature is 128x32 and all necessary defines are precalculated with that in mind. We have added a define, `OLED_DISPLAY_128X64`, to switch all the values to be used in a 128x64 display, as well as added a custom define, `OLED_DISPLAY_CUSTOM`, that allows you to provide the necessary values to the driver.
+ The default display size for this feature is 128x32, and the defaults are set with that in mind.  However, there are a number of additional presets for common sizes that we have added.  You can define one of these values to use the presets.  If your display doesn't match one of these presets, you can define `OLED_DISPLAY_CUSTOM` to manually specify all of the values.
 
 |Define                |Default        |Description                                                                                                                            |
 |----------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------|
@@ -219,6 +219,8 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_DISPLAY_64X128` |*Not defined*  |Changes the display defines for use with 64x128 displays.                                                                              |
 |`OLED_DISPLAY_128X128`|*Not defined*  |Changes the display defines for use with 128x128 displays.                                                                             |
 |`OLED_DISPLAY_CUSTOM` |*Not defined*  |Changes the display defines for use with custom displays.<br>Requires user to implement the below defines.                             |
+
+!> 64x128 and 128x128 displays default to the SH1107 IC type, as these heights are not supported by the other IC types.
 
 |Define               |Default        |Description                                                                                                                             |
 | --------------------|---------------|----------------------------------------------------------------------------------------------------------------------------------------|
@@ -235,8 +237,6 @@ These configuration options should be placed in `config.h`. Example:
 |`OLED_TARGET_MAP`    |`{ 24, ... N }`|Precalculated target array to use for mapping source buffer to target OLED memory in 90 degree rendering.                               |
 
 ### 90 Degree Rotation - Technical Mumbo Jumbo
-
-!> Rotation is unsupported on the SH1106.
 
 ```c
 // OLED Rotation enum values are flags
