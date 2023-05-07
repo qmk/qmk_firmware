@@ -1,16 +1,17 @@
-# Dactyl Manuform
+# Dactyl ManuForm
 
-The [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth/dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [ManuForm](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. All information needed for making one is in the first link.
 ![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
 *Pair of Dactyl Manuform 4x6*
 
+Forked from the [Dactyl](/keyboards/handwired/dactyl), the [Dactyl-ManuForm](https://github.com/tshort/dactyl-keyboard) is a parameterized, handwired, split bodied, tented, concave key-well design that incorporates the thumb cluster from the [ManuForm](https://geekhack.org/index.php?topic=46015.0). Bill of Materials (BoM), case files, and wiring guide for making this keyboard is in the second link.
+
 ## Variants
 
-Dactyl Manuform's are built in variations that cater for different row and column counts, and thumb clusters.  
+*Dactyl ManuForm's* are built in variations that cater for different row and column counts, and thumb clusters.  
 
 As standard: 
 - The finger keywell bottom row has 2 keys, 1 each in ring and middle columns
-    - Exception to this rule is the 7 column variants, that have two additional keys in this row
+    - Exception to this rule is the `5x7` variant - that has two additional keys, per half, in this row
 - The thumb cluster has 6 keys, arranged in 2 columns by 3 rows 
 
 Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
@@ -41,7 +42,7 @@ Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 
 Download or clone the `qmk/qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to compile a firmware file.
 
- `qmk compile -kb handwired/dactyl_manuform/`*variant*` -kb` *keymap*
+ `qmk compile -kb handwired/dactyl_manuform/`*variant*` -kb `*keymap*`
 
 Example:
 ```
@@ -178,7 +179,7 @@ re-compile the firmware (.hex) file as normal, and flash board as normal.
 
 See [Handedness](https://docs.qmk.fm/#/config_options?id=setting-handedness) documentation for more information on configuring handedness.
 
-## VIA configuration 
+## VIA Configuration 
 
 Variants with a `via` keymap are VIA capable. 
 Compile firmware, for capable variant, with it's `via` keymap and flash board with this firmware file.
