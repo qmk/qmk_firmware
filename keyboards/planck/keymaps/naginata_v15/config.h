@@ -47,7 +47,3 @@
 
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
-
-// LinuxでのUNICODE入力のために必要な設定
-#define USB_POLLING_INTERVAL_MS 8
-#define TAP_CODE_DELAY 24

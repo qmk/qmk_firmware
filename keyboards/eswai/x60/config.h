@@ -70,7 +70,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #undef LOCKING_RESYNC_ENABLE
 #define NO_ACTION_ONESHOT
 #define LAYER_STATE_16BIT
-
-// LinuxでのUNICODE入力のために必要な設定
-#define USB_POLLING_INTERVAL_MS 8
-#define TAP_CODE_DELAY 24

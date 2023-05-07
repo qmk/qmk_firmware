@@ -12,7 +12,3 @@
 
 #define OLED_UPDATE_INTERVAL 100
 #define OLED_TIMEOUT 60000
-
-// LinuxでのUNICODE入力のために必要な設定
-#define USB_POLLING_INTERVAL_MS 8
-#define TAP_CODE_DELAY 24

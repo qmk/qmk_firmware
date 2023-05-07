@@ -18,7 +18,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-// LinuxでのUNICODE入力のために必要な設定
-#define USB_POLLING_INTERVAL_MS 8
-#define TAP_CODE_DELAY 24
