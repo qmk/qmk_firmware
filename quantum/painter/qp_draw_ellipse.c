@@ -62,7 +62,7 @@ static bool qp_ellipse_helper_impl(painter_device_t device, uint16_t centerx, ui
 
 bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex, uint16_t sizey, uint8_t hue, uint8_t sat, uint8_t val, bool filled) {
     qp_dprintf("qp_ellipse: entry\n");
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     if (!driver->validate_ok) {
         qp_dprintf("qp_ellipse: fail (validation_ok == false)\n");
         return false;
@@ -73,10 +73,10 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
     // Works a lot worse if sizey<sizex, so flip them if needed and  keep trap of the change in order to flip offsets too
     bool flipped = false;
     if (sizey > sizex) {
-        flipped = true;
+        flipped       = true;
         uint16_t temp = sizex;
-        sizex = sizey;
-        sizey = temp;
+        sizex         = sizey;
+        sizey         = temp;
     }
 
     // Compute x^2 and y^2 as they are used all over the place
@@ -84,13 +84,13 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
     int32_t yy = ((int16_t)sizey) * ((int16_t)sizey);
 
     int16_t offsetx = 0;
-    int16_t offsety = (int16_t) sizey;
+    int16_t offsety = (int16_t)sizey;
 
     int32_t dx = 0;
     int32_t dy = 2 * xx * offsety;
 
     bool temp_ret = true;
-    bool ret = true;
+    bool ret      = true;
 
     qp_internal_fill_pixdata(device, QP_MAX(sizex, sizey), hue, sat, val);
 
@@ -102,7 +102,7 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
     // Simplified (and aproximated) form of the formula for region 1
     //      in original code `sizey` would've been `(sizey-0.25)`
     int32_t d1 = yy - xx * sizey;
-    while(dx < dy) {
+    while (dx < dy) {
         // Draw current point
         if (!flipped) {
             temp_ret = qp_ellipse_helper_impl(device, x, y, offsetx, offsety, filled);
@@ -130,8 +130,8 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
     //      in original code 1st parenthesis would have and extra `+0.25`
     //                       2nd one would have and extra `+1`
     // Note: xx could be factored out from some terms
-    int32_t d2 = yy * (xx + sizex) + xx * (yy - 2*sizey) - xx * yy;
-    while(offsety >= 0) {
+    int32_t d2 = yy * (xx + sizex) + xx * (yy - 2 * sizey) - xx * yy;
+    while (offsety >= 0) {
         if (!flipped) {
             temp_ret = qp_ellipse_helper_impl(device, x, y, offsetx, offsety, filled);
         } else {
