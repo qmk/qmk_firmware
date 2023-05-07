@@ -71,7 +71,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
 
 #elif defined(OLED_DISPLAY_64X32)
-// Double height 128x64
 #    ifndef OLED_DISPLAY_WIDTH
 #        define OLED_DISPLAY_WIDTH 64
 #    endif
@@ -148,6 +147,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    ifndef OLED_DISPLAY_HEIGHT
 #        define OLED_DISPLAY_HEIGHT 128
 #    endif
+#    ifndef OLED_IC
+#        define OLED_IC OLED_IC_SH1107
+#    endif
+#    ifndef OLED_COM_PIN_OFFSET
+#        define OLED_COM_PIN_OFFSET
+#    endif
 #    ifndef OLED_MATRIX_SIZE
 #        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
 #    endif
@@ -180,6 +185,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #    ifndef OLED_DISPLAY_HEIGHT
 #        define OLED_DISPLAY_HEIGHT 128
+#    endif
+#    ifndef OLED_IC
+#        define OLED_IC OLED_IC_SH1107
 #    endif
 #    ifndef OLED_MATRIX_SIZE
 #        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 2048 (compile time mathed)
