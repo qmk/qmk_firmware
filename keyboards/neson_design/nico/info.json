@@ -6,17 +6,6 @@
     "bootmagic": {
         "enabled": true
     },
-    "config_h_features": {
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "rgblight": true
-    },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "backlight": false,
@@ -31,26 +20,11 @@
     "indicators": {
         "caps_lock": "E2"
     },
-    "keyboard_folder": "neson_design/nico",
-    "keymaps": {},
     "matrix_pins": {
         "cols": ["C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4", "D5", "D3", "D2", "B7", "B3", "B2", "B1", "F6", "F7"],
         "rows": ["F0", "E6", "F5", "F4", "F1"]
     },
-    "matrix_size": {
-        "cols": 17,
-        "rows": 5
-    },
-    "mouse_key": {
-        "enabled": true
-    },
-    "parse_errors": [],
-    "parse_warnings": [],
-    "platform": "unknown",
-    "platform_key": "avr",
     "processor": "atmega32u4",
-    "processor_type": "avr",
-    "protocol": "LUFA",
     "rgblight": {
         "brightness_steps": 8,
         "hue_steps": 8,
@@ -67,9 +41,6 @@
     },
     "layouts": {
         "LAYOUT": {
-            "c_macro": true,
-            "filename": "keyboards/neson_design/nico/nico.h",
-            "json_layout": true,
             "layout": [
                 { "label": "K017", "matrix": [0, 15], "w": 1, "x": 0, "y": 0 },
                 { "label": "K018", "matrix": [0, 16], "w": 1, "x": 1, "y": 0 },
