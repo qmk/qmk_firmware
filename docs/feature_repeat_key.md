@@ -406,7 +406,8 @@ enum custom_keycodes {
 
 // Use ALTREP2 and ALTREP3 in your layout...
 
-bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record) {
+bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record,
+                                  uint8_t* remembered_mods) {
     switch (keycode) {
         case ALTREP2:
         case ALTREP3:
