@@ -44,21 +44,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 175
 
+#define ONESHOT_TAP_TOGGLE 2
 #define ONESHOT_TIMEOUT 3000
-
-// Turn off Caps Word after 5 seconds.
-//#define CAPS_WORD_IDLE_TIMEOUT 5000
-
-// disable macro / functions as we are not using them and they are not compatible with
-// LTO (link time optimization)
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
 #ifdef RGBLIGHT_ENABLE
     // enable light change on layer change
     #define RGBLIGHT_LAYERS
     #define RGBLIGHT_SPLIT
-    
+
     // increase the number of light layers
     #define RGBLIGHT_MAX_LAYERS 16
 

@@ -612,7 +612,7 @@ def create_svg_for_row(args, row, num_cols, layer_name, x, y, base_row):
 
 
 ################################################################################
-# this section handles the combo keys.  
+# this section handles the combo keys.
 ################################################################################
 def extract_combo_keys(keymap_str):
     """take the combo key presses from the keymap and return as a dict"""
@@ -662,12 +662,12 @@ def _svg_for_adjacent_combo(keys, action, layer_idx, layer_height, row_idx, key_
     x = SVG.diagram_inset
     x += SVG.key_spacing
     x += key_idx * (SVG.key_width + SVG.key_spacing)
-    if key_idx > split:
+    if key_idx >= split:
         x += 0.5 * (SVG.key_width + SVG.key_spacing) + SVG.key_spacing
 
     action = key_names.get(action, action.removeprefix(keycode_prefix))
 
-    svg_raw = '<g>' 
+    svg_raw = '<g>'
     x += 49
     y += 1
     svg_raw += f'<rect x="{x}" y="{y}" width="33" height="20" fill="#3399ff" rx="6" style="opacity:0.8"></rect>'
@@ -678,7 +678,7 @@ def _svg_for_adjacent_combo(keys, action, layer_idx, layer_height, row_idx, key_
     return svg_raw
 
 def create_svg_for_adjacent_combo(args, layer_data, layer_height, layer_idx):
-    """create the svg for the combo keys that are (horizontally) adjacent and can be shown on 
+    """create the svg for the combo keys that are (horizontally) adjacent and can be shown on
     the layer (easily)"""
     combo_mapping = extract_combo_mapping(args)
 
