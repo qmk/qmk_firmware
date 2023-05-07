@@ -8,19 +8,12 @@
         "vid": "0x5006"
     },
     "features": {
-        "bootmagic": false,
+        "bootmagic": true,
         "command": false,
         "console": false,
-        "extrakey": false,
-        "mousekey": false,
-        "nkro": false,
-        "backlight": false,
-        "rgblight": false,
-        "audio": false,
-        "combo": false,
-        "midi": false,
-        "virtser": false,
-        "raw": false
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
