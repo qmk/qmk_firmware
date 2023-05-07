@@ -10,8 +10,6 @@ static void flash_current_layer(void);
 uint8_t current_layer = 0;
 uint8_t current_display_mode = 0;
 
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * ┌───┐
@@ -73,18 +71,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // on hold
             else if (record->event.pressed) {
                 current_display_mode = (current_display_mode + 1) % 3;
-                switch(current_display_mode) {
-                    case 0: // clock
-                        // call the default function for oled here. the one that is initialized
-                        // for testing -> tap_code(KC_0);
-                        break;
-                    case 1: // layers
-                        // for testing -> tap_code(KC_1);
-                        break;
-                    case 2: // monkey
-                        // for testing -> tap_code(KC_2);
-                        break;
-                }
             }
 #endif
             return false;
@@ -1330,12 +1316,11 @@ static void render_button_pressed(void) {
 
     if (layer_changed)
         flash_current_layer();
+    
     else if (key_pressed)
         oled_write_raw_P(pressed, sizeof(pressed));
     else
         oled_write_raw_P(not_pressed, sizeof(not_pressed));
-    
-    
 }
 
 static void flash_current_layer(void) {
