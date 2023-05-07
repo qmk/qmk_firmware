@@ -8,8 +8,7 @@ enum combo_keys {
     // left hand only
     WF_ESC,
     CD_TAB,
-    ZX_Q,
-    TG_Q,  // trial q on left inner mi combo
+    ZX_Q,           // trial on zx for q - skeletyl
 
     RESET_COMBO,
 
@@ -17,10 +16,9 @@ enum combo_keys {
     UY_DEL,
     HCOM_ENT,
     JY_CTLBSP,
-    MN_COMPOSE,  // trial compose on right inner mi combo
+    DOTSLSH_COMPOSE,  // trial compose on right lower ring/pinkie for skeletyl
 
     // both hands, not using pl / fu any more due to typing mishits
-    // moved movement (fu) to left thumb hold and function to tri state
     WY_LMSE,
 
     COMBO_LENGTH
@@ -34,20 +32,18 @@ const uint16_t PROGMEM combo_del[] = {KC_U, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_ent[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM combo_bspc[] = {KC_J, CTL_Y, COMBO_END};
 const uint16_t PROGMEM combo_q[] = {SFT_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM combo_q_alt[] = {KC_T, KC_G, COMBO_END};
-const uint16_t PROGMEM combo_compose[] = {KC_M, KC_N, COMBO_END};
+const uint16_t PROGMEM combo_compose[] = {KC_DOT, SFT_SLS, COMBO_END};
 const uint16_t PROGMEM combo_mouse[] = {CTL_W, CTL_Y, COMBO_END};
 
 combo_t key_combos[] = {
     [WF_ESC] = COMBO(combo_esc, KC_ESC),
     [CD_TAB] = COMBO(combo_tab, KC_TAB),
     [ZX_Q] = COMBO(combo_q, KC_Q),
-    [TG_Q] = COMBO(combo_q_alt, KC_Q),
 
     [UY_DEL] = COMBO(combo_del, KC_DEL),
     [HCOM_ENT] = COMBO(combo_ent, KC_ENT),
     [JY_CTLBSP] = COMBO(combo_bspc, LCTL(KC_BSPC)),
-    [MN_COMPOSE] = COMBO(combo_compose, MY_COMP),
+    [DOTSLSH_COMPOSE] = COMBO(combo_compose, MY_COMP),
 #ifdef MOUSEKEY_ENABLE
     [RESET_COMBO] = COMBO(combo_reset, QK_BOOTLOADER),
     [WY_LMSE] = COMBO(combo_mouse, TO(LMSE)),
