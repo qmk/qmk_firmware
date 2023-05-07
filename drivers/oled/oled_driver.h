@@ -88,7 +88,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define OLED_BLOCK_TYPE uint8_t
 #    endif
 #    ifndef OLED_BLOCK_COUNT
-#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 32 (compile time mathed)
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 8 (compile time mathed)
 #    endif
 #    ifndef OLED_BLOCK_SIZE
 #        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 32 (compile time mathed)
@@ -107,7 +107,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 
 #elif defined(OLED_DISPLAY_64X48)
-// Double height 128x64
 #    ifndef OLED_DISPLAY_WIDTH
 #        define OLED_DISPLAY_WIDTH 64
 #    endif
@@ -143,7 +142,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 
 #elif defined(OLED_DISPLAY_64X128)
-// Double height 128x64
 #    ifndef OLED_DISPLAY_WIDTH
 #        define OLED_DISPLAY_WIDTH 64
 #    endif
@@ -190,7 +188,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define OLED_BLOCK_TYPE uint32_t
 #    endif
 #    ifndef OLED_BLOCK_COUNT
-#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 64 (compile time mathed)
+#        define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 32 (compile time mathed)
 #    endif
 #    ifndef OLED_BLOCK_SIZE
 #        define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 64 (compile time mathed)
