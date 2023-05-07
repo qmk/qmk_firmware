@@ -1,6 +1,6 @@
 # 薙刀式カナ配列キーマップ
 
-薙刀式カナ配列による入力をQMKで実現します。薙刀式v15に準拠しています。
+薙刀式カナ配列による入力をQMKで実現します。薙刀式v15Aに準拠しています。
 編集モードも実装していますが、
 編集モードでの記号入力方式がOSによって異なるので、
 使用するOS(Windows、MacOS、Linux)によって切り替え る必要があります。
@@ -8,13 +8,13 @@
 
 ## 薙刀式とは
 
-【薙刀式】v15（仮最終候補）
-http://oookaworks.seesaa.net/article/495043083.html
+【薙刀式】v15候補は現在みっつ
+http://oookaworks.seesaa.net/article/489564522.html
 ## OSの設定
 
 1. OSのキーボード設定を日本語106キーボードにする。
 2. Windowsの場合は[WinCompose](http://wincompose.info/)をインストールする。
-3. MacOSの場合は、ユーザー辞書にnaginata_dictionary.plistを登録する。
+3. MacOSの場合は、Karabiner-Elementsをインストールして、 unicode_hex_input_switcher.json を ~/.config/karabiner/assets/complex_modifications/ において、Karabiner-Elementsの設定で有効にする。
 
 ## QMKファームウェアの設定
 

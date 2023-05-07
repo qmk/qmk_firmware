@@ -1,0 +1,42 @@
+{
+  "title": "Unicode Hex Input Switcher",
+  "rules": [
+    {
+      "description": "A shortcut for Unicode Hex Input",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f20",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "select_input_source": {
+                "input_source_id": "^com\\.apple\\.keylayout\\.UnicodeHexInput$"
+              }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f19",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "select_input_source": {
+                "language": "^ja$"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
