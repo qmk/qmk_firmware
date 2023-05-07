@@ -28,7 +28,7 @@ Flashing example for this keyboard:
 * Keyboard Maintainer: [Andrew Wells](https://github.com/wizarddata)
 * Hardware Availability: [Ergo S-1 GitHub](https://github.com/wizarddata/Ergo-S-1)
 
-*`handwired/ergo_s-1` is an alias of `handwired/dactly_cc`*
+*`handwired/ergo_s-1` is an alias of `handwired/dactyl_cc`*
 
 Make example for this keyboard (after setting up your build environment):
 
