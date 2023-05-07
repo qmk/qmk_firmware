@@ -24,29 +24,36 @@
 using ::testing::AnyNumber;
 using ::testing::InSequence;
 
-#define FOO_MACRO SAFE_RANGE
-
 namespace {
-
-uint16_t get_alt_repeat_key_keycode_user_default(uint16_t keycode, uint8_t mods) {
-    return KC_TRNS;
-}
 
 bool process_record_user_default(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
+bool get_repeat_key_eligible_user_default(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    return true;
+}
+
+uint16_t get_alt_repeat_key_keycode_user_default(uint16_t keycode, uint8_t mods) {
+    return KC_TRNS;
+}
+
 // Indirections so that process_record_user() can be replaced with other
 // functions in the test cases below.
-std::function<uint16_t(uint16_t, uint8_t)>  get_alt_repeat_key_keycode_user_fun = get_alt_repeat_key_keycode_user_default;
-std::function<bool(uint16_t, keyrecord_t*)> process_record_user_fun             = process_record_user_default;
-
-extern "C" uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
-    return get_alt_repeat_key_keycode_user_fun(keycode, mods);
-}
+std::function<bool(uint16_t, keyrecord_t*)>           process_record_user_fun             = process_record_user_default;
+std::function<bool(uint16_t, keyrecord_t*, uint8_t*)> get_repeat_key_eligible_user_fun    = get_repeat_key_eligible_user_default;
+std::function<uint16_t(uint16_t, uint8_t)>            get_alt_repeat_key_keycode_user_fun = get_alt_repeat_key_keycode_user_default;
 
 extern "C" bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return process_record_user_fun(keycode, record);
+}
+
+extern "C" bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    return get_repeat_key_eligible_user_fun(keycode, record, remembered_mods);
+}
+
+extern "C" uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
+    return get_alt_repeat_key_keycode_user_fun(keycode, mods);
 }
 
 class AltRepeatKey : public TestFixture {
@@ -54,8 +61,9 @@ class AltRepeatKey : public TestFixture {
     bool process_record_user_was_called_;
 
     void SetUp() override {
-        get_alt_repeat_key_keycode_user_fun = get_alt_repeat_key_keycode_user_default;
         process_record_user_fun             = process_record_user_default;
+        get_repeat_key_eligible_user_fun    = get_repeat_key_eligible_user_default;
+        get_alt_repeat_key_keycode_user_fun = get_alt_repeat_key_keycode_user_default;
     }
 
     void ExpectProcessRecordUserCalledWith(bool expected_press, uint16_t expected_keycode, int8_t expected_repeat_key_count) {
@@ -366,14 +374,14 @@ TEST_F(AltRepeatKey, RollingFromAltRepeat) {
 // alternate keycode defined.
 TEST_F(AltRepeatKey, AlternateUnsupportedMacro) {
     TestDriver driver;
-    KeymapKey  key_foo(0, 0, 0, FOO_MACRO);
+    KeymapKey  key_foo(0, 0, 0, QK_USER_0);
     KeymapKey  key_alt_repeat(0, 1, 0, QK_AREP);
     set_keymap({key_foo, key_alt_repeat});
 
     process_record_user_fun = [=](uint16_t keycode, keyrecord_t* record) {
         process_record_user_was_called_ = true;
         switch (keycode) {
-            case FOO_MACRO:
+            case QK_USER_0:
                 if (record->event.pressed) {
                     SEND_STRING("foo");
                 }
@@ -390,7 +398,7 @@ TEST_F(AltRepeatKey, AlternateUnsupportedMacro) {
     tap_key(key_foo);
 
     EXPECT_TRUE(process_record_user_was_called_);
-    EXPECT_EQ(get_repeat_key_keycode(), FOO_MACRO);
+    EXPECT_EQ(get_repeat_key_keycode(), QK_USER_0);
     EXPECT_EQ(get_alt_repeat_key_keycode(), KC_NO);
 
     process_record_user_was_called_ = false;
@@ -416,14 +424,14 @@ TEST_F(AltRepeatKey, AlternateUnsupportedMacro) {
 // Tests a macro with custom alternate behavior.
 TEST_F(AltRepeatKey, MacroCustomAlternate) {
     TestDriver driver;
-    KeymapKey  key_foo(0, 0, 0, FOO_MACRO);
+    KeymapKey  key_foo(0, 0, 0, QK_USER_0);
     KeymapKey  key_alt_repeat(0, 1, 0, QK_AREP);
     set_keymap({key_foo, key_alt_repeat});
 
     get_alt_repeat_key_keycode_user_fun = [](uint16_t keycode, uint8_t mods) -> uint16_t {
         switch (keycode) {
-            case FOO_MACRO:
-                return FOO_MACRO; // FOO_MACRO handles its own alternate.
+            case QK_USER_0:
+                return QK_USER_0; // QK_USER_0 handles its own alternate.
             default:
                 return KC_NO; // No key by default.
         }
@@ -431,7 +439,7 @@ TEST_F(AltRepeatKey, MacroCustomAlternate) {
     process_record_user_fun = [=](uint16_t keycode, keyrecord_t* record) {
         process_record_user_was_called_ = true;
         switch (keycode) {
-            case FOO_MACRO:
+            case QK_USER_0:
                 if (record->event.pressed) {
                     if (get_repeat_key_count() >= 0) {
                         SEND_STRING("foo");
@@ -449,6 +457,65 @@ TEST_F(AltRepeatKey, MacroCustomAlternate) {
     ExpectString(driver, "foobarbar");
 
     tap_keys(key_foo, key_alt_repeat, key_alt_repeat);
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
+// Tests the Additional "Alternate" keys example from the documentation page.
+TEST_F(AltRepeatKey, AdditionalAlternateKeysExample) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_w(0, 1, 0, KC_W);
+    KeymapKey  key_altrep2(0, 2, 0, QK_USER_0);
+    KeymapKey  key_altrep3(0, 3, 0, QK_USER_1);
+    set_keymap({key_a, key_w, key_altrep2, key_altrep3});
+
+    get_repeat_key_eligible_user_fun = [](uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+        switch (keycode) {
+            case QK_USER_0:
+            case QK_USER_1:
+                return false; // Ignore ALTREP keys.
+        }
+        return true; // Other keys can be repeated.
+    };
+    process_record_user_fun = [=](uint16_t keycode, keyrecord_t* record) {
+        switch (keycode) {
+            case QK_USER_0:
+                if (record->event.pressed) {
+                    const uint16_t last_key = get_repeat_key_keycode();
+                    switch (last_key) {
+                        case KC_A:
+                            SEND_STRING(/*a*/ "tion");
+                            break;
+                        case KC_W:
+                            SEND_STRING(/*w*/ "hich");
+                            break;
+                    }
+                }
+                return false;
+            case QK_USER_1:
+                if (record->event.pressed) {
+                    const uint16_t last_key = get_repeat_key_keycode();
+                    switch (last_key) {
+                        case KC_A:
+                            SEND_STRING(/*a*/ "bout");
+                            break;
+                        case KC_W:
+                            SEND_STRING(/*w*/ "ould");
+                            break;
+                    }
+                }
+                return false;
+        }
+        return true;
+    };
+
+    // Allow any number of empty reports.
+    EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
+    ExpectString(driver, "ationwhichaboutwould");
+
+    tap_keys(key_a, key_altrep2, key_w, key_altrep2);
+    tap_keys(key_a, key_altrep3, key_w, key_altrep3);
 
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
