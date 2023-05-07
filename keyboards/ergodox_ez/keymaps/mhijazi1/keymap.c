@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
-
 enum layers {
     BASE,  // default layer
     SYMB,  // symbols
@@ -14,15 +13,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   Esc  |   1  |   2  |   3  |   4  |   5  |  [   |           |   ]  |   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   W  |   E  |   R  |   T  |  (   |           |  )   |   Y  |   U  |   I  |   O  |   P  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Home   |A/Alt |   S  |   D  | F/L1 |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;  |    '    |
- * |--------+------+------+------+------+------|  {   |           |  }   |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   C  | V/L2 |   B  |      |           |      |   N  | M/L2 |   ,  |   .  |//Ctrl| RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |  Grv |  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  |   =   |
+ * |   Esc  |   1  |   2    |   3  |   4  |   5  |  [   |           |   ]  |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |--------+------+--------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Del    |   Q  |   W    |   E  |   R  |   T  |  (   |           |  )   |   Y  |   U  |   I  |   O  |   P  |   \    |
+ * |--------+------+--------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | Home   |A/Alt |   S    |   D  | F/L1 |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;  |    '    |
+ * |--------+------+--------+------+------+------|  {   |           |  }   |------+------+------+------+------+--------|
+ * | LShift |Z/Ctrl|   X    |   C  | V/L2 |   B  |      |           |      |   N  | M/L2 |   ,  |   .  |//Ctrl| RShift |
+ * `--------+------+--------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |  Grv |  '"  |Ctrl+Win| Left | Right|                                       |  Up  | Down |   [  |   ]  |   =   |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | App  | LDR  |       | PgUp | PGDn |
@@ -38,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_DEL,          KC_Q,        KC_W,          KC_E,    KC_R,             KC_T,    KC_LPRN,                     KC_RPRN,      KC_Y,    KC_U,             KC_I,    KC_O,    KC_P,              KC_BSLS,
   KC_HOME,         ALT_T(KC_A), KC_S,          KC_D,    LT(SYMB, KC_F),   KC_G,                                               KC_H,    KC_J,             KC_K,    KC_L,    ALT_T(KC_SCLN),    KC_QUOT,
   KC_LSFT,         CTL_T(KC_Z), KC_X,          KC_C,    LT(MDIA, KC_V),   KC_B,    KC_LCBR,                     KC_RCBR,      KC_N,    LT(MDIA, KC_M),   KC_COMM, KC_DOT,  CTL_T(KC_SLSH),    KC_RSFT,
-  KC_GRV,          KC_QUOT,     LALT(KC_LSFT), KC_LEFT, KC_RGHT,                                                                       KC_UP,            KC_DOWN, KC_LBRC, KC_RBRC,           KC_EQL,
+  KC_GRV,          KC_QUOT,     LCTL(KC_LWIN), KC_LEFT, KC_RGHT,                                                                       KC_UP,            KC_DOWN, KC_LBRC, KC_RBRC,           KC_EQL,
                                                                           ALT_T(KC_APP), KC_LEAD,             KC_PGUP, KC_PGDN,
                                                                                          TG(MDIA),            TG(SYMB),
                                                                         KC_SPC,  KC_TAB, KC_LGUI,             KC_RGUI, KC_BSPC, KC_ENT
@@ -278,4 +277,3 @@ const uint16_t PROGMEM game_mode_combo[] = {KC_RGUI, KC_LBRC, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(game_mode_combo, TG(GAME)),
 };
-
