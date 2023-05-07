@@ -151,7 +151,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define OLED_IC OLED_IC_SH1107
 #    endif
 #    ifndef OLED_COM_PIN_OFFSET
-#        define OLED_COM_PIN_OFFSET
+#        define OLED_COM_PIN_OFFSET 32
 #    endif
 #    ifndef OLED_MATRIX_SIZE
 #        define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
