@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "otaku split rev.1", 
+    "keyboard_name": "otaku split rev.1",
     "manufacturer": "takashiski",
-    "url": "http", 
-    "maintainer": "takashiski", 
+    "url": "http",
+    "maintainer": "takashiski",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

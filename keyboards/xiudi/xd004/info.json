@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "XD004", 
+    "keyboard_name": "XD004",
     "manufacturer": "XIUDI",
-    "maintainer": "qmk", 
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x7844",
         "pid": "0x0404",
@@ -24,10 +24,10 @@
     "layouts": {
         "LAYOUT_all": {
             "layout": [
-                {"x":0, "y":0, "matrix": [0, 0]},
-                {"x":1, "y":0, "matrix": [0, 1]},
-                {"x":2, "y":0, "matrix": [0, 2]},
-                {"x":3, "y":0, "matrix": [0, 3]}
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 3, "y": 0, "matrix": [0, 3]}
             ]
         }
     }

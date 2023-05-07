@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Neuron", 
+    "keyboard_name": "Neuron",
     "manufacturer": "Walletburner",
-    "url": "https://qmk.fm/keyboards/", 
-    "maintainer": "worldspawn00", 
+    "url": "https://qmk.fm/keyboards/",
+    "maintainer": "worldspawn00",
     "usb": {
         "vid": "0x5742",
         "pid": "0x6E75",

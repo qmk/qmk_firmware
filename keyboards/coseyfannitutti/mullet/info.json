@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "mullet", 
+    "keyboard_name": "mullet",
     "manufacturer": "coseyfannitutti",
-    "url": "https://github.com/coseyfannitutti/mullet", 
-    "maintainer": "coseyfannitutti", 
+    "url": "https://github.com/coseyfannitutti/mullet",
+    "maintainer": "coseyfannitutti",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6969",

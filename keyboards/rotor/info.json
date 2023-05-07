@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Rotor", 
+    "keyboard_name": "Rotor",
     "manufacturer": "Densus Design",
-    "url": "https://klc-playground.com/", 
-    "maintainer": "2Moons", 
+    "url": "https://klc-playground.com/",
+    "maintainer": "2Moons",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xE8BE",

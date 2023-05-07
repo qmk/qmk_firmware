@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "IBM Model M 101/102", 
+    "keyboard_name": "IBM Model M 101/102",
     "manufacturer": "iw0rm3r",
-    "url": "https://github.com/iw0rm3r/qmk_firmware/tree/modelm101/keyboards/converter/modelm101", 
-    "maintainer": "iw0rm3r", 
+    "url": "https://github.com/iw0rm3r/qmk_firmware/tree/modelm101/keyboards/converter/modelm101",
+    "maintainer": "iw0rm3r",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

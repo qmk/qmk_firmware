@@ -4,12 +4,12 @@
     "url": "",
     "maintainer": "melgeek001365",
     "usb": {
-    	"vid": "0xEDED",
-    	"pid": "0x0068",
-    	"device_version": "0.0.1"
+        "vid": "0xEDED",
+        "pid": "0x0068",
+        "device_version": "0.0.1"
     },
     "rgb_matrix": {
-    	"driver": "IS31FL3741"
+        "driver": "IS31FL3741"
     },
     "matrix_pins": {
         "cols": ["B0", "B1", "B2", "B3", "D2", "D5", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7"],

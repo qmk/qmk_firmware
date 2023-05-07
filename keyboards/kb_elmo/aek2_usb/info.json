@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "AEK II USB", 
+    "keyboard_name": "AEK II USB",
     "manufacturer": "kb-elmo",
-    "url": "https://github.com/kb-elmo/aek2_usb", 
-    "maintainer": "kb-elmo", 
+    "url": "https://github.com/kb-elmo/aek2_usb",
+    "maintainer": "kb-elmo",
     "usb": {
         "vid": "0xA68C",
         "pid": "0xDB52",

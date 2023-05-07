@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Mars 8.0", 
+    "keyboard_name": "Mars 8.0",
     "manufacturer": "FT",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x20A0",
         "pid": "0x422D",

@@ -23,8 +23,6 @@
 #define UNUSABLE_PINS \
     { B4, D6, F1, F5, F6, F7 }
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING

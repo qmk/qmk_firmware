@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "T111", 
+    "keyboard_name": "T111",
     "manufacturer": "FUJITSU",
-    "url": "", 
-    "maintainer": "DmNosachev", 
+    "url": "",
+    "maintainer": "DmNosachev",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6FAA",

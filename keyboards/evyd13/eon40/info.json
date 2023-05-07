@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "Eon40", 
+  "keyboard_name": "Eon40",
   "manufacturer": "Evyd13",
-  "url": "https://maartenwut.com/product/eon40/", 
-  "maintainer": "qmk", 
+  "url": "https://maartenwut.com/product/eon40/",
+  "maintainer": "qmk",
   "usb": {
     "vid": "0x4705",
     "pid": "0x0140",

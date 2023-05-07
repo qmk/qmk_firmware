@@ -59,7 +59,6 @@
                 {"matrix": [5, 3], "x": 3, "y": 5.25}
             ]
         },
-
         "LAYOUT_numpad_6x4": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},

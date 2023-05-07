@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "LCK75", 
+    "keyboard_name": "LCK75",
     "manufacturer": "Lyso1",
-    "url": "https://github.com/lyso1/LCK75", 
-    "maintainer": "Lyso1", 
+    "url": "https://github.com/lyso1/LCK75",
+    "maintainer": "Lyso1",
     "usb": {
       "vid": "0x7856",
       "pid": "0x6163",

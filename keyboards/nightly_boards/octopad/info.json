@@ -4,9 +4,9 @@
     "url": "",
     "maintainer": "Neil Brian Ramirez",
     "usb": {
-    	"vid": "0xD812",
-    	"pid": "0x0004",
-    	"device_version": "0.0.1"
+        "vid": "0xD812",
+        "pid": "0x0004",
+        "device_version": "0.0.1"
     },
     "matrix_pins": {
         "cols": ["F1", "F0", "D0", "D1", "B1"],
@@ -14,13 +14,13 @@
     },
     "diode_direction": "COL2ROW",
     "encoder": {
-    	"rotary": [
-    		{"pin_a": "C7", "pin_b": "C6"},
-    		{"pin_a": "F4", "pin_b": "F5"}
-    	]
+        "rotary": [
+            {"pin_a": "C7", "pin_b": "C6"},
+            {"pin_a": "F4", "pin_b": "F5"}
+        ]
     },
     "ws2812": {
-    	"pin": "F7"
+        "pin": "F7"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

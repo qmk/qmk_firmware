@@ -4,7 +4,8 @@
     "maintainer": "jmaynard",
     "usb": {
         "vid": "0x1209",
-        "pid": "0x3270"
+        "pid": "0x3270",
+        "max_power": 100
     },
     "debounce": 15,
     "layouts": {

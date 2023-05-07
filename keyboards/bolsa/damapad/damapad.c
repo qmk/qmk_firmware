@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "damapad.h" 
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 bool oled_task_kb(void) {

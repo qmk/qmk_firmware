@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "KOYU", 
+    "keyboard_name": "KOYU",
     "manufacturer": "RAMA WORKS",
-    "url": "http://rama.works", 
-    "maintainer": "Wilba", 
+    "url": "http://rama.works",
+    "maintainer": "Wilba",
     "usb": {
         "vid": "0x5241",
         "pid": "0x4B59",

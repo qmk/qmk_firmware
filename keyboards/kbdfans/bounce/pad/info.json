@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "Bounce Pad", 
+    "keyboard_name": "Bounce Pad",
     "manufacturer": "KBDfans",
-    "maintainer": "moyi4681", 
+    "maintainer": "moyi4681",
     "usb": {
         "vid": "0x4B42",
         "pid": "0x7002",

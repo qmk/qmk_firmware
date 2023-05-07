@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Zodiark", 
+    "keyboard_name": "Zodiark",
     "manufacturer": "Aleblazer",
-    "url": "https://github.com/Aleblazer/qmk_firmware/tree/master/keyboards/zodiark", 
-    "maintainer": "Aleblazer", 
+    "url": "https://github.com/Aleblazer/qmk_firmware/tree/master/keyboards/zodiark",
+    "maintainer": "Aleblazer",
     "usb": {
         "vid": "0xF901",
         "pid": "0xF902",

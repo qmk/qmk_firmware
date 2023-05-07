@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Fourier", 
+    "keyboard_name": "Fourier",
     "manufacturer": "Keebio",
-    "url": "https://keeb.io", 
-    "maintainer": "nooges", 
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
     "usb": {
         "vid": "0xCB10",
         "pid": "0x1247",
