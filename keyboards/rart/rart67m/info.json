@@ -35,7 +35,7 @@
                 {"label": "-", "matrix": [1, 5], "x": 11, "y": 0},
                 {"label": "=", "matrix": [0, 6], "x": 12, "y": 0},
                 {"label": "Backspace", "matrix": [1, 6], "x": 13, "y": 0, "w": 2},
-                                              
+
                 {"label": "Tab", "matrix": [2, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [3, 0], "x": 1.5, "y": 1},
                 {"label": "W", "matrix": [2, 1], "x": 2.5, "y": 1},
@@ -50,7 +50,7 @@
                 {"label": "[", "matrix": [3, 5], "x": 11.5, "y": 1},
                 {"label": "]", "matrix": [2, 6], "x": 12.5, "y": 1},
                 {"label": "\\", "matrix": [3, 6], "x": 13.5, "y": 1, "w": 1.5},
-                                              
+
                 {"label": "Caps Lock", "matrix": [4, 0], "x": 0, "y": 2, "w": 1.75},
                 {"label": "A", "matrix": [5, 0], "x": 1.75, "y": 2},
                 {"label": "S", "matrix": [4, 1], "x": 2.75, "y": 2},
@@ -65,7 +65,7 @@
                 {"label": "'", "matrix": [5, 5], "x": 11.75, "y": 2},
                 {"label": "Enter", "matrix": [4, 6], "x": 12.75, "y": 2, "w": 2.25},
                 {"label": "Page Up", "matrix": [5, 6], "x": 15, "y": 2},
-                                              
+
                 {"label": "Shift", "matrix": [6, 0], "x": 0, "y": 3, "w": 2.25},
                 {"label": "Z", "matrix": [7, 0], "x": 2.25, "y": 3},
                 {"label": "X", "matrix": [6, 1], "x": 3.25, "y": 3},
@@ -80,7 +80,7 @@
                 {"label": "Shift", "matrix": [7, 5], "x": 12.25, "y": 3, "w": 1.75},
                 {"label": "\u2191", "matrix": [6, 6], "x": 14, "y": 3},
                 {"label": "Page Down", "matrix": [7, 6], "x": 15, "y": 3},
-                                              
+
                 {"label": "Ctrl", "matrix": [0, 7], "x": 0, "y": 4, "w": 1.5},
                 {"label": "Alt", "matrix": [1, 7], "x": 1.5, "y": 4, "w": 1.5},
                 {"label": "Space", "matrix": [2, 7], "x": 3, "y": 4, "w": 7},
