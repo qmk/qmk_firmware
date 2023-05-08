@@ -112,7 +112,6 @@
                 {"label": "\u25bd", "matrix": [4, 15], "x": 16.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -191,7 +190,6 @@
                 {"label": "\u25bd", "matrix": [4, 15], "x": 16.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -272,7 +270,6 @@
                 {"label": "\u25bd", "matrix": [4, 15], "x": 16.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_wkl": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -349,7 +346,6 @@
                 {"label": "\u25bd", "matrix": [4, 15], "x": 16.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_wkl_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -428,7 +424,6 @@
                 {"label": "\u25bd", "matrix": [4, 15], "x": 16.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_hhkb": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -505,7 +500,6 @@
                 {"label": "\u25bd", "matrix": [4, 15], "x": 16.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_hhkb_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -584,7 +578,6 @@
                 {"label": "\u25bd", "matrix": [4, 15], "x": 16.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_cwkl": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -663,7 +656,6 @@
                 {"label": "\u25bd", "matrix": [4, 15], "x": 16.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_cwkl_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
