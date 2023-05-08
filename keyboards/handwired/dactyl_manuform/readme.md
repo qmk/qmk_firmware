@@ -12,31 +12,31 @@ Forked from the [Dactyl](/keyboards/handwired/dactyl), the [Dactyl-ManuForm](htt
 As standard: 
 - The finger keywell bottom row has 2 keys, 1 each in ring and middle columns
     - Exception to this rule is the `5x7` variant - that has two additional keys, per half, in this row
-- The thumb cluster has 6 keys, arranged in 2 columns by 3 rows 
+- The thumb cluster has 6 keys, arranged in a staggered 2 columns by 3 rows 
 
 Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 
 ### Row
 | Count | Description |
-| --- | --- |
+| :---: | :---: |
 | 4 | Three rows, typically for alphabet and some puncuation characters, with 2 key (finger keywell) bottom row |
 | 5 | As *4 row* with number row above |
 | 6 | As *5 row* with function row above |
 
 ### Column
 | Count | Description |
-| --- | --- |
+| :---: | :---: |
 | 5 | A column for each finger with additional column for first finger |  
 | 6 | As *5 column* with additional pinky finger column |
 | 7 | As *6 column* with either an additional first finger column (`5x7`) or additional pinky column (`6x7`) |  
 
 ### Alteration
 | Code | Description |
-| --- | --- |
-| 3 | Thumb cluster reduced to three keys |
-| 5 | Thumb cluster reduced to five keys | 
-| 2_5 | Two additional keys added to finger keywell bottom row, thumb cluster is reduced to five keys |
-| kinesis | Thumb cluster is shaped to resemble the Kinesis Advantage keyboard |
+| :---: | :---: |
+| 3 | Default thumb cluster replaced with three key thumb cluster of [Dactyl Manuform Tight](https://github.com/okke-formsma/dactyl-manuform-tight) |
+| 5 | Default thumb cluster replaced with five key thumb cluster of [Dactyl Manuform Mini](https://github.com/l4u/dactyl-manuform-mini-keyboard) | 
+| 2_5 | Same as code *5* with two additional keys added to finger key-well bottom row |
+| kinesis | Thumb cluster keys are arranged to resemble the Kinesis Advantage keyboard thumb cluster |
 
 ## First Time Setup
 
@@ -59,8 +59,8 @@ handwired_dactyl_manuform_4x6_default.hex
 
 The default functional layout, based on QWERTY, and every variant has this keymap; used as a starting point/template for custom keymaps and for debugging purposes when soldering key matrix to controller.
 
-### Via
-Similar to Default but adds support for the [VIA](https://usevia.app/) keymap configurator. Reduces the number of layers to 4 to comply with VIA defaults, and remaps some keys to accommodate that constraint.
+### VIA
+Similar to *Default* but adds support for the [VIA](https://usevia.app/) keymap configurator. Layers count set to 4 to comply with VIA defaults, and remaps keys to accommodate this constraint, if applicable.
 
 Variants with keymap for Via:
 - 4x6
@@ -85,7 +85,6 @@ Variants with support for Miryoku without a specific keymap:
 ### Custom Keymaps
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
-
 
 ## Required Hardware
 
