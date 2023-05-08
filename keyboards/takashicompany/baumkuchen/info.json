@@ -2,7 +2,7 @@
     "manufacturer": "takashicompany",
     "keyboard_name": "Baumkuchen",
     "maintainer": "takashicompany",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
