@@ -239,7 +239,9 @@ __attribute__((weak)) bool oled_send_cmd_P(const uint8_t *data, uint16_t size) {
 
 __attribute__((weak)) bool oled_send_data(const uint8_t *data, uint16_t size) {
 #if defined(OLED_TRANSPORT_SPI)
-    spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR);
+    if (!spi_start(OLED_CS_PIN, false, OLED_SPI_MODE, OLED_SPI_DIVISOR)) {
+        return false;
+    }
     // Data Mode
     writePinHigh(OLED_DC_PIN);
     // Send the commands
