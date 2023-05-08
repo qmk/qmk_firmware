@@ -47,6 +47,10 @@
         "twinkle": true
         }
     },
+    "ws2812": {
+        "pin": "GP18",
+        "driver": "vendor"
+    },
     "processor": "RP2040",
     "url": "https://www.tokopedia.com/jaykeeb",
     "usb": {
