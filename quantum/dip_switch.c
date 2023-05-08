@@ -16,20 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <string.h> // for memcpy
-
 #include "dip_switch.h"
 #include "gpio.h"
 #include "util.h"
-
 #ifdef SPLIT_KEYBOARD
 #    include "split_common/split_util.h"
 #endif
 
-// for memcpy
-#include <string.h>
+#include <string.h> // for memcpy
 
-extern volatile bool isLeftHand;
 
 #if !defined(DIP_SWITCH_PINS) && !defined(DIP_SWITCH_MATRIX_GRID)
 #    error "Either DIP_SWITCH_PINS or DIP_SWITCH_MATRIX_GRID must be defined."
@@ -40,12 +35,12 @@ extern volatile bool isLeftHand;
 #endif
 
 #ifdef DIP_SWITCH_PINS
-#    define NUMBER_OF_DIP_SWITCHES (ARRAY_SIZE(dip_switch_pad))
 static pin_t dip_switch_pad[NUM_DIP_SWITCHES_MAX_PER_SIDE] = DIP_SWITCH_PINS;
 #endif
 
+extern volatile bool isLeftHand;
+
 #ifdef DIP_SWITCH_MATRIX_GRID
-#    define NUMBER_OF_DIP_SWITCHES (ARRAY_SIZE(dip_switch_pad))
 static matrix_index_t dip_switch_pad[NUM_DIP_SWITCHES_MAX_PER_SIDE] = DIP_SWITCH_MATRIX_GRID;
 extern bool           peek_matrix(uint8_t row_index, uint8_t col_index, bool read_raw);
 static uint16_t       scan_count;
@@ -75,6 +70,11 @@ __attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) {
     return dip_switch_update_mask_user(state);
 }
 
+
+__attribute__((weak)) void dip_switch_wait_pullup_charge(void) {
+    wait_us(100);
+}
+
 void dip_switch_init(void) {
 #ifdef SPLIT_KEYBOARD
     thisHand  = isLeftHand ? 0 : NUM_DIP_SWITCHES_LEFT;
@@ -97,6 +97,7 @@ void dip_switch_init(void) {
     for (uint8_t i = 0; i < thisCount; i++) {
         setPinInputHigh(dip_switch_pad[i]);
     }
+    dip_switch_wait_pullup_charge();
     dip_switch_read(true);
 #endif
 #ifdef DIP_SWITCH_MATRIX_GRID

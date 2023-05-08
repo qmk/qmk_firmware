@@ -43,27 +43,27 @@ void dip_switch_state_raw(bool *slave_state);
 void dip_switch_update_raw(bool *slave_state);
 #    if defined(DIP_SWITCH_PINS)
 #        if defined(DIP_SWITCH_PINS_RIGHT)
-#            define NUM_DIP_SWITCHES_LEFT (sizeof(((pin_t[])DIP_SWITCH_PINS)) / sizeof(pin_t))
-#            define NUM_DIP_SWITCHES_RIGHT (sizeof(((pin_t[])DIP_SWITCH_PINS_RIGHT)) / sizeof(pin_t))
+#            define NUM_DIP_SWITCHES_LEFT (ARRAY_SIZE((pin_t[])DIP_SWITCH_PINS))
+#            define NUM_DIP_SWITCHES_RIGHT (ARRAY_SIZE((pin_t[])DIP_SWITCH_PINS_RIGHT))
 #        else
-#            define NUM_DIP_SWITCHES_LEFT (sizeof(((pin_t[])DIP_SWITCH_PINS)) / sizeof(pin_t))
+#            define NUM_DIP_SWITCHES_LEFT (ARRAY_SIZE((pin_t[])DIP_SWITCH_PINS))
 #            define NUM_DIP_SWITCHES_RIGHT NUM_DIP_SWITCHES_LEFT
 #        endif
 #    elif defined(DIP_SWITCH_MATRIX_GRID)
 #        if defined(DIP_SWITCH_MATRIX_GRID_RIGHT)
-#            define NUM_DIP_SWITCHES_LEFT (sizeof(((matrix_index_t[])DIP_SWITCH_MATRIX_GRID)) / sizeof(matrix_index_t))
-#            define NUM_DIP_SWITCHES_RIGHT (sizeof(((matrix_index_t[])DIP_SWITCH_MATRIX_GRID_RIGHT)) / sizeof(matrix_index_t))
+#            define NUM_DIP_SWITCHES_LEFT (ARRAY_SIZE((pin_t[])DIP_SWITCH_MATRIX_GRID))
+#            define NUM_DIP_SWITCHES_RIGHT (ARRAY_SIZE((pin_t[])DIP_SWITCH_MATRIX_GRID_RIGHT)))
 #        else
-#            define NUM_DIP_SWITCHES_LEFT (sizeof(((matrix_index_t[])DIP_SWITCH_MATRIX_GRID)) / sizeof(matrix_index_t))
+#            define NUM_DIP_SWITCHES_LEFT (ARRAY_SIZE((pin_t[])DIP_SWITCH_MATRIX_GRID))
 #            define NUM_DIP_SWITCHES_RIGHT NUM_DIP_SWITCHES_LEFT
 #        endif
 #    endif
 #    define NUM_DIP_SWITCHES (NUM_DIP_SWITCHES_LEFT + NUM_DIP_SWITCHES_RIGHT)
 #else // SPLIT_KEYBOARD
 #    if defined(DIP_SWITCH_PINS)
-#        define NUM_DIP_SWITCHES (sizeof(((pin_t[])DIP_SWITCH_PINS)) / sizeof(pin_t))
+#        define NUM_DIP_SWITCHES (ARRAY_SIZE((pin_t[])DIP_SWITCH_PINS))
 #    elif defined(DIP_SWITCH_MATRIX_GRID)
-#        define NUM_DIP_SWITCHES (sizeof(((matrix_index_t[])DIP_SWITCH_MATRIX_GRID)) / sizeof(matrix_index_t))
+#        define NUM_DIP_SWITCHES (ARRAY_SIZE((pin_t[])DIP_SWITCH_MATRIX_GRID))
 #    endif
 #    define NUM_DIP_SWITCHES_LEFT NUM_DIP_SWITCHES
 #    define NUM_DIP_SWITCHES_RIGHT 0
