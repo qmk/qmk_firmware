@@ -2,8 +2,7 @@
 
 The [Lancer](https://github.com/subrezon/lancer) is a 36-key ortholinear keyboard with a light split and a focus on compact footprint and portability. It is a direct successor to [la_nc](https://github.com/subrezon/la_nc), and is very much inspired by other keyboards like Planck, Lumberjack and Lesovoz. Powered by a Pro Micro compatible MCU board and featuring battery and nice!view support, it offers a simple and productive typing experience, both with and without the wire.
 
-// FIXME
-![subrezon/lancer](https://i.imgur.com/fixme.jpg)
+![subrezon/lancer](https://imgur.com/W41Vx4r)
 
 * Keyboard Maintainer: [Daniel Osipishin](https://github.com/subrezon)
 * Hardware Supported: Lancer PCB, with a ProMicro or other compatible MCU board
