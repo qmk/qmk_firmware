@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 #include <string.h>
 #include "progmem.h"
-#include "keyboard.h"
 #include "wait.h"
 
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
