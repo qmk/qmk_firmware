@@ -77,7 +77,7 @@ typedef struct _split_slave_encoder_sync_t {
 #ifdef DIP_SWITCH_ENABLE
 typedef struct _split_slave_dip_switch_sync_t {
     uint8_t checksum;
-    bool    state[NUM_ENCODERS_MAX_PER_SIDE];
+    bool    state[NUM_DIP_SWITCHES_MAX_PER_SIDE];
 } split_slave_dip_switch_sync_t;
 #endif // DIP_SWITCH_ENABLE
 
