@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    
+
     [0] = LAYOUT(
         LT(1, KC_ESC), KC_Q, KC_W, KC_E, 
         KC_TAB, KC_A, KC_S, KC_D,
@@ -249,5 +249,5 @@ void matrix_scan_kb(void) {
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     encoder_action_register(index, clockwise);
-    return true;
+    return false;
 }
