@@ -25,7 +25,7 @@
     "encoder": {
         "rotary": [
             {"pin_a": "GP25", "pin_b": "GP26", "resolution": 2},
-            {"pin_a": "GP27", "pin_b": "GP28", "resolution": 2},
+            {"pin_a": "GP27", "pin_b": "GP28", "resolution": 2}
         ]
     },
     "rgblight": {
