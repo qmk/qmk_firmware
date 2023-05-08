@@ -79,10 +79,10 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         bool board_detected = I2C_SUCCESS(init_io_expander());
         if (board_detected) {
             // board has been re-inserted, sometimes when the cable is initially inserted the I/O expander
-            // may end up in a partially setup state because of this a delay and re-call of init_io_expander()
-            // is used to ensure the board is correctly configured
+            // may end up in a partially setup state because of this a delay and re-call of matrix_init_custom()
+            // is used to ensure the board is correctly configured and also to update board_connected on success
             _delay_ms(500);
-            board_connected = I2C_SUCCESS(init_io_expander());
+            matrix_init_custom();
             // Update leds to reflect the keyboards state
             SYNCHRONISE_HOST_LED_STATUS();
         }

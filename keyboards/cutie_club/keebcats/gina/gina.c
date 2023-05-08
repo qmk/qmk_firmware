@@ -27,7 +27,6 @@ static keyboard_config_t keyboard_config;
 
 void keyboard_pre_init_kb(void) {
     i2c_init();
-    indicator_leds_init();
 
     keyboard_config.raw = eeconfig_read_kb();
 
