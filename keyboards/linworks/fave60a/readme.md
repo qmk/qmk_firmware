@@ -1,6 +1,7 @@
 # linworks/fave60a
 
-![linworks/fave60a](imgur.com image replace me!)
+![linworks/fave60a front](https://imgur.com/UeWR8Kl)
+![linworks/fave60a back](https://imgur.com/j3mu8LF)
 
 *A short description of the keyboard/project*
 
