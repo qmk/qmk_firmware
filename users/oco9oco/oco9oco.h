@@ -126,7 +126,7 @@ Z X C V B  N M , . /
 #define TO_NOMOD TG(_BASE_NOMOD)
 #define LT_NAV_0 LT(_NAV, KC_0)
 #define MT_CAPS LALT_T(KC_CAPS)
-#define SFT_CAPS LSFT_T(KC_CAPS)
+#define SFT_CAPS LT(_BASE, KC_BTN1)
 
 // NUMPAD
 #define _________NUM_789_________ KC_7, KC_8, KC_9
@@ -242,7 +242,7 @@ bool qwert;
 // Thumb keys
 #define THUMB_L1 LCTL_T(KC_TAB)
 #define THUMB_L2 LT(_IPC, KC_BSPC)
-#define THUMB_L3 LT(_ONEHAND, KC_DEL)
+#define THUMB_L3 LT(_IPC, KC_DEL)
 
 #define THUMB_R3 LT(_MOUSE, KC_ENT)
 #define THUMB_R2 LT(_NAV, KC_SPC)

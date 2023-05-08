@@ -23,9 +23,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     KC_ESC,  __________________NUMROW_L_________________,                            __________________NUMROW_R_________________, KC_MINS,
-    KC_BTN4,  __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, KC_EQL,
-    SFT_CAPS,__________________QWERTY_SACS_L2___________,                            __________________QWERTY_R2________________, RSFT_T(KC_QUOT),
-    KC_LSFT, __________________QWERTY_GUIZ_L3___________, KC_DEL,  KC_B,    __________________QWERTY_HOME_R3___________, RSFT_T(KC_BSLS),
+    SFT_CAPS, __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, KC_EQL,
+    LSFT_T(KC_CAPS),__________________QWERTY_SACS_L2___________,                            __________________QWERTY_R2________________, RSFT_T(KC_QUOT),
+    KC_LSFT, __________________QWERTY_GUIZ_L3___________, KC_BTN1,           KC_B,    __________________QWERTY_HOME_R3___________, RSFT_T(KC_BSLS),
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
                       TG(_ONEHAND), TG(_BASE_NOMOD), THUMB_L1,THUMB_L2,THUMB_L3,         THUMB_R3,THUMB_R2,THUMB_R1, KC_LNG2, TG(_ONEHAND)
 ),
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     KC_ESC,  __________________NUMROW_L_________________,                            __________________NUMROW_R_________________, _______,
     KC_TAB,  __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, _______,
-    SFT_CAPS,__________________QWERTY_L2_SFTA___________,                            __________________QWERTY_R2________________, _______,
+    _______, __________________QWERTY_L2_SFTA___________,                            __________________QWERTY_R2________________, _______,
     KC_LSFT, __________________QWERTY_L3________________, _______,          KC_B,    __________________QWERTY_HOME_R3___________, _______,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
                       _______, _______, THUMB_L1,THUMB_L2,THUMB_L3,         _______, _______, _______, _______, _______
@@ -42,10 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_IPC] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-    _______, PDF_HL,  KC_P,    KC_X,    ALT_F4,  XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-    _______, XXXXXXX, XXXXXXX, CLASS_E, CLASS_A, KC_SLSH,                            KC_GRV,  _________NUM_789_________, KC_RBRC, _______,
-    _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F), KC_DOT,                             XXXXXXX, _________NUM_456_________, KC_COLN,  KC_DQUO,
-    _______, IPC(Z),  HWP_CITE,IPC(C),  KC_EQL,  KC_BSLS, XXXXXXX,          KC_LBRC, KC_RBRC, _________NUM_123_________, _______, KC_PIPE,
+    _______, PDF_HL,  KC_P,    KC_X,    ALT_F4,  XXXXXXX,                            KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC, XXXXXXX, _______,
+    _______, XXXXXXX, XXXXXXX, CLASS_E, CLASS_A, KC_SLSH,                            KC_GRV,  _________NUM_789_________, XXXXXXX, _______,
+    _______, IPC(A),  IPC(S),  IPC_MIN, IPC(F), KC_DOT,                              XXXXXXX, _________NUM_456_________, KC_COLN, KC_DQUO,
+    _______, IPC(Z),  HWP_CITE,IPC(C),  KC_EQL,  KC_BSLS, XXXXXXX,          XXXXXXX, XXXXXXX, _________NUM_123_________, _______, KC_PIPE,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
                       KC_WH_U, KC_WH_D, _______, _______, _______,          _______, LT(_NAV, KC_0), _______, KC_LPRN, KC_RPRN
 ),

@@ -277,6 +277,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 
+        case SFT_CAPS:
+            if (__TAPPED__ && __PRESSED__) {
+                tap_code16(KC_BTN1);
+            } else if (__PRESSED__) {
+                register_code(KC_BTN4);
+            } else {
+                unregister_code(KC_BTN4);
+            }
+            return false;
+            break;
+
+
+        case THUMB_L3:
+            if (__TAPPED__ && __PRESSED__) {
+                tap_code16(KC_DEL);
+            } else if (__PRESSED__) {
+                register_code(KC_BTN4);
+            } else {
+                unregister_code(KC_BTN4);
+            }
+            return false;
+            break;
+
         // CLOSING BRACKET PAIRS
         case BRKT:
             if (__PRESSED__) {
