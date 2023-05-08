@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
 
 enum layers{
     MAC_BASE,       // Mac Base     (layer 0)
@@ -26,3 +27,8 @@ enum layers{
 #define MAC_FN1     _FN1
 #define WIN_FN1     _FN2
 #define MAC_WIN_FN2 _FN3
+
+/* Factory test keys */
+#define FN_KEY1 MO(_FN1)
+#define FN_KEY2 MO(_FN2)
+#define FN_KEY3 MO(_FN3)

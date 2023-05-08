@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 #include "keychron_common.h"
+#include "myfork_keychron_ft.h"
 #include "rgb_matrix_user.h"
 #include "eeprom_user_config.h"
 #include "layers.h"
@@ -62,6 +63,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             set_fn2_layer_color(led_min, led_max, current_layer);
             break;
     }
+    rgb_matrix_indicators_advanced_keychron_ft(led_min, led_max);
     return rgb_matrix_indicators_advanced_keymap(led_min, led_max);
 }
 

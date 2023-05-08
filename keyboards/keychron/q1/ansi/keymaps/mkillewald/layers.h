@@ -26,3 +26,7 @@ enum layers{
 #define MAC_FN1     MAC_FN
 #define WIN_FN1     WIN_FN
 #define MAC_WIN_FN2 255  // not used, keymap does not have fn2 key
+
+/* Factory test keys */
+#define FN_KEY1 MO(MAC_FN)
+#define FN_KEY2 MO(WIN_FN)
