@@ -67,25 +67,16 @@ void render_default_layer_state(void) {
     case _COLEMAK_DH:
       oled_write_P(PSTR(OLED_RENDER_LAYOUT_COLEMAK_DH), false);
       break;
-
-#if defined(GAMELAYER_ENABLE)
     case _GAMING:
       oled_write_P(PSTR(OLED_RENDER_LAYOUT_GAMING), false);
-      break;  
-#endif //GAMELAYER_ENABLE
-
+      break;
     }
 }
 
 void render_layer_state(void) {
   oled_write_P(PSTR(OLED_RENDER_LAYER_NAME), false);
-
-  oled_write_P(PSTR(OLED_RENDER_LAYER_BASE), layer_state_is(0));
-#if defined(GAMELAYER_ENABLE)
-  oled_write_P(PSTR(OLED_RENDER_LAYER_NUMBER), layer_state_is(_GAMING_NUM) || layer_state_is(_NUMBER));
-#else
-  oled_write_P(PSTR(OLED_RENDER_LAYER_NUMBER), layer_state_is(_NUMBER));
-#endif //GAMELAYER_ENABLE  
+  oled_write_P(PSTR(OLED_RENDER_LAYER_BASE), layer_state_is(FIRST_DEFAULT_LAYER));
+  oled_write_P(PSTR(OLED_RENDER_LAYER_NUMBER), layer_state_is(_GAMENUMBER) || layer_state_is(_NUMBER));
   oled_write_P(PSTR(OLED_RENDER_LAYER_NAVIGATION), layer_state_is(_NAVIGATION));
   oled_write_P(PSTR(OLED_RENDER_LAYER_FUNCTION), layer_state_is(_FUNCTION));
   oled_write_P(PSTR(OLED_RENDER_LAYER_MOUSE), layer_state_is(_MOUSE));

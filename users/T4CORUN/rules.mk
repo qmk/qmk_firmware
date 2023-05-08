@@ -7,7 +7,7 @@ SRC += $(USER_PATH)/T4CORUN.c \
 
 TAP_DANCE_ENABLE ?= no
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-	SRC += $(USER_PATH)/tap_dances.c
+	SRC += $(USER_PATH)/tap_dance.c
 endif
 
 OLED_ENABLE ?= no
@@ -21,7 +21,7 @@ endif
 
 COMBO_ENABLE ?= yes
 ifeq ($(strip $(COMBO_ENABLE)), yes)
-	SRC += $(USER_PATH)/combos.c
+	SRC += $(USER_PATH)/combo.c
 endif
 
 HOMEROWMOD_ENABLE ?= yes

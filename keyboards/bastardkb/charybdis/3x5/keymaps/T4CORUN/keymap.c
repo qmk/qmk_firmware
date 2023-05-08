@@ -43,13 +43,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______________GAMING_BASE_L3______________, __________________GAMING_R3________________,
                       ______GAMING_BASE_L4_____, _________GAMING_R4_______
   ),
-
-  [_GAMING_NUM] = LAYOUT_wrapper(
-    _______________GAMING_NUM_L1_______________, __________________GAMING_R1________________,
-    _______________GAMING_NUM_L2_______________, __________________GAMING_R2________________,
-    _______________GAMING_NUM_L3_______________, __________________GAMING_R3________________,
-                      ______GAMING_NUM_L4______, _________GAMING_R4_______
-  ),
 #endif //GAMELAYER_ENABLE
 
   [_NUMBER] = LAYOUT_wrapper(
@@ -86,6 +79,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 #endif //MOUSELAYER_ENABLE
 
+#if defined(GAMELAYER_ENABLE)
+  [_GAMENUMBER] = LAYOUT_wrapper(
+    _______________GAMING_NUM_L1_______________, __________________GAMING_R1________________,
+    _______________GAMING_NUM_L2_______________, __________________GAMING_R2________________,
+    _______________GAMING_NUM_L3_______________, __________________GAMING_R3________________,
+                      ______GAMING_NUM_L4______, _________GAMING_R4_______
+  ),
+#endif //GAMELAYER_ENABLE
 
   [_ADJUST] = LAYOUT_wrapper(
   //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -96,3 +97,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
+
+/*
+#if defined(RGB_MATRIX_ENABLE)
+
+
+LED Assignments
+
+mou: 15T
+num: 16T
+nav: 34R
+fun: 0L
+adj: 18R
+sft: 16T, 10L, 28R
+ctl: 7L, 25R
+alt: 4L, 22R
+win: 1L, 19R
+
+dpad: 4L, 7L, 8L, 10L
+thumbs: 15L, 16L, 17L, 33R, 34R
+inside columns: 12L, 13L, 14L, 30R, 31R, 32R
+
+
+const uint8_t dpad_count = 4;
+const uint8_t dpad_LED[] = { 4, 7, 8, 10 }
+
+const uint8_t thumb_count = 5;
+const uint8_t thumb_LED[] = { 15, 16, 17, 33, 34 }
+
+const uint8_t firstcol_count = 6;
+const uint8_t firstcol_LED[] = { 12, 13, 14, 30, 31, 32 }
+
+#endif //RGB_MATRIX_ENABLE
+
+*/

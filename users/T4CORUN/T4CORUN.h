@@ -4,30 +4,26 @@
 #include "wrappers.h"
 
 #if defined(TAP_DANCE_ENABLE)
-#   include "tap_dances.h"
+#   include "tap_dance.h"
 #endif  //TAP_DANCE_ENABLE
 
 enum layers {
   _QWERTY = 0,
   FIRST_DEFAULT_LAYER = 0,  
   _COLEMAK_DH,
-#if defined(GAMELAYER_ENABLE)
   _GAMING,
-  _GAMING_NUM,
-#endif //GAMELAYER_ENABLE
   _NUMBER,
   _NAVIGATION,
   _FUNCTION,
   _MOUSE,
+  _GAMENUMBER,
   _ADJUST
 };
 
 enum keycodes {
   QWERTY = SAFE_RANGE,
   CLMAKDH,
-#if defined(GAMELAYER_ENABLE)
   GAMING
-#endif //GAMELAYER_ENABLE  
 };
 
 #define _DEFAULT_LAYER_1 FIRST_DEFAULT_LAYER
@@ -36,22 +32,19 @@ enum keycodes {
 
 #define ___x___ KC_NO
 
-//Tap Dance Declarations
-#if defined(TAP_DANCE_ENABLE)
-#   define TD_LBKT TD(TD_LEFTBRACKETS)
-#   define TD_RBKT TD(TD_RIGHTBRACKETS)
-#endif  // TAP_DANCE_ENABLE
-
 //Layer transitions
-#define ADJUST  MO(_ADJUST)
-#define NAV     MO(_NAVIGATION)
-#define NUMBER  MO(_NUMBER)
-#define FUNC    MO(_FUNCTION)
-#define GAMENO  MO(_GAMING_NUM)
+#define ADJUST     MO(_ADJUST)
+#define NAV        MO(_NAVIGATION)
+#define NUMBER     MO(_NUMBER)
+#define FUNC       MO(_FUNCTION)
 
-#define FUN_DEL LT(_FUNCTION, KC_DEL)
-#define FUN_Z LT(_FUNCTION, KC_Z)
-#define AD_SLSH LT(_ADJUST, KC_SLSH)
+#if defined(GAMELAYER_ENABLE)
+#   define GAMENO  MO(_GAMENUMBER)
+#endif //GAMELAYER_ENABLE
+
+#define FUN_DEL    LT(_FUNCTION, KC_DEL)
+#define FUN_Z      LT(_FUNCTION, KC_Z)
+#define AD_SLSH    LT(_ADJUST, KC_SLSH)
 
 //Toggle Layer
 #if defined(MOUSELAYER_ENABLE)
@@ -61,11 +54,11 @@ enum keycodes {
 #endif //MOUSELAYER_ENABLE
 
 //Windows Shortcuts
-#define SC_COPY LCTL(KC_C)
-#define SC_CUT  LCTL(KC_X)
-#define SC_UNDO LCTL(KC_Z)
-#define SC_PAST LCTL(KC_V)
-#define SC_REDO LCTL(KC_Y)
+#define SC_COPY    LCTL(KC_C)
+#define SC_CUT     LCTL(KC_X)
+#define SC_UNDO    LCTL(KC_Z)
+#define SC_PAST    LCTL(KC_V)
+#define SC_REDO    LCTL(KC_Y)
 
 //Home Row Mods QWERTY
 #if defined(HOMEROWMOD_ENABLE)
@@ -89,3 +82,5 @@ enum keycodes {
 #   define LALT_I  LALT_T(KC_I)
 #   define LGUI_O  LGUI_T(KC_O)
 #endif //HOMEROWMOD_ENABLE
+
+

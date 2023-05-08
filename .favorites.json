@@ -182,5 +182,23 @@
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "rhzGOBfZbQFpCVKw"
+    },
+    {
+        "type": "Group",
+        "name": "Quantum",
+        "parent_id": null,
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "qFPeKTrvZ3WtCXk5",
+        "iconColor": "rgb(0, 191, 255)"
+    },
+    {
+        "type": "File",
+        "name": "d:\\Repo\\qmk_firmware\\quantum\\color.h",
+        "parent_id": "qFPeKTrvZ3WtCXk5",
+        "fsPath": "d:\\Repo\\qmk_firmware\\quantum\\color.h",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "UYIljMT9wPmp1J8K"
     }
 ]

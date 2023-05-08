@@ -8,7 +8,6 @@
 //the planck is RGBLIGHT not RGB MATRIX
 
 //Clear variables that might have been defined elsewhere
-#undef SPLIT_TRANSPORT_MIRROR
 #undef RGB_DISABLE_WHEN_USB_SUSPENDED
 #undef RGB_MATRIX_DEFAULT_HUE
 #undef RGB_MATRIX_DEFAULT_SAT
@@ -85,9 +84,6 @@
 #define RGB_MATRIX_DEFAULT_VAL 59
 #define RGB_MATRIX_DEFAULT_SPD 32
 
-#if defined(SPLIT_KEYBOARD)
-# define SPLIT_TRANSPORT_MIRROR
-#endif //SPLIT_KEYBOARD
 
 
 //Set per keyboard configuration
@@ -127,7 +123,7 @@
 
 //enable minimal effects to save memory
 #else
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 75
+#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #   define ENABLE_RGB_MATRIX_BREATHING
 #   define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
 #   define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
@@ -143,8 +139,3 @@
 #   define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 16           //16
 //#   define RGB_MATRIX_TYPING_HEATMAP_SLIM
 #endif //ENABLE_RGB_MATRIX_TYPING_HEATMAP
-
-
-
-
-

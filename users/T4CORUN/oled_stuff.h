@@ -15,7 +15,7 @@
 #define OLED_RENDER_LAYOUT_COLEMAK_DH " cmDH"
 
 #if defined(GAMELAYER_ENABLE)
-# define OLED_RENDER_LAYOUT_GAMING     " game"
+# define OLED_RENDER_LAYOUT_GAMING    " Game"
 #endif //GAMELAYER_ENABLE
 
 #define OLED_RENDER_RGB_NAME          "RGB: "

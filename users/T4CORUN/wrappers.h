@@ -161,16 +161,16 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   ,----------------------------------.    ,----------------------------------.
 *   | Esc  |      |      |   ~  |   `  |    | tLBKT|   7  |   8  |   9  | tRBKT|
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | GUI  | Alt  | Ctrl | Shft |   .  |    |   ;  |   4  |   5  |   6  |   =  |
+*   | GUI  | Alt  | Ctrl | Shft | Ent  |    |   ;  |   4  |   5  |   6  |   =  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Undo | Cut  | Copy | Pste | Redo |    |   -  |   1  |   2  |   3  |   \  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      |LyrTap|      |    | Spc  |   0  |      |
+*                 |      |LyrTap|      |    |  .   |   0  |      |
 *                 `------+------+------'    `------+------+------'
 */
 
 #define    _________________NUMPAD_L1_________________        KC_ESC,  ___x___, ___x___, KC_TILD, KC_GRV
-#define    _________________NUMPAD_L2_________________        _____________GACS_MODS____________, KC_DOT
+#define    _________________NUMPAD_L2_________________        _____________GACS_MODS____________, KC_ENT
 #define    _________________NUMPAD_L3_________________        __________________UCCPR_L__________________
 #define             ________NUMPAD_L4________                 ___x___, _______, ___x___
 
@@ -185,9 +185,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #endif //TAP_DANCE_ENABLE
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          ________NUMPAD_R4________                 KC_SPC,  KC_0
+#   define          ________NUMPAD_R4________                 KC_DOT,  KC_0
 #else
-#   define          ________NUMPAD_R4________                 KC_SPC,  KC_0,    ___x___
+#   define          ________NUMPAD_R4________                 KC_DOT,  KC_0,    ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #define    __________________NUMROW_L_________________        KC_1,    KC_2,    KC_3,    KC_4,    KC_5

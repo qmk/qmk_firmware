@@ -1,4 +1,4 @@
-#include "tap_dances.h"
+#include "tap_dance.h"
 
 void dance_left_brackets(tap_dance_state_t *state, void *user_data) {
   //sends (, [, or { depending on the number of taps

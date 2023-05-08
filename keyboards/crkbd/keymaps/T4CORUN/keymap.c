@@ -47,13 +47,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___x___, _______________GAMING_BASE_L3______________, __________________GAMING_R3________________, ___x___,
                                ______GAMING_BASE_L4_____, _________GAMING_R4_______
   ),
-
-  [_GAMING_NUM] = LAYOUT_wrapper(
-    ___x___, _______________GAMING_NUM_L1_______________, __________________GAMING_R1________________, ___x___,
-    ___x___, _______________GAMING_NUM_L2_______________, __________________GAMING_R2________________, ___x___,
-    ___x___, _______________GAMING_NUM_L3_______________, __________________GAMING_R3________________, ___x___,
-                               ______GAMING_NUM_L4______, _________GAMING_R4_______
-  ),
 #endif //GAMELAYER_ENABLE
 
   [_NUMBER] = LAYOUT_wrapper(
@@ -90,6 +83,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 #endif //MOUSELAYER_ENABLE
 
+#if defined(GAMELAYER_ENABLE)
+  [_GAMENUMBER] = LAYOUT_wrapper(
+    ___x___, _______________GAMING_NUM_L1_______________, __________________GAMING_R1________________, ___x___,
+    ___x___, _______________GAMING_NUM_L2_______________, __________________GAMING_R2________________, ___x___,
+    ___x___, _______________GAMING_NUM_L3_______________, __________________GAMING_R3________________, ___x___,
+                               ______GAMING_NUM_L4______, _________GAMING_R4_______
+  ),
+#endif //GAMELAYER_ENABLE
+
   [_ADJUST] = LAYOUT_wrapper(
   //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     ___x___, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, ___x___,
@@ -100,23 +102,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 /*
-void suspend_wakeup_init_user(void) {
-  #ifdef OLED_ENABLE
-    oled_on();
-  #endif
-  
-  #ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_suspend_state(false);
-  #endif
-}
+#if defined(RGB_MATRIX_ENABLE)
 
-void suspend_power_down_user(void) {
-  #ifdef OLED_ENABLE
-    oled_off();
-  #endif
 
-  #ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_suspend_state(true);
-  #endif
-}
+LED Assignments
+mou: 14L
+num: 13L
+nav: 40R
+fun: 26L
+adj: 53R
+sft: 6L, 11L, 38R
+ctl: 16L, 43R
+alt: 19L, 46R
+win: 22L, 49R
+
+dpad: 11L, 16L, 17L, 19L
+thumbs: 6L, 13L, 14L, 33R, 40R, 41R
+inside columns: 7L, 8L, 9L, 34R, 35R, 36R
+
+
+static const uint8_t dpad_count = 4;
+static const uint8_t dpad_LED[] = { 11, 16, 17, 19 };
+
+static const uint8_t thumb_count = 6;
+static const uint8_t thumb_LED[] = { 6, 13, 14, 33, 40, 41 };
+
+static const uint8_t firstcol_count = 6;
+static const uint8_t firstcol_LED[] = { 7, 8, 9, 34, 35, 36 };
+
+#endif //RGB_MATRIX_ENABLE
 */
