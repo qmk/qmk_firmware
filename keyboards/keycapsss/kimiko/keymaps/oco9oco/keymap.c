@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT_kimiko_wrapper(
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
     KC_ESC,  __________________NUMROW_L_________________,                            __________________NUMROW_R_________________, KC_MINS,
-    S(KC_GRV),  __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, KC_EQL,
+    KC_BTN4,  __________________QWERTY_L1________________,                            __________________QWERTY_R1________________, KC_EQL,
     SFT_CAPS,__________________QWERTY_SACS_L2___________,                            __________________QWERTY_R2________________, RSFT_T(KC_QUOT),
     KC_LSFT, __________________QWERTY_GUIZ_L3___________, KC_DEL,  KC_B,    __________________QWERTY_HOME_R3___________, RSFT_T(KC_BSLS),
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  C(KC_F1),KC_WH_U, XXXXXXX, A(KC_F4),XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_TAB,  XXXXXXX, KC_WH_D, KC_UP,   KC_BTN1, KC_BTN2,                            XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,                            XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX,
-    _______, XXXXXXX, XXXXXXX, KC_WH_U, KC_WH_D, KC_DEL,  TO_BASE,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, KC_BTN2, KC_BTN1, KC_BTN4, KC_DEL,  TO_BASE,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 // |--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
                       KC_LGUI, KC_LALT, KC_LCTL, KC_SPC,  KC_ENT,           _______, _______, _______, _______, _______
 ),
