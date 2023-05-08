@@ -1,7 +1,7 @@
 // Copyright 2023 takashicompany (@takashicompany)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "baumkuchen.h"
+#include "quantum.h"
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     
