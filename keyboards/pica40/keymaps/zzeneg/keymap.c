@@ -128,7 +128,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_GAME] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [_NAV] =  { ENCODER_CCW_CW(KC_MPRV, KC_MNXT)  },

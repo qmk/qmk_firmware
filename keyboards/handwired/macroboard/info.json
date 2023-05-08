@@ -2,7 +2,7 @@
     "keyboard_name": "Macroboard",
     "manufacturer": "QMK",
     "url": "",
-    "maintainer": "Michał Szczepaniak",
+    "maintainer": "Micha\u0142 Szczepaniak",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x2137",

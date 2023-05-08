@@ -290,7 +290,7 @@ bool caps_word_press_user(uint16_t keycode) {
 // │ e n c o d e r                                             │
 // └───────────────────────────────────────────────────────────┘
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_NAVIGATION] =  { ENCODER_CCW_CW(KC_LEFT, KC_RGHT) },
     [_QWERTY] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_COLEMAK] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },

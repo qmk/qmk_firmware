@@ -17,9 +17,6 @@
 
 #pragma once
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 75
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200

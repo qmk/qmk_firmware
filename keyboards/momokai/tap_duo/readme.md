@@ -2,7 +2,8 @@
 
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
-
+* Hardware Supported: Tap Duo
+* Hardware Availability: [Momokai](https://www.momokai.com/)
 
 Make example for this keyboard (after setting up your build environment):
 

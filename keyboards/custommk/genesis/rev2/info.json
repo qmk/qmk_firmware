@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Genesis Rev2", 
+    "keyboard_name": "Genesis Rev2",
     "manufacturer": "customMK",
-    "url": "https://www.customMK.com", 
-    "maintainer": "customMK", 
+    "url": "https://www.customMK.com",
+    "maintainer": "customMK",
     "usb": {
         "vid": "0xF35B",
         "pid": "0xFAB1",

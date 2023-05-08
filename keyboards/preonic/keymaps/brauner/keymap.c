@@ -279,6 +279,18 @@ static inline bool toggle_layer(enum preonic_layers layer, keyrecord_t *record) 
     return false;
 }
 
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MOD_TAP_LSFT_ENT:
+        case MOD_TAP_LSFT_ESC:
+            /* Immediately select the hold action when another key is pressed. */
+            return true;
+        default:
+            /* Do not select the hold action when another key is pressed. */
+            return false;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:

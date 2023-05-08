@@ -130,49 +130,49 @@ keyevent_t encoder4_cw = {
 
 
 void matrix_scan_user(void) {
-    if (IS_PRESSED(encoder1_ccw)) {
+    if (encoder1_ccw.pressed) {
         encoder1_ccw.pressed = false;
         encoder1_ccw.time = timer_read();
         action_exec(encoder1_ccw);
     }
 
-    if (IS_PRESSED(encoder1_cw)) {
+    if (encoder1_cw.pressed) {
         encoder1_cw.pressed = false;
         encoder1_cw.time = timer_read();
         action_exec(encoder1_cw);
     }
 
-    if (IS_PRESSED(encoder2_ccw)) {
+    if (encoder2_ccw.pressed) {
         encoder2_ccw.pressed = false;
         encoder2_ccw.time = timer_read();
         action_exec(encoder2_ccw);
     }
 
-    if (IS_PRESSED(encoder2_cw)) {
+    if (encoder2_cw.pressed) {
         encoder2_cw.pressed = false;
         encoder2_cw.time = timer_read();
         action_exec(encoder2_cw);
     }
 
-    if (IS_PRESSED(encoder3_ccw)) {
+    if (encoder3_ccw.pressed) {
         encoder3_ccw.pressed = false;
         encoder3_ccw.time = timer_read();
         action_exec(encoder3_ccw);
     }
 
-    if (IS_PRESSED(encoder3_cw)) {
+    if (encoder3_cw.pressed) {
         encoder3_cw.pressed = false;
         encoder3_cw.time = timer_read();
         action_exec(encoder3_cw);
     }
 
-    if (IS_PRESSED(encoder4_ccw)) {
+    if (encoder4_ccw.pressed) {
         encoder4_ccw.pressed = false;
         encoder4_ccw.time = timer_read();
         action_exec(encoder4_ccw);
     }
 
-    if (IS_PRESSED(encoder4_cw)) {
+    if (encoder4_cw.pressed) {
         encoder4_cw.pressed = false;
         encoder4_cw.time = timer_read();
         action_exec(encoder4_cw);

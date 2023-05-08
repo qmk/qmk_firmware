@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "RedScarfII+ Ver.C (RS68)", 
+    "keyboard_name": "RedScarfII+ Ver.C (RS68)",
     "manufacturer": "RedScarf",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

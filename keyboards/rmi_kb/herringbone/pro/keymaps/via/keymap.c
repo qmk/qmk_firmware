@@ -65,13 +65,13 @@ keyevent_t encoder_cw = {
 };
 
 void matrix_scan_user(void) {
-    if (IS_PRESSED(encoder_ccw)) {
+    if (encoder_ccw.pressed) {
         encoder_ccw.pressed = false;
         encoder_ccw.time = timer_read();
         action_exec(encoder_ccw);
     }
 
-    if (IS_PRESSED(encoder_cw)) {
+    if (encoder_cw.pressed) {
         encoder_cw.pressed = false;
         encoder_cw.time = timer_read();
         action_exec(encoder_cw);

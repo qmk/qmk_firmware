@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VERSION "v1.1: ClayM"
 #define VERBOSE
 
-#define FORCE_NKRO
 #define NO_ACTION_ONESHOT
 
 /* key matrix size */
@@ -52,5 +51,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
-
-#define USB_MAX_POWER_CONSUMPTION 500

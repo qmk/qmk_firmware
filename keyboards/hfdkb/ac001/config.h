@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define FORCE_NKRO
-
 #define TAP_CODE_DELAY 5
 
 /* ws2812 RGB LED */

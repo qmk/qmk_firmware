@@ -43,7 +43,9 @@
         }
     },
     "encoder": {
-        "rotary": [{ "pin_a": "GP7", "pin_b": "GP7", "resolution": 4 }]
+        "rotary": [
+            {"pin_a": "GP7", "pin_b": "GP7", "resolution": 4}
+        ]
     },
     "usb": {
         "device_version": "1.0.0",

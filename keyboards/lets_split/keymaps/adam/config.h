@@ -21,15 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
-
 /* Select hand configuration */
 
 // #define MASTER_LEFT
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#ifdef SUBPROJECT_rev2
+#ifdef KEYBOARD_lets_split_rev2
     /* RGB Underglow */
     #undef RGBLED_NUM
 #define RGBLIGHT_EFFECT_BREATHING

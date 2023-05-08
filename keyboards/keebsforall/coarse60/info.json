@@ -1,7 +1,7 @@
 {
     "keyboard_name": "coarse60",
     "manufacturer": "KeebsForAll",
-    "url":"https://keebsforall.com",
+    "url": "https://keebsforall.com",
     "maintainer": "keebsforall",
     "usb": {
         "vid": "0x6B66",

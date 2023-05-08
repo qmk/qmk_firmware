@@ -2,10 +2,10 @@
     "keyboard_name": "Space65R3",
     "url": "https://graystudio.site/en/works/space65r3/",
     "maintainer": "edwardslau",
-    "manufacturer":"GrayStudio",
+    "manufacturer": "GrayStudio",
     "usb": {
-        "vid":"0x4753",
-        "pid":"0x3003",
+        "vid": "0x4753",
+        "pid": "0x3003",
         "device_version": "0.0.3",
     },
     "ws2812": {
