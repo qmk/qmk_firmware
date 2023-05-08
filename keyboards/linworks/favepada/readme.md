@@ -1,6 +1,7 @@
 # linworks/favepada
 
-![linworks/favepada](imgur.com image replace me!)
+![linworks/favepada front](https://imgur.com/tkKHcL2)
+![linworks/favepada back](https://imgur.com/1x5UokR)
 
 *A short description of the keyboard/project*
 
