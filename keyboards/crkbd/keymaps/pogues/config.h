@@ -34,7 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // when you tap then hold - setting quick tap term to 0 means you get the hold action,
 // otherwise the tap to hold time must be below this to activate autorepeat.
-#define QUICK_TAP_TERM 0
+// NOTE this breaks the ONESHOT_TAP_TOGGLE !!
+//#define QUICK_TAP_TERM 0
+#define QUICK_TAP_TERM_PER_KEY
 
 // permissive hold means D(a), D(b), U(b), U(a) will always emit the modified version of b,
 // without this if the above is within tapping tarm you get ab instead.

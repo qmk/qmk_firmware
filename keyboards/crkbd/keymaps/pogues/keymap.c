@@ -110,7 +110,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 
-
+/*******************************************************************************
+ * quick tap term keys (requires QUICK_TAP_TERM_PER_KEY set) a return of non 0
+ * will enable tap then hold to autorepeat (which I generally dont want) but this
+ * is required to get the ONESHOT_TAP_TOGGLE working
+ *******************************************************************************/
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case OSM_SFT:
+        case OSM_CTL:
+        case OSM_GUI:
+        case OSM_ALT:
+            // make the one shot mod tap toggle work...
+            return QUICK_TAP_TERM;
+        default:
+            // all others off (so the hold key is done on tap/hold rather than autorepeat)
+            return 0;
+    }
+}
 
 /*******************************************************************************
  * RGB lighting on layer change
@@ -180,7 +197,6 @@ const rgblight_segment_t PROGMEM oneshot_alt_active[] = PINKIE_KEYS(PURPLE)
 
 // was INNER_KEYS(GREEN) but as this is similar to shift moved it to index.
 const rgblight_segment_t PROGMEM caps_word_lights[] = INDEX_KEYS(GREEN)
-const rgblight_segment_t PROGMEM snake_case_lights[] = INNER_KEYS(PURPLE)
 
 const rgblight_segment_t PROGMEM compose_mode_lights[] = INNER_KEYS(ORANGE)
 const rgblight_segment_t PROGMEM compose_cancel_lights[] = INNER_KEYS(RED)
@@ -200,13 +216,12 @@ enum lighting_layers {
     RGBL_MOUSE,
     RGBL_CAPS_WORD,
     RGBL_COMPOSE,
+    RGBL_COMPOSE_OK,
     RGBL_COMPOSE_CXL,
-    RGBL_SNAKE_CASE,
     RGBL_OSM_CTL,
     RGBL_OSM_SFT,
     RGBL_OSM_GUI,
     RGBL_OSM_ALT,
-    RGBL_COMPOSE_OK,
 };
 
 // now we need the array of layers
@@ -220,13 +235,12 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     [RGBL_MOUSE] = layer_mouse_lights,
     [RGBL_CAPS_WORD] = caps_word_lights,
     [RGBL_COMPOSE] = compose_mode_lights,
+    [RGBL_COMPOSE_OK] = compose_success_lights,
     [RGBL_COMPOSE_CXL] = compose_cancel_lights,
-    [RGBL_SNAKE_CASE] = snake_case_lights,
     [RGBL_OSM_CTL] = oneshot_ctrl_active,
     [RGBL_OSM_SFT] = oneshot_shift_active,
     [RGBL_OSM_GUI] = oneshot_gui_active,
-    [RGBL_OSM_ALT] = oneshot_alt_active,
-    [RGBL_COMPOSE_OK] = compose_success_lights
+    [RGBL_OSM_ALT] = oneshot_alt_active
 );
 
 void keyboard_post_init_user(void) {
@@ -238,6 +252,8 @@ void keyboard_post_init_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     // check the tristate layer and update
     state = update_tri_layer_state(state, LNUM, LSYM, LFUN);
+    // TODO - find out why the below is not working..
+    //state = update_tri_layer_state(state, LSYM, LMOV, LMSE);
 
     // set the led status to indicate layer
     rgblight_set_layer_state(RGBL_DEFAULT, layer_state_cmp(state, LCMK));
@@ -258,7 +274,6 @@ void oneshot_mods_changed_user(uint8_t mods) {
 
 
 void oneshot_locked_mods_changed_user(uint8_t mods) {
-    rgblight_blink_layer(9, 5000);
     rgblight_set_layer_state(RGBL_OSM_CTL, mods & MOD_MASK_CTRL);
     rgblight_set_layer_state(RGBL_OSM_SFT, mods & MOD_MASK_SHIFT);
     rgblight_set_layer_state(RGBL_OSM_GUI, mods & MOD_MASK_GUI);
@@ -286,31 +301,6 @@ void set_mods_lights(uint16_t keycode, bool active) {
             break;
         case KC_LALT:
             rgblight_set_layer_state(RGBL_OSM_ALT, active);
-            break;
-    // we have to process the oneshot mod versions separately. this method is called from
-    // process_record_user so is called for the key up event after the oneshot mod is tapped
-    // and in that case we dont want to turn off the LEDs, though we do want lights for OSM
-    // hold functions
-        case OSM_SFT:
-            if (!(get_oneshot_mods() & MOD_MASK_SHIFT)) {
-                // only try and detect when the OSM is not active
-                rgblight_set_layer_state(RGBL_OSM_SFT, active);
-            }
-            break;
-        case OSM_CTL:
-            if (!(get_oneshot_mods() & MOD_MASK_CTRL)) {
-                rgblight_set_layer_state(RGBL_OSM_CTL, active);
-            }
-            break;
-        case OSM_GUI:
-            if (!(get_oneshot_mods() & MOD_MASK_GUI)) {
-                rgblight_set_layer_state(RGBL_OSM_GUI, active);
-            }
-            break;
-        case OSM_ALT:
-            if (!(get_oneshot_mods() & MOD_MASK_ALT)) {
-                rgblight_set_layer_state(RGBL_OSM_ALT, active);
-            }
             break;
     }
 }
