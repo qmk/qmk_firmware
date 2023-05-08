@@ -60,27 +60,25 @@ handwired_dactyl_manuform_4x6_default.hex
 The default functional layout, based on QWERTY, and every variant has this keymap; used as a starting point/template for custom keymaps and for debugging purposes when soldering key matrix to controller.
 
 ### VIA
-Similar to *Default* but adds support for the [VIA](https://usevia.app/) keymap configurator. Layers count set to 4 to comply with VIA defaults, and remaps keys to accommodate this constraint, if applicable.
+Similar to *Default* but adds support for the [VIA](https://usevia.app/) keymap configurator. Layer count set to 4 to comply with VIA defaults, and remaps keys to accommodate this constraint, if applicable.
 
-Variants with keymap for Via:
+Variants with VIA support:
 - 4x6
 - 5x6_5
 - 5x7
 
-### Manna-harbour_miryoku
+### Miryoku
 
 For more information on this layout schematic, please see the [Miryoku Reference Manual](https://github.com/manna-harbour/miryoku/tree/master/docs/reference).  
-For QMK specifics, please see [Miryoku QMK](https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku) 
+For QMK specifics, please see [Miryoku QMK](https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku).  
 
-Variants with keymap for Miryoku:  
+Variants with *Miryoku* support:  
+- 3x5_3
 - 4x5
 - 4x5_5
 - 4x6
 - 4x6_5
 - 5x6
-
-Variants with support for Miryoku without a specific keymap:  
-- 3x5_3
 
 ### Custom Keymaps
 
@@ -109,9 +107,7 @@ The wiring for i2c:
 
 ![i2c wiring](https://i.imgur.com/Hbzhc6E.png)
 
-The pull-up resistors may be placed on either half. It is also possible
-to use 4 resistors and have the pull-ups in both halves, but this is
-unnecessary in simple use cases.
+The pull-up resistors may be placed on either half. It is also possible to use 4 resistors and have the pull-ups in both halves, but this is unnecessary in simple use cases.
 
 You can change your configuration between serial and i2c by modifying your `config.h` file. [Split Keyboard documentation](https://docs.qmk.fm/#/feature_split_keyboard).
 
@@ -181,7 +177,7 @@ See [Handedness](https://docs.qmk.fm/#/config_options?id=setting-handedness) doc
 ## VIA Configuration 
 
 Variants with a `via` keymap are VIA capable. 
-Compile firmware, for capable variant, with it's `via` keymap and flash board with this firmware file.
+Compile firmware, for [enabled variant](#via), with it's `via` keymap and flash board with this firmware file.
 ```
 qmk compile -kb handwired/dactyl_manuform/4x6 -km via
 ```
