@@ -1,6 +1,7 @@
 # Build Options
 #   change yes to no to disable
 #
+DFU_SUFFIX_ARGS = -v FFFF -p FFFF
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
