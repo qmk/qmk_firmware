@@ -5,7 +5,6 @@
     "url": "https://mpwr.xyz/projects/e80-1800.html",
     "bootloader": "stm32-dfu",
     "processor": "STM32F072",
-    "board": "GENERIC_STM32_F072XB",
     "usb": {
         "vid": "0x6562",
         "pid": "0x1338",
