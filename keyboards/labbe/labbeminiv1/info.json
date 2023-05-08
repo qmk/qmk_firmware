@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Labbe Mini V1", 
+    "keyboard_name": "Labbe Mini V1",
     "manufacturer": "Labbe",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xABBE",
         "pid": "0x4C4D",

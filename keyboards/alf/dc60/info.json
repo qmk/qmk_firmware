@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "dc60", 
+    "keyboard_name": "dc60",
     "manufacturer": "Alf",
-    "maintainer": "qmk", 
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",
@@ -110,7 +110,6 @@
                 {"label": "\u2192", "matrix": [4, 14], "x": 14, "y": 4}
             ]
         },
-
         "LAYOUT_60_ansi": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -180,7 +179,6 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-
         "LAYOUT_60_ansi_arrow": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -252,7 +250,6 @@
                 {"label": "\u2192", "matrix": [4, 14], "x": 14, "y": 4}
             ]
         },
-
         "LAYOUT_64_ansi": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -325,7 +322,6 @@
                 {"label": "\u2192", "matrix": [4, 14], "x": 14, "y": 4}
             ]
         },
-
         "LAYOUT_60_iso": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -396,7 +392,6 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-
         "LAYOUT_60_iso_arrow": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -469,7 +464,6 @@
                 {"label": "\u2192", "matrix": [4, 14], "x": 14, "y": 4}
             ]
         },
-
         "LAYOUT_64_iso": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

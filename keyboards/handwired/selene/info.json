@@ -4,12 +4,12 @@
   "url": "https://github.com/Bpendragon/Selene-Keyboard",
   "maintainer": "Bpendragon",
   "usb": {
-  	"vid": "0x4244",
-  	"pid": "0x0001",
-  	"device_version": "0.0.1"
+    "vid": "0x4244",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
   },
   "ws2812": {
-  	"pin": "A3"
+    "pin": "A3"
   },
   "matrix_pins": {
     "cols": ["A9", "A10", "B11", "B7", "B6", "B5", "B4", "B3", "B2", "B1", "B0", "C14", "A4", "A5", "A6", "A7", "A8", "A15", "A13", "A14", "B12"],

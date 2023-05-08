@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "babyv", 
+    "keyboard_name": "babyv",
     "manufacturer": "Eye Oh Designs",
-    "url": "", 
-    "maintainer": "eye oh designs", 
+    "url": "",
+    "maintainer": "eye oh designs",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

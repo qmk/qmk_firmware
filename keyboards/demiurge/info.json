@@ -105,7 +105,6 @@
                 {"label": "Ctrl", "matrix": [4, 16], "x": 16, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_60_xt_tsangan_hhkb": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},

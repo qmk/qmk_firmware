@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Vulcan", 
+    "keyboard_name": "Vulcan",
     "manufacturer": "Noxary",
-    "url": "https://noxary.co/products/vulcan-pro-base", 
-    "maintainer": "ai03", 
+    "url": "https://noxary.co/products/vulcan-pro-base",
+    "maintainer": "ai03",
     "usb": {
         "vid": "0xA103",
         "pid": "0x0011",

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "unix60", 
+    "keyboard_name": "unix60",
     "manufacturer": "FR4Boards",
-    "url": "https://github.com/mkdl/Unix60", 
-    "maintainer": "mkdl", 
+    "url": "https://github.com/mkdl/Unix60",
+    "maintainer": "mkdl",
     "usb": {
         "vid": "0x4652",
         "pid": "0x5558",

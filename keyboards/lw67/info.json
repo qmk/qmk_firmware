@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "LW-67", 
+    "keyboard_name": "LW-67",
     "manufacturer": "Laneware Peripherals",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x4C50",
         "pid": "0x9998",

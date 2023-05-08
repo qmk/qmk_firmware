@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Waldo",
     "manufacturer": "Greenwald Designs",
-    "maintainer": "qmk", 
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x4744",
         "pid": "0x6060",

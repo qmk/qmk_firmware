@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "J-01", 
+    "keyboard_name": "J-01",
     "manufacturer": "Evyd13",
-    "url": "", 
-    "maintainer": "MechMerlin", 
+    "url": "",
+    "maintainer": "MechMerlin",
     "usb": {
         "vid": "0x4705",
         "pid": "0x0143",

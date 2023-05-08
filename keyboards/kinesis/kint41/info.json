@@ -4,7 +4,8 @@
     "usb": {
         "vid": "0x1209",
         "pid": "0x345C",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "max_power": 100
     },
     "matrix_pins": {
         "cols": ["LINE_PIN18", "LINE_PIN14", "LINE_PIN15", "LINE_PIN20", "LINE_PIN22", "LINE_PIN19", "LINE_PIN6"],

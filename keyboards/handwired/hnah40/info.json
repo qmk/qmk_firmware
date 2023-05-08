@@ -1,12 +1,13 @@
 {
-    "keyboard_name": "Hnah40", 
+    "keyboard_name": "Hnah40",
     "manufacturer": "HnahKB",
-    "url": "https://github.com/vuhopkep/PCB/tree/master/Hnah40-Atmega328p/PCB_V1/PCB", 
-    "maintainer": "HnahKB", 
+    "url": "https://github.com/vuhopkep/PCB/tree/master/Hnah40-Atmega328p/PCB_V1/PCB",
+    "maintainer": "HnahKB",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",
-        "device_version": "0.0.2"
+        "device_version": "0.0.2",
+        "max_power": 100
     },
     "matrix_pins": {
         "cols": ["B0", "D7", "D6", "D5", "B2", "B1", "C0", "C1", "C2", "C3", "D1"],

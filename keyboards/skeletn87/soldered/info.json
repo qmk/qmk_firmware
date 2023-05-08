@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Skeletn87", 
+    "keyboard_name": "Skeletn87",
     "manufacturer": "BredWorks",
-    "url": "", 
-    "maintainer": "kb-elmo<mail@elmo.space>", 
+    "url": "",
+    "maintainer": "kb-elmo<mail@elmo.space>",
     "usb": {
         "vid": "0xF984",
         "pid": "0xB5E8",

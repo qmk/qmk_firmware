@@ -98,7 +98,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 14, "y": 4}
             ]
         },
-
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -170,7 +169,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-
         "LAYOUT_60_ansi_arrow": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -242,7 +240,6 @@
                 {"label": "\u2192", "matrix": [4, 13], "x": 14, "y": 4}
             ]
         },
-
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -313,7 +310,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-
         "LAYOUT_60_iso_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -386,7 +382,6 @@
                 {"label": "Ctrl", "matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-
         "LAYOUT_60_iso_arrow": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
@@ -459,7 +454,6 @@
                 {"label": "\u2192", "matrix": [4, 13], "x": 14, "y": 4}
             ]
         },
-
         "LAYOUT_60_tsangan_hhkb_iso": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

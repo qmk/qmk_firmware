@@ -1,7 +1,7 @@
 {
     "keyboard_name": "After",
     "manufacturer": "ZTBoards",
-    "url": "ztb.mx", 
+    "url": "ztb.mx",
     "maintainer": "phlopsuh",
     "usb": {
         "vid": "0x0927",

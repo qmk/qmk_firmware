@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "GodSpeed75", 
+    "keyboard_name": "GodSpeed75",
     "manufacturer": "The Key Company",
-    "url": "", 
-    "maintainer": "terrymathews", 
+    "url": "",
+    "maintainer": "terrymathews",
     "usb": {
         "vid": "0x544B",
         "pid": "0x0006",

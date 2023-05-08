@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "SP111", 
+    "keyboard_name": "SP111",
     "manufacturer": "Viktus Design LLC",
-    "url": "https://thekey.company/products/sp-111", 
-    "maintainer": "blindassassin111", 
+    "url": "https://thekey.company/products/sp-111",
+    "maintainer": "blindassassin111",
     "usb": {
         "vid": "0x5644",
         "pid": "0x5111",

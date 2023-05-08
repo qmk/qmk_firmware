@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Calice", 
+    "keyboard_name": "Calice",
     "manufacturer": "QwertleKeys",
-    "url": "", 
-    "maintainer": "Jels", 
+    "url": "",
+    "maintainer": "Jels",
     "usb": {
         "vid": "0x716B",
         "pid": "0x0001",

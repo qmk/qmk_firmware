@@ -173,7 +173,6 @@
                 {"label": ".", "matrix": [6, 17], "x": 18.5, "y": 6.5}
             ]
         },
-
         "LAYOUT_ansi": {
             "layout": [
                 {"label": "Mute", "matrix": [0, 0], "x": 0, "y": 0},
@@ -308,7 +307,6 @@
                 {"label": ".", "matrix": [6, 17], "x": 18.5, "y": 6.5}
             ]
         },
-
         "LAYOUT_iso": {
             "layout": [
                 {"label": "Mute", "matrix": [0, 0], "x": 0, "y": 0},

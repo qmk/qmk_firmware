@@ -103,7 +103,6 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 14, "y": 5}
             ]
         },
-
         "LAYOUT_ansi": {
             "layout": [
                 {"label": "Volume Up", "matrix": [4, 4], "x": 1.5, "y": 0},
@@ -176,7 +175,6 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 13.75, "y": 5, "w": 1.25}
             ]
         },
-
         "LAYOUT_ansi_split_bs_rshift": {
             "layout": [
                 {"label": "Volume Up", "matrix": [4, 4], "x": 1.5, "y": 0},

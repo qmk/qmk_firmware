@@ -4,7 +4,8 @@
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6060",
-        "device_version": "0.0.2"
+        "device_version": "0.0.2",
+        "max_power": 100
     },
     "matrix_pins": {
         "cols": ["E7", "F0", "F7", "B1", "B3", "B0", "D5"],

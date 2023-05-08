@@ -1,6 +1,5 @@
 #pragma once
 
-#include QMK_KEYBOARD_H
 #include "quantum.h"
 
 typedef struct RGB_Color {

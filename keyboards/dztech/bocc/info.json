@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "BOCC", 
+    "keyboard_name": "BOCC",
     "manufacturer": "DZTECH",
-    "url": "", 
-    "maintainer": "DZTECH", 
+    "url": "",
+    "maintainer": "DZTECH",
     "usb": {
         "vid": "0x445A",
         "pid": "0x1010",

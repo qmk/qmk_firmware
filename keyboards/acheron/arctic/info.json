@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "ArcticPCB", 
+    "keyboard_name": "ArcticPCB",
     "manufacturer": "AcheronProject",
-    "url": "http://gondolindrim.github.io/AcheronDocs/arctic/intro.html", 
-    "maintainer": "Gondolindrim", 
+    "url": "http://gondolindrim.github.io/AcheronDocs/arctic/intro.html",
+    "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x4150",
         "pid": "0x4152",

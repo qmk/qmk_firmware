@@ -114,7 +114,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4}
             ]
         },
-
         "LAYOUT_65_xt_ansi_blocker": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0.0, "y": 0.0},
@@ -200,7 +199,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4.0}
             ]
         },
-
         "LAYOUT_65_xt_ansi_blocker_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0.0, "y": 0.0},
@@ -287,7 +285,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4.0}
             ]
         },
-
         "LAYOUT_65_xt_ansi_blocker_wkl": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0.0, "y": 0.0},
@@ -371,7 +368,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4.0}
             ]
         },
-
         "LAYOUT_65_xt_ansi_blocker_wkl_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0.0, "y": 0.0},
@@ -456,7 +452,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4.0}
             ]
         },
-
         "LAYOUT_65_xt_iso_blocker": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0.0, "y": 0.0},
@@ -543,7 +538,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4.0}
             ]
         },
-
         "LAYOUT_65_xt_iso_blocker_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0.0, "y": 0.0},
@@ -631,7 +625,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4.0}
             ]
         },
-
         "LAYOUT_65_xt_iso_blocker_wkl": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0.0, "y": 0.0},
@@ -716,7 +709,6 @@
                 {"label": "\u2192", "matrix": [4, 16], "x": 17.5, "y": 4.0}
             ]
         },
-
         "LAYOUT_65_xt_iso_blocker_wkl_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0.0, "y": 0.0},

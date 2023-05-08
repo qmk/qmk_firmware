@@ -17,7 +17,6 @@
     "bootloader": "caterina",
     "community_layouts": ["ortho_5x4", "numpad_5x4"],
     "layouts": {
-
         "LAYOUT_ortho_5x4": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
