@@ -20,7 +20,7 @@
 
 #include QMK_KEYBOARD_H
 
-// Initial keymap for Xyverz's Keyboardio Atreus
+// Xyverz's Keyboardio Atreus keymap
 
 enum layer_names {
   _DVORAK,
