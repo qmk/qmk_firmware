@@ -30,8 +30,11 @@
     },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ansi"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
 
