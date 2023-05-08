@@ -29,7 +29,6 @@
         ]
     },
     "rgblight": {
-        "pin": "GP18",
         "led_count": 8,
         "hue_steps": 8,
         "saturation_steps": 8,
