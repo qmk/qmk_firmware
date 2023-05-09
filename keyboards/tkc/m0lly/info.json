@@ -131,7 +131,6 @@
                 {"label": "Enter", "matrix": [4, 18], "x": 18.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi": {
             "layout": [
                 {"label": "`", "matrix": [0, 0], "x": 0, "y": 0},
@@ -226,7 +225,6 @@
                 {"label": "Enter", "matrix": [4, 18], "x": 18.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_split_bs_rshift": {
             "layout": [
                 {"label": "`", "matrix": [0, 0], "x": 0, "y": 0},
@@ -323,7 +321,6 @@
                 {"label": "Enter", "matrix": [4, 18], "x": 18.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_tsangan": {
             "layout": [
                 {"label": "`", "matrix": [0, 0], "x": 0, "y": 0},
@@ -417,7 +414,6 @@
                 {"label": "Enter", "matrix": [4, 18], "x": 18.5, "y": 4}
             ]
         },
-
         "LAYOUT_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "`", "matrix": [0, 0], "x": 0, "y": 0},
@@ -513,7 +509,6 @@
                 {"label": "Enter", "matrix": [4, 18], "x": 18.5, "y": 4}
             ]
         },
-
         "LAYOUT_iso": {
             "layout": [
                 {"label": "`", "matrix": [0, 0], "x": 0, "y": 0},
@@ -609,7 +604,6 @@
                 {"label": "Enter", "matrix": [4, 18], "x": 18.5, "y": 4}
             ]
         },
-
         "LAYOUT_iso_split_bs_rshift": {
             "layout": [
                 {"label": "`", "matrix": [0, 0], "x": 0, "y": 0},
@@ -707,7 +701,6 @@
                 {"label": "Enter", "matrix": [4, 18], "x": 18.5, "y": 4}
             ]
         },
-
         "LAYOUT_iso_tsangan": {
             "layout": [
                 {"label": "`", "matrix": [0, 0], "x": 0, "y": 0},
@@ -802,7 +795,6 @@
                 {"label": "Enter", "matrix": [4, 18], "x": 18.5, "y": 4}
             ]
         },
-
         "LAYOUT_iso_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "`", "matrix": [0, 0], "x": 0, "y": 0},
