@@ -2,12 +2,6 @@
     "manufacturer": "Lx3",
     "keyboard_name": "fave60",
     "maintainer": "keydler",
-    "backlight": {
-        "breathing": false,
-        "levels": 3,
-        "on_state": 1,
-        "pin": "B7"
-    },
     "bootloader": "atmel-dfu",
     "debounce": 5,
     "diode_direction": "COL2ROW",
@@ -36,23 +30,6 @@
     "processor": "atmega32u4",
     "processor_type": "avr",
     "protocol": "LUFA",
-    "rgblight": {
-        "led_count": 18,
-        "pin": "F5",
-        "sleep": false,
-        "animations": {
-          "alternating": true,
-          "breathing": true,
-          "christmas": true,
-          "knight": true,
-          "rainbow_mood": true,
-          "rainbow_swirl": true,
-          "rgb_test": true,
-          "snake": true,
-          "static_gradient": true,
-          "twinkle": true
-        }
-    },
     "url": "",
     "usb": {
         "device_version": "1.0.0",
