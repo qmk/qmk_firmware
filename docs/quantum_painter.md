@@ -28,6 +28,8 @@ Supported devices:
 | ILI9341        | RGB LCD            | 240x320          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9341_spi` |
 | ILI9486        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9486_spi` |
 | ILI9488        | RGB LCD            | 320x480          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ili9488_spi` |
+| LD7032 (SPI)   | Monochrome OLED    | 128x40           | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ld7032_spi`  |
+| LD7032 (I2C)   | Monochrome OLED    | 128x40           | I2C             | `QUANTUM_PAINTER_DRIVERS += ld7032_i2c`  |
 | SSD1351        | RGB OLED           | 128x128          | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += ssd1351_spi` |
 | ST7735         | RGB LCD            | 132x162, 80x160  | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7735_spi`  |
 | ST7789         | RGB LCD            | 240x320, 240x240 | SPI + D/C + RST | `QUANTUM_PAINTER_DRIVERS += st7789_spi`  |
