@@ -116,15 +116,16 @@ void ld7032_flush_rot90(painter_device_t device, surface_dirty_data_t *dirty, co
             }
             count++;
         }
+        uint8_t x_width = (driver->panel_width >> 3) - 1;
         if (comms_vtable->send_command) {
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_START, x_start);
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_END, x_end);
+            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_START, x_width - x_end);
+            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_END, x_width - x_start);
             qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_START, y_pos);
             qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_END, y_pos);
             qp_comms_command_databuf(device, LD7032_DATA_RW, &packet[1], x_length);
         } else {
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_START, x_start);
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_END, x_end);
+            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_START, x_width - x_end);
+            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_END, x_width - x_start);
             ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_START, y_pos);
             ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_END, y_pos);
             qp_comms_send(device, &packet, sizeof(packet));
@@ -142,22 +143,24 @@ void ld7032_flush_rot180(painter_device_t device, surface_dirty_data_t *dirty, c
     int y_end    = dirty->b;
     int x_length = (x_end - x_start) + 1;
 
-    for (int y_pos = y_start; y_pos <= y_end; y_pos++) {
+    for (int y_pos = y_end; y_pos >= y_start; y_pos--) {
         uint8_t packet[x_length + 1];
         memset(packet, 0, sizeof(packet));
         packet[0] = LD7032_DATA_RW;
-        memcpy(&packet[1], &framebuffer[((y_end - y_pos) * (driver->panel_width >> 3)) + x_start], x_length);
+        memcpy(&packet[1], &framebuffer[((y_pos) * (driver->panel_width >> 3)) + x_start], x_length);
+        uint8_t y_offset = (driver->panel_height - 1) - y_pos;
+        uint8_t x_offset = (driver->panel_width >> 3) - 1 - x_start;
         if (comms_vtable->send_command) {
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_START, x_start);
-            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_END, x_end);
-            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_START, y_pos);
-            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_END, y_pos);
+            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_START, x_offset - x_length);
+            qp_comms_command_databyte(device, LD7032_X_BOX_ADR_END, x_offset);
+            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_START, y_offset);
+            qp_comms_command_databyte(device, LD7032_Y_BOX_ADR_END, y_offset);
             qp_comms_command_databuf(device, LD7032_DATA_RW, &packet[1], x_length);
         } else {
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_START, x_start);
-            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_END, x_end);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_START, y_pos);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_END, y_pos);
+            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_START, x_offset - x_length);
+            ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_END, x_offset);
+            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_START, y_offset);
+            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_END, y_offset);
             qp_comms_send(device, &packet, sizeof(packet));
         }
     }
@@ -180,13 +183,14 @@ void ld7032_flush_rot270(painter_device_t device, surface_dirty_data_t *dirty, c
         int count = 1;
         for (int x_pos = x_start; x_pos <= x_end; x_pos++) {
             for (int x = 0; x < 8; ++x) {
-                uint32_t pixel_num   = ((((x_end - x_pos) << 3) + x) * driver->panel_height) + (y_end - y_pos);
+                uint32_t pixel_num   = ((((x_end - x_pos) << 3) + x) * driver->panel_height) + (y_pos);
                 uint32_t byte_offset = pixel_num / 8;
                 uint8_t  bit_offset  = pixel_num % 8;
                 packet[count] |= ((framebuffer[byte_offset] & (1 << bit_offset)) >> bit_offset) << x;
             }
             count++;
         }
+        uint8_t y_width = driver->panel_height - 1;
         if (comms_vtable->send_command) {
             qp_comms_command_databyte(device, LD7032_X_BOX_ADR_START, x_start);
             qp_comms_command_databyte(device, LD7032_X_BOX_ADR_END, x_end);
@@ -196,8 +200,8 @@ void ld7032_flush_rot270(painter_device_t device, surface_dirty_data_t *dirty, c
         } else {
             ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_START, x_start);
             ld7032_comms_i2c_send_command(device, LD7032_X_BOX_ADR_END, x_end);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_START, y_pos);
-            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_END, y_pos);
+            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_START, y_width - y_pos);
+            ld7032_comms_i2c_send_command(device, LD7032_Y_BOX_ADR_END, y_width - y_pos);
             qp_comms_send(device, &packet, sizeof(packet));
         }
     }
