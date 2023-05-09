@@ -391,7 +391,7 @@
 #define __Y_G_THUMB_L0_                                   ST_CTAB,   RAISE, KC_LSFT
 #define __Y_G_THUMB_L1_                                            KC_LGUI, KC_LALT
 
-#define _______________Y_GAME_R0___________________       _______,  _______, _______,  _______, _______,    _______
+#define _______________Y_GAME_R0___________________       _______,  _______, _______,  _______, _______,    KC_DEL
 #define _______________Y_GAME_R1___________________       KC_P,     KC_L,    KC_UP,    _______, _______,    _______
 #define _______________Y_GAME_R2___________________       KC_I,     KC_LEFT, KC_DOWN, KC_RIGHT, _______,    KC_KB_VOLUME_UP
 #define _______________Y_GAME_R3___________________       KC_M,     _______, _______,  _______, DF(_ALPHA), KC_KB_VOLUME_DOWN
