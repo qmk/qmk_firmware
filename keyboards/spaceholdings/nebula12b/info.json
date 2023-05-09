@@ -21,8 +21,11 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_4x3"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ortho_4x3": {
             "layout": [
                 {"label": "7", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "8", "matrix": [0, 1], "x": 1, "y": 0},
