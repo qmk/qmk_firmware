@@ -161,7 +161,7 @@ static void timer_3s_task(void) {
         timer_3s_buffer = 0;
         if (key_press_status == KEY_PRESS_FACTORY_RESET) {
             factory_reset();
-#ifdef RGB_ENABLE
+#ifdef RGB_MATRIX_ENABLE
             if (is_win_mode()) { set_win_base_rgb(); }
 #endif
         } else if (key_press_status == KEY_PRESS_LED_TEST) {
