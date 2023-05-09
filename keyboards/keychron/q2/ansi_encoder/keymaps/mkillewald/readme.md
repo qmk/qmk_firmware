@@ -13,9 +13,9 @@ When you flash this firmware for the first time, you should clear the eeprom bef
     - This will clear the eeprom which returns RGB settings back to defaults and erases any changes made with VIA.
 
 - Retains Keychron LED test:
-    - Hold Fn1+Right+PgUp for 4 seconds. The RGB LEDs will all turn white.
+    - Hold Fn1+Right+PgDn for 4 seconds. The RGB LEDs will all turn white.
     - Press Right to cycle RGB colors (white, red, green and blue) to check operation of each LED.
-    - Press PgUp to exit
+    - Press PgDn to exit
 
 - SEVERED! Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed using the standard RGB keyboard shortcuts. (Hi kids, whats for dinner?)
 
