@@ -6,7 +6,7 @@
     "usb": {
         "vid": "0x4753",
         "pid": "0x3003",
-        "device_version": "0.0.3",
+        "device_version": "0.0.3"
     },
     "ws2812": {
         "pin": "B10"
