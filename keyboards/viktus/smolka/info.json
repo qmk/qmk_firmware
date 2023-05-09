@@ -83,7 +83,7 @@
                 {"label": "Alt", "matrix": [6, 2], "x": 3.5, "y": 3, "w": 1.25},
                 {"label": "Space", "matrix": [7, 3], "x": 4.75, "y": 3, "w": 3},
                 {"label": "\u25bd", "matrix": [6, 3], "x": 7.75, "y": 3},
-                {"label": "Space", "matrix": [7, 4], "x": 8.75, "y": 3, "w": 3},
+                {"label": "Space", "matrix": [7, 4], "x": 8.75, "y": 3},
                 {"label": "\u25bd", "matrix": [7, 5], "x": 9.75, "y": 3},
                 {"label": "Alt", "matrix": [6, 5], "x": 10.75, "y": 3},
 
