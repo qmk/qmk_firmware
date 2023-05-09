@@ -40,6 +40,9 @@ enum my_keycodes {
 #define KC_FCTOG KC_FN_LAYER_COLOR_TOGGLE
 #define KC_LBMAC KC_LOCK_BLANK_MAC
 
+uint8_t is_win_mode(void);
+void set_mac_base_rgb(void);
+void set_win_base_rgb(void);
 void housekeeping_task_mkillewald(void);
 bool process_record_mkillewald(uint16_t keycode, keyrecord_t *record);
 

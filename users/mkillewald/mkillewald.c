@@ -19,7 +19,7 @@
 #include "rgb_matrix_user.h"
 #include "layers.h"
 
-static bool win_mode;
+static uint8_t win_mode;
 
 __attribute__ ((weak))
 bool dip_switch_update_keymap(uint8_t index, bool active) {
@@ -31,6 +31,8 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     return dip_switch_update_keymap(index, active);
 }
 
+uint8_t is_win_mode(void) { return win_mode; }
+
 __attribute__ ((weak))
 layer_state_t default_layer_state_set_keymap(layer_state_t state) {
   return state;
@@ -39,33 +41,41 @@ layer_state_t default_layer_state_set_keymap(layer_state_t state) {
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case MAC_BASE:
-            // load mac base settings
-            rgb_matrix_enable_noeeprom();
-            rgb_matrix_reload_from_eeprom();
-
-            // check disable
-            if (!user_config_get_enable_mac_base()) {
-                rgb_matrix_disable_noeeprom();
-            }
+            set_mac_base_rgb();
             break;
         case WIN_BASE:
-            // load win base settings
-            rgb_matrix_enable_noeeprom();
-            rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
-            rgb_matrix_set_speed_noeeprom(user_config_get_spd_win_base());
-            rgb_matrix_sethsv_noeeprom(user_config_get_hsv_win_base().h,
-                                       user_config_get_hsv_win_base().s,
-                                       user_config_get_hsv_win_base().v);
-
-            // check disable
-            if (!user_config_get_enable_win_base()) {
-                rgb_matrix_disable_noeeprom();
-            }
+            set_win_base_rgb();
             break;
         default:
             break;
     }
     return default_layer_state_set_keymap(state);
+}
+
+void set_mac_base_rgb(void) {
+    // load mac base settings
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_reload_from_eeprom();
+
+    // check disable
+    if (!user_config_get_enable_mac_base()) {
+        rgb_matrix_disable_noeeprom();
+    }
+}
+
+void set_win_base_rgb(void) {
+    // load win base settings
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_mode_noeeprom(user_config_get_mode_win_base());
+    rgb_matrix_set_speed_noeeprom(user_config_get_spd_win_base());
+    rgb_matrix_sethsv_noeeprom(user_config_get_hsv_win_base().h,
+                               user_config_get_hsv_win_base().s,
+                               user_config_get_hsv_win_base().v);
+
+    // check disable
+    if (!user_config_get_enable_win_base()) {
+        rgb_matrix_disable_noeeprom();
+    }
 }
 
 __attribute__ ((weak))
