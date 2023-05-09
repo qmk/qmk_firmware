@@ -116,6 +116,13 @@ bool process_record_keychron_ft(uint16_t keycode, keyrecord_t *record) {
                 key_press_status |= KEY_PRESS_STEP_4;
                 if (led_test_mode) {
                     led_test_mode = LED_TEST_MODE_OFF;
+#    if defined(RGB_MATRIX_ENABLE)
+                    if (is_win_mode()) {
+                        set_win_base_rgb();
+                    } else {
+                        set_mac_base_rgb();
+                    }
+#    endif
                 } else if (key_press_status == KEY_PRESS_LED_TEST) {
                     timer_3s_buffer = sync_timer_read32() == 0 ? 1 : sync_timer_read32();
                 }
@@ -171,12 +178,12 @@ static void timer_3s_task(void) {
             led_test_mode = LED_TEST_MODE_WHITE;
 #ifdef LED_MATRIX_ENABLE
             if (!led_matrix_is_enabled()) {
-                led_matrix_enable();
+                led_matrix_enable_noeeprom();
             }
 #endif
 #ifdef RGB_MATRIX_ENABLE
             if (!rgb_matrix_is_enabled()) {
-                rgb_matrix_enable();
+                rgb_matrix_enable_noeeprom();
             }
 #endif
         }
