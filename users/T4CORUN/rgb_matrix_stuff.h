@@ -8,7 +8,6 @@
 #define RGB_DARKPURPLE    0x19, 0x00, 0x33
 
 #if defined(KEYBOARD_crkbd_rev1)
-#   define NUM_LEDSPLIT 27
 #   define LED_NUMBER 13
 #   define LED_NAVIGATION 40
 #   define LED_FUNCTION 21
@@ -18,6 +17,10 @@
 #   define LED_CAPSLOCK 8
 #   define LED_SCRLOCK 35
 
+#   define LED_QWERTY 36
+#   define LED_COLEMAKDH 37
+#   define LED_GAME 44
+
 const uint8_t dpad_LED[] = { 11, 16, 17, 19 };
 const uint8_t mouse_LED[] = {
   //thumb keys
@@ -25,22 +28,9 @@ const uint8_t mouse_LED[] = {
   //inner column of both splits
   7, 8, 9, 34, 35, 36 
 };
-const uint8_t off_LED[] = {
-  //left side back
-  0, 1, 2, 3, 4, 5,
-  //left side outer keys
-  24, 25, 26,
-  //right side back
-  27, 28, 29, 30, 31, 32,
-  //left side outer keys
-  51, 52, 53
-};
-
-
 
 #elif defined(KEYBOARD_bastardkb_charybdis_3x5)
 //start of the second half
-#   define NUM_LEDSPLIT 18
 #   define LED_NUMBER 16
 #   define LED_NAVIGATION 34
 #   define LED_FUNCTION 0
@@ -50,6 +40,10 @@ const uint8_t off_LED[] = {
 #   define LED_CAPSLOCK 13
 #   define LED_SCRLOCK 31
 
+#   define LED_QWERTY 30
+#   define LED_COLEMAKDH 27
+#   define LED_GAME 26
+
 const uint8_t dpad_LED[] = { 4, 7, 8, 10 };
 const uint8_t mouse_LED[] = {
   //thumb keys
@@ -57,14 +51,11 @@ const uint8_t mouse_LED[] = {
   //inner column of both splits
   12, 13, 14, 30, 31, 32
 };
-const uint8_t off_LED[] = { };
-
 
 #endif
 
 #define NUM_DPADKEYS 4
 #define NUM_MOUSEKEYS (sizeof(mouse_LED) / sizeof(mouse_LED[0]))
-#define NUM_OFFLED (sizeof(off_LED) / sizeof(off_LED[0]))
 
 
 

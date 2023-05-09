@@ -109,9 +109,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Num  |   A  |   S  |   D  |   F  |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |  Z   |   X  |   C  |   V  |   B  |    |      |      |      |      |      |
+*   |  Z   |   X  |   C  |   V  |   B  |    |      |      |      |      | Adj  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Ctrl | Spc  | Shift|    |      |      |      |
+*                 | Ctrl | Spc  | Shift|    |      | Nav  |      |
 *                 `------+------+------'    `------+------+------'
 */
 
@@ -124,7 +124,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #   define __________________GAMING_R1________________        QWERTY,  CLMAKDH, ___x___, ___x___, ___x___
 #   define __________________GAMING_R2________________        ___________________NONE_5__________________
-#   define __________________GAMING_R3________________        ___________________NONE_5__________________
+#   define __________________GAMING_R3________________        ___x___, ___x___, ___x___, ___x___, ADJUST
 
 /*
 * For 3x5 configuration
@@ -136,7 +136,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |      |   5  |   6  |   7  |   8  |    |      |      |      |      |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Alt  |      |      |    |      |      |      |
+*                 | Alt  |      |      |    |      | Nav  |      |
 *                 `------+------+------'    `------+------+------'
 */
 
@@ -146,9 +146,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define          ______GAMING_NUM_L4______                 KC_LALT, ___x___, ___x___
 
 # if defined(KEYBOARD_bastardkb_charybdis_3x5) 
-#   define          _________GAMING_R4_______                 ___x___, ___x___
+#   define          _________GAMING_R4_______                 ___x___, NAV
 # else
-#   define          _________GAMING_R4_______                 __________NONE_3_________
+#   define          _________GAMING_R4_______                 ___x___, NAV,     ___x___
 # endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #endif //GAMELAYER_ENABLE
