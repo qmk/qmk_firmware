@@ -32,7 +32,7 @@
                     {"pin_a": "D4", "pin_b": "D2", "resolution": 3}
                 ]
             }
-        },
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

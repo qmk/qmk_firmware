@@ -21,7 +21,7 @@
             "layout": [
                 {"label": "Mute", "x": 0, "y": 0, "matrix": [0, 0]},
                 {"label": "Next", "x": 1, "y": 0, "matrix": [0, 1]},
-                {"label": "Push", "x": 3, "y": 0, "matrix": [0, 2]},
+                {"label": "Push", "x": 3, "y": 0, "matrix": [0, 2]}
             ]
         }
     }
