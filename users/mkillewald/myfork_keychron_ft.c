@@ -227,39 +227,23 @@ bool rgb_matrix_indicators_advanced_keychron_ft(uint8_t led_min, uint8_t led_max
     } else if (led_test_mode) {
         switch (led_test_mode) {
             case LED_TEST_MODE_WHITE:
-                if (rgb_matrix_get_mode() == RGB_MATRIX_SOLID_COLOR) {
-                    rgb_matrix_sethsv_noeeprom(HSV_WHITE);
-                } else {
-                    for (uint8_t i = led_min; i <= led_max; i++) {
-                        rgb_matrix_set_color(i, RGB_WHITE);
-                    }
+                for (uint8_t i = led_min; i <= led_max; i++) {
+                    rgb_matrix_set_color(i, RGB_WHITE);
                 }
                 break;
             case LED_TEST_MODE_RED:
-                if (rgb_matrix_get_mode() == RGB_MATRIX_SOLID_COLOR) {
-                    rgb_matrix_sethsv_noeeprom(HSV_RED);
-                } else {
-                    for (uint8_t i = led_min; i <= led_max; i++) {
-                        rgb_matrix_set_color(i, RGB_RED);
-                    }
+                for (uint8_t i = led_min; i <= led_max; i++) {
+                    rgb_matrix_set_color(i, RGB_RED);
                 }
                 break;
             case LED_TEST_MODE_GREEN:
-                if (rgb_matrix_get_mode() == RGB_MATRIX_SOLID_COLOR) {
-                    rgb_matrix_sethsv_noeeprom(HSV_GREEN);
-                } else {
-                    for (uint8_t i = led_min; i <= led_max; i++) {
-                        rgb_matrix_set_color(i, RGB_GREEN);
-                    }
+                for (uint8_t i = led_min; i <= led_max; i++) {
+                    rgb_matrix_set_color(i, RGB_GREEN);
                 }
                 break;
             case LED_TEST_MODE_BLUE:
-                if (rgb_matrix_get_mode() == RGB_MATRIX_SOLID_COLOR) {
-                    rgb_matrix_sethsv_noeeprom(HSV_BLUE);
-                } else {
-                    for (uint8_t i = led_min; i <= led_max; i++) {
-                        rgb_matrix_set_color(i, RGB_BLUE);
-                    }
+                for (uint8_t i = led_min; i <= led_max; i++) {
+                    rgb_matrix_set_color(i, RGB_BLUE);
                 }
                 break;
             default:
