@@ -1,6 +1,6 @@
 # Dactyl Lightcycle
 
-![TopElev](https://i.imgur.com/MwPhTrC.jpg)
+![TopElev](https://i.imgur.com/MwPhTrCh.jpg)
 
 A handwired, split bodied, concave key-well, columnar keyboard.  
 The *Dactyl Lightcycle* is a variation of the [Dactyl](/keyboards/handwired/dactyl/) keyboard, its differences are:
