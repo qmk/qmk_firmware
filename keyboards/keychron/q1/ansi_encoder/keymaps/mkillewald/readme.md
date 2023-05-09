@@ -1,4 +1,4 @@
-## Keychron Q1 Special Edition RGB ANSI ATMEGA32U4 ENC11 (knob) Keymap v2.0.1
+## Keychron Q1 Special Edition RGB ANSI ATMEGA32U4 ENC11 (knob) Keymap v2.0.2
 
 <img src="https://raw.githubusercontent.com/mkillewald/glamour_shots/main/keyboards/keychron/q1/IMG_5709.jpg" alt="Keychron Q1SE ANSI encoder" width="1000">
 
@@ -8,7 +8,16 @@ When you flash this firmware for the first time, you should clear the eeprom bef
 ## Features:
 - Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others.
 
-- Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed for the Mac and Win base layers using the standard RGB keyboard shortcuts.
+- Retains Keychron factory reset:
+    - Hold Fn+J+Z for 4 seconds. The RGB LEDs will flash red to indicate that the reset has occurred.
+    - This will clear the eeprom which returns RGB settings back to defaults and erases any changes made with VIA.
+
+- Retains Keychron LED test:
+    - Hold Fn+Right+Home for 4 seconds. The RGB LEDs will all turn white.
+    - Press Right to cycle RGB colors (white, red, green and blue) to check operation of each LED.
+    - Press Home to exit
+
+- Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed for using the standard RGB keyboard shortcuts.
 
 - Autocorrect is enabled. ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
     - Uses getreuer's autocorrect dictionary.
@@ -69,7 +78,7 @@ Caps Word options:
 ```
     // Caps Word RGB indicator color
     #define CAPS_WORD_INDICATOR_COLOR RGB_RED
-    
+
     // Caps Word is activated by double-tapping left Shift. Replace this with
     // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD if you want to activate Caps Word
     // by single-tapping both left and right Shift togeter.
@@ -109,17 +118,13 @@ All custom keycodes can be moved to different keys in VIA by using the following
 - CUSTOM(67) = KC_FCTOG (default: Fn+V) Fn layer Color Toggle
 - CUSTOM(68) = KC_LBMAC (default Mac Only: Fn+Esc) Lock and Blank Mac
 
-## Known Issues
-
-1. Keychron factory reset (clear eeprom) Fn+J+Z is not working
-2. Keychron LED test Fn+Home+Right is not working
-
-It seems Keychron has not pushed the relavant code to the main QMK repo yet. I see the code is in Keychron's fork, and I may manually add that code here at some point.
-
 
 #### USE AT YOUR OWN RISK
 
 ## Changelog:
+
+v2.0.2  May 9, 2023
+- added Keychron factory reset and LED test
 
 v2.0.1  April 11, 2023
 - enabled separate RGB toggle for each base layer (Mac / Win)
