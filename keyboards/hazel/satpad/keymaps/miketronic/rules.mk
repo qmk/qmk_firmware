@@ -6,10 +6,11 @@ NKRO_ENABLE       = yes     	# Enable N-Key Rollover
 MACROS_ENABLED    = yes
 
 # Keyboard specific
-MOUSEKEY_ENABLE       = yes      # Mouse keys
+MOUSEKEY_ENABLE     = yes      # Mouse keys
+LEADER_ENABLE       = yes
 CAPS_WORD_ENABLE		= yes
 KEY_OVERRIDE_ENABLE	= yes
-OLED_ENABLE 			= yes
+OLED_ENABLE 			  = yes
   OLED_DRIVER 			= SSD1306
   ENCODER_ENABLE 	    = yes
   ENCODER_MAP_ENABLE 	= yes

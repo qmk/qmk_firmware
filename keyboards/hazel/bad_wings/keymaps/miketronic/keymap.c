@@ -188,3 +188,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
+
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case SFT_T(KC_A):
+            // Do not force the mod-tap key press to be handled as a modifier
+            // if any other key was pressed while the mod-tap key is held down.
+            return false;
+        case TEX:
+            return false;
+        case CTRLX:
+            return false;
+        case FNZ:
+            return false;
+        case MGUI:
+            return false;
+        case VLOWER:
+            return false;
+        case KRAISE:
+            return false;
+        default:
+            // Force the dual-role key press to be handled as a modifier if any
+            // other key was pressed while the mod-tap key is held down.
+            return true;
+    }
+}
+
+
+#ifdef AUDIO_ENABLE
+float leader_start_song[][2] = SONG(ONE_UP_SOUND);
+float leader_succeed_song[][2] = SONG(ALL_STAR);
+float leader_fail_song[][2] = SONG(RICK_ROLL);
+#endif
+
+void matrix_scan_user(void);
+
+void leader_start_user(void) {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(leader_start_song);
+#endif
+}
+
+bool did_leader_succeed;
+
+void leader_end_user(void) {
+    did_leader_succeed = false;
+
+    if (leader_sequence_one_key(KC_E)) {
+        SEND_STRING(SS_LCTL(SS_LSFT("t")));
+        did_leader_succeed = true;
+    } else if (leader_sequence_two_keys(KC_E, KC_D)) {
+        SEND_STRING(SS_LGUI("r") "cmd\n" SS_LCTL("c"));
+        did_leader_succeed = true;    
+    } else if (leader_sequence_two_keys(KC_A, KC_T)) {
+        SEND_STRING("@guidehouse.com");
+        did_leader_succeed = true;
+    }
+
+
+#ifdef AUDIO_ENABLE
+    if (did_leader_succeed) {
+        PLAY_SONG(leader_succeed_song);
+    } else {
+        PLAY_SONG(leader_fail_song);
+    }
+#endif
+}
+

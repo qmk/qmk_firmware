@@ -37,7 +37,8 @@ enum layer_names {
 #define KRAISE  LT(_RAISE, KC_K)        // Tap for "K", hold for Raise layer
 
 // Mod Tap
-#define ASFT    MT(MOD_LSFT, KC_A)      // Tap for "A", hold for Shift
+//#define ASFT    MT(MOD_LSFT, KC_A)      // Tap for "A", hold for Shift
+#define ASFT    SFT_T(KC_A)             // Tap for "A", hold for Shift
 #define GGUI    MT(MOD_LGUI, KC_G)      // Tap for "G", hold for OS Key
 #define MGUI    MT(MOD_LGUI, KC_M)      // Tap for "M", hold for OS Key
 #define CTRLX   MT(MOD_LCTL, KC_X)      // Tap for "X", hold for Ctrl

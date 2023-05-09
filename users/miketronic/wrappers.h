@@ -98,7 +98,7 @@
 #define _________________RAISE_R3__________________        _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 
 #define _______________RAISE_310_L1________________        QK_BOOT, DB_TOGG, _______, _______, QK_MAKE
-#define _______________RAISE_310_L2________________        _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD
+#define _______________RAISE_310_L2________________        KC_LSFT, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD
 #define _______________RAISE_310_L3________________        _______, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD
 
 #define _______________RAISE_310_R1________________        _______, KC_F7,   KC_F8,   KC_F9,   KC_F10
@@ -106,7 +106,7 @@
 #define _______________RAISE_310_R3________________        _______, KC_F1,   KC_F2,   KC_F3,   KC_F12
 
 #define _______________RAISE_412_L1________________        QK_BOOT, DB_TOGG, _______, _______, _______, QK_MAKE
-#define _______________RAISE_412_L2________________        _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, WM
+#define _______________RAISE_412_L2________________        KC_LSFT, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, WM
 #define _______________RAISE_412_L3________________        _______, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, QW
 
 #define _______________RAISE_412_R1________________        _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10
@@ -116,7 +116,7 @@
 
 
 #define ______________EXTRAS_310_L1________________        KC_EXLM, _______, _______, _______, _______
-#define ______________EXTRAS_310_L2________________        _______, _______, _______, _______, _______
+#define ______________EXTRAS_310_L2________________        KC_LSFT, _______, _______, _______, _______
 #define ______________EXTRAS_310_L3________________        _______, _______, _______, _______, _______
 
 #define ______________EXTRAS_310_R1________________        _______,   TD_SL,     PRN,  BRACES, KC_SCLN

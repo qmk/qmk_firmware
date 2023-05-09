@@ -9,6 +9,7 @@ MACROS_ENABLED    = yes
 MOUSEKEY_ENABLE         = yes      # Mouse keys
 CAPS_WORD_ENABLE	= yes
 KEY_OVERRIDE_ENABLE	= yes
+LEADER_ENABLE     = yes
 
 
   LTO_ENABLE 	        = no       # Enabled this causes longer build time, but smaller file.
