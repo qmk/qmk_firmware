@@ -79,23 +79,6 @@
         ],
         "max_brightness": 120
     },
-    "rgblight": {
-        "led_count": 37,
-        "pin": "B1"
-        "sleep": true,
-        "animations": {
-          "alternating": true,
-          "breathing": true,
-          "christmas": true,
-          "knight": true,
-          "rainbow_mood": true,
-          "rainbow_swirl": true,
-          "rgb_test": true,
-          "snake": true,
-          "static_gradient": true,
-          "twinkle": true
-        }
-    },
     "url": "",
     "usb": {
         "device_version": "1.0.0",
