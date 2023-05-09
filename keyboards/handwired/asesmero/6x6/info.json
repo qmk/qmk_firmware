@@ -7,8 +7,8 @@
 	
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x0066",
-        "vid": "0x0282"
+        "pid": "0x0606",
+        "vid": "0x5A30"
     },
 	
 	"features": {
