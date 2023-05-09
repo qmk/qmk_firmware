@@ -18,8 +18,6 @@
 #include "keychron_common.h"
 #include "myfork_keychron_ft.h"
 #include "mkillewald.h"
-#include "eeprom_user_config.h"
-#include "rgb_matrix_user.h"
 #include "layers.h"
 
 // clang-format off

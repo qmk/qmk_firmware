@@ -29,6 +29,13 @@ enum layers{
 #define MAC_WIN_FN2 _FN3
 
 /* Factory test keys */
-#define FN_KEY1 MO(_FN1)
-#define FN_KEY2 MO(_FN2)
-#define FN_KEY3 MO(_FN3)
+#define FN_KEY1             MO(_FN1)    // Fn1 Mac Base
+#define FN_KEY2             MO(_FN2)    // Fn1 Win Base
+
+#define RESET_KEY1          KC_J
+#define RESET_KEY2          KC_Z
+
+#define BL_TEST_KEY1        KC_RIGHT
+#define BL_TEST_KEY2        KC_PGDN
+#define BL_TEST_KEY2_ALT1   G(KC_RIGHT)
+#define BL_TEST_KEY2_ALT2   KC_END

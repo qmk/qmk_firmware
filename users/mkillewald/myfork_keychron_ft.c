@@ -16,16 +16,7 @@
  */
 
 #include "myfork_keychron_ft.h"
-#include "mkillewald.h"
 #include "layers.h"
-
-#ifndef BL_TEST_KEY1
-#    define BL_TEST_KEY1 KC_RIGHT
-#endif
-
-#ifndef BL_TEST_KEY2
-#    define BL_TEST_KEY2 KC_HOME
-#endif
 
 // clang-format off
 enum {
@@ -52,15 +43,12 @@ HSV     hsv;
 __attribute__((weak))
 bool process_record_keychron_ft(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-#if defined(FN_KEY1) || defined(FN_KEY2) || defined(FN_KEY3)
+#if defined(FN_KEY1) || defined(FN_KEY2)
 #    ifdef FN_KEY1
         case FN_KEY1: /* fall through */
 #    endif
 #    ifdef FN_KEY2
         case FN_KEY2:
-#    endif
-#    ifdef FN_KEY3
-        case FN_KEY3:
 #    endif
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_STEP_0;
@@ -70,7 +58,11 @@ bool process_record_keychron_ft(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
 #endif
-        case KC_J:
+#if defined(RESET_KEY1) && defined(RESET_KEY2)
+        case RESET_KEY1:
+#    if defined(RESET_KEY1_ALT)
+        case RESET_KEY1_ALT:
+#    endif
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_STEP_1;
                 if (key_press_status == KEY_PRESS_FACTORY_RESET) {
@@ -81,8 +73,10 @@ bool process_record_keychron_ft(uint16_t keycode, keyrecord_t *record) {
                 timer_3s_buffer = 0;
             }
             return true;
-        case KC_Z:
-        case KC_LTTOG:
+        case RESET_KEY2:
+#    if defined(RESET_KEY2_ALT)
+        case RESET_KEY2_ALT:
+#    endif
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_STEP_2;
                 if (key_press_status == KEY_PRESS_FACTORY_RESET) {
@@ -93,7 +87,9 @@ bool process_record_keychron_ft(uint16_t keycode, keyrecord_t *record) {
                 timer_3s_buffer = 0;
             }
             return true;
-        case BL_TEST_KEY1: // KC_RIGHT
+#endif
+#if defined(BL_TEST_KEY1) && defined(BL_TEST_KEY2)
+        case BL_TEST_KEY1:
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_STEP_3;
                 if (led_test_mode) {
@@ -108,7 +104,13 @@ bool process_record_keychron_ft(uint16_t keycode, keyrecord_t *record) {
                 timer_3s_buffer = 0;
             }
             return true;
-        case BL_TEST_KEY2:  // KC_HOME
+        case BL_TEST_KEY2:
+#    if defined(BL_TEST_KEY2_ALT1)
+        case BL_TEST_KEY2_ALT1:
+#    endif
+#    if defined(BL_TEST_KEY2_ALT2)
+        case BL_TEST_KEY2_ALT2:
+#    endif
             if (record->event.pressed) {
                 key_press_status |= KEY_PRESS_STEP_4;
                 if (led_test_mode) {
@@ -121,6 +123,7 @@ bool process_record_keychron_ft(uint16_t keycode, keyrecord_t *record) {
                 timer_3s_buffer = 0;
             }
             return true;
+#endif
         default:
             return true;
     }

@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "mkillewald.h"
+
 enum layers{
     MAC_BASE,
     MAC_FN,
@@ -28,5 +30,12 @@ enum layers{
 #define MAC_WIN_FN2 255  // not used, keymap does not have fn2 key
 
 /* Factory test keys */
-#define FN_KEY1 MO(MAC_FN)
-#define FN_KEY2 MO(WIN_FN)
+#define FN_KEY1             MO(MAC_FN)  // Fn Mac Base
+#define FN_KEY2             MO(WIN_FN)  // Fn Win Base
+
+#define RESET_KEY1          KC_J
+#define RESET_KEY2          KC_Z
+#define RESET_KEY2_ALT      KC_LTTOG
+
+#define BL_TEST_KEY1        KC_RIGHT
+#define BL_TEST_KEY2        KC_HOME
