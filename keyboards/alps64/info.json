@@ -14,7 +14,7 @@
   },
   "diode_direction": "COL2ROW",
   "indicators": {
-    "caps_lock": "C5",
+    "caps_lock": "C5"
   },
   "bootmagic": {
       "matrix": [3, 6]
