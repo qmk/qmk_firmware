@@ -32,19 +32,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code_delay(KC_MS_RIGHT, 10);
-        } else {
-            tap_code_delay(KC_MS_LEFT, 10);
-        }
-    } else if (index == 1) { /* Second encoder */
-        if (clockwise) {
-            tap_code_delay(KC_AUDIO_VOL_UP, 10);
-        } else {
-            tap_code_delay(KC_AUDIO_VOL_DOWN, 10);
-        }
-    }
-    return false;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [0] =  { ENCODER_CCW_CW(KC_MS_LEFT, KC_MS_RIGHT),      ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [1] =  { ENCODER_CCW_CW(KC_TRNS, KC_TRNS)       ,      ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+};
+#endif
