@@ -1,1 +1,1 @@
-# This file intentionally left blank
+DEFAULT_FOLDER = handwired/asesmero/2x6/promicro

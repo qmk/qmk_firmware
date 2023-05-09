@@ -1,14 +1,11 @@
 {
     "manufacturer": "asesmero",
-    "keyboard_name": "2x6 promicro",
     "maintainer": "asesmero",
 	"url": "https://github.com/asesmero"
-    "development_board": "promicro",
 	
     "usb": {
-        "device_version": "0.0.1",
-        "pid": "0x0026",
-        "vid": "0x0282"
+        "pid": "0x0206",
+        "vid": "0x5A30"
     },
 	
 	"features": {
@@ -17,16 +14,10 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false
+        "nkro": false,
+		"rgblight": true
     },
 	
-	"matrix_pins": {
-        "cols": ["D1", "D0", "D4", "C6", "D7", "E6"],
-        "rows": ["B4", "B5"]
-    },
-	
-    "diode_direction": "ROW2COL",
-
     "community_layouts": [ "ortho_2x6" ]
 	
     "layouts": {
