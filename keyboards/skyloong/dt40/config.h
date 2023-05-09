@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x1EA7
-#define PRODUCT_ID      0x0040
-#define DEVICE_VER      0x0001
-#define MANUFACTURER Skyloong
-#define PRODUCT      DT40
+//#define VENDOR_ID       0x1EA7
+//#define PRODUCT_ID      0x0040
+//#define DEVICE_VER      0x0001
+//#define MANUFACTURER Skyloong
+//#define PRODUCT      DT40
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B6, B15, B2, B14 }
 #define MATRIX_COL_PINS { B12, B5, B8, B9, B10, B11, A15, B7, A2, A1, A0 }
-#define UNUSED_PINS
+//#define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -72,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 44
 #define DRIVER_LED_TOTAL 44
 //#define RGBLED_SPLIT { 12, 12 }
-#define RGBLIGHT_ANIMATIONS
+//#define RGBLIGHT_ANIMATIONS
 
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 1
@@ -195,8 +195,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 /* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+//#define NO_ACTION_MACRO
+//#define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0

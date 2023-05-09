@@ -1,7 +1,15 @@
 {
     "keyboard_name": "DT40",
-    "url": "www.skyloong.com.cn",
-    "maintainer": "Skyloong",
+    "manufacturer": "skyloong",
+    "url": "https://github.com/JZ-Skyloong",
+    "maintainer": "LinLin",
+    "usb": {
+    	"vid": "0x1ea7",
+    	"pid": "0x0040",
+    	"device_version": "1.0.0"
+    },
+    "processor": "stm32f103",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
