@@ -36,7 +36,7 @@
     "developement_board": "pro_micro",
     "community_layouts": ["LAYOUT_split_3x6_3", "LAYOUT_split_3x5_3"],
     "layouts": {
-        "LAYOUT_dlc": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

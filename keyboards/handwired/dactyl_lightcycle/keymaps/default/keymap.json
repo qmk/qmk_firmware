@@ -4,7 +4,7 @@
     "author": "dunk2k",
     "notes": "This file is a keymap(.json) file for handwired/dactyl_lightcycle",
     "keymap": "default",
-    "layout": "LAYOUT_dlc",
+    "layout": "LAYOUT",
     "layers": [
         [
             "KC_ESC",  "KC_Q",    "KC_W",   "KC_E",    "KC_R",    "KC_T",                                               "KC_Y", "KC_U",  "KC_I",    "KC_O",    "KC_P",    "KC_BSLS",
