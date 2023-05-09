@@ -313,20 +313,20 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   | Hue+ | Hue- | Spd+ | Spd- |      |    |QWERTY|ClmkDH|Gaming|      |      |
+*   |      |      |      |      |      |    |QWERTY|ClmkDH|Gaming|      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Sat+ | Sat- | Vib+ | Vib- |      |    |AudTog|MusTog|ClkTog|ClkUp |      |
+*   | Hue+ | Sat+ | Vib+ | Spd+ |      |    |AudTog|MusTog|ClkTog|ClkUp |ClkDn |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |RGBTog|RGBMod|RGBRMd|      |      |    |      |      |ClkDn |ClkDn |LyrTap|
+*   |RGBTog|RGBMod|      |      |      |    | Shft |      |      |      |LyrTap|
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      | Boot | Rbt  |    | Rbt  | Boot |      |
 *                 `------+------+------'    `------+------+------'
 */
 
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
-#   define _________________ADJUST_L1_________________        RGB_HUI, RGB_HUD, RGB_SPI, RGB_SPD, ___x___
-#   define _________________ADJUST_L2_________________        RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, ___x___
-#   define _________________ADJUST_L3_________________        RGB_TOG, RGB_MOD, RGB_RMOD, ___x___, ___x___
+#   define _________________ADJUST_L1_________________        ___________________NONE_5__________________
+#   define _________________ADJUST_L2_________________        RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, ___x___
+#   define _________________ADJUST_L3_________________        RGB_TOG, RGB_MOD, __________NONE_3_________
 #else
 #   define _________________ADJUST_L1_________________        ___________________NONE_5__________________
 #   define _________________ADJUST_L2_________________        ___________________NONE_5__________________
@@ -342,12 +342,12 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #endif //GAMELAYER_ENABLE
 
 #if defined(AUDIO_ENABLE)
-#   define _________________ADJUST_R2_________________        AU_TOGG, MU_TOGG, CK_TOGG, CK_UP,   ___x___
-#   define _________________ADJUST_R3_________________        QK_RBT,  QK_BOOT, CK_DOWN, CK_DOWN, _______
+#   define _________________ADJUST_R2_________________        AU_TOGG, MU_TOGG, CK_TOGG, CK_UP,   CK_DOWN
 #else
 #   define _________________ADJUST_R2_________________        ___________________NONE_5__________________
-#   define _________________ADJUST_R3_________________        ___x___, ___x___, ___x___, ___x___, _______
 #endif //AUDIO_ENABLE
+
+#   define _________________ADJUST_R3_________________        KC_LSFT, ___x___, ___x___, ___x___, _______
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________ADJUST_R4________                 QK_RBT,  QK_BOOT

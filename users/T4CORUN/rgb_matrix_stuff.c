@@ -7,9 +7,12 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
       rgb_matrix_set_color(LED_NUMBER, RGB_AZURE);
       break;
     case _NAVIGATION:
-      rgb_matrix_set_color(LED_NAVIGATION, RGB_GOLD);
+      rgb_matrix_set_color(LED_NAVIGATION, RGB_AZURE);
+      for(uint8_t i=0; i < NUM_LEDSPLIT; i++) {
+        rgb_matrix_set_color(i, RGB_DARKORANGE);
+      }
       for(uint8_t i=0; i < NUM_DPADKEYS; i++) {
-        rgb_matrix_set_color(dpad_LED[i], RGB_GOLD);
+        rgb_matrix_set_color(dpad_LED[i], RGB_AZURE);
       }
       break;
     case _FUNCTION:
@@ -20,11 +23,11 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
       break;
     case _MOUSE:
       for(uint8_t i=0; i < NUM_MOUSEKEYS; i++) {
-        rgb_matrix_set_color(mouse_LED[i], RGB_WHITE);
+        rgb_matrix_set_color(mouse_LED[i], RGB_AZURE);
       }
 #   if defined(MOUSEKEY_ENABLE)
       for(uint8_t i=0; i < NUM_DPADKEYS; i++) {
-        rgb_matrix_set_color(dpad_LED[i], RGB_GOLD);
+        rgb_matrix_set_color(dpad_LED[i], RGB_AZURE);
       }
 #   endif //MOUSEKEY_ENABLE
       break;
@@ -45,5 +48,18 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
       }
       break;
   }
+
+  for(uint8_t i=0; i < NUM_OFFLED; i++) {
+    rgb_matrix_set_color(off_LED[i], RGB_OFF);
+  }
+
+  if (host_keyboard_led_state().caps_lock) {
+    rgb_matrix_set_color(LED_CAPSLOCK, RGB_CYAN);
+  } 
+  
+  if (host_keyboard_led_state().scroll_lock) {
+    rgb_matrix_set_color(LED_SCRLOCK, RGB_CYAN);
+  } 
+
   return false;
 }
