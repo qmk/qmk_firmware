@@ -23,8 +23,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ansi_split_bs_rshift"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ansi_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
 
