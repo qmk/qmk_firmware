@@ -43,9 +43,6 @@
                 {"label": "Delete", "matrix": [0, 7], "x": 14, "y": 0},
                 {"label": "Home", "matrix": [1, 7], "x": 15, "y": 0},
 
-                {"label": "Volume Down", "matrix": [4, 6], "x": 16.25, "y": 0},
-                {"label": "Volume Up", "matrix": [4, 7], "x": 17.25, "y": 0},
-
                 {"label": "Tab", "matrix": [2, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [3, 0], "x": 1.5, "y": 1},
                 {"label": "W", "matrix": [2, 1], "x": 2.5, "y": 1},

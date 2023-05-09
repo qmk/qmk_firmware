@@ -2,15 +2,17 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
-#include "encoder_actions.h"
 
-void matrix_scan_kb(void) {
-    encoder_action_unregister();
-    matrix_scan_user();
-}
-
+#if defined(ENCODER_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
-    encoder_action_register(index, clockwise);
+    if (index == 0) {
+        if (clockwise) {
+            tap_code_delay(KC_VOLU, 10);
+        } else {
+            tap_code_delay(KC_VOLD, 10);
+        }
+    }
     return true;
-};
+}
+#endif
