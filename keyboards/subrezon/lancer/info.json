@@ -12,7 +12,7 @@
 		"cols": ["F4", "F6", "F7", "B1", "B2", "B4", "E6", "D7", "C6", "D2"]
 	},
 	"diode_direction": "COL2ROW",
-	    "features": {
+	"features": {
         "bootmagic": true,
         "command": false,
         "console": false,
