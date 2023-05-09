@@ -13,3 +13,5 @@ AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 ENCODER_ENABLE = yes
+
+DEFAULT_FOLDER = 1upkeyboards/super16v2/v1_1
