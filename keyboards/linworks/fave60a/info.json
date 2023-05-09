@@ -130,12 +130,7 @@
             { "flags": 2, "x": 0, "y": 51 },
             { "flags": 2, "x": 0, "y": 35 },
             { "flags": 2, "x": 0, "y": 19 }
-        ],
-        "max_brightness": 120
-    },
-    "rgblight": {
-        "led_count": 91,
-        "pin": "A10"
+        ]
     },
     "url": "",
     "usb": {
@@ -146,7 +141,6 @@
     "layouts": {
         "LAYOUT": {
             "c_macro": true,
-            "filename": "keyboards/linworks/fave60a/fave60a.h",
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
                 { "label": "!", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
