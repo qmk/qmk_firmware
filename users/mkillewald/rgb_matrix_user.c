@@ -63,7 +63,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             set_fn2_layer_color(led_min, led_max, current_layer);
             break;
     }
-    rgb_matrix_indicators_advanced_keychron_ft(led_min, led_max);
+    rgb_matrix_indicators_advanced_myfork_keychron_ft(led_min, led_max);
     return rgb_matrix_indicators_advanced_keymap(led_min, led_max);
 }
 

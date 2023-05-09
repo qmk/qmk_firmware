@@ -45,13 +45,13 @@ extern HSV     hsv;
 #    endif
 #endif
 
-void housekeeping_task_keychron_ft(void);
-bool process_record_keychron_ft(uint16_t keycode, keyrecord_t *record);
+bool process_record_myfork_keychron_ft(uint16_t keycode, keyrecord_t *record);
+void housekeeping_task_myfork_keychron_ft(void);
 
 #ifdef LED_MATRIX_ENABLE
-bool led_matrix_indicators_advanced_keychron_ft(uint8_t led_min, uint8_t led_max);
+bool led_matrix_indicators_advanced_myfork_keychron_ft(uint8_t led_min, uint8_t led_max);
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_advanced_keychron_ft(uint8_t led_min, uint8_t led_max);
+bool rgb_matrix_indicators_advanced_myfork_keychron_ft(uint8_t led_min, uint8_t led_max);
 #endif

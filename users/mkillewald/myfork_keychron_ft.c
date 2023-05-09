@@ -42,7 +42,7 @@ HSV     hsv;
 #endif
 
 __attribute__((weak))
-bool process_record_keychron_ft(uint16_t keycode, keyrecord_t *record) {
+bool process_record_myfork_keychron_ft(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #if defined(FN_KEY1) || defined(FN_KEY2)
 #    ifdef FN_KEY1
@@ -206,8 +206,17 @@ static void timer_300ms_task(void) {
     }
 }
 
+void housekeeping_task_myfork_keychron_ft(void) {
+    if (timer_3s_buffer) {
+        timer_3s_task();
+    }
+    if (timer_300ms_buffer) {
+        timer_300ms_task();
+    }
+}
+
 #ifdef LED_MATRIX_ENABLE
-bool led_matrix_indicators_advanced_keychron_ft(uint8_t led_min, uint8_t led_max) {
+bool led_matrix_indicators_advanced_myfork_keychron_ft(uint8_t led_min, uint8_t led_max) {
     if (factory_reset_count) {
         for (uint8_t i = led_min; i <= led_max; i++) {
             led_matrix_set_value(i, factory_reset_count % 2 ? 0 : UINT8_MAX);
@@ -218,7 +227,7 @@ bool led_matrix_indicators_advanced_keychron_ft(uint8_t led_min, uint8_t led_max
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_advanced_keychron_ft(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_myfork_keychron_ft(uint8_t led_min, uint8_t led_max) {
     if (factory_reset_count) {
         if (rgb_matrix_get_mode() == RGB_MATRIX_SOLID_COLOR) {
             if (factory_reset_count % 2) {
@@ -260,12 +269,3 @@ bool rgb_matrix_indicators_advanced_keychron_ft(uint8_t led_min, uint8_t led_max
     return true;
 }
 #endif
-
-void housekeeping_task_keychron_ft(void) {
-    if (timer_3s_buffer) {
-        timer_3s_task();
-    }
-    if (timer_300ms_buffer) {
-        timer_300ms_task();
-    }
-}

@@ -69,13 +69,13 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 void housekeeping_task_user(void) {
     housekeeping_task_keychron();
-    housekeeping_task_keychron_ft();
+    housekeeping_task_myfork_keychron_ft();
     housekeeping_task_mkillewald();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_keychron(keycode, record)) { return false; }
-    if (!process_record_keychron_ft(keycode, record)) { return false; }
+    if (!process_record_myfork_keychron_ft(keycode, record)) { return false; }
     if (!process_record_mkillewald(keycode, record)) { return false; }
     return true;
 }
