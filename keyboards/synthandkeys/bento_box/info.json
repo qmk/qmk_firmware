@@ -9,18 +9,9 @@
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
-            {
-                "pin_a": "B2",
-                "pin_b": "B1"
-            },
-            {
-                "pin_a": "A13",
-                "pin_b": "A14"
-            },
-            {
-                "pin_a": "A15",
-                "pin_b": "B3"
-            }
+            {"pin_a": "B2","pin_b": "B1"},
+            {"pin_a": "A13","pin_b": "A14"},
+            {"pin_a": "A15","pin_b": "B3"}
         ]
     },
     "features": {
@@ -67,8 +58,8 @@
                 { "matrix": [4, 0], "x": 0, "y": 4 },
                 { "matrix": [4, 1], "x": 1, "y": 4 },
                 { "matrix": [4, 2], "x": 2, "y": 4 },
-                { "h": 1.5, "matrix": [4, 3], "x": 3.5, "y": 3.5 },
-                { "h": 1.5, "matrix": [4, 4], "x": 4.5, "y": 3.5 }
+                { "matrix": [4, 3], "x": 3.5, "y": 3.5, "h": 1.5},
+                { "matrix": [4, 4], "x": 4.5, "y": 3.5, "h": 1.5}
             ]
         }
     }
