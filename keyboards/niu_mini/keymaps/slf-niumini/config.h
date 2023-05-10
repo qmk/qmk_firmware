@@ -1,0 +1,12 @@
+
+#pragma once
+
+#define TAPPING_TERM 225
+
+#define TAPPING_TERM_PER_KEY
+
+
+
+
+#define AUTO_SHIFT_TIMEOUT 250
+#define NO_AUTO_SHIFT_NUMERIC
