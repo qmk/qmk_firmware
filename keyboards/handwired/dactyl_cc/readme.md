@@ -1,11 +1,11 @@
-# Dactyl-CC / Ergo S-1
+# Dactyl-CC
 
 ![DactylCC](https://i.imgur.com/CUbPLZCh.jpeg)
 
-Modelled on the *Kinesis Advantage* (KA) 1|2, though missing it's function and program row, board(s) retain the finger and thumb key placements of the KA but opt to psychically split the handed key-wells instead.
+Modelled on the *Kinesis Advantage* (KA) 1|2, though missing its function and program row, the *Dactyl CC* retains the finger and thumb key placements of the KA but opts to psychically split the handed key-wells.
 
-* Hardware Supported: Pro micro controller or clones of
 * Keyboard Maintainer: [Michael Johns](https://github.com/mjohns)
+* Hardware Supported: Pro micro controller or clones of
 * Hardware Availability: [Dactyl CC GitHub](https://github.com/mjohns/dactyl-cc)
 
 Make example for this keyboard (after setting up your build environment):
