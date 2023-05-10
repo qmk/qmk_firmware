@@ -1,7 +1,5 @@
 # tan67 PCB
 
-![tan67 PCB]()
-
 A 65% PCB, which controlled by an STM32F703 chipset.
 
 * Keyboard Maintainer: [Pangorin](https://github.com/pangorin)
