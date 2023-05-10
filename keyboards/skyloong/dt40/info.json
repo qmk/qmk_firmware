@@ -8,8 +8,9 @@
     	"pid": "0x0040",
     	"device_version": "1.0.0"
     },
-    "processor": "stm32f103",
+    "processor": "STM32F103",
     "bootloader": "stm32-dfu",
+    
     "layouts": {
         "LAYOUT": {
             "layout": [
