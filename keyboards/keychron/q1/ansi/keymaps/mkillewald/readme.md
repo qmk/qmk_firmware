@@ -3,7 +3,7 @@
 <img src="https://raw.githubusercontent.com/mkillewald/glamour_shots/main/keyboards/keychron/q1/IMG_5479.jpg" alt="Keychron Q1 ANSI" width="1000">
 
 ### Highly Recommended:
-When you flash this firmware for the first time, you should clear the eeprom before or after flashing so that the eeprom defaults are properly set. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing the eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear the eeprom even if you take it out of DFU mode at that point without flashing.
+When you flash this firmware for the first time, you should clear the eeprom so that the eeprom defaults are properly set. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing the eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear the eeprom even if you take it out of DFU mode at that point without flashing. Alternatively, you may use the factory reset key combo (Fn+J+Z) to clear the eeprom after flashing.
 
 ## Features:
 - Retains Keychron factory keycodes for Mission Control, Launchpad, Siri, Cortana, Task View, File Explorer, and others.
