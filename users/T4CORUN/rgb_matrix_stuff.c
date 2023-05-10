@@ -8,6 +8,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
       break;
     case _NAVIGATION:
       rgb_matrix_set_color(LED_NAVIGATION, RGB_AZURE);
+      for(uint8_t i=0; i < NUM_DPADKEYS; i++) {
+        rgb_matrix_set_color(dpad_LED[i], RGB_PURPLE);
+      }
       break;
     case _FUNCTION:
       rgb_matrix_set_color(LED_FUNCTION, RGB_AZURE);
@@ -27,9 +30,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
       }
       break;
     case _MOUSE:
-      for(uint8_t i=0; i < NUM_MOUSEKEYS; i++) {
-        rgb_matrix_set_color(mouse_LED[i], RGB_AZURE);
-      }
+      rgb_matrix_set_color(LED_MOUSE, RGB_AZURE);
       break;
     case _GAMENUMBER:
       rgb_matrix_set_color(LED_GAMENUMBER, RGB_AZURE);

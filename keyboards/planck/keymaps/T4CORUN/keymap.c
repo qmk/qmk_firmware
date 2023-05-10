@@ -46,14 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______________GAMING_BASE_L1______________, ___x___, ___x___, __________________GAMING_R1________________,
     _______________GAMING_BASE_L2______________, ___x___, ___x___, __________________GAMING_R2________________,
     _______________GAMING_BASE_L3______________, ___x___, ___x___, __________________GAMING_R3________________,
-    ___x___, ___x___, ______GAMING_BASE_L4_____, ___x___, ___x___, _________GAMING_R4_______, ___x___, ___x___ 
-  ),
-
-  [_GAMING_NUM] = LAYOUT_wrapper(
-    _______________GAMING_NUM_L1_______________, ___x___, ___x___, __________________GAMING_R1________________,
-    _______________GAMING_NUM_L2_______________, ___x___, ___x___, __________________GAMING_R2________________,
-    _______________GAMING_NUM_L3_______________, ___x___, ___x___, __________________GAMING_R3________________,
-    ___x___, ___x___, ______GAMING_NUM_L4______, ___x___, ___x___, _________GAMING_R4_______, ___x___, ___x___
+    ___x___, ___x___, ______GAMING_BASE_L4_____, ___x___, ___x___, _________GAMING_R4_______, ___x___, KC_ESC 
   ),
 #endif //GAMELAYER_ENABLE
 
@@ -90,6 +83,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___x___, ___x___, _________MOUSE_L4________, ___x___, ___x___, _________MOUSE_R4________, ___x___, KC_ESC
   ),
 #endif //MOUSELAYER_ENABLE
+
+#if defined(GAMELAYER_ENABLE)
+  [_GAMENUMBER] = LAYOUT_wrapper(
+    _______________GAMING_NUM_L1_______________, ___x___, ___x___, __________________GAMING_R1________________,
+    _______________GAMING_NUM_L2_______________, ___x___, ___x___, __________________GAMING_R2________________,
+    _______________GAMING_NUM_L3_______________, ___x___, ___x___, __________________GAMING_R3________________,
+    ___x___, ___x___, ______GAMING_NUM_L4______, ___x___, ___x___, _________GAMING_R4_______, ___x___, KC_ESC
+  ),
+#endif //GAMELAYER_ENABLE
 
   [_ADJUST] = LAYOUT_wrapper(
   //_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -175,7 +177,8 @@ bool music_mask_user(uint16_t keycode) {
   switch (keycode) {
     //add all the keys that would be on your base layer that are not defaults. If we don't do this then the sounds do not play
     //Layer Taps do add delays to sounds. Probably the mod Taps too
-    case MOU_Z:
+    case MOU_C:
+    case FUN_Z:
     case AD_SLSH:
     case MOU_TOG:
       return false;

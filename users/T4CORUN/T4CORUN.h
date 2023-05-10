@@ -32,26 +32,19 @@ enum keycodes {
 
 #define ___x___ KC_NO
 
-//Layer transitions
+//momentary layer
 #define ADJUST     MO(_ADJUST)
 #define NAV        MO(_NAVIGATION)
 #define NUMBER     MO(_NUMBER)
-#define FUNC       MO(_FUNCTION)
+#define GAMENO     MO(_GAMENUMBER)
 
-#if defined(GAMELAYER_ENABLE)
-#   define GAMENO  MO(_GAMENUMBER)
-#endif //GAMELAYER_ENABLE
-
-#define FUN_DEL    LT(_FUNCTION, KC_DEL)
+//layer taps
 #define FUN_Z      LT(_FUNCTION, KC_Z)
+#define MOU_C      LT(_MOUSE, KC_C)
 #define AD_SLSH    LT(_ADJUST, KC_SLSH)
 
 //Toggle Layer
-#if defined(MOUSELAYER_ENABLE)
-#   define MOUSE   MO(_MOUSE)
-#   define MOU_Z   LT(_MOUSE, KC_Z)
-#   define MOU_TOG TG(_MOUSE)
-#endif //MOUSELAYER_ENABLE
+#define MOU_TOG    TG(_MOUSE)
 
 //Windows Shortcuts
 #define SC_COPY    LCTL(KC_C)
@@ -59,6 +52,8 @@ enum keycodes {
 #define SC_UNDO    LCTL(KC_Z)
 #define SC_PAST    LCTL(KC_V)
 #define SC_REDO    LCTL(KC_Y)
+#define W_SNIP     LSG(KC_S)
+
 
 //Home Row Mods QWERTY
 #if defined(HOMEROWMOD_ENABLE)

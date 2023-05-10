@@ -31,7 +31,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 
 #if defined(MOUSELAYER_ENABLE)
-#   define         _________BASE_L4_________                  MOUSE,   NUMBER,  KC_LSFT
+#   define         _________BASE_L4_________                  KC_BTN1, NUMBER,  KC_LSFT
 #else
 #   define         _________BASE_L4_________                  ___x___, NUMBER,  KC_LSFT
 #endif //MOUSELAYER_ENABLE
@@ -51,7 +51,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |   A  |   S  |   D  |   F  |   G  |    |   H  |   J  |   K  |   L  |   '  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |   Z  |   X  |   C  |   V  |   B  |    |   N  |   M  |   ,  |   .  |   /  |
+*   | FUNZ |   X  |   C  |   V  |   B  |    |   N  |   M  |   ,  |   .  | ADJ/ |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      |      |      |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
@@ -80,7 +80,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |   A  |   R  |   S  |   T  |   G  |    |   M  |   N  |   E  |   I  |   O  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | FUNZ |   X  |   C  |   D  |   V  |    |   K  |   H  |   ,  |   .  |   /  |
+*   | FUNZ |   X  |   C  |   D  |   V  |    |   K  |   H  |   ,  |   .  | ADJ/ |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      |      |      |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
@@ -122,7 +122,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define _______________GAMING_BASE_L3______________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 #   define          ______GAMING_BASE_L4_____                 KC_LCTL, KC_SPC,  KC_LSFT
 
-#   define __________________GAMING_R1________________        QWERTY,  CLMAKDH, ___x___, ___x___, ___x___
+#   define __________________GAMING_R1________________        QWERTY,  CLMAKDH, __________NONE_3_________
 #   define __________________GAMING_R2________________        ___________________NONE_5__________________
 #   define __________________GAMING_R3________________        ___x___, ___x___, ___x___, ___x___, ADJUST
 
@@ -159,23 +159,23 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  |      |      |   ~  |   `  |    | tLBKT|   7  |   8  |   9  | tRBKT|
+*   | Esc  |      | Snip |   ~  |   `  |    |   [  |   7  |   8  |   9  |   ]  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | GUI  | Alt  | Ctrl | Shft | Ent  |    |   ;  |   4  |   5  |   6  |   =  |
+*   | GUI  | Alt  | Ctrl | Shft | Ent  |    |   -  |   4  |   5  |   6  |   =  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |   -  |   1  |   2  |   3  |   \  |
+*   | Undo | Cut  | Copy | Pste | Redo |    |   ;  |   1  |   2  |   3  |   \  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      |LyrTap|      |    |  .   |   0  |      |
+*                 |      |LyrTap|      |    |   .  |   0  |      |
 *                 `------+------+------'    `------+------+------'
 */
 
-#define    _________________NUMPAD_L1_________________        KC_ESC,  ___x___, ___x___, KC_TILD, KC_GRV
+#define    _________________NUMPAD_L1_________________        KC_ESC,  ___x___, W_SNIP,  KC_TILD, KC_GRV
 #define    _________________NUMPAD_L2_________________        _____________GACS_MODS____________, KC_ENT
 #define    _________________NUMPAD_L3_________________        __________________UCCPR_L__________________
 #define             ________NUMPAD_L4________                 ___x___, _______, ___x___
 
-#define    _________________NUMPAD_R2_________________        KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL
-#define    _________________NUMPAD_R3_________________        KC_MINS, KC_1,    KC_2,    KC_3,    KC_BSLS
+#define    _________________NUMPAD_R2_________________        KC_MINS, KC_4,    KC_5,    KC_6,    KC_EQL
+#define    _________________NUMPAD_R3_________________        KC_SCLN, KC_1,    KC_2,    KC_3,    KC_BSLS
 
 //ifdef TAP_DANCE_ENABLE
 #if defined(TAP_DANCE_ENABLE)
@@ -196,23 +196,23 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 /*
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  | Home | Up   | End  | PgUp |    | Ins  |      |      |      |      |
+*   | Esc  | Home | Up   | End  | PgUp |    | Ins  |      | App  |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |      | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | GUI  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |      | Spc  | Tab  |      | App  |
+*   | Undo | Cut  | Copy | Pste | Redo |    |      |      |      |      |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | Tab  | Bpsc | Ent  |    |      |LyrTap|      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ___________________NAV_L1__________________        KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
-#   define ___________________NAV_L2__________________        KC_A,    KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
+#   define ___________________NAV_L2__________________        ___x___, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
 #   define ___________________NAV_L3__________________        __________________UCCPR_L__________________
 #   define          __________NAV_L4_________                 KC_TAB,  KC_BSPC, KC_ENT
 
-#   define ___________________NAV_R1__________________        KC_INS,  ___x___, ___x___, ___x___, ___x___
+#   define ___________________NAV_R1__________________        KC_INS,  ___x___, KC_APP,  ___x___, ___x___
 #   define ___________________NAV_R2__________________        KC_DEL,  _____________SCAG_MODS____________
-#   define ___________________NAV_R3__________________        ___x___, KC_SPC,  KC_TAB,  ___x___, KC_APP
+#   define ___________________NAV_R3__________________        ___________________NONE_5__________________
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          __________NAV_R4_________                 ___x___, _______
@@ -225,34 +225,40 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |      |      |      |DMRec2|DMPly2|    |PrtScr|  F7  |  F8  |  F9  | F10  |
+*   |      |      |      |      |      |    |PrtScr|  F7  |  F8  |  F9  | F10  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | GUI  | Alt  | Ctrl | Shft | Caps |    |ScrLck|  F4  |  F5  |  F6  | F11  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |LyrTap|      | Vol- | Vol+ | Mute |    |PauBrk|  F1  |  F2  |  F3  | F12  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      |DMRec1|DMPly1|    |      |      |      |
+*                 |      |DMRec1|DMPly1|    |DMPly2|DMRec2|      |
 *                 `------+------+------'    `------+------+------'
 */
 
+
+#   define _________________FUNCPAD_L1________________        ___________________NONE_5__________________
 #   define _________________FUNCPAD_L2________________        _____________GACS_MODS____________, KC_CAPS
 #   define _________________FUNCPAD_L3________________        _______, ___x___, KC_VOLD, KC_VOLU, KC_MUTE
-
-#if defined(DYNAMIC_MACRO_ENABLE)
-#   define _________________FUNCPAD_L1________________        ___x___, ___x___, ___x___, DM_REC2, DM_PLY2
-#   define          ________FUNCPAD_L4_______                 ___x___, DM_REC1, DM_PLY1
-#else
-#   define _________________FUNCPAD_L1________________        ___________________NONE_5__________________
-#   define          ________FUNCPAD_L4_______                 __________NONE_3_________
-#endif //DYNAMIC_MACRO_ENABLE
-
 
 #   define _________________FUNCPAD_R1________________        KC_PSCR, KC_F7,   KC_F8,   KC_F9,   KC_F10
 #   define _________________FUNCPAD_R2________________        KC_SCRL, KC_F4,   KC_F5,   KC_F6,   KC_F11
 #   define _________________FUNCPAD_R3________________        KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F12
 
-#if defined(KEYBOARD_bastardkb_charybdis_3x5)
+
+
+#if defined(DYNAMIC_MACRO_ENABLE)
+#   define          ________FUNCPAD_L4_______                 ___x___, DM_REC1, DM_PLY1
+#else
+#   define          ________FUNCPAD_L4_______                 __________NONE_3_________
+#endif //DYNAMIC_MACRO_ENABLE
+
+
+#if defined(KEYBOARD_bastardkb_charybdis_3x5) && defined(DYNAMIC_MACRO_ENABLE)
+#   define          ________FUNCPAD_R4_______                 DM_PLY2, DM_REC2
+#elif defined(KEYBOARD_bastardkb_charybdis_3x5) && !defined(DYNAMIC_MACRO_ENABLE)
 #   define          ________FUNCPAD_R4_______                 ___x___, ___x___
+#elif !defined(KEYBOARD_bastardkb_charybdis_3x5) && defined(DYNAMIC_MACRO_ENABLE)
+#   define          ________FUNCPAD_R4_______                 DM_PLY2, DM_REC2, ___x___
 #else
 #   define          ________FUNCPAD_R4_______                 __________NONE_3_________
 #endif //KEYBOARD_bastardkb_charybdis_3x5
@@ -263,9 +269,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  |MBtn4 | MouU |MBtn5 | MwU  |    |      |      |      |      |MOUTOG|
+*   | Esc  |MBtn4 | MouU |MBtn5 | MwU  |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      | MouL | MouD | MouR | MwD  |    |      | Shft | Ctrl | Alt  | GUI  |
+*   |      | MouL | MouD | MouR | MwD  |    |MOUTOG| Shft | Ctrl | Alt  | GUI  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Undo | Cut  | Copy | Pste | Redo |    |      |      |      |      |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
@@ -279,35 +285,35 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define __________________MOUSE_L3_________________        __________________UCCPR_L__________________
 #   define          _________MOUSE_L4________                 KC_BTN3, KC_BTN2, KC_BTN1
 
-#   define __________________MOUSE_R1_________________        ___x___, ___x___, ___x___, ___x___, MOU_TOG
-#   define __________________MOUSE_R2_________________        ___x___, _____________SCAG_MODS____________
+#   define __________________MOUSE_R1_________________        ___________________NONE_5__________________
+#   define __________________MOUSE_R2_________________        MOU_TOG, _____________SCAG_MODS____________
 #   define __________________MOUSE_R3_________________        ___________________NONE_5__________________
 #   define          _________MOUSE_R4________                 __________NONE_3_________
 #endif //MOUSEKEY_ENABLE
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |  Esc |      |      |      |      |    | sDPI | DPI  |      |      |MOUTOG|
+*   |      |      |      |      |      |    | sDPI | DPI  |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |Sniper| MB2  |DrgScr| MB1  | MB3  |    |      | Shft | Ctrl | Alt  | GUI  |
+*   |      |      |      |      |      |    |      | Shft | Ctrl | Alt  | GUI  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    | MB3  | MB1  |DrgTog| MB2  |SniTog|
+*   |Sniper|      |LyrTap|DrgScr|      |    |DrgTog| MB1  | MB2  | MB3  |SniTog|
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |LyrTap|      |      |    | MB5  | MB4  |      |
+*                 | MB1  | MB2  | MB3  |    | MB5  | MB4  |      |
 *                 `------+------+------'    `------+------+------'
 */
 
 //this is designed for the cnano (R4)
 //two hands for productive, but able to use one hand for causal internet surfing (won't be able to select text one handed)
 #if defined(POINTING_DEVICE_ENABLE)
-#   define __________________MOUSE_L1_________________        KC_ESC,  ___x___, ___x___, ___x___, ___x___
-#   define __________________MOUSE_L2_________________        SNIPING, KC_BTN2, DRGSCRL, KC_BTN1, KC_BTN3
-#   define __________________MOUSE_L3_________________        __________________UCCPR_L__________________
-#   define          _________MOUSE_L4________                 _______, ___x___, ___x___
+#   define __________________MOUSE_L1_________________        ___________________NONE_5__________________
+#   define __________________MOUSE_L2_________________        ___________________NONE_5__________________
+#   define __________________MOUSE_L3_________________        SNIPING, ___x___, _______, DRGSCRL, ___x___
+#   define          _________MOUSE_L4________                 KC_BTN1, KC_BTN2, KC_BTN3
 
-#   define __________________MOUSE_R1_________________        S_D_MOD, DPI_MOD, ___x___, ___x___, MOU_TOG
+#   define __________________MOUSE_R1_________________        S_D_MOD, DPI_MOD, __________NONE_3_________
 #   define __________________MOUSE_R2_________________        ___x___, _____________SCAG_MODS____________
-#   define __________________MOUSE_R3_________________        KC_BTN3, KC_BTN1, DRG_TOG, KC_BTN2, SNP_TOG
+#   define __________________MOUSE_R3_________________        DRG_TOG, KC_BTN1, KC_BTN2, KC_BTN3, SNP_TOG
 #   define          _________MOUSE_R4________                 KC_BTN5, KC_BTN4
 #endif //POINTING_DEVICE_ENABLE
 
@@ -315,9 +321,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   ,----------------------------------.    ,----------------------------------.
 *   |      |      |      |      |      |    |QWERTY|ClmkDH|Gaming|      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Hue+ | Sat+ | Vib+ | Spd+ |      |    |AudTog|MusTog|ClkTog|ClkUp |ClkDn |
+*   | Hue+ | Sat+ | Vib+ | Spd+ |      |    |      | Shft |      |ClkUp |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |RGBTog|RGBMod|      |      |      |    | Shft |      |      |      |LyrTap|
+*   |RGBTog|RGBMod|      |      |      |    |AudTog|MusTog|ClkTog|ClkDn |LyrTap|
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      | Boot | Rbt  |    | Rbt  | Boot |      |
 *                 `------+------+------'    `------+------+------'
@@ -342,15 +348,28 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #endif //GAMELAYER_ENABLE
 
 #if defined(AUDIO_ENABLE)
-#   define _________________ADJUST_R2_________________        AU_TOGG, MU_TOGG, CK_TOGG, CK_UP,   CK_DOWN
+#   define _________________ADJUST_R2_________________        ___x___, KC_LSFT, ___x___, CK_UP,   ___x___
+#   define _________________ADJUST_R3_________________        AU_TOGG, MU_TOGG, CK_TOGG, CK_DOWN, _______
 #else
-#   define _________________ADJUST_R2_________________        ___________________NONE_5__________________
+#   define _________________ADJUST_R2_________________        ___x___, KC_LSFT, __________NONE_3_________
+#   define _________________ADJUST_R3_________________        ___x___, ___x___, ___x___, ___x___, _______
 #endif //AUDIO_ENABLE
-
-#   define _________________ADJUST_R3_________________        KC_LSFT, ___x___, ___x___, ___x___, _______
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________ADJUST_R4________                 QK_RBT,  QK_BOOT
 #else
 #   define          ________ADJUST_R4________                 QK_RBT,  QK_BOOT, ___x___
 #endif
+
+
+/*
+*   ,----------------------------------.    ,----------------------------------.
+*   |      |      |      |      |      |    |      |      |      |      |      |
+*   +------+------+------+------+------|    +------+------+------+------+------+
+*   |      |      |      |      |      |    |      |      |      |      |      |
+*   +------+------+------+------+------|    +------+------+------+------+------+
+*   |      |      |      |      |      |    |      |      |      |      |      |
+*   `------+------+------+------+------+    +------+------+------+------+------'
+*                 |      |      |      |    |      |      |      |
+*                 `------+------+------'    `------+------+------'
+*/

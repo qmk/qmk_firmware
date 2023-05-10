@@ -14,19 +14,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           default_layer_set(1UL<<_QWERTY);
       }
       return false;
+
     case CLMAKDH:
       if (record->event.pressed) {
           default_layer_set(1UL<<_COLEMAK_DH);
       }
       return false;
 
-#if defined(GAMELAYER_ENABLE)
     case GAMING:
       if (record->event.pressed) {  
           default_layer_set(1UL<<_GAMING);
       }
       return false;
-#endif //GAMELAYER_ENABLE
 
   }
   return true;
