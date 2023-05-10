@@ -16,7 +16,30 @@
 
 #pragma once
 
-#include_next "mcuconf.h"
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 16
 
-#undef STM32_ADC_USE_ADC1
-#define STM32_ADC_USE_ADC1 TRUE
+/* Custom matrix pins and port select array */
+#define MATRIX_ROW_PINS \
+    { A14, B3, A15, B5, B4 }
+#define MATRIX_COL_CHANNELS \
+    { 3, 0, 1, 2, 6, 5, 7, 4 }
+#define MUX_SEL_PINS \
+    { B7, B8, B9 }
+
+/* Hardware peripherals pins */
+#define APLEX_EN_PIN_0 C13
+#define APLEX_EN_PIN_1 C14
+#define DISCHARGE_PIN B1
+#define ANALOG_PORT A3
+
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#define LOCKING_SUPPORT_ENABLE
+
+/* Locking resynchronize hack */
+#define LOCKING_RESYNC_ENABLE
+
+#define DEFAULT_ACTUATION_LEVEL 550
+#define DEFAULT_RELEASE_LEVEL 500
+
+#define DISCHARGE_TIME 10

@@ -15,14 +15,10 @@
  */
 
 #include "ec_switch_matrix.h"
-
-#include "quantum.h"
 #include "analog.h"
 #include "atomic_util.h"
 #include "print.h"
-
-#define WAIT_DISCHARGE()
-#define WAIT_CHARGE()
+#include "wait.h"
 
 /* Pin and port array */
 const uint32_t row_pins[]     = MATRIX_ROW_PINS;
@@ -40,12 +36,6 @@ static inline void discharge_capacitor(void) {
 static inline void charge_capacitor(uint8_t row) {
     writePinHigh(DISCHARGE_PIN);
     writePinHigh(row_pins[row]);
-}
-
-static inline void clear_all_row_pins(void) {
-    for (int row = 0; row < MATRIX_ROWS; row++) {
-        writePinLow(row_pins[row]);
-    }
 }
 
 static inline void init_mux_sel(void) {
@@ -70,11 +60,14 @@ static inline void init_row(void) {
 
 /* Initialize the peripherals pins */
 int ecsm_init(ecsm_config_t const* const ecsm_config) {
-    // Save config
+    // Initialize config
     config = *ecsm_config;
 
     palSetLineMode(ANALOG_PORT, PAL_MODE_INPUT_ANALOG);
     adcMux = pinToMux(ANALOG_PORT);
+
+    // Dummy call to make sure that adcStart() has been called in the appropriate state
+    adc_read(adcMux);
 
     // Initialize discharge pin as discharge mode
     writePinLow(DISCHARGE_PIN);
@@ -102,7 +95,7 @@ int ecsm_update(ecsm_config_t const* const ecsm_config) {
 }
 
 // Read the capacitive sensor value
-static uint16_t ecsm_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
+uint16_t ecsm_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
     uint16_t sw_value = 0;
 
     // Select the multiplexer
@@ -118,34 +111,32 @@ static uint16_t ecsm_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
 
     // Set strobe pins to low state
     writePinLow(row_pins[row]);
-
     ATOMIC_BLOCK_FORCEON {
         // Set the row pin to high state and have capacitor charge
         charge_capacitor(row);
-
-        WAIT_CHARGE();
+        // Read the ADC value
         sw_value = adc_read(adcMux);
     }
-
     // Discharge peak hold capacitor
     discharge_capacitor();
-    WAIT_DISCHARGE();
+    // Waiting for the ghost capacitor to discharge fully
+    wait_us(DISCHARGE_TIME);
 
     return sw_value;
 }
 
-// Update press/release state of key at (row, col)
-static bool ecsm_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t sw_value) {
+// Update press/release state of key
+bool ecsm_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t sw_value) {
     bool current_state = (*current_row >> col) & 1;
 
-    // press to release
-    if (current_state && sw_value < config.low_threshold_matrix[row][col]) {
+    // Press to release
+    if (current_state && sw_value < config.ecsm_actuation_threshold) {
         *current_row &= ~(1 << col);
         return true;
     }
 
-    // release to press
-    if ((!current_state) && sw_value > config.high_threshold_matrix[row][col]) {
+    // Release to press
+    if ((!current_state) && sw_value > config.ecsm_release_threshold) {
         *current_row |= (1 << col);
         return true;
     }
@@ -182,7 +173,7 @@ void ecsm_print_matrix(void) {
     for (int row = 0; row < MATRIX_ROWS; row++) {
         for (int col = 0; col < MATRIX_COLS; col++) {
             uprintf("%4d", ecsm_sw_value[row][col]);
-            if (col < MATRIX_COLS - 1) {
+            if (col < (MATRIX_COLS - 1)) {
                 print(",");
             }
         }

@@ -16,27 +16,6 @@
 
 #pragma once
 
-#include <stdint.h>
-#include <stdbool.h>
+#define HAL_USE_ADC TRUE
 
-#include "matrix.h"
-
-typedef struct {
-    uint16_t low_threshold_matrix[MATRIX_ROWS][MATRIX_COLS];  // threshold for key release
-    uint16_t high_threshold_matrix[MATRIX_ROWS][MATRIX_COLS]; // threshold for key press
-} ecsm_config_t;
-
-ecsm_config_t ecsm_config;
-
-int  ecsm_init(ecsm_config_t const* const ecsm_config);
-int  ecsm_update(ecsm_config_t const* const ecsm_config);
-bool ecsm_matrix_scan(matrix_row_t current_matrix[]);
-void ecsm_print_matrix(void);
-
-typedef struct _apc_config_t {
-    bool    apc_enabled;
-    uint8_t apc_actuation_level;
-    uint8_t apc_deactuation_level;
-} apc_config;
-
-apc_config apc;
+#include_next <halconf.h>
