@@ -200,7 +200,7 @@ void process_hand_swap(keyevent_t *event) {
         }
     }
 #    ifdef ENCODER_MAP_ENABLE
-    else if (IS_ENCODEREVENT(*event) && pos.row == KEYLOC_ENCODER_CW || pos.row == KEYLOC_ENCODER_CCW) {
+    else if (IS_ENCODEREVENT(*event) && (pos.row == KEYLOC_ENCODER_CW || pos.row == KEYLOC_ENCODER_CCW)) {
         static uint8_t encoder_swap_state[((NUM_ENCODERS) + (CHAR_BIT)-1) / (CHAR_BIT)];
         size_t         index   = pos.col;
         bool           do_swap = should_swap_hands(index, encoder_swap_state, event->pressed);
