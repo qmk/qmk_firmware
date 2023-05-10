@@ -5,8 +5,6 @@
 Modelled on the *Kinesis Advantage* (KA) 1|2, though missing it's function and program row, board(s) retain the finger and thumb key placements of the KA but opt to psychically split the handed key-wells instead.
 
 * Hardware Supported: Pro micro controller or clones of
-
-## Dactyl-CC
 * Keyboard Maintainer: [Michael Johns](https://github.com/mjohns)
 * Hardware Availability: [Dactyl CC GitHub](https://github.com/mjohns/dactyl-cc)
 
