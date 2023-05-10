@@ -15,10 +15,6 @@
  */
 
 #pragma once
-
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
     #define RGB_DI_PIN B15
