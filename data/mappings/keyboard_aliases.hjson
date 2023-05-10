@@ -200,9 +200,6 @@
     "gmmk/pro/iso": {
         "target": "gmmk/pro/rev1/iso"
     },
-    "handwired/ergo_s-1":{
-        "target": "handwired/dactyl_cc"
-    }
     "handwired/ferris": {
         "target": "ferris/0_1"
     },
