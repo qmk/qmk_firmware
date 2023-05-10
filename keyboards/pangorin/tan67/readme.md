@@ -1,9 +1,9 @@
-# tan67 PCB
+# TAN67 PCB
 
-A 65% PCB, which controlled by an STM32F703 chipset.
+A 65% PCB, which controlled by an STM32F072 chipset.
 
 * Keyboard Maintainer: [Pangorin](https://github.com/pangorin)
-* Hardware Supported: STM32F703
+* Hardware Supported: STM32F072
 
 Make example for this keyboard (after setting up your build environment):
 
