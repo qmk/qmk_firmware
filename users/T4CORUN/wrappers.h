@@ -51,17 +51,26 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |   A  |   S  |   D  |   F  |   G  |    |   H  |   J  |   K  |   L  |   '  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | FUNZ |   X  |   C  |   V  |   B  |    |   N  |   M  |   ,  |   .  | ADJ/ |
+*   | FUNZ |   X  | MOUC |   V  |   B  |    |   N  |   M  |   ,  |   .  | ADJ/ |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      |      |      |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
 */
 
 #define    _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define    _________________QWERTY_L3_________________        FUN_Z,   KC_X,    KC_C,    KC_V,    KC_B
+
+#if defined(MOUSELAYER_ENABLE)
+#   define _________________QWERTY_L3_________________        FUN_Z,   KC_X,    MOU_C,   KC_V,    KC_B
+#else
+#   define _________________QWERTY_L3_________________        FUN_Z,   KC_X,    KC_C,    KC_V,    KC_B
+#endif //MOUSELAYER_ENABLE
+
 
 #define    _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define    _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  AD_SLSH
+
+
+
 
 #if defined(HOMEROWMOD_ENABLE)
 #   define _________________QWERTY_L2_________________        LGUI_A,  LALT_S,  CTRL_D,  SHFT_F,  KC_G
@@ -80,14 +89,20 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |   A  |   R  |   S  |   T  |   G  |    |   M  |   N  |   E  |   I  |   O  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | FUNZ |   X  |   C  |   D  |   V  |    |   K  |   H  |   ,  |   .  | ADJ/ |
+*   | FUNZ |   X  | MOUC |   D  |   V  |    |   K  |   H  |   ,  |   .  | ADJ/ |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      |      |      |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
 */
 
 #define    ________________COLEMAKDH_L1_______________        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
-#define    ________________COLEMAKDH_L3_______________        FUN_Z,   KC_X,    KC_C,    KC_D,    KC_V
+
+#if defined(MOUSELAYER_ENABLE)
+#   define ________________COLEMAKDH_L3_______________        FUN_Z,   KC_X,    MOU_C,    KC_D,    KC_V
+#else
+#   define ________________COLEMAKDH_L3_______________        FUN_Z,   KC_X,    KC_C,     KC_D,    KC_V
+#endif //MOUSELAYER_ENABLE
+
 
 #define    ________________COLEMAKDH_R1_______________        KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
 #define    ________________COLEMAKDH_R3_______________        KC_K,    KC_H,    KC_COMM, KC_DOT,  AD_SLSH
