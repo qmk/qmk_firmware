@@ -190,6 +190,7 @@ bool oled_task_user(void) {
     } else {
         oled_render_logo();
     }
+    return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
