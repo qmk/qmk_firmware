@@ -47,6 +47,8 @@ INSTANTIATE_TEST_CASE_P(ConversionTestsP, KeycodeToIdentifierSuite,
     std::make_pair(ALT_T(KC_TAB), "MT(MOD_LALT, KC_TAB)"),
     // Mods
     std::make_pair(LCTL(KC_A), "QK_MODS(KC_A, QK_LCTL)"),
-    std::make_pair(HYPR(KC_SPACE), "QK_MODS(KC_SPACE, QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI)")
+    std::make_pair(HYPR(KC_SPACE), "QK_MODS(KC_SPACE, QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI)"),
+    // Swap Hands
+    std::make_pair(SH_T(KC_A), "SH_T(KC_A)")
 ));
 // clang-format on

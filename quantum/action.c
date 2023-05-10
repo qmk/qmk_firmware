@@ -236,31 +236,6 @@ __attribute__((weak)) bool process_record_quantum(keyrecord_t *record) {
 
 __attribute__((weak)) void post_process_record_quantum(keyrecord_t *record) {}
 
-#ifndef NO_ACTION_TAPPING
-/** \brief Allows for handling tap-hold actions immediately instead of waiting for TAPPING_TERM or another keypress.
- *
- * FIXME: Needs documentation.
- */
-void process_record_tap_hint(keyrecord_t *record) {
-    action_t action = layer_switch_get_action(record->event.key);
-
-    switch (action.kind.id) {
-#    ifdef SWAP_HANDS_ENABLE
-        case ACT_SWAP_HANDS:
-            switch (action.swap.code) {
-                case OP_SH_ONESHOT:
-                    break;
-                case OP_SH_TAP_TOGGLE:
-                default:
-                    swap_hands = !swap_hands;
-                    swap_held  = true;
-            }
-            break;
-#    endif
-    }
-}
-#endif
-
 /** \brief Take a key event (key press or key release) and processes it.
  *
  * FIXME: Needs documentation.
@@ -761,11 +736,8 @@ void process_action(keyrecord_t *record, action_t action) {
 #    ifndef NO_ACTION_TAPPING
                 case OP_SH_TAP_TOGGLE:
                     /* tap toggle */
-
                     if (event.pressed) {
-                        if (swap_held) {
-                            swap_held = false;
-                        } else {
+                        if (tap_count <= TAPPING_TOGGLE) {
                             swap_hands = !swap_hands;
                         }
                     } else {
@@ -777,22 +749,14 @@ void process_action(keyrecord_t *record, action_t action) {
                 default:
                     /* tap key */
                     if (tap_count > 0) {
-                        if (swap_held) {
-                            swap_hands = !swap_hands; // undo hold set up in _tap_hint
-                            swap_held  = false;
-                        }
                         if (event.pressed) {
                             register_code(action.swap.code);
                         } else {
                             wait_ms(TAP_CODE_DELAY);
                             unregister_code(action.swap.code);
-                            *record = (keyrecord_t){}; // hack: reset tap mode
                         }
                     } else {
-                        if (swap_held && !event.pressed) {
-                            swap_hands = !swap_hands; // undo hold set up in _tap_hint
-                            swap_held  = false;
-                        }
+                        swap_hands = !swap_hands;
                     }
 #    endif
             }
@@ -1137,14 +1101,12 @@ bool is_tap_action(action_t action) {
                 case OP_ONESHOT:
                     return true;
             }
-            return false;
         case ACT_SWAP_HANDS:
             switch (action.swap.code) {
                 case KC_NO ... KC_RIGHT_GUI:
                 case OP_SH_TAP_TOGGLE:
                     return true;
             }
-            return false;
     }
     return false;
 }

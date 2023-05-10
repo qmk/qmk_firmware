@@ -108,6 +108,8 @@ std::string generate_identifier(uint16_t kc) {
         s << "QK_MODS(" << KEYCODE_ID_TABLE.at(QK_MODS_GET_BASIC_KEYCODE(kc)) << ", " << get_qk_mods(kc) << ")";
     } else if (IS_QK_TAP_DANCE(kc)) {
         s << "TD(" << +(kc & 0xFF) << ")";
+    } else if (IS_QK_SWAP_HANDS(kc)) {
+        s << "SH_T(" << KEYCODE_ID_TABLE.at(QK_SWAP_HANDS_GET_TAP_KEYCODE(kc)) << ")";
     } else {
         // Fallback - we didn't found any matching keycode, generate the hex representation.
         s << "unknown keycode: 0x" << std::hex << kc << ". Add conversion to " << XSTR(generate_identifier);

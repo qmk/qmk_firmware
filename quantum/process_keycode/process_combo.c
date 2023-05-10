@@ -335,6 +335,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
             // this in the end executes the combo when the key_buffer is dumped.
             record->keycode    = combo->keycode;
             record->event.type = COMBO_EVENT;
+            record->event.key  = MAKE_KEYPOS(0, 0);
 
             qrecord->combo_index = combo_index;
             ACTIVATE_COMBO(combo);
