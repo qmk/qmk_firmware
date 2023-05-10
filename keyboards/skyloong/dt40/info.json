@@ -9,7 +9,7 @@
     	"device_version": "1.0.0"
     },
     "processor": "STM32F103",
-    "bootloader": "stm32-dfu",
+    "bootloader": "stm32duino",
     
     "layouts": {
         "LAYOUT": {
