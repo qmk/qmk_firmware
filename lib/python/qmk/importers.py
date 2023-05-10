@@ -91,7 +91,7 @@ def import_keymap(keymap_data):
     keyboard_keymap.parent.mkdir(parents=True, exist_ok=True)
 
     # Dump out all those lovely files
-    keyboard_keymap.write_text(json.dumps(keymap_data, cls=KeymapJSONEncoder))
+    keyboard_keymap.write_text(json.dumps(keymap_data, cls=KeymapJSONEncoder, sort_keys=True))
 
     return (kb_name, km_name)
 
@@ -139,8 +139,8 @@ def import_keyboard(info_data, keymap_data=None):
     temp = json_load(keyboard_info)
     deep_update(temp, info_data)
 
-    keyboard_info.write_text(json.dumps(temp, cls=InfoJSONEncoder))
-    keyboard_keymap.write_text(json.dumps(keymap_data, cls=KeymapJSONEncoder))
+    keyboard_info.write_text(json.dumps(temp, cls=InfoJSONEncoder, sort_keys=True))
+    keyboard_keymap.write_text(json.dumps(keymap_data, cls=KeymapJSONEncoder, sort_keys=True))
 
     return kb_name
 
