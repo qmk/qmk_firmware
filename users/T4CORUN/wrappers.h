@@ -137,7 +137,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define _______________GAMING_BASE_L3______________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 #   define          ______GAMING_BASE_L4_____                 KC_LCTL, KC_SPC,  KC_LSFT
 
-#   define __________________GAMING_R1________________        QWERTY,  CLMAKDH, __________NONE_3_________
+#   define __________________GAMING_R1________________        QWERTY,  CLMAKDH, GAMING,  ___x___, ___x___
 #   define __________________GAMING_R2________________        ___________________NONE_5__________________
 #   define __________________GAMING_R3________________        ___x___, ___x___, ___x___, ___x___, ADJUST
 
