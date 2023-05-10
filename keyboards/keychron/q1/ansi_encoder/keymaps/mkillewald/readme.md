@@ -17,7 +17,7 @@ When you flash this firmware for the first time, you should clear the eeprom so 
     - Press Right to cycle RGB colors (white, red, green and blue) to check operation of each LED.
     - Press Home to exit
 
-- Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed for using the standard RGB keyboard shortcuts.
+- Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed using the standard RGB keyboard shortcuts.
 
 - Autocorrect is enabled. ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
     - Uses getreuer's autocorrect dictionary.
