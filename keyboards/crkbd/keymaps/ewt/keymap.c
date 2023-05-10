@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TAB,  XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                      KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, XXXXXXX, KC_MPLY,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, KC_PSCR, KC_COPY,  KC_PASTE, TMUX,                       KC_PGDN, XXXXXXX, KC_MPRV, KC_MNXT, KC_NLCK, KC_RSFT,
+      KC_LSFT, XXXXXXX, KC_PSCR, KC_COPY,  KC_PASTE, TMUX,                       KC_PGDN, XXXXXXX, KC_MPRV, KC_MNXT, XXXXXXX, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX,  KC_BTN1,  KC_BTN2,   KC_DEL,   KC_ENT, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -87,9 +87,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_F1,   KC_F2,     KC_F3,   KC_F4,   KC_F5,  KC_F6,                       KC_F7,   KC_F8,  KC_F9,   KC_F10,  KC_F11, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LALT, KC__VOLUP, XXXXXXX, KC_MRWD, XXXXXXX, KC_MNXT,                    XXXXXXX, CTL4,    CTL5,    CTL6,    XXXXXXX, KILL,
+      KC_LALT, KC_VOLU, XXXXXXX, KC_MRWD, XXXXXXX, KC_MNXT,                    XXXXXXX, CTL4,    CTL5,    CTL6,    XXXXXXX, KILL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC__VOLDOWN, KC__MUTE, DT_UP, DT_DOWN, DT_PRNT,                 CTL0,    CTL1,    CTL2,    CTL3,    XXXXXXX, XXXXXXX,
+      XXXXXXX, KC_VOLD, KC_MUTE, DT_UP, DT_DOWN, DT_PRNT,                 CTL0,    CTL1,    CTL2,    CTL3,    XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX,  KC_SPC,  KC_BSPC,   KC_DEL,   KC_ENT, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -183,7 +183,7 @@ void oled_render_logo(void) {
     oled_write_P(crkbd_logo, false);
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_layer_state();
         oled_render_keylog();
