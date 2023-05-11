@@ -15,8 +15,8 @@
 #include "lang/lang_lut.h"
 
 #define FULL_BRIGHT 49
-#define FADE_TRANSITION_TIME 4000
-#define FADE_OUT_TIME 20000
+#define FADE_TRANSITION_TIME 6000
+#define FADE_OUT_TIME 60000
 
 /*[[[cog
 import cog
@@ -38,10 +38,10 @@ while lang_key:
 static enum lang_layer g_lang = LANG_EN;
 //[[[end]]]
 
-enum kb_layers { _BASE_LAYER = 0, _UTIL_LAYER = 1, _LANG_LAYER = 2 };
+enum kb_layers { _BASE_LAYER = 0, _FN_LAYER = 1, _UTIL_LAYER = 2, _LANG_LAYER = 3 };
 
 enum my_keycodes {
-    KC_NXTL = SAFE_RANGE, KC_FN, KC_LANG, RGB_TOGGLE, RGB_NEXT, RGB_PREV, KC_DARKER, KC_CONTRAST, KC_BRIGTHER, KC_SAVE_EE, KC_RST_DSP,
+    KC_NXTL = SAFE_RANGE, KC_LANG, RGB_TOGGLE, RGB_NEXT, RGB_PREV, KC_DARKER, KC_CONTRAST, KC_BRIGTHER, KC_SAVE_EE, KC_RST_DSP,
     /*[[[cog
       for lang in languages:
           cog.out(f"KC_{lang}, ")
@@ -84,6 +84,8 @@ void inc_brightness(void) {
 void dec_brightness(void) {
     if (g_contrast >= 6) {
         g_contrast -= 4;
+    } else {
+        g_contrast = 1;
     }
     //set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
 }
@@ -148,9 +150,6 @@ void sync_and_refresh_displays(void) {
     }
 
     if (g_state.contrast != g_contrast && g_refresh == DONE_ALL) {
-        if (g_contrast < 2) { //1
-            g_contrast = 1; //0  //to turn off
-        }
         set_displays((uint8_t)g_contrast);
         g_state.contrast = g_contrast;
     }
@@ -187,7 +186,7 @@ void housekeeping_task_user(void) {
     //turn off displays
     uint32_t elapsed_time_since_update = timer_elapsed32(last_update);
 
-    if (is_keyboard_master() && elapsed_time_since_update > FADE_OUT_TIME && g_contrast > 1) { //>0
+    if (is_keyboard_master() && elapsed_time_since_update > FADE_OUT_TIME && g_contrast > 0) {
         int32_t time_after = PK_MIN(elapsed_time_since_update - FADE_OUT_TIME, FADE_TRANSITION_TIME);
         g_contrast = ((FADE_TRANSITION_TIME - time_after) * FULL_BRIGHT) / FADE_TRANSITION_TIME;
     }
@@ -195,45 +194,59 @@ void housekeeping_task_user(void) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE_LAYER] = SPLIT_LAYOUT(
-        KC_GRAVE,       KC_1,           KC_2,        KC_3,          KC_4,           KC_5,           KC_ESC,         KC_NO,
-        KC_TAB,         KC_Q,           KC_W,        KC_E,          KC_R,           KC_T,           KC_HOME,        KC_NO,
-        KC_FN,          KC_A,           KC_S,        KC_D,          KC_F,           KC_G,           KC_END,         KC_NO,
-        KC_LSFT,        KC_Z,           KC_X,        KC_C,          KC_V,           KC_B,           KC_MINUS,       KC_MS_BTN1,
-        KC_LCTL,        KC_LWIN,        KC_LALT,     KC_APP,        KC_SPACE,       KC_DEL,         KC_NXTL,        KC_EQUAL,
+        KC_ESC,         KC_1,           KC_2,           KC_3,          KC_4,            KC_5,           KC_6,           KC_NO,
+        KC_TAB,         KC_Q,           KC_W,           KC_E,          KC_R,            KC_T,           KC_GRAVE,       KC_NO,
+        MO(_FN_LAYER),  KC_A,           KC_S,           KC_D,          KC_F,            KC_G,           KC_NXTL,        KC_NO,
+        KC_LSFT,        KC_NUHS,        KC_Z,           KC_X,          KC_C,            KC_V,           KC_B,           KC_MS_BTN1,
+        KC_LCTL,        KC_LWIN,        KC_LALT,        KC_APP,        KC_SPACE,        KC_DEL,         KC_END,         KC_HOME,
 
-        KC_NO,          KC_NUHS,        KC_6,        KC_7,          KC_8,           KC_9,           KC_0,           KC_BSPC,
-        KC_NO,          KC_PGUP,        KC_Y,        KC_U,          KC_I,           KC_O,           KC_P,           KC_BSLS,
-        KC_NO,          KC_PGDN,        KC_H,        KC_J,          KC_K,           KC_L,           KC_SCLN,        KC_ENTER,
-        KC_NO,          KC_RBRC,        KC_N,        KC_M,          KC_COMMA,       KC_DOT,         KC_SLASH,       KC_RSFT,
-        KC_LBRC,        KC_LANG,        KC_QUOTE,    KC_SPACE,      KC_LEFT,        KC_UP,          KC_DOWN,        KC_RIGHT
+        KC_NO,          KC_7,           KC_8,           KC_9,          KC_0,            KC_MINUS,       KC_EQUAL,       KC_BSPC,
+        KC_NO,          KC_Y,           KC_U,           KC_I,          KC_O,            KC_P,           KC_LBRC,        KC_BSLS,
+        KC_NO,          KC_H,           KC_J,           KC_K,          KC_L,            KC_SCLN,        KC_RBRC,        KC_ENTER,
+        KC_NO,          KC_PGUP,        KC_N,           KC_M,          KC_COMMA,        KC_DOT,         KC_SLASH,       KC_RSFT,
+        KC_PGDN,        KC_LANG,        KC_QUOTE,       KC_SPACE,      KC_UP,           KC_DOWN,        KC_LEFT,        KC_RIGHT
+        ),
+
+    [_FN_LAYER] = SPLIT_LAYOUT(
+        _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          _______,
+        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
+        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
+        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
+        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
+
+        _______,        KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
+        _______,        _______,        _______,        KC_KP_7,        KC_KP_8,        KC_KP_9,        _______,        _______,
+        _______,        _______,        _______,        KC_KP_4,        KC_KP_5,        KC_KP_6,        _______,        _______,
+        _______,        _______,        _______,        KC_KP_1,        KC_KP_2,        KC_KP_3,        _______,        _______,
+        _______,        _______,        _______,        _______,        KC_KP_DOT,        KC_KP_0,        _______,        _______
         ),
 
     [_UTIL_LAYER] = SPLIT_LAYOUT(
-        KC_NO,          KC_NO,          KC_SAVE_EE,  KC_NO,         KC_NO,          KC_MPRV,        KC_NXTL,        KC_NO,
-        RGB_PREV,       KC_VOLU,        DB_TOGG,     KC_DARKER,     KC_NO,          KC_MPLY,        KC_NO,          KC_NO,
-        RGB_TOGGLE,     KC_MUTE,        EE_CLR,      KC_CONTRAST,   KC_RST_DSP,     KC_MSTP,        KC_NO,          KC_NO,
-        RGB_NEXT,       KC_VOLD,        QK_BOOT,     KC_BRIGTHER,   KC_NO,          KC_MNXT,        KC_NO,          KC_MS_BTN1,
-        KC_NO,          KC_NO,          QK_MAKE,     QK_RBT,        KC_NO,          KC_NO,          KC_NO,          KC_NO,
+        KC_NO,          KC_NO,          KC_SAVE_EE,     KC_NO,         KC_NO,          KC_MPRV,        KC_NXTL,        KC_NO,
+        RGB_PREV,       KC_VOLU,        DB_TOGG,        KC_DARKER,     KC_NO,          KC_MPLY,        KC_NO,          KC_NO,
+        RGB_TOGGLE,     KC_MUTE,        EE_CLR,         KC_CONTRAST,   KC_RST_DSP,     KC_MSTP,        KC_NO,          KC_NO,
+        RGB_NEXT,       KC_VOLD,        QK_BOOT,        KC_BRIGTHER,   KC_NO,          KC_MNXT,        KC_NO,          KC_MS_BTN1,
+        KC_NO,          KC_NO,          QK_MAKE,        QK_RBT,        KC_NO,          KC_NO,          KC_NO,          KC_NO,
 
-        KC_NO,          KC_NO,          KC_NO,       KC_SAVE_EE,    KC_NO,          KC_NO,          KC_MPRV,        KC_NXTL,
-        KC_NO,          RGB_PREV,       KC_VOLU,     DB_TOGG,       KC_DARKER,      KC_NO,          KC_MPLY,        KC_NO,
-        KC_NO,          RGB_TOGGLE,     KC_MUTE,     EE_CLR,        KC_CONTRAST,    KC_RST_DSP,     KC_MSTP,        KC_NO,
-        KC_NO,          RGB_NEXT,       KC_VOLD,     QK_BOOT,       KC_BRIGTHER,    KC_NO,          KC_MNXT,        KC_NO,
-        KC_NO,          KC_NO,          QK_MAKE,     QK_RBT,        KC_NO,          KC_NO,          KC_NO,          KC_NO
+        KC_NO,          KC_NO,          KC_NO,          KC_SAVE_EE,    KC_NO,          KC_NO,          KC_MPRV,        KC_NXTL,
+        KC_NO,          RGB_PREV,       KC_VOLU,        DB_TOGG,       KC_DARKER,      KC_NO,          KC_MPLY,        KC_NO,
+        KC_NO,          RGB_TOGGLE,     KC_MUTE,        EE_CLR,        KC_CONTRAST,    KC_RST_DSP,     KC_MSTP,        KC_NO,
+        KC_NO,          RGB_NEXT,       KC_VOLD,        QK_BOOT,       KC_BRIGTHER,    KC_NO,          KC_MNXT,        KC_NO,
+        KC_NO,          KC_NO,          QK_MAKE,        QK_RBT,        KC_NO,          KC_NO,          KC_NO,          KC_NO
         ),
 
     [_LANG_LAYER] = SPLIT_LAYOUT(
-        KC_LEAD,        KC_F1,          KC_F2,          KC_F3,      KC_F4,          KC_F5,          KC_F6,          KC_NO,
-        KC_NO,          KC_LANG_PT,     KC_LANG_ES,     KC_LANG_AR, KC_LANG_GR,     KC_NO,          KC_NO,          KC_NO,
-        KC_NO,          KC_LANG_FR,     KC_LANG_DE,     KC_LANG_JA, KC_LANG_TR,     KC_NO,          KC_NO,          KC_NO,
-        KC_NO,          KC_LANG_IT,     KC_LANG_EN,     KC_LANG_KO, KC_NO,          KC_NO,          KC_NO,          KC_MS_BTN1,
-        KC_NO,          KC_NO,          KC_NO,          KC_NO,      KC_LANG,        KC_NO,          KC_NO,          KC_NO,
+        KC_LEAD,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_NO,
+        KC_NO,          KC_LANG_PT,     KC_LANG_ES,     KC_LANG_AR,     KC_LANG_GR,     KC_NO,          KC_NO,          KC_NO,
+        KC_NO,          KC_LANG_FR,     KC_LANG_DE,     KC_LANG_JA,     KC_LANG_TR,     KC_NO,          KC_NO,          KC_NO,
+        KC_NO,          KC_LANG_IT,     KC_LANG_EN,     KC_LANG_KO,     KC_NO,          KC_NO,          KC_NO,          KC_MS_BTN1,
+        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_LANG,        KC_NO,          KC_NO,          KC_NO,
 
-        KC_NO,          KC_NO,          KC_F7,          KC_F8,      KC_F9,          KC_F10,         KC_F11,         KC_F12,
-        KC_NO,          KC_NO,          KC_LANG_GR,     KC_LANG_AR, KC_LANG_ES,     KC_LANG_PT,     KC_NO,          KC_NO,
-        KC_NO,          KC_NO,          KC_LANG_TR,     KC_LANG_JA, KC_LANG_DE,     KC_LANG_FR,     KC_NO,          KC_NO,
-        KC_NO,          KC_NO,          KC_NO,          KC_LANG_KO, KC_LANG_EN,     KC_LANG_IT,     KC_NO,          KC_NO,
-        KC_NO,          KC_NO,          KC_NO,          KC_NO,      KC_LANG,        KC_NO,          KC_NO,          KC_NO
+        KC_NO,          KC_NO,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
+        KC_NO,          KC_NO,          KC_LANG_GR,     KC_LANG_AR,     KC_LANG_ES,     KC_LANG_PT,     KC_NO,          KC_NO,
+        KC_NO,          KC_NO,          KC_LANG_TR,     KC_LANG_JA,     KC_LANG_DE,     KC_LANG_FR,     KC_NO,          KC_NO,
+        KC_NO,          KC_NO,          KC_NO,          KC_LANG_KO,     KC_LANG_EN,     KC_LANG_IT,     KC_NO,          KC_NO,
+        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_LANG,        KC_NO,          KC_NO,          KC_NO
         )
 };
 
@@ -391,7 +404,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_AUDIO_VOL_UP:
         return u"  " ICON_VOL_UP;
     case KC_NXTL:
-        return u"Nxt" ICON_LAYER;
+        return u"Menu" ICON_LAYER;
     case KC_PRINT_SCREEN:
         return u"PScn";
     case KC_SCROLL_LOCK:
@@ -410,8 +423,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"Del";
     case KC_END:
         return u"End";
-    case KC_FN:
-        return u"Fn";
+    case MO(_FN_LAYER):
+        return u"Fn " ICON_LAYER;
     case KC_F1:
         return u" F1";
     case KC_F2:
@@ -543,10 +556,12 @@ void update_displays(enum refresh_mode mode) {
 
             if (disp_idx != 255) {
                 uint16_t keycode = keymaps[layer][r + offset][c];
-                const uint16_t* text = keycode_to_disp_text(keycode, state);
-                kdisp_set_buffer(0x00);
-                kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
-                kdisp_send_buffer();
+                if(keycode!=KC_TRNS) {
+                    const uint16_t* text = keycode_to_disp_text(keycode, state);
+                    kdisp_set_buffer(0x00);
+                    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
+                    kdisp_send_buffer();
+                }
             }
 
             //since MATRIX_COLS==8 we don't need to shift multiple times at the end of the row
@@ -784,21 +799,11 @@ void set_displays(uint8_t contrast) {
 
 //disable first keypress if the displays are turned off
 bool display_wakeup(keyrecord_t* record) {
-    if (g_contrast == 0) {
-        if (record->event.pressed) {
-            //set_displays(DISPLAYS_ON, 0);
-            g_contrast = 1;
-        }
-        else {
-            g_contrast = FULL_BRIGHT;
-            update_performed();
-            //set_displays(DISPLAYS_SET_CONTRAST, FULL_BRIGHT);
-        }
-        return false;
-    } else if (g_contrast == 1) {
-        g_contrast = FULL_BRIGHT;
+    if (g_contrast == 0 && record->event.pressed) {
+        g_contrast = FULL_BRIGHT; //not always full bright, but the set value
         update_performed();
     }
+
     return true;
 }
 void keyboard_post_init_user(void) {

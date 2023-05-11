@@ -22,9 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x2021
 #define PRODUCT_ID      0x2007
-#define DEVICE_VER      0x0218
+#define DEVICE_VER      0x0219
 #define MANUFACTURER    "[thpoll]"
-#define PRODUCT         "PolyKybd v0.2.18"
+#define PRODUCT         "PolyKybd v0.2.19"
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_END	126
 #define OLED_FONT_H "base/fonts/base_font.h"
 #define OLED_BRIGHTNESS 60
-#define OLED_TIMEOUT 125000
+#define OLED_TIMEOUT 60000
 #define OLED_FADE_OUT
 #define OLED_FADE_OUT_INTERVAL 7
 

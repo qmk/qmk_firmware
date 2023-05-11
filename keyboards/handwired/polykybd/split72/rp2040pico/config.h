@@ -100,19 +100,31 @@ TRES  > 280µs
 //#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 
-//#define ENCODERS_PAD_A { }
-//#define ENCODERS_PAD_B { }
-//#define ENCODER_RESOLUTIONS { }
-//#define ENCODERS_PAD_A_LEFT { GP25 }
-//#define ENCODERS_PAD_B_LEFT { GP29 }
-//#define ENCODER_RESOLUTIONS_LEFT { 2 }
 #define ENCODERS_PAD_A { GP25 }
 #define ENCODERS_PAD_B { GP29 }
 #define ENCODER_RESOLUTION 4
 
-/*
-#define ENCODERS_PAD_A { 0 }
-#define ENCODERS_PAD_B { 1 }
-#define ENCODER_RESOLUTION 1
-*/
-//#define CUSTOM_PROCESS_RECORD_USER
+//see also https://docs.qmk.fm/#/feature_pointing_device?id=split-keyboard-configuration
+
+
+// Setup Cirque
+#define CIRQUE_PINNACLE_DIAMETER_MM 23
+#define CIRQUE_PINNACLE_TAP_ENABLE true
+
+// Enable use of pointing device on slave split.
+#define SPLIT_POINTING_ENABLE
+
+// Pointing device is on the right split.
+#define POINTING_DEVICE_COMBINED
+
+// Limits the frequency that the sensor is polled for motion.
+#define POINTING_DEVICE_TASK_THROTTLE_MS 1
+
+#define POINTING_DEVICE_ROTATION_270
+#define POINTING_DEVICE_INVERT_X
+#define POINTING_DEVICE_INVERT_Y
+#define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
+
+//#define POINTING_DEVICE_DEBUG
+//#define PIMORONI_TRACKBALL_SCALE 5
+//#define TRACKBALL_LED_TIMEOUT 5000

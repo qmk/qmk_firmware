@@ -71,15 +71,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define SPLIT_TRANSPORT_MIRROR
 
 
-//#define RGB_DISABLE_WHEN_USB_SUSPENDED
-//#define RGB_DISABLE_TIMEOUT 62000
-
 #define NUM_SHIFT_REGISTERS 5
 
 // Split keyboard
 // https://docs.qmk.fm/#/feature_split_keyboard?id=split-keyboard
 #define SERIAL_USART_TX_PIN GP5
-//#define MASTER_RIGHT
+#define MASTER_LEFT
 //#define SERIAL_PIO_USE_PIO1
 //#define SPLIT_USB_DETECT
 //#define SPLIT_USB_TIMEOUT 2000
@@ -96,23 +93,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //somehow connected to the matrix light
 //#define SPLIT_MAX_CONNECTION_ERRORS 0
 
-//see also https://docs.qmk.fm/#/feature_pointing_device?id=split-keyboard-configuration
 
-
-// Setup Cirque
-#define CIRQUE_PINNACLE_DIAMETER_MM 23
-#define CIRQUE_PINNACLE_TAP_ENABLE true
-
-// Enable use of pointing device on slave split.
-#define SPLIT_POINTING_ENABLE
-
-// Pointing device is on the right split.
-#define POINTING_DEVICE_RIGHT
-
-// Limits the frequency that the sensor is polled for motion.
-#define POINTING_DEVICE_TASK_THROTTLE_MS 1
-
-//#define POINTING_DEVICE_DEBUG
-//#define PIMORONI_TRACKBALL_SCALE 5
-#define POINTING_DEVICE_ROTATION_270
-//#define TRACKBALL_LED_TIMEOUT 5000
