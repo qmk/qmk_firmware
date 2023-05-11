@@ -233,7 +233,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case BF_AFK:
       if (record->event.pressed) {
         layer_on(AFK);
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT)SS_TAP(X_POWER)SS_UP(X_LSHIFT)SS_UP(X_LCTRL));
+        SEND_STRING(SS_DOWN(X_LCTL)SS_DOWN(X_LSFT)SS_TAP(X_PWR)SS_UP(X_LSFT)SS_UP(X_LCTL));
       }
       return false; break;
     case BF_WAKE:

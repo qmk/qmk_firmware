@@ -15,11 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 
 #define MATRIX_COL_PINS {  B6,  B15, B14, B13, B12, B11, B10, B2,  B1, B0,  A7,  A6,  A5,  A4 }
 #define MATRIX_ROW_PINS {  A1,  A3,  A8,  A9,  A10 }
@@ -31,7 +26,6 @@
 
 #    define RGB_DI_PIN B5
 #    define RGBLED_NUM 1
-#    define DRIVER_LED_TOTAL RGBLED_NUM
 
 #    define RGBLIGHT_LAYERS
 #    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF

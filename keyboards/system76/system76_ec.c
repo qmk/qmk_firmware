@@ -136,13 +136,13 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
     // Layer 0
     {
         .enable = 1,
-        .mode = RGB_MATRIX_STARTUP_MODE,
+        .mode = RGB_MATRIX_DEFAULT_MODE,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .h = RGB_MATRIX_DEFAULT_HUE,
+            .s = RGB_MATRIX_DEFAULT_SAT,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 1
@@ -150,11 +150,11 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .h = RGB_MATRIX_DEFAULT_HUE,
+            .s = RGB_MATRIX_DEFAULT_SAT,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 2
@@ -162,11 +162,11 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .h = RGB_MATRIX_DEFAULT_HUE,
+            .s = RGB_MATRIX_DEFAULT_SAT,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 3
@@ -174,11 +174,11 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .h = RGB_MATRIX_DEFAULT_HUE,
+            .s = RGB_MATRIX_DEFAULT_SAT,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
 };

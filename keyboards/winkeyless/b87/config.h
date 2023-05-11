@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Define Matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
 
 /*Define Matrix Pins */
 #define MATRIX_ROW_PINS {B5, B4, B3, B2, B1, B0, B6, B7}
@@ -41,9 +36,3 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 3
-
-#define LED_CAPS_LOCK_PIN D1 
-#define LED_SCROLL_LOCK_PIN D6 

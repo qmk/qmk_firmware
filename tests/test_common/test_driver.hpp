@@ -64,7 +64,7 @@ class TestDriver {
 #define EXPECT_REPORT(driver, report) EXPECT_CALL((driver), send_keyboard_mock(KeyboardReport report))
 
 /**
- * @brief Sets gmock expectation that Unicode `code_point` is sent with UC_LNX input
+ * @brief Sets gmock expectation that Unicode `code_point` is sent with UNICODE_MODE_LINUX input
  * mode. For instance for U+2013,
  *
  *   EXPECT_UNICODE(driver, 0x2013);
@@ -97,6 +97,12 @@ class TestDriver {
  * @brief Sets gmock expectation that no keyboard report will be sent at all.
  */
 #define EXPECT_NO_REPORT(driver) EXPECT_ANY_REPORT(driver).Times(0)
+
+/**
+ * @brief Verify and clear all gmock expectations that have been setup until
+ * this point.
+ */
+#define VERIFY_AND_CLEAR(driver) testing::Mock::VerifyAndClearExpectations(&driver)
 
 namespace internal {
 void expect_unicode_code_point(TestDriver& driver, uint32_t code_point);

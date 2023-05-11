@@ -18,4 +18,4 @@
 
 #define COMBO_COUNT 2
 #define COMBO_TERM 50
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0

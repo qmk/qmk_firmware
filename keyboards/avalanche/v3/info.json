@@ -8,6 +8,16 @@
         "pid": "0x0003",
         "device_version": "0.0.3"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "F4", "resolution": 2}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

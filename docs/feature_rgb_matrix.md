@@ -164,7 +164,7 @@ There is basic support for addressable RGB matrix lighting with the I2C IS31FL37
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = IS31FL3737
 ```
-You can use between 1 and 2 IS31FL3737 IC's. Do not specify `DRIVER_ADDR_2` define for second IC if not present on your keyboard.
+You can use between 1 and 4 IS31FL3737 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard.
 
 Configure the hardware via your `config.h`:
 
@@ -180,6 +180,8 @@ Configure the hardware via your `config.h`:
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
 | `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
+| `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
+| `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
 
 The IS31FL3737 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`ISSI_SWPULLUP`/`ISSI_CSPULLUP` are given the value of`PUR_0R`), the values that can be set to enable de-ghosting are as follows:
 
@@ -233,7 +235,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 }
 ```
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1` for now).
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](https://www.issi.com/WW/pdf/31FL3737.pdf) and the header file `drivers/led/issi/is31fl3737.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0`, `1`, `2`, or `3` for now).
 
 ---
 ### IS31FLCOMMON :id=is31flcommon
@@ -250,7 +252,7 @@ Where `<driver name>` is the applicable LED driver chip as below
 | Driver Name | Data Sheet | Capability |
 |-------------|------------|------------|
 | `IS31FL3742A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3742A_DS.pdf) | 60 RGB, 30x6 Matrix |
-| `ISSIFL3743A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3743A_DS.pdf) | 66 RGB, 18x11 Matrix |
+| `IS31FL3743A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3743A_DS.pdf) | 66 RGB, 18x11 Matrix |
 | `IS31FL3745` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3745_DS.pdf) | 48 RGB, 18x8 Matrix |
 | `IS31FL3746A` | [datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3746A_DS.pdf) | 24 RGB, 18x4 Matrix |
 
@@ -560,7 +562,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_CYCLE_UP_DOWN,       // Full gradient scrolling top to bottom
     RGB_MATRIX_CYCLE_OUT_IN,        // Full gradient scrolling out to in
     RGB_MATRIX_CYCLE_OUT_IN_DUAL,   // Full dual gradients scrolling out to in
-    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,  // Full gradent Chevron shapped scrolling left to right
+    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,  // Full gradient Chevron shapped scrolling left to right
     RGB_MATRIX_CYCLE_PINWHEEL,      // Full gradient spinning pinwheel around center of keyboard
     RGB_MATRIX_CYCLE_SPIRAL,        // Full gradient spinning spiral around center of keyboard
     RGB_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
@@ -574,7 +576,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_PIXEL_FRACTAL,       // Single hue fractal filled keys pulsing horizontally out to edges
     RGB_MATRIX_PIXEL_FLOW,          // Pulsing RGB flow along LED wiring with random hues
     RGB_MATRIX_PIXEL_RAIN,          // Randomly light keys with random hues
-#if define(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
+#if defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS)
     RGB_MATRIX_TYPING_HEATMAP,      // How hot is your WPM!
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
 #endif
@@ -796,11 +798,11 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 #define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
-#define RGB_MATRIX_STARTUP_HUE 0 // Sets the default hue value, if none has been set
-#define RGB_MATRIX_STARTUP_SAT 255 // Sets the default saturation value, if none has been set
-#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
-#define RGB_MATRIX_STARTUP_SPD 127 // Sets the default animation speed, if none has been set
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
+#define RGB_MATRIX_DEFAULT_HUE 0 // Sets the default hue value, if none has been set
+#define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
+#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
+#define RGB_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
 #define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)
 #define RGB_MATRIX_SPLIT { X, Y } 	// (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
                               		// If RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
@@ -1005,7 +1007,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 }
 ```
 
-!> RGB indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
+?> RGB indicators on split keyboards will require state information synced to the slave half (e.g. `#define SPLIT_LAYER_STATE_ENABLE`). See [data sync options](feature_split_keyboard.md#data-sync-options) for more details.
 
 #### Indicators without RGB Matrix Effect
 

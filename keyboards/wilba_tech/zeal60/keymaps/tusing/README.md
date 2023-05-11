@@ -37,7 +37,6 @@ You might find the [**full PCB image**](https://cdn.shopify.com/s/files/1/0490/7
     ```c
     // Set up RGB underglow.
     #define RGB_DI_PIN B0          // The pin your RGB strip is wired to
-    #define RGBLIGHT_ANIMATIONS    // Require for fancier stuff (not compatible with audio)
     #define RGBLED_NUM 35          // Number of LEDs
     #define RGBLIGHT_HUE_STEP 5    // How much each press of rgb_hue changes hue
     #define RGBLIGHT_SAT_STEP 10   // How much each press of rgb_sat changes sat

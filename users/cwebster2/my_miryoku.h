@@ -35,7 +35,7 @@
 #define _______NAKED_R___T____ KC_ENT,   KC_BSPC,  KC_DEL
 #define _______NAKED_L___T____ KC_ESC,   KC_SPC,   KC_TAB
 
-#define _______INACTIVE_R1____ KC_LOCK,  KC_TRNS,  KC_TRNS,  KC_TRNS,  RESET
+#define _______INACTIVE_R1____ KC_LOCK,  KC_TRNS,  KC_TRNS,  KC_TRNS,  QK_BOOT
 #define _______INACTIVE_R2____ KC_TRNS,  KC_LSFT,  KC_LCTL,  KC_LALT,  KC_LGUI
 #define _______INACTIVE_R3____ KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_RALT,  KC_TRNS
 

@@ -26,8 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [QWERTY] = LAYOUT(
       KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSLS,
       KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,
-      KC_LEAD, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_LSFT, KC_GRV, TT(FUNCS), KC_RSFT, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
-      KC_LSFT, KC_LALT, KC_LGUI, LT(LOWER, KC_SPC), LT(RAISE, KC_ENT), LT(RAISE, KC_ENT), LT(LOWER, KC_SPC), KC_BSPC, KC_LCTRL, KC_RSFT
+      QK_LEAD, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_LSFT, KC_GRV, TT(FUNCS), KC_RSFT, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
+      KC_LSFT, KC_LALT, KC_LGUI, LT(LOWER, KC_SPC), LT(RAISE, KC_ENT), LT(RAISE, KC_ENT), LT(LOWER, KC_SPC), KC_BSPC, KC_LCTL, KC_RSFT
       ),
   [LOWER] = LAYOUT(
       _______, KC_EXLM, KC_AT, KC_HASH, KC_LCBR, KC_RCBR, _______, _______, _______, _______, _______, _______,
@@ -49,18 +49,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 };
 
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_ONE_KEY(KC_A) {
-      tap_code16(SGUI(KC_L));
-    }
-    SEQ_TWO_KEYS(KC_S, KC_S) {
-      tap_code16(SGUI(KC_5));
-    }
+void leader_end_user(void) {
+  if (leader_sequence_one_key(KC_A)) {
+    tap_code16(SGUI(KC_L));
+  }
+  if (leader_sequence_two_keys(KC_S, KC_S)) {
+    tap_code16(SGUI(KC_5));
   }
 }

@@ -15,6 +15,7 @@ from PIL import Image
 @cli.argument('-f', '--format', required=True, help='Output format, valid types: %s' % (', '.join(valid_formats.keys())))
 @cli.argument('-r', '--no-rle', arg_only=True, action='store_true', help='Disables the use of RLE when encoding images.')
 @cli.argument('-d', '--no-deltas', arg_only=True, action='store_true', help='Disables the use of delta frames when encoding animations.')
+@cli.argument('-w', '--raw', arg_only=True, action='store_true', help='Writes out the QGF file as raw data instead of c/h combo.')
 @cli.subcommand('Converts an input image to something QMK understands')
 def painter_convert_graphics(cli):
     """Converts an image file to a format that Quantum Painter understands.
@@ -52,6 +53,12 @@ def painter_convert_graphics(cli):
     out_data = BytesIO()
     input_img.save(out_data, "QGF", use_deltas=(not cli.args.no_deltas), use_rle=(not cli.args.no_rle), qmk_format=format, verbose=cli.args.verbose)
     out_bytes = out_data.getvalue()
+
+    if cli.args.raw:
+        raw_file = cli.args.output / (cli.args.input.stem + ".qgf")
+        with open(raw_file, 'wb') as raw:
+            raw.write(out_bytes)
+        return
 
     # Work out the text substitutions for rendering the output data
     subs = {

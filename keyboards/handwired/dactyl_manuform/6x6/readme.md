@@ -17,7 +17,7 @@ Basic guide how to build 6x6 board is in root keyboard dir. This will help you t
 
 If you want to use 5thumb cluster or stm32, you also should read base guide, but please came back here after you finish 😉.
 
-For my build I used stm32f411 black pill. It's pretty cheap board and I highly recommend you to buy one from official distributors, to support board creators. [To buy it, please go into designer site](https://github.com/WeActTC/MiniSTM32F4x1).
+For my build I used stm32f411 black pill. It's pretty cheap board and I highly recommend you to buy one from official distributors, to support board creators. [To buy it, please go into designer site](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1).
 
 I recommend using stm32 boards for this project, because QMK recently added support for [tinyuf2 bootloader](https://github.com/adafruit/tinyuf2). This bootloader is great for cases where you are going to use QMK Configurator and don't want to use any command line interface. This way when you need change keyboard layout, you only need an UF2 file. Setting up board in boot mode will allow you to drag and drop it on to created STM32F flash drive.
 ![BlackPill Schematic](blackpill_f411/STM32F4x1_PinoutDiagram_RichardBalint.png "Schematic of stm32f4 blackpill")

@@ -117,7 +117,7 @@ void do_scan(void) {
 
 uint16_t scan_timer = 0;
 
-void matrix_scan_i2c(void) {
+void housekeeping_task_i2c_scanner(void) {
     if (timer_elapsed(scan_timer) > 5000) {
         do_scan();
         scan_timer = timer_read();
@@ -130,14 +130,80 @@ void keyboard_post_init_i2c(void) {
 }
 #endif
 
-#if defined(AUTOCORRECT_ENABLE) && defined(AUDIO_ENABLE)
-#    ifdef USER_SONG_LIST
+#if defined(AUTOCORRECT_ENABLE)
+#    if defined(AUDIO_ENABLE)
+#        ifdef USER_SONG_LIST
 float autocorrect_song[][2] = SONG(MARIO_GAMEOVER);
-#    else
+#        else
 float autocorrect_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
+#        endif
 #    endif
-bool apply_autocorrect(uint8_t backspaces, const char *str) {
+
+bool apply_autocorrect(uint8_t backspaces, const char* str) {
+    if (layer_state_is(_GAMEPAD)) {
+        return false;
+    }
+    // TO-DO use unicode stuff for this.  Will probably have to reverse engineer
+    // send string to get working properly, to send char string.
+
+#    if defined(AUDIO_ENABLE)
     PLAY_SONG(autocorrect_song);
+#    endif
     return true;
 }
 #endif
+
+#if defined(CAPS_WORD_ENABLE)
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_MINS:
+            if (!keymap_config.swap_lctl_lgui) {
+                return true;
+            }
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false; // Deactivate Caps Word.
+    }
+}
+
+#    if !defined(NO_ACTION_ONESHOT)
+void oneshot_locked_mods_changed_user(uint8_t mods) {
+    if (mods & MOD_MASK_SHIFT) {
+        del_mods(MOD_MASK_SHIFT);
+        set_oneshot_locked_mods(~MOD_MASK_SHIFT & get_oneshot_locked_mods());
+        caps_word_on();
+    }
+}
+#    endif
+#endif
+
+void format_layer_bitmap_string(char* buffer, layer_state_t state, layer_state_t default_state) {
+    for (int i = 0; i < 16; i++) {
+        if (i == 0 || i == 4 || i == 8 || i == 12) {
+            *buffer = ' ';
+            ++buffer;
+        }
+
+        uint8_t layer = i;
+        if ((default_state & ((layer_state_t)1 << layer)) != 0) {
+            *buffer = 'D';
+        } else if ((state & ((layer_state_t)1 << layer)) != 0) {
+            *buffer = '1';
+        } else {
+            *buffer = '_';
+        }
+        ++buffer;
+    }
+    *buffer = 0;
+}

@@ -8,6 +8,9 @@
     "pid": "0x2301",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u4",
+    "bootloader": "caterina",
+  "debounce": 0,
   "layouts": {
     "LAYOUT": {
       "layout": [

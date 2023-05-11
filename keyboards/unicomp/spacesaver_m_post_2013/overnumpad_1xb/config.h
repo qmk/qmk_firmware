@@ -15,13 +15,8 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 #define SERIAL_NUMBER "purdea.ro:overnumpad_controller"
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -47,9 +42,6 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 #define MATRIX_HAS_GHOST
 
@@ -61,7 +53,3 @@
 #define SOLENOID_MIN_DWELL 4
 #define HAPTIC_OFF_IN_LOW_POWER 1
 #define NO_HAPTIC_MOD
-
-#define LED_CAPS_LOCK_PIN C12
-#define LED_ON_STATE 1
-// C11 and C10 are also leds, but C11 is not used in this keyboard, and C10 is configured in ${keyboard}.c

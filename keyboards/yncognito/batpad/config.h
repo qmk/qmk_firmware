@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
 
 /*
  * Keyboard Matrix Assignments
@@ -46,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

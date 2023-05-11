@@ -8,6 +8,14 @@
         "pid": "0x524E",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D7", "pin_b": "D4"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["numpad_6x4", "ortho_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

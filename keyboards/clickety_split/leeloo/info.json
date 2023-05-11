@@ -8,6 +8,23 @@
     "pid": "0x2022",
     "device_version": "0.1.3"
   },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "F5", "pin_b": "F4"}
+    ]
+  },
+  "split": {
+    "soft_serial_pin": "D2",
+    "encoder": {
+      "right": {
+        "rotary": [
+          {"pin_a": "F4", "pin_b": "F5"}
+        ]
+      }
+    }
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
       "layout": [

@@ -63,7 +63,7 @@ layer_state_t layer_state_set_user(layer_state_t state)
 
 
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for
     [TD_SCAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
 };

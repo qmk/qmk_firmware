@@ -51,7 +51,7 @@ enum custom_keycodes {
 static uint16_t key_timer; //key timer for macros
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Copy, twice for Paste, three times for Cut.
   [TD_COPY_CUT]  = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_C),LGUI(KC_X)),
     //Tap once for Snagit, twice for Cmd + Shift + Opt + 4 (OS X cropping screenshot that is copied to the clipboard only.)
@@ -473,7 +473,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           SEND_STRING ("Todoist");
           SEND_STRING (SS_TAP(X_ENTER));
         } else {
-          SEND_STRING (SS_LGUI(SS_LCTRL("a"))); //macro to open Todoist new task dialog
+          SEND_STRING (SS_LGUI(SS_LCTL("a"))); //macro to open Todoist new task dialog
         }
       }
       break;

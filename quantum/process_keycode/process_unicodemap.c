@@ -24,7 +24,7 @@
 __attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
     if (keycode >= QK_UNICODEMAP_PAIR) {
         // Keycode is a pair: extract index based on Shift / Caps Lock state
-        uint16_t index = keycode - QK_UNICODEMAP_PAIR;
+        uint16_t index;
 
         uint8_t mods = get_mods() | get_weak_mods();
 #ifndef NO_ACTION_ONESHOT
@@ -34,13 +34,15 @@ __attribute__((weak)) uint16_t unicodemap_index(uint16_t keycode) {
         bool shift = mods & MOD_MASK_SHIFT;
         bool caps  = host_keyboard_led_state().caps_lock;
         if (shift ^ caps) {
-            index >>= 7;
+            index = QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(keycode);
+        } else {
+            index = QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(keycode);
         }
 
-        return index & 0x7F;
+        return index;
     } else {
         // Keycode is a regular index
-        return keycode - QK_UNICODEMAP;
+        return QK_UNICODEMAP_GET_INDEX(keycode);
     }
 }
 

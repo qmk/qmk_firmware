@@ -41,20 +41,6 @@ void housekeeping_task_keychron(void) {
 
 bool process_record_keychron(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_MISSION_CONTROL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_LAUNCHPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
         case KC_LOPTN:
         case KC_ROPTN:
         case KC_LCMMD:

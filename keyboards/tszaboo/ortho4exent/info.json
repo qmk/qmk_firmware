@@ -8,6 +8,11 @@
     	"pid": "0x7934",
     	"device_version": "0.0.1"
     },
+    "indicators": {
+    	"caps_lock": "E6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
       "LAYOUT": {
         "layout": [

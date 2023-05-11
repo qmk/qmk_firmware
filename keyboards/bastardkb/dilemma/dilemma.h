@@ -17,35 +17,22 @@
 
 #pragma once
 
-#include "quantum.h"
-
 // clang-format off
-#define LAYOUT_split_3x5_2(                             \
-  k00, k01, k02, k03, k04,     k44, k43, k42, k41, k40, \
-  k10, k11, k12, k13, k14,     k54, k53, k52, k51, k50, \
-  k20, k21, k22, k23, k24,     k64, k63, k62, k61, k60, \
-                 k30, k32,     k72, k70                 \
-)                                                       \
-{                                                       \
-  {   k00,   k01,   k02,   k03,   k04 },                \
-  {   k10,   k11,   k12,   k13,   k14 },                \
-  {   k20,   k21,   k22,   k23,   k24 },                \
-  {   k30, KC_NO,   k32, KC_NO, KC_NO },                \
-  {   k40,   k41,   k42,   k43,   k44 },                \
-  {   k50,   k51,   k52,   k53,   k54 },                \
-  {   k60,   k61,   k62,   k63,   k64 },                \
-  {   k70, KC_NO,   k72, KC_NO, KC_NO },                \
-}
+#if defined(KEYBOARD_bastardkb_dilemma_3x5_2_splinky) || defined (KEYBOARD_bastardkb_dilemma_3x5_2_assembled)
+#    include "3x5_2.h"
+#elif defined(KEYBOARD_bastardkb_dilemma_3x5_3)
+#    include "3x5_3.h"
+#else
+#    error "Unsuported format"
+#endif
 // clang-format on
+
+#include "quantum.h"
 
 #ifdef POINTING_DEVICE_ENABLE
 #    ifndef NO_DILEMMA_KEYCODES
 enum dilemma_keycodes {
-#        ifdef VIA_ENABLE
-    POINTER_DEFAULT_DPI_FORWARD = USER00,
-#        else
-    POINTER_DEFAULT_DPI_FORWARD = SAFE_RANGE,
-#        endif // VIA_ENABLE
+    POINTER_DEFAULT_DPI_FORWARD = QK_KB_0,
     POINTER_DEFAULT_DPI_REVERSE,
     POINTER_SNIPING_DPI_FORWARD,
     POINTER_SNIPING_DPI_REVERSE,
@@ -53,7 +40,6 @@ enum dilemma_keycodes {
     SNIPING_MODE_TOGGLE,
     DRAGSCROLL_MODE,
     DRAGSCROLL_MODE_TOGGLE,
-    DILEMMA_SAFE_RANGE,
 };
 
 #        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD

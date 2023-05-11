@@ -25,6 +25,11 @@
         "pid": "0x4564",
         "vid": "0xA059"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D5", "pin_b": "B7", "resolution": 2}
+        ]
+    },
     "layouts": {
         "LAYOUT_2u_single_space": {
             "layout": [

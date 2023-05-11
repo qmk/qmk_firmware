@@ -1,0 +1,23 @@
+//KOL -> name, mod_mask, keycode, sendkeycode, layer to apply.
+
+// // these are actually handled by alt_local_keys, in a more universal
+// // and adaptable way.
+// KOL(slash_pipe,      MOD_MASK_SHIFT, KC_SLSH, KC_PIPE, _DVORAK_EN)
+
+// this one is interesting.
+KOL(slash_backslash, MOD_MASK_ALT,   KC_SLSH, KC_BSLS, _DVORAK_EN)
+
+// KOL(N2_dot,          MOD_MASK_SHIFT, KC_2,    KC_DOT,   _KEYPAD_EN)
+// KOL(N3_comma,        MOD_MASK_SHIFT, KC_3,    KC_COMMA, _KEYPAD_EN)
+
+// KOL(hash_at,         MOD_MASK_SHIFT, KC_HASH,    KC_AT,          _CDH)
+// KOL(dot_colon,       MOD_MASK_SHIFT, KC_DOT,     KC_COLN,        _CDH)
+// KOL(comma_semicolon, MOD_MASK_SHIFT, KC_COMMA,   KC_SCLN,        _CDH)
+// KOL(space_unds,      MOD_MASK_SHIFT, KC_SPACE,   KC_UNDS,        _CDH)
+// KOL(mins_exlm,       MOD_MASK_SHIFT, KC_MINS,    KC_EXLM,        _CDH)
+
+// KOL(bspc_del,        MOD_MASK_SHIFT, KC_BSPC,    KC_DEL,         _NAV)
+
+// KOL(zero_degree,     MOD_MASK_SHIFT, KC_0,       DEGREE,         _KEYPAD_EN)
+
+// KOL(eur_pnd,         MOD_MASK_SHIFT, KC_EUR,     KC_PND,         _SYMB_EN)

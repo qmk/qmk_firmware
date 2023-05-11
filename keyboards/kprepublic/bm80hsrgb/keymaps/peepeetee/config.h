@@ -29,7 +29,7 @@
 // #define TAPPING_TOGGLE 2            // How many taps before triggering the toggle
 // #define PERMISSIVE_HOLD             // Makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the TAPPING_TERM. See Permissive Hold for details
 // #define IGNORE_MOD_TAP_INTERRUPT    // Makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the TAPPING_TERM for both keys. See Mod tap interrupt for details
-// #define TAPPING_FORCE_HOLD          // Makes it possible to use a dual role key as modifier shortly after having been tapped. See Hold after tap. Breaks any Tap Toggle functionality (TT or the One Shot Tap Toggle)
+// #define QUICK_TAP_TERM 0          // Makes it possible to use a dual role key as modifier shortly after having been tapped. See Hold after tap. Breaks any Tap Toggle functionality (TT or the One Shot Tap Toggle)
 // #define LEADER_TIMEOUT 300          // How long before the leader key times out. If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the LEADER_PER_KEY_TIMING option, which resets the timeout after each key is tapped.
 // #define LEADER_PER_KEY_TIMING       // Sets the timer for leader key chords to run on each key press rather than overall
 // #define LEADER_KEY_STRICT_KEY_PROCESSING    // Disables keycode filtering for Mod-Tap and Layer-Tap keycodes. Eg, if you enable this, you would need to specify MT(MOD_CTL, KC_A) if you want to use KC_A.
@@ -43,7 +43,7 @@
 // #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #define RGB_MATRIX_KEYPRESSES         // reacts to keypresses
 // #define RGB_MATRIX_KEYRELEASES        // reacts to keyreleases (instead of keypresses)
-// #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS // Sets the default mode, if none has been set
+// #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_ALPHAS_MODS // Sets the default mode, if none has been set
 // #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
 // #define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)

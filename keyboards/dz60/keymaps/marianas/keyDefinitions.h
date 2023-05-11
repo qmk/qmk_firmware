@@ -39,11 +39,11 @@
 
 //Modifiers
 #define CTLL KC_LCTL
-#define LEFTSHFT KC_LSPO
+#define LEFTSHFT SC_LSPO
 #define WINL KC_LGUI
 #define ALTL KC_LALT
 #define CTLR KC_RCTL
-#define RIGHT_SHIFT__PAREN KC_RSPC
+#define RIGHT_SHIFT__PAREN SC_RSPC
 #define WINR KC_RGUI
 #define ALTR KC_RALT
 #define APPR KC_APP

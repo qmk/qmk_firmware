@@ -266,16 +266,20 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
         case QK_MODS ... QK_MODS_MAX:
             break;
         // TO((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
-        case QK_TO ... QK_TO_MAX: // same proccessing as next
+        case QK_TO ... QK_TO_MAX:
+            if (QK_TO_GET_LAYER(keycode) == (AUTO_MOUSE_TARGET_LAYER)) {
+                if (!(record->event.pressed)) auto_mouse_toggle();
+            }
+            break;
         // TG((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
         case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
-            if ((keycode & 0xff) == (AUTO_MOUSE_TARGET_LAYER)) {
+            if (QK_TOGGLE_LAYER_GET_LAYER(keycode) == (AUTO_MOUSE_TARGET_LAYER)) {
                 if (!(record->event.pressed)) auto_mouse_toggle();
             }
             break;
         // MO((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
-            if ((keycode & 0xff) == (AUTO_MOUSE_TARGET_LAYER)) {
+            if (QK_MOMENTARY_GET_LAYER(keycode) == (AUTO_MOUSE_TARGET_LAYER)) {
                 auto_mouse_keyevent(record->event.pressed);
             }
         // DF ---------------------------------------------------------------------------------------------------------
@@ -288,14 +292,14 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
             break;
         // LM((AUTO_MOUSE_TARGET_LAYER), mod)--------------------------------------------------------------------------
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
-            if (((keycode >> 8) & 0x0f) == (AUTO_MOUSE_TARGET_LAYER)) {
+            if (QK_LAYER_MOD_GET_LAYER(keycode) == (AUTO_MOUSE_TARGET_LAYER)) {
                 auto_mouse_keyevent(record->event.pressed);
             }
             break;
             // TT((AUTO_MOUSE_TARGET_LAYER))---------------------------------------------------------------------------
 #    ifndef NO_ACTION_TAPPING
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
-            if ((keycode & 0xff) == (AUTO_MOUSE_TARGET_LAYER)) {
+            if (QK_LAYER_TAP_TOGGLE_GET_LAYER(keycode) == (AUTO_MOUSE_TARGET_LAYER)) {
                 auto_mouse_keyevent(record->event.pressed);
 #        if TAPPING_TOGGLE != 0
                 if (record->tap.count == TAPPING_TOGGLE) {
@@ -312,7 +316,7 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
         // LT((AUTO_MOUSE_TARGET_LAYER), kc)---------------------------------------------------------------------------
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
             if (!record->tap.count) {
-                if (((keycode >> 8) & 0x0f) == (AUTO_MOUSE_TARGET_LAYER)) {
+                if (QK_LAYER_TAP_GET_LAYER(keycode) == (AUTO_MOUSE_TARGET_LAYER)) {
                     auto_mouse_keyevent(record->event.pressed);
                 }
                 break;

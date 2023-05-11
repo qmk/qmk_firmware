@@ -1,103 +1,163 @@
+/*
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ Copied from here: https://github.com/e3w2q/qmk_firmware/blob/762fe3e0a7cbea768245a75520f06ff5a2f00b9f/keyboards/2x3test/matrix.c
+*/
+
+/*
+ * scan matrix
+ */
 #include <stdint.h>
 #include <stdbool.h>
+#include "wait.h"
+#include "util.h"
+#include "matrix.h"
+#include "config.h"
 #include "quantum.h"
-#include QMK_KEYBOARD_H
-#include "i2c_master.h"
-#include <print.h>
+#include "debounce.h"
+#include "encoder.h"
+#include "print.h"
 
+// How long the scanning code waits for changed io to settle.
+#define MATRIX_IO_DELAY 60
 
-bool i2c_initialized = 0;
-i2c_status_t i2c_status;
-#define LED_COUNT 4
-const uint8_t leds[LED_COUNT] = {GP7,GP8,GP15,GP14};
-bool led_status[LED_COUNT] = {true,true,true,true};
-uint8_t _buf;
+#define COL_SHIFTER ((uint16_t)1)
 
- /* matrix state(1:on, 0:off) */
- //static matrix_row_t matrix[MATRIX_ROWS];  // debounced values
+static const pin_t row_pins[] = MATRIX_ROW_PINS;
+static const pin_t col_pins[] = MATRIX_COL_PINS;
+static matrix_row_t previous_matrix[MATRIX_ROWS];
 
-// The PCF857 addresses are explained on page 9 here:
-// https://www.ti.com/lit/ds/symlink/pcf8574.pdf
-// On the Cheapino, A0-A2 are grounded for a 0 value
-// In arduino, PCF857 address is 0x20, but thats without
-// the read/write bit at the end, so including that(unset)
-// the address is here 0x20 << 1 = 0b01000000
-//uint16_t i2c_timeout = 1250;
-#define I2C_ADDR       0b01000000
-#define I2C_ADDR_WRITE 0b01000000
-#define I2C_ADDR_READ  0b01000001
-//#define I2C_TIMEOUT 1000
+static void select_row(uint8_t row) {
+    setPinOutput(row_pins[row]);
+    writePinLow(row_pins[row]);
+}
 
-void toggle_leds(void) {
-    for (int i = 0; i < LED_COUNT; i++)
-    {
-        writePin(leds[i], led_status[i] ? 1 : 0);
+static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
+
+static void unselect_rows(void) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        setPinInputHigh(row_pins[x]);
     }
 }
+
+static void select_col(uint8_t col) {
+    setPinOutput(col_pins[col]);
+    writePinLow(col_pins[col]);
+}
+
+static void unselect_col(uint8_t col) {
+    setPinInputHigh(col_pins[col]);
+}
+
+static void unselect_cols(void) {
+    for (uint8_t x = 0; x < MATRIX_COLS/2; x++) {
+        setPinInputHigh(col_pins[x*2]);
+    }
+}
+
+static void read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    // Select row and wait for row selection to stabilize
+    select_row(current_row);
+    wait_us(MATRIX_IO_DELAY);
+
+    // For each col...
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS / 2; col_index++) {
+        uint16_t column_index_bitmask = COL_SHIFTER << ((col_index * 2) + 1);
+        // Check row pin state
+        if (readPin(col_pins[col_index*2])) {
+            // Pin HI, clear col bit
+            current_matrix[current_row] &= ~column_index_bitmask;
+        } else {
+            // Pin LO, set col bit
+            current_matrix[current_row] |= column_index_bitmask;
+        }
+    }
+
+    // Unselect row
+    unselect_row(current_row);
+}
+
+static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
+    // Select col and wait for col selection to stabilize
+    select_col(current_col*2);
+    wait_us(MATRIX_IO_DELAY);
+
+    uint16_t column_index_bitmask = COL_SHIFTER << (current_col * 2);
+    // For each row...
+    for (uint8_t row_index = 0; row_index < MATRIX_ROWS-1; row_index++) {
+        // Check row pin state
+        if (readPin(row_pins[row_index])) {
+            // Pin HI, clear col bit
+            current_matrix[row_index] &= ~column_index_bitmask;
+        } else {
+            // Pin LO, set col bit
+            current_matrix[row_index] |= column_index_bitmask;
+        }
+    }
+    // Unselect col
+    unselect_col(current_col*2);
+}
+
+
 void matrix_init_custom(void) {
-     //setPinOutput(GP6);
-     //writePinHigh(GP6);
-     printf("Init Cheapino!\n");
-
-     if (i2c_initialized == 0) {
-         i2c_init();
-         i2c_initialized = true;
-         wait_ms(I2C_TIMEOUT);
-     }
-    for (int i=0; i<LED_COUNT; i++)
-    {
-        setPinOutput(leds[i]);
-    }
-    toggle_leds();
-         wait_ms(500);
-    for (int i=0; i<LED_COUNT; i++)
-    {
-        led_status[i] = false;
-        toggle_leds();
-        wait_ms(400);
-    }
-     matrix_init_user();
+    // initialize key pins
+    unselect_cols();
+    unselect_rows();
+    setPinInput(row_pins[MATRIX_ROWS-1]);
+    writePinHigh(row_pins[MATRIX_ROWS-1]);
+    debounce_init(MATRIX_ROWS);
 }
 
+void store_old_matrix(matrix_row_t current_matrix[]) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        previous_matrix[i] = current_matrix[i];
+    }
+}
+
+bool has_matrix_changed(matrix_row_t current_matrix[]) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        if (previous_matrix[i] != current_matrix[i]) return true;
+    }
+    return false;
+}
+
+// OK, this is nasty, still not sure why its happening, but
+// this 3 key combo leads to ghosting of the 4th(the one missing from correct)
+static const uint16_t ghost1_row2 =           0B0000010000100000;
+static const uint16_t ghost1_row3 =           0B0000100000100000;
+static const matrix_row_t ghost1_row3_correct = 0B0000000000010000;
+
+void fix_ghosting_issue(matrix_row_t current_matrix[]) {
+    if (current_matrix[1] & ghost1_row2 && current_matrix[2] & ghost1_row3) {
+        current_matrix[2] = ghost1_row3_correct;
+    }
+}
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-    bool changed = false;
-    printf("Scan Cheapino!");
+    store_old_matrix(current_matrix);
+    // Set row, read cols
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS-1; current_row++) {
+        read_cols_on_row(current_matrix, current_row);
+    }
+    // Set col, read rows
+    for (uint8_t current_col = 0; current_col < MATRIX_COLS/2; current_col++) {
+        read_rows_on_col(current_matrix, current_col);
+    }
 
-    //i2c_status = i2c_start(I2C_ADDR_WRITE);
-    //led_status[0] = i2c_status == I2C_STATUS_SUCCESS;
-    // Set col0 pin high
-    _buf = 0b11111110;
-    uint8_t buf[]   = {0b11111110};
-    i2c_status = i2c_transmit(I2C_ADDR_WRITE, buf, sizeof(buf), 200);
-    //led_status[0] = i2c_status == I2C_STATUS_SUCCESS;
-    //i2c_stop();
-    toggle_leds();
-    // Read if row 0 or row 1 are high
-    //i2c_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);
-    i2c_status = i2c_receive(I2C_ADDR_READ, &_buf, 1, I2C_TIMEOUT);
-    //toggle_leds();
-    //led_status[1] = i2c_status == I2C_STATUS_SUCCESS;
-    led_status[0] = ! (_buf & 0b00000010);
-    led_status[1] = ! (_buf & 0b00001000);
+    fix_ghosting_issue(current_matrix);
 
-    // Set col1 pin high
-    _buf = 0b11111011;
-    i2c_status = i2c_transmit(I2C_ADDR_WRITE, &_buf, 1, I2C_TIMEOUT);
-    //led_status[2] = i2c_status == I2C_STATUS_SUCCESS;
-    //toggle_leds();
-    // Read if row 0 or row 1 are high
-    i2c_status = i2c_receive(I2C_ADDR_READ, &_buf, 1, I2C_TIMEOUT);
-    //led_status[3] = i2c_status == I2C_STATUS_SUCCESS;
-    //i2c_stop();
-    led_status[2] = ! (_buf & 0b00000010);
-    led_status[3] = ! (_buf & 0b00001000);
+    fix_encoder_action(current_matrix);
 
-    // update leds
-    toggle_leds();
-
-    return changed;
- }
-
-
+    return has_matrix_changed(current_matrix);
+}
 

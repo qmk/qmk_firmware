@@ -8,6 +8,13 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B6",
+        "num_lock": "B4",
+        "scroll_lock": "B5"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "layouts":
     {
         "LAYOUT":

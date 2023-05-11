@@ -8,6 +8,8 @@
         "pid": "0x0020",
         "device_version": "0.0.1"
     },
+    "processor": "at90usb646",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_tkl_all": {
             "layout": [

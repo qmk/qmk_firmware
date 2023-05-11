@@ -4,7 +4,7 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Thomas Haukland](https://github.com/Thomas Haukland)
+* Keyboard Maintainer: [Thomas Haukland](https://github.com/tompi)
 * Hardware Supported: *The PCBs, controllers supported*
 * Hardware Availability: *Links to where you can find this hardware*
 

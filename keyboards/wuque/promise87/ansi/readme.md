@@ -1,11 +1,13 @@
 # promise87
 
-More Info at [promise87](https://shop.wuquestudio.com/)
+![Promise87](https://i.imgur.com/0gtouZ2.png)
+
+More Info at [promise87](https://promisetkl.com/)
 ​
 
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
 * Hardware Supported: promise 87
-* Hardware Availability: [promise87](https://shop.wuquestudio.com/)  
+* Hardware Availability: [promise87](https://promisetkl.com/)  
 ​
 
 Make example for this keyboard (after setting up your build environment):  

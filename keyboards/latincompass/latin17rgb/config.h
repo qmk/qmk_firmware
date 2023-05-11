@@ -17,11 +17,6 @@
 #pragma once
 
 /* USB Device descriptor parameter */
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
 
 /*
  * Keyboard Matrix Assignments
@@ -38,9 +33,6 @@
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
@@ -113,7 +105,16 @@
 #endif
 #define RGB_DI_PIN B7
 #ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 8
 #define RGBLIGHT_HUE_STEP 5
 #define RGBLIGHT_SAT_STEP 5

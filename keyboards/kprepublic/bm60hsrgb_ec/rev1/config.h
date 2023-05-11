@@ -16,15 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-#define ENCODERS_PAD_A { F6 }
-#define ENCODERS_PAD_B { F5 }
-#define ENCODER_RESOLUTION 2
-
 /*
  * Keyboard Matrix Assignments
  *

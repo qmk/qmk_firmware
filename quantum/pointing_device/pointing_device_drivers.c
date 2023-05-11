@@ -123,9 +123,11 @@ bool auto_mouse_activation(report_mouse_t mouse_report) {
 #        endif
 
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
+    uint16_t          scale     = cirque_pinnacle_get_scale();
     pinnacle_data_t   touchData = cirque_pinnacle_read_data();
     mouse_xy_report_t report_x = 0, report_y = 0;
-    static uint16_t   x = 0, y = 0;
+    static uint16_t   x = 0, y = 0, last_scale = 0;
+
 #        if defined(CIRQUE_PINNACLE_TAP_ENABLE)
     mouse_report.buttons        = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
 #        endif
@@ -157,15 +159,16 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
 #        endif
 
     // Scale coordinates to arbitrary X, Y resolution
-    cirque_pinnacle_scale_data(&touchData, cirque_pinnacle_get_scale(), cirque_pinnacle_get_scale());
+    cirque_pinnacle_scale_data(&touchData, scale, scale);
 
     if (!cirque_pinnacle_gestures(&mouse_report, touchData)) {
-        if (x && y && touchData.xValue && touchData.yValue) {
+        if (last_scale && scale == last_scale && x && y && touchData.xValue && touchData.yValue) {
             report_x = CONSTRAIN_HID_XY((int16_t)(touchData.xValue - x));
             report_y = CONSTRAIN_HID_XY((int16_t)(touchData.yValue - y));
         }
-        x = touchData.xValue;
-        y = touchData.yValue;
+        x          = touchData.xValue;
+        y          = touchData.yValue;
+        last_scale = scale;
 
 #        ifdef POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE
         if (cursor_glide_enable) {

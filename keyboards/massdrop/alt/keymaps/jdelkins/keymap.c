@@ -42,10 +42,10 @@ enum alt_keycodes {
 
 int ctl_state = 0;
 
-void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_finished(tap_dance_state_t *state, void *user_data) {
     ctl_state = cur_dance(state);
     switch(ctl_state) {
-        case SINGLE_TAP:    qk_leader_start(); break;
+        case SINGLE_TAP:    leader_start(); break;
         case SINGLE_HOLD:   register_code(KC_LCTL); break;
         case DOUBLE_TAP:    tap_code(KC_RCTL); break;
         case DOUBLE_HOLD:   register_code(KC_RCTL); break;
@@ -54,7 +54,7 @@ void ctl_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_reset(tap_dance_state_t *state, void *user_data) {
     switch(ctl_state) {
         case SINGLE_HOLD:   unregister_code(KC_LCTL); break;
         case DOUBLE_HOLD:
@@ -63,7 +63,7 @@ void ctl_reset(qk_tap_dance_state_t *state, void *user_data) {
     ctl_state = 0;
 }
 
-void g_finished(qk_tap_dance_state_t *state, void *user_data) {
+void g_finished(tap_dance_state_t *state, void *user_data) {
     switch (cur_dance(state)) {
         case SINGLE_TAP:
             tap_code16(C(KC_END));
@@ -80,7 +80,7 @@ enum {
     TD_G,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LDCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_finished, ctl_reset),
     [TD_GUI]   = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_RGUI),
     [TD_G]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, g_finished, NULL),
@@ -90,7 +90,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[_LAYER_MAX][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,    KC_EQL,  KC_BSPC, KC_DEL,
+        QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,    KC_EQL,  KC_BSPC, KC_DEL,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,    KC_RBRC, KC_BSLS, KC_HOME,
         MY_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,    KC_ENT,           KC_PGUP,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,             KC_UP,   KC_PGDN,
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[_LAYER_MAX][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FUNC] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,    KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_DEL,  KC_INS,
-        _______, _______, FW_WRD,  KC_END,  _______, _______,  C(KC_INS),KC_PGUP, _______, _______, S(KC_INS),KC_SLCK, KC_PAUS, KC_CALC, KC_END,
+        _______, _______, FW_WRD,  KC_END,  _______, _______,  C(KC_INS),KC_PGUP, _______, _______, S(KC_INS),KC_SCRL, KC_PAUS, KC_CALC, KC_END,
         _______, KC_HOME, _______, KC_PGDN, _______, TD(TD_G), KC_LEFT,  KC_DOWN, KC_UP,   KC_RGHT, _______,  _______, _______,          _______,
         _______, _______, KC_DEL,  _______, _______, BK_WRD,   _______,  _______, _______, _______, _______,  _______,          KC_PGUP, _______,
         _______, _______, _______,                             _______,                             _______,  _______, KC_HOME, KC_PGDN, KC_END
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[_LAYER_MAX][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,        KC_F10,        KC_F11,  KC_F12,  KC_F13,  KC_INS,
-        _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______,      KC_PSCR,       KC_SLCK, KC_PAUS, KC_CALC, KC_END,
+        _______, RGB_SPD, RGB_VAI, RGB_SPI, RGB_HUI, RGB_SAI, _______, U_T_AUTO,U_T_AGCR,_______,      KC_PSCR,       KC_SCRL, KC_PAUS, KC_CALC, KC_END,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD, RGB_HUD, RGB_SAD, _______, _______, TG(_KP), OSL(_LAYERS), OSL(_SECRETS), _______, _______,          KC_MPLY,
         _______, RGB_TOG, KB_MAKE, KB_FLSH, KB_VRSN, KB_BOOT, NK_TOGG, DBG_TOG, _______, _______,      _______,       _______,          KC_VOLU, KC_MUTE,
         _______, _______, _______,                            _______,                                 _______,       _______, KC_MPRV, KC_VOLD, KC_MNXT
@@ -256,6 +256,54 @@ static void set_rgb_layer(int layer) {
     }
 }
 
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_K)) {
+        layer_invert(_KP);
+    }
+    if (leader_sequence_one_key(KC_G)) {
+        layer_invert(_GAME);
+    }
+    if (leader_sequence_one_key(KC_KP_5)) {
+        layer_invert(_KP);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_1)) {
+        send_secret_string(0);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_2)) {
+        send_secret_string(1);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_3)) {
+        send_secret_string(2);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_4)) {
+        send_secret_string(3);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_5)) {
+        send_secret_string(4);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_6)) {
+        send_secret_string(5);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_M)) {
+        send_secret_string(0);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_COMM)) {
+        send_secret_string(1);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_DOT)) {
+        send_secret_string(2);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_J)) {
+        send_secret_string(3);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_K)) {
+        send_secret_string(4);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_L)) {
+        send_secret_string(5);
+    }
+}
+
 // Runs just one time when the keyboard initializes.
 void matrix_init_keymap(void) {
     // force numlock on upon startup
@@ -263,8 +311,6 @@ void matrix_init_keymap(void) {
         tap_code(KC_NUM_LOCK);
     }
 };
-
-LEADER_EXTERNS();
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_keymap(void) {
@@ -281,56 +327,6 @@ void matrix_scan_keymap(void) {
             rgb_matrix_set_color(15, RGB_GOLD);
         else
             rgb_matrix_set_color(15, 0, 0, 0);
-    }
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(KC_K) {
-            layer_invert(_KP);
-        }
-        SEQ_ONE_KEY(KC_G) {
-            layer_invert(_GAME);
-        }
-        SEQ_ONE_KEY(KC_KP_5) {
-            layer_invert(_KP);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_1) {
-            send_secret_string(0);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_2) {
-            send_secret_string(1);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_3) {
-            send_secret_string(2);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_4) {
-            send_secret_string(3);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_5) {
-            send_secret_string(4);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_6) {
-            send_secret_string(5);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_M) {
-            send_secret_string(0);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_COMM) {
-            send_secret_string(1);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_DOT) {
-            send_secret_string(2);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_J) {
-            send_secret_string(3);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_K) {
-            send_secret_string(4);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_L) {
-            send_secret_string(5);
-        }
     }
 };
 
@@ -358,8 +354,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     rgb_matrix_enable_noeeprom();
 
     switch (keycode) {
-        // custom handle KC_GESC to emulate auto shift on it
-        case KC_GESC:
+        // custom handle QK_GESC to emulate auto shift on it
+        case QK_GRAVE_ESCAPE:
 #ifdef AUTO_SHIFT_ENABLE
             if (get_autoshift_state()) {
                 static uint16_t gesc_timer;

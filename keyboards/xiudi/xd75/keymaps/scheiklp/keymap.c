@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_K,    KC_DOT,  KC_O,    KC_COMM,  N_Y,    DM_REC2,  DM_PLY2, KC_V,   KC_G,    KC_C,    KC_L,    N_SS,   N_Z,     KC_TRNS,
     MO(_3),  KC_H,    KC_A,    KC_E,    KC_I,     KC_U,   N_UNDO,   DM_RSTP, KC_D,   KC_T,    KC_R,    KC_N,    KC_S,   KC_F,    MO(_3),
     KC_LSFT, KC_X,    KC_Q,    N_AE,    N_UE,     N_OE,   N_COPY,   N_CUT,   KC_B,   KC_P,    KC_W,    KC_M,    KC_J,   KC_RSFT, KC_RSFT,
-    KC_LCTL, MO(_4),  KC_TRNS, KC_LGUI, KC_LALT,  KC_SPC, N_PASTE,  KC_SPC,  KC_SPC, MO(_4),  KC_RCTL, KC_TRNS, KC_TRNS,KC_LOCK, MO(_7)
+    KC_LCTL, MO(_4),  KC_TRNS, KC_LGUI, KC_LALT,  KC_SPC, N_PASTE,  KC_SPC,  KC_SPC, MO(_4),  KC_RCTL, KC_TRNS, KC_TRNS,QK_LOCK, MO(_7)
   ),
 
 /* Layer 3

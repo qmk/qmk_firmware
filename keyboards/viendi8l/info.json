@@ -8,6 +8,13 @@
         "pid": "0x0877",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B10", "pin_b": "B12", "resolution": 2}
+        ]
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

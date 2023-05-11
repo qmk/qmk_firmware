@@ -38,29 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT_jp(
         _______, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,
-        KC_CAPS, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP, _______,
+        KC_CAPS, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, KC_UP, _______,
         _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_PSCR, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_LEFT, KC_RGHT, _______, KC_PENT,
         _______, _______, _______, _______, _______, _______, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
-
-/*void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-	leading = false;
-	leader_end();
-
-	SEQ_ONE_KEY(KC_RSFT) {
-	  register_code(KC_S);
-	  unregister_code(KC_S);
-	}
-	SEQ_TWO_KEYS(KC_A, KC_S) {
-	  register_code(KC_H);
-	  unregister_code(KC_H);
-	}
-	SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
-	  register_code(KC_LGUI);
-	  register_code(KC_S);
-	  unregister_code(KC_S);
-	  unregister_code(KC_LGUI);
-	}
-  }
-}*/

@@ -11,14 +11,14 @@ corresponding input mode has to be set in QMK.
 
 Documentation: [Feature Unicode](https://beta.docs.qmk.fm/features/feature_unicode#input-modes)
 
-On this keymap the default unicode mode it's `UC_LNX`.
+On this keymap the default unicode mode it's `UNICODE_MODE_LINUX`.
 You can change it permanently tapping 2 times the KeyOne to select the next mode.
 
 ## Unicode Mode List
-- UC_LNX
-- UC_MAC
-- UC_WIN
-- UC_WINC
+- UNICODE_MODE_LINUX
+- UNICODE_MODE_MACOS
+- UNICODE_MODE_WINDOWS
+- UNICODE_MODE_WINCOMPOSE
 
 # Keymap
 To add more functionality to this Minimal Keyboard, 

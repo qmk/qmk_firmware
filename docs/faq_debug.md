@@ -4,7 +4,7 @@ This page details various common questions people have about troubleshooting the
 
 ## Debugging :id=debugging
 
-Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DEBUG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
+Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DB_TOGG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
 
 ```c
 void keyboard_post_init_user(void) {

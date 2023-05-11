@@ -3,6 +3,9 @@
 
 #include "drashna.h"
 #include "version.h"
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
+#endif
 
 uint16_t copy_paste_timer;
 bool     host_driver_disabled = false;
@@ -32,15 +35,6 @@ __attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t 
  * @return false Stop process keycode and do not send to host
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef ENCODER_ENABLE // some debouncing for weird issues
-    if (IS_ENCODEREVENT(record->event)) {
-        static bool ignore_first = true;
-        if (ignore_first) {
-            ignore_first = false;
-            return false;
-        }
-    }
-#endif
     // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %1d, time: %5u, int: %1d, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
@@ -195,6 +189,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         }
+        case OLED_LOCK: {
+#if defined(OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
+            extern bool is_oled_locked;
+            if (record->event.pressed) {
+                is_oled_locked = !is_oled_locked;
+                if (is_oled_locked) {
+                    oled_on();
+                }
+            }
+#endif
+        } break;
+#if defined(OS_DETECTION_ENABLE) && defined(OS_DETECTION_DEBUG_ENABLE)
+        case STORE_SETUPS:
+            if (record->event.pressed) {
+                store_setups_in_eeprom();
+            }
+            return false;
+        case PRINT_SETUPS:
+            if (record->event.pressed) {
+                print_stored_setups();
+            }
+            return false;
+#endif
     }
     return true;
 }

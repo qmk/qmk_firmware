@@ -21,8 +21,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [DVORAK] = LAYOUT_planck_grid(
     KC_ESC,  KC_QUOTE,  LT_7COM,  KC_DOT,  KC_P,  KC_Y,  KC_F,  KC_G,  KC_C,  KC_R,  KC_L,  KC_DELETE,
     KC_TAB,  LT_1A,  LT_2O,  LT_3E,  LT_4U,  KC_I,  KC_D,  KC_H,  KC_T,  KC_N,  KC_S,  KC_ENTER,
-    KC_LSHIFT,  KC_SCLN,  LT_5Q,   KC_J,   KC_K,  KC_X,   KC_B,   KC_M,   KC_W,  KC_V,  KC_Z,  KC_MINUS,
-    C(KC_LALT), LT_6CTL,  KC_MENU, KC_LALT,  KC_LGUI,  KC_BSPC,  KC_SPACE,  KC_RCTRL,  KC_LEFT,  KC_DOWN,  KC_UP, KC_RIGHT
+    KC_LSFT,  KC_SCLN,  LT_5Q,   KC_J,   KC_K,  KC_X,   KC_B,   KC_M,   KC_W,  KC_V,  KC_Z,  KC_MINUS,
+    C(KC_LALT), LT_6CTL,  KC_MENU, KC_LALT,  KC_LGUI,  KC_BSPC,  KC_SPACE,  KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_UP, KC_RIGHT
   ),
 
   [ARROW] = LAYOUT_planck_grid(

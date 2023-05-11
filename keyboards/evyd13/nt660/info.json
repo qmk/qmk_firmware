@@ -8,6 +8,17 @@
         "pid": "0x1F02",
         "device_version": "0.0.1"
     },
+    "qmk_lufa_bootloader": {
+        "esc_input": "B7",
+        "esc_output": "D6",
+        "led": "D0"
+    },
+    "indicators": {
+        "caps_lock": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "community_layouts": ["66_ansi", "66_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

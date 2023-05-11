@@ -26,7 +26,7 @@
 #undef USE_I2C
 #undef SSD1306OLED
 
-// #define TAPPING_FORCE_HOLD
+// #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM 100
 
 #ifdef RGBLIGHT_ENABLE
@@ -80,8 +80,13 @@
 #    define NO_MUSIC_MODE
 #endif
 
-#ifdef HAPTIC_ENABLE
-#    define SOLENOID_PIN B7
+#if defined(HAPTIC_ENABLE)
+#    if defined(CONVERT_TO_PROTON_C)
+#        define A13 PAL_LINE(GPIOA, 13)
+#        define SOLENOID_PIN A13
+#    else
+#        define SOLENOID_PIN B7
+#    endif
 #endif
 
 #undef PRODUCT

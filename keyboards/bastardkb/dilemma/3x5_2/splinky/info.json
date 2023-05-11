@@ -1,0 +1,8 @@
+{
+    "keyboard_name": "Dilemma (3x5+2) Splinky",
+    "split": {
+        "soft_serial_pin": "GP1"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040"
+}

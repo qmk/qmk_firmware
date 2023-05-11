@@ -128,10 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), MC(KC_W), KC_DELETE,    KC_APP
 ),
 [LY_1101] = LAYOUT_gunp(
-  SANDBOX,   XXXXXXX,    AU_TOG,       KC_LOCK,    RGB_TOG,       QK_BOOT,
-  KC_WAKE,   KC_CAPS,    USER_NAME,    USER_EMAIL, RGB_MOD,       DEBUG,
-  KC_SLEP,   KC_NLCK,    DM_REC1,      DM_PLY1,    XXXXXXX,       EEP_RST,
-  KC_PWR,    KC_SLCK,    DM_REC2,      DM_PLY2,    DM_RSTP,       KC_INSERT
+  SANDBOX,   XXXXXXX,    AU_TOGG,      QK_LOCK,    RGB_TOG,       QK_BOOT,
+  KC_WAKE,   KC_CAPS,    USER_NAME,    USER_EMAIL, RGB_MOD,       DB_TOGG,
+  KC_SLEP,   KC_NUM,     DM_REC1,      DM_PLY1,    XXXXXXX,       EE_CLR,
+  KC_PWR,    KC_SCRL,    DM_REC2,      DM_PLY2,    DM_RSTP,       KC_INSERT
 ),
 [LY_1111] = LAYOUT_gunp(
   KC_ACL1,   KC_ACL0,    KC_WH_L,      KC_MS_U,    KC_WH_R,       KC_WH_U,
@@ -293,13 +293,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 #endif
 
-void startup_user() {
+void startup_user(void) {
 #ifdef AUDIO_ENABLE
   PLAY_SONG(tone_startup);
 #endif
 }
 
-void shutdown_user() {
+void shutdown_user(void) {
 #ifdef AUDIO_ENABLE
   PLAY_SONG(tone_goodbye);
   stop_all_notes();

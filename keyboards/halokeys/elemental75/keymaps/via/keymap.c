@@ -32,7 +32,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_cln_finished(tap_dance_state_t *state, void *user_data) {
    uprintf("Tap Dance count: %u", state->count);
     if (state->count == 1) {
         tap_code(KC_MPLY);
@@ -44,7 +44,7 @@ void dance_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 /* All tap dance functions would go here. Only showing this one. */
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_PLAY_FORWARD_BACK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, NULL),
 };
 

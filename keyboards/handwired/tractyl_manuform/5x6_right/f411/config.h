@@ -53,7 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_PWM_DRIVER   PWMD3
 #define AUDIO_PWM_CHANNEL  4
 #define AUDIO_PWM_PAL_MODE 2
-#define AUDIO_STATE_TIMER  GPTD4
 
 /* serial.c configuration for split keyboard */
 #define SERIAL_USART_FULL_DUPLEX  // Enable full duplex operation mode.
@@ -76,12 +75,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SDA_PAL_MODE 4
 #define I2C1_CLOCK_SPEED  400000
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_16_9
-
-/* encoder config */
-#define ENCODERS_PAD_A \
-    { A13 }
-#define ENCODERS_PAD_B \
-    { A14 }
 
 /* spi config for eeprom and pmw3360 sensor */
 #define SPI_DRIVER                           SPID1

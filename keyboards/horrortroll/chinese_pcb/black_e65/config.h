@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,36 +16,16 @@
 
 #pragma once
 
-#include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* key matrix pins */
+/* Key matrix pins */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, B7 }
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D5, D4, D6, D7, B4, F7, F6, F5, F4, F1, F0 }
-
-#define BOOTMAGIC_LITE_ROW 3
-#define BOOTMAGIC_LITE_COLUMN 6
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
-
-/* LED Indicator */
-#define LED_CAPS_LOCK_PIN C7
-
-#ifdef BACKLIGHT_ENABLE
-    /* Backlight config */
-    #define BACKLIGHT_PIN B6
-    #define BACKLIGHT_LEVELS 6
-#endif
 
 #ifdef RGBLIGHT_ENABLE
     /* RGB Lighting config */

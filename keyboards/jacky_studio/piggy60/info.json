@@ -36,7 +36,16 @@
         "led_count": 14,
         "pin": "E2",
         "animations": {
-               "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         },
         "sleep": true,
         "max_brightness": 255

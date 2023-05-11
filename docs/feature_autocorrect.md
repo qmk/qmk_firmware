@@ -22,7 +22,7 @@ AUTOCORRECT_ENABLE = yes
 
 Additionally, you will need a library for autocorrection.  A small sample library is included by default, so that you can get up and running right away, but you can provide a customized library.
 
-By default, autocorrect is disabled.  To enable it, you need to use the `AUTOCORRECT_TOGGLE` keycode to enable it. The status is stored in persistent memory, so you shouldn't need to enabled it again.
+By default, autocorrect is disabled.  To enable it, you need to use the `AC_TOGG` keycode to enable it. The status is stored in persistent memory, so you shouldn't need to enabled it again.
 
 ## Customizing autocorrect library :id=customizing-autocorrect-library
 
@@ -86,7 +86,7 @@ The `qmk generate-autocorrect-data` commands can make an effort to check for ent
 
 ## Overriding Autocorrect
 
-Occasionally you might actually want to type a typo (for instance, while editing autocorrection_dict.txt) without being autocorrected. There are a couple of ways to do this:
+Occasionally you might actually want to type a typo (for instance, while editing autocorrect_dict.txt) without being autocorrected. There are a couple of ways to do this:
 
 1. Begin typing the typo.
 2. Before typing the last letter, press and release the Ctrl or Alt key.
@@ -94,15 +94,15 @@ Occasionally you might actually want to type a typo (for instance, while editing
 
 This works because the autocorrection implementation doesn’t understand hotkeys, so it resets itself whenever a modifier other than shift is held.
 
-Additionally, you can use the `AUTOCORRECT_TOGGLE` keycode to toggle the on/off status for Autocorrect.
+Additionally, you can use the `AC_TOGG` keycode to toggle the on/off status for Autocorrect.
 
 ### Keycodes :id=keycodes
 
-|Keycode              | Short keycode | Description                                    |
-|---------------------|---------------|------------------------------------------------|
-|`AUTOCORRECT_ON`     | `CRT_ON`      | Turns on the Autocorrect feature.              |
-|`AUTOCORRECT_OFF`    | `CRT_OFF`     | Turns off the Autocorrect feature.             |
-|`AUTOCORRECT_TOGGLE` | `CRT_TOG`     | Toggles the status of the Autocorrect feature. |
+|Keycode                |Aliases  |Description                                   |
+|-----------------------|---------|----------------------------------------------|
+|`QK_AUTOCORRECT_ON`    |`AC_ON`  |Turns on the Autocorrect feature.             |
+|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
+|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
 
 ## User Callback Functions
 
@@ -238,13 +238,13 @@ bool apply_autocorrect(uint8_t backspaces, const char *str) {
 
 ## Appendix: Trie binary data format :id=appendix
 
-This section details how the trie is serialized to byte data in autocorrection_data. You don’t need to care about this to use this autocorrection implementation. But it is documented for the record in case anyone is interested in modifying the implementation, or just curious how it works.
+This section details how the trie is serialized to byte data in autocorrect_data. You don’t need to care about this to use this autocorrection implementation. But it is documented for the record in case anyone is interested in modifying the implementation, or just curious how it works.
 
 What I did here is fairly arbitrary, but it is simple to decode and gets the job done.
 
 ### Encoding :id=encoding
 
-All autocorrection data is stored in a single flat array autocorrection_data. Each trie node is associated with a byte offset into this array, where data for that node is encoded, beginning with root at offset 0. There are three kinds of nodes. The highest two bits of the first byte of the node indicate what kind:
+All autocorrection data is stored in a single flat array autocorrect_data. Each trie node is associated with a byte offset into this array, where data for that node is encoded, beginning with root at offset 0. There are three kinds of nodes. The highest two bits of the first byte of the node indicate what kind:
 
 * 00 ⇒ chain node: a trie node with a single child.
 * 01 ⇒ branching node: a trie node with multiple children.

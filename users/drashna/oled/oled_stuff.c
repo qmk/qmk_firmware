@@ -25,7 +25,7 @@
 #endif
 #include <string.h>
 
-bool is_oled_enabled = true;
+bool is_oled_enabled = true, is_oled_locked = false;
 
 extern bool host_driver_disabled;
 
@@ -67,25 +67,29 @@ static const char PROGMEM code_to_name[256] = {
  * @param record keyrecord_t data structure
  */
 void add_keylog(uint16_t keycode, keyrecord_t *record) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
-        if (((keycode & 0xFF) == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
-            memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
-            return;
-        }
-        if (record->tap.count) {
-            keycode &= 0xFF;
-        } else if (keycode > 0xFF) {
-            return;
-        }
+    if (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) {
+        keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+    } else if (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) {
+        keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+    } else if (keycode >= QK_MODS && keycode <= QK_MODS_MAX) {
+        keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
     }
-    if (keycode > 0xFF) {
+
+    if ((keycode == KC_BSPC) && mod_config(get_mods() | get_oneshot_mods()) & MOD_MASK_CTRL) {
+        memset(keylog_str, ' ', OLED_KEYLOGGER_LENGTH);
+        keylog_str[OLED_KEYLOGGER_LENGTH-1] = 0x00;
+        return;
+    }
+    if (record->tap.count) {
+        keycode &= 0xFF;
+    } else if (keycode > 0xFF) {
         return;
     }
 
-    memmove(keylog_str, keylog_str + 1, OLED_KEYLOGGER_LENGTH - 1);
+    memmove(keylog_str, keylog_str + 1, OLED_KEYLOGGER_LENGTH - 2);
 
     if (keycode < ARRAY_SIZE(code_to_name)) {
-        keylog_str[(OLED_KEYLOGGER_LENGTH - 1)] = pgm_read_byte(&code_to_name[keycode]);
+        keylog_str[(OLED_KEYLOGGER_LENGTH - 2)] = pgm_read_byte(&code_to_name[keycode]);
     }
 
     log_timer = timer_read();
@@ -375,14 +379,14 @@ void render_mod_status(uint8_t modifiers, uint8_t col, uint8_t line) {
 #endif
     oled_write_P(PSTR(OLED_RENDER_MODS_NAME), false);
 #if defined(OLED_DISPLAY_VERBOSE)
-    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_LSHIFT)));
+    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_LSFT)));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_LGUI)));
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_LALT)));
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_LCTL)));
     oled_write_P(mod_status[1], (modifiers & MOD_BIT(KC_RCTL)));
     oled_write_P(mod_status[2], (modifiers & MOD_BIT(KC_RALT)));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_BIT(KC_RGUI)));
-    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_RSHIFT)));
+    oled_write_P(mod_status[0], (modifiers & MOD_BIT(KC_RSFT)));
 #else
     oled_write_P(mod_status[0], (modifiers & MOD_MASK_SHIFT));
     oled_write_P(mod_status[!keymap_config.swap_lctl_lgui ? 3 : 4], (modifiers & MOD_MASK_GUI));
@@ -426,13 +430,14 @@ void render_bootmagic_status(uint8_t col, uint8_t line) {
         oled_write_P(logo[0][0], !is_bootmagic_on);
     }
 #ifndef OLED_DISPLAY_VERBOSE
+    oled_write_P(PSTR(" "), false);
     oled_write_P(logo[1][1], is_bootmagic_on);
     oled_write_P(logo[0][1], !is_bootmagic_on);
 #endif
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR(OLED_RENDER_BOOTMAGIC_NKRO), keymap_config.nkro);
     oled_write_P(PSTR(" "), false);
-#if defined(AUTOCORRECTION_ENABLE) || defined(AUTOCORRECT_ENABLE)
+#if defined(AUTOCORRECT_ENABLE)
     oled_write_P(PSTR("CRCT"), autocorrect_is_enabled());
     oled_write_P(PSTR(" "), false);
 #else
@@ -633,10 +638,10 @@ void render_pointing_dpi_status(uint16_t cpi, uint8_t padding, uint8_t col, uint
 #define OLED_KAKI_SPEED 40 // above this wpm value typing animation to triggere
 
 #define OLED_RTOGI_FRAMES 2
-//#define OLED_LTOGI_FRAMES 2
+// #define OLED_LTOGI_FRAMES 2
 
-//#define ANIM_FRAME_DURATION 500 // how long each frame lasts in ms
-// #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
+// #define ANIM_FRAME_DURATION 500 // how long each frame lasts in ms
+//  #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
 #define OLED_ANIM_SIZE 36
 #define OLED_ANIM_ROWS 4
 #define OLED_ANIM_MAX_FRAMES 3
@@ -730,35 +735,10 @@ void render_kitty(uint8_t col, uint8_t line) {
 }
 
 void render_unicode_mode(uint8_t col, uint8_t line) {
-#ifdef CUSTOM_UNICODE_ENABLE
+#if defined(CUSTOM_UNICODE_ENABLE) && defined(UNICODE_COMMON_ENABLE)
     oled_set_cursor(col, line);
-    oled_write_ln_P(PSTR("Unicode:"), false);
-    switch (typing_mode) {
-        case UCTM_WIDE:
-            oled_write_P(PSTR("        Wide"), false);
-            break;
-        case UCTM_SCRIPT:
-            oled_write_P(PSTR("      Script"), false);
-            break;
-        case UCTM_BLOCKS:
-            oled_write_P(PSTR("      Blocks"), false);
-            break;
-        case UCTM_REGIONAL:
-            oled_write_P(PSTR("    Regional"), false);
-            break;
-        case UCTM_AUSSIE:
-            oled_write_P(PSTR("      Aussie"), false);
-            break;
-        case UCTM_ZALGO:
-            oled_write_P(PSTR("       Zalgo"), false);
-            break;
-        case UCTM_NO_MODE:
-            oled_write_P(PSTR("      Normal"), false);
-            break;
-        default:
-            oled_write_P(PSTR("     Unknown"), false);
-            break;
-    }
+    oled_write_P(PSTR("Unicode:"), false);
+    oled_write_P(unicode_mode_str[unicode_typing_mode], false);
 #endif
 }
 
@@ -822,19 +802,6 @@ void render_mouse_mode(uint8_t col, uint8_t line) {
 }
 
 void render_status_right(void) {
-#if defined(KEYBOARD_handwired_tractyl_manuform)
-    oled_set_cursor(7, 0);
-    oled_write_P(PSTR("Manuform"), true);
-#elif defined(KEYBOARD_bastardkb_charybdis)
-    oled_set_cursor(6, 0);
-    oled_write_P(PSTR("Charybdis"), true);
-#elif defined(KEYBOARD_splitkb_kyria)
-    oled_set_cursor(8, 0);
-    oled_write_P(PSTR("Kyria"), true);
-#else
-    oled_set_cursor(8, 0);
-    oled_write_P(PSTR("Right"), true);
-#endif
 #if defined(OLED_DISPLAY_VERBOSE)
     render_default_layer_state(1, 1);
 #else
@@ -853,23 +820,6 @@ void render_status_right(void) {
 void render_status_left(void) {
 #if defined(OLED_DISPLAY_VERBOSE)
     render_kitty(0, 1);
-
-#    if defined(KEYBOARD_handwired_tractyl_manuform)
-    oled_set_cursor(7, 0);
-    oled_write_P(PSTR("Tractyl"), true);
-#    elif defined(KEYBOARD_bastardkb_charybdis)
-    oled_set_cursor(6, 0);
-    oled_write_P(PSTR("Charybdis"), true);
-#    elif defined(KEYBOARD_splitkb_kyria)
-    oled_set_cursor(7, 0);
-    oled_write_P(PSTR("SplitKB"), true);
-#    elif defined(KEYBOARD_handwired_fingerpunch_rockon)
-    oled_set_cursor(7, 0);
-    oled_write_P(PSTR("Rock On"), true);
-#    else
-    oled_set_cursor(8, 0);
-    oled_write_P(PSTR("Left"), true);
-#    endif
 
 #    if defined(WPM_ENABLE)
     render_wpm(1, 7, 1);
@@ -901,6 +851,11 @@ __attribute__((weak)) void oled_render_large_display(bool side) {
     if (!side) {
         render_unicode_mode(1, 14);
     }
+}
+
+__attribute__((weak)) void render_oled_title(bool side) {
+    oled_write_P(side ? PSTR("     Left    ") : PSTR("    Right    "), true);
+    // oled_write_P(PSTR(    "1234567890123"         "1234567890123"), true);
 }
 
 __attribute__((weak)) oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
@@ -944,6 +899,9 @@ bool oled_task_user(void) {
         //         0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  3,  7, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,  7,  3,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,  0
     };
     oled_write_raw_P(header_image, sizeof(header_image));
+
+    oled_set_cursor(4, 0);
+    render_oled_title(is_keyboard_left());
 #endif
 
 #ifndef OLED_DISPLAY_TEST
@@ -986,6 +944,6 @@ bool oled_task_user(void) {
 
 extern bool oled_initialized;
 
-__attribute__((weak)) void matrix_scan_oled(void) {
-    is_oled_enabled = !(timer_elapsed32(oled_timer) > 60000);
+__attribute__((weak)) void housekeeping_task_oled(void) {
+    is_oled_enabled = is_oled_locked ? true : !(timer_elapsed32(oled_timer) > 60000);
 }

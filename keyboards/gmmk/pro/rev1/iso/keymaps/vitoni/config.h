@@ -4,7 +4,7 @@
 #pragma once
 
 #if defined(RGB_MATRIX_ENABLE)
-    #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
      // number of milliseconds to wait until turning off RGB automatically
     #define RGB_MATRIX_TIMEOUT 300000 // 300 seconds / 5 min
     // start fading out before getting disabled

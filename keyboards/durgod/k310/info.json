@@ -8,6 +8,7 @@
       "pid": "0x3100",
       "device_version": "0.0.1"
   },
+  "community_layouts": ["fullsize_ansi", "fullsize_iso"],
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [

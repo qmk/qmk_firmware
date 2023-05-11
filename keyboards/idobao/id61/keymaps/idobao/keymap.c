@@ -26,9 +26,7 @@ enum {
 };
 
 enum {
-    KC_MCON = USER00,  // macOS Open Mission Control
-    KC_LPAD,           // macOS Open Launchpad
-    KB_ARRW,           // toggle right modifiers are arrows feature
+    KB_ARRW = QK_KB_0,  // toggle right modifiers are arrows feature
     KB_RSFT,           // right shift or up arrow
     KB_RALT,           // right alt or left arrow
     KB_RAPP,           // menu or down arrow (Windows Menu)
@@ -36,11 +34,6 @@ enum {
     KB_ROPT,           // right alt or down arrow (macOS Option)
     KB_RCTL,           // right ctrl ot right arrow
     KB_VRSN            // debug, type version
-};
-
-enum macos_consumer_usages {
-    _AC_SHOW_ALL_WINDOWS = 0x29F,  // mapped to KC_MCON
-    _AC_SHOW_ALL_APPS    = 0x2A0   // mapped to KC_LPAD
 };
 
 /* Special Keys */
@@ -63,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
      */
     [_BASE] = LAYOUT_60_ansi(
-        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS, KC_EQL,  KC_BSPC,
+        QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS, KC_EQL,  KC_BSPC,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC, KC_RBRC, KC_BSLS,
         SK_LT1C, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_QUOT, KC_ENT,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_SLSH, KB_RSFT,
@@ -303,23 +296,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!record->event.pressed) {
                     SEND_STRING(QMK_KEYBOARD ":" QMK_KEYMAP " (v" QMK_VERSION ")");
                 }
-            }
-            return false;
-
-        // @see: https://github.com/qmk/qmk_firmware/issues/10111#issuecomment-752300353
-        case KC_MCON:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_WINDOWS);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-
-        case KC_LPAD:
-            if (record->event.pressed) {
-                host_consumer_send(_AC_SHOW_ALL_APPS);
-            } else {
-                host_consumer_send(0);
             }
             return false;
 

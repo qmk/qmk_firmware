@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "pointing.h"
+#include "math.h"
 
 static uint16_t mouse_debounce_timer = 0;
 bool            enable_acceleration  = false;
@@ -38,8 +39,10 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         oled_timer_reset();
 #endif
         if (enable_acceleration) {
-            x = (mouse_xy_report_t)(x > 0 ? x * x / 16 + x : -x * x / 16 + x);
-            y = (mouse_xy_report_t)(y > 0 ? y * y / 16 + y : -y * y / 16 + y);
+            x = (mouse_xy_report_t)(x > 0 ? pow(4, x) / 2 + x : -pow(4, abs(x)) / 2 + x);
+            y = (mouse_xy_report_t)(y > 0 ? pow(5, y) / 2 + y : -pow(5, abs(y)) / 2 + y);
+//            x = (mouse_xy_report_t)(x > 0 ? x * x / 16 + x : -x * x / 16 + x);
+//            y = (mouse_xy_report_t)(y > 0 ? y * y / 16 + y : -y * y / 16 + y);
         }
         mouse_report.x = x;
         mouse_report.y = y;
@@ -81,10 +84,8 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
 #    if defined(KEYBOARD_ploopy)
         case DPI_CONFIG:
-#    elif (defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform)) && !defined(NO_CHARYBDIS_KEYCODES)
-        case SAFE_RANGE ...(CHARYBDIS_SAFE_RANGE - 1):
-#    elif (defined(KEYBOARD_bastardkb_dilemma) && !defined(NO_DILEMMA_KEYCODES))
-        case SAFE_RANGE ...(DILEMMA_SAFE_RANGE - 1):
+#    elif (defined(KEYBOARD_bastardkb_charybdis) || defined(KEYBOARD_handwired_tractyl_manuform)) && !defined(NO_CHARYBDIS_KEYCODES) || (defined(KEYBOARD_bastardkb_dilemma) && !defined(NO_DILEMMA_KEYCODES))
+        case QK_KB ... QK_KB_MAX:
 #    endif
         case KC_ACCEL:
             return true;

@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  | |-RGB TOGGLE-|-CHANGE RGB-|-RGB HUE UP-|-RGB SAT UP-|------------|------------|------------|------------|------------|------------|------------|------------|-QK_BOOT KBD--|
        RGB_TOG,     RGB_MOD,     RGB_HUI,     RGB_SAI,     KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KK_RESET,
 //  | |------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-       MU_TOG,      KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,
+       MU_TOGG,     KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,
 //  | |------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|-RGB LIGHT +|------------|
        KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       RGB_VAI,     KC_NO,
 //  | |------------|------------|------------|---FN_1-----|------------|------------|----FN_2----|------------|------------|------------|------------|-RGB LIGHT -|------------|

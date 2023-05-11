@@ -1,4 +1,7 @@
-# This file intentionally left blank
+CAPS_WORD_ENABLE = yes
 CUSTOM_MATRIX = lite
-QUANTUM_LIB_SRC += i2c_master.c
+WS2812_DRIVER = vendor
+RGBLIGHT_ENABLE = yes
+DEFERRED_EXEC_ENABLE = yes
+SRC += encoder.c
 SRC += matrix.c

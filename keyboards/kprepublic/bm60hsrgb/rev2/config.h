@@ -15,11 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 
 /*
  * Keyboard Matrix Assignments
@@ -37,14 +32,20 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
 //rgb light setting
 #define RGBLIGHT_LIMIT_VAL 150
 #define RGBLED_NUM          6
 #define RGB_DI_PIN          F0
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
 #define RGBLIGHT_HUE_STEP   8
 #define RGBLIGHT_SAT_STEP   8
@@ -123,4 +124,3 @@
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #endif
-

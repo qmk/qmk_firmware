@@ -16,20 +16,11 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
 
 /* key matrix pins */
 
 #define MATRIX_ROW_PINS { B0, B7, F7, B1, B6, C6, C7, B5, F6, D2 }
 #define MATRIX_COL_PINS { F0, F1, F4, F5, D1, B2, D0, B3 }
-
-
-#define ENCODERS_PAD_A { D4, D6, D7 }
-#define ENCODERS_PAD_B { B4, D3, D5 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -45,16 +36,20 @@
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #endif
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Limits the brightness of the LEDS range of 255-0 (255 is default)*/
 #define RGBLIGHT_LIMIT_VAL 128
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -64,10 +59,6 @@
 
 /* EEPROM for via */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
-
-/* bootmagic row col assignment */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0
 
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses

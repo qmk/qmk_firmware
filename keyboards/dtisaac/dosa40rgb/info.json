@@ -8,6 +8,8 @@
         "pid": "0x4973",
         "device_version": "0.0.4"
     },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

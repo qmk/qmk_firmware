@@ -406,7 +406,7 @@ bool command_console_extra(uint8_t code)
 // convert keycode into ascii charactor
 static uint8_t code2asc(uint8_t code)
 {
-    bool shifted = (get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))) ? true : false;
+    bool shifted = (get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))) ? true : false;
     switch (code) {
         case KC_A: return (shifted ? 'A' : 'a');
         case KC_B: return (shifted ? 'B' : 'b');

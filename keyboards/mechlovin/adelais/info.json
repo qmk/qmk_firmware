@@ -9,6 +9,7 @@
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_alice_split_bs"
     },
+    "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

@@ -7,6 +7,11 @@
     "pid": "0x0000",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B7"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "url": "https://sentraq.com/collections/kits/products/number-pad-rgb-kit",
   "layouts": {
     "LAYOUT_numpad_5x4": {

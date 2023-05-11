@@ -150,15 +150,13 @@ const key_override_t fn_override = {.trigger_mods          = MOD_BIT(KC_RGUI) | 
                                    .enabled                = NULL};
 ```
 
-## Keycodes 
+## Keycodes
 
-You can enable, disable and toggle all key overrides on the fly.
-
-|Keycode   |Description                      |Function Equivalent|
-|----------|---------------------------------|--------|
-|`KEY_OVERRIDE_ON`  |Turns on Key Override feature           | `key_override_on(void)`|
-|`KEY_OVERRIDE_OFF` |Turns off Key Override feature          |`key_override_off(void)`|
-|`KEY_OVERRIDE_TOGGLE` |Toggles Key Override feature on and off |`key_override_toggle(void)`|
+|Keycode                 |Aliases  |Description           |
+|------------------------|---------|----------------------|
+|`QK_KEY_OVERRIDE_TOGGLE`|`KO_TOGG`|Toggle key overrides  |
+|`QK_KEY_OVERRIDE_ON`    |`KO_ON`  |Turn on key overrides |
+|`QK_KEY_OVERRIDE_OFF`   |`KO_OFF` |Turn off key overrides|
 
 ## Reference for `key_override_t`
 

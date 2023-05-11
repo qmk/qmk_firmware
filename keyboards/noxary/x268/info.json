@@ -8,6 +8,11 @@
     "pid": "0x0A7B",
     "device_version": "0.7.8"
   },
+  "backlight": {
+    "pin": "B7"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
       "layout": [

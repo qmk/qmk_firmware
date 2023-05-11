@@ -8,6 +8,18 @@
         "pid": "0x8802",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B0",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "A4",
+        "num_lock": "A3"
+    },
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

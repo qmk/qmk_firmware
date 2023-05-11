@@ -6,6 +6,7 @@
     "usb": {
         "vid": "0x445A"
     },
+    "community_layouts": ["65_ansi"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

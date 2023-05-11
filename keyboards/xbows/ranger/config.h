@@ -15,14 +15,10 @@
  */
 #pragma once
 
-#include "config_common.h"
 
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
 #define MATRIX_ROW_PINS { C7, B6, B4, C6, B5, D6 }
 #define MATRIX_COL_PINS { B7, B3, B2, B1, B0, E6, F0, F1, F4, F5, D7, F6, F7, D4, D5, D3 }
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 3
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 18
@@ -35,7 +31,7 @@
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
 #    define ENABLE_RGB_MATRIX_BREATHING           // Single hue brightness cycling animation
 #    define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL     // Single hue spinning spiral fades brightness
 #    define ENABLE_RGB_MATRIX_CYCLE_ALL           // Full keyboard solid hue cycling through full gradient

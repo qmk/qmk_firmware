@@ -8,6 +8,7 @@
       "pid": "0x6A1A",
       "device_version": "0.0.1"
   },
+  "community_layouts": ["75_ansi"],
     "layouts": {
         "LAYOUT_75_ansi": {
             "layout": [

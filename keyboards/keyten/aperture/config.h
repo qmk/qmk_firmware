@@ -17,19 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { D1, D0, F7, F5, F6 }
 #define MATRIX_COL_PINS { B7, F0, F1, F4, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, D2 }
-#define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

@@ -7,13 +7,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //  ESCAPE                 |                         |                         |                         |                         |                         |     START RECORDING     //
         //                         |                         |                         |                         |                         |                         |                         //
-                   KC_ESC,                 TD(GRV_TILD),             TD(AT_DLR),              TD(LCBR_LABK),            TD(LPRN_LBRC),            TD(EXLM_QUES),           DYN_REC_START1,     //
+                   KC_ESC,                 TD(GRV_TILD),             TD(AT_DLR),              TD(LCBR_LABK),            TD(LPRN_LBRC),            TD(EXLM_QUES),           DM_REC1,            //
         //                         |                       ~ |                       $ |                       < |                       [ |                       ? |                         //
         //                         |            TAP DANCE: ` |            TAP DANCE: @              TAP DANCE: { |            TAP DANCE: ( |            TAP DANCE: ! |     DYNAMIC MARCO 1     //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //  TAB                    |      MOD TAP: ALT+SHIFT |       MOD TAP: CTRL+ALT |     MOD TAP: CTRL+SHIFT | P                       | Y                       |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                   KC_TAB,                TD(NONE_LEAD),            TD(QUOT_DQUO),           TD(DOT_COMM),               LCG_T(KC_P),              LAG_T(KC_Y),            DYN_MACRO_PLAY1,    //
+                   KC_TAB,                TD(NONE_LEAD),            TD(QUOT_DQUO),           TD(DOT_COMM),               LCG_T(KC_P),              LAG_T(KC_Y),            DM_PLY1,            //
         //                         |                    LEAD |                       " |                       , |                         |                         |                         //
         //                         |         TAP DANCE: NONE |            TAP DANCE: ' |            TAP DANCE: . |       MOD TAP: CTRL+GUI |        MOD TAP: ALT+GUI |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------|   PLAY DYNAMIC MACRO 1  //
@@ -25,13 +25,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------|  META                   //
         //          STOP RECORDING |  MOD TAP: GUI+SHIFT+ALT | Q                       | J                       | K                       | X                       |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                DYN_REC_STOP,             TD(SCLN_COLN),            LCAG_T(KC_Q),             TD(J_MED_MEH),            TD(K_NUM_HYP),            LCSG_T(KC_X),                KC_LGUI,        //
+                DM_RSTP,                  TD(SCLN_COLN),            LCAG_T(KC_Q),             TD(J_MED_MEH),            TD(K_NUM_HYP),            LCSG_T(KC_X),                KC_LGUI,        //
         //                         |                       : |                         |                         |                         |                         |                         //
         //           DYNAMIC MACRO |            TAP DANCE: ; |      MOD TAP: SHIFT+GUI |  M TAP DANCE: MEDIA/MEH |  M TAP DANCE: ATM/HYPER |  MOD TAP: CTL+SHIFT+GUI |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //         LAYERS SWITCHER | APPLICATION MENU        |                         |                         |                        //
         //                         |                         |                         |                         |                  SCROLL //
-                 TG(LAYERS),                 KC_APP,                  KC_NLCK,                  KC_SLCK,                   KC_CAPS,        //
+                 TG(LAYERS),                 KC_APP,                  KC_NUM,                   KC_SCRL,                   KC_CAPS,        //
         //                         |                         |                         |                         |                  NUM    //
         //            LAYER TOGGLE |                         |                         |                         |       TAP DANCE: CAPS   //
          //------------------------+-------------------------+-------------------------+-------------------------+------------------------//
@@ -63,13 +63,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                DYN_REC_START2,           TD(APMR_PIPE),            TD(RPRN_RBRC),            TD(RCBR_RABK),            TD(HASH_PERC),            TD(ASTR_CIRC),               XXXXXXX,        //
+                DM_REC2,                   TD(APMR_PIPE),            TD(RPRN_RBRC),            TD(RCBR_RABK),            TD(HASH_PERC),            TD(ASTR_CIRC),               XXXXXXX,        //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
          //------------------------+-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
-                DYN_MACRO_PLAY2,           LAG_T(KC_F),              LCG_T(KC_G),             C_S_T(KC_C),                LCA_T(KC_R),             LAS_T(KC_L),             TD(SLSH_BSLS),     //
+                DM_PLY2,                   LAG_T(KC_F),              LCG_T(KC_G),             C_S_T(KC_C),                LCA_T(KC_R),             LAS_T(KC_L),             TD(SLSH_BSLS),     //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |                         |                         |                         |                         |                         |                         //
         //                         |-------------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------//
@@ -146,12 +146,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_ESCAPE,            GUI_T(KC_MINS), KC_I,     KC_O,   KC_P,   ALGR_T(KC_EQL), KC_T,
         KC_TAB,               KC_LALT,        KC_Q,     KC_W,   KC_E,   ALL_T(KC_R),    KC_G,
-        LT(MOUSE, KC_GRV), KC_LCTRL,       KC_A,     KC_S,   KC_D,   MEH_T(KC_F),
-        KC_BSLS,              KC_LSHIFT,      KC_Z,     KC_X,   KC_C,   SCMD_T(KC_V),   KC_M,
+        LT(MOUSE, KC_GRV), KC_LCTL,        KC_A,     KC_S,   KC_D,   MEH_T(KC_F),
+        KC_BSLS,              KC_LSFT,      KC_Z,     KC_X,   KC_C,   SCMD_T(KC_V),   KC_M,
         XXXXXXX,           TG(LAYERS),  KC_COMM, KC_DOT, KC_LBRC,
 
         // left thumb
-                   MO(MEDIA_FN), KC_NLCK,
+                   MO(MEDIA_FN), KC_NUM,
                                  KC_SCLN,
          KC_SPACE, KC_ENTER,     KC_BSPC,
 
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         XXXXXXX, XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,    XXXXXXX, XXXXXXX,
         XXXXXXX, SCMD_T(KC_NO), MEH_T(KC_NO), ALL_T(KC_NO), XXXXXXX,    XXXXXXX, XXXXXXX,
-        XXXXXXX, KC_LCTRL,      KC_LSHIFT,    XXXXXXX,      _______,    XXXXXXX,
+        XXXXXXX, KC_LCTL,       KC_LSFT,      XXXXXXX,      _______,    XXXXXXX,
         XXXXXXX, KC_RALT,       KC_LALT,      GUI_T(KC_NO), XXXXXXX,    XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,
 
@@ -186,7 +186,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LGUI(KC_C), XXXXXXX,       LCTL(KC_C), KC_UP,         SCTL(KC_C),    LCTL(KC_Z),     LGUI(KC_Z),
                     KC_MS_WH_LEFT, KC_LEFT,    KC_DOWN,       KC_RIGHT,      KC_MS_WH_RIGHT, KC_APPLICATION,
         LGUI(KC_V), XXXXXXX,       LCTL(KC_V), KC_MS_WH_DOWN, SCTL(KC_V),    LCTL(KC_Y),     SGUI(KC_Z),
-        XXXXXXX,    XXXXXXX,       XXXXXXX,    XXXXXXX,       KC_SLCK,
+        XXXXXXX,    XXXXXXX,       XXXXXXX,    XXXXXXX,       KC_SCRL,
 
         // right thumb
         XXXXXXX,   XXXXXXX,
@@ -200,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LGUI(KC_Z),    LCTL(KC_Z),    SCTL(KC_C), KC_MS_UP,      LCTL(KC_C),  KC_MS_BTN4,     LGUI(KC_C),
         KC_MS_BTN3,    KC_MS_WH_LEFT, KC_MS_LEFT, KC_MS_DOWN,    KC_MS_RIGHT, KC_MS_WH_RIGHT,
         LGUI(KC_Z),    LCTL(KC_Y),    SCTL(KC_V), KC_MS_WH_DOWN, LCTL(KC_V),  KC_MS_BTN5,     LGUI(KC_V),
-        KC_SLCK,       XXXXXXX,       XXXXXXX,    XXXXXXX,       XXXXXXX,
+        KC_SCRL,       XXXXXXX,       XXXXXXX,    XXXXXXX,       XXXXXXX,
 
         // left thumb
                     XXXXXXX,    XXXXXXX,
@@ -210,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,       XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, ALL_T(KC_NO), MEH_T(KC_NO), SCMD_T(KC_NO), XXXXXXX,
-                 XXXXXXX, _______, KC_MS_ACCEL1, KC_LSHIFT,    KC_LCTRL,      KC_MS_ACCEL2,
+                 XXXXXXX, _______, KC_MS_ACCEL1, KC_LSFT,      KC_LCTL,       KC_MS_ACCEL2,
         XXXXXXX, XXXXXXX, XXXXXXX, GUI_T(KC_NO), KC_LALT,      KC_RALT,       XXXXXXX,
                           XXXXXXX, XXXXXXX,      XXXXXXX,      XXXXXXX,       XXXXXXX,
 
@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         XXXXXXX, XXXXXXX,  XXXXXXX,      XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX,  GUI_T(KC_NO), XXXXXXX, ALL_T(KC_NO),  XXXXXXX, XXXXXXX,
-        _______, KC_LCTRL, KC_LSHIFT,    _______, MEH_T(KC_NO),  XXXXXXX,
+        _______, KC_LCTL,  KC_LSFT,      _______, MEH_T(KC_NO),  XXXXXXX,
         XXXXXXX, KC_RALT,  KC_LALT,      XXXXXXX, SCMD_T(KC_NO), XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX,  XXXXXXX,      XXXXXXX, XXXXXXX,
 
@@ -348,6 +348,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right thumb
         XXXXXXX, XXXXXXX,
         XXXXXXX,
-        XXXXXXX, XXXXXXX, EEP_RST
+        XXXXXXX, XXXXXXX, EE_CLR
     )
 };

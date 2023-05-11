@@ -18,17 +18,10 @@
  */
 #pragma once
 
-#include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 #define MATRIX_ROW_PINS { F0, F1, F4, B7, D6}
 #define MATRIX_COL_PINS { C7, C6, B6, B5, B4, F7, F6, F5, E6, B0, D2, D4, D5, D3 }
 #define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /*
  * Feature disable options
@@ -46,7 +39,16 @@
 #define RGBLIGHT_LIMIT_VAL 128
 #define RGBLED_NUM          18
 #define RGB_DI_PIN          D7
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_HUE_STEP   8
 #define RGBLIGHT_SAT_STEP   8
 #define RGBLIGHT_VAL_STEP   8

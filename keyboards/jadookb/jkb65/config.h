@@ -16,10 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -33,7 +29,7 @@
 #define RGB_MATRIX_TIMEOUT 90000
 #define RGB_MATRIX_LED_PROCESS_LIMIT 4
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 
  // RGB Matrix Animation modes. Explicitly enabled
  // For full list of effects, see:
@@ -84,6 +80,5 @@
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#define DEBOUNCE 5
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE

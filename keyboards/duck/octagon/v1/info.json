@@ -8,6 +8,16 @@
         "pid": "0x4F31",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "driver": "custom",
+        "levels": 1
+    },
+    "bootmagic": {
+        "matrix": [5, 10]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["75_ansi"],
     "layouts": {
         "LAYOUT_75_ansi": {
             "layout": [

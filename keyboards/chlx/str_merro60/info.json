@@ -8,6 +8,8 @@
         "pid": "0x0602",
         "device_version": "1.0.0"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT_all",
         "LAYOUT_hhkb": "LAYOUT_60_hhkb",

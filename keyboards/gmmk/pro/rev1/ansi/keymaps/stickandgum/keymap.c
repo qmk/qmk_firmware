@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT(
         _______, KC_CALC, KC_MYCM, KC_MSEL, KC_MAIL,  KC_WHOM, _______, _______, _______, _______, _______, KC_WAKE, KC_SLEP, KC_PAUS,         _______,
-      LED_TILDE, LED_1,  LED_2,   LED_3,   LED_4,    LED_5,   LED_6,   LED_7,   LED_8,   LED_9,   LED_0,   LED_MINS, LED_EQL,  KC_INS,         KC_SLCK,
+      LED_TILDE, LED_1,  LED_2,   LED_3,   LED_4,    LED_5,   LED_6,   LED_7,   LED_8,   LED_9,   LED_0,   LED_MINS, LED_EQL,  KC_INS,         KC_SCRL,
         _______, RGB_SAI, RGB_VAI, RGB_HUI, RGB_TOG,  _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,         KC_BRIU,
        _______, RGB_RMOD, RGB_VAD, RGB_MOD, RGB_SPI, _______,  _______, _______, _______, QMKBEST, _______, _______,         _______,          KC_BRID,
         _______,          _______, _______, _______, _______,  _______, NK_TOGG, _______, _______, _______, _______,         _______, KC_MPLY, KC_PWR,
@@ -247,7 +247,7 @@ bool rgb_matrix_indicators_user(void) {
 //  87, led 07                                                                                                                                                                      88, led 18
 //  91, led 08                                                                                                                                                                      92, led 19
 
-static void set_rgb_caps_leds_on() {
+static void set_rgb_caps_leds_on(void) {
         rgb_matrix_set_color(0, 255, 0, 0);       //Escape Key
         rgb_matrix_set_color(3, 255, 0, 0);       //capslock key
         rgb_matrix_set_color(5, 255, 0, 0);       //Left CTRL key
@@ -269,7 +269,7 @@ static void set_rgb_caps_leds_on() {
         rgb_matrix_set_color(92, 255, 255, 255);  //Right LED 19
 }
 
-static void set_rgb_caps_leds_off() {
+static void set_rgb_caps_leds_off(void) {
         rgb_matrix_set_color(0,  0, 0, 0); //Escape Key
         rgb_matrix_set_color(3,  0, 0, 0); //capslock key
         rgb_matrix_set_color(5,  0, 0, 0); //Left CTRL key
@@ -291,11 +291,11 @@ static void set_rgb_caps_leds_off() {
         rgb_matrix_set_color(92, 0, 0, 0); //Right LED 19
 }
 
-static void set_rgb_scroll_leds_on() {
+static void set_rgb_scroll_leds_on(void) {
         rgb_matrix_set_color(72, 255, 255, 255); // Under Rotary (HOME)
 }
 
-static void set_rgb_scroll_leds_off() {
+static void set_rgb_scroll_leds_off(void) {
         rgb_matrix_set_color(72, 0, 0, 0); // Under Rotary (HOME)
 }
 

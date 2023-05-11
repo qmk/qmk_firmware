@@ -97,7 +97,7 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
 No, really, that's it.  The paths needed are already included when installing the packages, and it is much better about detecting the current workspace files and parsing them for IntelliSense. 
 
-## Plugins
+## Extensions
 
 There are a number of extensions that you may want to install:
 

@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB  , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_HOME ,                         KC_END , KC_Y   , KC_U   , KC_I    , KC_O    , KC_P    , KC_BSLS ,
      KC_LCTL , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , SY_LBRC ,                         SY_RBRC, KC_H   , KC_J   , KC_K    , KC_L    , KC_SCLN , KC_QUOT ,
      KC_LSFT , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_PEQL , KC_BSPC   , KC_PPLS   , KC_MINS, KC_N   , KC_M   , KC_COMM , KC_DOT  , KC_SLSH , KC_RSFT ,
-     ADJ     , KC_HYPR, KC_MEH ,KC_LCTL ,          A_COMM , KC_LGUI , KC_SFTENT , KC_SFTENT , SY_SPC , A_DOT  ,          KC_RCTL , KC_PGUP , KC_PGDN , ADJ
+     ADJ     , KC_HYPR, KC_MEH ,KC_LCTL ,          A_COMM , KC_LGUI , SC_SENT   , SC_SENT   , SY_SPC , A_DOT  ,          KC_RCTL , KC_PGUP , KC_PGDN , ADJ
   ),
 
   [_SYMBOL] = LAYOUT(
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `---------------------------'  '-------/       /       /          \       \       \-------'  '---------------------------'
    *                                        '--------------'            '--------------'
    */
-     EEP_RST , XXXXXXX  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                                         XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , EEP_RST ,
+     EE_CLR  , XXXXXXX  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,                                         XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , EE_CLR  ,
      XXXXXXX , RGB_MOD  , RGB_HUI , RGB_SAI , RGB_VAI , KC_VOLU , XXXXXXX ,                     XXXXXXX , KC_BRIU , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,
      XXXXXXX , RGB_RMOD , RGB_HUD , RGB_SAD , RGB_VAD , KC_VOLD , RGB_TOG ,                     XXXXXXX , KC_BRID , KC_MRWD , KC_MPLY , KC_MFFD , XXXXXXX , XXXXXXX ,
      XXXXXXX , XXXXXXX  , XXXXXXX , XXXXXXX , XXXXXXX , KC_MUTE , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX ,

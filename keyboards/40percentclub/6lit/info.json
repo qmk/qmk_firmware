@@ -8,6 +8,12 @@
         "pid": "0x0F61",
         "device_version": "1.0.0"
     },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["ortho_2x3", "ortho_2x6"],
     "layouts": {
         "LAYOUT_ortho_2x3": {
             "layout": [

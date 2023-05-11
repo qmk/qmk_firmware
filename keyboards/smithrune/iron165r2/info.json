@@ -8,6 +8,9 @@
         "pid": "0x1652",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "A4"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

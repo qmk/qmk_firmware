@@ -2,11 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-// Limit the backlight brightness
-#ifndef BACKLIGHT_LIMIT_VAL
-#    define BACKLIGHT_LIMIT_VAL 144
-#endif // BACKLIGHT_LIMIT_VAL
-
 // Split configuration
 #define SPLIT_HAND_PIN B9
 #define USB_VBUS_PIN B12

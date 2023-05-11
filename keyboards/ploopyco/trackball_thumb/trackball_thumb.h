@@ -46,15 +46,6 @@ extern keyboard_config_t keyboard_config;
 extern uint16_t          dpi_array[];
 
 enum ploopy_keycodes {
-#ifdef VIA_ENABLE
-    DPI_CONFIG = USER00,
-#else
-    DPI_CONFIG = SAFE_RANGE,
-#endif
+    DPI_CONFIG = QK_KB_0,
     DRAG_SCROLL,
-#ifdef VIA_ENABLE
-    PLOOPY_SAFE_RANGE = SAFE_RANGE,
-#else
-    PLOOPY_SAFE_RANGE,
-#endif
 };

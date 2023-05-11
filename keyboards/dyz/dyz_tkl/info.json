@@ -12,7 +12,16 @@
         "led_count": 25,
         "pin": "D1",
         "animations": {
-            "all": true
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
     "usb": {
@@ -20,6 +29,12 @@
         "pid": "0x000C",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "D2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

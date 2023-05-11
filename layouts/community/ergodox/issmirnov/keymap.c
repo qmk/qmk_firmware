@@ -31,7 +31,7 @@ KC_DOWN,  KC_TAB, KC_ENTER
 KC_ESCAPE , KC_F1         , KC_F2         , KC_F3       , KC_F4            , KC_F5    , KC_F6    ,
 XXXXXXX   , _________________SYMB_L1___________________ ,KC_ASTR  ,
 KC_TAB    ,  _________________SYMB_L2___________________,
-KC_LSHIFT ,  _________________SYMB_L3___________________, KC_SLASH ,
+KC_LSFT   ,  _________________SYMB_L3___________________, KC_SLASH ,
 KC_LCTL   , LSFT(KC_LGUI) , LSFT(KC_LALT) , KC_LALT     , WKSP_LEFT  ,
 
                                               XXXXXXX,        XXXXXXX,

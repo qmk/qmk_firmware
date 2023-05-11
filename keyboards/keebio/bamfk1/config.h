@@ -3,28 +3,11 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
-
-/*
- * Keyboard Matrix Assignments
- */
-
-#define DIRECT_PINS { \
-    { E6, B6, D6, NO_PIN }, \
-    { NO_PIN, NO_PIN, NO_PIN, NO_PIN } \
-}
 #define AUDIO_PIN C6
 #ifdef AUDIO_ENABLE
 #    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 
-#define ENCODERS_PAD_A { C7, D7 }
-#define ENCODERS_PAD_B { B5, D4 }
-#define ENCODERS 2
 #define ENCODERS_CW_KEY  { { 1, 1 }, { 3, 1 } }
 #define ENCODERS_CCW_KEY { { 0, 1 }, { 2, 1 } }
 
@@ -48,42 +31,10 @@
 #endif
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-//#define GRAVE_ESC_CTRL_OVERRIDE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
 
 /*
  * Feature disable options
@@ -100,7 +51,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0

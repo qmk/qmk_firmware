@@ -35,8 +35,3 @@
 #define GP28 28U
 #define GP29 29U
 #define GP30 30U
-
-/* Aliases for GPIO PWM channels - every pin has at least one PWM channel
- * assigned */
-#define RP2040_PWM_CHANNEL_A 1U
-#define RP2040_PWM_CHANNEL_B 2U

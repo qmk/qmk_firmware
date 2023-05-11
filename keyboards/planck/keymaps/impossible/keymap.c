@@ -132,9 +132,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJ] = LAYOUT_planck_grid(
   _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,  KC_PSCR, KC_PAUSE, QK_BOOT,
-  _______, _______, _______, _______, _______, _______, _______, KC_CAPS, MUV_IN,  AU_TOG,  MI_OFF,   _______,
-  _______, _______, _______, _______, _______, _______, _______, KC_SLCK, MUV_DE,  MU_TOG,  MI_ON,    _______,
-  _______, _______, _______, _______, _______, _______, _______, KC_NLCK, WORKMAN, QWERTY,  PLOVER,   _______
+  _______, _______, _______, _______, _______, _______, _______, KC_CAPS, AU_NEXT, AU_TOGG, MI_OFF,   _______,
+  _______, _______, _______, _______, _______, _______, _______, KC_SCRL, AU_PREV, MU_TOGG, MI_ON,    _______,
+  _______, _______, _______, _______, _______, _______, _______, KC_NUM,  WORKMAN, QWERTY,  PLOVER,   _______
 )
 
 };
@@ -205,13 +205,13 @@ void matrix_init_user(void) {
 
 #ifdef AUDIO_ENABLE
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(20); // gets rid of tick
     PLAY_SONG(tone_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_goodbye);
     _delay_ms(150);

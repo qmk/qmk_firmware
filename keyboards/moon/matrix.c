@@ -91,10 +91,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
-__attribute__((weak)) void matrix_init_quantum(void) { matrix_init_kb(); }
-
-__attribute__((weak)) void matrix_scan_quantum(void) { matrix_scan_kb(); }
-
 __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
 
 __attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
@@ -191,7 +187,7 @@ void matrix_init(void) {
 
   debounce_init(MATRIX_ROWS);
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void) {
@@ -203,7 +199,7 @@ uint8_t matrix_scan(void) {
 
   debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
-  matrix_scan_quantum();
+  matrix_scan_kb();
 
   return (uint8_t)changed;
 }

@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 11
 
 /*
  * Keyboard Matrix Assignments
@@ -41,11 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 50
@@ -55,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_PINWHEEL // Sets the default mode, if none has been set
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_PINWHEEL // Sets the default mode, if none has been set
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

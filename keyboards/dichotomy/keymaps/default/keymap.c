@@ -146,7 +146,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				shiftLED = false;
 				if (timer_elapsed(shift_timer) < CUSTOM_TOGGLE_TIME && shift_singular_key) {
 					//this was basically a toggle, so activate/deactivate caps lock.
-					SEND_STRING(SS_TAP(X_CAPSLOCK));
+					SEND_STRING(SS_TAP(X_CAPS_LOCK));
 					capsLED = !capsLED;
 				}
 				layer_off(_SF);
@@ -216,7 +216,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				} else {
 					if (special_key_pressed[CK_BSPE-SAFE_RANGE]){
 						//key was not activated, return macro activating proper, pre-long-tap key
-						SEND_STRING(SS_TAP(X_BSLASH));
+						SEND_STRING(SS_TAP(X_BACKSLASH));
 						special_key_pressed[CK_BSPE-SAFE_RANGE] = 0;
 					} else {
 						//the short key was already sent, because another key was pressed.
@@ -416,7 +416,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 								SEND_STRING(SS_TAP(X_1));
 							break;
 							case CK_BSPE:
-								SEND_STRING(SS_TAP(X_BSLASH));
+								SEND_STRING(SS_TAP(X_BACKSLASH));
 							break;
 							case CK_QE:
 								SEND_STRING(SS_TAP(X_QUOTE));

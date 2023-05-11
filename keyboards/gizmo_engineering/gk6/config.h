@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
 
 /*
  * Keyboard Matrix Assignments
@@ -31,13 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-// Use ~ key for the bootloader
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
 
 // RGB Matrix
 #define DRIVER_ADDR_1 0b1110100
@@ -52,9 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#define RGB_MATRIX_STARTUP_SPD 127
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#define RGB_MATRIX_DEFAULT_SPD 127
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

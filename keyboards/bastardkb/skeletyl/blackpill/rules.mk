@@ -1,6 +1,6 @@
 # MCU name
-MCU = STM32F411
-BOARD = BLACKPILL_STM32_F411
+MCU = STM32F401
+BOARD = BLACKPILL_STM32_F401
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu
@@ -9,9 +9,10 @@ BOOTLOADER = stm32-dfu
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
+CAPS_WORD_ENABLE = yes
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
@@ -25,12 +26,11 @@ RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 RGB_MATRIX_DRIVER = WS2812  # RGB matrix driver support
 
 SPLIT_KEYBOARD = yes
-LAYOUTS = split_3x5_3
 
 MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint
 KEYBOARD_SHARED_EP = yes
 
-EEPROM_DRIVER = spi
+#EEPROM_DRIVER = spi
 WS2812_DRIVER = pwm
 SERIAL_DRIVER = usart
 

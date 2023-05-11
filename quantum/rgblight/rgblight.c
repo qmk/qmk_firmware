@@ -127,6 +127,8 @@ LED_TYPE led[RGBLED_NUM];
 
 #ifdef RGBLIGHT_LAYERS
 rgblight_segment_t const *const *rgblight_layers = NULL;
+
+static bool deferred_set_layer_state = false;
 #endif
 
 rgblight_ranges_t rgblight_ranges = {0, RGBLED_NUM, 0, RGBLED_NUM, RGBLED_NUM};
@@ -748,17 +750,13 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
         rgblight_status.enabled_layer_mask &= ~mask;
     }
     RGBLIGHT_SPLIT_SET_CHANGE_LAYERS;
-    // Static modes don't have a ticker running to update the LEDs
-    if (rgblight_status.timer_enabled == false) {
-        rgblight_mode_noeeprom(rgblight_config.mode);
-    }
 
-#    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-    // If not enabled, then nothing else will actually set the LEDs...
-    if (!rgblight_config.enable) {
-        rgblight_set();
-    }
-#    endif
+    // Calling rgblight_set() here (directly or indirectly) could
+    // potentially cause timing issues when there are multiple
+    // successive calls to rgblight_set_layer_state(). Instead,
+    // set a flag and do it the next time rgblight_task() runs.
+
+    deferred_set_layer_state = true;
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
@@ -1154,8 +1152,26 @@ void rgblight_task(void) {
         }
     }
 
-#    ifdef RGBLIGHT_LAYER_BLINK
+#    ifdef RGBLIGHT_LAYERS
+#        ifdef RGBLIGHT_LAYER_BLINK
     rgblight_blink_layer_repeat_helper();
+#        endif
+
+    if (deferred_set_layer_state) {
+        deferred_set_layer_state = false;
+
+        // Static modes don't have a ticker running to update the LEDs
+        if (rgblight_status.timer_enabled == false) {
+            rgblight_mode_noeeprom(rgblight_config.mode);
+        }
+
+#        ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+        // If not enabled, then nothing else will actually set the LEDs...
+        if (!rgblight_config.enable) {
+            rgblight_set();
+        }
+#        endif
+    }
 #    endif
 }
 
@@ -1464,6 +1480,8 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
         return (v * scale) >> 8;
     }
 
+    const uint8_t trigger = scale((uint16_t)0xFF * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY, 127 + rgblight_config.val / 2);
+
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         TwinkleState *t = &(led_twinkle_state[i]);
         HSV *         c = &(t->hsv);
@@ -1482,7 +1500,7 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
             t->life--;
             uint8_t unscaled = frac(breathe_calc(frac(t->life, t->max_life)) - bottom, top - bottom);
             c->v             = scale(rgblight_config.val, unscaled);
-        } else if (rand() < scale((uint16_t)RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY, 127 + rgblight_config.val / 2)) {
+        } else if ((rand() % 0xFF) < trigger) {
             // This LED is off, but was randomly selected to start brightening
             if (random_color) {
                 c->h = rand() % 0xFF;

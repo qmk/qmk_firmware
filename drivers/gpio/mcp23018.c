@@ -18,20 +18,14 @@ enum {
     CMD_GPIOB  = 0x13,
 };
 
-bool mcp23018_init(uint8_t slave_addr) {
+void mcp23018_init(uint8_t addr) {
     static uint8_t s_init = 0;
-    uint8_t        addr   = SLAVE_TO_ADDR(slave_addr);
-    if (0 == s_init) {
+    if (!s_init) {
         i2c_init();
-        wait_ms(100);
+        wait_ms(1000);
 
-        // probe that the expander is actually connected by reading from it
-        uint8_t data = 0;
-        if (I2C_STATUS_SUCCESS == i2c_readReg(addr, 0, &data, sizeof(data), 150)) {
-            s_init = 1;
-        }
+        s_init = 1;
     }
-    return (s_init > 0);
 }
 
 bool mcp23018_set_config(uint8_t slave_addr, mcp23018_port_t port, uint8_t conf) {

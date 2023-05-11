@@ -16,13 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <string.h> // for memcpy
+
 #include "dip_switch.h"
+#include "gpio.h"
+#include "util.h"
+
 #ifdef SPLIT_KEYBOARD
 #    include "split_common/split_util.h"
 #endif
-
-// for memcpy
-#include <string.h>
 
 #if !defined(DIP_SWITCH_PINS) && !defined(DIP_SWITCH_MATRIX_GRID)
 #    error "Either DIP_SWITCH_PINS or DIP_SWITCH_MATRIX_GRID must be defined."

@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_ADJUST] = LAYOUT_ortho_3x10(
     QK_BOOT,  _______,  _______,  _______,  _______,  QWERTY,   NUMBERS,  SYMBOLS,  PLOVER,    SONGS,
-    MUV_DE,   MUV_IN,   MU_ON,    MU_OFF,   _______,  _______,  _______,  _______,  MACSLEEP,  _______,
+    AU_PREV,  AU_NEXT,  MU_ON,    MU_OFF,   _______,  _______,  _______,  _______,  MACSLEEP,  _______,
     BACKLIT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______
   )
 };
@@ -174,13 +174,13 @@ void matrix_init_user(void) {
 
 #ifdef AUDIO_ENABLE
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(20); // gets rid of tick
     PLAY_SONG(tone_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_goodbye);
     _delay_ms(150);
@@ -203,7 +203,7 @@ void matrix_scan_user(void) {
 }
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_Z_LCTL]  = ACTION_TAP_DANCE_DOUBLE(KC_Z, KC_LCTL),
   [TD_X_LGUI]  = ACTION_TAP_DANCE_DOUBLE(KC_X, KC_LGUI),

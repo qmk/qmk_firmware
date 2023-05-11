@@ -27,11 +27,11 @@ extern backlight_config_t backlight_config;
 
 #include "dynamic_macro.h"
 #define FN_ZERO LT(_L9, KC_KP_0)
-#define KC_DMR1 DYN_REC_START1
-#define KC_DMR2 DYN_REC_START2
-#define KC_DMP1 DYN_MACRO_PLAY1
-#define KC_DMP2 DYN_MACRO_PLAY2
-#define KC_DMRS DYN_REC_STOP
+#define KC_DMR1 DM_REC1
+#define KC_DMR2 DM_REC2
+#define KC_DMP1 DM_PLY1
+#define KC_DMP2 DM_PLY2
+#define KC_DMRS DM_RSTP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*## Layout Config:
@@ -84,7 +84,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case KC_WCLS:
             if (record->event.pressed) {
-                SEND_STRING (SS_LCTRL("w"));
+                SEND_STRING (SS_LCTL("w"));
             }
             return false;
             break;

@@ -23,6 +23,13 @@
         "pid": "0x0060",
         "vid": "0x414C"
     },
+    "indicators": {
+        "caps_lock": "GP19",
+        "on_state": 0
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

@@ -4,7 +4,7 @@
 
 #include "spidey3_unicode.h"
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [BUL1]     = 0x2022,   // •
     [BUL2]     = 0x25E6,   // ◦
     [LARR]     = 0x2190,   // ←
@@ -24,5 +24,5 @@ const uint32_t PROGMEM unicode_map[] = {
 
 void eeconfig_init_user_unicode(void) {
     // Default to Linux style
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
 }

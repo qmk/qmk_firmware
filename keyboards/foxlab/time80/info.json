@@ -8,6 +8,11 @@
         "pid": "0x0005",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "D4"
+    },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

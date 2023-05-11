@@ -1,5 +1,10 @@
 {
     "usb": {
         "device_version": "0.2.0"
-    }
+    },
+    "indicators": {
+        "caps_lock": "A1"
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu"
 }

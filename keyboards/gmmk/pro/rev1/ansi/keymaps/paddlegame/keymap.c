@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] = LAYOUT(
-        KC_SLEP,  KC_MYCM,  KC_WHOM,  KC_CALC,  KC_MSEL,  KC_MPRV,  KC_MNXT,  KC_MPLY,  KC_MSTP,  KC_PSCR,  KC_SLCK,  KC_PAUS,  _______,  KC_INS,             _______,
+        KC_SLEP,  KC_MYCM,  KC_WHOM,  KC_CALC,  KC_MSEL,  KC_MPRV,  KC_MNXT,  KC_MPLY,  KC_MSTP,  KC_PSCR,  KC_SCRL,  KC_PAUS,  _______,  KC_INS,             _______,
         RGB_TOG,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_HUD,  RGB_HUI,  _______,            RGB_M_P,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  TO(_MO2), RGB_SAD,  RGB_SAI,  QK_BOOT,            RGB_M_B,
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_RMOD, RGB_MOD,            _______,            RGB_M_R,
@@ -427,7 +427,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			break;
 		}
 
-        if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+		led_t led_state = host_keyboard_led_state();
+
+        if (led_state.caps_lock) {
 			if (!caps_active) {
 				caps_active = true;
 				caps_flash_on = true;
@@ -453,7 +455,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         } else {
 			caps_active = false;
 		}
-        if (IS_HOST_LED_ON(USB_LED_SCROLL_LOCK)) {
+        if (led_state.scroll_lock) {
             rgb_matrix_set_color(LED_F10,  RGB_WHITE);
         }
         if (keymap_config.no_gui) {

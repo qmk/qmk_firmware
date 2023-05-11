@@ -17,11 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-// Key matrix size
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 14
 
 /*
  * Key matrix pins
@@ -38,9 +33,6 @@
  */
 #define DIODE_DIRECTION COL2ROW
 
-// Set 0 if debouncing isn't needed
-#define DEBOUNCE 5
-
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DI_PIN E2
 #    define RGB_MATRIX_LED_COUNT 84
@@ -51,11 +43,11 @@
 // Limit brightness to support USB-A at 0.5 A
 // TODO: Do this dynamically based on power source
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 176                          // Limits maximum brightness of LEDs to 176 out of 255. If not defined, maximum brightness is set to 255
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Sets the default mode, if none has been set
-#    define RGB_MATRIX_STARTUP_HUE 142                                 // Sets the default hue value, if none has been set
-#    define RGB_MATRIX_STARTUP_SAT 255                                 // Sets the default saturation value, if none has been set
-#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS       // Sets the default brightness value, if none has been set
-#    define RGB_MATRIX_STARTUP_SPD 127                                 // Sets the default animation speed, if none has been set
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON  // Sets the default mode, if none has been set
+#    define RGB_MATRIX_DEFAULT_HUE 142                                 // Sets the default hue value, if none has been set
+#    define RGB_MATRIX_DEFAULT_SAT 255                                 // Sets the default saturation value, if none has been set
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS       // Sets the default brightness value, if none has been set
+#    define RGB_MATRIX_DEFAULT_SPD 127                                 // Sets the default animation speed, if none has been set
 #    define RGB_MATRIX_DISABLE_KEYCODES                                // Disables control of rgb matrix by keycodes (must use code functions to control the feature)
 
 #    define ENABLE_RGB_MATRIX_CYCLE_ALL

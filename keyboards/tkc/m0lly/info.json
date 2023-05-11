@@ -8,6 +8,22 @@
         "pid": "0x0004",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6",
+        "breathing": true
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "F4",
+        "esc_output": "A0",
+        "led": "D2"
+    },
+    "indicators": {
+        "caps_lock": "D3",
+        "num_lock": "D2",
+        "scroll_lock": "D4"
+    },
+    "processor": "at90usb1286",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

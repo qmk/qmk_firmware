@@ -6,6 +6,14 @@
         "pid": "0x5600",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP14", "pin_b": "GP13"}
+        ]
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
     "layouts": {
         "LAYOUT": {
             "layout": [
