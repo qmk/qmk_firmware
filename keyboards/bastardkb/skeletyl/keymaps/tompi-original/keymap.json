@@ -39,8 +39,8 @@
       "KC_SLSH",
       "LT(6,KC_ESC)",
       "LT(3,KC_SPC)",
-      "KC_TAB",
-      "TO(2)",
+      "LT(3,KC_TAB)",
+      "LT(2,KC_NO)",
       "LT(2,KC_BSPC)",
       "LT(4,KC_ENT)"
     ],
