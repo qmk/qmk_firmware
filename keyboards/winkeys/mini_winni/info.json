@@ -18,8 +18,11 @@
     "ws2812": {
         "pin": "E6"
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_2x4"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ortho_2x4": {
             "layout": [
                 {"label": "F1", "x": 0, "y": 0, "matrix": [0, 0]},
                 {"label": "F2", "x": 1, "y": 0, "matrix": [0, 1]},
