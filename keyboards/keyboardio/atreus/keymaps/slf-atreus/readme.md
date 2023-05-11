@@ -7,13 +7,13 @@ I use a Keyboardio Atreus, in fact, they're so good, I use two. I tried all sort
 It has four layers:
 
 0 - Normal - letters and punctuation.
-![layer 0](https://imgur.com/3Z8PZtI)
+![layer 0](https://i.imgur.com/3Z8PZtI.png)
 1 - Symbols (shifted numbers), arrow keys, assorted function keys, Del and Backspace.
-![layer 1](https://imgur.com/9rJalxV)
+![layer 1](https://i.imgur.com/9rJalxV.png)
 2 - Numbers, page up, page down, home, and end. Similar assorted functions.
-![layer 2](https://imgur.com/TYY11b5)
+![layer 2](https://i.imgur.com/TYY11b5.png)
 3 - F1 to F14, play/pause, volume up/down, Left-shift-Alt left, right, up, down.
-![layer 3](https://imgur.com/MuWNPTz)
+![layer 3](https://i.imgur.com/MuWNPTz.png)
 
 Autoshift is important, I use it all the time.
 
