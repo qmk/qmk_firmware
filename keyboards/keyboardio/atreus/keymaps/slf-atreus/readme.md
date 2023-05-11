@@ -1,8 +1,8 @@
-# Keyboardio Atreus with an slf layout
+# Keyboardio Atreus with an SLF layout
 
 [Stiff Little Fingers](https://en.wikipedia.org/wiki/Stiff_Little_Fingers) were a great punk band, from Belfast, Northern Ireland. Stiff Little Fingers is also a good way of describing my hands, a condition which I ascribe to too many years cycling without gloves in cold weather. So, I need a keyboard and layout to cope.
 
-I use a Keyboardio Atreus, in fact, they're so good, I use two. I tried all sorts of layouts, and finally came up with the one that suits my stiff little fingers; slf-atreus.
+I use a Keyboardio Atreus, in fact, they're so good, I use two. I tried all sorts of layouts, and finally came up with the one that suits my stiff little fingers; the slf-atreus.
 
 It has four layers:
 
@@ -32,4 +32,4 @@ I use tap dance (one, two, or three key presses) for:
 
 There are odd keys that are there for a particular reason:
 * F24 - my [I3](https://i3wm.org/) popup to remind me of stuff I always forget.
-* Alt-shift-left/right/up/down - multi-select in Sublime text
+* Alt-shift-left/right/up/down - multi-select in Sublime text.
