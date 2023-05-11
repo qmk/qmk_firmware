@@ -58,6 +58,12 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     is_second_rgb_row_active = true;
     set_second_rgb_row(is_second_rgb_row_active);
     eeconfig_update_kb_datablock(&is_second_rgb_row_active);
+
+    // Disable rgblight by default on EEPROM initialization
+    rgblight_disable();
+
+    // Run user code if any
+    eeconfig_init_user();
 }
 
 void secondrow_config_set_value( uint8_t *data )
