@@ -18,8 +18,11 @@
     "diode_direction": "ROW2COL",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_65_xt_ansi_split_space_split_bs"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_65_xt_ansi_split_space_split_bs": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "F2", "matrix": [0, 1], "x": 1, "y": 0},
