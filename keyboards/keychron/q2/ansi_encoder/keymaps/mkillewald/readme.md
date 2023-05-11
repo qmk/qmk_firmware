@@ -1,6 +1,6 @@
 ## Keychron Q2 SEVERED RGB ANSI STM32L432 ENC11 (knob) Keymap v2.0.2
 
-<img src="https://raw.githubusercontent.com/mkillewald/glamour_shots/main/keyboards/keychron/q2/IMG_5515.jpg" alt="Keychron Q2 ANSI encoder" width="1000">
+![Keychron Q2 ANSI encoder](https://raw.githubusercontent.com/mkillewald/glamour_shots/main/keyboards/keychron/q2/Q2_SEVERED_RGB_ANSI_STM32L432_ENC11.jpg)
 
 ### Highly Recommended:
 When you flash this firmware for the first time, you should clear the eeprom so that the eeprom defaults are properly set. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing the eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear the eeprom even if you take it out of DFU mode at that point without flashing. Alternatively, you may use the factory reset key combo (Fn1+J+Z) to clear the eeprom after flashing.
@@ -125,8 +125,8 @@ Caps Word options:
     - Fn1+< sets my secondary display to 0° rotation
     - Fn1+> sets my secondary display to 90° rotation
 
-    Note: display rotation requires additional software and changes made, see this link for more information:
-    [https://www.reddit.com/r/Keychron/comments/1254g36/howto_macos_rotate_screen_from_keyboard_shortcut/](https://www.reddit.com/r/Keychron/comments/1254g36/howto_macos_rotate_screen_from_keyboard_shortcut/)
+    Note: display rotation requires additional software and changes made, see this link for more information:   
+    [https://gist.github.com/mkillewald/706b7ef8624d8c2bf17ce1df344cff48](https://gist.github.com/mkillewald/706b7ef8624d8c2bf17ce1df344cff48)
 
 All custom keycodes can be moved to different keys in VIA by using the following:
 - CUSTOM(64) = KC_LTTOG (default: Fn2+Z) Caps Lock Light Tab Toggle
