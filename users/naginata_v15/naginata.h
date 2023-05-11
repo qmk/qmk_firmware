@@ -40,6 +40,15 @@ bool process_naginata(uint16_t, keyrecord_t *);
 // void set_naginata(uint8_t);
 void set_naginata(uint8_t, uint16_t *, uint16_t *);
 
+void ng_cut(void);
+void ng_copy(void);
+void ng_paste(void);
+void ng_up(void);
+void ng_down(void);
+void ng_left(void);
+void ng_right(void);
+void ng_sftup(void);
+
 // bool enable_naginata(uint16_t, keyrecord_t *);
 
 // なぜKC_キーコードを使わず、NG_キーコードを定義するのか
