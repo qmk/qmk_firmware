@@ -25,10 +25,6 @@
         "cols": ["B10", "B2", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "C15", "C14", "C13"],
         "rows": ["A8", "B15", "B14", "B8", "B9"]
     },
-    "matrix_size": {
-        "cols": 15,
-        "rows": 5
-    },
     "mouse_key": {
         "enabled": false
     },
