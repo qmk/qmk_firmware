@@ -12,11 +12,7 @@
   * 
   * You should have received a copy of the GNU General Public License 
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
-  */ 
-
-// This is the personal keymap of Ian Sterling (@xyverz). It is based on the keymap by
-// Chris Gerber (@gerbercj), with the addition of persistent layers like the Planck and
-// Preonic keyboards by Jack Humbert.
+  */
 
 #include QMK_KEYBOARD_H
 
@@ -24,7 +20,6 @@
 
 enum layer_names {
   _DVORAK,
-  _DVORMAC,
   _LOWER,
   _RAISE,
   _ADJUST
@@ -32,7 +27,6 @@ enum layer_names {
 
 enum planck_keycodes {
   DVORAK = SAFE_RANGE,
-  DVORMAC,
   LOWER,
   RAISE,
   ADJUST
@@ -54,23 +48,6 @@ enum planck_keycodes {
 #define RAISE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /* Dvorak Layer
-	,----------------------------------.              ,----------------------------------.
-	|   '  |   ,  |   .  |   P  |   Y  |              |   F  |   G  |   C  |   R  |   L  |
-	|------+------+------+------+------|              |------+------+------+------+------|
-	|   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |
-	|------+------+------+------+------+------.,------+------+------+------+------+------|
-	|SFT/ ;|   Q  |   J  |   K  |   X  | Home || End  |   B  |   M  |   W  |   V  |SFT/ Z|
-	|------+------+------+------+------+------||------+------+------+------+------+------|
-	|  Esc |  Tab |  GUI | LOWER| BkSp |DELCTL||ALTENT|  Spc | RAISE|   -  |   /  |   \  |
-	`-----------------------------------------'`-----------------------------------------' */
-  [_DVORAK] = LAYOUT(
-    KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L   ,
-    KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S   ,
-    SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_HOME, KC_END,  KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
-    ESCTRL,  TABALT,  KC_LGUI, LOWER,   KC_BSPC, DELCTL,  ALTENT,  KC_SPC,  RAISE,   KC_MINS, KC_SLSH, KC_BSLS
-  ),
-
   /* Dvorak Layer with Command key on left thumb instead of Control
 	,----------------------------------.              ,----------------------------------.
 	|   '  |   ,  |   .  |   P  |   Y  |              |   F  |   G  |   C  |   R  |   L  |
@@ -81,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|------+------+------+------+------+------||------+------+------+------+------+------|
 	|  Esc |  Tab |  GUI | LOWER| BkSp | LGUI ||ALTENT|  Spc | RAISE|   -  |   /  |   \  |
 	`-----------------------------------------'`-----------------------------------------' */
-  [_DVORMAC] = LAYOUT(
+  [_DVORAK] = LAYOUT(
     KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L   ,
     KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S   ,
     SFTSCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_HOME, KC_END,  KC_B,    KC_M,    KC_W,    KC_V,    SFTZED ,
@@ -142,19 +119,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-    case DVORMAC:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORMAC);
-      }
-      return false;
-  }
-  return true;
 }
