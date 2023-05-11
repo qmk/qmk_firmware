@@ -55,6 +55,7 @@ void ng_hiragana(void);
 void ng_redo(void);
 void ng_undo(void);
 void ng_saihenkan(void);
+void ng_eof(void);
 
 // bool enable_naginata(uint16_t, keyrecord_t *);
 

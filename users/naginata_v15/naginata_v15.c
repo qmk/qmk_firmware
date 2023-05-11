@@ -861,9 +861,7 @@ bool naginata_lookup(int nt, bool shifted) {
   if (is_henshu) {
     switch (keycomb_buf) {
       case B_J|B_K|B_Q: // ^{End}
-        register_code(KC_LCTL);
-        ng_end();
-        unregister_code(KC_LCTL);
+        ng_eof();
         compress_buffer(nt);
         return true;
         break;
@@ -1503,3 +1501,19 @@ void ng_saihenkan() {
   }
 }
 
+void ng_eof() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      register_code(KC_LCTL);
+      tap_code(KC_END);
+      unregister_code(KC_LCTL);
+      break;
+    case NG_MAC:
+      register_code(KC_LCMD);
+      tap_code(KC_DOWN);
+      unregister_code(KC_LCMD);
+      break;
+  }
+
+}
