@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 <<<<<<< HEAD
 
+
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xC2AB
 #define PRODUCT_ID      0x3939
@@ -39,13 +40,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  NO_DIODE = switches are directly connected to AVR pins
  *
 */
-#define DIRECT_PINS { \
+
+#define SPLIT_USB_DETECT
+#define EE_HANDS
+
+#undef DIRECT_PINS
+#define DIRECT_PINS {  \
     { E6, F7, F6, F5, F4 }, \
     { B1, B3, B2, B6, D3 }, \
     { D1, D0, D4, C6, D7 }, \
     { B4, B5, NO_PIN, NO_PIN, NO_PIN } \
 }
 
+#undef DIRECT_PINS_RIGHT
 #define DIRECT_PINS_RIGHT { \
     { F4, F5, F6, F7, E6 }, \
     { D3, B6, B2, B3, B1 }, \
@@ -53,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { B5, B4, NO_PIN, NO_PIN, NO_PIN } \
 }
 
-#define SPLIT_USB_DETECT
+
 
 
 #define UNUSED_PINS
@@ -66,7 +73,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* serial.c configuration for split keyboard */
 #define SOFT_SERIAL_PIN D2
 
-#define EE_HANDS
+
 
 /* Top left key on left half */
 #define BOOTMAGIC_LITE_ROW    0

@@ -119,7 +119,7 @@ combo_t key_combos[COMBO_COUNT] = {
 
 //tap dance declarations
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // simple tap dance
     [DANCE_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, LGUI(KC_0)), // replace with your keycodes. BASIC codes only, no custom codes.
     [DANCE_1] = ACTION_TAP_DANCE_DOUBLE(KC_1, LGUI(KC_1)),
