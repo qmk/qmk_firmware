@@ -3,10 +3,7 @@
     "keyboard_name": "favepada",
     "maintainer": "keydler",
     "bootloader": "stm32-dfu",
-    "platform": "STM32",
     "processor": "STM32F072",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "debounce": 5,
     "diode_direction": "COL2ROW",
     "encoder": {
