@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "print.h"
 
 // How long the scanning code waits for changed io to settle.
-#define MATRIX_IO_DELAY 60
+#define MATRIX_IO_DELAY 30
 
 #define COL_SHIFTER ((uint16_t)1)
 
@@ -138,7 +138,7 @@ static const uint16_t ghost1_row3 =           0B0000100000100000;
 static const matrix_row_t ghost1_row3_correct = 0B0000000000010000;
 
 void fix_ghosting_issue(matrix_row_t current_matrix[]) {
-    if (current_matrix[1] & ghost1_row2 && current_matrix[2] & ghost1_row3) {
+    if (current_matrix[1] == ghost1_row2 && current_matrix[2] == ghost1_row3) {
         current_matrix[2] = ghost1_row3_correct;
     }
 }
