@@ -133,9 +133,9 @@ bool has_matrix_changed(matrix_row_t current_matrix[]) {
 
 // OK, this is nasty, still not sure why its happening, but
 // this 3 key combo leads to ghosting of the 4th(the one missing from correct)
-static const uint16_t ghost1_row2 =           0B0000010000100000;
-static const uint16_t ghost1_row3 =           0B0000100000100000;
-static const matrix_row_t ghost1_row3_correct = 0B0000000000010000;
+static const uint16_t ghost1_row2 =             0B0000010000100000;
+static const uint16_t ghost1_row3 =             0B0000100000100000;
+static const matrix_row_t ghost1_row3_correct = 0B0000100000000000;
 
 void fix_ghosting_issue(matrix_row_t current_matrix[]) {
     if (current_matrix[1] == ghost1_row2 && current_matrix[2] == ghost1_row3) {

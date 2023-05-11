@@ -20,7 +20,7 @@
 //#define SERIAL_USART_TX_PIN B6     // USART TX pin
 //#define SERIAL_USART_RX_PIN B7     // USART RX pin
 
-#define EE_HANDS
+//#define EE_HANDS
 
 #define SOFT_SERIAL_PIN B14  // D0 or D1, D2, D3, E6
 #define SELECT_SOFT_SERIAL_SPEED 2 // or 0, 2, 3, 4, 5
@@ -31,7 +31,8 @@
                                    //  4: about 26kbps
                                    //  5: about 20kbps
 
-
+ #define CRC8_USE_TABLE
+ #define CRC8_OPTIMIZE_SPEED
 /* Top left key on left half */
 #define BOOTMAGIC_LITE_ROW    0
 #define BOOTMAGIC_LITE_COLUMN 0
@@ -40,6 +41,6 @@
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 4
 #define DEVICE_VER      0x0001
 
-#define AUDIO_PIN A1
+//#define AUDIO_PIN A1
 //#define AUDIO_PWM_DRIVER PWMD1
 //#define AUDIO_PWM_CHANNEL 1
