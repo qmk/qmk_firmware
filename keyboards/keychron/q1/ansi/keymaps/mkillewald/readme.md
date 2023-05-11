@@ -108,7 +108,7 @@ Caps Word options:
     - Fn+< sets my secondary display to 0° rotation
     - Fn+> sets my secondary display to 90° rotation
 
-    Note: display rotation requires additional software and changes made, see this link for more information:
+    Note: display rotation requires additional software and changes made, see this link for more information:    
     [https://gist.github.com/mkillewald/706b7ef8624d8c2bf17ce1df344cff48](https://gist.github.com/mkillewald/706b7ef8624d8c2bf17ce1df344cff48)
 
 All custom keycodes can be moved to different keys in VIA by using the following:
