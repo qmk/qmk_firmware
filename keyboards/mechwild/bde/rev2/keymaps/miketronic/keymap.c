@@ -130,9 +130,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
   [_SYMB] = LAYOUT_3x14_wrapper (
-    KC_DLR,  KC_CIRC, KC_LABK, KC_RABK, _______, _______,  KC_PIPE, KC_LBRC, KC_RBRC, KC_MINS, KC_A, KC_A, KC_A, KC_A,
-    KC_PERC, KC_COLN, KC_SCLN, KC_PLUS,  KC_EQL,   XXXX,     XXXX, KC_LPRN, KC_RPRN, KC_UNDS, KC_A, KC_A, KC_A, KC_A,
-    KC_AMPR, KC_QUOT, KC_DQUO, KC_ASTR, KC_HASH, KC_ENT,  KC_EXLM, KC_QUES, KC_SLSH, KC_BSLS, KC_AT, KC_A, KC_A, KC_A
+    _____________SYMBOLS_310_L1________________, _________NUMBER_01__________, _____________SYMBOLS_310_R1________________, QK_LEAD,
+    _____________SYMBOLS_310_L2________________, _________NUMBER_02__________, _____________SYMBOLS_310_R2________________, TD_UR,
+    _____________SYMBOLS_310_L3________________, _________NUMBER_03__________, _____________SYMBOLS_310_R3________________, TD_DL
   ),
 
 
