@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Mini Winni",
     "manufacturer": "WinKeys",
-    "maintainer": "Matthew Dias",
+    "maintainer": "matthewdias",
     "usb": {
         "vid": "0x574B",
         "pid": "0x7770",
