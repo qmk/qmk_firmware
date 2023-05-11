@@ -1,4 +1,4 @@
-# Keyboardio Atreus with and slf layout
+# Keyboardio Atreus with an slf layout
 
 [Stiff Little Fingers](https://en.wikipedia.org/wiki/Stiff_Little_Fingers) were a great punk band, from Belfast, Northern Ireland. Stiff Little Fingers is also a good way of describing my hands, a condition which I ascribe to too many years cycling without gloves in cold weather. So, I need a keyboard and layout to cope.
 
@@ -8,10 +8,13 @@ It has four layers:
 
 0 - Normal - letters and punctuation.
 ![layer 0](https://i.imgur.com/3Z8PZtI.png)
+
 1 - Symbols (shifted numbers), arrow keys, assorted function keys, Del and Backspace.
 ![layer 1](https://i.imgur.com/9rJalxV.png)
+
 2 - Numbers, page up, page down, home, and end. Similar assorted functions.
 ![layer 2](https://i.imgur.com/TYY11b5.png)
+
 3 - F1 to F14, play/pause, volume up/down, Left-shift-Alt left, right, up, down.
 ![layer 3](https://i.imgur.com/MuWNPTz.png)
 
