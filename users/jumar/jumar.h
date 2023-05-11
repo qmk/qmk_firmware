@@ -81,7 +81,6 @@ enum jumar_taps{
 #define LT3_ENT  LT(3,KC_ENT)
 #define LT1_DEL  LT(1,KC_DEL)
 #define LT6_GRV  LT(6,KC_GRV)
-#define CTL_ENT  LCTL_T(KC_ENT)
 #define LGU_ESC  LGUI_T(KC_ESC)
 #define ALT_BSP  LALT_T(KC_BSPC)
 
@@ -145,7 +144,7 @@ enum layer_names {
 #define ROW5_LEFT_BASE KC_ESC  , KC_1  , KC_2   , KC_3  , KC_4   , KC_5
 #define ROW4_LEFT_BASE KC_TAB  , KC_Q  , KC_W   , KC_E  , KC_R   , KC_T
 #define ROW3_LEFT_BASE KC_CAPS , LT2_A , LSFT_S , LT3_D , LCTL_F , KC_G
-#define ROW2_LEFT_BASE CTL_ENT , KC_Z  , KC_X   , KC_C  , KC_V   , KC_B
+#define ROW2_LEFT_BASE KC_LSFT , KC_Z  , KC_X   , KC_C  , KC_V   , KC_B
 #define ROW1_LEFT_BASE                    LGU_ESC   , ALT_BSP    , LCTL_SP
 
 #define ROW5_RIGHT_BASE                                                 KC_6      , KC_7      , KC_8   , KC_9   , KC_0   , KC_BSPC
