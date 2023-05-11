@@ -1,7 +1,7 @@
 # linworks/fave60a
 
-![linworks/fave60a front](https://imgur.com/UeWR8Kl)
-![linworks/fave60a back](https://imgur.com/j3mu8LF)
+![linworks/fave60a front](https://i.imgur.com/UeWR8Klh.png)
+![linworks/fave60a back](https://i.imgur.com/j3mu8LFh.png)
 
 *A short description of the keyboard/project*
 
