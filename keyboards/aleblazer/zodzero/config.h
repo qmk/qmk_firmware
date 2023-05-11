@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
      /* RGB Defines */
 #define RGB_DI_PIN GP0
 #define RGB_MATRIX_LED_COUNT 70
-#define RGBLED_NUM 70
 #define RGB_MATRIX_SPLIT { 35,35 }
      /* Enable Framebuffer and keypress effects */
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

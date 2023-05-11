@@ -11,7 +11,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "zodzero.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
@@ -219,26 +219,32 @@ static void print_status_narrow(void) {
     }
     oled_write_P(PSTR("\n\n"), false);
     // Print current layer
+    oled_write_P(PSTR("ZodZero\n"), false);
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
             oled_write_P(PSTR("Base\n"), false);
             break;
         case 1:
-            oled_write_P(PSTR("Number\n"), false);
-            break;
-        case 2:
-            oled_write_P(PSTR("Symbol\n"), false);
+            oled_write_P(PSTR("Numkeys\n"), false);
             break;
         case 3:
-            oled_write_P(PSTR("Fn\n"), false);
+            oled_write_P(PSTR("Symbols\n"), false);
+            break;
+        case 4:
+            oled_write_P(PSTR("F Keys\n"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("Numpad\n"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_P(PSTR("Undefined\n"), false);
     }
-    oled_write_P(PSTR("\n\n"), false);
-    led_t led_usb_state = host_keyboard_led_state();
-    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    led_t led_state = host_keyboard_led_state();  // caps lock stuff, prints CAPS on new line if caps led is on
+    oled_set_cursor(0, 7);
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("       "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("       "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCRL") : PSTR("       "), false);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -249,7 +255,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 bool oled_task_user(void) {
-    if (is_keyboard_master()) {
+    if (is_keyboard_left()) {
         print_status_narrow();
     } else {
         render_logo();
