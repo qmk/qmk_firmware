@@ -43,11 +43,18 @@ void set_naginata(uint8_t, uint16_t *, uint16_t *);
 void ng_cut(void);
 void ng_copy(void);
 void ng_paste(void);
-void ng_up(void);
-void ng_down(void);
-void ng_left(void);
-void ng_right(void);
-void ng_sftup(void);
+void ng_up(int);
+void ng_down(int);
+void ng_left(int);
+void ng_right(int);
+void ng_home(void);
+void ng_end(void);
+void ng_katakana(void);
+void ng_save(void);
+void ng_hiragana(void);
+void ng_redo(void);
+void ng_undo(void);
+void ng_saihenkan(void);
 
 // bool enable_naginata(uint16_t, keyrecord_t *);
 
