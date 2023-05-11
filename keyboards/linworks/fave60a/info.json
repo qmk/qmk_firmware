@@ -28,10 +28,7 @@
     "mouse_key": {
         "enabled": false
     },
-    "platform": "STM32",
     "processor": "STM32F072",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [
