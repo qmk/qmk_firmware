@@ -26,6 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "debounce.h"
 #include "encoder.h"
+#include "print.h"
+
+// How long the scanning code waits for changed io to settle.
+#define MATRIX_IO_DELAY 60
 
 #define COL_SHIFTER ((uint16_t)1)
 
@@ -64,7 +68,7 @@ static void unselect_cols(void) {
 static void read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Select row and wait for row selection to stabilize
     select_row(current_row);
-    wait_us(30);
+    wait_us(MATRIX_IO_DELAY);
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS / 2; col_index++) {
@@ -86,7 +90,7 @@ static void read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     // Select col and wait for col selection to stabilize
     select_col(current_col*2);
-    wait_us(30);
+    wait_us(MATRIX_IO_DELAY);
 
     uint16_t column_index_bitmask = COL_SHIFTER << (current_col * 2);
     // For each row...
@@ -127,6 +131,18 @@ bool has_matrix_changed(matrix_row_t current_matrix[]) {
     return false;
 }
 
+// OK, this is nasty, still not sure why its happening, but
+// this 3 key combo leads to ghosting of the 4th(the one missing from correct)
+static const uint16_t ghost1_row2 =           0B0000010000100000;
+static const uint16_t ghost1_row3 =           0B0000100000100000;
+static const matrix_row_t ghost1_row3_correct = 0B0000000000010000;
+
+void fix_ghosting_issue(matrix_row_t current_matrix[]) {
+    if (current_matrix[1] & ghost1_row2 && current_matrix[2] & ghost1_row3) {
+        current_matrix[2] = ghost1_row3_correct;
+    }
+}
+
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     store_old_matrix(current_matrix);
     // Set row, read cols
@@ -137,6 +153,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     for (uint8_t current_col = 0; current_col < MATRIX_COLS/2; current_col++) {
         read_rows_on_col(current_matrix, current_col);
     }
+
+    fix_ghosting_issue(current_matrix);
 
     fix_encoder_action(current_matrix);
 
