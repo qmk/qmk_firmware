@@ -2,7 +2,10 @@
     "manufacturer": "takashicompany",
     "keyboard_name": "miniDivide",
     "maintainer": "takashicompany",
-    "bootloader": "caterina",
+    "build": {
+        "lto": true
+    },
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
