@@ -198,7 +198,11 @@ void eeconfig_update_rgblight_current(void) {
 }
 
 void eeconfig_update_rgblight_default(void) {
+#ifdef RBGLIGHT_DEFAULT_DISABLED
+    rgblight_config.enable = 0;
+#else
     rgblight_config.enable = 1;
+#endif
     rgblight_config.mode   = RGBLIGHT_DEFAULT_MODE;
     rgblight_config.hue    = RGBLIGHT_DEFAULT_HUE;
     rgblight_config.sat    = RGBLIGHT_DEFAULT_SAT;
