@@ -98,10 +98,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //see also https://docs.qmk.fm/#/feature_pointing_device?id=split-keyboard-configuration
 
+
+// Setup Cirque
 #define CIRQUE_PINNACLE_DIAMETER_MM 23
 #define CIRQUE_PINNACLE_TAP_ENABLE true
+
+// Enable use of pointing device on slave split.
 #define SPLIT_POINTING_ENABLE
+
+// Pointing device is on the right split.
 #define POINTING_DEVICE_RIGHT
+
+// Limits the frequency that the sensor is polled for motion.
+#define POINTING_DEVICE_TASK_THROTTLE_MS 1
+
 //#define POINTING_DEVICE_DEBUG
 //#define PIMORONI_TRACKBALL_SCALE 5
 #define POINTING_DEVICE_ROTATION_270

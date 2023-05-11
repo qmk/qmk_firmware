@@ -36,10 +36,10 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
                 text = ""
         else:
             if text not in named_glyphs and not str(text).startswith('u"'):
-                text = f'u"{text}"'   
+                text = f'u"{text}"'
             if not sub:
                 return text
-        
+
         if sub in named_glyphs or str(sub).startswith('u"'):
             return f'{text} u"\\r\\v\\t" {sub}'
         else:
@@ -62,7 +62,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
                 lang_row = f"{lang_row}{composed}"
 
         return lang_row
-    
+
     #create actual language lookup table
     key_index = 2
     key_name = sheet["A2"].value

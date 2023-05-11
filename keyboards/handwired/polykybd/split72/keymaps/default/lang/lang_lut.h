@@ -5,7 +5,7 @@
 #include "named_glyphs.h"
 
 enum {ALPHA = 26, NUM = 10, ADDITIONAL = 17};
-enum lang_layer { 
+enum lang_layer {
     /*[[[cog
     import cog
     import os

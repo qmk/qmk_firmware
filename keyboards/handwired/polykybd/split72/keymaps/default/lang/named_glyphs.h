@@ -5,8 +5,9 @@
 
 /*[[[cog
     import cog
+    import os
     from openpyxl import load_workbook
-    wb = load_workbook(filename = 'lang_lut.xlsx', data_only=True)
+    wb = load_workbook(filename = os.path.join(os.path.abspath(os.path.dirname(cog.inFile)), "lang_lut.xlsx"), data_only=True)
     sheet = wb['named_glyphs']
 
     glyph_index = 2

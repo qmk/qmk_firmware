@@ -10,6 +10,7 @@
         "random": "c",
         "limits": "c",
         "numeric": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "shift_reg.h": "c"
     }
 }

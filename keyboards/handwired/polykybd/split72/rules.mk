@@ -34,6 +34,6 @@ RGB_MATRIX_DRIVER = WS2812
 
 #source files
 QUANTUM_LIB_SRC += spi_master.c
-SRC += base/helpers.c base/disp_array.c base/shift_reg.c base/spi_helper.c base/lang/lang_lut.c polykybd.c
+SRC += base/helpers.c base/disp_array.c base/shift_reg.c base/spi_helper.c polykybd.c
 
 DEFAULT_FOLDER = handwired/polykybd/split72/rp2040pico
