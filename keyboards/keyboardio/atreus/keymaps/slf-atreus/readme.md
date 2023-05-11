@@ -1,17 +1,23 @@
 # Keyboardio Atreus with and slf layout
 
-[Stiff Little Fingers](https://en.wikipedia.org/wiki/Stiff_Little_Fingers) were a great punk band, from Belfast, Northern Ireland. Stiff Little Fingers is also a good way of describing my hands, a condition which I ascribe to too many years cycling without gloves in cold weather.
+[Stiff Little Fingers](https://en.wikipedia.org/wiki/Stiff_Little_Fingers) were a great punk band, from Belfast, Northern Ireland. Stiff Little Fingers is also a good way of describing my hands, a condition which I ascribe to too many years cycling without gloves in cold weather. So, I need a keyboard and layout to cope.
 
-I use a Keyboardio Atreus, in fact, they're so good, I use two. I tried all sorts of layouts, and finall came up with the one that suits my stiff little fingers; slf-atreus.
+I use a Keyboardio Atreus, in fact, they're so good, I use two. I tried all sorts of layouts, and finally came up with the one that suits my stiff little fingers; slf-atreus.
 
 It has four layers:
 
 0 - Normal - letters and punctuation.
+![layer 0](https://imgur.com/3Z8PZtI)
 1 - Symbols (shifted numbers), arrow keys, assorted function keys, Del and Backspace.
+![layer 1](https://imgur.com/9rJalxV)
 2 - Numbers, page up, page down, home, and end. Similar assorted functions.
-3 - F1 to F14, play/pause, volume up/down, Left-Ctrl-Alt left, right, up, down.
+![layer 2](https://imgur.com/TYY11b5)
+3 - F1 to F14, play/pause, volume up/down, Left-shift-Alt left, right, up, down.
+![layer 3](https://imgur.com/MuWNPTz)
 
-Autoshift is important, as is tap dance. Auto shift is self explanatory. I use tap dance for:
+Autoshift is important, I use it all the time.
+
+I use tap dance (one, two, or three key presses) for:
 
 * Braces, brackets, and curly brackets. TD(L_BRAX) and TD(R_BRAX)
 * Hash (pound), tilde, and backtick. TD(TACHE)
