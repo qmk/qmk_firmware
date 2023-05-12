@@ -3,5 +3,6 @@
 
 #pragma once
 
+#define SERIAL_NUM "Dash 75"
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2
 #define VIA_FIRMWARE_VERSION 1
