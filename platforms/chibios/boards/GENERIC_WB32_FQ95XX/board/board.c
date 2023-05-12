@@ -89,6 +89,6 @@ void restart_usb_driver(USBDriver *usbp) {
     // conditions that can corrupt the keyboard state.
     //
     // Pause for a while to let things settle...
-    wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+    chThdSleepMilliseconds(USB_SUSPEND_WAKEUP_DELAY);
 #endif
 }
