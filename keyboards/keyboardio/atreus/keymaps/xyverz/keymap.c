@@ -34,13 +34,11 @@ enum planck_keycodes {
 
 // Adding macros to make the keymaps below much easier to read.
 #define SFTSCLN SFT_T(KC_SCLN)
-#define SFTSLSH SFT_T(KC_SLSH)
 #define SFTZED SFT_T(KC_Z)
 #define ALTENT ALT_T(KC_ENT)
 #define ESCTRL CTL_T(KC_ESC)
 #define TABALT ALT_T(KC_TAB)
 #define DELGUI GUI_T(KC_DEL)
-#define DELCTL CTL_T(KC_DEL)
 #define MACLOCK LGUI(LCTL(KC_Q))
 #define WINLOCK LGUI(KC_L)
 #define LOWER MO(_LOWER)
@@ -107,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|------+------+------+------+------+------.,------+------+------+------+------+------|
 	|      |      |      |      |      |      ||      |      |      |      |      |      |
 	|------+------+------+------+------+------||------+------+------+------+------+------|
-	|      |      |      |      |      |      ||      |      |      |      |      | QK_BOOT|
+	|      |      |      |      |      |      ||      |      |      |      |      |QKBOOT|
 	`-----------------------------------------'`-----------------------------------------'*/
   [_ADJUST] = LAYOUT(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10 ,
