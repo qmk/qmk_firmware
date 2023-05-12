@@ -3,11 +3,9 @@
 ![linworks/favepada front](https://i.imgur.com/tkKHcL2h.png)
 ![linworks/favepada back](https://i.imgur.com/1x5UokRh.png)
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [keydler](https://github.com/duilchoi)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: 
+* Hardware Availability: None, feel free to order/manufacture parts yourself.
 
 Make example for this keyboard (after setting up your build environment):
 
