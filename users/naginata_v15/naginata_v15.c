@@ -649,12 +649,16 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         if (keycomb == (B_D | B_F) ||
             keycomb == (B_J | B_K) ||
             keycomb == (B_C | B_V) ||
-            keycomb == (B_M | B_COMM))
+            keycomb == (B_M | B_COMM) ||
+            keycomb == (B_U | B_I) ||
+            keycomb == (B_E | B_R))
           is_henshu = true;
         if ((keycomb & (B_D | B_F)) != (B_D | B_F) &&
             (keycomb & (B_J | B_K)) != (B_J | B_K) &&
             (keycomb & (B_C | B_V)) != (B_C | B_V) &&
-            (keycomb & (B_M | B_COMM)) != (B_M | B_COMM))
+            (keycomb & (B_M | B_COMM)) != (B_M | B_COMM) &&
+            (keycomb & (B_U | B_I)) != (B_U | B_I) &&
+            (keycomb & (B_E | B_R)) != (B_E | B_R))
           is_henshu = false;
         // 変換候補が絞られるか、バッファが一杯になったら処理を開始
         int nc = number_of_candidates();
@@ -673,7 +677,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         if ((keycomb & (B_D | B_F)) != (B_D | B_F) &&
             (keycomb & (B_J | B_K)) != (B_J | B_K) &&
             (keycomb & (B_C | B_V)) != (B_C | B_V) &&
-            (keycomb & (B_M | B_COMM)) != (B_M | B_COMM))
+            (keycomb & (B_M | B_COMM)) != (B_M | B_COMM) &&
+            (keycomb & (B_U | B_I)) != (B_U | B_I) &&
+            (keycomb & (B_E | B_R)) != (B_E | B_R))
           is_henshu = false;
         if (ng_chrcount > 0) {
           naginata_type();
@@ -1173,6 +1179,77 @@ bool naginata_lookup(int nt, bool shifted) {
         register_code(KC_LSFT);
         ng_left(20);
         unregister_code(KC_LSFT);
+        compress_buffer(nt);
+        return true;
+        break;
+// 固有名詞
+      case B_U|B_I|B_A: // 臨兵闘者皆陣烈在前
+        ng_send_unicode_string("臨兵闘者皆陣烈在前");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_U|B_I|B_S: // 天狗
+        ng_send_unicode_string("天狗");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_U|B_I|B_D: // シンイチ
+        ng_send_unicode_string("シンイチ");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_U|B_I|B_F: // ネムカケ
+        ng_send_unicode_string("ネムカケ");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_U|B_I|B_X: // 小鴉
+        ng_send_unicode_string("小鴉");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_U|B_I|B_C: // 光太郎
+        ng_send_unicode_string("光太郎");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_U|B_I|B_V: // 三神
+        ng_send_unicode_string("三神");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_E|B_R|B_H: // 才一
+        ng_send_unicode_string("才一");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_E|B_R|B_J: // さくら
+        ng_send_unicode_string("さくら");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_E|B_R|B_K: // 酒田
+        ng_send_unicode_string("酒田");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_E|B_R|B_N: // 鞍馬
+        ng_send_unicode_string("鞍馬");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_E|B_R|B_M: // 青鬼
+        ng_send_unicode_string("青鬼");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_E|B_R|B_COMM: // 百地
+        ng_send_unicode_string("百地");
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_E|B_R|B_SLSH: // 不動金縛りの術
+        ng_send_unicode_string("不動金縛りの術");
         compress_buffer(nt);
         return true;
         break;

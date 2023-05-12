@@ -36,6 +36,20 @@ mode2r = <<MEND
 |||||+{End} |{← 5}|+{←}|+{← 5} |+{← 20}|  |
 MEND
 
+koyul = <<MEND
+|          |          |          ||||||||
+|臨兵闘者皆陣烈在前|天狗      |シンイチ  |ネムカケ  ||||||||
+        |          |小鴉      |光太郎    |三神      ||||||||
+火よ、在れ|火の剣   |罵詈雑    |心の闇    |峯        ||||||||
+MEND
+
+koyur = <<MEND
+|||||          |          |          |          |          |          |          |
+|||||才一      |さくら    |酒田      |          |          |          |          |
+|||||鞍馬      |青鬼      |百地      |      |不動金縛りの術|          |
+|||||鬼塚      |赤石      |          |          |霊槍      |          |
+MEND
+
 eiji    = %w(Q W E R T  Y U I O P  A S D F G  H J K L SCLN  Z X C V B  N M COMM DOT SLSH)
 eiji_r  = %w(Y U I O P  H J K L SCLN N M COMM DOT SLSH)
 eiji_l  = %w(Q W E R T  A S D F G  Z X C V B)
@@ -369,6 +383,28 @@ qwerty.each_with_index do |k, i|
 end
 
 puts "// 編集モード"
+puts $hkey
 puts $hcase
 
+$hkey = []
+$hcase = []
+
+koyul = koyul.split("|").map{|x| x.strip}
+koyur = koyur.split("|").map{|x| x.strip}
+
+qwerty.each_with_index do |k, i|
+  m =  koyul[i]
+  pk = "B_U|B_I"
+  outputHenshu(pk, m, k) unless m == ""
+end
+
+qwerty.each_with_index do |k, i|
+  m =  koyur[i]
+  pk = "B_E|B_R"
+  outputHenshu(pk, m, k) unless m == ""
+end
+
+
+puts "// 固有名詞"
 puts $hkey
+puts $hcase
