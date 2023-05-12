@@ -32,6 +32,8 @@ typedef struct {
     HSV hsv_fn2;
 } user_config_t;
 
+_Static_assert(sizeof(user_config_t) == EECONFIG_USER_DATA_SIZE, "User config structure larger than configured data size.");
+
 user_config_t user_config;
 
 void eeconfig_init_user(void) {
@@ -168,12 +170,3 @@ void user_config_set_hsv_fn2(HSV hsv) {
     user_config.hsv_fn2 = hsv;
     user_config_write_eeprom();
 }
-
-
-
-
-
-
-
-
-

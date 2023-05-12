@@ -1,6 +1,6 @@
 ## Keychron Q2 SEVERED RGB ANSI STM32L432 ENC11 (knob) Keymap v2.0.2
 
-![Keychron Q2 ANSI encoder](https://raw.githubusercontent.com/mkillewald/glamour_shots/main/keyboards/keychron/q2/Q2_SEVERED_RGB_ANSI_STM32L432_ENC11.jpg)
+![Keychron Q2 ANSI encoder](https://i.imgur.com/s9vb9F5.jpg)
 
 ### Highly Recommended:
 When you flash this firmware for the first time, you should clear the eeprom so that the eeprom defaults are properly set. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing the eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear the eeprom even if you take it out of DFU mode at that point without flashing. Alternatively, you may use the factory reset key combo (Fn1+J+Z) to clear the eeprom after flashing.

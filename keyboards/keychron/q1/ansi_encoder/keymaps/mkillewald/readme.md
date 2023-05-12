@@ -1,6 +1,6 @@
 ## Keychron Q1 Special Edition RGB ANSI ATMEGA32U4 ENC11 (knob) Keymap v2.0.2
 
-![Keychron Q1SE ANSI encoder](https://raw.githubusercontent.com/mkillewald/glamour_shots/main/keyboards/keychron/q1/Q1SE_RGB_ANSI_ATMEGA32U4_ENC11.jpg)
+![Keychron Q1SE ANSI encoder](https://i.imgur.com/Y0qHSzU.jpg)
 
 ### Highly Recommended:
 When you flash this firmware for the first time, you should clear the eeprom so that the eeprom defaults are properly set. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing the eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear the eeprom even if you take it out of DFU mode at that point without flashing. Alternatively, you may use the factory reset key combo (Fn+J+Z) to clear the eeprom after flashing.
@@ -20,8 +20,8 @@ When you flash this firmware for the first time, you should clear the eeprom so 
 - Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed using the standard RGB keyboard shortcuts.
 
 - Autocorrect is enabled. ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
-    - Uses getreuer's autocorrect dictionary.
-    [https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict.txt](https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict.txt)
+    - Uses getreuer's 400 entry autocorrect dictionary.
+    [https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict_extra.txt](https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict_extra.txt)
 
 - Caps Word enabled with RGB indicator. ([https://docs.qmk.fm/#/feature_caps_word](https://docs.qmk.fm/#/feature_caps_word))
 

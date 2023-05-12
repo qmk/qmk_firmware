@@ -1,6 +1,6 @@
 ## Keychron Q1 RGB ANSI ATMEGA32U4 (no knob) Keymap v2.0.2
 
-![Keychron Q1 ANSI](https://raw.githubusercontent.com/mkillewald/glamour_shots/main/keyboards/keychron/q1/Q1_RGB_ANSI_ATMEGA32U4.jpg)
+![Keychron Q1 ANSI](https://i.imgur.com/DUA2dMd.jpg)
 
 ### Highly Recommended:
 When you flash this firmware for the first time, you should clear the eeprom so that the eeprom defaults are properly set. Be aware that clearing the eeprom will erase any changes previously made in VIA. Please backup your VIA config before clearing the eeprom. If you place your keyboard in DFU mode by holding ESC and plugging in the USB cable, this should clear the eeprom even if you take it out of DFU mode at that point without flashing. Alternatively, you may use the factory reset key combo (Fn+J+Z) to clear the eeprom after flashing.

@@ -74,8 +74,10 @@ void housekeeping_task_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_keychron(keycode, record)) { return false; }
-    if (!process_record_myfork_keychron_ft(keycode, record)) { return false; }
-    if (!process_record_mkillewald(keycode, record)) { return false; }
+    if (!(process_record_keychron(keycode, record) && 
+        process_record_myfork_keychron_ft(keycode, record) && 
+        process_record_mkillewald(keycode, record))) {
+        return false;
+    }
     return true;
 }

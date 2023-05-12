@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 
 #include "quantum.h"
 
@@ -45,5 +44,3 @@ void set_mac_base_rgb(void);
 void set_win_base_rgb(void);
 void housekeeping_task_mkillewald(void);
 bool process_record_mkillewald(uint16_t keycode, keyrecord_t *record);
-
-#endif
