@@ -11,6 +11,7 @@
         "limits": "c",
         "numeric": "c",
         "ranges": "c",
-        "shift_reg.h": "c"
+        "shift_reg.h": "c",
+        "type_traits": "c"
     }
 }

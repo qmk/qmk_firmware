@@ -50,17 +50,43 @@ enum my_keycodes {
     //[[[end]]]
 };
 
+struct display_info {
+    uint8_t bitmask[NUM_SHIFT_REGISTERS];
+};
+
+#define BITMASK1(x) .bitmask = {~0, ~0, ~0, ~0, (uint8_t)(~(1<<x))}
+#define BITMASK2(x) .bitmask = {~0, ~0, ~0, (uint8_t)(~(1<<x)), ~0}
+#define BITMASK3(x) .bitmask = {~0, ~0, (uint8_t)(~(1<<x)), ~0, ~0}
+#define BITMASK4(x) .bitmask = {~0, (uint8_t)(~(1<<x)), ~0, ~0, ~0}
+#define BITMASK5(x) .bitmask = {(uint8_t)(~(1<<x)), ~0, ~0, ~0, ~0}
+
+struct display_info key_display[] = {
+        {BITMASK1(0)}, {BITMASK1(1)}, {BITMASK1(2)}, {BITMASK1(3)}, {BITMASK1(4)}, {BITMASK1(5)}, {BITMASK1(6)}, {BITMASK1(7)},
+        {BITMASK2(0)}, {BITMASK2(1)}, {BITMASK2(2)}, {BITMASK2(3)}, {BITMASK2(4)}, {BITMASK2(5)}, {BITMASK2(6)}, {BITMASK2(7)},
+        {BITMASK3(0)}, {BITMASK3(1)}, {BITMASK3(2)}, {BITMASK3(3)}, {BITMASK3(4)}, {BITMASK3(5)}, {BITMASK3(6)}, {BITMASK3(7)},
+        {BITMASK4(0)}, {BITMASK4(1)}, {BITMASK4(2)}, {BITMASK4(3)}, {BITMASK4(4)}, {BITMASK4(5)}, {BITMASK4(6)}, {BITMASK4(7)},
+        {BITMASK5(0)}, {BITMASK5(1)}, {BITMASK5(2)}, {BITMASK5(3)}, {BITMASK5(4)}, {BITMASK5(5)}, {BITMASK5(6)}, {BITMASK5(7)}
+};
+
+struct display_info disp_row_0 = { BITMASK1(0) };
+struct display_info disp_row_3 = { BITMASK4(0) };
+
 enum refresh_mode { START_FIRST_HALF, START_SECOND_HALF, DONE_ALL, ALL_AT_ONCE };
 static enum refresh_mode g_refresh = DONE_ALL;
 static uint8_t g_contrast = FULL_BRIGHT;
+
 static uint16_t last_key = 0;
+
+typedef struct _poly_sync_t {
+    uint8_t lang;
+    uint8_t contrast;
+} poly_sync_t;
 
 typedef struct _poly_state_t {
     led_t led_state;
     uint8_t mod_state;
     layer_state_t layer_state;
-    uint8_t contrast;
-    uint8_t lang;
+    poly_sync_t s;
 } poly_state_t;
 
 poly_state_t g_state;
@@ -78,7 +104,6 @@ void inc_brightness(void) {
     if (g_contrast > FULL_BRIGHT) {
         g_contrast = FULL_BRIGHT;
     }
-    //set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
 }
 
 void dec_brightness(void) {
@@ -87,7 +112,6 @@ void dec_brightness(void) {
     } else {
         g_contrast = 1;
     }
-    //set_displays(DISPLAYS_SET_CONTRAST, g_contrast);
 }
 
 void select_all_displays(void) {
@@ -122,10 +146,7 @@ void request_disp_refresh(void) {
     // g_refresh = START_FIRST_HALF;
 }
 
-typedef struct _poly_sync_t {
-    uint8_t lang;
-    uint8_t contrast;
-} poly_sync_t;
+
 
 
 void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
@@ -137,10 +158,11 @@ void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t ou
 
 void sync_and_refresh_displays(void) {
     if (is_keyboard_master()) {
-        if (g_lang != g_state.lang || g_contrast != g_state.contrast) {
-            poly_sync_t send = { g_lang, g_contrast };
+        //master syncs data
+        if (g_lang != g_state.s.lang || g_contrast != g_state.s.contrast ){
+            poly_sync_t send = { g_lang, g_contrast};
             if (transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(send), &send)) {
-                g_state.lang = g_lang;
+                g_state.s.lang = g_lang;
                 //dprint("poly state sync done!\n");
             }
             else {
@@ -149,9 +171,9 @@ void sync_and_refresh_displays(void) {
         }
     }
 
-    if (g_state.contrast != g_contrast && g_refresh == DONE_ALL) {
+    if (g_state.s.contrast != g_contrast && g_refresh == DONE_ALL) {
         set_displays((uint8_t)g_contrast);
-        g_state.contrast = g_contrast;
+        g_state.s.contrast = g_contrast;
     }
 
     led_t led_state = host_keyboard_led_state();
@@ -160,12 +182,12 @@ void sync_and_refresh_displays(void) {
     if (led_state.raw != g_state.led_state.raw ||
         mod_state != g_state.mod_state ||
         layer_state != g_state.layer_state ||
-        g_state.lang != g_lang) {
+        g_state.s.lang != g_lang) {
 
         g_state.led_state = host_keyboard_led_state();
         g_state.mod_state = get_mods();
         g_state.layer_state = layer_state;
-        g_state.lang = g_lang;
+        g_state.s.lang = g_lang;
         request_disp_refresh();
     }
 
@@ -194,59 +216,59 @@ void housekeeping_task_user(void) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE_LAYER] = SPLIT_LAYOUT(
-        KC_ESC,         KC_1,           KC_2,           KC_3,          KC_4,            KC_5,           KC_6,           KC_NO,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,          KC_R,            KC_T,           KC_GRAVE,       KC_NO,
-        MO(_FN_LAYER),  KC_A,           KC_S,           KC_D,          KC_F,            KC_G,           KC_NXTL,        KC_NO,
-        KC_LSFT,        KC_NUHS,        KC_Z,           KC_X,          KC_C,            KC_V,           KC_B,           KC_MS_BTN1,
-        KC_LCTL,        KC_LWIN,        KC_LALT,        KC_APP,        KC_SPACE,        KC_DEL,         KC_END,         KC_HOME,
+        KC_ESC,         KC_1,           KC_2,           KC_3,          KC_4,            KC_5,           KC_6,
+        KC_TAB,         KC_Q,           KC_W,           KC_E,          KC_R,            KC_T,           KC_GRAVE,
+        MO(_FN_LAYER),  KC_A,           KC_S,           KC_D,          KC_F,            KC_G,           KC_QUOTE,       KC_MS_BTN1,
+        KC_LSFT,        KC_NUHS,        KC_Z,           KC_X,          KC_C,            KC_V,           KC_B,           KC_HOME,
+        KC_LCTL,        KC_LWIN,        KC_LALT,        KC_APP,                         KC_SPACE,       KC_DEL,         KC_END,
 
-        KC_NO,          KC_7,           KC_8,           KC_9,          KC_0,            KC_MINUS,       KC_EQUAL,       KC_BSPC,
-        KC_NO,          KC_Y,           KC_U,           KC_I,          KC_O,            KC_P,           KC_LBRC,        KC_BSLS,
+                        KC_7,           KC_8,           KC_9,          KC_0,            KC_MINUS,       KC_EQUAL,       KC_BSPC,
+                        KC_Y,           KC_U,           KC_I,          KC_O,            KC_P,           KC_LBRC,        KC_BSLS,
         KC_NO,          KC_H,           KC_J,           KC_K,          KC_L,            KC_SCLN,        KC_RBRC,        KC_ENTER,
-        KC_NO,          KC_PGUP,        KC_N,           KC_M,          KC_COMMA,        KC_DOT,         KC_SLASH,       KC_RSFT,
-        KC_PGDN,        KC_LANG,        KC_QUOTE,       KC_SPACE,      KC_UP,           KC_DOWN,        KC_LEFT,        KC_RIGHT
+        KC_PGDN,        KC_PGUP,        KC_N,           KC_M,          KC_COMMA,        KC_DOT,         KC_SLASH,       KC_RSFT,
+        KC_LANG,        KC_BSPC,        KC_SPACE,                      KC_LEFT,         KC_UP,          KC_DOWN,        KC_RIGHT
         ),
 
     [_FN_LAYER] = SPLIT_LAYOUT(
-        _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          _______,
+        _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,
+        _______,        _______,        _______,        _______,        _______,        _______,        _______,
         _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
         _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
-        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
-        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
+        _______,        _______,        _______,        _______,                        KC_NXTL,        _______,        _______,
 
-        _______,        KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
-        _______,        _______,        _______,        KC_KP_7,        KC_KP_8,        KC_KP_9,        _______,        _______,
+                        KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
+                        _______,        _______,        KC_KP_7,        KC_KP_8,        KC_KP_9,        _______,        _______,
         _______,        _______,        _______,        KC_KP_4,        KC_KP_5,        KC_KP_6,        _______,        _______,
         _______,        _______,        _______,        KC_KP_1,        KC_KP_2,        KC_KP_3,        _______,        _______,
-        _______,        _______,        _______,        _______,        KC_KP_DOT,        KC_KP_0,        _______,        _______
+        _______,        _______,        KC_NXTL,                        KC_KP_DOT,      KC_KP_0,        _______,        _______
         ),
 
     [_UTIL_LAYER] = SPLIT_LAYOUT(
-        KC_NO,          KC_NO,          KC_SAVE_EE,     KC_NO,         KC_NO,          KC_MPRV,        KC_NXTL,        KC_NO,
-        RGB_PREV,       KC_VOLU,        DB_TOGG,        KC_DARKER,     KC_NO,          KC_MPLY,        KC_NO,          KC_NO,
-        RGB_TOGGLE,     KC_MUTE,        EE_CLR,         KC_CONTRAST,   KC_RST_DSP,     KC_MSTP,        KC_NO,          KC_NO,
-        RGB_NEXT,       KC_VOLD,        QK_BOOT,        KC_BRIGTHER,   KC_NO,          KC_MNXT,        KC_NO,          KC_MS_BTN1,
-        KC_NO,          KC_NO,          QK_MAKE,        QK_RBT,        KC_NO,          KC_NO,          KC_NO,          KC_NO,
+        KC_NO,          KC_NO,          KC_SAVE_EE,     KC_NO,         KC_NO,          KC_MPRV,        KC_NO,
+        RGB_PREV,       KC_VOLU,        DB_TOGG,        KC_DARKER,     KC_NO,          KC_MPLY,        KC_NO,
+        RGB_TOGGLE,     KC_MUTE,        EE_CLR,         KC_CONTRAST,   KC_RST_DSP,     KC_MSTP,        KC_NO,          KC_MS_BTN1,
+        RGB_NEXT,       KC_VOLD,        QK_BOOT,        KC_BRIGTHER,   KC_NO,          KC_MNXT,        KC_NO,          KC_NO,
+        KC_NO,          KC_NO,          QK_MAKE,        QK_RBT,                        KC_NO,          KC_NXTL,        KC_NO,
 
-        KC_NO,          KC_NO,          KC_NO,          KC_SAVE_EE,    KC_NO,          KC_NO,          KC_MPRV,        KC_NXTL,
-        KC_NO,          RGB_PREV,       KC_VOLU,        DB_TOGG,       KC_DARKER,      KC_NO,          KC_MPLY,        KC_NO,
+                        KC_NO,          KC_NO,          KC_SAVE_EE,    KC_NO,          KC_NO,          KC_MPRV,        KC_NO,
+                        RGB_PREV,       KC_VOLU,        DB_TOGG,       KC_DARKER,      KC_NO,          KC_MPLY,        KC_NO,
         KC_NO,          RGB_TOGGLE,     KC_MUTE,        EE_CLR,        KC_CONTRAST,    KC_RST_DSP,     KC_MSTP,        KC_NO,
         KC_NO,          RGB_NEXT,       KC_VOLD,        QK_BOOT,       KC_BRIGTHER,    KC_NO,          KC_MNXT,        KC_NO,
-        KC_NO,          KC_NO,          QK_MAKE,        QK_RBT,        KC_NO,          KC_NO,          KC_NO,          KC_NO
+        KC_NO,          KC_NXTL,        QK_RBT,                        QK_MAKE,        KC_NO,          KC_NO,          KC_NO
         ),
 
     [_LANG_LAYER] = SPLIT_LAYOUT(
-        KC_LEAD,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_NO,
-        KC_NO,          KC_LANG_PT,     KC_LANG_ES,     KC_LANG_AR,     KC_LANG_GR,     KC_NO,          KC_NO,          KC_NO,
-        KC_NO,          KC_LANG_FR,     KC_LANG_DE,     KC_LANG_JA,     KC_LANG_TR,     KC_NO,          KC_NO,          KC_NO,
-        KC_NO,          KC_LANG_IT,     KC_LANG_EN,     KC_LANG_KO,     KC_NO,          KC_NO,          KC_NO,          KC_MS_BTN1,
-        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_LANG,        KC_NO,          KC_NO,          KC_NO,
+        KC_LEAD,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,
+        KC_NO,          KC_LANG_PT,     KC_LANG_ES,     KC_LANG_AR,     KC_LANG_GR,     KC_NO,          KC_NO,
+        KC_NO,          KC_LANG_FR,     KC_LANG_DE,     KC_LANG_JA,     KC_LANG_TR,     KC_NO,          KC_NO,          KC_MS_BTN1,
+        KC_NO,          KC_LANG_IT,     KC_LANG_EN,     KC_LANG_KO,     KC_NO,          KC_NO,          KC_NO,          KC_NO,
+        KC_NO,          KC_NO,          KC_NO,          KC_NO,                          KC_LANG,        KC_NO,          KC_NO,
 
-        KC_NO,          KC_NO,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
-        KC_NO,          KC_NO,          KC_LANG_GR,     KC_LANG_AR,     KC_LANG_ES,     KC_LANG_PT,     KC_NO,          KC_NO,
+                        KC_NO,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
+                        KC_NO,          KC_LANG_GR,     KC_LANG_AR,     KC_LANG_ES,     KC_LANG_PT,     KC_NO,          KC_NO,
         KC_NO,          KC_NO,          KC_LANG_TR,     KC_LANG_JA,     KC_LANG_DE,     KC_LANG_FR,     KC_NO,          KC_NO,
         KC_NO,          KC_NO,          KC_NO,          KC_LANG_KO,     KC_LANG_EN,     KC_LANG_IT,     KC_NO,          KC_NO,
-        KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_LANG,        KC_NO,          KC_NO,          KC_NO
+        KC_NO,          KC_NXTL,        KC_NO,                          KC_LANG,        KC_NO,          KC_NO,          KC_NO
         )
 };
 
@@ -291,29 +313,6 @@ led_config_t g_led_config = { {// Key Matrix to LED Index
                                  4, 4, 4, 4, 4, 4, 4,
                                  4, 4, 4, 4, 4, 4, 4, 4
                              } };
-
-//void process_layer_switch_user(uint16_t new_layer);
-
-struct display_info {
-    uint8_t bitmask[NUM_SHIFT_REGISTERS];
-};
-
-#define BITMASK1(x) .bitmask = {~0, ~0, ~0, ~0, (uint8_t)(~(1<<x))}
-#define BITMASK2(x) .bitmask = {~0, ~0, ~0, (uint8_t)(~(1<<x)), ~0}
-#define BITMASK3(x) .bitmask = {~0, ~0, (uint8_t)(~(1<<x)), ~0, ~0}
-#define BITMASK4(x) .bitmask = {~0, (uint8_t)(~(1<<x)), ~0, ~0, ~0}
-#define BITMASK5(x) .bitmask = {(uint8_t)(~(1<<x)), ~0, ~0, ~0, ~0}
-
-struct display_info key_display[] = {
-        {BITMASK1(0)}, {BITMASK1(1)}, {BITMASK1(2)}, {BITMASK1(3)}, {BITMASK1(4)}, {BITMASK1(5)}, {BITMASK1(6)}, {BITMASK1(7)},
-        {BITMASK2(0)}, {BITMASK2(1)}, {BITMASK2(2)}, {BITMASK2(3)}, {BITMASK2(4)}, {BITMASK2(5)}, {BITMASK2(6)}, {BITMASK2(7)},
-        {BITMASK3(0)}, {BITMASK3(1)}, {BITMASK3(2)}, {BITMASK3(3)}, {BITMASK3(4)}, {BITMASK3(5)}, {BITMASK3(6)}, {BITMASK3(7)},
-        {BITMASK4(0)}, {BITMASK4(1)}, {BITMASK4(2)}, {BITMASK4(3)}, {BITMASK4(4)}, {BITMASK4(5)}, {BITMASK4(6)}, {BITMASK4(7)},
-        {BITMASK5(0)}, {BITMASK5(1)}, {BITMASK5(2)}, {BITMASK5(3)}, {BITMASK5(4)}, {BITMASK5(5)}, {BITMASK5(6)}, {BITMASK5(7)}
-};
-
-struct display_info disp_row_0 = { BITMASK1(0) };
-struct display_info disp_row_3 = { BITMASK4(0) };
 
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
@@ -404,7 +403,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_AUDIO_VOL_UP:
         return u"  " ICON_VOL_UP;
     case KC_NXTL:
-        return u"Menu" ICON_LAYER;
+        return u"Menu\r\v\t" ICON_LAYER;
     case KC_PRINT_SCREEN:
         return u"PScn";
     case KC_SCROLL_LOCK:
@@ -424,7 +423,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_END:
         return u"End";
     case MO(_FN_LAYER):
-        return u"Fn " ICON_LAYER;
+        return u"Fn\r\v\t" ICON_LAYER;
     case KC_F1:
         return u" F1";
     case KC_F2:
@@ -534,7 +533,7 @@ void update_displays(enum refresh_mode mode) {
 
     led_t state = host_keyboard_led_state();
     //the left side has an offset of 0, the right side an offset of MATRIX_ROWS_PER_SIDE
-    uint8_t offset = is_keyboard_master() ? MATRIX_ROWS_PER_SIDE : 0;
+    uint8_t offset = is_keyboard_master() ? 0 : MATRIX_ROWS_PER_SIDE;
 
     uint8_t start_row = 0;
 
@@ -554,16 +553,6 @@ void update_displays(enum refresh_mode mode) {
         for (uint8_t c = 0; c < MATRIX_COLS; ++c) {
             uint8_t  disp_idx = LAYOUT_TO_INDEX(r, c);
 
-            if (disp_idx != 255) {
-                uint16_t keycode = keymaps[layer][r + offset][c];
-                if(keycode!=KC_TRNS) {
-                    const uint16_t* text = keycode_to_disp_text(keycode, state);
-                    kdisp_set_buffer(0x00);
-                    kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
-                    kdisp_send_buffer();
-                }
-            }
-
             //since MATRIX_COLS==8 we don't need to shift multiple times at the end of the row
             //except there was a leading and missing physical key (KC_NO on base layer)
             uint16_t keycode = keymaps[_BASE_LAYER][r + offset][c];
@@ -571,6 +560,15 @@ void update_displays(enum refresh_mode mode) {
                 skip++;
             }
             else {
+                if (disp_idx != 255) {
+                    uint16_t keycode = keymaps[layer][r + offset][c];
+                    if(keycode!=KC_TRNS) {
+                        const uint16_t* text = keycode_to_disp_text(keycode, state);
+                        kdisp_set_buffer(0x00);
+                        kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
+                        kdisp_send_buffer();
+                    }
+                }
                 sr_shift_once_latch();
             }
 
@@ -613,14 +611,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             display_message(1, 1, u"BOOT-", &FreeSansBold24pt7b);
             display_message(3, 0, u"LOADER!", &FreeSansBold24pt7b);
             break;
-            /*
-        case KC_ENC_DOWN:
-            encDownHigh = !encDownHigh;
-            break;
-        case KC_ENC_UP:
-            encUpHigh = !encUpHigh;
-            break;
-            */
         }
     }
 
@@ -628,25 +618,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
-    uint8_t disp_idx = LAYOUT_TO_INDEX(record->event.key.row % MATRIX_ROWS_PER_SIDE, record->event.key.col);
-    const uint8_t* bitmask = key_display[disp_idx].bitmask;
-    sr_shift_out_buffer_latch(bitmask, sizeof(key_display->bitmask));
-
-    if ((is_keyboard_master() && record->event.key.row >= MATRIX_ROWS_PER_SIDE) ||
-        (!is_keyboard_master() && record->event.key.row < MATRIX_ROWS_PER_SIDE)) {
-        if (record->event.pressed) {
-            set_last_key(keycode);
-            if (disp_idx != 255) {
-                kdisp_invert(true);
-            }
-        }
-        else {
-            if (disp_idx != 255) {
-                kdisp_invert(false);
-            }
-        }
-    }
-
     if (keycode == KC_CAPS_LOCK) {
         request_disp_refresh();
     }
@@ -739,9 +710,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         }
     }
 
-    uprintf("Key 0x%04X, col/row: %u/%u, %s, time: %u, int: %d, cnt: %u disp#: %d 0x%02X%02X%02X%02X%02X\n",
-        keycode, record->event.key.col, record->event.key.row, record->event.pressed ? "DN" : "UP",
-        record->event.time, record->tap.interrupted ? 1 : 0, record->tap.count, disp_idx, bitmask[4], bitmask[3], bitmask[2], bitmask[1], bitmask[0]);
+    //uprintf("Key 0x%04X, col/row: %u/%u, %s, time: %u, int: %d, cnt: %u disp#: %d 0x%02X%02X%02X%02X%02X\n",
+     //   keycode, record->event.key.col, record->event.key.row, record->event.pressed ? "DN" : "UP",
+     //   record->event.time, record->tap.interrupted ? 1 : 0, record->tap.count, disp_idx, bitmask[4], bitmask[3], bitmask[2], bitmask[1], bitmask[0]);
 
     update_performed();
 };
@@ -880,3 +851,48 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
     return true;
 }
+
+void invert_display(uint8_t r, uint8_t c, bool state) {
+    uint16_t keycode = keymaps[_BASE_LAYER][r][0];
+    if (keycode == KC_NO) {
+        c--;
+    }
+
+    r = r % MATRIX_ROWS_PER_SIDE;
+    uint8_t disp_idx = LAYOUT_TO_INDEX(r, c);
+    const uint8_t* bitmask = key_display[disp_idx].bitmask;
+    sr_shift_out_buffer_latch(bitmask, sizeof(key_display->bitmask));
+
+    if (disp_idx != 255) {
+        kdisp_invert(state);
+    }
+}
+
+extern matrix_row_t matrix[MATRIX_ROWS];
+static matrix_row_t last_matrix[MATRIX_ROWS_PER_SIDE];
+void matrix_scan_user(void) {
+    uint8_t first   = is_keyboard_master() ? 0 : MATRIX_ROWS_PER_SIDE;
+    bool    changed = false;
+    for (uint8_t r = first; r < first + MATRIX_ROWS_PER_SIDE; r++) {
+        if (last_matrix[r - first] != matrix[r]) {
+            changed = true;
+            for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+                bool old     = ((last_matrix[r - first] >> c) & 1) == 1;
+                bool current = ((matrix[r] >> c) & 1) == 1;
+                if (!old && current) {
+                    invert_display(r,c,true);
+                } else if (old && !current) {
+                    invert_display(r,c,false);
+                }
+            }
+        }
+    }
+    if (changed) {
+        memcpy(last_matrix, &matrix[first], sizeof(last_matrix));
+    }
+}
+
+void matrix_slave_scan_user(void) {
+    matrix_scan_user();
+}
+
