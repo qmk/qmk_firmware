@@ -120,11 +120,6 @@ typedef struct {
   char kana[6];
 } naginata_keymap;
 
-// 編集モード
-typedef struct {
-  uint32_t key;
-} naginata_keymap_henshu;
-
 const PROGMEM naginata_keymap ngmap[] = {
   // 清音
   {.key = B_J                      , .kana = "a"       }, // あ
@@ -308,73 +303,8 @@ const PROGMEM naginata_keymap ngmap[] = {
   // enter+シフト(連続シフト)
   {.key = B_SHFT|B_V|B_M    , .kana = SS_TAP(X_ENTER)},
 
-  // {.key = B_J|B_K|B_T       , .kana = "/"}, // ・
-
   // 非標準の変換
   {.key = B_X|B_C|B_M       , .kana = "pyu"     }, // ピュ
-};
-
-const PROGMEM naginata_keymap_henshu ngmaph[] = {
-  {.key = B_J|B_K|B_Q}, // ^{End}
-  {.key = B_J|B_K|B_W}, // 《》{改行}{↑}
-  {.key = B_J|B_K|B_E}, // /*ディ*/
-  {.key = B_J|B_K|B_R}, // ^s
-  {.key = B_J|B_K|B_T}, // ・
-  {.key = B_J|B_K|B_A}, // ……{改行}
-  {.key = B_J|B_K|B_S}, // (){改行}{↑}
-  {.key = B_J|B_K|B_D}, // ？{改行}
-  {.key = B_J|B_K|B_F}, // 「」{改行}{↑}
-  {.key = B_J|B_K|B_G}, // 『』{改行}{↑}
-  {.key = B_J|B_K|B_Z}, // ││{改行}
-  {.key = B_J|B_K|B_X}, // 【】{改行}{↑}
-  {.key = B_J|B_K|B_C}, // ！{改行}
-  {.key = B_J|B_K|B_V}, // {改行}{↓}
-  {.key = B_J|B_K|B_B}, // ／{改行}
-  {.key = B_D|B_F|B_Y}, // {Home}
-  {.key = B_D|B_F|B_U}, // +{End}{BS}
-  {.key = B_D|B_F|B_I}, // {vk1Csc079}
-  {.key = B_D|B_F|B_O}, // {Del}
-  {.key = B_D|B_F|B_P}, // {Esc 3}
-  {.key = B_D|B_F|B_H}, // {Enter}{End}
-  {.key = B_D|B_F|B_J}, // {↑}
-  {.key = B_D|B_F|B_K}, // +{↑}
-  {.key = B_D|B_F|B_L}, // +{↑ 7}
-  {.key = B_D|B_F|B_SCLN}, // ^i
-  {.key = B_D|B_F|B_N}, // {End}
-  {.key = B_D|B_F|B_M}, // {↓}
-  {.key = B_D|B_F|B_COMM}, // +{↓}
-  {.key = B_D|B_F|B_DOT}, // +{↓ 7}
-  {.key = B_D|B_F|B_SLSH}, // ^u
-  {.key = B_M|B_COMM|B_Q}, // {Home}{Del 3}{BS}{←}
-  {.key = B_M|B_COMM|B_W}, // ^x｜{改行}^v《》{改行}{↑}
-  {.key = B_M|B_COMM|B_E}, // {Home}{改行}{Space 3}{←}
-  {.key = B_M|B_COMM|B_R}, // {Space 3}
-  {.key = B_M|B_COMM|B_T}, // 〇{改行}
-  {.key = B_M|B_COMM|B_A}, // {Home}{Del 1}{BS}{←}
-  {.key = B_M|B_COMM|B_S}, // ^x(^v){改行}{Space}+{↑}^x
-  {.key = B_M|B_COMM|B_D}, // {Home}{改行}{Space 1}{←}
-  {.key = B_M|B_COMM|B_F}, // ^x「^v」{改行}{Space}+{↑}^x
-  {.key = B_M|B_COMM|B_G}, // ^x『^v』{改行}{Space}+{↑}^x
-  {.key = B_M|B_COMM|B_Z}, // 　　　×　　　×　　　×{改行 2}
-  {.key = B_M|B_COMM|B_X}, // ^x【^v】{改行}{Space}+{↑}^x
-  {.key = B_M|B_COMM|B_C}, // {改行}{End}{改行}}
-  {.key = B_M|B_COMM|B_V}, // {改行}{End}{改行}「」{改行}{↑}
-  {.key = B_M|B_COMM|B_B}, // {End}{改行}
-  {.key = B_C|B_V|B_Y}, // +{Home}
-  {.key = B_C|B_V|B_U}, // ^x
-  {.key = B_C|B_V|B_I}, // ^z
-  {.key = B_C|B_V|B_O}, // ^y
-  {.key = B_C|B_V|B_P}, // ^v
-  {.key = B_C|B_V|B_H}, // ^c
-  {.key = B_C|B_V|B_J}, // {→ 5}
-  {.key = B_C|B_V|B_K}, // +{→}
-  {.key = B_C|B_V|B_L}, // +{→ 5}
-  {.key = B_C|B_V|B_SCLN}, // +{→ 20}
-  {.key = B_C|B_V|B_N}, // +{End}
-  {.key = B_C|B_V|B_M}, // {← 5}
-  {.key = B_C|B_V|B_COMM}, // +{←}
-  {.key = B_C|B_V|B_DOT}, // +{← 5}
-  {.key = B_C|B_V|B_SLSH}, // +{← 20}
 };
 
 // 薙刀式のレイヤー、オンオフするキー
@@ -775,7 +705,6 @@ void naginata_type(void) {
 // 組み合わせがない = 0: 変換を開始する
 int number_of_candidates() {
   naginata_keymap bngmap; // PROGMEM buffer
-  naginata_keymap_henshu bngmaph; // PROGMEM buffer
   int c = 0;
   uint32_t hit = 0;
 
@@ -796,13 +725,9 @@ int number_of_candidates() {
     }
   }
 
-  // 編集モード 共通
-  for (int i = 0; i < sizeof ngmaph / sizeof bngmaph; i++) {
-    memcpy_P(&bngmaph, &ngmaph[i], sizeof(bngmaph));
-    if ((keycomb_buf & bngmaph.key) == keycomb_buf) {
-      c++;
-      hit = bngmaph.key;
-    }
+  // 編集モードは積極的に確定しない
+  if (is_henshu) {
+    c = 2;
   }
 
   if (c == 1 && ng_chrcount < count_bit(hit)) {
