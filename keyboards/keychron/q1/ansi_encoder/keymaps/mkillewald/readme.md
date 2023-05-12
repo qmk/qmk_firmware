@@ -20,8 +20,8 @@ When you flash this firmware for the first time, you should clear the eeprom so 
 - Different RGB settings for Mac base and Win base layers. You can set different RGB animations, colors, brightness and speed using the standard RGB keyboard shortcuts.
 
 - Autocorrect is enabled. ([https://docs.qmk.fm/#/feature_autocorrect](https://docs.qmk.fm/#/feature_autocorrect))
-    - Uses getreuer's 400 entry autocorrect dictionary.
-    [https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict_extra.txt](https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict_extra.txt)
+    - Uses getreuer's autocorrect dictionary.
+    [https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict.txt](https://github.com/getreuer/qmk-keymap/blob/main/features/autocorrection_dict.txt)
 
 - Caps Word enabled with RGB indicator. ([https://docs.qmk.fm/#/feature_caps_word](https://docs.qmk.fm/#/feature_caps_word))
 
