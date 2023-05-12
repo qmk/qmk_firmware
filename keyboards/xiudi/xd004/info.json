@@ -21,8 +21,11 @@
             ["D3", "D0", "C4", "B4"]
         ]
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_1x4"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ortho_1x4": {
             "layout": [
                 {"label": "L", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "O", "matrix": [0, 1], "x": 1, "y": 0},
