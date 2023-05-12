@@ -28,7 +28,6 @@
     },
     "layouts": {
         "LAYOUT": {
-            "c_macro": false,
             "layout": [
                 { "label": "K00 (F6,D6)", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "K01 (F6,D4)", "matrix": [0, 1], "x": 1, "y": 0 },
