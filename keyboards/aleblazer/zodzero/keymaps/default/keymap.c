@@ -13,11 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
-bool is_alt_tab_active = false;
-uint16_t alt_tab_timer = 0;
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,     KC_T,                      RGB_MOD,   RGB_VAI,                     KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
