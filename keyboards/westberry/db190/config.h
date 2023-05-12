@@ -16,6 +16,9 @@
 
 #pragma once
 
+/* Slove some computer remote wakeup issue */
+#define USB_SUSPEND_WAKEUP_DELAY 1000
+
 #define TAP_CODE_DELAY 10
 
 #define WEAR_LEVELING_BACKING_SIZE (4 * 1024)
