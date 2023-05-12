@@ -6,14 +6,12 @@
         "vid": "0xCB10"
     },
     "features": {
-        "audio": false,
         "bootmagic": true,
         "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
-        "unicode": false
+        "nkro": false
     },
     "split": {
         "enabled": true
@@ -25,7 +23,7 @@
         "LAYOUT_65xt": {
             "layout": [
                 {"label":"F1", "x":0, "y":0},
-                {"label":"F6", "x":1, "y":0},
+                {"label":"F2", "x":1, "y":0},
 
                 {"label":"Esc", "x":2.25, "y":0},
                 {"label":"1", "x":3.25, "y":0},
@@ -42,10 +40,10 @@
                 {"label":"-", "x":14.25, "y":0},
                 {"label":"=", "x":15.25, "y":0},
                 {"label":"Bksp", "x":17.25, "y":0, "w": 2},
-                {"label":"Home", "x":18.25, "y":0},
+                {"label":"Del", "x":18.25, "y":0},
 
-                {"label":"F2", "x":0, "y":1},
-                {"label":"F7", "x":1, "y":1},
+                {"label":"F3", "x":0, "y":1},
+                {"label":"F4", "x":1, "y":1},
 
                 {"label":"Tab", "x":2.25, "y":1, "w":1.5},
                 {"label":"Q", "x":3.75, "y":1},
@@ -62,10 +60,10 @@
                 {"label":"{", "x":14.75, "y":1},
                 {"label":"}", "x":15.75, "y":1},
                 {"label":"|", "x":16.75, "y":1, "w":1.5},
-                {"label":"PgUp", "x":18.25, "y":1},
+                {"label":"Home", "x":18.25, "y":1},
 
-                {"label":"F3", "x":0, "y":2},
-                {"label":"F8", "x":1, "y":2},
+                {"label":"F5", "x":0, "y":2},
+                {"label":"F6", "x":1, "y":2},
 
                 {"label":"Caps Lock", "x":2.25, "y":2, "w":1.75},
                 {"label":"A", "x":4, "y":2},
@@ -81,10 +79,10 @@
                 {"label":":", "x":14, "y":2},
                 {"label":"\"", "x":15, "y":2},
                 {"label":"Enter", "x":16, "y":2, "w":2.25},
-                {"label":"PgDn", "x":18.25, "y":2},
+                {"label":"PgUp", "x":18.25, "y":2},
 
-                {"label":"F4", "x":0, "y":3},
-                {"label":"F9", "x":1, "y":3},
+                {"label":"F7", "x":0, "y":3},
+                {"label":"F8", "x":1, "y":3},
 
                 {"label":"Shift", "x":2.25, "y":3, "w":2.25},
                 {"label":"Z", "x":4.5, "y":3},
@@ -100,9 +98,9 @@
                 {"label":"/", "x":14.5, "y":3},
                 {"label":"Shift", "x":15.5, "y":3, "w":1.75},
                 {"label":"Up", "x":17.25, "y":3},
-                {"label":"End", "x":18.25, "y":3},
+                {"label":"PgDn", "x":18.25, "y":3},
 
-                {"label":"F5", "x":0, "y":4},
+                {"label":"F9", "x":0, "y":4},
                 {"label":"F10", "x":1, "y":4},
 
                 {"label":"Ctrl", "x":2.25, "y":4, "w":1.25},
@@ -113,8 +111,8 @@
 
                 {"label":"Space", "x":11.75, "y":4, "w":1.5},
                 {"label":"Alt", "x":13.25, "y":4},
-                {"label":"Ctrl", "x":14.25, "y":4},
-                {"label":"Win", "x":15.25, "y":4},
+                {"label":"Fn", "x":14.25, "y":4},
+                {"label":"Ctrl", "x":15.25, "y":4},
                 {"label":"Left", "x":16.25, "y":4},
                 {"label":"Down", "x":17.25, "y":4},
                 {"label":"Right", "x":18.25, "y":4}
