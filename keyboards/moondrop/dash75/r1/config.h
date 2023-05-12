@@ -3,7 +3,8 @@
 
 #pragma once
 
+#define SERIAL_NUM "Dash 75"
+
 #define USB_SUSPEND_WAKEUP_DELAY 5000  // wait for USB hub to start
 
 #define HOLD_ON_OTHER_KEY_PRESS
-
