@@ -24,7 +24,7 @@
         "haptic": true,
         "encoder": true,
         "rgb_matrix": true,
-        "rgblight": false,
+        "rgblight": false
     },
     "encoder": {
         "rotary": [

@@ -486,9 +486,21 @@ void matrix_init_pins(void) {
 
 #ifdef BOOTMAGIC_LITE
 void bootmagic_lite(void) {
+    // If the configured key (commonly Esc) is held down on power up,
+    // reset the EEPROM valid state and jump to bootloader.
+    // This isn't very generalized, but we need something that doesn't
+    // rely on user's keymaps in firmware or EEPROM.
     uint8_t row = BOOTMAGIC_LITE_ROW;
     uint8_t col = BOOTMAGIC_LITE_COLUMN;
 
+#if defined(SPLIT_KEYBOARD) && defined(BOOTMAGIC_LITE_ROW_RIGHT) && defined(BOOTMAGIC_LITE_COLUMN_RIGHT)
+    if (!is_keyboard_left()) {
+        row = BOOTMAGIC_LITE_ROW_RIGHT;
+        col = BOOTMAGIC_LITE_COLUMN_RIGHT;
+    }
+#endif
+
+    // We need multiple scans because debouncing can't be turned off.
     select_row(row);
     rt_matrix_read_cols_on_row(rt_matrix, row);
     unselect_row(row);
@@ -504,7 +516,8 @@ void bootmagic_lite(void) {
     unselect_row(row);
 
     if (rt_matrix[row] & (1 << col)) {
-        eeconfig_disable();
+        extern void bootmagic_lite_reset_eeprom(void);
+        bootmagic_lite_reset_eeprom();
 
         // Jump to bootloader.
         bootloader_jump();
