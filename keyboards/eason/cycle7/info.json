@@ -45,7 +45,7 @@
         },
         "rgblight": {
             "pin": "B15",
-            "led_count": 0,
+            "led_count": 8,
             "hue_steps": 8,
             "saturation_steps": 8,
             "brightness_steps": 8,
