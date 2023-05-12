@@ -2,6 +2,7 @@
     "manufacturer": "Lx3",
     "keyboard_name": "fave60",
     "maintainer": "keydler",
+    "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "debounce": 5,
     "diode_direction": "COL2ROW",
@@ -19,8 +20,6 @@
         "cols": ["D6", "D4", "B5", "B4", "B6", "C6", "C7", "F4", "F0", "E6", "D1", "D2", "D3", "D5", "B0"],
         "rows": ["F6", "F7", "D7", "F1", "D0"]
     },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
