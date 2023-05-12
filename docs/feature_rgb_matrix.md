@@ -893,13 +893,7 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 
 ## EEPROM storage :id=eeprom-storage
 
-The EEPROM for it is currently shared with the LED Matrix system (it's generally assumed only one feature would be used at a time), but could be configured to use its own 32bit address with:
-
-```c
-#define EECONFIG_RGB_MATRIX (uint32_t *)28
-```
-
-Where `28` is an unused index from `eeconfig.h`.
+The EEPROM for it is currently shared with the LED Matrix system (it's generally assumed only one feature would be used at a time).
 
 ## Functions :id=functions
 

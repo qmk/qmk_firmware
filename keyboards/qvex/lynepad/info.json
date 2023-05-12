@@ -16,7 +16,7 @@
     "encoder": {
       "rotary": [
         {"pin_a": "D0", "pin_b": "D1"},
-        {"pin_a": "B5", "pin_b": "D6"},
+        {"pin_a": "B5", "pin_b": "D6"}
       ]
     },
     "ws2812": {
