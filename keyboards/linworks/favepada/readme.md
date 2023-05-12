@@ -1,7 +1,7 @@
 # linworks/favepada
 
-![linworks/favepada front](https://imgur.com/tkKHcL2)
-![linworks/favepada back](https://imgur.com/1x5UokR)
+![linworks/favepada front](https://i.imgur.com/tkKHcL2h.png)
+![linworks/favepada back](https://i.imgur.com/1x5UokRh.png)
 
 *A short description of the keyboard/project*
 
