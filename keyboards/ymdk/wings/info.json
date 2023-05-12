@@ -2,7 +2,7 @@
     "keyboard_name": "WINGS",
     "manufacturer": "YMDK",
     "url": "http://ymdkey.com/",
-    "maintainer": "qmk",
+    "maintainer": "alittlepeace",
     "usb": {
         "vid": "0x594D",
         "pid": "0x2975",
