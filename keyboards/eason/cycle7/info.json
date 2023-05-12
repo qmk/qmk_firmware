@@ -46,10 +46,6 @@
         "rgblight": {
             "pin": "B15",
             "led_count": 8,
-            "hue_steps": 8,
-            "saturation_steps": 8,
-            "brightness_steps": 8,
-            "max_brightness": 255,
             "sleep": true,
             "animations": {
                 "all": true
