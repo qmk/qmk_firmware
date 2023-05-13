@@ -1,4 +1,4 @@
-# rm_full
+# rm_fullsize
 
 ![rm_full](https://www.rmkeebs.com/wp-content/uploads/2023/05/rm-fullsize-small.jpg)
 
