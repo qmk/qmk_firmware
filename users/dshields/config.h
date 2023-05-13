@@ -10,6 +10,7 @@
 #define TAPPING_TERM              200
 #define BACKLIGHT_BREATHING
 #define DYNAMIC_MACRO_NO_NESTING
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
 #define MOUSEKEY_INTERVAL         20
 #define MOUSEKEY_DELAY            0
