@@ -35,10 +35,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef OLED_ENABLE
 uint32_t flash_timer = 0;
 bool layer_changed = false;
 
-#ifdef OLED_ENABLE
 // when the layer is changed, flash the layer number on the screen
 layer_state_t layer_state_set_kb(layer_state_t state) {
     flash_timer = timer_read();

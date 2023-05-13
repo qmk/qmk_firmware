@@ -3,6 +3,13 @@
 
 #include QMK_KEYBOARD_H
 
+enum layers {
+    numpad = 0,
+    gamepad,
+    media,
+    funct
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * ┌───┐
@@ -15,31 +22,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ 7 │ 8 │ 9 │
      * └───┴───┴───┘
      */
-    [0] = LAYOUT_ortho_4x3(
-        LT(0, KC_NO),
-        KC_0,   KC_2,   KC_3,
-        KC_4,   KC_5,   KC_6,
-        KC_7,   KC_8,   KC_9
-    ),
-
-    [1] = LAYOUT_ortho_4x3(
+    [numpad] = LAYOUT_ortho_4x3(
         LT(0, KC_NO),
         KC_1,   KC_2,   KC_3,
         KC_4,   KC_5,   KC_6,
         KC_7,   KC_8,   KC_9
     ),
 
-    [2] = LAYOUT_ortho_4x3(
+    [gamepad] = LAYOUT_ortho_4x3(
         LT(0, KC_NO),
-        KC_2,   KC_2,   KC_3,
-        KC_4,   KC_5,   KC_6,
-        KC_7,   KC_8,   KC_9
+        KC_Y,    KC_X,    KC_A,
+        KC_ENT,  KC_UP,   KC_B,
+        KC_LEFT, KC_DOWN, KC_RIGHT
     ),
 
-    [3] = LAYOUT_ortho_4x3(
+    [media] = LAYOUT_ortho_4x3(
         LT(0, KC_NO),
-        KC_3,   KC_2,   KC_3,
-        KC_4,   KC_5,   KC_6,
-        KC_7,   KC_8,   KC_9
+        KC_NO,   KC_NO,   KC_NO,
+        KC_MUTE, KC_VOLU, KC_MPLY,
+        KC_MPRV, KC_VOLD, KC_MNXT
+    ),
+
+    [funct] = LAYOUT_ortho_4x3(
+        LT(0, KC_NO),
+        KC_F1,  KC_F2,  KC_F3,
+        KC_F4,  KC_F5,  KC_F6,
+        KC_F7,  KC_F8,  KC_F9
     )
 };
