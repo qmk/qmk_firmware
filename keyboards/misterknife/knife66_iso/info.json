@@ -20,7 +20,8 @@
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layout_aliases": {
-        "LAYOUT_all": "LAYOUT_split_space_split_bs"
+        "LAYOUT_all": "LAYOUT_split_space_split_bs",
+        "LAYOUT_625u_space": "LAYOUT_625u_space_split_bs"
     },
     "layouts": {
         "LAYOUT_split_space_split_bs": {
@@ -108,7 +109,7 @@
                 {"label": "\u2192", "matrix": [4, 13], "x": 15.25, "y": 4.25}
             ]
         },
-        "LAYOUT_625u_space": {
+        "LAYOUT_625u_space_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},
