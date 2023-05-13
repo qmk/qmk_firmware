@@ -21,13 +21,16 @@
             ["D3", "D0", "C4", "B4"]
         ]
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_1x4"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ortho_1x4": {
             "layout": [
-                {"x": 0, "y": 0, "matrix": [0, 0]},
-                {"x": 1, "y": 0, "matrix": [0, 1]},
-                {"x": 2, "y": 0, "matrix": [0, 2]},
-                {"x": 3, "y": 0, "matrix": [0, 3]}
+                {"label": "L", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "O", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "V", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "E", "matrix": [0, 3], "x": 3, "y": 0}
             ]
         }
     }
