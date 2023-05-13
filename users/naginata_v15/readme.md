@@ -13,9 +13,8 @@ http://oookaworks.seesaa.net/article/498994569.html
 
 ## OSの設定
 
-1. OSのキーボード設定を日本語106キーボードにする。
-2. Windowsの場合は[WinCompose](http://wincompose.info/)をインストールする。
-3. MacOSの場合は、Karabiner-Elementsをインストールして、 unicode_hex_input_switcher.json を ~/.config/karabiner/assets/complex_modifications/ において、Karabiner-Elementsの設定で有効にする。
+1. Windowsの場合は[WinCompose](http://wincompose.info/)をインストールする。
+2. MacOSの場合は、Karabiner-Elementsをインストールして、 unicode_hex_input_switcher.json を ~/.config/karabiner/assets/complex_modifications/ において、Karabiner-Elementsの設定で有効にする。
 
 ## QMKファームウェアの設定
 
