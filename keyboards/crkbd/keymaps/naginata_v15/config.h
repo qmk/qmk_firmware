@@ -12,3 +12,7 @@
 
 #define OLED_UPDATE_INTERVAL 100
 #define OLED_TIMEOUT 60000
+
+// 薙刀式の編集モード、固有名詞が不要であればコメントアウト
+// #define NG_NO_HENSHU
+// #define NG_NO_KOYUMEISHI
