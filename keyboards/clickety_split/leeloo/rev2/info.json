@@ -2,5 +2,21 @@
   "keyboard_name": "Leeloo v2",
   "usb": {
     "device_version": "0.2.0"
+  },
+  "features": {
+      "rgb_matrix": true
+  },
+  "split": {
+      "transport": {
+          "sync_matrix_state": true
+      }
+  },
+  "ws2812": {
+      "pin": "D3"
+  },
+  "rgb_matrix": {
+      "driver": "WS2812",
+      "max_brightness": 115,
+      "split_count": [37, 37]
   }
 }
