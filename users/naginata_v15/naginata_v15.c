@@ -791,6 +791,7 @@ bool naginata_lookup(int nt, bool shifted) {
 
   if (is_henshu) {
     switch (keycomb_buf) {
+      #ifdef NG_HENSHU
       case B_J|B_K|B_Q: // ^{End}
         ng_eof();
         compress_buffer(nt);
@@ -1182,7 +1183,9 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
+      #endif
 // 固有名詞
+      #ifdef NG_KOYUMEISHI
       case B_U|B_I|B_W: // 臨兵闘者皆陣烈在前
         ng_send_unicode_string("臨兵闘者皆陣烈在前");
         compress_buffer(nt);
@@ -1293,6 +1296,7 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
+      #endif
     }
   } else {
     switch (keycomb_buf) {
