@@ -75,6 +75,7 @@ For the most part, this is the bare minimum to be able to have a high confidence
 |           |STM32F469xx|           |           |           |           |
 |           |STM32F479xx|           |           |           |           |
 </details>
+&nbsp;
 
 ### Non-STM32 families
 
