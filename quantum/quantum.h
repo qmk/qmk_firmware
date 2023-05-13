@@ -261,6 +261,9 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
 uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
+bool     pre_process_record_quantum(keyrecord_t *record);
+bool     pre_process_record_kb(uint16_t keycode, keyrecord_t *record);
+bool     pre_process_record_user(uint16_t keycode, keyrecord_t *record);
 bool     process_action_kb(keyrecord_t *record);
 bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
