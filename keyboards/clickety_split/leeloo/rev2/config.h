@@ -17,14 +17,7 @@
 
 #pragma once
 
-#define RGB_DI_PIN       D3
-#define RGB_MATRIX_LED_COUNT 74
-
-/* RGB matrix support */
 #ifdef RGB_MATRIX_ENABLE
-#    define SPLIT_TRANSPORT_MIRROR
-#    define RGB_MATRIX_SPLIT \
-        { 37, 37 }
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 115
+#    define RGB_MATRIX_LED_COUNT 74
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #endif
