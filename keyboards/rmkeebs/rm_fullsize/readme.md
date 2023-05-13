@@ -2,7 +2,7 @@
 
 ![rm_full](https://www.rmkeebs.com/wp-content/uploads/2023/05/rm-fullsize-small.jpg)
 
-*A short description of the keyboard/project*
+A fullsized keyboard with multiple layout options and a big knob.  The case is manchined out of 6061 Aluminum by Rucker Machine in the USA.
 
 * Keyboard Maintainer: [Rucker Machine](https://github.com/RuckerMachine)
 * Hardware Supported: RM Fullsized PCB, RP2040 controller
