@@ -63,7 +63,18 @@ def parse_file(file_name: str) -> List[Tuple[str, str]]:
   """
 
     try:
-        from english_words import english_words_lower_alpha_set as correct_words
+        import english_words
+        correct_words = english_words.get_english_words_set(['web2'], lower=True, alpha=True)
+    except AttributeError:
+        try:
+            from english_words import english_words_lower_alpha_set as correct_words
+        except:
+            if not cli.args.quiet:
+                cli.echo('Autocorrection will falsely trigger when a typo is a substring of a correctly spelled word.')
+                cli.echo('Failed to load the english_words package. Try updating the english_words package and rerun this script:')
+                cli.echo('  {fg_cyan}python3 -m pip install english_words --upgrade')
+            # Use a minimal word list as a fallback.
+            correct_words = ('information', 'available', 'international', 'language', 'loosest', 'reference', 'wealthier', 'entertainment', 'association', 'provides', 'technology', 'statehood')
     except ImportError:
         if not cli.args.quiet:
             cli.echo('Autocorrection will falsely trigger when a typo is a substring of a correctly spelled word.')
