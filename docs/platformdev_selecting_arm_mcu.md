@@ -38,7 +38,9 @@ or one of the following being `TRUE`:
 For the most part, this is the bare minimum to be able to have a high confidence that QMK will be able to run on your MCU. After that, it's all up to configuration.
 
 <details>
-  <summary><b>Table of ChibiOS supported STM32 MCU with USB and/or OTG from the Dec 18,20,29, 2022 commits</b></summary>
+ <summary><b>Table of ChibiOS supported STM32 MCU with USB and/or OTG from the Dec 18,20,29, 2022 commits.</b></summary>
+
+<i>This table represents theoretical support. Not all packages will physically work due their lack of USB/OTG pins.</i>
 
 ### STM32_HAS_USB TRUE
 
