@@ -1,12 +1,12 @@
 # rm_full
 
-![rm_full](imgur.com image replace me!)
+![rm_full](https://www.rmkeebs.com/wp-content/uploads/2023/05/rm-fullsize-small.jpg)
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Rucker Machine](https://github.com/RuckerMachine)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: RM Fullsized PCB, RP2040 controller
+* Hardware Availability: [RM Fullsized](https://www.rmkeebs.com/product/rm-fullsized/)
 
 Make example for this keyboard (after setting up your build environment):
 
