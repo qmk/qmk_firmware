@@ -25,13 +25,13 @@ enum custom_keycodes {  // Make sure have the awesome keycode ready
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 0: Base Layer
-    [_BASE] = LAYOUT_all(LT(_SYSTEM, KC_F5), C(G(KC_LEFT)), C(G(KC_RIGHT)), LT(_VOLUME, KC_F7)),
+    [_BASE] = LAYOUT_ortho_1x4(LT(_SYSTEM, KC_F5), C(G(KC_LEFT)), C(G(KC_RIGHT)), LT(_VOLUME, KC_F7)),
 
     // 1: System actions
-    [_SYSTEM] = LAYOUT_all(_______, SUPER_ALT_F4, G(KC_D), G(KC_L)),
+    [_SYSTEM] = LAYOUT_ortho_1x4(_______, SUPER_ALT_F4, G(KC_D), G(KC_L)),
 
     // 2: Volume actions
-    [_VOLUME] = LAYOUT_all(KC_MEDIA_NEXT_TRACK, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, _______),
+    [_VOLUME] = LAYOUT_ortho_1x4(KC_MEDIA_NEXT_TRACK, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, _______),
 
 };
 
