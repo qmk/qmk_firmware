@@ -37,6 +37,45 @@ or one of the following being `TRUE`:
 
 For the most part, this is the bare minimum to be able to have a high confidence that QMK will be able to run on your MCU. After that, it's all up to configuration.
 
+<details>
+  <summary><b>Table of ChibiOS supported STM32 MCU with USB and/or OTG from the Dec 18,20,29, 2022 commits</b></summary>
+
+### STM32_HAS_USB TRUE
+
+|STM32F0xx  |STM32F1xx  |STM32F37x  |STM32F3xx  |STM32G0xx  |STM32G4xx  |STM32L0xx  |STM32L1xx|STM32L4xx  |STM32L5xx  |STM32WBxx  |
+|-----------|-----------|-----------|-----------|-----------|-----------|-----------|---------|-----------|-----------|-----------|
+|STM32F042x6|STM32F103x6|STM32F373xC|STM32F302x8|STM32G0B1xx|STM32G431xx|STM32L052xx|STM32L1xx|STM32L432xx|STM32L4R5xx|STM32WB55xx|
+|STM32F048xx|STM32F103xB|           |STM32F302xC|STM32G0C1xx|STM32G441xx|STM32L062xx|         |STM32L422xx|STM32L4R7xx|           |
+|STM32F070x6|STM32F101xE|           |STM32F302xE|           |STM32G474xx|STM32L053xx|         |STM32L433xx|STM32L4R9xx|           |
+|STM32F070xB|STM32F103xE|           |STM32F303xC|           |STM32G484xx|STM32L063xx|         |STM32L443xx|STM32L4S5xx|           |
+|STM32F072xB|STM32F101xG|           |STM32F303xE|           |STM32G491xx|STM32L072xx|         |STM32L452xx|STM32L4S7xx|           |
+|STM32F078xx|STM32F103xG|           |STM32F358xC|           |           |STM32L073xx|         |           |STM32L4S9xx|           |
+
+### STM32_HAS_OTG TRUE
+
+|STM32F1xx  |STM32F4xx  |STM32F7xx  |STM32H7xx  |STM32L4xx+ |STM32L4xx  |
+|-----------|-----------|-----------|-----------|-----------|-----------|
+|STM32F105xC|STM32F205xx|STM32F722xx|STM32H743xx|STM32L4P5xx|STM32L475xx|
+|STM32F107xC|STM32F207xx|STM32F723xx|STM32H753xx|STM32L4Q5xx|STM32L476xx|
+|           |STM32F215xx|STM32F732xx|STM32H750xx|STM32L4R5xx|STM32L486xx|
+|           |STM32F217xx|STM32F733xx|           |STM32L4R7xx|           |
+|           |STM32F401xx|STM32F745xx|           |STM32L4R9xx|           |
+|           |STM32F405xx|STM32F746xx|           |STM32L4S5xx|           |
+|           |STM32F407xx|STM32F756xx|           |STM32L4S7xx|           |
+|           |STM32F411xx|STM32F765xx|           |STM32L4S9xx|           |
+|           |STM32F412xx|STM32F767xx|           |           |           |
+|           |STM32F413xx|STM32F769xx|           |           |           |
+|           |STM32F415xx|STM32F777xx|           |           |           |
+|           |STM32F417xx|STM32F779xx|           |           |           |
+|           |STM32F427xx|           |           |           |           |
+|           |STM32F429xx|           |           |           |           |
+|           |STM32F437xx|           |           |           |           |
+|           |STM32F439xx|           |           |           |           |
+|           |STM32F446xx|           |           |           |           |
+|           |STM32F469xx|           |           |           |           |
+|           |STM32F479xx|           |           |           |           |
+</details>
+
 ### Non-STM32 families
 
 ChibiOS does have support for a handful of non-STM32 devices, and the list can be found in QMK's [ChibiOS fork](https://github.com/qmk/ChibiOS/tree/master/os/hal/ports) and [ChibiOS-Contrib fork](https://github.com/qmk/ChibiOS-Contrib/tree/master/os/hal/ports). Non-STM32 support is likely out of date, and only supports ancient MCUs -- whilst it might be possible to use these, it's not recommended.
