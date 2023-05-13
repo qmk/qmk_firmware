@@ -97,11 +97,11 @@
                 {"label": "Alt", "matrix": [9, 1], "x": 2.5, "y": 4, "w": 1.25},
                 {"label": "Space", "matrix": [9, 2], "x": 3.75, "y": 4, "w": 2.25},
                 {"label": "Space", "matrix": [9, 3], "x": 6, "y": 4, "w": 1.25},
-                {"label": "Space", "matrix": [8, 4], "x": 10, "y": 4, "w": 1.25},
-                {"label": "Alt", "matrix": [9, 4], "x": 11.25, "y": 4, "w": 1.25},
-                {"label": "Alt", "matrix": [8, 5], "x": 12.5, "y": 4, "w": 1.25},
-                {"label": "GUI", "matrix": [9, 5], "x": 13.75, "y": 4, "w": 1.25},
-                {"label": "Fn", "matrix": [8, 6], "x": 7, "y": 9, "w": 2.75}
+                {"label": "Space", "matrix": [8, 4], "x": 7.25, "y": 4, "w": 2.75},
+                {"label": "Alt", "matrix": [9, 4], "x": 10, "y": 4, "w": 1.25},
+                {"label": "Alt", "matrix": [8, 5], "x": 11.25, "y": 4, "w": 1.25},
+                {"label": "GUI", "matrix": [9, 5], "x": 12.5, "y": 4, "w": 1.25},
+                {"label": "Fn", "matrix": [8, 6], "x": 13.75, "y": 9, "w": 1.25}
             ]
         }
     }
