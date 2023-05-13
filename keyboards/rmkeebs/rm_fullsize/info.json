@@ -1,7 +1,7 @@
 {
-    "manufacturer": "JRucker",
-    "keyboard_name": "rm_full",
-    "maintainer": "JRucker",
+    "manufacturer": "RuckerMachine",
+    "keyboard_name": "rm_fullsize",
+    "maintainer": "RuckerMachine",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
