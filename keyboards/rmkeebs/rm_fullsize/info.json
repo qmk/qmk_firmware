@@ -11,8 +11,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true,
-        "encoder_map": true
+        "encoder": true
     },
     "matrix_pins": {
         "cols": ["GP22", "GP23", "GP24", "GP25", "GP26", "GP27", "GP28", "GP29", "GP0", "GP1", "GP2", "GP3", "GP4", "GP5", "GP6", "GP12", "GP13", "GP14", "GP16", "GP17"],
