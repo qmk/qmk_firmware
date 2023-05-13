@@ -481,7 +481,7 @@ bool process_modifier(uint16_t keycode, keyrecord_t *record) {
 static uint16_t fghj_buf = 0; // 押しているJかKのキーコード
 static uint8_t nkeypress = 0; // 同時にキーを押している数
 
-// 薙刀式の起動処理(COMBOを使わない)
+// 薙刀式の起動処理(容量が大きいCOMBOを使わない)
 bool enable_naginata(uint16_t keycode, keyrecord_t *record) {
   // キープレス
   if (record->event.pressed) {
@@ -791,7 +791,7 @@ bool naginata_lookup(int nt, bool shifted) {
 
   if (is_henshu) {
     switch (keycomb_buf) {
-      #ifdef NG_HENSHU
+      #ifndef NG_NO_HENSHU
       case B_J|B_K|B_Q: // ^{End}
         ng_eof();
         compress_buffer(nt);
@@ -1185,7 +1185,7 @@ bool naginata_lookup(int nt, bool shifted) {
         break;
       #endif
 // 固有名詞
-      #ifdef NG_KOYUMEISHI
+      #ifndef NG_NO_KOYUMEISHI
       case B_U|B_I|B_W: // 臨兵闘者皆陣烈在前
         ng_send_unicode_string("臨兵闘者皆陣烈在前");
         compress_buffer(nt);
