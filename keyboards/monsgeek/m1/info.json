@@ -32,7 +32,27 @@
         ]
     },
     "rgb_matrix": {
-        "driver": "IS31FL3733"
+        "driver": "IS31FL3733",
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "raindrops": true,
+            "typing_heatmap": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "multisplash": true
+        },
+        "max_brightness": 200,
+        "val_steps": 20
     },
     "layouts": {
         "LAYOUT_all": {
