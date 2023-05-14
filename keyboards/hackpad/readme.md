@@ -1,6 +1,6 @@
 # hackpad
 
-![hackpad](https://git.imaginaerraum.de/Purox/Hackpad/src/branch/main/pic.jpg)
+![hackpad](https://git.imaginaerraum.de/Purox/Hackpad/raw/branch/main/assets/pic.jpg)
 
 
 The `Hackpad` is a 4x4 numpad/macropad designed for the Arduino Day 2023 in Bayreuth in cooperation with the hackspace [Imaginärraum e.V.](imaginaerraum.de) and [Fablab-Bayreuth e.V.](fablab-bayreuth.de).
