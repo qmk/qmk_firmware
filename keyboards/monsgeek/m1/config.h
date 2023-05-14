@@ -30,8 +30,6 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-/* sets the number of milliseconds to pause after sending a wakeup packet. Disabled by default, you might want to set this to 200 (or higher) if the keyboard does not wake up properly after suspending.*/
-#define USB_SUSPEND_WAKEUP_DELAY 400
 
 /* SPI Config for spi flash*/
 #define SPI_DRIVER SPIDQ
