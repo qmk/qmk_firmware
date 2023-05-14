@@ -30,7 +30,7 @@ bool process_record_user_default(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-bool get_repeat_key_eligible_user_default(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+bool remember_last_key_user_default(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
     return true;
 }
 
@@ -41,15 +41,15 @@ uint16_t get_alt_repeat_key_keycode_user_default(uint16_t keycode, uint8_t mods)
 // Indirections so that process_record_user() can be replaced with other
 // functions in the test cases below.
 std::function<bool(uint16_t, keyrecord_t*)>           process_record_user_fun             = process_record_user_default;
-std::function<bool(uint16_t, keyrecord_t*, uint8_t*)> get_repeat_key_eligible_user_fun    = get_repeat_key_eligible_user_default;
+std::function<bool(uint16_t, keyrecord_t*, uint8_t*)> remember_last_key_user_fun          = remember_last_key_user_default;
 std::function<uint16_t(uint16_t, uint8_t)>            get_alt_repeat_key_keycode_user_fun = get_alt_repeat_key_keycode_user_default;
 
 extern "C" bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return process_record_user_fun(keycode, record);
 }
 
-extern "C" bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
-    return get_repeat_key_eligible_user_fun(keycode, record, remembered_mods);
+extern "C" bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    return remember_last_key_user_fun(keycode, record, remembered_mods);
 }
 
 extern "C" uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
@@ -62,7 +62,7 @@ class AltRepeatKey : public TestFixture {
 
     void SetUp() override {
         process_record_user_fun             = process_record_user_default;
-        get_repeat_key_eligible_user_fun    = get_repeat_key_eligible_user_default;
+        remember_last_key_user_fun          = remember_last_key_user_default;
         get_alt_repeat_key_keycode_user_fun = get_alt_repeat_key_keycode_user_default;
     }
 
@@ -70,7 +70,7 @@ class AltRepeatKey : public TestFixture {
         process_record_user_was_called_ = false;
         process_record_user_fun         = [=](uint16_t keycode, keyrecord_t* record) {
             EXPECT_EQ(record->event.pressed, expected_press);
-            EXPECT_EQ(keycode, expected_keycode);
+            EXPECT_KEYCODE_EQ(keycode, expected_keycode);
             EXPECT_EQ(get_repeat_key_count(), expected_repeat_key_count);
             // Tests below use this to verify process_record_user() was called.
             process_record_user_was_called_ = true;
@@ -211,12 +211,12 @@ TEST_F(AltRepeatKey, GetAltRepeatKeyKeycode) {
              // clang-format on
          })) {
         SCOPED_TRACE(std::string("Input keycode: ") + get_keycode_identifier_or_default(params.keycode));
-        set_repeat_key_keycode(params.keycode);
-        set_repeat_key_mods(params.mods);
+        set_last_keycode(params.keycode);
+        set_last_mods(params.mods);
 
         const uint16_t actual = get_alt_repeat_key_keycode();
 
-        EXPECT_EQ(get_alt_repeat_key_keycode(), params.expected_alt_keycode) << "Actual: " << get_keycode_identifier_or_default(actual) << ", Expected: " << get_keycode_identifier_or_default(params.expected_alt_keycode);
+        EXPECT_KEYCODE_EQ(get_alt_repeat_key_keycode(), params.expected_alt_keycode);
     }
 }
 
@@ -251,26 +251,26 @@ TEST_F(AltRepeatKey, GetAltRepeatKeyKeycodeUser) {
         return KC_NO;
     };
 
-    set_repeat_key_keycode(KC_LEFT);
-    EXPECT_EQ(get_alt_repeat_key_keycode(), KC_ENT);
+    set_last_keycode(KC_LEFT);
+    EXPECT_KEYCODE_EQ(get_alt_repeat_key_keycode(), KC_ENT);
 
-    set_repeat_key_keycode(MO(1));
-    EXPECT_EQ(get_alt_repeat_key_keycode(), TG(1));
+    set_last_keycode(MO(1));
+    EXPECT_KEYCODE_EQ(get_alt_repeat_key_keycode(), TG(1));
 
-    set_repeat_key_keycode(KC_TAB);
-    EXPECT_EQ(get_alt_repeat_key_keycode(), S(KC_TAB));
+    set_last_keycode(KC_TAB);
+    EXPECT_KEYCODE_EQ(get_alt_repeat_key_keycode(), S(KC_TAB));
 
-    set_repeat_key_keycode(KC_TAB);
-    set_repeat_key_mods(MOD_BIT(KC_LSFT));
-    EXPECT_EQ(get_alt_repeat_key_keycode(), KC_TAB);
+    set_last_keycode(KC_TAB);
+    set_last_mods(MOD_BIT(KC_LSFT));
+    EXPECT_KEYCODE_EQ(get_alt_repeat_key_keycode(), KC_TAB);
 
-    set_repeat_key_keycode(KC_Z);
-    set_repeat_key_mods(MOD_BIT(KC_LCTL));
-    EXPECT_EQ(get_alt_repeat_key_keycode(), C(KC_Y));
+    set_last_keycode(KC_Z);
+    set_last_mods(MOD_BIT(KC_LCTL));
+    EXPECT_KEYCODE_EQ(get_alt_repeat_key_keycode(), C(KC_Y));
 
-    set_repeat_key_keycode(KC_Y);
-    set_repeat_key_mods(MOD_BIT(KC_LCTL));
-    EXPECT_EQ(get_alt_repeat_key_keycode(), C(KC_Z));
+    set_last_keycode(KC_Y);
+    set_last_mods(MOD_BIT(KC_LCTL));
+    EXPECT_KEYCODE_EQ(get_alt_repeat_key_keycode(), C(KC_Z));
 }
 
 // Tests rolling from a key to Alternate Repeat.
@@ -352,7 +352,7 @@ TEST_F(AltRepeatKey, RollingFromAltRepeat) {
     run_one_scan_loop();
     EXPECT_TRUE(process_record_user_was_called_);
 
-    EXPECT_EQ(get_repeat_key_keycode(), KC_UP);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_UP);
 
     ExpectProcessRecordUserCalledWith(false, KC_RGHT, -1);
     key_alt_repeat.release(); // Release the Alternate Repeat Key.
@@ -398,8 +398,8 @@ TEST_F(AltRepeatKey, AlternateUnsupportedMacro) {
     tap_key(key_foo);
 
     EXPECT_TRUE(process_record_user_was_called_);
-    EXPECT_EQ(get_repeat_key_keycode(), QK_USER_0);
-    EXPECT_EQ(get_alt_repeat_key_keycode(), KC_NO);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), QK_USER_0);
+    EXPECT_KEYCODE_EQ(get_alt_repeat_key_keycode(), KC_NO);
 
     process_record_user_was_called_ = false;
     key_alt_repeat.press(); // Press Alternate Repeat.
@@ -470,7 +470,7 @@ TEST_F(AltRepeatKey, AdditionalAlternateKeysExample) {
     KeymapKey  key_altrep3(0, 3, 0, QK_USER_1);
     set_keymap({key_a, key_w, key_altrep2, key_altrep3});
 
-    get_repeat_key_eligible_user_fun = [](uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    remember_last_key_user_fun = [](uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
         switch (keycode) {
             case QK_USER_0:
             case QK_USER_1:
@@ -482,7 +482,7 @@ TEST_F(AltRepeatKey, AdditionalAlternateKeysExample) {
         switch (keycode) {
             case QK_USER_0:
                 if (record->event.pressed) {
-                    const uint16_t last_key = get_repeat_key_keycode();
+                    const uint16_t last_key = get_last_keycode();
                     switch (last_key) {
                         case KC_A:
                             SEND_STRING(/*a*/ "tion");
@@ -495,7 +495,7 @@ TEST_F(AltRepeatKey, AdditionalAlternateKeysExample) {
                 return false;
             case QK_USER_1:
                 if (record->event.pressed) {
-                    const uint16_t last_key = get_repeat_key_keycode();
+                    const uint16_t last_key = get_last_keycode();
                     switch (last_key) {
                         case KC_A:
                             SEND_STRING(/*a*/ "bout");

@@ -17,28 +17,28 @@
 #include "quantum.h"
 
 /**
- * @brief Process handler for Repeat Key feature.
+ * @brief Process handler for remembering the last key.
  *
  * @param keycode  Keycode registered by matrix press, per keymap
  * @param record   keyrecord_t structure
  * @return true    Continue processing keycodes, and send to host
  * @return false   Stop processing keycodes, and don't send to host
  */
-bool process_repeat_key(uint16_t keycode, keyrecord_t* record);
+bool process_last_key(uint16_t keycode, keyrecord_t* record);
 
 /**
- * @brief Optional callback defining which keys are eligible for repeating.
+ * @brief Optional callback defining which keys are remembered.
  *
  * @param keycode          Keycode that was just pressed
  * @param record           keyrecord_t structure
  * @param remembered_mods  Mods that will be remembered with this key
- * @return true            Key is eligible for repeating
+ * @return true            Key is remembered
  * @return false           Key is ignored
  *
  * Modifier and layer switch keys are always ignored. For all other keys, this
- * callback is called on every key press. Returning true means that the key
- * is eligible for repeating, false means it is ignored. By default, all
- * non-modifier, non-layer switch keys are eligible.
+ * callback is called on every key press. Returning true means that the key is
+ * remembered, false means it is ignored. By default, all non-modifier,
+ * non-layer switch keys are remembered.
  *
  * The `remembered_mods` arg represents the mods that will be remembered with
  * this key. It can be modified to forget certain mods, for instance to forget
@@ -49,4 +49,14 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record);
  *         *remembered_mods = 0;
  *     }
  */
-bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods);
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods);
+
+/**
+ * @brief Process handler for Repeat Key feature.
+ *
+ * @param keycode  Keycode registered by matrix press, per keymap
+ * @param record   keyrecord_t structure
+ * @return true    Continue processing keycodes, and send to host
+ * @return false   Stop processing keycodes, and don't send to host
+ */
+bool process_repeat_key(uint16_t keycode, keyrecord_t* record);

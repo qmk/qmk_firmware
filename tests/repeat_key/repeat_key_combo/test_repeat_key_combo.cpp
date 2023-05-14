@@ -57,7 +57,7 @@ TEST_F(RepeatKey, Combo) {
     tap_keys(key_x, key_repeat, key_repeat);
     tap_combo({key_x, key_y});
 
-    EXPECT_EQ(get_repeat_key_keycode(), KC_Q);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_Q);
 
     tap_keys(key_repeat, key_repeat);
 

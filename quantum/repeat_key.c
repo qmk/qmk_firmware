@@ -21,10 +21,36 @@ static uint8_t     last_mods   = 0;
 // alternate repeated: it is 0 when a key is pressed normally, positive when
 // repeated, and negative when alternate repeated.
 static int8_t last_repeat_count = 0;
-
 // The repeat_count, but set to 0 outside of repeat_key_invoke() so that it is
 // nonzero only while a repeated key is being processed.
 static int8_t processing_repeat_count = 0;
+
+uint16_t get_last_keycode(void) {
+    return last_record.keycode;
+}
+
+uint8_t get_last_mods(void) {
+    return last_mods;
+}
+
+void set_last_keycode(uint16_t keycode) {
+    set_last_record(keycode, &(keyrecord_t){
+#ifndef NO_ACTION_TAPPING
+                                       .tap.interrupted = false,
+                                       .tap.count       = 1,
+#endif
+                                   });
+}
+
+void set_last_mods(uint8_t mods) {
+    last_mods = mods;
+}
+
+void set_last_record(uint16_t keycode, keyrecord_t* record) {
+    last_record         = *record;
+    last_record.keycode = keycode;
+    last_repeat_count   = 0;
+}
 
 /** @brief Updates `last_repeat_count` in direction `dir`. */
 static void update_last_repeat_count(int8_t dir) {
@@ -37,33 +63,6 @@ static void update_last_repeat_count(int8_t dir) {
 
 int8_t get_repeat_key_count(void) {
     return processing_repeat_count;
-}
-
-uint16_t get_repeat_key_keycode(void) {
-    return last_record.keycode;
-}
-
-uint8_t get_repeat_key_mods(void) {
-    return last_mods;
-}
-
-void set_repeat_key_keycode(uint16_t keycode) {
-    set_repeat_key_record(keycode, &(keyrecord_t){
-#ifndef NO_ACTION_TAPPING
-                                       .tap.interrupted = false,
-                                       .tap.count       = 1,
-#endif
-                                   });
-}
-
-void set_repeat_key_mods(uint8_t mods) {
-    last_mods = mods;
-}
-
-void set_repeat_key_record(uint16_t keycode, keyrecord_t* record) {
-    last_record         = *record;
-    last_record.keycode = keycode;
-    last_repeat_count   = 0;
 }
 
 void repeat_key_invoke(const keyevent_t* event) {

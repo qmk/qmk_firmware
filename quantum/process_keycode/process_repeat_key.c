@@ -14,12 +14,12 @@
 
 #include "process_repeat_key.h"
 
-// Default implementation of get_repeat_key_eligible_user().
-__attribute__((weak)) bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+// Default implementation of remember_last_key_user().
+__attribute__((weak)) bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
     return true;
 }
 
-static bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+static bool remember_last_key(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
     switch (keycode) {
         // Ignore MO, TO, TG, TT, and TL layer switch keys.
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
@@ -59,9 +59,35 @@ static bool get_repeat_key_eligible(uint16_t keycode, keyrecord_t* record, uint8
             }
             break;
 #endif // SWAP_HANDS_ENABLE
+
+        case QK_REPEAT_KEY:
+#ifndef NO_ALT_REPEAT_KEY
+        case QK_ALT_REPEAT_KEY:
+#endif // NO_ALT_REPEAT_KEY
+            return false;
     }
 
-    return get_repeat_key_eligible_user(keycode, record, remembered_mods);
+    return remember_last_key_user(keycode, record, remembered_mods);
+}
+
+bool process_last_key(uint16_t keycode, keyrecord_t* record) {
+    if (get_repeat_key_count()) {
+        return true;
+    }
+
+    if (record->event.pressed) {
+        uint8_t remembered_mods = get_mods() | get_weak_mods();
+#ifndef NO_ACTION_ONESHOT
+        remembered_mods |= get_oneshot_mods();
+#endif // NO_ACTION_ONESHOT
+
+        if (remember_last_key(keycode, record, &remembered_mods)) {
+            set_last_record(keycode, record);
+            set_last_mods(remembered_mods);
+        }
+    }
+
+    return true;
 }
 
 bool process_repeat_key(uint16_t keycode, keyrecord_t* record) {
@@ -77,16 +103,6 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record) {
         alt_repeat_key_invoke(&record->event);
         return false;
 #endif // NO_ALT_REPEAT_KEY
-    } else if (record->event.pressed) {
-        uint8_t remembered_mods = get_mods() | get_weak_mods();
-#ifndef NO_ACTION_ONESHOT
-        remembered_mods |= get_oneshot_mods();
-#endif // NO_ACTION_ONESHOT
-
-        if (get_repeat_key_eligible(keycode, record, &remembered_mods)) {
-            set_repeat_key_record(keycode, record);
-            set_repeat_key_mods(remembered_mods);
-        }
     }
 
     return true;

@@ -210,18 +210,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 In tracking what is "the last key" to be repeated or alternate repeated,
 modifier and layer switch keys are always ignored. This makes it possible to set
-some mods and change layers between pressing a key and repeating it.
-By default, all other (non-modifier, non-layer switch) keys are eligible for
-repeating. To configure additional keys to be ignored, define
-`get_repeat_key_eligible_user()` in your keymap.c. 
+some mods and change layers between pressing a key and repeating it. By default,
+all other (non-modifier, non-layer switch) keys are remembered so that they are
+eligible for repeating. To configure additional keys to be ignored, define
+`remember_last_key_user()` in your keymap.c.
 
 #### Ignoring a key
 
 The following ignores the Backspace key:
 
 ```c
-bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record,
-                                  uint8_t* remembered_mods) {
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
+                            uint8_t* remembered_mods) {
     switch (keycode) {
         case KC_BSPC:
             return false;  // Ignore backspace.
@@ -235,10 +235,9 @@ Then for instance, the Repeat key in <kbd>Left Arrow</kbd>,
 <kbd>Backspace</kbd>, <kbd>Repeat</kbd> sends Left Arrow again instead of
 repeating Backspace.
 
-The `get_repeat_key_eligible_user()` callback is called on every key press
-excluding modifiers and layer switches. Returning true indicates the key is
-eligible for repeating (or alternate repeating), while false means it is
-ignored.
+The `remember_last_key_user()` callback is called on every key press excluding
+modifiers and layer switches. Returning true indicates the key is remembered,
+while false means it is ignored.
 
 #### Filtering remembered mods
 
@@ -248,8 +247,8 @@ useful to forget capitalization when repeating shifted letters, so that "Aaron"
 does not becom "AAron":
 
 ```c
-bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record,
-                                  uint8_t* remembered_mods) {
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
+                            uint8_t* remembered_mods) {
     // Forget Shift on letter keys when Shift or AltGr are the only mods.
     switch (keycode) {
         case KC_A ... KC_Z:
@@ -271,8 +270,8 @@ example, the following ignores keys on layer 2 as well as key combinations
 involving GUI:
 
 ```c
-bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record,
-                                  uint8_t* remembered_mods) {
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
+                            uint8_t* remembered_mods) {
     if (IS_LAYER_ON(2) || (get_mods() & MOD_MASK_GUI)) {
         return false;  // Ignore layer 2 keys and GUI chords.
     }
@@ -373,17 +372,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 | Function                       | Description                                                            |
 |--------------------------------|------------------------------------------------------------------------|
+| `get_last_keycode()`           | The last key's keycode, the key to be repeated.                        |
+| `get_last_mods()`              | Mods to apply when repeating.                                          |
+| `set_last_keycode(kc)`         | Set the keycode to be repeated.                                        |
+| `set_last_mods(mods)`          | Set the mods to apply when repeating.                                  |
 | `get_repeat_key_count()`       | Signed count of times the key has been repeated or alternate repeated. |
-| `get_repeat_key_keycode()`     | The last key's keycode, the key to be repeated.                        |
-| `get_repeat_key_mods()`        | Mods to apply when repeating.                                          |
-| `set_repeat_key_keycode(kc)`   | Set the keycode to be repeated.                                        |
-| `set_repeat_key_mods(mods)`    | Set the mods to apply when repeating.                                  |
 | `get_alt_repeat_key_keycode()` | Keycode to be used for alternate repeating.                            |
  
 
 ## Additional "Alternate" keys
 
-By leveraging `get_repeat_key_keycode()` in macros, it is possible to define
+By leveraging `get_last_keycode()` in macros, it is possible to define
 additional, distinct "Alternate Repeat"-like keys. The following defines two
 keys `ALTREP2` and `ALTREP3` and implements ten shortcuts with them for common
 English 5-gram letter patterns, taking inspiration from
@@ -406,8 +405,8 @@ enum custom_keycodes {
 
 // Use ALTREP2 and ALTREP3 in your layout...
 
-bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record,
-                                  uint8_t* remembered_mods) {
+bool remember_last_key_user(uint16_t keycode, keyrecord_t* record,
+                            uint8_t* remembered_mods) {
     switch (keycode) {
         case ALTREP2:
         case ALTREP3:
@@ -441,13 +440,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case ALTREP2: 
             if (record->event.pressed) {
-                process_altrep2(get_repeat_key_keycode(), get_repeat_key_mods());
+                process_altrep2(get_last_keycode(), get_last_mods());
             }
             return false;
 
         case ALTREP3:
             if (record->event.pressed) {
-                process_altrep3(get_repeat_key_keycode(), get_repeat_key_mods());
+                process_altrep3(get_last_keycode(), get_last_mods());
             }
             return false;
     }

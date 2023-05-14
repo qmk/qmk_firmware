@@ -16,6 +16,17 @@
 
 #include "quantum.h"
 
+uint16_t get_last_keycode(void);             /**< Keycode of the last key. */
+uint8_t  get_last_mods(void);                /**< Mods active with the last key. */
+void     set_last_keycode(uint16_t keycode); /**< Sets the last key. */
+void     set_last_mods(uint8_t mods);        /**< Sets the last mods. */
+
+/** @brief Gets the record for the last key. */
+keyrecord_t* get_last_record(void);
+
+/** @brief Sets keycode and record info for the last key. */
+void set_last_record(uint16_t keycode, keyrecord_t* record);
+
 /**
  * @brief Signed count of times the key has been repeated or alternate repeated.
  *
@@ -32,14 +43,6 @@
  */
 int8_t get_repeat_key_count(void);
 
-uint16_t get_repeat_key_keycode(void);             /**< Keycode of the key to be repeated. */
-uint8_t  get_repeat_key_mods(void);                /**< Mods to be applied when repeating. */
-void     set_repeat_key_keycode(uint16_t keycode); /**< Sets the keycode to repeat. */
-void     set_repeat_key_mods(uint8_t mods);        /**< Sets the mods to repeat. */
-
-/** @brief Sets keycode and record info for the key to be repeated. */
-void set_repeat_key_record(uint16_t keycode, keyrecord_t* record);
-
 /**
  * @brief Calls `process_record()` on a generated record repeating the last key.
  * @param event Event information in the generated record.
@@ -52,9 +55,9 @@ void repeat_key_invoke(const keyevent_t* event);
  * @brief Keycode to be used for alternate repeating.
  *
  * Alternate Repeat performs this keycode based on the last eligible pressed key
- * and mods, get_repeat_key_keycode() and get_repeat_key_mods(). For example,
- * when the last key was KC_UP, this function returns KC_DOWN. The function
- * returns KC_NO if the last key doesn't have a defined alternate.
+ * and mods, get_last_keycode() and get_last_mods(). For example, when the last
+ * key was KC_UP, this function returns KC_DOWN. The function returns KC_NO if
+ * the last key doesn't have a defined alternate.
  */
 uint16_t get_alt_repeat_key_keycode(void);
 

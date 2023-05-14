@@ -33,20 +33,20 @@ bool process_record_user_default(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-bool get_repeat_key_eligible_user_default(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+bool remember_last_key_user_default(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
     return true;
 }
 
-// Indirection so that process_record_user() and get_repeat_key_eligible_user()
+// Indirection so that process_record_user() and remember_last_key_user()
 // can be replaced with other functions in the test cases below.
-std::function<bool(uint16_t, keyrecord_t*)>           process_record_user_fun          = process_record_user_default;
-std::function<bool(uint16_t, keyrecord_t*, uint8_t*)> get_repeat_key_eligible_user_fun = get_repeat_key_eligible_user_default;
+std::function<bool(uint16_t, keyrecord_t*)>           process_record_user_fun    = process_record_user_default;
+std::function<bool(uint16_t, keyrecord_t*, uint8_t*)> remember_last_key_user_fun = remember_last_key_user_default;
 
 extern "C" bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return process_record_user_fun(keycode, record);
 }
-extern "C" bool get_repeat_key_eligible_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
-    return get_repeat_key_eligible_user_fun(keycode, record, remembered_mods);
+extern "C" bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    return remember_last_key_user_fun(keycode, record, remembered_mods);
 }
 
 class RepeatKey : public TestFixture {
@@ -55,15 +55,15 @@ class RepeatKey : public TestFixture {
 
     void SetUp() override {
         autoshift_disable();
-        process_record_user_fun          = process_record_user_default;
-        get_repeat_key_eligible_user_fun = get_repeat_key_eligible_user_default;
+        process_record_user_fun    = process_record_user_default;
+        remember_last_key_user_fun = remember_last_key_user_default;
     }
 
     void ExpectProcessRecordUserCalledWith(bool expected_press, uint16_t expected_keycode, int8_t expected_repeat_key_count) {
         process_record_user_was_called_ = false;
         process_record_user_fun         = [=](uint16_t keycode, keyrecord_t* record) {
             EXPECT_EQ(record->event.pressed, expected_press);
-            EXPECT_EQ(keycode, expected_keycode);
+            EXPECT_KEYCODE_EQ(keycode, expected_keycode);
             EXPECT_EQ(get_repeat_key_count(), expected_repeat_key_count);
             // Tests below use this to verify process_record_user() was called.
             process_record_user_was_called_ = true;
@@ -111,8 +111,8 @@ TEST_F(RepeatKey, Basic) {
     EXPECT_TRUE(process_record_user_was_called_);
 
     // After pressing A, the keycode of the key to be repeated is KC_A.
-    EXPECT_EQ(get_repeat_key_keycode(), KC_A);
-    EXPECT_EQ(get_repeat_key_mods(), 0);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_A);
+    EXPECT_EQ(get_last_mods(), 0);
 
     // Expect the corresponding release event when A is released.
     ExpectProcessRecordUserCalledWith(false, KC_A, 0);
@@ -137,7 +137,7 @@ TEST_F(RepeatKey, Basic) {
     process_record_user_fun = process_record_user_default;
     tap_key(key_b);
     // Then after tapping key_b, the keycode to be repeated becomes KC_B.
-    EXPECT_EQ(get_repeat_key_keycode(), KC_B);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_B);
 
     tap_key(key_repeat);
 
@@ -170,7 +170,7 @@ TEST_F(RepeatKey, Macro) {
 
     tap_key(key_foo);
 
-    EXPECT_EQ(get_repeat_key_keycode(), FOO_MACRO);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), FOO_MACRO);
 
     tap_keys(key_repeat, key_repeat);
 
@@ -213,7 +213,7 @@ TEST_F(RepeatKey, MacroCustomRepeat) {
 
     tap_key(key_foo);
 
-    EXPECT_EQ(get_repeat_key_keycode(), FOO_MACRO);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), FOO_MACRO);
 
     tap_keys(key_repeat, key_repeat, key_foo, key_repeat);
 
@@ -249,14 +249,14 @@ TEST_F(RepeatKey, AcrossLayers) {
     run_one_scan_loop();
     tap_key(regular_key); // Taps the KC_B key on layer 1.
 
-    EXPECT_EQ(get_repeat_key_keycode(), KC_B);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_B);
 
     key_mo_1.release(); // Release the layer key.
     run_one_scan_loop();
     tap_keys(key_repeat, key_repeat);
     tap_key(regular_key); // Taps the KC_A key on layer 0.
 
-    EXPECT_EQ(get_repeat_key_keycode(), KC_A);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_A);
 
     key_mo_1.press(); // Hold the layer key.
     run_one_scan_loop();
@@ -344,7 +344,7 @@ TEST_F(RepeatKey, RollingFromRepeat) {
     run_one_scan_loop();
     EXPECT_TRUE(process_record_user_was_called_);
 
-    EXPECT_EQ(get_repeat_key_keycode(), KC_B);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_B);
 
     ExpectProcessRecordUserCalledWith(false, KC_A, 1);
     key_repeat.release(); // Release the Repeat Key.
@@ -392,8 +392,8 @@ TEST_F(RepeatKey, RecallMods) {
     key_altgr.release();
     run_one_scan_loop();
 
-    EXPECT_EQ(get_repeat_key_keycode(), KC_C);
-    EXPECT_EQ(get_repeat_key_mods(), MOD_BIT(KC_RALT));
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_C);
+    EXPECT_EQ(get_last_mods(), MOD_BIT(KC_RALT));
 
     tap_keys(key_repeat, key_repeat, key_c);
 
@@ -437,8 +437,8 @@ TEST_F(RepeatKey, StackMods) {
     key_ctrl.release();
     run_one_scan_loop();
 
-    EXPECT_EQ(get_repeat_key_keycode(), KC_LEFT);
-    EXPECT_EQ(get_repeat_key_mods(), MOD_BIT(KC_LCTL));
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_LEFT);
+    EXPECT_EQ(get_last_mods(), MOD_BIT(KC_LCTL));
 
     tap_key(key_repeat);
 
@@ -448,7 +448,7 @@ TEST_F(RepeatKey, StackMods) {
     key_shift.release();
     run_one_scan_loop();
 
-    EXPECT_EQ(get_repeat_key_mods(), MOD_BIT(KC_LCTL));
+    EXPECT_EQ(get_last_mods(), MOD_BIT(KC_LCTL));
 
     tap_keys(key_repeat, key_left);
 
@@ -486,7 +486,7 @@ TEST_F(RepeatKey, ShiftedKeycode) {
 
     tap_key(key_exlm);
 
-    EXPECT_EQ(get_repeat_key_keycode(), S(KC_1));
+    EXPECT_KEYCODE_EQ(get_last_keycode(), S(KC_1));
 
     tap_key(key_repeat);
 
@@ -543,7 +543,7 @@ TEST_F(RepeatKey, ModTap) {
 
     tap_key(key_mt_a);
 
-    EXPECT_EQ(get_repeat_key_keycode(), LSFT_T(KC_A));
+    EXPECT_KEYCODE_EQ(get_last_keycode(), LSFT_T(KC_A));
 
     tap_keys(key_repeat, key_repeat);
     key_mt_a.press();
@@ -588,16 +588,16 @@ TEST_F(RepeatKey, AutoShift) {
 
     tap_key(key_a); // Tap A quickly.
 
-    EXPECT_EQ(get_repeat_key_keycode(), KC_A);
-    EXPECT_EQ(get_repeat_key_mods(), 0);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_A);
+    EXPECT_EQ(get_last_mods(), 0);
 
     tap_key(key_repeat);
     tap_key(key_repeat, AUTO_SHIFT_TIMEOUT + 1);
 
     tap_key(key_b, AUTO_SHIFT_TIMEOUT + 1); // Long press B.
 
-    EXPECT_EQ(get_repeat_key_keycode(), KC_B);
-    EXPECT_EQ(get_repeat_key_mods(), 0);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_B);
+    EXPECT_EQ(get_last_mods(), 0);
 
     tap_key(key_repeat);
     tap_key(key_repeat, AUTO_SHIFT_TIMEOUT + 1);
@@ -605,7 +605,7 @@ TEST_F(RepeatKey, AutoShift) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-// Defines `get_repeat_key_eligible_user()` to forget the Shift mod and types:
+// Defines `remember_last_key_user()` to forget the Shift mod and types:
 // "Ctrl+A, Repeat, Shift+A, Repeat, Shift+Repeat".
 TEST_F(RepeatKey, FilterRememberedMods) {
     TestDriver driver;
@@ -615,7 +615,7 @@ TEST_F(RepeatKey, FilterRememberedMods) {
     KeymapKey  key_repeat(0, 3, 0, QK_REP);
     set_keymap({key_a, key_ctrl, key_shift, key_repeat});
 
-    get_repeat_key_eligible_user_fun = [](uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
+    remember_last_key_user_fun = [](uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
         *remembered_mods &= ~MOD_MASK_SHIFT;
         return true;
     };
@@ -643,7 +643,7 @@ TEST_F(RepeatKey, FilterRememberedMods) {
     run_one_scan_loop();
     tap_key(key_a);
 
-    EXPECT_EQ(get_repeat_key_mods(), MOD_BIT(KC_LCTL));
+    EXPECT_EQ(get_last_mods(), MOD_BIT(KC_LCTL));
 
     key_ctrl.release();
     run_one_scan_loop();
@@ -653,7 +653,7 @@ TEST_F(RepeatKey, FilterRememberedMods) {
     run_one_scan_loop();
     tap_key(key_a);
 
-    EXPECT_EQ(get_repeat_key_mods(), 0); // Shift should be forgotten.
+    EXPECT_EQ(get_last_mods(), 0); // Shift should be forgotten.
 
     key_shift.release();
     run_one_scan_loop();
@@ -669,7 +669,7 @@ TEST_F(RepeatKey, FilterRememberedMods) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
-// Tests set_repeat_key_keycode() and set_repeat_key_mods().
+// Tests set_last_keycode() and set_last_mods().
 TEST_F(RepeatKey, SetRepeatKeyKeycode) {
     TestDriver driver;
     KeymapKey  key_repeat(0, 0, 0, QK_REP);
@@ -684,8 +684,8 @@ TEST_F(RepeatKey, SetRepeatKeyKeycode) {
     // clang-format on
     ExpectString(driver, "aaBB");
 
-    set_repeat_key_keycode(KC_A);
-    EXPECT_EQ(get_repeat_key_keycode(), KC_A);
+    set_last_keycode(KC_A);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_A);
 
     for (int n = 1; n <= 2; ++n) { // Tap the Repeat Key twice.
         // When Repeat is pressed, process_record_user() should be called with a
@@ -703,12 +703,12 @@ TEST_F(RepeatKey, SetRepeatKeyKeycode) {
     }
 
     process_record_user_fun = process_record_user_default;
-    set_repeat_key_keycode(KC_B);
-    set_repeat_key_mods(MOD_BIT(KC_LSFT));
+    set_last_keycode(KC_B);
+    set_last_mods(MOD_BIT(KC_LSFT));
 
     tap_keys(key_repeat, key_repeat);
 
-    set_repeat_key_keycode(KC_NO);
+    set_last_keycode(KC_NO);
     tap_keys(key_repeat, key_repeat); // Has no effect.
 
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -726,7 +726,7 @@ TEST_F(RepeatKey, RepeatKeyInvoke) {
 
     tap_key(key_s);
 
-    EXPECT_EQ(get_repeat_key_keycode(), KC_S);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_S);
 
     // Calling repeat_key_invoke() should result in process_record_user()
     // getting a press event with keycode KC_S.
