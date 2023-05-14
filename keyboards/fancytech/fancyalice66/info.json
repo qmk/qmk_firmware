@@ -158,9 +158,6 @@
         ],
         "max_brightness": 200
     },
-    "rgblight": {
-        "pin": "B0"
-    },
     "url": "https://www.aliexpress.com/item/1005004272392611.html",
     "usb": {
         "device_version": "0.0.1",
