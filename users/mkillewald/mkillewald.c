@@ -79,12 +79,10 @@ void set_win_base_rgb(void) {
 }
 
 __attribute__ ((weak))
-void matrix_init_keymap(void) {
-  return;
-}
+void matrix_init_keymap(void) {}
 
 void matrix_init_user(void) {
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_init_user();
 #endif
 
@@ -92,14 +90,12 @@ void matrix_init_user(void) {
 }
 
 __attribute__ ((weak))
-void keyboard_post_init_keymap(void) {
-  return;
-}
+void keyboard_post_init_keymap(void) {}
 
 void keyboard_post_init_user(void) {
     user_config_read_eeprom();
 
-#ifdef AUTOCORRECT_OFF_AT_STARTUP
+#if defined(AUTOCORRECT_OFF_AT_STARTUP)
     // toggle autocorrect off at startup
     if (autocorrect_is_enabled()) { autocorrect_toggle(); }
 #endif
@@ -107,41 +103,24 @@ void keyboard_post_init_user(void) {
     keyboard_post_init_keymap();
 }
 
-void housekeeping_task_mkillewald(void) {
-    switch(bootloader_state) {
-        case BOOTLOADER_DO:
-            // bootloader was pressed two frames ago. RGB should now be off,
-            // so we can call the bootloader.
-            reset_keyboard();
-            break;
-        case BOOTLOADER_WAIT:
-            // bootloader was pressed on previous frame, we wait this frame and
-            // set flag to do bootloader at end of next frame. For some reason, my
-            // Q2 needed this extra wait frame.
-            bootloader_state = BOOTLOADER_DO;
-            break;
-        case BOOTLOADER_PRESSED:
-            // User pressed bootloader keycode and RGB was disabled earlier in this
-            // frame. However RGB changes wont take place immediately, so we set a
-            // flag here which will be caught at end of the next frame.
-            bootloader_state = BOOTLOADER_WAIT;
-            break;
-        default:
-            break;
-    }
+#if defined(RGB_MATRIX_ENABLE)
+void rgb_matrix_update_pwm_buffers(void);
+#endif
+
+__attribute__((weak)) void shutdown_keymap(void) {}
+
+void shutdown_user(void) {
+#if defined(RGB_MATRIX_ENABLE)
+    // to disable RGB when entering DFU mode from QK_BOOT keycode
+    rgb_matrix_set_color_all(0x00, 0x00, 0x00);
+    rgb_matrix_update_pwm_buffers();
+#endif
+
+    shutdown_keymap();
 }
 
 bool process_record_mkillewald(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QK_BOOT:
-            // We want to turn off LEDs before calling bootloader, so here
-            // we call rgb_matrix_disable_noeeprom() and set a flag because
-            // the LEDs won't be updated until the next frame.
-            if (record->event.pressed) {
-                rgb_matrix_disable_noeeprom();
-                bootloader_state = BOOTLOADER_PRESSED;
-            }
-            return false;  // Skip all further processing of this key
         case RGB_TOG:
             if (record->event.pressed) {
                 rgb_matrix_toggle_noeeprom();

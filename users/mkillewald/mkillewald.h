@@ -18,13 +18,6 @@
 
 #include "quantum.h"
 
-enum my_bootloader_state {
-    BOOTLOADER_INACTIVE,
-    BOOTLOADER_PRESSED,
-    BOOTLOADER_WAIT,
-    BOOTLOADER_DO
-} bootloader_state;
-
 enum my_keycodes {
     KC_LIGHT_TAB_TOGGLE = QK_USER_0,
     KC_LIGHT_ALPHAS_TOGGLE,
@@ -42,5 +35,4 @@ enum my_keycodes {
 uint8_t is_win_mode(void);
 void set_mac_base_rgb(void);
 void set_win_base_rgb(void);
-void housekeeping_task_mkillewald(void);
 bool process_record_mkillewald(uint16_t keycode, keyrecord_t *record);
