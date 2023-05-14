@@ -15,7 +15,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
     if (record->event.pressed) {
-        rgblight_toggle_neeeprom();  // for test
+        rgblight_toggle_noeeprom();  // for test
     }
 
     return true;
