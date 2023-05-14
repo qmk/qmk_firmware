@@ -1,0 +1,217 @@
+; Copyright (c) 2021 sekigon-gonnoc
+
+.define public USB_TX_EOP_OFFSET 4
+.define public USB_TX_EOP_DISABLER_LEN 4
+
+; USB FS NRZI transmitter
+; Run 48 MHz, autopull
+.program usb_tx_fs
+.side_set 2 opt
+
+.define J 0b01
+.define K 0b10
+.define SE0 0b00
+.define BR 5         ; bit repeat limit
+.define public IRQ_COMP 0   ; complete flag bit
+.define public IRQ_EOP 1   ; EOP start flag bit
+
+start:
+    set y, BR side J
+    set pindirs, 0b11
+
+.wrap_target
+check_eop1:
+    jmp !osre load_bit1
+    nop [1]
+send_eop:
+    irq IRQ_EOP side SE0 [3]    ; To catch quik ACK, mark as complete here
+    nop [3]
+    nop side J
+    set pindirs, 0b00 [3]
+    irq wait IRQ_COMP
+    jmp start
+load_bit1:
+    out x, 1
+    jmp !x low1
+high1:
+    jmp y-- check_eop1 side J
+    nop [2]                     ; bit stuffing
+low1:
+    set y BR side K
+
+check_eop2:
+    jmp !osre load_bit2
+    jmp send_eop [1]
+load_bit2:
+    out x, 1
+    jmp !x low2
+high2:
+    jmp y-- check_eop2 side K
+    nop [2]                     ; bit stuffing
+low2:
+    set y BR side J
+.wrap
+
+; USB FS transmitter for PRE packet (No EOP)
+; Run 48 MHz, autopull
+.program usb_tx_fs_pre
+.side_set 2 opt
+
+.define J 0b01
+.define K 0b10
+.define SE0 0b00
+.define BR 5         ; bit repeat limit
+.define public IRQ_COMP 0   ; complete flag bit
+.define public IRQ_EOP 1   ; EOP start flag bit
+
+start:
+    set y, BR side J
+    set pindirs, 0b11
+
+.wrap_target
+check_eop1:
+    jmp !osre load_bit1
+    nop [1]
+send_eop:
+    irq IRQ_EOP side J [3]
+    set pindirs, 0b00
+    nop ; to align program size
+    nop ; to align program size
+    irq wait IRQ_COMP
+    jmp start
+load_bit1:
+    out x, 1
+    jmp !x low1
+high1:
+    jmp y-- check_eop1 side J
+    nop [2]                     ; bit stuffing
+low1:
+    set y BR side K
+
+check_eop2:
+    jmp !osre load_bit2
+    jmp send_eop [1]
+load_bit2:
+    out x, 1
+    jmp !x low2
+high2:
+    jmp y-- check_eop2 side K
+    nop [2]                     ; bit stuffing
+low2:
+    set y BR side J
+.wrap
+
+
+; USB LS Transmitter
+; Run 6MHz, autopull
+.program usb_tx_ls
+.side_set 2 opt
+
+.define J 0b10
+.define K 0b01
+.define SE0 0b00
+.define BR 5         ; bit repeat limit
+.define public IRQ_COMP 0   ; complete flag bit
+.define public IRQ_EOP 1   ; EOP start flag bit
+
+start:
+    set y, BR side J
+    set pindirs, 0b11
+
+.wrap_target
+check_eop1:
+    jmp !osre load_bit1
+    nop [1]
+send_eop:
+    irq IRQ_EOP side SE0 [3]
+    nop [3]
+    nop side J
+    set pindirs, 0b00 [3]
+    irq wait IRQ_COMP
+    jmp start
+load_bit1:
+    out x, 1
+    jmp !x low1
+high1:
+    jmp y-- check_eop1 side J
+    nop [2]                     ; bit stuffing
+low1:
+    set y BR side K
+
+check_eop2:
+    jmp !osre load_bit2
+    jmp send_eop [1]
+load_bit2:
+    out x, 1
+    jmp !x low2
+high2:
+    jmp y-- check_eop2 side K
+    nop [2]                     ; bit stuffing
+low2:
+    set y BR side J
+.wrap
+
+
+
+% c-sdk {
+#include "hardware/clocks.h"
+
+  static void __no_inline_not_in_flash_func(usb_tx_configure_pins)(PIO pio, uint sm, uint pin_dp) {
+    pio_sm_set_out_pins(pio, sm, pin_dp, 2);
+    pio_sm_set_set_pins(pio, sm, pin_dp, 2);
+    pio_sm_set_sideset_pins(pio, sm, pin_dp);
+  }
+
+  static inline void usb_tx_fs_program_init(PIO pio, uint sm, uint offset,
+                                         uint pin_dp) {
+    pio_sm_set_pins_with_mask(pio, sm, (0b01 << pin_dp), (0b11 << pin_dp));
+
+    gpio_pull_down(pin_dp);
+    gpio_pull_down(pin_dp + 1); // dm
+    pio_gpio_init(pio, pin_dp);
+    pio_gpio_init(pio, pin_dp + 1); // dm
+
+    pio_sm_config c = usb_tx_fs_program_get_default_config(offset);
+
+    // shifts to left, autopull, 8bit
+    sm_config_set_out_shift(&c, true, true, 8);
+
+    sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_TX);
+
+    // run at 48MHz
+    // clk_sys should be multiply of 12MHz
+    float div = (float)clock_get_hz(clk_sys) / (48000000UL);
+    sm_config_set_clkdiv(&c, div);
+
+    pio_sm_init(pio, sm, offset, &c);
+    usb_tx_configure_pins(pio, sm, pin_dp);
+    pio_sm_set_enabled(pio, sm, true);
+  }
+
+  static inline void usb_tx_ls_program_init(PIO pio, uint sm, uint offset,
+                                         uint pin_dp) {
+    pio_sm_set_pins_with_mask(pio, sm, (0b10 << pin_dp), (0b11 << pin_dp));
+
+    gpio_pull_down(pin_dp);
+    gpio_pull_down(pin_dp + 1); // dm
+    pio_gpio_init(pio, pin_dp);
+    pio_gpio_init(pio, pin_dp + 1); // dm
+
+    pio_sm_config c = usb_tx_ls_program_get_default_config(offset);
+
+    // shifts to left, autopull, 8bit
+    sm_config_set_out_shift(&c, true, true, 8);
+
+    sm_config_set_fifo_join(&c, PIO_FIFO_JOIN_TX);
+
+    // run at 6MHz
+    // clk_sys should be multiply of 12MHz
+    float div = (float)clock_get_hz(clk_sys) / (6000000UL);
+    sm_config_set_clkdiv(&c, div);
+
+    pio_sm_init(pio, sm, offset, &c);
+    usb_tx_configure_pins(pio, sm, pin_dp);
+    pio_sm_set_enabled(pio, sm, true);
+  }
+
+%}
