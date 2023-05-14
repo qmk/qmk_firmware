@@ -1,6 +1,6 @@
 # ScottoSlant
 
-![ScottoSlant](imgur.com image replace me!)
+![ScottoSlant](https://i.imgur.com/p10NGimh.jpg)
 
 A 37key ~0.25u row staggered handwired keyboard. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
