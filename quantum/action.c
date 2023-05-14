@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "keycode_config.h"
 #include "debug.h"
+#include "quantum.h"
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -64,10 +65,6 @@ __attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *reco
     return false;
 }
 #endif
-
-__attribute__((weak)) bool pre_process_record_quantum(keyrecord_t *record) {
-    return true;
-}
 
 /** \brief Called to execute an action.
  *
