@@ -4,6 +4,10 @@
     "maintainer": "keydler",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "backlight": {
+        "pin": "B7",
+        "breathing": true
+    },
     "diode_direction": "COL2ROW",
     "features": {
         "backlight": true,
