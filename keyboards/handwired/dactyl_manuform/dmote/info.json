@@ -3,8 +3,7 @@
     "manufacturer": "veikman",
     "url": "https://github.com/veikman/dactyl-keyboard",
     "maintainer": "veikman",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "usb": {
         "vid": "0x444D",
         "pid": "0x3632",
