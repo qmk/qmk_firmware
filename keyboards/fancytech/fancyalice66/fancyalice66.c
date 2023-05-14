@@ -18,6 +18,9 @@
 
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user() {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(43, 0xFF, 0xFF, 0xFF);
     }
