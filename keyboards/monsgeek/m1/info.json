@@ -3,6 +3,7 @@
     "manufacturer": "monsgeek",
     "maintainer": "jonylee@hfd",
     "usb": {
+        "force_nkro": true,
         "vid": "0xFFFE",
         "pid": "0x0005",
         "device_version": "1.1.0"
