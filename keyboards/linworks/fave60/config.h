@@ -15,12 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* number of backlight levels */
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_ON_STATE 1
-
 #define WS2812_DI_PIN F5
 #define RGB_DI_PIN WS2812_DI_PIN
 #define RGBLED_NUM 18
