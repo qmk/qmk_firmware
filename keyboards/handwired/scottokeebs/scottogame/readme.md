@@ -2,7 +2,7 @@
 
 ![ScottoGame](https://i.imgur.com/uXUWY7wh.jpg)
 
-A 40 key handwired ortholinear keyboard. Featuring a split spacebar and a 128x64 OLED with Bongo Cat. Case files available [here](https://github.com/joe-scotto/keyboards.git).
+A 40 key handwired ortholinear keyboard. Featuring a split spacebar and a 128x64 OLED with Bongo Cat. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
 -   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 -   Hardware Supported: ATmega32U4
