@@ -2,7 +2,7 @@
 
 <!-- ![ScottoAlp](https://i.imgur.com/uXUWY7wh.jpg) -->
 
-A 41 key ortholinear keyboard that supports MX and Alp switches. Case files available [here](https://github.com/joe-scotto/scottokeebs.git).
+A 41 key ortholinear keyboard that supports MX and Alp switches. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
 -   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 -   Hardware Supported: ATmega32U4
