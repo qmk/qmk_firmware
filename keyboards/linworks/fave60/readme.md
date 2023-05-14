@@ -4,6 +4,7 @@
 ![linworks/fave60 back](https://i.imgur.com/xBLhQIoh.png)
 
 *A short description of the keyboard/project*
+The Fave60 PCB is a 60 keys keyboard designed by Lx3 (Linworks).
 
 * Keyboard Maintainer: [keydler](https://github.com/duilchoi)
 * Hardware Supported: *The PCBs, controllers supported*
