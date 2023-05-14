@@ -111,7 +111,7 @@ const wbrgb_led g_wbrgb_leds[RGB_MATRIX_LED_COUNT] = {
 // clang-format on
 #endif
 
-void matrix_init_kb(void) {
+void keyboard_pre_init_kb(void) {
 #ifdef BOOTMAGIC_LITE
     rgb_driver_init();
 #endif
