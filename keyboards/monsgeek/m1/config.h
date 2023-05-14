@@ -63,25 +63,5 @@
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#define ENABLE_RGB_MATRIX_BREATHING
-#define ENABLE_RGB_MATRIX_CYCLE_ALL
-#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
-#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-#define ENABLE_RGB_MATRIX_DUAL_BEACON
-#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
-#define ENABLE_RGB_MATRIX_RAINDROPS
-// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
-#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-#define ENABLE_RGB_MATRIX_MULTISPLASH
-
-#define RGB_MATRIX_VAL_STEP 20
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 /* The maximum brightness level */
 
 //#define DISABLE_M1_KEYCODES /*If you need to change or restore the default QMK button function, please open it*/
