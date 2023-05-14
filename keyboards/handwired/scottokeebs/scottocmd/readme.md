@@ -2,7 +2,7 @@
 
 ![ScottoCMD](https://i.imgur.com/rxiMZNnh.jpg)
 
-A 40 key handwired ortholinear keyboard with non-ortho bottom row. Featuring a 128x64 OLED display along with a 6.25u spacebar. Case files available [here](https://github.com/joe-scotto/keyboards.git).
+A 40 key handwired ortholinear keyboard with non-ortho bottom row. Featuring a 128x64 OLED display along with a 6.25u spacebar. Case files available [here](https://github.com/joe-scotto/scottokeebs.git).
 
 -   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 -   Hardware Supported: ATmega32U4

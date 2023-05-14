@@ -2,7 +2,7 @@
 
 ![Scotto9](https://imgur.com/inbmNSEh.jpeg)
 
-A 9 key handwired macropad. Case files available [here](https://github.com/joe-scotto/keyboards.git).
+A 9 key handwired macropad. Case files available [here](https://github.com/joe-scotto/scottokeebs.git).
 
 -   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 -   Hardware Supported: ATmega32U4
@@ -17,7 +17,7 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make handwired/jscotto/scotto9:default
-    
+
 # Bootloader
 
 Uses [bootmagic](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_bootmagic.md) allowing you to hold the top left key (0, 0) when plugging the board in to enter bootloader mode.

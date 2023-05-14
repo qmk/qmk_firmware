@@ -2,7 +2,7 @@
 
 ![Scotto40](https://i.imgur.com/wtW5xOth.jpeg)
 
-A 37, 38, or 40 key handwired ortholinear keyboard. Case files available [here](https://github.com/joe-scotto/keyboards).
+A 37, 38, or 40 key handwired ortholinear keyboard. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
 -   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 -   Hardware Supported: ATmega32U4
@@ -17,7 +17,7 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make handwired/jscotto/scotto40:default
-    
+
 # Bootloader
 
 Uses [bootmagic](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_bootmagic.md) allowing you to hold the top left key (0, 0) when plugging the board in to enter bootloader mode.
