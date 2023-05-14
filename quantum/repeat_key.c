@@ -36,10 +36,10 @@ uint8_t get_last_mods(void) {
 void set_last_keycode(uint16_t keycode) {
     set_last_record(keycode, &(keyrecord_t){
 #ifndef NO_ACTION_TAPPING
-                                       .tap.interrupted = false,
-                                       .tap.count       = 1,
+                                 .tap.interrupted = false,
+                                 .tap.count       = 1,
 #endif
-                                   });
+                             });
 }
 
 void set_last_mods(uint8_t mods) {

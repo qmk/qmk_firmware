@@ -275,8 +275,7 @@ bool process_record_quantum(keyrecord_t *record) {
             process_dynamic_macro(keycode, record) &&
 #endif
 #ifdef REPEAT_KEY_ENABLE
-            process_last_key(keycode, record) &&
-            process_repeat_key(keycode, record) &&
+            process_last_key(keycode, record) && process_repeat_key(keycode, record) &&
 #endif
 #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
             process_clicky(keycode, record) &&
