@@ -1,5 +1,5 @@
 {
-    "manufacturer": "Joe Scotto",
+    "manufacturer": "ScottoKeebs",
     "keyboard_name": "Scotto40",
     "maintainer": "joe-scotto",
     "bootloader": "caterina",
@@ -13,7 +13,10 @@
         "nkro": true
     },
     "matrix_pins": {
+        // 2, 3, 4, 5, 6, 7, 8, 9, A3, A2
         "cols": ["D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5", "F4", "F5"],
+
+        // 15, 14, 16, 10
         "rows": ["B1", "B3", "B2", "B6"]
     },
     "processor": "atmega32u4",

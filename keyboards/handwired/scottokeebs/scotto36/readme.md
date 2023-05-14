@@ -1,8 +1,8 @@
-# Scotto40
+# Scotto36
 
-![Scotto40](https://i.imgur.com/wtW5xOth.jpeg)
+![Scotto36](https://i.imgur.com/MCGv0ZHh.jpeg)
 
-A 37, 38, or 40 key handwired ortholinear keyboard. Case files available [here](https://github.com/joe-scotto/keyboards).
+A 36 key handwired ortholinear ergo keyboard. Featuring an OLED display with Bongo Cat. Case files available [here](https://github.com/joe-scotto/scottokeebs.git).
 
 -   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 -   Hardware Supported: ATmega32U4
@@ -12,12 +12,12 @@ A 37, 38, or 40 key handwired ortholinear keyboard. Case files available [here](
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scotto40:default
+    make handwired/jscotto/scotto36:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scotto40:default
-    
+    make handwired/jscotto/scotto36:default
+
 # Bootloader
 
 Uses [bootmagic](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_bootmagic.md) allowing you to hold the top left key (0, 0) when plugging the board in to enter bootloader mode.
