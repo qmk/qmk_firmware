@@ -6,7 +6,7 @@ A simple 6x6 Keyboard made for use it as a streamdeck.
 
 
 * Keyboard Maintainer: [Antonio Sesmero](https://github.com/asesmero)
-* Hardware Supported: Arduino ProMicro (ATMEGA32U4)
+* Hardware Supported: SparkFun Pro Micro (ATMEGA32U4)
 * Hardware Availability: 3d Printed & handwired.
 
 Make example for this keyboard (after setting up your build environment):
