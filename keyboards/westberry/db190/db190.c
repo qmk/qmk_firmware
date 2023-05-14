@@ -115,5 +115,5 @@ void keyboard_pre_init_kb(void) {
 #ifdef BOOTMAGIC_LITE
     rgb_driver_init();
 #endif
-    matrix_init_user();
+    keyboard_pre_init_user();
 }
