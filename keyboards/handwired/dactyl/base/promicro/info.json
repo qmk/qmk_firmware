@@ -30,8 +30,6 @@
     "rgblight": {
         "led_count": 12
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
     "development_board":"promicro",
     "layouts": {
         "LAYOUT_6x6": {
