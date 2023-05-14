@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    KC_00 = SAFE_RANGE
+    KC_00 = QK_USER
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
