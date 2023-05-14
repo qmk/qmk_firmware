@@ -19,9 +19,6 @@
 /* Use 6 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
-#define FORCE_NKRO
-
 /* encoder */
 // #define ENCODER_RESOLUTION 4
 // #define ENCODER_MAP_KEY_DELAY 10
