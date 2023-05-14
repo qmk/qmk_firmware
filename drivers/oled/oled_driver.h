@@ -200,8 +200,12 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation);
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
 void oled_clear(void);
 
-// Renders the dirty chunks of the buffer to oled display
-void oled_render(void);
+// Alias to olde_render_dirty to avoid a change in api. 
+#define oled_render() oled_render_dirty(false)
+
+// Renders all dirty blocks to the display at one time or a subset depending on the value of
+// all.
+void oled_render_dirty(bool all);
 
 // Moves cursor to character position indicated by column and line, wraps if out of bounds
 // Max column denoted by 'oled_max_chars()' and max lines by 'oled_max_lines()' functions
