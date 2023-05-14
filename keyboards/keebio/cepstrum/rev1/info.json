@@ -3,7 +3,6 @@
     "usb": {"pid": "0x1557", "device_version": "1.0.0"},
     "processor": "RP2040",
     "bootloader": "rp2040",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "rgb_matrix": true
