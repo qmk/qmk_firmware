@@ -55,8 +55,4 @@
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_KEYRELEASES
 
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-
 //#define DISABLE_M1_KEYCODES /*If you need to change or restore the default QMK button function, please open it*/
