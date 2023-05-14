@@ -31,8 +31,6 @@
         "enabled": true,
         "soft_serial_pin": "D0"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
     "developement_board": "pro_micro",
     "community_layouts": ["LAYOUT_split_3x6_3", "LAYOUT_split_3x5_3"],
     "layouts": {
