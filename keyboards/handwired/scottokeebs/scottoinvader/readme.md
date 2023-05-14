@@ -2,7 +2,7 @@
 
 ![ScottoInvader](https://i.imgur.com/rXssnx7h.jpeg)
 
-A 36 key column staggered ortholinear keyboard. Case files available [here](https://github.com/joe-scotto/keyboards).
+A 36 key column staggered ortholinear keyboard. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
 -   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 -   Hardware Supported: ATmega32U4
