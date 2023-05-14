@@ -3,7 +3,6 @@
     "keyboard_name": "fave60a",
     "maintainer": "keydler",
     "bootloader": "stm32-dfu",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": false
