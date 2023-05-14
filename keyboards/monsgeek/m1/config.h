@@ -19,10 +19,6 @@
 /* Use 6 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
-/* encoder */
-// #define ENCODER_RESOLUTION 4
-// #define ENCODER_MAP_KEY_DELAY 10
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
