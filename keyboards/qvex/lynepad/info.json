@@ -5,23 +5,21 @@
     "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": true,
-        "nkro": true
+        "mousekey": true
     },
     "matrix_pins": {
         "cols": [ "F0", "F1", "F4", "F5"],
-        "rows": [ "C7", "F7" ,"F6", "E6", "E6"]
+        "rows": [ "C7", "F7" ,"F6", "F6", "F6"]
     },
     "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x00C3",
-        "vid": "0xA1A2"
+        "vid": "0x04D8",
+        "pid": "0xE678"
     },
     "layouts": {
         "LAYOUT": {
