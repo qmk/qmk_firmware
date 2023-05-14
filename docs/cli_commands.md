@@ -256,7 +256,7 @@ Formats a JSON file in a (mostly) human-friendly way. Will usually correctly det
 **Usage**:
 
 ```
-qmk format-json [--no-sort] [-f FORMAT] <json_file>
+qmk format-json [-f FORMAT] <json_file>
 ```
 
 ## `qmk info`
