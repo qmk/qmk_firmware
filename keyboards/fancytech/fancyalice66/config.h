@@ -4,7 +4,9 @@
 #pragma once
 
 #ifdef RGB_MATRIX_ENABLE
-    #define RGB_MATRIX_LED_COUNT 82
+#    define WS2812_DI_PIN B0
+#    define RGB_DI_PIN WS2812_DI_PIN
+#    define RGB_MATRIX_LED_COUNT 82
 
     /* RGB Matrix effect */
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
