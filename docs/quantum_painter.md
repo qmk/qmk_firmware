@@ -406,9 +406,9 @@ Enabling support for the SH1106 in Quantum Painter is done by adding the followi
 ```make
 QUANTUM_PAINTER_ENABLE = yes
 # For SPI:
-QUANTUM_PAINTER_DRIVERS += ssd1106_spi
+QUANTUM_PAINTER_DRIVERS += sh1106_spi
 # For I2C:
-QUANTUM_PAINTER_DRIVERS += ssd1106_i2c
+QUANTUM_PAINTER_DRIVERS += sh1106_i2c
 ```
 
 Creating a SH1106 device in firmware can then be done with the following APIs:
