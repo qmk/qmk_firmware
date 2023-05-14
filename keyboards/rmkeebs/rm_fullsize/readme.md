@@ -1,6 +1,6 @@
 # rm_fullsize
 
-![rm_full](https://www.rmkeebs.com/wp-content/uploads/2023/05/rm-fullsize-small.jpg)
+![rm_full](https://i.imgur.com/k61zEtah.jpg)
 
 A fullsized keyboard with multiple layout options and a big knob.  The case is manchined out of 6061 Aluminum by Rucker Machine in the USA.
 
