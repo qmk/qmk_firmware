@@ -19,7 +19,8 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 	endif
 endif
 
-COMBO_ENABLE ?= yes
+
+COMBO_ENABLE ?= no
 ifeq ($(strip $(COMBO_ENABLE)), yes)
 	SRC += $(USER_PATH)/combo.c
 endif

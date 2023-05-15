@@ -2,7 +2,9 @@
 #include "T4CORUN.h"
 
 enum combos {
-  COMDOT_MOU,
+  COMDOT_DRGTOG,
+  NUMSFT_MB2,
+  SPCNAV_MB4,
   COMBO_LENGTH
 };
 

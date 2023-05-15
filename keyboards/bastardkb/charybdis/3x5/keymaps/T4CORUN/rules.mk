@@ -6,5 +6,6 @@ USER_NAME := T4CORUN
 
 #override userspace
 GAMELAYER_ENABLE = yes
+COMBO_ENABLE = yes
 
 #override $qmk_firmware\keyboards\bastardkb\charybdis\3x5\v2\splinky_3\rules.mk
