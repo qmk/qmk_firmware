@@ -169,28 +169,32 @@ bool oled_task_user(void) {
 Render a message before booting into bootloader mode.
 ```c
 void oled_render_boot(void) {
-  oled_clear();
-  for (int i = 0; i < 16; i++) {
-    oled_set_cursor(0, i);
-    oled_write_P(PSTR("BOOT "), false);
-  }
-
-  oled_render_dirty(true);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-  
-    // Display a special message prior to rebooting...
-    if (keycode == QK_BOOT) {
-      oled_render_boot();
+    oled_clear();
+    for (int i = 0; i < 16; i++) {
+        oled_set_cursor(0, i);
+        oled_write_P(PSTR("BOOT "), false);
     }
-  }
 
-  return true;
+    oled_render_dirty(true);
 }
 
+bool reboot = false;
 
+bool uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+  
+        // Display a special message prior to rebooting...
+        if (keycode == QK_BOOT) {
+           reboot = true;
+        }
+    }
+
+    return true;
+}
+
+void shutdown_user(void) {
+    oled_render_boot();
+}
 
 ```
 
