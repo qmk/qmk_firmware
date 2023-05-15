@@ -1,0 +1,111 @@
+{
+    "keyboard_name": "Mango",
+    "url": "",
+    "maintainer": "qmk",
+    "manufacturer": "JeayoKeh",
+    "diode_direction": "ROW2COL",
+    "matrix_pins": {
+        "cols": ["A6", "A5", "A4", "A3"],
+        "rows": ["B10", "B2", "B1", "B0", "A7"]
+    },
+    "usb": {
+        "vid": "0x3A54",
+        "pid": "0x4F5D",
+        "device_version": "1.0.3"
+    },
+    "community_layouts": ["numpad_5x4"],
+    "layouts": {
+        "LAYOUT_numpad_5x4": {
+             "layout": [
+                {
+                    "label": "Num Lock",
+                    "x": 3.25,
+                    "y": 1.5
+                },
+                {
+                    "label": "/",
+                    "x": 4.25,
+                    "y": 1.5
+                },
+                {
+                    "label": "*",
+                    "x": 5.25,
+                    "y": 1.5
+                },
+                {
+                    "label": "-",
+                    "x": 6.25,
+                    "y": 1.5
+                },
+                {
+                    "label": "7",
+                    "x": 3.25,
+                    "y": 2.5
+                },
+                {
+                    "label": "8",
+                    "x": 4.25,
+                    "y": 2.5
+                },
+                {
+                    "label": "9",
+                    "x": 5.25,
+                    "y": 2.5
+                },
+                {
+                    "label": "4",
+                    "x": 3.25,
+                    "y": 3.5
+                },
+                {
+                    "label": "5",
+                    "x": 4.25,
+                    "y": 3.5
+                },
+                {
+                    "label": "6",
+                    "x": 5.25,
+                    "y": 3.5
+                },
+                {
+                    "label": "+",
+                    "x": 6.25,
+                    "y": 2.5,
+                    "h": 2
+                },
+                {
+                    "label": "1",
+                    "x": 3.25,
+                    "y": 4.5
+                },
+                {
+                    "label": "2",
+                    "x": 4.25,
+                    "y": 4.5
+                },
+                {
+                    "label": "3",
+                    "x": 5.25,
+                    "y": 4.5
+                },
+                {
+                    "label": "0",
+                    "x": 3.25,
+                    "y": 5.5,
+                    "w": 2
+                },
+                {
+                    "label": ".",
+                    "x": 5.25,
+                    "y": 5.5
+                },
+                {
+                    "label": "Enter",
+                    "x": 6.25,
+                    "y": 5.5,
+                    "h": 2
+                }
+            ]
+        }
+    }
+}
