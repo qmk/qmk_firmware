@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "keymap_common.h"
 #include "print.h"
 #include "process_combo.h"
 #include "action_tapping.h"
@@ -144,7 +145,7 @@ static queued_combo_t combo_buffer[COMBO_BUFFER_LENGTH];
 static inline void release_combo(uint16_t combo_index, combo_t *combo) {
     if (combo->keycode) {
         keyrecord_t record = {
-            .event   = MAKE_KEYEVENT(KEYLOC_COMBO, KEYLOC_COMBO, false),
+            .event   = MAKE_COMBOEVENT(false),
             .keycode = combo->keycode,
         };
 #ifndef NO_ACTION_TAPPING
@@ -232,7 +233,7 @@ static inline void dump_key_buffer(void) {
             process_record(record);
 #endif
         }
-        record->event.time = 0;
+        record->event.type = TICK_EVENT;
 
 #if defined(CAPS_WORD_ENABLE) && defined(AUTO_SHIFT_ENABLE)
         // Edge case: preserve the weak Left Shift mod if both Caps Word and
@@ -332,8 +333,9 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
         KEY_STATE_DOWN(state, key_index);
         if (ALL_COMBO_KEYS_ARE_DOWN(state, key_count)) {
             // this in the end executes the combo when the key_buffer is dumped.
-            record->keycode   = combo->keycode;
-            record->event.key = MAKE_KEYPOS(KEYLOC_COMBO, KEYLOC_COMBO);
+            record->keycode    = combo->keycode;
+            record->event.type = COMBO_EVENT;
+            record->event.key  = MAKE_KEYPOS(0, 0);
 
             qrecord->combo_index = combo_index;
             ACTIVATE_COMBO(combo);
@@ -342,7 +344,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
         } else {
             // key was part of the combo but not the last one, "disable" it
             // by making it a TICK event.
-            record->event.time = 0;
+            record->event.type = TICK_EVENT;
         }
     }
     drop_combo_from_buffer(combo_index);

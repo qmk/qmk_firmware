@@ -114,6 +114,14 @@ __attribute__((weak)) void tap_code16(uint16_t code) {
     tap_code16_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
 }
 
+__attribute__((weak)) bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    return pre_process_record_user(keycode, record);
+}
+
+__attribute__((weak)) bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+
 __attribute__((weak)) bool process_action_kb(keyrecord_t *record) {
     return true;
 }
@@ -202,14 +210,13 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 
 /* Get keycode, and then process pre tapping functionality */
 bool pre_process_record_quantum(keyrecord_t *record) {
-    if (!(
+    uint16_t keycode = get_record_keycode(record, true);
 #ifdef COMBO_ENABLE
-            process_combo(get_record_keycode(record, true), record) &&
-#endif
-            true)) {
+    if (!(process_combo(keycode, record))) {
         return false;
     }
-    return true; // continue processing
+#endif
+    return pre_process_record_kb(keycode, record);
 }
 
 /* Get keycode, and then call keyboard function */

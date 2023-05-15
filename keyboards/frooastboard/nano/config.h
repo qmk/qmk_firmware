@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN B4
 #define RGBLED_NUM 8
 
 #define RGBLIGHT_SLEEP

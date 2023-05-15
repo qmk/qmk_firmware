@@ -17,16 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { F0, B1, D4, F4, F1 }
-#define MATRIX_COL_PINS { E6, D5, D1, D0, F5, F6, F7, C7, C6, B6, B5, B4, D6, D7 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-
-#define RGB_DI_PIN B0
-#ifdef RGB_DI_PIN
   #define RGBLED_NUM 16
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
@@ -43,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

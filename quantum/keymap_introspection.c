@@ -46,7 +46,7 @@ __attribute__((weak)) uint16_t keycode_at_keymap_location(uint8_t layer_num, uin
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 
-#    define NUM_ENCODERMAP_LAYERS_RAW ((uint8_t)(sizeof(encoder_map) / ((NUM_ENCODERS) * (2) * sizeof(uint16_t))))
+#    define NUM_ENCODERMAP_LAYERS_RAW ((uint8_t)(sizeof(encoder_map) / ((NUM_ENCODERS) * (NUM_DIRECTIONS) * sizeof(uint16_t))))
 
 uint8_t encodermap_layer_count_raw(void) {
     return NUM_ENCODERMAP_LAYERS_RAW;

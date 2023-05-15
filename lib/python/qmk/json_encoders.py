@@ -27,7 +27,10 @@ class QMKJSONEncoder(json.JSONEncoder):
 
         return float(obj)
 
-    def encode_list(self, obj):
+    def encode_dict_single_line(self, obj):
+        return "{" + ", ".join(f"{self.encode(key)}: {self.encode(element)}" for key, element in sorted(obj.items(), key=self.sort_layout)) + "}"
+
+    def encode_list(self, obj, key=None):
         """Encode a list-like object.
         """
         if self.primitives_only(obj):
@@ -35,22 +38,28 @@ class QMKJSONEncoder(json.JSONEncoder):
 
         else:
             self.indentation_level += 1
-            output = [self.indent_str + self.encode(element) for element in obj]
+
+            if key in ('layout', 'rotary'):
+                # These are part of a layout or led/encoder config, put them on a single line.
+                output = [self.indent_str + self.encode_dict_single_line(element) for element in obj]
+            else:
+                output = [self.indent_str + self.encode(element) for element in obj]
+
             self.indentation_level -= 1
 
             return "[\n" + ",\n".join(output) + "\n" + self.indent_str + "]"
 
-    def encode(self, obj):
+    def encode(self, obj, key=None):
         """Encode keymap.json objects for QMK.
         """
         if isinstance(obj, Decimal):
             return self.encode_decimal(obj)
 
         elif isinstance(obj, (list, tuple)):
-            return self.encode_list(obj)
+            return self.encode_list(obj, key)
 
         elif isinstance(obj, dict):
-            return self.encode_dict(obj)
+            return self.encode_dict(obj, key)
 
         else:
             return super().encode(obj)
@@ -71,21 +80,42 @@ class QMKJSONEncoder(json.JSONEncoder):
 class InfoJSONEncoder(QMKJSONEncoder):
     """Custom encoder to make info.json's a little nicer to work with.
     """
-    def encode_dict(self, obj):
+    def encode_dict(self, obj, key):
         """Encode info.json dictionaries.
         """
         if obj:
-            if set(("x", "y")).issubset(obj.keys()):
-                # These are part of a layout/led_config, put them on a single line.
-                return "{ " + ", ".join(f"{self.encode(key)}: {self.encode(element)}" for key, element in sorted(obj.items())) + " }"
-
-            else:
-                self.indentation_level += 1
-                output = [self.indent_str + f"{json.dumps(key)}: {self.encode(value)}" for key, value in sorted(obj.items(), key=self.sort_dict)]
-                self.indentation_level -= 1
-                return "{\n" + ",\n".join(output) + "\n" + self.indent_str + "}"
+            self.indentation_level += 1
+            output = [self.indent_str + f"{json.dumps(k)}: {self.encode(v, k)}" for k, v in sorted(obj.items(), key=self.sort_dict)]
+            self.indentation_level -= 1
+            return "{\n" + ",\n".join(output) + "\n" + self.indent_str + "}"
         else:
             return "{}"
+
+    def sort_layout(self, key):
+        key = key[0]
+
+        if key == 'label':
+            return '00label'
+
+        elif key == 'matrix':
+            return '01matrix'
+
+        elif key == 'x':
+            return '02x'
+
+        elif key == 'y':
+            return '03y'
+
+        elif key == 'w':
+            return '04w'
+
+        elif key == 'h':
+            return '05h'
+
+        elif key == 'flags':
+            return '06flags'
+
+        return key
 
     def sort_dict(self, key):
         """Forces layout to the back of the sort order.
@@ -120,21 +150,19 @@ class InfoJSONEncoder(QMKJSONEncoder):
 class KeymapJSONEncoder(QMKJSONEncoder):
     """Custom encoder to make keymap.json's a little nicer to work with.
     """
-    def encode_dict(self, obj):
+    def encode_dict(self, obj, key):
         """Encode dictionary objects for keymap.json.
         """
         if obj:
             self.indentation_level += 1
-            output_lines = [f"{self.indent_str}{json.dumps(key)}: {self.encode(value)}" for key, value in sorted(obj.items(), key=self.sort_dict)]
-            output = ',\n'.join(output_lines)
+            output = [self.indent_str + f"{json.dumps(k)}: {self.encode(v, k)}" for k, v in sorted(obj.items(), key=self.sort_dict)]
             self.indentation_level -= 1
-
-            return f"{{\n{output}\n{self.indent_str}}}"
+            return "{\n" + ",\n".join(output) + "\n" + self.indent_str + "}"
 
         else:
             return "{}"
 
-    def encode_list(self, obj):
+    def encode_list(self, obj, k=None):
         """Encode a list-like object.
         """
         if self.indentation_level == 2:

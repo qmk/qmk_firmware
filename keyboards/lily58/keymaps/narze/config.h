@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMBO_TERM 20
 #define COMBO_COUNT 3
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 
 #define QUICK_TAP_TERM 0
