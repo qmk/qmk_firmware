@@ -40,8 +40,8 @@
             "nkro": false,
             "rgblight": true
         },
-        "rgblight": {
-            "pin": "B15",
+        "ws2812": {
+        "pin": "B15"
             "led_count": 8,
             "sleep": true,
             "animations": {
