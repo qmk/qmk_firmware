@@ -1,6 +1,6 @@
 # Fidelity
 
-![Fidelity](https://i.imgur.com/6xelfJe.jpeg)
+![Fidelity](https://i.imgur.com/6xelfJeh.jpeg)
 
 The Fidelity is a custom 65% keyboard, a collaboration between HAND Engineering and Koen.
 
