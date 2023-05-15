@@ -125,8 +125,6 @@ const uint16_t PROGMEM my_combos[][4] = {
     {KC_BTN1, KC_BTN2, KC_BTN3, COMBO_END},
 };
 
-const uint16_t COMBO_LEN = ARRAY_SIZE(my_action_combos) + ARRAY_SIZE(my_combos);
-
 #define MY_ACTION_COMBO(ck) \
     [ck] = { .keys = &(my_action_combos[ck][0]) }
 #define MY_COMBO(ck) \

@@ -17,7 +17,6 @@
 #endif // !LEADER_ENABLE
 
 #if defined(COMBO_ENABLE)
-  #define COMBO_COUNT 4
   #define COMBO_TERM 150
 #endif // !COMBO_ENABLE
 

@@ -4,7 +4,6 @@
 #define TAPPING_TERM 150
 
 #define COMBO_TERM 20
-#define COMBO_COUNT 1
 
 #define PERMISSIVE_HOLD
 
