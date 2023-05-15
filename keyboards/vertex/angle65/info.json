@@ -4,8 +4,8 @@
     "url": "",
     "maintainer": "EasonQian1, Vertex-kb",
     "usb": {
-        "vid": "0x7374",
-        "pid": "0x9770",
+        "vid": "0x9954",
+        "pid": "0x9970",
         "device_version": "0.0.1"
     },
     "processor": "STM32F103",
