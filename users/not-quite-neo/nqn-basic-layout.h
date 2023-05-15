@@ -118,7 +118,7 @@ The naming convention for these blocks is
 #define L06_LEFT_03  KC_F9,   KC_F10,  KC_F11,  KC_F12,         _______
 #define L06_RIGHT_01 KC_MAIL, KC_MSEL, KC_MY_COMPUTER, KC_CALCULATOR, N_PASTE
 #define L06_RIGHT_02 KC_MPRV, KC_MPLY, KC_MNXT,        KC_MSTP,       N_COPY
-#define L06_RIGHT_03 KC_PSCR, KC_SLCK, KC_PAUS,        KC_NLCK,       N_CUT
+#define L06_RIGHT_03 KC_PSCR, KC_SCRL, KC_PAUS,        KC_NUM,        N_CUT
 
 
 #endif

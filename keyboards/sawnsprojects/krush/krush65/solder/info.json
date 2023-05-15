@@ -8,9 +8,21 @@
         "pid": "0x6B31",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "B3"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "F0",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_65_ansi_blocker_split_bs_sp"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs"],
     "layouts": {
         "LAYOUT_65_ansi_blocker_split_bs_sp": {
             "layout": [

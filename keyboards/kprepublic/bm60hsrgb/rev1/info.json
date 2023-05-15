@@ -8,9 +8,12 @@
         "pid": "0xEF8C",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
       "LAYOUT": "LAYOUT_60_ansi_arrow"
     },
+    "community_layouts": ["60_ansi_arrow"],
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [

@@ -6,6 +6,9 @@
         "vid": "0x4D4C",
         "pid": "0x0675"
     },
+    "bootmagic": {
+        "matrix": [1, 14]
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_bs",
         "LAYOUT_all": "LAYOUT_split_bs"

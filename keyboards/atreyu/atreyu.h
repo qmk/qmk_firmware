@@ -18,4 +18,6 @@
 
 #if defined(KEYBOARD_atreyu_rev1)
 # include "rev1.h"
+#elif defined(KEYBOARD_atreyu_rev2)
+# include "rev2.h"
 #endif

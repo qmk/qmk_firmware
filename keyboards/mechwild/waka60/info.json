@@ -8,6 +8,11 @@
         "pid": "0x1709",
         "device_version": "1.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A3", "pin_b": "A2"}
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

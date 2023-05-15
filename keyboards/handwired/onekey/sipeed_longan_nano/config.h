@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define BACKLIGHT_PWM_DRIVER PWMD5 /* GD32 numbering scheme starts from 0, TIMER4 on GD32 boards is TIMER5 on STM32 boards. */
 #define BACKLIGHT_PWM_CHANNEL 2    /* GD32 numbering scheme starts from 0, Channel 1 on GD32 boards is Channel 2 on STM32 boards. */

@@ -3,16 +3,15 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* LED Matrix & Animations */
 #define RGB_DI_PIN B1
 
 #if defined(RGB_DI_PIN) && defined(RGB_MATRIX_ENABLE)
     #ifndef ID27_DISABLE_UNDERGLOW
-        #define DRIVER_LED_TOTAL 31  // The number of LEDs connected
+        #define RGB_MATRIX_LED_COUNT 31  // The number of LEDs connected
     #else
-        #define DRIVER_LED_TOTAL 27  // -4 disabled underglow LEDs
+        #define RGB_MATRIX_LED_COUNT 27  // -4 disabled underglow LEDs
     #endif
 
     // #define RGB_MATRIX_FRAMEBUFFER_EFFECTS  // don't use, too few key to make it look good

@@ -8,9 +8,20 @@
         "pid": "0x087D",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6"
+    },
+    "indicators": {
+        "caps_lock": "B3",
+        "num_lock": "B1",
+        "scroll_lock": "B2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
+    "community_layouts": ["tkl_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

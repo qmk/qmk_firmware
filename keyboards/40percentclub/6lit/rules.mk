@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,5 +13,3 @@ AUDIO_ENABLE = no           # Audio output
 
 # Enable generic behavior for split boards
 SPLIT_KEYBOARD = yes
-
-LAYOUTS = ortho_2x3 ortho_2x6

@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F072
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -22,5 +16,3 @@ ENCODER_ENABLE = yes
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
-
-LAYOUTS = alice alice_split_bs

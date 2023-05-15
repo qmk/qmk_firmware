@@ -32,9 +32,6 @@
 // #define SPLIT_HAND_PIN A0
 // #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.
 
-/* serial.c configuration (for split keyboard). */
-#define SOFT_SERIAL_PIN D2
-
 /* RGB settings. */
 #define RGB_DI_PIN D3
 #define WS2812_PWM_DRIVER PWMD2

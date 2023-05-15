@@ -181,8 +181,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [_HYPER] = LAYOUT_planck_grid(
         R_MODES, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  QK_BOOT,
-        AU_TOG,  KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  MU_TOG,
-        CK_TOGG, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_MOD,
+        AU_TOGG, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  MU_TOGG,
+        CK_TOGG, KC_F21,  KC_F22,  KC_F23,  KC_F24,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_NEXT,
         XXXXXXX, KC_WAKE, KC_SLEP, KC_PSCR, XXXXXXX, BASE,    BASE,    XXXXXXX, _______, _______, _______, _______
     ),
 
@@ -408,7 +408,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     panic_del = true;
                 }
                 else {
-                    register_code(KC_BSPACE);
+                    register_code(KC_BACKSPACE);
                 }
             }
             else {
@@ -418,7 +418,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     panic_del = false;
                 }
                 else {
-                    unregister_code(KC_BSPACE);
+                    unregister_code(KC_BACKSPACE);
                 }
             }
             return false;

@@ -18,7 +18,7 @@ ifeq ($(strip $(KEYBOARD)), splitkb/kyria/rev1/proton_c)
     SWAP_HANDS_ENABLE      = yes
     LTO_ENABLE             = no
     ENCODER_MAP_ENABLE     = yes
-    AUTOCORRECTION_ENABLE  = yes
+    AUTOCORRECT_ENABLE     = yes
     CAPS_WORD_ENABLE       = yes
     OLED_DRIVER            = custom
 else

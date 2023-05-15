@@ -20,7 +20,7 @@
 /* Force Numlock on */
 void matrix_init_user (void) {
   if (!host_keyboard_led_state().num_lock) {
-      tap_code(KC_NUMLOCK);
+      tap_code(KC_NUM_LOCK);
   }
 }
 
@@ -32,11 +32,11 @@ enum {
 };
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Number 4 (armor plates in warzone)
     [TD_ESC_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_TAB),
     [TD_3_L0] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_3, 1),
-    [TD_NUMLOCK_L1] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_NUMLOCK, 1),
+    [TD_NUMLOCK_L1] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_NUM_LOCK, 1),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_E,    KC_D,    KC_C,     KC_LALT,
     KC_W,    KC_S,    KC_X,     KC_4,
     KC_Q,    KC_A,    KC_Z,     TD(TD_3_L0),
-    TD(TD_ESC_TAB),    KC_LCTRL,  KC_LSHIFT,   KC_M
+    TD(TD_ESC_TAB),    KC_LCTL,  KC_LSFT,   KC_M
   ),
   /* Keymap _FN: RGB Function Layer
    * ,-------------------.

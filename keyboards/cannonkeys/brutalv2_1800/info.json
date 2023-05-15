@@ -21,7 +21,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "GP29",
@@ -29,7 +29,7 @@
         "on_state": 0
     },
     "build": {
-        "debounce_type": "asym_eager_defer_pk",
+        "debounce_type": "asym_eager_defer_pk"
     },
     "layouts": {
         "LAYOUT_all": {

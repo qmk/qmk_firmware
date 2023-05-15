@@ -94,8 +94,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OLED_ALL_BLOCKS_MASK (((((OLED_BLOCK_TYPE)1 << (OLED_BLOCK_COUNT - 1)) - 1) << 1) | 1)
 
-#define ARRAY_SIZE(arr) sizeof(arr)/sizeof(arr[0])
-
 // spi defines
 #define OLED_STATUS_SUCCESS SPI_STATUS_SUCCESS
 

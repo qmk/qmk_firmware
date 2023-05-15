@@ -16,17 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 8
-
-#define BOOTMAGIC_LITE_ROW 3
-#define BOOTMAGIC_LITE_COLUMN 6
-
 /* Only required if you add in a trackpoint hardware to the pcb */
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 
@@ -63,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define PS2_USART_RX_VECT       USART1_RX_vect
 #endif
 
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 #define PS2_CLOCK_PIN   D2
 #define PS2_DATA_PIN    D5
 
@@ -88,15 +79,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* number of backlight levels */
-
-#ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 3
-#endif
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -105,7 +87,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN D0
 #ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 14
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17

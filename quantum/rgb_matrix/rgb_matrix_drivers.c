@@ -76,6 +76,12 @@ static void init(void) {
     IS31FL3737_init(DRIVER_ADDR_1);
 #        if defined(DRIVER_ADDR_2)
     IS31FL3737_init(DRIVER_ADDR_2);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL3737_init(DRIVER_ADDR_3);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL3737_init(DRIVER_ADDR_4);
+#                endif
+#            endif
 #        endif
 
 #    elif defined(IS31FL3741)
@@ -106,7 +112,7 @@ static void init(void) {
 #        endif
 #    endif
 
-    for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
+    for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
         bool enabled = true;
 
         // This only caches it for later
@@ -154,6 +160,12 @@ static void init(void) {
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)
     IS31FL3737_update_led_control_registers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL3737_update_led_control_registers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL3737_update_led_control_registers(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
 #        endif
 
 #    elif defined(IS31FL3741)
@@ -235,6 +247,12 @@ static void flush(void) {
     IS31FL3737_update_pwm_buffers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)
     IS31FL3737_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL3737_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL3737_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
 #        endif
 }
 
@@ -336,13 +354,13 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 #    endif
 
 // LED color buffer
-LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
+LED_TYPE rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
 
 static void init(void) {}
 
 static void flush(void) {
     // Assumes use of RGB_DI_PIN
-    ws2812_setleds(rgb_matrix_ws2812_array, DRIVER_LED_TOTAL);
+    ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
 }
 
 // Set an led in the buffer to a color
@@ -369,7 +387,7 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
 }
 
 static void setled_all(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i = 0; i < sizeof(rgb_matrix_ws2812_array) / sizeof(rgb_matrix_ws2812_array[0]); i++) {
+    for (int i = 0; i < ARRAY_SIZE(rgb_matrix_ws2812_array); i++) {
         setled(i, r, g, b);
     }
 }

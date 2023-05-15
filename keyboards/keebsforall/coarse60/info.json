@@ -8,6 +8,25 @@
         "pid": "0x5341",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A8", "pin_b": "A1", "resolution": 2}
+        ]
+    },
+    "backlight": {
+        "pin": "A6",
+        "levels": 6,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B10",
+        "num_lock": "B2",
+        "scroll_lock": "B11",
+        "on_state": 0
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

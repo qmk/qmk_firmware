@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B11, B10, A3, A1, A2 }
@@ -28,9 +23,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -58,7 +50,7 @@
 /* RGB Matrix */
 #define RGB_DI_PIN A9
 #define RGBLED_NUM 28
-#define DRIVER_LED_TOTAL 28
+#define RGB_MATRIX_LED_COUNT 28
 #define NOP_FUDGE 0.4
 
 // RGB PWM
@@ -77,7 +69,7 @@
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CUSTOM_test_mode
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_test_mode
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

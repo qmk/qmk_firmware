@@ -187,7 +187,7 @@ static void gpt_audio_state_cb(GPTDriver *gptp) {
     }
 }
 
-void audio_driver_initialize() {
+void audio_driver_initialize(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
         palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
         dacStart(&DACD1, &dac_conf_ch1);

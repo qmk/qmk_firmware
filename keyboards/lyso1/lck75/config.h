@@ -16,11 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -36,31 +31,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { C2, C3, C7, C4, C6, C5 }
 #define MATRIX_COL_PINS { A0, B0, A1, B1, A2, B2, A3, B3, A4, B4, A5, A6, A7, D7, D6, D5 }
 
-#define ENCODERS_PAD_B { D1 }
-#define ENCODERS_PAD_A { D0 }
-#define ENCODER_RESOLUTION 2 //default/suggested
-
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 #define RGBLIGHT_SLEEP
 
 #define OLED_TIMEOUT 10000
 
-#define UNICODE_SELECTED_MODES UC_WINC, UC_MAC, UC_LNX
+#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS, UNICODE_MODE_LINUX
 
 #define UNICODE_CYCLE_PERSIST false
 

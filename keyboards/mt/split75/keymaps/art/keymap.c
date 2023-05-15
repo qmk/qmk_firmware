@@ -72,8 +72,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 KC_VOLD,KC_VOLU, KC_GRAVE, KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   KC_6,                 KC_7,   KC_8,    KC_9,   KC_0,    KC_MINUS, KC_EQUAL, KC_BSPC,          KC_DEL,
 KC_MPRV,KC_MNXT, KC_TAB,   KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,                 KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC,  KC_RBRC,  KC_BSLS,           KC_END,
 KC_HOME,KC_END,  KC_CAPS,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,   KC_H,   KC_J, KC_K, KC_L, KC_SCLN,KC_QUOT,KC_ENTER,         KC_PGUP,
-DYN_MACRO_PLAY1,KC_MUTE,KC_LSFT,KC_Z,KC_X,KC_C,  KC_V,   KC_B,                 KC_N,   KC_M,   KC_COMM, KC_DOT, LT(GIT,KC_SLSH),                     KC_RSFT,  KC_UP,   KC_PGDN,
-DYN_REC_STOP,DYN_REC_START1,KC_LCTL, KC_LGUI, KC_LALT, LT(MEDIA,KC_SPC), LT(COMBOS,KC_BSPC),       LT(NAV,KC_APP), LT(LAYOUT_CHG, KC_ENTER),KC_RALT,KC_RCTL,   KC_LEFT,  KC_DOWN, KC_RIGHT
+DM_PLY1,KC_MUTE,KC_LSFT,KC_Z,KC_X,KC_C,  KC_V,   KC_B,                 KC_N,   KC_M,   KC_COMM, KC_DOT, LT(GIT,KC_SLSH),                     KC_RSFT,  KC_UP,   KC_PGDN,
+DM_RSTP,DM_REC1,KC_LCTL, KC_LGUI, KC_LALT, LT(MEDIA,KC_SPC), LT(COMBOS,KC_BSPC),       LT(NAV,KC_APP), LT(LAYOUT_CHG, KC_ENTER),KC_RALT,KC_RCTL,   KC_LEFT,  KC_DOWN, KC_RIGHT
   ),
 
   /* Base          ,-----------------------------------------.     ,-----------------------------------------------------.
@@ -115,7 +115,7 @@ _______,  _______,    _______, _______,   _______,  _______,  LT(COMBOS,KC_BSPC)
                 _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
 KC_8,  KC_9,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
 KC_6,  KC_7,    _______,  KC_ESC,   KC_HOME,  KC_UP,    KC_END,   KC_PGUP,              XXXXXXX, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2, XXXXXXX,  _______,  _______,  _______,           _______,
-KC_4,  KC_5,    _______,  XXXXXXX,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDOWN,            KC_APP,  CTR_ALT, KC_RSFT, CTR_ALT_SHIFT, _______, _______, _______,          _______,
+KC_4,  KC_5,    _______,  XXXXXXX,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGDN,              KC_APP,  CTR_ALT, KC_RSFT, CTR_ALT_SHIFT, _______, _______, _______,          _______,
 KC_2,  KC_3,    _______,  XXXXXXX, LCTL(KC_X),LCTL(KC_C),LCTL(KC_V), XXXXXXX,           XXXXXXX,  XXXXXXX,   _______,  _______,  _______,                      _______,  _______, _______,
 KC_0,  KC_1,    _______,  _______,  _______,  KC_DEL,   _______,                        _______,             _______,  _______,  _______,            _______,  _______,  _______
   ),
@@ -165,7 +165,7 @@ _______,  _______,   TO(QWERTY),_______,  _______,  _______,  _______,          
                       _______,  KC_F1,    _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______, _______,
 _______,  _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,   _______,  _______,  _______,  _______,  _______,  _______,           _______,
 _______,  _______,    _______,  _______,  CTL_ALT(KC_HOME),  CTL_ALT(KC_UP),    CTL_ALT(KC_END),   CTL_ALT(KC_PGUP),              _______,  _______,_______, _______,_______,_______,_______,  _______,           _______,
-_______,  _______,    _______,  _______,  CTL_ALT(KC_LEFT),  CTL_ALT(KC_DOWN),  CTL_ALT(KC_RIGHT), CTL_ALT(KC_PGDOWN),              _______,_______,_______,_______,_______,  _______,  _______,           _______,
+_______,  _______,    _______,  _______,  CTL_ALT(KC_LEFT),  CTL_ALT(KC_DOWN),  CTL_ALT(KC_RIGHT), CTL_ALT(KC_PGDN),                _______,_______,_______,_______,_______,  _______,  _______,           _______,
 _______, _______, TO(WORKMAN),  LCTL(KC_Z), LCTL(KC_X),      LCTL(KC_C),        LCTL(KC_V),        _______,              _______,  _______,   _______,  _______,  _______,                      _______, _______,  _______,
 TO(NUMPAD), TO(NUMPAD), TO(BASE),  _______,  _______,  _______,  CTL_ALT(KC_BSPC),                KC_LSFT,             _______, _______, _______,                      _______, _______,  _______
   ),

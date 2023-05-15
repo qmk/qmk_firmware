@@ -8,6 +8,8 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
     "diode_direction": "ROW2COL",
     "matrix_pins": {
         "cols": ["B7", "D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "E0", "E1", "C0", "C1", "C2", "C3", "C4", "C5", "C6", "C7"],

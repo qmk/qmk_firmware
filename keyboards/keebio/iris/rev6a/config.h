@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
-
 // wiring of each half
 #define MATRIX_ROW_PINS { B1, F0, F5, B4, D7 }
 #define MATRIX_COL_PINS { F1, F4, B5, C7, D4, D6 }
@@ -29,25 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS_RIGHT { D4, D6, D7, C7, F1, F4 }
 #define SPLIT_HAND_PIN D5
 
-#define ENCODERS_PAD_A { B3 }
-#define ENCODERS_PAD_B { B2 }
-#define ENCODERS_PAD_A_RIGHT { B3 }
-#define ENCODERS_PAD_B_RIGHT { B2 }
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN E6
@@ -112,8 +90,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #        define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
-#        define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#        define DRIVER_LED_TOTAL RGBLED_NUM
+#        define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#        define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #        define RGB_MATRIX_SPLIT { 34, 34 }
 #        define RGB_DISABLE_WHEN_USB_SUSPENDED
 #        define RGB_MATRIX_KEYPRESSES

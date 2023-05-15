@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "ext65.h"
 #include "quantum.h"
 
 #define ____ KC_NO

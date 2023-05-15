@@ -8,9 +8,24 @@
     "pid": "0x6666",
     "device_version": "0.0.1"
   },
+  "processor": "atmega32u4",
+  "bootloader": "halfkay",
+  "matrix_pins": {
+    "direct": [
+      ["F7", "F6", "F1"],
+      ["F5", "F4", "F0"]
+    ]
+  },
   "layouts": {
     "LAYOUT": {
-      "layout": [{"label":"K00", "x":0, "y":0}, {"label":"K01", "x":1, "y":0}, {"label":"K02", "x":2, "y":0}, {"label":"K03", "x":0, "y":1}, {"label":"K04", "x":1, "y":1}, {"label":"K05", "x":2, "y":1}]
+      "layout": [
+        {"x":0, "y":0, "matrix": [0, 0]},
+        {"x":1, "y":0, "matrix": [0, 1]},
+        {"x":2, "y":0, "matrix": [0, 2]},
+        {"x":0, "y":1, "matrix": [1, 0]},
+        {"x":1, "y":1, "matrix": [1, 1]},
+        {"x":2, "y":1, "matrix": [1, 2]}
+      ]
     }
   }
 }

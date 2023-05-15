@@ -8,6 +8,17 @@
         "pid": "0x8787",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B6"
+    },
+    "indicators": {
+        "caps_lock": "F0",
+        "scroll_lock": "F4",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

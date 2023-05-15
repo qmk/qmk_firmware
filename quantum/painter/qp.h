@@ -64,6 +64,14 @@
 #    define QUANTUM_PAINTER_SUPPORTS_256_PALETTE FALSE
 #endif
 
+#ifndef QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS
+/**
+ * @def This controls whether the native color range is supported. This avoids the use of palettes but each image
+ *      requires more storage space.
+ */
+#    define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS FALSE
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter types
 
@@ -432,6 +440,10 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter Drivers
 
+#ifdef QUANTUM_PAINTER_RGB565_SURFACE_ENABLE
+#    include "qp_rgb565_surface.h"
+#endif // QUANTUM_PAINTER_RGB565_SURFACE_ENABLE
+
 #ifdef QUANTUM_PAINTER_ILI9163_ENABLE
 #    include "qp_ili9163.h"
 #endif // QUANTUM_PAINTER_ILI9163_ENABLE
@@ -459,3 +471,10 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 #ifdef QUANTUM_PAINTER_SSD1351_ENABLE
 #    include "qp_ssd1351.h"
 #endif // QUANTUM_PAINTER_SSD1351_ENABLE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter Extras
+
+#ifdef QUANTUM_PAINTER_LVGL_INTEGRATION_ENABLE
+#    include "qp_lvgl.h"
+#endif // QUANTUM_PAINTER_LVGL_INTEGRATION_ENABLE

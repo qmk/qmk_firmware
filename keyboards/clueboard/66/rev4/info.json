@@ -2,7 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 66% rev4",
   "maintainer": "skullydazed",
-  "debounce": 5,
   "processor": "STM32F303",
   "board": "QMK_PROTON_C",
   "bootloader": "stm32-dfu",
@@ -27,7 +26,16 @@
   },
   "rgblight": {
     "animations": {
-      "all": true
+      "alternating": true,
+      "breathing": true,
+      "christmas": true,
+      "knight": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "rgb_test": true,
+      "snake": true,
+      "static_gradient": true,
+      "twinkle": true
     },
     "brightness_steps": 17,
     "hue_steps": 32,

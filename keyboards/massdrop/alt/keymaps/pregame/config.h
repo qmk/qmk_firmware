@@ -45,7 +45,7 @@
 // #define TAPPING_TOGGLE 2            			// How many taps before triggering the toggle
 // #define PERMISSIVE_HOLD             			// Makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the TAPPING_TERM. See Permissive Hold for details
 // #define IGNORE_MOD_TAP_INTERRUPT    			// Makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the TAPPING_TERM for both keys. See Mod tap interrupt for details
-// #define TAPPING_FORCE_HOLD          			// Makes it possible to use a dual role key as modifier shortly after having been tapped. See Hold after tap. Breaks any Tap Toggle functionality (TT or the One Shot Tap Toggle)
+// #define QUICK_TAP_TERM 0          			// Makes it possible to use a dual role key as modifier shortly after having been tapped. See Hold after tap. Breaks any Tap Toggle functionality (TT or the One Shot Tap Toggle)
 // #define LEADER_TIMEOUT 300          			// How long before the leader key times out. If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the LEADER_PER_KEY_TIMING option, which resets the timeout after each key is tapped.
 // #define LEADER_PER_KEY_TIMING       			// Sets the timer for leader key chords to run on each key press rather than overall
 // #define LEADER_KEY_STRICT_KEY_PROCESSING    	// Disables keycode filtering for Mod-Tap and Layer-Tap keycodes. Eg, if you enable this, you would need to specify MT(MOD_CTL, KC_A) if you want to use KC_A.
@@ -54,7 +54,7 @@
 // #define COMBO_COUNT 2               			// Set this to the number of combos that you're using in the Combo feature.
 // #define COMBO_TERM 200              			// How long for the Combo keys to be detected. Defaults to TAPPING_TERM if not defined.
 // #define TAP_CODE_DELAY 100          			// Sets the delay between register_code and unregister_code, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
-// #define TAP_HOLD_CAPS_DELAY 80      			// Sets the delay for Tap Hold keys (LT, MT) when using KC_CAPSLOCK keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
+// #define TAP_HOLD_CAPS_DELAY 80      			// Sets the delay for Tap Hold keys (LT, MT) when using KC_CAPS_LOCK keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES         			// reacts to keypresses
 // #define RGB_MATRIX_KEYRELEASES        		// reacts to keyreleases (instead of keypresses)
@@ -62,37 +62,34 @@
 
 
 //Teal and Blue
-//#define RGB_MATRIX_STARTUP_HUE 127 			// Default boot color
-//#define RGB_MATRIX_STARTUP_SPD 47 			// Used to determine the color for the modifiers
+//#define RGB_MATRIX_DEFAULT_HUE 127 			// Default boot color
+//#define RGB_MATRIX_DEFAULT_SPD 47 			// Used to determine the color for the modifiers
 
 //Teal and Blue
-//#define RGB_MATRIX_STARTUP_HUE 120 			// Default boot color
-//#define RGB_MATRIX_STARTUP_SPD 50 			//Used to determine the color for the modifiers
+//#define RGB_MATRIX_DEFAULT_HUE 120 			// Default boot color
+//#define RGB_MATRIX_DEFAULT_SPD 50 			//Used to determine the color for the modifiers
 
 
 //QMK HSV is based on 255 value wheel rather than 360
 
 //Cyan and Yellow
-//#define RGB_MATRIX_STARTUP_HUE 127 			// Default boot color
-//#define RGB_MATRIX_STARTUP_SPD 177
+//#define RGB_MATRIX_DEFAULT_HUE 127 			// Default boot color
+//#define RGB_MATRIX_DEFAULT_SPD 177
 
 //Cyan and Green
-//#define RGB_MATRIX_STARTUP_HUE 127 			// Default boot color
-//#define RGB_MATRIX_STARTUP_SPD 215
+//#define RGB_MATRIX_DEFAULT_HUE 127 			// Default boot color
+//#define RGB_MATRIX_DEFAULT_SPD 215
 
-// #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+// #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE  	// Sets the default mode, if none has been set
-#define RGB_MATRIX_STARTUP_HUE 180  //purple  alphas with green background when pressed.
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE  	// Sets the default mode, if none has been set
+#define RGB_MATRIX_DEFAULT_HUE 180  //purple  alphas with green background when pressed.
 // #define RGBLIGHT_HUE_STEP 12        						// Units to step when in/decreasing hue
 // #define RGBLIGHT_SAT_STEP 25        						// Units to step when in/decreasing saturation
 // #define RGBLIGHT_VAL_STEP 12        						// Units to step when in/decreasing value (brightness)
-// #define RGB_DISABLE_AFTER_TIMEOUT 0   					// number of ticks to wait until disabling effects
 // #define RGB_DISABLE_WHEN_USB_SUSPENDED 			// turn off effects when suspended
-// #define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+// #define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #define RGB_MATRIX_LED_FLUSH_LIMIT 16 					// limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#define RGBLIGHT_ANIMATIONS             					// Run RGB animations
-// #define RGBLIGHT_ANIMATIONS             					// Enable all additional animation modes.
 #define RGBLIGHT_EFFECT_ALTERNATING     					// Enable alternating animation mode.
 #define RGBLIGHT_EFFECT_BREATHING       					// Enable breathing animation mode.
 // #define RGBLIGHT_EFFECT_CHRISTMAS       					// Enable christmas animation mode.

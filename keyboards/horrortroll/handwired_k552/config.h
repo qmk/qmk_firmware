@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,40 +16,34 @@
 
 #pragma once
 
-#include "config_common.h"
 
-/* Key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
-
-/* key matrix pins */
+/* Key matrix pins */
 #define MATRIX_ROW_PINS { C12, C10, A10, A8, C8, C9 }
-#define MATRIX_COL_PINS { B15,  C6,  C7, A3, A1, C3, C1, B14, B13, A9, B3, B4, A0, C11, A2, C0, C2 }
+#define MATRIX_COL_PINS { B15,  C6,  C7, A3, A1, C3, C1, B14, B13, A9, B3, B4, A0, C11, C4, C0, C2 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Bootmagic reset */
-#define BOOTMAGIC_LITE_ROW 4
-#define BOOTMAGIC_LITE_COLUMN 6
-
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
-/* EEPROM size */
-#define EEPROM_PAGE_SIZE
-#define FEE_PAGE_SIZE 0x800
-#define FEE_PAGE_COUNT 4
+// SPI configuration
+#define SPI_DRIVER SPID1
+#define SPI_SCK_PIN A5
+#define SPI_MOSI_PIN A7
+#define SPI_MISO_PIN A6
 
-#define FEE_MCU_FLASH_SIZE_IGNORE_CHECK
-#define FEE_MCU_FLASH_SIZE                              \
-({                                                      \
-    uint16_t flash_size = *(uint16_t*)FLASHSIZE_BASE;   \
-    (flash_size <= 512) ? flash_size : 512;             \
-})
+// Flash configuration
+#define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN A2
+#define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 16
+#define EXTERNAL_FLASH_PAGE_SIZE 256
+#define EXTERNAL_FLASH_SECTOR_SIZE 4096
+#define EXTERNAL_FLASH_BLOCK_SIZE 4096
+#define EXTERNAL_FLASH_SIZE (256 * 1024) // 2M-bit flash size
+
+// Wear-leveling driver configuration
+#define WEAR_LEVELING_LOGICAL_SIZE 1024
+#define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
 
 #ifdef OLED_ENABLE
     /* Mapping I2C2 for OLED */
@@ -62,9 +56,9 @@
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-    #define DRIVER_LED_TOTAL 24
+    #define RGB_MATRIX_LED_COUNT 24
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 
     /* RGB Matrix config */
     #define RGB_DI_PIN C14

@@ -50,18 +50,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_TRNS,         KC_TRNS,  KC_TRNS,   KC_TAB,              KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS ),
 };
 
-void rgb_matrix_indicators_user(void)
-{
-        if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK))
-        {
-            rgb_matrix_set_color(22, 255, 255, 255);
-        }
-        if (IS_LAYER_ON(_L1))
-        {
-            rgb_matrix_set_color(46, 255, 255, 255);
-        }
-        if (IS_LAYER_ON(_L2))
-        {
-            rgb_matrix_set_color(45, 255, 255, 255);
-        }
+bool rgb_matrix_indicators_user(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(22, 255, 255, 255);
+    }
+    if (IS_LAYER_ON(_L1)) {
+        rgb_matrix_set_color(46, 255, 255, 255);
+    }
+    if (IS_LAYER_ON(_L2)) {
+        rgb_matrix_set_color(45, 255, 255, 255);
+    }
+    return false;
 }

@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -39,13 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
-#define LED_CAPS_LOCK_PIN E6
-#define LED_PIN_ON_STATE 0
-
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN B7
 // The number of LEDs connected
-#define DRIVER_LED_TOTAL 67
+#define RGB_MATRIX_LED_COUNT 67
 
 #define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled
@@ -97,15 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
-
 #define RGBLED_NUM 67
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

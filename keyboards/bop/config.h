@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 20
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B7, D0, D1, D2, D3, D4 }
@@ -31,9 +26,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -41,4 +33,4 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* Unicode select mode */
-#define UNICODE_SELECTED_MODES UC_MAC, UC_LNX, UC_WINC
+#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS, UNICODE_MODE_LINUX, UNICODE_MODE_WINCOMPOSE

@@ -40,7 +40,7 @@ bool my_solid_reactive_with_CnoteIndicator(effect_params_t* params) {
         RGB      rgb    = rgb_matrix_hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool my_party_rocks(effect_params_t* params) {
@@ -49,7 +49,7 @@ bool my_party_rocks(effect_params_t* params) {
     RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
     // rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 

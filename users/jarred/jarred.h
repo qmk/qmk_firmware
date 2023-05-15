@@ -110,7 +110,7 @@ enum {
 #define NUMPAD_L3  _______, _______, _______, _______, RGB_VAD, RGB_VAI
 #define NUMPAD_L4  _______, _______, _______, _______, RGB_SPD, RGB_SPI
 
-#define NUMPAD_R1                                                        DF(_QW),DF(_GAME), _______, _______, _______,   RESET
+#define NUMPAD_R1                                                        DF(_QW),DF(_GAME), _______, _______, _______, QK_BOOT
 #define NUMPAD_R2                                                        _______, _______, _______, _______, _______, _______
 #define NUMPAD_R3                                                           VRSN, _______, _______, _______, _______, _______ 
 #define NUMPAD_R4                                                        _______, _______, _______, _______, _______, _______ 

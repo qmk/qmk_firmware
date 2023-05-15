@@ -44,7 +44,7 @@ void bootmagic_lite(void) {
     if (matrix_get_row(row) & (1 << col)) {
         perform_reset = true;
     }
-#ifdef STM32F411xE
+#if defined(STM32F411xE) && !defined(CONVERTER_ENABLED)
     if (!readPin(A0)) {
         perform_reset = true;
     }

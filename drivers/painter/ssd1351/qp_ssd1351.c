@@ -20,7 +20,7 @@ tft_panel_dc_reset_painter_device_t ssd1351_drivers[SSD1351_NUM_DEVICES] = {0};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 
-bool qp_ssd1351_init(painter_device_t device, painter_rotation_t rotation) {
+__attribute__((weak)) bool qp_ssd1351_init(painter_device_t device, painter_rotation_t rotation) {
     tft_panel_dc_reset_painter_device_t *driver = (tft_panel_dc_reset_painter_device_t *)device;
 
     // clang-format off
@@ -73,6 +73,7 @@ const struct tft_panel_dc_reset_painter_driver_vtable_t ssd1351_driver_vtable = 
             .viewport        = qp_tft_panel_viewport,
             .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
             .append_pixels   = qp_tft_panel_append_pixels_rgb565,
+            .append_pixdata  = qp_tft_panel_append_pixdata,
         },
     .num_window_bytes   = 1,
     .swap_window_coords = true,

@@ -181,7 +181,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     HSV      hsv = rgb_matrix_config.hsv;
     uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
     hsv.h        = time;
@@ -198,4 +198,5 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(52, 0, 0, 0);
         }
     }
+    return false;
 }

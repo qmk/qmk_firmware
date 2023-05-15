@@ -17,11 +17,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B3, B4, A0,  A2, A3 }
@@ -30,16 +25,13 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
 #ifdef RGB_MATRIX_ENABLE
-    #define DRIVER_LED_TOTAL 76
+    #define RGB_MATRIX_LED_COUNT 76
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_KEYPRESSES
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 

@@ -29,8 +29,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,            KC_INS,
         _______,     RGB_TOG, _______, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______,        KC_DEL,
         _______,       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______,            _______, _______, BL_DEC,  BL_TOGG, BL_INC,  NK_TOGG, _______, _______, _______, _______, _______,          BL_INC,
-        _______,   _______,   _______,                      _______,                              _______,     _______,        BL_TOGG, BL_DEC,  BL_STEP
+        _______,            _______, _______, BL_DOWN, BL_TOGG, BL_UP,   NK_TOGG, _______, _______, _______, _______, _______,          BL_UP, 
+        _______,   _______,   _______,                      _______,                              _______,     _______,        BL_TOGG, BL_DOWN, BL_STEP
     ),
     [2] = LAYOUT_ansi(
         _______,   _______, _______, _______, _______,   _______, _______, _______, _______,   _______, _______, _______, _______,    _______,   _______,
@@ -50,7 +50,7 @@ enum combos {
 
 const uint16_t PROGMEM slashDown_combo[] = {KC_SLSH, KC_DOWN, COMBO_END};
 const uint16_t PROGMEM slashUp_combo[] = {KC_SLSH, KC_UP, COMBO_END};
-const uint16_t PROGMEM raltBackspace_combo[] = {KC_RALT, KC_BSPACE, COMBO_END};
+const uint16_t PROGMEM raltBackspace_combo[] = {KC_RALT, KC_BSPC, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [SLSHDN_PGDN] = COMBO(slashDown_combo, KC_PGDN),

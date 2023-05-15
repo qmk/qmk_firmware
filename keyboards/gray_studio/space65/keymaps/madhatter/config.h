@@ -1,4 +1,4 @@
 #pragma once
 
 #undef PRODUCT
-#define PRODUCT MadHatter\x27s Custom Spacc
+#define PRODUCT "MadHatter's Custom Spacc"

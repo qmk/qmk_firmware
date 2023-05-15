@@ -24,15 +24,8 @@ enum layers {
     MAC_FN
 };
 
-enum custom_keycodes {
-    KC_MISSION_CONTROL = SAFE_RANGE,
-    KC_LAUNCHPAD
-};
-
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
 #define TO_WINB TO(WIN_BASE)
 #define TO_MACB TO(MAC_BASE)
 #define MO_WINF MO(WIN_FN)
@@ -102,20 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
-    }
-    return true;
-}
-#endif // ENCODER_ENABLE
-
 #ifdef RGB_MATRIX_ENABLE
-
-#define RGB_CONFIRMATION_BLINKING_TIME 2000 // 2 seconds
 
 /* Renaming those to make the purpose on this keymap clearer */
 #define LED_FLAG_CAPS LED_FLAG_NONE
@@ -127,12 +107,18 @@ static uint16_t effect_started_time = 0;
 static uint8_t r_effect = 0x0, g_effect = 0x0, b_effect = 0x0;
 static void start_effects(void);
 
-/* The higher this is, the slower the blinking will be */
-#ifndef TIME_SELECTED_BIT
-    #define TIME_SELECTED_BIT 8
+/* The interval time in ms */
+#ifndef EFFECTS_TIME
+    #define EFFECTS_TIME 2000
 #endif
-#if TIME_SELECTED_BIT < 0 || TIME_SELECTED_BIT >= 16
-    #error "TIME_SELECTED_BIT must be a positive integer smaller than 16"
+#ifndef EFFECTS_INTERVAL
+    #define EFFECTS_INTERVAL 250
+#endif
+#if EFFECTS_TIME <= 0 || EFFECTS_TIME >= 32767
+    #error "EFFECTS_TIME must be a positive integer smaller than 32767"
+#endif
+#if EFFECTS_INTERVAL <= 0 || EFFECTS_INTERVAL >= 32767
+    #error "EFFECTS_INTERVAL must be a positive integer smaller than 32767"
 #endif
 #define effect_red() r_effect = 0xFF, g_effect = 0x0, b_effect = 0x0
 #define effect_green() r_effect = 0x0, g_effect = 0xFF, b_effect = 0x0
@@ -181,20 +167,6 @@ bool led_update_user(led_t led_state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_MISSION_CONTROL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
-        case KC_LAUNCHPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;  // Skip all further processing of this key
     #ifdef RGB_MATRIX_ENABLE
     #ifdef NKRO_ENABLE
         case NK_TOGG:
@@ -264,12 +236,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_indicators_user() {
+bool rgb_matrix_indicators_user(void) {
     if (effect_started_time > 0) {
         /* Render blinking EFFECTS */
         const uint16_t deltaTime = sync_timer_elapsed(effect_started_time);
-        if (deltaTime <= RGB_CONFIRMATION_BLINKING_TIME) {
-            const uint8_t led_state = ((~deltaTime) >> TIME_SELECTED_BIT) & 0x01;
+        if (deltaTime <= EFFECTS_TIME) {
+            const uint8_t led_state = ((deltaTime / EFFECTS_INTERVAL) + 1) & 0x01;
             const uint8_t val_r = led_state * r_effect;
             const uint8_t val_g = led_state * g_effect;
             const uint8_t val_b = led_state * b_effect;
@@ -277,7 +249,7 @@ void rgb_matrix_indicators_user() {
             if (host_keyboard_led_state().caps_lock) {
                 set_rgb_caps_leds();
             }
-            return;
+            return false;
         } else {
             /* EFFECTS duration is finished */
             effect_started_time = 0;
@@ -300,9 +272,10 @@ void rgb_matrix_indicators_user() {
     if (host_keyboard_led_state().caps_lock) {
         set_rgb_caps_leds();
     }
+    return false;
 }
 
-static void start_effects() {
+static void start_effects(void) {
     effect_started_time = sync_timer_read();
     if (!rgb_matrix_is_enabled()) {
         /* Turn it ON, signal the cause (EFFECTS) */
@@ -325,7 +298,21 @@ static void start_effects() {
 //  87, led 07                                                                                                                                                                      88, led 18
 //  91, led 08                                                                                                                                                                      92, led 19
 
-static void set_rgb_caps_leds() {
+static void set_rgb_caps_leds(void) {
+    rgb_matrix_set_color(0, 0xFF, 0x0, 0x0); // ESC
+    rgb_matrix_set_color(6, 0xFF, 0x0, 0x0); // F1
+    rgb_matrix_set_color(12, 0xFF, 0x0, 0x0); // F2
+    rgb_matrix_set_color(18, 0xFF, 0x0, 0x0); // F3
+    rgb_matrix_set_color(23, 0xFF, 0x0, 0x0); // F4
+    rgb_matrix_set_color(28, 0xFF, 0x0, 0x0); // F5
+    rgb_matrix_set_color(34, 0xFF, 0x0, 0x0); // F6
+    rgb_matrix_set_color(39, 0xFF, 0x0, 0x0); // F7
+    rgb_matrix_set_color(44, 0xFF, 0x0, 0x0); // F8
+    rgb_matrix_set_color(50, 0xFF, 0x0, 0x0); // F9
+    rgb_matrix_set_color(56, 0xFF, 0x0, 0x0); // F10
+    rgb_matrix_set_color(61, 0xFF, 0x0, 0x0); // F11
+    rgb_matrix_set_color(66, 0xFF, 0x0, 0x0); // F12
+    rgb_matrix_set_color(69, 0xFF, 0x0, 0x0); // Prt
     rgb_matrix_set_color(67, 0xFF, 0x0, 0x0); // Left side LED 1
     rgb_matrix_set_color(68, 0xFF, 0x0, 0x0); // Right side LED 1
     rgb_matrix_set_color(70, 0xFF, 0x0, 0x0); // Left side LED 2

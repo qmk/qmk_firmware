@@ -8,6 +8,14 @@
         "pid": "0x0065",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B14",
+        "num_lock": "A8",
+        "scroll_lock": "A9",
+        "on_state": 0
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

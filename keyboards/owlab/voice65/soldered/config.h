@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { B0, B1, B2, B10, B11 }
@@ -30,12 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 /* NKRO */
-#ifdef NKRO_ENABLE
-#    define FORCE_NKRO
-#endif
+#define FORCE_NKRO
 
 /* RGB stripe */
 #define RGB_DI_PIN B15
@@ -61,16 +52,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    define USE_I2CV2
 #    define RGB_MATRIX_DISABLE_KEYCODES
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_LED_PROCESS_LIMIT  4
 #    define RGB_MATRIX_LED_FLUSH_LIMIT    26
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-#    define RGB_MATRIX_STARTUP_VAL        128
+#    define RGB_MATRIX_DEFAULT_VAL        128
 #    define DRIVER_ADDR_1                 0b0110000
 #    define DRIVER_COUNT                  1
-#    define DRIVER_LED_TOTAL              71
+#    define RGB_MATRIX_LED_COUNT              71
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -122,8 +112,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
-/* Encoder */
-#define ENCODERS_PAD_A { B4 }
-#define ENCODERS_PAD_B { B5 }
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10

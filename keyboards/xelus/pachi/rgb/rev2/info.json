@@ -8,6 +8,8 @@
         "pid": "0x5053",
         "device_version": "0.0.2"
     },
+    "processor": "STM32L422",
+    "bootloader": "stm32-dfu",
     "layout_aliases": {
         "LAYOUT_ansi_tsangan": "LAYOUT_tkl_ansi_tsangan"
     },

@@ -16,13 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 9
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0

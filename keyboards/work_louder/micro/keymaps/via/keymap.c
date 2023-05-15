@@ -4,30 +4,29 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT(
-        KC_MPLY, KC_9,    KC_0,    KC_NO,
-        KC_5,    KC_6,    KC_7,    KC_8,
-        KC_1,    KC_2,    KC_3,    KC_4,
-        TO(1),   KC_DOT,  KC_COMM, USER09
+    [0] = LAYOUT(
+        KC_MPLY, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        RGB_TOG, XXXXXXX, XXXXXXX, TO(1)
     ),
-    LAYOUT(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        TO(2),   _______, _______, _______
-
+    [1] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, TO(2)
     ),
-    LAYOUT(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        TO(3),   _______, _______, _______
+    [2] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, TO(3)
     ),
-    LAYOUT(
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        TO(0),   _______, _______, _______
+    [3] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        QK_KB_0, QK_KB_1, QK_KB_3, QK_KB_5,
+        XXXXXXX, QK_KB_2, QK_KB_4, QK_KB_6,
+        XXXXXXX, XXXXXXX, XXXXXXX, TO(0)
     )
 };
 
@@ -50,19 +49,17 @@ typedef union {
 
 work_louder_config_t work_louder_config;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %b, time: %5u, int: %b, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-#endif
+#define WL_LED_MAX_BRIGHT 75
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case USER09:
+        case QK_KB_9:
             if (record->event.pressed) {
                 work_louder_config.led_level++;
                 if (work_louder_config.led_level > 4) {
-                    work_louder_config.led_level = 0;
+                    work_louder_config.led_level = 1;
                 }
-                work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
+                work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * WL_LED_MAX_BRIGHT / 4));
                 eeconfig_update_user(work_louder_config.raw);
                 layer_state_set_kb(layer_state);
             }
@@ -83,10 +80,87 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void eeconfig_init_user(void) {
     work_louder_config.raw = 0;
     work_louder_config.led_level = 1;
+    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * WL_LED_MAX_BRIGHT / 4));
     eeconfig_update_user(work_louder_config.raw);
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
     work_louder_config.raw = eeconfig_read_user();
-    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * 255 / 4));
+    work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * WL_LED_MAX_BRIGHT / 4));
+}
+
+void suspend_wakeup_init_user(void) {
+    layer_state_set_user(layer_state);
+}
+
+
+enum via_indicator_value {
+    id_wl_brightness = 1,
+    id_wl_layer, // placeholder
+};
+
+void wl_config_set_value(uint8_t *data) {
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_wl_brightness:
+            work_louder_config.led_level = (uint8_t)*value_data;
+            work_louder_micro_led_all_set((uint8_t)(work_louder_config.led_level * WL_LED_MAX_BRIGHT / 4));
+            layer_state_set_kb(layer_state);
+            break;
+        // case id_wl_layer:
+        //     layer_move(*value_data);
+        //     break;
+    }
+}
+
+void wl_config_get_value(uint8_t *data) {
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_wl_brightness:
+            *value_data = work_louder_config.led_level;
+            break;
+        // case id_wl_layer:
+        //     *value_data = get_highest_layer(layer_state);
+        //     break;
+    }
+}
+
+void wl_config_save(void) {
+    eeconfig_update_user(work_louder_config.raw);
+}
+
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    uint8_t *command_id        = &(data[0]);
+    uint8_t *channel_id        = &(data[1]);
+    uint8_t *value_id_and_data = &(data[2]);
+
+    if (*channel_id == id_custom_channel) {
+        switch (*command_id) {
+            case id_custom_set_value: {
+                wl_config_set_value(value_id_and_data);
+                break;
+            }
+            case id_custom_get_value: {
+                wl_config_get_value(value_id_and_data);
+                break;
+            }
+            case id_custom_save: {
+                wl_config_save();
+                break;
+            }
+            default: {
+                // Unhandled message.
+                *command_id = id_unhandled;
+                break;
+            }
+        }
+        return;
+    }
+    *command_id = id_unhandled;
 }

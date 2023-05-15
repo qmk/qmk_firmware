@@ -29,6 +29,12 @@ extern uint16_t COMBO_LEN;
 
 __attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) {}
 
+#ifndef COMBO_ONLY_FROM_LAYER
+__attribute__((weak)) uint8_t combo_ref_from_layer(uint8_t layer) {
+    return layer;
+}
+#endif
+
 #ifdef COMBO_MUST_HOLD_PER_COMBO
 __attribute__((weak)) bool get_combo_must_hold(uint16_t index, combo_t *combo) {
     return false;
@@ -304,7 +310,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
 #if defined(EXTRA_EXTRA_LONG_COMBOS)
     uint32_t state = 0;
 #elif defined(EXTRA_LONG_COMBOS)
-    uint16_t state = 0;
+    uint16_t state         = 0;
 #else
     uint8_t state = 0;
 #endif
@@ -531,17 +537,17 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     bool is_combo_key          = false;
     bool no_combo_keys_pressed = true;
 
-    if (keycode == CMB_ON && record->event.pressed) {
+    if (keycode == QK_COMBO_ON && record->event.pressed) {
         combo_enable();
         return true;
     }
 
-    if (keycode == CMB_OFF && record->event.pressed) {
+    if (keycode == QK_COMBO_OFF && record->event.pressed) {
         combo_disable();
         return true;
     }
 
-    if (keycode == CMB_TOG && record->event.pressed) {
+    if (keycode == QK_COMBO_TOGGLE && record->event.pressed) {
         combo_toggle();
         return true;
     }
@@ -549,6 +555,12 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #ifdef COMBO_ONLY_FROM_LAYER
     /* Only check keycodes from one layer. */
     keycode = keymap_key_to_keycode(COMBO_ONLY_FROM_LAYER, record->event.key);
+#else
+    uint8_t  highest_layer = get_highest_layer(layer_state);
+    uint8_t  ref_layer     = combo_ref_from_layer(highest_layer);
+    if (ref_layer != highest_layer) {
+        keycode = keymap_key_to_keycode(ref_layer, record->event.key);
+    }
 #endif
 
     for (uint16_t idx = 0; idx < COMBO_LEN; ++idx) {

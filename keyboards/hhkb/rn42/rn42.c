@@ -12,15 +12,13 @@
 static uint8_t keyboard_leds(void);
 static void send_keyboard(report_keyboard_t *report);
 static void send_mouse(report_mouse_t *report);
-static void send_system(uint16_t data);
-static void send_consumer(uint16_t data);
+static void send_extra(report_extra_t *report);
 
 host_driver_t rn42_driver = {
     keyboard_leds,
     send_keyboard,
     send_mouse,
-    send_system,
-    send_consumer
+    send_extra
 };
 
 
@@ -198,12 +196,6 @@ static void send_mouse(report_mouse_t *report)
     serial_send(report->v);
 }
 
-static void send_system(uint16_t data)
-{
-    // Table 5-6 of RN-BT-DATA-UB
-    // 81,82,83 scan codes can be used?
-}
-
 
 static uint16_t usage2bits(uint16_t usage)
 {
@@ -228,14 +220,17 @@ static uint16_t usage2bits(uint16_t usage)
     return 0;
 }
 
-static void send_consumer(uint16_t data)
+
+static void send_extra(report_extra_t *report)
 {
-    uint16_t bits = usage2bits(data);
-    serial_send(0xFD);  // Raw report mode
-    serial_send(3);     // length
-    serial_send(3);     // descriptor type
-    serial_send(bits&0xFF);
-    serial_send((bits>>8)&0xFF);
+    if (report->report_id == REPORT_ID_CONSUMER) {
+        uint16_t bits = usage2bits(report->usage);
+        serial_send(0xFD);  // Raw report mode
+        serial_send(3);     // length
+        serial_send(3);     // descriptor type
+        serial_send(bits&0xFF);
+        serial_send((bits>>8)&0xFF);
+    }
 }
 
 
@@ -243,19 +238,16 @@ static void send_consumer(uint16_t data)
 static uint8_t config_keyboard_leds(void);
 static void config_send_keyboard(report_keyboard_t *report);
 static void config_send_mouse(report_mouse_t *report);
-static void config_send_system(uint16_t data);
-static void config_send_consumer(uint16_t data);
+static void config_send_extra(report_extra_t *report);
 
 host_driver_t rn42_config_driver = {
     config_keyboard_leds,
     config_send_keyboard,
     config_send_mouse,
-    config_send_system,
-    config_send_consumer
+    config_send_extra
 };
 
 static uint8_t config_keyboard_leds(void) { return leds; }
 static void config_send_keyboard(report_keyboard_t *report) {}
 static void config_send_mouse(report_mouse_t *report) {}
-static void config_send_system(uint16_t data) {}
-static void config_send_consumer(uint16_t data) {}
+static void config_send_extra(report_extra_t *report) {}

@@ -324,78 +324,77 @@ static void rotate_90(const uint8_t *src, uint8_t *dest) {
 }
 
 void oled_render(void) {
-    if (!oled_initialized) {
-        return;
-    }
-
     // Do we have work to do?
     oled_dirty &= OLED_ALL_BLOCKS_MASK;
-    if (!oled_dirty || oled_scrolling) {
+    if (!oled_dirty || !oled_initialized || oled_scrolling) {
         return;
-    }
-
-    // Find first dirty block
-    uint8_t update_start = 0;
-    while (!(oled_dirty & ((OLED_BLOCK_TYPE)1 << update_start))) {
-        ++update_start;
-    }
-
-    // Set column & page position
-    static uint8_t display_start[] = {I2C_CMD, PAM_PAGE_ADDR, PAM_SETCOLUMN_LSB, PAM_SETCOLUMN_MSB};
-    if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
-        calc_bounds(update_start, &display_start[1]); // Offset from I2C_CMD byte at the start
-    } else {
-        calc_bounds_90(update_start, &display_start[1]); // Offset from I2C_CMD byte at the start
-    }
-
-    // Send column & page position
-    if (I2C_TRANSMIT(display_start) != I2C_STATUS_SUCCESS) {
-        print("oled_render offset command failed\n");
-        return;
-    }
-
-    if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
-        // Send render data chunk as is
-        if (I2C_WRITE_REG(I2C_DATA, &oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
-            print("oled_render data failed\n");
-            return;
-        }
-    } else {
-        // Rotate the render chunks
-        const static uint8_t source_map[] = OLED_SOURCE_MAP;
-        const static uint8_t target_map[] = OLED_TARGET_MAP;
-
-        static uint8_t temp_buffer[OLED_BLOCK_SIZE];
-        memset(temp_buffer, 0, sizeof(temp_buffer));
-        for (uint8_t i = 0; i < sizeof(source_map); ++i) {
-            rotate_90(&oled_buffer[OLED_BLOCK_SIZE * update_start + source_map[i]], &temp_buffer[target_map[i]]);
-        }
-
-        // For SH1106 or SH1107 the data chunk must be split into separate pieces for each page
-        const uint8_t columns_in_block = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) / OLED_DISPLAY_HEIGHT * 8;
-        const uint8_t num_pages        = OLED_BLOCK_SIZE / columns_in_block;
-        for (uint8_t i = 0; i < num_pages; ++i) {
-            // Send column & page position for all pages except the first one
-            if (i > 0) {
-                display_start[1]++;
-                if (I2C_TRANSMIT(display_start) != I2C_STATUS_SUCCESS) {
-                    print("oled_render offset command failed\n");
-                    return;
-                }
-            }
-            // Send data for the page
-            if (I2C_WRITE_REG(I2C_DATA, &temp_buffer[columns_in_block * i], columns_in_block) != I2C_STATUS_SUCCESS) {
-                print("oled_render90 data failed\n");
-                return;
-            }
-        }
     }
 
     // Turn on display if it is off
     oled_on();
 
-    // Clear dirty flag
-    oled_dirty &= ~((OLED_BLOCK_TYPE)1 << update_start);
+    uint8_t update_start = 0;
+    uint8_t num_processed = 0;
+    while (oled_dirty && num_processed++ < OLED_UPDATE_PROCESS_LIMIT) { // render all dirty blocks (up to the configured limit)
+        // Find next dirty block
+        while (!(oled_dirty & ((OLED_BLOCK_TYPE)1 << update_start))) {
+            ++update_start;
+        }
+
+        // Set column & page position
+        static uint8_t display_start[] = {I2C_CMD, PAM_PAGE_ADDR, PAM_SETCOLUMN_LSB, PAM_SETCOLUMN_MSB};
+        if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
+            calc_bounds(update_start, &display_start[1]); // Offset from I2C_CMD byte at the start
+        } else {
+            calc_bounds_90(update_start, &display_start[1]); // Offset from I2C_CMD byte at the start
+        }
+
+        // Send column & page position
+        if (I2C_TRANSMIT(display_start) != I2C_STATUS_SUCCESS) {
+            print("oled_render offset command failed\n");
+                return;
+            }
+
+        if (!HAS_FLAGS(oled_rotation, OLED_ROTATION_90)) {
+            // Send render data chunk as is
+            if (I2C_WRITE_REG(I2C_DATA, &oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
+                print("oled_render data failed\n");
+                return;
+            }
+        } else {
+            // Rotate the render chunks
+            const static uint8_t source_map[] = OLED_SOURCE_MAP;
+            const static uint8_t target_map[] = OLED_TARGET_MAP;
+
+            static uint8_t temp_buffer[OLED_BLOCK_SIZE];
+            memset(temp_buffer, 0, sizeof(temp_buffer));
+            for (uint8_t i = 0; i < sizeof(source_map); ++i) {
+                rotate_90(&oled_buffer[OLED_BLOCK_SIZE * update_start + source_map[i]], &temp_buffer[target_map[i]]);
+            }
+
+            // For SH1106 or SH1107 the data chunk must be split into separate pieces for each page
+            const uint8_t columns_in_block = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) / OLED_DISPLAY_HEIGHT * 8;
+            const uint8_t num_pages        = OLED_BLOCK_SIZE / columns_in_block;
+            for (uint8_t i = 0; i < num_pages; ++i) {
+                // Send column & page position for all pages except the first one
+                if (i > 0) {
+                    display_start[1]++;
+                    if (I2C_TRANSMIT(display_start) != I2C_STATUS_SUCCESS) {
+                        print("oled_render offset command failed\n");
+                        return;
+                    }
+                }
+                // Send data for the page
+                if (I2C_WRITE_REG(I2C_DATA, &temp_buffer[columns_in_block * i], columns_in_block) != I2C_STATUS_SUCCESS) {
+                    print("oled_render90 data failed\n");
+                    return;
+                }
+            }
+        }
+
+        // Clear dirty flag
+        oled_dirty &= ~((OLED_BLOCK_TYPE)1 << update_start);
+    }
 }
 
 void oled_set_cursor(uint8_t col, uint8_t line) {

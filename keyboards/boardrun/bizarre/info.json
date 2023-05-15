@@ -3,11 +3,14 @@
     "manufacturer": "shensmobile",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/boardrun/bizarre",
     "maintainer": "QMK Community",
+    "debounce": 10,
     "usb": {
         "vid": "0xCDCD",
         "pid": "0x5339",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

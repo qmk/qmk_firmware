@@ -3,19 +3,12 @@
   "keyboard_name": "handwired/reclined",
   "maintainer": "qmk",
   "bootloader": "atmel-dfu",
-  "debounce": 5,
   "diode_direction": "ROW2COL",
   "features": {
-    "audio": false,
-    "backlight": false,
-    "bootmagic": false,
     "command": true,
     "console": true,
     "extrakey": true,
-    "mousekey": true,
-    "nkro": false,
-    "sleep_led": false,
-    "unicode": false
+    "mousekey": true
   },
   "matrix_pins": {
     "cols": ["B2", "F4", "B3", "F5", "B1", "F6", "D4", "D7", "D0", "E6", "D1", "B4"],

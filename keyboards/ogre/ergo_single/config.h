@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
 
 /* Keyboard Matrix Assignments */
 #define MATRIX_ROW_PINS { D3, D2, D1, D0, D4, C6, D7, E6, B4, B5 }
@@ -33,5 +28,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN B6
 #define RGBLED_NUM 14
 #define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 13, 12,11, 10, 9, 8, 7}
-#define RGBLIGHT_ANIMATIONS
-#define DEBOUNCE 5
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE

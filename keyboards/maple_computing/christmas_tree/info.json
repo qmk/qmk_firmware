@@ -7,6 +7,11 @@
     "vid": "0xFEED",
     "pid": "0x3070"
   },
+  "backlight": {
+    "pin": "D2"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
       "layout": [{"x":1, "y":0}, {"x":0.5, "y":1}, {"x":1.5, "y":1}, {"x":0, "y":2}, {"x":1, "y":2}, {"x":2, "y":2}]

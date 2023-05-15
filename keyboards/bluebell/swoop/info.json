@@ -8,6 +8,24 @@
     "pid": "0x3046",
     "device_version": "1.0.0"
   },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "B4", "pin_b": "B5"}
+    ]
+  },
+  "split": {
+    "soft_serial_pin": "D2",
+    "encoder": {
+      "right": {
+        "rotary": [
+          {"pin_a": "B5", "pin_b": "B4"}
+        ]
+      }
+    }
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "community_layouts": ["split_3x5_3"],
   "layouts": {
     "LAYOUT_split_3x5_3": {
       "layout": [

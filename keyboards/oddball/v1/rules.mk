@@ -1,2 +1,0 @@
-# Bootloader selection
-BOOTLOADER = halfkay

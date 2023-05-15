@@ -8,6 +8,11 @@
         "pid": "0x1023",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -71,7 +76,7 @@
                 {"x":14, "y":3},
 
                 {"x":0, "y":4, "w":1.25},
-                {"x":1.25, "y":4, "w":1.25}
+                {"x":1.25, "y":4, "w":1.25},
                 {"x":2.5, "y":4, "w":1.25},
                 {"x":3.75, "y":4, "w":6.25},
                 {"x":10, "y":4, "w":1.25},

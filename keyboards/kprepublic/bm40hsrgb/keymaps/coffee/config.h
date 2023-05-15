@@ -54,7 +54,7 @@
 
 // If RGBLight is enabled
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLED_NUM DRIVER_LED_TOTAL
+#    define RGBLED_NUM RGB_MATRIX_LED_COUNT
 
 #    define RGBLIGHT_EFFECT_SNAKE
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
@@ -81,5 +81,13 @@
 
 #ifdef MOUSEKEY_ENABLE
 #    define MOUSEKEY_INTERVAL 16 // 60 FPS
+
+// Speed up the slowest preset
+#    define MK_C_OFFSET_0 4
+#    define MK_C_INTERVAL_0 16
+
+// Speed up the medium preset
+#    define MK_C_OFFSET_1 16
+
 #    define MK_3_SPEED
 #endif

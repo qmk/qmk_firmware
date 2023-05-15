@@ -61,7 +61,7 @@ static void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
 }
 
 static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) set_color(i, r, g, b);
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) set_color(i, r, g, b);
 }
 
 static void init(void) {

@@ -1,13 +1,13 @@
 #include "ridingqwerty.h"
 #include "tapdances.h"
 
-void braces_finished (qk_tap_dance_state_t *state, void *user_data) {
+void braces_finished (tap_dance_state_t *state, void *user_data) {
     if ((state->count == 1) || (state->count == 3)) {
         register_code(KC_LSFT);
     }
 }
 
-void braces_reset (qk_tap_dance_state_t *state, void *user_data) {
+void braces_reset (tap_dance_state_t *state, void *user_data) {
   // two or three taps for "[]"/"{}"
   if ((state->count == 2) || (state->count == 3)) {
     tap_code(KC_LBRC);
@@ -28,6 +28,6 @@ void braces_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_BRACES] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, braces_finished, braces_reset)
 };

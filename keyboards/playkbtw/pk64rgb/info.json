@@ -8,6 +8,9 @@
         "pid": "0x3634",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["64_ansi"],
     "layouts": {
         "LAYOUT_64_ansi": {
             "layout": [

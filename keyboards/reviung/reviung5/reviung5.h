@@ -26,7 +26,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_reviung5( \
+#define LAYOUT( \
     K00, K01, K02, K03, K04 \
 ) { \
     { K00, K01, K02, K03, K04 } \

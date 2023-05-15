@@ -9,9 +9,9 @@ ifneq ($(PLATFORM),CHIBIOS)
     ifneq ($(strip $(LTO_SUPPORTED)), no)
         LTO_ENABLE        = yes
     endif
+    SPACE_CADET_ENABLE    = no
+    GRAVE_ESC_ENABLE      = no
 endif
-SPACE_CADET_ENABLE    = no
-GRAVE_ESC_ENABLE      = no
 # DEBUG_MATRIX_SCAN_RATE_ENABLE = api
 
 ifneq ($(strip $(NO_SECRETS)), yes)
@@ -115,6 +115,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(strip $(CUSTOM_POINTING_DEVICE)), yes)
         SRC += $(USER_PATH)/pointing/pointing.c
         OPT_DEFS += -DCUSTOM_POINTING_DEVICE
+        OPT_DEFS += -DPOINTING_DEVICE_AUTO_MOUSE_ENABLE
     endif
 endif
 
@@ -127,13 +128,18 @@ ifeq ($(strip $(CUSTOM_SPLIT_TRANSPORT_SYNC)), yes)
 
 endif
 
-AUTOCORRECTION_ENABLE ?= no
 ifeq ($(strip $(AUTOCORRECTION_ENABLE)), yes)
-    SRC += $(USER_PATH)/keyrecords/autocorrection/autocorrection.c
-    $(shell touch $(USER_PATH)/keyrecords/autocorrection/autocorrection.c)
-    OPT_DEFS += -DAUTOCORRECTION_ENABLE
+   AUTOCORRECT_ENABLE = yes
 endif
 
-ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
-    SRC += bootmagic_better.c
+CUSTOM_BOOTMAGIC_ENABLE ?= yes
+ifeq ($(strip $(CUSTOM_BOOTMAGIC_ENABLE)), yes)
+    ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+        SRC += bootmagic_better.c
+    endif
+endif
+
+OS_DETECTION_ENABLE ?= yes
+ifeq ($(strip $(OS_DETECTION_ENABLE)), yes)
+    DEFERRED_EXEC_ENABLE = yes
 endif

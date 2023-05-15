@@ -1,6 +1,6 @@
 /*
 ©2021 Everywhere Defense Industries / Fate Everywhere <fate@7storm.org>
- 
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 8
 
 /*
  * Keyboard Matrix Assignments
@@ -40,17 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-// #define BACKLIGHT_PIN C7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -61,7 +45,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define RGB_DI_PIN C7
 #define RGBLED_NUM 15
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 //#define RGBLIGHT_EFFECT_KNIGHT
 //#define RGBLIGHT_EFFECT_TWINKLE
@@ -72,30 +65,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Enable Audio Subsystem with two voices
  */
 // #define AUDIO_PIN C6
-
-
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-// #define GRAVE_ESC_CTRL_OVERRIDE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO

@@ -70,12 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SDA_PAL_MODE        4
 #define I2C1_CLOCK_SPEED         400000
 
-/* encoder config */
-#define ENCODERS_PAD_A \
-    { A7 }
-#define ENCODERS_PAD_B \
-    { A8 }
-
 /* spi config for eeprom and pmw3360 sensor */
 #define SPI_DRIVER                           SPID2
 #define SPI_SCK_PIN                          B13

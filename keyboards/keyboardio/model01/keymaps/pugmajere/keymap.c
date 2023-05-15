@@ -179,8 +179,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MACRO_KVM_TG:
             if (record->event.pressed) {
                 register_code(KC_LSFT);
-                tap_code(KC_NUMLOCK);
-                tap_code(KC_NUMLOCK);
+                tap_code(KC_NUM);
+                tap_code(KC_NUM);
                 unregister_code(KC_LSFT);
                 tap_code(KC_LCTL);
             }

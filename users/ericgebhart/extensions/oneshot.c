@@ -50,7 +50,7 @@ static int8_t        set_modifier_state_all(oneshot_state new_state);
 static void          set_modifier_state_all_from_to(oneshot_state oneshot_state_from, oneshot_state oneshot_state_to);
 static bool          all_modifiers_are_off(void);
 
-int8_t turnoff_oneshot_modifiers() {
+int8_t turnoff_oneshot_modifiers(void) {
     return set_modifier_state_all(ONESHOT_STATE_OFF);
 }
 
@@ -125,10 +125,10 @@ int8_t update_oneshot_modifiers(uint16_t keycode, keyrecord_t *record, int8_t ke
 // registers/unregisters a mod to the operating system on state change if necessary
 void update_modifier(oneshot_mod osmod, oneshot_state previous_state, oneshot_state current_state) {
     if (previous_state == ONESHOT_STATE_OFF) {
-        register_code(KC_LCTRL + osmod);
+        register_code(KC_LCTL + osmod);
     } else {
         if (current_state == ONESHOT_STATE_OFF) {
-            unregister_code(KC_LCTRL + osmod);
+            unregister_code(KC_LCTL + osmod);
         }
     }
 }
@@ -163,7 +163,7 @@ void set_modifier_state_all_from_to(oneshot_state oneshot_state_from, oneshot_st
     }
 }
 
-bool all_modifiers_are_off() {
+bool all_modifiers_are_off(void) {
     for (int8_t i = 0; i < ONESHOT_MOD_COUNT; i++) {
         if (modifiers_with_state[i] != ONESHOT_STATE_OFF) {
             return false;

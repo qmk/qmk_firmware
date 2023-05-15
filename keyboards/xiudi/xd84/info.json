@@ -8,6 +8,18 @@
         "pid": "0x8484",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B5",
+        "levels": 10,
+        "on_state": 0
+    },
+    "indicators": {
+        "caps_lock": "B6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["75_ansi", "75_iso"],
     "layouts": {
         "LAYOUT_75_ansi": {
             "layout": [

@@ -168,7 +168,7 @@ static char* get_date(void) {
     return date_str;
 }
 
-void draw_default() {
+void draw_default(void) {
     oled_write_P(PSTR("LAYER "), false);
     oled_write_char(get_highest_layer(layer_state) + 0x30, true);
 
@@ -220,7 +220,7 @@ void draw_default() {
     draw_line_v(71, 0, 8);
 }
 
-void draw_clock() {
+void draw_clock(void) {
     oled_set_cursor(0, 0);
     oled_write(get_date(), false);
     oled_set_cursor(0, 2);

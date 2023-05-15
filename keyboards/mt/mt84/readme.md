@@ -18,6 +18,6 @@ Flashing example for this keyboard:
 
     make mt/mt84:default:flash
 
-To put the board into bootloader mode, either press the reset button on the bottom the PCB or hold Space+B while plugging it in.
+To put the board into bootloader mode, either press the reset button on the bottom the PCB or hold the key at top left (usually escape) while plugging it in.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

@@ -27,6 +27,9 @@
     "split": {
         "enabled": true
     },
+    "community_layouts": [
+        "split_3x5_2"
+    ],
     "layouts": {
         "LAYOUT_split_3x5_2": {
             "layout": [

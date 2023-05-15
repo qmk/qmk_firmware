@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
      [_ADJUST] = LAYOUT_split_3x6_5(
-        KC_NO   , KC_SLEP , KC_VOLU , KC_BRIU , KC_NO   , KC_NO  ,                  KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NLCK ,
+        KC_NO   , KC_SLEP , KC_VOLU , KC_BRIU , KC_NO   , KC_NO  ,                  KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NUM ,
         KC_NO   , KC_WAKE , KC_VOLD , KC_BRID , KC_NO   , KC_NO  ,                  KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   , KC_NO   ,
         KC_NO   , KC_NO   , KC_NO   , KC_F13  , KC_F14  , KC_F15 ,                  KC_F16  , KC_F17  , KC_F18  , KC_NO   , KC_NO   , MO(_ADJUST),
                   QK_BOOT, KC_NO   , KC_NO   , KC_TRNS , KC_NO  ,                  KC_NO   , KC_TRNS , KC_TRNS , KC_NO   , KC_NO

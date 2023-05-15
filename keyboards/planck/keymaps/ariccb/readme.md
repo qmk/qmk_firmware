@@ -69,7 +69,7 @@ GAMING LAYER
  * ,-----------------------------------------------------------------------------.
  * |RGBtog|Ms3 | Ms2 |MsUp | Ms1  |  Hue+|  Hue- | Sat+| Sat- |Brt+ |Brt- | RESET|
  * |-----------------------------------------------------------------------------|
- * |RGBMod| MWL | MsL |MDn  |MsR  |GAMING|       |AU_ON|AU_OFF|MU_ON|MU_OF| DEBUG|
+ * |RGBMod| MWL | MsL |MDn  |MsR  |GAMING|       |AU_ON|AU_OFF|MU_ON|MU_OF| Debug|
  * |-----------------------------------------------------------------------------|
  * |     |MWLft|MWUp |NWDn |NWRght|QWERTY|CMK_VCP|MI_ON|MI_OF |     |     |MU_Mod|
  * |-----------------------------------------------------------------------------|

@@ -1,5 +1,13 @@
 {
     "usb": {
         "device_version": "0.0.2"
-    }
+    },
+    "indicators": {
+        "caps_lock": "B13",
+        "num_lock": "B14",
+        "scroll_lock": "B15",
+        "on_state": 0
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino"
 }
