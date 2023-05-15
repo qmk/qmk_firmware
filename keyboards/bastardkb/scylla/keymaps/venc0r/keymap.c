@@ -1,3 +1,6 @@
+// Copyright 2021 Jörg Markert (@venc0r)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "venc0r.h"
 
 #define LAYOUT_wrapper(...) LAYOUT_split_4x6_5(__VA_ARGS__)
