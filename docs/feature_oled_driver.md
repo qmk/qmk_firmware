@@ -193,7 +193,9 @@ bool uint16_t keycode, keyrecord_t *record) {
 }
 
 void shutdown_user(void) {
-    oled_render_boot();
+    if (reboot) {
+        oled_render_boot();
+    }
 }
 
 ```
