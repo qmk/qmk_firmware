@@ -63,7 +63,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void housekeeping_task_user(void) {
     housekeeping_task_keychron();
     housekeeping_task_myfork_keychron_ft();
-    housekeeping_task_mkillewald();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
