@@ -1,6 +1,7 @@
 {
-    "keyboard_name": "model_f_labs/f77",
-    "url": "",
+    "keyboard_name":  "Reproduction IBM F77 Keyboard",
+    "manufacturer": "Model F Labs",
+    "url": "https://www.modelfkeyboards.com/",
     "maintainer": "Purdea Andrei",
     "width": 18.25,
     "height": 5,

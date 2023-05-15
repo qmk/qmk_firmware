@@ -1,6 +1,6 @@
 /*
 Copyright 2020 Purdea Andrei
-Copyright 2021-2022 Matthew J Wolf
+Copyright 2021-2023 Matthew J Wolf
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,14 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
+//#include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x0F77
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Model F Labs
-#define PRODUCT Reproduction IBM F77 Keyboard
+//#define VENDOR_ID 0xFEED
+//#define PRODUCT_ID 0x0F77
+//#define DEVICE_VER 0x0001
+//#define MANUFACTURER Model F Labs
+//#define PRODUCT Reproduction IBM F77 Keyboard
 // DESCRIPTION is no longer an option
 // #define DESCRIPTION Tom Wong-Cornall/Ellipse/wcass/Purdea Andrei
 
@@ -66,6 +66,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
+
+#define HOLD_ON_OTHER_KEY_PRESS
 
 /* XWHATSIT CONTROLLER TYPE */
 #define CONTROLLER_IS_XWHATSIT_MODEL_F_OR_WCASS_MODEL_F

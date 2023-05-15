@@ -1,4 +1,4 @@
-/* Copyright 2021 QMK
+/* Copyright 2020 Purdea Andrei
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,12 +15,5 @@
  */
 
 #pragma once
-<<<<<<<< HEAD:keyboards/model_f_labs/f62/keymaps/apple_mac_ansi_split_shift_split_backspace_left_ansi/config.h
 
 // place overrides here
-========
-
-#include <stdint.h>
-
-const char *decode_utf8(const char *str, int32_t *code_point);
->>>>>>>> master:quantum/unicode/utf8.h

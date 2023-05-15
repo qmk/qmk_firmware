@@ -1,6 +1,7 @@
 {
-    "keyboard_name": "model_f_labs/f62",
-    "url": "",
+    "keyboard_name":  "Reproduction IBM F62 Keyboard",
+    "manufacturer": "Model F Labs",
+    "url": "https://www.modelfkeyboards.com/",
     "maintainer": "Purdea Andrei",
     "width": 18.25,
     "height": 5,
