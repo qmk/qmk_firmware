@@ -131,7 +131,7 @@
     "usb": {
         "device_version": "0.0.2",
         "pid": "0x0002",
-        "vid": "0x0191"
+        "vid": "0x4141"
     },
     "layouts": {
         "LAYOUT": {
