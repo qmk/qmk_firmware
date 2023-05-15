@@ -43,7 +43,6 @@
     "DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.double_tap_shift_turns_on", "value_type": "bool"},
 
     // Combos
-    "COMBO_COUNT": {"info_key": "combo.count", "value_type": "int"},
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
 
     // Dynamic Keymap
@@ -182,9 +181,10 @@
     "TAPPING_FORCE_HOLD": {"info_key": "tapping.force_hold", "value_type": "bool", "deprecated": true},
     "TAPPING_FORCE_HOLD_PER_KEY": {"info_key": "tapping.force_hold_per_key", "value_type": "bool", "deprecated": true},
     "UNUSED_PINS": {"info_key": "_invalid.unused_pins", "deprecated": true},
+    "COMBO_COUNT": {"info_key": "_invalid.combo.count", "invalid": true},
 
     // USB params, need to mark as failure when specified in config.h, rather than deprecated
-    "DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version", "deprecated": true, "replace_with": "`usb.device_version` in info.json"}
+    "DEVICE_VER": {"info_key": "usb.device_version", "value_type": "bcd_version", "deprecated": true, "replace_with": "`usb.device_version` in info.json"},
     "MANUFACTURER": {"info_key": "manufacturer", "value_type": "str", "deprecated": true, "replace_with": "`manufacturer` in info.json"},
     "PRODUCT": {"info_key": "keyboard_name", "warn_duplicate": false, "value_type": "str", "deprecated": true, "replace_with": "`keyboard_name` in info.json"},
     "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.pid` in info.json"},
