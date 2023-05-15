@@ -34,7 +34,7 @@ static uint16_t last_ticks = 0;
 
 void housekeeping_task_kb(void)
 {
-    if (IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         if (!backup) {
             caps_led.r = led[4].r;
             caps_led.g = led[4].g;

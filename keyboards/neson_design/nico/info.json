@@ -3,9 +3,6 @@
     "keyboard_name": "Nico",
     "maintainer": "yulei",
     "bootloader": "atmel-dfu",
-    "bootmagic": {
-        "enabled": true
-    },
     "diode_direction": "COL2ROW",
     "features": {
         "backlight": false,
