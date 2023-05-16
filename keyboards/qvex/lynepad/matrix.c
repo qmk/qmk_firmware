@@ -12,23 +12,22 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
-static void select_row(uint8_t row) 
-{
+static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
     writePinLow(row_pins[row]);
 }
 
-static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
+static void unselect_row(uint8_t row) { 
+    setPinInputHigh(row_pins[row]); 
+}
 
-static void unselect_rows(void) 
-{
+static void unselect_rows(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         setPinInputHigh(row_pins[x]);
     }
 }
 
-static void init_pins(void) 
-{
+static void init_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         setPinInputHigh(col_pins[x]);
@@ -41,8 +40,7 @@ static void init_pins(void)
     setPinInputHigh(PIN_TC);
 }
 
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) 
-{
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
 
     if(current_row > 2)
         return false;
@@ -65,8 +63,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
-static bool read_encoder_switches(matrix_row_t current_matrix[]) 
-{   
+static bool read_encoder_switches(matrix_row_t current_matrix[]) {   
     
     matrix_row_t last_fourth_row = current_matrix[3];
     matrix_row_t last_fifth_row = current_matrix[4];
@@ -110,13 +107,11 @@ static bool read_encoder_switches(matrix_row_t current_matrix[])
 
 
 
-void matrix_init_custom(void) 
-{
+void matrix_init_custom(void) {
     init_pins();
 }
 
-bool matrix_scan_custom(void) 
-{
+bool matrix_scan_custom(void) {
     bool changed = false;
 
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) 
