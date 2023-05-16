@@ -83,7 +83,7 @@ UCIS_ENABLE = yes
 Then define a table like this in your keymap file:
 
 ```c
-const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
+const ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
     UCIS_SYM("poop", 0x1F4A9),                // 💩
     UCIS_SYM("rofl", 0x1F923),                // 🤣
     UCIS_SYM("cuba", 0x1F1E8, 0x1F1FA),       // 🇨🇺
@@ -93,15 +93,15 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
 
 By default, each table entry may be up to 3 code points long. This number can be changed by adding `#define UCIS_MAX_CODE_POINTS n` to your `config.h` file.
 
-To use UCIS input, call `qk_ucis_start()`. Then, type the mnemonic for the character (such as "rofl") and hit Space, Enter or Esc. QMK should erase the "rofl" text and insert the laughing emoji.
+To use UCIS input, call `ucis_start()`. Then, type the mnemonic for the character (such as "rofl") and hit Space, Enter or Esc. QMK should erase the "rofl" text and insert the laughing emoji.
 
 #### Customization
 
 There are several functions that you can define in your keymap to customize the functionality of this feature.
 
-* `void qk_ucis_start_user(void)` – This runs when you call the "start" function, and can be used to provide feedback. By default, it types out a keyboard emoji.
-* `void qk_ucis_success(uint8_t symbol_index)` – This runs when the input has matched something and has completed. By default, it doesn't do anything.
-* `void qk_ucis_symbol_fallback (void)` – This runs when the input doesn't match anything. By default, it falls back to trying that input as a Unicode code.
+* `void ucis_start_user(void)` – This runs when you call the "start" function, and can be used to provide feedback. By default, it types out a keyboard emoji.
+* `void ucis_success(uint8_t symbol_index)` – This runs when the input has matched something and has completed. By default, it doesn't do anything.
+* `void ucis_symbol_fallback (void)` – This runs when the input doesn't match anything. By default, it falls back to trying that input as a Unicode code.
 
 You can find the default implementations of these functions in [`process_ucis.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_ucis.c).
 

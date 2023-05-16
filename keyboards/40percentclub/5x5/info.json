@@ -8,6 +8,9 @@
         "pid": "0x05B5",
         "device_version": "1.0.0"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["ortho_5x5", "ortho_5x10", "ortho_5x15"],
     "layouts": {
         "LAYOUT_ortho_5x5": {
             "layout": [

@@ -8,6 +8,11 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
+    "split": {
+        "soft_serial_pin": "D2"
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_split_3x6_1": {
             "layout": [

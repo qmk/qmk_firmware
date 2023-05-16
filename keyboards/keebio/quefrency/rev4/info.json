@@ -8,6 +8,23 @@
         "pid": "0x4357",
         "device_version": "4.1.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F6"}
+        ]
+    },
+    "split": {
+        "soft_serial_pin": "D0",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "D6", "pin_b": "D4"}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60"
     },

@@ -28,7 +28,7 @@ If you did not configure your environment, or you have multiple keyboards, you c
 
 Look at the output from that command, you should see something like this:
 
-    Ψ <github_username> keymap directory created in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>
+    Ψ Created a new keymap called <github_username> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>.
 
 This is the location of your new `keymap.c` file.
 

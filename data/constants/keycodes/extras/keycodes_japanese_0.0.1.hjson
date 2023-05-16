@@ -1,0 +1,330 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+ * │Z↔H│ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ ^ │ ¥ │   │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
+ * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ @ │ [ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │ Eisū │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ : │ ] │    │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┤
+ * │        │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │ \ │      │
+ * ├─────┬──┴┬──┴──┬┴───┴┬──┴───┴──┬┴───┴┬──┴┬──┴┬──┴┬──┴┬─────┤
+ * │     │   │     │Muhen│         │ Hen │K↔H│   │   │   │     │
+ * └─────┴───┴─────┴─────┴─────────┴─────┴───┴───┴───┴───┴─────┘
+ */
+        "KC_GRV": {
+            "key": "JP_ZKHK",
+            "label": "Zenkaku ↔ Hankaku ↔ Kanji (半角 ↔ 全角 ↔ 漢字)",
+        }
+        "KC_1": {
+            "key": "JP_1",
+            "label": "1",
+        }
+        "KC_2": {
+            "key": "JP_2",
+            "label": "2",
+        }
+        "KC_3": {
+            "key": "JP_3",
+            "label": "3",
+        }
+        "KC_4": {
+            "key": "JP_4",
+            "label": "4",
+        }
+        "KC_5": {
+            "key": "JP_5",
+            "label": "5",
+        }
+        "KC_6": {
+            "key": "JP_6",
+            "label": "6",
+        }
+        "KC_7": {
+            "key": "JP_7",
+            "label": "7",
+        }
+        "KC_8": {
+            "key": "JP_8",
+            "label": "8",
+        }
+        "KC_9": {
+            "key": "JP_9",
+            "label": "9",
+        }
+        "KC_0": {
+            "key": "JP_0",
+            "label": "0",
+        }
+        "KC_MINS": {
+            "key": "JP_MINS",
+            "label": "-",
+        }
+        "KC_EQL": {
+            "key": "JP_CIRC",
+            "label": "^",
+        }
+        "KC_INT3": {
+            "key": "JP_YEN",
+            "label": "¥",
+        }
+        "KC_Q": {
+            "key": "JP_Q",
+            "label": "Q",
+        }
+        "KC_W": {
+            "key": "JP_W",
+            "label": "W",
+        }
+        "KC_E": {
+            "key": "JP_E",
+            "label": "E",
+        }
+        "KC_R": {
+            "key": "JP_R",
+            "label": "R",
+        }
+        "KC_T": {
+            "key": "JP_T",
+            "label": "T",
+        }
+        "KC_Y": {
+            "key": "JP_Y",
+            "label": "Y",
+        }
+        "KC_U": {
+            "key": "JP_U",
+            "label": "U",
+        }
+        "KC_I": {
+            "key": "JP_I",
+            "label": "I",
+        }
+        "KC_O": {
+            "key": "JP_O",
+            "label": "O",
+        }
+        "KC_P": {
+            "key": "JP_P",
+            "label": "P",
+        }
+        "KC_LBRC": {
+            "key": "JP_AT",
+            "label": "@",
+        }
+        "KC_RBRC": {
+            "key": "JP_LBRC",
+            "label": "[",
+        }
+        "KC_CAPS": {
+            "key": "JP_EISU",
+            "label": "Eisū (英数)",
+        }
+        "KC_A": {
+            "key": "JP_A",
+            "label": "A",
+        }
+        "KC_S": {
+            "key": "JP_S",
+            "label": "S",
+        }
+        "KC_D": {
+            "key": "JP_D",
+            "label": "D",
+        }
+        "KC_F": {
+            "key": "JP_F",
+            "label": "F",
+        }
+        "KC_G": {
+            "key": "JP_G",
+            "label": "G",
+        }
+        "KC_H": {
+            "key": "JP_H",
+            "label": "H",
+        }
+        "KC_J": {
+            "key": "JP_J",
+            "label": "J",
+        }
+        "KC_K": {
+            "key": "JP_K",
+            "label": "K",
+        }
+        "KC_L": {
+            "key": "JP_L",
+            "label": "L",
+        }
+        "KC_SCLN": {
+            "key": "JP_SCLN",
+            "label": ";",
+        }
+        "KC_QUOT": {
+            "key": "JP_COLN",
+            "label": ":",
+        }
+        "KC_NUHS": {
+            "key": "JP_RBRC",
+            "label": "]",
+        }
+        "KC_Z": {
+            "key": "JP_Z",
+            "label": "Z",
+        }
+        "KC_X": {
+            "key": "JP_X",
+            "label": "X",
+        }
+        "KC_C": {
+            "key": "JP_C",
+            "label": "C",
+        }
+        "KC_V": {
+            "key": "JP_V",
+            "label": "V",
+        }
+        "KC_B": {
+            "key": "JP_B",
+            "label": "B",
+        }
+        "KC_N": {
+            "key": "JP_N",
+            "label": "N",
+        }
+        "KC_M": {
+            "key": "JP_M",
+            "label": "M",
+        }
+        "KC_COMM": {
+            "key": "JP_COMM",
+            "label": ",",
+        }
+        "KC_DOT": {
+            "key": "JP_DOT",
+            "label": ".",
+        }
+        "KC_SLSH": {
+            "key": "JP_SLSH",
+            "label": "/",
+        }
+        "KC_INT1": {
+            "key": "JP_BSLS",
+            "label": "\\",
+        }
+        "KC_INT5": {
+            "key": "JP_MHEN",
+            "label": "Muhenkan (無変換)",
+        }
+        "KC_INT4": {
+            "key": "JP_HENK",
+            "label": "Henkan (変換)",
+        }
+        "KC_INT2": {
+            "key": "JP_KANA",
+            "label": "Katakana ↔ Hiragana ↔ Rōmaji (カタカナ ↔ ひらがな ↔ ローマ字)",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+ * │   │ ! │ " │ # │ $ │ % │ & │ ' │ ( │ ) │   │ = │ ~ │ | │   │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
+ * │     │   │   │   │   │   │   │   │   │   │   │ ` │ { │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │ Caps │   │   │   │   │   │   │   │   │   │ + │ * │ } │    │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┤
+ * │        │   │   │   │   │   │   │   │ < │ > │ ? │ _ │      │
+ * ├─────┬──┴┬──┴──┬┴───┴┬──┴───┴──┬┴───┴┬──┴┬──┴┬──┴┬──┴┬─────┤
+ * │     │   │     │     │         │     │   │   │   │   │     │
+ * └─────┴───┴─────┴─────┴─────────┴─────┴───┴───┴───┴───┴─────┘
+ */
+        "S(JP_1)": {
+            "key": "JP_EXLM",
+            "label": "!",
+        }
+        "S(JP_2)": {
+            "key": "JP_DQUO",
+            "label": "\"",
+        }
+        "S(JP_3)": {
+            "key": "JP_HASH",
+            "label": "#",
+        }
+        "S(JP_4)": {
+            "key": "JP_DLR",
+            "label": "$",
+        }
+        "S(JP_5)": {
+            "key": "JP_PERC",
+            "label": "%",
+        }
+        "S(JP_6)": {
+            "key": "JP_AMPR",
+            "label": "&",
+        }
+        "S(JP_7)": {
+            "key": "JP_QUOT",
+            "label": "'",
+        }
+        "S(JP_8)": {
+            "key": "JP_LPRN",
+            "label": "(",
+        }
+        "S(JP_9)": {
+            "key": "JP_RPRN",
+            "label": ")",
+        }
+        "S(JP_MINS)": {
+            "key": "JP_EQL",
+            "label": "=",
+        }
+        "S(JP_CIRC)": {
+            "key": "JP_TILD",
+            "label": "~",
+        }
+        "S(JP_YEN)": {
+            "key": "JP_PIPE",
+            "label": "|",
+        }
+        "S(JP_AT)": {
+            "key": "JP_GRV",
+            "label": "`",
+        }
+        "S(JP_LBRC)": {
+            "key": "JP_LCBR",
+            "label": "{",
+        }
+        "S(JP_EISU)": {
+            "key": "JP_CAPS",
+            "label": "Caps Lock",
+        }
+        "S(JP_SCLN)": {
+            "key": "JP_PLUS",
+            "label": "+",
+        }
+        "S(JP_COLN)": {
+            "key": "JP_ASTR",
+            "label": "*",
+        }
+        "S(JP_RBRC)": {
+            "key": "JP_RCBR",
+            "label": "}",
+        }
+        "S(JP_COMM)": {
+            "key": "JP_LABK",
+            "label": "<",
+        }
+        "S(JP_DOT)": {
+            "key": "JP_RABK",
+            "label": ">",
+        }
+        "S(JP_SLSH)": {
+            "key": "JP_QUES",
+            "label": "?",
+        }
+        "S(JP_BSLS)": {
+            "key": "JP_UNDS",
+            "label": "_",
+        }
+    }
+}

@@ -28,7 +28,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-    VRSN = ML_SAFE_RANGE,
+    VRSN = SAFE_RANGE,
 };
 
 // clang-format off

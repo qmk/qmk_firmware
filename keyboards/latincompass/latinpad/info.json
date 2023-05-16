@@ -8,6 +8,14 @@
         "pid": "0x6C70",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B4", "pin_b": "B2"},
+            {"pin_a": "B5", "pin_b": "B6"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
 
         "LAYOUT": {

@@ -14,20 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
 
 #define MATRIX_COL_PINS { B7,  A6,  B6, B5,  B4,  B3,  A5,  A10, B1,  B0,  A7,  A9,  B11, B10, B2,  A15, B15 }
 #define MATRIX_ROW_PINS { A3,  B9,  B8,  A4, C14, C13 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 8
 
 #ifdef RGBLIGHT_ENABLE
 

@@ -8,6 +8,14 @@
         "pid": "0x0C61",
         "device_version": "1.0.0"
     },
+    "indicators": {
+        "caps_lock": "A10",
+        "num_lock": "A9",
+        "scroll_lock": "A8"
+    },
+    "processor": "STM32F042",
+    "bootloader": "stm32-dfu",
+    "debounce": 0,
     "layouts": {
         "LAYOUT_full": {
             "layout": [{"label":"1", "x":0, "y":0}, {"label":"2", "x":1, "y":0}, {"label":"3", "x":2, "y":0}, {"label":"Caps Lock", "x":0, "y":1}, {"label":"Num Lock", "x":1, "y":1}, {"label":"Scroll Lock", "x":2, "y":1}]

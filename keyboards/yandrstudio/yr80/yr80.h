@@ -33,24 +33,3 @@
     { K400,  KC_NO, K402,  K403,  K404,  K405,  K406,  K407,  K408,  K409,  K410,  K411,  K412,  KC_NO, KC_NO, KC_NO, K416 }, \
     { K500,  K501,  K502,  KC_NO, KC_NO, KC_NO, K506,  K507,  K508,  K509,  K510,  KC_NO, KC_NO, KC_NO, K514,  K515,  K516 }  \
 }
-
-enum keyboard_keycodes {
-#ifdef VIA_ENABLE
-    LOCK_GUI = USER00,
-    TOG_MACOS_KEYMAP,
-    KC_MISSION_CONTROL,
-    KC_LAUNCHPAD,
-    NEW_SAFE_RANGE = SAFE_RANGE  // Important!
-#else
-    LOCK_GUI = SAFE_RANGE,
-    TOG_MACOS_KEYMAP,
-    KC_MISSION_CONTROL,
-    KC_LAUNCHPAD,
-    NEW_SAFE_RANGE   // Important!
-#endif
-};
-
-#define KC_LG    LOCK_GUI
-#define KC_MACOS TOG_MACOS_KEYMAP
-#define KC_MCTL  KC_MISSION_CONTROL
-#define KC_LPAD  KC_LAUNCHPAD

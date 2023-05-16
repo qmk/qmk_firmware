@@ -8,6 +8,9 @@
         "pid": "0x8B35",
         "device_version": "0.0.1"
     },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
+    "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

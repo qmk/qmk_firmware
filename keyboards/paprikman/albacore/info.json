@@ -8,6 +8,11 @@
         "pid": "0x000A",
         "device_version": "0.0.1"
     },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [

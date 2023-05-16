@@ -25,6 +25,13 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C7", "pin_b": "C6"},
+            {"pin_a": "F7", "pin_b": "E6"},
+            {"pin_a": "D6", "pin_b": "D7", "resolution": 2}
+        ]
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [

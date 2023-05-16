@@ -18,5 +18,3 @@ SERIAL_DRIVER = usart
 WS2812_DRIVER = pwm
 
 DEFAULT_FOLDER = zvecr/zv48/f401
-
-LAYOUTS = ortho_4x12

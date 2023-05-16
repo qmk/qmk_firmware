@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 // Need to override the SysTick timer to use TIM3 -- this is a 16-bit timer on F303
 // so we need to change resolution and frequency to match.
 #define CH_CFG_ST_RESOLUTION 16

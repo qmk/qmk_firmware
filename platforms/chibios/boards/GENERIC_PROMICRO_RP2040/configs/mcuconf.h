@@ -46,6 +46,7 @@
 #define RP_IRQ_TIMER_ALARM1_PRIORITY        2
 #define RP_IRQ_TIMER_ALARM2_PRIORITY        2
 #define RP_IRQ_TIMER_ALARM3_PRIORITY        2
+#define RP_IRQ_ADC1_PRIORITY                3
 #define RP_IRQ_UART0_PRIORITY               3
 #define RP_IRQ_UART1_PRIORITY               3
 #define RP_IRQ_SPI0_PRIORITY                2
@@ -57,7 +58,7 @@
 /*
  * ADC driver system settings.
  */
-#define RP_ADC_USE_ADC1                     FALSE
+#define RP_ADC_USE_ADC1                     TRUE
 
 /*
  * SIO driver system settings.

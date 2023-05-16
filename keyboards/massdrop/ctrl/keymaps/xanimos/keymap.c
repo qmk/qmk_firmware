@@ -355,7 +355,7 @@ bool rgb_matrix_indicators_user(void) {
 
 
 
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->pressed && !state->interrupted) {
         if (state->count == 1) { return TD_SINGLE_HOLD; }
         return TD_DOUBLE_HOLD;
@@ -368,7 +368,7 @@ static td_tap_t fn_tap_state = {
     .state = TD_NONE
 };
 
-void fn_tap_finished(qk_tap_dance_state_t *state, void *user_data) {
+void fn_tap_finished(tap_dance_state_t *state, void *user_data) {
     fn_tap_state.state = cur_dance(state);
     switch (fn_tap_state.state) {
         case TD_SINGLE_HOLD:
@@ -387,7 +387,7 @@ void fn_tap_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void fn_tap_reset(qk_tap_dance_state_t *state, void *user_data) {
+void fn_tap_reset(tap_dance_state_t *state, void *user_data) {
     switch (fn_tap_state.state) {
         case TD_UNKNOWN:
             unregister_code(KC_APP);
@@ -406,6 +406,6 @@ void fn_tap_reset(qk_tap_dance_state_t *state, void *user_data) {
     fn_tap_state.state = TD_NONE;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_FN_SWITCH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, fn_tap_finished, fn_tap_reset)
 };

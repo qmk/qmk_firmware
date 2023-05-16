@@ -8,6 +8,12 @@
         "pid": "0x6581",
         "device_version": "0.0.1"
     },
+    "backlight": {
+      "pin": "B6",
+      "levels": 12
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
     "layouts": {
         "LAYOUT_all": {
           "layout": [

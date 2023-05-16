@@ -1,11 +1,3 @@
-# NOTE: This file is is specific to RP2040 builds.
-
-# MCU name
-MCU = RP2040
-
-# Bootloader selection
-BOOTLOADER = rp2040
-
 # Build Options
 #   change yes to no to disable
 #

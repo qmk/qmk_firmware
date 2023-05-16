@@ -13,14 +13,11 @@
 */
 
 #pragma once
-#include "config_common.h"
 
 #define DIODE_DIRECTION COL2ROW
 
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, F7 }
 #define MATRIX_COL_PINS { C7, F6, F5, F4, F1, E6, D0, D1, D2, D3, D4, D5, D6, D7, B5, B4 }
-
-#define DEBOUNCE 5
 
 #define RGB_DI_PIN F0
 #define RGBLED_NUM 18

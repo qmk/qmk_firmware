@@ -8,6 +8,9 @@
         "pid": "0x27DB",
         "device_version": "0.0.1"
     },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
+    "community_layouts": ["60_hhkb"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

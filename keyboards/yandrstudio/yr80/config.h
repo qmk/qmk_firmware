@@ -15,7 +15,6 @@
  */
 
 #pragma once
-#include "config_common.h"
 
 #ifdef RGBLIGHT_ENABLE
 

@@ -4,10 +4,12 @@
     "url": "",
     "maintainer": "gtips",
     "usb": {
-        "vid": "0xFEED",
+        "vid": "0x6774",
         "pid": "0x4E03",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "community_layouts": [
         "split_3x5_2"
     ],

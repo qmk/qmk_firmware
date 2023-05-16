@@ -16,15 +16,8 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define brightnessMax 8
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
-
-#define BACKLIGHT_PIN F0
 
 #define MATRIX_ROW_PINS { E6,E7,E3,B0,B1,A2}
 #define MATRIX_COL_PINS { C5,C3,C1,E1,D6,D2,B7,B3,F6,F7,F3,A5,A1,E2,C7,A6 }
@@ -50,8 +43,5 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define DEBOUNCE 5
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
-
-#define BACKLIGHT_LEVELS 3

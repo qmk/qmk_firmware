@@ -8,6 +8,13 @@
         "pid": "0x6D62",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D3", "pin_b": "D2"}
+        ]
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_default": {
             "layout": [

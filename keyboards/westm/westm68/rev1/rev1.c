@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev1.h"
+#include "westm68.h"
 
 void board_init(void) {
     rgblight_toggle(); // Fixes if LEDs were off in the first place buggy LED turns on

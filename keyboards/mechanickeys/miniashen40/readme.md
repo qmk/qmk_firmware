@@ -32,7 +32,7 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical**: 
   1. Press and hold `BOOT` switch
-  2. Tap `QK_BOOT` switch
+  2. Tap `RESET` switch
   3. Release `BOOT` switch
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 

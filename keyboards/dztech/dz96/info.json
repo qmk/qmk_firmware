@@ -8,6 +8,18 @@
     "pid": "0xDB96",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B6",
+    "levels": 5
+  },
+  "indicators": {
+    "caps_lock": "B2",
+    "num_lock": "B0",
+    "scroll_lock": "B1",
+    "on_state": 0
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT_default": {
       "layout": [

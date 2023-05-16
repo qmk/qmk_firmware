@@ -8,6 +8,14 @@
         "pid": "0xA71C",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "A6",
+        "levels": 6,
+        "breathing": true
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {
         "LAYOUT_alice_split_bs": {
             "layout": [

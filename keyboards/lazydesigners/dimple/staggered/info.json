@@ -7,5 +7,7 @@
         "vid": "0x4C44",
         "pid": "0x0040",
         "device_version": "0.0.1"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
 }

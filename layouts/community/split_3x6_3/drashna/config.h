@@ -26,7 +26,7 @@
 #undef USE_I2C
 #undef SSD1306OLED
 
-// #define TAPPING_FORCE_HOLD
+// #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM 100
 
 #ifdef RGBLIGHT_ENABLE

@@ -6,7 +6,6 @@
     },
     "processor": "RP2040",
     "bootloader": "rp2040",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "console": true,

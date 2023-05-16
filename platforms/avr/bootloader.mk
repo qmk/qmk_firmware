@@ -37,6 +37,8 @@
 # BOOTLOADER_SIZE can still be defined manually, but it's recommended
 # you add any possible configuration to this list
 
+FIRMWARE_FORMAT?=hex
+
 ifeq ($(strip $(BOOTLOADER)), custom)
     OPT_DEFS += -DBOOTLOADER_CUSTOM
     BOOTLOADER_TYPE = custom

@@ -17,20 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 12
-
-/* key matrix pins */
-#define DIRECT_PINS { \
-    { F4, B6, B5, B4, E6, D7, F6, F7, B1, B3, B2, F5 } \
-}
-
-#define ENCODERS_PAD_A { D1, D4 }
-#define ENCODERS_PAD_B { D0, C6 }
-
 /* WS2812 RGB LED */
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
@@ -103,8 +89,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    endif
 #endif
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 #define TAPPING_TERM 200

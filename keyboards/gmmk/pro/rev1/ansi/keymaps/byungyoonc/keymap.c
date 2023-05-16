@@ -81,7 +81,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 static void set_rgb_caps_leds(void);
 
-static void set_rgb_caps_leds() {
+static void set_rgb_caps_leds(void) {
     rgb_matrix_set_color(73, 0xFF, 0x77, 0x77);  // Left side LED 3
     rgb_matrix_set_color(74, 0xFF, 0x77, 0x77);  // Right side LED 3
     rgb_matrix_set_color(76, 0xFF, 0x77, 0x77);  // Left side LED 4
@@ -97,14 +97,14 @@ static void set_rgb_nlck_notset_leds(void);
 
 static void set_rgb_wlck_leds(void);
 
-static void set_rgb_nlck_notset_leds() {
+static void set_rgb_nlck_notset_leds(void) {
     rgb_matrix_set_color(67, 0x77, 0x77, 0xFF);  // Left side LED 1
     rgb_matrix_set_color(68, 0x77, 0x77, 0xFF);  // Right side LED 1
     rgb_matrix_set_color(70, 0x77, 0x77, 0xFF);  // Left side LED 2
     rgb_matrix_set_color(71, 0x77, 0x77, 0xFF);  // Right side LED 2
 }
 
-static void set_rgb_wlck_leds() {
+static void set_rgb_wlck_leds(void) {
     rgb_matrix_set_color(87, 0x77, 0xFF, 0x77);  // Left side LED 7
     rgb_matrix_set_color(88, 0x77, 0xFF, 0x77);  // Right side LED 7
     rgb_matrix_set_color(91, 0x77, 0xFF, 0x77);  // Left side LED 8
@@ -112,10 +112,11 @@ static void set_rgb_wlck_leds() {
 }
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    led_t led_state = host_keyboard_led_state();
+    if (led_state.caps_lock) {
         set_rgb_caps_leds();
     }
-    if (!IS_HOST_LED_ON(USB_LED_NUM_LOCK)) {
+    if (!led_state.num_lock) {
         set_rgb_nlck_notset_leds();
     }
     if (keymap_config.no_gui) {

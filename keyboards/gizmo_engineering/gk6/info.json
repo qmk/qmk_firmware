@@ -8,6 +8,8 @@
         "pid": "0x0001",
         "device_version": "30.3.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_gk6_2x2u": "LAYOUT_2x2u",
         "LAYOUT_gk6_1x2u": "LAYOUT_1x2u"

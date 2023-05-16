@@ -4,6 +4,20 @@
         "pid": "0x9D9D",
         "device_version": "0.0.2"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F4", "pin_b": "F5"}
+        ]
+    },
+    "split": {
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "F5", "pin_b": "F4"}
+                ]
+            }
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

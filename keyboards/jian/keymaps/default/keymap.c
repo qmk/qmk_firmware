@@ -22,7 +22,7 @@ enum jian_keycodes {
 #define LOWER_T(kc) LT(_LOWER, kc)
 
 #ifdef SWAP_HANDS_ENABLE
-#define SW_TG SH_TG
+#define SW_TG SH_TOGG
 #else
 #define SW_TG _______
 #endif

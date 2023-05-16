@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* NB: Most configuration information resides in `info.json` */
 

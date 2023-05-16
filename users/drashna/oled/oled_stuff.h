@@ -45,7 +45,8 @@ void            render_kitty(uint8_t col, uint8_t line);
 void            render_unicode_mode(uint8_t col, uint8_t line);
 void            render_rgb_hsv(uint8_t col, uint8_t line);
 void            render_mouse_mode(uint8_t col, uint8_t line);
-void            matrix_scan_oled(void);
+void            housekeeping_task_oled(void);
+void            render_oled_title(bool side);
 
 void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_start, uint16_t x_end);
 
@@ -54,7 +55,7 @@ void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_st
 
 #    define OLED_RENDER_KEYLOGGER "Keylogger: "
 #    ifndef OLED_KEYLOGGER_LENGTH
-#        define OLED_KEYLOGGER_LENGTH 9
+#        define OLED_KEYLOGGER_LENGTH 10
 #    endif
 #    define OLED_RENDER_LAYOUT_NAME "Layout: "
 #    define OLED_RENDER_LAYOUT_QWERTY "Qwerty"
@@ -101,7 +102,7 @@ void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_st
 #else
 #    define OLED_RENDER_KEYLOGGER "KLogr"
 #    ifndef OLED_KEYLOGGER_LENGTH
-#        define OLED_KEYLOGGER_LENGTH 5
+#        define OLED_KEYLOGGER_LENGTH 6
 #    endif
 
 #    define OLED_RENDER_LAYOUT_NAME "Lyout"
@@ -148,7 +149,7 @@ void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_st
 #    define OLED_RENDER_WPM_COUNTER "WPM: "
 #endif
 
-extern char keylog_str[OLED_KEYLOGGER_LENGTH];
+extern char keylog_str[];
 
 #ifndef OLED_WPM_GRAPH_MAX_WPM
 #    define OLED_WPM_GRAPH_MAX_WPM 120

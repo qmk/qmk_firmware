@@ -8,6 +8,13 @@
         "pid": "0x0181",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "A10"}
+        ]
+    },
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_ansi_69": {
             "layout": [

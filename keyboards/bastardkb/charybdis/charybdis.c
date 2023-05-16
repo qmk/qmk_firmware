@@ -304,7 +304,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 #        endif // !NO_CHARYBDIS_KEYCODES
 #    endif     // POINTING_DEVICE_ENABLE
-    if ((keycode >= POINTER_DEFAULT_DPI_FORWARD && keycode < CHARYBDIS_SAFE_RANGE) || IS_MOUSEKEY(keycode)) {
+    if (IS_QK_KB(keycode) || IS_MOUSEKEY(keycode)) {
         debug_charybdis_config_to_console(&g_charybdis_config);
     }
     return true;

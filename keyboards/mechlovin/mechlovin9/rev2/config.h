@@ -29,12 +29,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { A0, A1, A2, A3, A4 }
 #define MATRIX_COL_PINS { B2, B1, B0, B3, B4, B5, D0, D1, D5, D6, D7, C0, C3, C2, C1 }
-
-#define LED_CAPS_LOCK_PIN A7
-
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_BREATHING
-
-/* Bootmagic Lite key configuration */
- #define BOOTMAGIC_LITE_ROW 0
- #define BOOTMAGIC_LITE_COLUMN 13

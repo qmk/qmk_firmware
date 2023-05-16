@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* Matrix Size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
 
 /* Matrix Pinouts */
 //                         0   1   2   3   4   5   6   7   8   9   A   B   C   D   E
@@ -30,8 +25,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Diode Direction */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce Setting */
-#define DEBOUNCE 5
-
-

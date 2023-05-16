@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "aliceclone.h"
 
-void keyboard_pre_init_kb() {
+void keyboard_pre_init_kb(void) {
     setPinOutput(D7);
     setPinOutput(D6);
     setPinOutput(D4);

@@ -3,16 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* --------------------------------
- * Bootmagic Lite key configuration
- * use the Esc key
- * -------------------------------- */
-
-#define BOOTMAGIC_LITE_ROW      0
-#define BOOTMAGIC_LITE_COLUMN   5
-
 /* ----------------
  * RGB Matrix stuff
  * ---------------- */

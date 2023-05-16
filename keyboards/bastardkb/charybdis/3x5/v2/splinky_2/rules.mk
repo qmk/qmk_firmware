@@ -1,9 +1,3 @@
-# MCU name
-MCU = RP2040
-
-# Bootloader selection
-BOOTLOADER = rp2040
-
 # RP2040-specific options
 ALLOW_WARNINGS = yes
 PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
@@ -28,7 +22,6 @@ RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 RGB_MATRIX_DRIVER = WS2812
 
 SPLIT_KEYBOARD = yes
-LAYOUTS = split_3x5_3
 
 POINTING_DEVICE_ENABLE = yes # Enable trackball
 POINTING_DEVICE_DRIVER = pmw3360

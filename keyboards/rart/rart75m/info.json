@@ -8,6 +8,13 @@
         "pid": "0x6075",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B7", "pin_b": "D6", "resolution": 2}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

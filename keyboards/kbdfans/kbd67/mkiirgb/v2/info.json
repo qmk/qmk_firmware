@@ -3,5 +3,8 @@
     "usb": {
         "pid": "0x1225",
         "device_version": "0.0.2"
-    }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 3
 }

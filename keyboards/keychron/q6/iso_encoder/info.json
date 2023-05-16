@@ -8,6 +8,13 @@
         "pid": "0x0163",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C14", "pin_b": "A2"}
+        ]
+    },
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_iso_110": {
             "layout": [
@@ -95,7 +102,7 @@
                 {"matrix":[3,15], "x":21.5, "y":2.25, "h":2},
 
                 {"matrix":[4, 0], "x":0, "y":4.25, "w":1.25},
-                {"matrix":[4, 1], "x":2.25, "y":4.25},
+                {"matrix":[4, 1], "x":1.25, "y":4.25},
                 {"matrix":[4, 2], "x":2.25, "y":4.25},
                 {"matrix":[4, 3], "x":3.25, "y":4.25},
                 {"matrix":[4, 4], "x":4.25, "y":4.25},

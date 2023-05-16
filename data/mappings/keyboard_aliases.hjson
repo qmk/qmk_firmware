@@ -92,6 +92,9 @@
     "bpiphany/pegasushoof": {
         "target": "bpiphany/pegasushoof/2013"
     },
+    "brick": {
+        "target": "pauperboards/brick"
+    },
     "chavdai40": {
         "target": "chavdai40/rev1"
     },
@@ -1059,6 +1062,48 @@
     },
     "rabbit_capture_plan": {
         "target": "kakunpc/rabbit_capture_plan"
+    },
+    "ramonimbao/aelith": {
+        "target": "rmi_kb/aelith"
+    },
+    "ramonimbao/chevron": {
+        "target": "rmi_kb/chevron"
+    },
+    "ramonimbao/herringbone/pro": {
+        "target": "rmi_kb/herringbone/pro"
+    },
+    "ramonimbao/herringbone/v1": {
+        "target": "rmi_kb/herringbone/v1"
+    },
+    "ramonimbao/mona/v1": {
+        "target": "rmi_kb/mona/v1"
+    },
+    "ramonimbao/mona/v1_1": {
+        "target": "rmi_kb/mona/v1_1"
+    },
+    "ramonimbao/mona/v32a": {
+        "target": "rmi_kb/mona/v32a"
+    },
+    "ramonimbao/squishy65": {
+        "target": "rmi_kb/squishy65"
+    },
+    "ramonimbao/squishyfrl": {
+        "target": "rmi_kb/squishyfrl"
+    },
+    "ramonimbao/squishytkl": {
+        "target": "rmi_kb/squishytkl"
+    },
+    "ramonimbao/tkl_ff/v1": {
+        "target": "rmi_kb/tkl_ff/v1"
+    },
+    "ramonimbao/tkl_ff/v2": {
+        "target": "rmi_kb/tkl_ff/v2"
+    },
+    "ramonimbao/wete/v1": {
+        "target": "rmi_kb/wete/v1"
+    },
+    "ramonimbao/wete/v2": {
+        "target": "rmi_kb/wete/v2"
     },
     "rainkeeb": {
         "target": "rainkeebs/rainkeeb"

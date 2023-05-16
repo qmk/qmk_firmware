@@ -8,6 +8,13 @@
         "pid": "0x4134",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "B7",
+        "levels": 31,
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_40_alix": {
             "layout": [{

@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
 
 // ROWS: Top to bottom, COLS: Left to right
 
@@ -31,21 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Backlight configuration
- */
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 5
-
-#define LED_CAPS_LOCK_PIN E6
-#define LED_PIN_ON_STATE 0
 
 #define RGB_DI_PIN F5    // The pin the LED strip is connected to
 #define RGBLED_NUM 6     // Number of LEDs in your strip
@@ -59,6 +39,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define QMK_ESC_OUTPUT B7 // usually COL
-#define QMK_ESC_INPUT B0 // usually ROW
-#define QMK_LED E6

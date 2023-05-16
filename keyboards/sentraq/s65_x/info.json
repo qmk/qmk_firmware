@@ -8,6 +8,14 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "backlight": {
+    "pin": "B7",
+    "levels": 5,
+    "as_caps_lock": true
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "community_layouts": ["65_ansi", "65_iso"],
   "layouts": {
     "LAYOUT_65_ansi": {
       "layout": [

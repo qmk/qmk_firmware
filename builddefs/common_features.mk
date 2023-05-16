@@ -84,6 +84,13 @@ endif
 ifeq ($(strip $(MIDI_ENABLE)), yes)
     OPT_DEFS += -DMIDI_ENABLE
     MUSIC_ENABLE = yes
+    COMMON_VPATH += $(QUANTUM_PATH)/midi
+    SRC += $(QUANTUM_DIR)/midi/midi.c
+    SRC += $(QUANTUM_DIR)/midi/midi_device.c
+    SRC += $(QUANTUM_DIR)/midi/qmk_midi.c
+    SRC += $(QUANTUM_DIR)/midi/sysex_tools.c
+    SRC += $(QUANTUM_DIR)/midi/bytequeue/bytequeue.c
+    SRC += $(QUANTUM_DIR)/midi/bytequeue/interrupt_setting.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
 endif
 
@@ -206,10 +213,10 @@ else
     SRC += eeprom_driver.c eeprom_spi.c
   else ifeq ($(strip $(EEPROM_DRIVER)), legacy_stm32_flash)
     # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
-    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
     COMMON_VPATH += $(DRIVER_PATH)/flash
-    SRC += eeprom_driver.c eeprom_stm32.c flash_stm32.c
+    SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
   else ifeq ($(strip $(EEPROM_DRIVER)), transient)
     # Transient EEPROM implementation -- no data storage but provides runtime area for it
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
@@ -613,6 +620,7 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     DYNAMIC_KEYMAP_ENABLE := yes
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
+    TRI_LAYER_ENABLE := yes
     SRC += $(QUANTUM_DIR)/via.c
     OPT_DEFS += -DVIA_ENABLE
 endif
@@ -905,5 +913,13 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
     ifeq ($(strip $(ENCODER_MAP_ENABLE)), yes)
         OPT_DEFS += -DENCODER_MAP_ENABLE
+    endif
+endif
+
+ifeq ($(strip $(OS_DETECTION_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/os_detection.c
+    OPT_DEFS += -DOS_DETECTION_ENABLE
+    ifeq ($(strip $(OS_DETECTION_DEBUG_ENABLE)), yes)
+        OPT_DEFS += -DOS_DETECTION_DEBUG_ENABLE
     endif
 endif

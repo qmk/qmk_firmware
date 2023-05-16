@@ -8,6 +8,8 @@
         "pid": "0x4E09",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layout_aliases": {
         "LAYOUT_reviung53": "LAYOUT"
     },

@@ -8,6 +8,13 @@
         "pid": "0x1416",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "D1",
+        "levels": 6,
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT_2x3u": "LAYOUT_60_tsangan_hhkb_split_space",
         "LAYOUT_7u": "LAYOUT_60_tsangan_hhkb"

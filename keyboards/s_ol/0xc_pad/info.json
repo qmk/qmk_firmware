@@ -1,7 +1,6 @@
 {
     "keyboard_name": "0xC.pad",
     "url": "https://s-ol.nu/0xC.pad",
-    "debounce": 5,
     "diode_direction": "ROW2COL",
     "matrix_pins": {
       "rows": ["B7", "B6", "B5", "B4"],
@@ -29,5 +28,7 @@
       "vid": "0x732D",
       "pid": "0x0C70",
       "device_version": "0.0.1"
-    }
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu"
 }

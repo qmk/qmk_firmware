@@ -8,6 +8,21 @@
         "pid": "0x0002",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "B2"}
+        ]
+    },
+    "indicators": {
+        "caps_lock": "D0",
+        "num_lock": "D4",
+        "scroll_lock": "C6",
+        "compose": "E6",
+        "kana": "D7"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "community_layouts": ["ortho_2x3"],
     "layouts": {
         "LAYOUT_ortho_2x3": {
             "layout": [

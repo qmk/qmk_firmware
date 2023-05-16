@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -23,4 +17,3 @@ AUDIO_SUPPORTED = no
 KEY_LOCK_ENABLE = no
 
 LAYOUTS = ortho_4x12
-

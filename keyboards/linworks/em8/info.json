@@ -23,6 +23,9 @@
         "pid": "0x0006",
         "vid": "0x4C58"
     },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
     "indicators": {
         "num_lock": "D2",
         "caps_lock": "D3",

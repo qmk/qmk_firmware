@@ -3,17 +3,13 @@
 
 #pragma once
 
-// #    define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
-#ifndef POINTING_DEVICE_ENABLE
-#    define SPLIT_WATCHDOG_ENABLE
-#endif
-#ifdef WPM_ENABLE
-#    define SPLIT_WPM_ENABLE
-#endif
-#ifdef OLED_ENABLE
+#define SPLIT_WATCHDOG_ENABLE
+#define SPLIT_WPM_ENABLE
+#ifdef SPLIT_OLED_ENABLE
 #    undef SPLIT_OLED_ENABLE
 #endif
 #if defined(__AVR__) && !defined(SELECT_SOFT_SERIAL_SPEED)

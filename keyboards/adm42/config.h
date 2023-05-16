@@ -16,15 +16,10 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
 
 #define DIODE_DIRECTION ROW2COL
 
 #define TAP_CODE_DELAY 1
-#define DEBOUNCE 10
 
 #if defined(CONSOLE_ENABLE)
 	#define DEBUG_MATRIX_SCAN_RATE

@@ -16,11 +16,7 @@
 
 #pragma once
 
-#include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 10
 #define MATRIX_ROW_PINS { C0, B5, B4, B3, B2, B1 }
 #define MATRIX_COL_PINS { B0, D7, D6, D5, D4, D1, D0, C1, C2, C3 }
 
@@ -28,6 +24,3 @@
 #define DIODE_DIRECTION COL2ROW
 
 #define USB_MAX_POWER_CONSUMPTION 100
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

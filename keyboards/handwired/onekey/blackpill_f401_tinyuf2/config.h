@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define BACKLIGHT_PWM_DRIVER  PWMD5
 #define BACKLIGHT_PWM_CHANNEL 1

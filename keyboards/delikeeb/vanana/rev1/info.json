@@ -2,5 +2,11 @@
     "keyboard_name": "Vanana rev1",
     "usb": {
         "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C7", "pin_b": "D5"},
+            {"pin_a": "F1", "pin_b": "F0"}
+        ]
     }
 }

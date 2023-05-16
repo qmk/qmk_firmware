@@ -78,42 +78,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-LEADER_EXTERNS();
+void leader_end_user(void) {
+    // qq, alt+f4 close window
+    if (leader_sequence_two_keys(KC_Q, KC_Q)) {
+        tap_code16(A(KC_F4));
+    }
 
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
+    // ee, open explorer
+    if (leader_sequence_two_keys(KC_E, KC_E)) {
+        tap_code16(G(KC_E));
+    }
 
-        // qq, alt+f4 close window
-        SEQ_TWO_KEYS(KC_Q, KC_Q) {
-            tap_code16(A(KC_F4));
-        }
+    // rr, windows run prompt
+    if (leader_sequence_two_keys(KC_R, KC_R)) {
+        tap_code16(G(KC_R));
+    }
 
-        // ee, open explorer
-        SEQ_TWO_KEYS(KC_E, KC_E) {
-            tap_code16(G(KC_E));
-        }
+    // ww, maximize window
+    if (leader_sequence_two_keys(KC_W, KC_W)) {
+        tap_code16(G(KC_UP));
+    }
 
-        // rr, windows run prompt
-        SEQ_TWO_KEYS(KC_R, KC_R) {
-            tap_code16(G(KC_R));
-        }
+    // ss, minimize window
+    if (leader_sequence_two_keys(KC_S, KC_S)) {
+        tap_code16(G(KC_DOWN));
+    }
 
-        // ww, maximize window
-        SEQ_TWO_KEYS(KC_W, KC_W) {
-            tap_code16(G(KC_UP));
-        }
-
-        // ss, minimize window
-        SEQ_TWO_KEYS(KC_S, KC_S) {
-            tap_code16(G(KC_DOWN));
-        }
-
-        // <space><space>, toggle desktop
-        SEQ_TWO_KEYS(KC_SPC, KC_SPC) {
-            tap_code16(G(KC_D));
-        }
+    // <space><space>, toggle desktop
+    if (leader_sequence_two_keys(KC_SPC, KC_SPC)) {
+        tap_code16(G(KC_D));
     }
 }
 

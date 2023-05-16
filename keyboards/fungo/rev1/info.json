@@ -8,6 +8,12 @@
     "pid": "0x1233",
     "device_version": "0.0.1"
   },
+  "split": {
+    "soft_serial_pin": "D3"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "debounce": 3,
   "layout_aliases": {
     "LAYOUT_fungo_split_num": "LAYOUT"
   },

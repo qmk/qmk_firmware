@@ -8,6 +8,8 @@
         "pid": "0x0130",
         "device_version": "1.0.2"
     },
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

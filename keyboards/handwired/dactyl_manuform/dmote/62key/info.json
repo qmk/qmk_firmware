@@ -10,6 +10,10 @@
         "pid": "0x3632",
         "device_version": "0.0.1"
     },
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "D0"
+    },
     "layouts": {
         "LAYOUT_62key": {
             "layout": [

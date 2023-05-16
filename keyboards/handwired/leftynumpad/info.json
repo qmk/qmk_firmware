@@ -8,6 +8,9 @@
         "pid": "0xBEEF",
         "device_version": "0.0.1"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 10,
     "layouts": {
         "LAYOUT": {
             "layout": [

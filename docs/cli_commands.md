@@ -20,7 +20,7 @@ qmk compile [-c] <configuratorExport.json>
 qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] -kb <keyboard_name> -km <keymap_name>
 ```
 
-**Usage in Keyboard Directory**:  
+**Usage in Keyboard Directory**:
 
 Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`
 ```
@@ -44,7 +44,7 @@ $ qmk compile
 or with optional keymap argument
 
 ```
-$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4 
+$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4
 $ qmk compile -km 66_iso
 Ψ Compiling keymap with make clueboard/66/rev4:66_iso
 ...
@@ -58,7 +58,7 @@ $ qmk compile
 ...
 ```
 
-**Usage in Layout Directory**:  
+**Usage in Layout Directory**:
 
 Must be under `qmk_firmware/layouts/`, and in a keymap folder.
 ```
@@ -147,6 +147,34 @@ To exit out into the parent shell, simply type `exit`.
 
 ```
 qmk cd
+```
+
+## `qmk find`
+
+This command allows for searching through keyboard/keymap targets, filtering by specific criteria. `info.json` and `rules.mk` files contribute to the search data, as well as keymap configurations, and the results can be filtered using "dotty" syntax matching the overall `info.json` file format.
+
+For example, one could search for all keyboards using STM32F411:
+
+```
+qmk find -f 'processor=STM32F411'
+```
+
+...and one can further constrain the list to keyboards using STM32F411 as well as rgb_matrix support:
+
+```
+qmk find -f 'processor=STM32F411' -f 'features.rgb_matrix=true'
+```
+
+**Usage**:
+
+```
+qmk find [-h] [-km KEYMAP] [-f FILTER]
+
+options:
+  -km KEYMAP, --keymap KEYMAP
+                        The keymap name to build. Default is 'default'.
+  -f FILTER, --filter FILTER
+                        Filter the list of keyboards based on the supplied value in rules.mk. Matches info.json structure, and accepts the formats 'features.rgblight=true' or 'exists(matrix_pins.direct)'. May be passed multiple times, all filters need to match. Value may include wildcards such as '*' and '?'.
 ```
 
 ## `qmk console`
@@ -269,7 +297,8 @@ qmk json2c [-o OUTPUT] filename
 
 ## `qmk c2json`
 
-Creates a keymap.json from a keymap.c.  
+Creates a keymap.json from a keymap.c.
+
 **Note:** Parsing C source files is not easy, therefore this subcommand may not work with your keymap. In some cases not using the C pre-processor helps.
 
 **Usage**:
@@ -442,7 +471,7 @@ $ qmk import-kbfirmware ~/Downloads/gh62.json
 
 ## `qmk format-text`
 
-This command formats text files to have proper line endings. 
+This command formats text files to have proper line endings.
 
 Every text file in the repository needs to have Unix (LF) line ending.
 If you are working on **Windows**, you must ensure that line endings are corrected in order to get your PRs merged.
@@ -453,7 +482,7 @@ qmk format-text
 
 ## `qmk format-c`
 
-This command formats C code using clang-format. 
+This command formats C code using clang-format.
 
 Run it with no arguments to format all core code that has been changed. Default checks `origin/master` with `git diff`, branch can be changed using `-b <branch_name>`
 
@@ -556,7 +585,7 @@ qmk kle2json [-f] <filename>
 **Examples**:
 
 ```
-$ qmk kle2json kle.txt 
+$ qmk kle2json kle.txt
 ☒ File info.json already exists, use -f or --force to overwrite.
 ```
 
