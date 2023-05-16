@@ -27,9 +27,8 @@ enum {
 };
 // clang-format on
 
+deferred_token      combo_exec_token;
 uint16_t            key_press_status    = 0;
-uint32_t            timer_3s_buffer     = 0;
-uint32_t            timer_300ms_buffer  = 0;
 uint8_t             factory_reset_count = 0;
 extern matrix_row_t matrix[MATRIX_ROWS];
 
@@ -41,104 +40,27 @@ HSV     hsv;
 #    endif
 #endif
 
-__attribute__((weak))
-bool process_record_myfork_keychron_ft(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-#if defined(FN_KEY1) || defined(FN_KEY2)
-#    ifdef FN_KEY1
-        case FN_KEY1: /* fall through */
-#    endif
-#    ifdef FN_KEY2
-        case FN_KEY2:
-#    endif
-            if (record->event.pressed) {
-                key_press_status |= KEY_PRESS_STEP_0;
-            } else {
-                key_press_status &= ~KEY_PRESS_STEP_0;
-                timer_3s_buffer = 0;
-            }
-            return true;
-#endif
-#if defined(RESET_KEY1) && defined(RESET_KEY2)
-        case RESET_KEY1:
-#    if defined(RESET_KEY1_ALT)
-        case RESET_KEY1_ALT:
-#    endif
-            if (record->event.pressed) {
-                key_press_status |= KEY_PRESS_STEP_1;
-                if (key_press_status == KEY_PRESS_FACTORY_RESET) {
-                    timer_3s_buffer = sync_timer_read32() == 0 ? 1 : sync_timer_read32();
-                }
-            } else {
-                key_press_status &= ~KEY_PRESS_STEP_1;
-                timer_3s_buffer = 0;
-            }
-            return true;
-        case RESET_KEY2:
-#    if defined(RESET_KEY2_ALT)
-        case RESET_KEY2_ALT:
-#    endif
-            if (record->event.pressed) {
-                key_press_status |= KEY_PRESS_STEP_2;
-                if (key_press_status == KEY_PRESS_FACTORY_RESET) {
-                    timer_3s_buffer = sync_timer_read32() == 0 ? 1 : sync_timer_read32();
-                }
-            } else {
-                key_press_status &= ~KEY_PRESS_STEP_2;
-                timer_3s_buffer = 0;
-            }
-            return true;
-#endif
-#if defined(BL_TEST_KEY1) && defined(BL_TEST_KEY2)
-        case BL_TEST_KEY1:
-            if (record->event.pressed) {
-                key_press_status |= KEY_PRESS_STEP_3;
-                if (led_test_mode) {
-                    if (++led_test_mode >= LED_TEST_MODE_MAX) {
-                        led_test_mode = LED_TEST_MODE_WHITE;
-                    }
-                } else if (key_press_status == KEY_PRESS_LED_TEST) {
-                    timer_3s_buffer = sync_timer_read32() == 0 ? 1 : sync_timer_read32();
-                }
-            } else {
-                key_press_status &= ~KEY_PRESS_STEP_3;
-                timer_3s_buffer = 0;
-            }
-            return true;
-        case BL_TEST_KEY2:
-#    if defined(BL_TEST_KEY2_ALT1)
-        case BL_TEST_KEY2_ALT1:
-#    endif
-#    if defined(BL_TEST_KEY2_ALT2)
-        case BL_TEST_KEY2_ALT2:
-#    endif
-            if (record->event.pressed) {
-                key_press_status |= KEY_PRESS_STEP_4;
-                if (led_test_mode) {
-                    led_test_mode = LED_TEST_MODE_OFF;
-#    if defined(RGB_MATRIX_ENABLE)
-                    if (is_win_mode()) {
-                        set_win_base_rgb();
-                    } else {
-                        set_mac_base_rgb();
-                    }
-#    endif
-                } else if (key_press_status == KEY_PRESS_LED_TEST) {
-                    timer_3s_buffer = sync_timer_read32() == 0 ? 1 : sync_timer_read32();
-                }
-            } else {
-                key_press_status &= ~KEY_PRESS_STEP_4;
-                timer_3s_buffer = 0;
-            }
-            return true;
-#endif
-        default:
-            return true;
+static uint32_t LED_flash_300ms(uint32_t trigger_time, void *cb_arg) {
+    if (factory_reset_count++ > 6) {
+        factory_reset_count = 0;
+#ifdef RGB_MATRIX_ENABLE
+    if (is_win_mode()) { 
+        set_win_base_rgb();
+    } else {
+        set_mac_base_rgb();
     }
+#    ifdef SPLIT_KEYBOARD
+        rgb_matrix_mode_noeeprom(led_state);
+        rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
+#    endif
+#endif
+        return 0; // no repeat
+    }
+    return 300;  // repeat 300ms
 }
 
 static void factory_reset(void) {
-    timer_300ms_buffer = sync_timer_read32() == 0 ? 1 : sync_timer_read32();
+    defer_exec(300, LED_flash_300ms, NULL);
     factory_reset_count++;
     layer_state_t default_layer = default_layer_state;
     eeconfig_init();
@@ -163,55 +85,122 @@ static void factory_reset(void) {
 #endif
 }
 
-static void timer_3s_task(void) {
-    if (sync_timer_elapsed32(timer_3s_buffer) > 3000) {
-        timer_3s_buffer = 0;
-        if (key_press_status == KEY_PRESS_FACTORY_RESET) {
-            factory_reset();
-#ifdef RGB_MATRIX_ENABLE
-            if (is_win_mode()) { set_win_base_rgb(); }
-#endif
-        } else if (key_press_status == KEY_PRESS_LED_TEST) {
+static uint32_t combo_exec_3s(uint32_t trigger_time, void *cb_arg) {
+    if (key_press_status == KEY_PRESS_FACTORY_RESET) {
+        factory_reset();
+    } else if (key_press_status == KEY_PRESS_LED_TEST) {
 #ifdef SPLIT_KEYBOARD
-            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
 #endif
-            led_test_mode = LED_TEST_MODE_WHITE;
+        led_test_mode = LED_TEST_MODE_WHITE;
 #ifdef LED_MATRIX_ENABLE
-            if (!led_matrix_is_enabled()) {
-                led_matrix_enable_noeeprom();
-            }
+        if (!led_matrix_is_enabled()) {
+            led_matrix_enable_noeeprom();
+        }
 #endif
 #ifdef RGB_MATRIX_ENABLE
-            if (!rgb_matrix_is_enabled()) {
-                rgb_matrix_enable_noeeprom();
+        if (!rgb_matrix_is_enabled()) {
+            rgb_matrix_enable_noeeprom();
+        }
+#endif
+    }
+    key_press_status = 0;
+    return 0;  // no repeat
+}
+
+__attribute__((weak))
+bool process_record_myfork_keychron_ft(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+#if defined(FN_KEY1) || defined(FN_KEY2)
+#    ifdef FN_KEY1
+        case FN_KEY1: /* fall through */
+#    endif
+#    ifdef FN_KEY2
+        case FN_KEY2:
+#    endif
+            if (record->event.pressed) {
+                key_press_status |= KEY_PRESS_STEP_0;
+            } else {
+                key_press_status &= ~KEY_PRESS_STEP_0;
+                cancel_deferred_exec(combo_exec_token);
             }
+            return true;
 #endif
-        }
-        key_press_status = 0;
-    }
-}
-
-static void timer_300ms_task(void) {
-    if (sync_timer_elapsed32(timer_300ms_buffer) > 300) {
-        if (factory_reset_count++ > 6) {
-            timer_300ms_buffer  = 0;
-            factory_reset_count = 0;
-#ifdef SPLIT_KEYBOARD
-            rgb_matrix_mode_noeeprom(led_state);
-            rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
+#if defined(RESET_KEY1) && defined(RESET_KEY2)
+        case RESET_KEY1:
+#    if defined(RESET_KEY1_ALT)
+        case RESET_KEY1_ALT:
+#    endif
+            if (record->event.pressed) {
+                key_press_status |= KEY_PRESS_STEP_1;
+                if (key_press_status == KEY_PRESS_FACTORY_RESET) {
+                    combo_exec_token = defer_exec(3000, combo_exec_3s, NULL);
+                }
+            } else {
+                key_press_status &= ~KEY_PRESS_STEP_1;
+                cancel_deferred_exec(combo_exec_token);
+            }
+            return true;
+        case RESET_KEY2:
+#    if defined(RESET_KEY2_ALT)
+        case RESET_KEY2_ALT:
+#    endif
+            if (record->event.pressed) {
+                key_press_status |= KEY_PRESS_STEP_2;
+                if (key_press_status == KEY_PRESS_FACTORY_RESET) {
+                    combo_exec_token = defer_exec(3000, combo_exec_3s, NULL);
+                }
+            } else {
+                key_press_status &= ~KEY_PRESS_STEP_2;
+                cancel_deferred_exec(combo_exec_token);
+            }
+            return true;
 #endif
-        } else {
-            timer_300ms_buffer = sync_timer_read32() == 0 ? 1 : sync_timer_read32();
-        }
-    }
-}
-
-void housekeeping_task_myfork_keychron_ft(void) {
-    if (timer_3s_buffer) {
-        timer_3s_task();
-    }
-    if (timer_300ms_buffer) {
-        timer_300ms_task();
+#if defined(BL_TEST_KEY1) && defined(BL_TEST_KEY2)
+        case BL_TEST_KEY1:
+            if (record->event.pressed) {
+                key_press_status |= KEY_PRESS_STEP_3;
+                if (led_test_mode) {
+                    if (++led_test_mode >= LED_TEST_MODE_MAX) {
+                        led_test_mode = LED_TEST_MODE_WHITE;
+                    }
+                } else if (key_press_status == KEY_PRESS_LED_TEST) {
+                    combo_exec_token = defer_exec(3000, combo_exec_3s, NULL);
+                }
+            } else {
+                key_press_status &= ~KEY_PRESS_STEP_3;
+                cancel_deferred_exec(combo_exec_token);
+            }
+            return true;
+        case BL_TEST_KEY2:
+#    if defined(BL_TEST_KEY2_ALT1)
+        case BL_TEST_KEY2_ALT1:
+#    endif
+#    if defined(BL_TEST_KEY2_ALT2)
+        case BL_TEST_KEY2_ALT2:
+#    endif
+            if (record->event.pressed) {
+                key_press_status |= KEY_PRESS_STEP_4;
+                if (led_test_mode) {
+                    led_test_mode = LED_TEST_MODE_OFF;
+#    if defined(RGB_MATRIX_ENABLE)
+                    if (is_win_mode()) {
+                        set_win_base_rgb();
+                    } else {
+                        set_mac_base_rgb();
+                    }
+#    endif
+                } else if (key_press_status == KEY_PRESS_LED_TEST) {
+                    combo_exec_token = defer_exec(3000, combo_exec_3s, NULL);
+                }
+            } else {
+                key_press_status &= ~KEY_PRESS_STEP_4;
+                cancel_deferred_exec(combo_exec_token);
+            }
+            return true;
+#endif
+        default:
+            return true;
     }
 }
 

@@ -69,7 +69,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 
 void housekeeping_task_user(void) {
     housekeeping_task_keychron();
-    housekeeping_task_myfork_keychron_ft();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
