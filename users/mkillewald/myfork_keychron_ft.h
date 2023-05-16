@@ -38,7 +38,7 @@ enum {
 extern uint16_t key_press_status;
 extern uint32_t timer_3s_buffer;
 #if defined(SPLIT_KEYBOARD)
-#    ifdef RGB_MATRIX_ENABLE
+#    if defined(RGB_MATRIX_ENABLE)
 extern uint8_t led_state;
 extern uint8_t light_test_state;
 extern HSV     hsv;
