@@ -1,4 +1,4 @@
-/* Copyright (C) 2022 jonylee@hfd
+/* Copyright (C) 2023 jonylee@hfd
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,72 +75,6 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, G_16,  H_16,  I_16},
 };
 
-led_config_t g_led_config = {
-    {
-        {  0,       1,      2,      3,      4,      5,      6,      7,      8,      9,      10,     11},
-        {  12,     13,     14,     15,      16,     17,     18,     19,     20,     21,     22,     23},
-        {  24,     25,     26,     27,      28,     29,     30,     31,     32,     33,     34,     35},
-        {  36,     37,     38,     39,      40,     41,     NO_LED, 42,     43,     44,     45,     46}
-    },
-    {
-    {  0,  0}, //  0
-    { 20,  0}, //  1
-    { 40,  0}, //  2
-    { 61,  0}, //  3
-    { 81,  0}, //  4
-    { 101, 0}, //  5
-    { 122, 0}, //  6
-    {142,  0}, //  7
-    {162,  0}, //  8
-    {183,  0}, //  9
-    {203,  0}, // 10
-    {224,  0}, // 11
-
-    {  0,  21}, //  12
-    { 20,  21}, //  13
-    { 40,  21}, //  14
-    { 61,  21}, //  15
-    { 81,  21}, //  16
-    { 101, 21}, //  17
-    { 122, 21}, //  18
-    {142,  21}, //  19
-    {162,  21}, //  20
-    {183,  21}, //  21
-    {203,  21}, // 22
-    {224,  21}, // 23
-
-    {  0,  42}, //  24
-    { 20,  42}, //  25
-    { 40,  42}, //  26
-    { 61,  42}, //  27
-    { 81,  42}, //  28
-    { 101, 42}, //  29
-    { 122, 42}, //  30
-    {142,  42}, //  31
-    {162,  42}, //  32
-    {183,  42}, //  33
-    {203,  42}, // 34
-    {224,  42}, // 35
-
-    {  0,  64}, //  36
-    { 20,  64}, //  37
-    { 40,  64}, //  38
-    { 61,  64}, //  39
-    { 81,  64}, //  40
-    { 111, 64}, //  41
-    {142,  64}, //  42
-    {162,  64}, //  43
-    {183,  64}, //  44
-    {203,  64}, // 45
-    {224,  64}  // 46
-    },
-    {
-        4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,   4,  4,      4,  4,  4,
-        4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,   4,  4,  4,  4,  4,  4,
-        4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,   4,  4,  4
-    }
-};
-
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -156,10 +90,10 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 }
 #endif
 enum colors {
-    WHITE, 
-    RED, 
-    GREEN, 
-    BLUE 
+    WHITE,
+    RED,
+    GREEN,
+    BLUE
 };
 enum colors led_color_status = WHITE;
 
@@ -209,7 +143,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     current_time = timer_read();
                     scancode     = KC_SPC;
                 }
-                return false;   
+                return false;
             } else {
                 Lkey_flag = 0;
             }
@@ -259,7 +193,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     rgb_matrix_set_speed((uint8_t)(UINT8_MAX / 5) * RGB_HSV_level);
                 }
             }
-            return false;     
+            return false;
 #endif
         default:
             return true;
@@ -328,7 +262,7 @@ void housekeeping_task_kb(void) {
 
 void led_test(uint8_t color) {
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
- 
+
     switch (color) {
         case WHITE:
             rgb_matrix_sethsv_noeeprom(HSV_WHITE);
