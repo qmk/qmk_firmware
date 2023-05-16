@@ -1,6 +1,3 @@
-# MCU name
-MCU               = atmega32u4
-
 # Bootloader selection
 # BOOTLOADER        = qmk-dfu  # Elite C
 BOOTLOADER        = caterina
