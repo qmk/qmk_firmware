@@ -1,12 +1,12 @@
-# qvex/lynepad
+# QVEX Lynepad
 
-![qvex/lynepad](imgur.com image replace me!)
+![qvex/lynepad](https://qvex.eu/img/lynepad.jpg)
 
-*A short description of the keyboard/project*
+Macro pad with 11 keys, thumbwheel encoder, and rotary 4-way switch.
 
-* Keyboard Maintainer: QVEX Tech
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [QVEX Tech](https://qvex.eu)
+* Hardware Supported: QVEX Lynepad
+* Hardware Availability: [QVEX Lynepad on Tindie](https://www.tindie.com/products/qvex_tech/qvex-lynepad-macro-keypad/)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -22,6 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Hold down top left key and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB (rev. 2.x or newer)
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available (usualy bottom right key on layer 4)
