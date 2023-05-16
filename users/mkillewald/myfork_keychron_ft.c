@@ -32,8 +32,8 @@ uint16_t            key_press_status    = 0;
 uint8_t             factory_reset_count = 0;
 extern matrix_row_t matrix[MATRIX_ROWS];
 
-#ifdef SPLIT_KEYBOARD
-#    ifdef RGB_MATRIX_ENABLE
+#if defined(SPLIT_KEYBOARD)
+#    if defined(RGB_MATRIX_ENABLE)
 uint8_t led_state        = 0;
 uint8_t light_test_state = 0;
 HSV     hsv;
@@ -43,7 +43,7 @@ HSV     hsv;
 static uint32_t LED_flash_300ms(uint32_t trigger_time, void *cb_arg) {
     if (factory_reset_count++ > 6) {
         factory_reset_count = 0;
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
     if (is_win_mode()) { 
         set_win_base_rgb();
     } else {
@@ -66,13 +66,13 @@ static void factory_reset(void) {
     eeconfig_init();
     default_layer_set(default_layer);
     led_test_mode = LED_TEST_MODE_OFF;
-#ifdef LED_MATRIX_ENABLE
+#if defined(LED_MATRIX_ENABLE)
     if (!led_matrix_is_enabled()) {
         led_matrix_enable();
     }
     led_matrix_init();
 #endif
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
     if (!rgb_matrix_is_enabled()) {
         rgb_matrix_enable();
     }
@@ -89,16 +89,16 @@ static uint32_t combo_exec_3s(uint32_t trigger_time, void *cb_arg) {
     if (key_press_status == KEY_PRESS_FACTORY_RESET) {
         factory_reset();
     } else if (key_press_status == KEY_PRESS_LED_TEST) {
-#ifdef SPLIT_KEYBOARD
+#if defined(SPLIT_KEYBOARD)
         rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
 #endif
         led_test_mode = LED_TEST_MODE_WHITE;
-#ifdef LED_MATRIX_ENABLE
+#if defined(LED_MATRIX_ENABLE)
         if (!led_matrix_is_enabled()) {
             led_matrix_enable_noeeprom();
         }
 #endif
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
         if (!rgb_matrix_is_enabled()) {
             rgb_matrix_enable_noeeprom();
         }
@@ -115,7 +115,7 @@ bool process_record_myfork_keychron_ft(uint16_t keycode, keyrecord_t *record) {
 #    ifdef FN_KEY1
         case FN_KEY1: /* fall through */
 #    endif
-#    ifdef FN_KEY2
+#    if defined(FN_KEY2)
         case FN_KEY2:
 #    endif
             if (record->event.pressed) {
@@ -204,7 +204,7 @@ bool process_record_myfork_keychron_ft(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-#ifdef LED_MATRIX_ENABLE
+#if defined(LED_MATRIX_ENABLE)
 bool led_matrix_indicators_advanced_myfork_keychron_ft(uint8_t led_min, uint8_t led_max) {
     if (factory_reset_count) {
         for (uint8_t i = led_min; i <= led_max; i++) {
@@ -215,7 +215,7 @@ bool led_matrix_indicators_advanced_myfork_keychron_ft(uint8_t led_min, uint8_t 
 }
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
 bool rgb_matrix_indicators_advanced_myfork_keychron_ft(uint8_t led_min, uint8_t led_max) {
     if (factory_reset_count) {
         if (rgb_matrix_get_mode() == RGB_MATRIX_SOLID_COLOR) {

@@ -37,7 +37,7 @@ enum {
 
 extern uint16_t key_press_status;
 extern uint32_t timer_3s_buffer;
-#ifdef SPLIT_KEYBOARD
+#if defined(SPLIT_KEYBOARD)
 #    ifdef RGB_MATRIX_ENABLE
 extern uint8_t led_state;
 extern uint8_t light_test_state;
@@ -48,10 +48,10 @@ extern HSV     hsv;
 bool process_record_myfork_keychron_ft(uint16_t keycode, keyrecord_t *record);
 void housekeeping_task_myfork_keychron_ft(void);
 
-#ifdef LED_MATRIX_ENABLE
+#if defined(LED_MATRIX_ENABLE)
 bool led_matrix_indicators_advanced_myfork_keychron_ft(uint8_t led_min, uint8_t led_max);
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE)
 bool rgb_matrix_indicators_advanced_myfork_keychron_ft(uint8_t led_min, uint8_t led_max);
 #endif
