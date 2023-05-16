@@ -1,6 +1,7 @@
 #ifdef RGBLIGHT_ENABLE
 
 #include <stdio.h>
+#include "quantum.h"
 
 extern rgblight_config_t rgblight_config;
 char rbf_info_str[24];
