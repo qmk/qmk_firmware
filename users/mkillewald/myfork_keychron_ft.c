@@ -44,12 +44,12 @@ static uint32_t LED_flash_300ms(uint32_t trigger_time, void *cb_arg) {
     if (factory_reset_count++ > 6) {
         factory_reset_count = 0;
 #if defined(RGB_MATRIX_ENABLE)
-    if (is_win_mode()) { 
-        set_win_base_rgb();
-    } else {
-        set_mac_base_rgb();
-    }
-#    ifdef SPLIT_KEYBOARD
+        if (is_win_mode()) { 
+            set_win_base_rgb();
+        } else {
+            set_mac_base_rgb();
+        }
+#    if defined(SPLIT_KEYBOARD)
         rgb_matrix_mode_noeeprom(led_state);
         rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
 #    endif
@@ -77,7 +77,7 @@ static void factory_reset(void) {
         rgb_matrix_enable();
     }
     rgb_matrix_init();
-#    ifdef SPLIT_KEYBOARD
+#    if defined(SPLIT_KEYBOARD)
     led_state = rgb_matrix_get_mode();
     hsv       = rgb_matrix_get_hsv();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
