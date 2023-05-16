@@ -42,7 +42,7 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return rotation;
 }
 
-void oled_render_layer_state(void) {
+static void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
@@ -70,7 +70,7 @@ uint8_t  last_col;
 
 static const char PROGMEM code_to_name[60] = {' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\', '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
-__attribute__((weak)) void set_keylog(uint16_t keycode, keyrecord_t *record) {
+static void set_keylog(uint16_t keycode, keyrecord_t *record) {
     key_name     = ' ';
     last_keycode = keycode;
     if (IS_QK_MOD_TAP(keycode)) {
@@ -96,13 +96,13 @@ __attribute__((weak)) void set_keylog(uint16_t keycode, keyrecord_t *record) {
     last_col = record->event.key.col;
 }
 
-const char *depad_str(const char *depad_str, char depad_char) {
+static const char *depad_str(const char *depad_str, char depad_char) {
     while (*depad_str == depad_char)
         ++depad_str;
     return depad_str;
 }
 
-void oled_render_keylog(void) {
+static void oled_render_keylog(void) {
     const char *last_row_str = get_u8_str(last_row, ' ');
     oled_write(depad_str(last_row_str, ' '), false);
     oled_write_P(PSTR("x"), false);
@@ -115,20 +115,20 @@ void oled_render_keylog(void) {
     oled_write_char(key_name, false);
 }
 
-void render_bootmagic_status(bool status) {
-    /* Show Ctrl-Gui Swap options */
-    static const char PROGMEM logo[][2][3] = {
-        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
-        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
-    };
-    if (status) {
-        oled_write_ln_P(logo[0][0], false);
-        oled_write_ln_P(logo[0][1], false);
-    } else {
-        oled_write_ln_P(logo[1][0], false);
-        oled_write_ln_P(logo[1][1], false);
-    }
-}
+// static void render_bootmagic_status(bool status) {
+//     /* Show Ctrl-Gui Swap options */
+//     static const char PROGMEM logo[][2][3] = {
+//         {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
+//         {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
+//     };
+//     if (status) {
+//         oled_write_ln_P(logo[0][0], false);
+//         oled_write_ln_P(logo[0][1], false);
+//     } else {
+//         oled_write_ln_P(logo[1][0], false);
+//         oled_write_ln_P(logo[1][1], false);
+//     }
+// }
 
 __attribute__((weak)) void oled_render_logo(void) {
     // clang-format off
