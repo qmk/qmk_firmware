@@ -52,8 +52,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     select_row(current_row);
     wait_us(30);
 
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) 
-    {
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         uint8_t pin_state = readPin(col_pins[col_index]);
         current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
     }
@@ -75,31 +74,24 @@ static bool read_encoder_switches(matrix_row_t current_matrix[]) {
 
     if (!readPin(PIN_JC))
     {
-        if (!readPin(PIN_JU))
-        {
+        if (!readPin(PIN_JU)){
             current_matrix[3] |= (1 << 0);
         }
-        else if (!readPin(PIN_JD))
-        {
+        else if (!readPin(PIN_JD)){
             current_matrix[3] |= (1 << 1);
         }
-        else if (!readPin(PIN_JL))
-        {
+        else if (!readPin(PIN_JL)){
             current_matrix[3] |= (1 << 2);
         }
-        else if (!readPin(PIN_JR))
-        {
+        else if (!readPin(PIN_JR)){
             current_matrix[3] |= (1 << 3);
         }
-        else
-        {
+        else{
             current_matrix[4] |= (1 << 0);
         }
     }
 
-
     return last_fourth_row != current_matrix[3] || last_fifth_row != current_matrix[4];
-
 }
 
 
@@ -114,8 +106,7 @@ void matrix_init_custom(void) {
 bool matrix_scan_custom(void) {
     bool changed = false;
 
-    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) 
-    {
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         changed |= read_cols_on_row(raw_matrix, current_row);
     }
 
