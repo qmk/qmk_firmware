@@ -335,7 +335,7 @@ bool oled_send_data(const uint8_t *data, uint16_t size);
 // Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
 void oled_clear(void);
 
-// Alias to olde_render_dirty to avoid a change in api. 
+// Alias to oled_render_dirty to avoid a change in api.
 #define oled_render() oled_render_dirty(false)
 
 // Renders all dirty blocks to the display at one time or a subset depending on the value of
