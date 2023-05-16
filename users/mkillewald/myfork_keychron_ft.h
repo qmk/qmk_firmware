@@ -24,6 +24,7 @@
 #define KEY_PRESS_STEP_4 (0x1 << 4)
 #define KEY_PRESS_FACTORY_RESET (KEY_PRESS_STEP_0 | KEY_PRESS_STEP_1 | KEY_PRESS_STEP_2)
 #define KEY_PRESS_LED_TEST (KEY_PRESS_STEP_0 | KEY_PRESS_STEP_3 | KEY_PRESS_STEP_4)
+
 // clang-format off
 enum {
     LED_TEST_MODE_OFF,
@@ -35,10 +36,8 @@ enum {
 } led_test_mode;
 // clang-format on
 
-extern uint16_t key_press_status;
-extern uint32_t timer_3s_buffer;
-#if defined(SPLIT_KEYBOARD)
-#    if defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
+#    if defined(SPLIT_KEYBOARD)
 extern uint8_t led_state;
 extern uint8_t light_test_state;
 extern HSV     hsv;
