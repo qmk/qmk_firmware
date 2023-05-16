@@ -122,8 +122,7 @@ void rgblight_sethue_noeeprom(uint8_t hue){
 
 //set correct layer hue on layer change
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) 
-    {
+    switch (get_highest_layer(state)) {
         case 1:
             rgblight_sethue_noeeprom(RGB_HUE_LAYER1);
             break;

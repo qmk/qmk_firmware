@@ -1,7 +1,7 @@
-# QVEX
+# QVEX Tech
 
-QVEX is a keyboard vendor based in Czechia
+QVEX Tech is a keyboard vendor based in the Czech Republic
 
 ## Online Stores
 
-**Website:** https://www.tindie.com/products/qvex_tech/qvex-lynepad-macro-keypad/
+**Tindie:** https://www.tindie.com/products/qvex_tech/qvex-lynepad-macro-keypad/
