@@ -168,11 +168,15 @@ bool oled_task_user(void) {
 
 Render a message before booting into bootloader mode.
 ```c
-void oled_render_boot(void) {
+void oled_render_boot(bool bootloader) {
     oled_clear();
     for (int i = 0; i < 16; i++) {
         oled_set_cursor(0, i);
-        oled_write_P(PSTR("BOOT "), false);
+        if (bootloader) {
+            oled_write_P(PSTR("Awaiting New Firmware "), false);
+        } else {
+            oled_write_P(PSTR("Rebooting "), false);
+        }
     }
 
     oled_render_dirty(true);
@@ -193,9 +197,7 @@ bool uint16_t keycode, keyrecord_t *record) {
 }
 
 void shutdown_user(void) {
-    if (reboot) {
-        oled_render_boot();
-    }
+    oled_render_boot(reboot);
 }
 
 ```
