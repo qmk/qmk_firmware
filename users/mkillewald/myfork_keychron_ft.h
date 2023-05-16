@@ -46,7 +46,6 @@ extern HSV     hsv;
 #endif
 
 bool process_record_myfork_keychron_ft(uint16_t keycode, keyrecord_t *record);
-void housekeeping_task_myfork_keychron_ft(void);
 
 #if defined(LED_MATRIX_ENABLE)
 bool led_matrix_indicators_advanced_myfork_keychron_ft(uint8_t led_min, uint8_t led_max);
