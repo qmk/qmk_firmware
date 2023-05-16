@@ -27,9 +27,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 {
     [0] = LAYOUT //Default
     (
-        G(KC_D),   G(KC_TAB), C(G(KC_LEFT)),   C(G(KC_RIGHT)),
-        G(KC_E),   XXXXXXX,  C(KC_C),  C(KC_V),
-        KC_LGUI,   XXXXXXX,  XXXXXXX,
+        KC_MS_BTN4,   KC_MS_BTN2,   KC_MS_UP,    KC_MS_BTN1,
+        KC_MS_BTN5,   KC_MS_LEFT,   KC_MS_DOWN,  KC_MS_RIGHT,
+        KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2,
 
         KC_VOLU,   KC_VOLD,   KC_MPRV,   KC_MNXT,   //joystick up, down, left, right
         KC_MPLY,   MO(4)                            //joystick center push, thumbwheel push
@@ -37,12 +37,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 
     [1] = LAYOUT //KiCad
     (
-        KC_ESC,   KC_R,   KC_M,   KC_DEL,
-        KC_V,     KC_G,   KC_D,   KC_X,
-        MO(3),    KC_B,   C(KC_V),
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+        XXXXXXX,   XXXXXXX,   XXXXXXX,
 
-        KC_PLUS,   KC_MINUS,   C(KC_Y),   C(KC_Z),  //joystick up, down, left, right
-        KC_PGDN,   MO(4)                            //joystick center push, thumbwheel push
+        XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  //joystick up, down, left, right
+        XXXXXXX,   MO(4)                           //joystick center push, thumbwheel push
     ),
 
     [2] = LAYOUT
@@ -82,13 +82,13 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] =
     [0] =   
     { 
         ENCODER_CCW_CW(KC_VOLD, KC_VOLU), 
-        ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  
+        ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP)  
     },
 
     [1] =   
     { 
-        ENCODER_CCW_CW(LSFT(KC_W), KC_W), 
-        ENCODER_CCW_CW(KC_N, LSFT(KC_N))  
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX), 
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX)  
     },
 
     [2] =   
