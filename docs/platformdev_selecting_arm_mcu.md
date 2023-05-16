@@ -40,7 +40,7 @@ For the most part, this is the bare minimum to be able to have a high confidence
 <details>
  <summary><b>Table of ChibiOS supported STM32 MCU with USB and/or OTG from the Dec 18,20,29, 2022 commits.</b></summary>
 
-<i>This table represents theoretical support. Not all packages will physically work due their lack of USB/OTG pins.</i>
+<i>This table represents theoretical support of ChibiOS.<br>Not all packages will physically work due their lack of USB/OTG pins or may require specific configuration mentioned in their respective documentation.</i>
 
 ### STM32_HAS_USB TRUE
 
