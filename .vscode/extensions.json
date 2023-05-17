@@ -3,7 +3,7 @@
   "recommendations": [
     "EditorConfig.EditorConfig",
     "xaver.clang-format",
-    "llvm-vs-code-extensions.vscode-clangd",
+    "ms-vscode.cpptools",
     "bierner.github-markdown-preview",
     "donjayamanne.git-extension-pack"
   ]

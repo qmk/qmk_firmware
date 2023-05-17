@@ -57,7 +57,6 @@ subcommands = [
     'qmk.cli.generate.keyboard_h',
     'qmk.cli.generate.keycodes',
     'qmk.cli.generate.keycodes_tests',
-    'qmk.cli.generate.make_dependencies',
     'qmk.cli.generate.rgb_breathe_table',
     'qmk.cli.generate.rules_mk',
     'qmk.cli.generate.version_h',

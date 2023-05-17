@@ -9,8 +9,7 @@ SPACE_CADET_ENABLE    = no
 LEADER_ENABLE         = no
 DYNAMIC_MACRO_ENABLE  = yes
 
-LTO_ENABLE            = yes
-CAPS_WORD_ENABLE      = yes
+LTO_ENABLE = yes
 
 ifeq ($(strip $(KEYBOARD)), planck/rev3)
 	AUDIO_ENABLE	  = no
