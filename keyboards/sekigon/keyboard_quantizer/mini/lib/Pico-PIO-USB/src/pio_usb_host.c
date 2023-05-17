@@ -27,7 +27,7 @@ static volatile bool cancel_timer_flag;
 static volatile bool start_timer_flag;
 static __unused uint32_t int_stat;
 
-static bool sof_timer(repeating_timer_t *_rt);
+bool sof_timer(repeating_timer_t *_rt);
 
 //--------------------------------------------------------------------+
 // Application API
@@ -38,12 +38,12 @@ static void start_timer(alarm_pool_t *alarm_pool) {
     return;
   }
 
-  if (alarm_pool != NULL) {
-    alarm_pool_add_repeating_timer_us(alarm_pool, -1000, sof_timer, NULL,
-                                      &sof_rt);
-  } else {
-    add_repeating_timer_us(-1000, sof_timer, NULL, &sof_rt);
-  }
+  // if (alarm_pool != NULL) {
+  //   alarm_pool_add_repeating_timer_us(alarm_pool, -1000, sof_timer, NULL,
+  //                                     &sof_rt);
+  // } else {
+  //   add_repeating_timer_us(-1000, sof_timer, NULL, &sof_rt);
+  // }
 
   timer_active = true;
 }
@@ -75,10 +75,10 @@ usb_device_t *pio_usb_host_init(const pio_usb_configuration_t *c) {
                                   &pp->clk_div_ls_rx.div_int,
                                   &pp->clk_div_ls_rx.div_frac);
 
-  _alarm_pool = c->alarm_pool;
-  if (!_alarm_pool) {
-    _alarm_pool = alarm_pool_create(2, 1);
-  }
+  // _alarm_pool = c->alarm_pool;
+  // if (!_alarm_pool) {
+  //   _alarm_pool = alarm_pool_create(2, 1);
+  // }
 
   start_timer(_alarm_pool);
 
@@ -200,7 +200,7 @@ static int usb_setup_transaction(pio_port_t *pp, endpoint_t *ep);
 static int usb_in_transaction(pio_port_t *pp, endpoint_t *ep);
 static int usb_out_transaction(pio_port_t *pp, endpoint_t *ep);
 
-static bool __no_inline_not_in_flash_func(sof_timer)(repeating_timer_t *_rt) {
+bool __no_inline_not_in_flash_func(sof_timer)(repeating_timer_t *_rt) {
   static uint8_t sof_packet[4] = {USB_SYNC, USB_PID_SOF, 0x00, 0x10};
   static uint8_t sof_count = 0;
   (void)_rt;
@@ -277,6 +277,7 @@ static bool __no_inline_not_in_flash_func(sof_timer)(repeating_timer_t *_rt) {
         root->connected = true;
         root->suspended = true; // need a bus reset before operating
         root->ints |= PIO_USB_INTS_CONNECT_BITS;
+    pp->total_transaction_count++;
       }
     }
   }
@@ -284,7 +285,9 @@ static bool __no_inline_not_in_flash_func(sof_timer)(repeating_timer_t *_rt) {
   // Invoke IRQHandler if interrupt status is set
   for (uint8_t root_idx = 0; root_idx < PIO_USB_ROOT_PORT_CNT; root_idx++) {
     if (PIO_USB_ROOT_PORT(root_idx)->ints) {
+    pp->total_transaction_count++;
       pio_usb_host_irq_handler(root_idx);
+    pp->total_transaction_count++;
     }
   }
 
@@ -526,25 +529,40 @@ static int __no_inline_not_in_flash_func(usb_setup_transaction)(
 
   int res = 0;
 
+    pp->total_transaction_count++;
   // Setup token
   pio_usb_bus_prepare_receive(pp);
 
+    pp->total_transaction_count++;
+  // Setup token
   pio_usb_bus_send_token(pp, USB_PID_SETUP, ep->dev_addr, 0);
+    pp->total_transaction_count++;
+  // Setup token
   // ensure previous tx complete
   while ((pp->pio_usb_tx->irq & IRQ_TX_COMP_MASK) == 0) {
     continue;
   }
 
+    pp->total_transaction_count++;
+  // Setup token
   // Data
   ep->data_id = 0; // set to DATA0
   pio_usb_bus_usb_transfer(pp, ep->buffer, 12);
 
+    pp->total_transaction_count++;
+  // Setup token
   // Handshake
   pio_usb_bus_start_receive(pp);
+    pp->total_transaction_count++;
+  // Setup token
   pio_usb_bus_wait_handshake(pp);
+    pp->total_transaction_count++;
+  // Setup token
 
   ep->actual_len = 8;
 
+    pp->total_transaction_count++;
+  // Setup token
   if (pp->usb_rx_buffer[0] == USB_SYNC && pp->usb_rx_buffer[1] == USB_PID_ACK) {
     pio_usb_ll_transfer_complete(ep, PIO_USB_INTS_ENDPOINT_COMPLETE_BITS);
   } else {
@@ -552,6 +570,8 @@ static int __no_inline_not_in_flash_func(usb_setup_transaction)(
     pio_usb_ll_transfer_complete(ep, PIO_USB_INTS_ENDPOINT_ERROR_BITS);
   }
 
+    pp->total_transaction_count++;
+  // Setup token
   pp->usb_rx_buffer[1] = 0; // reset buffer
 
   return res;

@@ -3,14 +3,18 @@
 
 #include "keyboard.h"
 #include "pico/stdlib.h"
-
-extern void start_core1(void);
+#include "bootloader.h"
+#include "debug.h"
 
 void keyboard_pre_init_kb(void) {
     set_sys_clock_khz(120000, true);
 }
 
-void keyboard_post_init_kb(void) {
-    start_core1();
-    keyboard_post_init_user();
+void virtser_recv(uint8_t c) {
+    if (c == 'b') {
+        bootloader_jump();
+    } else if (c == 'd') {
+        debug_enable = !debug_enable;
+        uprintf("Debug %s\n", debug_enable ? "enabled" : "disabled");
+    }
 }

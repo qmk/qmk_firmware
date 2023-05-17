@@ -6,11 +6,12 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
+        "command": true,
+        "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "virtser": true
     },
     "matrix_pins": {
         "cols": [
@@ -54,7 +55,7 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
+        "pid": "0x999B",
         "vid": "0xFEED"
     },
     "layouts": {

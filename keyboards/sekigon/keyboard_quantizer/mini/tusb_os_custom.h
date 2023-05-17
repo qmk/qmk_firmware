@@ -2,6 +2,7 @@
  * The MIT License (MIT)
  *
  * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+ * Copyright (c) 2023 sekigon-gonnoc
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,90 +24,48 @@
  *
  * This file is part of the TinyUSB stack.
  */
-
-#ifndef _TUSB_OSAL_PICO_H_
-#define _TUSB_OSAL_PICO_H_
-
-#include "pico/time.h"
-#include "pico/sem.h"
-#include "pico/mutex.h"
-#include "pico/critical_section.h"
+#pragma once
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
-//--------------------------------------------------------------------+
-// TASK API
-//--------------------------------------------------------------------+
-TU_ATTR_ALWAYS_INLINE static inline void osal_task_delay(uint32_t msec)
-{
-  sleep_ms(msec);
-}
+ typedef struct {
+     struct {
+         void *prev;
+             void *next;
+     } queue_t;
+     void* owner;
+     void* next;
+     uint32_t cnt;
+ } chtemp_mutex_t;
 
-//--------------------------------------------------------------------+
-// Binary Semaphore API
-//--------------------------------------------------------------------+
-typedef struct semaphore osal_semaphore_def_t, *osal_semaphore_t;
-
-TU_ATTR_ALWAYS_INLINE static inline osal_semaphore_t osal_semaphore_create(osal_semaphore_def_t* semdef)
-{
-  sem_init(semdef, 0, 255);
-  return semdef;
-}
-
-TU_ATTR_ALWAYS_INLINE static inline bool osal_semaphore_post(osal_semaphore_t sem_hdl, bool in_isr)
-{
-  (void) in_isr;
-  sem_release(sem_hdl);
-  return true;
-}
-
-TU_ATTR_ALWAYS_INLINE static inline bool osal_semaphore_wait (osal_semaphore_t sem_hdl, uint32_t msec)
-{
-  return sem_acquire_timeout_ms(sem_hdl, msec);
-}
-
-TU_ATTR_ALWAYS_INLINE static inline void osal_semaphore_reset(osal_semaphore_t sem_hdl)
-{
-  sem_reset(sem_hdl, 0);
-}
-
-//--------------------------------------------------------------------+
-// MUTEX API
-// Within tinyusb, mutex is never used in ISR context
-//--------------------------------------------------------------------+
-typedef struct mutex osal_mutex_def_t, *osal_mutex_t;
-
-TU_ATTR_ALWAYS_INLINE static inline osal_mutex_t osal_mutex_create(osal_mutex_def_t* mdef)
-{
-  mutex_init(mdef);
-  return mdef;
-}
-
-TU_ATTR_ALWAYS_INLINE static inline bool osal_mutex_lock (osal_mutex_t mutex_hdl, uint32_t msec)
-{
-  return mutex_enter_timeout_ms(mutex_hdl, msec);
-}
-
-TU_ATTR_ALWAYS_INLINE static inline bool osal_mutex_unlock(osal_mutex_t mutex_hdl)
-{
-  mutex_exit(mutex_hdl);
-  return true;
-}
+typedef chtemp_mutex_t osal_mutex_def_t, *osal_mutex_t;
+void osal_task_delay(uint32_t msec);
+osal_mutex_t osal_mutex_create(osal_mutex_def_t* mdef);
+bool osal_mutex_lock (osal_mutex_t mutex_hdl, uint32_t msec);
+bool osal_mutex_unlock(osal_mutex_t mutex_hdl);
 
 //--------------------------------------------------------------------+
 // QUEUE API
 //--------------------------------------------------------------------+
+
 #include "common/tusb_fifo.h"
 
 typedef struct
 {
     tu_fifo_t ff;
-    struct critical_section critsec; // osal_queue may be used in IRQs, so need critical section
+    chtemp_mutex_t mutex;
 } osal_queue_def_t;
 
 typedef osal_queue_def_t* osal_queue_t;
+
+static inline void _osal_q_lock(osal_queue_t qhdl) {
+    osal_mutex_lock(&qhdl->mutex,0);
+}
+static inline void _osal_q_unlock(osal_queue_t qhdl){
+    osal_mutex_unlock(&qhdl->mutex);
+}
 
 // role device/host is used by OS NONE for mutex (disable usb isr) only
 #define OSAL_QUEUE_DEF(_int_set, _name, _depth, _type)       \
@@ -115,22 +74,10 @@ typedef osal_queue_def_t* osal_queue_t;
     .ff = TU_FIFO_INIT(_name##_buf, _depth, _type, false) \
   }
 
-// lock queue by disable USB interrupt
-TU_ATTR_ALWAYS_INLINE static inline void _osal_q_lock(osal_queue_t qhdl)
-{
-  critical_section_enter_blocking(&qhdl->critsec);
-}
-
-// unlock queue
-TU_ATTR_ALWAYS_INLINE static inline void _osal_q_unlock(osal_queue_t qhdl)
-{
-  critical_section_exit(&qhdl->critsec);
-}
-
 TU_ATTR_ALWAYS_INLINE static inline osal_queue_t osal_queue_create(osal_queue_def_t* qdef)
 {
-  critical_section_init(&qdef->critsec);
   tu_fifo_clear(&qdef->ff);
+  osal_mutex_create(&qdef->mutex);
   return (osal_queue_t) qdef;
 }
 
@@ -176,9 +123,6 @@ TU_ATTR_ALWAYS_INLINE static inline bool osal_queue_empty(osal_queue_t qhdl)
   // with interrupt disabled before going into low power mode
   return tu_fifo_empty(&qhdl->ff);
 }
-
 #ifdef __cplusplus
  }
 #endif
-
-#endif /* _TUSB_OSAL_PICO_H_ */

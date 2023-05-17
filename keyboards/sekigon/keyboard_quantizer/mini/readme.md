@@ -1,12 +1,12 @@
-# sekigon/keyboard_quantizer/mini
+# Keyboard Quantizer Mini
 
-![sekigon/keyboard_quantizer/mini](imgur.com image replace me!)
+![sekigon/keyboard_quantizer/mini](https://i.gyazo.com/aca68f4592ff92eea99a55d710bd2ae3.jpg)
 
-*A short description of the keyboard/project*
+*A keyboard converter powered by QMK*
 
 * Keyboard Maintainer: [sekigon-gonnoc](https://github.com/sekigon-gonnoc)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: The hardware of [Keyboard Qauntizer](https://github.com/sekigon-gonnoc/keyboard-quantizer-doc)
+* Hardware Availability: Available at [BOOTH](https://nogikes.booth.pm/items/2256612)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -20,8 +20,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Virtser**: Send `b` to the device through virtser
