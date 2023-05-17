@@ -28,6 +28,10 @@
     "rgb_matrix": {
         "driver": "IS31FL3733",
         "max_brightness": 200,
+        "val_steps": 50,
+        "sat_steps": 65,
+        "hue_steps": 65,
+        "speed_steps": 65,
         "animations": {
             "breathing": true,
             "cycle_all": true,
