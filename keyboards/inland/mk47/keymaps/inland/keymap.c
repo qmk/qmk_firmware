@@ -64,7 +64,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void housekeeping_task_user(void) {
 
-    if (pressed_time && (timer_elapsed(pressed_time) >= 1500)) {
+    if (pressed_time && (timer_elapsed(pressed_time) >= 5000)) {
         pressed_time = 0;
         eeconfig_init();
         eeconfig_update_rgb_matrix_default();
