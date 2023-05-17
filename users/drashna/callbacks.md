@@ -53,9 +53,14 @@ void                        suspend_wakeup_init_user(void) {
 }
 
 
-__attribute__ ((weak)) void shutdown_keymap(void) {}
-void                        shutdown_user (void) {
-    shutdown_keymap();
+__attribute__((weak)) bool shutdown_keymap(bool jump_to_bootloader) {
+    return true;
+}
+bool shutdown_user(bool jump_to_bootloader) {
+    if (!shutdown_keymap(jump_to_bootloader)) {
+        return false;
+    }
+    return true;
 }
 
 __attribute__ ((weak)) void eeconfig_init_keymap(void) {}

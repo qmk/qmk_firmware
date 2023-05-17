@@ -68,7 +68,7 @@ void shutdown_keymap(void) {}
  * If RGBs enabled,
  * then set RGB color to Red
  */
-void shutdown_user (void) {
+bool shutdown_user(bool jump_to_bootloader) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
@@ -78,6 +78,7 @@ void shutdown_user (void) {
     rgb_matrix_set_color_all( 0xFF, 0x00, 0x00 );
 #endif //RGB_MATRIX_ENABLE
     shutdown_keymap();
+    return false;
 }
 
 __attribute__ ((weak))

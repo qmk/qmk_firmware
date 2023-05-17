@@ -22,10 +22,14 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-void shutdown_user(void) {
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
     // Shutdown LEDs
     writePinLow(LED_00);
     writePinLow(LED_01);
+    return true;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {

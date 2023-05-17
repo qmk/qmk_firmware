@@ -54,7 +54,7 @@ __attribute__((weak)) void shutdown_keymap(void) {}
 void rgb_matrix_update_pwm_buffers(void);
 
 // On RESET, set all RGB to red, shutdown the keymap.
-void shutdown_user(void) {
+bool shutdown_user(bool jump_to_bootloader) {
 #if defined(RGBLIGHT_ENABLE)
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
@@ -66,6 +66,7 @@ void shutdown_user(void) {
     rgb_matrix_update_pwm_buffers();
 #endif
     shutdown_keymap();
+    return false;
 }
 
 __attribute__((weak)) void suspend_power_down_keymap(void) {}

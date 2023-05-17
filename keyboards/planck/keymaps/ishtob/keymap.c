@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,       _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, LT_RAI(KC_MINS),
   KC_ESC,        KC_CAPS, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE, KC_RALT, TG_NUMLAY, KC_APP,  KC_DEL
 ),
- 
+
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,       _________________COLEMAK_L3________________, _________________COLEMAK_R3________________, LT_RAI(KC_MINS),
   KC_ESC,        KC_CAPS, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE, KC_RALT, TG_NUMLAY, KC_APP,  KC_DEL
 ),
- 
+
 /* Dvorak
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,       _________________DVORAK_L3_________________, _________________DVORAK_R3_________________, LT_RAI(KC_MINS),
   KC_ESC,        KC_CAPS, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE, KC_RALT, TG_NUMLAY, KC_APP,  KC_DEL
 ),
- 
+
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   ~  |  \   |
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, __________________LONG_FUNC_RIGHT__________________,S(KC_NUHS),S(KC_NUBS),KC_LCBR, KC_RCBR, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
- 
+
 /* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   *  |  \   |
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_LEFT, KC_DOWN, KC_RIGHT,KC_MUTE, KC_VOLD, KC_1,    KC_2,    KC_3,    KC_UP, KC_SLSH,   _______,
   _______, _______, _______, _______, _______, KC_SPC,  KC_0,   _______,  KC_LEFT, KC_DOWN, KC_RIGHT,   KC_NUM
 ),
- 
+
 /* Plover layer (http://opensteno.org)
  * ,-----------------------------------------------------------------------------------.
  * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
@@ -107,14 +107,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
- 
+
 [_PLOVER] = LAYOUT_ortho_4x12_wrapper(
   KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   ,
   XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
   XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX
 ),
- 
+
 /* FN layer on Esc key
  * ,-----------------------------------------------------------------------------------.
  * |      |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   +  |
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, __________________LONG_FUNC_RIGHT__________________,S(KC_NUHS),S(KC_NUBS),KC_LCBR, KC_RCBR, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
- 
+
 /* Num Layer
  * ,-----------------------------------------------------------------------------------.
  * |      |   Q  |  Up  |   4  |      |      |   7  |   8  |   9  |   -  |   +  | Bksp |
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_Z,    KC_X,    KC_C,     KC_V,    XXXXXXX,  KC_P1,  KC_P2,  KC_P3,   KC_PDOT, KC_PSLS,  _______,
   _______, _______, _______, _______, _______, _______,   KC_P0,  KC_PDOT, _______, _______, KC_NUM,  KC_MPLY
 ),
- 
+
 /* Mouse Layer (semi-col)
  * ,-----------------------------------------------------------------------------------.
  * | ACCL0| ACCL1| ACCL2|Email |Email2| Home | Wh_Up| WHL_L| M_Up | WHL_R|PASS| Meta |
@@ -162,14 +162,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |     BTN1    |      |      |      | Citx |      |
  * `-----------------------------------------------------------------------------------'
  */
- 
+
 [_MOUSECURSOR] = LAYOUT_ortho_4x12_wrapper(
   KC_ACL0, KC_ACL1, KC_ACL2, M_EMAIL,M_EMAIL2, KC_HOME, KC_PGUP, KC_WH_L, KC_MS_U, KC_WH_R, P_MPASS, P_META,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, O_RTQ6H, KC_END , KC_PGDN, KC_MS_L, KC_MS_D, KC_MS_R, _______, O_DAYRN,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, _______, _______,
   _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______, P_CITRIX, O_AUTODC
 ),
- 
+
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * | Reset|RGB TG|RGB ST|RGBH -|RGBH +|RGBS -|RGBS +|RGBV -|RGBV +|      |      |  Del |
@@ -187,21 +187,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, BL_DOWN,BL_UP,  BL_STEP, BL_TOGG,
   _______, _______, _______, _______, _______, _______, _______, _______, CK_RST, CK_DOWN, CK_UP, CK_TOGG
 )
- 
+
 
 };
 
 #ifdef AUDIO_ENABLE
-
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-
-float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
 
@@ -307,38 +302,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_keymap(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user(void)
-{
     #ifdef RGB_MATRIX_ENABLE
     rgblight_mode(RGB_MATRIX_CYCLE_ALL);
     #endif //RGB_matrix
-    wait_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
 }
-
-void shutdown_user(void)
-{
-    PLAY_SONG(tone_goodbye);
-    wait_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
-

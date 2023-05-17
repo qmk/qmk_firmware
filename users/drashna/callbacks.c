@@ -73,8 +73,13 @@ void                       keyboard_post_init_user(void) {
 void rgb_matrix_update_pwm_buffers(void);
 #endif
 
-__attribute__((weak)) void shutdown_keymap(void) {}
-void                       shutdown_user(void) {
+__attribute__((weak)) bool shutdown_keymap(bool jump_to_bootloader) {
+    return true;
+}
+bool shutdown_user(bool jump_to_bootloader) {
+    if (!shutdown_keymap(jump_to_bootloader)) {
+        return false;
+    }
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
@@ -87,8 +92,7 @@ void                       shutdown_user(void) {
 #ifdef OLED_ENABLE
     oled_off();
 #endif
-
-    shutdown_keymap();
+    return true;
 }
 
 __attribute__((weak)) void suspend_power_down_keymap(void) {}

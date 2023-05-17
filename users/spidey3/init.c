@@ -17,5 +17,8 @@ void eeconfig_init_user(void) {
 }
 
 #ifdef RGBLIGHT_ENABLE
-void shutdown_user(void) { shutdown_user_rgb(); }
+bool shutdown_user(bool jump_to_bootloader) {
+    shutdown_user_rgb();
+    return true;
+}
 #endif
