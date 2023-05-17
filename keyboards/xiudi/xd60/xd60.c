@@ -9,27 +9,17 @@ extern inline void xd60_bl_led_off(void);
 
 
 void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-		setPinOutput(B2);
-		writePinLow(B2);
-	} else {
-		setPinOutput(B2);
-		writePinHigh(B2);
-  }
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        if(!IS_LAYER_ON_STATE(layer_state, 1)){
+            setPinOutput(B2);
+            writePinLow(B2);
+        }
+    } else {
+        setPinOutput(B2);
+        writePinHigh(B2);
+    }
 
-  // if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-	// xd60_esc_led_on();
-	// } else {
-	// xd60_esc_led_off();
-  // }
-
-  // if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-	// xd60_fn_led_on();
-	// } else {
-	// xd60_fn_led_off();
-  // }
-
-	led_set_user(usb_led);
+    led_set_user(usb_led);
 }
