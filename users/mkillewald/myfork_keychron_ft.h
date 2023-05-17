@@ -36,12 +36,10 @@ enum {
 } led_test_mode;
 // clang-format on
 
-#if defined(RGB_MATRIX_ENABLE)
-#    if defined(SPLIT_KEYBOARD)
+#if defined(RGB_MATRIX_ENABLE) && defined(SPLIT_KEYBOARD)
 extern uint8_t led_state;
 extern uint8_t light_test_state;
 extern HSV     hsv;
-#    endif
 #endif
 
 bool process_record_myfork_keychron_ft(uint16_t keycode, keyrecord_t *record);

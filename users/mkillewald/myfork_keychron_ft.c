@@ -32,12 +32,10 @@ uint16_t            key_press_status    = 0;
 uint8_t             factory_reset_count = 0;
 extern matrix_row_t matrix[MATRIX_ROWS];
 
-#if defined(SPLIT_KEYBOARD)
-#    if defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE) && defined(SPLIT_KEYBOARD)
 uint8_t led_state        = 0;
 uint8_t light_test_state = 0;
 HSV     hsv;
-#    endif
 #endif
 
 static uint32_t LED_flash_300ms(uint32_t trigger_time, void *cb_arg) {
