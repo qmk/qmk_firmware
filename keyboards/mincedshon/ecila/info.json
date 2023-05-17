@@ -10,6 +10,9 @@
     "ws2812": {
         "pin": "B0"
     },
+    "rgblight": {
+        "max_brightness": 150
+    },
     "bootloader": "atmel-dfu",
     "features": {
       "bootmagic": true,

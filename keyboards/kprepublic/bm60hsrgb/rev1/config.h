@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_LED_COUNT 69
 #    define RGBLED_NUM 69
 #    define RGB_MATRIX_KEYPRESSES
-#    define RGBLIGHT_LIMIT_VAL 180 // Limit to vendor-recommended value
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value
 // RGB Matrix Animation modes. Explicitly enabled

@@ -20,6 +20,9 @@
     "ws2812": {
         "pin": "A10"
     },
+    "rgblight": {
+        "max_brightness": 200
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "community_layouts": [

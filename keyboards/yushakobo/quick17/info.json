@@ -11,6 +11,9 @@
     "rgb_matrix": {
         "driver": "WS2812"
     },
+    "rgblight": {
+        "max_brightness": 150
+    },
     "matrix_pins": {
         "cols": ["F5", "D4", "E6", "F7", "C6", "D7"],
         "rows": ["F4", "B3", "B6"]
