@@ -105,7 +105,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 
 //set only hue, retain saturation, and value
-void rgblight_sethue_noeeprom(uint8_t hue){
+void rgblight_sethue_noeeprom(uint8_t hue) {
     //only if rgb led ring is on
     if (rgblight_get_mode()) {
         rgblight_sethsv_noeeprom(hue,rgblight_get_sat(),rgblight_get_val());
