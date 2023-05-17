@@ -1,4 +1,4 @@
-# TrainPad
+# trainpad
 
 Custom handwired one key keyboard. **See each individual board for pin information.**
 
