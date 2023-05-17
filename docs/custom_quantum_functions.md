@@ -283,6 +283,39 @@ void suspend_wakeup_init_user(void) {
 * Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 
+
+# Keyboard Shutdown/Reboot Code
+
+This function gets called whenever the firmware is reset, whether it's a soft reset or reset to the bootloader.  This is the spot to use for any sort of cleanup, as this happens right before the actual reset.  And it can be useful for turning off different systems (such as RGB, onboard screens, etc).
+
+Additionally, it differentiates between the soft reset (eg, rebooting back into the firmware) or jumping to the bootloader.
+
+Certain tasks are performed during shutodwn too.  The keyboard is cleared, music and midi is stopped (if enabled), the shutdown chime is triggered (if audio is enabled), and haptic is stopped turned off.
+
+?> Bootmagic does not trigger `shutdown_*()` as it happens before most of the initialization process.
+
+### Example `shutdown_user()` Implementation
+
+```c
+bool shutdown_user(bool jump_to_bootloader) {
+    if (jump_to_bootloader) {
+        // red for bootloader
+        rgb_matrix_set_color_all(RGB_RED);
+    } else {
+        // off for soft reset
+        rgb_matrix_set_color_all(RGB_OFF);
+    }
+    // force flushing -- otherwise will never happen
+    rgb_matrix_update_pwm_buffers();
+    return true;
+}
+```
+
+### Keyboard shutdown/reboot Function Documentation
+
+* Keyboard/Revision: `bool shutdown_kb(bool jump_to_bootloader)`
+* Keymap: `bool shutdown_user(bool jump_to_bootloader)`
+
 # Deferred Execution :id=deferred-execution
 
 QMK has the ability to execute a callback after a specified period of time, rather than having to manually manage timers. To enable this functionality, set `DEFERRED_EXEC_ENABLE = yes` in rules.mk.
