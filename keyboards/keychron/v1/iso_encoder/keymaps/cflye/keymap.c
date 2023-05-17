@@ -24,6 +24,8 @@
 
 #define LAYOUT_keychron_v1_wrapper(...) LAYOUT_iso_83(__VA_ARGS__)
 
+#undef _________________THUMB_RIGHT_______________
+#define _________________THUMB_RIGHT_______________       LT(_FUN,KC_DEL),  LT(_SYM,KC_TAB),   LT(_NUM,KC_TAB),   KC_NO,              KC_NO
 
 #define LAYOUT_keychron_v1_base(\
      K00, K01, K02, K03, K04,                K05, K06, K07, K08, K09,\
@@ -37,7 +39,7 @@ LAYOUT_keychron_v1_wrapper(\
     KC_TAB,     K00,     K01,     K02,     K03,     K04,     XXX,     K05,     K06,     K07,     K08,     K09,     XXX,                  KC_HOME,\
     KC_LSFT,    K10,     K11,     K12,     K13,     K14,     KC_AA,   K15,     K16,     K17,     K18,     K19,     KC_RSFT, KC_ENT,      KC_END,\
     KC_LCTL,    K20,     K21,     K22,     K23,     K24,     KC_AE,   KC_OE,   K25,     K26,     K27,     K28,     K29,     KC_UP,          \
-    KC_LGUI,    K32,     K33,                            KC_SPC,                       K36, K37, KC_LGUI,              KC_LEFT, KC_DOWN, KC_RGHT\
+    KC_LGUI,    K32,     LT(_NAV,KC_ESC),                KC_SPC,                       K36, K37, KC_LGUI,              KC_LEFT, KC_DOWN, KC_RGHT\
 )
 
 #define LAYOUT_keychron_v1_gaming(\

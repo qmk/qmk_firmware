@@ -21,6 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TOG_WS MT(MOD_LGUI | MOD_LSFT, KC_PSCR)
 #define ESC_CTL LCTL_T(KC_ESC)
 
+#undef _________________THUMB_RIGHT_______________
+#define _________________THUMB_RIGHT_______________       LT(_FUN,KC_DEL),  LT(_SYM,KC_TAB),   LT(_NUM,KC_TAB),   KC_NO,              KC_NO
+
 #define LAYOUT_gmmk_pro_iso_base(\
      K00, K01, K02, K03, K04,                K05, K06, K07, K08, K09,\
      K10, K11, K12, K13, K14,                K15, K16, K17, K18, K19,\
@@ -33,7 +36,7 @@ LAYOUT_gmmk_pro_iso_wrapper(\
     KC_TAB,     K00,     K01,     K02,     K03,     K04,     XXX,     K05,     K06,     K07,     K08,     K09,     XXX,                  KC_PGUP,\
     KC_LSFT,    K10,     K11,     K12,     K13,     K14,     KC_AA,   K15,     K16,     K17,     K18,     K19,     KC_RSFT,     KC_ENT,  KC_PGDN,\
     KC_LCTL,    K20,     K21,     K22,     K23,     K24,     KC_AE,   KC_OE,   K25,     K26,     K27,     K28,     K29,         KC_UP,   KC_END,\
-    KC_LGUI,    K32,     K33,                            KC_SPC,                       K36, K37, KC_LGUI,              KC_LEFT, KC_DOWN, KC_RGHT\
+    KC_LGUI,    K32,     LT(_NAV,KC_ESC),                KC_SPC,                       K36, K37, KC_LGUI,              KC_LEFT, KC_DOWN, KC_RGHT\
 )
 
 #define LAYOUT_gmmk_pro_iso_gaming(\
@@ -166,13 +169,14 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
-uprintf("achordion_chord: kc: 0x%04X, col: %2u, row: %2u, kc: 0x%04X, col: %2u, row: %2u, res %2u\n", other_keycode, other_record->event.key.col, other_record->event.key.row, tap_hold_keycode, tap_hold_record->event.key.col, tap_hold_record->event.key.row, tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4);
+  uprintf("achordion_chord: kc: 0x%04X, col: %2u, row: %2u, kc: 0x%04X, col: %2u, row: %2u, res %2u\n", other_keycode, other_record->event.key.col, other_record->event.key.row, tap_hold_keycode, tap_hold_record->event.key.col, tap_hold_record->event.key.row, tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4);
+
   // Exceptionally consider the following chords as holds, even though they
   // are on the same hand in Dvorak.
   switch (tap_hold_keycode) {
     case HOME_S:  // S + D and S + W.
       if (other_keycode == KC_D || other_keycode == KC_W || other_keycode == KC_P) { return true; }
-      break;
+      break; 
   }
   // Also allow same-hand holds when the other key is in the rows below the
   // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split.

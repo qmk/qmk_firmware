@@ -100,6 +100,6 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
-#define _________________THUMB_LEFT________________       KC_NO,             KC_NO,              LT(_MEDIA,KC_ESC),  LT(_NAV,KC_SPC),    LT(_MOUSE,KC_BSPC)
-#define _________________THUMB_RIGHT_______________       LT(_FUN,KC_DEL),  LT(_SYM,KC_ENT),   LT(_NUM,KC_TAB),   KC_NO,              KC_NO
+#define _________________THUMB_LEFT________________     KC_NO,             KC_NO,             LT(_MEDIA,KC_ESC), LT(_NAV,KC_SPC),   LT(_MOUSE,KC_BSPC)
+#define _________________THUMB_RIGHT_______________     LT(_FUN,KC_DEL),   LT(_SYM,KC_ENT),   LT(_NUM,KC_TAB),   KC_NO,             KC_NO
 
