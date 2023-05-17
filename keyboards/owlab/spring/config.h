@@ -32,6 +32,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 10
-#    define RGBLIGHT_LIMIT_VAL 255    
 #    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
-#    define RGBLIGHT_DEFAULT_VAL RGBLIGHT_LIMIT_VAL/2
+#    define RGBLIGHT_DEFAULT_VAL 127

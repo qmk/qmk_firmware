@@ -31,7 +31,6 @@
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 10
 #define RGBLIGHT_VAL_STEP 15
-#define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 #define RGBLIGHT_SLEEP /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_LAYERS /* Enable lighting layers */
 #define RGBLIGHT_LAYER_BLINK /* Enable lighting layer blink */
