@@ -1,10 +1,10 @@
 # trainpad
 
-Custom handwired one key keyboard. **See each individual board for pin information.**
+Custom four key keyboard. **See each individual board for pin information.**
 
 * Keyboard Maintainer: [Ananya Kirti](https://github.com/AnanyaKirti)
 * Hardware Supported: custom stacked FR4 case
-* Hardware Availability: Contact bob at IMKC Discord
+* Hardware Availability: Contact bob at [IMKC Discord](https://discord.gg/imkc)
 
 Make example for this keyboard (after setting up your build environment):
 
