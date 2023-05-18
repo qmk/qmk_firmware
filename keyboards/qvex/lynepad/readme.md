@@ -4,7 +4,7 @@
 
 *Macropad with 11 keys, thumbwheel, and a rotary 4-way switch*
 
-* Keyboard Maintainer: QVEX Tech
+* Keyboard Maintainer: [QVEX Tech](https://github.com/QVEX-Tech) ([seflim](https://github.com/seflm))
 * Hardware Supported: QVEX Lynepad
 * Hardware Availability: [QVEX Lynepad on Tindie](https://www.tindie.com/products/qvex_tech/lynepad-21-hot-swap-macropad-w-joystick/)
 
