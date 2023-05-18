@@ -1,8 +1,6 @@
-// Copyright 2022 ShandonCodes (@ShandonCodes)
+// Copyright 2023 ShandonCodes (@ShandonCodes)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
-
-#define DEBOUNCE 5
 
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN B6
