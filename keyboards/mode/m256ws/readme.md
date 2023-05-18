@@ -1,6 +1,6 @@
 # Mode M256-WS PCB QMK Firmware
 
-![m256wh](https://imgur.com/97KRZCr.jpg)
+![m256wh](https://imgur.com/97KRZCrh.jpg)
 
 The M256-WS is the hotswap version PCB support for the Mode Envoy.
 
