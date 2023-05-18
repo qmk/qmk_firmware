@@ -27,4 +27,4 @@ UNICODE_ENABLE    = no       # Unicode
 AUTO_SHIFT_ENABLE = yes      # Auto shift
 TAP_DANCE_ENABLE  = yes      # tap dance. One tap one code, two taps another code, three taps, and so on.
 
-COMBO_ENABLE      = yes      # Combos - q+w=Esc
+# COMBO_ENABLE      = yes      # Combos - q+w=Esc

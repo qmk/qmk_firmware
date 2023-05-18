@@ -41,8 +41,6 @@
 // Prevents slurred typing (of home row mods)
 #define PERMISSIVE_HOLD
 
-#define COMBO_COUNT 2
-
 // the make command:
 // From ~/qmk_firmware
 // make keyboardio/atreus:slf-atreus:flash

@@ -16,20 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-// Left-hand home row mods
-// #define GUI_A LGUI_T(KC_A)
-// #define ALT_S LALT_T(KC_S)
-// #define SFT_D LSFT_T(KC_D)
-// #define CTL_F LCTL_T(KC_F)
-
-// Right-hand home row mods
-// #define CTL_J RCTL_T(KC_J)
-// #define SFT_K RSFT_T(KC_K)
-// #define ALT_L LALT_T(KC_L)
-// #define GUI_SCLN RGUI_T(KC_SCLN)
-
-
-
 // Tap Dance keycodes
 enum td_keycodes {
     L_BRAX, // Used in the keymap, add additional keycodes for each tapdance.
@@ -89,13 +75,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-// Two combos
-const uint16_t PROGMEM CtlAlt_combo_L[] = {LCTL_T(KC_ESC), KC_RCTL, COMBO_END};
-const uint16_t PROGMEM CtlAlt_combo_R[] = {KC_RCTL, LCTL_T(KC_TAB), COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(CtlAlt_combo_L, KC_LALT), // Alt using tab/Ctl and key to left
-    COMBO(CtlAlt_combo_R, KC_LALT), // Alt using Esc/Ctl and key to right
-};
+/* // Two combos */
+/* const uint16_t PROGMEM CtlAlt_combo_L[] = {LCTL_T(KC_ESC), KC_RCTL, COMBO_END}; */
+/* const uint16_t PROGMEM CtlAlt_combo_R[] = {KC_RCTL, LCTL_T(KC_TAB), COMBO_END}; */
+/* combo_t key_combos[COMBO_COUNT] = { */
+/*     COMBO(CtlAlt_combo_L, KC_LALT), // Alt using tab/Ctl and key to left */
+/*     COMBO(CtlAlt_combo_R, KC_LALT), // Alt using Esc/Ctl and key to right */
+/* }; */
 
 
 /* 
@@ -130,30 +116,26 @@ void lbrax_finished(tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            register_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
-            register_code16(KC_9);
+	    register_code16(LSFT(KC_9));
             break;
         case DOUBLE_TAP:
             register_code16(KC_LBRC);
             break;
         case TRIPLE_TAP: 
-            register_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
-            register_code16(KC_LBRC);
+  	    register_code16(LSFT(KC_LBRC));
     }
 }
 
 void lbrax_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case SINGLE_TAP:
-            unregister_code16(KC_9);
-            unregister_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
-            break;
+	    unregister_code16(LSFT(KC_9));
+	    break; 
         case DOUBLE_TAP:
             unregister_code16(KC_LBRC);
             break;
         case TRIPLE_TAP:
-            unregister_code16(KC_LBRC);
-            unregister_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
+            unregister_code16(LSFT(KC_LBRC));
     }
 }
 
@@ -163,15 +145,13 @@ void rbrax_finished(tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            register_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
-            register_code16(KC_0);
+            register_code16(LSFT(KC_0));
             break;
         case DOUBLE_TAP:
             register_code16(KC_RBRC);
             break;
-        case TRIPLE_TAP: // Allow nesting of 2 parens `((` within tapping term
-            register_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
-            register_code16(KC_RBRC);
+        case TRIPLE_TAP: 
+            register_code16(LSFT(KC_RBRC));
     }
 }
 
@@ -179,15 +159,13 @@ void rbrax_finished(tap_dance_state_t *state, void *user_data) {
 void rbrax_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case SINGLE_TAP:
-            unregister_code16(KC_0);
-            unregister_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
+	    unregister_code16(LSFT(KC_0));
             break;
         case DOUBLE_TAP:
             unregister_code16(KC_RBRC);
             break;
         case TRIPLE_TAP:
-            unregister_code16(KC_RBRC);
-            unregister_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
+	    unregister_code16(LSFT(KC_RBRC));
     }
 }
 
@@ -195,14 +173,12 @@ void quots_finished(tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            // register_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
             register_code16(KC_QUOT);
             break;
         case DOUBLE_TAP:
             register_code16(KC_AT);
             break;
-        case TRIPLE_TAP: // Allow nesting of 2 parens `((` within tapping term
-            // register_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
+        case TRIPLE_TAP:
             register_code16(KC_DQUO);
     }
 }
@@ -211,14 +187,12 @@ void quots_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case SINGLE_TAP:
             unregister_code16(KC_QUOT);
-            // unregister_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
             break;
         case DOUBLE_TAP:
             unregister_code16(KC_AT);
             break;
         case TRIPLE_TAP:
             unregister_code16(KC_DQUO);
-            // unregister_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
     }
 }
 
@@ -226,15 +200,13 @@ void tache_finished(tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case SINGLE_TAP:
-            // register_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
             register_code16(KC_NUHS);
             break;
         case DOUBLE_TAP:
-            register_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here        
-            register_code16(KC_NUHS);
+
+            register_code16(LSFT(KC_NUHS));
             break;
-        case TRIPLE_TAP: // Allow nesting of 2 parens `((` within tapping term
-            // register_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
+        case TRIPLE_TAP:
             register_code16(KC_GRV);
     }
 }
@@ -243,18 +215,14 @@ void tache_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case SINGLE_TAP:
             unregister_code16(KC_NUHS);
-            // unregister_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
             break;
         case DOUBLE_TAP:
-            unregister_code16(KC_NUHS);
-            unregister_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
+	    unregister_code16(LSFT(KC_NUHS));
             break;
         case TRIPLE_TAP:
             unregister_code16(KC_GRV);
-            // unregister_mods(MOD_BIT(KC_LSFT)); // For a layer-tap key, use `layer_on(_MY_LAYER)` here
     }
 }
-
 
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
 
