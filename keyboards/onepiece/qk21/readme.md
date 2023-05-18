@@ -1,6 +1,6 @@
 # qk21
 
-![qk21]([imgur.com image replace me!](https://github.com/linlin012/image/blob/main/qk172.png))
+![qk21](https://github.com/linlin012/image/blob/main/qk172.png)
 
 *A short description of the keyboard/project*
 
