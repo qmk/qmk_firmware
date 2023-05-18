@@ -203,11 +203,11 @@ void eeconfig_update_rgblight_default(void) {
 #else
     rgblight_config.enable = 1;
 #endif
-    rgblight_config.mode   = RGBLIGHT_DEFAULT_MODE;
-    rgblight_config.hue    = RGBLIGHT_DEFAULT_HUE;
-    rgblight_config.sat    = RGBLIGHT_DEFAULT_SAT;
-    rgblight_config.val    = RGBLIGHT_DEFAULT_VAL;
-    rgblight_config.speed  = RGBLIGHT_DEFAULT_SPD;
+    rgblight_config.mode  = RGBLIGHT_DEFAULT_MODE;
+    rgblight_config.hue   = RGBLIGHT_DEFAULT_HUE;
+    rgblight_config.sat   = RGBLIGHT_DEFAULT_SAT;
+    rgblight_config.val   = RGBLIGHT_DEFAULT_VAL;
+    rgblight_config.speed = RGBLIGHT_DEFAULT_SPD;
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
     eeconfig_update_rgblight(rgblight_config.raw);
 }
