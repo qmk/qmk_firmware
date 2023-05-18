@@ -41,7 +41,7 @@ enum layer_names {
 // https://github.com/qmk/qmk_firmware/pull/2055
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_dmote(
+    [_QWERTY] = LAYOUT(
         KC_VOLD, KC_VOLU, CM_W,    CM_F,    CM_P,    CM_G,
         KC_TAB,  CM_Q,    CM_R,    CM_S,    CM_T,    CM_D,
         KC_BSPC, CM_A,    CM_X,    CM_C,    CM_V,    CM_B,
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_RALT, BK_RCTL
     ),
 
-    [_COLEMAK] = LAYOUT_dmote(
+    [_COLEMAK] = LAYOUT(
         _______, _______, KC_W,    KC_F,    KC_P,    KC_G,
         _______, KC_Q,    KC_R,    KC_S,    KC_T,    KC_D,
         _______, KC_A,    KC_X,    KC_C,    KC_V,    KC_B,
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______, _______
     ),
 
-    [_NUMERIC] = LAYOUT_dmote(
+    [_NUMERIC] = LAYOUT(
         LAYER_C, KC_INS,  KC_F2,   KC_F3,   KC_F4,   KC_F5,
         KC_F12,  KC_F1,   KC_2,    KC_3,    KC_4,    KC_5,
         _______, KC_1,    KC_AT,   KC_HASH, KC_DLR,  KC_PERC,
