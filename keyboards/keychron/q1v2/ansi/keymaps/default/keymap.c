@@ -22,7 +22,7 @@ enum layers{
     MAC_BASE,
     MAC_FN,
     WIN_BASE,
-    WIN_FN
+    WIN_FN,
 };
 
 #define KC_TASK LGUI(KC_TAB)
