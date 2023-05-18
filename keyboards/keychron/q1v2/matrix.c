@@ -154,7 +154,17 @@ static void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t curre
     if (!select_col(current_col)) { // select col
         return;                     // skip NO_PIN col
     }
-    matrix_output_select_delay();
+
+    if (current_col < 8) {
+        matrix_output_select_delay();
+    } else {
+        for (int8_t cycle = 4; cycle > 0; cycle--) {
+            matrix_output_select_delay(); // 0.25us
+            matrix_output_select_delay();
+            matrix_output_select_delay();
+            matrix_output_select_delay();
+        }
+    }
 
     // For each row...
     for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
