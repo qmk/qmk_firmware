@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Genesis Rev1", 
+    "keyboard_name": "Genesis Rev1",
     "manufacturer": "customMK",
-    "url": "https://www.customMK.com", 
-    "maintainer": "customMK", 
+    "url": "https://www.customMK.com",
+    "maintainer": "customMK",
     "usb": {
         "vid": "0xF35B",
         "pid": "0xFAB0",
@@ -78,6 +78,5 @@
                 {"matrix": [4, 3], "x": 2, "y": 4}
             ]
         }
-        
     }
 }

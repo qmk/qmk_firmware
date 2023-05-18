@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "drakon.h"
+#include "quantum.h"
 
 char wpm_str[10];
 

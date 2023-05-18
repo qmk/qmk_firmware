@@ -90,7 +90,7 @@ bool has_oneshot_mods_timed_out(void) {
  *   L => are layer bits
  *   S => oneshot state bits
  */
-static int8_t oneshot_layer_data = 0;
+static uint8_t oneshot_layer_data = 0;
 
 inline uint8_t get_oneshot_layer(void) {
     return oneshot_layer_data >> 3;

@@ -42,10 +42,6 @@
   //#define RGBLIGHT_STARTUP_ANIMATION
 #endif
 
-#ifdef COMBO_ENABLE
-  #define COMBO_COUNT 5
-#endif
-
 #define EE_HANDS
 
 //#define DEBUG_MATRIX_SCAN_RATE

@@ -17,7 +17,7 @@
   "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
-	  "layout": [
+    "layout": [
       {"matrix": [0, 0], "x": 0, "y": 0},
       {"matrix": [0, 1], "x": 1, "y": 0},
       {"matrix": [0, 2], "x": 2, "y": 0},
@@ -34,6 +34,6 @@
       {"matrix": [3, 1], "x": 1, "y": 3},
       {"matrix": [3, 2], "x": 2, "y": 3}
     ]
-	}
+  }
   }
 }

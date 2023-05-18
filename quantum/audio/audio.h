@@ -43,6 +43,8 @@ typedef union {
     };
 } audio_config_t;
 
+_Static_assert(sizeof(audio_config_t) == sizeof(uint8_t), "Audio EECONFIG out of spec.");
+
 /*
  * a 'musical note' is represented by pitch and duration; a 'musical tone' adds intensity and timbre
  * https://en.wikipedia.org/wiki/Musical_tone

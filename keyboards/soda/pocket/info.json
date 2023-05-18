@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x1A53",
         "pid": "0x4F51",
-        "device_version": "1.0.2"
+        "device_version": "1.0.2",
+        "force_nkro": true
     },
     "ws2812": {
         "pin": "C15"

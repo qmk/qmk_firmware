@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x4B50",
         "pid": "0x0044",
-        "device_version": "2.0.0"
+        "device_version": "2.0.0",
+        "max_power": 100
     },
     "matrix_pins": {
         "cols": ["A1", "A0", "A2", "A3"],

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Iris Rev. 5",
+    "keyboard_name": "Iris Rev. 5a",
     "usb": {
-        "pid": "0x5256",
-        "device_version": "5.0.0"
+        "pid": "0x5356",
+        "device_version": "5.1.0"
     },
     "matrix_pins": {
         "cols": ["F1", "F4", "D3", "D2", "B7", "D4"],

@@ -2,7 +2,8 @@
     "keyboard_name": "zhou65",
     "usb": {
         "pid": "0xAAAD",
-        "device_version": "1.0.0"
+        "device_version": "1.0.0",
+        "force_nkro": true
     },
     "matrix_pins": {
         "cols": ["B9", "B6", "B5", "B4", "B3", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A8", "B15", "B14"],

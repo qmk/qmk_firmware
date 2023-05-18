@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Owlet60", 
+    "keyboard_name": "Owlet60",
     "manufacturer": "worthlessowl",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/owlet60/", 
-    "maintainer": "worthlessowl", 
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/owlet60/",
+    "maintainer": "worthlessowl",
     "usb": {
         "vid": "0xFEED",
         "pid": "0xDA19",

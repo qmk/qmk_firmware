@@ -13,7 +13,7 @@
         "rows": ["C13", "C14", "A5", "A4", "A3"]
     },
     "diode_direction": "COL2ROW",
-    "backlight":  {
+    "backlight": {
         "pin": "A6",
         "breathing": true
     },

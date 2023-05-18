@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "kaishi65", 
+    "keyboard_name": "kaishi65",
     "manufacturer": "KBDClack",
-    "url": "https://github.com/powerlemming/KBDClack", 
-    "maintainer": "KBDClack", 
+    "url": "https://github.com/powerlemming/KBDClack",
+    "maintainer": "KBDClack",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x1A81",

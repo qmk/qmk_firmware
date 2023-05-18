@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pandora.h"
+#include "quantum.h"
 
 // Encoder click function
 #ifdef DIP_SWITCH_ENABLE

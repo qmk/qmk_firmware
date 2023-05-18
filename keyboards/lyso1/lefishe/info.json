@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Le_Fishe", 
+    "keyboard_name": "Le_Fishe",
     "manufacturer": "Lyso1",
-    "url": "", 
-    "maintainer": "Lyso1", 
+    "url": "",
+    "maintainer": "Lyso1",
     "usb": {
         "vid": "0x7856",
         "pid": "0x6169",

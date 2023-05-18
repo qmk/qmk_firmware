@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Trifecta", 
+    "keyboard_name": "Trifecta",
     "manufacturer": "Swiftrax",
-    "url": "https://www.basekeys.com", 
-    "maintainer": "Swiftrax", 
+    "url": "https://www.basekeys.com",
+    "maintainer": "Swiftrax",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xEAF3",

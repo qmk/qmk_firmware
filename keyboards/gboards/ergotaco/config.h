@@ -43,5 +43,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() (get_mods() == MOD_MASK_CTRL || get_mods() == MOD_MASK_SHIFT)
-
-#define USB_MAX_POWER_CONSUMPTION 500

@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #define RGBLIGHT_LIMIT_VAL 120
-#define USB_MAX_POWER_CONSUMPTION 500
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

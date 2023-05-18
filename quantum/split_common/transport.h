@@ -213,7 +213,7 @@ typedef struct _split_shared_memory_t {
     bool watchdog_pinged;
 #endif // defined(SPLIT_WATCHDOG_ENABLE)
 
-#if defined(HAPTIC_ENABLE)
+#if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
     split_slave_haptic_sync_t haptic_sync;
 #endif // defined(HAPTIC_ENABLE)
 

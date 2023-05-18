@@ -24,7 +24,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-#define FORCE_NKRO
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

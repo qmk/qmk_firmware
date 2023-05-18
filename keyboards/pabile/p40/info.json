@@ -1,12 +1,12 @@
 {
-    "keyboard_name": "P40", 
+    "keyboard_name": "P40",
     "manufacturer": "Pabile",
-    "url": "https://pabileonline.blogspot.com/", 
-    "maintainer": "Pabile", 
+    "url": "https://pabileonline.blogspot.com/",
+    "maintainer": "Pabile",
     "usb": {
-    	"vid": "0x6666",
-    	"pid": "0x6666",
-    	"device_version": "0.0.1"
+        "vid": "0x6666",
+        "pid": "0x6666",
+        "device_version": "0.0.1"
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "B5", "B4", "E6", "D7", "C6", "D4", "D0", "D1"],

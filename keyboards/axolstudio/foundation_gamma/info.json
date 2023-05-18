@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Foundation Gamma", 
+    "keyboard_name": "Foundation Gamma",
     "manufacturer": "Axolstudio",
-    "url": "https://axolstudio.ca/foundation-gamma", 
-    "maintainer": "kb-elmo", 
+    "url": "https://axolstudio.ca/foundation-gamma",
+    "maintainer": "kb-elmo",
     "usb": {
         "vid": "0x525C",
         "pid": "0xE3EB",

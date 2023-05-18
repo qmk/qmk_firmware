@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "IBM Model M 101/102", 
+    "keyboard_name": "IBM Model M 101/102",
     "manufacturer": "wangfuco",
-    "url": "https://github.com/wangfuco/qmk_firmware/tree/modelm101_teensy2/keyboards/converter/modelm101_teensy2", 
-    "maintainer": "wangfuco", 
+    "url": "https://github.com/wangfuco/qmk_firmware/tree/modelm101_teensy2/keyboards/converter/modelm101_teensy2",
+    "maintainer": "wangfuco",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

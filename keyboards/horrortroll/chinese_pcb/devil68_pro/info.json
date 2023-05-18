@@ -6,7 +6,8 @@
     "usb": {
         "vid": "0x7516",
         "pid": "0x7001",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "force_nkro": true
     },
     "rgb_matrix": {
         "driver": "WS2812"

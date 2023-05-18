@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Iris Rev. 6",
+    "keyboard_name": "Iris Rev. 6b",
     "usb": {
-        "pid": "0x6256",
-        "device_version": "6.0.0"
+        "pid": "0x6456",
+        "device_version": "6.2.0"
     },
     "rgb_matrix": {
         "driver": "WS2812"
