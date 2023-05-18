@@ -1,7 +1,7 @@
 {
     "manufacturer": "QVEX Tech",
-    "keyboard_name": "qvex/lynepad",
-    "maintainer": "QVEX Tech",
+    "keyboard_name": "Lynepad",
+    "maintainer": "QVEX-Tech",
     "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
