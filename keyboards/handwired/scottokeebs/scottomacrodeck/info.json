@@ -21,7 +21,6 @@
             ["E6", "B4", "B5", "F4"]
         ]
     },
-    "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
