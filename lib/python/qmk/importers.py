@@ -5,7 +5,7 @@ import json
 
 from qmk.git import git_get_username
 from qmk.json_schema import validate
-from qmk.path import keyboard, keymap
+from qmk.path import keyboard, keymaps
 from qmk.constants import MCU2BOOTLOADER, LEGACY_KEYCODES
 from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder
 from qmk.json_schema import deep_update, json_load
@@ -84,7 +84,7 @@ def import_keymap(keymap_data):
     kb_name = keymap_data['keyboard']
     km_name = keymap_data['keymap']
 
-    km_folder = keymap(kb_name) / km_name
+    km_folder = keymaps(kb_name)[0] / km_name
     keyboard_keymap = km_folder / 'keymap.json'
 
     # This is the deepest folder in the expected tree
