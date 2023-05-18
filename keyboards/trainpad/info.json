@@ -10,13 +10,18 @@
     },
 	"processor": "atmega32u2",
     "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["C5", "B3", "B4", "B5"],
+        ]
+    },
 	"layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 0, "y": 0},
-                {"x": 1, "y": 0},
-                {"x": 2, "y": 0},
-                {"x": 3, "y": 0}
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 3, "y": 0, "matrix": [0, 3]}
             ]
         }
 	}
