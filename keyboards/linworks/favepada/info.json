@@ -6,9 +6,6 @@
     "processor": "STM32F072",
     "debounce": 5,
     "diode_direction": "COL2ROW",
-    "encoder": {
-        "enabled": false
-    },
     "features": {
         "audio": false,
         "backlight": false,
