@@ -11,6 +11,9 @@
         "mousekey": true,
         "nkro": true
     },
+    "build" : {
+        "lto": true,
+    },
     "matrix_pins": {
         "direct": [
             ["D3", "D2", "D1", null],
