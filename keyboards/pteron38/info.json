@@ -1,7 +1,13 @@
 {
     "keyboard_name": "Pteron38",
+    "manufacturer": "Harshit Goel",
     "url": "",
     "maintainer": "emiliofds1",
+    "usb": {
+        "vid": "0x4847",
+        "pid": "0x5054",
+        "device_version": "0.0.1"
+    },
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

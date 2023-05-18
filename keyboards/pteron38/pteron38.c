@@ -68,10 +68,13 @@ bool oled_task_kb(void) {
                 break;
             case 6:
                 oled_write_ln_P(PSTR("WOW"), false);
-                break;              
+                break;
             case 7:
                 oled_write_ln_P(PSTR("WOW Nums"), false);
-                break;              
+                break;
+            case 8:
+                oled_write_ln_P(PSTR("MINECRAFT"), false);
+                break;
             default:
                 // Or use the write_ln shortcut over adding '\n' to the end of your string
                 oled_write_ln_P(PSTR("Undefined"), false);
