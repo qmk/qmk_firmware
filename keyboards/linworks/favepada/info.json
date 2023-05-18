@@ -4,7 +4,6 @@
     "maintainer": "keydler",
     "bootloader": "stm32-dfu",
     "processor": "STM32F072",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "audio": false,
