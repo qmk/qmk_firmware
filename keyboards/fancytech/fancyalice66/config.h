@@ -5,7 +5,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 #    define WS2812_DI_PIN B0
-#    define RGB_DI_PIN WS2812_DI_PIN
+#    define RGB_DI_PIN B0
 #    define RGB_MATRIX_LED_COUNT 82
 
     /* RGB Matrix effect */
