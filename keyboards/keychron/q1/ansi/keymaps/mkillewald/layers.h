@@ -39,3 +39,8 @@ enum layers{
 
 #define BL_TEST_KEY1        KC_RIGHT
 #define BL_TEST_KEY2        KC_HOME
+
+#if !defined(KC_LOPTN)
+#define KC_LOPTN KC_LOPT
+#endif
+
