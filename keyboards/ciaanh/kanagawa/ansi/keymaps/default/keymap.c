@@ -81,10 +81,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*****************************************************************************************************/
 
 #ifdef OLED_ENABLE
-    // oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    //     return OLED_ROTATION_180;
-    // }
-
     static void render_status(void) {
         // 21 characters per line
         // 16 cols / 4 rows
@@ -219,16 +215,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
-// #ifdef ENCODER_ENABLE
-// bool encoder_update_kb(uint8_t index, bool clockwise) {
-//     if (!encoder_update_user(index, clockwise)) { return false; }
-//     if (index == 0) {
-//         if (clockwise) {
-//             tap_code_delay(KC_VOLU, 10);
-//         } else {
-//             tap_code_delay(KC_VOLD, 10);
-//         }
-//     }
-//     return true;
-// }
-// #endif
