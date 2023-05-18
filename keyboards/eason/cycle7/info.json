@@ -26,6 +26,8 @@
         },
         "ws2812": {
             "pin": "B15"
+        },
+        "rgblight": {
             "led_count": 8,
             "sleep": true,
             "animations": {
