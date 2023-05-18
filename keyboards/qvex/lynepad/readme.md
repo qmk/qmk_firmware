@@ -2,7 +2,7 @@
 
 ![QVEX Lynepad](https://qvex.eu/img/lynepad.jpg)
 
-*A short description of the keyboard/project*
+*Macropad with 11 keys, thumbwheel, and a rotary 4-way switch*
 
 * Keyboard Maintainer: QVEX Tech
 * Hardware Supported: QVEX Lynepad
