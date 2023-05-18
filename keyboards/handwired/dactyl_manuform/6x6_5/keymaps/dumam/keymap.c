@@ -26,8 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_SLSH,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                          KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_LBRC,KC_RBRC,
     KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                          KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SCLN,KC_QUOT,
                     KC_LGUI,KC_ESC ,                                                          KC_HOME,KC_END ,
-                                    _KC_SPC,                                          _KC_ENT,
-                                            KC_TAB_,KC_BSPC,          KC_DEL ,KC_RSFT,
+                                    _KC_SPC,KC_TAB_,KC_BSPC,          KC_DEL ,KC_RSFT,_KC_ENT,
                                             KC_LCTL,KC_LALT,          KC_RALT,KC_RCTL
   ),
 
@@ -39,8 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_PGUP,XXXXXXX,                          XXXXXXX,KC_PGUP,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
     XXXXXXX,KC_CAPS,KC_MENU,XXXXXXX,KC_PGDN,KC_LGUI,                          KC_LGUI,KC_PGDN,XXXXXXX,KC_INS_,KC_PSCR,XXXXXXX,
                     _______,_______,                                                          _______,_______,
-                                    _______,                                          _______,
-                                            _______,_______,          _______,_______,
+                                    _______,_______,_______,          _______,_______,_______,
                                             _______,_______,          _______,_______
   ),
 
@@ -52,8 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_R,XXXXXXX,                          XXXXXXX,KC_LEFT,KC_DOWN,KC_RGHT,XXXXXXX,XXXXXXX,
     XXXXXXX,XXXXXXX,KC_BTN1,KC_BTN3,KC_BTN2,XXXXXXX,                          XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
                     _______,_______,                                                          _______,_______,
-                                    _______,                                          _______,
-                                            _______,_______,          _______,_______,
+                                    _______,_______,_______,          _______,_______,_______,
                                             _______,_______,          _______,_______
   ),
 };
