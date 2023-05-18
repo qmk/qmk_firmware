@@ -34,9 +34,6 @@
         { 5, 4 }               \
     }
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Disable DIP switch in matrix data */
 #define MATRIX_MASKED
 
