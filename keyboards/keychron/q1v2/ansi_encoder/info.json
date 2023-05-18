@@ -3,8 +3,7 @@
         "pid": "0x0107"
     },
     "features": {
-        "encoder": true,
-        "encoder_map": true
+        "encoder": true
     },
     "encoder": {
         "enabled": true,
