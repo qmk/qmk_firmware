@@ -27,3 +27,5 @@ OPT_DEFS += -DHAL_USE_I2C=TRUE
 ENCODER_MAP_ENABLE = yes
 
 LTO_ENABLE = no # reduce size
+
+DEFAULT_FOLDER = ciaanh/kanagawa/ansi
