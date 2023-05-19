@@ -213,10 +213,10 @@ else
     SRC += eeprom_driver.c eeprom_spi.c
   else ifeq ($(strip $(EEPROM_DRIVER)), legacy_stm32_flash)
     # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
-    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
     COMMON_VPATH += $(DRIVER_PATH)/flash
-    SRC += eeprom_driver.c eeprom_stm32.c flash_stm32.c
+    SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
   else ifeq ($(strip $(EEPROM_DRIVER)), transient)
     # Transient EEPROM implementation -- no data storage but provides runtime area for it
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
