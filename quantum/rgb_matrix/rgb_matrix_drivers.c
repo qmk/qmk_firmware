@@ -86,6 +86,15 @@ static void init(void) {
 
 #    elif defined(IS31FL3741)
     IS31FL3741_init(DRIVER_ADDR_1);
+#        if defined(DRIVER_ADDR_2)
+    IS31FL3741_init(DRIVER_ADDR_2);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL3741_init(DRIVER_ADDR_3);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL3741_init(DRIVER_ADDR_4);
+#                endif
+#            endif
+#        endif
 
 #    elif defined(IS31FLCOMMON)
     IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
@@ -170,6 +179,15 @@ static void init(void) {
 
 #    elif defined(IS31FL3741)
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    IS31FL3741_update_led_control_registers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL3741_update_led_control_registers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL3741_update_led_control_registers(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
 
 #    elif defined(IS31FLCOMMON)
 #        ifdef ISSI_MANUAL_SCALING
@@ -268,6 +286,12 @@ static void flush(void) {
     IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)
     IS31FL3741_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
 #        endif
 }
 
