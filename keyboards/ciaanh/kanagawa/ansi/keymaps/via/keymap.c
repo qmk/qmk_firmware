@@ -17,6 +17,12 @@
 *   `---------+---------+---------+---------+           |   kf4   |     |   kf5   |           +---------+---------+---------'  |   kf9   |  kf10   |  kf11   |
 *                                                       `---------'     `---------'                                            `---------+---------+---------'
 */
+
+#define TO_0 TO(0)
+#define MO_1 MO(1)
+#define TG_2 TG(2)
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Keymap: BASE
@@ -36,17 +42,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *   |---------+---------+---------+---------+           |  Space  |     |  Space  |           +---------+---------+---------'  |  LEFT   |   DOWN  |  RIGHT  |
 *                                                       `---------'     `---------'                                            `---------+---------+---------'  
 */
-    [_BASE] = LAYOUT_ansi( 
+    // BASE
+    [0] = LAYOUT_ansi( 
           KC_ESC,   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,           KC_MPLY,  \
         
           KC_GRV,    KC_1,       KC_2,       KC_3,       KC_4,       KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,  KC_EQL, KC_BSPC,   KC_DEL,  \
           KC_TAB,    KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC, KC_RBRC, KC_BSLS,  KC_HOME,  \
          KC_CAPS,    KC_A, LT(0,KC_S),       KC_D,       KC_F,       KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,  KC_ENT,            KC_END,  \
          KC_LSFT, XXXXXXX,       KC_Z, LT(0,KC_X), LT(0,KC_C), LT(0,KC_V),    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,    KC_UP,           \
-         KC_LCTL, KC_LGUI,    KC_LALT,     L_CODE,        KC_SPC,        KC_SPC,             KC_RALT, KC_RCTL, TO_FUNC,           KC_LEFT, KC_DOWN, KC_RGHT   \
+         KC_LCTL, KC_LGUI,    KC_LALT,       MO_1,        KC_SPC,        KC_SPC,             KC_RALT, KC_RCTL,    TG_2,           KC_LEFT, KC_DOWN, KC_RGHT   \
     ),
 
-    [_CODE] = LAYOUT_ansi(
+    // CODE
+    [1] = LAYOUT_ansi(
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,  \
 
        _SCRNSHOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
@@ -56,16 +64,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX   \
     ),
 
-
-    [_FUNC] = LAYOUT_ansi(
+    // FUNCTION
+    [2] = LAYOUT_ansi(
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             RGB_TOG,  \
 
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_VAI,  \
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              RGB_VAD,  \
          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_HUI,           \
-         XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              RGB_SPD, RGB_SPI, TO_BASE,     RGB_SAD, RGB_HUD, RGB_SAI   \
+         XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              RGB_SPD, RGB_SPI,    TO_0,     RGB_SAD, RGB_HUD, RGB_SAI   \
     ),
+
+    // EMPTY
+    [3] = LAYOUT_ansi(
+         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             RGB_TOG,  \
+
+         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
+         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
+         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,  \
+         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,           \
+         XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX   \
+    ),
+
 
 };
 
@@ -212,6 +232,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_CODE] =  { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
     [_FUNC] =   { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
+    [_TOP] =   { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
 };
 #endif
 
