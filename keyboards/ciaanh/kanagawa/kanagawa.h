@@ -17,7 +17,8 @@ enum layers
 { 
     _BASE,
     _CODE, 
-    _FUNC
+    _FUNC,
+    _TOP
 };
 
 enum custom_keycodes 

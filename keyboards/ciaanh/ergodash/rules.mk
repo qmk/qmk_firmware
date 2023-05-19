@@ -14,3 +14,4 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 SPLIT_KEYBOARD = yes       # Enables split keyboard support
 
 DEFAULT_FOLDER = ciaanh/ergodash/rev1
+
