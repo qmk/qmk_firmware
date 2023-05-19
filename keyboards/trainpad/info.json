@@ -8,7 +8,15 @@
         "pid": "0x0003",
         "device_version": "0.0.1"
     },
-	"processor": "atmega32u2",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": false
+    },
+    "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "matrix_pins": {
         "direct": [
