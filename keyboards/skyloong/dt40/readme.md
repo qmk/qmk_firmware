@@ -1,15 +1,13 @@
 # DT40
 
-![dt40](https://imgur.com/image replace me!)
-
+![DT40](imgur.com image replace me!)
 
 The PCB features:
 * QMK & VIA compatibility
 * RGB LED backlight
 
-The following is the QMK Firmware for the Destop 60% keylayout -  designed in Dongguan Jizhi Electronic Technology Co., Ltd
-
-* Keyboard Maintainer: [linlin](https://github.com/JZ-Skyloong)
+The following is the QMK Firmware for the Destop 40% keylayout -  designed in Dongguan Jizhi Electronic Technology Co., Ltd
+* Keyboard Maintainer: [JZ-Skyloong](https://github.com/JZ-Skyloong)
 * Hardware Supported: DestopPCB for Skyloong keylayout 40%, STM32F103C8T6
 * Hardware Availability: http://www.skyloong.com.cn
 
@@ -29,4 +27,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
