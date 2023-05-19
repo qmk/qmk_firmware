@@ -24,16 +24,7 @@
     },
 
 
-/*******************************************************************************
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: STM pins used for columns, left to right
- * ROWS: STM pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- *******************************************************************************/
+
     "matrix_pins": {
         "cols": ["B12", "B5", "B8", "B9", "B10", "B11", "A15", "B7", "A2", "A1", "A0", "C2"],
         "rows": ["B6", "B15", "B2", "B14"]
@@ -88,29 +79,13 @@
                 { "matrix": [3, 7], "x": 10, "y": 3 },    //APP
                 { "matrix": [3, 8], "x": 11, "y": 3 },    //LEFT
                 { "matrix": [3, 9], "x": 12, "y": 3 },    //DOWN
-                { "matrix": [3, 10], "x": 13, "y": 3 },   //RGHT
+                { "matrix": [3, 10], "x": 13, "y": 3 }    //RGHT
 
             ]
         }
     },
 
-/*
-  "rgblight": {
-        "led_count": 44,
-        "pin": "B4",
-        "hue_steps": 8,
-        "saturation_steps":8,
-        "brightness_steps": 8,
-        "max_brightness": 100,
-        "sleep": true,
-        "animations": {
-             "breathing": true,
-             "knight": true,
-             "rainbow_swirl": true,
-             "twinkle": true,
-        }
-    },
-*/
+
 
   "rgb_matrix":{
         "driver":"WS2812",
