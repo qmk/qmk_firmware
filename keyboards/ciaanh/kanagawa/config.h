@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
- #pragma once
+#pragma once
 
 /* OLED SPI Defines */
 #ifdef OLED_ENABLE
@@ -32,14 +31,6 @@
 #ifdef RGB_MATRIX_ENABLE
      /* RGB Defines */
 #    define RGB_DI_PIN GP4
-
-#    ifdef KEYBOARD_ciaanh_kanagawa_ansi
-#         define RGB_MATRIX_LED_COUNT 82
-#    endif 
-
-#    ifdef KEYBOARD_ciaanh_kanagawa_iso
-#         define RGB_MATRIX_LED_COUNT 83
-#    endif 
 
 #    define RGB_MATRIX_CENTER { 90, 28 }
 

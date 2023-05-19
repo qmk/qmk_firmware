@@ -13,8 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
- #include "kanagawa.h"
+#include "quantum.h"
+
+#define NA NO_LED
 
 #ifdef RGB_MATRIX_ENABLE
 

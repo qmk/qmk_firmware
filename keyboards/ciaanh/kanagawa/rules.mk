@@ -1,7 +1,3 @@
-# RP2040-specific options
-ALLOW_WARNINGS = yes
-PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.
-
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
@@ -23,8 +19,6 @@ OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 
 OPT_DEFS += -DHAL_USE_I2C=TRUE
-
-ENCODER_MAP_ENABLE = yes
 
 LTO_ENABLE = no # reduce size
 
