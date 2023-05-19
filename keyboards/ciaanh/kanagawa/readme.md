@@ -1,8 +1,6 @@
-https://learn.adafruit.com/using-qmk-on-rp2040-microcontrollers/adafruit-macropad-with-qmk
-
 # Kanagawa
 
-A 75% keyboard with oled and rotary encoder for Elite-C
+A 75% keyboard with oled and rotary encoder for Raspberry Pico
 
     Keyboard Maintainer : Ciaanh
 
@@ -21,9 +19,5 @@ qmk compile -kb ciaanh/kanagawa/ansi -km default
 
 ## Bootloader
 
-Enter the bootloader in 4 ways:
-
-* **Bootmagic reset**: Hold down the key just bellow the rotary encoder push-button on power-up.
-* **Physical reset button**: Press twice the button on the side while the board is connected.
-* **BOOT button** Hold down the rotary encoder push-button on power-up or reset.
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available.
+* **Bootmagic reset**: Hold down the rotary encoder push-button on power-up.
+* **Physical buttons**: Press both the reset and the Bootsel button on the back while the board is connected.

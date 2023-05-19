@@ -1,3 +1,0 @@
-ENCODER_ENABLE = no
-OLED_ENABLE = no
-
