@@ -9,11 +9,39 @@
         "rows": [ "C7", "F7" ,"F6", "F6", "F6"]
     },
     "processor": "atmega32u4",
-    "url": "",
+    "url": "https://qvex.eu",
     "usb": {
         "device_version": "1.0.0",
         "vid": "0x04D8",
         "pid": "0xE678"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D6", "pin_b": "B5", "resolution": 2},
+            {"pin_a": "D1", "pin_b": "D0", "resolution": 2}
+        ]
+    },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgblight": true
+    },
+    "rgblight": {
+        "led_count": 5,
+        "max_brightness": 192,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "backlight": {
+        "breathing": true,
+        "levels": 8,
+        "max_brightness": 192,
+        "pin": "B7"
     },
     "layouts": {
         "LAYOUT": {
