@@ -19,26 +19,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_COL_PINS \
-    { B4, E6, D7, C6, D4 }
+    { GP8, GP7, GP6, GP5, GP4 }
 #define MATRIX_ROW_PINS \
-    { B6, B2, B3, B1 }
+    { GP10, GP19, GP20, GP18 }
 
 #define DIODE_DIRECTION ROW2COL
 
-#define RGB_DI_PIN F4
+#define WS2812_PIO_USE_PIO1
+#define RGB_DI_PIN GP29
 #define RGB_MATRIX_LED_COUNT 36
 #define RGB_MATRIX_SPLIT \
     { 18, 18 }
 #define RGB_MATRIX_CENTER \
     { 133, 54 }
 
+#define I2C_DRIVER I2CD1
+#define I2C1_SDA_PIN GP2
+#define I2C1_SCL_PIN GP3
 #define OLED_DISPLAY_128X64
 
-#define AUDIO_PIN B5
+#define AUDIO_PIN GP9
 #define AUDIO_PWM_DRIVER PWMD4
 #define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_B
 
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_PIO_USE_PIO0
-#define SOFT_SERIAL_PIN D3
-#define SERIAL_USART_RX_PIN D2
+#define SOFT_SERIAL_PIN GP0
+#define SERIAL_USART_RX_PIN GP1
