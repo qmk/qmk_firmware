@@ -2,7 +2,7 @@
     "keyboard_name": "Tap Duo",
     "manufacturer": "Momokai",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "peepeetee",
     "usb": {
         "vid": "0x69F9",
         "pid": "0x0005",
@@ -10,6 +10,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "bootmagic": {
+        "matrix": [0, 3]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
