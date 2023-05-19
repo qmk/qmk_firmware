@@ -2,7 +2,7 @@
     "keyboard_name": "TrainPad",
 	"manufacturer": "Ananya Kirti",
 	"url": "",
-	"maintainer": "Ananya Kirti",
+	"maintainer": "AnanyaKirti",
     "usb": {
         "vid": "0x416B",
         "pid": "0x0003",
