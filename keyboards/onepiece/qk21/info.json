@@ -17,7 +17,7 @@
         "rows": ["F0", "F1", "F4", "F5", "F6", "B4"]
     },
     "processor": "atmega32u4",
-    "url": "",
+    "url": "linlin012@github.com",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0050",
