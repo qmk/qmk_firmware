@@ -13,11 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
- #include "kanagawa.h"
+#include "quantum.h"
+
+#define NA NO_LED
 
 #ifdef RGB_MATRIX_ENABLE
-#   define RGB_MATRIX_LED_COUNT 82
 
     led_config_t g_led_config = {    
     {
