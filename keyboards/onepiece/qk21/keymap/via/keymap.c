@@ -32,10 +32,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ┌───┐───┬───┬───┐
      * │Rst│Rod│MO1│Bsp│
      * └───┘───┼───┼───┤
-     * │Num│ / │ * │Vai│
+     * │Num│ / │ * │Vad│
      * ┌───┬───┬───┐───┤
      * │Hom│ ↑ │PgU│   │
-     * ├───┼───┼───┤Vad│
+     * ├───┼───┼───┤Vai│
      * │ ← │   │ → │   │
      * ├───┼───┼───┤───┤
      * │End│ ↓ │PgD│   │
@@ -45,9 +45,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [1] = LAYOUT_numpad_6x4(
         QK_BOOT,   RGB_MOD, _______, _______,
-        _______, _______, _______, RGB_VAI,
+        _______, _______, _______, RGB_VAD,
         KC_HOME, KC_UP,   KC_PGUP,
-        KC_LEFT, XXXXXXX, KC_RGHT, RGB_VAD,
+        KC_LEFT, XXXXXXX, KC_RGHT, RGB_VAI,
         KC_END,  KC_DOWN, KC_PGDN,
         KC_INS,           KC_DEL,  RGB_TOG
     )
