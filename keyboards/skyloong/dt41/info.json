@@ -1,0 +1,126 @@
+{
+    "manufacturer": "JZ-Skyloong",
+    "keyboard_name": "DT41",
+    "maintainer": "JZ-Skyloong",
+    "bootloader": "stm32duino",
+    "diode_direction": "ROW2COL",
+    "processor": "STM32F103",
+    "url": "https://github.com/JZ-Skyloong",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0040",
+        "vid": "0x1EA7"
+    },
+
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "rgblight":false
+    },
+
+
+/*******************************************************************************
+ * Keyboard Matrix Assignments
+ *
+ * Change this to how you wired your keyboard
+ * COLS: STM pins used for columns, left to right
+ * ROWS: STM pins used for rows, top to bottom
+ * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
+ *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
+ *
+ *******************************************************************************/
+    "matrix_pins": {
+        "cols": ["B12", "B5", "B8", "B9", "B10", "B11", "A15", "B7", "A2", "A1", "A0", "C2"],
+        "rows": ["B6", "B15", "B2", "B14"]
+    },
+
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0 },     //esc
+                { "matrix": [0, 1], "x": 2, "y": 0 },     //Q
+                { "matrix": [0, 2], "x": 3, "y": 0 },     //W
+                { "matrix": [0, 3], "x": 4, "y": 0 },     //E
+                { "matrix": [0, 4], "x": 5, "y": 0 },     //R
+                { "matrix": [0, 5], "x": 6, "y": 0 },     //T
+                { "matrix": [0, 6], "x": 7, "y": 0 },     //Y
+                { "matrix": [0, 7], "x": 8, "y": 0 },     //U
+                { "matrix": [0, 8], "x": 10, "y": 0 },    //O
+                { "matrix": [0, 9], "x": 9, "y": 0 },     //I
+                { "matrix": [0, 10], "x": 13, "y": 0 },   //BS
+
+                { "matrix": [1, 0], "x": 0, "y": 1 },     //CAPS
+                { "matrix": [1, 1], "x": 2, "y": 1 },     //A
+                { "matrix": [1, 2], "x": 3, "y": 1 },     //S
+                { "matrix": [1, 3], "x": 4, "y": 1 },     //D
+                { "matrix": [1, 4], "x": 5, "y": 1 },     //F
+                { "matrix": [1, 5], "x": 6, "y": 1 },     //G
+                { "matrix": [1, 6], "x": 7, "y": 1 },     //H
+                { "matrix": [1, 7], "x": 8, "y": 1 },     //J
+                { "matrix": [1, 8], "x": 10, "y": 1 },    //L
+                { "matrix": [1, 9], "x": 11, "y": 0 },    //P
+                { "matrix": [1, 10], "x": 13, "y": 1 },   //ENT
+
+                { "matrix": [2, 0], "x": 1, "y": 2 },     //LSFT
+                { "matrix": [2, 1], "x": 3, "y": 2 },     //Z
+                { "matrix": [2, 2], "x": 4, "y": 2 },     //X
+                { "matrix": [2, 3], "x": 5, "y": 2 },     //C
+                { "matrix": [2, 4], "x": 6, "y": 2 },     //V
+                { "matrix": [2, 5], "x": 7, "y": 2 },     //B
+                { "matrix": [2, 6], "x": 8, "y": 2 },     //N
+                { "matrix": [2, 7], "x": 9, "y": 2 },     //M
+                { "matrix": [2, 8], "x": 10, "y": 2 },    //RSFT
+                { "matrix": [2, 9], "x": 12, "y": 2 },    //UP
+                { "matrix": [2, 10], "x": 13, "y": 2 },   //MO(3)
+
+                { "matrix": [3, 0], "x": 0, "y": 3 },     //LCTL
+                { "matrix": [3, 1], "x": 2, "y": 3 },     //LALT
+                { "matrix": [3, 2], "x": 3, "y": 3 },     //MO(1)
+                { "matrix": [3, 3], "x": 1, "y": 3 },     //LWIN
+                { "matrix": [3, 4], "x": 6, "y": 3 },     //SPC
+                { "matrix": [3, 5], "x": 9, "y": 1 },     //K
+                { "matrix": [3, 6], "x": 9, "y": 3 },     //MO(2)
+                { "matrix": [3, 7], "x": 10, "y": 3 },    //APP
+                { "matrix": [3, 8], "x": 11, "y": 3 },    //LEFT
+                { "matrix": [3, 9], "x": 12, "y": 3 },    //DOWN
+                { "matrix": [3, 10], "x": 13, "y": 3 },   //RGHT
+
+            ]
+        }
+    },
+
+/*
+  "rgblight": {
+        "led_count": 44,
+        "pin": "B4",
+        "hue_steps": 8,
+        "saturation_steps":8,
+        "brightness_steps": 8,
+        "max_brightness": 100,
+        "sleep": true,
+        "animations": {
+             "breathing": true,
+             "knight": true,
+             "rainbow_swirl": true,
+             "twinkle": true,
+        }
+    },
+*/
+
+  "rgb_matrix":{
+        "driver":"WS2812",
+        "pin": "B4",
+        "led_count": 44,
+        "hue_steps": 8,
+        "saturation_steps":8,
+        "brightness_steps": 8,
+        "max_brightness": 200,
+        "sleep": true,
+   }
+
+}
