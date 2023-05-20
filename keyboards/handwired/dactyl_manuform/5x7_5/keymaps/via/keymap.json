@@ -5,6 +5,11 @@
     "keyboard": "handwired/dactyl_manuform/5x7_5",
     "keymap": "via",
     "layout": "LAYOUT",
+    "config": {
+        "features": {
+            "via": true
+        }
+    },
     "layers": [
         [
             "KC_ESC",
