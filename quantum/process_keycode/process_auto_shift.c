@@ -75,12 +75,12 @@ __attribute__((weak)) bool get_auto_shifted_key(uint16_t keycode, keyrecord_t *r
         case AUTO_SHIFT_NUMERIC:
 #    endif
 #    ifndef NO_AUTO_SHIFT_SPECIAL
-#    ifndef NO_AUTO_SHIFT_TAB
+#        ifndef NO_AUTO_SHIFT_TAB
         case KC_TAB:
-#    endif
-#    ifndef NO_AUTO_SHIFT_SYMBOLS
+#        endif
+#        ifndef NO_AUTO_SHIFT_SYMBOLS
         case AUTO_SHIFT_SYMBOLS:
-#    endif
+#        endif
 #    endif
 #    ifdef AUTO_SHIFT_ENTER
         case KC_ENT:
