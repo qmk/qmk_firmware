@@ -1,61 +1,58 @@
 # DT40
 
-![DT40](https://github.com/NaturalZh/qmk_map/blob/main/dt40%20layout05192023.jpg)
+![DT40](http://semitek.oss-cn-hangzhou.aliyuncs.com/qmk_imaging%2Fdt40%20layout05192023.jpg?OSSAccessKeyId=ogxQdo6geQXQVIK5&Expires=1684576837&Signature=GUNgvZ5GDL9uZY6CfpKYN1KvsJk%3D)
 
-The PCB features:
+## The PCB features:
 * QMK & VIA compatibility
 * RGB Matrix backlight
+* Thin body & Simple keys
 
+## Keylout Special Usage Function Note(VIA keymap)
+### For combine with the left G6+ key :
+ * ESC ---->  RGB matix ON/OFF;
+ * Q   ---->  Static mode;
+ * W   ---->  Full gradient scrolling left to right;
+ * E   ---->  Breathing animation mode;
+ * R   ---->  Full gradient spinning pinwheel around center of keyboard;
+ * O   ---->  Key " = + " ;
+ * I   ---->  Key " -_  " ;
+ * K   ---->  Key " [{ " ;
+ * L   ---->  Key " ]} " ;
+ * up  ---->  Increase brightness;
+ * DOWN --->  Decrease brightness;
+ * LEFT --->  Cycle through modes in reverse;
+ * RGHT --->  Cycle through modes
+### For combine with the right G6+ key :
+ * CAPS --->  Key " Tab " ;
+ * A   ---->  Key " `~ " ;
+ * Q   ---->  Key " 1! " ;
+ * W   ---->  Key " 2@ " ;
+ * E   ---->  Key " 3# " ;
+ * R   ---->  Key " 4$ " ;
+ * T   ---->  Key " 5% " ;
+ * Y   ---->  Key " 6^ " ;
+ * U   ---->  Key " 7& " ;
+ * I   ---->  Key " 8* " ;
+ * O   ---->  Key " 9( " ;
+ * P   ---->  Key " 0) " ;
+ * J   ---->  Key " ;: " ;
+ * K   ---->  Key " '" " ;
+ * N   ---->  Key " ,< " ;
+ * M   ---->  Key " .> " ;
 
-** Keylout Special Usage Function Note(VIA keymap)
-
-*** For combine with the left G6+ key :
-**** ESC ---->  RGB matix ON/OFF;
-**** Q   ---->  Static mode;
-**** W   ---->  Full gradient scrolling left to right;
-**** E   ---->  Breathing animation mode;
-**** R   ---->  Full gradient spinning pinwheel around center of keyboard;
-**** O   ---->  Key " = + " ;
-**** I   ---->  Key " -_  " ;
-**** K   ---->  Key " [{ " ;
-**** L   ---->  Key " ]} " ;
-**** up  ---->  Increase brightness;
-**** DOWN --->  Decrease brightness;
-**** LEFT --->  Cycle through modes in reverse;
-**** RGHT --->  Cycle through modes
-
-*** For combine with the right G6+ key :
-**** CAPS --->  Key " Tab " ;
-**** A   ---->  Key " `~ " ;
-**** Q   ---->  Key " 1! " ;
-**** W   ---->  Key " 2@ " ;
-**** E   ---->  Key " 3# " ;
-**** R   ---->  Key " 4$ " ;
-**** T   ---->  Key " 5% " ;
-**** Y   ---->  Key " 6^ " ;
-**** U   ---->  Key " 7& " ;
-**** I   ---->  Key " 8* " ;
-**** O   ---->  Key " 9( " ;
-**** P   ---->  Key " 0) " ;
-**** J   ---->  Key " ;: " ;
-**** K   ---->  Key " '" " ;
-**** N   ---->  Key " ,< " ;
-**** M   ---->  Key " .> " ;
-
-*** For combine with the Fn key :
-**** Q   ---->  Key " F1 " ;
-**** W   ---->  Key " F2 " ;
-**** E   ---->  Key " F3 " ;
-**** R   ---->  Key " F4 " ;
-**** T   ---->  Key " F5 " ;
-**** Y   ---->  Key " F6 " ;
-**** U   ---->  Key " F7 " ;
-**** I   ---->  Key " F8 " ;
-**** O   ---->  Key " F9 " ;
-**** P   ---->  Key " F10 " ;
-**** K   ---->  Key " F11 " ;
-**** L   ---->  Key " F12 " ;
-
+### For combine with the Fn key :
+ * Q   ---->  Key " F1 " ;
+ * W   ---->  Key " F2 " ;
+ * E   ---->  Key " F3 " ;
+ * R   ---->  Key " F4 " ;
+ * T   ---->  Key " F5 " ;
+ * Y   ---->  Key " F6 " ;
+ * U   ---->  Key " F7 " ;
+ * I   ---->  Key " F8 " ;
+ * O   ---->  Key " F9 " ;
+ * P   ---->  Key " F10 " ;
+ * K   ---->  Key " F11 " ;
+ * L   ---->  Key " F12 " ;
 
 
 
