@@ -24,13 +24,6 @@ using ::testing::InSequence;
 
 namespace {
 
-extern "C" {
-// Define a combo: KC_X + KC_Y = KC_Q.
-const uint16_t xy_combo[] PROGMEM = {KC_X, KC_Y, COMBO_END};
-combo_t        key_combos[]       = {COMBO(xy_combo, KC_Q)};
-uint16_t       COMBO_LEN          = sizeof(key_combos) / sizeof(*key_combos);
-} // extern "C"
-
 class RepeatKey : public TestFixture {};
 
 // Tests repeating a combo, KC_X + KC_Y = KC_Q, by typing
