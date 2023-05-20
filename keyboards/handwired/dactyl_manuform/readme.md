@@ -1,6 +1,6 @@
 # Dactyl ManuForm
 
-![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
+![Imgur](https://i.imgur.com/7y0Vbydh.jpg)
 *Pair of Dactyl Manuform 4x6*
 
 Forked from the [Dactyl](/keyboards/handwired/dactyl), the [Dactyl-ManuForm](https://github.com/tshort/dactyl-keyboard) is a parameterized, handwired, split bodied, tented, concave key-well design that incorporates the thumb cluster from the [ManuForm](https://geekhack.org/index.php?topic=46015.0). Bill of Materials (BoM), case files, and wiring guide for making this keyboard is in the second link.
@@ -101,11 +101,11 @@ PD0 on the ATmega32u4) between the two Pro Micros.
 
 The wiring for serial:
 
-![serial wiring](https://i.imgur.com/C3D1GAQ.png)
+![serial wiring](https://i.imgur.com/C3D1GAQh.png)
 
 The wiring for i2c:
 
-![i2c wiring](https://i.imgur.com/Hbzhc6E.png)
+![i2c wiring](https://i.imgur.com/Hbzhc6Eh.png)
 
 The pull-up resistors may be placed on either half. It is also possible to use 4 resistors and have the pull-ups in both halves, but this is unnecessary in simple use cases.
 
@@ -120,7 +120,7 @@ A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and t
 ## Non-Pro Micro Controller Compilation
 
 If building a Dactyl Manuform with controllers that aren't a pro micro, the Converter feature of QMK will allow compilation of firmware for the intended variant and supported controller without having to create a new QMK keyboard/keymap.  
-Please see [Converters documentation](https://docs.qmk.fm/#/feature_converters?id=supported-converters) for list of controllers that are supported converting from `promicro` and conversion implementation.
+Please see [Converters documentation](https://docs.qmk.fm/#/feature_converters?id=supported-converters) for list of controllers that are supported converting from `pro_micro` and how to implement conversion.
 
 ## Flashing
 
