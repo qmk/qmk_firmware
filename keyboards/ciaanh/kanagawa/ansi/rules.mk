@@ -1,1 +1,1 @@
-ENCODER_MAP_ENABLE = yes
+# This file intentionally left blank
