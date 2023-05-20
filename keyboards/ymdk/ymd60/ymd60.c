@@ -1,6 +1,5 @@
-/* Copyright 2023 Finalkey
+/* Copyright 2023 YMDK
  * Copyright 2023 Pangorin <https://github.com/pangorin>
- * Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
