@@ -6,7 +6,6 @@ from milc import cli
 from argcomplete.completers import FilesCompleter
 
 from qmk.commands import dump_lines
-from qmk.constants import QMK_FIRMWARE
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import keymap_completer, locate_keymap
 from qmk.path import normpath, FileType
