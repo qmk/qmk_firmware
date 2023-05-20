@@ -200,7 +200,7 @@ def info(cli):
 
     # Output in the requested format
     if cli.args.format == 'json':
-        print(json.dumps(kb_info_json, cls=InfoJSONEncoder))
+        print(json.dumps(kb_info_json, cls=InfoJSONEncoder, sort_keys=True))
         return True
     elif cli.args.format == 'text':
         print_dotted_output(kb_info_json)
