@@ -8,9 +8,6 @@
         "pid": "0x0010",
         "device_version": "2.1.0"
     },
-    "bootmagic": {
-        "matrix": [0, 13]
-    },
     "encoder": {
         "rotary": [
             {"pin_a": "GP2", "pin_b": "GP3"}
