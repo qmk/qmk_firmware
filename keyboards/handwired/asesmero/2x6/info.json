@@ -8,6 +8,8 @@
         "vid": "0x5A30"
     },
 	
+	 "diode_direction": "ROW2COL",
+	
 	"features": {
         "bootmagic": true,
         "command": false,

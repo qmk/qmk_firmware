@@ -11,8 +11,6 @@
         "rows": ["B4", "B5"]
     },
 	
-    "diode_direction": "ROW2COL",
-	
 	"rgblight": {	 
          "led_count": 1,
          "pin": "F7"

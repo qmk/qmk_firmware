@@ -1,7 +1,8 @@
 # VIA Asesmero 2x6 Layout
 
 A simple layout with 12 keys with shorcuts to assign on OBS or any software
-You can connect a Neopixel (RGB Led)on PIN F7 to see wich layer is active. 
+You can connect a Neopixel (RGB Led) on ProMicro PIN F7 or RP2040 PIN GP29  
+to see wich layer is active. 
 
 LAYER 0 (RED)
 +------------+------------+------------+------------+------------+------------+

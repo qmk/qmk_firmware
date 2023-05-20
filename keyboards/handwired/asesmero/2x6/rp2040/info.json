@@ -12,8 +12,6 @@
         "rows": ["GP8", "GP9"]
     },
 	
-    "diode_direction": "ROW2COL",
-	
 	"rgblight": {	 
          "led_count": 1,
          "pin": "GP29"
