@@ -28,7 +28,7 @@ Enter the bootloader in 3 ways:
 
 ## QMK Layouts
 
-The following [layout](/layouts/) is supported:
+The following [community layout](/layouts/) is supported:
 | Layout | Diagram |
 | :---: | :---: |
 | Split_3x5_3  | ![split_3x5_3](https://i.imgur.com/P3POmzbh.png)   |
