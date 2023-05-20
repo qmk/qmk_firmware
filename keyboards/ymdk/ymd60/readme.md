@@ -1,8 +1,8 @@
 # YMDK 60 HHKB
 
-![YMDK60 HHKB PCB]()
+![YMDK60 HHKB PCB](https://imgur.com/a/wuQ5XAG)
 
-A 65% PCB, which controlled by an STM32F703 chipset.
+A 65% PCB, which controlled by an ATMega32U4 chipset.
 
 * Keyboard Maintainer: [Pangorin](https://github.com/pangorin)
 * Hardware Supported: ATMega32U4-MU
@@ -23,3 +23,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix and plug in the keyboard
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Short Reset pins**: Use a tweezer to short 2 pins off the Reset button
