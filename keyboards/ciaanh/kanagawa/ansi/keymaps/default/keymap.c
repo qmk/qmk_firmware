@@ -28,7 +28,6 @@ enum layers
 enum custom_keycodes 
 { 
     CUSTOMKEY = SAFE_RANGE, 
-    NEW_SAFE_RANGE, 
 };
 
 #define TO_BASE     TO(_BASE)
