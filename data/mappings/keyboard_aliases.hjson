@@ -272,6 +272,12 @@
     "jones": {
         "target": "jones/v03_1"
     },
+    "kamigakushi": {
+        "target": "jaykeeb/kamigakushi",
+        "layouts": {
+            "LAYOUT": "LAYOUT_65_ansi_blocker_tsangan"
+        }
+    },
     "katana60": {
         "target": "rominronin/katana60/rev1"
     },
