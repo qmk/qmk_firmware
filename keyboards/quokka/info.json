@@ -12,13 +12,6 @@
     "build": {
         "lto": true
     },
-    "config_h_features": {
-        "audio": true,
-        "extrakey": true,
-        "lto": true,
-        "oled": true,
-        "rgb_matrix": true
-    },
     "diode_direction": "ROW2COL",
     "features": {
         "audio": true,
@@ -27,8 +20,6 @@
         "oled": true,
         "rgb_matrix": true
     },
-    "keyboard_folder": "quokka",
-    "keymaps": {},
     "matrix_pins": {
         "cols": [
             "GP8",
@@ -44,18 +35,7 @@
             "GP18"
         ]
     },
-    "matrix_size": {
-        "cols": 5,
-        "rows": 8
-    },
-    "parse_errors": [
-        "No LAYOUTs defined! Need at least one layout defined in info.json."
-    ],
-    "parse_warnings": [],
-    "platform_key": "chibios",
     "processor": "RP2040",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "rgb_matrix": {
         "center_point": [
             133,
@@ -398,14 +378,10 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "GP0",
-        "transport": {
-            "protocol": "serial"
-        }
+        "soft_serial_pin": "GP0"
     },
     "layouts": {
         "LAYOUT_split_3x5_3": {
-            "c_macro": true,
             "layout": [
                 {
                     "label": "L00",

@@ -1,9 +1,27 @@
-# Quokka Keyboard
+# Quokka
 
-A split ortholinear keyboard designed for the small handed.
+![%KEYBOARD%](imgur.com image replace me!)
 
-Keyboard Maintainer: [dlford](https://github.com/dlford/), [dlford.io](https://www.dlford.io)
+*A split ortholinear keyboard designed for the small handed.*
 
-Hardware Supported: Quokka PCB, Adafruit KB2040
+* Keyboard Maintainer: [dlford](https://github.com/dlford/), [dlford.io](https://www.dlford.io)
+* Hardware Supported: Quokka PCB, Adafruit KB2040
+* Hardware Availability: [PCB, Case Data, and Build Guide](https://github.com/dlford/quokka)
 
-Hardware Availability: [PCB, Case Data, and Build Guide](https://github.com/dlford/quokka)
+Make example for this keyboard (after setting up your build environment):
+
+    make quokka:default
+
+Flashing example for this keyboard:
+
+    make quokka:default:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
