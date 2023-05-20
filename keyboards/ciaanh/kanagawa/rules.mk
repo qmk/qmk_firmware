@@ -20,6 +20,4 @@ OLED_DRIVER = SSD1306
 
 OPT_DEFS += -DHAL_USE_I2C=TRUE
 
-LTO_ENABLE = no # reduce size
-
 DEFAULT_FOLDER = ciaanh/kanagawa/ansi
