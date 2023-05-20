@@ -6,6 +6,14 @@ Custom four key keyboard. **See each individual board for pin information.**
 * Hardware Supported: custom stacked FR4 case
 * Hardware Availability: Contact bob at [IMKC Discord](https://discord.gg/imkc)
 
+
+
+## Bootloader
+
+Enter the bootloader:
+* **Physical reset button**: Briefly press the taticle button on the back of the PCB.
+
+
 Make example for this keyboard (after setting up your build environment):
 
     make trainpad:default
