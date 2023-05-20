@@ -18,6 +18,4 @@ WS2812_DRIVER = vendor
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 
-OPT_DEFS += -DHAL_USE_I2C=TRUE
-
 DEFAULT_FOLDER = ciaanh/kanagawa/ansi
