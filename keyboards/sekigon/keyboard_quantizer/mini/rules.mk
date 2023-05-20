@@ -17,7 +17,6 @@ SRC += lib/tinyusb/src/portable/raspberrypi/pio_usb/hcd_pio_usb.c
 VPATH += keyboards/sekigon/keyboard_quantizer/mini/lib/tinyusb/src
 
 SRC += lib/pico-sdk/src/rp2_common/hardware_dma/dma.c
-SRC += lib/pico-sdk/src/common/pico_time/time.c
 SRC += lib/pico-sdk/src/host/pico_stdlib/stdlib.c
 VPATH += lib/pico-sdk/src/rp2_common/hardware_dma/include
 VPATH += lib/pico-sdk/src/rp2_common/hardware_uart/include
