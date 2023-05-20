@@ -70,6 +70,7 @@
     * [Macros](feature_macros.md)
     * [Mouse Keys](feature_mouse_keys.md)
     * [Programmable Button](feature_programmable_button.md)
+    * [Repeat Key](feature_repeat_key.md)
     * [Space Cadet Shift](feature_space_cadet.md)
     * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
