@@ -2,7 +2,7 @@
     "manufacturer": "ScottoKeebs",
     "keyboard_name": "ScottoFly",
     "maintainer": "joe-scotto",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -19,7 +19,6 @@
         // 15, 14, 16, 10
         "rows": ["B1", "B3", "B2", "B6"]
     },
-    "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
