@@ -1,3 +1,5 @@
+// Copyright 2021 sekigon-gonnoc
+// SPDX-License-Identifier: MIT
 
 #include "usb_crc.h"
 

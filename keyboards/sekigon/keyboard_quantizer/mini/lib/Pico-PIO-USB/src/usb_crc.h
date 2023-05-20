@@ -1,3 +1,6 @@
+// Copyright 2021 sekigon-gonnoc
+// SPDX-License-Identifier: MIT
+
 #pragma once
 
 #include <stdint.h>
