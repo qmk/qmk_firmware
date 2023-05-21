@@ -24,8 +24,6 @@
 enum layer_names {
     _BASE,
     _FN1,
-    _FN2,
-    _FN3
 };
 
 // enum layer_keycodes { };
