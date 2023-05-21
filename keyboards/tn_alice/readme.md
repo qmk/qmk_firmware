@@ -1,12 +1,12 @@
 # tn_alice
 
-![tn_alice](imgur.com image replace me!)
+![tn_alice](https://imgur.com/a/9xCNjZz)
 
-*A short description of the keyboard/project*
+An Alice style board with arrowkeys made based on the Owlab Spring.
 
 * Keyboard Maintainer: [Thong](https://github.com/thong-phn)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: TN Alice PCB 
+* Hardware Availability: [Taobao](https://item.taobao.com/item.htm?id=691101549736&ft=t&toSite=main)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -23,5 +23,9 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Briefly press the button on the back of the PCB (SW1)
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+
+## Modding the underglow RGB
+
+![tn_alice_underglow](https://imgur.com/yxfHrVs)
