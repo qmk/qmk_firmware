@@ -312,6 +312,7 @@ You can look at the [Planck Keyboard](https://github.com/qmk/qmk_firmware/blob/e
 
 This adds a click sound each time you hit a button, to simulate click sounds from the keyboard. And the sounds are slightly different for each keypress, so it doesn't sound like a single long note, if you type rapidly. 
 
+
 Keycodes available:
 
 |Key                      |Aliases  |Description                                |
@@ -327,6 +328,12 @@ The feature is disabled by default, to save space.  To enable it, add this to yo
 
     #define AUDIO_CLICKY
 
+There is also a deterministic mode that can be swapped out in favour of random. In this mode every key pressed corresponds to a click mapped between MIN and MAX frequency, iterating by FREQ_FACTOR. The sounds are always the same for each keycode to help learn touch typing and recognize words to sounds as well as common typos while speed typing.
+
+This feature is disabled by default, to enable it, add this to your 'config.h':
+
+    #define AUDIO_CLICKY
+    #define AUDIO_CLICKY_DETERMINISTIC
 
 You can configure the default, min and max frequencies, the stepping and built in randomness by defining these values: 
 

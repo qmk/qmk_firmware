@@ -1,6 +1,7 @@
 #pragma once
 
-void clicky_play(void);
+//void clicky_play(void);
+void clicky_play(uint16_t keycode);
 bool process_clicky(uint16_t keycode, keyrecord_t *record);
 
 void clicky_freq_up(void);

@@ -1,4 +1,4 @@
-#include "audio.h"
+nclude "audio.h"
 #include "process_clicky.h"
 
 #ifdef AUDIO_CLICKY
@@ -35,13 +35,22 @@ extern bool music_activated;
 extern bool midi_activated;
 #    endif // !NO_MUSIC_MODE
 
-void clicky_play(void) {
+void clicky_play(uint16_t keycode) {
 #    ifndef NO_MUSIC_MODE
     if (music_activated || midi_activated || !audio_config.enable) return;
 #    endif // !NO_MUSIC_MODE
+#    ifdef AUDIO_CLICKY_DETERMINISTIC
+    uint16_t lower_bits = keycode & 0x000F;//get rid of extra bits TODO maybe we should mask more?
+    //create a click by iterating symmetrically around the median frequency of MAX and MIN
+    clicky_song[2][0] = AUDIO_CLICKY_FREQ_MIN + (float)lower_bits*(AUDIO_CLICKY_FREQ_MAX - AUDIO_CLICKY_FREQ_MIN)/AUDIO_CLICKY_FREQ_FACTOR;
+    //now calculate the opposite side of the median based around max and min freqs
+    clicky_song[1][0] = AUDIO_CLICKY_FREQ_MAX - (float)lower_bits*(AUDIO_CLICKY_FREQ_MAX - AUDIO_CLICKY_FREQ_MIN)/AUDIO_CLICKY_FREQ_FACTOR;
+    PLAY_SONG(clicky_song);
+#    else
     clicky_song[1][0] = 2.0f * clicky_freq * (1.0f + clicky_rand * (((float)rand()) / ((float)(RAND_MAX))));
     clicky_song[2][0] = clicky_freq * (1.0f + clicky_rand * (((float)rand()) / ((float)(RAND_MAX))));
     PLAY_SONG(clicky_song);
+#    endif // !AUDIO_CLICKY_DETERMINISTIC
 }
 
 void clicky_freq_up(void) {
@@ -107,7 +116,7 @@ bool process_clicky(uint16_t keycode, keyrecord_t *record) {
     if (audio_config.enable && audio_config.clicky_enable) {
         if (record->event.pressed) {                                 // Leave this separate so it's easier to add upstroke sound
             if (keycode != QK_AUDIO_ON && keycode != QK_AUDIO_OFF) { // DO NOT PLAY if audio will be disabled, and causes issuse on ARM
-                clicky_play();
+                clicky_play(keycode);
             }
         }
     }
