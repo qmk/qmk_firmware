@@ -1,6 +1,6 @@
 # Quokka
 
-![%KEYBOARD%](imgur.com image replace me!)
+![Quokka](https://i.imgur.com/zqbb56c.jpeg)
 
 *A split ortholinear keyboard designed for the small handed.*
 
@@ -20,8 +20,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Quickly double press and release the reset button on the the PCB
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
