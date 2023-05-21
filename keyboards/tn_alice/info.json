@@ -11,7 +11,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight": true
     },
     "processor": "STM32F103",
     "indicators": {
