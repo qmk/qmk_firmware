@@ -22,6 +22,9 @@
 // #define NO_AUTO_SHIFT_SPECIAL
 
 // retro shift is auto shift on home row mods
+// I no longer use home row mods, but do find this setting helps
+// avoid 'fat fingered' keypresses.
+
 // If RETRO_SHIFT is defined to a value, hold times greater 
 // than that value will not produce a tap on release. This enables 
 // modifiers to be held for combining with mouse clicks without 
@@ -32,7 +35,7 @@
 // #define RETRO_SHIFT
 
 // Configure the global tapping term (default: 200ms)
-// Lower than 250 and I can't tap dance brackets without a run up.
+// Lower than 210 and I can't tap dance brackets without a run up.
 #define TAPPING_TERM 210
 
 #define TAPPING_TERM_PER_KEY
@@ -40,8 +43,3 @@
 // Apply the modifier on keys that are tapped during a short hold of a modtap
 // Prevents slurred typing (of home row mods)
 #define PERMISSIVE_HOLD
-
-// the make command:
-// From ~/qmk_firmware
-// make keyboardio/atreus:slf-atreus:flash
- 
