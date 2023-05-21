@@ -2,7 +2,7 @@
 
 ![YMDK60 HHKB PCB](https://i.imgur.com/5lRZfcgh.png)
 
-A 65% PCB, which controlled by an ATMega32U4 chipset.
+A 60% PCB, which is controlled by an ATMega32U4 chipset.
 
 * Keyboard Maintainer: [Pangorin](https://github.com/pangorin)
 * Hardware Supported: ATMega32U4-MU
