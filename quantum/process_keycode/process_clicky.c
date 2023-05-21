@@ -1,4 +1,4 @@
-nclude "audio.h"
+#include "audio.h"
 #include "process_clicky.h"
 
 #ifdef AUDIO_CLICKY
