@@ -16,16 +16,13 @@
 
 #pragma once
 
-/* Bootmagic key */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
 /* Forcing to use NKRO instead 6KRO */
 #define FORCE_NKRO
 
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
-    #define RGB_DI_PIN B7
+    #define RGB_DI_PIN E2
+    #define WS2812_DI_PIN E2
     #define RGB_MATRIX_LED_COUNT 74
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
     #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
