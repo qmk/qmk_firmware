@@ -17,7 +17,6 @@
 
 /* OLED SPI Defines */
 #ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X32
 #    define OLED_FONT_H "lib/oledfont.c"
 #    define OLED_FONT_END 255
 
