@@ -105,45 +105,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*****************************************************************************************************/
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case CUSTOMKEY:
-        if (record->event.pressed) {
-            if (get_mods() & MOD_MASK_SHIFT) {
-                tap_code16(G(A(KC_K)));
-            } else {
-                tap_code(KC_MPLY);
-            }
-        } 
-        break; 
-    case LT(0,KC_X):
-        if (!record->tap.count && record->event.pressed) {
-            tap_code16(C(KC_X)); // Intercept hold function to send Ctrl-X
-            return false;
-        }
-        return true;
-    case LT(0,KC_C):
-        if (!record->tap.count && record->event.pressed) {
-            tap_code16(C(KC_C)); // Intercept hold function to send Ctrl-C
-            return false;
-        }
-        return true;
-    case LT(0,KC_V):
-        if (!record->tap.count && record->event.pressed) {
-            tap_code16(C(KC_V)); // Intercept hold function to send Ctrl-V
-            return false;
-        }
-        return true;  
-    case LT(0,KC_S):
-        if (!record->tap.count && record->event.pressed) {
-            tap_code16(C(KC_S)); // Intercept hold function to send Ctrl-S
-            return false;
-        }
-        return true;  
-  }
-  return true;
-}
-
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
@@ -153,3 +114,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 };
 #endif
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}

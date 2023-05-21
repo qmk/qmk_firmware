@@ -29,7 +29,8 @@
         "mousekey": false,
         "nkro": false,
         "rgb_matrix": true,
-        "rgblight": false
+        "rgblight": false,
+        "encoder": true
     },
     "encoder": {
         "rotary": [
@@ -144,6 +145,27 @@
     "rgb_matrix": {
         "driver": "WS2812",
         "center_point": [ 90, 28],
+        "animations": {
+            "breathing": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in_dual": true,
+            "cycle_spiral": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "pixel_flow": true,
+            "solid_reactive": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_nexus": true,
+            "splash": true
+        },
         "layout": [
             { "flags": 4,"matrix": [0,12],"x": 189, "y": 0 },
             { "flags": 4,"matrix": [0,11],"x": 175, "y": 0 },
