@@ -30,6 +30,7 @@
 #ifdef RGB_MATRIX_ENABLE
      /* RGB Defines */
 #    define RGB_DI_PIN GP4
+#    define WS2812_DI_PIN GP4
 
 #    define RGB_MATRIX_CENTER { 90, 28 }
 
