@@ -11,7 +11,8 @@ Custom four key keyboard. **See each individual board for pin information.**
 ## Bootloader
 
 Enter the bootloader:
-* **Physical reset button**: Briefly press the taticle button on the back of the PCB.
+* **Bootmagic reset**: Hold down the far left key while connecting the USB cable.
+* **Physical reset button**: Briefly press the tactile button on the back of the PCB.
 
 
 Make example for this keyboard (after setting up your build environment):
