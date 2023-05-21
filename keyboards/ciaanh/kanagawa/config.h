@@ -20,7 +20,6 @@
 #    define OLED_DISPLAY_128X32
 #    define OLED_FONT_H "lib/oledfont.c"
 #    define OLED_FONT_END 255
-#    define OLED_DISPLAY_ADDRESS 0x3C
 
 /* I2C Conf */
 #    define I2C_DRIVER I2CD0
