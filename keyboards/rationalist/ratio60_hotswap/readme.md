@@ -1,22 +1,17 @@
 # Steezy60
 
-A 60% PCB with a ton of layout options for SMK and Alps switches
-
-More info: https://geekhack.org/index.php?topic=103531.0
+A universal 60% PCB for both tray mount and o-ring mount
 
 * Keyboard Maintainer: [4pplet](https://github.com/4pplet)
-* Hardware Supported: Steezy60 Rev A and B
-* Hardware Availability: https://4pplet.com/products/steezy60
+* Hardware Supported: Ratio60 Rev B
 
 Make example for this keyboard (after setting up your build environment):
 
-    make 4pplet/steezy60/rev_a:default
-    make 4pplet/steezy60/rev_b:default
+    make rationalist/ratio60_hotswap/rev_a:default
 
 Flashing example for this keyboard:
 
-    make 4pplet/steezy60/rev_a:default:flash
-    make 4pplet/steezy60/rev_b:default:flash
+    make rationalist/ratio60_hotswap/rev_a:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
