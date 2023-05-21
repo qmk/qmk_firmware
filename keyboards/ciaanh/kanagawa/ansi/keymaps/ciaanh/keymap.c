@@ -31,8 +31,8 @@ enum custom_keycodes
 };
 
 #define TO_BASE     TO(_BASE)
-#define TG_LOW        TG(_LOWER)
-#define TG_UP         TG(_RAISE)
+#define TG_LOW      TG(_LOWER)
+#define TG_UP       TG(_RAISE)
 
 #define _SCRNSHOT LSFT(LGUI(KC_S))
 
@@ -157,9 +157,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_CODE] =  { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
-    [_FUNC] =   { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
-    [_TOP] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_LOWER] =  { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
+    [_RAISE] =   { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
+    [_ADJUST] =   { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
 };
 #endif
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}

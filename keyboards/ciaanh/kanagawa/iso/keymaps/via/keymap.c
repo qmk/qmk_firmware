@@ -12,7 +12,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ */ 
 #include QMK_KEYBOARD_H
 
 #define ___ KC_NO
@@ -32,11 +32,11 @@ enum layers
 *   ,-------------------------------------------------------------------------------------------------------------------------------------------.    ,---------.
 *   |   kb0   |   kb1   |   kb2   |   kb3   |   kb4   |   kb5   |   kb6   |   kb7   |   kb8   |   kb9   |  kb10   |  kb11   |  kb12   |  kb13   |    |  kd13   |
 *   |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|    |---------|
-*   |   kc0   |   kc1   |   kc2   |   kc3   |   kc4   |   kc5   |   kc6   |   kc7   |   kc8   |   kc9   |  kc10   |  kc11   |  kc12   |         |    |  ke13   |
-*   |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+  kc13   |    |---------|
-*   |   kd0   |   kd1   |   kd2   |   kd3   |   kd4   |   kd5   |   kd6   |   kd7   |   kd8   |   kd9   |  kd10   |  kd11   |  kd12   |         |    |  kf13   |
+*   |   kc0   |   kc1   |   kc2   |   kc3   |   kc4   |   kc5   |   kc6   |   kc7   |   kc8   |   kc9   |  kc10   |  kc11   |  kc12   |  kc13   |    |  ke13   |
+*   |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'    |---------|
+*   |   kd0   |   kd1   |   kd2   |   kd3   |   kd4   |   kd5   |   kd6   |   kd7   |   kd8   |   kd9   |  kd10   |  kd11   |       kd12        |    |  kf13   |
 *   |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'---------'    `---------'
-*   |   ke0   |   ke1   |   ke2   |   ke3   |   ke4   |   ke5   |   ke6   |   ke7   |   ke8   |   ke9   |  ke10   |  ke11   |  ke12   |  ,---------.
+*   |     ke0     | --- |   ke2   |   ke3   |   ke4   |   ke5   |   ke6   |   ke7   |   ke8   |   ke9   |  ke10   |  ke11   |  ke12   |  ,---------.
 *   |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'  |  kf12   |
 *   |   kf0   |   kf1   |   kf2   |   kf3   |           ,---------.     ,---------.           |   kf6   |   kf7   |   kf8   |  ,---------|---------|---------.
 *   `---------+---------+---------+---------+           |   kf4   |     |   kf5   |           +---------+---------+---------'  |   kf9   |  kf10   |  kf11   |
@@ -70,6 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_NUBS,       KC_Z,       KC_X,       KC_C,       KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,      KC_UP,           \
         KC_LCTL, KC_LGUI,    KC_LALT, MO(_LOWER),        KC_SPC,        KC_SPC,             KC_RALT,MO(_RAISE), KC_RCTL,           KC_LEFT, KC_DOWN, KC_RGHT   \
     ),
+
 
     [_LOWER] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,  \
