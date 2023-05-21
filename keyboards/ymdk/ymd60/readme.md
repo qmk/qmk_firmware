@@ -1,6 +1,6 @@
 # YMDK 60 HHKB
 
-![YMDK60 HHKB PCB](https://imgur.com/a/wuQ5XAG)
+![YMDK60 HHKB PCB](https://i.imgur.com/5lRZfcgh.png)
 
 A 65% PCB, which controlled by an ATMega32U4 chipset.
 
