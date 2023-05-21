@@ -204,6 +204,11 @@ uint8_t compose_mapping(uint16_t* sequence, uint8_t sequence_len) {
         COMPOSE_INPUT(KC_R, KC_R),
         { SEND_STRING(SS_LCTL(SS_TAP(X_F9))); }
     )
+    // run selected text
+    COMPOSE_MAPPING(
+        COMPOSE_INPUT(KC_R, KC_T),
+        { SEND_STRING(SS_LALT(SS_TAP(X_F9))); }
+    )
 
     return COMPOSE_ERROR;
 }
