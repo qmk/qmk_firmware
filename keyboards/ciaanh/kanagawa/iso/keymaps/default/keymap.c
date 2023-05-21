@@ -20,21 +20,10 @@
 enum layers 
 { 
     _BASE,
-    _CODE, 
-    _FUNC,
-    _TOP
+    _LOWER, 
+    _RAISE,
+    _ADJUST
 };
-
-enum custom_keycodes 
-{ 
-    CUSTOMKEY = SAFE_RANGE, 
-};
-
-#define TO_BASE     TO(_BASE)
-#define TO_FUNC     TG(_FUNC)
-#define L_CODE      MO(_CODE)
-
-#define _SCRNSHOT LSFT(LGUI(KC_S))
 
 /* Keyboard layout
 *   ,---------.   ,---------------------------------------.  ,---------------------------------------.  ,---------------------------------------.    ,---------.
@@ -68,148 +57,62 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *   |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'---------'    `---------'
 *   | LShift  | NUBS <  |    Z    |    X    |    C    |    V    |    B    |    N    |    M    |    ,    |    .    |    /    | RShift  |  ,---------.
 *   |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'  |    UP   |
-*   |  LCtrl  |   LGUI  |   LAlt  |  CODE   |           ,---------.     ,---------.           |   RAlt  |  RCtrl  |   FUNC  |  ,---------|---------|---------.
+*   |  LCtrl  |   LGUI  |   LAlt  |  LOWER  |           ,---------.     ,---------.           |   RAlt  |  RAISE  |  RCtrl  |  ,---------|---------|---------.
 *   |---------+---------+---------+---------+           |  Space  |     |  Space  |           +---------+---------+---------'  |  LEFT   |   DOWN  |  RIGHT  |
-*                                                       `---------'     `---------'                                            `---------+---------+---------'   
+*                                                       `---------'     `---------'                                            `---------+---------+---------'  
 */
     [_BASE] = LAYOUT(
-          KC_ESC,   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,           KC_MPLY,  \
+         KC_ESC,   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,             KC_MPLY,  \
           
-          KC_GRV,    KC_1,       KC_2,       KC_3,       KC_4,       KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,  KC_EQL, KC_BSPC,   KC_DEL,  \
-          KC_TAB,    KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC, KC_RBRC,  KC_ENT,  KC_HOME,  \
-         KC_CAPS,    KC_A, LT(0,KC_S),       KC_D,       KC_F,       KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT, KC_NUHS,            KC_END,  \
-         KC_LSFT, KC_NUBS,       KC_Z, LT(0,KC_X), LT(0,KC_C), LT(0,KC_V),    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,    KC_UP,           \
-         KC_LCTL, KC_LGUI,    KC_LALT,     L_CODE,        KC_SPC,        KC_SPC,             KC_RALT, KC_RCTL, TO_FUNC,           KC_LEFT, KC_DOWN, KC_RGHT   \
+         KC_GRV,    KC_1,       KC_2,       KC_3,       KC_4,       KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS,  KC_EQL, KC_BSPC,     KC_DEL,  \
+         KC_TAB,    KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_LBRC, KC_RBRC,  KC_ENT,    KC_HOME,  \
+        KC_CAPS,    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT, KC_NUHS,              KC_END,  \
+        KC_LSFT, KC_NUBS,       KC_Z,       KC_X,       KC_C,       KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,      KC_UP,           \
+        KC_LCTL, KC_LGUI,    KC_LALT, MO(_LOWER),        KC_SPC,        KC_SPC,             KC_RALT,MO(_RAISE), KC_RCTL,           KC_LEFT, KC_DOWN, KC_RGHT   \
     ),
 
-    [_CODE] = LAYOUT(
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,  \
+    [_LOWER] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,  \
 
-       _SCRNSHOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,           \
-         XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX   \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,  \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,           \
+        XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              XXXXXXX, _______, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX   \
     ),
 
-    [_FUNC] = LAYOUT(
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             RGB_TOG,  \
+    [_RAISE] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,  \
 
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_VAI,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              RGB_VAD,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_HUI,           \
-         XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              RGB_SPD, RGB_SPI, TO_BASE,     RGB_SAD, RGB_HUD, RGB_SAI   \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,  \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,           \
+        XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              XXXXXXX, _______, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX   \
     ),
 
-    [_TOP] = LAYOUT(
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             XXXXXXX,  \
+    [_ADJUST] = LAYOUT(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,             RGB_TOG,  \
 
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              XXXXXXX,  \
-         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,           \
-         XXXXXXX, XXXXXXX, XXXXXXX, _______,         XXXXXXX,       XXXXXXX,              XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX   \
-    ),
-
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,  \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_VAI,  \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,              RGB_VAD,  \
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_HUI,           \
+        XXXXXXX, XXXXXXX, XXXXXXX, _______,         RGB_SPD,       RGB_SPI,              XXXXXXX, _______, XXXXXXX,     RGB_SAD, RGB_HUD, RGB_SAI   \
+    )
 };
 
 /*****************************************************************************************************/
 
-#ifdef OLED_ENABLE
-    static void render_status(void) {
-        // 21 characters per line
-        // 16 cols / 4 rows
-
-        oled_write_P(PSTR("    Kanagawa rev 2.0   "), false);
-        //oled_write_ln("", false);
-
-        // Host Keyboard Layer Status
-        oled_write_P(PSTR("Layer: "), false);
-        switch (get_highest_layer(layer_state)) {
-            case _BASE:
-                oled_write_P(PSTR("_\n"), false);
-                break;
-            case _FUNC:
-                oled_write_P(PSTR("[Fn]\n"), false);
-                break;
-            case _CODE:
-                oled_write_P(PSTR("[Code]\n"), false);
-                break;
-            default:
-                oled_write_P(PSTR("Undefined\n"), false);
-        }
-
-        // Host Keyboard LED Status
-        led_t led_state = host_keyboard_led_state();
-        oled_write_ln(led_state.caps_lock ? "CAPLOCK" : "       ", false);
-        // oled_write_P(PSTR("         "), false);
-        
-        // oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-        // oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-        // oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-
-        oled_write_ln("", false);
-        // oled_write_ln("", false);
-        // oled_write_ln("", false);
-        // oled_write_ln("", false);
-        // oled_write_ln("", false);
-    }
-
-    bool oled_task_user(void) {
-        
-        render_status();
-
-        return false;
-    }
-#endif
-
-/*****************************************************************************************************/
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case CUSTOMKEY:
-        if (record->event.pressed) {
-            if (get_mods() & MOD_MASK_SHIFT) {
-                tap_code16(G(A(KC_K)));
-            } else {
-                tap_code(KC_MPLY);
-            }
-        } 
-        break; 
-    case LT(0,KC_X):
-        if (!record->tap.count && record->event.pressed) {
-            tap_code16(C(KC_X)); // Intercept hold function to send Ctrl-X
-            return false;
-        }
-        return true;
-    case LT(0,KC_C):
-        if (!record->tap.count && record->event.pressed) {
-            tap_code16(C(KC_C)); // Intercept hold function to send Ctrl-C
-            return false;
-        }
-        return true;
-    case LT(0,KC_V):
-        if (!record->tap.count && record->event.pressed) {
-            tap_code16(C(KC_V)); // Intercept hold function to send Ctrl-V
-            return false;
-        }
-        return true;  
-    case LT(0,KC_S):
-        if (!record->tap.count && record->event.pressed) {
-            tap_code16(C(KC_S)); // Intercept hold function to send Ctrl-S
-            return false;
-        }
-        return true;  
-  }
-  return true;
+layer_state_t layer_state_set_user(layer_state_t state) {
+   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_CODE] =  { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
-    [_FUNC] =   { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },    
-    [_TOP] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_LOWER] =  { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
+    [_RAISE] =   { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
+    [_ADJUST] =   { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
 };
 #endif
