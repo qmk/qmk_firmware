@@ -3,7 +3,6 @@
     "keyboard_name": "tn_alice",
     "maintainer": "thong-phn",
     "bootloader": "uf2boot",
-    "board": "STM32_F103_STM32DUINO",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
