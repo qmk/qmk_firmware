@@ -12,9 +12,12 @@
         "rows": ["GP8", "GP9"]
     },
 
-    "rgblight": {
-        "pin": "GP29",
-        "led_count": 1
+    "ws2812": {
+        "pin": "GP29"
+    },
+
+    "rgblight": {	 
+         "led_count": 1
     },
 
 }
