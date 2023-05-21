@@ -18,7 +18,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-                    KC_MUTE,
+                    LT(1,KC_MUTE),
       KC_ENT, KC_0, KC_BSPC,
       KC_7,   KC_8, KC_9,
       KC_4,   KC_5, KC_6,
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT(
                         _______,
-      _______, _______, _______,
+      CK_TOGG, AU_TOGG, _______,
       _______, _______, _______,
       _______, _______, _______,
       _______, _______, _______
@@ -135,4 +135,3 @@ bool oled_task_user(void) {
 }
 
 #endif
-
