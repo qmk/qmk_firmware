@@ -52,9 +52,6 @@
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
 
 
-/* turn off effects when suspended */
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-
 /* sets the number of milliseconds to pause after sending a wakeup packet.
 *  Disabled by default, you might want to set this to 200 (or higher) if the
 *  keyboard does not wake up properly after suspending.
@@ -65,12 +62,6 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Tap dance setup */
-#define TAPPING_TERM 200
-#define TAPPING_TERM_PER_KEY
-
-
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_HUE_STEP  8
 #    define RGBLIGHT_SAT_STEP  8
