@@ -1,0 +1,24 @@
+{
+    "keyboard_name": "6x6 RP2040",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+
+    "usb": {
+        "device_version": "0.0.2",
+    },
+
+    "matrix_pins": {
+        "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7"],
+        "rows": ["GP8", "GP9", "GP10", "GP11", "GP12", "GP13"]
+    },
+
+    "ws2812": {
+        "pin": "GP29"
+    },
+
+    "rgblight": {
+        "led_count": 1,
+        "pin": "GP29"
+    }
+
+}

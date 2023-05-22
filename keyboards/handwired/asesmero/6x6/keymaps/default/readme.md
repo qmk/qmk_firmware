@@ -1,7 +1,7 @@
-# Default Asesmero 6x6 Layout
+# Default Asesmero ortho 6x6 Layout
 
 A simple layout with 36 keys with shorcuts to assign on OBS or any software
-
+```
 LAYER 0
 +------------+------------+------------+------------+------------+------------+
 |    Ctrl    |    Ctrl    |    Ctrl    |    Ctrl    |    Ctrl    |    Ctrl    |
@@ -28,4 +28,4 @@ LAYER 0
 | + Shift    | + Shift    | + Shift    | + Shift    | + Shift    | + Shift    |
 | + Alt + 5  | + Alt + 6  | + Alt + 7  | + Alt + 8  | + Alt + 9  | + Alt + 0  |
 +------------+------------+------------+------------+------------+------------+
-
+```
