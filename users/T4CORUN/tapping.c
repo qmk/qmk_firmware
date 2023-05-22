@@ -32,7 +32,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #endif //HOMEROWMOD_ENABLED
     //Pinky layers
     case FUN_Z:
-    case MOU_C:
+    //case MOU_C:
     case AD_SLSH:
       return TAPPING_TERM + 50;
     default:

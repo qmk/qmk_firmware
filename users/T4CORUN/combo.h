@@ -3,7 +3,7 @@
 
 enum combos {
   COMDOT_DRGTOG,
-  NUMSFT_MB2,
+  //NUMSFT_MB2,
   SPCNAV_MB4,
   COMBO_LENGTH
 };
