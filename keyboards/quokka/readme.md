@@ -1,6 +1,6 @@
 # Quokka
 
-![Quokka](https://i.imgur.com/zqbb56c.jpeg)
+![Quokka](https://i.imgur.com/zqbb56ch.jpeg)
 
 *A split ortholinear keyboard designed for the small handed.*
 
