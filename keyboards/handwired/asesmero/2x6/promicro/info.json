@@ -14,5 +14,5 @@
     "rgblight": {	 
          "led_count": 1,
          "pin": "F7"
-    },
+    }
 }
