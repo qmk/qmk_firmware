@@ -10,7 +10,11 @@
         "cols": ["D1", "D0", "D4", "C6", "D7", "E6"],
         "rows": ["B4", "B5"]
     },
-	
+
+    "ws2812": {
+        "pin": "F7"
+    },
+
     "rgblight": {	 
          "led_count": 1,
          "pin": "F7"
