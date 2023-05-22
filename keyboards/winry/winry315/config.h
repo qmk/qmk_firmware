@@ -12,7 +12,6 @@
 // RGB LED parameters.
 // This PCB uses a single chain of WS2812-compatible addressable RGB LEDs for
 // per-key backlight and underglow.
-#define RGB_DI_PIN F7
 #define RGBLED_NUM 27
 #define RGBLIGHT_LIMIT_VAL 150
 

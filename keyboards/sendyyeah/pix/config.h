@@ -25,10 +25,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define USB_MAX_POWER_CONSUMPTION 500
-
-#define RGB_DI_PIN B5
-#ifdef RGB_DI_PIN
 #define RGBLED_NUM 15
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
@@ -47,4 +43,3 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYER_BLINK
-#endif

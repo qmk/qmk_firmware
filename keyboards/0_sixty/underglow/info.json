@@ -5,5 +5,8 @@
     },
     "features": {
         "rgblight": true
+    },
+    "ws2812": {
+        "pin": "B6"
     }
 }
