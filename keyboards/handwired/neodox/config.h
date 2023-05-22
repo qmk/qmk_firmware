@@ -6,9 +6,6 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* wiring of each half */
-#define MATRIX_ROW_PINS { GP4, GP5, GP6, GP7, GP8 }
-#define MATRIX_COL_PINS { GP9, GP10, GP11, GP12, GP13, GP14, GP15 }
 
 /* Handness */
 #define SPLIT_HAND_MATRIX_GRID GP5, GP15    /* row first because the board is col2row */
@@ -27,7 +24,7 @@
 #define SERIAL_USART_RX_PIN GP1
 
 /* RGB pin */
-#define RGB_DI_PIN GP23
+#define WS2812_DI_PIN GP23
 /* Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral */
 #define WS2812_PIO_USE_PIO1
 
@@ -51,12 +48,6 @@
 #define BACKLIGHT_PWM_DRIVER PWMD6
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
 
-
-/* sets the number of milliseconds to pause after sending a wakeup packet.
-*  Disabled by default, you might want to set this to 200 (or higher) if the
-*  keyboard does not wake up properly after suspending.
-*/
-#define USB_SUSPEND_WAKEUP_DELAY 200
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

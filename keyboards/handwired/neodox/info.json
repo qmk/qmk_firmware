@@ -3,9 +3,7 @@
     "keyboard_name": "Neodox",
     "maintainer": "MatteoDM",
     "bootloader": "rp2040",
-    "bootmagic": {
-        "enabled": true
-    },
+
     "keyboard_folder": "handwired/neodox",
     "keymaps": {},
     "matrix_pins": {
