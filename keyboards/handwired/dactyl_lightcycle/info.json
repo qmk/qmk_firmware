@@ -32,7 +32,7 @@
         "soft_serial_pin": "D0"
     },
     "developement_board": "pro_micro",
-    "community_layouts": ["LAYOUT_split_3x6_3", "LAYOUT_split_3x5_3"],
+    "community_layouts": ["split_3x6_3", "split_3x5_3"],
     "layouts": {
         "LAYOUT": {
             "layout": [
