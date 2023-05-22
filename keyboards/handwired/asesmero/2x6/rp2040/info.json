@@ -16,8 +16,9 @@
         "pin": "GP29"
     },
 
-    "rgblight": {	 
+    "rgblight": {
+        "pin": "GP29",
          "led_count": 1
-    },
+    }
 
 }
