@@ -9,4 +9,4 @@
 #define BOARD_PM2040
 
 #undef BOARD_NAME
-#define BOARD_NAME "Pro Micro RP2040"
+#define BOARD_NAME "Blok"
