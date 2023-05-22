@@ -47,7 +47,7 @@ void {{ xap.broadcast_messages.define_prefix | lower }}_{{ data.define | to_snak
 {% set arg_var = data.request_type | type_to_c('arg') %}
 {% endif %}
 
-__attribute__((weak)) bool xap_execute_{{ data.return_execute }}(xap_token_t token{% if arg_type %}, {{ arg_type }}{{ '*' if 'xap_route' in arg_type else '' }}{% endif %}) { return false; }
+__attribute__((weak)) bool xap_execute_{{ data.return_execute }}(xap_token_t token{% if arg_type %}, {{ (arg_type + '* arg') if 'xap_route' in arg_type else arg_var }}{% endif %}) { return false; }
 __attribute__((weak)) bool xap_respond_{{ data.return_execute }}(xap_token_t token, const uint8_t *data, size_t data_len) {
 {% if arg_type %}
     if (data_len != sizeof({{ arg_type }})) {
