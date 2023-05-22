@@ -32,7 +32,6 @@
         ]
     },
     "bootmagic": {
-        "enabled": true,
         "matrix": [0, 13]
     },
     
