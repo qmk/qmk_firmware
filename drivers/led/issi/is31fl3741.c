@@ -106,7 +106,7 @@ void IS31FL3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 bool IS31FL3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // Assume PG0 is already selected
 
-    for (int i = 0; i < ISSI_MAX_LEDS; i += 18) {
+    for (int i = 0; i < 342; i += 18) {
         if (i == 180) {
             // unlock the command register and select PG1
             IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
