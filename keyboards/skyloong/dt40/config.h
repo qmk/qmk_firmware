@@ -22,7 +22,7 @@
  * RGB matrix driver config
  */
 
-#define RGB_DI_PIN B4  //The pin connected to the data pin of the LEDs(define in info.json)
+#define WS2812_DI_PIN B4  //The pin connected to the data pin of the LEDs(define in info.json)
 #define RGB_MATRIX_LED_COUNT 44   //The number of LEDs connected
 #define RGB_MATRIX_KEYPRESSES  //Reacts to keypress
 #define RGB_DISABLE_WHEN_USB_SUSPENDED   //turn off effects when suspended
