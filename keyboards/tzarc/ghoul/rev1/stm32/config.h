@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #pragma once
 
-
 // Matrix configuration
 #define SPI_MATRIX_CHIP_SELECT_PIN C4
 #define SPI_MATRIX_DIVISOR 32
