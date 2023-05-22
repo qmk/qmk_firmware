@@ -1,23 +1,26 @@
 # Kanagawa
 
-A 75% keyboard with oled and rotary encoder for Raspberry Pico
 
-    Keyboard Maintainer : Ciaanh
+![Kanagawa](https://i.imgur.com/KKOZbUCh.jpeg)
 
-    Hardware Supported : Kanagawa PCB rev 2.1
+*A 75% keyboard with oled, rotary encoder and split spacebar for Raspberry Pico*
 
-    Hardware Availability : https://github.com/Ciaanh/keyboards/tree/main/Kanagawa
-
+* Keyboard Maintainer: [Nicolas Fabre](https://github.com/Ciaanh)
+* Hardware Supported: *Kanagawa PCB rev 2.1, Raspberry Pico*
+* Hardware Availability: *open source files for the PCB and case available [here](https://github.com/Ciaanh/keyboards/tree/main/Kanagawa)*
 
 Make example for this keyboard (after setting up your build environment):
 
-```sh
-qmk compile -kb ciaanh/kanagawa/iso -km default
+    make ciaanh/kanagawa/ansi:default
+    make ciaanh/kanagawa/iso:default
 
-qmk compile -kb ciaanh/kanagawa/ansi -km default
-```
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-* **Bootmagic reset**: Hold down the rotary encoder push-button on power-up.
-* **Physical buttons**: Press both the reset and the Bootsel button on the back while the board is connected.
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,13) in the matrix (the rotary encoder push-button) and plug in the keyboard
+* **Physical reset button**: Briefly press both the reset and the Bootsel on the back of the PCB
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
