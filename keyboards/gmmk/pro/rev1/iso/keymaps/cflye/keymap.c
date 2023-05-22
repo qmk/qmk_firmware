@@ -174,8 +174,11 @@ bool achordion_chord(uint16_t tap_hold_keycode,
   // Exceptionally consider the following chords as holds, even though they
   // are on the same hand in Dvorak.
   switch (tap_hold_keycode) {
-    case HOME_S:  // S + D and S + W.
-      if (other_keycode == KC_D || other_keycode == KC_W || other_keycode == KC_P) { return true; }
+    case HOME_S:  // S + D and S + W.o
+      if (other_keycode == KC_D || other_keycode == KC_W || other_keycode == KC_P || other_keycode == KC_LSFT) { return true; }
+      break;
+    case HOME_E:  // S + D and S + W.o
+      if (other_keycode == KC_RSFT) { return true; }
       break; 
   }
   // Also allow same-hand holds when the other key is in the rows below the
