@@ -16,17 +16,15 @@
         "cols": ["GP5", "GP6", "GP7", "GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP16", "GP17", "GP18"]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": false,
         "rgb_matrix": true,
-        "rgblight": false,
-        "encoder": true
+        "encoder": true,
+        "oled": true
     },
     "encoder": {
         "rotary": [
