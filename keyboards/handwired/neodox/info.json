@@ -16,6 +16,20 @@
         "suspend_wakeup_delay": 200,
         "vid": "0x4D69"
     },
+    "split": {
+        "enabled": true
+    }.
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "backlight": true,
+        "wpm": true,
+        "quantum_painter": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
