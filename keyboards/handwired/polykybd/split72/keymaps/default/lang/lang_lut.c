@@ -390,7 +390,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_YEH_HAMZA_A,           u"~",                         ARABIC_YEH_HAMZA_A,           
     /*  LANG_GR  */  GREEK_SM_ZETA,                NULL,                         NULL
     },
-    /*KC_1       */ {u"1",                         u"!",                         u"1",                         
+    /*KC_1       */ {u"1" u"\r\v\t!",              u"!",                         u"1",                         
     /*  LANG_DE  */  u"1",                         u"!",                         NULL,                         
     /*  LANG_FR  */  u"&",                         u"1",                         NULL,                         
     /*  LANG_ES  */  u"1" u"\r\v\t|",              u"!" u"\r\v\t|",              u"1" u"\r\v\t|",              
@@ -402,7 +402,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u"1" u"\r\v\t" ARABIC_INDIC_1,u"!" u"\r\v\t" ARABIC_INDIC_1,u"1" u"\r\v\t" ARABIC_INDIC_1,
     /*  LANG_GR  */  u"1",                         u"!",                         u"1"
     },
-    /*KC_2       */ {u"2",                         u"@",                         u"2",                         
+    /*KC_2       */ {u"2" u"\r\v\t@",              u"@",                         u"2",                         
     /*  LANG_DE  */  u"2" u"\r\v\t" SUPER_SCRIPT_2,QUOTE u"\r\v\t" SUPER_SCRIPT_2,NULL,                         
     /*  LANG_FR  */  E_WITH_ACUTE_SMALL u"\r\v\t~",u"2" u"\r\v\t~",              NULL,                         
     /*  LANG_ES  */  u"2" u"\r\v\t@",              QUOTE u"\r\v\t@",             u"2" u"\r\v\t@",              
@@ -414,7 +414,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u"2" u"\r\v\t" ARABIC_INDIC_2,u"@" u"\r\v\t" ARABIC_INDIC_2,u"2" u"\r\v\t" ARABIC_INDIC_2,
     /*  LANG_GR  */  u"2" u"\r\v\t" SUPER_SCRIPT_2,u"@" u"\r\v\t" SUPER_SCRIPT_3,u"2" u"\r\v\t" SUPER_SCRIPT_2
     },
-    /*KC_3       */ {u"3",                         u"#",                         u"3",                         
+    /*KC_3       */ {u"3" u"\r\v\t#",              u"#",                         u"3",                         
     /*  LANG_DE  */  u"3" u"\r\v\t" SUPER_SCRIPT_3,SECTION u"\r\v\t" SUPER_SCRIPT_3,NULL,                         
     /*  LANG_FR  */  QUOTE u"\r\v\t#",             u"3" u"\r\v\t#",              NULL,                         
     /*  LANG_ES  */  u"3" u"\r\v\t#",              MIDDLE_DOT u"\r\v\t#",        u"3" u"\r\v\t#",              
@@ -426,7 +426,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u"3" u"\r\v\t" ARABIC_INDIC_3,u"#" u"\r\v\t" ARABIC_INDIC_3,u"3" u"\r\v\t" ARABIC_INDIC_3,
     /*  LANG_GR  */  u"3" u"\r\v\t" SUPER_SCRIPT_3,u"#" u"\r\v\tSUPER_SCRIPT_4", u"3" u"\r\v\t" SUPER_SCRIPT_3
     },
-    /*KC_4       */ {u"4",                         u"$",                         u"4",                         
+    /*KC_4       */ {u"4" u"\r\v\t$",              u"$",                         u"4",                         
     /*  LANG_DE  */  u"4",                         u"$",                         NULL,                         
     /*  LANG_FR  */  u"'" u"\r\v\t{",              u"4" u"\r\v\t{",              NULL,                         
     /*  LANG_ES  */  u"4" u"\r\v\t~",              u"$" u"\r\v\t~",              u"4" u"\r\v\t~",              
@@ -438,7 +438,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u"4" u"\r\v\t" ARABIC_INDIC_4,u"$" u"\r\v\t" ARABIC_INDIC_4,u"4" u"\r\v\t" ARABIC_INDIC_4,
     /*  LANG_GR  */  u"4" u"\r\v\t" POUND_SIGN,    u"$" u"\r\v\t" POUND_SIGN,    u"4" u"\r\v\t" POUND_SIGN
     },
-    /*KC_5       */ {u"5",                         u"%",                         u"5",                         
+    /*KC_5       */ {u"5" u"\r\v\t%",              u"%",                         u"5",                         
     /*  LANG_DE  */  u"5",                         u"%",                         NULL,                         
     /*  LANG_FR  */  u"(" u"\r\v\t[",              u"5" u"\r\v\t[",              NULL,                         
     /*  LANG_ES  */  u"5" u"\r\v\t" EURO_SIGN,     u"%" u"\r\v\t" EURO_SIGN,     u"5" u"\r\v\t" EURO_SIGN,     
@@ -450,7 +450,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u"5" u"\r\v\t" ARABIC_INDIC_5,u"%" u"\r\v\t" ARABIC_INDIC_5,u"5" u"\r\v\t" ARABIC_INDIC_5,
     /*  LANG_GR  */  u"5" u"\r\v\t" SECTION,       u"%" u"\r\v\t" SECTION,       u"5" u"\r\v\t" SECTION
     },
-    /*KC_6       */ {u"6",                         u"^",                         u"6",                         
+    /*KC_6       */ {u"6" u"\r\v\t^",              u"^",                         u"6",                         
     /*  LANG_DE  */  u"6",                         u"&",                         NULL,                         
     /*  LANG_FR  */  u"-" u"\r\v\t|",              u"6" u"\r\v\t|",              NULL,                         
     /*  LANG_ES  */  u"6" u"\r\v\t" NOT_SIGN,      u"&" u"\r\v\t" NOT_SIGN,      u"6" u"\r\v\t" NOT_SIGN,      
@@ -462,7 +462,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u"6" u"\r\v\t" ARABIC_INDIC_6,u"^" u"\r\v\t" ARABIC_INDIC_6,u"6" u"\r\v\t" ARABIC_INDIC_6,
     /*  LANG_GR  */  u"6" u"\r\v\t" PILCROW,       u"^" u"\r\v\t" PILCROW,       u"6" u"\r\v\t" PILCROW
     },
-    /*KC_7       */ {u"7",                         u"&",                         u"7",                         
+    /*KC_7       */ {u"7" u"\r\v\t&",              u"&",                         u"7",                         
     /*  LANG_DE  */  u"7" u"\r\v\t{",              u"/" u"\r\v\t{",              NULL,                         
     /*  LANG_FR  */  E_WITH_GRAVE_SMALL u"\r\v\t" ACUTE_ACCENT,u"7" u"\r\v\t" ACUTE_ACCENT,  NULL,                         
     /*  LANG_ES  */  u"7",                         u"/",                         u"7",                         
@@ -474,7 +474,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u"7" u"\r\v\t" ARABIC_INDIC_7,u"&" u"\r\v\t" ARABIC_INDIC_7,u"7" u"\r\v\t" ARABIC_INDIC_7,
     /*  LANG_GR  */  u"7",                         u"&",                         u"7"
     },
-    /*KC_8       */ {u"8",                         u"*",                         u"8",                         
+    /*KC_8       */ {u"8" u"\r\v\t*",              u"*",                         u"8",                         
     /*  LANG_DE  */  u"8" u"\r\v\t[",              u"(" u"\r\v\t[",              NULL,                         
     /*  LANG_FR  */  u"_" u"\r\v\t" BACKSLASH,     u"8" u"\r\v\t" BACKSLASH,     NULL,                         
     /*  LANG_ES  */  u"8",                         u"(",                         u"8",                         
@@ -486,7 +486,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u"8" u"\r\v\t" ARABIC_INDIC_8,u"*" u"\r\v\t" ARABIC_INDIC_8,u"8" u"\r\v\t" ARABIC_INDIC_8,
     /*  LANG_GR  */  u"8" u"\r\v\t" CURRENCY_SIGN, u"*" u"\r\v\t" CURRENCY_SIGN, u"8" u"\r\v\t" CURRENCY_SIGN
     },
-    /*KC_9       */ {u"9",                         u"(",                         u"9",                         
+    /*KC_9       */ {u"9" u"\r\v\t(",              u"(",                         u"9",                         
     /*  LANG_DE  */  u"9" u"\r\v\t]",              u")" u"\r\v\t]",              NULL,                         
     /*  LANG_FR  */  C_WITH_CEDILLA_SMALL u"\r\v\t^",u"9" u"\r\v\t^",              NULL,                         
     /*  LANG_ES  */  u"9",                         u")",                         u"9",                         
@@ -498,7 +498,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u"9" u"\r\v\t" ARABIC_INDIC_9,u"(" u"\r\v\t" ARABIC_INDIC_9,u"9" u"\r\v\t" ARABIC_INDIC_9,
     /*  LANG_GR  */  u"9" u"\r\v\t" BROKEN_BAR,    u"(" u"\r\v\t" BROKEN_BAR,    u"9" u"\r\v\t" BROKEN_BAR
     },
-    /*KC_0       */ {ZERO,                         u")",                         ZERO,                         
+    /*KC_0       */ {ZERO u"\r\v\t)",              u")",                         ZERO,                         
     /*  LANG_DE  */  ZERO u"\r\v\t}",              EQUALS u"\r\v\t}",            NULL,                         
     /*  LANG_FR  */  A_WITH_GRAVE_SMALL u"\r\v\t@",ZERO u"\r\v\t@",              NULL,                         
     /*  LANG_ES  */  ZERO,                         EQUALS,                       ZERO,                         
@@ -570,7 +570,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_GR  */  NULL,                         NULL,                         NULL
     },
-    /*KC_MINUS   */ {u"-",                         u"_",                         u"-",                         
+    /*KC_MINUS   */ {u"-" u"\r\v\t_",              u"_",                         u"-",                         
     /*  LANG_DE  */  ESZETT u"\r\v\t" BACKSLASH,   u"?" u"\r\v\t" BACKSLASH,     ESZETT u"\r\v\t" BACKSLASH,   
     /*  LANG_FR  */  u")" u"\r\v\t]",              DEGREE u"\r\v\t]",            NULL,                         
     /*  LANG_ES  */  u"'",                         u"?",                         u"'",                         
@@ -582,7 +582,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_GR  */  u"-" u"\r\v\t" PLUS_MINUS,    u"_" u"\r\v\t" PLUS_MINUS,    u"-" u"\r\v\t" PLUS_MINUS
     },
-    /*KC_EQUAL   */ {EQUALS,                       u"+",                         EQUALS,                       
+    /*KC_EQUAL   */ {EQUALS u"\r\v\t+",            u"+",                         EQUALS,                       
     /*  LANG_DE  */  GRAVE_ACCENT,                 ACUTE_ACCENT,                 GRAVE_ACCENT,                 
     /*  LANG_FR  */  EQUALS u"\r\v\t}",            u"+" u"\r\v\t}",              NULL,                         
     /*  LANG_ES  */  INVERTED_EMARK,               INVERTED_QMARK,               INVERTED_EMARK,               
@@ -594,7 +594,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_GR  */  EQUALS u"\r\v\t" ONE_HALF,    u"+" u"\r\v\t" ONE_HALF,      EQUALS u"\r\v\t" ONE_HALF
     },
-    /*KC_LBRC    */ {u"[",                         u"{",                         u"[",                         
+    /*KC_LBRC    */ {u"[" u"\r\v\t{",              u"{",                         u"[",                         
     /*  LANG_DE  */  UMLAUT_U_SMALL,               UMLAUT_U,                     NULL,                         
     /*  LANG_FR  */  u"^",                         DIAERESIS,                    NULL,                         
     /*  LANG_ES  */  GRAVE_ACCENT u"\r\v\t[",      u"^" u"\r\v\t[",              GRAVE_ACCENT u"\r\v\t[",      
@@ -606,7 +606,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_JEEM,                  u"}",                         ARABIC_JEEM,                  
     /*  LANG_GR  */  u"[" u"\r\v\t" DBL_ANGLE_QMARK_L,u"{" u"\r\v\t" DBL_ANGLE_QMARK_L,u"[" u"\r\v\t" DBL_ANGLE_QMARK_L
     },
-    /*KC_RBRC    */ {u"]",                         u"}",                         u"]",                         
+    /*KC_RBRC    */ {u"]" u"\r\v\t}",              u"}",                         u"]",                         
     /*  LANG_DE  */  u"+" u"\r\v\t~",              u"*" u"\r\v\t~",              NULL,                         
     /*  LANG_FR  */  u"$" u"\r\v\t" CURRENCY_SIGN, POUND_SIGN u"\r\v\t" CURRENCY_SIGN,NULL,                         
     /*  LANG_ES  */  u"+" u"\r\v\t]",              u"*" u"\r\v\t]",              u"+" u"\r\v\t]",              
@@ -618,7 +618,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_DAL,                   u"{",                         ARABIC_DAL,                   
     /*  LANG_GR  */  u"]" u"\r\v\t" DBL_ANGLE_QMARK_R,u"}" u"\r\v\t" DBL_ANGLE_QMARK_R,u"]" u"\r\v\t" DBL_ANGLE_QMARK_R
     },
-    /*KC_BACKSLASH*/ {BACKSLASH,                    u"|",                         BACKSLASH,                    
+    /*KC_BACKSLASH*/ {BACKSLASH u"\r\v\t|",         u"|",                         BACKSLASH,                    
     /*  LANG_DE  */  u"#",                         u"'",                         NULL,                         
     /*  LANG_FR  */  u"*",                         MICRO_SIGN,                   NULL,                         
     /*  LANG_ES  */  C_WITH_CEDILLA_SMALL u"\r\v\t}",C_WITH_CEDILLA u"\r\v\t}",    NULL,                         
@@ -630,7 +630,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_THAL,                  u"\v" ARABIC_SHADDA,          ARABIC_THAL,                  
     /*  LANG_GR  */  BACKSLASH u"\r\v\t" NOT_SIGN, u"|" u"\r\v\t" NOT_SIGN,      BACKSLASH u"\r\v\t" NOT_SIGN
     },
-    /*KC_NONUS_HASH*/ {u"#",                         u"~",                         u"#",                         
+    /*KC_NONUS_HASH*/ {BACKSLASH u"\r\v\t|",         u"|",                         BACKSLASH,                    
     /*  LANG_DE  */  u"<" u"\r\v\t|",              u">" u"\r\v\t|",              NULL,                         
     /*  LANG_FR  */  u"<",                         u">",                         NULL,                         
     /*  LANG_ES  */  u"<",                         u">",                         u"<",                         
@@ -642,7 +642,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  BACKSLASH,                    u"|",                         BACKSLASH,                    
     /*  LANG_GR  */  u">",                         u"<",                         u">"
     },
-    /*KC_SEMICOLON*/ {u";",                         u":",                         u";",                         
+    /*KC_SEMICOLON*/ {u";" u"\r\v\t:",              u":",                         u";",                         
     /*  LANG_DE  */  UMLAUT_O_SMALL,               UMLAUT_O,                     NULL,                         
     /*  LANG_FR  */  u"m",                         u"M",                         NULL,                         
     /*  LANG_ES  */  N_WITH_TILDE_SMALL,           N_WITH_TILDE,                 NULL,                         
@@ -654,7 +654,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_KAF,                   u":",                         ARABIC_KAF,                   
     /*  LANG_GR  */  GREEK_TONOS u"\r\v\t" GREEK_DIALYTIKA_TONOS,GREEK_DIALYTIKA u"\r\v\t" GREEK_DIALYTIKA_TONOS,GREEK_TONOS u"\r\v\t" GREEK_DIALYTIKA_TONOS
     },
-    /*KC_QUOTE   */ {u"'",                         QUOTE,                        u"'",                         
+    /*KC_QUOTE   */ {u"'" u"\r\v\t“",              QUOTE,                        u"'",                         
     /*  LANG_DE  */  UMLAUT_A_SMALL,               UMLAUT_A,                     NULL,                         
     /*  LANG_FR  */  U_WITH_GRAVE,                 u"%",                         NULL,                         
     /*  LANG_ES  */  ACUTE_ACCENT u"\r\v\t{",      DIAERESIS u"\r\v\t{",         ACUTE_ACCENT u"\r\v\t{",      
@@ -666,7 +666,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_TAH,                   QUOTE,                        ARABIC_TAH,                   
     /*  LANG_GR  */  u"'",                         QUOTE,                        u"'"
     },
-    /*KC_GRAVE   */ {GRAVE_ACCENT,                 u"~",                         GRAVE_ACCENT,                 
+    /*KC_GRAVE   */ {GRAVE_ACCENT u"\r\v\t~",      u"~",                         GRAVE_ACCENT,                 
     /*  LANG_DE  */  u"^",                         DEGREE,                       u"^",                         
     /*  LANG_FR  */  u"\v\xb2",                    SPACE,                        u"\v\xb2",                    
     /*  LANG_ES  */  MASC_ORDINAL_IND u"\r\v\t" BACKSLASH,FEM_ORDINAL_IND u"\r\v\t" BACKSLASH,MASC_ORDINAL_IND u"\r\v\t" BACKSLASH,
@@ -678,7 +678,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u">",                         u"<",                         u">",                         
     /*  LANG_GR  */  GRAVE_ACCENT,                 u"~",                         GRAVE_ACCENT
     },
-    /*KC_COMMA   */ {COMMA,                        u"<",                         COMMA,                        
+    /*KC_COMMA   */ {COMMA u"\r\v\t<",             u"<",                         COMMA,                        
     /*  LANG_DE  */  NULL,                         u";",                         NULL,                         
     /*  LANG_FR  */  u";",                         u".",                         NULL,                         
     /*  LANG_ES  */  u",",                         u";",                         u",",                         
@@ -690,7 +690,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_WAW,                   COMMA,                        ARABIC_WAW,                   
     /*  LANG_GR  */  COMMA,                        u"<",                         COMMA
     },
-    /*KC_DOT     */ {u".",                         u">",                         u".",                         
+    /*KC_DOT     */ {u"." u"\r\v\t>",              u">",                         u".",                         
     /*  LANG_DE  */  NULL,                         u":",                         NULL,                         
     /*  LANG_FR  */  u":",                         u"/",                         NULL,                         
     /*  LANG_ES  */  u".",                         u":",                         u".",                         
@@ -702,7 +702,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_ZAIN,                  u".",                         ARABIC_ZAIN,                  
     /*  LANG_GR  */  u".",                         u">",                         u"."
     },
-    /*KC_SLASH   */ {u"/",                         u"?",                         u"/",                         
+    /*KC_SLASH   */ {u"/" u"\r\v\t?",              u"?",                         u"/",                         
     /*  LANG_DE  */  u"-",                         u"_",                         u"-",                         
     /*  LANG_FR  */  u"!",                         SECTION,                      NULL,                         
     /*  LANG_ES  */  u"-",                         u"_",                         u"-",                         

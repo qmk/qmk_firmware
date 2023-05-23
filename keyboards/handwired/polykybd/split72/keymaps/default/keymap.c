@@ -38,10 +38,10 @@ while lang_key:
 static enum lang_layer g_lang = LANG_EN;
 //[[[end]]]
 
-enum kb_layers { _BASE_LAYER = 0, _FN_LAYER = 1, _UTIL_LAYER = 2, _LANG_LAYER = 3 };
+enum kb_layers { _BL = 0, _FNL = 1, _NL = 2, _UL = 3, _LL = 4 };
 
 enum my_keycodes {
-    KC_NXTL = SAFE_RANGE, KC_LANG, RGB_TOGGLE, RGB_NEXT, RGB_PREV, KC_DARKER, KC_CONTRAST, KC_BRIGTHER, KC_SAVE_EE, KC_RST_DSP,
+    KC_LANG = SAFE_RANGE, KC_DECC, KC_INCC,
     /*[[[cog
       for lang in languages:
           cog.out(f"KC_{lang}, ")
@@ -76,6 +76,8 @@ static enum refresh_mode g_refresh = DONE_ALL;
 static uint8_t g_contrast = FULL_BRIGHT;
 
 static uint16_t last_key = 0;
+
+static uint16_t g_matrix_infobuffer[8] = {0,0,0,0,0,0,0,0};
 
 typedef struct _poly_sync_t {
     uint8_t lang;
@@ -215,60 +217,75 @@ void housekeeping_task_user(void) {
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE_LAYER] = SPLIT_LAYOUT(
-        KC_ESC,         KC_1,           KC_2,           KC_3,          KC_4,            KC_5,           KC_6,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,          KC_R,            KC_T,           KC_GRAVE,
-        MO(_FN_LAYER),  KC_A,           KC_S,           KC_D,          KC_F,            KC_G,           KC_QUOTE,       KC_MS_BTN1,
-        KC_LSFT,        KC_NUHS,        KC_Z,           KC_X,          KC_C,            KC_V,           KC_B,           KC_HOME,
-        KC_LCTL,        KC_LWIN,        KC_LALT,        KC_APP,                         KC_SPACE,       KC_DEL,         KC_END,
+    //Base Layer
+    [_BL] = SPLIT_LAYOUT(
+        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
+        KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
+        MO(_FNL),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
+        KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_LANG,
+        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_HOME,
 
-                        KC_7,           KC_8,           KC_9,          KC_0,            KC_MINUS,       KC_EQUAL,       KC_BSPC,
-                        KC_Y,           KC_U,           KC_I,          KC_O,            KC_P,           KC_LBRC,        KC_BSLS,
-        KC_NO,          KC_H,           KC_J,           KC_K,          KC_L,            KC_SCLN,        KC_RBRC,        KC_ENTER,
-        KC_PGDN,        KC_PGUP,        KC_N,           KC_M,          KC_COMMA,        KC_DOT,         KC_SLASH,       KC_RSFT,
-        KC_LANG,        KC_BSPC,        KC_SPACE,                      KC_LEFT,         KC_UP,          KC_DOWN,        KC_RIGHT
+                    KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_BSPC,
+                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_BSLS,
+        KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    KC_ENTER,
+        KC_PGDN,    KC_PGUP,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
+        KC_END,     KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
+    //Function Layer (Fn)
+    [_FNL] = SPLIT_LAYOUT(
+        TO(_NL),    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
+        KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        KC_CAPS,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        TO(_UL),    _______,    _______,    KC_MS_BTN2,             _______,    _______,    _______,
 
-    [_FN_LAYER] = SPLIT_LAYOUT(
-        _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,
-        _______,        _______,        _______,        _______,        _______,        _______,        _______,
-        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
-        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,
-        _______,        _______,        _______,        _______,                        KC_NXTL,        _______,        _______,
-
-                        KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
-                        _______,        _______,        KC_KP_7,        KC_KP_8,        KC_KP_9,        _______,        _______,
-        _______,        _______,        _______,        KC_KP_4,        KC_KP_5,        KC_KP_6,        _______,        _______,
-        _______,        _______,        _______,        KC_KP_1,        KC_KP_2,        KC_KP_3,        _______,        _______,
-        _______,        _______,        KC_NXTL,                        KC_KP_DOT,      KC_KP_0,        _______,        _______
+                    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
+                    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,                _______,    _______,    _______,    TO(_UL)
         ),
+     //Num Layer
+    [_NL] = SPLIT_LAYOUT(
+        KC_NO,      KC_NUM,     KC_PSLS,    KC_PAST,    KC_PMNS,    KC_NO,      KC_NO,
+        KC_MS_BTN1, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,    KC_INS,     KC_NO,
+        KC_NO,      KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PPLS,    KC_DEL,     KC_NO,     _______,
+        KC_NO,      KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PENT,    KC_NO,      KC_NO,     KC_NO,
+        TO(_BL),    KC_KP_0,    KC_PDOT,    KC_PENT,                KC_MS_BTN2, KC_NO,     KC_NO,
 
-    [_UTIL_LAYER] = SPLIT_LAYOUT(
-        KC_NO,          KC_NO,          KC_SAVE_EE,     KC_NO,         KC_NO,          KC_MPRV,        KC_NO,
-        RGB_PREV,       KC_VOLU,        DB_TOGG,        KC_DARKER,     KC_NO,          KC_MPLY,        KC_NO,
-        RGB_TOGGLE,     KC_MUTE,        EE_CLR,         KC_CONTRAST,   KC_RST_DSP,     KC_MSTP,        KC_NO,          KC_MS_BTN1,
-        RGB_NEXT,       KC_VOLD,        QK_BOOT,        KC_BRIGTHER,   KC_NO,          KC_MNXT,        KC_NO,          KC_NO,
-        KC_NO,          KC_NO,          QK_MAKE,        QK_RBT,                        KC_NO,          KC_NXTL,        KC_NO,
-
-                        KC_NO,          KC_NO,          KC_SAVE_EE,    KC_NO,          KC_NO,          KC_MPRV,        KC_NO,
-                        RGB_PREV,       KC_VOLU,        DB_TOGG,       KC_DARKER,      KC_NO,          KC_MPLY,        KC_NO,
-        KC_NO,          RGB_TOGGLE,     KC_MUTE,        EE_CLR,        KC_CONTRAST,    KC_RST_DSP,     KC_MSTP,        KC_NO,
-        KC_NO,          RGB_NEXT,       KC_VOLD,        QK_BOOT,       KC_BRIGTHER,    KC_NO,          KC_MNXT,        KC_NO,
-        KC_NO,          KC_NXTL,        QK_RBT,                        QK_MAKE,        KC_NO,          KC_NO,          KC_NO
+                    KC_NO,      KC_NO,      KC_NUM,     KC_PSLS,    KC_PAST,    KC_PMNS,   KC_NO,
+                    KC_NO,      KC_INS,     KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,   KC_NO,
+        _______,    KC_NO,      KC_DEL,     KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PPLS,   KC_NO,
+        KC_NO,      KC_NO,      KC_NO,      KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PENT,   KC_NO,
+        KC_NO,      KC_NO,      KC_NO,                  KC_KP_0,    KC_PDOT,    KC_PENT,   TO(_BL)
         ),
+    //Util Layer
+    [_UL] = SPLIT_LAYOUT(//KC_SAVE_EE RGB_PREV
+        KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     _______,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
+        TO(_BL),    RGB_RMOD,   RGB_TOG,    RGB_MOD,                QK_RBT,     QK_MAKE,   QK_BOOT,
 
-    [_LANG_LAYER] = SPLIT_LAYOUT(
-        KC_LEAD,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,
-        KC_NO,          KC_LANG_PT,     KC_LANG_ES,     KC_LANG_AR,     KC_LANG_GR,     KC_NO,          KC_NO,
-        KC_NO,          KC_LANG_FR,     KC_LANG_DE,     KC_LANG_JA,     KC_LANG_TR,     KC_NO,          KC_NO,          KC_MS_BTN1,
-        KC_NO,          KC_LANG_IT,     KC_LANG_EN,     KC_LANG_KO,     KC_NO,          KC_NO,          KC_NO,          KC_NO,
-        KC_NO,          KC_NO,          KC_NO,          KC_NO,                          KC_LANG,        KC_NO,          KC_NO,
+                    KC_MPRV,    KC_MPLY,    KC_MSTP,    KC_MNXT,    KC_MUTE,    KC_VOLD,   KC_VOLU,
+                    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
+        _______,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
+        KC_NO,      KC_NO,      KC_NO,                  KC_INCC,    KC_NO,      KC_DECC,   TO(_BL)
+        ),
+    //Language Selection Layer
+    [_LL] = SPLIT_LAYOUT(
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_NO,      KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_LANG_GR, KC_NO,      KC_NO,
+        KC_NO,      KC_LANG_FR, KC_LANG_DE, KC_LANG_JA, KC_LANG_TR, KC_NO,      KC_NO,      KC_MS_BTN1,
+        KC_NO,      KC_LANG_IT, KC_LANG_EN, KC_LANG_KO, KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        TO(_BL),    KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,
 
-                        KC_NO,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
-                        KC_NO,          KC_LANG_GR,     KC_LANG_AR,     KC_LANG_ES,     KC_LANG_PT,     KC_NO,          KC_NO,
-        KC_NO,          KC_NO,          KC_LANG_TR,     KC_LANG_JA,     KC_LANG_DE,     KC_LANG_FR,     KC_NO,          KC_NO,
-        KC_NO,          KC_NO,          KC_NO,          KC_LANG_KO,     KC_LANG_EN,     KC_LANG_IT,     KC_NO,          KC_NO,
-        KC_NO,          KC_NXTL,        KC_NO,                          KC_LANG,        KC_NO,          KC_NO,          KC_NO
+                    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+                    KC_NO,      KC_LANG_GR, KC_LANG_AR, KC_LANG_ES, KC_LANG_PT, KC_NO,      KC_NO,
+        _______,    KC_NO,      KC_LANG_TR, KC_LANG_JA, KC_LANG_DE, KC_LANG_FR, KC_NO,      KC_NO,
+        KC_NO,      KC_NO,      KC_NO,      KC_LANG_KO, KC_LANG_EN, KC_LANG_IT, KC_NO,      KC_NO,
+        KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,      TO(_BL)
         )
 };
 
@@ -319,7 +336,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_LEAD:
         return u"Lead";
     case KC_NUM_LOCK:
-        return !state.num_lock ? u"Num" ICON_NUMLOCK_OFF : u"Num" ICON_NUMLOCK_ON;
+        return !state.num_lock ? u"Nm" ICON_NUMLOCK_OFF : u"Nm" ICON_NUMLOCK_ON;
     case KC_KP_SLASH:
         return u"/";
     case KC_KP_ASTERISK:
@@ -357,17 +374,15 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_KP_ENTER:
         return u"Enter";
     case QK_BOOTLOADER:
-        return u"BLdr";
+        return u"Boot";
     case QK_DEBUG_TOGGLE:
         return u"Dbg";
-    case QK_CLEAR_EEPROM:
-        return u"ClrEE";
-    case RGB_PREV:
-        return u"R  " ICON_LEFT;
-    case RGB_TOGGLE:
-        return rgb_matrix_is_enabled() ? u"G " ICON_SWITCH_ON : u"G " ICON_SWITCH_OFF;
-    case RGB_NEXT:
-        return u"B  " ICON_RIGHT;
+    case RGB_RMOD:
+        return u"RGB\v" ICON_LEFT;
+    case RGB_TOG:
+        return g_matrix_infobuffer;//;rgb_matrix_is_enabled() ? u"G " ICON_SWITCH_ON : u"G " ICON_SWITCH_OFF;
+    case RGB_MOD:
+        return u"RGB\v" ICON_RIGHT;
     case KC_MEDIA_NEXT_TRACK:
         return ICON_RIGHT ICON_RIGHT;
     case KC_MEDIA_PLAY_PAUSE:
@@ -402,14 +417,12 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"  " ICON_VOL_DOWN;
     case KC_AUDIO_VOL_UP:
         return u"  " ICON_VOL_UP;
-    case KC_NXTL:
-        return u"Menu\r\v\t" ICON_LAYER;
     case KC_PRINT_SCREEN:
         return u"PScn";
     case KC_SCROLL_LOCK:
         return u"ScLk";
     case KC_PAUSE:
-        return u"Pause";
+        return u"Paus";
     case KC_INSERT:
         return u"Ins";
     case KC_HOME:
@@ -422,8 +435,16 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"Del";
     case KC_END:
         return u"End";
-    case MO(_FN_LAYER):
+    case KC_MYCM:
+        return u"My\r\vComp";
+    case MO(_FNL):
         return u"Fn\r\v\t" ICON_LAYER;
+    case TO(_NL):
+        return u"Num\r\v\t" ICON_LAYER;
+    case TO(_BL):
+        return u"Base\r\v\t" ICON_LAYER;
+    case TO(_UL):
+        return u"Util\r\v\t" ICON_LAYER;
     case KC_F1:
         return u" F1";
     case KC_F2:
@@ -475,22 +496,16 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u" " ICON_SHIFT;
     case KC_NO:
         return u"";
-    case KC_DARKER:
+    case KC_DECC:
         return u" -";
-    case KC_CONTRAST:
-        return u"Bright";
-    case KC_BRIGTHER:
+    case KC_INCC:
         return u" +";
     case KC_LANG:
         return PRIVATE_WORLD;
     case QK_MAKE:
         return u"Make";
     case QK_REBOOT:
-        return u"Reset";
-    case KC_RST_DSP:
-        return u"Reset\r\vDisp";
-    case KC_SAVE_EE:
-        return u"Save\r\v\tEE";
+        return u"Rst";
         /*[[[cog
             for lang in languages:
                 short = lang.split("_")[1]
@@ -527,8 +542,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
 
 void update_displays(enum refresh_mode mode) {
     uint8_t layer = get_highest_layer(layer_state);
-    if (layer > _LANG_LAYER) {
-        layer = _BASE_LAYER;
+    if (layer > _LL) {
+        layer = _BL;
     }
 
     led_t state = host_keyboard_led_state();
@@ -555,7 +570,7 @@ void update_displays(enum refresh_mode mode) {
 
             //since MATRIX_COLS==8 we don't need to shift multiple times at the end of the row
             //except there was a leading and missing physical key (KC_NO on base layer)
-            uint16_t keycode = keymaps[_BASE_LAYER][r + offset][c];
+            uint16_t keycode = keymaps[_BL][r + offset][c];
             if (keycode == KC_NO) {
                 skip++;
             }
@@ -617,6 +632,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return display_wakeup(record);
 }
 
+void update_matrix_infobuffer(void){
+    switch(rgb_matrix_get_mode()) {
+        case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
+            memcpy(g_matrix_infobuffer, u"Rnbw\r\v", sizeof(uint16_t) * 6);
+            break;
+        case RGB_MATRIX_BREATHING:
+            memcpy(g_matrix_infobuffer, u"Brth\r\v", sizeof(uint16_t) * 6);
+            break;
+        case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
+            memcpy(g_matrix_infobuffer, u"Smpl\r\v", sizeof(uint16_t) * 6);
+            break;
+        case RGB_MATRIX_SOLID_REACTIVE_CROSS:
+            memcpy(g_matrix_infobuffer, u"Crss\r\v", sizeof(uint16_t) * 6);
+            break;
+        case RGB_MATRIX_SOLID_REACTIVE_WIDE:
+            memcpy(g_matrix_infobuffer, u"Rctv\r\v", sizeof(uint16_t) * 6);
+            break;
+        case RGB_MATRIX_SOLID_REACTIVE_NEXUS:
+            memcpy(g_matrix_infobuffer, u"Nxus\r\v", sizeof(uint16_t) * 6);
+            break;
+        default:
+            memcpy(g_matrix_infobuffer, u"Unkn\r\v", sizeof(uint16_t) * 6);
+            break;
+    }
+    g_matrix_infobuffer[6] = rgb_matrix_is_enabled() ? ICON_SWITCH_ON[0] : ICON_SWITCH_OFF[0];
+    g_matrix_infobuffer[7] = 0;
+}
+
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (keycode == KC_CAPS_LOCK) {
         request_disp_refresh();
@@ -624,20 +667,27 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     if (!record->event.pressed) {
         switch (keycode) {
-        case RGB_TOGGLE:
-            rgb_matrix_toggle_noeeprom();
+        case RGB_TOG:
+            //rgb_matrix_toggle_noeeprom();
+        case RGB_MOD:
+        case RGB_RMOD:
+            update_matrix_infobuffer();
             request_disp_refresh();
             break;
+        /*case RGB_TOGGLE:
+            rgb_matrix_toggle_noeeprom();
+            request_disp_refresh();
+            break;*/
         case KC_RIGHT_SHIFT:
         case KC_LEFT_SHIFT:
             request_disp_refresh();
             break;
-        case KC_NXTL:
-            if (IS_LAYER_ON(_UTIL_LAYER)) {
-                layer_off(_UTIL_LAYER);
+        /*case KC_NXTL:
+            if (IS_LAYER_ON(_UL)) {
+                layer_off(_UL);
             }
             else {
-                layer_on(_UTIL_LAYER);
+                layer_on(_UL);
             }
             break;
         case RGB_NEXT:
@@ -645,14 +695,14 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             break;
         case RGB_PREV:
             rgb_matrix_step_reverse_noeeprom();
-            break;
-        case KC_DARKER:
+            break;*/
+        case KC_DECC:
             dec_brightness();
             break;
-        case KC_BRIGTHER:
+        case KC_INCC:
             inc_brightness();
             break;
-        case KC_SAVE_EE:
+        /*case KC_SAVE_EE:
             rgb_matrix_mode(rgb_matrix_get_mode());
             if (rgb_matrix_is_enabled()) {
                 rgb_matrix_enable();
@@ -664,26 +714,26 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case KC_RST_DSP:
             kdisp_init(NUM_SHIFT_REGISTERS);
             kdisp_setup(true);
-            break;
+            break;*/
             /*[[[cog
             for lang in languages:
-                cog.outl(f'case KC_{lang}: g_lang = {lang}; layer_off(_LANG_LAYER); break;')
+                cog.outl(f'case KC_{lang}: g_lang = {lang}; layer_off(_LL); break;')
             ]]]*/
-            case KC_LANG_EN: g_lang = LANG_EN; layer_off(_LANG_LAYER); break;
-            case KC_LANG_DE: g_lang = LANG_DE; layer_off(_LANG_LAYER); break;
-            case KC_LANG_FR: g_lang = LANG_FR; layer_off(_LANG_LAYER); break;
-            case KC_LANG_ES: g_lang = LANG_ES; layer_off(_LANG_LAYER); break;
-            case KC_LANG_PT: g_lang = LANG_PT; layer_off(_LANG_LAYER); break;
-            case KC_LANG_IT: g_lang = LANG_IT; layer_off(_LANG_LAYER); break;
-            case KC_LANG_TR: g_lang = LANG_TR; layer_off(_LANG_LAYER); break;
-            case KC_LANG_KO: g_lang = LANG_KO; layer_off(_LANG_LAYER); break;
-            case KC_LANG_JA: g_lang = LANG_JA; layer_off(_LANG_LAYER); break;
-            case KC_LANG_AR: g_lang = LANG_AR; layer_off(_LANG_LAYER); break;
-            case KC_LANG_GR: g_lang = LANG_GR; layer_off(_LANG_LAYER); break;
+            case KC_LANG_EN: g_lang = LANG_EN; layer_off(_LL); break;
+            case KC_LANG_DE: g_lang = LANG_DE; layer_off(_LL); break;
+            case KC_LANG_FR: g_lang = LANG_FR; layer_off(_LL); break;
+            case KC_LANG_ES: g_lang = LANG_ES; layer_off(_LL); break;
+            case KC_LANG_PT: g_lang = LANG_PT; layer_off(_LL); break;
+            case KC_LANG_IT: g_lang = LANG_IT; layer_off(_LL); break;
+            case KC_LANG_TR: g_lang = LANG_TR; layer_off(_LL); break;
+            case KC_LANG_KO: g_lang = LANG_KO; layer_off(_LL); break;
+            case KC_LANG_JA: g_lang = LANG_JA; layer_off(_LL); break;
+            case KC_LANG_AR: g_lang = LANG_AR; layer_off(_LL); break;
+            case KC_LANG_GR: g_lang = LANG_GR; layer_off(_LL); break;
             //[[[end]]]
         case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
         case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
-            layer_off(_LANG_LAYER);
+            layer_off(_LL);
             break;
         default:
             break;
@@ -697,12 +747,12 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             request_disp_refresh();
             break;
         case KC_LANG:
-            if (IS_LAYER_ON(_LANG_LAYER)) {
+            if (IS_LAYER_ON(_LL)) {
                 g_lang = (g_lang + 1) % NUM_LANG;
-                layer_off(_LANG_LAYER);
+                layer_off(_LL);
             }
             else {
-                layer_on(_LANG_LAYER);
+                layer_on(_LL);
             }
             break;
         default:
@@ -790,7 +840,7 @@ void keyboard_post_init_user(void) {
     //pointing_device_set_cpi(20000);
     //pointing_device_set_cpi(2000);
     //pimoroni_trackball_set_rgbw(0,0,255,100);
-
+    update_matrix_infobuffer();
     uprintf("PolyKybd ready.");
 
     wait_ms(500);
@@ -830,6 +880,8 @@ bool oled_task_user(void) {
     oled_write(buffer, false);
 
     snprintf(buffer, sizeof(buffer), "\n%s", is_keyboard_master() ? "MASTER" : "SLAVE");
+    //snprintf(buffer, sizeof(buffer), "\n%s %s", is_keyboard_master() ? "MASTER" : "SLAVE", is_keyboard_left() ? "LEFT", "RIGHT");
+
     oled_write(buffer, false);
 
     oled_set_cursor(0, 4);
@@ -853,7 +905,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 void invert_display(uint8_t r, uint8_t c, bool state) {
-    uint16_t keycode = keymaps[_BASE_LAYER][r][0];
+    uint16_t keycode = keymaps[_BL][r][0];
     if (keycode == KC_NO) {
         c--;
     }
@@ -896,3 +948,12 @@ void matrix_slave_scan_user(void) {
     matrix_scan_user();
 }
 
+void suspend_power_down_kb(void) {
+    g_contrast = 0;
+    sync_and_refresh_displays();//set_displays(g_contrast);
+}
+
+// void suspend_wakeup_init_kb(void) {
+//     g_contrast = FULL_BRIGHT;
+//     set_displays(g_contrast);
+// }

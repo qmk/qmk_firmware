@@ -39,7 +39,7 @@
 //3	57600 baud
 //4	38400 baud
 //5	19200 baud
-#define SELECT_SOFT_SERIAL_SPEED 0
+#define SELECT_SOFT_SERIAL_SPEED 1
 
 //for split keyboard setup
 //#define PAL_USE_CALLBACKS TRUE
