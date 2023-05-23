@@ -1,13 +1,17 @@
 # Silhouette
 
+![Silhouette](https://i.imgur.com/x5Wo7t1.jpeg)
+
 The following is the QMK Firmware for the Silhouette PCB.
+
+* Keyboard Maintainer: [Wolf](https://github.com/ToastyStoemp)
+* Hardware Supported: Silhouette PCB
+* Hardware Availability: https://beacons.ai/chamchi
 
 The PCB features:
 * QMK & VIA compatibility
 
 ---
-
-* Keyboard Maintainer: [ToastyStoemp](https://github.com/ToastyStoemp)
 
 Make example for this keyboard (after setting up your build environment):
 
