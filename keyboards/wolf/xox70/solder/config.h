@@ -16,10 +16,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#define WS2812_PIO_USE_PIO1
-
 /* Define RGB */
 #ifdef RGBLIGHT_ENABLE
+
+#define WS2812_PIO_USE_PIO1
+#define WS2812_DI_PIN GP12
 
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 #endif
