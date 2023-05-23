@@ -9,8 +9,6 @@
         "rows": ["GP4", "GP5", "GP6", "GP7", "GP8"]
     },
     "processor": "RP2040",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "url": "https://gitlab.com/neodox/neodox",
     "usb": {
         "device_version": "1.0.0",
