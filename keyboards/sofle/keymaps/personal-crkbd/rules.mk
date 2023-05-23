@@ -1,0 +1,21 @@
+OLED_ENABLE            = yes
+OLED_DRIVER            = SSD1306
+ENCODER_ENABLE         = yes
+EXTRAKEY_ENABLE        = yes
+RGBLIGHT_ENABLE        = yes
+BACKLIGHT_ENABLE       = no
+CONSOLE_ENABLE         = no
+LTO_ENABLE             = yes
+COMBO_ENABLE           = no
+TAP_DANCE_ENABLE       = no
+SPACE_CADET_ENABLE     = no
+GRAVE_ESC_ENABLE       = no
+MAGIC_ENABLE           = no
+AVR_USE_MINIMAL_PRINTF = yes
+MUSIC_ENABLE           = no
+# Luna keyboard
+WPM_ENABLE       = yes
+EXTRAFLAGS      += -flto
+COMMAND_ENABLE   = no # Commands for debug and configuration
+UNICODE_ENABLE   = no # Unicode
+MOUSEKEY_ENABLE  = no # Mouse keys(+4700)
