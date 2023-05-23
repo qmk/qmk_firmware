@@ -79,6 +79,16 @@ If you're using a custom transport (communication method), then you will also ne
 SPLIT_TRANSPORT = custom
 ```
 
+### Layout Macro
+
+Configuring your layout in a split keyboard works slightly differently to a non-split keyboard. Take for example the following layout. The top left numbers refer to the matrix row and column, and the bottom right are the order of the keys in the layout:
+
+![Physical layout](https://i.imgur.com/QeY6kMQ.png)
+
+Since the matrix scanning procedure operates on entire rows, it first populates the left half's rows, then the right half's. Thus, the matrix as QMK views it has double the rows instead of double the columns:
+
+![Matrix](https://i.imgur.com/4wjJzBU.png)
+
 ### Setting Handedness
 
 By default, the firmware does not know which side is which; it needs some help to determine that. There are several ways to do this, listed in order of precedence.

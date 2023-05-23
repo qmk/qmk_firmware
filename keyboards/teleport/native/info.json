@@ -15,7 +15,7 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true
     },
     "diode_direction": "ROW2COL",

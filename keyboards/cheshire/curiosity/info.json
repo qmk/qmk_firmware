@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Curiosity",
     "manufacturer": "Nightingale Studios/Cheshire Designs",
-    "maintainer": "zvecr",
+    "maintainer": "sidcarter",
     "usb": {
         "vid": "0xCAFE",
         "pid": "0x0FAD",

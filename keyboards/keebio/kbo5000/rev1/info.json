@@ -5,7 +5,7 @@
     "maintainer": "nooges",
     "usb": {
         "vid": "0xCB10",
-        "pid": "0x126A",
+        "pid": "0x136A",
         "device_version": "1.0.0"
     },
     "encoder": {
@@ -21,8 +21,8 @@
         "encoder": {
             "right": {
                 "rotary": [
-                    {"pin_a": "D6", "pin_b": "C7"},
-                    {"pin_a": "D4", "pin_b": "C6"}
+                    {"pin_a": "D6", "pin_b": "D4"},
+                    {"pin_a": "C7", "pin_b": "C6"}
                 ]
             }
         }

@@ -71,6 +71,16 @@ def _validate(keyboard, info_data):
     if len(layouts) == 0 or all(not layout.get('json_layout', False) for layout in layouts.values()):
         _log_error(info_data, 'No LAYOUTs defined! Need at least one layout defined in info.json.')
 
+    # Warn if physical positions are offset (at least one key should be at x=0, and at least one key at y=0)
+    for layout_name, layout_data in layouts.items():
+        offset_x = min([k['x'] for k in layout_data['layout']])
+        if offset_x > 0:
+            _log_warning(info_data, f'Layout "{layout_name}" is offset on X axis by {offset_x}')
+
+        offset_y = min([k['y'] for k in layout_data['layout']])
+        if offset_y > 0:
+            _log_warning(info_data, f'Layout "{layout_name}" is offset on Y axis by {offset_y}')
+
     # Providing only LAYOUT_all "because I define my layouts in a 3rd party tool"
     if len(layouts) == 1 and 'LAYOUT_all' in layouts:
         _log_warning(info_data, '"LAYOUT_all" should be "LAYOUT" unless additional layouts are provided.')

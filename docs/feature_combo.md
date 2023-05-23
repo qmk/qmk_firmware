@@ -20,24 +20,28 @@ combo_t key_combos[COMBO_COUNT] = {
 
 This will send "Escape" if you hit the A and B keys, and Ctrl+Z when you hit the C and D keys.
 
-As of [PR#8591](https://github.com/qmk/qmk_firmware/pull/8591/), it is possible to fire combos from ModTap keys and LayerTap keys. So in the above example you could have keys `LSFT_T(KC_A)` and `LT(_LAYER, KC_B)` and it would work. So Home Row Mods and Home Row Combos at same time is now a thing!
-
-It is also now possible to overlap combos. Before, with the example below both combos would activate when all three keys were pressed. Now only the three key combo will activate.
+## Mod-Tap Support
+[Mod-Tap](mod_tap.md) feature is also supported together with combos. You will need to use the full Mod-Tap keycode in the combo definition, e.g.:
 
 ```c
-const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_A), LT(_LAYER, KC_B), COMBO_END};
-const uint16_t PROGMEM test_combo2[] = {LSFT_T(KC_A), LT(_LAYER, KC_B), KC_C, COMBO_END};
+const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_A), LT(1, KC_B), COMBO_END};
+```
+
+## Overlapping Combos
+It is possible to overlap combos. Before, with the example below both combos would activate when all three keys were pressed. Now only the three key combo will activate.
+
+```c
+const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_A), LT(1, KC_B), COMBO_END};
+const uint16_t PROGMEM test_combo2[] = {LSFT_T(KC_A), LT(1, KC_B), KC_C, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(test_combo1, KC_ESC)
     COMBO(test_combo2, KC_TAB)
 };
 ```
 
-Executing more complex keycodes like ModTaps and LayerTaps is now also possible.
-
 ## Examples
 
-If you want to add a list, then you'd use something like this:
+A long list of combos can be defined in an `enum` list that ends with `COMBO_LENGTH` and you can leave `COMBO_COUNT` undefined:
 
 ```c
 enum combos {
@@ -45,14 +49,16 @@ enum combos {
   JK_TAB,
   QW_SFT,
   SD_LAYER,
+  COMBO_LENGTH
 };
+uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [AB_ESC] = COMBO(ab_combo, KC_ESC),
   [JK_TAB] = COMBO(jk_combo, KC_TAB),
   [QW_SFT] = COMBO(qw_combo, KC_LSFT),
@@ -61,7 +67,6 @@ combo_t key_combos[COMBO_COUNT] = {
 ```
 
 For a more complicated implementation, you can use the `process_combo_event` function to add custom handling.
-Additionally, this example shows how you can leave `COMBO_COUNT` undefined.
 
 ```c
 enum combo_events {
@@ -111,13 +116,13 @@ You can enable, disable and toggle the Combo feature on the fly. This is useful 
 |`QK_COMBO_OFF`   |`CM_OFF` |Turns off Combo feature         |
 |`QK_COMBO_TOGGLE`|`CM_TOGG`|Toggles Combo feature on and off|
 
-# Advanced Configuration
+## Advanced Configuration
 These configuration settings can be set in your `config.h` file.
 
-## Combo Term
+### Combo Term
 By default, the timeout for the Combos to be recognized is set to 50ms. This can be changed if accidental combo misfires are happening or if you're having difficulties pressing keys at the same time. For instance, `#define COMBO_TERM 40` would set the timeout period for combos to 40ms.
 
-## Buffer and state sizes
+### Buffer and state sizes
 If you're using long combos, or you have a lot of overlapping combos, you may run into issues with this, as the buffers may not be large enough to accommodate what you're doing. In this case, you can configure the sizes of the buffers used. Be aware, larger combo sizes and larger buffers will increase memory usage!
 
 To configure the amount of keys a combo can be composed of, change the following:
@@ -138,13 +143,13 @@ Processing combos has two buffers, one for the key presses, another for the comb
 | `#define COMBO_KEY_BUFFER_LENGTH 8` | 8 (the key amount `(EXTRA_)EXTRA_LONG_COMBOS` gives) |
 | `#define COMBO_BUFFER_LENGTH 4`     | 4                                                    |
 
-## Modifier Combos
+### Modifier Combos
 If a combo resolves to a Modifier, the window for processing the combo can be extended independently from normal combos. By default, this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_HOLD_TERM 150` (default: `TAPPING_TERM`). With `COMBO_MUST_HOLD_MODS`, you cannot tap the combo any more which makes the combo less prone to misfires.
 
-## Strict key press order
+### Strict key press order
 By defining `COMBO_MUST_PRESS_IN_ORDER` combos only activate when the keys are pressed in the same order as they are defined in the key array.
 
-## Per Combo Timing, Holding, Tapping and Key Press Order
+### Per Combo Timing, Holding, Tapping and Key Press Order
 For each combo, it is possible to configure the time window it has to pressed in, if it needs to be held down, if it needs to be tapped, or if its keys need to be pressed in order.
 
 For example, tap-only combos are useful if any (or all) of the underlying keys are mod-tap or layer-tap keys. When you tap the combo, you get the combo result. When you press the combo and hold it down, the combo doesn't activate. Instead the keys are processed separately as if the combo wasn't even there.
@@ -234,7 +239,7 @@ bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
 }
 ```
 
-## Generic hook to (dis)allow a combo activation
+### Generic hook to (dis)allow a combo activation
 
 By defining `COMBO_SHOULD_TRIGGER` and its companying function `bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record)` you can block or allow combos to activate on the conditions of your choice.
 For example, you could disallow some combos on the base layer and allow them on another. Or disable combos on the home row when a timer is running.
@@ -254,7 +259,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 }
 ```
 
-## Variable Length Combos
+### Variable Length Combos
 If you leave `COMBO_COUNT` undefined in `config.h`, it allows you to programmatically declare the size of the Combo data structure and avoid updating `COMBO_COUNT`. Instead a variable called `COMBO_LEN` has to be set. It can be set with something similar to the following in `keymap.c`: `uint16_t COMBO_LEN = ARRAY_SIZE(key_combos);` or by adding `COMBO_LENGTH` as the *last* entry in the combo enum and then `uint16_t COMBO_LEN = COMBO_LENGTH;` as such:
 ```c
 enum myCombos {
@@ -266,26 +271,26 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 Regardless of the method used to declare `COMBO_LEN`, this also requires to convert the `combo_t key_combos[COMBO_COUNT] = {...};` line to `combo_t key_combos[] = {...};`.
 
 
-## Combo timer
+### Combo timer
 
 Normally, the timer is started on the first key press and then reset on every subsequent key press within the `COMBO_TERM`.
 Inputting combos is relaxed like this, but also slightly more prone to accidental misfires.
 
 The next two options alter the behaviour of the timer.
 
-### `#define COMBO_STRICT_TIMER`
+#### `#define COMBO_STRICT_TIMER`
 
 With `COMBO_STRICT_TIMER`, the timer is started only on the first key press.
 Inputting combos is now less relaxed; you need to make sure the full chord is pressed within the `COMBO_TERM`.
 Misfires are less common but if you type multiple combos fast, there is a
 chance that the latter ones might not activate properly.
 
-### `#define COMBO_NO_TIMER`
+#### `#define COMBO_NO_TIMER`
 
 By defining `COMBO_NO_TIMER`, the timer is disabled completely and combos are activated on the first key release.
 This also disables the "must hold" functionalities as they just wouldn't work at all.
 
-## Customizable key releases
+### Customizable key releases
 
 By defining `COMBO_PROCESS_KEY_RELEASE` and implementing the function `bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode)`, you can run your custom code on each key release after a combo was activated. For example you could change the RGB colors, activate haptics, or alter the modifiers.
 
@@ -322,13 +327,13 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
     return false;
 }
 ```
-## Layer independent combos
+### Layer independent combos
 
 If you, for example, use multiple base layers for different key layouts, one for QWERTY, and another one for Colemak, you might want your combos to work from the same key positions on all layers. Defining the same combos again for another layout is redundant and takes more memory. The solution is to just check the keycodes from one layer.
 
 With `#define COMBO_ONLY_FROM_LAYER 0` in config.h, the combos' keys are always checked from layer `0`, even if other layers are active.
 
-### Combo reference layers by layer.
+#### Combo reference layers by layer.
 
 If not using `COMBO_ONLY_FROM_LAYER` it is possible to specify a
 combo reference layer for any layer using the `combo_ref_from_layer` hook. 
@@ -385,7 +390,7 @@ In addition to the keycodes, there are a few functions that you can use to set t
 | `is_combo_enabled()` | Returns the status of the combo feature state (true or false) |
 
 
-# Dictionary Management
+## Dictionary Management
 
 Having 3 places to update when adding new combos or altering old ones does become cumbersome when you have a lot of combos. We can alleviate this with some magic! ... If you consider C macros magic.
 First, you need to add `VPATH += keyboards/gboards` to your `rules.mk`. Next, include the file `g/keymap_combo.h` in your `keymap.c`.

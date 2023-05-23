@@ -20,10 +20,10 @@
 #define EE_HANDS
 
 /* define pins */
-#define MATRIX_ROW_PINS { F6, F5, F4, B6, D3 }
-#define MATRIX_COL_PINS { B5, B4, D7, D6, F0, F1, C6 }
-#define MATRIX_ROW_PINS_RIGHT { D6, D7, B4, F7, E6 }
-#define MATRIX_COL_PINS_RIGHT { B1, B2, B3, F1, F4, F5, F6 }
+#define MATRIX_ROW_PINS { F4, F5, F6, D3, C6 }
+#define MATRIX_COL_PINS { D7, B4, B5, B6, F0, D4, D6 }
+#define MATRIX_ROW_PINS_RIGHT { F5, F1, B2, B1, C6 }
+#define MATRIX_COL_PINS_RIGHT { B6, B5, D6, D5, D3, D7, B4 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW

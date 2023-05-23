@@ -88,8 +88,12 @@ def find_layouts(file):
             for i, key in enumerate(parsed_layout):
                 if 'label' not in key:
                     cli.log.error('Invalid LAYOUT macro in %s: Empty parameter name in macro %s at pos %s.', file, macro_name, i)
-                elif key['label'] in matrix_locations:
-                    key['matrix'] = matrix_locations[key['label']]
+                elif key['label'] not in matrix_locations:
+                    cli.log.error('Invalid LAYOUT macro in %s: Key %s in macro %s has no matrix position!', file, key['label'], macro_name)
+                elif len(matrix_locations.get(key['label'])) > 1:
+                    cli.log.error('Invalid LAYOUT macro in %s: Key %s in macro %s has multiple matrix positions (%s)', file, key['label'], macro_name, ', '.join(str(x) for x in matrix_locations[key['label']]))
+                else:
+                    key['matrix'] = matrix_locations[key['label']][0]
 
             parsed_layouts[macro_name] = {
                 'layout': parsed_layout,
@@ -184,7 +188,9 @@ def _parse_matrix_locations(matrix, file, macro_name):
         row = row.replace('{', '').replace('}', '')
         for col_num, identifier in enumerate(row.split(',')):
             if identifier != 'KC_NO':
-                matrix_locations[identifier] = [row_num, col_num]
+                if identifier not in matrix_locations:
+                    matrix_locations[identifier] = []
+                matrix_locations[identifier].append([row_num, col_num])
 
     return matrix_locations
 

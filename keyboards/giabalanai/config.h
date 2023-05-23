@@ -1,5 +1,5 @@
 /*
-Copyright 2020 3araht
+Copyright 2023 3araht
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,16 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-#define SELECT_SOFT_SERIAL_SPEED 1
-/*Sets the protocol speed when using serial communication*/
-//Speeds:
-//0: about 189kbps (Experimental only)
-//1: about 137kbps (default)
-//2: about 75kbps
-//3: about 39kbps
-//4: about 26kbps
-//5: about 20kbps
 
 // Right side has to be the master since 1, LED data is output from right side, and 2, Audio pin is prepared on right side as a reserve.
 #define MASTER_RIGHT
@@ -227,3 +217,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define NO_ACTION_TAPPING
 // NO_ACTION_ONESHOT -388 bytes
 #define NO_ACTION_ONESHOT
+/*
+ * Encoder options
+ */
+#ifdef ENCODER_ENABLE
+#   define ENCODER_RESOLUTIONS_RIGHT { 4 }
+#endif  // ENCODER_ENABLE
