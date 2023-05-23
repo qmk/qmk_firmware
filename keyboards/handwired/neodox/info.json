@@ -18,7 +18,7 @@
     },
     "split": {
         "enabled": true
-    }.
+    },
     "features": {
         "bootmagic": true,
         "command": false,
