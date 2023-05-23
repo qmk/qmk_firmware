@@ -25,11 +25,6 @@ enum __layers {
     MAC_FN
 };
 
-enum custom_keycodes {
-    ENC_VAI = SAFE_RANGE,
-    ENC_VAD
-};
-
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
 
@@ -50,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_W,    _______,
-        _______, _______, _______,                   _______,                            _______, _______, _______,          KC_A,    KC_S,    KC_D),
+        _______, _______, _______,                   _______,                            _______,MO(WIN_FN),_______,          KC_A,    KC_S,    KC_D),
 
     [WIN_FN] = LAYOUT_all( /* WASD/↑←↓→ */
         _______, KC_MYCM, KC_MAIL, KC_WSCH, KC_WHOM, KC_MSEL, KC_MPLY, KC_MPRV, KC_MNXT, _______, _______, _______, _______, _______,           RGB_MOD,
@@ -74,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_W,    _______,
-        _______, _______, _______,                   _______,                            _______, _______, _______,          KC_A,    KC_S,    KC_D),
+        _______, _______, _______,                   _______,                            _______, MO(MAC_FN), _______,          KC_A,    KC_S,    KC_D),
 
     [MAC_FN] = LAYOUT_all( /* FN */
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,  KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_DEL,            RGB_MOD,
@@ -86,40 +81,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-// clang-format on
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case ENC_VAI:
-            if (record->event.pressed){
-                if(rgb_matrix_get_val() < RGB_MATRIX_MAXIMUM_BRIGHTNESS){
-                    rgb_matrix_config.hsv.v = rgb_matrix_get_val() + RGB_MATRIX_VAL_STEP;
-                    rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
-                }
-            }
-            return false;
-        case ENC_VAD:
-            if (record->event.pressed){
-                if(rgb_matrix_get_val() > 0){
-                    rgb_matrix_config.hsv.v = rgb_matrix_get_val() - RGB_MATRIX_VAL_STEP;
-                    rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
-                }
-            }
-            return false;
-
-    }
-    return true;
-}
-
-
 // clang-format off
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [WIN_B] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
     [WIN_W] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [WIN_FN] = { ENCODER_CCW_CW(ENC_VAI, ENC_VAD) },
+    [WIN_FN] = { ENCODER_CCW_CW(RGB_VAI, RGB_VAD) },
     [MAC_B] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
     [MAC_W] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [MAC_FN] = { ENCODER_CCW_CW(ENC_VAI, ENC_VAD) }
+    [MAC_FN] = { ENCODER_CCW_CW(RGB_VAI, RGB_VAD) }
 };
 #endif
 
