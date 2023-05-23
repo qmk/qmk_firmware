@@ -18,7 +18,7 @@
 
 /* Flash */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET              // Activates the double-tap behavior
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // In ms in which the double tap can occur
 
 /* OLED */
 #undef OLED_FONT_H
@@ -58,7 +58,6 @@
 
 #define MK_C_OFFSET_2 25
 #define MK_C_INTERVAL_2 10
-
 
 #define MK_W_OFFSET_0 1
 #define MK_W_INTERVAL_0 160
