@@ -19,7 +19,7 @@
         "num_lock": "B10",
         "caps_lock": "B12",
         "scroll_lock": "B11",
-        "on_state": 1
+        "on_state": 0
   }
   "bootmagic": {
         "enabled": true,
