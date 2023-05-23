@@ -1,6 +1,12 @@
 # Neely65
 
+![Neely65](https://i.imgur.com/qu6fxXS.jpeg)
+
 The following is the QMK Firmware for the Neely65 PCB.
+
+* Keyboard Maintainer: [Wolf](https://github.com/ToastyStoemp)
+* Hardware Supported: Neely65 PCB only
+* Hardware Availability: Private Run
 
 The PCB features:
 * QMK & VIA compatibility
