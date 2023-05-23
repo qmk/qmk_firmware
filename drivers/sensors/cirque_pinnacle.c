@@ -98,7 +98,7 @@ void cirque_pinnacle_enable_feed(bool feedEnable) {
     RAP_ReadBytes(HOSTREG__FEEDCONFIG1, &feedconfig1, 1);
 
     if (feedEnable) {
-        feedconfig1 |= HOSTREG__FEEDCONFIG1__FEED_ENABLE;
+        feedconfig1 |= HOSTREG__FEEDCONFIG1__FEED_ENABLE | HOSTREG__FEEDCONFIG1__X_DATA_INVERT | HOSTREG__FEEDCONFIG1__Y_DATA_INVERT;
     } else {
         feedconfig1 &= ~HOSTREG__FEEDCONFIG1__FEED_ENABLE;
     }
@@ -239,7 +239,7 @@ void cirque_pinnacle_init(void) {
     RAP_Write(HOSTREG__FEEDCONFIG2, HOSTREG__FEEDCONFIG2_DEFVAL);
 #else
     // FeedConfig2 (Feature flags for Relative Mode Only)
-    uint8_t feedconfig2 = HOSTREG__FEEDCONFIG2__GLIDE_EXTEND_DISABLE | HOSTREG__FEEDCONFIG2__INTELLIMOUSE_MODE;
+    uint8_t feedconfig2 = HOSTREG__FEEDCONFIG2__GLIDE_EXTEND_DISABLE | HOSTREG__FEEDCONFIG2__INTELLIMOUSE_MODE  | HOSTREG__FEEDCONFIG2__SWAP_XY_RELATIVE;
 #    if !defined(CIRQUE_PINNACLE_TAP_ENABLE)
     feedconfig2 |= HOSTREG__FEEDCONFIG2__ALL_TAP_DISABLE;
 #    endif
