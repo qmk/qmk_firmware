@@ -3,9 +3,9 @@
 
 #include "wrappers.h"
 
-#if defined(TAP_DANCE_ENABLE)
-#   include "tap_dance.h"
-#endif  //TAP_DANCE_ENABLE
+//#if defined(TAP_DANCE_ENABLE)
+//#   include "tap_dance.h"
+//#endif  //TAP_DANCE_ENABLE
 
 enum layers {
   _QWERTY = 0,

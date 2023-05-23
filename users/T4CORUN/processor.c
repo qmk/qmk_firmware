@@ -7,7 +7,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     add_keylog(keycode);
   }
 #endif //KEYLOG_ENABLE
-  
+
+
+#if defined(RGB_MATRIX_ENABLE)
+  process_record_user_rgb_matrix(keycode, record);
+#endif //RGB_MATRIX_ENABLE
+
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {  
@@ -26,7 +31,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           default_layer_set(1UL<<_GAMING);
       }
       return false;
-
   }
   return true;
 }

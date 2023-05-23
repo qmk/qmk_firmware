@@ -34,16 +34,16 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 
 #if defined(MOUSELAYER_ENABLE)
-#   define         _________BASE_L4_________                  KC_BTN1, KC_LSFT, NUMBER
+#   define         _________BASE_L4_________                  KC_BTN1, NUMBER,  KC_LSFT
 #else
-#   define         _________BASE_L4_________                  ___x___, KC_LSFT, NUMBER
+#   define         _________BASE_L4_________                  ___x___, NUMBER,  KC_LSFT
 #endif //MOUSELAYER_ENABLE
 
 //slave side only has two thumb keys
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define         _________BASE_R4_________                  NAV,     KC_SPC
+#   define         _________BASE_R4_________                  KC_SPC,  NAV
 #else
-#   define         _________BASE_R4_________                  NAV,     KC_SPC   ___x___
+#   define         _________BASE_R4_________                  KC_SPC,  NAV,     ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 /*
@@ -183,14 +183,14 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Undo | Cut  | Copy | Pste | Redo |    |   ;  |   1  |   2  |   3  |   \  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      |      |LyrTap|    | ent  |   0  |      |
+*                 |      |LyrTap|      |    | spc  |   0  |      |
 *                 `------+------+------'    `------+------+------'
 */
 
 #define    _________________NUMPAD_L1_________________        KC_ESC,  ___x___, W_SNIP,  KC_TILD, KC_GRV
 #define    _________________NUMPAD_L2_________________        KC_ENT,  ________ACS_MODS_________, KC_DOT
 #define    _________________NUMPAD_L3_________________        __________________UCCPR_L__________________
-#define             ________NUMPAD_L4________                 ___x___, ___x___, _______
+#define             ________NUMPAD_L4________                 ___x___, _______, ___x___
 
 #define    _________________NUMPAD_R2_________________        KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL
 #define    _________________NUMPAD_R3_________________        KC_MINS, KC_1,    KC_2,    KC_3,    KC_BSLS
@@ -203,9 +203,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #endif //TAP_DANCE_ENABLE
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          ________NUMPAD_R4________                 KC_ENT,  KC_0
+#   define          ________NUMPAD_R4________                 KC_SPC,  KC_0
 #else
-#   define          ________NUMPAD_R4________                 KC_ENT,  KC_0,    ___x___
+#   define          ________NUMPAD_R4________                 KC_SPC,  KC_0,    ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #define    __________________NUMROW_L_________________        KC_1,    KC_2,    KC_3,    KC_4,    KC_5
@@ -220,7 +220,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Undo | Cut  | Copy | Pste | Redo |    |      |      |      |      |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Tab  | Bpsc | Ent  |    |LyrTap|      |      |
+*                 | Tab  | Bpsc | Ent  |    |      |LyrTap|      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ___________________NAV_L1__________________        KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
@@ -237,9 +237,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define ___________________NAV_R3__________________        ___________________NONE_5__________________
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          __________NAV_R4_________                 _______, ___x___
+#   define          __________NAV_R4_________                 ___x___, _______
 #else
-#   define          __________NAV_R4_________                 _______, ___x___, ___x___
+#   define          __________NAV_R4_________                 ___x___, _______, ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 
