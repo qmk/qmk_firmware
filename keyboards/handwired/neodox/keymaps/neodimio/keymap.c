@@ -11,9 +11,6 @@
 
 #ifdef QUANTUM_PAINTER_ENABLE
 #  include <qp.h>
-#  include "imgs/logo.qgf.h"
-#  include "imgs/logo1.qgf.h"
-#  include "imgs/logo2.qgf.h"
 #  include "imgs/logo3.qgf.h"
 #  include "imgs/logo4.qgf.h"
 #  include "imgs/big_font.qff.h"
@@ -85,9 +82,6 @@ HSV fade_hsv;        // current HSV
 #ifdef QUANTUM_PAINTER_ENABLE
 
 static painter_font_handle_t my_font;
-static painter_image_handle_t logo;
-static painter_image_handle_t logo1;
-static painter_image_handle_t logo2;
 static painter_image_handle_t logo3;
 static painter_image_handle_t logo4;
 
@@ -126,13 +120,7 @@ static td_state_t td_state_r_layers;
 static td_state_t td_state_lbrs;
 static td_state_t td_state_rbrs;
 
-// Tap dance keycodes
-// enum tap_dance{
-//   _BOOT_TAP, //
-//   _TD_LAYERS_1,
-//   _TD_LAYERS_2
 
-// };
 
 
 // Tap dance keys:
@@ -303,9 +291,6 @@ void keyboard_post_init_kb(void) {
 
 #ifdef QUANTUM_PAINTER_ENABLE
     // Initialise the display
-    logo = qp_load_image_mem(gfx_logo);
-    logo1 = qp_load_image_mem(gfx_logo1);
-    logo2 = qp_load_image_mem(gfx_logo2);
     logo3 = qp_load_image_mem(gfx_logo3);
     logo4 = qp_load_image_mem(gfx_logo4);
     my_font = qp_load_font_mem(big_font);
@@ -318,7 +303,7 @@ void keyboard_post_init_kb(void) {
         // Turn on the LCD and clear the display
         qp_power(lcd, true);
         qp_rect(lcd, 0, 0, 240, 240 ,HSV_WHITE, true);
-        // qp_drawimage(lcd, 5, 10, logo);
+
         qp_drawimage(lcd, 0, 0, logo3);
 
         // Turn on the LCD backlight
@@ -684,88 +669,6 @@ void suspend_wakeup_init_user(void) {
     last_backlight = 255;
 }
 
-#ifdef OLED_ENABLE
-
-// // #ifdef OLED_ENABLE
-oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-}
-
-
-
-void oled_write_wpm(void) {
-#ifdef WPM_ENABLE
-     // print WPM
-     oled_write_P(PSTR("\nWPM: "), false);
-     oled_write(get_u8_str(get_current_wpm(), ' '), false);
- #endif
- }
-
-bool oled_task_kb(void) {
-    if (!oled_task_user()) {
-        return false;
-    }
-    if (is_keyboard_master()) {
-        // QMK Logo and version information
-        // clang-format off
-        static const char PROGMEM qmk_logo[] = {
-            0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-            0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-            0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
-        // clang-format on
-
-        oled_write_P(qmk_logo, false);
-        oled_write_P(PSTR("Redox "), false);
-
-        // Host Keyboard Layer Status
-        oled_write_P(PSTR("Layer: "), false);
-        switch (get_highest_layer(layer_state | default_layer_state)) {
-            case _QWERTY:
-                oled_write_P(PSTR("QWERTY\n"), false);
-                break;
-            // case 1:
-            //     oled_write_P(PSTR("Dvorak\n"), false);
-            //     break;
-            // case 2:
-            //     oled_write_P(PSTR("Colemak-DH\n"), false);
-            //     break;
-            case _NAV:
-                oled_write_P(PSTR("Nav\n"), false);
-                break;
-            case _SYMB:
-                oled_write_P(PSTR("Sym\n"), false);
-                break;
-            case _FUNC:
-                oled_write_P(PSTR("Function\n"), false);
-                break;
-            case _MOUSE:
-                oled_write_P(PSTR("Mouse\n"), false);
-                break;
-            case _GAMING:
-                oled_write_P(PSTR("Gaming\n"), false);
-                break;
-            default:
-                oled_write_P(PSTR("Undefined\n"), false);
-
-        }
-        #ifdef WPM_ENABLE
-            oled_write_wpm();
-        #endif
-
-        oled_write_P(PSTR("\n"), false);
-
-        // Host Keyboard LED Status
-        led_t led_usb_state = host_keyboard_led_state();
-        oled_write_P(led_usb_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
-        oled_write_P(led_usb_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
-        oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
-    } else {
-
-        oled_write_raw_P(qmk_logo, sizeof(qmk_logo));
-    }
-    return false;
-}
-#endif
 
 
 void housekeeping_task_user(void) {
@@ -902,46 +805,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 
 
 #ifdef RGBLIGHT_ENABLE
-/*
-const uint8_t quadratic_curve[256] = {
-  0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   1,   1,   1,   1,
-  1,   1,   1,   1,   2,   2,   2,   2,   2,   2,   3,   3,   3,   3,   4,   4,
-  4,   4,   5,   5,   5,   5,   6,   6,   6,   7,   7,   7,   8,   8,   8,   9,
-  9,   9,  10,  10,  11,  11,  11,  12,  12,  13,  13,  14,  14,  15,  15,  16,
- 16,  17,  17,  18,  18,  19,  19,  20,  20,  21,  21,  22,  23,  23,  24,  24,
- 25,  26,  26,  27,  28,  28,  29,  30,  30,  31,  32,  32,  33,  34,  35,  35,
- 36,  37,  38,  38,  39,  40,  41,  42,  42,  43,  44,  45,  46,  47,  47,  48,
- 49,  50,  51,  52,  53,  54,  55,  55,  56,  57,  58,  59,  60,  61,  62,  63,
- 64,  65,  66,  67,  68,  69,  70,  71,  72,  74,  75,  76,  77,  78,  79,  80,
- 81,  82,  84,  85,  86,  87,  88,  89,  91,  92,  93,  94,  95,  97,  98,  99,
-100, 102, 103, 104, 105, 107, 108, 109, 111, 112, 113, 115, 116, 117, 119, 120,
-121, 123, 124, 126, 127, 128, 130, 131, 133, 134, 136, 137, 139, 140, 141, 143,
-144, 146, 147, 149, 151, 152, 154, 155, 157, 158, 160, 161, 163, 165, 166, 168,
-170, 171, 173, 174, 176, 178, 179, 181, 183, 185, 186, 188, 190, 191, 193, 195,
-197, 198, 200, 202, 204, 206, 207, 209, 211, 213, 215, 216, 218, 220, 222, 224,
-226, 228, 229, 231, 233, 235, 237, 239, 241, 243, 245, 247, 249, 251, 253, 255
-};
 
-const uint8_t exp_curve[256] =
-{
-   0,   0,   0,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,
-   1,   1,   1,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,
-   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   2,   3,   3,   3,   3,   3,
-   3,   3,   3,   3,   3,   3,   3,   3,   3,   3,   4,   4,   4,   4,   4,   4,
-   4,   4,   4,   4,   4,   4,   5,   5,   5,   5,   5,   5,   5,   5,   5,   6,
-   6,   6,   6,   6,   6,   6,   6,   7,   7,   7,   7,   7,   7,   8,   8,   8,
-   8,   8,   8,   9,   9,   9,   9,   9,  10,  10,  10,  10,  10,  11,  11,  11,
-  11,  12,  12,  12,  12,  13,  13,  13,  14,  14,  14,  14,  15,  15,  15,  16,
-  16,  16,  17,  17,  18,  18,  18,  19,  19,  20,  20,  21,  21,  21,  22,  22,
-  23,  23,  24,  24,  25,  25,  26,  27,  27,  28,  28,  29,  30,  30,  31,  32,
-  32,  33,  34,  35,  35,  36,  37,  38,  39,  39,  40,  41,  42,  43,  44,  45,
-  46,  47,  48,  49,  50,  51,  52,  53,  55,  56,  57,  58,  59,  61,  62,  63,
-  65,  66,  68,  69,  71,  72,  74,  76,  77,  79,  81,  82,  84,  86,  88,  90,
-  92,  94,  96,  98, 100, 102, 105, 107, 109, 112, 114, 117, 119, 122, 124, 127,
- 130, 133, 136, 139, 142, 145, 148, 151, 155, 158, 162, 165, 169, 172, 176, 180,
- 184, 188, 192, 196, 201, 205, 210, 214, 219, 224, 229, 234, 239, 244, 250, 255
-};
-*/
 
 void rgb_to_hsv(fade_rgb_t *rgb, HSV *hsv){
     int32_t min, max, delta, hue =0;
