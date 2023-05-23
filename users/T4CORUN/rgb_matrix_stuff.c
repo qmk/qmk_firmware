@@ -1,5 +1,13 @@
 #include "rgb_matrix_stuff.h"
 
+#if defined(KEYBOARD_crkbd_rev1)
+const uint8_t dpad_LED[NUM_DPADKEYS] = { 11, 16, 17, 19 };
+const uint8_t shift_LED[NUM_SHIFTKEYS] = { 16, 10, 28 }; //these are the wrong ones
+#elif defined(KEYBOARD_bastardkb_charybdis_3x5)
+const uint8_t dpad_LED[NUM_DPADKEYS] = { 4, 7, 8, 10 };
+const uint8_t shift_LED[NUM_SHIFTKEYS] = { 16, 10, 28 };
+#endif
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
 
   switch(get_highest_layer(layer_state)) {
@@ -70,6 +78,29 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     case SHFT_J:
     case SHFT_T:
     case SHFT_N: {
+      if (get_mods() == MOD_BIT(KC_LSFT)) {
+        if (record->event.pressed) {
+          //rgb_matrix_set_color(LED_SCRLOCK, RGB_CYAN);
+          for(uint8_t i=0; i < NUM_SHIFTKEYS; i++) {
+            rgb_matrix_set_color(shift_LED[i], RGB_WHITE);
+          }  
+        }
+      }
+    }
+  }
+
+  return true;
+}
+
+/*
+bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
+
+  switch (keycode) {
+    case KC_LSFT:
+    case SHFT_F:
+    case SHFT_J:
+    case SHFT_T:
+    case SHFT_N: {
       if (record->event.pressed) {
         if (get_mods() & MOD_MASK_SHIFT) {
           for(uint8_t i=0; i < NUM_SHIFTKEYS; i++) {
@@ -81,3 +112,4 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+*/

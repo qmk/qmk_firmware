@@ -1,6 +1,8 @@
 #pragma once
 #include "T4CORUN.h"
 
+#define NUM_DPADKEYS 4
+
 #if defined(KEYBOARD_crkbd_rev1)
 #   define LED_NUMBER 13
 #   define LED_NAVIGATION 40
@@ -15,10 +17,11 @@
 #   define LED_COLEMAKDH 37
 #   define LED_GAME 44
 
-const uint8_t dpad_LED[] = { 11, 16, 17, 19 };
-const uint8_t shift_LED[] = { 16, 10, 28 }; //these are the wrong ones
-
 #   define NUM_SHIFTKEYS 3
+
+
+
+
 
 #elif defined(KEYBOARD_bastardkb_charybdis_3x5)
 //start of the second half
@@ -35,13 +38,12 @@ const uint8_t shift_LED[] = { 16, 10, 28 }; //these are the wrong ones
 #   define LED_COLEMAKDH 27
 #   define LED_GAME 26
 
-const uint8_t dpad_LED[] = { 4, 7, 8, 10 };
-const uint8_t shift_LED[] = { 16, 10, 28 };
-
 #   define NUM_SHIFTKEYS 3
+
 #endif
 
-#define NUM_DPADKEYS 4
+extern const uint8_t dpad_LED[NUM_DPADKEYS];
+extern const uint8_t shift_LED[NUM_SHIFTKEYS];
 
 
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record);

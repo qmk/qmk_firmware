@@ -31,3 +31,17 @@
 #define OLED_RENDER_LAYER_ADJUST      " Adj "
 
 #define KEYLOG_LEN 5
+
+oled_rotation_t   oled_init_user(oled_rotation_t rotation);
+void              render_crkbd_logo(void);
+void              add_keylog(uint16_t keycode);
+void              update_log(void);
+void              render_keylogger_status(void);
+void              render_default_layer_state(void);
+void              render_layer_state(void);
+void              render_keylock_status(uint8_t led_usb_state);
+void              render_mod_status(uint8_t modifiers);
+//void              render_bootmagic_status(void);
+void              render_oled_main(void);
+void              render_oled_secondary(void);
+bool              oled_task_user(void);

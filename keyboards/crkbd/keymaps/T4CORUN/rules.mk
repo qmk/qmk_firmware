@@ -9,7 +9,6 @@ OLED_DRIVER = SSD1306
 GAMELAYER_ENABLE = yes
 OLED_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = no
-KEYLOG_ENABLE = yes
 
 #override 
 # $qmk_firmware\keyboards\crkbd\rev1\rules.mk

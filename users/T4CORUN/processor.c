@@ -8,7 +8,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 #endif //KEYLOG_ENABLE
 
-
 #if defined(RGB_MATRIX_ENABLE)
   process_record_user_rgb_matrix(keycode, record);
 #endif //RGB_MATRIX_ENABLE
