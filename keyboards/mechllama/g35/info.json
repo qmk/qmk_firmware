@@ -2,9 +2,6 @@
     "keyboard_name": "G35",
     "url": "https://github.com/kaylynb/MechLlama-G35",
     "maintainer": "kaylynb",
-    "width": 7,
-    "height": 5.75,
-    "key_count": 35,
     "layouts": {
         "LAYOUT": {
             "layout": [{"label":"F1", "x":0, "y":0.5}, {"label":"Esc", "x":1, "y":0.5}, {"label":"1", "x":2, "y":0}, {"label":"2", "x":3, "y":0.15}, {"label":"3", "x":4, "y":0}, {"label":"4", "x":5, "y":0}, {"label":"5", "x":6, "y":0}, {"label":"F2", "x":0, "y":1.5}, {"label":"Tab", "x":1, "y":1.5}, {"label":"Q", "x":2, "y":1}, {"label":"W", "x":3, "y":1.15}, {"label":"E", "x":4, "y":1}, {"label":"R", "x":5, "y":1}, {"label":"T", "x":6, "y":1}, {"label":"F3", "x":0, "y":2.5}, {"label":"Shift", "x":1, "y":2.5}, {"label":"A", "x":2, "y":2}, {"label":"S", "x":3, "y":2.15}, {"label":"D", "x":4, "y":2}, {"label":"F", "x":5, "y":2}, {"label":"G", "x":6, "y":2}, {"label":"F4", "x":0, "y":3.5}, {"label":"Ctrl", "x":1, "y":3.5}, {"label":"Z", "x":2, "y":3}, {"label":"X", "x":3, "y":3.15}, {"label":"C", "x":4, "y":3}, {"label":"V", "x":5, "y":3}, {"label":"B", "x":6, "y":3}, {"label":"F5", "x":0, "y":4.5}, {"label":"Super", "x":1, "y":4.5}, {"label":"Alt", "x":2, "y":4, "h":1.5}, {"label":"Bksp", "x":3, "y":4.25, "h":1.25}, {"label":"Enter", "x":4, "y":4, "h":1.5}, {"label":"Space", "x":5, "y":4, "h":1.75}, {"label":"Fn", "x":6, "y":4, "h":1.75}]

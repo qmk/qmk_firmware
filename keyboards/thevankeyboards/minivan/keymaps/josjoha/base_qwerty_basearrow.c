@@ -141,30 +141,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                            , CHOLTAP_ACCE , DUO_HOLD
 # endif
 
-                                                     , LT__MOV__KC_ENT
+                                                     , LEFTCENTER_THUMB
 
 # ifdef TRANSMINIVAN_MIDLEFT
                                                      , TRANS_MIDLEFT
 # endif
 
-                                                                       , KC_SPC , DUO_HOLD
+                                                                       , RIGHTCENTER_THUMB , DUO_HOLD
 
 # ifdef TRANSMINIVAN_RIGHTSIDE
-                                                                                           , MO ( _FUN )
-# endif
-
-                                                                                                      , KC_LEFT
-                                                                                                   // , KC__YGUI
-
-# ifdef MORE_KEY__ARROW
-                                                                                                      , KC_DOWN
-                                                                                                   // , MORE_key2  
-# endif
-
-                                                                                                      , KC_RIGHT
-                                                                                                   // , CHOLTAP_LAYR
-//                         ,              ,          ,               <|,>       ,          ,          ,
-//      <1           ±  ±  , <2           , <3       , <4             |, 4>     , 3>       , 2>       , ±  ±  1>
+                                                                                                      , MO ( _FUN )
+# endif                                                                                    
+                                                                                           
+                                                                                                                 , KC_LEFT
+                                                                                                              // , KC__YGUI
+                                                                                           
+# ifdef MORE_KEY__ARROW                                                                    
+                                                                                                                 , KC_DOWN
+                                                                                                              // , MORE_key2  
+# endif                                                                                    
+                                                                                           
+                                                                                                                 , KC_RIGHT
+                                                                                                              // , CHOLTAP_LAYR
+//                         ,              ,          ,               <|,>                  ,          ,          ,
+//      <1           ±  ±  , <2           , <3       , <4             |, 4>                , 3>       , 2>       , ±  ±  1>
 
                       ),
 
@@ -189,7 +189,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               -*-                          <|>                                  //(toggle) Access on _FUN
      BASE     !     @     #     $     %     | ^     &     *     (    )       Del
      Tab+LCtl 1!    2@    3#    4$    5%    | 6^    7&    8*    9(   0)       /?
-     -+LSht   [{    ]}    -_    \|    =+    | +     |     _     {     }  `~+RSht
+     -+LSht   [{    ]}    -_    \|    =+    | +     |     _     {     }   ~+RSht // `~ on _BON
                           ^^                              ^  // Only differences with normal version _..._NSY
      ---------------------------------------------------------------------------
      Left+LAlt ___   ___   Ent  | .   ___   LGUI  Right+RAlt
@@ -203,10 +203,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //      <pink2             , <pinky  , <ring   , <middl  , <index  , <indx2 |, indx2>  , index>  , middl>  , ring>   , pinky>  , pink2>             ,
 //                         , -*-     ,         ,         ,         ,       <|,>        ,         ,         ,         ,         ,                    ,
         CTO_BASE           , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , KC_DEL             ,
-        LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , KC_SLSH            , // Sacrificing RCTL, because these are major symbols, which seem to warrant being uncluttered. 
-                                                                                                                              // RCTL_T ( KC_GRV )  , 
-        LSFT_T ( KC_MINS ) , KC_LBRC , KC_RBRC , KC_MINS , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_UNDS , KC_LCBR , KC_RCBR , RSFT_T ( KC_GRV  ) , // ` and ~ are often on a diminutive key on mini keyboards, therefore not sacrificing this Shift key.
-                                                                                                                              // RSFT_T ( KC_TILD ) , 
+        LCTL_T ( KC_TAB )  , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7    , KC_8    , KC_9    , KC_0    , KC_SLSH            , 
+        LSFT_DASH          , KC_LBRC , KC_RBRC , KC_MINS , KC_BSLS , KC_EQL  , KC_PLUS , KC_PIPE , KC_UNDS , KC_LCBR , KC_RCBR , RSFT_TILDE         , // note¹
 //      ---------------------------------------------------------------------------------------------------------------------------------------------
         LALT_T ( KC_LEFT ) 
 
@@ -238,6 +236,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //                         ,         , -*-     ,             <|,>       , -*-      ,          ,
 //      <1           ±  ±  , <2      , <3      , <4           |, 4>     , 3>       , 2>       , ±  ±  1>
 
+// note¹
+// Sacrificing RCTL, because ‛/’ is a major much used symbol,
+// which seem to warrant being uncluttered. ‛`’ exists also on _BON
+// (uncluttered). This breaks the logic that all these standard symbols 
+// exist on this layer _NSY. However, ` and ~ are often in a diminutive 
+// placement on mini keyboards, and ‛arrows on top’ was always going to
+// be a stretch for a keyboard like this. The other option is to have a
+// special macro to put tilde ‛~’ and accent grave ‛`’ both on Shift,
+// but it doesn't seem to make much difference, and makes the firmware
+// even larger.
                       ),
 
         /* ⬆⬇ */

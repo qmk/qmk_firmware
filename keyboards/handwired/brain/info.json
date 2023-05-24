@@ -2,8 +2,6 @@
     "keyboard_name": "Brain",
     "url": "",
     "maintainer": "Klackygears",
-    "width": 15,
-    "height": 6.25,
     "layouts": {
         "LAYOUT": {
             "layout": [

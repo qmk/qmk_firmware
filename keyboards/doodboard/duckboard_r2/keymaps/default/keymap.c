@@ -34,22 +34,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS,
                  RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS,
                  RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS,
-        RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        TG(2),   RESET,   KC_TRNS, KC_TRNS, KC_TRNS),
+        QK_BOOT,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        TG(2),   QK_BOOT,   KC_TRNS, KC_TRNS, KC_TRNS),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
             tap_code(KC_VOLU);
         } else {
             tap_code(KC_VOLD);
         }
-}
+    }
+    return true;
 }
 
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
 
@@ -88,7 +89,7 @@ static void render_anim(void) {
         }
     }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
         render_anim();
         oled_set_cursor(0,6);
         oled_write_P(PSTR("DUCK\nBOARD\n"), false);
@@ -108,6 +109,7 @@ void oled_task_user(void) {
             oled_write_P(PSTR("RGB\n"), false);
             break;
     }
+    return false;
 }
 #endif
 

@@ -1,8 +1,8 @@
 # コーディング規約 (C)
 
 <!---
-  original document: 0.9.19:docs/coding_conventions_c.md
-  git diff 0.9.19 HEAD -- docs/coding_conventions_c.md | cat
+  original document: 0.13.15:docs/coding_conventions_c.md
+  git diff 0.13.15 HEAD -- docs/coding_conventions_c.md | cat
 -->
 
 私たちのスタイルのほとんどはかなり理解しやすいですが、現時点では完全に一貫しているわけではありません。変更箇所周辺のコードのスタイルと一致させる必要がありますが、そのコードに一貫性が無い場合や不明瞭な場合は以下のガイドラインに従ってください:

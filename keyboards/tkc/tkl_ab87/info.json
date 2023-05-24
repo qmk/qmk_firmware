@@ -2,8 +2,6 @@
     "keyboard_name": "TKC TKL A/B87", 
     "url": "", 
     "maintainer": "TerryMathews", 
-    "width": 18.25, 
-    "height": 6.5, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

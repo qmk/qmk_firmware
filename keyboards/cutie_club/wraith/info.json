@@ -2,11 +2,8 @@
     "keyboard_name": "wraith",
     "url": "",
     "maintainer": "amberstarlight",
-    "width": 16,
-    "height": 6,
     "layouts": {
         "LAYOUT_ansi": {
-            "key_count": 80,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},
@@ -91,7 +88,6 @@
             ]
         },
         "LAYOUT_iso": {
-            "key_count": 81,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":1.25, "y":0},

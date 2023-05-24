@@ -2,11 +2,8 @@
     "keyboard_name": "Choconum",
     "url": "https://keeb.io",
     "maintainer": "Keebio",
-    "width": 5,
-    "height": 4,
     "layouts": {
         "LAYOUT_numpad_5x4": {
-            "key_count": 17,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -32,7 +29,6 @@
             ]
         },
         "LAYOUT_ortho_5x4": {
-            "key_count": 20,
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},

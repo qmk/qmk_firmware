@@ -2,8 +2,6 @@
   "keyboard_name": "numpad20 handwired",
   "url": "",
   "maintainer": "qmk",
-  "width": 4,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [

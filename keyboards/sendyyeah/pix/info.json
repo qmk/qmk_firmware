@@ -2,8 +2,6 @@
     "keyboard_name": "Pix",
     "url": "https://github.com/sendz/pix",
     "maintainer": "sendz",
-    "width": 5,
-    "height": 1,
     "layouts": {
         "LAYOUT": {
             "layout": [

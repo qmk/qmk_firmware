@@ -2,8 +2,6 @@
   "keyboard_name": "[1 x 4] + 1 Macropad",
   "url": "https://github.com/daviddoan",
   "maintainer": "David Doan",
-  "width": 5,
-  "height": 1,
   "layouts": {
     "LAYOUT_ortho_1x5": {
       "layout": [

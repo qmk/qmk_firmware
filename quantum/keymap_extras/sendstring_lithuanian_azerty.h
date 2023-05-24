@@ -76,9 +76,9 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     //       !        "        #        $        %        &        '
     KC_SPC,  LT_EXLM, LT_EDOT, LT_SLSH, LT_SCLN, LT_X,    LT_DOT,  LT_QUES,
     // (     )        *        +        ,        -        .        /
-    LT_LRPN, LT_RPRN, LT_EQL,  LT_QUES, LT_COMM, LT_MINS, LT_DOT,  LT_SLSH,
+    LT_LPRN, LT_RPRN, LT_EQL,  LT_QUES, LT_COMM, LT_MINS, LT_DOT,  LT_SLSH,
     // 0     1        2        3        4        5        6        7
-    LT_RPRN, LT_EXLM, LT_MINS, LT_SLSH, LT_SLCN, LT_COLN, LT_COMM, LT_DOT,
+    LT_RPRN, LT_EXLM, LT_MINS, LT_SLSH, LT_SCLN, LT_COLN, LT_COMM, LT_DOT,
     // 8     9        :        ;        <        =        >        ?
     LT_EQL,  LT_LPRN, LT_COLN, LT_SCLN, LT_LABK, LT_EQL,  LT_LABK, LT_QUES,
     // @     A        B        C        D        E        F        G

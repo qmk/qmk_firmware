@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_GAMEPAD] = LAYOUT_numpad_5x6(
-		RGB_TOG, _______,  _______, EEP_RST, KC_MAKE, RESET,
+		RGB_TOG, _______,  _______, EE_CLR, QK_MAKE, QK_BOOT,
 		RGB_MOD, RGB_RMOD, _______, _______, _______,
 		RGB_HUI, RGB_HUD,  _______, _______, _______, _______,
 		RGB_SAI, RGB_SAD,  _______, _______, _______,

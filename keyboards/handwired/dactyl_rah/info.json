@@ -2,8 +2,6 @@
   "keyboard_name": "Dactyl RAH",
   "url": "https://qmk.fm/keyboards/",
   "maintainer": "ralphie02",
-  "width": 17,
-  "height": 8,
   "layouts": {
       "LAYOUT_6x6": {
           "layout": [

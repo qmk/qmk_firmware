@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "NK1", 
+    "url": "www.yiancar-designs.com",
+    "maintainer": "yiancar", 
+    "layouts": {
+        "LAYOUT_ortho_1x1": {
+            "layout": [{"x": 0, "y": 0}]
+        }
+    }
+}

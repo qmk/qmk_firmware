@@ -26,16 +26,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Vitamins included
 
 #include "config_common.h"
-
-#ifndef NO_ACTION_MACRO
-    #define NO_ACTION_MACRO
-#endif
-#ifndef NO_ACTION_FUNCTION
-    #define NO_ACTION_FUNCTION
-#endif
-#ifndef NO_DEBUG
-    #define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-    #define NO_PRINT
-#endif // !NO_PRINT

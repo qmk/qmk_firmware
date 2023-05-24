@@ -1,8 +1,8 @@
 # キーボードをより良くするための便利なコア関数のリスト
 
 <!---
-  original document: 0.10.33:docs/ref_functions.md
-  git diff 0.10.33 HEAD -- docs/ref_functions.md | cat
+  original document: 0.12.41:docs/ref_functions.md
+  git diff 0.12.41 HEAD -- docs/ref_functions.md | cat
 -->
 
 QMK には、信じられないほど便利な、またはあなたが望んでいた機能を少し追加する、隠された関数がたくさんあります。特定の機能に固有の関数はそれぞれの機能のページにあるため、ここには含まれていません。
@@ -98,7 +98,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 ## EEPROM (永続ストレージ)の消去
 
-オーディオ、RGB アンダーグロー、バックライト、キーの動作に問題がある場合は、EEPROM (永続的な設定のストレージ)をリセットすることができます。ブートマジックはこれを行う方法の1つですが、有効になっていない場合はカスタムマクロを使って行うことができます。
+オーディオ、RGB アンダーグロー、バックライト、キーの動作に問題がある場合は、EEPROM (永続的な設定のストレージ)をリセットすることができます。EEPROM を強制的にリセットするには、[`EEP_RST` キーコード](ja/quantum_keycodes.md)あるいは[ブートマジック](ja/feature_bootmagic.md)機能を使います。それらのいずれも選択肢にない場合は、カスタムマクロを使って行うことができます。
 
 EEPROM を消去するには、関数またはマクロから `eeconfig_init()` を実行し、ほとんどの設定をデフォルトにリセットします。
 

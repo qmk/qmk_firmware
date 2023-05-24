@@ -15,15 +15,14 @@
  */
 
 #include "wampus.h"
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 void board_init(void) {
     SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
     SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
-
 #endif

@@ -2,11 +2,8 @@
   "keyboard_name": "fc980c",
   "url": "",
   "maintainer": "qmk",
-  "width": 19.5,
-  "height": 6.75,
   "layouts": {
     "LAYOUT": {
-      "key_count": 98,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
         {"label":"F1", "x":2, "y":0},

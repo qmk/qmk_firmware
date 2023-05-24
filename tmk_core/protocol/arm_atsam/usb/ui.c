@@ -48,7 +48,7 @@
 #    define ARM_MATH_CM4
 #endif
 
-#undef LITTLE_ENDIAN  // redefined in samd51j18a.h
+#undef LITTLE_ENDIAN // redefined in samd51j18a.h
 #include "samd51j18a.h"
 #include "ui.h"
 

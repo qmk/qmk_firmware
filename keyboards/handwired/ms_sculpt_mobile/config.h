@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -29,23 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 18
-
-#ifdef ASTAR
-#define PRODUCT         sculpt mobile astar
-                        /*0   1   2   3    4   5  6   7   8 */
-#define MATRIX_ROW_PINS {D7, C6, D4, D0, D1, D3, D2, E2}
-/*                        A  B   C   D   E   F   G   H   I   J  K   L   M   N   O   P   Q  R  */
-#define MATRIX_COL_PINS {B4, B5, E6, B7, B6, D6,  C7, F7, F6, F4,F5, F1,F0, D5, B0, B1, B2, B3}
-
-#else
-#define PRODUCT         sculpt mobile teensypp
-/* 			0  1  2  3  4 5  6   7 */
-#define MATRIX_ROW_PINS { F7,F6,F4,F5,F3,F2,F1,F0}
-/*                        A   B   C   D   E   F   G   H   I   J  K  L   M   N   O   P   Q  R  */
-#define MATRIX_COL_PINS { B7, D0, D1, D2, D3, D4, D5, D6, D7, E0,E1,C1, C0, C3, C2, C5, C4,C7}
-#define UNUSED_PINS { B6,B5,B4,B3,B2,B1,B0 }
-
-#endif
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
@@ -83,7 +65,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
-#endif

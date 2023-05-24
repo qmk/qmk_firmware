@@ -10,7 +10,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(1),   KC_RCTRL, KC_LEFT, KC_DOWN, KC_RGHT),
 
 [1] = LAYOUT_all(
-  RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
+  QK_BOOT,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,          _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,          _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______,          _______,
@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   switch(get_highest_layer(layer_state)){
     case 1: //Layer 1
       if (!clockwise) { // Remove ! to reverse direction
@@ -35,4 +35,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       }
       break;
   }
+    return true;
 }

@@ -2,11 +2,8 @@
     "keyboard_name": "MK60",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
       "LAYOUT": {
-        "key_count": 68,
         "layout": [
           {"label":"K00", "x":0, "y":0},
           {"label":"K01", "x":1, "y":0},
@@ -80,4 +77,3 @@
       }
     }
   }
-  

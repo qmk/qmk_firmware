@@ -2,8 +2,6 @@
     "keyboard_name": "Jot50",
     "url": "",
     "maintainer": "jotix",
-    "width": 12,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

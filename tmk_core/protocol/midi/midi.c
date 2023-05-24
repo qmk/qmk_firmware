@@ -17,7 +17,7 @@
 // along with avr-midi.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "midi.h"
-#include <string.h>  //for memcpy
+#include <string.h> //for memcpy
 
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
@@ -25,9 +25,13 @@
 #    define NULL 0
 #endif
 
-bool midi_is_statusbyte(uint8_t theByte) { return (bool)(theByte & MIDI_STATUSMASK); }
+bool midi_is_statusbyte(uint8_t theByte) {
+    return (bool)(theByte & MIDI_STATUSMASK);
+}
 
-bool midi_is_realtime(uint8_t theByte) { return (theByte >= MIDI_CLOCK); }
+bool midi_is_realtime(uint8_t theByte) {
+    return (theByte >= MIDI_CLOCK);
+}
 
 midi_packet_length_t midi_packet_length(uint8_t status) {
     switch (status & 0xF0) {
@@ -83,7 +87,9 @@ void midi_send_noteoff(MidiDevice* device, uint8_t chan, uint8_t num, uint8_t ve
     device->send_func(device, 3, MIDI_NOTEOFF | (chan & MIDI_CHANMASK), num & 0x7F, vel & 0x7F);
 }
 
-void midi_send_aftertouch(MidiDevice* device, uint8_t chan, uint8_t note_num, uint8_t amt) { device->send_func(device, 3, MIDI_AFTERTOUCH | (chan & MIDI_CHANMASK), note_num & 0x7F, amt & 0x7F); }
+void midi_send_aftertouch(MidiDevice* device, uint8_t chan, uint8_t note_num, uint8_t amt) {
+    device->send_func(device, 3, MIDI_AFTERTOUCH | (chan & MIDI_CHANMASK), note_num & 0x7F, amt & 0x7F);
+}
 
 // XXX does this work right?
 // amt in range -0x2000, 0x1fff
@@ -102,34 +108,62 @@ void midi_send_pitchbend(MidiDevice* device, uint8_t chan, int16_t amt) {
     device->send_func(device, 3, MIDI_PITCHBEND | (chan & MIDI_CHANMASK), uAmt & 0x7F, (uAmt >> 7) & 0x7F);
 }
 
-void midi_send_programchange(MidiDevice* device, uint8_t chan, uint8_t num) { device->send_func(device, 2, MIDI_PROGCHANGE | (chan & MIDI_CHANMASK), num & 0x7F, 0); }
+void midi_send_programchange(MidiDevice* device, uint8_t chan, uint8_t num) {
+    device->send_func(device, 2, MIDI_PROGCHANGE | (chan & MIDI_CHANMASK), num & 0x7F, 0);
+}
 
-void midi_send_channelpressure(MidiDevice* device, uint8_t chan, uint8_t amt) { device->send_func(device, 2, MIDI_CHANPRESSURE | (chan & MIDI_CHANMASK), amt & 0x7F, 0); }
+void midi_send_channelpressure(MidiDevice* device, uint8_t chan, uint8_t amt) {
+    device->send_func(device, 2, MIDI_CHANPRESSURE | (chan & MIDI_CHANMASK), amt & 0x7F, 0);
+}
 
-void midi_send_clock(MidiDevice* device) { device->send_func(device, 1, MIDI_CLOCK, 0, 0); }
+void midi_send_clock(MidiDevice* device) {
+    device->send_func(device, 1, MIDI_CLOCK, 0, 0);
+}
 
-void midi_send_tick(MidiDevice* device) { device->send_func(device, 1, MIDI_TICK, 0, 0); }
+void midi_send_tick(MidiDevice* device) {
+    device->send_func(device, 1, MIDI_TICK, 0, 0);
+}
 
-void midi_send_start(MidiDevice* device) { device->send_func(device, 1, MIDI_START, 0, 0); }
+void midi_send_start(MidiDevice* device) {
+    device->send_func(device, 1, MIDI_START, 0, 0);
+}
 
-void midi_send_continue(MidiDevice* device) { device->send_func(device, 1, MIDI_CONTINUE, 0, 0); }
+void midi_send_continue(MidiDevice* device) {
+    device->send_func(device, 1, MIDI_CONTINUE, 0, 0);
+}
 
-void midi_send_stop(MidiDevice* device) { device->send_func(device, 1, MIDI_STOP, 0, 0); }
+void midi_send_stop(MidiDevice* device) {
+    device->send_func(device, 1, MIDI_STOP, 0, 0);
+}
 
-void midi_send_activesense(MidiDevice* device) { device->send_func(device, 1, MIDI_ACTIVESENSE, 0, 0); }
+void midi_send_activesense(MidiDevice* device) {
+    device->send_func(device, 1, MIDI_ACTIVESENSE, 0, 0);
+}
 
-void midi_send_reset(MidiDevice* device) { device->send_func(device, 1, MIDI_RESET, 0, 0); }
+void midi_send_reset(MidiDevice* device) {
+    device->send_func(device, 1, MIDI_RESET, 0, 0);
+}
 
-void midi_send_tcquarterframe(MidiDevice* device, uint8_t time) { device->send_func(device, 2, MIDI_TC_QUARTERFRAME, time & 0x7F, 0); }
+void midi_send_tcquarterframe(MidiDevice* device, uint8_t time) {
+    device->send_func(device, 2, MIDI_TC_QUARTERFRAME, time & 0x7F, 0);
+}
 
 // XXX is this right?
-void midi_send_songposition(MidiDevice* device, uint16_t pos) { device->send_func(device, 3, MIDI_SONGPOSITION, pos & 0x7F, (pos >> 7) & 0x7F); }
+void midi_send_songposition(MidiDevice* device, uint16_t pos) {
+    device->send_func(device, 3, MIDI_SONGPOSITION, pos & 0x7F, (pos >> 7) & 0x7F);
+}
 
-void midi_send_songselect(MidiDevice* device, uint8_t song) { device->send_func(device, 2, MIDI_SONGSELECT, song & 0x7F, 0); }
+void midi_send_songselect(MidiDevice* device, uint8_t song) {
+    device->send_func(device, 2, MIDI_SONGSELECT, song & 0x7F, 0);
+}
 
-void midi_send_tunerequest(MidiDevice* device) { device->send_func(device, 1, MIDI_TUNEREQUEST, 0, 0); }
+void midi_send_tunerequest(MidiDevice* device) {
+    device->send_func(device, 1, MIDI_TUNEREQUEST, 0, 0);
+}
 
-void midi_send_byte(MidiDevice* device, uint8_t b) { device->send_func(device, 1, b, 0, 0); }
+void midi_send_byte(MidiDevice* device, uint8_t b) {
+    device->send_func(device, 1, b, 0, 0);
+}
 
 void midi_send_data(MidiDevice* device, uint16_t count, uint8_t byte0, uint8_t byte1, uint8_t byte2) {
     // ensure that the count passed along is always 3 or lower
@@ -150,32 +184,62 @@ void midi_send_array(MidiDevice* device, uint16_t count, uint8_t* array) {
     }
 }
 
-void midi_register_cc_callback(MidiDevice* device, midi_three_byte_func_t func) { device->input_cc_callback = func; }
+void midi_register_cc_callback(MidiDevice* device, midi_three_byte_func_t func) {
+    device->input_cc_callback = func;
+}
 
-void midi_register_noteon_callback(MidiDevice* device, midi_three_byte_func_t func) { device->input_noteon_callback = func; }
+void midi_register_noteon_callback(MidiDevice* device, midi_three_byte_func_t func) {
+    device->input_noteon_callback = func;
+}
 
-void midi_register_noteoff_callback(MidiDevice* device, midi_three_byte_func_t func) { device->input_noteoff_callback = func; }
+void midi_register_noteoff_callback(MidiDevice* device, midi_three_byte_func_t func) {
+    device->input_noteoff_callback = func;
+}
 
-void midi_register_aftertouch_callback(MidiDevice* device, midi_three_byte_func_t func) { device->input_aftertouch_callback = func; }
+void midi_register_aftertouch_callback(MidiDevice* device, midi_three_byte_func_t func) {
+    device->input_aftertouch_callback = func;
+}
 
-void midi_register_pitchbend_callback(MidiDevice* device, midi_three_byte_func_t func) { device->input_pitchbend_callback = func; }
+void midi_register_pitchbend_callback(MidiDevice* device, midi_three_byte_func_t func) {
+    device->input_pitchbend_callback = func;
+}
 
-void midi_register_songposition_callback(MidiDevice* device, midi_three_byte_func_t func) { device->input_songposition_callback = func; }
+void midi_register_songposition_callback(MidiDevice* device, midi_three_byte_func_t func) {
+    device->input_songposition_callback = func;
+}
 
-void midi_register_progchange_callback(MidiDevice* device, midi_two_byte_func_t func) { device->input_progchange_callback = func; }
+void midi_register_progchange_callback(MidiDevice* device, midi_two_byte_func_t func) {
+    device->input_progchange_callback = func;
+}
 
-void midi_register_chanpressure_callback(MidiDevice* device, midi_two_byte_func_t func) { device->input_chanpressure_callback = func; }
+void midi_register_chanpressure_callback(MidiDevice* device, midi_two_byte_func_t func) {
+    device->input_chanpressure_callback = func;
+}
 
-void midi_register_songselect_callback(MidiDevice* device, midi_two_byte_func_t func) { device->input_songselect_callback = func; }
+void midi_register_songselect_callback(MidiDevice* device, midi_two_byte_func_t func) {
+    device->input_songselect_callback = func;
+}
 
-void midi_register_tc_quarterframe_callback(MidiDevice* device, midi_two_byte_func_t func) { device->input_tc_quarterframe_callback = func; }
+void midi_register_tc_quarterframe_callback(MidiDevice* device, midi_two_byte_func_t func) {
+    device->input_tc_quarterframe_callback = func;
+}
 
-void midi_register_realtime_callback(MidiDevice* device, midi_one_byte_func_t func) { device->input_realtime_callback = func; }
+void midi_register_realtime_callback(MidiDevice* device, midi_one_byte_func_t func) {
+    device->input_realtime_callback = func;
+}
 
-void midi_register_tunerequest_callback(MidiDevice* device, midi_one_byte_func_t func) { device->input_tunerequest_callback = func; }
+void midi_register_tunerequest_callback(MidiDevice* device, midi_one_byte_func_t func) {
+    device->input_tunerequest_callback = func;
+}
 
-void midi_register_sysex_callback(MidiDevice* device, midi_sysex_func_t func) { device->input_sysex_callback = func; }
+void midi_register_sysex_callback(MidiDevice* device, midi_sysex_func_t func) {
+    device->input_sysex_callback = func;
+}
 
-void midi_register_fallthrough_callback(MidiDevice* device, midi_var_byte_func_t func) { device->input_fallthrough_callback = func; }
+void midi_register_fallthrough_callback(MidiDevice* device, midi_var_byte_func_t func) {
+    device->input_fallthrough_callback = func;
+}
 
-void midi_register_catchall_callback(MidiDevice* device, midi_var_byte_func_t func) { device->input_catchall_callback = func; }
+void midi_register_catchall_callback(MidiDevice* device, midi_var_byte_func_t func) {
+    device->input_catchall_callback = func;
+}

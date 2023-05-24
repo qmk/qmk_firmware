@@ -2,8 +2,6 @@
     "keyboard_name": "Boardwalk",
     "url": "",
     "maintainer": "qmk",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho_5x14": {
             "layout": [

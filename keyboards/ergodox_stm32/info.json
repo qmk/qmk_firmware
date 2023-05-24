@@ -2,9 +2,6 @@
     "keyboard_name": "ErgoDox STM32",
     "url": "github.com/codetector1374",
     "maintainer": "codetector1374",
-    "width": 19.5,
-    "height": 9.375,
-
     "layouts": {
         "LAYOUT_ergodox": {
             "layout": [

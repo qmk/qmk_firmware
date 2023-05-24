@@ -56,7 +56,7 @@ void keyboard_post_init_user(void) {
   #endif //RGBLIGHT_ENABLE
 }
 
-uint32_t layer_state_set_user(uint32_t state){
+layer_state_t layer_state_set_user(layer_state_t state){
   #ifdef RGBLIGHT_ENABLE
     uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
     uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;

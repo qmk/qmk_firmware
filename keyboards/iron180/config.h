@@ -1,5 +1,5 @@
 /*
-Copyright 2015 Álvaro "Gondolindrim" Volpato  <gondolindrim@acheronproject.com>
+Copyright 2021 Álvaro "Gondolindrim" Volpato  <gondolindrim@acheronproject.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -36,12 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_PAL_MODE      1
-#define BACKLIGHT_LEVELS 6
+#define BACKLIGHT_LEVELS 20
 #define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
+#define BREATHING_PERIOD 5
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
@@ -51,20 +48,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
+// Turn backlight on-off according to capslock (off by default)
+#define CAPSLOCK_BACKLIGHT

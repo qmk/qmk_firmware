@@ -1,0 +1,17 @@
+{
+    "keyboard_name": "Ploopy Trackball Mini",
+    "url": "www.ploopy.co",
+    "maintainer": "ploopyco",
+    "manufacturer": "Ploopy Corporation",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x":0, "y":0, "h":2},
+                {"x":1, "y":0.25, "h":1.5},
+                {"x":2, "y":0, "h":2},
+                {"x":3.5, "y":0, "h":2},
+                {"x":4.5, "y":0, "h":2}
+            ]
+        }
+    }
+}

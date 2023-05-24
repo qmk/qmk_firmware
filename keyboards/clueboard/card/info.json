@@ -2,8 +2,6 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Cluecard",
   "maintainer": "skullydazed",
-  "height": 8,
-  "width": 10,
   "debounce": 20,
   "processor": "atmega32u4",
   "diode_direction": "ROW2COL",
@@ -12,7 +10,7 @@
     "backlight": true,
     "bluetooth": false,
     "bootmagic": false,
-    "command": true,
+    "command": false,
     "console": true,
     "extrakey": true,
     "lto": true,
@@ -34,7 +32,7 @@
     "saturation_steps": 17
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x2330",
     "vid": "0xC1ED"
   },
@@ -43,7 +41,6 @@
   },
   "layouts": {
     "LAYOUT_all": {
-      "key_count": 12,
       "layout": [
         { "label": "ON/OFF", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "SAT+", "matrix": [0, 1], "w": 1, "x": 4, "y": 0 },

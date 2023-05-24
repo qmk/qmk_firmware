@@ -1,0 +1,44 @@
+{
+    "keyboard_name": "evancook.audio sleepingdinosaur",
+    "url": "https://evancook.audio/",
+    "maintainer": "evanmcook",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label":"1", "x":0, "y":0}, 
+                {"label":"2", "x":1, "y":0}, 
+                {"label":"3", "x":2, "y":0}, 
+                {"label":"4", "x":3, "y":0}, 
+                {"label":"5", "x":4, "y":0}, 
+                {"label":"-", "x":5, "y":0}, 
+
+                {"label":"6", "x":0, "y":1}, 
+                {"label":"7", "x":1, "y":1}, 
+                {"label":"8", "x":2, "y":1}, 
+                {"label":"9", "x":3, "y":1}, 
+                {"label":"0", "x":4, "y":1}, 
+                {"label":"R", "x":5, "y":1}, 
+
+                {"label":"/", "x":0, "y":2}, 
+                {"label":"Q", "x":1, "y":2}, 
+                {"label":"W", "x":2, "y":2}, 
+                {"label":"E", "x":3, "y":2}, 
+                {"label":"U", "x":4, "y":2}, 
+                {"label":"V", "x":5, "y":2},
+
+                {"label":"Enter", "x":0, "y":3, "h":2}, 
+                {"label":"A", "x":1, "y":3}, 
+                {"label":"S", "x":2, "y":3}, 
+                {"label":"D", "x":3, "y":3}, 
+                {"label":"Space", "x":4, "y":3, "h":2}, 
+                {"label":"O", "x":5, "y":3}, 
+                
+                {"label":"Z", "x":1, "y":4}, 
+                {"label":"X", "x":2, "y":4}, 
+                {"label":"C", "x":3, "y":4}, 
+                {"label":"N", "x":5, "y":4}
+                
+            ]
+        }
+    }
+}

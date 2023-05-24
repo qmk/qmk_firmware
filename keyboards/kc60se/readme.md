@@ -10,13 +10,13 @@
 
 
 ### Enter the Bootloader
-  * As delivered, BOOTMAGIC_ENABLE = yes:
+  * New firmware, with Bootmagic Lite:
+    * holding down Esc while plugging in USB.
+  * As delivered, with Full Bootmagic (deprecated):
     * unplug keyboard;
     * while holding down 'Space' 'B', plug in USB cable and continue to hold for 8 seconds;
     * 'lsusb' should report 'Atmel Corp. atmega32u4 DFU bootloader' instead of 'feed 6060';
     * in bootloader LEDs are off &amp; keyboard does not work.
-  * New firmware, BOOTMAGIC_ENABLE = lite:
-    * holding down esc while pluging in usb.
   * Hardware way: 
     * momentary jump pads 5 &amp; 6 to enter bootloader;
 

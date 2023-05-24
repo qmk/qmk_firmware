@@ -2,8 +2,6 @@
     "keyboard_name": "k8split",
     "url": "",
     "maintainer": "Ckath",
-    "width": 10,
-    "height": 6,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -3,9 +3,7 @@
 This is the 75% layout used by u/merlin36, host of the [MechMerlin](www.youtube.com/mechmerlin) 
 YouTube channel.
 
-It is used on his   
-* [Duck Octagon V2](https://github.com/qmk/qmk_firmware/tree/master/keyboards/duck/octagon/v2)
-* [XD84](https://github.com/qmk/qmk_firmware/tree/master/keyboards/xd84)
+MechMerlin currently has no keyboard supporting this layout.
  
 ### Build
 To build the firmware file associated with this keymap, simply run `make your_keyboard:mechmerlin-ansi`.

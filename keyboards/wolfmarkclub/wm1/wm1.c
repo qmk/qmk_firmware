@@ -1,5 +1,10 @@
 #include "wm1.h"
 
+void bootloader_jump(void) {
+    // This board doesn't use the "standard" stm32duino bootloader, and no information is available regarding how to enter bootloader mode. All we can do here is reset.
+    NVIC_SystemReset();
+}
+
 void matrix_init_kb(void) {
   setPinOutput(B1); // Top Indicator LED
   setPinOutput(B0); // Middle Indicator LED

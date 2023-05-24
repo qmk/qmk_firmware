@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x3430 // "40"
-#define PRODUCT_ID      0x4C55 // "LU"
-#define DEVICE_VER      0x1001
-#define MANUFACTURER    di0ib
-#define PRODUCT         Luddite
-
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8

@@ -2,8 +2,6 @@
     "keyboard": "montsinger/rebound/rev1",
     "url": "https://montsinger.net",
     "maintainer": "rossman360",
-    "width": 13,
-    "height": 4,
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [
