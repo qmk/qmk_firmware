@@ -2,10 +2,8 @@
     "keyboard_name": "ansi_tkl",
     "url": "github.com/sowbug",
     "maintainer": "sowbug",
-    "width": 18.25,
-    "height": 6.5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_default": {
             "layout": [
                 {"label":"K00", "x":0, "y":0},
                 {"label":"K02", "x":2, "y":0},

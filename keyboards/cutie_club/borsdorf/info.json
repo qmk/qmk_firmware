@@ -2,8 +2,6 @@
     "keyboard_name": "Borsdorf",
     "url": "",
     "maintainer": "Cutie Club",
-    "width": 16.5,
-    "height": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

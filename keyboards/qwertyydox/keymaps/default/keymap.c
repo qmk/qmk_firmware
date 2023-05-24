@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
      KC_INS,  KC_HOME, KC_PGUP, KC_BTN1, KC_BTN2, KC_WH_D,                            KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, KC_NO,   KC_NO,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-     KC_DEL,  KC_END,  KC_PGDN, nav,     KC_LCTL, KC_SPC,  TO(0),            TO(1),   KC_LSFT, KC_BSPC, KC_NO,   KC_NO,   KC_NO,   RESET
+     KC_DEL,  KC_END,  KC_PGDN, nav,     KC_LCTL, KC_SPC,  TO(0),            TO(1),   KC_LSFT, KC_BSPC, KC_NO,   KC_NO,   KC_NO,   QK_BOOT
   //`--------+--------+--------+--------+--------+--------+--------/        \--------+--------+--------+--------+--------+--------+--------'
   )
 };

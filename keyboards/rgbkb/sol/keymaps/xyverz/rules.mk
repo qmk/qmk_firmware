@@ -2,7 +2,7 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
-BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 
 EXTRAKEY_ENABLE = yes       # Audio control and System control
@@ -24,7 +24,8 @@ OLED_ENABLE = no            # OLED_ENABLE
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
 DEFAULT_FOLDER = rgbkb/sol/rev1
 ENCODER_ENABLE = no
-OLED_DRIVER_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 
 # Do not edit past here
 

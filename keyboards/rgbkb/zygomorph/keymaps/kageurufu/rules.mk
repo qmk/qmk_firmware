@@ -17,7 +17,7 @@ RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited t
 UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 ENCODER_ENABLE = yes        # Enable rotary encoder
-OLED_DRIVER_ENABLE = no     # Enable the OLED Driver
+OLED_ENABLE = no     # Enable the OLED Driver
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
 
 # Do not edit past here
@@ -41,4 +41,4 @@ ifeq ($(strip $(RGBLIGHT_SPLIT_ENABLE)), yes)
 endif
 
 # Link time optimization, should save on firmware size
-EXTRAFLAGS += -flto
+LTO_ENABLE = yes

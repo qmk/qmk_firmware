@@ -2,13 +2,6 @@
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6090
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    WoodKeys.click
-#define PRODUCT         2Key2Crawl
-
 /* key matrix size */
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 7

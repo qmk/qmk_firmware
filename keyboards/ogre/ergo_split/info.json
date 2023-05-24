@@ -2,8 +2,6 @@
     "keyboard_name": "Ogre Ergo Split",
     "url": "",
     "maintainer": "qmk",
-    "width": 19.5,
-    "height": 6.5,
     "layouts": {
         "LAYOUT": {
             "layout": [

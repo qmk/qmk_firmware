@@ -1,13 +1,23 @@
-"""Format files according to QMK's style.
+"""Point people to the new command name.
 """
+import sys
+from pathlib import Path
+
 from milc import cli
 
-import subprocess
 
-
-@cli.subcommand("Format files according to QMK's style.", hidden=True)
+@cli.subcommand('Pointer to the new command name: qmk format-text.', hidden=True)
 def fileformat(cli):
-    """Run several general formatting commands.
+    """Pointer to the new command name: qmk format-text.
     """
-    dos2unix = subprocess.run(['bash', '-c', 'git ls-files -z | xargs -0 dos2unix'], stdout=subprocess.DEVNULL)
-    return dos2unix.returncode
+    cli.log.warning('"qmk fileformat" has been renamed to "qmk format-text". Please use the new command in the future.')
+    argv = [sys.executable, *sys.argv]
+    argv[argv.index('fileformat')] = 'format-text'
+    script_path = Path(argv[1])
+    script_path_exe = Path(f'{argv[1]}.exe')
+
+    if not script_path.exists() and script_path_exe.exists():
+        # For reasons I don't understand ".exe" is stripped from the script name on windows.
+        argv[1] = str(script_path_exe)
+
+    return cli.run(argv, capture_output=False).returncode

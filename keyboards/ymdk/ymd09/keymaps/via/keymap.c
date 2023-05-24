@@ -7,7 +7,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_KP_1, KC_KP_2, KC_KP_3),
 
   [1] = LAYOUT(RGB_RMOD, RGB_VAI, RGB_MOD,
-               RGB_HUI, RESET, RGB_SAI,
+               RGB_HUI, QK_BOOT, RGB_SAI,
                RGB_HUD, RGB_VAD, RGB_SAD),
 
   [2] = LAYOUT(KC_TRNS, KC_TRNS, KC_TRNS,

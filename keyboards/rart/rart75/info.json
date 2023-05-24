@@ -2,8 +2,6 @@
     "keyboard_name": "RART75",
     "url": "",
     "maintainer": "Alabahuy",
-    "width": 16,
-    "height": 6,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

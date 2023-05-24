@@ -2,8 +2,6 @@
     "keyboard_name": "ortho5x14",
     "url": "",
     "maintainer": "qmk",
-    "width": 14,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -80,7 +78,7 @@
                 {"label":"Alt", "x":10, "y":4},
                 {"label":"Prop", "x":11, "y":4},
                 {"label":"Ctrl", "x":12, "y":4},
-                {"label":"Esc", "x":13, "y":0}
+                {"label":"Esc", "x":13, "y":4}
             ]
         }
     }

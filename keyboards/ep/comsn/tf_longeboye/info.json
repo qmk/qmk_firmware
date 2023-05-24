@@ -1,8 +1,6 @@
 {
     "keyboard_name": "tf_longeboye",
     "maintainer": "Elliot Powell (u/e11i0t23)",
-    "width": 21.5,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

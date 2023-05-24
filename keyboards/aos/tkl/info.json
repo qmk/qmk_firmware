@@ -1,11 +1,8 @@
 {
     "keyboard_name": "Ace of Spades TKL",
     "maintainer": "rys",
-    "width": 18.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_tkl_iso_wkl": {
-            "key_count": 85,
             "layout": [
                 {"label":"Esc", "x":0, "y":0},
                 {"label":"F1", "x":2, "y":0},

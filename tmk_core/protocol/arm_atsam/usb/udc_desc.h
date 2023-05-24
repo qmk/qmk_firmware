@@ -129,4 +129,4 @@ extern UDC_DESC_STORAGE udc_config_t udc_config;
 #ifdef __cplusplus
 }
 #endif
-#endif  // _UDC_DESC_H_
+#endif // _UDC_DESC_H_

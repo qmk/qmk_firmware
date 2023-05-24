@@ -1,17 +1,20 @@
 # 触覚フィードバック
 
 <!---
-  original document: 0.8.123:docs/feature_haptic_feedback.md
-  git diff 0.8.123 HEAD -- docs/feature_haptic_feedback.md | cat
+  original document: 0.12.41:docs/feature_haptic_feedback.md
+  git diff 0.12.41 HEAD -- docs/feature_haptic_feedback.md | cat
 -->
 
 ## 触覚フィードバック の rules.mk オプション
 
 現在のところ、`rules.mk` で触覚フィードバック用に以下のオプションを利用可能です:
 
-`HAPTIC_ENABLE += DRV2605L`
+```
+HAPTIC_ENABLE = yes
 
-`HAPTIC_ENABLE += SOLENOID`
+HAPTIC_DRIVER += DRV2605L
+HAPTIC_DRIVER += SOLENOID
+```
 
 ## サポートされる既知のハードウェア
 
@@ -31,7 +34,7 @@
 | `HPT_TOG` | 触覚フィードバックのオン/オフを切り替え |
 | `HPT_RST` | 触覚フィードバック設定をデフォルトに戻す |
 | `HPT_FBK` | キー押下またはリリースまたはその両方でフィードバックを切り替え |
-| `HPT_BUZ` | ソレノイドの振動のオン/オフを切り替え |
+| `HPT_BUZ` | ソレノイドのブザー音のオン/オフを切り替え |
 | `HPT_MODI` | 次の DRV2605L 波形に移動 |
 | `HPT_MODD` | 前の DRV2605L 波形に移動 |
 | `HPT_CONT` | 連続触覚モードのオン/オフを切り替え |
@@ -44,7 +47,7 @@
 
 ほとんどの MCU はソレノイドのコイルを駆動するために必要な電流を供給できないため、最初に MOSFET を介してソレノイドを駆動する回路を構築する必要があります。
 
-[Adafruit が提供する配線図](https://playground.arduino.cc/uploads/Learning/solenoid_driver.pdf)
+[Adafruit が提供する配線図](https://cdn-shop.adafruit.com/product-files/412/412_solenoid_driver.pdf)
 
 
 | 設定 | デフォルト | 説明 |
@@ -53,8 +56,15 @@
 | `SOLENOID_DEFAULT_DWELL` | `12` ms | ソレノイドのデフォルトの滞留時間を設定する。 |
 | `SOLENOID_MIN_DWELL` | `4` ms | 滞留時間の下限を設定する。 |
 | `SOLENOID_MAX_DWELL` | `100` ms | 滞留時間の上限を設定する。 |
+| `SOLENOID_DWELL_STEP_SIZE` | `1` ms | `HPT_DWL*` キーコードが送信される時に使われるステップサイズ |
+| `SOLENOID_DEFAULT_BUZZ` | `0` (無効) | HPT_RST では、この値が "1" の場合、ブザー音が "on" に設定されます |
+| `SOLENOID_BUZZ_ACTUATED` | `SOLENOID_MIN_DWELL` | ソレノイドがブザー音モードの場合の動作時間 |
+| `SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` | ソレノイドがブザー音モードの場合の非動作時間 |
 
-?> 滞留時間とは、「プランジャー」が作動したままになる時間です。滞留時間により、ソレノイドの音が変わります。
+* ソレノイドのブザー音がオフの場合、滞留時間は「プランジャー」が作動したままになる時間です。滞留時間により、ソレノイドの音が変わります。
+* ソレノイドのブザー音がオンの場合、滞留時間は振動の長さを設定しますが、`SOLENOID_BUZZ_ACTUATED` と `SOLENOID_BUZZ_NONACTUATED` はブザー音の間の(非)動作時間を設定します。
+* 現在の実装では、上記の時間設定のいずれについても、設定の精度はキーボードがマトリックスをスキャンできる速度によって影響を受ける可能性があります。
+  したがって、キーボードのスキャンルーチンが遅い場合は、`SOLENOID_DWELL_STEP_SIZE` をキーボードのスキャンに掛かる時間よりもわずかに小さい値に設定することをお勧めします。
 
 ブートローダ実行中に一部のピンが給電されているかもしれず (例えば、STM32F303 チップ上の A13)、そうすると書き込みプロセスの間ずっとソレノイドがオン状態になることに注意してください。これはソレノイドを加熱し損傷を与えるかもしれません。ソレノイドが接続されているピンがブートローダ/DFU 実行中にソレノイドをオンにしていることが分かった場合は、他のピンを選択してください。
 

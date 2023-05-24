@@ -1,6 +1,0 @@
-{
-    "keyboard":"handwired/pytest/basic",
-    "keymap":"pytest_unittest",
-    "layout":"LAYOUT",
-    "layers":[["KC_A"]]
-}

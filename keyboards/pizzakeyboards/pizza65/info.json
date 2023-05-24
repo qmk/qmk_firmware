@@ -2,8 +2,6 @@
     "keyboard_name": "pizza65",
     "url": "www.keyboards.pizza",
     "maintainer": "mm0nte",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
@@ -266,7 +264,6 @@
                 {"label": "r2_11", "x": 10.5, "y": 1},
                 {"label": "r2_12", "x": 11.5, "y": 1},
                 {"label": "r2_13", "x": 12.5, "y": 1},
-                {"label": "r2_14", "x": 13.5, "y": 1},
                 {"label": "r2_15", "x": 15, "y": 1},
 
                 {"label": "r3_01", "x": 0, "y": 2, "w": 1.75},

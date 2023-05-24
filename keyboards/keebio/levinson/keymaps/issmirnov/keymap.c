@@ -87,7 +87,7 @@ void matrix_scan_user(void) {
 
 // only runs when when the layer is changed, good for updating LED's and clearing sticky state
 // RGB modes: https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight.h
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   #ifdef RGBLIGHT_ENABLE
     layer_state_set_rgb(state);
   #endif

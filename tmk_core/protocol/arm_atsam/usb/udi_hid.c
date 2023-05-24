@@ -110,7 +110,7 @@ bool udi_hid_setup(uint8_t *rate, uint8_t *protocol, uint8_t *report_desc, bool 
             }
         }
     }
-    return false;  // Request not supported
+    return false; // Request not supported
 }
 
 //---------------------------------------------

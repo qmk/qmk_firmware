@@ -31,8 +31,6 @@
     { RE1, RE2, RE3, RE4, RE5, KC_NO, RE7, RE8, KC_NO } \
   }
 
-#define LAYOUT LAYOUT_60    // For backwards compatibility with Rev. 1
-
 #define LAYOUT_65( \
   LA3, LA4, LA5, LA6, LA7, LA8, LA9,      RA1, RA2, RA3, RA4, RA5, RA6, RA7, RA8, RA9, \
   LB3, LB4, LB5, LB6, LB7, LB8,           RB1, RB2, RB3, RB4, RB5, RB6, RB7, RB8, RB9, \

@@ -4,9 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
-#define CPU_16MHz       0x00
-
 void init_ergodox(void);
 
 inline void ergodox_board_led_on(void)    { DDRB |= (1<<PB7); PORTB |= (1<<PB7);  }

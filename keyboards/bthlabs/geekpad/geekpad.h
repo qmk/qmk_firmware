@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef GEEKPAD_H
-#define GEEKPAD_H
+
+#pragma once
 
 #include "quantum.h"
 
@@ -27,14 +27,11 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    K00, K01, K02, \
-    K10, K11, K12, \
-    K20, K21, K22  \
-) \
-{ \
-    { K00,   K01,   K02 }, \
-    { K10,   K11,   K12 }, \
-    { K20,   K21,   K22 }  \
+    k00, k01, k02, \
+    k10, k11, k12, \
+    k20, k21, k22  \
+) { \
+    { k00, k01, k02 }, \
+    { k10, k11, k12 }, \
+    { k20, k21, k22 } \
 }
-
-#endif

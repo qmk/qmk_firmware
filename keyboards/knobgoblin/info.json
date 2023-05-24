@@ -2,8 +2,6 @@
     "keyboard_name": "knobgoblin",
     "url": "",
     "maintainer": "MrT1ddl3s",
-    "width": 5,
-    "height": 5,
     "layouts": {
         "LAYOUT_ortho": {
             "layout": [

@@ -66,7 +66,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */
 // #define GRAVE_ESC_CTRL_OVERRIDE
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

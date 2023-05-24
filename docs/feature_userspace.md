@@ -240,7 +240,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 For boards that may not have a shift button (such as on a macro pad), we need a way to always include the bootloader option.  To do that, add the following to the `rules.mk` in your userspace folder: 
 
-```make 
+```make
 ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
     OPT_DEFS += -DFLASH_BOOTLOADER
 endif
@@ -252,4 +252,4 @@ Also, holding Shift will add the flash target (`:flash`) to the command.  Holdin
 
 And for the boards that lack a shift key, or that you want to always attempt the flashing part, you can add `FLASH_BOOTLOADER = yes` to the `rules.mk` of that keymap.
 
-?> This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely. And this doesn't support BootloadHID or mdloader. 
+?> This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely.

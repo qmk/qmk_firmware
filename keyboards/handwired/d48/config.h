@@ -31,9 +31,6 @@
 /* Locking resynchronize hack */
 // #define LOCKING_RESYNC_ENABLE
 
-/* prevent stuck modifiers */
-// #define PREVENT_STUCK_MODIFIERS
-
 /* RGB Underglow */
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN A15

@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "samd51j18a.h"
-#include "tmk_core/common/keyboard.h"
+#include "keyboard.h"
 
 #include "report.h"
 #include "host.h"
@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // From keyboard's directory
 #include "config_led.h"
 
-uint8_t g_usb_state = USB_FSMSTATUS_FSMSTATE_OFF_Val;  // Saved USB state from hardware value to detect changes
+uint8_t g_usb_state = USB_FSMSTATUS_FSMSTATE_OFF_Val; // Saved USB state from hardware value to detect changes
 
 void    main_subtasks(void);
 uint8_t keyboard_leds(void);
@@ -39,6 +39,10 @@ void    send_keyboard(report_keyboard_t *report);
 void    send_mouse(report_mouse_t *report);
 void    send_system(uint16_t data);
 void    send_consumer(uint16_t data);
+
+#ifdef DEFERRED_EXEC_ENABLE
+void deferred_exec_task(void);
+#endif // DEFERRED_EXEC_ENABLE
 
 host_driver_t arm_atsam_driver = {keyboard_leds, send_keyboard, send_mouse, send_system, send_consumer};
 
@@ -49,7 +53,7 @@ uint8_t keyboard_leds(void) {
     if (keymap_config.nkro)
         return udi_hid_nkro_report_set;
     else
-#endif  // NKRO_ENABLE
+#endif // NKRO_ENABLE
         return udi_hid_kbd_report_set;
 }
 
@@ -58,10 +62,10 @@ void send_keyboard(report_keyboard_t *report) {
 
 #ifdef NKRO_ENABLE
     if (!keymap_config.nkro) {
-#endif  // NKRO_ENABLE
+#endif // NKRO_ENABLE
         while (udi_hid_kbd_b_report_trans_ongoing) {
             main_subtasks();
-        }  // Run other tasks while waiting for USB to be free
+        } // Run other tasks while waiting for USB to be free
 
         irqflags = __get_PRIMASK();
         __disable_irq();
@@ -77,7 +81,7 @@ void send_keyboard(report_keyboard_t *report) {
     } else {
         while (udi_hid_nkro_b_report_trans_ongoing) {
             main_subtasks();
-        }  // Run other tasks while waiting for USB to be free
+        } // Run other tasks while waiting for USB to be free
 
         irqflags = __get_PRIMASK();
         __disable_irq();
@@ -90,7 +94,7 @@ void send_keyboard(report_keyboard_t *report) {
         __DMB();
         __set_PRIMASK(irqflags);
     }
-#endif  // NKRO_ENABLE
+#endif // NKRO_ENABLE
 }
 
 void send_mouse(report_mouse_t *report) {
@@ -107,7 +111,7 @@ void send_mouse(report_mouse_t *report) {
 
     __DMB();
     __set_PRIMASK(irqflags);
-#endif  // MOUSEKEY_ENABLE
+#endif // MOUSEKEY_ENABLE
 }
 
 #ifdef EXTRAKEY_ENABLE
@@ -126,58 +130,109 @@ void send_extra(uint8_t report_id, uint16_t data) {
     __DMB();
     __set_PRIMASK(irqflags);
 }
-#endif  // EXTRAKEY_ENABLE
+#endif // EXTRAKEY_ENABLE
 
 void send_system(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
     send_extra(REPORT_ID_SYSTEM, data);
-#endif  // EXTRAKEY_ENABLE
+#endif // EXTRAKEY_ENABLE
 }
 
 void send_consumer(uint16_t data) {
 #ifdef EXTRAKEY_ENABLE
     send_extra(REPORT_ID_CONSUMER, data);
-#endif  // EXTRAKEY_ENABLE
+#endif // EXTRAKEY_ENABLE
 }
 
+#ifdef CONSOLE_ENABLE
+#    define CONSOLE_PRINTBUF_SIZE 512
+static char     console_printbuf[CONSOLE_PRINTBUF_SIZE];
+static uint16_t console_printbuf_len = 0;
+
+int8_t sendchar(uint8_t c) {
+    if (console_printbuf_len >= CONSOLE_PRINTBUF_SIZE) return -1;
+
+    console_printbuf[console_printbuf_len++] = c;
+    return 0;
+}
+
+void main_subtask_console_flush(void) {
+    while (udi_hid_con_b_report_trans_ongoing) {
+    } // Wait for any previous transfers to complete
+
+    uint16_t result = console_printbuf_len;
+    uint32_t irqflags;
+    char *   pconbuf  = console_printbuf; // Pointer to start send from
+    int      send_out = CONSOLE_EPSIZE;   // Bytes to send per transfer
+
+    while (result > 0) { // While not error and bytes remain
+        while (udi_hid_con_b_report_trans_ongoing) {
+        } // Wait for any previous transfers to complete
+
+        irqflags = __get_PRIMASK();
+        __disable_irq();
+        __DMB();
+
+        if (result < CONSOLE_EPSIZE) {                     // If remaining bytes are less than console epsize
+            memset(udi_hid_con_report, 0, CONSOLE_EPSIZE); // Clear the buffer
+            send_out = result;                             // Send remaining size
+        }
+
+        memcpy(udi_hid_con_report, pconbuf, send_out); // Copy data into the send buffer
+
+        udi_hid_con_b_report_valid = 1; // Set report valid
+        udi_hid_con_send_report();      // Send report
+
+        __DMB();
+        __set_PRIMASK(irqflags);
+
+        result -= send_out;  // Decrement result by bytes sent
+        pconbuf += send_out; // Increment buffer point by bytes sent
+    }
+
+    console_printbuf_len = 0;
+}
+
+#endif // CONSOLE_ENABLE
+
 void main_subtask_usb_state(void) {
-    static uint64_t fsmstate_on_delay = 0;                          // Delay timer to be sure USB is actually operating before bringing up hardware
-    uint8_t         fsmstate_now      = USB->DEVICE.FSMSTATUS.reg;  // Current state from hardware register
+    static uint64_t fsmstate_on_delay = 0;                         // Delay timer to be sure USB is actually operating before bringing up hardware
+    uint8_t         fsmstate_now      = USB->DEVICE.FSMSTATUS.reg; // Current state from hardware register
 
-    if (fsmstate_now == USB_FSMSTATUS_FSMSTATE_SUSPEND_Val)  // If USB SUSPENDED
+    if (fsmstate_now == USB_FSMSTATUS_FSMSTATE_SUSPEND_Val) // If USB SUSPENDED
     {
-        fsmstate_on_delay = 0;  // Clear ON delay timer
+        fsmstate_on_delay = 0; // Clear ON delay timer
 
-        if (g_usb_state != USB_FSMSTATUS_FSMSTATE_SUSPEND_Val)  // If previously not SUSPENDED
+        if (g_usb_state != USB_FSMSTATUS_FSMSTATE_SUSPEND_Val) // If previously not SUSPENDED
         {
-            suspend_power_down();        // Run suspend routine
-            g_usb_state = fsmstate_now;  // Save current USB state
+            suspend_power_down();       // Run suspend routine
+            g_usb_state = fsmstate_now; // Save current USB state
         }
-    } else if (fsmstate_now == USB_FSMSTATUS_FSMSTATE_SLEEP_Val)  // Else if USB SLEEPING
+    } else if (fsmstate_now == USB_FSMSTATUS_FSMSTATE_SLEEP_Val) // Else if USB SLEEPING
     {
-        fsmstate_on_delay = 0;  // Clear ON delay timer
+        fsmstate_on_delay = 0; // Clear ON delay timer
 
-        if (g_usb_state != USB_FSMSTATUS_FSMSTATE_SLEEP_Val)  // If previously not SLEEPING
+        if (g_usb_state != USB_FSMSTATUS_FSMSTATE_SLEEP_Val) // If previously not SLEEPING
         {
-            suspend_power_down();        // Run suspend routine
-            g_usb_state = fsmstate_now;  // Save current USB state
+            suspend_power_down();       // Run suspend routine
+            g_usb_state = fsmstate_now; // Save current USB state
         }
-    } else if (fsmstate_now == USB_FSMSTATUS_FSMSTATE_ON_Val)  // Else if USB ON
+    } else if (fsmstate_now == USB_FSMSTATUS_FSMSTATE_ON_Val) // Else if USB ON
     {
-        if (g_usb_state != USB_FSMSTATUS_FSMSTATE_ON_Val)  // If previously not ON
+        if (g_usb_state != USB_FSMSTATUS_FSMSTATE_ON_Val) // If previously not ON
         {
-            if (fsmstate_on_delay == 0)  // If ON delay timer is cleared
+            if (fsmstate_on_delay == 0) // If ON delay timer is cleared
             {
-                fsmstate_on_delay = timer_read64() + 250;   // Set ON delay timer
-            } else if (timer_read64() > fsmstate_on_delay)  // Else if ON delay timer is active and timed out
+                fsmstate_on_delay = timer_read64() + 250;  // Set ON delay timer
+            } else if (timer_read64() > fsmstate_on_delay) // Else if ON delay timer is active and timed out
             {
-                suspend_wakeup_init();       // Run wakeup routine
-                g_usb_state = fsmstate_now;  // Save current USB state
+                suspend_wakeup_init();      // Run wakeup routine
+                g_usb_state = fsmstate_now; // Save current USB state
             }
         }
-    } else  // Else if USB is in a state not being tracked
+    } else // Else if USB is in a state not being tracked
     {
-        fsmstate_on_delay = 0;  // Clear ON delay timer
+        fsmstate_on_delay = 0; // Clear ON delay timer
     }
 }
 
@@ -207,13 +262,18 @@ void main_subtask_usb_extra_device(void) {
 }
 
 #ifdef RAW_ENABLE
-void main_subtask_raw(void) { udi_hid_raw_receive_report(); }
+void main_subtask_raw(void) {
+    udi_hid_raw_receive_report();
+}
 #endif
 
 void main_subtasks(void) {
     main_subtask_usb_state();
     main_subtask_power_check();
     main_subtask_usb_extra_device();
+#ifdef CONSOLE_ENABLE
+    main_subtask_console_flush();
+#endif
 #ifdef RAW_ENABLE
     main_subtask_raw();
 #endif
@@ -238,11 +298,9 @@ int main(void) {
 
 #ifdef RGB_MATRIX_ENABLE
     i2c1_init();
-#endif  // RGB_MATRIX_ENABLE
+#endif // RGB_MATRIX_ENABLE
 
-    matrix_init();
-
-    USB2422_init();
+    USB_Hub_init();
 
     DBGC(DC_MAIN_UDC_START_BEGIN);
     udc_start();
@@ -252,7 +310,7 @@ int main(void) {
     CDC_init();
     DBGC(DC_MAIN_CDC_INIT_COMPLETE);
 
-    while (USB2422_Port_Detect_Init() == 0) {
+    while (USB_Hub_Port_Detect_Init() == 0) {
     }
 
     DBG_LED_OFF;
@@ -267,8 +325,9 @@ int main(void) {
 
     i2c_led_q_init();
 
-    for (uint8_t drvid = 0; drvid < ISSI3733_DRIVER_COUNT; drvid++) I2C_LED_Q_ONOFF(drvid);  // Queue data
-#endif                                                                                       // RGB_MATRIX_ENABLE
+    for (uint8_t drvid = 0; drvid < ISSI3733_DRIVER_COUNT; drvid++)
+        I2C_LED_Q_ONOFF(drvid); // Queue data
+#endif                          // RGB_MATRIX_ENABLE
 
     keyboard_setup();
 
@@ -278,18 +337,18 @@ int main(void) {
 
 #ifdef CONSOLE_ENABLE
     uint64_t next_print = 0;
-#endif  // CONSOLE_ENABLE
+#endif // CONSOLE_ENABLE
 
     v_5v_avg = adc_get(ADC_5V);
 
     debug_code_disable();
 
     while (1) {
-        main_subtasks();  // Note these tasks will also be run while waiting for USB keyboard polling intervals
+        main_subtasks(); // Note these tasks will also be run while waiting for USB keyboard polling intervals
 
         if (g_usb_state == USB_FSMSTATUS_FSMSTATE_SUSPEND_Val || g_usb_state == USB_FSMSTATUS_FSMSTATE_SLEEP_Val) {
             if (suspend_wakeup_condition()) {
-                udc_remotewakeup();  // Send remote wakeup signal
+                udc_remotewakeup(); // Send remote wakeup signal
                 wait_ms(50);
             }
 
@@ -304,7 +363,15 @@ int main(void) {
             // Add any debug information here that you want to see very often
             // dprintf("5v=%u 5vu=%u dlow=%u dhi=%u gca=%u gcd=%u\r\n", v_5v, v_5v_avg, v_5v_avg - V5_LOW, v_5v_avg - V5_HIGH, gcr_actual, gcr_desired);
         }
-#endif  // CONSOLE_ENABLE
+#endif // CONSOLE_ENABLE
+
+#ifdef DEFERRED_EXEC_ENABLE
+        // Run deferred executions
+        deferred_exec_task();
+#endif // DEFERRED_EXEC_ENABLE
+
+        // Run housekeeping
+        housekeeping_task();
     }
 
     return 1;

@@ -1,9 +1,6 @@
 {
     "keyboard_name": "HotDox",
     "maintainer": "layne001365",
-    "width": 19.5,
-    "height": 9.375,
-
     "layouts": {
       "LAYOUT_ergodox": {
 

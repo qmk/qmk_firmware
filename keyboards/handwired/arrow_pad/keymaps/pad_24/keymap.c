@@ -27,28 +27,28 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[LAYER_BASE] = LAYOUT(                \
-  KC_ESC,  KC_TAB,  KC_BSLS, MO(2),   \
-  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
-  KC_P7,   KC_P8,   KC_P9,   KC_PEQL, \
-  KC_P4,   KC_P5,   KC_P6,   KC_PPLS, \
-  KC_P1,   KC_P2,   KC_P3,   XXXXXXX, \
+[LAYER_BASE] = LAYOUT(
+  KC_ESC,  KC_TAB,  KC_BSLS, MO(2),
+  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+  KC_P7,   KC_P8,   KC_P9,   KC_PEQL,
+  KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+  KC_P1,   KC_P2,   KC_P3,   XXXXXXX,
   KC_P0,   KC_PCMM, KC_PDOT, KC_PENT  ),
 
-[LAYER_EDIT] = LAYOUT(                \
-  KC_ESC,  KC_TAB,  KC_SPC,  _______, \
-  TG(1),   SC_PSTE, SC_REDO, SC_UNDO, \
-  KC_HOME, KC_UP,   KC_PGUP, KC_LALT, \
-  KC_LEFT, M_COPY,  KC_RGHT, KC_LCTL, \
-  KC_END,  KC_DOWN, KC_PGDN, XXXXXXX, \
+[LAYER_EDIT] = LAYOUT(
+  KC_ESC,  KC_TAB,  KC_SPC,  _______,
+  TG(1),   SC_PSTE, SC_REDO, SC_UNDO,
+  KC_HOME, KC_UP,   KC_PGUP, KC_LALT,
+  KC_LEFT, M_COPY,  KC_RGHT, KC_LCTL,
+  KC_END,  KC_DOWN, KC_PGDN, XXXXXXX,
   KC_BSPC, KC_PENT, KC_DEL,  M_SHFCT  ),
 
-[LAYER_FUNCTION] = LAYOUT(            \
-  BL_TOGG, BL_INC,  BL_DEC,  _______, \
-  TG(1),   _______, _______, _______, \
-  _______, _______, _______, _______, \
-  _______, _______, _______, _______, \
-  _______, _______, _______, XXXXXXX, \
+[LAYER_FUNCTION] = LAYOUT(
+  BL_TOGG, BL_INC,  BL_DEC,  _______,
+  TG(1),   _______, _______, _______,
+  _______, _______, _______, _______,
+  _______, _______, _______, _______,
+  _______, _______, _______, XXXXXXX,
   RESET,   _______, _______, _______  ),
 
 };

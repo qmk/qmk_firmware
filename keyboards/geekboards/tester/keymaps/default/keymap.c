@@ -9,15 +9,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F4,   KC_F5,     KC_F6,     KC_F7
     ),
 };
-
-void matrix_init_user(void) {
-  //user initialization
-}
-
-void matrix_scan_user(void) {
-  //user matrix
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}

@@ -115,9 +115,9 @@ void matrix_scan_user(void) {
             tap_code16(G(KC_D));
         }
     }
-} 
+}
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t layer = get_highest_layer(layer_state);
     if (index == 0) {
         if (clockwise) {
@@ -126,4 +126,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code16(dynamic_keymap_get_keycode(layer, 10, 0));
         }
     }
+    return true;
 }

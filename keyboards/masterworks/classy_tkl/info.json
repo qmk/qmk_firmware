@@ -2,8 +2,6 @@
     "keyboard_name": "Classy TKL",
     "url": "https://geekhack.org/index.php?topic=105933",
     "maintainer": "qmk",
-    "width": 18.25,
-    "height": 6.5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [

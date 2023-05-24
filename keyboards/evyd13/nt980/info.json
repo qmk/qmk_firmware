@@ -2,8 +2,6 @@
     "keyboard_name": "nt980", 
     "url": "", 
     "maintainer": "maartenwut", 
-    "width": 19.5, 
-    "height": 6.75, 
     "layouts": {
         "LAYOUT_all": {
             "layout": [

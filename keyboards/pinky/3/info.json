@@ -2,8 +2,6 @@
     "keyboard_name": "Pinky3",
     "url": "",
     "maintainer": "tamanishi",
-    "width": 16,
-    "height": 5.3,
     "layouts": {
         "LAYOUT_split_3x7_4": {
             "layout": [

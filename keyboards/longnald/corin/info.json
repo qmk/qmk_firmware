@@ -2,8 +2,6 @@
   "keyboard_name": "Corin",
   "url": "https://github.com/longnald/corin",
   "maintainer": "Seaton Jiang <seaton@vtrois.com>",
-  "width": 15,
-  "height": 5,
   "layouts": {
     "LAYOUT_64_ansi": {
       "layout": [

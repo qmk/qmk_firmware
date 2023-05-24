@@ -27,20 +27,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,  KC_NO,   KC_LCTL, KC_LALT,                                        KC_SPC,                           KC_RALT, KC_RCTL,                     KC_DOWN,             KC_P0,            KC_PDOT
   ),
 };
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

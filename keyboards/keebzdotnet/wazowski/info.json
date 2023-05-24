@@ -2,8 +2,6 @@
     "keyboard_name": "wazowski",
     "url": "https://www.keebz.net/shop/wazoski-pcb",
     "maintainer": "keebzdotnet",
-    "width": 9,
-    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -5,10 +5,11 @@ from pathlib import Path
 
 import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
+from qmk.keyboard import keyboard_completer, keyboard_folder
 from milc import cli
 
 
-@cli.argument('-kb', '--keyboard', help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
 @cli.argument('-km', '--keymap', help='Specify the name for the new keymap directory')
 @cli.subcommand('Creates a new keymap for the keyboard of your choosing')
 @automagic_keyboard

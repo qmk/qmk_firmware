@@ -13,56 +13,57 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
 #include "quantum.h"
 
-#define ___ KC_NO
+#define XXX KC_NO
 
 #define LAYOUT_all( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k6d, k53,  \
-    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k52,       \
-    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k51,       \
-    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k50,       \
-    k40, k41, k42, k44, k45, k46, k47, k48, k49, k4b, k4c, k4d                       \
-){ \
-    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d },  \
-    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d },  \
-    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d },  \
-    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d },  \
-    { k40, k41, k42, ___, k44, k45, k46, k47, k48, k49, ___, k4b, k4c, k4d },  \
-    { k50, k51, k52, k53, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ },  \
-    { ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, k6d }   \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k6d, k53, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k52, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k51, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k50, \
+    k40, k41, k42,           k44, k45, k46,      k47, k48, k49, k4b, k4c, k4d \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d }, \
+    { k40, k41, k42, XXX, k44, k45, k46, k47, k48, k49, XXX, k4b, k4c, k4d }, \
+    { k50, k51, k52, k53, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, k6d } \
 }
 
 #define LAYOUT_65_ansi( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k53,  \
-    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k52,  \
-    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2d, k51,       \
-    k30, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k50,       \
-    k40, k41, k42, k45, k47, k48, k49, k4b, k4c, k4d                            \
-){ \
-    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d },  \
-    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d },  \
-    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, ___, k2d },  \
-    { k30, ___, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d },  \
-    { k40, k41, k42, ___, ___, k45, ___, k47, k48, k49, ___, k4b, k4c, k4d },  \
-    { k50, k51, k52, k53, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ },  \
-    { ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ }   \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k53, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k52, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,      k2d, k51, \
+    k30,      k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k50, \
+    k40, k41, k42,                k45,           k47, k48, k49, k4b, k4c, k4d \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, XXX, k2d }, \
+    { k30, XXX, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d }, \
+    { k40, k41, k42, XXX, XXX, k45, XXX, k47, k48, k49, XXX, k4b, k4c, k4d }, \
+    { k50, k51, k52, k53, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX } \
 }
 
 #define LAYOUT_65_iso( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k53,  \
-    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,  k52,      \
-    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k51,  \
-    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k50,  \
-    k40, k41, k42, k45, k47, k48, k49, k4b, k4c, k4d                            \
-){ \
-    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d },  \
-    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, ___ },  \
-    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d },  \
-    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d },  \
-    { k40, k41, k42, ___, ___, k45, ___, k47, k48, k49, ___, k4b, k4c, k4d },  \
-    { k50, k51, k52, k53, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ },  \
-    { ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ }   \
+    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k53, \
+    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c,      k52, \
+    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d, k51, \
+    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d, k50, \
+    k40, k41, k42,                k45,           k47, k48, k49, k4b, k4c, k4d \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, XXX }, \
+    { k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d }, \
+    { k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d }, \
+    { k40, k41, k42, XXX, XXX, k45, XXX, k47, k48, k49, XXX, k4b, k4c, k4d }, \
+    { k50, k51, k52, k53, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX }, \
+    { XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX } \
 }

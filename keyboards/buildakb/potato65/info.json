@@ -2,8 +2,6 @@
     "keyboard_name": "Potato 65",
     "url": "https://github.com/Aeonstrife/potato65",
     "maintainer": "Maelkk",
-    "width": 16,
-    "height": 5,
     "layouts": {
         "LAYOUT_65_ansi_split_bs": {
             "layout": [

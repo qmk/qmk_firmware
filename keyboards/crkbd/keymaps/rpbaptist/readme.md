@@ -51,7 +51,7 @@ This is the gaming extended layer where movement keys remain the same. This mean
 I took a big inspiration from Drashna's RGB configuration and tweaked it.
 
 - `RGB_UND`: Toggles underglow indicators on and off. Each layer has its own color.
-- `RGB_IDL`: This will enable/disable idle mode. By default, when typing, the `DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS` will be used. When the idle timeout has exceeded the secondary animation will be activated, which is `RGB_MATRIX_CYCLE_ALL` by default. When switching to `GAMING` layer the timeout will be reduced and the idle animation changed to `RGB_MATRIX_RAINBOW_PINWHEELS`.
+- `RGB_IDL`: This will enable/disable idle mode. By default, when typing, the `ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS` will be used. When the idle timeout has exceeded the secondary animation will be activated, which is `RGB_MATRIX_CYCLE_ALL` by default. When switching to `GAMING` layer the timeout will be reduced and the idle animation changed to `RGB_MATRIX_RAINBOW_PINWHEELS`.
    When idle mode is enabled, `RGB_MATRIX_TYPING_HEATMAP` and `RGB_MATRIX_MULTISPLASH` will be used for active animation. All others for idle animation. When disabling idle mode, the current idle animation will be activated. Additionally, on idling, the underglow layer indication will be deactivated.
 - There are no RGB mode cycle keys, but instead several keys to use a specific RGB directly. Each has their own default speed, although this can be changed.
 

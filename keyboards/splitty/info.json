@@ -2,8 +2,6 @@
   "keyboard_name": "Splitty",
   "url": "https://git.ni.fr.eu.org/splitty.git/about/",
   "maintainer": "schodet",
-  "width": 14,
-  "height": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [

@@ -30,20 +30,23 @@
 
 // visual studio code shortcuts
 #define VS_FILE LCTL(KC_P)
+#define VS_OPEN_FILE LCTL(KC_O)
 #define VS_LINE LCTL(KC_G)
 #define VS_SYMBOLEDITOR LCTL(LSFT(KC_O))
-#define VS_DEFINITION KC_F12
-#define VS_IMPLEMENTATION LCTL(KC_F12)
-#define VS_REFERENCES LSFT(KC_F12)
+#define VS_DEFINITION MEH(KC_F5)
+#define VS_IMPLEMENTATION MEH(KC_F6)
+#define VS_REFERENCES MEH(KC_F7)
 #define VS_BACK LALT(KC_LEFT)
 #define VS_BRACKET LCTL(LSFT(KC_BSLS))
-#define VS_TABLEFT LCTL(KC_PGUP)
-#define VS_TABRIGHT LCTL(KC_PGDN)
-#define VS_CLOSETAB LCTL(KC_W)
+#define VS_TABLEFT MEH(KC_F1)
+#define VS_TABRIGHT MEH(KC_F2)
+#define VS_CLOSETAB MEH(KC_F3)
 #define VS_CLOSEPANEL LCTL(LSFT(KC_W))
+#define VS_GROUP_1 LCTL(KC_1)
+#define VS_GROUP_2 LCTL(KC_2)
 #define VS_TERMINAL LCTL(KC_GRAVE)
 #define VS_BUILD LCTL(LSFT(KC_B))
-#define VS_COMMANDS LCTL(LSFT(KC_P))
+#define VS_COMMANDS MEH(KC_F4)
 #define VS_CMT_BLOCK LSFT(LALT(KC_A))
 #define VS_CMT_LINE LCTL(KC_SLSH)
 #define VS_DEL_LINE LCTL(LSFT(KC_K))
@@ -54,7 +57,18 @@
 #define VS_BM_PREV LCTL(LALT(KC_P))
 #define VS_BM_NEXT LCTL(LALT(KC_N))
 #define VS_BM_TOGGLE LCTL(LALT(KC_K))
-#define VS_BM_LABEL LCTL(LALT(KC_B))
+#define VS_BM_CLEARALL LCTL(LALT(KC_C))
+// visual studio code navigation shortcuts
+#define VS_FOCUS_EDITOR MEH(KC_F8)
+#define VS_FOCUS_TERMINAL MEH(KC_F9)
+#define VS_TOGGLE_TERMINAL MEH(KC_F10)
+#define VS_CLEAR_TERMINAL MEH(KC_F11)
+#define VS_TERMINAL_PREV MEH(KC_F12)
+#define VS_TERMINAL_NEXT MEH(KC_F13)
+#define VS_TERMINAL_NEW MEH(KC_F14)
+#define VS_TERMINAL_DETACH MEH(KC_F15)
+#define VS_TERMINAL_RENAME MEH(KC_F16)
+#define VS_JUMPY MEH(KC_F17)
 
 /*
 // VS code bookmark prev/next requires the following in vscode shortcuts config
@@ -80,6 +94,8 @@ enum custom_keycodes {
 
 // building/flashing instructions:
 // make atreus/astar:dvorak_42_key:flash
+// or
+// qmk compile -kb atreus -km dvorak_42_key
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
@@ -122,9 +138,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [BROWSER_CONTROL] = LAYOUT(
-    MEH(KC_0), KC_BTN3,      KC_MS_U,            KC_BTN1,             KC_BTN2,                      KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   MEH(KC_9),
-    MEH(KC_1), KC_MS_L,      KC_MS_D,            KC_MS_R,             MEH(KC_6),                    KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT),
-    MEH(KC_2), W10_TASKVIEW, W10_WORKSPACE_LEFT, W10_WORKSPACE_RIGHT, MEH(KC_7),                    MEH(KC_8),  RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
+    MEH(KC_C), KC_BTN3,      KC_MS_U,            KC_BTN1,             KC_BTN2,                      KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   MEH(KC_9),
+    MEH(KC_D), KC_MS_L,      KC_MS_D,            KC_MS_R,             MEH(KC_6),                    KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT),
+    MEH(KC_E), W10_TASKVIEW, W10_WORKSPACE_LEFT, W10_WORKSPACE_RIGHT, MEH(KC_7),                    MEH(KC_8),  RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
     KC_TRNS,   KC_TRNS,      KC_TRNS,            KC_TRNS,             KC_TRNS, KC_TRNS, RCTL(KC_W), RCTL(KC_T), KC_TRNS,             KC_TRNS,     KC_TRNS,       KC_TRNS
   ),
 };

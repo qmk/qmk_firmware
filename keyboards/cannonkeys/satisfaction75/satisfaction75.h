@@ -14,9 +14,6 @@
 #define EEPROM_DEFAULT_OLED (VIA_EEPROM_CUSTOM_CONFIG_ADDR+2)
 #define EEPROM_CUSTOM_ENCODER (VIA_EEPROM_CUSTOM_CONFIG_ADDR+3)
 
-/* screen off after this many milliseconds */
-#define ScreenOffInterval 60000 /* milliseconds */
-
 typedef union {
     uint8_t raw;
     struct {
@@ -74,10 +71,10 @@ extern volatile uint8_t led_scrolllock;
 extern uint8_t layer;
 
 // OLED Behavior
-extern uint16_t last_flush;
-extern bool queue_for_send;
 extern uint8_t oled_mode;
-extern bool oled_sleeping;
+extern bool oled_repaint_requested;
+extern bool oled_wakeup_requested;
+extern uint32_t oled_sleep_timer;
 
 // Encoder Behavior
 extern uint8_t encoder_value;
@@ -113,10 +110,9 @@ void set_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior, uint16_t n
 
 void update_time_config(int8_t increment);
 
-__attribute__ ((weak))
-void draw_ui(void);
-void draw_default(void);
-void draw_clock(void);
+void oled_request_wakeup(void);
+void oled_request_repaint(void);
+bool oled_task_needs_to_repaint(void);
 
 void backlight_init_ports(void);
 void backlight_set(uint8_t level);

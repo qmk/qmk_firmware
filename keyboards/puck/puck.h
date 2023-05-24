@@ -1,18 +1,15 @@
-#ifndef PUCK_H
-#define PUCK_H
+#pragma once
 
 #include "quantum.h"
 
 #define LAYOUT( \
-    K00, K01, K02, \
-    K03, K04, K05, \
-    K06, K07, K08, \
-    K09, K0A, K0B  \
+    k00, k01, k02, \
+    k10, k11, k12, \
+    k20, k21, k22, \
+    k30, k31, k32 \
 ) { \
-    { K00, K01, K02 }, \
-    { K03, K04, K05 }, \
-    { K06, K07, K08 }, \
-    { K09, K0A, K0B }, \
+    { k00, k01, k02 }, \
+    { k10, k11, k12 }, \
+    { k20, k21, k22 }, \
+    { k30, k31, k32 } \
 }
-
-#endif

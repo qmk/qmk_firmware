@@ -2,8 +2,6 @@
     "keyboard_name": "dz60rgb_wkl",
     "url": "",
     "maintainer": "dztech",
-    "width": 15,
-    "height": 5,
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {
             "layout": [

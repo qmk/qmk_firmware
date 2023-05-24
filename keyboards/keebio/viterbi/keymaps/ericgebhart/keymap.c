@@ -19,175 +19,30 @@
 #include "ericgebhart.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  // 4x10
+  [_DVORAK]  = BASE_5x14(___NUMS___, ___DVORAK___),
+  [_QWERTY]  = BASE_5x14(___NUMS___, ___QWERTY___),
+  [_COLEMAK] = BASE_5x14(___NUMS___, ___COLEMAK_DH___),
+  [_BEAKL]   = BASE_5x14(___BKLNUMS___, ___BEAKL15___),
 
-    [DVORAK] = LAYOUT_ortho_5x14_wrapper(
-        KC_GRV,    ___12_DVORAK_1___,  KC_SLASH,
-        TAB_BKTAB, ___12_DVORAK_2___,  KC_MINUS,
-        KC_LSFT,   ___12_DVORAK_3___,  KC_RSFT,
-        ___ORTHO_14_BOTTOM___,
-        ___ORTHO_14_THUMBS_BOTTOM___
-        ),
+  //[_DVORAK_BP] = BASE_5x14_bepo(___DVORAK_FR___),
+  //[_BEAKL_BP]  = BASE_5x14_bepo(___BEAKL15_FR___),
 
-    [QWERTY] = LAYOUT_ortho_5x14_wrapper(
-        KC_GRV,    ___12_QWERTY_1___,  KC_SLASH,
-        TAB_BKTAB, ___12_QWERTY_2___,  KC_MINUS,
-        KC_LSFT,   ___12_QWERTY_3___,  KC_RSFT,
-        ___ORTHO_14_BOTTOM___,
-        ___ORTHO_14_THUMBS_BOTTOM___
-        ),
+  // 4x12
+  //[_BEPO]      = BASE_5x14_bepo6(___BEPO6_FR___),
 
-    [COLEMAK] = LAYOUT_ortho_5x14_wrapper(
-        KC_GRV,    ___12_COLEMAK_1___,  KC_SLASH,
-        TAB_BKTAB, ___12_COLEMAK_2___,  KC_MINUS,
-        KC_LSFT,   ___12_COLEMAK_3___,  KC_RSFT,
-        ___ORTHO_14_BOTTOM___,
-        ___ORTHO_14_THUMBS_BOTTOM___
-        ),
+  // transient macro takes a 3x12 for args
+  [_SYMB]    = TRANSIENT_5x14(___12___, ___SYMB_BEAKLA_3x12___),
+  //[_SYMB_BP] = TRANSIENT_5x14(___SYMB_BEAKLA_BP_3x12___),
 
-    [WORKMAN] = LAYOUT_ortho_5x14_wrapper(
-        KC_GRV,    ___12_WORKMAN_1___,  KC_SLASH,
-        TAB_BKTAB, ___12_WORKMAN_2___,  KC_MINUS,
-        KC_LSFT,   ___12_WORKMAN_3___,  KC_RSFT,
-        ___ORTHO_14_BOTTOM___,
-        ___ORTHO_14_THUMBS_BOTTOM___
-        ),
+  [_TOPROWS]    = TRANSIENT_5x14(___12___, ___TOPROWS_3x12___),
+  //[_TOPROWS_BP] = TRANSIENT_5x14(___TOPROWS_BP_3x12___),
 
-    [NORMAN] = LAYOUT_ortho_5x14_wrapper(
-        KC_GRV,    ___12_NORMAN_1___,  KC_SLASH,
-        TAB_BKTAB, ___12_NORMAN_2___,  KC_MINUS,
-        KC_LSFT,   ___12_NORMAN_3___,  KC_RSFT,
-        ___ORTHO_14_BOTTOM___,
-        ___ORTHO_14_THUMBS_BOTTOM___
-        ),
+  [_KEYPAD]    = TRANSIENT_5x14(___12___, ___KP_C_3x12___),
+  //[_KEYPAD_BP] = TRANSIENT_5x14(___KP_C_BP_3x12___),
 
-    [DVORAK_ON_BEPO] = LAYOUT_ortho_5x14_wrapper(
-        KC_GRV,    ___12_DVORAK_B_1___,  KC_SLASH,
-        TAB_BKTAB, ___12_DVORAK_B_2___,  KC_MINUS,
-        KC_LSFT,   ___12_DVORAK_B_3___,  KC_RSFT,
-        ___ORTHO_14_BOTTOM_FR___,
-        ___ORTHO_14_THUMBS_BOTTOM___
-        ),
-
-    [BEPO] = LAYOUT_ortho_5x14_wrapper(
-        KC_GRV,    ___12_DVORAK_B_1___,  KC_SLASH,
-        TAB_BKTAB, ___12_DVORAK_B_2___,  KC_MINUS,
-        KC_LSFT,   ___12_DVORAK_B_3___,  KC_RSFT,
-        ___ORTHO_14_BOTTOM_BP___,
-        ___ORTHO_14_THUMBS_BOTTOM___
-        ),
-
-    [XMONAD] = LAYOUT_ortho_5x14_wrapper(
-        ___, ___12_DVORAK_1___,  ___,
-        ___, ___12_DVORAK_2___,  ___,
-        ___, ___12_DVORAK_3___,  ___,
-        ___14___,
-        ___14___
-        ),
-
-    [XMONAD_FR] = LAYOUT_ortho_5x14_wrapper(
-        ___, ___12_DVORAK_B_1___,  ___,
-        ___, ___12_DVORAK_B_2___,  ___,
-        ___, ___12_DVORAK_B_3___,  ___,
-        ___14___,
-        ___14___
-        ),
-
-
-    // SYMBOLS
-    [SYMB] = LAYOUT_ortho_5x14_wrapper(
-        ___14_SYMB_1___,
-        ___14_SYMB_2___,
-        ___14_SYMB_3___,
-        ___14_SYMB_4___,
-        ___14___
-                                       ),
-
-    [KEYPAD] = LAYOUT_ortho_5x14_wrapper(
-        ___14_KP_1___,
-        ___14_KP_2___,
-        ___14_KP_3___,
-        ___14_KP_4___,
-        ___14___
-        ),
-
-    [KEYPAD_ON_BEPO] = LAYOUT_ortho_5x14_wrapper(
-        ___14_KP_B_1___,
-        ___14_KP_B_2___,
-        ___14_KP_B_3___,
-        ___14_KP_B_4___,
-        ___14___
-        ),
-
-    [SYMB_ON_BEPO] = LAYOUT_ortho_5x14_wrapper(
-        ___14_SYMB_B_1___,
-        ___14_SYMB_B_2___,
-        ___14_SYMB_B_3___,
-        ___14_SYMB_B_4___,
-        ___14___
-        ),
-
-    // MEDIA AND MOUSE
-    [MDIA] = LAYOUT_ortho_5x14_wrapper(
-        ___14_MDIA_1___,
-        ___14_MDIA_2___,
-        ___14_MDIA_3___,
-        ___14_MDIA_4___,
-        ___14___
-        ),
-
-    [LAYERS] = LAYOUT_ortho_5x14_wrapper(
-        ___14_LAYERS_1___,
-        ___14_LAYERS_2___,
-        ___14_LAYERS_3___,
-        ___14___,
-        ___14___
-                                         ),
-
-    [_RGB] = LAYOUT_ortho_5x14_wrapper(
-        ___14_RGB_1___,
-        ___14_RGB_2___,
-        ___14_RGB_3___,
-        ___14___,
-        ___14___
-        ),
+  // Navigation and control
+  [_NAV]    = TRANSIENT_5x14(___12___, ___NAV_3x12___),
+  [_LAYERS] = TRANSIENT_5x14(___12___, ___LAYERS_3x12___),
+  //[_RGB]  = TRANSIENT_5x14(___12___, ___RGB_3x12___),
 };
-
-/* bool process_record_user(uint16_t keycode, keyrecord_t *record) { */
-/*   switch (keycode) { */
-/*     case QWERTY: */
-/*       if (record->event.pressed) { */
-/*         set_single_persistent_default_layer(_QWERTY); */
-/*       } */
-/*       return false; */
-/*       break; */
-/*     case LOWER: */
-/*       if (record->event.pressed) { */
-/*         layer_on(_LOWER); */
-/*         update_tri_layer(_LOWER, _RAISE, _ADJUST); */
-/*       } else { */
-/*         layer_off(_LOWER); */
-/*         update_tri_layer(_LOWER, _RAISE, _ADJUST); */
-/*       } */
-/*       return false; */
-/*       break; */
-/*     case RAISE: */
-/*       if (record->event.pressed) { */
-/*         layer_on(_RAISE); */
-/*         update_tri_layer(_LOWER, _RAISE, _ADJUST); */
-/*       } else { */
-/*         layer_off(_RAISE); */
-/*         update_tri_layer(_LOWER, _RAISE, _ADJUST); */
-/*       } */
-/*       return false; */
-/*       break; */
-/*     case ADJUST: */
-/*       if (record->event.pressed) { */
-/*         layer_on(_ADJUST); */
-/*       } else { */
-/*         layer_off(_ADJUST); */
-/*       } */
-/*       return false; */
-/*       break; */
-/*   } */
-/*   return true; */
-/* } */

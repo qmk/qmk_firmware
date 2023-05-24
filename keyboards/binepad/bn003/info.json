@@ -2,8 +2,6 @@
   "keyboard_name": "BN003",
   "url": "https://binepad.com",
   "maintainer": "binepad",
-  "width": 3,
-  "height": 1,
   "layouts": {
     "LAYOUT": {
       "layout": [

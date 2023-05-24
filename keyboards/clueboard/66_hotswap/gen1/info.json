@@ -2,11 +2,10 @@
   "manufacturer": "Clueboard",
   "keyboard_name": "Clueboard 66% HotSwap Gen1",
   "maintainer": "skullydazed",
-  "height": 5,
-  "width": 16.5,
   "debounce": 5,
   "processor": "STM32F303",
   "board": "QMK_PROTON_C",
+  "bootloader": "stm32-dfu",
   "diode_direction": "COL2ROW",
   "features": {
     "audio": true,
@@ -26,7 +25,7 @@
     "rows": ["B11", "A6", "A3", "A2", "A1", "B5", "B6", "C15", "C14", "C13"]
   },
   "usb": {
-    "device_ver": "0x0001",
+    "device_version": "0.0.1",
     "pid": "0x2391",
     "vid": "0xC1ED"
   },
@@ -36,7 +35,6 @@
   },
   "layouts": {
     "LAYOUT_66_ansi": {
-      "key_count": 66,
       "layout": [
         { "label": "k00", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "k01", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
@@ -107,7 +105,6 @@
       ]
     },
     "LAYOUT_all": {
-      "key_count": 68,
       "layout": [
         { "label": "k00", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
         { "label": "k01", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },

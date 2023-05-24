@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ------------------------------------------------------------------------
      */
     [1] = LAYOUT(
-        _______, OUT_AUTO, RESET,
+        _______, OUT_AUTO, QK_BOOT,
         BL_STEP, OUT_USB, _______,
         BL_TOGG, OUT_BT,  _______
     )
