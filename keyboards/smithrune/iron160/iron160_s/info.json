@@ -41,6 +41,7 @@
                 { "label": "-_",    "matrix": [0, 11],            "x": 11,    "y": 0 },
                 { "label": "=+",    "matrix": [0, 12],            "x": 12,    "y": 0 },
                 { "label": "Bspc",  "matrix": [0, 13],            "x": 13,    "y": 0 },
+                { "label": "Bspc",  "matrix": [4, 13],            "x": 14,    "y": 0 },
                 { "label": "Tab",   "matrix": [1, 0 ], "w": 1.5,  "x": 0,     "y": 1 },
                 { "label": "Q",     "matrix": [1, 1 ],            "x": 1.5,   "y": 1 },
                 { "label": "W",     "matrix": [1, 2 ],            "x": 2.5,   "y": 1 },
@@ -90,8 +91,7 @@
                 { "label": "Alt",   "matrix": [4, 9 ], "w": 1.25, "x": 10,    "y": 4 },
                 { "label": "Win",   "matrix": [4, 10], "w": 1.25, "x": 11.25, "y": 4 },
                 { "label": "Menu",  "matrix": [4, 11], "w": 1.25, "x": 12.5,  "y": 4 },
-                { "label": "Ctrl",  "matrix": [4, 12], "w": 1.25, "x": 13.75, "y": 4 },
-                { "label": "Bspc",  "matrix": [4, 13],            "x": 14,    "y": 0 }
+                { "label": "Ctrl",  "matrix": [4, 12], "w": 1.25, "x": 13.75, "y": 4 }
                ]
         }
     }

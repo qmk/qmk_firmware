@@ -36,6 +36,7 @@
                     { "label": "_",     "matrix": [0, 11],            "x": 11,    "y": 0 },
                     { "label": "+",     "matrix": [0, 12],            "x": 12,    "y": 0 },
                     { "label": "Bspc",  "matrix": [0, 13],            "x": 13,    "y": 0 },
+                    { "label": "Bspc",  "matrix": [4, 13],            "x": 14,    "y": 0 },
                     { "label": "Tab",   "matrix": [1, 0 ], "w": 1.5,  "x": 0,     "y": 1 },
                     { "label": "Q",     "matrix": [1, 1 ],            "x": 1.5,   "y": 1 },
                     { "label": "W",     "matrix": [1, 2 ],            "x": 2.5,   "y": 1 },
@@ -62,8 +63,8 @@
                     { "label": "L",     "matrix": [2, 9 ],            "x": 9.75,  "y": 2 },
                     { "label": ":",     "matrix": [2, 10],            "x": 10.75, "y": 2 },
                     { "label": "\"",    "matrix": [2, 11],            "x": 11.75, "y": 2 },
-                    { "label": "Enter", "matrix": [2, 13], "w": 1.25, "x": 12.75, "y": 2 },
-                    { "label": "Shift", "matrix": [3, 0 ], "w": 1.25, "x": 0,     "y": 3 },
+                    { "label": "Enter", "matrix": [2, 13], "w": 2.25, "x": 12.75, "y": 2 },
+                    { "label": "Shift", "matrix": [3, 0 ], "w": 2.25, "x": 0,     "y": 3 },
                     { "label": "Z",     "matrix": [3, 2 ],            "x": 2.25,  "y": 3 },
                     { "label": "X",     "matrix": [3, 3 ],            "x": 3.25,  "y": 3 },
                     { "label": "C",     "matrix": [3, 4 ],            "x": 4.25,  "y": 3 },
@@ -76,14 +77,13 @@
                     { "label": "?",     "matrix": [3, 11],            "x": 11.25, "y": 3 },
                     { "label": "Shift", "matrix": [3, 12], "w": 1.75, "x": 12.25, "y": 3 },
                     { "label": "MO(1)", "matrix": [3, 13],            "x": 14,    "y": 3 },
-                    { "label": "Ctrl",  "matrix": [4, 0 ], "w": 1.25, "x": 0,     "y": 4 },
+                    { "label": "Ctrl",  "matrix": [4, 0 ], "w": 1.5,  "x": 0,     "y": 4 },
                     { "label": "Win",   "matrix": [4, 1 ],            "x": 1.5,   "y": 4 },
-                    { "label": "Alt",   "matrix": [4, 2 ], "w": 1.25, "x": 2.5,   "y": 4 },
+                    { "label": "Alt",   "matrix": [4, 2 ], "w": 1.5,  "x": 2.5,   "y": 4 },
                     { "label": "Space", "matrix": [4, 6 ], "w": 7,    "x": 4,     "y": 4 },
                     { "label": "Alt",   "matrix": [4, 10], "w": 1.5,  "x": 11,    "y": 4 },
                     { "label": "Win",   "matrix": [4, 11],            "x": 12.5,  "y": 4 },
-                    { "label": "Ctrl",  "matrix": [4, 12], "w": 1.5,  "x": 13.5,  "y": 4 },
-                    { "label": "Bspc",  "matrix": [4, 13],            "x": 14,    "y": 0 }
+                    { "label": "Ctrl",  "matrix": [4, 12], "w": 1.5,  "x": 13.5,  "y": 4 }
                     ]
         }
     }
