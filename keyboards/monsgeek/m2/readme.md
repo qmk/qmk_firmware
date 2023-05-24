@@ -9,7 +9,6 @@ A customizable 98-key keyboard
 Make example for this keyboard (after setting up your build environment):
 
     make monsgeek/m2:default
-    make monsgeek/m2:via
 
 
 **Reset Key**: Hold down the key located at *K01*, which programmed as *Esc* while plugging in the keyboard.
