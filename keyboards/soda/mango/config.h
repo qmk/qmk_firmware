@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FORCE_NKRO
 // The pin connected to the data pin of the LEDs
 #define RGB_DI_PIN A2
+#define WS2812_DI_PIN A2
 // The number of LEDs connected
 
 #define RGB_MATRIX_LED_COUNT 17
