@@ -25,9 +25,11 @@
         "nkro":      true,
         "rgblight":  true
     },
-    "rgblight": {
-        "led_count": 22,
+    "ws2812": {
         "pin": "B15"
+   },
+   "rgblight": {
+        "led_count": 22
    },
    "diode_direction": "COL2ROW",
     "layouts": {
