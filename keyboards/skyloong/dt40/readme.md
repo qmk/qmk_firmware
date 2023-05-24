@@ -1,6 +1,6 @@
 # DT40
 
-![DT40](http://semitek.oss-cn-hangzhou.aliyuncs.com/qmk_imaging%2Fdt40%20layout05192023.jpg?OSSAccessKeyId=ogxQdo6geQXQVIK5&Expires=1684576837&Signature=GUNgvZ5GDL9uZY6CfpKYN1KvsJk%3D)
+![DT40](http://semitek.oss-cn-hangzhou.aliyuncs.com/qmk_imaging%2Fdt40%20layout05192023.jpg?OSSAccessKeyId=ogxQdo6geQXQVIK5&Expires=1720909578&Signature=nPWJ3jICUZ4XnLQSpk9MZBbaYuY%3D)
 
 ## The PCB features:
 * QMK & VIA compatibility
