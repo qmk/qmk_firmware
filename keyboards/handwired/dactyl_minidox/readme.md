@@ -2,7 +2,7 @@
 
 ![DactylMinidox](https://i.imgur.com/PqjgeRfh.jpg)
 
-A 36 key (3x5_3), split bodied keyboard derived from the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform/).
+A 36 key (3x5+3), split bodied keyboard derived from the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform/).
 
 * Keyboard Maintainer: [Dan Ford](https://github.com/dlford)
 * Hardware Supported: Pro Micro controller, or clone of
