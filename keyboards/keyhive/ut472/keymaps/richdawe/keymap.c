@@ -28,7 +28,8 @@ ps2pdf ut472-keymap-richdawe.ps ut472-keymap-richdawe.pdf
 #define LT3_TAB LT(3, KC_TAB)
 
 enum custom_keycodes {
-  MACRO_RGBI = SAFE_RANGE, /* Output current RGB info */
+  MACRO_RGBI   = SAFE_RANGE,     /* Output current RGB info */
+  MACRO_RGBRST = SAFE_RANGE + 1, /* Reset RGB underglow colour to default */
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -99,13 +100,13 @@ LAYOUT( /* Tab */
    * |-------------------------------------------------------------------------+
    * |       | F7 | F8  | F9  | F10 | F11 | F12 |     |     |MUTE |VOLUP |     |
    * |-------------------------------------------------------------------------+
-   * |RESET|     |     |Capsl|      |          |       |MPLAY|MPREV|VOLDN|MNEXT|
+   * |RESET|RGBRS|     |Capsl|      |          |       |MPLAY|MPREV|VOLDN|MNEXT|
    * `-------------------------------------------------------------------------'
    */
   _______, KC_F1,   KC_F2,   KC_F3,   RGB_TOG, RGB_MOD, RGB_VAI, RGB_HUI, RGB_SAI, _______, KC_PSCR, KC_DELETE,
   KC_ESC,  KC_F4,   KC_F5,   KC_F6, MACRO_RGBI,RGB_M_P, RGB_VAD, RGB_HUD, RGB_SAD, _______, _______, _______,
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_MUTE, KC_VOLU, _______,
-  RESET,   _______, _______, KC_CAPS, _______,     _______,      _______, KC_MPLY, KC_MPRV, KC_VOLD, KC_MNXT
+  RESET,   MACRO_RGBRST, _______, KC_CAPS, _______,     _______,      _______, KC_MPLY, KC_MPRV, KC_VOLD, KC_MNXT
 ),
 };
 
@@ -121,6 +122,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       snprintf(buf, sizeof(buf), "H: %u S: %u V: %u", hue, sat, val);
       send_string(buf);
+    } else {
+      // when keycode QMKBEST is released
+    }
+    break;
+
+  case MACRO_RGBRST: /* Reset RGB underglow colour to default */
+    if (record->event.pressed) {
+      rgblight_sethsv(RGBLIGHT_DEFAULT_HUE, RGBLIGHT_DEFAULT_SAT, RGBLIGHT_DEFAULT_VAL);
     } else {
       // when keycode QMKBEST is released
     }
