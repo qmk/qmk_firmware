@@ -343,6 +343,15 @@ $(KEYBOARD_OUTPUT)/src/default_keyboard.h: $(INFO_JSON_FILES)
 
 generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.c $(KEYBOARD_OUTPUT)/src/default_keyboard.h
 
+generated-files: $(KEYMAP_OUTPUT)/src/info_deps.d
+
+$(KEYMAP_OUTPUT)/src/info_deps.d:
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-make-dependencies -kb $(KEYBOARD) -km $(KEYMAP) -o $(KEYMAP_OUTPUT)/src/info_deps.d)
+	@$(BUILD_CMD)
+
+-include $(KEYMAP_OUTPUT)/src/info_deps.d
+
 .INTERMEDIATE : generated-files
 
 # Userspace setup and definitions
