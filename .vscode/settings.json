@@ -30,4 +30,5 @@
     },
     "clangd.arguments": [
         "--header-insertion=never"
+    ]
 }
