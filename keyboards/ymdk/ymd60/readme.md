@@ -6,6 +6,7 @@ A 60% PCB, which is controlled by an ATMega32U4 chipset.
 
 * Keyboard Maintainer: [Pangorin](https://github.com/pangorin)
 * Hardware Supported: ATMega32U4-MU
+* Hardware Availability: [YMDK](https://ymdkey.com/products/ymdk-hhkb-layout-qmk-via-programmable-underglow-rgb-aluminum-cnc-sandwich-case-plate-mechanical-keyboard-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
