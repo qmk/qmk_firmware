@@ -3,6 +3,14 @@
 
 #include "lvgl_helpers.h"
 
+lv_obj_t *create_button(lv_obj_t *parent, const char *text, lv_style_t *style, lv_style_t *style_pressed) {
+    lv_obj_t *label = lv_label_create(parent);
+    lv_label_set_text(label, text);
+    lv_obj_add_style(label, style, 0);
+    lv_obj_add_style(label, style_pressed, LV_STATE_PRESSED);
+    return label;
+}
+
 void use_flex_row(void *obj) {
     lv_obj_set_layout(obj, LV_LAYOUT_FLEX);
     lv_obj_set_flex_flow(obj, LV_FLEX_FLOW_ROW);

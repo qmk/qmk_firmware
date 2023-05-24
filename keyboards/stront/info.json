@@ -74,10 +74,13 @@
     },
     "features": {
         "bootmagic": true,
+        "console": false,
         "encoder": true,
         "backlight": true,
+        "extrakey": true,
         "rgblight": false,
-        "rgb_matrix": true
+        "rgb_matrix": true,
+        "nkro": false
     },
     "backlight": {
         "pin": "GP14"
