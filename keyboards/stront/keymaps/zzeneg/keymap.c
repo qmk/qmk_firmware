@@ -3,7 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
-#include "display.h"
+#include "zzeneg_display.h"
 #include "raw_hid.h"
 #include "layers.h"
 
@@ -33,7 +33,7 @@
 #define LCTL_ESC LCTL_T(KC_ESC)
 #define LGUI_QUOT LGUI_T(KC_QUOT)
 
-enum custom_keycodes { M_EMAIL = SAFE_RANGE, M_CBR, M_PRN, M_BRC, M_ARROW, DISP_TOG };
+enum custom_keycodes { M_EMAIL = SAFE_RANGE, M_CBR, M_PRN, M_BRC, M_ARROW };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* QWERTY
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |  -   |   Z  |   X  |   C  |   V  |   B  |--------.  .--------|   N  |   M  |   ,  |   .  |   /  |  '   |
      * '-----------------------------------------/       /    \       \-----------------------------------------'
      *                         | Esc  | Tab  |  / Space /      \ Enter \  | Bsps | Del  |
-     *                         |_FUNC | _NUM | /_SYMBOL/        \ _FUNC \ | _NAV | RAlt |
+     *                         |_FUNC | _NUM | /_SYMBOL/        \ _FUNC \ | _NAV | _EU  |
      *                         `-------------''-------'          '-------''-------------'
      */
     // clang-format off
@@ -99,8 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_SYS] = LAYOUT(
-                            DT_UP,    DT_DOWN,  DT_PRNT,  XXXXXXX,            DISP_TOG,  RGB_TOG,  RGB_MOD,  RGB_RMOD,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,   RGB_HUI,  RGB_SAI,  RGB_VAI,  RGB_SPI,  XXXXXXX,
+                            BL_DOWN,  BL_UP,    BL_TOGG,  XXXXXXX,            XXXXXXX,   RGB_TOG,  RGB_MOD,  RGB_RMOD,
+        XXXXXXX,  XXXXXXX,  DT_UP,    DT_DOWN,  DT_PRNT,  XXXXXXX,            XXXXXXX,   RGB_HUI,  RGB_SAI,  RGB_VAI,  RGB_SPI,  RGB_M_P,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,   RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_SPD,  XXXXXXX,
                                             _______, QK_BOOT, _______,     _______, QK_BOOT, _______
     )
@@ -158,79 +158,10 @@ void     custom_home_row_ctrl(keyrecord_t *record, uint16_t time) {
     }
 }
 
-/* RGB layers for Game layer, caps lock and caps word */
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
-const rgblight_segment_t PROGMEM        game_layer[]         = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_ORANGE});
-const rgblight_segment_t PROGMEM        capslock_layer[]     = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_PURPLE});
-const rgblight_segment_t PROGMEM        capslockword_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 1, HSV_MAGENTA});
-const rgblight_segment_t *const PROGMEM rgb_layers[]         = RGBLIGHT_LAYERS_LIST(game_layer, capslock_layer, capslockword_layer);
-#endif
-
-static bool display_enabled;
-#ifdef DISPLAY_TIMEOUT
-bool     display_timed_out;
-uint16_t display_timeout_timer   = 0;
-uint8_t  display_timeout_counter = 0;
-#endif
-
-void display_toggle(bool enabled) {
-    dprintf("toggle display to %s\n", enabled ? "enabled" : "disabled");
-
-    display_enabled = enabled;
-    if (enabled) {
-        backlight_enable();
-    } else {
-        backlight_disable();
-    }
-}
-
-void keyboard_post_init_user(void) {
-    // debug_enable = true;
-
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
-    rgblight_layers = rgb_layers;
-#endif
-
-#ifdef DISPLAY_TIMEOUT
-    display_timeout_timer = timer_read();
-#endif
-
-    if (is_keyboard_master()) {
-        display_enabled = display_init();
-    }
-}
-
-void housekeeping_task_user(void) {
-    if (display_enabled) {
-        display_refresh_data();
-
-#ifdef DISPLAY_TIMEOUT
-        if (is_keyboard_master() && timer_elapsed(display_timeout_timer) > 10000) {
-            display_timeout_timer = timer_read();
-            display_timeout_counter++;
-            if (display_timeout_counter > DISPLAY_TIMEOUT * 6) {
-                dprint("display timeout true\n");
-                display_timed_out = true;
-                display_toggle(false);
-            }
-        }
-#endif
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    dprintf("keycode %u %s %s %d\n", keycode, record->event.pressed ? "pressed" : "depressed", record->tap.interrupted ? "interrupted" : "not interrupted", record->tap.count);
+    dprintf("process_record_user %u %s %s %d\n", keycode, record->event.pressed ? "pressed" : "depressed", record->tap.interrupted ? "interrupted" : "not interrupted", record->tap.count);
 
-#ifdef DISPLAY_TIMEOUT
-    display_timeout_counter = 0;
-    if (is_keyboard_master() && display_timed_out) {
-        dprint("display timeout false\n");
-        display_timed_out = false;
-        display_toggle(true);
-    }
-#endif
-
-    if (display_enabled) {
+    if (is_display_enabled()) {
         display_process_record(keycode, record);
     }
 
@@ -251,11 +182,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 break;
             case M_ARROW:
                 SEND_STRING("=>");
-                break;
-
-            // custom keys
-            case DISP_TOG:
-                display_toggle(!display_enabled);
                 break;
 
             // custom increased tapping term for home row CTRL + other keys
@@ -281,37 +207,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 /* Active Layer processing */
 layer_state_t layer_state_set_user(layer_state_t state) {
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
-    rgblight_set_layer_state(0, layer_state_cmp(state, _GAME));
-#endif
-
-    if (display_enabled) {
+    if (is_display_enabled()) {
         display_process_layer_state(get_highest_layer(state));
     }
 
     return state;
 }
 
-/* Caps Lock processing */
-bool led_update_user(led_t led_state) {
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
-    rgblight_set_layer_state(1, led_state.caps_lock);
-#endif
-
-    if (display_enabled) {
-        display_process_caps(led_state.caps_lock);
-    }
-
-    return true;
-}
-
 /* Caps Word processing */
 void caps_word_set_user(bool active) {
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
-    rgblight_set_layer_state(2, active);
-#endif
-
-    if (display_enabled) {
+    if (is_display_enabled()) {
         display_process_caps_word(active);
     }
 }
@@ -339,9 +244,9 @@ bool caps_word_press_user(uint16_t keycode) {
 
 /* Raw HID processing*/
 void raw_hid_receive(uint8_t *data, uint8_t length) {
-    dprintf("received %u bytes from HID \n", length);
+    dprintf("raw_hid_receive - received %u bytes \n", length);
 
-    if (display_enabled) {
+    if (is_display_enabled()) {
         display_process_raw_hid_data(data, length);
     }
 }

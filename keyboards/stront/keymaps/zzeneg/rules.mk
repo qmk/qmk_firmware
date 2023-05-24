@@ -6,20 +6,12 @@ CAPS_WORD_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 DYNAMIC_TAPPING_TERM_ENABLE = yes
 
-POINTING_DEVICE_ENABLE = yes
-POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
-
-QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS += st7789_spi
-QUANTUM_PAINTER_LVGL_INTEGRATION = yes
-
-OPT_DEFS = -O2
+POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c
 
 RAW_ENABLE = yes
 
-SRC +=  lvgl_helpers.c \
-  		./display.c \
-		./fonts/montserrat_20_en_ru.c \
-		./fonts/montserrat_48_digits.c \
-		./icons/flag_uk.c \
-		./icons/flag_ru.c
+SRC +=  zzeneg_display.c \
+		fonts/montserrat_20_en_ru.c \
+		fonts/montserrat_48_digits.c \
+		icons/flag_uk.c \
+		icons/flag_ru.c
