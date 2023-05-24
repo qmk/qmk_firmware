@@ -19,7 +19,6 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_LED_COUNT 44
 led_config_t g_led_config = { {
   // Key Matrix to LED Index
   {  0,    1,    2,    3,    4,    5,    6,    7,    8,    9,   11 },
