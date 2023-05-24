@@ -5,7 +5,7 @@
     "maintainer": "nooges",
     "usb": {
         "vid": "0xCB10",
-        "pid": "0x1258",
+        "pid": "0x1358",
         "device_version": "1.0.0"
     },
     "encoder": {
