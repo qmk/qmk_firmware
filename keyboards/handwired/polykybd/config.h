@@ -20,11 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
+/*
 #define VENDOR_ID       0x2021
 #define PRODUCT_ID      0x2007
 #define DEVICE_VER      0x0219
 #define MANUFACTURER    "[thpoll]"
 #define PRODUCT         "PolyKybd v0.2.19"
+*/
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

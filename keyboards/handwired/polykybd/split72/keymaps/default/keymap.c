@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 #include "polykybd.h"
+#include "split72/split72.h"
 #include "print.h"
 #include "base/disp_array.h"
 #include "base/helpers.h"
@@ -218,7 +219,7 @@ void housekeeping_task_user(void) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //Base Layer
-    [_BL] = SPLIT_LAYOUT(
+    [_BL] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
         MO(_FNL),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
@@ -232,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END,     KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
     //Function Layer (Fn)
-    [_FNL] = SPLIT_LAYOUT(
+    [_FNL] = LAYOUT_left_right_stacked(
         TO(_NL),    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
         KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
@@ -246,7 +247,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______,    _______,                _______,    _______,    _______,    TO(_UL)
         ),
      //Num Layer
-    [_NL] = SPLIT_LAYOUT(
+    [_NL] = LAYOUT_left_right_stacked(
         KC_NO,      KC_NUM,     KC_PSLS,    KC_PAST,    KC_PMNS,    KC_NO,      KC_NO,
         KC_MS_BTN1, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,    KC_INS,     KC_NO,
         KC_NO,      KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PPLS,    KC_DEL,     KC_NO,     _______,
@@ -260,7 +261,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,      KC_NO,      KC_NO,                  KC_KP_0,    KC_PDOT,    KC_PENT,   TO(_BL)
         ),
     //Util Layer
-    [_UL] = SPLIT_LAYOUT(//KC_SAVE_EE RGB_PREV
+    [_UL] = LAYOUT_left_right_stacked(
         KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     _______,
@@ -274,7 +275,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,      KC_NO,      KC_NO,                  KC_INCC,    KC_NO,      KC_DECC,   TO(_BL)
         ),
     //Language Selection Layer
-    [_LL] = SPLIT_LAYOUT(
+    [_LL] = LAYOUT_left_right_stacked(
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
         KC_NO,      KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_LANG_GR, KC_NO,      KC_NO,
         KC_NO,      KC_LANG_FR, KC_LANG_DE, KC_LANG_JA, KC_LANG_TR, KC_NO,      KC_NO,      KC_MS_BTN1,
@@ -875,8 +876,7 @@ bool oled_task_user(void) {
     snprintf(buffer, sizeof(buffer), "\nLast Key: 0x%04x", last_key);
     oled_write(buffer, false);
 
-    snprintf(buffer, sizeof(buffer), "\nRGB:%2d ver. %d.%d",
-        rgb_matrix_get_mode(), (char)(DEVICE_VER >> 8), (char)DEVICE_VER);
+    snprintf(buffer, sizeof(buffer), "\nRGB:%2d", rgb_matrix_get_mode());
     oled_write(buffer, false);
 
     snprintf(buffer, sizeof(buffer), "\n%s", is_keyboard_master() ? "MASTER" : "SLAVE");
