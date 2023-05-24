@@ -1,20 +1,16 @@
-# osu
+This keyboard is the slider8 from 1upkeyboards.com, a small macropad with an oled, slide potentiometer, rotary encoder, and 8 switches in a 2x4 ortholinear arrangement with per-key in-switch rgb leds.
 
-![osu](imgur.com image replace me!)
-
-*A short description of the keyboard/project*
+The slide potentiometer presents to the computer as a midi device and will need a seperate program to map to device control.
 
 * Keyboard Maintainer: [ziptyze](https://github.com/ziptyze)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):
 
-    make osu:default
+    make 1upslider8:default
 
 Flashing example for this keyboard:
 
-    make osu:default:flash
+    make 1upslider8:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -22,6 +18,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Bootmagic reset**: Hold down the top left key and plug in the keyboard
+* **Physical reset button**: Hold down the button on the pi pico and plug in the keyboard

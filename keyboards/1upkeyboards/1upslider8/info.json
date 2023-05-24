@@ -10,7 +10,6 @@
         "pid": "0x5607",
         "vid": "0x6F75"
     },
-    "debounce": 5,
     "dynamic_keymap": {
         "layer_count": 10
     },
@@ -37,8 +36,6 @@
             }
         ]
     },
-    "keyboard_folder": "1upkeyboards/slider8",
-    "keymaps": {},
     "matrix_pins": {
         "direct": [
             ["GP27", "GP17", "GP18", "GP19", "GP20", "GP15", "GP14", "GP13", "GP16"]
