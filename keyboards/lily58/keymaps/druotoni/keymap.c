@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                   |      |      |      |/       /         \      \ |      |      |      |
 *                   `----------------------------'           '------''--------------------'
 */
-    [_QWERTY] = LAYOUT(
+    [_QWERTY] = LAYOUT_split_4x6_lili(
     KC_ESC,   KC_1,   KC_2,    KC_3,          KC_4,    KC_5,                              KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DELETE, 
     KC_TAB,   KC_Q,   KC_W,    KC_E,          KC_R,    KC_T,                              KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    FR_CIRC, 
     KC_LSFT,  KC_A,   KC_S,    KC_D,          KC_F,    KC_G,                              KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_RSFT, 
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                   |      |      |          |/       /        \       \ |      |      |      |
 *                   `--------------------------------'          '-------''--------------------'
 */
-    [_LOWER] =  LAYOUT(
+    [_LOWER] =  LAYOUT_split_4x6_lili(
     KC_ESC, KC_F1,      KC_F2,  KC_F3,      KC_F4,          KC_F5,                          KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,         KC_DELETE,
     QK_BOOT,  KC_F11,     KC_F12, KC_DELETE,  RCTL(FR_V),     RCTL(FR_C),                     KC_HOME,    KC_PGUP,    KC_PSCR,    RCTL(FR_Y), RCTL(KC_RIGHT), _______,
     _______,RCTL(FR_A), _______,RCTL(FR_S), RCTL(FR_Z),     KC_BSPC,                        KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,   _______,        _______,
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                   |      |      |      |/       /         \      \ |       |      |      |
 *                   `----------------------------'           '------''---------------------'
 */
-    [_RAISE] = LAYOUT(
+    [_RAISE] = LAYOUT_split_4x6_lili(
     _______, _______,    _______,    _______,    _______, _______,                   _______,    _______, KC_PSLS, KC_PAST, KC_PMNS, RGB_TOG,
     KC_GRV,  FR_LBRC,    FR_RBRC,    _______,    _______, _______,                   FR_EQL,     KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, RGB_HUI, 
     _______, FR_AT,      FR_PIPE,    ALGR(KC_1), FR_EURO, FR_HASH,                   S(FR_EQL),  KC_KP_4, KC_KP_5, KC_KP_6, _______, _______,

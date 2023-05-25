@@ -30,7 +30,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT(
+  [_QWERTY] = LAYOUT_split_4x6_lili(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
   KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_LALT, KC_LGUI, MO(1),   KC_SPC,  KC_SPC,  MO(2),   KC_NUBS, KC_LCTL
   ),
 
-  [_LOWER] = LAYOUT(
+  [_LOWER] = LAYOUT_split_4x6_lili(
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL,
   KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                     KC_NO,   KC_NO,   KC_PGUP, KC_MINS, KC_EQL,  KC_RBRC,
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_NO,   KC_HOME, KC_PGDN, KC_END,  KC_NO,   KC_NUHS,
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
   ),
 
-  [_RAISE] = LAYOUT(
+  [_RAISE] = LAYOUT_split_4x6_lili(
   KC_TRNS, RALT(KC_1), RALT(KC_2), RALT(KC_3), RALT(KC_4), RALT(KC_5),                RALT(KC_6), RALT(KC_7),    RALT(KC_8), RALT(KC_9), RALT(KC_0), KC_DEL,
   KC_TRNS, KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,                     KC_NO,      KC_NO,         KC_UP,      KC_MINS,    KC_EQL,     KC_RBRC,
   KC_ESC,  KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,                     KC_NO,      KC_LEFT,       KC_DOWN,    KC_RGHT,    KC_NO,      KC_NUHS,
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    KC_RALT,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    RALT(KC_NUBS), KC_TRNS
   ),
 
-  [_ADJUST] = LAYOUT(
+  [_ADJUST] = LAYOUT_split_4x6_lili(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,

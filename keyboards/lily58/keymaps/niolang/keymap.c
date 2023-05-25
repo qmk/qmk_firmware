@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 
- [_BEPO] = LAYOUT(
+ [_BEPO] = LAYOUT_split_4x6_lili(
   MT(KC_CAPS, KC_ESC), BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN,                                 BP_AT,    BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, BP_W,
   KC_TAB,              BP_B,    BP_EACU, BP_P,    BP_O,    BP_EGRV,                                 BP_DCIR,  BP_V,    BP_D,    BP_L,    BP_J,    BP_Z,
   KC_LCTL,             BP_A,    BP_U,    BP_I,    BP_E,    BP_COMM,                        MT(BP_CCED, BP_C), BP_T,    BP_S,    BP_R,    BP_N,    BP_M,
@@ -74,14 +74,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-[_LOWER] = LAYOUT(
+[_LOWER] = LAYOUT_split_4x6_lili(
   KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,                       KC_PPLS, KC_P7, KC_P8,   KC_P9,   BP_EQL,  BP_HASH,
   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,                      KC_PMNS, KC_P4, KC_P5,   KC_P6,   BP_PERC, BP_RABK, 
   _______, KC_COPY, KC_PSTE2, KC_UP,   KC_HOME, KC_END,                      KC_PSLS, KC_P1, KC_P2,   KC_P3,   BP_LABK, BP_RABK,
   _______, KC_CUT,  KC_LEFT,  KC_DOWN, KC_RGHT, KC_PSCR,TG(_RAISE), _______, KC_PAST, KC_P0, KC_PDOT, KC_PCMM, BP_LPRN, BP_RPRN,
                                 _______, _______, _______, _______, _______,  _______, _______, _______
 ),
-[_RAISE] = LAYOUT(
+[_RAISE] = LAYOUT_split_4x6_lili(
   KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,                       KC_PPLS, KC_P7, KC_P8,   KC_P9,   BP_EQL,  BP_HASH,
   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,                      KC_PMNS, KC_P4, KC_P5,   KC_P6,   BP_PERC, BP_CIRC, 
   _______, KC_COPY, KC_PSTE2, KC_UP,   KC_HOME, KC_END,                      KC_PSLS, KC_P1, KC_P2,   KC_P3,   BP_LABK, BP_RABK,
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-  [_ADJUST] = LAYOUT(
+  [_ADJUST] = LAYOUT_split_4x6_lili(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_SCRL, KC_INS,  KC_PAUSE, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_NUM,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
