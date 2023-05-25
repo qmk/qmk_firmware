@@ -1,6 +1,6 @@
 {
-    "manufacturer": "Noah Beidelman",
-    "keyboard_name": "magtray4x3",
+    "manufacturer": "Prota Designs",
+    "keyboard_name": "Printed Pad",
     "maintainer": "noahbei",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
@@ -21,7 +21,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",
-        "vid": "0x4D54"
+        "vid": "0x5044"
     },
     "layouts": {
         "LAYOUT_ortho_4x3": {

@@ -1,20 +1,16 @@
-# magtray4x3
+# Printed Pad
 
-![magtray4x3](imgur.com image replace me!)
-
-*A short description of the keyboard/project*
-
-* Keyboard Maintainer: [Noah Beidelman](https://github.com/noahbei)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [noahbei](https://github.com/noahbei)
+* Hardware Supported: STM32F072RBT6
+* Hardware Availability: protadesigns.com
 
 Make example for this keyboard (after setting up your build environment):
 
-    make magtray4x3:default
+    make printedpad:default
 
 Flashing example for this keyboard:
 
-    make magtray4x3:default:flash
+    make printedpad:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

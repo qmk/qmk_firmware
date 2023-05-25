@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "magtray4x3.h"
+#include "printedpad.h"
 
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
