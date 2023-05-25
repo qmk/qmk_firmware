@@ -57,11 +57,11 @@ Set the us altgr international to activate French keys :
 ![fn](https://i.imgur.com/Q41ZdQi.png)  
 ![left hand](https://i.imgur.com/WDEGxGM.png)
 
-![combos_couple](https://i.imgur.com/lwmq25D.png)
-![combos_flat](https://i.imgur.com/aroLQRe.png)
-![combos_long](https://i.imgur.com/pbDyxxB.png)
-![combos_french](https://i.imgur.com/1nXYItU.png)
-![combos_leader](https://i.imgur.com/3IzSWGu.png)
+![combos_couple](https://i.imgur.com/pLxtoCv.png)
+![combos_simple](https://i.imgur.com/jW8Yr5B.png)
+![combos_long](https://i.imgur.com/YmhNJD5.png)
+![combos_french](https://i.imgur.com/rpihX94.png)
+![combos_leader](https://i.imgur.com/O45XGHx.png)
 
 #### Leader
 
