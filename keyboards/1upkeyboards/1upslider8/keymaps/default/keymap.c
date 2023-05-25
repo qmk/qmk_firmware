@@ -23,60 +23,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    RGB_TOG,
         KC_1,     KC_2,     KC_3,     KC_4,
         KC_5,     KC_6,     KC_7,     KC_8
-    ),
-
-    [1] = LAYOUT_2x4(
-                                   KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [2] = LAYOUT_2x4(
-                                   KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [3] = LAYOUT_2x4(
-                                   KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [4] = LAYOUT_2x4(
-                                   KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [5] = LAYOUT_2x4(
-                                   KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [6] = LAYOUT_2x4(
-                                   KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [7] = LAYOUT_2x4(
-                                   KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [8] = LAYOUT_2x4(
-                                   KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [9] = LAYOUT_2x4(
-                                   KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
 
