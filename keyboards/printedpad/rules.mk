@@ -1,4 +1,3 @@
-
 ifeq ($(KEYMAP), noah)
 	SRC += oled2.c
 else

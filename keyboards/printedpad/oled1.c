@@ -1,3 +1,6 @@
+// Copyright 2023 Noah Beidelman (@noahbei)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "printedpad.h"
 
 #ifdef OLED_ENABLE
