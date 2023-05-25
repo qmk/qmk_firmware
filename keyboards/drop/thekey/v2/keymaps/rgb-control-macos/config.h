@@ -1,4 +1,4 @@
-/* Copyright 2021 Joe Maples <joe@maples.dev>
+/* Copyright 2022 Jason Wihardja
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,10 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#pragma once
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    [0] = LAYOUT(KC_LCTL, KC_C, KC_V),
-
-};
+#define RGBLIGHT_LAYERS /* Enable lighting layers */
+#define RGBLIGHT_LAYER_BLINK /* Enable lighting layer blink */
