@@ -3,10 +3,6 @@
 
 #pragma once
 
-/* LED */
-#define LED_PIN_ON_STATE 0
-#define LED_CAPS_LOCK_PIN C15
-#define LED_SCROLL_LOCK_PIN C0
 
 /* LED Driver */
 #define DRIVER_1_CS B6
