@@ -3,7 +3,6 @@
 
 #pragma once
 
-
 /* LED Driver */
 #define DRIVER_1_CS B6
 #define DRIVER_1_EN B7
