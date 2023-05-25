@@ -1,8 +1,5 @@
 /*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+Copyright 2020 Naoki Katahira
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
