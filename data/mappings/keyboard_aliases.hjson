@@ -943,6 +943,12 @@
     "m3n3van": {
         "target": "matthewdias/m3n3van"
     },
+    "massdrop/thekey": {
+        "target": "drop/thekey/v1"
+    },
+    "massdrop/thekey_v2": {
+        "target": "drop/thekey/v2"
+    },
     "mechmini/v1": {
         "target": "mechkeys/mechmini/v1"
     },

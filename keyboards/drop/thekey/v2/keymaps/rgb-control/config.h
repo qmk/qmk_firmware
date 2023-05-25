@@ -1,4 +1,4 @@
-/* Copyright 2021 Joe Maples <joe@maples.dev>
+/* Copyright 2022 Jason Wihardja
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +16,5 @@
 
 #pragma once
 
-#define RGBLED_NUM 2
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-#define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+#define RGBLIGHT_LAYERS /* Enable lighting layers */
+#define RGBLIGHT_LAYER_BLINK /* Enable lighting layer blink */
