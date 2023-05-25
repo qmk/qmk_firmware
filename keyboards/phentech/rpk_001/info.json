@@ -29,6 +29,10 @@
             {"pin_a": "A2", "pin_b": "A1"}
         ]
     },
+    "indicators": {
+        "caps_lock": "C15",
+        "scroll_lock": "C0"
+    },
     "rgb_matrix": {
         "driver": "AW20216",
         "layout": [
