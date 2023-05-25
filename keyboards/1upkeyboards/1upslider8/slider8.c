@@ -364,14 +364,6 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  //debug_keyboard=true;
-  //debug_mouse=true;
-}
-
 void matrix_init_user(void) {
     midi_register_cc_callback(&_midi_device, slider8_cc_callback);
 }
