@@ -21,9 +21,17 @@
     { B5, B4, B3, A15, A14, A13 }
 #define MATRIX_COL_PINS \
     { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
-#define NO_PIN_START 10
-#define NO_PIN_NUM 10
-#define CLR_REG_VAL 0x3FF
+
+/* Pin connected to DS of 74HC595 */
+#define DATA_PIN_74HC595 C15
+/* Pin connected to SH_CP of 74HC595 */
+#define CLOCK_PIN_74HC595 A1
+/* Pin connected to ST_CP of 74HC595 */
+#define LATCH_PIN_74HC595 A0
+/* Pin used number of 74HC595 */
+#define PIN_USED_74HC595 10
+/* Pin used start of 74HC595 */
+#define PIN_START_74HC595 10
 
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 60
