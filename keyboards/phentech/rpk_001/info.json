@@ -31,7 +31,8 @@
     },
     "indicators": {
         "caps_lock": "C15",
-        "scroll_lock": "C0"
+        "scroll_lock": "C0",
+        "on_state": 0
     },
     "rgb_matrix": {
         "driver": "AW20216",
