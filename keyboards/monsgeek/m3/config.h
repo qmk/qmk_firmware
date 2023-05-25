@@ -1,4 +1,4 @@
-/* Copyright (C) 2022 jonylee@hfd
+/* Copyright (C) 2023 jonylee@hfd
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,13 +19,7 @@
 /* Use 6 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
-#define FORCE_NKRO
-
 /* LED Indicators */
-#define LED_CAPS_LOCK_PIN    A15
-// #define LED_NUM_LOCK_PIN       C10
-// #define LED_SCROLL_LOCK_PIN     C11
 #define LED_MAC_OS_PIN C10
 #define LED_WIN_LOCK_PIN C11
 
@@ -55,34 +49,9 @@
 
 #define RGB_TRIGGER_ON_KEYDOWN
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#define RGB_MATRIX_CENTER {112,32}
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_KEYRELEASES
 
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-#define ENABLE_RGB_MATRIX_SOLID_COLOR     // Static single hue, no speed support
-#define ENABLE_RGB_MATRIX_BREATHING
-#define ENABLE_RGB_MATRIX_CYCLE_ALL
-#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
-#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-#define ENABLE_RGB_MATRIX_DUAL_BEACON
-#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
-#define ENABLE_RGB_MATRIX_RAINDROPS
-// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
-#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#define ENABLE_RGB_MATRIX_MULTISPLASH
 
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160 /* The maximum brightness level */
 
-//#define DISABLE_M3_KEYCODES /*if you need to change or restore the default QMK button function, please open it*/
