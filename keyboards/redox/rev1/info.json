@@ -8,6 +8,10 @@
     "pid": "0x5244",
     "device_version": "1.0.0"
   },
+  "community_layouts": ["redox"],
+  "layout_aliases": {
+    "LAYOUT": "LAYOUT_redox"
+  }, 
   "layouts": {
     "LAYOUT": {
       "layout": [

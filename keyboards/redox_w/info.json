@@ -10,6 +10,10 @@
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",
+  "community_layouts": ["redox"],
+  "layout_aliases": {
+    "LAYOUT": "LAYOUT_redox"
+  }, 
   "layouts": {
     "LAYOUT": {
       "layout": [
