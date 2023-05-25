@@ -14,8 +14,6 @@
         "layer_count": 10
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": true,
@@ -24,8 +22,7 @@
         "nkro": false,
         "oled": true,
         "midi":true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "encoder": {
         "enabled": true,
