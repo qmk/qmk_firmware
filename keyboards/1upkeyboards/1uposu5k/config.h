@@ -19,7 +19,6 @@
 #define RGB_DI_PIN GP24
 #define RGB_MATRIX_LED_COUNT 32
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#define RGBLIGHT_LIMIT_VAL 255
 
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
