@@ -3,9 +3,6 @@
 
 #pragma once
 
-/* Encoder */
-#define ENCODER_DIRECTION_FLIP
-
 /* LED */
 #define LED_PIN_ON_STATE 0
 #define LED_CAPS_LOCK_PIN C15
