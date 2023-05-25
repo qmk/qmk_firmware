@@ -91,7 +91,7 @@ static void set_keylog(uint16_t keycode, keyrecord_t *record) {
     }
 
     // update keylog
-    key_name = code_to_name[keycode];
+    key_name = pgm_read_byte(&code_to_name[keycode]);
     last_row = record->event.key.row;
     last_col = record->event.key.col;
 }
