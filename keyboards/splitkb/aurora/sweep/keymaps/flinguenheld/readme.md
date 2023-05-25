@@ -49,19 +49,19 @@ Set the us altgr international to activate French keys :
 
 #### Layouts
 
-![base](https://i.imgur.com/hqOkpV5.png)  
-![numeric](https://i.imgur.com/x7JUozH.png)  
-![mouse](https://i.imgur.com/5EUkYFX.png)  
-![arrows](https://i.imgur.com/q8WrgHI.png)  
-![adjust](https://i.imgur.com/LFBVyf7.png)  
-![fn](https://i.imgur.com/l5RoQFV.png)  
-![left hand](https://i.imgur.com/5QfkeiH.png)
+![base](https://i.imgur.com/i7NgrCD.png)  
+![numeric](https://i.imgur.com/6Yso40L.png)  
+![mouse](https://i.imgur.com/skSL4Lo.png)  
+![arrows](https://i.imgur.com/NIjJR2I.png)  
+![adjust](https://i.imgur.com/xj6i70P.png)  
+![fn](https://i.imgur.com/Q41ZdQi.png)  
+![left hand](https://i.imgur.com/WDEGxGM.png)
 
-![combos_couple](https://i.imgur.com/aU3THb2.png)
-![combos_home](https://i.imgur.com/jq95ht7.png)
-![combos_long](https://i.imgur.com/3rINToc.png)
-![combos_leader](https://i.imgur.com/9XgcT8X.png)
-![combos_french](https://i.imgur.com/C2ZwDxb.png)
+![combos_couple](https://i.imgur.com/lwmq25D.png)
+![combos_flat](https://i.imgur.com/aroLQRe.png)
+![combos_long](https://i.imgur.com/pbDyxxB.png)
+![combos_french](https://i.imgur.com/1nXYItU.png)
+![combos_leader](https://i.imgur.com/3IzSWGu.png)
 
 #### Leader
 
