@@ -1,6 +1,6 @@
 # Neely65
 
-![Neely65](https://i.imgur.com/qu6fxXS.jpeg)
+![Neely65](https://i.imgur.com/qu6fxXSh.jpeg)
 
 The following is the QMK Firmware for the Neely65 PCB.
 
