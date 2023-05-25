@@ -30,7 +30,7 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT(
+  [_QWERTY] = LAYOUT_redox(
   /* QWERTY
    * ,-----------------------------------------.                                    ,-----------------------------------------.
    * | ESC  |   1  |   2  |   3  |   4  |   5  |                                    |   6  |   7  |   8  |   9  |   0  | Bsp  |
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      ADJ     , KC_HYPR, KC_MEH ,KC_LCTL ,          A_COMM , KC_LGUI , SC_SENT   , SC_SENT   , SY_SPC , A_DOT  ,          KC_RCTL , KC_PGUP , KC_PGDN , ADJ
   ),
 
-  [_SYMBOL] = LAYOUT(
+  [_SYMBOL] = LAYOUT_redox(
   /* SYMBOL
    * ,-----------------------------------------.                                    ,-----------------------------------------.
    * |  ~   |  F1  |  F2  |  F3  |  F4  |  F5  |                                    |  F6  |  F7  |  F8  |  F9  |  F10 | Del  |
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______ , _______ , _______ , _______ ,           _______ , _______ , _______ , _______ , _______ , _______ ,           _______ , XXXXXXX , XXXXXXX , _______
   ),
 
-  [_ADJUST] = LAYOUT(
+  [_ADJUST] = LAYOUT_redox(
   /* ADJUST
    * ,-----------------------------------------.                                    ,-----------------------------------------.
    * | RST  |      |      |      |      |      |                                    |      |      |      |      |      | RST  |
