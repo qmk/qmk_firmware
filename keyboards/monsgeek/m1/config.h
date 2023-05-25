@@ -24,6 +24,8 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+#define ENCODER_DEFAULT_POS 0x3
+
 /* SPI Config for spi flash*/
 #define SPI_DRIVER SPIDQ
 #define SPI_SCK_PIN B3
