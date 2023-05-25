@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 //for changing layers
 extern uint8_t current_layer;
