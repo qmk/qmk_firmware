@@ -15,7 +15,7 @@
     "LAYOUT": "LAYOUT_redox"
   }, 
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_redox": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0.375, "w": 1.25},
         {"matrix": [0, 1], "x": 1.25, "y": 0.375},
