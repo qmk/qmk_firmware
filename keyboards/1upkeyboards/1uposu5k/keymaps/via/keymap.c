@@ -23,38 +23,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT_1x5(
         RGB_TOG, RGB_MOD, KC_TRNS, RGB_VAD, RGB_VAI
-    ),
-
-    [2] = LAYOUT_1x5(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [3] = LAYOUT_1x5(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [4] = LAYOUT_1x5(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [5] = LAYOUT_1x5(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [6] = LAYOUT_1x5(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [7] = LAYOUT_1x5(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [8] = LAYOUT_1x5(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-
-    [9] = LAYOUT_1x5(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
 
