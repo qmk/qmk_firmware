@@ -34,6 +34,9 @@
       "pid":      "0x4141",
       "device_version": "0.0.1"
     },
+    "ws2812": {
+    "pin": "C7",
+    },
     "rgblight": {
         "pin": "C7",
         "led_count": 2,
