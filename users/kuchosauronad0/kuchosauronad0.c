@@ -68,7 +68,8 @@ __attribute__((weak)) bool shutdown_keymap(bool jump_to_bootloader) {
 bool shutdown_user(bool jump_to_bootloader) {
     if (!shutdown_keymap(jump_to_bootloader)) {
         return false;
-    }  #ifdef RGBLIGHT_ENABLE
+    }
+ #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
     rgblight_setrgb(RGB_TEAL);
