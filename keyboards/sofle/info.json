@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "Sofle",
+    "split":{
+        "enabled": true
+    },
+    "community_layouts": ["split_4x6_sofl"],
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_split_4x6_sofl"
+    }
+}

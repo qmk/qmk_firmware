@@ -26,6 +26,7 @@
         ]
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "A15",
         "matrix_pins": {
             "right": {
@@ -37,11 +38,13 @@
     "qmk": {
         "tap_keycode_delay": 10
     },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F411",
+    "development_board": "blackpill_f411",
+    "community_layouts": ["split_4x6_sofl"],
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_split_4x6_sofl"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_4x6_sofl": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.5},
                 {"matrix": [0, 1], "x": 1, "y": 0.375},

@@ -1,6 +1,7 @@
 {
-    "keyboard_name": "Sofle",
     "manufacturer": "Keyhive",
+    "url": "https://keyhive.xyz/",
+    "maintainer": "Keyhive",
     "usb": {
         "vid": "0xFC32",
         "pid": "0x1287",
@@ -46,10 +47,10 @@
     "qmk": {
         "tap_keycode_delay": 10
     },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
+
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_4x6_sofl": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.5},
                 {"matrix": [0, 1], "x": 1, "y": 0.375},
