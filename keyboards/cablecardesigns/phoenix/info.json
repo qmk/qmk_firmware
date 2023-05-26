@@ -16,15 +16,12 @@
         "device_version": "0.0.1"
     },
     "features": {
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": false,
-        "rgblight": false
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "B6",
