@@ -21,7 +21,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_achordion(keycode, record)) { return false; }
 
   #ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    char A[32];
+    switch (get_highest_layer(layer_state)) {
+        case _BASE:
+          strcpy(A, "_BASE" );
+          break;
+        case _GAMING:
+          strcpy(A, "_GAMING" );
+          break;
+        case _SYM:
+          strcpy(A, "_SYM" );
+          break;
+        case _NUM:
+          strcpy(A, "_NUM" );
+          break;
+        case  _MEDIA:
+          strcpy(A, "_MEDIA" );
+         break;
+        case _NAV:
+          strcpy(A, "_NAV" );
+          break;
+        case _MOUSE:
+          strcpy(A, "_MOUSE" );
+          break;
+    }
+
+    uprintf("KL: layer(%s) kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", A, keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
   #endif 
   
   switch (keycode) {

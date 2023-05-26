@@ -134,6 +134,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void keyboard_post_init_user(void) {
+    uprintf("keyboard_post_init_user");
     set_single_persistent_default_layer(_BASE);
 }
 
@@ -142,15 +143,34 @@ bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
                      keyrecord_t* other_record) {
-  uprintf("achordion_chord: kc: 0x%04X, col: %2u, row: %2u, kc: 0x%04X, col: %2u, row: %2u, res %2u\n", other_keycode, other_record->event.key.col, other_record->event.key.row, tap_hold_keycode, tap_hold_record->event.key.col, tap_hold_record->event.key.row, tap_hold_record->event.key.row % (MATRIX_ROWS / 2) >= 4);
+  uprintf("achordion_chord: kc: 0x%04X, col: %2u, row: %2u, kc: 0x%04X, col: %2u, row: %2u\n", other_keycode, other_record->event.key.col, other_record->event.key.row, tap_hold_keycode, tap_hold_record->event.key.col, tap_hold_record->event.key.row);
   // Exceptionally consider the following chords as holds, even though they
-  // are on the same hand in Dvorak.
+  // are on the same hand in Colemak.
+  return true;
   switch (tap_hold_keycode) {
-    case HOME_S:  // S + D and S + W.
-      if (other_keycode == KC_D || other_keycode == KC_W || other_keycode == KC_P) { return true; }
+    case HOME_S:  // S + D and S + W.o
+      if (other_keycode == KC_D || other_keycode == KC_W || other_keycode == KC_P || other_keycode == KC_LSFT) { return true; }
+      break;
+    case HOME_E:  // S + D and S + W.o
+      if (other_keycode == KC_RSFT) { return true; }
+      break; 
+    case HOME_R:  // S + D and S + W.o
+      if (other_keycode == KC_J || other_keycode == KC_H || other_keycode == KC_P || other_keycode == KC_LSFT) { 
+        return true; }
       break;
   }
-  if (other_record->event.key.row == 5|| tap_hold_record->event.key.row == 5 ) { return true; }
+  // Also allow same-hand holds when the other key is in the rows below the
+  // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split.
+  if (other_record->event.key.row >= 9|| tap_hold_record->event.key.row >= 9 ) { return true; }
+
+
+  switch (other_keycode) {
+    case KC_LEFT:
+    case KC_UP:
+    case KC_DOWN:
+    case KC_RGHT:
+      return true;
+  }
 
   // Otherwise, follow the opposite hands rule.
   return achordion_opposite_hands(tap_hold_record, other_record);

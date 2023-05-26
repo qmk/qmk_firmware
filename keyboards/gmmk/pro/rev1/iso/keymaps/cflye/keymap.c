@@ -53,7 +53,7 @@ LAYOUT_gmmk_pro_iso_wrapper(\
     KC_LCTL,    K20,     K21,     K22,     K23,     K24,     KC_AE,   KC_OE,   K25,     K26,     K27,     K28,     K29,         KC_UP,   KC_END,\
     K32,        K33,     KC_LALT,                         KC_SPC,                       K36, K37, KC_LGUI,             KC_LEFT, KC_DOWN, KC_RGHT\
 )
-
+i   
 
 #define LAYOUT_base_wrapper(...) LAYOUT_gmmk_pro_iso_base(__VA_ARGS__)
 #define LAYOUT_gaming_wrapper(...) LAYOUT_gmmk_pro_iso_gaming(__VA_ARGS__)
