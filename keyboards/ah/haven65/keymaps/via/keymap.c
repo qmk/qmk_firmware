@@ -40,9 +40,9 @@ bool led_update_kb(led_t led_state) {
     if (res) {
  //       writePin(B12, !led_state.caps_lock);  //Un-comment this line to enable in-switch capslock indicator
     if (led_state.caps_lock) {
-        rgblight_setrgb_at(255, 255, 255, 0); //green
+        rgblight_sethsv_at(255, 255, 255, 0); //green
     } else {
-        rgblight_setrgb_at(0, 0, 0, 0);
+        rgblight_sethsv_at(0, 0, 0, 0);
     }
   }
     return res;
