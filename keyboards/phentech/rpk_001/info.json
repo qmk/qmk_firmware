@@ -7,7 +7,7 @@
     "bootloader": "wb32-dfu",
     "usb": {
         "device_version": "1.0.0",
-        "vid": "0x3555",
+        "vid": "0xAC12",
         "pid": "0x2236",
         "force_nkro": true,
         "suspend_wakeup_delay": 1000
