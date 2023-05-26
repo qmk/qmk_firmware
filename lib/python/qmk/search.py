@@ -61,7 +61,7 @@ def search_keymap_targets(keymap='default', filters=[], print_vals=[]):
             target_list = [(kb, keymap) for kb in filter(lambda kb: kb is not None, pool.starmap(_keymap_exists, [(kb, keymap) for kb in qmk.keyboard.list_keyboards()]))]
 
         if len(filters) == 0:
-            targets = target_list
+            targets = [(kb, km, {}) for kb, km in target_list]
         else:
             cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
             valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.starmap(_load_keymap_info, target_list)]
