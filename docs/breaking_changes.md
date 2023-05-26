@@ -50,7 +50,7 @@ Criteria for acceptance:
 
 Strongly suggested:
 
-* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20221126`.
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20230528`.
     * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PRs ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 
