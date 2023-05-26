@@ -9,7 +9,13 @@
         "device_version": "0.0.1"
     },
     "features": {
-        "backlight": false
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
     },
     "matrix_pins": {
         "rows": ["B12", "B13", "B14", "B15", "A1"],
