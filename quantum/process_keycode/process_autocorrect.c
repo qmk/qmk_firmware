@@ -325,7 +325,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
              * an extra backspace to delete the space (which we dont copy)
              * for this reason the offset is correct to "skip" the null terminator
              *
-             * B) When correctign 'typo' -- Need extra offset for terminator
+             * B) When correcting 'typo' -- Need extra offset for terminator
              */
             char correct[AUTOCORRECT_MAX_LENGTH + 10] = {0}; // let's hope this is big enough
 
