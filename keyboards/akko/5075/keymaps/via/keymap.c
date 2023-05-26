@@ -1,4 +1,4 @@
-/* Copyright (C) 2022 jonylee@hfd
+/* Copyright (C) 2023 jonylee@hfd
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,14 +24,8 @@ enum __layers {
     MAC_W,
     MAC_FN
 };
-enum custom_keycodes {
-    ENC_VAI = SAFE_RANGE,
-    ENC_VAD
-};
-
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -89,33 +83,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [WIN_B] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
     [WIN_W] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [WIN_FN] = { ENCODER_CCW_CW(ENC_VAI, ENC_VAD) },
+    [WIN_FN] = { ENCODER_CCW_CW(RGB_VAI, RGB_VAD) },
     [MAC_B] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
     [MAC_W] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-    [MAC_FN] = { ENCODER_CCW_CW(ENC_VAI, ENC_VAD) }
+    [MAC_FN] = { ENCODER_CCW_CW(RGB_VAI, RGB_VAD) }
 };
 #endif
 
-// clang-format on
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case ENC_VAI:
-            if (record->event.pressed){
-                if(rgb_matrix_get_val() < RGB_MATRIX_MAXIMUM_BRIGHTNESS){
-                    rgb_matrix_config.hsv.v = rgb_matrix_get_val() + RGB_MATRIX_VAL_STEP;
-                    rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
-                }
-            }
-            return false;
-        case ENC_VAD:
-            if (record->event.pressed){
-                if(rgb_matrix_get_val() > 0){
-                    rgb_matrix_config.hsv.v = rgb_matrix_get_val() - RGB_MATRIX_VAL_STEP;
-                    rgb_matrix_sethsv(rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
-                }
-            }
-            return false;
-    }
-    return true;
-}
