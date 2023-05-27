@@ -2,22 +2,18 @@
     "manufacturer": "Shaping The Silence",
     "keyboard_name": "HexBoard",
     "maintainer": "earboxer",
-    "bootloader": "halfkay",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
     },
     "matrix_pins": {
         "io_delay": 50,
-        "cols": ["E21", "E20", "C3", "D3", "D2", "D4", "D7", "A2", "A1", "D0"],
-        "rows": ["C4", "C6", "C7", "C5", "D1", "C0", "B0", "B3", "B2", "D5", "D6", "C1", "C2", "E30"]
+        "cols": ["GP14", "GP15", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6"],
+        "rows": ["GP4", "GP5", "GP2", "GP3"],
+        "todo": "custom matrix for multiplexing"
     },
-    "processor": "MKL26Z64",
     "url": "https://shapingthesilence.com",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
-    },
     "layouts": {
 
         "LAYOUT_hexboard_landscape": {
