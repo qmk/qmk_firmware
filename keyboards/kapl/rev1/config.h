@@ -8,7 +8,6 @@
 #define RGBLED_NUM 88
 #define RGBLED_SPLIT { 44, 44 }
 #define RGBLIGHT_SPLIT
-#define RGBLIGHT_LIMIT_VAL 120 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 
 #define RGB_MATRIX_LED_COUNT 88
 #define RGB_MATRIX_SPLIT { 44, 44 }

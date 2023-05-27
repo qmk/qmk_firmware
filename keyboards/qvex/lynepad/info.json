@@ -8,6 +8,9 @@
         "cols": [ "F0", "F1", "F4", "F5"],
         "rows": [ "C7", "F7" ,"F6", "F6", "F6"]
     },
+    "rgblight": {
+      "max_brightness": 240
+    },
     "processor": "atmega32u4",
     "url": "https://qvex.eu",
     "usb": {

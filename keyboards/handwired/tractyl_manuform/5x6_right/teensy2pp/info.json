@@ -16,6 +16,9 @@
     "ws2812": {
         "pin": "E7"
     },
+    "rgblight": {
+        "max_brightness": 80
+    },
     "processor": "at90usb1286",
     "bootloader": "halfkay"
 }
