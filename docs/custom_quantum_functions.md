@@ -290,7 +290,7 @@ This function gets called whenever the firmware is reset, whether it's a soft re
 
 Additionally, it differentiates between the soft reset (eg, rebooting back into the firmware) or jumping to the bootloader.
 
-Certain tasks are performed during shutodwn too.  The keyboard is cleared, music and midi is stopped (if enabled), the shutdown chime is triggered (if audio is enabled), and haptic is stopped turned off.
+Certain tasks are performed during shutdown too.  The keyboard is cleared, music and midi is stopped (if enabled), the shutdown chime is triggered (if audio is enabled), and haptic is stopped.
 
 ?> Bootmagic does not trigger `shutdown_*()` as it happens before most of the initialization process.
 
