@@ -10,7 +10,10 @@ enum custom_keycodes {
     FUNCTION,
     CODE,
     ADJUST,
+#   if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     RGBRST,
+#   endif
+    VRSN,
     // Secret Macros
     M_XXX1,
     M_XXX2,
