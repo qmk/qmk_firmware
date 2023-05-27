@@ -62,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * NAV
  */
 [_NAV] = LAYOUT(
-  _______, _______, _______, _______, _______,      _______, KC_HOME, _______, KC_END  , KC_PAGE_UP  ,
-  _______, _______, _______, _______, _______,      KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, KC_PAGE_DOWN,
-  _______, _______, _______, _______, _______,      _______, _______, _______, _______ , _______     ,
-                    _______, _______, _______,      _______, _______, _______
+  KC_PAGE_UP  , KC_HOME, KC_UP  , KC_END  , _______,      _______, KC_HOME, _______, KC_END  , KC_PAGE_UP  ,
+  KC_PAGE_DOWN, KC_LEFT, KC_DOWN, KC_RIGHT, _______,      KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, KC_PAGE_DOWN,
+  _______     , _______, _______, _______ , _______,      _______, _______, _______, _______ , _______     ,
+                    _______, _______ , _______,      _______, _______, _______
 ),
 /* 
  * NUM
