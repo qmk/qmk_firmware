@@ -108,21 +108,21 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         if (!HAS_ANY_FLAGS(g_led_config.flags[pos], (LED_FLAG_MODIFIER | LED_FLAG_KEYLIGHT))) {continue;}
         uint16_t KC = pgm_read_word(&((uint16_t*)keymaps)[(LAYER_SIZE * LAYER) + i]);
 
-        if (KC == KC_NO) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(pos, 0, 0, 0 );
-        }
+        switch (KC) {
+            case KC_NO:
+                RGB_MATRIX_INDICATOR_SET_COLOR(pos, 0, 0, 0 );
+                break;
 
-        #ifdef DYNAMIC_MACRO_ENABLE
-        else if (KC == MCR_SWT) {
-            if (!MACRO1) {
-                RGB_MATRIX_INDICATOR_SET_COLOR(pos, 0, BRIGHTNESS, BRIGHTNESS);
-            }
-        } else if (KC == MCR_REC) {
-            if (RECORDING) {
-                RGB_MATRIX_INDICATOR_SET_COLOR(pos, BRIGHTNESS, 0, 0);
-            }
+            #ifdef DYNAMIC_MACRO_ENABLE
+            case MCR_SWT:
+                if (!MACRO1) { RGB_MATRIX_INDICATOR_SET_COLOR(pos, 0, BRIGHTNESS, BRIGHTNESS); }
+                break;
+
+            case MCR_REC:
+                if (RECORDING) { RGB_MATRIX_INDICATOR_SET_COLOR(pos, BRIGHTNESS, 0, 0); }
+                break;
+            #endif // DYNAMIC_MACRO_ENABLE
         }
-        #endif // DYNAMIC_MACRO_ENABLE
     }
     return false;
 }
@@ -139,7 +139,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #endif // DYNAMIC_MACRO_ENABLE
 
     #ifdef MOUSEKEY_ENABLE
-    if (keycode == MS_ACL_U || keycode == MS_ACL_D) {
+    if ((keycode == MS_ACL_U) || (keycode == MS_ACL_D)) {
         if (record->event.pressed) {
             if ( (keycode == MS_ACL_U) && (current_accel < 2) ) { current_accel += 1; }
             if ( (keycode == MS_ACL_D) && (current_accel > 0) ) { current_accel -= 1; }
