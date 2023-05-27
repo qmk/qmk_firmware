@@ -33,23 +33,23 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 const uint16_t PROGMEM switch_layer_combo[] = {KC_LCTL, KC_C, KC_V, COMBO_END};
 
 combo_t key_combos[] = {
-  [SWITCH_LAYER] = COMBO_ACTION(switch_layer_combo),
+    [SWITCH_LAYER] = COMBO_ACTION(switch_layer_combo),
 };
 
 uint16_t layer = 0;
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case SWITCH_LAYER:
-      if (pressed) {
-        layer++;
-        if (layer <= HIGHEST_LAYER) {
-          layer_on(layer);
-        } else {
-          layer_move(0);
-          layer = 0;
-        }
-      }
-      break;
-  }
+    switch(combo_index) {
+        case SWITCH_LAYER:
+            if (pressed) {
+                layer++;
+                if (layer <= HIGHEST_LAYER) {
+                    layer_on(layer);
+                } else {
+                    layer_move(0);
+                    layer = 0;
+                }
+            }
+            break;
+    }
 }
