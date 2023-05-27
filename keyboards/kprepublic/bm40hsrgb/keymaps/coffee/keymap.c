@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[_END][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define LAYER (get_highest_layer(layer_state))
 #define LAYER_SIZE (MATRIX_ROWS * MATRIX_COLS)
-#define BRIGHTNESS rgb_matrix_config.hsv.v
+#define BRIGHTNESS rgb_matrix_get_val()
 
 #ifdef UNDERGLOW_DISABLE
 void keyboard_pre_init_user(void) {
