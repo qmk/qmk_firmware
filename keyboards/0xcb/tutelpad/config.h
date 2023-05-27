@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 10            // The number of steps to cycle through the hue by
 #define RGBLIGHT_SAT_STEP 17            // The number of steps to increment the saturation by
 #define RGBLIGHT_VAL_STEP 17            // The number of steps to increment the brightness by
-#define RGBLIGHT_LIMIT_VAL 255          // Max brightness level
 #define RGBLIGHT_SLEEP                  // RGB will switch off when host goes to sleep
 
 #define RGBLIGHT_EFFECT_BREATHING       // Enable all additional RGB animation modes

@@ -28,7 +28,6 @@
 #    define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #endif
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_LIMIT_VAL 150
 
 #define B6_AUDIO
 

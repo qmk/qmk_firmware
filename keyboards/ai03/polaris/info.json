@@ -18,6 +18,9 @@
         "levels": 5,
         "breathing": true
     },
+    "rgblight": {
+        "max_brightness": 200
+    },
     "ws2812": {
         "pin": "D2"
     },

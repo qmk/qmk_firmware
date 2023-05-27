@@ -25,6 +25,9 @@
     "ws2812": {
         "pin": "F6"
     },
+    "rgblight": {
+        "max_brightness": 120
+    },
     "bootmagic": {
         "matrix": [0, 2]
     },

@@ -11,6 +11,9 @@
     "rgb_matrix": {
         "driver": "custom"
     },
+    "rgblight": {
+        "max_brightness": 120
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

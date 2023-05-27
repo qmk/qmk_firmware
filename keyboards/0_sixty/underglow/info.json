@@ -8,5 +8,8 @@
     },
     "ws2812": {
         "pin": "B6"
+    },
+    "rgblight": {
+        "max_brightness": 185
     }
 }
