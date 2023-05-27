@@ -12,7 +12,7 @@ const rgblight_segment_t PROGMEM _rgb_layer_1[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 56, HSV_GREEN}
 );
 const rgblight_segment_t PROGMEM _rgb_layer_2[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 56, HSV_WHITE}
+    {0, 56, HSV_YELLOW}
 );
 
 const rgblight_segment_t* const PROGMEM _rgb_layers[] = RGBLIGHT_LAYERS_LIST(
@@ -44,7 +44,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 rgb_matrix_set_color(i, RGB_GREEN);
                 break;
             case _ADJUST:
-                rgb_matrix_set_color(i, RGB_WHITE);
+                rgb_matrix_set_color(i, RGB_YELLOW);
+                    //  RGB_WHITE caused crash
                 break;
             default:
                 break;
