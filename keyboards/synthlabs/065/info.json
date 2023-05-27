@@ -6,7 +6,6 @@
   "processor": "RP2040",
   "bootloader": "rp2040",
   "diode_direction": "COL2ROW",
-  "debounce": 5,
   "features": {
     "bootmagic": true,
     "command": false,
@@ -14,7 +13,6 @@
     "extrakey": true,
     "mousekey": true,
     "nkro": true,
-    "rgblight": false,
     "rgb_matrix": true
   },
   "matrix_pins": {
