@@ -11,6 +11,9 @@
     "ws2812": {
         "pin": "D4"
     },
+    "rgblight": {
+        "max_brightness": 230
+    },
     "matrix_pins": {
         "cols": ["B6", "C6", "D2", "E6", "C7", "B3", "F7", "F6", "F5", "F4", "F1", "F0"],
         "rows": ["B5", "B4", "D1", "D7", "D6"]

@@ -20,6 +20,9 @@
     "ws2812": {
         "pin": "B0"
     },
+    "rgblight": {
+        "max_brightness": 200
+    },
     "processor": "atmega32u4",
     "url": "",
     "usb": {

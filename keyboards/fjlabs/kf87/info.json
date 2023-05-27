@@ -20,6 +20,9 @@
     "ws2812": {
         "pin": "C2"
     },
+    "rgblight": {
+        "max_brightness": 86
+    },
     "processor": "at90usb646",
     "bootloader": "atmel-dfu",
     "layouts": {

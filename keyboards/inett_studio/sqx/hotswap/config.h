@@ -31,7 +31,6 @@
 
 
 //rgb light setting
-#define RGBLIGHT_LIMIT_VAL 128
 #define RGBLED_NUM          18
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
