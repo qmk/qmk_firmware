@@ -16,6 +16,9 @@
     "ws2812": {
         "driver": "i2c"
     },
+    "rgblight": {
+        "max_brightness": 250
+    },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
    "layouts": {

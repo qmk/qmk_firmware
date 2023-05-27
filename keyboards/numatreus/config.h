@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #define RGBLED_NUM 6
 
-#define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_VAL_STEP 17
 
 #define RGBLIGHT_HUE_STEP 10

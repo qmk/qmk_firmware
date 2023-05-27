@@ -15,6 +15,9 @@
     "ws2812": {
         "pin": "B0"
     },
+    "rgblight": {
+        "max_brightness": 200
+    },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
     "layouts": {

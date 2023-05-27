@@ -20,6 +20,9 @@
     "ws2812": {
         "pin": "D5"
     },
+    "rgblight": {
+        "max_brightness": 240
+    },
     "bootmagic": {
         "matrix": [0, 1]
     },

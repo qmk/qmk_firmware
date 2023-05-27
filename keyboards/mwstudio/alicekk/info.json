@@ -20,6 +20,9 @@
     "ws2812": {
         "pin": "B1"
     },
+    "rgblight": {
+        "max_brightness": 200
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layouts": {

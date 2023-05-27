@@ -146,7 +146,7 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["BluefruitLE", "RN42"]
+                    "enum": ["BluefruitLE", "RN42", "custom"]
                 }
             }
         },
