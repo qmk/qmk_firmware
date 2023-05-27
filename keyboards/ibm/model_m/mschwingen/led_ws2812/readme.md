@@ -10,11 +10,11 @@ This is a configuration of QMK intended to be used with the [Model M USB PCB](ht
 
 Make example for this keyboard (after setting up your build environment), run one of:
 
-    make modelm/mschwingen/led_ws2812:default
+    make ibm/model_m/mschwingen/led_ws2812:default
 
 Flashing example for this keyboard:
 
-    make modelm/mschwingen/led_ws2812:default:flash
+    make ibm/model_m/mschwingen/led_ws2812:default:flash
 
 Bootloader: do not use the QMK bootloader, use the bootloader from [here](https://github.com/mschwingen/modelm-lufa-bootloader)
 
