@@ -1,7 +1,5 @@
 # group `leader` 
 
-Leader Key
-
 ## Summary
 
  Members                        | Descriptions                                

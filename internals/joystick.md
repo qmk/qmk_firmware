@@ -1,7 +1,5 @@
 # group `joystick` 
 
-HID Joystick
-
 ## Summary
 
  Members                        | Descriptions                                

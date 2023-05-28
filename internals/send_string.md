@@ -1,6 +1,6 @@
 # group `send_string` 
 
-Send String API. These functions allow you to create macros by typing out sequences of keystrokes.
+These functions allow you to create macros by typing out sequences of keystrokes.
 
 ## Summary
 

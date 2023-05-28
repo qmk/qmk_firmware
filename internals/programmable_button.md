@@ -1,7 +1,5 @@
 # group `programmable_button` 
 
-HID Programmable Buttons
-
 ## Summary
 
  Members                        | Descriptions                                
