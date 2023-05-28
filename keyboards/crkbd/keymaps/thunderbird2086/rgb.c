@@ -1,3 +1,6 @@
+// Copyright 2023 Allen Choi (@thunderbird2086)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 #   include QMK_KEYBOARD_H
 
