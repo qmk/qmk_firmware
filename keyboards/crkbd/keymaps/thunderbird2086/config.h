@@ -14,7 +14,6 @@
 #   undef TAPPING_TERM
 #endif
 #define TAPPING_TERM 200
-#define VER_NEWLINE_WAIT 200 // in milliseconds
 
 #define NO_ACTION_ONESHOT
 
