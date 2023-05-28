@@ -1,3 +1,5 @@
+#pragma once
+
 #include "engine.h"
 
 // Configuration options for the engine

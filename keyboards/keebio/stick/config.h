@@ -18,13 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* WS2812 RGB LED */
-#define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 12
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 #    define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -88,6 +85,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    endif
-#endif
 
 #define TAPPING_TERM 200

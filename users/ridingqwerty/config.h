@@ -8,4 +8,3 @@
 #define QUICK_TAP_TERM_PER_KEY
 // testing
 #define TAPPING_TERM_PER_KEY
-//#define IGNORE_MOD_TAP_INTERRUPT // rolling R3 "zxcv", etc...

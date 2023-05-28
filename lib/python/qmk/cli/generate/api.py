@@ -66,6 +66,12 @@ def _filtered_copy(src, dst):
         dst.write_text(json.dumps(data, separators=(',', ':')), encoding='utf-8')
         return dst
 
+    if dst.suffix == '.jsonschema':
+        data = json_load(src)
+
+        dst.write_text(json.dumps(data), encoding='utf-8')
+        return dst
+
     return shutil.copy2(src, dst)
 
 

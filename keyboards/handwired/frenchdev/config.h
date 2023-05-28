@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_BRIGHTNESS_LO       15
 #define LED_BRIGHTNESS_HI       255
 
-#define USB_MAX_POWER_CONSUMPTION 500
-
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_DELAY          0
 #define MOUSEKEY_TIME_TO_MAX    5
@@ -36,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE  1
 
 #define TAPPING_TERM    200
-#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
 
 /* key combination for command */
 #define IS_COMMAND() ( \
