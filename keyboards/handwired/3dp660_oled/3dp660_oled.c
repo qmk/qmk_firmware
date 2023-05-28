@@ -3,7 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
-#ifdef OLED_ENABLE
+#if defined (OLED_ENABLE) && ! defined (OLED_USER_DEFINED)
 
 #include <stdio.h>
 char wpm_str[10];
