@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B5, B4, E6, D7, C6 }
-#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4 }
-
-#define DIODE_DIRECTION COL2ROW
-
 /* mouse config */
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_DELAY          0

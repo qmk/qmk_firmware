@@ -13,13 +13,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined(PRIYADI_PROMETHIUM)
-  #include "promethium.h"
-#elif defined(PRIYADI_PLANCK)
-  #include "planck.h"
-#else
-  #error "no keyboard defined"
-#endif
+#include QMK_KEYBOARD_H
 
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
