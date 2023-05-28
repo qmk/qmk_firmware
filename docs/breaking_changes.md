@@ -119,6 +119,7 @@ This happens immediately after the previous `develop` branch is merged to `maste
     * `git commit -m 'Branch point for <DATE> Breaking Change'`
     * `git tag breakpoint_<YYYY>_<MM>_<DD>`
     * `git push upstream breakpoint_<YYYY>_<MM>_<DD>`
+    * `git push upstream develop`
 
 * All submodules under `lib` now need to be checked against their QMK-based forks:
     * `git submodule foreach git log -n1`
