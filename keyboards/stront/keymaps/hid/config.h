@@ -3,8 +3,5 @@
 
 #pragma once
 
-/* HID is supported only on master, so left must be master */
-#define MASTER_LEFT
-#undef EE_HANDS
-#undef SPLIT_LED_STATE_ENABLE
-#undef SPLIT_MODS_ENABLE
+#define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_HID_SYNC, RPC_ID_USER_CAPS_WORD_SYNC, RPC_ID_USER_LAYER_SYNC
+#define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0

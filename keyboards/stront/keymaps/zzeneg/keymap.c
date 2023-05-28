@@ -5,7 +5,7 @@
 
 #include "zzeneg_display.h"
 #include "raw_hid.h"
-#include "layers.h"
+#include "transactions.h"
 
 // Left-hand home row mods
 #define HOME_A LGUI_T(KC_A)
@@ -33,7 +33,13 @@
 #define LCTL_ESC LCTL_T(KC_ESC)
 #define LGUI_QUOT LGUI_T(KC_QUOT)
 
-enum custom_keycodes { M_EMAIL = SAFE_RANGE, M_CBR, M_PRN, M_BRC, M_ARROW };
+enum custom_keycodes {
+    M_EMAIL = SAFE_RANGE,
+    M_CBR,
+    M_PRN,
+    M_BRC,
+    M_ARROW,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* QWERTY
@@ -101,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYS] = LAYOUT(
                             BL_DOWN,  BL_UP,    BL_TOGG,  XXXXXXX,            XXXXXXX,   RGB_TOG,  RGB_MOD,  RGB_RMOD,
         XXXXXXX,  XXXXXXX,  DT_UP,    DT_DOWN,  DT_PRNT,  XXXXXXX,            XXXXXXX,   RGB_HUI,  RGB_SAI,  RGB_VAI,  RGB_SPI,  RGB_M_P,
-        XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,            XXXXXXX,   RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_SPD,  XXXXXXX,
+        EH_LEFT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  EH_RGHT,            EH_RGHT,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_SPD,  EH_LEFT,
                                             _______, QK_BOOT, _______,     _______, QK_BOOT, _______
     )
     // clang-format on
@@ -161,12 +167,17 @@ void     custom_home_row_ctrl(keyrecord_t *record, uint16_t time) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     dprintf("process_record_user %u %s %s %d\n", keycode, record->event.pressed ? "pressed" : "depressed", record->tap.interrupted ? "interrupted" : "not interrupted", record->tap.count);
 
-    if (is_display_enabled()) {
-        display_process_record(keycode, record);
-    }
-
     if (record->event.pressed) {
+        uint8_t data[32];
+        data[0] = 0;
+
         switch (keycode) {
+            // send hid commands
+            case KC_VOLU:
+            case KC_VOLD:
+                data[0] = _VOLUME;
+                break;
+
             // handle macros
             case M_EMAIL:
                 SEND_STRING("zzeneg@gmail.com");
@@ -192,13 +203,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 break;
             case HOME_S:
-                // if S is pressed and CTRL is active, and < 180 passed since CTRL was pressed, cancel CTRL and send D instead
-                custom_home_row_ctrl(record, 180);
+                // if S is pressed and CTRL is active, and < 150 passed since CTRL was pressed, cancel CTRL and send D instead
+                custom_home_row_ctrl(record, 150);
                 break;
             case HOME_A:
                 // if A is pressed and CTRL is active, and < 180 passed since CTRL was pressed, cancel CTRL and send D instead
                 custom_home_row_ctrl(record, 180);
                 break;
+        }
+
+        if (data[0]) {
+            dprintf("raw_hid_send %u\n", data[0]);
+            raw_hid_send(data, sizeof(data));
         }
     }
 
@@ -209,6 +225,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (is_display_enabled()) {
         display_process_layer_state(get_highest_layer(state));
+    } else if (is_keyboard_master() && !is_keyboard_left()) {
+        uint8_t layer = get_highest_layer(state);
+        dprintf("RPC_ID_USER_LAYER_SYNC: %u\n", layer);
+        transaction_rpc_send(RPC_ID_USER_LAYER_SYNC, 1, &layer);
     }
 
     return state;
@@ -218,6 +238,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void caps_word_set_user(bool active) {
     if (is_display_enabled()) {
         display_process_caps_word(active);
+    } else if (is_keyboard_master() && !is_keyboard_left()) {
+        dprintf("RPC_ID_USER_CAPS_WORD_SYNC: %s\n", active ? "active" : "inactive");
+        transaction_rpc_send(RPC_ID_USER_CAPS_WORD_SYNC, 1, &active);
     }
 }
 
@@ -248,5 +271,35 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 
     if (is_display_enabled()) {
         display_process_raw_hid_data(data, length);
+    } else if (is_keyboard_master() && !is_keyboard_left()) {
+        dprint("RPC_ID_USER_HID_SYNC \n");
+        transaction_rpc_send(RPC_ID_USER_HID_SYNC, length, data);
     }
+}
+
+void hid_sync(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
+    if (is_display_enabled()) {
+        display_process_raw_hid_data((uint8_t *)initiator2target_buffer, initiator2target_buffer_size);
+    }
+}
+
+void layer_sync(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
+    if (is_display_enabled()) {
+        display_process_layer_state(*(uint8_t *)initiator2target_buffer);
+    }
+}
+
+void caps_word_sync(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer) {
+    if (is_display_enabled()) {
+        display_process_caps_word(*(bool *)initiator2target_buffer);
+    }
+}
+
+void keyboard_post_init_user() {
+    // sync received hid data
+    transaction_register_rpc(RPC_ID_USER_HID_SYNC, hid_sync);
+    // sync highest layer (a bit more performant than standard SPLIT_LAYER_STATE_ENABLE)
+    transaction_register_rpc(RPC_ID_USER_LAYER_SYNC, layer_sync);
+    // sync caps word state
+    transaction_register_rpc(RPC_ID_USER_CAPS_WORD_SYNC, caps_word_sync);
 }

@@ -5,7 +5,6 @@
 #include "display.h"
 #include "raw_hid.h"
 #include "lvgl_helpers.h"
-#include "layers.h"
 
 uint16_t home_screen_timer = 0;
 
@@ -150,13 +149,6 @@ bool display_init_user(void) {
     return false;
 }
 
-enum data_type {
-    _TIME = 0,
-    _VOLUME,
-    _LAYOUT,
-    _MEDIA_ARTIST,
-    _MEDIA_TITLE,
-};
 void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
     uint8_t data_type = data[0];
     char    string_data[length - 2];
@@ -172,6 +164,8 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
             lv_label_set_text_fmt(label_volume_home, "Volume: %02d%%", data[1]);
             lv_label_set_text_fmt(label_volume_arc, "%02d", data[1]);
             lv_arc_set_value(arc_volume, data[1]);
+            lv_scr_load(screen_volume);
+            start_home_screen_timer();
             break;
 
         case _LAYOUT:
@@ -194,28 +188,6 @@ void display_process_raw_hid_data(uint8_t *data, uint8_t length) {
             lv_scr_load(screen_media);
             start_home_screen_timer();
             break;
-    }
-}
-
-void display_process_record(uint16_t keycode, keyrecord_t *record) {
-    dprintf("display_process_record %u\n", keycode);
-    if (record->event.pressed) {
-        uint8_t data[32];
-        data[0] = 0;
-
-        switch (keycode) {
-            case KC_VOLU:
-            case KC_VOLD:
-                data[0] = _VOLUME;
-                lv_scr_load(screen_volume);
-                start_home_screen_timer();
-                break;
-        }
-
-        if (data[0]) {
-            dprintf("raw_hid_send %u\n", data[0]);
-            raw_hid_send(data, sizeof(data));
-        }
     }
 }
 

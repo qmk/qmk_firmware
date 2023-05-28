@@ -85,9 +85,11 @@
     "backlight": {
         "pin": "GP14"
     },
+    "ws2812": {
+        "pin": "GP29"
+    },
     "rgblight": {
         "led_count": 38,
-        "pin": "GP29",
         "split": true,
         "split_count": [19, 19]
     },
