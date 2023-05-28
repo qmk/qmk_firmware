@@ -17,6 +17,9 @@
         "pin": "B1",
         "levels": 5
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D5"
     },

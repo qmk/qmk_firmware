@@ -21,6 +21,9 @@
     "backlight": {
         "pin": "B6"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E2"
     },

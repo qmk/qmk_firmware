@@ -18,6 +18,9 @@
             {"pin_a": "D5", "pin_b": "F1"}
         ]
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "C7"
     },

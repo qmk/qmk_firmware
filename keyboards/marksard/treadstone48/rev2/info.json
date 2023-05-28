@@ -8,6 +8,9 @@
         "pid": "0xDFA3",
         "device_version": "0.2.0"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D3"
     },

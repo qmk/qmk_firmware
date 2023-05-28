@@ -13,6 +13,9 @@
         "rows": ["F4", "B1", "B3"]
     },
     "diode_direction": "COL2ROW",
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "F5"
     },

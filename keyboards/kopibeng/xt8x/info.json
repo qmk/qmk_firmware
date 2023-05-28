@@ -17,6 +17,9 @@
         "caps_lock": "B3",
         "scroll_lock": "A15"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "A10"
     },

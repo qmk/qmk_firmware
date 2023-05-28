@@ -24,6 +24,9 @@
         "pin": "C6",
         "levels": 15
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E6"
     },

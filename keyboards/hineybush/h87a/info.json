@@ -16,6 +16,9 @@
     "backlight": {
         "pin": "B7"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D3"
     },

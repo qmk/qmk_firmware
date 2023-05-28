@@ -52,8 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       59,60,61,62,63, \
       68,67,66,65,64  \
   }
-
-  #define RGBLIGHT_SLEEP
 #endif
 
 #define RGBLIGHT_EFFECT_BREATHING

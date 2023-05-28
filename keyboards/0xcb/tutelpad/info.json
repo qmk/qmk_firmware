@@ -11,6 +11,9 @@
     "bootmagic": {
         "matrix": [1, 0]
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D3"
     },

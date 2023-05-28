@@ -27,7 +27,6 @@
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #endif
-#define RGBLIGHT_SLEEP
 
 #define AUDIO_PIN B6
 

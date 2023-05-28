@@ -9,6 +9,9 @@
         "device_version": "0.0.1",
         "force_nkro": true
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E2"
     },

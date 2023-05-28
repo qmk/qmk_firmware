@@ -20,6 +20,9 @@
     "indicators": {
         "caps_lock": "E6"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D2"
     },

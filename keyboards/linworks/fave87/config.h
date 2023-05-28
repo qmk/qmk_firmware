@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Underglow */
 #define RGBLED_NUM 40
-#define RGBLIGHT_SLEEP // Turns LEDs off if the PC goes to sleep/shutdown
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

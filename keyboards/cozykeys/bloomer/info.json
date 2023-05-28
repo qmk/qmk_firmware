@@ -7,6 +7,9 @@
         "vid": "0xFEED",
         "pid": "0x1191"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D7"
     }

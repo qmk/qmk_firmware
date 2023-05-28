@@ -37,7 +37,6 @@
 #    define RGBLIGHT_SAT_STEP  17
 #    define RGBLIGHT_VAL_STEP  17
 //#    define RGBLIGHT_LAYERS //Enable layer light indicators. Not required as updates are done in layer_state_set_user and led_update_user (+588).
-#    define RGBLIGHT_SLEEP //Turn off LEDs when computer sleeping (+72)
 
 //RGB LED Conversion macro from physical array to electric array (+146). This results in better looking animated effects.
 //First section is the LED matrix, second section is the electrical wiring order, and the third section is the desired mapping

@@ -6,6 +6,9 @@
         "pid": "0x1287",
         "device_version": "0.0.2"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D3"
     },
