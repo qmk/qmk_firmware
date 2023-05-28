@@ -21,7 +21,6 @@
 #define ONESHOT_TIMEOUT 2000
 
 // Enable combos for vim
-#define COMBO_COUNT 5 // Specify the number of combos used. BE SURE TO INCREMENT AS NEEDED
 #define COMBO_TERM 50 // window in milliseconds to trigger combo
 
 // Allow more than 4 keys to be sent to the system. Useful for gaming.

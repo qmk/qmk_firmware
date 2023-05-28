@@ -3,13 +3,6 @@
 
 #pragma once
 
-
-/* Other settings */
-
-/* NKRO by default is required to be turned on. This forces it on
-   during keyboard startup regardless of EEPROM setting. */
-#define FORCE_NKRO
-
 /* Change the USB polling rate [default = 1000Hz (1ms)] and
  * use larger value of keys per scan for elite games */
 #define USB_POLLING_INTERVAL_MS  2  // 500Hz
@@ -17,7 +10,6 @@
 /* LED Matrix & Animations */
 #ifdef RGB_MATRIX_ENABLE
 
-    #define RGB_DI_PIN B3
     #define RGB_MATRIX_LED_COUNT 42
 
     #define RGB_DISABLE_WHEN_USB_SUSPENDED     // turn off effects when suspended

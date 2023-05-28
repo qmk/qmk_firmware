@@ -18,7 +18,7 @@
 
 ```c
 const uint16_t PROGMEM test_combo[] = {KC_A, KC_B, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
+combo_t key_combos[] = {COMBO(test_combo, KC_ESC)};
 ```
 
 これは、A と B のキーを押した場合に、"Escape" を送信します。
@@ -38,7 +38,7 @@ enum combos {
 const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [AB_ESC] = COMBO(ab_combo, KC_ESC),
   [JK_TAB] = COMBO(jk_combo, KC_TAB)
 };
@@ -55,7 +55,7 @@ enum combo_events {
 const uint16_t PROGMEM copy_combo[] = {KC_Z, KC_C, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {KC_X, KC_V, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [ZC_COPY] = COMBO_ACTION(copy_combo),
   [XV_PASTE] = COMBO_ACTION(paste_combo),
 };
