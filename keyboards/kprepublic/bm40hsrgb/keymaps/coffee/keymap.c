@@ -4,16 +4,11 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    NULLKEY = SAFE_RANGE, // An empty key to start (and maybe end) the enum
-    #ifdef DYNAMIC_MACRO_ENABLE
-    MCR_PLY,              // Macro play
-    MCR_REC,              // Macro record
-    MCR_SWT,              // Swap active macro
-    #endif // DYNAMIC_MACRO_ENABLE
-    #ifdef MOUSEKEY_ENABLE
-    MS_ACL_U,             // Mouse speed up
-    MS_ACL_D,             // Mouse speed down
-    #endif // MOUSEKEY_ENABLE
+    MCR_PLY = QK_USER, // Macro play
+    MCR_REC,           // Macro record
+    MCR_SWT,           // Swap active macro
+    MS_ACL_U,          // Mouse speed up
+    MS_ACL_D,          // Mouse speed down
 };
 
 enum layout_names {
