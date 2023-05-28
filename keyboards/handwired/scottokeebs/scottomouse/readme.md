@@ -1,6 +1,6 @@
 # ScottoMouse
 
-<!-- ![ScottoMouse](https://i.imgur.com/AEQWXLlh.jpeg) -->
+![ScottoMouse](https://i.imgur.com/yjnhyXWh.jpeg)
 
 A 6 key mouse using [QMK mouse keys](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_mouse_keys.md), case files available [here](https://github.com/joe-scotto/scottokeebs.git).
 
