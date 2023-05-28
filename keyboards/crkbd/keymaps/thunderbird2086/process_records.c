@@ -43,10 +43,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 break;
 #           endif
             case VRSN:
-                send_string("# qmk " QMK_VERSION "\n");
-                wait_ms(VER_NEWLINE_WAIT);
-                send_string("# " QMK_KEYBOARD "/" QMK_KEYMAP "\n");
-                wait_ms(VER_NEWLINE_WAIT);
+                send_string("# qmk " QMK_VERSION "\n" SS_DELAY(VER_NEWLINE_WAIT));
+                send_string("# " QMK_KEYBOARD "/" QMK_KEYMAP "\n" SS_DELAY(VER_NEWLINE_WAIT));
                 send_string("# built on: " QMK_BUILDDATE "\n");
                 break;
         }
