@@ -12,8 +12,8 @@
     "url": "https://qvex.eu",
     "usb": {
         "device_version": "1.0.0",
-        "vid": "0x04D8",
-        "pid": "0xE678"
+        "vid": "0x5156",
+        "pid": "0x4C50"
     },
     "encoder": {
         "rotary": [
