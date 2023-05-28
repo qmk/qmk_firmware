@@ -11,9 +11,6 @@
     "processor": "RP2040",
     "bootloader": "rp2040",
     "board": "GENERIC_RP_RP2040",
-    "width": 16,
-    "height": 5,
-    "debounce": 5,
     "features": {
         "audio": false,
         "backlight": false,
