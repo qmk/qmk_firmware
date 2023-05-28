@@ -46,10 +46,6 @@
             "twinkle": true
         }
     },
-    "bootmagic": {
-        "enabled": true,
-        "matrix": [0, 0]
-    },
      "layouts": {
         "LAYOUT": {
             "layout": [
