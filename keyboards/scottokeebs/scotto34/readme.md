@@ -1,6 +1,6 @@
 # Scotto34 (PCB Edition)
 
-![Scotto34 (PCB Edition)](https://i.imgur.com/BkpEBQjh.jpg)
+![Scotto34 (PCB Edition)](https://i.imgur.com/nTxYa7ih.jpg)
 
 A low profile 34-key split monoblock ortholinear keyboard that uses 18x17mm spaced Choc switches and an exposed controller in the middle.
 
