@@ -21,3 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 135
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM_PER_KEY
+
+// Onboard RGB LED
+#define WS2812_DI_PIN 23
+#define RGBLED_NUM 1
