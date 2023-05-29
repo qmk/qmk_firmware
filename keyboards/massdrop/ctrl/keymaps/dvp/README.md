@@ -9,3 +9,7 @@ To switch between the layers the key PAUSE is overriden:
 - On led control layer (layer 1) -> Pause switches to original qwerty factory setup (layer 2).
 - On original qwerty (layer 2) -> Pause switches to dvp layer (layer 0).
 
+## Requirements
+
+https://github.com/Massdrop/mdloader/releases
+Must be downloaded, unzipped and placed somewhere in the $PATH
