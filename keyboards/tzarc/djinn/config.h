@@ -1,4 +1,4 @@
-// Copyright 2018-2022 Nick Brassel (@tzarc)
+// Copyright 2018-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
@@ -16,6 +16,7 @@
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
 #define SPLIT_WPM_ENABLE
+#define SPLIT_ACTIVITY_ENABLE
 
 // SPI Configuration
 #define SPI_DRIVER SPID3
@@ -40,7 +41,6 @@
 #define BACKLIGHT_PAL_MODE 1
 
 // RGB configuration
-#define RGB_DI_PIN B2
 #define WS2812_EXTERNAL_PULLUP
 #define WS2812_PWM_DRIVER PWMD20
 #define WS2812_PWM_CHANNEL 1
