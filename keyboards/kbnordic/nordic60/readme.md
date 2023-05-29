@@ -17,4 +17,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the ESC key
 * **Physical reset button**: Briefly press the button on the back of the PCB (S301) or short the two pads in the "RST" header.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

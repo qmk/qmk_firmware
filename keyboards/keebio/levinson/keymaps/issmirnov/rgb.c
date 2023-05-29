@@ -11,13 +11,13 @@ layer_state_t layer_state_set_rgb(layer_state_t state) {
       rgblight_sethsv_noeeprom(RGB_CLEAR);
       break;
     case _SYMB:
-      rgblight_sethsv_noeeprom_red();
+      rgblight_sethsv_noeeprom(HSV_RED);
       break;
     case _NUMP:
-      rgblight_sethsv_noeeprom_green();
+      rgblight_sethsv_noeeprom(HSV_GREEN);
       break;
     case _OVERWATCH:
-      rgblight_sethsv_noeeprom_blue();
+      rgblight_sethsv_noeeprom(HSV_BLUE);
       // TODO set up animated rainbow swirl with overwatch colors.
       // rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
       // rgblight_effect_breathing(&animation_status);
@@ -45,9 +45,9 @@ void matrix_scan_rgb(void) {
 }
 
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_osm) {
-  if (biton32(layer_state) == _QWERTY) {
+  if (get_highest_layer(layer_state) == _QWERTY) {
     if ((this_mod | this_osm) & MOD_MASK_SHIFT) {
-      rgblight_setrgb_gold_at(SHFT_LED1);
+      rgblight_setrgb_at(RGB_GOLD, SHFT_LED1);
     } else {
       rgblight_setrgb_at(RGB_CLEAR, SHFT_LED1);
     }

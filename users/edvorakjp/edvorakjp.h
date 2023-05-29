@@ -8,7 +8,7 @@
 // clang-format off
 #define __EDVORAKJP_BASE_L1__               KC_QUOTE,      KC_COMMA,               KC_DOT,           KC_Y,          KC_Q
 #define __EDVORAKJP_BASE_L2__                   KC_A,  LALT_T(KC_O),         LGUI_T(KC_E),   LCTL_T(KC_I),          KC_U
-#define __EDVORAKJP_BASE_L3__              KC_SCOLON,          KC_X,                 KC_C,           KC_V,          KC_Z
+#define __EDVORAKJP_BASE_L3__                KC_SCLN,          KC_X,                 KC_C,           KC_V,          KC_Z
 
 #define __EDVORAKJP_BASE_R1__                   KC_F,          KC_G,                 KC_R,           KC_W,          KC_P
 #define __EDVORAKJP_BASE_R2__                   KC_D,  RSFT_T(KC_T),         RGUI_T(KC_N),   RALT_T(KC_S),          KC_M
@@ -23,15 +23,15 @@
 #define __EDVORAKJP_SYMBOL_L__            KC_EXCLAIM,         KC_AT,              KC_HASH,      KC_DOLLAR
 #define __EDVORAKJP_SYMBOL_R__            KC_PERCENT, KC_CIRCUMFLEX,         KC_AMPERSAND,    KC_ASTERISK
 
-#define __EDVORAKJP_BRACKET_L__  KC_LEFT_CURLY_BRACE,   KC_LBRACKET,        KC_LEFT_PAREN
-#define __EDVORAKJP_BRACKET_R__       KC_RIGHT_PAREN,   KC_RBRACKET, KC_RIGHT_CURLY_BRACE
+#define __EDVORAKJP_BRACKET_L__  KC_LEFT_CURLY_BRACE,   KC_LBRC,            KC_LEFT_PAREN
+#define __EDVORAKJP_BRACKET_R__       KC_RIGHT_PAREN,   KC_RBRC, KC_RIGHT_CURLY_BRACE
 
-#define __EDVORAKJP_PAGE__                   KC_HOME,     KC_PGDOWN,              KC_PGUP,         KC_END
+#define __EDVORAKJP_PAGE__                   KC_HOME,       KC_PGDN,              KC_PGUP,         KC_END
 #define __EDVORAKJP_CURSOR__                 KC_LEFT,       KC_DOWN,                KC_UP,       KC_RIGHT
 
 #define LA_TAB  LALT_T(KC_TAB)
 #define LS_SPC  LSFT_T(KC_SPACE)
-#define RC_BSPC RCTL_T(KC_BSPACE)
+#define RC_BSPC RCTL_T(KC_BACKSPACE)
 #define RC_DEL  RCTL_T(KC_DELETE)
 #define RG_ENT  RGUI_T(KC_ENTER)
 
@@ -68,7 +68,7 @@ enum tap_dance_code {
 void     matrix_init_user(void);
 void     matrix_init_keymap(void);
 layer_state_t layer_state_set_user(layer_state_t state);
-uint32_t layer_state_set_keymap(uint32_t state);
+layer_state_t layer_state_set_keymap(layer_state_t state);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
 bool     process_record_keymap(uint16_t keycode, keyrecord_t *record);
 

@@ -1,0 +1,15 @@
+{
+    "keyboard_name": "0-Sixty-underglow",
+    "usb": {
+        "pid": "0x0061"
+    },
+    "features": {
+        "rgblight": true
+    },
+    "ws2812": {
+        "pin": "B6"
+    },
+    "rgblight": {
+        "max_brightness": 185
+    }
+}

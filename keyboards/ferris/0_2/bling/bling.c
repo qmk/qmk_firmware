@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 |    | 4  |   |    ||   |   | 4  |   |
 | 6  |    |   | 2  || 2 |   |    | 5 |
 */
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -53,7 +53,14 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 led_config_t g_led_config = {
     // Key Matrix to LED Index
     {
-		{},
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+        { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
     }, {
         // LED Index to Physical Position. The unit is roughly milimiters in the real world
         //    |      Left      ||    Right        |

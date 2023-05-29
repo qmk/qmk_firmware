@@ -54,7 +54,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Tap Dance
 // Determine the current tap dance state
-int cur_dance(qk_tap_dance_state_t *state) {
+int cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed)
             return SINGLE_TAP;
@@ -79,7 +79,7 @@ int cur_dance(qk_tap_dance_state_t *state) {
 
 static tap ae_tap_state = {.is_press_action = true, .state = 0};
 
-void ae_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ae_finished(tap_dance_state_t *state, void *user_data) {
     ae_tap_state.state = cur_dance(state);
     switch (ae_tap_state.state) {
         case SINGLE_TAP:
@@ -95,7 +95,7 @@ void ae_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ae_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ae_reset(tap_dance_state_t *state, void *user_data) {
     switch (ae_tap_state.state) {
         case SINGLE_TAP:
             unregister_code(KC_A);
@@ -109,7 +109,7 @@ void ae_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 static tap aa_tap_state = {.is_press_action = true, .state = 0};
 
-void aa_finished(qk_tap_dance_state_t *state, void *user_data) {
+void aa_finished(tap_dance_state_t *state, void *user_data) {
     aa_tap_state.state = cur_dance(state);
     switch (aa_tap_state.state) {
         case SINGLE_TAP:
@@ -126,7 +126,7 @@ void aa_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void aa_reset(qk_tap_dance_state_t *state, void *user_data) {
+void aa_reset(tap_dance_state_t *state, void *user_data) {
     switch (aa_tap_state.state) {
         case SINGLE_TAP:
             unregister_code(SE_ODIA);
@@ -139,8 +139,8 @@ void aa_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // clang-format off
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [AAE] =  ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ae_finished, ae_reset, 250),
-  [OAA] =  ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, aa_finished, aa_reset, 250)
+tap_dance_action_t tap_dance_actions[] = {
+  [AAE] =  ACTION_TAP_DANCE_FN_ADVANCED(NULL, ae_finished, ae_reset),
+  [OAA] =  ACTION_TAP_DANCE_FN_ADVANCED(NULL, aa_finished, aa_reset)
 };
 // clang-format on

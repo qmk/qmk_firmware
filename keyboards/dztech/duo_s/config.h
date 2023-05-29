@@ -16,28 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x445A 
-#define PRODUCT_ID      0X1012
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    DZTECH
-#define PRODUCT         DUO-S
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-#define MATRIX_ROW_PINS { A15, B3, B4, B5, B11 }
-#define MATRIX_COL_PINS { B12, B13, B14, A8, B9, C13, C14, C15, A1, A2, A3, A4, A5, A6, A7 }
-#define UNUSED_PINS
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-#define RGB_DI_PIN B15
-#ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -55,7 +33,7 @@
 #define RGBLIGHT_SAT_STEP 10
 #define RGBLIGHT_VAL_STEP 10
 #define RGBLIGHT_SLEEP
-#endif
+
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -17,14 +17,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [2] = LAYOUT( /* CMD60 - Arrows */
       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-      _______, KC_BSPC, KC_UP,   KC_DEL,  _______, _______, _______, KC_BSPC, KC_UP,   KC_DEL,  KC_PSCR, KC_SLCK, KC_PAUS, _______,
+      _______, KC_BSPC, KC_UP,   KC_DEL,  _______, _______, _______, KC_BSPC, KC_UP,   KC_DEL,  KC_PSCR, KC_SCRL, KC_PAUS, _______,
       _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,          _______,
       _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______,                   _______,
       _______, _______, _______,                            _______,                            _______, _______, _______, _______
   ),
   [3] = LAYOUT( /* CMD60 - Functions */
       KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-      KC_MUTE, KC_BSPC, KC_PGUP, KC_DEL,  _______, _______, _______, KC_PGUP, KC_UP,   KC_PGDN, _______, KC_PAUS, KC_SLCK, KC_PSCR,
+      KC_MUTE, KC_BSPC, KC_PGUP, KC_DEL,  _______, _______, _______, KC_PGUP, KC_UP,   KC_PGDN, _______, KC_PAUS, KC_SCRL, KC_PSCR,
       _______, KC_HOME, KC_PGDN, KC_END,  _______, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_INS,           _______,
       _______, _______, _______, _______, _______, _______, KC_END,  _______, _______, _______, _______,                   _______,
       _______, _______, _______,                            _______,                            _______, _______, _______, _______

@@ -15,36 +15,13 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xAA96
-#define PRODUCT_ID      0xAAAF
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Y&R
-#define PRODUCT         nz64
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-#define MATRIX_COL_PINS {  A15, B3,  B4,  B6,  B7, B5,  C13, A5,  A4, B14, B15, A8, A9,  A10 }
-#define MATRIX_ROW_PINS {  C14, B13, B12, C15, A3 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Fix VIA RGB_light */
 #define VIA_HAS_BROKEN_KEYCODES
 
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-
-/* RGN Matrix */
+/* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
-#   define RGB_DI_PIN A7
 #   define RGBLED_NUM 82
-#   define DRIVER_LED_TOTAL RGBLED_NUM
+#   define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #   define WS2812_PWM_CHANNEL 2  // default: 2
@@ -110,9 +87,8 @@
 
 
 #ifdef RGBLIGHT_ENABLE
-#   define RGB_DI_PIN A7
 #   define RGBLED_NUM 82
-#   define DRIVER_LED_TOTAL RGBLED_NUM
+#   define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #   define WS2812_PWM_CHANNEL 2  // default: 2

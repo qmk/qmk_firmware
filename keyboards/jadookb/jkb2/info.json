@@ -1,10 +1,26 @@
 {
-  "keyboard_name": "jkb2",
+  "keyboard_name": "JKB2",
+  "manufacturer": "JadooKB",
   "url": "https://jadookb.com/",
   "maintainer": "Wizard-GG",
+  "usb": {
+    "vid": "0x4A4B",
+    "pid": "0x3225",
+    "device_version": "0.0.1"
+  },
+  "matrix_pins": {
+    "cols": ["B3", "B2"],
+    "rows": ["B1"]
+  },
+  "diode_direction": "COL2ROW",
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
-      "layout": [ {"label":"z","x": 0, "y": 0 }, {"label":"x","x": 1, "y": 0 }]
+      "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0}
+      ]
     }
   }
 }

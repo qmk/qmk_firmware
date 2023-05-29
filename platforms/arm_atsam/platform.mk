@@ -24,13 +24,14 @@ COMPILEFLAGS += -fno-strict-aliasing
 COMPILEFLAGS += -mfloat-abi=hard
 COMPILEFLAGS += -mfpu=fpv4-sp-d16
 COMPILEFLAGS += -mthumb
+COMPILEFLAGS += -fno-builtin-printf
 
 #ALLOW_WARNINGS = yes
 
 CFLAGS += $(COMPILEFLAGS)
 
 CXXFLAGS += $(COMPILEFLAGS)
-CXXFLAGS += -fno-exceptions -std=c++11
+CXXFLAGS += -fno-exceptions $(CXXSTANDARD)
 
 LDFLAGS +=-Wl,--gc-sections
 LDFLAGS += -Wl,-Map="%OUT%%PROJ_NAME%.map"

@@ -14,27 +14,7 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
   */ 
 #pragma once
-#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x7764
-#define PRODUCT_ID 0x4C64
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Weirdo
-#define PRODUCT kelownaRGB64
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-#define MATRIX_COL_PINS { A3, A4, A5, A7, B0, B1, B10, B15, A8, A9, A10, B7, B6, B5, B4}
-#define MATRIX_ROW_PINS { B12, B13, B14, C11, A1}
-#define DIODE_DIRECTION ROW2COL
-#define DEBOUNCE 5
-
-
-
-#define RGB_DI_PIN A6
 #define RGBLED_NUM 64
 //#define RGBLIGHT_DISABLE_KEYCODES
 

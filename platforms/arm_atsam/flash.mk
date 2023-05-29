@@ -13,6 +13,7 @@ mdloader: bin
 	$(call EXEC_MDLOADER)
 
 flash: bin
+	$(SILENT) || printf "Flashing for bootloader: $(BLUE)$(BOOTLOADER)$(NO_COLOR)\n"
 ifneq ($(strip $(PROGRAM_CMD)),)
 	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
 else ifeq ($(strip $(ARM_ATSAM)),SAMD51J18A)

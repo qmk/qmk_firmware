@@ -26,12 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 #ifdef OLED_ENABLE
-#    undef SSD1306OLED
 #    define OLED_TIMEOUT 600000
 #endif
-
-#undef USE_I2C
-#define USE_SERIAL_PD2
 
 // #define FORCE_NKRO
 
@@ -102,7 +98,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 140
 #define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define TAPPING_TOGGLE 2
 
@@ -133,7 +128,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_ONESHOT
 
 #undef PRODUCT
-#define PRODUCT Corne Keyboard
+#define PRODUCT "Corne Keyboard"
 
 #define LCPC_KEYS KC_LCTL, KC_LSFT, KC_9
 #define RCPC_KEYS KC_RCTL, KC_RSFT, KC_0

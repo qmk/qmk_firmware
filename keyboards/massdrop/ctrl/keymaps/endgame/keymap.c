@@ -1,4 +1,98 @@
-#include "keymap.h"
+#include QMK_KEYBOARD_H
+#include <string.h>
+
+#define MILLISECONDS_IN_SECOND 1000
+
+// These are just to make it neater to use builtin HSV values in the keymap
+#define RED {HSV_RED}
+#define CORAL {HSV_CORAL}
+#define ORANGE {HSV_ORANGE}
+#define GOLDEN {HSV_GOLDENROD}
+#define GOLD {HSV_GOLD}
+#define YELLOW {HSV_YELLOW}
+#define CHART {HSV_CHARTREUSE}
+#define GREEN {HSV_GREEN}
+#define SPRING {HSV_SPRINGGREEN}
+#define TURQ {HSV_TURQUOISE}
+#define TEAL {HSV_TEAL}
+#define CYAN {HSV_CYAN}
+#define AZURE {HSV_AZURE}
+#define BLUE {HSV_BLUE}
+#define PURPLE {HSV_PURPLE}
+#define MAGENT {HSV_MAGENTA}
+#define PINK {HSV_PINK}
+
+//========================================================== CONFIGURABLE DEFAULTS ==========================================================
+#define RGB_DEFAULT_TIME_OUT 30
+#define RGB_FAST_MODE_TIME_OUT 3
+#define RGB_TIME_OUT_MAX 600
+#define RGB_TIME_OUT_MIN 10
+#define RGB_TIME_OUT_STEP 10
+
+extern rgb_config_t rgb_matrix_config;
+bool disable_layer_color;
+
+bool rgb_enabled_flag;                  // Current LED state flag. If false then LED is off.
+bool rgb_time_out_enable;               // Idle LED toggle enable. If false then LED will not turn off after idle timeout.
+bool rgb_time_out_fast_mode_enabled;    // Enable flag for RGB timeout fast mode
+bool rgb_time_out_user_value;           // This holds the toggle value set by user with ROUT_TG. It's necessary as RGB_TOG changes timeout enable.
+uint16_t rgb_time_out_seconds;          // Idle LED timeout value, in seconds not milliseconds
+uint16_t rgb_time_out_saved_seconds;    // The saved user config for RGB timeout period
+led_flags_t rgb_time_out_saved_flag;    // Store LED flag before timeout so it can be restored when LED is turned on again.
+
+enum layout_names {
+    _KL=0,       // Keys Layout: The main keyboard layout that has all the characters
+    _FL,         // Function Layout: The function key activated layout with default functions and some added ones
+    _ML,         // Mouse Layout: Mouse Keys and mouse movement
+    _GL,         // GIT Layout: GIT shortcuts and macros
+    _VL,         // VIM Layout: VIM shorcuts and macros
+    _YL,         // Yakuake Layout: Yakuake drop-down terminal shortcuts and macros
+    _EL,         // KDE Layout: Shortcuts for KDE desktop using default KDE shortcuts settings
+};
+
+enum tapdance_keycodes {
+    TD_LGUI_ML = 0,     // Tap dance key to switch to mouse layer _ML
+    TD_APP_YL,
+    TD_CTRL_TERM,       // Tap dance key to open terminal on LCTRL double press
+};
+
+enum ctrl_keycodes {
+    U_T_AUTO = SAFE_RANGE, // USB Extra Port Toggle Auto Detect / Always Active
+    U_T_AGCR,              // USB Toggle Automatic GCR control
+    DBG_TOG,               // DEBUG Toggle On / Off
+    DBG_MTRX,              // DEBUG Toggle Matrix Prints
+    DBG_KBD,               // DEBUG Toggle Keyboard Prints
+    DBG_MOU,               // DEBUG Toggle Mouse Prints
+    MD_BOOT,               // Restart into bootloader after hold timeout
+    SEL_CPY,               // Select Copy. Select the word cursor is pointed at and copy, using double mouse click and ctrl+c
+    ROUT_TG,               // Timeout Toggle. Toggle idle LED time out on or off
+    ROUT_VI,               // Timeout Value Increase. Increase idle time out before LED disabled
+    ROUT_VD,               // Timeout Value Decrease. Decrease idle time out before LED disabled
+    ROUT_FM,               // RGB timeout fast mode toggle
+    COPY_ALL,              // Copy all text using ctrl(a+c)
+    TERMINAL,              // CTRL+ALT+T
+};
+
+enum string_macro_keycodes {
+    // The start of this enum should always be equal to end of ctrl_keycodes + 1
+    G_INIT = TERMINAL + 1, // git init
+    G_CLONE,               // git clone
+    G_CONF,                // git config --global
+    G_ADD,                 // git add
+    G_DIFF,                // git diff
+    G_RESET,               // git reset
+    G_REBAS,               // git rebase
+    G_BRANH,               // git branch
+    G_CHECK,               // git checkout
+    G_MERGE,               // git merge
+    G_REMTE,               // git remote add
+    G_FETCH,               // git fetch
+    G_PULL,                // git pull
+    G_PUSH,                // git push
+    G_COMM,                // git commit
+    G_STAT,                // git status
+    G_LOG,                 // git log
+};
 
 static uint16_t idle_timer;             // Idle LED timeout timer
 static uint8_t idle_second_counter;     // Idle LED seconds counter, counts seconds not milliseconds
@@ -25,16 +119,16 @@ static const char * sendstring_commands[] = {
 };
 
 //Associate our tap dance key with its functionality
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LGUI_ML] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_LGUI, _ML),
     [TD_APP_YL] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_APP, _YL),
-    [TD_CTRL_TERM] = ACTION_TAP_DANCE_DOUBLE(KC_LCTRL, LCA(KC_T)),
+    [TD_CTRL_TERM] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, LCA(KC_T)),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
     [DEFAULT] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_PSCR, KC_SLCK, KC_PAUS,
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,           KC_PSCR, KC_SCRL, KC_PAUS,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_INS,  KC_HOME, KC_PGUP,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,  KC_END,  KC_PGDN,
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
@@ -43,15 +137,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     */
     [_KL] = LAYOUT(
-        KC_ESC,            KC_F1,          KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,        KC_F12,           KC_PSCR, KC_SLCK, KC_PAUS,
+        KC_ESC,            KC_F1,          KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,        KC_F12,           KC_PSCR, KC_SCRL, KC_PAUS,
         KC_GRV,            KC_1,           KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,       KC_EQL,  KC_BSPC, KC_INS,  KC_HOME, KC_PGUP,
         KC_TAB,            KC_Q,           KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,       KC_RBRC, KC_BSLS, KC_DEL,  KC_END,  KC_PGDN,
         KC_CAPS,           KC_A,           KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,       KC_ENT,
-        KC_LSFT,           KC_Z,           KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,                                KC_UP,
+        KC_LSFT,           KC_Z,           KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT,                                  KC_UP,
         TD(TD_CTRL_TERM),  TD(TD_LGUI_ML), KC_LALT,                   KC_SPC,                             KC_RALT, TT(_FL), TD(TD_APP_YL), KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FL] = LAYOUT(
-        _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,          KC_MUTE, TERM_ON, TERM_OFF,
+        _______, DM_PLY1, DM_PLY2, _______,  _______, DM_REC1, DM_REC2, _______,  _______,  DM_RSTP, _______, KC_WAKE, KC_SLEP,          KC_MUTE, _______, _______,
         _______, _______, TG(_ML), TG(_GL),  TG(_VL), TG(_YL), _______, _______,  _______,  ROUT_FM, ROUT_TG, ROUT_VD, ROUT_VI, _______, KC_MSTP, KC_MPLY, KC_VOLU,
         RGB_M_P, RGB_SPD, RGB_VAI, RGB_SPI,  RGB_HUI, RGB_SAI, _______, U_T_AUTO, U_T_AGCR, _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD,
         _______, RGB_RMOD,RGB_VAD, RGB_MOD,  RGB_HUD, RGB_SAD, _______, _______,  _______,  _______, _______, _______, _______,
@@ -76,11 +170,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // This layout doesn't have custom keycodes for now, just custom LED config
     [_VL] = LAYOUT(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,    KC_F12,           KC_PSCR, KC_SLCK, KC_PAUS,
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,    KC_F12,           KC_PSCR, KC_SCRL, KC_PAUS,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,   KC_EQL,  KC_BSPC, KC_INS,  KC_HOME, KC_PGUP,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,   KC_RBRC, KC_BSLS, KC_DEL,  KC_END,  KC_PGDN,
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,   KC_ENT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,                            KC_UP,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_SENT,                              KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                            KC_RALT, TG(_VL), KC_APP,    KC_RCTL,          KC_LEFT, KC_DOWN, KC_RGHT
     ),
     // Works with https://github.com/ash0x0/config/blob/master/yakuake.shortcuts
@@ -124,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #undef _______
 #define _______ {0, 0, 0}
 
-const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     [_FL] = {
         _______, CORAL,   CORAL,   _______, _______, CORAL,   CORAL,   _______, _______, CORAL,   _______, YELLOW,  YELLOW,           TEAL,    GOLD,   GOLD,
         _______, _______, PINK,    PINK,    PINK,    PINK,    _______, _______, _______, GREEN,   GREEN,   GREEN,   GREEN,   _______, TEAL,    TEAL,   TEAL,
@@ -306,7 +400,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // ======================================================== CUSTOM KEYCOADS BELOW ========================================================
             case COPY_ALL:
                 // Selects all and text and copy
-                SEND_STRING(SS_LCTRL("ac"));
+                SEND_STRING(SS_LCTL("ac"));
                 return false;
             case SEL_CPY:
                 // Select word under cursor and copy. Double mouse click then ctrl+c
@@ -354,7 +448,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void set_layer_color(int layer) {
     if (layer == 0) { return; }
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         HSV hsv = {
             .h = pgm_read_byte(&ledmap[layer][i][0]),
             .s = pgm_read_byte(&ledmap[layer][i][1]),
@@ -372,13 +466,14 @@ void set_layer_color(int layer) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (disable_layer_color ||
         rgb_matrix_get_flags() == LED_FLAG_NONE ||
         rgb_matrix_get_flags() == LED_FLAG_UNDERGLOW) {
             return;
         }
     set_layer_color(get_highest_layer(layer_state));
+    return false;
 }
 
 /* This is a test function for Raw HID, which is currently not implemented for this keyboard */

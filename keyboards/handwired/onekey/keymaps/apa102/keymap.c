@@ -9,6 +9,6 @@ void keyboard_post_init_user(void) {
     apa102_set_brightness(5);
 
     rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom_cyan();
+    rgblight_sethsv_noeeprom(HSV_CYAN);
     rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
 }

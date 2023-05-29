@@ -17,30 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0x1960
-#define DEVICE_VER 0x0001
-#define MANUFACTURER YDKB
-#define PRODUCT Just60
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-#define MATRIX_ROW_PINS { E2, C7, B3, B2, B1 }
-#define MATRIX_COL_PINS { D6, D7, B4, B6, B5, B7, F7, F6, F5, F4, F1, F0, E6, B0 }
-#define UNUSED_PINS
-#define DIODE_DIRECTION COL2ROW
-
-#define QMK_ESC_OUTPUT D6 // usually COL
-#define QMK_ESC_INPUT E2 // usually ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -1,0 +1,7 @@
+// Copyright 2022 Artjoms Rizihs (@artjomsR)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#define SPLIT75_SETUP_FOR_PUBLIC_USE_BY_DEFAULT true
+#define WORKMAN_TO_QWERTY_HW_MAPPING false
+
+#define lang_switch_combo SS_LGUI(SS_TAP(X_Z))

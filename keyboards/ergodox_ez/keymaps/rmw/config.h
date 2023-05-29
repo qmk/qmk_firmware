@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USB_MAX_POWER_CONSUMPTION 500
 
-#define QMK_KEYS_PER_SCAN 4 
 /* Set 0 if debouncing isn't needed */
 #undef  DEBOUNCE
 #define DEBOUNCE 5

@@ -83,8 +83,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] = LAYOUT_wrapper(
-    KC_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, KC_RST, _______,
-    VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
+    QK_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, QK_BOOT, _______,
+    VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EE_CLR,
     _______, _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, RGB_IDL,
     KEYLOCK, _______, _______, _______, _______, KC_NUKE, _______, _______, _______, _______, _______, TG_MODS
   )
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_ENABLE
 #   ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_DEFAULT_LAYER_1] = { { KC_DOWN, KC_UP   } },
     [_DEFAULT_LAYER_2] = { { _______, _______ } },
     [_DEFAULT_LAYER_3] = { { _______, _______ } },

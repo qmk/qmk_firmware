@@ -17,7 +17,7 @@ Adds experimental "Remote Keyboard" functionality, which forwards keystrokes fro
 Enter the bootloader in 2 ways:
 
 * **Physical reset button**: Briefly press the button on the back of the PCB
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 
 Make example for this keyboard (after setting up your build environment):
 

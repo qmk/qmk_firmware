@@ -17,38 +17,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xA68C
-#define PRODUCT_ID   0x1DB0
-#define DEVICE_VER   0x0001
-#define MANUFACTURER kb-elmo
-#define PRODUCT      Noah AVR
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { B4, B6, D7, D5, D0 }
-#define MATRIX_COL_PINS { D1, D2, D3, D4, C6, C7, F7, F6, F5, F4, F0, F1, B3, B2, B1, B0 }
-#define UNUSED_PINS
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Caps LED */
-#define LED_CAPS_LOCK_PIN D6
-
 /* RGB */
-#define RGB_DI_PIN B5
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 7
 #define RGBLIGHT_SLEEP // RGB will turn off when PC is put to sleep
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_BGR // RGB on the Noah is different order
-
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-

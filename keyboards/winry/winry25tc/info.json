@@ -1,35 +1,58 @@
 {
     "keyboard_name": "Winry 25tc",
+    "manufacturer": "SpiderIsland",
     "url": "",
     "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "D5"
+    },
+    "rgblight": {
+        "max_brightness": 150
+    },
+    "matrix_pins": {
+        "cols": ["F5", "C7", "B7", "B2", "B4"],
+        "rows": ["E6", "F0", "D6", "D2", "B6"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"K00 (E6,F5)", "x":0, "y":0},
-                {"label":"K01 (E6,C7)", "x":1, "y":0},
-                {"label":"K02 (E6,B7)", "x":2, "y":0},
-                {"label":"K03 (E6,B2)", "x":3, "y":0},
-                {"label":"K04 (E6,B4)", "x":4, "y":0},
-                {"label":"K10 (F0,F5)", "x":0, "y":1},
-                {"label":"K11 (F0,C7)", "x":1, "y":1},
-                {"label":"K12 (F0,B7)", "x":2, "y":1},
-                {"label":"K13 (F0,B2)", "x":3, "y":1},
-                {"label":"K14 (F0,B4)", "x":4, "y":1},
-                {"label":"K20 (D6,F5)", "x":0, "y":2},
-                {"label":"K21 (D6,C7)", "x":1, "y":2},
-                {"label":"K22 (D6,B7)", "x":2, "y":2},
-                {"label":"K23 (D6,B2)", "x":3, "y":2},
-                {"label":"K24 (D6,B4)", "x":4, "y":2},
-                {"label":"K30 (D2,F5)", "x":0, "y":3},
-                {"label":"K31 (D2,C7)", "x":1, "y":3},
-                {"label":"K32 (D2,B7)", "x":2, "y":3},
-                {"label":"K33 (D2,B2)", "x":3, "y":3},
-                {"label":"K34 (D2,B4)", "x":4, "y":3},
-                {"label":"K40 (B6,F5)", "x":0, "y":4},
-                {"label":"K41 (B6,C7)", "x":1, "y":4},
-                {"label":"K42 (B6,B7)", "x":2, "y":4},
-                {"label":"K43 (B6,B2)", "x":3, "y":4},
-                {"label":"K44 (B6,B4)", "x":4, "y":4}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4},
+                {"matrix": [4, 1], "x": 1, "y": 4},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [4, 3], "x": 3, "y": 4},
+                {"matrix": [4, 4], "x": 4, "y": 4}
             ]
         }
     }

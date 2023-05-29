@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -30,7 +30,7 @@ enum tapdances{
   TD_ENT = 0,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_ENT] = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_ENT),
 };
 
@@ -45,13 +45,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
   KC_LSFT,JP_BSLS,KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M, KC_COMM,  KC_DOT, JP_SLSH, KC_RSFT,            KC_UP, KC_PGDN,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
-     KC_LCTRL, KC_LGUI, KC_LALT, KC_MHEN,  KC_SPC,               KC_SPC, KC_HENK, KC_KANA,  KC_APP, MO(_FN),          KC_LEFT, KC_DOWN,KC_RIGHT
+     KC_LCTL,  KC_LGUI, KC_LALT, JP_MHEN,  KC_SPC,               KC_SPC, JP_HENK, JP_KANA,  KC_APP, MO(_FN),          KC_LEFT, KC_DOWN,KC_RIGHT
   //|-----------------------------------------------------|   |--------------------------------------------------------------------------------'
   ),
 
   [_FN] = LAYOUT(
   //,-----------------------------------------------------|   |-----------------------------------------------------------------------------------------.
-      _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_STOP, KC_SLCK,KC_PAUSE,
+      _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_STOP, KC_SCRL,KC_PAUSE,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
       _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|

@@ -31,7 +31,7 @@ void wait_us(uint16_t duration) {
      * Only use this timer on the main thread;
      * other threads need to use their own timer.
      */
-    if (chThdGetSelfX() == &ch.mainthread && duration < (1ULL << (sizeof(gptcnt_t) * 8))) {
+    if (chThdGetSelfX() == &(currcore->mainthread) && duration < (1ULL << (sizeof(gptcnt_t) * 8))) {
         gptStart(&WAIT_US_TIMER, &gpt_cfg);
         gptPolledDelay(&WAIT_US_TIMER, duration);
     } else {

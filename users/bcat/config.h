@@ -35,7 +35,7 @@
 /* Turn off key repeat support of the tap keycode for tap-hold keys, enabling
  * holds to work correctly in quick succession after taps.
  */
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 #if defined(OLED_ENABLE)
 /* The built-in OLED timeout wakes the OLED screen every time the buffer is

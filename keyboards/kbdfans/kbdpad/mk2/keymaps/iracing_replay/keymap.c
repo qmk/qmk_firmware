@@ -51,7 +51,7 @@ void camera_number(uint16_t tens, uint16_t ones) {
     tap_code(KC_ENT);
 }
 
-void cam_up(qk_tap_dance_state_t *state, void *user_data) {
+void cam_up(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:                     
             tap_code(KC_C);             // tap once for next cam
@@ -62,7 +62,7 @@ void cam_up(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void cam_down(qk_tap_dance_state_t *state, void *user_data) {
+void cam_down(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:                     
             tap_code16(LSFT(KC_C));     // tap once for prev cam
@@ -74,7 +74,7 @@ void cam_down(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_CAR] = ACTION_TAP_DANCE_DOUBLE(
         LSFT(KC_V),                 // tap once for prev car
         LCTL(KC_V)                  // tap twice for my car
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_P7,          // start
 
     LSFT(KC_B),     // prev sub cam
-    KC_PGDOWN,      // prev driver cam
+    KC_PGDN,        // prev driver cam
     LCTL(KC_P4),    // prev session
     KC_P1,          // end
 

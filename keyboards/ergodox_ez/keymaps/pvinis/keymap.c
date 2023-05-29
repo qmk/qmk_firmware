@@ -245,11 +245,11 @@ void keyboard_post_init_user_keymap(void) {
 }
 
 // light up leds based on the layer
-uint32_t layer_state_set_user_keymap(uint32_t state) {
+layer_state_t layer_state_set_user_keymap(layer_state_t state) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
         case LR_SYSCTL:
             ergodox_right_led_3_on();  // blue
             break;
@@ -268,7 +268,7 @@ uint32_t layer_state_set_user_keymap(uint32_t state) {
 // tap dances
 
 // flash keyboard on 4x tap, with leds
-// void flash_each_tap(qk_tap_dance_state_t *state, void *user_data) {
+// void flash_each_tap(tap_dance_state_t *state, void *user_data) {
 //   switch (state->count) {
 //   case 1:
 //     ergodox_right_led_3_on();
@@ -289,14 +289,14 @@ uint32_t layer_state_set_user_keymap(uint32_t state) {
 //   }
 // }
 
-// void flash_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
+// void flash_dance_finished(tap_dance_state_t *state, void *user_data) {
 //   if (state->count >= 4) {
 //     reset_keyboard();
 //     reset_tap_dance(state);
 //   }
 // }
 
-// void flash_dance_reset(qk_tap_dance_state_t *state, void *user_data) {
+// void flash_dance_reset(tap_dance_state_t *state, void *user_data) {
 //   ergodox_right_led_1_off();
 //   wait_ms(50);
 //   ergodox_right_led_2_off();
@@ -305,8 +305,8 @@ uint32_t layer_state_set_user_keymap(uint32_t state) {
 // }
 
 // SYSCTL on first tap, MOUSE ON second tap
-// void layers_dance_finished(qk_tap_dance_state_t *state, void *user_data) {
-//   uint8_t layer = biton32(layer_state);
+// void layers_dance_finished(tap_dance_state_t *state, void *user_data) {
+//   uint8_t layer = get_highest_layer(layer_state);
 
 //   switch(state->count) {
 //   case 1:
@@ -328,7 +328,7 @@ uint32_t layer_state_set_user_keymap(uint32_t state) {
 //   }
 // }
 
-// qk_tap_dance_action_t tap_dance_actions[] = {
+// tap_dance_action_t tap_dance_actions[] = {
 // [TD_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED( flash_each_tap, flash_dance_finished, flash_dance_reset ),
 // [TD_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED( NULL, layers_dance_finished, NULL ),
 // };

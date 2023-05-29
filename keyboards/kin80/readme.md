@@ -30,4 +30,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the the top left key and plug in the keyboard.
 * **Physical reset button**. Hold 'boot0' button on MCU board, press 'reset', then release 'boot0'.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

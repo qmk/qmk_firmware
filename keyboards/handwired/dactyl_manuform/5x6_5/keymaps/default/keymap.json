@@ -46,7 +46,7 @@
             "KC_SCLN",
             "KC_QUOT",
 
-            "KC_LSPO",
+            "SC_LSPO",
             "KC_Z",
             "KC_X",
             "KC_C",
@@ -57,7 +57,7 @@
             "KC_COMM",
             "KC_DOT",
             "KC_SLSH",
-            "KC_RSPC",
+            "SC_RSPC",
 
             "KC_LGUI",
             "KC_LALT",
@@ -117,7 +117,7 @@
             "KC_O",
             "KC_QUOT",
 
-            "KC_LSPO",
+            "SC_LSPO",
             "KC_Z",
             "KC_X",
             "KC_C",
@@ -128,7 +128,7 @@
             "KC_COMM",
             "KC_DOT",
             "KC_SLSH",
-            "KC_RSPC",
+            "SC_RSPC",
 
             "KC_LGUI",
             "KC_LALT",
@@ -149,7 +149,7 @@
             "RCTL_T(KC_RBRC)"
         ],
         [
-            "RESET",
+            "QK_BOOT",
             "KC_PWR",
             "KC_TRNS",
             "KC_TRNS",
@@ -160,7 +160,7 @@
             "KC_TRNS",
             "KC_TRNS",
             "KC_PWR",
-            "RESET",
+            "QK_BOOT",
 
             "KC_TRNS",
             "KC_TRNS",
@@ -385,7 +385,7 @@
             "KC_NO",
             "KC_NO",
             "KC_NO",
-            "RESET",
+            "QK_BOOT",
             "KC_PWR",
 
             "KC_TRNS",

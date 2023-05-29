@@ -28,15 +28,15 @@ void keyboard_post_init_user(void) {
         rgblight_sethsv_noeeprom((i + user_hue) % 256, 255, 255);
         wait_ms(5);
     }
-    rgblight_sethsv_noeeprom(0, 0, 0);
+    rgblight_sethsv_noeeprom(HSV_BLACK);
 }
 
 void on_usb_led_off(void) {
-    rgblight_sethsv_noeeprom(0, 0, rgblight_get_val() - 85);
+    rgblight_sethsv_noeeprom(HS_GRAY, rgblight_get_val() - 85);
 }
 
 void on_usb_led_on(void) {
-    rgblight_sethsv_noeeprom(0, 0, rgblight_get_val() + 85);
+    rgblight_sethsv_noeeprom(HS_GRAY, rgblight_get_val() + 85);
 }
 
 #endif
