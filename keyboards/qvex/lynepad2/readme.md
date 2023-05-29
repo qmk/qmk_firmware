@@ -1,6 +1,6 @@
 # QVEX Lynepad 2
 
-![QVEX Lynepad 2.1](https://i.imgur.com/eDvVaE4.jpeg)
+![QVEX Lynepad 2.1](https://i.imgur.com/eDvVaE4h.jpeg)
 
 *Macropad with 11 keys, thumbwheel, and a rotary 4-way switch*
 
