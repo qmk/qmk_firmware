@@ -113,7 +113,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_ADJUST] =   { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD) },
 };
 #endif
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
