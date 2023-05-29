@@ -23,6 +23,9 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "ws2812": {
+        "pin": "B15"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "animations": {
