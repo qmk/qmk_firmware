@@ -25,7 +25,6 @@
 
 #ifdef RGB_MATRIX_ENABLE
      /* RGB Defines */
-#    define RGB_DI_PIN GP4
 #    define WS2812_DI_PIN GP4
 
 //      /* Enable Framebuffer and keypress effects */
