@@ -8,7 +8,7 @@
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
-#define RGB_DI_PIN GP18
+#define WS2812_DI_PIN GP18
 
 // RGB Matrix Animation modes
 // For full list of effects, see:
