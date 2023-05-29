@@ -8,6 +8,21 @@
     "pid": "0xA500",
     "device_version": "1.0.0"
   },
+  "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },  
+  "bootloader": "rp2040",
+  "processor": "RP2040",
+  "diode_direction": "COL2ROW",
+  "matrix_pins": {
+      "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP19", "GP18", "GP17", "GP16"],
+      "rows": ["GP20", "GP21", "GP22", "GP26", "GP27", "GP28"]
+  },
   "community_layouts": [ "tkl_ansi", "tkl_iso" ],
   "layouts": {
       "LAYOUT_all": {

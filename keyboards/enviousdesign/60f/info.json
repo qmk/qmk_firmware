@@ -8,6 +8,14 @@
         "pid": "0xA400",
         "device_version": "1.0.0"
     },
+	"features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
   "bootloader": "rp2040",
   "processor": "RP2040",
   "diode_direction": "COL2ROW",

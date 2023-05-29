@@ -8,6 +8,14 @@
     "pid": "0xA400",
     "device_version": "1.0.0"
   },
+  "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
   "bootloader": "rp2040",
   "processor": "RP2040",
   "diode_direction": "COL2ROW",
@@ -65,7 +73,6 @@
             { "label": "2,11", "matrix": [2, 11], "w": 1, "x": 10.5, "y": 2.5 },
             { "label": "2,12", "matrix": [2, 12], "w": 1, "x": 11.5, "y": 2.5 },
             { "label": "2,13", "matrix": [2, 13], "w": 1, "x": 12.5, "y": 2.5 },
-            { "label": "3,14", "matrix": [3, 14], "w": 1.25, "h": 2, "x": 13.75, "y": 2.5 },
             { "label": "2,15", "matrix": [2, 15], "w": 1, "x": 15.25, "y": 2.5 },
             { "label": "2,16", "matrix": [2, 16], "w": 1, "x": 16.25, "y": 2.5 },
             { "label": "2,17", "matrix": [2, 17], "w": 1, "x": 17.25, "y": 2.5 },
@@ -82,6 +89,7 @@
             { "label": "3,11", "matrix": [3, 11], "w": 1, "x": 10.75, "y": 3.5 },
             { "label": "3,12", "matrix": [3, 12], "w": 1, "x": 11.75, "y": 3.5 },
             { "label": "3,13", "matrix": [3, 13], "w": 1, "x": 12.75, "y": 3.5 },
+            { "label": "3,14", "matrix": [3, 14], "w": 1.25, "h": 2, "x": 13.75, "y": 2.5 },
             { "label": "4,0", "matrix": [4, 0], "w": 1.25, "x": 0, "y": 4.5 },
             { "label": "4,1", "matrix": [4, 1], "w": 1, "x": 1.25, "y": 4.5 },
             { "label": "4,2", "matrix": [4, 2], "w": 1, "x": 2.25, "y": 4.5 },

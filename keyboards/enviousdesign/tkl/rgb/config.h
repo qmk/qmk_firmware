@@ -17,7 +17,7 @@
 
 #pragma once
 
-#define RGB_DI_PIN GP0
+#define WS2812_DI_PIN GP0
 //#ifdef RGB_DI_PIN
 #if defined(RGBLIGHT_ENABLE)
 #    define RGBLED_NUM 88
