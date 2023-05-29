@@ -1,6 +1,6 @@
 {
-    "manufacturer": "Thanh Vinh",
-    "keyboard_name": "uncertainty",
+    "manufacturer": "Vinh Le",
+    "keyboard_name": "vinhcatba Uncertainty",
     "maintainer": "vinhcatba",
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
@@ -43,10 +43,16 @@
             "override_rgb": true
         },
         "animations": {
-            "all": true,
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
             "knight": true,
             "rainbow_mood": true,
-            "rgb_test": true
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
         }
     },
 
