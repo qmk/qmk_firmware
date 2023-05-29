@@ -23,7 +23,7 @@
  * be here if shared between boards.
  */
 
-#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3736) || defined(IS31FL3737) || defined(IS31FL3741) || defined(IS31FLCOMMON) || defined(CKLED2001)
+#if defined(IS31FL3731) || defined(IS31FL3733) || defined(IS31FL3736) || defined(IS31FL3737) || defined(IS31FL3741) || defined(IS31FLCOMMON) || defined(CKLED2001) || defined(SLED1734X)
 #    include "i2c_master.h"
 
 // TODO: Remove this at some later date
@@ -131,6 +131,18 @@ static void init(void) {
 #                endif
 #            endif
 #        endif
+
+#    elif defined(SLED1734X)
+    SLED1734X_init(DRIVER_ADDR_1);
+#        if defined(DRIVER_ADDR_2)
+    SLED1734X_init(DRIVER_ADDR_2);
+#            if defined(DRIVER_ADDR_3)
+    SLED1734X_init(DRIVER_ADDR_3);
+#                if defined(DRIVER_ADDR_4)
+    SLED1734X_init(DRIVER_ADDR_4);
+#                endif
+#            endif
+#        endif
 #    endif
 
     for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
@@ -151,6 +163,8 @@ static void init(void) {
         IS31FL_RGB_set_scaling_buffer(index, enabled, enabled, enabled);
 #    elif defined(CKLED2001)
         CKLED2001_set_led_control_register(index, enabled, enabled, enabled);
+#    elif defined(SLED1734X)
+        SLED1734X_set_led_control_register(index, enabled, enabled, enabled);
 #    endif
     }
 
@@ -238,6 +252,18 @@ static void init(void) {
     CKLED2001_update_led_control_registers(DRIVER_ADDR_3, 2);
 #                if defined(DRIVER_ADDR_4)
     CKLED2001_update_led_control_registers(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
+
+#    elif defined(SLED1734X)
+    SLED1734X_update_led_control_registers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    SLED1734X_update_led_control_registers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    SLED1734X_update_led_control_registers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    SLED1734X_update_led_control_registers(DRIVER_ADDR_4, 3);
 #                endif
 #            endif
 #        endif
@@ -389,6 +415,27 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .flush = flush,
     .set_color = CKLED2001_set_color,
     .set_color_all = CKLED2001_set_color_all,
+};
+
+#    elif defined(SLED1734X)
+static void flush(void) {
+    SLED1734X_update_pwm_buffers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    SLED1734X_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    SLED1734X_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    SLED1734X_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
+}
+
+const rgb_matrix_driver_t rgb_matrix_driver = {
+    .init = init,
+    .flush = flush,
+    .set_color = SLED1734X_set_color,
+    .set_color_all = SLED1734X_set_color_all,
 };
 #    endif
 
