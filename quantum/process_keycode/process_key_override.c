@@ -166,12 +166,6 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     deferred_register = 0;
 
-    // Clear the suppressed mods
-    clear_suppressed_override_mods();
-
-    // Unregister the replacement. First remove the weak override mods
-    clear_weak_override_mods();
-
     const key_override_t *const old = active_override;
 
     const uint8_t mod_free_replacement = clear_mods_from(active_override->replacement);
@@ -190,10 +184,16 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
             del_key(mod_free_replacement);
         } else {
             key_override_printf("NOT KEY 1\n");
-            send_keyboard_report();
             unregister_code(mod_free_replacement);
         }
+        send_keyboard_report();
     }
+
+    // Clear the suppressed mods
+    clear_suppressed_override_mods();
+
+    // Unregister the replacement. First remove the weak override mods
+    clear_weak_override_mods();
 
     const uint16_t trigger = active_override->trigger;
 
