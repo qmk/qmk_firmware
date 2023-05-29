@@ -36,7 +36,7 @@ static bool RECORDING = false;
 static uint16_t REC = DM_REC1; // Record either macro 1 or 2. Or stop recording
 static uint16_t PLY = DM_PLY1; // Play either macro 1 or macro 2
 
-void dynamic_macro_record_start_user(void) {
+void dynamic_macro_record_start_user(int8_t direction) {
     REC = DM_RSTP;
     RECORDING = true;
 }
