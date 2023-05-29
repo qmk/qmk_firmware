@@ -24,27 +24,30 @@
         "pid": "0x426E",
         "device_version": "1.0.0"
     },
+    "ws2812": {
+        "pin": "B15"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [
-            { "flags": 4, "matrix": [0, 0], "x": 0, "y": 0 },
-            { "flags": 4, "matrix": [0, 1], "x": 112, "y": 0 },
-            { "flags": 4, "matrix": [0, 2], "x": 224, "y": 0 },
-            { "flags": 4, "matrix": [1, 0], "x": 0, "y": 64 },
-            { "flags": 4, "matrix": [1, 1], "x": 112, "y": 64 },
-            { "flags": 4, "matrix": [1, 2], "x": 224, "y": 64 }
+            {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},
+            {"flags": 4, "matrix": [0, 1], "x": 112, "y": 0},
+            {"flags": 4, "matrix": [0, 2], "x": 224, "y": 0},
+            {"flags": 4, "matrix": [1, 0], "x": 0, "y": 64},
+            {"flags": 4, "matrix": [1, 1], "x": 112, "y": 64},
+            {"flags": 4, "matrix": [1, 2], "x": 224, "y": 64}
         ]
     },
     "community_layouts": ["ortho_2x3"],
     "layouts": {
         "LAYOUT_ortho_2x3": {
             "layout": [
-                { "matrix": [0, 0], "x": 0, "y": 0 },
-                { "matrix": [0, 1], "x": 1, "y": 0 },
-                { "matrix": [0, 2], "x": 2, "y": 0 },
-                { "matrix": [1, 0], "x": 0, "y": 1 },
-                { "matrix": [1, 1], "x": 1, "y": 1 },
-                { "matrix": [1, 2], "x": 2, "y": 1 }
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1}
             ]
         }
     }

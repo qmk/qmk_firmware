@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "boston.h"
+#include "quantum.h"
 
 void keyboard_post_init_kb(void) {
     /* this is to set an LED color at startup so it's not some random color*/
