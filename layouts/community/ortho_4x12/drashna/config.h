@@ -18,7 +18,7 @@
 
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
 #    if defined(KEYBOARD_planck_light)
-#        define RGB_DI_PIN A0
+#        define WS2812_DI_PIN A0
 #        define RGBLED_NUM 13  // Number of LEDs
 #    endif
 #    define RGBLIGHT_HUE_STEP 12

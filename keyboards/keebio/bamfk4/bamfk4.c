@@ -1,7 +1,7 @@
 // Copyright 2022 Danny Nguyen (@nooges)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "bamfk4.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {

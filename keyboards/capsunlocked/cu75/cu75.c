@@ -2,7 +2,6 @@
 #include <avr/timer_avr.h>
 #include <avr/wdt.h>
 #include "cu75.h"
-#include "keymap.h"
 #include "debug.h"
 #include "../lfkeyboards/issi.h"
 #include "../lfkeyboards/TWIlib.h"

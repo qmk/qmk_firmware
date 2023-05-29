@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define DIODE_DIRECTION COL2ROW
-#define MATRIX_ROW_PINS {F1, B7, B3, D2, D3, B2}
-#define MATRIX_COL_PINS {F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, B1, B0, F0}
-
-#define RGB_DI_PIN C7  // Have to set it to something to get the ws2812 code to compile
 #define RGBLED_NUM 24     // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
