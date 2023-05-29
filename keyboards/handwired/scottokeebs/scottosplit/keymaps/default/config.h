@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DEBOUNCE 5
 
 // Define options
 #define TAPPING_TERM 135
