@@ -88,7 +88,7 @@
 #    endif
 #endif
 
-#ifdef SW_I2C_USE_I2C1
+#if (SW_I2C_USE_I2C1 || SW_I2C_USE_I2C2 || SW_I2C_USE_I2C3 || SW_I2C_USE_I2C4)
 #    ifndef I2C1_SCL_PAL_MODE
 #        define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
 #    endif
@@ -111,7 +111,7 @@ __attribute__((weak)) void i2c_sw_delay(void) {}
 static uint8_t i2c_address;
 
 static const I2CConfig i2cconfig = {
-#if defined(SW_I2C_USE_I2C1)
+#if (SW_I2C_USE_I2C1 || SW_I2C_USE_I2C2 || SW_I2C_USE_I2C3 || SW_I2C_USE_I2C4)
     0,
     I2C1_SCL_PIN,
     I2C1_SDA_PIN,
