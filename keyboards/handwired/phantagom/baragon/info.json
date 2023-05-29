@@ -12,11 +12,13 @@
         "mousekey": true,
         "nkro": true,
         "rgblight": true,
-        "encoder": true,
+        "encoder": true
+    },
+    "ws2812": {
+        "pin": "GP15"
     },
     "rgblight": {
         "led_count": 12,
-        "pin": "GP15",
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -32,7 +34,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "GP6", "pin_b": "GP7", "resolution": 2 }
+            {"pin_a": "GP6", "pin_b": "GP7", "resolution": 2}
         ]
     },
     "matrix_pins": {
@@ -61,7 +63,6 @@
                 {"matrix": [2, 0], "x": 0, "y": 2},
                 {"matrix": [2, 1], "x": 1, "y": 2},
                 {"matrix": [2, 2], "x": 2, "y": 2}
-
             ]
         }
     }

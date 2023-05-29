@@ -8,6 +8,11 @@
     "pid": "0x1202",
     "device_version": "0.0.1"
   },
+  "matrix_pins": {
+    "cols": ["C6", "D7", "E6", "B4", "B5"],
+    "rows": ["B6", "B2", "B3"]
+  },
+  "diode_direction": "COL2ROW",
   "encoder": {
     "rotary": [
       {"pin_a": "F4", "pin_b": "F5", "resolution": 2},
@@ -19,22 +24,22 @@
   "layouts": {
     "LAYOUT": {
       "layout": [
-        { "label":"Tab",     "x": 0, "y": 0.75 },
-        { "label":"GUI + A", "x": 1, "y": 0.25 },
-        { "label":"E",       "x": 2, "y": 0 },
-        { "label":"P",       "x": 3, "y": 0.5 },
-        { "label":"GUI + 0", "x": 4, "y": 0 },
+          {"matrix": [0, 0], "x": 0, "y": 0.75},
+          {"matrix": [0, 1], "x": 1, "y": 0.25},
+          {"matrix": [0, 2], "x": 2, "y": 0},
+          {"matrix": [0, 3], "x": 3, "y": 0.5},
+          {"matrix": [0, 4], "x": 4, "y": 0},
 
-        { "label":"Fn",      "x": 0, "y": 1.75 },
-        { "label":"M",       "x": 1, "y": 1.25 },
-        { "label":"BackSP",  "x": 2, "y": 1 },
-        { "label":"B",       "x": 3, "y": 1.5 },
-        { "label":"HYPR",    "x": 4, "y": 1 },
+          {"matrix": [1, 0], "x": 0, "y": 1.75},
+          {"matrix": [1, 1], "x": 1, "y": 1.25},
+          {"matrix": [1, 2], "x": 2, "y": 1},
+          {"matrix": [1, 3], "x": 3, "y": 1.5},
+          {"matrix": [1, 4], "x": 4, "y": 1},
 
-        { "label":"Shift",   "x": 1, "y": 2.5 },
-        { "label":"LGUI",    "x": 2, "y": 2.5 },
-        { "label":"GUI + Z", "x": 3, "y": 2.5 },
-        { "label":"Space",   "x": 4, "y": 2.5, "r": 15 }
+          {"matrix": [2, 1], "x": 1, "y": 2.5},
+          {"matrix": [2, 2], "x": 2, "y": 2.5},
+          {"matrix": [2, 3], "x": 3, "y": 2.5},
+          {"matrix": [2, 4], "x": 4, "y": 2.5, "r": 15}
       ]
     }
   }
