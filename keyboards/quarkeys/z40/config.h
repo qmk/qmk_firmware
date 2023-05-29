@@ -14,11 +14,6 @@
 
 #pragma once
 
-#define DIODE_DIRECTION COL2ROW
-
-#define MATRIX_ROW_PINS { E6, B3, C7, C6 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B6, B5, B4, D7, D6, D0, B1, B0 }
-#define RGB_DI_PIN F1
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 47
 #define RGB_MATRIX_KEYPRESSES                       // Reacts to Keypresses
@@ -69,6 +64,5 @@
 
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-#define RGBLIGHT_LIMIT_VAL 130
 #define RGBLIGHT_SLEEP
 #endif

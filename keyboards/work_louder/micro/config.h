@@ -4,13 +4,6 @@
 #pragma once
 
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-#define USB_MAX_POWER_CONSUMPTION 100
-
-#define RGB_DI_PIN D1
 #define RGB_MATRIX_LED_COUNT 12
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #define RGB_MATRIX_DISABLE_KEYCODES
