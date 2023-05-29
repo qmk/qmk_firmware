@@ -33,7 +33,7 @@
 // 00 - High Impedance, 01 Master, 10 Slave
 #define SLED_REG_CONFIG_SYNC 0x00
 
-#define SLED_REG_PICTUREDISPLAY 0x01 // Picture Display register 
+#define SLED_REG_PICTUREDISPLAY 0x01 // Picture Display register
 // Matrix Type
 // 00 - Type-1, 01 Type-2, 10 Type-3, 11 Type-4
 #define SLED_REG_PICTUREDISPLAY_MATRIXTYPE 0x10
@@ -159,7 +159,6 @@ void SLED1734X_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 }
 
 bool SLED1734X_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-
     uint8_t page_frame_select[2];
     page_frame_select[0] = SLED_COMMANDREGISTER;
     // select the first frame
@@ -209,7 +208,7 @@ bool SLED1734X_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
             if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, SLED_TIMEOUT) != 0) return false;
         }
 #else
-        if( i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, SLED_TIMEOUT) != 0) return false;
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, SLED_TIMEOUT) != 0) return false;
 #endif
     }
     return true;
@@ -257,7 +256,6 @@ void SLED1734X_init(uint8_t addr) {
     SLED1734X_write_register(addr, SLED_REG_VAF2, SLED_REG_VAF2_MODE);
     // current control
     SLED1734X_write_register(addr, SLED_REG_CURRENTCONTROL, SLED_REG_CURRENTCONTROL_ENABLE);
-
 
     // select page frame 1
     SLED1734X_write_register(addr, SLED_COMMANDREGISTER, SLED_PAGE_FRAME_1);
@@ -307,9 +305,9 @@ void SLED1734X_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_sled1734x_leds[index]), sizeof(led));
 
-        g_pwm_buffer[led.driver][led.r]   = red;
-        g_pwm_buffer[led.driver][led.g]   = green;
-        g_pwm_buffer[led.driver][led.b]   = blue;
+        g_pwm_buffer[led.driver][led.r]          = red;
+        g_pwm_buffer[led.driver][led.g]          = green;
+        g_pwm_buffer[led.driver][led.b]          = blue;
         g_pwm_buffer_update_required[led.driver] = true;
     }
 }
@@ -328,9 +326,9 @@ void SLED1734X_set_led_control_register(uint8_t index, bool red, bool green, boo
     uint8_t control_register_g = (led.g) / 8;
     uint8_t control_register_b = (led.b) / 8;
 
-    uint8_t bit_r              = (led.r) % 8;
-    uint8_t bit_g              = (led.g) % 8;
-    uint8_t bit_b              = (led.b) % 8;
+    uint8_t bit_r = (led.r) % 8;
+    uint8_t bit_g = (led.g) % 8;
+    uint8_t bit_b = (led.b) % 8;
 
     if (red) {
         g_led_control_registers[led.driver][control_register_r] |= (1 << bit_r);
@@ -353,7 +351,7 @@ void SLED1734X_set_led_control_register(uint8_t index, bool red, bool green, boo
 
 void SLED1734X_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
-        if (!SLED1734X_write_pwm_buffer(addr, g_pwm_buffer[index])){
+        if (!SLED1734X_write_pwm_buffer(addr, g_pwm_buffer[index])) {
             g_led_control_registers_update_required[index] = true;
         }
     }
