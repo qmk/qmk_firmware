@@ -43,7 +43,10 @@
             "twinkle": true
         }
     },
-     "layouts": {
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
+    "layouts": {
         "LAYOUT": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
