@@ -88,10 +88,39 @@
 #    endif
 #endif
 
+#ifdef SW_I2C_USE_I2C1
+#    ifndef I2C1_SCL_PAL_MODE
+#        define I2C1_SCL_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#    endif
+#    ifndef I2C1_SDA_PAL_MODE
+#        define I2C1_SDA_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#    endif
+#    ifndef I2C_CLOCK_FREQUENCY
+#        define I2C_CLOCK_FREQUENCY 100000
+#    endif
+#    ifndef SW_I2C_DELAY
+#        define SW_I2C_DELAY ceil((CH_CFG_ST_FREQUENCY / I2C_CLOCK_FREQUENCY) / 2)
+#    endif
+#    ifndef SW_I2C_USE_OSAL_DELAY
+#        define SW_I2C_USE_OSAL_DELAY TRUE
+#    endif
+#    if (SW_I2C_USE_OSAL_DELAY == FALSE)
+__attribute__((weak)) void i2c_sw_delay(void) {}
+#    endif
+#endif
 static uint8_t i2c_address;
 
 static const I2CConfig i2cconfig = {
-#if defined(USE_I2CV1_CONTRIB)
+#if defined(SW_I2C_USE_I2C1)
+    0,
+    I2C1_SCL_PIN,
+    I2C1_SDA_PIN,
+#    if (SW_I2C_USE_OSAL_DELAY == FALSE)
+    &i2c_sw_delay,
+#    else
+    SW_I2C_DELAY,
+#    endif
+#elif defined(USE_I2CV1_CONTRIB)
     I2C1_CLOCK_SPEED,
 #elif defined(USE_I2CV1)
     I2C1_OPMODE,
