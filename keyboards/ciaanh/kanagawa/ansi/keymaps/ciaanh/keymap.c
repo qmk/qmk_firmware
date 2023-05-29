@@ -25,11 +25,6 @@ enum layers
     _ADJUST
 };
 
-enum custom_keycodes 
-{ 
-    CUSTOMKEY = SAFE_RANGE, 
-};
-
 #define TO_BASE     TO(_BASE)
 #define TG_LOW      TG(_LOWER)
 #define TG_UP       TG(_RAISE)
@@ -117,15 +112,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case CUSTOMKEY:
-        if (record->event.pressed) {
-            if (get_mods() & MOD_MASK_SHIFT) {
-                tap_code16(G(A(KC_K)));
-            } else {
-                tap_code(KC_MPLY);
-            }
-        } 
-        break; 
     case LT(0,KC_X):
         if (!record->tap.count && record->event.pressed) {
             tap_code16(C(KC_X)); // Intercept hold function to send Ctrl-X

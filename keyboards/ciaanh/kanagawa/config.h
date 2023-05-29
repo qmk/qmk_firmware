@@ -17,8 +17,6 @@
 
 /* OLED SPI Defines */
 #ifdef OLED_ENABLE
-#    define OLED_FONT_H "lib/oledfont.c"
-
 /* I2C Conf */
 #    define I2C_DRIVER I2CD0
 #    define I2C1_SDA_PIN GP0
