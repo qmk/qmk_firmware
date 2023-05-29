@@ -37,32 +37,74 @@ def _render_label(label):
 
 
 def _generate_ranges(lines, keycodes):
+    max_name_len = 0
+    for key, value in keycodes["ranges"].items():
+        define = value.get("define")
+        if len(define) > max_name_len:
+            max_name_len = len(define)
+
     lines.append('')
-    lines.append('enum qk_keycode_ranges {')
-    lines.append('// Ranges')
+    lines.append('#define FOREACH_QK_KEYCODE_RANGE(XX) \\')
     for key, value in keycodes["ranges"].items():
         lo, mask = map(lambda x: int(x, 16), key.split("/"))
         hi = lo + mask
         define = value.get("define")
-        lines.append(f'    {define.ljust(30)} = 0x{lo:04X},')
-        lines.append(f'    {(define + "_MAX").ljust(30)} = 0x{hi:04X},')
+        e = f'{define},'
+        lines.append(f'    XX({e.ljust(max_name_len+1)} 0x{lo:04X}, 0x{hi:04X}) \\')
+    lines.append('    /* End */')
+    lines.append('')
+
+    lines.append('enum qk_keycode_ranges {')
+    lines.append('#define ENUM_OUTPUT(name, lo, hi) \\')
+    lines.append('    name = lo, \\')
+    lines.append('    name ## _MAX = hi,')
+    lines.append('FOREACH_QK_KEYCODE_RANGE(ENUM_OUTPUT)')
+    lines.append('#undef ENUM_OUTPUT')
     lines.append('};')
 
 
 def _generate_defines(lines, keycodes):
-    lines.append('')
-    lines.append('enum qk_keycode_defines {')
-    lines.append('// Keycodes')
+    max_keycode_len = 0
+    max_alias_len = 0
     for key, value in keycodes["keycodes"].items():
-        lines.append(f'    {value.get("key")} = {key},')
+        key_name = value.get("key")
+        if len(key_name) > max_keycode_len:
+            max_keycode_len = len(key_name)
+        for alias in value.get("aliases", []):
+            if len(alias) > max_alias_len:
+                max_alias_len = len(alias)
 
     lines.append('')
-    lines.append('// Alias')
+    lines.append('/* Actual Keycodes */')
+    lines.append('#define FOREACH_QK_KEYCODE_DEFINE(XX) \\')
+    for key, value in keycodes["keycodes"].items():
+        key_name = value.get("key")
+        e = f'{key_name},'
+        lines.append(f'    XX({e.ljust(max_keycode_len+1)} {key}) \\')
+    lines.append('    /* End */')
+    lines.append('')
+
+    lines.append('/* Aliases */')
+    lines.append('#define FOREACH_QK_KEYCODE_ALIAS(XX) \\')
     for key, value in keycodes["keycodes"].items():
         temp = value.get("key")
         for alias in value.get("aliases", []):
-            lines.append(f'    {alias.ljust(10)} = {temp},')
+            e = f'{alias},'
+            lines.append(f'    XX({e.ljust(max_alias_len+1)} {temp}) \\')
+    lines.append('    /* End */')
+    lines.append('')
 
+    lines.append('/* Combination */')
+    lines.append('#define FOREACH_QK_KEYCODE(XX) \\')
+    lines.append('    FOREACH_QK_KEYCODE_DEFINE(XX) \\')
+    lines.append('    FOREACH_QK_KEYCODE_ALIAS(XX)')
+    lines.append('')
+
+    lines.append('enum qk_keycode_defines {')
+    lines.append('#define ENUM_OUTPUT(name, value) \\')
+    lines.append('  name = value,')
+    lines.append('FOREACH_QK_KEYCODE(ENUM_OUTPUT)')
+    lines.append('#undef ENUM_OUTPUT')
     lines.append('};')
 
 
