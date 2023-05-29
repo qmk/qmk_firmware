@@ -1,4 +1,3 @@
 WS2812_DRIVER = vendor
 AUDIO_DRIVER = pwm_hardware
-OLED_DRIVER = SSD1306
 SERIAL_DRIVER = vendor
