@@ -17,7 +17,6 @@
 #pragma once
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
-    #define RGB_DI_PIN B15
     #define WS2812_DI_PIN B15
     #define RGB_MATRIX_LED_COUNT 84
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
