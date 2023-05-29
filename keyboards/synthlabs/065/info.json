@@ -27,6 +27,10 @@
   "community_layouts": [
     "65_ansi"
   ],
+  "ws2812": {
+    "pin": "GP18",
+    "driver": "vendor"
+  },
   "rgb_matrix": {
     "driver": "WS2812",
     "layout": [
