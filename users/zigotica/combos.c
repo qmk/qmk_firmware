@@ -15,10 +15,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum combos {
   EM_EMAIL,
-  CL_CAPSL,
-  COMBO_LENGTH
+  CL_CAPSL
 };
-uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM email_combo[] = {LT(_SYM, KC_E), KC_M, COMBO_END};
 const uint16_t PROGMEM caps_combo[] = {KC_C, KC_L, COMBO_END};
@@ -37,4 +35,3 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       break;
   }
 }
-
