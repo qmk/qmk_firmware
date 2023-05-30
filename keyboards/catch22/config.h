@@ -16,21 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B6, B2, B3, B1, F7 }
-#define MATRIX_COL_PINS { B5, B4, E6, D7, C6 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* key combination for command */
 #define IS_COMMAND() ( \
     false \
 )
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN F6
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

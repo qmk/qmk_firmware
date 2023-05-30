@@ -28,7 +28,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_MAP {2, 4, 8, 16, 40, 55, 70, 128, 200, 255}
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
-
 #define RGBLED_NUM 15    // Number of LEDs
 #endif

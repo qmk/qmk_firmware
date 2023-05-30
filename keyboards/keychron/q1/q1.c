@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "q1.h"
+#include "quantum.h"
 
 const matrix_row_t matrix_mask[] = {
     0b0111111111111101,

@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_COL_PINS { B11, B10, B2, B1, B0, A7, A6, A4, A13, A10, C13, C14 }
-#define MATRIX_ROW_PINS { A9, A8, A3, A5 }
-#define DIODE_DIRECTION COL2ROW
-
 #define GRAVE_ESC_CTRL_OVERRIDE
 
 #define RGBLIGHT_EFFECT_BREATHING
@@ -34,12 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGB_DI_PIN B15
 #define RGBLED_NUM 51
 #define RGBLIGHT_HUE_STEP 20
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
-#define RGBLIGHT_LIMIT_VAL 128
 
 /*
  * Feature disable options
