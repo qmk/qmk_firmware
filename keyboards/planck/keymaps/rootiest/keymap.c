@@ -168,7 +168,7 @@ enum combo_events { ZC_COPY, XV_PASTE };
 const uint16_t PROGMEM copy_combo[]  = {KC_Z, KC_C, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {KC_X, KC_V, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     [ZC_COPY]  = COMBO_ACTION(copy_combo),
     [XV_PASTE] = COMBO_ACTION(paste_combo),
 };

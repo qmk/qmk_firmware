@@ -24,7 +24,7 @@
 #define MATRIX_ROW_PINS \
     { B7, B1, B0 }
 
-#define RGB_DI_PIN B10
+#define WS2812_DI_PIN B10
 #define RGBLED_NUM 15
 
 #define SOLENOID_PIN B11
