@@ -28,7 +28,7 @@
         "rows": ["GP0", "GP1", "GP14", "GP15"]
     },
     "processor": "RP2040",
-    "url": "https://scottokeebs.com/keyboards/scotto34-pcb-edition",
+    "url": "https://scottokeebs.com",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x3334",
