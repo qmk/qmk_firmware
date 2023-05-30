@@ -1,10 +1,10 @@
 #include "tap_dances.h"
 
 #define ACTION_TAP_AND_HOLD_DANCE(kc1, kc2) \
-    { .fn = {NULL, tap_and_hold_dance_end, NULL}, .user_data = (void *)&((qk_tap_dance_pair_t){kc1, kc2}), }
+    { .fn = {NULL, tap_and_hold_dance_end, NULL}, .user_data = (void *)&((tap_dance_pair_t){kc1, kc2}), }
 
 #define ACTION_TILDE_DANCE(kc1, kc2) \
-    { .fn = {NULL, tilde_dance_end, NULL}, .user_data = (void *)&((qk_tap_dance_pair_t){kc1, kc2}), }
+    { .fn = {NULL, tilde_dance_end, NULL}, .user_data = (void *)&((tap_dance_pair_t){kc1, kc2}), }
 
 #define ACTION_SHORTCUT_DANCE(sc1, sc2) \
     { .fn = {NULL, shortcut_dance_end, NULL}, .user_data = (void *)&((shortcut_pair_t){sc1, sc2}), }
@@ -14,8 +14,8 @@ typedef struct {
     shortcut sc2;
 } shortcut_pair_t;
 
-void tilde_dance_end(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+void tilde_dance_end(tap_dance_state_t *state, void *user_data) {
+    tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
     switch (state->count) {
         case 1:
             if(state->pressed)
@@ -49,20 +49,20 @@ void tilde_dance_end(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void tap_and_hold_dance_end(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+void tap_and_hold_dance_end(tap_dance_state_t *state, void *user_data) {
+    tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
     uint16_t to_press = state->pressed ? pair->kc2 : pair->kc1;
     for(int i = 0; i < state->count; i++)
         tap_code16(to_press);
 }
 
-void shortcut_dance_end(qk_tap_dance_state_t *state, void *user_data) {
+void shortcut_dance_end(tap_dance_state_t *state, void *user_data) {
     shortcut_pair_t *scs = (shortcut_pair_t *)user_data;
     shortcut sc = state->pressed ? scs->sc2 : scs->sc1;
     tap_code16(get_os_shortcut(sc));
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [X_AT]        = ACTION_TILDE_DANCE(KC_A, KC_QUOT),
     [X_ET]        = ACTION_TILDE_DANCE(KC_E, KC_QUOT),
     [X_IT]        = ACTION_TILDE_DANCE(KC_I, KC_QUOT),
