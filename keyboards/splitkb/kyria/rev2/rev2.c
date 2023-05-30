@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev2.h"
+#include "quantum.h"
 
 // Mask out handedness diode to prevent it
 // from keeping the keyboard awake

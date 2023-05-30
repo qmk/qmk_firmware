@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 3
 #define ONESHOT_TAP_TOGGLE 3
 #define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM 300
 #ifdef RGBLED_NUM
 #  undef RGBLED_NUM

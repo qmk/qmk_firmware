@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "crkbd.h"
+#include "quantum.h"
 
 char timelog_str[24] = {};
 int last_time = 0;

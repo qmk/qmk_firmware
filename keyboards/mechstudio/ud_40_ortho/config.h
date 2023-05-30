@@ -16,22 +16,10 @@
 
 #pragma once
 
-
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS {C2,B4,B5,B6}
-#define MATRIX_COL_PINS {C5,D0,B3,B2,B1,B0,D6,D5,D4,D3,D2,D1}
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN B7
- #ifdef RGB_DI_PIN
    #define RGBLED_NUM 10
    #define RGBLIGHT_HUE_STEP 8
    #define RGBLIGHT_SAT_STEP 8
    #define RGBLIGHT_VAL_STEP 8
-   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -43,4 +31,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
- #endif
