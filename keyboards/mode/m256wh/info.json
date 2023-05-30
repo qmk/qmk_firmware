@@ -27,9 +27,11 @@
        "cols": ["C9" , "B1" , "B0" , "A10", "A15", "C10", "C11", "D2" , "B3" , "B4" , "B8" , "B9", "C0" , "C1" , "C2" , "C4" ],
        "rows": ["C6" , "C7" , "C8" , "C12", "A7" , "C5" ]
    },
-   "rgblight": {
-       "led_count": 30,
+   "ws2812": {
        "pin": "B15"
+   },
+   "rgblight": {
+       "led_count": 30
    },
    "diode_direction": "COL2ROW",
     "layouts": {
