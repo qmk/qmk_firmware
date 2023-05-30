@@ -29,7 +29,11 @@ static inline int8_t times_inv_sqrt2(int8_t x) {
     // 0.70703125                 0.707106781
     // 1 too small for x=99 and x=198
     // This ends up being a mult and discard lower 8 bits
+#ifdef MOUSEKEY_PRECISE_DIAGONAL_MOVE
+    return x * 0.707106781;
+#else
     return (x * 181) >> 8;
+#endif
 }
 
 static report_mouse_t mouse_report = {0};
