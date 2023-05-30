@@ -3,6 +3,7 @@
 
 #include QMK_KEYBOARD_H
 #include "alinelena.h"
+#include "version.h"
 
 #ifdef RGBLIGHT_ENABLE
 
@@ -20,6 +21,9 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(m
 static uint32_t           oled_logo_timer = 0;
 static bool               clear_logo      = true;
 static const char PROGMEM m65_logo[]      = {0x92, 0x92, 0x93, 0x94, 0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x92, 0x92, 0x93, 0x94, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB2, 0x92, 0xB3, 0xB4, 0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0};
+static const char bdate[] = QMK_BUILDDATE;
+static const char hash[] = QMK_GIT_HASH;
+
 #endif
 
 #ifdef RGBLIGHT_ENABLE
@@ -58,52 +62,51 @@ void user_oled_magic(void) {
 
     switch (get_highest_layer(layer_state)) {
         case _QW:
-            oled_write_P(PSTR("Default\n"), false);
+            oled_write_ln_P(PSTR("Default"), false);
             break;
         case _LWR:
-            oled_write_P(PSTR("Lower\n"), false);
+            oled_write_ln_P(PSTR("Lower"), false);
             break;
         case _RSE:
-            oled_write_P(PSTR("Raise\n"), false);
+            oled_write_ln_P(PSTR("Raise"), false);
             break;
         case _ADJ:
-            oled_write_P(PSTR("ADJ\n"), false);
+            oled_write_ln_P(PSTR("ADJ"), false);
             break;
         default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_ln_P(PSTR("Undefined"), false);
     }
 #    ifdef UNICODE_COMMON_ENABLE
-    oled_write_P(PSTR("\nunicode: "), false);
+    oled_write_P(PSTR("unicode: "), false);
     switch (get_unicode_input_mode()) {
       case UNICODE_MODE_LINUX:
-        oled_write_P(PSTR("Linux"), false);
+        oled_write_ln_P(PSTR("Linux"), false);
         break;
       case UNICODE_MODE_MACOS:
-        oled_write_P(PSTR("apple"), false);
+        oled_write_ln_P(PSTR("apple"), false);
         break;
       case UNICODE_MODE_WINDOWS:
-        oled_write_P(PSTR("windows"), false);
+        oled_write_ln_P(PSTR("windows"), false);
         break;
       case UNICODE_MODE_WINCOMPOSE:
-        oled_write_P(PSTR("windows c"), false);
+        oled_write_ln_P(PSTR("windows c"), false);
         break;
       case UNICODE_MODE_BSD:
-        oled_write_P(PSTR("bsd"), false);
+        oled_write_ln_P(PSTR("bsd"), false);
         break;
       case UNICODE_MODE_EMACS:
-        oled_write_P(PSTR("emacs"), false);
+        oled_write_ln_P(PSTR("emacs"), false);
         break;
       default:
         oled_write_ln_P(PSTR("not supported"), false);
     }
 #    endif
-
 #    ifdef WPM_ENABLE
-    oled_write_P(PSTR("\nwpm: "), false);
+    oled_write_P(PSTR("wpm: "), false);
     uint8_t wpm = get_current_wpm();
-    oled_write_P(wpm != 0 ? get_u8_str(wpm, ' ') : PSTR("   "), false);
+    oled_write_ln_P(wpm != 0 ? get_u8_str(wpm, ' ') : PSTR("   "), false);
 #    endif
+    oled_write_P(PSTR(hash), false);
 }
 
 void init_timer(void) {
@@ -112,6 +115,7 @@ void init_timer(void) {
 
 void render_logo(void) {
     oled_write_P(m65_logo, false);
+    oled_write_ln_P(PSTR(bdate), false);
 }
 
 void clear_screen(void) {
