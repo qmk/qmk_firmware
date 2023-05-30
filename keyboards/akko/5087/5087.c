@@ -125,7 +125,14 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 #endif // RGB_MATRIX_ENABLE
 
-enum __layers { WIN_B, WIN_W, WIN_FN, MAC_B, MAC_W, MAC_FN };
+enum __layers { 
+	WIN_B, 
+	WIN_W, 
+	WIN_FN, 
+	MAC_B, 
+	MAC_W, 
+	MAC_FN, 
+};
 
 // clang-format on
 typedef union {
