@@ -15,15 +15,9 @@
   */
 #pragma once
 
-#define MATRIX_ROW_PINS { A2, A3, A4, A5, A6, A7 }
-#define MATRIX_COL_PINS { B2, B1, B0, B10, B11, B13, B14, B15, A8, A9, A14, A15, B3, B4, B7 }
-#define DIODE_DIRECTION COL2ROW
-
 #define TAP_CODE_DELAY 10 // tap_code function delay for register and unregister
 
-#define RGB_DI_PIN A10
 #define RGBLED_NUM 22
-#define RGBLIGHT_LIMIT_VAL 225 // value set lower than 255 since current draw is too high
 #define RGBLIGHT_SLEEP
 
 /* animations enabled */

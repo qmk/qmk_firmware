@@ -11,5 +11,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix (do not use together with RGBLIGHT_ENABLE)
-RGB_MATRIX_DRIVER = WS2812  # RGB matrix driver support
-WS2812_DRIVER = pwm         # Driver for RGB

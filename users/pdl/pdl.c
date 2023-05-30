@@ -181,7 +181,7 @@ const uint16_t PROGMEM xcombo_redo[]   = {KC_B, KC_H, COMBO_END};
 const uint16_t PROGMEM xcombo_pgup[]   = {KC_G, KC_B, COMBO_END};
 const uint16_t PROGMEM xcombo_pgdn[]   = {KC_G, KC_K, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     [VCOMBO_PU] = COMBO(vcombo_pu, KC_CIRC),
     [VCOMBO_NU] = COMBO(vcombo_nu, KC_LBRC),
     [VCOMBO_EU] = COMBO(vcombo_eu, LSFT(KC_9)),

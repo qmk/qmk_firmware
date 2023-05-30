@@ -104,13 +104,11 @@ void IS31FL3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 }
 
 bool IS31FL3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // unlock the command register and select PG2
-    IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-    IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM0);
+    // Assume PG0 is already selected
 
     for (int i = 0; i < 342; i += 18) {
         if (i == 180) {
-            // unlock the command register and select PG2
+            // unlock the command register and select PG1
             IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
             IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM1);
         }
@@ -222,6 +220,10 @@ void IS31FL3741_set_led_control_register(uint8_t index, bool red, bool green, bo
 
 void IS31FL3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
+        // unlock the command register and select PG2
+        IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
+        IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM0);
+
         IS31FL3741_write_pwm_buffer(addr, g_pwm_buffer[index]);
     }
 
@@ -244,7 +246,7 @@ void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {
 
         // CS1_SW1 to CS30_SW6 are on PG2
         for (int i = CS1_SW1; i <= CS30_SW6; ++i) {
-            IS31FL3741_write_register(addr, i, g_scaling_registers[0][i]);
+            IS31FL3741_write_register(addr, i, g_scaling_registers[index][i]);
         }
 
         // unlock the command register and select PG3
@@ -253,7 +255,7 @@ void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {
 
         // CS1_SW7 to CS39_SW9 are on PG3
         for (int i = CS1_SW7; i <= CS39_SW9; ++i) {
-            IS31FL3741_write_register(addr, i - CS1_SW7, g_scaling_registers[0][i]);
+            IS31FL3741_write_register(addr, i - CS1_SW7, g_scaling_registers[index][i]);
         }
 
         g_scaling_registers_update_required[index] = false;

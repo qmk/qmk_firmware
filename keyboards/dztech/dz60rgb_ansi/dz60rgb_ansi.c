@@ -1,4 +1,4 @@
-#include "dz60rgb_ansi.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {

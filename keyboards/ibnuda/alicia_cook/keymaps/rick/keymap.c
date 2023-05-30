@@ -188,7 +188,7 @@ const uint16_t PROGMEM rl_r_m_i_combo[]   =  {RLR, RLM, RLI, COMBO_END};
 // both hand combinations.
 const uint16_t PROGMEM bl_m_m_combo[]      = {LLM, RLM, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     // left hand combinations.
     [L_U_PINKY_RING]          = COMBO(lu_p_r_combo,  KC_TAB),
     [L_U_RING_MIDDLE]         = COMBO(lu_r_m_combo,  KC_QUES),
