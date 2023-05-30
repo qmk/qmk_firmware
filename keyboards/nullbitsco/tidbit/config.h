@@ -22,15 +22,7 @@
 // Workaround for freezing after MacOS sleep
 #define USB_SUSPEND_WAKEUP_DELAY 200
 
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B1, E6, D7, C6, D4 }
-#define MATRIX_COL_PINS { NO_PIN, NO_PIN, F4, F5, F6, F7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* Optional SMT LED pins */
-#define RGB_DI_PIN B6
 #define RGBLED_NUM 8
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
