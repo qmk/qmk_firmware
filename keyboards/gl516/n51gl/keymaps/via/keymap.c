@@ -96,7 +96,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         key.row = 1;
         key.col = 0;
     }
-    action_exec((keyevent_t){.key = key, .pressed = true, .time = (timer_read() | 1)});
-    action_exec((keyevent_t){.key = key, .pressed = false, .time = (timer_read() | 1)});
+    action_exec(MAKE_KEYEVENT(key.row, key.col, true));
+    action_exec(MAKE_KEYEVENT(key.row, key.col, false));
     return true;
 }

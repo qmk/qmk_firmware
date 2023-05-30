@@ -10,10 +10,8 @@
  * RGB Matrix stuff
  * ---------------- */
 
-#define RGB_DI_PIN B7
-
 // RGB Matrix config
-#if defined(RGB_DI_PIN) && defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
 
     /* Denwir case is solid back. Please disable underglow at compile with compile command line:
      *
