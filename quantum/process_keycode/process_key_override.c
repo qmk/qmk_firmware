@@ -192,7 +192,7 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
     // Clear the suppressed mods
     clear_suppressed_override_mods();
 
-    // Unregister the replacement. First remove the weak override mods
+    // Unregister the replacement. Then remove the weak override mods
     clear_weak_override_mods();
 
     const uint16_t trigger = active_override->trigger;
