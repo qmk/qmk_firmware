@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Currently using ENCONDER_MAP_ENABLE
  */
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP) },       // Mouse Scroll Down | Mouse Scroll Up
     [_GAMING] = { ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP) },       // Mouse Scroll Down | Mouse Scroll Up
     [_LOWER] =  { ENCODER_CCW_CW(LCTL(KC_TAB), LCTL(LSFT(KC_TAB))) }, // Ctrl + Tab        | Ctrl + Shift + Tab
