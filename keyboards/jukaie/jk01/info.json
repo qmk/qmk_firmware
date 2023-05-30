@@ -13,8 +13,6 @@
         ]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
@@ -22,8 +20,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "indicators": {
         "caps_lock": "C14"
@@ -165,7 +162,7 @@
                 { "label": "-", "matrix": [8, 6], "x": 11, "y": 1 },
                 { "label": "=", "matrix": [6, 6], "x": 12, "y": 1 },
                 { "label": "Backspace", "matrix": [10, 1], "w": 2, "x": 13, "y": 1 },
-                { "label": "Home", "matrix": [11, 6], " x": 15, "y": 1 },
+                { "label": "Home", "matrix": [11, 6], "x": 15, "y": 1 },
                 { "label": "Tab", "matrix": [1, 1], "w": 1.5, "x": 0, "y": 2 },
                 { "label": "Q", "matrix": [1, 0], "x": 1.5, "y": 2 },
                 { "label": "W", "matrix": [2, 0], "x": 2.5, "y": 2 },
