@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { B1, B5, B4, F7, D7, D6 }
-#define MATRIX_COL_PINS { F6, F5, F4, F1, F0, C7, C6, B6, B0, E6, B7, B3, B2, D2, D3, D5, D4}
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE

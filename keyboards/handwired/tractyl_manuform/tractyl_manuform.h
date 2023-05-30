@@ -18,12 +18,6 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_handwired_tractyl_manuform_5x6_right)
-#    include "5x6_right.h"
-#elif defined(KEYBOARD_handwired_tractyl_manuform_4x6_right)
-#    include "4x6_right.h"
-#endif
-
 enum charybdis_keycodes {
     POINTER_DEFAULT_DPI_FORWARD = QK_KB_0,
     POINTER_DEFAULT_DPI_REVERSE,
