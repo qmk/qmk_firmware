@@ -111,6 +111,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void keyboard_post_init_user(void) {
+  // 薙刀式
+  uint16_t ngonkeys[] = {KC_Y, KC_E};
+  uint16_t ngoffkeys[] = {KC_A, KC_G};
+  set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
+  // 薙刀式
+
   wait_ms(400);
   switch (detected_host_os()) {
     case OS_WINDOWS:
@@ -130,10 +136,4 @@ void keyboard_post_init_user(void) {
       layer_move(_WIN);
       switchOS(NG_WIN);
   }
-
-  // 薙刀式
-  uint16_t ngonkeys[] = {KC_Y, KC_E};
-  uint16_t ngoffkeys[] = {KC_A, KC_G};
-  set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
-  // 薙刀式
 }

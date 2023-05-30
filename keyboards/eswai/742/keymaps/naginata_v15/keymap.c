@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "os_detection.h"
 #include "twpair_on_jis.h"
 
 // 薙刀式
@@ -24,9 +25,8 @@ NGKEYS naginata_keys;
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _MAC,
-    // _BASE,
-    // _QWERTY,
+   _MAC,
+   _WIN,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
 // 薙刀式
@@ -46,19 +46,12 @@ uint32_t oled_sleep_timer;
 uint32_t naginata_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  // [_BASE] = LAYOUT(
-  //   KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, C(KC_X)  , C(KC_Z) ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , 
-  //   CTL_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , C(KC_C)  , C(KC_S) ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , 
-  //   KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , C(KC_V)  , C(KC_Y) ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT   , 
-  //   KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
-  //   ),
-  // 
-  // [_MAC] = LAYOUT(
-  //   KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, G(KC_X)  , G(KC_Z) ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , 
-  //   CMD_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , G(KC_C)  , G(KC_S) ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , 
-  //   KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , G(KC_V)  , G(KC_Y) ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT , 
-  //   KC_LCTL       ,KC_LALT,KC_LCTL,KC_LCMD,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
-  //   ),
+  [_WIN] = LAYOUT(
+    KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, C(KC_X)  , C(KC_Z) ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , 
+    CTL_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , C(KC_C)  , C(KC_S) ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , 
+    KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , C(KC_V)  , C(KC_Y) ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT   , 
+    KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
+    ),
 
   [_MAC] = LAYOUT(
     KC_TAB        ,KC_K   ,KC_D   ,KC_N    ,KC_F   ,KC_Q   , G(KC_X)  , G(KC_Z) ,KC_J   ,KC_BSPC,KC_R   ,KC_U   ,KC_P    ,KC_QUOT , \
@@ -153,12 +146,32 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
   // 薙刀式
   uint16_t ngonkeys[] = {KC_Y, KC_E};
   uint16_t ngoffkeys[] = {KC_A, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
+
+  wait_ms(400);
+  switch (detected_host_os()) {
+    case OS_WINDOWS:
+      layer_move(_WIN);
+      switchOS(NG_WIN);
+      break;
+    case OS_MACOS:
+    case OS_IOS:
+      layer_move(_MAC);
+      switchOS(NG_MAC);
+      break;
+    case OS_LINUX:
+      layer_move(_WIN);
+      switchOS(NG_LINUX);
+      break;
+    default:
+      layer_move(_WIN);
+      switchOS(NG_WIN);
+  }
 
   oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
   naginata_timer = timer_read32() + NAGINATA_TIMEOUT;
