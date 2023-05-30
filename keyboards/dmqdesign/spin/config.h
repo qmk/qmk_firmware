@@ -17,17 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-//Matrix is 3x5 instead of 3x4, as the 3 encoders are wired into the matrix
-
-#define MATRIX_ROW_PINS { F0, F1, F4 }
-#define MATRIX_COL_PINS { F5, F6, F7, C7, C6 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-//Data pin for the 3 RGB LEDs
-#define RGB_DI_PIN D3
 //Number of RGB LEDs
 #define RGBLED_NUM 3
 

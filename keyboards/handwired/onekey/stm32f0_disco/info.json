@@ -9,7 +9,11 @@
     "backlight": {
         "pin": "C8"
     },
-    "rgblight": {
+    "ws2812": {
         "pin": "B15"
+    },
+    "apa102": {
+        "data_pin": "B15",
+        "clock_pin": "B13"
     }
 }

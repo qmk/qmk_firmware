@@ -15,7 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "keymap.h"
+#include "keymap_common.h"
+#include "keymap_introspection.h"
 #include "report.h"
 #include "keycode.h"
 #include "action_layer.h"
