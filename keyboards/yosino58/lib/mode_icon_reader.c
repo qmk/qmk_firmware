@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "yosino58.h"
 
 char mode_icon[24];
 

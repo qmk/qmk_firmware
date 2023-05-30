@@ -158,32 +158,34 @@ def convert_requested_format(im, format):
     ncolors = format["num_colors"]
     image_format = format["image_format"]
 
+    # -- Check if ncolors is valid
+    # Formats accepting several options
+    if image_format in ['IMAGE_FORMAT_GRAYSCALE', 'IMAGE_FORMAT_PALETTE']:
+        valid = [2, 4, 8, 16, 256]
+
+    # Formats expecting a particular number
+    else:
+        # Read number from specs dict, instead of hardcoding
+        for _, fmt in valid_formats.items():
+            if fmt["image_format"] == image_format:
+                # has to be an iterable, to use `in`
+                valid = [fmt["num_colors"]]
+                break
+
+    if ncolors not in valid:
+        raise ValueError(f"Number of colors must be: {', '.join(valid)}.")
+
     # Work out where we're getting the bytes from
     if image_format == 'IMAGE_FORMAT_GRAYSCALE':
-        # Ensure we have a valid number of colors for the palette
-        if ncolors <= 0 or ncolors > 256 or (ncolors & (ncolors - 1) != 0):
-            raise ValueError("Number of colors must be 2, 4, 16, or 256.")
         # If mono, convert input to grayscale, then to RGB, then grab the raw bytes corresponding to the intensity of the red channel
         im = ImageOps.grayscale(im)
         im = im.convert("RGB")
     elif image_format == 'IMAGE_FORMAT_PALETTE':
-        # Ensure we have a valid number of colors for the palette
-        if ncolors <= 0 or ncolors > 256 or (ncolors & (ncolors - 1) != 0):
-            raise ValueError("Number of colors must be 2, 4, 16, or 256.")
         # If color, convert input to RGB, palettize based on the supplied number of colors, then get the raw palette bytes
         im = im.convert("RGB")
         im = im.convert("P", palette=Image.ADAPTIVE, colors=ncolors)
-    elif image_format == 'IMAGE_FORMAT_RGB565':
-        # Ensure we have a valid number of colors for the palette
-        if ncolors != 65536:
-            raise ValueError("Number of colors must be 65536.")
-        # If color, convert input to RGB
-        im = im.convert("RGB")
-    elif image_format == 'IMAGE_FORMAT_RGB888':
-        # Ensure we have a valid number of colors for the palette
-        if ncolors != 1677216:
-            raise ValueError("Number of colors must be 16777216.")
-        # If color, convert input to RGB
+    elif image_format in ['IMAGE_FORMAT_RGB565', 'IMAGE_FORMAT_RGB888']:
+        # Convert input to RGB
         im = im.convert("RGB")
 
     return im
