@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "comet46.h"
+#include "quantum.h"
 
 char modifier_state_str[22];
 
