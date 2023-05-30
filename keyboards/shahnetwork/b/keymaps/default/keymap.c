@@ -317,6 +317,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+// Workaround for https://github.com/qmk/qmk_firmware/issues/16406
+void suspend_wakeup_init_user(void) {
+    NVIC_SystemReset();
+}
+
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_left()) {
