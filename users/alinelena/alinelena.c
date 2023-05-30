@@ -114,7 +114,7 @@ void init_timer(void) {
 };
 
 void render_logo(void) {
-    oled_write_P(m65_logo, false);
+    oled_write_raw_P(m65_logo, sizeof(m65_logo));
     oled_write_ln_P(PSTR(bdate), false);
 }
 
