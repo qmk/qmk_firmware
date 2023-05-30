@@ -5,7 +5,6 @@
 #define RGBLED_NUM 37
 #define RGB_MATRIX_LED_COUNT 37
 #define WS2812_DI_PIN B1
-#define RGB_DI_PIN WS2812_DI_PIN
 
 #ifdef RGB_MATRIX_ENABLE
 
