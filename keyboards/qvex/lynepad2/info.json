@@ -6,7 +6,7 @@
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": [ "F0", "F1", "F4", "F5"],
-        "rows": [ "C7", "F7" ,"F6", "F6", "F6"]
+        "rows": [ "C7", "F7" ,"F6", null, null]
     },
     "processor": "atmega32u4",
     "url": "https://qvex.eu",
