@@ -2,6 +2,19 @@
 #include QMK_KEYBOARD_H
 #include "led.h"
 
+// This is the 21-key keypad to 2x11 element matrix mapping
+#define LAYOUT_pad21( \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k04, k05, k06, \
+    k14, k15, k16, k07, \
+    k08, k09, k0A, \
+    k19,      k1A, k17 \
+) { \
+    { k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A }, \
+    { k10, k11, k12, k13, k14, k15, k16, k17, XXX, k19, k1A } \
+}
+
 enum layers {
   LAYER_BASE,
   LAYER_EDIT,

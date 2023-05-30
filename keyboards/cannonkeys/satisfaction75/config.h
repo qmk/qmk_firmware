@@ -23,10 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LSE clock */
 #define STM32_LSECLK 32768
 
-#define MATRIX_COL_PINS { B1, B2, B10, B11, B12, B13, B14, A8, A9, A10, B0, A7, A5, B5, A15, A1 }
-#define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
-#define DIODE_DIRECTION COL2ROW
-
 // I2C config
 #define I2C_DRIVER I2CD1
 #define I2C1_SCL_PIN B6
