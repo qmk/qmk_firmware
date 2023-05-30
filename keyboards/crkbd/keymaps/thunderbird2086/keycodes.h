@@ -5,7 +5,7 @@
 
 enum custom_keycodes {
     // Layer Macros
-    COLEMAK = SAFE_RANGE,
+    COLEMAK = QK_USER,
     QWERTY,
     FUNCTION,
     CODE,
