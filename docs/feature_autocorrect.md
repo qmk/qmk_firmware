@@ -200,6 +200,8 @@ bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *t
 
 Additionally, `apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct)` allows for users to add additional handling to the autocorrection, or replace the functionality entirely. This passes on the number of backspaces needed to replace the words, as well as the replacement string (partial word, not the full word), and the typo and corrected strings (complete words).
 
+?> Due to the way code works (no notion of words, just a stream of letters), the `typo` and `correct` strings are a best bet and could be "wrong". For example you may get `wordtpyo` & `wordtypo` instead of the expected `tpyo` & `typo`. 
+
 #### Apply Autocorrect Example
 
 This following example will play a sound when a typo is autocorrected and execute the autocorrection itself:
