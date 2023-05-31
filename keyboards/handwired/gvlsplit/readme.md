@@ -1,20 +1,20 @@
 # gvlsplit
 
-![gvlsplit](https://imgur.com/a/SSFVDgD)
+![gvlsplit](https://i.imgur.com/X9vh2FI.png)
 
 A personal custom split handwired keyboard with 3d printed case.
 
--   Keyboard Maintainer: [Vlatko Gjurgjinoski](https://github.com/Vlatko Gjurgjinoski)
--   Hardware Supported: Promicro atmeta32u4 x2, TRRS ports x2
--   Hardware Availability: https://aliexpress.com
+* Keyboard Maintainer: [Vlatko Gjurgjinoski](https://github.com/gvlatko)
+* Hardware Supported: Pro Micro
+* Hardware Availability: https://aliexpress.com
 
 Make example for this keyboard (after setting up your build environment):
 
-    make gvlsplit:default
+    make handwired/gvlsplit:default
 
 Flashing example for this keyboard:
 
-    make gvlsplit:default:flash
+    make handwired/gvlsplit:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
