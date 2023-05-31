@@ -1,6 +1,6 @@
 # Chaz
 
-![Chaz](https://i.imgur.com/FeZQFYA.png)
+![Chaz](https://i.imgur.com/FeZQFYAh.png)
 
 Low Profile, Choc Spaced QAZ-alike
 
