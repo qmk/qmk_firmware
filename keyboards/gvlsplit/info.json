@@ -1,7 +1,4 @@
 {
-    "manufacturer": "Vlatko Gjurgjinoski",
-    "keyboard_name": "gvlsplit",
-    "maintainer": "Vlatko Gjurgjinoski",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
@@ -12,17 +9,7 @@
         "mousekey": true,
         "nkro": true
     },
-    "matrix_pins": {
-        "cols": ["C2", "C2", "C2", "C2"],
-        "rows": ["D1", "D1", "D1", "D1"]
-    },
-    "processor": "atmega32u4",
-    "url": "",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
-    },
+    "keyboard_name": "gvlsplit",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -173,9 +160,9 @@
                 {
                     "label": "K10 (B1,B6)",
                     "matrix": [1, 0],
+                    "w": 1.25,
                     "x": 0.25,
-                    "y": 1.38,
-                    "w": 1.25
+                    "y": 1.38
                 },
                 {
                     "label": "K1J (B1,E1)",
@@ -252,9 +239,9 @@
                 {
                     "label": "K20 (B2,B6)",
                     "matrix": [2, 0],
+                    "w": 1.25,
                     "x": 0.25,
-                    "y": 2.38,
-                    "w": 1.25
+                    "y": 2.38
                 },
                 {
                     "label": "K2J (B2,E1)",
@@ -325,9 +312,9 @@
                 {
                     "label": "K30 (B3,B6)",
                     "matrix": [3, 0],
+                    "w": 1.25,
                     "x": 0.25,
-                    "y": 3.38,
-                    "w": 1.25
+                    "y": 3.38
                 },
                 {
                     "label": "K4I (B4,E0)",
@@ -350,9 +337,9 @@
                 {
                     "label": "K40 (B4,B6)",
                     "matrix": [4, 0],
+                    "w": 1.25,
                     "x": 0.25,
-                    "y": 4.38,
-                    "w": 1.25
+                    "y": 4.38
                 },
                 {
                     "label": "K41 (B4,B7)",
@@ -379,18 +366,18 @@
                     "y": 4.63
                 },
                 {
+                    "h": 1.25,
                     "label": "K46 (B4,C4)",
                     "matrix": [4, 6],
                     "x": 6.5,
-                    "y": 4.25,
-                    "h": 1.25
+                    "y": 4.25
                 },
                 {
+                    "h": 1.25,
                     "label": "K47 (B4,C5)",
                     "matrix": [4, 7],
                     "x": 7.5,
-                    "y": 4.25,
-                    "h": 1.25
+                    "y": 4.25
                 },
                 {
                     "label": "K55 (B5,C3)",
@@ -399,18 +386,18 @@
                     "y": 5.13
                 },
                 {
+                    "h": 1.25,
                     "label": "K4B (B4,D1)",
                     "matrix": [4, 11],
                     "x": 11,
-                    "y": 4.25,
-                    "h": 1.25
+                    "y": 4.25
                 },
                 {
+                    "h": 1.25,
                     "label": "K4C (B4,D2)",
                     "matrix": [4, 12],
                     "x": 12,
-                    "y": 4.25,
-                    "h": 1.25
+                    "y": 4.25
                 },
                 {
                     "label": "K5D (B5,D3)",
@@ -420,5 +407,18 @@
                 }
             ]
         }
+    },
+    "maintainer": "Vlatko Gjurgjinoski",
+    "manufacturer": "Vlatko Gjurgjinoski",
+    "matrix_pins": {
+        "cols": ["C2", "C2", "C2", "C2"],
+        "rows": ["D1", "D1", "D1", "D1"]
+    },
+    "processor": "atmega32u4",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
     }
 }
