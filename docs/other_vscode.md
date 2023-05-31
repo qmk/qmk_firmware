@@ -92,59 +92,28 @@ No, really, that's it.  The paths needed are already included when installing th
 
 There are a number of extensions that you may want to install:
 
-* [Git Extension Pack](https://marketplace.visualstudio.com/items?itemName=donjayamanne.git-extension-pack) - 
-This installs a bunch of Git related tools that may make using Git with QMK Firmware easier.
+* [Git Extension Pack](https://marketplace.visualstudio.com/items?itemName=donjayamanne.git-extension-pack) - This installs a bunch of Git related tools that may make using Git with QMK Firmware easier.
+* [clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) - _[Optional]_ -  This is the language server for C/C++ that VS Code uses.  It provides IntelliSense and other features.
 * [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) - _[Optional]_ -  Helps to keep the code to the QMK Coding Conventions.
 * [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview) - _[Optional]_ - Makes the markdown preview in VS Code more like GitHub's.
 * [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack) - _[Optional]_ - This extension allows somebody else to access your workspace (or you to access somebody else's workspace) and help out.  This is great if you're having issues and need some help from somebody.
 
-Restart once you've installed any extensions
+Restart once you've installed any extensions.
 
 # Configure VS Code for QMK
 
 1. Click <kbd><kbd>File</kbd> > <kbd>Open Folder</kbd></kbd>
-2. Open the QMK Firmware folder that you cloned from GitHub. 
+2. Open the QMK Firmware folder that you cloned from GitHub.
 3. Click <kbd><kbd>File</kbd> > <kbd>Save Workspace As...</kbd></kbd>
 
 ## Configuring VS Code
 
-Using the [standard `compile_commands.json` database](https://clang.llvm.org/docs/JSONCompilationDatabase.html), we can get VS code C/C++ extension to use the exact same includes and defines used for your keyboard and keymap. 
+Using the [standard `compile_commands.json` database](https://clang.llvm.org/docs/JSONCompilationDatabase.html), we can get the VS code _clangd_ extension to use the correct includes and defines used for your keyboard and keymap.
 
 1. Run `qmk generate-compilation-database -kb <keyboard> -km <keymap>` to generate the `compile_commands.json`.
-1. Create `.vscode/c_cpp_properties.json` with the following content:
-```
-{
-    "configurations": [
-        {
-            "name": "qmk",
-            "compilerArgs": ["-mmcu=atmega32u4"],
-            "compilerPath": "/usr/bin/avr-gcc",
-            "cStandard": "gnu11",
-            "cppStandard": "gnu++14",
-            "compileCommands": "${workspaceFolder}/compile_commands.json",
-            "intelliSenseMode": "linux-gcc-arm",
-            "browse": {
-                "path": [
-                    "${workspaceFolder}"
-                ],
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": ""
-            }
-        }
-    ],
-    "version": 4
-}
-```
+1. Inside VS code, press <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd> (macOS: <kbd><kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd>) to open the command palette.
+1. Start typing `clangd: Download Language Server` and select it when it appears. Note that this only needs to be done once on clangd extension installation, if it didn't already ask to do so.
+1. Inside VS code, press <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd> (macOS: <kbd><kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd>) to open the command palette.
+1. Start typing `clangd: Restart Language Server` and select it when it appears.
 
-Change values in `.vscode/c_cpp_properties.json` for your environment:
-
-1. Copy the `-mmcu` argument from `compile_commands.json` into your `compilerArgs`. This is to work around a [bug in vscode c/c++ extension](https://github.com/microsoft/vscode-cpptools/issues/6478).
-1. Use the `compilerPath` from `compile_commands.json`.
-1. Modify `cStandard`, `cppStandard` and `intelliSenseMode` values to the correct values for your platform. See [this section](https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference#_configuration-properties) for reference. For WSL, it should still be gcc-x64.
-
-And now you're ready to code QMK Firmware in VS Code
-
-
-## Troubleshooting VSCode C/C++ extension
-
-If the defines are not matching what you expect, open the source code and run action `C/C++: Log Diagnostics`. This will list the exact list of defines and include paths defined in `compile_commands.json`, and if it's not part of your compilation database, it will tell you so.
+Now you're ready to code QMK Firmware in VS Code!

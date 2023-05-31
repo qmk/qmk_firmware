@@ -62,7 +62,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - valid maintainer
         - valid USB VID/PID and device version
         - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
-        - `layout` definitions should include matrix positions, so that `LAYOUT` macros can be generated at build time
+        - `layout` definitions must include matrix positions, so that `LAYOUT` macros can be generated at build time
             - should use standard definitions if applicable
             - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
             - If the keyboard only has a single electrical/switch layout:
@@ -124,7 +124,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - hardware that's enabled at the keyboard level and requires configuration such as OLED displays or encoders should have basic functionality implemented here
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
-    - `LAYOUT` macros should be moved to `info.json`
+    - `LAYOUT` macros are no longer accepted and should instead be moved to `info.json`
 - keymap `config.h`
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
