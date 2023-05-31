@@ -849,7 +849,7 @@ See also: [Unicode Support](feature_unicode.md)
 |----------------------------|---------|----------------------------------------------------------------|
 |`UC(c)`                     |         |Send Unicode code point `c`, up to `0x7FFF`                     |
 |`UM(i)`                     |         |Send Unicode code point at index `i` in `unicode_map`           |
-|`XP(i, j)`                  |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
+|`UP(i, j)`                  |         |Send Unicode code point at index `i`, or `j` if Shift/Caps is on|
 |`QK_UNICODE_MODE_NEXT`      |`UC_NEXT`|Cycle through selected input modes                              |
 |`QK_UNICODE_MODE_PREVIOUS`  |`UC_PREV`|Cycle through selected input modes in reverse                   |
 |`QK_UNICODE_MODE_MACOS`     |`UC_MAC` |Switch to macOS input                                           |
