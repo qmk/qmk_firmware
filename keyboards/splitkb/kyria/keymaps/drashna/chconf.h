@@ -1,4 +1,4 @@
-/* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,19 +16,9 @@
 
 #pragma once
 
-// place overrides here
-#undef MATRIX_COL_PINS
-#define MATRIX_COL_PINS \
-    { A3, A2, A1, A0, B13, B14, B15, B9, B3, B2, B4, A10, A9 }
-#undef MATRIX_ROW_PINS
-#define MATRIX_ROW_PINS \
-    { B7, B1, B0 }
+#if defined(KEYBOARD_splitkb_kyria_rev3)
+#define CH_CFG_ST_RESOLUTION 16
+#define CH_CFG_ST_FREQUENCY  10000
+#endif
 
-#define WS2812_DI_PIN B10
-#define RGBLED_NUM 15
-
-#define SOLENOID_PIN B11
-
-#define AUDIO_PIN A5
-#define AUDIO_PIN_ALT A4
-#define AUDIO_PIN_ALT_AS_NEGATIVE
+#include_next <chconf.h>
