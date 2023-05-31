@@ -33,15 +33,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     //-------------------------------//
                     KC_LBRC, TD(LOCKS), TD(LAYERS), KC_RBRC),
 
-    [SYMB] = LAYOUT(_______, XP(IEX, SS1), X(SS2), X(SS3), XP(CUR, GBP), X(EUR), X(V14), X(V12), X(V34), XP(LSQ, LDQ), XP(RSQ, RDQ), _______,
+    [SYMB] = LAYOUT(_______, XP(IEX, SS1), UM(SS2), UM(SS3), XP(CUR, GBP), UM(EUR), UM(V14), UM(V12), UM(V34), XP(LSQ, LDQ), XP(RSQ, RDQ), _______,
                     //-------------------------------//
-                    _______, XP(A_D, AXD), XP(A_R, ACR), XP(E_A, ECA), XP(REG, CPL), X(THR), XP(U_D, UCD), XP(U_A, UCA), XP(I_A, ICA), XP(O_A, OCA), XP(O_D, OCD), _______,
+                    _______, XP(A_D, AXD), XP(A_R, ACR), XP(E_A, ECA), XP(REG, CPL), UM(THR), XP(U_D, UCD), XP(U_A, UCA), XP(I_A, ICA), XP(O_A, OCA), XP(O_D, OCD), _______,
                     //-------------------------------//
-                    _______, XP(A_A, ACA), XP(S_S, SEC), XP(ETH, ETC), X(EMD), _______, _______, _______, _______, XP(O_S, OCS), XP(PLC, DEG), XP(ACT, DIS),
+                    _______, XP(A_A, ACA), XP(S_S, SEC), XP(ETH, ETC), UM(EMD), _______, _______, _______, _______, XP(O_S, OCS), XP(PLC, DEG), XP(ACT, DIS),
                     //-------------------------------//
-                    _______, XP(AEL, AEC), _______, XP(CPR, CNT), _______, _______, _______, _______, XP(N_T, NCT), X(MCR), XP(C_C, CCC), _______,
+                    _______, XP(AEL, AEC), _______, XP(CPR, CNT), _______, _______, _______, _______, XP(N_T, NCT), UM(MCR), XP(C_C, CCC), _______,
                     //-------------------------------//
-                    X(IQM), XP(NOT, BKB), _______, _______, X(YEN), XP(MLT, DIV),
+                    UM(IQM), XP(NOT, BKB), _______, _______, UM(YEN), XP(MLT, DIV),
                     //-------------------------------//
                     _______, _______, _______, _______),
 

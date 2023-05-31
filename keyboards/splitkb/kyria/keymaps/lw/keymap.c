@@ -52,8 +52,6 @@ const uint32_t unicode_map[] PROGMEM = {
     [SECTION]       = 0x00A7, // §
     [DEGREE]        = 0x00B0, // °
 };
-// usage: X(ACUTE), XP(CEDIL,CEDIL_MAJ)
-
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
