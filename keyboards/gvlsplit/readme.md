@@ -1,10 +1,10 @@
 # gvlsplit
 
-![gvlsplit](https://imgur.com/a/SSFVDgD)
+![gvlsplit](https://i.imgur.com/X9vh2FIh.png)
 
 A personal custom split handwired keyboard with 3d printed case.
 
--   Keyboard Maintainer: [Vlatko Gjurgjinoski](https://github.com/Vlatko Gjurgjinoski)
+-   Keyboard Maintainer: [Vlatko Gjurgjinoski](https://github.com/gvlatko)
 -   Hardware Supported: Promicro atmeta32u4 x2, TRRS ports x2
 -   Hardware Availability: https://aliexpress.com
 
