@@ -468,7 +468,7 @@ void suspend_power_down_quantum(void) {
 #ifndef NO_SUSPEND_POWER_DOWN
 // Turn off backlight
 #    ifdef BACKLIGHT_ENABLE
-    backlight_set(0);
+    backlight_level_noeeprom(0);
 #    endif
 
 #    ifdef LED_MATRIX_ENABLE
