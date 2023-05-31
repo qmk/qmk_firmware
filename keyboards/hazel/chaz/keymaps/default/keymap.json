@@ -4,7 +4,7 @@
   "documentation": "",
   "keyboard": "hazel/chaz",
   "keymap": "default",
-  "layout": "LAYOUT_split_space",
+  "layout": "LAYOUT",
   "layers": [
     [
       "KC_Q",
