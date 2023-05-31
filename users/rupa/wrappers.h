@@ -28,14 +28,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define G_LWR   LT(_LOWER, KC_G)
 
 #if defined(UNICODEMAP_ENABLE)
-#    define CSHAPES XP(CCIR,CKEY)
-#    define CUIDADO XP(CUI,HAS)
-#    define NOPENAH XP(NOPE,STOP)
-#    define MUSIC_A XP(M4,M8)
-#    define MUSIC_B XP(M8B,M16)
-#    define SMILE   XP(SMB,SMW)
-#    define STARS   XP(STB,STW)
-#    define YEPYEP  XP(CHEK,HUN)
+#    define CSHAPES UP(CCIR,CKEY)
+#    define CUIDADO UP(CUI,HAS)
+#    define NOPENAH UP(NOPE,STOP)
+#    define MUSIC_A UP(M4,M8)
+#    define MUSIC_B UP(M8B,M16)
+#    define SMILE   UP(SMB,SMW)
+#    define STARS   UP(STB,STW)
+#    define YEPYEP  UP(CHEK,HUN)
 #endif
 
 /* _QWERTY
