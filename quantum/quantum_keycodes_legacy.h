@@ -55,3 +55,4 @@
 #define GUI_TOG QK_MAGIC_TOGGLE_GUI
 
 #define X(i) UM(i)
+#define XP(i, j) UM(i, j)

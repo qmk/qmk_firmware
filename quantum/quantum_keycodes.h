@@ -182,7 +182,7 @@
 #define UM(i) (QK_UNICODEMAP | ((i)&0x3FFF))
 #define QK_UNICODEMAP_GET_INDEX(kc) ((kc)&0x3FFF)
 
-#define XP(i, j) (QK_UNICODEMAP_PAIR | ((i)&0x7F) | (((j)&0x7F) << 7)) // 127 max i and j
+#define UP(i, j) (QK_UNICODEMAP_PAIR | ((i)&0x7F) | (((j)&0x7F) << 7)) // 127 max i and j
 #define QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(kc) ((kc)&0x7F)
 #define QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(kc) (((kc) >> 7) & 0x7F)
 

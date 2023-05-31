@@ -39,8 +39,8 @@ const uint32_t unicode_map[] PROGMEM = {
     [DELTA_UPPERCASE] = 0x0394,
 };
 
-#define U_DASH XP(ENDASH, EMDASH)
-#define U_DELTA XP(DELTA_LOWERCASE, DELTA_UPPERCASE)
+#define U_DASH UP(ENDASH, EMDASH)
+#define U_DELTA UP(DELTA_LOWERCASE, DELTA_UPPERCASE)
 
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
