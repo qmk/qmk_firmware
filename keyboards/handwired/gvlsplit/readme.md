@@ -4,9 +4,9 @@
 
 A personal custom split handwired keyboard with 3d printed case.
 
--   Keyboard Maintainer: [Vlatko Gjurgjinoski](https://github.com/Vlatko Gjurgjinoski)
--   Hardware Supported: Promicro atmeta32u4 x2, TRRS ports x2
--   Hardware Availability: https://aliexpress.com
+* Keyboard Maintainer: [Vlatko Gjurgjinoski](https://github.com/gvlatko)
+* Hardware Supported: Pro Micro
+* Hardware Availability: https://aliexpress.com
 
 Make example for this keyboard (after setting up your build environment):
 
