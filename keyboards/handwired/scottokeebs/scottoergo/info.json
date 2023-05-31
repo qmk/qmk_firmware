@@ -36,7 +36,7 @@
         "vid": "0x534B"
     },
     "layouts": {
-        "LAYOUT_ortho_3x10_6": {
+        "LAYOUT_split_3x5_3": {
             "layout": [
                 // Row 1
                 { "matrix": [0, 0], "x": 0, "y": 0 },
