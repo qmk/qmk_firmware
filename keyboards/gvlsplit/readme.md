@@ -1,6 +1,6 @@
 # gvlsplit
 
-![gvlsplit](imgur.com image replace me!)
+![gvlsplit](https://imgur.com/a/SSFVDgD)
 
 A personal custom split handwired keyboard with 3d printed case.
 
