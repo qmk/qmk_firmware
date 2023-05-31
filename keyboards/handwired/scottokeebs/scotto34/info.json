@@ -36,7 +36,7 @@
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_ortho_3x10_4": {
+        "LAYOUT_split_3x5_2": {
             "layout": [
                 // Row 1
                 { "matrix": [0, 0], "x": 0, "y": 0 },
