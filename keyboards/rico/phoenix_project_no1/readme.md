@@ -1,7 +1,7 @@
 # Phoenix Project No 1
 
-![Type S](https://i.imgur.com/YJaz6P3.jpeg)
-![Type H](https://i.imgur.com/7Lz9oRL.jpeg)
+![Type S](https://i.imgur.com/YJaz6P3h.jpeg)
+![Type H](https://i.imgur.com/7Lz9oRLh.jpeg)
 
 This is an open source collection of M65-A keyboard replacement PCBs, available both in solderable and hotswap variants.  
 
