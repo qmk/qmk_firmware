@@ -70,10 +70,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * │RCtl│RAlt│RGui│          FLIP          │   │   │   │M← │M↓ │M→ │
  * └────┴────┴────┴────────────────────────┴───┴───┴───┴───┴───┴───┘
  */
-#define ____65_RAISE_______________ROW1    KC_GRV,  X(IBNG), X(IRNY), _______, X(CENT), _______, _______, _______, STARS,   _______, SMILE,   X(NEG),  CSHAPES, KC_DEL,  KC_HOME
-#define ____65_RAISE_______________ROW2    _______, _______, WAT,     X(LEXI), RUPA,    TADA,    YUNO,    _______, X(LELM), X(OM),   _______, MUSIC_A, MUSIC_B, _______, KC_INS
-#define ____65_RAISE_______________ROW3    _______, X(LALL), X(EFF),  DICE,    FART,    _______, HUGS,    JOY,     KISS,    LOD,     _______, NOPENAH,          YEPYEP,  KC_END
-#define ____65_RAISE_______________ROW4    OS_RSFT,          CUIDADO, X(ECKS), CATS,    DOMO,    BUGS,    X(NUM),  MUSIC,   DANCE,   X(LPRO), SHRUG,   KC_BTN1, KC_MS_U, KC_BTN2
+#define ____65_RAISE_______________ROW1    KC_GRV,  UM(IBNG), UM(IRNY), _______, UM(CENT), _______, _______, _______, STARS,   _______, SMILE,   UM(NEG),  CSHAPES, KC_DEL,  KC_HOME
+#define ____65_RAISE_______________ROW2    _______, _______, WAT,     UM(LEXI), RUPA,    TADA,    YUNO,    _______, UM(LELM), UM(OM),   _______, MUSIC_A, MUSIC_B, _______, KC_INS
+#define ____65_RAISE_______________ROW3    _______, UM(LALL), UM(EFF),  DICE,    FART,    _______, HUGS,    JOY,     KISS,    LOD,     _______, NOPENAH,          YEPYEP,  KC_END
+#define ____65_RAISE_______________ROW4    OS_RSFT,          CUIDADO, UM(ECKS), CATS,    DOMO,    BUGS,    UM(NUM),  MUSIC,   DANCE,   UM(LPRO), SHRUG,   KC_BTN1, KC_MS_U, KC_BTN2
 #define ____65_RAISE_______________ROW5    OS_RCTL, OS_RALT, OS_RGUI,                            FLIP,                      _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
 
 /* _LOWER
