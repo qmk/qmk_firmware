@@ -42,7 +42,7 @@ Add the following to your `rules.mk`:
 UNICODEMAP_ENABLE = yes
 ```
 
-Then add `X(i)` keycodes to your keymap, where _i_ is the desired character's index in the mapping table. This can be a numeric value, but it's recommended to keep the indices in an enum and access them by name.
+Then add `UM(i)` keycodes to your keymap, where _i_ is the desired character's index in the mapping table. This can be a numeric value, but it's recommended to keep the indices in an enum and access them by name.
 
 ```c
 enum unicode_names {
@@ -58,7 +58,7 @@ const uint32_t unicode_map[] PROGMEM = {
 };
 ```
 
-Then you can use `X(BANG)`, `X(SNEK)` etc. in your keymap.
+Then you can use `UM(BANG)`, `UM(SNEK)` etc. in your keymap.
 
 #### Lower and Upper Case
 
