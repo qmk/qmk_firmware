@@ -33,7 +33,7 @@ Enter the bootloader in 3 ways:
 
 ## QMK Layouts
 
-The following [QMK layouts](/layouts/) are supported:
+The following [community layouts](/layouts/) are supported:
 | Layout | Diagram |
 | :---: | :---: |
 | Split_3x6_3 | ![split_3x6_3](https://i.imgur.com/xBVDsqE.jpg) |
