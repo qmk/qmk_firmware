@@ -3,10 +3,12 @@
 
 #include QMK_KEYBOARD_H
 
-#define BASE_LAYER 0
-#define RAISE_LAYER 1
-#define LOWER_LAYER 2
-#define FN_LAYER 3
+enum layer_names {
+    _BASE,
+    _RAISE,
+    _LOWER,
+    _FN
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE_LAYER] = LAYOUT(
