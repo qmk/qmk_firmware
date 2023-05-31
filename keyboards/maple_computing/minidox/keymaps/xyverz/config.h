@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D7
+#define WS2812_DI_PIN D7
 
 #define RGBLED_NUM 8   // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING
@@ -43,7 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
 
 #endif

@@ -8,13 +8,24 @@
         "pid": "0x6071",
         "device_version": "0.0.2"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgblight": {
+        "max_brightness": 128
+    },
+    "matrix_pins": {
+        "cols": ["B4"],
+        "rows": ["B0"]
+    },
+    "diode_direction": "ROW2COL",
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
     "debounce": 50,
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 0, "y": 0, "w": 4, "h": 4}
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 4, "h": 4}
             ]
         }
     }
