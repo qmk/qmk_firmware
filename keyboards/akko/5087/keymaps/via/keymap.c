@@ -22,7 +22,7 @@ enum __layers {
     WIN_FN,
     MAC_B,
     MAC_W,
-    MAC_FN
+    MAC_FN,
 };
 
 // clang-format off
