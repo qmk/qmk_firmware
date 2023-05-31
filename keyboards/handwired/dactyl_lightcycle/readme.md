@@ -9,9 +9,9 @@ The *Dactyl Lightcycle* is a variation of the [Dactyl](/keyboards/handwired/dact
 
 This modernised rendition of the *Dactyl Lightcycle* requires two Pro Micro controllers, rather than the *Dactyl's* original implementation of a micro controller and I/O expander.
 
-Keyboard Maintainer: [Matt Aderth](https://github.com/adereth/)  
-Hardware Supported: 2x Pro Micro micro controller, or clone of  
-Hardware Availability: Case files available on [GitHub](https://github.com/adereth/dactyl-keyboard), file names beginning "lightcycle" apply  
+* Keyboard Maintainer: [Matt Aderth](https://github.com/adereth/)
+* Hardware Supported: 2x Pro Micro micro controller, or clone of
+* Hardware Availability: Case files available on [GitHub](https://github.com/adereth/dactyl-keyboard), file names beginning "lightcycle" apply
 
 Make example for this keyboard (after setting up your build environment):
 
