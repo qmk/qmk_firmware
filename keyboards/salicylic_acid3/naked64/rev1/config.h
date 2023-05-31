@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 #define RGBLED_NUM 12    // Number of LEDs
-#define RGBLIGHT_LED_MAP { 0, 1, 3, 2, 2, 3, 2, 3, 4, 5, 6, 7 }
 
 #ifndef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 180

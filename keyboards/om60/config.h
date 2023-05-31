@@ -36,23 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef RGBLED_NUM
   #define RGBLED_NUM 69
-  #define RGBLIGHT_LED_MAP { \
-       0,    1, 2, 3, \
-       8, 7, 6, 5, 4, \
-       9,10,11,12,13, \
-      18,17,16,15,14, \
-      19,20,21,22,23, \
-      28,27,26,25,24, \
-      29,30,31,32,33, \
-      38,37,36,35,34, \
-      39,40,41,42,43, \
-      48,47,46,45,44, \
-      49,50,51,52,53, \
-      58,57,56,55,54, \
-      59,60,61,62,63, \
-      68,67,66,65,64  \
-  }
-
   #define RGBLIGHT_SLEEP
 #endif
 

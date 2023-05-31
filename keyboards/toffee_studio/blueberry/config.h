@@ -17,15 +17,6 @@
 #pragma once
 
 #   define RGBLED_NUM 22
-
-/* RGB LED logical order map */
-/* Top->Bottom, Right->Left */
-#define RGBLIGHT_LED_MAP {      \
-  19, 18, 17, 16, 15, 14, 13, 12, 11,   \
-  20,                             10,   \
-  21,			                   9,   \
-   0,  1,  2,  3,  4,  5,  6,  7,  8    }
-
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
