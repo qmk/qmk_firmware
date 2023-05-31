@@ -3,7 +3,6 @@
     "keyboard_name": "Chaz",
     "maintainer": "jasonhazel",
     "url": "https://github.com/hazels-garage/chaz",
-    "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
