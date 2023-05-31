@@ -1,0 +1,96 @@
+{
+    "manufacturer": "1upkeyboards",
+    "keyboard_name": "1upocarina",
+    "maintainer": "ziptyze",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x5607",
+        "vid": "0x6F75"
+    },
+    "dynamic_keymap": {
+        "layer_count": 10
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgb_matrix": true
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {
+                "pin_a": "GP25", "pin_b": "GP26"
+            }
+        ]
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP28", "GP29", "GP27", "GP1", "GP2"]
+        ]
+    },
+    "ws2812": {
+        "pin": "GP24"
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+        { "flags": 4, "matrix": [0, 0], "x": 23, "y": 26 },
+        { "flags": 4, "matrix": [0, 1], "x": 62, "y": 26 },
+        { "flags": 4, "matrix": [0, 2], "x": 112, "y": 34 },
+        { "flags": 4, "matrix": [0, 3], "x": 161, "y": 26 },
+        { "flags": 4, "matrix": [0, 4], "x": 200, "y": 26 },
+
+        { "flags": 2, "x": 133, "y": 3 },
+        { "flags": 2, "x": 154, "y": 3 },
+        { "flags": 2, "x": 174, "y": 3 },
+        { "flags": 2, "x": 194, "y": 3 },
+        { "flags": 2, "x": 218, "y": 5 },
+
+        { "flags": 2, "x": 221, "y": 19 },
+        { "flags": 2, "x": 221, "y": 31 },
+        { "flags": 2, "x": 221, "y": 44 },
+        { "flags": 2, "x": 217, "y": 58 },
+        { "flags": 2, "x": 195, "y": 61 },
+
+        { "flags": 2, "x": 174, "y": 61 },
+        { "flags": 2, "x": 154, "y": 61 },
+        { "flags": 2, "x": 133, "y": 61 },
+        { "flags": 2, "x": 112, "y": 61 },
+        { "flags": 2, "x": 91, "y": 61 },
+
+        { "flags": 2, "x": 70, "y": 61 },
+        { "flags": 2, "x": 49, "y": 61 },
+        { "flags": 2, "x": 28, "y": 61 },
+        { "flags": 2, "x": 5, "y": 58 },
+        { "flags": 2, "x": 2, "y": 44 },
+
+        { "flags": 2, "x": 2, "y": 31 },
+        { "flags": 2, "x": 2, "y": 19 },
+        { "flags": 2, "x": 5, "y": 5 },
+        { "flags": 2, "x": 28, "y": 3 },
+        { "flags": 2, "x": 49, "y": 3 },
+
+        { "flags": 2, "x": 70, "y": 3 },
+        { "flags": 2, "x": 91, "y": 3 }
+        ]
+    },
+    "layouts": {
+        "LAYOUT_1x5": {
+            "layout": [
+                { "label": "z", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
+                { "label": "x", "matrix": [0, 1], "w": 1, "x": 1, "y": 0 },
+                { "label": "esc", "matrix": [0, 2], "w": 1, "x": 2, "y": 0 },
+                { "label": "c", "matrix": [0, 3], "w": 1, "x": 3, "y": 0 },
+                { "label": "v", "matrix": [0, 4], "w": 1, "x": 4, "y": 0 }
+            ]
+        }
+    }
+}
