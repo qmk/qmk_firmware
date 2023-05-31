@@ -103,7 +103,9 @@ void clear_oneshot_swaphands(void);
 #endif
 
 #ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
-#    if !(QK_BASIC <= DUMMY_MOD_NEUTRALIZER_KEYCODE && DUMMY_MOD_NEUTRALIZER_KEYCODE <= QK_BASIC_MAX)
+// KC_A is used as the lowerbound instead of QK_BASIC because the range QK_BASIC...KC_A includes
+// internal keycodes like KC_NO and KC_TRANSPARENT which are unsuitable for use with `tap_code(kc)`.
+#    if !(KC_A <= DUMMY_MOD_NEUTRALIZER_KEYCODE && DUMMY_MOD_NEUTRALIZER_KEYCODE <= QK_BASIC_MAX)
 #        error "DUMMY_MOD_NEUTRALIZER_KEYCODE must be a basic, unmodified, HID keycode!"
 #    endif
 void neutralize_flashing_modifiers(uint8_t active_mods);
