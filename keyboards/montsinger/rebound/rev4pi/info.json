@@ -29,10 +29,6 @@
         "cols": ["GP6", "GP7", "GP8", "GP9", "GP23", "GP20", "GP22"],
         "rows": ["GP2", "GP3", "GP4", "GP5", "GP26", "GP27", "GP28", "GP29"]
     },
-    "matrix_size": {
-        "cols": 7,
-        "rows": 8
-    },
     "mouse_key": {
         "enabled": false
     },
