@@ -13,22 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "tap_dance.h"
-
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case TD(TD_LCTL_ESC_SPOTLIGHT_EMOJI) :
-        case TD(TD_LALT_ESC_WINDOWS_EMOJI) :
-        case TD(TD_ESC_LALT_LCTL_SPOTLIGHT_EMOJI) :
-        case TD(TD_ESC_LCTL_LALT_WINDOWS_EMOJI) :
-        case LGUI_T(KC_SPC) :
-        case LT(1, KC_SPC) :
-        case LT(1, KC_TAB) :
-        case LT(2, KC_ENT) :
-      return 200;
-    default:
-      return TAPPING_TERM;
-  }
-};
+#include "scotto.h"
 
 // Create an instance of 'td_tap_t' for the 'x' tap dance.
 static td_tap_t xtap_state = {
@@ -144,15 +129,26 @@ void td_lctl_esc_spotlight_emoji_reset(tap_dance_state_t *state, void *user_data
     xtap_state.state = TD_NONE;
 }
 
-
  // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     [TD_LCTL_ESC_SPOTLIGHT_EMOJI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lctl_esc_spotlight_emoji_finished, td_lctl_esc_spotlight_emoji_reset),
     [TD_LALT_ESC_WINDOWS_EMOJI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lalt_esc_windowr_emoji_finished, td_lalt_esc_windowr_emoji_reset),
     [TD_ESC_LALT_LCTL_SPOTLIGHT_EMOJI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_esc_lalt_lctl_spotlight_emoji_finished, td_esc_lalt_lctl_spotlight_emoji_reset),
-    [TD_ESC_LCTL_LALT_WINDOWS_EMOJI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_esc_lctl_lalt_windows_emoji_finished, td_esc_lctl_lalt_windows_emoji_reset)
+    [TD_ESC_LCTL_LALT_WINDOWS_EMOJI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_esc_lctl_lalt_windows_emoji_finished, td_esc_lctl_lalt_windows_emoji_reset),
 };
 
-// For the x tap dance. Put it here so it can be used in any keymap
-void x_finished(tap_dance_state_t *state, void *user_data);
-void x_reset(tap_dance_state_t *state, void *user_data);
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(TD_LCTL_ESC_SPOTLIGHT_EMOJI) :
+        case TD(TD_LALT_ESC_WINDOWS_EMOJI) :
+        case TD(TD_ESC_LALT_LCTL_SPOTLIGHT_EMOJI) :
+        case TD(TD_ESC_LCTL_LALT_WINDOWS_EMOJI) :
+        case LGUI_T(KC_SPC) :
+        case LT(1, KC_SPC) :
+        case LT(1, KC_TAB) :
+        case LT(2, KC_ENT) :
+      return 200;
+    default:
+      return TAPPING_TERM;
+  }
+};
