@@ -12,11 +12,11 @@ A 36 key column staggered ergonomic keyboard with 10 degrees of tenting and 20 d
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scottoergo:default
+    make handwired/scottokeebs/scottoergo:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scottoergo:default
+    make handwired/scottokeebs/scottoergo:default
 
 # Bootloader
 
