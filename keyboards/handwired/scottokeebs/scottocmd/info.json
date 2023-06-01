@@ -4,6 +4,7 @@
     "maintainer": "joe-scotto",
     "bootloader": "caterina",
     "diode_direction": "COL2ROW",
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -18,7 +19,6 @@
         // A0, 15, 14, 16, 10
         "rows": ["F7", "B1", "B3", "B2", "B6"]
     },
-    "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
