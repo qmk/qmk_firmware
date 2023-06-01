@@ -32,11 +32,7 @@
     "mouse_key": {
         "enabled": false
     },
-    "parse_errors": [],
-    "parse_warnings": [],
     "processor": "RP2040",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "qmk": {
         "tap_keycode_delay": 10
     },
