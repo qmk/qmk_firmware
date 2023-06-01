@@ -12,11 +12,11 @@ A 34 ortholinear board that uses choc switches and mounts the controller on top.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scotto34:default
+    make handwired/scottokeebs/scotto34:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scotto34:default
+    make handwired/scottokeebs/scotto34:default
 
 # Bootloader
 
