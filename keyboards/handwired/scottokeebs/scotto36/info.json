@@ -4,6 +4,7 @@
     "maintainer": "joe-scotto",
     "bootloader": "caterina",
     "diode_direction": "COL2ROW",
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -18,7 +19,6 @@
         // 15, 14, 16, 10
         "rows": ["B1", "B3", "B2", "B6"]
     },
-    "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
@@ -26,7 +26,7 @@
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_ortho_3x10_6": {
+        "LAYOUT_split_3x5_6": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
