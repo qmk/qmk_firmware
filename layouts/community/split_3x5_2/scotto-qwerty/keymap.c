@@ -15,60 +15,61 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include QMK_KEYBOARD_H
 #include "scotto.h"
 
+#define LAYOUT_split_3x5_2_wrapper(...)   LAYOUT_split_3x5_2(__VA_ARGS__)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_split_3x5_2(
-        _________________COLEMAK1_________________,
-        _________________COLEMAK2_________________,
-        _________________COLEMAK3a________________,
+    [0] = LAYOUT_split_3x5_2_wrapper(
+        _________________QWERTY1__________________,
+        _________________QWERTY2__________________,
+        _________________QWERTY3a_________________,
         _______THUMB4_1_______
     ),
-    [1] = LAYOUT_split_3x5_2(
+    [1] = LAYOUT_split_3x5_2_wrapper(
         ______________SYM_MEDIA_NAV1______________,
         ______________SYM_MEDIA_NAV2______________,
         ______________SYM_MEDIA_NAV3______________,
         _____THUMB4_TRNS______
     ),
-    [2] = LAYOUT_split_3x5_2(
+    [2] = LAYOUT_split_3x5_2_wrapper(
         _________________NUM_SYM1_________________,
         _________________NUM_SYM2_________________,
         _________________NUM_SYM3a________________,
         _____THUMB4_TRNS______
     ),
-    [3] = LAYOUT_split_3x5_2(
-        ________________FUNC_SYS1a________________,
+    [3] = LAYOUT_split_3x5_2_wrapper(
+        ________________FUNC_SYS1a________________, 
         ________________FUNC_SYS2_________________,
         ________________FUNC_SYS3_________________,
         _____THUMB4_TRNS______
     ),
-    [4] = LAYOUT_split_3x5_2(
-        _________________COLEMAK1_________________,
-        _________________COLEMAK2_________________,
-        _________________COLEMAK3a________________,
+    [4] = LAYOUT_split_3x5_2_wrapper(
+        _________________QWERTY1__________________,
+        _________________QWERTY2__________________,
+        _________________QWERTY3a_________________,
         _______THUMB4_4_______
     ),
-    [5] = LAYOUT_split_3x5_2(
-        _________________COLEMAK1_________________,
-        _________________COLEMAK2_________________,
-        _________________COLEMAK3b________________,
+    [5] = LAYOUT_split_3x5_2_wrapper(
+        _________________QWERTY1__________________,
+        _________________QWERTY2__________________,
+        _________________QWERTY3b_________________,
         _______THUMB4_5_______
     ),
-    [6] = LAYOUT_split_3x5_2(
+    [6] = LAYOUT_split_3x5_2_wrapper(
         ______________SYM_MEDIA_NAV1______________,
         ______________SYM_MEDIA_NAV2______________,
         ______________SYM_MEDIA_NAV3______________,
         _____THUMB4_TRNS______
     ),
-    [7] = LAYOUT_split_3x5_2(
+    [7] = LAYOUT_split_3x5_2_wrapper(
         _________________NUM_SYM1_________________,
         _________________NUM_SYM2_________________,
         _________________NUM_SYM3b________________,
         _____THUMB4_TRNS______
     ),
-    [8] = LAYOUT_split_3x5_2(
-        ________________FUNC_SYS1b________________,
+    [8] = LAYOUT_split_3x5_2_wrapper(
+        ________________FUNC_SYS1b________________, 
         ________________FUNC_SYS2_________________,
         ________________FUNC_SYS3_________________,
         _____THUMB4_TRNS______
