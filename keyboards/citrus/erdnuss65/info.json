@@ -9,16 +9,11 @@
         "pid": "0x6374",
         "device_version": "0.0.1"
     },
-
     "matrix_pins": {
-        "rows": 
-        ["B10","B1", "B0","A7","A6"],  
-        "cols": 
-        ["B12","B14","B15","A8","B13","B3","B4","B5","A1","A2","A0","A3","A4","A5","B11"]
+        "rows": ["B10", "B1", "B0", "A7", "A6"],
+        "cols": ["B12", "B14", "B15", "A8", "B13", "B3", "B4", "B5", "A1", "A2", "A0", "A3", "A4", "A5", "B11"]
     },
-
     "diode_direction": "COL2ROW",
-
     "features": {
         "bootmagic": true,
         "mousekey": true,
@@ -30,8 +25,10 @@
         "rgblight": true,
         "audio": false
     },
+    "ws2812": {
+        "pin": "A15"
+    },
     "rgblight": {
-        "pin": "A15",
         "led_count": 1
     },
     "layouts": {
