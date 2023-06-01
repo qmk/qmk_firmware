@@ -151,6 +151,40 @@ void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_poin
     *macro_end = macro_pointer;
 }
 
+static keyrecord_t macro_buffer[DYNAMIC_MACRO_SIZE];
+
+/* Pointer to the first buffer element after the first macro.
+ * Initially points to the very beginning of the buffer since the
+ * macro is empty. */
+static keyrecord_t *macro_end = macro_buffer;
+
+/* The other end of the macro buffer. Serves as the beginning of
+ * the second macro. */
+static keyrecord_t *const r_macro_buffer = macro_buffer + DYNAMIC_MACRO_SIZE - 1;
+
+/* Like macro_end but for the second macro. */
+static keyrecord_t *r_macro_end = r_macro_buffer;
+
+/* A persistent pointer to the current macro position (iterator)
+ * used during the recording. */
+static keyrecord_t *macro_pointer = NULL;
+
+/* 0   - no macro is being recorded right now
+ * 1,2 - either macro 1 or 2 is being recorded */
+static uint8_t macro_id = 0;
+
+void dynamic_macro_stop_recording(void) {
+    switch (macro_id) {
+    case 1:
+      dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
+      break;
+    case 2:
+      dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
+    break;
+    }
+    macro_id = 0;
+}
+
 /* Handle the key events related to the dynamic macros. Should be
  * called from process_record_user() like this:
  *
@@ -186,27 +220,6 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
      * macros or one long macro and one short macro. Or even one empty
      * and one using the whole buffer.
      */
-    static keyrecord_t macro_buffer[DYNAMIC_MACRO_SIZE];
-
-    /* Pointer to the first buffer element after the first macro.
-     * Initially points to the very beginning of the buffer since the
-     * macro is empty. */
-    static keyrecord_t *macro_end = macro_buffer;
-
-    /* The other end of the macro buffer. Serves as the beginning of
-     * the second macro. */
-    static keyrecord_t *const r_macro_buffer = macro_buffer + DYNAMIC_MACRO_SIZE - 1;
-
-    /* Like macro_end but for the second macro. */
-    static keyrecord_t *r_macro_end = r_macro_buffer;
-
-    /* A persistent pointer to the current macro position (iterator)
-     * used during the recording. */
-    static keyrecord_t *macro_pointer = NULL;
-
-    /* 0   - no macro is being recorded right now
-     * 1,2 - either macro 1 or 2 is being recorded */
-    static uint8_t macro_id = 0;
 
     if (macro_id == 0) {
         /* No macro recording in progress. */
@@ -238,15 +251,7 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed ^ (keycode != QK_DYNAMIC_MACRO_RECORD_STOP)) { /* Ignore the initial release
                                                                                           * just after the recording
                                                                                           * starts for DM_RSTP. */
-                    switch (macro_id) {
-                        case 1:
-                            dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
-                            break;
-                        case 2:
-                            dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
-                            break;
-                    }
-                    macro_id = 0;
+                    dynamic_macro_stop_recording();
                 }
                 return false;
 #ifdef DYNAMIC_MACRO_NO_NESTING
