@@ -20,6 +20,9 @@
     "ws2812": {
         "pin": "E6"
     },
+    "rgblight": {
+        "max_brightness": 120
+    },
     "split": {
         "soft_serial_pin": "D0",
         "matrix_pins": {

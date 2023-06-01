@@ -34,8 +34,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 5
-#ifdef RGBLIGHT_LIMIT_VAL
-#undef RGBLIGHT_LIMIT_VAL
-#endif
-#define RGBLIGHT_LIMIT_VAL 128
 #endif

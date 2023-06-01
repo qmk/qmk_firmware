@@ -15,6 +15,9 @@
     "ws2812": {
         "pin": "D2"
     },
+    "rgblight": {
+        "max_brightness": 200
+    },
     "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "B6",

@@ -21,6 +21,9 @@
     "ws2812": {
         "pin": "B15"
     },
+    "rgblight": {
+        "max_brightness": 180
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "layouts": {

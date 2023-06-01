@@ -19,6 +19,10 @@ from qmk.search import search_keymap_targets
 def find(cli):
     """Search through all keyboards and keymaps for a given search criteria.
     """
+
+    if len(cli.args.filter) == 0 and len(cli.args.print) > 0:
+        cli.log.warning('No filters supplied -- keymaps not parsed, unable to print requested values.')
+
     targets = search_keymap_targets(cli.args.keymap, cli.args.filter, cli.args.print)
     for keyboard, keymap, print_vals in targets:
         print(f'{keyboard}:{keymap}')

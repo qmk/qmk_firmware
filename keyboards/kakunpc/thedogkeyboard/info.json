@@ -11,6 +11,9 @@
     "ws2812": {
         "pin": "D3"
     },
+    "rgblight": {
+        "max_brightness": 50
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": [

@@ -35,5 +35,4 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_SLEEP // RGB will turn off when PC is put to sleep

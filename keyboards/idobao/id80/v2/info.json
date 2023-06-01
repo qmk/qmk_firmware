@@ -18,6 +18,9 @@
     "ws2812": {
         "pin": "E2"
     },
+    "rgblight": {
+        "max_brightness": 180
+    },
     "indicators": {
         "caps_lock": "C7",
         "on_state": 0
