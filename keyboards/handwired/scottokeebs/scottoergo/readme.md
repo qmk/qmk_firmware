@@ -4,9 +4,9 @@
 
 A 36 key column staggered ergonomic keyboard with 10 degrees of tenting and 20 degrees of angle. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
--   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
--   Hardware Supported: RP2040
--   Hardware Availability: [Amazon](https://amazon.com)
+* Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
+* Hardware Supported: RP2040
+* Hardware Availability: [Amazon](https://amazon.com)
 
 # Compiling
 
