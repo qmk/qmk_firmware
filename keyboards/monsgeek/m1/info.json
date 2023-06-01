@@ -28,7 +28,7 @@
     "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
-            { "pin_a": "B14", "pin_b": "B13" }
+            {"pin_a": "B14", "pin_b": "B13"}
         ]
     },
     "rgb_matrix": {
