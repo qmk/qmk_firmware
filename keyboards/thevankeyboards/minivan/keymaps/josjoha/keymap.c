@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    * accented characters are defined in unicode_weurope.h
    *
    * Unicode macros facilitate recomputing for re-computing the Dvorak with changed letters 
-   * ('descramble'), and exist because space ran out for * XP(…).
+   * ('descramble'), and exist because space ran out for * UP(…).
    *
    * The led color code might be a bit hairy, due to speed/count middle led overlapping layer color. 
    *
