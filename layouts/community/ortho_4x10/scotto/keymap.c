@@ -15,61 +15,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "scotto.h"
 
-#define LAYOUT_ortho_4x10_wrapper(...)   LAYOUT_ortho_4x10(__VA_ARGS__)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_ortho_4x10_wrapper(
-        _________________QWERTY1__________________,
-        _________________QWERTY2__________________,
-        _________________QWERTY3a_________________,
-        KC_NO, KC_NO, _______THUMB6_1_______, KC_NO, KC_NO 
+    [0] = LAYOUT_ortho_4x10(
+        _________________COLEMAK1_________________,
+        _________________COLEMAK2_________________,
+        _________________COLEMAK3a________________,
+        KC_NO, KC_NO, _______THUMB6_1_______ KC_NO, KC_NO
     ),
-    [1] = LAYOUT_ortho_4x10_wrapper(
+    [1] = LAYOUT_ortho_4x10(
         ______________SYM_MEDIA_NAV1______________,
         ______________SYM_MEDIA_NAV2______________,
         ______________SYM_MEDIA_NAV3______________,
-        KC_NO, KC_NO, _____THUMB6_TRNS______, KC_NO, KC_NO
+        KC_NO, KC_NO, _____THUMB6_TRNS______ KC_NO, KC_NO
     ),
-    [2] = LAYOUT_ortho_4x10_wrapper(
+    [2] = LAYOUT_ortho_4x10(
         _________________NUM_SYM1_________________,
         _________________NUM_SYM2_________________,
         _________________NUM_SYM3a________________,
-        KC_NO, KC_NO, _____THUMB6_TRNS______, KC_NO, KC_NO
+        KC_NO, KC_NO, _____THUMB6_TRNS______ KC_NO, KC_NO
     ),
-    [3] = LAYOUT_ortho_4x10_wrapper(
-        ________________FUNC_SYS1a________________, 
+    [3] = LAYOUT_ortho_4x10(
+        ________________FUNC_SYS1a________________,
         ________________FUNC_SYS2_________________,
         ________________FUNC_SYS3_________________,
-        KC_NO, KC_NO, _____THUMB6_TRNS______, KC_NO, KC_NO
+        KC_NO, KC_NO, _____THUMB6_TRNS______ KC_NO, KC_NO
     ),
-    [4] = LAYOUT_ortho_4x10_wrapper(
-        _________________QWERTY1__________________,
-        _________________QWERTY2__________________,
-        _________________QWERTY3a_________________,
-        KC_NO, KC_NO, _______THUMB6_4_______, KC_NO, KC_NO
+    [4] = LAYOUT_ortho_4x10(
+        _________________COLEMAK1_________________,
+        _________________COLEMAK2_________________,
+        _________________COLEMAK3a________________,
+        KC_NO, KC_NO, _______THUMB6_4_______ KC_NO, KC_NO
     ),
-    [5] = LAYOUT_ortho_4x10_wrapper(
-        _________________QWERTY1__________________,
-        _________________QWERTY2__________________,
-        _________________QWERTY3b_________________,
-        KC_NO, KC_NO, _______THUMB6_5_______, KC_NO, KC_NO
+    [5] = LAYOUT_ortho_4x10(
+        _________________COLEMAK1_________________,
+        _________________COLEMAK2_________________,
+        _________________COLEMAK3b________________,
+        KC_NO, KC_NO, _______THUMB6_5_______ KC_NO, KC_NO
     ),
-    [6] = LAYOUT_ortho_4x10_wrapper(
+    [6] = LAYOUT_ortho_4x10(
         ______________SYM_MEDIA_NAV1______________,
         ______________SYM_MEDIA_NAV2______________,
         ______________SYM_MEDIA_NAV3______________,
-        KC_NO, KC_NO, _____THUMB6_TRNS______, KC_NO, KC_NO
+        KC_NO, KC_NO, _____THUMB6_TRNS______ KC_NO, KC_NO
     ),
-    [7] = LAYOUT_ortho_4x10_wrapper(
+    [7] = LAYOUT_ortho_4x10(
         _________________NUM_SYM1_________________,
         _________________NUM_SYM2_________________,
         _________________NUM_SYM3b________________,
-        KC_NO, KC_NO, _____THUMB6_TRNS______, KC_NO, KC_NO
+        KC_NO, KC_NO, _____THUMB6_TRNS______ KC_NO, KC_NO
     ),
-    [8] = LAYOUT_ortho_4x10_wrapper(
-        ________________FUNC_SYS1b________________, 
+    [8] = LAYOUT_ortho_4x10(
+        ________________FUNC_SYS1b________________,
         ________________FUNC_SYS2_________________,
         ________________FUNC_SYS3_________________,
-        KC_NO, KC_NO, _____THUMB6_TRNS______, KC_NO, KC_NO
+        KC_NO, KC_NO, _____THUMB6_TRNS______ KC_NO, KC_NO
     )
 };
