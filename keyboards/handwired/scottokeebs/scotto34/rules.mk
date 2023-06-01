@@ -1,1 +1,0 @@
-BOOTLOADER = rp2040
