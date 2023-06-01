@@ -12,11 +12,11 @@ A 52 key ortholinear keyboard that is designed to help transition you into small
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scottostarter:default
+    make handwired/scottokeebs/scottostarter:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scottostarter:default
+    make handwired/scottokeebs/scottostarter:default:flash
 
 # Bootloader
 
