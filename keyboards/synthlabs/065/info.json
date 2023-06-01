@@ -24,9 +24,6 @@
     "pid": "0x3635",
     "device_version": "0.0.1"
   },
-  "community_layouts": [
-    "65_ansi"
-  ],
   "ws2812": {
     "pin": "GP18",
     "driver": "vendor"
