@@ -18,7 +18,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TD(TD_LCTL_ESC_SPOTLIGHT_EMOJI) :
         case TD(TD_LALT_ESC_WINDOWS_EMOJI) :
+        case TD(TD_ESC_LALT_LCTL_SPOTLIGHT_EMOJI) :
+        case TD(TD_ESC_LCTL_LALT_WINDOWS_EMOJI) :
         case LGUI_T(KC_SPC) :
+        case LT(1, KC_SPC) :
         case LT(1, KC_TAB) :
         case LT(2, KC_ENT) :
       return 200;
