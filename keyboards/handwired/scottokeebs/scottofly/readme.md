@@ -12,11 +12,11 @@ A 36 key column staggered ergonomic keyboard. Case files available [here](https:
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scottofly:default
+    make handwired/scottokeebs/scottofly:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scottofly:default
+    make handwired/scottokeebs/scottofly:default
 
 # Bootloader
 
