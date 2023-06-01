@@ -12,11 +12,11 @@ A 37key ~0.25u row staggered handwired keyboard. Case files available [here](htt
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scottoslant:default
+    make handwired/scottokeebs/scottoslant:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scottoslant:default
+    make handwired/scottokeebs/scottoslant:default
 
 # Bootloader
 
