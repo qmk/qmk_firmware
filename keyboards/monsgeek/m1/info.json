@@ -1,6 +1,6 @@
 {
-    "keyboard_name": "MonsGeek Keyboard",
-    "manufacturer": "monsgeek",
+    "keyboard_name": "M1",
+    "manufacturer": "MonsGeek",
     "maintainer": "jonylee@hfd",
     "usb": {
         "force_nkro": true,
