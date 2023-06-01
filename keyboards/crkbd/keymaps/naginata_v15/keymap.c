@@ -15,12 +15,8 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
-#ifdef PROTOCOL_LUFA
-  #include "lufa.h"
-  #include "split_util.h"
-#endif
 
+#include "os_detection.h"
 #include "keymap_japanese.h"
 
 // 薙刀式
@@ -80,12 +76,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
   // 薙刀式
   uint16_t ngonkeys[] = {KC_H, KC_J};
   uint16_t ngoffkeys[] = {KC_F, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
+
+  wait_ms(400);
+  switch (detected_host_os()) {
+    case OS_WINDOWS:
+      switchOS(NG_WIN);
+      break;
+    case OS_MACOS:
+    case OS_IOS:
+      switchOS(NG_MAC);
+      break;
+    case OS_LINUX:
+      switchOS(NG_LINUX);
+      break;
+    default:
+      switchOS(NG_WIN);
+  }
 
   oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
 }

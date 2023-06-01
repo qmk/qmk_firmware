@@ -1,4 +1,4 @@
-BOOTLOADER = qmk-dfu
+# BOOTLOADER = qmk-dfu
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
@@ -26,18 +26,7 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 MUSIC_ENABLE = no
-
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-# If you want to change the display of OLED, you need to change here
-# SRC +=  ./lib/glcdfont.c \
-#         ./lib/rgb_state_reader.c \
-#         ./lib/layer_state_reader.c \
-#         ./lib/logo_reader.c \
-#         ./lib/keylogger.c \
-        # ./lib/mode_icon_reader.c \
-        # ./lib/host_led_state_reader.c \
-        # ./lib/timelogger.c
-
-EXTRAFLAGS += -flto
+OS_DETECTION_ENABLE = yes
+RGBLIGHT_SUPPORTED = no
+RGB_MATRIX_SUPPORTED = no

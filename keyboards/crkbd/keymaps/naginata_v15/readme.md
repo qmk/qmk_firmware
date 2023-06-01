@@ -19,6 +19,7 @@ https://github.com/eswai/qmk_firmware/tree/master/users/naginata_v15
 以下の機能を動的に切り替えることができます。
 設定内容はEEPROMに記録されるので、
 キーボードを取り外しても設定は保存されています。
+なおQMKのOS detection機能を使って、OS切り替えは自動で行うことができます。
 
 | 設定項目 | 設定 | キー | キーコード | 
 |---|---|---|---|
