@@ -12,11 +12,11 @@ A 33 ortholinear board with a 7u spacebar. Case files available [here](https://g
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scottolong:default
+    make handwired/scottokeebs/scottolong:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scottolong:default
+    make handwired/scottokeebs/scottolong:default
 
 # Bootloader
 
