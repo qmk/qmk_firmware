@@ -50,8 +50,6 @@
     },
     "layouts": {
         "LAYOUT_all": {
-            "c_macro": false,
-            "filename": "keyboards/montsinger/rebound/rev4pi/rev4pi.h",
             "layout": [
                 { "label": "K00", "matrix": [0, 0], "w": 1, "x": 0, "y": 0 },
                 { "label": "K70", "matrix": [7, 0], "w": 1, "x": 1, "y": 0 },
