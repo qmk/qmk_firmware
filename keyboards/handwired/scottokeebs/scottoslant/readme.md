@@ -4,9 +4,9 @@
 
 A 37key ~0.25u row staggered handwired keyboard. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
--   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
--   Hardware Supported: ATmega32U4
--   Hardware Availability: [Amazon](https://amazon.com)
+* Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
+* Hardware Supported: ATmega32U4
+* Hardware Availability: [Amazon](https://amazon.com)
 
 # Compiling
 
