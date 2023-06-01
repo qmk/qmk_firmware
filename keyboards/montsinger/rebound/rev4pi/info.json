@@ -4,29 +4,11 @@
     "maintainer": "rossman360",
     "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
-    "config_h_features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "encoder": true,
-        "extrakey": true,
-        "mousekey": false,
-        "nkro": false,
-        "oled": false,
-        "rgb_matrix": false,
-        "rgblight": false
-    },
-    "debounce": 5,
     "diode_direction": "ROW2COL",
     "encoder": {
         "enabled": true,
         "rotary": [
-            {
-                "pin_a": "GP0",
-                "pin_b": "GP1"
-            }
+            {"pin_a": "GP0", "pin_b": "GP1"}
         ]
     },
     "features": {
