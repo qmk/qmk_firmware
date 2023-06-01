@@ -25,9 +25,6 @@
         "rgb_matrix": false,
         "rgblight": false
     },
-    "keyboard": "Rebound Rev4pi",
-    "keyboard_folder": "montsinger/rebound/rev4pi",
-    "keymaps": {},
     "matrix_pins": {
         "cols": ["GP6", "GP7", "GP8", "GP9", "GP23", "GP20", "GP22"],
         "rows": ["GP2", "GP3", "GP4", "GP5", "GP26", "GP27", "GP28", "GP29"]
