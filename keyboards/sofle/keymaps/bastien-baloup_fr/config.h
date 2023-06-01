@@ -40,7 +40,7 @@
     #if defined(KEYBOARD_sofle_rev1)
 	    #define RGBLED_NUM 70
 	    // D3 for ws2812 RGB LED
-	    #define RGB_DI_PIN D3
+	    #define WS2812_DI_PIN D3
     #endif
 #endif
 

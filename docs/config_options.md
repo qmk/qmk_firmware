@@ -150,7 +150,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define TAPPING_TERM_PER_KEY`
   * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
-  * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
+  * tap anyway, even after `TAPPING_TERM`, if there was no other key interruption between press and release
   * See [Retro Tapping](tap_hold.md#retro-tapping) for details
 * `#define RETRO_TAPPING_PER_KEY`
   * enables handling for per key `RETRO_TAPPING` settings
@@ -161,9 +161,6 @@ If you define these options you will enable the associated feature, which may in
   * See [Permissive Hold](tap_hold.md#permissive-hold) for details
 * `#define PERMISSIVE_HOLD_PER_KEY`
   * enabled handling for per key `PERMISSIVE_HOLD` settings
-* `#define IGNORE_MOD_TAP_INTERRUPT`
-  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
-  * See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for details
 * `#define QUICK_TAP_TERM 100`
   * tap-then-hold timing to use a dual role key to repeat keycode
   * See [Quick Tap Term](tap_hold.md#quick-tap-term)
@@ -189,8 +186,6 @@ If you define these options you will enable the associated feature, which may in
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
   * how many taps before oneshot toggle is triggered
-* `#define COMBO_COUNT 2`
-  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature. Or leave it undefined and programmatically set the count.
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 * `#define COMBO_MUST_HOLD_MODS`
@@ -217,7 +212,7 @@ If you define these options you will enable the associated feature, which may in
 
 ## RGB Light Configuration
 
-* `#define RGB_DI_PIN D7`
+* `#define WS2812_DI_PIN D7`
   * pin the DI on the WS2812 is hooked-up to
 * `#define RGBLIGHT_LAYERS`
   * Lets you define [lighting layers](feature_rgblight.md?id=lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
@@ -233,7 +228,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define RGBLIGHT_SPLIT`
   * Needed if both halves of the board have RGB LEDs wired directly to the RGB output pin on the controllers instead of passing the output of the left half to the input of the right half
 * `#define RGBLED_SPLIT { 6, 6 }`
-  * number of LEDs connected that are directly wired to `RGB_DI_PIN` on each half of a split keyboard
+  * number of LEDs connected that are directly wired to the RGB pin on each half of a split keyboard
   * First value indicates number of LEDs for left half, second value is for the right half
   * When RGBLED_SPLIT is defined, RGBLIGHT_SPLIT is implicitly defined.
 * `#define RGBLIGHT_HUE_STEP 12`
