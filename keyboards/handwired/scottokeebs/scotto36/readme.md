@@ -12,11 +12,11 @@ A 36 key handwired ortholinear ergo keyboard. Featuring an OLED display with Bon
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scotto36:default
+    make handwired/scottokeebs/scotto36:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scotto36:default
+    make handwired/scottokeebs/scotto36:default:flash
 
 # Bootloader
 
