@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "os_detection.h"
 
 // 薙刀式
 #include "naginata.h"
@@ -172,10 +173,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
   // 薙刀式
   uint16_t ngonkeys[] = {KC_H, KC_J};
   uint16_t ngoffkeys[] = {KC_F, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
+
+  wait_ms(400);
+  switch (detected_host_os()) {
+    case OS_WINDOWS:
+      switchOS(NG_WIN);
+      break;
+    case OS_MACOS:
+    case OS_IOS:
+      switchOS(NG_MAC);
+      break;
+    case OS_LINUX:
+      switchOS(NG_LINUX);
+      break;
+    default:
+      switchOS(NG_WIN);
+  }
+
 }
