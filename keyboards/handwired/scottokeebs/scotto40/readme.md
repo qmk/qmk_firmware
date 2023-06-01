@@ -12,11 +12,11 @@ A 37, 38, or 40 key handwired ortholinear keyboard. Case files available [here](
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scotto40:default
+    make handwired/scottokeebs/scotto40:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scotto40:default
+    make handwired/scottokeebs/scotto40:default:flash
 
 # Bootloader
 
