@@ -12,11 +12,11 @@ A 40 key handwired ortholinear keyboard with non-ortho bottom row. Featuring a 1
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scottocmd:default
+    make handwired/scottokeebs/scottocmd:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scottocmd:default
+    make handwired/scottokeebs/scottocmd:default:flash
 
 # Bootloader
 
