@@ -12,11 +12,11 @@ A 36 key column staggered ortholinear keyboard. Case files available [here](http
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scottoinvader:default
+    make handwired/scottokeebs/scottoinvader:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scottoinvader:default
+    make handwired/scottokeebs/scottoinvader:default
 
 # Bootloader
 
