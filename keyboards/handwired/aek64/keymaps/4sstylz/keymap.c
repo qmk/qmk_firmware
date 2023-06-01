@@ -15,7 +15,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM lock_combo[] = {KC_J, KC_K, KC_L, KC_SCLN, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {COMBO(lock_combo, LGUI(KC_O))};
+combo_t key_combos[] = {COMBO(lock_combo, LGUI(KC_O))};
 
 // Define the keycodes for one qwerty layer and one Fn layer.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * │ Ctrl │ Alt  │↯ATab │                            Space                             │ Gui  │ Alt  │ Ctrl │
    * └──────┴──────┴──────┴──────────────────────────────────────────────────────────────┴──────┴──────┴──────┘
    *
-   * Hidden features : 
+   * Hidden features :
    *  - Left Shift is also Home on a single tap.
    *  - Left Ctrl is also End on a single tap.
    *  - Right Shift is also page-up on a single tap.

@@ -8,15 +8,29 @@
         "pid": "0x1114",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "rgblight": {
+        "max_brightness": 120
+    },
+    "matrix_pins": {
+        "cols": ["E6", "D5", "B6", "B7"],
+        "rows": ["F0"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 0, "y": 0, "w": 2, "h": 2},
-                {"x": 2, "y": 0, "w": 2, "h": 2},
-                {"x": 4, "y": 0, "w": 2, "h": 2},
-                {"x": 6, "y": 0, "w": 2, "h": 2}
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 2, "h": 2},
+                {"matrix": [0, 1], "x": 2, "y": 0, "w": 2, "h": 2},
+                {"matrix": [0, 2], "x": 4, "y": 0, "w": 2, "h": 2},
+                {"matrix": [0, 3], "x": 6, "y": 0, "w": 2, "h": 2}
             ]
         }
     }

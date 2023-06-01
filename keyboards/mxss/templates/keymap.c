@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "mxss_frontled.h"
 
 hs_set caps_color = { .hue = 0, .sat = 255 };
 

@@ -15,14 +15,6 @@
  */
 #pragma once
 
-
-// Key matrix (TtB, LtR)
-#define MATRIX_COL_PINS \
-    { B4, D7, D6, D4, F7, F6, F5, F4 }
-#define MATRIX_ROW_PINS \
-    { C7, C6, B6, B5 }
-#define DIODE_DIRECTION COL2ROW
-
 // RGB matrix
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_COUNT 1
@@ -78,8 +70,6 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-#define FORCE_NKRO
 
 // Slim down the ROM
 #define NO_ACTION_LAYER

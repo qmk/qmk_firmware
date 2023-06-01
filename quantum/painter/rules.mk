@@ -24,6 +24,7 @@ SRC += \
     $(QUANTUM_DIR)/unicode/utf8.c \
     $(QUANTUM_DIR)/color.c \
     $(QUANTUM_DIR)/painter/qp.c \
+    $(QUANTUM_DIR)/painter/qp_internal.c \
     $(QUANTUM_DIR)/painter/qp_stream.c \
     $(QUANTUM_DIR)/painter/qgf.c \
     $(QUANTUM_DIR)/painter/qff.c \
