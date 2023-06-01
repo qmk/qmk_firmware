@@ -1,6 +1,6 @@
 # Synth Labs 065
 
-![065](https://i.imgur.com/0EDUgjth.jpg)
+![065](https://i.imgur.com/1iLYrP1h.jpg)
 
 The 065 Keyboard by Synth Labs.
 
