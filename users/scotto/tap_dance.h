@@ -13,6 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
+#include "scotto.h"
 
 typedef enum {
     TD_NONE = 0,
