@@ -14,7 +14,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// Define options
+// config added when Tap Dance is enabled
+#ifdef TAP_DANCE_ENABLE
 #define TAPPING_TERM 135
+#endif
+
+// Define options
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM_PER_KEY
