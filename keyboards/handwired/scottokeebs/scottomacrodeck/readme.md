@@ -12,11 +12,11 @@ An 11 key VIA compatible macro pad. Case files available [here](https://github.c
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scottomacrodeck:default
+    make handwired/scottokeebs/scottomacrodeck:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scottomacrodeck:default
+    make handwired/scottokeebs/scottomacrodeck:default
 
 # Bootloader
 
