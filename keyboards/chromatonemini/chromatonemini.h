@@ -18,29 +18,6 @@
 
 #include "quantum.h"
 
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT( \
-        enc,       sustain,                                                                                       \
-        up,                                                                                                       \
-    left, right,   k01, k03, k05, k07, k09, k11, k13, k15, k17, k19, k21, k23, k25, k27, k29, k31, k33, k35, k37, \
-        down,        k02, k04, k06, k08, k10, k12, k14, k16, k18, k20, k22, k24, k26, k28, k30, k32, k34, k36     \
-) { \
-    { enc, down, left, right, up,  k01, k02, sustain }, \
-    { k03, k04,  k05,  k06,   k07, k08, k09, KC_NO   }, \
-    { k10, k11,  k12,  k13,   k14, k15, k16, KC_NO   }, \
-    { k17, k18,  k19,  k20,   k21, k22, k23, KC_NO   }, \
-    { k24, k25,  k26,  k27,   k28, k29, k30, KC_NO   }, \
-    { k31, k32,  k33,  k34,   k35, k36, k37, KC_NO   }  \
-}
-
-
 #ifdef RGB_MATRIX_ENABLE
 extern led_config_t g_led_config;
 extern const uint8_t led_scale_indicator[12][12];
