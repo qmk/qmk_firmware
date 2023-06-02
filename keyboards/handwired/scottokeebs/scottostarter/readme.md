@@ -2,7 +2,7 @@
 
 ![ScottoStarter](https://i.imgur.com/bspbVPah.jpg)
 
-A 52 key ortholinear keyboard that is designed to help transition you into smaller layouts. Case files available [here](https://github.com/joe-scotto/scottokeebs).
+A 52-key ortholinear keyboard designed to help ease the transition into smaller layouts. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
 *   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 *   Hardware Supported: ATmega32U4
