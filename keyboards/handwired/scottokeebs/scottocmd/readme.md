@@ -4,9 +4,9 @@
 
 A 40 key handwired ortholinear keyboard with non-ortho bottom row. Featuring a 128x64 OLED display along with a 6.25u spacebar. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
--   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
--   Hardware Supported: ATmega32U4
--   Hardware Availability: [Amazon](https://amazon.com)
+*   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
+*   Hardware Supported: ATmega32U4
+*   Hardware Availability: [Amazon](https://amazon.com)
 
 Make example for this keyboard (after setting up your build environment):
 
