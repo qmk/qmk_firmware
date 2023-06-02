@@ -5,7 +5,7 @@
     "maintainer": "NortonTech",
     "usb": {
         "vid": "0xFEED",
-        "pid": "0xNT01",
+        "pid": "0x9801",
         "device_version": "1.0.1"
     },
     "matrix_pins": {
@@ -31,7 +31,7 @@
                 {"matrix": [2, 0], "x": 0, "y": 2},
                 {"matrix": [2, 1], "x": 1, "y": 2},
                 {"matrix": [2, 2], "x": 2, "y": 2},
-                {"matrix": [1, 3], "x": 3, "y": 1, "h": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2, "h": 2},
 
                 {"matrix": [3, 0], "x": 0, "y": 3},
                 {"matrix": [3, 1], "x": 1, "y": 3},
