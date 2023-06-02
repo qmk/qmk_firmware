@@ -372,7 +372,6 @@
                     }
                 },
                 "driver": {"type": "string"},
-                "led_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "center_point": {
                     "type": "array",
                     "minItems": 2,
@@ -424,7 +423,6 @@
                     }
                 },
                 "driver": {"type": "string"},
-                "led_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "center_point": {
                     "type": "array",
                     "minItems": 2,
