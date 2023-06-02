@@ -67,7 +67,7 @@ void autocorrect_toggle(void) {
  * @return false Stop processing and escape from autocorrect.
  */
 __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods) {
-    return preprocess_autocorrect(keycode, record, typo_buffer_size, mods);
+    return process_autocorrect_default_handler(keycode, record, typo_buffer_size, mods);
 }
 
 /**
@@ -83,7 +83,7 @@ __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord
  * @return true Allow autocorection
  * @return false Stop processing and escape from autocorrect.
  */
-bool preprocess_autocorrect(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods) {
+bool process_autocorrect_default_handler(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods) {
     // See quantum_keycodes.h for reference on these matched ranges.
     switch (*keycode) {
         // Exclude these keycodes from processing.
