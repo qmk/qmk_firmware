@@ -37,7 +37,6 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 48
 #define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 24, 24 }    // Number of LEDs
 
 #define SELECT_SOFT_SERIAL_SPEED 1
 /*Sets the protocol speed when using serial communication*/

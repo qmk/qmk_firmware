@@ -16,6 +16,9 @@
         "pin": "B6",
         "levels": 7
     },
+    "rgblight": {
+        "split_count": [7, 7]
+    },
     "ws2812": {
         "pin": "D3"
     },

@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 68
 #define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 34, 34 }
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

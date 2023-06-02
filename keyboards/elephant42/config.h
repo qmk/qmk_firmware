@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#    define RGBLED_SPLIT { 27, 27 }
 #    define RGBLED_NUM 54 // backlight x42 + underglow x12
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
@@ -36,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
+#    define RGB_MATRIX_SPLIT { 27, 27 }
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
 #    define RGB_MATRIX_HUE_STEP RGBLIGHT_HUE_STEP
 #    define RGB_MATRIX_SAT_STEP RGBLIGHT_SAT_STEP

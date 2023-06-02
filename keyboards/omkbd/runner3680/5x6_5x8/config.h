@@ -38,7 +38,6 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 70
 #define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 30, 40 }    // Number of LEDs
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 70

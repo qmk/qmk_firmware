@@ -54,7 +54,6 @@
 
 /* RGB LED Configuration */
 #define RGBLED_NUM 156
-#define RGBLED_SPLIT { 78, 78 }
 
 // RGB Lighting Animation modes. Explicitly enabled
 // For full list of effects, see:

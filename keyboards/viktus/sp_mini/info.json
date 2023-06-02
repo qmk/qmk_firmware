@@ -26,6 +26,9 @@
             }
         }
     },
+    "rgblight": {
+        "split_count": [12, 12]
+    },
     "ws2812": {
         "pin": "E6"
     },
