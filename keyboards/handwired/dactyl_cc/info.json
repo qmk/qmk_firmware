@@ -1,4 +1,8 @@
 {
+    "keyboard_name": "Dactyl CC",
+    "manufacturer": "mjohns",
+    "url": "https://github.com/mjohns/dactyl-cc",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x3060",
@@ -12,19 +16,15 @@
         "command": true,
         "nkro": false
     },
-    "keyboard_name": "Dactyl CC",
-    "manufacturer": "mjohns",
-    "url": "https://github.com/mjohns/dactyl-cc",
-    "maintainer": "qmk",
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5"],
         "rows": ["F6", "F7", "B1", "B3", "B2", "B6"]
     },
-      "diode_direction": "COL2ROW",
-      "split": {
+    "diode_direction": "COL2ROW",
+    "split": {
         "enabled": true,
         "soft_serial_pin": "D0"
-      },
+    },
     "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
@@ -101,17 +101,16 @@
                 {"matrix": [10, 0], "x": 9, "y": 5},
                 {"matrix": [10, 1], "x": 10, "y": 5},
 
-                {"matrix": [5, 5], "x": 7, "y": 6},
-                
-                {"matrix": [11, 0], "x": 9, "y": 6},
-
                 {"matrix": [5, 2], "x": 5, "y": 6, "h": 2},
                 {"matrix": [5, 3], "x": 6, "y": 6, "h": 2},
-                {"matrix": [5, 4], "x": 7, "y": 7},
+                {"matrix": [5, 5], "x": 7, "y": 6},
 
-                {"matrix": [11, 1], "x": 9, "y": 7},
+                {"matrix": [11, 0], "x": 9, "y": 6},
                 {"matrix": [11, 2], "x": 10, "y": 6, "h": 2},
-                {"matrix": [11, 3], "x": 11, "y": 6, "h": 2}
+                {"matrix": [11, 3], "x": 11, "y": 6, "h": 2},
+
+                {"matrix": [5, 4], "x": 7, "y": 7},
+                {"matrix": [11, 1], "x": 9, "y": 7}
             ]
         }
     }
