@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN A7
+#define WS2812_DI_PIN A7
 #define RGBLED_NUM 24
 #define RGBLIGHT_LIMIT_VAL 255
 
