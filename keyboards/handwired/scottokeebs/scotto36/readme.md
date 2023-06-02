@@ -2,7 +2,7 @@
 
 ![Scotto36](https://i.imgur.com/MCGv0ZHh.jpeg)
 
-A 36 key handwired ortholinear ergo keyboard. Featuring an OLED display with Bongo Cat. Case files available [here](https://github.com/joe-scotto/scottokeebs).
+A 36-key split monoblock ergonomic ortholinear keyboard with 15° of angle on each half. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
 *   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 *   Hardware Supported: ATmega32U4
