@@ -23,6 +23,13 @@
         "pid": "0x3334",
         "vid": "0x534B"
     },
+    "ws2812": {
+        "pin": "GP23",
+        "driver": "vendor"
+    },
+    "rgblight": {
+        "led_count": 1
+    },
     "layouts": {
         "LAYOUT_split_3x5_2": {
             "layout": [
