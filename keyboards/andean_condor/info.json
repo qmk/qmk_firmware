@@ -17,7 +17,7 @@
         "rows": ["GP2", "GP6", "GP10", "GP15", "GP22", "GP21", "GP20", "GP16"]
     },
     "processor": "RP2040",
-    "url": "",
+    "url": "https://github.com/guidoism/andean-condor/tree/pico-w",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
