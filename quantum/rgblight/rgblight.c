@@ -94,7 +94,6 @@ static uint8_t mode_base_table[] = {
 #    define RGBLIGHT_DEFAULT_ON 1
 #endif
 
-
 static inline int is_static_effect(uint8_t mode) {
     return memchr(static_effect_table, mode, sizeof(static_effect_table)) != NULL;
 }
