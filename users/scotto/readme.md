@@ -11,7 +11,7 @@ Scotto's default functional layout is Colemak. To compile this layout in QWERTY 
 ```
 qmk compile -kb <keyboardName> -km scotto -e KEYMAP=QWERTY
 ```
-Example for [Ferris Sweep](/keyboards/ferris/sweep/):
+Example for [Scotto34](/keyboards/scottokeebs/scotto34):
 ```
 qmk compile -kb ferris/sweep -km scotto -e KEYMAP=QWERTY
 ```
