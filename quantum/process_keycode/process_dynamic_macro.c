@@ -177,12 +177,12 @@ static uint8_t macro_id = 0;
   * If a dynamic macro is currently being recorded, stop recording. */
 void dynamic_macro_stop_recording(void) {
     switch (macro_id) {
-    case 1:
-      dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
-      break;
-    case 2:
-      dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
-    break;
+        case 1:
+          dynamic_macro_record_end(macro_buffer, macro_pointer, +1, &macro_end);
+          break;
+        case 2:
+          dynamic_macro_record_end(r_macro_buffer, macro_pointer, -1, &r_macro_end);
+          break;
     }
     macro_id = 0;
 }
