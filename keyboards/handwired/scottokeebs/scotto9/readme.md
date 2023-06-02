@@ -2,7 +2,7 @@
 
 ![Scotto9](https://imgur.com/inbmNSEh.jpeg)
 
-A 9 key handwired macropad. Case files available [here](https://github.com/joe-scotto/scottokeebs).
+A 9-key macropad. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
 *   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 *   Hardware Supported: ATmega32U4
