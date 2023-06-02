@@ -1,14 +1,12 @@
 # ScottoAlp
 
-<!-- ![ScottoAlp](https://i.imgur.com/uXUWY7wh.jpg) -->
+![ScottoAlp](https://i.imgur.com/XKpYcMgh.jpeg)
 
-A 41 key ortholinear keyboard that supports MX and Alp switches. Case files available [here](https://github.com/joe-scotto/scottokeebs).
+A 35-key ortholinear keyboard with a 3u spacebar and is compatible with both MX or Alps. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
--   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
--   Hardware Supported: ATmega32U4
--   Hardware Availability: [Amazon](https://amazon.com)
-
-# Compiling
+*   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
+*   Hardware Supported: ATmega32U4
+*   Hardware Availability: [Amazon](https://amazon.com)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -18,8 +16,10 @@ Flashing example for this keyboard:
 
     make handwired/jscotto/scottoalp:default
 
-# Bootloader
+## Bootloader
 
-Uses [bootmagic](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_bootmagic.md) allowing you to hold the top left key (0, 0) when plugging the board in to enter bootloader mode.
+Enter the bootloader in 3 ways:
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
