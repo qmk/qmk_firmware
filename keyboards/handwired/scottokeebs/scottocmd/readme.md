@@ -2,11 +2,11 @@
 
 ![ScottoCMD](https://i.imgur.com/rxiMZNnh.jpg)
 
-A 40 key handwired ortholinear keyboard with non-ortho bottom row. Featuring a 128x64 OLED display along with a 6.25u spacebar. Case files available [here](https://github.com/joe-scotto/scottokeebs).
+A 40-key ortholinear keyboard with a 6.25u spacebar, 4 dedicated function keys and 0.96" 128x64 OLED display. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
--   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
--   Hardware Supported: ATmega32U4
--   Hardware Availability: [Amazon](https://amazon.com)
+*   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
+*   Hardware Supported: ATmega32U4
+*   Hardware Availability: [Amazon](https://amazon.com)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -22,6 +22,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
--   **Bootmagic reset**: Hold down the key at (1,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
--   **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
--   **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+*   **Bootmagic reset**: Hold down the key at (1,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+*   **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+*   **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
