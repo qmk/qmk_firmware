@@ -55,7 +55,7 @@ def _get_key_left_position(key):
     return key['x'] - 0.25 if key.get('h', 1) == 2 and key.get('w', 1) == 1.25 else key['x']
 
 
-def _additional_validation(keyboard, info_data):
+def _additional_validation(keyboard, info_data):  # noqa: C901
     """Non schema checks
     """
     layouts = info_data.get('layouts', {})
