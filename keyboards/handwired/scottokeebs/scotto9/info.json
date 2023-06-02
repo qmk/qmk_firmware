@@ -2,7 +2,6 @@
     "manufacturer": "ScottoKeebs",
     "keyboard_name": "Scotto9",
     "maintainer": "joe-scotto",
-    "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "development_board": "promicro",
     "features": {
