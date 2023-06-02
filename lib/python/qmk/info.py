@@ -55,7 +55,7 @@ def _get_key_left_position(key):
     return key['x'] - 0.25 if key.get('h', 1) == 2 and key.get('w', 1) == 1.25 else key['x']
 
 
-def _additional_validation(keyboard, info_data):
+def _additional_validation(keyboard, info_data):  # noqa: C901
     """Non schema checks
     """
     layouts = info_data.get('layouts', {})
@@ -104,6 +104,14 @@ def _additional_validation(keyboard, info_data):
         if len(decl["key"]) > 7:
             if not decl.get("aliases", []):
                 _log_error(info_data, f'Keycode {decl["key"]} has no short form alias')
+
+    # Ensure LED config is somewhat valid
+    for feature in ['rgb_matrix', 'led_matrix']:
+        if feature in info_data and all(key in info_data[feature] for key in ["layout", "led_count"]):
+            layout_count = len(info_data[feature]["layout"])
+            led_count = info_data[feature]["led_count"]
+            if led_count != layout_count:
+                _log_warning(info_data, '%s: mismatch between LED count (%d) and layout items (%d)' % (feature, led_count, layout_count))
 
 
 def _validate(keyboard, info_data):
