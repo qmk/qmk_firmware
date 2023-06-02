@@ -173,6 +173,9 @@ static keyrecord_t *macro_pointer = NULL;
  * 1,2 - either macro 1 or 2 is being recorded */
 static uint8_t macro_id = 0;
 
+/**
+  * If a dynamic macro is currently being recorded, stop recording.
+  */
 void dynamic_macro_stop_recording(void) {
     switch (macro_id) {
     case 1:
