@@ -4,7 +4,7 @@
     "url": "",
     "maintainer": "NortonTech",
     "usb": {
-        "vid": "0xNORT",
+        "vid": "0xFEED",
         "pid": "0xNT01",
         "device_version": "1.0.1"
     },
