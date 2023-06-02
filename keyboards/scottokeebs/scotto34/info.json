@@ -21,7 +21,7 @@
     "url": "https://scottokeebs.com",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x3334",
+        "pid": "0x1013",
         "vid": "0x534B"
     },
     "ws2812": {
