@@ -4,9 +4,9 @@
 
 A 6 key mouse using [QMK mouse keys](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_mouse_keys.md), case files available [here](https://github.com/joe-scotto/scottokeebs.git).
 
--   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
--   Hardware Supported: Raspberry Pi Pico
--   Hardware Availability: [ScottoKeebs](https://scottokeebs.com), [Amazon](https://amazon.com), [Ali](https://amazon.com)
+*   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
+*   Hardware Supported: Raspberry Pi Pico
+*   Hardware Availability: [ScottoKeebs](https://scottokeebs.com), [Amazon](https://amazon.com), [Ali](https://amazon.com)
 
 # Compiling
 
