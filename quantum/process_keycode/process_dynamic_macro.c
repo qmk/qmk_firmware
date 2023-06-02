@@ -151,6 +151,30 @@ void dynamic_macro_record_end(keyrecord_t *macro_buffer, keyrecord_t *macro_poin
     *macro_end = macro_pointer;
 }
 
+/* Both macros use the same buffer but read/write on different
+ * ends of it.
+ *
+ * Macro1 is written left-to-right starting from the beginning of
+ * the buffer.
+ *
+ * Macro2 is written right-to-left starting from the end of the
+ * buffer.
+ *
+ * &macro_buffer   macro_end
+ *  v                   v
+ * +------------------------------------------------------------+
+ * |>>>>>> MACRO1 >>>>>>      <<<<<<<<<<<<< MACRO2 <<<<<<<<<<<<<|
+ * +------------------------------------------------------------+
+ *                           ^                                 ^
+ *                         r_macro_end                  r_macro_buffer
+ *
+ * During the recording when one macro encounters the end of the
+ * other macro, the recording is stopped. Apart from this, there
+ * are no arbitrary limits for the macros' length in relation to
+ * each other: for example one can either have two medium sized
+ * macros or one long macro and one short macro. Or even one empty
+ * and one using the whole buffer.
+ */
 static keyrecord_t macro_buffer[DYNAMIC_MACRO_SIZE];
 
 /* Pointer to the first buffer element after the first macro.
@@ -198,31 +222,6 @@ void dynamic_macro_stop_recording(void) {
  *   }
  */
 bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
-    /* Both macros use the same buffer but read/write on different
-     * ends of it.
-     *
-     * Macro1 is written left-to-right starting from the beginning of
-     * the buffer.
-     *
-     * Macro2 is written right-to-left starting from the end of the
-     * buffer.
-     *
-     * &macro_buffer   macro_end
-     *  v                   v
-     * +------------------------------------------------------------+
-     * |>>>>>> MACRO1 >>>>>>      <<<<<<<<<<<<< MACRO2 <<<<<<<<<<<<<|
-     * +------------------------------------------------------------+
-     *                           ^                                 ^
-     *                         r_macro_end                  r_macro_buffer
-     *
-     * During the recording when one macro encounters the end of the
-     * other macro, the recording is stopped. Apart from this, there
-     * are no arbitrary limits for the macros' length in relation to
-     * each other: for example one can either have two medium sized
-     * macros or one long macro and one short macro. Or even one empty
-     * and one using the whole buffer.
-     */
-
     if (macro_id == 0) {
         /* No macro recording in progress. */
         if (!record->event.pressed) {
