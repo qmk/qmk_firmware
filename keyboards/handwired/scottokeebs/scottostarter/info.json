@@ -2,7 +2,6 @@
     "manufacturer": "ScottoKeebs",
     "keyboard_name": "ScottoStarter",
     "maintainer": "joe-scotto",
-    "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "development_board": "promicro",
     "features": {
@@ -19,7 +18,6 @@
         // A0, 15, 14, 16, 10
         "rows": ["F7", "B1", "B3", "B2", "B6"]
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
