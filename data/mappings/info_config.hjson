@@ -71,7 +71,6 @@
     "LED_MATRIX_SPLIT": {"info_key": "led_matrix.split_count", "value_type": "array.int"},
     "LED_MATRIX_TIMEOUT": {"info_key": "led_matrix.timeout", "value_type": "int"},
     "LED_MATRIX_VAL_STEP": {"info_key": "led_matrix.val_steps", "value_type": "int"},
-    "LED_MATRIX_LED_COUNT": {"info_key": "led_matrix.led_count", "value_type": "int", "to_json": false},
 
     // LUFA Bootloader
     "QMK_ESC_INPUT": {"info_key": "qmk_lufa_bootloader.esc_input"},
@@ -110,7 +109,6 @@
     "RGB_MATRIX_SPLIT": {"info_key": "rgb_matrix.split_count", "value_type": "array.int"},
     "RGB_MATRIX_TIMEOUT": {"info_key": "rgb_matrix.timeout", "value_type": "int"},
     "RGB_MATRIX_VAL_STEP": {"info_key": "rgb_matrix.val_steps", "value_type": "int"},
-    "RGB_MATRIX_LED_COUNT": {"info_key": "rgb_matrix.led_count", "value_type": "int", "to_json": false},
 
     // RGBLight
     "RGBLED_NUM": {"info_key": "rgblight.led_count", "value_type": "int"},
