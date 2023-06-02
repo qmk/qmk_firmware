@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAP_DANCE_ENABLE
     #ifdef TAPPING_TERM
         #undef TAPPING_TERM
-        #define TAPPING_TERM 200
+        #define TAPPING_TERM 135
     #endif
     #define TAPPING_TERM_PER_KEY
     #define PERMISSIVE_HOLD
