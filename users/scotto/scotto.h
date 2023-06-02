@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _____THUMB4_TRNS______      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 
 // set functional layout
-#ifdef KEYMAP_QWERTY
+#if defined (KEYMAP_QWERTY)
     #define _________________KEYMAP1__________________ __QWERTY1__
     #define _________________KEYMAP2__________________ __QWERTY2__
     #define _________________KEYMAP3a_________________ __QWERTY3a_

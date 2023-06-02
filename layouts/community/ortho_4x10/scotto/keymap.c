@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ortho_4x10_wrapper(
         _________________KEYMAP1__________________,
         _________________KEYMAP2__________________,
-        _________________KEYMAP3a_________________,,
+        _________________KEYMAP3a_________________,
         KC_NO, KC_NO, _______THUMB6_1_______, KC_NO, KC_NO
     ),
     [1] = LAYOUT_ortho_4x10_wrapper(
