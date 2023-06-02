@@ -20,15 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #include "tap_dance.h"
 #endif
 
-#define _________________QWERTY1__________________      KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P
-#define _________________QWERTY2__________________      KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_BSPC
-#define _________________QWERTY3a_________________      LSFT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, RSFT_T(KC_SLSH)
-#define _________________QWERTY3b_________________      KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH
+// Assign rows of keycodes to a single def each 
+#define __QWERTY1__       KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P
+#define __QWERTY2__       KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_BSPC
+#define __QWERTY3a_       LSFT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, RSFT_T(KC_SLSH)
+#define __QWERTY3b_       KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH
 
-#define _________________COLEMAK1_________________      KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_BSPC
-#define _________________COLEMAK2_________________      KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O
-#define _________________COLEMAK3a________________      LSFT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, RSFT_T(KC_SLSH)
-#define _________________COLEMAK3b________________      KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH
+#define __COLEMAK1__      KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_BSPC
+#define __COLEMAK2__      KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O
+#define __COLEMAK3a_      LSFT_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, RSFT_T(KC_SLSH)
+#define __COLEMAK3b_      KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH
 
 #define ______________SYM_MEDIA_NAV1______________      KC_UNDS, KC_MINS, KC_PLUS, KC_EQL,  KC_COLN, KC_GRV, KC_MRWD, KC_MPLY, KC_MFFD, KC_DEL
 #define ______________SYM_MEDIA_NAV2______________      KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, KC_PIPE, KC_ESC, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT
@@ -53,3 +54,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _______THUMB4_4_______      TD(TD_ESC_LCTL_LALT_WINDOWS_EMOJI), LCTL_T(KC_SPC), LT(6, KC_TAB), LT(7, KC_ENT)
 #define _______THUMB4_5_______      KC_LCTL, KC_SPC, LT(6, KC_TAB), LT(7, KC_ENT)
 #define _____THUMB4_TRNS______      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+
+// set functional layout
+#ifdef KEYMAP_QWERTY
+    #define _________________KEYMAP1__________________ __QWERTY1__
+    #define _________________KEYMAP2__________________ __QWERTY2__
+    #define _________________KEYMAP3a_________________ __QWERTY3a_
+    #define _________________KEYMAP3b_________________ __QWERTY3b_
+#else
+    #define _________________KEYMAP1__________________ __COLEMAK1__
+    #define _________________KEYMAP2__________________ __COLEMAK2__
+    #define _________________KEYMAP3a_________________ __COLEMAK3a_
+    #define _________________KEYMAP3b_________________ __COLEMAK3b_
+#endif

@@ -19,9 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x5_3_wrapper(
-        _________________COLEMAK1_________________,
-        _________________COLEMAK2_________________,
-        _________________COLEMAK3a________________,
+        _________________KEYMAP1__________________,
+        _________________KEYMAP2__________________,
+        _________________KEYMAP3a_________________,
         _______THUMB6_1_______
     ),
     [1] = LAYOUT_split_3x5_3_wrapper(
@@ -43,15 +43,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _____THUMB6_TRNS______
     ),
     [4] = LAYOUT_split_3x5_3_wrapper(
-        _________________COLEMAK1_________________,
-        _________________COLEMAK2_________________,
-        _________________COLEMAK3a________________,
+        _________________KEYMAP1__________________,
+        _________________KEYMAP2__________________,
+        _________________KEYMAP3a_________________,
         _______THUMB6_4_______
     ),
     [5] = LAYOUT_split_3x5_3_wrapper(
-        _________________COLEMAK1_________________,
-        _________________COLEMAK2_________________,
-        _________________COLEMAK3b________________,
+        _________________KEYMAP1__________________,
+        _________________KEYMAP2__________________,
+        _________________KEYMAP3b_________________,
         _______THUMB6_5_______
     ),
     [6] = LAYOUT_split_3x5_3_wrapper(
