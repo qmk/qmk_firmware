@@ -19,11 +19,11 @@
         // 15, 14, 16, 10
         "rows": ["B1", "B3", "B2", "B6"]
     },
-    "url": "",
+    "url": "https://scottokeebs.com",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x0004",
+        "vid": "0x534B"
     },
     "layouts": {
         "LAYOUT_3x10_7": {
