@@ -10,7 +10,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["GP9", "GP10", "GP11", "GP12", "GP13", "GP18", "GP19", "GP20", "GP21", "GP22"],
@@ -30,6 +31,7 @@
     "rgblight": {
         "led_count": 1
     },
+    "community_layouts": ["split_3x5_2"],
     "layouts": {
         "LAYOUT_split_3x5_2": {
             "layout": [
