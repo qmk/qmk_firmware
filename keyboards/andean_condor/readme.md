@@ -1,16 +1,18 @@
-# andean_condor
-
-![andean_condor](imgur.com image replace me!)
+# Andean Condor (andean_condor)
 
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Guido Bartolucci](https://github.com/guidoism)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Raspberry Pi Pico (only QMK), Nice!Nano (only ZMK)
+* Hardware Availability: [Pico PCB](https://github.com/guidoism/andean-condor/tree/pico-w), [Nice!Nano PCB](https://github.com/guidoism/andean-condor)
 
 Make example for this keyboard (after setting up your build environment):
 
     make andean_condor:default
+    
+or
+
+    qmk compile -kb andean_condor -km default
 
 Flashing example for this keyboard:
 
@@ -26,9 +28,4 @@ Enter the bootloader in 3 ways:
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 
-
-# Guido's Notes
-
-    qmk compile -kb andean_condor -km default
-    
     
