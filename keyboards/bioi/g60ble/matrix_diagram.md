@@ -1,4 +1,4 @@
-# Matrix Diagram for Basic IO Instruments G60
+# Matrix Diagram for Basic IO Instruments G60BLE
 
 ```
 ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐          ┌───────┐
