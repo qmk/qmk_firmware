@@ -32,7 +32,7 @@ static inline int8_t times_inv_sqrt2(int8_t x) {
     // 0.70710754                  0.707106781
     return (x < 0 ? -1 : 1) * scale16(x < 0 ? -x : x, 46341);
 #elif defined MOUSEKEY_PRECISE_DIAGONAL_MOVE_2
-    return round(x * 0.707106781);
+    return round((x < 0 ? -1 : 1) * scale16(x < 0 ? -x : x, 46341));
 #else
     // 181/256 is also pretty close to 1/sqrt(2)
     // 0.70703125
