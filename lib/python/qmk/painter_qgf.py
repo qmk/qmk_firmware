@@ -347,7 +347,7 @@ def _write_frame(idx, frame, last_frame, *, fp, frame_offsets, **kwargs):
     frame_descriptor.is_transparent = False
     frame_descriptor.format = format_['image_format_byte']
     frame_descriptor.compression = 0x00 if use_raw_this_frame else 0x01  # See qp.h, painter_compression_t
-    frame_descriptor.delay = getattr(frame.info, 'duration', 1000)  # If we're not an animation, just pretend we're delaying for 1000ms
+    frame_descriptor.delay = frame.info.get('duration', 1000)  # If we're not an animation, just pretend we're delaying for 1000ms
     frame_descriptor.write(fp)
 
     # Write out the palette if required
