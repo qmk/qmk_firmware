@@ -134,8 +134,13 @@ bool qp_flush(painter_device_t device) {
 // Quantum Painter External API: qp_get_geometry
 
 void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y) {
-    qp_dprintf("qp_geometry: entry\n");
+    qp_dprintf("qp_get_geometry: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
+
+    if (!driver) {
+        qp_dprintf("qp_get_geometry: fail (pointer to NULL)\n");
+        return;
+    }
 
     switch (driver->rotation) {
         default:
@@ -171,7 +176,7 @@ void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height,
         *offset_y = driver->offset_y;
     }
 
-    qp_dprintf("qp_geometry: ok\n");
+    qp_dprintf("qp_get_geometry: ok\n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
