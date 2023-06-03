@@ -1,8 +1,10 @@
 #include QMK_KEYBOARD_H
 
-#define _QWER 0
-#define _WORK 1
-#define _FN1 2
+enum layers {
+    _QWER,
+    _WORK,
+    _FN1
+};
 
 #define FN1_CAPS LT(_FN1, KC_CAPS)
 
