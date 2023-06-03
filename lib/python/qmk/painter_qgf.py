@@ -244,8 +244,9 @@ def _accept(prefix):
 
 
 def _for_all_frames(x: FunctionType, /, images):
+    frame_num = 0
     last_frame = None
-    for frame_num, frame in enumerate(images):
+    for frame in images:
         # Get number of of frames in this image
         nfr = getattr(frame, "n_frames", 1)
         for idx in range(nfr):
@@ -254,6 +255,8 @@ def _for_all_frames(x: FunctionType, /, images):
             copy = frame.copy().convert("RGB")
             x(frame_num, copy, last_frame)
             last_frame = copy
+            frame_num += 1
+
 
 
 def _compress_image(frame, last_frame, *, use_rle, use_deltas, format_, **_kwargs):
@@ -283,11 +286,6 @@ def _compress_image(frame, last_frame, *, use_rle, use_deltas, format_, **_kwarg
             # ...create the delta frame by cropping the original.
             delta_frame = frame.crop(bbox)
 
-            # Fix sze (as per #20296), we need to cast first as tuples are inmutable
-            bbox = list(bbox)
-            bbox[2] -= 1
-            bbox[3] -= 1
-
             # Convert the delta frame to the requested format
             delta_converted = qmk.painter.convert_requested_format(delta_frame, format_)
             delta_graphic_data = qmk.painter.convert_image_bytes(delta_converted, format_)
@@ -310,6 +308,13 @@ def _compress_image(frame, last_frame, *, use_rle, use_deltas, format_, **_kwarg
                 use_raw_this_frame = delta_use_raw_this_frame
                 image_data = delta_image_data
                 use_delta_this_frame = True
+
+        # Default to whole image
+        bbox = bbox or [0, 0, *frame.size]
+        # Fix sze (as per #20296), we need to cast first as tuples are inmutable
+        bbox = list(bbox)
+        bbox[2] -= 1
+        bbox[3] -= 1
 
     return {
         "bbox": bbox,
