@@ -141,6 +141,7 @@ bool set_indicator(indicator_config indicator) {
         case 6:
         {
             if ( IS_LAYER_ON( (int)(indicator.func) - 3  ) ) return true;
+            break;
         }
         default:
         {
