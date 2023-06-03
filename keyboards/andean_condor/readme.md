@@ -2,7 +2,7 @@
 
 ![Pic](https://i.imgur.com/woaDob6.jpg)
 
-*A short description of the keyboard/project*
+The Andean Condor is a monoblock split keyboard in the spirit of the Kyria.
 
 * Keyboard Maintainer: [Guido Bartolucci](https://github.com/guidoism)
 * Hardware Supported: Raspberry Pi Pico (only QMK), Nice!Nano (only ZMK)
