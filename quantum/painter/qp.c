@@ -186,6 +186,11 @@ void qp_set_viewport_offsets(painter_device_t device, uint16_t offset_x, uint16_
     qp_dprintf("qp_set_viewport_offsets: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
 
+    if (!driver) {
+        qp_dprintf("qp_set_viewport_offsets: fail (pointer to NULL)\n");
+        return;
+    }
+
     driver->offset_x = offset_x;
     driver->offset_y = offset_y;
 
