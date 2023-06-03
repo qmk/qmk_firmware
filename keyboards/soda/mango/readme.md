@@ -7,17 +7,13 @@ A customizable 17  keyboard, support both HOTSWAP and SOLDER.
 
 Make example for this keyboard (after setting up your build environment):
 
-**default**:
+Make example for this keyboard (after setting up your build environment):
 
-```shell
-qmk compile -kb soda/mango -km default
-```
+    make soda/mango:default
 
-**via:**
+Flashing example for this keyboard:
 
-```shell
-qmk compile -kb soda/mango -km via
-```
+    make soda/mango:default:flash
 
 ## Bootloader
 
