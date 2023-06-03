@@ -8,6 +8,10 @@
         "rows": ["B8", "B7", "B6", "B5", "B4", "B3"]
     },
     "diode_direction": "COL2ROW",
+    "rgblight": {
+        "pin": "B15",
+        "led_count": 6
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

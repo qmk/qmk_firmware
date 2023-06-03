@@ -18,7 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN B15
 #define RGBLIGHT_LAYERS
-#define RGBLED_NUM 6
 #endif

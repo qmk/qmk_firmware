@@ -11,5 +11,29 @@
         "num_lock": "C15"
     },
     "processor": "STM32F103",
-    "bootloader": "stm32duino"
+    "bootloader": "stm32duino",
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgblight": true,
+        "audio": false
+    },
+    "rgblight": {
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    }
 }
