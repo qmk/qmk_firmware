@@ -81,6 +81,11 @@ MOUSEKEY_ENABLE = yes
 #define MOUSEKEY_PRECISE_DIAGONAL_MOVE
 ```
 
+上記の方法の場合、結果の端数は常に切り捨てられます。四捨五入を行うためには以下の行を `config.h` に追加してください。
+```c
+#define MOUSEKEY_PRECISE_DIAGONAL_MOVE_2
+```
+
 ヒント:
 
 * `MOUSEKEY_DELAY` の設定が低すぎるとカーソルが応答しなくなります。設定が高すぎると小さな動きが難しくなります。
