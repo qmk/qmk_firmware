@@ -27,7 +27,7 @@ enum layers {
     _STRAT,
     _ARROWS,
     _CLEAN,
-    _RGB
+    _MOU
 };
 
 #define ALPHA TO(_ALPHA)
@@ -40,17 +40,19 @@ enum layers {
 #define STRAT TG(_STRAT)
 #define ARROWS TG(_ARROWS)
 #define CLEAN TG(_CLEAN)
-#define RGB MO(_RGB)
+#define MOU MO(_MOU)
 
-// Tap Dance
-enum {
-    TD_PAST_PSLS,
-};
+// // Tap Dance
+// enum {
+//     TD_PAST_PSLS,
+//     TD_PMNS_PPLS,
+// };
 
-tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for asterisk, twice for slash
-    [TD_PAST_PSLS] = ACTION_TAP_DANCE_DOUBLE(KC_PAST, KC_PSLS),
-};
+// tap_dance_action_t tap_dance_actions[] = {
+//     // Tap once for asterisk, twice for slash
+//     [TD_PAST_PSLS] = ACTION_TAP_DANCE_DOUBLE(KC_PAST, KC_PSLS),
+//     [TD_PMNS_PPLS] = ACTION_TAP_DANCE_DOUBLE(KC_PMNS, KC_PPLS),
+// };
 
 // Custom shift implementation
 const custom_shift_key_t custom_shift_keys[] = {
@@ -58,8 +60,21 @@ const custom_shift_key_t custom_shift_keys[] = {
     {KC_LT, KC_COMM},
     {KC_GT, KC_DOT},
     {KC_LCBR, KC_LBRC},
-    {KC_RCBR, KC_RBRC}
+    {KC_RCBR, KC_RBRC},
+    {KC_PDOT, KC_PSLS},
+    {KC_P0, KC_PAST},
+    {KC_P1, KC_EXLM},
+    {KC_P2, KC_AT},
+    {KC_P3, KC_HASH},
+    {KC_P4, KC_DLR},
+    {KC_P5, KC_PERC},
+    {KC_P6, KC_CIRC},
+    {KC_P7, KC_AMPR},
+    {KC_P8, KC_ASTR},
+    {KC_P9, KC_TILD},
+    {KC_PMNS, KC_PPLS}
 };
+
 
 uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
@@ -112,54 +127,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Left | Down | Up   |Right |Ctrl+/| PGUP |   {  |   }  |   )  |   :  |  "   |
+ * | Ctrl | Left | Down | Up   |Right |Ctrl+/|   [  |   {  |   }  |   )  |   :  |  "   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   [  |   ]  | Home | End  | PRSC | PGDN |   (  |   <  |   >  |   ?  |Return|
+ * | Shift| PGUP | PGDN | Home | End  | PRSC |   ]  |   (  |   <  |   >  |   ?  |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  RGB | Caps | Ins  | Alt  | Trns |    Space    |   _  |   +  |   .  |   |  | Enter|
+ * |  MOU | Caps | Ins  | Alt  | Trns |    Space    |   _  |   +  |   .  |   |  | Enter|
  * `-----------------------------------------------------------------------------------'
  */
 [_LEFTFN] = LAYOUT_planck_mit(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_LCTL, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, LCTL(KC_SLSH), KC_PGUP, KC_LCBR, KC_RCBR, KC_RPRN, KC_COLN, KC_DQUO,
-    KC_LSFT, KC_LBRC, KC_RBRC, KC_HOME, KC_END,   KC_PSCR,       KC_PGDN, KC_LPRN, KC_LT,   KC_GT,   KC_QUES, KC_ENT,
-    RGB,     KC_CAPS, KC_INS,  KC_LALT, KC_TRNS,        KC_SPC,           KC_UNDS, KC_PLUS, KC_DOT,  KC_PIPE, KC_PENT
+    KC_LCTL, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, LCTL(KC_SLSH), KC_LBRC, KC_LCBR, KC_RCBR, KC_RPRN, KC_COLN, KC_DQUO,
+    KC_LSFT, KC_PGUP, KC_PGDN, KC_HOME, KC_END,   KC_PSCR,       KC_RBRC, KC_LPRN, KC_LT,   KC_GT,   KC_QUES, KC_ENT,
+    MOU,     KC_CAPS, KC_INS,  KC_LALT, KC_TRNS,        KC_SPC,           KC_UNDS, KC_PLUS, KC_DOT,  KC_PIPE, KC_PENT
 ),
 
 /* NUMPAD
  * ,-----------------------------------------------------------------------------------.
- * | *or/ |   7  |   8  |   9  | NumLk|      |      |      |      |      |      | Bksp |
+ * |  Del |   7  |   8  |   9  | NumLk|      |      |      |      |      |      | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |   -  |   4  |   5  |   6  |Return|      |      |      |      |      | Shift|      |
+ * |   -  |   4  |   5  |   6  |Return|      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |   +  |   1  |   2  |   3  | Bksp |      |      |      |   ,  |   .  | Ctrl |Return|
+ * | Shift|   1  |   2  |   3  | Bksp |      |      |      |   ,  |   .  | Ctrl |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Trns |   ,  |  Alt |   .  |   0  |    Space    | MOBA | FPS1 | STRAT| WMAN |ARROWS|
+ * | Trns |   ,  |  Alt |   .  |   0  |    Space    | MOBA | STRAT| FPS1 | WMAN |ARROWS|
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = LAYOUT_planck_mit(
-    TD(TD_PAST_PSLS), KC_P7,   KC_P8,   KC_P9,   KC_NUM,  KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,  KC_NO,   KC_BSPC,
-    KC_PMNS,          KC_P4,   KC_P5,   KC_P6,   KC_ENT,  KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO,  KC_LSFT, KC_NO,
-    KC_PPLS,          KC_P1,   KC_P2,   KC_P3,   KC_BSPC, KC_NO, KC_NO, KC_NO,  KC_COMM, KC_DOT, KC_LCTL, KC_ENT,
-    KC_TRNS,          KC_COMM, KC_LALT, KC_PDOT, KC_P0,      KC_SPC,      MOBA,   FPS1,    STRAT,  WMAN, ARROWS
+    KC_DEL,  KC_P7,   KC_P8,   KC_P9,   KC_NUM,  KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO,  KC_NO,   KC_BSPC,
+    KC_PMNS, KC_P4,   KC_P5,   KC_P6,   KC_ENT,  KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO,  KC_NO,   KC_NO,
+    KC_LSFT, KC_P1,   KC_P2,   KC_P3,   KC_BSPC, KC_NO,   KC_NO, KC_NO, KC_COMM, KC_DOT, KC_LCTL, KC_ENT,
+    KC_TRNS, KC_COMM, KC_LALT, KC_PDOT, KC_P0,      KC_SPC,      MOBA,  STRAT,   FPS1,   WMAN,    ARROWS
 ),
 
 /* RIGHTFN
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |  F1  |  F2  |  F3  |  F4  |Pause |
+ * |RGBTGL| Reset| MOD R| MOD B|  FX+ |      |      |  F1  |  F2  |  F3  |  F4  |Pause |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |      |      |      |      |      |      |  F5  |  F6  |  F7  |  F8  |Scllck|
+ * | Ctrl |      | MOD P| MOD S|  FX- |      |      |  F5  |  F6  |  F7  |  F8  |Scllck|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|      |      |      |      |      |      |  F9  |  F10 |  F11 |  F12 |      |
+ * | Shift| BRT+ | SAT+ | HUE+ | MOD+ |      |      |  F9  |  F10 |  F11 |  F12 |RShft |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |  Alt |      |    Space    | Trns |      |      |      |      |
+ * |  Esc | BRT- | SAT- | HUE- | MOD- |    Space    | Trns | RAlt | Menu | RCtrl| Calc |
  * `-----------------------------------------------------------------------------------'
  */
 [_RIGHTFN] = LAYOUT_planck_mit(
-    KC_NO,   KC_NO, KC_NO,  KC_NO,   KC_NO, KC_NO, KC_NO, KC_F1,   KC_F2,  KC_F3,  KC_F4,  KC_PAUS,
-    KC_LCTL, KC_NO, KC_NO,  KC_NO,   KC_NO, KC_NO, KC_NO, KC_F5,   KC_F6,  KC_F7,  KC_F8,  KC_SCRL,
-    KC_LSFT, KC_NO, KC_NO,  KC_NO,   KC_NO, KC_NO, KC_NO, KC_F9,   KC_F10, KC_F11, KC_F12, KC_NO,
-    KC_NO,   KC_NO, KC_NO,  KC_LALT, KC_NO,    KC_SPC,    KC_TRNS, KC_NO,  KC_NO,  KC_NO,  KC_NO
+    RGB_TOG, QK_BOOT, RGB_M_R, RGB_M_B,  RGB_SPI, KC_NO, KC_NO, KC_F1,   KC_F2,   KC_F3,  KC_F4,   KC_PAUS,
+    KC_LCTL, KC_NO,   RGB_M_P, RGB_M_SW, RGB_SPD, KC_NO, KC_NO, KC_F5,   KC_F6,   KC_F7,  KC_F8,   KC_SCRL,
+    KC_LSFT, RGB_VAI, RGB_SAI, RGB_HUI,  RGB_MOD, KC_NO, KC_NO, KC_F9,   KC_F10,  KC_F11, KC_F12,  KC_RSFT,
+    KC_ESC,  RGB_VAD, RGB_SAD, RGB_HUD,  RGB_RMOD,    KC_SPC,   KC_TRNS, KC_RALT, KC_APP, KC_RCTL, KC_CALC
 ),
 
 /* MOBA
@@ -168,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl |   A  |   S  |   D  |   F  |      |      |      |      |   L  |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   6  |   4  |   1  |   B  |      |      |      |      |      |Return|
+ * | Shift|   Z  |   6  |   4  |   1  |   B  |   N  |      |      |      |      |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |   3  |   X  |   C  |  Alt |   2  |    Space    |      |      |      |      | ALPHA|
  * `-----------------------------------------------------------------------------------'
@@ -176,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MOBA] = LAYOUT_planck_mit(
     KC_TAB,  KC_Q, KC_W, KC_E,    KC_R, KC_5,  KC_Y,  KC_NO, KC_NO, KC_O,  KC_P,  KC_ESC,
     KC_LCTL, KC_A, KC_S, KC_D,    KC_F, KC_NO, KC_NO, KC_NO, KC_NO, KC_L,  KC_NO, KC_NO,
-    KC_LSFT, KC_Z, KC_6, KC_4,    KC_1, KC_B,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_ENT,
+    KC_LSFT, KC_Z, KC_6, KC_4,    KC_1, KC_B,  KC_N,  KC_NO, KC_NO, KC_NO, KC_NO, KC_ENT,
     KC_3,    KC_X, KC_C, KC_LALT, KC_2,    KC_SPC,    KC_NO, KC_NO, KC_NO, KC_NO, ALPHA
 ),
 
@@ -240,16 +255,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |   A  | Left | Down | Right|   F  | Alt  | Ctrl |Return|Return|      |      |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |      |      |      |      |      |      |Return|
+ * | Shift|   Z  |   X  |   C  |   V  |      |      |      |      |  Alt | Ctrl |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |      |      |  Alt |   S  |    Space    |      |      |      |      | ALPHA|
+ * | Ctrl |      |      |  Alt |   S  |    Space    |      |      |   Z  |      | ALPHA|
  * `-----------------------------------------------------------------------------------'
  */
 [_ARROWS] = LAYOUT_planck_mit(
-    KC_TAB,  KC_Q,    KC_UP,   KC_E,     KC_R, KC_NO,   KC_NO,   KC_NO,  KC_NO, KC_NO, KC_NO, KC_ESC,
-    KC_A,    KC_LEFT, KC_DOWN, KC_RIGHT, KC_F, KC_LALT, KC_LCTL, KC_ENT, KC_ENT, KC_NO, KC_NO, KC_ENT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,     KC_V, KC_NO,   KC_NO,   KC_NO,  KC_NO, KC_NO, KC_NO, KC_ENT,
-    KC_LCTL, KC_NO,   KC_NO,   KC_LALT,  KC_S,    KC_SPC,        KC_NO,  KC_NO, KC_NO, KC_NO, ALPHA
+    KC_TAB,  KC_Q,    KC_UP,   KC_E,     KC_R, KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_ESC,
+    KC_A,    KC_LEFT, KC_DOWN, KC_RIGHT, KC_F, KC_LALT, KC_LCTL, KC_ENT, KC_ENT, KC_NO,   KC_NO,   KC_ENT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,     KC_V, KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_LALT, KC_LCTL, KC_ENT,
+    KC_LCTL, KC_NO,   KC_NO,   KC_LALT,  KC_S,    KC_SPC,        KC_NO,  KC_NO,  KC_Z,    KC_NO,   ALPHA
 ),
 
 // /* CLEAN
@@ -270,23 +285,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,    KC_NO, KC_NO, KC_NO, KC_NO, ALPHA
 ),
 
-/* RGB (LEFTFN + RGB)
- *                      v------------------------RGB CONTROL--------------------v
+/* MOU(SE)
  * ,-----------------------------------------------------------------------------------.
- * | Mute | Reset| MS_U | BR B | BR F |      |      | MOD R| MOD B| FX+  |      | Clean|
+ * | Mute | BR B | MS_U | BR F |      |      |      |      |      |      |      | Clean|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | MS_L | MS_D | MS_R |Return|      |      | MOD P| MOD S| FX-  |      |RGBTGL|
+ * | Ctrl | MS_L | MS_D | MS_R | WL U |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift| MCK  | RCK  | LCK  | Bksp |      |      | BRT+ | MOD+ | SAT+ | HUE+ | MS 0 |
+ * | Shift| MCK  | Vol +|  RCK | WL D |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Trns | VOL- | VOL+ | WL U | WL D |    Space    | BRT- | MOD- | SAT- | HUE- |      |
+ * | Trns | MS 0 | Vol -|  Alt | LCK  |    Space    |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_RGB] = LAYOUT_planck_mit(
-    KC_MUTE, QK_BOOT, KC_MS_U, KC_WBAK, KC_WFWD, KC_NO, KC_NO, RGB_M_R, RGB_M_B,  RGB_SPI, KC_NO,   CLEAN,
-    KC_LCTL, KC_MS_L, KC_MS_D, KC_MS_R, KC_ENT,  KC_NO, KC_NO, RGB_M_P, RGB_M_SW, RGB_SPD, KC_NO,   RGB_TOG,
-    KC_LSFT, KC_BTN3, KC_BTN2, KC_BTN1, KC_BSPC, KC_NO, KC_NO, RGB_VAI, RGB_MOD,  RGB_SAI, RGB_HUI, KC_ACL0,
-    KC_TRNS, KC_VOLD, KC_VOLU, KC_WH_U, KC_WH_D,    KC_SPC,    RGB_VAD, RGB_RMOD, RGB_SAD, RGB_HUD, KC_NO
+[_MOU] = LAYOUT_planck_mit(
+    KC_MUTE, KC_WBAK, KC_MS_U, KC_WFWD, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, CLEAN,
+    KC_LCTL, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_LSFT, KC_BTN3, KC_VOLU, KC_BTN2, KC_WH_D, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_TRNS, KC_ACL0, KC_VOLD, KC_LALT, KC_BTN1,    KC_SPC,    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 )
 
 };
@@ -313,6 +327,7 @@ bool rgb_matrix_indicators_user(void) {
         case _LEFTFN:
             break;
         case _RIGHTFN:
+            rgb_matrix_set_color(1,  blue[0],  blue[1],  blue[2]);
             break;
         case _NUMPAD:
             break;
@@ -323,10 +338,10 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(10, purple[0], purple[1], purple[2]);
             break;
         case _FPS1:
-            rgb_matrix_set_color(43, ind[0],   ind[1],   ind[2]);
+            rgb_matrix_set_color(44, ind[0],   ind[1],   ind[2]);
             break;
         case _STRAT:
-            rgb_matrix_set_color(44, ind[0],   ind[1],   ind[2]);
+            rgb_matrix_set_color(43, ind[0],   ind[1],   ind[2]);
             break;
         case _WMAN:
             rgb_matrix_set_color(45, ind[0],   ind[1],   ind[2]);
@@ -337,8 +352,7 @@ bool rgb_matrix_indicators_user(void) {
         case _CLEAN:
             rgb_matrix_set_color_all(white[0], white[1], white[2]);
             break;
-        case _RGB:
-            rgb_matrix_set_color(1,  ind[0],   ind[1],   ind[2]);
+        case _MOU:
             break;
     }
 
