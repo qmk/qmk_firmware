@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM      20
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_LIMIT_VAL 80
-#define OLED_BRIGHTNESS    50
 
 #define DEBUG_LED_PIN   D6
 
