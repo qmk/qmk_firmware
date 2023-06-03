@@ -16,8 +16,9 @@
         "vid": "0x3A54",
         "pid": "0x4F5D"
     },
+    "community_layouts": ["numpad_5x4"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_numpad_5x4": {
             "layout": [
                 {"label": "Num Lock", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "/", "matrix": [0, 1], "x": 1, "y": 0},
