@@ -144,22 +144,49 @@ const char code_to_name[60] = {
     'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
     '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
 
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  char name = ' ';
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
-  if (keycode < 60) {
-    name = code_to_name[keycode];
-  }
+static void set_keylog(uint16_t keycode, keyrecord_t *record) {
+    key_name     = ' ';
+    last_keycode = keycode;
+    if (IS_QK_MOD_TAP(keycode)) {
+        if (record->tap.count) {
+            keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+        } else {
+            keycode = 0xE0 + biton(QK_MOD_TAP_GET_MODS(keycode) & 0xF) + biton(QK_MOD_TAP_GET_MODS(keycode) & 0x10);
+        }
+    } else if (IS_QK_LAYER_TAP(keycode) && record->tap.count) {
+        keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+    } else if (IS_QK_MODS(keycode)) {
+        keycode = QK_MODS_GET_BASIC_KEYCODE(keycode);
+    } else if (IS_QK_ONE_SHOT_MOD(keycode)) {
+        keycode = 0xE0 + biton(QK_ONE_SHOT_MOD_GET_MODS(keycode) & 0xF) + biton(QK_ONE_SHOT_MOD_GET_MODS(keycode) & 0x10);
+    }
+    if (keycode > ARRAY_SIZE(code_to_name)) {
+        return;
+    }
 
-  // update keylog
-  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
-           record->event.key.row, record->event.key.col,
-           keycode, name);
+    // update keylog
+    key_name = pgm_read_byte(&code_to_name[keycode]);
+    last_row = record->event.key.row;
+    last_col = record->event.key.col;
 }
 
-void oled_render_keylog(void) {
-    oled_write(keylog_str, false);
+static const char *depad_str(const char *depad_str, char depad_char) {
+    while (*depad_str == depad_char)
+        ++depad_str;
+    return depad_str;
+}
+
+static void oled_render_keylog(void) {
+    const char *last_row_str = get_u8_str(last_row, ' ');
+    oled_write(depad_str(last_row_str, ' '), false);
+    oled_write_P(PSTR("x"), false);
+    const char *last_col_str = get_u8_str(last_col, ' ');
+    oled_write(depad_str(last_col_str, ' '), false);
+    oled_write_P(PSTR(", k"), false);
+    const char *last_keycode_str = get_u16_str(last_keycode, ' ');
+    oled_write(depad_str(last_keycode_str, ' '), false);
+    oled_write_P(PSTR(":"), false);
+    oled_write_char(key_name, false);
 }
 
 void render_bootmagic_status(bool status) {
