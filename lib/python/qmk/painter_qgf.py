@@ -75,6 +75,7 @@ class QGFGraphicsDescriptor:
     def image_size(self, size):
         self.image_width, self.image_height = size
 
+
 ########################################################################################################################
 
 
@@ -258,7 +259,6 @@ def _for_all_frames(x: FunctionType, /, images):
             frame_num += 1
 
 
-
 def _compress_image(frame, last_frame, *, use_rle, use_deltas, format_, **_kwargs):
     # Convert the original frame so we can do comparisons
     converted = qmk.painter.convert_requested_format(frame, format_)
@@ -416,14 +416,7 @@ def _save(im, fp, _filename):
     frame_offsets.write(fp)
 
     # Iterate over each if the input frames, writing it to the output in the process
-    write_frame = functools.partial(
-        _write_frame,
-        format_ = encoderinfo["qmk_format"],
-        fp = fp,
-        use_deltas = encoderinfo.get("use_deltas", True),
-        use_rle = encoderinfo.get("use_rle", True),
-        frame_offsets = frame_offsets
-    )
+    write_frame = functools.partial(_write_frame, format_=encoderinfo["qmk_format"], fp=fp, use_deltas=encoderinfo.get("use_deltas", True), use_rle=encoderinfo.get("use_rle", True), frame_offsets=frame_offsets)
     for_all_frames(write_frame)
 
     # Go back and update the graphics descriptor now that we can determine the final file size
