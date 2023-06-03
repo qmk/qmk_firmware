@@ -155,9 +155,9 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_Z                      , .kana = "ho"      }, // ほ
   {.key = B_SHFT|B_Z               , .kana = "ho"      }, // ほ
   {.key = B_SHFT|B_F               , .kana = "ma"      }, // ま
-  {.key = B_SHFT|B_B               , .kana = "mi"      }, // み
+  {.key = B_SHFT|B_S               , .kana = "mi"      }, // み
   {.key = B_SHFT|B_COMM            , .kana = "mu"      }, // む
-  {.key = B_SHFT|B_S               , .kana = "me"      }, // め
+  {.key = B_SHFT|B_B               , .kana = "me"      }, // め
   {.key = B_SHFT|B_K               , .kana = "mo"      }, // も
   {.key = B_SHFT|B_H               , .kana = "ya"      }, // や
   {.key = B_SHFT|B_P               , .kana = "yu"      }, // ゆ
@@ -248,9 +248,9 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_M|B_X|B_H              , .kana = "pya"     }, // ぴゃ
   {.key = B_M|B_X|B_P              , .kana = "pyu"     }, // ぴゅ
   {.key = B_M|B_X|B_I              , .kana = "pyo"     }, // ぴょ
-  {.key = B_B|B_H                  , .kana = "mya"     }, // みゃ
-  {.key = B_B|B_P                  , .kana = "myu"     }, // みゅ
-  {.key = B_B|B_I                  , .kana = "myo"     }, // みょ
+  {.key = B_S|B_H                  , .kana = "mya"     }, // みゃ
+  {.key = B_S|B_P                  , .kana = "myu"     }, // みゅ
+  {.key = B_S|B_I                  , .kana = "myo"     }, // みょ
   {.key = B_E|B_H                  , .kana = "rya"     }, // りゃ
   {.key = B_E|B_P                  , .kana = "ryu"     }, // りゅ
   {.key = B_E|B_I                  , .kana = "ryo"     }, // りょ
