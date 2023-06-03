@@ -22,6 +22,11 @@ enum layers {
     _FN1
 };
 
+enum custom_keycodes {
+    BASE_QWER = SAFE_RANGE,
+    BASE_WORK
+};
+
 // Tap Dance enum
 enum {
     N9_F9,
@@ -58,13 +63,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,      KC_PGUP, _______, QK_RBT,  _______, _______, _______, KC_UP,   _______, _______, _______,   _______, _______,
         _______, KC_HOME,      KC_PGDN, KC_END,  _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,            _______,
         _______,               _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______,            _______,
-        _______, C(A(KC_DEL)), _______,                   _______,                                     _______, DF(_WORK), _______, DF(_QWER)
+        _______, C(A(KC_DEL)), _______,                   _______,                                     _______, BASE_WORK, _______, BASE_QWER
     )
 
 };
 
 
 // Tap Dance tap vs. hold docs @ https://docs.qmk.fm/#/feature_tap_dance?id=example-3
+//  Macros are also used with process_record_user @ https://docs.qmk.fm/#/feature_macros?id=using-macros-in-c-keymaps
 typedef struct {
     uint16_t tap;
     uint16_t hold;
@@ -75,6 +81,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
 
     switch (keycode) {
+        // MACROS
+        case BASE_QWER:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_QWER);
+            }
+            break;
+
+        case BASE_WORK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_WORK);
+            }
+            break;
+
+        // TAP DANCES
         case TD(N9_F9):
             action = &tap_dance_actions[TD_INDEX(keycode)];
             if (!record->event.pressed && action->state.count && !action->state.finished) {
@@ -130,6 +150,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code16(tap_hold->tap);
             }
             break;
+
         }
     return true;
 }
