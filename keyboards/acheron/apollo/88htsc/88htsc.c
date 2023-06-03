@@ -123,14 +123,17 @@ bool set_indicator(indicator_config indicator) {
         case 0: // If indicator is set as caps lock
         {
             if (host_keyboard_led_state().caps_lock) return true;
+            break;
         }
         case 1: // If indicator is set as num lock
         {
             if (host_keyboard_led_state().num_lock) return true;
+            break;
         }
         case 2: // If indicator is set as scroll lock
         {
             if (host_keyboard_led_state().scroll_lock) return true;
+            break;
         }
         case 3: // If indicator is set as layer 0
         case 4:
