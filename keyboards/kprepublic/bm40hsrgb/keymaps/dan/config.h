@@ -3,4 +3,4 @@
 
 #pragma once
 
-#define TAPPING_TERM 143
+#define TAPPING_TERM 136
