@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_LOWER] =  { ENCODER_CCW_CW(KC_MPRV, KC_MNXT) },
     [_RAISE] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },

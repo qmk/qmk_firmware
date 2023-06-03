@@ -2,7 +2,7 @@
  * rev2.c
  */
 
-#include "rev2.h"
+#include "quantum.h"
 
 void matrix_init_user(void) {
 	setPinOutput(C6);

@@ -14,10 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* Enable NKRO by default*/
-#define FORCE_NKRO
-
 /* Use 3 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 

@@ -21,15 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 #define EE_HANDS
 
-#define MATRIX_ROW_PINS { F1, F5, F7, B5, B4 }
-
-// wiring of each half
-#define MATRIX_COL_PINS { F4, F6, C7, C6, B6, D4 }
-
-#define DIODE_DIRECTION COL2ROW
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B7
 #ifndef RGBLIGHT_SPLIT_ENABLE
     #define RGBLED_NUM 30
 #else

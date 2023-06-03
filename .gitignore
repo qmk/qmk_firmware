@@ -30,6 +30,9 @@ quantum/version.h
 *.qmk
 *.uf2
 
+# DD config at wrong location
+/keyboards/**/keymaps/*/info.json
+
 # Old-style QMK Makefiles
 /keyboards/**/Makefile
 
@@ -45,7 +48,6 @@ quantum/version.h
 .idea/
 .project
 .settings/
-.vagrant/
 
 # ?
 .dep
