@@ -4,19 +4,15 @@
   "url": "https://churrosoft.ar/deck",
   "maintainer": "Polsaker",
   "usb": {
-    "vid": "0x1BE2",
+    "vid": "0xCBBC",
     "pid": "0xC100",
     "device_version": "1.0.0"
-  },
-  "bootmagic": {
-    "enabled": true,
-    "matrix": [0, 0]
   },
   "build": {
     "lto": true
   },
   "features": {
-    "command": false,
+    "bootmagic": true,
     "console": false,
     "extrakey": true,
     "mousekey": true,

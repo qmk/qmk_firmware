@@ -1,4 +1,4 @@
-# Churrosoft Deck-8
+# Churrosoft Deck-8 (No LEDs version)
 
 ![ChurroDeck-8](https://i.imgur.com/NNmq8hzh.png)
 
@@ -10,11 +10,11 @@ A small 8-key macropad
 
 Make example for this keyboard (after setting up your build environment):
 
-    make churrosoft/deck8:default
+    make churrosoft/deck8/noleds:default
 
 Flashing example for this keyboard:
 
-    make churrosoft/deck8:default:flash
+    make churrosoft/deck8/noleds:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
