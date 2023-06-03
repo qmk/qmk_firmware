@@ -25,6 +25,8 @@ const matrix_row_t matrix_mask[] = {
     0b0111111111111111,
 };
 
+#ifdef DIP_SWITCH_ENABLE
+
 #ifndef MAC_DIP_LAYER
 #define MAC_DIP_LAYER 0
 #endif
@@ -33,8 +35,6 @@ const matrix_row_t matrix_mask[] = {
 #define WIN_DIP_LAYER 2
 #endif
 
-
-#ifdef DIP_SWITCH_ENABLE
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false;}
