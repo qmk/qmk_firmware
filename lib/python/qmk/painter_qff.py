@@ -4,6 +4,7 @@
 # Quantum Font File "QFF" Font File Format.
 # See https://docs.qmk.fm/#/quantum_painter_qff for more information.
 
+from io import BytesIO
 from pathlib import Path
 from typing import Dict, Any
 from colorsys import rgb_to_hsv
@@ -13,6 +14,8 @@ from qmk.painter_qgf import QGFBlockHeader, QGFFramePaletteDescriptorV1
 from milc.attrdict import AttrDict
 import qmk.painter
 
+
+DEFAULT_FMT = "PNG"
 
 def o24(i):
     return o16(i & 0xFFFF) + o8((i & 0xFF0000) >> 16)
@@ -318,12 +321,19 @@ class QFFFont:
             return
 
         # Save the image to the supplied file
-        self.image.save(str(img_file))
+        if isinstance(img_file, BytesIO):
+            self.image.save(img_file, format=DEFAULT_FMT)
+        else:
+            self.image.save(str(img_file))
 
     def read_from_image(self, img_file: Path, include_ascii_glyphs: bool = True, unicode_glyphs: str = ''):
         # Load and parse the supplied image file
-        self._parse_image(Image.open(str(img_file)), include_ascii_glyphs, unicode_glyphs)
-        return
+        if isinstance(img_file, BytesIO):
+            image = Image.open(img_file, formats=(DEFAULT_FMT,))
+        else:
+            image = Image.open(str(img_file))
+
+        self._parse_image(image, include_ascii_glyphs, unicode_glyphs)
 
     def save_to_qff(self, format: Dict[str, Any], use_rle: bool, fp):
         # Drop out if there's no image loaded

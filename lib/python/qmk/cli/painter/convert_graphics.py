@@ -1,10 +1,8 @@
 """This script tests QGF functionality.
 """
-import re
-import datetime
 from io import BytesIO
 from qmk.path import normpath
-from qmk.painter import render_header, render_source, render_license, render_bytes, valid_formats
+from qmk.painter import generate_subs, render_header, render_source, valid_formats
 from milc import cli
 from PIL import Image
 
@@ -51,7 +49,8 @@ def painter_convert_graphics(cli):
 
     # Convert the image to QGF using PIL
     out_data = BytesIO()
-    input_img.save(out_data, "QGF", use_deltas=(not cli.args.no_deltas), use_rle=(not cli.args.no_rle), qmk_format=format, verbose=cli.args.verbose)
+    metadata = []
+    input_img.save(out_data, "QGF", use_deltas=(not cli.args.no_deltas), use_rle=(not cli.args.no_rle), qmk_format=format, verbose=cli.args.verbose, metadata=metadata)
     out_bytes = out_data.getvalue()
 
     if cli.args.raw:
@@ -61,20 +60,7 @@ def painter_convert_graphics(cli):
         return
 
     # Work out the text substitutions for rendering the output data
-    subs = {
-        'generated_type': 'image',
-        'var_prefix': 'gfx',
-        'generator_command': f'qmk painter-convert-graphics -i {cli.args.input.name} -f {cli.args.format}',
-        'year': datetime.date.today().strftime("%Y"),
-        'input_file': cli.args.input.name,
-        'sane_name': re.sub(r"[^a-zA-Z0-9]", "_", cli.args.input.stem),
-        'byte_count': len(out_bytes),
-        'bytes_lines': render_bytes(out_bytes),
-        'format': cli.args.format,
-    }
-
-    # Render the license
-    subs.update({'license': render_license(subs)})
+    subs = generate_subs(cli, out_bytes, image_metadata=metadata)
 
     # Render and write the header file
     header_text = render_header(subs)
@@ -82,7 +68,6 @@ def painter_convert_graphics(cli):
     with open(header_file, 'w') as header:
         print(f"Writing {header_file}...")
         header.write(header_text)
-        header.close()
 
     # Render and write the source file
     source_text = render_source(subs)
@@ -90,4 +75,3 @@ def painter_convert_graphics(cli):
     with open(source_file, 'w') as source:
         print(f"Writing {source_file}...")
         source.write(source_text)
-        source.close()

@@ -1,5 +1,6 @@
 """Functions that help us work with Quantum Painter's file formats.
 """
+import datetime
 import math
 import re
 from string import Template
@@ -79,6 +80,106 @@ valid_formats = {
     }
 }
 
+
+def _render_text(values):
+    # FIXME: May need more chars with GIFs containing lots of frames (or longer durations)
+    return "|".join([f"{i:4d}" for i in values])
+
+
+def _render_numeration(metadata):
+    return _render_text(range(len(metadata)))
+
+
+def _render_values(metadata, key):
+    return _render_text([i[key] for i in metadata])
+
+
+def _render_image_metadata(metadata):
+    size = metadata.pop(0)
+
+    lines = [
+        "// Image's metadata",
+        "// ----------------",
+        f"// Width: {size['width']}",
+        f"// Height: {size['height']}",
+    ]
+
+    if len(metadata) == 1:
+        lines.append("// Single frame")
+
+    else:
+        lines.extend([
+            f"//        Frame: {_render_numeration(metadata)}",
+            f"// Duration(ms): {_render_values(metadata, 'delay')}",
+            f"//  Compression: {_render_values(metadata, 'compression')} >> See qp.h, painter_compression_t",
+            f"//        Delta: {_render_values(metadata, 'delta')}",
+        ])
+
+        deltas = []
+        for i, v in enumerate(metadata):
+            # Not a delta frame, go to next one
+            if not v["delta"]:
+                continue
+
+            # Unpack rect's coords
+            l, t, r, b = v["delta_rect"]
+
+            delta_px = (r - l) * (b - t)
+            px = size["width"] * size["height"]
+
+            # FIXME: May need need more chars here too
+            deltas.append(f"// Frame {i:3d}: ({l:3d}, {t:3d}) - ({r:3d}, {b:3d}) >> {delta_px:4d}/{px:4d} pixels ({100*delta_px/px:.2f}%)")
+
+        if deltas:
+            lines.append("// Areas on delta frames")
+            lines.extend(deltas)
+
+    return "\n".join(lines)
+
+
+def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
+    if font_metadata is not None and image_metadata is not None:
+        raise ValueError("Cant generate subs for font and image at the same time")
+
+    subs = {
+        "year": datetime.date.today().strftime("%Y"),
+        "input_file": cli.args.input.name,
+        "sane_name": re.sub(r"[^a-zA-Z0-9]", "_", cli.args.input.stem),
+        "byte_count": len(out_bytes),
+        "bytes_lines": render_bytes(out_bytes),
+        "format": cli.args.format,
+    }
+
+    if font_metadata is not None:
+        subs.update({
+            "generated_type": "font",
+            "var_prefix": "font",
+            "generator_command": f"qmk painter-convert-font-image -i {cli.args.input.name} -f {cli.args.format}{' --no-ascii' if cli.args.no_ascii else ''}",
+            # not using triple quotes to avoid extra indentation/weird formatted code
+            "metadata": "\n".join([
+                "// Font's metadata",
+                "// ---------------",
+                f"// Glyphs: {', '.join([i for i in font_metadata['glyphs']])}",
+            ]),
+        })
+
+    elif image_metadata is not None:
+        subs.update({
+            "generated_type": "image",
+            "var_prefix": "gfx",
+            "generator_command": f"qmk painter-convert-graphics -i {cli.args.input.name} -f {cli.args.format}",
+            # not using triple quotes to avoid extra indentation/weird formatted code
+            "metadata": _render_image_metadata(image_metadata),
+        })
+
+    else:
+        raise ValueError("Pass metadata for either an image or a font")
+
+    subs.update({"license": render_license(subs)})
+
+    return subs
+
+
 license_template = """\
 // Copyright ${year} QMK -- generated source code only, ${generated_type} retains original copyright
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -110,6 +211,8 @@ def render_header(subs):
 
 source_file_template = """\
 ${license}
+${metadata}
+
 #include <qp.h>
 
 const uint32_t ${var_prefix}_${sane_name}_length = ${byte_count};
@@ -191,7 +294,13 @@ def convert_requested_format(im, format):
     return im
 
 
-def convert_image_bytes(im, format):
+def rgb_to565(r, g, b):
+    msb = ((r >> 3 & 0x1F) << 3) + (g >> 5 & 0x07)
+    lsb = ((g >> 2 & 0x07) << 5) + (b >> 3 & 0x1F)
+    return [msb, lsb]
+
+
+def convert_image_bytes(im, format):  # sourcery skip: raise-specific-error
     """Convert the supplied image to the equivalent bytes required by the QMK firmware.
     """
 
@@ -248,41 +357,26 @@ def convert_image_bytes(im, format):
 
     if image_format == 'IMAGE_FORMAT_RGB565':
         # Take the red, green, and blue channels
-        image_bytes_red = im.tobytes("raw", "R")
-        image_bytes_green = im.tobytes("raw", "G")
-        image_bytes_blue = im.tobytes("raw", "B")
-        image_pixels_len = len(image_bytes_red)
+        red = im.tobytes("raw", "R")
+        green = im.tobytes("raw", "G")
+        blue = im.tobytes("raw", "B")
 
         # No palette
         palette = None
 
-        bytearray = []
-        for x in range(image_pixels_len):
-            # 5 bits of red, 3 MSb of green
-            byte = ((image_bytes_red[x] >> 3 & 0x1F) << 3) + (image_bytes_green[x] >> 5 & 0x07)
-            bytearray.append(byte)
-            # 3 LSb of green, 5 bits of blue
-            byte = ((image_bytes_green[x] >> 2 & 0x07) << 5) + (image_bytes_blue[x] >> 3 & 0x1F)
-            bytearray.append(byte)
+        bytearray = [byte for r, g, b in zip(red, green, blue) for byte in rgb_to565(r, g, b)]
+
 
     if image_format == 'IMAGE_FORMAT_RGB888':
         # Take the red, green, and blue channels
-        image_bytes_red = im.tobytes("raw", "R")
-        image_bytes_green = im.tobytes("raw", "G")
-        image_bytes_blue = im.tobytes("raw", "B")
-        image_pixels_len = len(image_bytes_red)
+        red = im.tobytes("raw", "R")
+        green = im.tobytes("raw", "G")
+        blue = im.tobytes("raw", "B")
 
         # No palette
         palette = None
 
-        bytearray = []
-        for x in range(image_pixels_len):
-            byte = image_bytes_red[x]
-            bytearray.append(byte)
-            byte = image_bytes_green[x]
-            bytearray.append(byte)
-            byte = image_bytes_blue[x]
-            bytearray.append(byte)
+        bytearray = [byte for r, g, b in zip(red, green, blue) for byte in (r, g, b)]
 
     if len(bytearray) != expected_byte_count:
         raise Exception(f"Wrong byte count, was {len(bytearray)}, expected {expected_byte_count}")
@@ -308,7 +402,7 @@ def compress_bytes_qmk_rle(bytearray):
         output.extend(r)
 
     for n in range(0, len(bytearray) + 1):
-        end = True if n == len(bytearray) else False
+        end = n == len(bytearray)
         if not end:
             c = bytearray[n]
             temp.append(c)
@@ -330,7 +424,7 @@ def compress_bytes_qmk_rle(bytearray):
             if len(temp) >= 2 and temp[-1] == temp[-2]:
                 repeat = True
                 if len(temp) > 2:
-                    append_range(temp[0:(len(temp) - 2)])
+                    append_range(temp[:len(temp) - 2])
                     temp = [temp[-1], temp[-1]]
                 continue
             if len(temp) == 128 or end:
