@@ -28,14 +28,12 @@
 
 static inline int8_t times_inv_sqrt2(int8_t x) {
 #ifdef MOUSEKEY_PRECISE_DIAGONAL_MOVE
-    // 46341/65536 is very near to 1/sqrt(2)
-    // 0.70710754                  0.707106781
-    return (x < 0 ? -1 : 1) * scale16(x < 0 ? -x : x, 46341);
-#elif defined MOUSEKEY_PRECISE_DIAGONAL_MOVE_2
+    // 46341/65536 is very close to 1/sqrt(2)
+    // 0.70710754                   0.707106781
     return round((x < 0 ? -1 : 1) * scale16(x < 0 ? -x : x, 46341));
 #else
-    // 181/256 is also pretty close to 1/sqrt(2)
-    // 0.70703125
+    // 181/256 is pretty close to 1/sqrt(2)
+    // 0.70703125                 0.707106781
     // 1 too small for x=99 and x=198
     // This ends up being a mult and discard lower 8 bits
     return (x * 181) >> 8;
