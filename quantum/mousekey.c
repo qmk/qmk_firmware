@@ -23,15 +23,18 @@
 #include "print.h"
 #include "debug.h"
 #include "mousekey.h"
+#include "lib/lib8tion/lib8tion.h"
 
 static inline int8_t times_inv_sqrt2(int8_t x) {
-    // 181/256 is pretty close to 1/sqrt(2)
-    // 0.70703125                 0.707106781
+#ifdef MOUSEKEY_PRECISE_DIAGONAL_MOVE
+    // 46341/65536 is very near to 1/sqrt(2)
+    // 0.70710754                  0.707106781
+    return (x < 0 ? -1 : 1) * scale16(x < 0 ? -x : x, 46341);
+#else
+    // 181/256 is also pretty close to 1/sqrt(2)
+    // 0.70703125
     // 1 too small for x=99 and x=198
     // This ends up being a mult and discard lower 8 bits
-#ifdef MOUSEKEY_PRECISE_DIAGONAL_MOVE
-    return x * 0.707106781;
-#else
     return (x * 181) >> 8;
 #endif
 }
