@@ -24,6 +24,7 @@
     "indicators": {
         "caps_lock": "B0"
     },
+    "community_layouts": ["60_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT": {
             "layout": [
