@@ -28,6 +28,7 @@ enum {
     N0_F10,
     MINS_F11,
     EQL_F12,
+    DEL_BSLS,
     G_END,
     H_HOME,
     LALT_PGUP,
@@ -38,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_WORK] = LAYOUT_60_ansi(
         QK_GESC,           KC_1,    KC_2,            KC_3,   KC_4,    KC_5,      KC_6,       KC_7,    KC_8,    TD(N9_F9), TD(N0_F10),      TD(MINS_F11), TD(EQL_F12), KC_BSPC,
-        KC_TAB,            KC_Q,    KC_W,            KC_E,   KC_R,    KC_T,      KC_Y,       KC_U,    KC_I,    KC_O,      KC_P,            KC_LBRC,      KC_RBRC,     KC_BSLS,
+        KC_TAB,            KC_Q,    KC_W,            KC_E,   KC_R,    KC_T,      KC_Y,       KC_U,    KC_I,    KC_O,      KC_P,            KC_LBRC,      KC_RBRC,     TD(DEL_BSLS),
         LT(_FN1, KC_CAPS), KC_A,    KC_S,            KC_D,   KC_F,    TD(G_END), TD(H_HOME), KC_J,    KC_K,    KC_L,      KC_SCLN,         KC_QUOT,                   KC_ENT,
         KC_LSFT,                    KC_Z,            KC_X,   KC_C,    KC_V,      KC_B,       KC_N,    KC_M,    KC_COMM,   KC_DOT,          KC_SLSH,                   KC_RSFT,
         KC_LCTL,           KC_LGUI, LALT_T(KC_PGUP),                  KC_SPC,                                             RALT_T(KC_PGDN), C(A(KC_DEL)), MO(_FN1),    KC_RCTL
@@ -46,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_QWER] = LAYOUT_60_ansi(
         QK_GESC,           KC_1,    KC_2,    KC_3,   KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,   KC_BSPC,
-        KC_TAB,            KC_Q,    KC_W,    KC_E,   KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,  KC_BSLS,
+        KC_TAB,            KC_Q,    KC_W,    KC_E,   KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,  TD(DEL_BSLS),
         LT(_FN1, KC_CAPS), KC_A,    KC_S,    KC_D,   KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,           KC_ENT,
         KC_LSFT,                    KC_Z,    KC_X,   KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,           KC_RSFT,
         KC_LCTL,           KC_LGUI, KC_LALT,                  KC_SPC,                                      KC_RALT, KC_APP,  MO(_FN1), KC_RCTL
@@ -99,6 +100,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case TD(EQL_F12):
+            action = &tap_dance_actions[TD_INDEX(keycode)];
+            if (!record->event.pressed && action->state.count && !action->state.finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+            break;
+
+        case TD(DEL_BSLS):
             action = &tap_dance_actions[TD_INDEX(keycode)];
             if (!record->event.pressed && action->state.count && !action->state.finished) {
                 tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
@@ -160,6 +169,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [N0_F10] = ACTION_TAP_DANCE_TAP_HOLD(KC_0, KC_F10),
     [MINS_F11] = ACTION_TAP_DANCE_TAP_HOLD(KC_MINS, KC_F11),
     [EQL_F12] = ACTION_TAP_DANCE_TAP_HOLD(KC_EQL, KC_F12),
+    [DEL_BSLS] = ACTION_TAP_DANCE_TAP_HOLD(KC_DEL, KC_BSLS),
     [G_END] = ACTION_TAP_DANCE_TAP_HOLD(KC_G, KC_END),
     [H_HOME] = ACTION_TAP_DANCE_TAP_HOLD(KC_H, KC_HOME)
 };
