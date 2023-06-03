@@ -91,7 +91,7 @@ static uint8_t mode_base_table[] = {
 
 // If RGBLIGHT_DEFAULT_ON is set 0, RGBLIGHT will be disabled at EEPROM initialization.
 #if !defined(RGBLIGHT_DEFAULT_ON)
-#    define RGBLIGHT_DEFAULT_ON 1
+#    define RGBLIGHT_DEFAULT_ON true
 #endif
 
 static inline int is_static_effect(uint8_t mode) {
@@ -203,16 +203,7 @@ void eeconfig_update_rgblight_current(void) {
 }
 
 void eeconfig_update_rgblight_default(void) {
-#if RGBLIGHT_DEFAULT_ON
-    rgblight_config.enable = 1;
-#else
-    rgblight_config.enable = 0;
-#endif
-    rgblight_config.mode  = RGBLIGHT_DEFAULT_MODE;
-    rgblight_config.hue   = RGBLIGHT_DEFAULT_HUE;
-    rgblight_config.sat   = RGBLIGHT_DEFAULT_SAT;
-    rgblight_config.val   = RGBLIGHT_DEFAULT_VAL;
-    rgblight_config.speed = RGBLIGHT_DEFAULT_SPD;
+    rgblight_config.enable = RGBLIGHT_DEFAULT_ON;
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
     eeconfig_update_rgblight(rgblight_config.raw);
 }
