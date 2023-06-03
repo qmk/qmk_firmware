@@ -1,0 +1,83 @@
+{
+    "manufacturer": "KiwiKey",
+    "keyboard_name": "Kawii9 v2",
+    "maintainer": "KiwiKey",
+    "url": "https://kiwikey.vn/mechkey/kawii9/",
+    "bootloader": "atmel-dfu",
+    "processor": "atmega32u4",
+    "usb": {
+        "device_version": "2.0.0",
+        "pid": "0x3302",
+        "vid": "0x4B57"
+    },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": false,
+        "rgb_matrix": true,
+        "encoder": true
+    },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 0]
+    },
+    "debounce": 5,
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": [ "F4", "F5", "F6", "D4", "B1" ],
+        "rows": [ "B6", "B5", "B4", "D7", "B0" ]
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            { "flags": 2, "x": 96,  "y": 19 },
+            { "flags": 2, "x": 128, "y": 19 },
+            { "flags": 2, "x": 128, "y": 42 },
+            { "flags": 2, "x": 96,  "y": 42 },
+            { "flags": 4, "matrix": [0, 0], "x": 81,  "y": 16 },
+            { "flags": 4, "matrix": [0, 1], "x": 112, "y": 16 },
+            { "flags": 4, "matrix": [0, 2], "x": 143, "y": 16 },
+            { "flags": 4, "matrix": [1, 0], "x": 81,  "y": 32 },
+            { "flags": 4, "matrix": [1, 1], "x": 112, "y": 32 },
+            { "flags": 4, "matrix": [1, 2], "x": 143, "y": 32 },
+            { "flags": 4, "matrix": [2, 0], "x": 81,  "y": 48 },
+            { "flags": 4, "matrix": [2, 1], "x": 112, "y": 48 },
+            { "flags": 4, "matrix": [2, 2], "x": 143, "y": 48 },
+            { "flags": 2, "x": 12,  "y": 42 },
+            { "flags": 2, "x": 49,  "y": 42 },
+            { "flags": 2, "x": 49,  "y": 19 },
+            { "flags": 2, "x": 12,  "y": 19 },
+            { "flags": 8, "x": 31,  "y": 10 }
+        ]
+    },
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            { "pin_a": "D3", "pin_b": "D5", "resolution": 4 },
+            { "pin_a": "B2", "pin_b": "B3", "resolution": 4 }
+        ]
+    }
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [0, 1], "x": 1, "y": 0 },
+                { "matrix": [0, 2], "x": 2, "y": 0 },
+                { "matrix": [1, 0], "x": 0, "y": 1 },
+                { "matrix": [1, 1], "x": 1, "y": 1 },
+                { "matrix": [1, 2], "x": 2, "y": 1 },
+                { "matrix": [2, 0], "x": 0, "y": 2 },
+                { "matrix": [2, 1], "x": 1, "y": 2 },
+                { "matrix": [2, 2], "x": 2, "y": 2 },
+                { "matrix": [3, 3], "x": 3, "y": 3 },
+                { "matrix": [4, 4], "x": 4, "y": 4 }
+            ]
+        }
+    }
+}
