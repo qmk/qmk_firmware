@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #define TAPPING_TERM 210
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define MOUSEKEY_INTERVAL 13
 #define MOUSEKEY_DELAY 2
