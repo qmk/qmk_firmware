@@ -141,6 +141,15 @@ def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
     if font_metadata is not None and image_metadata is not None:
         raise ValueError("Cant generate subs for font and image at the same time")
 
+    # Work out the command that was executed
+    args = [arg for arg in cli.args.__dict__
+            if not arg.startswith("_")
+            and arg not in ("datetime_fmt", "log_fmt", "log_file_fmt", "log_file_level",
+                            "log_file", "color", "interactive", "config_file",
+                            "subparsers", "entrypoint")]
+    args_str = " ".join((f"--{arg} {getattr(cli.args, arg)}" for arg in sorted(args)))
+    command = f"qmk {cli.args.subparsers} {args_str}"
+
     subs = {
         "year": datetime.date.today().strftime("%Y"),
         "input_file": cli.args.input.name,
@@ -148,13 +157,13 @@ def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
         "byte_count": len(out_bytes),
         "bytes_lines": render_bytes(out_bytes),
         "format": cli.args.format,
+        "generator_command": command,
     }
 
     if font_metadata is not None:
         subs.update({
             "generated_type": "font",
             "var_prefix": "font",
-            "generator_command": f"qmk painter-convert-font-image -i {cli.args.input.name} -f {cli.args.format} {'--no-ascii' if cli.args.no_ascii else ''}",
             # not using triple quotes to avoid extra indentation/weird formatted code
             "metadata": "\n".join([
                 "// Font's metadata",
@@ -167,7 +176,7 @@ def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
         subs.update({
             "generated_type": "image",
             "var_prefix": "gfx",
-            "generator_command": f"qmk painter-convert-graphics -i {cli.args.input.name} -f {cli.args.format}",
+            "generator_command": command,
             # not using triple quotes to avoid extra indentation/weird formatted code
             "metadata": _render_image_metadata(image_metadata),
         })
