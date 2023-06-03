@@ -89,7 +89,6 @@ static uint8_t mode_base_table[] = {
 #    define RGBLIGHT_DEFAULT_SPD 0
 #endif
 
-// If RGBLIGHT_DEFAULT_ON is set 0, RGBLIGHT will be disabled at EEPROM initialization.
 #if !defined(RGBLIGHT_DEFAULT_ON)
 #    define RGBLIGHT_DEFAULT_ON true
 #endif
