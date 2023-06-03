@@ -27,10 +27,18 @@ const matrix_row_t matrix_mask[] = {
 
 #ifdef DIP_SWITCH_ENABLE
 
+#ifndef MAC_DIP_LAYER
+#define MAC_DIP_LAYER 0
+#endif
+
+#ifndef WIN_DIP_LAYER
+#define WIN_DIP_LAYER 2
+#endif
+
 bool dip_switch_update_kb(uint8_t index, bool active) {
     if (!dip_switch_update_user(index, active)) { return false;}
     if (index == 0) {
-        default_layer_set(1UL << (active ? 2 : 0));
+        default_layer_set(1UL << (active ? WIN_DIP_LAYER : MAC_DIP_LAYER));
     }
     return true;
 }
