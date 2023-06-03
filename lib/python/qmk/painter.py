@@ -142,11 +142,7 @@ def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
         raise ValueError("Cant generate subs for font and image at the same time")
 
     # Work out the command that was executed
-    args = [arg for arg in cli.args.__dict__
-            if not arg.startswith("_")
-            and arg not in ("datetime_fmt", "log_fmt", "log_file_fmt", "log_file_level",
-                            "log_file", "color", "interactive", "config_file",
-                            "subparsers", "entrypoint")]
+    args = [arg for arg in cli.args.__dict__ if not arg.startswith("_") and arg not in ("datetime_fmt", "log_fmt", "log_file_fmt", "log_file_level", "log_file", "color", "interactive", "config_file", "subparsers", "entrypoint")]
     args_str = " ".join((f"--{arg} {getattr(cli.args, arg)}" for arg in sorted(args)))
     command = f"qmk {cli.args.subparsers} {args_str}"
 
@@ -177,7 +173,6 @@ def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
             "generated_type": "image",
             "var_prefix": "gfx",
             "generator_command": command,
-            # not using triple quotes to avoid extra indentation/weird formatted code
             "metadata": _render_image_metadata(image_metadata),
         })
 
