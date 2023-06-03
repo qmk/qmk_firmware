@@ -75,11 +75,6 @@ Diagonal movement speed calculation may not be accurate when step size and maxim
 #define MOUSEKEY_PRECISE_DIAGONAL_MOVE
 ```
 
-Under the method above, the result is always rounded toward zero. So for pursuing most precision, add the following line to `config.h`. This computes the nearest integer value and rounds halfway cases away from zero.
-```c
-#define MOUSEKEY_PRECISE_DIAGONAL_MOVE_2
-```
-
 Tips:
 
 * Setting `MOUSEKEY_DELAY` too low makes the cursor unresponsive. Setting it too high makes small movements difficult.
