@@ -33,6 +33,9 @@
             "breathing": true
         },
     },
+    "ws2812": {
+        "driver": "spi"
+    },
     "backlight": {
         "pin": "B8",
         "levels": 5,
