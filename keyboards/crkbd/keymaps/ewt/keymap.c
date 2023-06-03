@@ -131,7 +131,10 @@ void oled_render_layer_state(void) {
 }
 
 
-char keylog_str[24] = {};
+char     key_name = ' ';
+uint16_t last_keycode;
+uint8_t  last_row;
+uint8_t  last_col;
 
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
