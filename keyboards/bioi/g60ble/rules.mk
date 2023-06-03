@@ -13,12 +13,10 @@ NKRO_ENABLE = yes          # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes
 LTO_ENABLE = yes
+
+# these lines are all for bluetooth
 BLUETOOTH_ENABLE = yes
 BLUETOOTH_DRIVER = custom
-
-VIA_ENABLE = yes           # VIA support should be enabled here due to the main() loop will be compiled first.
-
 SRC += usart.c ble.c
-
 OPT_DEFS += -DUART_RX1_BUFFER_SIZE=16 -DUART_TX1_BUFFER_SIZE=16
 OPT_DEFS += -DUSART1_ENABLED
