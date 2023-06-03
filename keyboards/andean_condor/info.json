@@ -68,15 +68,17 @@
                 {"matrix": [6,1], "x":14, "y":2, "label":"/"},
                 {"matrix": [6,0], "x":15, "y":2, "label":";"},
 
+                {"matrix": [3,4], "x":6.5, "y":3, "label":"lt2"},
+                {"matrix": [3,5], "x":5.5, "y":3, "label":"lt1"},
+
+                {"matrix": [7,5], "x":9.5, "y":3, "label":"rt2"},
+                {"matrix": [7,4], "x":8.5, "y":3, "label":"rt1"},
+
                 {"matrix": [3,0], "x":3.5, "y":4, "label":"lb1"},
                 {"matrix": [3,1], "x":4.5, "y":4, "label":"lb2"},
                 {"matrix": [3,2], "x":5.5, "y":4, "label":"lb3"},
                 {"matrix": [3,3], "x":6.5, "y":4, "label":"lb4"},
-                {"matrix": [3,4], "x":6.5, "y":3, "label":"lt2"},
-                {"matrix": [3,5], "x":5.5, "y":3, "label":"lt1"},
-                
-                {"matrix": [7,5], "x":9.5, "y":3, "label":"rt2"},
-                {"matrix": [7,4], "x":8.5, "y":3, "label":"rt1"},
+
                 {"matrix": [7,3], "x":8.5, "y":4, "label":"rb3"},
                 {"matrix": [7,2], "x":9.5, "y":4, "label":"rb4"},
                 {"matrix": [7,1], "x":10.5, "y":4, "label":"rb5"},
