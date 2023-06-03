@@ -76,7 +76,6 @@
     },
     "usb": {
         "device_version": "1.0.0",
-        "no_startup_check": false,
         "pid": "0x0223",
         "vid": "0x4B42"
     },

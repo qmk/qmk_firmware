@@ -1,8 +1,6 @@
 # Horizon Z QMK Edition
 
-A hotsawp 60% keyboard by Flashquark 
-
-
+A hotswap 60% keyboard by Flashquark 
 
 * Keyboard Maintainer: [Flashquark](https://flashquark.com)
 * Hardware Supported: Horizon Z QMK
