@@ -2,7 +2,7 @@
 
 ![DactylCC](https://i.imgur.com/CUbPLZCh.jpeg)
 
-Modelled on the *Kinesis Advantage* (KA) 1|2, though missing its function and program row, the *Dactyl CC* retains the finger and thumb key placements of the KA but opts to psychically split the handed key-wells.
+Modelled on the *Kinesis Advantage* (KA) 1|2, though missing it's combined function and program row, the *Dactyl CC* retains the finger and thumb key placements of the KA but opts to split board into physical halves.
 
 * Keyboard Maintainer: [Michael Johns](https://github.com/mjohns)
 * Hardware Supported: Pro micro controller or clones of
