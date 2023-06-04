@@ -137,14 +137,9 @@ def _render_image_metadata(metadata):
     return "\n".join(lines)
 
 
-def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None):
+def generate_subs(cli, out_bytes, *, font_metadata=None, image_metadata=None, command):
     if font_metadata is not None and image_metadata is not None:
         raise ValueError("Cant generate subs for font and image at the same time")
-
-    # Work out the command that was executed
-    args = [arg for arg in cli.args.__dict__ if not arg.startswith("_") and arg not in ("datetime_fmt", "log_fmt", "log_file_fmt", "log_file_level", "log_file", "color", "interactive", "config_file", "subparsers", "entrypoint")]
-    args_str = " ".join((f"--{arg} {getattr(cli.args, arg)}" for arg in sorted(args)))
-    command = f"qmk {cli.args.subparsers} {args_str}"
 
     subs = {
         "year": datetime.date.today().strftime("%Y"),
