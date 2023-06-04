@@ -47,6 +47,7 @@ POSSIBILITY OF SUCH DAMAGE.
 // chibiOS headers
 #    include "ch.h"
 #    include "hal.h"
+#    include "gpio.h"
 #endif
 
 #include "ps2.h"
