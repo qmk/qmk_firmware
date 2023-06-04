@@ -72,7 +72,6 @@ MOUSEKEY_ENABLE = yes
 | `MOUSEKEY_WHEEL_INTERVAL` | 100 | ホイールの動きの間の時間 |
 | `MOUSEKEY_WHEEL_MAX_SPEED` | 8 | スクロールアクションごとのスクロールステップの最大数 |
 | `MOUSEKEY_WHEEL_TIME_TO_MAX` | 40 | 最大スクロール速度に達するまでの時間 |
-| `MOUSEKEY_PRECISE_DIAGONAL_MOVE` | **定義なし** | 正確に計算された斜めに移動する際のカーソル速度 |
 
 斜めのカーソル速度はステップの大きさや最大カーソル速度を低く設定した際に精度よく計算されません。
 気になる場合、以下の行を各キーマップの `config.h` に追加してください。
