@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "os_detection.h"
 
 #ifdef AUDIO_ENABLE
 #    include "muse.h"
@@ -27,7 +28,8 @@
 NGKEYS naginata_keys;
 
 enum planck_layers {
-  _BASE,
+  _WIN,
+  _MAC,
   _NAGINATA,
   _LOWER,
   _RAISE,
@@ -45,8 +47,15 @@ enum planck_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_BASE] = LAYOUT_planck_grid(
-           KC_TAB, KC_K   ,KC_D   ,KC_N    ,KC_F   ,KC_Q,    KC_J   ,KC_BSPC,KC_R   ,KC_U   ,KC_P,    KC_QUOT,
+[_WIN] = LAYOUT_planck_grid(
+          KC_TAB,  KC_K   ,KC_D   ,KC_N    ,KC_F   ,KC_Q,    KC_J   ,KC_BSPC,KC_R   ,KC_U   ,KC_P,    KC_QUOT,
+    CTL_T(KC_ESC), KC_W   ,KC_I   ,KC_S    ,KC_A   ,KC_G,    KC_Y   ,KC_E   ,KC_T   ,KC_H   ,KC_B    ,KC_SCLN,
+          KC_LSFT, KC_Z   ,KC_X   ,KC_V    ,KC_C   ,KC_L,    KC_M   ,KC_O   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_UP ,
+          KC_LCTL, KC_LALT,KC_LWIN,LOWER   ,XXXXXXX,LSFT_T(KC_SPC)  ,XXXXXXX,LSFT_T(KC_ENT) ,RAISE   ,KC_LEFT,KC_DOWN, KC_RGHT
+),
+
+[_MAC] = LAYOUT_planck_grid(
+          KC_TAB,  KC_K   ,KC_D   ,KC_N    ,KC_F   ,KC_Q,    KC_J   ,KC_BSPC,KC_R   ,KC_U   ,KC_P,    KC_QUOT,
     CMD_T(KC_ESC), KC_W   ,KC_I   ,KC_S    ,KC_A   ,KC_G,    KC_Y   ,KC_E   ,KC_T   ,KC_H   ,KC_B    ,KC_SCLN,
           KC_LSFT, KC_Z   ,KC_X   ,KC_V    ,KC_C   ,KC_L,    KC_M   ,KC_O   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_UP ,
           KC_LCTL, KC_LALT,KC_LGUI,LOWER   ,XXXXXXX,LSFT_T(KC_SPC)  ,XXXXXXX,LSFT_T(KC_ENT) ,RAISE   ,KC_LEFT,KC_DOWN, KC_RGHT
@@ -97,7 +106,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_BASE);
+        set_single_persistent_default_layer(_WIN);
       }
       return false;
       break;
@@ -203,12 +212,32 @@ bool dip_switch_update_user(uint8_t index, bool active) {
     return true;
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
   // 薙刀式
   uint16_t ngonkeys[] = {KC_Y, KC_E};
   uint16_t ngoffkeys[] = {KC_A, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
+
+  wait_ms(400);
+  switch (detected_host_os()) {
+    case OS_WINDOWS:
+      layer_move(_WIN);
+      switchOS(NG_WIN);
+      break;
+    case OS_MACOS:
+    case OS_IOS:
+      layer_move(_MAC);
+      switchOS(NG_MAC);
+      break;
+    case OS_LINUX:
+      layer_move(_WIN);
+      switchOS(NG_LINUX);
+      break;
+    default:
+      layer_move(_WIN);
+      switchOS(NG_WIN);
+  }
 }
 
 void matrix_scan_user(void) {
