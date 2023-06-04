@@ -221,12 +221,12 @@ static void update_pwm_channels(PWMDriver *pwmp) {
             first_scanned_row = current_key_row;
         } else {
             if ((last_key_row != current_key_row) && (current_key_row == first_scanned_row)) {
-                matrix_locked  = false;
-                matrix_scanned = true;
+                matrix_locked = false;
             }
         }
         if (matrix_locked) {
             matrix_read_cols_on_row(shared_matrix, current_key_row);
+            matrix_scanned = true;
         }
     }
     bool enable_pwm_output = false;
@@ -313,12 +313,12 @@ static void update_pwm_channels(PWMDriver *pwmp) {
             first_scanned_col = current_key_col;
         } else {
             if ((last_key_col != current_key_col) && (current_key_col == first_scanned_col)) {
-                matrix_locked  = false;
-                matrix_scanned = true;
+                matrix_locked = false;
             }
         }
         if (matrix_locked) {
             matrix_read_rows_on_col(shared_matrix, current_key_col, row_shifter);
+            matrix_scanned = true;
         }
     }
 #    if ((RGB_OUTPUT_ACTIVE_LEVEL == RGB_OUTPUT_ACTIVE_HIGH) && defined(MATRIX_UNSELECT_DRIVE_HIGH))
