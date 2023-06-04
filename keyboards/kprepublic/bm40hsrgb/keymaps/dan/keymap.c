@@ -115,17 +115,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Left | Down | Up   |Right |Ctrl+/|   [  |   {  |   }  |   )  |   :  |  "   |
+ * | Ctrl | Left | Down | Up   |Right |Ctrl+/| PRSC |   {  |   }  |   )  |   :  |  "   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift| PGUP | PGDN | Home | End  | PRSC |   ]  |   (  |   <  |   >  |   ?  |Return|
+ * | Shift| PGUP | PGDN | Home | End  |   [  |   ]  |   (  |   <  |   >  |   ?  |Return|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  MOU | Caps | Ins  | Alt  | Trns |    Space    |   _  |   +  |   .  |   |  | Enter|
  * `-----------------------------------------------------------------------------------'
  */
 [_LEFTFN] = LAYOUT_planck_mit(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,     KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_LCTL, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, LCTL(KC_SLSH), KC_LBRC, KC_LCBR, KC_RCBR, KC_RPRN, KC_COLN, KC_DQUO,
-    KC_LSFT, KC_PGUP, KC_PGDN, KC_HOME, KC_END,   KC_PSCR,       KC_RBRC, KC_LPRN, KC_LT,   KC_GT,   KC_QUES, KC_ENT,
+    KC_LCTL, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, LCTL(KC_SLSH), KC_PSCR, KC_LCBR, KC_RCBR, KC_RPRN, KC_COLN, KC_DQUO,
+    KC_LSFT, KC_PGUP, KC_PGDN, KC_HOME, KC_END,   KC_LBRC,       KC_RBRC, KC_LPRN, KC_LT,   KC_GT,   KC_QUES, KC_ENT,
     MOU,     KC_CAPS, KC_INS,  KC_LALT, KC_TRNS,        KC_SPC,           KC_UNDS, KC_PLUS, KC_DOT,  KC_PIPE, KC_PENT
 ),
 
