@@ -28,7 +28,6 @@ enum custom_layers {
 
 #define SYM MO(_SYMBOL)
 #define NAV MO(_NAVIGATION)
-#define MED MO(_FKEYS)
 
 #define ECTRL LCTL_T(KC_ESC)
 #define JCTRL RCTL_T(KC_J)
