@@ -20,7 +20,7 @@
         "caps_lock": "B9",
         "on_state": 0
     },
-    "diode_direction": "COL2ROW"
+    "diode_direction": "COL2ROW",
     "rgblight": {
         "led_count": 24,
         "sleep": true,
