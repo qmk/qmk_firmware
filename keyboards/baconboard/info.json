@@ -13,8 +13,27 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2", "C2"],
-        "rows": ["D1", "D1", "D1", "D1", "D1"]
+        "cols": [
+            "GP11",
+            "GP10",
+            "GP15",
+            "GP8",
+            "GP7",
+            "GP6",
+            "GP5",
+            "GP4",
+            "GP3",
+            "GP2",
+            "GP1",
+            "GP0",
+            "GP28",
+            "GP27",
+            "GP26",
+            "GP25",
+            "GP24",
+            "GP23"
+        ],
+        "rows": ["GP14", "GP16", "GP17", "GP18", "GP19"]
     },
     "processor": "RP2040",
     "url": "",
@@ -24,7 +43,7 @@
         "vid": "0xFEED"
     },
     "layouts": {
-        "LAYOUT_ortho_5x12": {
+        "LAYOUT_anchovie": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
