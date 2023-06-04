@@ -7,8 +7,6 @@ A customizable 17  keyboard, support both HOTSWAP and SOLDER.
 
 Make example for this keyboard (after setting up your build environment):
 
-Make example for this keyboard (after setting up your build environment):
-
     make soda/mango:default
 
 Flashing example for this keyboard:
