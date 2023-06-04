@@ -5,7 +5,6 @@
   "maintainer": "Polsaker",
   "usb": {
     "vid": "0xCBBC",
-    "pid": "0xC100",
     "device_version": "1.0.0"
   },
   "build": {
