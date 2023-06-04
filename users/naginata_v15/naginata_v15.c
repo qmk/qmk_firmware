@@ -443,6 +443,7 @@ void ng_send_unicode_string(const char *str) {
       break;
     case NG_MAC: // Karabiner-Elementsが必要
       // TODO 未確定の文字列が残っていたら確定しておきたい
+      tap_code(KC_LANGUAGE_2); // 未確定文字を確定する
       register_code(KC_LCTL); // Unicode HEX Inputへ切り替え
       tap_code(KC_F20);
       unregister_code(KC_LCTL);
