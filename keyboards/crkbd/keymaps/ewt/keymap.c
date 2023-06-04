@@ -33,7 +33,7 @@ enum custom_layers {
 #define ECTRL LCTL_T(KC_ESC)
 #define JCTRL RCTL_T(KC_J)
 #define KALT LALT_T(KC_K)        
-#define DASHMED LT(MED, KC_MINS)    
+#define DASHMED LT(_FKEYS, KC_MINS)    
 #define TMUX LCTL(KC_B)
 #define KILL LALT(KC_F4)
 #define CTL0 LCTL(KC_0)
