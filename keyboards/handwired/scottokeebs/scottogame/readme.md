@@ -5,7 +5,7 @@
 A 42-key ortholinear keyboard with a dedicated action button, split spacebar, 5 function keys, and a 0.96" 128x64 OLED display. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
 *   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
-*   Hardware Supported: ATmega32U4
+*   Hardware Supported: ATmega32U4, 0.96" 128x64 I2C OLED
 *   Hardware Availability: [Amazon](https://amazon.com)
 
 Make example for this keyboard (after setting up your build environment):
