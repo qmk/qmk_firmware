@@ -9,8 +9,10 @@
     },
     "diode_direction": "COL2ROW",
     "rgblight": {
-        "pin": "A15",
         "led_count": 6
+    },
+    "ws2812": {
+        "pin": "A15"
     },
     "layouts": {
         "LAYOUT_all": {
