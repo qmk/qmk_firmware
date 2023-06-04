@@ -16,6 +16,12 @@
         "vid": "0x3A54",
         "pid": "0x4F5D"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "community_layouts": ["numpad_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {
