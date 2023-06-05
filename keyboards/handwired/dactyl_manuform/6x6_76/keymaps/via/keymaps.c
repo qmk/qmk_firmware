@@ -13,10 +13,8 @@ enum layers {
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
-#define S_ALL C(KC_A)
-#define COPY C(KC_C) 
-#define PSTE C(KC_V)
-#define CUT C(KC_X)
+#define APP_P A(KC_TAB)
+#define APP_N LSA(KC_TAB)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
