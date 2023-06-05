@@ -46,7 +46,7 @@
   { K75, K74, K73, K72, K71, K70   }  \
 }
 
-//#define ALPHA XP(UCM_LDEL, UCM_UDEL)
+//#define ALPHA UP(UCM_LDEL, UCM_UDEL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_atreus_wrapper( /* Qwerty */
