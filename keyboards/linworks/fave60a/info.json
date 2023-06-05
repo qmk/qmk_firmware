@@ -22,6 +22,9 @@
         "rows": ["A8", "B15", "B14", "B8", "B9"]
     },
     "processor": "STM32F072",
+    "ws2812": {
+        "pin": "A10"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [
