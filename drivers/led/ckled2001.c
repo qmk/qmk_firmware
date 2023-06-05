@@ -150,9 +150,7 @@ void CKLED2001_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_ckled2001_leds[index]), sizeof(led));
 
-        if (g_pwm_buffer[led.driver][led.r] == red &&
-            g_pwm_buffer[led.driver][led.g] == green &&
-            g_pwm_buffer[led.driver][led.b] == blue) {
+        if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
             return;
         }
         g_pwm_buffer[led.driver][led.r]          = red;

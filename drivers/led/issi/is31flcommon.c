@@ -139,9 +139,7 @@ void IS31FL_set_manual_scaling_buffer(void) {
         if (scale.driver >= 0 && scale.driver < RGB_MATRIX_LED_COUNT) {
             is31_led led = g_is31_leds[scale.driver];
 
-            if (g_scaling_buffer[led.driver][led.r] = scale.r &&
-                g_scaling_buffer[led.driver][led.g] = scale.g &&
-                g_scaling_buffer[led.driver][led.b] = scale.b) {
+            if (g_scaling_buffer[led.driver][led.r] = scale.r && g_scaling_buffer[led.driver][led.g] = scale.g && g_scaling_buffer[led.driver][led.b] = scale.b) {
                 return;
             }
             g_scaling_buffer[led.driver][led.r] = scale.r;
