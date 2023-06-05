@@ -7,7 +7,7 @@
 enum custom_layers {
     _QWERTY,
     _LOWER,
-    _RAISE.
+    _RAISE,
     _BLANK
 };
 
