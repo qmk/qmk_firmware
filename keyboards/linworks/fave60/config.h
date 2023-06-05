@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define WS2812_DI_PIN F5
 #define RGBLED_NUM 18
 #define RGBLIGHT_SLEEP // Turns LEDs off if the PC goes to sleep/shutdown
 #define RGBLIGHT_EFFECT_BREATHING
