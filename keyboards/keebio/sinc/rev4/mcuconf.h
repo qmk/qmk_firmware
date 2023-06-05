@@ -1,5 +1,4 @@
-/*
- * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
+/* Copyright 2023 Danny Nguyen <danny@keeb.io>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
