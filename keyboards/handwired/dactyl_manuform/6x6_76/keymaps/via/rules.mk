@@ -1,1 +1,1 @@
-ENABLE_VIA = yes
+VIA_ENABLE = yes
