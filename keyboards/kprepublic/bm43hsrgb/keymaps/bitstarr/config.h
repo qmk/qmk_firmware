@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_WINDOWS, UNICODE_MODE_LINUX, UNICODE_MODE_MACOS
 #define UNICODE_CYCLE_PERSIST false
 
-#ifdef RGB_DI_PIN
 #undef RGBLIGHT_EFFECT_BREATHING
 #undef RGBLIGHT_EFFECT_RAINBOW_MOOD
 #undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -30,4 +29,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLIGHT_EFFECT_RGB_TEST
 #undef RGBLIGHT_EFFECT_ALTERNATING
 #undef RGBLIGHT_EFFECT_TWINKLE
-#endif
