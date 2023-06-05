@@ -19,13 +19,12 @@
 /* If PH3 used with a stronger pull resistor then the following definition needs be included */
 // #define MATRIX_UNSELECT_DRIVE_HIGH
 
-/* RGB Matrix Driver Configuration */
+/* LED Matrix Driver Configuration */
 #define DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110100
 
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 90
-#define LED_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
+/* LED Matrix Configuration */
+#define LED_MATRIX_LED_COUNT 90
 
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
 #define PHASE_CHANNEL MSKPHASE_9CHANNEL
