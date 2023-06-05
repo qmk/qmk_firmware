@@ -8,6 +8,9 @@
         "pin": "B7",
         "breathing": true
     },
+    "ws2812": {
+        "pin": "F5"
+    },
     "diode_direction": "COL2ROW",
     "features": {
         "backlight": true,
