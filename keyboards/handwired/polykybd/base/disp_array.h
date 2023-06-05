@@ -16,6 +16,12 @@ void kdisp_send_buffer(void);
 
 void kdisp_invert(bool invert);
 
+void kdisp_scroll(bool activate);
+
+void kdisp_scroll_modev(bool left, uint8_t vspeed0to7);
+void kdisp_scroll_modevh(bool left, uint8_t vspeed0to7, uint8_t hoffset0to63);
+void kdisp_scroll_vlines(uint8_t lines0to63);
+
 void kdisp_set_contrast(uint8_t contrast);
 
 void kdisp_enable(bool enable);

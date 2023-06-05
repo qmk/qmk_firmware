@@ -16,8 +16,16 @@
 #include "lang/lang_lut.h"
 
 #define FULL_BRIGHT 49
+#define MIN_BRIGHT 1
+#define DISP_OFF 0
+#define BRIGHT_STEP 4
+
+//6 sec
 #define FADE_TRANSITION_TIME 6000
+//1 min
 #define FADE_OUT_TIME 60000
+//20 min
+#define TURN_OFF_TIME 1200000
 
 /*[[[cog
 import cog
@@ -74,7 +82,7 @@ struct display_info disp_row_3 = { BITMASK4(0) };
 
 enum refresh_mode { START_FIRST_HALF, START_SECOND_HALF, DONE_ALL, ALL_AT_ONCE };
 static enum refresh_mode g_refresh = DONE_ALL;
-static uint8_t g_contrast = FULL_BRIGHT;
+static int8_t g_contrast = FULL_BRIGHT;
 
 static uint16_t last_key = 0;
 
@@ -82,7 +90,7 @@ static uint16_t g_matrix_infobuffer[8] = {0,0,0,0,0,0,0,0};
 
 typedef struct _poly_sync_t {
     uint8_t lang;
-    uint8_t contrast;
+    int8_t contrast;
 } poly_sync_t;
 
 typedef struct _poly_state_t {
@@ -98,11 +106,12 @@ static int32_t last_update;
 
 bool display_wakeup(keyrecord_t* record);
 void update_displays(enum refresh_mode mode);
-void set_displays(uint8_t contrast);
+void set_displays(int8_t contrast);
+static int8_t old_contrast = 0;
 
 void inc_brightness(void) {
     if (g_contrast < FULL_BRIGHT) {
-        g_contrast += 4;
+        g_contrast += BRIGHT_STEP;
     }
     if (g_contrast > FULL_BRIGHT) {
         g_contrast = FULL_BRIGHT;
@@ -110,10 +119,10 @@ void inc_brightness(void) {
 }
 
 void dec_brightness(void) {
-    if (g_contrast >= 6) {
-        g_contrast -= 4;
+    if (g_contrast > (MIN_BRIGHT+BRIGHT_STEP)) {
+        g_contrast -= BRIGHT_STEP;
     } else {
-        g_contrast = 1;
+        g_contrast = MIN_BRIGHT;
     }
 }
 
@@ -175,8 +184,9 @@ void sync_and_refresh_displays(void) {
     }
 
     if (g_state.s.contrast != g_contrast && g_refresh == DONE_ALL) {
-        set_displays((uint8_t)g_contrast);
+        set_displays(g_contrast);
         g_state.s.contrast = g_contrast;
+        request_disp_refresh();
     }
 
     led_t led_state = host_keyboard_led_state();
@@ -211,9 +221,27 @@ void housekeeping_task_user(void) {
     //turn off displays
     uint32_t elapsed_time_since_update = timer_elapsed32(last_update);
 
-    if (is_keyboard_master() && elapsed_time_since_update > FADE_OUT_TIME && g_contrast > 0) {
-        int32_t time_after = PK_MIN(elapsed_time_since_update - FADE_OUT_TIME, FADE_TRANSITION_TIME);
-        g_contrast = ((FADE_TRANSITION_TIME - time_after) * FULL_BRIGHT) / FADE_TRANSITION_TIME;
+    if (is_keyboard_master()) {
+        if(elapsed_time_since_update > FADE_OUT_TIME && g_contrast >= MIN_BRIGHT) {
+            int32_t time_after = elapsed_time_since_update - FADE_OUT_TIME;
+            g_contrast = ((FADE_TRANSITION_TIME - time_after) * FULL_BRIGHT) / FADE_TRANSITION_TIME;
+
+            //transition to pulsing mode
+            if(g_contrast<=MIN_BRIGHT) {
+                g_contrast = -MIN_BRIGHT;
+            }
+        } else if(elapsed_time_since_update > TURN_OFF_TIME) {
+            g_contrast = DISP_OFF;
+        } else if(g_contrast < MIN_BRIGHT) {
+            int32_t time_after = PK_MAX(elapsed_time_since_update - FADE_OUT_TIME - FADE_TRANSITION_TIME, 0)/300;
+            int8_t amplitude = time_after%17;
+            if(amplitude>8) amplitude = 16-amplitude;
+
+            if(amplitude>3) amplitude = amplitude-3;
+            else amplitude = 0;
+
+            g_contrast = -amplitude;
+        }
     }
 }
 
@@ -234,17 +262,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     //Function Layer (Fn)
     [_FNL] = LAYOUT_left_right_stacked(
-        TO(_NL),    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
+        TO(_UL),    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
         KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         KC_CAPS,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        TO(_UL),    _______,    _______,    KC_MS_BTN2,             _______,    _______,    _______,
+        _______,    _______,    _______,    KC_MS_BTN2,             _______,    _______,    _______,
 
                     KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
                     _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    TO(_NL),
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,                _______,    _______,    _______,    TO(_UL)
+        _______,    _______,    _______,                _______,    KC_PGUP,    KC_PGDN,    _______
         ),
      //Num Layer
     [_NL] = LAYOUT_left_right_stacked(
@@ -262,7 +290,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     //Util Layer
     [_UL] = LAYOUT_left_right_stacked(
-        KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
+         KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     _______,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
@@ -345,11 +373,11 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_KP_MINUS:
         return u"-";
     case KC_KP_7:
-        return !state.num_lock ? u"Home" : u"7";
+        return !state.num_lock ? ARROWS_LEFTSTOP : u"7";
     case KC_KP_8:
         return !state.num_lock ? u"   " ICON_UP : u"8";
     case KC_KP_9:
-        return !state.num_lock ? u"PgUp" : u"9";
+        return !state.num_lock ? ARROWS_UPSTOP : u"9";
     case KC_KP_PLUS:
         return u"+";
     case KC_KP_4:
@@ -361,11 +389,11 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_KP_EQUAL:
         return u"=";
     case KC_KP_1:
-        return !state.num_lock ? u"End" : u"1";
+        return !state.num_lock ? ARROWS_RIGHTSTOP : u"1";
     case KC_KP_2:
         return !state.num_lock ? u"   " ICON_DOWN : u"2";
     case KC_KP_3:
-        return !state.num_lock ? u"PgDn" : u"3";
+        return !state.num_lock ? ARROWS_DOWNSTOP : u"3";
     case KC_CALCULATOR:
         return u"Calc";
     case KC_KP_0:
@@ -427,15 +455,15 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_INSERT:
         return u"Ins";
     case KC_HOME:
-        return PRIVATE_HOME;
-    case KC_PAGE_UP:
-        return u"PgUp";
-    case KC_PAGE_DOWN:
-        return u"PgDn";
-    case KC_DELETE:
-        return u"Del";
+        return ARROWS_LEFTSTOP;
     case KC_END:
-        return u"End";
+        return u"   " ARROWS_RIGHTSTOP;
+    case KC_PAGE_UP:
+        return u"  " ARROWS_UPSTOP;
+    case KC_PAGE_DOWN:
+        return u"  " ARROWS_DOWNSTOP;
+    case KC_DELETE:
+        return TECHNICAL_ERASERIGHT;
     case KC_MYCM:
         return u"My\r\vComp";
     case MO(_FNL):
@@ -472,13 +500,11 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u" F12";
     case KC_LEFT_CTRL:
     case KC_RIGHT_CTRL:
-        return u"Ctrl";
+        return TECHNICAL_COMMAND;
     case KC_LEFT_ALT:
-        return u"Alt";
+        return TECHNICAL_OPTION;
     case KC_RIGHT_ALT:
         return u"AltGr";
-    case KC_TAB:
-        return u"Tab";
     case KC_LWIN:
     case KC_RWIN:
         return  DINGBAT_BLACK_DIA_X;
@@ -774,56 +800,31 @@ void show_splash_screen(void) {
     display_message(2, 1, u"KYBD", &FreeSansBold24pt7b);
 }
 
-
-void set_displays(uint8_t contrast) {
+void set_displays(int8_t contrast) {
     select_all_displays();
 
-    if (contrast == 0)
-    {
-        kdisp_enable(false);
-        //set_displays_on(false);
-        //kdisp_set_contrast(0);
-        //#ifdef OLED_ENABLE
-        //oled_off();
-        //#endif
+    if (old_contrast < 0 && contrast >= 0) {
+        kdisp_scroll(false);
+    } else if (old_contrast >= 0 && contrast < 0) {
+        kdisp_scroll(true);
     }
-    else {
-        kdisp_enable(true);
-        //set_displays_on(true);
-        kdisp_set_contrast(contrast - 1);
-        //#ifdef OLED_ENABLE
-        //if(!oled_is_on()) {
-        //    oled_on();
-        //}
-        //#endif
-    }
-    /*
-    if (state != DISPLAYS_SET_CONTRAST) {
-        bool enable = state != DISPLAYS_OFF;
-        kdisp_enable(enable);
-        set_displays_on(enable);
-        #ifdef OLED_ENABLE
-        if(enable) oled_on(); else  oled_off();
-        #endif
-        uprintf("%s:All displays %s\n", is_keyboard_master()? "Master" : "Slave", enable ? "on" : "off");
-    }
-    if (state == DISPLAYS_ON_SET_CONTRAST || state == DISPLAYS_SET_CONTRAST) {
-        kdisp_set_contrast(contrast);
-        #ifdef OLED_ENABLE
-        oled_set_brightness(contrast);
-        #endif
-        uprintf("%s:Setting contrast to %d\n", is_keyboard_master()? "Master" : "Slave", contrast);
-        set_displays_on(true);
-    }
-    */
-}
+    old_contrast = contrast;
+    contrast     = PK_ABS(contrast);
 
+    if (contrast == 0) {
+        kdisp_enable(false);
+    } else {
+        kdisp_enable(true);
+        kdisp_set_contrast(contrast - 1);
+    }
+}
 
 //disable first keypress if the displays are turned off
 bool display_wakeup(keyrecord_t* record) {
-    if (g_contrast == 0 && record->event.pressed) {
+    if (g_contrast < MIN_BRIGHT && record->event.pressed) {
         g_contrast = FULL_BRIGHT; //not always full bright, but the set value
         update_performed();
+        request_disp_refresh();
     }
 
     return true;
@@ -853,6 +854,8 @@ void keyboard_pre_init_user(void) {
     kdisp_init(NUM_SHIFT_REGISTERS);
     peripherals_reset();
     kdisp_setup(true);
+    kdisp_scroll_modevh(true, 2, 1);
+    kdisp_scroll_vlines(40);
 
     set_displays(FULL_BRIGHT);
     show_splash_screen();
@@ -949,11 +952,6 @@ void matrix_slave_scan_user(void) {
 }
 
 void suspend_power_down_kb(void) {
-    g_contrast = 0;
-    sync_and_refresh_displays();//set_displays(g_contrast);
+    g_contrast = DISP_OFF;
+    sync_and_refresh_displays();
 }
-
-// void suspend_wakeup_init_kb(void) {
-//     g_contrast = FULL_BRIGHT;
-//     set_displays(g_contrast);
-// }

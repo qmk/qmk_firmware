@@ -35,6 +35,14 @@
 #define SSD1306_SETHIGHCOLUMN 0x10  ///< Not currently used
 #define SSD1306_SETSTARTLINE 0x40   ///< See datasheet
 
+#define SSD1306_RIGHT_HORIZONTAL_SCROLL 0x26              ///< Init rt scroll
+#define SSD1306_LEFT_HORIZONTAL_SCROLL 0x27               ///< Init left scroll
+#define SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL 0x29 ///< Init diag scroll
+#define SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL 0x2A  ///< Init diag scroll
+#define SSD1306_DEACTIVATE_SCROLL 0x2E                    ///< Stop scroll
+#define SSD1306_ACTIVATE_SCROLL 0x2F                      ///< Start scroll
+#define SSD1306_SET_VERTICAL_SCROLL_AREA 0xA3             ///< Set scroll range
+
 // display specific constants
 #define SCREEN_WIDTH 72
 #define SCREEN_HEIGHT 40
@@ -244,6 +252,76 @@ void kdisp_invert(bool invert) {
     //spi_start(SPI_SS_PIN, false, SPI_MODE, SPI_DIVISOR);
     spi_prepare_commands();
     spi_write(invert ? SSD1306_INVERTDISPLAY : SSD1306_NORMALDISPLAY);
+    //spi_stop();
+}
+
+void kdisp_scroll_vlines(uint8_t lines0to63) {
+    spi_prepare_commands();
+    spi_write(SSD1306_SET_VERTICAL_SCROLL_AREA);
+    spi_write(0); //fixed lines
+    if(lines0to63>63)
+        spi_write(64);
+    else
+        spi_write(lines0to63);
+}
+
+void kdisp_scroll(bool activate) {
+    //spi_start(SPI_SS_PIN, false, SPI_MODE, SPI_DIVISOR);
+    spi_prepare_commands();
+    spi_write(activate ? SSD1306_ACTIVATE_SCROLL : SSD1306_DEACTIVATE_SCROLL);
+    //spi_stop();
+}
+
+void kdisp_scroll_modev(bool left, uint8_t vspeed0to7) {
+    //spi_start(SPI_SS_PIN, false, SPI_MODE, SPI_DIVISOR);
+    spi_prepare_commands();
+    if(left) {
+        spi_write(SSD1306_LEFT_HORIZONTAL_SCROLL);
+    } else {
+        spi_write(SSD1306_RIGHT_HORIZONTAL_SCROLL);
+    }
+    spi_write(0); //dummy
+    spi_write(0); //start
+    switch(vspeed0to7) {
+        case 0: spi_write(7); break; //2
+        case 1: spi_write(4); break; //3
+        case 2: spi_write(5); break; //4
+        case 3: spi_write(0); break; //5
+        case 4: spi_write(6); break; //25
+        case 5: spi_write(1); break; //64
+        case 6: spi_write(2); break; //128
+        default: spi_write(3); break; //256
+    }
+
+    spi_write(0x07); //end
+    spi_write(0); //dummy
+    spi_write(0xff); //dummy
+    //spi_stop();
+}
+
+void kdisp_scroll_modevh(bool left, uint8_t vspeed0to7, uint8_t hoffset0to63) {
+    //spi_start(SPI_SS_PIN, false, SPI_MODE, SPI_DIVISOR);
+    spi_prepare_commands();
+    if(left) {
+        spi_write(SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL);
+    } else {
+        spi_write(SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL);
+    }
+    spi_write(0); //dummy
+    spi_write(0); //start
+    switch(vspeed0to7) {
+        case 0: spi_write(7); break; //2
+        case 1: spi_write(4); break; //3
+        case 2: spi_write(5); break; //4
+        case 3: spi_write(0); break; //5
+        case 4: spi_write(6); break; //25
+        case 5: spi_write(1); break; //64
+        case 6: spi_write(2); break; //128
+        default: spi_write(3); break; //256
+    }
+
+    spi_write(0x07); //end
+    spi_write(hoffset0to63&63);
     //spi_stop();
 }
 

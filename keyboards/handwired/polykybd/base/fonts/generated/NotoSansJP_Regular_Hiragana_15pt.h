@@ -1,4 +1,4 @@
-// fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf -s15 -v _Hiragana_ 12353 12447 
+// fontconvert -f~/repos/noto-sans-jp/NotoSansJP-Regular.otf -s15 -v _Hiragana_ 0x3041 0x309f 
 // Visualize your font via https://tchapi.github.io/Adafruit-GFX-Font-Customiser
 
 const uint8_t NotoSansJP_Regular_Hiragana_15pt16bBitmaps[] PROGMEM = {

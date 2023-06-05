@@ -510,7 +510,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ZERO u"\r\v\t" ARABIC_INDIC_0,u")" u"\r\v\t" ARABIC_INDIC_0,ZERO u"\r\v\t" ARABIC_INDIC_0,
     /*  LANG_GR  */   u"\r\v\t" DEGREE,            u")" u"\r\v\t" DEGREE,         u"\r\v\t" DEGREE
     },
-    /*KC_ENTER   */ {u"Ent",                       NULL,                         NULL,                         
+    /*KC_ENTER   */ {ARROWS_RETURN,                NULL,                         NULL,                         
     /*  LANG_DE  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_FR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_ES  */  NULL,                         NULL,                         NULL,                         
@@ -534,7 +534,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_GR  */  NULL,                         NULL,                         NULL
     },
-    /*KC_BACKSPACE*/ {ICON_BACKSPACE,               NULL,                         NULL,                         
+    /*KC_BACKSPACE*/ {TECHNICAL_ERASELEFT,          NULL,                         NULL,                         
     /*  LANG_DE  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_FR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_ES  */  NULL,                         NULL,                         NULL,                         
@@ -546,7 +546,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_GR  */  NULL,                         NULL,                         NULL
     },
-    /*KC_TAB     */ {u"Tab",                       NULL,                         NULL,                         
+    /*KC_TAB     */ {ARROWS_TAB,                   NULL,                         NULL,                         
     /*  LANG_DE  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_FR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_ES  */  NULL,                         NULL,                         NULL,                         
