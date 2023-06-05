@@ -5,7 +5,6 @@
 /* Define RGB */
 #define RGBLED_NUM 91
 #define RGB_MATRIX_LED_COUNT 91
-#define WS2812_DI_PIN A10
 
 #ifdef RGB_MATRIX_ENABLE
 
