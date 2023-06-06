@@ -1,24 +1,17 @@
-# Scotto36
+# egg58
 
-![Scotto36](https://i.imgur.com/MCGv0ZHh.jpeg)
-
-A 36-key split monoblock ergonomic ortholinear keyboard with 15° of angle on each half. Case files available [here](https://github.com/joe-scotto/keyboards.git).
-
-*   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
-*   Hardware Supported: ATmega32U4, 0.91” 128x32 I2C OLED
-*   Hardware Availability: [Amazon](https://amazon.com)
-
-
-# Compiling
+* Keyboard Maintainer: [Travis Mick](https://github.com/tmick0)
+* Hardware Supported: egg58 (v1-v2.x) PCB, with Pro Micro or compatible MCU
+* Hardware Availability: https://eggs.works/ or https://github.com/eggsworks/egg58
 
 Make example for this keyboard (after setting up your build environment):
 
-    make handwired/jscotto/scotto36:default
+    make eggsworks/egg58:default
 
 Flashing example for this keyboard:
 
-    make handwired/jscotto/scotto36:default
-    
+    make eggsworks/egg58:default:flash
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
