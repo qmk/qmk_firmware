@@ -1,4 +1,4 @@
-# Dactyl (pro Micro)
+# Dactyl (Pro Micro)
 
 ![Dactyl](https://i.imgur.com/a7uY1eSh.png)
 
