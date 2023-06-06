@@ -1,8 +1,8 @@
-# Keyboardio Atreus with an SLF layout
+# Keyboardio Atreus with an SLF layout from PoweredByPorridge
 
-[Stiff Little Fingers](https://en.wikipedia.org/wiki/Stiff_Little_Fingers) were a great punk band, from Belfast, Northern Ireland. Stiff Little Fingers is also a good way of describing my hands, a condition which I ascribe to too many years cycling without gloves in cold weather. So, I need a keyboard and layout to cope.
+SLF stands for [Stiff Little Fingers](https://en.wikipedia.org/wiki/Stiff_Little_Fingers) who were a great punk band from Belfast, Northern Ireland. Stiff Little Fingers is also a good way of describing my hands, a condition which I ascribe to too many winters cycling without gloves. So, I need a keyboard and layout to cope.
 
-I use a Keyboardio Atreus, in fact, they're so good, I use two. I tried all sorts of layouts, and finally came up with the one that suits my stiff little fingers; the slf-atreus.
+I use a Keyboardio Atreus, in fact, they're so good, I use two. I tried all sorts of layouts, and finally came up with the one that suits my stiff fingers.
 
 It has four layers:
 
