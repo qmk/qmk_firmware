@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Onekey SN32",
+    "keyboard_name": "Onekey SN32F240B",
     "processor": "SN32F248BF",
     "bootloader": "sn32-dfu",
     "matrix_pins": {
