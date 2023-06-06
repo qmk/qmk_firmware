@@ -3,10 +3,6 @@
 
 #include "wrappers.h"
 
-//#if defined(TAP_DANCE_ENABLE)
-//#   include "tap_dance.h"
-//#endif  //TAP_DANCE_ENABLE
-
 enum layers {
   _QWERTY = 0,
   FIRST_DEFAULT_LAYER = 0,  
@@ -56,32 +52,29 @@ enum keycodes {
 
 
 //Home Row Mods QWERTY
-#if defined(HOMEROWMOD_ENABLE)
-#   define LGUI_A  LGUI_T(KC_A)
-#   define LALT_S  LALT_T(KC_S)
-#   define CTRL_D  LCTL_T(KC_D)
-#   define SHFT_F  LSFT_T(KC_F)
+#define LGUI_A  LGUI_T(KC_A)
+#define LALT_S  LALT_T(KC_S)
+#define CTRL_D  LCTL_T(KC_D)
+#define SHFT_F  LSFT_T(KC_F)
 
-#   define SHFT_J  LSFT_T(KC_J)
-#   define CTRL_K  LCTL_T(KC_K)
-#   define LALT_L  LALT_T(KC_L)
-#   define LGUI_QT LGUI_T(KC_QUOT)
+#define SHFT_J  LSFT_T(KC_J)
+#define CTRL_K  LCTL_T(KC_K)
+#define LALT_L  LALT_T(KC_L)
+#define LGUI_QT LGUI_T(KC_QUOT)
 
 //Home Row Mods COLEMAKDH
-#   define LALT_R  LALT_T(KC_R)
-#   define CTRL_S  LCTL_T(KC_S)
-#   define SHFT_T  LSFT_T(KC_T)
+#define LALT_R  LALT_T(KC_R)
+#define CTRL_S  LCTL_T(KC_S)
+#define SHFT_T  LSFT_T(KC_T)
 
-#   define SHFT_N  LSFT_T(KC_N)
-#   define CTRL_E  LCTL_T(KC_E)
-#   define LALT_I  LALT_T(KC_I)
-#   define LGUI_O  LGUI_T(KC_O)
-#endif //HOMEROWMOD_ENABLE
+#define SHFT_N  LSFT_T(KC_N)
+#define CTRL_E  LCTL_T(KC_E)
+#define LALT_I  LALT_T(KC_I)
+#define LGUI_O  LGUI_T(KC_O)
 
 //One shot mods
-#if defined(ONESHOT_ENABLE)
-#   define OSM_SFT OSM(MOD_LSFT)
-#   define OSM_CTL OSM(MOD_LCTL)
-#   define OSM_ALT OSM(MOD_LALT)
-#   define OSM_GUI OSM(MOD_LGUI)
-#endif //ONESHOT_ENABLE
+#define OSM_SFT OSM(MOD_LSFT)
+#define OSM_CTL OSM(MOD_LCTL)
+#define OSM_ALT OSM(MOD_LALT)
+#define OSM_GUI OSM(MOD_LGUI)
+
