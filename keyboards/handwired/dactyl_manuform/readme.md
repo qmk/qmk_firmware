@@ -1,6 +1,6 @@
 # Dactyl ManuForm
 
-![Imgur](https://i.imgur.com/7y0Vbydh.jpg)
+![Imgur](https://i.imgur.com/7y0Vbydh.jpg)  
 *Pair of Dactyl Manuform 4x6*
 
 Forked from the [Dactyl](/keyboards/handwired/dactyl), the *Dactyl ManuForm* is a parameterized, handwired, split bodied, tented, concave key-well design that incorporates the thumb cluster from the [ManuForm](https://geekhack.org/index.php?topic=46015.0). Bill of Materials (BoM), case files, and wiring guide for making this keyboard is in the second link.
