@@ -96,7 +96,7 @@ def _find_bootloader():
                             details = 'halfkay'
                         else:
                             details = 'qmk-hid'
-                    elif bl == 'stm32-dfu' or bl == 'apm32-dfu' or bl == 'gd32v-dfu' or bl == 'kiibohd':
+                    elif bl == 'stm32-dfu' or bl == 'apm32-dfu' or bl == 'gd32v-dfu' or bl == 'kiibohd' or bl == 'sn32-dfu':
                         details = (vid, pid)
                     else:
                         details = None
@@ -196,6 +196,14 @@ def _flash_uf2(file):
     cli.run(['util/uf2conv.py', '--deploy', file], capture_output=False)
 
 
+def _flash_sonixflasher(details, file):
+    # SN32F260
+    if details[0] == '0c45' and details[1] == '7010':
+        cli.run(['sonixflasher', '--vidpid', f'{details[0]}:{details[1]}','--offset', '0x200', '--file', file], capture_output=False)
+    else:
+        cli.run(['sonixflasher', '--vidpid', f'{details[0]}:{details[1]}', '--file', file], capture_output=False)
+
+
 def flasher(mcu, file):
     bl, details = _find_bootloader()
     # Add a small sleep to avoid race conditions
@@ -222,6 +230,8 @@ def flasher(mcu, file):
         _flash_mdloader(file)
     elif bl == '_uf2_compatible_':
         _flash_uf2(file)
+    elif bl == 'sn32-dfu':
+        _flash_sonixflasher(details, file)
     else:
         return (True, "Known bootloader found but flashing not currently supported!")
 

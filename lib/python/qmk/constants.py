@@ -112,6 +112,11 @@ BOOTLOADER_VIDS_PIDS = {
     'hid-bootloader': {
         ("03eb", "2067"),  # QMK HID
         ("16c0", "0478")  # PJRC halfkay
+    },
+    'sn32-dfu': {
+        ("0c45","7010"),  # SN32F260
+        ("0c45","7040"),  # SN32F240B
+        ("0c45","7900")  # SN32F240
     }
 }
 
