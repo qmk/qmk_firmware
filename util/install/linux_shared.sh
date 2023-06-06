@@ -11,3 +11,15 @@ _qmk_install_bootloadhid() {
         popd > /dev/null
     fi
 }
+
+# No distros package sonixflasher yet
+_qmk_install_sonixflasher() {
+    if ! command -v sonixflasher > /dev/null; then
+        wget https://github.com/SonixQMK/SonixFlasherC/archive/refs/tags/1.1.0.tar.gz -O - | tar -xz -C /tmp
+        pushd /tmp/SonixFlasherC-1.1.0/ > /dev/null
+        if make; then
+            sudo cp sonixflasher /usr/local/bin
+        fi
+        popd > /dev/null
+    fi
+}
