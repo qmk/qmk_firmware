@@ -8,6 +8,9 @@
         "pid": "0x0015",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "split_count": [6, 6]
+    },
     "ws2812": {
         "pin": "D3"
     },

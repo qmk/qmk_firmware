@@ -1,4 +1,7 @@
 {
+   "rgblight": {
+       "split_count": [28, 28]
+   },
    "ws2812": {
        "pin": "B6"
    },

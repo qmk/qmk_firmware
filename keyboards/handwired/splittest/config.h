@@ -35,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 12
-#define RGBLED_SPLIT { 6, 6 }
 
 /*
  * Feature disable options

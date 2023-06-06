@@ -23,7 +23,8 @@
         "pin": "D3"
     },
     "rgblight": {
-        "max_brightness": 100
+        "max_brightness": 100,
+        "split_count": [30, 40]
     },
     "layouts": {
         "LAYOUT": {
