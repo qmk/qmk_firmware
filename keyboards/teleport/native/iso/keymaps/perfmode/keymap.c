@@ -15,6 +15,9 @@
  */
 #include QMK_KEYBOARD_H
 
+// tested and working
+void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
+
 enum layers{
     BASE,
     GAME,
