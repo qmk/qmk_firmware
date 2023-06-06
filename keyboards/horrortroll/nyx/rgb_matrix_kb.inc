@@ -1,0 +1,9 @@
+RGB_MATRIX_EFFECT(FLOWER_BLOOMING)
+RGB_MATRIX_EFFECT(STARTUP_SWIRL_ANIM)
+
+#ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+
+#include "led/flower_blooming.h"
+#include "led/startup_swirl_anim.h"
+
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
