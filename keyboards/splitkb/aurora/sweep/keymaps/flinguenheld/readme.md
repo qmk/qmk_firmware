@@ -1,9 +1,9 @@
 ### Custom aurora sweep keymap
 
-This keymap is inspired by [optimot](https://bepo.fr/) which is a French layout.  
+This keymap is inspired by [optimot](https://optimot.fr) which is a French layout.  
 Nonetheless it uses the US international extended keymap for French keys.
 
-It uses the _best_ qmk features :
+It uses the _best_ QMK features :
 
 -   combos ♥
 -   auto shift
@@ -27,7 +27,7 @@ Navigate into the keymap folder and launch this command for both sides :
 
     qmk compile && qmk flash
 
-and :
+And :
 
     Click twice on the flash button and use nautilus for instance to clic on the keyboard.
     Don't forget to flash with the double tap bootloader define before soldering.
@@ -57,7 +57,7 @@ Set the us altgr international to activate French keys :
 ![fn](https://i.imgur.com/Q41ZdQi.png)  
 ![left hand](https://i.imgur.com/WDEGxGM.png)
 
-![combos](https://i.imgur.com/N9gtBzV.png)
+![combos](https://i.imgur.com/UXeVFn8.png)
 
 #### Leader
 
