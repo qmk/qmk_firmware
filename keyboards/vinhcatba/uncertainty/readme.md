@@ -4,8 +4,8 @@
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [Thanh Vinh](https://github.com/vinhcatba)
-* Hardware Supported: *The PCBs, controllers supported*
+* Keyboard Maintainer: [Vinh Le](https://github.com/vinhcatba)
+* Hardware Supported: *The PCB is [here](https://github.com/vinhcatba/uncertainty), controller supported: STM32F401 Blackpill*
 * Hardware Availability: *Links to where you can find this hardware*
 
 Make example for this keyboard (after setting up your build environment):

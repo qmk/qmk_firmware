@@ -1,26 +1,12 @@
-#include "keycodes.h"
+// Copyright 2023 Vinh Le (@vinhcatba)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
-
-
+#include "keycodes.h"
 #include "print.h"
 #include <stdio.h>
-
-#define BONGO_ENABLE
-#ifdef BONGO_ENABLE
 #include "bongo.h"
-#endif
 
-char wpm_str[10];
-
-typedef union {
-  uint32_t raw;
-  struct {
-    bool     rgb_layer_change :1;
-  };
-} user_config_t;
-
-user_config_t user_config;
-/* TODO: add layers, add macro */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =    {
 
     /* 0
@@ -79,22 +65,21 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [2] =   { ENCODER_CCW_CW(KC_NO, KC_NO)  },
     [3] =   { ENCODER_CCW_CW(KC_NO, KC_NO)  }
 };
-#endif
+#endif // endif ENCODER_MAP_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
 #define HSV_PASTEL_BLUE 150, 155, 51
-// Light LEDs 0 red when caps lock is active. Hard to ignore!
+
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, HSV_PASTEL_BLUE}       // Light 1 LEDs, starting with LED 0
+    {0, 1, HSV_PASTEL_BLUE}       // Light 1 LED, starting with LED 0
 );
 
-// Light LEDs 1 red when num lock is active. Hard to ignore!
 const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_PASTEL_BLUE}       // Light 1 LEDs, starting with LED 1
+    {1, 1, HSV_PASTEL_BLUE}       // Light 1 LED, starting with LED 1
 );
 
 const rgblight_segment_t PROGMEM indicators_off_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, HSV_OFF}       // Light 1 LEDs, starting with LED 1
+    {0, 2, HSV_OFF}       // Turn off 2 LEDs, starting with LED 0
 );
 
 // Now define the array of layers. Later layers take precedence
@@ -104,7 +89,6 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_numlock_layer
 );
 
-
 bool led_update_user(led_t led_state) {
     rgblight_set_layer_state(1, led_state.caps_lock);
     rgblight_set_layer_state(2, led_state.num_lock);
@@ -112,75 +96,21 @@ bool led_update_user(led_t led_state) {
 }
 
 void keyboard_post_init_user(void) {
-    debug_enable=true;
-    debug_matrix=true;
+    // debug_enable=true;
+    // debug_matrix=true;
 
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
     rgblight_set_layer_state(0, 1);
-    // rgblight_mode_noeeprom(RGBLIGHT_EFFECT_KNIGHT);
     rgblight_set_effect_range(2, 12);
-
     rgblight_enable();
-    //rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
-
 }
-#endif
+#endif // endif RGBLIGHT_ENABLE
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case RGB_MOD:
-      if (record->event.pressed) {
-        // Do something when pressed
-      } else {
-        // Do something else when release
-        print("begin rgb_mod\n");
-        user_config.raw= eeconfig_read_user();
-        uprintf("pre raw value: %lx\n", user_config.raw);
-
-        user_config.rgb_layer_change = !user_config.rgb_layer_change;
-        eeconfig_update_user(user_config.raw);
-
-        user_config.raw= eeconfig_read_user();
-        uprintf("post raw value: %lx\n", user_config.raw);
-        print("done release rgb_mod\n");
-
-        #ifdef RGBLIGHT_ENABLE
-        print("begin change rgb mode\n");
-        rgblight_step();
-        print("done change rgb mode\n");
-        #endif
-
-      }
-      return false; // Skip all further processing of this key
-      default:
-      return true; // Process all other keycodes normally
-  }
-}
-
-void eeconfig_init_user(void) {  // EEPROM is getting reset!
-  user_config.raw = 2;
-  user_config.rgb_layer_change = true; // We want this enabled by default
-  eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
-
-  // use the non noeeprom versions, to write these values to EEPROM too
-//   rgblight_enable(); // Enable RGB by default
-//   rgblight_sethsv_cyan();  // Set it to CYAN by default
-//   rgblight_mode(1); // set to solid by default
-}
-
-// void keyboard_post_init_user(void) {
-
-//     debug_enable=true;
-//     debug_matrix=true;
-
-// }
 #ifdef OLED_ENABLE
-
-/* TODO: update bongo cat animation */
 // Used to draw on to the oled screen
 bool oled_task_user(void) {
     draw_bongo(true);
     return false;
 }
-#endif
+#endif // endif OLED_ENABLE

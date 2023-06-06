@@ -1,18 +1,13 @@
-#include "keycodes.h"
+// Copyright 2023 Vinh Le (@vinhcatba)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
-
-
+#include "keycodes.h"
 #include "print.h"
 #include <stdio.h>
-
-#define BONGO_ENABLE
-#ifdef BONGO_ENABLE
 #include "bongo.h"
-#endif
 
-char wpm_str[10];
 
-/* TODO: add layers, add macro */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =    {
 
     /* 0
@@ -71,22 +66,21 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [2] =   { ENCODER_CCW_CW(KC_NO, KC_NO)  },
     [3] =   { ENCODER_CCW_CW(KC_NO, KC_NO)  }
 };
-#endif
+#endif // endif ENCODER_MAP_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
 #define HSV_PASTEL_BLUE 150, 155, 51
-// Light LEDs 0 red when caps lock is active. Hard to ignore!
+
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 1, HSV_PASTEL_BLUE}       // Light 1 LEDs, starting with LED 0
+    {0, 1, HSV_PASTEL_BLUE}       // Light 1 LED, starting with LED 0
 );
 
-// Light LEDs 1 red when num lock is active. Hard to ignore!
 const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 1, HSV_PASTEL_BLUE}       // Light 1 LEDs, starting with LED 1
+    {1, 1, HSV_PASTEL_BLUE}       // Light 1 LED, starting with LED 1
 );
 
 const rgblight_segment_t PROGMEM indicators_off_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 2, HSV_OFF}       // Light 1 LEDs, starting with LED 1
+    {0, 2, HSV_OFF}       // Turn off 2 LEDs, starting with LED 0
 );
 
 // Now define the array of layers. Later layers take precedence
@@ -103,21 +97,18 @@ bool led_update_user(led_t led_state) {
 }
 
 void keyboard_post_init_user(void) {
-    debug_enable=true;
-    debug_matrix=true;
+    // debug_enable=true;
+    // debug_matrix=true;
 
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
     rgblight_set_layer_state(0, 1);
     rgblight_set_effect_range(2, 12);
-
     rgblight_enable();
 }
-#endif // end RGBLIGHT_ENABLE
+#endif // endif RGBLIGHT_ENABLE
 
 #ifdef OLED_ENABLE
-
-/* TODO: update bongo cat animation */
 // Used to draw on to the oled screen
 bool oled_task_user(void) {
     draw_bongo(true);

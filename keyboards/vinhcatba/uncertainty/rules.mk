@@ -8,3 +8,4 @@ EEPROM_DRIVER = i2c
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 WPM_ENABLE = yes # WPM counter for oled
+ENCODER_MAP_ENABLE = yes
