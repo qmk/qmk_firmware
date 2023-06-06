@@ -17,7 +17,7 @@
 #include "quantum.h"
 
 /* This board has !SDB of the is31 wired to D2. Set high to enable */
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     setPinOutput(B9);
     writePinHigh(B9);
 }
