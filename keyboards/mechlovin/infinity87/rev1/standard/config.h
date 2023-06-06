@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN A15
 #define RGBLED_NUM 26
 #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_EFFECT_BREATHING

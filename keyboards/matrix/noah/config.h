@@ -11,11 +11,6 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
-#define MATRIX_ROW_PINS {  B0,  A1, C14, C13,  A0}
-#define MATRIX_COL_PINS { C15, B10,  B7,  B6,  B5,  B4, A15, A10,  A9,  A8, B15, B14, B13, B12,  B2}
-
-#define DIODE_DIRECTION COL2ROW
-
 // i2c setting
 #define I2C1_SCL_PIN B8
 #define I2C1_SDA_PIN B9
@@ -81,7 +76,6 @@
 
 /* indicator rgb */
 #define RGBLED_NUM 7
-#define RGB_DI_PIN B1
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

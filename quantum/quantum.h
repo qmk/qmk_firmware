@@ -18,7 +18,7 @@
 #include "platform_deps.h"
 #include "wait.h"
 #include "matrix.h"
-#include "keymap.h"
+#include "keyboard.h"
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -36,6 +36,9 @@
 #    include "rgb_matrix.h"
 #endif
 
+#include "keymap_common.h"
+#include "quantum_keycodes.h"
+#include "keycode_config.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"
@@ -44,10 +47,12 @@
 #include "sync_timer.h"
 #include "gpio.h"
 #include "atomic_util.h"
+#include "host.h"
 #include "led.h"
 #include "action_util.h"
 #include "action_tapping.h"
 #include "print.h"
+#include "debug.h"
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
@@ -246,6 +251,11 @@ extern layer_state_t layer_state;
 #    include "process_tri_layer.h"
 #endif
 
+#ifdef REPEAT_KEY_ENABLE
+#    include "repeat_key.h"
+#    include "process_repeat_key.h"
+#endif
+
 void set_single_persistent_default_layer(uint8_t default_layer);
 
 #define IS_LAYER_ON(layer) layer_state_is(layer)
@@ -256,6 +266,9 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
 uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
+bool     pre_process_record_quantum(keyrecord_t *record);
+bool     pre_process_record_kb(uint16_t keycode, keyrecord_t *record);
+bool     pre_process_record_user(uint16_t keycode, keyrecord_t *record);
 bool     process_action_kb(keyrecord_t *record);
 bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);

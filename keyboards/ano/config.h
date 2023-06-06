@@ -16,11 +16,6 @@
  
  #pragma once
 
-#define MATRIX_ROW_PINS { A4, B14, B15, B9, B10, B11 }
-#define MATRIX_COL_PINS { B0, B1, B2, B3, B4, B5, B6, B7, A5, A6, A7, A8, A15, A2, A1, A0, B8, B13 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #define TAP_CODE_DELAY 10
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

@@ -12,34 +12,16 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <avr/pgmspace.h>
-#include "report.h"
-#include "host.h"
-#include "host_driver.h"
-#include "keyboard.h"
-#include "action.h"
-#include "led.h"
-
-#include "sendchar.h"
-#include "debug.h"
-#ifdef SLEEP_LED_ENABLE
-#include "sleep_led.h"
-#endif
-#include "suspend.h"
-
-#include "usb_descriptor.h"
-#include "lufa.h"
-#include "quantum.h"
-#include <util/atomic.h>
-
-#include "print.h"
-
+#include "bluetooth.h"
 #include "ble.h"
 #include "usart.h"
+#include "progmem.h"
+#include "wait.h"
+#include "debug.h"
+#include "usb_descriptor.h"
+#include "report.h"
 
 keyboard_config_t ble_config;
-
-static uint8_t bluefruit_keyboard_leds = 0;
 
 static void bluefruit_serial_send(uint8_t);
 
@@ -89,30 +71,13 @@ static void bluefruit_serial_send(uint8_t data)
     serial_send(data);
 }
 
-/*------------------------------------------------------------------*
- * Host driver
- *------------------------------------------------------------------*/
-
-static uint8_t keyboard_leds(void);
-static void send_keyboard(report_keyboard_t *report);
-static void send_mouse(report_mouse_t *report);
-static void send_extra(report_extra_t *report);
-
-host_driver_t bluefruit_driver = {
-    keyboard_leds,
-    send_keyboard,
-    send_mouse,
-    send_extra
-};
-
-host_driver_t null_driver = {};
-
-static uint8_t keyboard_leds(void)
-{
-    return bluefruit_keyboard_leds;
+void bluetooth_init(void) {
+    usart_init();
 }
 
-static void send_keyboard(report_keyboard_t *report)
+void bluetooth_task(void) {}
+
+void bluetooth_send_keyboard(report_keyboard_t *report)
 {
 #ifdef BLUEFRUIT_TRACE_SERIAL
     bluefruit_trace_header();
@@ -136,7 +101,7 @@ static void send_keyboard(report_keyboard_t *report)
 #endif
 }
 
-static void send_mouse(report_mouse_t *report)
+void bluetooth_send_mouse(report_mouse_t *report)
 {
 #ifdef BLUEFRUIT_TRACE_SERIAL
     bluefruit_trace_header();
@@ -177,27 +142,25 @@ static void send_mouse(report_mouse_t *report)
 #define CONSUMER2BLUEFRUIT(usage) \
     (usage == AUDIO_MUTE ? 0x00e2 : (usage == AUDIO_VOL_UP ? 0x00e9 : (usage == AUDIO_VOL_DOWN ? 0x00ea : (usage == TRANSPORT_NEXT_TRACK ? 0x00b5 : (usage == TRANSPORT_PREV_TRACK ? 0x00b6 : (usage == TRANSPORT_STOP ? 0x00b7 : (usage == TRANSPORT_STOP_EJECT ? 0x00b8 : (usage == TRANSPORT_PLAY_PAUSE ? 0x00b1 : (usage == AL_CC_CONFIG ? 0x0183 : (usage == AL_EMAIL ? 0x018c : (usage == AL_CALCULATOR ? 0x0192 : (usage == AL_LOCAL_BROWSER ? 0x0196 : (usage == AC_SEARCH ? 0x021f : (usage == AC_HOME ? 0x0223 : (usage == AC_BACK ? 0x0224 : (usage == AC_FORWARD ? 0x0225 : (usage == AC_STOP ? 0x0226 : (usage == AC_REFRESH ? 0x0227 : (usage == AC_BOOKMARKS ? 0x022a : 0)))))))))))))))))))
 
-static void send_extra(report_extra_t *report)
+void bluetooth_send_consumer(uint16_t usage)
 {
-    if (report->report_id == REPORT_ID_CONSUMER) {
-        uint16_t bitmap = CONSUMER2BLUEFRUIT(report->usage);
+    uint16_t bitmap = CONSUMER2BLUEFRUIT(usage);
 
 #ifdef BLUEFRUIT_TRACE_SERIAL
-        dprintf("\nData: ");
-        debug_hex16(data);
-        dprintf("; bitmap: ");
-        debug_hex16(bitmap);
-        dprintf("\n");
-        bluefruit_trace_header();
+    dprintf("\nData: ");
+    debug_hex16(data);
+    dprintf("; bitmap: ");
+    debug_hex16(bitmap);
+    dprintf("\n");
+    bluefruit_trace_header();
 #endif
-        send_str(PSTR("AT+BLEHIDCONTROLKEY=0x"));
-        send_bytes((bitmap >> 8) & 0xFF);
-        send_bytes(bitmap & 0xFF);
-        send_str(PSTR("\r\n"));
+    send_str(PSTR("AT+BLEHIDCONTROLKEY=0x"));
+    send_bytes((bitmap >> 8) & 0xFF);
+    send_bytes(bitmap & 0xFF);
+    send_str(PSTR("\r\n"));
 #ifdef BLUEFRUIT_TRACE_SERIAL
-        bluefruit_trace_footer();
+    bluefruit_trace_footer();
 #endif
-    }
 }
 
 void usart_init(void)
