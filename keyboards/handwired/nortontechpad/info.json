@@ -8,7 +8,12 @@
         "pid": "0x9801",
         "device_version": "0.0.1"
     },
-    "matrix": {"rows": 5, "cols": 4},
+    "features": {
+        "bootmagic": true,
+        "extrakey": false,
+        "mousekey": true,
+        "nkro": true
+    },
     "matrix_pins": {
         "cols": ["D7", "E6", "B4", "B5"],
         "rows": ["F7", "B1", "B3", "B2", "B6"]
