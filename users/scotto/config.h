@@ -16,10 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // config added when Tap Dance is enabled
 #ifdef TAP_DANCE_ENABLE
-    #ifdef TAPPING_TERM
-        #undef TAPPING_TERM
-        #define TAPPING_TERM 135
-    #endif
-    #define TAPPING_TERM_PER_KEY
-    #define PERMISSIVE_HOLD
+#    ifdef TAPPING_TERM
+#        undef TAPPING_TERM
+#        define TAPPING_TERM 135
+#    endif
+#    define TAPPING_TERM_PER_KEY
+#    define PERMISSIVE_HOLD
 #endif
