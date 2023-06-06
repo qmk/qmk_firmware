@@ -3,7 +3,7 @@
 ![Imgur](https://i.imgur.com/7y0Vbydh.jpg)
 *Pair of Dactyl Manuform 4x6*
 
-Forked from the [Dactyl](/keyboards/handwired/dactyl), the [Dactyl-ManuForm](https://github.com/tshort/dactyl-keyboard) is a parameterized, handwired, split bodied, tented, concave key-well design that incorporates the thumb cluster from the [ManuForm](https://geekhack.org/index.php?topic=46015.0). Bill of Materials (BoM), case files, and wiring guide for making this keyboard is in the second link.
+Forked from the [Dactyl](/keyboards/handwired/dactyl), the [Dactyl ManuForm](https://github.com/tshort/dactyl-keyboard) is a parameterized, handwired, split bodied, tented, concave key-well design that incorporates the thumb cluster from the [ManuForm](https://geekhack.org/index.php?topic=46015.0). Bill of Materials (BoM), case files, and wiring guide for making this keyboard is in the second link.
 
 ## Variants
 
@@ -37,6 +37,10 @@ Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 | 5 | Default thumb cluster replaced with five key thumb cluster of [Dactyl Manuform Mini](https://github.com/l4u/dactyl-manuform-mini-keyboard) | 
 | 2_5 | Same as code *5* with two additional keys added to finger key-well bottom row |
 | kinesis | Thumb cluster keys are arranged to resemble the Kinesis Advantage keyboard thumb cluster |
+
+## Case Generator
+
+[Dactyl Keyboard Configurator](https://ryanis.cool/dactyl), created by [rianadon](https://github.com/rianadon), is a web based file generator that negates having to generate case files using programming languages, which was the matter when using the original *Dactyl* and *Dactyl ManuForm* GitHub repos, by instead compiling case files based on options and parameters configured in a web front end.
 
 ## First Time Setup
 
@@ -72,8 +76,7 @@ Variants with VIA support:
 For more information on this layout schematic, please see the [Miryoku Reference Manual](https://github.com/manna-harbour/miryoku/tree/master/docs/reference).  
 For QMK specifics, please see [Miryoku QMK](https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku).  
 
-Variants with *Miryoku* support:  
-- 3x5_3
+Variants with *Miryoku* support:
 - 4x5
 - 4x5_5
 - 4x6
