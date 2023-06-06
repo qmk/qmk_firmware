@@ -16,10 +16,11 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
+        "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "lto": true
     },
     "diode_direction": "ROW2COL",
     "matrix_pins": {
