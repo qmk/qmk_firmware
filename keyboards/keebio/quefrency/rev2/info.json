@@ -21,6 +21,9 @@
     "backlight": {
         "pin": "B5"
     },
+    "rgblight": {
+        "split_count": [8, 8]
+    },
     "ws2812": {
         "pin": "E6"
     },

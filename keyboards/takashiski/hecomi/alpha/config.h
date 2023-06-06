@@ -60,4 +60,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 #define EEHANDS
 */
-#define RGBLED_SPLIT {8,8}

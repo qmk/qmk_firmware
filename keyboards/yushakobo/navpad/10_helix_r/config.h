@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               34, 35, 36, 37, 38, 39, 40 }
 
 #    define RGBLED_NUM 9+32
-#    define RGBLED_SPLIT { 9, 32 }
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8

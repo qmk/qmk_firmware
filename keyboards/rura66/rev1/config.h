@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
   #define RGBLED_NUM 66 // Number of LEDs
   #define RGBLIGHT_SPLIT
-  #define RGBLED_SPLIT { 33, 33 }
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8

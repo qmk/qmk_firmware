@@ -41,8 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SOFT_SERIAL_PIN D2
 #endif
 
-#define RGBLED_SPLIT \
-    { 10, 10 }
 #define RGBLED_NUM 20
 
 #ifdef OLED_ENABLE

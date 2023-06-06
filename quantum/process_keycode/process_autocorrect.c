@@ -57,7 +57,7 @@ void autocorrect_toggle(void) {
 }
 
 /**
- * @brief handler for determining if autocorrect should process keypress
+ * @brief handler for user to override whether autocorrect should process this keypress
  *
  * @param keycode Keycode registered by matrix press, per keymap
  * @param record keyrecord_t structure
@@ -67,6 +67,23 @@ void autocorrect_toggle(void) {
  * @return false Stop processing and escape from autocorrect.
  */
 __attribute__((weak)) bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods) {
+    return process_autocorrect_default_handler(keycode, record, typo_buffer_size, mods);
+}
+
+/**
+ * @brief fallback handler for determining if autocorrect should process this keypress
+ *        can be used by user callback to get the basic keycode being "wrapped"
+ *
+ * NOTE: These values may have been edited by user callback before getting here
+ *
+ * @param keycode Keycode registered by matrix press, per keymap
+ * @param record keyrecord_t structure
+ * @param typo_buffer_size passed along to allow resetting of autocorrect buffer
+ * @param mods allow processing of mod status
+ * @return true Allow autocorection
+ * @return false Stop processing and escape from autocorrect.
+ */
+bool process_autocorrect_default_handler(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods) {
     // See quantum_keycodes.h for reference on these matched ranges.
     switch (*keycode) {
         // Exclude these keycodes from processing.

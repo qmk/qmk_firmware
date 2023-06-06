@@ -41,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 20
 #define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 10, 10 }    // Number of LEDs
 
 #define SELECT_SOFT_SERIAL_SPEED 1
 /*Sets the protocol speed when using serial communication*/

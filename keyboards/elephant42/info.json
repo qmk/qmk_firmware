@@ -12,7 +12,8 @@
         "driver": "WS2812"
     },
     "rgblight": {
-        "max_brightness": 170
+        "max_brightness": 170,
+        "split_count": [27, 27]
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1", "B3"],

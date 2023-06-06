@@ -109,7 +109,7 @@ This allows you to send Unicode characters using `UC(<code point>)` in your keym
 
 `UNICODEMAP_ENABLE`
 
-This allows you to send Unicode characters using `X(<map index>)` in your keymap. You will need to maintain a mapping table in your keymap file. All possible code points (up to `0x10FFFF`) are supported.
+This allows you to send Unicode characters using `UM(<map index>)` in your keymap. You will need to maintain a mapping table in your keymap file. All possible code points (up to `0x10FFFF`) are supported.
 
 `UCIS_ENABLE`
 

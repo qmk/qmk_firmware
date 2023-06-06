@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLED_NUM 30
 #else
     #define RGBLED_NUM 60
-    #define RGBLED_SPLIT { 30, 30 }
 #endif
 
 #define RGBLIGHT_EFFECT_BREATHING

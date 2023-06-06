@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 38, 46 }
 #define RGBLED_NUM 84
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_HUE_STEP 10

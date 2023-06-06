@@ -80,9 +80,9 @@ def search_keymap_targets(keymap='default', filters=[], print_vals=[]):
 
                     if value is not None:
                         if func_name == 'length':
-                            valid_keymaps = filter(lambda e: key in e[2] and len(e[2].get(key)) == int(value), valid_keymaps)
+                            valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and len(e[2].get(key)) == int(value), valid_keymaps)
                         elif func_name == 'contains':
-                            valid_keymaps = filter(lambda e: key in e[2] and value in e[2].get(key), valid_keymaps)
+                            valid_keymaps = filter(lambda e, key=key, value=value: key in e[2] and value in e[2].get(key), valid_keymaps)
                         else:
                             cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
                             continue
@@ -90,9 +90,9 @@ def search_keymap_targets(keymap='default', filters=[], print_vals=[]):
                         cli.log.info(f'Filtering on condition: {{fg_green}}{func_name}{{fg_reset}}({{fg_cyan}}{key}{{fg_reset}}, {{fg_cyan}}{value}{{fg_reset}})...')
                     else:
                         if func_name == 'exists':
-                            valid_keymaps = filter(lambda e: key in e[2], valid_keymaps)
+                            valid_keymaps = filter(lambda e, key=key: key in e[2], valid_keymaps)
                         elif func_name == 'absent':
-                            valid_keymaps = filter(lambda e: key not in e[2], valid_keymaps)
+                            valid_keymaps = filter(lambda e, key=key: key not in e[2], valid_keymaps)
                         else:
                             cli.log.warning(f'Unrecognized filter expression: {function_match.group(0)}')
                             continue
