@@ -73,3 +73,7 @@ _qmk_install
 if type _qmk_install_bootloadhid &>/dev/null; then
     _qmk_install_bootloadhid
 fi
+
+if type _qmk_install_sonixflasher &>/dev/null; then
+    _qmk_install_sonixflasher
+fi
