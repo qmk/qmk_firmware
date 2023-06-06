@@ -10,6 +10,9 @@
         "pid": "0x3632",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "split_count": [3, 3]
+    },
     "ws2812": {
         "pin": "D1"
     },

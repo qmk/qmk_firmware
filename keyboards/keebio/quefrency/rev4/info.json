@@ -18,6 +18,9 @@
             {"pin_a": "F5", "pin_b": "F6"}
         ]
     },
+    "rgblight": {
+        "split_count": [8, 8]
+    },
     "ws2812": {
         "pin": "E6"
     },

@@ -22,7 +22,8 @@
         "pin": "B15"
     },
     "rgblight": {
-        "max_brightness": 128
+        "max_brightness": 128,
+        "split_count": [8, 8]
     },
     "split": {
         "bootmagic": {

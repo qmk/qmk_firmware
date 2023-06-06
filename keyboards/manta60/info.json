@@ -16,6 +16,9 @@
     "split": {
         "soft_serial_pin": "D2"
     },
+    "rgblight": {
+        "split_count": [34, 34]
+    },
     "ws2812": {
         "pin": "D3"
     },
