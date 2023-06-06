@@ -151,10 +151,6 @@ uint32_t anim_sleep         = 0;
 uint8_t  current_idle_frame = 0;
 uint8_t current_tap_frame   = 0;
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_90;  // flips the display 180 degrees if offhand
-}
-
 static void render_animation(void) {
     static const char PROGMEM idle[IDLE_FRAMES][ANIMATION_SIZE] = {
         { 
