@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 
-#define SPLIT_TRANSACTION_IDS_USER SYNC_STATE
+#define SPLIT_TRANSACTION_IDS_USER SYNC_POMODORO_STATE
 
 // Underglow
 /*
