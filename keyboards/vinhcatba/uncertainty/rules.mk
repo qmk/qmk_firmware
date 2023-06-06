@@ -1,5 +1,5 @@
-# using pwm driver on stm32f401
-WS2812_DRIVER = pwm
+# using pwm driver on stm32f401 (moved to using info.json)
+#WS2812_DRIVER = pwm
 
 # using external i2c eeprom
 EEPROM_DRIVER = i2c

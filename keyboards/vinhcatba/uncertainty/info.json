@@ -34,7 +34,6 @@
     },
     "rgblight": {
         "led_count": 14,
-        "pin": "B1",
         "sleep": true,
         "max_brightness": 255,
         "brightness_steps": 10,
@@ -54,6 +53,10 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "driver": "pwm",
+        "pin": "B1"
     },
 
     "layouts": {
