@@ -58,7 +58,6 @@
         "driver": "pwm",
         "pin": "B1"
     },
-
     "layouts": {
         "LAYOUT": {
              "layout": [
