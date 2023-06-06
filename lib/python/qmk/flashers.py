@@ -199,7 +199,7 @@ def _flash_uf2(file):
 def _flash_sonixflasher(details, file):
     # SN32F260
     if details[0] == '0c45' and details[1] == '7010':
-        cli.run(['sonixflasher', '--vidpid', f'{details[0]}:{details[1]}','--offset', '0x200', '--file', file], capture_output=False)
+        cli.run(['sonixflasher', '--vidpid', f'{details[0]}:{details[1]}', '--offset', '0x200', '--file', file], capture_output=False)
     else:
         cli.run(['sonixflasher', '--vidpid', f'{details[0]}:{details[1]}', '--file', file], capture_output=False)
 
