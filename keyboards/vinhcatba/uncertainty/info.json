@@ -1,6 +1,6 @@
 {
     "manufacturer": "Vinh Le",
-    "keyboard_name": "vinhcatba Uncertainty",
+    "keyboard_name": "Uncertainty",
     "maintainer": "vinhcatba",
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
