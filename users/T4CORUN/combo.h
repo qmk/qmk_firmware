@@ -3,6 +3,11 @@
 
 enum combos {
   COMDOT_DRGTOG,
+  MDOT_SNPTOG,
+
+  MB2MB3_DRGTOG,
+  MB1MB3_SNPTOG,
+
   SPCNAV_MB4,
   COMBO_LENGTH
 };

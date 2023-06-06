@@ -16,7 +16,10 @@
 
 
 //Turn off settings we won't use to save memory
-#define NO_ACTION_ONESHOT
+#if !defined(ONESHOT_ENABLE)
+#   define NO_ACTION_ONESHOT
+#endif //ONESHOT_ENABLE
+
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 
@@ -24,6 +27,8 @@
 #undef USB_POLLING_INTERVAL_MS
 #undef SPLIT_TRANSPORT_MIRROR
 #undef SPLIT_LAYER_STATE_ENABLE
+#undef SPLIT_LED_STATE_ENABLE
+#undef SPLIT_MODS_ENABLE
 
 //Set common configuration for all keyboards
 #define USB_POLLING_INTERVAL_MS 1         //default varies, either 1 or 10
@@ -32,4 +37,5 @@
 #   define SPLIT_TRANSPORT_MIRROR
 #   define SPLIT_LAYER_STATE_ENABLE
 #   define SPLIT_LED_STATE_ENABLE
+#   define SPLIT_MODS_ENABLE
 #endif //SPLIT_KEYBOARD

@@ -11,6 +11,7 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 endif
 
 OLED_ENABLE ?= no
+#KEYLOG_ENABLE appears to be custom
 KEYLOG_ENABLE ?= no
 ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += $(USER_PATH)/oled_stuff.c
@@ -25,6 +26,7 @@ ifeq ($(strip $(COMBO_ENABLE)), yes)
 	SRC += $(USER_PATH)/combo.c
 endif
 
+#HOMEROWMOD_ENABLE is custom
 HOMEROWMOD_ENABLE ?= yes
 ifeq ($(strip $(HOMEROWMOD_ENABLE)), yes)
   OPT_DEFS += -DHOMEROWMOD_ENABLE
@@ -46,16 +48,23 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
 	OPT_DEFS += -DMOUSELAYER_ENABLE
 endif
 
-RGB_MATRIX_ENABLE ?=no
+RGB_MATRIX_ENABLE ?= no
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 	SRC += $(USER_PATH)/rgb_matrix_stuff.c
 endif
 
 #GAMING_ENABLED is custom
-GAMELAYER_ENABLE ?=no
+GAMELAYER_ENABLE ?= no
 ifeq ($(strip $(GAMELAYER_ENABLE)), yes)
 	OPT_DEFS += -DGAMELAYER_ENABLE
 endif
+
+#ONESHOT_ENABLED is custom
+ONESHOT_ENABLE ?= no
+ifeq ($(strip $(ONESHOT_ENABLE)), yes)
+	OPT_DEFS += -DONESHOT_ENABLE
+endif
+
 
 
 SPACE_CADET_ENABLE ?= no

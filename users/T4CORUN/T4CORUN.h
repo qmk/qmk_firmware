@@ -78,4 +78,10 @@ enum keycodes {
 #   define LGUI_O  LGUI_T(KC_O)
 #endif //HOMEROWMOD_ENABLE
 
-
+//One shot mods
+#if defined(ONESHOT_ENABLE)
+#   define OSM_SFT OSM(MOD_LSFT)
+#   define OSM_CTL OSM(MOD_LCTL)
+#   define OSM_ALT OSM(MOD_LALT)
+#   define OSM_GUI OSM(MOD_LGUI)
+#endif //ONESHOT_ENABLE

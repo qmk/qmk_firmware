@@ -25,13 +25,15 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #define            __________NONE_3_________                  ___x___, ___x___, ___x___
 #define   ___________________NONE_5__________________         ___x___, ___x___, ___x___, ___x___, ___x___
 
-#define       _____________GACS_MODS____________              KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT
-#define       _____________SCAG_MODS____________              KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
-#define            ________ACS_MODS_________                  KC_LALT, KC_LCTL, KC_LSFT
-
+#if defined(ONESHOT_ENABLE)
+#   define    _____________GACS_MODS____________              OSM_GUI, OSM_ALT, OSM_CTL, OSM_SFT
+#   define    _____________SCAG_MODS____________              OSM_SFT, OSM_CTL, OSM_ALT, OSM_GUI
+#else
+#   define    _____________GACS_MODS____________              KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT
+#   define    _____________SCAG_MODS____________              KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI
+#endif //ONESHOT_ENABLE
 
 #define   __________________UCCPR_L__________________         SC_UNDO, SC_CUT,  SC_COPY, SC_PAST, SC_REDO
-
 
 #if defined(MOUSELAYER_ENABLE)
 #   define         _________BASE_L4_________                  KC_BTN1, NUMBER,  KC_LSFT
@@ -39,7 +41,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define         _________BASE_L4_________                  ___x___, NUMBER,  KC_LSFT
 #endif //MOUSELAYER_ENABLE
 
-//slave side only has two thumb keys
+//right side only has two thumb keys
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define         _________BASE_R4_________                  KC_SPC,  NAV
 #else
@@ -68,12 +70,8 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define _________________QWERTY_L3_________________        FUN_Z,   KC_X,    KC_C,    KC_V,    KC_B
 #endif //MOUSELAYER_ENABLE
 
-
 #define    _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define    _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  AD_SLSH
-
-
-
 
 #if defined(HOMEROWMOD_ENABLE)
 #   define _________________QWERTY_L2_________________        LGUI_A,  LALT_S,  CTRL_D,  SHFT_F,  KC_G
@@ -106,7 +104,6 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define ________________COLEMAKDH_L3_______________        FUN_Z,   KC_X,    KC_C,     KC_D,    KC_V
 #endif //MOUSELAYER_ENABLE
 
-
 #define    ________________COLEMAKDH_R1_______________        KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
 #define    ________________COLEMAKDH_R3_______________        KC_K,    KC_H,    KC_COMM, KC_DOT,  AD_SLSH
 
@@ -123,7 +120,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Tab  |   Q  |   W  |   E  |   R  |    |QWERTY|ClmkDH|      |      |      |
+*   | Tab  |   Q  |   W  |   E  |   R  |    |QWERTY|ClmkDH|Gaming|      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Num  |   A  |   S  |   D  |   F  |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
@@ -177,9 +174,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  |      | Snip |   ~  |   `  |    |   [  |   7  |   8  |   9  |   ]  |
+*   | Esc  |      | Snip | Ent  |   `  |    |   [  |   7  |   8  |   9  |   ]  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Ent  | Alt  | Ctrl | Shft |   .  |    |   -  |   4  |   5  |   6  |   =  |
+*   | GUI  | Alt  | Ctrl | Shft |   .  |    |   -  |   4  |   5  |   6  |   =  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Undo | Cut  | Copy | Pste | Redo |    |   ;  |   1  |   2  |   3  |   \  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
@@ -187,8 +184,8 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *                 `------+------+------'    `------+------+------'
 */
 
-#define    _________________NUMPAD_L1_________________        KC_ESC,  ___x___, W_SNIP,  KC_TILD, KC_GRV
-#define    _________________NUMPAD_L2_________________        KC_ENT,  ________ACS_MODS_________, KC_DOT
+#define    _________________NUMPAD_L1_________________        KC_ESC,  ___x___, W_SNIP,  KC_ENT,  KC_GRV
+#define    _________________NUMPAD_L2_________________        _____________GACS_MODS____________, KC_DOT
 #define    _________________NUMPAD_L3_________________        __________________UCCPR_L__________________
 #define             ________NUMPAD_L4________                 ___x___, _______, ___x___
 
@@ -317,7 +314,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   ,----------------------------------.    ,----------------------------------.
 *   |      |      |      |      |      |    | sDPI | DPI  |      |      |MOUTOG|
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      |      |      |      |      |    |      | Shft | Ctrl | Alt  | Gui  |
+*   |      |      |      |      |      |    |      | Shft | Ctrl | Alt  | GUI  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |Sniper|      |LyrTap|DrgScr|      |    |DrgTog| MB1  | MB2  | MB3  |SniTog|
 *   `------+------+------+------+------+    +------+------+------+------+------'
@@ -343,7 +340,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |      |      |      |      |      |    |QWERTY|ClmkDH|Gaming|      |      |
+*   |      |      |      |      |      |    |QWERTY|ClmkDH|Gaming|      | 1STog|
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Hue+ | Sat+ | Vib+ | Spd+ |      |    |      | Shft |      |ClkUp |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
@@ -365,8 +362,12 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #   define          ________ADJUST_L4________                 ___x___, QK_BOOT, QK_RBT
 
-#if defined(GAMELAYER_ENABLE)
+#if defined(GAMELAYER_ENABLE) || defined(ONESHOT_ENABLE)
+#   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, GAMING,  ___x___, OS_TOGG
+#elif defined(GAMELAYER_ENABLE) || !defined(ONESHOT_ENABLE)
 #   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, GAMING,  ___x___, ___x___
+#elif !defined(GAMELAYER_ENABLE) || defined(ONESHOT_ENABLE)
+#   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, ___x___, ___x___, OS_TOGG
 # else
 #   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, __________NONE_3_________
 #endif //GAMELAYER_ENABLE

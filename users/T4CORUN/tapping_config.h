@@ -6,6 +6,9 @@
 #undef QUICK_TAP_TERM_PER_KEY
 #undef TAPPING_TERM
 #undef TAPPING_TERM_PER_KEY
+#undef ONESHOT_TAP_TOGGLE
+#undef ONESHOT_TIMEOUT
+
 
 //Set common configuration for all keyboards
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
@@ -15,3 +18,8 @@
 
 #define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
+
+#if defined(ONESHOT_ENABLE)
+#   define ONESHOT_TAP_TOGGLE 5
+#   define ONESHOT_TIMEOUT 5000
+#endif //ONESHOT_ENABLE
