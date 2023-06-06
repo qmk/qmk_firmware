@@ -1,7 +1,8 @@
-# Bred Works Wyvern HS
+# Bredworks Wyvern HS
 
 * Keyboard Maintainer: [DeskDaily](https://github.com/DeskDaily)
 * Hardware Supported: Atmega32u4
+* Hardware Availability: [BredWorks](https://bredworks.com/products/wyvern-hotswap-pcb)
 
 Make example for this keyboard (after setting up your build environment):
 
