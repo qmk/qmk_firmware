@@ -16,29 +16,11 @@
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { B3, B6, B2, B1, D7, B4 }
-#define MATRIX_COL_PINS { F5, F4, D3, D2 }
-
-#define DIODE_DIRECTION ROW2COL
-
-#define RGB_DI_PIN E2
 #if defined(RGBLIGHT_ENABLE)
     #define RGBLED_NUM 8
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_LIMIT_VAL 180 /* The maximum brightness level */
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

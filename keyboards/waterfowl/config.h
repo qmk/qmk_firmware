@@ -16,13 +16,6 @@
 
 #pragma once
 
-// Wiring
-#define MATRIX_ROW_PINS { D4, C6, D7, E6 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1 }
-
-// COL2ROW, ROW2COL
-#define DIODE_DIRECTION COL2ROW
-
 #define OLED_DISPLAY_128X64
 #define SPLIT_MODS_ENABLE
 #define SPLIT_WPM_ENABLE
