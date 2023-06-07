@@ -99,5 +99,6 @@ void keyboard_post_init_kb(void) {
     } else {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_STARTUP_SWIRL_ANIM);
     }
+    keyboard_post_init_user();
 }
 #endif

@@ -1,2 +1,1 @@
-WS2812_DRIVER = vendor
 RGB_MATRIX_CUSTOM_KB = yes
