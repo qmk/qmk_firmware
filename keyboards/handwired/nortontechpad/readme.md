@@ -1,12 +1,12 @@
 # NortonTechPad
 
-![NortonTechPad]()
+
 
 The NortonTechPad is a numpad inspired by the SiCK-Pad,it is also 3D printed and designed to be inexpensive.
 
 -   Keyboard Maintainer: [NortonTech](https://github.com/NortonTech-Official)
 -   Hardware Supported: Pro Micro
--   Hardware Availability: [files to print and documentation]()
+
 
 Make example for this keyboard (after setting up your build environment):
 
