@@ -55,7 +55,7 @@ Set the us altgr international to activate French keys :
 ![arrows](https://i.imgur.com/NIjJR2I.png)  
 ![adjust](https://i.imgur.com/xj6i70P.png)  
 ![fn](https://i.imgur.com/Q41ZdQi.png)  
-![left hand](https://i.imgur.com/hrh1y9Y.png)
+![left hand](https://i.imgur.com/WDEGxGM.png)
 
 ![combos](https://i.imgur.com/wj6DEY0.png)
 
