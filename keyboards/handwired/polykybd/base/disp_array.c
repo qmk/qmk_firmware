@@ -46,12 +46,14 @@
 // display specific constants
 #define SCREEN_WIDTH 72
 #define SCREEN_HEIGHT 40
-#define BUFFER_BYTE_HEIGHT 5
+#define BUFFER_BYTE_VIS_HEIGHT 5
+#define BUFFER_BYTE_HEIGHT 8
+#define BUFFER_BYTE_VIS_WIDTH 72
 #define BUFFER_BYTE_WIDTH 128
 #define BUFFER_PIXEL_HEIGHT 40
 #define BUFFER_PIXEL_WIDTH 128
-#define VISIBLE_PIXEL_X_FIRST ((BUFFER_BYTE_WIDTH - SCREEN_WIDTH) >> 1)
-#define VISIBLE_PIXEL_X_LAST_PLUS_ONE (VISIBLE_PIXEL_X_FIRST + SCREEN_WIDTH)
+//#define VISIBLE_PIXEL_X_FIRST ((BUFFER_BYTE_WIDTH - SCREEN_WIDTH) >> 1)
+//#define VISIBLE_PIXEL_X_LAST_PLUS_ONE (VISIBLE_PIXEL_X_FIRST + SCREEN_WIDTH)
 
 #define SPI_MODE 3
 
@@ -259,10 +261,7 @@ void kdisp_scroll_vlines(uint8_t lines0to63) {
     spi_prepare_commands();
     spi_write(SSD1306_SET_VERTICAL_SCROLL_AREA);
     spi_write(0); //fixed lines
-    if(lines0to63>63)
-        spi_write(64);
-    else
-        spi_write(lines0to63);
+    spi_write(lines0to63);
 }
 
 void kdisp_scroll(bool activate) {
@@ -272,17 +271,21 @@ void kdisp_scroll(bool activate) {
     //spi_stop();
 }
 
-void kdisp_scroll_modev(bool left, uint8_t vspeed0to7) {
-    //spi_start(SPI_SS_PIN, false, SPI_MODE, SPI_DIVISOR);
+void kdisp_scroll_modeh(bool left, uint8_t hspeed0to7) {
+    // spi_start(SPI_SS_PIN, false, SPI_MODE, SPI_DIVISOR);
     spi_prepare_commands();
-    if(left) {
-        spi_write(SSD1306_LEFT_HORIZONTAL_SCROLL);
+    if (left) {
+        static const uint8_t PROGMEM dlist1[] = {SSD1306_LEFT_HORIZONTAL_SCROLL,
+                                                 0,  // dummy a
+                                                 0}; // start b
+        spi_transmit(dlist1, sizeof(dlist1));
     } else {
-        spi_write(SSD1306_RIGHT_HORIZONTAL_SCROLL);
+        static const uint8_t PROGMEM dlist1[] = {SSD1306_RIGHT_HORIZONTAL_SCROLL,
+                                                 0,  // dummy a
+                                                 0}; // start b
+        spi_transmit(dlist1, sizeof(dlist1));
     }
-    spi_write(0); //dummy
-    spi_write(0); //start
-    switch(vspeed0to7) {
+    switch(hspeed0to7) { //c
         case 0: spi_write(7); break; //2
         case 1: spi_write(4); break; //3
         case 2: spi_write(5); break; //4
@@ -293,13 +296,14 @@ void kdisp_scroll_modev(bool left, uint8_t vspeed0to7) {
         default: spi_write(3); break; //256
     }
 
-    spi_write(0x07); //end
-    spi_write(0); //dummy
-    spi_write(0xff); //dummy
-    //spi_stop();
+    static const uint8_t PROGMEM dlist2[] = {0x07,  // end d
+                                             0,     // dummy e
+                                             0xff}; // dummy f
+    spi_transmit(dlist2, sizeof(dlist2));
+    // spi_stop();
 }
 
-void kdisp_scroll_modevh(bool left, uint8_t vspeed0to7, uint8_t hoffset0to63) {
+void kdisp_scroll_modehv(bool left, uint8_t hspeed0to7, uint8_t voffset0to63) {
     //spi_start(SPI_SS_PIN, false, SPI_MODE, SPI_DIVISOR);
     spi_prepare_commands();
     if(left) {
@@ -309,7 +313,7 @@ void kdisp_scroll_modevh(bool left, uint8_t vspeed0to7, uint8_t hoffset0to63) {
     }
     spi_write(0); //dummy
     spi_write(0); //start
-    switch(vspeed0to7) {
+    switch(hspeed0to7) {
         case 0: spi_write(7); break; //2
         case 1: spi_write(4); break; //3
         case 2: spi_write(5); break; //4
@@ -321,7 +325,7 @@ void kdisp_scroll_modevh(bool left, uint8_t vspeed0to7, uint8_t hoffset0to63) {
     }
 
     spi_write(0x07); //end
-    spi_write(hoffset0to63&63);
+    spi_write(voffset0to63&63);
     //spi_stop();
 }
 

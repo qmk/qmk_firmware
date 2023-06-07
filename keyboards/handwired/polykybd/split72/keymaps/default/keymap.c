@@ -23,7 +23,7 @@
 //6 sec
 #define FADE_TRANSITION_TIME 6000
 //1 min
-#define FADE_OUT_TIME 60000
+#define FADE_OUT_TIME 6000
 //20 min
 #define TURN_OFF_TIME 1200000
 
@@ -85,8 +85,6 @@ static enum refresh_mode g_refresh = DONE_ALL;
 static int8_t g_contrast = FULL_BRIGHT;
 
 static uint16_t last_key = 0;
-
-static uint16_t g_matrix_infobuffer[8] = {0,0,0,0,0,0,0,0};
 
 typedef struct _poly_sync_t {
     uint8_t lang;
@@ -157,9 +155,6 @@ void request_disp_refresh(void) {
     //use the following for partial update (during housekeeping)
     // g_refresh = START_FIRST_HALF;
 }
-
-
-
 
 void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t out_len, void* out_data) {
     if (in_len != 0 && in_data != NULL) {
@@ -409,7 +404,22 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case RGB_RMOD:
         return u"RGB\v" ICON_LEFT;
     case RGB_TOG:
-        return g_matrix_infobuffer;//;rgb_matrix_is_enabled() ? u"G " ICON_SWITCH_ON : u"G " ICON_SWITCH_OFF;
+        switch(rgb_matrix_get_mode()) {
+            case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
+                return u"Rnbw";
+            case RGB_MATRIX_BREATHING:
+                return u"Brth";
+            case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
+                return u"Smpl";
+            case RGB_MATRIX_SOLID_REACTIVE_CROSS:
+                return u"Crss";
+            case RGB_MATRIX_SOLID_REACTIVE_WIDE:
+                return u"Rctv";
+            case RGB_MATRIX_SOLID_REACTIVE_NEXUS:
+                return u"Nxus";
+            default:
+            return u"Unkn";
+        }
     case RGB_MOD:
         return u"RGB\v" ICON_RIGHT;
     case KC_MEDIA_NEXT_TRACK:
@@ -659,34 +669,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return display_wakeup(record);
 }
 
-void update_matrix_infobuffer(void){
-    switch(rgb_matrix_get_mode()) {
-        case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
-            memcpy(g_matrix_infobuffer, u"Rnbw\r\v", sizeof(uint16_t) * 6);
-            break;
-        case RGB_MATRIX_BREATHING:
-            memcpy(g_matrix_infobuffer, u"Brth\r\v", sizeof(uint16_t) * 6);
-            break;
-        case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
-            memcpy(g_matrix_infobuffer, u"Smpl\r\v", sizeof(uint16_t) * 6);
-            break;
-        case RGB_MATRIX_SOLID_REACTIVE_CROSS:
-            memcpy(g_matrix_infobuffer, u"Crss\r\v", sizeof(uint16_t) * 6);
-            break;
-        case RGB_MATRIX_SOLID_REACTIVE_WIDE:
-            memcpy(g_matrix_infobuffer, u"Rctv\r\v", sizeof(uint16_t) * 6);
-            break;
-        case RGB_MATRIX_SOLID_REACTIVE_NEXUS:
-            memcpy(g_matrix_infobuffer, u"Nxus\r\v", sizeof(uint16_t) * 6);
-            break;
-        default:
-            memcpy(g_matrix_infobuffer, u"Unkn\r\v", sizeof(uint16_t) * 6);
-            break;
-    }
-    g_matrix_infobuffer[6] = rgb_matrix_is_enabled() ? ICON_SWITCH_ON[0] : ICON_SWITCH_OFF[0];
-    g_matrix_infobuffer[7] = 0;
-}
-
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (keycode == KC_CAPS_LOCK) {
         request_disp_refresh();
@@ -694,13 +676,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     if (!record->event.pressed) {
         switch (keycode) {
-        case RGB_TOG:
-            //rgb_matrix_toggle_noeeprom();
-        case RGB_MOD:
-        case RGB_RMOD:
-            update_matrix_infobuffer();
-            request_disp_refresh();
-            break;
         /*case RGB_TOGGLE:
             rgb_matrix_toggle_noeeprom();
             request_disp_refresh();
@@ -782,6 +757,11 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
                 layer_on(_LL);
             }
             break;
+        case RGB_TOG:
+        case RGB_MOD:
+        case RGB_RMOD:
+            request_disp_refresh();
+            break;
         default:
             break;
         }
@@ -804,8 +784,15 @@ void set_displays(int8_t contrast) {
     select_all_displays();
 
     if (old_contrast < 0 && contrast >= 0) {
+        //kdisp_scroll(false);
+        //
         kdisp_scroll(false);
+    //kdisp_scroll_modeh(true, 3);kdisp_invert(false);
     } else if (old_contrast >= 0 && contrast < 0) {
+        //kdisp_scroll(true);
+        //kdisp_invert(true);
+        kdisp_scroll(false);
+        kdisp_scroll_modehv(true, 3, 3);
         kdisp_scroll(true);
     }
     old_contrast = contrast;
@@ -831,7 +818,7 @@ bool display_wakeup(keyrecord_t* record) {
 }
 void keyboard_post_init_user(void) {
     rgb_matrix_disable_noeeprom();
-    //rgb_matrix_mode_noeeprom(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
 
     // Customise these values to desired behaviour
     debug_enable = true;
@@ -842,7 +829,6 @@ void keyboard_post_init_user(void) {
     //pointing_device_set_cpi(20000);
     //pointing_device_set_cpi(2000);
     //pimoroni_trackball_set_rgbw(0,0,255,100);
-    update_matrix_infobuffer();
     uprintf("PolyKybd ready.");
 
     wait_ms(500);
@@ -854,8 +840,12 @@ void keyboard_pre_init_user(void) {
     kdisp_init(NUM_SHIFT_REGISTERS);
     peripherals_reset();
     kdisp_setup(true);
-    kdisp_scroll_modevh(true, 2, 1);
-    kdisp_scroll_vlines(40);
+
+    //select_all_displays();
+    //kdisp_scroll(false);
+    //kdisp_scroll_modeh(true, 3);
+    //kdisp_scroll_modehv(true, 5, 5);
+    //kdisp_scroll_vlines(64);
 
     set_displays(FULL_BRIGHT);
     show_splash_screen();
@@ -923,6 +913,7 @@ void invert_display(uint8_t r, uint8_t c, bool state) {
     }
 }
 
+// invert displays directly when pressed (no need to do split sync)
 extern matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t last_matrix[MATRIX_ROWS_PER_SIDE];
 void matrix_scan_user(void) {
@@ -953,5 +944,10 @@ void matrix_slave_scan_user(void) {
 
 void suspend_power_down_kb(void) {
     g_contrast = DISP_OFF;
+    sync_and_refresh_displays();
+}
+
+void suspend_wakeup_init_kb(void) {
+    g_contrast = FULL_BRIGHT;
     sync_and_refresh_displays();
 }
