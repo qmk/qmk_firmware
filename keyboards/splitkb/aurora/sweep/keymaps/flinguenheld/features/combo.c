@@ -78,6 +78,9 @@ enum combos {
   PARENTHESIS_LEFT,
   PARENTHESIS_RIGHT,
 
+  /* Non qwerty */
+  EURO,
+
   /* One hand special */
   CONTROL_RIGHT,
   CONTROL_SHIFT_RIGHT,
@@ -129,13 +132,13 @@ const uint16_t PROGMEM combo_colon[] = {KC_C, KC_G, COMBO_END};
 const uint16_t PROGMEM combo_dollar[] = {KC_O, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_equal[] = {KC_T, KC_H, COMBO_END};
 const uint16_t PROGMEM combo_exclamation_mark[] = {KC_Q, KC_Y, COMBO_END};
-const uint16_t PROGMEM combo_grave[] = {KC_P, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_grave[] = {KC_T, KC_G, COMBO_END};
 const uint16_t PROGMEM combo_hash[] = {KC_X, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_minus[] = {KC_T, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_percent[] = {KC_B, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_pipe[] = {KC_I, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_plus[] = {KC_T, KC_L, COMBO_END};
-const uint16_t PROGMEM combo_question_mark[] = {KC_X, KC_Q, COMBO_END};
+const uint16_t PROGMEM combo_question_mark[] = {KC_P, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_quote[] = {KC_T, KC_N, COMBO_END};
 const uint16_t PROGMEM combo_quote_double[] = {KC_A, KC_U, COMBO_END};
 const uint16_t PROGMEM combo_semicolon[] = {KC_G, KC_H, COMBO_END};
@@ -152,6 +155,9 @@ const uint16_t PROGMEM combo_curly_bracket_left[] = {KC_X, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_curly_bracket_right[] = {KC_E, KC_Y, COMBO_END};
 const uint16_t PROGMEM combo_parenthesis_left[] = {KC_T, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_parenthesis_right[] = {KC_D, KC_R, COMBO_END};
+
+/* Non qwerty */
+const uint16_t PROGMEM combo_euro[] = {KC_X, KC_Q, COMBO_END};
 
 /* One hand special */
 const uint16_t PROGMEM combo_control_right[] = {LT(_NUMERIC, KC_ENT), KC_R, COMBO_END};
@@ -225,6 +231,9 @@ combo_t key_combos[] = {
     [CURLY_BRACKET_RIGHT] = COMBO(combo_curly_bracket_right, KC_RIGHT_CURLY_BRACE),
     [PARENTHESIS_LEFT] = COMBO(combo_parenthesis_left, KC_LEFT_PAREN),
     [PARENTHESIS_RIGHT] COMBO(combo_parenthesis_right, KC_RIGHT_PAREN),
+
+    /* Non qwerty */
+    [EURO] COMBO(combo_euro, US_EURO),
 
     /* One hand special */
     [CONTROL_RIGHT] = COMBO(combo_control_right, KC_RCTL),

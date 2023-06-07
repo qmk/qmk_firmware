@@ -114,6 +114,10 @@ void leader_end_user(void) {
     send_unicode_string("≥");
 
     /* Greek */
+  } else if (leader_sequence_three_keys(KC_B, KC_E, KC_T)) {
+    tap_code16(US_SS); // ß
+  } else if (leader_sequence_three_keys(KC_M, KC_I, KC_C)) {
+    tap_code16(US_MICR); // µ
   } else if (leader_sequence_two_keys(KC_P, KC_I)) {
     send_unicode_string("π");
   } else if (leader_sequence_three_keys(KC_P, KC_I, KC_I)) {
