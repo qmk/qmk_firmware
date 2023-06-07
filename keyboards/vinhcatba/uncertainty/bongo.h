@@ -1,4 +1,4 @@
-// Copyright 2023 Vinh Le (@vinhcatba)
+// Copyright 2022 Parker Levin (@pedker)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #define ANIM_FRAME_DURATION 75 // how long each frame lasts in ms
@@ -6,7 +6,7 @@
 #define IDLE_FRAMES 5
 #define IDLE_TIMEOUT 750 // the amount of time it takes to return to idle
 #define TAP_FRAMES 2
-#define KEYS_SIZE 100 // the number of keys stored in the array that tracks keypresses; how many keys are on the board?
+#define KEYS_SIZE 104 // the number of keys stored in the array that tracks keypresses; how many keys are on the board?
 
 enum anim_states
 {
@@ -498,7 +498,7 @@ static void draw_bongo(bool minimal)
     {
         // print wpm
         oled_set_cursor(0, 0);
-        sprintf(wpm, "WPM:%03d", get_current_wpm());
-        oled_write(wpm, false);
+        oled_write("WPM:", false);
+        oled_write(get_u8_str(get_current_wpm(),'0'), false);
     }
 }

@@ -5,7 +5,6 @@
 #include "keycodes.h"
 #include "print.h"
 #include <stdio.h>
-#include "bongo.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =    {
 
@@ -107,10 +106,3 @@ void keyboard_post_init_user(void) {
 }
 #endif // endif RGBLIGHT_ENABLE
 
-#ifdef OLED_ENABLE
-// Used to draw on to the oled screen
-bool oled_task_user(void) {
-    draw_bongo(true);
-    return false;
-}
-#endif // endif OLED_ENABLE
