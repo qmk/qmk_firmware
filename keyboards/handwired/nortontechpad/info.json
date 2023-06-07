@@ -4,8 +4,8 @@
     "url": "",
     "maintainer": "NortonTech",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x9801",
+        "vid": "0x9879",
+        "pid": "0x0001",
         "device_version": "0.0.1"
     },
     "features": {
