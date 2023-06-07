@@ -8,7 +8,7 @@
     "url": "https://github.com/JZ-Skyloong",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0040",
+        "pid": "0x6040",
         "vid": "0x1EA7"
     },
 
