@@ -23,7 +23,8 @@
         "driver": "pwm"
     },
     "rgblight": {
-        "max_brightness": 120
+        "max_brightness": 120,
+        "split_count": [24, 24]
     },
     "split": {
         "soft_serial_pin": "B6",

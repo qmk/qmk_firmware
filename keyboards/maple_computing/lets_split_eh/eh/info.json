@@ -16,6 +16,9 @@
     "backlight": {
         "pin": "B7"
     },
+    "rgblight": {
+        "split_count": [6, 6]
+    },
     "ws2812": {
         "pin": "B2"
     },

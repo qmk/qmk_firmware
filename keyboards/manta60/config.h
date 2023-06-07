@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #    define RGBLED_NUM 68
 #    define RGBLIGHT_SPLIT
-#    define RGBLED_SPLIT { 34, 34 }
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    ifndef IOS_DEVICE_ENABLE

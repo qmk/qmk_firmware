@@ -33,8 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGBLIGHT_EFFECT_TWINKLE
 
 #   define RGBLED_NUM 54
-#   define RGBLED_SPLIT \
-        { 27, 27 }
 #endif
 
 #ifdef RGB_MATRIX_ENABLE

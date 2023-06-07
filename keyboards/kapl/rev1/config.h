@@ -6,7 +6,6 @@
 #define MASTER_LEFT
 
 #define RGBLED_NUM 88
-#define RGBLED_SPLIT { 44, 44 }
 #define RGBLIGHT_SPLIT
 
 #define RGB_MATRIX_LED_COUNT 88
