@@ -20,6 +20,8 @@
 #define TAPPING_TERM_PER_KEY
 
 #if defined(ONESHOT_ENABLE)
-#   define ONESHOT_TAP_TOGGLE 5
-#   define ONESHOT_TIMEOUT 5000
+#   define ONESHOT_TAP_TOGGLE 3
+#   define ONESHOT_TIMEOUT 3000
+#else
+#   define NO_ACTION_ONESHOT
 #endif //ONESHOT_ENABLE

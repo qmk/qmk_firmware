@@ -1,4 +1,4 @@
-#include "oled_stuff.h"
+#include "oled.h"
 
 #if defined(KEYLOG_ENABLE)
 char     keylog_str[KEYLOG_LEN] = {0};

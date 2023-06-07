@@ -1,6 +1,12 @@
 #pragma once
 #include "T4CORUN.h"
 
+/*
+#if defined(CAPS_WORD_ENABLE)
+#   include "caps_word.h"
+#endif
+*/
+
 
 //qmk_firmware\keyboards\crkbd\rev1\rev1.c
 #if defined(KEYBOARD_crkbd_rev1)

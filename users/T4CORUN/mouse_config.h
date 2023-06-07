@@ -1,6 +1,5 @@
 #pragma once
 
-
 //Clear variables that might have been defined elsewhere
 #undef MOUSEKEY_INTERVAL
 #undef MOUSEKEY_MAX_SPEED
@@ -8,7 +7,6 @@
 #undef MOUSEKEY_DELAY
 #undef POINTING_DEVICE_AUTO_MOUSE_ENABLE
 #undef AUTO_MOUSE_TIME
-
 
 
 //Set common configuration for all keyboards

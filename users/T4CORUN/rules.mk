@@ -1,20 +1,30 @@
-#Anything that says ENABLED is not part of standard QMK
-#these custom ones will need to be added to OPT_DEFS
-
 SRC += $(USER_PATH)/T4CORUN.c \
 		$(USER_PATH)/tapping.c \
 		$(USER_PATH)/processor.c
 
+SPACE_CADET_ENABLE ?= no
+GRAVE_ESC_ENABLE ?= no
+DYNAMIC_MACRO_ENABLE ?= yes
+LTO_ENABLE ?= yes
+MAGIC_ENABLE ?= no
+
+
+CAPS_WORD_ENABLE ?= yes
+ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
+	SRC += $(USER_PATH)/capsword.c
+endif
+
+
 TAP_DANCE_ENABLE ?= no
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-	SRC += $(USER_PATH)/tap_dance.c
+	SRC += $(USER_PATH)/tapdance.c
 endif
 
 OLED_ENABLE ?= no
 #KEYLOG_ENABLE appears to be custom
 KEYLOG_ENABLE ?= no
 ifeq ($(strip $(OLED_ENABLE)), yes)
-	SRC += $(USER_PATH)/oled_stuff.c
+	SRC += $(USER_PATH)/oled.c
 	ifeq ($(strip $(KEYLOG_ENABLE)), yes)
 	  OPT_DEFS += -DKEYLOG_ENABLE
 	endif
@@ -37,7 +47,7 @@ endif
 POINTING_DEVICE_ENABLE ?= no
 AUTOMOUSE_ENABLE ?= no
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-	SRC += $(USER_PATH)/pointing.c
+	SRC += $(USER_PATH)/mouse.c
 	OPT_DEFS += -DMOUSELAYER_ENABLE
 	ifeq ($(strip $(AUTOMOUSE_ENABLED)), yes)
 	  OPT_DEFS += -DAUTOMOUSE_ENABLE
@@ -51,7 +61,7 @@ endif
 
 RGB_MATRIX_ENABLE ?= no
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-	SRC += $(USER_PATH)/rgb_matrix_stuff.c
+	SRC += $(USER_PATH)/rgbmatrix.c
 endif
 
 #GAMING_ENABLED is custom
@@ -65,11 +75,3 @@ ONESHOT_ENABLE ?= no
 ifeq ($(strip $(ONESHOT_ENABLE)), yes)
 	OPT_DEFS += -DONESHOT_ENABLE
 endif
-
-
-
-SPACE_CADET_ENABLE ?= no
-GRAVE_ESC_ENABLE ?= no
-DYNAMIC_MACRO_ENABLE ?= yes
-LTO_ENABLE ?= yes
-MAGIC_ENABLE ?= no

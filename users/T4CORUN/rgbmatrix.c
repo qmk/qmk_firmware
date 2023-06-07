@@ -1,5 +1,4 @@
-#include "rgb_matrix_stuff.h"
-
+#include "rgbmatrix.h"
 
 /*
 Achieves the following
@@ -137,7 +136,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
 
   if (host_keyboard_led_state().caps_lock) {
     rgb_matrix_set_color(LED_CAPSLOCK, RGB_TEAL);
-  } 
+  }
+  
+  /*
+  if (is_caps_word_on()) {
+    rgb_matrix_set_color(LED_CAPSLOCK, RGB_PINK);
+  }
+  */
   
   if (host_keyboard_led_state().scroll_lock) {
     rgb_matrix_set_color(LED_SCRLOCK, RGB_TEAL);

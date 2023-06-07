@@ -1,4 +1,4 @@
-#include "pointing.h"
+#include "mouse.h"
 
 #if defined(AUTOMOUSE_ENABLED)
 void pointing_device_init_user(void) {

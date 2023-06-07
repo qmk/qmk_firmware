@@ -1,5 +1,6 @@
 #pragma once
 
+
 //more info at https://docs.qmk.fm/#/feature_rgb_matrix?id=additional-configh-options
 
 //KEYBOARD_bastardkb_charybdis_3x5
@@ -109,7 +110,7 @@
 #   define ENABLE_RGB_MATRIX_SPLASH
 #   define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#   define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
+#   define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_TYPING_HEATMAP
 
 //MT32U4 has limited memory
 #elif defined(KEYBOARD_crkbd_rev1)

@@ -18,7 +18,6 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-#if defined(HOMEROWMOD_ENABLED)
     //QWERTY Home Row Mods
     case LGUI_A:
     case LGUI_QT:
@@ -29,7 +28,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case LALT_R:
     case LALT_I:
       return TAPPING_TERM + 30;
-#endif //HOMEROWMOD_ENABLED
     //Pinky layers
     case FUN_Z:
     case AD_SLSH:
