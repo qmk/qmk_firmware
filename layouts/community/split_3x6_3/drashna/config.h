@@ -41,8 +41,8 @@
 
 #ifdef RGB_MATRIX_ENABLE
 #    ifdef CONVERT_TO_PROTON_C
-#        undef RGB_DI_PIN
-#        define RGB_DI_PIN A3
+#        undef WS2812_DI_PIN
+#        define WS2812_DI_PIN A3
 #    endif
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)

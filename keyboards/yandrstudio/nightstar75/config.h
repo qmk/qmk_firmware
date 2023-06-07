@@ -15,17 +15,9 @@
  */
 #pragma once
 
-#define MATRIX_COL_PINS { C13, C14, C15, A3,   A4,  A5,  A6,  B12, B13, B14, B15,  A8,  A9, A10, B8 }
-#define MATRIX_ROW_PINS { B0,  B1,  B2,  B10,  B11, B9 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 #ifdef RGBLIGHT_ENABLE
 
-#    define RGB_DI_PIN A7
 #    define RGBLED_NUM 4
-#    define RGBLIGHT_LIMIT_VAL 180
 
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD

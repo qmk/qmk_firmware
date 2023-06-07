@@ -16,21 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { D3, B7, B3, B2, B1, B0 }
-#define MATRIX_COL_PINS { F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, D2, F1, F0 }
-
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN E6
 #define RGBLED_NUM 10
 #define RGBLIGHT_SLEEP
 

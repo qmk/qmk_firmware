@@ -43,8 +43,10 @@
 /* data structure */
 typedef struct {
     struct {
-        bool    is_enabled;
-        uint8_t layer;
+        bool     is_enabled;
+        uint8_t  layer;
+        uint16_t timeout;
+        uint8_t  debounce;
     } config;
     struct {
         uint16_t active;
@@ -62,6 +64,10 @@ void          set_auto_mouse_enable(bool enable);                       // enabl
 bool          get_auto_mouse_enable(void);                              // get auto_mouse_enable
 void          set_auto_mouse_layer(uint8_t layer);                      // set target layer by index
 uint8_t       get_auto_mouse_layer(void);                               // get target layer index
+void          set_auto_mouse_timeout(uint16_t timeout);                 // set layer timeout
+uint16_t      get_auto_mouse_timeout(void);                             // get layer timeout
+void          set_auto_mouse_debounce(uint8_t debounce);                // set debounce
+uint8_t       get_auto_mouse_debounce(void);                            // get debounce
 void          auto_mouse_layer_off(void);                               // disable target layer if appropriate (DO NOT USE in layer_state_set stack!!)
 layer_state_t remove_auto_mouse_layer(layer_state_t state, bool force); // remove auto mouse target layer from state if appropriate (can be forced)
 
