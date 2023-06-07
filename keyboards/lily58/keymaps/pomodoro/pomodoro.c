@@ -74,18 +74,26 @@ const char restBase[] PROGMEM = {
 };
 char displayBuffer[STATUS_SIZE];
 
+#define WORK_TIME 5000//25 * 60 * 1000
+#define REST_TIME 1000//5 * 60 * 1000
+
 typedef enum pomo_state {
     _STOPPED,
     _WORK,
     _REST,
 } pomo_state;
 
+// The master only needs to know if the timer is running or not
+bool isRunning = false;
+
+// The slave needs more info about the state and what's going on
 pomo_state state = _STOPPED;
-bool syncState = false;
-uint16_t totalTime = STATUS_PIXELS;
-uint16_t lastTime = 0;
+uint8_t pomoCount = 0;
+uint32_t pomoTimer;
+uint32_t totalTime = 0;
+uint32_t currTime = 0;
+uint32_t lastTime = 0;
 uint16_t lastProgress = 0;
-uint16_t currTime = 0;
 
 const char* read_pomodoro_state(void) {
     switch (state) {
@@ -96,50 +104,60 @@ const char* read_pomodoro_state(void) {
     }
 }
 
-void toggle_pomodoro(void) {
-    state = (state + 1) % 3;
-    syncState = true;
-    lastTime = 0;
-    lastProgress = 0;
-    currTime = 0;
+const char* read_pomodoro_running(void) {
+    if (isRunning) { return "RUNNING"; }
+    else { return "STOPPED"; }
 }
 
-void tick_pomodoro(void) {
-    currTime += 1;
-    transaction_rpc_send(SYNC_POMODORO_TIME, sizeof(uint16_t), &currTime);
-}
-
-const char *read_layer_state(void);
-
-void set_slave_pomodoro_state(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
-    state = *(pomo_state*)in_data;
-    lastTime = 0;
-    lastProgress = 0;
-    currTime = 0;
-    if (state == _WORK) {
-        memcpy_P(displayBuffer, workBase, STATUS_SIZE);
-        memcpy_P(header, headerBase, HEADER_SIZE);
-    } else if (state == _REST) {
-        memcpy_P(displayBuffer, restBase, STATUS_SIZE);
-        memcpy_P(header, headerBase, HEADER_SIZE);
-    } else {
-        memcpy_P(displayBuffer, logoBase, STATUS_SIZE);
-        memset(header, 0, HEADER_SIZE);
+void update_display_base(void) {
+    switch (state) {
+        case _STOPPED: {
+            memcpy_P(displayBuffer, logoBase, STATUS_SIZE);
+            memset(header, 0, HEADER_SIZE);
+        } break;
+        case _WORK: {
+            memcpy_P(displayBuffer, workBase, STATUS_SIZE);
+            memcpy_P(header, headerBase, HEADER_SIZE);
+        } break;
+        case _REST: {
+            memcpy_P(displayBuffer, restBase, STATUS_SIZE);
+            memcpy_P(header, headerBase, HEADER_SIZE);
+        } break;
     }
 }
 
-void set_slave_pomodoro_time(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
-    currTime = *(uint16_t*)in_data;
+bool syncRunning = false;
+void toggle_pomodoro(void) {
+    isRunning = !isRunning;
+    syncRunning = true;
+}
+
+void set_slave_pomodoro_running(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
+    isRunning = *(bool*)in_data;
+    if (isRunning) {
+        // Reset stuff and start the timer
+        pomoTimer = timer_read32();
+        state = _WORK;
+        totalTime = WORK_TIME;
+        lastTime = 0;
+        lastProgress = 0;
+        currTime = 0;
+        pomoCount = 1;
+    } else {
+        state = _STOPPED;
+    }
+
+    update_display_base();
 }
 
 void keyboard_post_init_user(void) {
     memcpy_P(displayBuffer, logoBase, STATUS_SIZE);
     memset(header, 0, HEADER_SIZE);
-    transaction_register_rpc(SYNC_POMODORO_STATE, set_slave_pomodoro_state);
-    transaction_register_rpc(SYNC_POMODORO_TIME, set_slave_pomodoro_time);
+    transaction_register_rpc(SYNC_POMODORO_RUNNING, set_slave_pomodoro_running);
 }
 
 void update_pomodoro_display(void) {
+    // oled_write_ln(read_pomodoro_state(), false);
     oled_set_cursor(0, 0);
     oled_write_raw(displayBuffer, STATUS_SIZE);
     oled_set_cursor(0, STATUS_WIDTH);
@@ -169,12 +187,37 @@ void update_time_display(void) {
 
 void housekeeping_task_user(void) {
     if (is_keyboard_master()) {
-        if (syncState && transaction_rpc_send(SYNC_POMODORO_STATE, sizeof(pomo_state), &state)) {
-            syncState = false;
+        if (syncRunning && transaction_rpc_send(SYNC_POMODORO_RUNNING, sizeof(bool), &isRunning)) {
+            syncRunning = false;
         }
     } else {
         // This is where the time will be updated
-        update_time_display();
+        if (isRunning) {
+            currTime = timer_elapsed32(pomoTimer);
+            if (currTime >= totalTime) {
+                if (state == _WORK) {
+                    state = _REST;
+                    totalTime = REST_TIME;
+                } else if (state == _REST) {
+                    state = _WORK;
+                    totalTime = WORK_TIME;
+                    pomoCount++;
+                }
+
+                if (pomoCount > 4) {
+                    isRunning = false;
+                    state = _STOPPED;
+                }
+
+                pomoTimer = timer_read32();
+                currTime = 0;
+                lastTime = 0;
+                lastProgress = 0;
+                update_display_base();
+            } else {
+                update_time_display();
+            }
+        }
     }
 }
 

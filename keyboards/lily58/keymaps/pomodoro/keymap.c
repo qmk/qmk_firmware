@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
      * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *                   | Play |LOWER | LGUI | /Space  /       \Enter \  | RGUI |RAISE | Mute |
+     *                   | Play |LOWER | LGUI | / Enter /       \Space \  | RGUI |RAISE | Mute |
      *                   |      |      |      |/       /         \      \ |      |      |      |
      *                   `----------------------------'           '------''--------------------'
      */
@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                             KC_Y,    KC_U,    KC_I,    KC_O,     KC_P, KC_MINS,
       KC_LCTL,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                             KC_H,    KC_J,    KC_K,    KC_L,  KC_SCLN, KC_QUOT,
       KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_LBRC,        KC_RBRC,    KC_N,    KC_M, KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT,
-                             KC_MPLY, MO(_LOWER), KC_LGUI,  KC_SPC,        KC_ENT, KC_RGUI, MO(_RAISE), KC_MUTE
+                             KC_MPLY, MO(_LOWER), KC_LGUI,  KC_ENT,        KC_SPC, KC_RGUI, MO(_RAISE), KC_MUTE
     ),
     /* LOWER
      * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|   <   |    |   >   |------+------+------+------+------+------|
      * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *                   | Play | XXXX | LGUI | /Space  /       \Enter \  | RGUI |RAISE | Mute |
+     *                   | Play | XXXX | LGUI | / Enter /       \Space \  | RGUI |RAISE | Mute |
      *                   |      |      |      |/       /         \      \ |      |      |      |
      *                   `----------------------------'           '------''--------------------'
      */
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
      * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *                   | Play |LOWER | LGUI | /Space  /       \Enter \  | RGUI | XXXX | Mute |
+     *                   | Play |LOWER | LGUI | / Enter /       \Space \  | RGUI | XXXX | Mute |
      *                   |      |      |      |/       /         \      \ |      |      |      |
      *                   `----------------------------'           '------''--------------------'
      */
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
      * |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *                   | Play | XXXX | LGUI | /Space  /       \Enter \  | RGUI | XXXX | Mute |
+     *                   | Play | XXXX | LGUI | / Enter /       \Space \  | RGUI | XXXX | Mute |
      *                   |      |      |      |/       /         \      \ |      |      |      |
      *                   `----------------------------'           '------''--------------------'
      */
@@ -109,8 +109,7 @@ const char *read_logo(void);
 const char *read_timelog(void);
 
 void toggle_pomodoro(void);
-void tick_pomodoro(void);
-const char* read_pomodoro_state(void);
+const char* read_pomodoro_running(void);
 void update_pomodoro_display(void);
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -122,7 +121,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_write_ln(read_layer_state(), false);
-        oled_write_ln(read_pomodoro_state(), false);
+        oled_write_ln(read_pomodoro_running(), false);
     } else {
         update_pomodoro_display();
     }
@@ -132,9 +131,6 @@ bool oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed && keycode == KC_OPER) {
         toggle_pomodoro();
-    }
-    if (record->event.pressed && keycode == KC_OUT) {
-        tick_pomodoro();
     }
     return true;
 }
