@@ -111,8 +111,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-Enabling `IGNORE_MOD_TAP_INTERRUPT` is recommended when using Mod-Tap on alphanumeric keys to avoid hold function taking precendence when the next key is pressed quickly. See [Ignore Mod Tap Interrupt](tap_hold.md#ignore-mod-tap-interrupt) for more details.
-
 ### Changing both tap and hold
 
 This last example implements custom tap and hold function with `LT(0,KC_NO)` to create a single copy-on-tap, paste-on-hold key:

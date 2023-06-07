@@ -16,16 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS {D1,D0,D5,D4,C7,B7,C6,C5,B0,B1}
-#define MATRIX_COL_PINS {C2,D2,B6,B5,B4,B3,B2,D6}
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN D3
 #define RGBLED_NUM 18
 
 #define RGBLIGHT_HUE_STEP 8

@@ -6,7 +6,6 @@ from milc import cli
 from argcomplete.completers import FilesCompleter
 
 from qmk.commands import dump_lines
-from qmk.constants import QMK_FIRMWARE
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import keymap_completer, locate_keymap
 from qmk.path import normpath, FileType
@@ -23,34 +22,34 @@ def generate_make_dependencies(cli):
     """
     interesting_files = [
         'info.json',
-        'keymap.json',
         'rules.mk',
         'post_rules.mk',
         'config.h',
         'post_config.h',
     ]
 
-    found_files = []
+    check_files = []
 
     # Walk up the keyboard's directory tree looking for the files we're interested in
     keyboards_root = Path('keyboards')
     parent_path = Path('keyboards') / cli.args.keyboard
     while parent_path != keyboards_root:
         for file in interesting_files:
-            test_path = parent_path / file
-            if test_path.exists():
-                found_files.append(test_path)
+            check_files.append(parent_path / file)
         parent_path = parent_path.parent
 
     # Find the keymap and include any of the interesting files
     if cli.args.keymap is not None:
         km = locate_keymap(cli.args.keyboard, cli.args.keymap)
         if km is not None:
+            # keymap.json is only valid for the keymap, so check this one separately
+            check_files.append(km.parent / 'keymap.json')
+            # Add all the interesting files
             for file in interesting_files:
-                found_files.extend(km.parent.glob(f'**/{file}'))
+                check_files.append(km.parent / file)
 
     # If we have a matching userspace, include those too
     for file in interesting_files:
-        found_files.extend((QMK_FIRMWARE / 'users' / cli.args.keymap).glob(f'**/{file}'))
+        check_files.append(Path('users') / cli.args.keymap / file)
 
-    dump_lines(cli.args.output, [f'generated-files: {found.resolve()}\n' for found in found_files])
+    dump_lines(cli.args.output, [f'generated-files: $(wildcard {found})\n' for found in check_files])

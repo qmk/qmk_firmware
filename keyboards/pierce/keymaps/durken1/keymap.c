@@ -17,25 +17,25 @@
 #include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
 
-enum layers { 
-    BASE, 
-    MBO, 
-    SYM, 
-    NUM, 
+enum layers {
+    BASE,
+    MBO,
+    SYM,
+    NUM,
     FN
 };
 
-enum combos { 
-    WF_ARNG, 
-    EI_ADIA, 
-    UK_ODIA 
+enum combos {
+    WF_ARNG,
+    EI_ADIA,
+    UK_ODIA
 };
 
 #if defined PS2_MOUSE_ENABLE
 #include "ps2_mouse.h"
 #endif
 
-#if defined AUTO_BUTTONS && defined PS2_MOUSE_ENABLE 
+#if defined AUTO_BUTTONS && defined PS2_MOUSE_ENABLE
 
 static uint16_t auto_buttons_timer;
 extern int tp_buttons; // mousekey button state set in action.c and used in ps2_mouse.c
@@ -82,7 +82,7 @@ const uint16_t PROGMEM arng_combo[] = {ALT_R, SFT_S, COMBO_END};
 const uint16_t PROGMEM adia_combo[] = {SFT_E, ALT_I, COMBO_END};
 const uint16_t PROGMEM odia_combo[] = {SE_U, SE_K, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
 	[WF_ARNG] = COMBO(arng_combo, SE_ARNG),
 	[EI_ADIA] = COMBO(adia_combo, SE_ADIA),
 	[UK_ODIA] = COMBO(odia_combo, SE_ODIA)

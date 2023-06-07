@@ -18,22 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring of each half
-#define MATRIX_COL_PINS \
-    { C0, C1, C2, C3, C4, C5 }
-#define MATRIX_ROW_PINS \
-    { F7, F6, F5, F4, F3, F2 }
-
-#define DIODE_DIRECTION COL2ROW
-
 // WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN      E7
 #define RGBLED_NUM      20
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT \
     { 10, 10 }
 #define RGBLIGHT_LIMIT_VAL 80
-#define OLED_BRIGHTNESS    50
 
 #define DEBUG_LED_PIN   D6
 

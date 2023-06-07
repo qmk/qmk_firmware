@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "pterodactyl.h"
 #include "i2c_master.h"
 #include "timer.h"
 
