@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
      /* RGB Defines */
-#define RGB_DI_PIN GP0
+#define WS2812_DI_PIN GP0
 #define RGB_MATRIX_LED_COUNT 70
 #define RGB_MATRIX_SPLIT { 35,35 }
      /* Enable Framebuffer and keypress effects */
