@@ -36,6 +36,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
       rgb_matrix_set_color(LED_ADJUST, RGB_AZURE);
 
       //Color preview
+      /*
       rgb_matrix_set_color( 0, RGB_AZURE);
       rgb_matrix_set_color( 1, RGB_BLACK);
       rgb_matrix_set_color( 2, RGB_BLUE);
@@ -55,24 +56,25 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
       rgb_matrix_set_color( 29, RGB_TURQUOISE);
       rgb_matrix_set_color( 24, RGB_WHITE);
       rgb_matrix_set_color( 23, RGB_YELLOW);
-
+      */
+      
       switch (current_default_layer) {
         
         case _DEFAULT_LAYER_1:
           rgb_matrix_set_color(LED_QWERTY, RGB_PURPLE);
-          rgb_matrix_set_color(LED_COLEMAKDH, RGB_PINK);
-          rgb_matrix_set_color(LED_GAME, RGB_PINK);
+          rgb_matrix_set_color(LED_COLEMAKDH, RGB_AZURE);
+          rgb_matrix_set_color(LED_GAME, RGB_AZURE);
           break;
         
         case _DEFAULT_LAYER_2:
-          rgb_matrix_set_color(LED_QWERTY, RGB_PINK);
+          rgb_matrix_set_color(LED_QWERTY, RGB_AZURE);
           rgb_matrix_set_color(LED_COLEMAKDH, RGB_PURPLE);
-          rgb_matrix_set_color(LED_GAME, RGB_PINK);
+          rgb_matrix_set_color(LED_GAME, RGB_AZURE);
           break;
         
         case _DEFAULT_LAYER_3:
-          rgb_matrix_set_color(LED_QWERTY, RGB_PINK);
-          rgb_matrix_set_color(LED_COLEMAKDH, RGB_PINK);
+          rgb_matrix_set_color(LED_QWERTY, RGB_AZURE);
+          rgb_matrix_set_color(LED_COLEMAKDH, RGB_AZURE);
           rgb_matrix_set_color(LED_GAME, RGB_PURPLE);
           break;
       }

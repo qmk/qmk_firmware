@@ -23,7 +23,7 @@ endif
 
 COMBO_ENABLE ?= no
 ifeq ($(strip $(COMBO_ENABLE)), yes)
-	SRC += $(USER_PATH)/combo.c
+#	SRC += $(USER_PATH)/combo.c
 	INTROSPECTION_KEYMAP_C = $(USER_PATH)/combo.c
 endif
 
