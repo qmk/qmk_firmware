@@ -17,9 +17,16 @@ Currently the following converters are available:
 | `promicro` | `bit_c_pro`       |
 | `promicro` | `stemcell`        |
 | `promicro` | `bonsai_c4`       |
+| `promicro` | `rp2040_ce`       |
 | `promicro` | `elite_pi`        |
+| `promicro` | `helios`          |
+| `promicro` | `liatris`         |
+| `promicro` | `michi`           |
 | `elite_c`  | `stemcell`        |
+| `elite_c`  | `rp2040_ce`       |
 | `elite_c`  | `elite_pi`        |
+| `elite_c`  | `helios`          |
+| `elite_c`  | `liatris`         |
 
 See below for more in depth information on each converter.
 
@@ -81,6 +88,9 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 | [STeMCell](https://github.com/megamind4089/STeMCell)                                     | `stemcell`        |
 | [customMK Bonsai C4](https://shop.custommk.com/products/bonsai-c4-microcontroller-board) | `bonsai_c4`       |
 | [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)         | `elite_pi`        |
+| [0xCB Helios](https://keeb.supply/products/0xcb-helios)                                  | `helios`          |
+| [Liatris](https://splitkb.com/products/liatris)                                          | `liatris`         |
+| [Michi](https://github.com/ci-bus/michi-promicro-rp2040)                                 | `michi`           |
 
 Converter summary:
 
@@ -93,7 +103,11 @@ Converter summary:
 | `bit_c_pro`       | `-e CONVERT_TO=bit_c_pro`       | `CONVERT_TO=bit_c_pro`       | `#ifdef CONVERT_TO_BIT_C_PRO`       |
 | `stemcell`        | `-e CONVERT_TO=stemcell`        | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`        |
 | `bonsai_c4`       | `-e CONVERT_TO=bonsai_c4`       | `CONVERT_TO=bonsai_c4`       | `#ifdef CONVERT_TO_BONSAI_C4`       |
+| `rp2040_ce`       | `-e CONVERT_TO=rp2040_ce`       | `CONVERT_TO=rp2040_ce`       | `#ifdef CONVERT_TO_RP2040_CE`       |
 | `elite_pi`        | `-e CONVERT_TO=elite_pi`        | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`        |
+| `helios`          | `-e CONVERT_TO=helios`          | `CONVERT_TO=helios`          | `#ifdef CONVERT_TO_HELIOS`          |
+| `liatris`         | `-e CONVERT_TO=liatris`         | `CONVERT_TO=liatris`         | `#ifdef CONVERT_TO_LIATRIS`         |
+| `michi`           | `-e CONVERT_TO=michi`           | `CONVERT_TO=michi`           | `#ifdef CONVERT_TO_MICHI`           |
 
 ### Proton C :id=proton_c
 
@@ -124,7 +138,7 @@ The following defaults are based on what has been implemented for [RP2040](platf
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
 | [Split keyboards](feature_split_keyboard.md) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
 
-### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO, and Elite-Pi :id=promicro_rp2040 
+### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi :id=promicro_rp2040 
 
 Currently identical to [Adafruit KB2040](#kb2040).
 
@@ -153,9 +167,17 @@ The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro
 
 ```c
 #undef B0
-// If Vbus detection is unused, we can send RXLED to the Vbus detect pin instead
+// If VBUS detection is unused, we can send RXLED to the Vbus detect pin instead
 #define B0 PAL_LINE(GPIOA, 9)
 ```
+
+### RP2040 Community Edition - Elite-Pi, Helios, and Liatris :id=rp2040_ce
+
+Feature set currently identical to [Adafruit KB2040](#kb2040).
+
+Enables VBUS detection by default for superior split keyboard support.
+
+For more information, refer to the [RP2040 Community Edition](platformdev_rp2040.md#rp2040_ce) docs.
 
 ## Elite-C
 
@@ -165,18 +187,23 @@ If a board currently supported in QMK uses an [Elite-C](https://keeb.io/products
 |----------------------------------------------------------------------------------|-------------------|
 | [STeMCell](https://github.com/megamind4089/STeMCell)                             | `stemcell`        |
 | [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040) | `elite_pi`        |
+| [0xCB Helios](https://keeb.supply/products/0xcb-helios)                          | `helios`          |
+| [Liatris](https://splitkb.com/products/liatris)                                  | `liatris`         |
 
 Converter summary:
 
 | Target            | Argument                        | `rules.mk`                   | Condition                           |
 |-------------------|---------------------------------|------------------------------|-------------------------------------|
 | `stemcell`        | `-e CONVERT_TO=stemcell`        | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`        |
+| `rp2040_ce`       | `-e CONVERT_TO=rp2040_ce`       | `CONVERT_TO=rp2040_ce`       | `#ifdef CONVERT_TO_RP2040_CE`       |
 | `elite_pi`        | `-e CONVERT_TO=elite_pi`        | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`        |
+| `helios`          | `-e CONVERT_TO=helios`          | `CONVERT_TO=helios`          | `#ifdef CONVERT_TO_HELIOS`          |
+| `liatris`         | `-e CONVERT_TO=liatris`         | `CONVERT_TO=liatris`         | `#ifdef CONVERT_TO_LIATRIS`         |
 
 ### STeMCell :id=stemcell_elite
 
 Currently identical to [STeMCell](#stemcell) with support for the additional bottom row of pins.
 
-### Elite-Pi :id=elite_pi
+### RP2040 Community Edition :id=rp2040_ce_elite
 
-Currently identical to [Adafruit KB2040](#kb2040), with support for the additional bottom row of pins.
+Currently identical to [RP2040 Community Edition](#rp2040_ce), with support for the additional bottom row of pins.

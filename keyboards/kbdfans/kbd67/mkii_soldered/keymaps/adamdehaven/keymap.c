@@ -14,7 +14,7 @@ enum tapdance {
     TD_END
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Home, twice for PageUp
     [TD_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_HOME, KC_PGUP),
     // Tap once for End, twice for PageDown

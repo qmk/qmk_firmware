@@ -15,29 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-/* rows are doubled-up */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
-
-/* wiring of each half */
-#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { B2, B6, F6, B3, B1, F7 }
 #define EE_HANDS
 
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 3
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
-
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D4
 #if !defined(RGBLED_NUM)
 #    define RGBLED_NUM 30
 #    define RGBLIGHT_SPLIT

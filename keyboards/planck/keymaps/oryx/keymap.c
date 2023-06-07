@@ -18,7 +18,7 @@
 #include QMK_KEYBOARD_H
 
 enum planck_keycodes {
-    RGB_SLD = EZ_SAFE_RANGE,
+    RGB_SLD = SAFE_RANGE,
 };
 
 enum planck_layers {

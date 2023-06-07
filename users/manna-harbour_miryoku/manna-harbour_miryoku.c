@@ -17,14 +17,14 @@ MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
 };
 
-void u_td_fn_boot(qk_tap_dance_state_t *state, void *user_data) { \
+void u_td_fn_boot(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
     reset_keyboard();
   }
 }
 
 #define MIRYOKU_X(LAYER, STRING) \
-void u_td_fn_U_##LAYER(qk_tap_dance_state_t *state, void *user_data) { \
+void u_td_fn_U_##LAYER(tap_dance_state_t *state, void *user_data) { \
   if (state->count == 2) { \
     default_layer_set((layer_state_t)1 << U_##LAYER); \
   } \
@@ -32,7 +32,7 @@ void u_td_fn_U_##LAYER(qk_tap_dance_state_t *state, void *user_data) { \
 MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [U_TD_BOOT] = ACTION_TAP_DANCE_FN(u_td_fn_boot),
 #define MIRYOKU_X(LAYER, STRING) [U_TD_U_##LAYER] = ACTION_TAP_DANCE_FN(u_td_fn_U_##LAYER),
 MIRYOKU_LAYER_LIST
@@ -74,7 +74,7 @@ const uint16_t PROGMEM thumbcombos_sym[] = {KC_UNDS, KC_LPRN, COMBO_END};
 const uint16_t PROGMEM thumbcombos_sym[] = {KC_RPRN, KC_UNDS, COMBO_END};
   #endif
 const uint16_t PROGMEM thumbcombos_fun[] = {KC_SPC, KC_TAB, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   COMBO(thumbcombos_base_right, LT(U_FUN, KC_DEL)),
   COMBO(thumbcombos_base_left, LT(U_MEDIA, KC_ESC)),
   COMBO(thumbcombos_nav, KC_DEL),

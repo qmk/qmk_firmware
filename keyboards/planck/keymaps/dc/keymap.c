@@ -26,7 +26,7 @@ enum tap_dance_codes {
     CT_DEL_ESC
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [0] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_LPRN),
     [1] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_LCBR),
     [2] = ACTION_TAP_DANCE_DOUBLE(KC_J, KC_LBRC),

@@ -17,41 +17,12 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 7
-
-#define MATRIX_ROW_PINS { B3, B4, B9, B8, A5, A6 }
-#define MATRIX_COL_PINS { B14, B13, B12, B0, A7, A9, A8 }
-#define DIODE_DIRECTION COL2ROW // COL2ROW or ROW2COL
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-// #define LED_NUM_LOCK_PIN A8
-// #define LED_CAPS_LOCK_PIN B14
-// #define LED_SCROLL_LOCK_PIN A9
-// #define LED_PIN_ON_STATE 0
-
-/* key encoders pins*/
-#define ENCODERS_PAD_A { B5 , A1 , A3 }
-#define ENCODERS_PAD_B { B6 , A2 , A4 }
-#define ENCODER_RESOLUTIONS \
-    { 4, 4, 2 }
-
 // #define QMK_KEYS_PER_SCAN 12
-// #define FORCE_NKRO
-
 
 /* OLED */
 #ifdef OLED_ENABLE
@@ -65,7 +36,6 @@
 
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
-    #define RGB_DI_PIN A10
     #define RGB_MATRIX_LED_COUNT 36
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
     #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS

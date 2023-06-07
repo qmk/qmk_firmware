@@ -7,9 +7,22 @@
         "pid": "0xB195",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "matrix_pins": {
+        "cols": ["B6"],
+        "rows": ["B5"]
+    },
+    "diode_direction": "ROW2COL",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "debounce": 50,
     "layouts": {
         "LAYOUT": {
-            "layout": [{"x":0, "y":0, "w":4, "h":4}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 4, "h": 4}
+            ]
         }
     }
 }

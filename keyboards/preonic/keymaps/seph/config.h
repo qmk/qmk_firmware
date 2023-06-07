@@ -3,13 +3,12 @@
 
 #include "../../config.h"
 
-// Number of backlight levels
 #undef  BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 8
 
 /* ws2812 RGB LED */
-#undef RGB_DI_PIN
-#define RGB_DI_PIN B3
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN B3
 #undef RGBLED_NUM
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

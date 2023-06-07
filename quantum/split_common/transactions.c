@@ -748,6 +748,105 @@ static void watchdog_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 
 #endif // defined(SPLIT_WATCHDOG_ENABLE)
 
+#if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+
+uint8_t                split_haptic_play = 0xFF;
+extern haptic_config_t haptic_config;
+
+static bool haptic_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    static uint32_t           last_update = 0;
+    split_slave_haptic_sync_t haptic_sync;
+
+    memcpy(&haptic_sync.haptic_config, &haptic_config, sizeof(haptic_config_t));
+    haptic_sync.haptic_play = split_haptic_play;
+
+    bool okay = send_if_data_mismatch(PUT_HAPTIC, &last_update, &haptic_sync, &split_shmem->haptic_sync, sizeof(haptic_sync));
+
+    split_haptic_play = 0xFF;
+
+    return okay;
+}
+
+static void haptic_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    memcpy(&haptic_config, &split_shmem->haptic_sync.haptic_config, sizeof(haptic_config_t));
+
+    if (split_shmem->haptic_sync.haptic_play != 0xFF) {
+        haptic_set_mode(split_shmem->haptic_sync.haptic_play);
+        haptic_play();
+    }
+}
+
+// clang-format off
+#    define TRANSACTIONS_HAPTIC_MASTER() TRANSACTION_HANDLER_MASTER(haptic)
+#    define TRANSACTIONS_HAPTIC_SLAVE() TRANSACTION_HANDLER_SLAVE(haptic)
+#    define TRANSACTIONS_HAPTIC_REGISTRATIONS [PUT_HAPTIC] = trans_initiator2target_initializer(haptic_sync),
+// clang-format on
+
+#else // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+
+#    define TRANSACTIONS_HAPTIC_MASTER()
+#    define TRANSACTIONS_HAPTIC_SLAVE()
+#    define TRANSACTIONS_HAPTIC_REGISTRATIONS
+
+#endif // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+
+#if defined(SPLIT_ACTIVITY_ENABLE)
+
+static bool activity_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    static uint32_t             last_update = 0;
+    split_slave_activity_sync_t activity_sync;
+    activity_sync.matrix_timestamp          = last_matrix_activity_time();
+    activity_sync.encoder_timestamp         = last_encoder_activity_time();
+    activity_sync.pointing_device_timestamp = last_pointing_device_activity_time();
+    return send_if_data_mismatch(PUT_ACTIVITY, &last_update, &activity_sync, &split_shmem->activity_sync, sizeof(activity_sync));
+}
+
+static void activity_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    set_activity_timestamps(split_shmem->activity_sync.matrix_timestamp, split_shmem->activity_sync.encoder_timestamp, split_shmem->activity_sync.pointing_device_timestamp);
+}
+
+// clang-format off
+#    define TRANSACTIONS_ACTIVITY_MASTER() TRANSACTION_HANDLER_MASTER(activity)
+#    define TRANSACTIONS_ACTIVITY_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(activity)
+#    define TRANSACTIONS_ACTIVITY_REGISTRATIONS [PUT_ACTIVITY] = trans_initiator2target_initializer(activity_sync),
+// clang-format on
+
+#else // defined(SPLIT_ACTIVITY_ENABLE)
+
+#    define TRANSACTIONS_ACTIVITY_MASTER()
+#    define TRANSACTIONS_ACTIVITY_SLAVE()
+#    define TRANSACTIONS_ACTIVITY_REGISTRATIONS
+
+#endif // defined(SPLIT_ACTIVITY_ENABLE)
+
+////////////////////////////////////////////////////
+// Detected OS
+
+#if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+
+static bool detected_os_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    static uint32_t last_detected_os_update = 0;
+    os_variant_t    detected_os             = detected_host_os();
+    bool            okay                    = send_if_condition(PUT_DETECTED_OS, &last_detected_os_update, (detected_os != split_shmem->detected_os), &detected_os, sizeof(os_variant_t));
+    return okay;
+}
+
+static void detected_os_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    slave_update_detected_host_os(split_shmem->detected_os);
+}
+
+#    define TRANSACTIONS_DETECTED_OS_MASTER() TRANSACTION_HANDLER_MASTER(detected_os)
+#    define TRANSACTIONS_DETECTED_OS_SLAVE() TRANSACTION_HANDLER_SLAVE_AUTOLOCK(detected_os)
+#    define TRANSACTIONS_DETECTED_OS_REGISTRATIONS [PUT_DETECTED_OS] = trans_initiator2target_initializer(detected_os),
+
+#else // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+
+#    define TRANSACTIONS_DETECTED_OS_MASTER()
+#    define TRANSACTIONS_DETECTED_OS_SLAVE()
+#    define TRANSACTIONS_DETECTED_OS_REGISTRATIONS
+
+#endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+
 ////////////////////////////////////////////////////
 
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
@@ -775,6 +874,9 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_ST7565_REGISTRATIONS
     TRANSACTIONS_POINTING_REGISTRATIONS
     TRANSACTIONS_WATCHDOG_REGISTRATIONS
+    TRANSACTIONS_HAPTIC_REGISTRATIONS
+    TRANSACTIONS_ACTIVITY_REGISTRATIONS
+    TRANSACTIONS_DETECTED_OS_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
@@ -802,6 +904,9 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_ST7565_MASTER();
     TRANSACTIONS_POINTING_MASTER();
     TRANSACTIONS_WATCHDOG_MASTER();
+    TRANSACTIONS_HAPTIC_MASTER();
+    TRANSACTIONS_ACTIVITY_MASTER();
+    TRANSACTIONS_DETECTED_OS_MASTER();
     return true;
 }
 
@@ -822,6 +927,9 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_ST7565_SLAVE();
     TRANSACTIONS_POINTING_SLAVE();
     TRANSACTIONS_WATCHDOG_SLAVE();
+    TRANSACTIONS_HAPTIC_SLAVE();
+    TRANSACTIONS_ACTIVITY_SLAVE();
+    TRANSACTIONS_DETECTED_OS_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)

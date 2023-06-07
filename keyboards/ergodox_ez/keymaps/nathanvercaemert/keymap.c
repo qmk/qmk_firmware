@@ -27,7 +27,7 @@
 #define NO_BSLS_ALT KC_EQUAL
 
 enum custom_keycodes {
-  RGB_SLD = EZ_SAFE_RANGE,
+  RGB_SLD = SAFE_RANGE,
   MS_WH_UP,
   MS_WH_DOWN,
   MS_WH_RIGHT,
@@ -53,15 +53,15 @@ static td_state_t td_state;
 // declare your tapdance functions:
 
 // function to determine the current tapdance state
-int cur_dance (qk_tap_dance_state_t *state);
+int cur_dance (tap_dance_state_t *state);
 
 // `finished` and `reset` functions for each tapdance keycode
-void ctrlto12_finished (qk_tap_dance_state_t *state, void *user_data);
-void ctrlto12_reset (qk_tap_dance_state_t *state, void *user_data);
-void altto11_finished (qk_tap_dance_state_t *state, void *user_data);
-void altto11_reset (qk_tap_dance_state_t *state, void *user_data);
-void shiftto13_finished (qk_tap_dance_state_t *state, void *user_data);
-void shiftto13_reset (qk_tap_dance_state_t *state, void *user_data);
+void ctrlto12_finished (tap_dance_state_t *state, void *user_data);
+void ctrlto12_reset (tap_dance_state_t *state, void *user_data);
+void altto11_finished (tap_dance_state_t *state, void *user_data);
+void altto11_reset (tap_dance_state_t *state, void *user_data);
+void shiftto13_finished (tap_dance_state_t *state, void *user_data);
+void shiftto13_reset (tap_dance_state_t *state, void *user_data);
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -257,7 +257,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 };
 
 // determine the tapdance state to return
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted && state->pressed && state->interrupting_keycode == KC_MS_BTN1) {return SINGLE_HOLD;}
     if (state->interrupted && state->pressed && state->interrupting_keycode == 22273) {return SINGLE_HOLD;}
@@ -277,7 +277,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
   else { return 2; } // any number higher than the maximum state value you return above
 }
 // /* Backup in case previous code is hard to piece together. */
-// int cur_dance (qk_tap_dance_state_t *state) {
+// int cur_dance (tap_dance_state_t *state) {
 //   if (state->count == 1) {
 //     if (state->interrupted || !state->pressed) { return SINGLE_TAP; }
 //     else { return SINGLE_HOLD; }
@@ -285,7 +285,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
 //   else { return 2; } // any number higher than the maximum state value you return above
 // }
 
-void ctrlto12_finished (qk_tap_dance_state_t *state, void *user_data) {
+void ctrlto12_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -304,7 +304,7 @@ void ctrlto12_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ctrlto12_reset (qk_tap_dance_state_t *state, void *user_data) {
+void ctrlto12_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       break;
@@ -321,7 +321,7 @@ void ctrlto12_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void shiftto13_finished (qk_tap_dance_state_t *state, void *user_data) {
+void shiftto13_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -340,7 +340,7 @@ void shiftto13_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void shiftto13_reset (qk_tap_dance_state_t *state, void *user_data) {
+void shiftto13_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       break;
@@ -357,7 +357,7 @@ void shiftto13_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void altto11_finished (qk_tap_dance_state_t *state, void *user_data) {
+void altto11_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -372,7 +372,7 @@ void altto11_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void altto11_reset (qk_tap_dance_state_t *state, void *user_data) {
+void altto11_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       break;
@@ -386,7 +386,7 @@ void altto11_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [CTRL_TO12] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctrlto12_finished, ctrlto12_reset),
   [SHIFT_TO13] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shiftto13_finished, shiftto13_reset),
   [ALT_TO11] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altto11_finished, altto11_reset),

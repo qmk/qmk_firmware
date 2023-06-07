@@ -2,34 +2,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-/* key matrix size */
-/* Rows are doubled up */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
-
-// wiring of each half
-#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2, B6 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D2
-
 /* Select hand configuration */
 #define MASTER_LEFT
 
-
-#define RGB_DI_PIN D4
 #define RGBLED_NUM 88
 #define RGBLED_SPLIT { 44, 44 }
 #define RGBLIGHT_SPLIT
-#define RGBLIGHT_LIMIT_VAL 120 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 
 #define RGB_MATRIX_LED_COUNT 88
 #define RGB_MATRIX_SPLIT { 44, 44 }

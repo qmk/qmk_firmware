@@ -1,0 +1,1044 @@
+{
+    "keycodes": {
+        "!reset!":0,
+
+        "0x7100": {
+            "group": "midi",
+            "key": "QK_MIDI_ON",
+            "aliases": [
+                "MI_ON"
+            ]
+        },
+        "0x7101": {
+            "group": "midi",
+            "key": "QK_MIDI_OFF",
+            "aliases": [
+                "MI_OFF"
+            ]
+        },
+        "0x7102": {
+            "group": "midi",
+            "key": "QK_MIDI_TOGGLE",
+            "aliases": [
+                "MI_TOGG"
+            ]
+        },
+        "0x7103": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_0",
+            "aliases": [
+                "MI_C"
+            ]
+        },
+        "0x7104": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_SHARP_0",
+            "aliases": [
+                "MI_Cs",
+                "MI_Db"
+            ]
+        },
+        "0x7105": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_0",
+            "aliases": [
+                "MI_D"
+            ]
+        },
+        "0x7106": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_SHARP_0",
+            "aliases": [
+                "MI_Ds",
+                "MI_Eb"
+            ]
+        },
+        "0x7107": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_E_0",
+            "aliases": [
+                "MI_E"
+            ]
+        },
+        "0x7108": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_0",
+            "aliases": [
+                "MI_F"
+            ]
+        },
+        "0x7109": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_SHARP_0",
+            "aliases": [
+                "MI_Fs",
+                "MI_Gb"
+            ]
+        },
+        "0x710A": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_0",
+            "aliases": [
+                "MI_G"
+            ]
+        },
+        "0x710B": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_SHARP_0",
+            "aliases": [
+                "MI_Gs"
+                "MI_Ab"
+            ]
+        },
+        "0x710C": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_0",
+            "aliases": [
+                "MI_A"
+            ]
+        },
+        "0x710D": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_SHARP_0",
+            "aliases": [
+                "MI_As"
+                "MI_Bb"
+            ]
+        },
+        "0x710E": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_B_0",
+            "aliases": [
+                "MI_B"
+            ]
+        },
+        "0x710F": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_1",
+            "aliases": [
+                "MI_C1"
+            ]
+        },
+        "0x7110": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_SHARP_1",
+            "aliases": [
+                "MI_Cs1",
+                "MI_Db1"
+            ]
+        },
+        "0x7111": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_1",
+            "aliases": [
+                "MI_D1"
+            ]
+        },
+        "0x7112": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_SHARP_1",
+            "aliases": [
+                "MI_Ds1",
+                "MI_Eb1"
+            ]
+        },
+        "0x7113": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_E_1",
+            "aliases": [
+                "MI_E1"
+            ]
+        },
+        "0x7114": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_1",
+            "aliases": [
+                "MI_F1"
+            ]
+        },
+        "0x7115": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_SHARP_1",
+            "aliases": [
+                "MI_Fs1",
+                "MI_Gb1"
+            ]
+        },
+        "0x7116": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_1",
+            "aliases": [
+                "MI_G1"
+            ]
+        },
+        "0x7117": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_SHARP_1",
+            "aliases": [
+                "MI_Gs1",
+                "MI_Ab1"
+            ]
+        },
+        "0x7118": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_1",
+            "aliases": [
+                "MI_A1"
+            ]
+        },
+        "0x7119": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_SHARP_1",
+            "aliases": [
+                "MI_As1",
+                "MI_Bb1"
+            ]
+        },
+        "0x711A": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_B_1",
+            "aliases": [
+                "MI_B1"
+            ]
+        },
+        "0x711B": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_2",
+            "aliases": [
+                "MI_C2"
+            ]
+        },
+        "0x711C": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_SHARP_2",
+            "aliases": [
+                "MI_Cs2",
+                "MI_Db2"
+            ]
+        },
+        "0x711D": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_2",
+            "aliases": [
+                "MI_D2"
+            ]
+        },
+        "0x711E": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_SHARP_2",
+            "aliases": [
+                "MI_Ds2",
+                "MI_Eb2"
+            ]
+        },
+        "0x711F": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_E_2",
+            "aliases": [
+                "MI_E2"
+            ]
+        },
+        "0x7120": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_2",
+            "aliases": [
+                "MI_F2"
+            ]
+        },
+        "0x7121": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_SHARP_2",
+            "aliases": [
+                "MI_Fs2",
+                "MI_Gb2"
+            ]
+        },
+        "0x7122": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_2",
+            "aliases": [
+                "MI_G2"
+            ]
+        },
+        "0x7123": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_SHARP_2",
+            "aliases": [
+                "MI_Gs2",
+                "MI_Ab2"
+            ]
+        },
+        "0x7124": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_2",
+            "aliases": [
+                "MI_A2"
+            ]
+        },
+        "0x7125": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_SHARP_2",
+            "aliases": [
+                "MI_As2",
+                "MI_Bb2"
+            ]
+        },
+        "0x7126": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_B_2",
+            "aliases": [
+                "MI_B2"
+            ]
+        },
+        "0x7127": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_3",
+            "aliases": [
+                "MI_C3"
+            ]
+        },
+        "0x7128": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_SHARP_3",
+            "aliases": [
+                "MI_Cs3",
+                "MI_Db3"
+            ]
+        },
+        "0x7129": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_3",
+            "aliases": [
+                "MI_D3"
+            ]
+        },
+        "0x712A": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_SHARP_3",
+            "aliases": [
+                "MI_Ds3",
+                "MI_Eb3"
+            ]
+        },
+        "0x712B": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_E_3",
+            "aliases": [
+                "MI_E3"
+            ]
+        },
+        "0x712C": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_3",
+            "aliases": [
+                "MI_F3"
+            ]
+        },
+        "0x712D": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_SHARP_3",
+            "aliases": [
+                "MI_Fs3",
+                "MI_Gb3"
+            ]
+        },
+        "0x712E": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_3",
+            "aliases": [
+                "MI_G3"
+            ]
+        },
+        "0x712F": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_SHARP_3",
+            "aliases": [
+                "MI_Gs3",
+                "MI_Ab3"
+            ]
+        },
+        "0x7130": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_3",
+            "aliases": [
+                "MI_A3"
+            ]
+        },
+        "0x7131": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_SHARP_3",
+            "aliases": [
+                "MI_As3",
+                "MI_Bb3"
+            ]
+        },
+        "0x7132": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_B_3",
+            "aliases": [
+                "MI_B3"
+            ]
+        },
+        "0x7133": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_4",
+            "aliases": [
+                "MI_C4"
+            ]
+        },
+        "0x7134": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_SHARP_4",
+            "aliases": [
+                "MI_Cs4",
+                "MI_Db4"
+            ]
+        },
+        "0x7135": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_4",
+            "aliases": [
+                "MI_D4"
+            ]
+        },
+        "0x7136": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_SHARP_4",
+            "aliases": [
+                "MI_Ds4",
+                "MI_Eb4"
+            ]
+        },
+        "0x7137": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_E_4",
+            "aliases": [
+                "MI_E4"
+            ]
+        },
+        "0x7138": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_4",
+            "aliases": [
+                "MI_F4"
+            ]
+        },
+        "0x7139": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_SHARP_4",
+            "aliases": [
+                "MI_Fs4",
+                "MI_Gb4"
+            ]
+        },
+        "0x713A": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_4",
+            "aliases": [
+                "MI_G4"
+            ]
+        },
+        "0x713B": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_SHARP_4",
+            "aliases": [
+                "MI_Gs4",
+                "MI_Ab4"
+            ]
+        },
+        "0x713C": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_4",
+            "aliases": [
+                "MI_A4"
+            ]
+        },
+        "0x713D": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_SHARP_4",
+            "aliases": [
+                "MI_As4",
+                "MI_Bb4"
+            ]
+        },
+        "0x713E": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_B_4",
+            "aliases": [
+                "MI_B4"
+            ]
+        },
+        "0x713F": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_5",
+            "aliases": [
+                "MI_C5"
+            ]
+        },
+        "0x7140": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_C_SHARP_5",
+            "aliases": [
+                "MI_Cs5",
+                "MI_Db5"
+            ]
+        },
+        "0x7141": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_5",
+            "aliases": [
+                "MI_D5"
+            ]
+        },
+        "0x7142": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_D_SHARP_5",
+            "aliases": [
+                "MI_Ds5",
+                "MI_Eb5"
+            ]
+        },
+        "0x7143": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_E_5",
+            "aliases": [
+                "MI_E5"
+            ]
+        },
+        "0x7144": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_5",
+            "aliases": [
+                "MI_F5"
+            ]
+        },
+        "0x7145": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_F_SHARP_5",
+            "aliases": [
+                "MI_Fs5",
+                "MI_Gb5"
+            ]
+        },
+        "0x7146": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_5",
+            "aliases": [
+                "MI_G5"
+            ]
+        },
+        "0x7147": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_G_SHARP_5",
+            "aliases": [
+                "MI_Gs5",
+                "MI_Ab5"
+            ]
+        },
+        "0x7148": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_5",
+            "aliases": [
+                "MI_A5"
+            ]
+        },
+        "0x7149": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_A_SHARP_5",
+            "aliases": [
+                "MI_As5",
+                "MI_Bb5"
+            ]
+        },
+        "0x714A": {
+            "group": "midi",
+            "key": "QK_MIDI_NOTE_B_5",
+            "aliases": [
+                "MI_B5"
+            ]
+        },
+        "0x714B": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_N2",
+            "aliases": [
+                "MI_OCN2"
+            ]
+        },
+        "0x714C": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_N1",
+            "aliases": [
+                "MI_OCN1"
+            ]
+        },
+        "0x714D": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_0",
+            "aliases": [
+                "MI_OC0"
+            ]
+        },
+        "0x714E": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_1",
+            "aliases": [
+                "MI_OC1"
+            ]
+        },
+        "0x714F": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_2",
+            "aliases": [
+                "MI_OC2"
+            ]
+        },
+        "0x7150": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_3",
+            "aliases": [
+                "MI_OC3"
+            ]
+        },
+        "0x7151": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_4",
+            "aliases": [
+                "MI_OC4"
+            ]
+        },
+        "0x7152": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_5",
+            "aliases": [
+                "MI_OC5"
+            ]
+        },
+        "0x7153": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_6",
+            "aliases": [
+                "MI_OC6"
+            ]
+        },
+        "0x7154": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_7",
+            "aliases": [
+                "MI_OC7"
+            ]
+        },
+        "0x7155": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_DOWN",
+            "aliases": [
+                "MI_OCTD"
+            ]
+        },
+        "0x7156": {
+            "group": "midi",
+            "key": "QK_MIDI_OCTAVE_UP",
+            "aliases": [
+                "MI_OCTU"
+            ]
+        },
+        "0x7157": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_N6",
+            "aliases": [
+                "MI_TRN6"
+            ]
+        },
+        "0x7158": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_N5",
+            "aliases": [
+                "MI_TRN5"
+            ]
+        },
+        "0x7159": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_N4",
+            "aliases": [
+                "MI_TRN4"
+            ]
+        },
+        "0x715A": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_N3",
+            "aliases": [
+                "MI_TRN3"
+            ]
+        },
+        "0x715B": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_N2",
+            "aliases": [
+                "MI_TRN2"
+            ]
+        },
+        "0x715C": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_N1",
+            "aliases": [
+                "MI_TRN1"
+            ]
+        },
+        "0x715D": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_0",
+            "aliases": [
+                "MI_TR0"
+            ]
+        },
+        "0x715E": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_1",
+            "aliases": [
+                "MI_TR1"
+            ]
+        },
+        "0x715F": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_2",
+            "aliases": [
+                "MI_TR2"
+            ]
+        },
+        "0x7160": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_3",
+            "aliases": [
+                "MI_TR3"
+            ]
+        },
+        "0x7161": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_4",
+            "aliases": [
+                "MI_TR4"
+            ]
+        },
+        "0x7162": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_5",
+            "aliases": [
+                "MI_TR5"
+            ]
+        },
+        "0x7163": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_6",
+            "aliases": [
+                "MI_TR6"
+            ]
+        },
+        "0x7164": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_DOWN",
+            "aliases": [
+                "MI_TRSD"
+            ]
+        },
+        "0x7165": {
+            "group": "midi",
+            "key": "QK_MIDI_TRANSPOSE_UP",
+            "aliases": [
+                "MI_TRSU"
+            ]
+        },
+        "0x7166": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_0",
+            "aliases": [
+                "MI_VL0"
+            ]
+        },
+        "0x7167": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_1",
+            "aliases": [
+                "MI_VL1"
+            ]
+        },
+        "0x7168": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_2",
+            "aliases": [
+                "MI_VL2"
+            ]
+        },
+        "0x7169": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_3",
+            "aliases": [
+                "MI_VL3"
+            ]
+        },
+        "0x716A": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_4",
+            "aliases": [
+                "MI_VL4"
+            ]
+        },
+        "0x716B": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_5",
+            "aliases": [
+                "MI_VL5"
+            ]
+        },
+        "0x716C": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_6",
+            "aliases": [
+                "MI_VL6"
+            ]
+        },
+        "0x716D": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_7",
+            "aliases": [
+                "MI_VL7"
+            ]
+        },
+        "0x716E": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_8",
+            "aliases": [
+                "MI_VL8"
+            ]
+        },
+        "0x716F": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_9",
+            "aliases": [
+                "MI_VL9"
+            ]
+        },
+        "0x7170": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_10",
+            "aliases": [
+                "MI_VL10"
+            ]
+        },
+        "0x7171": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_DOWN",
+            "aliases": [
+                "MI_VELD"
+            ]
+        },
+        "0x7172": {
+            "group": "midi",
+            "key": "QK_MIDI_VELOCITY_UP",
+            "aliases": [
+                "MI_VELU"
+            ]
+        },
+        "0x7173": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_1",
+            "aliases": [
+                "MI_CH1"
+            ]
+        },
+        "0x7174": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_2",
+            "aliases": [
+                "MI_CH2"
+            ]
+        },
+        "0x7175": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_3",
+            "aliases": [
+                "MI_CH3"
+            ]
+        },
+        "0x7176": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_4",
+            "aliases": [
+                "MI_CH4"
+            ]
+        },
+        "0x7177": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_5",
+            "aliases": [
+                "MI_CH5"
+            ]
+        },
+        "0x7178": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_6",
+            "aliases": [
+                "MI_CH6"
+            ]
+        },
+        "0x7179": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_7",
+            "aliases": [
+                "MI_CH7"
+            ]
+        },
+        "0x717A": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_8",
+            "aliases": [
+                "MI_CH8"
+            ]
+        },
+        "0x717B": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_9",
+            "aliases": [
+                "MI_CH9"
+            ]
+        },
+        "0x717C": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_10",
+            "aliases": [
+                "MI_CH10"
+            ]
+        },
+        "0x717D": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_11",
+            "aliases": [
+                "MI_CH11"
+            ]
+        },
+        "0x717E": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_12",
+            "aliases": [
+                "MI_CH12"
+            ]
+        },
+        "0x717F": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_13",
+            "aliases": [
+                "MI_CH13"
+            ]
+        },
+        "0x7180": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_14",
+            "aliases": [
+                "MI_CH14"
+            ]
+        },
+        "0x7181": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_15",
+            "aliases": [
+                "MI_CH15"
+            ]
+        },
+        "0x7182": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_16",
+            "aliases": [
+                "MI_CH16"
+            ]
+        },
+        "0x7183": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_DOWN",
+            "aliases": [
+                "MI_CHND"
+            ]
+        },
+        "0x7184": {
+            "group": "midi",
+            "key": "QK_MIDI_CHANNEL_UP",
+            "aliases": [
+                "MI_CHNU"
+            ]
+        },
+        "0x7185": {
+            "group": "midi",
+            "key": "QK_MIDI_ALL_NOTES_OFF",
+            "aliases": [
+                "MI_AOFF"
+            ]
+        },
+        "0x7186": {
+            "group": "midi",
+            "key": "QK_MIDI_SUSTAIN",
+            "aliases": [
+                "MI_SUST"
+            ]
+        },
+        "0x7187": {
+            "group": "midi",
+            "key": "QK_MIDI_PORTAMENTO",
+            "aliases": [
+                "MI_PORT"
+            ]
+        },
+        "0x7188": {
+            "group": "midi",
+            "key": "QK_MIDI_SOSTENUTO",
+            "aliases": [
+                "MI_SOST"
+            ]
+        },
+        "0x7189": {
+            "group": "midi",
+            "key": "QK_MIDI_SOFT",
+            "aliases": [
+                "MI_SOFT"
+            ]
+        },
+        "0x718A": {
+            "group": "midi",
+            "key": "QK_MIDI_LEGATO",
+            "aliases": [
+                "MI_LEG"
+            ]
+        },
+        "0x718B": {
+            "group": "midi",
+            "key": "QK_MIDI_MODULATION",
+            "aliases": [
+                "MI_MOD"
+            ]
+        },
+        "0x718C": {
+            "group": "midi",
+            "key": "QK_MIDI_MODULATION_SPEED_DOWN",
+            "aliases": [
+                "MI_MODD"
+            ]
+        },
+        "0x718D": {
+            "group": "midi",
+            "key": "QK_MIDI_MODULATION_SPEED_UP",
+            "aliases": [
+                "MI_MODU"
+            ]
+        },
+        "0x718E": {
+            "group": "midi",
+            "key": "QK_MIDI_PITCH_BEND_DOWN",
+            "aliases": [
+                "MI_BNDD"
+            ]
+        },
+        "0x718F": {
+            "group": "midi",
+            "key": "QK_MIDI_PITCH_BEND_UP",
+            "aliases": [
+                "MI_BNDU"
+            ]
+        }
+    }
+}

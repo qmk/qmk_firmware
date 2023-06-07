@@ -22,8 +22,8 @@
 #    error "You need to set HAL_USE_ADC to TRUE in your halconf.h to use the ADC."
 #endif
 
-#if !STM32_ADC_USE_ADC1 && !STM32_ADC_USE_ADC2 && !STM32_ADC_USE_ADC3 && !STM32_ADC_USE_ADC4 && !WB32_ADC_USE_ADC1
-#    error "You need to set one of the 'STM32_ADC_USE_ADCx' settings to TRUE in your mcuconf.h to use the ADC."
+#if !RP_ADC_USE_ADC1 && !STM32_ADC_USE_ADC1 && !STM32_ADC_USE_ADC2 && !STM32_ADC_USE_ADC3 && !STM32_ADC_USE_ADC4 && !WB32_ADC_USE_ADC1
+#    error "You need to set one of the 'xxx_ADC_USE_ADCx' settings to TRUE in your mcuconf.h to use the ADC."
 #endif
 
 #if STM32_ADC_DUAL_MODE
@@ -42,7 +42,7 @@
 #endif
 
 // BODGE to make v2 look like v1,3 and 4
-#ifdef USE_ADCV2
+#if defined(USE_ADCV2) || defined(RP2040)
 #    if !defined(ADC_SMPR_SMP_1P5) && defined(ADC_SAMPLE_3)
 #        define ADC_SMPR_SMP_1P5 ADC_SAMPLE_3
 #        define ADC_SMPR_SMP_7P5 ADC_SAMPLE_15
@@ -74,7 +74,7 @@
 
 /* User configurable ADC options */
 #ifndef ADC_COUNT
-#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F4XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx)
+#    if defined(RP2040) || defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F4XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx)
 #        define ADC_COUNT 1
 #    elif defined(STM32F3XX)
 #        define ADC_COUNT 4
@@ -126,6 +126,8 @@ static ADCConversionGroup adcConversionGroup = {
 #    endif
     .smpr2 = ADC_SMPR2_SMP_AN0(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN1(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN2(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN3(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN4(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN5(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN6(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN7(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN8(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN9(ADC_SAMPLING_RATE),
     .smpr1 = ADC_SMPR1_SMP_AN10(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN11(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN12(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN13(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN14(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN15(ADC_SAMPLING_RATE),
+#elif defined(RP2040)
+// RP2040 does not have any extra config here
 #else
     .cfgr = ADC_CFGR_CONT | ADC_RESOLUTION,
     .smpr = {ADC_SMPR1_SMP_AN0(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN1(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN2(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN3(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN4(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN5(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN6(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN7(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN8(ADC_SAMPLING_RATE) | ADC_SMPR1_SMP_AN9(ADC_SAMPLING_RATE), ADC_SMPR2_SMP_AN10(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN11(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN12(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN13(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN14(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN15(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN16(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN17(ADC_SAMPLING_RATE) | ADC_SMPR2_SMP_AN18(ADC_SAMPLING_RATE)},
@@ -136,22 +138,22 @@ static ADCConversionGroup adcConversionGroup = {
 __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
     switch (pin) {
 #if defined(STM32F0XX)
-        case A0:  return TO_MUX( ADC_CHSELR_CHSEL0,  0 );
-        case A1:  return TO_MUX( ADC_CHSELR_CHSEL1,  0 );
-        case A2:  return TO_MUX( ADC_CHSELR_CHSEL2,  0 );
-        case A3:  return TO_MUX( ADC_CHSELR_CHSEL3,  0 );
-        case A4:  return TO_MUX( ADC_CHSELR_CHSEL4,  0 );
-        case A5:  return TO_MUX( ADC_CHSELR_CHSEL5,  0 );
-        case A6:  return TO_MUX( ADC_CHSELR_CHSEL6,  0 );
-        case A7:  return TO_MUX( ADC_CHSELR_CHSEL7,  0 );
-        case B0:  return TO_MUX( ADC_CHSELR_CHSEL8,  0 );
-        case B1:  return TO_MUX( ADC_CHSELR_CHSEL9,  0 );
-        case C0:  return TO_MUX( ADC_CHSELR_CHSEL10, 0 );
-        case C1:  return TO_MUX( ADC_CHSELR_CHSEL11, 0 );
-        case C2:  return TO_MUX( ADC_CHSELR_CHSEL12, 0 );
-        case C3:  return TO_MUX( ADC_CHSELR_CHSEL13, 0 );
-        case C4:  return TO_MUX( ADC_CHSELR_CHSEL14, 0 );
-        case C5:  return TO_MUX( ADC_CHSELR_CHSEL15, 0 );
+        case A0:  return TO_MUX( 0,  0 );
+        case A1:  return TO_MUX( 1,  0 );
+        case A2:  return TO_MUX( 2,  0 );
+        case A3:  return TO_MUX( 3,  0 );
+        case A4:  return TO_MUX( 4,  0 );
+        case A5:  return TO_MUX( 5,  0 );
+        case A6:  return TO_MUX( 6,  0 );
+        case A7:  return TO_MUX( 7,  0 );
+        case B0:  return TO_MUX( 8,  0 );
+        case B1:  return TO_MUX( 9,  0 );
+        case C0:  return TO_MUX( 10, 0 );
+        case C1:  return TO_MUX( 11, 0 );
+        case C2:  return TO_MUX( 12, 0 );
+        case C3:  return TO_MUX( 13, 0 );
+        case C4:  return TO_MUX( 14, 0 );
+        case C5:  return TO_MUX( 15, 0 );
 #elif defined(STM32F3XX)
         case A0:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
         case A1:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
@@ -238,6 +240,11 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
         case C5:  return TO_MUX( ADC_CHANNEL_IN15, 0 );
         // STM32F103x[C-G] in 144-pin packages also have analog inputs on F6...F10, but they are on ADC3, and the
         // ChibiOS ADC driver for STM32F1xx currently supports only ADC1, therefore these pins are not usable.
+#elif defined(RP2040)
+        case 26U: return TO_MUX(0, 0);
+        case 27U: return TO_MUX(1, 0);
+        case 28U: return TO_MUX(2, 0);
+        case 29U: return TO_MUX(3, 0);
 #endif
     }
 
@@ -248,7 +255,7 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
 
 static inline ADCDriver* intToADCDriver(uint8_t adcInt) {
     switch (adcInt) {
-#if STM32_ADC_USE_ADC1 || WB32_ADC_USE_ADC1
+#if RP_ADC_USE_ADC1 || STM32_ADC_USE_ADC1 || WB32_ADC_USE_ADC1
         case 0:
             return &ADCD1;
 #endif
@@ -296,6 +303,8 @@ int16_t adc_read(adc_mux mux) {
     adcConversionGroup.chselr = 1 << mux.input; /*no macro to convert N to ADC_CHSELR_CHSEL1*/
 #elif defined(USE_ADCV2)
     adcConversionGroup.sqr3 = ADC_SQR3_SQ1_N(mux.input);
+#elif defined(RP2040)
+    adcConversionGroup.channel_mask = 1 << mux.input;
 #else
     adcConversionGroup.sqr[0] = ADC_SQR1_SQ1_N(mux.input);
 #endif
@@ -310,7 +319,7 @@ int16_t adc_read(adc_mux mux) {
         return 0;
     }
 
-#ifdef USE_ADCV2
+#if defined(USE_ADCV2) || defined(RP2040)
     // fake 12-bit -> N-bit scale
     return (*sampleBuffer) >> (12 - ADC_RESOLUTION);
 #else

@@ -1,8 +1,8 @@
 #include QMK_KEYBOARD_H
 
 enum encoder_names {
-  LEFT_HALF_ENC = 0,
-  RIGHT_HALF_ENC1 = 2,
+  LEFT_HALF_ENC,
+  RIGHT_HALF_ENC1,
   RIGHT_HALF_ENC2,
 };
 

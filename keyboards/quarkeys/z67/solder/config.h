@@ -13,21 +13,11 @@
 */
 
 #pragma once
-#include "config_common.h"
 
-#define DIODE_DIRECTION COL2ROW
-
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, F7 }
-#define MATRIX_COL_PINS { C7, F6, F5, F4, F1, E6, D0, D1, D2, D3, D4, D5, D6, D7, B5, B4 }
-
-#define DEBOUNCE 5
-
-#define RGB_DI_PIN F0
 #define RGBLED_NUM 18
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 180
 
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

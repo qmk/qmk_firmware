@@ -15,7 +15,3 @@ VPATH += $(TMK_PATH)/$(CHIBIOS_DIR)/lufa_utils
 
 OPT_DEFS += -DFIXED_CONTROL_ENDPOINT_SIZE=64
 OPT_DEFS += -DFIXED_NUM_CONFIGURATIONS=1
-
-ifeq ($(strip $(MIDI_ENABLE)), yes)
-  include $(TMK_PATH)/protocol/midi.mk
-endif

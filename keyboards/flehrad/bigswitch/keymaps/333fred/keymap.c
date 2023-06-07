@@ -69,7 +69,7 @@ void dance_cycle(bool override_timer) {
   }
 }
 
-void dance_finished(qk_tap_dance_state_t *state, void* user_data) {
+void dance_finished(tap_dance_state_t *state, void* user_data) {
   // Determine the current state
   switch (state->count)
   {
@@ -127,12 +127,12 @@ void dance_finished(qk_tap_dance_state_t *state, void* user_data) {
   }
 }
 
-void dance_reset(qk_tap_dance_state_t *state, void* user_data)
+void dance_reset(tap_dance_state_t *state, void* user_data)
 {
   tap_dance_active = false;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_KEY] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_finished, dance_reset)
 };
 

@@ -27,6 +27,11 @@ typedef union {
 
 user_config_t user_config;
 
+enum custom_keycodes {
+    USER00 = QK_KB_0,
+    USER01
+};
+
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -100,33 +105,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef ENCODER_ENABLE
-#define ENCODERS 1
-static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS] = {{3, 5}};
-static keypos_t encoder_ccw[ENCODERS] = {{4, 5}};
-
+static uint8_t  encoder_state[NUM_ENCODERS] = {0};
+static keypos_t encoder_cw[NUM_ENCODERS] = {{3, 5}};
+static keypos_t encoder_ccw[NUM_ENCODERS] = {{4, 5}};
 
 void encoder_action_unregister(void) {
-#ifdef ENCODERS
-    for (uint8_t index = 0; index < ENCODERS; ++index) {
+    for (uint8_t index = 0; index < NUM_ENCODERS; ++index) {
         if (encoder_state[index]) {
             keyevent_t encoder_event = (keyevent_t) {
                 .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
                 .pressed = false,
-                .time = (timer_read() | 1)
+                .time = timer_read(),
+                .type = KEY_EVENT
             };
             encoder_state[index] = 0;
             action_exec(encoder_event);
         }
     }
-#endif
 }
 
 void encoder_action_register(uint8_t index, bool clockwise) {
     keyevent_t encoder_event = (keyevent_t) {
         .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
         .pressed = true,
-        .time = (timer_read() | 1)
+        .time = timer_read(),
+        .type = KEY_EVENT
     };
     encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
     action_exec(encoder_event);

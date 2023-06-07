@@ -13,7 +13,7 @@ enum custom_keycodes {
     QMKBEST = SAFE_RANGE,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [BEER]  = 0x1F37A,  // 🍺
     [BEERS] = 0x1F37B   // 🍻
 };

@@ -62,6 +62,7 @@ include $(PLATFORM_PATH)/common.mk
 include $(TMK_PATH)/protocol.mk
 include $(QUANTUM_PATH)/debounce/tests/rules.mk
 include $(QUANTUM_PATH)/encoder/tests/rules.mk
+include $(QUANTUM_PATH)/os_detection/tests/rules.mk
 include $(QUANTUM_PATH)/sequencer/tests/rules.mk
 include $(QUANTUM_PATH)/wear_leveling/tests/rules.mk
 include $(QUANTUM_PATH)/logging/print.mk
@@ -73,6 +74,10 @@ endif
 $(TEST)_SRC += \
 	tests/test_common/main.cpp \
 	$(QUANTUM_PATH)/logging/print.c
+
+ifneq ($(strip $(INTROSPECTION_KEYMAP_C)),)
+$(TEST)_DEFS += -DINTROSPECTION_KEYMAP_C=\"$(strip $(INTROSPECTION_KEYMAP_C))\"
+endif
 
 $(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)
 $(TEST_OBJ)/$(TEST)_INC := $($(TEST)_INC) $(VPATH) $(GTEST_INC)

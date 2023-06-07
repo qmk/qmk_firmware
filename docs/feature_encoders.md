@@ -81,7 +81,7 @@ Your `keymap.c` will then need an encoder mapping defined (for four layers and t
 
 ```c
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [_LOWER] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),           ENCODER_CCW_CW(RGB_SAD, RGB_SAI)  },
     [_RAISE] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),           ENCODER_CCW_CW(RGB_SPD, RGB_SPI)  },
@@ -102,9 +102,9 @@ Using encoder mapping pumps events through the normal QMK keycode processing pip
 
 ## Callbacks
 
-When not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
+?> [**Default Behaviour**](https://github.com/qmk/qmk_firmware/blob/master/quantum/encoder.c#L79-#L98): all encoders installed will function as volume up (`KC_VOLU`) on clockwise rotation and volume down (`KC_VOLD`) on counter-clockwise rotation. If you do not wish to override this, no further configuration is necessary.
 
-?> Those who are adding new keyboard support where encoders are enabled at the keyboard level should include basic encoder functionality at the keyboard level (`<keyboard>.c`) using the `encoder_update_kb()` function, that way it works for QMK Configuator users and exists in general.
+If you would like the alter the default behaviour, and are not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
 
 ```c
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -113,9 +113,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     if (index == 0) { /* First encoder */
         if (clockwise) {
-            tap_code_delay(KC_VOLU, 10);
+            tap_code(KC_PGDN);
         } else {
-            tap_code_delay(KC_VOLD, 10);
+            tap_code(KC_PGUP);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
@@ -134,9 +134,9 @@ or `keymap.c`:
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
-            tap_code_delay(KC_VOLU, 10);
+            tap_code(KC_PGDN);
         } else {
-            tap_code_delay(KC_VOLD, 10);
+            tap_code(KC_PGUP);
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
@@ -149,7 +149,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 ```
 
-!> If you return `true` in the keymap level `_user` function, it will allow the keyboard level encoder code to run on top of your own. Returning `false` will override the keyboard level function, if setup correctly. This is generally the safest option to avoid confusion.
+!> If you return `true` in the keymap level `_user` function, it will allow the keyboard/core level encoder code to run on top of your own. Returning `false` will override the keyboard level function, if setup correctly. This is generally the safest option to avoid confusion.
 
 ## Hardware
 

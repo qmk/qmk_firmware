@@ -1,5 +1,5 @@
 // Copyright 2021 Paul Cotter (@gr1mr3aver)
-// Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2021-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp_internal.h"
@@ -24,7 +24,7 @@ tft_panel_dc_reset_painter_device_t st7789_drivers[ST7789_NUM_DEVICES] = {0};
 
 #ifndef ST7789_NO_AUTOMATIC_OFFSETS
 static inline void st7789_automatic_viewport_offsets(painter_device_t device, painter_rotation_t rotation) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
 
     // clang-format off
     const struct {
@@ -81,7 +81,7 @@ __attribute__((weak)) bool qp_st7789_init(painter_device_t device, painter_rotat
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver vtable
 
-const struct tft_panel_dc_reset_painter_driver_vtable_t st7789_driver_vtable = {
+const tft_panel_dc_reset_painter_driver_vtable_t st7789_driver_vtable = {
     .base =
         {
             .init            = qp_st7789_init,
@@ -92,6 +92,7 @@ const struct tft_panel_dc_reset_painter_driver_vtable_t st7789_driver_vtable = {
             .viewport        = qp_tft_panel_viewport,
             .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
             .append_pixels   = qp_tft_panel_append_pixels_rgb565,
+            .append_pixdata  = qp_tft_panel_append_pixdata,
         },
     .num_window_bytes   = 2,
     .swap_window_coords = false,
@@ -115,8 +116,8 @@ painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_
     for (uint32_t i = 0; i < ST7789_NUM_DEVICES; ++i) {
         tft_panel_dc_reset_painter_device_t *driver = &st7789_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&st7789_driver_vtable;
-            driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
+            driver->base.driver_vtable         = (const painter_driver_vtable_t *)&st7789_driver_vtable;
+            driver->base.comms_vtable          = (const painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
             driver->base.rotation              = QP_ROTATION_0;
@@ -132,6 +133,12 @@ painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_
             driver->spi_dc_reset_config.spi_config.mode            = spi_mode;
             driver->spi_dc_reset_config.dc_pin                     = dc_pin;
             driver->spi_dc_reset_config.reset_pin                  = reset_pin;
+
+            if (!qp_internal_register_device((painter_device_t)driver)) {
+                memset(driver, 0, sizeof(tft_panel_dc_reset_painter_device_t));
+                return NULL;
+            }
+
             return (painter_device_t)driver;
         }
     }

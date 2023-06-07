@@ -15,20 +15,7 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 8
-#define MATRIX_ROW_PINS { F0, F1, F4 }
-#define MATRIX_COL_PINS { C7, C6, B6, B5, B4, D7, D6, D4 }
-#define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5
-
-#define BACKLIGHT_PIN B7
-#define BACKLIGHT_LEVELS 5
-
 #ifdef RGB_MATRIX_ENABLE
-#define RGB_DI_PIN D5
 #define RGB_MATRIX_LED_COUNT 31
 #define RGB_MATRIX_KEYPRESSES
 #define ENABLE_RGB_MATRIX_BREATHING

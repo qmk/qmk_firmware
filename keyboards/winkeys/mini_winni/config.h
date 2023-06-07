@@ -18,19 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
-
-/* key matrix pins */
-#define DIRECT_PINS { { F4, F5, B4, D7 }, { F6, F7, B6, B5 } }
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-#define RGB_DI_PIN E6
 #define RGBLED_NUM 4
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

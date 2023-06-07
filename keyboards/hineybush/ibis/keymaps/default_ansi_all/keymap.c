@@ -4,13 +4,6 @@
 #include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-    k00, k10, k01, k11, k02, k12, k03, k13, k04, k14, k05, k15, k06, k16, k17,   k37,     k08, k18, k09, k19, \
-    k20, k30, k21, k31, k22, k32, k23, k33, k24, k34, k25, k35, k26, k36,        k57,     k28, k38, k29, k39, \
-    k40, k50, k41, k51, k42, k52, k43, k53, k44, k54, k45, k55,      k56,                 k48, k58, k49, k59, \
-    k60,      k61, k71, k62, k72, k63, k73, k64, k74, k65, k75, k66, k76,        k77,     k68, k78, k69, k79, \
-    k80, k90, k81,                k83,                k85, k95, k86,        k96, k97, k88,     k98, k89, k99  \ */
-
     [0] = LAYOUT_ansi_all(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_GRV,  KC_BSPC,    KC_PGUP,    KC_NUM,  KC_PSLS, KC_PAST, KC_PAUS,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,             KC_PGDN,    KC_P7,   KC_P8,   KC_P9,   KC_PMNS,

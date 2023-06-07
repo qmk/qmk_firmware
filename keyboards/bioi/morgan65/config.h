@@ -17,38 +17,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *         ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-
-#define MATRIX_ROW_PINS { E6, C6, F4, B2, D4 }
-#define MATRIX_COL_PINS { F5, F6, F7, C7, B0, B7, B5, D5, B4, D7, D6, D1, D0, B3 }
-
-/* Backlight Setup */
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 12
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 /* RGB Underglow */
-#define RGB_DI_PIN B1
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

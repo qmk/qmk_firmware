@@ -13,13 +13,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined(PRIYADI_PROMETHIUM)
-  #include "promethium.h"
-#elif defined(PRIYADI_PLANCK)
-  #include "planck.h"
-#else
-  #error "no keyboard defined"
-#endif
+#include QMK_KEYBOARD_H
 
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -259,7 +253,7 @@ enum unicode_name {
   PLMIN,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [GRIN] = 0x1F600,
   [TJOY] = 0x1F602,
   [SMILE] = 0x1F601,
@@ -1275,7 +1269,7 @@ void set_output_user(uint8_t output) {
 #endif
 }
 
-void matrix_init_user() {
+void matrix_init_user(void) {
   wait_ms(500); // give time for usb to initialize
 
   set_unicode_input_mode(UNICODE_MODE_LINUX);
@@ -1295,7 +1289,7 @@ void matrix_init_user() {
 #endif
 }
 
-void turn_off_capslock() {
+void turn_off_capslock(void) {
   if (capslock) {
     register_code(KC_CAPS);
     unregister_code(KC_CAPS);
@@ -1326,7 +1320,7 @@ void turn_off_capslock() {
 #endif
 
 #ifdef PS2_MOUSE_ENABLE
-  void ps2_mouse_init_user() {
+  void ps2_mouse_init_user(void) {
       uint8_t rcv;
 
       // set TrackPoint sensitivity

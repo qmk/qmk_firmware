@@ -16,14 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-#define FORCE_NKRO
-
-
-#define RGB_DI_PIN B8
 #define DRIVER_LED_TOTAL 34
 #define RGBLED_NUM 34
 

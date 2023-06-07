@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [1] =  { ENCODER_CCW_CW(KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP) },
     [2] =  { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) },
@@ -62,7 +62,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 	static void set_rgb_caps_leds_off(void);
 	static void set_rgb_scroll_leds_off(void);
 
-	static void set_rgb_caps_leds_on() {
+	static void set_rgb_caps_leds_on(void) {
 		// Set alpha and capslock to red
 
 		rgb_matrix_set_color( 3, 255, 0, 0);	// Caps
@@ -97,7 +97,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 		rgb_matrix_set_color(43, 255, 0, 0);	// M
 	}
 
-	static void set_rgb_caps_leds_off() {
+	static void set_rgb_caps_leds_off(void) {
 		// Set alpha and capslock to black
 
 		rgb_matrix_set_color( 3, 0, 0, 0);	// Caps
@@ -132,11 +132,11 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 		rgb_matrix_set_color(43, 0, 0, 0);	// M
 	}
 
-	static void set_rgb_scroll_leds_on() {
+	static void set_rgb_scroll_leds_on(void) {
 		rgb_matrix_set_color(72, 255, 255, 255); // Under Rotary (HOME)
 	}
 
-	static void set_rgb_scroll_leds_off() {
+	static void set_rgb_scroll_leds_off(void) {
 		rgb_matrix_set_color(72, 0, 0, 0); // Under Rotary (HOME)
 	}
 

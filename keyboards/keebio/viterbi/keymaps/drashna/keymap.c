@@ -20,7 +20,7 @@
 #define TT_MDIA TT(_MEDIA)
 
 // enum more_custom_keycodes {
-//  KC_P00 = NEW_SAFE_RANGE
+//  KC_P00 = USER_SAFE_RANGE
 //};
 
 // clang-format off

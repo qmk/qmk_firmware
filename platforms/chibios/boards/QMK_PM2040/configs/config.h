@@ -4,7 +4,7 @@
 #pragma once
 
 #ifndef I2C_DRIVER
-#    define I2C_DRIVER I2CD2
+#    define I2C_DRIVER I2CD1
 #endif
 #ifndef I2C1_SDA_PIN
 #    define I2C1_SDA_PIN D1

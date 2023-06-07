@@ -2,7 +2,7 @@
 
 // Tap dance function for enable swedish characters on first layer. Unregister to not let tap bleed over to next keypress.
 // Tap dance 1
-void dance_1_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_1_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         tap_code(KC_SCLN);
     } else {
@@ -10,7 +10,7 @@ void dance_1_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_1_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_1_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         unregister_code(KC_SCLN);
     } else {
@@ -19,7 +19,7 @@ void dance_1_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap dance 2
-void dance_2_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_2_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         tap_code(KC_QUOT);
     } else {
@@ -27,7 +27,7 @@ void dance_2_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_2_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_2_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         unregister_code(KC_QUOT);
     } else {
@@ -36,7 +36,7 @@ void dance_2_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap dance 3
-void dance_3_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_3_finished(tap_dance_state_t *state, void *user_data) {
     // if (state->count == 2)
     if (state->count == 2) {
         tap_code(KC_SLSH);
@@ -45,7 +45,7 @@ void dance_3_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_3_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_3_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         unregister_code(KC_SLSH);
     } else {
@@ -54,7 +54,7 @@ void dance_3_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap dance 4
-void dance_4_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_4_finished(tap_dance_state_t *state, void *user_data) {
     // if (state->count == 2)
     if (state->count == 2) {
         tap_code(KC_DOT);
@@ -63,7 +63,7 @@ void dance_4_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_4_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_4_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         unregister_code(KC_DOT);
     } else {
@@ -72,7 +72,7 @@ void dance_4_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap dance 5
-void dance_5_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_5_finished(tap_dance_state_t *state, void *user_data) {
     // if (state->count == 2)
     if (state->count == 2) {
         tap_code(KC_DOT);
@@ -81,7 +81,7 @@ void dance_5_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_5_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_5_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 2) {
         unregister_code(KC_DOT);
     } else {
@@ -90,7 +90,7 @@ void dance_5_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // simple tap dance
     [TD1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_1_finished, dance_1_reset),
 

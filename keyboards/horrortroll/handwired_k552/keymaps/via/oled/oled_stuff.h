@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
  */
 
 // OLED animation
-#include "lib/bongocat.c"
-#include "lib/galaxy.c"
+#include "lib/bongocat.h"
+#include "lib/galaxy.h"
 #include "lib/wave.c"
 
 #ifdef OLED_ENABLE

@@ -15,7 +15,6 @@
  * this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "config_common.h"
 
 // QMK configuration /////////
 #define TAPPING_TERM 400

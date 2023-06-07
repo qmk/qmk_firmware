@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_all(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  KC_DEL,     KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, URGB_K,  RGB_HUI, RGB_HUD, RGB_SAI,  RGB_SAD, KC_TRNS, KC_TRNS, KC_TRNS, LOCK_GUI, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,
+        KC_TRNS, URGB_K,  RGB_HUI, RGB_HUD, RGB_SAI,  RGB_SAD, KC_TRNS, KC_TRNS, KC_TRNS, GUI_TOG, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,
         KC_TRNS,          RGB_TOG, RGB_MOD, RGB_RMOD, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,  KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
     [2] = LAYOUT_all(
@@ -43,20 +43,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS)
 };
 #ifdef ENCODER_ENABLE
-keyevent_t encoder1_ccw = {.key = (keypos_t){.row = 4, .col = 4}, .pressed = false};
+keyevent_t encoder1_ccw = {.key = (keypos_t){.row = 4, .col = 4}, .pressed = false, .type = KEY_EVENT};
 
-keyevent_t encoder1_cw = {.key = (keypos_t){.row = 4, .col = 6}, .pressed = false};
+keyevent_t encoder1_cw = {.key = (keypos_t){.row = 4, .col = 6}, .pressed = false, .type = KEY_EVENT};
 
 void matrix_scan_user(void) {
-    if (IS_PRESSED(encoder1_ccw)) {
+    if (encoder1_ccw.pressed) {
         encoder1_ccw.pressed = false;
-        encoder1_ccw.time    = (timer_read() | 1);
+        encoder1_ccw.time    = timer_read();
         action_exec(encoder1_ccw);
     }
 
-    if (IS_PRESSED(encoder1_cw)) {
+    if (encoder1_cw.pressed) {
         encoder1_cw.pressed = false;
-        encoder1_cw.time    = (timer_read() | 1);
+        encoder1_cw.time    = timer_read();
         action_exec(encoder1_cw);
     }
 }
@@ -64,11 +64,11 @@ void matrix_scan_user(void) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         encoder1_cw.pressed = true;
-        encoder1_cw.time    = (timer_read() | 1);
+        encoder1_cw.time    = timer_read();
         action_exec(encoder1_cw);
     } else {
         encoder1_ccw.pressed = true;
-        encoder1_ccw.time    = (timer_read() | 1);
+        encoder1_ccw.time    = timer_read();
         action_exec(encoder1_ccw);
     }
     return true;
