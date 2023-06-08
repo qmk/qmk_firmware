@@ -86,6 +86,7 @@
 
 
     "ws2812": {
+        "driver": "pwm",
         "pin": "B4"
     },
     "rgb_matrix":{
