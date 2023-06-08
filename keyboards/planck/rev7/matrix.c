@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
 #include "gpio.h"
 #include "hal_pal.h"
 #include "hal_pal_lld.h"
