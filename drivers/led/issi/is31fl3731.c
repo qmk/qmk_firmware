@@ -184,6 +184,9 @@ void IS31FL3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
         memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         // Subtract 0x24 to get the second index of g_pwm_buffer
+        if (g_pwm_buffer[led.driver][led.r - 0x24] == red && g_pwm_buffer[led.driver][led.g - 0x24] == green && g_pwm_buffer[led.driver][led.b - 0x24] == blue) {
+            return;
+        }
         g_pwm_buffer[led.driver][led.r - 0x24]   = red;
         g_pwm_buffer[led.driver][led.g - 0x24]   = green;
         g_pwm_buffer[led.driver][led.b - 0x24]   = blue;
