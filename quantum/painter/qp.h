@@ -176,6 +176,41 @@ bool qp_clear(painter_device_t device);
 bool qp_flush(painter_device_t device);
 
 /**
+ * Retrieves the width of the display.
+ *
+ * @param device[in] the handle of the device to control
+ */
+uint16_t qp_get_width(painter_device_t device);
+
+/**
+ * Retrieves the height of the display.
+ *
+ * @param device[in] the handle of the device to control
+ */
+uint16_t qp_get_height(painter_device_t device);
+
+/**
+ * Retrieves the rotation of the display.
+ *
+ * @param device[in] the handle of the device to control
+ */
+painter_rotation_t qp_get_rotation(painter_device_t device);
+
+/**
+ * Retrieves the x-offset of the display.
+ *
+ * @param device[in] the handle of the device to control
+ */
+uint16_t qp_get_offset_x(painter_device_t device);
+
+/**
+ * Retrieves the y-offset of the display.
+ *
+ * @param device[in] the handle of the device to control
+ */
+uint16_t qp_get_offset_y(painter_device_t device);
+
+/**
  * Retrieves the size, rotation, and offsets for the display.
  *
  * @note Any arguments of NULL will be ignored.

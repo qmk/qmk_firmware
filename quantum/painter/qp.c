@@ -126,44 +126,124 @@ bool qp_flush(painter_device_t device) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Quantum Painter External API: qp_get_geometry
+// Quantum Painter External API: qp_get_*
 
-void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y) {
-    qp_dprintf("qp_geometry: entry\n");
+uint16_t qp_get_width(painter_device_t device) {
+    qp_dprintf("qp_get_width: entry\n");
     painter_driver_t *driver = (painter_driver_t *)device;
 
+    if (!driver || !driver->validate_ok) {
+        qp_dprintf("qp_get_width: fail (validation_ok == false)\n");
+        return 0;
+    }
+
+    uint16_t width;
     switch (driver->rotation) {
         default:
         case QP_ROTATION_0:
         case QP_ROTATION_180:
-            if (width) {
-                *width = driver->panel_width;
-            }
-            if (height) {
-                *height = driver->panel_height;
-            }
-            break;
+            width = driver->panel_width;
+
         case QP_ROTATION_90:
         case QP_ROTATION_270:
-            if (width) {
-                *width = driver->panel_height;
-            }
-            if (height) {
-                *height = driver->panel_width;
-            }
-            break;
+            width = driver->panel_height;
+    }
+
+    qp_dprintf("qp_get_width: ok\n");
+    return width;
+}
+
+uint16_t qp_get_height(painter_device_t device) {
+    qp_dprintf("qp_get_height: entry\n");
+    painter_driver_t *driver = (painter_driver_t *)device;
+
+    if (!driver || !driver->validate_ok) {
+        qp_dprintf("qp_get_height: fail (validation_ok == false)\n");
+        return 0;
+    }
+
+    uint16_t height;
+    switch (driver->rotation) {
+        default:
+        case QP_ROTATION_0:
+        case QP_ROTATION_180:
+            height = driver->panel_height;
+
+        case QP_ROTATION_90:
+        case QP_ROTATION_270:
+            height = driver->panel_width;
+    }
+
+    qp_dprintf("qp_get_height: ok\n");
+    return height;
+}
+
+painter_rotation_t qp_get_rotation(painter_device_t device) {
+    qp_dprintf("qp_get_rotation: entry\n");
+    painter_driver_t *driver = (painter_driver_t *)device;
+
+    if (!driver || !driver->validate_ok) {
+        qp_dprintf("qp_get_rotation: fail (validation_ok == false)\n");
+        return QP_ROTATION_0;
+    }
+
+    painter_rotation_t rotation = driver->rotation;
+
+    qp_dprintf("qp_get_rotation: ok\n");
+    return rotation;
+}
+
+uint16_t qp_get_offset_x(painter_device_t device) {
+    qp_dprintf("qp_get_offset_x: entry\n");
+    painter_driver_t *driver = (painter_driver_t *)device;
+
+    if (!driver || !driver->validate_ok) {
+        qp_dprintf("qp_get_offset_x: fail (validation_ok == false)\n");
+        return 0;
+    }
+
+    painter_rotation_t offset_x = driver->offset_x;
+
+    qp_dprintf("qp_get_offset_x: ok\n");
+    return offset_x;
+}
+
+uint16_t qp_get_offset_y(painter_device_t device) {
+    qp_dprintf("qp_get_offset_y: entry\n");
+    painter_driver_t *driver = (painter_driver_t *)device;
+
+    painter_rotation_t offset_y = driver->offset_y;
+
+    if (!driver || !driver->validate_ok) {
+        qp_dprintf("qp_get_offset_y: fail (validation_ok == false)\n");
+        return 0;
+    }
+
+    qp_dprintf("qp_get_offset_y: ok\n");
+    return offset_y;
+}
+
+void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y) {
+    qp_dprintf("qp_geometry: entry\n");
+
+    if (width) {
+        *width = qp_get_width(device);
+    }
+
+    if (height) {
+        *height = qp_get_height(device);
     }
 
     if (rotation) {
-        *rotation = driver->rotation;
+        *rotation = qp_get_rotation(device);
     }
 
     if (offset_x) {
-        *offset_x = driver->offset_x;
+        *offset_x = qp_get_offset_x(device);
     }
 
     if (offset_y) {
-        *offset_y = driver->offset_y;
+        *offset_y = qp_get_offset_y(device);
     }
 
     qp_dprintf("qp_geometry: ok\n");
