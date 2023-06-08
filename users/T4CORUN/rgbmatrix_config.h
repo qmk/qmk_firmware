@@ -1,14 +1,23 @@
 #pragma once
 
 
-//more info at https://docs.qmk.fm/#/feature_rgb_matrix?id=additional-configh-options
+/*
+https://docs.qmk.fm/#/feature_rgb_matrix
 
-//KEYBOARD_bastardkb_charybdis_3x5
-//KEYBOARD_crkbd_rev1
-//KEYBOARD_dztech_dz60rgb_v2_1 ???
-//the planck is RGBLIGHT not RGB MATRIX
+My Keyboards:
+KEYBOARD_bastardkb_charybdis_3x5
+KEYBOARD_crkbd_rev1
+KEYBOARD_dztech_dz60rgb_v2_1 ???
+the planck is RGBLIGHT not RGB MATRIX
 
-//Clear variables that might have been defined elsewhere
+Explore These
+#undef RGB_MATRIX_TYPING_HEATMAP_SLIM
+#undef RGB_MATRIX_SOLID_REACTIVE_GRADIENT_MODE
+#undef RGB_MATRIX_TIMEOUT
+*/
+
+
+//Clear variables we plan to use that might be set elsewhere
 #undef RGB_DISABLE_WHEN_USB_SUSPENDED
 #undef RGB_MATRIX_DEFAULT_HUE
 #undef RGB_MATRIX_DEFAULT_SAT
@@ -20,7 +29,7 @@
 #undef RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS
 #undef RGB_MATRIX_TYPING_HEATMAP_SPREAD
 #undef RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT
-#undef RGB_MATRIX_TYPING_HEATMAP_SLIM
+#undef RGB_MATRIX_TYPING_HEATMAP_INCREASE_STEP 
 #undef RGB_MATRIX_DEFAULT_MODE
 
 // For full list of effects, see:
@@ -139,5 +148,4 @@
 #   define RGB_MATRIX_TYPING_HEATMAP_SPREAD 40               //40
 #   define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 16           //16
 #   define RGB_MATRIX_TYPING_HEATMAP_INCREASE_STEP 20        //32
-//#   define RGB_MATRIX_TYPING_HEATMAP_SLIM
 #endif //ENABLE_RGB_MATRIX_TYPING_HEATMAP

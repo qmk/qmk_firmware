@@ -263,24 +263,21 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define _________________FUNCPAD_R2________________        KC_SCRL, KC_F4,   KC_F5,   KC_F6,   KC_F11
 #   define _________________FUNCPAD_R3________________        KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F12
 
-
-
 #if defined(DYNAMIC_MACRO_ENABLE)
 #   define          ________FUNCPAD_L4_______                 ___x___, DM_REC1, DM_PLY1
+#   define          ________FUNCPAD_R4_______                 DM_PLY2, DM_REC2, ___x___
+# if defined(KEYBOARD_bastardkb_charybdis_3x5)
+#   undef           ________FUNCPAD_R4_______
+#   define          ________FUNCPAD_R4_______                 DM_PLY2, DM_REC2
+# endif //KEYBOARD_bastardkb_charybdis_3x5
 #else
 #   define          ________FUNCPAD_L4_______                 __________NONE_3_________
-#endif //DYNAMIC_MACRO_ENABLE
-
-
-#if defined(KEYBOARD_bastardkb_charybdis_3x5) && defined(DYNAMIC_MACRO_ENABLE)
-#   define          ________FUNCPAD_R4_______                 DM_PLY2, DM_REC2
-#elif defined(KEYBOARD_bastardkb_charybdis_3x5) && !defined(DYNAMIC_MACRO_ENABLE)
-#   define          ________FUNCPAD_R4_______                 ___x___, ___x___
-#elif !defined(KEYBOARD_bastardkb_charybdis_3x5) && defined(DYNAMIC_MACRO_ENABLE)
-#   define          ________FUNCPAD_R4_______                 DM_PLY2, DM_REC2, ___x___
-#else
 #   define          ________FUNCPAD_R4_______                 __________NONE_3_________
-#endif //KEYBOARD_bastardkb_charybdis_3x5
+# if defined(KEYBOARD_bastardkb_charybdis_3x5)
+#   undef           ________FUNCPAD_R4_______
+#   define          ________FUNCPAD_R4_______                 ___x___, ___x___
+# endif //KEYBOARD_bastardkb_charybdis_3x5
+#endif //DYNAMIC_MACRO_ENABLE
 
 #   define _________________FUNCROW_L_________________        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #   define _________________FUNCROW_M_________________        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
@@ -362,15 +359,19 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #   define          ________ADJUST_L4________                 ___x___, QK_BOOT, QK_RBT
 
-#if defined(GAMELAYER_ENABLE) || defined(ONESHOT_ENABLE)
-#   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, GAMING,  ___x___, OS_TOGG
-#elif defined(GAMELAYER_ENABLE) || !defined(ONESHOT_ENABLE)
-#   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, GAMING,  ___x___, ___x___
-#elif !defined(GAMELAYER_ENABLE) || defined(ONESHOT_ENABLE)
+#if defined(ONESHOT_ENABLE)
 #   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, ___x___, ___x___, OS_TOGG
-# else
+# if defined(GAMELAYER_ENABLE) 
+#   undef  _________________ADJUST_R1_________________
+#   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, GAMING,  ___x___, OS_TOGG
+# endif //GAMELAYER_ENABLE
+#else
 #   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, __________NONE_3_________
-#endif //GAMELAYER_ENABLE
+# if defined(GAMELAYER_ENABLE)
+#   undef  _________________ADJUST_R1_________________
+#   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, GAMING,  ___x___, ___x___
+# endif //GAMELAYER_ENABLE
+#endif //ONESHOT_ENABLE
 
 #if defined(AUDIO_ENABLE)
 #   define _________________ADJUST_R2_________________        ___x___, KC_LSFT, ___x___, CK_UP,   ___x___
@@ -385,7 +386,6 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #else
 #   define          ________ADJUST_R4________                 QK_RBT,  QK_BOOT, ___x___
 #endif
-
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
