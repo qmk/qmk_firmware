@@ -454,9 +454,7 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
     }
 #    endif
 
-    if (rgb_matrix_ws2812_array[i].r == r &&
-        rgb_matrix_ws2812_array[i].g == g &&
-        rgb_matrix_ws2812_array[i].b == b){
+    if (rgb_matrix_ws2812_array[i].r == r && rgb_matrix_ws2812_array[i].g == g && rgb_matrix_ws2812_array[i].b == b) {
         return;
     }
 
