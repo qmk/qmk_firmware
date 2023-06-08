@@ -1,0 +1,10 @@
+{
+  "keyboard_name":  "Reproduction IBM F77 Keyboard",
+  "manufacturer": "Model F Labs",
+  "url": "https://www.modelfkeyboards.com/",
+  "usb": {
+    "vid": "0x1209",
+      "pid": "0x4707",
+       "device_version": "0.0.1"
+   }
+}
