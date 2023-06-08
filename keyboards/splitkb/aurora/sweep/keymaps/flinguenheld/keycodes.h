@@ -4,18 +4,18 @@
 #pragma once
 #include "keymap_us_extended.h"
 
-enum layers {
+enum custom_layers {
   _BASE,
   _NUMERIC,
   _ARROWS,
   _MOUSE,
-  _ADJUST,
+  _ADJ,
   _FN,
   _LEFT_HAND,
 };
 
 enum custom_keys {
-  UNICODE = SAFE_RANGE, // Shortcut to write unicodes, see numeric layer
+  UNICODE = QK_KB_0, // Replace SAFE_RANGE, see pr #19909
 
   /* See auto-shift */
   CS_A_GRAVE,

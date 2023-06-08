@@ -2,7 +2,7 @@ LTO_ENABLE = yes
 CONVERT_TO = elite_pi
 
 SRC += features/auto_shift.c
-SRC += features/combo.c
+INTROSPECTION_KEYMAP_C = features/combo.c # Replace SRC, see issue #21137
 SRC += features/leader.c
 SRC += oled/oled.c
 

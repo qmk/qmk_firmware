@@ -18,7 +18,7 @@ enum combos {
   LEADER,
   BOOTLOADER,
 
-  LAYER_ADJUST,
+  LAYER_ADJ,
   LAYER_FN,
   LAYER_LEFT_HAND,
   LAYER_MOUSE,
@@ -98,7 +98,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 const uint16_t PROGMEM combo_leader[] = {LT(_MOUSE, KC_COMM), LT(_ARROWS, KC_DOT), COMBO_END};
 const uint16_t PROGMEM combo_bootloader[] = {KC_K, KC_TAB, KC_Z, KC_BSPC, KC_V, KC_J, COMBO_END};
 
-const uint16_t PROGMEM combo_adjust[] = {CTL_T(KC_SPACE), LT(_NUMERIC, KC_ENT), COMBO_END};
+const uint16_t PROGMEM combo_ADJ[] = {CTL_T(KC_SPACE), LT(_NUMERIC, KC_ENT), COMBO_END};
 const uint16_t PROGMEM combo_fn[] = {LT(_NUMERIC, KC_ENT), KC_N, COMBO_END};
 const uint16_t PROGMEM combo_left_hand[] = {LT(_MOUSE, KC_COMM), GUI_T(KC_ESC), COMBO_END};
 const uint16_t PROGMEM combo_mouse[] = {KC_A, KC_I, KC_E, KC_U, COMBO_END};
@@ -172,7 +172,7 @@ combo_t key_combos[] = {
     [LEADER] = COMBO(combo_leader, QK_LEAD),
     [BOOTLOADER] = COMBO(combo_bootloader, QK_BOOTLOADER),
 
-    [LAYER_ADJUST] = COMBO(combo_adjust, OSL(_ADJUST)),
+    [LAYER_ADJ] = COMBO(combo_ADJ, OSL(_ADJ)),
     [LAYER_FN] = COMBO(combo_fn, OSL(_FN)),
     [LAYER_LEFT_HAND] = COMBO(combo_left_hand, OSL(_LEFT_HAND)),
     [LAYER_MOUSE] = COMBO(combo_mouse, TG(_MOUSE)),
