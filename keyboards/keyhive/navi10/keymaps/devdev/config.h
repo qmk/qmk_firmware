@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 220
 
 #ifdef RGBLIGHT_ENABLE
-    #define RGB_DI_PIN D3
+    #define WS2812_DI_PIN D3
     #define RGBLED_NUM 3
 	
     #define RGBLIGHT_LIMIT_VAL 120

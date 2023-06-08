@@ -12,9 +12,7 @@
 // RGB LED parameters.
 // This PCB uses a single chain of WS2812-compatible addressable RGB LEDs for
 // per-key backlight and underglow.
-#define RGB_DI_PIN F7
 #define RGBLED_NUM 27
-#define RGBLIGHT_LIMIT_VAL 150
 
 // RGB Lighting configuration.  This mode is used by the vendor firmware, and
 // can be chosen if the full RGB Matrix support is not desired for some reason.
@@ -37,7 +35,7 @@
 // RGB Matrix configuration.
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 
 #    define RGB_MATRIX_CENTER \
         { 35, 35 }
