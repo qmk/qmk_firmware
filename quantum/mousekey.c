@@ -175,7 +175,7 @@ static uint8_t wheel_unit(void) {
 /*
  * Kinetic movement  acceleration algorithm
  *
- *  current speed = I + A * T/50 + A * 0.5 * T^2 | maximum B
+ *  current speed = I + A * T/50 + A * (T/50)^2 * 1/2 | maximum B
  *
  * T: time since the mouse movement started
  * E: mouse events per second (set through MOUSEKEY_INTERVAL, UHK sends 250, the
@@ -196,7 +196,7 @@ static uint8_t move_unit(void) {
         speed = mousekey_accel & (1 << 2) ? mk_accelerated_speed : mk_decelerated_speed;
     } else if (mousekey_repeat && mouse_timer) {
         const uint16_t time_elapsed = timer_elapsed(mouse_timer) / 50;
-        speed                       = mk_initial_speed + MOUSEKEY_MOVE_DELTA * time_elapsed + MOUSEKEY_MOVE_DELTA * 0.5 * time_elapsed * time_elapsed;
+        speed                       = mk_initial_speed + MOUSEKEY_MOVE_DELTA * time_elapsed + (MOUSEKEY_MOVE_DELTA * time_elapsed * time_elapsed) / 2;
 
         speed = speed > mk_base_speed ? mk_base_speed : speed;
     }
@@ -216,7 +216,7 @@ static uint8_t wheel_unit(void) {
     } else if (mousekey_wheel_repeat && mouse_timer) {
         if (mk_wheel_interval != MOUSEKEY_WHEEL_BASE_MOVEMENTS) {
             const uint16_t time_elapsed = timer_elapsed(mouse_timer) / 50;
-            speed                       = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS + 1 * time_elapsed + 1 * 0.5 * time_elapsed * time_elapsed;
+            speed                       = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS + 1 * time_elapsed + (1 * time_elapsed * time_elapsed) / 2;
         }
         speed = speed > MOUSEKEY_WHEEL_BASE_MOVEMENTS ? MOUSEKEY_WHEEL_BASE_MOVEMENTS : speed;
     }
