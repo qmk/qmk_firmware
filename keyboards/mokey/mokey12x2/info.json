@@ -3,8 +3,7 @@
     "manufacturer": "Mokey",
     "url": "https://github.com/rhmokey",
     "maintainer": "Mokey",
-    "processor": "STM32F103",
-    "bootloader": "stm32-dfu",
+    "development_board": "bluepill",
     "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["A6", "A5", "A4", "A3", "B9"],
