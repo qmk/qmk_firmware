@@ -67,7 +67,6 @@
 
 //Set WS2812 driver
 #define WS2812_TRST_US 200  //The Trst period between frames
-#define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB  // The LEDs Byte Order
 //set ' WS2812_DRIVER = pwm ' in rule.mk
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 1
