@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2018-2023 Jack Humbert <jack.humb@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,39 +31,18 @@
 #define STM32_IWDG_RL_MS(s) STM32_IWDG_RL_US(s * 1000.0)
 #define STM32_IWDG_RL_S(s) STM32_IWDG_RL_US(s * 1000000.0)
 
-#ifndef DEBOUNCE
-#    define DEBOUNCE 5
-#endif
-
 /* matrix state(1:on, 0:off) */
-static pin_t        matrix_row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static pin_t        matrix_col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_COLS];
-static bool         debouncing      = false;
-static uint16_t     debouncing_time = 0;
+static pin_t matrix_row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static pin_t matrix_col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+
+static matrix_row_t matrix_inverted[MATRIX_COLS];
 
 int8_t  encoder_LUT[]     = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 uint8_t encoder_state[8]  = {0};
 int8_t  encoder_pulses[8] = {0};
 uint8_t encoder_value[8]  = {0};
 
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
-
-__attribute__((weak)) void matrix_init_kb(void) {
-    matrix_init_user();
-}
-
-__attribute__((weak)) void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
-void matrix_init(void) {
-    dprintf("matrix init\n");
-    // debug_matrix = true;
-
+void matrix_init_custom(void) {
     // actual matrix setup - cols
     for (int i = 0; i < MATRIX_COLS; i++) {
         setPinOutput(matrix_col_pins[i]);
@@ -77,11 +56,6 @@ void matrix_init(void) {
     // encoder A & B setup
     setPinInputLow(B12);
     setPinInputLow(B13);
-
-    memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
-
-    matrix_init_kb();
 
     // setup watchdog timer for 1 second
     wdgInit();
@@ -124,9 +98,11 @@ bool encoder_update(uint8_t index, uint8_t state) {
     return changed;
 }
 
-uint8_t matrix_scan(void) {
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // reset watchdog
     wdgReset(&WDGD1);
+
+    bool changed = false;
 
     // actual matrix
     for (int col = 0; col < MATRIX_COLS; col++) {
@@ -146,21 +122,18 @@ uint8_t matrix_scan(void) {
         // unstrobe col
         writePinLow(matrix_col_pins[col]);
 
-        if (matrix_debouncing[col] != data) {
-            matrix_debouncing[col] = data;
-            debouncing             = true;
-            debouncing_time        = timer_read();
+        if (matrix_inverted[col] != data) {
+            matrix_inverted[col] = data;
         }
     }
 
-    if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
-        for (int row = 0; row < MATRIX_ROWS; row++) {
-            matrix[row] = 0;
-            for (int col = 0; col < MATRIX_COLS; col++) {
-                matrix[row] |= ((matrix_debouncing[col] & (1 << row) ? 1 : 0) << col);
-            }
+    for (int row = 0; row < MATRIX_ROWS; row++) {
+        matrix_row_t old = current_matrix[row];
+        current_matrix[row] = 0;
+        for (int col = 0; col < MATRIX_COLS; col++) {
+            current_matrix[row] |= ((matrix_inverted[col] & (1 << row) ? 1 : 0) << col);
         }
-        debouncing = false;
+        changed |= old != current_matrix[row];
     }
 
     // encoder-matrix functionality
@@ -196,30 +169,5 @@ uint8_t matrix_scan(void) {
         setPinInputLow(matrix_row_pins[i]);
     }
 
-    matrix_scan_kb();
-
-    return 1;
-}
-
-bool matrix_is_on(uint8_t row, uint8_t col) {
-    return (matrix[row] & (1 << col));
-}
-
-matrix_row_t matrix_get_row(uint8_t row) {
-    return matrix[row];
-}
-
-void matrix_print(void) {
-    dprintf("\nr/c 01234567\n");
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        dprintf("%X0: ", row);
-        matrix_row_t data = matrix_get_row(row);
-        for (int col = 0; col < MATRIX_COLS; col++) {
-            if (data & (1 << col))
-                dprintf("1");
-            else
-                dprintf("0");
-        }
-        dprintf("\n");
-    }
+    return changed;
 }
