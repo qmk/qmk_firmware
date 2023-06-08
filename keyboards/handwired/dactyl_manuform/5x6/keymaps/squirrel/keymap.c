@@ -17,7 +17,7 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_MAC] = LAYOUT_5x6(
+  [_MAC] = LAYOUT(
      KC_ESC , KC_1  , KC_2  , KC_3  , KC_4  , KC_5  ,                         KC_6  , KC_7  , KC_8  , KC_9  , KC_0  ,KC_GRAVE,
      KC_TAB , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  ,                         KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_MINS,
      KC_BSPC, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,                         KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_QUOT,
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       KC_LALT, MO(_NUMBERS),                        MO(_MEDIA), KC_EJCT
   ),
 
-  [_WINDOWS] = LAYOUT_5x6(
+  [_WINDOWS] = LAYOUT(
 
    _______,_______, _______ ,_______,_______ ,_______,                        _______,_______,_______,_______,_______,_______,
    _______,_______,_______,_______,_______,_______,                        _______, _______ , _______ , _______ ,_______,_______,
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [_MOUSE] = LAYOUT_5x6(
+  [_MOUSE] = LAYOUT(
 
                  KC_F11,KC_F1, KC_F2 ,KC_F3,KC_F4 ,KC_F5,                        KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F12,
                  _______,_______,_______,KC_WH_U,_______,_______,                        _______, _______ , KC_MS_U , _______ ,_______,_______,
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                           _______,_______,            _______,_______
 
                ),
-  [_ARROWS] = LAYOUT_5x6(
+  [_ARROWS] = LAYOUT(
 
                    QK_BOOT,_______, _______ ,_______,_______ ,TG(_WINDOWS),                        _______,_______,_______,_______,_______,_______,
                    _______,_______,_______,_______,_______,_______,                        _______, KC_HOME , KC_UP , KC_END ,_______,_______,
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                            _______,_______,            _______,_______
 
                 ),
-  [_SYMBOLS] = LAYOUT_5x6(
+  [_SYMBOLS] = LAYOUT(
 
                     _______,_______, _______ ,_______,_______ ,_______,                        KC_CIRC,KC_CIRC,KC_LABK,KC_RABK,_______,_______,
                     _______,_______,_______,_______,_______,_______,                        KC_LABK, KC_AT , KC_LCBR , KC_RCBR ,KC_HASH,KC_RABK,
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                             _______,_______,            _______,_______
 
                  ),
-  [_NUMBERS] = LAYOUT_5x6(
+  [_NUMBERS] = LAYOUT(
 
                     QK_BOOT,_______, _______ ,_______,_______ ,_______,                        KC_PSLS,KC_PAST,KC_PPLS,KC_PMNS,_______,_______,
                     _______,_______,_______,KC_PSLS,KC_PAST,_______,                        _______, KC_7 , KC_8 , KC_9 ,_______,_______,
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                             _______,_______,            _______,_______
 
                  ),
-  [_MEDIA] = LAYOUT_5x6(
+  [_MEDIA] = LAYOUT(
 
                   KC_MSTP,KC_MPRV, KC_MPLY ,KC_MNXT,_______ ,_______,                        _______,_______,_______,_______,_______,_______,
                   _______,_______,_______,_______,KC_VOLU,_______,                        RGB_SPI, _______ , _______ , _______ ,_______,_______,

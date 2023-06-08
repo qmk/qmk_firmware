@@ -4,7 +4,7 @@
     "author": "Jan Christoph Ebersbach",
     "keyboard": "handwired/dactyl_manuform/5x6_5",
     "keymap": "default",
-    "layout": "LAYOUT_5x6_5",
+    "layout": "LAYOUT",
     "layers": [
         [
             "KC_GRV",
@@ -61,6 +61,10 @@
 
             "KC_LGUI",
             "KC_LALT",
+
+            "LALT_T(KC_RALT)",
+            "KC_RGUI",
+
             "TT(2)",
             "LT(6,KC_SPC)",
             "LT(4,KC_DEL)",
@@ -68,8 +72,6 @@
             "LT(4,KC_ENT)",
             "KC_SPC",
             "LT(2,KC_BSPC)",
-            "LALT_T(KC_RALT)",
-            "KC_RGUI",
 
             "LCTL_T(KC_LBRC)",
             "LCTL_T(KC_LBRC)",
@@ -132,6 +134,10 @@
 
             "KC_LGUI",
             "KC_LALT",
+            
+            "LALT_T(KC_RALT)",
+            "KC_RGUI",
+
             "TT(2)",
             "LT(6,KC_SPC)",
             "LT(4,KC_DEL)",
@@ -139,8 +145,6 @@
             "LT(4,KC_ENT)",
             "KC_SPC",
             "LT(2,KC_BSPC)",
-            "LALT_T(KC_RALT)",
-            "KC_RGUI",
 
             "LCTL_T(KC_LBRC)",
             "LCTL_T(KC_LBRC)",
@@ -203,6 +207,10 @@
 
             "KC_TRNS",
             "KC_TRNS",
+            
+            "KC_TRNS",
+            "KC_TRNS",
+
             "KC_TRNS",
             "KC_SPC",
             "KC_DEL",
@@ -210,8 +218,6 @@
             "KC_ENT",
             "KC_0",
             "KC_BSPC",
-            "KC_TRNS",
-            "KC_TRNS",
 
             "TG(2)",
             "KC_TRNS",
@@ -274,6 +280,10 @@
 
             "KC_TRNS",
             "KC_TRNS",
+            
+            "KC_TRNS",
+            "KC_TRNS",
+
             "KC_TRNS",
             "KC_SPC",
             "KC_DEL",
@@ -281,8 +291,6 @@
             "KC_ENT",
             "KC_SPC",
             "KC_BSPC",
-            "KC_TRNS",
-            "KC_TRNS",
 
             "TG(3)",
             "KC_TRNS",
@@ -345,6 +353,10 @@
 
             "KC_TRNS",
             "KC_TRNS",
+            
+            "KC_TRNS",
+            "KC_TRNS",
+
             "KC_TRNS",
             "KC_SPC",
             "KC_DEL",
@@ -352,8 +364,6 @@
             "KC_ENT",
             "KC_SPC",
             "KC_BSPC",
-            "KC_TRNS",
-            "KC_TRNS",
 
             "TG(4)",
             "KC_TRNS",
@@ -416,6 +426,10 @@
 
             "KC_TRNS",
             "KC_TRNS",
+            
+            "KC_TRNS",
+            "KC_TRNS",
+
             "KC_TRNS",
             "KC_SPC",
             "KC_DEL",
@@ -423,8 +437,6 @@
             "KC_ENT",
             "KC_SPC",
             "KC_BSPC",
-            "KC_TRNS",
-            "KC_TRNS",
 
             "TG(5)",
             "TG(5)",
@@ -487,6 +499,10 @@
 
             "KC_TRNS",
             "KC_TRNS",
+            
+            "KC_TRNS",
+            "KC_TRNS",
+
             "KC_TRNS",
             "KC_SPC",
             "KC_DEL",
@@ -494,8 +510,6 @@
             "KC_ENT",
             "KC_SPC",
             "KC_BSPC",
-            "KC_TRNS",
-            "KC_TRNS",
 
             "TG(6)",
             "KC_TRNS",

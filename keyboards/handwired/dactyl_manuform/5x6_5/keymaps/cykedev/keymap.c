@@ -59,7 +59,7 @@ enum layer_names {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_COLEMAK_DH] = LAYOUT_5x6_5(
+  [_COLEMAK_DH] = LAYOUT(
   /* COLEMAK_DH
    * .-----------------------------------------.                                  .-----------------------------------------.
    * | Esc  |   1  |   2  |   3  |   4  |   5  |                                  |   6  |   7  |   8  |   9  |   0  |  Bsp |
@@ -82,10 +82,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB , KC_Q   , KC_W   , KC_F   , KC_P   , KC_B   ,                                     KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN, KC_BSLS,
    KC_DEL , KC_A   , CM_R   , CM_S   , CM_T   , KC_G   ,                                     KC_M   , CM_N   , CM_E   , CM_I   , KC_O   , KC_QUOT,
    KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_D   , KC_V   ,                                     KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH, KC_RSFT,
-                     XXXXXXX, XXXXXXX,          RAISE  , SPC_L , ENT_L   , ENT_R  , SPC_R  , LOWER  ,          XXXXXXX, XXXXXXX,
+                     XXXXXXX, XXXXXXX,                                                                         XXXXXXX, XXXXXXX,
+                                                RAISE  , SPC_L , ENT_L   , ENT_R  , SPC_R  , LOWER  ,
                                                          KC_EQL, KC_HOME , KC_END , KC_MINS
    ),
-  [_QWERTY] = LAYOUT_5x6_5(
+  [_QWERTY] = LAYOUT(
   /* QWERTY
    * .-----------------------------------------.                                  .-----------------------------------------.
    * | Esc  |   1  |   2  |   3  |   4  |   5  |                                  |   6  |   7  |   8  |   9  |   0  |  Bsp |
@@ -108,10 +109,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                                     KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_BSLS,
    KC_DEL , KC_A   , QU_S   , QU_D   , QU_F   , KC_G   ,                                     KC_H   , QU_J   , QU_K   , QU_L   , KC_SCLN, KC_QUOT,
    KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,                                     KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_RSFT,
-                     XXXXXXX, XXXXXXX,          RAISE  , SPC_L , ENT_L   , ENT_R  , SPC_R  , LOWER  ,          XXXXXXX, XXXXXXX,
+                     XXXXXXX, XXXXXXX,                                                                         XXXXXXX, XXXXXXX,
+                                                RAISE  , SPC_L , ENT_L   , ENT_R  , SPC_R  , LOWER  ,         
                                                          KC_EQL, KC_HOME , KC_END , KC_MINS
    ),
-  [_RAISE] = LAYOUT_5x6_5(
+  [_RAISE] = LAYOUT(
   /* RAISE
    * .-----------------------------------------.                                  .-----------------------------------------.
    * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                                  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
@@ -134,10 +136,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX, REDO   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     KC_PERC, KC_DLR , KC_HASH, KC_GRV , XXXXXXX, KC_F12 ,
    XXXXXXX, ALL    , CUT    , COPY   , PASTE  , XXXXXXX,                                     KC_CIRC, KC_SLSH, KC_ASTR, KC_TILD, KC_QUES, XXXXXXX,
    _______, UNDO   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, KC_AMPR, KC_PIPE, XXXXXXX, XXXXXXX, _______,
-                     QK_BOOT, XXXXXXX,          _______, _______, _______, _______, _______, _______,          XXXXXXX, XXXXXXX,
+                     QK_BOOT, XXXXXXX,                                                                         XXXXXXX, XXXXXXX,
+                                                _______, _______, _______, _______, _______, _______,
                                                          _______, KC_PGUP, KC_PGDN, _______
    ),
-  [_LOWER] = LAYOUT_5x6_5(
+  [_LOWER] = LAYOUT(
   /* LOWER
    * .-----------------------------------------.                                  .-----------------------------------------.
    * |      |  F1  |  F2  |  F3  |  F4  |  F5  |                                  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
@@ -160,10 +163,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX,                                     XXXXXXX, XXXXXXX, KC_UP  , XXXXXXX, XXXXXXX, KC_F12 ,
    KC_INS , KC_EXLM, KC_AT  , KC_LPRN, KC_RPRN, XXXXXXX,                                     XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUES, XXXXXXX,
    _______, XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
-                     XXXXXXX, XXXXXXX,          _______, _______, _______, _______, _______, _______,          XXXXXXX, QK_BOOT,
+                     XXXXXXX, XXXXXXX,                                                                         XXXXXXX, QK_BOOT,
+                                                _______, _______, _______, _______, _______, _______,
                                                          _______, KC_PGUP, KC_PGDN, _______
    ),
-  [_ADJUST] = LAYOUT_5x6_5(
+  [_ADJUST] = LAYOUT(
   /* ADJUST
    * .-----------------------------------------.                                  .-----------------------------------------.
    * |      |      |      |      |      | QWERT|                                  |COLEM |      |      |      |      |      |
@@ -186,7 +190,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLU,                                     KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLD,                                     KC_BRID, KC_MRWD, KC_MPLY, KC_MFFD, XXXXXXX, XXXXXXX,
    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                     XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX ,
+                     XXXXXXX, XXXXXXX,                                                                         XXXXXXX, XXXXXXX ,
+                                                XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
    )
 };

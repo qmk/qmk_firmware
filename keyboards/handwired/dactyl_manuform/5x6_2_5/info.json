@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Dactyl-Manuform (5x6+2)",
+    "keyboard_name": "Dactyl ManuForm (5x6_2_5)",
     "manufacturer": "tshort",
     "url": "",
     "maintainer": "jceb",
@@ -14,15 +14,15 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0",
         "bootmagic": {
             "matrix": [6, 5]
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
-        "LAYOUT_5x6_2_5": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -84,23 +84,25 @@
                 {"matrix": [4, 1], "x": 1, "y": 4},
                 {"matrix": [4, 2], "x": 2, "y": 4},
                 {"matrix": [4, 3], "x": 3, "y": 4},
-                {"matrix": [4, 4], "x": 5, "y": 4},
-                {"matrix": [5, 5], "x": 6, "y": 4},
-                {"matrix": [5, 3], "x": 7, "y": 4},
-
-                {"matrix": [11, 2], "x": 9, "y": 4},
-                {"matrix": [11, 0], "x": 10, "y": 4},
-                {"matrix": [10, 1], "x": 11, "y": 4},
+                
                 {"matrix": [10, 2], "x": 13, "y": 4},
                 {"matrix": [10, 3], "x": 14, "y": 4},
                 {"matrix": [10, 4], "x": 15, "y": 4},
                 {"matrix": [10, 5], "x": 16, "y": 4},
 
-                {"matrix": [5, 4], "x": 6, "y": 5},
-                {"matrix": [5, 2], "x": 7, "y": 5},
+                {"matrix": [4, 4], "x": 4, "y": 5},
+                {"matrix": [5, 5], "x": 5, "y": 5},
+                {"matrix": [5, 3], "x": 6, "y": 5},
 
-                {"matrix": [11, 3], "x": 9, "y": 5},
-                {"matrix": [11, 1], "x": 10, "y": 5}
+                {"matrix": [11, 2], "x": 10, "y": 5},
+                {"matrix": [11, 0], "x": 11, "y": 5},
+                {"matrix": [10, 1], "x": 12, "y": 5},
+
+                {"matrix": [5, 4], "x": 5, "y": 6},
+                {"matrix": [5, 2], "x": 6, "y": 6},
+
+                {"matrix": [11, 3], "x": 10, "y": 6},
+                {"matrix": [11, 1], "x": 11, "y": 6}
             ]
         }
     }

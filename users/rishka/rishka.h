@@ -9,7 +9,6 @@
 
 #define LAYOUT_ergodox_pretty_wrapper(...)  LAYOUT_ergodox_pretty(__VA_ARGS__)
 #define LAYOUT_wrapper(...)                 LAYOUT(__VA_ARGS__)
-#define LAYOUT_5x6_wrapper(...)             LAYOUT_5x6(__VA_ARGS__)
 #define KC_MLSF OSM(MOD_LSFT)
 #define KC_MRSF OSM(MOD_RSFT)
 

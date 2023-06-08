@@ -17,7 +17,7 @@ enum custom_layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_1] = LAYOUT_5x6(
+  [_1] = LAYOUT(
      KC_ESC  , KC_1 , KC_2    , KC_3    , KC_4    , KC_5 ,                     KC_6 , KC_7 , KC_8    , KC_9 , KC_0 , KC_BSPC ,
      KC_TAB  , KC_K , KC_DOT  , KC_O    , KC_COMM , N_Y  ,                     KC_V , KC_G , KC_C    , KC_L , N_SS , N_Z     ,
      MO(_3)  , KC_H , KC_A    , KC_E    , KC_I    , KC_U ,                     KC_D , KC_T , KC_R    , KC_N , KC_S , KC_F    ,
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           N_PASTE, N_UNDO,                     DM_REC1, DM_PLY1
   ),
 
-  [_3] = LAYOUT_5x6(
+  [_3] = LAYOUT(
 
      KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_BSPC,
      KC_TAB,   N_DOTS,  N_USC,   N_LSQBR, N_RSQBR, N_CIRC,                     N_EXKL,  N_LT,    N_GT,    N_EQ,    N_AMP,   N_ACUT,
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [_4] = LAYOUT_5x6(
+  [_4] = LAYOUT(
 
      KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,                      KC_F6,          KC_F7,   KC_F8,   KC_F9,   KC_F10,      KC_BSPC,
      KC_TAB,  KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,   KC_PGDN,                    KC_KP_SLASH,    KC_7,    KC_8,    KC_9,    KC_KP_MINUS, KC_TRNS,
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [_7] = LAYOUT_5x6(
+  [_7] = LAYOUT(
 
      KC_ESC,  KC_TRNS,      KC_TRNS,    KC_MS_BTN3, KC_TRNS,     KC_TRNS,                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT,
      KC_TAB,  KC_MS_WH_UP,  KC_MS_BTN2, KC_MS_UP,   KC_MS_BTN1,  KC_MS_WH_DOWN,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,

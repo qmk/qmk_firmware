@@ -12,7 +12,7 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [BASE] = LAYOUT_5x6_wrapper(
+  [BASE] = LAYOUT_wrapper(
      KC_EQL , ________________NUMBERS_L__________________,                         ________________NUMBERS_R__________________, KC_MINS,
      KC_ESC , _________________QWERTY_L1_________________,                         _________________QWERTY_R1_________________, KC_BSLS,
      KC_F1  , _____________MOD_QWERTY_L2_________________,                         _____________MOD_QWERTY_R2_________________, KC_QUOT,
@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      KC_LGUI, MO(SYMB),                       MO(SYMB), TT(MDIA),
                                      KC_DEL, KC_GRV,                          TT(WIN), KC_LALT
   ),
-  [WIN] = LAYOUT_5x6_wrapper(
+  [WIN] = LAYOUT_wrapper(
 
      _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
      _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              _______, _______,            _______, _______
   ),
 
-  [SYMB] = LAYOUT_5x6_wrapper(
+  [SYMB] = LAYOUT_wrapper(
        KC_F12 , ______________________F_L__________________,                      ______________________F_R__________________, KC_F11,
        _______, _________________SYMBOL_L1_________________,                      _________________SYMBOL_R1_________________, KC_NUM,
        _______, _________________SYMBOL_L2_________________,                      _________________SYMBOL_R2_________________, _______,
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                QK_BOOT, _______,            _______, _______,
                                                RGB_TOG, _______,            _______, _______
   ),
-  [MDIA] = LAYOUT_5x6_wrapper(
+  [MDIA] = LAYOUT_wrapper(
 
      RGB_MOD, RGB_HUI, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
      	RGB_M_SN, RGB_HUD, _______, KC_MS_U, _______, KC_WH_U,                        _______, _______, KC_WH_U, _______, _______, _______,
