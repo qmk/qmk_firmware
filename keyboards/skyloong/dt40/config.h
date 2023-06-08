@@ -57,9 +57,6 @@
 #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL	//Enables RGB_MATRIX_PIXEL_FRACTAL
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN	//Enables RGB_MATRIX_PIXEL_RAIN
 
-//Set default RGB matrix effect
-#define RGB_MATRIX_DEFAULT_MODE  RGB_MATRIX_CYCLE_LEFT_RIGHT  //Set the default mode, if none has been set
-//#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200  //Limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #define RGB_MATRIX_DEFAULT_VAL 150  //Sets the default mode, if none has been set
 #define RGB_TRIGGER_ON_KEYDOWN  //Triggers RGB keypress events on key down
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
