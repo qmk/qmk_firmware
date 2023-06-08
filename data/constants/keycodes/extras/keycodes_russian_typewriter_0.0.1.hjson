@@ -14,191 +14,191 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
         "KC_GRV": {
-            "key": "RUT_PIPE",
+            "key": "RU_PIPE",
             "label": "|",
         }
         "KC_1": {
-            "key": "RUT_NUM",
+            "key": "RU_NUM",
             "label": "№",
         }
         "KC_2": {
-            "key": "RUT_MINS",
+            "key": "RU_MINS",
             "label": "-",
         }
         "KC_3": {
-            "key": "RUT_SLSH",
+            "key": "RU_SLSH",
             "label": "/",
         }
         "KC_4": {
-            "key": "RUT_DQUO",
+            "key": "RU_DQUO",
             "label": "\"",
         }
         "KC_5": {
-            "key": "RUT_COLN",
+            "key": "RU_COLN",
             "label": ":",
         }
         "KC_6": {
-            "key": "RUT_COMM",
+            "key": "RU_COMM",
             "label": ",",
         }
         "KC_7": {
-            "key": "RUT_DOT",
+            "key": "RU_DOT",
             "label": ".",
         }
         "KC_8": {
-            "key": "RUT_UNDS",
+            "key": "RU_UNDS",
             "label": "_",
         }
         "KC_9": {
-            "key": "RUT_QUES",
+            "key": "RU_QUES",
             "label": "?",
         }
         "KC_0": {
-            "key": "RUT_PERC",
+            "key": "RU_PERC",
             "label": "%",
         }
         "KC_MINS": {
-            "key": "RUT_EXLM",
+            "key": "RU_EXLM",
             "label": "!",
         }
         "KC_EQL": {
-            "key": "RUT_SCLN",
+            "key": "RU_SCLN",
             "label": ";",
         }
         "KC_Q": {
-            "key": "RUT_SHTI",
+            "key": "RU_SHTI",
             "label": "Й",
         }
         "KC_W": {
-            "key": "RUT_TSE",
+            "key": "RU_TSE",
             "label": "Ц",
         }
         "KC_E": {
-            "key": "RUT_U",
+            "key": "RU_U",
             "label": "У",
         }
         "KC_R": {
-            "key": "RUT_KA",
+            "key": "RU_KA",
             "label": "К",
         }
         "KC_T": {
-            "key": "RUT_IE",
+            "key": "RU_IE",
             "label": "Е",
         }
         "KC_Y": {
-            "key": "RUT_EN",
+            "key": "RU_EN",
             "label": "Н",
         }
         "KC_U": {
-            "key": "RUT_GHE",
+            "key": "RU_GHE",
             "label": "Г",
         }
         "KC_I": {
-            "key": "RUT_SHA",
+            "key": "RU_SHA",
             "label": "Ш",
         }
         "KC_O": {
-            "key": "RUT_SHCH",
+            "key": "RU_SHCH",
             "label": "Щ",
         }
         "KC_P": {
-            "key": "RUT_ZE",
+            "key": "RU_ZE",
             "label": "З",
         }
         "KC_LBRC": {
-            "key": "RUT_HA",
+            "key": "RU_HA",
             "label": "Х",
         }
         "KC_RBRC": {
-            "key": "RUT_HARD",
+            "key": "RU_HARD",
             "label": "Ъ",
         }
         "KC_BSLS": {
-            "key": "RUT_RPRN",
+            "key": "RU_RPRN",
             "label": ")",
         }
         "KC_A": {
-            "key": "RUT_EF",
+            "key": "RU_EF",
             "label": "Ф",
         }
         "KC_S": {
-            "key": "RUT_YERU",
+            "key": "RU_YERU",
             "label": "Ы",
         }
         "KC_D": {
-            "key": "RUT_VE",
+            "key": "RU_VE",
             "label": "В",
         }
         "KC_F": {
-            "key": "RUT_A",
+            "key": "RU_A",
             "label": "А",
         }
         "KC_G": {
-            "key": "RUT_PE",
+            "key": "RU_PE",
             "label": "П",
         }
         "KC_H": {
-            "key": "RUT_ER",
+            "key": "RU_ER",
             "label": "Р",
         }
         "KC_J": {
-            "key": "RUT_O",
+            "key": "RU_O",
             "label": "О",
         }
         "KC_K": {
-            "key": "RUT_EL",
+            "key": "RU_EL",
             "label": "Л",
         }
         "KC_L": {
-            "key": "RUT_DE",
+            "key": "RU_DE",
             "label": "Д",
         }
         "KC_SCLN": {
-            "key": "RUT_ZHE",
+            "key": "RU_ZHE",
             "label": "Ж",
         }
         "KC_QUOT": {
-            "key": "RUT_E",
+            "key": "RU_E",
             "label": "Э",
         }
         "KC_Z": {
-            "key": "RUT_YA",
+            "key": "RU_YA",
             "label": "Я",
         }
         "KC_X": {
-            "key": "RUT_CHE",
+            "key": "RU_CHE",
             "label": "Ч",
         }
         "KC_C": {
-            "key": "RUT_ES",
+            "key": "RU_ES",
             "label": "С",
         }
         "KC_V": {
-            "key": "RUT_EM",
+            "key": "RU_EM",
             "label": "М",
         }
         "KC_B": {
-            "key": "RUT_I",
+            "key": "RU_I",
             "label": "И",
         }
         "KC_N": {
-            "key": "RUT_TE",
+            "key": "RU_TE",
             "label": "Т",
         }
         "KC_M": {
-            "key": "RUT_SOFT",
+            "key": "RU_SOFT",
             "label": "Ь",
         }
         "KC_COMM": {
-            "key": "RUT_BE",
+            "key": "RU_BE",
             "label": "Б",
         }
         "KC_DOT": {
-            "key": "RUT_YU",
+            "key": "RU_YU",
             "label": "Ю",
         }
         "KC_SLSH": {
-            "key": "RUT_YO",
+            "key": "RU_YO",
             "label": "Ё",
         }
 /* Shifted symbols
@@ -214,60 +214,60 @@
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
-        "S(RUT_PIPE)": {
-            "key": "RUT_PLUS",
+        "S(RU_PIPE)": {
+            "key": "RU_PLUS",
             "label": "+",
         }
-        "S(RUT_NUM)": {
-            "key": "RUT_1",
+        "S(RU_NUM)": {
+            "key": "RU_1",
             "label": "1",
         }
-        "S(RUT_MINS)": {
-            "key": "RUT_2",
+        "S(RU_MINS)": {
+            "key": "RU_2",
             "label": "2",
         }
-        "S(RUT_SLSH)": {
-            "key": "RUT_3",
+        "S(RU_SLSH)": {
+            "key": "RU_3",
             "label": "3",
         }
-        "S(RUT_DQUO)": {
-            "key": "RUT_4",
+        "S(RU_DQUO)": {
+            "key": "RU_4",
             "label": "4",
         }
-        "S(RUT_COLN)": {
-            "key": "RUT_5",
+        "S(RU_COLN)": {
+            "key": "RU_5",
             "label": "5",
         }
-        "S(RUT_COMM)": {
-            "key": "RUT_6",
+        "S(RU_COMM)": {
+            "key": "RU_6",
             "label": "6",
         }
-        "S(RUT_DOT)": {
-            "key": "RUT_7",
+        "S(RU_DOT)": {
+            "key": "RU_7",
             "label": "7",
         }
-        "S(RUT_UNDS)": {
-            "key": "RUT_8",
+        "S(RU_UNDS)": {
+            "key": "RU_8",
             "label": "8",
         }
-        "S(RUT_QUES)": {
-            "key": "RUT_9",
+        "S(RU_QUES)": {
+            "key": "RU_9",
             "label": "9",
         }
-        "S(RUT_PERC)": {
-            "key": "RUT_0",
+        "S(RU_PERC)": {
+            "key": "RU_0",
             "label": "0",
         }
-        "S(RUT_EXLM)": {
-            "key": "RUT_EQL",
+        "S(RU_EXLM)": {
+            "key": "RU_EQL",
             "label": "=",
         }
-        "S(RUT_SCLN)": {
-            "key": "RUT_BSLS",
+        "S(RU_SCLN)": {
+            "key": "RU_BSLS",
             "label": "\\",
         }
-        "S(RUT_RPRN)": {
-            "key": "RUT_LPRN",
+        "S(RU_RPRN)": {
+            "key": "RU_LPRN",
             "label": "(",
         }
 /* AltGr symbols
@@ -283,8 +283,8 @@
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
-        "ALGR(RUT_UNDS)": {
-            "key": "RUT_RUBL",
+        "ALGR(RU_UNDS)": {
+            "key": "RU_RUBL",
             "label": "₽",
         }
     }
