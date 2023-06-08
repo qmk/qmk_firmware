@@ -11,7 +11,7 @@
         "rows": ["A2", "A1", "A0", "A7"]
     },
     "usb": {
-        "device_version": "0.0.1"，
+        "device_version": "0.0.1",
         "vid": "0x6653",
         "pid": "0x012A"
     },
