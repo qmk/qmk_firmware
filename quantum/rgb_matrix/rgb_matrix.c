@@ -428,7 +428,9 @@ void rgb_matrix_task(void) {
         case RENDERING:
             rgb_task_render(effect);
             if (effect) {
-                rgb_matrix_indicators();
+                if (rgb_effect_params.init == RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
+                    rgb_matrix_indicators();
+                }
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
             }
             break;
