@@ -151,6 +151,9 @@ void CKLED2001_set_value(int index, uint8_t value) {
     if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_ckled2001_leds[index]), sizeof(led));
 
+        if (g_pwm_buffer[led.driver][led.v] == value) {
+            return;
+        }
         g_pwm_buffer[led.driver][led.v]          = value;
         g_pwm_buffer_update_required[led.driver] = true;
     }
