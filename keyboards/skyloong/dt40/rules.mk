@@ -1,2 +1,1 @@
-WS2812_DRIVER = pwm
-
+# This file intentionally left blank
