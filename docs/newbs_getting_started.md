@@ -128,7 +128,7 @@ In most situations you will want to answer `y` to all of the prompts.
 
 ### ** macOS **
 
-After installing QMK, open Terminal and run the following command:
+Open Terminal and run the following command:
 
     qmk setup
 
@@ -136,7 +136,7 @@ In most situations you will want to answer `y` to all of the prompts.
 
 ### ** Linux/WSL **
 
-After installing QMK, open your preferred terminal app and run the following command:
+Open your preferred terminal app and run the following command:
 
     qmk setup
 
@@ -150,7 +150,7 @@ Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$
 
 ###  ** FreeBSD **
 
-After installing QMK, open your preferred terminal app and run the following command:
+Open your preferred terminal app and run the following command:
 
     qmk setup
 
