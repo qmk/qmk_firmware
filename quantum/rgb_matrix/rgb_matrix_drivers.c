@@ -426,7 +426,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 
 // LED color buffer
 LED_TYPE rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
-bool ws2812_dirty = false;
+bool     ws2812_dirty = false;
 
 static void init(void) {
     ws2812_dirty = false;
