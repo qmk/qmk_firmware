@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "nk87b.h"
+#include "quantum.h"
 #include <lib/lib8tion/lib8tion.h>
 
 void led_init_ports(void) {

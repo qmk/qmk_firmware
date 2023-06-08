@@ -8,6 +8,12 @@
         "pid": "0x4450",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "A10"
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "matrix_pins": {

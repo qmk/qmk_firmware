@@ -20,14 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-
-#ifdef SUBPROJECT_v2
-    #include "../../v2/config.h"
-#endif
-#ifdef SUBPROJECT_protosplit
-    #include "../../protosplit/config.h"
-#endif
-
 #undef RGBLED_NUM
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

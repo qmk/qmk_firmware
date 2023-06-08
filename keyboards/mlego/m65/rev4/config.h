@@ -17,16 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//                          0   1   2   3   4
-#define MATRIX_ROW_PINS \
-    { B10, A5, A6, A7, B0 }
-//                         0    1   2   3   4   5   6   7   8    9  10  11   12
-#define MATRIX_COL_PINS \
-    { B14, A8, A10, A15, B3, B4, B5, B7, A1, A2, A3, A4, B1 }
-
 #ifdef RGBLIGHT_ENABLE
 
-#define RGB_DI_PIN B15
 #define RGBLIGHT_LAYERS
 #undef RGBLED_NUM
 #define RGBLED_NUM 20

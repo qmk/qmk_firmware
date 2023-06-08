@@ -13,21 +13,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Keyboard Matrix Assignments*/
-#define MATRIX_ROW_PINS { D6, B6, F5 }
-#define MATRIX_COL_PINS { B4, B7, C7 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* RGB light setup*/
-#define RGB_DI_PIN B5
 #define RGBLED_NUM 2
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
-#define RGBLIGHT_LIMIT_VAL 200
 
 /* RGB light animations*/
 #define RGBLIGHT_EFFECT_BREATHING
