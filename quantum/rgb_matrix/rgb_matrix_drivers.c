@@ -458,7 +458,7 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
         return;
     }
 
-    ws2812_dirty = true;
+    ws2812_dirty                 = true;
     rgb_matrix_ws2812_array[i].r = r;
     rgb_matrix_ws2812_array[i].g = g;
     rgb_matrix_ws2812_array[i].b = b;
