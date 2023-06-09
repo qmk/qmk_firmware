@@ -6,6 +6,7 @@
     },
     "diode_direction": "COL2ROW",
     "rgblight": {
+        "split": true,
         "split_count": [10, 10]
     },
     "ws2812": {

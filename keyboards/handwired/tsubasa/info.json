@@ -9,6 +9,7 @@
         "device_version": "1.0.0"
     },
     "rgblight": {
+        "split": true,
         "split_count": [6, 6]
     },
     "ws2812": {

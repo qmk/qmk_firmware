@@ -19,6 +19,7 @@
         "scroll_lock": "B13"
     },
     "rgblight": {
+        "split": true,
         "split_count": [8, 8]
     },
     "ws2812": {

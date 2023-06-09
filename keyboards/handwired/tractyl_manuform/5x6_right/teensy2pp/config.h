@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // WS2812 RGB LED strip input and number of LEDs
 #define RGBLED_NUM      20
-#define RGBLIGHT_SPLIT
 #define RGBLIGHT_LIMIT_VAL 80
 
 #define DEBUG_LED_PIN   D6

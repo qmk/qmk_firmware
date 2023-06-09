@@ -21,6 +21,7 @@
     },
     "rgblight": {
         "max_brightness": 100,
+        "split": true,
         "split_count": [28, 28]
     },
     "layouts": {

@@ -23,6 +23,7 @@
     },
     "rgblight": {
         "max_brightness": 128,
+        "split": true,
         "split_count": [8, 8]
     },
     "split": {
