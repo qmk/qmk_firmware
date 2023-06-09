@@ -22,7 +22,7 @@
         "rgb_matrix": true
     },
     "matrix_pins": {
-        "cols": ["C1","C2","C3","A0","A1","A2","A3","A4","A5","A6","A7","C4","C5","B0","B1","B2"],
+        "cols": ["C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B2"],
         "rows": ["C6", "C7", "C8", "C9", "A8"]
     },
     "diode_direction": "ROW2COL",
@@ -221,9 +221,9 @@
                 { "label": "Alt", "matrix": [4, 1], "w": 1.5, "x": 3, "y": 4.25 },
                 { "label": "Space", "matrix": [4, 2], "w": 2, "x": 4.5, "y": 4.25 },
                 { "label": "Win", "matrix": [4, 5], "w": 1.25, "x": 6.5, "y": 4.25 },
-                { "label": "Space", "matrix": [4, 9],"w": 2.5, "x": 8, "y": 4.25 },
-                { "label": "Alt", "matrix": [4, 10],"w":1.5, "x": 10.5, "y": 4.25 },
-                { "label": "Fn", "matrix": [4, 11], "w":1.5,"x": 12, "y": 4.25 },
+                { "label": "Space", "matrix": [4, 9], "w": 2.5, "x": 8, "y": 4.25 },
+                { "label": "Alt", "matrix": [4, 10], "w":1.5, "x": 10.5, "y": 4.25 },
+                { "label": "Fn", "matrix": [4, 11], "w":1.5, "x": 12, "y": 4.25 },
                 { "label": "Left", "matrix": [4, 13], "x": 15, "y": 4.25 },
                 { "label": "Down", "matrix": [4, 14], "x": 16, "y": 4.25 },
                 { "label": "Right", "matrix": [4, 15], "x": 17, "y": 4.25 }
