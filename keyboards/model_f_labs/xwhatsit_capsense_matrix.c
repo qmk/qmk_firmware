@@ -16,10 +16,7 @@
  */
 
 #include "quantum.h"
-<<<<<<< HEAD
 #include "keymap_introspection.h"
-=======
->>>>>>> master
 #include "xwhatsit_capsense_matrix.h"
 #include <string.h>
 
