@@ -1,2 +1,1 @@
-OLED_ENABLE = yes
-LTO_ENABLE = yes
+# This file intentionally left blank
