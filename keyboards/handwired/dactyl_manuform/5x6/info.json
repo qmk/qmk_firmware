@@ -8,6 +8,17 @@
         "pid": "0x3536",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "audio": false,
+        "backlight": false,
+        "rgblight": false
+    },
     "ws2812": {
         "pin": "D3"
     },
