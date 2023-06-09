@@ -24,7 +24,7 @@ bool oled_task_kb(void) {
         return false;
     }
 
-    // Draw default text
+    // Default OLED code
     oled_set_cursor(0, 0);
     oled_write("      ScottoGame     ", false);
 
