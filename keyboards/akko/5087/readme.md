@@ -1,9 +1,9 @@
 # 5087
 
-A customizable 80% encoder keyboard.
+A customizable 80% keyboard.
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
-* Hardware Supported: 5087
+* Hardware Supported:Akko 5087
 * Hardware Availability: [akko](https://www.akkogear.com/)
 
 Make example for this keyboard (after setting up your build environment):
