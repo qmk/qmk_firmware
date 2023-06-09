@@ -1,0 +1,530 @@
+{
+    "keyboard_name": "Theseus75",
+    "manufacturer": "haverworks",
+    "maintainer": "ebastler",
+    "url": "https://haver.codes/",
+    "bootloader": "stm32-dfu",
+    "processor": "STM32G431",
+    "usb": {
+        "vid": "0x6877",
+        "pid": "0x0001",
+        "device_version": "1.0.0"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "encoder": true
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["B11", "C15", "B6", "B5", "B4", "B3", "C11", "C10", "NO_PIN"], // NO_PIN is not actually used, but a pin to keep left and right matrix the same size
+        "rows": ["A9", "A10", "B15", "B12", "B13", "B14"]
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A8", "pin_b": "C6", "resolution": 2}
+        ]
+    },
+    "split": {
+        "matrix_pins": {
+            "right": {
+                "cols": ["A10", "A9", "A8", "C6", "B15", "B14", "B13", "B12", "C15"],
+                "rows": ["B3", "C10", "C11", "A1", "A0", "B6"]
+            }
+        },
+        "bootmagic": {
+            "matrix": [6, 6]
+        },
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "B5", "pin_b": "B4", "resolution": 2}
+                ]
+            }
+        }
+    },
+    "rgblight": {
+        "led_count": 53,
+        "split": true,
+        "split_count": [27, 26],
+        "max_brightness": 128
+    },
+    "ws2812": {
+        "pin": "B7"
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            {"flags": 8, "matrix": [3, 1], "x":  32, "y": 34},    // L CAPS
+            {"flags": 2, "x":  28, "y":  1},    // Begin L side UG
+            {"flags": 2, "x":  43, "y":  1},
+            {"flags": 2, "x":  56, "y":  1},
+            {"flags": 2, "x":  69, "y":  1},
+            {"flags": 2, "x":  84, "y":  1},
+            {"flags": 2, "x":  99, "y":  1},
+            {"flags": 2, "x":  97, "y":  8},
+            {"flags": 2, "x":  91, "y": 19},
+            {"flags": 2, "x":  91, "y": 31},
+            {"flags": 2, "x":  92, "y": 42},
+            {"flags": 2, "x":  96, "y": 53},
+            {"flags": 2, "x":  97, "y": 64},
+            {"flags": 2, "x":  81, "y": 64},
+            {"flags": 2, "x":  66, "y": 64},
+            {"flags": 2, "x":  53, "y": 64},
+            {"flags": 2, "x":  40, "y": 64},
+            {"flags": 2, "x":  26, "y": 64},
+            {"flags": 2, "x":  13, "y": 64},
+            {"flags": 2, "x":   0, "y": 64},
+            {"flags": 2, "x":   0, "y": 53},
+            {"flags": 2, "x":   0, "y": 42},
+            {"flags": 2, "x":   0, "y": 31},
+            {"flags": 2, "x":   0, "y": 19},
+            {"flags": 2, "x":   0, "y":  9},
+            {"flags": 2, "x":   0, "y":  1},
+            {"flags": 2, "x":  13, "y":  1},
+
+            {"flags": 2, "x": 224, "y": 31},    // Begin right side UG
+            {"flags": 2, "x": 224, "y": 42},
+            {"flags": 2, "x": 224, "y": 53},
+            {"flags": 2, "x": 224, "y": 64},
+            {"flags": 2, "x": 209, "y": 64},
+            {"flags": 2, "x": 194, "y": 64},
+            {"flags": 2, "x": 180, "y": 64},
+            {"flags": 2, "x": 165, "y": 64},
+            {"flags": 2, "x": 152, "y": 64},
+            {"flags": 2, "x": 138, "y": 64},
+            {"flags": 2, "x": 124, "y": 64},
+            {"flags": 2, "x": 124, "y": 64},
+            {"flags": 2, "x": 119, "y": 64},
+            {"flags": 2, "x": 114, "y": 64},
+            {"flags": 2, "x": 117, "y": 64},
+            {"flags": 2, "x": 122, "y": 27},
+            {"flags": 2, "x": 126, "y":  5},
+            {"flags": 2, "x": 140, "y":  5},
+            {"flags": 2, "x": 155, "y":  5},
+            {"flags": 2, "x": 168, "y":  5},
+            {"flags": 2, "x": 181, "y":  5},
+            {"flags": 2, "x": 196, "y":  5},
+            {"flags": 2, "x": 211, "y":  5},
+            {"flags": 2, "x": 224, "y":  5},
+            {"flags": 2, "x": 224, "y": 30},
+            {"flags": 2, "x": 224, "y": 64}
+        ]
+    },
+    "layouts": {
+        "LAYOUT_75xt_all": {                                                            // This layout works on both HS and solder PCBs, for ISO and ANSI switch layouts
+            "layout": [
+                {"label": "LENC", "matrix": [ 0, 0], "y": 0, "x":  0 },                 // Row 0, Left
+                {"label":  "ESC", "matrix": [ 0, 1], "y": 0, "x":  1.5 },
+                {"label":   "F1", "matrix": [ 0, 2], "y": 0, "x":  2.75 },
+                {"label":   "F2", "matrix": [ 0, 3], "y": 0, "x":  3.75 },
+                {"label":   "F3", "matrix": [ 0, 4], "y": 0, "x":  4.75 },
+                {"label":   "F4", "matrix": [ 0, 5], "y": 0, "x":  5.75 },
+                {"label":   "F5", "matrix": [ 0, 6], "y": 0, "x":  7 },
+                {"label":   "F6", "matrix": [ 0, 7], "y": 0, "x":  8 },
+                {"label":   "F7", "matrix": [ 6, 0], "y": 0, "x": 10 },                 // Row 0, Right
+                {"label":   "F8", "matrix": [ 6, 1], "y": 0, "x": 11 },
+                {"label":   "F9", "matrix": [ 6, 2], "y": 0, "x": 12.25 },
+                {"label":  "F10", "matrix": [ 6, 3], "y": 0, "x": 13.25 },
+                {"label":  "F11", "matrix": [ 6, 4], "y": 0, "x": 14.25 },
+                {"label":  "F12", "matrix": [ 6, 5], "y": 0, "x": 15.25 },
+                {"label":  "F13", "matrix": [ 6, 6], "y": 0, "x": 16.5 },
+                {"label": "RENC", "matrix": [ 6, 8], "y": 0, "x": 18 },
+
+                {"label":   "M1", "matrix": [ 1, 0], "y": 1, "x":  0 },                 // Row 1, Left
+                {"label": "GRAV", "matrix": [ 1, 1], "y": 1, "x":  1.5 },
+                {"label":    "1", "matrix": [ 1, 2], "y": 1, "x":  2.5 },
+                {"label":    "2", "matrix": [ 1, 3], "y": 1, "x":  3.5 },
+                {"label":    "3", "matrix": [ 1, 4], "y": 1, "x":  4.5 },
+                {"label":    "4", "matrix": [ 1, 5], "y": 1, "x":  5.5 },
+                {"label":    "5", "matrix": [ 1, 6], "y": 1, "x":  6.5 },
+                {"label":    "6", "matrix": [ 1, 7], "y": 1, "x":  7.5 },
+                {"label":    "7", "matrix": [ 7, 0], "y": 1, "x":  9.5 },               // Row 1, Right
+                {"label":    "8", "matrix": [ 7, 1], "y": 1, "x": 10.5 },
+                {"label":    "9", "matrix": [ 7, 2], "y": 1, "x": 11.5 },
+                {"label":    "0", "matrix": [ 7, 3], "y": 1, "x": 12.5 },
+                {"label":    "-", "matrix": [ 7, 4], "y": 1, "x": 13.5 },
+                {"label":    "=", "matrix": [ 7, 5], "y": 1, "x": 14.5 },
+                {"label": "Back", "matrix": [ 7, 6], "y": 1, "x": 15.5 },
+                {"label":  "Del", "matrix": [ 7, 7], "y": 1, "x": 16.5 },
+                {"label": "Home", "matrix": [ 6, 8], "y": 1, "x": 18 },
+
+                {"label":   "M2", "matrix": [ 2, 0], "y": 2, "x":  0 },                 // Row 2, Left
+                {"label":  "Tab", "matrix": [ 2, 1], "y": 2, "x":  1.5, "w": 1.5 },
+                {"label":    "Q", "matrix": [ 2, 3], "y": 2, "x":  3 },
+                {"label":    "W", "matrix": [ 2, 4], "y": 2, "x":  4 },
+                {"label":    "E", "matrix": [ 2, 5], "y": 2, "x":  5 },
+                {"label":    "R", "matrix": [ 2, 6], "y": 2, "x":  6 },
+                {"label":    "T", "matrix": [ 2, 7], "y": 2, "x":  7 },
+                {"label":    "Y", "matrix": [ 8, 0], "y": 2, "x":  9 },
+                {"label":    "U", "matrix": [ 8, 1], "y": 2, "x": 10 },                 // Row 2, Right
+                {"label":    "I", "matrix": [ 8, 2], "y": 2, "x": 11 },
+                {"label":    "O", "matrix": [ 8, 3], "y": 2, "x": 12 },
+                {"label":    "P", "matrix": [ 8, 4], "y": 2, "x": 13 },
+                {"label":    "[", "matrix": [ 8, 5], "y": 2, "x": 14 },
+                {"label":    "]", "matrix": [ 8, 6], "y": 2, "x": 15 },
+                {"label": "BSLS", "matrix": [ 8, 7], "y": 2, "x": 16, "w": 1.5 },
+                {"label": "PgUp", "matrix": [ 8, 8], "y": 2, "x": 18 },
+
+                {"label":   "M3", "matrix": [ 3, 0], "y": 3, "x":  0 },                 // Row 3, Left
+                {"label": "Caps", "matrix": [ 3, 1], "y": 3, "x":  1.5, "w": 1.75 },
+                {"label":    "A", "matrix": [ 3, 3], "y": 3, "x":  3.25 },
+                {"label":    "S", "matrix": [ 3, 4], "y": 3, "x":  4.25 },
+                {"label":    "D", "matrix": [ 3, 5], "y": 3, "x":  5.25 },
+                {"label":    "F", "matrix": [ 3, 6], "y": 3, "x":  6.25 },
+                {"label":    "G", "matrix": [ 3, 7], "y": 3, "x":  7.25 },
+                {"label":    "H", "matrix": [ 9, 0], "y": 3, "x":  9.25 },
+                {"label":    "J", "matrix": [ 9, 1], "y": 3, "x": 10.25 },              // Row 3, Right
+                {"label":    "K", "matrix": [ 9, 2], "y": 3, "x": 11.25 },
+                {"label":    "L", "matrix": [ 9, 3], "y": 3, "x": 12.25 },
+                {"label":    ";", "matrix": [ 9, 4], "y": 3, "x": 13.25 },
+                {"label":    "'", "matrix": [ 9, 5], "y": 3, "x": 14.25 },
+                {"label": "NUHS", "matrix": [ 9, 6], "y": 3, "x": 15.25 },
+                {"label":"Enter", "matrix": [ 9, 7], "y": 3, "x": 16.25, "w": 1.25 },
+                {"label": "PgDn", "matrix": [ 9, 8], "y": 3, "x": 18 },
+
+                {"label":   "M4", "matrix": [ 4, 0], "y": 4, "x":  0 },                 // Row 4, Left
+                {"label":"Shift", "matrix": [ 4, 1], "y": 4, "x":  1.5, "w": 1.25 },
+                {"label": "NUBS", "matrix": [ 4, 2], "y": 4, "x":  2.75 },
+                {"label":    "Z", "matrix": [ 4, 3], "y": 4, "x":  3.75 },
+                {"label":    "X", "matrix": [ 4, 4], "y": 4, "x":  4.75 },
+                {"label":    "C", "matrix": [ 4, 5], "y": 4, "x":  5.75 },
+                {"label":    "V", "matrix": [ 4, 6], "y": 4, "x":  6.75 },
+                {"label":    "B", "matrix": [ 4, 7], "y": 4, "x":  7.75 },
+                {"label":    "N", "matrix": [10, 0], "y": 4, "x":  9.75 },              // Row 4, Right
+                {"label":    "M", "matrix": [10, 1], "y": 4, "x": 10.75 },
+                {"label":    ",", "matrix": [10, 2], "y": 4, "x": 11.75 },
+                {"label":    ".", "matrix": [10, 3], "y": 4, "x": 12.75 },
+                {"label":    "/", "matrix": [10, 4], "y": 4, "x": 13.75 },
+                {"label":"Shift", "matrix": [10, 6], "y": 4, "x": 14.75, "w": 1.75 },
+                {"label":   "Up", "matrix": [10, 7], "y": 4, "x": 16.75 },
+                {"label":  "End", "matrix": [10, 8], "y": 4, "x": 18 },
+
+                {"label":   "M5", "matrix": [ 5, 0], "y": 5, "x": 0 },                  // Row 5, Left
+                {"label": "Ctrl", "matrix": [ 5, 1], "y": 5, "x": 1.5, "w": 1.25 },
+                {"label":  "Gui", "matrix": [ 5, 3], "y": 5, "x": 2.75, "w": 1.25  },
+                {"label":  "Alt", "matrix": [ 5, 4], "y": 5, "x": 4, "w": 1.25  },
+                {"label":"Space", "matrix": [ 5, 7], "y": 5, "x": 5.25, "w": 2.25 },
+                {"label":   "FN", "matrix": [ 4, 5], "y": 5, "x": 7.5, "w": 1.25 },
+                {"label":"Space", "matrix": [11, 1], "y": 5, "x": 9.75, "w": 2.75  },   // Row 5, Right
+                {"label":  "Alt", "matrix": [11, 3], "y": 5, "x": 12.5 },
+                {"label":  "Gui", "matrix": [11, 4], "y": 5, "x": 13.5 },
+                {"label": "Ctrl", "matrix": [11, 5], "y": 5, "x": 14.5 },
+                {"label": "Left", "matrix": [11, 6], "y": 5, "x": 15.75 },
+                {"label": "Down", "matrix": [11, 7], "y": 5, "x": 16.75 },
+                {"label": "Rght", "matrix": [11, 8], "y": 5, "x": 17.75 }
+            ]
+        },
+        "LAYOUT_75xt_hs_all": {                                                         // This layout enables all keys found on a HS PCB, incl ISO lshift
+            "layout": [
+                {"label": "LENC", "matrix": [ 0, 0], "y": 0, "x":  0 },                 // Row 0, Left
+                {"label":  "ESC", "matrix": [ 0, 1], "y": 0, "x":  1.5 },
+                {"label":   "F1", "matrix": [ 0, 2], "y": 0, "x":  2.75 },
+                {"label":   "F2", "matrix": [ 0, 3], "y": 0, "x":  3.75 },
+                {"label":   "F3", "matrix": [ 0, 4], "y": 0, "x":  4.75 },
+                {"label":   "F4", "matrix": [ 0, 5], "y": 0, "x":  5.75 },
+                {"label":   "F5", "matrix": [ 0, 6], "y": 0, "x":  7 },
+                {"label":   "F6", "matrix": [ 0, 7], "y": 0, "x":  8 },
+                {"label":   "F7", "matrix": [ 6, 0], "y": 0, "x": 10 },                 // Row 0, Right
+                {"label":   "F8", "matrix": [ 6, 1], "y": 0, "x": 11 },
+                {"label":   "F9", "matrix": [ 6, 2], "y": 0, "x": 12.25 },
+                {"label":  "F10", "matrix": [ 6, 3], "y": 0, "x": 13.25 },
+                {"label":  "F11", "matrix": [ 6, 4], "y": 0, "x": 14.25 },
+                {"label":  "F12", "matrix": [ 6, 5], "y": 0, "x": 15.25 },
+                {"label":  "F13", "matrix": [ 6, 6], "y": 0, "x": 16.5 },
+                {"label": "RENC", "matrix": [ 6, 8], "y": 0, "x": 18 },
+
+                {"label":   "M1", "matrix": [ 1, 0], "y": 1, "x":  0 },                 // Row 1, Left
+                {"label": "GRAV", "matrix": [ 1, 1], "y": 1, "x":  1.5 },
+                {"label":    "1", "matrix": [ 1, 2], "y": 1, "x":  2.5 },
+                {"label":    "2", "matrix": [ 1, 3], "y": 1, "x":  3.5 },
+                {"label":    "3", "matrix": [ 1, 4], "y": 1, "x":  4.5 },
+                {"label":    "4", "matrix": [ 1, 5], "y": 1, "x":  5.5 },
+                {"label":    "5", "matrix": [ 1, 6], "y": 1, "x":  6.5 },
+                {"label":    "6", "matrix": [ 1, 7], "y": 1, "x":  7.5 },
+                {"label":    "7", "matrix": [ 7, 0], "y": 1, "x":  9.5 },               // Row 1, Right
+                {"label":    "8", "matrix": [ 7, 1], "y": 1, "x": 10.5 },
+                {"label":    "9", "matrix": [ 7, 2], "y": 1, "x": 11.5 },
+                {"label":    "0", "matrix": [ 7, 3], "y": 1, "x": 12.5 },
+                {"label":    "-", "matrix": [ 7, 4], "y": 1, "x": 13.5 },
+                {"label":    "=", "matrix": [ 7, 5], "y": 1, "x": 14.5 },
+                {"label": "Back", "matrix": [ 7, 6], "y": 1, "x": 15.5 },
+                {"label":  "Del", "matrix": [ 7, 7], "y": 1, "x": 16.5 },
+                {"label": "Home", "matrix": [ 6, 8], "y": 1, "x": 18 },
+
+                {"label":   "M2", "matrix": [ 2, 0], "y": 2, "x":  0 },                 // Row 2, Left
+                {"label":  "Tab", "matrix": [ 2, 1], "y": 2, "x":  1.5, "w": 1.5 },
+                {"label":    "Q", "matrix": [ 2, 3], "y": 2, "x":  3 },
+                {"label":    "W", "matrix": [ 2, 4], "y": 2, "x":  4 },
+                {"label":    "E", "matrix": [ 2, 5], "y": 2, "x":  5 },
+                {"label":    "R", "matrix": [ 2, 6], "y": 2, "x":  6 },
+                {"label":    "T", "matrix": [ 2, 7], "y": 2, "x":  7 },
+                {"label":    "Y", "matrix": [ 8, 0], "y": 2, "x":  9 },
+                {"label":    "U", "matrix": [ 8, 1], "y": 2, "x": 10 },                 // Row 2, Right
+                {"label":    "I", "matrix": [ 8, 2], "y": 2, "x": 11 },
+                {"label":    "O", "matrix": [ 8, 3], "y": 2, "x": 12 },
+                {"label":    "P", "matrix": [ 8, 4], "y": 2, "x": 13 },
+                {"label":    "[", "matrix": [ 8, 5], "y": 2, "x": 14 },
+                {"label":    "]", "matrix": [ 8, 6], "y": 2, "x": 15 },
+                {"label": "BSLS", "matrix": [ 8, 7], "y": 2, "x": 16, "w": 1.5 },
+                {"label": "PgUp", "matrix": [ 8, 8], "y": 2, "x": 18 },
+
+                {"label":   "M3", "matrix": [ 3, 0], "y": 3, "x":  0 },                 // Row 3, Left
+                {"label": "Caps", "matrix": [ 3, 1], "y": 3, "x":  1.5, "w": 1.75 },
+                {"label":    "A", "matrix": [ 3, 3], "y": 3, "x":  3.25 },
+                {"label":    "S", "matrix": [ 3, 4], "y": 3, "x":  4.25 },
+                {"label":    "D", "matrix": [ 3, 5], "y": 3, "x":  5.25 },
+                {"label":    "F", "matrix": [ 3, 6], "y": 3, "x":  6.25 },
+                {"label":    "G", "matrix": [ 3, 7], "y": 3, "x":  7.25 },
+                {"label":    "H", "matrix": [ 9, 0], "y": 3, "x":  9.25 },
+                {"label":    "J", "matrix": [ 9, 1], "y": 3, "x": 10.25 },              // Row 3, Right
+                {"label":    "K", "matrix": [ 9, 2], "y": 3, "x": 11.25 },
+                {"label":    "L", "matrix": [ 9, 3], "y": 3, "x": 12.25 },
+                {"label":    ";", "matrix": [ 9, 4], "y": 3, "x": 13.25 },
+                {"label":    "'", "matrix": [ 9, 5], "y": 3, "x": 14.25 },
+                {"label":"Enter", "matrix": [ 9, 7], "y": 3, "x": 15.25, "w": 2.25 },
+                {"label": "PgDn", "matrix": [ 9, 8], "y": 3, "x": 18 },
+
+                {"label":   "M4", "matrix": [ 4, 0], "y": 4, "x":  0 },                 // Row 4, Left
+                {"label":"Shift", "matrix": [ 4, 1], "y": 4, "x":  1.5, "w": 1.25 },
+                {"label": "NUBS", "matrix": [ 4, 2], "y": 4, "x":  2.75 },
+                {"label":    "Z", "matrix": [ 4, 3], "y": 4, "x":  3.75 },
+                {"label":    "X", "matrix": [ 4, 4], "y": 4, "x":  4.75 },
+                {"label":    "C", "matrix": [ 4, 5], "y": 4, "x":  5.75 },
+                {"label":    "V", "matrix": [ 4, 6], "y": 4, "x":  6.75 },
+                {"label":    "B", "matrix": [ 4, 7], "y": 4, "x":  7.75 },
+                {"label":    "N", "matrix": [10, 0], "y": 4, "x":  9.75 },              // Row 4, Right
+                {"label":    "M", "matrix": [10, 1], "y": 4, "x": 10.75 },
+                {"label":    ",", "matrix": [10, 2], "y": 4, "x": 11.75 },
+                {"label":    ".", "matrix": [10, 3], "y": 4, "x": 12.75 },
+                {"label":    "/", "matrix": [10, 4], "y": 4, "x": 13.75 },
+                {"label":"Shift", "matrix": [10, 6], "y": 4, "x": 14.75, "w": 1.75 },
+                {"label":   "Up", "matrix": [10, 7], "y": 4, "x": 16.75 },
+                {"label":  "End", "matrix": [10, 8], "y": 4, "x": 18 },
+
+                {"label":   "M5", "matrix": [ 5, 0], "y": 5, "x": 0 },                  // Row 5, Left
+                {"label": "Ctrl", "matrix": [ 5, 1], "y": 5, "x": 1.5, "w": 1.25 },
+                {"label":  "Gui", "matrix": [ 5, 3], "y": 5, "x": 2.75, "w": 1.25  },
+                {"label":  "Alt", "matrix": [ 5, 4], "y": 5, "x": 4, "w": 1.25  },
+                {"label":"Space", "matrix": [ 5, 7], "y": 5, "x": 5.25, "w": 2.25 },
+                {"label":   "FN", "matrix": [ 4, 5], "y": 5, "x": 7.5, "w": 1.25 },
+                {"label":"Space", "matrix": [11, 1], "y": 5, "x": 9.75, "w": 2.75  },   // Row 5, Right
+                {"label":  "Alt", "matrix": [11, 3], "y": 5, "x": 12.5 },
+                {"label":  "Gui", "matrix": [11, 4], "y": 5, "x": 13.5 },
+                {"label": "Ctrl", "matrix": [11, 5], "y": 5, "x": 14.5 },
+                {"label": "Left", "matrix": [11, 6], "y": 5, "x": 15.75 },
+                {"label": "Down", "matrix": [11, 7], "y": 5, "x": 16.75 },
+                {"label": "Rght", "matrix": [11, 8], "y": 5, "x": 17.75 }
+            ]
+        },
+        "LAYOUT_75xt_ansi": {                                                           // ANSI layout will work on solder and hotswap
+            "layout": [
+                {"label": "LENC", "matrix": [ 0, 0], "y": 0, "x":  0 },                 // Row 0, Left
+                {"label":  "ESC", "matrix": [ 0, 1], "y": 0, "x":  1.5 },
+                {"label":   "F1", "matrix": [ 0, 2], "y": 0, "x":  2.75 },
+                {"label":   "F2", "matrix": [ 0, 3], "y": 0, "x":  3.75 },
+                {"label":   "F3", "matrix": [ 0, 4], "y": 0, "x":  4.75 },
+                {"label":   "F4", "matrix": [ 0, 5], "y": 0, "x":  5.75 },
+                {"label":   "F5", "matrix": [ 0, 6], "y": 0, "x":  7 },
+                {"label":   "F6", "matrix": [ 0, 7], "y": 0, "x":  8 },
+                {"label":   "F7", "matrix": [ 6, 0], "y": 0, "x": 10 },                 // Row 0, Right
+                {"label":   "F8", "matrix": [ 6, 1], "y": 0, "x": 11 },
+                {"label":   "F9", "matrix": [ 6, 2], "y": 0, "x": 12.25 },
+                {"label":  "F10", "matrix": [ 6, 3], "y": 0, "x": 13.25 },
+                {"label":  "F11", "matrix": [ 6, 4], "y": 0, "x": 14.25 },
+                {"label":  "F12", "matrix": [ 6, 5], "y": 0, "x": 15.25 },
+                {"label":  "F13", "matrix": [ 6, 6], "y": 0, "x": 16.5 },
+                {"label": "RENC", "matrix": [ 6, 8], "y": 0, "x": 18 },
+
+                {"label":   "M1", "matrix": [ 1, 0], "y": 1, "x":  0 },                 // Row 1, Left
+                {"label": "GRAV", "matrix": [ 1, 1], "y": 1, "x":  1.5 },
+                {"label":    "1", "matrix": [ 1, 2], "y": 1, "x":  2.5 },
+                {"label":    "2", "matrix": [ 1, 3], "y": 1, "x":  3.5 },
+                {"label":    "3", "matrix": [ 1, 4], "y": 1, "x":  4.5 },
+                {"label":    "4", "matrix": [ 1, 5], "y": 1, "x":  5.5 },
+                {"label":    "5", "matrix": [ 1, 6], "y": 1, "x":  6.5 },
+                {"label":    "6", "matrix": [ 1, 7], "y": 1, "x":  7.5 },
+                {"label":    "7", "matrix": [ 7, 0], "y": 1, "x":  9.5 },               // Row 1, Right
+                {"label":    "8", "matrix": [ 7, 1], "y": 1, "x": 10.5 },
+                {"label":    "9", "matrix": [ 7, 2], "y": 1, "x": 11.5 },
+                {"label":    "0", "matrix": [ 7, 3], "y": 1, "x": 12.5 },
+                {"label":    "-", "matrix": [ 7, 4], "y": 1, "x": 13.5 },
+                {"label":    "=", "matrix": [ 7, 5], "y": 1, "x": 14.5 },
+                {"label": "Back", "matrix": [ 7, 6], "y": 1, "x": 15.5, "w": 2 },
+                {"label": "Home", "matrix": [ 6, 8], "y": 1, "x": 18 },
+
+                {"label":   "M2", "matrix": [ 2, 0], "y": 2, "x":  0 },                 // Row 2, Left
+                {"label":  "Tab", "matrix": [ 2, 1], "y": 2, "x":  1.5, "w": 1.5 },
+                {"label":    "Q", "matrix": [ 2, 3], "y": 2, "x":  3 },
+                {"label":    "W", "matrix": [ 2, 4], "y": 2, "x":  4 },
+                {"label":    "E", "matrix": [ 2, 5], "y": 2, "x":  5 },
+                {"label":    "R", "matrix": [ 2, 6], "y": 2, "x":  6 },
+                {"label":    "T", "matrix": [ 2, 7], "y": 2, "x":  7 },
+                {"label":    "Y", "matrix": [ 8, 0], "y": 2, "x":  9 },
+                {"label":    "U", "matrix": [ 8, 1], "y": 2, "x": 10 },                 // Row 2, Right
+                {"label":    "I", "matrix": [ 8, 2], "y": 2, "x": 11 },
+                {"label":    "O", "matrix": [ 8, 3], "y": 2, "x": 12 },
+                {"label":    "P", "matrix": [ 8, 4], "y": 2, "x": 13 },
+                {"label":    "[", "matrix": [ 8, 5], "y": 2, "x": 14 },
+                {"label":    "]", "matrix": [ 8, 6], "y": 2, "x": 15 },
+                {"label": "BSLS", "matrix": [ 8, 7], "y": 2, "x": 16, "w": 1.5 },
+                {"label": "PgUp", "matrix": [ 8, 8], "y": 2, "x": 18 },
+
+                {"label":   "M3", "matrix": [ 3, 0], "y": 3, "x":  0 },                 // Row 3, Left
+                {"label": "Caps", "matrix": [ 3, 1], "y": 3, "x":  1.5, "w": 1.75 },
+                {"label":    "A", "matrix": [ 3, 3], "y": 3, "x":  3.25 },
+                {"label":    "S", "matrix": [ 3, 4], "y": 3, "x":  4.25 },
+                {"label":    "D", "matrix": [ 3, 5], "y": 3, "x":  5.25 },
+                {"label":    "F", "matrix": [ 3, 6], "y": 3, "x":  6.25 },
+                {"label":    "G", "matrix": [ 3, 7], "y": 3, "x":  7.25 },
+                {"label":    "H", "matrix": [ 9, 0], "y": 3, "x":  9.25 },
+                {"label":    "J", "matrix": [ 9, 1], "y": 3, "x": 10.25 },              // Row 3, Right
+                {"label":    "K", "matrix": [ 9, 2], "y": 3, "x": 11.25 },
+                {"label":    "L", "matrix": [ 9, 3], "y": 3, "x": 12.25 },
+                {"label":    ";", "matrix": [ 9, 4], "y": 3, "x": 13.25 },
+                {"label":    "'", "matrix": [ 9, 5], "y": 3, "x": 14.25 },
+                {"label":"Enter", "matrix": [ 9, 7], "y": 3, "x": 15.25, "w": 2.25 },
+                {"label": "PgDn", "matrix": [ 9, 8], "y": 3, "x": 18 },
+
+                {"label":   "M4", "matrix": [ 4, 0], "y": 4, "x":  0 },                 // Row 4, Left
+                {"label":"Shift", "matrix": [ 4, 1], "y": 4, "x":  1.5, "w": 2.25 },
+                {"label":    "Z", "matrix": [ 4, 3], "y": 4, "x":  3.75 },
+                {"label":    "X", "matrix": [ 4, 4], "y": 4, "x":  4.75 },
+                {"label":    "C", "matrix": [ 4, 5], "y": 4, "x":  5.75 },
+                {"label":    "V", "matrix": [ 4, 6], "y": 4, "x":  6.75 },
+                {"label":    "B", "matrix": [ 4, 7], "y": 4, "x":  7.75 },
+                {"label":    "N", "matrix": [10, 0], "y": 4, "x":  9.75 },              // Row 4, Right
+                {"label":    "M", "matrix": [10, 1], "y": 4, "x": 10.75 },
+                {"label":    ",", "matrix": [10, 2], "y": 4, "x": 11.75 },
+                {"label":    ".", "matrix": [10, 3], "y": 4, "x": 12.75 },
+                {"label":    "/", "matrix": [10, 4], "y": 4, "x": 13.75 },
+                {"label":"Shift", "matrix": [10, 6], "y": 4, "x": 14.75, "w": 1.75 },
+                {"label":   "Up", "matrix": [10, 7], "y": 4, "x": 16.75 },
+                {"label":  "End", "matrix": [10, 8], "y": 4, "x": 18 },
+
+                {"label":   "M5", "matrix": [ 5, 0], "y": 5, "x": 0 },                  // Row 5, Left
+                {"label": "Ctrl", "matrix": [ 5, 1], "y": 5, "x": 1.5, "w": 1.25 },
+                {"label":  "Gui", "matrix": [ 5, 3], "y": 5, "x": 2.75, "w": 1.25  },
+                {"label":  "Alt", "matrix": [ 5, 4], "y": 5, "x": 4, "w": 1.25  },
+                {"label":"Space", "matrix": [ 5, 7], "y": 5, "x": 5.25, "w": 2.25 },
+                {"label":   "FN", "matrix": [ 4, 5], "y": 5, "x": 7.5, "w": 1.25 },
+                {"label":"Space", "matrix": [11, 1], "y": 5, "x": 9.75, "w": 2.75  },   // Row 5, Right
+                {"label":  "Alt", "matrix": [11, 3], "y": 5, "x": 12.5 },
+                {"label":  "Gui", "matrix": [11, 4], "y": 5, "x": 13.5 },
+                {"label": "Ctrl", "matrix": [11, 5], "y": 5, "x": 14.5 },
+                {"label": "Left", "matrix": [11, 6], "y": 5, "x": 15.75 },
+                {"label": "Down", "matrix": [11, 7], "y": 5, "x": 16.75 },
+                {"label": "Rght", "matrix": [11, 8], "y": 5, "x": 17.75 }
+            ]
+        },
+        "LAYOUT_75xt_iso": {                                                            // ISO layout requires solder PCB for NUHS/ISO enter
+            "layout": [
+                {"label": "LENC", "matrix": [ 0, 0], "y": 0, "x":  0 },                 // Row 0, Left
+                {"label":  "ESC", "matrix": [ 0, 1], "y": 0, "x":  1.5 },
+                {"label":   "F1", "matrix": [ 0, 2], "y": 0, "x":  2.75 },
+                {"label":   "F2", "matrix": [ 0, 3], "y": 0, "x":  3.75 },
+                {"label":   "F3", "matrix": [ 0, 4], "y": 0, "x":  4.75 },
+                {"label":   "F4", "matrix": [ 0, 5], "y": 0, "x":  5.75 },
+                {"label":   "F5", "matrix": [ 0, 6], "y": 0, "x":  7 },
+                {"label":   "F6", "matrix": [ 0, 7], "y": 0, "x":  8 },
+                {"label":   "F7", "matrix": [ 6, 0], "y": 0, "x": 10 },                 // Row 0, Right
+                {"label":   "F8", "matrix": [ 6, 1], "y": 0, "x": 11 },
+                {"label":   "F9", "matrix": [ 6, 2], "y": 0, "x": 12.25 },
+                {"label":  "F10", "matrix": [ 6, 3], "y": 0, "x": 13.25 },
+                {"label":  "F11", "matrix": [ 6, 4], "y": 0, "x": 14.25 },
+                {"label":  "F12", "matrix": [ 6, 5], "y": 0, "x": 15.25 },
+                {"label":  "F13", "matrix": [ 6, 6], "y": 0, "x": 16.5 },
+                {"label": "RENC", "matrix": [ 6, 8], "y": 0, "x": 18 },
+
+                {"label":   "M1", "matrix": [ 1, 0], "y": 1, "x":  0 },                 // Row 1, Left
+                {"label": "GRAV", "matrix": [ 1, 1], "y": 1, "x":  1.5 },
+                {"label":    "1", "matrix": [ 1, 2], "y": 1, "x":  2.5 },
+                {"label":    "2", "matrix": [ 1, 3], "y": 1, "x":  3.5 },
+                {"label":    "3", "matrix": [ 1, 4], "y": 1, "x":  4.5 },
+                {"label":    "4", "matrix": [ 1, 5], "y": 1, "x":  5.5 },
+                {"label":    "5", "matrix": [ 1, 6], "y": 1, "x":  6.5 },
+                {"label":    "6", "matrix": [ 1, 7], "y": 1, "x":  7.5 },
+                {"label":    "7", "matrix": [ 7, 0], "y": 1, "x":  9.5 },               // Row 1, Right
+                {"label":    "8", "matrix": [ 7, 1], "y": 1, "x": 10.5 },
+                {"label":    "9", "matrix": [ 7, 2], "y": 1, "x": 11.5 },
+                {"label":    "0", "matrix": [ 7, 3], "y": 1, "x": 12.5 },
+                {"label":    "-", "matrix": [ 7, 4], "y": 1, "x": 13.5 },
+                {"label":    "=", "matrix": [ 7, 5], "y": 1, "x": 14.5 },
+                {"label": "Back", "matrix": [ 7, 6], "y": 1, "x": 15.5 },
+                {"label":  "Del", "matrix": [ 7, 7], "y": 1, "x": 16.5 },
+                {"label": "Home", "matrix": [ 6, 8], "y": 1, "x": 18 },
+
+                {"label":   "M2", "matrix": [ 2, 0], "y": 2, "x":  0 },                 // Row 2, Left
+                {"label":  "Tab", "matrix": [ 2, 1], "y": 2, "x":  1.5, "w": 1.5 },
+                {"label":    "Q", "matrix": [ 2, 3], "y": 2, "x":  3 },
+                {"label":    "W", "matrix": [ 2, 4], "y": 2, "x":  4 },
+                {"label":    "E", "matrix": [ 2, 5], "y": 2, "x":  5 },
+                {"label":    "R", "matrix": [ 2, 6], "y": 2, "x":  6 },
+                {"label":    "T", "matrix": [ 2, 7], "y": 2, "x":  7 },
+                {"label":    "Y", "matrix": [ 8, 0], "y": 2, "x":  9 },
+                {"label":    "U", "matrix": [ 8, 1], "y": 2, "x": 10 },                 // Row 2, Right
+                {"label":    "I", "matrix": [ 8, 2], "y": 2, "x": 11 },
+                {"label":    "O", "matrix": [ 8, 3], "y": 2, "x": 12 },
+                {"label":    "P", "matrix": [ 8, 4], "y": 2, "x": 13 },
+                {"label":    "[", "matrix": [ 8, 5], "y": 2, "x": 14 },
+                {"label":    "]", "matrix": [ 8, 6], "y": 2, "x": 15 },
+                {"label": "PgUp", "matrix": [ 8, 8], "y": 2, "x": 18 },
+
+                {"label":   "M3", "matrix": [ 3, 0], "y": 3, "x":  0 },                 // Row 3, Left
+                {"label": "Caps", "matrix": [ 3, 1], "y": 3, "x":  1.5, "w": 1.75 },
+                {"label":    "A", "matrix": [ 3, 3], "y": 3, "x":  3.25 },
+                {"label":    "S", "matrix": [ 3, 4], "y": 3, "x":  4.25 },
+                {"label":    "D", "matrix": [ 3, 5], "y": 3, "x":  5.25 },
+                {"label":    "F", "matrix": [ 3, 6], "y": 3, "x":  6.25 },
+                {"label":    "G", "matrix": [ 3, 7], "y": 3, "x":  7.25 },
+                {"label":    "H", "matrix": [ 9, 0], "y": 3, "x":  9.25 },
+                {"label":    "J", "matrix": [ 9, 1], "y": 3, "x": 10.25 },              // Row 3, Right
+                {"label":    "K", "matrix": [ 9, 2], "y": 3, "x": 11.25 },
+                {"label":    "L", "matrix": [ 9, 3], "y": 3, "x": 12.25 },
+                {"label":    ";", "matrix": [ 9, 4], "y": 3, "x": 13.25 },
+                {"label":    "'", "matrix": [ 9, 5], "y": 3, "x": 14.25 },
+                {"label": "NUHS", "matrix": [ 9, 6], "y": 3, "x": 15.25 },
+                {"label":"Enter", "matrix": [ 9, 7], "y": 2, "x": 16.25, "w": 1.25, "h": 2 },
+                {"label": "PgDn", "matrix": [ 9, 8], "y": 3, "x": 18 },
+
+                {"label":   "M4", "matrix": [ 4, 0], "y": 4, "x":  0 },                 // Row 4, Left
+                {"label":"Shift", "matrix": [ 4, 1], "y": 4, "x":  1.5, "w": 1.25 },
+                {"label": "NUBS", "matrix": [ 4, 2], "y": 4, "x":  2.75 },
+                {"label":    "Z", "matrix": [ 4, 3], "y": 4, "x":  3.75 },
+                {"label":    "X", "matrix": [ 4, 4], "y": 4, "x":  4.75 },
+                {"label":    "C", "matrix": [ 4, 5], "y": 4, "x":  5.75 },
+                {"label":    "V", "matrix": [ 4, 6], "y": 4, "x":  6.75 },
+                {"label":    "B", "matrix": [ 4, 7], "y": 4, "x":  7.75 },
+                {"label":    "N", "matrix": [10, 0], "y": 4, "x":  9.75 },              // Row 4, Right
+                {"label":    "M", "matrix": [10, 1], "y": 4, "x": 10.75 },
+                {"label":    ",", "matrix": [10, 2], "y": 4, "x": 11.75 },
+                {"label":    ".", "matrix": [10, 3], "y": 4, "x": 12.75 },
+                {"label":    "/", "matrix": [10, 4], "y": 4, "x": 13.75 },
+                {"label":"Shift", "matrix": [10, 6], "y": 4, "x": 14.75, "w": 1.75 },
+                {"label":   "Up", "matrix": [10, 7], "y": 4, "x": 16.75 },
+                {"label":  "End", "matrix": [10, 8], "y": 4, "x": 18 },
+
+                {"label":   "M5", "matrix": [ 5, 0], "y": 5, "x": 0 },                  // Row 5, Left
+                {"label": "Ctrl", "matrix": [ 5, 1], "y": 5, "x": 1.5, "w": 1.25 },
+                {"label":  "Gui", "matrix": [ 5, 3], "y": 5, "x": 2.75, "w": 1.25  },
+                {"label":  "Alt", "matrix": [ 5, 4], "y": 5, "x": 4, "w": 1.25  },
+                {"label":"Space", "matrix": [ 5, 7], "y": 5, "x": 5.25, "w": 2.25 },
+                {"label":   "FN", "matrix": [ 4, 5], "y": 5, "x": 7.5, "w": 1.25 },
+                {"label":"Space", "matrix": [11, 1], "y": 5, "x": 9.75, "w": 2.75  },   // Row 5, Right
+                {"label":  "Alt", "matrix": [11, 3], "y": 5, "x": 12.5 },
+                {"label":  "Gui", "matrix": [11, 4], "y": 5, "x": 13.5 },
+                {"label": "Ctrl", "matrix": [11, 5], "y": 5, "x": 14.5 },
+                {"label": "Left", "matrix": [11, 6], "y": 5, "x": 15.75 },
+                {"label": "Down", "matrix": [11, 7], "y": 5, "x": 16.75 },
+                {"label": "Rght", "matrix": [11, 8], "y": 5, "x": 17.75 }
+            ]
+        },
+    }
+}
