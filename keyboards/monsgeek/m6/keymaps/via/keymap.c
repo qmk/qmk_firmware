@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_W,
         _______,                   _______, _______,          _______, _______,                  _______, _______,           KC_A,    KC_S,    KC_D),
 
-    [WIN_FN] = LAYOUT( /* WASD/�������� */
+    [WIN_FN] = LAYOUT( 
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12,   _______,           RGB_MOD,
         _______, _______,TG(WIN_W),_______, _______, _______, _______, _______, KC_INS,  DF(MAC_B),KC_PSCR,_______, _______, _______,           KC_HOME,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_SPD, RGB_SPI, _______, RGB_HUI,           KC_END,
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH,  KC_RSFT, KC_UP,
         KC_LCTL,                   KC_LGUI, KC_SPC,           KC_LALT, KC_SPC,                    KC_RGUI, MO(MAC_FN),       KC_LEFT, KC_DOWN, KC_RGHT),
 
-    [MAC_W] = LAYOUT( /* WASD/�������� */
+    [MAC_W] = LAYOUT( 
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
