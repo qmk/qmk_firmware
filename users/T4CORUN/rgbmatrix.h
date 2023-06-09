@@ -1,11 +1,10 @@
 #pragma once
 #include "T4CORUN.h"
 
-/*
+
 #if defined(CAPS_WORD_ENABLE)
-#   include "caps_word.h"
-#endif
-*/
+#   include "capsword.h"
+#endif //CAPS_WORD_ENABLE
 
 
 //qmk_firmware\keyboards\crkbd\rev1\rev1.c
@@ -35,11 +34,15 @@
 #   define LED_DPAD_D 16
 
 //mouse buttons
-#   define LED_MOUSE_B1 39
-#   define LED_MOUSE_B2 42
-#   define LED_MOUSE_B3 47
-#   define LED_MOUSE_B4 40
-#   define LED_MOUSE_B5 33
+#   define LED_MOUSE_LB1 14
+#   define LED_MOUSE_LB2 13
+#   define LED_MOUSE_LB3 6
+
+#   define LED_MOUSE_RB1 39
+#   define LED_MOUSE_RB2 42
+#   define LED_MOUSE_RB3 47
+#   define LED_MOUSE_RB4 40
+#   define LED_MOUSE_RB5 33
 
 //shift keys
 #   define LED_SHIFT_T 6
@@ -57,6 +60,12 @@
 //GUI keys
 #   define LED_GUI_L 22
 #   define LED_GUI_R 49
+
+//Macro keys
+#   define LED_MACREC1 13
+#   define LED_MACPLY1 6
+#   define LED_MACREC2 33
+#   define LED_MACPLY2 40
 
 
 //qmk_firmware\keyboards\bastardkb\charybdis\3x5\3x5.c
@@ -85,11 +94,15 @@
 #   define LED_DPAD_D 7
 
 //mouse buttons
-#   define LED_MOUSE_B1 29
-#   define LED_MOUSE_B2 24
-#   define LED_MOUSE_B3 23
-#   define LED_MOUSE_B4 34
-#   define LED_MOUSE_B5 33
+#   define LED_MOUSE_LB1 15
+#   define LED_MOUSE_LB2 16
+#   define LED_MOUSE_LB3 17
+
+#   define LED_MOUSE_RB1 29
+#   define LED_MOUSE_RB2 24
+#   define LED_MOUSE_RB3 23
+#   define LED_MOUSE_RB4 34
+#   define LED_MOUSE_RB5 33
 
 //shift keys
 #   define LED_SHIFT_T 17
@@ -108,4 +121,9 @@
 #   define LED_GUI_L 1
 #   define LED_GUI_R 19
 
+//Macro keys
+#   define LED_MACREC1 16
+#   define LED_MACPLY1 17
+#   define LED_MACREC2 34
+#   define LED_MACPLY2 33
 #endif

@@ -38,10 +38,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(GAMELAYER_ENABLE)
   [_DEFAULT_LAYER_3] = LAYOUT_wrapper(
-    _______________GAMING_BASE_L1______________, __________________GAMING_R1________________,
-    _______________GAMING_BASE_L2______________, __________________GAMING_R2________________,
-    _______________GAMING_BASE_L3______________, __________________GAMING_R3________________,
-                      ______GAMING_BASE_L4_____, _________GAMING_R4_______
+    _______________GAMING_BASE_L1______________, _______________GAMING_BASE_R1______________,
+    _______________GAMING_BASE_L2______________, _______________GAMING_BASE_R2______________,
+    _______________GAMING_BASE_L3______________, _______________GAMING_BASE_R3______________,
+                      ______GAMING_BASE_L4_____, ______GAMING_BASE_R4_____
   ),
 #endif //GAMELAYER_ENABLE
 
@@ -81,10 +81,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(GAMELAYER_ENABLE)
   [_GAMENUMBER] = LAYOUT_wrapper(
-    _______________GAMING_NUM_L1_______________, __________________GAMING_R1________________,
-    _______________GAMING_NUM_L2_______________, __________________GAMING_R2________________,
-    _______________GAMING_NUM_L3_______________, __________________GAMING_R3________________,
-                      ______GAMING_NUM_L4______, _________GAMING_R4_______
+    _______________GAMING_NUM_L1_______________, _______________GAMING_BASE_R1______________,
+    _______________GAMING_NUM_L2_______________, _______________GAMING_BASE_R2______________,
+    _______________GAMING_NUM_L3_______________, _______________GAMING_BASE_R3______________,
+                      ______GAMING_NUM_L4______, ______GAMING_BASE_R4_____
   ),
 #endif //GAMELAYER_ENABLE
 

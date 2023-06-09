@@ -16,6 +16,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
   uint8_t current_default_layer = get_highest_layer(default_layer_state);
   uint8_t current_mod = get_mods();
   uint8_t current_osm = get_oneshot_mods();
+  bool is_capsword_on = get_caps_word_state();
 
   switch(current_layer) {
 
@@ -29,6 +30,11 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
 
     case _FUNCTION:
       rgb_matrix_set_color(LED_FUNCTION, RGB_AZURE);
+
+      rgb_matrix_set_color(LED_MACREC1, RGB_RED);
+      rgb_matrix_set_color(LED_MACPLY1, RGB_GREEN);
+      rgb_matrix_set_color(LED_MACREC2, RGB_RED);
+      rgb_matrix_set_color(LED_MACPLY2, RGB_GREEN);
       break;
 
     case _ADJUST:
@@ -61,19 +67,19 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
         
         case _DEFAULT_LAYER_1:
           rgb_matrix_set_color(LED_QWERTY, RGB_PURPLE);
-          rgb_matrix_set_color(LED_COLEMAKDH, RGB_AZURE);
-          rgb_matrix_set_color(LED_GAME, RGB_AZURE);
+          rgb_matrix_set_color(LED_COLEMAKDH, RGB_WHITE);
+          rgb_matrix_set_color(LED_GAME, RGB_WHITE);
           break;
         
         case _DEFAULT_LAYER_2:
-          rgb_matrix_set_color(LED_QWERTY, RGB_AZURE);
+          rgb_matrix_set_color(LED_QWERTY, RGB_WHITE);
           rgb_matrix_set_color(LED_COLEMAKDH, RGB_PURPLE);
-          rgb_matrix_set_color(LED_GAME, RGB_AZURE);
+          rgb_matrix_set_color(LED_GAME, RGB_WHITE);
           break;
         
         case _DEFAULT_LAYER_3:
-          rgb_matrix_set_color(LED_QWERTY, RGB_AZURE);
-          rgb_matrix_set_color(LED_COLEMAKDH, RGB_AZURE);
+          rgb_matrix_set_color(LED_QWERTY, RGB_WHITE);
+          rgb_matrix_set_color(LED_COLEMAKDH, RGB_WHITE);
           rgb_matrix_set_color(LED_GAME, RGB_PURPLE);
           break;
       }
@@ -81,12 +87,16 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
 
     case _MOUSE:
       rgb_matrix_set_color(LED_MOUSE, RGB_AZURE);
+      
+      rgb_matrix_set_color(LED_MOUSE_LB1, RGB_CORAL);
+      rgb_matrix_set_color(LED_MOUSE_LB2, RGB_CORAL);
+      rgb_matrix_set_color(LED_MOUSE_LB3, RGB_CORAL);
 
-      rgb_matrix_set_color(LED_MOUSE_B1, RGB_CORAL);
-      rgb_matrix_set_color(LED_MOUSE_B2, RGB_CORAL);
-      rgb_matrix_set_color(LED_MOUSE_B3, RGB_CORAL);
-      rgb_matrix_set_color(LED_MOUSE_B4, RGB_CORAL);
-      rgb_matrix_set_color(LED_MOUSE_B5, RGB_CORAL);
+      rgb_matrix_set_color(LED_MOUSE_RB1, RGB_CORAL);
+      rgb_matrix_set_color(LED_MOUSE_RB2, RGB_CORAL);
+      rgb_matrix_set_color(LED_MOUSE_RB3, RGB_CORAL);
+      rgb_matrix_set_color(LED_MOUSE_RB4, RGB_CORAL);
+      rgb_matrix_set_color(LED_MOUSE_RB5, RGB_CORAL);
       break;
 
     case _GAMENUMBER:
@@ -137,16 +147,17 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
   if (host_keyboard_led_state().caps_lock) {
     rgb_matrix_set_color(LED_CAPSLOCK, RGB_TEAL);
   }
-  
-  /*
-  if (is_caps_word_on()) {
-    rgb_matrix_set_color(LED_CAPSLOCK, RGB_PINK);
-  }
-  */
-  
+,
   if (host_keyboard_led_state().scroll_lock) {
     rgb_matrix_set_color(LED_SCRLOCK, RGB_TEAL);
   }
+
+#if defined(CAPS_WORD_ENABLE)  
+  if (is_capsword_on) {
+    rgb_matrix_set_color(LED_CAPSLOCK, RGB_PINK);
+    rgb_matrix_set_color(LED_SCRLOCK, RGB_PINK);
+  }
+#endif //CAPS_WORD_ENABLE
 
   return false;
 }

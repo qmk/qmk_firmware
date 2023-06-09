@@ -19,20 +19,20 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     //QWERTY Home Row Mods
-    case LGUI_A:
-    case LGUI_QT:
-    case LALT_S:
-    case LALT_L:
+    case TR_A:
+    case TR_QT:
+    case TR_S:
+    case TR_L:
     //COLEMAKdh Home Row Mods
-    case LGUI_O:
-    case LALT_R:
-    case LALT_I:
+    case TR_O:
+    case TR_R:
+    case TR_I:
       return TAPPING_TERM + 30;
     //Pinky layers
     case FUN_Z:
     case AD_SLSH:
       return TAPPING_TERM + 50;
-    case MOU_C:
+    case TR_MOUC:
       return TAPPING_TERM - 30;
     default:
       //uprintf("tapping term: %d \n", TAPPING_TERM);
