@@ -1,6 +1,6 @@
 # ergostrafer
 
-![ergostrafer](https://i.imgur.com/ncJgD3j.jpeg)
+![ergostrafer](https://i.imgur.com/ncJgD3jh.jpeg)
 
 ErgoStrafer is a gaming mechanical keyboard that reproduces the layout of the discontinued SteelSeries Merc Stealth a.k.a. Zboard.
 
@@ -11,6 +11,10 @@ ErgoStrafer is a gaming mechanical keyboard that reproduces the layout of the di
 Make example for this keyboard (after setting up your build environment):
 
     make custommk/ergostrafer:default
+
+Flashing example for this keyboard:
+
+    make custommk/ergostrafer:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
