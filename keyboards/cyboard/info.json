@@ -1,0 +1,8 @@
+{
+    "manufacturer": "Cyboard",
+    "maintainer": "@Cyboard-DigitalTailor",
+    "url": "https://cyboard.digital",
+    "usb": {
+        "vid": "0x4359",
+    }
+}
