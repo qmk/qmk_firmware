@@ -152,38 +152,38 @@ void x_reset(tap_dance_state_t *state, void *user_data);
     void housekeeping_task_user(void) {
         // Caps lock status
         if (host_keyboard_led_state().caps_lock) {
-            rgblight_setrgb_at(1, 0, 0, 0);
-        }
-
-        // Layers
-        switch (get_highest_layer(layer_state | default_layer_state)) {
-            case 0:
-                rgblight_setrgb_at(RGB_BLACK, 0);
-                break;
-            case 1:
-                rgblight_setrgb_at(RGB_BLACK, 0);
-                break;
-            case 2:
-                rgblight_setrgb_at(RGB_BLACK, 0);
-                break;
-            case 3:
-                rgblight_setrgb_at(RGB_BLACK, 0);
-                break;
-            case 4:
-                rgblight_setrgb_at(0, 0, 1, 0);
-                break;
-            case 5:
-                rgblight_setrgb_at(1, 1, 1, 0);
-                break;
-            case 6:
-                rgblight_setrgb_at(0, 0, 1, 0);
-                break;
-            case 7:
-                rgblight_setrgb_at(0, 0, 1, 0);
-                break;
-            case 8:
-                rgblight_setrgb_at(0, 0, 1, 0);
-                break;
+            rgblight_setrgb_at(4, 4, 0, 0);
+        } else {
+            // Layers
+            switch (get_highest_layer(layer_state | default_layer_state)) {
+                case 0:
+                    rgblight_setrgb_at(4, 4, 4, 0);
+                    break;
+                case 1:
+                    rgblight_setrgb_at(4, 4, 4, 0);
+                    break;
+                case 2:
+                    rgblight_setrgb_at(4, 4, 4, 0);
+                    break;
+                case 3:
+                    rgblight_setrgb_at(4, 4, 4, 0);
+                    break;
+                case 4:
+                    rgblight_setrgb_at(0, 0, 4, 0);
+                    break;
+                case 5:
+                    rgblight_setrgb_at(0, 4, 0, 0);
+                    break;
+                case 6:
+                    rgblight_setrgb_at(0, 0, 4, 0);
+                    break;
+                case 7:
+                    rgblight_setrgb_at(0, 0, 4, 0);
+                    break;
+                case 8:
+                    rgblight_setrgb_at(0, 0, 4, 0);
+                    break;
+            }
         }
     }
 #endif
