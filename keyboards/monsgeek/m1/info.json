@@ -51,6 +51,7 @@
             "typing_heatmap": true,
             "solid_reactive_simple": true,
             "solid_reactive": true,
+            "solid_reactive_cross": true,
             "multisplash": true
         },
         "layout":[
