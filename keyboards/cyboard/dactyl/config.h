@@ -9,12 +9,9 @@
 #define MATRIX_COLS 7
 
 /* Split keyboard settings */
-#define SOFT_SERIAL_PIN GP0
-#define SELECT_SOFT_SERIAL_SPEED 2
 #define MASTER_LEFT
 
 /* RGB settings */
-#define WS2812_DI_PIN GP1
 #define RGBLED_NUM 80
 #define RGBLED_SPLIT { 40, 40 }
 #ifdef RGB_MATRIX_ENABLE
