@@ -1,6 +1,6 @@
 # m3
 
-A customizable 80% encoder keyboard.
+A customizable 80% keyboard.
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
 * Hardware Supported: m3
