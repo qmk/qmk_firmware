@@ -426,11 +426,17 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 
 // LED color buffer
 LED_TYPE rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
+bool     ws2812_dirty = false;
 
-static void init(void) {}
+static void init(void) {
+    ws2812_dirty = false;
+}
 
 static void flush(void) {
-    ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
+    if (ws2812_dirty) {
+        ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
+        ws2812_dirty = false;
+    }
 }
 
 // Set an led in the buffer to a color
@@ -448,6 +454,11 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
     }
 #    endif
 
+    if (rgb_matrix_ws2812_array[i].r == r && rgb_matrix_ws2812_array[i].g == g && rgb_matrix_ws2812_array[i].b == b) {
+        return;
+    }
+
+    ws2812_dirty                 = true;
     rgb_matrix_ws2812_array[i].r = r;
     rgb_matrix_ws2812_array[i].g = g;
     rgb_matrix_ws2812_array[i].b = b;
