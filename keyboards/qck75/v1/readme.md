@@ -6,11 +6,13 @@ https://i.imgur.com/gCvabEi.jpeg
 https://i.imgur.com/l7LvjC5.jpeg
 https://i.imgur.com/exdD8Hg.jpeg
 https://i.imgur.com/1edEPh9.jpeg
-*A short description of the keyboard/project*
+
+This keyboard is a keyboard made for self use
+75% layout with extra keys for macro with led and knob
 
 * Keyboard Maintainer: [Andrian](https://github.com/PoringH)
-* Hardware Supported: *This project uses STM32F072R8Tx for the mcu on the pcb*
-* Hardware Availability: *https://github.com/PoringH/QCK75-XT*
+* Hardware Supported: This project uses STM32F072R8Tx for the mcu on the pcb
+* Hardware Availability: https://github.com/PoringH/QCK75-XT
 
 Make example for this keyboard (after setting up your build environment):
 
