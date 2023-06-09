@@ -31,7 +31,7 @@ The simplest way to flash your keyboard will be with the [QMK Toolbox](https://g
 
 However, the Toolbox is currently only available for Windows and macOS. If you're using Linux (or just wish to flash the firmware from the command line), skip to the [Flash your Keyboard from the Command Line](#flash-your-keyboard-from-the-command-line) section.
 
-**Please note QMK Toolbox is not necessary for flashing [RP2040 devices](https://docs.qmk.fm/#/flashing?id=raspberry-pi-rp2040-uf2).**
+?> QMK Toolbox is not necessary for flashing [RP2040 devices](https://docs.qmk.fm/#/flashing?id=raspberry-pi-rp2040-uf2).
 
 ### Load the File into QMK Toolbox
 
