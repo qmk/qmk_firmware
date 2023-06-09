@@ -1,6 +1,6 @@
 # qck75
 
-[qck75](https://i.imgur.com/1edEPh9l.jpeg)
+[qck75](https://i.imgur.com/exdD8Hg.jpeg)
 
 This keyboard is a keyboard made for self use
 75% layout with extra keys for macro with led and knob
