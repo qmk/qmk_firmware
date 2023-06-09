@@ -20,6 +20,8 @@
 void keyboard_post_init_kb(void) {
     setPinOutput(B9);
     writePinHigh(B9);
+    
+    keyboard_post_init_user();
 }
 
 #ifdef RGB_MATRIX_ENABLE
