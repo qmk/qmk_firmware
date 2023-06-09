@@ -15,7 +15,10 @@
         "console": false,                                                                                                 
         "encoder": true,                                                                                                  
         "extrakey": true,                                                                                                 
-        "mousekey": true                                                                                                  
+        "mousekey": true,
+        "nkro", true,
+        "oled", true,
+        "wpm": true
     },                                                                                                                    
     "matrix_pins": {                                                                                                      
         "cols": ["A6", "A7", "C4", "C5", "B0", "B1", "B2", "B11", "A9", "A8", "C9", "C8", "C7", "C6", "B15", "B14", "B13"],
