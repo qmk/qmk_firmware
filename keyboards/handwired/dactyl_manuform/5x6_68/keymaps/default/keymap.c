@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV , KC_INS , KC_LEFT, KC_RGHT,                                                                             KC_DOWN, KC_UP  , KC_LBRC, KC_RBRC,
                                             KC_LCTL, KC_SPC ,                                         KC_ENT, MO(_LAYER2),
                                                               KC_HOME, KC_LGUI,     KC_LALT, KC_PGUP,
-                                                              KC_END, KC_BSPC,      KC_DEL, KC_PGDN, 
+                                                              KC_END, KC_BSPC,      KC_DEL, KC_PGDN 
     ),
     [_LAYER2] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
