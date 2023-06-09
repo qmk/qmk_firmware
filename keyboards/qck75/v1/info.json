@@ -16,8 +16,8 @@
         "encoder": true,                                                                                                  
         "extrakey": true,                                                                                                 
         "mousekey": true,
-        "nkro", true,
-        "oled", true,
+        "nkro": true,
+        "oled": true,
         "wpm": true
     },                                                                                                                    
     "matrix_pins": {                                                                                                      
