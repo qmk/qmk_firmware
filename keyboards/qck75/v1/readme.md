@@ -5,8 +5,8 @@
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Andrian](https://github.com/PoringH)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: *This project uses STM32F072R8Tx for the mcu on the pcb*
+* Hardware Availability: *https://github.com/PoringH/QCK75-XT*
 
 Make example for this keyboard (after setting up your build environment):
 
