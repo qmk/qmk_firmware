@@ -14,13 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <quantum.h>
-#include <i2c_master.h>
-#include <led_tables.h>
-#include <rgb_matrix.h>
+#include "quantum.h"
+
+#include "i2c_master.h"
+#include "led_tables.h"
+#include "rgb_matrix.h"
 #include "drivers/led/issi/is31fl3731.h"
 #include "ws2812.h"
-#include "rev1_qmk.h"
 
 #ifdef RGB_MATRIX_ENABLE
 LED_TYPE rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
