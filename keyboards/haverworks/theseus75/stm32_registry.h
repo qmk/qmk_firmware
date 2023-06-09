@@ -15,13 +15,10 @@
  */
  
 #pragma once
+#include_next "stm32_registry.h"
 
-#include_next <mcuconf.h>
+#undef STM32_FLASH_NUMBER_OF_BANKS
+#define STM32_FLASH_NUMBER_OF_BANKS 1
 
-/* enable USART3, used for split comms */
-#undef STM32_SERIAL_USE_USART3
-#define STM32_SERIAL_USE_USART3 TRUE
-
-/* enable TIM3, used for Underglow PWM driver */
-#undef STM32_PWM_USE_TIM3
-#define STM32_PWM_USE_TIM3                  TRUE
+#undef STM32_FLASH_SECTORS_PER_BANK
+#define STM32_FLASH_SECTORS_PER_BANK 64

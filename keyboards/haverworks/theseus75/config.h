@@ -18,7 +18,7 @@
 
 // Set up split communications
 #define SERIAL_USART_DRIVER SD3
-#define SERIAL_USART_TX_PIN B10         // The GPIO pin that is used split communication.
+#define SOFT_SERIAL_PIN B10             // The GPIO pin that is used split communication.
 #define USART3_REMAP                    // Remap USART TX and RX pins for half duplex
 #define SERIAL_USART_TX_PAL_MODE 7      // Pin alternate function 7 = USART3_TX for PB10
 
@@ -30,3 +30,17 @@
 #define SPLIT_HAND_PIN B9               // The MCUs will probe a pin to determine if they are left or right side. high = left, low = right
 
 #define SPLIT_TRANSPORT_MIRROR          // Sync data for RGB animations to match
+
+#if defined(SOFT_SERIAL_PIN)
+#    define SERIAL_USART_TX_PIN SOFT_SERIAL_PIN
+#endif
+
+// Underglow
+/*
+#define WS2812_PWM_DRIVER PWMD3
+#define WS2812_PWM_CHANNEL 4
+#define WS2812_PWM_PAL_MODE 10
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM2
+#define WS2812_DMA_CHANNEL 2
+#define RGBLIGHT_SLEEP
+*/
