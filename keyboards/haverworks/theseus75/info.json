@@ -91,10 +91,10 @@
         "split_count": [27, 26]
     },
     "split": {
-        "enabled": true,
         "bootmagic": {
             "matrix": [6, 6]
         },
+        "enabled": true,
         "encoder": {
             "right": {
                 "rotary": [
@@ -107,6 +107,10 @@
                 "cols": ["A10", "A9", "A8", "C6", "B15", "B14", "B13", "B12", "C15"],
                 "rows": ["B3", "C10", "C11", "A1", "A0", "B6"]
             }
+        },
+        "transport": {
+            "sync_matrix_state": true,
+            "watchdog": true
         }
     },
     "url": "https://haver.codes/",
@@ -116,8 +120,8 @@
         "vid": "0x6877"
     },
     "ws2812": {
-        "pin": "B7",
-        "driver": "bitbang"
+        "driver": "bitbang",
+        "pin": "B7"
     },
     "layouts": {
         "LAYOUT_75xt_all": {
@@ -208,7 +212,7 @@
                 {"label": "Gui", "matrix": [5, 2], "x": 2.75, "y": 5, "w": 1.25},
                 {"label": "Alt", "matrix": [5, 3], "x": 4, "y": 5, "w": 1.25},
                 {"label": "Space", "matrix": [5, 4], "x": 5.25, "y": 5, "w": 2.25},
-                {"label": "FN", "matrix": [5,7], "x": 7.5, "y": 5, "w": 1.25},
+                {"label": "FN", "matrix": [5, 7], "x": 7.5, "y": 5, "w": 1.25},
                 {"label": "Space", "matrix": [11, 1], "x": 9.75, "y": 5, "w": 2.75},
                 {"label": "Alt", "matrix": [11, 3], "x": 12.5, "y": 5},
                 {"label": "Gui", "matrix": [11, 4], "x": 13.5, "y": 5},
@@ -303,7 +307,7 @@
                 {"label": "Gui", "matrix": [5, 2], "x": 2.75, "y": 5, "w": 1.25},
                 {"label": "Alt", "matrix": [5, 3], "x": 4, "y": 5, "w": 1.25},
                 {"label": "Space", "matrix": [5, 4], "x": 5.25, "y": 5, "w": 2.25},
-                {"label": "FN", "matrix": [5,7], "x": 7.5, "y": 5, "w": 1.25},
+                {"label": "FN", "matrix": [5, 7], "x": 7.5, "y": 5, "w": 1.25},
                 {"label": "Space", "matrix": [11, 1], "x": 9.75, "y": 5, "w": 2.75},
                 {"label": "Alt", "matrix": [11, 3], "x": 12.5, "y": 5},
                 {"label": "Gui", "matrix": [11, 4], "x": 13.5, "y": 5},
@@ -400,7 +404,7 @@
                 {"label": "Gui", "matrix": [5, 2], "x": 2.75, "y": 5, "w": 1.25},
                 {"label": "Alt", "matrix": [5, 3], "x": 4, "y": 5, "w": 1.25},
                 {"label": "Space", "matrix": [5, 4], "x": 5.25, "y": 5, "w": 2.25},
-                {"label": "FN", "matrix": [5,7], "x": 7.5, "y": 5, "w": 1.25},
+                {"label": "FN", "matrix": [5, 7], "x": 7.5, "y": 5, "w": 1.25},
                 {"label": "Space", "matrix": [11, 1], "x": 9.75, "y": 5, "w": 2.75},
                 {"label": "Alt", "matrix": [11, 3], "x": 12.5, "y": 5},
                 {"label": "Gui", "matrix": [11, 4], "x": 13.5, "y": 5},
@@ -496,7 +500,7 @@
                 {"label": "Gui", "matrix": [5, 2], "x": 2.75, "y": 5, "w": 1.25},
                 {"label": "Alt", "matrix": [5, 3], "x": 4, "y": 5, "w": 1.25},
                 {"label": "Space", "matrix": [5, 4], "x": 5.25, "y": 5, "w": 2.25},
-                {"label": "FN", "matrix": [5,7], "x": 7.5, "y": 5, "w": 1.25},
+                {"label": "FN", "matrix": [5, 7], "x": 7.5, "y": 5, "w": 1.25},
                 {"label": "Space", "matrix": [11, 1], "x": 9.75, "y": 5, "w": 2.75},
                 {"label": "Alt", "matrix": [11, 3], "x": 12.5, "y": 5},
                 {"label": "Gui", "matrix": [11, 4], "x": 13.5, "y": 5},

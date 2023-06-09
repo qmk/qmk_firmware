@@ -33,9 +33,6 @@
 
 #define SPLIT_HAND_PIN B9               // The MCUs will probe a pin to determine if they are left or right side. high = left, low = right
 
-#define SPLIT_TRANSPORT_MIRROR          // Sync data for RGB animations to match
-
-
 /* Underglow - TBD */
 /*
 #define WS2812_PWM_DRIVER PWMD3
