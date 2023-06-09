@@ -367,7 +367,7 @@ void led_matrix_task(void) {
             led_task_render(effect);
             if (effect) {
                 // Only run the basic indicators in the last render iteration (default there are 5 iterations)
-                if (rgb_effect_params.iter == LED_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
+                if (led_effect_params.iter == LED_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
                     led_matrix_indicators();
                 }
                 led_matrix_indicators_advanced(&led_effect_params);
