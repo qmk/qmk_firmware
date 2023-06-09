@@ -28,11 +28,11 @@ bool oled_task_kb(void) {
         return false;
     }
 
+    // Default OLED code
     led_t led_state = host_keyboard_led_state();
     oled_set_cursor(0,7);
     oled_write_P(led_state.caps_lock ? PSTR(" Caps Lock "): PSTR(" ScottoCMD "), false);
 
-    // Render default code
     return false;
 }
 
