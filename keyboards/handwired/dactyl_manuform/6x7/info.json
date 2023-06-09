@@ -23,7 +23,7 @@
     "rgblight":{
         "led_count": 12
     },
-    "developemnt_board": "promicro",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [
