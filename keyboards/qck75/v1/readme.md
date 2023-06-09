@@ -1,7 +1,11 @@
 # qck75
 
-![qck75](imgur.com image replace me!)
-
+https://i.imgur.com/rSJf1CA.jpeg
+https://i.imgur.com/Kka9Nxr.jpeg
+https://i.imgur.com/gCvabEi.jpeg
+https://i.imgur.com/l7LvjC5.jpeg
+https://i.imgur.com/exdD8Hg.jpeg
+https://i.imgur.com/1edEPh9.jpeg
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Andrian](https://github.com/PoringH)
