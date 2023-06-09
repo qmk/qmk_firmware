@@ -1,6 +1,6 @@
 # monsgeek m2
 
-A customizable 98-key keyboard
+A customizable 95% keyboard
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
 * Hardware Supported: monsgeek m2
@@ -9,6 +9,10 @@ A customizable 98-key keyboard
 Make example for this keyboard (after setting up your build environment):
 
     make monsgeek/m2:default
+
+Flashing example for this keyboard:
+
+    make monsgeek/m2:default:flash
 
 
 **Reset Key**: Hold down the key located at *K01*, which programmed as *Esc* while plugging in the keyboard.
