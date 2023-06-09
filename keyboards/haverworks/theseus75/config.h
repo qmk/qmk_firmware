@@ -16,31 +16,34 @@
 
 #pragma once
 
-// Set up split communications
+/* Set up split communications */
 #define SERIAL_USART_DRIVER SD3
 #define SOFT_SERIAL_PIN B10             // The GPIO pin that is used split communication.
 #define USART3_REMAP                    // Remap USART TX and RX pins for half duplex
 #define SERIAL_USART_TX_PAL_MODE 7      // Pin alternate function 7 = USART3_TX for PB10
 
+#if defined(SOFT_SERIAL_PIN)
+#    define SERIAL_USART_TX_PIN SOFT_SERIAL_PIN
+#endif
+
 //#define SELECT_SOFT_SERIAL_SPEED {0}    // Experimental, will make connection faster but may need testing.
 
-// Set up various split configurations
+/* Set up various split configurations */
 //#define SPLIT_USB_DETECT                // The side that manages to establish a USB connection will be master. Disabled because default on ARM targets.
 
 #define SPLIT_HAND_PIN B9               // The MCUs will probe a pin to determine if they are left or right side. high = left, low = right
 
 #define SPLIT_TRANSPORT_MIRROR          // Sync data for RGB animations to match
 
-#if defined(SOFT_SERIAL_PIN)
-#    define SERIAL_USART_TX_PIN SOFT_SERIAL_PIN
-#endif
 
-// Underglow
+/* Underglow - TBD */
 /*
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 4
 #define WS2812_PWM_PAL_MODE 10
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2
 #define WS2812_DMA_CHANNEL 2
-#define RGBLIGHT_SLEEP
 */
+
+#define RGBLIGHT_SLEEP
+#define WS2812_EXTERNAL_PULLUP

@@ -13,14 +13,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
 #pragma once
-#include_next "stm32_registry.h"
 
-/* This config is wrong in ChibiOS upstream. */
-#undef STM32_FLASH_NUMBER_OF_BANKS
-#define STM32_FLASH_NUMBER_OF_BANKS 1
-
-/* This config is wrong in ChibiOS upstream. */
-#undef STM32_FLASH_SECTORS_PER_BANK
-#define STM32_FLASH_SECTORS_PER_BANK 64
+#define WEAR_LEVELING_BACKING_SIZE 16384
+#define WEAR_LEVELING_LOGICAL_SIZE 4096

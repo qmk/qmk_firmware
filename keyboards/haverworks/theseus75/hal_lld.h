@@ -16,5 +16,6 @@
  
 #pragma once
 
+/* Load local stm32_registry after loading the ChibiOS one to patch ChibiOS bugs */
 #include <stm32_registry.h>
 #include_next "hal_lld.h"

@@ -116,7 +116,8 @@
         "vid": "0x6877"
     },
     "ws2812": {
-        "pin": "B7"
+        "pin": "B7",
+        "driver": "bitbang"
     },
     "layouts": {
         "LAYOUT_75xt_all": {
