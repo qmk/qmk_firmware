@@ -12,7 +12,8 @@
         "pin": "D3"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "split_count": [32, 37]
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6"],

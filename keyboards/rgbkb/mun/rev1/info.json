@@ -8,6 +8,9 @@
         "pid": "0x3505",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "split_count": [49, 49]
+    },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"

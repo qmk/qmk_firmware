@@ -8,6 +8,9 @@
         "pid": "0x3510",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "split_count": [78, 78]
+    },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"

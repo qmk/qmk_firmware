@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define RGBLED_NUM 2    // Number of LEDs
-// FIXME this following line should enable our layer status LEDs to work on both
-// sides without need to wire them into a chain. It doesn't though. Uncommenting
-// means the slave side of the keyboard stops working (and the LEDs don't work).
-// #define RGBLED_SPLIT {1,1}
 
 /*
  * Feature disable options

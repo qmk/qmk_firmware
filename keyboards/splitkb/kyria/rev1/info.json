@@ -4,6 +4,9 @@
         "pid": "0x9D9D",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "split_count": [10, 10]
+    },
     "rgb_matrix": {
         "driver": "WS2812"
     },
