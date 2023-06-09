@@ -1,7 +1,7 @@
 // Copyright 2022 Kyle McCreery (@kylemccreery)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "bbs.h"
+#include "quantum.h"
 
 #ifdef DIP_SWITCH_ENABLE
 bool dip_switch_update_kb(uint8_t index, bool active) { 

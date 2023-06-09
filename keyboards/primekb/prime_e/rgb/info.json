@@ -3,5 +3,8 @@
     "usb": {
         "pid": "0x0052",
         "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "B7"
     }
 }

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pteron36.h"
+#include "quantum.h"
 
 //common encoder setup
 
