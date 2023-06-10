@@ -15,6 +15,9 @@
         "pin": "B5",
         "levels": 7
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "matrix_pins": {

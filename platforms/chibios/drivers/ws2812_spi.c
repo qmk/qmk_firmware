@@ -136,7 +136,7 @@ static void set_led_color_rgb(LED_TYPE color, int pos) {
 }
 
 void ws2812_init(void) {
-    palSetLineMode(RGB_DI_PIN, WS2812_MOSI_OUTPUT_MODE);
+    palSetLineMode(WS2812_DI_PIN, WS2812_MOSI_OUTPUT_MODE);
 
 #ifdef WS2812_SPI_SCK_PIN
     palSetLineMode(WS2812_SPI_SCK_PIN, WS2812_SCK_OUTPUT_MODE);
@@ -150,8 +150,8 @@ void ws2812_init(void) {
         WS2812_SPI_BUFFER_MODE,
 #    endif
         NULL, // end_cb
-        PAL_PORT(RGB_DI_PIN),
-        PAL_PAD(RGB_DI_PIN),
+        PAL_PORT(WS2812_DI_PIN),
+        PAL_PAD(WS2812_DI_PIN),
 #    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
         0,
         0,
@@ -170,8 +170,8 @@ void ws2812_init(void) {
 #    endif
         NULL, // data_cb
         NULL, // error_cb
-        PAL_PORT(RGB_DI_PIN),
-        PAL_PAD(RGB_DI_PIN),
+        PAL_PORT(WS2812_DI_PIN),
+        PAL_PAD(WS2812_DI_PIN),
         WS2812_SPI_DIVISOR_CR1_BR_X,
         0
 #endif

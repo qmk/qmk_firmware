@@ -96,12 +96,7 @@ enum combos {
     SHIFT_LEFT,
     ALTGR_LEFT,
     CONTROL_SHIFT_LEFT,
-
-    /* Just to replace the define in config.h */
-    COMBO_LENGTH,
 };
-uint16_t COMBO_LEN = COMBO_LENGTH;
-
 
 /* Sequences fo keys */
 const uint16_t PROGMEM combo_leader[] =                 {LT(_MOUSE, KC_COMM), LT(_ARROWS, KC_DOT), COMBO_END};
