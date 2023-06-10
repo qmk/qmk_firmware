@@ -19,6 +19,7 @@
 #include <stdbool.h>
 
 #include "keycodes.h"
+#include "quantum.h"
 
 /* Layer numbers shared across keymaps. */
 enum user_layer {
@@ -39,7 +40,7 @@ enum user_layer {
 
 /* Custom keycodes shared across keymaps. */
 enum user_keycode {
-    MC_ALTT = 0,
+    MC_ALTT = SAFE_RANGE,
     KEYMAP_SAFE_RANGE,
 };
 
