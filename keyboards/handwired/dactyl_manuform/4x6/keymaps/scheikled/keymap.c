@@ -4,7 +4,7 @@
 /* A K.O,Y layout for the Dactyl Manuform 4x6 Keyboard */
 
 #include QMK_KEYBOARD_H
-#include "users/scheiklp/koy_keys_on_quertz_de_latin1.h"
+#include "koy_keys_on_quertz_de_latin1.h"
 
 enum custom_layers {
     _1,
