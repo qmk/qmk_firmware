@@ -3,10 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-enum my_keycodes {
-  OLED_TOG = SAFE_RANGE
-};
-extern bool oled_minimal;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =    {
 
@@ -90,15 +86,4 @@ void keyboard_post_init_user(void) {
 }
 #endif // endif RGBLIGHT_ENABLE
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case OLED_TOG:
-            if (record->event.pressed) {
-                oled_minimal = !oled_minimal;
-            }
-            return false;
-        default:
-            return true;
-    }
-}
 

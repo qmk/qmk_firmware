@@ -17,7 +17,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true
+        "rgblight": true,
+        "oled": true
     },
     "matrix_pins": {
         "cols": ["A15", "B3", "B4", "B5", "B8", "B9", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "C15", "C14", "C13"],
