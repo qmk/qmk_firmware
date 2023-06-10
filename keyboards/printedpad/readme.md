@@ -1,6 +1,6 @@
 # Printed Pad
 
-![magtray4x3](https://i.imgur.com/TBpZzIo.jpeg)
+![magtray4x3](https://i.imgur.com/TBpZzIoh.jpeg)
 
 * Keyboard Maintainer: [noahbei](https://github.com/noahbei)
 * Hardware Supported: STM32F072RBT6
