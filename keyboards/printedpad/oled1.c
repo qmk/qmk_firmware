@@ -1454,10 +1454,10 @@ bool oled_task_kb() {
     else {
         switch(current_display_mode) {
             case 0:
-                render_animation();
+                render_layers();
                 break;
             case 1:
-                render_layers();
+                render_animation();
                 break;
             case 2:
                 render_button_pressed();
