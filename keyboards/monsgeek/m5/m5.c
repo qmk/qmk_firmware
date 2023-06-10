@@ -148,11 +148,6 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 #endif
 void led_init_ports(void) {
-    // set our LED pings as output
-    setPinOutput(LED_NUM_LOCK_PIN); // LED1 Num Lock
-    writePinLow(LED_NUM_LOCK_PIN);
-    setPinOutput(LED_CAPS_LOCK_PIN); // LDE2 Caps Lock
-    writePinLow(LED_CAPS_LOCK_PIN);
     setPinOutput(LED_WIN_LOCK_PIN); // LED3 Win Lock
     writePinLow(LED_WIN_LOCK_PIN);
 }
@@ -160,8 +155,6 @@ void led_init_ports(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
         writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
     }
     return res;
