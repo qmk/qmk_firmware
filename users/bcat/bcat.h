@@ -39,7 +39,7 @@ enum user_layer {
 
 /* Custom keycodes shared across keymaps. */
 enum user_keycode {
-    MC_ALTT = SAFE_RANGE,
+    MC_ALTT = 0,
     KEYMAP_SAFE_RANGE,
 };
 
