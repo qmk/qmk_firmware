@@ -19,7 +19,6 @@
 /* Use 5 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
-
 /* LED Indicators */
 #define LED_WIN_LOCK_PIN C11
 
@@ -42,6 +41,8 @@
 #define DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110111
+#define I2C1_OPMODE OPMODE_I2C
+#define I2C1_CLOCK_SPEED 400000 /* 400000 */
 #define I2C1_SCL_PAL_MODE 4
 
 #define RGB_MATRIX_LED_COUNT 108
