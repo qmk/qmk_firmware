@@ -14,7 +14,7 @@
     "bootloader": "wb32-dfu",
     "features": {
         "bootmagic": true,
-        "mousekey": false,
+        "mousekey": true,
         "extrakey": true,
         "console": false,
         "command": false,
