@@ -14,7 +14,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Encoders
 
-Encoders much have matching pulse & detent resolutions (e.g. 24/24) for the scanning to work properly. Multiple encoders can be used at the same time, and are zero-indexed (compared to being one-indexed on the PCB's silkscreen) in the `encoder_update_user(index, clockwise)` function:
+Encoders must have matching pulse & detent resolutions (e.g. 24/24) for the scanning to work properly. Multiple encoders can be used at the same time, and are zero-indexed (compared to being one-indexed on the PCB's silkscreen) in the `encoder_update_user(index, clockwise)` function:
 
 ```
 ,-----------------------------------------------------------------------------------.
