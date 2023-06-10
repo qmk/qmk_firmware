@@ -9,3 +9,5 @@
 #define ONESHOT_TAP_TOGGLE 10
 #define ONESHOT_TIMEOUT 500
 
+// using non-default flash module
+#define RP2040_FLASH_GENERIC_03H
