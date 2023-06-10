@@ -4,7 +4,7 @@
 /* A K.O,Y layout for the Dactyl Manuform 4x6 Keyboard */
 
 #include QMK_KEYBOARD_H
-#include "koy_keys_on_quertz_de_latin1.h"
+#include "users/scheiklp/koy_keys_on_quertz_de_latin1.h"
 
 enum custom_layers {
     _1,
@@ -60,5 +60,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                         N_PASTE     , N_UNDO        ,      KC_BSPC , KC_DEL
 
   ),
-
 };
