@@ -147,9 +147,11 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 
 };
 #endif
-void led_init_ports(void) {
+
+void keyboard_pre_init_kb(void) {
     setPinOutput(LED_WIN_LOCK_PIN); // LED3 Win Lock
     writePinLow(LED_WIN_LOCK_PIN);
+    keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
