@@ -1,8 +1,10 @@
 # Printed Pad
 
+![magtray4x3](https://i.imgur.com/TBpZzIo.jpeg)
+
 * Keyboard Maintainer: [noahbei](https://github.com/noahbei)
 * Hardware Supported: STM32F072RBT6
-* Hardware Availability: protadesigns.com
+* Hardware Availability: https://protadesigns.com/products/printed-pad
 
 Make example for this keyboard (after setting up your build environment):
 
