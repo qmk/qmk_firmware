@@ -15,7 +15,7 @@
 #define I2C1_TIMINGR_SCLL 0x09U
 #define MY_I2C_ADDRESS (0x3C << 1)
 
-#define OLED_TIMEOUT 180000
+#define OLED_TIMEOUT 300000
 
 
 /*
