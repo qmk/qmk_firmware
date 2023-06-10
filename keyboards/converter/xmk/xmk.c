@@ -3,7 +3,7 @@
 
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 #if defined (XMK_DEBUG)
 void keyboard_post_init_kb(void) {

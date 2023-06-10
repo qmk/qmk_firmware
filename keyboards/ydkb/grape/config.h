@@ -25,7 +25,6 @@
 #define SN74X138_ADDRESS_PINS { D2, D1, D0 }
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN E6
 #define RGBLED_NUM 4
 #endif
 

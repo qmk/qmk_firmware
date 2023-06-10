@@ -10,7 +10,7 @@ enum {
 };
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for F1, twice for F11
     [TD_F1_F11] = ACTION_TAP_DANCE_DOUBLE(KC_F1, KC_F11),
     [TD_F2_F12] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F12),
@@ -24,37 +24,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return true;
         default:
             return false; // Do not select the hold action when another key is pressed.
-    }
-}
-
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case CTL_T(KC_X):
-            return true;
-        case ALT_T(KC_C):
-            return true;
-        case CMD_T(KC_V):
-            return true;
-        case CMD_T(KC_M):
-            return true;
-        case ALT_T(KC_COMM):
-            return true;
-        case CTL_T(KC_DOT):
-            return true;
-        case KC_X:
-            return true;
-        case KC_C:
-            return true;
-        case KC_V:
-            return true;
-        case KC_M:
-            return true;
-        case KC_COMM:
-            return true;
-        case KC_DOT:
-            return true;
-        default:
-            return false;
     }
 }
 
@@ -93,4 +62,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                         _______, _______, _______,  _______, _______, _______
     )
 };
-

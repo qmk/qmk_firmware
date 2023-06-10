@@ -15,14 +15,11 @@
  */
 #include "eeprom.h"
 #include "debug.h"
+#include "util.h"
 #include "samd51j18a.h"
 #include "core_cm4.h"
 #include "component/nvmctrl.h"
 #include "eeprom_samd.h"
-
-#ifndef MAX
-#    define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
-#endif
 
 #ifndef BUSY_RETRIES
 #    define BUSY_RETRIES 10000
