@@ -5,7 +5,7 @@
 Low Profile, Choc Spaced QAZ-alike
 
 * Keyboard Maintainer: [Jason Hazel](https://github.com/jasonhazel)
-* Hardware Supported: Chaz, ProMicro
+* Hardware Supported: Chaz, atmega32u4 ProMicro Compatible Controller
 * Hardware Availability: [Hazel's Garage](https://shop.hazel.cc/products/chaz), [Open Source](https://github.com/hazels-garage/chaz)
 
 Make example for this keyboard (after setting up your build environment):
