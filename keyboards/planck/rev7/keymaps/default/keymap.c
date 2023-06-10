@@ -189,17 +189,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case BACKLIT:
             if (record->event.pressed) {
                 register_code(KC_RSFT);
-#ifdef BACKLIGHT_ENABLE
-                backlight_step();
-#endif
-#ifdef KEYBOARD_planck_rev5
-                writePinLow(E6);
-#endif
             } else {
                 unregister_code(KC_RSFT);
-#ifdef KEYBOARD_planck_rev5
-                writePinHigh(E6);
-#endif
             }
             return false;
             break;

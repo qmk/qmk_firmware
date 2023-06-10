@@ -31,6 +31,18 @@
 #define STM32_IWDG_RL_MS(s) STM32_IWDG_RL_US(s * 1000.0)
 #define STM32_IWDG_RL_S(s) STM32_IWDG_RL_US(s * 1000000.0)
 
+#if !defined(PLANCK_ENCODER_RESOLUTION)
+#    define PLANCK_ENCODER_RESOLUTION 4
+#endif
+
+#if !defined(PLANCK_WATCHDOG_TIMEOUT)
+#   define PLANCK_WATCHDOG_TIMEOUT 1.0
+#endif
+
+#ifdef ENCODER_MAP_ENABLE
+#error "The encoder map feature is not currently supported by the Planck's encoder matrix"
+#endif
+
 /* matrix state(1:on, 0:off) */
 static pin_t matrix_row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t matrix_col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -46,6 +58,7 @@ void matrix_init_custom(void) {
     // actual matrix setup - cols
     for (int i = 0; i < MATRIX_COLS; i++) {
         setPinOutput(matrix_col_pins[i]);
+        writePinLow(matrix_col_pins[i]);
     }
 
     // rows
@@ -57,14 +70,15 @@ void matrix_init_custom(void) {
     setPinInputLow(B12);
     setPinInputLow(B13);
 
-    // setup watchdog timer for 1 second
+#ifndef PLANCK_WATCHDOG_DISABLE
     wdgInit();
 
     static WDGConfig wdgcfg;
-    wdgcfg.pr   = STM32_IWDG_PR_S(1.0);
-    wdgcfg.rlr  = STM32_IWDG_RL_S(1.0);
+    wdgcfg.pr   = STM32_IWDG_PR_S(PLANCK_WATCHDOG_TIMEOUT);
+    wdgcfg.rlr  = STM32_IWDG_RL_S(PLANCK_WATCHDOG_TIMEOUT);
     wdgcfg.winr = STM32_IWDG_WIN_DISABLED;
     wdgStart(&WDGD1, &wdgcfg);
+#endif
 }
 
 bool encoder_update(uint8_t index, uint8_t state) {
@@ -73,25 +87,17 @@ bool encoder_update(uint8_t index, uint8_t state) {
 
     encoder_pulses[i] += encoder_LUT[state & 0xF];
 
-    if (encoder_pulses[i] >= ENCODER_RESOLUTION) {
+    if (encoder_pulses[i] >= PLANCK_ENCODER_RESOLUTION) {
         encoder_value[index]++;
         changed = true;
-#ifdef ENCODER_MAP_ENABLE
-        encoder_exec_mapping(index, false);
-#else  // ENCODER_MAP_ENABLE
         encoder_update_kb(index, false);
-#endif // ENCODER_MAP_ENABLE
     }
-    if (encoder_pulses[i] <= -ENCODER_RESOLUTION) {
+    if (encoder_pulses[i] <= -PLANCK_ENCODER_RESOLUTION) {
         encoder_value[index]--;
         changed = true;
-#ifdef ENCODER_MAP_ENABLE
-        encoder_exec_mapping(index, true);
-#else  // ENCODER_MAP_ENABLE
         encoder_update_kb(index, true);
-#endif // ENCODER_MAP_ENABLE
     }
-    encoder_pulses[i] %= ENCODER_RESOLUTION;
+    encoder_pulses[i] %= PLANCK_ENCODER_RESOLUTION;
 #ifdef ENCODER_DEFAULT_POS
     encoder_pulses[i] = 0;
 #endif
@@ -99,8 +105,10 @@ bool encoder_update(uint8_t index, uint8_t state) {
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+#ifndef PLANCK_WATCHDOG_DISABLE
     // reset watchdog
     wdgReset(&WDGD1);
+#endif
 
     bool changed = false;
 
