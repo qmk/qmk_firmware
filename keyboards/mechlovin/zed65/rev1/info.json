@@ -20,8 +20,8 @@
         "caps_lock": "B9",
         "on_state": 0
     },
+    "diode_direction": "COL2ROW",
     "rgblight": {
-        "pin": "A7",
         "led_count": 24,
         "sleep": true,
         "animations": {
@@ -38,6 +38,7 @@
         }
     },
     "ws2812": {
+        "pin": "A7",
         "driver": "spi"
     },
     "community_layouts": ["65_ansi_blocker_tsangan"],
