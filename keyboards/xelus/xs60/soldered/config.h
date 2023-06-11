@@ -39,6 +39,8 @@
 
 // RGB MATRIX
 #define RGB_MATRIX_LED_COUNT 8 // actually only has 1
+#define ENABLE_RGB_MATRIX_BREATHING
+#define ENABLE_RGB_MATRIX_CYCLE_ALL
 
 // PWM RGB Underglow Defines
 #define WS2812_PWM_DRIVER PWMD1
