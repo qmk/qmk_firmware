@@ -4,12 +4,7 @@
 
 #pragma once
 
-/* Key matrix definitions */
-#define MATRIX_ROWS 14
-#define MATRIX_COLS 7
-
 /* Split keyboard settings */
-#define MASTER_LEFT
 #define SERIAL_USART_TX_PIN GP0
 
 /* RGB settings */
