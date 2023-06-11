@@ -15,14 +15,11 @@
  */
 #include QMK_KEYBOARD_H
 
-#define ___ KC_NO
-
-enum layers 
-{ 
+enum layers { 
     _BASE,
     _LOWER, 
     _RAISE,
-    _ADJUST
+    _ADJUST,
 };
 
 #define TO_BASE     TO(_BASE)
