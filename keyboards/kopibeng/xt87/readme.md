@@ -1,6 +1,6 @@
 # XT87
 
-![XT87](https://i.imgur.com/N1QaXPTl.jpg)
+![XT87](https://i.imgur.com/N1QaXPTh.jpg)
 
 A QMK-powered, VIA-enabled F12 TKL PCB with support for ANSI/ISO layout, split Backspace, split Right Shift and 6.25U/7U bottom row. 
 
