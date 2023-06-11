@@ -8,7 +8,9 @@
         "vid": "0x4450"
     },
     "features": {
-        "encoder": true
+        "encoder": true,
+        "bootmagic": true,
+        "extrakey": true
     },
     "encoder": {
         "rotary": [{ "pin_a": "C4", "pin_b": "C3" }]

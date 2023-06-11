@@ -7,9 +7,3 @@
 #define SOLENOID_PIN A7
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2
-
-#define DEBOUNCE 5
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
