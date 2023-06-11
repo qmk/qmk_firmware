@@ -14,6 +14,9 @@ uint8_t current_display_mode = 0;
 bool key_pressed = false;
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
 #ifdef OLED_ENABLE
     if (record->event.pressed)
         key_pressed = true;
