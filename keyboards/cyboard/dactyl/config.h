@@ -10,6 +10,7 @@
 
 /* Split keyboard settings */
 #define MASTER_LEFT
+#define SERIAL_USART_TX_PIN GP0
 
 /* RGB settings */
 #ifdef RGB_MATRIX_ENABLE

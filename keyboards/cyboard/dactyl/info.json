@@ -11,10 +11,6 @@
         "rows": ["GP8", "GP7", "GP28", "GP6", "GP23", "GP27", "GP21"],
         "cols": ["GP9", "GP26", "GP22", "GP20", "GP29", "GP4", "GP5"]
     },
-    "split": {
-        "soft_serial_pin": "GP0",
-        "soft_serial_speed": 2
-    },
     "features": {
         "bootmagic": true,
         "command": false,
