@@ -9,6 +9,7 @@
 
 /* RGB settings */
 #ifdef RGB_MATRIX_ENABLE
+#    define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
 #    define SPLIT_TRANSPORT_MIRROR
 #    define RGB_MATRIX_LED_COUNT 80
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE // Sets the default mode, if none has been set
