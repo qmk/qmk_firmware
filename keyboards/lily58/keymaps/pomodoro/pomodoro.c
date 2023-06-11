@@ -74,8 +74,8 @@ const char restBase[] PROGMEM = {
 };
 char displayBuffer[STATUS_SIZE];
 
-#define WORK_TIME 5000//25 * 60 * 1000
-#define REST_TIME 1000//5 * 60 * 1000
+#define WORK_TIME 25 * 60 * 1000
+#define REST_TIME 5 * 60 * 1000
 
 typedef enum pomo_state {
     _STOPPED,
