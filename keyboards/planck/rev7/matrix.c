@@ -89,7 +89,7 @@ bool encoder_update(uint8_t index, uint8_t state) {
     if (encoder_pulses[i] <= -ENCODER_RESOLUTION) {
         encoder_value[index]--;
         changed = true;
-        encoder_update_fn(index, true);
+        encoder_cntx_fn(index, true);
     }
     encoder_pulses[i] %= ENCODER_RESOLUTION;
 #ifdef ENCODER_DEFAULT_POS
