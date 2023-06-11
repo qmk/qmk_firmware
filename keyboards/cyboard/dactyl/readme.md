@@ -1,4 +1,4 @@
-#Cyboard Dactyls
+# Cyboard Dactyls
 
 * Keyboard Maintainer: [Cyboard](https://github.com/Cyboard-DigitalTailor)
 * Hardware Supported: Cyboard Dactyls
