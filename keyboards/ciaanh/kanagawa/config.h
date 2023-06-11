@@ -15,7 +15,6 @@
  */
 #pragma once
 
-/* OLED SPI Defines */
 #ifdef OLED_ENABLE
 /* I2C Conf */
 #    define I2C_DRIVER I2CD0
