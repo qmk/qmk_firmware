@@ -35,12 +35,15 @@
 #define EEPROM_I2C_24LC64
 
 // More EEPROM for layers
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 
-// RGBLIGHT
-#define RGBLED_NUM 8            // actually only has 1
-#define RGBLIGHT_LAYERS
+// RGB MATRIX
+#define RGB_MATRIX_LED_COUNT 8 // actually only has 1
+
+// PWM RGB Underglow Defines
+#define WS2812_PWM_DRIVER PWMD1
+#define WS2812_PWM_CHANNEL 3
+#define WS2812_PWM_PAL_MODE 1
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM6
+#define WS2812_DMA_CHANNEL 7
 #define WS2812_EXTERNAL_PULLUP
-#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-
-// Bitbang WS2812
-#define NOP_FUDGE 0.4
