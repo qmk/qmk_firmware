@@ -2,7 +2,7 @@
 
 ![mine](https://i.imgur.com/P9s2cI8h.jpg)
 
-A 1800 alice assembled only with THT components, including a solenoid and a chunky encoder.
+A hotswap ISO/ANSI-compatible 1800 alice, assembled only with THT components, including a solenoid and a chunky encoder.
 
 * Keyboard Maintainer: [Arturo Avila](https://github.com/ADPenrose)
 * Hardware Supported: Mine v1 PCB
