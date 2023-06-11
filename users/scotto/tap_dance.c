@@ -147,8 +147,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case LT(1, KC_SPC) :
         case LT(1, KC_TAB) :
         case LT(2, KC_ENT) :
-      return 200;
-    default:
-      return TAPPING_TERM;
-  }
+            return 200;
+        default:
+            return TAPPING_TERM;
+    }
 };
