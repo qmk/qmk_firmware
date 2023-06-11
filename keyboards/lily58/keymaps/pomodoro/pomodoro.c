@@ -99,10 +99,10 @@ typedef enum pomo_state {
     _REST,
 } pomo_state;
 
-// The master only needs to know if the timer is running or not
+/* The master only needs to know if the timer is running or not */
 bool isRunning = false;
 
-// The slave needs more info about the state and what's going on
+/* The slave needs more info about the state and what's going on */
 pomo_state state = _STOPPED;
 uint8_t pomoCount = 0;
 uint32_t pomoTimer;
@@ -159,7 +159,7 @@ void toggle_pomodoro(void) {
 void set_slave_pomodoro_running(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
     isRunning = *(bool*)in_data;
     if (isRunning) {
-        // Reset stuff and start the timer
+        /* Reset stuff and start the timer */
         pomoTimer = timer_read32();
         state = _WORK;
         totalTime = WORK_TIME;
@@ -215,7 +215,7 @@ void housekeeping_task_user(void) {
             syncRunning = false;
         }
     } else {
-        // This is where the time will be updated
+        /* This is where the time will be updated */
         if (isRunning) {
             currTime = timer_elapsed32(pomoTimer);
             if (currTime >= totalTime) {
@@ -226,7 +226,6 @@ void housekeeping_task_user(void) {
                     state = _WORK;
                     totalTime = WORK_TIME;
                     pomoCount++;
-                    // update_cycle_display();
                 }
 
                 if (pomoCount > 4) {
