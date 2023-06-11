@@ -154,7 +154,6 @@
         "pin": "GP1",
         "driver": "vendor"
     },
-    "debounce": 5,
     "layouts": {
         "LAYOUT_all": {
             "layout": [
