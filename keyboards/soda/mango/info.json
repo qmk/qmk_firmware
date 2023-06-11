@@ -13,7 +13,7 @@
     "usb": {
         "device_version": "1.0.0",
         "force_nkro": true,
-        "vid": "0x3A54",
+        "vid": "0x1A54",
         "pid": "0x4F5D"
     },
     "features": {
