@@ -67,29 +67,29 @@ void matrix_init_custom(void) {
     wdgStart(&WDGD1, &wdgcfg);
 }
 
+
+#ifdef ENCODER_ENABLE
 bool encoder_update(uint8_t index, uint8_t state) {
     bool    changed = false;
     uint8_t i       = index;
 
-    encoder_pulses[i] += encoder_LUT[state & 0xF];
+// Create function alias
+#ifdef ENCODER_MAP_ENABLE
+    #define encoder_cntx_fn encoder_exec_mapping
+#else   // ENCODER_MAP_ENABLE
+    #define encoder_cntx_fn encoder_update_kb
+#endif  // ENCODER_MAP_ENABLE
 
+    encoder_pulses[i] += encoder_LUT[state & 0xF];
     if (encoder_pulses[i] >= ENCODER_RESOLUTION) {
         encoder_value[index]++;
         changed = true;
-#ifdef ENCODER_MAP_ENABLE
-        encoder_exec_mapping(index, false);
-#else  // ENCODER_MAP_ENABLE
-        encoder_update_kb(index, false);
-#endif // ENCODER_MAP_ENABLE
+        encoder_cntx_fn(index, false);
     }
     if (encoder_pulses[i] <= -ENCODER_RESOLUTION) {
         encoder_value[index]--;
         changed = true;
-#ifdef ENCODER_MAP_ENABLE
-        encoder_exec_mapping(index, true);
-#else  // ENCODER_MAP_ENABLE
-        encoder_update_kb(index, true);
-#endif // ENCODER_MAP_ENABLE
+        encoder_update_fn(index, true);
     }
     encoder_pulses[i] %= ENCODER_RESOLUTION;
 #ifdef ENCODER_DEFAULT_POS
@@ -97,6 +97,7 @@ bool encoder_update(uint8_t index, uint8_t state) {
 #endif
     return changed;
 }
+#endif // ENCODER_ENABLE
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     // reset watchdog
@@ -136,8 +137,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         changed |= old != current_matrix[row];
     }
 
+#ifdef ENCODER_ENABLE  // ENCODER_ENABLE
     // encoder-matrix functionality
-
     // set up C/rows for encoder read
     for (int i = 0; i < MATRIX_ROWS; i++) {
         setPinOutput(matrix_row_pins[i]);
@@ -168,6 +169,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     for (int i = 0; i < MATRIX_ROWS; i++) {
         setPinInputLow(matrix_row_pins[i]);
     }
+#endif   // ENCODER_ENABLE
 
     return changed;
 }
