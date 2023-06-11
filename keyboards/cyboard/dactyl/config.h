@@ -11,8 +11,6 @@
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
 #    define RGB_MATRIX_LED_COUNT 80
-#    define RGB_MATRIX_SPLIT {40, 40}
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE // Sets the default mode, if none has been set
 #    define RGB_MATRIX_DEFAULT_HUE 33 // Sets the default hue value, if none has been set
 #    define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
