@@ -1,14 +1,12 @@
-# adpenrose/mine
+# Mine
 
-This comment is a test to see if the branch still works.
+![mine](https://i.imgur.com/P9s2cI8h.jpg)
 
-![adpenrose/mine](imgur.com image replace me!)
+A 1800 alice assembled only with THT components, including a solenoid and a chunky encoder.
 
-*A short description of the keyboard/project*
-
-* Keyboard Maintainer: [Arturo Avila](https://github.com/Arturo Avila)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Arturo Avila](https://github.com/ADPenrose)
+* Hardware Supported: Mine v1 PCB
+* Hardware Availability: [Arturo Avila](https://github.com/ADPenrose)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -25,5 +23,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Physical reset button**: Hold down the button labeled "BOOT" and briefly press the button labeled "RESET" on the front of the PCB. To exit the bootloader mode, briefly press the button labeled "RESET" once more.
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
