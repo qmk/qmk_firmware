@@ -126,6 +126,14 @@ void update_display_base(void) {
     }
 }
 
+void update_cycle_display(void) {
+    if (state == _STOPPED) { return; }
+    uint8_t start = (HEADER_SIZE / 4) * (4 - pomoCount);
+    for (uint8_t i = start; i < HEADER_SIZE; i++) {
+        header[i] = ~header[i];
+    }
+}
+
 bool syncRunning = false;
 void toggle_pomodoro(void) {
     isRunning = !isRunning;
@@ -143,11 +151,12 @@ void set_slave_pomodoro_running(uint8_t in_buflen, const void *in_data, uint8_t 
         lastProgress = 0;
         currTime = 0;
         pomoCount = 1;
+        update_display_base();
+        update_cycle_display();
     } else {
         state = _STOPPED;
+        update_display_base();
     }
-
-    update_display_base();
 }
 
 void keyboard_post_init_user(void) {
@@ -202,6 +211,7 @@ void housekeeping_task_user(void) {
                     state = _WORK;
                     totalTime = WORK_TIME;
                     pomoCount++;
+                    // update_cycle_display();
                 }
 
                 if (pomoCount > 4) {
@@ -214,6 +224,7 @@ void housekeeping_task_user(void) {
                 lastTime = 0;
                 lastProgress = 0;
                 update_display_base();
+                update_cycle_display();
             } else {
                 update_time_display();
             }
