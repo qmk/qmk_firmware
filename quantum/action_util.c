@@ -502,9 +502,9 @@ uint8_t has_anymod(void) {
 }
 
 #ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
-/** \brief Send a dummy keycode in between the register and unregister event of a modifier key, to neutralize the "flashing modifiers" phenomen.
+/** \brief Send a dummy keycode in between the register and unregister event of a modifier key, to neutralize the "flashing modifiers" phenomenon.
  *
- * \param active_mods 8-bit packed bit-array describing the currenctly active modifiers (in the format GASCGASC).
+ * \param active_mods 8-bit packed bit-array describing the currently active modifiers (in the format GASCGASC).
  *
  * Certain QMK features like  key overrides or retro tap must unregister a previously
  * registered modifier before sending another keycode but this can trigger undesired
