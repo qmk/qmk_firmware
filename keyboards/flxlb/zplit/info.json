@@ -19,7 +19,6 @@
         ]
     },
     "rgblight": {
-        "split": true,
         "split_count": [8, 8]
     },
     "ws2812": {

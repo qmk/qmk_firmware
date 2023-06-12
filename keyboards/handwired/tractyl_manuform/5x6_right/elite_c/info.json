@@ -18,7 +18,6 @@
     },
     "rgblight": {
         "max_brightness": 80,
-        "split": true,
         "split_count": [10, 10]
     },
     "processor": "atmega32u4",

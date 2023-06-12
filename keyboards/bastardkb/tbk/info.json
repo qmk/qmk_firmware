@@ -6,7 +6,6 @@
         "pid": "0x1828"
     },
     "rgblight": {
-        "split": true,
         "split_count": [19, 19]
     },
     "ws2812": {

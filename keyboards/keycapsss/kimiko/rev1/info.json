@@ -22,7 +22,6 @@
         "soft_serial_pin": "D2"
     },
     "rgblight": {
-        "split": true,
         "split_count": [30, 30]
     },
     "ws2812": {

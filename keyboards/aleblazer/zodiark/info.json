@@ -13,7 +13,6 @@
     },
     "rgblight": {
         "max_brightness": 170,
-        "split": true,
         "split_count": [34, 34]
     },
     "rgb_matrix": {
