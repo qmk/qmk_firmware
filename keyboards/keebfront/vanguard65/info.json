@@ -26,7 +26,6 @@
     },
     "rgblight": {
         "led_count": 36,
-        "pin": "C7",
         "brightness_steps": 12,
         "animations": {
             "alternating": true,
@@ -40,6 +39,9 @@
             "static_gradient": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "C7"
     },
     "layouts": {
         "LAYOUT": {
