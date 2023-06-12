@@ -2,7 +2,7 @@
 
 ![ScottoNum](https://i.imgur.com/VMiA19uh.jpg)
 
-A 17-key wireless macropad. Case files available [here](https://github.com/joe-scotto/scottokeebs).
+A 17-key macropad. Case files available [here](https://github.com/joe-scotto/scottokeebs).
 
 -   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
 -   Hardware Supported: ATmega32U4
