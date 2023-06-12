@@ -16,14 +16,6 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B4, B5 }
-#define MATRIX_COL_PINS { B3, B2 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -31,7 +23,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

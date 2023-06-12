@@ -31,8 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_MAX_SPEED   	3
 
 // RGB backlight
-#undef RGB_DI_PIN
-#define RGB_DI_PIN D3
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN D3
 #undef RGBLED_NUM
 #define RGBLED_NUM 30
 #define RGBLIGHT_EFFECT_BREATHING

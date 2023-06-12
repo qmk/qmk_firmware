@@ -165,16 +165,31 @@ qmk find -f 'processor=STM32F411'
 qmk find -f 'processor=STM32F411' -f 'features.rgb_matrix=true'
 ```
 
+The following filter expressions are also supported:
+
+ - `exists(key)`: Match targets where `key` is present.
+ - `absent(key)`: Match targets where `key` is not present.
+ - `contains(key, value)`: Match targets where `key` contains `value`. Can be used for strings, arrays and object keys.
+ - `length(key, value)`: Match targets where the length of `key` is `value`. Can be used for strings, arrays and objects.
+
+You can also list arbitrary values for each matched target with `--print`:
+
+```
+qmk find -f 'processor=STM32F411' -p 'keyboard_name' -p 'features.rgb_matrix'
+```
+
 **Usage**:
 
 ```
-qmk find [-h] [-km KEYMAP] [-f FILTER]
+qmk find [-h] [-km KEYMAP] [-p PRINT] [-f FILTER]
 
 options:
   -km KEYMAP, --keymap KEYMAP
                         The keymap name to build. Default is 'default'.
+  -p PRINT, --print PRINT
+                        For each matched target, print the value of the supplied info.json key. May be passed multiple times.
   -f FILTER, --filter FILTER
-                        Filter the list of keyboards based on the supplied value in rules.mk. Matches info.json structure, and accepts the formats 'features.rgblight=true' or 'exists(matrix_pins.direct)'. May be passed multiple times, all filters need to match. Value may include wildcards such as '*' and '?'.
+                        Filter the list of keyboards based on their info.json data. Accepts the formats key=value, function(key), or function(key,value), eg. 'features.rgblight=true'. Valid functions are 'absent', 'contains', 'exists' and 'length'. May be passed multiple times; all filters need to match. Value may include wildcards such as '*' and '?'.
 ```
 
 ## `qmk console`
