@@ -38,5 +38,3 @@
 
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
 #define WEAR_LEVELING_BACKING_SIZE (8 * 1024)
-
-//#define DISABLE_M1_KEYCODES /*If you need to change or restore the default QMK button function, please open it*/
