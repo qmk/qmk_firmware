@@ -19,8 +19,7 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "encoder": true,
-        "rgb_matrix": false
+        "encoder": true
     },
    "matrix_pins": {
         "cols": [ "C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B2"],
