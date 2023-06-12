@@ -18,7 +18,7 @@ enum combos {
 const uint16_t PROGMEM df_combo[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   // Add commonly used dash to home row
   [DF_DASH]    = COMBO(df_combo, KC_MINS),
   // For Vim, put Escape on the home row
@@ -43,7 +43,7 @@ enum custom_layers {
 #define GUI_ENT  GUI_T(KC_ENT)
 #define LOW_TAB  LT(_LOWER, KC_TAB)
 #define RSE_BSP  LT(_RAISE, KC_BSPC)
-#define OSM_SFT  OSM(MOD_LSFT) 
+#define OSM_SFT  OSM(MOD_LSFT)
 
 
 // For _RAISE layer
