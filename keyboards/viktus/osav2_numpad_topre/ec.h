@@ -26,6 +26,6 @@ typedef struct {
 
 void     ec_init(ec_config_t const* const ec_config);
 bool     ec_matrix_scan(matrix_row_t current_matrix[]);
-void     ec_dprint_matrix(void);  // needed for debugging
+//void     ec_dprint_matrix(void);  // needed for debugging
 uint16_t ec_readkey_raw(uint8_t col, uint8_t row);
 bool     ec_update_key(matrix_row_t* current_row, uint8_t col, uint16_t sw_value, uint16_t reset_pt, uint16_t actuation_pt);

@@ -17,7 +17,7 @@
 #include "quantum.h"
 #include "ec.h"
 #include "matrix.h"
-#include "debug.h"  // needed for debugging
+//#include "debug.h"  // needed for debugging
 
 #define RESET_PT 55
 #define ACTUATION_PT 65
@@ -38,12 +38,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool updated = ec_matrix_scan(current_matrix);
 
     // console debugging for pad values
-    static int cnt = 0;
+    /*static int cnt = 0;
     if (cnt++ == 1000) {
         cnt = 0;
         ec_dprint_matrix();
         dprintf("\n");
-    }
+    }*/
 
     return updated;
 }

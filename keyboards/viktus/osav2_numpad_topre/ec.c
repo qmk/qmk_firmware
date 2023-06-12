@@ -17,7 +17,7 @@
 #include "quantum.h"
 #include "ec.h"
 #include "analog.h"
-#include "debug.h"  // needed for debugging
+//#include "debug.h"  // needed for debugging
 
 // sensing channel definitions
 #define A0 0
@@ -154,9 +154,9 @@ bool ec_matrix_scan(matrix_row_t current_matrix[]) {
                 case 3:
                 case 4:
                     switch(col) {
-                        case 3: // lower threshold for plus and enter: (31 rest, 55 btm)
-                            reset_pt = 40;
-                            actuation_pt = 45;
+                        case 3: // lower threshold for plus and enter: (37 rest, 61 btm)
+                            reset_pt = 45;
+                            actuation_pt = 50;
                             break;
                     }
                     break;
@@ -171,11 +171,11 @@ bool ec_matrix_scan(matrix_row_t current_matrix[]) {
 }
 
 // console debugging for pad values
-void ec_dprint_matrix(void) {
+/*void ec_dprint_matrix(void) {
     for (int row = 0; row < sizeof(row_channels); row++) {
         for (int col = 0; col < sizeof(col_pins); col++) {
             dprintf("%5d", ec_sw_value[col][row]);
         }
         dprintf("\n");
     }
-}
+}*/
