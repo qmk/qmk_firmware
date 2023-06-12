@@ -531,7 +531,7 @@ bool oled_task_kb(void) {
 
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	switch(keycode) {
 		case KC_SPC:
 			if(record->event.pressed) {
