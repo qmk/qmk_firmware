@@ -76,7 +76,7 @@ void do_code16(uint16_t code, void (*f)(uint8_t)) {
 }
 
 __attribute__((weak)) void register_code16(uint16_t code) {
-    if (IS_MOD(code) || code == KC_NO) {
+    if (IS_MODIFIER_KEYCODE(code) || code == KC_NO) {
         do_code16(code, register_mods);
     } else {
         do_code16(code, register_weak_mods);
@@ -86,7 +86,7 @@ __attribute__((weak)) void register_code16(uint16_t code) {
 
 __attribute__((weak)) void unregister_code16(uint16_t code) {
     unregister_code(code);
-    if (IS_MOD(code) || code == KC_NO) {
+    if (IS_MODIFIER_KEYCODE(code) || code == KC_NO) {
         do_code16(code, unregister_mods);
     } else {
         do_code16(code, unregister_weak_mods);
@@ -238,6 +238,14 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 #endif
 
+#ifdef TAP_DANCE_ENABLE
+    if (preprocess_tap_dance(keycode, record)) {
+        // The tap dance might have updated the layer state, therefore the
+        // result of the keycode lookup might change.
+        keycode = get_record_keycode(record, true);
+    }
+#endif
+
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled() && record->event.pressed) {
         velocikey_accelerate();
@@ -247,14 +255,6 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef WPM_ENABLE
     if (record->event.pressed) {
         update_wpm(keycode);
-    }
-#endif
-
-#ifdef TAP_DANCE_ENABLE
-    if (preprocess_tap_dance(keycode, record)) {
-        // The tap dance might have updated the layer state, therefore the
-        // result of the keycode lookup might change.
-        keycode = get_record_keycode(record, true);
     }
 #endif
 
@@ -342,6 +342,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef AUTOCORRECT_ENABLE
             process_autocorrect(keycode, record) &&
+#endif
+#ifdef TRI_LAYER_ENABLE
+            process_tri_layer(keycode, record) &&
 #endif
             true)) {
         return false;
@@ -443,31 +446,13 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
     default_layer_set((layer_state_t)1 << default_layer);
 }
 
-layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-    layer_state_t mask12 = ((layer_state_t)1 << layer1) | ((layer_state_t)1 << layer2);
-    layer_state_t mask3  = (layer_state_t)1 << layer3;
-    return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
-}
-
-void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-    layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
-}
-
-// TODO: remove legacy api
-void matrix_init_quantum() {
-    matrix_init_kb();
-}
-void matrix_scan_quantum() {
-    matrix_scan_kb();
-}
-
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
 
-__attribute__((weak)) void startup_user() {}
+__attribute__((weak)) void startup_user(void) {}
 
-__attribute__((weak)) void shutdown_user() {}
+__attribute__((weak)) void shutdown_user(void) {}
 
 void suspend_power_down_quantum(void) {
     suspend_power_down_kb();

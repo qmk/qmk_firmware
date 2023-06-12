@@ -3,7 +3,6 @@
     "manufacturer": "frooastside",
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/frooastboard/nano",
     "maintainer": "frooastside",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT": {
@@ -39,5 +38,10 @@
         "vid": "0x4642",
         "pid": "0x6F21",
         "device_version": "0.0.1"
-    }
+    },
+    "bootmagic": {
+        "matrix": [1, 1]
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu"
 }

@@ -151,7 +151,7 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
     qp_internal_invalidate_palette();
 
     if (!qp_internal_bpp_capable(info->bpp)) {
-        qp_dprintf("qp_drawimage_recolor: fail (image bpp too high (%d), check QUANTUM_PAINTER_SUPPORTS_256_PALETTE)\n", (int)info->bpp);
+        qp_dprintf("qp_drawimage_recolor: fail (image bpp too high (%d), check QUANTUM_PAINTER_SUPPORTS_256_PALETTE or QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS)\n", (int)info->bpp);
         qp_comms_stop(device);
         return false;
     }
@@ -167,8 +167,10 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
 
         needs_pixconvert = true;
     } else {
-        // Interpolate from fg/bg
-        needs_pixconvert = qp_internal_interpolate_palette(fg_hsv888, bg_hsv888, palette_entries);
+        if (info->bpp <= 8) {
+            // Interpolate from fg/bg
+            needs_pixconvert = qp_internal_interpolate_palette(fg_hsv888, bg_hsv888, palette_entries);
+        }
     }
 
     if (needs_pixconvert) {
@@ -260,15 +262,32 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
         return false;
     }
 
-    // Set up the output state
-    struct qp_internal_pixel_output_state output_state = {.device = device, .pixel_write_pos = 0, .max_pixels = qp_internal_num_pixels_in_buffer(device)};
+    bool ret = false;
+    if (frame_info->bpp <= 8) {
+        // Set up the output state
+        struct qp_internal_pixel_output_state output_state = {.device = device, .pixel_write_pos = 0, .max_pixels = qp_internal_num_pixels_in_buffer(device)};
 
-    // Decode the pixel data and stream to the display
-    bool ret = qp_internal_decode_palette(device, pixel_count, frame_info->bpp, input_callback, &input_state, qp_internal_global_pixel_lookup_table, qp_internal_pixel_appender, &output_state);
+        // Decode the pixel data and stream to the display
+        ret = qp_internal_decode_palette(device, pixel_count, frame_info->bpp, input_callback, &input_state, qp_internal_global_pixel_lookup_table, qp_internal_pixel_appender, &output_state);
+        // Any leftovers need transmission as well.
+        if (ret && output_state.pixel_write_pos > 0) {
+            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.pixel_write_pos);
+        }
+    } else if (frame_info->bpp != driver->native_bits_per_pixel) {
+        // Prevent stuff like drawing 24bpp images on 16bpp displays
+        qp_dprintf("Image's bpp doesn't match the target display's native_bits_per_pixel\n");
+        return false;
+    } else {
+        // Set up the output state
+        struct qp_internal_byte_output_state output_state = {.device = device, .byte_write_pos = 0, .max_bytes = qp_internal_num_pixels_in_buffer(device) * driver->native_bits_per_pixel / 8};
 
-    // Any leftovers need transmission as well.
-    if (ret && output_state.pixel_write_pos > 0) {
-        ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.pixel_write_pos);
+        // Stream the raw pixel data to the display
+        uint32_t byte_count = pixel_count * frame_info->bpp / 8;
+        ret                 = qp_internal_send_bytes(device, byte_count, input_callback, &input_state, qp_internal_byte_appender, &output_state);
+        // Any leftovers need transmission as well.
+        if (ret && output_state.byte_write_pos > 0) {
+            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.byte_write_pos * 8 / driver->native_bits_per_pixel);
+        }
     }
 
     qp_dprintf("qp_drawimage_recolor: %s\n", ret ? "ok" : "fail");
@@ -398,4 +417,16 @@ void qp_stop_animation(deferred_token anim_token) {
 void qp_internal_animation_tick(void) {
     static uint32_t last_anim_exec = 0;
     deferred_exec_advanced_task(animation_executors, QUANTUM_PAINTER_CONCURRENT_ANIMATIONS, &last_anim_exec);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter Core API: qp_internal_task
+
+void qp_internal_task(void) {
+    qp_internal_animation_tick();
+#ifdef QUANTUM_PAINTER_LVGL_INTEGRATION_ENABLE
+    // Run LVGL ticks
+    void qp_lvgl_internal_tick(void);
+    qp_lvgl_internal_tick();
+#endif
 }

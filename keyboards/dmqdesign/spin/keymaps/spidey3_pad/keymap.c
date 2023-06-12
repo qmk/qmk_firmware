@@ -147,7 +147,7 @@ void keyboard_post_init_user(void) {
     do_rgb_layers(layer_state, LAYER_BASE, LAYER_BASE_END);
 }
 
-void shutdown_user() {
+void shutdown_user(void) {
     clear_rgb_layers();
     rgblight_enable();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);

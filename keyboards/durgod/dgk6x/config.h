@@ -16,7 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define WAIT_US_TIMER           GPTD3
 
@@ -31,20 +30,11 @@
 // Increase VIA layer count
 #define DYNAMIC_KEYMAP_LAYER_COUNT 16
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Bootmagic Lite key configuration */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-#define BOOTMAGIC_LITE_ROW                 0
-#define BOOTMAGIC_LITE_COLUMN              0
 
 /* LED indicator pins */
-#define LED_CAPS_LOCK_PIN   C4
 #define LED_WIN_LOCK_PIN    C5
-#define LED_SCROLL_LOCK_PIN A8
 #define LED_MR_LOCK_PIN     LED_SCROLL_LOCK_PIN
-#define LED_PIN_ON_STATE    0
 
 #ifdef RGB_MATRIX_ENABLE
 // This is a 7-bit address, that gets left-shifted and bit 0

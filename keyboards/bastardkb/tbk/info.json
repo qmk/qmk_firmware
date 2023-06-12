@@ -5,6 +5,11 @@
         "device_version": "0.0.1",
         "pid": "0x1828"
     },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_split_4x6_5": {
             "layout": [

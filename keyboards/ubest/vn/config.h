@@ -16,11 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -36,10 +31,6 @@
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7, C6, B5, B4, D7, D6, D4, D5, D3 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN B6
-// #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN
@@ -59,9 +50,3 @@
 //     #define RGBLIGHT_EFFECT_RGB_TEST
 //     #define RGBLIGHT_EFFECT_ALTERNATING
 #endif
-
-#define LED_PIN_ON_STATE  	0
-#define LED_NUM_LOCK_PIN 	B1
-#define LED_CAPS_LOCK_PIN 	B3
-#define LED_SCROLL_LOCK_PIN B2
-

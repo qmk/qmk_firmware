@@ -8,6 +8,23 @@
         "pid": "0xCA2C",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B0", "pin_b": "B7", "resolution": 2}
+        ]
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 4,
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["66_ansi", "66_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

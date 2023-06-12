@@ -8,6 +8,13 @@
         "pid": "0xF4E4",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "D4",
+        "breathing": true
+    },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
+    "debounce": 50,
     "layouts": {
         "LAYOUT": {
             "layout": [

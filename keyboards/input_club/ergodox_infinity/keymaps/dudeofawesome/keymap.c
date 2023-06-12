@@ -470,7 +470,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void matrix_init_user() {
+void matrix_init_user(void) {
   led_matrix_enable_noeeprom();
   led_matrix_set_val_noeeprom(UINT8_MAX);
 }

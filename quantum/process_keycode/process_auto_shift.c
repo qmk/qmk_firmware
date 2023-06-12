@@ -344,7 +344,7 @@ bool get_autoshift_state(void) {
     return autoshift_flags.enabled;
 }
 
-uint16_t get_generic_autoshift_timeout() {
+uint16_t get_generic_autoshift_timeout(void) {
     return autoshift_timeout;
 }
 __attribute__((weak)) uint16_t get_autoshift_timeout(uint16_t keycode, keyrecord_t *record) {
@@ -397,8 +397,17 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
                 break;
 #    endif
         }
-        // If Retro Shift is disabled, possible custom actions shouldn't happen.
-        // clang-format off
+            // If Retro Shift is disabled, possible custom actions shouldn't happen.
+            // clang-format off
+#   if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
+#       if defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+            const bool is_hold_on_interrupt = get_hold_on_other_key_press(keycode, record);
+#       elif defined(IGNORE_MOD_TAP_INTERRUPT)
+            const bool is_hold_on_interrupt = false;
+#       else
+            const bool is_hold_on_interrupt = IS_QK_MOD_TAP(keycode);
+#       endif
+#   endif
         if (IS_RETRO(keycode)
 #    if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
             // Not tapped or #defines mean that rolls should use hold action.
@@ -407,27 +416,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #        ifdef RETRO_TAPPING_PER_KEY
                 || !get_retro_tapping(keycode, record)
 #        endif
-                || (record->tap.interrupted && (IS_LT(keycode)
-#        if defined(HOLD_ON_OTHER_KEY_PRESS) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
-#            ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-                    ? get_hold_on_other_key_press(keycode, record)
-#            else
-                    ? true
-#            endif
-#        else
-                    ? false
-#        endif
-#        if defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
-#            ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                    : !get_ignore_mod_tap_interrupt(keycode, record)
-#            else
-                    : false
-#            endif
-#        else
-                    : true
-#        endif
-                ))
-            )
+                || (record->tap.interrupted && is_hold_on_interrupt))
 #    endif
         ) {
             // clang-format on
@@ -454,10 +443,10 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #    endif
         ) {
             // Fixes modifiers not being applied to rolls with AUTO_SHIFT_MODIFIERS set.
-#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
+#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
             if (autoshift_flags.in_progress
-#        ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-                && !get_ignore_mod_tap_interrupt(keycode, record)
+#        ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+                && get_hold_on_other_key_press(keycode, record)
 #        endif
             ) {
                 autoshift_end(KC_NO, now, false, &autoshift_lastrecord);
@@ -495,7 +484,7 @@ void retroshift_poll_time(keyevent_t *event) {
     retroshift_time      = timer_read();
 }
 // Used to swap the times of Retro Shifted key and Auto Shift key that interrupted it.
-void retroshift_swap_times() {
+void retroshift_swap_times(void) {
     if (last_retroshift_time != 0 && autoshift_flags.in_progress) {
         uint16_t temp        = retroshift_time;
         retroshift_time      = last_retroshift_time;

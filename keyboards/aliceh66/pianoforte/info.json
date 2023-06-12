@@ -8,6 +8,9 @@
         "pid": "0x7066",
         "vid": "0x6168"
     },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

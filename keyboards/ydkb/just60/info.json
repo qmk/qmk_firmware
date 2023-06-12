@@ -8,6 +8,12 @@
         "pid": "0x1960",
         "device_version": "0.0.1"
     },
+    "qmk_lufa_bootloader": {
+        "esc_input": "E2",
+        "esc_output": "D6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-ms",
     "layouts": {
         "LAYOUT": {
             "layout": [

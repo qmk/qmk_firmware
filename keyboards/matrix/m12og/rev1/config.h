@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -30,10 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Status LEDs */
-#define LED_CAPS_LOCK_PIN B6
-#define LED_SCROLL_LOCK_PIN B5
 
 /* RGB */
 #define RGB_DI_PIN B8
@@ -52,6 +47,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 16
 #define RGBLIGHT_SLEEP
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

@@ -8,6 +8,9 @@
         "pid":"0x3003",
         "device_version": "0.0.3",
     },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "community_layouts": ["65_ansi_blocker", "65_iso_blocker"],
     "layouts": {
         "LAYOUT": {
             "layout": [

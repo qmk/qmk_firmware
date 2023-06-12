@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include_next "mcuconf.h"
+#include_next <mcuconf.h>
 
 #if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
 #    undef STM32_PWM_USE_ADVANCED

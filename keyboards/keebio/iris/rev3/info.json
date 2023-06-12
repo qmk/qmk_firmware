@@ -3,5 +3,25 @@
     "usb": {
         "pid": "0x3256",
         "device_version": "3.0.0"
-    }
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B7"}
+        ]
+    },
+    "backlight": {
+        "pin": "B6",
+        "levels": 5
+    },
+    "qmk_lufa_bootloader": {
+        "esc_input": "D2",
+        "esc_output": "F1",
+        "led": "B0",
+        "speaker": "C6"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu"
 }

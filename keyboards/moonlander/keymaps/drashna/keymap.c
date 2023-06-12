@@ -16,7 +16,9 @@
 
 #include "drashna.h"
 
-enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
+enum more_custom_keycodes {
+    KC_SWAP_NUM = USER_SAFE_RANGE,
+};
 
 // clang-format off
 #define LAYOUT_moonlander_wrapper(...) LAYOUT_moonlander(__VA_ARGS__)

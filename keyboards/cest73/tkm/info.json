@@ -8,6 +8,17 @@
         "pid": "0xAA55",
         "device_version": "0.0.1"
     },
+    "backlight": {
+        "pin": "E6"
+    },
+    "indicators": {
+        "caps_lock": "F5",
+        "num_lock": "F6",
+        "scroll_lock": "F7",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "halfkay",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

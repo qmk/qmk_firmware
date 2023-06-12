@@ -184,13 +184,13 @@ defined(MONO_BACKLIGHT_WT80_A)
         IS31FL3736_mono_set_brightness(16, 255);
     }
 #endif
-#if defined(MONO_BACKLIGHT_WT80_A) 
+#if defined(MONO_BACKLIGHT_WT80_A)
     if ( host_keyboard_led_state().scroll_lock ) {
         // SW7,CS7 = (6*8+6) = 54
         IS31FL3736_mono_set_brightness(54, 255);
     }
 #endif
-#if defined(MONO_BACKLIGHT_WT75_C) 
+#if defined(MONO_BACKLIGHT_WT75_C)
     if ( host_keyboard_led_state().scroll_lock ) {
         // SW7,CS8 = (6*8+7) = 55
         IS31FL3736_mono_set_brightness(55, 255);
@@ -470,4 +470,15 @@ void backlight_brightness_decrease(void)
 {
     g_config.brightness = decrement( g_config.brightness, 8, 0, 255 );
     backlight_config_save();
+}
+
+void backlight_device_indication(uint8_t value)
+{
+    static uint8_t current_effect = 0;
+    static uint8_t alternate_effect = 0;
+    if ( value == 0 ) {
+        current_effect = g_config.effect;
+        alternate_effect = g_config.effect > 0 ? 0 : 1;
+    }
+    g_config.effect = value % 2 == 0 ? alternate_effect : current_effect;
 }

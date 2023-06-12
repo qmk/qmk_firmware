@@ -16,25 +16,10 @@
  
 #pragma once
 
-#include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 7
-#define MATRIX_COLS 7
- 
 #define MATRIX_ROW_PINS { C4, C5, C2, D0, B5, B6, D6 }
 #define MATRIX_COL_PINS { B7, B4, B3, B2, D3, D2, D1 }
 
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
-
-/* ROTARY ENCODERS */
-#define ENCODERS_PAD_A { C6, D4 }
-#define ENCODERS_PAD_B { C7, D5 }
-
-#define ENCODER_RESOLUTION 4
-//#define ENCODER_DIRECTION_FLIP
-
-#define DEBOUNCE 5
-

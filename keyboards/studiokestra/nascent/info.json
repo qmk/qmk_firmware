@@ -8,6 +8,12 @@
         "pid": "0x0165",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "B6",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "community_layouts": [
         "65_ansi_blocker",
         "65_ansi_blocker_split_bs",

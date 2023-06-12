@@ -26,8 +26,9 @@
         "pid": "0x23B0",
         "device_version": "1.1.0"
     },
-    
-    "debounce": 5,
+    "bootmagic": {
+        "matrix": [2, 2]
+    },
     
     "matrix_pins": {
         "direct": [

@@ -19,6 +19,6 @@ Flashing example for this keyboard:
 To reset the board into bootloader mode, do one of the following:
 
 * Tap the Reset switch mounted on the bottom side of the PCB
-* Hold Space+B while connecting the USB cable
+* Hold the key at top left (usually escape) while connecting the USB cable
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).`

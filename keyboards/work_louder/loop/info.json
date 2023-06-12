@@ -7,6 +7,18 @@
         "vid": "0x574C",
         "pid": "0x1DF9"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"},
+            {"pin_a": "D2", "pin_b": "D3"},
+            {"pin_a": "D5", "pin_b": "D4"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 11]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -14,15 +26,15 @@
                 {"label": "k01", "x": 1, "y": 0},
                 {"label": "k02", "x": 2, "y": 0},
 
-                {"label": "k03", "x": 3, "y": 1, "w": 0},
-                {"label": "k04", "x": 4, "y": 1, "w": 0},
-                {"label": "k05", "x": 5, "y": 1, "w": 0},
-                {"label": "k06", "x": 6, "y": 1, "w": 0},
-                {"label": "k07", "x": 7, "y": 1, "w": 0},
-                {"label": "k08", "x": 8, "y": 1, "w": 0},
-                {"label": "k09", "x": 9, "y": 1, "w": 0},
-                {"label": "k0a", "x": 10, "y": 1, "w": 0},
-                {"label": "k0b", "x": 11, "y": 1, "w": 0}
+                {"label": "k03", "x": 3, "y": 0},
+                {"label": "k04", "x": 4, "y": 0},
+                {"label": "k05", "x": 5, "y": 0},
+                {"label": "k06", "x": 6, "y": 0},
+                {"label": "k07", "x": 7, "y": 0},
+                {"label": "k08", "x": 8, "y": 0},
+                {"label": "k09", "x": 9, "y": 0},
+                {"label": "k0a", "x": 10, "y": 0},
+                {"label": "k0b", "x": 11, "y": 0}
             ]
         }
     }

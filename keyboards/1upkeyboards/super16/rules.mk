@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,5 +12,3 @@ RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes
 RGB_MATRIX_DRIVER = WS2812
 AUDIO_ENABLE = no           # Audio output
-
-LAYOUTS = ortho_4x4 numpad_4x4

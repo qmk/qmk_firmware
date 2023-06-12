@@ -8,6 +8,12 @@
     "pid": "0x5050",
     "device_version": "0.0.1"
   },
+  "indicators": {
+    "caps_lock": "D5",
+    "on_state": 0
+  },
+  "processor": "atmega328p",
+  "bootloader": "usbasploader",
   "layouts": {
     "LAYOUT_all": {
       "layout": [

@@ -17,27 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
-
 #define MATRIX_COL_PINS { A6, A5, A4, A3, A2, A1, A0, C14, F0, C15, B9, B8, B7, B6, B5, B4}
 #define MATRIX_ROW_PINS { B10, B11, A7, B0, B1, B2}
 #define DIODE_DIRECTION COL2ROW
-
-//#define BACKLIGHT_PIN           A6
-//#define BACKLIGHT_PWM_DRIVER    PWMD3
-//#define BACKLIGHT_PWM_CHANNEL   1
-//#define BACKLIGHT_PAL_MODE      1
-//#define BACKLIGHT_LEVELS 6
-//#define BACKLIGHT_BREATHING
-//#define BREATHING_PERIOD 6
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -59,9 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define ENCODERS_PAD_A { B3 }
-#define ENCODERS_PAD_B { A15 }
-#define ENCODER_RESOLUTION 2
 #define TAPPING_TERM 200
 
 /*

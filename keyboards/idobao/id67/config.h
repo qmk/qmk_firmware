@@ -5,7 +5,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define RGB_DI_PIN F0
 

@@ -16,14 +16,4 @@
 
 #pragma once
 
-#ifndef __ASSEMBLER__
-#    include "pin_defs.h"
-#endif
-
-/* diode directions */
-#define COL2ROW 0
-#define ROW2COL 1
-
-#ifdef AUDIO_ENABLE
-#    include "song_list.h"
-#endif
+#pragma message("'config_common.h' should no longer be included!")

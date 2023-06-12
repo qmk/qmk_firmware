@@ -1,10 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
 
 /*
  * Keyboard Matrix Assignments
@@ -21,9 +16,6 @@
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
 
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended

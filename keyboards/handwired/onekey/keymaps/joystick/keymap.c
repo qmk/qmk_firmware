@@ -8,7 +8,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_ortho_1x1(JS_0)
 };
 
-void matrix_scan_user() {
+void matrix_scan_user(void) {
     int16_t val = (((uint32_t)timer_read() % 5000 - 2500) * 255) / 5000;
     joystick_set_axis(1, val);
 }

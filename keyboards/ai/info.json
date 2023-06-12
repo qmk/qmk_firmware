@@ -23,8 +23,11 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
+    "layout_aliases": {
+        "LAYOUT_ai_5x4_1": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_ai_5x4_1": {
+        "LAYOUT": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0.5 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },

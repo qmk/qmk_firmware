@@ -1,10 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* Key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
 
 /* Key matrix pins */
 #define MATRIX_ROW_PINS { B8, B9, B1, B2, B4 }
@@ -13,15 +8,6 @@
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-// #define DEBOUNCE 5
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-// #define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-// #define LOCKING_RESYNC_ENABLE
 
 /* RGB Underglow */
 #ifdef RGBLIGHT_ENABLE
@@ -53,11 +39,6 @@
     Q__NOTE(_E7) \
 )
 #endif
-
-/* Encoders */
-#define ENCODERS_PAD_A { B3, A0 }
-#define ENCODERS_PAD_B { A6, A1 }
-/* #define ENCODER_RESOLUTION 4 */
 
 /* OLED */
 #define OLED_FONT_H "glcdfont_d48.c"

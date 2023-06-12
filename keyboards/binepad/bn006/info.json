@@ -3,7 +3,6 @@
     "keyboard_name": "BN006",
     "maintainer": "Binepad",
     "bootloader": "stm32duino",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,

@@ -8,6 +8,18 @@
         "pid": "0xF4B5",
         "device_version": "0.0.1"
     },
+    "split": {
+        "soft_serial_pin": "D2",
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "F5", "pin_b": "F4"}
+                ]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -11,7 +11,7 @@
 #define IGNORE_MOD_TAP_INTERRUPT
         // makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the TAPPING_TERM for both keys.
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
         // makes it possible to use a dual role key as modifier shortly after having been tapped (see Hold after tap)
         // Breaks any Tap Toggle functionality (TT or the One Shot Tap Toggle)
 

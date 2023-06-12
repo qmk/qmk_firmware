@@ -80,7 +80,6 @@
 
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE    5
 
 // i2c setting
 #define USE_I2CV1

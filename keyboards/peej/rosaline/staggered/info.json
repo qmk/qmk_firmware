@@ -8,6 +8,8 @@
         "pid": "0x0003",
         "device_version": "0.0.1"
     },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
     "layout_aliases": {
         "LAYOUT_staggered_40": "LAYOUT_all"
     },

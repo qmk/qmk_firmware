@@ -8,6 +8,8 @@
         "pid": "0x2D28",
         "device_version": "0.0.1"
     },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_60_tsangan_hhkb"
     },

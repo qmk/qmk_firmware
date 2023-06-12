@@ -8,6 +8,16 @@
         "pid": "0x8585",
         "device_version": "0.0.1"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "E6", "pin_b": "D1"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 5]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -78,15 +78,15 @@ typedef struct {
     t_tap_state right_brackets;
 } t_tap;
 
-t_tap_state get_tapdance_state(qk_tap_dance_state_t *state);
+t_tap_state get_tapdance_state(tap_dance_state_t *state);
 
-void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data);
+void td_brackets_left_finished(tap_dance_state_t *state, void *user_data);
+void td_brackets_left_reset(tap_dance_state_t *state, void *user_data);
+void td_brackets_right_finished(tap_dance_state_t *state, void *user_data);
+void td_brackets_right_reset(tap_dance_state_t *state, void *user_data);
 
 /* Tap Dance Definitions */
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for left parenthesis, twice for left bracket, thrice for left brace */
     [TD_BRACKETS_LEFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_brackets_left_finished, td_brackets_left_reset),
     /* Tap once for right parenthesis, twice for right bracket, thrice for right brace */
@@ -218,7 +218,7 @@ float s_audio_on[][2]    = AUDIO_ON_SONG;
 float s_layer_lower[][2] = LAYER_LOWER_SONG;
 float s_layer_raise[][2] = LAYER_RAISE_SONG;
 
-void audio_on_user() { PLAY_SONG(s_audio_on); };
+void audio_on_user(void) { PLAY_SONG(s_audio_on); };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -266,14 +266,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 /* Global TapDance State */
-static t_tap qk_tap_state = {
+static t_tap tap_state = {
     .left_brackets  = 0,
     .right_brackets = 0,
 };
 
 float s_numpad_toggle[][2] = LAYER_NMPAD_SONG;
 
-t_tap_state get_tapdance_state(qk_tap_dance_state_t *state) {
+t_tap_state get_tapdance_state(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) {
             return SINGLE_TAP;
@@ -296,9 +296,9 @@ t_tap_state get_tapdance_state(qk_tap_dance_state_t *state) {
         return TAP_DANCE_NO_MATCH;
 }
 
-void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_state.left_brackets = get_tapdance_state(state);
-    switch (qk_tap_state.left_brackets) {
+void td_brackets_left_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.left_brackets = get_tapdance_state(state);
+    switch (tap_state.left_brackets) {
         case SINGLE_TAP:
             register_code16(KC_LEFT_PAREN);
             break;
@@ -313,8 +313,8 @@ void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (qk_tap_state.left_brackets) {
+void td_brackets_left_reset(tap_dance_state_t *state, void *user_data) {
+    switch (tap_state.left_brackets) {
         case SINGLE_TAP:
             unregister_code16(KC_LEFT_PAREN);
             break;
@@ -327,12 +327,12 @@ void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data) {
         default:
             break;
     }
-    qk_tap_state.left_brackets = 0;
+    tap_state.left_brackets = 0;
 }
 
-void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_state.right_brackets = get_tapdance_state(state);
-    switch (qk_tap_state.right_brackets) {
+void td_brackets_right_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.right_brackets = get_tapdance_state(state);
+    switch (tap_state.right_brackets) {
         case SINGLE_TAP:
             register_code16(KC_RIGHT_PAREN);
             break;
@@ -347,8 +347,8 @@ void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (qk_tap_state.right_brackets) {
+void td_brackets_right_reset(tap_dance_state_t *state, void *user_data) {
+    switch (tap_state.right_brackets) {
         case SINGLE_TAP:
             unregister_code16(KC_RIGHT_PAREN);
             break;
@@ -361,7 +361,7 @@ void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data) {
         default:
             break;
     }
-    qk_tap_state.right_brackets = 0;
+    tap_state.right_brackets = 0;
 }
 
 bool     muse_mode      = false;

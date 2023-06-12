@@ -54,7 +54,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool rgb_matrix_indicators_user(void) {
     if (rgb_matrix_config.enable) {
         HSV hsv = rgb_matrix_config.hsv;
-        if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+        if (host_keyboard_led_state().caps_lock) {
             HSV hsv_inv_hue = {hsv.h + 128, hsv.s, hsv.v};
             set_hsv_at(hsv_inv_hue, 30);
         }

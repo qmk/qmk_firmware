@@ -196,7 +196,7 @@ layer_state_t layer_state_set_user(layer_state_t state);
 // Method called at the end of the tap dance on the TAP_MACRO key. That key is
 // used to start recording a macro (double tap or more), to stop recording (any
 // number of tap), or to play the recorded macro (1 tap).
-void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
+void macro_tapdance_fn(tap_dance_state_t *state, void *user_data) {
   uint16_t keycode;
   keyrecord_t record;
   dprintf("macro_tap_dance_fn %d\n", state->count);
@@ -219,7 +219,7 @@ void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // The definition of the tap dance actions:
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   // This Tap dance plays the macro 1 on TAP and records it on double tap.
   [TAP_MACRO] = ACTION_TAP_DANCE_FN(macro_tapdance_fn),
 };

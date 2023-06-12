@@ -51,7 +51,7 @@ TEST_F(AutoCorrect, OnOffToggle) {
     autocorrect_toggle();
     EXPECT_EQ(autocorrect_is_enabled(), true);
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Test that typing "fales" autocorrects to "false"
@@ -80,7 +80,7 @@ TEST_F(AutoCorrect, fales_to_false_autocorrection) {
 
     TapKeys(key_f, key_a, key_l, key_e, key_s);
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Test that typing "fales" doesn't autocorrect if disabled
@@ -109,7 +109,7 @@ TEST_F(AutoCorrect, fales_disabled_autocorrect) {
     TapKeys(key_f, key_a, key_l, key_e, key_s);
     autocorrect_enable();
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Test that typing "falsify" doesn't autocorrect if disabled
@@ -139,7 +139,7 @@ TEST_F(AutoCorrect, falsify_should_not_autocorrect) {
 
     TapKeys(key_f, key_a, key_l, key_s, key_i, key_f, key_y);
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Test that  typing "ture" autocorrect to "true"
@@ -169,7 +169,7 @@ TEST_F(AutoCorrect, ture_to_true_autocorrect) {
 
     TapKeys(key_space, key_t_code, key_u, key_r, key_e);
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Test that  typing "overture" does not autocorrect
@@ -200,5 +200,5 @@ TEST_F(AutoCorrect, overture_should_not_autocorrect) {
 
     TapKeys(key_o, key_v, key_e, key_r, key_t_code, key_u, key_r, key_e);
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

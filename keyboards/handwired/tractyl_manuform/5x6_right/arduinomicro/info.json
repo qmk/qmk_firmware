@@ -1,3 +1,8 @@
 {
-    "keyboard_name": "Tractyl Manuform(5x6) Arduino Micro (r)/ Pro Micro (l)"
+    "keyboard_name": "Tractyl Manuform(5x6) Arduino Micro (r)/ Pro Micro (l)",
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina"
 }

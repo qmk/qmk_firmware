@@ -1,5 +1,13 @@
 {
     "usb": {
         "device_version": "0.0.1"
-    }
+    },
+    "indicators": {
+        "caps_lock": "B0",
+        "num_lock": "D2",
+        "scroll_lock": "D3",
+        "on_state": 0
+    },
+    "processor": "atmega32u4",
+    "bootloader": "lufa-dfu"
 }

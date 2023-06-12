@@ -145,7 +145,7 @@ void rgblight_fade_helper(bool direction){
 void fadeflash_leds(uint8_t hue, uint8_t sat, uint8_t val){
   // indicate success / fail of a leader sequence
   // fade out, set new hue and saturation, fade in, fade out, set old color, fade in
-  // this is used in leader.c
+  // this is used in leader_user.c
   // TODO: come up with a better name maybe
   rgblight_fade_helper(false);
   rgblight_sethsv_noeeprom(hue, sat, 0);

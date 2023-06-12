@@ -6,7 +6,6 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "rgblight": true,

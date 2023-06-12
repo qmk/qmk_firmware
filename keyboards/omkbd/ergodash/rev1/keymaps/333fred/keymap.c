@@ -32,7 +32,7 @@ extern keymap_config_t keymap_config;
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_wrapper( \
+  [BASE] = LAYOUT_wrapper(
     ROW5_LEFT_BASE,          KC_F5,                                     KC_F6,            ROW5_RGHT_BASE,
     ROW4_LEFT_BASE,          TG(GAME),                                  TG(GAME_ARROW),   ROW4_RGHT_BASE,
     ROW3_LEFT_BASE,          KC_LGUI,                                   KC_BSPC,          ROW3_RGHT_BASE,

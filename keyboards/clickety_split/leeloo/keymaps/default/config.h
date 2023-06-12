@@ -26,7 +26,7 @@
     #undef TAPPING_TERM
 
     #define IGNORE_MOD_TAP_INTERRUPT
-    #define TAPPING_FORCE_HOLD
+    #define QUICK_TAP_TERM 0
     #define TAPPING_TERM 150
 #endif
 

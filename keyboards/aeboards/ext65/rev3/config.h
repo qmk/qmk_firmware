@@ -16,8 +16,4 @@
 
 #pragma once
 
-// Locks
-#define LED_NUM_LOCK_PIN F5
-#define LED_CAPS_LOCK_PIN F4
-#define LED_SCROLL_LOCK_PIN F1
 #define LED_LAYERS_PIN F0

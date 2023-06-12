@@ -59,7 +59,7 @@ extern ble_capslock_t ble_capslock;
 // clang-format on
 
 enum AP2KeyCodes {
-    KC_AP2_BT1 = SAFE_RANGE,
+    KC_AP2_BT1 = QK_KB_0,
     KC_AP2_BT2,
     KC_AP2_BT3,
     KC_AP2_BT4,
@@ -76,9 +76,4 @@ enum AP2KeyCodes {
     KC_AP_RGB_VAD,
     KC_AP_RGB_TOG,
     KC_AP_RGB_MOD,
-    AP2_SAFE_RANGE,
 };
-
-#undef SAFE_RANGE
-#define SAFE_RANGE AP2_SAFE_RANGE
-

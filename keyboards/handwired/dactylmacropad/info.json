@@ -23,6 +23,11 @@
         "pid": "0x0000",
         "vid": "0xFEED"
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0"}
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
