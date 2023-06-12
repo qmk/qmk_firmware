@@ -42,6 +42,7 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED   //turn off effects when suspended
 
 //RGB Matrix Effects lists
+/*
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS	//Enables RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN	//Enables RGB_MATRIX_GRADIENT_UP_DOWN
 #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT	//Enables RGB_MATRIX_GRADIENT_LEFT_RIGHT
@@ -75,6 +76,7 @@
 #define RGB_TRIGGER_ON_KEYDOWN  //Triggers RGB keypress events on key down
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 1
+*/
 
 
 
