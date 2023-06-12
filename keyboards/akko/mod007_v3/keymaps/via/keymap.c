@@ -23,8 +23,7 @@ enum __layers {
     MAC_W,
     MAC_FN
 };
-#define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
+
 #define KC_SIRI LGUI(KC_SPC)
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
