@@ -18,8 +18,8 @@
 
 #include_next <mcuconf.h>
 
-// Used for audio (?)
-#undef STM32_PWM_USE_TIM4 //timer 4 channel ?
+// Used for audio
+#undef STM32_PWM_USE_TIM4
 #define STM32_PWM_USE_TIM4 TRUE
 
 // Used for FRAM
