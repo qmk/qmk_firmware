@@ -47,6 +47,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 	return true;
 }
 
+#ifdef OLED_ENABLE
 #define		KB_STAT_SIZE 18
 #define		WIN_STAT_SIZE 12
 #define 	MIN_WALK_SPEED 	10
