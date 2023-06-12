@@ -200,5 +200,14 @@
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "UYIljMT9wPmp1J8K"
+    },
+    {
+        "type": "Directory",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\planck\\keymaps\\JMoney",
+        "parent_id": "QDn9WK7Uhz2YfB0X",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\planck\\keymaps\\JMoney",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "2ntrJ3EkgGXaLm7S"
     }
 ]
