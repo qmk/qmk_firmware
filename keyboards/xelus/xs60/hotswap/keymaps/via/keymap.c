@@ -1,4 +1,4 @@
-/* Copyright 2022 Harrison Chan (Xelus)
+/* Copyright 2023 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Default layer: Pressing caps-lock momentarily switches to Layer 1.
 // This is the default layer. Pressing an empty keycode on another layer will take you here.
@@ -83,3 +84,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                                              KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
+// clang-format on
+
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_user(void) {
+    HSV hsv_ind = {rgb_matrix_get_hue() + 30, 255, INDICATOR_MAX_BRIGHTNESS};
+    RGB rgb_ind = hsv_to_rgb(hsv_ind);
+
+    /* Sets Caps to different color as indicator. If RGB mode is rain, and caps indicator is off, the LED will always be off.
+    This is to avoid having the LED persist on until the animation randomly refreshes it. */
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(0, HSV_ORANGE);
+    } else if (host_keyboard_led_state().num_lock) {
+        rgb_matrix_set_color(0, HSV_CYAN);
+    } else if (host_keyboard_led_state().scroll_lock) {
+        rgb_matrix_set_color(0, HSV_PURPLE);
+    }
+
+    if (IS_LAYER_ON(1)) {
+        rgb_matrix_set_color(0, HSV_GREEN);
+    }
+    return true;
+}
+#endif

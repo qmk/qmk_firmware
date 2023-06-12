@@ -17,5 +17,3 @@
 
 // More layers
 #define DYNAMIC_KEYMAP_LAYER_COUNT 8
-
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17
