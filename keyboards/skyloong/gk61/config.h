@@ -16,11 +16,28 @@
 #pragma once
 
 /*
- * RGB matrix driver config
+ * RGB matrix driver config (IS31FL3733)
+ *
+ * This is a 7-bit address, that gets left-shifted and bit 0
+ * set to 0 for write, 1 for read (as per I2C protocol)
+ * The address will vary depending on your wiring:
+ * 00 <-> GND
+ * 01 <-> SCL
+ * 10 <-> SDA
+ * 11 <-> VCC
+ * ADDR1 represents A1:A0 of the 7-bit address.
+ * ADDR2 represents A3:A2 of the 7-bit address.
+ * The result is: 0b101(ADDR2)(ADDR1)
  */
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_2 0b1010011
 
-//#define WS2812_DI_PIN B4  //The pin connected to the data pin of the LEDs(define in info.json)
-#define RGB_MATRIX_LED_COUNT 44   //The number of LEDs connected
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 192
+#define DRIVER_2_LED_TOTAL 0
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define ISSI_PWM_FREQUENCY 10000
+
 #define RGB_MATRIX_KEYPRESSES  //Reacts to keypress
 #define RGB_DISABLE_WHEN_USB_SUSPENDED   //turn off effects when suspended
 
@@ -59,13 +76,5 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 1
 
-//Set WS2812 driver
-#define WS2812_TRST_US 200  //The Trst period between frames
-//set ' WS2812_DRIVER = pwm ' in rule.mk
-#define WS2812_PWM_DRIVER PWMD3
-#define WS2812_PWM_CHANNEL 1
-#define WS2812_PWM_PAL_MODE 2
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM3
-#define WS2812_DMA_CHANNEL 3
 
 

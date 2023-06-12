@@ -19,7 +19,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": false
+        "rgb_matrix": true
     },
 
 
@@ -111,13 +111,8 @@
     },
 
 
-
-    "ws2812": {
-        "driver": "pwm",
-        "pin": "B4"
-    },
     "rgb_matrix":{
-        "driver":"WS2812",
+        "driver":"IS31FL3733",
         "max_brightness": 200,
         "sleep": true
    }
