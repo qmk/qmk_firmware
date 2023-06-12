@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______,                   _______,                            _______, _______, _______,          _______,  _______, _______)
 };
 
-// clang-format off
+// clang-format on
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [WIN_B] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
