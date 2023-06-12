@@ -1,12 +1,5 @@
 #pragma once
 
-
-// Wiring of Each Half
-#define DIODE_DIRECTION COL2ROW
-#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { B6, B2, B3, B1, F6, F7, F5 }
-#define MATRIX_COL_PINS_RIGHT { F5, B3, F7, B1, F6, B2, B6 }
-
 // Comunication and Split Detection
 
 #define SELECT_SOFT_SERIAL_SPEED 1

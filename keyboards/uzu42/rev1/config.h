@@ -18,17 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_ROW_PINS { D4, C6, D7, E6 }
-
-// wiring of each half
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
-// #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
-
-#define DIODE_DIRECTION COL2ROW
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
 #define RGBLED_NUM 54    // Number of LEDs
 #define RGBLED_SPLIT { 27, 27 }
 
@@ -43,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define RGBLIGHT_LIMIT_VAL 120
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17

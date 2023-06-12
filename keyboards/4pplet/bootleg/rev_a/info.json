@@ -8,6 +8,11 @@
         "pid": "0x0004",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["C5", "C6", "C7", "B7", "B6", "B5", "B4", "B3", "B2", "B1", "B0", "D6", "D5", "D3", "D1"],
+        "rows": ["D0", "C2", "C4", "D4", "D2"]
+    },
+    "diode_direction": "COL2ROW",
     "qmk_lufa_bootloader": {
         "esc_input": "D0",
         "esc_output": "C4"
@@ -89,7 +94,6 @@
                 {"label": "Ctrl", "matrix": [4, 9], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},

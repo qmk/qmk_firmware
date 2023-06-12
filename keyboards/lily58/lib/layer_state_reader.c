@@ -1,7 +1,5 @@
-
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 #include <stdio.h>
-#include "lily58.h"
 
 #define L_BASE 0
 #define L_LOWER (1 << 1)
