@@ -1,5 +1,5 @@
 /* Copyright 2022 GSKY <gskyGit@gsky.com.tw>
- *
+
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -15,25 +15,6 @@
  */
 
 #pragma once
-
-#define MATRIX_ROW_PINS \
-    { B0, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13 }
-#define MATRIX_COL_PINS \
-    { A0, A1, A2, A3, A4, A8, A9, A10 }
-
-#define ENCODERS_PAD_A \
-    { C2 }
-#define ENCODERS_PAD_B \
-    { C3 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Hold ESC on start up to clear EEPROM and boot into bootloader mode */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 3
-
-#define TAP_CODE_DELAY 10
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -58,8 +39,8 @@
 #define DRIVER_2_EN C13
 
 #define DRIVER_COUNT 2
-#define DRIVER_1_LED_TOTAL 68
-#define DRIVER_2_LED_TOTAL 54
+#define DRIVER_1_LED_TOTAL 66
+#define DRIVER_2_LED_TOTAL 19
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 // RGB Matrix Animation modes. Explicitly enabled
@@ -110,6 +91,3 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-
-#define RGB_MATRIX_CENTER { 87, 22 }
