@@ -138,106 +138,106 @@ static ADCConversionGroup adcConversionGroup = {
 __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
     switch (pin) {
 #if defined(STM32F0XX)
-        case A0:  return TO_MUX( 0,  0 );
-        case A1:  return TO_MUX( 1,  0 );
-        case A2:  return TO_MUX( 2,  0 );
-        case A3:  return TO_MUX( 3,  0 );
-        case A4:  return TO_MUX( 4,  0 );
-        case A5:  return TO_MUX( 5,  0 );
-        case A6:  return TO_MUX( 6,  0 );
-        case A7:  return TO_MUX( 7,  0 );
-        case B0:  return TO_MUX( 8,  0 );
-        case B1:  return TO_MUX( 9,  0 );
-        case C0:  return TO_MUX( 10, 0 );
-        case C1:  return TO_MUX( 11, 0 );
-        case C2:  return TO_MUX( 12, 0 );
-        case C3:  return TO_MUX( 13, 0 );
-        case C4:  return TO_MUX( 14, 0 );
-        case C5:  return TO_MUX( 15, 0 );
+        case PAL_LINE(GPIOA, 0):  return TO_MUX( 0,  0 );
+        case PAL_LINE(GPIOA, 1):  return TO_MUX( 1,  0 );
+        case PAL_LINE(GPIOA, 2):  return TO_MUX( 2,  0 );
+        case PAL_LINE(GPIOA, 3):  return TO_MUX( 3,  0 );
+        case PAL_LINE(GPIOA, 4):  return TO_MUX( 4,  0 );
+        case PAL_LINE(GPIOA, 5):  return TO_MUX( 5,  0 );
+        case PAL_LINE(GPIOA, 6):  return TO_MUX( 6,  0 );
+        case PAL_LINE(GPIOA, 7):  return TO_MUX( 7,  0 );
+        case PAL_LINE(GPIOB, 0):  return TO_MUX( 8,  0 );
+        case PAL_LINE(GPIOB, 1):  return TO_MUX( 9,  0 );
+        case PAL_LINE(GPIOC, 0):  return TO_MUX( 10, 0 );
+        case PAL_LINE(GPIOC, 1):  return TO_MUX( 11, 0 );
+        case PAL_LINE(GPIOC, 2):  return TO_MUX( 12, 0 );
+        case PAL_LINE(GPIOC, 3):  return TO_MUX( 13, 0 );
+        case PAL_LINE(GPIOC, 4):  return TO_MUX( 14, 0 );
+        case PAL_LINE(GPIOC, 5):  return TO_MUX( 15, 0 );
 #elif defined(STM32F3XX)
-        case A0:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
-        case A1:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
-        case A2:  return TO_MUX( ADC_CHANNEL_IN3,  0 );
-        case A3:  return TO_MUX( ADC_CHANNEL_IN4,  0 );
-        case A4:  return TO_MUX( ADC_CHANNEL_IN1,  1 );
-        case A5:  return TO_MUX( ADC_CHANNEL_IN2,  1 );
-        case A6:  return TO_MUX( ADC_CHANNEL_IN3,  1 );
-        case A7:  return TO_MUX( ADC_CHANNEL_IN4,  1 );
-        case B0:  return TO_MUX( ADC_CHANNEL_IN12, 2 );
-        case B1:  return TO_MUX( ADC_CHANNEL_IN1,  2 );
-        case B2:  return TO_MUX( ADC_CHANNEL_IN12, 1 );
-        case B12: return TO_MUX( ADC_CHANNEL_IN3,  3 );
-        case B13: return TO_MUX( ADC_CHANNEL_IN5,  2 );
-        case B14: return TO_MUX( ADC_CHANNEL_IN4,  3 );
-        case B15: return TO_MUX( ADC_CHANNEL_IN5,  3 );
-        case C0:  return TO_MUX( ADC_CHANNEL_IN6,  0 ); // Can also be ADC2
-        case C1:  return TO_MUX( ADC_CHANNEL_IN7,  0 ); // Can also be ADC2
-        case C2:  return TO_MUX( ADC_CHANNEL_IN8,  0 ); // Can also be ADC2
-        case C3:  return TO_MUX( ADC_CHANNEL_IN9,  0 ); // Can also be ADC2
-        case C4:  return TO_MUX( ADC_CHANNEL_IN5,  1 );
-        case C5:  return TO_MUX( ADC_CHANNEL_IN11, 1 );
-        case D8:  return TO_MUX( ADC_CHANNEL_IN12, 3 );
-        case D9:  return TO_MUX( ADC_CHANNEL_IN13, 3 );
-        case D10: return TO_MUX( ADC_CHANNEL_IN7,  2 ); // Can also be ADC4
-        case D11: return TO_MUX( ADC_CHANNEL_IN8,  2 ); // Can also be ADC4
-        case D12: return TO_MUX( ADC_CHANNEL_IN9,  2 ); // Can also be ADC4
-        case D13: return TO_MUX( ADC_CHANNEL_IN10, 2 ); // Can also be ADC4
-        case D14: return TO_MUX( ADC_CHANNEL_IN11, 2 ); // Can also be ADC4
-        case E7:  return TO_MUX( ADC_CHANNEL_IN13, 2 );
-        case E8:  return TO_MUX( ADC_CHANNEL_IN6,  2 ); // Can also be ADC4
-        case E9:  return TO_MUX( ADC_CHANNEL_IN2,  2 );
-        case E10: return TO_MUX( ADC_CHANNEL_IN14, 2 );
-        case E11: return TO_MUX( ADC_CHANNEL_IN15, 2 );
-        case E12: return TO_MUX( ADC_CHANNEL_IN16, 2 );
-        case E13: return TO_MUX( ADC_CHANNEL_IN3,  2 );
-        case E14: return TO_MUX( ADC_CHANNEL_IN1,  3 );
-        case E15: return TO_MUX( ADC_CHANNEL_IN2,  3 );
-        case F2:  return TO_MUX( ADC_CHANNEL_IN10, 0 ); // Can also be ADC2
-        case F4:  return TO_MUX( ADC_CHANNEL_IN5,  0 );
+        case PAL_LINE(GPIOA, 0):  return TO_MUX( ADC_CHANNEL_IN1,  0 );
+        case PAL_LINE(GPIOA, 1):  return TO_MUX( ADC_CHANNEL_IN2,  0 );
+        case PAL_LINE(GPIOA, 2):  return TO_MUX( ADC_CHANNEL_IN3,  0 );
+        case PAL_LINE(GPIOA, 3):  return TO_MUX( ADC_CHANNEL_IN4,  0 );
+        case PAL_LINE(GPIOA, 4):  return TO_MUX( ADC_CHANNEL_IN1,  1 );
+        case PAL_LINE(GPIOA, 5):  return TO_MUX( ADC_CHANNEL_IN2,  1 );
+        case PAL_LINE(GPIOA, 6):  return TO_MUX( ADC_CHANNEL_IN3,  1 );
+        case PAL_LINE(GPIOA, 7):  return TO_MUX( ADC_CHANNEL_IN4,  1 );
+        case PAL_LINE(GPIOB, 0):  return TO_MUX( ADC_CHANNEL_IN12, 2 );
+        case PAL_LINE(GPIOB, 1):  return TO_MUX( ADC_CHANNEL_IN1,  2 );
+        case PAL_LINE(GPIOB, 2):  return TO_MUX( ADC_CHANNEL_IN12, 1 );
+        case PAL_LINE(GPIOB, 12): return TO_MUX( ADC_CHANNEL_IN3,  3 );
+        case PAL_LINE(GPIOB, 13): return TO_MUX( ADC_CHANNEL_IN5,  2 );
+        case PAL_LINE(GPIOB, 14): return TO_MUX( ADC_CHANNEL_IN4,  3 );
+        case PAL_LINE(GPIOB, 15): return TO_MUX( ADC_CHANNEL_IN5,  3 );
+        case PAL_LINE(GPIOC, 0):  return TO_MUX( ADC_CHANNEL_IN6,  0 ); // Can also be ADC2
+        case PAL_LINE(GPIOC, 1):  return TO_MUX( ADC_CHANNEL_IN7,  0 ); // Can also be ADC2
+        case PAL_LINE(GPIOC, 2):  return TO_MUX( ADC_CHANNEL_IN8,  0 ); // Can also be ADC2
+        case PAL_LINE(GPIOC, 3):  return TO_MUX( ADC_CHANNEL_IN9,  0 ); // Can also be ADC2
+        case PAL_LINE(GPIOC, 4):  return TO_MUX( ADC_CHANNEL_IN5,  1 );
+        case PAL_LINE(GPIOC, 5):  return TO_MUX( ADC_CHANNEL_IN11, 1 );
+        case PAL_LINE(GPIOD, 8):  return TO_MUX( ADC_CHANNEL_IN12, 3 );
+        case PAL_LINE(GPIOD, 9):  return TO_MUX( ADC_CHANNEL_IN13, 3 );
+        case PAL_LINE(GPIOD, 10): return TO_MUX( ADC_CHANNEL_IN7,  2 ); // Can also be ADC4
+        case PAL_LINE(GPIOD, 11): return TO_MUX( ADC_CHANNEL_IN8,  2 ); // Can also be ADC4
+        case PAL_LINE(GPIOD, 12): return TO_MUX( ADC_CHANNEL_IN9,  2 ); // Can also be ADC4
+        case PAL_LINE(GPIOD, 13): return TO_MUX( ADC_CHANNEL_IN10, 2 ); // Can also be ADC4
+        case PAL_LINE(GPIOD, 14): return TO_MUX( ADC_CHANNEL_IN11, 2 ); // Can also be ADC4
+        case PAL_LINE(GPIOE, 7):  return TO_MUX( ADC_CHANNEL_IN13, 2 );
+        case PAL_LINE(GPIOE, 8):  return TO_MUX( ADC_CHANNEL_IN6,  2 ); // Can also be ADC4
+        case PAL_LINE(GPIOE, 9):  return TO_MUX( ADC_CHANNEL_IN2,  2 );
+        case PAL_LINE(GPIOE, 10): return TO_MUX( ADC_CHANNEL_IN14, 2 );
+        case PAL_LINE(GPIOE, 11): return TO_MUX( ADC_CHANNEL_IN15, 2 );
+        case PAL_LINE(GPIOE, 12): return TO_MUX( ADC_CHANNEL_IN16, 2 );
+        case PAL_LINE(GPIOE, 13): return TO_MUX( ADC_CHANNEL_IN3,  2 );
+        case PAL_LINE(GPIOE, 14): return TO_MUX( ADC_CHANNEL_IN1,  3 );
+        case PAL_LINE(GPIOE, 15): return TO_MUX( ADC_CHANNEL_IN2,  3 );
+        case PAL_LINE(GPIOF, 2):  return TO_MUX( ADC_CHANNEL_IN10, 0 ); // Can also be ADC2
+        case PAL_LINE(GPIOF, 4):  return TO_MUX( ADC_CHANNEL_IN5,  0 );
 #elif defined(STM32F4XX)
-        case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
-        case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
-        case A2:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
-        case A3:  return TO_MUX( ADC_CHANNEL_IN3,  0 );
-        case A4:  return TO_MUX( ADC_CHANNEL_IN4,  0 );
-        case A5:  return TO_MUX( ADC_CHANNEL_IN5,  0 );
-        case A6:  return TO_MUX( ADC_CHANNEL_IN6,  0 );
-        case A7:  return TO_MUX( ADC_CHANNEL_IN7,  0 );
-        case B0:  return TO_MUX( ADC_CHANNEL_IN8,  0 );
-        case B1:  return TO_MUX( ADC_CHANNEL_IN9,  0 );
-        case C0:  return TO_MUX( ADC_CHANNEL_IN10, 0 );
-        case C1:  return TO_MUX( ADC_CHANNEL_IN11, 0 );
-        case C2:  return TO_MUX( ADC_CHANNEL_IN12, 0 );
-        case C3:  return TO_MUX( ADC_CHANNEL_IN13, 0 );
-        case C4:  return TO_MUX( ADC_CHANNEL_IN14, 0 );
-        case C5:  return TO_MUX( ADC_CHANNEL_IN15, 0 );
+        case PAL_LINE(GPIOA, 0):  return TO_MUX( ADC_CHANNEL_IN0,  0 );
+        case PAL_LINE(GPIOA, 1):  return TO_MUX( ADC_CHANNEL_IN1,  0 );
+        case PAL_LINE(GPIOA, 2):  return TO_MUX( ADC_CHANNEL_IN2,  0 );
+        case PAL_LINE(GPIOA, 3):  return TO_MUX( ADC_CHANNEL_IN3,  0 );
+        case PAL_LINE(GPIOA, 4):  return TO_MUX( ADC_CHANNEL_IN4,  0 );
+        case PAL_LINE(GPIOA, 5):  return TO_MUX( ADC_CHANNEL_IN5,  0 );
+        case PAL_LINE(GPIOA, 6):  return TO_MUX( ADC_CHANNEL_IN6,  0 );
+        case PAL_LINE(GPIOA, 7):  return TO_MUX( ADC_CHANNEL_IN7,  0 );
+        case PAL_LINE(GPIOB, 0):  return TO_MUX( ADC_CHANNEL_IN8,  0 );
+        case PAL_LINE(GPIOB, 1):  return TO_MUX( ADC_CHANNEL_IN9,  0 );
+        case PAL_LINE(GPIOC, 0):  return TO_MUX( ADC_CHANNEL_IN10, 0 );
+        case PAL_LINE(GPIOC, 1):  return TO_MUX( ADC_CHANNEL_IN11, 0 );
+        case PAL_LINE(GPIOC, 2):  return TO_MUX( ADC_CHANNEL_IN12, 0 );
+        case PAL_LINE(GPIOC, 3):  return TO_MUX( ADC_CHANNEL_IN13, 0 );
+        case PAL_LINE(GPIOC, 4):  return TO_MUX( ADC_CHANNEL_IN14, 0 );
+        case PAL_LINE(GPIOC, 5):  return TO_MUX( ADC_CHANNEL_IN15, 0 );
 #    if STM32_ADC_USE_ADC3
-        case F3:  return TO_MUX( ADC_CHANNEL_IN9,  2 );
-        case F4:  return TO_MUX( ADC_CHANNEL_IN14, 2 );
-        case F5:  return TO_MUX( ADC_CHANNEL_IN15, 2 );
-        case F6:  return TO_MUX( ADC_CHANNEL_IN4,  2 );
-        case F7:  return TO_MUX( ADC_CHANNEL_IN5,  2 );
-        case F8:  return TO_MUX( ADC_CHANNEL_IN6,  2 );
-        case F9:  return TO_MUX( ADC_CHANNEL_IN7,  2 );
-        case F10: return TO_MUX( ADC_CHANNEL_IN8,  2 );
+        case PAL_LINE(GPIOF, 3):  return TO_MUX( ADC_CHANNEL_IN9,  2 );
+        case PAL_LINE(GPIOF, 4):  return TO_MUX( ADC_CHANNEL_IN14, 2 );
+        case PAL_LINE(GPIOF, 5):  return TO_MUX( ADC_CHANNEL_IN15, 2 );
+        case PAL_LINE(GPIOF, 6):  return TO_MUX( ADC_CHANNEL_IN4,  2 );
+        case PAL_LINE(GPIOF, 7):  return TO_MUX( ADC_CHANNEL_IN5,  2 );
+        case PAL_LINE(GPIOF, 8):  return TO_MUX( ADC_CHANNEL_IN6,  2 );
+        case PAL_LINE(GPIOF, 9):  return TO_MUX( ADC_CHANNEL_IN7,  2 );
+        case PAL_LINE(GPIOF, 10): return TO_MUX( ADC_CHANNEL_IN8,  2 );
 #    endif
 #elif defined(STM32F1XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx)
-        case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
-        case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
-        case A2:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
-        case A3:  return TO_MUX( ADC_CHANNEL_IN3,  0 );
-        case A4:  return TO_MUX( ADC_CHANNEL_IN4,  0 );
-        case A5:  return TO_MUX( ADC_CHANNEL_IN5,  0 );
-        case A6:  return TO_MUX( ADC_CHANNEL_IN6,  0 );
-        case A7:  return TO_MUX( ADC_CHANNEL_IN7,  0 );
-        case B0:  return TO_MUX( ADC_CHANNEL_IN8,  0 );
-        case B1:  return TO_MUX( ADC_CHANNEL_IN9,  0 );
-        case C0:  return TO_MUX( ADC_CHANNEL_IN10, 0 );
-        case C1:  return TO_MUX( ADC_CHANNEL_IN11, 0 );
-        case C2:  return TO_MUX( ADC_CHANNEL_IN12, 0 );
-        case C3:  return TO_MUX( ADC_CHANNEL_IN13, 0 );
-        case C4:  return TO_MUX( ADC_CHANNEL_IN14, 0 );
-        case C5:  return TO_MUX( ADC_CHANNEL_IN15, 0 );
+        case PAL_LINE(GPIOA, 0):  return TO_MUX( ADC_CHANNEL_IN0,  0 );
+        case PAL_LINE(GPIOA, 1):  return TO_MUX( ADC_CHANNEL_IN1,  0 );
+        case PAL_LINE(GPIOA, 2):  return TO_MUX( ADC_CHANNEL_IN2,  0 );
+        case PAL_LINE(GPIOA, 3):  return TO_MUX( ADC_CHANNEL_IN3,  0 );
+        case PAL_LINE(GPIOA, 4):  return TO_MUX( ADC_CHANNEL_IN4,  0 );
+        case PAL_LINE(GPIOA, 5):  return TO_MUX( ADC_CHANNEL_IN5,  0 );
+        case PAL_LINE(GPIOA, 6):  return TO_MUX( ADC_CHANNEL_IN6,  0 );
+        case PAL_LINE(GPIOA, 7):  return TO_MUX( ADC_CHANNEL_IN7,  0 );
+        case PAL_LINE(GPIOB, 0):  return TO_MUX( ADC_CHANNEL_IN8,  0 );
+        case PAL_LINE(GPIOB, 1):  return TO_MUX( ADC_CHANNEL_IN9,  0 );
+        case PAL_LINE(GPIOC, 0):  return TO_MUX( ADC_CHANNEL_IN10, 0 );
+        case PAL_LINE(GPIOC, 1):  return TO_MUX( ADC_CHANNEL_IN11, 0 );
+        case PAL_LINE(GPIOC, 2):  return TO_MUX( ADC_CHANNEL_IN12, 0 );
+        case PAL_LINE(GPIOC, 3):  return TO_MUX( ADC_CHANNEL_IN13, 0 );
+        case PAL_LINE(GPIOC, 4):  return TO_MUX( ADC_CHANNEL_IN14, 0 );
+        case PAL_LINE(GPIOC, 5):  return TO_MUX( ADC_CHANNEL_IN15, 0 );
         // STM32F103x[C-G] in 144-pin packages also have analog inputs on F6...F10, but they are on ADC3, and the
         // ChibiOS ADC driver for STM32F1xx currently supports only ADC1, therefore these pins are not usable.
 #elif defined(RP2040)
