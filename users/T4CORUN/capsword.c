@@ -1,6 +1,6 @@
 #include "capsword.h"
 
-static bool caps_word_state = false;
+//static bool caps_word_state = false;
 
 bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
@@ -20,12 +20,4 @@ bool caps_word_press_user(uint16_t keycode) {
     default:
       return false;  // Deactivate Caps Word.
   }
-}
-
-void caps_word_set_user(bool active) {
-  caps_word_state = active;
-}
-
-bool get_caps_word_state(void) {
-  return caps_word_state;
 }

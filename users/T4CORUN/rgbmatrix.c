@@ -16,7 +16,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
   uint8_t current_default_layer = get_highest_layer(default_layer_state);
   uint8_t current_mod = get_mods();
   uint8_t current_osm = get_oneshot_mods();
-  bool is_capsword_on = get_caps_word_state();
+  bool is_capsword_on = is_caps_word_on();
 
   switch(current_layer) {
 
@@ -30,11 +30,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
 
     case _FUNCTION:
       rgb_matrix_set_color(LED_FUNCTION, RGB_AZURE);
-
-      rgb_matrix_set_color(LED_MACREC1, RGB_RED);
-      rgb_matrix_set_color(LED_MACPLY1, RGB_GREEN);
-      rgb_matrix_set_color(LED_MACREC2, RGB_RED);
-      rgb_matrix_set_color(LED_MACPLY2, RGB_GREEN);
       break;
 
     case _ADJUST:
@@ -67,19 +62,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
         
         case _DEFAULT_LAYER_1:
           rgb_matrix_set_color(LED_QWERTY, RGB_PURPLE);
-          rgb_matrix_set_color(LED_COLEMAKDH, RGB_WHITE);
-          rgb_matrix_set_color(LED_GAME, RGB_WHITE);
           break;
         
         case _DEFAULT_LAYER_2:
-          rgb_matrix_set_color(LED_QWERTY, RGB_WHITE);
           rgb_matrix_set_color(LED_COLEMAKDH, RGB_PURPLE);
-          rgb_matrix_set_color(LED_GAME, RGB_WHITE);
           break;
         
         case _DEFAULT_LAYER_3:
-          rgb_matrix_set_color(LED_QWERTY, RGB_WHITE);
-          rgb_matrix_set_color(LED_COLEMAKDH, RGB_WHITE);
           rgb_matrix_set_color(LED_GAME, RGB_PURPLE);
           break;
       }
@@ -110,52 +99,47 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
           break;
         
         case _DEFAULT_LAYER_3:
-          rgb_matrix_set_color(LED_QWERTY, RGB_PINK);
-          rgb_matrix_set_color(LED_COLEMAKDH, RGB_PINK);
-          rgb_matrix_set_color(LED_GAME, RGB_PURPLE);
-
-          rgb_matrix_set_color(LED_DPAD_L, RGB_RED);
-          rgb_matrix_set_color(LED_DPAD_R, RGB_RED);
-          rgb_matrix_set_color(LED_DPAD_U, RGB_RED);
-          rgb_matrix_set_color(LED_DPAD_D, RGB_RED);
+          rgb_matrix_set_color(LED_DPAD_L, RGB_CORAL);
+          rgb_matrix_set_color(LED_DPAD_R, RGB_CORAL);
+          rgb_matrix_set_color(LED_DPAD_U, RGB_CORAL);
+          rgb_matrix_set_color(LED_DPAD_D, RGB_CORAL);
           break;
       }
       break;
   }
 
   if( (current_mod & MOD_BIT(KC_LSFT)) || (current_osm & MOD_BIT(KC_LSFT)) ) {
-    rgb_matrix_set_color(LED_SHIFT_T, RGB_WHITE);
-    rgb_matrix_set_color(LED_SHIFT_L, RGB_WHITE);
-    rgb_matrix_set_color(LED_SHIFT_R, RGB_WHITE);
+    rgb_matrix_set_color(LED_SHIFT_T, RGB_GOLDENROD);
+    rgb_matrix_set_color(LED_SHIFT_L, RGB_GOLDENROD);
+    rgb_matrix_set_color(LED_SHIFT_R, RGB_GOLDENROD);
   }
 
   if( (current_mod & MOD_BIT(KC_LCTL)) || (current_osm & MOD_BIT(KC_LCTL)) ) {
-    rgb_matrix_set_color(LED_CTRL_L, RGB_GOLDENROD);
-    rgb_matrix_set_color(LED_CTRL_R, RGB_GOLDENROD);
+    rgb_matrix_set_color(LED_CTRL_L, RGB_CORAL);
+    rgb_matrix_set_color(LED_CTRL_R, RGB_CORAL);
   }
 
   if( (current_mod & MOD_BIT(KC_LALT)) || (current_osm & MOD_BIT(KC_LALT)) ) {
-    rgb_matrix_set_color(LED_ALT_L, RGB_CORAL);
-    rgb_matrix_set_color(LED_ALT_R, RGB_CORAL);
+    rgb_matrix_set_color(LED_ALT_L, RGB_PINK);
+    rgb_matrix_set_color(LED_ALT_R, RGB_PINK);
   }
 
   if( (current_mod & MOD_BIT(KC_LGUI)) || (current_osm & MOD_BIT(KC_LGUI)) ) {
-    rgb_matrix_set_color(LED_GUI_L, RGB_PINK);
-    rgb_matrix_set_color(LED_GUI_R, RGB_PINK);
+    rgb_matrix_set_color(LED_GUI_L, RGB_WHITE);
+    rgb_matrix_set_color(LED_GUI_R, RGB_WHITE);
   }
 
   if (host_keyboard_led_state().caps_lock) {
-    rgb_matrix_set_color(LED_CAPSLOCK, RGB_TEAL);
+    rgb_matrix_set_color(LED_CAPSLOCK, RGB_GOLDENROD);
   }
-,
+
   if (host_keyboard_led_state().scroll_lock) {
-    rgb_matrix_set_color(LED_SCRLOCK, RGB_TEAL);
+    rgb_matrix_set_color(LED_SCRLOCK, RGB_GOLDENROD);
   }
 
 #if defined(CAPS_WORD_ENABLE)  
   if (is_capsword_on) {
-    rgb_matrix_set_color(LED_CAPSLOCK, RGB_PINK);
-    rgb_matrix_set_color(LED_SCRLOCK, RGB_PINK);
+    rgb_matrix_set_color(LED_CAPSLOCK, RGB_ORANGE);
   }
 #endif //CAPS_WORD_ENABLE
 

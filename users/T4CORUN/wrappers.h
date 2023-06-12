@@ -88,7 +88,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Tab  |   Q  |   W  |   E  |   R  |    |QWERTY|ClmkDH|Gaming|      |      |
+*   | Tab  |   Q  |   W  |   E  |   R  |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Num  |   A  |   S  |   D  |   F  |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
@@ -103,7 +103,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define _______________GAMING_BASE_L3______________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
 #   define          ______GAMING_BASE_L4_____                 KC_LCTL, KC_SPC,  KC_LSFT
 
-#   define _______________GAMING_BASE_R1______________        QWERTY,  CLMAKDH, TR_GAME, ___x___, ___x___
+#   define _______________GAMING_BASE_R1______________        ___________________NONE_5__________________
 #   define _______________GAMING_BASE_R2______________        ___________________NONE_5__________________
 #   define _______________GAMING_BASE_R3______________        ___x___, ___x___, ___x___, ___x___, ADJUST
 
@@ -196,9 +196,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |      |      |      |      |      |    |PrtScr|  F7  |  F8  |  F9  | F10  |
+*   |      |      |      |      |      |    |ScrLck|  F7  |  F8  |  F9  | F10  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | GUI  | Alt  | Ctrl | Shft | Caps |    |ScrLck|  F4  |  F5  |  F6  | F11  |
+*   | GUI  | Alt  | Ctrl | Shft |PrnScr|    |CapLck|  F4  |  F5  |  F6  | F11  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |LyrTap|      | Vol- | Vol+ | Mute |    |PauBrk|  F1  |  F2  |  F3  | F12  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
@@ -208,12 +208,12 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 
 #   define _________________FUNCPAD_L1________________        ___________________NONE_5__________________
-#   define _________________FUNCPAD_L2________________        _____________GACS_MODS____________, KC_CAPS
+#   define _________________FUNCPAD_L2________________        _____________GACS_MODS____________, KC_PSCR
 #   define _________________FUNCPAD_L3________________        _______, ___x___, KC_VOLD, KC_VOLU, KC_MUTE
 #   define          ________FUNCPAD_L4_______                 ___x___, TR_DMR1, TR_DMP1
 
-#   define _________________FUNCPAD_R1________________        KC_PSCR, KC_F7,   KC_F8,   KC_F9,   KC_F10
-#   define _________________FUNCPAD_R2________________        KC_SCRL, KC_F4,   KC_F5,   KC_F6,   KC_F11
+#   define _________________FUNCPAD_R1________________        KC_SCRL, KC_F7,   KC_F8,   KC_F9,   KC_F10
+#   define _________________FUNCPAD_R2________________        KC_CAPS, KC_F4,   KC_F5,   KC_F6,   KC_F11
 #   define _________________FUNCPAD_R3________________        KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F12
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)

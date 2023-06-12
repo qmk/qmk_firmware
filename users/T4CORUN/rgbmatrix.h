@@ -24,8 +24,8 @@
 #   define LED_GAME 44
 
 //indicators
-#   define LED_CAPSLOCK 8
-#   define LED_SCRLOCK 35
+#   define LED_CAPSLOCK 35
+#   define LED_SCRLOCK 36
 
 //dpad
 #   define LED_DPAD_L 19
@@ -61,12 +61,6 @@
 #   define LED_GUI_L 22
 #   define LED_GUI_R 49
 
-//Macro keys
-#   define LED_MACREC1 13
-#   define LED_MACPLY1 6
-#   define LED_MACREC2 33
-#   define LED_MACPLY2 40
-
 
 //qmk_firmware\keyboards\bastardkb\charybdis\3x5\3x5.c
 #elif defined(KEYBOARD_bastardkb_charybdis_3x5)
@@ -84,8 +78,8 @@
 #   define LED_GAME 26
 
 //indicators
-#   define LED_CAPSLOCK 13
-#   define LED_SCRLOCK 31
+#   define LED_CAPSLOCK 31
+#   define LED_SCRLOCK 30
 
 //dpad
 #   define LED_DPAD_L 4
@@ -120,10 +114,4 @@
 //GUI keys
 #   define LED_GUI_L 1
 #   define LED_GUI_R 19
-
-//Macro keys
-#   define LED_MACREC1 16
-#   define LED_MACPLY1 17
-#   define LED_MACREC2 34
-#   define LED_MACPLY2 33
 #endif
