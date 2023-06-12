@@ -495,7 +495,10 @@ static void render_winstat(int WIN_X, int WIN_Y)
 	}
 }
 
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
 	current_wpm = get_current_wpm();
 	led_usb_state = host_keyboard_led_state();
 	render_animation(13, 3);
