@@ -18,6 +18,10 @@
         "rows": ["GP29", "GP27", "GP20", "GP19", "GP18"]
     },
     "processor": "RP2040",
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP0"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [
