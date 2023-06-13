@@ -20,7 +20,6 @@
     "processor": "RP2040",
     "rgb_matrix": {
         "driver": "WS2812",
-        "hue_steps": 8,
         "layout": [
             {"matrix": [0, 0], "x": 33.1, "y": 3.7, "flags": 4},
             {"matrix": [0, 1], "x": 45.7, "y": 3.7, "flags": 4},
