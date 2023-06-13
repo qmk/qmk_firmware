@@ -105,7 +105,7 @@ enum CustomKeys {
 #define IJ_DECL    LGUI(KC_B)
 #define IJ_REN     LSFT(KC_F6)
 #define IJ_USAG    LALT(KC_F7)
-#define IJ_RUN     KC_F9
+#define IJ_RUN     LCTL(LALT(KC_D))
 #define IJ_STEP    KC_F8
 #define IJ_INTO    LSFT(KC_F7)
 #define IJ_OUT     LSFT(KC_F8)
@@ -115,7 +115,13 @@ enum CustomKeys {
 #define IJ_TOP     LGUI(KC_HOME)
 #define IJ_BOTT    LGUI(KC_END)
 #define IJ_FIND    LGUI(LSFT(KC_F))
+#define IJ_LINE    LGUI(KC_L)
 #define IJ_RELD    LGUI(LSFT(KC_F9))
+#define IJ_TERM    LALT(KC_F12)
+#define IJ_DEBG    LGUI(KC_5)
+#define IJ_RFMT    LALT(LSFT(LGUI(KC_L)))
+#define IJ_FILE    LSFT(LGUI(KC_O))
+#define IJ_PROJ    LSFT(LGUI(KC_O))
 
 /* VS Code shortcuts */
 #define VS_CMD     LGUI(LSFT(KC_A))
