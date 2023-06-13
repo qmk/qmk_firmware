@@ -27,9 +27,4 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 
-// fix for device detection after cold boot
-// https://github.com/qmk/qmk_firmware/issues/18511#issuecomment-1264604610
-// https://github.com/qmk/qmk_firmware/issues/8990#issuecomment-851055637
-#undef SPLIT_USB_DETECT
-//https://www.reddit.com/r/ErgoMechKeyboards/comments/11qevf9/comment/jc5y8ux/?context=3
 #define USB_VBUS_PIN GP19
