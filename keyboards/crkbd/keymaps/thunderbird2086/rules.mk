@@ -11,6 +11,7 @@ TAP_DANCE_ENABLE = yes
 
 SRC += oled.c
 SRC += process_records.c
+SRC += rgb.c
 SRC += tap_dances.c
 
 ifneq ("$(wildcard keyboards/crkbd/keymaps/thunderbird2086/secrets.c)","")

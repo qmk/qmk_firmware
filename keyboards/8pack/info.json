@@ -11,6 +11,9 @@
     "pins": ["D1", "D0", "D4", "C6", "D7", "E6", "B4", "B5"],
     "levels": 8
   },
+  "ws2812": {
+    "pin": "D2"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "matrix_pins": {

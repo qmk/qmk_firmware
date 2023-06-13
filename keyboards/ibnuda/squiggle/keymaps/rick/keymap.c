@@ -121,7 +121,7 @@ const uint16_t PROGMEM m_b_combo[]         = {KC_M, KC_B, COMBO_END};
 // both hand combinations.
 const uint16_t PROGMEM j_w_combo[]         = {KC_J, KC_W, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     // left hand combinations.
     [COLON_COMMA]   = COMBO(colon_comma_combo,  KC_TAB),
     [COMMA_DOT]     = COMBO(comma_dot_combo,    KC_QUES),

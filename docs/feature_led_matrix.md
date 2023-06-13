@@ -378,13 +378,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 
 ## EEPROM storage :id=eeprom-storage
 
-The EEPROM for it is currently shared with the RGB Matrix system (it's generally assumed only one feature would be used at a time), but could be configured to use its own 32bit address with:
-
-```c
-#define EECONFIG_LED_MATRIX (uint32_t *)28
-```
-
-Where `28` is an unused index from `eeconfig.h`.
+The EEPROM for it is currently shared with the RGB Matrix system (it's generally assumed only one feature would be used at a time).
 
 ### Direct Operation :id=direct-operation
 |Function                                    |Description  |
