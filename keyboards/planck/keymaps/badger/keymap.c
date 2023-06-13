@@ -24,9 +24,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       J_FUN,    KC_LCTL,  KC_LALT,  KC_LGUI,  RAISE,    KC_SPC,   KC_SPC,   LOWER,    KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT),
 
   [_MOVE_MAC_ORTHO]   = LAYOUT_ortho_4x12(
-      KC_BACK,  IJ_STEP,  IJ_INTO,  IJ_OUT,   IJ_RUN,   IJ_STOP,  _______,  WD_BACK,  KC_HOME,  KC_END,   WD_FRWD,  WD_DELE, \
-      _______,  MM_LH,    MM_MAX,   MM_RH,    IJ_FIND,  IJ_IMPS,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  _______,  _______, \
-      _______,  MM_UH,    MM_BH,    MAC_CPY,  MAC_PST,  IJ_IMPH,  _______,  IJ_REN,   IJ_IMPL,  IJ_DECL,  _______,  _______, \
+      KC_BACK,  IJ_STEP,  IJ_INTO,  IJ_OUT,   IJ_RUN,   IJ_STOP,  IJ_TOP,   WD_BACK,  KC_HOME,  KC_END,   WD_FRWD,  WD_DELE, \
+      _______,  MM_LH,    MM_MAX,   MM_RH,    IJ_FIND,  IJ_LINE,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  CM_RIGHT, _______, \
+      _______,  MM_UH,    MM_BH,    MAC_CPY,  MAC_SPS,  SHEBANG,  IJ_BOTT,  IJ_REN,   IJ_IMPL,  IJ_DECL,  IJ_USAG,  _______, \
       _______,  _______,  _______,  _______,  _______,  KC_BSPC,  _______,  _______,  _______,  _______,  _______,  _______),
 
   [_RAISE]    = LAYOUT_ortho_4x12(
@@ -42,10 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  KC_0,     KC_DOT,   KC_ENT,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______),
 
   [_FUNCTION_ORTHO]   = LAYOUT_ortho_4x12(
-      _______,  KC_7,     KC_8,     KC_9,   KC_PAST,  KC_MSTP,  KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R,  KC_BTN2,  KC_INS,  \
-      _______,  KC_4,     KC_5,     KC_6,   KC_PMNS,  AG_NORM,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  _______, \
-      KC_0,     KC_1,     KC_2,     KC_3,   KC_PPLS,  KC_MPRV,  KC_MNXT,  KC_MUTE,  KC_ACL0,  KC_ACL1,  KC_ACL2,  _______, \
-      _______,  KC_PDOT,  KC_PEQL,  KC_PSLS,_______,  _______,  _______,  _______,  _______,  _______,  _______,  J_ADJ),
+      _______,  KC_7,     KC_8,     KC_9,     IJ_RFMT,  KC_MSTP,  KC_WH_L,  KC_WH_D,  KC_WH_U,  KC_WH_R,  KC_BTN2,  KC_INS,  \
+      _______,  KC_4,     KC_5,     KC_6,     KC_PMNS,  AG_NORM,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_BTN1,  _______, \
+      KC_0,     KC_1,     KC_2,     KC_3,     KC_PPLS,  KC_MPRV,  KC_MNXT,  KC_MUTE,  KC_ACL0,  KC_ACL1,  KC_ACL2,  _______, \
+      _______,  KC_PDOT,  KC_PEQL,  KC_PSLS,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  J_ADJ),
 
   [_ADJUST_ORTHO]   = LAYOUT_ortho_4x12(
       _______,  NK_ON,    NK_OFF,   EE_CLR,   QK_BOOT,  RGB_MOD,  RGB_HUI,  RGB_HUD,  RGB_SAI,  RGB_SAD,  RGB_VAI,  RGB_VAD,  \
