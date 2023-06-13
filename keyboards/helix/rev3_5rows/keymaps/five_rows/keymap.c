@@ -97,7 +97,6 @@ enum custom_keycodes {
     LT(_RAISE,KC_ENT), KC_SPC, KC_RGUI, KC_RALT,  KC_APP, KC_LOWER, KC_LOWER
 #define GRV__QUOT  KC_GRV, KC_QUOT
 
-#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty */
@@ -371,11 +370,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____, ____, ____, ____, ____, BSPC__RAEN, ____, ____, ____, ____, ____, ____, ____
    )
 };
-
-#else
-#error "undefined keymaps"
-#endif
-
 
 int current_default_layer;
 

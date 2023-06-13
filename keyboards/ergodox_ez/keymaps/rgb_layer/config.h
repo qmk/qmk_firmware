@@ -5,7 +5,6 @@
 #define RGBLIGHT_SLEEP
 
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
 
 

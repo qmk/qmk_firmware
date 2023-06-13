@@ -5,5 +5,11 @@
         "direct": [
             ["D4", "D2", "E6", "B6", "D7"]
         ]
+    },
+    "ws2812": {
+        "pin": "B5"
+    },
+    "rgblight": {
+        "max_brightness": 40
     }
 }
