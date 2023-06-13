@@ -116,7 +116,7 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
         __asm__ volatile("" ::: "memory");
     }
 }
-bool matrix_available(void) {
+bool matrix_can_read(void) {
     return matrix_scanned;
 }
 
