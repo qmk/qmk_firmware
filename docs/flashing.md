@@ -442,3 +442,44 @@ CLI Flashing sequence:
 4. Wait for the keyboard to become available
 
 <sup>1</sup>: This works only if QMK was compiled with `RP2040_BOOTLOADER_DOUBLE_TAP_RESET` defined.
+
+## SN32 DFU
+
+All SN32 MCUs, except for 260<sup>1</sup> come preloaded with a factory bootloader that cannot be modified nor deleted.
+
+To ensure compatibility with the SN32-DFU bootloader, make sure this block is present in your `rules.mk` :
+
+```make
+# Bootloader selection
+BOOTLOADER = sn32-dfu
+```
+
+Compatible flashers:
+
+* [SonixFlasher](https://github.com/SonixQMK/sonix-flasher/releases) (recommended GUI)
+* [SonixFlasherC](https://github.com/SonixQMK/SonixFlasherC/releases) (recommended command line)
+  ```
+  sonixflasher --vidpid 0c45:7040 -f <filename>
+  ```
+<sup>1</sup>: 260 series of chips have part of the SN32-DFU bootloader in userspace and therefore must be guarded to avoid bricking. Install the [sonix-bootloader](https://github.com/SonixQMK/sonix-keyboard-bootloader) before flashing the firmware
+```
+sonixflasher --vidpid 0c45:7010 -f <bootloader_filename>
+
+```
+as a one-shot operation, then flash the firmware with an offset `0x200`
+```
+sonixflasher --vidpid 0c45:7010 -o 0x200 -f <filename>
+
+```
+
+If using `$ qmk flash` to flash a firmware, the offset is automatically applied if needed.
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `QK_BOOT` keycode
+    * If a reset circuit is present, tap the `RESET` button on the PCB; some boards may also have a toggle switch that must be flipped
+    * Otherwise, you need to bridge `BOOT` to GND (via `BOOT` button or jumper), short `RESET` to GND (via `RESET` button, jumper or by unplugging and replugging USB), and then let go of the `BOOT` bridge
+2. Wait for the OS to detect the device
+3. Flash a .bin file
+4. Reset the device into application mode (may be done automatically)
