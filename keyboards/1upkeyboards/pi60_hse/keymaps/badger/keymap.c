@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "badger.h";
+#include "badger.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY]     = LAYOUT_60_ansi_split_bs_rshift(\
@@ -24,23 +24,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOVE]       = LAYOUT_60_ansi_split_bs_rshift(\
      MAC_FRC,   MM_LEFT,  MM_RGHT,  KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  P_BRACE,  P_PAREN,  P_BRACK,  IJ_TOP,    IJ_BOTT,  WD_DELE, _______, \
-     KC_BACK,   VS_STEP,  VS_INTO,  VS_OUT,   VS_RUN,   VS_STOP,  VS_MVUP,  WD_BACK,  KC_HOME,  KC_END,   WD_FRWD,  IJ_BACK,   IJ_FWD,   KC_NEXT, \
-     _______,   MM_LH,    MM_MAX,   MM_RH,    IJ_FIND,  VS_LINE,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  CM_RIGHT, CM_DOWN,   _______,  \
-     _______,   MM_UH,    MM_BH,    MAC_CPY,  MAC_PST,  SHEBANG,  VS_MVDN,  IJ_REN,   IJ_IMPL,  IJ_DECL,  IJ_USAG,  _______,   _______,  \
+     _______,   IJ_STEP,  IJ_INTO,  IJ_OUT,   IJ_RUN,   IJ_STOP,  IJ_TOP,   WD_BACK,  KC_HOME,  KC_END,   WD_FRWD,  IJ_BACK,   IJ_FWD,   KC_NEXT, \
+     _______,   MM_LH,    MM_MAX,   MM_RH,    IJ_FIND,  IJ_LINE,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  CM_RIGHT, CM_DOWN,   _______,  \
+     _______,   MM_UH,    MM_BH,    MAC_CPY,  MAC_SPS,  SHEBANG,  IJ_BOTT,  IJ_REN,   IJ_IMPL,  IJ_DECL,  IJ_USAG,  _______,   _______,  \
      _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______),
 
   [_FUNCTION]   = LAYOUT_60_ansi_split_bs_rshift(\
      KC_ESC,    KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_DEL, _______, \
-     _______,   _______,  _______,  _______,  _______,   VS_TERM,  KC_MPLY,  KC_PGUP,  _______,  _______,  KC_PGDN,  KC_VOLD,   KC_VOLU,  KC_INS, \
-     _______,   VS_EXP,   VS_DBG,   VS_CMD,   VS_FILE,   _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  \
-     _______,   DF_1,     DF_2,     KC_CAPS,  _______,   KC_MPRV,  KC_MNXT,  KC_MUTE,  KC_WBAK,  KC_WFWD,  KC_WSCH,  _______,   CONFIG,   \
+     _______,   _______,  _______,  _______,  IJ_RFMT,   IJ_TERM,  KC_MPLY,  KC_PGUP,  _______,  _______,  KC_PGDN,  KC_VOLD,   KC_VOLU,  KC_INS, \
+     _______,   _______,  _______,  IJ_DEBG,  IJ_FILE,   _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  \
+     _______,   _______,  _______,  KC_CAPS,  _______,   _______,  KC_MNXT,  KC_MUTE,  KC_WBAK,  KC_WFWD,  KC_WSCH,  _______,   CONFIG,   \
      _______,   _______,  _______,  _______,  _______,   _______,  _______,  CONFIG),
 
   [_MACRO]     = LAYOUT_60_ansi_split_bs_rshift(\
      _______,   KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,    KC_F12,   KC_DEL, _______, \
      _______,   _______,  _______,  _______,  SED,       KC_MSTP,  KC_MPLY,  KC_PGUP,  BASH_IF,  _______,  KC_PGDN,  KC_VOLD,   KC_VOLU,  KC_INS, \
-     _______,   _______,  SELECT,   _______,  FN,        _______,  _______,  _______,  _______,  FOR_LOOP, _______,  _______,   _______,  \
-     _______,   DF_1,     DF_2,     CONST,    _______,   SHEBANG,  TS_IMPT,  KC_MUTE,  KC_WBAK,  KC_WFWD,  KC_WSCH,  _______,   _______,  \
+     _______,   _______,  SELECT,   _______,  FOR_LOOP,  _______,  _______,  _______,  _______,  FOR_LOOP, _______,  _______,   _______,  \
+     _______,   _______,  _______,  CONST,    _______,   SHEBANG,  TS_IMPT,  KC_MUTE,  KC_WBAK,  KC_WFWD,  KC_WSCH,  _______,   _______,  \
      _______,   _______,  _______,  _______,  _______,   _______,  _______,  _______),
 
   [_CONFIG]     = LAYOUT_60_ansi_split_bs_rshift(\
