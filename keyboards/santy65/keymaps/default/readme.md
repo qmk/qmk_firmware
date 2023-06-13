@@ -1,4 +1,4 @@
-![Santy65 Layout Image](https://i.imgur.com/VcNGcUT.jpg)
+![Santy65 Layout Image](https://i.imgur.com/Lamu61l.png)
 
 # Default santy65 Layout
 
