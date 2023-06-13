@@ -1,5 +1,2 @@
-OLED_DRIVER = custom
-# Project specific files
-SRC += lib/ssd1306_sh1106.c
-QUANTUM_LIB_SRC += spi_master.c
+OLED_TRANSPORT = spi
 SRC += lib/bongocat.c
