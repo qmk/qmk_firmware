@@ -69,7 +69,8 @@
 #   define LED_NAVIGATION 34
 #   define LED_FUNCTION 0
 #   define LED_ADJUST 18
-#   define LED_MOUSE 20
+#   define LED_MOUSETOG 20
+#   define LED_MOUSETAP 6
 #   define LED_GAMENUMBER 1
 
 //base layers

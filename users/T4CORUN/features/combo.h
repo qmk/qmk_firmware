@@ -6,7 +6,6 @@ enum combos {
   MDOT_SNPTOG,
 
   SPCNAV_MB4,
-  NUMSHIFT_ENT,
   COMBO_LENGTH
 };
 
