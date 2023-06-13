@@ -9,9 +9,9 @@
     },
     {
         "type": "Directory",
-        "name": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb\\keymaps\\T4CORUN",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb\\keymaps\\t4corun",
         "parent_id": "8iayZo4tfXnPAlzD",
-        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb\\keymaps\\T4CORUN",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\dztech\\dz60rgb\\keymaps\\t4corun",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "okzvlpL82dNty1cb"
@@ -52,9 +52,9 @@
     },
     {
         "type": "Directory",
-        "name": "d:\\Repo\\qmk_firmware\\keyboards\\planck\\keymaps\\T4CORUN",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\planck\\keymaps\\t4corun",
         "parent_id": "QDn9WK7Uhz2YfB0X",
-        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\planck\\keymaps\\T4CORUN",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\planck\\keymaps\\t4corun",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "xMekGQC1oEd4bc9i"
@@ -78,9 +78,9 @@
     },
     {
         "type": "Directory",
-        "name": "d:\\Repo\\qmk_firmware\\users\\T4CORUN",
+        "name": "d:\\Repo\\qmk_firmware\\users\\t4corun",
         "parent_id": "D8YR096kpqUjKbVC",
-        "fsPath": "d:\\Repo\\qmk_firmware\\users\\T4CORUN",
+        "fsPath": "d:\\Repo\\qmk_firmware\\users\\t4corun",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "PHkXUA0FLD45ZEiI"
@@ -167,18 +167,18 @@
     },
     {
         "type": "Directory",
-        "name": "d:\\Repo\\qmk_firmware\\keyboards\\bastardkb\\charybdis\\3x5\\keymaps\\T4CORUN",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\bastardkb\\charybdis\\3x5\\keymaps\\t4corun",
         "parent_id": "DSrVku96vXUhL5KH",
-        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\bastardkb\\charybdis\\3x5\\keymaps\\T4CORUN",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\bastardkb\\charybdis\\3x5\\keymaps\\t4corun",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "BnRx4FP1ZiYgy0Iv"
     },
     {
         "type": "Directory",
-        "name": "d:\\Repo\\qmk_firmware\\keyboards\\crkbd\\keymaps\\T4CORUN",
+        "name": "d:\\Repo\\qmk_firmware\\keyboards\\crkbd\\keymaps\\t4corun",
         "parent_id": "20k3S7tNwT6jVcQC",
-        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\crkbd\\keymaps\\T4CORUN",
+        "fsPath": "d:\\Repo\\qmk_firmware\\keyboards\\crkbd\\keymaps\\t4corun",
         "workspaceRoot": null,
         "workspacePath": null,
         "id": "rhzGOBfZbQFpCVKw"

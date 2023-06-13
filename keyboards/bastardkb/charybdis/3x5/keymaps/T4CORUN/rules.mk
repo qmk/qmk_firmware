@@ -2,7 +2,7 @@
 # 
 
 #baseline
-USER_NAME := T4CORUN
+USER_NAME := t4corun
 
 #override userspace
 GAMELAYER_ENABLE = yes

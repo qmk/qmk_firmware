@@ -1,6 +1,5 @@
 SRC += $(USER_PATH)/T4CORUN.c \
-		$(USER_PATH)/tapping.c \
-		$(USER_PATH)/processor.c
+		$(USER_PATH)/features/tapping.c
 
 SPACE_CADET_ENABLE ?= no
 GRAVE_ESC_ENABLE ?= no
@@ -11,20 +10,20 @@ MAGIC_ENABLE ?= no
 
 CAPS_WORD_ENABLE ?= yes
 ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
-	SRC += $(USER_PATH)/capsword.c
+	SRC += $(USER_PATH)/features/capsword.c
 endif
 
 
 TAP_DANCE_ENABLE ?= no
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
-	SRC += $(USER_PATH)/tapdance.c
+	SRC += $(USER_PATH)/features/tapdance.c
 endif
 
 OLED_ENABLE ?= no
 #KEYLOG_ENABLE appears to be custom
 KEYLOG_ENABLE ?= no
 ifeq ($(strip $(OLED_ENABLE)), yes)
-	SRC += $(USER_PATH)/oled.c
+	SRC += $(USER_PATH)/features/oled.c
 	ifeq ($(strip $(KEYLOG_ENABLE)), yes)
 	  OPT_DEFS += -DKEYLOG_ENABLE
 	endif
@@ -34,7 +33,7 @@ endif
 COMBO_ENABLE ?= no
 ifeq ($(strip $(COMBO_ENABLE)), yes)
 #	SRC += $(USER_PATH)/combo.c
-	INTROSPECTION_KEYMAP_C = $(USER_PATH)/combo.c
+	INTROSPECTION_KEYMAP_C = $(USER_PATH)/features/combo.c
 endif
 
 #HOMEROWMOD_ENABLE is custom
@@ -47,7 +46,7 @@ endif
 POINTING_DEVICE_ENABLE ?= no
 AUTOMOUSE_ENABLE ?= no
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-	SRC += $(USER_PATH)/mouse.c
+	SRC += $(USER_PATH)/features/mouse.c
 	OPT_DEFS += -DMOUSELAYER_ENABLE
 	ifeq ($(strip $(AUTOMOUSE_ENABLED)), yes)
 	  OPT_DEFS += -DAUTOMOUSE_ENABLE
@@ -61,7 +60,7 @@ endif
 
 RGB_MATRIX_ENABLE ?= no
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-	SRC += $(USER_PATH)/rgbmatrix.c
+	SRC += $(USER_PATH)/features/rgbmatrix.c
 endif
 
 #GAMING_ENABLED is custom

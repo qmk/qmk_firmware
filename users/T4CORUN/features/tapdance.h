@@ -1,5 +1,5 @@
 #pragma once
-#include "T4CORUN.h"
+#include "t4corun.h"
 
 enum tap_dance_keys {
   TD_LEFTBRACKETS,

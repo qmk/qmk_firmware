@@ -1,14 +1,12 @@
 #pragma once
-#include "T4CORUN.h"
+#include "t4corun.h"
 
 enum combos {
   COMDOT_DRGTOG,
   MDOT_SNPTOG,
 
-  MB2MB3_DRGTOG,
-  MB1MB3_SNPTOG,
-
   SPCNAV_MB4,
+  NUMSHIFT_ENT,
   COMBO_LENGTH
 };
 

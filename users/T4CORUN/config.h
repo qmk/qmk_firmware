@@ -5,22 +5,22 @@ https://docs.qmk.fm/#/squeezing_avr?id=configh-settings
 https://docs.qmk.fm/#/config_options?id=hardware-options
 */
 
-#include "tapping_config.h"
+#include "config\tapping_config.h"
 
 #if defined(RGB_MATRIX_ENABLE)
-#   include "rgbmatrix_config.h"
+#   include "config\rgbmatrix_config.h"
 #endif //RGB_MATRIX_ENABLE
 
 #if defined(COMBO_ENABLE)
-#   include "combo_config.h"
+#   include "config\combo_config.h"
 #endif //COMBO_ENABLE
 
 #if defined(CAPS_WORD_ENABLE)
-#   include "capsword_config.h"
+#   include "config\capsword_config.h"
 #endif //COMBO_ENABLE
 
 #if defined(MOUSEKEY_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-#   include "mouse_config.h"
+#   include "config\mouse_config.h"
 #endif //MOUSEKEY_ENABLE
 
 
