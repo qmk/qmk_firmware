@@ -94,7 +94,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, L_16,   K_16,   J_16},
 
 };
-
+/*
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
   // Key Matrix to LED Index
@@ -122,7 +122,7 @@ led_config_t g_led_config = { {
   4, 4, 4,    4, 4, 4,    4, 4, 4, 4,    4,
 } };
 #endif
-
+*/
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_USART1_REMAP | AFIO_MAPR_TIM3_REMAP_PARTIALREMAP;
 
