@@ -39,20 +39,20 @@ enum custom_keycodes {
 // Shortcut to make keymap more readable
 #define KC_FN MO(_FN)
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SC_LSPO:
             // Do not force the mod-tap key press to be handled as a modifier
             // if any other key was pressed while the mod-tap key is held down.
-            return false;
+            return true;
 //        case MT(MOD_LSFT,KC_9):
 //            return false;
         case SC_RSPC:
-            return false;
+            return true;
         default:
             // Force the mod-tap key press to be handled as a modifier if any
             // other key was pressed while the mod-tap key is held down.
-            return true;
+            return false;
     }
 }
 

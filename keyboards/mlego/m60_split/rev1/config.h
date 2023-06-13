@@ -15,18 +15,6 @@
  */
 #pragma once
 
-
-#define MATRIX_ROW_PINS \
-    { B0, A6, A7, B1, A5 }
-#define MATRIX_COL_PINS \
-    { B14, A10, A15, B3, B4, B5 }
-
-#define MATRIX_ROW_PINS_RIGHT \
-    { B1, A4, A5, A6, A7 }
-
-#define MATRIX_COL_PINS_RIGHT \
-    { B0, A3, A2, A1, B7, B5 }  // cols are from right to left to match the layout
-
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 
@@ -36,11 +24,9 @@
 #define SERIAL_USART_SPEED 921600
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN B15
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_LAYERS
 
-#define RGBLIGHT_LIMIT_VAL 128
 #define RGBLIGHT_DEFAULT_HUE 213
 
 #define RGBLED_NUM 16

@@ -3,11 +3,7 @@
 
 #pragma once
 
-
-/* LED Matrix & Animations */
-#define RGB_DI_PIN B1
-
-#if defined(RGB_DI_PIN) && defined(RGB_MATRIX_ENABLE)
+#if defined(RGB_MATRIX_ENABLE)
     #ifndef ID27_DISABLE_UNDERGLOW
         #define RGB_MATRIX_LED_COUNT 31  // The number of LEDs connected
     #else

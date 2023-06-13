@@ -11,20 +11,14 @@
 
 #    if defined(IGNORE_MOD_TAP_INTERRUPT_PER_KEY)
 #        error "IGNORE_MOD_TAP_INTERRUPT_PER_KEY has been removed; the code needs to be ported to use HOLD_ON_OTHER_KEY_PRESS_PER_KEY instead."
-#    elif !defined(IGNORE_MOD_TAP_INTERRUPT)
-#        if !defined(PERMISSIVE_HOLD) && !defined(PERMISSIVE_HOLD_PER_KEY) && !defined(HOLD_ON_OTHER_KEY_PRESS) && !defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
-#            pragma message "The default behavior of mod-taps will change to mimic IGNORE_MOD_TAP_INTERRUPT in the future.\nIf you wish to keep the old default behavior of mod-taps, please use HOLD_ON_OTHER_KEY_PRESS."
-#        endif
+#    elif defined(IGNORE_MOD_TAP_INTERRUPT)
+#        error "IGNORE_MOD_TAP_INTERRUPT is no longer necessary as it is now the default behavior of mod-tap keys. Please remove it from your config."
 #    endif
 
-#    define IS_TAPPING() IS_EVENT(tapping_key.event)
-#    define IS_TAPPING_PRESSED() (IS_TAPPING() && tapping_key.event.pressed)
-#    define IS_TAPPING_RELEASED() (IS_TAPPING() && !tapping_key.event.pressed)
-#    define IS_TAPPING_KEY(k) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (k)))
 #    ifndef COMBO_ENABLE
-#        define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)))
+#        define IS_TAPPING_RECORD(r) (KEYEQ(tapping_key.event.key, (r->event.key)))
 #    else
-#        define IS_TAPPING_RECORD(r) (IS_TAPPING() && KEYEQ(tapping_key.event.key, (r->event.key)) && tapping_key.keycode == r->keycode)
+#        define IS_TAPPING_RECORD(r) (KEYEQ(tapping_key.event.key, (r->event.key)) && tapping_key.keycode == r->keycode)
 #    endif
 #    define WITHIN_TAPPING_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < GET_TAPPING_TERM(get_record_keycode(&tapping_key, false), &tapping_key))
 #    define WITHIN_QUICK_TAP_TERM(e) (TIMER_DIFF_16(e.time, tapping_key.event.time) < GET_QUICK_TAP_TERM(get_record_keycode(&tapping_key, false), &tapping_key))
@@ -96,7 +90,7 @@ void action_tapping_process(keyrecord_t record) {
             ac_dprintf("OVERFLOW: CLEAR ALL STATES\n");
             clear_keyboard();
             waiting_buffer_clear();
-            tapping_key = (keyrecord_t){};
+            tapping_key = (keyrecord_t){0};
         }
     }
 
@@ -123,7 +117,7 @@ void action_tapping_process(keyrecord_t record) {
  * conditional uses of it are hidden inside macros named TAP_...
  */
 #    if (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)) || defined(PERMISSIVE_HOLD_PER_KEY) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
-#        define TAP_DEFINE_KEYCODE uint16_t tapping_keycode = get_record_keycode(&tapping_key, false)
+#        define TAP_DEFINE_KEYCODE const uint16_t tapping_keycode = get_record_keycode(&tapping_key, false)
 #    else
 #        define TAP_DEFINE_KEYCODE
 #    endif
@@ -162,12 +156,6 @@ void action_tapping_process(keyrecord_t record) {
 #        define TAP_GET_HOLD_ON_OTHER_KEY_PRESS false
 #    endif
 
-#    if defined(IGNORE_MOD_TAP_INTERRUPT)
-#        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT true
-#    else
-#        define TAP_GET_IGNORE_MOD_TAP_INTERRUPT false
-#    endif
-
 /** \brief Tapping
  *
  * Rule: Tap key is typed(pressed and released) within TAPPING_TERM.
@@ -175,12 +163,39 @@ void action_tapping_process(keyrecord_t record) {
  */
 /* return true when key event is processed or consumed. */
 bool process_tapping(keyrecord_t *keyp) {
-    keyevent_t event = keyp->event;
+    const keyevent_t event = keyp->event;
+
+    // state machine is in the "reset" state, no tapping key is to be
+    // processed
+    if (IS_NOEVENT(tapping_key.event)) {
+        if (!IS_EVENT(event)) {
+            // early return for tick events
+        } else if (event.pressed && is_tap_record(keyp)) {
+            // the currently pressed key is a tapping key, therefore transition
+            // into the "pressed" tapping key state
+            ac_dprintf("Tapping: Start(Press tap key).\n");
+            tapping_key = *keyp;
+            process_record_tap_hint(&tapping_key);
+            waiting_buffer_scan_tap();
+            debug_tapping_key();
+        } else {
+            // the current key is just a regular key, pass it on for regular
+            // processing
+            process_record(keyp);
+        }
+
+        return true;
+    }
+
     TAP_DEFINE_KEYCODE;
 
-    // if tapping
-    if (IS_TAPPING_PRESSED()) {
+    // process "pressed" tapping key state
+    if (tapping_key.event.pressed) {
         if (WITHIN_TAPPING_TERM(event) || MAYBE_RETRO_SHIFTING(event)) {
+            if (IS_NOEVENT(event)) {
+                // early return for tick events
+                return true;
+            }
             if (tapping_key.tap.count == 0) {
                 if (IS_TAPPING_RECORD(keyp) && !event.pressed) {
 #    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
@@ -204,7 +219,7 @@ bool process_tapping(keyrecord_t *keyp) {
                 // clang-format off
                 else if (
                     (
-                        IS_RELEASED(event) && waiting_buffer_typed(event) &&
+                        !event.pressed && waiting_buffer_typed(event) &&
                         TAP_GET_PERMISSIVE_HOLD
                     )
                     // Causes nested taps to not wait past TAPPING_TERM/RETRO_SHIFT
@@ -217,13 +232,12 @@ bool process_tapping(keyrecord_t *keyp) {
                                 (TAP_IS_MT && TAP_GET_HOLD_ON_OTHER_KEY_PRESS)
                                 )
                             )
-                            // Makes Retro Shift ignore [IGNORE_MOD_TAP_INTERRUPT's
-                            // effects on nested taps for MTs and the default
-                            // behavior of LTs] below TAPPING_TERM or RETRO_SHIFT.
+                            // Makes Retro Shift ignore the default behavior of
+                            // MTs and LTs on nested taps below TAPPING_TERM or RETRO_SHIFT
                             || (
                                 TAP_IS_RETRO
                                 && (event.key.col != tapping_key.event.key.col || event.key.row != tapping_key.event.key.row)
-                                && IS_RELEASED(event) && waiting_buffer_typed(event)
+                                && !event.pressed && waiting_buffer_typed(event)
                             )
                         )
                     )
@@ -231,7 +245,7 @@ bool process_tapping(keyrecord_t *keyp) {
                     // clang-format on
                     ac_dprintf("Tapping: End. No tap. Interfered by typing key\n");
                     process_record(&tapping_key);
-                    tapping_key = (keyrecord_t){};
+                    tapping_key = (keyrecord_t){0};
                     debug_tapping_key();
                     // enqueue
                     return false;
@@ -240,7 +254,7 @@ bool process_tapping(keyrecord_t *keyp) {
                  * Without this unexpected repeating will occur with having fast repeating setting
                  * https://github.com/tmk/tmk_keyboard/issues/60
                  */
-                else if (IS_RELEASED(event) && !waiting_buffer_typed(event)) {
+                else if (!event.pressed && !waiting_buffer_typed(event)) {
                     // Modifier/Layer should be retained till end of this tapping.
                     action_t action = layer_switch_get_action(event.key);
                     switch (action.kind.id) {
@@ -276,7 +290,7 @@ bool process_tapping(keyrecord_t *keyp) {
                         if (TAP_GET_HOLD_ON_OTHER_KEY_PRESS) {
                             ac_dprintf("Tapping: End. No tap. Interfered by pressed key\n");
                             process_record(&tapping_key);
-                            tapping_key = (keyrecord_t){};
+                            tapping_key = (keyrecord_t){0};
                             debug_tapping_key();
                             // enqueue
                             return false;
@@ -304,6 +318,7 @@ bool process_tapping(keyrecord_t *keyp) {
                             .event.key     = tapping_key.event.key,
                             .event.time    = event.time,
                             .event.pressed = false,
+                            .event.type    = tapping_key.event.type,
 #    ifdef COMBO_ENABLE
                             .keycode = tapping_key.keycode,
 #    endif
@@ -316,9 +331,7 @@ bool process_tapping(keyrecord_t *keyp) {
                     debug_tapping_key();
                     return true;
                 } else {
-                    if (IS_EVENT(event)) {
-                        ac_dprintf("Tapping: key event while last tap(>0).\n");
-                    }
+                    ac_dprintf("Tapping: key event while last tap(>0).\n");
                     process_record(keyp);
                     return true;
                 }
@@ -331,15 +344,18 @@ bool process_tapping(keyrecord_t *keyp) {
                 debug_event(event);
                 ac_dprintf("\n");
                 process_record(&tapping_key);
-                tapping_key = (keyrecord_t){};
+                tapping_key = (keyrecord_t){0};
                 debug_tapping_key();
                 return false;
             } else {
+                if (IS_NOEVENT(event)) {
+                    return true;
+                }
                 if (IS_TAPPING_RECORD(keyp) && !event.pressed) {
                     ac_dprintf("Tapping: End. last timeout tap release(>0).");
                     keyp->tap = tapping_key.tap;
                     process_record(keyp);
-                    tapping_key = (keyrecord_t){};
+                    tapping_key = (keyrecord_t){0};
                     return true;
                 } else if (is_tap_record(keyp) && event.pressed) {
                     if (tapping_key.tap.count > 1) {
@@ -350,6 +366,7 @@ bool process_tapping(keyrecord_t *keyp) {
                             .event.key     = tapping_key.event.key,
                             .event.time    = event.time,
                             .event.pressed = false,
+                            .event.type    = tapping_key.event.type,
 #    ifdef COMBO_ENABLE
                             .keycode = tapping_key.keycode,
 #    endif
@@ -362,16 +379,20 @@ bool process_tapping(keyrecord_t *keyp) {
                     debug_tapping_key();
                     return true;
                 } else {
-                    if (IS_EVENT(event)) {
-                        ac_dprintf("Tapping: key event while last timeout tap(>0).\n");
-                    }
+                    ac_dprintf("Tapping: key event while last timeout tap(>0).\n");
                     process_record(keyp);
                     return true;
                 }
             }
         }
-    } else if (IS_TAPPING_RELEASED()) {
+    }
+    // process "released" tapping key state
+    else {
         if (WITHIN_TAPPING_TERM(event) || MAYBE_RETRO_SHIFTING(event)) {
+            if (IS_NOEVENT(event)) {
+                // early return for tick events
+                return true;
+            }
             if (event.pressed) {
                 if (IS_TAPPING_RECORD(keyp)) {
                     if (WITHIN_QUICK_TAP_TERM(event) && !tapping_key.tap.interrupted && tapping_key.tap.count > 0) {
@@ -402,33 +423,18 @@ bool process_tapping(keyrecord_t *keyp) {
                     return true;
                 }
             } else {
-                if (IS_EVENT(event)) ac_dprintf("Tapping: other key just after tap.\n");
+                ac_dprintf("Tapping: other key just after tap.\n");
                 process_record(keyp);
                 return true;
             }
         } else {
-            // FIX: process_action here?
-            // timeout. no sequential tap.
+            // Timeout - reset state machine.
             ac_dprintf("Tapping: End(Timeout after releasing last tap): ");
             debug_event(event);
             ac_dprintf("\n");
-            tapping_key = (keyrecord_t){};
+            tapping_key = (keyrecord_t){0};
             debug_tapping_key();
             return false;
-        }
-    }
-    // not tapping state
-    else {
-        if (event.pressed && is_tap_record(keyp)) {
-            ac_dprintf("Tapping: Start(Press tap key).\n");
-            tapping_key = *keyp;
-            process_record_tap_hint(&tapping_key);
-            waiting_buffer_scan_tap();
-            debug_tapping_key();
-            return true;
-        } else {
-            process_record(keyp);
-            return true;
         }
     }
 }
@@ -493,15 +499,18 @@ __attribute__((unused)) bool waiting_buffer_has_anykey_pressed(void) {
  * FIXME: Needs docs
  */
 void waiting_buffer_scan_tap(void) {
-    // tapping already is settled
-    if (tapping_key.tap.count > 0) return;
-    // invalid state: tapping_key released && tap.count == 0
-    if (!tapping_key.event.pressed) return;
+    // early return if:
+    // - tapping already is settled
+    // - invalid state: tapping_key released && tap.count == 0
+    if ((tapping_key.tap.count > 0) || !tapping_key.event.pressed) {
+        return;
+    }
 
     for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
-        if (IS_TAPPING_KEY(waiting_buffer[i].event.key) && !waiting_buffer[i].event.pressed && WITHIN_TAPPING_TERM(waiting_buffer[i].event)) {
-            tapping_key.tap.count       = 1;
-            waiting_buffer[i].tap.count = 1;
+        keyrecord_t *candidate = &waiting_buffer[i];
+        if (IS_EVENT(candidate->event) && KEYEQ(candidate->event.key, tapping_key.event.key) && !candidate->event.pressed && WITHIN_TAPPING_TERM(candidate->event)) {
+            tapping_key.tap.count = 1;
+            candidate->tap.count  = 1;
             process_record(&tapping_key);
 
             ac_dprintf("waiting_buffer_scan_tap: found at [%u]\n", i);
