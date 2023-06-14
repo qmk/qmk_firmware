@@ -18,4 +18,5 @@ and `{ROWS}` can be `function_row`, `number_row`, or `letters_only`
 To flash the firmware to your Cyboard,
 1. Enter the bootloader by double-tapping the reset button on the back of the board, next to the USB port.
 2. A USB device called `RPI-RP2` should appear on your computer.
-3. Drag the `.uf2` firmware file into `RPI-RP2`.  `RPI-RP2` should now disappear, and your Cyboard is ready to use with your new firmware!
+3. Drag the `.uf2` firmware file into `RPI-RP2`.  `RPI-RP2` should now disappear.
+4. Repeat steps 1-3 on the other half.  Your Cyboard is ready to use with your new firmware!
