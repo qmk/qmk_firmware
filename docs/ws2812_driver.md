@@ -65,7 +65,7 @@ You can tune these parameters through the definition of the following macros:
 
 #### SK6805
 
-SK6805 uses same format and similar timings as WS2812. If you are having issues like flickering you can use the correct timings as specified in the datasheet by adding this line to your config.h:
+SK6805 uses same format and similar timings as WS2812. If you are having issues like flickering you can use the correct timings as specified in the datasheet by adding this line to your `config.h`:
 
 ```
 #define SK6805
@@ -73,7 +73,7 @@ SK6805 uses same format and similar timings as WS2812. If you are having issues 
 
 #### SK9816
 
-To enable SK9816 support add the following lines to your config.h:
+To enable SK9816 support add the following lines to your `config.h`:
 
 ```
 #define SK9816
@@ -85,8 +85,9 @@ To enable SK9816 support add the following lines to your config.h:
 ```
 
 Current gain setting is REQUIRED and has been pre-defined to maximum in the code above.
-If you wish to adjust it, set the appropriate bits using the reference table provided in the datasheet, page 9; Take note of the bit placement; Green <-> Red compared to the datasheet:
+If you wish to adjust it, set the appropriate bits using the reference table provided in the datasheet, page 9:
 http://www.normandled.com/upload/201906/SK9816MICRO(SK9816-2427)%20LED%20Datasheet.pdf
+Take care of the bit placement; Green and Red channels are flipped compared to the bit order in the datasheet:
 
 
 
