@@ -42,11 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_LED_MAP {\
-        6,  7, 12, 13, 14, 15,\
-       16, 17, 11, 10,  9,  8,\
-        0,  1,  2,  3,  4,  5\
-     }
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8

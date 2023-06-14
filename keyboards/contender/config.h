@@ -18,14 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define RGBLED_NUM 33
-#define RGBLIGHT_LED_MAP { \
-   0, 1, 2, 3, \
-   7, 6, 5, 4, \
-   8, 9, 10, 11, \
-   15, 14, 13, 12, \
-   16, 17, 18, 19, \
-   22, 21, 20, \
-   25, 24, 23, 26, 27, 28, 29, 30, 31, 32 }
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8

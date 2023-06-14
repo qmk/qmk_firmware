@@ -21,7 +21,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 1
 #define RGBLIGHT_LAYERS
-#define RGBLIGHT_LED_MAP { 0, 1 }
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
