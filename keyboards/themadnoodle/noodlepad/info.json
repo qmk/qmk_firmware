@@ -1,0 +1,43 @@
+{
+  "keyboard_name": "Noodle Pad v1",
+  "manufacturer": "The Mad Noodle",
+  "url": "instagram.com/the_mad_noodle",
+  "maintainer": "The-Mad-Noodle",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x1701",
+    "device_version": "0.0.1"
+  },
+  "matrix_pins": {
+    "cols": ["B4", "B5", "B6"],
+    "rows": ["D4", "D6", "D7"]
+  },
+  "diode_direction": "ROW2COL",
+  "encoder": {
+    "rotary": [
+      {"pin_a": "D0", "pin_b": "D1"}
+    ]
+  },
+  "ws2812": {
+    "pin": "B7"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
+  "layouts": {
+    "LAYOUT_ortho_3x3": {
+      "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+
+        {"matrix": [1, 0], "x": 0, "y": 1},
+        {"matrix": [1, 1], "x": 1, "y": 1},
+        {"matrix": [1, 2], "x": 2, "y": 1},
+
+        {"matrix": [2, 0], "x": 0, "y": 2},
+        {"matrix": [2, 1], "x": 1, "y": 2},
+        {"matrix": [2, 2], "x": 2, "y": 2}
+      ]
+    }
+  }
+}

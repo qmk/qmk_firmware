@@ -1,1 +1,2 @@
 SPLIT_KEYBOARD = yes
+LED_BACK_ENABLE = yes

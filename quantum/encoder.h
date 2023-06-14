@@ -18,14 +18,47 @@
 #pragma once
 
 #include "quantum.h"
+#include "util.h"
 
 void encoder_init(void);
-void encoder_read(void);
+bool encoder_read(void);
 
-void encoder_update_kb(int8_t index, bool clockwise);
-void encoder_update_user(int8_t index, bool clockwise);
+bool encoder_update_kb(uint8_t index, bool clockwise);
+bool encoder_update_user(uint8_t index, bool clockwise);
 
 #ifdef SPLIT_KEYBOARD
+
 void encoder_state_raw(uint8_t* slave_state);
 void encoder_update_raw(uint8_t* slave_state);
-#endif
+
+#    if defined(ENCODERS_PAD_A_RIGHT)
+#        define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#        define NUM_ENCODERS_RIGHT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A_RIGHT))
+#    else
+#        define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#        define NUM_ENCODERS_RIGHT NUM_ENCODERS_LEFT
+#    endif
+#    define NUM_ENCODERS (NUM_ENCODERS_LEFT + NUM_ENCODERS_RIGHT)
+
+#else // SPLIT_KEYBOARD
+
+#    define NUM_ENCODERS ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#    define NUM_ENCODERS_LEFT NUM_ENCODERS
+#    define NUM_ENCODERS_RIGHT 0
+
+#endif // SPLIT_KEYBOARD
+
+#ifndef NUM_ENCODERS
+#    define NUM_ENCODERS 0
+#    define NUM_ENCODERS_LEFT 0
+#    define NUM_ENCODERS_RIGHT 0
+#endif // NUM_ENCODERS
+
+#define NUM_ENCODERS_MAX_PER_SIDE MAX(NUM_ENCODERS_LEFT, NUM_ENCODERS_RIGHT)
+
+#ifdef ENCODER_MAP_ENABLE
+#    define NUM_DIRECTIONS 2
+#    define ENCODER_CCW_CW(ccw, cw) \
+        { (cw), (ccw) }
+extern const uint16_t encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS];
+#endif // ENCODER_MAP_ENABLE

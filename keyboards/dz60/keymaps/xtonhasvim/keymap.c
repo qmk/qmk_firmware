@@ -23,9 +23,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_FUN] = LAYOUT(
 		KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______, KC_DEL,
-		_______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, RESET,
+		_______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, QK_BOOT,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-		_______, _______, _______, _______, BL_DEC, BL_TOGG, BL_INC, BL_STEP, _______, _______, _______, _______, _______, _______,
+		_______, _______, _______, _______, BL_DOWN,BL_TOGG, BL_UP,  BL_STEP, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_QWERTY)),
 
 	[_MOVE] = LAYOUT(
@@ -69,11 +69,11 @@ void matrix_init_user(void) {
   user_led_off();
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   static uint32_t last_state = 0;
 
   if(last_state != state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _CMD:
       user_led_on();
       break;
@@ -85,5 +85,3 @@ uint32_t layer_state_set_user(uint32_t state) {
   }
   return state;
 }
-
-

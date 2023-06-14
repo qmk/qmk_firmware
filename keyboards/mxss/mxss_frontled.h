@@ -64,10 +64,9 @@ typedef union {
 
 // Custom keycodes for front LED control
 enum fled_keycodes {
-    FLED_MOD = USER00, // USER00 = VIA custom keycode start
+    FLED_MOD = QK_KB_0, // QK_KB_0 = VIA custom keycode start
     FLED_VAI,
     FLED_VAD,
-    NEW_SAFE_RANGE // define a new safe range
 };
 
 void fled_init(void);                // Run init functions for front LEDs

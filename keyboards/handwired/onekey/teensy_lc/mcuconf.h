@@ -42,4 +42,10 @@
  *   5 for Teensy 3.x */
 #define KINETIS_USB_USB0_IRQ_PRIORITY         2
 
+/*
+ * I2C driver settings
+ */
+#define KINETIS_I2C_USE_I2C0                TRUE
+#define KINETIS_I2C_I2C0_PRIORITY           4
+
 #endif /* _MCUCONF_H_ */

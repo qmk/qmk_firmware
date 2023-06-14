@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "lightsaver.h"
+#include "quantum.h"
 #include "indicator_leds.h"
 
 enum BACKLIGHT_AREAS {
@@ -39,22 +39,20 @@ void backlight_set(uint8_t level) {
   }
 }
 
-void led_set_kb(uint8_t usb_led) {
-  bool leds[8] = {
-    usb_led & (1<<USB_LED_CAPS_LOCK),
-    usb_led & (1<<USB_LED_SCROLL_LOCK),
-    usb_led & (1<<USB_LED_NUM_LOCK),
-    layer_state & (1<<1),
-    layer_state & (1<<2),
-    layer_state & (1<<3),
-    layer_state & (1<<4),
-    layer_state & (1<<5)
-  };
-  indicator_leds_set(leds);
-
-  led_set_user(usb_led);
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  return process_record_user(keycode, record);
+bool led_update_kb(led_t led_state) {
+  bool res = led_update_user(led_state);
+  if(res) {
+    bool leds[8] = {
+      led_state.caps_lock,
+      led_state.scroll_lock,
+      led_state.num_lock,
+      layer_state & (1<<1),
+      layer_state & (1<<2),
+      layer_state & (1<<3),
+      layer_state & (1<<4),
+      layer_state & (1<<5)
+    };
+    indicator_leds_set(leds);
+  }
+  return res;
 }

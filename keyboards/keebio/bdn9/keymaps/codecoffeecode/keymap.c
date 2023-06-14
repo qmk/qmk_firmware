@@ -28,18 +28,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MPRV, MO(1),   KC_MNXT
     ),
     /*
-        |       RESET        | Home |    Media Stop      |
+        |       QK_BOOT        | Home |    Media Stop      |
         |                    | End  |                    |
         |      CTRL_END      |      |    CTRL_HOME       |
      */
     [1] = LAYOUT(
-        RESET  ,      KC_HOME, KC_STOP,
+        QK_BOOT,      KC_HOME, KC_STOP,
         _______,      KC_END,  _______,
         LCTL(KC_END), _______, LCTL(KC_HOME)
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_MS_WH_UP);
@@ -54,4 +54,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     }
+    return true;
 }

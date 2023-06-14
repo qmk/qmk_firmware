@@ -1,0 +1,80 @@
+[
+    {
+      "name": "Plank Don Gato Programming Raise Layer"
+    },
+    [
+      {
+        "a": 7
+      },
+      "Print Screen",
+      "Page Up",
+      "Page Down",
+      "Home",
+      "End",
+      "Insert",
+      "Scroll Lock",
+      "Num Lock",
+      "Pause",
+      "{",
+      "}",
+      "_"
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Delete"
+    ],
+    [
+      "Caps Lock",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Right Shift",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "|",
+      "Menu"
+    ],
+    [
+      "Right Ctrl",
+      "Right Alt",
+      "Right Os",
+      "",
+      "",
+      {
+        "w": 2
+      },
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  ]

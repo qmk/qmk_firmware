@@ -39,6 +39,15 @@
 #include "util.h"
 #include "report.h"
 #include "usb_descriptor.h"
+#include "usb_descriptor_common.h"
+
+#ifdef JOYSTICK_ENABLE
+#    include "joystick.h"
+#endif
+
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
+#endif
 
 // clang-format off
 
@@ -111,28 +120,37 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #    endif
         HID_RI_USAGE(8, 0x01),             // Pointer
         HID_RI_COLLECTION(8, 0x00),        // Physical
-            // Buttons (5 bits)
+            // Buttons (8 bits)
             HID_RI_USAGE_PAGE(8, 0x09),    // Button
             HID_RI_USAGE_MINIMUM(8, 0x01), // Button 1
-            HID_RI_USAGE_MAXIMUM(8, 0x05), // Button 5
+            HID_RI_USAGE_MAXIMUM(8, 0x08), // Button 8
             HID_RI_LOGICAL_MINIMUM(8, 0x00),
             HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-            HID_RI_REPORT_COUNT(8, 0x05),
+            HID_RI_REPORT_COUNT(8, 0x08),
             HID_RI_REPORT_SIZE(8, 0x01),
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-            // Button padding (3 bits)
-            HID_RI_REPORT_COUNT(8, 0x01),
-            HID_RI_REPORT_SIZE(8, 0x03),
-            HID_RI_INPUT(8, HID_IOF_CONSTANT),
 
-            // X/Y position (2 bytes)
+#    ifdef MOUSE_EXTENDED_REPORT
+            // Boot protocol XY ignored in Report protocol
+            HID_RI_REPORT_COUNT(8, 0x02),
+            HID_RI_REPORT_SIZE(8, 0x08),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT),
+#    endif
+            // X/Y position (2 or 4 bytes)
             HID_RI_USAGE_PAGE(8, 0x01),    // Generic Desktop
             HID_RI_USAGE(8, 0x30),         // X
             HID_RI_USAGE(8, 0x31),         // Y
+#    ifndef MOUSE_EXTENDED_REPORT
             HID_RI_LOGICAL_MINIMUM(8, -127),
             HID_RI_LOGICAL_MAXIMUM(8, 127),
             HID_RI_REPORT_COUNT(8, 0x02),
             HID_RI_REPORT_SIZE(8, 0x08),
+#    else
+            HID_RI_LOGICAL_MINIMUM(16, -32767),
+            HID_RI_LOGICAL_MAXIMUM(16,  32767),
+            HID_RI_REPORT_COUNT(8, 0x02),
+            HID_RI_REPORT_SIZE(8, 0x10),
+#    endif
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 
             // Vertical wheel (1 byte)
@@ -153,6 +171,120 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
         HID_RI_END_COLLECTION(0),
     HID_RI_END_COLLECTION(0),
 #    ifndef MOUSE_SHARED_EP
+};
+#    endif
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    ifndef JOYSTICK_SHARED_EP
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM JoystickReport[] = {
+#    elif !defined(SHARED_REPORT_STARTED)
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
+#        define SHARED_REPORT_STARTED
+#    endif
+    HID_RI_USAGE_PAGE(8, 0x01),     // Generic Desktop
+    HID_RI_USAGE(8, 0x04),          // Joystick
+    HID_RI_COLLECTION(8, 0x01),     // Application
+#    ifdef JOYSTICK_SHARED_EP
+        HID_RI_REPORT_ID(8, REPORT_ID_JOYSTICK),
+#    endif
+        HID_RI_COLLECTION(8, 0x00), // Physical
+#    if JOYSTICK_AXIS_COUNT > 0
+            HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
+            HID_RI_USAGE(8, 0x30),      // X
+#        if JOYSTICK_AXIS_COUNT > 1
+            HID_RI_USAGE(8, 0x31),      // Y
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 2
+            HID_RI_USAGE(8, 0x32),      // Z
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 3
+            HID_RI_USAGE(8, 0x33),      // Rx
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 4
+            HID_RI_USAGE(8, 0x34),      // Ry
+#        endif
+#        if JOYSTICK_AXIS_COUNT > 5
+            HID_RI_USAGE(8, 0x35),      // Rz
+#        endif
+#        if JOYSTICK_AXIS_RESOLUTION == 8
+            HID_RI_LOGICAL_MINIMUM(8, -JOYSTICK_MAX_VALUE),
+            HID_RI_LOGICAL_MAXIMUM(8, JOYSTICK_MAX_VALUE),
+            HID_RI_REPORT_COUNT(8, JOYSTICK_AXIS_COUNT),
+            HID_RI_REPORT_SIZE(8, 0x08),
+#        else
+            HID_RI_LOGICAL_MINIMUM(16, -JOYSTICK_MAX_VALUE),
+            HID_RI_LOGICAL_MAXIMUM(16, JOYSTICK_MAX_VALUE),
+            HID_RI_REPORT_COUNT(8, JOYSTICK_AXIS_COUNT),
+            HID_RI_REPORT_SIZE(8, 0x10),
+#        endif
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+#    endif
+
+#    if JOYSTICK_BUTTON_COUNT > 0
+            HID_RI_USAGE_PAGE(8, 0x09), // Button
+            HID_RI_USAGE_MINIMUM(8, 0x01),
+            HID_RI_USAGE_MAXIMUM(8, JOYSTICK_BUTTON_COUNT),
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_COUNT(8, JOYSTICK_BUTTON_COUNT),
+            HID_RI_REPORT_SIZE(8, 0x01),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+
+#        if (JOYSTICK_BUTTON_COUNT % 8) != 0
+            HID_RI_REPORT_COUNT(8, 8 - (JOYSTICK_BUTTON_COUNT % 8)),
+            HID_RI_REPORT_SIZE(8, 0x01),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT),
+#        endif
+#    endif
+        HID_RI_END_COLLECTION(0),
+    HID_RI_END_COLLECTION(0),
+#    ifndef JOYSTICK_SHARED_EP
+};
+#    endif
+#endif
+
+#ifdef DIGITIZER_ENABLE
+#    ifndef DIGITIZER_SHARED_EP
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM DigitizerReport[] = {
+#    elif !defined(SHARED_REPORT_STARTED)
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
+#        define SHARED_REPORT_STARTED
+#    endif
+    HID_RI_USAGE_PAGE(8, 0x0D),            // Digitizers
+    HID_RI_USAGE(8, 0x01),                 // Digitizer
+    HID_RI_COLLECTION(8, 0x01),            // Application
+#    ifdef DIGITIZER_SHARED_EP
+        HID_RI_REPORT_ID(8, REPORT_ID_DIGITIZER),
+#    endif
+        HID_RI_USAGE(8, 0x20),             // Stylus
+        HID_RI_COLLECTION(8, 0x00),        // Physical
+            // In Range, Tip Switch & Barrel Switch (3 bits)
+            HID_RI_USAGE(8, 0x32),         // In Range
+            HID_RI_USAGE(8, 0x42),         // Tip Switch
+            HID_RI_USAGE(8, 0x44),         // Barrel Switch
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_COUNT(8, 0x03),
+            HID_RI_REPORT_SIZE(8, 0x01),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+            // Padding (5 bits)
+            HID_RI_REPORT_COUNT(8, 0x05),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT),
+
+            // X/Y Position (4 bytes)
+            HID_RI_USAGE_PAGE(8, 0x01),    // Generic Desktop
+            HID_RI_USAGE(8, 0x30),         // X
+            HID_RI_USAGE(8, 0x31),         // Y
+            HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),
+            HID_RI_REPORT_COUNT(8, 0x02),
+            HID_RI_REPORT_SIZE(8, 0x10),
+            HID_RI_UNIT(8, 0x33),          // Inch, English Linear
+            HID_RI_UNIT_EXPONENT(8, 0x0E), // -2
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_END_COLLECTION(0),
+    HID_RI_END_COLLECTION(0),
+#    ifndef DIGITIZER_SHARED_EP
 };
 #    endif
 #endif
@@ -186,6 +318,25 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
         HID_RI_REPORT_COUNT(8, 1),
         HID_RI_REPORT_SIZE(8, 16),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
+    HID_RI_END_COLLECTION(0),
+#endif
+
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+    HID_RI_USAGE_PAGE(8, 0x0C),            // Consumer
+    HID_RI_USAGE(8, 0x01),                 // Consumer Control
+    HID_RI_COLLECTION(8, 0x01),            // Application
+        HID_RI_REPORT_ID(8, REPORT_ID_PROGRAMMABLE_BUTTON),
+        HID_RI_USAGE(8, 0x03),             // Programmable Buttons
+        HID_RI_COLLECTION(8, 0x04),        // Named Array
+            HID_RI_USAGE_PAGE(8, 0x09),    // Button
+            HID_RI_USAGE_MINIMUM(8, 0x01), // Button 1
+            HID_RI_USAGE_MAXIMUM(8, 0x20), // Button 32
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_COUNT(8, 32),
+            HID_RI_REPORT_SIZE(8, 1),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_END_COLLECTION(0),
     HID_RI_END_COLLECTION(0),
 #endif
 
@@ -226,14 +377,15 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
         HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
     HID_RI_END_COLLECTION(0),
 #endif
+
 #ifdef SHARED_EP_ENABLE
 };
 #endif
 
 #ifdef RAW_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM RawReport[] = {
-    HID_RI_USAGE_PAGE(16, 0xFF60), // Vendor Defined
-    HID_RI_USAGE(8, 0x61),         // Vendor Defined
+    HID_RI_USAGE_PAGE(16, RAW_USAGE_PAGE), // Vendor Defined
+    HID_RI_USAGE(8, RAW_USAGE_ID),         // Vendor Defined
     HID_RI_COLLECTION(8, 0x01),    // Application
         // Data to host
         HID_RI_USAGE(8, 0x62),     // Vendor Defined
@@ -286,7 +438,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
         .Size                   = sizeof(USB_Descriptor_Device_t),
         .Type                   = DTYPE_Device
     },
-    .USBSpecification           = VERSION_BCD(1, 1, 0),
+    .USBSpecification           = VERSION_BCD(2, 0, 0),
 
 #if VIRTSER_ENABLE
     .Class                      = USB_CSCP_IADDeviceClass,
@@ -305,7 +457,11 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
     .ReleaseNumber              = DEVICE_VER,
     .ManufacturerStrIndex       = 0x01,
     .ProductStrIndex            = 0x02,
+#if defined(SERIAL_NUMBER)
     .SerialNumStrIndex          = 0x03,
+#else
+    .SerialNumStrIndex          = 0x00,
+#endif
     .NumberOfConfigurations     = FIXED_NUM_CONFIGURATIONS
 };
 
@@ -314,7 +470,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
 #endif
 
 #ifndef USB_POLLING_INTERVAL_MS
-#    define USB_POLLING_INTERVAL_MS 10
+#    define USB_POLLING_INTERVAL_MS 1
 #endif
 
 /*
@@ -672,7 +828,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
                 .Size           = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t),
                 .Type           = DTYPE_Endpoint
             },
-            .EndpointAddress    = MIDI_STREAM_OUT_EPADDR,
+            .EndpointAddress    = (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM),
             .Attributes         = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
             .EndpointSize       = MIDI_STREAM_EPSIZE,
             .PollingIntervalMS  = 0x05
@@ -695,7 +851,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
                 .Size           = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t),
                 .Type           = DTYPE_Endpoint
             },
-            .EndpointAddress    = MIDI_STREAM_IN_EPADDR,
+            .EndpointAddress    = (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM),
             .Attributes         = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
             .EndpointSize       = MIDI_STREAM_EPSIZE,
             .PollingIntervalMS  = 0x05
@@ -773,7 +929,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
             .Size               = sizeof(USB_Descriptor_Endpoint_t),
             .Type               = DTYPE_Endpoint
         },
-        .EndpointAddress        = CDC_NOTIFICATION_EPADDR,
+        .EndpointAddress        = (ENDPOINT_DIR_IN | CDC_NOTIFICATION_EPNUM),
         .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
         .EndpointSize           = CDC_NOTIFICATION_EPSIZE,
         .PollingIntervalMS      = 0xFF
@@ -796,7 +952,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
             .Size               = sizeof(USB_Descriptor_Endpoint_t),
             .Type               = DTYPE_Endpoint
         },
-        .EndpointAddress        = CDC_OUT_EPADDR,
+        .EndpointAddress        = (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM),
         .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
         .EndpointSize           = CDC_EPSIZE,
         .PollingIntervalMS      = 0x05
@@ -806,10 +962,90 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
             .Size               = sizeof(USB_Descriptor_Endpoint_t),
             .Type               = DTYPE_Endpoint
         },
-        .EndpointAddress        = CDC_IN_EPADDR,
+        .EndpointAddress        = (ENDPOINT_DIR_IN | CDC_IN_EPNUM),
         .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
         .EndpointSize           = CDC_EPSIZE,
         .PollingIntervalMS      = 0x05
+    },
+#endif
+
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
+    /*
+     * Joystick
+     */
+    .Joystick_Interface = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Interface_t),
+            .Type               = DTYPE_Interface
+        },
+        .InterfaceNumber        = JOYSTICK_INTERFACE,
+        .AlternateSetting       = 0x00,
+        .TotalEndpoints         = 1,
+        .Class                  = HID_CSCP_HIDClass,
+        .SubClass               = HID_CSCP_NonBootSubclass,
+        .Protocol               = HID_CSCP_NonBootProtocol,
+        .InterfaceStrIndex      = NO_DESCRIPTOR
+    },
+    .Joystick_HID = {
+        .Header = {
+            .Size               = sizeof(USB_HID_Descriptor_HID_t),
+            .Type               = HID_DTYPE_HID
+        },
+        .HIDSpec                = VERSION_BCD(1, 1, 1),
+        .CountryCode            = 0x00,
+        .TotalReportDescriptors = 1,
+        .HIDReportType          = HID_DTYPE_Report,
+        .HIDReportLength        = sizeof(JoystickReport)
+    },
+    .Joystick_INEndpoint = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Endpoint_t),
+            .Type               = DTYPE_Endpoint
+        },
+        .EndpointAddress        = (ENDPOINT_DIR_IN | JOYSTICK_IN_EPNUM),
+        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+        .EndpointSize           = JOYSTICK_EPSIZE,
+        .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
+    }
+#endif
+
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+    /*
+     * Digitizer
+     */
+    .Digitizer_Interface  = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Interface_t),
+            .Type               = DTYPE_Interface
+        },
+        .InterfaceNumber        = DIGITIZER_INTERFACE,
+        .AlternateSetting       = 0x00,
+        .TotalEndpoints         = 1,
+        .Class                  = HID_CSCP_HIDClass,
+        .SubClass               = HID_CSCP_NonBootSubclass,
+        .Protocol               = HID_CSCP_NonBootProtocol,
+        .InterfaceStrIndex      = NO_DESCRIPTOR
+    },
+    .Digitizer_HID = {
+        .Header = {
+            .Size               = sizeof(USB_HID_Descriptor_HID_t),
+            .Type               = HID_DTYPE_HID
+        },
+        .HIDSpec                = VERSION_BCD(1, 1, 1),
+        .CountryCode            = 0x00,
+        .TotalReportDescriptors = 1,
+        .HIDReportType          = HID_DTYPE_Report,
+        .HIDReportLength        = sizeof(DigitizerReport)
+    },
+    .Digitizer_INEndpoint = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Endpoint_t),
+            .Type               = DTYPE_Endpoint
+        },
+        .EndpointAddress        = (ENDPOINT_DIR_IN | DIGITIZER_IN_EPNUM),
+        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+        .EndpointSize           = DIGITIZER_EPSIZE,
+        .PollingIntervalMS      = USB_POLLING_INTERVAL_MS
     },
 #endif
 };
@@ -819,7 +1055,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
  */
 const USB_Descriptor_String_t PROGMEM LanguageString = {
     .Header = {
-        .Size                   = USB_STRING_LEN(1),
+        .Size                   = 4,
         .Type                   = DTYPE_String
     },
     .UnicodeString              = {LANGUAGE_ID_ENG}
@@ -827,31 +1063,29 @@ const USB_Descriptor_String_t PROGMEM LanguageString = {
 
 const USB_Descriptor_String_t PROGMEM ManufacturerString = {
     .Header = {
-        .Size                   = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1), // Subtract 1 for null terminator
+        .Size                   = sizeof(USBSTR(MANUFACTURER)),
         .Type                   = DTYPE_String
     },
-    .UnicodeString              = LSTR(MANUFACTURER)
+    .UnicodeString              = USBSTR(MANUFACTURER)
 };
 
 const USB_Descriptor_String_t PROGMEM ProductString = {
     .Header = {
-        .Size                   = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1), // Subtract 1 for null terminator
+        .Size                   = sizeof(USBSTR(PRODUCT)),
         .Type                   = DTYPE_String
     },
-    .UnicodeString              = LSTR(PRODUCT)
+    .UnicodeString              = USBSTR(PRODUCT)
 };
 
-#ifndef SERIAL_NUMBER
-#    define SERIAL_NUMBER 0
-#endif
-
+#if defined(SERIAL_NUMBER)
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
     .Header = {
-        .Size                   = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1), // Subtract 1 for null terminator
+        .Size                   = sizeof(USBSTR(SERIAL_NUMBER)),
         .Type                   = DTYPE_String
     },
-    .UnicodeString              = LSTR(SERIAL_NUMBER)
+    .UnicodeString              = USBSTR(SERIAL_NUMBER)
 };
+#endif
 
 // clang-format on
 
@@ -862,7 +1096,7 @@ const USB_Descriptor_String_t PROGMEM SerialNumberString = {
  * is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
  * USB host.
  */
-uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress) {
+uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress) {
     const uint8_t DescriptorType  = (wValue >> 8);
     const uint8_t DescriptorIndex = (wValue & 0xFF);
     const void*   Address         = NULL;
@@ -896,12 +1130,17 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     Size    = pgm_read_byte(&ProductString.Header.Size);
 
                     break;
+#if defined(SERIAL_NUMBER)
                 case 0x03:
                     Address = &SerialNumberString;
                     Size    = pgm_read_byte(&SerialNumberString.Header.Size);
 
                     break;
+#endif
             }
+#ifdef OS_DETECTION_ENABLE
+            process_wlength(wLength);
+#endif
 
             break;
         case HID_DTYPE_HID:
@@ -940,6 +1179,19 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
 #ifdef CONSOLE_ENABLE
                 case CONSOLE_INTERFACE:
                     Address = &ConfigurationDescriptor.Console_HID;
+                    Size    = sizeof(USB_HID_Descriptor_HID_t);
+
+                    break;
+#endif
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
+                case JOYSTICK_INTERFACE:
+                    Address = &ConfigurationDescriptor.Joystick_HID;
+                    Size    = sizeof(USB_HID_Descriptor_HID_t);
+                    break;
+#endif
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+                case DIGITIZER_INTERFACE:
+                    Address = &ConfigurationDescriptor.Digitizer_HID;
                     Size    = sizeof(USB_HID_Descriptor_HID_t);
 
                     break;
@@ -986,6 +1238,18 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     Address = &ConsoleReport;
                     Size    = sizeof(ConsoleReport);
 
+                    break;
+#endif
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
+                case JOYSTICK_INTERFACE:
+                    Address = &JoystickReport;
+                    Size    = sizeof(JoystickReport);
+                    break;
+#endif
+#if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
+                case DIGITIZER_INTERFACE:
+                    Address = &DigitizerReport;
+                    Size    = sizeof(DigitizerReport);
                     break;
 #endif
             }

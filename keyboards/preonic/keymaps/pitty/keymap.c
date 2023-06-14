@@ -49,12 +49,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl |  GUI |  ALt |Lower |    Space    | Bksp | Enter|Raise | Left | Down |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_QWERTY] = LAYOUT_preonic_grid( \
-  HU_0,                  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    HU_OE,   HU_UE, \
-  KC_TAB,                KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HU_Z,    KC_U,    KC_I,    KC_O,    KC_P,    HU_OEE,  \
-  KC_ESC,                KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    HU_EE,   HU_AA, \
-  MT(MOD_LSFT, KC_NUBS), HU_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    HU_COMM, HU_DOT,  HU_MINS, KC_RSFT,  \
-  KC_LCTL,               KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  KC_ENT,  KC_BSPC, KC_RALT, RAISE,   KC_INS,  KC_DEL  \
+[_QWERTY] = LAYOUT_preonic_grid(
+  HU_0,                  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    HU_ODIA, HU_UDIA,
+  KC_TAB,                KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HU_Z,    KC_U,    KC_I,    KC_O,    KC_P,    HU_ODAC,
+  KC_ESC,                KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    HU_EACU, HU_AACU,
+  MT(MOD_LSFT, KC_NUBS), HU_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    HU_COMM, HU_DOT,  HU_MINS, KC_RSFT,
+  KC_LCTL,               KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  KC_ENT,  KC_BSPC, KC_RALT, RAISE,   KC_INS,  KC_DEL
 ),
 
 
@@ -71,12 +71,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl |  GUI |  ALt |Raise |    Space    | Bksp | Enter|Lower | Left | Down |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_GAME] = LAYOUT_preonic_grid( \
-  HU_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    HU_OE,   HU_UE, \
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HU_Z,    KC_U,    KC_I,    KC_O,    KC_P,    HU_OEE,  \
-  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    HU_EE,   HU_AA, \
-  KC_LSFT, HU_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    HU_COMM, HU_DOT,  HU_MINS, KC_RSFT,  \
-  KC_LCTL, KC_LGUI, KC_LALT, RAISE,   KC_SPC,  KC_SPC,  KC_ENT,  KC_BSPC, KC_RALT, LOWER,   KC_INS,  KC_DEL  \
+[_GAME] = LAYOUT_preonic_grid(
+  HU_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    HU_ODIA, HU_UDIA,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    HU_Z,    KC_U,    KC_I,    KC_O,    KC_P,    HU_ODAC,
+  KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    HU_EACU, HU_AACU,
+  KC_LSFT, HU_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    HU_COMM, HU_DOT,  HU_MINS, KC_RSFT,
+  KC_LCTL, KC_LGUI, KC_LALT, RAISE,   KC_SPC,  KC_SPC,  KC_ENT,  KC_BSPC, KC_RALT, LOWER,   KC_INS,  KC_DEL
 ),
 
 
@@ -93,12 +93,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      | Home |PageDn|PageUp|  End |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = LAYOUT_preonic_grid( \
-  _______, _______, _______, _______, _______, _______, _______, HU_7,    HU_8,    HU_9,    HU_PLUS,   _______, \
-  _______, _______, KC_UP,   _______, _______, KC_HOME, KC_PGUP, HU_4,    HU_5,    HU_6,    HU_MINS,   _______,  \
-  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_END,  KC_PGDN, HU_1,    HU_2,    HU_3,    HU_ASTR,   _______, \
-  _______, _______, _______, _______, _______, _______, _______, HU_0,    _______, _______, HU_SLSH,   HU_EQL, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_GAME), TO(_QWERTY)  \
+[_LOWER] = LAYOUT_preonic_grid(
+  _______, _______, _______, _______, _______, _______, _______, HU_7,    HU_8,    HU_9,    HU_PLUS,   _______,
+  _______, _______, KC_UP,   _______, _______, KC_HOME, KC_PGUP, HU_4,    HU_5,    HU_6,    HU_MINS,   _______,
+  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_END,  KC_PGDN, HU_1,    HU_2,    HU_3,    HU_ASTR,   _______,
+  _______, _______, _______, _______, _______, _______, _______, HU_0,    _______, _______, HU_SLSH,   HU_EQL,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_GAME), TO(_QWERTY)
 ),
 
 /* Raise
@@ -114,12 +114,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      | Home |PageDn|PageUp|  End |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = LAYOUT_preonic_grid( \
-  KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,    KC_F11, \
-  _______, _______, KC_UP,   _______, _______, KC_HOME, KC_PGUP, _______, _______, _______, _______,   _______,  \
-  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_END,  KC_PGDN, _______, _______, _______, _______,   _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_GAME), TO(_QWERTY)  \
+[_RAISE] = LAYOUT_preonic_grid(
+  KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,    KC_F11,
+  _______, _______, KC_UP,   _______, _______, KC_HOME, KC_PGUP, _______, _______, _______, _______,   _______,
+  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_END,  KC_PGDN, _______, _______, _______, _______,   _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_GAME), TO(_QWERTY)
 ),
 
 /* Adjust (Lower + Raise)
@@ -135,12 +135,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = LAYOUT_preonic_grid( \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-  _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  _______, _______, _______, _______, \
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_QWERTY)  \
+[_ADJUST] = LAYOUT_preonic_grid(
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+  _______, QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
+  _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
+  _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_QWERTY)
 )
 
 

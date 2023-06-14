@@ -7,7 +7,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT(ADC_SAMPLE)  //
+    LAYOUT_ortho_1x1(ADC_SAMPLE)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -16,12 +16,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 int16_t val = analogReadPin(ADC_PIN);
 
-                char buffer [50];
+                char buffer[50];
                 sprintf(buffer, "ADC:%u\n", val);
 #ifdef CONSOLE_ENABLE
-                    printf(buffer);
+                    uprintf("%s", buffer);
 #else
-                    SEND_STRING(buffer);
+                    send_string(buffer);
 #endif
             }
             break;
@@ -30,5 +30,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 // adc_mux pinToMux(pin_t pin) {
-//     return TO_MUX( ADC_CHANNEL_IN1,  0 );
+//     return TO_MUX(ADC_CHANNEL_IN1, 0);
 // };

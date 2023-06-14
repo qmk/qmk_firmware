@@ -42,10 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TRNS, KC_EXLM,   KC_AT,  KC_LCBR, KC_RCBR, KC_PIPE,                           XXXXXXX, XXXXXXX,  KC_UP,  XXXXXXX, XXXXXXX, KC_F12,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
   //|  RAISE |    #   |    $   |   (    |   )    |    `   |                          |   ?    |    ←   |   ↓    |    →   |        |  VOLUP |
-      KC_TRNS,  KC_HASH, KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                            KC_QUES, KC_LEFT,KC_DOWN, KC_RGHT, XXXXXXX,  KC__VOLUP,
+      KC_TRNS,  KC_HASH, KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                            KC_QUES, KC_LEFT,KC_DOWN, KC_RGHT, XXXXXXX,  KC_VOLU,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //|        |    %   |    ^   |   [    |   ]    |    ~   |  ESC            | ALT  |    &   |        |        |        |  MUTE  |  VOLDN |
-     XXXXXXX, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,  KC_TRNS,          KC_TRNS, KC_AMPR, XXXXXXX, XXXXXXX,XXXXXXX, KC__MUTE,KC__VOLDOWN,
+     XXXXXXX, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,  KC_TRNS,          KC_TRNS, KC_AMPR, XXXXXXX, XXXXXXX,XXXXXXX, KC_MUTE,KC_VOLD,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               |  CTRL  | COMMAND| BKSPACE|                 | SPACE  |  ENTER | SHIFT|
                                     KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,  KC_TRNS, KC_TRNS
@@ -55,13 +55,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
   //|        |        |        |        |        |        |                          |        |   7    |    8   |    9   |    *   |    /   |
-     KC_ASUP, KC_ASON, KC_ASRP,  XXXXXXX, XXXXXXX, XXXXXXX,                           XXXXXXX,   KC_P7,   KC_P8,   KC_P9,  KC_PAST, KC_PSLS,
+     AS_UP,   AS_ON,   AS_RPT,   XXXXXXX, XXXXXXX, XXXXXXX,                           XXXXXXX,   KC_P7,   KC_P8,   KC_P9,  KC_PAST, KC_PSLS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
   //|        |        |        |        |        |        |                          |        |    4   |    5   |    6   |    +   |    -    |
-     KC_ASDN, KC_ASOFF, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                            XXXXXXX,  KC_P4,   KC_P5,   KC_P6,  KC_PPLS, KC_PMNS,
+     AS_DOWN, AS_OFF,   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                            XXXXXXX,  KC_P4,   KC_P5,   KC_P6,  KC_PPLS, KC_PMNS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
   //|        |        |        |        |        |        |                          |        |    1   |    2   |    3   |        |        |
-     XXXXXXX, KC_ASTG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX,  KC_P1,   KC_P2,   KC_P3,  XXXXXXX, XXXXXXX,
+     XXXXXXX, AS_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX,  KC_P1,   KC_P2,   KC_P3,  XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //| LOWER  |        |        |        |        |        |  ESC   |        | ALT    |        |   0    |    .   | ENTER  |   =    |        |
       KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,         KC_TRNS,  XXXXXXX, KC_P0,   KC_PDOT, KC_PENT, KC_PEQL, XXXXXXX,

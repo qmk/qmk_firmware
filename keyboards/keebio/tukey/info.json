@@ -1,14 +1,28 @@
 {
     "keyboard_name": "Tukey",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "nooges",
-    "width": 2,
-    "height": 1,
+    "usb": {
+      "vid": "0xCB10",
+      "pid": "0x1112",
+      "device_version": "1.0.0"
+    },
+    "ws2812": {
+      "pin": "D3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "matrix_pins": {
+      "direct": [
+        ["D4", "F6"]
+      ]
+    },
     "layouts": {
       "LAYOUT": {
         "layout": [
-          {"x":0, "y":0},
-          {"x":1, "y":0}
+          {"x": 0, "y": 0, "matrix": [0, 0]},
+          {"x": 1, "y": 0, "matrix": [0, 1]}
         ]
       }
     }

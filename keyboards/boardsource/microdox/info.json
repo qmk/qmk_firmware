@@ -1,0 +1,70 @@
+{
+  "manufacturer": "Boardsource",
+  "keyboard_name": "microdox",
+  "maintainer": "waffle87",
+  "development_board": "promicro",
+  "diode_direction": "COL2ROW",
+  "build": {
+    "lto": true
+  },
+  "features": {
+    "bootmagic": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true,
+    "oled": true
+  },
+  "url": "https://boardsource.xyz/store/5f2e7e4a2902de7151494f92",
+  "usb": {
+    "pid": "0x0412",
+    "vid": "0xF7E0"
+  },
+  "split": {
+    "enabled": true
+  },
+  "community_layouts": [
+    "split_3x5_3"
+  ],
+  "layouts": {
+    "LAYOUT_split_3x5_3": {
+      "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 0.375},
+        {"matrix": [0, 1], "x": 1, "y": 0.125},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+        {"matrix": [0, 3], "x": 3, "y": 0.125},
+        {"matrix": [0, 4], "x": 4, "y": 0.375},
+        {"matrix": [4, 4], "x": 7, "y": 0.375},
+        {"matrix": [4, 3], "x": 8, "y": 0.125},
+        {"matrix": [4, 2], "x": 9, "y": 0},
+        {"matrix": [4, 1], "x": 10, "y": 0.125},
+        {"matrix": [4, 0], "x": 11, "y": 0.375},
+        {"matrix": [1, 0], "x": 0, "y": 1.375},
+        {"matrix": [1, 1], "x": 1, "y": 1.125},
+        {"matrix": [1, 2], "x": 2, "y": 1},
+        {"matrix": [1, 3], "x": 3, "y": 1.125},
+        {"matrix": [1, 4], "x": 4, "y": 1.375},
+        {"matrix": [5, 4], "x": 7, "y": 1.375},
+        {"matrix": [5, 3], "x": 8, "y": 1.125},
+        {"matrix": [5, 2], "x": 9, "y": 1},
+        {"matrix": [5, 1], "x": 10, "y": 1.125},
+        {"matrix": [5, 0], "x": 11, "y": 1.375},
+        {"matrix": [2, 0], "x": 0, "y": 2.375},
+        {"matrix": [2, 1], "x": 1, "y": 2.125},
+        {"matrix": [2, 2], "x": 2, "y": 2},
+        {"matrix": [2, 3], "x": 3, "y": 2.125},
+        {"matrix": [2, 4], "x": 4, "y": 2.375},
+        {"matrix": [6, 4], "x": 7, "y": 2.375},
+        {"matrix": [6, 3], "x": 8, "y": 2.125},
+        {"matrix": [6, 2], "x": 9, "y": 2},
+        {"matrix": [6, 1], "x": 10, "y": 2.125},
+        {"matrix": [6, 0], "x": 11, "y": 2.375},
+        {"matrix": [3, 2], "x": 2, "y": 4},
+        {"matrix": [3, 3], "x": 3, "y": 4.125},
+        {"matrix": [3, 4], "x": 4, "y": 4.375},
+        {"matrix": [7, 4], "x": 7, "y": 4.375},
+        {"matrix": [7, 3], "x": 8, "y": 4.125},
+        {"matrix": [7, 2], "x": 9, "y": 4}
+      ]
+    }
+  }
+}

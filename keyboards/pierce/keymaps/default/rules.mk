@@ -1,0 +1,2 @@
+TRACKPOINT = no
+AUTO_BUTTONS = no

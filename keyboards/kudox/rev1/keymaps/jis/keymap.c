@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include"keymap_jp.h"
+#include"keymap_japanese.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -13,8 +13,8 @@
 
 #define KC_ALES LALT_T(KC_ESC)
 
-#define KC_L1SYM LT(_SYMB, KC_LANG1)
-#define KC_L2SYM LT(_SYMB, KC_LANG2)
+#define KC_L1SYM LT(_SYMB, KC_LNG1)
+#define KC_L2SYM LT(_SYMB, KC_LNG2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                                  ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                                   KC_SLSH ,KC_N    ,KC_M    ,KC_MINS ,KC_UP   ,SYM_L   ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                ┌────────┼────────┼────────┴────────┼────────┼────────┼────────┤
-     KC_ALES ,KC_LGUI ,KC_LALT ,KC_ENT  ,KC_LANG2,KC_SPC  ,KC_SPC  ,                 KC_COMM ,KC_DOT  ,KC_L1SYM,KC_LEFT ,KC_DOWN ,KC_RGHT ,JP_BSLS
+     KC_ALES ,KC_LGUI ,KC_LALT ,KC_ENT  ,KC_LNG2 ,KC_SPC  ,KC_SPC  ,                 KC_COMM ,KC_DOT  ,KC_L1SYM,KC_LEFT ,KC_DOWN ,KC_RGHT ,JP_BSLS
   //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘                └────────┴────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 

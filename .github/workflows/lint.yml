@@ -1,0 +1,74 @@
+name: PR Lint keyboards
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    paths:
+    - 'keyboards/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Install dependencies
+      run: pip3 install -r requirements-dev.txt
+
+    - name: Get changed files
+      id: file_changes
+      uses: tj-actions/changed-files@v36
+
+    - name: Print info
+      run: |
+        git rev-parse --short HEAD
+        echo ${{ github.event.pull_request.base.sha }}
+        echo '${{ steps.file_changes.outputs.all_changed_files}}'
+
+    - name: Run qmk lint
+      shell: 'bash {0}'
+      run: |
+        QMK_CHANGES=$(echo -e '${{ steps.file_changes.outputs.all_changed_files}}' | sed 's/ /\n/g')
+        QMK_KEYBOARDS=$(qmk list-keyboards)
+
+        exit_code=0
+
+        for KB in $QMK_KEYBOARDS; do
+          KEYBOARD_CHANGES=$(echo "$QMK_CHANGES" | grep -E '^(keyboards/'${KB}'/)')
+          if [[ -z "$KEYBOARD_CHANGES" ]]; then
+            # skip as no changes for this keyboard
+            continue
+          fi
+
+          KEYMAP_ONLY=$(echo "$KEYBOARD_CHANGES" | grep -cv /keymaps/)
+          if [[ $KEYMAP_ONLY -gt 0 ]]; then
+            echo "linting ${KB}"
+
+            qmk lint --keyboard ${KB} && qmk info -l --keyboard ${KB}
+            exit_code=$(($exit_code + $?))
+          fi
+        done
+
+        qmk format-text ${{ steps.file_changes.outputs.all_changed_files}} || true
+        for file in ${{ steps.file_changes.outputs.all_changed_files}}; do
+          if ! git diff --quiet $file; then
+            echo "File '${file}' Requires Formatting"
+            echo "::error file=${file}::Requires Formatting"
+            exit_code=$(($exit_code + 1))
+          fi
+        done
+
+        if [[ $exit_code -gt 255 ]]; then
+            exit 255
+        fi
+        exit $exit_code

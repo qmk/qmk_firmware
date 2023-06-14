@@ -1,25 +1,24 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 /* Select hand configuration */
 
-// #define MASTER_LEFT
-#define MASTER_RIGHT
+#define MASTER_LEFT
+// #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define SSD1306OLED
 #define SWAP_SCLN
 
-// #define TAPPING_FORCE_HOLD
+// #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 300
-#define IGNORE_MOD_TAP_INTERRUPT
 
-#undef RGBLED_NUM
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLED_NUM 27
-#define RGBLIGHT_LIMIT_VAL 100
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
+#ifdef RGBLIGHT_ENABLE
+#    undef RGBLED_NUM
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    define RGBLED_NUM 27
+#    define RGBLIGHT_LIMIT_VAL 100
+#    define RGBLIGHT_HUE_STEP 10
+#    define RGBLIGHT_SAT_STEP 17
+#    define RGBLIGHT_VAL_STEP 17
+#endif  // RGBLIGHT_ENABLE
 
-#endif // CONFIG_USER_H
+#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"

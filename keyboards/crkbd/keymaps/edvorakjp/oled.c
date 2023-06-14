@@ -1,76 +1,56 @@
+#include <stdio.h>
 #include <string.h>
 #include "oled.h"
 
-// NOTE: Redefined to avoid to use snprintf(); It makes size of firmware big.
-const char *read_mode_icon(bool windows_mode) {
-  static const char logo[][2][3] = {{{0x95, 0x96, 0}, {0xb5, 0xb6, 0}}, {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}}};
-  static char mode_icon[10];
+#ifdef OLED_ENABLE
+void render_host_led_state(void) { oled_write(read_host_led_state(), false); }
 
-  int mode_number = windows_mode ? 1 : 0;
-  strcpy(mode_icon, logo[mode_number][0]);
+void render_layer_state(void) {
+    char layer_name[17];
+    oled_write_P(PSTR("Layer: "), false);
 
-  strcat(mode_icon, "\n");
-  strcat(mode_icon, logo[mode_number][1]);
-
-  return mode_icon;
+    switch (get_highest_layer(layer_state)) {
+        case L_EDVORAKJP_BASE:
+            oled_write_ln_P(PSTR("Default"), false);
+            break;
+        case L_EDVORAKJP_LOWER:
+            oled_write_ln_P(PSTR("Lower"), false);
+            break;
+        case L_EDVORAKJP_RAISE:
+            oled_write_ln_P(PSTR("Raise"), false);
+            break;
+        default:
+            snprintf(layer_name, sizeof(layer_name), "Undef-%ld", layer_state);
+            oled_write_ln(layer_name, false);
+    }
 }
 
-const char *read_layer_state(void) {
-  static char layer_state_str[24];
-  char layer_name[17];
+void render_logo(void) { oled_write(read_logo(), false); }
 
-  switch (biton32(layer_state)) {
-    case L_BASE:
-      strcpy(layer_name, "Default");
-      break;
-    case _RAISE:
-      strcpy(layer_name, "Raise");
-      break;
-    case _LOWER:
-      strcpy(layer_name, "Lower");
-      break;
-    default:
-      snprintf(layer_name, sizeof(layer_name), "Undef-%ld", layer_state);
-  }
+void render_mode_icon(bool is_windows) {
+    static const char logo[][2][3] = {
+        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
+        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
+    };
+    static char mode_icon[10];
 
-  strcpy(layer_state_str, "Layer: ");
-
-  strcat(layer_state_str, layer_name);
-  strcat(layer_state_str, "\n");
-  return layer_state_str;
+    snprintf(mode_icon, sizeof(mode_icon), "%s\n%s ", logo[is_windows][0], logo[is_windows][1]);
+    oled_write(mode_icon, false);
 }
 
-const char *read_host_led_state(void) {
-  static char led_str[24];
-  strcpy(led_str, (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NMLK" : "    ");
-  strcat(led_str, (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? " CAPS" : "    ");
-  strcat(led_str, (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? " SCLK" : "     ");
-  return led_str;
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    // flips the display 180 degrees if offhand
+    return is_keyboard_left() ? rotation : rotation ^ OLED_ROTATION_180;
 }
 
-void matrix_update(struct CharacterMatrix *dest,
-                   const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
+bool oled_task_user(void) {
+    if (is_keyboard_left()) {
+        render_mode_icon(!get_enable_kc_lang());
+        render_layer_state();
+        render_host_led_state();
+    } else {
+        render_logo();
+    }
+    return false;
 }
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-
-  matrix_clear(&matrix);
-#ifdef MASTER_RIGHT
-  if (!is_master) {
-#else
-  if (is_master) {
-#endif // MASTER_RIGHT
-    matrix_write(&matrix, read_mode_icon(!get_enable_kc_lang()));
-    matrix_write(&matrix, " ");
-    matrix_write(&matrix, read_layer_state());
-    matrix_write(&matrix, read_host_led_state());
-  } else {
-    matrix_write(&matrix, read_logo());
-  }
-  matrix_update(&display, &matrix);
-}
+#endif  // OLED_ENABLE

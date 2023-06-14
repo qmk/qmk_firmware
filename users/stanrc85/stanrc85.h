@@ -22,6 +22,7 @@ enum my_layers {
 #define CA_SCLN LCA(KC_SCLN)
 #define KC_CTLE LCTL_T(KC_ESC)
 #define LT_SPCF LT(_FN1_60, KC_SPC)
+#define LT_BPCF LT(_FN1_60, KC_BSPC)
 #define TD_TESC TD(TD_ESC)
 #define TD_TWIN TD(TD_WIN)
 #define TD_TCTL TD(TD_RCTL)
@@ -47,8 +48,8 @@ typedef enum {
 } td_state_t;
 
 // function to determine the current tapdance state
-int cur_dance (qk_tap_dance_state_t *state);
+int cur_dance (tap_dance_state_t *state);
 
 // `finished` and `reset` functions for each tapdance keycode
-void ctl_copy_finished (qk_tap_dance_state_t *state, void *user_data);
-void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data);
+void ctl_copy_finished (tap_dance_state_t *state, void *user_data);
+void ctl_copy_reset (tap_dance_state_t *state, void *user_data);

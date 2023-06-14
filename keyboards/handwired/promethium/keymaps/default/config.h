@@ -2,12 +2,6 @@
 
 #define PRIYADI_PROMETHIUM
 
-/* bootmagic salt key */
-#define BOOTMAGIC_KEY_SALT              KC_ESC
-
-/* skip bootmagic and eeconfig */
-#define BOOTMAGIC_KEY_SKIP              KC_SPACE
-
 #define RGBSPS_ENABLE
 #define RGBSPS_DEMO_ENABLE
 

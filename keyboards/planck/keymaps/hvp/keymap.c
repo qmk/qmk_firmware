@@ -46,21 +46,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_grid(
   LT4_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   LT3_ESC, KC_A,    KC_S,    KC_D,    LT(3,KC_F),    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD1), TD(TD2),
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3), KC_SFTENT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3), SC_SENT,
   KC_LCTL, KC_APP, KC_LGUI, KC_LALT,  MO(2), KC_SPC,  KC_SPC, MO(1),  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 [_RAISE] = LAYOUT_planck_grid( /* Right */
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, 
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
   KC_DEL, _______, _______, _______, _______, _______,                    _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-  _______, _______, _______, _______, _______, _______,                   _______, KC_UNDS, KC_PLUS,  KC_LCBR, KC_RCBR, KC_PIPE, 
+  _______, _______, _______, _______, _______, _______,                   _______, KC_UNDS, KC_PLUS,  KC_LCBR, KC_RCBR, KC_PIPE,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
 [_LOWER] = LAYOUT_planck_grid( /* Left */
   KC_TILDE,  KC_EXCLAIM,  KC_AT,  KC_HASH,  KC_DOLLAR, KC_PERCENT, KC_CIRCUMFLEX, KC_AMPERSAND, KC_ASTERISK, KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_BSPC,
   KC_DEL, _______, _______, _______, _______, _______,                      _______, KC_UNDS, KC_PLUS,  KC_LCBR, KC_RCBR, KC_BSLS,
-  _______, _______, _______, _______, _______, _______,                     _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_TILD, 
+  _______, _______, _______, _______, _______, _______,                     _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_TILD,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
@@ -72,10 +72,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_planck_grid( /* Tab */
-  _______, _______,  AG_NORM, AG_SWAP, _______, _______, _______, KC_7, KC_8, KC_9, KC_0, _______,
-  _______, _______, MU_MOD, AU_ON, AU_OFF, _______, _______, KC_4, KC_5, KC_6, _______, _______,
-  KC_PSCR, MUV_DE, MUV_IN, MU_ON, MU_OFF, _______, _______,  KC_0, KC_1, KC_2, KC_3, _______,
-  RESET, _______, TERM_ON, TERM_OFF, MI_ON, MI_OFF, _______, _______, _______, _______, _______, DEBUG
+  _______, _______, AG_NORM, AG_SWAP, _______, _______, _______, KC_7,    KC_8,    KC_9,   KC_0,     _______,
+  _______, _______, MU_NEXT, AU_ON,   AU_OFF,  _______, _______, KC_4,    KC_5,    KC_6,   _______,  _______,
+  KC_PSCR, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  _______, _______, KC_0,    KC_1,    KC_2,   KC_3,     _______,
+  QK_BOOT, _______, _______, _______, MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, DB_TOGG
 )};
 
 #ifdef AUDIO_ENABLE
@@ -89,7 +89,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -119,9 +119,10 @@ void encoder_update(bool clockwise) {
       #endif
     }
   }
+    return true;
 }
 
-void dip_switch_update_user(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0: {
 #ifdef AUDIO_ENABLE
@@ -150,6 +151,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
                 muse_mode = false;
             }
     }
+    return true;
 }
 
 void matrix_scan_user(void) {

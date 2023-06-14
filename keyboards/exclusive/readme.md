@@ -8,3 +8,4 @@ All files related to firmware of keyboards designed by Exclusive.
 * [e6-v2](./e6v2/): maintainers [MechMerlin](https://github.com/mechmerlin), [amnesia0287](https://github.com/amnesia0287)
 * [e7-v1](./e7v1): maintainer [masterzen](https://github.com/masterzen)
 * [e6.5](./e65): maintainer [masterzen](https://github.com/masterzen)
+* [e8.5](./e85): maintainer [MechMerlin](https://github.com/mechmerlin)

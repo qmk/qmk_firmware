@@ -18,15 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-#include <serial_config.h>
-
-#define USE_I2C
-#define USE_SERIAL
-
-#if !defined(NO_ACTION_MACRO)
-    #define NO_ACTION_MACRO
-#endif
-#if !defined(NO_ACTION_FUNCTION)
-    #define NO_ACTION_FUNCTION
-#endif
+// Use the lily version to get the Lily58 logo instead of the qmk logo
+#define OLED_FONT_H "lib/glcdfont_lily.c"

@@ -1,12 +1,46 @@
 {
-    "keyboard_name": "DISCIPAD", 
-    "url": "https://github.com/coseyfannitutti/discipad", 
-    "maintainer": "coseyfannitutti", 
-    "width": 4, 
-    "height": 5, 
+    "keyboard_name": "DISCIPAD",
+    "manufacturer": "coseyfannitutti",
+    "url": "https://github.com/coseyfannitutti/discipad",
+    "maintainer": "coseyfannitutti",
+    "usb": {
+        "vid": "0x6B62",
+        "pid": "0x1769",
+        "device_version": "0.0.1",
+        "max_power": 100
+    },
+    "matrix_pins": {
+        "cols": ["C0", "C1", "C2", "C3"],
+        "rows": ["B1", "B0", "D7", "D6", "D4"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
     "layouts": {
         "LAYOUT_numpad_5x4": {
-            "layout": [{"label":"Num Lock", "x":0, "y":0}, {"label":"/", "x":1, "y":0}, {"label":"*", "x":2, "y":0}, {"label":"-", "x":3, "y":0}, {"label":"7", "x":0, "y":1}, {"label":"8", "x":1, "y":1}, {"label":"9", "x":2, "y":1}, {"label":"4", "x":0, "y":2}, {"label":"5", "x":1, "y":2}, {"label":"6", "x":2, "y":2}, {"label":"+", "x":3, "y":1, "h":2}, {"label":"1", "x":0, "y":3}, {"label":"2", "x":1, "y":3}, {"label":"3", "x":2, "y":3}, {"label":"0", "x":0, "y":4, "w":2}, {"label":".", "x":2, "y":4}, {"label":"Enter", "x":3, "y":3, "h":2}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 1, "h": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4, "w": 2},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [4, 3], "x": 3, "y": 3, "h": 2}
+            ]
         }
     }
 }

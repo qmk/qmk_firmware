@@ -1,0 +1,46 @@
+name: Generate Docs
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - 'tmk_core/**'
+    - 'quantum/**'
+    - 'platforms/**'
+    - 'docs/**'
+    - '.github/workflows/docs.yml'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    # protect against those who develop with their fork on master
+    if: github.repository == 'qmk/qmk_firmware'
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+
+    - name: Install dependencies
+      run: |
+        apt-get update && apt-get install -y rsync nodejs npm doxygen
+        npm install -g moxygen
+
+    - name: Build docs
+      run: |
+        qmk --verbose generate-docs
+
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4.4.2
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BASE_BRANCH: master
+        BRANCH: gh-pages
+        FOLDER: .build/docs
+        GIT_CONFIG_EMAIL: hello@qmk.fm

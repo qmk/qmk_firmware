@@ -33,11 +33,6 @@ enum belak_keycodes {
     E_TSET,
 };
 
-inline void tap(uint16_t keycode) {
-    register_code(keycode);
-    unregister_code(keycode);
-};
-
 // TODO: Add LED support to the tap dance by using the advanced macro
 #define LTOGGLE TD(TD_LAYER_TOGGLE)
 
@@ -50,11 +45,11 @@ enum belak_td {
     TD_LAYER_TOGGLE = 0,
 };
 
-void belak_td_each(qk_tap_dance_state_t *state, void *user_data);
-void belak_td_finished(qk_tap_dance_state_t *state, void *user_data);
-void belak_td_reset(qk_tap_dance_state_t *state, void *user_data);
+void belak_td_each(tap_dance_state_t *state, void *user_data);
+void belak_td_finished(tap_dance_state_t *state, void *user_data);
+void belak_td_reset(tap_dance_state_t *state, void *user_data);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LAYER_TOGGLE] = ACTION_TAP_DANCE_FN_ADVANCED(belak_td_each, belak_td_finished, belak_td_reset),
 };
 
@@ -86,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,
         CTL_T(KC_BSLS), KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_LGUI,
-        LTOGGLE,        KC_LCTRL,     KC_LEFT,KC_RGHT,KC_LALT,
+        LTOGGLE,        KC_LCTL,      KC_LEFT,KC_RGHT,KC_LALT,
                                                      MO(NUMP),KC_INS,
                                                               KC_HOME,
                                  CTL_T(KC_BSPC),GUI_T(KC_DEL),KC_END,
@@ -95,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_RBRC,     KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_MINS,
                      KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,          KC_QUOT,
         KC_RGUI,     KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_RSFT,
-                             KC_RALT,KC_UP,  KC_DOWN,KC_RCTRL,         LTOGGLE,
+                             KC_RALT,KC_UP,  KC_DOWN,KC_RCTL,          LTOGGLE,
         KC_GRV,      MO(SYMB),
         KC_PGUP,
         KC_PGDN,     GUI_T(KC_ENT), CTL_T(KC_SPC)
@@ -273,17 +268,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case E_SHRUG: // ¯\_(ツ)_/¯
         if (record->event.pressed) {
             process_unicode((0x00AF|QK_UNICODE), record);   // Hand
-            tap(KC_BSLS);                                   // Arm
+            tap_code16(KC_BSLS);                                   // Arm
             register_code(KC_RSFT);
-            tap(KC_UNDS);                                   // Arm
-            tap(KC_LPRN);                                   // Head
+            tap_code16(KC_UNDS);                                   // Arm
+            tap_code16(KC_LPRN);                                   // Head
             unregister_code(KC_RSFT);
             process_unicode((0x30C4|QK_UNICODE), record);   // Face
             register_code(KC_RSFT);
-            tap(KC_RPRN);                                   // Head
-            tap(KC_UNDS);                                   // Arm
+            tap_code16(KC_RPRN);                                   // Head
+            tap_code16(KC_UNDS);                                   // Arm
             unregister_code(KC_RSFT);
-            tap(KC_SLSH);                                   // Arm
+            tap_code16(KC_SLSH);                                   // Arm
             process_unicode((0x00AF|QK_UNICODE), record);   // Hand
         }
         return false;
@@ -291,19 +286,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case E_TFLIP: // (╯°□°)╯ ︵ ┻━┻
         if (record->event.pressed) {
             register_code(KC_RSFT);
-            tap(KC_9);
+            tap_code16(KC_9);
             unregister_code(KC_RSFT);
             process_unicode((0x256F|QK_UNICODE), record);   // Arm
             process_unicode((0x00B0|QK_UNICODE), record);   // Eye
             process_unicode((0x25A1|QK_UNICODE), record);   // Mouth
             process_unicode((0x00B0|QK_UNICODE), record);   // Eye
             register_code(KC_RSFT);
-            tap(KC_0);
+            tap_code16(KC_0);
             unregister_code(KC_RSFT);
             process_unicode((0x256F|QK_UNICODE), record);   // Arm
-            tap(KC_SPC);
+            tap_code16(KC_SPC);
             process_unicode((0x0361|QK_UNICODE), record);   // Flippy
-            tap(KC_SPC);
+            tap_code16(KC_SPC);
             process_unicode((0x253B|QK_UNICODE), record);   // Table
             process_unicode((0x2501|QK_UNICODE), record);   // Table
             process_unicode((0x253B|QK_UNICODE), record);   // Table
@@ -316,18 +311,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             process_unicode((0x2500|QK_UNICODE), record);   // Table
             process_unicode((0x2500|QK_UNICODE), record);   // Table
             process_unicode((0x252C|QK_UNICODE), record);   // Table
-            tap(KC_SPC);
+            tap_code16(KC_SPC);
             process_unicode((0x30CE|QK_UNICODE), record);   // Arm
             register_code(KC_RSFT);
-            tap(KC_9);
+            tap_code16(KC_9);
             unregister_code(KC_RSFT);
-            tap(KC_SPC);
+            tap_code16(KC_SPC);
             process_unicode((0x309C|QK_UNICODE), record);   // Eye
-            tap(KC_MINS);
+            tap_code16(KC_MINS);
             process_unicode((0x309C|QK_UNICODE), record);   // Eye
             process_unicode((0x30CE|QK_UNICODE), record);   // Arm
             register_code(KC_RSFT);
-            tap(KC_0);
+            tap_code16(KC_0);
             unregister_code(KC_RSFT);
         }
         return false;
@@ -337,7 +332,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void belak_td_each(qk_tap_dance_state_t *state, void *user_data) {
+void belak_td_each(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
     case 1:
         td_led_override = 1;
@@ -350,7 +345,7 @@ void belak_td_each(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void belak_td_finished(qk_tap_dance_state_t *state, void *user_data) {
+void belak_td_finished(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
     case 1:
         layer_on(SYMB);
@@ -362,6 +357,6 @@ void belak_td_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_led_override = 0;
 }
 
-void belak_td_reset(qk_tap_dance_state_t *state, void *user_data) {
+void belak_td_reset(tap_dance_state_t *state, void *user_data) {
     td_led_override = 0;
 }

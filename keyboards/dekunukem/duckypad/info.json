@@ -1,0 +1,47 @@
+{
+    "keyboard_name": "duckyPad",
+    "manufacturer": "dekuNukem",
+    "url": "https://github.com/dekuNukem/",
+    "maintainer": "M4cs",
+    "usb": {
+        "vid": "0x444E",
+        "pid": "0x4450",
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "A10"
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["B13", "B14", "B15", "A8", "A15", "B3", "B4", "B5", "B6", "B7", "C13", "C14", "C15", "F0", "F1", "A1", "A2"]
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 0, "y": 1, "matrix": [0, 3]},
+                {"x": 1, "y": 1, "matrix": [0, 4]},
+                {"x": 2, "y": 1, "matrix": [0, 5]},
+                {"x": 0, "y": 2, "matrix": [0, 6]},
+                {"x": 1, "y": 2, "matrix": [0, 7]},
+                {"x": 2, "y": 2, "matrix": [0, 8]},
+                {"x": 0, "y": 3, "matrix": [0, 9]},
+                {"x": 1, "y": 3, "matrix": [0, 10]},
+                {"x": 2, "y": 3, "matrix": [0, 11]},
+                {"x": 0, "y": 4, "matrix": [0, 12]},
+                {"x": 1, "y": 4, "matrix": [0, 13]},
+                {"x": 2, "y": 4, "matrix": [0, 14]},
+                {"x": 3, "y": 4, "matrix": [0, 15]},
+                {"x": 4, "y": 4, "matrix": [0, 16]}
+            ]
+        }
+    }
+}

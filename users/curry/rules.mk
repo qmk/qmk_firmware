@@ -24,12 +24,12 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += tap_dances.c
 endif
 
-ifeq ($(strip $(OLED_DRIVER_ENABLE)), yes)
+ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += oled.c
 endif
 
 ifeq ($(strip $(LEADER_ENABLE)), yes)
-    SRC += leader.c
+    SRC += leader_user.c
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)

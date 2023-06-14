@@ -29,21 +29,12 @@ RGB バックライトまたは、RGB Underglow をつけた場合は、
 # Helix Spacific Build Options
 # you can uncomment and edit follows 7 Variables
 #  jp: 以下の7つの変数を必要に応じて編集し、コメントアウトをはずします。
-# HELIX_ROWS = 5              # Helix Rows is 4 or 5
-# OLED_ENABLE = no            # OLED_ENABLE
+# OLED_ENABLE = yes            # OLED_ENABLE
 # LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
 # LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 # LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 # LED_ANIMATIONS = yes        # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
-```
-
-## 4行版Helix に対応する
-
-rules.mk の下記の部分を編集して 5 を 4 に変更してください。
-
-```
-HELIX_ROWS = 4              # Helix Rows is 4 or 5
 ```
 
 ## RGB バックライトを有効にする
@@ -61,11 +52,12 @@ rules.mk の下記の部分を編集して no を yes に変更してくださ�
 LED_UNDERGLOW_ENABLE = yes   # LED underglow (Enable WS2812 RGB underlight.)
 ```
 
-## OLEDを有効にする
+## OLEDを無効にする
 
-rules.mk の下記の部分を編集して no を yes に変更してください。
+OLED はデフォルトで有効になっています。
+無効にしたいときは rules.mk の下記の部分を編集して yes を no に変更してください。
 ```
-OLED_ENABLE = yes            # OLED_ENABLE
+OLED_ENABLE = no            # OLED_ENABLE
 ```
 
 ## iPad/iPhoneサポートを有効にする。
@@ -104,9 +96,9 @@ $ make helix:default:clean
 
 上記の、rules.mk によるカスタマイズ項目の一部は下記のようにコマンド上で直接指定することも可能です。
 
-OLED を有効にしてコンパイルしてキーボードへの書き込む。
+OLED を無効にしてコンパイルしてキーボードへの書き込む。
 ```
-$ make helix/rev2/oled:default:flash
+$ make HELIX=no-oled helix/rev2:default:flash
 ```
 
 RGB バックライトを有効にしてコンパイルしてキーボードへ書き込む。
@@ -119,14 +111,14 @@ RGB Underglow を有効にしてコンパイルしてキーボードへ書き込
 $ make helix/rev2/under:default:flash
 ```
 
-OLED とRGB バックライトを有効にしてコンパイルしてキーボードへ書き込む。
+OLED を無効にして、RGB バックライトを有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/rev2/oled/back:default:flash
+$ make HELIX=no-oled helix/rev2/back:default:flash
 ```
 
-OLED とRGB Underglowを有効にしてコンパイルしてキーボードへ書き込む。
+OLED を無効にして、RGB Underglowを有効にしてコンパイルしてキーボードへ書き込む。
 ```
-$ make helix/rev2/oled/under:default:flash
+$ make HELIX=no-oled helix/rev2/under:default:flash
 ```
 
 ## リンク

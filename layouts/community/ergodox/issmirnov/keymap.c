@@ -13,7 +13,7 @@ OSM(MOD_LSFT),  _________________QWERTY_L3_________________,   KC_SLASH,
 KC_LCTL, LSFT(KC_LGUI), LSFT(KC_LALT),  KC_LALT,   KC_LGUI,
                                         XXXXXXX,  XXXXXXX,
                                                 XXXXXXX,
-                        KC_SPACE,   KC_BSPACE,  KC_DEL,
+                        KC_SPACE,   KC_BSPC,  KC_DEL,
 
 KC_EQL    , KC_6    , KC_7    , KC_8    , KC_9          , KC_0    , KC_ESCAPE      ,
 KC_PLUS   , _________________QWERTY_R1_________________  , LGUI(KC_SPACE) ,
@@ -31,12 +31,12 @@ KC_DOWN,  KC_TAB, KC_ENTER
 KC_ESCAPE , KC_F1         , KC_F2         , KC_F3       , KC_F4            , KC_F5    , KC_F6    ,
 XXXXXXX   , _________________SYMB_L1___________________ ,KC_ASTR  ,
 KC_TAB    ,  _________________SYMB_L2___________________,
-KC_LSHIFT ,  _________________SYMB_L3___________________, KC_SLASH ,
+KC_LSFT   ,  _________________SYMB_L3___________________, KC_SLASH ,
 KC_LCTL   , LSFT(KC_LGUI) , LSFT(KC_LALT) , KC_LALT     , WKSP_LEFT  ,
 
                                               XXXXXXX,        XXXXXXX,
                                                             XXXXXXX,
-                                    WKSP_RIGHT, KC_BSPACE,    KC_DEL,
+                                    WKSP_RIGHT, KC_BSPC,    KC_DEL,
 
 KC_F7     , KC_F8    , KC_F9   , KC_F10    , KC_F11    , KC_F12  , XXXXXXX  ,
 KC_PLUS   , _________________SYMB_R1___________________ , MO(_NAVI)  ,
@@ -59,9 +59,9 @@ TO(0)   , XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
 
                                             XXXXXXX  ,  XXXXXXX  ,
                                                         XXXXXXX  ,
-                                            KC_SPACE , KC_BSPACE , KC_DEL ,
+                                            KC_SPACE , KC_BSPC , KC_DEL ,
 
-KC_EQL  , ___________________XXXXX___________________ , RESET   ,
+KC_EQL  , ___________________XXXXX___________________ , QK_BOOT   ,
 KC_PLUS , _________________NUMP_R1___________________ , XXXXXXX ,
           _________________NUMP_R2___________________ , XXXXXXX                                     ,
 KC_MINS , _________________NUMP_R3___________________ , XXXXXXX ,
@@ -125,7 +125,7 @@ _______, _______, KC_LGUI
 
 // called by QMK during key processing before the actual key event is handled. Useful for macros.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   switch (keycode) {
     case TAP_TOG_LAYER:
       process_tap_tog(_SYMB,record);
@@ -157,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Runs constantly in the background, in a loop every 100ms or so.
 // Best used for LED status output triggered when user isn't actively typing.
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   if (layer == 0) {
     // Set up LED indicators for stuck modifier keys.
     // https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/report.h#L118
@@ -201,8 +201,8 @@ void matrix_scan_user(void) {
 }
 
 // only runs when when the layer is changed, good for updating LED's and clearing sticky state
-uint32_t layer_state_set_user(uint32_t state) {
-  uint8_t layer = biton32(state);
+layer_state_t layer_state_set_user(layer_state_t state) {
+  uint8_t layer = get_highest_layer(state);
 
   ergodox_board_led_off();
   ergodox_right_led_1_off();

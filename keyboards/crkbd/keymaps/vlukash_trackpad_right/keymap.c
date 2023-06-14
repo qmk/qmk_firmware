@@ -16,7 +16,6 @@ extern bool isScrollMode;
 extern rgblight_config_t rgblight_config;
 #endif
 
-extern uint8_t is_master;
 
 enum layer_names {
   _QWERTY,
@@ -38,7 +37,7 @@ enum custom_keycodes {
 #define KC_XXXXX KC_NO
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE
-#define KC_RST   RESET
+#define KC_RST   QK_BOOT
 #define KC_LRST  RGBRST
 #define KC_LTOG  RGB_TOG
 #define KC_LHUI  RGB_HUI
@@ -60,51 +59,51 @@ enum custom_keycodes {
 #define KC_SCRL   SCRL
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_kc(
+  [_QWERTY] = LAYOUT(
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,
+        KC_ESC,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,  KC_BSPC,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-        TAB,  CTLA,     S,     D,     F,     G,                      H,     J,     K,     L, CTLSC,  QUOT,
+        KC_TAB,  KC_CTLA,     KC_S,     KC_D,     KC_F,     KC_G,                      KC_H,     KC_J,     KC_K,     KC_L, KC_CTLSC,  KC_QUOT,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      GRAVE,  SFTZ,  WINX,     C,     V,     B,                      N,     M,  COMM, WINDO, SFTSL,BSLASH,
+      KC_GRAVE,  KC_SFTZ,  KC_WINX,     KC_C,     KC_V,     KC_B,                      KC_N,     KC_M,  KC_COMM, KC_WINDO, KC_SFTSL,KC_BSLS,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT, RAISE
+                                  KC_LOWER,   KC_SPC,  KC_SCRL,    KC_MBTN1,   KC_ENT, KC_RAISE
                               //`--------------------'  `--------------------'
   ),
 
-  [_LOWER] = LAYOUT_kc(
+  [_LOWER] = LAYOUT(
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC, XXXXX,  PGDN,  PSCR,  PGUP,  LBRC,                   RBRC,     7,     8,     9, XXXXX, XXXXX,
+        KC_ESC, KC_XXXXX,  KC_PGDN,  KC_PSCR,  KC_PGUP,  KC_LBRC,                   KC_RBRC,     KC_7,     KC_8,     KC_9, KC_XXXXX, KC_XXXXX,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX, LCTRL,  PLUS,  MINS,   EQL,  LPRN,                   RPRN,     4,     5,     6, RCTRL, XXXXX,
+      KC_XXXXX, KC_LCTL,   KC_PLUS,  KC_MINS,   KC_EQL,  KC_LPRN,                   KC_RPRN,     KC_4,     KC_5,     KC_6, KC_RCTL,  KC_XXXXX,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX,  LSFT,  HOME, XXXXX,   END,  LCBR,                   RCBR,     1,     2,     3,  RSFT, XXXXX,
+      KC_XXXXX,  KC_LSFT,  KC_HOME, KC_XXXXX,   KC_END,  KC_LCBR,                   KC_RCBR,     KC_1,     KC_2,     KC_3,  KC_RSFT, KC_XXXXX,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT,     0
+                                  KC_LOWER,   KC_SPC,  KC_SCRL,    KC_MBTN1,   KC_ENT,     KC_0
                               //`--------------------'  `--------------------'
   ),
 
-  [_RAISE] = LAYOUT_kc(
+  [_RAISE] = LAYOUT(
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC, XXXXX,    F7,    F8,    F9,   F10,                   BTN2,  BTN2,  MNXT,  MPRV,  MPLY,  MSTP,
+        KC_ESC, KC_XXXXX,    KC_F7,    KC_F8,    KC_F9,   KC_F10,                   KC_BTN2,  KC_BTN2,  KC_MNXT,  KC_MPRV,  KC_MPLY,  KC_MSTP,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX, LCTRL,    F4,    F5,    F6,   F11,                   LEFT,  DOWN,    UP, RIGHT, RCTRL, XXXXX,
+      KC_XXXXX, KC_LCTL,     KC_F4,    KC_F5,    KC_F6,   KC_F11,                   KC_LEFT,  KC_DOWN,    KC_UP, KC_RIGHT, KC_RCTL,  KC_XXXXX,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX,  LSFT,    F1,    F2,    F3,   F12,                  XXXXX, XXXXX,  VOLU,  VOLD,  MUTE,  RSFT,
+      KC_XXXXX,  KC_LSFT,    KC_F1,    KC_F2,    KC_F3,   KC_F12,                  KC_XXXXX, KC_XXXXX,  KC_VOLU,  KC_VOLD,  KC_MUTE,  KC_RSFT,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT, RAISE
+                                  KC_LOWER,   KC_SPC,  KC_SCRL,    KC_MBTN1,   KC_ENT, KC_RAISE
                               //`--------------------'  `--------------------'
   ),
 
-  [_ADJUST] = LAYOUT_kc(
+  [_ADJUST] = LAYOUT(
   //,-----------------------------------------.                ,-----------------------------------------.
-        RST,  LRST, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,   RST,
+        KC_RST,  KC_LRST, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX,                  KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX,   KC_RST,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+       KC_LTOG,  KC_LHUI,  KC_LSAI,  KC_LVAI, KC_XXXXX, KC_XXXXX,                  KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX,
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+       KC_LMOD,  KC_LHUD,  KC_LSAD,  KC_LVAD, KC_XXXXX, KC_XXXXX,                  KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX,
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT, RAISE
+                                  KC_LOWER,   KC_SPC,  KC_SCRL,    KC_MBTN1,   KC_ENT, KC_RAISE
                               //`--------------------'  `--------------------'
   )
 };

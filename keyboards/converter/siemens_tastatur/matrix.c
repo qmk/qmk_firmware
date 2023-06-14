@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "print.h"
 #include "matrix.h"
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
@@ -109,7 +109,7 @@ void matrix_init(void) {
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
 
-    matrix_init_quantum();
+    matrix_init_kb();
 
     osalSysLock();
     enable_input_events();
@@ -215,7 +215,7 @@ uint8_t matrix_scan(void) {
     porta_buffer = 65535;
     portb_buffer = 65535;
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

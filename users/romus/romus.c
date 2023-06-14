@@ -42,7 +42,7 @@ float tone_windows[][2] = SONG(UNICODE_WINDOWS);
 |*-----TAP-DANCE-----*|
 \*-------------------*/
 #ifdef TAP_DANCE_ENABLE
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Shift on double tap of semicolon
     [SCL] = ACTION_TAP_DANCE_DOUBLE( KC_SCLN, KC_COLN )
 };
@@ -59,7 +59,7 @@ __attribute__ ((weak)) void matrix_scan_keymap(void) { }
 __attribute__ ((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-__attribute__ ((weak)) uint32_t layer_state_set_keymap (uint32_t state) {
+__attribute__ ((weak)) layer_state_t layer_state_set_keymap (layer_state_t state) {
     return state;
 }
 __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
@@ -72,7 +72,7 @@ __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
 // Set RGBLIGHT state depending on layer
 void rgblight_change( uint8_t this_layer ) {
     // Enable RGB light; will not work without this
-	//rgblight_enable_noeeprom();	
+	//rgblight_enable_noeeprom();
 	// Change RGB light
     switch ( this_layer ) {
         case _DV:
@@ -83,21 +83,21 @@ void rgblight_change( uint8_t this_layer ) {
             // Do yellow for alternate
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom( 60,255,255);
-			
+
 
             break;
         case _GA:
             // Do purple for game
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(285,255,255);
-			
+
 
             break;
         case _NU:
             // Do azure for number
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(186,200,255);
-			
+
 
             break;
         case _SE:
@@ -105,27 +105,27 @@ void rgblight_change( uint8_t this_layer ) {
 			rgblight_enable_noeeprom();
 
             rgblight_sethsv_noeeprom( 16,255,255);
-			
+
             break;
         case _MO:
             // Do green for mouse
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(120,255,255);
-			
+
 
             break;
         case _MU:
             // Do orange for music
-			
+
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom( 39,255,255);
-			
+
             break;
         default:
             // Something went wrong
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(  0,255,255);
-			
+
             break;
     }
 }
@@ -142,7 +142,7 @@ void matrix_init_user (void) {
 
     // Correct unicode
 #ifdef UNICODE_ENABLE
-    set_unicode_input_mode(UC_LNX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
 #endif
 
     // Make beginning layer DVORAK
@@ -189,7 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-#endif 
+#endif
 
         // Lock functionality: These layers are locked if the LOCKED buttons are
         // pressed. Otherwise, they are momentary toggles
@@ -225,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-            
+
         // Layer switches with sound
         case K_GAMES:
             if (record->event.pressed) {
@@ -250,7 +250,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case MU_TOG:
+        case QK_MUSIC_TOGGLE:
             if (record->event.pressed) {
                 // On press, turn off layer if active
                 if ( layer == _SE ) {
@@ -272,7 +272,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 stop_all_notes();
                 PLAY_SONG(tone_linux);
 #endif
-                set_unicode_input_mode(UC_LNX);
+                set_unicode_input_mode(UNICODE_MODE_LINUX);
             }
             return false;
             break;
@@ -282,7 +282,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 stop_all_notes();
                 PLAY_SONG(tone_windows);
 #endif
-                set_unicode_input_mode(UC_WIN);
+                set_unicode_input_mode(UNICODE_MODE_WINDOWS);
             }
             return false;
             break;
@@ -546,12 +546,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 |*-----LAYER CHANGE-----*|
 \*----------------------*/
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 
     state = layer_state_set_keymap (state);
 #ifdef RGBLIGHT_ENABLE
     // Change RGB lighting depending on the last layer activated
-    rgblight_change( biton32(state) );
+    rgblight_change( get_highest_layer(state) );
 #endif
     return state;
 }

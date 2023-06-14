@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "solder.h"
+#include "quantum.h"
 
 // Optional override functions below.
 // You can leave any or all of these undefined.
@@ -26,13 +26,6 @@ void matrix_init_kb(void) {
 
   setPinOutput(C7);
   matrix_init_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  // put your per-action keyboard code here
-  // runs for every action, just before processing by the firmware
-
-  return process_record_user(keycode, record);
 }
 
 bool led_update_kb(led_t led_state) {

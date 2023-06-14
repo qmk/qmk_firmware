@@ -4,13 +4,12 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
-#include "timer.h"
 
-#define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
+enum layer_names {
+    BASE, // default layer
+    SYMB, // symbols
+    MDIA  // media keys
+};
 
 #define BLINK_BASE  150U // timer threshold for blinking on MDIA layer
 
@@ -18,6 +17,7 @@ typedef enum onoff_t {OFF, ON} onoff;
 
 #define caps_led_on  ergodox_right_led_2_on
 #define caps_led_off ergodox_right_led_2_off
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -45,18 +45,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_ESC,     KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    KC_6,
-        KC_TAB,     M(KC_Q),  M(KC_W), M(KC_E), M(KC_R), M(KC_T), KC_LBRC,
-        M(KC_CAPS), M(KC_A),  M(KC_S), M(KC_D), M(KC_F), M(KC_G),
-        KC_LSFT,    M(KC_Z),  M(KC_X), M(KC_C), M(KC_V), M(KC_B), MO(SYMB),
+        KC_TAB,     KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,
+        KC_CAPS,    KC_A,     KC_S,    KC_D,    KC_F,    KC_G,
+        KC_LSFT,    KC_Z,     KC_X,    KC_C,    KC_V,    KC_B,    MO(SYMB),
         KC_LCTL,    KC_LALT,  KC_LGUI, KC_LEFT, KC_RGHT,
-                                                         KC_TRNS, KC_FN1,
+                                                         KC_TRNS, TG(SYMB),
                                                                   KC_HOME,
                                                 KC_BSPC, KC_DEL,  KC_END,
         // right hand
         KC_GRV,     KC_7,     KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
-        KC_RBRC,    M(KC_Y),  M(KC_U), M(KC_I), M(KC_O), M(KC_P), KC_BSLS,
-                    M(KC_H),  M(KC_J), M(KC_K), M(KC_L), KC_SCLN, KC_QUOT,
-        MO(SYMB),   M(KC_N),  M(KC_M), KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+        KC_RBRC,    KC_Y,     KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+                    KC_H,     KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        MO(SYMB),   KC_N,     KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
                               KC_DOWN, KC_UP,   KC_RCTL, KC_RGUI, KC_RALT,
         KC_RALT,    KC_RCTL,
         KC_PGUP,
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-                                               KC_FN3, KC_FN2,
+                                               TG(SYMB),TG(MDIA),
                                                        KC_TRNS,
                                        KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
@@ -127,16 +127,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     // MEDIA AND TENKEY
     [MDIA] = LAYOUT_ergodox(
-       KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_F14,  KC_F15,
+       QK_BOOT, KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_F14,  KC_F15,
        KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO,
-                                                    KC_FN4,  KC_NO,
+                                                    TG(MDIA),KC_NO,
                                                              KC_TRNS,
                                            KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand
-       KC_NO,   KC_NO,   KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, KC_NO,
+       KC_NO,   KC_NO,   KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, KC_NO,
        KC_NO,   KC_NO,   KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_NO,
                 KC_NO,   KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_NO,
        KC_NO,   KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_PENT, KC_NO,
@@ -146,65 +146,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS
     ),
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_ON(SYMB,ON_RELEASE),           // FN1 - Enable Layer 1 (Symbols)
-    [2] = ACTION_LAYER_ON(MDIA,ON_RELEASE),           // FN2 - Enable Layer 2 (Media)
-    [3] = ACTION_LAYER_OFF(SYMB,ON_RELEASE),          // FN3 - Disable Layer 1 (Symbols)
-    [4] = ACTION_LAYER_OFF(MDIA,ON_RELEASE),          // FN4 - Disable Layer 2 (MMedia)
-};
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+#ifndef NO_FAKE_CAPS
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static onoff caps_state = OFF;
-    switch(id) {
-    case KC_CAPS:
-        if (record->event.pressed) {
-            // Toggle caps state;
-            if (caps_state == OFF) {
-                // Turn it on then!
-                caps_led_on();
-                caps_state = ON;
+
+    switch (keycode) {
+        case KC_CAPS:
+            if (record->event.pressed) {
+                if (caps_state == OFF) {
+                    caps_led_on();
+                    caps_state = ON;
+                } else {
+                    caps_led_off();
+                    caps_state = OFF;
+                }
+            }
+            break;
+        default:
+            if (keycode < KC_A || keycode > KC_Z) {
+                // This isn't an alpha or a KC_CAPS, continue on as usual.
+                return true;
+            }
+            if (record->event.pressed) {
+                bool shifted = (caps_state == ON && get_mods() == 0);
+                if (shifted) {
+                    register_code(KC_LSFT);
+                }
+                register_code(keycode);
+                if (shifted) {
+                    unregister_code(KC_LSFT);
+                }
             } else {
-                caps_led_off();
-                caps_state = OFF;
+                unregister_code(keycode);
             }
-        }
-        break;
-    default:
-        if (record->event.pressed) {
-            bool shifted = false;
-            if (caps_state == ON && get_mods() == 0) {
-                register_code(KC_LSFT);
-                shifted = true;
-            }
-            register_code(id);
-            if(shifted) {
-                unregister_code(KC_LSFT);
-            }
-        } else {
-            unregister_code(id);
-        }
-        break;
+            break;
     }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
+    // If we get here, we've already handled the keypresses.
+    return false;
 }
+#endif
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     static onoff board_led_state = OFF;
     static uint16_t dt = 0;
     static uint8_t oldlayer = 0;
 
-    if(oldlayer != layer) {
+    if (oldlayer != layer) {
         // Layer was just toggled.
-        if(layer == BASE) {
+        if (layer == BASE) {
             ergodox_board_led_off();
             board_led_state = OFF;
         } else {
@@ -213,10 +205,10 @@ void matrix_scan_user(void) {
         }
     } else if (layer >= MDIA) {
         // We need to do blinking.
-        if(timer_elapsed(dt) > BLINK_BASE) {
+        if (timer_elapsed(dt) > BLINK_BASE) {
             // toggle
             dt = timer_read();
-            if(board_led_state == OFF) {
+            if (board_led_state == OFF) {
                 ergodox_board_led_on();
                 board_led_state = ON;
             } else {

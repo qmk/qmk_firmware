@@ -6,7 +6,8 @@
     "files.exclude": {
         "**/.build": true,
         "**/*.hex": true,
-        "**/*.bin": true
+        "**/*.bin": true,
+        "**/*.uf2": true
     },
     "files.associations": {
         "*.h": "c",
@@ -16,10 +17,18 @@
         "*.hpp": "cpp",
         "xstddef": "c",
         "type_traits": "c",
-        "utility": "c"
+        "utility": "c",
+        "ranges": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
         "files.trimTrailingWhitespace": false
-    }
+    },
+    "python.formatting.provider": "yapf",
+    "[json]": {
+        "editor.formatOnSave": false
+    },
+    "clangd.arguments": [
+        "--header-insertion=never"
+    ]
 }

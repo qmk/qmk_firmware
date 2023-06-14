@@ -15,13 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include QMK_KEYBOARD_CONFIG_H
+#pragma once
 
 #undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 3
-
-
-#endif

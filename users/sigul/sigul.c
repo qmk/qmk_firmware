@@ -1,4 +1,4 @@
-#include "keymap_italian_osx_ansi.h"
+#include "keymap_italian_mac_ansi.h"
 #include "sigul.h"
 
 __attribute__ ((weak))
@@ -25,7 +25,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case IT_SCCL:
       if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RIGHT_SHIFT)){
           register_code16(IT_COLN);
         } else {
           register_code16(IT_SCLN);
@@ -39,29 +39,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case IT_APDQ:
       if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(IT_DQOT);
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RIGHT_SHIFT)){
+          register_code16(IT_DQUO);
         } else {
-          register_code16(IT_APOS);
+          register_code16(IT_QUOT);
         }
       } else {
-        unregister_code16(IT_DQOT);
-        unregister_code16(IT_APOS);
+        unregister_code16(IT_DQUO);
+        unregister_code16(IT_QUOT);
         }
       return false;
       break;
 
     case IT_CMLS:
       if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RIGHT_SHIFT)){
           unregister_code16(KC_LSFT);
-          register_code16(IT_LESS);
+          register_code16(IT_LABK);
 	  register_code16(KC_LSFT);
         } else {
           register_code16(IT_COMM);
         }
       } else {
-        unregister_code16(IT_LESS);
+        unregister_code16(IT_LABK);
         unregister_code16(IT_COMM);
       }
       return false;
@@ -69,13 +69,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case IT_DTMR:
       if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(IT_MORE);
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RIGHT_SHIFT)){
+          register_code16(IT_RABK);
         } else {
           register_code16(IT_DOT);
         }
       } else {
-        unregister_code16(IT_MORE);
+        unregister_code16(IT_RABK);
         unregister_code16(IT_DOT);
       }
       return false;
@@ -83,13 +83,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case IT_SLQS:
       if (record->event.pressed){
-        if (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT)){
-          register_code16(IT_QST);
+        if (get_mods() & MOD_BIT(KC_LSFT) || get_mods() & MOD_BIT(KC_RIGHT_SHIFT)){
+          register_code16(IT_QUES);
         } else {
           register_code16(IT_SLSH);
         }
       } else {
-        unregister_code16(IT_QST);
+        unregister_code16(IT_QUES);
         unregister_code16(IT_SLSH);
       }
       return false;

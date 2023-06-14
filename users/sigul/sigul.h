@@ -15,16 +15,17 @@ enum userspace_layers {
 enum userspace_custom_keycodes {
   QWERTY = SAFE_RANGE,
   // custom keycodes for an Italian ANSI layout with accented vowels
-  IT_CMLS, // IT_COMM and IT_LESS when combined with shift
-  IT_DTMR, // IT_DOT and IT_MORE when combined with shift
-  IT_SLQS, // IT_SLSH and IT_QST when combined with shift
-  IT_APDQ, // IT_APO and IT_DQOT when combined with shift
+  IT_CMLS, // IT_COMM and IT_LABK when combined with shift
+  IT_DTMR, // IT_DOT and IT_RABK when combined with shift
+  IT_SLQS, // IT_SLSH and IT_QUES when combined with shift
+  IT_APDQ, // IT_APO and IT_DQUO when combined with shift
   IT_SCCL, // IT_SMCL and IT_COLN when combined with shift
   SECRET0,
   SECRET1,
   SECRET2,
   SECRET3, 
   SECRET4,
+  SECRET5,
   NEW_SAFE_RANGE // start new keyboard-level declarations with NEW_SAFE_RANGE
 };
 

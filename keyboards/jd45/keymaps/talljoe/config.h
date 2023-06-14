@@ -1,7 +1,19 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include QMK_KEYBOARD_CONFIG_H
+/* Copyright 2020 Joseph Wasson
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#pragma once
 
 #define PREVENT_STUCK_MODIFIERS
 #define SPACE_COUNT 2
@@ -14,9 +26,7 @@
     K40, K41, K42,      K44, K45, K46,      K48, K49,      K4B, K4C                 \
 ) { \
     { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K0D,   K1D    }, \
-    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2C,   KC_NO  }, \
+    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   KC_NO  }, \
     { K30,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   KC_NO  }, \
-    { K40,   K00,   K41,   K42,   K44,   KC_NO, K45,   KC_NO, K48,   K49,   K3D,   K4C,   KC_NO  }  \
+    { K40,   K00,   K41,   K42,   K44,   KC_NO, K46,   KC_NO, K48,   K49,   K3D,   K4C,   KC_NO  }  \
 }
-
-#endif

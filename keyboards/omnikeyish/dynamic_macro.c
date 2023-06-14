@@ -1,5 +1,7 @@
-#include QMK_KEYBOARD_H
+#include "omnikeyish.h"
 #include <string.h>
+
+dynamic_macro_t dynamic_macros[DYNAMIC_MACRO_COUNT];
 
 void dynamic_macro_init(void) {
   /* zero out macro blocks  */

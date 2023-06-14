@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "Trackball Nano",
+    "manufacturer": "PloopyCo",
+    "url": "www.ploopy.co",
+    "maintainer": "ploopyco",
+    "usb": {
+        "vid": "0x5043",
+        "pid": "0x54A3",
+        "device_version": "0.0.1",
+        "max_power": 100
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 0,
+     "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]}
+            ]
+        }
+    }
+}

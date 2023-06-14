@@ -30,20 +30,12 @@ enum custom_keycodes {
   ARROW
 };
 
-  // Enable these functions using FUNC(n) macro.
-  const uint16_t PROGMEM fn_actions[] = {
-      [0] = LT(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Backspace,
-      [1] = LT(_RAISE, KC_BSPC),     //Hold for momentary Raise layer, Tap for Space,
-      [2] = MO(_ARROW), //Hold for momentary Arrow
-   };
-
-#define SPC_LWR FUNC(0)
-#define BSP_RSE FUNC(1)
-#define ARW FUNC(2)
+#define SPC_LWR LT(_LOWER, KC_SPC)
+#define BSP_RSE LT(_RAISE, KC_BSPC)
+#define ARW MO(_ARROW)
 
 // Underglow setup
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_ANIMATIONS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

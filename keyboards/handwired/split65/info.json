@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "split65",
+    "manufacturer": "percyjw",
+    "url": "https://github.com/PercyJW-2/Split65",
+    "maintainer": "PercyJW-2",
+    "usb": {
+        "vid": "0x4A57",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    }
+}

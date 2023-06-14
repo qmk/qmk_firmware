@@ -9,7 +9,7 @@
 #define _LIGHT 2
 
 // Shortcut to make keymap more readable
-#define SYM_L2  LT(_SYMB, KC_LANG2)
+#define SYM_L2  LT(_SYMB, KC_LNG2)
 #define TO_LIGH TO(_LIGHT)
 #define TO_QWER TO(_QWERTY)
 
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                                  ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                                   KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_UP   ,KC_RSFT ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                ┌────────┼────────┼────────┴────────┼────────┼────────┼────────┤
-     KC_ALES ,KC_LBRC ,KC_RBRC ,SYM_L2  ,KC_ALEN ,KC_LGUI ,KC_SPC  ,                 KC_SPC  ,KC_RGUI ,TO_LIGH ,KC_LANG1,KC_LEFT, KC_DOWN ,KC_RIGHT
+     KC_ALES ,KC_LBRC ,KC_RBRC ,SYM_L2  ,KC_ALEN ,KC_LGUI ,KC_SPC  ,                 KC_SPC  ,KC_RGUI ,TO_LIGH ,KC_LNG1 ,KC_LEFT, KC_DOWN ,KC_RIGHT
   //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘                └────────┴────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 
@@ -50,9 +50,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐                ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
      _______ ,RGB_HUI ,RGB_HUD ,RGB_SAI ,RGB_SAD ,RGB_VAI ,RGB_VAD ,                 RGB_HUI ,RGB_HUD ,RGB_SAI ,RGB_SAD ,RGB_VAI ,RGB_VAD ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,RGB_M_P ,RGB_M_SW ,RGB_M_X,XXXXXXX ,XXXXXXX ,XXXXXXX ,                 RGB_M_P ,RGB_M_SW ,RGB_M_X ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     _______ ,RGB_M_P ,RGB_M_SW ,RGB_M_X,XXXXXXX ,XXXXXXX ,XXXXXXX ,                 RGB_M_P ,RGB_M_SW ,RGB_M_X,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┘                └────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,RGB_M_B ,RGB_M_SN ,RGB_M_G,XXXXXXX ,XXXXXXX ,                                   RGB_M_B ,RGB_M_SN ,RGB_M_G ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     _______ ,RGB_M_B ,RGB_M_SN ,RGB_M_G,XXXXXXX ,XXXXXXX ,                                   RGB_M_B ,RGB_M_SN,RGB_M_G ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                                  ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______ ,RGB_M_R ,RGB_M_K ,RGB_M_T ,XXXXXXX ,XXXXXXX ,                                   RGB_M_R ,RGB_M_K ,RGB_M_T ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                ┌────────┼────────┼────────┴────────┼────────┼────────┼────────┤
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef RGBLIGHT_ENABLE
-void keyboard_post_init_user(void) {
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
+void eeconfig_init_user(void) {
+    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
 };
 #endif
