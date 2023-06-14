@@ -3,8 +3,8 @@
     "manufacturer": "ryanbaekr",
     "url": "",
     "maintainer": "ryanbaekr",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "elite_c",
+    "pin_compatible": "elite_c",
     "usb": {
         "vid": "0x7262",
         "pid": "0x0087",
