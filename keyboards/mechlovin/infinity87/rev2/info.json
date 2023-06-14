@@ -1,12 +1,13 @@
 {
     "keyboard_name": "Infinity87 Rev.2",
-    "manufacturer": "Mechlovin.Studio",
-    "url": "",
-    "maintainer": "Mechlovin' Studio",
     "usb": {
-        "vid": "0x4D4C",
         "pid": "0x8702",
         "device_version": "0.0.1"
+    },
+    "features": {
+        "rgblight": true,
+        "backlight": true,
+        "nkro": true
     },
     "backlight": {
         "pin": "B6",
@@ -18,26 +19,25 @@
         "scroll_lock": "B4"
     },
     "rgblight": {
-        "saturation_steps": 8,
-        "brightness_steps": 8,
         "led_count": 24,
         "sleep": true,
         "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "snake": true,
             "knight": true,
+            "rainbow_swirl": true,
+            "rainbow_mood": true,
+            "snake": true,
             "christmas": true,
             "static_gradient": true,
             "rgb_test": true,
             "alternating": true,
-            "twinkle": true
-        }
+            "twinkle": true,
+            "breathing": true
+        },
     },
     "ws2812": {
         "pin": "E2"
     },
+    "diode_direction": "ROW2COL",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": [

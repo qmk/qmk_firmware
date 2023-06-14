@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "Infinity87 Rev.3",
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "board": "STM32_F103_STM32DUINO",
+    "diode_direction": "ROW2COL"
+}

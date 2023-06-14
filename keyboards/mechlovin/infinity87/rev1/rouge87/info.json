@@ -1,10 +1,6 @@
 {
     "keyboard_name": "Rouge87 Rev.1",
-    "manufacturer": "Mechlovin.Studio",
-    "url": "",
-    "maintainer": "Mechlovin' Studio",
     "usb": {
-        "vid": "0x4D4C",
         "pid": "0x8703",
         "device_version": "0.0.1"
     },
