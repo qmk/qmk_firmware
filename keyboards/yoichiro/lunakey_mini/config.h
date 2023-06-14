@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   #define RGBLED_NUM 12
   #define RGBLIGHT_SPLIT
-  #define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, \
-                             11, 10, 9, 8, 7, 6 }
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8

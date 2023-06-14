@@ -155,7 +155,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       uint8_t current_layer = get_highest_layer(layer_state);
 
       // Check if we are within the range, if not quit
-      if (curent_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
+      if (current_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
         return false;
       }
 
