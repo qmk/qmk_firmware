@@ -11,49 +11,24 @@
         "rotary": [{ "pin_a": "B6", "pin_b": "C7" }]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bluetooth": false,
-        "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
-        "fauxclicky": false,
-        "hd44780": false,
-        "lto": true,
-        "midi": false,
         "mousekey": true,
         "nkro": true,
-        "space_cadet": false,
-        "unicode": false,
-        "unicodemap": false,
         "encoder": true,
-        "pointing_device": true,
-        "rgblight": false
+        "pointing_device": true
     },
     "matrix_pins": {
         "cols": ["B4", "D5", "F4", "F5", "D4", "C6", "D7", "E6", "D1"],
         "rows": ["F6", "F7", "F0", "F1", "B5"]
     },
     "processor": "atmega32u4",
-    "rgblight": {
-        "layers": {
-            "enabled": true
-        },
-        "led_count": 32,
-        "max_brightness": 255,
-        "sleep": false,
-        "split": true,
-        "split_count": [16, 16]
-    },
     "split": {
         "enabled": true,
         "encoder": {
             "right": {
-                "rotary": [{ "pin_a": "B6", "pin_b": "B2", "resolution": 4 }]
+                "rotary": [{ "pin_a": "B6", "pin_b": "B2" }]
             }
         },
-        "main": "left",
         "matrix_pins": {
             "right": {
                 "cols": ["B4", "D2", "F4", "F5", "D4", "C6", "D7", "E6", "D1"],
@@ -61,9 +36,6 @@
             }
         },
         "soft_serial_pin": "D0",
-        "transport": {
-            "protocol": "serial"
-        },
         "usb_detect": {
             "enabled": true,
             "polling_interval": 10,
@@ -76,14 +48,8 @@
         "pid": "0x0001",
         "vid": "0x0001"
     },
-    "ws2812": {
-        "pin": "D3"
-    },
     "layouts": {
-        "LAYOUT_65": {
-            "c_macro": true,
-            "filename": "keyboards/santy65/santy65.h",
-            "json_layout": false,
+        "LAYOUT": {
             "layout": [
                 { "label": "L00", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "L01", "matrix": [0, 1], "x": 1, "y": 0 },
