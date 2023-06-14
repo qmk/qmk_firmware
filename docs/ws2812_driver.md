@@ -86,7 +86,9 @@ To enable SK9816 support add the following lines to your `config.h`:
 
 Current gain setting is REQUIRED and has been pre-defined to maximum in the code above.
 If you wish to adjust it, set the appropriate bits using the reference table provided in the datasheet, page 9:
+
 http://www.normandled.com/upload/201906/SK9816MICRO(SK9816-2427)%20LED%20Datasheet.pdf
+
 Take care of the bit placement; Green and Red channels are flipped compared to the bit order in the datasheet:
 
 
