@@ -3,8 +3,7 @@
     "keyboard_name": "3dortho14u",
     "url": "",
     "maintainer": "xia0",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "diode_direction": "COL2ROW",
     "features": {
     "audio": false,

@@ -11,7 +11,7 @@
     "ws2812": {
         "pin": "D3"
     },
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x6_3"
     },

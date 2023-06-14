@@ -21,8 +21,7 @@
     "ws2812": {
         "pin": "B6"
     },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_all": {

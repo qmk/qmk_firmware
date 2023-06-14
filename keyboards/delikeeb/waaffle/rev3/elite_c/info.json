@@ -1,4 +1,3 @@
 {
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu"
+    "development_board": "elite_c"
 }

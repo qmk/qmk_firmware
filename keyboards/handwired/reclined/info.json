@@ -2,7 +2,7 @@
   "manufacturer": "pdl",
   "keyboard_name": "handwired/reclined",
   "maintainer": "qmk",
-  "bootloader": "atmel-dfu",
+  "development_board": "elite_c",
   "diode_direction": "ROW2COL",
   "features": {
     "command": true,
@@ -14,7 +14,6 @@
     "cols": ["B2", "F4", "B3", "F5", "B1", "F6", "D4", "D7", "D0", "E6", "D1", "B4"],
     "rows": ["D3", "C6", "B6", "B5"]
   },
-  "processor": "atmega32u4",
   "usb": {
     "device_version": "0.0.1",
     "pid": "0x0000",

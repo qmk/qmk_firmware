@@ -2,7 +2,7 @@
     "manufacturer": "Aidan Smith",
     "keyboard_name": "aidansmithdotdev/fine40",
     "maintainer": "Aidan-OS",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -18,7 +18,6 @@
         "cols": ["B3", "E6", "B1", "D7", "F7", "C6"],
         "rows": ["F5", "F6", "B2", "B5", "F4", "D4", "B4", "B6"]
     },
-    "processor": "atmega32u4",
     "url": "https://aidansmith.dev",
     "usb": {
         "device_version": "1.0.0",

@@ -6,8 +6,7 @@
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "community_layouts": ["split_3x5_2"],
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x5_2"

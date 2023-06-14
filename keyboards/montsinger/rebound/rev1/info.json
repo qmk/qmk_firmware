@@ -13,8 +13,7 @@
         "rows": ["D1", "B5", "B2", "B6"]
     },
     "diode_direction": "ROW2COL",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT_ortho_4x12": {

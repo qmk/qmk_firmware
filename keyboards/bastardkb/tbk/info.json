@@ -19,8 +19,7 @@
     "split": {
         "soft_serial_pin": "D0"
     },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "layouts": {
         "LAYOUT_split_4x6_5": {
             "layout": [

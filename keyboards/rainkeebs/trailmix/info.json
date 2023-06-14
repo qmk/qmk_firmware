@@ -2,7 +2,7 @@
     "manufacturer": "rainkeebs",
     "keyboard_name": "trailmix",
     "maintainer": "ATron789",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -20,7 +20,6 @@
         "cols": ["F6", "D4", "F5", "D0", "F4", "B6"],
         "rows": ["D1", "D7", "F7", "C6"]
     },
-    "processor": "atmega32u4",
     "split": {
         "enabled": true,
         "encoder": {

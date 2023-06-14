@@ -3,8 +3,7 @@
     "manufacturer": "Mechboards UK",
     "url": "",
     "maintainer": "Elliot Powell",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "features": {
         "bootmagic": true,
         "oled": true,

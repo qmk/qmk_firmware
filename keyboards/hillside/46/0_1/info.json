@@ -1,6 +1,5 @@
 {
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "matrix_pins": {
         "rows": ["C6", "D7", "E6", "B5"],
         "cols": ["F6", "F7", "B1", "B3", "B2", "B6"]
