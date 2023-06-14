@@ -222,7 +222,7 @@ static uint8_t wheel_unit(void) {
     }
     mk_wheel_interval = 1000U / speed;
 
-    return (uint8_t)speed > MOUSEKEY_WHEEL_INITIAL_MOVEMENTS ? 2 : 1;
+    return 1;
 }
 
 #        endif /* #ifndef MK_KINETIC_SPEED */
