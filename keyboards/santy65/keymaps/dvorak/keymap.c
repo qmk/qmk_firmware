@@ -132,7 +132,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_DVORAK] = LAYOUT_65(
+    [_DVORAK] = LAYOUT(
 	KC_F15, KC_ESC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LGUI(KC_BSLS), LALT(KC_END), GMAIL, 
 	KC_F16, KC_TAB, KC_SCLN, KC_COMMA, KC_DOT, KC_P, KC_Y, 		 		   		KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSLS, KC_LBRC, KC_RBRC, WORK_EMAIL, 
 	KC_F17, KC_BSPC, KC_A, KC_O, KC_E, KC_U, KC_I, 		 						KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS, KC_ENT, KC_TRNS, 
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	TO(_GAMING), KC_LCTL, KC_LGUI, KC_LALT, MO(_FN), MO(_NUMBER), KC_TRNS,		KC_SPACE, MO(_ARROW), KC_MPLY, KC_VOLD, KC_VOLU, KC_LEFT, KC_DOWN, KC_RIGHT
 	),
 
-	[_GAMING] = LAYOUT_65(
+	[_GAMING] = LAYOUT(
 	LALT(KC_END), KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, 						 	KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, LALT(KC_END), KC_TRNS, 
 	KC_F9, KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, 		 		   						KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSLS, KC_LBRC, KC_RBRC, KC_TRNS, 
 	KC_F3, KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, 		 								KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOTE, KC_ENT, RGB_TOG, 
@@ -148,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	TO(_DVORAK), KC_LCTL, KC_LGUI, KC_LALT, KC_2, KC_SPACE, KC_TRNS,					KC_SPACE, KC_SPACE, KC_MPLY, KC_VOLD, KC_VOLU, KC_LEFT, KC_DOWN, KC_RIGHT
 	),
 
-	[_SHIFT] = LAYOUT_65(
+	[_SHIFT] = LAYOUT(
 	KC_TRNS, KC_ESC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 					KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TILD,
 	KC_TRNS, LSFT(KC_TAB), KC_COLN, LSFT(KC_COMM), LSFT(KC_DOT), LSFT(KC_P), LSFT(KC_Y), 	LSFT(KC_F), LSFT(KC_G), LSFT(KC_C), LSFT(KC_R), LSFT(KC_L), LSFT(KC_BSLS), LSFT(KC_LBRC), LSFT(KC_RBRC), KC_GRV,
 	KC_TRNS, LCTL(KC_BSPC), LSFT(KC_A), LSFT(KC_O), LSFT(KC_E), LSFT(KC_U), LSFT(KC_I),     LSFT(KC_D), LSFT(KC_H), LSFT(KC_T), LSFT(KC_N), LSFT(KC_S), KC_UNDS, LSFT(KC_ENT), KC_TRNS,
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(_GAMING), KC_LCTL, KC_LGUI, KC_LALT, MO(_FN), MO(_NUMBER), KC_TRNS,			 		KC_SPACE, KC_LGUI, KC_MPLY, KC_VOLD, KC_VOLU, KC_LEFT, KC_DOWN, KC_RIGHT
 	),
 
-	[_FN] = LAYOUT_65(
+	[_FN] = LAYOUT(
 	KC_TRNS, KC_ESC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 					 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LALT(KC_END), KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_SCLN, CB, SB, LALT(KC_F4), LCTL(KC_L), 		 		 	 LCTL(KC_F), KC_PGUP, KC_UP, LCTL(KC_T), LCTL(KC_N), LCTL(LSFT(KC_N)), RGB_TOG, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_BSPC, LCTL(KC_A), LCTL(KC_X), LCTL(KC_C), KC_LSFT, LCTL(KC_V), 				 KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, LCTL(KC_S), KC_END, LCTL(KC_GRV), KC_TRNS,
@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LALT, KC_TRNS,			 				 KC_LCTL, KC_LCTL, KC_TRNS, KC_TRNS, KC_TRNS, LGUI(LCTL(KC_LEFT)), KC_TRNS, LGUI(LCTL(KC_RIGHT))
 	),
 
-	[_NUMBER] = LAYOUT_65(
+	[_NUMBER] = LAYOUT(
 	KC_TRNS, KC_ESC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 					KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_GRV, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), 		 	LSFT(KC_6), LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_BSPC, KC_1, KC_2, KC_3, KC_4, KC_5, 		 								KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_ENTER, KC_TRNS,
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,			 				KC_SPACE, MO(_ARROW), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
-	[_ARROW] = LAYOUT_65(
+	[_ARROW] = LAYOUT(
 	KC_TRNS, KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, 							KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, LGUI(LSFT(KC_S)), KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 		 		   		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 		 				LCTL(KC_BTN1), KC_BTN1, KC_BTN2, DRAG_SCROLL_V, DRAG_SCROLL_H, KC_TRNS, LCTL(LALT(KC_O)), KC_TRNS,
@@ -181,46 +181,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	)
 };
 
-/* Programming the 2 encoders by layer */
-bool encoder_update_user(uint8_t index, bool clockwise) {
-	if (index == 0) { // Left Encoder
-    	switch(biton32(layer_state)) {
-			case _GAMING:
-				if (clockwise) {
-					tap_code(KC_VOLU);
-				}
-				else {
-					tap_code(KC_VOLD);
-				}
-				break;
-			default:
-				if (clockwise) {
-					tap_code(KC_WH_D);
-				}
-				else {
-					tap_code(KC_WH_U);
-				}
-				break;
-	  }
-	} else if (index == 1) { // Right Encoder
-		switch(biton32(layer_state)) {
-			case _FN:
-				if (clockwise) {
-					tap_code16(LGUI(KC_QUOTE));
-				}
-				else {
-					tap_code16(C(LGUI(KC_QUOTE)));
-				}
-				break;
-			default:
-				if (clockwise) {
-					tap_code16(C(KC_PGDN));
-				}
-				else {
-					tap_code16(C(KC_PGUP));
-				}
-				break;
-	  	}
-  	}
-  	return false;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_DVORAK] =   { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(C(KC_PGUP), C(KC_PGDN))  },
+    [_GAMING] =  { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_SHIFT] =  { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_FN] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(C(LGUI(KC_QUOTE)), LGUI(KC_QUOTE)) },
+	[_NUMBER] =  { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+    [_ARROW] =  { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+};
+#endif
