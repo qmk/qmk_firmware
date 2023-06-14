@@ -15,6 +15,9 @@
     "split": {
         "soft_serial_pin": "GP1"
     },
+    "rgblight": {
+        "split_count": [18, 18]
+    },
     "ws2812": {
         "pin": "GP0",
         "driver": "vendor"

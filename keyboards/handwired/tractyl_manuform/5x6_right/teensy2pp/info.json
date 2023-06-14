@@ -17,7 +17,8 @@
         "pin": "E7"
     },
     "rgblight": {
-        "max_brightness": 80
+        "max_brightness": 80,
+        "split_count": [10, 10]
     },
     "processor": "at90usb1286",
     "bootloader": "halfkay"

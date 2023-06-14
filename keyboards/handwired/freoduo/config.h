@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if !defined(RGBLED_NUM)
 #    define RGBLED_NUM 30
 #    define RGBLIGHT_SPLIT
-#    define RGBLED_SPLIT { 16, 14 }
 #    define RGBLIGHT_LAYERS
 #endif
 #define RGBLIGHT_EFFECT_BREATHING

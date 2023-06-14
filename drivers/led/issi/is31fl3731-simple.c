@@ -196,6 +196,10 @@ void IS31FL3731_set_value(int index, uint8_t value) {
         memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         // Subtract 0x24 to get the second index of g_pwm_buffer
+
+        if (g_pwm_buffer[led.driver][led.v - 0x24] == value) {
+            return;
+        }
         g_pwm_buffer[led.driver][led.v - 0x24]   = value;
         g_pwm_buffer_update_required[led.driver] = true;
     }

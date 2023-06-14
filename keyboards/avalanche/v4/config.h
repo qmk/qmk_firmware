@@ -5,7 +5,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLED_NUM 64
-#    define RGBLED_SPLIT { 32, 32 }
 #    define RGBLIGHT_SPLIT
 #    define RGBLIGHT_HUE_STEP  10    
 #    define RGBLIGHT_SAT_STEP  17    

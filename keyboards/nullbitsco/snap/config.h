@@ -59,7 +59,6 @@
 
 /* Optional SMT LED pins */
 #define RGBLED_NUM 10
-#define RGBLED_SPLIT { 5, 5 }
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

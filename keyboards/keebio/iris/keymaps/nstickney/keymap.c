@@ -27,11 +27,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		),
 
     [SYMB] = LAYOUT(
-        _______, XP(IEX, SS1), X(SS2), X(SS3), XP(CUR, GBP), X(EUR), X(V14), X(V12), X(V34), XP(LSQ, LDQ), XP(RSQ, RDQ), _______,
-        _______, XP(A_D, AXD), XP(A_R, ACR), XP(E_A, ECA), XP(REG, CPL), X(THR), XP(U_D, UCD), XP(U_A, UCA), XP(I_A, ICA), XP(O_A, OCA), XP(O_D, OCD), _______,
-        _______, XP(A_A, ACA), XP(S_S, SEC), XP(ETH, ETC), X(EMD), _______, _______, _______, _______, XP(O_S, OCS), XP(PLC, DEG), XP(ACT, DIS),
-        _______, XP(AEL, AEC), _______, XP(CPR, CNT), _______, _______, _______, _______, XP(N_T, NCT), X(MCR), XP(C_C, CCC), _______, _______, _______,
-        X(IQM), XP(NOT, BKB), _______, _______, X(YEN), XP(MLT, DIV)
+        _______, UP(IEX, SS1), UM(SS2), UM(SS3), UP(CUR, GBP), UM(EUR), UM(V14), UM(V12), UM(V34), UP(LSQ, LDQ), UP(RSQ, RDQ), _______,
+        _______, UP(A_D, AXD), UP(A_R, ACR), UP(E_A, ECA), UP(REG, CPL), UM(THR), UP(U_D, UCD), UP(U_A, UCA), UP(I_A, ICA), UP(O_A, OCA), UP(O_D, OCD), _______,
+        _______, UP(A_A, ACA), UP(S_S, SEC), UP(ETH, ETC), UM(EMD), _______, _______, _______, _______, UP(O_S, OCS), UP(PLC, DEG), UP(ACT, DIS),
+        _______, UP(AEL, AEC), _______, UP(CPR, CNT), _______, _______, _______, _______, UP(N_T, NCT), UM(MCR), UP(C_C, CCC), _______, _______, _______,
+        UM(IQM), UP(NOT, BKB), _______, _______, UM(YEN), UP(MLT, DIV)
         ),
 
     [NUMP] = LAYOUT(

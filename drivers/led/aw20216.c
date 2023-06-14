@@ -145,6 +145,9 @@ void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     aw_led led;
     memcpy_P(&led, (&g_aw_leds[index]), sizeof(led));
 
+    if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
+        return;
+    }
     g_pwm_buffer[led.driver][led.r]          = red;
     g_pwm_buffer[led.driver][led.g]          = green;
     g_pwm_buffer[led.driver][led.b]          = blue;

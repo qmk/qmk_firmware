@@ -36,11 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #   define RGBLED_NUM 123
 
-// Do not define "RGBLED_SPLIT" since somehow it doesn't work well yet.
-// Even thhough "#define RGBLED_SPLIT { 60, 63 }" was set, LEDs on the sub keyboad side didn't turn on.
-// Not sure but rgblight_sethsv_at() might not support RGBLED_SPLIT yet.
-// Instead, LED data is tranferred from right side to the left via TRRS cable.
-
 #   define RGBLIGHT_LAYERS
 
 // By default, LEDs of the buttons which are pressed turn on.

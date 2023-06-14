@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLED_NUM 2
 #define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 1, 1 }
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

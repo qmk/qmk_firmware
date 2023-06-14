@@ -18,7 +18,6 @@
 #pragma once
 
 #define RGBLED_NUM 38
-#define RGBLED_SPLIT { 19, 19 }
 #define RGBLIGHT_SPLIT
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
