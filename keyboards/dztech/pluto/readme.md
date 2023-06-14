@@ -9,7 +9,7 @@ Pluto now also features an accent Piece with an engraving of Pluto Symbol below 
 
 * Keyboard Maintainer: [DZTECH](https://github.com/moyi4681)
 * Hardware Supported: DZTECH
-* Hardware Availability: https://kbdfans.cn/products/pluto?_pos=1&_sid=6517c8196&_ss=r
+* Hardware Availability: KBDFANS
 
 Make example for this keyboard (after setting up your build environment):
 
