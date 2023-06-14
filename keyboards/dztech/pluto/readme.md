@@ -1,6 +1,6 @@
 # PLUTO
 
-![PLUTO](https://i.shgcdn.com/9d5d0b69-fb87-4f41-81da-1babc8d50d67/-/format/auto/-/preview/3000x3000/-/quality/best/)
+![PLUTO](https://i.imgur.com/BWVvKMO.jpg)
 
 The main purpose of this board is to introduce more people to the best layout.
 This board was originally designed to be O-ring gasket mount only, Top mount was added to make the board whole.
