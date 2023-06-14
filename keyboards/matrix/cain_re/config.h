@@ -36,7 +36,6 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_LED_MAP { 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0, 1, 2, 3 }
 
 #define CAPS_PIN    D3
 #define NUM_PIN     F7
