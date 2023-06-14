@@ -4,7 +4,7 @@
 enum combos {
   COMDOT_DRGTOG,
   MDOT_SNPTOG,
-  LQUOTE_SCLN,
+  KL_SCLN,
   SPCNAV_MB4,
   COMBO_LENGTH
 };
