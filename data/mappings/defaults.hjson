@@ -8,7 +8,7 @@
         "elite_c": {
             "processor": "atmega32u4",
             "bootloader": "atmel-dfu",
-            "pin_compatible": "promicro"
+            "pin_compatible": "elite_c"
         },
         "elite_pi": {
             "processor": "RP2040",

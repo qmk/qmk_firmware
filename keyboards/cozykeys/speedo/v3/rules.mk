@@ -1,5 +1,3 @@
-PIN_COMPATIBLE = elite_c
-
 # Build Options
 #   change yes to no to disable
 #
