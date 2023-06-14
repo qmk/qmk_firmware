@@ -89,7 +89,7 @@ If you wish to adjust it, set the appropriate bits using the reference table pro
 
 http://www.normandled.com/upload/201906/SK9816MICRO(SK9816-2427)%20LED%20Datasheet.pdf
 
-Take care of the bit placement; Green and Red channels are flipped compared to the bit order in the datasheet:
+Take care of the bit placement; Green and Red channels are flipped compared to the bit order in the datasheet.
 
 
 
