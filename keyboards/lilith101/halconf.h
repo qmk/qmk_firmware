@@ -21,6 +21,6 @@
 
 #pragma once
 
-#define HAL_USE_I2C TRUE
+#define HAL_USE_I2C TRUE //Enable Chibios I2C for KINETIS boards
 
 #include_next <halconf.h>

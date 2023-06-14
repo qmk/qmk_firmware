@@ -28,6 +28,20 @@
  * This means that, albeit the same driver being applicable, the timings must be adapted.
  */
 
+#if defined(SK6805)
+#   define WS2812_T0H 300
+#   define WS2812_T0L 900
+#   define WS2812_T1H 600
+#   define WS2812_T1L 600
+#endif
+
+#if defined(SK9816)
+#   define WS2812_T0H 300
+#   define WS2812_T0L 900
+#   define WS2812_T1H 900
+#   define WS2812_T1L 300
+#endif
+
 #ifndef WS2812_TIMING
 #    define WS2812_TIMING 1250
 #endif

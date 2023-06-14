@@ -5,8 +5,8 @@
 *A short description of the keyboard/project*
 
 * Keyboard Maintainer: [Technorage Developments](https://github.com/St0RM53)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Prototype PCB, Custom full-size alike compact ANSI 101+1 key layout, Running Teensy 3.2 with integrated 4-port USB 2.0 hub, SK9816/SK6805 ARGB leds per key, 128x32 oled screen, rotary encoder, and hotswappable Kailh Choc V1 switches.
+* Hardware Availability: https://www.facebook.com/TechnoRageDevelopments/
 
 Make example for this keyboard (after setting up your build environment):
 

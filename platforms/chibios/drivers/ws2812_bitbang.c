@@ -8,6 +8,8 @@
 #ifndef NOP_FUDGE
 #    if defined(STM32F0XX) || defined(STM32F1XX) || defined(GD32VF103) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(WB32F3G71xx) || defined(WB32FQ95xx)
 #        define NOP_FUDGE 0.4
+#    elif defined(QMK_MCU_SERIES_K20X)
+#        define NOP_FUDGE 0.5 // Verified for Teensy 3.2/3.1, should be the same for Teensy 3.0
 #    else
 #        error("NOP_FUDGE configuration required")
 #        define NOP_FUDGE 1 // this just pleases the compile so the above error is easier to spot
@@ -102,6 +104,13 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
         sendByte(ledarray[i].w);
 #endif
     }
+
+
+#ifdef SK9816
+        sendByte(SK9816_CG_1);
+        sendByte(SK9816_CG_2);
+#endif
+
 
     wait_ns(WS2812_RES);
 
