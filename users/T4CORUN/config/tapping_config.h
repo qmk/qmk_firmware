@@ -29,7 +29,7 @@ https://docs.qmk.fm/#/one_shot_keys
 
 #if defined(ONESHOT_ENABLE)
 #   define ONESHOT_TAP_TOGGLE 3
-#   define ONESHOT_TIMEOUT 3000
+#   define ONESHOT_TIMEOUT 2000
 #else
 #   define NO_ACTION_ONESHOT
 #endif //ONESHOT_ENABLE

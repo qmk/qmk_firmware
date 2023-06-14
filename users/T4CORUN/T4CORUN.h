@@ -38,15 +38,9 @@ enum keycodes {
 //#define MO_NUM     MO(_NUMBER)
 #define MO_GMNO    MO(_GAMENUMBER)
 
-//goto layer
-//#define TO_BASE    TO(FIRST_DEFAULT_LAYER)
-//#define TO_NAV     TO(_NAVIGATION)
-//#define TO_NUM     TO(_NUMBER)
-//#define TO_MOU     TO(_MOUSE)
-
 //layer taps
-#define FUN_Z      LT(_FUNCTION, KC_Z)
-#define AD_SLSH    LT(_ADJUST, KC_SLSH)
+//#define FUN_Z      LT(_FUNCTION, KC_Z)
+//#define AD_SLSH    LT(_ADJUST, KC_SLSH)
 
 //Windows Shortcuts
 #define SC_COPY    LCTL(KC_C)
@@ -55,7 +49,7 @@ enum keycodes {
 #define SC_PAST    LCTL(KC_V)
 #define SC_REDO    LCTL(KC_Y)
 #define W_SNIP     LSG(KC_S)
-#define W_FILE     LSG(KC_E)
+#define W_FILE     LGUI(KC_E)
 
 
 /*
@@ -72,6 +66,7 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_LGUI OSM(MOD_LGUI)
 #   define TR_NAV  OSL(_NAVIGATION)
 #   define TR_NUM  OSL(_NUMBER)
+#   define TR_FUN  OSL(_FUNCTION)
 #else
 #   define TR_OSTG ___x___
 #   define TR_LSFT KC_LSFT
@@ -80,6 +75,7 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_LGUI KC_LGUI
 #   define TR_NAV  MO(_NAVIGATION)
 #   define TR_NUM  MO(_NUMBER)
+#   define TR_FUN  MO(_FUNCTION)
 #endif //ONESHOT_ENABLE
 
 
@@ -274,7 +270,6 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #   define _________________UCCPR_L___________________        SC_UNDO, SC_CUT,  SC_COPY, SC_PAST, SC_REDO
 
-
 #   define         _________BASE_L4_________                  TR_BTN1, TR_NUM,  TR_LSFT
 
 //right side only has two thumb keys
@@ -284,6 +279,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define         _________BASE_R4_________                  KC_SPC,  TR_NAV,  ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
+
 /*
 * For 3x5 configuration
 *
@@ -292,19 +288,19 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |   A  |   S  |   D  |   F  |   G  |    |   H  |   J  |   K  |   L  |   '  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | FUNZ |   X  |   C  |   V  |   B  |    |   N  |   M  |   ,  |   .  | ADJ/ |
+*   |   Z  |   X  | MOUC |   V  |   B  |    |   N  |   M  |   ,  |   .  |   /  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      |      |      |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
 */
-
 #   define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #   define _________________QWERTY_L2_________________        TR_A,    TR_S,    TR_D,    TR_F,    KC_G
-#   define _________________QWERTY_L3_________________        FUN_Z,   KC_X,    TR_MOUC, KC_V,    KC_B
+#   define _________________QWERTY_L3_________________        KC_Z,    KC_X,    TR_MOUC, KC_V,    KC_B
 
 #   define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #   define _________________QWERTY_R2_________________        KC_H,    TR_J,    TR_K,    TR_L,    TR_QT
-#   define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  AD_SLSH
+#   define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+
 
 /*
 * For 3x5 configuration
@@ -314,19 +310,18 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |   A  |   R  |   S  |   T  |   G  |    |   M  |   N  |   E  |   I  |   O  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | FUNZ |   X  |   C  |   D  |   V  |    |   K  |   H  |   ,  |   .  | ADJ/ |
+*   |   Z  |   X  | MOUC |   D  |   V  |    |   K  |   H  |   ,  |   .  |   /  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      |      |      |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
 */
-
 #   define ________________COLEMAKDH_L1_______________        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
 #   define ________________COLEMAKDH_L2_______________        TR_A,    TR_R,    TR_S,    TR_T,    KC_G
-#   define ________________COLEMAKDH_L3_______________        FUN_Z,   KC_X,    TR_MOUC, KC_D,    KC_V
+#   define ________________COLEMAKDH_L3_______________        KC_Z,    KC_X,    TR_MOUC, KC_D,    KC_V
 
 #   define ________________COLEMAKDH_R1_______________        KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
 #   define ________________COLEMAKDH_R2_______________        KC_M,    TR_N,    TR_E,    TR_I,    TR_O
-#   define ________________COLEMAKDH_R3_______________        KC_K,    KC_H,    KC_COMM, KC_DOT,  AD_SLSH
+#   define ________________COLEMAKDH_R3_______________        KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH
 
 /*
 * For 3x5 configuration
@@ -336,12 +331,11 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Num  |   A  |   S  |   D  |   F  |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |  Z   |   X  |   C  |   V  |   B  |    |      |      |      |      | Adj  |
+*   |  Z   |   X  |   C  |   V  |   B  |    |      |      |      |      |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | Ctrl | Spc  | Shift|    |      | Nav  |      |
 *                 `------+------+------'    `------+------+------'
 */
-
 #   define _______________GAMING_BASE_L1______________        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R
 #   define _______________GAMING_BASE_L2______________        MO_GMNO, KC_A,    KC_S,    KC_D,    KC_F
 #   define _______________GAMING_BASE_L3______________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
@@ -349,7 +343,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #   define _______________GAMING_BASE_R1______________        __________________NONE_5___________________
 #   define _______________GAMING_BASE_R2______________        __________________NONE_5___________________
-#   define _______________GAMING_BASE_R3______________        ___x___, ___x___, ___x___, ___x___, MO_ADJ
+#   define _______________GAMING_BASE_R3______________        __________________NONE_5___________________
 
 # if defined(KEYBOARD_bastardkb_charybdis_3x5) 
 #   define          ______GAMING_BASE_R4_____                 ___x___, TR_NUM
@@ -371,12 +365,10 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *                 | Alt  |      |      |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
 */
-
 #   define _______________GAMING_NUM_L1_______________        ___x___, KC_ESC,  KC_TILD, KC_G,    KC_T
 #   define _______________GAMING_NUM_L2_______________        _______, KC_1,    KC_2,    KC_3,    KC_4
 #   define _______________GAMING_NUM_L3_______________        ___x___, KC_5,    KC_6,    KC_7,    KC_8
 #   define          ______GAMING_NUM_L4______                 KC_LALT, ___x___, ___x___
-
 
 
 /*
@@ -387,12 +379,11 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | GUI  | Alt  | Ctrl | Shft |   .  |    |   -  |   4  |   5  |   6  |   =  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |   ;  |   1  |   2  |   3  |   \  |
+*   | Undo | Cut  | Copy | Pste | Redo |    |   0  |   1  |   2  |   3  |   \  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  | NUM  | Ent  |    | Spc  |   0  |      |
+*                 | MB1  | NUM  | Ent  |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 */
-
 #   define _________________NUMPAD_L1_________________        KC_ESC,  W_SNIP,  W_FILE,  KC_BSPC, KC_GRV
 #   define _________________NUMPAD_L2_________________        _____________GACS_MODS____________, KC_DOT
 #   define _________________NUMPAD_L3_________________        _________________UCCPR_L___________________
@@ -400,16 +391,17 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #   define _________________NUMPAD_R1_________________        TR_LBRC, KC_7,    KC_8,    KC_9,    TR_RBRC
 #   define _________________NUMPAD_R2_________________        KC_MINS, KC_4,    KC_5,    KC_6,    KC_EQL
-#   define _________________NUMPAD_R3_________________        KC_SCLN, KC_1,    KC_2,    KC_3,    KC_BSLS
+#   define _________________NUMPAD_R3_________________        KC_0,    KC_1,    KC_2,    KC_3,    KC_BSLS
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          ________NUMPAD_R4________                 KC_SPC,  KC_0
+#   define          ________NUMPAD_R4________                 KC_SPC,  TR_NAV
 #else
-#   define          ________NUMPAD_R4________                 KC_SPC,  KC_0,    ___x___
+#   define          ________NUMPAD_R4________                 KC_SPC,  TR_NAV,  ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #   define __________________NUMROW_L_________________        KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #   define __________________NUMROW_R_________________        KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+
 
 /*
 *
@@ -418,42 +410,41 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |      | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | GUI  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |      | Tab  |      |      |      |
+*   | Undo | Cut  | Copy | Pste | Redo |    |      |      |      |      | ADJ  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  | Bpsc | Ent  |    |      | NAV  |      |
+*                 | Tab  | Bpsc | Ent  |    | FUN  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ___________________NAV_L1__________________        KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
 #   define ___________________NAV_L2__________________        ___x___, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
 #   define ___________________NAV_L3__________________        _________________UCCPR_L___________________
-#   define          __________NAV_L4_________                 TR_BTN1, KC_BSPC, KC_ENT
+#   define          __________NAV_L4_________                 KC_TAB,  KC_BSPC, KC_ENT
 
 #   define ___________________NAV_R1__________________        KC_INS,  ___x___, KC_APP,  ___x___, TR_MOUT
 #   define ___________________NAV_R2__________________        KC_DEL,  _____________SCAG_MODS____________
-#   define ___________________NAV_R3__________________        ___x___, KC_TAB,  ___x___, ___x___, ___x___
+#   define ___________________NAV_R3__________________        ___x___, ___x___, ___x___, ___x___, MO_ADJ
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          __________NAV_R4_________                 ___x___, _______
+#   define          __________NAV_R4_________                 TR_FUN,  _______
 #else
-#   define          __________NAV_R4_________                 ___x___, _______, ___x___
+#   define          __________NAV_R4_________                 TR_FUN,  _______, ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
+
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |      |      |      |      |      |    |ScrLck|  F7  |  F8  |  F9  | F10  |
+*   |      |      |      |DMRec2|DMPly2|    |ScrLck|  F7  |  F8  |  F9  | F10  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | GUI  | Alt  | Ctrl | Shft |PrnScr|    |CapLck|  F4  |  F5  |  F6  | F11  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |LyrTap|      | Vol- | Vol+ | Mute |    |PauBrk|  F1  |  F2  |  F3  | F12  |
+*   |      |      | Vol- | Vol+ | Mute |    |PauBrk|  F1  |  F2  |  F3  | F12  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      |DMRec1|DMPly1|    |DMPly2|DMRec2|      |
+*                 |      |DMRec1|DMPly1|    | FUN  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 */
-
-
-#   define _________________FUNCPAD_L1________________        __________________NONE_5___________________
+#   define _________________FUNCPAD_L1________________        ___x___, ___x___, ___x___, TR_DMR2, TR_DMP2
 #   define _________________FUNCPAD_L2________________        _____________GACS_MODS____________, KC_PSCR
-#   define _________________FUNCPAD_L3________________        _______, ___x___, KC_VOLD, KC_VOLU, KC_MUTE
+#   define _________________FUNCPAD_L3________________        ___x___, ___x___, KC_VOLD, KC_VOLU, KC_MUTE
 #   define          ________FUNCPAD_L4_______                 ___x___, TR_DMR1, TR_DMP1
 
 #   define _________________FUNCPAD_R1________________        KC_SCRL, KC_F7,   KC_F8,   KC_F9,   KC_F10
@@ -461,9 +452,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define _________________FUNCPAD_R3________________        KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F12
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          ________FUNCPAD_R4_______                 TR_DMP2, TR_DMR2
+#   define          ________FUNCPAD_R4_______                 TR_FUN,  TR_NAV
 #else
-#   define          ________FUNCPAD_R4_______                 TR_DMP2, TR_DMR2, ___x___
+#   define          ________FUNCPAD_R4_______                 TR_FUN,  TR_NAV,  ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #   define _________________FUNCROW_L_________________        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
