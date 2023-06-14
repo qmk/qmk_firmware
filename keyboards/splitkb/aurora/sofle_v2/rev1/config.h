@@ -1,8 +1,12 @@
 <<<<<<<< HEAD:keyboards/splitkb/aurora/sofle_v2/rev1/config.h
+<<<<<<<< HEAD:keyboards/splitkb/aurora/sofle_v2/rev1/config.h
 /* Copyright 2023 splitkb.com <support@splitkb.com>
 ========
 /* Copyright 2023 Mechlovin' Stuido
 >>>>>>>> 796b06c64b (add infintiy87 rev3):keyboards/mechlovin/infinity87/rev3/standard/halconf.h
+========
+/* Copyright 2023 Mechlovin' Stuido
+>>>>>>>> 5e47a8c552 (add infintiy87 rev3):keyboards/mechlovin/infinity87/rev3/standard/halconf.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +25,7 @@
 #pragma once
 
 <<<<<<<< HEAD:keyboards/splitkb/aurora/sofle_v2/rev1/config.h
+<<<<<<<< HEAD:keyboards/splitkb/aurora/sofle_v2/rev1/config.h
 #define SPLIT_HAND_PIN F4
 
 #define OLED_DISPLAY_128X32
@@ -33,3 +38,9 @@
 #include_next <halconf.h>
 
 >>>>>>>> 796b06c64b (add infintiy87 rev3):keyboards/mechlovin/infinity87/rev3/standard/halconf.h
+========
+#define HAL_USE_SPI TRUE
+
+#include_next <halconf.h>
+
+>>>>>>>> 5e47a8c552 (add infintiy87 rev3):keyboards/mechlovin/infinity87/rev3/standard/halconf.h
