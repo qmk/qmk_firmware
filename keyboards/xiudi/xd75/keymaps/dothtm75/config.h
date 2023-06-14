@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:keyboards/xiudi/xd75/keymaps/dothtm75/config.h
 /* Copyright 2017 Mike Cramer
+========
+/* Copyright 2023 Mechlovin' Stuido
+>>>>>>>> b6494587fa (add infintiy87 rev3):keyboards/mechlovin/infinity87/rev3/standard/halconf.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +20,13 @@
 
 #pragma once
 
+<<<<<<<< HEAD:keyboards/xiudi/xd75/keymaps/dothtm75/config.h
 #define HOLD_ON_OTHER_KEY_PRESS
 
 #define MIDI_ADVANCED
+========
+#define HAL_USE_SPI TRUE
+
+#include_next <halconf.h>
+
+>>>>>>>> b6494587fa (add infintiy87 rev3):keyboards/mechlovin/infinity87/rev3/standard/halconf.h
