@@ -8,6 +8,7 @@
         "device_version": "0.0.1"
     },
     "rgblight": {
+        "led_map": [8, 9, 0, 1, 2, 6, 7, 3, 4, 5],
         "split_count": [5, 5]
     },
     "ws2812": {
