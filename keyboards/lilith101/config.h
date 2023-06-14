@@ -32,7 +32,7 @@
 #define SK9816
 #if defined(SK9816)
     // Current gain settings; Can be used for gamma correction and/or limit total power draw
-#   define SK9816_CG_1 0b11111111 // Set Current Gain for Red (R) and Green (G) channels, as defined (Rs3|Rs2|Rs1|Rs0|Gs3|Gs2|Gs1|Gs0)
+#   define SK9816_CG_1 0b11111111 // Set Current Gain for Red (R) and Green (G) channels, as defined (Gs3|Gs2|Gs1|Gs0|Rs3|Rs2|Rs1|Rs0)
 #   define SK9816_CG_2 0b11111111 // Set Current Gain for Blue (R) channel and padding bits (P), as defined (Bs3|Bs2|Bs1|Bs0|Ps3|Ps2|Ps1|Ps0)
 #endif
 
@@ -40,7 +40,7 @@
 
 #define RGB_MATRIX_LED_COUNT 101 // The total number of ARGB LEDs connected
 
-#define FORCE_NKRO //For test as NKRO should be enabled by default
+//#define FORCE_NKRO //For test as NKRO should be enabled by default
 
 // Configure I2C for the oled screen
 #define I2C_DRIVER I2CD2 //On K20x I2C1 = I2CD2, https://github.com/qmk/ChibiOS-Contrib/blob/qmk-master/os/hal/ports/KINETIS/LLD/I2Cv1/hal_i2c_lld.c#L41-L50

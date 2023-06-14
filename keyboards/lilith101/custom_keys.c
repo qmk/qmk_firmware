@@ -30,7 +30,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case CUS_VAL:
             encoder_mode = 4;
-            break;
+            break;      
         default:
             encoder_mode = 0;
         }
@@ -79,13 +79,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
           rgb_matrix_decrease_val();
         }
         break;        
+      case 0: 
+        if (clockwise) {
+          tap_code(KC_VOLU);
+        } else {
+          tap_code(KC_VOLD);
+        }
+        break;                
     }
   }
     else {
       if (clockwise) {
-        tap_code(KC_DOWN);
-      } else {
         tap_code(KC_UP);
+      } else {
+        tap_code(KC_DOWN);
       }
     }
   }
@@ -103,7 +110,7 @@ bool oled_task_user(void) {
 #endif
 */
 
-// OLED snippet that shows HSV+SPD values
+// OLED snippet that shows HSV+SPD values and NKRO status
 #ifdef OLED_ENABLE
 bool oled_task_user(void) {
 uint8_t    HUE_value = rgb_matrix_get_hue();
@@ -144,6 +151,17 @@ oled_write_P(PSTR("VAL:"), false);
 
 oled_set_cursor(18,1);
 oled_write(buf_val, false);
+
+oled_set_cursor(0,2);
+oled_write_P(PSTR("NKRO:"), false);
+
+oled_set_cursor(6,2);
+if (keymap_config.nkro) {
+oled_write_P(PSTR("ON "), false);
+}
+else { 
+oled_write_P(PSTR("OFF"), false);
+}
 
     return false;
 }

@@ -105,12 +105,10 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
 #endif
     }
 
-
 #ifdef SK9816
         sendByte(SK9816_CG_1);
         sendByte(SK9816_CG_2);
 #endif
-
 
     wait_ns(WS2812_RES);
 

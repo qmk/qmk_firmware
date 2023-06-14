@@ -21,7 +21,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "C5", "pin_b": "B18", "resolution": 4 } /* pin_a on 1st Prototype is on C5, 2nd Prototype on A4 */
+            { "pin_a": "B18", "pin_b": "A4", "resolution": 4 } /* pin_b on 1st Prototype is on C5, 2nd Prototype on A4 */
         ]
     },
     "processor": "MK20DX256",
