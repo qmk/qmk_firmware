@@ -78,21 +78,23 @@ jobs:
       if: always()
       shell: 'bash {0}'
       run: |
-        git reset --hard ${{ github.head_ref }}
+        git reset --hard
         git clean -xfd
 
         # Get the keyboard list and count for the target branch
         git checkout -f ${{ github.base_ref }}
+        git pull --ff-only
         QMK_KEYBOARDS_BASE=$(qmk list-keyboards)
         QMK_KEYBOARDS_BASE_COUNT=$(qmk list-keyboards | wc -l)
 
         # Get the keyboard list and count for the PR
         git checkout -f ${{ github.head_ref }}
+        git merge --no-commit --squash ${{ github.base_ref }}
         QMK_KEYBOARDS_PR=$(qmk list-keyboards)
         QMK_KEYBOARDS_PR_COUNT=$(qmk list-keyboards | wc -l)
 
         echo "::group::Keyboards changes in this PR"
-        diff -d -U 0 <(echo $left_side) <(echo $right_side) | grep -vE '^(---|\+\+\+|@@)' | sed -e 's@^-@Removed: @g' -e 's@^+@  Added: @g'
+        diff -d -U 0 <(echo "$QMK_KEYBOARDS_BASE") <(echo "$QMK_KEYBOARDS_PR") | grep -vE '^(---|\+\+\+|@@)' | sed -e 's@^-@Removed: @g' -e 's@^+@  Added: @g'
         echo "::endgroup::"
 
         if [[ $QMK_KEYBOARDS_PR_COUNT -gt $(($QMK_KEYBOARDS_BASE_COUNT + 1)) ]]; then
