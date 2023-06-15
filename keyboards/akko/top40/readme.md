@@ -8,11 +8,11 @@ A customizable 40%  keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make acr/top40:default
+    make akko/top40:default
 
 Flashing example for this keyboard:
 
-    make acr/top40:default:flash
+    make akko/top40:default:flash
     
 **Reset Key**: Hold down the key located at *K01*, which programmed as *Esc* while plugging in the keyboard.
 
