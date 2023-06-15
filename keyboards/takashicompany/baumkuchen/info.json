@@ -41,6 +41,8 @@
             "twinkle": true
         },
         "led_count": 6,
+    },
+    "ws2812": {
         "pin": "D3"
     },
     "url": "",
