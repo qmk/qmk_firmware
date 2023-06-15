@@ -456,7 +456,8 @@ BOOTLOADER = sn32-dfu
 
 Compatible flashers:
 
-* [SonixFlasher](https://github.com/SonixQMK/sonix-flasher/releases) (recommended GUI)
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
+* [Sonix-Flasher](https://github.com/SonixQMK/sonix-flasher/releases) (advanced GUI  with MCU specific functionalities)
 * [SonixFlasherC](https://github.com/SonixQMK/SonixFlasherC/releases) (recommended command line)
   ```
   sonixflasher --vidpid 0c45:7040 -f <filename>
