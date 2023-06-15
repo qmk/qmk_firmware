@@ -24,7 +24,5 @@
 // the sensitivity between 100 and 12000
 #define PMW33XX_CPI 1200
 #define POINTING_DEVICE_INVERT_Y
-#define SCROLL_DIVIDER 12
-
 // Decrease firmware size
 #define NO_ACTION_ONESHOT
