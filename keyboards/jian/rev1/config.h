@@ -87,7 +87,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_SPLIT
 
 #ifndef IOS_DEVICE_ENABLE
 #if RGBLED_NUM <= 6

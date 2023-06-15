@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #if !defined(RGBLED_NUM)
 #    define RGBLED_NUM 30
-#    define RGBLIGHT_SPLIT
 #    define RGBLIGHT_LAYERS
 #endif
 #define RGBLIGHT_EFFECT_BREATHING

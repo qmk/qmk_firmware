@@ -20,6 +20,7 @@
         "pin": "D3"
     },
     "rgblight": {
+        "split": true,
         "max_brightness": 120
     },
     "split": {
