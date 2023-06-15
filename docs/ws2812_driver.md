@@ -4,7 +4,7 @@ This driver powers the [RGB Lighting](feature_rgblight.md) and [RGB Matrix](feat
 Currently QMK supports the following addressable LEDs (however, the white LED in RGBW variants is not supported):
 
     WS2811, WS2812, WS2812B, WS2812C, etc.
-    SK6812, SK6812MINI, SK6805
+    SK6812, SK6812MINI, SK6805, SK9816
 
 These LEDs are called "addressable" because instead of using a wire per color, each LED contains a small microchip that understands a special protocol sent over a single wire. The chip passes on the remaining data to the next LED, allowing them to be chained together. In this way, you can easily control the color of the individual LEDs.
 
@@ -31,14 +31,14 @@ The default setting is 280 µs, which should work for most cases, but this can b
 
 #### Byte Order
 
-Some variants of the WS2812 may have their color components in a different physical or logical order. For example, the WS2812B-2020 has physically swapped red and green LEDs, which causes the wrong color to be displayed, because the default order of the bytes sent over the wire is defined as GRB.
+Some variants of the WS2812 may have their color components in a different physical or logical order. For example, the WS2812B-2020 has physically swapped red and green LEDs, which causes the wrong color to be displayed, because the default order of the bytes sent over the wire is defined as GRB. Similarly, SK9816 expects RGB order but it's wired in BGR order.
 In this case, you can change the byte order by defining `WS2812_BYTE_ORDER` as one of the following values:
 
 | Byte order                        | Known devices                 |
 | --------------------------------- | ----------------------------- |
 | `WS2812_BYTE_ORDER_GRB` (default) | Most WS2812's, SK6812, SK6805 |
 | `WS2812_BYTE_ORDER_RGB`           | WS2812B-2020                  |
-| `WS2812_BYTE_ORDER_BGR`           | TM1812                        |
+| `WS2812_BYTE_ORDER_BGR`           | TM1812, SK9816                |
 
 
 ### Bitbang
@@ -62,6 +62,36 @@ You can tune these parameters through the definition of the following macros:
 | `WS2812_T0L`    | `WS2812_TIMING - WS2812_T0H` |                    | :heavy_check_mark: |
 | `WS2812_T1H`    | `900`                        | :heavy_check_mark: | :heavy_check_mark: |
 | `WS2812_T1L`    | `WS2812_TIMING - WS2812_T1H` |                    | :heavy_check_mark: |
+
+#### SK6805
+
+SK6805 uses same format and similar timings as WS2812. If you are having issues like flickering you can use the correct timings as specified in the datasheet by adding this line to your `config.h`:
+
+```
+#define SK6805
+```
+
+#### SK9816
+
+To enable SK9816 support add the following lines to your `config.h`:
+
+```
+#define SK9816
+#if defined(SK9816)
+    // Current gain settings; Can be used for gamma correction and/or limit total power draw
+#   define SK9816_CG_1 0b11111111 // Set Current Gain for Red (R) and Green (G) channels, as defined (Gs3|Gs2|Gs1|Gs0|Rs3|Rs2|Rs1|Rs0)
+#   define SK9816_CG_2 0b11111111 // Set Current Gain for Blue (R) channel and padding bits (P), as defined (Bs3|Bs2|Bs1|Bs0|Ps3|Ps2|Ps1|Ps0)
+#endif
+```
+
+Current gain setting is REQUIRED and has been pre-defined to maximum in the code above.
+If you wish to adjust it, set the appropriate bits using the reference table provided in the datasheet, page 9:
+
+http://www.normandled.com/upload/201906/SK9816MICRO(SK9816-2427)%20LED%20Datasheet.pdf
+
+Take care of the bit placement; Green and Red channels are flipped compared to the bit order in the datasheet.
+
+
 
 ### I2C
 Targeting boards where WS2812 support is offloaded to a 2nd MCU. Currently the driver is limited to AVR given the known consumers are ps2avrGB/BMC. To configure it, add this to your rules.mk:

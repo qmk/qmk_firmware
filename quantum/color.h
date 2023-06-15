@@ -93,6 +93,10 @@
 #define WS2812_BYTE_ORDER_GRB 1
 #define WS2812_BYTE_ORDER_BGR 2
 
+#if defined(SK9816)
+#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_BGR // BGR as bits are send reversed and HUE value would be wrong if specified as RGB as expected in the datasheet
+#endif
+
 #ifndef WS2812_BYTE_ORDER
 #    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
 #endif
