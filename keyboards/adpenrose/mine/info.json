@@ -12,6 +12,9 @@
         "bootmagic": true,
         "extrakey": true
     },
+    "build": {
+        "lto": true
+    },
     "encoder": {
         "rotary": [{ "pin_a": "C4", "pin_b": "C3" }]
     },
