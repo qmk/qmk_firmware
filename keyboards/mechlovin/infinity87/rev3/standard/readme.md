@@ -4,7 +4,7 @@
 
 A replacement PCB for TKL keyboard. A87 form factor,south-facing stabilisers.  
 
-* Keyboard Maintainer: [Team Mechlovin'](https://github.com/mechlovin)
+* Keyboard Maintainer: [Mechlovin' Studio](https://mechlovin.studio/)
 * Hardware Supported: Infinity87 rev.3.
 
 Make example for this keyboard (after setting up your build environment):

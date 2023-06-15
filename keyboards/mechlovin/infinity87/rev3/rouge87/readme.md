@@ -4,7 +4,7 @@
 
 A replacement PCB OTD 356.2, 360c, 456gt, The Cheat
 
-* Keyboard Maintainer: [Team Mechlovin'](https://github.com/mechlovin)
+* Keyboard Maintainer: [Mechlovin' Studio](https://mechlovin.studio/)
 * Hardware Supported: OTD 360C, The Cheat,...
 * Hardware Availability: [Reddit GB](https://www.reddit.com/r/mechmarket/comments/ll6e5x/gb_mechlovin_rouge_otd_compatible_pcb_plates/)
 
