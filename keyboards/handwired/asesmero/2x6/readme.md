@@ -10,10 +10,10 @@ A simple 2x6 Keyboard made for use it as a streamdeck.
 * Hardware Availability: 3d Printed & handwired.
 
 Make example for this keyboard (after setting up your build environment):
-	
+    
     Promicro:
     make handwired/asesmero/2x6/promicro:default
-	
+    
     RP2040:
     make handwired/asesmero/2x6/rp2040:default
 
@@ -21,7 +21,7 @@ Flashing example for this keyboard:
 
     Promicro:
     make handwired/asesmero/2x6/promicro:flash
-	
+    
     RP2040:
     make handwired/asesmero/2x6/rp2040:flash
 

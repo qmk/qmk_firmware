@@ -26,6 +26,6 @@ enum layer_names {
     [LAYER_0] = LAYOUT_ortho_2x6(
         MEH(KC_A), MEH(KC_B), MEH(KC_C), MEH(KC_D), MEH(KC_E), MEH(KC_F), 
         MEH(KC_G), MEH(KC_H), MEH(KC_I), MEH(KC_J), MEH(KC_K), MEH(KC_L)
-		
-        )	
+   
+        )
 };
