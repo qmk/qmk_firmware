@@ -13,10 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "ec_switch_matrix.h"
 #include "action.h"
 #include "via.h"
+
+#ifdef VIA_ENABLE
 
 void apc_init_thresholds(void);
 void apc_set_threshold(bool is_for_actuation);
@@ -154,3 +155,4 @@ void apc_set_threshold(bool is_for_actuation) {
     // Update the ecsm_config
     ecsm_update(&ecsm_config);
 }
+#endif // VIA_ENABLE
