@@ -15,6 +15,7 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
+        "encoder_map": true,
         "pointing_device": true
     },
     "matrix_pins": {
