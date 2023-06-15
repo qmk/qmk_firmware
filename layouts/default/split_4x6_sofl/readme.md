@@ -2,4 +2,4 @@
 
     LAYOUT_split_4x6_sofl
 
-Examples include the Sofle and Grandiceps.
+Examples include the Sofle, Grandiceps, and Kimiko.
