@@ -28,10 +28,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case TR_R:
     case TR_I:
       return TAPPING_TERM + 30;
-    //Pinky layers
-    //case FUN_Z:
-    //case AD_SLSH:
-    //  return TAPPING_TERM + 50;
     case TR_MOUC:
       return TAPPING_TERM - 30;
     default:
