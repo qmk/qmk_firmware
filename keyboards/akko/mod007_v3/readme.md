@@ -8,11 +8,11 @@ A customizable 75% encoder keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make monsgeek/mod007_v3:default
+    make akko/mod007_v3:default
 
 Flashing example for this keyboard:
 
-    make monsgeek/mod007_v3:default:flash
+    make akko/mod007_v3:default:flash
     
 **Reset Key**: Hold down the key located at *K01*, which programmed as *Esc* while plugging in the keyboard.
 
