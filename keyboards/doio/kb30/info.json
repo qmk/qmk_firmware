@@ -2,7 +2,7 @@
     "keyboard_name": "KB30-01",
     "manufacturer": "DOIO",
     "url": "",
-    "maintainer": "Alice",
+    "maintainer": "DOIO2022",
     "usb": {
         "vid": "0xD010",
         "pid": "0x3001",
