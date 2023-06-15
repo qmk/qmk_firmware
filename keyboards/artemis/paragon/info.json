@@ -11,7 +11,9 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true,
+        "encoder": true
+    },
+    "build": {
         "lto": true
     },
     "processor": "atmega32u4",
