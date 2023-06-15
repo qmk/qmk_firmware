@@ -7,14 +7,12 @@
       "pid": "0x534B",
       "device_version": "0.0.1"
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "B0"
     },
     "rgblight": {
-        "max_brightness": 150
+        "max_brightness": 150,
+        "sleep": true
     },
     "bootloader": "atmel-dfu",
     "features": {

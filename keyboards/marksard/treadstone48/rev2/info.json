@@ -8,14 +8,12 @@
         "pid": "0xDFA3",
         "device_version": "0.2.0"
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "D3"
     },
     "rgblight": {
-        "max_brightness": 220
+        "max_brightness": 220,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5"],

@@ -16,14 +16,12 @@
   "backlight": {
     "pin": "B7"
   },
-  "rgblight": {
-    "sleep": true
-  },
   "ws2812": {
     "pin": "E6"
   },
   "rgblight": {
-    "max_brightness": 130
+    "max_brightness": 130,
+    "sleep": true
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",

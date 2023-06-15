@@ -8,14 +8,12 @@
     "pid": "0x3046",
     "device_version": "1.0.0"
   },
-  "rgblight": {
-    "sleep": true
-  },
   "ws2812": {
     "pin": "D3"
   },
   "rgblight": {
     "max_brightness": 150,
+    "sleep": true,
     "split_count": [18, 18]
   },
   "matrix_pins": {

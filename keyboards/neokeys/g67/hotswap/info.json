@@ -13,14 +13,12 @@
         "rows": ["B0", "B1", "B2", "B3", "F7"]
     },
     "diode_direction": "COL2ROW",
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "F0"
     },
     "rgblight": {
-        "max_brightness": 150
+        "max_brightness": 150,
+        "sleep": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

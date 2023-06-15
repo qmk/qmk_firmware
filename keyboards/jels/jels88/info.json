@@ -16,14 +16,12 @@
     "bootmagic": {
         "matrix": [1, 0]
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "B6"
     },
     "rgblight": {
-        "max_brightness": 225
+        "max_brightness": 225,
+        "sleep": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

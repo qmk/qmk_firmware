@@ -18,14 +18,12 @@
     "scroll_lock": "B2",
     "on_state": 0
   },
-  "rgblight": {
-    "sleep": true
-  },
   "ws2812": {
     "pin": "E2"
   },
   "rgblight": {
-    "max_brightness": 180
+    "max_brightness": 180,
+    "sleep": true
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",

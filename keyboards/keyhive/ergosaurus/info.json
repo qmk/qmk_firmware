@@ -7,14 +7,12 @@
         "pid": "0xE590",
         "device_version": "0.0.1"
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "B6"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["D7", "C6", "D0", "D1", "F7", "B1", "B3", "B2"],

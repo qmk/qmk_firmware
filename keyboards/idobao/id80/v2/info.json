@@ -15,14 +15,12 @@
         "pin": "B6",
         "breathing": true
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "E2"
     },
     "rgblight": {
-        "max_brightness": 180
+        "max_brightness": 180,
+        "sleep": true
     },
     "indicators": {
         "caps_lock": "C7",

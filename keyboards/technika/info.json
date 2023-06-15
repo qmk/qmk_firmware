@@ -18,14 +18,12 @@
         "num_lock": "A15",
         "scroll_lock": "B4"
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "B15"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "sleep": true
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

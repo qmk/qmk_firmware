@@ -22,14 +22,12 @@
         "caps_lock": "F0",
         "on_state": 0
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "F1"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "sleep": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

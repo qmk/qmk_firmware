@@ -12,7 +12,8 @@
         "driver": "WS2812"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["A3", "A2", "A1", "A0", "F6", "F5", "F0", "E0", "E1", "C0", "C1", "C2", "C3"],
@@ -24,9 +25,6 @@
             {"pin_a": "B0", "pin_b": "E3"},
             {"pin_a": "C5", "pin_b": "C4"}
         ]
-    },
-    "rgblight": {
-        "sleep": true
     },
     "ws2812": {
         "pin": "E7"

@@ -17,14 +17,12 @@
         "pin": "B7",
         "levels": 5
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "B0"
     },
     "rgblight": {
-        "max_brightness": 220
+        "max_brightness": 220,
+        "sleep": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

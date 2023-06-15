@@ -8,14 +8,12 @@
         "pid": "0xDA19",
         "device_version": "0.0.1"
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "D0"
     },
     "rgblight": {
-        "max_brightness": 128
+        "max_brightness": 128,
+        "sleep": true
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

@@ -19,14 +19,12 @@
     "split": {
         "soft_serial_pin": "D2"
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "D3"
     },
     "rgblight": {
         "max_brightness": 150,
+        "sleep": true,
         "split_count": [20, 20]
     },
     "processor": "atmega32u4",

@@ -18,14 +18,12 @@
         "num_lock": "B9",
         "on_state": 0
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "B15"
     },
     "rgblight": {
-        "max_brightness": 180
+        "max_brightness": 180,
+        "sleep": true
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

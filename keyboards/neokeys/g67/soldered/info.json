@@ -18,14 +18,12 @@
         "levels": 10,
         "breathing": true
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "F0"
     },
     "rgblight": {
-        "max_brightness": 150
+        "max_brightness": 150,
+        "sleep": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

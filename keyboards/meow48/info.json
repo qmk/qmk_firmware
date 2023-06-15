@@ -8,14 +8,12 @@
         "pid": "0xF048",
         "vid": "0xF048"
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "D3"
     },
     "rgblight": {
-        "max_brightness": 100
+        "max_brightness": 100,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],

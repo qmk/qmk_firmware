@@ -17,14 +17,12 @@
             {"pin_a": "B3", "pin_b": "B2"}
         ]
     },
-    "rgblight": {
-        "sleep": true
-    },
     "ws2812": {
         "pin": "E6"
     },
     "rgblight": {
         "max_brightness": 120,
+        "sleep": true,
         "split_count": [34, 34]
     },
     "split": {

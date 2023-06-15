@@ -12,7 +12,8 @@
         "driver": "WS2812"
     },
     "rgblight": {
-        "max_brightness": 150
+        "max_brightness": 150,
+        "sleep": true
     },
     "encoder": {
         "rotary": [
@@ -27,9 +28,6 @@
         "direct": [
             ["F4", "C7", "D4", "D5", "D1", "F5", "C6", "D6", "D3", "D2", "F6", "B6", "D7", "B4", "B5", "B2", "D0", "E6", null, null, null, null, null, null]
         ]
-    },
-    "rgblight": {
-        "sleep": true
     },
     "ws2812": {
         "pin": "F7"
