@@ -20,16 +20,25 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     //QWERTY Home Row Mods
     case TR_A:
-    case TR_QT:
     case TR_S:
     case TR_L:
+    case TR_QT:
     //COLEMAKdh Home Row Mods
-    case TR_O:
     case TR_R:
     case TR_I:
+    case TR_O:
       return TAPPING_TERM + 30;
+    //layer taps
+    case AD_SLSH:
+    case FUNC_Z:
+    case ADJUST:
+      return TAPPING_TERM + 50;
     case TR_MOUC:
       return TAPPING_TERM - 30;
+    case NAVGTIN:
+    case NUMBERS:
+    case GAMENUM:
+      return 0;
     default:
       //uprintf("tapping term: %d \n", TAPPING_TERM);
       return TAPPING_TERM;

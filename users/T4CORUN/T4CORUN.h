@@ -32,13 +32,16 @@ enum keycodes {
 
 #define ___x___ KC_NO
 
-//momentary layer
+//tap toggle layer
 #define NAVGTIN    TT(_NAVIGATION)
 #define NUMBERS    TT(_NUMBER)
 #define GAMENUM    TT(_GAMENUMBER)
-#define ADJUST     TG(_ADJUST)
-#define FUNCTIN    TG(_FUNCTION)
+#define ADJUST     TT(_ADJUST)
 
+
+//pinky layer taps
+#define AD_SLSH    LT(_ADJUST, KC_SLSH)
+#define FUNC_Z     LT(_FUNCTION, KC_SLSH)
 
 //Windows Shortcuts
 #define SC_COPY    LCTL(KC_C)
@@ -280,18 +283,18 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |   A  |   S  |   D  |   F  |   G  |    |   H  |   J  |   K  |   L  |   '  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |   Z  |   X  | MOUC |   V  |   B  |    |   N  |   M  |   ,  |   .  |   /  |
+*   | FUNZ |   X  | MOUC |   V  |   B  |    |   N  |   M  |   ,  |   .  | ADJ/ |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      |      |      |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #   define _________________QWERTY_L2_________________        TR_A,    TR_S,    TR_D,    TR_F,    KC_G
-#   define _________________QWERTY_L3_________________        KC_Z,    KC_X,    TR_MOUC, KC_V,    KC_B
+#   define _________________QWERTY_L3_________________        FUNC_Z,  KC_X,    TR_MOUC, KC_V,    KC_B
 
 #   define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #   define _________________QWERTY_R2_________________        KC_H,    TR_J,    TR_K,    TR_L,    TR_QT
-#   define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+#   define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  AD_SLSH
 
 
 /*
@@ -302,18 +305,18 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |   A  |   R  |   S  |   T  |   G  |    |   M  |   N  |   E  |   I  |   O  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |   Z  |   X  | MOUC |   D  |   V  |    |   K  |   H  |   ,  |   .  |   /  |
+*   | FUNZ |   X  | MOUC |   D  |   V  |    |   K  |   H  |   ,  |   .  | ADJ/ |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      |      |      |    |      |      |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ________________COLEMAKDH_L1_______________        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
 #   define ________________COLEMAKDH_L2_______________        TR_A,    TR_R,    TR_S,    TR_T,    KC_G
-#   define ________________COLEMAKDH_L3_______________        KC_Z,    KC_X,    TR_MOUC, KC_D,    KC_V
+#   define ________________COLEMAKDH_L3_______________        FUNC_Z,  KC_X,    TR_MOUC, KC_D,    KC_V
 
 #   define ________________COLEMAKDH_R1_______________        KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
 #   define ________________COLEMAKDH_R2_______________        KC_M,    TR_N,    TR_E,    TR_I,    TR_O
-#   define ________________COLEMAKDH_R3_______________        KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH
+#   define ________________COLEMAKDH_R3_______________        KC_K,    KC_H,    KC_COMM, KC_DOT,  AD_SLSH
 
 /*
 * For 3x5 configuration
@@ -323,7 +326,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Num  |   A  |   S  |   D  |   F  |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |  Z   |   X  |   C  |   V  |   B  |    |      |      |      |      |      |
+*   |  Z   |   X  |   C  |   V  |   B  |    |      |      |      |      | ADJ  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | Ctrl | Spc  | Shift|    |      | Nav  |      |
 *                 `------+------+------'    `------+------+------'
@@ -335,7 +338,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #   define _______________GAMING_BASE_R1______________        __________________NONE_5___________________
 #   define _______________GAMING_BASE_R2______________        __________________NONE_5___________________
-#   define _______________GAMING_BASE_R3______________        __________________NONE_5___________________
+#   define _______________GAMING_BASE_R3______________        ___x___, ___x___, ___x___, ___x___, ADJUST
 
 # if defined(KEYBOARD_bastardkb_charybdis_3x5) 
 #   define          ______GAMING_BASE_R4_____                 ___x___, NAVGTIN
@@ -402,7 +405,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |      | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |      |      |      | FUNC | ADJ  |
+*   | Undo | Cut  | Copy | Pste | Redo |    |      |      |      |      |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | Tab  | Bpsc | Ent  |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
@@ -414,7 +417,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #   define ___________________NAV_R1__________________        KC_INS,  ___x___, KC_APP,  ___x___, TR_MOUS
 #   define ___________________NAV_R2__________________        KC_DEL,  _____________SCAG_MODS____________
-#   define ___________________NAV_R3__________________        ___x___, ___x___, ___x___, FUNCTIN, ADJUST  
+#   define ___________________NAV_R3__________________        __________________NONE_5___________________ 
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          __________NAV_R4_________                 KC_SPC,  _______
@@ -425,18 +428,18 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   | FUNC |      |      |      |      |    |ScrLck|  F7  |  F8  |  F9  | F10  |
+*   |      |      |      |      |      |    |ScrLck|  F7  |  F8  |  F9  | F10  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | GUI  | Alt  | Ctrl | Shft |PrnScr|    |CapLck|  F4  |  F5  |  F6  | F11  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      |      | Vol- | Vol+ | Mute |    |PauBrk|  F1  |  F2  |  F3  | F12  |
+*   |LyrTap|      | Vol- | Vol+ | Mute |    |PauBrk|  F1  |  F2  |  F3  | F12  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | MB1  |DMRec1|DMPly1|    |DMPly2|DMRec2|      |
 *                 `------+------+------'    `------+------+------'
 */
-#   define _________________FUNCPAD_L1________________        FUNCTIN, ___x___, ___x___, ___x___, ___x___
+#   define _________________FUNCPAD_L1________________        __________________NONE_5___________________
 #   define _________________FUNCPAD_L2________________        _____________GACS_MODS____________, KC_PSCR
-#   define _________________FUNCPAD_L3________________        ___x___, ___x___, KC_VOLD, KC_VOLU, KC_MUTE
+#   define _________________FUNCPAD_L3________________        _______, ___x___, KC_VOLD, KC_VOLU, KC_MUTE
 #   define          ________FUNCPAD_L4_______                 TR_BTN1, TR_DMR1, TR_DMP1
 
 #   define _________________FUNCPAD_R1________________        KC_SCRL, KC_F7,   KC_F8,   KC_F9,   KC_F10
@@ -487,7 +490,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Hue+ | Sat+ | Vib+ | Spd+ |      |    |      | Shft |      |ClkUp |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |RGBTog|RGBMod|      |      |      |    |AudTog|MusTog|ClkTog|ClkDn | ADJ  |
+*   |RGBTog|RGBMod|      |      |      |    |AudTog|MusTog|ClkTog|ClkDn |LyrTap|
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      | Boot | Rbt  |    | Rbt  | Boot |      |
 *                 `------+------+------'    `------+------+------'
@@ -500,7 +503,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 #   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, TR_GAME, ___x___, TR_OSTG
 #   define _________________ADJUST_R2_________________        ___x___, KC_LSFT, ___x___, TR_CKUP, ___x___
-#   define _________________ADJUST_R3_________________        TR_ATOG, TR_MTOG, TR_CTOG, TR_CKDN, ADJUST
+#   define _________________ADJUST_R3_________________        TR_ATOG, TR_MTOG, TR_CTOG, TR_CKDN, _______
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________ADJUST_R4________                 QK_RBT,  QK_BOOT
