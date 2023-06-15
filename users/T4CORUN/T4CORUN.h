@@ -41,7 +41,7 @@ enum keycodes {
 
 //pinky layer taps
 #define AD_SLSH    LT(_ADJUST, KC_SLSH)
-#define FUNC_Z     LT(_FUNCTION, KC_SLSH)
+#define FUNC_Z     LT(_FUNCTION, KC_Z)
 
 //Windows Shortcuts
 #define SC_COPY    LCTL(KC_C)
