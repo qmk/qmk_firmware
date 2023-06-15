@@ -2,7 +2,7 @@
 
 QMK presents itself to the host as a regular HID keyboard device, and as such requires no special drivers. However, in order to flash your keyboard on Windows, the bootloader device that appears when you reset the board often *does*.
 
-There are two notable exceptions: the Caterina bootloader, usually seen on Pro Micros, and the HalfKay bootloader shipped with PJRC Teensys, appear as a serial port and a generic HID device respectively, and so do not require a driver.
+There are three notable exceptions: the Caterina bootloader, usually seen on Pro Micros, the HalfKay bootloader shipped with PJRC Teensys, and the SN32 DFU bootloader shipped with Sonix SN32F2xx, appear as a serial port and a generic HID device respectively, and so do not require a driver.
 
 We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have set up the development environment with MSYS2, the `qmk_install.sh` script will have already installed the drivers for you.
 
@@ -96,4 +96,7 @@ The device name here is the name that appears in Zadig, and may not be what the 
 |`gd32v-dfu`   |GD32V BOOTLOADER              |`28E9:0189`   |WinUSB |
 |`kiibohd`     |Kiibohd DFU Bootloader        |`1C11:B007`   |WinUSB |
 |`stm32duino`  |Maple 003                     |`1EAF:0003`   |WinUSB |
+|`sn32-dfu`    |*none*                        |`0c45:7010`   |HidUsb |
+|`sn32-dfu`    |*none*                        |`0c45:7040`   |HidUsb |
+|`sn32-dfu`    |*none*                        |`0c45:7900`   |HidUsb |
 |`qmk-hid`     |(keyboard name) Bootloader    |`03EB:2067`   |HidUsb |
