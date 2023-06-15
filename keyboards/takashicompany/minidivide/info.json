@@ -27,6 +27,9 @@
         "pid": "0x0037",
         "vid": "0x7463"
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
