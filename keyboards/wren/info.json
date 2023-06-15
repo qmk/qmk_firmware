@@ -26,8 +26,8 @@
             }
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
+    "pin_compatible": "elite_c", 
     "layouts": {
         "LAYOUT": {
             "layout": [

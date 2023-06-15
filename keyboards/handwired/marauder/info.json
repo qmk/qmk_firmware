@@ -16,8 +16,8 @@
         "rows": ["D2", "D4", "C6", "D7", "E6", "B4", "B5", "B7", "D5", "C7", "F1", "F0"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
+    "pin_compatible": "elite_c",
     "layouts": {
         "LAYOUT": {
             "layout": [

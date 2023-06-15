@@ -18,8 +18,8 @@
             {"pin_a": "D0", "pin_b": "D1"}
         ]
     },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
+    "pin_compatible": "elite_c",
     "layouts": {
         "LAYOUT": {
             "layout": [

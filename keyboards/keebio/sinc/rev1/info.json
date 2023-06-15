@@ -4,8 +4,8 @@
         "pid": "0x1367",
         "device_version": "1.1.0"
     },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
+    "pin_compatible": "elite_c",
     "diode_direction": "COL2ROW",
     "features": {
         "rgblight": true,
