@@ -1,4 +1,4 @@
-/*
+a/*
 Copyright 2012-2018 Jun Wako, Jack Humbert, Yiancar
 
 This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 const pin_t row_pins[ROWS_PER_HAND] = MATRIX_ROW_PINS;
 static const uint8_t col_pushed_states[MATRIX_COLS] = MATRIX_COL_PUSHED_STATES;
-
 
 static inline void setPinOutput_writeLow(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
@@ -108,30 +107,6 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Update the matrix
     current_matrix[current_row] = current_row_value;
 }
-
-// void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
-//  //   print("matrix_read_cols_on_row\n");
-//     // Start with a clear matrix row
-//     matrix_row_t current_row_value = 0;
-
-//     select_row(current_row);
-//     wait_us(80);
-
-//     // For each col...
-//     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
-//     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
-//         uint8_t pin_state = (readPin(col_pins[col_index]) == col_pushed_states[col_index]) ? 1 : 0;  // read pin and match pushed_states define
-//         // Populate the matrix row with the state of the col pin
-//         (current_row_value |= pin_state) ? 0 : row_shifter;
-//     }
-
-//     // Unselect row
-//     unselect_row(current_row);
-//     wait_us(80);
-
-//     // Update the matrix
-//     current_matrix[current_row] = current_row_value;
-// }
 
 void matrix_init_custom(void) {
     print("matrix_init_custom\n");

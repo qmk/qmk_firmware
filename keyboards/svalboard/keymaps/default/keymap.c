@@ -21,43 +21,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 
 void keyboard_post_init_user(void) {
-  // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
+  // Customise these values if you need to debug the matrix
+  //debug_enable=true;
+  //debug_matrix=true;
   //debug_keyboard=true;
   //debug_mouse=true;
 }
 
 enum my_keycodes {
-
   KC_NORMAL_HOLD = SAFE_RANGE,
   KC_FUNC_HOLD
-  //
-  //KC_GAME_HOLD,
-  //KC_GAZE,
 };
 
 enum layer {
-
     NORMAL,
-    COLEMAK_ASRT,
     NORMAL_HOLD,
     FUNC,
     FUNC_HOLD,
     NAS,
-    //COLEMAK,
-
-//    COLEMAK_HOLD,
-    // GAME,
-    // GAME_HOLD,
-    // GAME_MOD_1,
-    // GAME_MOD_2,
     NUM_LAYERS
 };
-
-#define KC_RIGHT_CURLY KC_RIGHT_CURLY_BRACE
-#define KC_LEFT_CURLY KC_LEFT_CURLY_BRACE
-
 
 /* Declared weak so that it can easily be overridden. */
 __attribute__((weak)) const uint16_t PROGMEM keymaps[NUM_LAYERS][MATRIX_ROWS][MATRIX_COLS] = {
@@ -76,40 +59,6 @@ __attribute__((weak)) const uint16_t PROGMEM keymaps[NUM_LAYERS][MATRIX_ROWS][MA
         /*Down                  Inner           Upper           Outer Upper     Outer Lower  Pushthrough*/  
         /*RT*/ MO(NAS),         KC_SPACE,       TO(FUNC),       KC_BSPC,        KC_LALT,     TG(NAS),
         /*LT*/ KC_LSFT,         KC_ENTER,       KC_NORMAL_HOLD, KC_TAB,         KC_LCTL,     KC_CAPS
-    ),
-
-    [COLEMAK_ASRT] = LAYOUT(
-             /*Center           North           East            South           West*/
-        /*R1*/ KC_N,            KC_L,           KC_QUOTE,       KC_M,           KC_H,
-        /*R2*/ KC_E,            KC_U,           KC_COLON,       KC_COMMA,       KC_K,
-        /*R3*/ KC_I,            KC_Y,           KC_LGUI,        KC_DOT,         KC_J,
-        /*R4*/ KC_O,            KC_SEMICOLON,   KC_BSLS,        KC_SLASH,       KC_RBRC,
-
-        /*L1*/ KC_T,            KC_P,           KC_G,           KC_V,           KC_DOUBLE_QUOTE,
-        /*L2*/ KC_R,            KC_F,           KC_D,           KC_C,           KC_GRAVE,
-        /*L3*/ KC_S,            KC_W,           KC_B,           KC_X,           KC_ESC,
-        /*L4*/ KC_A,            KC_Q,           KC_LBRC,        KC_Z,           KC_DEL,
-
-        /*Down                  Inner           Upper           Outer Upper     Outer Lower  Pushthrough*/  
-        /*RT*/ MO(NAS),         KC_SPACE,       TO(FUNC),       KC_BSPC,        KC_LALT, _______,
-        /*LT*/ KC_LSFT,         KC_ENTER,       KC_NORMAL_HOLD, KC_TAB,         KC_LCTL, _______
-    ),
-
-    [COLEMAK_ASRT] = LAYOUT(
-             /*Center           North           East            South           West*/
-        /*R1*/ KC_N,            KC_L,           KC_QUOTE,       KC_M,           KC_H,
-        /*R2*/ KC_E,            KC_U,           KC_COLON,       KC_COMMA,       KC_K,
-        /*R3*/ KC_I,            KC_Y,           KC_LGUI,         KC_DOT,        KC_J,
-        /*R4*/ KC_O,            KC_SEMICOLON,        KC_BSLS,      KC_SLASH,       KC_RBRC,
-
-        /*L1*/ KC_T,            KC_P,           KC_G,           KC_V,           KC_DOUBLE_QUOTE,
-        /*L2*/ KC_R,            KC_F,           KC_D,           KC_C,           KC_GRAVE,
-        /*L3*/ KC_S,            KC_W,           KC_B,           KC_X,           KC_ESC,
-        /*L4*/ KC_A,            KC_Q,           KC_LBRC,        KC_Z,           KC_DEL,
-
-        /*Down                  Inner           Upper           Outer Upper     Outer Lower  Pushthrough*/  
-        /*RT*/ MO(NAS),         KC_SPACE,       TO(FUNC),       KC_BSPC,      KC_LALT, _______,
-        /*LT*/ KC_LSFT,       KC_ENTER,       KC_NORMAL_HOLD, KC_TAB,         KC_LCTL, _______
     ),
 
     [NORMAL_HOLD] = LAYOUT(
@@ -195,7 +144,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
           layer_clear();
           layer_on(NORMAL_HOLD);
-          //SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F19)))));
       } else {
           layer_off(NORMAL_HOLD);
       }
@@ -204,7 +152,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
           layer_clear();
           layer_on(FUNC_HOLD);
-          //SEND_STRING(SS_LCTL(SS_LGUI(SS_LSFT(SS_TAP(X_F19)))));
       } else {
           layer_off(FUNC_HOLD);
       }
