@@ -1,6 +1,6 @@
 {
     "keyboard_name": "SBL",
-    "maintainer": "zeix",
+    "maintainer": "itsme-zeix",
     "manufacturer": "dnworks",
     "processor": "RP2040",
     "bootloader": "rp2040",
