@@ -12,7 +12,8 @@
         "mousekey": true,
         "nkro": true,
         "encoder": true,
-        "oled": true
+        "oled": true,
+        "rgb_matrix": true
 
     },
     "matrix_pins": {
@@ -21,7 +22,7 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "B18", "pin_b": "A4", "resolution": 4 } /* pin_b on 1st Prototype is on C5, 2nd Prototype on A4 */
+            { "pin_a": "B18", "pin_b": "A4" } /* pin_b on 1st Prototype is on C5, 2nd Prototype on A4 */
         ]
     },
     "processor": "MK20DX256",
@@ -38,6 +39,7 @@
         "on_state": 1
     },
     "rgb_matrix": {
+        "driver": "WS2812",
         "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
                 {"matrix": [0, 1], "x": 12, "y": 0, "flags": 1},

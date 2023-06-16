@@ -28,6 +28,7 @@
 // Enable support for SK6805 leds
 //#define SK6805
 
+/* Ignore until PR #21252 is added
 // Enable support for SK9816 leds
 #define SK9816
 #if defined(SK9816)
@@ -35,6 +36,10 @@
 #    define SK9816_CG_1 0b11111111 // Set Current Gain for Red (R) and Green (G) channels, as defined (Gs3|Gs2|Gs1|Gs0|Rs3|Rs2|Rs1|Rs0)
 #    define SK9816_CG_2 0b11111111 // Set Current Gain for Blue (R) channel and padding bits (P), as defined (Bs3|Bs2|Bs1|Bs0|Ps3|Ps2|Ps1|Ps0)
 #endif
+*/
+#define NOP_FUDGE 0.5
+
+#define ENCODER_RESOLUTION 4 // Set number of pulses per detent
 
 #define OLED_TIMEOUT 5000 // To prevent oled screen burn-in
 

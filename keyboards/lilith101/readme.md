@@ -1,11 +1,11 @@
 # lilith101
 
-![lilith101](imgur.com image replace me!)
+![lilith101](https://i.imgur.com/REn2Kmp.jpg)
 
-*A short description of the keyboard/project*
+Custom full-size alike compact ANSI 101+1 key layout, running on Teensy 3.2 with integrated 4-port USB 2.0 hub, SK9816/SK6805 ARGB leds per key, 128x32 oled screen, rotary encoder, and hot-swappable Kailh Choc V1 switches.
 
 * Keyboard Maintainer: [Technorage Developments](https://github.com/St0RM53)
-* Hardware Supported: Prototype PCB, Custom full-size alike compact ANSI 101+1 key layout, Running Teensy 3.2 with integrated 4-port USB 2.0 hub, SK9816/SK6805 ARGB leds per key, 128x32 oled screen, rotary encoder, and hotswappable Kailh Choc V1 switches.
+* Hardware Supported: Teensy 3.2, Lilith101 Prototype PCB (v2.91) 
 * Hardware Availability: https://www.facebook.com/TechnoRageDevelopments/
 
 Make example for this keyboard (after setting up your build environment):
