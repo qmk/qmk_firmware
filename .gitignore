@@ -68,6 +68,7 @@ CMakeLists.txt
 .vscode/tasks.json
 .vscode/temp.sql
 tags
+/keyboards/svalboard/tester/keymap.c
 
 # Ignore image/font files
 *.bmp
@@ -109,3 +110,4 @@ compile_commands.json
 
 # VIA(L) json files that don't belong in QMK repo
 via*.json
+keyboards/svalboard/keymaps/tester/keymap.c
