@@ -1,4 +1,7 @@
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
-#OS_DETECTION_ENABLE = yes
 WPM_ENABLE = yes
+
+VPATH += keyboards/kiwikey/kawii9/rev2/lib
+SRC += \
+    oled.c

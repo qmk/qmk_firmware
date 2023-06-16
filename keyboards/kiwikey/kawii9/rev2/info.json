@@ -1,6 +1,6 @@
 {
     "manufacturer": "KiwiKey",
-    "keyboard_name": "Kawii9 v2",
+    "keyboard_name": "Kawii9 Rev.2",
     "maintainer": "KiwiKey",
     "url": "https://kiwikey.vn/mechkey/kawii9/",
     "bootloader": "atmel-dfu",
@@ -32,6 +32,9 @@
     "matrix_pins": {
         "cols": [ "F4", "F5", "F6", "D4", "B1" ],
         "rows": [ "B6", "B5", "B4", "D7", "B0" ]
+    },
+    "ws2812": {
+        "pin": "B7"
     },
     "rgb_matrix": {
         "driver": "WS2812",

@@ -1,6 +1,6 @@
 {
     "manufacturer": "KiwiKey",
-    "keyboard_name": "Kawii9 Rev1",
+    "keyboard_name": "Kawii9 Rev.1",
     "maintainer": "KiwiKey",
     "url": "https://kiwikey.vn/mechkey/kawii9/",
     "bootloader": "atmel-dfu",
@@ -29,9 +29,11 @@
         "cols": [ "F4", "F5", "F6" ],
         "rows": [ "B6", "B5", "B4" ]
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "rgblight": {
         "led_count": 4,
-        "pin": "D3",
         "max_brightness": 255,
         "brightness_steps": 8,
         "sleep": true,

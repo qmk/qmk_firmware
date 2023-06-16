@@ -36,7 +36,7 @@ static char ui_mode = 0;
 #define KEY_SIZE            4
 #define KEY_SPACING         3
 
-#define GRAPH_ZERO_X           20   // This is zero origin
+#define GRAPH_ZERO_X           20  // This is zero origin
 #define GRAPH_ZERO_Y           63  // of the graph
 #define GRAPH_WIDTH            105
 #define GRAPH_HEIGHT           28
@@ -234,14 +234,14 @@ bool oled_task_user(void) {
     if (timer_elapsed(key_timer) > ANIM_FRAME_DURATION) {
         anim_state = 0;
     }
-	if (timer_elapsed(key_timer) > OLED_TIMEOUT) {
+    if (timer_elapsed(key_timer) > OLED_TIMEOUT) {
         oled_off();
     }
     return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	oled_on();
+    oled_on();
     switch (keycode) {
         case QK_LIGHTING ... QK_LIGHTING_MAX:
             ui_mode = 1;

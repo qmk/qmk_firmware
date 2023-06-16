@@ -7,10 +7,9 @@
 #define ANIM_FRAME_DURATION 200 // delay between frames, in ms, at 42ms the animation will be 24fps
 #define ANIM_WIDTH  16
 #define ANIM_HEIGHT 32
-#define ANIM_SIZE   64
 #define ANIM_STATES 2 // Running, Jumping
-#define IDLE_FRAMES 4 // Total frames for "idle state" (not typing)
-#define TAP_FRAMES  2 // Total frames for "tap state" (typing)
+#define IDLE_FRAMES 4 // Total frames for "idle state"
+#define TAP_FRAMES  2 // Total frames for "tap state"
 uint8_t  anim_state = 0;
 uint8_t  anim_idle_frame = 0;
 uint8_t  anim_tap_frame = 0;
@@ -43,7 +42,7 @@ static void render_anim(void) {
     };
 
     bool draw_frame(const char data[][ANIM_WIDTH], uint8_t col, uint8_t row) {
-        // Check if the frame is within OLED screen, or it may cause weird behavior
+        // Check if the frame is within OLED screen, or it may cause unexpected behavior
         if ((col*8 + ANIM_WIDTH > OLED_DISPLAY_WIDTH) || (row*8 + ANIM_HEIGHT > OLED_DISPLAY_HEIGHT)) {
             return false;
         }
@@ -55,7 +54,7 @@ static void render_anim(void) {
     }
 
     void animation_phase(void) {
-        // Idle (running)
+        // Idle (running Mario)
         if (anim_state == 0) {
             anim_idle_frame = (anim_idle_frame + 1) % IDLE_FRAMES;
             switch (anim_idle_frame) {
@@ -73,7 +72,7 @@ static void render_anim(void) {
                     break;        
             }
         }
-        // Tap (jumping)
+        // Tap (jumping Mario)
         if (anim_state == 1) {
             anim_tap_frame = (anim_tap_frame + 1) % TAP_FRAMES;
             switch (anim_tap_frame) {
@@ -86,8 +85,8 @@ static void render_anim(void) {
             }
         }
     }
-	if (timer_elapsed(anim_timer) > ANIM_FRAME_DURATION) {
-		anim_timer = timer_read();
-		animation_phase();  // next frame
-	}
+    if (timer_elapsed(anim_timer) > ANIM_FRAME_DURATION) {
+        anim_timer = timer_read();
+        animation_phase(); // next frame
+    }
 }

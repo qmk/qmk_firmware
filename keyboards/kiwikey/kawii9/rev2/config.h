@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef OLED_ENABLE
-// OLED Screen definitions
+// OLED screen definitions
 #define OLED_DISPLAY_128X64
 #define OLED_TIMEOUT 20000
 #define OLED_BRIGHTNESS 255
@@ -11,7 +11,6 @@
 
 #ifdef RGB_MATRIX_ENABLE
 // RGB Matrix definitions
-#define RGB_DI_PIN B7
 #define RGB_MATRIX_LED_COUNT 18
 #define RGB_MATRIX_VAL_STEP 12
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 240
