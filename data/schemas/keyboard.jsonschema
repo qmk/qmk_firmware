@@ -491,6 +491,11 @@
                     }
                 },
                 "led_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_map": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "pin": {
                     "$ref": "qmk.definitions.v1#/mcu_pin",

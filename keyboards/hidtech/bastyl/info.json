@@ -19,6 +19,9 @@
     "ws2812": {
         "pin": "D2"
     },
+    "rgblight": {
+        "split": true
+    },
     "development_board": "elite_c",
     "layouts": {
         "LAYOUT": {

@@ -18,6 +18,9 @@
         "levels": 8,
         "breathing": true
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "B1"
     },

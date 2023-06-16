@@ -36,7 +36,8 @@
         "split": true,
         "hue_steps": 8,
         "saturation_steps": 8,
-        "brightness_steps": 8
+        "brightness_steps": 8,
+        "sleep": true
     },
     "ws2812": {
         "pin": "D3"

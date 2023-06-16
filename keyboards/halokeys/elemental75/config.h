@@ -18,7 +18,6 @@
 #define TAP_CODE_DELAY 10 // tap_code function delay for register and unregister
 
 #define RGBLED_NUM 22
-#define RGBLIGHT_SLEEP
 
 /* animations enabled */
 #define RGBLIGHT_EFFECT_BREATHING

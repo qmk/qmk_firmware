@@ -9,6 +9,9 @@
         "pid": "0x1306",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E6"
     },

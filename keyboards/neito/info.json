@@ -30,7 +30,8 @@
         "pin": "D5"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "led_map": [4, 3, 2, 1, 0, 10, 9, 8, 7, 6, 5]
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

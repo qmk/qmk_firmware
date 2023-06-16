@@ -1,4 +1,4 @@
-/* Copyright 2021 s-ol
+/* Copyright (C) 2022 jonylee@hfd
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,10 +15,10 @@
  */
 #pragma once
 
-#include "quantum.h"
+#include_next <mcuconf.h>
 
-#define LED_LAYOUT(                                             \
-                                                                \
-    k01, k05, k02, k06, k10, k03, k07, k11, k15, k08, k12, k16) \
-                                                                \
-    { k01, k02, k03, k08, k07, k06, k05, k10, k11, k12, k16, k15, }
+#undef WB32_SPI_USE_QSPI
+#define WB32_SPI_USE_QSPI TRUE
+
+#undef WB32_I2C_USE_I2C1
+#define WB32_I2C_USE_I2C1 TRUE

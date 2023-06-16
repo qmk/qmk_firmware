@@ -18,7 +18,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 #   define RGBLED_NUM 60  // Total number of LEDs
-#   define RGBLIGHT_SPLIT
 #endif
 
 // Limit the power draw

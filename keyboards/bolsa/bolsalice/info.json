@@ -6,6 +6,9 @@
         "vid": "0x4253",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "B1"
     },

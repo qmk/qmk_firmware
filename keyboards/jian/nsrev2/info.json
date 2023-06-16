@@ -13,6 +13,10 @@
         "levels": 5,
         "breathing": true
     },
+    "rgblight": {
+        "sleep": true,
+        "split": true
+    },
     "ws2812": {
         "pin": "D4"
     },

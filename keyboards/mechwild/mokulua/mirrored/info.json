@@ -22,6 +22,7 @@
         "soft_serial_pin": "D3"
     },
     "rgblight": {
+        "sleep": true,
         "split_count": [8, 8]
     },
     "ws2812": {
