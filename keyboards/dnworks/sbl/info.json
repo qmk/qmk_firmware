@@ -26,8 +26,11 @@
         "rows": ["GP6","GP5","GP4","GP0","GP12"],
         "cols": ["GP28","GP27","GP26","GP25","GP24","GP23","GP22","GP3","GP2","GP1","GP8","GP9","GP10","GP11","GP7"]
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
