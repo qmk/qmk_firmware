@@ -7,7 +7,6 @@
         "vid": "0xFFFE",
         "pid": "0x000F",
         "device_version": "1.0.3",
-        "force_nkro": true,
         "suspend_wakeup_delay": 400
     },
     "processor": "WB32FQ95",
