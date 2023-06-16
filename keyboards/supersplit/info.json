@@ -2,7 +2,7 @@
     "manufacturer": "tarneaux",
     "keyboard_name": "supersplit",
     "maintainer": "tarneaux",
-    "bootloader": "atmel-dfu",
+    "development_board": "elite_c",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -16,7 +16,6 @@
         "cols": ["B6", "B2", "B3", "B1", "F7", "F6"],
         "rows": ["D1", "D0", "D4", "C6", "D7", "E6"]
     },
-    "processor": "atmega32u4",
     "url": "https://github.com/tarneaux/supersplit",
     "usb": {
         "device_version": "1.0.0",
