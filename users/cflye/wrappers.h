@@ -51,9 +51,9 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________NUM_L3___________________    KC_0,              KC_1,              KC_2,              KC_3,              KC_PLUS
 #define ___________________NUM_L4___________________    ___________________BLANK___________________
 
-#define ___________________NUM_R1___________________    KC_AA,             TD(TD_BASE),       TD(TD_GAMING),     TD(TD_EECLEAR),    TD(TD_BOOT)
-#define ___________________NUM_R2___________________    KC_OE,             KC_LSFT,           KC_LCTL,           KC_LALT,           KC_LGUI
-#define ___________________NUM_R3___________________    KC_AE,             KC_AE,             KC_OE,             KC_AA,             XXXXXXX
+#define ___________________NUM_R1___________________    KC_NO,             TD(TD_BASE),       TD(TD_GAMING),     TD(TD_EECLEAR),    TD(TD_BOOT)
+#define ___________________NUM_R2___________________    KC_NO,             KC_LSFT,           KC_LCTL,           KC_LALT,           KC_LGUI
+#define ___________________NUM_R3___________________    KC_NO,             KC_AE,             KC_OE,             KC_AA,             XXXXXXX
 #define ___________________NUM_R4___________________    ___________________BLANK___________________
 
 #define ___________________FUN_L1___________________    KC_F12,            KC_F7,             KC_F8,             KC_F9,             KC_PSCR

@@ -53,7 +53,6 @@ LAYOUT_gmmk_pro_iso_wrapper(\
     KC_LCTL,    K20,     K21,     K22,     K23,     K24,     KC_AE,   KC_OE,   K25,     K26,     K27,     K28,     K29,         KC_UP,   KC_END,\
     K32,        K33,     KC_LALT,                         KC_SPC,                       K36, K37, KC_LGUI,             KC_LEFT, KC_DOWN, KC_RGHT\
 )
-i   
 
 #define LAYOUT_base_wrapper(...) LAYOUT_gmmk_pro_iso_base(__VA_ARGS__)
 #define LAYOUT_gaming_wrapper(...) LAYOUT_gmmk_pro_iso_gaming(__VA_ARGS__)
@@ -184,6 +183,15 @@ bool achordion_chord(uint16_t tap_hold_keycode,
   // Also allow same-hand holds when the other key is in the rows below the
   // alphas. I need the `% (MATRIX_ROWS / 2)` because my keyboard is split.
   if (other_record->event.key.row >= 9|| tap_hold_record->event.key.row >= 9 ) { return true; }
+
+  
+  switch (other_keycode) {
+    case KC_LEFT:
+    case KC_UP:
+    case KC_DOWN:
+    case KC_RGHT:
+      return true;
+  }
 
   // Otherwise, follow the opposite hands rule.
   return achordion_opposite_hands(tap_hold_record, other_record);

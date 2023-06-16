@@ -35,14 +35,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case _NUM:
           strcpy(A, "_NUM" );
           break;
-        case  _MEDIA:
-          strcpy(A, "_MEDIA" );
-         break;
         case _NAV:
           strcpy(A, "_NAV" );
           break;
+        case _MEDIA:
+          strcpy(A, "_MEDIA" );
+         break;
         case _MOUSE:
           strcpy(A, "_MOUSE" );
+          break;
+        case _FUN:
+          strcpy(A, "_FUN" );
           break;
     }
 
