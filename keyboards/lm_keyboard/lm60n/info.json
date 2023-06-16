@@ -17,6 +17,9 @@
         "caps_lock": "C7",
         "num_lock": "B7"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "B0"
     },

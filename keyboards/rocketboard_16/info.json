@@ -24,6 +24,9 @@
     "bootmagic": {
         "matrix": [4, 1]
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "A4"
     },

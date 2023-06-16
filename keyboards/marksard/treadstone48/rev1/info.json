@@ -20,7 +20,8 @@
     "pin": "D3"
   },
   "rgblight": {
-    "max_brightness": 180
+    "max_brightness": 180,
+    "sleep": true
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",

@@ -16,7 +16,8 @@
         "pin": "B0"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "sleep": true
     },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",

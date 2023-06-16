@@ -24,4 +24,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB Setup */
 #define RGBLED_NUM 3
-#define RGBLIGHT_SLEEP

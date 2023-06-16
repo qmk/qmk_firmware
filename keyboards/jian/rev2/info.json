@@ -13,6 +13,7 @@
         "levels": 5
     },
     "rgblight": {
+        "sleep": true,
         "split": true
     },
     "ws2812": {

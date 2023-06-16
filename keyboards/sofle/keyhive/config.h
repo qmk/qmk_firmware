@@ -36,5 +36,4 @@
 #    define RGBLIGHT_SAT_STEP  17
 #    define RGBLIGHT_VAL_STEP  17
 //#    define RGBLIGHT_LAYERS //Enable layer light indicators. Not required as updates are done in layer_state_set_user and led_update_user (+588).
-#    define RGBLIGHT_SLEEP //Turn off LEDs when computer sleeping (+72)
 #endif

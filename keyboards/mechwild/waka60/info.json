@@ -8,6 +8,9 @@
         "pid": "0x1709",
         "device_version": "1.0.1"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "A1"
     },

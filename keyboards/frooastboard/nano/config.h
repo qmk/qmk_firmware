@@ -18,8 +18,6 @@
 
 #define RGBLED_NUM 8
 
-#define RGBLIGHT_SLEEP
-
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8

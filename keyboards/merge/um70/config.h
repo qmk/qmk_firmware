@@ -25,7 +25,6 @@
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    define RGB_MATRIX_SPLIT { 39, 44 }
 #endif
-#define RGBLIGHT_SLEEP
 
 #define B6_AUDIO
 

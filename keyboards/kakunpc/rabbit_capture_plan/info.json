@@ -13,6 +13,7 @@
     },
     "rgblight": {
         "max_brightness": 200,
+        "sleep": true,
         "split_count": [32, 37]
     },
     "matrix_pins": {
