@@ -16,6 +16,9 @@
         "caps_lock": "C6",
         "on_state": 0
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "F0"
     },

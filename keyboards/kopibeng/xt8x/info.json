@@ -21,7 +21,8 @@
         "pin": "A10"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "sleep": true
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

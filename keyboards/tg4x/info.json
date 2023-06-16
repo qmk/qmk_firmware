@@ -8,6 +8,9 @@
         "pid": "0x0458",
         "device_version": "0.2.1"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D2"
     },

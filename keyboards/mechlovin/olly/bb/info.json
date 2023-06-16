@@ -12,6 +12,9 @@
         "pin": "D4",
         "breathing": true
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "B3"
     },

@@ -8,6 +8,9 @@
     "pid": "0x5244",
     "device_version": "1.0.0"
   },
+  "rgblight": {
+    "split": true
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

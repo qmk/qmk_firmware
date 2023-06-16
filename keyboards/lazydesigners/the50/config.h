@@ -7,4 +7,3 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define RGBLED_NUM 1
-#define RGBLIGHT_SLEEP

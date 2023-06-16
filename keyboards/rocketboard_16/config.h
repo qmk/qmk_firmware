@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 16
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_SLEEP
 
 // OLED stuff
 #define OLED_DISPLAY_128X64

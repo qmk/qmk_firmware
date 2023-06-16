@@ -9,7 +9,8 @@
         "device_version": "0.0.1"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "sleep": true
     },
     "ws2812": {
         "pin": "B15"

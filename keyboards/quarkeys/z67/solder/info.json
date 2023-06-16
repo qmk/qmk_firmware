@@ -16,7 +16,8 @@
         "pin": "F0"
     },
     "rgblight": {
-        "max_brightness": 180
+        "max_brightness": 180,
+        "sleep": true
     },
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",

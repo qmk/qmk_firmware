@@ -21,6 +21,9 @@
         "caps_lock": "B2",
         "on_state": 0
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E2"
     },

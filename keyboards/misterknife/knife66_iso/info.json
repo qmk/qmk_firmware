@@ -13,7 +13,8 @@
         "driver": "pwm"
     },
     "rgblight": {
-        "max_brightness": 160
+        "max_brightness": 160,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["B2", "B1", "B0", "A7", "A6", "A5", "A4", "B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15"],

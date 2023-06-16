@@ -21,7 +21,8 @@
         "pin": "B3"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "sleep": true
     },
     "indicators": {
         "caps_lock": "E6",
