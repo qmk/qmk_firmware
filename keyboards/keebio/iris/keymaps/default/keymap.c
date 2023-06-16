@@ -1,5 +1,7 @@
-#include QMK_KEYBOARD_H
+// Copyright 2023 Danny Nguyen (@nooges)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
+#include QMK_KEYBOARD_H
 
 #define _QWERTY 0
 #define _LOWER 1

@@ -3,29 +3,15 @@
 
 #pragma once
 
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 10
-
-#ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X32
+#define OLED_DISPLAY_128X32
 #define I2C1_SCL_PIN        GP17
 #define I2C1_SDA_PIN        GP16
 #define I2C_DRIVER I2CD0
 #define OLED_BRIGHTNESS 128
 #define OLED_FONT_H "keyboards/1upkeyboards/pi40/lib/glcdfont.c"
-#endif
 
-#define DIODE_DIRECTION COL2ROW
-
-#define MATRIX_ROW_PINS { GP21, GP20, GP19, GP18 }
-#define MATRIX_COL_PINS { GP1, GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12 }
-
-#define RGB_DI_PIN GP0
-#define RGB_MATRIX_LED_COUNT 47
-#define RGBLED_NUM 47
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS  
-#    define RGBLIGHT_LIMIT_VAL 150
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150

@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
 #include "keychron_common.h"
+#include "sync_timer.h"
 
 bool is_siri_active = false;
 uint32_t siri_timer = 0;
@@ -41,6 +41,20 @@ void housekeeping_task_keychron(void) {
 
 bool process_record_keychron(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case QK_KB_0:
+            if (record->event.pressed) {
+                register_code(KC_MISSION_CONTROL);
+            } else {
+                unregister_code(KC_MISSION_CONTROL);
+            }
+            return false;  // Skip all further processing of this key
+        case QK_KB_1:
+            if (record->event.pressed) {
+                register_code(KC_LAUNCHPAD);
+            } else {
+                unregister_code(KC_LAUNCHPAD);
+            }
+            return false;  // Skip all further processing of this key
         case KC_LOPTN:
         case KC_ROPTN:
         case KC_LCMMD:
