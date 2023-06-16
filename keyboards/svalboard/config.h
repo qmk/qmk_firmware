@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS  10
 #define MATRIX_COLS  6
 
-
 #define DEBUG_MATRIX_SCAN_RATE
 
 // wiring of each half
@@ -33,18 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //S E D N W None
 //Both Thumbs (these are same as lalboard_v2)
 //OL OU D IL MODE DOUBLE
-//#define MATRIX_COL_PINS   { GP14, GP13, GP12, GP11, GP10, GP9 }
 
-
-// The column with the "down" keys on both the normal and thumb clusters
-// is inverted.  This should be true on all units manufactured after 5/31/2023
 #define MATRIX_COL_PUSHED_STATES { 0, 0, 1, 0, 0, 0 }
 #define DOUBLEDOWN_COL 5 // need a pullup on COL6
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-/* #define DEBOUNCE 5 */
-
-//#define WS2812_PIO_USE_PIO1
 
 #define SERIAL_DEBUG
 #define SPLIT_TRANSPORT_MIRROR
@@ -56,7 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_TX_PIN GP0 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500 // Timeout window in ms in which the double tap can occur.
-
 
 #define TAPPING_TERM 200 //170 // 200 //120 //00 //90 //200 // how long before a tap becomes a hold
 
