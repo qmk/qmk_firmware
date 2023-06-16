@@ -17,8 +17,6 @@
     "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_split_bs_rshift": {
-            "layout": [
-                {
                     "layout": [
                         {
                             "x": 0.45,
@@ -299,8 +297,6 @@
                             "w": 1.5
                         }
                     ]
-                }
-            ]
         }
     }
 }
