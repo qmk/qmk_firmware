@@ -20,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x2012
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Automata
-#define PRODUCT         Alisaie
+#define usb.vid                 0xFEED
+#define usb.pid                 0x2012
+#define usb.device_version      0x0001
+#define manufacturer            Automata
+#define keyboard_name           Alisaie
 
 /* key matrix size */
 #define MATRIX_ROWS 5
