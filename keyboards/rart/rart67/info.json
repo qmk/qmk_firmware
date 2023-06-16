@@ -12,7 +12,8 @@
         "pin": "B7"
     },
     "rgblight": {
-        "max_brightness": 240
+        "max_brightness": 240,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["B3", "B2", "B1", "D5", "D4", "D6", "D7", "B4", "B5", "F0", "F7", "F6", "F5", "F4", "F1", "E6"],

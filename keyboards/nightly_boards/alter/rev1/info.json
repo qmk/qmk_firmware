@@ -18,6 +18,9 @@
         "num_lock": "D7",
         "scroll_lock": "B4"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "F1"
     },

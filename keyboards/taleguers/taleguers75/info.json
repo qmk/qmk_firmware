@@ -19,6 +19,7 @@
         ]
     },
     "rgblight": {
+        "sleep": true,
         "led_map": [5, 4, 3, 2, 1, 0]
     },
     "ws2812": {

@@ -3,6 +3,9 @@
     "usb": {
         "device_version": "0.0.2"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "C7"
     },

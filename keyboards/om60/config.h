@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef RGBLED_NUM
   #define RGBLED_NUM 69
-  #define RGBLIGHT_SLEEP
 #endif
 
 #define RGBLIGHT_EFFECT_BREATHING

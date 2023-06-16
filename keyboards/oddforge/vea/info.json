@@ -11,6 +11,9 @@
     "backlight": {
         "pin": "D4"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "driver": "custom"
     },

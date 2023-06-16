@@ -17,7 +17,8 @@
         "driver": "i2c"
     },
     "rgblight": {
-        "max_brightness": 250
+        "max_brightness": 250,
+        "sleep": true
     },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",

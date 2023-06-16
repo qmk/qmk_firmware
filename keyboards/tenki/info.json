@@ -8,6 +8,9 @@
         "pid": "0x5445",
         "device_version": "10.0.1"
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D1"
     },

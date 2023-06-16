@@ -18,6 +18,9 @@
         "scroll_lock": "B0",
         "on_state": 0
     },
+    "rgblight": {
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D2"
     },

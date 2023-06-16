@@ -11,6 +11,9 @@
   "ws2812": {
     "pin": "D3"
   },
+  "rgblight": {
+    "sleep": true
+  },
   "rgb_matrix": {
     "driver": "WS2812"
   },

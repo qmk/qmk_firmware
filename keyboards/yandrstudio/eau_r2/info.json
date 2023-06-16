@@ -15,7 +15,8 @@
         "pin": "A8"
     },
     "rgblight": {
-        "max_brightness": 200
+        "max_brightness": 200,
+        "sleep": true
     },
     "debounce": 8,
     "layouts": {

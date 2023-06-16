@@ -21,7 +21,8 @@
         "pin": "D5"
     },
     "rgblight": {
-        "max_brightness": 240
+        "max_brightness": 240,
+        "sleep": true
     },
     "bootmagic": {
         "matrix": [0, 1]
