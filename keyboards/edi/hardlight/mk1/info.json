@@ -14,8 +14,8 @@
     "ws2812": {
         "pin": "C7"
     },
-    "development_board": "elite_c",
-    "pin_compatible": "elite_c",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_ortho_4x16": {
             "layout": [
