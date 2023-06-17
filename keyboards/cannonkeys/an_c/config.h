@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 14
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
 #define WS2812_SPI_SCK_PAL_MODE 0

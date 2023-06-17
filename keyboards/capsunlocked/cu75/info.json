@@ -17,6 +17,9 @@
     "driver": "custom",
     "levels": 8
   },
+  "rgblight": {
+    "led_count": 24
+  },
   "ws2812": {
     "pin": "C7"
   },
