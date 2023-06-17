@@ -14,7 +14,7 @@
         "rgb_matrix": true
     },
     "matrix_pins": {
-        "cols": ["B11", "C6", "C7", "B12", "B13", "B14", "B15", "B10", "B2", "B1", "D2", "B3", "B4", "B5"],
+        "cols": ["B11", "C6", "C7", "B12", "B13", "B14", "B15", "B10", "B1", "B0", "D2", "B3", "B4", "B5"],
         "rows": ["A15", "C10", "C11", "C12", "A3"]
     },
     "processor": "STM32F103",
@@ -48,7 +48,7 @@
             "raindrops": true,
             "ranbow_beacon": true
         },
-        "driver": "IS31FL3733",
+        "driver": "IS31FL3743A",
         "hue_steps": 20,
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
@@ -65,6 +65,7 @@
             {"matrix": [0, 11], "x": 11, "y": 0, "flags": 4},
             {"matrix": [0, 12], "x": 12, "y": 0, "flags": 4},
             {"matrix": [0, 13], "x": 13, "y": 0, "flags": 4},
+
             {"matrix": [1, 0], "x": 0, "y": 1, "flags": 4},
             {"matrix": [1, 1], "x": 1.5, "y": 1, "flags": 4},
             {"matrix": [1, 2], "x": 2.5, "y": 1, "flags": 4},
@@ -79,6 +80,7 @@
             {"matrix": [1, 11], "x": 11.5, "y": 1, "flags": 4},
             {"matrix": [1, 12], "x": 12.5, "y": 1, "flags": 4},
             {"matrix": [1, 13], "x": 13.5, "y": 1, "flags": 4},
+
             {"matrix": [2, 0], "x": 0, "y": 2, "flags": 4},
             {"matrix": [2, 1], "x": 1.75, "y": 2, "flags": 4},
             {"matrix": [2, 2], "x": 2.75, "y": 2, "flags": 4},
@@ -92,6 +94,7 @@
             {"matrix": [2, 10], "x": 10.75, "y": 2, "flags": 4},
             {"matrix": [2, 11], "x": 11.75, "y": 2, "flags": 4},
             {"matrix": [2, 13], "x": 12.75, "y": 2, "flags": 4},
+
             {"matrix": [3, 0], "x": 0, "y": 3, "flags": 4},
             {"matrix": [3, 1], "x": 2.25, "y": 3, "flags": 4},
             {"matrix": [3, 2], "x": 3.25, "y": 3, "flags": 4},
@@ -104,6 +107,7 @@
             {"matrix": [3, 9], "x": 10.25, "y": 3, "flags": 4},
             {"matrix": [3, 10], "x": 11.25, "y": 3, "flags": 4},
             {"matrix": [3, 12], "x": 12.25, "y": 3, "flags": 4},
+
             {"matrix": [4, 0], "x": 0, "y": 4, "flags": 4},
             {"matrix": [4, 1], "x": 1.25, "y": 4, "flags": 4},
             {"matrix": [4, 2], "x": 2.5, "y": 4, "flags": 4},
@@ -127,6 +131,7 @@
         "pid": "0x6061",
         "vid": "0x1EA7"
     },
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -196,7 +201,7 @@
                 {"matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_space_long": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0, "w": 1},
                 {"matrix": [0, 1], "x": 1, "y": 0},
