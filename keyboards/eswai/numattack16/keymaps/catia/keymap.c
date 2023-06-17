@@ -34,6 +34,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F13,   KC_F14,   KC_F15,   KC_F16,  
         CATPAN,   CATZOM,   CATROT,   TG(1)
     ),
+    [2] = LAYOUT_ortho_4x4(
+        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  
+        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  
+        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  
+        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS
+    ),
+    [3] = LAYOUT_ortho_4x4(
+        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  
+        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  
+        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  
+        KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS 
+    ),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
