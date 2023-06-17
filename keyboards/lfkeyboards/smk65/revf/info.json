@@ -4,6 +4,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "halfkay",
+    "rgblight": {
+        "led_count": 28
+    },
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [

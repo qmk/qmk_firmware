@@ -9,6 +9,7 @@
         "force_nkro": true
     },
     "rgblight": {
+        "led_count": 18,
         "sleep": true
     },
     "ws2812": {

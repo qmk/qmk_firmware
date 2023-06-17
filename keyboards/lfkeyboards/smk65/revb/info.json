@@ -5,6 +5,9 @@
     "backlight": {
         "levels": 8
     },
+    "rgblight": {
+        "led_count": 20
+    },
     "ws2812": {
         "pin": "C7"
     },
