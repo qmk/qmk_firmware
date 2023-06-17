@@ -12,6 +12,7 @@
         "pin": "D4"
     },
     "rgblight": {
+        "led_count": 8,
         "sleep": true
     },
     "ws2812": {

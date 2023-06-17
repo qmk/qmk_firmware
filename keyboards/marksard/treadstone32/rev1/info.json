@@ -4,6 +4,7 @@
         "device_version": "0.1.0"
     },
     "rgblight": {
+        "led_count": 6,
         "sleep": true
     },
     "ws2812": {

@@ -32,7 +32,6 @@
 #define TAP_CODE_DELAY 10
 
 /* RGB settings, uncomment this define to enable RGB */
-#    define RGBLED_NUM 3
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8

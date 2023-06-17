@@ -21,6 +21,7 @@
         "pin": "B1"
     },
     "rgblight": {
+        "led_count": 87,
         "max_brightness": 200
     },
     "processor": "STM32F103",

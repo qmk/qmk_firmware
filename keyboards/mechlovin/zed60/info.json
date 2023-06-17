@@ -17,6 +17,7 @@
         "caps_lock": "A4"
     },
     "rgblight": {
+        "led_count": 22,
         "sleep": true
     },
     "ws2812": {

@@ -22,6 +22,7 @@
         "soft_serial_pin": "D3"
     },
     "rgblight": {
+        "led_count": 16,
         "sleep": true,
         "split_count": [8, 8]
     },

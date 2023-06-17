@@ -22,7 +22,7 @@
 
 #define RGBLED_NUM 100
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT 100
 #    define RGB_MATRIX_SPLIT { 48, 52 }
 #endif
 

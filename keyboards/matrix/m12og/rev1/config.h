@@ -42,6 +42,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-
-#define RGBLED_NUM 16
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB

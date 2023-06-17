@@ -8,6 +8,9 @@
         "pid": "0xD750",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 26
+    },
     "ws2812": {
         "pin": "A7"
     },
