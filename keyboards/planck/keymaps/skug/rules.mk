@@ -1,5 +1,3 @@
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c
 EXTRAKEY_ENABLE = no
 CONSOLE_ENABLE = no

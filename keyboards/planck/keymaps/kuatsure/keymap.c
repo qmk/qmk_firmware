@@ -15,9 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#ifdef AUDIO_ENABLE
-#    include "muse.h"
-#endif
+#include "muse.h"
 #include "kuatsure.h"
 
 #define LAYOUT_planck_grid_wrapper(...)   LAYOUT_planck_grid(__VA_ARGS__)

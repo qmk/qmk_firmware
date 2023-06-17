@@ -1,6 +1,4 @@
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c
 AUTO_SHIFT_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 AUDIO_ENABLE = no

@@ -1,6 +1,4 @@
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c
 LEADER_ENABLE = yes
 TAP_DANCE_ENABLE = yes
 AUTO_SHIFT_ENABLE = yes

@@ -9,6 +9,4 @@ UNICODEMAP_ENABLE = yes
 RGBLIGHT_ENABLE = no
 MOUSEKEY_ENABLE = no
 
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c

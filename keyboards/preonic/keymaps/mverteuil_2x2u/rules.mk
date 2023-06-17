@@ -1,7 +1,5 @@
 USER_NAME := mverteuil
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c
 
 AUDIO_ENABLE = yes
 MIDI_ENABLE = yes

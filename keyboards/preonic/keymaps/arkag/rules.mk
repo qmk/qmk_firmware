@@ -14,6 +14,4 @@ UNICODE_ENABLE = yes
 LEADER_ENABLE = yes
 
 # from default
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c

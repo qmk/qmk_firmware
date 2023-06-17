@@ -1,4 +1,2 @@
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c
 KEY_LOCK_ENABLE = yes

@@ -4,9 +4,7 @@
 # DEFAULT STATEMENTS
 # ==================
 
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c
 
 
 # ADDED STATEMENTS

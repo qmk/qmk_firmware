@@ -4,6 +4,4 @@ RGBLIGHT_ENABLE = no
 BACKLIGHT_ENABLE = no
 KEY_OVERRIDE_ENABLE = yes
 COMBO_ENABLE = yes
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c

@@ -1,6 +1,4 @@
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c
 ENCODER_ENABLE = yes # Enables basic encoder support
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306 # Enables support for OLED displays

@@ -1,6 +1,4 @@
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c
 
 BACKLIGHT_ENABLE  = no
 LEADER_ENABLE = yes

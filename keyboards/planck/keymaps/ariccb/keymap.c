@@ -15,9 +15,7 @@
   */
 
 #include QMK_KEYBOARD_H
-#ifdef AUDIO_ENABLE
-#    include "muse.h"
-#endif
+#include "muse.h"
 #include "features/select_word.h"
 #include "features/caps_word.h"
 

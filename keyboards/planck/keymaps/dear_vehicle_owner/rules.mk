@@ -1,4 +1,2 @@
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+SRC += muse.c
 DEBOUNCE_TYPE = sym_eager_pk
