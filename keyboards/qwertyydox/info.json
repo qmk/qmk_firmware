@@ -14,6 +14,7 @@
     "rows": ["B6", "B2", "B3", "B1"]
   },
   "rgblight": {
+    "led_count": 12,
     "sleep": true
   },
   "ws2812": {
