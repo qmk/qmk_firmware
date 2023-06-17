@@ -28,18 +28,7 @@
 
 // Not yet available in `info.json`
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #    define SPLIT_TRANSPORT_MIRROR
-#endif
-
-// Not yet available in `info.json`
-#ifdef BOOTMAGIC_ENABLE
-     // Top left key on left half
-#    define BOOTMAGIC_LITE_ROW 0
-#    define BOOTMAGIC_LITE_COLUMN 4
-     // Top right key on right half
-#    define BOOTMAGIC_LITE_ROW_RIGHT    4
-#    define BOOTMAGIC_LITE_COLUMN_RIGHT 4
 #endif

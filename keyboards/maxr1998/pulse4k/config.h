@@ -17,33 +17,10 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
-
-/* Matrix pins */
-#define MATRIX_ROW_PINS { B4, E6 }
-#define MATRIX_COL_PINS { B7, B3, F0 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Rotary encoders */
-#define ENCODERS_PAD_A { D2, F6 }
-#define ENCODERS_PAD_B { D3, F5 }
-#define ENCODER_RESOLUTION 4
-
 /* Combo setup */
-#define COMBO_COUNT 1
 #define COMBO_TERM 150
 
 /* RGB LED Setup */
-#define RGB_DI_PIN          F7 // pin the DI on the WS2812B is hooked-up to
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

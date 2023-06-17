@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32a
-
-# Bootloader selection
-BOOTLOADER = bootloadhid
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,9 +12,6 @@ AUDIO_ENABLE = no           # Audio output
 AUDIO_SUPPORTED = no
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 CUSTOM_MATRIX = yes
-
-# Needed for underglow
-WS2812_DRIVER = i2c
 
 SRC += matrix.c
 QUANTUM_LIB_SRC += i2c_master.c

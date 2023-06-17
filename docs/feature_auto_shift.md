@@ -281,16 +281,7 @@ Tap Hold Configurations work a little differently when using Retro Shift.
 Referencing `TAPPING_TERM` makes little sense, as holding longer would result in
 shifting one of the keys.
 
-`IGNORE_MOD_TAP_INTERRUPT` changes *only* rolling from a mod tap (releasing it
-first), sending both keys instead of the modifier on the second. Its effects on
-nested presses are ignored.
-
-As nested taps were changed to act as though `PERMISSIVE_HOLD` is set unless only
-`IGNORE_MOD_TAP_INTERRUPT` is (outside of Retro Shift), and Retro Shift ignores
-`IGNORE_MOD_TAP_INTERRUPT`, `PERMISSIVE_HOLD` has no effect on Mod Taps.
-
-Nested taps will *always* act as though the `TAPPING_TERM` was exceeded for both
-Mod and Layer Tap keys.
+`RETRO_SHIFT` enables [`PERMISSIVE_HOLD`-like behaviour](tap_hold.md#permissive-hold) (even if not explicitly enabled) on all mod-taps for which `RETRO_SHIFT` applies.
 
 ## Using Auto Shift Setup
 

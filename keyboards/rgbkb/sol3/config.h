@@ -9,17 +9,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Matrix Configuration - Rows are doubled up */
-#define MATRIX_ROWS 12
-// Last pins reserved for encoder / touch encoder support
-#define MATRIX_ROW_PINS       { B15,  A8, A15, B12, A3, NO_PIN }
-#define MATRIX_ROW_PINS_RIGHT { B15, B14,  A8, A13, A7, NO_PIN }
-#define MATRIX_COLS 8
-// Empty matrix entries used for encoder / touch encoder support
-#define MATRIX_COL_PINS       { A6, A7, B0, B2, B1,  B9,  B3,  B4 }
-#define MATRIX_COL_PINS_RIGHT { B9, B8, B4, A6, A3, B10, B12, B11 }
 #define MATRIX_IO_DELAY 5
 
 #define BUSY_WAIT
@@ -32,17 +21,6 @@
 #define TOUCH_RESOLUTION 25 // sensitivity of swipes, lower=faster
 #define TOUCH_SEGMENTS 3
 
-/* Encoder Configuration */
-//      Matrix Entries  k36/k35(E1SW>B13), k33/k32, k7/k28
-#define ENCODERS_PAD_A { A1, B10, A13 }
-#define ENCODERS_PAD_B { A2, B11, B14 }
-//      Matrix Entries  k72/k71(E5SW>B0), k69/k68, k43/k64
-#define ENCODERS_PAD_A_RIGHT { A1, C15,  B3 }
-#define ENCODERS_PAD_B_RIGHT { A2, C14, B13 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* CRC Configuration */
 #define CRC8_OPTIMIZE_SPEED
 #define CRC8_USE_TABLE
@@ -50,8 +28,6 @@
 /* Split Keyboard Configuration */
 #define SPLIT_HAND_PIN C13
 #define SPLIT_USB_DETECT
-// also handles the SERIAL_USART_TX_PIN define
-#define SOFT_SERIAL_PIN A9
 #define SERIAL_USART_TX_PAL_MODE 7
 #define SERIAL_USART_TIMEOUT 5
 #define SERIAL_USART_DRIVER SD1
@@ -77,10 +53,8 @@
 #define DIP_SWITCH_PINS_RIGHT { A14, B0 }
 
 /* RGB LED Configuration */
-#define RGB_DI_PIN B5
 #define RGBLED_NUM 156
 #define RGBLED_SPLIT { 78, 78 }
-#define RGBLIGHT_LIMIT_VAL 255
 
 // RGB Lighting Animation modes. Explicitly enabled
 // For full list of effects, see:

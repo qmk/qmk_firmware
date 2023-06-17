@@ -15,14 +15,6 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    /* 
-    k00, k01, k02, k03, k04, k05, k06, k07,                     \
-    k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, \
-    k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A,      \
-    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, \
-    k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, \
-    k50, k51, k52,      k54,      k56,           k59, k5A, k5B  \
-    */
     [_BASE] = LAYOUT(
     KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_MUTE,
     KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSPC,
@@ -54,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][1][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [1] =  { ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)  },
     [2] =  { ENCODER_CCW_CW(KC_HOME, KC_END)  },

@@ -20,6 +20,7 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stdint.h>
 
 // CPI values
 // clang-format off

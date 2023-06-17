@@ -16,25 +16,10 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-
-#define MATRIX_ROW_PINS { B2, B3, C7, C6, B5 }
-#define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, F7, B4, D7, D6, D4, D5, D3, D2, D1 }
-
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN B1
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 8
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 
     #define RGBLIGHT_EFFECT_BREATHING
@@ -46,4 +31,3 @@
     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
     #define RGBLIGHT_EFFECT_RGB_TEST
     #define RGBLIGHT_EFFECT_ALTERNATING
-#endif

@@ -16,31 +16,10 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
-
-/* key matrix pins */
-
-#define MATRIX_ROW_PINS { B0, B7, F7, B1, B6, C6, C7, B5, F6, D2 }
-#define MATRIX_COL_PINS { F0, F1, F4, F5, D1, B2, D0, B3 }
-
-
-#define ENCODERS_PAD_A { D4, D6, D7 }
-#define ENCODERS_PAD_B { B4, D3, D5 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-
-#define RGB_DI_PIN E6
 #define RGB_MATRIX_LED_COUNT 80
 
 /* RGB LED */
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN E6
 #define RGBLED_NUM 80    // Number of LEDs. backlight x69
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
@@ -56,14 +35,6 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Limits the brightness of the LEDS range of 255-0 (255 is default)*/
-#define RGBLIGHT_LIMIT_VAL 128
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -73,10 +44,6 @@
 
 /* EEPROM for via */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
-
-/* bootmagic row col assignment */
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 0
 
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses

@@ -16,23 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define DIRECT_PINS { \
-    { D0, B1, B0 }, \
-    { B7, B2, B3 } \
-}
-
-
-#define ENCODERS_PAD_A { C6 }
-#define ENCODERS_PAD_B { B6 }
-#define ENCODER_RESOLUTION 2
-
-#define RGB_DI_PIN B5
-
-#ifdef RGB_DI_PIN
-
     #define RGBLED_NUM 5
 
     #define RGBLIGHT_HUE_STEP 8
@@ -48,5 +31,3 @@
     #define RGBLIGHT_EFFECT_RGB_TEST
     #define RGBLIGHT_EFFECT_ALTERNATING
     #define RGBLIGHT_EFFECT_TWINKLE
-
-#endif /* RGB_DI_PIN */

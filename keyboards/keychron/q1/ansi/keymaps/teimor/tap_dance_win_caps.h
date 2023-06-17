@@ -19,5 +19,5 @@
 
 #include "tap_dance_setup.h"
 
-void win_caps_language_finished(qk_tap_dance_state_t *state, void *user_data);
-void win_caps_language_reset(qk_tap_dance_state_t *state, void *user_data);
+void win_caps_language_finished(tap_dance_state_t *state, void *user_data);
+void win_caps_language_reset(tap_dance_state_t *state, void *user_data);

@@ -64,7 +64,7 @@ QMK はその場で作られた一時的なマクロをサポートします。�
 
 direction がどのマクロであるかを示すことに注意してください。`1` がマクロ 1、`-1` がマクロ 2、0 がマクロ無しです。
 
-* `dynamic_macro_record_start_user(void)` - マクロの記録を開始する時に起動されます。
+* `dynamic_macro_record_start_user(int8_t direction)` - マクロの記録を開始する時に起動されます。
 * `dynamic_macro_play_user(int8_t direction)` - マクロを再生する時に起動されます。
 * `dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record)` - マクロの記録中に各キー押下で起動されます。
 * `dynamic_macro_record_end_user(int8_t direction)` - マクロの記録を停止した時に起動されます。

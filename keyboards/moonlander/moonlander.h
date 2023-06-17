@@ -36,35 +36,38 @@ extern bool mcp23018_leds[];
 
 
 // clang-format off
-#define LAYOUT_moonlander( \
-    k00, k01, k02, k03, k04, k05, k06,   k60, k61, k62, k63, k64, k65, k66, \
-    k10, k11, k12, k13, k14, k15, k16,   k70, k71, k72, k73, k74, k75, k76, \
-    k20, k21, k22, k23, k24, k25, k26,   k80, k81, k82, k83, k84, k85, k86, \
-    k30, k31, k32, k33, k34, k35,             k91, k92, k93, k94, k95, k96, \
-    k40, k41, k42, k43, k44,      k53,   kb3,      ka2, ka3, ka4, ka5, ka6, \
-                        k50, k51, k52,   kb4, kb5, kb6 \
+#define LED_LAYOUT_moonlander( \
+    l00, l01, l02, l03, l04, l05, l06,   l60, l61, l62, l63, l64, l65, l66, \
+    l10, l11, l12, l13, l14, l15, l16,   l70, l71, l72, l73, l74, l75, l76, \
+    l20, l21, l22, l23, l24, l25, l26,   l80, l81, l82, l83, l84, l85, l86, \
+    l30, l31, l32, l33, l34, l35,             l91, l92, l93, l94, l95, l96, \
+    l40, l41, l42, l43, l44,      l53,   lb3,      la2, la3, la4, la5, la6, \
+                        l50, l51, l52,   lb4, lb5, lb6 \
 ) \
 { \
-    { k00, k01, k02, k03, k04, k05, k06 }, \
-    { k10, k11, k12, k13, k14, k15, k16 }, \
-    { k20, k21, k22, k23, k24, k25, k26 }, \
-    { k30, k31, k32, k33, k34, k35, KC_NO }, \
-    { k40, k41, k42, k43, k44, KC_NO, KC_NO }, \
-    { k50, k51, k52, k53, KC_NO, KC_NO, KC_NO }, \
+    l00, l10, l20, l30, l40, \
+    l01, l11, l21, l31, l41, \
+    l02, l12, l22, l32, l42, \
+    l03, l13, l23, l33, l43, \
+    l04, l14, l24, l34, l44, \
+    l05, l15, l25, l35, \
+    l06, l16, l26, \
+    l50, l51, l52, l53, \
 \
-    { k60, k61, k62, k63, k64, k65, k66 }, \
-    { k70, k71, k72, k73, k74, k75, k76 }, \
-    { k80, k81, k82, k83, k84, k85, k86 }, \
-    { KC_NO, k91, k92, k93, k94, k95, k96 }, \
-    { KC_NO, KC_NO, ka2, ka3, ka4, ka5, ka6 }, \
-    { KC_NO, KC_NO, KC_NO, kb3, kb4, kb5, kb6 } \
+    l66, l76, l86, l96, la6, \
+    l65, l75, l85, l95, la5, \
+    l64, l74, l84, l94, la4, \
+    l63, l73, l83, l93, la3, \
+    l62, l72, l82, l92, la2, \
+    l61, l71, l81, l91, \
+    l60, l70, l80, \
+    lb6, lb5, lb4, lb3 \
 }
 // clang-format on
 
 enum planck_ez_keycodes {
-    TOGGLE_LAYER_COLOR = SAFE_RANGE,
+    TOGGLE_LAYER_COLOR = QK_KB_0,
     LED_LEVEL,
-    ML_SAFE_RANGE,
 };
 
 #ifndef WEBUSB_ENABLE

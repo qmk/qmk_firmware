@@ -1,16 +1,29 @@
 {
-    "keyboard_name": "NK1", 
+    "keyboard_name": "NK1",
     "manufacturer": "Yiancar-Designs",
     "url": "www.yiancar-designs.com",
-    "maintainer": "yiancar", 
+    "maintainer": "yiancar",
     "usb": {
         "vid": "0x8968",
         "pid": "0x4E4D",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "F0"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["D4"]
+        ]
+    },
+    "community_layouts": ["ortho_1x1"],
     "layouts": {
         "LAYOUT_ortho_1x1": {
-            "layout": [{"x": 0, "y": 0}]
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]}
+            ]
         }
     }
 }

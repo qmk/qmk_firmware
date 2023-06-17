@@ -45,7 +45,7 @@ enum unicode_names {
     UUML,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     // KC_A
     [aGRV] = 0x00E0, // à
     [AGRV] = 0x00C0, // À

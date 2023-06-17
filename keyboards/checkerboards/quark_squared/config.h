@@ -16,22 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { C5, C4, C6, C7, B7 }
-#define MATRIX_COL_PINS { B4, B5, B6, B3, C2, B2, D6, D2, D3, D4, D5, B1 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -39,7 +23,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 // ws2812 options
-#define RGB_DI_PIN D0 // pin the DI on the ws2812 is hooked-up to
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -54,7 +37,3 @@
 #define RGBLIGHT_HUE_STEP 12 // units to step when in/decreasing hue
 #define RGBLIGHT_SAT_STEP 12 // units to step when in/decresing saturation
 #define RGBLIGHT_VAL_STEP 12 // units to step when in/decreasing value (brightness)
-
-/* define rotary encoder pins */
-#define ENCODERS_PAD_A {B0}
-#define ENCODERS_PAD_B {D1}

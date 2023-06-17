@@ -16,23 +16,9 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-#define MATRIX_ROW_PINS { F0, F1, B0, B1, B2, C6 }
-#define MATRIX_COL_PINS { F7, F6, F5, F4, E6, B3, B7, D0, D1, D2, D3, D5, D4, D6, D7}
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #define USB_SUSPEND_WAKEUP_DELAY 5000
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
 
-#define RGB_DI_PIN C7
 #define RGBLED_NUM 84
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGBLIGHT_EFFECT_BREATHING

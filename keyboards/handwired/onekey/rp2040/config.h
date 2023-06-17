@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define DEBUG_MATRIX_SCAN_RATE
 
@@ -20,3 +19,5 @@
 #define AUDIO_PIN GP16
 #define AUDIO_PWM_DRIVER PWMD0
 #define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_A
+
+#define ADC_PIN GP26

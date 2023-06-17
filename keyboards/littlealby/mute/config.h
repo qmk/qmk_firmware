@@ -14,24 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "config_common.h"
-
-#define USB_MAX_POWER_CONSUMPTION 100
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
-/* Default pinout */
-/* See arduino micro pinout: https://content.arduino.cc/assets/Pinout-Micro_latest.png
- * for pins e.g.
- * PB5 = digital pin 9 / analog pin 9
- */
-#define DIRECT_PINS { \
-    {B5} \
-}
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN B6
 #define RGBLED_NUM 1
 #endif

@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Pointing device configuration. */
 

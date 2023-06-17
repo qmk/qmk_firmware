@@ -17,18 +17,9 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { GP4, GP5, GP28, GP26 }
-#define MATRIX_COL_PINS \
-    { GP8, GP9, GP7, GP6, GP27 }
-
 /* Handedness. */
 #define SPLIT_HAND_PIN GP29
 #define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
-
-/* serial.c configuration (for split keyboard). */
-#define SOFT_SERIAL_PIN GP1
 
 /* CRC. */
 #define CRC8_USE_TABLE

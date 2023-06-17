@@ -139,7 +139,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   /****** mod passthru *****/
-  if(record->event.pressed && layer_state_is(vim_cmd_layer()) && (IS_MOD(keycode) || keycode == LSFT(KC_LALT))) {
+  if(record->event.pressed && layer_state_is(vim_cmd_layer()) && (IS_MODIFIER_KEYCODE(keycode) || keycode == LSFT(KC_LALT))) {
     mod_override_layer_state = layer_state;
     mod_override_triggering_key = keycode;
     // TODO: change this to track key location instead

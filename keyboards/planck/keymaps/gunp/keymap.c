@@ -293,13 +293,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 #endif
 
-void startup_user() {
+void startup_user(void) {
 #ifdef AUDIO_ENABLE
   PLAY_SONG(tone_startup);
 #endif
 }
 
-void shutdown_user() {
+void shutdown_user(void) {
 #ifdef AUDIO_ENABLE
   PLAY_SONG(tone_goodbye);
   stop_all_notes();

@@ -15,32 +15,12 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size
- */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* key matrix pins
- */
-#define MATRIX_ROW_PINS { B1, B2, B3, C6, C7 }
-#define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, F7, B6, B5, B4, D7, D6, D4, D5, D3 }
-
-/* COL2ROW or ROW2COL
- */
-#define DIODE_DIRECTION COL2ROW
-
 /* IS31FL3731 driver address (for status LEDs)
  * Using the default defines here, but using a custom implementation
  */
 #define LED_DRIVER_ADDR_1 0b1110100
 #define LED_DRIVER_COUNT 1
 #define LED_MATRIX_LED_COUNT 3
-
-/* Set 0 if debouncing isn't needed
- */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
  */
@@ -50,7 +30,6 @@
  */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN D2
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

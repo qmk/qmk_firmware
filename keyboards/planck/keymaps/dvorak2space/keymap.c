@@ -179,7 +179,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 };
 
 //tapdance state evaluation
-int cur_dance(qk_tap_dance_state_t *state) {
+int cur_dance(tap_dance_state_t *state) {
   int press = 0;
   switch(state->count) {
     case 1:
@@ -196,11 +196,11 @@ int cur_dance(qk_tap_dance_state_t *state) {
   return press;
 }
 
-void back_tap(qk_tap_dance_state_t *state, void *user_data) { tap_code(KC_BACKSPACE); }
+void back_tap(tap_dance_state_t *state, void *user_data) { tap_code(KC_BACKSPACE); }
 
-void back_finished(qk_tap_dance_state_t *state, void *user_data) { if(!(state->interrupted || !state->pressed)) tap_code16(LCTL(KC_BACKSPACE)); }
+void back_finished(tap_dance_state_t *state, void *user_data) { if(!(state->interrupted || !state->pressed)) tap_code16(LCTL(KC_BACKSPACE)); }
 
-void slash_finished(qk_tap_dance_state_t *state, void *user_data) {
+void slash_finished(tap_dance_state_t *state, void *user_data) {
   int td_state = cur_dance(state);
   switch(td_state) {
     case SINGLE_TAP:
@@ -213,7 +213,7 @@ void slash_finished(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dash_finished(tap_dance_state_t *state, void *user_data) {
   int td_state = cur_dance(state);
   switch(td_state) {
     case SINGLE_TAP:
@@ -233,7 +233,7 @@ void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LBRC),
   [RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RBRC),
   [FB]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, slash_finished, NULL),

@@ -16,28 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { D7, D6, D5, D3, D2 }
-#define MATRIX_COL_PINS { B5, B6, C6, C7, F7, F6, F5, F4, F1, F0, B1, B2, B3, B7 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #ifdef RGB_MATRIX_ENABLE
 	#define RGB_MATRIX_KEYPRESSES
 	#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -62,8 +40,6 @@
 #define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL
 #endif
 
-#define RGB_DI_PIN B0
-#ifdef RGB_DI_PIN
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -78,10 +54,6 @@
 #    define RGBLIGHT_SAT_STEP 5
 #    define RGBLIGHT_VAL_STEP 5
 #    define RGBLIGHT_SLEEP
-#endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

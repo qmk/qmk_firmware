@@ -111,14 +111,13 @@
 /*
  * COMBO-KEY options
  */
-#define COMBO_COUNT 2
 #define COMBO_TERM 300
 /*
  * MACRO per-key options
  */
 #define RETRO_TAPPING_PER_KEY             // Control Retro-Tap individually by key
-#define TAPPING_FORCE_HOLD_PER_KEY        // Control Force-Hold individually by key
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY  // Control Mod-Tap-Interrupt individually by key
+#define QUICK_TAP_TERM_PER_KEY            // Control Quick-Tap individually by key
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY   // Control Hold-on-Other-Key-Press individually by key
 #define PERMISSIVE_HOLD_PER_KEY           // Control Permissive-Hold individually by key
 
 #define MK_KINETIC_SPEED  // Use kinetic acceleration for mouse-keys

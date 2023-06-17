@@ -17,30 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { B0, B1, B2, B10, B11 }
-#define MATRIX_COL_PINS { A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A15, B8, B9, B12, B13 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* NKRO */
-#ifdef NKRO_ENABLE
-#    define FORCE_NKRO
-#endif
-
 /* RGB stripe */
-#define RGB_DI_PIN B15
-#ifdef RGB_DI_PIN
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_CHRISTMAS
@@ -54,9 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 10
-#    define RGBLIGHT_LIMIT_VAL 180
 #    define OWL_VOLUME_RANGE 50
-#endif
 
 /* RGB matrix */
 #ifdef RGB_MATRIX_ENABLE
@@ -121,8 +96,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
-/* Encoder */
-#define ENCODERS_PAD_A { B4 }
-#define ENCODERS_PAD_B { B5 }
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10

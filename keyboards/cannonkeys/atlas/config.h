@@ -17,20 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
-
-#define MATRIX_COL_PINS { A2, A1, A0, F1, F0, C15, C14, C13, B9, A15, A10, A9 }
-#define MATRIX_ROW_PINS { A8, B14, B12, B4, B3 }
-#define DIODE_DIRECTION COL2ROW
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -49,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define WS2812_SPI SPID2
-#define RGB_DI_PIN B15
 #define RGBLED_NUM 22
 #define WS2812_SPI_MOSI_PAL_MODE 0
 #define WS2812_SPI_SCK_PAL_MODE 0

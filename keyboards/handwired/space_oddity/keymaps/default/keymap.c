@@ -35,7 +35,7 @@ enum {
 };
 
 // Tap dance actions - double tap for Caps Lock.
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
 
   [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
 

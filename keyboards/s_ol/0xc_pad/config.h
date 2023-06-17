@@ -15,10 +15,8 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN C7
 #define RGB_MATRIX_LED_COUNT 12
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #define RGB_MATRIX_CENTER \

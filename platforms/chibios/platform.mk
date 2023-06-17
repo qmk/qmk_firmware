@@ -235,6 +235,11 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld)","")
+    LDFLAGS += -L$(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/common/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld)","")
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/common/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld
 else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT).ld)","")
     LDFLAGS += -L$(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld
     LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT).ld
@@ -441,6 +446,9 @@ LDFLAGS  += $(SHARED_LDFLAGS) $(SHARED_LDSYMBOLS) $(TOOLCHAIN_LDFLAGS) $(TOOLCHA
 
 # Tell QMK that we are hosting it on ChibiOS.
 OPT_DEFS += -DPROTOCOL_CHIBIOS
+
+# And what flavor of MCU
+OPT_DEFS += -DMCU_$(MCU_FAMILY)
 
 # ChibiOS supports synchronization primitives like a Mutex
 OPT_DEFS += -DPLATFORM_SUPPORTS_SYNCHRONIZATION

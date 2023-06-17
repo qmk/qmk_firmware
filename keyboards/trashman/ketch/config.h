@@ -21,17 +21,7 @@ SOFTWARE.
 */
 
 #pragma once
-#include "config_common.h"
 
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 8
-#define MATRIX_ROW_PINS { F5, F1, F0, F7, B6, F6 }
-#define MATRIX_COL_PINS { D0, D1, D2, D3, D4, D5, D6, D7 }
-#define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5
-
-#define USB_MAX_POWER_CONSUMPTION 100
-#define RGB_DI_PIN F4
 #define RGBLED_NUM 10
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

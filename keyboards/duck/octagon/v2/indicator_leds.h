@@ -1,3 +1,5 @@
+#pragma once
+
 #include "duck_led/duck_led.h"
 
 void indicator_leds_set(bool leds[7]);

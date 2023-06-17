@@ -5,9 +5,14 @@
 
 #ifdef TAPPING_TERM_PER_KEY
 __attribute__((weak)) uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+
     switch (keycode) {
         case BK_LWER:
             return TAPPING_TERM + 25;
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            if (QK_MOD_TAP_GET_MODS(keycode) & MOD_LGUI) {
+                return 300;
+            }
         default:
             return TAPPING_TERM;
     }
@@ -42,29 +47,14 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 }
 #endif // HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
-#ifdef IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-__attribute__((weak)) bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-    // Do not force the mod-tap key press to be handled as a modifier
-    // if any other key was pressed while the mod-tap key is held down.
-    // return true;
-    // Force the mod-tap key press to be handled as a modifier if any
-    // other key was pressed while the mod-tap key is held down.
-    // return false;
+#ifdef QUICK_TAP_TERM_PER_KEY
+__attribute__((weak)) uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         default:
-            return true;
+            return QUICK_TAP_TERM;
     }
 }
-#endif // IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-
-#ifdef TAPPING_FORCE_HOLD_PER_KEY
-__attribute__((weak)) bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        default:
-            return false;
-    }
-}
-#endif // TAPPING_FORCE_HOLD_PER_KEY
+#endif // QUICK_TAP_TERM_PER_KEY
 
 #ifdef RETRO_TAPPING_PER_KEY
 __attribute__((weak)) bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {

@@ -1,0 +1,4 @@
+{
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu"
+}

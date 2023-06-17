@@ -80,7 +80,6 @@
 
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE    5
 
 // i2c setting
 #define USE_I2CV1
@@ -92,7 +91,6 @@
 
 // rgb light setting
 #define RGBLED_NUM 9
-#define RGB_DI_PIN B4
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

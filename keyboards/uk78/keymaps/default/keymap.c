@@ -9,7 +9,7 @@
 #define _FL2 2
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /* _BL: Base Layer(Default) - For ISO enter use ANSI \
+  /* _BL: Base Layer(Default) - For ISO enter use ANSI
   * ,-------------------------------------------------------------------------------.
   * |Esc | 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =| /|BSpc| Del|  P/|  P*|  P-|
   * |-------------------------------------------------------------------------------|
@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT,                         KC_SPC,                             KC_RALT, KC_RCTL, MO(_FL1), KC_LEFT, KC_DOWN, KC_RGHT, KC_P0,   KC_PDOT, KC_PENT
   ),
 
-  /* _FL1: Function Layer 1 - For ISO enter use ANSI \
+  /* _FL1: Function Layer 1 - For ISO enter use ANSI
   * ,-------------------------------------------------------------------------------.
   * |  `|F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|PScr|Ins|NLck|    |    |    |
   * |-------------------------------------------------------------------------------|
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,                            BL_TOGG,                            _______, _______, _______, _______, KC_VOLD, _______, _______, _______, _______
   ),
 
-  /* _FL2: Function Layer 2 - For ISO enter use ANSI \
+  /* _FL2: Function Layer 2 - For ISO enter use ANSI
   * ,-------------------------------------------------------------------------------.
   * |   |  |   |   |   |   |   |   |   |   |   |   |   |    |   |    |    |    |    |
   * |-------------------------------------------------------------------------------|

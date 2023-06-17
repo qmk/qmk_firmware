@@ -48,7 +48,7 @@ enum {
     TD_PASTE_COPY
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_PAST_PSLS]  = ACTION_TAP_DANCE_DOUBLE(KC_PAST,    KC_PSLS),
     [TD_PASTE_COPY] = ACTION_TAP_DANCE_DOUBLE(LCTL(KC_V), LCTL(KC_C))
 };

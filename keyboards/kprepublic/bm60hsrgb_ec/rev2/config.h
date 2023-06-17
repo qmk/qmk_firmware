@@ -15,38 +15,8 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-#define ENCODERS_PAD_A { F1 }
-#define ENCODERS_PAD_B { F4 }
-#define ENCODER_RESOLUTION 2
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { E6, D2, D3, D5, F6 }
-#define MATRIX_COL_PINS { B2, B3, B7, B0, B1, F7, D4, D6, D7, B4, B5, B6, C6, C7 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
 //rgb light setting
-#define RGBLIGHT_LIMIT_VAL 150
 #define RGBLED_NUM          6
-#define RGB_DI_PIN          F0
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
