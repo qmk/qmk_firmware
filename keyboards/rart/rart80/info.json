@@ -21,6 +21,7 @@
         "pin": "D5"
     },
     "rgblight": {
+        "led_count": 6,
         "max_brightness": 240,
         "sleep": true
     },

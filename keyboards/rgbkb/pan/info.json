@@ -12,6 +12,7 @@
         "driver": "custom"
     },
     "rgblight": {
+        "led_count": 64,
         "max_brightness": 120
     },
     "layouts": {
