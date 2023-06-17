@@ -1,6 +1,6 @@
 # Raindrop ansi
 
-![layout](https://i.imgur.com/nSO4CwYh.png)
+![layout](https://i.imgur.com/oibG44o.png)
 
 This directory is for the 'Standard 60%' key layout.
 

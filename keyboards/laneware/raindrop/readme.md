@@ -11,11 +11,11 @@
 ## Layouts
 The Raindrop PCB can be configured in the following key layouts:  
 * **Standard 60%**  
-![diagram_ansi](https://i.imgur.com/nSO4CwYh.png)
+![diagram_ansi](https://i.imgur.com/oibG44o.png)
 * **2u Left Shift with Arrow Keys**  
-![diagram_arrows](https://i.imgur.com/7yPCNCoh.png)  
-* **HHKB Rows 1-4**  
-![diagram_hhkb](https://i.imgur.com/FPLmClah.png)
+![diagram_arrows](https://i.imgur.com/cQ4Kwb5h.png)  
+* **HHKB with 6.25 Spacebar**  
+![diagram_hhkb](https://i.imgur.com/WU6gb1Qh.png)
 
 Each layout has it's own QMK keyboard directory:  
 | Key Layout | Directory |

@@ -1,8 +1,8 @@
-# Raindrop HHKB
+# Raindrop with 6.25 Spacebar
 
-![layout](https://i.imgur.com/FPLmClah.png)
+![layout](https://i.imgur.com/WU6gb1Qh.png)
 
-This directory is for the 'HHKB Rows 1-4' key layout.
+This directory is for the 'HHKB with 6.25 Spacebar' key layout.
 
 Make example for this keyboard (after setting up your build environment):
 

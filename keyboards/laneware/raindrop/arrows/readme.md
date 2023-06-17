@@ -1,6 +1,6 @@
 # Raindrop arrows
 
-![layout](https://i.imgur.com/7yPCNCoh.png)
+![layout](https://i.imgur.com/cQ4Kwb5h.png)
 
 This directory is for the '2u Left Shift with Arrow Keys' key layout.
 
