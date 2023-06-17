@@ -19,6 +19,7 @@
 #include "hal_pal.h"
 #include "hal_pal_lld.h"
 #include "quantum.h"
+#include <math.h>
 
 // STM32-specific watchdog config calculations
 // timeout = 31.25us * PR * (RL + 1)

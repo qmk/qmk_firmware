@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
-#include "muse.h"
+#ifdef AUDIO_ENABLE
+#    include "muse.h"
+#endif
 
 // Custom Keycode Definitions
 #define LOWER MO(_LOWER)

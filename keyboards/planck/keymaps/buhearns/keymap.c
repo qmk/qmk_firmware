@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
-#include "muse.h"
+#ifdef AUDIO_ENABLE
+#    include "muse.h"
+#endif
 
 extern keymap_config_t keymap_config;
 

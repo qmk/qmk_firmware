@@ -12,7 +12,9 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
+#ifdef AUDIO_ENABLE
+#    include "muse.h"
+#endif
 #include "keymap_italian_mac_ansi.h"
 #include "sigul.h"
 

@@ -1,4 +1,6 @@
-SRC += muse.c
+ifeq ($(strip $(AUDIO_ENABLE)), yes)
+    SRC += muse.c
+endif
 
 ifeq ($(strip $(KEYBOARD)), planck/rev6)
   BACKLIGHT_ENABLE = no

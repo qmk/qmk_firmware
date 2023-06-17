@@ -15,7 +15,9 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
+#ifdef AUDIO_ENABLE
+#    include "muse.h"
+#endif
 
 // Tap and hold mods
       // Enter into right shift

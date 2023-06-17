@@ -15,7 +15,9 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
+#ifdef AUDIO_ENABLE
+#    include "muse.h"
+#endif
 
 enum preonic_layers {
     _BASE,

@@ -15,7 +15,9 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
+#ifdef AUDIO_ENABLE
+#    include "muse.h"
+#endif
 
 bool     is_lgui_active = false;
 uint16_t lgui_timer     = 0;

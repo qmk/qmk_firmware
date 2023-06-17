@@ -15,7 +15,9 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
+#ifdef AUDIO_ENABLE
+#    include "muse.h"
+#endif
 #include "keymap_german.h"
 
 enum combos {

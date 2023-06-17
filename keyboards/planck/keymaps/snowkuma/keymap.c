@@ -26,7 +26,9 @@
 */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
+#ifdef AUDIO_ENABLE
+#    include "muse.h"
+#endif
 #include "custom_keycodes.h"
 #include "my_strings.h"
 

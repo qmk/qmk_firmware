@@ -1,2 +1,4 @@
 AUDIO_ENABLE = yes
-SRC += muse.c
+ifeq ($(strip $(AUDIO_ENABLE)), yes)
+    SRC += muse.c
+endif
