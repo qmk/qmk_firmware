@@ -1,0 +1,15 @@
+{  
+    "keyboard_name": "Raindrop HHKB Rows 1-4",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true,
+        "backlight": false,
+        "audio": false,
+        "rgblight": false,
+        "sleep_led": false
+    }
+}
