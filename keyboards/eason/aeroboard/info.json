@@ -21,7 +21,7 @@
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_space": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
