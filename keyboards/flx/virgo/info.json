@@ -18,6 +18,7 @@
         "levels": 5
     },
     "rgblight": {
+        "led_count": 0,
         "sleep": true
     },
     "ws2812": {
