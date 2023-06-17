@@ -17,6 +17,7 @@
     },
     "diode_direction": "COL2ROW",
     "rgblight": {
+        "led_count": 18,
         "sleep": true
     },
     "ws2812": {
