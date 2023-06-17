@@ -1,6 +1,9 @@
 # Raindrop
 
-![stacked](https://i.imgur.com/R2iPqjIh.png)
+![stacked](https://i.imgur.com/R2iPqjIh.png)  
+*Casing*  
+![PCB Front](https://i.imgur.com/00TpL3nh.png)  
+*PCB Front*  
 
 60% sized keyboard with a gasket mounted plate and aluminium case. 
 
