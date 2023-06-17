@@ -1,5 +1,7 @@
 # Raindrop
 
+![stacked](https://i.imgur.com/R2iPqjIh.png)
+
 60% sized keyboard with a gasket mounted plate and aluminium case. 
 
 * Keyboard Maintainer: [Laneware Peripherals Support](mailto:support@lanewareperipherals.zendesk.com)
@@ -7,18 +9,20 @@
 * Hardware Availability: Group Buy
 
 ## Layouts
-The Raindrop PCB can be configured in the following layouts:
+The Raindrop PCB can be configured in the following key layouts:  
+* **Standard 60%**  
+![diagram_ansi](https://i.imgur.com/nSO4CwYh.png)
+* **2u Left Shift with Arrow Keys**  
+![diagram_arrows](https://i.imgur.com/7yPCNCoh.png)  
+* **HHKB Rows 1-4**  
+![diagram_hhkb](https://i.imgur.com/FPLmClah.png)
+* **Standard ISO**  
+![diagram_iso](https://i.imgur.com/8oyAuTWh.png)
 
-* HHKB Rows 1-4     
-![hhkb](https://i.imgur.com/FPLmClah.png)
-
-Each layout has it's own directory
-
-| Layout | Directory |
+Each layout has it's own QMK keyboard directory:  
+| Key Layout | Directory |
 | :---: | :---: |
-| HHKB Rows 1-4 | [hhkb](/keyboards/laneware/raindrop/hhkb/) |
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+| HHKB Rows 1-4 | [hhkb](/keyboards/laneware/raindrop/hhkb) |
 
 ## Bootloader
 
