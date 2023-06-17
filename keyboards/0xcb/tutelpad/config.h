@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGBLED_NUM 4                    // Number of LEDs connected
-
 #define RGBLIGHT_HUE_STEP 10            // The number of steps to cycle through the hue by
 #define RGBLIGHT_SAT_STEP 17            // The number of steps to increment the saturation by
 #define RGBLIGHT_VAL_STEP 17            // The number of steps to increment the brightness by
