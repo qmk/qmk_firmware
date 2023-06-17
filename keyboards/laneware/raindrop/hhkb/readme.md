@@ -1,4 +1,4 @@
-# Raindrop with 6.25 Spacebar
+# Raindrop HHKB with 6.25 Spacebar
 
 ![layout](https://i.imgur.com/WU6gb1Qh.png)
 
