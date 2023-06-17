@@ -16,6 +16,12 @@
     "diode_direction": "COL2ROW",
     "processor": "RP2040",
     "bootloader": "rp2040",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "encoder": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
