@@ -8,6 +8,9 @@
     "pid": "0x3302",
     "device_version": "0.0.2"
   },
+  "rgblight": {
+    "led_count": 12
+  },
   "ws2812": {
     "pin": "D6"
   },

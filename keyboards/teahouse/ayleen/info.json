@@ -20,6 +20,7 @@
       "cols": ["F6", "D0", "D1", "D2", "D6", "D7", "B4", "B5", "B6"]
     },
     "rgblight": {
+        "led_count": 2,
         "sleep": true
     },
     "ws2812": {

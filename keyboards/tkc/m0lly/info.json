@@ -27,6 +27,9 @@
         "num_lock": "D2",
         "scroll_lock": "D4"
     },
+    "rgblight": {
+        "led_count": 30
+    },
     "ws2812": {
         "pin": "D7"
     },

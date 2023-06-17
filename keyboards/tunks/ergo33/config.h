@@ -28,14 +28,6 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#if !defined(RGBLED_NUM)
-/* RGB LED count
- * No external LED PCB: 10
- * External LED PCB: 14
- */
-#    define RGBLED_NUM 14
-#endif
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
