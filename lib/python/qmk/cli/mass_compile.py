@@ -53,20 +53,22 @@ def mass_compile(cli):
             keyboard_name = target[0]
             keymap_name = target[1]
             keyboard_safe = keyboard_name.replace('/', '_')
+            build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
+            failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
             # yapf: disable
             f.write(
                 f"""\
 all: {keyboard_safe}_{keymap_name}_binary
 {keyboard_safe}_{keymap_name}_binary:
-	@rm -f "{QMK_FIRMWARE}/.build/failed.log.{keyboard_safe}.{keymap_name}" || true
-	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{keymap_name}'..." >>"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}"
+	@rm -f "{build_log}" || true
+	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{keymap_name}'..." >>"{build_log}"
 	+@$(MAKE) -C "{QMK_FIRMWARE}" -f "{QMK_FIRMWARE}/builddefs/build_keyboard.mk" KEYBOARD="{keyboard_name}" KEYMAP="{keymap_name}" COLOR=true SILENT=false {' '.join(cli.args.env)} \\
-		>>"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}" 2>&1 \\
-		|| cp "{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}" "{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
-	@{{ grep '\[ERRORS\]' "{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}" >/dev/null 2>&1 && printf "Build %-64s \e[1;31m[ERRORS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
-		|| {{ grep '\[WARNINGS\]' "{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}" >/dev/null 2>&1 && printf "Build %-64s \e[1;33m[WARNINGS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
+		>>"{build_log}" 2>&1 \\
+		|| cp "{build_log}" "{failed_log}"
+	@{{ grep '\[ERRORS\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \e[1;31m[ERRORS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
+		|| {{ grep '\[WARNINGS\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \e[1;33m[WARNINGS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
 		|| printf "Build %-64s \e[1;32m[OK]\e[0m\\n" "{keyboard_name}:{keymap_name}"
-	@rm -f "{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}" || true
+	@rm -f "{build_log}" || true
 """# noqa
             )
             # yapf: enable
@@ -77,7 +79,6 @@ all: {keyboard_safe}_{keymap_name}_binary
                     f"""\
 	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.elf" 2>/dev/null || true
 	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.map" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/obj_{keyboard_safe}" || true
 	@rm -rf "{QMK_FIRMWARE}/.build/obj_{keyboard_safe}_{keymap_name}" || true
 """# noqa
                 )
