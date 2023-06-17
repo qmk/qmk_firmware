@@ -12,20 +12,26 @@
 * Hardware Availability: Group Buy
 
 ## Layouts
-The Raindrop PCB can be configured in the following key layouts:  
-* **Standard 60%**  
-![diagram_ansi](https://i.imgur.com/oibG44o.png)
-* **2u Left Shift with Arrow Keys**  
-![diagram_arrows](https://i.imgur.com/cQ4Kwb5h.png)  
-* **HHKB with 6.25 Spacebar**  
-![diagram_hhkb](https://i.imgur.com/WU6gb1Qh.png)
+The Raindrop PCB can be configured in the following key layouts: 
+| Key Layout | Keymap | Diagram |
+| :---: | :---: | :---: |
+| Standard 60% | default | ![diagram_ansi](https://i.imgur.com/oibG44o.png) |
+| 2u Left Shift with Arrow Keys | default_arrows | ![diagram_arrows](https://i.imgur.com/cQ4Kwb5h.png) |
+| HHKB with 6.25 Spacebar | default_hhkb | ![diagram_hhkb](https://i.imgur.com/WU6gb1Qh.png) |
 
-Each layout has it's own QMK keyboard directory:  
-| Key Layout | Directory |
-| :---: | :---: |
-| Standard 60% | [raindrop/ansi](/keyboards/laneware/raindrop/ansi) |
-| 2u Left Shift with Arrow Keys | [raindrop/arrows](/keyboards/laneware/raindrop/arrows) |
-| HHKB Rows 1-4 | [raindrop/hhkb](/keyboards/laneware/raindrop/hhkb) |
+Make example for this keyboard (after setting up your build environment):
+
+    make laneware/raindrop:default
+    make laneware/raindrop:default_arrows
+    make laneware/raindrop:default_hhkb
+
+Flashing example for this keyboard:
+
+    make laneware/raindrop:default:flash
+    make laneware/raindrop:default_arrows:flash
+    make laneware/raindrop:default_hhkb:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
