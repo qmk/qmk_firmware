@@ -19,6 +19,9 @@
         "breathing": true,
         "breathing_period": 3
     },
+    "rgblight": {
+        "led_count": 8
+    },
     "ws2812": {
         "pin": "E2"
     },

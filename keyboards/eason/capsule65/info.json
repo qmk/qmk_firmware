@@ -16,6 +16,9 @@
     "indicators": {
         "caps_lock": "F6"
     },
+    "rgblight": {
+        "led_count": 6
+    },
     "ws2812": {
         "pin": "F7"
     },
