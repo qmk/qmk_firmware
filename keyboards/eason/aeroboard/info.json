@@ -2,7 +2,7 @@
     "keyboard_name": "AeroBoard",
     "manufacturer": "Eason",
     "url": "",
-    "maintainer": "Eason",
+    "maintainer": "EasonQian1",
     "usb": {
         "vid": "0x8954",
         "pid": "0x8870",
