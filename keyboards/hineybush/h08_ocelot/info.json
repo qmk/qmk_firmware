@@ -17,6 +17,7 @@
         "pin": "F1"
     },
     "rgblight": {
+        "led_count": 7,
         "max_brightness": 220,
         "sleep": true
     },

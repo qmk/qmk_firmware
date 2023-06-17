@@ -46,10 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Dip switch on matrix grid */
 #define DIP_SWITCH_MATRIX_GRID { {0,6}, {1,6}, {5,6}, {6,6} }
 
-#define RGBLED_NUM 50 // Number of LEDs
-
 #ifdef RGB_MATRIX_ENABLE
-  #define RGB_MATRIX_LED_COUNT RGBLED_NUM
+  #define RGB_MATRIX_LED_COUNT 50
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
