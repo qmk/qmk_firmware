@@ -9,6 +9,11 @@
         "vid": "0x6B70",
         "device_version": "1.0.0"
     },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "GP26", "pin_b": "GP27" }
+        ]
+    },
     "matrix_pins": {
         "cols":["GP18","GP15","GP14","GP13"],
         "rows":["GP12","GP11"]
