@@ -33,6 +33,7 @@
         "pin": "D4"
     },
     "rgblight": {
+        "led_count": 24,
         "max_brightness": 200,
         "sleep": true
     },

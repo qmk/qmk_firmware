@@ -13,6 +13,7 @@
         "driver": "pwm"
     },
     "rgblight": {
+        "led_count": 10,
         "max_brightness": 210
     },
     "matrix_pins": {

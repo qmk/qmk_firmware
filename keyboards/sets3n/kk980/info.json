@@ -12,6 +12,7 @@
         "pin": "B7"
     },
     "rgblight": {
+        "led_count": 102,
         "max_brightness": 230
     },
     "matrix_pins": {

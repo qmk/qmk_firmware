@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MASTER_RIGHT
 
-  #define RGBLED_NUM 52
   #ifdef RGB_MATRIX_ENABLE
     #define RGB_MATRIX_LED_COUNT 52
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
