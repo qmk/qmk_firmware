@@ -16,10 +16,6 @@
 
 #pragma once
 
-#ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 60  // Total number of LEDs
-#endif
-
 // Limit the power draw
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40

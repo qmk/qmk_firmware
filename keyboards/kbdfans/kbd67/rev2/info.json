@@ -24,6 +24,7 @@
         "pin": "E2"
     },
     "rgblight": {
+        "led_count": 26,
         "max_brightness": 240,
         "sleep": true
     },

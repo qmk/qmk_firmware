@@ -15,6 +15,7 @@
         "driver": "WS2812"
     },
     "rgblight": {
+        "led_count": 32,
         "max_brightness": 120,
         "sleep": true
     },

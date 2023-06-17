@@ -15,6 +15,7 @@
     "driver": "WS2812"
   },
   "rgblight": {
+    "led_count": 88,
     "max_brightness": 120,
     "split_count": [44, 44]
   },

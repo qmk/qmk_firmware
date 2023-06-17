@@ -4,6 +4,9 @@
         "pid": "0x1227",
         "device_version": "0.0.4"
     },
+    "rgblight": {
+        "led_count": 68
+    },
     "ws2812": {
         "pin": "C7"
     },
