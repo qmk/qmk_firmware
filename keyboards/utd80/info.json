@@ -21,6 +21,9 @@
       "caps_lock": "B6",
       "scroll_lock": "B5"
     },
+    "rgblight": {
+      "led_count": 4
+    },
     "ws2812": {
       "pin": "E2"
     },
