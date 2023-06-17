@@ -19,6 +19,7 @@
         "breathing": true
     },
     "rgblight": {
+        "led_count": 14,
         "max_brightness": 200,
         "sleep": true
     },

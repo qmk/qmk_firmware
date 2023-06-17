@@ -19,6 +19,7 @@
         ]
     },
     "rgblight": {
+        "led_count": 17,
         "sleep": true
     },
     "ws2812": {
