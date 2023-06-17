@@ -16,8 +16,6 @@ The Raindrop PCB can be configured in the following key layouts:
 ![diagram_arrows](https://i.imgur.com/7yPCNCoh.png)  
 * **HHKB Rows 1-4**  
 ![diagram_hhkb](https://i.imgur.com/FPLmClah.png)
-* **Standard ISO**  
-![diagram_iso](https://i.imgur.com/8oyAuTWh.png)
 
 Each layout has it's own QMK keyboard directory:  
 | Key Layout | Directory |
