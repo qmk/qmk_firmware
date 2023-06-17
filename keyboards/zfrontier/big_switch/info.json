@@ -12,6 +12,9 @@
         "cols": ["F1"],
         "rows": ["F0"]
     },
+    "rgblight": {
+        "led_count": 4
+    },
     "ws2812": {
         "pin": "B6"
     },
