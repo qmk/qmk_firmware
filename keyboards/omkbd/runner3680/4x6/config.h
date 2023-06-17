@@ -35,7 +35,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 48
 
 #define SELECT_SOFT_SERIAL_SPEED 1
 /*Sets the protocol speed when using serial communication*/
