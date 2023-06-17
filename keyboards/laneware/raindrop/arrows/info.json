@@ -1,0 +1,15 @@
+{  
+    "keyboard_name": "Raindrop 2u Left Shift with Arrow Keys",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true,
+        "backlight": false,
+        "audio": false,
+        "rgblight": false,
+        "sleep_led": false
+    }
+}

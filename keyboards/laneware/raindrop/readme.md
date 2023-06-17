@@ -22,7 +22,9 @@ The Raindrop PCB can be configured in the following key layouts:
 Each layout has it's own QMK keyboard directory:  
 | Key Layout | Directory |
 | :---: | :---: |
-| HHKB Rows 1-4 | [hhkb](/keyboards/laneware/raindrop/hhkb) |
+| Standard 60% | [raindrop/ansi](/keyboards/laneware/raindrop/ansi) |
+| 2u Left Shift with Arrow Keys | [raindrop/arrows](/keyboards/laneware/raindrop/arrows) |
+| HHKB Rows 1-4 | [raindrop/hhkb](/keyboards/laneware/raindrop/hhkb) |
 
 ## Bootloader
 
