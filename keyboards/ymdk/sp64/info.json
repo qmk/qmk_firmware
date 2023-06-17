@@ -17,6 +17,7 @@
         "driver": "i2c"
     },
     "rgblight": {
+        "led_count": 12,
         "max_brightness": 250,
         "sleep": true
     },

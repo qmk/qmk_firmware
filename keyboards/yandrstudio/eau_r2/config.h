@@ -17,7 +17,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 
-#    define RGBLED_NUM 12
 #    define RGBLIGHT_VAL_STEP 5
 
 #    define RGBLIGHT_EFFECT_BREATHING
