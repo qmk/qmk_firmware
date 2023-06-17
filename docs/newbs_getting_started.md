@@ -66,7 +66,7 @@ Install the QMK CLI by running:
     
 Install the QMK CLI on an Apple Silicon Mac by running:
 
-    arch -x86_64 brew install qmk/qmk/qmk
+    arch -arm64 brew install qmk/qmk/qmk
 
 ### ** Linux/WSL **
 
