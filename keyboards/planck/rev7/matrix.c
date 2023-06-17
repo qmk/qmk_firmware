@@ -49,10 +49,12 @@ static pin_t matrix_col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 static matrix_row_t matrix_inverted[MATRIX_COLS];
 
+#ifdef ENCODER_ENABLE
 int8_t  encoder_LUT[]     = {0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0};
 uint8_t encoder_state[8]  = {0};
 int8_t  encoder_pulses[8] = {0};
 uint8_t encoder_value[8]  = {0};
+#endif
 
 void matrix_init_custom(void) {
     // actual matrix setup - cols
@@ -81,6 +83,7 @@ void matrix_init_custom(void) {
 #endif
 }
 
+#ifdef ENCODER_ENABLE
 bool encoder_update(uint8_t index, uint8_t state) {
     bool    changed = false;
     uint8_t i       = index;
@@ -103,6 +106,7 @@ bool encoder_update(uint8_t index, uint8_t state) {
 #endif
     return changed;
 }
+#endif
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 #ifndef PLANCK_WATCHDOG_DISABLE
@@ -144,6 +148,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         changed |= old != current_matrix[row];
     }
 
+#ifdef ENCODER_ENABLE
     // encoder-matrix functionality
 
     // set up C/rows for encoder read
@@ -176,6 +181,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     for (int i = 0; i < MATRIX_ROWS; i++) {
         setPinInputLow(matrix_row_pins[i]);
     }
+#endif
 
     return changed;
 }
