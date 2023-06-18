@@ -24,37 +24,3 @@ typedef union {
         uint8_t indicator_key : 8;
     };
 } keyboard_config_t;
-
-// clang-format off
-#define LAYOUT_right_all( \
-    k00, k01, k02, k03, k04, \
-    k10, k11, k12, k13, k14, \
-    k20, k21, k22, k23, k24, \
-    k30, k31, k32, k33, k34, \
-    k40, k41, k42, k43, k44  \
-) \
-{ \
-    { k00, k01, k02, k03, k04 }, \
-    { k10, k11, k12, k13, k14 }, \
-    { k20, k21, k22, k23, k24 }, \
-    { k30, k31, k32, k33, k34 }, \
-    { k40, k41, k42, k43, k44 }  \
-}
-// clang-format on
-
-// clang-format off
-#define LAYOUT_left_all( \
-    k00, k01, k02, k03, k04, \
-    k10, k11, k12, k13, k14, \
-    k20, k21, k22, k23, k24, \
-    k30, k31, k32, k33, k34, \
-    k40, k41, k42, k43, k44  \
-) \
-{ \
-    { k04, k03, k02, k01, k00 }, \
-    { k14, k13, k12, k11, k10 }, \
-    { k24, k23, k22, k21, k20 }, \
-    { k34, k33, k32, k31, k30 }, \
-    { k44, k43, k42, k41, k40 }  \
-}
-// clang-format on
