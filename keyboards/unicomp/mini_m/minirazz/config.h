@@ -20,3 +20,6 @@
 
 #define WEAR_LEVELING_LOGICAL_SIZE 16384
 #define WEAR_LEVELING_BACKING_SIZE (WEAR_LEVELING_LOGICAL_SIZE * 2)
+
+// with eager debouncing the default is not good enough:
+#define DEBOUNCE 10
