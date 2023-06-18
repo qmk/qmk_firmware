@@ -27,6 +27,10 @@
         "caps_lock": "E6",
         "on_state": 0
     },
+    "rgblight": {
+        "led_count": 20,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E2"
     },

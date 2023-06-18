@@ -12,6 +12,7 @@
         "pin": "F7"
     },
     "rgblight": {
+        "led_count": 68,
         "max_brightness": 96
     },
     "matrix_pins": {

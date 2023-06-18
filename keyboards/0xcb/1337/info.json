@@ -21,6 +21,10 @@
   "qmk_lufa_bootloader": {
     "led": "B0"
   },
+  "rgblight": {
+    "led_count": 4,
+    "sleep": true
+  },
   "ws2812": {
     "pin": "D3"
   },

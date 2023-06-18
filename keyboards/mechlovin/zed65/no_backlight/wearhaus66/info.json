@@ -16,6 +16,10 @@
     "indicators": {
         "caps_lock": "C14"
     },
+    "rgblight": {
+        "led_count": 24,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "B15",
         "driver": "spi"

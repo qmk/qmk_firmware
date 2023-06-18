@@ -20,7 +20,9 @@
         "pin": "E2"
     },
     "rgblight": {
-        "max_brightness": 200
+        "led_count": 5,
+        "max_brightness": 200,
+        "sleep": true
     },
     "indicators": {
         "caps_lock": "E6",

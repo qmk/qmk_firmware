@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-    #define RGBLED_NUM 26     // Number of LEDs
-
 #define AUDIO_VOICES
 #define AUDIO_PIN C6
 

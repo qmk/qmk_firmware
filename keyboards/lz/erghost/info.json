@@ -12,6 +12,10 @@
         "pin": "B6",
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 28,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E2"
     },

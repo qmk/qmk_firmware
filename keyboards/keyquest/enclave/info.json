@@ -11,7 +11,9 @@
         "pin": "B5"
     },
     "rgblight": {
-        "max_brightness": 200
+        "led_count": 2,
+        "max_brightness": 200,
+        "sleep": true
     },
     "matrix_pins": {
         "cols": ["B4", "B7", "C7"],

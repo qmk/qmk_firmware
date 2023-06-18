@@ -18,11 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #ifdef RGBLIGHT_ENABLE
-  #define RGBLED_NUM 40
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 //   #define RGBLIGHT_EFFECT_BREATHING
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -35,8 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-  #define RGBLED_NUM 40    // Number of LEDs
-  #define RGB_MATRIX_LED_COUNT RGBLED_NUM
+  #define RGB_MATRIX_LED_COUNT 40
   #define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
   // #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
   #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended

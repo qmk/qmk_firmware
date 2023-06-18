@@ -1,4 +1,8 @@
 {
+    "rgblight": {
+        "led_count": 18,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D3"
     },

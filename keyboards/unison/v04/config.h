@@ -26,12 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* RGB Lighting */
-  #define RGBLED_NUM 7 // Layer Indicator(2) + Rotary Encoder(5)
-  #define RGBLIGHT_LED_MAP {1, 2, 0, 3, 4, 5, 6} // align LEDs from Left to Right
   #define RGBLIGHT_HUE_STEP 4
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
-  // #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
   /*== Lighting Layers ==*/
   #define RGBLIGHT_LAYERS
   // #define RGBLIGHT_MAX_LAYERS 2

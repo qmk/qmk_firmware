@@ -21,6 +21,9 @@
     "indicators": {
         "caps_lock": "C7"
     },
+    "rgblight": {
+        "led_count": 24
+    },
     "ws2812": {
         "pin": "E2"
     },

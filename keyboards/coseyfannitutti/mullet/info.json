@@ -8,6 +8,10 @@
         "pid": "0x6969",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 14,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D5"
     },

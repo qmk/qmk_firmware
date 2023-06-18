@@ -19,6 +19,10 @@
             {"pin_a": "F1", "pin_b": "F0"}
         ]
     },
+    "rgblight": {
+        "led_count": 9,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "C7"
     },

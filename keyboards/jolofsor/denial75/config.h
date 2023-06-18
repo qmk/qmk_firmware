@@ -24,8 +24,6 @@
 
 
 /* RGB Definitions */
-
-#define RGBLED_NUM 84
 #define RGBLIGHT_MAX_LAYERS 32
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17

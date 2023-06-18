@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGBLED_NUM 42
 #define RGB_MATRIX_LED_COUNT 42
 
 // PWM RGB Underglow Defines

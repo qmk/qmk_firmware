@@ -18,6 +18,9 @@
         "levels": 12,
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 12
+    },
     "ws2812": {
         "driver": "i2c"
     },

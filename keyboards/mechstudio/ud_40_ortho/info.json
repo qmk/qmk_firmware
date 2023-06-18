@@ -17,6 +17,10 @@
     "esc_input": "B7",
     "esc_output": "F0"
   },
+  "rgblight": {
+    "led_count": 10,
+    "sleep": true
+  },
   "ws2812": {
     "pin": "B7"
   },

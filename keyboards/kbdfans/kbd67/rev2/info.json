@@ -24,7 +24,9 @@
         "pin": "E2"
     },
     "rgblight": {
-        "max_brightness": 240
+        "led_count": 16,
+        "max_brightness": 240,
+        "sleep": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

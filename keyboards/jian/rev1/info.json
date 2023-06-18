@@ -12,6 +12,11 @@
         "pin": "B6",
         "levels": 5
     },
+    "rgblight": {
+        "led_count": 7,
+        "sleep": true,
+        "split": true
+    },
     "ws2812": {
         "pin": "D4"
     },

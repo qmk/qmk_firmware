@@ -13,6 +13,10 @@
         "rows": ["B2", "B1", "B0", "D4", "D1"]
     },
     "diode_direction": "COL2ROW",
+    "rgblight": {
+        "led_count": 16,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D0"
     },

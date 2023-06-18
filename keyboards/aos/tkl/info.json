@@ -11,6 +11,7 @@
         "pin": "E6"
     },
     "rgblight": {
+        "led_count": 88,
         "max_brightness": 50
     },
     "matrix_pins": {

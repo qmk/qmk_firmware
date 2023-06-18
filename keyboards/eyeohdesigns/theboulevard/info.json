@@ -18,6 +18,10 @@
             {"pin_a": "F5", "pin_b": "F4", "resolution": 2}
         ]
     },
+    "rgblight": {
+        "led_count": 2,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "F6"
     },

@@ -3,6 +3,10 @@
         "pid": "0xDEF2",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 13,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E2"
     },

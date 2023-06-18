@@ -21,14 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Underglow */
 #define WS2812_EXTERNAL_PULLUP // This board uses a pull-up + 5 V tolerant GPIO in open drain config ro generate a 5 V signal
-#define RGBLED_NUM 18
 /* section for PWM WS2812 driver */
 #define WS2812_PWM_DRIVER PWMD4
 #define WS2812_PWM_CHANNEL 4
 #define WS2812_PWM_PAL_MODE 2
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM7
 #define WS2812_DMA_CHANNEL 7
-#define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

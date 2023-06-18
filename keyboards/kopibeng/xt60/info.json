@@ -8,6 +8,10 @@
         "pid": "0x0600",
         "device_version": "0.0.2"
     },
+    "rgblight": {
+        "led_count": 14,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "F6"
     },

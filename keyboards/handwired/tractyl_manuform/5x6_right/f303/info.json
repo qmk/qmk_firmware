@@ -6,6 +6,7 @@
     },
     "diode_direction": "COL2ROW",
     "rgblight": {
+        "led_count": 20,
         "split_count": [10, 10]
     },
     "ws2812": {

@@ -19,11 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAP_CODE_DELAY 10
 
-#    define RGBLED_NUM 11
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -36,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_TWINKLE
 // RGB Matrix
 #    ifdef RGB_MATRIX_ENABLE
-#        define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#        define RGB_MATRIX_LED_COUNT 11
 #        define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #        define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled

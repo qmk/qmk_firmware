@@ -8,6 +8,9 @@
         "pid": "0x0303",
         "device_version": "0.0.2"
     },
+    "rgblight": {
+        "led_count": 4
+    },
     "ws2812": {
         "pin": "D3"
     },

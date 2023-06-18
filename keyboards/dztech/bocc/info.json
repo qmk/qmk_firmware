@@ -17,6 +17,10 @@
         "pin": "B7",
         "levels": 5
     },
+    "rgblight": {
+        "led_count": 20,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E2"
     },

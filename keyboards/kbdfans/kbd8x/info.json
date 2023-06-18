@@ -22,6 +22,10 @@
     "num_lock": "B1",
     "scroll_lock": "B2"
   },
+  "rgblight": {
+    "led_count": 20,
+    "sleep": true
+  },
   "ws2812": {
     "pin": "E2"
   },

@@ -8,6 +8,9 @@
         "pid": "0x5337",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 10
+    },
     "ws2812": {
         "pin": "B15",
         "driver": "spi"

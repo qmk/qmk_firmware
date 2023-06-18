@@ -16,6 +16,10 @@
     "indicators": {
         "caps_lock": "C6"
     },
+    "rgblight": {
+        "led_count": 18,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "F0"
     },

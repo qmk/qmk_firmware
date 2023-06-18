@@ -18,6 +18,10 @@
             {"pin_a": "D3", "pin_b": "D5"}
         ]
     },
+    "rgblight": {
+        "led_count": 12,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D1"
     },

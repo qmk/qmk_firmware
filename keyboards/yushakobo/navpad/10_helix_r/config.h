@@ -18,19 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define EE_HANDS
-
-#    define RGBLIGHT_LED_MAP { 0, 1, 2, 3, 4, 5, 6, 8, 7, \
-                                   9, 10, 11, 12, 13, 14, \
-                                  20, 19, 18, 17, 16, 15, \
-                                  21, 22, 23, 24, 25, 26, \
-                              33, 32, 31, 30, 29, 28, 27, \
-                              34, 35, 36, 37, 38, 39, 40 }
-
-#    define RGBLED_NUM 9+32
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 //#    define RGBLIGHT_EFFECT_BREATHING
 //#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

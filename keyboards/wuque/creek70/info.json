@@ -30,7 +30,9 @@
     "pin": "D0"
   },
   "rgblight": {
-    "max_brightness": 200
+    "led_count": 7,
+    "max_brightness": 200,
+    "sleep": true
   },
   "layouts": {
     "LAYOUT": {

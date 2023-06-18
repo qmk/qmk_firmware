@@ -13,6 +13,10 @@
     "cols": ["F7", "F6", "F5", "C6", "D7", "D4", "D1"],
     "rows": ["B6", "B2", "B3", "B1"]
   },
+  "rgblight": {
+    "led_count": 12,
+    "sleep": true
+  },
   "ws2812": {
     "pin": "D6"
   },

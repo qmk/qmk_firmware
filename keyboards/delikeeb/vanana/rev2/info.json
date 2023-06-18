@@ -3,6 +3,10 @@
     "usb": {
         "device_version": "0.0.2"
     },
+    "rgblight": {
+        "led_count": 16,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "C7"
     },

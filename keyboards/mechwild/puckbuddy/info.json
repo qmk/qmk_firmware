@@ -23,6 +23,10 @@
         "caps_lock": "C13",
         "on_state": 0
     },
+    "rgblight": {
+        "led_count": 3,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "A3"
     },

@@ -18,6 +18,10 @@
         "levels": 6,
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 18,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E2"
     },

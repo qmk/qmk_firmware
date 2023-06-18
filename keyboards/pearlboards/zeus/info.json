@@ -24,6 +24,10 @@
         "scroll_lock": "C3",
         "on_state": 0
     },
+    "rgblight": {
+        "led_count": 2,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D5"
     },

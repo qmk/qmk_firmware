@@ -12,6 +12,10 @@
     "pin": "D7",
     "breathing": true
   },
+  "rgblight": {
+    "led_count": 4,
+    "sleep": true
+  },
   "ws2812": {
     "pin": "F4"
   },

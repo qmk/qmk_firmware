@@ -23,6 +23,7 @@
         "pin": "E2"
     },
     "rgblight": {
+        "led_count": 81,
         "max_brightness": 180
     },
     "processor": "atmega32u4",

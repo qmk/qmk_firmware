@@ -18,6 +18,10 @@
     "levels": 5,
     "as_caps_lock": true
   },
+  "rgblight": {
+    "led_count": 20,
+    "sleep": true
+  },
   "ws2812": {
     "pin": "D3"
   },

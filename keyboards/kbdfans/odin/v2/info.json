@@ -22,7 +22,9 @@
         "pin": "B15"
     },
     "rgblight": {
-        "max_brightness": 180
+        "led_count": 4,
+        "max_brightness": 180,
+        "sleep": true
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

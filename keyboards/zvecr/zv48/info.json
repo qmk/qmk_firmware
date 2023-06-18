@@ -23,6 +23,7 @@
         "driver": "pwm"
     },
     "rgblight": {
+        "led_count": 48,
         "max_brightness": 120,
         "split_count": [24, 24]
     },

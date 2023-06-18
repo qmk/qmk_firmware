@@ -1,4 +1,7 @@
 {
+    "rgblight": {
+        "led_count": 3
+    },
     "ws2812": {
         "pin": "B15",
         "driver": "spi"

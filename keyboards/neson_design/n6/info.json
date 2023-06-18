@@ -20,6 +20,7 @@
         "pin": "B3"
     },
     "rgblight": {
+        "led_count": 65,
         "max_brightness": 192
     },
     "processor": "atmega32u4",

@@ -8,6 +8,10 @@
         "pid": "0x4201",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 4,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "F1"
     },

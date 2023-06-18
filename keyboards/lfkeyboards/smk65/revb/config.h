@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 #define MATRIX_ROW_PINS {D6, D7, E0, C3, C4}
 #define MATRIX_COL_PINS {F2, C5, E5, E4, B7, B6, B5, B4, B3, B2, B1, B0, E1, C0, C1, C2}
-#define RGBLED_NUM 20     // Number of LEDs
 
 //RevB only:
 
@@ -33,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PWM_MAP {8, 16, 40, 55, 70, 128, 200, 255}
 
-#define RGBLED_NUM 20     // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

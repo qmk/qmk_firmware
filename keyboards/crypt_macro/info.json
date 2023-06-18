@@ -8,6 +8,9 @@
         "pid": "0x434D",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 11
+    },
     "ws2812": {
         "pin": "B4",
         "driver": "pwm"

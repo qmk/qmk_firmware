@@ -6,6 +6,9 @@
         "pid": "0xCA22",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 6
+    },
     "ws2812": {
         "pin": "F6"
     },

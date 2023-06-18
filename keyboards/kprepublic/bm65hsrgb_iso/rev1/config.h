@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define RGB_MATRIX_LED_COUNT 74
-    #define RGBLED_NUM 74
     #define RGB_MATRIX_KEYPRESSES
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
@@ -74,8 +73,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BAND_SAT
-/* If defined, the RGB lighting will be switched off when the host goes to sleep */
-#    define RGBLIGHT_SLEEP 
 /*== all animations enable ==*/
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD

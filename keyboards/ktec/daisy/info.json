@@ -21,6 +21,9 @@
         "caps_lock": "C6",
         "on_state": 0
     },
+    "rgblight": {
+        "led_count": 8
+    },
     "ws2812": {
         "pin": "C7"
     },

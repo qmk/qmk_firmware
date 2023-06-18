@@ -22,6 +22,10 @@
         "pin": "A6",
         "levels": 7
     },
+    "rgblight": {
+        "led_count": 4,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D3"
     },
