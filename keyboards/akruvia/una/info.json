@@ -5,7 +5,7 @@
     "bootloader": "rp2040",
     "diode_direction": "ROW2COL",
     "features": {
-        "bootmagic": false,
+        "bootmagic": true,
         "rgblight": true,
         "pointing_device": true,
         "command": false,
@@ -24,6 +24,9 @@
         "device_version": "1.0.0",
         "pid": "0x0A00",
         "vid": "0xA81C"
+    },
+    "bootmagic": {
+        "matrix": [0, 0]
     },
     "ws2812": {
         "pin": "GP4"
