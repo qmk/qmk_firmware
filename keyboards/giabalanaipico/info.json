@@ -27,6 +27,10 @@
         "pid": "0xF4C0",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "GP6",
+        "driver": "vendor"
+    },
     "encoder": {
         "rotary": []
     },
