@@ -26,12 +26,16 @@
     },
     "ws2812": {
         "driver": "spi"
-    }.
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [
             {"flags": 8, "matrix": [3, 0], "x":2, "y":27},
-            {"flags": 8, "matrix": [0,15], "x":211, "y":0}
+            {"flags": 8, "matrix": [0,15], "x":211, "y":0},
+            {"flags": 2, "x":0, "y":0},
+            {"flags": 2, "x":10, "y":0},
+            {"flags": 2, "x":20, "y":0},
+            {"flags": 2, "x":30, "y":0}
         ]
     },
     "layout_aliases": {
