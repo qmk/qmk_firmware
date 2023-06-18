@@ -6,6 +6,8 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": false,
+        "rgblight": true,
+        "pointing_device": true,
         "command": false,
         "console": false,
         "extrakey": true,
