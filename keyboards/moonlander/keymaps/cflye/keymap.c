@@ -33,11 +33,11 @@
     ) \
     LAYOUT_moonlander_wrapper( \
         KC_GRV,  ________________NUMBER_LEFT________________, XXX,         XXX, ________________NUMBER_RIGHT_______________,     XXX,\
-        KC_LALT, K00,     K01,     K02,     K03,     K04,     XXX,         KC_AA,   K05,     K06,     K07,     K08,     K09,     KC_RALT,\
+        KC_DEL,  K00,     K01,     K02,     K03,     K04,     XXX,         KC_AA,   K05,     K06,     K07,     K08,     K09,     KC_BSPC,\
         KC_LSFT, K10,     K11,     K12,     K13,     K14,     KC_AE,       KC_OE,   K15,     K16,     K17,     K18,     K19,     KC_RSFT,\
         KC_LCTL, K20,     K21,     K22,     K23,     K24,                           K25,     K26,     K27,     K28,     K29,     KC_RCTL,\
         XXX,     XXX,     XXX,     XXX,     K32,              XXX,         XXX,              K37,     XXX,     XXX,     XXX,     XXX,\
-                                            K33,     K34,     XXX,         XXX,     K35,     K36\
+                                            K33,     XXX,     XXX,         XXX,     XXX,     K36\
     )
 #define LAYOUT_moonlander_gaming( \
      K00, K01, K02, K03, K04,               K05, K06, K07, K08, K09,\
@@ -128,4 +128,10 @@ bool achordion_chord(uint16_t tap_hold_keycode,
 
   // Otherwise, follow the opposite hands rule.
   return achordion_opposite_hands(tap_hold_record, other_record);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _NUM, _MEDIA, _MOUSE);
+    state = update_tri_layer_state(state, _NAV, _SYM, _FUN);
+    return state;
 }

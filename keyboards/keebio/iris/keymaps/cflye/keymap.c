@@ -11,9 +11,9 @@
 )\
 LAYOUT_iris_rev2_wrapper(\
    KC_GRV,  ________________NUMBER_LEFT________________,                ________________NUMBER_RIGHT_______________, XXX,\
-   KC_LALT, K00,     K01,     K02,     K03,     K04,                    K05,     K06,     K07,     K08,     K09,     KC_LALT,\
+   KC_DEL,  K00,     K01,     K02,     K03,     K04,                    K05,     K06,     K07,     K08,     K09,     KC_BSPC,\
    KC_LSFT, K10,     K11,     K12,     K13,     K14,                    K15,     K16,     K17,     K18,     K19,     KC_RSFT,\
-   KC_LCTL, K20,     K21,     K22,     K23,     K24,     K34,  K35,     K25,     K26,     K27,     K28,     K29,     KC_RCTL,\
+   KC_LCTL, K20,     K21,     K22,     K23,     K24,     XXX,  XXX,     K25,     K26,     K27,     K28,     K29,     KC_RCTL,\
                                     XXX,     K32,     K33,        K36,     K37,     XXX\
 )
 
@@ -88,4 +88,10 @@ bool achordion_chord(uint16_t tap_hold_keycode,
 
   // Otherwise, follow the opposite hands rule.
   return achordion_opposite_hands(tap_hold_record, other_record);
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, _NUM, _MEDIA, _MOUSE);
+    state = update_tri_layer_state(state, _NAV, _SYM, _FUN);
+    return state;
 }
