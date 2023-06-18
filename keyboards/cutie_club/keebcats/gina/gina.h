@@ -19,12 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 typedef union {
-  uint32_t raw;
-  struct {
-    uint8_t indicator_key: 8;
-  };
+    uint32_t raw;
+    struct {
+        uint8_t indicator_key : 8;
+    };
 } keyboard_config_t;
 
+// clang-format off
 #define LAYOUT_right_all( \
     k00_00, k00_01, k00_02, k00_03, k00_04, \
     k01_00, k01_01, k01_02, k01_03, k01_04, \
@@ -39,7 +40,9 @@ typedef union {
     { k03_00, k03_01, k03_02, k03_03, k03_04 }, \
     { k04_00, k04_01, k04_02, k04_03, k04_04 }  \
 }
+// clang-format on
 
+// clang-format off
 #define LAYOUT_left_all( \
     k00_00, k00_01, k00_02, k00_03, k00_04, \
     k01_00, k01_01, k01_02, k01_03, k01_04, \
@@ -54,7 +57,9 @@ typedef union {
     { k02_04, k02_03, k02_02, k02_01, k02_00 }, \
     { k04_04, k04_03, k04_02, k04_01, k04_00 }  \
 }
+// clang-format on
 
+// clang-format off
 #define LAYOUT_left_all( \
     k00_00, k00_01, k00_02, k00_03, k00_04, \
     k01_00, k01_01, k01_02, k01_03, k01_04, \
@@ -69,3 +74,4 @@ typedef union {
     { k02_04, k02_03, k02_02, k02_01, k02_00 }, \
     { k04_04, k04_03, k04_02, k04_01, k04_00 }  \
 }
+// clang-format on

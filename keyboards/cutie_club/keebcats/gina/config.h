@@ -28,9 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Keyboard Matrix Pin Assignments
  */
 #define PCAL_ADDRESS (0b0100000 << 1)
-#define PCAL_ROW_PINS { PCAL_1_5, PCAL_1_0, PCAL_1_1, PCAL_1_2, PCAL_1_3 }
-#define PCAL_COL_PINS { PCAL_1_4, PCAL_0_5, PCAL_0_4, PCAL_0_3, PCAL_0_2 }
-
+#define PCAL_ROW_PINS \
+    { PCAL_1_5, PCAL_1_0, PCAL_1_1, PCAL_1_2, PCAL_1_3 }
+#define PCAL_COL_PINS \
+    { PCAL_1_4, PCAL_0_5, PCAL_0_4, PCAL_0_3, PCAL_0_2 }
 
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
@@ -43,7 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define LED_PCAL_PINS { PCAL_0_0, PCAL_0_1 }
+#define LED_PCAL_PINS \
+    { PCAL_0_0, PCAL_0_1 }
 
 #define RGB_DI_PIN B2
 #define RGBLED_NUM 1

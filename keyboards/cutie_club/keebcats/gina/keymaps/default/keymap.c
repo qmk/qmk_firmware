@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [0] = LAYOUT_right_all(
@@ -10,3 +11,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LGUI, KC_P0,   KC_P0,   KC_PDOT, KC_PENT
     )
 };
+// clang-format on

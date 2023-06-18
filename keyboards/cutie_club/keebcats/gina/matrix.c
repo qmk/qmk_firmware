@@ -22,20 +22,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "indicator_leds.h"
 #include "lib/i2c_helpers.h"
 
-static const pcal_gpio_pin row_pins[MATRIX_ROWS] = PCAL_ROW_PINS;
+static const pcal_gpio_pin row_pins[MATRIX_ROWS]    = PCAL_ROW_PINS;
 static const pcal_gpio_pin column_pins[MATRIX_COLS] = PCAL_COL_PINS;
 
 static i2c_status_t update_matrix_for_row(uint8_t row, matrix_row_t current_matrix[], bool* row_changed) {
     matrix_row_t previous_row_state = current_matrix[row];
-    current_matrix[row] = 0;
+    current_matrix[row]             = 0;
 
     RETURN_STATUS_IF_I2C_FAIL(pcal_write_pin(row_pins[row], LOW));
 
     for (uint8_t column = 0; column < MATRIX_COLS; column++) {
-        pcal_gpio_pin current_column_pin = column_pins[column];
-        pcal_gpio_state pin_state = HIGH;
+        pcal_gpio_pin   current_column_pin = column_pins[column];
+        pcal_gpio_state pin_state          = HIGH;
         RETURN_STATUS_IF_I2C_FAIL(pcal_read_pin(current_column_pin, &pin_state));
-        if(pin_state == LOW) {
+        if (pin_state == LOW) {
             current_matrix[row] |= (1 << column);
         }
     }
@@ -64,12 +64,12 @@ void matrix_init_custom(void) {
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool matrix_has_changed = false;
 
-    if(!board_connected) {
+    if (!board_connected) {
         // Release all keys in matrix
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
             matrix_row_t previous_row = current_matrix[row];
-            current_matrix[row] = 0;
-            if(!matrix_has_changed) matrix_has_changed = previous_row != current_matrix[row];
+            current_matrix[row]       = 0;
+            if (!matrix_has_changed) matrix_has_changed = previous_row != current_matrix[row];
         }
         // Early return to ensure any currently held keys are released immediately otherwise
         // keys will be held for longer than necessary while waiting for i2c timeouts
@@ -90,9 +90,9 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
             bool row_changed = false;
 
             board_connected = I2C_SUCCESS(update_matrix_for_row(row, current_matrix, &row_changed));
-            if(!board_connected) break;
+            if (!board_connected) break;
 
-            if(!matrix_has_changed && row_changed) {
+            if (!matrix_has_changed && row_changed) {
                 matrix_has_changed = true;
             }
         }

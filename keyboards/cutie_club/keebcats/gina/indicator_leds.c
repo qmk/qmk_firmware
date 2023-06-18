@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "quantum/rgblight/rgblight.h"
 
-static const pcal_gpio_pin led_pins[] = LED_PCAL_PINS;
-static const uint8_t led_pins_count = sizeof(led_pins)/sizeof(pcal_gpio_pin);
+static const pcal_gpio_pin led_pins[]     = LED_PCAL_PINS;
+static const uint8_t       led_pins_count = sizeof(led_pins) / sizeof(pcal_gpio_pin);
 
 static enum indicator_key enabled_indicator_key;
 
@@ -34,10 +34,8 @@ int indicator_leds_init(void) {
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
-    if(res) {
-        if((led_state.num_lock && enabled_indicator_key == NUM_LOCK) ||
-           (led_state.scroll_lock && enabled_indicator_key == SCROLL_LOCK) ||
-           (led_state.caps_lock && enabled_indicator_key == CAPS_LOCK)) {
+    if (res) {
+        if ((led_state.num_lock && enabled_indicator_key == NUM_LOCK) || (led_state.scroll_lock && enabled_indicator_key == SCROLL_LOCK) || (led_state.caps_lock && enabled_indicator_key == CAPS_LOCK)) {
             set_pin_array_state(led_pins, led_pins_count, HIGH);
             rgblight_enable_noeeprom();
         } else {

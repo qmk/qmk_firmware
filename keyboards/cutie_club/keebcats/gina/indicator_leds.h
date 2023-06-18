@@ -18,13 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SYNCHRONISE_HOST_LED_STATUS() led_update_kb(host_keyboard_led_state());
 
-enum indicator_key {
-    NUM_LOCK = 0,
-    SCROLL_LOCK = 1,
-    CAPS_LOCK = 2
-};
+enum indicator_key { NUM_LOCK = 0, SCROLL_LOCK = 1, CAPS_LOCK = 2 };
 
 int indicator_leds_init(void);
 
-void set_enabled_indicator_key(enum indicator_key key);
+void               set_enabled_indicator_key(enum indicator_key key);
 enum indicator_key get_enabled_indicator_key(void);
