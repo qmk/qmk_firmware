@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
 #include "lib/pcal6416a/pcal6416a.h"
 
 /* key matrix size */
