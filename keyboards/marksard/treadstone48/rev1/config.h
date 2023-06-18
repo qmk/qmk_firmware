@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLED_NUM 32
     #define RGBLED_SPLIT {12, 20}
   #endif
-  #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
 //   #define RGBLIGHT_EFFECT_BREATHING
