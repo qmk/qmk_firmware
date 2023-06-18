@@ -28,6 +28,7 @@
     "scroll_lock": "D4"
   },
   "rgblight": {
+    "hue_steps": 5,
     "led_count": 30
   },
   "ws2812": {

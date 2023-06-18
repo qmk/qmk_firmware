@@ -19,6 +19,7 @@
         "on_state": 0
     },
     "rgblight": {
+        "hue_steps": 12,
         "led_count": 6
     },
     "ws2812": {

@@ -9,6 +9,7 @@
     "device_version": "0.0.3"
   },
   "rgblight": {
+    "hue_steps": 5,
     "led_count": 30
   },
   "ws2812": {

@@ -33,4 +33,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 
 // #define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_HUE_STEP 10

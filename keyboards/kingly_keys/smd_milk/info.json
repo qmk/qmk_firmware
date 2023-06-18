@@ -10,6 +10,7 @@
     "force_nkro": true
   },
   "rgblight": {
+    "hue_steps": 6,
     "led_count": 4
   },
   "ws2812": {

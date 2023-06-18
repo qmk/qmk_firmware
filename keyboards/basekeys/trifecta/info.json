@@ -27,6 +27,7 @@
         "pin": "E6"
     },
     "rgblight": {
+        "hue_steps": 10,
         "led_count": 80,
         "max_brightness": 128
     },

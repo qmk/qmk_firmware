@@ -41,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LIMIT_VAL 50
   #define RGBLIGHT_VAL_STEP 4
 #endif
-#define RGBLIGHT_HUE_STEP 10
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
   #define USB_MAX_POWER_CONSUMPTION 400

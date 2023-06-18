@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define RGBLIGHT_HUE_STEP 10
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
