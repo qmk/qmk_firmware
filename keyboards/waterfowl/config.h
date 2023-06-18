@@ -20,6 +20,3 @@
 #define SPLIT_MODS_ENABLE
 #define SPLIT_WPM_ENABLE
 #define SPLIT_USB_DETECT
-
-// Tapping term
-#define TAPPING_TERM 200

@@ -41,5 +41,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // iOS device need lessthan 100
   #define USB_MAX_POWER_CONSUMPTION 100
 #endif
-
-#define TAPPING_TERM 200

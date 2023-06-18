@@ -72,9 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 // #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-/* Tap delay for tap vs hold */
-#define TAPPING_TERM 200
-
 /* Slow down key press speed to ensure computer picks it up */
 #define TAP_CODE_DELAY 10
 
