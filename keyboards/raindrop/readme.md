@@ -5,9 +5,9 @@
 ![PCB Front](https://i.imgur.com/00TpL3nh.png)  
 *PCB Front*  
 
-60% sized keyboard with a gasket mounted plate and aluminium case. 
+60% sized keyboard with a gasket mounted plate and aluminium case, made by Laneware Peripherals.
 
-* Keyboard Maintainer: [Laneware Peripherals Support](mailto:support@lanewareperipherals.zendesk.com)
+* Keyboard Maintainer: [Laneware Peripherals](https://github.com/laneware)
 * Hardware Supported: Raindrop PCB
 * Hardware Availability: Group Buy
 
