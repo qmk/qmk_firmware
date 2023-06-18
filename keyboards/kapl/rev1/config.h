@@ -5,8 +5,6 @@
 /* Select hand configuration */
 #define MASTER_LEFT
 
-#define RGBLED_NUM 88
-
 #define RGB_MATRIX_LED_COUNT 88
 #define RGB_MATRIX_SPLIT { 44, 44 }
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.

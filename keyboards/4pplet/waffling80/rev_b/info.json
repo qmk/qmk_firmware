@@ -4,6 +4,9 @@
         "pid": "0x000F",
         "device_version": "0.0.2"
     },
+    "rgblight": {
+        "led_count": 2
+    },
     "ws2812": {
         "pin": "A8"
     },

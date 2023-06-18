@@ -23,6 +23,7 @@
     "scroll_lock": "B2"
   },
   "rgblight": {
+    "led_count": 20,
     "sleep": true
   },
   "ws2812": {

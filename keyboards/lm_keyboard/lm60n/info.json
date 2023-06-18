@@ -18,6 +18,7 @@
         "num_lock": "B7"
     },
     "rgblight": {
+        "led_count": 41,
         "sleep": true
     },
     "ws2812": {

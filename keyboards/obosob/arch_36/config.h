@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 12
-#endif
-
 #define OLED_DISPLAY_128X64
 
 #define EE_HANDS

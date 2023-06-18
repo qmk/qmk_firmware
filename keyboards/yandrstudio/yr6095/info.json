@@ -6,6 +6,9 @@
         "pid": "0xAA0C",
         "device_version": "1.0.0"
     },
+    "rgblight": {
+        "led_count": 1
+    },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"

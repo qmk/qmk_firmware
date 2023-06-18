@@ -19,6 +19,9 @@
         "scroll_lock": "F7",
         "on_state": 0
     },
+    "rgblight": {
+        "led_count": 20
+    },
     "ws2812": {
         "pin": "E6"
     },

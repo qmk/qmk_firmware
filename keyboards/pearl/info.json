@@ -15,6 +15,9 @@
   "backlight": {
     "pin": "D4"
   },
+  "rgblight": {
+    "led_count": 12
+  },
   "ws2812": {
     "driver": "i2c"
   },

@@ -16,7 +16,5 @@
 
 #pragma once
 
-#define RGBLED_NUM 50
-
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE

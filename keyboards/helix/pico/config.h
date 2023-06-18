@@ -48,8 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define AUDIO_PIN B5
 #endif
 
-//#define RGBLED_NUM 12    // Number of LEDs. see ./keymaps/default/config.h
-
 // Helix keyboard RGB LED support
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #ifdef RGBLED_BACK

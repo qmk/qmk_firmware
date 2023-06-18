@@ -34,8 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 
 #ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 123
-
 #   define RGBLIGHT_LAYERS
 
 // By default, LEDs of the buttons which are pressed turn on.

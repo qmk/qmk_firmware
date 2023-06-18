@@ -17,6 +17,7 @@
         "pin": "B15"
     },
     "rgblight": {
+        "led_count": 51,
         "max_brightness": 128
     },
     "processor": "STM32F042",

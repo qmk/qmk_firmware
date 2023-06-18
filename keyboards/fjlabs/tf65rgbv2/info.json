@@ -17,6 +17,7 @@
         "pin": "F7"
     },
     "rgblight": {
+        "led_count": 68,
         "max_brightness": 96
     },
     "processor": "atmega32u4",

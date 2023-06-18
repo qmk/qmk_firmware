@@ -23,6 +23,7 @@
         "matrix": [1, 3]
     },
     "rgblight": {
+        "led_count": 16,
         "sleep": true
     },
     "ws2812": {

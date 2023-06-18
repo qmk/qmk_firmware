@@ -15,6 +15,7 @@
         "driver": "custom"
     },
     "rgblight": {
+        "led_count": 6,
         "max_brightness": 150
     },
     "matrix_pins": {

@@ -12,6 +12,7 @@
         "pin": "D3"
     },
     "rgblight": {
+        "led_count": 8,
         "max_brightness": 128
     },
     "matrix_pins": {

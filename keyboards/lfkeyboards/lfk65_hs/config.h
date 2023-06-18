@@ -1,10 +1,7 @@
 #pragma once
 
-#define RGBLED_NUM 20     // Number of LEDs
-
 #define BACKLIGHT_PWM_MAP {8, 16, 40, 55, 70, 128, 200, 255}
 
-#define RGBLED_NUM 20     // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

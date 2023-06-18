@@ -11,7 +11,6 @@
 #define ENCODERS_CW_KEY  { { 1, 1 }, { 3, 1 } }
 #define ENCODERS_CCW_KEY { { 0, 1 }, { 2, 1 } }
 
-#    define RGBLED_NUM 16
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8

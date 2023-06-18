@@ -17,8 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#    define RGBLED_NUM 16  // Add 12 if attaching the RGB LED ring
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT 16
 #    ifdef RGBLIGHT_ENABLE
 #        define RGBLIGHT_HUE_STEP 8
 #        define RGBLIGHT_SAT_STEP 8

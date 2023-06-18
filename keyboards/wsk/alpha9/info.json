@@ -17,6 +17,9 @@
     "caps_lock": "D3",
     "on_state": 0
   },
+  "rgblight": {
+    "led_count": 5
+  },
   "ws2812": {
     "pin": "F4"
   },

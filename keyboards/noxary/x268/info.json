@@ -16,6 +16,9 @@
   "backlight": {
     "pin": "B7"
   },
+  "rgblight": {
+    "led_count": 16
+  },
   "ws2812": {
     "pin": "B5"
   },

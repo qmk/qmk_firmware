@@ -7,6 +7,9 @@
         "pid": "0x0106",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 66
+    },
     "ws2812": {
         "pin": "E6"
     },

@@ -19,6 +19,7 @@
         "scroll_lock": "A14"
     },
     "rgblight": {
+        "led_count": 24,
         "sleep": true
     },
     "ws2812": {

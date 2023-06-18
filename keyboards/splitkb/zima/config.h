@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_CLICKY
 #define NO_MUSIC_MODE
 
-#define RGBLED_NUM         5
 #define RGBLIGHT_HUE_STEP  8
 #define RGBLIGHT_SAT_STEP  8
 #define RGBLIGHT_VAL_STEP  8

@@ -20,6 +20,7 @@
         "caps_lock": "B2"
     },
     "rgblight": {
+        "led_count": 12,
         "sleep": true
     },
     "ws2812": {

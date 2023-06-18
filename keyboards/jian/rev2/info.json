@@ -13,6 +13,7 @@
         "levels": 5
     },
     "rgblight": {
+        "led_count": 7,
         "sleep": true,
         "split": true
     },

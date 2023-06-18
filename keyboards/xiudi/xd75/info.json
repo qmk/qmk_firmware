@@ -18,6 +18,9 @@
         "levels": 6,
         "on_state": 0
     },
+    "rgblight": {
+        "led_count": 6
+    },
     "ws2812": {
         "pin": "F6"
     },

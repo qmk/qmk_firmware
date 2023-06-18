@@ -19,6 +19,7 @@
     "as_caps_lock": true
   },
   "rgblight": {
+    "led_count": 20,
     "sleep": true
   },
   "ws2812": {

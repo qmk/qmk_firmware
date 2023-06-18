@@ -13,6 +13,7 @@
         "driver": "pwm"
     },
     "rgblight": {
+        "led_count": 6,
         "max_brightness": 160,
         "sleep": true
     },

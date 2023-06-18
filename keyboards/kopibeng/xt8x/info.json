@@ -21,6 +21,7 @@
         "pin": "A10"
     },
     "rgblight": {
+        "led_count": 19,
         "max_brightness": 200,
         "sleep": true
     },

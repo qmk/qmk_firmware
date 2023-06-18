@@ -47,7 +47,6 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 47
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8

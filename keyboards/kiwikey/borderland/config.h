@@ -5,7 +5,6 @@
 
 #define TAP_CODE_DELAY 10
 
-#define RGBLED_NUM 18
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8

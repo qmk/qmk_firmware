@@ -9,6 +9,7 @@
         "device_version": "0.0.1"
     },
     "rgblight": {
+        "led_count": 98,
         "split_count": [49, 49]
     },
     "ws2812": {

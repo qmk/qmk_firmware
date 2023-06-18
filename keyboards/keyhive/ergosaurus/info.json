@@ -11,6 +11,7 @@
         "pin": "B6"
     },
     "rgblight": {
+        "led_count": 32,
         "max_brightness": 200,
         "sleep": true
     },

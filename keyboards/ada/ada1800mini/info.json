@@ -12,6 +12,7 @@
         "pin": "F0"
     },
     "rgblight": {
+        "led_count": 100,
         "max_brightness": 200,
         "sleep": true
     },

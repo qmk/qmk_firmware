@@ -23,6 +23,9 @@
         "num_lock": "A0",
         "scroll_lock": "C15"
     },
+    "rgblight": {
+        "led_count": 23
+    },
     "ws2812": {
         "pin": "A7",
         "driver": "spi"

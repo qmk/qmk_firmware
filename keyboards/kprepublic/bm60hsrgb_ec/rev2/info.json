@@ -15,6 +15,7 @@
         "driver": "IS31FL3733"
     },
     "rgblight": {
+        "led_count": 6,
         "max_brightness": 150
     },
     "matrix_pins": {
