@@ -42,7 +42,6 @@
 //#define NO_ACTION_ONESHOT
 
 // #define WS2812_LED_N 2
-// #define RGBLED_NUM WS2812_LED_N
 // #define WS2812_TIM_N 2
 // #define WS2812_TIM_CH 2
 // #define PORT_WS2812     GPIOA

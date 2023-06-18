@@ -18,7 +18,6 @@
 #pragma once
 
 #if defined(RGBLIGHT_ENABLE)
-#    define RGBLED_NUM 2
 #    define RGBLIGHT_EFFECT_BREATHING
 #endif
 

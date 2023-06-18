@@ -19,6 +19,9 @@
         "scroll_lock": "A9",
         "on_state": 0
     },
+    "rgblight": {
+        "led_count": 11
+    },
     "ws2812": {
         "pin": "B15",
         "driver": "spi"

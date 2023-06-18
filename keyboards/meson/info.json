@@ -16,6 +16,7 @@
       "soft_serial_pin": "D0"
     },
     "rgblight": {
+      "led_count": 10,
       "sleep": true,
       "split_count": [5, 5]
     },

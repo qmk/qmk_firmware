@@ -17,7 +17,6 @@
 #pragma once
 
 /* RGB */
-    #define RGBLED_NUM 22
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8

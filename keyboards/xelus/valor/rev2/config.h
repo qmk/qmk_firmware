@@ -40,7 +40,6 @@
 #define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 8191
 
 /* RGB Matrix */
-#define RGBLED_NUM 28
 #define RGB_MATRIX_LED_COUNT 28
 #define NOP_FUDGE 0.4
 

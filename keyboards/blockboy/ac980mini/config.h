@@ -6,7 +6,6 @@
 // RGB configuration
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT  81
-#    define RGBLED_NUM 81
 
 #ifdef RGB_MATRIX_ENABLE
 //#   define RGB_MATRIX_KEYPRESSES // reacts to keypresses

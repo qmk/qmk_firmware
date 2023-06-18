@@ -22,6 +22,9 @@
     "caps_lock": "D6",
     "num_lock": "D4"
   },
+  "rgblight": {
+    "led_count": 14
+  },
   "ws2812": {
     "pin": "F7"
   },

@@ -40,6 +40,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // for via
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
-
-//RGB Underglow
-#define RGBLED_NUM 10

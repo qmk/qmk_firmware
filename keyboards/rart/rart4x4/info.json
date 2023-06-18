@@ -12,6 +12,7 @@
         "pin": "D3"
     },
     "rgblight": {
+        "led_count": 7,
         "max_brightness": 240,
         "sleep": true
     },

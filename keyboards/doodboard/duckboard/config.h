@@ -18,7 +18,3 @@
 
 /* media key slowdown for windows */
 #define TAP_CODE_DELAY 20
-
-#ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 8    // Number of LEDs
-#endif

@@ -11,6 +11,7 @@
         "pin": "B0"
     },
     "rgblight": {
+        "led_count": 6,
         "max_brightness": 150,
         "sleep": true
     },

@@ -25,6 +25,9 @@
             }
         }
     },
+    "rgblight": {
+        "led_count": 48
+    },
     "ws2812": {
         "pin": "D3"
     },

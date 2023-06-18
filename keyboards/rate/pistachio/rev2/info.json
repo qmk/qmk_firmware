@@ -3,6 +3,7 @@
         "pin": "D2"
     },
     "rgblight": {
+        "led_count": 84,
         "max_brightness": 195,
         "split_count": [38, 46]
     },

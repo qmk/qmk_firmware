@@ -8,6 +8,7 @@
         "vid": "0x4450"
     },
     "rgblight": {
+        "led_count": 16,
         "sleep": true
     },
     "ws2812": {

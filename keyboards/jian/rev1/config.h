@@ -73,7 +73,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGBLIGHT_TIMER
-#define RGBLED_NUM 7    // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -85,21 +84,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#ifndef IOS_DEVICE_ENABLE
-#if RGBLED_NUM <= 6
-#define RGBLIGHT_LIMIT_VAL 255
-#else
-#define RGBLIGHT_LIMIT_VAL 130
-#endif
-#define RGBLIGHT_VAL_STEP 8
-#else
-#if RGBLED_NUM <= 6
-#define RGBLIGHT_LIMIT_VAL 90
-#else
-#define RGBLIGHT_LIMIT_VAL 45
-#endif
-#define RGBLIGHT_VAL_STEP 4
-#endif
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 

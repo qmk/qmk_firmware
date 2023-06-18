@@ -17,6 +17,9 @@
         "caps_lock": "B2",
         "on_state": 0
     },
+    "rgblight": {
+        "led_count": 4
+    },
     "ws2812": {
         "pin": "E2"
     },

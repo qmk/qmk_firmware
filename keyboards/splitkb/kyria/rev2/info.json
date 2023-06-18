@@ -5,6 +5,7 @@
         "device_version": "0.0.2"
     },
     "rgblight": {
+        "led_count": 20,
         "split_count": [10, 10]
     },
     "rgb_matrix": {

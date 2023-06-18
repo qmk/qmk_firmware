@@ -18,8 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #define SSD1306OLED
 
-#define RGBLED_NUM 18
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 18
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

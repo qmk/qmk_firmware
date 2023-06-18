@@ -16,6 +16,7 @@
         "pin": "D6"
     },
     "rgblight": {
+        "led_count": 77,
         "max_brightness": 180,
         "sleep": true
     },

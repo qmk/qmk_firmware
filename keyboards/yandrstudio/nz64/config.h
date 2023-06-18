@@ -20,8 +20,7 @@
 
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
-#   define RGBLED_NUM 82
-#   define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#   define RGB_MATRIX_LED_COUNT 82
 
 #   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #   define WS2812_PWM_CHANNEL 2  // default: 2
@@ -87,9 +86,6 @@
 
 
 #ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 82
-#   define RGB_MATRIX_LED_COUNT RGBLED_NUM
-
 #   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #   define WS2812_PWM_CHANNEL 2  // default: 2
 #   define WS2812_PWM_PAL_MODE 2  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2

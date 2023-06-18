@@ -21,8 +21,7 @@
 
 /* RGB Matrix configuration */
 #ifdef RGB_MATRIX_ENABLE
-#    define RGBLED_NUM 22
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT 22
 #    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 // #    define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended

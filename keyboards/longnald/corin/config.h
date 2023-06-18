@@ -18,7 +18,6 @@
 
 #pragma once
 
-#    define RGBLED_NUM 64
 #    define RGBLIGHT_HUE_STEP 20
 #    define RGBLIGHT_SAT_STEP 20
 #    define RGBLIGHT_VAL_STEP 40

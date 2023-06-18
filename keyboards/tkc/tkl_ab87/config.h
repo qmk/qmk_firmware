@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 2 //Reduced layer count due to memory space considerations
 
-  #define RGBLED_NUM 22
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8

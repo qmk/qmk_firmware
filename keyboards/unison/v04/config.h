@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* RGB Lighting */
-  #define RGBLED_NUM 7 // Layer Indicator(2) + Rotary Encoder(5)
   #define RGBLIGHT_HUE_STEP 4
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8

@@ -21,6 +21,7 @@
         "pin": "C2"
     },
     "rgblight": {
+        "led_count": 87,
         "max_brightness": 86
     },
     "processor": "at90usb646",

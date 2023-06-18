@@ -17,7 +17,6 @@
 #pragma once
 
 #if defined(RGBLIGHT_ENABLE)
-#    define RGBLED_NUM 16
 #    define RGBLIGHT_HUE_STEP 10
 #    define RGBLIGHT_SAT_STEP 10
 #    define RGBLIGHT_VAL_STEP 10

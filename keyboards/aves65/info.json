@@ -17,6 +17,9 @@
         "esc_input": "D4",
         "esc_output": "D0"
     },
+    "rgblight": {
+        "led_count": 9
+    },
     "ws2812": {
         "pin": "B0"
     },

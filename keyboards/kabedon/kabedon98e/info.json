@@ -9,6 +9,9 @@
         "device_version": "0.0.2",
         "force_nkro": true
     },
+    "rgblight": {
+        "led_count": 24
+    },
     "ws2812": {
         "pin": "B4",
         "driver": "pwm"

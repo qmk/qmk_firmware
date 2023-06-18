@@ -16,7 +16,6 @@
 
 #pragma once
 
-    #define RGBLED_NUM 4
     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD

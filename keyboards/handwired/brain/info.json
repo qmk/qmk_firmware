@@ -20,6 +20,7 @@
         "pin": "D3"
     },
     "rgblight": {
+        "led_count": 28,
         "split": true,
         "max_brightness": 120
     },

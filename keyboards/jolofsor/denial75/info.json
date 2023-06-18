@@ -16,6 +16,7 @@
         "pin": "D2"
     },
     "rgblight": {
+        "led_count": 84,
         "max_brightness": 200
     },
     "diode_direction": "COL2ROW",

@@ -17,6 +17,7 @@
         "soft_serial_pin": "D0"
     },
     "rgblight": {
+        "led_count": 21,
         "split_count": [9, 12]
     },
     "ws2812": {

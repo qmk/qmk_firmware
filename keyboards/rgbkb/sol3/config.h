@@ -52,9 +52,6 @@
 #define DIP_SWITCH_PINS { A14, B13 }
 #define DIP_SWITCH_PINS_RIGHT { A14, B0 }
 
-/* RGB LED Configuration */
-#define RGBLED_NUM 156
-
 // RGB Lighting Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgblight?id=effect-and-animation-toggles

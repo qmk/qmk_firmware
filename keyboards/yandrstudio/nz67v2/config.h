@@ -21,8 +21,7 @@
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 
-#    define RGBLED_NUM 86
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT 86
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
 #    define RGBLIGHT_VAL_STEP 5

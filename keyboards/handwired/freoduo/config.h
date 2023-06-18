@@ -18,10 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EE_HANDS
 
 /* ws2812 RGB LED */
-#if !defined(RGBLED_NUM)
-#    define RGBLED_NUM 30
 #    define RGBLIGHT_LAYERS
-#endif
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

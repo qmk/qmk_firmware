@@ -4,6 +4,7 @@
         "rows": ["D4", "C6", "D7", "E6"]
     },
     "rgblight": {
+        "led_count": 17,
         "sleep": true
     },
     "ws2812": {

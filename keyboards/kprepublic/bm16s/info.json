@@ -8,6 +8,9 @@
       "pid": "0x016B",
       "device_version": "0.0.1"
     },
+    "rgblight": {
+      "led_count": 16
+    },
     "ws2812": {
       "pin": "E2"
     },

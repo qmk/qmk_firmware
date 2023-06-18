@@ -23,6 +23,7 @@
       "on_state": 0
     },
     "rgblight": {
+      "led_count": 12,
       "sleep": true
     },
     "ws2812": {
