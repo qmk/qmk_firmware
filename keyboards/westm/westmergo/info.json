@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "WestMErgo", 
+    "keyboard_name": "WestMErgo",
     "manufacturer": "WestM",
-    "url": "https://github.com/WestMProducts", 
-    "maintainer": "WestM", 
+    "url": "https://github.com/WestMProducts",
+    "maintainer": "WestM",
     "usb": {
         "vid": "0x574D",
         "pid": "0x0201",

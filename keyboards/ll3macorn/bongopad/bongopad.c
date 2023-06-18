@@ -1,6 +1,6 @@
 // Copyright 2021 Ll3macorn (@ll3macorn)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "bongopad.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 bool oled_task_kb(void) {

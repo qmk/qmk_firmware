@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "Boston Meetup Board", 
+  "keyboard_name": "Boston Meetup Board",
   "manufacturer": "ishtob",
-  "url": "", 
-  "maintainer": "qmk", 
+  "url": "",
+  "maintainer": "qmk",
   "usb": {
     "vid": "0xFB30",
     "pid": "0x26BE"

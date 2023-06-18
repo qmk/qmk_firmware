@@ -7,6 +7,9 @@
     "ws2812": {
         "pin": "B15"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A8", "pin_b": "A4"},

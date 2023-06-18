@@ -8,6 +8,9 @@
         "pid": "0xB04D",
         "device_version": "0.0.1"
     },
+    "rgb_matrix": {
+        "driver": "custom"
+    },
     "matrix_pins": {
         "cols": ["B2", "B3", "B18", "B19", "C0", "C8", "C9", "D0", "D1", "D4"],
         "rows": ["D5", "D6", "D7", "C1", "C2", "C3", "C4", "C5", "C6", "C7"]

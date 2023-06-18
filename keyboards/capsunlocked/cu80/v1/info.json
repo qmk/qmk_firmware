@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "CU80", 
+    "keyboard_name": "CU80",
     "manufacturer": "CapsUnlocked",
-    "url": "https://caps-unlocked.com/group-buy-cu80/", 
-    "maintainer": "aHolland909", 
+    "url": "https://caps-unlocked.com/group-buy-cu80/",
+    "maintainer": "aHolland909",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",
@@ -125,7 +125,7 @@
                 {"matrix": [5, 16], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_tkl_ansi":{
+        "LAYOUT_tkl_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 

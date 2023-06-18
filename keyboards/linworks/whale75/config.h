@@ -14,10 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* Force USB NKRO */
-#define FORCE_NKRO
-
 #define BACKLIGHT_PWM_DRIVER PWMD1
 #define BACKLIGHT_PWM_CHANNEL 3
 #define BACKLIGHT_PAL_MODE 6

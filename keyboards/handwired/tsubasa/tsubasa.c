@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "tsubasa.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 static void render_scrl(void) {

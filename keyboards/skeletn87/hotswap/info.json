@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Skeletn87 Hotswap", 
+    "keyboard_name": "Skeletn87 Hotswap",
     "manufacturer": "BredWorks",
-    "url": "", 
-    "maintainer": "kb-elmo<mail@elmo.space>", 
+    "url": "",
+    "maintainer": "kb-elmo<mail@elmo.space>",
     "usb": {
         "vid": "0xF984",
         "pid": "0xB5E9",
@@ -24,6 +24,9 @@
     },
     "ws2812": {
         "pin": "B3"
+    },
+    "rgblight": {
+        "max_brightness": 200
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

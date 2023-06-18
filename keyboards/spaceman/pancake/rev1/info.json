@@ -13,7 +13,7 @@
   "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_planck_mit": {
-      "layout": [ 
+      "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},
         {"matrix": [0, 2], "x": 2, "y": 0},
@@ -66,8 +66,8 @@
         {"matrix": [3, 11], "x": 11, "y": 3}
       ]
     },
-		"LAYOUT_ortho_4x12": {
-      "layout": [ 
+    "LAYOUT_ortho_4x12": {
+      "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},
         {"matrix": [0, 2], "x": 2, "y": 0},

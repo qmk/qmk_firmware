@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "nafuda", 
+    "keyboard_name": "nafuda",
     "manufacturer": "Salicylic_Acid",
-    "url": "https://salicylic-acid3.hatenablog.com/", 
-    "maintainer": "Salicylic_acid3", 
+    "url": "https://salicylic-acid3.hatenablog.com/",
+    "maintainer": "Salicylic_acid3",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x3060",

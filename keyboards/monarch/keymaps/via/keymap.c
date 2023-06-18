@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,           _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          BL_ON,
-      _______, _______, _______,                                      BL_TOGG,                   _______,                  BL_DOWN, BL_OFF,  BL_UP, 
+      _______, _______, _______,                                      BL_TOGG,                   _______,                  BL_DOWN, BL_OFF,  BL_UP,
       _______, _______
   ),
   [2] = LAYOUT_all(
@@ -65,13 +65,13 @@ keyevent_t encoder_cw = {
 };
 
 void matrix_scan_user(void) {
-    if (IS_PRESSED(encoder_ccw)) {
+    if (encoder_ccw.pressed) {
         encoder_ccw.pressed = false;
         encoder_ccw.time = timer_read();
         action_exec(encoder_ccw);
     }
 
-    if (IS_PRESSED(encoder_cw)) {
+    if (encoder_cw.pressed) {
         encoder_cw.pressed = false;
         encoder_cw.time = timer_read();
         action_exec(encoder_cw);

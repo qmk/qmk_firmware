@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* NKRO */
-#define FORCE_NKRO
-
 /* RGB Strip*/
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_BREATHING
@@ -34,4 +31,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 10
-#    define RGBLIGHT_LIMIT_VAL 255    

@@ -18,7 +18,6 @@
 #pragma once
 
 /* Combo setup */
-#define COMBO_COUNT 1
 #define COMBO_TERM 150
 
 /* RGB LED Setup */

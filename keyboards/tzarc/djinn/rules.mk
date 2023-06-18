@@ -4,8 +4,6 @@ SERIAL_DRIVER = usart
 
 CIE1931_CURVE = yes
 
-RGB_MATRIX_DRIVER = WS2812
-
 EEPROM_DRIVER = spi
 
 AUDIO_DRIVER = pwm_software

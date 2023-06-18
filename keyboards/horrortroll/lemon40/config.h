@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 /* RGB light config */
 #ifdef RGBLIGHT_ENABLE
    

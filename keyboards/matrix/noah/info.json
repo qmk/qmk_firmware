@@ -11,6 +11,9 @@
   "ws2812": {
     "pin": "B1"
   },
+  "rgb_matrix": {
+    "driver": "IS31FL3731"
+  },
   "community_layouts": ["65_iso_blocker"],
   "layouts": {
     "LAYOUT_default": {

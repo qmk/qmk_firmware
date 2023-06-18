@@ -100,7 +100,7 @@ void encoder_action_register(uint8_t index, bool clockwise) {
     keyevent_t encoder_event = (keyevent_t) {
         .key = clockwise ? ENC_CW : ENC_CCW,
         .pressed = true,
-        .time = timer_read()
+        .time = timer_read(),
         .type = KEY_EVENT
     };
     encoder_state = (clockwise ^ 1) | (clockwise << 1);

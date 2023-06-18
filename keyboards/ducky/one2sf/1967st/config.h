@@ -19,6 +19,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DIP_SWITCH_MATRIX_GRID { {0,14}, {1,14}, {2,14}, {3,14} }
 
-#define FORCE_NKRO
-
 #define GPIO_INPUT_PIN_DELAY (NUC123_HCLK / 6 / 1000000L)

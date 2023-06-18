@@ -19,7 +19,6 @@ OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 
 # RGB Matrix enabled
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 
 # Wear-levelling driver
 EEPROM_DRIVER = wear_leveling

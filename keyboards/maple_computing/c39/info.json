@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "C39", 
+    "keyboard_name": "C39",
     "manufacturer": "Maple Computing",
-    "url": "", 
-    "maintainer": "Space Cat", 
+    "url": "",
+    "maintainer": "Space Cat",
     "usb": {
         "vid": "0xCA17",
         "pid": "0xCA39",

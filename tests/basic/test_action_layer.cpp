@@ -365,9 +365,10 @@ TEST_F(ActionLayer, LayerTapReleasedBeforeKeypressReleaseWithModifiers) {
     InSequence s;
 
     KeymapKey layer_0_key_0 = KeymapKey{0, 0, 0, LT(1, KC_T)};
+    KeymapKey layer_0_key_1 = KeymapKey{0, 1, 0, KC_X};
     KeymapKey layer_1_key_1 = KeymapKey{1, 1, 0, RALT(KC_9)};
 
-    set_keymap({layer_0_key_0, layer_1_key_1});
+    set_keymap({layer_0_key_0, layer_0_key_1, layer_1_key_1});
 
     /* Press layer tap and wait for tapping term to switch to layer 1 */
     EXPECT_NO_REPORT(driver);

@@ -6,6 +6,9 @@
     "vid": "0x3297",
     "device_version": "0.0.1"
   },
+  "rgb_matrix": {
+    "driver": "IS31FL3737"
+  },
   "matrix_pins": {
     "cols": ["B11", "B10", "B2", "B1", "A7", "B0"],
     "rows": ["A10", "A9", "A8", "B15", "C13", "C14", "C15", "A2"]

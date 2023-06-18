@@ -17,14 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 #define RGBLIGHT_DI_PIN        C7
 #define RGBLED_NUM             6
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
 #define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== or choose animations ==*/
 #define RGBLIGHT_EFFECT_BREATHING

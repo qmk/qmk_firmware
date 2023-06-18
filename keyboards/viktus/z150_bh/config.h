@@ -5,6 +5,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* force n-key rollover*/
-#define FORCE_NKRO
