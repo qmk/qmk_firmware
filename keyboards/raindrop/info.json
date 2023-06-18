@@ -166,7 +166,7 @@
                 {"matrix": [4, 6], "x": 12, "y": 4}
             ]
         },
-        "LAYOUT_60_ansi_2u_lshift_arrows": {
+        "LAYOUT_64_ansi": {
             "layout" : [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
