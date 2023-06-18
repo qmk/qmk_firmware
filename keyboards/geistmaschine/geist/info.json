@@ -30,11 +30,12 @@
         ]
     },
     "layout_aliases": {
+        "LAYOUT_65_all": "LAYOUT_all",
         "LAYOUT_65_ansi": "LAYOUT_ansi_blocker",
         "LAYOUT_65_iso": "LAYOUT_iso_blocker"
     },
     "layouts": {
-        "LAYOUT_65_all": {
+        "LAYOUT_all": {
             "layout": [
                 {"matrix": [9, 1], "x": 0, "y": 0},
                 {"matrix": [0, 0], "x": 1.25, "y": 0},
