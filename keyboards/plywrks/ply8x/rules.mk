@@ -1,1 +1,1 @@
-WS2812_DRIVER = spi
+# This file intentionally left blank
