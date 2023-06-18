@@ -23,6 +23,12 @@
         "pid": "0x0A00",
         "vid": "0xA81C"
     },
+    "ws2812": {
+        "pin": "GP4"
+    },
+    "rgblight": {
+        "led_count": 4
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
