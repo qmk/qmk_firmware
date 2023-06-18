@@ -26,19 +26,19 @@
 #define BOOTMAGIC_LITE_COLUMN 0
 /* Top right key on right half */
 
-/* Cirque trackpad over SPI. Production 
-* #define SPI_SCK_PIN GP18
-* #define SPI_MOSI_PIN GP19
-* #define SPI_MISO_PIN GP16
-* #define POINTING_DEVICE_CS_PIN GP17
-*/
-
-
-/* Cirque trackpad over SPI. Testing*/
+/* Cirque trackpad over SPI. Production */
 #define SPI_SCK_PIN GP18
 #define SPI_MOSI_PIN GP19
-#define SPI_MISO_PIN GP20
-#define POINTING_DEVICE_CS_PIN GP10
+#define SPI_MISO_PIN GP16
+#define POINTING_DEVICE_CS_PIN GP17
+
+
+/* Cirque trackpad over SPI. Testing
+* #define SPI_SCK_PIN GP18
+* #define SPI_MOSI_PIN GP19
+* #define SPI_MISO_PIN GP20
+* #define POINTING_DEVICE_CS_PIN GP10
+*/
 
 #define CIRQUE_PINNACLE_DIAMETER_MM 40
 #define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_2X
