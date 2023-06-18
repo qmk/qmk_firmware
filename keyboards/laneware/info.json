@@ -1,7 +1,0 @@
-{
-    "manufacturer": "Laneware Peripherals",
-    "maintainer": "Laneware",
-    "usb": {
-        "vid": "0x4C50"
-    }
-}

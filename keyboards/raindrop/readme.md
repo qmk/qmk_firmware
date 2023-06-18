@@ -16,20 +16,20 @@ The Raindrop PCB can be configured in the following key layouts:
 | Key Layout | Keymap | Diagram |
 | :---: | :---: | :---: |
 | Standard 60% | default | ![diagram_ansi](https://i.imgur.com/oibG44o.png) |
-| 2u Left Shift with Arrow Keys | default_arrows | ![diagram_arrows](https://i.imgur.com/cQ4Kwb5h.png) |
-| HHKB with 6.25 Spacebar | default_hhkb | ![diagram_hhkb](https://i.imgur.com/WU6gb1Qh.png) |
+| 2u Left Shift with Arrow Keys | arrows | ![diagram_arrows](https://i.imgur.com/cQ4Kwb5h.png) |
+| HHKB with 6.25 Spacebar | hhkb | ![diagram_hhkb](https://i.imgur.com/WU6gb1Qh.png) |
 
 Make example for this keyboard (after setting up your build environment):
 
     make laneware/raindrop:default
-    make laneware/raindrop:default_arrows
-    make laneware/raindrop:default_hhkb
+    make laneware/raindrop:arrows
+    make laneware/raindrop:hhkb
 
 Flashing example for this keyboard:
 
     make laneware/raindrop:default:flash
-    make laneware/raindrop:default_arrows:flash
-    make laneware/raindrop:default_hhkb:flash
+    make laneware/raindrop:arrows:flash
+    make laneware/raindrop:hhkb:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

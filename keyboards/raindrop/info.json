@@ -1,17 +1,20 @@
 {
     "keyboard_name": "Raindrop",
+    "manufacturer": "Laneware Peripherals",
+    "url": "https://lanewareperipherals.com/collections/raindrop-60",
+    "maintainer": "qmk",
     "usb": {
+        "vid": "0x4C50",
         "pid": "0x9999",
         "device_version": "0.0.1"
     },
-    "url": "https://lanewareperipherals.com/collections/raindrop-60",
-    "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
     "matrix_pins": {
         "cols": ["D3", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "F7", "F6", "F5", "F4", "F1", "F0", "D5"],
         "rows": ["E6", "B7", "D0", "D1", "D2"]
     },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "features": {
         "bootmagic": true,
         "mousekey": true,
