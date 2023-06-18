@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_SAT_STEP 8
 
 #define EEPROM_PAGE_SIZE
 #define FEE_PAGE_SIZE 0x800

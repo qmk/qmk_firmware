@@ -17,7 +17,6 @@
 #pragma once
 
 /* RGB */
-    #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
 // /*== or choose animations ==*/
     #define RGBLIGHT_EFFECT_BREATHING

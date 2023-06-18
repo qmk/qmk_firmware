@@ -20,6 +20,7 @@
     },
     "rgblight": {
         "hue_steps": 12,
+        "saturation_steps": 25,
         "led_count": 6
     },
     "ws2812": {

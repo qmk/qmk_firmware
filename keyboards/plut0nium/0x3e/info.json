@@ -23,6 +23,7 @@
     },
     "rgblight": {
         "hue_steps": 12,
+        "saturation_steps": 8,
         "led_count": 6,
         "max_brightness": 150,
         "sleep": true

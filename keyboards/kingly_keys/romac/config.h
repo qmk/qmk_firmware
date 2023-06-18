@@ -6,5 +6,4 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
