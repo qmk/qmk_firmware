@@ -2,11 +2,11 @@
 
 ![Scotto36](https://i.imgur.com/MCGv0ZHh.jpeg)
 
-A 36 key handwired ortholinear ergo keyboard. Featuring an OLED display with Bongo Cat. Case files available [here](https://github.com/joe-scotto/keyboards.git).
+A 36-key split monoblock ergonomic ortholinear keyboard with 15° of angle on each half. Case files available [here](https://github.com/joe-scotto/keyboards.git).
 
--   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
--   Hardware Supported: ATmega32U4
--   Hardware Availability: [Amazon](https://amazon.com)
+*   Keyboard Maintainer: [Joe Scotto](https://github.com/joe-scotto)
+*   Hardware Supported: ATmega32U4, 0.91” 128x32 I2C OLED
+*   Hardware Availability: [Amazon](https://amazon.com)
 
 
 # Compiling
@@ -19,7 +19,12 @@ Flashing example for this keyboard:
 
     make handwired/jscotto/scotto36:default
     
-# Bootloader
-Uses [bootmagic](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_bootmagic.md) allowing you to hold the top left key (0, 0) when plugging the board in to enter bootloader mode.
-
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

@@ -50,8 +50,6 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
-#define COMBO_COUNT 4
-
 #ifdef AUDIO_ENABLE
     #define DAC_SAMPLE_MAX 65535/2
 #endif

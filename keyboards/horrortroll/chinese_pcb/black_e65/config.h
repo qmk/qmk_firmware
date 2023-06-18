@@ -16,20 +16,8 @@
 
 #pragma once
 
-
-/* Key matrix pins */
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B7 }
-#define MATRIX_COL_PINS { D0, D1, D2, D3, D5, D4, D6, D7, B4, F7, F6, F5, F4, F1, F0 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 #ifdef RGBLIGHT_ENABLE
     /* RGB Lighting config */
-    #define RGB_DI_PIN E2
     #define RGBLED_NUM 24
 
     /* RGB Lighting effect */

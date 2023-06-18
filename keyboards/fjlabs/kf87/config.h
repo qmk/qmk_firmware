@@ -17,32 +17,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *         ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *å
-*/
-
-// Checked with Eagle Schematic
-#define MATRIX_ROW_PINS { B4, B5, B6, C0, E1, E0 }
-#define MATRIX_COL_PINS { F2, F3, F4, F5, F6, F7, A0, A1, A2, A3, A4, A5, A6, A7, D5, D6, D7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
 /* Define RGB */
-#define RGB_DI_PIN C2
 #define RGBLED_NUM 87
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -54,7 +34,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_LIMIT_VAL 86
 #define RGB_VAL_STEP 12
 
 /* Define less important options */
