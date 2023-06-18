@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_PCAL_PINS \
     { PCAL_0_0, PCAL_0_1 }
 
-#define RGB_DI_PIN B2
+#define WS2812_DI_PIN B2
 #define RGBLED_NUM 1
 
 #define DEFAULT_INDICATOR_LED NUM_LOCK
