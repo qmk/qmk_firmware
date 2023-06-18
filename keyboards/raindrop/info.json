@@ -27,7 +27,7 @@
         "rgblight": false,
         "sleep_led": false
     },
-    "community_layouts": ["60_hhkb", "60_ansi"],
+    "community_layouts": ["60_hhkb", "60_ansi", "64_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
