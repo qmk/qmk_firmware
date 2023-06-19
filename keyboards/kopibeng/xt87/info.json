@@ -3,54 +3,54 @@
     "manufacturer": "kopibeng",
     "url": "https://monokei.co/",
     "maintainer": "kopibeng",
-	"processor": "STM32F072",
-	"bootloader": "stm32-dfu",
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "usb": {
-        "vid": "0x4B50",
+        "device_version": "0.0.1",
         "pid": "0x8700",
-        "device_version": "0.0.1"
+        "vid": "0x4B50"
     },
-	"diode_direction": "COL2ROW",
-	"features": {
-		"bootmagic": true,
-		"mousekey": true,
-		"extrakey": true,
-		"console": true,
-		"command": true,
-		"nkro": true,
-		"rgblight": true
-	},
-	"matrix_pins": {
-		"rows": ["A8", "B15", "A9", "B12", "A3", "B14"],
-		"cols": ["A2", "A1", "A0", "B11", "B10", "B2", "F1", "B1", "B0", "A7", "A6", "A5", "F0", "A4", "C15", "C14", "C13"]
-	},
-	"indicators": {
-		"caps_lock": "B3",
-		"scroll_lock": "A15"
-	},
-	"ws2812": {
-		"pin": "A10"
-	},
-	"rgblight": {
-		"led_count": 19,
-		"saturation_steps": 8,
-		"brightness_steps": 8,
-		"max_brightness": 200,
-		"sleep": true,
-		"animations": {
-			"alternating": true,
-			"breathing": true,
-			"rainbow_mood": true,
-			"rainbow_swirl": true,
-			"rgb_test": true,
-			"snake": true,
-			"knight": true,
-			"christmas": true,
-			"static_gradient": true,
-			"twinkle": true
-		},
-	},
-	"community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift", "tkl_iso", "tkl_iso_split_bs_rshift", "tkl_iso_tsangan", "tkl_iso_tsangan_split_bs_rshift"],
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["A2", "A1", "A0", "B11", "B10", "B2", "F1", "B1", "B0", "A7", "A6", "A5", "F0", "A4", "C15", "C14", "C13"],
+        "rows": ["A8", "B15", "A9", "B12", "A3", "B14"]
+    },
+    "indicators": {
+        "caps_lock": "B3",
+        "scroll_lock": "A15"
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "brightness_steps": 8,
+        "led_count": 19,
+        "max_brightness": 200,
+        "saturation_steps": 8,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "A10"
+    },
+    "community_layouts": ["tkl_ansi", "tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan", "tkl_ansi_tsangan_split_bs_rshift", "tkl_iso", "tkl_iso_split_bs_rshift", "tkl_iso_tsangan", "tkl_iso_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -146,7 +146,7 @@
                 { "matrix": [4, 16], "x": 17.25, "y": 5.25 }
             ]
         },
-		"LAYOUT_tkl_ansi": {
+        "LAYOUT_tkl_ansi": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 2.25, "y": 0 },
@@ -237,7 +237,7 @@
                 { "matrix": [4, 16], "x": 17.25, "y": 5.25 }
             ]
         },
-		"LAYOUT_tkl_ansi_split_bs_rshift": {
+        "LAYOUT_tkl_ansi_split_bs_rshift": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 2.25, "y": 0 },
@@ -330,7 +330,7 @@
                 { "matrix": [4, 16], "x": 17.25, "y": 5.25 }
             ]
         },
-		"LAYOUT_tkl_ansi_tsangan": {
+        "LAYOUT_tkl_ansi_tsangan": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 2.25, "y": 0 },
@@ -361,7 +361,7 @@
                 { "matrix": [1, 10], "x": 10, "y": 1.25 },
                 { "matrix": [1, 11], "x": 11, "y": 1.25 },
                 { "matrix": [1, 12], "x": 12, "y": 1.25 },
-                { "matrix": [1, 13], "w":2, "x": 13, "y": 1.25 },
+                { "matrix": [1, 13], "w": 2, "x": 13, "y": 1.25 },
                 { "matrix": [1, 14], "x": 15.25, "y": 1.25 },
                 { "matrix": [1, 15], "x": 16.25, "y": 1.25 },
                 { "matrix": [1, 16], "x": 17.25, "y": 1.25 },
@@ -420,7 +420,7 @@
                 { "matrix": [4, 16], "x": 17.25, "y": 5.25 }
             ]
         },
-		"LAYOUT_tkl_ansi_tsangan_split_bs_rshift": {
+        "LAYOUT_tkl_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 2.25, "y": 0 },
@@ -498,7 +498,7 @@
                 { "matrix": [4, 10], "x": 10.25, "y": 4.25 },
                 { "matrix": [4, 11], "x": 11.25, "y": 4.25 },
                 { "matrix": [4, 12], "w": 1.75, "x": 12.25, "y": 4.25 },
-				{ "matrix": [4, 13], "x": 14, "y": 4.25 },
+                { "matrix": [4, 13], "x": 14, "y": 4.25 },
                 { "matrix": [4, 15], "x": 16.25, "y": 4.25 },
                 { "matrix": [5, 0], "w": 1.5, "x": 0, "y": 5.25 },
                 { "matrix": [5, 1], "w": 1, "x": 1.5, "y": 5.25 },
@@ -512,7 +512,7 @@
                 { "matrix": [4, 16], "x": 17.25, "y": 5.25 }
             ]
         },
-		"LAYOUT_tkl_iso": {
+        "LAYOUT_tkl_iso": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 2.25, "y": 0 },
@@ -560,7 +560,7 @@
                 { "matrix": [2, 10], "x": 10.5, "y": 2.25 },
                 { "matrix": [2, 11], "x": 11.5, "y": 2.25 },
                 { "matrix": [3, 12], "x": 12.5, "y": 2.25 },
-                { "matrix": [2, 13], "w": 1.25, "h": 2, "x": 13.75, "y": 2.25 },
+                { "h": 2, "matrix": [2, 13], "w": 1.25, "x": 13.75, "y": 2.25 },
                 { "matrix": [2, 14], "x": 15.25, "y": 2.25 },
                 { "matrix": [2, 15], "x": 16.25, "y": 2.25 },
                 { "matrix": [2, 16], "x": 17.25, "y": 2.25 },
@@ -604,7 +604,7 @@
                 { "matrix": [4, 16], "x": 17.25, "y": 5.25 }
             ]
         },
-		"LAYOUT_tkl_iso_split_bs_rshift": {
+        "LAYOUT_tkl_iso_split_bs_rshift": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 2.25, "y": 0 },
@@ -653,7 +653,7 @@
                 { "matrix": [2, 10], "x": 10.5, "y": 2.25 },
                 { "matrix": [2, 11], "x": 11.5, "y": 2.25 },
                 { "matrix": [3, 12], "x": 12.5, "y": 2.25 },
-                { "matrix": [2, 13], "w": 1.25, "h": 2, "x": 13.75, "y": 2.25 },
+                { "h": 2, "matrix": [2, 13], "w": 1.25, "x": 13.75, "y": 2.25 },
                 { "matrix": [2, 14], "x": 15.25, "y": 2.25 },
                 { "matrix": [2, 15], "x": 16.25, "y": 2.25 },
                 { "matrix": [2, 16], "x": 17.25, "y": 2.25 },
@@ -698,7 +698,7 @@
                 { "matrix": [4, 16], "x": 17.25, "y": 5.25 }
             ]
         },
-		"LAYOUT_tkl_iso_tsangan": {
+        "LAYOUT_tkl_iso_tsangan": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 2.25, "y": 0 },
@@ -746,7 +746,7 @@
                 { "matrix": [2, 10], "x": 10.5, "y": 2.25 },
                 { "matrix": [2, 11], "x": 11.5, "y": 2.25 },
                 { "matrix": [3, 12], "x": 12.5, "y": 2.25 },
-                { "matrix": [2, 13], "w": 1.25, "h": 2, "x": 13.75, "y": 2.25 },
+                { "h": 2, "matrix": [2, 13], "w": 1.25, "x": 13.75, "y": 2.25 },
                 { "matrix": [2, 14], "x": 15.25, "y": 2.25 },
                 { "matrix": [2, 15], "x": 16.25, "y": 2.25 },
                 { "matrix": [2, 16], "x": 17.25, "y": 2.25 },
@@ -789,7 +789,7 @@
                 { "matrix": [4, 16], "x": 17.25, "y": 5.25 }
             ]
         },
-		"LAYOUT_tkl_iso_tsangan_split_bs_rshift": {
+        "LAYOUT_tkl_iso_tsangan_split_bs_rshift": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 2.25, "y": 0 },
@@ -838,7 +838,7 @@
                 { "matrix": [2, 10], "x": 10.5, "y": 2.25 },
                 { "matrix": [2, 11], "x": 11.5, "y": 2.25 },
                 { "matrix": [3, 12], "x": 12.5, "y": 2.25 },
-                { "matrix": [2, 13], "w": 1.25, "h": 2, "x": 13.75, "y": 2.25 },
+                { "h": 2, "matrix": [2, 13], "w": 1.25, "x": 13.75, "y": 2.25 },
                 { "matrix": [2, 14], "x": 15.25, "y": 2.25 },
                 { "matrix": [2, 15], "x": 16.25, "y": 2.25 },
                 { "matrix": [2, 16], "x": 17.25, "y": 2.25 },
