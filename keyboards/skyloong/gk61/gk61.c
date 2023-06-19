@@ -91,8 +91,8 @@ const is31_led __flash g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS13_SW7, CS14_SW7, CS15_SW7},
     {0, CS13_SW8, CS14_SW8, CS15_SW8},
     {0, CS13_SW9, CS14_SW9, CS15_SW9},
-    {0, CS13_SW10, CS14_SW10, CS15_SW10}
-};
+    {0, CS13_SW10, CS14_SW10, CS15_SW10},
+} ;
 
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_USART1_REMAP | AFIO_MAPR_TIM3_REMAP_PARTIALREMAP;
