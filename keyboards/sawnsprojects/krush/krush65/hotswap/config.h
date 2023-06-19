@@ -22,7 +22,6 @@
 #define ENCODERS_CCW_KEY { { 12, 4 } }
 
 /* RGB */
-    #define RGBLIGHT_VAL_STEP 8
 /*== all animations enable ==*/
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

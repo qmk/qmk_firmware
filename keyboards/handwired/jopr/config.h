@@ -8,5 +8,3 @@
 
 #define NO_ACTION_ONESHOT
 #define TAPPING_TOGGLE 3
-
-#define RGBLIGHT_VAL_STEP 1

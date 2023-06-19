@@ -15,7 +15,6 @@
 #define RGBLIGHT_EFFECT_KNIGHT
 #define RGBLIGHT_EFFECT_CHRISTMAS
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_VAL_STEP 8
 
 /*
  * Feature disable options

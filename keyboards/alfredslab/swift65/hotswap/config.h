@@ -16,7 +16,6 @@
 
 #pragma once
 
-    #define RGBLIGHT_VAL_STEP 8
 /*== all animations enable ==*/
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

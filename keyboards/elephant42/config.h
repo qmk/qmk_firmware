@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -35,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_SPLIT { 27, 27 }
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
 #    define RGB_MATRIX_SAT_STEP 8
-#    define RGB_MATRIX_VAL_STEP RGBLIGHT_VAL_STEP
+#    define RGB_MATRIX_VAL_STEP 8
 #    define RGB_MATRIX_SPD_STEP 8
 #endif
 

@@ -8,6 +8,7 @@
     },
     "rgblight": {
         "hue_steps": 12,
+        "brightness_steps": 12,
         "sleep": true
     },
     "ws2812": {

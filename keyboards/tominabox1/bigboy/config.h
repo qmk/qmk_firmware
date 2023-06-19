@@ -16,8 +16,6 @@
 
 #pragma once
 
-    #define RGBLIGHT_VAL_STEP 8
-
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
     #define RGBLIGHT_EFFECT_SNAKE

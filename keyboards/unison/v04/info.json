@@ -15,6 +15,7 @@
     "rgblight": {
         "hue_steps": 4,
         "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 7,
         "led_map": [1, 2, 0, 3, 4, 5, 6]
     },
