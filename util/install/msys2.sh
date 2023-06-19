@@ -12,7 +12,8 @@ _qmk_install() {
         base-devel: toolchain:x clang:x python-qmk:x hidapi:x \
         avr-binutils:x avr-gcc:x avr-libc:x \
         arm-none-eabi-binutils:x arm-none-eabi-gcc:x arm-none-eabi-newlib:x \
-        avrdude:x bootloadhid:x dfu-programmer:x dfu-util:x hid-bootloader-cli:x mdloader:x teensy-loader-cli:x wb32-dfu-updater:x
+        avrdude:x bootloadhid:x dfu-programmer:x dfu-util:x hid-bootloader-cli:x mdloader:x \
+        teensy-loader-cli:x wb32-dfu-updater:x sonixflasher:x
 
     _qmk_install_drivers
 }
