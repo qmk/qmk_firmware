@@ -7,14 +7,12 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    ```
-    qmk compile -kb nacly/bigsmoothknob -km default
-    ```
+    make nacly/bigsmoothknob:default
 
 Flashing example for this keyboard:
-    ```
-    drag the uf2 to the bsk after connecting it in bootloader mode
-    ```
+
+    make nacly/bigsmoothknob:default:flash
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
