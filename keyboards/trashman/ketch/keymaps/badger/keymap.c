@@ -22,14 +22,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,  KC_RALT, KC_LGUI, LT_SPACE,         KC_SPC,            J_FUNCT, KC_RALT, J_MACRO
     ),
     [_MOVE]       = LAYOUT(
-        MAC_WND,  VS_STEP, VS_INTO, VS_OUT,  VS_RUN,  VS_STOP,  VS_MVUP, WD_BACK, KC_HOME, KC_END,  WD_FRWD, WD_DELE,
-        _______,  MM_LH,   MM_MAX,  MM_RH,   IJ_FIND, VS_LINE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN, KC_QUOT,
-        _______,  MM_LEFT, MM_RGHT, MAC_CPY, MAC_SPS, _______,  VS_MVDN, IJ_REN,  IJ_BACK, IJ_FWD,  KC_UP,   _______,
+        MAC_WND,  IJ_STEP, IJ_INTO, IJ_OUT,  IJ_RUN,  IJ_STOP,  IJ_TOP,  WD_BACK, KC_HOME, KC_END,  WD_FRWD, WD_DELE,
+        _______,  MM_LH,   MM_MAX,  MM_RH,   IJ_FIND, IJ_LINE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_SCLN, KC_QUOT,
+        _______,  MM_LEFT, MM_RGHT, MAC_CPY, MAC_SPS, _______,  IJ_BOTT, IJ_REN,  IJ_BACK, IJ_FWD,  KC_UP,   _______,
         _______,  _______, _______, _______,          _______,           _______, _______, _______
     ),
     [_MACRO]      = LAYOUT(
         KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-        _______,  MAC_ALL, MAC_SAV, MAC_DUP, MAC_FND, VS_LINE,  KC_BSLS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_QUOT,
+        _______,  MAC_ALL, MAC_SAV, MAC_DUP, MAC_FND, _______,  KC_BSLS, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______,
         _______,  MAC_UND, MAC_CUT, MAC_CPY, MAC_PST, MAC_B,    _______, _______, _______, _______, KC_SCLN, _______,
         _______,  _______, _______, _______,          _______,           _______, _______, _______
     ),
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, _______, _______,          _______,           _______, _______, CONFIG
     ),
     [_CONFIG]     = LAYOUT(
-        QK_BOOT,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
+        QK_BOOT,  _______, _______, _______, IJ_RFMT, _______,  _______, _______, _______, _______, _______, _______,
         KC_CAPS,  RGB_TOG, BL_DOWN, DB_TOGG, RGB_M_P, RGB_M_B,  RGB_M_SN,RGB_M_R, RGB_M_SW,KC_F11,  KC_F12,  _______,
         _______,  RGB_HUI, RGB_HUD, RGB_M_K, RGB_M_X, RGB_M_G,  RGB_M_T, RGB_VAI, RGB_VAD, _______, _______, _______,
         _______,  _______, _______, _______,          _______,           _______, _______, _______
