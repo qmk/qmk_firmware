@@ -39,7 +39,6 @@ Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 | :---: | :---: |
 | 5 | Thumb cluster replaced with five key thumb cluster of [Dactyl Manuform Mini](https://github.com/l4u/dactyl-manuform-mini-keyboard) | 
 | 2_5 | Same as code *5* with two additional keys added to finger key-well bottom row |
-| kinesis | Thumb cluster keys are arranged to replicate the Kinesis Advantage keyboard thumb cluster |
 
 ## Case Files Generator
 
