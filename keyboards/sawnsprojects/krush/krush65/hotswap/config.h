@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* Encoders */
-
-#define ENCODERS_CW_KEY  { { 12, 3 } }
-#define ENCODERS_CCW_KEY { { 12, 4 } }
-
 /* RGB */
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
