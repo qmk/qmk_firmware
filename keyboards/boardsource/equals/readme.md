@@ -1,6 +1,6 @@
 # equals
 
-![equals](imgur.com image replace me!)
+![equals](https://i.imgur.com/c3adFqs.jpeg)
 
 * Keyboard Maintainer: [Cole Smith](https://github.com/boardsource)
 * Hardware Supported: Equals PCB w/ RP2040
