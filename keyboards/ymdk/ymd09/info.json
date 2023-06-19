@@ -8,21 +8,56 @@
         "pid": "0x4409",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["D6", "D2", "D1"],
+        "rows": ["F5", "F4", "F1"]
+    },
+    "diode_direction": "ROW2COL",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "ws2812": {
+        "pin": "E2"
+    },
+    "build": {
+        "lto": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "7", "x": 0, "y": 0},
-                {"label": "8", "x": 1, "y": 0},
-                {"label": "9", "x": 2, "y": 0},
-                {"label": "4", "x": 0, "y": 1},
-                {"label": "5", "x": 1, "y": 1},
-                {"label": "6", "x": 2, "y": 1},
-                {"label": "1", "x": 0, "y": 2},
-                {"label": "2", "x": 1, "y": 2},
-                {"label": "3", "x": 2, "y": 2}
+                {"label": "7", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "8", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "9", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "4", "matrix": [1, 0], "x": 0, "y": 1},
+                {"label": "5", "matrix": [1, 1], "x": 1, "y": 1},
+                {"label": "6", "matrix": [1, 2], "x": 2, "y": 1},
+                {"label": "1", "matrix": [2, 0], "x": 0, "y": 2},
+                {"label": "2", "matrix": [2, 1], "x": 1, "y": 2},
+                {"label": "3", "matrix": [2, 2], "x": 2, "y": 2}
             ]
         }
+    },
+    "rgb_matrix": {
+        "driver": "WS2812",
+        "layout": [
+            {"flags": 4, "matrix": [0, 2], "x": 64, "y": 0},  //7
+            {"flags": 4, "matrix": [0, 1], "x": 32, "y": 0},  //8
+            {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},   //9
+            {"flags": 4, "matrix": [1, 2], "x": 64, "y": 32}, //4
+            {"flags": 4, "matrix": [1, 1], "x": 32, "y": 32}, //5
+            {"flags": 4, "matrix": [1, 0], "x": 0, "y": 32},  //6
+            {"flags": 4, "matrix": [2, 2], "x": 64, "y": 64}, //1
+            {"flags": 4, "matrix": [2, 1], "x": 32, "y": 64}, //2
+            {"flags": 4, "matrix": [2, 0], "x": 0, "y": 64}   //3
+        ],
+        "center_point": [32, 32]
     }
 }

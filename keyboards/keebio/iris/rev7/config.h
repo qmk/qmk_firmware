@@ -17,25 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring of each half
-#define MATRIX_ROW_PINS { B1, F0, F5, B4, D7 }
-#define MATRIX_COL_PINS { F1, F4, B5, C7, D4, D6 }
-#define MATRIX_ROW_PINS_RIGHT { B1, F0, F5, B4, B5 }
-#define MATRIX_COL_PINS_RIGHT { D4, D6, D7, C7, F1, F4 }
 #define SPLIT_HAND_PIN D5
 
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* ws2812 RGB LED */
-#define RGB_DI_PIN E6
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 68
 #    define RGBLED_SPLIT { 34, 34 }
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
 #    define RGBLIGHT_SLEEP         /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== enabled animations ==*/
 #    define RGBLIGHT_EFFECT_BREATHING
@@ -96,5 +85,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define RGB_DISABLE_WHEN_USB_SUSPENDED
 #        define RGB_MATRIX_KEYPRESSES
 //#    endif
-#endif
-
