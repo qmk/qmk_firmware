@@ -85,9 +85,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-
-// tapping setting
-//#define TAPPING_TERM 200
-//#define RETRO_TAPPING
-//#define PERMISSIVE_HOLD

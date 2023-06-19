@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PWM_MAP { 8, 16, 40, 55, 70, 128, 200, 255 }
 
-#define TAPPING_TERM 200
-
 #define AUDIO_PIN C6
 #define AUDIO_VOICES
 
