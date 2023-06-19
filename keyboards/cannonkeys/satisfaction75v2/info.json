@@ -1,5 +1,6 @@
 {
     "keyboard_name": "Satisfaction75",
+    "manufacturer": "CannonKeys",
     "maintainer": "awkannan",
     "usb": {
         "vid": "0xCA04",
@@ -17,7 +18,7 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": false,
+        "console": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

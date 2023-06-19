@@ -1,8 +1,10 @@
-#include "sat75_redo.h"
+#include "satisfaction75v2.h"
 #include <stdio.h>
 
 void draw_default(void);
 void draw_clock(void);
+
+int init_tries = 0;
 
 #ifdef OLED_ENABLE
 
@@ -263,6 +265,14 @@ void draw_clock() {
     // bodge extra lines for invert layer and enc mode
     draw_line_v(101, 0, 8);
     draw_line_v(113, 8, 8);
+}
+
+#else
+
+void oled_request_repaint(void){
+}
+
+void oled_request_wakeup(void){
 }
 
 #endif

@@ -1,4 +1,4 @@
-#include "sat75_redo.h"
+#include "satisfaction75v2.h"
 #include "eeprom.h"
 
 void pre_encoder_mode_change(){

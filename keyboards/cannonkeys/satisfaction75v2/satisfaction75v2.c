@@ -1,4 +1,4 @@
-#include "sat75_redo.h"
+#include "satisfaction75v2.h"
 #include "print.h"
 #include "debug.h"
 
@@ -45,6 +45,21 @@ uint8_t previous_encoder_mode = 0;
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
   SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
+}
+
+void keyboard_post_init_kb(){
+      /*
+        This is a workaround to some really weird behavior
+        Without this code, the OLED will turn on, but not when you initially plug the keyboard in. 
+        You have to manually trigger a user reset to get the OLED to initialize properly
+        I'm not sure what the root cause is at this time, but this workaround fixes it.
+    */
+    #ifdef OLED_ENABLE
+    if(!is_oled_on()){
+        wait_ms(3000);
+        oled_init(OLED_ROTATION_0);
+    }
+    #endif
 }
 
 #ifdef VIA_ENABLE
