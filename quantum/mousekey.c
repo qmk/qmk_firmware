@@ -27,7 +27,8 @@
 static inline int8_t times_inv_sqrt2(int8_t x) {
     // 181/256 (0.70703125) is used as an approximation for 1/sqrt(2)
     // because it is close to the exact value which is 0.707106781
-    int16_t n = x * 181, d = 256;
+    const int16_t  n = x * 181;
+    const uint16_t d = 256;
 
     // To ensure that the integer result is rounded accurately after
     // division, check the sign of the numerator:
