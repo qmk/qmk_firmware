@@ -16,16 +16,6 @@
 
 #pragma once
 
-
-/*Define Matrix Pins */
-#define MATRIX_ROW_PINS \
-    { B3, B2, D1, D0, E6, B0, F0, F1, B5, B4, D7, D6 }
-#define MATRIX_COL_PINS \
-    { C7, C6, F7, F6, F5, F4, B1, D2, D3 }
-
-/* ws2812b RGB LEDs */
-#define RGB_DI_PIN B6
-
 #ifdef RGBLIGHT_ENABLE
 #define RGBLED_NUM 20  // Number of LEDs
 #define RGBLIGHT_SLEEP
@@ -40,11 +30,7 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_DEFAULT_VAL 0  // start off
-#define RGBLIGHT_LIMIT_VAL 225  // keep PCB under 500mA
 #endif
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

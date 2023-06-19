@@ -4,3 +4,5 @@ UNICODE_ENABLE        = yes
 UNICODEMAP_ENABLE     = no
 AUTOCORRECT_ENABLE    = yes
 CAPS_WORD_ENABLE      = yes
+
+BOOTLOADER = tinyuf2
