@@ -464,7 +464,7 @@ Compatible flashers:
   ```
 <sup>1</sup>: 260 series of chips have part of the SN32-DFU bootloader in userspace and therefore must be guarded to avoid bricking. Install the [sonix-bootloader](https://github.com/SonixQMK/sonix-keyboard-bootloader) before flashing the firmware
 ```
-sonixflasher --vidpid 0c45:7010 -f <bootloader_filename>
+sonixflasher --vidpid 0c45:7010 --jumploader -f <bootloader_filename>
 
 ```
 as a one-shot operation, then flash the firmware with an offset `0x200`
