@@ -14,16 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 #include "keymap_japanese.h"
-#include "lib/bme280.h"
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
     _BASE,
-    _FN,
-    _RESERVE_0,
-    _RESERVE_1
+    _FN
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -43,94 +39,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_4,    KC_5,    KC_6,         KC_TRNS,
       KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_1,    KC_2,    KC_3,                KC_TRNS,              KC_TRNS,
       KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,      KC_TRNS,          KC_TRNS,          KC_TRNS,    KC_0,    JP_DOT,    JP_DOT,      KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-    [_RESERVE_0] = LAYOUT(
-      KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,       KC_MPLY,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,
-      KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,           KC_TRNS,              KC_TRNS,
-      KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,      KC_TRNS,          KC_TRNS,          KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
-    ),
-    [_RESERVE_1] = LAYOUT(
-      KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,       KC_MPLY,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,
-      KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,           KC_TRNS,              KC_TRNS,
-      KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,      KC_TRNS,          KC_TRNS,          KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,     KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
-
-/* OLED */
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\', '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '
-};
-
-static void print_airstate(void) {
-    char airstate_str[32];
-    double temp;
-    double press;
-    double hum;
-
-    temp = bme280_getTemp();
-    press = bme280_getPress();
-    hum = bme280_getHum();
-
-    oled_write_ln_P(PSTR("\nTemp   Press    Hum"), false);
-    snprintf(airstate_str, sizeof(airstate_str), "%ddeg  %dhPa  %d%% \n", (int)temp, (int)press, (int)hum );
-    oled_write(airstate_str, false);
-
-    return;
-}
-
-static keyrecord_t keylog_record;
-static void print_keylog(void) {
-    char keylog_str[32];
-
-    oled_write_ln_P(PSTR("\nKeylog"), false);
-    snprintf(keylog_str, sizeof(keylog_str), "row:%d col:%d", keylog_record.event.key.row, keylog_record.event.key.col );
-    oled_write(keylog_str, false);
-
-    return;
-}
-
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_180;
-}
-
-bool oled_task_user(void) {
-    oled_write_ln_P(PSTR("  - PistachioPro -"), false);
-    print_airstate();
-    print_keylog();
-
-    return false;
-}
-
-/* Keyboard */
-void keyboard_post_init_user(void) {
-    bme280_init();
-}
-
-void housekeeping_task_user(void) {
-    bme280_exec();
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        keylog_record = *record;
-    }
-
-    return true;
-}
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [1] = { ENCODER_CCW_CW(_______, _______) },
-    [2] = { ENCODER_CCW_CW(_______, _______) },
-    [3] = { ENCODER_CCW_CW(_______, _______) },
+    [1] = { ENCODER_CCW_CW(_______, _______) }
 };
 #endif
