@@ -1,6 +1,6 @@
 # Akruvia Una
 
-![Una](https://i.imgur.com/SfiNkIX.png)
+![Una](https://i.imgur.com/SfiNkIXh.png)
 
 *This is a wired handheld keyboard with a thumbstick mouse pointer for your DIY Cyderdecks, UMPCs, handheld PC builds.*
 
