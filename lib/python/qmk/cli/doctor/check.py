@@ -45,10 +45,9 @@ def _check_arm_gcc_version():
     cli.log.info('Found arm-none-eabi-gcc version %s', version_number)
 
     parsed_version = _parse_gcc_version(version_number)
-    if parsed_version['minor'] < 3:
-        if parsed_version['major'] <= 10:
-            cli.log.warning('{fg_yellow}We do not recommend arm-none-eabi-gcc older than 10.3.x. Upgrading to 10.3.x or higher is recommended.')
-            return CheckStatus.WARNING
+    if (parsed_version['major'], parsed_version['minor']) < (10, 3):
+        cli.log.warning('{fg_yellow}We do not recommend arm-none-eabi-gcc older than 10.3.x. Upgrading to 10.3.x or higher is recommended.')
+        return CheckStatus.WARNING
 
     return CheckStatus.OK  # arm versions less than 10.3.x cause issues on sn32
 
