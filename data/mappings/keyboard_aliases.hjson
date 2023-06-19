@@ -844,9 +844,6 @@
     "hecomi/alpha": {
         "target": "takashiski/hecomi/alpha"
     },
-    "hfdkb/keyboard_sw/k83":{
-        "target": "inland/kb83"
-    },
     "hid_liber": {
         "target": "bpiphany/hid_liber"
     },
@@ -870,6 +867,9 @@
     },
     "infinity60": {
         "target": "input_club/infinity60"
+    },
+    "hfdkb/keyboard_sw/k83":{
+        "target": "inland/kb83"
     },
     "ivy/rev1": {
         "target": "maple_computing/ivy/rev1"
