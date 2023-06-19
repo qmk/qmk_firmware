@@ -3,10 +3,22 @@
   "manufacturer": "jpskenn",
   "url": "https://github.com/jpskenn/Jones",
   "maintainer": "jpskenn",
+  "features": {
+    "rgblight": true,
+    "audio": true,
+    "encoder": true
+  },
+  "build": {
+    "lto": true
+  },
   "usb": {
     "vid": "0xB9DD",
     "pid": "0x175A",
     "device_version": "0.3.1"
+  },
+  "matrix_pins": {
+    "cols": ["D4", "D7", "C7", "F1", "F4", "F5", "D6", "D5", "E6", "B0", "B1"],
+    "rows": ["D4", "D7", "C7", "F1", "F4", "F5", "D6", "D5", "E6", "B0", "B1"]
   },
   "encoder": {
     "rotary": [
@@ -16,10 +28,21 @@
   },
   "rgblight": {
     "led_count": 14,
-    "led_map": [0, 1, 2, 3, 13, 12, 4, 5, 6, 7, 8, 9, 10, 11]
+    "led_map": [0, 1, 2, 3, 13, 12, 4, 5, 6, 7, 8, 9, 10, 11],
+    "layers": {
+      "enabled": true,
+      "override_rgb": false
+    },
+    "animations": {
+      "rainbow_swirl": true,
+      "knight": true
+    }
   },
   "ws2812": {
     "pin": "F0"
+  },
+  "audio": {
+    "pins": ["C6", "B7"]
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",

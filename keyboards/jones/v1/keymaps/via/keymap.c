@@ -173,7 +173,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 // Keyboard Initialization
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
-debug_enable=true;
   #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;

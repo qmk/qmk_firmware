@@ -19,15 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Audio */
 #ifdef AUDIO_ENABLE
-  #define AUDIO_PIN C6
   #define AUDIO_CLICKY
   #define MUSIC_MAP
 #endif
 
-/* RGBLIGHT */
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
   /*== Lighting Layers ==*/
   #define RGBLIGHT_LAYERS
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status

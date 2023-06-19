@@ -8,6 +8,16 @@
     "pid": "0x175A",
     "device_version": "1.0.0"
   },
+  "features": {
+    "mousekey": true,
+    "extrakey": true,
+    "rgblight": true,
+    "audio": true,
+    "encoder": true
+  },
+  "build": {
+    "lto": true
+  },
   "matrix_pins": {
     "cols": ["B3", "B2", "E6", "D6", "D4", "B0", "B1", "B7", "B4", "D7"],
     "rows": ["B3", "B2", "E6", "D6", "D4", "B0", "B1", "B7", "B4", "D7"]
@@ -17,6 +27,9 @@
   },
   "ws2812": {
     "pin": "F1"
+  },
+  "audio": {
+    "pins": ["C6"]
   },
   "diode_direction": "COL2ROW",
   "encoder": {
