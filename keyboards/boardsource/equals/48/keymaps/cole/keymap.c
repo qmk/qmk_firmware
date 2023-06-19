@@ -19,8 +19,6 @@ enum layers
 #define SHIFT_SLASH MT(MOD_RSFT, KC_SLSH)
 #define RASE_ENT LT(_RAISE, KC_ENT)
 #define CTRL_A MT(KC_LGUI, KC_A)
-extern void ui_init(void);
-extern void ui_task(void);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -52,15 +50,3 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(iu_combo, KC_BSPC),
     COMBO(kj_combo, KC_COLN),
     COMBO(er_combo, KC_TAB)};
-
-void keyboard_post_init_user(void)
-{
-    // Init the display
-    ui_init();
-}
-
-void housekeeping_task_user(void)
-{
-    // Draw the display
-    ui_task();
-}
