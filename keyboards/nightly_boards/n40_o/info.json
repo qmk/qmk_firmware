@@ -3,6 +3,16 @@
     "manufacturer": "Neil Brian Ramirez",
     "url": "",
     "maintainer": "Neil Brian Ramirez",
+    "features": {
+      "bootmagic": true,
+      "mousekey": true,
+      "extrakey": true,
+      "rgblight": true,
+      "encoder": true
+    },
+    "build": {
+      "lto": true
+    },
     "usb": {
         "vid": "0xD812",
         "pid": "0x0009",
@@ -21,10 +31,25 @@
         ]
     },
     "rgblight": {
-        "led_count": 12
+        "led_count": 12,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "B4"
+    },
+    "audio": {
+      "pins": ["B7"]
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
