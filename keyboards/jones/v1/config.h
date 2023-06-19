@@ -23,10 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define MUSIC_MAP
 #endif
 
-  /*== Lighting Layers ==*/
-  #define RGBLIGHT_LAYERS
-  #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
-
 /* External EEPROM */
 // Use 24LC64 EEPROM
 #define EEPROM_I2C_24LC64

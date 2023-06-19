@@ -20,6 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 11
 #define MATRIX_COLS 11
 
+#define MATRIX_ROW_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6, B0, B1 }
+#define MATRIX_COL_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6, B0, B1 }
+
 /* Audio */
 #ifdef AUDIO_ENABLE
   #define AUDIO_CLICKY

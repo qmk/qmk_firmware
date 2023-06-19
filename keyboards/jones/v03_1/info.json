@@ -16,10 +16,6 @@
     "pid": "0x175A",
     "device_version": "0.3.1"
   },
-  "matrix_pins": {
-    "cols": ["D4", "D7", "C7", "F1", "F4", "F5", "D6", "D5", "E6", "B0", "B1"],
-    "rows": ["D4", "D7", "C7", "F1", "F4", "F5", "D6", "D5", "E6", "B0", "B1"]
-  },
   "encoder": {
     "rotary": [
       {"pin_a": "F6", "pin_b": "F7"},
@@ -28,10 +24,12 @@
   },
   "rgblight": {
     "led_count": 14,
+    "saturation_steps": 8,
+    "brightness_steps": 8,
     "led_map": [0, 1, 2, 3, 13, 12, 4, 5, 6, 7, 8, 9, 10, 11],
     "layers": {
       "enabled": true,
-      "override_rgb": false
+      "override_rgb": true
     },
     "animations": {
       "rainbow_swirl": true,
