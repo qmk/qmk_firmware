@@ -21,6 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18
 
+#define MATRIX_ROW_PINS { D4, C6, D7, B3, B4, B5 }
+#define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, F7, B6, D6 }
+
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
