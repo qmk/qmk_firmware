@@ -4,6 +4,11 @@
     "maintainer": "JZ-Skyloong",
     "bootloader": "stm32duino",
     "diode_direction": "ROW2COL",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C5", "pin_b": "C4", "resolution": 1}
+        ]
+    },
     "features": {
         "bootmagic": true,
         "command": false,
@@ -65,7 +70,6 @@
             {"matrix": [0, 11], "x": 11, "y": 0, "flags": 4},
             {"matrix": [0, 12], "x": 12, "y": 0, "flags": 4},
             {"matrix": [0, 13], "x": 13, "y": 0, "flags": 4},
-
             {"matrix": [1, 0], "x": 0, "y": 1, "flags": 4},
             {"matrix": [1, 1], "x": 1.5, "y": 1, "flags": 4},
             {"matrix": [1, 2], "x": 2.5, "y": 1, "flags": 4},
@@ -80,7 +84,6 @@
             {"matrix": [1, 11], "x": 11.5, "y": 1, "flags": 4},
             {"matrix": [1, 12], "x": 12.5, "y": 1, "flags": 4},
             {"matrix": [1, 13], "x": 13.5, "y": 1, "flags": 4},
-
             {"matrix": [2, 0], "x": 0, "y": 2, "flags": 4},
             {"matrix": [2, 1], "x": 1.75, "y": 2, "flags": 4},
             {"matrix": [2, 2], "x": 2.75, "y": 2, "flags": 4},
@@ -94,7 +97,6 @@
             {"matrix": [2, 10], "x": 10.75, "y": 2, "flags": 4},
             {"matrix": [2, 11], "x": 11.75, "y": 2, "flags": 4},
             {"matrix": [2, 13], "x": 12.75, "y": 2, "flags": 4},
-
             {"matrix": [3, 0], "x": 0, "y": 3, "flags": 4},
             {"matrix": [3, 1], "x": 2.25, "y": 3, "flags": 4},
             {"matrix": [3, 2], "x": 3.25, "y": 3, "flags": 4},
@@ -107,7 +109,6 @@
             {"matrix": [3, 9], "x": 10.25, "y": 3, "flags": 4},
             {"matrix": [3, 10], "x": 11.25, "y": 3, "flags": 4},
             {"matrix": [3, 12], "x": 12.25, "y": 3, "flags": 4},
-
             {"matrix": [4, 0], "x": 0, "y": 4, "flags": 4},
             {"matrix": [4, 1], "x": 1.25, "y": 4, "flags": 4},
             {"matrix": [4, 2], "x": 2.5, "y": 4, "flags": 4},
@@ -335,3 +336,4 @@
         }
     }
 }
+
