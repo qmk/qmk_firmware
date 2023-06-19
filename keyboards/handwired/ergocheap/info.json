@@ -8,6 +8,9 @@
         "pid": "0x6942",
         "device_version": "0.0.1"
     },
+    "tapping": {
+        "term": 500
+    },
     "matrix_pins": {
         "cols": ["A8", "A9", "B14", "B12", "B13", "B15", "B3", "B11", "A4", "A5", "A6", "A7", "B0", "B1", "B10"],
         "rows": ["B5", "B6", "B7", "B9", "B8"]

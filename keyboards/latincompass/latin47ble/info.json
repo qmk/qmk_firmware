@@ -16,6 +16,9 @@
     "rgblight": {
         "led_count": 3
     },
+    "tapping": {
+        "term": 250
+    },
     "ws2812": {
         "pin": "B7"
     },

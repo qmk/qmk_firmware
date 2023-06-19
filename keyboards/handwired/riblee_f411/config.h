@@ -17,5 +17,3 @@
 #pragma once
 
 #define MOUSEKEY_INTERVAL 32
-
-#define TAPPING_TERM 175

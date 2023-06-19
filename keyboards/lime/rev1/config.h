@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define TAPPING_TERM 100
-
 /* joystick support */
 #ifdef JOYSTICK_ENABLE
 #   define JOYSTICK_AXIS_COUNT 2

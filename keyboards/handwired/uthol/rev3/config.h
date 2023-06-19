@@ -31,7 +31,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define TAPPING_TERM 500
 #define PERMISSIVE_HOLD
 
 // RGB Stuff
