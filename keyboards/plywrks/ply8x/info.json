@@ -25,6 +25,7 @@
         "vid": "0x706C"
     },
     "ws2812": {
+        "pin": "B15",
         "driver": "spi"
     },
     "rgb_matrix": {
