@@ -20,4 +20,5 @@ void matrix_scan_kb(void) {
     } else {
         unregister_code(KC_MS_BTN2);
     }
+    matrix_scan_user();
 }
