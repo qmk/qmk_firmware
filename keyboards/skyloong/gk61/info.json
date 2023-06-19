@@ -4,6 +4,11 @@
     "maintainer": "JZ-Skyloong",
     "bootloader": "stm32duino",
     "diode_direction": "ROW2COL",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C5", "pin_b": "C4", "resolution": 1}
+        ]
+    },
     "features": {
         "bootmagic": true,
         "command": false,
@@ -330,3 +335,4 @@
         }
     }
 }
+
