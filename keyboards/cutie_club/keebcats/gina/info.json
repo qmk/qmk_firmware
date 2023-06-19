@@ -1,12 +1,26 @@
 {
     "keyboard_name": "Keebcats Gina",
     "manufacturer": "Cutie Club",
-    "url": "",
     "maintainer": "Cutie Club",
+    "url": "",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
     "usb": {
         "vid": "0xFB9C",
         "pid": "0xB225",
         "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "B2"
+    },
+    "rgblight": {
+        "led_count": 1
     },
     "layouts": {
         "LAYOUT_right_all": {
