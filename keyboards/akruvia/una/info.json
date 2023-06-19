@@ -26,6 +26,7 @@
         "vid": "0xA81C"
     },
     "ws2812": {
+        "driver": "vendor",
         "pin": "GP4"
     },
     "rgblight": {
