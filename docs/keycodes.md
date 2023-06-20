@@ -231,8 +231,6 @@ See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 |`QK_MAKE`        |         |Sends `qmk compile -kb (keyboard) -km (keymap)`, or `qmk flash` if shift is held. Puts keyboard into bootloader mode if shift & control are held |
 |`QK_REBOOT`      |`QK_RBT` |Resets the keyboard. Does not load the bootloader                                                                                                |
 
-!> Note: `QK_MAKE` requires `#define ENABLE_COMPILE_KEYCODE` in your config.h to function.
-
 ## Audio Keys :id=audio-keys
 
 See also: [Audio](feature_audio.md)
