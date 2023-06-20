@@ -14,7 +14,7 @@ Flashing example for this keyboard:
 
     make ah/haven80/solder:default:flash
 
-##Bootloader Atmel-DFU
+## Bootloader
 
 For reset instruction, use the physical reset button on the back of the keyboard to enter bootloader mode
 
