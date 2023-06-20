@@ -5,6 +5,12 @@
     "features": {
         "rgb_matrix": true
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP14", "pin_b": "GP15"},
+            {"pin_a": "GP26", "pin_b": "GP25"}
+        ]
+    },
     "ws2812": {
         "driver": "vendor"
     },
