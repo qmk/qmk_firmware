@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Encoders */
-#define ENCODERS_CW_KEY  { { 1, 5 } }
-#define ENCODERS_CCW_KEY { { 0, 5 } }
-
 /* Audio */
 
 #define B7_AUDIO

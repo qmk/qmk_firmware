@@ -8,9 +8,6 @@
 #    define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
 
-#define ENCODERS_CW_KEY  { { 1, 1 }, { 3, 1 } }
-#define ENCODERS_CCW_KEY { { 0, 1 }, { 2, 1 } }
-
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

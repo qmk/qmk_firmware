@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* Encoders */
-
-#define ENCODERS_CW_KEY  { { 12, 3 } }
-#define ENCODERS_CCW_KEY { { 12, 4 } }
-
 /* RGB */
 /*== all animations enable ==*/
 #define RGBLIGHT_EFFECT_BREATHING

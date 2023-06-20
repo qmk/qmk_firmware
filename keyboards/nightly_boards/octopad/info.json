@@ -10,7 +10,7 @@
     },
     "matrix_pins": {
         "cols": ["F1", "F0", "D0", "D1", "B1"],
-        "rows": ["B2", "B3", null]
+        "rows": ["B2", "B3"]
     },
     "diode_direction": "COL2ROW",
     "encoder": {
@@ -30,13 +30,9 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"matrix": [2, 0], "x": 0, "y": 0},
                 {"matrix": [0, 4], "x": 1, "y": 0},
-                {"matrix": [2, 1], "x": 2, "y": 0},
 
-                {"matrix": [2, 2], "x": 3.5, "y": 0},
                 {"matrix": [1, 4], "x": 4.5, "y": 0},
-                {"matrix": [2, 3], "x": 5.5, "y": 0},
 
                 {"matrix": [0, 0], "x": 1.25, "y": 1.25},
                 {"matrix": [0, 1], "x": 2.25, "y": 1.25},
