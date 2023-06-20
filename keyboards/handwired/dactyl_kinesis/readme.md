@@ -1,6 +1,6 @@
 # Dactyl Kinesis
 
-Essentially a [Dactyl](/keyboards/handwired/dactyl/) with an additional top row, typically for function keys, that attempts to emulate the top row of the Kinesis Advantage 1|2.
+Essentially a Dactyl CC phsyical key layout with an additional top row, further emulating the Kinesis Advantage (*1|2*) phsyical key loyout.
 
 * Keyboard Maintainer: [dmik](https://github.com/dmik)
 * Hardware Supported: Pro Micro controller, or clone of
