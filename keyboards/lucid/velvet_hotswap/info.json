@@ -107,7 +107,7 @@
                 {"matrix": [4, 9], "label": ">", "x": 10.25, "y": 4.25},
                 {"matrix": [4, 10], "label": "?", "x": 11.25, "y": 4.25},
                 {"matrix": [4, 12], "label": "Right Shift", "x": 12.25, "y": 4.25, "w": 1.75},
-                {"matrix": [4, 13], "label": "Right Shift", "x": 12.25, "y": 4.25},
+                {"matrix": [4, 13], "label": "Right Shift", "x": 14, "y": 4.25},
                 {"matrix": [4, 15], "label": "\u2191", "x": 16.25, "y": 4.25},
 
                 {"matrix": [5, 0], "label": "Ctrl", "x": 0, "y": 5.25, "w": 1.25},
