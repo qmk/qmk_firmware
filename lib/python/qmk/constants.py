@@ -123,7 +123,7 @@ ROW_LETTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop'
 
 # Constants that should match their counterparts in make
 BUILD_DIR = environ.get('BUILD_DIR', '.build')
-KEYBOARD_OUTPUT_PREFIX = f'{BUILD_DIR}/obj_'
+INTERMEDIATE_OUTPUT_PREFIX = f'{BUILD_DIR}/obj_'
 
 # Headers for generated files
 GPL2_HEADER_C_LIKE = f'''\
