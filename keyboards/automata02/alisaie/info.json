@@ -3,27 +3,15 @@
     "keyboard_name": "Alisaie",
     "maintainer": "qmk",
     "bootloader": "atmel-dfu",
-    "bootmagic": {
-        "enabled": true
-    },
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
-        "mousekey": false,
-        "nkro": true,
-        "rgblight": false
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["B6", "F0", "F1", "F4", "F5", "B5", "B7", "D3", "D2", "D1", "D0", "B3", "B2", "B0"],
         "rows": ["E6", "F6", "D5", "D4", "B1"]
-    },
-    "mouse_key": {
-        "enabled": false
     },
     "processor": "atmega32u4",
     "usb": {
@@ -32,7 +20,7 @@
         "vid": "0xBABE"
     },
     "layouts": {
-        "LAYOUT_split_bs_rshift": {
+        "LAYOUT": {
             "layout": [
                 {"label": "~", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [0, 1], "x": 1, "y": 0},
