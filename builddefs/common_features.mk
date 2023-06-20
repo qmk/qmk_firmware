@@ -533,7 +533,7 @@ endif
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), SN32F24xB)
-        OPT_DEFS += -DSN32F24xB
+        OPT_DEFS += -DSN32F24xB -DSHARED_MATRIX
         COMMON_VPATH += $(DRIVER_PATH)/led/sn32
         SRC += rgb_matrix_sn32f24xb.c
     endif

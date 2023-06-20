@@ -319,6 +319,7 @@ __attribute__((weak)) bool transport_master_if_connected(matrix_row_t master_mat
 }
 #endif
 
+#if !defined(SHARED_MATRIX)
 uint8_t matrix_scan(void) {
     matrix_row_t curr_matrix[MATRIX_ROWS] = {0};
 
@@ -346,3 +347,4 @@ uint8_t matrix_scan(void) {
 #endif
     return (uint8_t)changed;
 }
+#endif
