@@ -1,9 +1,3 @@
-MCU = STM32F411
-BOARD = GENERIC_STM32_F411XE
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -16,7 +10,6 @@ NKRO_ENABLE = yes           # Enable N-Key rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-BACKLIGHT_DRIVER = pwm
 LTO_ENABLE = no
 ENCODER_ENABLE = yes
 

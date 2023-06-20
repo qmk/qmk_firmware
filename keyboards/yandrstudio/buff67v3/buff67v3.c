@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "buff67v3.h"
+#include "quantum.h"
 
 
 #ifdef RGBLIGHT_ENABLE
@@ -40,18 +40,6 @@ void keyboard_post_init_kb(void) {
 }
 
 #endif
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) { return false; }
-    switch(keycode) {
-        case LOCK_GUI:
-            process_magic(GUI_TOG, record);
-            return false;
-        default:
-            break;
-    }
-    return true;
-}
 
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_TIM3_REMAP_PARTIALREMAP;

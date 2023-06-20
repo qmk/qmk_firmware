@@ -37,7 +37,7 @@
 #define ARROWS MO(_3_ARROW)
 
 enum custom_keycodes {
-  RGB_SLD = EZ_SAFE_RANGE,
+  RGB_SLD = SAFE_RANGE,
   ALT_TAB,
 };
 
@@ -244,40 +244,36 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-LEADER_EXTERNS();
+void leader_end_user(void) {
+  if (leader_sequence_one_key(KC_F)) {
+    SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+  }
+  if (leader_sequence_one_key(KC_S)) {
+    SEND_STRING ("sudo -i\n");
+  }
+  if (leader_sequence_one_key(KC_H)) {
+    SEND_STRING ("--help\n");
+  }
+  if (leader_sequence_two_keys(KC_D, KC_D)) {
+    SEND_STRING(SS_LGUI("ac"));
+    /* SEND_STRING(SS_LGUI("a") SS_LGUI("c")); */
+  }
+  if (leader_sequence_three_keys(KC_D, KC_D, KC_S)) {
+    SEND_STRING("https://start.duckduckgo.com\n");
+  }
+  if (leader_sequence_two_keys(KC_A, KC_S)) {
+    register_code(KC_LGUI);
+    register_code(KC_S);
+    unregister_code(KC_S);
+    unregister_code(KC_LGUI);
+  }
+}
 
 void matrix_scan_user(void) {
   if (is_alt_tab_active) {
     if (timer_elapsed(alt_tab_timer) > 1000) {
       unregister_code(KC_LGUI);
       is_alt_tab_active = false;
-    }
-  }
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_ONE_KEY(KC_F) {
-      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-    }
-    SEQ_ONE_KEY(KC_S) {
-      SEND_STRING ("sudo -i\n");
-    }
-    SEQ_ONE_KEY(KC_H) {
-      SEND_STRING ("--help\n");
-    }
-    SEQ_TWO_KEYS(KC_D, KC_D) {
-      SEND_STRING(SS_LGUI("ac"));
-      /* SEND_STRING(SS_LGUI("a") SS_LGUI("c")); */
-    }
-    SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
-      SEND_STRING("https://start.duckduckgo.com\n");
-    }
-    SEQ_TWO_KEYS(KC_A, KC_S) {
-      register_code(KC_LGUI);
-      register_code(KC_S);
-      unregister_code(KC_S);
-      unregister_code(KC_LGUI);
     }
   }
 }

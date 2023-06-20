@@ -21,13 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
 /* The pin connected to the data pin of the LEDs */
-#define RGB_DI_PIN GP2
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS * 3/4
 
 /* The number of LEDs connected (7 Snowflake, 34 Underglow) */
 #define DRIVER_LED_TOTAL 41
-#define RGBLED_NUM 41
 #define RGB_MATRIX_LED_COUNT 41
 
 /* Caps locks LED index default is 0 (LED1 on PCB) */

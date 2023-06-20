@@ -1,7 +1,7 @@
 // Copyright 2022 Takeshi Noda (nodatk@gmail.com)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "twig50.h"
+#include QMK_KEYBOARD_H
 
 #define LAL_NCV  LALT_T(KC_LNG2)
 #define RAL_CNV  RALT_T(KC_LNG1)

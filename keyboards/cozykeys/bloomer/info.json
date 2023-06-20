@@ -6,5 +6,12 @@
     "usb": {
         "vid": "0xFEED",
         "pid": "0x1191"
+    },
+    "rgblight": {
+        "led_count": 12,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "D7"
     }
 }

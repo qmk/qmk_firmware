@@ -22,7 +22,7 @@ enum jian_keycodes {
 #define LOWER_T(kc) LT(_LOWER, kc)
 
 #ifdef SWAP_HANDS_ENABLE
-#define SW_TG SH_TG
+#define SW_TG SH_TOGG
 #else
 #define SW_TG _______
 #endif
@@ -71,19 +71,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                               _______, _______, _______,      _______, _______, _______
 ),
 
-[_ADJUST] = LAYOUT_symmetric(
-  QK_BOOT, DB_TOGG,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-           XXXXXXX,        WORKMAN, COLEMAK, DVORAK,  QWERTY,  XXXXXXX,
-           TG(_BCKLT_ADJ), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                                             _______, SW_TG,   _______
+[_ADJUST] = LAYOUT(
+  QK_BOOT, DB_TOGG,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DB_TOGG,        QK_BOOT,
+           XXXXXXX,        WORKMAN, COLEMAK, DVORAK,  QWERTY,  XXXXXXX,      XXXXXXX, QWERTY,  DVORAK,  COLEMAK, WORKMAN, XXXXXXX,
+           TG(_BCKLT_ADJ), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG(_BCKLT_ADJ),
+                                             _______, SW_TG,   _______,      _______, SW_TG,   _______
 ),
 
 #if defined(RGBLIGHT) || defined(BACKLIGHT_ENABLE)
-[_BCKLT_ADJ] = LAYOUT_symmetric(
-  XXXXXXX, XXXXXXX,        XXXXXXX, BL_UP,   RGB_VAI, RGB_HUD, RGB_HUI,
-           XXXXXXX,        XXXXXXX, BL_DOWN, RGB_VAD, RGB_SAD, RGB_SAI,
-           TG(_BCKLT_ADJ), BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,
-                                             _______, _______, _______
+[_BCKLT_ADJ] = LAYOUT(
+  XXXXXXX, XXXXXXX,        XXXXXXX, BL_UP,   RGB_VAI, RGB_HUD, RGB_HUI,      RGB_HUI, RGB_HUD, RGB_VAI, BL_UP,   XXXXXXX, XXXXXXX,        XXXXXXX,
+           XXXXXXX,        XXXXXXX, BL_DOWN, RGB_VAD, RGB_SAD, RGB_SAI,      RGB_SAI, RGB_SAD, RGB_VAD, BL_DOWN, XXXXXXX, XXXXXXX,
+           TG(_BCKLT_ADJ), BL_BRTG, BL_TOGG, RGB_TOG, RGB_RMOD,RGB_MOD,      RGB_MOD, RGB_RMOD,RGB_TOG, BL_TOGG, BL_BRTG, TG(_BCKLT_ADJ),
+                                             _______, _______, _______,      _______, _______, _______
 )
 #endif // defined(RGBLIGHT) || defined(BACKLIGHT_ENABLE)
 

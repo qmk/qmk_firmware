@@ -186,7 +186,7 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     // Then unregister the mod-free replacement key if desired
     if (unregister_replacement) {
-        if (IS_KEY(mod_free_replacement)) {
+        if (IS_BASIC_KEYCODE(mod_free_replacement)) {
             del_key(mod_free_replacement);
         } else {
             key_override_printf("NOT KEY 1\n");
@@ -329,7 +329,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 
         if (!trigger_down && !no_trigger) {
             // When activating a key override the trigger is is always unregistered. In the case where the key that newly pressed is not the trigger key, we have to explicitly remove the trigger key from the keyboard report. If the trigger was just pressed down we simply suppress the event which also has the effect of the trigger key not being registered in the keyboard report.
-            if (IS_KEY(override->trigger)) {
+            if (IS_BASIC_KEYCODE(override->trigger)) {
                 del_key(override->trigger);
             } else {
                 unregister_code(override->trigger);
@@ -356,7 +356,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
                 schedule_deferred_register(mod_free_replacement);
                 send_keyboard_report();
             } else {
-                if (IS_KEY(mod_free_replacement)) {
+                if (IS_BASIC_KEYCODE(mod_free_replacement)) {
                     add_key(mod_free_replacement);
                 } else {
                     key_override_printf("NOT KEY 2\n");
@@ -402,7 +402,7 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
 #endif
 
     const bool key_down = record->event.pressed;
-    const bool is_mod   = IS_MOD(keycode);
+    const bool is_mod   = IS_MODIFIER_KEYCODE(keycode);
 
     if (key_down) {
         switch (keycode) {

@@ -1,12 +1,6 @@
 SRC += ./lib/layer_status/layer_status.c
 SRC += ./lib/logo.c
 
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -30,7 +24,6 @@ OLED_DRIVER = SSD1306
 
 # RGB Matrix enabled
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 
 # Encoder enabled
 ENCODER_ENABLE = yes

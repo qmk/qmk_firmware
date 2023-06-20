@@ -83,7 +83,7 @@ SFT, Z,   X,   C,   V,   B,   N,   M,   COM, DOT, SLS, SHIFT,    UP,   0
 CTL, GUI, ALT,        SPACEBAR,              ALT, FN, CTL, LFT, DWN, RIT
 */
 bool rgb_matrix_indicators_user(void) {
-	if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+	if (host_keyboard_led_state().caps_lock) {
 		rgb_matrix_set_color(8, 0xFF, 0xFF, 0xFF);
 	}
 

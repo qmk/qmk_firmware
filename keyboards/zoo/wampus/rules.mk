@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F072
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -15,7 +9,6 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-WS2812_DRIVER = spi         # RGB underglow driver configuration
 AUDIO_ENABLE = no           # Audio output
 OLED_ENABLE = no     # Enables the use of OLED displays
 

@@ -18,7 +18,7 @@
 #include "platform_deps.h"
 #include "wait.h"
 #include "matrix.h"
-#include "keymap.h"
+#include "keyboard.h"
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
@@ -36,19 +36,23 @@
 #    include "rgb_matrix.h"
 #endif
 
+#include "keymap_common.h"
+#include "quantum_keycodes.h"
+#include "keycode_config.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"
 #include "bootmagic.h"
 #include "timer.h"
 #include "sync_timer.h"
-#include "config_common.h"
 #include "gpio.h"
 #include "atomic_util.h"
+#include "host.h"
 #include "led.h"
 #include "action_util.h"
 #include "action_tapping.h"
 #include "print.h"
+#include "debug.h"
 #include "suspend.h"
 #include <stddef.h>
 #include <stdlib.h>
@@ -75,6 +79,7 @@ extern layer_state_t layer_state;
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
 #    include "process_audio.h"
+#    include "song_list.h"
 #    ifdef AUDIO_CLICKY
 #        include "process_clicky.h"
 #    endif
@@ -93,6 +98,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef LEADER_ENABLE
+#    include "leader.h"
 #    include "process_leader.h"
 #endif
 
@@ -240,9 +246,15 @@ extern layer_state_t layer_state;
 #    include "process_autocorrect.h"
 #endif
 
-// For tri-layer
-void          update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
-layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
+#ifdef TRI_LAYER_ENABLE
+#    include "tri_layer.h"
+#    include "process_tri_layer.h"
+#endif
+
+#ifdef REPEAT_KEY_ENABLE
+#    include "repeat_key.h"
+#    include "process_repeat_key.h"
+#endif
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 
@@ -254,6 +266,9 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache);
 uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
+bool     pre_process_record_quantum(keyrecord_t *record);
+bool     pre_process_record_kb(uint16_t keycode, keyrecord_t *record);
+bool     pre_process_record_user(uint16_t keycode, keyrecord_t *record);
 bool     process_action_kb(keyrecord_t *record);
 bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);

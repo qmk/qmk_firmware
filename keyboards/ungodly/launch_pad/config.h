@@ -15,37 +15,13 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS \
-    { D4, D6, D7, B4, B5 }
-#define MATRIX_COL_PINS \
-    { B0, B1, B2, B3 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Rotary Encoder Assignment */
-#define ENCODERS_PAD_A \
-    { C6 }
-#define ENCODERS_PAD_B \
-    { B6 }
-#define ENCODER_RESOLUTION 2
-
 /* Midi Slider */
 #define SLIDER_PIN F6
 #define MIDI_ADVANCED
 
 /* RGB Matrix configuration */
-#define RGB_DI_PIN F7
 #ifdef RGB_MATRIX_ENABLE
-#    define RGBLED_NUM 22
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT 22
 #    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
 // #    define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
@@ -109,6 +85,3 @@
 // #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

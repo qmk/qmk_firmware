@@ -43,7 +43,6 @@ void     action_tapping_process(keyrecord_t record);
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record);
 uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record);
 bool     get_permissive_hold(uint16_t keycode, keyrecord_t *record);
-bool     get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record);
 bool     get_retro_tapping(uint16_t keycode, keyrecord_t *record);
 bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
 
@@ -51,9 +50,9 @@ bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
 extern uint16_t g_tapping_term;
 #endif
 
-#ifdef TAPPING_TERM_PER_KEY
+#if defined(TAPPING_TERM_PER_KEY) && !defined(NO_ACTION_TAPPING)
 #    define GET_TAPPING_TERM(keycode, record) get_tapping_term(keycode, record)
-#elif defined(DYNAMIC_TAPPING_TERM_ENABLE)
+#elif defined(DYNAMIC_TAPPING_TERM_ENABLE) && !defined(NO_ACTION_TAPPING)
 #    define GET_TAPPING_TERM(keycode, record) g_tapping_term
 #else
 #    define GET_TAPPING_TERM(keycode, record) (TAPPING_TERM)

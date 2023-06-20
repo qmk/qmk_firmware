@@ -3,12 +3,8 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* rgb */
-#define RGB_DI_PIN D2
-#define RGBLED_NUM 7
-#define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -19,5 +15,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#define DEBOUNCE 5

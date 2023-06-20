@@ -14,12 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define MATRIX_COL_PINS { C6, B6, B5, B4, D7, D6, F0, F1, F4, F5, F6, F7 }
-#define MATRIX_ROW_PINS { C7, D5, D3, D2 }
+#pragma once
 
-#define QMK_LED E6
-
-#define RGB_DI_PIN B7
+#define ADM42_LED E6
 
 #define RGB_MATRIX_LED_COUNT 42
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170

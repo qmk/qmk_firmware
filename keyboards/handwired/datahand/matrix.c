@@ -59,7 +59,7 @@ void matrix_init(void) {
   /* Turn off the lock LEDs. */
   PORTF |= LED_CAPS_LOCK | LED_NUM_LOCK | LED_SCROLL_LOCK | LED_MOUSE_LOCK;
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void) {
@@ -73,7 +73,7 @@ uint8_t matrix_scan(void) {
     matrix[row] = read_cols();
   }
 
-  matrix_scan_quantum();
+  matrix_scan_kb();
 
   return 1;
 }

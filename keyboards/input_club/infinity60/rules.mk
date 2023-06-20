@@ -1,18 +1,3 @@
-# MCU name
-MCU = MK20DX128
-
-# Bootloader selection
-BOOTLOADER = kiibohd
-
-# Board: it should exist either in <chibios>/os/hal/boards/
-#  or <this_dir>/boards
-# - BOARD =
-#   - PJRC_TEENSY_LC for Teensy LC
-#   - PJRC_TEENSY_3 for Teensy 3.0
-#   - PJRC_TEENSY_3_1 for Teensy 3.1 or 3.2
-#   - MCHCK_K20 for Infinity KB
-BOARD = MCHCK_K20
-
 # Build Options
 #   change yes to no to disable
 #

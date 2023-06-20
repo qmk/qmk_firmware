@@ -256,6 +256,54 @@ static void set_rgb_layer(int layer) {
     }
 }
 
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_K)) {
+        layer_invert(_KP);
+    }
+    if (leader_sequence_one_key(KC_G)) {
+        layer_invert(_GAME);
+    }
+    if (leader_sequence_one_key(KC_KP_5)) {
+        layer_invert(_KP);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_1)) {
+        send_secret_string(0);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_2)) {
+        send_secret_string(1);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_3)) {
+        send_secret_string(2);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_4)) {
+        send_secret_string(3);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_5)) {
+        send_secret_string(4);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_6)) {
+        send_secret_string(5);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_M)) {
+        send_secret_string(0);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_COMM)) {
+        send_secret_string(1);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_DOT)) {
+        send_secret_string(2);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_J)) {
+        send_secret_string(3);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_K)) {
+        send_secret_string(4);
+    }
+    if (leader_sequence_two_keys(KC_SCLN, KC_L)) {
+        send_secret_string(5);
+    }
+}
+
 // Runs just one time when the keyboard initializes.
 void matrix_init_keymap(void) {
     // force numlock on upon startup
@@ -263,8 +311,6 @@ void matrix_init_keymap(void) {
         tap_code(KC_NUM_LOCK);
     }
 };
-
-LEADER_EXTERNS();
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_keymap(void) {
@@ -281,56 +327,6 @@ void matrix_scan_keymap(void) {
             rgb_matrix_set_color(15, RGB_GOLD);
         else
             rgb_matrix_set_color(15, 0, 0, 0);
-    }
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(KC_K) {
-            layer_invert(_KP);
-        }
-        SEQ_ONE_KEY(KC_G) {
-            layer_invert(_GAME);
-        }
-        SEQ_ONE_KEY(KC_KP_5) {
-            layer_invert(_KP);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_1) {
-            send_secret_string(0);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_2) {
-            send_secret_string(1);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_3) {
-            send_secret_string(2);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_4) {
-            send_secret_string(3);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_5) {
-            send_secret_string(4);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_6) {
-            send_secret_string(5);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_M) {
-            send_secret_string(0);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_COMM) {
-            send_secret_string(1);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_DOT) {
-            send_secret_string(2);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_J) {
-            send_secret_string(3);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_K) {
-            send_secret_string(4);
-        }
-        SEQ_TWO_KEYS(KC_SCLN, KC_L) {
-            send_secret_string(5);
-        }
     }
 };
 

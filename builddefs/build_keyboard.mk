@@ -29,6 +29,11 @@ KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
 KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
 
+ifeq ($(strip $(DUMP_CI_METADATA)),yes)
+    $(info CI Metadata: KEYBOARD=$(KEYBOARD))
+    $(info CI Metadata: KEYMAP=$(KEYMAP))
+endif
+
 # Force expansion
 TARGET := $(TARGET)
 
@@ -46,11 +51,12 @@ ifdef SKIP_VERSION
 endif
 
 # Generate the version.h file
+VERSION_H_FLAGS :=
 ifdef SKIP_VERSION
-VERSION_H_FLAGS := --skip-all
+VERSION_H_FLAGS += --skip-all
 endif
 ifdef SKIP_GIT
-VERSION_H_FLAGS := --skip-git
+VERSION_H_FLAGS += --skip-git
 endif
 
 # Generate the board's version.h file.
@@ -182,7 +188,8 @@ endif
 
 include $(BUILDDEFS_PATH)/converters.mk
 
-include $(BUILDDEFS_PATH)/mcu_selection.mk
+MCU_ORIG := $(MCU)
+include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
 
 # PLATFORM_KEY should be detected in info.json via key 'processor' (or rules.mk 'MCU')
 ifeq ($(PLATFORM_KEY),)
@@ -336,6 +343,15 @@ $(KEYBOARD_OUTPUT)/src/default_keyboard.h: $(INFO_JSON_FILES)
 
 generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.c $(KEYBOARD_OUTPUT)/src/default_keyboard.h
 
+generated-files: $(KEYMAP_OUTPUT)/src/info_deps.d
+
+$(KEYMAP_OUTPUT)/src/info_deps.d:
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-make-dependencies -kb $(KEYBOARD) -km $(KEYMAP) -o $(KEYMAP_OUTPUT)/src/info_deps.d)
+	@$(BUILD_CMD)
+
+-include $(KEYMAP_OUTPUT)/src/info_deps.d
+
 .INTERMEDIATE : generated-files
 
 # Userspace setup and definitions
@@ -438,6 +454,14 @@ $(eval $(call add_qmk_prefix_defs,MCU_PORT_NAME,MCU_PORT_NAME))
 $(eval $(call add_qmk_prefix_defs,MCU_FAMILY,MCU_FAMILY))
 $(eval $(call add_qmk_prefix_defs,MCU_SERIES,MCU_SERIES))
 $(eval $(call add_qmk_prefix_defs,BOARD,BOARD))
+
+# Control whether intermediate file listings are generated
+# e.g.:
+#    make handwired/onekey/blackpill_f411:default KEEP_INTERMEDIATES=yes
+#    cat .build/obj_handwired_onekey_blackpill_f411_default/quantum/quantum.i | sed -e 's@^#.*@@g' -e 's@^\s*//.*@@g' -e '/^\s*$/d' | clang-format
+ifeq ($(strip $(KEEP_INTERMEDIATES)), yes)
+    OPT_DEFS += -save-temps=obj
+endif
 
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)

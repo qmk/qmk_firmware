@@ -97,7 +97,7 @@ std::ostream& operator<<(std::ostream& os, const report_keyboard_t& report) {
 KeyboardReportMatcher::KeyboardReportMatcher(const std::vector<uint8_t>& keys) {
     memset(m_report.raw, 0, sizeof(m_report.raw));
     for (auto k : keys) {
-        if (IS_MOD(k)) {
+        if (IS_MODIFIER_KEYCODE(k)) {
             m_report.mods |= MOD_BIT(k);
         } else {
             add_key_to_report(&m_report, k);

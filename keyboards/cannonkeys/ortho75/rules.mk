@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F103
-
-# Bootloader selection
-BOOTLOADER = stm32duino
-
 # Build Options
 #   change yes to no to disable
 #
@@ -16,7 +10,6 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 SLEEP_LED_ENABLE = yes
-WS2812_DRIVER = spi
 ENCODER_ENABLE = yes
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread

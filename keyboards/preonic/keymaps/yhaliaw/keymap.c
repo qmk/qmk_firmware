@@ -168,36 +168,24 @@ void keyboard_post_init_user(void) {
 }
 
 bool leader_found;
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading      = false;
-        leader_found = false;
-        SEQ_ONE_KEY(L_RESET) {
-            leader_found = true;
-            reset_keyboard();
-        }
-        else
-            SEQ_ONE_KEY(KC_DEL) {
-            leader_found = true;
-            layer_clear();
-        }
-        else
-            SEQ_ONE_KEY(LOWER) {
-            leader_found = true;
-            layer_on(_LOWER);
-        }
-        else
-            SEQ_ONE_KEY(RAISE) {
-            leader_found = true;
-            layer_on(_RAISE);
-        }
-        leader_end();
-    }
-}
 
 void leader_end_user(void) {
+    leader_found = false;
+
+    if (leader_sequence_one_key(L_RESET)) {
+        leader_found = true;
+        reset_keyboard();
+    } else if (leader_sequence_one_key(KC_DEL)) {
+        leader_found = true;
+        layer_clear();
+    } else if (leader_sequence_one_key(LOWER)) {
+        leader_found = true;
+        layer_on(_LOWER);
+    } else if (leader_sequence_one_key(RAISE)) {
+        leader_found = true;
+        layer_on(_RAISE);
+    }
+
     // Plays sound on if leader sequence found.
     if (leader_found) {
 #ifdef AUDIO_ENABLE

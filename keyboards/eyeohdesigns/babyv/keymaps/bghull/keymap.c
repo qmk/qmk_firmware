@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [NAVNUM] = LAYOUT_2u(
-  KC_ENT,  KC_HOME, KC_UP,   KC_END,  _______, _______, RESET,      KC_PMNS, KC_7,    KC_8,   KC_9,     KC_0,
+  KC_ENT,  KC_HOME, KC_UP,   KC_END,  _______, _______, QK_BOOT,    KC_PMNS, KC_7,    KC_8,   KC_9,     KC_0,
   OneSFT,  KC_LEFT, KC_DOWN, KC_RGHT, KC_GRV,  _______, DF(COLMAK), KC_PPLS, KC_4,    KC_5,   KC_6,     KC_ENT,
   OneCTL,   OneALT, KC_TAB,  KC_UNDS, OneWIN,  _______, DF(QWERTY), KC_EQL,  KC_1,    KC_2,   KC_3,     _______,
   _______,                   _______, _______,                      SpcFUN,  KC_LCTL,                   _______

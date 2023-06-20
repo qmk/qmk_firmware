@@ -33,10 +33,8 @@
 #define QK_RSFT                0x1200
 #define QK_RALT                0x1400
 #define QK_RGUI                0x1800
-#define QK_UNICODEMAP          0x8000
-#define QK_UNICODEMAP_MAX      0xBFFF
-#define QK_UNICODEMAP_PAIR     0xC000
-#define QK_UNICODEMAP_PAIR_MAX 0xFFFF
+
+#define SAFE_RANGE             QK_USER
 // clang-format on
 
 // Generic decoding for the whole QK_MODS range
@@ -181,10 +179,10 @@
 #define QK_UNICODE_GET_CODE_POINT(kc) ((kc)&0x7FFF)
 
 // UNICODEMAP_ENABLE - Allows Unicode input up to 0x10FFFF, requires unicode_map
-#define X(i) (QK_UNICODEMAP | ((i)&0x3FFF))
+#define UM(i) (QK_UNICODEMAP | ((i)&0x3FFF))
 #define QK_UNICODEMAP_GET_INDEX(kc) ((kc)&0x3FFF)
 
-#define XP(i, j) (QK_UNICODEMAP_PAIR | ((i)&0x7F) | (((j)&0x7F) << 7)) // 127 max i and j
+#define UP(i, j) (QK_UNICODEMAP_PAIR | ((i)&0x7F) | (((j)&0x7F) << 7)) // 127 max i and j
 #define QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(kc) ((kc)&0x7F)
 #define QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(kc) (((kc) >> 7) & 0x7F)
 

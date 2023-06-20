@@ -16,28 +16,10 @@
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 21
-
-#define MATRIX_ROW_PINS { C14, C13, A10, A3, A1, A0 }
-#define MATRIX_COL_PINS { A9, A8, B15, B14, B13, B12, B11, B10, B2, B1, B0, A7, A6, A5, A4, B6, B5, B4, B3, A15, A14 }
-
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-// LED defines
-#define LED_CAPS_LOCK_PIN A2
-#define LED_SCROLL_LOCK_PIN A13
-#define LED_NUM_LOCK_PIN B7
-#define LED_PIN_ON_STATE 1
 
 // I2C setup
 #define I2C1_SCL_PIN        B8

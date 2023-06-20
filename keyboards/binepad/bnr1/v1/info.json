@@ -2,13 +2,18 @@
     "bootloader": "atmel-dfu",
     "processor": "atmega32u4",
     "diode_direction": "COL2ROW",
+    "usb": {
+        "pid": "0x4231",
+        "device_version": "1.0.0"
+    },
     "matrix_pins": {
         "cols": ["B0"],
         "rows": ["E6"]
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
-            { "pin_a": "D6", "pin_b": "D7" }
+            {"pin_a": "D6", "pin_b": "D7"}
         ]
     }
 }

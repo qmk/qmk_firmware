@@ -1,0 +1,15 @@
+{
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP24", "pin_b": "GP25"}
+        ]
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "matrix_pins": {
+        "direct": [
+            ["GP6", "GP8", "GP10"],
+            ["GP29", "GP28", "GP22"]
+        ]
+    }
+}

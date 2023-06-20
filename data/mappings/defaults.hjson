@@ -33,6 +33,11 @@
         "blok": {
             "processor": "RP2040",
             "bootloader": "rp2040",
+            "board": "QMK_BLOK"
+        },
+        "michi": {
+            "processor": "RP2040",
+            "bootloader": "rp2040",
             "board": "QMK_PM2040"
         },
         "bit_c_pro": {
@@ -64,6 +69,16 @@
             "processor": "STM32F411",
             "bootloader": "stm32-dfu",
             "board": "BONSAI_C4"
+        },
+        "helios": {
+            "processor": "RP2040",
+            "bootloader": "rp2040",
+            "board": "QMK_PM2040"
+        },
+        "liatris": {
+            "processor": "RP2040",
+            "bootloader": "rp2040",
+            "board": "QMK_PM2040"
         }
     }
 }

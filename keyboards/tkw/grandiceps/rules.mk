@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F411
-BOARD = BLACKPILL_STM32_F411
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -24,7 +17,6 @@ SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
-WS2812_DRIVER = pwm
 OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
 
 DEFAULT_FOLDER = tkw/grandiceps/rev1

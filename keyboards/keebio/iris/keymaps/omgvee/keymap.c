@@ -32,9 +32,6 @@ enum custom_keycodes {
 #define MW_L KC_MS_WH_LEFT 
 #define MW_R KC_MS_WH_RIGHT
 
-//// only uncomment the below line when you enable leader key in rules.mk
-//LEADER_EXTERNS();
-
 //Tap Dance Declarations
 enum {
   TD_SCL = 0

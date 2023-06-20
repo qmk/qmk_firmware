@@ -24,7 +24,7 @@
 #include "debug.h"
 #include "mousekey.h"
 
-inline int8_t times_inv_sqrt2(int8_t x) {
+static inline int8_t times_inv_sqrt2(int8_t x) {
     // 181/256 is pretty close to 1/sqrt(2)
     // 0.70703125                 0.707106781
     // 1 too small for x=99 and x=198
@@ -74,7 +74,7 @@ uint8_t mk_time_to_max = MOUSEKEY_TIME_TO_MAX;
 uint8_t mk_wheel_delay = MOUSEKEY_WHEEL_DELAY / 10;
 /* milliseconds between repeated motion events (0-255) */
 #    ifdef MK_KINETIC_SPEED
-float mk_wheel_interval = 1000.0f / MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
+uint16_t mk_wheel_interval = 1000U / MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
 #    else
 uint8_t mk_wheel_interval = MOUSEKEY_WHEEL_INTERVAL;
 #    endif
@@ -190,37 +190,37 @@ const uint16_t mk_decelerated_speed = MOUSEKEY_DECELERATED_SPEED;
 const uint16_t mk_initial_speed     = MOUSEKEY_INITIAL_SPEED;
 
 static uint8_t move_unit(void) {
-    float speed = mk_initial_speed;
+    uint16_t speed = mk_initial_speed;
 
     if (mousekey_accel & ((1 << 0) | (1 << 2))) {
         speed = mousekey_accel & (1 << 2) ? mk_accelerated_speed : mk_decelerated_speed;
     } else if (mousekey_repeat && mouse_timer) {
-        const float time_elapsed = timer_elapsed(mouse_timer) / 50;
-        speed                    = mk_initial_speed + MOUSEKEY_MOVE_DELTA * time_elapsed + MOUSEKEY_MOVE_DELTA * 0.5 * time_elapsed * time_elapsed;
+        const uint16_t time_elapsed = timer_elapsed(mouse_timer) / 50;
+        speed                       = mk_initial_speed + MOUSEKEY_MOVE_DELTA * time_elapsed + MOUSEKEY_MOVE_DELTA * 0.5 * time_elapsed * time_elapsed;
 
         speed = speed > mk_base_speed ? mk_base_speed : speed;
     }
 
     /* convert speed to USB mouse speed 1 to 127 */
-    speed = (uint8_t)(speed / (1000.0f / mk_interval));
+    speed = (uint8_t)(speed / (1000U / mk_interval));
     speed = speed < 1 ? 1 : speed;
 
     return speed > MOUSEKEY_MOVE_MAX ? MOUSEKEY_MOVE_MAX : speed;
 }
 
 static uint8_t wheel_unit(void) {
-    float speed = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
+    uint16_t speed = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS;
 
     if (mousekey_accel & ((1 << 0) | (1 << 2))) {
         speed = mousekey_accel & (1 << 2) ? MOUSEKEY_WHEEL_ACCELERATED_MOVEMENTS : MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS;
     } else if (mousekey_wheel_repeat && mouse_timer) {
         if (mk_wheel_interval != MOUSEKEY_WHEEL_BASE_MOVEMENTS) {
-            const float time_elapsed = timer_elapsed(mouse_timer) / 50;
-            speed                    = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS + 1 * time_elapsed + 1 * 0.5 * time_elapsed * time_elapsed;
+            const uint16_t time_elapsed = timer_elapsed(mouse_timer) / 50;
+            speed                       = MOUSEKEY_WHEEL_INITIAL_MOVEMENTS + 1 * time_elapsed + 1 * 0.5 * time_elapsed * time_elapsed;
         }
         speed = speed > MOUSEKEY_WHEEL_BASE_MOVEMENTS ? MOUSEKEY_WHEEL_BASE_MOVEMENTS : speed;
     }
-    mk_wheel_interval = 1000.0f / speed;
+    mk_wheel_interval = 1000U / speed;
 
     return (uint8_t)speed > MOUSEKEY_WHEEL_INITIAL_MOVEMENTS ? 2 : 1;
 }
