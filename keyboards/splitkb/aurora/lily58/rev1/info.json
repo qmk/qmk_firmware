@@ -10,8 +10,9 @@
         "oled": true,
         "rgb_matrix": true
     },
+    "community_layouts": ["split_4x6_lili"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_4x6_lili": {
             "layout": [
                 {"label": "L01", "matrix": [0, 0], "x": 0, "y": 0.5},
                 {"label": "L02", "matrix": [0, 1], "x": 1, "y": 0.375},
