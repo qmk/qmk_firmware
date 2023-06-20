@@ -27,12 +27,9 @@
         "pin": "C7",
     },
     "rgblight": {
-        "pin": "C7",
         "led_count": 1,
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
-        "max_brightness": 255,
         "sleep": true,
         "animations": {
             "alternating": true,
