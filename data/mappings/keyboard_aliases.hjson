@@ -868,6 +868,9 @@
     "hecomi/alpha": {
         "target": "takashiski/hecomi/alpha"
     },
+    "hfdkb/keyboard_sw/k83":{
+        "target": "inland/kb83"
+    },
     "hid_liber": {
         "target": "bpiphany/hid_liber"
     },
