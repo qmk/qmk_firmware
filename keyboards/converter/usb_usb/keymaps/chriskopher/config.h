@@ -20,5 +20,4 @@
 
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY   // Allows configuration of hold on other key press per key in keymap.c
 
-#define COMBO_COUNT 2  // Number of defined combos
 #define COMBO_TERM 20  // Delay for combo keys to be chained together

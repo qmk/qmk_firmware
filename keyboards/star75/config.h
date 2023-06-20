@@ -25,5 +25,4 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 180
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF

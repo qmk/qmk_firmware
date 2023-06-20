@@ -11,6 +11,9 @@
     "rgb_matrix": {
         "driver": "WS2812"
     },
+    "rgblight": {
+        "max_brightness": 150
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "F1", "pin_b": "F0"},

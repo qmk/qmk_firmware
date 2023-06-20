@@ -16,11 +16,14 @@
     "encoder": {
       "rotary": [
         {"pin_a": "D0", "pin_b": "D1"},
-        {"pin_a": "B5", "pin_b": "D6"},
+        {"pin_a": "B5", "pin_b": "D6"}
       ]
     },
     "ws2812": {
       "pin": "D3"
+    },
+    "rgblight": {
+      "max_brightness": 240
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

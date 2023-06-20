@@ -21,6 +21,21 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "rgblight": {
+        "led_count": 14,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
     "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_all": {

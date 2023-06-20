@@ -4,6 +4,21 @@
     "maintainer": "customMK",
     "manufacturer": "customMK",
     "tags": ["70%", "encoder", "underglow", "backlight"],
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true,
+        "backlight": true,
+        "rgblight": true,
+        "encoder": true,
+        "oled": true
+    },
+    "build": {
+        "lto": true
+    },
     "usb": {
         "vid": "0xF35B",
         "pid": "0xFAB5",
@@ -32,17 +47,16 @@
         "hue_steps": 4,
         "saturation_steps": 8,
         "brightness_steps": 4,
+        "max_brightness": 128,
+        "sleep": true,
         "animations": {
             "alternating": true,
             "breathing": true,
             "christmas": true,
-            "knight": true,
             "rainbow_mood": true,
             "rainbow_swirl": true,
-            "rgb_test": true,
             "snake": true,
-            "static_gradient": true,
-            "twinkle": true
+            "static_gradient": true
         }
     },
     "ws2812": {

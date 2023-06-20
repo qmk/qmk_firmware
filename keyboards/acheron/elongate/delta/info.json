@@ -19,13 +19,19 @@
         "breathing": true,
         "breathing_period": 3
     },
+    "rgblight": {
+        "max_brightness": 200
+    },
     "ws2812": {
         "pin": "B15"
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

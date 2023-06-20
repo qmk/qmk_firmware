@@ -19,6 +19,9 @@
     "ws2812": {
         "pin": "D3"
     },
+    "rgblight": {
+        "max_brightness": 100
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

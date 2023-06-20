@@ -29,6 +29,9 @@
   "ws2812": {
     "pin": "D0"
   },
+  "rgblight": {
+    "max_brightness": 200
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

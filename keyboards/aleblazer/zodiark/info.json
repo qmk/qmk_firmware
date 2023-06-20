@@ -11,6 +11,9 @@
     "ws2812": {
         "pin": "B5"
     },
+    "rgblight": {
+        "max_brightness": 170
+    },
     "rgb_matrix": {
         "driver": "WS2812"
     },
@@ -32,7 +35,7 @@
                     {"pin_a": "D4", "pin_b": "D2", "resolution": 3}
                 ]
             }
-        },
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

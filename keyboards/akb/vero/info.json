@@ -3,7 +3,6 @@
     "keyboard_name": "Vero",
     "maintainer": "arnstadm",
     "bootloader": "stm32-dfu",
-    "board": "GENERIC_STM32_F411XE",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,

@@ -689,6 +689,10 @@ There are several functions that allow for more advanced interaction with the au
 | `auto_mouse_layer_off(void)`                               | Disable target layer if appropriate will call (makes call to `layer_state_set`)      |                           |   `void`(None)  |
 | `auto_mouse_toggle(void)`                                  | Toggle on/off target toggle state (disables layer deactivation when true)            |                           |    `void`(None) |
 | `get_auto_mouse_toggle(void)`                              | Return value of toggling state variable                                              |                           |          `bool` |
+| `set_auto_mouse_timeout(uint16_t timeout)`                 | Change/set the timeout for turing off the layer                                      |                           |    `void`(None) |
+| `get_auto_mouse_timeout(void)`                             | Return the current timeout for turing off the layer                                  |                           |      `uint16_t` |
+| `set_auto_mouse_debounce(uint16_t timeout)`                | Change/set the debounce for preventing layer activation                              |                           |    `void`(None) |
+| `get_auto_mouse_debounce(void)`                            | Return the current debounce for preventing layer activation                          |                           |       `uint8_t` |
 
 _NOTES:_   
     - _Due to the nature of how some functions work, the `auto_mouse_trigger_reset`, and `auto_mouse_layer_off` functions should never be called in the `layer_state_set_*` stack as this can cause indefinite loops._   

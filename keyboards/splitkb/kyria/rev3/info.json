@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Kyria rev3",
     "usb": {
-        "pid": "0xCF44",
+        "pid": "0xCF44"
     },
     "bootmagic": {
         "matrix": [0, 6]
@@ -71,7 +71,7 @@
                 {"label": "R22", "matrix": [7, 5], "x": 10, "y": 4},
                 {"label": "R23", "matrix": [7, 1], "x": 11, "y": 3.5},
                 {"label": "R24", "matrix": [7, 2], "x": 12, "y": 3.25},
-                {"label": "R25", "matrix": [7, 4], "x": 13, "y": 3.25},
+                {"label": "R25", "matrix": [7, 4], "x": 13, "y": 3.25}
             ]
         },
         "LAYOUT_stack": {
@@ -132,7 +132,7 @@
                 {"label": "R22", "matrix": [7, 5], "x": 10, "y": 4},
                 {"label": "R23", "matrix": [7, 1], "x": 11, "y": 3.5},
                 {"label": "R24", "matrix": [7, 2], "x": 12, "y": 3.25},
-                {"label": "R25", "matrix": [7, 4], "x": 13, "y": 3.25},
+                {"label": "R25", "matrix": [7, 4], "x": 13, "y": 3.25}
             ]
         }
     },
