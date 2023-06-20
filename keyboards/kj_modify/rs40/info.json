@@ -63,7 +63,7 @@
                 {"matrix": [2, 10], "label": "PERIOD", "x": 9.75, "y": 2},
                 {"matrix": [2, 11], "label": "RSHIFT", "x": 10.75, "y": 2, "w": 1.25},
 
-                {"matrix": [3, 0], "label": "LCTRL", "x": 1, "y": 3, "w": 1.25},
+                {"matrix": [3, 0], "label": "LCTRL", "x": 0, "y": 3, "w": 1.25},
                 {"matrix": [3, 1], "label": "FN2", "x": 1.25, "y": 3},
                 {"matrix": [3, 2], "label": "WIN", "x": 2.25, "y": 3, "w": 1.25},
                 {"matrix": [3, 4], "label": "SPACE", "x": 3.5, "y": 3, "w": 2.25},
