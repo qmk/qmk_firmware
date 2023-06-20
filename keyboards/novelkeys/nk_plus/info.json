@@ -111,8 +111,11 @@
     "ws2812": {
         "pin": "B4"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_xt_ansi_blocker_tsangan"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_xt_ansi_blocker_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
