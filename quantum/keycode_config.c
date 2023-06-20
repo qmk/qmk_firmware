@@ -130,29 +130,30 @@ __attribute__((weak)) uint8_t mod_config(uint8_t mod) {
     * to take this into account
     */
     if (keymap_config.swap_lalt_lgui) {
-        // If both modifiers pressed or neither pressed, do nothing
-        // Otherwise swap the values
-        // Note: The left mods are ANDed with the right-hand values to check
-        // if they were pressed with the right hand bit set
+        /** If both modifiers pressed or neither pressed, do nothing
+        * Otherwise swap the values
+        * Note: The left mods are ANDed with the right-hand values to check
+        * if they were pressed with the right hand bit set
+        */
         if (((mod & MOD_RALT) == MOD_LALT) ^ ((mod & MOD_RGUI) == MOD_LGUI)) {
            mod ^= (MOD_LALT | MOD_LGUI);
         }
     }
     if (keymap_config.swap_ralt_rgui) {
         if (((mod & MOD_RALT) == MOD_RALT) ^ ((mod & MOD_RGUI) == MOD_RGUI)) {
-           // lefthand values to preserve the right hand bit
+           /* lefthand values to preserve the right hand bit */
            mod ^= (MOD_LALT  | MOD_LGUI );
         }
     }
     if (keymap_config.swap_lctl_lgui) {
-        // left mods ANDed with right-hand values to check for right hand bit
+        /* left mods ANDed with right-hand values to check for right hand bit */
         if (((mod & MOD_RCTL) == MOD_LCTL) ^ ((mod & MOD_RGUI) == MOD_LGUI)) {
            mod ^= (MOD_LCTL | MOD_LGUI);
         }
     }
     if (keymap_config.swap_rctl_rgui) {
         if (((mod & MOD_RCTL) == MOD_RCTL) ^ ((mod & MOD_RGUI) == MOD_RGUI)) {
-           // lefthand values to preserve the right hand bit
+           /* lefthand values to preserve the right hand bit */
            mod ^= (MOD_LCTL | MOD_LGUI );
         }
     }
