@@ -1,0 +1,19 @@
+BACKLIGHT_DRIVER = pwm
+
+RGBLIGHT_DRIVER = WS2812
+
+AUDIO_DRIVER = pwm_hardware
+
+OLED_DRIVER = SSD1306
+
+# project specific files
+SRC += matrix.c 
+
+EEPROM_DRIVER = spi
+
+QUANTUM_PAINTER_DRIVERS = st7735_spi
+
+CUSTOM_MATRIX = lite
+CIE1931_CURVE = yes
+
+DEFAULT_FOLDER = custommk/evo70_r2
