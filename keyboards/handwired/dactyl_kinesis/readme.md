@@ -1,6 +1,6 @@
 # Dactyl Kinesis
 
-Essentially a Dactyl CC physical key layout with an additional top row, further emulating the Kinesis Advantage (*1|2*) physical key loyout.
+Essentially a Dactyl CC physical key layout with an additional top row, further emulating the Kinesis Advantage (*1|2*) physical key layout.
 
 * Keyboard Maintainer: [dmik](https://github.com/dmik)
 * Hardware Supported: Pro Micro controller, or clone of
