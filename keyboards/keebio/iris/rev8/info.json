@@ -12,7 +12,8 @@
         ]
     },
     "ws2812": {
-        "driver": "vendor"
+        "driver": "vendor",
+        "pin": "GP9"
     },
     "matrix_pins": {
         "cols": ["GP2", "GP3", "GP29", "GP27", "GP6", "GP5"],
@@ -25,6 +26,9 @@
                 "cols": ["GP27", "GP28", "GP3", "GP6", "GP29", "GP16"],
                 "rows": ["GP22", "GP19", "GP18", "GP17", "GP7"]
             }
+        },
+        "transport": {
+            "sync_matrix_state": true
         }
     },
     "processor": "RP2040",
