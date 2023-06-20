@@ -123,39 +123,25 @@ __attribute__((weak)) uint16_t keycode_config(uint16_t keycode) {
 
 __attribute__((weak)) uint8_t mod_config(uint8_t mod) {
     if (keymap_config.swap_lalt_lgui) {
-        if ((mod & MOD_RGUI) == MOD_LGUI) {
-            mod &= ~MOD_LGUI;
-            mod |= MOD_LALT;
-        } else if ((mod & MOD_RALT) == MOD_LALT) {
-            mod &= ~MOD_LALT;
-            mod |= MOD_LGUI;
+        // if they're both set or both unset, no need to do anything
+        if (((mod & MOD_LALT) == MOD_LALT) ^ ((mod & MOD_LGUI) == MOD_LGUI)) {
+           // we know only 1 is set, XOR with ORd mask to flip the set one
+           mod ^= (MOD_LALT | MOD_LGUI);
         }
     }
     if (keymap_config.swap_ralt_rgui) {
-        if ((mod & MOD_RGUI) == MOD_RGUI) {
-            mod &= ~MOD_RGUI;
-            mod |= MOD_RALT;
-        } else if ((mod & MOD_RALT) == MOD_RALT) {
-            mod &= ~MOD_RALT;
-            mod |= MOD_RGUI;
+        if (((mod & MOD_RALT) == MOD_RALT) ^ ((mod & MOD_RGUI) == MOD_RGUI)) {
+           mod ^= (MOD_RALT | MOD_RGUI);
         }
     }
     if (keymap_config.swap_lctl_lgui) {
-        if ((mod & MOD_RGUI) == MOD_LGUI) {
-            mod &= ~MOD_LGUI;
-            mod |= MOD_LCTL;
-        } else if ((mod & MOD_RCTL) == MOD_LCTL) {
-            mod &= ~MOD_LCTL;
-            mod |= MOD_LGUI;
+        if (((mod & MOD_LCTL) == MOD_LCTL) ^ ((mod & MOD_LGUI) == MOD_LGUI)) {
+           mod ^= (MOD_LCTL | MOD_LGUI);
         }
     }
     if (keymap_config.swap_rctl_rgui) {
-        if ((mod & MOD_RGUI) == MOD_RGUI) {
-            mod &= ~MOD_RGUI;
-            mod |= MOD_RCTL;
-        } else if ((mod & MOD_RCTL) == MOD_RCTL) {
-            mod &= ~MOD_RCTL;
-            mod |= MOD_RGUI;
+        if (((mod & MOD_RCTL) == MOD_RCTL) ^ ((mod & MOD_RGUI) == MOD_RGUI)) {
+           mod ^= (MOD_RCTL | MOD_RGUI);
         }
     }
     if (keymap_config.no_gui) {
