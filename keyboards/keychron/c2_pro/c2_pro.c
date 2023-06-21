@@ -72,7 +72,6 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 #        define LED_MATRIX_IS_ENABLED led_matrix_is_enabled
 #        define COLOR_WHITE 255
 #        define COLOR_BLACK 0
-#    endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
