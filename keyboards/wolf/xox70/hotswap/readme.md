@@ -8,13 +8,6 @@ The following is the QMK Firmware for the XOX70_Hotswap PCB.
 * Hardware Supported: XOX70 Hotswap PCB
 * Hardware Availability: https://thocc.supply/products/xox70
 
-The PCB features:
-* QMK & VIA compatibility
-* Underglow RGB Leds
-* Per key Backlight Leds
-
----
-
 Make example for this keyboard (after setting up your build environment):
 
 	make wolf/xox70/hotswap:default
