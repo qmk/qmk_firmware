@@ -18,8 +18,10 @@
 
 #include "quantum.h"
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
-/* Refer to IS31 manual for these locations
+#ifdef RGB_MATRIX_ENABLE
+
+const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
+/* Refer to CKLED2001 manual for these locations
  *   driver
  *   |  R location
  *   |  |       G location
@@ -94,8 +96,10 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, L_16,   K_16,   J_16},
 
 };
-
+#endif
+/*
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_USART1_REMAP | AFIO_MAPR_TIM3_REMAP_PARTIALREMAP;
 
 }
+*/
