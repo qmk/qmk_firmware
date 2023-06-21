@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Z40 Ortho",
-    "manufacturer": "Quarkeys Stuidio",
-    "url": "www.quarkeys.com",
-    "maintainer": "TommyZ",
+    "manufacturer": "Quarkeys Studio",
+    "url": "https://www.quarkeys.com/",
+    "maintainer": "tommyamoszhao",
     "usb": {
         "vid": "0x8490",
         "pid": "0x2801",
