@@ -1,6 +1,6 @@
 # Silhouette
 
-![Silhouette](https://i.imgur.com/x5Wo7t1.jpeg)
+![Silhouette](https://i.imgur.com/x5Wo7t1h.jpeg)
 
 The following is the QMK Firmware for the Silhouette PCB.
 
