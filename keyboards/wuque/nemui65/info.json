@@ -11,6 +11,18 @@
         "cols": ["C7", "D5", "B5", "B4", "D7", "D6", "D4", "D3", "D2", "D1", "D0", "B7", "B2", "B3", "F7"],
         "rows": ["F1", "F0", "C6", "B6", "F5"]
     },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "audio": false,
+        "backlight": false,
+        "encoder": false,
+        "rbglight": true
+    },
     "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "F6",
