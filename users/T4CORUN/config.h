@@ -34,7 +34,7 @@ https://docs.qmk.fm/#/config_options?id=hardware-options
 #undef SPLIT_LAYER_STATE_ENABLE
 #undef SPLIT_LED_STATE_ENABLE
 #undef SPLIT_MODS_ENABLE
-//#undef SPLIT_USB_DETECT
+#undef SPLIT_USB_DETECT
 
 //Set common configuration for all keyboards
 #define USB_POLLING_INTERVAL_MS 1
