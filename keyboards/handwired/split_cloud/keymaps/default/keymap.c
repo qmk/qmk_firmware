@@ -30,6 +30,8 @@ enum split_cloud_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK, PLOVER, LOWER,
 #define ST_BOLT QK_STENO_BOLT
 #define ST_GEM QK_STENO_GEMINI
 
+// clang-format off
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Qwerty
@@ -181,6 +183,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 
 };
+
+// clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {

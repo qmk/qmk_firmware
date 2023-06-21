@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 6
 
-
 #define QMK_ESC_OUTPUT B5
 #define QMK_ESC_INPUT B6
 // #define QMK_LED     E6
