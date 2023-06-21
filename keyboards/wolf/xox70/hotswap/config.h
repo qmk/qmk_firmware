@@ -22,8 +22,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_PIO_USE_PIO1
 
 #define RGB_MATRIX_LED_COUNT 72
-#define RGB_DI_PIN GP12
-#define WS2812_DI_PIN GP12
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES 
