@@ -25,9 +25,6 @@ enum planck_layers {
   _EXTRA,
 };
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_planck_grid(
     KC_TAB,         KC_Q,          KC_W,           KC_E,     KC_R,           KC_T,           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           LT(_BASE, KC_MINUS),
@@ -77,10 +74,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float plover_song[][2]     = SONG(PLOVER_SOUND);
   float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -218,8 +211,8 @@ void matrix_scan_user(void) {
 
 bool music_mask_user(uint16_t keycode) {
   switch (keycode) {
-    case RAISE:
-    case LOWER:
+    case LT(_RAISE, KC_ENTER):
+    case LT(_LOWER, KC_BSPC):
       return false;
     default:
       return true;
