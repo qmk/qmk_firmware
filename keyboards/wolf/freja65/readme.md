@@ -1,19 +1,12 @@
 # Freja 65
 
-![Freja 65](https://cdn.shopify.com/s/files/1/0435/8311/1331/products/image_1024x1024@2x.heic?v=1677804197)
+![Freja 65](https://i.imgur.com/SGV0j4A.jpeg)
 
 The following is the QMK Firmware for the Freja 65 PCB.
 
 * Keyboard Maintainer: [Wolf](https://github.com/ToastyStoemp)
 * Hardware Supported: Freja65 PCB
 * Hardware Availability: https://www.helheim.design/collections/freja65-collection/products/65-soldered-pcb
-
-The PCB features:
-* QMK & VIA compatibility
-* Underglow RGB Leds
-* Per key RGB Leds
-
----
 
 Make example for this keyboard (after setting up your build environment):
 
