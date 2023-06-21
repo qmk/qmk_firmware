@@ -33,7 +33,7 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
 * `bootloader`
     * The bootloader in use on the keyboard. Required if `development_board` is not specified.
 * `development_board`
-    * The the microcontroller development board, if applicable.
+    * The microcontroller development board, if applicable.
     * Example: `"promicro"`
 * `pin_compatible`
     * The form factor of the development board, if applicable. Must be one of `elite_c`, `promicro`.
@@ -62,10 +62,10 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
 * `qmk`
     * `tap_capslock_delay`
         * The delay between keydown and keyup for Caps Lock tap events in milliseconds.
-        * Default: `0` (no delay)
+        * Default: `80` (80 ms)
     * `tap_keycode_delay`
         * The delay between keydown and keyup for tap events in milliseconds.
-        * Default: `80` (80 ms)
+        * Default: `0` (no delay)
 * `tapping`
     * `hold_on_other_key_press`
         * Default: `false`
