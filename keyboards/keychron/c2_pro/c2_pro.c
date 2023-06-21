@@ -42,8 +42,6 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 
 #endif // DIP_SWITCH_ENABLE
 
-#if (defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE))
-
 #    ifdef RGB_MATRIX_ENABLE
 #        define LED_SET_FLAGS rgb_matrix_set_flags
 #        define LED_GET_FLAGS rgb_matrix_get_flags
