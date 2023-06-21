@@ -1,6 +1,6 @@
 # XOX70_Hotswap
 
-![X0X70](https://cdn.shopify.com/s/files/1/0505/0328/6952/products/WY.jpg?v=1661602119&width=640)
+![X0X70](https://i.imgur.com/OSW2c6L.png)
 
 The following is the QMK Firmware for the XOX70_Hotswap PCB.
 

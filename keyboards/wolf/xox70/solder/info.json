@@ -11,6 +11,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
+        "backlight": true,
         "rgblight": true
     },
     "matrix_pins": {
@@ -18,6 +19,9 @@
         "rows": ["GP4", "GP5", "GP6", "GP7", "GP3"]
     },
     "processor": "RP2040",
+    "backlight": {
+        "pin": "GP13"
+    },
     "rgblight": {
         "animations": {
             "alternating": true,
@@ -35,6 +39,9 @@
         "max_brightness": 120,
         "pin": "GP12",
         "sleep": true
+    },
+    "ws2812": {
+        "pin": "GP12"
     },
     "url": "",
     "usb": {
