@@ -8,11 +8,6 @@ The following is the QMK Firmware for the Neely65 PCB.
 * Hardware Supported: Neely65 PCB only
 * Hardware Availability: Private Run
 
-The PCB features:
-* QMK & VIA compatibility
-
----
-
 Make example for this keyboard (after setting up your build environment):
 
 	make wolf/neely65:default
