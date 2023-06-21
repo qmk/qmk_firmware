@@ -18,6 +18,10 @@
         "enabled": true,
         "matrix": [0, 0]
     },
+    "features": {
+        "extrakey": true,
+        "nkro": true
+    },
     "split": {
         "enabled": true,
         "soft_serial_pin": "D3",
