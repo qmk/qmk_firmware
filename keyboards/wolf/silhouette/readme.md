@@ -8,11 +8,6 @@ The following is the QMK Firmware for the Silhouette PCB.
 * Hardware Supported: Silhouette PCB
 * Hardware Availability: https://beacons.ai/chamchi
 
-The PCB features:
-* QMK & VIA compatibility
-
----
-
 Make example for this keyboard (after setting up your build environment):
 
     make wolf/silhouette:default
