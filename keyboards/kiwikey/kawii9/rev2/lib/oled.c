@@ -28,7 +28,7 @@ static uint8_t rgb_val = 0;
 static char ui_mode = 0;
 // UI Mode = 0 : WPM graph
 //           1 : RGB control
-//           2 : Media control
+//           2 : Media control (to do)
 
 #define MATRIX_DISPLAY_X    107
 #define MATRIX_DISPLAY_Y    11
@@ -37,7 +37,7 @@ static char ui_mode = 0;
 #define KEY_SPACING         3
 
 #define GRAPH_ZERO_X           20  // This is zero origin
-#define GRAPH_ZERO_Y           63  // of the graph
+#define GRAPH_ZERO_Y           63  // of the WPM graph
 #define GRAPH_WIDTH            105
 #define GRAPH_HEIGHT           28
 #define GRAPH_REFRESH_INTERVAL 100 // ms
@@ -165,14 +165,6 @@ void render_ui_rgbcontrol(void) {
     }
 }
 
-void render_ui_mediacontrol(void) {
-    oled_set_cursor(0, 5);
-    oled_write_P(PSTR("------< Media >------"), false);
-    oled_write_char(0x0E, false);
-    oled_write_P(PSTR("   Media Control"), false);
-    oled_write_char(0x0E, false);
-}
-
 void render_stats(void) {
     // Current layer
     oled_set_cursor(6, 1);
@@ -222,9 +214,6 @@ bool oled_task_user(void) {
             break;
         case 1:
             render_ui_rgbcontrol();
-            break;
-        case 2:
-            render_ui_mediacontrol();
             break;
     }
     if ((ui_mode != 0) && (timer_elapsed(key_timer) > SUB_UI_TIMEOUT)) { // If timeout, back to default UI
