@@ -11,7 +11,7 @@ The following is the QMK Firmware for the XOX70_Hotswap PCB.
 The PCB features:
 * QMK & VIA compatibility
 * Underglow RGB Leds
-* Per key RGB Leds
+* Per key Backlight Leds
 
 ---
 
