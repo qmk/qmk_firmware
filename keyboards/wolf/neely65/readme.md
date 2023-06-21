@@ -10,7 +10,7 @@ The following is the QMK Firmware for the Neely65 PCB.
 
 Make example for this keyboard (after setting up your build environment):
 
-	make wolf/neely65:default
+    make wolf/neely65:default
 
 Flashing example for this keyboard:
 
