@@ -20,23 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* left/right via compilation flag */
 #define EE_HANDS
 
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 6
-
-#define QMK_ESC_OUTPUT B5
-#define QMK_ESC_INPUT B6
-// #define QMK_LED     E6
-// #define QMK_SPEAKER C6
-
-// #define AUDIO_VOICES
-// #define AUDIO_PIN C6
-
-// #define BACKLIGHT_PIN B7
-
-/* define if matrix has ghost */
-// #define MATRIX_HAS_GHOST
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronztize hack */
