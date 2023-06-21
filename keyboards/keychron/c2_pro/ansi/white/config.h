@@ -24,9 +24,8 @@
 #define CKLED2001_CURRENT_TUNE \
     { 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0, 0xA0 }
 
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 108
-#define LED_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
+/* LED Matrix Configuration */
+#define LED_MATRIX_LED_COUNT 108
 
 /* Enable indicator LED*/
 #define NUM_LED_INDEX 16
