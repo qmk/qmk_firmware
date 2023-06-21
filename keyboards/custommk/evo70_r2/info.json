@@ -53,6 +53,7 @@
         "pin": "A10"
     },
     "backlight": {
+        "driver": "pwm",
         "breathing": true,
         "breathing_period": 6,
         "levels": 17,
