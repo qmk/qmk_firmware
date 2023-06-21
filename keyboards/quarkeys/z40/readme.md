@@ -1,6 +1,6 @@
 # Quarkeys Z40 Low Profile Keyboard
 
-![Quarkeys Z40 Pastry](https://raw.githubusercontent.com/tommyamoszhao/keyboardimage/main/Z40/Z40_1024.png)
+![Quarkeys Z40 Pastry](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/quarkeys/z40/72b918_ef3d9bc5f32e4b2ba224b0a25bc017f4~mv2.png "Quarkeys Z40 PCB render")
 
 A 40% Bottom mount low-profile & MX switch compatible keyboard.
 
