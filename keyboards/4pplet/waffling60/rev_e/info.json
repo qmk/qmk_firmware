@@ -45,7 +45,7 @@
          "rgblight": true
      },
      "rgblight": {
-         "led_count": 13,
+         "led_count": 14,
          "pin": "A8",
          "animations": {
              "alternating": true,
