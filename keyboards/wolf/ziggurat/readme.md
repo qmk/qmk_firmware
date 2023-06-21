@@ -8,11 +8,6 @@ The following is the QMK Firmware for the Ziggurat PCB.
 * Hardware Supported: Ziggurat PCB
 * Hardware Availability: https://www.eloquentclicks.com/product/ziggurat-plateless-leaf-spring-pcb-mount-65-xt/
 
-The PCB features:
-* QMK & VIA compatibility
-
----
-
 Make example for this keyboard (after setting up your build environment):
 
     make wolf/ziggurat:default
