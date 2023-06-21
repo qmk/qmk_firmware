@@ -16,7 +16,7 @@
 
 #pragma once
 
-/* RGB Matrix Driver Configuration */
+/* LED Matrix Driver Configuration */
 #define DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110100
 
