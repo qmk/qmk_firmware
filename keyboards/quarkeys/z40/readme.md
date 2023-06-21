@@ -4,11 +4,15 @@
 
 A 40% Bottom mount low-profile & MX switch compatible keyboard.
 
-* Keyboard Maintainer: [Quarkeys Studio](www.quarkeys.com)
+* Keyboard Maintainer: [TommyZ](https://github.com/tommyamoszhao)
 * Hardware Supported: Z40-ACR, Z40-Pastry
-* Hardware Specs: Per-key RGBs, layer & Capslock indicators
-* For [RGB Matrix feature](https://docs.qmk.fm/#/feature_rgb_matrix): `RGB_MATRIX_ENABLE = yes`, `RGBLIGHT_ENABLE = no`.
-* For [RGB Light feature](https://docs.qmk.fm/#/feature_rgblight): `RGB_MATRIX_ENABLE = no`, `RGBLIGHT_ENABLE = yes`.
+* Hardware Availability: [Quarkeys Studio](https://www.quarkeys.com/product-page/z40-extra-pcb)
+
+## Hardware Specs
+
+* Per-key RGBs, layer & Capslock indicators
+  * For [RGB Matrix feature](https://docs.qmk.fm/#/feature_rgb_matrix): `RGB_MATRIX_ENABLE = yes`, `RGBLIGHT_ENABLE = no`.
+  * For [RGB Light feature](https://docs.qmk.fm/#/feature_rgblight): `RGB_MATRIX_ENABLE = no`, `RGBLIGHT_ENABLE = yes`.
 
 Make example for this keyboard solder version keymap(after setting up your build environment):
 
