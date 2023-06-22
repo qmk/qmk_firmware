@@ -13,8 +13,15 @@
             {"pin_a": "GP18", "pin_b": "GP17"}
         ]
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
     "bootmagic": {
         "matrix": [1, 2]
+    },
+    "ws2812": {
+        "pin": "GP19",
+        "driver": "vendor"
     },
     "processor": "RP2040",
     "bootloader": "rp2040",
@@ -30,19 +37,19 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":2, "y":0, "matrix": [0, 2]},
-                {"x":0, "y":1, "matrix": [1, 0]},
-                {"x":1, "y":1, "matrix": [1, 1]},
-                {"x":2, "y":1, "matrix": [1, 2]},
-                {"x":0, "y":2, "matrix": [2, 0]},
-                {"x":1, "y":2, "matrix": [2, 1]},
-                {"x":2, "y":2, "matrix": [2, 2]},
-                {"x":0, "y":3, "matrix": [3, 0]},
-                {"x":1, "y":3, "matrix": [3, 1]},
-                {"x":2, "y":3, "matrix": [3, 2]},
-                {"x":0, "y":4, "matrix": [4, 0]},
-                {"x":1, "y":4, "matrix": [4, 1]},
-                {"x":2, "y":4, "matrix": [4, 2]}
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 0, "y": 1, "matrix": [1, 0]},
+                {"x": 1, "y": 1, "matrix": [1, 1]},
+                {"x": 2, "y": 1, "matrix": [1, 2]},
+                {"x": 0, "y": 2, "matrix": [2, 0]},
+                {"x": 1, "y": 2, "matrix": [2, 1]},
+                {"x": 2, "y": 2, "matrix": [2, 2]},
+                {"x": 0, "y": 3, "matrix": [3, 0]},
+                {"x": 1, "y": 3, "matrix": [3, 1]},
+                {"x": 2, "y": 3, "matrix": [3, 2]},
+                {"x": 0, "y": 4, "matrix": [4, 0]},
+                {"x": 1, "y": 4, "matrix": [4, 1]},
+                {"x": 2, "y": 4, "matrix": [4, 2]}
             ]
         }
     }
