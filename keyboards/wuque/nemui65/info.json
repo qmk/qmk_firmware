@@ -14,13 +14,10 @@
     "features": {
         "bootmagic": true,
         "command": false,
-        "console": true,
+        "console": false
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "audio": false,
-        "backlight": false,
-        "encoder": false,
+        "nkro": true
         "rbglight": true
     },
     "diode_direction": "COL2ROW",
