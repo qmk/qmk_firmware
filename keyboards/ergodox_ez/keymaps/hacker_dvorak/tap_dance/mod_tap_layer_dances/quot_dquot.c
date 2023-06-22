@@ -4,7 +4,7 @@ static tap quot_dquot_state = {
     .state           = 0
 };
 
-void quot_dquot_finished(qk_tap_dance_state_t *state, void *user_data) {
+void quot_dquot_finished(tap_dance_state_t *state, void *user_data) {
     quot_dquot_state.state = current_dance(state);
     switch (quot_dquot_state.state) {
         case SINGLE_TAP:
@@ -22,7 +22,7 @@ void quot_dquot_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void quot_dquot_reset(qk_tap_dance_state_t *state, void *user_data) {
+void quot_dquot_reset(tap_dance_state_t *state, void *user_data) {
     switch (quot_dquot_state.state) {
         case SINGLE_TAP:
             unregister_code(KC_QUOT);

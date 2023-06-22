@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,5 +13,3 @@ AUDIO_ENABLE = no           # Audio output
 
 DEBUG_ENABLE = no
 SPLIT_KEYBOARD = yes        # Use shared split_common code
-
-LAYOUTS = split_3x5_3

@@ -71,18 +71,27 @@
  * RGB options
  */
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_SLEEP                    // Allows rgb to sleep when the host/keyboard does
-#    define RGBLIGHT_ANIMATIONS               // Enable using rgb animations
-#    define RGBLIGHT_LAYERS                   // Enable indicating layers using layered rgb assignments
-#    define RGBLIGHT_LAYER_BLINK              // Allows rgb layers to be blinked (activate for a set amount of time)
-#    define RGBLIGHT_MAX_LAYERS 32            // Overides the default (8) max number of rgb layers
-#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF  // Allows rgb layers to work even when rgb is toggled off
+#    define RGBLIGHT_SLEEP // Allows rgb to sleep when the host/keyboard does
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_SNAKE
+#    define RGBLIGHT_EFFECT_KNIGHT
+#    define RGBLIGHT_EFFECT_CHRISTMAS
+#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#    define RGBLIGHT_EFFECT_RGB_TEST
+#    define RGBLIGHT_EFFECT_ALTERNATING
+#    define RGBLIGHT_EFFECT_TWINKLE
+#    define RGBLIGHT_LAYERS                  // Enable indicating layers using layered rgb assignments
+#    define RGBLIGHT_LAYER_BLINK             // Allows rgb layers to be blinked (activate for a set amount of time)
+#    define RGBLIGHT_MAX_LAYERS 32           // Overides the default (8) max number of rgb layers
+#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Allows rgb layers to work even when rgb is toggled off
 #endif
 
 /*
  * UNICODE options
  */
-#define UNICODE_SELECTED_MODES UC_WINC, UC_LNX, UC_MAC  // Define the methods used for in/outputting unicode
+#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_LINUX, UNICODE_MODE_MACOS  // Define the methods used for in/outputting unicode
 
 /*
  * TAP-DANCE options
@@ -102,14 +111,13 @@
 /*
  * COMBO-KEY options
  */
-#define COMBO_COUNT 2
 #define COMBO_TERM 300
 /*
  * MACRO per-key options
  */
 #define RETRO_TAPPING_PER_KEY             // Control Retro-Tap individually by key
-#define TAPPING_FORCE_HOLD_PER_KEY        // Control Force-Hold individually by key
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY  // Control Mod-Tap-Interrupt individually by key
+#define QUICK_TAP_TERM_PER_KEY            // Control Quick-Tap individually by key
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY   // Control Hold-on-Other-Key-Press individually by key
 #define PERMISSIVE_HOLD_PER_KEY           // Control Permissive-Hold individually by key
 
 #define MK_KINETIC_SPEED  // Use kinetic acceleration for mouse-keys

@@ -50,10 +50,10 @@
       "KC_LCTL",
       "KC_LALT",
       "KC_SPC",
-      "KC_LSPO",
+      "SC_LSPO",
       "TT(1)",
       "TT(1)",
-      "KC_RSPC",
+      "SC_RSPC",
       "KC_ENT",
       "KC_MINS",
       "KC_EQL"

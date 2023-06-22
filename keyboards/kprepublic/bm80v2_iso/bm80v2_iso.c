@@ -12,17 +12,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "bm80v2_iso.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS6_SW1, CS5_SW1, CS4_SW1},
-    {0, CS6_SW3, CS5_SW3, CS4_SW3}, 
-    {0, CS6_SW4, CS5_SW4, CS4_SW4},    
+    {0, CS6_SW3, CS5_SW3, CS4_SW3},
+    {0, CS6_SW4, CS5_SW4, CS4_SW4},
     {0, CS6_SW5, CS5_SW5, CS4_SW5},
     {0, CS6_SW6, CS5_SW6, CS4_SW6},
-    {0, CS6_SW7, CS5_SW7, CS4_SW7}, 
+    {0, CS6_SW7, CS5_SW7, CS4_SW7},
     {0, CS6_SW8, CS5_SW8, CS4_SW8},
     {0, CS6_SW9, CS5_SW9, CS4_SW9},
     {0, CS21_SW1, CS20_SW1, CS19_SW1},
@@ -34,8 +34,8 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS21_SW7, CS20_SW7, CS19_SW7},
     {0, CS21_SW8, CS20_SW8, CS19_SW8},
 
-    
-    {0, CS9_SW1, CS8_SW1, CS7_SW1},     
+
+    {0, CS9_SW1, CS8_SW1, CS7_SW1},
     {0, CS9_SW2, CS8_SW2, CS7_SW2},
     {0, CS9_SW3, CS8_SW3, CS7_SW3},
     {0, CS9_SW4, CS8_SW4, CS7_SW4},
@@ -44,7 +44,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, CS9_SW7, CS8_SW7, CS7_SW7},
     {0, CS9_SW8, CS8_SW8, CS7_SW8},
     {0, CS9_SW9, CS8_SW9, CS7_SW9},
-    {0,CS24_SW1, CS23_SW1, CS22_SW1}, 
+    {0,CS24_SW1, CS23_SW1, CS22_SW1},
     {0,CS24_SW2, CS23_SW2, CS22_SW2},
     {0,CS24_SW3, CS23_SW3, CS22_SW3},
     {0,CS24_SW4, CS23_SW4, CS22_SW4},
@@ -52,46 +52,46 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
     {0,CS24_SW6, CS23_SW6, CS22_SW6},
     {0,CS24_SW7, CS23_SW7, CS22_SW7},
     {0,CS24_SW8, CS23_SW8, CS22_SW8},
-    
-    {0, CS12_SW1, CS11_SW1, CS10_SW1},     
-    {0, CS12_SW2, CS11_SW2, CS10_SW2},  
-    {0, CS12_SW3, CS11_SW3, CS10_SW3},      
-    {0, CS12_SW4, CS11_SW4, CS10_SW4},      
-    {0, CS12_SW5, CS11_SW5, CS10_SW5},      
-    {0, CS12_SW6, CS11_SW6, CS10_SW6},      
-    {0, CS12_SW7, CS11_SW7, CS10_SW7},  
+
+    {0, CS12_SW1, CS11_SW1, CS10_SW1},
+    {0, CS12_SW2, CS11_SW2, CS10_SW2},
+    {0, CS12_SW3, CS11_SW3, CS10_SW3},
+    {0, CS12_SW4, CS11_SW4, CS10_SW4},
+    {0, CS12_SW5, CS11_SW5, CS10_SW5},
+    {0, CS12_SW6, CS11_SW6, CS10_SW6},
+    {0, CS12_SW7, CS11_SW7, CS10_SW7},
     {0, CS12_SW8, CS11_SW8, CS10_SW8},
     {0, CS12_SW9, CS11_SW9, CS10_SW9},
-    {0, CS27_SW1, CS26_SW1, CS25_SW1},      
-    {0, CS27_SW2, CS26_SW2, CS25_SW2},     
-    {0, CS27_SW3, CS26_SW3, CS25_SW3},     
+    {0, CS27_SW1, CS26_SW1, CS25_SW1},
+    {0, CS27_SW2, CS26_SW2, CS25_SW2},
+    {0, CS27_SW3, CS26_SW3, CS25_SW3},
     {0, CS27_SW4, CS26_SW4, CS25_SW4},
     {0, CS27_SW5, CS26_SW5, CS25_SW5},
-    {0, CS27_SW6, CS26_SW6, CS25_SW6}, 
+    {0, CS27_SW6, CS26_SW6, CS25_SW6},
     {0, CS27_SW7, CS26_SW7, CS25_SW7},
     {0, CS27_SW8, CS26_SW8, CS25_SW8},
-    
+
     {0, CS15_SW1, CS14_SW1, CS13_SW1},
     {0, CS15_SW2, CS14_SW2, CS13_SW2},
-    {0, CS15_SW3, CS14_SW3, CS13_SW3}, 
-    {0, CS15_SW4, CS14_SW4, CS13_SW4},     
-    {0, CS15_SW5, CS14_SW5, CS13_SW5},     
-    {0, CS15_SW6, CS14_SW6, CS13_SW6},     
-    {0, CS15_SW7, CS14_SW7, CS13_SW7},     
+    {0, CS15_SW3, CS14_SW3, CS13_SW3},
+    {0, CS15_SW4, CS14_SW4, CS13_SW4},
+    {0, CS15_SW5, CS14_SW5, CS13_SW5},
+    {0, CS15_SW6, CS14_SW6, CS13_SW6},
+    {0, CS15_SW7, CS14_SW7, CS13_SW7},
     {0, CS15_SW8, CS14_SW8, CS13_SW8},
     {0, CS15_SW9, CS14_SW9, CS13_SW9},
     {0, CS30_SW1, CS29_SW1, CS28_SW1},
     {0, CS30_SW2, CS29_SW2, CS28_SW2},
     {0, CS30_SW3, CS29_SW3, CS28_SW3},
     {0, CS30_SW4, CS29_SW4, CS28_SW4},
-    
+
     {0, CS18_SW1, CS17_SW1, CS16_SW1},
     {0, CS18_SW2, CS17_SW2, CS16_SW2},
-    {0, CS18_SW3, CS17_SW3, CS16_SW3}, 
-    {0, CS18_SW4, CS17_SW4, CS16_SW4},     
-    {0, CS18_SW5, CS17_SW5, CS16_SW5},     
-    {0, CS18_SW6, CS17_SW6, CS16_SW6},     
-    {0, CS18_SW7, CS17_SW7, CS16_SW7},     
+    {0, CS18_SW3, CS17_SW3, CS16_SW3},
+    {0, CS18_SW4, CS17_SW4, CS16_SW4},
+    {0, CS18_SW5, CS17_SW5, CS16_SW5},
+    {0, CS18_SW6, CS17_SW6, CS16_SW6},
+    {0, CS18_SW7, CS17_SW7, CS16_SW7},
     {0, CS18_SW8, CS17_SW8, CS16_SW8},
     {0, CS18_SW9, CS17_SW9, CS16_SW9},
     {0, CS33_SW1, CS32_SW1, CS31_SW1},
@@ -102,16 +102,16 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 
     {0, CS3_SW1, CS2_SW1, CS1_SW1},
     {0, CS3_SW2, CS2_SW2, CS1_SW2},
-    {0, CS3_SW3, CS2_SW3, CS1_SW3}, 
-    {0, CS3_SW6, CS2_SW6, CS1_SW6}, 
+    {0, CS3_SW3, CS2_SW3, CS1_SW3},
+    {0, CS3_SW6, CS2_SW6, CS1_SW6},
     {0, CS36_SW2, CS35_SW2, CS34_SW2},
     {0, CS36_SW3, CS35_SW3, CS34_SW3},
     {0, CS36_SW4, CS35_SW4, CS34_SW4},
     {0, CS36_SW5, CS35_SW5, CS34_SW5},
     {0, CS36_SW6, CS35_SW6, CS34_SW6},
     {0, CS36_SW7, CS35_SW7, CS34_SW7},
-    {0, CS36_SW8, CS35_SW8, CS34_SW8}   
-                                                                                                     
+    {0, CS36_SW8, CS35_SW8, CS34_SW8}
+
 };
 led_config_t g_led_config = { {
     {  0,  NO_LED,      1,     2,      3,      4,      5,      6,      7,      8,      9,     10,     11,     12,     13,     14,     15 },
@@ -134,17 +134,17 @@ led_config_t g_led_config = { {
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1,
     1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
     1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,       1,
-    1, 1, 1,       4,     1, 1, 1, 1,         1, 1, 1 
+    1, 1, 1,       4,     1, 1, 1, 1,         1, 1, 1
 } };
 
 
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void)
-{
-    if (host_keyboard_led_state().caps_lock)
-    {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(50, 0xFF, 0xFF, 0xFF);
     }
+    return true;
 }
 #endif
-

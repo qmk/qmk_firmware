@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#include "mouse.h"
 
 #ifndef OPT_DEBOUNCE
 #    define OPT_DEBOUNCE 5  // (ms) 			Time between scroll events
@@ -49,7 +49,7 @@
 
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
-#define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
+#define DPI_OPTION_SIZE ARRAY_SIZE(dpi_array)
 
 // TODO: Implement libinput profiles
 // https://wayland.freedesktop.org/libinput/doc/latest/pointer-acceleration.html
@@ -75,7 +75,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #ifdef MOUSEKEY_ENABLE
     tap_code(clockwise ? KC_WH_U : KC_WH_D);
 #else
-    mouse_report_t mouse_report = pointing_device_get_report();
+    report_mouse_t mouse_report = pointing_device_get_report();
     mouse_report.v = clockwise ? 1 : -1;
     pointing_device_set_report(mouse_report);
     pointing_device_send();
@@ -167,21 +167,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #endif
     }
 
-/* If Mousekeys is disabled, then use handle the mouse button
- * keycodes.  This makes things simpler, and allows usage of
- * the keycodes in a consistent manner.  But only do this if
- * Mousekeys is not enable, so it's not handled twice.
- */
-#ifndef MOUSEKEY_ENABLE
-    if (IS_MOUSEKEY_BUTTON(keycode)) {
-        report_mouse_t currentReport = pointing_device_get_report();
-        currentReport.buttons        = pointing_device_handle_buttons(currentReport.buttons, record->event.pressed, keycode - KC_MS_BTN1);
-        pointing_device_set_report(currentReport);
-        pointing_device_send();
-    }
-
-#endif
-
     return true;
 }
 
@@ -202,7 +187,7 @@ void keyboard_pre_init_kb(void) {
 #ifdef UNUSABLE_PINS
     const pin_t unused_pins[] = UNUSABLE_PINS;
 
-    for (uint8_t i = 0; i < (sizeof(unused_pins) / sizeof(pin_t)); i++) {
+    for (uint8_t i = 0; i < ARRAY_SIZE(unused_pins); i++) {
         setPinOutput(unused_pins[i]);
         writePinLow(unused_pins[i]);
     }

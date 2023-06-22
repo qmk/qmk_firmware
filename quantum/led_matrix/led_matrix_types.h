@@ -76,8 +76,8 @@ typedef struct PACKED {
 
 typedef struct PACKED {
     uint8_t     matrix_co[MATRIX_ROWS][MATRIX_COLS];
-    led_point_t point[DRIVER_LED_TOTAL];
-    uint8_t     flags[DRIVER_LED_TOTAL];
+    led_point_t point[LED_MATRIX_LED_COUNT];
+    uint8_t     flags[LED_MATRIX_LED_COUNT];
 } led_config_t;
 
 typedef union {
@@ -85,12 +85,13 @@ typedef union {
     struct PACKED {
         uint8_t     enable : 2;
         uint8_t     mode : 6;
-        uint16_t    reserved;
         uint8_t     val;
-        uint8_t     speed; // EECONFIG needs to be increased to support this
+        uint8_t     speed;
         led_flags_t flags;
     };
 } led_eeconfig_t;
+
+_Static_assert(sizeof(led_eeconfig_t) == sizeof(uint32_t), "LED Matrix EECONFIG out of spec.");
 
 #if defined(_MSC_VER)
 #    pragma pack(pop)

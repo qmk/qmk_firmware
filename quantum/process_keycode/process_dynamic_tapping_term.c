@@ -35,15 +35,15 @@ static void tapping_term_report(void) {
 bool process_dynamic_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case DT_PRNT:
+            case QK_DYNAMIC_TAPPING_TERM_PRINT:
                 tapping_term_report();
                 return false;
 
-            case DT_UP:
+            case QK_DYNAMIC_TAPPING_TERM_UP:
                 g_tapping_term += DYNAMIC_TAPPING_TERM_INCREMENT;
                 return false;
 
-            case DT_DOWN:
+            case QK_DYNAMIC_TAPPING_TERM_DOWN:
                 g_tapping_term -= DYNAMIC_TAPPING_TERM_INCREMENT;
                 return false;
         }

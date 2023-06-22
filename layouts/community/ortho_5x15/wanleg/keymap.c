@@ -11,7 +11,7 @@
 	K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3a, K3b, K3c, K3d, K3e  \
   ) \
    LAYOUT_ortho_5x15_wrapper( \
-     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    QWERTY, GHERKIN, FUNCTION,	KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NLCK,  \
+     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    QWERTY, GHERKIN, FUNCTION,	KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NUM,  \
      K00, K01, K02, K03, K04, K05, 		K0c,  K0d,  K0e,		K06, K07, K08, K09, K0a, K0b, \
      K10, K11, K12, K13, K14, K15, 		K1c,  K1d,  K1e,		K16, K17, K18, K19, K1a, K1b, \
      K20, K21, K22, K23, K24, K25, 		K2c,  K2d,  K2e,		K26, K27, K28, K29, K2a, K2b, \
@@ -26,7 +26,7 @@
 	K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3a, K3b, K3c, K3d, K3e  \
   ) \
    LAYOUT_ortho_5x15_wrapper( \
-     QWERTY, GHERKIN, FUNCTION,	KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NLCK,  \
+     QWERTY, GHERKIN, FUNCTION,	KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NUM,  \
      K0c,  K0d,  K0e,		K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0a, K0b, \
      K1c,  K1d,  K1e, 		K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1a, K1b, \
      K2c,  K2d,  K2e, 		K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2a, K2b, \
@@ -41,7 +41,7 @@
 	K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3a, K3b, K3c, K3d, K3e  \
   ) \
    LAYOUT_ortho_5x15_wrapper( \
-     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NLCK,  QWERTY, GHERKIN, FUNCTION, \
+     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NUM,  QWERTY, GHERKIN, FUNCTION, \
      K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0a, K0b, 		K0c,  K0d,  K0e, \
      K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1a, K1b, 		K1c,  K1d,  K1e, \
      K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2a, K2b, 		K2c,  K2d,  K2e, \
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(BLUEFRUIT)
 [PAD] = LAYOUT_ortho_5x5_wrapper(
-  _______, _______, _______, OUT_BT, OUT_USB,
+  _______, _______, _______, OU_BT, OU_USB,
   _______________NUMPAD_Row__0_______________, _______,
   _______________NUMPAD_Row__1_______________, _______,
   _______________NUMPAD_Row__2_______________, _______,

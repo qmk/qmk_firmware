@@ -146,7 +146,7 @@ enum custom_keycodes {
 #define DNTAB  LCTL(LSFT(KC_PGDN))
 #define NXTWIN LALT(KC_TAB)
 #define PRVWIN LALT(LSFT(KC_TAB))
-#define CALDL  LCTL(LALT(KC_DELT))
+#define CALDL  LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
 #define EXPLR  LGUI(KC_E)
 #define LCKGUI LGUI(KC_L)
@@ -188,7 +188,7 @@ const uint16_t PROGMEM rl_r_m_i_combo[]   =  {RLR, RLM, RLI, COMBO_END};
 // both hand combinations.
 const uint16_t PROGMEM bl_m_m_combo[]      = {LLM, RLM, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     // left hand combinations.
     [L_U_PINKY_RING]          = COMBO(lu_p_r_combo,  KC_TAB),
     [L_U_RING_MIDDLE]         = COMBO(lu_r_m_combo,  KC_QUES),
@@ -199,7 +199,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [L_L_PINKY_RING]          = COMBO(ll_p_r_combo,  KC_ENT),
     [L_L_RING_MIDDLE]         = COMBO(ll_r_m_combo,  LCTL(KC_W)),
     [L_L_RING_INDEX]          = COMBO(ll_r_i_combo,  KC_TAB),
-    [L_L_MIDDLE_INDEX]        = COMBO(ll_m_i_combo,  KC_DELT),
+    [L_L_MIDDLE_INDEX]        = COMBO(ll_m_i_combo,  KC_DEL),
     [L_L_INDEX_INNER_INDEX]   = COMBO(ll_i_ii_combo, KC_TILD),
 
     [L_U_RING_MIDDLE_INDEX]   = COMBO(lu_r_m_i_combo, KC_PIPE),
@@ -215,7 +215,7 @@ combo_t key_combos[COMBO_COUNT] = {
     [R_L_PINKY_RING]          = COMBO(rl_p_r_combo,  KC_BSLS),
     [R_L_RING_MIDDLE]         = COMBO(rl_r_m_combo,  KC_APP),
     [R_L_RING_INDEX]          = COMBO(rl_r_i_combo,  LSFT(KC_TAB)),
-    [R_L_MIDDLE_INDEX]        = COMBO(rl_m_i_combo,  KC_DELT),
+    [R_L_MIDDLE_INDEX]        = COMBO(rl_m_i_combo,  KC_DEL),
     [R_L_INDEX_INNER_INDEX]   = COMBO(rl_i_ii_combo, KC_GRV),
 
     [R_U_RING_MIDDLE_INDEX]   = COMBO(ru_r_m_i_combo, KC_BSLS),

@@ -15,27 +15,9 @@
  */
 
 #pragma once
-#include "config_common.h"
 
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 
-/* ENCODER */
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B3 }
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
-/* Uno default pinout */
-#define DIRECT_PINS { \
-    { D0 } \
-}
-
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D1
 #define RGBLED_NUM 1
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

@@ -1,4 +1,4 @@
-// Copyright 2018-2022 Nick Brassel (@tzarc)
+// Copyright 2018-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <string.h>
 #include "quantum.h"
@@ -70,11 +70,10 @@ void keyboard_post_init_kb(void) {
     wait_ms(150);
 
     // Initialise the LCD
-    lcd = qp_ili9341_make_spi_device(320, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 0);
+    lcd = qp_ili9341_make_spi_device(240, 320, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 0);
     qp_init(lcd, QP_ROTATION_0);
 
     // Turn on the LCD and clear the display
-    kb_state.lcd_power = 1;
     qp_power(lcd, true);
     qp_rect(lcd, 0, 0, 239, 319, HSV_BLACK, true);
 
@@ -129,7 +128,7 @@ RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
 //----------------------------------------------------------
 // UI Placeholder, implemented in themes
 
-__attribute__((weak)) void draw_ui_user(void) {}
+__attribute__((weak)) void draw_ui_user(bool force_redraw) {}
 
 //----------------------------------------------------------
 // Housekeeping
@@ -187,18 +186,14 @@ void housekeeping_task_kb(void) {
     }
 
     // Turn on/off the LCD
-    static bool lcd_on = false;
-    if (lcd_on != (bool)kb_state.lcd_power) {
-        lcd_on = (bool)kb_state.lcd_power;
-        qp_power(lcd, lcd_on);
-    }
+    bool peripherals_on = last_input_activity_elapsed() < LCD_ACTIVITY_TIMEOUT;
 
     // Enable/disable RGB
-    if (lcd_on) {
+    if (peripherals_on) {
         // Turn on RGB
         writePinHigh(RGB_POWER_ENABLE_PIN);
         // Modify the RGB state if different to the LCD state
-        if (rgb_matrix_is_enabled() != lcd_on) {
+        if (rgb_matrix_is_enabled() != peripherals_on) {
             // Wait for a small amount of time to allow the RGB capacitors to charge, before enabling RGB output
             wait_ms(10);
             // Enable RGB
@@ -208,22 +203,22 @@ void housekeeping_task_kb(void) {
         // Turn off RGB
         writePinLow(RGB_POWER_ENABLE_PIN);
         // Disable the PWM output for the RGB
-        if (rgb_matrix_is_enabled() != lcd_on) {
+        if (rgb_matrix_is_enabled() != peripherals_on) {
             rgb_matrix_disable_noeeprom();
         }
     }
 
     // Match the backlight to the LCD state
-    if (is_keyboard_master() && is_backlight_enabled() != lcd_on) {
-        if (lcd_on)
+    if (is_keyboard_master() && is_backlight_enabled() != peripherals_on) {
+        if (peripherals_on)
             backlight_enable();
         else
             backlight_disable();
     }
 
     // Draw the UI
-    if (kb_state.lcd_power) {
-        draw_ui_user();
+    if (peripherals_on) {
+        draw_ui_user(false);
     }
 
     // Go into low-scan interrupt-based mode if we haven't had any matrix activity in the last 250 milliseconds

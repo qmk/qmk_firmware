@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_planck_grid(
   LT4_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   LT3_ESC, KC_A,    KC_S,    KC_D,    LT(3,KC_F),    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    TD(TD1), TD(TD2),
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3), KC_SFTENT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  TD(TD3), SC_SENT,
   KC_LCTL, KC_APP, KC_LGUI, KC_LALT,  MO(2), KC_SPC,  KC_SPC, MO(1),  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
@@ -72,10 +72,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_planck_grid( /* Tab */
-  _______, _______,  AG_NORM, AG_SWAP, _______, _______, _______, KC_7, KC_8, KC_9, KC_0, _______,
-  _______, _______, MU_MOD, AU_ON, AU_OFF, _______, _______, KC_4, KC_5, KC_6, _______, _______,
-  KC_PSCR, MUV_DE, MUV_IN, MU_ON, MU_OFF, _______, _______,  KC_0, KC_1, KC_2, KC_3, _______,
-  QK_BOOT, _______, TERM_ON, TERM_OFF, MI_ON, MI_OFF, _______, _______, _______, _______, _______, DEBUG
+  _______, _______, AG_NORM, AG_SWAP, _______, _______, _______, KC_7,    KC_8,    KC_9,   KC_0,     _______,
+  _______, _______, MU_NEXT, AU_ON,   AU_OFF,  _______, _______, KC_4,    KC_5,    KC_6,   _______,  _______,
+  KC_PSCR, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  _______, _______, KC_0,    KC_1,    KC_2,   KC_3,     _______,
+  QK_BOOT, _______, _______, _______, MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, DB_TOGG
 )};
 
 #ifdef AUDIO_ENABLE

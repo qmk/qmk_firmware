@@ -1,0 +1,82 @@
+{
+    "keyboard_name": "KB30-01",
+    "manufacturer": "DOIO",
+    "url": "",
+    "maintainer": "Alice",
+    "usb": {
+        "vid": "0xD010",
+        "pid": "0x3001",
+        "device_version": "0.0.1"
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "matrix_pins": {
+        "cols": ["B14", "B13", "B12", "B0", "A7", "A9", "A8"],
+        "rows": ["B3", "B4", "B9", "B8", "A5", "A6"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6"},
+            {"pin_a": "A1", "pin_b": "A2"},
+            {"pin_a": "A3", "pin_b": "A4", "resolution": 2}
+        ]
+    },
+    "ws2812": {
+        "pin": "A10"
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [0, 4], "x": 4.25, "y": 0},
+                {"matrix": [0, 5], "x": 5.25, "y": 0},
+                {"matrix": [0, 6], "x": 6.25, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1, "h": 2},
+
+                {"matrix": [1, 4], "x": 4.25, "y": 1},
+                {"matrix": [1, 5], "x": 5.25, "y": 1},
+                {"matrix": [1, 6], "x": 6.25, "y": 1},
+
+                {"matrix": [2, 0], "x": 8.25, "y": 2},
+
+                {"matrix": [2, 1], "x": 0, "y": 2},
+                {"matrix": [2, 2], "x": 1, "y": 2},
+                {"matrix": [2, 3], "x": 2, "y": 2},
+
+                {"matrix": [2, 4], "x": 4.25, "y": 2},
+                {"matrix": [2, 5], "x": 5.25, "y": 2},
+                {"matrix": [3, 0], "x": 6.25, "y": 2},
+
+                {"matrix": [3, 1], "x": 11, "y": 2},
+
+                {"matrix": [3, 2], "x": 0, "y": 3},
+                {"matrix": [3, 3], "x": 1, "y": 3},
+                {"matrix": [3, 5], "x": 2, "y": 3},
+
+                {"matrix": [4, 0], "x": 4.25, "y": 3, "h": 2},
+                {"matrix": [4, 1], "x": 5.25, "y": 3},
+
+                {"matrix": [4, 2], "x": 9, "y": 4},
+
+                {"matrix": [4, 3], "x": 0, "y": 4, "w": 2},
+                {"matrix": [4, 4], "x": 2, "y": 4},
+
+                {"matrix": [5, 4], "x": 4.25, "y": 4},
+                {"matrix": [5, 5], "x": 5.25, "y": 4},
+                {"matrix": [5, 6], "x": 6.25, "y": 4}
+            ]
+        }
+    }
+}

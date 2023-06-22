@@ -4,7 +4,7 @@ extern rgblight_config_t rgblight_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT_numpad_5x6(
-		KC_F1,   LT(1,KC_F2),    KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+		KC_F1,   LT(1,KC_F2),    KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
 		KC_F3,   KC_F4,    KC_P7,   KC_P8,   KC_P9,
 		KC_F5,   KC_F6,    KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
 		KC_F7,   KC_F8,    KC_P1,   KC_P2,   KC_P3,
@@ -37,9 +37,9 @@ void keyboard_post_init_user(void) {
 
 void led_set_user(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    rgblight_sethsv_noeeprom_cyan();
+    rgblight_sethsv_noeeprom(HSV_CYAN);
   } else {
-    rgblight_sethsv_noeeprom_magenta();
+    rgblight_sethsv_noeeprom(HSV_MAGENTA);
   }
 }
 
@@ -47,6 +47,6 @@ void shutdown_user (void) {
   #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    rgblight_setrgb_red();
+    rgblight_setrgb(RGB_RED);
   #endif // RGBLIGHT_ENABLE
 }

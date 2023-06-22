@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO, KC_NO, KC_NO, UC(L'€'), UC(L'§'), UC(L'°'), KC_NO, UC(L'ü'), KC_NO, UC(L'ö'), UC(L'–'), KC_NO,
         KC_NO, UC(L'ä'), UC(L'ß'), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         MO(_UNI2), UC(L'„'), UC(L'“'), UC(L'”'), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, UC(L'…'), KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO, UC_MOD
+        KC_NO, KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO, UC_NEXT
     ),
     [_UNI2] = LAYOUT(
         KC_NO, KC_NO, KC_NO, UC(L'é'), KC_NO, KC_NO, KC_NO, UC(L'Ü'), KC_NO, UC(L'Ö'), UC(L'—'), KC_NO,

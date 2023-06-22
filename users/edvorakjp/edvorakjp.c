@@ -5,7 +5,7 @@ void matrix_init_user(void) {
     matrix_init_keymap();
 }
 
-__attribute__((weak)) void matrix_init_keymap() {}
+__attribute__((weak)) void matrix_init_keymap(void) {}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, L_EDVORAKJP_LOWER, L_EDVORAKJP_RAISE, L_EDVORAKJP_ADJUST);

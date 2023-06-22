@@ -1,5 +1,19 @@
 {
     "usb": {
         "device_version": "0.0.3"
-    }
+    },
+    "matrix_pins": {
+        "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A5", "A6", "A7", "B0", "B1", "B10"],
+        "rows": ["A4", "B12", "B13", "B14", "B15", "A8", "B5"]
+    },
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "C13",
+        "num_lock": "B4",
+        "scroll_lock": "B3",
+        "on_state": 0
+    },
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F401"
 }

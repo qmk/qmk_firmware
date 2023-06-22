@@ -8,7 +8,6 @@
 
 #define TAPPING_TOGGLE 1 // tap just once for TT() to toggle the layer
 #define TAPPING_TERM 200
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define RGBLIGHT_LAYERS
 
@@ -18,7 +17,6 @@
 #undef RGBLIGHT_DEFAULT_MODE
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
 
-#undef RGBLIGHT_ANIMATIONS
 #undef RGBLIGHT_EFFECT_BREATHING // fading in and out
 #undef RGBLIGHT_EFFECT_RAINBOW_MOOD // rainbow all keys at the same time
 #undef RGBLIGHT_EFFECT_RAINBOW_SWIRL // rainbow top bottom

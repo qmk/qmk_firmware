@@ -32,17 +32,17 @@ void encoder_state_raw(uint8_t* slave_state);
 void encoder_update_raw(uint8_t* slave_state);
 
 #    if defined(ENCODERS_PAD_A_RIGHT)
-#        define NUM_ENCODERS_LEFT (sizeof(((pin_t[])ENCODERS_PAD_A)) / sizeof(pin_t))
-#        define NUM_ENCODERS_RIGHT (sizeof(((pin_t[])ENCODERS_PAD_A_RIGHT)) / sizeof(pin_t))
+#        define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
+#        define NUM_ENCODERS_RIGHT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A_RIGHT))
 #    else
-#        define NUM_ENCODERS_LEFT (sizeof(((pin_t[])ENCODERS_PAD_A)) / sizeof(pin_t))
+#        define NUM_ENCODERS_LEFT ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
 #        define NUM_ENCODERS_RIGHT NUM_ENCODERS_LEFT
 #    endif
 #    define NUM_ENCODERS (NUM_ENCODERS_LEFT + NUM_ENCODERS_RIGHT)
 
 #else // SPLIT_KEYBOARD
 
-#    define NUM_ENCODERS (sizeof(((pin_t[])ENCODERS_PAD_A)) / sizeof(pin_t))
+#    define NUM_ENCODERS ARRAY_SIZE(((pin_t[])ENCODERS_PAD_A))
 #    define NUM_ENCODERS_LEFT NUM_ENCODERS
 #    define NUM_ENCODERS_RIGHT 0
 
@@ -57,7 +57,8 @@ void encoder_update_raw(uint8_t* slave_state);
 #define NUM_ENCODERS_MAX_PER_SIDE MAX(NUM_ENCODERS_LEFT, NUM_ENCODERS_RIGHT)
 
 #ifdef ENCODER_MAP_ENABLE
+#    define NUM_DIRECTIONS 2
 #    define ENCODER_CCW_CW(ccw, cw) \
         { (cw), (ccw) }
-extern const uint16_t encoder_map[][NUM_ENCODERS][2];
+extern const uint16_t encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS];
 #endif // ENCODER_MAP_ENABLE

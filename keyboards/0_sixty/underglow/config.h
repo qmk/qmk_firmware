@@ -16,12 +16,9 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* underglow */
-#define RGB_DI_PIN B6
 #define RGBLED_NUM 24
-#define RGBLIGHT_LIMIT_VAL 185 // limit max I to 400mA 
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

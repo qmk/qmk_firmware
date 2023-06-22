@@ -11,7 +11,7 @@ enum custom_layers {
 #define _KC_SPC LT(_CONF, KC_SPC)
 #define _KC_ENT LT(_MOVE, KC_ENT)
 
-#define KC_SPEC KC_SFTENT //KC_SFTENT - Right Shift when held, Enter when tapped
+#define KC_SPEC SC_SENT // Right Shift when held, Enter when tapped
 #define KC_INS_ KC_INS
 #define KC_TAB_ KC_TAB
 #define RESET__ QK_BOOT

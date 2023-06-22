@@ -17,11 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_ROW_PINS { A4, A3, C13, A1, A2}
-#define MATRIX_COL_PINS { B10, B11, B2, B1, B0, A6, A5, A10, A9, A15, B3, B4, B5, B8, B9 }
-
 #ifdef  RGBLIGHT_ENABLE
-#define RGB_DI_PIN A7
 #define WS2812_SPI SPID1 // default: SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 5 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
 #define RGBLED_NUM      23
@@ -51,16 +47,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 0b1110110 AD <-> SDA
 #define DRIVER_ADDR_1 0b0110010
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 66
+#define RGB_MATRIX_LED_COUNT 66
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_PINWHEEL // Sets the default mode, if none has been set
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_PINWHEEL // Sets the default mode, if none has been set
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -114,13 +109,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif
 
-#ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A { B12 }
-#define ENCODERS_PAD_B { B13 }
-#define ENCODER_RESOLUTION 4
 #define TAP_CODE_DELAY 10
-#endif
-
-#define LED_NUM_LOCK_PIN A0
-#define LED_CAPS_LOCK_PIN C14
-#define LED_SCROLL_LOCK_PIN C15

@@ -91,8 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FS] = LAYOUT_ortho_5x15( /* FUNCTION */
         _______, RGB_VAI, BL_BRTG, _______, _______, _______, _______, _______, _______, _______, KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS, _______,
-        RGB_HUI, RGB_VAD, BL_INC,  _______, _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   _______, _______,
-        RGB_HUD, RGB_RMOD,BL_DEC,  KC_VOLU, _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   _______, QK_BOOT,
+        RGB_HUI, RGB_VAD, BL_UP,   _______, _______, _______, _______, _______, _______, _______, KC_P7,   KC_P8,   KC_P9,   _______, _______,
+        RGB_HUD, RGB_RMOD,BL_DOWN, KC_VOLU, _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   _______, QK_BOOT,
         RGB_SAI, RGB_MOD, BL_STEP, KC_VOLD, _______, _______, _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, _______,
         RGB_SAD, RGB_TOG, BL_TOGG, KC_MUTE, _______, _______, _______, _______, _______, TO(_FN), TO(_QW), KC_P0,   KC_PDOT, KC_DOT,  _______
     )

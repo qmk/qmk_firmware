@@ -18,11 +18,11 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ortho_2x3(
-        KC_CAPSLOCK,  MO(1), KC_PGUP,
+        KC_CAPS,  MO(1), KC_PGUP,
         KC_DEL,  KC_END,  KC_PGDN
     ),
     [1] = LAYOUT_ortho_2x3(
-        KC_CAPSLOCK,  MO(1), KC_PGUP,
+        KC_CAPS,  MO(1), KC_PGUP,
         KC_DEL,  KC_END,  KC_PGDN
     ),
 

@@ -19,11 +19,8 @@
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 // Auto Shift
 #define NO_AUTO_SHIFT_ALPHA
@@ -77,7 +74,7 @@
 #    undef ENABLE_RGB_MATRIX_CYCLE_SPIRAL
 #    undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 
-#    undef RGB_MATRIX_STARTUP_MODE
+#    undef RGB_MATRIX_DEFAULT_MODE
 
 #    define RGBLIGHT_HUE_STEP 20
 

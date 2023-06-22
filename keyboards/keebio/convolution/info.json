@@ -1,0 +1,18 @@
+{
+    "manufacturer": "Keebio",
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
+    "usb": {
+        "vid": "0xCB10"
+    },
+    "features": {
+        "command": false,
+        "console": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "unicode": false,
+        "backlight": false
+    },
+    "layout_aliases": {"LAYOUT": "LAYOUT_all"}
+}

@@ -17,7 +17,6 @@
 #pragma once
 
 #ifdef RGBLIGHT_ENABLE
-// #    define RGBLIGHT_ANIMATIONS
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 16
 #    define RGBLIGHT_VAL_STEP 16
@@ -31,14 +30,9 @@
 // -- used for tap dance and other tap mods
 #    define TAPPING_TERM 175
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-#    define IGNORE_MOD_TAP_INTERRUPT
-
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#    define TAPPING_FORCE_HOLD
+#    define QUICK_TAP_TERM 0
 
 #endif
 
-
-#define COMBO_COUNT 3
 #define COMBO_TERM 40

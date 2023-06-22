@@ -26,6 +26,11 @@ typedef union {
 
 user_config_t user_config;
 
+enum custom_keycodes {
+    USER00 = QK_KB_0,
+    USER01
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[0] = LAYOUT(
@@ -104,7 +109,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (user_config.top_rgb_change)
     {
@@ -125,4 +130,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             RGB_MATRIX_INDICATOR_SET_COLOR(i, 0, 0, 0);
         }
     }
+    return false;
 }

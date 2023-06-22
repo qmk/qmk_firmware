@@ -45,7 +45,7 @@ bool process_record_gdb(uint16_t keycode, keyrecord_t *record) {
             break;
         case M_GDB_RESTART:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL(SS_LSFT(SS_TAP(X_F5))));
+                SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_F5))));
             }
             break;
         case M_GDB_STOP:

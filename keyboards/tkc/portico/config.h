@@ -17,23 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-#define MATRIX_ROW_PINS { B6, C6, C7, F7, D2 }
-#define MATRIX_COL_PINS { D3, D5, D4, D6, D7, B4, B5, F6, F5, F4, F1, B0, B1, B2, B3 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT 4
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 26
-#    define DEBOUNCE 3
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    undef ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
@@ -58,12 +44,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define DRIVER_COUNT 2
 #    define DRIVER_1_LED_TOTAL 36
 #    define DRIVER_2_LED_TOTAL 31
-#    define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#    define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 #else
 // IS31FL3731 driver
 #define DRIVER_COUNT 2
-#define DRIVER_LED_TOTAL 67
+#define RGB_MATRIX_LED_COUNT 67
 
 #define RGB_BACKLIGHT_ENABLED 1
 
@@ -115,6 +101,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // dynamic keymaps start after this.
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
 
-// VIA lighting is handled by the keyboard-level code
-#define VIA_CUSTOM_LIGHTING_ENABLE
 #endif

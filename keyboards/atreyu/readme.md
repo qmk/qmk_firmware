@@ -4,7 +4,7 @@
 
 An unsplit, modified version of a Lily58 having a baby with a Sofle keyboard
 
-* Keyboard Maintainer: [Jesus Climent](https://github.com/Jesus Climent)
+* Keyboard Maintainer: [Jesus Climent](https://github.com/climent)
 * Hardware Supported: AtreyuKeyboard PCB, ProMicro
 * Hardware Availability: [PCB and case data](https://github.com/climent/atreyu)
 

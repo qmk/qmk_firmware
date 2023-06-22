@@ -8,10 +8,20 @@
         "pid": "0x0A01",
         "device_version": "0.0.5"
     },
+    "matrix_pins": {
+        "cols": ["F1"],
+        "rows": ["F0"]
+    },
+    "ws2812": {
+        "pin": "B6"
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 0, "y": 0, "w": 4, "h": 4}
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 4, "h": 4}
             ]
         }
     }

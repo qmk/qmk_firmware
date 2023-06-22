@@ -8,11 +8,8 @@
 
 #define TAPPING_TERM 200 // time of holding key, milliseconds
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 // Mouse key speed and acceleration.
 #undef MOUSEKEY_DELAY
@@ -27,7 +24,6 @@
 #define MOUSEKEY_TIME_TO_MAX    64
 
 //  The firmware is too large!
-#define COMBO_COUNT 1 // number of combo
 #define COMBO_TERM 80 // timeout period for combos to 40ms.
 
 //disable broken animations
@@ -51,6 +47,6 @@
 #    undef ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 #    undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #    undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
-#    undef RGB_MATRIX_STARTUP_MODE
+#    undef RGB_MATRIX_DEFAULT_MODE
 // #    define RGBLIGHT_HUE_STEP 20
 #endif

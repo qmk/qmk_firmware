@@ -17,25 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-#define MATRIX_ROW_PINS { B6, C6, C7, F7, D2 }
-#define MATRIX_COL_PINS { D3, D5, D4, D6, D7, B4, B5, F6, F5, F4, F1, B0, B1, B2, B3 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
 #define DRIVER_ADDR_1 0b0110000
 #define DRIVER_COUNT 1
 #define DRIVER_1_LED_TOTAL 82
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #define DRIVER_INDICATOR_LED_TOTAL 0
 #define RGB_MATRIX_CENTER { 116, 32 }
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 175

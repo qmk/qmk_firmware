@@ -1,5 +1,5 @@
 // Copyright 2021 Paul Cotter (@gr1mr3aver)
-// Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2021-2023 Nick Brassel (@tzarc)
 // Copyright 2022 David Hoelscher (@customMK)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -25,7 +25,7 @@ tft_panel_dc_reset_painter_device_t st7735_drivers[ST7735_NUM_DEVICES] = {0};
 
 #ifndef ST7735_NO_AUTOMATIC_OFFSETS
 static inline void st7735_automatic_viewport_offsets(painter_device_t device, painter_rotation_t rotation) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
 
     // clang-format off
     const struct {
@@ -49,7 +49,7 @@ static inline void st7735_automatic_viewport_offsets(painter_device_t device, pa
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 
-bool qp_st7735_init(painter_device_t device, painter_rotation_t rotation) {
+__attribute__((weak)) bool qp_st7735_init(painter_device_t device, painter_rotation_t rotation) {
     // clang-format off
     const uint8_t st7735_init_sequence[] = {
         // Command,                 Delay, N, Data[N]
@@ -82,7 +82,7 @@ bool qp_st7735_init(painter_device_t device, painter_rotation_t rotation) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver vtable
 
-const struct tft_panel_dc_reset_painter_driver_vtable_t st7735_driver_vtable = {
+const tft_panel_dc_reset_painter_driver_vtable_t st7735_driver_vtable = {
     .base =
         {
             .init            = qp_st7735_init,
@@ -93,6 +93,7 @@ const struct tft_panel_dc_reset_painter_driver_vtable_t st7735_driver_vtable = {
             .viewport        = qp_tft_panel_viewport,
             .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
             .append_pixels   = qp_tft_panel_append_pixels_rgb565,
+            .append_pixdata  = qp_tft_panel_append_pixdata,
         },
     .num_window_bytes   = 2,
     .swap_window_coords = false,
@@ -116,8 +117,8 @@ painter_device_t qp_st7735_make_spi_device(uint16_t panel_width, uint16_t panel_
     for (uint32_t i = 0; i < ST7735_NUM_DEVICES; ++i) {
         tft_panel_dc_reset_painter_device_t *driver = &st7735_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&st7735_driver_vtable;
-            driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
+            driver->base.driver_vtable         = (const painter_driver_vtable_t *)&st7735_driver_vtable;
+            driver->base.comms_vtable          = (const painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
             driver->base.rotation              = QP_ROTATION_0;
@@ -133,6 +134,12 @@ painter_device_t qp_st7735_make_spi_device(uint16_t panel_width, uint16_t panel_
             driver->spi_dc_reset_config.spi_config.mode            = spi_mode;
             driver->spi_dc_reset_config.dc_pin                     = dc_pin;
             driver->spi_dc_reset_config.reset_pin                  = reset_pin;
+
+            if (!qp_internal_register_device((painter_device_t)driver)) {
+                memset(driver, 0, sizeof(tft_panel_dc_reset_painter_device_t));
+                return NULL;
+            }
+
             return (painter_device_t)driver;
         }
     }

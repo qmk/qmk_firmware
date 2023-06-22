@@ -1,5 +1,8 @@
 name: Update feature branches after develop merge
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:

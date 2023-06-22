@@ -51,10 +51,9 @@
 
 // Firmware minimization
 
-// Commented to see if it helps stalls on clicky mode 
+// Commented to see if it helps stalls on clicky mode
 // #define NO_ACTION_ONESHOT
 // #undef LOCKING_SUPPORT_ENABLE
 // #undef LOCKING_RESYNC_ENABLE
 // #define NO_MUSIC_MODE
 // #define LAYER_STATE_8BIT        // Limits keymap to 8 layers
-// #undef RGBLIGHT_ANIMATIONS      // Removes rgb animations

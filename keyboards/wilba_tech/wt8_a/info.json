@@ -1,16 +1,33 @@
 {
-    "keyboard_name": "WT8-A", 
+    "keyboard_name": "WT8-A",
     "manufacturer": "wilba.tech",
-    "url": "https://wilba.tech", 
-    "maintainer": "Wilba", 
+    "url": "https://wilba.tech",
+    "maintainer": "Wilba",
     "usb": {
         "vid": "0x6582",
         "pid": "0x008A",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F4", "F1", "B2", "B6", "F6", "F7", "D5", "B4"],
+        "rows": ["E6"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-            "layout": [{"label":"x", "x":0, "y":0}, {"label":"x", "x":1, "y":0}, {"label":"x", "x":2, "y":0}, {"label":"x", "x":3, "y":0}, {"label":"x", "x":0, "y":1}, {"label":"x", "x":1, "y":1}, {"label":"x", "x":2, "y":1}, {"label":"x", "x":3, "y":1}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [0, 4], "x": 0, "y": 1},
+                {"matrix": [0, 5], "x": 1, "y": 1},
+                {"matrix": [0, 6], "x": 2, "y": 1},
+                {"matrix": [0, 7], "x": 3, "y": 1}
+            ]
         }
     }
 }

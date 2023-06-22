@@ -1,7 +1,7 @@
 # Hey Emacs, this is a -*- makefile -*-
 #----------------------------------------------------------------------------
 
-# Enable vpath seraching for source files only
+# Enable vpath searching for source files only
 # Without this, output files, could be read from the wrong .build directories
 VPATH_SRC := $(VPATH)
 vpath %.c $(VPATH_SRC)
@@ -85,7 +85,7 @@ ifeq ($(strip $(DEBUG_ENABLE)),yes)
 endif
 CXXFLAGS += $(CXXDEFS)
 CXXFLAGS += -O$(OPT)
-# to supress "warning: only initialized variables can be placed into program memory area"
+# to suppress "warning: only initialized variables can be placed into program memory area"
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
@@ -152,6 +152,7 @@ endif
 # To produce a UF2 file in your build, add to your keyboard's rules.mk:
 #      FIRMWARE_FORMAT = uf2
 UF2CONV = $(TOP_DIR)/util/uf2conv.py
+UF2CONV_ARGS ?=
 UF2_FAMILY ?= 0x0
 
 # Compiler flags to generate dependency files.
@@ -218,8 +219,8 @@ gccversion :
 	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
-%.uf2: %.hex
-	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex --output $(BUILD_DIR)/$(TARGET).uf2 --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
+%.uf2: %.elf
+	$(eval CMD=$(HEX) $< $(BUILD_DIR)/$(TARGET).tmp && $(UF2CONV) $(UF2CONV_ARGS) $(BUILD_DIR)/$(TARGET).tmp --output $@ --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
 	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
 	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
@@ -332,6 +333,7 @@ $1/asflags.txt: $1/force
 	echo '$$($1_ASFLAGS)' | cmp -s - $$@ || echo '$$($1_ASFLAGS)' > $$@
 
 $1/compiler.txt: $1/force
+	test -f $$@ || touch $$@
 	$$(CC) --version | cmp -s - $$@ || $$(CC) --version > $$@
 endef
 

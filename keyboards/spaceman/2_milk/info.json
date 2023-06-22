@@ -8,9 +8,23 @@
     "pid": "0x3225",
     "device_version": "0.0.1"
   },
+  "ws2812": {
+    "pin": "B6"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "matrix_pins": {
+    "direct": [
+      ["D4"],
+      ["C6"]
+    ]
+  },
   "layouts": {
     "LAYOUT": {
-      "layout": [ {"x": 0, "y": 0 }, {"x": 0, "y": 1 }]
+      "layout": [
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 0, "y": 1, "matrix": [1, 0]}
+      ]
     }
   }
 }

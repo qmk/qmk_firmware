@@ -1,3 +1,6 @@
+// Copyright 2022 Artjoms Rizihs (@artjomsR)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 enum layer_names {

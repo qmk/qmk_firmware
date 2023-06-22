@@ -1,16 +1,31 @@
 {
-    "keyboard_name": "PRESS", 
+    "keyboard_name": "PRESS",
     "manufacturer": "Grid",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x7539",
         "device_version": "0.0.5"
     },
+    "matrix_pins": {
+        "cols": ["F1", "F4", "F5", "F6"],
+        "rows": ["F0"]
+    },
+    "ws2812": {
+        "pin": "B6"
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-            "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0}
+            ]
         }
     }
 }

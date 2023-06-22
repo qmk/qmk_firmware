@@ -8,7 +8,6 @@
 
 #include QMK_KEYBOARD_H
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define NUMB 2 // numbers/motion
@@ -71,9 +70,9 @@ KC_LSFT,              KC_Z,  KC_X,   KC_C,   KC_V, KC_B, OSM(MOD_LALT),       KC
  *                                 `--------------'                     `--------------'
  */
 [SYMB] = LAYOUT_gergo(
-KC_TRNS, KC_EXLM, KC_AT,  KC_HASH,KC_DLR, KC_PERC,                         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC__VOLUP,
-KC_TRNS, KC_LBRC, KC_RBRC, KC_LCBR,KC_RCBR, KC_PLUS, M1_STRING,             KC_TRNS,  KC_TRNS, KC_MINS, KC_UNDERSCORE, KC_PLUS, KC_EQL, KC__VOLDOWN,
-KC_TRNS, KC_GRV, KC_TILD,KC_TRNS,KC_TRNS, KC_EQL, M2_URL,                 KC_TRNS,  KC_TRNS, KC_TRNS,  KC_MEDIA_REWIND, KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_FAST_FORWARD, KC__MUTE,
+KC_TRNS, KC_EXLM, KC_AT,  KC_HASH,KC_DLR, KC_PERC,                         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_VOLU,
+KC_TRNS, KC_LBRC, KC_RBRC, KC_LCBR,KC_RCBR, KC_PLUS, M1_STRING,             KC_TRNS,  KC_TRNS, KC_MINS, KC_UNDERSCORE, KC_PLUS, KC_EQL, KC_VOLD,
+KC_TRNS, KC_GRV, KC_TILD,KC_TRNS,KC_TRNS, KC_EQL, M2_URL,                 KC_TRNS,  KC_TRNS, KC_TRNS,  KC_MEDIA_REWIND, KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_FAST_FORWARD, KC_MUTE,
 
                                                   KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS,
 

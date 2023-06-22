@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include "modifiers.h"
+
 /** \brief Action codes
  *
  * 16bit code: action_kind(4bit) + action_parameter(12bit)
@@ -160,25 +162,6 @@ typedef union {
 #define ACTION_TRANSPARENT 1
 #define ACTION(kind, param) ((kind) << 12 | (param))
 
-/** \brief Key Actions
- *
- * Mod bits:    43210
- *   bit 0      ||||+- Control
- *   bit 1      |||+-- Shift
- *   bit 2      ||+--- Alt
- *   bit 3      |+---- Gui
- *   bit 4      +----- LR flag(Left:0, Right:1)
- */
-enum mods_bit {
-    MOD_LCTL = 0x01,
-    MOD_LSFT = 0x02,
-    MOD_LALT = 0x04,
-    MOD_LGUI = 0x08,
-    MOD_RCTL = 0x11,
-    MOD_RSFT = 0x12,
-    MOD_RALT = 0x14,
-    MOD_RGUI = 0x18,
-};
 enum mods_codes {
     MODS_ONESHOT    = 0x00,
     MODS_TAP_TOGGLE = 0x01,
@@ -192,7 +175,11 @@ enum mods_codes {
 
 /** \brief Other Keys
  */
-enum usage_pages { PAGE_SYSTEM, PAGE_CONSUMER };
+enum usage_pages {
+    PAGE_SYSTEM,
+    PAGE_CONSUMER,
+};
+
 #define ACTION_USAGE_SYSTEM(id) ACTION(ACT_USAGE, PAGE_SYSTEM << 10 | (id))
 #define ACTION_USAGE_CONSUMER(id) ACTION(ACT_USAGE, PAGE_CONSUMER << 10 | (id))
 #define ACTION_MOUSEKEY(key) ACTION(ACT_MOUSEKEY, key)
