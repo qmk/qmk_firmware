@@ -1,6 +1,7 @@
 # Dactyl Maximus
 
-![KeycapLess](https://i.imgur.com/OJs3bkWh.jpg)
+![KeycapLess](https://i.imgur.com/OJs3bkWh.jpg)  
+*Thanks to [unit-5370](https://github.com/unit-5370) for image*
 
 The largest [Dactyl](/keyboards/handwired/dactyl/) variation available from a Dactyl generator. This variation is electronically more similar to the [Dactyl (Pro Micro)](/keyboards/handwired/dactyl_promicro/) as it requires two micro controllers, one per half, instead of the original implementation of one microcontroller and an I/O expander.
 
