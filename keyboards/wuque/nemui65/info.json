@@ -43,7 +43,6 @@
         },
         "max_brightness": 200,
         "led_count": 1,
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
         "sleep": true
