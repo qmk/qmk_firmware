@@ -140,7 +140,7 @@ void IS31FL_set_manual_scaling_buffer(void) {
 
 #    ifdef RGB_MATRIX_ENABLE
         if (scale.driver >= 0 && scale.driver < RGB_MATRIX_LED_COUNT) {
-            memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+            memcpy_P(&led, (&g_is31_leds[scale.driver]), sizeof(led));
 
             if (g_scaling_buffer[led.driver][led.r] = scale.r && g_scaling_buffer[led.driver][led.g] = scale.g && g_scaling_buffer[led.driver][led.b] = scale.b) {
                 return;
@@ -150,7 +150,7 @@ void IS31FL_set_manual_scaling_buffer(void) {
             g_scaling_buffer[led.driver][led.b] = scale.b;
 #    elif defined(LED_MATRIX_ENABLE)
         if (scale.driver >= 0 && scale.driver < LED_MATRIX_LED_COUNT) {
-            memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+            memcpy_P(&led, (&g_is31_leds[scale.driver]), sizeof(led));
 
             if (g_scaling_buffer[led.driver][led.v] == scale.v) {
                 return;
