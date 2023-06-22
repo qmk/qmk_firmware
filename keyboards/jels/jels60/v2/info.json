@@ -16,10 +16,17 @@
         "cols": ["GP24", "GP25", "GP23", "GP21", "GP22", "GP2", "GP1", "GP0", "GP6", "GP18", "GP19", "GP20", "GP9", "GP8"],
         "rows": ["GP26", "GP27", "GP3", "GP4", "GP5"]
     },
+    "ws2812": {
+        "pin": "GP29",
+        "driver": "vendor"
+    },
     "rgblight": {
         "led_count": 22,
-        "pin": "GP29",
         "sleep": true,
+        "hue_steps": 8,
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "max_brightness": 255,
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -31,11 +38,10 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
-        },
-        "hue_steps": 8,
-        "saturation_steps": 8,
-        "brightness_steps": 8,
-        "max_brightness": 255
+        }
+    },
+    "indicators": {
+        "caps_lock": "GP28"
     },
     "debounce": 5
 }

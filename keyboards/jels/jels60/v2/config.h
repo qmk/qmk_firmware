@@ -1,4 +1,4 @@
- /* Copyright 2022 Joah Nelson (Jels)
+/* Copyright 2022 Joah Nelson (Jels)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,15 +16,9 @@
 
 #pragma once
 
-/*Define Matrix Pins */
-
-// Caps lock Pin
-#define LED_CAPS_LOCK_PIN GP28
-
 #define WS2812_PIO_USE_PIO1
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
