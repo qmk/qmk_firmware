@@ -16,16 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Define Matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
-
-/*Define Matrix Pins */
-#define MATRIX_ROW_PINS {B5, B4, B3, B2, B1, B0, B6, B7}
-#define MATRIX_COL_PINS {A0, A1, A2, A3, A4, A5, C5, C4, C3, C2, D7, C6, C7, A7, A6}
-    
 #define RGBLED_NUM 20  // Number of LEDs
 // RGB effects
 #define RGBLIGHT_EFFECT_BREATHING
@@ -38,12 +28,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 3
-
-#define LED_CAPS_LOCK_PIN D1 
-#define LED_SCROLL_LOCK_PIN D6 

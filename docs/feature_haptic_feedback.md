@@ -32,21 +32,21 @@ The following `config.h` settings are available for all types of haptic feedback
 
 Not all keycodes below will work depending on which haptic mechanism you have chosen.
 
-| Name      | Description                                           |
-|-----------|-------------------------------------------------------|
-|`HPT_ON`   | Turn haptic feedback on                               |
-|`HPT_OFF`  | Turn haptic feedback off                              |
-|`HPT_TOG`  | Toggle haptic feedback on/off                         |
-|`HPT_RST`  | Reset haptic feedback config to default               |
-|`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |
-|`HPT_BUZ`  | Toggle solenoid buzz on/off                           |
-|`HPT_MODI` | Go to next DRV2605L waveform                          |
-|`HPT_MODD` | Go to previous DRV2605L waveform                      |
-|`HPT_CONT` | Toggle continuous haptic mode on/off                  |
-|`HPT_CONI` | Increase DRV2605L continous haptic strength           |
-|`HPT_COND` | Decrease DRV2605L continous haptic strength           |
-|`HPT_DWLI` | Increase Solenoid dwell time                          |
-|`HPT_DWLD` | Decrease Solenoid dwell time                          |
+| Key                         | Aliases | Description                                           |
+|-----------------------------|---------|-------------------------------------------------------|
+|`QK_HAPTIC_ON`               |`HF_ON`  | Turn haptic feedback on                               |
+|`QK_HAPTIC_OFF`              |`HF_OFF` | Turn haptic feedback off                              |
+|`QK_HAPTIC_TOGGLE`           |`HF_TOGG`| Toggle haptic feedback on/off                         |
+|`QK_HAPTIC_RESET`            |`HF_RST` | Reset haptic feedback config to default               |
+|`QK_HAPTIC_FEEDBACK_TOGGLE`  |`HF_FDBK`| Toggle feedback to occur on keypress, release or both |
+|`QK_HAPTIC_BUZZ_TOGGLE`      |`HF_BUZZ`| Toggle solenoid buzz on/off                           |
+|`QK_HAPTIC_MODE_NEXT`        |`HF_NEXT`| Go to next DRV2605L waveform                          |
+|`QK_HAPTIC_MODE_PREVIOUS`    |`HF_PREV`| Go to previous DRV2605L waveform                      |
+|`QK_HAPTIC_CONTINUOUS_TOGGLE`|`HF_CONT`| Toggle continuous haptic mode on/off                  |
+|`QK_HAPTIC_CONTINUOUS_UP`    |`HF_CONU`| Increase DRV2605L continous haptic strength           |
+|`QK_HAPTIC_CONTINUOUS_DOWN`  |`HF_COND`| Decrease DRV2605L continous haptic strength           |
+|`QK_HAPTIC_DWELL_UP`         |`HF_DWLU`| Increase Solenoid dwell time                          |
+|`QK_HAPTIC_DWELL_DOWN`       |`HF_DWLD`| Decrease Solenoid dwell time                          |
 
 ### Solenoids
 
@@ -68,8 +68,8 @@ For relay switches, the hardware may already contain all of that ciruitry, and j
 |`SOLENOID_DEFAULT_DWELL`    | `12` ms              |Configures the default dwell time for the switch.             |
 |`SOLENOID_MIN_DWELL`        | `4` ms               |Sets the lower limit for the dwell.                           |
 |`SOLENOID_MAX_DWELL`        | `100` ms             |Sets the upper limit for the dwell.                           |
-|`SOLENOID_DWELL_STEP_SIZE`  | `1` ms               |The step size to use when `HPT_DWL*` keycodes are sent.       |
-|`SOLENOID_DEFAULT_BUZZ`     | `0` (disabled)       |On HPT_RST buzz is set "on" if this is "1"                    |
+|`SOLENOID_DWELL_STEP_SIZE`  | `1` ms               |The step size to use when `HF_DWL*` keycodes are sent.        |
+|`SOLENOID_DEFAULT_BUZZ`     | `0` (disabled)       |On `HF_RST` buzz is set "on" if this is "1"                   |
 |`SOLENOID_BUZZ_ACTUATED`    | `SOLENOID_MIN_DWELL` |Actuated-time when the switch is in buzz mode.                |
 |`SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` |Non-Actuated-time when the switch is in buzz mode.            |
 
@@ -178,7 +178,7 @@ If haptic feedback is enabled, the keyboard will vibrate to a specific sequence 
 ```
 #define DRV_MODE_DEFAULT *sequence name or number*
 ```
-This will set what sequence HPT_RST will set as the active mode. If not defined, mode will be set to 1 when HPT_RST is pressed.
+This will set what sequence `HF_RST` will set as the active mode. If not defined, mode will be set to 1 when `HF_RST` is pressed.
 
 ### DRV2605L Continuous Haptic Mode
 

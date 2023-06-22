@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "keyboard.h"
 #include "matrix.h"
-#include "keymap.h"
+#include "keymap_introspection.h"
 #include "magic.h"
 #include "host.h"
 #include "led.h"
@@ -66,9 +66,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef JOYSTICK_ENABLE
 #    include "process_joystick.h"
 #endif
-#ifdef PROGRAMMABLE_BUTTON_ENABLE
-#    include "programmable_button.h"
-#endif
 #ifdef HD44780_ENABLE
 #    include "hd44780.h"
 #endif
@@ -93,9 +90,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(CRC_ENABLE)
 #    include "crc.h"
 #endif
-#ifdef DIGITIZER_ENABLE
-#    include "digitizer.h"
-#endif
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
 #endif
@@ -106,10 +100,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "split_util.h"
 #endif
 #ifdef BLUETOOTH_ENABLE
-#    include "outputselect.h"
+#    include "bluetooth.h"
 #endif
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word.h"
+#endif
+#ifdef LEADER_ENABLE
+#    include "leader.h"
 #endif
 
 static uint32_t last_input_modification_time = 0;
@@ -117,7 +114,7 @@ uint32_t        last_input_activity_time(void) {
     return last_input_modification_time;
 }
 uint32_t last_input_activity_elapsed(void) {
-    return timer_elapsed32(last_input_modification_time);
+    return sync_timer_elapsed32(last_input_modification_time);
 }
 
 static uint32_t last_matrix_modification_time = 0;
@@ -125,10 +122,10 @@ uint32_t        last_matrix_activity_time(void) {
     return last_matrix_modification_time;
 }
 uint32_t last_matrix_activity_elapsed(void) {
-    return timer_elapsed32(last_matrix_modification_time);
+    return sync_timer_elapsed32(last_matrix_modification_time);
 }
 void last_matrix_activity_trigger(void) {
-    last_matrix_modification_time = last_input_modification_time = timer_read32();
+    last_matrix_modification_time = last_input_modification_time = sync_timer_read32();
 }
 
 static uint32_t last_encoder_modification_time = 0;
@@ -136,10 +133,28 @@ uint32_t        last_encoder_activity_time(void) {
     return last_encoder_modification_time;
 }
 uint32_t last_encoder_activity_elapsed(void) {
-    return timer_elapsed32(last_encoder_modification_time);
+    return sync_timer_elapsed32(last_encoder_modification_time);
 }
 void last_encoder_activity_trigger(void) {
-    last_encoder_modification_time = last_input_modification_time = timer_read32();
+    last_encoder_modification_time = last_input_modification_time = sync_timer_read32();
+}
+
+static uint32_t last_pointing_device_modification_time = 0;
+uint32_t        last_pointing_device_activity_time(void) {
+    return last_pointing_device_modification_time;
+}
+uint32_t last_pointing_device_activity_elapsed(void) {
+    return sync_timer_elapsed32(last_pointing_device_modification_time);
+}
+void last_pointing_device_activity_trigger(void) {
+    last_pointing_device_modification_time = last_input_modification_time = sync_timer_read32();
+}
+
+void set_activity_timestamps(uint32_t matrix_timestamp, uint32_t encoder_timestamp, uint32_t pointing_device_timestamp) {
+    last_matrix_modification_time          = matrix_timestamp;
+    last_encoder_modification_time         = encoder_timestamp;
+    last_pointing_device_modification_time = pointing_device_timestamp;
+    last_input_modification_time           = MAX(matrix_timestamp, MAX(encoder_timestamp, pointing_device_timestamp));
 }
 
 // Only enable this if console is enabled to print to
@@ -170,14 +185,13 @@ uint32_t get_matrix_scan_rate(void) {
 #endif
 
 #ifdef MATRIX_HAS_GHOST
-extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
-static matrix_row_t   get_real_keys(uint8_t row, matrix_row_t rowdata) {
+static matrix_row_t get_real_keys(uint8_t row, matrix_row_t rowdata) {
     matrix_row_t out = 0;
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         // read each key in the row data and check if the keymap defines it as a real key
-        if (pgm_read_byte(&keymaps[0][row][col]) && (rowdata & (1 << col))) {
+        if (keycode_at_keymap_location(0, row, col) && (rowdata & (((matrix_row_t)1) << col))) {
             // this creates new row data, if a key is defined in the keymap, it will be set here
-            out |= 1 << col;
+            out |= ((matrix_row_t)1) << col;
         }
     }
     return out;
@@ -212,6 +226,12 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata) {
     return false;
 }
 
+#else
+
+static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata) {
+    return false;
+}
+
 #endif
 
 /** \brief matrix_setup
@@ -239,7 +259,7 @@ __attribute__((weak)) void keyboard_pre_init_kb(void) {
  * FIXME: needs doc
  */
 
-__attribute__((weak)) void keyboard_post_init_user() {}
+__attribute__((weak)) void keyboard_post_init_user(void) {}
 
 /** \brief keyboard_post_init_kb
  *
@@ -248,6 +268,14 @@ __attribute__((weak)) void keyboard_post_init_user() {}
 
 __attribute__((weak)) void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
+}
+
+/** \brief matrix_can_read
+ *
+ * Allows overriding when matrix scanning operations should be executed.
+ */
+__attribute__((weak)) bool matrix_can_read(void) {
+    return true;
 }
 
 /** \brief keyboard_setup
@@ -340,9 +368,6 @@ void quantum_init(void) {
 #ifdef HAPTIC_ENABLE
     haptic_init();
 #endif
-#if defined(BLUETOOTH_ENABLE) && defined(OUTPUT_AUTO_ENABLE)
-    set_output(OUTPUT_AUTO);
-#endif
 }
 
 /** \brief keyboard_init
@@ -357,6 +382,9 @@ void keyboard_init(void) {
 #endif
 #ifdef SPLIT_KEYBOARD
     split_pre_init();
+#endif
+#ifdef ENCODER_ENABLE
+    encoder_init();
 #endif
     matrix_init();
     quantum_init();
@@ -378,14 +406,8 @@ void keyboard_init(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
 #endif
-#ifdef ENCODER_ENABLE
-    encoder_init();
-#endif
-#ifdef STENO_ENABLE
+#ifdef STENO_ENABLE_ALL
     steno_init();
-#endif
-#ifdef POINTING_DEVICE_ENABLE
-    pointing_device_init();
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
@@ -402,6 +424,13 @@ void keyboard_init(void) {
 #endif
 #ifdef SPLIT_KEYBOARD
     split_post_init();
+#endif
+#ifdef POINTING_DEVICE_ENABLE
+    // init after split init
+    pointing_device_init();
+#endif
+#ifdef BLUETOOTH_ENABLE
+    bluetooth_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -425,64 +454,78 @@ void switch_events(uint8_t row, uint8_t col, bool pressed) {
 #endif
 }
 
-/** \brief Perform scan of keyboard matrix
- *
- * Any detected changes in state are sent out as part of the processing
+/**
+ * @brief Generates a tick event at a maximum rate of 1KHz that drives the
+ * internal QMK state machine.
  */
-bool matrix_scan_task(void) {
-    static matrix_row_t matrix_prev[MATRIX_ROWS];
-    matrix_row_t        matrix_row    = 0;
-    matrix_row_t        matrix_change = 0;
-#ifdef QMK_KEYS_PER_SCAN
-    uint8_t keys_processed = 0;
-#endif
-
-    uint8_t matrix_changed = matrix_scan();
-    if (matrix_changed) last_matrix_activity_trigger();
-
-    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-        matrix_row    = matrix_get_row(r);
-        matrix_change = matrix_row ^ matrix_prev[r];
-        if (matrix_change) {
-#ifdef MATRIX_HAS_GHOST
-            if (has_ghost_in_row(r, matrix_row)) {
-                continue;
-            }
-#endif
-            if (debug_matrix) matrix_print();
-            matrix_row_t col_mask = 1;
-            for (uint8_t c = 0; c < MATRIX_COLS; c++, col_mask <<= 1) {
-                if (matrix_change & col_mask) {
-                    if (should_process_keypress()) {
-                        action_exec((keyevent_t){
-                            .key = (keypos_t){.row = r, .col = c}, .pressed = (matrix_row & col_mask), .time = (timer_read() | 1) /* time should not be 0 */
-                        });
-                    }
-                    // record a processed key
-                    matrix_prev[r] ^= col_mask;
-
-                    switch_events(r, c, (matrix_row & col_mask));
-
-#ifdef QMK_KEYS_PER_SCAN
-                    // only jump out if we have processed "enough" keys.
-                    if (++keys_processed >= QMK_KEYS_PER_SCAN)
-#endif
-                        // process a key per task call
-                        goto MATRIX_LOOP_END;
-                }
-            }
-        }
+static inline void generate_tick_event(void) {
+    static uint16_t last_tick = 0;
+    const uint16_t  now       = timer_read();
+    if (TIMER_DIFF_16(now, last_tick) != 0) {
+        action_exec(MAKE_TICK_EVENT);
+        last_tick = now;
     }
-    // call with pseudo tick event when no real key event.
-#ifdef QMK_KEYS_PER_SCAN
-    // we can get here with some keys processed now.
-    if (!keys_processed)
-#endif
-        action_exec(TICK_EVENT);
+}
 
-MATRIX_LOOP_END:
+/**
+ * @brief This task scans the keyboards matrix and processes any key presses
+ * that occur.
+ *
+ * @return true Matrix did change
+ * @return false Matrix didn't change
+ */
+static bool matrix_task(void) {
+    if (!matrix_can_read()) {
+        generate_tick_event();
+        return false;
+    }
+
+    static matrix_row_t matrix_previous[MATRIX_ROWS];
+
+    matrix_scan();
+    bool matrix_changed = false;
+    for (uint8_t row = 0; row < MATRIX_ROWS && !matrix_changed; row++) {
+        matrix_changed |= matrix_previous[row] ^ matrix_get_row(row);
+    }
 
     matrix_scan_perf_task();
+
+    // Short-circuit the complete matrix processing if it is not necessary
+    if (!matrix_changed) {
+        generate_tick_event();
+        return matrix_changed;
+    }
+
+    if (debug_config.matrix) {
+        matrix_print();
+    }
+
+    const bool process_keypress = should_process_keypress();
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        const matrix_row_t current_row = matrix_get_row(row);
+        const matrix_row_t row_changes = current_row ^ matrix_previous[row];
+
+        if (!row_changes || has_ghost_in_row(row, current_row)) {
+            continue;
+        }
+
+        matrix_row_t col_mask = 1;
+        for (uint8_t col = 0; col < MATRIX_COLS; col++, col_mask <<= 1) {
+            if (row_changes & col_mask) {
+                const bool key_pressed = current_row & col_mask;
+
+                if (process_keypress) {
+                    action_exec(MAKE_KEYEVENT(row, col, key_pressed));
+                }
+
+                switch_events(row, col, key_pressed);
+            }
+        }
+
+        matrix_previous[row] = current_row;
+    }
+
     return matrix_changed;
 }
 
@@ -536,6 +579,10 @@ void quantum_task(void) {
     combo_task();
 #endif
 
+#ifdef LEADER_ENABLE
+    leader_task();
+#endif
+
 #ifdef WPM_ENABLE
     decay_wpm();
 #endif
@@ -561,22 +608,19 @@ void quantum_task(void) {
 #endif
 }
 
-/** \brief Keyboard task: Do keyboard routine jobs
- *
- * Do routine keyboard jobs:
- *
- * * scan matrix
- * * handle mouse movements
- * * handle midi commands
- * * light LEDs
- *
- * This is repeatedly called as fast as possible.
- */
+/** \brief Main task that is repeatedly called as fast as possible. */
 void keyboard_task(void) {
-    bool matrix_changed = matrix_scan_task();
-    (void)matrix_changed;
+    __attribute__((unused)) bool activity_has_occurred = false;
+    if (matrix_task()) {
+        last_matrix_activity_trigger();
+        activity_has_occurred = true;
+    }
 
     quantum_task();
+
+#if defined(SPLIT_WATCHDOG_ENABLE)
+    split_watchdog_task();
+#endif
 
 #if defined(RGBLIGHT_ENABLE)
     rgblight_task();
@@ -596,19 +640,24 @@ void keyboard_task(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-    bool encoders_changed = encoder_read();
-    if (encoders_changed) last_encoder_activity_trigger();
+    if (encoder_read()) {
+        last_encoder_activity_trigger();
+        activity_has_occurred = true;
+    }
+#endif
+
+#ifdef POINTING_DEVICE_ENABLE
+    if (pointing_device_task()) {
+        last_pointing_device_activity_trigger();
+        activity_has_occurred = true;
+    }
 #endif
 
 #ifdef OLED_ENABLE
     oled_task();
 #    if OLED_TIMEOUT > 0
     // Wake up oled if user is using those fabulous keys or spinning those encoders!
-#        ifdef ENCODER_ENABLE
-    if (matrix_changed || encoders_changed) oled_on();
-#        else
-    if (matrix_changed) oled_on();
-#        endif
+    if (activity_has_occurred) oled_on();
 #    endif
 #endif
 
@@ -616,11 +665,7 @@ void keyboard_task(void) {
     st7565_task();
 #    if ST7565_TIMEOUT > 0
     // Wake up display if user is using those fabulous keys or spinning those encoders!
-#        ifdef ENCODER_ENABLE
-    if (matrix_changed || encoders_changed) st7565_on();
-#        else
-    if (matrix_changed) st7565_on();
-#        endif
+    if (activity_has_occurred) st7565_on();
 #    endif
 #endif
 
@@ -631,10 +676,6 @@ void keyboard_task(void) {
 
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_task();
-#endif
-
-#ifdef POINTING_DEVICE_ENABLE
-    pointing_device_task();
 #endif
 
 #ifdef MIDI_ENABLE
@@ -651,12 +692,8 @@ void keyboard_task(void) {
     joystick_task();
 #endif
 
-#ifdef DIGITIZER_ENABLE
-    digitizer_task();
-#endif
-
-#ifdef PROGRAMMABLE_BUTTON_ENABLE
-    programmable_button_send();
+#ifdef BLUETOOTH_ENABLE
+    bluetooth_task();
 #endif
 
     led_task();

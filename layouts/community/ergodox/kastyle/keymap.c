@@ -1,5 +1,5 @@
 /* Setup to approximate a Kinesis Advantage with an eye to use in a
- * Mac/OSX environment 
+ * Mac/OSX environment
  * This version adds a hand swap feature to flip the keyboard */
 #include QMK_KEYBOARD_H
 #include "debug.h"
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMB] = LAYOUT_ergodox(
        // left hand
        KC_PSCR, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
-       KC_SLCK, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE, KC_TRNS,
+       KC_SCRL, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE, KC_TRNS,
        KC_PAUS, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,
        KC_TRNS, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -143,7 +143,7 @@ LAYOUT_ergodox(
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

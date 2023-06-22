@@ -17,15 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-#define L1_NUM1 PROGRAMMABLE_BUTTON_1
-#define L1_NUM2 PROGRAMMABLE_BUTTON_2
-#define L1_NUM3 PROGRAMMABLE_BUTTON_3
-#define L1_NUM4 PROGRAMMABLE_BUTTON_4
-#define L1_NUM5 PROGRAMMABLE_BUTTON_5
-#define L1_NUM6 PROGRAMMABLE_BUTTON_6
-#define L1_NUM7 PROGRAMMABLE_BUTTON_7
-#define L1_NUM8 PROGRAMMABLE_BUTTON_8
-#define L1_NUM9 PROGRAMMABLE_BUTTON_9
+#define L1_NUM1 QK_PROGRAMMABLE_BUTTON_1
+#define L1_NUM2 QK_PROGRAMMABLE_BUTTON_2
+#define L1_NUM3 QK_PROGRAMMABLE_BUTTON_3
+#define L1_NUM4 QK_PROGRAMMABLE_BUTTON_4
+#define L1_NUM5 QK_PROGRAMMABLE_BUTTON_5
+#define L1_NUM6 QK_PROGRAMMABLE_BUTTON_6
+#define L1_NUM7 QK_PROGRAMMABLE_BUTTON_7
+#define L1_NUM8 QK_PROGRAMMABLE_BUTTON_8
+#define L1_NUM9 QK_PROGRAMMABLE_BUTTON_9
 #else
 #define L1_NUM1 _______
 #define L1_NUM2 _______
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT(
         _______, KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24, RGB_TOG,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,            _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
         _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______
@@ -73,19 +73,20 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 static void set_rgb_side_leds(void);
 
-static void set_rgb_side_leds() {
+static void set_rgb_side_leds(void) {
     rgb_matrix_set_color(67, RGB_WHITE); // Left side LED 1
     rgb_matrix_set_color(68, RGB_WHITE); // Right side LED 1
     rgb_matrix_set_color(91, RGB_WHITE); // Left side LED 8
     rgb_matrix_set_color(92, RGB_WHITE); // Right side LED 8
 }
 
-void rgb_matrix_indicators_user() {
+bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color_all(0x0, 0x0, 0x0);
-    if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(3, RGB_WHITE); // CAPS
     }
     set_rgb_side_leds();
+    return false;
 }
 
 #endif

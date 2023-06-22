@@ -11,8 +11,8 @@
 // Shortcut to make keymap more readable
 #define SYM_L    MO(_SYMB)
 #define KC_ALES  LALT_T(KC_ESC)
-#define KC_L1SYM LT(_SYMB, KC_LANG1)
-#define KC_L2SYM LT(_SYMB, KC_LANG2)
+#define KC_L1SYM LT(_SYMB, KC_LNG1)
+#define KC_L2SYM LT(_SYMB, KC_LNG2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

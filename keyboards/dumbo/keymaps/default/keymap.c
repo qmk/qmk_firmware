@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *     ,-------------------------------------------.                            ,-------------------------------------------.
  *     |   TAB  |      |      |      | QK_BOOT|      |                            |      |      |      |      |      |  ESC   |
  *     |--------+------+------+------+------+------|                            |------+------+------+------+------+--------|
- *     |   CTRL |      |      | DEBUG|      |      |                            |      |      |      |      |      |        |
+ *     |   CTRL |      |      |DB_TOGG|      |      |                            |      |      |      |      |      |        |
  *     |--------+------+------+------+------+------|                            |------+------+------+------+------+--------|
  *     | LShift |      |      |      |      |      |                            |      |      |      |      |      |  SHIFT |
  *     `------------------------⫟------⫟------⫟------⫟------.         ,-----⫟------⫟------⫟------⫟-------------------------'
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //,-----------------------------------------------------.                            ,-----------------------------------------------------.
         KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX,   QK_BOOT, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,
    //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
-       KC_LCTL, XXXXXXX, XXXXXXX,   DEBUG, XXXXXXX, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+       KC_LCTL, XXXXXXX, XXXXXXX, DB_TOGG, XXXXXXX, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
    //|--------+--------+--------+--------+--------+--------|                            |--------+--------+--------+--------+--------+--------|
        KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                              XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RSFT,
    //|--------+--------+-----------⫟--------⫟--------⫟--------⫟--------.   .--------⫟--------⫟--------⫟--------⫟-----------+--------+--------|

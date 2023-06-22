@@ -4,7 +4,7 @@
     "url": "",
     "maintainer": "xia0",
     "processor": "atmega32u4",
-    "debounce": 5,
+    "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
     "audio": false,

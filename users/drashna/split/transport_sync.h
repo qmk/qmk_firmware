@@ -6,7 +6,6 @@
 #include "drashna.h"
 #ifdef OLED_ENABLE
 #    include "oled/oled_stuff.h"
-extern char keylog_str[OLED_KEYLOGGER_LENGTH];
 #endif
 
 typedef union {
@@ -19,6 +18,7 @@ typedef union {
         bool    swap_hands           :1;
         bool    host_driver_disabled :1;
         uint8_t unicode_typing_mode  :3;
+        bool    is_oled_enabled      :1;
     };
 } user_runtime_config_t;
 

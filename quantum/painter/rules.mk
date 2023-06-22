@@ -2,17 +2,29 @@
 QUANTUM_PAINTER_DRIVERS ?=
 QUANTUM_PAINTER_ANIMATIONS_ENABLE ?= yes
 
+QUANTUM_PAINTER_LVGL_INTEGRATION ?= no
+
 # The list of permissible drivers that can be listed in QUANTUM_PAINTER_DRIVERS
-VALID_QUANTUM_PAINTER_DRIVERS := ili9163_spi ili9341_spi st7789_spi gc9a01_spi ssd1351_spi
+VALID_QUANTUM_PAINTER_DRIVERS := \
+	rgb565_surface \
+	ili9163_spi \
+	ili9341_spi \
+	ili9488_spi \
+	st7735_spi \
+	st7789_spi \
+	gc9a01_spi \
+	ssd1351_spi
 
 #-------------------------------------------------------------------------------
 
 OPT_DEFS += -DQUANTUM_PAINTER_ENABLE
-COMMON_VPATH += $(QUANTUM_DIR)/painter
+COMMON_VPATH += $(QUANTUM_DIR)/painter \
+                $(QUANTUM_DIR)/unicode
 SRC += \
-    $(QUANTUM_DIR)/utf8.c \
+    $(QUANTUM_DIR)/unicode/utf8.c \
     $(QUANTUM_DIR)/color.c \
     $(QUANTUM_DIR)/painter/qp.c \
+    $(QUANTUM_DIR)/painter/qp_internal.c \
     $(QUANTUM_DIR)/painter/qp_stream.c \
     $(QUANTUM_DIR)/painter/qgf.c \
     $(QUANTUM_DIR)/painter/qff.c \
@@ -39,6 +51,13 @@ define handle_quantum_painter_driver
     ifeq ($$(filter $$(strip $$(CURRENT_PAINTER_DRIVER)),$$(VALID_QUANTUM_PAINTER_DRIVERS)),)
         $$(error "$$(CURRENT_PAINTER_DRIVER)" is not a valid Quantum Painter driver)
 
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),rgb565_surface)
+        OPT_DEFS += -DQUANTUM_PAINTER_RGB565_SURFACE_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/generic
+        SRC += \
+            $(DRIVER_PATH)/painter/generic/qp_rgb565_surface.c \
+
     else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ili9163_spi)
         QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
         QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET := yes
@@ -60,6 +79,28 @@ define handle_quantum_painter_driver
         SRC += \
             $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
             $(DRIVER_PATH)/painter/ili9xxx/qp_ili9341.c \
+
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ili9488_spi)
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_ILI9488_ENABLE -DQUANTUM_PAINTER_ILI9488_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/tft_panel \
+            $(DRIVER_PATH)/painter/ili9xxx
+        SRC += \
+            $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
+            $(DRIVER_PATH)/painter/ili9xxx/qp_ili9488.c \
+
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),st7735_spi)
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_ST7735_ENABLE -DQUANTUM_PAINTER_ST7735_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/tft_panel \
+            $(DRIVER_PATH)/painter/st77xx
+        SRC += \
+            $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
+            $(DRIVER_PATH)/painter/st77xx/qp_st7735.c
 
     else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),st7789_spi)
         QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
@@ -114,3 +155,7 @@ ifeq ($(strip $(QUANTUM_PAINTER_NEEDS_COMMS_SPI)), yes)
     endif
 endif
 
+# Check if LVGL needs to be enabled
+ifeq ($(strip $(QUANTUM_PAINTER_LVGL_INTEGRATION)), yes)
+	include $(QUANTUM_DIR)/painter/lvgl/rules.mk
+endif

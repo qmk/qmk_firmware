@@ -15,15 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "k_type.h"
-
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
 #include "is31fl3733-dual.h"
 
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, B_1,  A_1,  C_1  },
     { 0, B_2,  A_2,  C_2  },
     { 0, B_3,  A_3,  C_3  },
@@ -224,10 +223,10 @@ void matrix_init_kb(void) {
      * Since K20x is stuck with a 32 byte EEPROM (see tmk_core/common/chibios/eeprom_teensy.c),
      * and neither led_matrix_eeconfig.speed or .flags fit in this boundary, just force their values to default on boot.
      */
-#    if !defined(RGB_MATRIX_STARTUP_SPD)
-#        define RGB_MATRIX_STARTUP_SPD UINT8_MAX / 2
+#    if !defined(RGB_MATRIX_DEFAULT_SPD)
+#        define RGB_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #    endif
-    rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD),
+    rgb_matrix_set_speed(RGB_MATRIX_DEFAULT_SPD),
     rgb_matrix_set_flags(LED_FLAG_ALL);
 #endif
 

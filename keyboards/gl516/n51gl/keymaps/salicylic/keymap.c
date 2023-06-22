@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_rotary_layer(
   //,--------------------------------------------------------------|        |--------------------------------------------------------------.
-        RESET,  KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,LALT(KC_PSCR),KC_PSCR,
+        QK_BOOT,  KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,LALT(KC_PSCR),KC_PSCR,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
               KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_MOD, RGB_TOG, RGB_MOD, RGB_SAD, RGB_SAI, XXXXXXX, XXXXXXX, _______,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
@@ -111,7 +111,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         key.row = 1;
         key.col = 0;
     }
-    action_exec((keyevent_t){.key = key, .pressed = true, .time = (timer_read() | 1)});
-    action_exec((keyevent_t){.key = key, .pressed = false, .time = (timer_read() | 1)});
+    action_exec(MAKE_KEYEVENT(key.row, key.col, true));
+    action_exec(MAKE_KEYEVENT(key.row, key.col, false));
     return true;
 }

@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DRXXFN] = LAYOUT_65_ansi(
   KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_DEL,   KC_INS,
   DRXX  ,   RGB_RMOD, RGB_VAI,  RGB_MOD,  DRXX,     RGB_TOG,  DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     KC_PAUS,
-  DRXX,     RGB_SPD,  RGB_VAD,  RGB_SPI,  DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,               DRXX,     KC_SLCK,
+  DRXX,     RGB_SPD,  RGB_VAD,  RGB_SPI,  DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,               DRXX,     KC_SCRL,
   DRXX,     DRXX,     GUI_OFF,  GUI_ON,   DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,     DRXX,               DRXX,     KC_PSCR,
   DRXX,     DRXX,     DRXX,                         DRXX,                         DRXX,          DRXX,          DRXX,     DRXX,     DRXX,     DRXX),
 };

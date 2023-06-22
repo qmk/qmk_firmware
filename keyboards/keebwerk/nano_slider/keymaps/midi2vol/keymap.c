@@ -45,7 +45,7 @@ enum custom_layers {
     _DISCORD,  /* FXX unsused keys to interface with Discord: Mute , Silence */
     _LIGHTS,   /* Edits underglow and retroilumination */
     _EDIT,     /* Cut, Copy ,Paste */
-    _RESET,    /* Layer to set nano in bootloader mode */
+    _QK_BOOT,  /* Layer to set nano in bootloader mode */
     _TOOGLE,   /* Momentary layer to switch between layers */
 };
 
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_NAV] = LAYOUT(
         MO(_TOOGLE),
-        KC_SPC, KC_UP, KC_BSPACE,
+        KC_SPC, KC_UP, KC_BSPC,
         KC_LEFT, KC_DOWN, KC_RIGHT, KC_ENTER      
     ),
     [_VOLUME] = LAYOUT(
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_RESET] = LAYOUT(
         MO(_TOOGLE),
         KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, RESET 
+        KC_NO, KC_NO, KC_NO, QK_BOOT 
     ),
     [_TOOGLE] = LAYOUT(
         MO(_TOOGLE),

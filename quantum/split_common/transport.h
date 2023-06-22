@@ -114,13 +114,37 @@ typedef struct _split_slave_pointing_sync_t {
 } split_slave_pointing_sync_t;
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
+#if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+#    include "haptic.h"
+typedef struct _split_slave_haptic_sync_t {
+    haptic_config_t haptic_config;
+    uint8_t         haptic_play;
+} split_slave_haptic_sync_t;
+#endif // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+
+#if defined(SPLIT_ACTIVITY_ENABLE)
+#    include "keyboard.h"
+typedef struct _split_slave_activity_sync_t {
+    uint32_t matrix_timestamp;
+    uint32_t encoder_timestamp;
+    uint32_t pointing_device_timestamp;
+} split_slave_activity_sync_t;
+#endif // defined(SPLIT_ACTIVITY_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 typedef struct _rpc_sync_info_t {
-    int8_t  transaction_id;
-    uint8_t m2s_length;
-    uint8_t s2m_length;
+    uint8_t checksum;
+    struct {
+        int8_t  transaction_id;
+        uint8_t m2s_length;
+        uint8_t s2m_length;
+    } payload;
 } rpc_sync_info_t;
 #endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+
+#if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+#    include "os_detection.h"
+#endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 
 typedef struct _split_shared_memory_t {
 #ifdef USE_I2C
@@ -185,11 +209,27 @@ typedef struct _split_shared_memory_t {
     split_slave_pointing_sync_t pointing;
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
+#if defined(SPLIT_WATCHDOG_ENABLE)
+    bool watchdog_pinged;
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
+
+#if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+    split_slave_haptic_sync_t haptic_sync;
+#endif // defined(HAPTIC_ENABLE)
+
+#if defined(SPLIT_ACTIVITY_ENABLE)
+    split_slave_activity_sync_t activity_sync;
+#endif // defined(SPLIT_ACTIVITY_ENABLE)
+
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
     rpc_sync_info_t rpc_info;
     uint8_t         rpc_m2s_buffer[RPC_M2S_BUFFER_SIZE];
     uint8_t         rpc_s2m_buffer[RPC_S2M_BUFFER_SIZE];
 #endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+
+#if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+    os_variant_t detected_os;
+#endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 } split_shared_memory_t;
 
 extern split_shared_memory_t *const split_shmem;

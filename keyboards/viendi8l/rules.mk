@@ -1,11 +1,3 @@
-# MCU name
-MCU = STM32F401
-
-BOARD = GENERIC_STM32_F401XC
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,7 +9,6 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-WS2812_DRIVER = pwm
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 LTO_ENABLE = no

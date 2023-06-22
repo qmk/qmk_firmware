@@ -13,8 +13,8 @@
 
 #define KC_ALES LALT_T(KC_ESC)
 
-#define KC_L1SYM LT(_SYMB, KC_LANG1)
-#define KC_L2SYM LT(_SYMB, KC_LANG2)
+#define KC_L1SYM LT(_SYMB, KC_LNG1)
+#define KC_L2SYM LT(_SYMB, KC_LNG2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐                ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
      KC_GRV  ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_ESC  ,                 KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_MINS ,KC_BSPC ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,KC_LANG2,                 KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,JP_AT   ,JP_COLN ,
+     KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,KC_LNG2,                  KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,JP_AT   ,JP_COLN ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┘                └────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LCTL ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,                                   KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_ENT  ,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                                  ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                                  ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______ ,JP_LCBR ,JP_RCBR ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                                   KC_VOLU ,XXXXXXX ,XXXXXXX ,KC_LT   ,KC_GT   ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                ┌────────┼────────┼────────┴────────┼────────┼────────┼────────┤
-     _______ ,_______ ,KC_LT   ,KC_GT   ,KC_LANG2,_______ ,_______ ,                 KC_MUTE ,KC_VOLD ,KC_LANG1,_______ ,_______ ,_______ ,KC_DEL
+     _______ ,_______ ,KC_LT   ,KC_GT   ,KC_LNG2 ,_______ ,_______ ,                 KC_MUTE ,KC_VOLD ,KC_LNG1 ,_______ ,_______ ,_______ ,KC_DEL
   //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘                └────────┴────────┴────────┴────────┴────────┴────────┴────────┘
   )
 };

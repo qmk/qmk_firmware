@@ -38,11 +38,11 @@ CREATE_MAP := no
 VPATH += \
 	$(LIB_PATH)/googletest \
 	$(LIB_PATH)/googlemock \
-	$(LIB_PATH)/printf
+	$(COMMON_VPATH) \
+	$(TEST_PATH)
 
 all: elf
 
-VPATH += $(COMMON_VPATH)
 PLATFORM:=TEST
 PLATFORM_KEY:=test
 BOOTLOADER_TYPE:=none
@@ -62,16 +62,22 @@ include $(PLATFORM_PATH)/common.mk
 include $(TMK_PATH)/protocol.mk
 include $(QUANTUM_PATH)/debounce/tests/rules.mk
 include $(QUANTUM_PATH)/encoder/tests/rules.mk
+include $(QUANTUM_PATH)/os_detection/tests/rules.mk
 include $(QUANTUM_PATH)/sequencer/tests/rules.mk
+include $(QUANTUM_PATH)/wear_leveling/tests/rules.mk
+include $(QUANTUM_PATH)/logging/print.mk
 include $(PLATFORM_PATH)/test/rules.mk
 ifneq ($(filter $(FULL_TESTS),$(TEST)),)
 include $(BUILDDEFS_PATH)/build_full_test.mk
 endif
 
 $(TEST)_SRC += \
-	tests/test_common/main.c \
-	$(LIB_PATH)/printf/printf.c \
+	tests/test_common/main.cpp \
 	$(QUANTUM_PATH)/logging/print.c
+
+ifneq ($(strip $(INTROSPECTION_KEYMAP_C)),)
+$(TEST)_DEFS += -DINTROSPECTION_KEYMAP_C=\"$(strip $(INTROSPECTION_KEYMAP_C))\"
+endif
 
 $(TEST_OBJ)/$(TEST)_SRC := $($(TEST)_SRC)
 $(TEST_OBJ)/$(TEST)_INC := $($(TEST)_INC) $(VPATH) $(GTEST_INC)

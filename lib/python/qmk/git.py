@@ -130,9 +130,17 @@ def git_check_deviation(active_branch):
 
 
 def git_get_ignored_files(check_dir='.'):
-    """Return a list of files that would be captured by the current .gitingore
+    """Return a list of files that would be captured by the current .gitignore
     """
-    invalid = cli.run(['git', 'ls-files', '-c', '-o', '-i', '--exclude-standard', check_dir])
+    invalid = cli.run(['git', 'ls-files', '-c', '-o', '-i', '--exclude-from=.gitignore', check_dir])
     if invalid.returncode != 0:
         return []
     return invalid.stdout.strip().splitlines()
+
+
+def git_get_qmk_hash():
+    output = cli.run(['git', 'rev-parse', '--short', 'HEAD'])
+    if output.returncode != 0:
+        return None
+
+    return output.stdout.strip()

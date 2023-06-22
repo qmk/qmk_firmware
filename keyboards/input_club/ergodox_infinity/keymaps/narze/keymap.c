@@ -354,7 +354,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______, _______,  _______,   _______,  _______,   _______,   _______,
              _______, _______,  KC_MINS, S(KC_EQL),  S(KC_9),   S(KC_0),   _______,
                    S(KC_MINS),  KC_LBRC,   KC_RBRC, S(KC_LBRC), S(KC_RBRC),   _______,
-             _______,  KC_EQL, S(KC_BSLASH), S(KC_COMM), S(KC_DOT), S(KC_SLSH),  _______,
+             _______,  KC_EQL, S(KC_BSLS), S(KC_COMM), S(KC_DOT), S(KC_SLSH),  _______,
                                 _______,   _______,  _______,   _______,   _______,
              _______,        _______,
              _______,
@@ -427,7 +427,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ergodox(
         // left hand
         _______, _______,  _______,   _______,   _______,   _______,   _______,
-        _______, RESET,    _______,   _______,   _______,   _______,   _______,
+        _______, QK_BOOT,  _______,   _______,   _______,   _______,   _______,
         _______, _______,  _______,   _______,   _______,   AG_NORM,
         _______, _______,  _______,   _______,   _______,   _______,   _______,
         _______, _______,  _______,   _______,   _______,
@@ -659,7 +659,7 @@ void matrix_setup(void) {
 }
 
 void matrix_scan_user(void) {
-  // uint8_t layer = biton32(layer_state);
+  // uint8_t layer = get_highest_layer(layer_state);
 
   //   ergodox_board_led_off();
   //   ergodox_right_led_1_off();

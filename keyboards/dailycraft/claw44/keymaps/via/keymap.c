@@ -29,8 +29,8 @@ enum layer_number {
 
 #define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
 #define KC_R_ENT LT(_RAISE, KC_ENT)  // raise
-#define KC_G_JA LGUI_T(KC_LANG1)     // cmd or win
-#define KC_G_EN LGUI_T(KC_LANG2)     // cmd or win
+#define KC_G_JA LGUI_T(KC_LNG1)      // cmd or win
+#define KC_G_EN LGUI_T(KC_LNG2)      // cmd or win
 #define KC_C_BS LCTL_T(KC_BSPC)      // ctrl
 #define KC_A_DEL ALT_T(KC_DEL)       // alt
 

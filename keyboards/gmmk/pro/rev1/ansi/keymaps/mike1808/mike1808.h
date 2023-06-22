@@ -55,7 +55,7 @@ enum git_macros {
     G_CONF,                   // git config --global
     G_ADD,                    // git add
     G_DIFF,                   // git diff
-    G_RESET,                  // git reset
+    G_QK_BOOT,                // git reset
     G_REBAS,                  // git rebase
     G_BRANH,                  // git branch
     G_CHECK,                  // git checkout
@@ -90,7 +90,7 @@ enum combos {
 
 #define KC_LINX KC_LINUX
 
-#define KC_RESET RESET
+#define KC_RESET QK_BOOT
 #define KC_RST KC_RESET
 
 #define OS_GIT OSL(GIT)

@@ -219,7 +219,7 @@ void LayerLEDSet(uint8_t layr) {
 uint8_t old_layer = _QW;
 
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     if (old_layer != layer) {
         LayerLEDSet(layer);

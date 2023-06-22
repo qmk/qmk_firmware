@@ -334,7 +334,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       case KC_BSPC:
         if (record->event.pressed) {
-          tap_code(KC_DELT);
+          tap_code(KC_DEL);
         }
         return false;
       case KC_SPC:

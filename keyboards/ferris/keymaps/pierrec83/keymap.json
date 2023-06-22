@@ -108,7 +108,7 @@
          "DF(1)"                  , "KC_LGUI"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
 
          "KC_TRNS"                , "KC_TRNS"              , "KC_TRNS"        , "KC_TRNS"              , "KC_TRNS",
-         "DF(0)"                  , "KC_TRNS"              , "RALT_T(KC_COMM)", "RCTL_T(KC_DOT)"       , "RESET",
+         "DF(0)"                  , "KC_TRNS"              , "RALT_T(KC_COMM)", "RCTL_T(KC_DOT)"       , "QK_BOOT",
 
          "KC_TRNS"                , "KC_TAB",
          "KC_NO"                  , "KC_TRNS"

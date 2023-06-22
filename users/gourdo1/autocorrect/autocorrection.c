@@ -71,7 +71,7 @@ bool process_autocorrection(uint16_t keycode, keyrecord_t* record) {
           break;
 
         // NOTE: Space Cadet keys expose no info to check whether they are being
-        // tapped vs. held. This makes autocorrection ambiguous, e.g. KC_LCPO might
+        // tapped vs. held. This makes autocorrection ambiguous, e.g. SC_LCPO might
         // be '(', which we would treat as a word break, or it might be shift, which
         // we would treat as having no effect. To behave cautiously, we allow Space
         // Cadet keycodes to fall to the logic below and clear autocorrection state.

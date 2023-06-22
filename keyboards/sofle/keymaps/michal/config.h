@@ -1,13 +1,7 @@
-// Copyright 2022 Michal S. (@ihatethefrench)
-// SPDX-License-Identifier: GPL-2.0-only
+// Copyright 2023 Michal S. (@not-my-segfault)
+// SPDX-License-Identifier: GPL-3.0-only
 
 #pragma once
-
-// Enables features such as octave changer, suspend, etc.
-#define MIDI_ADVANCED
-
-// This autoshift delay feels most natural for me I think
-#define AUTO_SHIFT_TIMEOUT 165
 
 // I don't use too many layers, so this is more than enough
 #define LAYER_STATE_8BIT

@@ -6,7 +6,7 @@ enum {
 };
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_DOT_COMMAS]  = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_COMMA)
 // Other declarations would go here, separated by commas, if you have them

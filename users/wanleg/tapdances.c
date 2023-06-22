@@ -27,7 +27,7 @@ typedef struct {
   int state;
 } tap;
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     //If count = 1, and it has been interrupted - it doesn't matter if it is pressed or not: Send SINGLE_TAP
     if (state->interrupted || !state->pressed) return SINGLE_TAP;
@@ -59,7 +59,7 @@ static tap CADtap_state = {
   .state = 0
 };
 
-void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
+void CAD_finished (tap_dance_state_t *state, void *user_data) {
   CADtap_state.state = cur_dance(state);
   switch (CADtap_state.state) {
     case SINGLE_TAP:
@@ -72,15 +72,15 @@ void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_HOLD:
 		//register_code(KC_NO);
 		//take a screenshot of a single window, open Paint and paste
-		SEND_STRING(SS_LALT(SS_TAP(X_PSCREEN)) SS_LGUI("r"));
+		SEND_STRING(SS_LALT(SS_TAP(X_PRINT_SCREEN)) SS_LGUI("r"));
         wait_ms(500);
         SEND_STRING("mspaint" SS_TAP(X_ENTER));
         wait_ms(700);
-        SEND_STRING(SS_LCTRL("v"));
+        SEND_STRING(SS_LCTL("v"));
 		break; //register this keycode when button is held
     case DOUBLE_TAP:
 		//register_code(KC_ENT);
-		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
+		SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_DELETE))));
 		#ifdef BACKLIGHT_ENABLE
     backlight_level(0);
 		#endif
@@ -102,7 +102,7 @@ void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void CAD_reset (qk_tap_dance_state_t *state, void *user_data) {
+void CAD_reset (tap_dance_state_t *state, void *user_data) {
   switch (CADtap_state.state) {
 //nothing to do
   }
@@ -115,7 +115,7 @@ static tap RSTtap_state = {
   .state = 0
 };
 
-void RST_finished (qk_tap_dance_state_t *state, void *user_data) {
+void RST_finished (tap_dance_state_t *state, void *user_data) {
   RSTtap_state.state = cur_dance(state);
   switch (RSTtap_state.state) {
 	case SINGLE_TAP: register_code(KC_LCTL); break;
@@ -125,7 +125,7 @@ void RST_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void RST_reset (qk_tap_dance_state_t *state, void *user_data) {
+void RST_reset (tap_dance_state_t *state, void *user_data) {
   switch (RSTtap_state.state) {
 	case SINGLE_TAP: unregister_code(KC_LCTL); break;
 	case SINGLE_HOLD: unregister_code(KC_LCTL); break;
@@ -140,7 +140,7 @@ static tap LYRtap_state = {
   .state = 0
 };
 
-void LYR_finished (qk_tap_dance_state_t *state, void *user_data) {
+void LYR_finished (tap_dance_state_t *state, void *user_data) {
   LYRtap_state.state = cur_dance(state);
   switch (LYRtap_state.state) {
 	case SINGLE_TAP: register_code(KC_PSLS); break;
@@ -149,7 +149,7 @@ void LYR_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void LYR_reset (qk_tap_dance_state_t *state, void *user_data) {
+void LYR_reset (tap_dance_state_t *state, void *user_data) {
   switch (LYRtap_state.state) {
     case SINGLE_TAP: unregister_code(KC_PSLS); break;
     case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
@@ -164,7 +164,7 @@ static tap LYR75tap_state = {
   .state = 0
 };
 
-void LYR75_finished (qk_tap_dance_state_t *state, void *user_data) {
+void LYR75_finished (tap_dance_state_t *state, void *user_data) {
   LYR75tap_state.state = cur_dance(state);
   switch (LYR75tap_state.state) {
 	case SINGLE_TAP: register_code(KC_PSLS); break;
@@ -173,7 +173,7 @@ void LYR75_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void LYR75_reset (qk_tap_dance_state_t *state, void *user_data) {
+void LYR75_reset (tap_dance_state_t *state, void *user_data) {
   switch (LYR75tap_state.state) {
     case SINGLE_TAP: unregister_code(KC_PSLS); break;
     case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
@@ -188,7 +188,7 @@ static tap LYR50tap_state = {
   .state = 0
 };
 
-void LYR50_finished (qk_tap_dance_state_t *state, void *user_data) {
+void LYR50_finished (tap_dance_state_t *state, void *user_data) {
   LYR50tap_state.state = cur_dance(state);
   switch (LYR75tap_state.state) {
 	case SINGLE_TAP: register_code(KC_PSLS); break;
@@ -197,7 +197,7 @@ void LYR50_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void LYR50_reset (qk_tap_dance_state_t *state, void *user_data) {
+void LYR50_reset (tap_dance_state_t *state, void *user_data) {
   switch (LYR50tap_state.state) {
     case SINGLE_TAP: unregister_code(KC_PSLS); break;
     case DOUBLE_TAP: set_single_persistent_default_layer(GK50); break;
@@ -212,7 +212,7 @@ static tap BSWtap_state = {
   .state = 0
 };
 
-void BSW_finished (qk_tap_dance_state_t *state, void *user_data) {
+void BSW_finished (tap_dance_state_t *state, void *user_data) {
   BSWtap_state.state = cur_dance(state);
   switch (BSWtap_state.state) {
     case SINGLE_TAP: register_code(KC_ENTER); break;
@@ -224,7 +224,7 @@ void BSW_finished (qk_tap_dance_state_t *state, void *user_data) {
       #endif
       break;
     case DOUBLE_TAP:
-	  register_code(KC_LCTRL);
+	  register_code(KC_LCTL);
       register_code(KC_C);
 	  break;
 	case DOUBLE_HOLD:
@@ -233,11 +233,11 @@ void BSW_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void BSW_reset (qk_tap_dance_state_t *state, void *user_data) {
+void BSW_reset (tap_dance_state_t *state, void *user_data) {
   switch (BSWtap_state.state) {
     case SINGLE_TAP: unregister_code(KC_ENTER); break;
     case DOUBLE_TAP:
-	  unregister_code(KC_LCTRL);
+	  unregister_code(KC_LCTL);
 	  unregister_code(KC_C);
 	  break;
   }
@@ -248,7 +248,7 @@ void BSW_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 //Tap Dance Definitions
 //THIS SECTION HAS TO BE AT THE END OF THE TAP DANCE SECTION
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 // Other declarations would go here, separated by commas, if you have them
  ,[TD_Q_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC)

@@ -20,7 +20,7 @@ qmk compile [-c] <configuratorExport.json>
 qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] -kb <keyboard_name> -km <keymap_name>
 ```
 
-**Usage in Keyboard Directory**:  
+**Usage in Keyboard Directory**:
 
 Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`
 ```
@@ -44,7 +44,7 @@ $ qmk compile
 or with optional keymap argument
 
 ```
-$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4 
+$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4
 $ qmk compile -km 66_iso
 Ψ Compiling keymap with make clueboard/66/rev4:66_iso
 ...
@@ -58,7 +58,7 @@ $ qmk compile
 ...
 ```
 
-**Usage in Layout Directory**:  
+**Usage in Layout Directory**:
 
 Must be under `qmk_firmware/layouts/`, and in a keymap folder.
 ```
@@ -90,6 +90,8 @@ This command is similar to `qmk compile`, but can also target a bootloader. The 
 
 This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
 
+This command can also flash binary firmware files (hex or bin) such as the ones produced by [Configurator](https://config.qmk.fm).
+
 **Usage for Configurator Exports**:
 
 ```
@@ -100,6 +102,21 @@ qmk flash [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>] <configurat
 
 ```
 qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>]
+```
+
+**Usage for pre-compiled firmwares**:
+
+**Note**: The microcontroller needs to be specified (`-m` argument) for keyboards with the following bootloaders:
+* HalfKay
+* QMK HID
+* USBaspLoader
+
+ISP flashing is also supported with the following flashers and require the microcontroller to be specified:
+* USBasp
+* USBtinyISP
+
+```
+qmk flash [-m <microcontroller>] <compiledFirmware.[bin|hex]>
 ```
 
 **Listing the Bootloaders**
@@ -130,6 +147,49 @@ To exit out into the parent shell, simply type `exit`.
 
 ```
 qmk cd
+```
+
+## `qmk find`
+
+This command allows for searching through keyboard/keymap targets, filtering by specific criteria. `info.json` and `rules.mk` files contribute to the search data, as well as keymap configurations, and the results can be filtered using "dotty" syntax matching the overall `info.json` file format.
+
+For example, one could search for all keyboards using STM32F411:
+
+```
+qmk find -f 'processor=STM32F411'
+```
+
+...and one can further constrain the list to keyboards using STM32F411 as well as rgb_matrix support:
+
+```
+qmk find -f 'processor=STM32F411' -f 'features.rgb_matrix=true'
+```
+
+The following filter expressions are also supported:
+
+ - `exists(key)`: Match targets where `key` is present.
+ - `absent(key)`: Match targets where `key` is not present.
+ - `contains(key, value)`: Match targets where `key` contains `value`. Can be used for strings, arrays and object keys.
+ - `length(key, value)`: Match targets where the length of `key` is `value`. Can be used for strings, arrays and objects.
+
+You can also list arbitrary values for each matched target with `--print`:
+
+```
+qmk find -f 'processor=STM32F411' -p 'keyboard_name' -p 'features.rgb_matrix'
+```
+
+**Usage**:
+
+```
+qmk find [-h] [-km KEYMAP] [-p PRINT] [-f FILTER]
+
+options:
+  -km KEYMAP, --keymap KEYMAP
+                        The keymap name to build. Default is 'default'.
+  -p PRINT, --print PRINT
+                        For each matched target, print the value of the supplied info.json key. May be passed multiple times.
+  -f FILTER, --filter FILTER
+                        Filter the list of keyboards based on their info.json data. Accepts the formats key=value, function(key), or function(key,value), eg. 'features.rgblight=true'. Valid functions are 'absent', 'contains', 'exists' and 'length'. May be passed multiple times; all filters need to match. Value may include wildcards such as '*' and '?'.
 ```
 
 ## `qmk console`
@@ -206,7 +266,7 @@ Check your environment and report problems only:
 
 ## `qmk format-json`
 
-Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (info.json or keymap.json) but you can override this with `--format` if neccesary.
+Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (info.json or keymap.json) but you can override this with `--format` if necessary.
 
 **Usage**:
 
@@ -252,7 +312,8 @@ qmk json2c [-o OUTPUT] filename
 
 ## `qmk c2json`
 
-Creates a keymap.json from a keymap.c.  
+Creates a keymap.json from a keymap.c.
+
 **Note:** Parsing C source files is not easy, therefore this subcommand may not work with your keymap. In some cases not using the C pre-processor helps.
 
 **Usage**:
@@ -352,13 +413,80 @@ $ qmk via2json -kb ai03/polaris -o polaris_keymap.json polaris_via_backup.json
 Ψ Wrote keymap to /home/you/qmk_firmware/polaris_keymap.json
 ```
 
+## `qmk import-keyboard`
+
+This command imports a data-driven `info.json` keyboard into the repo.
+
+**Usage**:
+
+```
+usage: qmk import-keyboard [-h] filename
+```
+
+**Example:**
+
+```
+$ qmk import-keyboard ~/Downloads/forever60.json
+Ψ Importing forever60.json.
+
+Ψ Imported a new keyboard named forever60.
+Ψ To start working on things, `cd` into keyboards/forever60,
+Ψ or open the directory in your preferred text editor.
+Ψ And build with qmk compile -kb forever60 -km default.
+```
+
+## `qmk import-keymap`
+
+This command imports a data-driven `keymap.json` keymap into the repo.
+
+**Usage**:
+
+```
+usage: qmk import-keymap [-h] filename
+```
+
+**Example:**
+
+```
+qmk import-keymap ~/Downloads/asdf2.json
+Ψ Importing asdf2.json.
+
+Ψ Imported a new keymap named asdf2.
+Ψ To start working on things, `cd` into keyboards/takashicompany/dogtag/keymaps/asdf2,
+Ψ or open the directory in your preferred text editor.
+Ψ And build with qmk compile -kb takashicompany/dogtag -km asdf2.
+```
+
+## `qmk import-kbfirmware`
+
+This command creates a new keyboard based on a [Keyboard Firmware Builder](https://kbfirmware.com/) export.
+
+**Usage**:
+
+```
+usage: qmk import-kbfirmware [-h] filename
+```
+
+**Example:**
+
+```
+$ qmk import-kbfirmware ~/Downloads/gh62.json
+Ψ Importing gh62.json.
+
+⚠ Support here is basic - Consider using 'qmk new-keyboard' instead
+Ψ Imported a new keyboard named gh62.
+Ψ To start working on things, `cd` into keyboards/gh62,
+Ψ or open the directory in your preferred text editor.
+Ψ And build with qmk compile -kb gh62 -km default.
+```
+
 ---
 
 # Developer Commands
 
 ## `qmk format-text`
 
-This command formats text files to have proper line endings. 
+This command formats text files to have proper line endings.
 
 Every text file in the repository needs to have Unix (LF) line ending.
 If you are working on **Windows**, you must ensure that line endings are corrected in order to get your PRs merged.
@@ -369,7 +497,7 @@ qmk format-text
 
 ## `qmk format-c`
 
-This command formats C code using clang-format. 
+This command formats C code using clang-format.
 
 Run it with no arguments to format all core code that has been changed. Default checks `origin/master` with `git diff`, branch can be changed using `-b <branch_name>`
 
@@ -472,7 +600,7 @@ qmk kle2json [-f] <filename>
 **Examples**:
 
 ```
-$ qmk kle2json kle.txt 
+$ qmk kle2json kle.txt
 ☒ File info.json already exists, use -f or --force to overwrite.
 ```
 
@@ -527,3 +655,4 @@ This command converts a TTF font to an intermediate format for editing, before c
 ## `qmk painter-convert-font-image`
 
 This command converts an intermediate font image to the QFF File Format. See the [Quantum Painter](quantum_painter.md?id=quantum-painter-cli) documentation for more information on this command.
+

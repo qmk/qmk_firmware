@@ -36,6 +36,7 @@ ifeq ($(strip $(MCU)), risc-v)
     # RISC-V Support
     # As of 7.4.2021 there is only one supported RISC-V platform in Chibios-Contrib,
     # therefore all required settings are hard-coded
+    USE_CHIBIOS_CONTRIB = yes
     STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
     PORT_V = $(CHIBIOS_CONTRIB)/os/common/ports/RISCV-ECLIC/compilers/GCC/mk/port.mk
     RULESPATH = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC
@@ -87,10 +88,15 @@ ifeq ("$(MCU_PORT_NAME)","")
 endif
 
 ifeq ("$(wildcard $(PLATFORM_MK))","")
-    PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+    PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
     ifeq ("$(wildcard $(PLATFORM_MK))","")
-        PLATFORM_MK = $(CHIBIOS_CONTRIB)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
+        PLATFORM_MK = $(CHIBIOS)/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)/$(PLATFORM_NAME).mk
     endif
+endif
+
+# If no MCU architecture specified, use the MCU instead (allows for mcu_selection.mk to swap to cortex-m0 etc.)
+ifeq ("$(MCU_ARCH)","")
+    MCU_ARCH = $(MCU)
 endif
 
 include $(STARTUP_MK)
@@ -229,6 +235,11 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_2)/ld/$(MCU_LDSCRIPT).ld
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld)","")
     LDSCRIPT = $(KEYBOARD_PATH_1)/ld/$(MCU_LDSCRIPT).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld)","")
+    LDFLAGS += -L$(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld
+else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/common/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld)","")
+    LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/common/ld/$(MCU_LDSCRIPT)_$(BOOTLOADER).ld
 else ifneq ("$(wildcard $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT).ld)","")
     LDFLAGS += -L$(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld
     LDSCRIPT = $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/ld/$(MCU_LDSCRIPT).ld
@@ -282,6 +293,17 @@ EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
          $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
 
 #
+# QMK specific MCU family support selection.
+##############################################################################
+ifneq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_SERIES).mk)","")
+    # Either by MCU series e.g. STM32/STM32F1xx.mk or...
+    include $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_SERIES).mk
+else ifneq ("$(wildcard $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_FAMILY).mk)","")
+    # By MCU family e.g. STM32/STM32.mk
+    include $(PLATFORM_PATH)/$(PLATFORM_KEY)/vendors/$(MCU_FAMILY)/$(MCU_FAMILY).mk
+endif
+
+#
 # ChibiOS-Contrib
 ##############################################################################
 
@@ -332,10 +354,14 @@ SHARED_CFLAGS = -fomit-frame-pointer \
                 -ffunction-sections \
                 -fdata-sections \
                 -fno-common \
-                -fshort-wchar
+                -fshort-wchar \
+                -fno-builtin-printf
+
+LDSCRIPT_PATH := $(shell dirname "$(LDSCRIPT)")
 
 # Shared Linker flags for all toolchains
 SHARED_LDFLAGS = -T $(LDSCRIPT) \
+                 -L $(LDSCRIPT_PATH) \
                  -Wl,--gc-sections \
                  -nostartfiles
 
@@ -420,6 +446,9 @@ LDFLAGS  += $(SHARED_LDFLAGS) $(SHARED_LDSYMBOLS) $(TOOLCHAIN_LDFLAGS) $(TOOLCHA
 
 # Tell QMK that we are hosting it on ChibiOS.
 OPT_DEFS += -DPROTOCOL_CHIBIOS
+
+# And what flavor of MCU
+OPT_DEFS += -DMCU_$(MCU_FAMILY)
 
 # ChibiOS supports synchronization primitives like a Mutex
 OPT_DEFS += -DPLATFORM_SUPPORTS_SYNCHRONIZATION

@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_CAPS,                   __BLANK____________________________________, KC_BSPC,
     KC_CAPS, __COLEMAK_MOD_DH_L1________________________,                   __COLEMAK_MOD_DH_R1_W_QUOT_________________, KC_BSPC,
     HY_ESC,  __COLEMAK_MOD_DH_L2_W_GACS_________________,                   __COLEMAK_MOD_DH_R2_W_SCAG_________________, KC_QUOT,
-    TD_LAYR, __COLEMAK_MOD_DH_L3_W_SFTV_________________, KC_CAPS, KC_TAB,  __COLEMAK_MOD_DH_R3________________________, KC_SFTENT,
+    TD_LAYR, __COLEMAK_MOD_DH_L3_W_SFTV_________________, KC_CAPS, KC_TAB,  __COLEMAK_MOD_DH_R3________________________, SC_SENT,
                                 XXXXXXX, XXXXXXX, HY_ESC, LOW_ENT, NAV_SPC, HY_BSPC, XXXXXXX, XXXXXXX
 ),
 
@@ -148,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_wrapper(
     _______, __BLANK____________________________________,                   _______, CLMK_DH, QWERTY,  _______, _______, _______,
-    RESET,   __ADJUST_L1________________________________,                   __MEDIA_R1_________________________________, _______,
+    QK_BOOT, __ADJUST_L1________________________________,                   __MEDIA_R1_________________________________, _______,
     _______, __ADJUST_L2________________________________,                   __MEDIA_R2_________________________________, _______,
     _______, __ADJUST_L3________________________________, _______, _______, __MEDIA_R3_________________________________, _______,
                                _______, _______, _______, _______, _______, _______, _______, _______

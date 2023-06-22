@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -14,5 +8,3 @@ CONSOLE_ENABLE = yes	   # Console for debug
 COMMAND_ENABLE = yes       # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes
-
-LAYOUTS = 60_ansi 60_iso

@@ -118,7 +118,7 @@ echo 'xkbcomp $HOME/.xkbmap $DISPLAY' >> ~/.xinitrc
                                            KC_TRNS,
                                  KC_TRNS,KC_TRNS,KC_TRNS,
         // right hand
-             KC_TRNS,KC_NLCK,KC_PSLS,KC_PAST,KC_PAST,KC_PMNS,KC_BSPC,
+             KC_TRNS,KC_NUM, KC_PSLS,KC_PAST,KC_PAST,KC_PMNS,KC_BSPC,
              KC_TRNS,KC_NO,  KC_P7,  KC_P8,  KC_P9,  KC_PMNS,KC_BSPC,
                   KC_NO,  KC_P4,  KC_P5,  KC_P6,  KC_PPLS,KC_PENT,
              KC_TRNS,KC_NO,  KC_P1,  KC_P2,  KC_P3,  KC_PPLS,KC_PENT,

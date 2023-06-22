@@ -7,45 +7,20 @@
 #include "qp_draw.h"
 #include "qp_tft_panel.h"
 
-#define BYTE_SWAP(x) (((((uint16_t)(x)) >> 8) & 0x00FF) | ((((uint16_t)(x)) << 8) & 0xFF00))
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Native pixel format conversion
-
-uint16_t qp_rgb888_to_rgb565(uint8_t r, uint8_t g, uint8_t b) {
-    uint16_t rgb565 = (((uint16_t)r) >> 3) << 11 | (((uint16_t)g) >> 2) << 5 | (((uint16_t)b) >> 3);
-    return rgb565;
-}
-
-uint16_t qp_rgb888_to_rgb565_swapped(uint8_t r, uint8_t g, uint8_t b) {
-    uint16_t rgb565 = (((uint16_t)r) >> 3) << 11 | (((uint16_t)g) >> 2) << 5 | (((uint16_t)b) >> 3);
-    return BYTE_SWAP(rgb565);
-}
-
-uint16_t qp_rgb888_to_bgr565(uint8_t r, uint8_t g, uint8_t b) {
-    uint16_t bgr565 = (((uint16_t)b) >> 3) << 11 | (((uint16_t)g) >> 2) << 5 | (((uint16_t)r) >> 3);
-    return bgr565;
-}
-
-uint16_t qp_rgb888_to_bgr565_swapped(uint8_t r, uint8_t g, uint8_t b) {
-    uint16_t bgr565 = (((uint16_t)b) >> 3) << 11 | (((uint16_t)g) >> 2) << 5 | (((uint16_t)r) >> 3);
-    return BYTE_SWAP(bgr565);
-}
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter API implementations
 
 // Power control
 bool qp_tft_panel_power(painter_device_t device, bool power_on) {
-    struct painter_driver_t *                          driver = (struct painter_driver_t *)device;
-    struct tft_panel_dc_reset_painter_driver_vtable_t *vtable = (struct tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
+    painter_driver_t *                          driver = (painter_driver_t *)device;
+    tft_panel_dc_reset_painter_driver_vtable_t *vtable = (tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
     qp_comms_command(device, power_on ? vtable->opcodes.display_on : vtable->opcodes.display_off);
     return true;
 }
 
 // Screen clear
 bool qp_tft_panel_clear(painter_device_t device) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
     driver->driver_vtable->init(device, driver->rotation); // Re-init the LCD
     return true;
 }
@@ -58,8 +33,8 @@ bool qp_tft_panel_flush(painter_device_t device) {
 
 // Viewport to draw to
 bool qp_tft_panel_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
-    struct painter_driver_t *                          driver = (struct painter_driver_t *)device;
-    struct tft_panel_dc_reset_painter_driver_vtable_t *vtable = (struct tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
+    painter_driver_t *                          driver = (painter_driver_t *)device;
+    tft_panel_dc_reset_painter_driver_vtable_t *vtable = (tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
 
     // Fix up the drawing location if required
     left += driver->offset_x;
@@ -105,26 +80,54 @@ bool qp_tft_panel_viewport(painter_device_t device, uint16_t left, uint16_t top,
 
 // Stream pixel data to the current write position in GRAM
 bool qp_tft_panel_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count) {
-    qp_comms_send(device, pixel_data, native_pixel_count * sizeof(uint16_t));
+    painter_driver_t *driver = (painter_driver_t *)device;
+    qp_comms_send(device, pixel_data, native_pixel_count * driver->native_bits_per_pixel / 8);
     return true;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Convert supplied palette entries into their native equivalents
-bool qp_tft_panel_palette_convert(painter_device_t device, int16_t palette_size, qp_pixel_t *palette) {
-    struct painter_driver_t *                          driver = (struct painter_driver_t *)device;
-    struct tft_panel_dc_reset_painter_driver_vtable_t *vtable = (struct tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
+
+bool qp_tft_panel_palette_convert_rgb565_swapped(painter_device_t device, int16_t palette_size, qp_pixel_t *palette) {
     for (int16_t i = 0; i < palette_size; ++i) {
-        RGB rgb           = hsv_to_rgb_nocie((HSV){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
-        palette[i].rgb565 = vtable->rgb888_to_native16bit(rgb.r, rgb.g, rgb.b);
+        RGB      rgb      = hsv_to_rgb_nocie((HSV){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
+        uint16_t rgb565   = (((uint16_t)rgb.r) >> 3) << 11 | (((uint16_t)rgb.g) >> 2) << 5 | (((uint16_t)rgb.b) >> 3);
+        palette[i].rgb565 = __builtin_bswap16(rgb565);
     }
     return true;
 }
 
+bool qp_tft_panel_palette_convert_rgb888(painter_device_t device, int16_t palette_size, qp_pixel_t *palette) {
+    for (int16_t i = 0; i < palette_size; ++i) {
+        RGB rgb             = hsv_to_rgb_nocie((HSV){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
+        palette[i].rgb888.r = rgb.r;
+        palette[i].rgb888.g = rgb.g;
+        palette[i].rgb888.b = rgb.b;
+    }
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Append pixels to the target location, keyed by the pixel index
-bool qp_tft_panel_append_pixels(painter_device_t device, uint8_t *target_buffer, qp_pixel_t *palette, uint32_t pixel_offset, uint32_t pixel_count, uint8_t *palette_indices) {
+
+bool qp_tft_panel_append_pixels_rgb565(painter_device_t device, uint8_t *target_buffer, qp_pixel_t *palette, uint32_t pixel_offset, uint32_t pixel_count, uint8_t *palette_indices) {
     uint16_t *buf = (uint16_t *)target_buffer;
     for (uint32_t i = 0; i < pixel_count; ++i) {
         buf[pixel_offset + i] = palette[palette_indices[i]].rgb565;
     }
+    return true;
+}
+
+bool qp_tft_panel_append_pixels_rgb888(painter_device_t device, uint8_t *target_buffer, qp_pixel_t *palette, uint32_t pixel_offset, uint32_t pixel_count, uint8_t *palette_indices) {
+    for (uint32_t i = 0; i < pixel_count; ++i) {
+        target_buffer[(pixel_offset + i) * 3 + 0] = palette[palette_indices[i]].rgb888.r;
+        target_buffer[(pixel_offset + i) * 3 + 1] = palette[palette_indices[i]].rgb888.g;
+        target_buffer[(pixel_offset + i) * 3 + 2] = palette[palette_indices[i]].rgb888.b;
+    }
+    return true;
+}
+
+bool qp_tft_panel_append_pixdata(painter_device_t device, uint8_t *target_buffer, uint32_t pixdata_offset, uint8_t pixdata_byte) {
+    target_buffer[pixdata_offset] = pixdata_byte;
     return true;
 }

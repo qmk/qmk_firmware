@@ -39,8 +39,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
         [_FN] = LAYOUT(
         KC_ESC, KC_LANG,KC_NO,  RGB_TOG,KC_MNXT,KC_VOLU,
-        KC_CAPS,KC_NLCK,KC_NO,  RGB_MOD,KC_MPRV,KC_VOLD,
-        CG_NORM,LCG_SWP,EEP_RST,QK_BOOT,  TO(0),  KC_MUTE
+        KC_CAPS,KC_NUM, KC_NO,  RGB_MOD,KC_MPRV,KC_VOLD,
+        CG_NORM,LCG_SWP,EE_CLR, QK_BOOT,  TO(0),  KC_MUTE
     )
 };
 
@@ -52,16 +52,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code16(LALT(KC_GRV));
                 } else {
                     if(input_mode()){
-                        register_code(KC_LANG2);
+                        register_code(KC_LNG2);
                         set_input_mode(false);
                     } else {
-                        register_code(KC_LANG1);
+                        register_code(KC_LNG1);
                         set_input_mode(true);
                     }
                 }
             } else {
-                unregister_code(KC_LANG1);
-                unregister_code(KC_LANG2);
+                unregister_code(KC_LNG1);
+                unregister_code(KC_LNG2);
             }
             break;
         default:

@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32a
-
-# Bootloader selection
-BOOTLOADER = bootloadhid
-
 # Build Options
 #   change yes to no to disable
 #
@@ -15,10 +9,7 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
-WS2812_DRIVER = i2c
 AUDIO_ENABLE = no           # Audio output
-
-LAYOUTS = ortho_4x12 planck_mit
 
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no

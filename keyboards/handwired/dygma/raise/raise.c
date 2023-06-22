@@ -17,6 +17,5 @@
 #include "raise.h"
 
 void keyboard_post_init_kb(void) {
-    set_all_leds_to(0, 0, 0);
     keyboard_post_init_user();
 }

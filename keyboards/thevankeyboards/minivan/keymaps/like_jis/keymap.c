@@ -35,7 +35,7 @@ enum tapdances{
 
 // Layer Mode aliases
 #define KC_TBSF  LSFT_T(KC_TAB)
-#define KC_ROSF  RSFT_T(KC_RO)
+#define KC_ROSF  RSFT_T(JP_BSLS)
 #define KC_ALAP  LALT_T(KC_APP)
 
 // Layer tap
@@ -45,7 +45,7 @@ enum tapdances{
 
 #define KC_SCCL  TD(TD_SCCL)
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_SCCL] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
 };
 
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT(
   //,-----------------------------------------------------------------------------------------------------------.
   //                F1       F2       F3       F4       F5        -        ^        \        @        [   Delete
-      _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_MINS,  KC_EQL, KC_JYEN, KC_LBRC, KC_RBRC,  KC_DEL,
+      _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_MINS,  KC_EQL,  JP_YEN, KC_LBRC, KC_RBRC,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //                F6       F7       F8       F9      F10                          ;        :        ]
       _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, XXXXXXX, XXXXXXX, KC_SCLN, KC_QUOT, KC_BSLS, _______,
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
   //,-----------------------------------------------------------------------------------------------------------.
   //             Reset LEDReset  MacMode  WinMode              Home PageDown   PageUp      End
-      _______,   RESET,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, XXXXXXX,
+      _______,   QK_BOOT,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
   //           LED On/Off Hue/Saturation/Value Increment    Mouse Left Down Up Right
       _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, _______,
@@ -133,12 +133,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KANJI:
       if (record->event.pressed) {
         if (keymap_config.swap_lalt_lgui == false) {
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         } else {
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       break;
     #ifdef RGBLIGHT_ENABLE

@@ -12,8 +12,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK] = LAYOUT(
         KC_ESC, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_BSLS,
         LCTL_T(KC_BSPC), KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT,
-        LSFT_T(KC_DEL), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_LAPO, LGUI_T(KC_LBRC), RGUI_T(KC_RBRC), KC_RAPC, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
-        KC_TAB, KC_LGUI, TT(_SYMBOLS), LSFT_T(KC_SPC), LCTL_T(KC_ENT), RCTL_T(KC_ENT), RSFT_T(KC_SPC), TT(_NUMBERS), KC_RGUI, KC_LEAD),
+        LSFT_T(KC_DEL), KC_Z, KC_X, KC_C, KC_V, KC_B, SC_LAPO, LGUI_T(KC_LBRC), RGUI_T(KC_RBRC), SC_RAPC, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_MINS,
+        KC_TAB, KC_LGUI, TT(_SYMBOLS), LSFT_T(KC_SPC), LCTL_T(KC_ENT), RCTL_T(KC_ENT), RSFT_T(KC_SPC), TT(_NUMBERS), KC_RGUI, QK_LEAD),
     [_SYMBOLS] = LAYOUT(
         KC_TRNS, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_TILD,
         KC_TRNS, KC_MPLY, KC_MS_L, KC_MS_U, KC_MS_R, KC_WH_U, KC_PGUP, KC_LEFT, KC_UP, KC_RGHT, KC_VOLU, KC_GRV,
@@ -25,18 +25,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_MPRV, KC_F1, KC_F2, KC_F3, KC_F12, KC_LPRN, KC_LT, KC_GT, KC_RPRN, KC_PGDN, KC_P1, KC_P2, KC_P3, KC_EQL, KC_PENT,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT),
     [_SPECIALS] = LAYOUT(
-        KC_TRNS, KC_NLCK, KC_CAPS, KC_SLCK, KC_LANG1, KC_LANG2, KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_NUM, KC_CAPS, KC_SCRL, KC_LNG1, KC_LNG2, KC_TRNS, KC_PSCR, KC_SCRL, KC_PAUS, KC_TRNS, KC_TRNS,
         KC_TRNS, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD, KC_TRNS, KC_INS, KC_HOME, KC_PGUP, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_NO, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_END, KC_PGDN, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 };
 
-LEADER_EXTERNS();
-
 void keyboard_post_init_user(void) {
     led_t led_state = host_keyboard_led_state();
     if (!led_state.num_lock) {
-        tap_code(KC_NLCK);
+        tap_code(KC_NUM_LOCK);
     }
 }
 
@@ -44,25 +42,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _SYMBOLS, _NUMBERS, _SPECIALS);
 }
 
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
+void leader_end_user(void) {
+    // Lock screen (macOS)
+    if (leader_sequence_one_key(KC_ESC)) {
+        tap_code16(LCTL(LGUI(KC_Q)));
+    }
 
-        // Lock screen (macOS)
-        SEQ_ONE_KEY(KC_ESC) {
-            tap_code16(LCTL(LGUI(KC_Q)));
-        }
+    // Escape-Shift-Z-Z (VIM)
+    if (leader_sequence_one_key(KC_Z)) {
+        SEND_STRING(SS_TAP(X_ESC) SS_LSFT("zz"));
+    }
 
-        // Escape-Shift-Z-Z (VIM)
-        SEQ_ONE_KEY(KC_Z) {
-            SEND_STRING(SS_TAP(X_ESC) SS_LSFT("zz"));
-        }
-
-        // Dead grave accent (macOS)
-        SEQ_ONE_KEY(KC_E) {
-            tap_code16(LALT(KC_GRAVE));
-        }
+    // Dead grave accent (macOS)
+    if (leader_sequence_one_key(KC_E)) {
+        tap_code16(LALT(KC_GRAVE));
     }
 }
 

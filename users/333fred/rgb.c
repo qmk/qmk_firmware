@@ -23,8 +23,8 @@
 #include "quantum.h"
 #include "333fred.h"
 
-void layer_state_set_rgb(uint32_t state) {
-  switch (biton32(state)) {
+void layer_state_set_rgb(layer_state_t state) {
+  switch (get_highest_layer(state)) {
     case BASE:
       // purple
       rgblight_sethsv_noeeprom(210, 255, 20);

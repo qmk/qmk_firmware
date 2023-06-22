@@ -42,7 +42,6 @@
     * [键映射总览](zh-cn/keymap.md)
     * 开发环境
       * [Docker指南](zh-cn/getting_started_docker.md)
-      * [Vagrant指南](zh-cn/getting_started_vagrant.md)
     * 刷写(Flashing)
       * [刷写](zh-cn/flashing.md)
       * [刷写ATmega32A (ps2avrgb)](zh-cn/flashing_bootloadhid.md)
@@ -74,6 +73,7 @@
     * [Mod-Tap](zh-cn/mod_tap.md)
     * [宏](zh-cn/feature_macros.md)
     * [鼠标键](zh-cn/feature_mouse_keys.md)
+    * [Repeat Key](zh-cn/feature_repeat_key.md)
     * [Space Cadet Shift](zh-cn/feature_space_cadet.md)
     * [US ANSI上档键值](zh-cn/keycodes_us_ansi_shifted.md)
 
@@ -91,7 +91,6 @@
     * [换手](zh-cn/feature_swap_hands.md)
     * [一键多用](zh-cn/feature_tap_dance.md)
     * [点按配置](zh-cn/tap_hold.md)
-    * [终端](zh-cn/feature_terminal.md)
     * [Unicode](zh-cn/feature_unicode.md)
     * [用户空间](zh-cn/feature_userspace.md)
     * [WPM计算](zh-cn/feature_wpm.md)
@@ -189,5 +188,5 @@
     * [Midi辅助功能](zh-cn/internals/midi_util.md)
     * [发送函数](zh-cn/internals/send_functions.md)
     * [Sysex工具](zh-cn/internals/sysex_tools.md)
-    
+
 <!--fromen:20211014-12:00(GMT+8) commit 04cf161aa01fd433b5dae69d9fd31569ed5dca59-->

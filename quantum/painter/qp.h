@@ -1,4 +1,4 @@
-// Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2021-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -10,6 +10,22 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter global configurables (add to your keyboard's config.h)
+
+#ifndef QUANTUM_PAINTER_DISPLAY_TIMEOUT
+/**
+ * @def This controls the amount of time (in milliseconds) that all displays will remain on after the last user input.
+ *      If set to 0, the display will remain on indefinitely.
+ */
+#    define QUANTUM_PAINTER_DISPLAY_TIMEOUT 30000
+#endif // QUANTUM_PAINTER_DISPLAY_TIMEOUT
+
+#ifndef QUANTUM_PAINTER_TASK_THROTTLE
+/**
+ * @def This controls the amount of time (in milliseconds) that the Quantum Painter internal task will wait between
+ *      each execution.
+ */
+#    define QUANTUM_PAINTER_TASK_THROTTLE 1
+#endif // QUANTUM_PAINTER_TASK_THROTTLE
 
 #ifndef QUANTUM_PAINTER_NUM_IMAGES
 /**
@@ -53,7 +69,7 @@
  * @def This controls the maximum size of the pixel data buffer used for single blocks of transmission. Larger buffers
  *      means more data is processed at one time, with less frequent transmissions, at the cost of RAM.
  */
-#    define QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE 32
+#    define QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE 1024
 #endif
 
 #ifndef QUANTUM_PAINTER_SUPPORTS_256_PALETTE
@@ -62,6 +78,14 @@
  *      least 1kB extra is required just to store the palette information, with more required for other metadata.
  */
 #    define QUANTUM_PAINTER_SUPPORTS_256_PALETTE FALSE
+#endif
+
+#ifndef QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS
+/**
+ * @def This controls whether the native color range is supported. This avoids the use of palettes but each image
+ *      requires more storage space.
+ */
+#    define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS FALSE
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -432,22 +456,57 @@ int16_t qp_drawtext_recolor(painter_device_t device, uint16_t x, uint16_t y, pai
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter Drivers
 
+#ifdef QUANTUM_PAINTER_RGB565_SURFACE_ENABLE
+#    include "qp_rgb565_surface.h"
+#else // QUANTUM_PAINTER_RGB565_SURFACE_ENABLE
+#    define RGB565_SURFACE_NUM_DEVICES 0
+#endif // QUANTUM_PAINTER_RGB565_SURFACE_ENABLE
+
 #ifdef QUANTUM_PAINTER_ILI9163_ENABLE
 #    include "qp_ili9163.h"
+#else // QUANTUM_PAINTER_ILI9163_ENABLE
+#    define ILI9163_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_ILI9163_ENABLE
 
 #ifdef QUANTUM_PAINTER_ILI9341_ENABLE
 #    include "qp_ili9341.h"
+#else // QUANTUM_PAINTER_ILI9341_ENABLE
+#    define ILI9341_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_ILI9341_ENABLE
+
+#ifdef QUANTUM_PAINTER_ILI9488_ENABLE
+#    include "qp_ili9488.h"
+#else // QUANTUM_PAINTER_ILI9488_ENABLE
+#    define ILI9488_NUM_DEVICES 0
+#endif // QUANTUM_PAINTER_ILI9488_ENABLE
 
 #ifdef QUANTUM_PAINTER_ST7789_ENABLE
 #    include "qp_st7789.h"
+#else // QUANTUM_PAINTER_ST7789_ENABLE
+#    define ST7789_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_ST7789_ENABLE
+
+#ifdef QUANTUM_PAINTER_ST7735_ENABLE
+#    include "qp_st7735.h"
+#else // QUANTUM_PAINTER_ST7735_ENABLE
+#    define ST7735_NUM_DEVICES 0
+#endif // QUANTUM_PAINTER_ST7735_ENABLE
 
 #ifdef QUANTUM_PAINTER_GC9A01_ENABLE
 #    include "qp_gc9a01.h"
+#else // QUANTUM_PAINTER_GC9A01_ENABLE
+#    define GC9A01_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_GC9A01_ENABLE
 
 #ifdef QUANTUM_PAINTER_SSD1351_ENABLE
 #    include "qp_ssd1351.h"
+#else // QUANTUM_PAINTER_SSD1351_ENABLE
+#    define SSD1351_NUM_DEVICES 0
 #endif // QUANTUM_PAINTER_SSD1351_ENABLE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter Extras
+
+#ifdef QUANTUM_PAINTER_LVGL_INTEGRATION_ENABLE
+#    include "qp_lvgl.h"
+#endif // QUANTUM_PAINTER_LVGL_INTEGRATION_ENABLE

@@ -121,7 +121,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                , TRANS_MIDLEFT 
 #     endif
 
-                                                               , KC_NUMLOCK , KC_KP_0
+                                                               , KC_NUM , KC_KP_0
 // ---⬇
 // Note anomaly: the additional 'arrow' hardware key is shifted one to the
 // left, compared to other Base layouts, and so is TRANS_RIGHT This is to
@@ -306,7 +306,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                     , TRANS_MIDLEFT
 #     endif
 
-                                                    , KC_NUMLOCK , KC_KP_0 
+                                                    , KC_NUM , KC_KP_0 
 
 // See comment on the first layout in this file (double handed Base layer), about the next few keys:
 // ---⬇

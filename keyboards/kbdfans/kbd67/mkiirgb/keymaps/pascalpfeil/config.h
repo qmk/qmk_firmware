@@ -19,14 +19,11 @@
 /* 1000Hz USB polling */
 #define USB_POLLING_INTERVAL_MS 1
 
-/* Send up to 4 key press events per scan */
-#define QMK_KEYS_PER_SCAN 4
-
 /* Force NKRO on boot up */
 #define FORCE_NKRO
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
-#    undef RGB_DISABLE_TIMEOUT
-#    define RGB_DISABLE_TIMEOUT 900000
+#    undef RGB_MATRIX_TIMEOUT
+#    define RGB_MATRIX_TIMEOUT 900000
 #endif
