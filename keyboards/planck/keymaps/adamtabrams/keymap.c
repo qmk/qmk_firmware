@@ -15,8 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
-
 
 enum planck_layers {
   _QWERTY,
@@ -133,14 +131,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ## Arrows
 
-|      |      |A(->) |      |      |A(<-) |      | P_Up | P_Up |C(->) |      |      |
+|      |      |      |A(->) |      |A(<-) |      | P_Up | P_Up |C(->) |      |      |
 |      |      |      |P_Down|      |      | Left | Down |  Up  |Right |C(<-) |      |
 |      |      |      |      |P_Down|A(<-) |      |      |      |      |      |      |
 |      |      |      |      |      |      |      | \\/  |      |      |      |Normal|
  */
 
 [_ARROWS] = LAYOUT_planck_grid(
-    _______, _______, ALTRGHT, _______, _______, ALTLEFT, _______, KC_PGUP, KC_PGUP, CTLRGHT, _______, _______,
+    _______, _______, _______, ALTRGHT, _______, ALTLEFT, _______, KC_PGUP, KC_PGUP, CTLRGHT, _______, _______,
     _______, _______, _______, KC_PGDN, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, CTLLEFT, _______,
     _______, _______, _______, _______, KC_PGDN, ALTLEFT, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, NORMAL
@@ -208,7 +206,96 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+bool is_left_mod(uint16_t keycode) {
+    switch (keycode) {
+        case ALT__A:
+        case GUI__S:
+        case SFT__D:
+        case CTL__F:
+        case GUI__R:
+        case SFT__S:
+        case CTL__T:
+            return true;
+    }
+    return false;
+}
+
+bool is_right_mod(uint16_t keycode) {
+    switch (keycode) {
+        case ALTSCLN:
+        case GUI__L:
+        case SFT__K:
+        case CTL__J:
+        case ALT__O:
+        case GUI__I:
+        case SFT__E:
+        case CTL__N:
+            return true;
+    }
+    return false;
+}
+
+bool is_left_key(int row) {
+    return row < 4 || row == 7;
+}
+
+bool is_right_key(int row) {
+    return row > 2;
+}
+
+void tap_mods(int num_mods, uint16_t *mods, int *counts) {
+    clear_mods();
+    for (int i = 0; i < num_mods; i++) {
+        if (counts[i] == 0) {
+            tap_code16(mods[i]);
+        }
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    static int l_mods = 0;
+    static int r_mods = 0;
+    static int counts[4];
+    static uint16_t mods[4];
+    bool is_l_mod = is_left_mod(keycode);
+    bool is_r_mod = is_right_mod(keycode);
+
+    if (l_mods > 0) {
+        // opposite key
+        if (is_right_key(record->event.key.row)) {
+            return true;
+        }
+        // sameside non-mod
+        if (!is_l_mod && record->event.pressed) {
+            tap_mods(l_mods, mods, counts);
+            return true;
+        }
+    } else if (r_mods > 0) {
+        // opposite key
+        if (is_left_key(record->event.key.row)) {
+            return true;
+        }
+        // sameside non-mod
+        if (!is_r_mod && record->event.pressed) {
+            tap_mods(r_mods, mods, counts);
+            return true;
+        }
+    }
+
+    // sameside mod
+    if (is_l_mod || is_r_mod) {
+        if (record->event.pressed) {
+            counts[l_mods + r_mods] = record->tap.count;
+            mods[l_mods + r_mods] = keycode;
+            l_mods += is_l_mod;
+            r_mods += is_r_mod;
+        } else {
+            l_mods -= is_l_mod;
+            r_mods -= is_r_mod;
+        }
+        return true;
+    }
+
     switch (keycode) {
         case QWERTY:
             set_single_persistent_default_layer(_QWERTY);
@@ -226,6 +313,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             layer_clear();
             return false;
     }
+
     return true;
 }
 
@@ -234,21 +322,6 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
         case SHFTESC:
         case NUMSPAC:
         case SFTENTR:
-        case ALT__A:
-        case ALTSCLN:
-        case ALT__O:
-        case GUI__S:
-        case GUI__L:
-        case GUI__R:
-        case GUI__I:
-        case SFT__D:
-        case SFT__K:
-        case SFT__S:
-        case SFT__E:
-        case CTL__F:
-        case CTL__J:
-        case CTL__T:
-        case CTL__N:
             return 0;
         default:
             return QUICK_TAP_TERM;
@@ -274,6 +347,6 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
         case CTL__N:
             return false;
         default:
-            return false;
+            return true;
     }
 }

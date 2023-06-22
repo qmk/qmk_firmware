@@ -24,16 +24,17 @@
 // Mouse Configs
 #define MK_3_SPEED
 #define MK_MOMENTARY_ACCEL
-#define MK_C_OFFSET_1 6
-#define MK_C_OFFSET_UNMOD 16
-#define MK_C_OFFSET_2 26
+#define MK_C_OFFSET_1 4
+#define MK_C_OFFSET_UNMOD 14
+#define MK_C_OFFSET_2 28
 // for MK_W lower is faster
 #define MK_W_INTERVAL_UNMOD 80
 
 // Tap-Hold Configs
-#define TAPPING_TERM 180
+#define TAPPING_TERM 155
+// #define TAPPING_TERM 165
 #define PERMISSIVE_HOLD
 #define HOLD_ON_OTHER_KEY_PRESS
 #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-#define QUICK_TAP_TERM 0
+#define QUICK_TAP_TERM 120
 #define QUICK_TAP_TERM_PER_KEY
