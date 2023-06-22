@@ -440,10 +440,11 @@ include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
 -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/flash.mk
 
 ifneq ($(strip $(PROTOCOL)),)
-    include $(TMK_PATH)/protocol/$(strip $(shell echo $(PROTOCOL) | tr '[:upper:]' '[:lower:]')).mk
+PROTOCOL_KEY = $(strip $(shell echo $(PROTOCOL) | tr '[:upper:]' '[:lower:]'))
 else
-    include $(TMK_PATH)/protocol/$(PLATFORM_KEY).mk
+PROTOCOL_KEY = $(PLATFORM_KEY)
 endif
+include $(TMK_PATH)/protocol/$(PROTOCOL_KEY)/$(PROTOCOL_KEY).mk
 
 # Setup definitions based on the selected MCU
 $(eval $(call add_qmk_prefix_defs,MCU_ORIG,MCU))
