@@ -39,8 +39,11 @@
             "twinkle": true
         }
     },
+    "layout_aliases": {
+        "LAYOUT_all_split": "LAYOUT_ortho_5x4"
+    },
     "layouts": {
-        "LAYOUT_all_split": {
+        "LAYOUT_ortho_5x4": {
             "layout": [
                 {"label": "K00", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01", "matrix": [0, 1], "x": 1, "y": 0},
