@@ -43,6 +43,10 @@
         "LAYOUT_all_split": "LAYOUT_ortho_5x4",
         "LAYOUT_2u_plus_2u_enter_2u_zero": "LAYOUT_numpad_5x4"
     },
+    "community_layouts": [
+        "ortho_5x4",
+        "numpad_5x4"
+    ],
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [
