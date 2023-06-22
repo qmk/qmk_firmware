@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "keyboard.h"
 #include "matrix.h"
-#include "keymap.h"
+#include "keymap_introspection.h"
 #include "magic.h"
 #include "host.h"
 #include "led.h"
@@ -114,7 +114,7 @@ uint32_t        last_input_activity_time(void) {
     return last_input_modification_time;
 }
 uint32_t last_input_activity_elapsed(void) {
-    return timer_elapsed32(last_input_modification_time);
+    return sync_timer_elapsed32(last_input_modification_time);
 }
 
 static uint32_t last_matrix_modification_time = 0;
@@ -122,10 +122,10 @@ uint32_t        last_matrix_activity_time(void) {
     return last_matrix_modification_time;
 }
 uint32_t last_matrix_activity_elapsed(void) {
-    return timer_elapsed32(last_matrix_modification_time);
+    return sync_timer_elapsed32(last_matrix_modification_time);
 }
 void last_matrix_activity_trigger(void) {
-    last_matrix_modification_time = last_input_modification_time = timer_read32();
+    last_matrix_modification_time = last_input_modification_time = sync_timer_read32();
 }
 
 static uint32_t last_encoder_modification_time = 0;
@@ -133,10 +133,28 @@ uint32_t        last_encoder_activity_time(void) {
     return last_encoder_modification_time;
 }
 uint32_t last_encoder_activity_elapsed(void) {
-    return timer_elapsed32(last_encoder_modification_time);
+    return sync_timer_elapsed32(last_encoder_modification_time);
 }
 void last_encoder_activity_trigger(void) {
-    last_encoder_modification_time = last_input_modification_time = timer_read32();
+    last_encoder_modification_time = last_input_modification_time = sync_timer_read32();
+}
+
+static uint32_t last_pointing_device_modification_time = 0;
+uint32_t        last_pointing_device_activity_time(void) {
+    return last_pointing_device_modification_time;
+}
+uint32_t last_pointing_device_activity_elapsed(void) {
+    return sync_timer_elapsed32(last_pointing_device_modification_time);
+}
+void last_pointing_device_activity_trigger(void) {
+    last_pointing_device_modification_time = last_input_modification_time = sync_timer_read32();
+}
+
+void set_activity_timestamps(uint32_t matrix_timestamp, uint32_t encoder_timestamp, uint32_t pointing_device_timestamp) {
+    last_matrix_modification_time          = matrix_timestamp;
+    last_encoder_modification_time         = encoder_timestamp;
+    last_pointing_device_modification_time = pointing_device_timestamp;
+    last_input_modification_time           = MAX(matrix_timestamp, MAX(encoder_timestamp, pointing_device_timestamp));
 }
 
 // Only enable this if console is enabled to print to
@@ -444,7 +462,7 @@ static inline void generate_tick_event(void) {
     static uint16_t last_tick = 0;
     const uint16_t  now       = timer_read();
     if (TIMER_DIFF_16(now, last_tick) != 0) {
-        action_exec(TICK_EVENT);
+        action_exec(MAKE_TICK_EVENT);
         last_tick = now;
     }
 }
@@ -592,9 +610,10 @@ void quantum_task(void) {
 
 /** \brief Main task that is repeatedly called as fast as possible. */
 void keyboard_task(void) {
-    const bool matrix_changed = matrix_task();
-    if (matrix_changed) {
+    __attribute__((unused)) bool activity_has_occurred = false;
+    if (matrix_task()) {
         last_matrix_activity_trigger();
+        activity_has_occurred = true;
     }
 
     quantum_task();
@@ -621,9 +640,16 @@ void keyboard_task(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-    const bool encoders_changed = encoder_read();
-    if (encoders_changed) {
+    if (encoder_read()) {
         last_encoder_activity_trigger();
+        activity_has_occurred = true;
+    }
+#endif
+
+#ifdef POINTING_DEVICE_ENABLE
+    if (pointing_device_task()) {
+        last_pointing_device_activity_trigger();
+        activity_has_occurred = true;
     }
 #endif
 
@@ -631,11 +657,7 @@ void keyboard_task(void) {
     oled_task();
 #    if OLED_TIMEOUT > 0
     // Wake up oled if user is using those fabulous keys or spinning those encoders!
-#        ifdef ENCODER_ENABLE
-    if (matrix_changed || encoders_changed) oled_on();
-#        else
-    if (matrix_changed) oled_on();
-#        endif
+    if (activity_has_occurred) oled_on();
 #    endif
 #endif
 
@@ -643,11 +665,7 @@ void keyboard_task(void) {
     st7565_task();
 #    if ST7565_TIMEOUT > 0
     // Wake up display if user is using those fabulous keys or spinning those encoders!
-#        ifdef ENCODER_ENABLE
-    if (matrix_changed || encoders_changed) st7565_on();
-#        else
-    if (matrix_changed) st7565_on();
-#        endif
+    if (activity_has_occurred) st7565_on();
 #    endif
 #endif
 
@@ -658,10 +676,6 @@ void keyboard_task(void) {
 
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_task();
-#endif
-
-#ifdef POINTING_DEVICE_ENABLE
-    pointing_device_task();
 #endif
 
 #ifdef MIDI_ENABLE

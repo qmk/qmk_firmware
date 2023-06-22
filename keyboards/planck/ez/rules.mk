@@ -13,7 +13,6 @@ AUDIO_DRIVER = dac_additive
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 ENCODER_ENABLE = yes
-RGB_MATRIX_DRIVER = IS31FL3737
 
 LAYOUTS_HAS_RGB = no
 

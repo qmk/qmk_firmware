@@ -15,15 +15,8 @@
  */
 #pragma once
 
-
-/* Matrix */
-#define MATRIX_ROW_PINS { B15, A5, A3, A15, B7, B8 }
-#define MATRIX_COL_PINS { B13, B14, B3, A4, A6 }
-#define DIODE_DIRECTION COL2ROW
-
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
-#define RGB_DI_PIN B12
 #define RGB_MATRIX_LED_COUNT 30
 #define RGB_MATRIX_KEYPRESSES
 // #define RGB_MATRIX_KEYRELEASES
