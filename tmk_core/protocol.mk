@@ -99,7 +99,7 @@ ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(USB_HID_ENABLE)), yes)
-    include $(TMK_DIR)/protocol/usb_hid.mk
+    include $(TMK_DIR)/protocol/usb_hid/usb_hid.mk
 endif
 
 # Search Path
