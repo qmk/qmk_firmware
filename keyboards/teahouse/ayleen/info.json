@@ -27,8 +27,11 @@
       "pid": "0x4141",
       "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_f13_ansi_tsangan"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "F1", "matrix": [0, 1], "x": 1.25, "y": 0},
