@@ -40,7 +40,8 @@
         }
     },
     "layout_aliases": {
-        "LAYOUT_all_split": "LAYOUT_ortho_5x4"
+        "LAYOUT_all_split": "LAYOUT_ortho_5x4",
+        "LAYOUT_2u_plus_2u_enter_2u_zero": "LAYOUT_numpad_5x4"
     },
     "layouts": {
         "LAYOUT_ortho_5x4": {
@@ -134,7 +135,7 @@
                 {"label": "K43", "matrix": [4, 3], "x": 3, "y": 3, "h": 2}
             ]
         },
-        "LAYOUT_2u_plus_2u_enter_2u_zero": {
+        "LAYOUT_numpad_5x4": {
             "layout": [
                 {"label": "K00", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01", "matrix": [0, 1], "x": 1, "y": 0},
