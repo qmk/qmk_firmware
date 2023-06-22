@@ -3,9 +3,12 @@
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
+        "extrakey": true,
+        "mousekey": true,
         "rgb_matrix": true
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "GP14", "pin_b": "GP15"},
             {"pin_a": "GP26", "pin_b": "GP25"}
@@ -110,6 +113,7 @@
     "rgb_matrix": {
         "driver": "WS2812",
         "split_count": [34, 34],
+        "max_brightness": 120,
         "layout": [
             {"matrix": [0,0], "flags":4, "x":0, "y":5},
             {"flags":2, "x":8, "y":5},
