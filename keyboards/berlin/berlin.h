@@ -27,8 +27,3 @@
 // All code beyond this is not needed for the actual keyboard buttons.
 
 
-// Rotary Encoders
-#define ENCODERS_PAD_A { D15, D6 }
-#define ENCODERS_PAD_B { D14, D7 }
-#define ENCODER_RESOLUTION 1
-
