@@ -1,7 +1,7 @@
 {
     "manufacturer": "kibou",
     "keyboard_name": "harbour",
-    "maintainer": "kibou",
+    "maintainer": "FanXingStudio",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
     "features": {
