@@ -53,10 +53,16 @@
             "pixel_fractal":false,
             "pixel_rain": false,
             "rainbow_moving_chevron": false,
-
-            "rainbow_pinwheels":true,
+            "rainbow_pinwheels":false,
             "raindrops": true,
-            "ranbow_beacon": true
+
+            "ranbow_beacon": false,
+            "typing_heatmap": true,
+            "digital_rain": true,
+
+            "solid_reactive_simple": true,
+            "solid_reactive_multiwide": true,
+            "solid_splash": true
         },
         "driver": "CKLED2001",
         "hue_steps": 20,
