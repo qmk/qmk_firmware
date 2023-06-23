@@ -330,6 +330,7 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case NUMSPAC:
         case ALT__A:
         case ALTSCLN:
         case ALT__O:
