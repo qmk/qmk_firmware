@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#include "config_common.h"
+
 #define DEBOUNCE 5
 
 #ifdef RGBLIGHT_ENABLE
