@@ -40,7 +40,7 @@
                 {"label": "8", "matrix": [0, 11], "x": 11, "y": 0 },
                 {"label": "9", "matrix": [0, 12], "x": 12, "y": 0 },
                 {"label": "0", "matrix": [0, 13], "x": 13, "y": 0 },
-                {"label": "Delete", "matrix": [0, 14], "x": 13, "y": 0 },
+                {"label": "Delete", "matrix": [0, 14], "x": 14, "y": 0 },
                 {"label": "Home", "matrix": [0, 15], "x": 15, "y": 0 },
 
                 {"label": "Tab", "matrix": [1, 0], "x": 0, "y": 1 },
@@ -57,7 +57,7 @@
                 {"label": "I", "matrix": [1, 11], "x": 11, "y": 1 },
                 {"label": "O", "matrix": [1, 12], "x": 12, "y": 1 },
                 {"label": "P", "matrix": [1, 13], "x": 13, "y": 1 },
-                {"label": "Backspace", "matrix": [1, 14], "x": 13, "y": 1 },
+                {"label": "Backspace", "matrix": [1, 14], "x": 14, "y": 1 },
                 {"label": "Page Up", "matrix": [1, 15], "x": 15, "y": 1 },
 
                 {"label": "Caps Lock", "matrix": [2, 0], "x": 0, "y": 2 },
@@ -74,7 +74,7 @@
                 {"label": "K", "matrix": [2, 11], "x": 11, "y": 2 },
                 {"label": "L", "matrix": [2, 12], "x": 12, "y": 2 },
                 {"label": ":", "matrix": [2, 13], "x": 13, "y": 2 },
-                {"label": "", "matrix": [2, 14], "x": 13, "y": 2 },
+                {"label": "", "matrix": [2, 14], "x": 14, "y": 2 },
                 {"label": "Page Down", "matrix": [2, 15], "x": 15, "y": 2 },
 
                 {"label": "Shift", "matrix": [3, 0], "x": 0, "y": 3 },
@@ -91,7 +91,7 @@
                 {"label": ",", "matrix": [3, 11], "x": 11, "y": 3 },
                 {"label": ".", "matrix": [3, 12], "x": 12, "y": 3 },
                 {"label": "/", "matrix": [3, 13], "x": 13, "y": 3 },
-                {"label": "\u2191", "matrix": [3, 14], "x": 13, "y": 3 },
+                {"label": "\u2191", "matrix": [3, 14], "x": 14, "y": 3 },
                 {"label": "Enter", "matrix": [3, 15], "x": 15, "y": 3 },
 
                 {"label": "Ctrl", "matrix": [4, 0], "w": 1.25, "x": 0, "y": 4 },
