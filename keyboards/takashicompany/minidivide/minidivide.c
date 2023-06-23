@@ -13,7 +13,9 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 static uint16_t press_count = 0;
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
      // Increment the counter when a key is pressed
     if (record->event.pressed) {
         press_count++;
