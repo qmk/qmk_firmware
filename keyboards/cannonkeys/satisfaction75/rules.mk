@@ -21,5 +21,3 @@ OLED_DRIVER = SSD1306
 
 DEFAULT_FOLDER = cannonkeys/satisfaction75/rev1
 
-# Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
