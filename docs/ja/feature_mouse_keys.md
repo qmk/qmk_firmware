@@ -73,13 +73,6 @@ MOUSEKEY_ENABLE = yes
 | `MOUSEKEY_WHEEL_MAX_SPEED` | 8 | スクロールアクションごとのスクロールステップの最大数 |
 | `MOUSEKEY_WHEEL_TIME_TO_MAX` | 40 | 最大スクロール速度に達するまでの時間 |
 
-斜めのカーソル速度はステップの大きさや最大カーソル速度を低く設定した際に精度よく計算されません。
-気になる場合、以下の行を各キーマップの `config.h` に追加してください。
-
-```c
-#define MOUSEKEY_PRECISE_DIAGONAL_MOVE
-```
-
 ヒント:
 
 * `MOUSEKEY_DELAY` の設定が低すぎるとカーソルが応答しなくなります。設定が高すぎると小さな動きが難しくなります。

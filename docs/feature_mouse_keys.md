@@ -70,11 +70,6 @@ This is the default mode. You can adjust the cursor and scrolling acceleration u
 |`MOUSEKEY_WHEEL_MAX_SPEED`  |8      |Maximum number of scroll steps per scroll action         |
 |`MOUSEKEY_WHEEL_TIME_TO_MAX`|40     |Time until maximum scroll speed is reached               |
 
-Diagonal movement speed calculation may not be accurate when step size and maximum cursor speed are configured to low values. To improve the accuracy of diagonal movement calculation, add the following in your keymap's `config.h` file:
-```c
-#define MOUSEKEY_PRECISE_DIAGONAL_MOVE
-```
-
 Tips:
 
 * Setting `MOUSEKEY_DELAY` too low makes the cursor unresponsive. Setting it too high makes small movements difficult.
