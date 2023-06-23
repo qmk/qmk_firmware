@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -24,7 +18,6 @@ RGB_MATRIX_ENABLE = yes
 # The custom RGB Matrix driver combines IS31FL3733 and WS2812; things that are
 # normally done by common_features.mk for both of these drivers need to be done
 # here manually.
-RGB_MATRIX_DRIVER = custom
 COMMON_VPATH += $(DRIVER_PATH)/led/issi
 SRC += is31fl3733.c
 QUANTUM_LIB_SRC += i2c_master.c

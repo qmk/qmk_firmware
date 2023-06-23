@@ -15,7 +15,7 @@ bool process_record_save_default_layer(uint16_t keycode, keyrecord_t *record) {
 
     if (!(keycode == KF_LAYO
           && record->event.pressed
-          && get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)))) {
+          && get_mods() & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)))) {
         return true;
     }
 

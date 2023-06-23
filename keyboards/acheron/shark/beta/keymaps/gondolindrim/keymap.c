@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
-#include "config_common.h"
 
 #define MEDIA_KEY_DELAY 10
 #define ALT_TAB_DELAY 1000
@@ -94,7 +93,7 @@ encoder_mode_t encoder_modes[] = {
 	// Insert your custom encoder mode here
 };
 
-#define NUM_ENCODER_MODES (sizeof(encoder_modes)/sizeof(encoder_modes[0]))
+#define NUM_ENCODER_MODES ARRAY_SIZE(encoder_modes)
 
 // This counter is used to track what encoder mode is being used at a certain time
 int encoder_mode_count = 0;
@@ -187,7 +186,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 uint32_t held_click_timer = 0;
 bool is_click_held = false;
 bool is_shift_held = false;
-bool automatic_hold_cycle = false; // This flag registers if the encoder hold was automatically cycled 
+bool automatic_hold_cycle = false; // This flag registers if the encoder hold was automatically cycled
 
 // This bool records if LALT is pressed or not. Due to the automatic disabling of the ALT-TAB of the ALTTABS custom keystroke, the automatic disabling can un-register KC_LALT even when the LALT key is phisically pressed. Hence there needs to be two bools: one that keebs track of the ALT-TAB activity and one that keeps track of LALT so that the automatic disabling will not disable LALT if it is phisically pressed.
 bool is_lalt_pressed = false;
@@ -213,7 +212,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		return true; // Skip all further processing of this key
 	case KC_LALT: // If this is not defined, if the encoder is activated in the alt-tab mode while the LALT key is pressed, the menu goes away.
 		if (record->event.pressed) is_lalt_pressed = true;
-		else is_lalt_pressed = false;				
+		else is_lalt_pressed = false;
 		return true;
 	case ENCMUP:
 	case ENCMDN:
@@ -225,7 +224,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (!is_alt_tab_active) {
 				is_alt_tab_active = true;
 				register_code(KC_LALT);
-			
+
 			}
 			tap_code16(keycode == ALTTABF ? KC_TAB : S(KC_TAB)); // Due to S(KC_TAB), the 16-bit tap_code16 is needed.
 			alt_tab_timer = timer_read32();
@@ -252,7 +251,7 @@ void housekeeping_task_user(void) {
 			is_alt_tab_active = false;
 		}
 	}
-/*		This piece of the code checks for the encoder push timer. If the encoder push interval was less than encoder_click_delay then it is automatically processed by process_record_user by triggering the current mode's click key. However, if the encoder push is held for more time than the defined delay, then the encoder hold "cycles", that is, gets activated and the timer needs to be reset. This does three things: 
+/*		This piece of the code checks for the encoder push timer. If the encoder push interval was less than encoder_click_delay then it is automatically processed by process_record_user by triggering the current mode's click key. However, if the encoder push is held for more time than the defined delay, then the encoder hold "cycles", that is, gets activated and the timer needs to be reset. This does three things:
 - (1) Sets the automatic_hold_cycle flag which prevents process_record_user from triggering the click key when the push is released
 - (2) Processes the current mode's hold key in process_record_user
 - (3) Resets the click timer

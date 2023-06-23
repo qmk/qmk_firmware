@@ -78,9 +78,9 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = {
     my_rgb_segments[L_MOUSE],
 };
 
-_Static_assert(sizeof(my_rgb_layers) / sizeof(my_rgb_layers[0]) ==
-        sizeof(my_rgb_segments) / sizeof(my_rgb_segments[0]),
-        "Number of rgb_segment definitions does not match up!");
+_Static_assert(ARRAY_SIZE(my_rgb_layers) ==
+	       ARRAY_SIZE(my_rgb_segments),
+	       "Number of rgb_segment definitions does not match up!");
 #endif
 
 #ifdef COMBO_ENABLE
@@ -125,8 +125,6 @@ const uint16_t PROGMEM my_combos[][4] = {
     {KC_BTN1, KC_BTN2, KC_BTN3, COMBO_END},
 };
 
-const uint16_t COMBO_LEN = sizeof(my_action_combos) / sizeof(my_action_combos[0]) + sizeof(my_combos) / sizeof(my_combos[0]);
-
 #define MY_ACTION_COMBO(ck) \
     [ck] = { .keys = &(my_action_combos[ck][0]) }
 #define MY_COMBO(ck) \
@@ -162,11 +160,11 @@ combo_t key_combos[] = {
   MY_COMBO(14),
 };
 
-_Static_assert(sizeof(key_combos) / sizeof(key_combos[0]) ==
-        (sizeof(my_action_combos) / sizeof(my_action_combos[0]) + sizeof(my_combos) / sizeof(my_combos[0])),
-        "Number of combo definitions does not match up!");
+_Static_assert(ARRAY_SIZE(key_combos) ==
+	       (ARRAY_SIZE(my_action_combos) + ARRAY_SIZE(my_combos)),
+	       "Number of combo definitions does not match up!");
 #else
-combo_t key_combos[sizeof(my_action_combos) / sizeof(my_action_combos[0]) + sizeof(my_combos) / sizeof(my_combos[0])];
+combo_t key_combos[ARRAY_SIZE(my_action_combos) + ARRAY_SIZE(my_combos)];
 #endif
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -235,10 +233,10 @@ void keyboard_post_init_user(void) {
 #endif
 #if defined(COMBO_ENABLE) && !defined(COMBO_STATICALLY)
     uint8_t i = 0;
-    for (; i < sizeof(my_action_combos) / sizeof(my_action_combos[0]); i++) {
+    for (; i < ARRAY_SIZE(my_action_combos); i++) {
         key_combos[i].keys = &(my_action_combos[i][0]);
     }
-    for (uint8_t j = 0; j < sizeof(my_combos) / sizeof(my_combos[0]); j++, i++) {
+    for (uint8_t j = 0; j < ARRAY_SIZE(my_combos); j++, i++) {
         key_combos[i].keycode = my_combos[j][0];
         key_combos[i].keys = &(my_combos[j][1]);
     }
@@ -502,10 +500,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /*
  * Obsoleted by making tmux understand Ctrl-(Shift)-Tab natively.
     case TM_NEXT:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("a") "n");
+        if (record->event.pressed) SEND_STRING(SS_LCTL("a") "n");
         break;
     case TM_PREV:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("a") "p");
+        if (record->event.pressed) SEND_STRING(SS_LCTL("a") "p");
         break;
 */
         // TODO: use key overrides to turn, e.g. Win+Ctrl-Tab into VIM_NEXT.
@@ -517,16 +515,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) SEND_STRING(SS_TAP(X_ESC) SS_TAP(X_G) SS_LSFT("t"));
         break;
     case WIN_LEFT:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("w") SS_TAP(X_H));
+        if (record->event.pressed) SEND_STRING(SS_LCTL("w") SS_TAP(X_H));
         break;
     case WIN_DN:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("w") SS_TAP(X_J));
+        if (record->event.pressed) SEND_STRING(SS_LCTL("w") SS_TAP(X_J));
         break;
     case WIN_UP:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("w") SS_TAP(X_K));
+        if (record->event.pressed) SEND_STRING(SS_LCTL("w") SS_TAP(X_K));
         break;
     case WIN_RGHT:
-        if (record->event.pressed) SEND_STRING(SS_LCTRL("w") SS_TAP(X_L));
+        if (record->event.pressed) SEND_STRING(SS_LCTL("w") SS_TAP(X_L));
         break;
     }
 
@@ -534,49 +532,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef LEADER_ENABLE
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
+void leader_end_user(void) {
 #ifdef UCIS_ENABLE
-    SEQ_ONE_KEY(KC_U) {
-      qk_ucis_start();
+    if (leader_sequence_one_key(KC_U)) {
+        ucis_start();
     }
 #endif
-    SEQ_ONE_KEY(KC_H) {
-      send_unicode_string("ᕕ( ᐛ )ᕗ");  // happy
+    if (leader_sequence_one_key(KC_H)) {
+        send_unicode_string("ᕕ( ᐛ )ᕗ");  // happy
     }
-    SEQ_ONE_KEY(KC_D) {
-      send_unicode_string("ಠ_ಠ");  // disapproval
+    if (leader_sequence_one_key(KC_D)) {
+        send_unicode_string("ಠ_ಠ");  // disapproval
     }
-    SEQ_ONE_KEY(KC_L) {
-      send_unicode_string("( ͡° ͜ʖ ͡°)");  // lenny
+    if (leader_sequence_one_key(KC_L)) {
+        send_unicode_string("( ͡° ͜ʖ ͡°)");  // lenny
     }
-    SEQ_ONE_KEY(KC_S) {
-      send_unicode_string("¯\\_(ツ)_/¯");  // shrug
+    if (leader_sequence_one_key(KC_S)) {
+        send_unicode_string("¯\\_(ツ)_/¯");  // shrug
     }
     // tableflip (LEADER - TF)
-    SEQ_TWO_KEYS(KC_T, KC_F) {
-      //set_unicode_input_mode(UC_LNX);
-      //send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
-      send_unicode_string("(╯°□°）╯︵ ┻━┻");
+    if (leader_sequence_two_keys(KC_T, KC_F)) {
+        //set_unicode_input_mode(UNICODE_MODE_LINUX);
+        //send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+        send_unicode_string("(╯°□°）╯︵ ┻━┻");
     }
     // untableflip
-    SEQ_THREE_KEYS(KC_U, KC_T, KC_F) {
-      //set_unicode_input_mode(UC_LNX);
-      //send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
-      send_unicode_string("┬─┬ノ( º _ ºノ)");
+    if (leader_sequence_three_keys(KC_U, KC_T, KC_F)) {
+        //set_unicode_input_mode(UNICODE_MODE_LINUX);
+        //send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+        send_unicode_string("┬─┬ノ( º _ ºノ)");
     }
-  }
 }
 #endif
 
 #ifdef UCIS_ENABLE
 // 3 codepoints at most, otherwise increase UCIS_MAX_CODE_POINTS
-const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
+const ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
     UCIS_SYM("poop", 0x1F4A9),                // 💩
     UCIS_SYM("rofl", 0x1F923),                // 🤣
     UCIS_SYM("look", 0x0CA0, 0x005F, 0x0CA0)  // ಠ_ಠ

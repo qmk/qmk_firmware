@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_W,   KC_E,     KC_R,    KC_T,                      KC_Y,   KC_U,    KC_I,    KC_O,    KC_P    ,
     KC_A,    KC_S,   KC_D,     KC_F,    KC_G,                      KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN ,
     Z_SFT,   KC_X,   KC_C,     KC_V,    KC_B,   KC_GRAVE, KC_BSLS, KC_N,   KC_M,    KC_COMM, KC_DOT,  SLSH_SFT,
-    KC_LCTRL, KC_ESC, KC_LGUI,  KC_LALT, KC_SPC, FN0,      FN0,     KC_SPC, KC_LALT, KC_MINS, KC_QUOT, KC_LCTRL
+    KC_LCTL, KC_ESC, KC_LGUI,  KC_LALT, KC_SPC, FN0,      FN0,     KC_SPC, KC_LALT, KC_MINS, KC_QUOT, KC_LCTL
   ),
 
   /*
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LW] = LAYOUT( /* [> LOWER <] */
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8, KC_F9,  KC_F10,
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_F11,                    KC_F12,  KC_NO,   KC_NO, KC_NO,  KC_NO ,
-    KC_NO,   KC_NO,   KC_NO,   DEBUG,   RESET,   EEP_RST, _______, KC_NO,   KC_NO,   KC_NO, KC_NO,  KC_NO ,
+    KC_NO,   KC_NO,   KC_NO,   DB_TOGG, QK_BOOT, EE_CLR,  _______, KC_NO,   KC_NO,   KC_NO, KC_NO,  KC_NO ,
     _______, _______, _______, _______, _______, FN2,     FN2,     _______, _______, KC_NO, KC_ESC, _______
   )
 };
@@ -83,10 +83,10 @@ bool substitute_keycode(uint16_t keycode, keyrecord_t *record, uint8_t mod_state
     // of the delete key status: registered or not?
     static bool key_registered;
     // ctrl activated?
-    if ((mod_state & MOD_BIT(KC_LCTRL)) == MOD_BIT(KC_LCTRL)) {
+    if ((mod_state & MOD_BIT(KC_LCTL)) == MOD_BIT(KC_LCTL)) {
         if (record->event.pressed) {
-            // No need to register KC_LCTRL because it's already active.
-            unregister_code(KC_LCTRL);
+            // No need to register KC_LCTL because it's already active.
+            unregister_code(KC_LCTL);
             // Send substitute code
             register_code(substitute_keycode);
             // Update the boolean variable to reflect the status of the register

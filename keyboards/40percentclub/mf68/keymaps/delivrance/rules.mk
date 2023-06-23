@@ -1,6 +1,5 @@
 BACKLIGHT_DRIVER = custom
 NKRO_ENABLE = yes
-TERMINAL_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = yes
 
 # Use RAM (fake EEPROM, transient) instead of real EEPROM

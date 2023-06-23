@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MO(1),      KC_LCTL,    	KC_LALT,        KC_LGUI,        MO(2),          LT(5,KC_ENT),   LT(4,KC_SPC), 	MO(3),      	KC_SLSH,    	KC_LEFT,        KC_DOWN,        CTL_T(KC_RGHT)),
 
   LAYOUT_planck_grid(
-    KC_ESC,     KC_NLCK,    	LCTL(KC_SPC),   KC_UP,          LSFT(KC_SPC),   KC_DLR,         KC_EQL,     	KC_P7,      	KC_P8,      	KC_P9,          KC_PPLS,        LCTL(KC_BSPC), 
+    KC_ESC,     KC_NUM,     	LCTL(KC_SPC),   KC_UP,          LSFT(KC_SPC),   KC_DLR,         KC_EQL,     	KC_P7,      	KC_P8,      	KC_P9,          KC_PPLS,        LCTL(KC_BSPC), 
     KC_TAB,     FIND,       	KC_LEFT,        KC_DOWN,        KC_RGHT,        KC_PERC,        KC_CIRC,    	KC_P4,      	KC_P5,      	KC_P6,          KC_PMNS,        KC_BSLS, 
     KC_LSFT,    UNDO,       	CUT,            COPY,           PASTE,          EXCEL_HOME,     KC_PSCR,    	KC_P1,      	KC_P2,      	KC_P3,          KC_PSLS,        KC_LSFT, 
     KC_TRNS, 	KC_LCTL,    	KC_LALT,        KC_LGUI,        TO(1),          KC_ENT,         KC_SPC,     	KC_PENT,    	KC_P0,      	KC_PDOT,        KC_PAST,        KC_LCTL),
@@ -46,18 +46,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD,    KC_EXLM,    	KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,        KC_CIRC,    	KC_AMPR,    	KC_ASTR,    	KC_LPRN,    	KC_RPRN,        KC_DEL, 
     KC_CAPS,    KC_F1,      	KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,      	KC_UNDS,    	KC_EQL,     	KC_LT,        	KC_GT,       	KC_LPRN, 
     KC_LSFT,    KC_F7,      	KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,     	KC_MUTE,    	KC_MPLY,    	KC_MNXT,       	KC_PGUP,       	SFT_T(KC_VOLU), 
-    TO(0),      KC_LCTL,    	KC_LALT,        KC_LGUI,        KC_TRNS,      	KC_ENT,         KC_SPC,     	MO(3),      	KC_PSCR,    	KC_MPRV,        KC_PGDOWN,    	CTL_T(KC_VOLD)),
+    TO(0),      KC_LCTL,    	KC_LALT,        KC_LGUI,        KC_TRNS,      	KC_ENT,         KC_SPC,     	MO(3),      	KC_PSCR,    	KC_MPRV,        KC_PGDN,    	CTL_T(KC_VOLD)),
 
   LAYOUT_planck_grid(
     KC_TILD,    DESK_LEFT,  	WIN_LEFT,       KC_F4,          WIN_RIGHT,      DESK_RIGHT,     DOCS,       	SNAP_LEFT, 	SNAP_UP,     	SNAP_RIGHT,     SNAP_DOWN,      KC_DEL, 
     KC_CAPS,    KC_QUOT,    	KC_LBRC,        KC_LCBR,        KC_LPRN,        KC_BSLS,        KC_SLSH,    	KC_RPRN, 	KC_RCBR,     	KC_RBRC,    	KC_DQUO,        KC_QUOT, 
     KC_PWR,     KC_SLEP,    	KC_WAKE,        KC_HOME,        BL_BRTG,        BL_STEP,        KC_TRNS,    	KC_CALC, 	KC_LT,     	    KC_GT,     	    KC_COLON,   	KC_LSFT, 
-    TO(0),      KC_LCTL,    	KC_LALT,        KC_LGUI,        KC_LALT,        KC_LCTL,        KC_TRNS,    	KC_TRNS, 	AU_TOG,      	MU_TOG,     	MU_MOD,     	LCTL(KC_RGHT)),
+    TO(0),      KC_LCTL,    	KC_LALT,        KC_LGUI,        KC_LALT,        KC_LCTL,        KC_TRNS,    	KC_TRNS, 	AU_TOGG,      	MU_TOGG,     	MU_NEXT,     	LCTL(KC_RGHT)),
 
   LAYOUT_planck_grid(
     TO(0),      KC_LSCR,    	WIN_LEFT,       KC_MS_WH_UP,    WIN_RIGHT,  	KC_TRNS,        KC_TRNS,    	KC_MS_BTN1, 	KC_MS_U,    	KC_MS_BTN2,    	KC_TRNS,        KC_TRNS, 
     KC_TRNS,    KC_INS,    	    KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_RIGHT, KC_TRNS,        KC_TRNS,    	KC_MS_L,    	KC_MS_D,    	KC_MS_R,        KC_TRNS,        KC_TRNS, 
-    RESET,      KC_APP,    	    KC_MS_ACCEL0,   KC_MS_ACCEL0,   KC_MS_ACCEL0,   KC_TRNS,        KC_TRNS,    	TO(0),      	TO(1),      	TO(2),          TO(3),          TO(4), 
+    QK_BOOT,    KC_APP,    	    KC_MS_ACCEL0,   KC_MS_ACCEL0,   KC_MS_ACCEL0,   KC_TRNS,        KC_TRNS,    	TO(0),      	TO(1),      	TO(2),          TO(3),          TO(4), 
     TO(0),      KC_MENU,    	KC_TRNS,        KC_TRNS,        KC_LALT,        KC_LCTL,        KC_TRNS,     	KC_TRNS,    	KC_TRNS,    	KC_LEFT,        KC_DOWN,   	KC_RCTL),
 
   LAYOUT_planck_grid(
@@ -124,13 +124,13 @@ void led_set_user(uint8_t usb_led)
 }
 
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(30); // gets rid of tick
     PLAY_SONG(tone_my_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_my_goodbye);
     _delay_ms(3000);

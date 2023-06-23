@@ -44,7 +44,7 @@ enum keycodes {
     KC_KAK = SAFE_RANGE,
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [_LCTLGUI] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_LGUI),
 };
 
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  ├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_GRAVE,KC_RABK, KC_RCBR, KC_RBRC, KC_RPRN, KC_PIPE,                            KC_CIRC, KC_PLUS, KC_ASTR, KC_PERC, KC_UP,   KC_EQL,
 //  ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     RESET,   _______, _______, _______, _______, _______, KC_HOME,          KC_END,  KC_KAK,  COPY,    PASTE,   KC_LEFT, KC_DOWN, KC_RIGHT,
+     QK_BOOT, _______, _______, _______, _______, _______, KC_HOME,          KC_END,  KC_KAK,  COPY,    PASTE,   KC_LEFT, KC_DOWN, KC_RIGHT,
 //  └────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     _______, _______, _______,                   KC_DEL,  _______, _______
 //                                 └────────┴────────┴────────┘                 └────────┴────────┴────────┘

@@ -1,0 +1,15 @@
+{
+    "usb": {
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "E6"
+    },
+    "matrix_pins": {
+        "cols": ["F1", "B0", "B1", "B2", "B3", "D0", "D1", "D2", "C6", "C7", "F7", "F6", "F5", "F4", "B5"],
+        "rows": ["D4", "D7", "B6", "B4", "B7"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

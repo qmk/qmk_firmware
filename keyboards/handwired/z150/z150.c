@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "z150.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
     setPinOutput(NUM_LOCK_LED_PIN);

@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev2.h"
+#include "quantum.h"
 
 // Mask out handedness diode to prevent it
 // from keeping the keyboard awake
@@ -43,6 +43,9 @@ __attribute__ ((weak)) const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATR
     {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}, {6, 3}, {7, 3}}
 };
 // clang-format on
+#    ifdef ENCODER_MAP_ENABLE
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {1, 0};
+#    endif
 #endif
 
 #ifdef RGB_MATRIX_ENABLE

@@ -1,32 +1,52 @@
 {
-    "keyboard_name": "Console Keyboard",
+    "keyboard_name": "Console Keyboard 20",
+    "manufacturer": "Stream Cheap",
     "url": "https://www.thingiverse.com/thing:3167050",
     "maintainer": "Gareth Edwards",
+    "usb": {
+        "vid": "0x6761",
+        "pid": "0x3432",
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "F4"
+    },
+    "matrix_pins": {
+        "cols": ["D4", "C6", "D7", "C4", "B1", "B3", "B2", "B6", "C5", "E6", "B4", "B5"],
+        "rows": ["D1", "D0"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"K00 (D1,D4)", "x":0, "y":0},
-                {"label":"K01 (D1,C6)", "x":1, "y":0},
-                {"label":"K02 (D1,D7)", "x":2, "y":0},
-                {"label":"K04 (D1,B3)", "x":4, "y":0},
-                {"label":"K05 (D1,B2)", "x":5, "y":0},
-                {"label":"K06 (D1,B6)", "x":6, "y":0},
-                {"label":"K07 (D1,E6)", "x":7, "y":0},
-                {"label":"K09 (D1,B5)", "x":9, "y":0},
-                {"label":"K0A (D1,C4)", "x":10, "y":0},
-                {"label":"K0B (D1,C5)", "x":11, "y":0},
-                {"label":"K10 (D0,D4)", "x":0, "y":1},
-                {"label":"K11 (D0,C6)", "x":1, "y":1},
-                {"label":"K12 (D0,D7)", "x":2, "y":1},
-                {"label":"K14 (D0,B3)", "x":4, "y":1},
-                {"label":"K15 (D0,B2)", "x":5, "y":1},
-                {"label":"K16 (D0,B6)", "x":6, "y":1},
-                {"label":"K17 (D0,E6)", "x":7, "y":1},
-                {"label":"K19 (D0,B5)", "x":9, "y":1},
-                {"label":"K1A (D0,C4)", "x":10, "y":1},
-                {"label":"K1B (D0,C5)", "x":11, "y":1}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [0, 6], "x": 6, "y": 0},
+                {"matrix": [0, 7], "x": 7, "y": 0},
+
+                {"matrix": [0, 9], "x": 9, "y": 0},
+                {"matrix": [0, 10], "x": 10, "y": 0},
+                {"matrix": [0, 11], "x": 11, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [1, 5], "x": 5, "y": 1},
+                {"matrix": [1, 6], "x": 6, "y": 1},
+                {"matrix": [1, 7], "x": 7, "y": 1},
+
+                {"matrix": [1, 9], "x": 9, "y": 1},
+                {"matrix": [1, 10], "x": 10, "y": 1},
+                {"matrix": [1, 11], "x": 11, "y": 1}
             ]
         }
     }
-
 }

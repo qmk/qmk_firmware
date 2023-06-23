@@ -1,6 +1,4 @@
 RGBLIGHT_ENABLE = yes
-# Enable RGBLIGHT Animations
-OPT_DEFS += -DRGBLIGHT_ANIMATIONS
 # Helix specific define for correct RGBLED_NUM
 OPT_DEFS += -DRGBLED_BACK
 

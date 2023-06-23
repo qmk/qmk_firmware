@@ -17,26 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xBEAF
-#define PRODUCT_ID      0x0001
-#define DEVICE_VER      0x0000
-#define MANUFACTURER    sporewoh
-#define PRODUCT         banime40
-
-/* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 10
-
-/* pin-out for PCB */
-#define MATRIX_ROW_PINS { E6, D7, C6, D4 }
-#define MATRIX_COL_PINS { B4, B5, B6, B2, B3, B1, F7, F6, F5, F4 }
-
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10

@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LCTL, TG(1),      KC_P0,       KC_PDOT, KC_PENT
     ),
 	[1] = LAYOUT_numpad_5x6(
-		RESET,   KC_LPRN, KC_RPRN, KC_PSLS, KC_PAST, KC_PMNS,
+		QK_BOOT, KC_LPRN, KC_RPRN, KC_PSLS, KC_PAST, KC_PMNS,
 		KC_A,    KC_B,    KC_HOME, KC_UP,   KC_PGUP,
 		KC_C,    KC_D,    KC_LEFT, KC_NO,   KC_RGHT, KC_PPLS,
 		KC_E,    KC_F,    KC_END,  KC_DOWN, KC_PGDN,

@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 KC_BSPC,CTL_ESC,KC_LALT,        KC_RALT,KC_ENT ,KC_SPC
     ),
     [NAV] = LAYOUT_6x6(
-         RESET , KC_NO ,KC_MPRV,KC_MPLY,KC_MNXT, KC_NO ,                                        KC_BRIU,  KC_7 , KC_8  , KC_9  , KC_NO , RESET ,
+         QK_BOOT , KC_NO ,KC_MPRV,KC_MPLY,KC_MNXT, KC_NO ,                                        KC_BRIU,  KC_7 , KC_8  , KC_9  , KC_NO , QK_BOOT ,
         _______,KC_VOLU,KC_WBAK,KC_MS_U,KC_WFWD,KC_WH_U,                                        KC_BRID,  KC_4 , KC_5  , KC_6  , KC_NO , KC_F9 ,
         _______,KC_VOLD,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_D,                                        KC_PPLS,  KC_1 , KC_2  , KC_3  ,KC_PMNS, KC_F10,
          KC_NO , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_NO ,                                        KC_PAST,  KC_0 , KC_NO ,_______,KC_PSLS, KC_F11,

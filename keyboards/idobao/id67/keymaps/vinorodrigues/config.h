@@ -1,26 +1,14 @@
+// Copyright 2022 Vino Rodrigues (@vinorodrigues)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 /*
  * IDOBAO ID67 Keymap for a ID67 Bestype, built for Mac use
- * Copyright (C) 2022  Vino Rodrigues
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #pragma once
 
-#if defined(RGB_MATRIX_ENABLE)
-    #define VIA_QMK_RGBLIGHT_ENABLE
-    #define ID67_DISABLE_UNDERGLOW  // personal choice, I use a ID67 Bestype
+#ifdef RGB_MATRIX_ENABLE
+    #define ID67_DISABLE_UNDERGLOW
 
     #ifdef RGB_MATRIX_MAXIMUM_BRIGHTNESS
         #undef RGB_MATRIX_MAXIMUM_BRIGHTNESS

@@ -1,7 +1,7 @@
 // Copyright 2022 Vitaly Volkov (@vlkv)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "avalanche.h"
+#include "quantum.h"
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -16,7 +16,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         if (clockwise) {
             tap_code(KC_PGUP);
         } else {
-            tap_code(KC_PGDOWN);
+            tap_code(KC_PGDN);
         }
     }
     return true;

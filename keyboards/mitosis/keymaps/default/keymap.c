@@ -77,7 +77,7 @@ static bool singular_key = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 	uint8_t layer;
-  layer = biton32(layer_state);  // get the current layer
+  layer = get_highest_layer(layer_state);  // get the current layer
 
   //custom layer handling for tri_layer,
   switch (keycode) {
@@ -174,7 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     switch (layer) {
     	case _MALT:
@@ -193,4 +193,3 @@ void matrix_scan_user(void) {
             break;
     }
 };
-

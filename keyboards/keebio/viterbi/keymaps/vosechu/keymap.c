@@ -15,10 +15,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   A(KC_LEFT), KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , KC_F9   ,
   SFT_SPC   , A(KC_F1), A(KC_F2), A(KC_F3), A(KC_F4), _______ , _______ ,
   A(KC_RGHT), C(KC_F1), C(KC_F2), C(KC_F3), C(KC_F4), _______ , _______ ,
-  _______   , RESET   , _______ , _______ , _LAYER_ , KC_DEL  , KC_ENT
+  _______   , QK_BOOT, _______ , _______ , _LAYER_ , KC_DEL  , KC_ENT
 ),
 [LFT] = LAYOUT_ortho_half_5x7( // Media
-  _______ , KC_F10  , KC_F11  , KC_F12  , KC_PSCR , KC_SLCK , KC_PAUS ,
+  _______ , KC_F10  , KC_F11  , KC_F12  , KC_PSCR , KC_SCRL , KC_PAUS ,
   _______ , KC_F7   , KC_F8   , KC_F9   , KC_INS  , KC_HOME , KC_PGUP ,
   RGB_TOG , KC_F4   , KC_F5   , KC_F6   , KC_DEL  , KC_END  , KC_PGDN ,
   _______ , KC_F1   , KC_F2   , KC_F3   , KC_VOLU , KC_VOLD , KC_MUTE ,

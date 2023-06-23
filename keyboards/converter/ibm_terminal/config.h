@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6535
-#define DEVICE_VER      0x0100
-#define MANUFACTURER    QMK
-#define PRODUCT         IBM Terminal Keyboard
-
-
 /* matrix size */
 #define MATRIX_ROWS 17  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4
@@ -36,14 +29,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_RALT) | MOD_BIT(KC_RCTL)) \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT) | MOD_BIT(KC_RALT) | MOD_BIT(KC_RCTL)) \
 )
 
 
 /*
  * PS/2 USART configuration for ATMega32U4
  */
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 /* XCK for clock line */
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
@@ -84,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * PS/2 Interrupt configuration
  */
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 /* uses INT1 for clock line(ATMega32U4) */
 #define PS2_CLOCK_PIN   D1
 #define PS2_DATA_PIN    D0
@@ -106,7 +99,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * PS/2 Busywait configuration
  */
-#ifdef PS2_USE_BUSYWAIT
+#ifdef PS2_DRIVER_BUSYWAIT
 #define PS2_CLOCK_PIN   D1
 #define PS2_DATA_PIN    D0
 #endif

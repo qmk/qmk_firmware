@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LAYER2] = LAYOUT_split_bar(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_M_K, RGB_M_G, RGB_M_R, RGB_M_SW,         RGB_HUI,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAI, RGB_VAD,          RGB_HUD,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAI, RGB_VAD,          RGB_HUD,
         _______, RGB_TOG, XXXXXXX, XXXXXXX,          XXXXXXX,          XXXXXXX, XXXXXXX, KC_DEL,  KC_RALT,          KC_RCTL
     ),
 };
@@ -66,7 +66,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 const uint16_t PROGMEM combo_slsh[] = {MT(MOD_RSFT, KC_DOT), KC_COMM, COMBO_END};
 
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO_SLSH] = COMBO(combo_slsh,KC_SLSH),
 
 };

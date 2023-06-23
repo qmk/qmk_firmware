@@ -17,16 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use I2C or Serial, not both */
-#define USE_SERIAL
-
 /* Select hand configuration */
 // #define MASTER_LEFT
 #define EE_HANDS
 
 #undef RGBLED_NUM
-#undef RGB_DI_PIN
-#define RGB_DI_PIN C6
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN C6
 #define RGBLED_NUM 14    // Number of LEDs
 #define RGBLED_SPLIT { 7, 7 }
 #define RGBLIGHT_EFFECT_BREATHING

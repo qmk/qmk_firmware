@@ -15,31 +15,7 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID  0x0009
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0001
-#define MANUFACTURER MakotoKurauchi
-#define PRODUCT 1K
-
-/* matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
-/*
- * Keyboard Matrix Assignments
- *
- * On this board we have direct connection: no diodes.
- */
-#define DIRECT_PINS {{ B0 }}
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
 #define RGBLED_NUM 1
-#define RGB_DI_PIN B2
 
 // Save as much space as we can...
 #define LAYER_STATE_8BIT

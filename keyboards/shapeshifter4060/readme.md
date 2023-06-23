@@ -13,7 +13,7 @@ Make example for this keyboard (after setting up your build environment):
     
 For use with the Proton C
     
-    make shapeshifter4060:default CTPC=yes
+    make shapeshifter4060:default CONVERT_TO=proton_c
     
 Flashing example for this keyboard:
 
@@ -26,7 +26,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 3 ways:
 
 -   **Physical reset button**: Briefly press the button on the top of the PCB
--   **Keycode in layout**: Press the key mapped to `RESET` if it is available
+-   **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 
 ## Changelog
 

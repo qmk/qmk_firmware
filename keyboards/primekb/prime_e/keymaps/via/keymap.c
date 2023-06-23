@@ -108,7 +108,7 @@ void led_set_user(uint8_t usb_led) {
 //function for layer indicator LED
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-    if (biton32(state) == 1) {
+    if (get_highest_layer(state) == 1) {
     writePinHigh(B3);
 	} else {
 		writePinLow(B3);

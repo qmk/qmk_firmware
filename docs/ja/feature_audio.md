@@ -23,7 +23,7 @@ Timer 3:
 
 ```
 STARTUP_SONG // キーボードの起動時に再生 (audio.c)
-GOODBYE_SONG // RESET キーを押すと再生 (quantum.c)
+GOODBYE_SONG // QK_BOOT キーを押すと再生 (quantum.c)
 AG_NORM_SONG // AG_NORM キーを押すと再生 (quantum.c)
 AG_SWAP_SONG // AG_SWAP キーを押すと再生 (quantum.c)
 CG_NORM_SONG // CG_NORM キーを押すと再生 (quantum.c)

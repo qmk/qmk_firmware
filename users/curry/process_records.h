@@ -62,7 +62,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #   define WORKMAN KC_WORKMAN
 #endif
 
-#define KC_RST RESET
+#define KC_RST QK_BOOT
 
 #if defined(SWAP_HANDS_ENABLE)
 #    define KC_C1R3 SH_T(KC_TAB)

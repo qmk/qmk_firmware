@@ -24,17 +24,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0,   KC_PDOT, MO(1),   RGB_TOG
     ),
     [1] = LAYOUT_ortho_5x4(
-        KC_NLCK, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_NUM,  KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS,
         KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS,
-        RESET,   MO(2),   KC_TRNS, KC_TRNS
+        QK_BOOT,   MO(2),   KC_TRNS, KC_TRNS
     ),
     [2] = LAYOUT_ortho_5x4(
         RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,
         RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,
-        BL_TOGG, BL_ON,   BL_INC,  BL_STEP,
-        KC_TRNS, BL_OFF,  BL_DEC,  BL_BRTG,
+        BL_TOGG, BL_ON,   BL_UP,   BL_STEP,
+        KC_TRNS, BL_OFF,  BL_DOWN, BL_BRTG,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
     [3] = LAYOUT_ortho_5x4(

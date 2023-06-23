@@ -16,43 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4D53 
-#define PRODUCT_ID      0x4450 //hD
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Hydrogen
-#define PRODUCT         Deskpad
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *         ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { D7, C6 }
-#define MATRIX_COL_PINS { D0, D4, D1}
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
-/* Defining encoder pads */
-#define ENCODERS_PAD_A { D2 }
-#define ENCODERS_PAD_B { D3 }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

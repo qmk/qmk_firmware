@@ -119,9 +119,9 @@ void matrix_scan_cmd_tab(void);
  * Common shortcuts used in macOS
  * Reference: https://support.apple.com/en-us/HT201236
  */
-#define MC_POWR   KC_POWER             // Power (KC_POWER)
-#define MC_SLEP   LOPT(LCMD(KC_POWER)) // Sleep (Option-Command-Power)
-#define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display (Control-Shift-Power)
+#define MC_POWR   KC_PWR               // Power (KC_PWR)
+#define MC_SLEP   LOPT(LCMD(KC_PWR))   // Sleep (Option-Command-Power)
+#define MC_SLPD   LCTL(LSFT(KC_PWR))   // Sleep Display (Control-Shift-Power)
 #define MC_LOCK   LCTL(LCMD(KC_Q))     // Lock Screen (Control-Command-Q)
 #define MC_MSSN   KC_FIND              // Mission Control: Configure karabiner for find -> mission_control
 #define MC_LHPD   KC_MENU              // Launchpad: Configure karabiner for menu -> launchpad

@@ -20,7 +20,7 @@
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.  
+// entirely and just use numbers.
 
 
 enum centromere_layers
@@ -57,7 +57,7 @@ enum centromere_layers
  *  |        |       |        |           |        |    |   |
  *  '-------------------------'           '-----------------'
  */
- 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Keymap 0: Basic layer
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  KC_NO, KC_EXLM, KC_AT, KC_LCBR, KC_RCBR, KC_PIPE,        KC_GRV, KC_TILD, KC_TRNS, KC_TRNS, KC_BSLS, KC_NO,
  KC_NO, KC_HASH, KC_DLR, KC_LPRN, KC_RPRN, KC_BTN2,       KC_PLUS, KC_MINS, KC_SLSH, KC_ASTR, KC_QUOT, KC_NO,
  KC_NO, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_BTN1,      KC_AMPR, KC_EQL, KC_COMM, KC_DOT, KC_MINS, KC_NO,
- CMB_TOG, KC_SCLN, KC_EQL, KC_EQL, KC_SCLN, KC_DEL 
+ CM_TOGG, KC_SCLN, KC_EQL, KC_EQL, KC_SCLN, KC_DEL
   ),
 
     /* Keymap 2: Pad/Function layer
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUMB] = LAYOUT(
      KC_NO, KC_1, KC_2, KC_3, KC_4, KC_5,           KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO,
      KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,      KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_VOLU, KC_NO,
-     KC_NO, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,     KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_VOLD, KC_NO, 
+     KC_NO, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,     KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_VOLD, KC_NO,
      KC_F11, KC_F12, KC_TRNS, KC_TRNS, KC_MPLY, KC_MNXT
      ),
 
@@ -137,8 +137,8 @@ const uint16_t PROGMEM combo_less[] = {KC_H, KC_J, COMBO_END};
 const uint16_t PROGMEM combo_more[] = {KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM combo_quot[] = {KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM combo_dash[] = {KC_X, KC_C, COMBO_END};
-  
-combo_t key_combos[COMBO_COUNT] = {
+
+combo_t key_combos[] = {
     [COMBO_BSPC] = COMBO(combo_bspc,KC_BSPC),
     [COMBO_TAB] = COMBO(combo_tab,KC_TAB),
     [COMBO_ESC] = COMBO(combo_esc,KC_ESC),
@@ -148,6 +148,6 @@ combo_t key_combos[COMBO_COUNT] = {
     [COMBO_LESS] = COMBO(combo_less,KC_LT),
     [COMBO_MORE] = COMBO(combo_more,KC_GT),
     [COMBO_QUOT] = COMBO(combo_quot, KC_QUOT),
-    [COMBO_DASH] = COMBO(combo_dash, KC_MINS),  
+    [COMBO_DASH] = COMBO(combo_dash, KC_MINS),
 };
 #endif

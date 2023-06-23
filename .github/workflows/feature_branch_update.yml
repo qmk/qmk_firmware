@@ -1,5 +1,8 @@
 name: Update feature branches after develop merge
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -17,10 +20,14 @@ jobs:
         - xap
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         token: ${{ secrets.QMK_BOT_TOKEN }}
         fetch-depth: 0
+
+    - name: Disable automatic eol conversion
+      run: |
+        echo "* -text" > .git/info/attributes
 
     - name: Checkout branch
       run: |

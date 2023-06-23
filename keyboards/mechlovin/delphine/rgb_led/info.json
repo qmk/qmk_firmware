@@ -1,0 +1,12 @@
+{
+    "usb": {
+        "pid": "0xDEF2",
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "E2"
+    },
+    "rgb_matrix": {
+        "driver": "IS31FL3731"
+    }
+}

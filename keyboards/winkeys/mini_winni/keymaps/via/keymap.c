@@ -19,22 +19,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT_all(
+	[0] = LAYOUT_ortho_2x4(
 		KC_F1,  KC_F2,  KC_F3,  KC_F4,  
 		KC_F5,  KC_F6,  KC_F7,  KC_F8
 	),
 
-	[1] = LAYOUT_all(
+	[1] = LAYOUT_ortho_2x4(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
-	[2] = LAYOUT_all(
+	[2] = LAYOUT_ortho_2x4(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
-	[3] = LAYOUT_all(
+	[3] = LAYOUT_ortho_2x4(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	)
