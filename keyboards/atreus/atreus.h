@@ -28,6 +28,8 @@
     #include "teensy2.h"
 #elif KEYBOARD_atreus_promicro
     #include "promicro.h"
+#elif KEYBOARD_atreus_f103
+    #include "f103.h"
 #endif
 
 // This a shortcut to help you visually see your layout.

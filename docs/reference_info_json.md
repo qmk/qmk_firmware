@@ -89,7 +89,7 @@ Example:
 
 Direct pins are when you connect one side of the switch to GND and the other side to a GPIO pin on your MCU. No diode is required, but there is a 1:1 mapping between switches and pins.
 
-When specifying direct pins you need to arrange them in nested arrays. The outer array consists of rows, while the inner array is a text string corresponding to a pin. You can use `null` to indicate an empty spot in the matrix.
+When specifying direct pins you need to arrange them in nested arrays. The outer array consists of rows, while the inner array uses text strings to identify the pins used in each row. You can use `null` to indicate an empty spot in the matrix.
 
 Example:
 
