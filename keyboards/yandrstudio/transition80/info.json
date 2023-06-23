@@ -28,6 +28,10 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
+    "community_layouts": [
+        "tkl_ansi",
+        "tkl_ansi_tsangan"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
