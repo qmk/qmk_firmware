@@ -26,8 +26,11 @@
     "indicators": {
         "caps_lock": "C8"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker_tsangan_split_bs"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
