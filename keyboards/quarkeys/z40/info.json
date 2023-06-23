@@ -9,7 +9,10 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "WS2812",
+        "sat_steps": 8,
+        "val_steps": 8,
+        "speed_steps": 10
     },
     "rgblight": {
         "led_count": 47,
