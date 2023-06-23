@@ -23,8 +23,11 @@
         "pid": "0x0769",
         "vid": "0x414C"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_625u_space"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_625u_space": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0 },
