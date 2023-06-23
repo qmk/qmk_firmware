@@ -17,27 +17,23 @@
 
 #include <stdint.h>
 #include <string.h>
-#include <math.h>
 #include "keycode.h"
 #include "host.h"
 #include "timer.h"
 #include "print.h"
 #include "debug.h"
 #include "mousekey.h"
-#include "lib/lib8tion/lib8tion.h"
 
 static inline int8_t times_inv_sqrt2(int8_t x) {
-#ifdef MOUSEKEY_PRECISE_DIAGONAL_MOVE
-    // 46341/65536 is very close to 1/sqrt(2)
-    // 0.70710754                   0.707106781
-    return round((x < 0 ? -1 : 1) * scale16(x < 0 ? -x : x, 46341));
-#else
-    // 181/256 is pretty close to 1/sqrt(2)
-    // 0.70703125                 0.707106781
-    // 1 too small for x=99 and x=198
-    // This ends up being a mult and discard lower 8 bits
-    return (x * 181) >> 8;
-#endif
+    // 181/256 (0.70703125) is used as an approximation for 1/sqrt(2)
+    // because it is close to the exact value which is 0.707106781
+    int16_t  n = x * 181;
+    uint16_t d = 256;
+    // To ensure that the integer result is rounded accurately after
+    // division, check the sign of the numerator
+    // If negative, subtract half of the denominator before dividing
+    // Otherwise, add half of the denominator before dividing
+    return (n < 0) ? (n - d / 2) / d : (n + d / 2) / d;
 }
 
 static report_mouse_t mouse_report = {0};
