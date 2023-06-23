@@ -1,18 +1,71 @@
 {
-    "keyboard_name": "Neuron", 
+    "keyboard_name": "Neuron",
     "manufacturer": "Walletburner",
-    "url": "https://qmk.fm/keyboards/", 
-    "maintainer": "worldspawn00", 
+    "url": "https://qmk.fm/keyboards/",
+    "maintainer": "worldspawn00",
     "usb": {
         "vid": "0x5742",
         "pid": "0x6E75",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "B1"
+    },
+    "matrix_pins": {
+        "cols": ["F0", "F7", "F6", "F4", "F1", "E6", "D6", "D2", "B4", "D7", "B6", "D5"],
+        "rows": ["D0", "D1", "D3", "F5"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
-            "layout": [{"label":"Esc", "x":0, "y":0}, {"label":"Q", "x":1, "y":0}, {"label":"W", "x":2, "y":0}, {"label":"E", "x":3, "y":0}, {"label":"R", "x":4, "y":0}, {"label":"T", "x":5, "y":0}, {"label":"Y", "x":6, "y":0}, {"label":"U", "x":7, "y":0}, {"label":"I", "x":8, "y":0}, {"label":"O", "x":9, "y":0}, {"label":"P", "x":10, "y":0}, {"label":"Back<br>Space", "x":11, "y":0}, {"label":"Tab", "x":0, "y":1, "w":1.25}, {"label":"A", "x":1.25, "y":1}, {"label":"S", "x":2.25, "y":1}, {"label":"D", "x":3.25, "y":1}, {"label":"F", "x":4.25, "y":1}, {"label":"G", "x":5.25, "y":1}, {"label":"H", "x":6.25, "y":1}, {"label":"J", "x":7.25, "y":1}, {"label":"K", "x":8.25, "y":1}, {"label":"L", "x":9.25, "y":1}, {"label":"Enter", "x":10.25, "y":1, "w":1.75}, {"label":"Shift", "x":0, "y":2, "w":1.75}, {"label":"Z", "x":1.75, "y":2}, {"label":"X", "x":2.75, "y":2}, {"label":"C", "x":3.75, "y":2}, {"label":"V", "x":4.75, "y":2}, {"label":"B", "x":5.75, "y":2}, {"label":"N", "x":6.75, "y":2}, {"label":"M", "x":7.75, "y":2}, {"label":"<", "x":8.75, "y":2}, {"label":"Shift", "x":9.75, "y":2, "w":1.25}, {"label":"Fn", "x":11, "y":2}, {"label":"Hyper", "x":1, "y":3, "w":1.25}, {"label":"Super", "x":2.25, "y":3, "w":1.25}, {"x":3.5, "y":3, "w":1.75}, {"x":5.25, "y":3}, {"x":6.25, "y":3, "w":2.25}, {"label":"Meta", "x":8.5, "y":3, "w":1.25}, {"label":"Super", "x":9.75, "y":3, "w":1.25}]
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [0, 6], "x": 6, "y": 0},
+                {"matrix": [0, 7], "x": 7, "y": 0},
+                {"matrix": [0, 8], "x": 8, "y": 0},
+                {"matrix": [0, 9], "x": 9, "y": 0},
+                {"matrix": [0, 10], "x": 10, "y": 0},
+                {"matrix": [0, 11], "x": 11, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1, "w": 1.25},
+                {"matrix": [1, 1], "x": 1.25, "y": 1},
+                {"matrix": [1, 2], "x": 2.25, "y": 1},
+                {"matrix": [1, 3], "x": 3.25, "y": 1},
+                {"matrix": [1, 4], "x": 4.25, "y": 1},
+                {"matrix": [1, 5], "x": 5.25, "y": 1},
+                {"matrix": [1, 6], "x": 6.25, "y": 1},
+                {"matrix": [1, 7], "x": 7.25, "y": 1},
+                {"matrix": [1, 8], "x": 8.25, "y": 1},
+                {"matrix": [1, 9], "x": 9.25, "y": 1},
+                {"matrix": [1, 11], "x": 10.25, "y": 1, "w": 1.75},
+
+                {"matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
+                {"matrix": [2, 2], "x": 1.75, "y": 2},
+                {"matrix": [2, 3], "x": 2.75, "y": 2},
+                {"matrix": [2, 4], "x": 3.75, "y": 2},
+                {"matrix": [2, 5], "x": 4.75, "y": 2},
+                {"matrix": [2, 6], "x": 5.75, "y": 2},
+                {"matrix": [2, 7], "x": 6.75, "y": 2},
+                {"matrix": [2, 8], "x": 7.75, "y": 2},
+                {"matrix": [2, 9], "x": 8.75, "y": 2},
+                {"matrix": [2, 10], "x": 9.75, "y": 2, "w": 1.25},
+                {"matrix": [2, 11], "x": 11, "y": 2},
+
+                {"matrix": [3, 1], "x": 1, "y": 3, "w": 1.25},
+                {"matrix": [3, 2], "x": 2.25, "y": 3, "w": 1.25},
+                {"matrix": [3, 3], "x": 3.5, "y": 3, "w": 1.75},
+                {"matrix": [3, 6], "x": 5.25, "y": 3},
+                {"matrix": [3, 8], "x": 6.25, "y": 3, "w": 2.25},
+                {"matrix": [3, 10], "x": 8.5, "y": 3, "w": 1.25},
+                {"matrix": [3, 11], "x": 9.75, "y": 3, "w": 1.25}
+            ]
         }
     }
 }

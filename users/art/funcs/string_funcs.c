@@ -37,10 +37,8 @@ enum combo_events {
   ED_ENTER,
 
   ED_CS_ENTER,
-  BSPC_LSFT_CLEAR,
-  COMBO_LENGTH
+  BSPC_LSFT_CLEAR
 };
-uint16_t COMBO_LEN = COMBO_LENGTH; // do not remove - needed for combos to work
 
 const uint16_t PROGMEM combo_up[] = {KC_W, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_left[] = {KC_S, KC_E, COMBO_END};

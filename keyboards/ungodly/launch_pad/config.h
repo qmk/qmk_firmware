@@ -15,22 +15,11 @@
  */
 #pragma once
 
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS \
-    { D4, D6, D7, B4, B5 }
-#define MATRIX_COL_PINS \
-    { B0, B1, B2, B3 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Midi Slider */
 #define SLIDER_PIN F6
 #define MIDI_ADVANCED
 
 /* RGB Matrix configuration */
-#define RGB_DI_PIN F7
 #ifdef RGB_MATRIX_ENABLE
 #    define RGBLED_NUM 22
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM

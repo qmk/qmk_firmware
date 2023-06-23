@@ -197,6 +197,24 @@ The Pimoroni Trackball module is a I2C based breakout board with an RGB enable t
 | `PIMORONI_TRACKBALL_DEBOUNCE_CYCLES` | (Optional) The number of scan cycles used for debouncing on the ball press.        | `20`    |
 | `PIMORONI_TRACKBALL_ERROR_COUNT`     | (Optional) Specifies the number of read/write errors until the sensor is disabled. | `10`    |
 
+### PMW3320 Sensor
+
+To use the PMW3320 sensor, add this to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = pmw3320
+```
+
+The PMW3320 sensor uses a serial type protocol for communication, and requires an additional light source (it could work without one, but expect it to be out of service early).
+
+| Setting             | Description                                                         | Default                    |
+| ------------------- | ------------------------------------------------------------------- | -------------------------- |
+| `PMW3320_SCLK_PIN` | (Required) The pin connected to the clock pin of the sensor.        | `POINTING_DEVICE_SCLK_PIN` |
+| `PMW3320_SDIO_PIN` | (Required) The pin connected to the data pin of the sensor.         | `POINTING_DEVICE_SDIO_PIN` |
+| `PMW3320_CS_PIN`   | (Required) The pin connected to the cable select pin of the sensor. | `POINTING_DEVICE_CS_PIN`   |
+
+The CPI range is 500-3500, in increments of 250. Defaults to 1000 CPI.
+
 ### PMW 3360 and PMW 3389 Sensor
 
 This drivers supports both the PMW 3360 and PMW 3389 sensor as well as multiple sensors of the same type _per_ controller, so 2 can be attached at the same side for split keyboards (or unsplit keyboards).
@@ -434,6 +452,75 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 This allows you to toggle between scrolling and cursor movement by pressing the DRAG_SCROLL key.  
 
+### Advanced Drag Scroll
+
+Sometimes, like with the Cirque trackpad, you will run into issues where the scrolling may be too fast.
+
+Here is a slightly more advanced example of drag scrolling. You will be able to change the scroll speed based on the values in set in `SCROLL_DIVISOR_H` and `SCROLL_DIVISOR_V`. This bit of code is also set up so that instead of toggling the scrolling state with set_scrolling = !set_scrolling, the set_scrolling variable is set directly to record->event.pressed. This way, the drag scrolling will only be active while the DRAG_SCROLL button is held down.
+
+```c
+enum custom_keycodes {
+    DRAG_SCROLL = SAFE_RANGE,
+};
+
+bool set_scrolling = false;
+
+// Modify these values to adjust the scrolling speed
+#define SCROLL_DIVISOR_H 8.0
+#define SCROLL_DIVISOR_V 8.0
+
+// Variables to store accumulated scroll values
+float scroll_accumulated_h = 0;
+float scroll_accumulated_v = 0;
+
+// Function to handle mouse reports and perform drag scrolling
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    // Check if drag scrolling is active
+    if (set_scrolling) {
+        // Calculate and accumulate scroll values based on mouse movement and divisors
+        scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+        scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+
+        // Assign integer parts of accumulated scroll values to the mouse report
+        mouse_report.h = (int8_t)scroll_accumulated_h;
+        mouse_report.v = (int8_t)scroll_accumulated_v;
+
+        // Update accumulated scroll values by subtracting the integer parts
+        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+
+        // Clear the X and Y values of the mouse report
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
+}
+
+// Function to handle key events and enable/disable drag scrolling
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case DRAG_SCROLL:
+            // Toggle set_scrolling when DRAG_SCROLL key is pressed or released
+            set_scrolling = record->event.pressed;
+            break;
+        default:
+            break;
+    }
+    return true;
+}
+
+// Function to handle layer changes and disable drag scrolling when not in AUTO_MOUSE_DEFAULT_LAYER
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Disable set_scrolling if the current layer is not the AUTO_MOUSE_DEFAULT_LAYER
+    if (get_highest_layer(state) != AUTO_MOUSE_DEFAULT_LAYER) {
+        set_scrolling = false;
+    }
+    return state;
+}
+
+```
+
+
 ## Split Examples
 
 The following examples make use the `SPLIT_POINTING_ENABLE` functionality and show how to manipulate the mouse report for a scrolling mode.
@@ -602,6 +689,10 @@ There are several functions that allow for more advanced interaction with the au
 | `auto_mouse_layer_off(void)`                               | Disable target layer if appropriate will call (makes call to `layer_state_set`)      |                           |   `void`(None)  |
 | `auto_mouse_toggle(void)`                                  | Toggle on/off target toggle state (disables layer deactivation when true)            |                           |    `void`(None) |
 | `get_auto_mouse_toggle(void)`                              | Return value of toggling state variable                                              |                           |          `bool` |
+| `set_auto_mouse_timeout(uint16_t timeout)`                 | Change/set the timeout for turing off the layer                                      |                           |    `void`(None) |
+| `get_auto_mouse_timeout(void)`                             | Return the current timeout for turing off the layer                                  |                           |      `uint16_t` |
+| `set_auto_mouse_debounce(uint16_t timeout)`                | Change/set the debounce for preventing layer activation                              |                           |    `void`(None) |
+| `get_auto_mouse_debounce(void)`                            | Return the current debounce for preventing layer activation                          |                           |       `uint8_t` |
 
 _NOTES:_   
     - _Due to the nature of how some functions work, the `auto_mouse_trigger_reset`, and `auto_mouse_layer_off` functions should never be called in the `layer_state_set_*` stack as this can cause indefinite loops._   
@@ -713,7 +804,7 @@ _Note: The Cirque pinnacle track pad already implements a custom activation func
 When using a custom pointing device (overwriting `pointing_device_task`) the following code should be somewhere in the `pointing_device_task_*` stack:
 
 ```c
-void pointing_device_task(void) {
+bool pointing_device_task(void) {
     //...Custom pointing device task code
     
     // handle automatic mouse layer (needs report_mouse_t as input)
@@ -721,7 +812,7 @@ void pointing_device_task(void) {
     
     //...More custom pointing device task code
     
-    pointing_device_send();
+    return pointing_device_send();
 }
 ```
 

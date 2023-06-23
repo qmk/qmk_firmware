@@ -8,4 +8,3 @@ CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = no  # PCB has underglow LEDs, but case doesn't let them show.
-WS2812_DRIVER = i2c
