@@ -9,7 +9,8 @@
     "device_version": "0.0.1"
   },
   "tapping": {
-    "term": 150
+    "term": 150,
+    "toggle": 1
   },
   "matrix_pins": {
     "cols": ["B0", "D0", "D5", "B6", "D4", "C7", "F7", "F6", "F5", "F4", "F1", "F0"],
@@ -18,9 +19,6 @@
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "halfkay",
-  "tapping": {
-    "toggle": 1
-  },
   "layouts": {
     "LAYOUT": {
       "layout": [
