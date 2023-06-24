@@ -65,6 +65,7 @@ MOUSEKEY_ENABLE = yes
 |----------------------------|-------|---------------------------------------------------------|
 | `MOUSEKEY_DELAY` | 300 | 移動キーを押してからカーソルが移動するまでの遅延 |
 | `MOUSEKEY_INTERVAL` | 50 | カーソル移動間の時間 |
+| `MOUSEKEY_MOVE_DELTA` | 8 | ステップの大きさ |
 | `MOUSEKEY_MAX_SPEED` | 10 | 加速が停止する最大のカーソル速度 |
 | `MOUSEKEY_TIME_TO_MAX` | 20 | 最大カーソル速度に達するまでの時間 |
 | `MOUSEKEY_WHEEL_DELAY` | 300 | ホイールキーを押してからホイールが動くまでの遅延 |
@@ -145,3 +146,6 @@ MOUSEKEY_ENABLE = yes
 ```c
 #define MK_COMBINED
 ```
+
+<!-- TODO: Inertia Mode -->
+
