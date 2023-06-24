@@ -14,7 +14,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Encoders
 
-Encoders must have matching pulse & detent resolutions (e.g. 24/24) for the scanning to work properly. Multiple encoders can be used at the same time, and are zero-indexed (compared to being one-indexed on the PCB's silkscreen) in the `encoder_update_user(index, clockwise)` function:
+Encoders must have matching pulse & detent resolutions (e.g. 24/24) for the scanning to work properly. Multiple encoders can be used at the same time, and are zero-indexed (compared to being one-indexed on the PCB's silkscreen) in the `encoder_update_user(uint8_t index, bool clockwise)` function:
 
 ```
 ,-----------------------------------------------------------------------------------.
@@ -28,4 +28,15 @@ Encoders must have matching pulse & detent resolutions (e.g. 24/24) for the scan
 `-----------------------------------------------------------------------------------'
 ```
 
-If an encoder has a switch built-in, it's connected to the key at that location. On the default keymap, each encoder will play its own rising/falling tone sequence when rotated, and will reset the pitch after one second of inactivity.
+If an encoder has a switch built-in, it's connected to the key at that location. On the default keymap, each encoder will play its own rising/falling tone sequence when rotated, and will reset the pitch after one second of inactivity. The encoder map feature is not currently supported.
+
+## Some Planck-specific config.h options:
+
+```c
+// sets the length (in seconds) of the watchdog timer, which will reset the keyboard due to hang/crash in the code
+#define PLANCK_WATCHDOG_TIMEOUT 1.0
+// disables the watchdog timer - you may want to disable the watchdog timer if you use longer macros
+#define PLANCK_WATCHDOG_DISABLE
+// the resolution of the encoders used in the encoder matrix
+#define PLANCK_ENCODER_RESOLUTION 4
+```
