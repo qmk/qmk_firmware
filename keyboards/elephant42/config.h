@@ -36,10 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_LED_COUNT 54
 #    define RGB_MATRIX_SPLIT { 27, 27 }
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
-#    define RGB_MATRIX_HUE_STEP RGBLIGHT_HUE_STEP
-#    define RGB_MATRIX_SAT_STEP RGBLIGHT_SAT_STEP
-#    define RGB_MATRIX_VAL_STEP RGBLIGHT_VAL_STEP
-#    define RGB_MATRIX_SPD_STEP 8
 #endif
 
 #ifndef OLED_FONT_H

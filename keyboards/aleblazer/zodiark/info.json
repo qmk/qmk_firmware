@@ -17,7 +17,10 @@
         "split_count": [34, 34]
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "WS2812",
+        "sat_steps": 8,
+        "val_steps": 8,
+        "speed_steps": 10
     },
     "matrix_pins": {
         "cols": ["F5", "F6", "F7", "B1", "B3", "B2", "B6"],
