@@ -29,6 +29,10 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
+    "community_layouts": [
+        "tkl_ansi_split_bs_rshift",
+        "tkl_iso_split_bs_rshift"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
