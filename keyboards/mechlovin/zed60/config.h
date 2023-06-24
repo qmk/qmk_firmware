@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 
 #define WS2812_SPI SPID1 // default: SPID1
-#define WS2812_SPI_MOSI_PAL_MODE 5 // MOSI pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
+#define WS2812_SPI_MOSI_PAL_MODE 6 // MOSI pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
 
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
