@@ -31,6 +31,9 @@
     "tapping": {
         "term": 100
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

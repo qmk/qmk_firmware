@@ -168,8 +168,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
 
-#define TAP_CODE_DELAY 10
-
 /* 2021/01/22 added to shrink firmware size */
 // NO_ACTION_TAPPING -1964 bytes, however, this disables Layer mods...
 // #define NO_ACTION_TAPPING

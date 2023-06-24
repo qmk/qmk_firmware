@@ -23,6 +23,9 @@
             {"pin_a": "A10", "pin_b": "A9"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "matrix_pins": {

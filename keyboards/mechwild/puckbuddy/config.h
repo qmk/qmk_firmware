@@ -24,8 +24,6 @@
 #define CIRQUE_PINNACLE_SPI_DIVISOR 8
 #define CIRQUE_PINNACLE_SPI_CS_PIN A4
 
-#define TAP_CODE_DELAY 10
-
 /* RGB settings, uncomment this define to enable RGB */
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD

@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY 5
-
 /* ws2812 RGB LED */
 #define RGB_MATRIX_LED_COUNT 5
 

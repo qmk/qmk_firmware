@@ -13,6 +13,9 @@
             {"pin_a": "D1", "pin_b": "D0"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "rgblight": {
         "led_count": 13,
         "hue_steps": 10,

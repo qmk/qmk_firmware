@@ -18,6 +18,9 @@
             {"pin_a": "D2", "pin_b": "B2"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "split": {
         "soft_serial_pin": "D3"
     },

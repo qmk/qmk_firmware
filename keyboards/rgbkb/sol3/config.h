@@ -133,7 +133,6 @@
 
 #define TOUCH_UPDATE_INTERVAL 33
 #define OLED_UPDATE_INTERVAL 33
-#define TAP_CODE_DELAY 5
 
 /* Audio Configuration */
 #define AUDIO_PIN A4

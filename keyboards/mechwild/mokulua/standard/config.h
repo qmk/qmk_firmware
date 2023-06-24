@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY 10
-
 #define OLED_FONT_H "keyboards/mechwild/mokulua/glcdfont.c"
 
 #define MASTER_LEFT

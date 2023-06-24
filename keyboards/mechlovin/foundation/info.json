@@ -18,6 +18,9 @@
             {"pin_a": "C13", "pin_b": "C14"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "indicators": {
         "caps_lock": "A1",
         "on_state": 0
