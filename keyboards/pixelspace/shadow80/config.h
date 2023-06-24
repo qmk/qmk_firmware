@@ -18,11 +18,10 @@
 
 #define DEBOUNCE 5
 
-#ifdef RGBLIGHT_ENABLE
-#    define RGB_DI_PIN B2
 #    define RGBLED_NUM 74
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGBLIGHT_LIMIT_VAL 255
+#    define RGBLIGHT_HUE_STEP 12
+#    define RGBLIGHT_SAT_STEP 12
+#    define RGBLIGHT_VAL_STEP 12
 #    define RGBLIGHT_SLEEP
 /*== or choose animations ==*/
 #    define RGBLIGHT_EFFECT_BREATHING
@@ -35,9 +34,10 @@
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_TWINKLE
+#    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 /*== customize breathing effect ==*/
 //#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
 /*==== use exp() and sin() ====*/
 //#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
 //#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-#endif
+
