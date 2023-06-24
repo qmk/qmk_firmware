@@ -3,9 +3,8 @@
 #ifdef OLED_ENABLE
 // OLED screen definitions
 #define OLED_DISPLAY_128X64
-#define OLED_TIMEOUT 10000
+#define OLED_TIMEOUT 20000
 #define OLED_BRIGHTNESS 255
-//#define OLED_FADE_OUT
 #define OLED_FONT_H "keyboards/kiwikey/kawii9/rev2/lib/glcdfont.c"
 #endif
 

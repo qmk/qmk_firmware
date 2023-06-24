@@ -21,14 +21,14 @@
 
 #ifdef OLED_ENABLE
 
-static uint16_t key_timer = 0;
+static uint32_t key_timer = 0;
 static uint8_t rgb_val = 0;
 
 #define SUB_UI_TIMEOUT 2000 // ms
-static char ui_mode = 0;
-// UI Mode = 0 : WPM graph
-//           1 : RGB control
-//           2 : Media control (to do)
+static char sub_ui_mode = 0;
+// Sub UI Mode = 0 : WPM graph
+//               1 : RGB control
+//               2 : Media control (to do)
 
 #define MATRIX_DISPLAY_X    107
 #define MATRIX_DISPLAY_Y    11
@@ -207,7 +207,7 @@ void keyboard_post_init_user(void) {
 
 bool oled_task_user(void) {
     render_stats();
-    switch (ui_mode) {
+    switch (sub_ui_mode) {
         case 0:
             render_wpm_graph();
             render_anim();
@@ -216,14 +216,14 @@ bool oled_task_user(void) {
             render_ui_rgbcontrol();
             break;
     }
-    if ((ui_mode != 0) && (timer_elapsed(key_timer) > SUB_UI_TIMEOUT)) { // If timeout, back to default UI
-        ui_mode = 0;
+    if ((sub_ui_mode != 0) && (timer_elapsed32(key_timer) > SUB_UI_TIMEOUT)) { // If timeout, back to default UI
+        sub_ui_mode = 0;
         ui_clear();
     }
-    if (timer_elapsed(key_timer) > ANIM_FRAME_DURATION) {
+    if (timer_elapsed32(key_timer) > ANIM_FRAME_DURATION) {
         anim_state = 0;
     }
-    if (timer_elapsed(key_timer) > OLED_TIMEOUT) {
+    if (timer_elapsed32(key_timer) > OLED_TIMEOUT) {
         oled_off();
     }
     return false;
@@ -233,11 +233,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     oled_on();
     switch (keycode) {
         case QK_LIGHTING ... QK_LIGHTING_MAX:
-            ui_mode = 1;
+            sub_ui_mode = 1;
             ui_clear();
             break;
         case KC_AUDIO_MUTE ... KC_MEDIA_EJECT:
-            ui_mode = 2;
+            sub_ui_mode = 2;
             ui_clear();
             break;
         default:
@@ -245,7 +245,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     render_matrix();
     anim_state = (anim_state + 1) % ANIM_STATES;
-    key_timer = timer_read();
+    key_timer = timer_read32();
     return true;
 }
 

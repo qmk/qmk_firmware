@@ -19,9 +19,9 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_WHOM,   KC_CALC,   KC_MYCM,    // Launch: Browser - Calculator - My Computer
-        KC_MPLY,   KC_MPRV,   KC_MNXT,    // Media track control: Play/Pause - Previous Track - Next Track
-        MO(1),     LCTL(KC_C),LCTL(KC_V), // FN(1) - Copy - Paste
+        KC_WHOM,   KC_CALC,   KC_MYCM,    // Launch application:  Browser    - Calculator - My Computer
+        KC_MPLY,   KC_MPRV,   KC_MNXT,    // Media track control: Play/Pause - Prev Track - Next Track
+        MO(1),     LCTL(KC_C),LCTL(KC_V), //                      FN(1)      - Copy       - Paste
         KC_MUTE,   KC_HOME
     ),
     [1] = LAYOUT(
