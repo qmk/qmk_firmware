@@ -31,8 +31,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-//지정된 횟수로 눌러야 토글됨
-#define TAPPING_TOGGLE 3
-
-

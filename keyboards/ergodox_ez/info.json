@@ -18,6 +18,9 @@
     "processor": "atmega32u4",
     "bootloader": "halfkay",
     "debounce": 30,
+    "tapping": {
+        "toggle": 1
+    },
     "community_layouts": ["ergodox"],
     "layouts": {
         "LAYOUT_ergodox": {
