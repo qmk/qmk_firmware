@@ -11,6 +11,9 @@
   "tapping": {
     "term": 100
   },
+  "rgblight": {
+    "hue_steps": 10
+  },
   "ws2812": {
     "pin": "D3"
   },

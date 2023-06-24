@@ -27,12 +27,3 @@
 #define SPLIT_WPM_ENABLE
 #define SPLIT_OLED_ENABLE
 #define SPLIT_TRANSPORT_MIRROR
-
-// Add RGB underglow
-// by defining in the keyboard, incompatible keymaps will fail to compile.
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_HUE_STEP  10
-#    define RGBLIGHT_SAT_STEP  17
-#    define RGBLIGHT_VAL_STEP  17
-//#    define RGBLIGHT_LAYERS //Enable layer light indicators. Not required as updates are done in layer_state_set_user and led_update_user (+588).
-#endif

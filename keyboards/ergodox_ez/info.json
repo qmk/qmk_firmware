@@ -7,6 +7,8 @@
         "device_version": "0.0.1"
     },
     "rgblight": {
+        "hue_steps": 12,
+        "brightness_steps": 12,
         "sleep": true
     },
     "ws2812": {

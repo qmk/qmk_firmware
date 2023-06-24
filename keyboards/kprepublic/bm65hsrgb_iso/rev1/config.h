@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_MATRIX_LED_COUNT 74
     #define RGB_MATRIX_KEYPRESSES
-    #define RGBLIGHT_HUE_STEP 8
-    #define RGBLIGHT_SAT_STEP 8
-    #define RGBLIGHT_VAL_STEP 8
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 140
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

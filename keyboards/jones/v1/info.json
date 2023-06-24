@@ -13,6 +13,8 @@
     "rows": ["B3", "B2", "E6", "D6", "D4", "B0", "B1", "B7", "B4", "D7"]
   },
   "rgblight": {
+    "saturation_steps": 8,
+    "brightness_steps": 8,
     "led_count": 4
   },
   "ws2812": {

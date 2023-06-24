@@ -17,6 +17,9 @@
     },
     "diode_direction": "COL2ROW",
     "rgblight": {
+        "hue_steps": 5,
+        "saturation_steps": 5,
+        "brightness_steps": 5,
         "led_count": 18,
         "sleep": true
     },

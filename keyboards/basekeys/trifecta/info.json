@@ -27,8 +27,14 @@
         "pin": "E6"
     },
     "rgblight": {
+        "hue_steps": 10,
         "led_count": 80,
         "max_brightness": 128
+    },
+    "rgb_matrix": {
+        "sat_steps": 8,
+        "val_steps": 8,
+        "speed_steps": 10
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
