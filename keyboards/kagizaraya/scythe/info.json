@@ -25,6 +25,9 @@
         "led_count": 9,
         "split": true
     },
+    "tapping": {
+        "term": 120
+    },
     "ws2812": {
         "pin": "F0"
     },

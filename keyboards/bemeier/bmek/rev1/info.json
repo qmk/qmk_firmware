@@ -7,6 +7,9 @@
         "brightness_steps": 8,
         "led_count": 6
     },
+    "tapping": {
+        "term": 175
+    },
     "ws2812": {
         "pin": "E6"
     },

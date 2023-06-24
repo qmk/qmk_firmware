@@ -42,6 +42,9 @@
             "twinkle": true
         }
     },
+    "tapping": {
+        "term": 0
+    },
     "ws2812": {
         "pin": "B5"
     },

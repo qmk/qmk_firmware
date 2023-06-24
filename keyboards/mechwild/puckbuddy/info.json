@@ -29,6 +29,9 @@
         "led_count": 3,
         "sleep": true
     },
+    "tapping": {
+        "term": 0
+    },
     "ws2812": {
         "pin": "A3"
     },

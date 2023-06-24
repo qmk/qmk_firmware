@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define QUICK_TAP_TERM 0
-#define TAPPING_TERM 100
 
 #define SERIAL_SLAVE_BUFFER_LENGTH  ((MATRIX_ROWS)/2)
 #define SERIAL_MASTER_BUFFER_LENGTH ((MATRIX_ROWS)/2)

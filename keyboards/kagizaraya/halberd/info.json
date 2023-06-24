@@ -13,6 +13,9 @@
         "brightness_steps": 8,
         "led_count": 40
     },
+    "tapping": {
+        "term": 100
+    },
     "ws2812": {
         "pin": "F0"
     },
