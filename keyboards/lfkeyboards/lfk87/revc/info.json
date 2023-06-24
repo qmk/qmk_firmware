@@ -7,6 +7,7 @@
     },
     "diode_direction": "COL2ROW",
     "rgblight": {
+        "hue_steps": 10,
         "led_count": 24
     },
     "layouts": {

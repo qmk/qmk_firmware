@@ -25,6 +25,7 @@
         "matrix": [4, 1]
     },
     "rgblight": {
+        "brightness_steps": 8,
         "led_count": 16,
         "sleep": true
     },

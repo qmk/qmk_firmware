@@ -26,6 +26,8 @@
         "pin": "B15"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 10,
         "led_count": 20,
         "max_brightness": 180
     },

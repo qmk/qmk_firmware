@@ -16,6 +16,8 @@
     "speed_steps": 10
   },
   "rgblight": {
+    "saturation_steps": 16,
+    "brightness_steps": 16,
     "led_count": 88,
     "max_brightness": 120,
     "split_count": [44, 44]

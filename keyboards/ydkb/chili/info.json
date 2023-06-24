@@ -18,6 +18,9 @@
         "breathing": true
     },
     "rgblight": {
+        "hue_steps": 5,
+        "saturation_steps": 10,
+        "brightness_steps": 10,
         "led_count": 30
     },
     "ws2812": {

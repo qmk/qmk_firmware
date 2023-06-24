@@ -15,6 +15,8 @@
         "speed_steps": 10
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 18,
         "max_brightness": 150,
         "led_map": [6, 7, 12, 13, 14, 15, 16, 17, 11, 10, 9, 8, 0, 1, 2, 3, 4, 5]

@@ -12,6 +12,7 @@
         "pin": "F1"
     },
     "rgblight": {
+        "hue_steps": 10,
         "led_count": 6,
         "max_brightness": 50
     },
