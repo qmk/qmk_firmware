@@ -31,6 +31,9 @@ void layer_state_set_rgb(layer_state_t state) {
         case _NAVNUM_WIN:
             rgblight_sethsv_noeeprom(HSV_NAVNUM);
             break;
+        case _GAME:
+            rgblight_sethsv_noeeprom(HSV_GAME);
+            break;
         case _FUNCT:
         case _FUNCT_WIN:
             rgblight_sethsv_noeeprom(HSV_FUNCT);
@@ -69,7 +72,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
-    rgblight_enable_noeeprom();
+    rgblight_enable();
     set_lights_default();
 #endif
 }
