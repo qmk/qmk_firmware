@@ -386,7 +386,7 @@ Currently only 4 drivers are supported, but it would be trivial to support for m
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -406,7 +406,7 @@ Eg `#define ISSI_MANUAL_SCALING 3`
 Then Define the array listing all the LEDs you want to override in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_scaling[ISSI_MANUAL_SCALING] = {
+const is31_led PROGMEM g_is31_scaling[ISSI_MANUAL_SCALING] = {
  *   LED Index
  *   |  R scaling
  *   |  |    G scaling

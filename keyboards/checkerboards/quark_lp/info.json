@@ -21,6 +21,9 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
+    "tapping": {
+        "toggle": 2
+    },
     "layouts": {
         "LAYOUT_ortho_4x12": {
             "layout": [

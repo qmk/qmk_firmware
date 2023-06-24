@@ -109,8 +109,8 @@ QMK が完全な `info.json` を生成するときはいつでも、`config.h` �
 パズルの最後のピースは、ビルドシステムに新しいオプションを提供することです。
 これは、2つのファイルを生成することによって行われます。
 
-* `.build/obj_<keyboard>/src/info_config.h`
-* `.build/obj_<keyboard>/src/rules.mk`
+* `.build/obj_<keyboard>_<keymap>/src/info_config.h`
+* `.build/obj_<keyboard>_<keymap>/src/rules.mk`
 
 この2つのファイルは、次のコードによって生成されます。
 

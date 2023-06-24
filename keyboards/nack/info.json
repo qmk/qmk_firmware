@@ -23,6 +23,9 @@
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",
+    "tapping": {
+        "toggle": 2
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x13"
     },
