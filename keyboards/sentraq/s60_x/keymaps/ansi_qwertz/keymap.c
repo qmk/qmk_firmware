@@ -144,14 +144,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
 bool process_german(uint16_t keycode, keyrecord_t *record) {
     uint16_t send_code = 0;
     if (record->event.pressed) {
@@ -207,8 +199,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #else
     return true;
 #endif
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }
