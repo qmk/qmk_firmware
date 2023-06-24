@@ -12,6 +12,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "tapping": {
+      "toggle": 1
+    },
     "community_layouts": ["ergodox"],
     "layouts": {
     "LAYOUT_ergodox": {

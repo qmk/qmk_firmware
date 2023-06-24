@@ -17,6 +17,9 @@
     "processor": "MK20DX256",
     "bootloader": "kiibohd",
     "board": "IC_TEENSY_3_1",
+    "tapping": {
+        "toggle": 1
+    },
     "community_layouts": ["ergodox"],
     "layouts": {
         "LAYOUT_ergodox": {

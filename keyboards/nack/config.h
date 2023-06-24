@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define TAPPING_TOGGLE 2
-
 #ifdef RGB_MATRIX_ENABLE
     #define WS2812_SPI SPID1
     #define WS2812_SPI_MOSI_PAL_MODE 5
