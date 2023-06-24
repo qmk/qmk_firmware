@@ -1,66 +1,33 @@
 {
     "manufacturer": "JZ-Skyloong",
-    "keyboard_name": "GK61",
-    "maintainer": "JZ-Skyloong",
     "bootloader": "stm32duino",
     "diode_direction": "ROW2COL",
 
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgb_matrix": true,
-        "encoder": false
-    },
-    "matrix_pins": {
-        "cols": ["B11", "C6", "C7", "B12", "B13", "B14", "B15", "B10", "B2", "B1", "D2", "B3", "B4", "B5"],
-        "rows": ["A15", "C10", "C11", "C12", "A3"]
+        "nkro": true
     },
     "processor": "STM32F103",
     "rgb_matrix": {
         "animations": {
-            "alphas_mods": false,
-            "band_pinwheel_sat": false,
-            "band_pinwheel_val": false,
-            "band_sat": false,
-            "band_spiral_sat": false,
-            "band_spiral_val": false,
             "breathing": true,
-
-            "cycle_all": false,
             "cycle_left_right": true,
 
-            "cycle_out_in": false,
-            "cycle_out_in_dual": false,
             "cycle_pinwheel": false,
-            "cycle_spiral": false,
-            "cycle_up_down": false,
-            "dual_beacom": false,
-            "gradient_left_right": false,
-            "gradient_up_down": false,
-            "hue_breathing":false,
-            "hue_pendulum": false,
-            "hue_wave": false,
+
             "jellybean_raindrops": true,
 
-            "pixel_fractal":false,
-            "pixel_rain": false,
-            "rainbow_moving_chevron": false,
-            "rainbow_pinwheels":false,
             "raindrops": true,
 
-            "ranbow_beacon": false,
             "typing_heatmap": true,
             "digital_rain": true,
 
             "solid_reactive_simple": true
 
         },
-        "driver": "CKLED2001",
-        "hue_steps": 20,
+
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
             {"matrix": [0, 1], "x": 1, "y": 0, "flags": 4},
@@ -126,16 +93,10 @@
             {"matrix": [4, 10], "x": 11.25, "y": 4, "flags": 4},
             {"matrix": [4, 11], "x": 12.5, "y": 4, "flags": 4},
             {"matrix": [4, 13], "x": 13.75, "y": 4, "flags": 4}
-        ],
-        "max_brightness": 200,
-        "sat_steps": 20,
-        "speed_steps": 20,
-        "val_steps": 20
+        ]
     },
     "url": "https://github.com/JZ-Skyloong",
     "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x6061",
         "vid": "0x1EA7"
     },
     "layouts": {

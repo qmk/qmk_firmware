@@ -1,1 +1,1 @@
-# This file intentionally left blank
+DEFAULT_FOLDER = skyloong/gk61/v1
