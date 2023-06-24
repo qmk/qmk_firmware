@@ -35,6 +35,8 @@
 
 #define DRIVER_COUNT 2
 
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
+
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
