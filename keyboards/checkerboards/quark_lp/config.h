@@ -22,8 +22,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define TAPPING_TOGGLE 2
-
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 51
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses

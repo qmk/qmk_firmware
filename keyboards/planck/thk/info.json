@@ -21,6 +21,9 @@
   },
   "processor": "atmega32a",
   "bootloader": "usbasploader",
+  "tapping": {
+    "toggle": 3
+  },
   "layout_aliases": {
     "LAYOUT_planck_grid": "LAYOUT_ortho_4x12",
     "LAYOUT_planck_mit": "LAYOUT_planck_1x2uC"
