@@ -273,19 +273,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) {
-    if (clockwise) {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 3));
-    } else {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 4));
-    }
-  }
-  return true;
-}
-#endif
-
 bool rgb_matrix_indicators_user(void) {
     switch (biton32(layer_state)) {
         case _FN:
