@@ -15,6 +15,8 @@
         "driver": "IS31FL3731"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 18,
         "max_brightness": 128
     },

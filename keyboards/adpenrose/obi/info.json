@@ -8,6 +8,8 @@
         "vid": "0x4450"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 16,
         "sleep": true
     },

@@ -17,6 +17,7 @@
         "pin": "B15"
     },
     "rgblight": {
+        "hue_steps": 20,
         "led_count": 51,
         "max_brightness": 128
     },

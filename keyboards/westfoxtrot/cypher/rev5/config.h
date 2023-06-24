@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define GRAVE_ESC_CTRL_OVERRIDE
 
-   #define RGBLIGHT_HUE_STEP 12
-   #define RGBLIGHT_SAT_STEP 25
-   #define RGBLIGHT_VAL_STEP 12
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

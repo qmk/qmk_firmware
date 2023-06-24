@@ -18,9 +18,6 @@
 
 #pragma once
 
-#    define RGBLIGHT_HUE_STEP 20
-#    define RGBLIGHT_SAT_STEP 20
-#    define RGBLIGHT_VAL_STEP 40
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #    define RGBLIGHT_EFFECT_SNAKE
