@@ -16,6 +16,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
+#define BACKLIGHT_PWM_DRIVER PWMD0
+#define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_B
+
 /* Define RGB */
 #ifdef RGBLIGHT_ENABLE
 
