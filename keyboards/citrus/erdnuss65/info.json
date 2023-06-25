@@ -34,7 +34,7 @@
         "led_count": 1
     },
     "ws2812": {
-        "pin": "xxx" 
+        "pin": "A15" 
     },
     "layouts": {
         "LAYOUT": {
