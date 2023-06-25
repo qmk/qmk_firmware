@@ -16,6 +16,9 @@
             {"pin_a": "A4", "pin_b": "A3"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,

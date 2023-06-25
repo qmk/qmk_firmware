@@ -33,7 +33,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 
-#define TAP_CODE_DELAY 10
-
 /* ADC - will be used for battery monitoring once BT support is added */
 /* #define ADC_PIN B0 */

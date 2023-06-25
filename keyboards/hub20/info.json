@@ -22,6 +22,9 @@
         {"pin_a": "A8", "pin_b": "A9"}
       ]
     },
+    "qmk": {
+      "tap_keycode_delay": 10
+    },
     "rgblight": {
       "led_count": 27
     },

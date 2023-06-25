@@ -16,8 +16,6 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY 15
-
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 

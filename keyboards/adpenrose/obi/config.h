@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY 10
-
 /* Underglow options: */
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD

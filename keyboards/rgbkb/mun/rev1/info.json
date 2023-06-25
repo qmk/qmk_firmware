@@ -30,6 +30,9 @@
             {"pin_a": "B9", "pin_b": "A15"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 5
+    },
     "split": {
         "soft_serial_pin": "A9"
     },

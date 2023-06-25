@@ -27,6 +27,9 @@
             {"pin_a": "A0", "pin_b": "A1"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",

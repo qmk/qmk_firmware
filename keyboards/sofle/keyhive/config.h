@@ -18,8 +18,6 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY  10
-
 // OLED settings
 #define OLED_TIMEOUT    80000
 #define OLED_BRIGHTNESS 90
