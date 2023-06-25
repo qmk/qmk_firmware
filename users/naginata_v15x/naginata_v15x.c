@@ -126,7 +126,7 @@ static int doujiSize[10][NCOMBI] = {0};
 
 // 文字入力バッファ
 static Keystroke ninputs2[NGBUFFER];
-static Keystroke noutput[NGBUFFER][NCOMBI][NDOUJI];
+static Keystroke noutput[10][NCOMBI][NDOUJI];
 
 const int COMBI[][10][NCOMBI][NDOUJI] = {
   // 1 key
@@ -634,7 +634,7 @@ void naginata_clear(void) {
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   #ifdef CONSOLE_ENABLE
-  uprintf("process_naginata\n");
+  uprintf(">process_naginata, is_naginata=%u, keycode=%u, press=%u\n", is_naginata, keycode, record->event.pressed);
   #endif
 
   // まれに薙刀モードオンのまま、レイヤーがオフになることがあるので、対策
@@ -701,52 +701,49 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case NG_SHFT ... NG_SHFT2:
       case NG_Q ... NG_SLSH:
-
-  #ifdef CONSOLE_ENABLE
-  uprintf("NG press %5u\n", keycode);
-  #endif
         ninputs2[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
-  #ifdef CONSOLE_ENABLE
-  uprintf("ninputs2[ng_chrcount] = (Keystroke)\n");
-  #endif
         ng_chrcount++;
+  #ifdef CONSOLE_ENABLE
+  uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
+  #endif
         return false;
         break;
     }
   } else { // key release
-    keycnt--;
+    if (keycnt > 0)
+      keycnt--;
     switch (keycode) {
-      case NG_Q ... NG_SHFT2:
-  
-  #ifdef CONSOLE_ENABLE
-  uprintf("NG release %5u\n", keycode);
-  #endif
-  
+      case NG_Q ... NG_SHFT2:  
         for (int i = 0; i < ng_chrcount; i++) {
           if (keycode == ninputs2[i].keycode) {
             ninputs2[i].releaseTime = record->event.time;
             break;
           }
         }
-  #ifdef CONSOLE_ENABLE
-  uprintf("ninputs2[i].releaseTime = record->event.time;\n");
-  #endif
         // 全部キーを離したら
         if (keycnt == 0) {
           naginata_type();
         }
   #ifdef CONSOLE_ENABLE
-  uprintf("naginata_type();\n");
+  uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
   #endif
         return false;
         break;
     }
   }
+  #ifdef CONSOLE_ENABLE
+  uprintf("<process_naginata return=true\n");
+  #endif
+
   return true;
 }
 
 // キー入力を文字に変換して出力する
 void naginata_type(void) {
+  #ifdef CONSOLE_ENABLE
+  uprintf(">naginata_type\n");
+  #endif
+
   naginata_keymap bngmap; // PROGMEM buffer
   uint32_t keycomb_buf = 0UL;
 
@@ -763,21 +760,29 @@ void naginata_type(void) {
       memcpy_P(&bngmap, &ngmap[j], sizeof(bngmap));
       if (keycomb_buf == bngmap.key) {
         send_string(bngmap.kana);
+  #ifdef CONSOLE_ENABLE
+  uprintf(" send_string %s\n", bngmap.kana);
+  #endif
       }
     }
   }
   ng_chrcount = 0;
+  #ifdef CONSOLE_ENABLE
+  uprintf("<naginata_type\n");
+  #endif
 }
 
 int evaluate() {
+  #ifdef CONSOLE_ENABLE
+  uprintf(">evaluate\n");
+  #endif
+
   // 入力 Keystrokeの1次元配列 ninputs2
   // 出力 Keystrokeの2次元配列 (同時押しの組み合わせの配列)
 
   kcomSize = 0;
   // combiSize[10] = {0}
   // doujiSize[10][NCOMBI] = {0}
-
-  uint32_t keycomb_buf = 0UL;
 
   // キー数に応じて組み合わせを選定
   Keystroke a1[NCOMBI][NDOUJI];
@@ -803,13 +808,14 @@ int evaluate() {
       doujiSize[a1Size][j] = b1Size;
 
       // バッファ内のキーを組み合わせる
-      for (int l = 0; l < b1Size; l++) {
-        keycomb_buf |= ng_key[b1[l].keycode - NG_Q];
+      uint32_t keycomb_buf = 0UL;
+      for (int k = 0; k < b1Size; k++) {
+        keycomb_buf |= ng_key[b1[k].keycode - NG_Q];
       }
       // 辞書に存在するかチェック
       int isExist = 0;
-      for (int l = 0; l < sizeof ngmap / sizeof bngmap; l++) {
-        memcpy_P(&bngmap, &ngmap[l], sizeof(bngmap));
+      for (int k = 0; k < sizeof ngmap / sizeof bngmap; k++) {
+        memcpy_P(&bngmap, &ngmap[k], sizeof(bngmap));
         if (keycomb_buf == bngmap.key) {
           isExist = 1;
           break;
@@ -828,9 +834,9 @@ int evaluate() {
     combiSize[kcomSize] = a1Size;
 
     if (flag) { // 辞書にあったら登録
-      for (int j = 0; j < combiSize[kcomSize]; j++) {
-        for (int k = 0; k < doujiSize[kcomSize][j]; k++) {
-          noutput[kcomSize][j][k] = a1[j][k];
+      for (int k = 0; k < combiSize[kcomSize]; k++) {
+        for (int l = 0; l < doujiSize[kcomSize][k]; l++) {
+          noutput[kcomSize][k][l] = a1[k][l];
         }
       }
     }
@@ -860,11 +866,18 @@ int evaluate() {
       maxIndex = i;
     }
   }
+  #ifdef CONSOLE_ENABLE
+  uprintf("<evaluate return=%u\n", maxIndex);
+  #endif
 
   return maxIndex;
 }
 
 double scoring(Keystroke* comb, int size) {
+  #ifdef CONSOLE_ENABLE
+  uprintf(">scoring size=%u\n", size);
+  #endif
+
     if (size == 1) { // 単打の重み
         return 0.5; // 単打を優先するか、同時押しを優先するかをチューニングする
     }
@@ -886,5 +899,10 @@ double scoring(Keystroke* comb, int size) {
       double pt = (double)(comb[i].releaseTime - comb[i].pressTime);
         s += w / pt;
     }
+
+  #ifdef CONSOLE_ENABLE
+  uprintf("<scoring return=%f\n", s);
+  #endif
+
     return s;
 }
