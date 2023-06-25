@@ -5,15 +5,9 @@
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "encoder": false,
         "extrakey": true,
         "lto": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
         "rgblight": true
     },
@@ -25,7 +19,7 @@
     "rgblight": {
         "led_count": 30
     },
-    "url": "",
+    "url": "https://modedesigns.com/pages/envoy",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x5754",
