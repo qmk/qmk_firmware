@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "qmk",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_f13_jis": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1.25, "y": 0},
