@@ -697,10 +697,10 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   //   return true;
 
   if (record->event.pressed) {
-    keycnt++;
     switch (keycode) {
       case NG_SHFT ... NG_SHFT2:
       case NG_Q ... NG_SLSH:
+        keycnt++;
         ninputs2[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
         ng_chrcount++;
   #ifdef CONSOLE_ENABLE
@@ -710,10 +710,10 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         break;
     }
   } else { // key release
-    if (keycnt > 0)
-      keycnt--;
     switch (keycode) {
       case NG_Q ... NG_SHFT2:  
+        if (keycnt > 0)
+          keycnt--;
         for (int i = 0; i < ng_chrcount; i++) {
           if (keycode == ninputs2[i].keycode) {
             ninputs2[i].releaseTime = record->event.time;
@@ -723,6 +723,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         // 全部キーを離したら
         if (keycnt == 0) {
           naginata_type();
+          ng_chrcount = 0;
         }
   #ifdef CONSOLE_ENABLE
   uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
@@ -741,7 +742,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 // キー入力を文字に変換して出力する
 void naginata_type(void) {
   #ifdef CONSOLE_ENABLE
-  uprintf(">naginata_type\n");
+  uprintf(">naginata_type ng_chrcount=%u\n", ng_chrcount);
+  for (int i = 0; i < ng_chrcount; i++)
+    uprintf(" naginata_type key=%lu, pressTime=%lu, releaseTime=%lu\n",  ninputs2[i].keycode,  ninputs2[i].pressTime,  ninputs2[i].releaseTime);
   #endif
 
   naginata_keymap bngmap; // PROGMEM buffer
@@ -766,7 +769,6 @@ void naginata_type(void) {
       }
     }
   }
-  ng_chrcount = 0;
   #ifdef CONSOLE_ENABLE
   uprintf("<naginata_type\n");
   #endif
@@ -774,7 +776,7 @@ void naginata_type(void) {
 
 int evaluate() {
   #ifdef CONSOLE_ENABLE
-  uprintf(">evaluate\n");
+  uprintf(">evaluate ng_chrcount=%u\n", ng_chrcount);
   #endif
 
   // 入力 Keystrokeの1次元配列 ninputs2
@@ -785,33 +787,60 @@ int evaluate() {
   // doujiSize[10][NCOMBI] = {0}
 
   // キー数に応じて組み合わせを選定
-  Keystroke a1[NCOMBI][NDOUJI];
-  Keystroke b1[NDOUJI];
+  // Keystroke a1[NCOMBI][NDOUJI];
+  // Keystroke b1[NDOUJI];
   naginata_keymap bngmap; // PROGMEM buffer
 
   for (int i = 0; i < NKEYS[ng_chrcount - 1]; i++) { // 組み合わせごとに
+  #ifdef CONSOLE_ENABLE
+  uprintf(" evaluate i=%u, kcomSize=%u\n", i, kcomSize);
+  #endif
     int flag = 1; // 組み合わせが、かな辞書にあるかどうか
     int a1Size = 0;
     for (int j = 0; j < NCOMBI; j++) { // 組み合わせの順番に
-      if (COMBI[ng_chrcount - 1][i][j][0] < 0) {
+  #ifdef CONSOLE_ENABLE
+  uprintf(" evaluate   j=%u\n", j);
+  #endif
+      if (COMBI[ng_chrcount - 1][i][j][0] == -1) {
+  #ifdef CONSOLE_ENABLE
+  uprintf(" evaluate   j=%u, break\n", j);
+  #endif
         break;
       }
 
       int b1Size = 0;
       for (int k = 0; k < NDOUJI; k++) { // 同時に押しているキー
-        if (COMBI[ng_chrcount - 1][i][j][k] < 0) {
+  #ifdef CONSOLE_ENABLE
+  uprintf(" evaluate     k=%u\n", k);
+  #endif
+        if (COMBI[ng_chrcount - 1][i][j][k] == -1) {
           break;
         } else {
-          b1[b1Size++] = ninputs2[COMBI[ng_chrcount - 1][i][j][k]];
+          // b1[b1Size++] = ninputs2[COMBI[ng_chrcount - 1][i][j][k]];
+          noutput[kcomSize][j][k] = ninputs2[COMBI[ng_chrcount - 1][i][j][k]];
+          b1Size++;
         }
       }
-      doujiSize[a1Size][j] = b1Size;
+      doujiSize[kcomSize][j] = b1Size; //あとで辞書にない可能性もあるけど、オーバーライトされるか
+  #ifdef CONSOLE_ENABLE
+  uprintf(" evaluate   b1Size=%u\n", b1Size);
+  uprintf(" evaluate   kcomSize=%u\n", kcomSize);
+  for (int k = 0; k < doujiSize[kcomSize][j]; k++) {
+    uprintf(" evaluate   noutput %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", kcomSize, j, k, noutput[kcomSize][j][k].keycode,  noutput[kcomSize][j][k].pressTime,  noutput[kcomSize][j][k].releaseTime);
+  }
+  #endif
 
       // バッファ内のキーを組み合わせる
       uint32_t keycomb_buf = 0UL;
       for (int k = 0; k < b1Size; k++) {
-        keycomb_buf |= ng_key[b1[k].keycode - NG_Q];
+  #ifdef CONSOLE_ENABLE
+  uprintf(" evaluate   ng_key=%lu\n", ng_key[noutput[kcomSize][j][k].keycode - NG_Q]);
+  #endif
+        keycomb_buf |= ng_key[noutput[kcomSize][j][k].keycode - NG_Q];
       }
+  #ifdef CONSOLE_ENABLE
+  uprintf(" evaluate   keycomb_buf=%lu\n", keycomb_buf);
+  #endif
       // 辞書に存在するかチェック
       int isExist = 0;
       for (int k = 0; k < sizeof ngmap / sizeof bngmap; k++) {
@@ -821,38 +850,55 @@ int evaluate() {
           break;
         }
       }
+  #ifdef CONSOLE_ENABLE
+  uprintf(" evaluate   isExist=%u\n", isExist);
+  #endif
       if (isExist) {
-        for (int k = 0; k < NDOUJI; k++) {
-          a1[a1Size][k] = b1[k];
-        }
+        // for (int k = 0; k < NDOUJI; k++) {
+        //   a1[a1Size][k] = b1[k];
+        // }
         a1Size++;
       } else {
         flag = 0;
         break; // 辞書になければスキップ
       }
     }
-    combiSize[kcomSize] = a1Size;
+    combiSize[kcomSize] = a1Size; // a1Size++したあとでは
 
-    if (flag) { // 辞書にあったら登録
-      for (int k = 0; k < combiSize[kcomSize]; k++) {
-        for (int l = 0; l < doujiSize[kcomSize][k]; l++) {
-          noutput[kcomSize][k][l] = a1[k][l];
-        }
+    // if (flag) { // 辞書にあったら登録
+    //   for (int k = 0; k < combiSize[kcomSize]; k++) {
+    //     for (int l = 0; l < doujiSize[kcomSize][k]; l++) {
+    //       noutput[kcomSize][k][l] = a1[k][l];
+    //     }
+    //   }
+    // }
+  #ifdef CONSOLE_ENABLE
+  uprintf(" evaluate flag=%u\n", flag);
+  #endif
+    if (flag)
+      kcomSize++;
+  }
+  #ifdef CONSOLE_ENABLE
+  uprintf(" evaluate kcomSize=%u\n", kcomSize);
+  for (int i = 0; i < kcomSize; i++) {
+    for (int j = 0; j < combiSize[i]; j++) {
+      for (int k = 0; k < doujiSize[i][j]; k++) {
+        uprintf(" evaluate noutput %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", i, j, k, noutput[i][j][k].keycode,  noutput[i][j][k].pressTime,  noutput[i][j][k].releaseTime);
       }
     }
-    kcomSize++;
   }
-  
+  #endif
+    
   // 各組み合わせの点数を求める
   double score[10];
   for (int i = 0; i < kcomSize; i++) {
     double s = 0;
     for (int j = 0; j < combiSize[i]; j++) {
-      Keystroke l[NDOUJI];
-      for (int k = 0; k < doujiSize[i][j]; k++) {
-        l[k] = noutput[kcomSize][i][k];
-      }
-      s += scoring(l, doujiSize[i][j]);
+      // Keystroke l[NDOUJI];
+      // for (int k = 0; k < doujiSize[i][j]; k++) {
+      //   l[k] = noutput[i][j][k];
+      // }
+      s += scoring(i, j, doujiSize[i][j]);
     }
     score[i] = s;
   }
@@ -873,35 +919,44 @@ int evaluate() {
   return maxIndex;
 }
 
-double scoring(Keystroke* comb, int size) {
+double scoring(int x, int y, int size) {
   #ifdef CONSOLE_ENABLE
   uprintf(">scoring size=%u\n", size);
+  for (int i = 0; i < size; i++) {
+    uprintf(" scoring key=%lu, pressTime=%lu, releaseTime=%lu\n", noutput[x][y][i].keycode, noutput[x][y][i].pressTime, noutput[x][y][i].releaseTime);
+  }
   #endif
 
-    if (size == 1) { // 単打の重み
+  if (size == 1) { // 単打の重み
+  #ifdef CONSOLE_ENABLE
+  uprintf("<scoring return=%u\n", (int)(0.5 * 1000));
+  #endif
         return 0.5; // 単打を優先するか、同時押しを優先するかをチューニングする
     }
 
     // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
-    uint32_t s2 = comb[0].pressTime;
-    uint32_t e2 = comb[0].releaseTime;
+    uint32_t s2 = noutput[x][y][0].pressTime;
+    uint32_t e2 = noutput[x][y][0].releaseTime;
     for (int i = 1; i < size; i++) {
-        if (comb[i].pressTime > s2) {
-            s2 = comb[i].pressTime;
+        if (noutput[x][y][i].pressTime > s2) {
+            s2 = noutput[x][y][i].pressTime;
         }
-        if (comb[i].releaseTime < e2) {
-            e2 = comb[i].releaseTime;
+        if (noutput[x][y][i].releaseTime < e2) {
+            e2 = noutput[x][y][i].releaseTime;
         }
     }
+  #ifdef CONSOLE_ENABLE
+  uprintf(" scoring s2=%lu, e2=%lu\n", s2, e2);
+  #endif
     double w = (double)(e2 - s2); // キーが重なっている時間
     double s = 0.0;
     for (int i = 0; i < size; i++) {
-      double pt = (double)(comb[i].releaseTime - comb[i].pressTime);
+      double pt = (double)(noutput[x][y][i].releaseTime - noutput[x][y][i].pressTime);
         s += w / pt;
     }
 
   #ifdef CONSOLE_ENABLE
-  uprintf("<scoring return=%f\n", s);
+  uprintf("<scoring return=%lu, w=%lu\n", (uint32_t)(s * 1000), (uint32_t)(w * 1000));
   #endif
 
     return s;
