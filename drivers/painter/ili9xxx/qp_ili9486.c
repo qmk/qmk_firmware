@@ -114,7 +114,7 @@ static uint32_t qp_ili9486_send_data_toggling(painter_device_t device, const uin
     painter_driver_t *              driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
 
-    uint32_t  ret;
+    uint32_t ret;
     for (uint8_t j = 0; j < byte_count; ++j) {
         writePinLow(comms_config->spi_config.chip_select_pin);
         ret = qp_comms_spi_dc_reset_send_data(device, &data[j], 1);
@@ -143,8 +143,8 @@ static void qp_comms_spi_send_command_sequence_odd_cs_pulse(painter_device_t dev
 }
 
 static bool qp_ili9486_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
-    painter_driver_t *                          driver       = (painter_driver_t *)device;
-    tft_panel_dc_reset_painter_driver_vtable_t *vtable       = (tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
+    painter_driver_t *                          driver = (painter_driver_t *)device;
+    tft_panel_dc_reset_painter_driver_vtable_t *vtable = (tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
 
     // Fix up the drawing location if required
     left += driver->offset_x;
