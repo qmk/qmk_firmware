@@ -109,8 +109,8 @@ enum {
 #ifdef RGBLIGHT_ENABLE
 #define HSV_CAPS 55, 255, 255
 #define HSV_ERR 0, 255, 96
-#define HSV_MAC 250, 255, 255
-#define HSV_WIN 250, 128, 192
+#define HSV_MAC 250, 255, 192
+#define HSV_WIN 250, 192, 128
 #define HSV_SYMBOL 235, 255, 255
 #define HSV_NAVNUM 20, 255, 255
 #define HSV_GAME  40, 255, 255

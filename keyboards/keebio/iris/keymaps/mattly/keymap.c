@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FUNCT] = LAYOUT(
     KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-    QK_BOOT, M_NAVFW, XXXXXXX, M_NXWIN, XXXXXXX, XXXXXXX,                            XXXXXXX, RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_K, QK_BOOT,
+    QK_BOOT, M_NAVFW, XXXXXXX, M_NXWIN, XXXXXXX, XXXXXXX,                            XXXXXXX, RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_X, QK_BOOT,
     DB_TOGG, M_NAVBK, M_PVTAB, M_PVWIN, M_NXTAB, XXXXXXX,                            XXXXXXX, TOG_WIN, TOG_GAM, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_MUTE, KC_VOLD, KC_VOLU, KC_MRWD, KC_MFFD, KC_MPLY, _______,          _______, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,
                                    _______, _______, _______,                   _______, _______, _______
