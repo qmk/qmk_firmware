@@ -748,7 +748,6 @@ void naginata_type(void) {
   #endif
 
   naginata_keymap bngmap; // PROGMEM buffer
-  uint32_t keycomb_buf = 0UL;
 
   //
   int n = evaluate();
@@ -756,6 +755,7 @@ void naginata_type(void) {
   // かなへ変換する
   for (int i = 0; i < combiSize[n]; i++) {
     // バッファ内のキーを組み合わせる
+    uint32_t keycomb_buf = 0UL;
     for (int j = 0; j < doujiSize[n][i]; j++) {
       keycomb_buf |= ng_key[noutput[n][i][j].keycode - NG_Q];
     }
@@ -833,14 +833,8 @@ int evaluate() {
       // バッファ内のキーを組み合わせる
       uint32_t keycomb_buf = 0UL;
       for (int k = 0; k < b1Size; k++) {
-  #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate   ng_key=%lu\n", ng_key[noutput[kcomSize][j][k].keycode - NG_Q]);
-  #endif
         keycomb_buf |= ng_key[noutput[kcomSize][j][k].keycode - NG_Q];
       }
-  #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate   keycomb_buf=%lu\n", keycomb_buf);
-  #endif
       // 辞書に存在するかチェック
       int isExist = 0;
       for (int k = 0; k < sizeof ngmap / sizeof bngmap; k++) {
@@ -881,9 +875,11 @@ int evaluate() {
   #ifdef CONSOLE_ENABLE
   uprintf(" evaluate kcomSize=%u\n", kcomSize);
   for (int i = 0; i < kcomSize; i++) {
+    uprintf(" evaluate   combiSize=%u\n", combiSize[i]);
     for (int j = 0; j < combiSize[i]; j++) {
+      uprintf(" evaluate     doujiSize=%u\n", doujiSize[i][j]);
       for (int k = 0; k < doujiSize[i][j]; k++) {
-        uprintf(" evaluate noutput %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", i, j, k, noutput[i][j][k].keycode,  noutput[i][j][k].pressTime,  noutput[i][j][k].releaseTime);
+        uprintf(" evaluate       noutput %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", i, j, k, noutput[i][j][k].keycode,  noutput[i][j][k].pressTime,  noutput[i][j][k].releaseTime);
       }
     }
   }
