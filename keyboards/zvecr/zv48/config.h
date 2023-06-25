@@ -15,8 +15,6 @@
  */
 #pragma once
 
-#define MATRIX_IO_DELAY 5
-
 #define SPLIT_HAND_PIN B9
 //#define SELECT_SOFT_SERIAL_SPEED 0
 #define SERIAL_USART_SPEED 921600

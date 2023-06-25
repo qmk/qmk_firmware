@@ -165,6 +165,9 @@
         "pid": "0x3663",
         "vid": "0xECED"
     },
+    "ws2812": {
+        "pin": "B0"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

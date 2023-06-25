@@ -9,6 +9,10 @@
         "device_version": "0.0.1",
         "force_nkro": true
     },
+    "indicators": {
+        "caps_lock": "C13",
+        "on_state": 0
+    },
     "rgblight": {
         "led_count": 9
     },

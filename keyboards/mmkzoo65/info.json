@@ -7,7 +7,8 @@
         "vid": "0x7BA1",
         "pid": "0x6505",
         "device_version": "0.0.1",
-        "force_nkro": true
+        "force_nkro": true,
+        "polling_interval": 2
     },
     "matrix_pins": {
         "cols": ["B1", "F0", "F1", "F4", "F5", "F6", "F7", "D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7"],

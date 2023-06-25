@@ -30,7 +30,8 @@
         "vid": "0x6964",
         "pid": "0x0042",
         "device_version": "1.0.0",
-        "force_nkro": true
+        "force_nkro": true,
+        "polling_interval": 2
       },
     "layouts": {
         "LAYOUT": {
