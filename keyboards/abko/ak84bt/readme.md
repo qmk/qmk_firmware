@@ -1,6 +1,6 @@
 # AK84BT
 
-![ak84bt](https://imgur.com/tQJ19vx.jpg)
+![ak84bt](https://i.imgur.com/tQJ19vxh.jpg)
 
 A customizable 80% keyboard.
 
