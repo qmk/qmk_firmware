@@ -123,7 +123,7 @@ __attribute__((weak)) uint16_t keycode_config(uint16_t keycode) {
 
 __attribute__((weak)) uint8_t mod_config(uint8_t mod) {
     /**
-     * Note: This function is for the 5-bit packed mods, NOT the full 8-bit mods. 
+     * Note: This function is for the 5-bit packed mods, NOT the full 8-bit mods.
      * More info about the mods can be seen in modifiers.h.
      */
     if (keymap_config.swap_lalt_lgui) {
