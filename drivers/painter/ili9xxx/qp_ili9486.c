@@ -1,4 +1,5 @@
 // Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2023 Pablo Martinez (@elpekenin) <elpekenin@elpekenin.dev>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp_internal.h"
@@ -113,17 +114,17 @@ static uint32_t qp_ili9486_send_data_toggling(painter_device_t device, const uin
     painter_driver_t *              driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
 
+    uint32_t  ret;
     for (uint8_t j = 0; j < byte_count; ++j) {
         writePinLow(comms_config->spi_config.chip_select_pin);
-        qp_comms_spi_dc_reset_send_data(device, &data[j], 1);
+        ret = qp_comms_spi_dc_reset_send_data(device, &data[j], 1);
         writePinHigh(comms_config->spi_config.chip_select_pin);
     }
+
+    return ret;
 }
 
 static void qp_comms_spi_send_command_sequence_odd_cs_pulse(painter_device_t device, const uint8_t *sequence, size_t sequence_len) {
-    painter_driver_t *              driver       = (painter_driver_t *)device;
-    qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
-
     for (size_t i = 0; i < sequence_len;) {
         uint8_t command   = sequence[i];
         uint8_t delay     = sequence[i + 1];
@@ -144,7 +145,6 @@ static void qp_comms_spi_send_command_sequence_odd_cs_pulse(painter_device_t dev
 static bool qp_ili9486_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
     painter_driver_t *                          driver       = (painter_driver_t *)device;
     tft_panel_dc_reset_painter_driver_vtable_t *vtable       = (tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
-    qp_comms_spi_dc_reset_config_t *            comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
 
     // Fix up the drawing location if required
     left += driver->offset_x;
@@ -170,12 +170,10 @@ static bool qp_ili9486_viewport(painter_device_t device, uint16_t left, uint16_t
     qp_comms_spi_dc_reset_send_command_odd_cs_pulse(device, vtable->opcodes.set_column_address);
     qp_ili9486_send_data_toggling(device, xbuf, 4);
 
-
     // Set up the y-window
     uint8_t ybuf[4] = {top >> 8, top & 0xFF, bottom >> 8, bottom & 0xFF};
     qp_comms_spi_dc_reset_send_command_odd_cs_pulse(device, vtable->opcodes.set_row_address);
     qp_ili9486_send_data_toggling(device, ybuf, 4);
-
 
     // Lock in the window
     qp_comms_spi_dc_reset_send_command_odd_cs_pulse(device, vtable->opcodes.enable_writes);
@@ -294,7 +292,6 @@ painter_device_t qp_ili9486_make_spi_waveshare_device(uint16_t panel_width, uint
     }
     return device;
 }
-
 
 #endif // QUANTUM_PAINTER_ILI9486_SPI_ENABLE
 
