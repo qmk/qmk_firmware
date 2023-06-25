@@ -1,6 +1,6 @@
 # harbour
 
-* Keyboard Maintainer: [kibou](https://kibou.store/)
+* Keyboard Maintainer: [FanXingStudio](https://github.com/FanXingStudio)
 * Hardware Supported: harbour PCBs, STM32F401
 * Hardware Availability: https://kibou.store/
 
