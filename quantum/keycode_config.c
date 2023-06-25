@@ -123,10 +123,8 @@ __attribute__((weak)) uint16_t keycode_config(uint16_t keycode) {
 
 __attribute__((weak)) uint8_t mod_config(uint8_t mod) {
     /**
-     * Note: The right hand MOD variables (MOD_RALT, MOD_RGUI, MOD_RSFT, MOD_RCTL)
-     * are not 1-bit bitmasks like their left-handed counterparts. They have 2 bits
-     * set, so some of the usual bitwise operator tricks need to be modified
-     * to take this into account
+     * Note: This function is for the 5-bit packed mods, NOT the full 8-bit mods. 
+     * More info about the mods can be seen in modifiers.h.
      */
     if (keymap_config.swap_lalt_lgui) {
         /** If both modifiers pressed or neither pressed, do nothing
