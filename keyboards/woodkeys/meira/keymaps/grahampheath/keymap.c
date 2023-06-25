@@ -26,7 +26,7 @@ extern rgblight_config_t rgblight_config;
 #define _LOWER 3
 #define _RAISE 4
 #define _EMOJI 5
-#define _ADJUST 16
+#define _ADJUST 6
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,

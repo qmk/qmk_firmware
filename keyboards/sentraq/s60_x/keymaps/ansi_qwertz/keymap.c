@@ -34,9 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_FUNC MO(2)
 #define MICMUTE RCTL(KC_LCTL)
 
-enum function_codes {
-};
-
 enum layer_names {
     DEFAULT,
     GAMING,

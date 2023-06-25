@@ -26,7 +26,7 @@ extern rgblight_config_t rgblight_config;
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _ADJUST 16
+#define _ADJUST 5
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
