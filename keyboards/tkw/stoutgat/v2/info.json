@@ -27,6 +27,9 @@
             {"pin_a": "B12", "pin_b": "B13"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "community_layouts": ["65_iso", "65_ansi"],
     "layouts": {
         "LAYOUT_65_ansi": {

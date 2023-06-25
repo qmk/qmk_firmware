@@ -23,8 +23,6 @@
 #   define JOYSTICK_AXIS_RESOLUTION 8
 #endif
 
-#define TAP_CODE_DELAY 10
-
 #define SPLIT_USB_DETECT
 
 #ifdef WPM_ENABLE

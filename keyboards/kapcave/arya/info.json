@@ -20,6 +20,9 @@
             {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 25
+    },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "community_layouts": ["alice_split_bs"],

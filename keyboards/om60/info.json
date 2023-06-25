@@ -13,6 +13,9 @@
       {"pin_a": "B4", "pin_b": "B5"}
     ]
   },
+  "qmk": {
+    "tap_keycode_delay": 10
+  },
   "rgblight": {
     "hue_steps": 10,
     "led_count": 69,

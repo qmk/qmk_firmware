@@ -15,8 +15,6 @@
   */
 #pragma once
 
-#define TAP_CODE_DELAY 10 // tap_code function delay for register and unregister
-
 /* animations enabled */
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

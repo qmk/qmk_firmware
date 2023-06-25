@@ -16,6 +16,9 @@
             {"pin_a": "B12", "pin_b": "B13"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "indicators": {

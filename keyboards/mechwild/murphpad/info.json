@@ -19,6 +19,9 @@
             {"pin_a": "D2", "pin_b": "D3"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "bootmagic": {
         "matrix": [0, 1]
     },

@@ -26,6 +26,9 @@
             {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "backlight": {
         "pin": "A9",
         "levels": 5,

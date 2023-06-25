@@ -28,6 +28,9 @@
             {"pin_a": "D2", "pin_b": "D1", "resolution": 2}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "layouts": {

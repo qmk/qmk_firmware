@@ -72,9 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 // #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-/* Slow down key press speed to ensure computer picks it up */
-#define TAP_CODE_DELAY 10
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

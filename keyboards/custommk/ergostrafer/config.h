@@ -16,8 +16,6 @@
 #define SPI_MISO_PIN B4
 #define SPI_MISO_PAL_MODE 5
 
-#define TAP_CODE_DELAY 10
-
 // Audio configuration
 #define AUDIO_PIN B8
 #define AUDIO_PWM_DRIVER PWMD4

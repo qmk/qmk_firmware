@@ -21,6 +21,9 @@
     "tapping": {
         "term": 300
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "ws2812": {
         "pin": "A10"
     },

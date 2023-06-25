@@ -23,6 +23,9 @@
             {"pin_a": "B14", "pin_b": "B13", "resolution": 4}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 15
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
