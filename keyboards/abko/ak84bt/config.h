@@ -16,7 +16,6 @@
  
 #pragma once
 
-#define EECONFIG_MAGIC_NUMBER   0x1234
 
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010011
