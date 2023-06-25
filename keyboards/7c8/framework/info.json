@@ -23,7 +23,7 @@
     },
     "leader_key": {
         "timeout": 250,
-        "timing": 150
+        "timing": true
     },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
