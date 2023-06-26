@@ -289,7 +289,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             mods[l_mods + r_mods] = keycode;
             l_mods += is_l_mod;
             r_mods += is_r_mod;
-        } else {
+        } else if (l_mods + r_mods > 0) {
             l_mods -= is_l_mod;
             r_mods -= is_r_mod;
         }
