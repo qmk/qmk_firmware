@@ -1,0 +1,1253 @@
+  Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+* Eric.a's Keyboard configuration
+
+** Introduction
+In addition to this config.org file there are several others which contribute to this user space
+by tangling their contents into code.
+
+Layers like keypads, symbols and navigation are still just in layers/.
+The oled code is also still on the loose in the oled/ folder.
+The keymap parts are in the keymap/ folder.
+
+The org file name matches the folder name that it tangles its code to.
+It is possible to ignore the .org files and just use the code.
+
+The org files which contain this code.
+*** [[file:readme.org][readme.org]]
+This is the original readme converted to org format.
+*** [[file:introduction.org][introduction.org]]
+This file, Some explanation of the parts and where you turn everything on and off.
+*** [[file:config.org][config.org]]
+This file, Some explanation of the parts and where you turn everything on and off.
+*** [[file:lang.org][lang.org]]
+This has some internals about keycodes and language, the structure of the layout wrappers and
+various other things that didn't belong here.
+*** [[file:base_layers.org][base_layers.org]]
+This is where all the base layers live.  Dvorak, Beakl, Qwerty, Hands Down, Colemak,...
+*** [[file:extensions.org][extensions.org]]
+Code and definitions for extensions, key over-rides, combos, tap hold, smart locks, keycodes, etc.
+*** [[file:keyboards.org][keyboards.org]]
+The layout matrices and keyboard mappings.
+*** [[file:mod_layers.org][mod_layers.org]]
+Mod layer definitions to apply to the keymap given.
+*** [[file:perimeter.org][perimeter.org]]
+Edge keys, thumb keys, number rows. Middle keys. Not really in the org yet.
+*** The code not found in org.
+Not everything is in org. One of the motivations of using org is to automate some of these.
+- /oled//
+- layers/
+- =layer_names/=
+- perimeter/
+
+** The Files
+*** Config.h
+
+Get the Config.h file started with a copyright and our userspace defined flag.
+I have a lot of splits and no space on AVRs.
+
+#+begin_src C :tangle config.h
+/*
+  Copyright 2018-2023 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#ifndef USERSPACE_CONFIG_H
+#define USERSPACE_CONFIG_H
+
+// pro-micro v3's don't always detect otherwise.
+/* #define SPLIT_USB_DETECT */
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#define USERSPACE_H "ericgebhart.h"
+#+end_src
+
+
+*** rules.mk
+
+Rules.mk is mostly here to tell *Make* where everything is and how it should invoke
+compilers.   You can put your keymap anywhere, but you need to say where.
+You should also tell it about any C code it needs to know about.
+
+We've always had a user.c  I barely use mine. I'm not even sure I need it.
+Header files here in home are already automatically found by Make.
+
+#+begin_src makefile :tangle rules.mk
+INTROSPECTION_KEYMAP_C = keymap/keymap.c # keymaps
+SRC += ericgebhart.c
+#+end_src
+
+**** ericgebhart.h and .c
+
+My /ericgebhart.h/ is really simple. It used to be everything.
+It turns out to be really simple, because its just that someone, a combo, or
+something else wants to know my layer names. Long ago, /ericgebhart.h/ was the
+home of very many things, but it has been reduced to very little. So this gets shared
+with the extensions when we get to that bit.
+
+#+begin_src C :tangle ericgebhart.h
+#pragma once
+/*
+  Copyright 2018-2023 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+#include QMK_KEYBOARD_H
+#include "layer_names.h"
+#include "toprows.h"
+
+#ifdef CONSOLE_ENABLE
+#include "print.h"
+#endif
+
+#+end_src
+
+Not sure I need this at all. should try deleting it.
+
+#+begin_src C :tangle ericgebhart.c
+/*
+  Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "ericgebhart.h"
+
+#include "version.h"
+#include "action.h"
+#include "action_layer.h"
+#include "process_keycode/process_tap_dance.h"
+
+// Add reconfigurable functions here, for keymap customization
+// This allows for a global, userspace functions, and continued
+// customization of the keymap.  Use _keymap instead of _user
+// functions in the keymaps
+__attribute__ ((weak))
+void matrix_init_keymap(void) {}
+
+__attribute__ ((weak))
+void matrix_scan_keymap(void) {}
+
+__attribute__ ((weak))
+uint32_t layer_state_set_keymap (uint32_t state) {
+  return state;
+}
+
+__attribute__ ((weak))
+void led_set_keymap(uint8_t usb_led) {}
+#+end_src
+
+
+My keymap is in keymap/keymap.c and really is nothing to see. But we must tell
+QMK where it is.  This keymap is a bit ugly, and is really a long list of checking
+
+
+** Language/locale
+
+Changing languages and default base layouts is just something this configuration does.
+It is very simple, and why I don't just add them all I dont know.
+
+It does get messy sometimes, and basic support doesn't mean there are the proper
+keycodes for a dvorak comma key on French or Slovenian. By default you'll get
+an error, for a missing TL_ /target-language/ keycode, that will unravel for miles, while the
+only thing that probably matters is the very first warning.  Still, not bad. A set of
+Alt-local key definitions will fix it.
+
+I use US intl with dead keys on linux currently.  This QMK configuration supports US-intl,
+En and Bepo.fr.  I think bepo.fr has a better choice of letters and dead keys.
+
+*** Set the Locale
+
+The default. set it, use it, set it back. =US_INT,= EN, BEPO,
+
+#+begin_src C :tangle config.h
+#define LANG_IS US_INT
+#define DEFAULT_LANG US_INT
+#define DEFAULT_LANG_NAME " us"
+#+end_src
+
+*** Second Locale / Keymap Set.
+
+Enable a second locale, for another set of layers.
+This will add bepo versions of all layers chosen.
+Other locales can work with some small work.
+
+#+begin_src C :tangle config.h
+/* #define SECOND_LOCALE BEPO */
+/* #define SECOND_LOCALE_NAME " bepo" */
+#+end_src
+
+
+** Paths to Places
+
+This sets the search path for *Make* to find all the headers for
+the code. Almost everything here in this user space.
+There will be more with the Extensions later.
+
+Currently this is all going into rules.mk, a makefile, QMK is working
+towards using json for this.
+
+The most likely things to change are *defs*, and *layers*. Usually
+=base_layers/=  and =layer_names/= only grow.
+
+As new layers are created the new names need to be added
+in =layer_names/=  util, func, or base, and in =oled/= in the cartes and layers.
+
+It will also need to be added to the keymap and config.org so that it can be turned on and off.
+
+If a new keyboard is added, that goes in =keyboards/=.
+
+New extension C code goes in =extensions/= and its definitions go in =defs/=.
+The language macros are all in =lang/=.
+
+#+begin_src makefile :tangle rules.mk
+VPATH += $(USER_PATH)/perimeter
+VPATH += $(USER_PATH)/layers
+VPATH += $(USER_PATH)/mod_layers
+VPATH += $(USER_PATH)/base_layers
+VPATH += $(USER_PATH)/layer_names
+VPATH += $(USER_PATH)/keyboards
+VPATH += $(USER_PATH)/keymap
+VPATH += $(USER_PATH)/lang
+#+end_src
+
+The combo macros can be found in =keyboards/gboards/g=.
+
+#+begin_src makefile :tangle rules.mk
+# for the combo macros in keymap_combos.h
+# make sure its included somewhere.
+VPATH += keyboards/gboards/g
+#+end_src
+
+** Keyboards, matrices, and wrappers - settings
+Some settings and more explanation.
+
+*** Keyboard matrix columns and rows.
+Most layout matrices are 3x10 and lots of keyboards have 6 columns per side.
+The default setting is to take 5 per side and give back 6 along with the mods
+being applied. 5 into 5, 5 into 6, and 6 into 6 are possible.
+
+ We also need to know if the keyboard has a number row. Turn it on, we fill it in.
+ It can also be managed in a fixed way in the keyboard layout definition.
+ I dont use number rows most of the time.
+ Ergodox, kinesis, kyria, corne, rebound, viterbi, are all 5 to 6.
+ I also have a kyria that is just 5.
+
+#+begin_src C :tangle config.h
+#define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+// #define BASE_NUMBER_ROW  // turn on 4 row base templates if youve got one.
+#+end_src
+
+
+Give a 3x10 and get a 3x12, managed in _keyboards/keyboards.h_.
+ Layouts are all 3x10, so we just need to know if we are adding the 6th columns, the
+ outer pinkies, to the layout.
+ This code can accommodate 3x10, 3x12, 4x10, 4x12 layout matrix inputs and much
+ larger matrices for outputs by adding edge keys, middle keys, number rows,
+ additional rows, and thumbs.
+
+** Oled - Turn it on - maybe.
+
+We have to enable this in both the rules.mk and in the config.h.
+The old =custom_enable= hangs on as the way to indicate turning
+on the stuff here in my configuration.
+
+*** Rules
+#+begin_src makefile :tangle rules.mk
+OLED_ENABLE = no
+OLED_CUSTOM_ENABLE = no
+
+# I should check if this is still needed. I dont remember.
+ifeq ($(strip $(OLED_CUSTOM_ENABLE)), yes)
+        SRC += $(USER_PATH)/oled/oled_stuff.c
+endif
+VPATH += $(USER_PATH)/oled
+#+end_src
+
+Turn on/off this too.
+
+#+begin_src C :tangle config.h
+// OLED STUFF.
+// #define OLED_CUSTOM_ENABLE // custom oled here.
+//#define OLED_LOGO_ENABLE // turn on/off the logo.
+#+end_src
+
+This is my default Oled display for AVR. all text. If 128x64 a map of the layer will be displayed.
+
+The path to my oled stuff. Add new layers to /oled_layers.c/ and /oled_cartes.c/.
+
+#+begin_src makefile :tangle rules.mk
+SRC += $(USER_PATH)/oled/oled_stuff.c
+SRC += $(USER_PATH)/oled/oled_cartes.c
+SRC += $(USER_PATH)/oled/oled_layers.c
+#+end_src
+
+*** Configuration
+
+Turn on the default Oled display. This includes  layer indicator, base layer indicator,
+mods, layer number, last character and matrix position typed, and a map of the current layer.
+
+Turn off the logo to save some memory.
+
+
+Enable split layer state to share data between sides for oled.
+
+#+begin_src C :tangle config.h
+#define KEYLOGGER_ENABLE // 1500 bytes, track and print keypress info to oled.
+//#define SPLIT_LAYER_STATE_ENABLE  // to sync state between sides.
+#+end_src
+
+** AVR, Turn off a bunch of stuff.
+
+Its always tight on an AVR if you want Oled, or RGB. Turn everything
+off you can. Turn on LTO. I tend to go for oled over Rgb.
+
+#+begin_src makefile :tangle rules.mk
+EXTRAKEY_ENABLE  = no # Audio control and System control
+COMMAND_ENABLE   = no # Commands for debug and configuration
+NKRO_ENABLE      = no # Enable N-Key Rollover
+SWAP_HANDS_ENABLE= no # Allow swapping hands of keyboard
+KEY_LOCK_ENABLE  = no
+TAP_DANCE_ENABLE = no # Enable the tap dance feature.
+UNICODE_ENABLE   = no
+SLEEP_LED_ENABLE = no
+SPACE_CADET_ENABLE = no
+GRAVE_ESC_ENABLE = no
+MAGIC_ENABLE = no
+#+end_src
+
+** LTO*, - the optimizer.
+Great for squeezing things into an AVR, and
+breaking QMK for all the other MCUs.
+
+Turn this off for everything but AVRs,
+turning this on makes my kinesis a brick.
+
+#+begin_src makefile :tangle rules.mk
+LTO_ENABLE = no  # optimizer saves space.
+#+end_src
+
+Some stuff I might want.
+
+#+begin_src makefile :tangle rules.mk
+BOOTMAGIC_ENABLE = no  # Enable Bootmagic Lite
+
+ENCODER_ENABLE = yes
+RGBLIGHT_ENABLE = no
+BACKLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE = no
+KEY_OVERRIDE_ENABLE = no
+#+end_src
+
+The stuff I do want. I use caps word from a combo.
+Mouse keys are my mouse.
+
+#+begin_src makefile :tangle rules.mk
+MOUSEKEY_ENABLE  = yes # Mouse keys
+COMBO_ENABLE = yes
+CAPS_WORD_ENABLE = yes
+#+end_src
+
+** Mouse key defaults.
+
+I stopped using a trackball or mouse years ago. This is what I use. My default
+Navigation layer has full mouse controls.
+I also use emacs, xmonad, and vimb browser, so mice are not much needed.
+
+#+begin_src C :tangle config.h
+// Sets good default for the speed of the mouse.
+#undef MOUSEKEY_INTERVAL
+#undef MOUSEKEY_DELAY
+#undef MOUSEKEY_TIME_TO_MAX
+#undef MOUSEKEY_MAX_SPEED
+
+#define MOUSEKEY_INTERVAL       20
+#define MOUSEKEY_DELAY          100
+#define MOUSEKEY_TIME_TO_MAX    60
+#define MOUSEKEY_MAX_SPEED      7
+
+#undef MOUSEKEY_WHEEL_MAX_SPEED
+#undef MOUSEKEY_WHEEL_TIME_TO_MAX
+#undef MOUSEKEY_WHEEL_DELAY
+
+#define MOUSEKEY_WHEEL_MAX_SPEED    5
+#define MOUSEKEY_WHEEL_TIME_TO_MAX  60
+#define MOUSEKEY_WHEEL_DELAY        100
+#+end_src
+
+** Timings: Tapping Term, adaptive term, mod taps etc.
+
+They always need tweaking. Most of these are the official QMK ones and
+the *Tap_hold_term* is for the Tap-hold extension. The defaults tend to work
+until they dont. Alan Reiser of hands down uses 170 as his tapping term
+and 170/5 for the Adaptive key term.
+
+#+begin_src C :tangle config.h
+#undef TAPPING_TOGGLE
+#undef TAPPING_TERM
+
+#define TAPPING_TOGGLE  2
+#define TAPPING_TERM    200
+// Alans tapping term.
+// #define TAPPING_TERM 170 // Mod TAP VS HOLD timing in milliseconds
+
+#define TAP_HOLD_TERM    200
+#define COMBO_MUST_HOLD_MODS
+#define COMBO_HOLD_TERM 150
+#define TAP_CODE_DELAY 5  // for send string with delay
+#define ADAPTIVE_TERM (TAPPING_TERM/2) // rolling threshold
+
+#+end_src
+
+** Mod Wrapper Layer - HRMs etc.
+
+Here is where we choose a mod layer. *TRNS* is transparent/none.
+
+This is really more than that. These are wrapper overlays which wrap the layer with
+what you want. It could be HRMs but it also might be an LT, or another
+mod tap somewhere else.  Any function that wraps a keycode would work here.
+You could put anything and ignore the keycode too.
+
+New Mod layer definitions are easy to make by copying the
+transparent one.   They are generally only applied to base layers but can
+be added to the other layers as desired. That happens in *Layouts/*.
+
+The Sides are mirrored, the legend is left hand.  For *_GACS*, SCAG, would be the right.
+Set *MODS_ARE* to one of the following, or copy *mod_layers/trns_mods.h*  and make a new one.
+
+- MODS-ARE
+  - =TRNS=
+  - =ALT=
+  - =HRS_NAV=
+  - =HRM_GACS=
+  - =HRM_SCAG=
+  - =HRM_GASC=
+  - =MIRYOKU_HRM_GASC=
+
+#+begin_src C :tangle config.h
+#define MODS_ARE TRNS
+#define DEFAULT_MODS MODS_ARE
+#+end_src
+
+** Choose a Thumb configuration
+There are a growing number of thumb configurations, They can be chosen here.
+The part that changes, is the center 6 thumbs keys of a split. Like the corne.
+Bigger keyboards like the Kyria fill in around the core thumbs with more static choices.
+This layout started with the ergodox, so it still accommodates everything a keyboard might need.
+
+#+begin_src C :tangle config.h
+// Choose a thumb cluster.
+// WI, WIa, DEFAULT, TEST, TRNS, MODS, LAYERS, MODS_LAYERS,
+// MIRYOKU, MIRYOKU_TR, MODS_LAYERS_NAV,
+
+// The following use THUMB_LETTER to place a letter on the Thumbs.
+// for use with the hands down metals, maltron, and rsthd.
+
+// HD, HDA, HD_SIMPLE, TH_LTR, HD_DASH, KINESIS, KINESIS_LTR,
+// MIRYOKU_TR_LTR, MIRYOKU_LTR, ...
+#define THUMBS_ARE KINESIS
+#define DEFAULT_THUMBS KINESIS
+#+end_src
+
+** Alpha letter Thumb cluster.
+
+Some layouts use an alpha letter on a thumb. There are some thumb clusters with a thumb
+letter which can be set dynamically by the layout. It only needs to know which *LTR* thumb cluster
+to use. The letter used isn't important here. The key layout decides that for us.
+
+#+begin_src C :tangle config.h
+// for the base layers which need a thumb cluster which takes a letter.
+#define HANDS_DOWN_LTR_THUMBS_ARE KINESIS_LTR
+#define MALTRON_LTR_THUMBS_ARE TH_LTR
+#define RSTHD_LTR_THUMBS_ARE TH_LTR
+#define APTMAK_LTR_THUMBS_ARE TH_LTR
+#+end_src
+
+** Edge Key Set
+
+The layouts here are mostly 3x10 matrices.  The edge keys are the outer pinky
+column on most orthogonal or column stagger keyboards. These keys are frequently
+similar but not always the same from one keyboard to the next.  It is easy
+to define or change a set. It is only 6 keycodes with a name.
+If your keyboard is wider than 10 columns, you probably need these.
+
+If it has more than 12 you'll need to fill in the middle too. See the xd75, viterbi,
+and ergodox layout in *layouts/* for examples of that.
+
+Choose which flavor of outer pinky column keys do you want. Norm is pretty
+normal, but might vary from what you are used to, its been so long since I used
+a normal keyboard I dont know what that really is. NOKC, is just that,
+no keys.  SML is smart lock layers and mod and stuff. Test is for goofing
+around and testing stuff cause I dont use those keys much.
+
+- NORM  - normal maybe.  shift, -, ; tab, ~, =  - stuff like that.
+- NOKC   - nokc everywhere. You didnt want those keys right ?!
+- SML      - smart lock layers. nav, keypad, symbol, etc in the corners.  Tab and - in the middle.
+- TEST     - the flavor of the month.  Who knows?
+
+#+begin_src C :tangle config.h
+// pick the edge key set. normie, no kc, smart locks or test.
+// NORM, NOKC, SML, TEST
+#define EDGE_KEY_SET_IS SML
+#define DEFAULT_EDGE_SET SML
+#+end_src
+
+** Extensions - paths.
+
+*** Where's the code?:
+All the definitions, code and documentation for the extensions is here [[file://extensions.org][in a literate org document]]
+which tangles into all the code in the extensions/ and defs/ folders.
+
+We have to add them to rules.mk so that QMK will know how to find them..
+
+The extensions are all in the extensions/ directory. They are C code.
+The definitions that we create for them all live in the defs/ directory.
+They are C include files. Defs are just C Macro language wrappers for
+all the C code. Point at your own defs and point at my code, and your code,
+or my stolen code as you like.
+
+*** Where the include files live.
+
+The path to the extensions code.
+#+begin_src makefile :tangle rules.mk
+VPATH += $(USER_PATH)/extensions
+#+end_src
+
+The path to your defs folder.
+#+begin_src makefile :tangle rules.mk
+VPATH += $(USER_PATH)/defs
+#+end_src
+
+*** Where the code lives.
+
+Continuing with rules.mk so *Make* can know where everything is.
+This is the piece of rules you need
+if you just want to use the extensions and defs.
+
+These are the paths to  all the source code for extensions.
+
+#+begin_src makefile :tangle rules.mk
+SRC += $(USER_PATH)/extensions/extensions.c
+SRC += $(USER_PATH)/extensions/tap_hold.c
+SRC += $(USER_PATH)/extensions/accented_keys.c
+SRC += $(USER_PATH)/extensions/altlocal_keys.c
+SRC += $(USER_PATH)/extensions/encoders.c
+SRC += $(USER_PATH)/extensions/swapper.c
+SRC += $(USER_PATH)/extensions/mod_lock.c
+SRC += $(USER_PATH)/extensions/smart_lock.c
+SRC += $(USER_PATH)/extensions/nshot_mod.c
+SRC += $(USER_PATH)/extensions/oneshot.c
+SRC += $(USER_PATH)/extensions/unicode.c
+SRC += $(USER_PATH)/extensions/send_string.c
+SRC += $(USER_PATH)/extensions/console_key_logger.c
+SRC += $(USER_PATH)/extensions/not_dead.c
+SRC += $(USER_PATH)/extensions/alt_shift.c
+SRC += $(USER_PATH)/extensions/quick_tap.c
+SRC += $(USER_PATH)/extensions/adaptive_keys.c
+#+end_src
+
+*** The Defs
+
+*Defs/* are where all the extension definitions live in a nice readable format.
+This folder is the one to copy and make your own. Just point
+at yours instead of this one here. If you use emacs and org,
+just grab extensions.org and be done.
+
+*** The Hook - Process Records User()
+
+I use =process_records.c= to hold my *process_records_user()* and
+other experiments before they make it to being an extension.
+So this is where the code is. As usual we have to tell *Make* where it is.
+
+See the full doc and code here [[file://extensions.org][in extensions.org]]
+
+#+begin_src makefile :tangle rules.mk
+SRC += process_records.c
+#+end_src
+
+
+** Extensions - turn them on
+Some of these are just things you turn on, some are things that need definitions.
+Many create key codes that you will want to use in your keymaps.
+*** Combos
+
+
+#+begin_src C :tangle config.h
+#define COMBO_REF_LAYER_ENABLE
+// #define COMBO_REF_LAYER_TWO_ENABLE
+// works if you know the number of your layer.
+// otherwise set and use them later.
+// #define COMBO_ONLY_FROM_LAYER 2
+// #define COMBO_REF_DEFAULT 2
+#+end_src
+
+*** Key Logger - Heatmaps - Console key logging, etc.
+
+CONSOLE must be enabled for this to work.
+To create /@Precondition/'s heat maps, from console key logging
+with =hid_listen= or qmk console
+
+Turn on keylogging. see =/listen_keylogger.sh=
+for how to use it.  [[https://precondition.github.io/qmk-heatmap][See Preconditions guide for details.]]
+
+#+begin_src C :tangle config.h
+//#define CONSOLE_KEY_LOGGER_ENABLE  // turn on keylogging for heat maps.
+#+end_src
+
+It also must be turned on in the rules.mk.
+
+#+begin_src makefile :tangle rules.mk
+CONSOLE_ENABLE   = yes  # Console for debug or keylogging.
+#+end_src
+
+*** Keys!  Alt, Adaptive, Accent, Shifted, Unicode, Not Dead...
+
+Lots of stuff here. Stock QMK Key overrides are the most expensive memory wise.
+Alt local will allow any =mod_mask= and key combination in both normal and
+shifted positions.  Accented keys are simpler, but just enough to get direct access
+to any key you might need.  Not dead keys are just that, dead keys that arent. I use
+them on my symbol layer for coding.
+
+#+begin_src C :tangle config.h
+#define ADAPTIVE_KEYS_ENABLE // Adaptive keys a la Hands Down.
+#define ALT_LOCAL_ENABLE // alternate key combinations, with mods as needed.
+#define ACCENTED_KEYS_ENABLE // direct access to altgr keys.
+#define NOT_DEAD_ENABLE // make undead versions (US_DQUO_ND) of dead keys.
+//#define ALT_SHIFT_ENABLE // alternate shift behaviors for existing keys.
+//#define SEND_STRING_ENABLE // Turn on send string keys
+//#define SEND_UNICODE_ENABLE // Unicode must be enabled for this to work.
+//#define KEY_OVERRIDE_ENABLE // QMK key over-rides..
+#+end_src
+
+*** Locks, Mods, Layers, One shots, N-shots.
+
+Smart locking layers and mods, One shot and N-shot mods.
+
+#+begin_src C :tangle config.h
+#define SMART_LOCK_ENABLE // smart lock layers and mods.
+//#define MOD_LOCK_ENABLE  // smart lock mods, similar/overlapping with Smart lock.
+#define NSHOT_ENABLE // smart n-shot for count.
+// #define ONESHOT_ENABLE // alternate oneshot implementation
+// #define ONESHOT_MOD_ENABLE  // oneshot mods, similar/overlapping with nshots
+#+end_src
+
+*** Global Quick Tap
+
+Change the behavior of Mod taps for HRMs. More like ZMK. If HRMs are misfiring for you try this.
+
+#+begin_src C :tangle config.h
+// #define GLOBAL_QUICK_TAP
+#+end_src
+
+*** Tap - Hold, Swapper,
+
+Tap for one thing, hold for tapping term for another.
+
+#+begin_src C :tangle config.h
+#define TAP_HOLD_ENABLE // tap for one thing, hold for tapping term to get another.
+//#define SWAPPER_ENABLE // enable Callum's swapper keys.
+#+end_src
+
+*** Encoders.
+
+The built in encoder library. Not encoder maps, but what is underneath.
+Turn it on to get encoder support.
+
+#+begin_src makefile :tangle rules.mk
+ENCODER_ENABLE = no
+#+end_src
+
+Like the official _encoder map_ but with mod masks. I wrote this before encoder map existed.
+An encoder can have different jobs depending upon layer and mod masks.
+
+#+begin_src C :tangle config.h
+// #define ENCODER_EXT_ENABLE // turn on the encoder map extension.
+#+end_src
+
+
+** Base Layers
+
+Choose your base layers.  Qwerty is here if you must. So are
+a lot of others.  All of which are probably better choices.
+
+Turn on the base layers do not exceed 4 if doing two locales.
+That will likely push a layer past 15 and then it will
+no longer work with the LT macro.
+
+*** Dvorak and relatives
+
+You are better than Qwerty.  Thank you.
+
+Dvorak RLC rearranges just a few things for less pinky
+and better scores. Its just me playing around with Dvorak.
+
+Capewell is more extensively changed from Dvorak and we get
+even further with AHEI and Boo. I do really like AHEI and Boo, and Dvorak is
+my default fallback layout. Read about them here.
+[[http://michaelcapewell.com/projects/keyboard/layout_capewell-dvorak.htm][Capewell Dvorak]], [[https://ballerboo.github.io/boolayout/][AHEI]],  and [[https://forum.colemak.com/topic/2898-the-ahei-layout-an-improved-dvoraklike-layout/][Boo]]
+
+#+begin_src C :tangle config.h
+#define DVORAK_LAYER_ENABLE
+// #define DVORAK_RLC_IU_LAYER_ENABLE
+// #define CAPEWELL_DVORAK_LAYER_ENABLE
+// #define AHEI_LAYER_ENABLE
+// #define BOO_LAYER_ENABLE
+#+end_src
+
+*** Qwerty and derivatives
+
+I really should delete these so as to not encourage people.
+
+#+begin_src C :tangle config.h
+// #define QWERTY_LAYER_ENABLE
+// #define AZERTY_LAYER_ENABLE
+// #define WORKMAN_LAYER_ENABLE
+// #define NORMAN_LAYER_ENABLE
+#+end_src
+
+*** The Maks! Colemak and relatives
+
+Colemak. yay.  Another stepping stone to now.
+Dont stop at Colemak! But maybe you are a roller.
+Here is a Colemak, [[https://colemakmods.github.io/mod-dh/compare.html][dh mod comparison]], and
+[[http://www.minimak.org/][Minimak]], [[https://github.com/MadRabbit/halmak][Halmak]], [[https://semilin.github.io/posts/Semimak.html][Semimak]], and [[https://github.com/Apsu/aptmak][Aptmak]].
+
+#+begin_src C :tangle config.h
+// #define COLEMAK_LAYER_ENABLE
+// #define COLEMAK_DH_LAYER_ENABLE
+// #define HALMAK_LAYER_ENABLE
+// #define MINIMAK_LAYER_ENABLE
+// #define MINIMAK_8_LAYER_ENABLE
+// #define MINIMAK_12_LAYER_ENABLE
+// #define SEMIMAK_JQ_LAYER_ENABLE
+// #define SEMIMAK_LAYER_ENABLE
+// #define APTMAK_LAYER_ENABLE
+// #define APTMAK_30_LAYER_ENABLE
+// #define APTMAK_ALT_LAYER_ENABLE
+#+end_src
+
+*** Beakl
+
+Beakl is anti-pinky. No home row, It thinks of home as a 3x3 grid. Still in
+the same place of course. I've used it off and on for a number of years. It has been a
+big influece on my symbol and number layers as well.
+
+[[https://ieants.cc][The Beakl home page has disappeared.]] This makes me sad. I have at least some of the maps here.
+
+Here are a couple of other links. [[https://deskthority.net/wiki/BEAKL][Beakl at deskthority]] and [[https://www.reddit.com/r/ErgoDoxEZ/comments/gsvpug/layout_of_the_month_beakl_15][Beakl 15, layout of the month.]] at Reddit.
+All of it is quite out of date and doesn't have anything past Beakl 15 which is actually a number of
+years old at this point. [[https://www.reddit.com/r/BEAKL/comments/oxn8n0/beakl_27/][Beakl 27 was announced on Reddit in spring of 2020.]]
+
+Read more about Beakl Wi and others at [[http://thedarnedestthing.com/daily%20beakl][The Darndest Thing]].
+
+I've used Beakl off and on for a few years. I find it comfortable. More than Dvorak.
+Beakl 4, 15, and 27 are the usual suspects.
+Beakl 19 is more obscure , I was using Beakl 15
+at the time it came out, it mostly showed up in my research as Beakl19bis with some
+popular french accent letters and which was only somewhat different than Beakl 15.
+I was learning Bépo at the time and had become
+interested in layouts which enable easy typing on multiple languages.
+
+I believe, but may be wrong, that Beakl Wi comes from The Darndest thing.
+
+The  3x12 French oriented Beakl 19 /bis/ is listed below in the French section.
+
+#+begin_src C :tangle config.h
+#define BEAKL15_LAYER_ENABLE
+// #define BEAKL19_LAYER_ENABLE
+// #define BEAKL27_LAYER_ENABLE
+// #define BEAKL27a_LAYER_ENABLE // punctuation on top.
+// #define BEAKLWI_LAYER_ENABLE
+// no alpha on thumb.
+// #define BEAKLWIa_LAYER_ENABLE
+// punctuation on top.
+// #define BEAKLWIb_LAYER_ENABLE
+#+end_src
+
+*** Carpalx
+
+[[http://mkweb.bcgsc.ca/carpalx][Carpalx is a keyboard layout analyzer]]
+
+#+begin_src C :tangle config.h
+// carpalx layouts
+// #define CARPALX_QFMLWY_LAYER_ENABLE
+// #define CARPALX_QGMLWB_LAYER_ENABLE
+// #define CARPALX_QGMLWY_LAYER_ENABLE
+#+end_src
+
+*** Alternative, uncategorized.
+
+Good stuff in here, I don't know them well enough to be sure where to put them.
+I think there are better choices elsewhere, but they are interesting.
+Read about them here. [[https://xsznix.wordpress.com/2016/05/16/introducing-the-rsthd-layout/][RSTHD]], [[ http://kennetchaz.github.io/symmetric-typing/soul.html][Soul]], [[http://kennetchaz.github.io/symmetric-typing/niro.html][Niro]], [[https://github.com/mw8/white_keyboard_layout][White]], [[https://github.com/deekayen/asset][Asset]], [[http://millikeys.sourceforge.net/asset/][Asset original]]
+
+
+#+begin_src C :tangle config.h
+// alternate layouts
+// #define MALTRON_LAYER_ENABLE
+// #define EUCALYN_LAYER_ENABLE
+// #define HANDS_UP_LAYER_ENABLE
+// #define RSTHD_LAYER_ENABLE
+// #define WHITE_LAYER_ENABLE
+// #define ISRT_LAYER_ENABLE
+// #define SOUL_LAYER_ENABLE
+// #define NIRO_LAYER_ENABLE
+// #define ASSET_LAYER_ENABLE
+// #define WHORF_LAYER_ENABLE
+// #define WHORF6_LAYER_ENABLE
+// #define PINE_LAYER_ENABLE
+// #define GRAPHITE_LAYER_ENABLE
+#+end_src
+
+*** Mtgap, Ctgap, Apt, Canary
+
+Mtgap and relatives. I think. It gets fuzzy there are so many.
+
+Find them here, [[http://mtgap.bilfo.com/official_keyboard.html][Mtgap official]] and [[https://github.com/CTGAP/ctgap-keyboard-layout][Ctgap]]. Apsu is the creator of [[https://github.com/Apsu/APT][Apt]],
+Aptmak, and [[https://github.com/Apsu/Canary][Canary]] at least. All nice layouts.
+
+#+begin_src C :tangle config.h
+// #define MTGAP_LAYER_ENABLE
+// #define CTGAP_LAYER_ENABLE
+// #define APT_LAYER_ENABLE
+// #define CANARY_LAYER_ENABLE
+#+end_src
+
+*** Hands Down
+
+[[https://sites.google.com/alanreiser.com/handsdown][Hands Down]] has entire families of key layouts.  Neu, Ref and Gold are
+solid old favorites.
+
+Some, the most recent, Hands Down layouts. There are a number of good choices.
+Neu is frequently recommended to noobs, there
+is a narrow, 3x10 version here, and the full wide
+version below. The idea of hands down layouts is that layouts are very personal and
+customization is encouraged. Most layouts are missing z and q. So require a
+solution to that right away.  Combos are common.
+
+The rest all fit in 3x10 here. Note that the metals flavors
+all have an alpha letter on a thumb key.
+
+#+begin_src C :tangle config.h
+// #define HD_NEU_NARROW_LAYER_ENABLE
+#define HD_NEU_NARROW_M_LAYER_ENABLE
+// #define HD_REF_LAYER_ENABLE
+// #define HD_DASH_LAYER_ENABLE
+// #define HD_ELAN_LAYER_ENABLE
+// #define HD_BRONZE_LAYER_ENABLE
+// #define HD_SILVER_LAYER_ENABLE
+// #define HD_PLATINUM_LAYER_ENABLE
+// #define HD_GOLD_LAYER_ENABLE
+// #define HD_TITANIUM_LAYER_ENABLE
+// #define HD_RHODIUM_LAYER_ENABLE
+// #define HD_RHODIUMB_LAYER_ENABLE
+// #define HD_VROOMY_LAYER_ENABLE
+// #define HD_VIBRANIUM_LAYER_ENABLE
+// #define HD_VIBRANIUM_NT_LAYER_ENABLE
+// #define HD_VIBRANIUM_NTP_LAYER_ENABLE
+// #define HD_VIBRANIUM_VF_LAYER_ENABLE
+// #define HD_VIBRANIUM_VP_LAYER_ENABLE
+#define HD_VIBRANIUM_B_LAYER_ENABLE
+// #define HD_MITHRIL_LAYER_ENABLE
+#+end_src
+
+**** Hands Down Neu - FULL Size.
+
+The single english Layout I have here that is bigger than a 3x10 grid.
+Many people use the narrow version above and put *q* an *z* on
+a combo somewhere. The other Hands Down layouts dont even have
+*q* or *z*.
+
+#+begin_src C :tangle config.h
+// #define HD_NEU_LAYER_ENABLE
+#+end_src
+
+*** French layouts
+
+**** Optimot: A Compact French layout beyond Bepo.
+A compact optimot for 3x10. requires accent characters.
+Works with US-Intl, Bepo, Azerty, etc.
+
+I have not found an official site for it, but the developer is active on
+the bepo discord.
+
+#+begin_src C :tangle config.h
+//#define OPTIMOT_COMPACT_LAYER_ENABLE
+#+end_src
+
+**** Bepo and other 3x12 sized base layers
+
+I've moved away from these as they are so big, and there are other,
+better scoring, better feeling layouts around. My accent layers are
+working nicely.
+
+[[https://bepo.fr/wiki/Variantes_du_b%C3%A9po][bepo and some variants can be found here.]]
+
+All of these have accent characters on base layer.
+So these will not work with an En locale, but do for US-international and Bepo.
+Beakl19bis is a modified Beakl19 with accent letters on the base layers.
+
+I came across the original Beakl 19 /bis/ version in data originating from KLA testing.
+The é and è were simply added to the empty corners of the
+keyboard for analysis, not real use. Even so, this layout scores well for french, better than
+bepo and mtgap for that KLA.
+
+It was enough for me to look twice. I compared it to Bepo
+and rearranged some things.
+The version of *Beakl19bis* that is here has been modified from the original KLA hack. It
+has assimilated a bit of *Bepo* and *Optimot* giving the accent letters a better chance.
+It scores better than the original and  it  is much better than Bepo and in line with
+Optimot for french and english.
+
+#+begin_src C :tangle config.h
+// #define BEPO_LAYER_ENABLE
+// #define OPTIMOT_LAYER_ENABLE
+// #define BEAKL19bis_LAYER_ENABLE
+#+end_src
+
+** Function Layers
+
+There is always a layers layer, other than that it is all up to you.
+The layer layer is available by combo if combos are enabled.
+
+*** Which ones ?
+
+Usually symbol, keypad and navigation at least.
+Toprows is an entire layer of symbol, number and function keys.
+
+Which layers over all would you like to have ?
+Usually, this means a base 'alpha' layer a symbol layer, a keypad
+or number layer, and a layer for controls.
+
+Additionally there are multiple choices of each. This is just the
+initial choices about what layers you think you need.
+
+#+begin_src C :tangle config.h
+#define SYMBOL_LAYER_ENABLE
+#define NAV_LAYER_ENABLE
+// #define MOUSE_LAYER_ENABLE
+#define TOPROWS_LAYER_ENABLE
+// #define LAYERS_LAYER_ENABLE - defunct. always on.
+#define KEYPAD_LAYER_ENABLE
+// #define ADJUST_LAYER_ENABLE
+// #define RGB_LAYER_ENABLE
+// #define MEDIA_LAYER_ENABLE
+// #define FUNC_LAYER_ENABLE
+#+end_src
+
+*** Thumbs! Which thumbs with Which layers ?
+
+I usually leave my thumb keys alone, but it is possible to assign different
+thumb configurations to the different layers.
+As an example, Miroyoku puts *0 and .* on thumbs for the keypad layer.
+
+#+begin_src C :tangle config.h
+// define alternate thumb definitions for the transient layers.
+# define MEDIA_LAYER_THUMBS MEDIA_THUMBS
+# define MOUSE_LAYER_THUMBS MOUSE_THUMBS
+# define NAV_LAYER_THUMBS TRNS_THUMBS
+# define KEYPAD_LAYER_THUMBS KEYPAD_THUMBS
+# define SYMB_LAYER_THUMBS SYMB_THUMBS
+# define TOPROWS_LAYER_THUMBS DEFAULT
+#+end_src
+
+*** Layer Flavors
+Functional layer choices. Configure the function layers.
+They have to be turned on above. Choose one of each as desired.
+There are reasonable defaults for each if nothing is defined.
+
+**** Navigation
+Navigation layers have arrows, tab, home, end, copy, paste, page up, page down, mice keys and so forth.
+
+**** With Mouse
+The default navigation layers have mouse on the left
+and mouse buttons, arrows, home, end, page up, down, tab, etc on the right.
+*NAV_FULL_LOCK_MODS* additionally has smart lock mods on the top left, mouse buttons on the right.
+
+Nav full is mouse keys on left and right and no lock mods.
+
+#+begin_src C :tangle config.h
+
+/* nav */
+//#define NAV_FULL  // monolithic, two sided nav with mouse and arrows.
+#define NAV_FULL_LOCK_MODS // Replace left mouse buttons with lockmods.
+
+// Just the non mouse bits, with lock mods, n-shot mods on the left.
+// if mousekeys enabled, adds a mouse layer accessible via smart lock.
+// #define NAV_NO_MOUSE
+// #define NAV_MIRYOKU
+// #define NAV_MOUSE_MIRYOKU
+#+end_src
+
+**** Sans Mouse, Avec...
+A double layer Navigation layer. No mouse, but on a second layer if desired.
+Just the non mouse bits, with lock mods, n-shot mods on the left.
+If mousekeys is enabled, adds a mouse layer accessible via smart lock.
+
+#+begin_src C :tangle config.h
+// #define NAV_NO_MOUSE
+// #define NAV_MIRYOKU
+// #define NAV_MOUSE_MIRYOKU
+#+end_src
+
+**** Keypads
+Left side is the default. Choose right if available.
+The usual left and right keypads are here.
+Miryoku and Beakl, except for Beakl-WI, is only on the left side.
+
+The default if nothing is chosen, is a function pad on the left and normal keypad on the right.
+
+#+begin_src C :tangle config.h
+// #define KEYPAD_RIGHT
+#define KEYPAD_BEAKL        // beakl doesn't have a rightside, swap hands?
+// #define KEYPAD_MODS      //  give mods on the other side instead of funcs.
+// #define KEYPAD_BEAKL_WI  //  right side with hexpad on left.
+// #define KEYPAD_MIRYOKU   //  use the miryoku keypad
+#+end_src
+
+There is an additional one sided function keypad for Miryoku.
+
+#+begin_src C :tangle config.h
+// funcpad from miryoku
+// #define FUNCPAD_MIRYOKU
+#+end_src
+
+**** Symbol Layers
+Choose one  or get the default.
+These started with a blend of my old symbol layer and the one from Beakl 15. I then extended
+it so it could be used with non-beakl layouts, as beakl has some unusual keys on it's base layer.
+I then rearranged it to be more Vi friendly.  It has continued to evolve, and I anticipate that it
+will continue to do so.
+It is arguable that version C is no longer related to beakl, and for certain Symbol D is not.
+
+*D* replaces the closing )]} with combos, as each already has a *tap-hold*.  Emacs always
+gives me the closing ones for free also.
+
+
+#+begin_src C :tangle config.h
+// #define SYMBOL_BEAKL         // original - the default if nothing else.
+// #define SYMBOL_BEAKL_EXT     // extended for non beakl base layers.
+// #define SYMBOL_BEAKL_EXT_VI  // extended with vi keybinding in mind.
+// #define SYMBOL_BEAKL_C        // more alterations by frequency
+#define SYMBOL_D               // combos for closing )]}
+// #define SYMBOL_NEO          // The symbol layer from the Neo layout.
+// #define SYMBOL_MIRYOKU      // minimalist symbols after miryoku
+// #define SYMBOL_BEAKL_WI      // original wi
+#+end_src
+
+**** Top Rows layer
+This is the training wheel layer for folks going to smaller keyboards without number rows.
+The number row, shifted number row and F-keys on the home 3 rows.  Numbers on the middle row.
+The default, if not defined, is a layer called RAISE, a standard qwerty set of rows.
+Symbols, numbers, function keys. Numbers on the home row.
+
+Top rows are all standard qwerty symbol row.
+Bottom rows are either F-keys or lock and one shot mods.
+
+#+begin_src C :tangle config.h
+// #define TOPROWS_BKL_15  // center row with Beakl15 order. 40123 76598.
+// #define TOPROWS_BKL_19 // Beakl 19 order: 32104  76598
+// #define TOPROWS_JOHNM_MOD //  84236 71059
+// #define TOPROWS_JOHNM2_MOD //  85236 71049
+#define TOPROWS_MOD  // beakl 15 nums, oneshot and smart lock mods. no Fkeys.
+#+end_src
+
+**** Accent and dead key layers
+Many locales have dead keys (altgr) and accented keycodes
+Here are layers for accented keys, dead keys and a
+third with a blend of both.
+
+#+begin_src C :tangle config.h
+// #define ACCENTS_LAYER_ENABLE
+// #define MORTE_LAYER_ENABLE
+#define ACCENTS_MORTE_LAYER_ENABLE
+#+end_src
+
+** The Layers layer and the Default
+With all these base layers and other layers it became important to have a way
+to visit layers, cycle through them and set them to default permantently.
+
+This layer is always on, and defined and can be accessed by combo.
+The default combo for the layers layer is both pinkies on row above home row.
+
+By default the first base layer will be the one with the lowest enumeration. Which may
+not be the one you want by default. This layer provides a way to toggle the
+locale and cycle through the base layers for that locale, setting it as temporary or
+permanent default.
+
+On the left hand it allows cycling through the two locales and the layers for the
+current locale, and going momentarily to navigation, keypad or symbol layers
+
+*** The internals of locales, and changing layers.
+
+This is just the internals of how this keeps an enum of locales, and an index of
+the first layer of the new local, etc. How it works and how layer map is defined.
+It is just the old style wrapper code in appearance.  It is also a simple layer
+example to read.  It is a little bit crufty I think.
+
+
+**** Switching Languages and base layers.
+
+I used to have a complicated layer control layer. Now I just use these functions to
+toggle the locale and cycle through the layers.
+
+Tell Make where these little functions are.
+
+**** Rules.mk
+
+#+begin_src makefile :tangle rules.mk
+SRC += $(USER_PATH)/lang/locales.c
+#+end_src
+
+**** Code
+
+This is just some enum, and some defines to make it easy
+to flip between our locales and their associated layers. yet again another
+thing I can remove with layer sets.
+
+The rest is defined in extensions.org until I get around to refactoring it.
+
+#+begin_src C :tangle lang/locale_layers.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#define LOCALE_DEFAULT CAT(LOCALE_, DEFAULT_LANG)
+#define LOCALE_TWO CAT(LOCALE_, SECOND_LOCALE)
+
+enum locales {
+  LOCALE_DEFAULT = 0,
+#ifdef SECOND_LOCALE
+  LOCALE_TWO,
+#endif
+  LOCALES_END,
+};
+#+end_src
+
+
+**** A layer definition
+The definition for the layer layer is actually a good example of how things have been working but
+are changing away from as the idea of a second locale becomes more configurable.
+
+So this should look reasonably familiar to anyone using the wrapper code that lots of folks use
+now.  It defines a bepo and an en/kc/us version.  Lots of the time, the key is the same for all languages
+on the thumbs. but not always, and the way a second locale is working right now is limiting,in that
+even the layer names can have a suffix for the lang.  Building separate layer sets will fix that and
+make all this mess with different layer names go away.
+
+Regardless this works, and is a nice simple example of how things go.  Just like a base layer we can
+create a *Carte de Map* named CARTE_ /layername/  which can then be added to *oled/oled_cartes.h*
+
+
+Consider this a snapshot example. - the real definition is elsewhere.
+#+begin_src C
+/********************************************************************************/
+/* LAYERS - Define a base layer, switch to any layer. Get around. Experiment.   */
+/*                                                                              */
+/* Base Layers on the left hand,                                                */
+/* transient layers on the right. Centered on the home region.                  */
+/* A good place to attach an experimental layer.                                */
+/*                                                                              */
+/********************************************************************************/
+//  Base Layers
+// this was kc_dvorak et al. But since its configurable as to who would be here
+// that no longer makes sense. So next keys for locale and base layer. and a set to
+// make it permanent. Cycling of layers is based on current locale.
+#define ___BASE_LAYERS___ ___, KC_SET_BASE, KC_NEXT_BASE_LAYER, KC_NEXT_LOCALE, ___
+
+// transient layers.
+#define ___5_LAYERS_T___     ___, MO(_NAV),  MO_SYMB,  MO_KEYPAD,  MO_TOPROWS
+#ifdef SECOND_LOCALE
+#undef LANG_IS
+#define LANG_IS SECOND_LOCALE
+#define ___5_LAYERS_T_BP___  ___, MO(_NAV),  MO_SYMB,  MO_KEYPAD,  MO_TOPROWS
+#undef LANG_IS
+#define LANG_IS DEFAULT_LANG
+#else
+#define ___5_LAYERS_T_BP___  ___, MO(_NAV),  ___3___
+#endif
+
+#define ___5_LAYERS_T_CTL___ ___, MO_RGB, ___, ___, MO_ADJUST
+
+#define CARTE_LAYERS                            \
+  carte_de_map("          |Nv S K TR",          \
+               "  EE Bs Ln|Nv S K TR",          \
+               " ")
+
+/// A Layers Layer
+#define ___LAYERS_3x10___                       \
+  ___5___,            ___5_LAYERS_T_BP___,      \
+    ___BASE_LAYERS___,  ___5_LAYERS_T___,       \
+    ___5___,            ___5_LAYERS_T_CTL___
+
+#+end_src
+
+
+** Fin
+
+#+begin_src C :tangle config.h
+#endif
+#+end_src

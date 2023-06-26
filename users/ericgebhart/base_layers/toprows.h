@@ -31,6 +31,12 @@
 #define ___10_NUMBERS_BEAKL19___                        \
   LANG_ROW(_3, _2, _1, _0, _4, _7, _6, _5, _9, _8)
 
+#define ___10_NUMBERS_JOHNM___                  \
+  LANG_ROW(_8, _4, _2, _3, _6, _7, _1, _0, _5, _9)
+
+#define ___10_NUMBERS_JOHNM2___                         \
+  LANG_ROW(_6, _5, _2, _3, _8, _9, _1, _0, _4, _7)
+
 // a top symbol row if someone wants it.
 #define ___10_SYMBOLS___                                                \
   LANG_ROW(_EXLM, _AT, _HASH, _DLR, _PERC, _CIRC, _AMPR, _ASTR, _LPRN, _RPRN)

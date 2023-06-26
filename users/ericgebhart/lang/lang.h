@@ -15,6 +15,9 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+#include "lang_keycodes.h"
+
 // Language macros to change the names of things to
 // match the value of LANG_IS, and EDGE_COLS.
 // it would be nice to have consistency, but there isn't.
@@ -55,6 +58,12 @@
 #define OBSTRUCT(...) __VA_ARGS__ DEFER(EMPTY)()
 #define EXPAND(...) __VA_ARGS__
 
+#define BP_NO KC_NO
+#define US_NO KC_NO
+
+#define CB_NO KC_NO
+#define CB2_NO KC_NO
+
 // Give the right keycode prefix by LANG_IS
 #define LANG_PFX CAT(LANG_IS, KC)
 #define COMBOKC CB
@@ -93,7 +102,6 @@
 // In order to map chunk names to match lang.
 // MAP_CHUNK(___15_BOTTOM) --> ___15_BOTTOM_EN___ or ___15_BOTTOM_BP___
 #define MAP_CHUNK(NAME) CAT3(NAME, LANG_MAPSFX)
-
 
 // for the oled layer map switch
 #ifdef SECOND_LOCALE

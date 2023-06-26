@@ -29,9 +29,15 @@ B_LAYER(LANG_N(_BEAKL15), ___10_NUMBERS_BEAKL15___, ___BEAKL15___),
 #ifdef BEAKL27_LAYER_ENABLE
 #undef ALT_TARGET_IS
 #define ALT_TARGET_IS BK2 // NONE, DV = dvorak, BK=Beakl, BKW=Beaklwi.
-
   B_LAYER(LANG_N(_BEAKL27), ___10_NUMBERS_BEAKL19___, ___BEAKL27___),
 #endif
+
+#ifdef BEAKL27a_LAYER_ENABLE
+#undef ALT_TARGET_IS
+#define ALT_TARGET_IS BK2 // NONE, DV = dvorak, BK=Beakl, BKW=Beaklwi.
+  B_LAYER(LANG_N(_BEAKL27a), ___10_NUMBERS_BEAKL19___, ___BEAKL27a___),
+#endif
+
 
 #ifdef BEAKLWI_LAYER_ENABLE
 #undef ALT_TARGET_IS
@@ -43,6 +49,19 @@ B_LAYER(LANG_N(_BEAKL15), ___10_NUMBERS_BEAKL15___, ___BEAKL15___),
 #undef THUMBS_ARE
 #define THUMBS_ARE DEFAULT_THUMBS
 #endif
+
+#ifdef BEAKLWIa_LAYER_ENABLE
+#undef ALT_TARGET_IS
+#define ALT_TARGET_IS BKW // NONE, DV = dvorak, BK=Beakl, BKW=Beaklwi.
+  B_LAYER(LANG_N(_BEAKLWIa), ___10_NUMBERS_BEAKL19___, ___BEAKLWIa___),
+#endif
+
+#ifdef BEAKLWIb_LAYER_ENABLE
+#undef ALT_TARGET_IS
+#define ALT_TARGET_IS BKW // NONE, DV = dvorak, BK=Beakl, BKW=Beaklwi.
+  B_LAYER(LANG_N(_BEAKLWIb), ___10_NUMBERS_BEAKL19___, ___BEAKLWIb___),
+#endif
+
 
 #undef ALT_TARGET_IS
 #define ALT_TARGET_IS NONE // NONE, DV = dvorak, BK=Beakl, BKW=Beaklwi.

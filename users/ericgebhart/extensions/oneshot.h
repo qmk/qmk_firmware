@@ -1,5 +1,4 @@
-#define ENABLE_ONESHOT
-#ifdef ENABLE_ONESHOT
+#ifdef ONESHOT_ENABLE
 #pragma once
 
 typedef enum {

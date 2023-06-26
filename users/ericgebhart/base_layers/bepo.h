@@ -15,36 +15,6 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// Maps based on BEPO  Mostly 3x12
-
-// BEAKL 19bis - English with French optimisations.
-// Least used letters in french xzykw QJÀ are fairly high.
-// XZ are good choices for pushing out, from english and french,
-// or using chords in both languages.
-
-// Note: The percentages came from different sources so do not
-// match between languages.
-// French
-/* Q	0.89 % */
-/* J	0.71 % */
-/* À	0.54 % */
-/*-------------*/
-/* X	0.42 % */
-/* È	0.35 % */
-/* Ê	0.24 % */
-/* Z	0.21 % */
-/* Y	0.19 % */
-/* K	0.16 % */
-/* Ô	0.07 % */
-/* Û	0.05 % */
-/* W	0.04 % */
-
-/* Least used letters in english. */
-/* X	0.2902%	1.48 */
-/* Z	0.2722%	1.39 */
-/* J	0.1965%	1.00 */
-/* Q	0.1962%	(1) */
-
 
 // OPtimot by @Pyjam.
 /*  àjoéb fdl’qxz */
@@ -95,7 +65,6 @@
            _A, _U,    _I, _E,   _COMM,    _C, _T, _S, _R, _N,   \
            _M, _Y,    _X, _DOT, _K,       _Q, _G, _H, _F, _W)
 
-
 #define CARTE_BEPO                              \
   carte_de_map(" çbépoè ^vdljz ",               \
                "  auie, ctsrnm ",               \
@@ -105,10 +74,3 @@
   LANG_MAP6(_CCED, _B,    _EACU, _P, _O,   _EGRV,    _DCIR, _V, _D, _L, _J, _Z, \
             _TAB,  _A,    _U,    _I, _E,   _COMM,    _C,    _T, _S, _R, _N, _M, \
             _ECIR, _AGRV, _Y,    _X, _DOT, _K,       _QUOT, _Q, _G, _H, _F, _W)
-
-// dont like this one much.
-/* #define ___GODOX_3x12___                                                \ */
-/*   LANG_MAP6(___, _AGRV, _B, _EACU, _dot, _mins,    _DCIR, _V, _L,  _M, _X, _CCED, \ */
-/*             ___,  _O,   _U, _I,    _A,   _J,       _G,    _T, _S,  _N, _R, _F, \ */
-/*             ___, _Q,    _Y, _EGRV, _P,   _K,       _W,    _D, _UP, _H, _C, _Z) */
-/* // E goes on left thumb. */

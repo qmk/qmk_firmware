@@ -80,8 +80,6 @@ sml_maybe_activate_mod(sml);
     }
 }
 
-
-
 void update_smart_lock(uint16_t keycode) {
 
 #ifdef SMART_LOCK_ENABLE

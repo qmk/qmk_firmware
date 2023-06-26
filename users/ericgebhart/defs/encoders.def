@@ -62,4 +62,4 @@ ENCODER_ACTION(_NAV, RIGHT, KC_VOLU, KC_VOLD,   MOD_NONE)
     ENCODER_FUNCTION(_RGB, LEFT,
                 rgblight_step_noeeprom,
                 rgblight_step_reverse_noeeprom, MOD_LCTL)
-    #endif // RGB_MATRIX_ENABLE || RGBLIGHT_ENABLE
+#endif // RGB_MATRIX_ENABLE || RGBLIGHT_ENABLE

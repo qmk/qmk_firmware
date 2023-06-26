@@ -21,8 +21,8 @@
 
 void oled_render_default_layer_state(void) {
   //oled_write_P(PSTR("Layout: "), false);
-  uint16_t layer = get_highest_layer(default_layer_state);
-  char layer_str[8];
+  uint8_t layer = get_highest_layer(default_layer_state);
+  char layer_str[5];
   snprintf(layer_str, sizeof(layer_str), "%u ",layer);
   oled_write(layer_str , false);
   switch (layer) {
@@ -70,6 +70,21 @@ void oled_render_default_layer_state(void) {
 #ifdef MINIMAK_12_LAYER_ENABLE
       WRITE_STR_LAYER(_MINIMAK_12, "Minimak 12")
 #endif
+#ifdef SEMIMAK_JQ_LAYER_ENABLE
+      WRITE_STR_LAYER(_SEMIMAK_JQ, "Semimak JQ")
+#endif
+#ifdef SEMIMAK_LAYER_ENABLE
+      WRITE_STR_LAYER(_SEMIMAK, "Semimak")
+#endif
+#ifdef APTMAK_LAYER_ENABLE
+      WRITE_STR_LAYER(_APTMAK, "Aptmak")
+#endif
+#ifdef APTMAK_30_LAYER_ENABLE
+      WRITE_STR_LAYER(_APTMAK_30, "Aptmak_30")
+#endif
+#ifdef APTMAK__ALT_LAYER_ENABLE
+      WRITE_STR_LAYER(_APTMAK_ALT, "Aptmak_alt")
+#endif
 
 #ifdef BEAKL15_LAYER_ENABLE
       WRITE_STR_LAYER(_BEAKL15, "Beakl")
@@ -80,8 +95,17 @@ void oled_render_default_layer_state(void) {
 #ifdef BEAKL27_LAYER_ENABLE
       WRITE_STR_LAYER(_BEAKL27, "Beakl27")
 #endif
+#ifdef BEAKL27a_LAYER_ENABLE
+      WRITE_STR_LAYER(_BEAKL27a, "Beakl27a")
+#endif
 #ifdef BEAKLWI_LAYER_ENABLE
       WRITE_STR_LAYER(_BEAKLWI, "BeaklWi")
+#endif
+#ifdef BEAKLWIa_LAYER_ENABLE
+      WRITE_STR_LAYER(_BEAKLWIa, "BeaklWia")
+#endif
+#ifdef BEAKLWIb_LAYER_ENABLE
+      WRITE_STR_LAYER(_BEAKLWIb, "BeaklWib")
 #endif
 
 #ifdef CARPALX_QFMLWY_LAYER_ENABLE
@@ -102,8 +126,41 @@ void oled_render_default_layer_state(void) {
 #ifdef HD_NEU_NARROW_LAYER_ENABLE
       WRITE_STR_LAYER(_HD_NEU_NARROW, "HD Neu N")
 #endif
+#ifdef HD_NEU_NARROW_M_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_NEU_NARROW_M, "HD Neu N Mirror")
+#endif
 #ifdef HD_TITANIUM_LAYER_ENABLE
       WRITE_STR_LAYER(_HD_TITANIUM, "HD Titanium")
+#endif
+#ifdef HD_VROOMY_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_VROOMY, "HD VROOMY")
+#endif
+#ifdef HD_RHODIUM_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_RHODIUM, "HD RHODIUM")
+#endif
+#ifdef HD_RHODIUMB_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_RHODIUMB, "HD RHODIUMB")
+#endif
+#ifdef HD_VIBRANIUM_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_VIBRANIUM, "HD VIBRANIUM")
+#endif
+#ifdef HD_VIBRANIUM_NT_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_VIBRANIUM_NT, "HD VIBRANIUM_NT")
+#endif
+#ifdef HD_VIBRANIUM_NTP_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_VIBRANIUM_NTP, "HD VIBRANIUM_NTP")
+#endif
+#ifdef HD_VIBRANIUM_VF_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_VIBRANIUM_VF, "HD VIBRANIUM_VF")
+#endif
+#ifdef HD_VIBRANIUM_VP_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_VIBRANIUM_VP, "HD VIBRANIUM_VP")
+#endif
+#ifdef HD_VIBRANIUM_B_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_VIBRANIUM_B, "HD VIBRANIUM_B")
+#endif
+#ifdef HD_MITHRIL_LAYER_ENABLE
+      WRITE_STR_LAYER(_HD_MITHRIL, "HD MITHRIL")
 #endif
 #ifdef HD_GOLD_LAYER_ENABLE
       WRITE_STR_LAYER(_HD_GOLD, "HD Gold")
@@ -173,6 +230,12 @@ void oled_render_default_layer_state(void) {
 #ifdef WHORF6_LAYER_ENABLE
       WRITE_STR_LAYER(_WHORF6, "Whorf 6")
 #endif
+#ifdef PINE_LAYER_ENABLE
+      WRITE_STR_LAYER(_PINE, "Pine")
+#endif
+#ifdef GRAPHITE_LAYER_ENABLE
+      WRITE_STR_LAYER(_GRAPHITE, "Graphite")
+#endif
 
 #ifdef OPTIMOT_LAYER_ENABLE
       WRITE_STR_LAYER(_OPTIMOT, "Optimot")
@@ -190,8 +253,8 @@ void oled_render_default_layer_state(void) {
 }
 
 void oled_render_layer_state(void) {
-  uint16_t layer = get_highest_layer(layer_state);
-  char layer_str[8];
+  uint8_t layer = get_highest_layer(layer_state);
+  char layer_str[5];
   snprintf(layer_str, sizeof(layer_str), "%u ",layer);
   oled_write_P(PSTR(""), false);
   if (layer > 0)

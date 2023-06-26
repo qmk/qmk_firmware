@@ -14,26 +14,6 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-/**********************************************_**********************************/
-/*  KEYPADS.  Mostly all in Bepo and Qwerty versions                            */
-/*      4 row Pads:                                                             */
-/*         * The BEAKL 15,19 Number pad, for the left hand.                     */
-/*         * The BEAKL Wi hex pad, Number pad.                                  */
-/*         * Regular Number pad, for the right hand.                            */
-/*         * 12 Function pad.                                                   */
-/*      3 row pads:                                                             */
-/*         keypad                                                               */
-/*         function pad - 3x4, 12 function keys.                                */
-/*                                                                              */
-/*  LAYERS:                                                                     */
-/*      4 Row:                                                                  */
-/*         * BEAKL with a compact FuncPad on the right.                         */
-/*         * Funcpad on the left, keypad on the right.                          */
-/*      3 Row:                                                                  */
-/*         * Funcpad on the left, keypad on the right.                          */
-/*         * BEAKL with a compact FuncPad on the right.                         */
-/*                                                                              */
-/********************************************************************************/
 
 // BEAKL 15 (numpad layer):
 /*    +=*   ^%~ */
@@ -61,10 +41,6 @@
 // if there's room. the top row on the right.
 #define ___KEYPAD_BEAKL_R1___     ___, KC_CIRC,  KC_PERC,  KC_TILD, ___
 
-
-
-/// parts is parts.
-
 #define ___KP_BKL_WI_L1___ _X_,    HEX_A,  HEX_B,  HEX_C,   _X_
 #define ___KP_BKL_WI_L2___ _X_,    HEX_D,  HEX_E,  HEX_F,   _X_
 #define ___KP_BKL_WI_L3___ _X_,    L_BRKT, R_BRKT, DELIM,   _X_
@@ -81,7 +57,7 @@
 #define ___KEYPAD_miryoku_2___ _SCLN, _4,  _5,  _6,  _EQUAL, ____5_
 #define ___KEYPAD_miryoku_3___ _GRV,  _1,  _2,  _3,  _BSLS, ____5_
 
-// 4 Row keypads
+// 5 Row keypads
 #define ___5KEYPAD_1___ _X_, ___KEYPAD_1___
 #define ___5KEYPAD_2___ _X_, ___KEYPAD_2___
 #define ___5KEYPAD_3___ _X_, ___KEYPAD_3___
@@ -109,10 +85,6 @@
 #define ___5x4_FUNCPAD_2___   _TRNS, _F4,   _F5,   _F6,  _TRNS
 #define ___5x4_FUNCPAD_3___   _TRNS, _F1,   _F2,   _F3,  _TRNS
 
-
-/********************************************************************************/
-/* FUNCPAD and Keypad Layer chunks                                              */
-/********************************************************************************/
 // beakl wi is a hexpad numpad.
 /* Beakle Wi, Hexpad and keypad - needs a zero somewhere.*/
 #define CARTE_KP_BKL_WI                         \
@@ -124,7 +96,6 @@
   CHUNK_LANG_MAP(___KP_BKL_WI_L1___, ___KP_BKL_WI_R1___,        \
                  ___KP_BKL_WI_L2___, ___KP_BKL_WI_R2___,        \
                  ___KP_BKL_WI_L3___, ___KP_BKL_WI_R3___)
-
 
 // BEAKL 15 and a f1-f12 funcpad
 #define CARTE_KP_BKL_FUNC                       \
@@ -176,6 +147,7 @@
   carte_de_map("   789+  F9-12",                \
                "  .456*  F5-8",                 \
                "  0123-  F1-4")
+
 // regular keypad on left.
 #define ___KP_FP_3x10___                                        \
   CHUNK_LANG_MAP(___5KEYPAD_1___,  ___, ___4_FUNCPAD_1___,      \

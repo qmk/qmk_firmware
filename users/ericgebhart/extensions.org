@@ -1,0 +1,5089 @@
+* Extensions
+
+** Overview
+I call all the extras we add on to our QMK Extensions.  =Caps_word=, combos,
+one-shot mods, alternate shift, key over-rides, all fall into this place.
+
+/Note:/ about org.
+I didn't realize this would happen so suddenly, but my org file ate my code.
+So this is literate code. This file is tangled into a multitude of files in the extensions
+and defs directories.  If you are viewing this in emacs with Org I'm sure you are happy.
+I like to keep the document tree closed and open only what I need, and there is orgs
+filtering, so , anyway, it sucked all the extensions in. And its really nice.
+And it became the readme for them too.
+
+When you edit your qmk code for years and you get worn down by all these things
+that we do over and over because they are so simple for a veteran C coder, and we
+are too lazy to make them that one bit better, that could make them practically disappear.
+
+And you finally do it.
+I decided that I wanted these features of QMK to be easy to add, change and maintain, or
+even remove.  So these are that. Its just a little bit of C-code to make coding your
+custom keycodes more like making a shopping list.  Frequently they are just building
+a big switch that gets called from your =process_record_user()=. Exactly what you would
+be doing if you did it by hand. The macro probably contains the example from the doc.
+
+Some are fancier. The code pattern is easy.
+
+Many of these come straight out of the QMK documentation examples.
+All of them are wrapped with nice macros so everything is defined in a more readable
+format in *def* files.
+
+Below, Each Extension is introduced, its def file is defined and its source code follows.
+All tangle into their respective .def, .c and .h files.
+Really, it is only necessary to understand the purpose and the def file. Then only if you turn the extension on,
+or you want to change something about it.
+
+The source code will be a lesson in C Macro language. But they are small and resemble the
+examples you find everywhere.
+
+The code for extensions are all placed in the extensions/ directory and have a single
+entry point via /extensions.h/ which provides a macro to place in **process_record_user**.
+The intention is that they are easy to copy and use as is without digging around
+in the C code.
+
+If you want these, it is possible to just add the appropriate lines to your rules.mk,
+set the defines in your config.h to turn them on and add the hook in
+*process_record_user()* to call *PROCESS_EXTENSIONS* and define some def files
+to define your new keycodes.   If that made complete sense to you then you
+are good to go.
+
+** Introduction
+
+*** A single entry point.
+
+Extensions.c is just a placeholder to create a structure point for all of our
+extensions to gather around.  Its super simple in that it is really just
+some gluey bits. It could just as easily be the =process_records_user()= function proper,
+but that is harder to share than something that can just be easily called from
+someone's already rather furry =process_records_user=.
+
+
+** How it works.
+**** The pieces of an extension
+This is pretty easy.  There are only a few parts.  Of course here, its already
+done.  Flip the switches define some defs.
+
+All we really need to do is turn them on and off in our configuration
+and play with our definitions in the *defs/* folder. or here in the live doc with emacs
+and org is the lovely way to go.
+
+Here are the parts. You should have already read about make and the rules.mk
+file and the extension enable flags  in config.org.
+
+- The config.h snippet to turn everything on and off.
+- Defs/ - the defs folder has all the definitions in it.
+- A =process_record_user()= function to call =PROCESS_EXTENSIONS=.
+- Tell *Make* where all the code is with /rules.mk or info.json/.
+- Tell make to look at your defs folder in /rules.mk/.
+
+You can just leave all this stuff in place here, make sure your /rules.mk/ or /info.json/ point here
+to find the code.
+
+**** defs/
+Copy the defs/ folder to your keymap or user space in order to define all of your own combos, alternate keys, key over-rides, one shots, lock mods, encoders, etc.
+
+You'll need a VPATH entry in rules.mk for your defs folder.
+
+The expectation is that you will change the them to make them yours.
+
+**** config.h
+This is influx as we switch to json.  But as it is, you'll want the parts of the config to turn
+all these things on and off. Those are in the main config.org under Extensions.
+
+**** rules.mk
+
+Just steal the bits you need, they are clearly labeled over in config.org.
+
+** Process Record and the extensions hook.
+Everything ties into process record user().  Extensions.c has all the
+process calls, so process record user stays simple as a place to experiment.
+
+*** =process_record.c= - Process Records User()
+
+Eventually everyone needs one.
+I keep mine in =process_records.c= right here. As you can see
+it mostly just points to /extensions.c/ with *PROCESS_EXTENSIONS* for it's processing.
+I use =process_record.c= to hold experiments before they make it to being an extension.
+
+If you have a /process_records_user()/  then just add the include for extensions.h and *PROCESS_EXTENSIONS* to it . Make sure to add the paths to extensions and defs to rules.mk.
+
+Here is mine.
+
+#+begin_src C :tangle process_records.c
+/*
+  Copyright 2018-2023 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include "ericgebhart.h"
+#include "extensions.h"
+
+
+// Defines actions for my global custom keycodes. Defined in ericgebhart.h file
+// Then runs the _keymap's record handier if not processed here
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+#ifdef OLED_CUSTOM_ENABLE
+  process_record_user_oled(keycode, record);
+#endif
+
+  PROCESS_EXTENSIONS
+
+  switch (keycode) {
+    case KC_RESET:
+      if (!record->event.pressed) {
+        reset_keyboard();
+      }
+      return false;
+      break;
+
+    case KC_SPACETEST:  // test something.
+      // default_layer_set(1UL << _BEAKL);
+      // tap_code16(LSFT(KC_SPACE));
+      break;
+  }
+return true;
+}
+#+end_src
+
+*** =extensions.c=
+Extensions are all entered from a single point, and can be accessed with
+a single include. This code primarily turns the extensions on and off by either letting them
+be compiled or not.
+
+The header file is just a prototype and the =PROCESS_EXTENSIONS= macro to make it easy to use.
+
+***** Copyright.
+The copyright, need to automate this in tangling.
+
+#+begin_src C :tangle extensions/extensions.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+
+***** Our prototype
+
+Just an include file to put at the top so you get a
+prototype and a macro, *PROCESS_EXTENSIONS*, to put inside *process_record_user()*.
+
+#+begin_src C :tangle extensions/extensions.h
+bool process_extensions(uint16_t keycode, keyrecord_t *record);
+
+#define PROCESS_EXTENSIONS                                      \
+  if (!process_extensions(keycode, record)) {return false;}
+#+end_src
+
+
+***** Our list of processors to call
+
+All of these have an option to turn them on and off in config.org. So really, thats all you
+care about unless you want to know more.
+
+Extensions.c is really just a big list of process functions which are turned on and off with defines.
+
+#+begin_src C :tangle extensions/extensions.c
+
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+// someone needs the layers enum.
+#include USERSPACE_H
+
+#include "extensions.h"
+#include "altlocal_keys.h"
+#include "tap_hold.h"
+#include "accented_keys.h"
+#include "process_smart_lock.h"
+#include "mod_lock.h"
+#include "oneshot.h"
+#include "process_nshot.h"
+#include "process_locales.h"
+#include "unicode.h"
+#include "key_overrides.h"
+#include "console_key_logger.h"
+#include "adaptive_keys.h"
+
+// should make header files maybe. being lazy.
+void process_not_dead(uint16_t keycode, keyrecord_t *record);
+bool process_alt_shift_user(uint16_t keycode, keyrecord_t *record);
+void process_send_strs(uint16_t keycode, keyrecord_t *record);
+bool process_alt_local_key(uint16_t keycode, keyrecord_t* record);
+bool process_global_quick_tap(uint16_t keycode, keyrecord_t *record);
+
+bool process_extensions(uint16_t keycode, keyrecord_t *record){
+  if (!process_locales(keycode, record)) { return false; }
+
+#ifdef ADAPTIVE_KEYS_ENABLE
+  if (!process_adaptive_key(keycode, record)) {return false; }
+#endif
+#ifdef GLOBAL_QUICK_TAP_ENABLE
+  if (!process_global_quick_tap(keycode, record)) {return false; }
+#endif
+#ifdef CAPS_WORD_ENABLE
+ if (!process_caps_word(keycode, record)) { return false; }
+#endif
+#ifdef ALT_LOCAL_ENABLE
+  if (!process_alt_local_key(keycode, record)) { return false; }
+#endif
+#ifdef ACCENTED_KEYS_ENABLE
+  if (!process_accent_keys(keycode, record)) { return false; }
+#endif
+#ifdef TAP_HOLD_ENABLE
+  process_tap_hold_user(keycode, record);
+#endif
+#ifdef SMART_LOCK_ENABLE
+  process_smart_lock(keycode, record);
+#endif
+#ifdef MOD_LOCK_ENABLE
+  process_mod_lock(keycode, record);
+#endif
+#ifdef NSHOT_ENABLE
+  if(!process_nshot_state(keycode, record)) {return false;}
+#endif
+#ifdef SEND_UNICODE_ENABLE
+  process_unicode_strs(keycode, record);
+#endif
+#ifdef SEND_STRING_ENABLE
+  process_send_strs(keycode, record);
+#endif
+#ifdef NOT_DEAD_ENABLE
+  process_not_dead(keycode, record);
+#endif
+#ifdef ALT_SHIFT_ENABLE
+  if(!process_alt_shift_user(keycode, record)) {return false;}
+#endif
+#if defined( CONSOLE_ENABLE) && defined(CONSOLE_KEY_LOGGER_ENABLE)
+  process_console_key_logger(keycode, record);
+#endif
+#ifdef ONESHOT_MOD_ENABLE
+  int8_t keycode_consumed = 0;
+  keycode_consumed += update_oneshot_modifiers(keycode, record, keycode_consumed);
+#endif
+  return true;
+
+}
+#+end_src
+
+
+
+** Custom keycode enum as an extension
+
+Custom keycodes are just a normal way of life in QMK. Creating them, adding them
+to your custom keycode enum, and then using them somewhere.
+
+This 'extension' makes life easier by automatically defining our enums for us most of the time.
+
+Custom keys are often defined in an extension's def file. For a one off sort situation random key codes
+can be added to *defs/custom_keys.def*.
+ Any keycodes defined by an extension are automatically added to the custom keys enumeration
+ so there is no need to define them manually. The defs get their names sucked out into
+ *extensions/custom_keycodes.h* where the enum lives. If you do not know what the custom key enum is
+ then you are good to go until you need to know that the QMK [[https://docs.qmk.fm/#/custom_quantum_functions?id=custom-keycodes][keycodes enumerator]] is where
+ you put your keycodes.
+
+** The Extension Code Pattern.
+Most extensions make key codes that do things that you can use in your maps.
+Some like combos just go live when you define some and turn them on.
+
+The definitions for all the extensions, the parts we care about defining are all in the *defs/* directory.
+In the rules.mk we tell *Make* about them by giving it the path to our defs.
+All the extensions have a nice macro wrapper so that everything is defined in a uniform and readable way
+in a *.def* file. A def file is really a C macro language include file that gets included and preprocessed
+to create the final C-code.  The definitions for those macros to make it more readable are usually
+defined in the extensions *.c* file.
+
+These, mostly, follow a simple design pattern which gives a set of macro definitions which are used
+to create C data structures which define a list of things.  The C code /includes/ its *def* file to do what it
+wants with it.  The def files may be read many times in many different ways.  /custom_Keycodes.h/ reads all of
+them it knows about looking for keycode names.
+
+That data is then processed at *process_record_user()* time to see if it needs to do anything.
+If you made a new key code and used it, whichever extension that created it will process it when
+the key code shows up in use.
+
+A new extension can be added with a process record entry in
+extensions.c. Just follow the same code pattern as the others. If an extension defines keycodes,
+add it's /include/ entry in *custom_keycodes.h* so that they are automatically added to the enum.
+=custom_keycodes.h= is also where all the miscellaneous short cut key defines are done. Its a bit of a mess really.
+
+*** Stealing, Just in case.
+
+Too much information is sometimes helpful.
+
+Its easy to just take them all and make them your own. Or take just the defs and
+leave the rest here.  It is also easy to steal one of them, especially if I made an 'h' file
+for it. Take the code, add the prototype or h file and it's if statement,
+(stolen from extensions.c), to your process record user().
+
+In increasing detail..
+
+***** Short
+The short of it is copy defs/ and extensions/, make sure the process record user hook
+is in there.  Copy the rules paths and configuration file pieces to your own so that
+everything can be found and turned on and off.
+
+***** Long.
+To copy all the extensions,
+  - Define =USERSPACE_H= such that all the extensions can find your stuff.
+  - Copy the def folder,
+  - Leave or copy =process_records.c= file or adapt your =process_record_user()= function.
+  - Adapt your custom keycodes to /custom_keys.def/.
+  - Copy the pertinant parts of config.h so that everything can be enabled or disabled.
+
+Because many of them use custom keycodes or layers in their definitions,
+it is necessary to include your userspace .h such that keycodes and layer
+codes can be found. To simplify this, simply add a define to config.h
+to point at your .h or wherever your custom codes can be found.
+
+The extensions need to know a little bit about where we are.
+They use /USERSPACE_H/ to get what they need.
+
+In my case;
+#+begin_src C :tangle ./newconfig.h
+#define USERSPACE_H "ericgebhart.h"
+#+end_src
+
+** The Extensions
+
+A little bit of C and C Macro to make it friendlier.
+
+*** Accented Keys
+
+This is a way to create keycodes which access keys
+which are normally only accessible with an Altgr/Ralt and a dead key.
+
+Each definition takes a keycode, the key to modify, and the dead key
+to apply to it.
+
+***** Last, the most, least frequent letters in french.
+// é is further up.
+// 24	x	3 588 990	0.38%
+// 25	j	3 276 064	0.34%
+// 26	è	2 969 466	0.31%
+// 27	à	2 966 029	0.31%
+// 28	k	2 747 547	0.29%
+// 29	w	1 653 435	0.17%
+// 30	z	1 433 913	0.15%
+// 31	ê	802 211	0.08%
+// 32	ç	544 509	0.06%
+// 33	ô	357 197	0.04%
+// 34	â	320 837	0.03%
+// 35	î	280 201	0.03%
+// 36	û	164 516	0.02%
+// 37	ù	151 236	0.02%
+// 38	ï	138 221	0.01%
+// 39	á	73 751	0.01%	 - absent.
+// 79	ü	55 172	0.01%
+// 82	ë	53 862	0.01%
+//absent.
+// 83	ö	51 020	0.01%
+// 84	í	48 391	0.01%
+
+
+**** The Defs
+
+As with many defs I wrap them in if defined so we can save space.
+no sense in defining them if we aren't using them.
+
+I've grouped them by their dead key and target language.
+
+***** Bépo
+****** dcir circumflex
+#+begin_src C :tangle defs/accented_keys.def
+// Accented keys.
+// Custom key code,  Keycode, altgr accent keycode.
+#if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO)
+ACCENTED(BP_OCIR, BP_O, BP_DCIR)
+ACCENTED(BP_ACIR, BP_A, BP_DCIR)
+ACCENTED(BP_ICIR, BP_I, BP_DCIR)
+ACCENTED(BP_UCIR, BP_U, BP_DCIR)
+//ACCENTED(BP_CCIR, BP_C, BP_DCIR)
+//ACCENTED(BP_GCIR, BP_G, BP_DCIR)
+//ACCENTED(BP_HCIR, BP_H, BP_DCIR)
+#+end_src
+
+****** acut
+#+begin_src C :tangle defs/accented_keys.def
+ACCENTED(BP_AACU, BP_A, BP_ACUT)
+ACCENTED(BP_OACU, BP_O, BP_ACUT)
+ACCENTED(BP_IACU, BP_I, BP_ACUT)
+ACCENTED(BP_UACU, BP_U, BP_ACUT)
+#+end_src
+
+****** dgrv grave
+#+begin_src C :tangle defs/accented_keys.def
+//ACCENTED(BP_OGRV, BP_O, BP_DGRV)
+ACCENTED(BP_IGRV, BP_I, BP_DGRV)
+#+end_src
+
+****** dtil
+#+begin_src C :tangle defs/accented_keys.def
+// ACCENTED(BP_NTIL, BP_N, BP_DTIL)
+// ACCENTED(BP_ATIL, BP_A, BP_DTIL)
+// ACCENTED(BP_OTIL, BP_O, BP_DTIL)
+// ACCENTED(BP_UTIL, BP_U, BP_DTIL)
+#+end_src
+
+****** diae
+#+begin_src C :tangle defs/accented_keys.def
+ACCENTED(BP_IIAE, BP_I, BP_DIAE)
+ACCENTED(BP_UIAE, BP_U, BP_DIAE)
+ACCENTED(BP_EIAE, BP_E, BP_DIAE)
+ACCENTED(BP_OIAE, BP_O, BP_DIAE)
+// ACCENTED(BP_AIAE, BP_A, BP_DIAE)
+#+end_src
+
+****** Bépo fin.
+#+begin_src C :tangle defs/accented_keys.def
+#endif
+#+end_src
+
+***** US-Intl with dead keys.
+****** dcir circumflex
+#+begin_src C :tangle defs/accented_keys.def
+ACCENTED(US_OCIR, US_O, US_DCIR)
+ACCENTED(US_ACIR, US_A, US_DCIR)
+ACCENTED(US_ICIR, US_I, US_DCIR)
+ACCENTED(US_UCIR, US_U, US_DCIR)
+ACCENTED(US_ECIR, US_E, US_DCIR)
+#+end_src
+
+****** dgrv grave
+#+begin_src C :tangle defs/accented_keys.def
+
+ACCENTED(US_IGRV, US_I, US_DGRV)
+ACCENTED(US_UGRV, US_U, US_DGRV)
+ACCENTED(US_EGRV, US_E, US_DGRV)
+ACCENTED(US_AGRV, US_A, US_DGRV)
+#+end_src
+
+****** diae
+#+begin_src C :tangle defs/accented_keys.def
+ACCENTED(US_IIAE, US_I, US_DIAE)
+ACCENTED(US_UIAE, US_U, US_DIAE)
+ACCENTED(US_EIAE, US_E, US_DIAE)
+ACCENTED(US_OIAE, US_O, US_DIAE)
+#+end_src
+***** Slovak
+#+begin_src C :tangle defs/accented_keys.def
+  // ACCENTED(E_ACUTE, SK_E, SK_ACUT)
+  // ACCENTED(R_ACUTE, SK_R, SK_ACUT)
+  // ACCENTED(U_ACUTE, SK_U, SK_ACUT)
+  // ACCENTED(I_ACUTE, SK_I, SK_ACUT)
+  // ACCENTED(O_ACUTE, SK_O, SK_ACUT)
+  // ACCENTED(A_ACUTE, SK_A, SK_ACUT)
+  // ACCENTED(L_ACUTE, SK_L, SK_ACUT)
+  // ACCENTED(Y_ACUTE, SK_Z, SK_ACUT)
+  // ACCENTED(T_CARON, SK_T, SK_CARN)
+  // ACCENTED(Z_CARON, SK_Y, SK_CARN)
+  // ACCENTED(O_CARON, SK_O, SK_CARN)
+  // ACCENTED(S_CARON, SK_S, SK_CARN)
+  // ACCENTED(D_CARON, SK_D, SK_CARN)
+  // ACCENTED(L_CARON, SK_L, SK_CARN)
+  // ACCENTED(C_CARON, SK_C, SK_CARN)
+  // ACCENTED(N_CARON, SK_N, SK_CARN)
+  // ACCENTED(U_UMLAU, SK_U, SK_DIAE
+  // ACCENTED(O_UMLAU,SK_O, SK_DIAE)
+  // // napis o s vokanom cez vokan rather than normalne aby sa dalo velke uo
+  // ACCENTED(O_CCIRC, SK_O, SK_CIRC)
+#+end_src
+
+***** Fin
+#+begin_src C :tangle defs/accented_keys.def
+// end of accented keys.def
+#+end_src
+
+**** The Code
+The prototype for using it.
+
+#+begin_src C :tangle extensions/accented_keys.h
+#pragma once
+/*
+  Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include <stdbool.h>
+bool process_accent_keys(uint16_t keycode, keyrecord_t* record);
+#+end_src
+
+This one has a nice function, and then builds a simple switch statement
+from the data.  Simple as it gets.
+
+
+#+begin_src C :tangle extensions/accented_keys.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include USERSPACE_H
+#include <stdint.h>
+#include <stdbool.h>
+#include "accented_keys.h"
+
+static inline void tap_accented_letter(uint16_t letter, uint16_t dead_key) {
+    uint8_t mod_state = get_mods();
+    uint8_t oneshot_mod_state = get_oneshot_mods();
+    del_mods(MOD_MASK_SHIFT);
+    del_oneshot_mods(MOD_MASK_SHIFT);
+    tap_code16(dead_key);
+    set_mods(mod_state);
+    set_oneshot_mods(oneshot_mod_state);
+    tap_code(letter);
+}
+
+#undef ACCENTED
+#define ACCENTED(KC, K1, DEAD_KEY)              \
+  case KC:                                      \
+  if (record->event.pressed) {                  \
+    tap_accented_letter(K1, DEAD_KEY);          \
+  }                                             \
+  return false;
+
+
+#+end_src
+
+Zip through the keys to see if we have a match.
+
+#+begin_src C :tangle extensions/accented_keys.c
+bool process_accent_keys(uint16_t keycode, keyrecord_t* record) {
+  switch(keycode){
+#ifdef ACCENTED_KEYS_ENABLE
+#include "accented_keys.def"
+#endif
+  }
+  return true;
+}
+#+end_src
+
+*** AltLocal keys
+**** Introduction
+The Alternate keycodes extension
+allows the definition of a custom key where the shifted and unshifted letters
+can be defined with any mod mask.  So you can create a key for practically anything.
+
+Normally, a keycode has unshifted and shifted key values. These are defined
+by the OS and it's locale, not the keyboard. This feature allows a keycode
+to be defined that uses arbitrary unshifted and shifted keycodes and their modifiers.
+This is necessary, because, for instance, qwerty has , and ; paired. Other
+locales may not. Bepo, and Beakl both have different pairings as do many other
+layouts.
+
+Because of wanting dvorak and beakl on bepo there was the necessity to create keys
+from keycodes which were not combined. key overrides were not
+sufficient because some keys are not actually keys that can be accessed
+without modifiers. Each keycode for the new key specifies it's own
+modifiers making any character available as an unshifted or shifted key.
+
+Alternate keys for a locale, are defined in **altlocal_keys.def**.
+These are to emulate a key, from 2 keycodes.
+
+This is for emulating keys on another locale/language.
+Dvorak on Bepo-fr, or Qwerty on sk-SK, or =de_DE=.
+All determined by QMK in *quantum/keymap_extras/*.
+
+It is also good for alternate shifted and unshifted pairs like
+what is needed for beakl or hands down on en-us/qwerty.
+
+This feature is usually only needed for punctuation keys
+and the top row number keys. Where the unshifted and shifted keys
+are not the same character as the keyboard local on the OS.
+
+It has turned out that most of these keys have a destination language,
+and a target language/layout.  To that end, the TL_ keycodes have come
+into existence.  See more in the main readme.org.  FIX.
+
+The target is to emulate something on some language. QMK uses keycode prefixes,
+so this works pretty well and the names stay consistent with all the others,
+but with a middle name.
+
+The pattern for the name is Language prefix, target language prefix, name.
+The target prefix is made up. BK -> beakl, DV -> dvorak, HD -> hands down, etc.
+
+The naming pattern is only important in that it works with all of the Lang
+macros elsewhere in this userspace. A macro is provided on a per key
+basis, which can be used at the base layer definition, such that *TL_COMM*;
+target-language-comma, becomes =BP_BK_COMM=, or =KC_BK_COMM= or whatever it
+needs to be based on
+current language and target layout.
+
+Here is a def entry to create the 1/! keycode for dvorak in the Bepo-fr locale
+in *altlocal_keys.def*.
+In Bepo, 1 is above the double quote and ! is above the ^ so both keys must
+be shifted to get what we want.
+
+#+begin_src C
+  MK_KEY(BP_DV_1,    BP_DQUO, MOD_LSFT,      BP_DCIR, MOD_LSFT)
+#+end_src
+
+**** The Defs
+These mostly have to do with creating target keycodes for the TL - Target
+language keycodes used for punctuation in the layouts. It works well, but a better way of
+organizing them with their target layout and language would be an improvement.
+
+In *altlocal_keys.def*.
+
+***** Preamble
+#+begin_src C :tangle defs/altlocal_keys.def
+
+// These are to create keys which don't exist in a locale.
+// so that we can create alternate maps to qwerty, azerty, or whatever.
+// Key name,
+// unshifted key and it's required mods.
+// the desired shifted keys and it's required mods.
+#+end_src
+
+***** Dvorak on Bepo
+#+begin_src C :tangle defs/altlocal_keys.def
+#if (LANG_IS == BEPO || (defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO))
+// for dvorak on bepo
+  MK_KEY(BP_DV_1,    BP_DQUO, MOD_LSFT,      BP_DCIR, MOD_LSFT)
+  MK_KEY(BP_DV_2,    BP_LDAQ, MOD_LSFT,      BP_AT, MOD_NONE)
+  MK_KEY(BP_DV_3,    BP_RDAQ, MOD_LSFT,      BP_DLR, MOD_LSFT)
+  MK_KEY(BP_DV_4,    BP_LPRN, MOD_LSFT,      BP_DLR, MOD_NONE)
+  MK_KEY(BP_DV_5,    BP_RPRN, MOD_LSFT,      BP_PERC, MOD_NONE)
+  MK_KEY(BP_DV_6,    BP_AT, MOD_LSFT,        BP_AT, MOD_BIT(KC_RALT))
+  MK_KEY(BP_DV_7,    BP_PLUS, MOD_LSFT,      BP_P, MOD_BIT(KC_RALT))
+  MK_KEY(BP_DV_8,    BP_MINS, MOD_LSFT,      BP_ASTR, MOD_NONE)
+  MK_KEY(BP_DV_9,    BP_SLSH, MOD_LSFT,      BP_LPRN, MOD_NONE)
+  MK_KEY(BP_DV_0,    BP_ASTR, MOD_LSFT,      BP_RPRN, MOD_NONE)
+
+  MK_KEY(BP_DV_GRV,  BP_PERC, MOD_LSFT,      BP_K, MOD_BIT(KC_RALT))
+  MK_KEY(BP_DV_SCLN, BP_COMM, MOD_LSFT,      BP_DOT, MOD_LSFT)
+  MK_KEY(BP_DV_SLSH, BP_SLSH, MOD_NONE,     BP_QUOT, MOD_LSFT)
+  //MK_KEY(BP_DV_BSLS, BP_AGRV, MOD_BIT(KC_RALT), BP_B, MOD_BIT(KC_RALT))
+  MK_KEY(BP_DV_EQL,  BP_EQL, MOD_NONE,       BP_PLUS, MOD_NONE)
+  MK_KEY(BP_DV_COMM, BP_COMM, MOD_NONE,      BP_LDAQ, MOD_BIT(KC_RALT))
+  MK_KEY(BP_DV_DOT,  BP_DOT, MOD_NONE,       BP_RDAQ, MOD_BIT(KC_RALT))
+  MK_KEY(BP_DV_QUOT, BP_QUOT, MOD_NONE,      BP_DQUO, MOD_NONE)
+  MK_KEY(BP_DV_MINS, BP_MINS, MOD_NONE,      KC_SPC, MOD_BIT(KC_RALT))
+
+#endif
+#+end_src
+
+***** Beakl
+****** Qwerty
+****** Beakl 15 and 19
+
+******* En
+#+begin_src C :tangle defs/altlocal_keys.def
+
+#if defined(BEAKL15_LAYER_ENABLE) || defined(BEAKL19_LAYER_ENABLE)
+     // Keys for BEAKL 15, 19 on Qwerty
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+  MK_KEY(KC_BK_DOT,  KC_DOT, MOD_NONE,    KC_2, MOD_LSFT)
+  MK_KEY(KC_BK_COMM, KC_COMM, MOD_NONE,  KC_1, MOD_LSFT)
+  MK_KEY(KC_BK_QUOT, KC_QUOT, MOD_NONE,   KC_GRV, MOD_NONE)
+#  endif
+#+end_src
+
+******* US-Intl
+#+begin_src C :tangle defs/altlocal_keys.def
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
+  MK_KEY(US_BK_DOT,  KC_DOT, MOD_NONE,    KC_2, MOD_LSFT)
+  MK_KEY(US_BK_COMM, KC_COMM, MOD_NONE,  KC_1, MOD_LSFT)
+  MK_KEY(US_BK_QUOT, KC_QUOT, MOD_NONE,   KC_GRV, MOD_NONE)
+#  endif
+#+end_src
+
+******* Bepo
+#+begin_src C :tangle defs/altlocal_keys.def
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || LANG_IS == BEPO)
+  // Keys for BEAKL on BEPO
+  MK_KEY(BP_BK_DOT,  BP_DOT, MOD_NONE,    BP_AT, MOD_NONE)
+  MK_KEY(BP_BK_COMM, BP_COMM, MOD_NONE,   BP_EXLM, MOD_NONE)
+  MK_KEY(BP_BK_QUOT, BP_QUOT, MOD_NONE,   BP_PERC, MOD_LSFT)
+#  endif
+#endif
+#+end_src
+
+#+end_src
+
+****** Beakl 27
+
+******* Bepo
+#+begin_src C :tangle defs/altlocal_keys.def
+  // Keys for BEAKL 27 on BEPO
+#if defined(BEAKL27_LAYER_ENABLE) || defined(BEAKL27a_LAYER_ENABLE)
+
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || LANG_IS == BEPO)
+  MK_KEY(BP_BK2_DOT,  BP_DOT, MOD_NONE,    BP_GRV, MOD_NONE)
+  MK_KEY(BP_BK2_COMM, BP_COMM, MOD_NONE,   BP_QUES, MOD_NONE)
+  MK_KEY(BP_BK2_EXLM, BP_EXLM, MOD_NONE,   BP_PERC, MOD_LSFT)
+  MK_KEY(BP_BK2_QUOT, BP_QUOT, MOD_NONE,   BP_QUOT, MOD_NONE)
+#  endif
+#+end_src
+
+******* En
+#+begin_src C :tangle defs/altlocal_keys.def
+  // Keys for BEAKL 27 on Qwerty
+  /* // altered shifted pairs: dot = .`  comma = ,?   dquot = "! */
+
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+  MK_KEY(KC_BK2_DOT,  KC_DOT,  MOD_NONE, KC_GRV,  MOD_NONE)
+  MK_KEY(KC_BK2_COMM, KC_COMM, MOD_NONE, KC_QUES, MOD_NONE)
+  MK_KEY(KC_BK2_EXLM, KC_EXLM, MOD_NONE, KC_DQUO, MOD_NONE)
+  MK_KEY(KC_BK2_QUOT, KC_QUOT, MOD_NONE, KC_QUOT, MOD_NONE)
+#  endif
+#+end_src
+
+******* US-Int
+#+begin_src C :tangle defs/altlocal_keys.def
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
+  MK_KEY(US_BK2_DOT,  US_DOT,  MOD_NONE,   US_GRV,  MOD_NONE)
+  MK_KEY(US_BK2_COMM, US_COMM, MOD_NONE,   US_QUES, MOD_NONE)
+  MK_KEY(US_BK2_EXLM, US_EXLM, MOD_NONE,   US_DQUO, MOD_NONE)
+  MK_KEY(US_BK2_DQUO, US_DQUO, MOD_NONE,   US_EXLM, MOD_NONE)
+  MK_KEY(US_BK2_QUOT, US_QUOT, MOD_NONE,   US_QUOT, MOD_NONE)
+#  endif
+#endif
+#+end_src
+
+****** Beakl Wi
+
+******* Bepo
+#+begin_src C :tangle defs/altlocal_keys.def
+
+#if defined(BEAKLWI_LAYER_ENABLE) \
+        || defined(BEAKLWIa_LAYER_ENABLE) \
+        || defined(BEAKLWIb_LAYER_ENABLE)
+  // Keys for BEAKL WI on BEPO
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || LANG_IS == BEPO)
+  MK_KEY(BP_BKW_DOT,  BP_DOT, MOD_NONE,   BP_GRV, MOD_NONE)
+  MK_KEY(BP_BKW_COMM, BP_COMM, MOD_NONE,  BP_TILD, MOD_NONE)
+  MK_KEY(BP_BKW_COLN, BP_COLN, MOD_LSFT,  BP_SCLN, MOD_NONE)
+#  endif
+#+end_src
+
+******* En
+#+begin_src C :tangle defs/altlocal_keys.def
+
+  // Keys for BEAKL WI on Qwerty
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+  MK_KEY(KC_BKW_DOT,  KC_DOT, MOD_NONE,   KC_GRV, MOD_NONE)
+  MK_KEY(KC_BKW_COMM, KC_COMM, MOD_NONE,  KC_TILD, MOD_NONE)
+  MK_KEY(KC_BKW_COLN, KC_SCLN, MOD_LSFT,  KC_SCLN, MOD_NONE)
+#  endif
+#endif
+#+end_src
+
+***** Hands Down
+
+If memory were not a problem, just have different sets to
+turn on and off.  keeping the extensions trimmed down is the main motivation.
+perhaps there should be an idea of symbol sets, then we can just choose and make new ones.
+People use what they want.    That would greatly simplify these repeating if defs. and make it
+easier to choose what to turn on.   vibranium, neu, beakl, beakl-wi could just be flavors of
+shifted key sets.
+I dont know. Kinda what is here. but the automatic choosing complicates things.
+
+****** vibranium
+
+Symbol pairs: #_ .: =* /? '" ,; -+
+
+#+begin_src C :tangle defs/altlocal_keys.def
+// Symbol pairs: #_ .: =* /? '" ,; -+
+#if defined(HD_VIBRANIUM_LAYER_ENABLE) ||   \
+    defined(HD_VIBRANIUM_NT_LAYER_ENABLE) ||   \
+    defined(HD_VIBRANIUM_NTP_LAYER_ENABLE) ||   \
+    defined(HD_VIBRANIUM_VF_LAYER_ENABLE) ||   \
+    defined(HD_VIBRANIUM_VP_LAYER_ENABLE) ||   \
+    defined(HD_VIBRANIUM_B_LAYER_ENABLE) ||   \
+    defined(HD_MITHRIL_LAYER_ENABLE)
+#+end_src
+
+******* Qwerty
+
+#+begin_src C :tangle defs/altlocal_keys.def
+  // for en qwerty
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+
+  MK_KEY(KC_HDV_HASH, KC_HASH, MOD_NONE, KC_UNDS,   MOD_LSFT) // "!
+  MK_KEY(KC_HDV_DOT,  KC_DOT,  MOD_NONE, KC_COLN,  MOD_NONE) // .:
+  MK_KEY(KC_HDV_EQL,  KC_EQL,  MOD_NONE, KC_8,     MOD_LSFT) // =*
+  MK_KEY(KC_HDV_SLSH, KC_SLSH, MOD_NONE, KC_QUES,  MOD_LSFT) // /?
+  MK_KEY(KC_HDV_COMM, KC_COMM, MOD_NONE, KC_SCLN,  MOD_NONE) // ,;
+  MK_KEY(KC_HDV_QUOT, KC_QUOT, MOD_NONE, KC_DQUO,  MOD_LSFT) // '"
+  MK_KEY(KC_HDV_MINS, KC_MINS, MOD_NONE, KC_EQUAL, MOD_LSFT) // -+
+
+  MK_KEY(KC_HDV_DQUO, KC_QUOT, MOD_LSFT, KC_1,     MOD_LSFT)
+  MK_KEY(KC_HDV_SCLN, KC_SCLN, MOD_NONE, KC_SCLN,  MOD_LSFT) // ;:
+#  endif
+#+end_src
+
+******* US-intl
+
+#+begin_src C :tangle defs/altlocal_keys.def
+
+  // for us international
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
+  MK_KEY(US_HDV_HASH, US_HASH, MOD_NONE, US_UNDS, MOD_LSFT) // "!
+  MK_KEY(US_HDV_DOT,  US_DOT,  MOD_NONE, US_COLN,  MOD_NONE) // .:
+  MK_KEY(US_HDV_EQL,  US_EQL,  MOD_NONE, US_8,     MOD_LSFT) // =*
+  MK_KEY(US_HDV_SLSH, US_SLSH, MOD_NONE, US_QUES,  MOD_NONE) // /?
+  MK_KEY(US_HDV_COMM, US_COMM, MOD_NONE, US_SCLN,  MOD_NONE) // ,;
+  MK_KEY(US_HDV_QUOT, US_QUOT, MOD_NONE, US_DQUO,  MOD_NONE) // '"
+  MK_KEY(US_HDV_MINS, US_MINS, MOD_NONE, US_EQUAL, MOD_LSFT) // -+
+
+  MK_KEY(US_HDV_DQUO, US_QUOT, MOD_LSFT, US_1,     MOD_LSFT)
+  MK_KEY(US_HDV_SCLN, US_SCLN, MOD_NONE, US_COLN,  MOD_NONE) // ;:
+#  endif
+#+end_src
+
+******* Bèpo
+
+#+begin_src C :tangle defs/altlocal_keys.def
+
+  // for bepo
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || DEFAULT_LANG == BEPO)
+  MK_KEY(BP_HDV_HASH, BP_HASH, MOD_NONE, BP_UNDS,  MOD_NONE) // "!
+  MK_KEY(BP_HDV_DOT,  BP_DOT,  MOD_NONE, BP_COLN,  MOD_NONE) // .:
+  MK_KEY(BP_HDV_EQL,  BP_EQL,  MOD_NONE, BP_ASTR,  MOD_NONE) // =*
+  MK_KEY(BP_HDV_SLSH, BP_SLSH, MOD_NONE, BP_QUES,  MOD_NONE) // /?
+  MK_KEY(BP_HDV_COMM, BP_COMM, MOD_NONE, BP_SCLN,  MOD_NONE) // ,;
+  MK_KEY(BP_HDV_QUOT, BP_QUOT, MOD_NONE, BP_DQUO,  MOD_LSFT) // '"
+  MK_KEY(BP_HDV_MINS, BP_MINS, MOD_NONE, BP_PLUS,  MOD_LSFT) // -+
+
+  MK_KEY(BP_HDV_DQUO, BP_DQUO, MOD_NONE, BP_QUES, MOD_NONE)
+  MK_KEY(BP_HDV_SCLN, BP_SCLN, MOD_NONE, BP_COLN, MOD_NONE) // ;:
+#  endif
+
+#endif //vibranium
+
+#+end_src
+
+***** Ref, Neu, The metals.
+****** Most of them are the same
+
+Everything from Ref and Neu up to *vibranium* have these.
+We need to define all of these alternate keys:    =;: .& /* '? "! ,| -+=
+
+#+begin_src C :tangle defs/altlocal_keys.def
+// shifted pairs: dot = .` comma = ,~  colon = :;
+#if defined(HD_NEU_LAYER_ENABLE) ||        \
+    defined(HD_NEU_NARROW_LAYER_ENABLE) || \
+    defined(HD_NEU_NARROW_M_LAYER_ENABLE) || \
+    defined(HD_GOLD_LAYER_ENABLE) ||       \
+    defined(HD_SILVER_LAYER_ENABLE) ||     \
+    defined(HD_BRONZE_LAYER_ENABLE) ||     \
+    defined(HD_PLATINUM_LAYER_ENABLE) ||   \
+    defined(HD_REF_LAYER_ENABLE)
+
+  // hands down alterations.
+  // alt shifts   ;: .& /* '? "! ,| -+
+#+end_src
+******* Qwerty
+
+#+begin_src C :tangle defs/altlocal_keys.def
+  // for en qwerty
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+
+  MK_KEY(KC_HD_DQUO, KC_QUOT, MOD_LSFT, KC_1,     MOD_LSFT) // "!
+  MK_KEY(KC_HD_QUOT, KC_QUOT, MOD_NONE, KC_SLSH,  MOD_LSFT) // '?
+  MK_KEY(KC_HD_DOT,  KC_DOT,  MOD_NONE, KC_7,     MOD_LSFT) // .&
+  MK_KEY(KC_HD_SCLN, KC_SCLN, MOD_NONE, KC_SCLN,     MOD_LSFT) // ;:
+  MK_KEY(KC_HD_COMM, KC_COMM, MOD_NONE, KC_BSLS,  MOD_LSFT) // ,|
+  MK_KEY(KC_HD_MINS, KC_MINS, MOD_NONE, KC_EQL, MOD_LSFT) // -+
+  MK_KEY(KC_HD_SLSH, KC_SLSH, MOD_NONE, KC_8,     MOD_LSFT) // /*
+
+#  endif
+#+end_src
+
+******* US-intl
+
+#+begin_src C :tangle defs/altlocal_keys.def
+
+  // for us international
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
+  MK_KEY(US_HD_DQUO, US_QUOT, MOD_LSFT, US_1,     MOD_LSFT)
+  MK_KEY(US_HD_QUOT, US_QUOT, MOD_NONE, KC_SLSH,  MOD_LSFT)
+  MK_KEY(US_HD_DOT,  US_DOT,  MOD_NONE, US_7,     MOD_LSFT)
+  MK_KEY(US_HD_SCLN, KC_SCLN, MOD_NONE, KC_SCLN,  MOD_LSFT) // ;:
+  MK_KEY(US_HD_COMM, US_COMM, MOD_NONE, US_BSLS,  MOD_LSFT)
+  MK_KEY(US_HD_MINS, US_MINS, MOD_NONE, US_EQL, MOD_LSFT)
+  MK_KEY(US_HD_SLSH, US_SLSH, MOD_NONE, US_8,     MOD_LSFT)
+#  endif
+#+end_src
+
+******* Bèpo
+
+#+begin_src C :tangle defs/altlocal_keys.def
+
+  // for bepo
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || DEFAULT_LANG == BEPO)
+  MK_KEY(BP_HD_DQUO, BP_DQUO, MOD_NONE, BP_QUES, MOD_NONE)
+  MK_KEY(BP_HD_QUOT, BP_QUOT, MOD_NONE, BP_EXLM, MOD_NONE)
+  MK_KEY(BP_HD_SCLN, BP_SCLN, MOD_NONE, BP_COLN, MOD_NONE) // ;:
+  MK_KEY(BP_HD_DOT,  BP_DOT,  MOD_NONE, BP_AMPR, MOD_NONE)
+  MK_KEY(BP_HD_COMM, BP_COMM, MOD_NONE, BP_PIPE, MOD_NONE)
+  MK_KEY(BP_HD_MINS, BP_MINS, MOD_NONE, BP_PLUS, MOD_NONE)
+  MK_KEY(BP_HD_SLSH, BP_SLSH, MOD_NONE, BP_ASTR, MOD_NONE)
+#  endif
+
+#endif
+
+#+end_src
+
+***** Dash
+  Alternate shift keys are:  =;: .& /\* "? '! ,| -+  */=
+
+****** Qwerty
+#+begin_src C :tangle defs/altlocal_keys.def
+
+#ifdef HD_DASH_LAYER_ENABLE
+// DASH and Elan have these reversed from the metals.
+/* //alt shift keys. "? '! */
+
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+  MK_KEY(KC_HD_D_DQUO, KC_DQUO, MOD_NONE, KC_SLSH, MOD_LSFT) // "?
+  MK_KEY(KC_HD_D_QUOT, KC_QUOT, MOD_NONE, KC_1,    MOD_LSFT) // '!
+  MK_KEY(KC_HD_D_DOT,  KC_DOT,  MOD_NONE, KC_7,     MOD_LSFT) // .&
+  MK_KEY(KC_HD_D_COMM, KC_COMM, MOD_NONE, KC_BSLS,  MOD_LSFT) // ,|
+  MK_KEY(KC_HD_D_MINS, KC_MINS, MOD_NONE, KC_EQL, MOD_LSFT) // -+
+  MK_KEY(KC_HD_D_SLSH, KC_SLSH, MOD_NONE, KC_8,     MOD_LSFT) // /*
+#  endif
+#+end_src
+
+****** US-intl
+
+#+begin_src C :tangle defs/altlocal_keys.def
+
+  // for us international
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
+  MK_KEY(US_HD_D_DQUO, US_QUOT, MOD_LSFT, KC_SLSH,  MOD_LSFT)
+  MK_KEY(US_HD_D_QUOT, US_QUOT, MOD_NONE, US_1,     MOD_LSFT)
+  MK_KEY(US_HD_D_DOT,  US_DOT,  MOD_NONE, US_7,     MOD_LSFT)
+    MK_KEY(US_HD_D_COMM, US_COMM, MOD_NONE, US_BSLS,  MOD_LSFT)
+  MK_KEY(US_HD_D_MINS, US_MINS, MOD_NONE, US_EQL, MOD_LSFT)
+  MK_KEY(US_HD_D_SLSH, US_SLSH, MOD_NONE, US_8,     MOD_LSFT)
+#  endif
+#+end_src
+
+****** Bèpo
+
+#+begin_src C :tangle defs/altlocal_keys.def
+  // for bepo
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || DEFAULT_LANG == BEPO)
+  MK_KEY(BP_HD_D_DQUO, BP_DQUO, MOD_NONE, BP_QUES, MOD_NONE)
+    MK_KEY(BP_HD_D_QUOT, BP_QUOT, MOD_NONE, BP_EXLM, MOD_NONE)
+  MK_KEY(BP_HD_D_DOT,  BP_DOT,  MOD_NONE, BP_AMPR, MOD_NONE)
+  MK_KEY(BP_HD_D_COMM, BP_COMM, MOD_NONE, BP_PIPE, MOD_NONE)
+  MK_KEY(BP_HD_D_MINS, BP_MINS, MOD_NONE, BP_PLUS, MOD_NONE)
+  MK_KEY(BP_HD_D_SLSH, BP_SLSH, MOD_NONE, BP_ASTR, MOD_NONE)
+#  endif
+
+#endif
+#+end_src
+
+***** Elan
+
+Elan is just enough different from Dash.
+Alternate shift keys are:  =;: .: /\* "? '! ,; -+ (< {[=
+
+****** Qwerty
+
+#+begin_src C :tangle defs/altlocal_keys.def
+#ifdef HD_ELAN_LAYER_ENABLE
+  // Elan has alt shift of comma and dot on the thumb.
+  // en
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+  MK_KEY(KC_HD_E_DQUO,  KC_DQUO, MOD_NONE, KC_SLSH, MOD_LSFT)
+  MK_KEY(KC_HD_E_QUOT,  KC_QUOT, MOD_NONE, KC_1, MOD_LSFT)
+  // the rest is the same
+  MK_KEY(KC_HD_E_MINS,  KC_MINS, MOD_NONE, KC_EQL, MOD_LSFT) // -+
+  MK_KEY(KC_HD_E_SLSH,  KC_SLSH, MOD_NONE, KC_8,     MOD_LSFT) // /*
+  // until .: and ,;
+  MK_KEY(KC_HD_E_DOT,   KC_DOT,  MOD_NONE, KC_SCLN, MOD_LSFT) // .:
+  MK_SKEY(KC_HD_E_COMM, KC_COMM, KC_SCLN) // ,;
+  /* (< {[ */
+  MK_KEY(KC_HD_E_LPRN, KC_LPRN, MOD_NONE, KC_COMM, MOD_LSFT)
+  MK_KEY(KC_HD_E_LCBR, KC_LCBR, MOD_NONE, KC_LBRC, MOD_NONE )
+#  endif
+#+end_src
+
+****** US-intl
+
+#+begin_src C :tangle defs/altlocal_keys.def
+
+  // US-intl
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
+  MK_KEY(US_HD_E_DQUO, US_QUOT, MOD_LSFT, KC_SLSH, MOD_LSFT)
+  MK_KEY(US_HD_E_QUOT, US_QUOT, MOD_NONE, US_1, MOD_LSFT)
+// the rest is the same
+  MK_KEY(US_HD_E_MINS,    US_MINS, MOD_NONE, US_EQL, MOD_LSFT) // -+
+  MK_KEY(US_HD_E_SLSH,    US_SLSH, MOD_NONE, US_8,     MOD_LSFT) // /*
+// until .: and ,;
+  MK_KEY(US_HD_E_DOT,   KC_DOT,  MOD_NONE, US_SCLN, MOD_LSFT) // .:
+  MK_SKEY(US_HD_E_COMM, US_COMM, US_SCLN) // ,;
+/* (< {[ */
+  MK_KEY(US_HD_E_LPRN, US_LPRN, MOD_NONE, US_COMM, MOD_LSFT)
+  MK_KEY(US_HD_E_LCBR, US_LCBR, MOD_NONE, US_LBRC, MOD_NONE )
+#  endif
+#+end_src
+
+****** Bèpo
+
+#+begin_src C :tangle defs/altlocal_keys.def
+
+// bepo
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || DEFAULT_LANG == BEPO))
+  MK_KEY(BP_HD_E_DQUO, BP_DQUO, MOD_NONE, BP_SLSH, MOD_NONE)
+  MK_KEY(BP_HD_E_QUOT, BP_QUOT, MOD_NONE, BP_EXLM, MOD_NONE)
+// the rest is the same
+  MK_KEY(BP_HD_E_MINS,    BP_MINS, MOD_NONE,   BP_EQL, MOD_NONE) // -+
+  MK_KEY(BP_HD_E_SLSH,    BP_SLSH, MOD_NONE,   BP_ASTR,  MOD_NONE) // /*
+// until .: and ,;
+  MK_KEY(BP_HD_E_DOT,   KC_DOT,  MOD_NONE, BP_SCLN, MOD_LSFT) // .:
+  MK_SKEY(BP_HD_E_COMM, BP_COMM, BP_SCLN) // ,;
+/* (< {[ */
+  MK_KEY(BP_HD_E_LPRN, BP_LPRN, MOD_NONE, BP_COMM, MOD_LSFT)
+  MK_KEY(BP_HD_E_LCBR, BP_LCBR, MOD_NONE, BP_LBRC, MOD_NONE )
+#  endif
+#endif
+#+end_src
+
+**** The Code
+
+Its really old and crufty, Its one of the first things I wrote with QMK a very long time ago.
+
+#+begin_src C :tangle extensions/altlocal_keys.h
+#pragma once
+/*
+  Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+// Create custom keycodes with arbitrary shifted and unshifted keys.
+// originally for dvorak on bepo. But used by beakl on qwerty now too.
+
+// Why?: Because the keycodes are actually defined on the computer. So
+// if you are trying to have dvorak, or beakl on bepo-fr, the shifted keys
+// are wrong. But, I want my dvorak, so this allows the pairing of keys into
+// a keycode that has shifted and non shifted behavior, outside of what the
+// locale map says on the computer.
+//
+// These are the keys for dvorak on bepo.  column one is the keycode and mods for
+// the unshifted key, the second column is the keycode and mods for the shifted key.
+// GR is Good Range.  It subtracts SAFE_RANGE from the keycode so we can make a
+// reasonably sized array without difficulties. The macro is for the constant declarations
+// the function is for when we use it.
+
+//make an alt_local_keys.def   - see the example.
+// Include this file where you have your process_record_user function,
+// call process_alt_local_key inside your process_record_user.
+
+uint8_t gr(uint16_t);
+void send_keycode(uint16_t);
+bool process_alt_local_key(uint16_t keycode, keyrecord_t* record);
+
+#define MOD_NONE 0x00
+
+#define GR(x) (x-SAFE_RANGE)
+// indexs for the keycode translation table.
+
+#define MK_KEY(KCNAME, KC1, MOD1, KC2, MOD2)    \
+  [GR(KCNAME)] = {{KC1, MOD1}, {KC2, MOD2}},
+
+#define MK_SKEY(KCNAME, KC1, KC2)   \
+  [GR(KCNAME)] = {{KC1, MOD_NONE}, {KC2, MOD_NONE}},
+
+#define UNSHIFTED_KEY(key)  key_translations[gr(key)][0][0]
+#define UNSHIFTED_MODS(key) key_translations[gr(key)][0][1]
+#define SHIFTED_KEY(key)    key_translations[gr(key)][1][0]
+#define SHIFTED_MODS(key)   key_translations[gr(key)][1][1]
+#+end_src
+
+Build some data
+
+#+begin_src C :tangle extensions/altlocal_keys.c
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// Create custom keycodes with arbitrary shifted and unshifted keys.
+// originally for dvorak on bepo. But used by beakl on qwerty now too.
+
+// Why?: Because the keycodes are actually defined on the computer. So
+// if you are trying to have dvorak, or beakl on bepo-fr, the shifted keys
+// are wrong. But, I want my dvorak, so this allows the pairing of keys into
+// a keycode that has shifted and non shifted behavior, outside of what the
+// locale map says on the computer.
+//
+// These are the keys for dvorak on bepo.  column one is the keycode and mods for
+// the unshifted key, the second column is the keycode and mods for the shifted key.
+// GR is Good Range.  It subtracts SAFE_RANGE from the keycode so we can make a
+// reasonably sized array without difficulties. The macro is for the constant declarations
+// the function is for when we use it.
+
+//make an alt_local_keys.def   - see the example.
+// Include this file where you have your process_record_user function,
+// call process_alt_local_key inside your process_record_user.
+
+#include USERSPACE_H
+#include "altlocal_keys.h"
+
+const uint16_t key_translations[][2][2] = {
+#include "altlocal_keys.def"
+};
+
+uint8_t gr(uint16_t kc){
+  return (kc - SAFE_RANGE);
+}
+
+// send the right keycode for the right mod.
+// remove the mods we are taking care of,
+// send our keycodes then restore them.
+// all so we can make dvorak keys from bepo keycodes.
+void send_keycode(uint16_t kc){
+  uint8_t tmp_mods = get_mods();
+  bool is_shifted = ( tmp_mods & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)) );
+
+  // need to turn of the shift if it is on.
+  unregister_mods((MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)));
+  if(is_shifted){
+    register_mods(SHIFTED_MODS(kc));
+    register_code16(SHIFTED_KEY(kc));
+    unregister_code16(SHIFTED_KEY(kc));
+    unregister_mods(SHIFTED_MODS(kc));
+  } else{
+    register_mods(UNSHIFTED_MODS(kc));
+    register_code16(UNSHIFTED_KEY(kc));
+    unregister_code16(UNSHIFTED_KEY(kc));
+    unregister_mods(UNSHIFTED_MODS(kc));
+  }
+  clear_mods();
+  register_mods(tmp_mods);
+}
+
+#+end_src
+
+Process our keycodes
+
+#+begin_src C :tangle extensions/altlocal_keys.c
+bool process_alt_local_key(uint16_t keycode, keyrecord_t* record) {
+  switch(keycode){
+  case ALT_LOCAL_KEYS_START ... ALT_LOCAL_KEYS_END:
+    if(record->event.pressed)
+      send_keycode(keycode);
+    unregister_code(keycode);
+    break;
+  }
+  return (true);
+}
+
+#+end_src
+*** Alt Shift
+**** Introduction
+The alt shift extension is very simple, it uses a usual keycode, it does
+not define custom keys. It allows for an existing key like dot or semi-colon
+to have a different letter on its shifted value.
+
+There are currently three types of shift mods.
+  - Give a different character than usual on shift.
+  - Give two of the usual character instead of one.
+  - Give three of the usual character instead of one.
+
+They are all defined in *defs/alt_shift.def*.
+
+**** The Defs
+
+#+begin_src C :tangle defs/alt_shift.def
+// alt shift. Give an existing key code,
+// and maybe an alternate shift keycode.
+
+ALT_SHIFT(US_EXLM, US_PERC)
+SHIFT_FOR_2(US_AT)
+SHIFT_FOR_3(US_DLR)
+#+end_src
+
+**** The Code
+
+***** Functions
+
+Make some functions
+
+#+begin_src C :tangle extensions/alt_shift.c
+
+#include USERSPACE_H
+#include <stdbool.h>
+#include <stdint.h>
+
+bool shift_for_two(uint16_t keycode, keyrecord_t *record){
+  uint16_t mod_state = get_mods();
+
+  bool is_shifted = (get_mods() & MOD_MASK_SHIFT) ||
+    (get_oneshot_mods() & MOD_MASK_SHIFT);
+
+  if(record ->event.pressed) {
+    // If shifted, double these common punctuation marks.
+    if(is_shifted){
+      // clear shift temporarily
+      del_mods(MOD_MASK_SHIFT);
+      del_oneshot_mods(MOD_MASK_SHIFT);
+
+      tap_code16(keycode);
+      tap_code16(keycode);
+
+      // restore previous shift state
+      set_mods(mod_state);
+      return false;
+    }
+  }
+  return true;
+}
+
+bool shift_for_three(uint16_t keycode, keyrecord_t *record){
+  uint16_t mod_state = get_mods();
+
+  bool is_shifted = (get_mods() & MOD_MASK_SHIFT) ||
+    (get_oneshot_mods() & MOD_MASK_SHIFT);
+
+  if(record ->event.pressed) {
+    // If shifted, double these common punctuation marks.
+    if(is_shifted){
+      // clear shift temporarily
+      del_mods(MOD_MASK_SHIFT);
+      del_oneshot_mods(MOD_MASK_SHIFT);
+
+      tap_code16(keycode);
+      tap_code16(keycode);
+      tap_code16(keycode);
+
+      // restore previous shift state
+      set_mods(mod_state);
+      return false;
+    }
+  }
+  return true;
+  }
+
+bool override_shift(uint16_t keycode,
+                    uint16_t shift_keycode,
+                    keyrecord_t *record
+                    ) {
+
+  bool is_shifted = (get_mods() & MOD_MASK_SHIFT) ||
+    (get_oneshot_mods() & MOD_MASK_SHIFT);
+
+  if (record->event.pressed) {
+    if (is_shifted) {
+      uint8_t mod_state = get_mods();
+      del_mods(MOD_MASK_SHIFT);
+      del_oneshot_mods(MOD_MASK_SHIFT);
+
+      tap_code16(shift_keycode);
+
+      set_mods(mod_state);
+    } else {
+      //tap_code16(keycode);
+    }
+  }
+  return false;
+}
+#+end_src
+
+***** Macros
+
+Some macros to build our switch statement for us.
+
+#+begin_src C :tangle extensions/alt_shift.c
+// macros for use in alt_shift.defs.
+#define ALT_SHIFT(KCKEY, KC01)            \
+  case KCKEY:                                   \
+  return override_shift(KCKEY, KC01, record);   \
+  break;
+
+#define SHIFT_FOR_2(KCKEY)                      \
+  case KCKEY:                                   \
+  return shift_for_two(KCKEY, record);          \
+  break;
+
+#define SHIFT_FOR_3(KCKEY)                \
+  case KCKEY:                                   \
+  return shift_for_three(KCKEY, record);        \
+  break;
+
+#+end_src
+
+***** The final switch/processor.
+
+Process it when asked. Our switch.
+
+#+begin_src C :tangle extensions/alt_shift.c
+bool process_alt_shift_user(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode){
+#include "alt_shift.def"
+  }
+  return true;
+}
+
+#+end_src
+*** Combos
+**** Introduction
+This is just the combos macros from =keyboards/gboards/g/keymap_combos.h=.
+It has to be included in your keymap. I have my defs here.
+
+I use combo reference layers so my combos are defined positionally on the keyboard
+rather than the layout. I still use combos on the navigation and symbols layers where
+they are their own reference.
+
+
+**** The Defs
+#+begin_src C :tangle defs/combos.def
+// Per layer combo reference layers.
+// Default is current layer, or COMBO_REF_DEFAULT if set.
+// _COMBO_REF is the default if enabled.
+
+//COMBO_REF_LAYER(_DVORAK_BP, _COMBO_REF2)
+COMBO_REF_LAYER(_NAV, _NAV)
+COMBO_REF_LAYER(_SYMB_EN, _SYMB_EN)
+DEFAULT_REF_LAYER(_COMBO_REF)
+
+
+// COMBOS
+//   name      result           chord keys
+
+// sml nav, sml keypad, zqxj, onshot accents, oneshot symbols
+// home, end, caps word, accents? -> aeeecio oe, ao,
+
+
+// reference COMBO_REF
+// I don't rememember why I decided to not mirror the sides. :-/
+
+// for now, the columns are
+
+// Left                               Right
+// pinky, ring, middle, index, inner, inner, index, middle, ring, pinky.
+//   1      2      3      4      5      1      2       3      4     5
+// perhaps:
+//   p      r      m      i      ii     ii     i       m      r     p
+// would be better.
+
+// Row 1
+
+// index/index
+COMB(SMLKEYPAD,  SML_KEYPAD,         CB_1L4, CB_1R2)
+// middle/middle
+COMB(OSACCENTM,  OSL_ACCENTS_MORTE,  CB_1L3, CB_1R3)
+// ring/ring  - 2 shot ctrl
+COMB(TSCTL,      TS_LCTL,       CB_1L2, CB_1R4)
+
+// #ifdef TOPROWS_LAYER_ENABLE
+// COMB(OSTOPROWS,  SML_TOPROWS,   CB_1L3, CB_1R3)
+// #endif
+
+// Row 2 - homerow.
+
+// left: index + :
+// right: index, middle, ring - sft, gui, enter
+// right index + :
+// left: index, middle, ring  - sft, escape, backspace
+// left: middle - right: ring - tab
+COMB(OSSFT,      OS_LSFT,        CB_2L4, CB_2R2)
+COMB(OSGUI,      OS_LGUI,        CB_2L4, CB_2R3)
+COMB(CENTER,     KC_ENTER,       CB_2L4, CB_2R4)
+COMB(CESC,       KC_ESC,         CB_2L3, CB_2R2)
+COMB(CBKSP,      KC_BSPC,        CB_2L2, CB_2R2)
+COMB(CTAB,       KC_TAB,         CB_2L3, CB_2R4)
+
+// ring/ring
+COMB(OSCTL,      OS_LCTL,        CB_2L2, CB_2R4)
+
+// middle/middle
+COMB(SMLNAV,     SML_NAV,        CB_2L3, CB_2R3)
+
+// Row 3
+// index/index
+COMB(capsword,  QK_CAPS_WORD_TOGGLE,      CB_3L4, CB_3R2)
+
+// middle/middle
+COMB(OSRALT,    OS_RALT,        CB_3L3, CB_3R3)
+// ring/ring
+COMB(OSLALT2,   OS_LALT,        CB_3L2, CB_3R4)
+
+COMB(OSLAYER,   LAYER_OSL,      CB_3L1, CB_3R5)
+COMB(OSLSYMB,   OSL_SYMB,       CB_TH2, CB_TH5)
+COMB(LNAV,      SML_NAV,        CB_TH3, CB_TH4)
+
+COMB(_Q,  KC_Q, CB_3L2, CB_3L3)
+COMB(_X,  KC_X, CB_3L3, CB_3L4)
+COMB(_Z,  KC_Z, CB_3R3, CB_3R4)
+
+// vertical thumb combos for the kyria
+//COMB(xxx,      xxx,            CB_TH2, CB_0TH1)
+
+#ifdef MEDIA_LAYER_ENABLE
+COMB(SMLMEDIA,      SML_MEDIA,            CB_TH3, CB_0TH2)
+#endif
+
+// COMB(OSLACCENT2,    OSL_ACCENTS_MORTE,        CB_TH4, CB_0TH3)
+COMB(KEYPAD,   SML_KEYPAD,     CB_TH5, CB_0TH4)
+
+
+// reference COMBO_REF2
+
+#if defined(COMBO_REF_LAYER_TWO_ENABLE)
+#  if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO)
+COMB(TSCTL_BP,     TS_LCTL,        CB2_1L3, CB2_1L4)
+COMB(SMLNAV1_bp,   SML_NAV,        CB2_1L2, CB2_1L3)
+
+#ifdef ACCENTS_MORTE_LAYER_ENABLE
+COMB(OSLACCENT_bp, OSL(_ACCENTS_MORTE_BP),  CB2_2L1, CB2_2L2)
+#endif
+
+COMB(SMLNAV_BP,    SML_NAV,        CB2_2L2, CB2_2L3)
+COMB(OSCTL_BP,     OS_LCTL,        CB2_2L3, CB2_2L4)
+
+COMB(OSSFT_BP,     OS_LSFT,        CB2_2R2, CB2_2R3)
+// COMB(SMLKEYPAD_BP, SML_KEYPAD_BP,  CB2_2R3, CB2_2R4)
+
+COMB(capsword_BP,  QK_CAPS_WORD_TOGGLE,   CB2_3L4, CB2_3R2)
+
+// COMB(OSLSYMBP_BP,  OSL(_SYMB_BP),  CB2_TH2, CB2_TH5)
+COMB(LNAV_BP,      SML_NAV,        CB2_TH3, CB2_TH4)
+
+COMB(_Qbp,  BP_Q, CB2_3L2, CB2_3L3)
+COMB(_Xbp,  BP_X, CB2_3L3, CB2_3L4)
+COMB(_Zbp,  BP_Z, CB2_3R3, CB2_3R4)
+#  endif
+#endif
+
+
+// Reference nav layer
+COMB(END_nav,   KC_END,  KC_PGUP, KC_PGDN)
+COMB(HOME_nav,  KC_HOME, KC_UP,   KC_DOWN)
+
+// should be somehow wrapped with LANG ?
+COMB(paren_sym, US_RPRN, US_OCDQUO, US_HASH)
+COMB(brack_sym, US_RBRC, US_QUES, US_UNDS)
+COMB(brace_sym, US_RCBR, US_MINS, US_COLN)
+
+
+//COMB(JKL_SPC,  KC_SPC,   KC_J,  KC_X)
+//SUBS(TH_THE,   "the",    KC_T,  KC_H) // SUBS uses SEND_STRING to output the given string.
+
+// from possum vibes to review.
+/*    COMBO NAME       | OUTPUT    | PARAMS    */
+
+// /*---- TOP ROW ----*/
+// COMB(turbonav,          NAV_TG,     KC_W, KC_R)         // Nav access
+// COMB(save,              S_SAVE,     KC_E, KC_R)         // Save
+// COMB(back_fwd,          BCK_FWD,    KC_R, KC_T)         // Back/Fwd (shifted)
+
+// COMB(undo_redo,         UND_RED,    KC_Y, KC_U)         // Undo/Redo (shifted)
+// COMB(esc,               KC_ESC,     KC_U, KC_O)         // Esc
+
+// #ifdef IS_PINKY_CLUSTER
+// COMB(delete,            KC_DEL,     KC_A, KC_SCLN)
+// COMB(caps,              KC_CAPS,    KC_Q, KC_P)
+// #endif
+
+// /*---- HOME ROW ----*/
+// COMB(cut,               S_CUT,      KC_S, KC_F)         // Shift+Del (cut)
+// COMB(copy,              S_COPY,     KC_S, KC_D)         // Ctrl+Ins (copy)
+// COMB(paste,             S_PASTE,    KC_D, KC_F)         // Shift+Del (paste)
+// COMB(panic,             PANIC,      KC_D, KC_K)         // panic!
+
+// COMB(nummode,           NUMMODE,    KC_J, KC_K)         // Nummode toggle
+// COMB(symmode,           SYM_TG,     KC_K, KC_L)         // Sym layer
+// COMB(tab,               KC_TAB,     KC_K, KC_M)         // Tab
+
+
+// /*---- BOTTOM ROW ----*/
+// COMB(hash,              KC_HASH,    KC_X, KC_C)         // #
+// COMB(fslash,            KC_SLSH,    KC_C, KC_V)         // /
+
+// COMB(dash,              KC_MINS,    KC_M, KC_COMM)      // -
+// COMB(asterisk,          KC_ASTR,    KC_COMM, KC_DOT)    // *
+// COMB(at,                KC_AT,      KC_M, KC_DOT)       // @
+
+
+// /*---- THUMBS ----*/
+// COMB(sys_lthm,          SYS_OSL,    KC_B, KC_ENT)       // Sys OSL
+
+// COMB(space_shift,       SPC_SFT,    KC_TAB, KC_SPC)     // space and activate oss
+
+// COMB(underscore_rthm,   KC_UNDS,    KC_SPC, KC_N)       // _
+
+// /*---- THUMB+ALPHAS ----*/
+// // COMB(os_fun,            FUN_OSL,    KC_ENT, KC_C)       // OS Func
+// // COMB(os_num,            NUM_OSL,    KC_A, KC_F)         // OSL num
+// // COMB(os_sym,            SYM_OSL,    KC_SPC, KC_M)       // OSL sym
+#+end_src
+
+*** Console Key Logger
+**** Introduction
+Console key logging - for heat maps.
+
+Both *CONSOLE_ENABLE* and *CONSOLE_KEY_LOGGER_ENABLE* must be
+set for this to work.
+
+This is a console key logger which can save keys typed for analysis of keymaps
+using Vlad/Precondition's heat map tool. The code for the logger came from
+[here](https://precondition.github.io/qmk-heatmap#how-to-collect-the-required-data)
+The explanation and use of the heatmap is [here](https://precondition.github.io/qmk-heatmap)
+
+There is a script /listen_keylogger.sh/ which should be run to collect
+the keylogger data. Combo data is also collected as recommended using
+the combo macro's inject.h mechanism.
+
+This does require *hid_listen* to be installed on the computer.
+On Arch linux this can by installed from the AUR with *yay -S hid_listen*
+
+The output can also be seen just by using *qmk console*
+
+Note: _print.h_ is automatically included when *CONSOLE_ENABLE* is set. This allows
+for debug messages anywhere in the code base as needed to see what might be going
+on.
+
+This is vlad's/@precondition, keylogger heatmap code.
+
+**** The Code
+
+Just a prototype here.
+#+begin_src C :tangle extensions/console_key_logger.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+void process_console_key_logger(uint16_t keycode, keyrecord_t *record);
+#+end_src
+
+Not much to this, we just turn it on and it goes.
+
+#+begin_src C :tangle extensions/console_key_logger.c
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+#if defined( CONSOLE_ENABLE) && defined(CONSOLE_KEY_LOGGER_ENABLE)
+
+#include USERSPACE_H
+#include "print.h"
+#include "console_key_logger.h"
+
+void process_console_key_logger(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
+            keycode,
+            record->event.key.row,
+            record->event.key.col,
+            get_highest_layer(layer_state),
+            record->event.pressed,
+            get_mods(),
+            get_oneshot_mods(),
+            record->tap.count
+            );
+  }
+}
+#endif
+#+end_src
+
+This is to register combos in the key logger so that they can also be analyzed.
+It goes into /inject.h/ because that is where the combo macros look for code to
+insert into the *process_combo_event()*.
+
+#+begin_src C :tangle extensions/inject.h
+#if defined( CONSOLE_ENABLE) && defined(CONSOLE_KEY_LOGGER_ENABLE)
+  if (pressed) {
+    combo_t *combo = &key_combos[combo_index];
+    uint8_t idx = 0;
+    uint16_t combo_keycode;
+    while ((combo_keycode = pgm_read_word(&combo->keys[idx])) != COMBO_END) {
+      uprintf("0x%04X,NA,NA,%u,%u,0x%02X,0x%02X,0\n",
+              combo_keycode,
+              /* <missing row information> */
+              /* <missing column information> */
+              get_highest_layer(layer_state),
+              pressed,
+              get_mods(),
+              get_oneshot_mods()
+              );
+      idx++;
+    }
+  }
+#endif
+#+end_src
+
+*** Encoders
+**** Introduction
+Encoders is very much like the official QMK encoder maps.  I wrote mine before then
+and this one has modifiers so I haven't switched to the official encoder map yet.
+
+This is basic encoder stuff, modified to use a def file which makes it a lot easier
+to define and use. It can switch the encoder functions based on layers and mods.
+Give it a layer name and/or mods to match on, and the clockwise and counter
+clockwise keycodes to send.
+
+I used LEFT and RIGHT, but really it's just 0-N, but I happen to have one
+on the left and one on the right. If you have one, use 0 or LEFT.
+
+The code scans the entries for matches on layer first, checking for a match for
+mods. If an encoder entry is not found it then scans for entries with
+layer set to *LAYER_NONE*.
+
+RGB light controls require calling the functions directly, for this
+there is a special macro and function that does this. The functions
+should take no arguments.
+
+Here are some example definitions.
+
+**** The Defs
+***** Defaults
+
+#+begin_src C :tangle defs/encoders.def
+// Layer/none, encoder index 0/1, CW_KC, CCW_KC, Qualifying mod or none
+// LAYER_NONE and MOD_NONE for a single use.
+// LEFT and RIGHT for index. 0 and 1...
+
+// default encoders, all layers no mods.
+ENCODER_ACTION(LAYER_NONE, RIGHT,  KC_PGDN, KC_PGUP, MOD_NONE)
+ENCODER_ACTION(LAYER_NONE, LEFT,   KC_DOWN, KC_UP,   MOD_NONE)
+ENCODER_ACTION(LAYER_NONE, LEFT,   KC_PGDN, KC_PGUP, MOD_LSFT)
+#+end_src
+
+***** Symbol layer
+
+#+begin_src C :tangle defs/encoders.def
+
+// Symbol layer encoders.
+// left and right.
+ENCODER_ACTION(_SYMB_EN, LEFT, KC_LEFT,       KC_RIGHT,       MOD_NONE)
+// word left or right.
+ENCODER_ACTION(_SYMB_EN, LEFT, LCTL(KC_LEFT), LCTL(KC_RIGHT), MOD_NONE)
+#+end_src
+
+***** Navigation layer
+
+#+begin_src C :tangle defs/encoders.def
+// Nav layer encoders.
+ENCODER_ACTION(_NAV, LEFT, KC_TAB,  S(KC_TAB), MOD_NONE)
+ENCODER_ACTION(_NAV, RIGHT, A(KC_TAB),  A(S(KC_TAB)), MOD_NONE)
+ENCODER_ACTION(_NAV, RIGHT, KC_VOLU, KC_VOLD,   MOD_NONE)
+#+end_src
+
+***** RGB controls
+
+#+begin_src C :tangle defs/encoders.def
+
+// RGB functions for the RGB layer.
+#ifdef RGB_MATRIX_ENABLE
+    ENCODER_FUNCTION(_RGB, LEFT,
+                rgb_matrix_increase_speed_noeeprom,
+                rgb_matrix_decrease_speed_noeeprom, MOD_NONE)
+
+    ENCODER_FUNCTION(_RGB, RIGHT,
+                rgb_matrix_increase_hue_noeeprom,
+                rgb_matrix_decrease_hue_noeeprom, MOD_NONE)
+
+    ENCODER_FUNCTION(_RGB, LEFT,
+                rgb_matrix_increase_sat_noeeprom,
+                rgb_matrix_decrease_sat_noeeprom, MOD_LSFT)
+
+    ENCODER_FUNCTION(_RGB, RIGHT,
+                rgb_matrix_increase_val_noeeprom,
+                rgb_matrix_decrease_val_noeeprom, MOD_LSFT)
+
+    ENCODER_FUNCTION(_RGB, LEFT,
+                rgb_matrix_step_noeeprom;
+                rgb_matrix_step_reverse_noeeprom, MOD_LCTL)
+
+#elif defined(RGBLIGHT_ENABLE)
+
+    ENCODER_FUNCTION(_RGB, LEFT,
+                rgblight_increase_speed_noeeprom,
+                rgblight_decrease_speed_noeeprom, MOD_NONE)
+
+    ENCODER_FUNCTION(_RGB, RIGHT,
+                rgblight_increase_hue_noeeprom,
+                rgblight_decrease_hue_noeeprom, MOD_NONE)
+
+    ENCODER_FUNCTION(_RGB, LEFT,
+                rgblight_increase_sat_noeeprom,
+                rgblight_decrease_sat_noeeprom, MOD_LSFT)
+
+    ENCODER_FUNCTION(_RGB, RIGHT,
+                rgblight_increase_val_noeeprom,
+                rgblight_decrease_val_noeeprom, MOD_LSFT)
+
+
+    ENCODER_FUNCTION(_RGB, LEFT,
+                rgblight_step_noeeprom,
+                rgblight_step_reverse_noeeprom, MOD_LCTL)
+#endif // RGB_MATRIX_ENABLE || RGBLIGHT_ENABLE
+#+end_src
+
+**** The Code
+
+There can be a default encoder action, default per layer, and an action can be assigned
+according to mod and layer as well. So it has a few more choices than the built in encoder map.
+
+Define some data.
+#+begin_src C :tangle extensions/encoders.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include QMK_KEYBOARD_H
+
+typedef struct {
+  uint16_t layer;
+  uint16_t index;  // 0 or 1, left/right.
+  uint16_t clockwise;
+  uint16_t counter_clockwise;
+  uint16_t mods;
+  void (*cw_func)(void);
+  void (*ccw_func)(void);
+} encoder_action_t;
+extern encoder_action_t encoder_actions[];
+extern uint8_t         NUM_ENCODER_ACTIONS;
+
+// haven't looked at the real values for index, but I know
+// 0 and 1 are left and right on my kyria.
+#define LEFT 0
+#define RIGHT 1
+#define LAYER_NONE -1
+#define MOD_NONE 0x00
+
+#define ENCODER_ACTION(LAYER, INDEX, CW_KC, CCW_KC, MOD)        \
+  {LAYER, INDEX, CW_KC, CCW_KC, MOD, NULL, NULL},
+
+#define ENCODER_FUNCTION(LAYER, INDEX, CW_FUNC, CCW_FUNC, MOD)  \
+  {LAYER, INDEX, 0, 0, MOD, CW_FUNC, CCW_FUNC},
+
+bool do_encoder_action(uint8_t index, bool clockwise, bool layer_actions);
+#+end_src
+
+Build some data
+
+#+begin_src C :tangle extensions/encoders.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#ifdef ENCODER_EXT_ENABLE
+#include "encoders.h"
+#include USERSPACE_H
+
+encoder_action_t encoder_actions[] = {
+#include "encoders.def"
+};
+uint8_t  NUM_ENCODER_ACTIONS = sizeof(encoder_actions) / sizeof(encoder_action_t);
+
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+  // do it twice, once for layer actions, once for non layer specific actions.
+  if (!do_encoder_action(index, clockwise, true)){
+    do_encoder_action(index, clockwise, false);
+  }
+  return false;
+}
+
+bool do_encoder_action(uint8_t index, bool clockwise, bool layer_actions) {
+  uint8_t mods = get_mods();
+  encoder_action_t *action;
+
+  // look for a match.
+  // on the layer, not on any layer.
+  // with the mods, or no mods.
+  for (int i = 0; i < NUM_ENCODER_ACTIONS; ++i) {
+    action = &encoder_actions[i];
+
+    // this encoder, or another.
+    if (action->index != index)
+              continue;
+
+    // skip non layer specific actions and visa versa
+    // two pass system, once for layers, again for
+    // actions without layers.
+    if (layer_actions){
+      if (action->layer == LAYER_NONE ||
+          action->layer != biton32(layer_state)){
+        continue;
+      }
+    }else if (action->layer != LAYER_NONE)
+      continue;
+
+    // no mods, or these mods.
+    if ((mods && (action->mods == MOD_NONE)) ||
+        (mods && (mods != action->mods)))
+    continue;
+
+    // found one.
+    if (clockwise) {
+      if (action->clockwise != 0) {
+        tap_code16(action->clockwise);
+      } else if (action->cw_func != NULL) {
+        action->cw_func();
+      }
+    } else {
+      if (action->counter_clockwise != 0) {
+        tap_code16(action->counter_clockwise);
+      } else if (action->ccw_func != NULL) {
+        action->ccw_func();
+      }
+    }
+  }
+  return false;
+}
+
+#endif
+#+end_src
+*** Key Codes
+**** Introduction
+/custom_keycodes.h/ is the custom keycode enumeration.  Plus where you would put defines for
+shortcuts to more complex key codes.
+
+Any new custom keys can just be added to  __defs/custom_keys.def__.
+
+__custom_keycodes.h__ is an extension of sorts. It sucks all the key code names out
+of all the other extensions and puts them in the enum so we dont have to.
+It also works just like normal for a header file where you can throw your
+keycode shortcuts and the like.
+
+For the extensions that have key definitions those keys are enumerated
+automatically. The keys are defined in the def files so there is no need
+to add them to the enumeration manually.
+
+It will complain as usual if there are duplicates.
+
+Mostly, __custom_keycodes.h__ is key defines to make shortcuts, since the enumeration
+is done almost completely automatically.  This covers 99% of my custom
+key code creation.
+
+***** When creating a new extension
+which defines keycodes, that extension will also need an entry in
+/custom_keycodes.h/ in order to automatically define the new key enumerations
+it´s def file creates. Just follow the code pattern you see below.
+
+**** The Defs
+
+This is just for additional keycode enums that the extensions don't create for you.
+It has tended to be a place to gather a lot of junk.  Separating these, and automating
+the extensions, and leaving the other cruftier bits in the .h at least feels organized.
+
+#+begin_src C :tangle defs/custom_keys.def
+// custom key codes.
+  EPRM,
+  //VRSN,
+
+  // LAYERStuff.
+  KC_NEXT_LOCALE,
+  KC_NEXT_BASE_LAYER,
+  KC_SET_BASE,
+  // Misc.
+  KC_MAKE,
+  KC_RESET,
+  KC_RGB_T,
+  RGB_IDL,
+  KC_SECRET_1,
+  KC_SECRET_2,
+  KC_SECRET_3,
+  KC_SECRET_4,
+  KC_SECRET_5,
+
+  KC_SPACETEST,
+
+  /// Need to evaluate which to keep.
+  BCK_FWD,  // Alt left and right
+  CLEAR,    // Clears all mods, does not change layers.
+  LOCKSCR,  // locks screen per is_windows value
+  PANIC,    // Clears all One-Shot keys and returns to base layer.
+  UND_RED,  // Ctrl Z and Y
+
+  // macros
+  QMKCOMP,  // qmk compile
+  QMKFLSH,  // qmk flash
+
+  // Swapper keys - just the swapper key, maybe gets reused.
+  SW_REV,  // Dead key, reverse direction for swapper
+
+// for the combo ref layers.
+  CB_0M1, CB_0M2, CB_0M3,
+  CB_1M1, CB_1M2, CB_1M3,
+  CB_2M1, CB_2M2, CB_2M3,
+  CB_3M1, CB_3M2, CB_3M3,
+  CB_4M1, CB_4M2, CB_4M3, CB_4M4, CB_4M5,
+
+  CB_1,  CB_2, CB_3, CB_4, CB_5, CB_6, CB_7, CB_8, CB_9, CB_0,
+
+  CB_1R1, CB_1R2, CB_1R3, CB_1R4, CB_1R5,
+  CB_1L1, CB_1L2, CB_1L3, CB_1L4, CB_1L5,
+  CB_2R1, CB_2R2, CB_2R3, CB_2R4, CB_2R5,
+  CB_2L1, CB_2L2, CB_2L3, CB_2L4, CB_2L5,
+  CB_3R1, CB_3R2, CB_3R3, CB_3R4, CB_3R5,
+  CB_3L1, CB_3L2, CB_3L3, CB_3L4, CB_3L5,
+  CB_4L1, CB_4L2, CB_4L3, CB_4L4, CB_4L5,
+  CB_4R1, CB_4R2, CB_4R3, CB_4R4, CB_4R5,
+// core 6 thumb keys for combo reference layer
+ CB_TH1, CB_TH2, CB_TH3, CB_TH4, CB_TH5, CB_TH6,
+ CB_1TH1,  CB_1TH2, CB_1TH3, CB_1TH4, CB_1TH5, CB_1TH6,
+// edge keys for the combo reference layer
+ L0_CB, L1_CB, L2_CB, L3_CB,
+ R0_CB, R1_CB, R2_CB, R3_CB,
+ // for the extra thumb keys on the kyria
+ CB_0TH1 , CB_0TH2, CB_0TH3, CB_0TH4,
+ CB_THA, CB_THB, CB_THC, CB_THD,
+
+
+// combo ref2
+  CB2_0M1, CB2_0M2, CB2_0M3,
+  CB2_1M1, CB2_1M2, CB2_1M3,
+  CB2_2M1, CB2_2M2, CB2_2M3,
+  CB2_3M1, CB2_3M2, CB2_3M3,
+  CB2_4M1, CB2_4M2, CB2_4M3, CB2_4M4, CB2_4M5,
+
+  CB2_1, CB2_2, CB2_3, CB2_4, CB2_5, CB2_6, CB2_7, CB2_8, CB2_9, CB2_0,
+
+  CB2_1R1, CB2_1R2, CB2_1R3, CB2_1R4, CB2_1R5,
+  CB2_1L1, CB2_1L2, CB2_1L3, CB2_1L4, CB2_1L5,
+  CB2_2R1, CB2_2R2, CB2_2R3, CB2_2R4, CB2_2R5,
+  CB2_2L1, CB2_2L2, CB2_2L3, CB2_2L4, CB2_2L5,
+  CB2_3R1, CB2_3R2, CB2_3R3, CB2_3R4, CB2_3R5,
+  CB2_3L1, CB2_3L2, CB2_3L3, CB2_3L4, CB2_3L5,
+  CB2_4L1, CB2_4L2, CB2_4L3, CB2_4L4, CB2_4L5,
+  CB2_4R1, CB2_4R2, CB2_4R3, CB2_4R4, CB2_4R5,
+
+// core 6 thumb keys for combo reference layer
+ CB2_TH1, CB2_TH2, CB2_TH3, CB2_TH4, CB2_TH5, CB2_TH6,
+ CB2_1TH1, CB2_1TH2, CB2_1TH3, CB2_1TH4, CB2_1TH5, CB2_1TH6,
+// edge keys for the combo reference layer
+ L0_CB2, L1_CB2, L2_CB2, L3_CB2,
+ R0_CB2, R1_CB2, R2_CB2, R3_CB2,
+// for the extra thumb keys on the kyria
+ CB2_0TH1 , CB2_0TH2, CB2_0TH3, CB2_0TH4,
+ CB2_THA, CB22_THB, CB2_THC, CB2_THD,
+#+end_src
+
+**** =custom_keycodes.h= pulls it all together.
+
+This is also where I tend to put all the other non enum type defines.
+Any language keymap headers are also included here since there job is
+to provide us with more keycodes.
+
+Automatic keycodes happen in here.  For the extensions that need keycodes,
+The name macro for the extension is used to create the keycodes.
+
+#+begin_src C :tangle extensions/custom_keycodes.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+#include USERSPACE_H
+#include "lang.h"
+
+//#define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
+
+// #define DEFAULT_LANG EN // US_INT // EN, BEPO, US_INT, EURkey
+
+#define KEY_NAME(NAME, ...) NAME,
+#define BLANK(...)
+
+enum userspace_custom_keycodes {
+  // Get all the custom keys from the defs if we can.
+  ALT_LOCAL_KEYS_START = SAFE_RANGE,
+#ifdef ALT_LOCAL_ENABLE
+#undef MK_KEY
+#define MK_KEY KEY_NAME
+#undef MK_SKEY
+#define MK_SKEY KEY_NAME
+#include "altlocal_keys.def"
+#undef MK_KEY
+#undef MK_SKEY
+#endif
+  ALT_LOCAL_KEYS_END,
+
+#ifdef ACCENTED_KEYS_ENABLE
+#undef ACCENTED
+#define ACCENTED KEY_NAME
+#include "accented_keys.def"
+#undef ACCENTED
+#endif
+
+// 4 different kinds of defs.
+#ifdef TAP_HOLD_ENABLE
+#undef TP_TPL
+#define TP_TPL KEY_NAME
+#undef TP_SML
+#define TP_SML KEY_NAME
+#undef OPEN_OCL
+#define OPEN_OCL KEY_NAME
+#undef OPEN_OCL_ND
+#define OPEN_OCL_ND KEY_NAME
+#include "tap_hold.def"
+#undef OPEN_OCL
+#undef OPEN_OCL_ND
+#undef TP_TPL
+#undef TP_SML
+#endif
+
+#ifdef UNICODE_ENABLE
+#undef UC_STR
+#define UC_STR KEY_NAME
+#include "unicode.def"
+#undef UC_STR
+#endif
+
+#ifdef SEND_STRING_ENABLE
+#undef SEND_STR
+#define SEND_STR KEY_NAME
+#undef SEND_STR_DELAY
+#define SEND_STR_DELAY KEY_NAME
+#include "send_string.def"
+#undef SEND_STR
+#undef SEND_STR_DELAY
+#endif
+
+#ifdef SMART_LOCK_ENABLE
+#undef SMLM
+#define SMLM KEY_NAME
+#undef SMLL
+#define SMLL KEY_NAME
+#include "smart_lock.def"
+#undef SMLM
+#undef SMLL
+#endif
+
+#ifdef MOD_LOCK_ENABLE
+#undef IGNORE_KC
+#define IGNORE_KC BLANK
+#undef MODL
+#define MODL KEY_NAME
+#include "mod_lock.def"
+#undef IGNORE_KC
+#undef MODL
+#endif
+
+
+#undef IGNORE_KEY
+#define IGNORE_KEY BLANK
+#undef CANCEL_KEY
+#define CANCEL_KEY BLANK
+#undef ONESHOT
+#undef NSHOT
+#define ONESHOT KEY_NAME
+#define NSHOT KEY_NAME
+
+#ifdef NSHOT_ENABLE
+#include "nshot.def"
+#else
+  TS_RCTL,
+  TS_LCTL,
+#endif
+
+#ifdef ONESHOT_MOD_ENABLE
+#include "oneshot.def"
+#endif
+
+#undef IGNORE_KEY
+#undef CANCEL_KEY
+#undef ONESHOT
+#undef NSHOT
+
+#ifdef SWAPPER_ENABLE
+#undef SWAPPER_KEY
+#define SWAPPER_KEY KEY_NAME
+#include "swapper.def"
+#undef SWAPPER_KEY
+#endif
+
+#ifdef NOT_DEAD_ENABLE
+#undef NOT_DEAD
+#define NOT_DEAD KEY_NAME
+#include "not_dead.def"
+#undef NOT_DEAD
+#endif
+
+#include "custom_keys.def"
+  NEW_SAFE_RANGE
+};
+
+#define FIRST_LAYER (BEGINNING_OF_BASE_LAYERS + 1)
+
+#define TL_DQUO TLKC(_DQUO)
+#define TL_QUOT TLKC(_QUOT)
+#define TL_COMM TLKC(_COMM)
+#define TL_DOT  TLKC(_DOT)
+#define TL_SCLN TLKC(_SCLN)
+#define TL_SLSH TLKC(_SLSH)
+#define TL_EXLM TLKC(_EXLM)
+#define TL_MINS TLKC(_MINS)
+#define TL_LPRN TLKC(_LPRN)
+#define TL_LCBR TLKC(_LCBR)
+#define TL_HASH TLKC(_HASH)
+#define TL_EQL  TLKC(_EQL)
+#ifdef SYMBOL_LAYER_ENABLE
+#define TL_DOT_SYMB LT(LN_SYMB, LANG_KC(TL_DOT))
+#endif
+
+
+#define BP_LT BP_LABK
+#define BP_GT BP_RABK
+#define BP_TAB KC_TAB
+#define US_GT US_RABK
+#define US_LT US_LABK
+#define US_TAB KC_TAB
+#define US_DCMM KC_COMM // us doesn't have this dead key.
+
+// this is odd, there is interplay between this and
+// the not-dead extension. - and tap-hold not-dead.
+#undef US_TILD
+#define US_TILD KC_TILD
+// redefine us_circ so we actually get a circ.
+#undef US_CIRC
+#define US_CIRC KC_CIRC
+#define US_EQUAL KC_EQUAL
+// redefine us_quote so we actually get a quote.
+#undef US_QUOT
+#define US_QUOT KC_QUOT
+
+#define US_PRINT_SCREEN KC_PRINT_SCREEN
+#define US_SCROLL_LOCK KC_SCROLL_LOCK
+#define US_PAUSE KC_PAUSE
+#define BP_PRINT_SCREEN KC_PRINT_SCREEN
+#define BP_SCROLL_LOCK KC_SCROLL_LOCK
+#define BP_PAUSE KC_PAUSE
+
+#define BP_F1 KC_F1
+#define BP_F2 KC_F2
+#define BP_F3 KC_F3
+#define BP_F4 KC_F4
+#define BP_F5 KC_F5
+#define BP_F6 KC_F6
+#define BP_F7 KC_F7
+#define BP_F8 KC_F8
+#define BP_F9 KC_F9
+#define BP_F10 KC_F10
+#define BP_F11 KC_F11
+#define BP_F12 KC_F12
+#define BP_TRNS KC_TRNS
+
+#define US_F1 KC_F1
+#define US_F2 KC_F2
+#define US_F3 KC_F3
+#define US_F4 KC_F4
+#define US_F5 KC_F5
+#define US_F6 KC_F6
+#define US_F7 KC_F7
+#define US_F8 KC_F8
+#define US_F9 KC_F9
+#define US_F10 KC_F10
+#define US_F11 KC_F11
+#define US_F12 KC_F12
+#define US_TRNS KC_TRNS
+
+#ifdef KEYPAD_LAYER_ENABLE
+#define TT_KEYPAD TT(LANG_N(_KEYPAD))
+#define MO_KEYPAD MO(LANG_N(_KEYPAD))
+#else
+#define TT_KEYPAD ___
+#define MO_KEYPAD ___
+#endif
+
+#ifdef SYMBOL_LAYER_ENABLE
+#define TT_SYMB TT(LANG_N(_SYMB))
+#define MO_SYMB MO(LANG_N(_SYMB))
+#define OSL_SYMB OSL(LANG_N(_SYMB))
+#else
+#define TT_SYMB ___
+#define MO_SYMB ___
+#define OSL_SYMB ___
+#endif
+
+#ifdef TOPROWS_LAYER_ENABLE
+#define TT_TOPROWS TT(LANG_N(_TOPROWS))
+#define MO_TOPROWS MO(LANG_N(_TOPROWS))
+#else
+#define TT_TOPROWS ___
+#define MO_TOPROWS ___
+#endif
+
+#ifdef RGB_LAYER_ENABLE
+#define MO_RGB MO(_RGB)
+#else
+#define MO_RGB ___
+#endif
+
+#ifdef ADJUST_LAYER_ENABLE
+#define MO_ADJUST MO(_ADJUST)
+#else
+#define MO_ADJUST ___
+#endif
+
+#ifdef ACCENTS_MORTE_LAYER_ENABLE
+//#define LN_ACCENTS_MORTE LANG_N(_ACCENTS_MORTE)
+#define OSL_ACCENTS_MORTE OSL(LANG_N(_ACCENTS_MORTE))
+#else
+#define OSL_ACCENTS_MORTE ___
+#endif
+
+#ifdef ACCENTS_LAYER_ENABLE
+#define LN_ACCENTS LANG_N(_ACCENTS)
+#define OSL_ACCENTS OSL(LN_ACCENTS)
+#else
+#define OSL_ACCENTS ___
+#endif
+
+#ifdef MORTE_LAYER_ENABLE
+#define LN_MORTE LANG_N(_MORTE)
+#define OSL_MORTE OSL(LN_MORTE)
+#else
+#define OSL_MORTE ___
+#endif
+
+#define CTLGUI_T(kc) MT(MOD_LGUI | MOD_LCTL, kc)
+#define SFTGUI_T(kc) MT(MOD_LGUI | MOD_LSFT, kc)
+#define ALTGUI_T(kc) MT(MOD_LGUI | MOD_LALT, kc)
+
+#define ALT_ENT     ALGR_T(KC_ENT)       // Alt oor nter
+#define CTL_ENT     CTL_T(KC_ENT)       // ctrl or space
+#define CTL_SPC     CTL_T(KC_SPC)       // ctrl or space
+#define CTL_BSPC    CTL_T(KC_BSPC)      // ctrl or backspace
+#define ALT_DEL     ALT_T(KC_DEL)       // Alt or delete
+#define GUI_ESC     GUI_T(KC_ESC)       // Gui or escape
+#define ALGR_SYMB   ALGR_T(TG(LANG_N(_SYMB))) // Alt gre or toggle symbol layer
+
+// one shot on tap, or hold like usual
+#define OSLCTL_CTL CTL_T(OS_LCTL)
+#define OSLSFT_SFT SFT_T(OS_LSFT)
+#define OSLALT_ALT ALT_T(OS_LALT)
+#define OSLGUI_GUI GUI_T(OS_LGUI)
+
+/* miryoku */
+/*   esc_media, space_navnm, tab_navm,  ENT_SYM, BSPC_TOPR, del_fun */
+/* hands down */
+/* TL_COMM, TL_DOT_SYMB, GUI_ESC, ALT_ENT, SPC_TOPR, BSPC */
+
+// Lots of LT options.  My thumb keys.
+#ifdef TOPROWS_LAYER_ENABLE
+#define LN_TOPROWS LANG_N(_TOPROWS)
+#else
+#define LN_TOPROWS KC_NO
+#endif
+
+#ifdef SYMBOL_LAYER_ENABLE
+#  define LN_SYMB LANG_N(_SYMB)
+#  define TH_LTR_SYM LT(LN_SYMB, THUMB_LETTER)
+#else
+#  define TH_LTR_SYM THUMB_LETTER
+#endif
+
+#define TH_LTR_NAV LT(_NAV, THUMB_LETTER)
+
+#define LN_KEYPAD LANG_N(_KEYPAD)
+
+#define ACCENTS_RALT MT(MOD_RALT, OSL_ACCENTS)
+#define ACCENTS_CTL MT(MOD_LCTL, OSL_ACCENTS)
+#define ENT_SYM LT(LN_SYMB, KC_ENT)
+#define ENT_NAV LT(_NAV, KC_ENT)
+#define ENT_TOPR LT(LN_TOPROWS, KC_ENT)
+
+#define ESC_TOPR LT(LN_TOPROWS, KC_ESC)
+#define ESC_SYMB LT(LN_SYMB, KC_ESC)
+#define ESC_NUM LT(LN_KEYPAD, KC_ESC)
+#define ESC_MEDIA LT(_MEDIA, KC_ESC)
+
+#define DEL_FUN LT(_FUN, KC_DEL)
+#define TAB_NAVM LT(_NAVm, KC_TAB)
+#define TAB_NUM LT(LN_KEYPAD, KC_TAB)
+#define I_SYMB LT(LN_SYMB, KC_I)
+
+#define SPC_NAVm   LT(_NAVm, KC_SPC)
+#define SPC_NAVnm  LT(_NAVnm, KC_SPC)
+#define SPC_NAV    LT(_NAV, KC_SPC)
+#define SPC_SYMB   LT(LN_SYMB, KC_SPC)
+#define SPC_TOPR   LT(LN_TOPROWS, KC_SPC)
+#define SPC_LAYR   LT(_LAYERS, KC_SPC)
+#define SPC_ADJ    LT(_ADJUST, KC_SPC)
+#define SPC_NUM    LT(LN_KEYPAD, KC_SPC)
+
+#define BSPC_NAVm  LT(_NAVm, KC_BSPC)
+#define BSPC_NAV   LT(_NAV, KC_BSPC)
+#ifdef SYMBOL_LAYER_ENABLE
+#define BSPC_SYMB  LT(LN_SYMB, KC_BSPC)
+#else
+#define BSPC_SYMB  KC_BSPC
+#endif
+#define BSPC_TOPR  LT(LN_TOPROWS, KC_BSPC)
+#define BSPC_NUM   LT(LN_KEYPAD, KC_BSPC)
+#define BSPC_ALT   MT(MOD_LALT, KC_BSPC)
+#define BSPC_MEDIA LT(_MEDIA, KC_BSPC)
+
+#define KC_BKTAB    LSFT(KC_TAB)
+
+// layer toggles
+#define LAYER_OSL   OSL(_LAYERS)
+#define SYM_OSL     OSL(LN_SYMB)
+#define SYM_TG      TG(LN_SYMB)
+#define SYM_MO      MO(LN_SYMB)
+#define NAV_TG      TG(_NAV)
+#define COMBO_REF_TG_EN TG(_COMBO_REF)
+#define NUM_OSL     OSL(LN_KEYPAD)
+#define NUM_TO      TO(LN_KEYPAD)
+#define FUN_OSL     OSL(LN_FUNC)
+#define SYS_OSL     OSL(LN_SYSTEM)
+#define SYS_TG      TG(LN_SYSTEM)
+
+// Shortcuts
+#define S_CUT       S(KC_DEL)
+#define S_COPY      C(KC_INS)
+#define S_PASTE     S(KC_INS)
+#define S_UNDO      C(KC_Z)
+#define S_REDO      C(KC_Y)
+#define S_SAVE      C(KC_S)
+#define S_ALL       C(KC_A)
+#define S_BACK      A(KC_LEFT)
+#define S_FWD       A(KC_RIGHT)
+#define C_BSPC      C(KC_BSPC)
+#define SCREEN      S(C(KC_PSCR))
+
+// One Shot Mods keycodes,
+#define KC_MLSF OSM(MOD_LSFT)
+#define KC_MRSF OSM(MOD_RSFT)
+#define OS_LGUI OSM(MOD_LGUI)
+#define OS_RGUI OSM(MOD_RGUI)
+#define OS_LSFT OSM(MOD_LSFT)
+#define OS_RSFT OSM(MOD_RSFT)
+#define OS_LCTL OSM(MOD_LCTL)
+#define OS_RCTL OSM(MOD_RCTL)
+#define OS_LALT OSM(MOD_LALT)
+#define OS_RALT OSM(MOD_RALT)
+#define ALT_APP ALT_T(KC_APP)
+
+#define MG_NKRO MAGIC_TOGGLE_NKRO
+
+#define UC_IRNY UC(0x2E2E)
+#define UC_CLUE UC(0x203D)
+
+
+// HOME ROW LAYER TOGGLE (LT) and Shift.
+// both sides of the home row have  "shift, ___, media , symb, ___"  and  "___, symb, media, ___, shift".
+// so pinky fingers are shift when held and the index and second fingers are symbol and
+// media layers when held.
+
+// The most portable copy/paste keys (windows (mostly), linux, and some terminal emulators).
+// The KC_CCCV key takes care of the last two...
+#define MK_CUT    LSFT(KC_DEL)  // shift + delete
+#define MK_COPY   LCTL(KC_INS)  // ctrl + insert
+#define MK_PASTE  LSFT(KC_INS)  // shift + insert
+#define EOT     LCTL(KC_D)
+#define NAK     LCTL(KC_U)
+#define XPASTE   LCTL(LSFT(KC_V))
+#define UNDO    LCTL(KC_Z)
+#define XCOPY   LCTL(LSFT(KC_C))
+
+#undef ___ //kint defines it as KC_NO
+#define ___ KC_TRNS
+#define XXX KC_NO
+#define ____ _TRNS
+
+// Blocking keys
+#define _X_ XXX
+#define ___X___ XXX
+#define ___X2___ XXX, XXX
+#define ___X3___ ___X2___, XXX
+#define ___X4___ ___X3___, XXX
+#define ___X5___ ___X4___, XXX
+#define ___X6___ ___X5___, XXX
+#define ___X12___ ___X6___, ___X6___
+#define ___X15___ ___X5___, ___X5___,  ___X5___
+
+// Transparent keys
+#define ___2___ ___, ___
+#define ___3___ ___2___, ___
+#define ___4___ ___3___, ___
+#define ___5___ ___4___, ___
+#define ___6___ ___5___, ___
+#define ___10___ ___6___, ___4___
+#define ___12___ ___6___, ___6___
+#define ___14___ ___5___, ___4___,  ___5___
+#define ___15___ ___5___, ___5___,  ___5___
+#define ___16___ ___15___, ___
+
+#define ____2_ ____, ____
+#define ____3_ ____2_, ____
+#define ____4_ ____3_, ____
+#define ____5_ ____4_, ____
+#define ____6_ ____5_, ____
+#define ____10_ ____6_, ____4_
+#define ____12_ ____6_, ____6_
+#define ____14_ ____5_, ____4_,  ____5_
+#define ____15_ ____5_, ____5_,  ____5_
+#define ____16_ ____15_, ____
+
+int on_qwerty(void);
+
+#+end_src
+*** Key Over rides
+**** Introduction
+These are the standard QMK key overrides. For un/shifted pair keys *altlocal_keys* is
+much, +3x, smaller and direct in that it makes keycodes that can be placed anywhere.
+However, if ko's are desired, this extension is an easy place to start.
+
+There are nice macros which take care of defining everything that is possible
+with [[https://docs.qmk.fm/#/feature_key_overrides][the QMK *ko()* functions.  They all have really long names.]]
+
+If all you want Is KOL, that is better done with **altlocal_keys**.
+The rest make my brain hurt.
+
+**** The Defs
+
+#+begin_src C :tangle defs/key_overrides.def
+//KOL -> name, mod_mask, keycode, sendkeycode, layer to apply.
+
+// // these are actually handled by alt_local_keys, in a more universal
+// // and adaptable way.
+// KOL(slash_pipe,      MOD_MASK_SHIFT, KC_SLSH, KC_PIPE, _DVORAK_EN)
+
+// this one is interesting.
+KOL(slash_backslash, MOD_MASK_ALT,   KC_SLSH, KC_BSLS, _DVORAK_EN)
+
+// KOL(N2_dot,          MOD_MASK_SHIFT, KC_2,    KC_DOT,   _KEYPAD_EN)
+// KOL(N3_comma,        MOD_MASK_SHIFT, KC_3,    KC_COMMA, _KEYPAD_EN)
+
+// KOL(hash_at,         MOD_MASK_SHIFT, KC_HASH,    KC_AT,          _CDH)
+// KOL(dot_colon,       MOD_MASK_SHIFT, KC_DOT,     KC_COLN,        _CDH)
+// KOL(comma_semicolon, MOD_MASK_SHIFT, KC_COMMA,   KC_SCLN,        _CDH)
+// KOL(space_unds,      MOD_MASK_SHIFT, KC_SPACE,   KC_UNDS,        _CDH)
+// KOL(mins_exlm,       MOD_MASK_SHIFT, KC_MINS,    KC_EXLM,        _CDH)
+
+// KOL(bspc_del,        MOD_MASK_SHIFT, KC_BSPC,    KC_DEL,         _NAV)
+
+// KOL(zero_degree,     MOD_MASK_SHIFT, KC_0,       DEGREE,         _KEYPAD_EN)
+
+// KOL(eur_pnd,         MOD_MASK_SHIFT, KC_EUR,     KC_PND,         _SYMB_EN)
+#+end_src
+
+***** Other Macros.
+Other key overrides can be defined with these other macros.
+
+#+begin_src C
+KO(name, mods, key, replacement)
+
+KOL(name, mods, modded_key, replacement, layer)
+
+KOLN(name, mods, key, replacement, layer, neg_mods)
+
+KOLNO(name, mods, key, replacement, layer, neg_mods, options)
+#+end_src
+
+**** The Code
+
+Just a little bit of macro here.
+
+#+begin_src C :tangle extensions/key_overrides.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+#ifdef KEY_OVERRIDE_ENABLE
+
+#define KO_NAME(name, ...) &name,
+#define KO_T(name) const key_override_t name
+
+#undef KOL
+#define KOL(name, mods, modded_key, replacement, layer)                 \
+  KO_T(name) = ko_make_with_layers(mods, modded_key, replacement, (1 << layer));
+
+#define KO(name, mods, key, replacement)                \
+  KO_T(name) = ko_make_basic(mods, key, replacement)
+
+#define KOLN(name, mods, key, replacement, layers, neg_mods)            \
+  KO_T(name) = ko_make_with_layers_and_negmods(mods, key, replacement, layers, neg_mods)
+
+#define KOLNO(name, mods, key, replacement, layers, neg_mods, options)  \
+  KO_T(name) = ko_make_with_layers_negmods_and_options                  \
+    (mods, key, replacement, layers, neg_mods, options)
+
+#include "key_overrides.def"
+
+#undef KO
+#undef KOL
+#undef KOLN
+#undef KOLNO
+#define KO KO_NAME
+#define KOL KO_NAME
+#define KOLN KO_NAME
+#define KOLNO KO_NAME
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+#include "key_overrides.def"
+  NULL // Null terminate the array of overrides!
+};
+#endif
+#+end_src
+*** Mod Lock
+**** Introduction
+Mod Lock gives keycodes for locking mods to lock, until a cancel key or ignore key is tapped.
+I have switched to the smart lock extension which is similar.
+
+Mod lock is originally from @possumvibes, it has ignore keys as well,
+but these keys apply to all locks defined. which gives a slightly smaller
+memory footprint than smart locks. The mods, are also keycodes, rather than mod codes.
+
+The behavior is the same as smart lock mods, but less flexible, and smaller.
+
+Ignore keys are universal for all mod locks.
+
+**** The Defs
+
+#+begin_src C :tangle defs/mod_lock.def
+// mod lock keys. takes keymods not mods.
+// keycode should be defined in custom_keys.def.
+// custom key,  modkey to activate
+MODL(ML_LSFT, KC_LSFT)
+MODL(ML_LCTL, KC_LCTL)
+MODL(ML_LALT, KC_LALT)
+MODL(ML_LGUI, KC_LGUI)
+
+// Keycodes which will NOT cancel mod lock mode.
+IGNORE_KC( KC_LEFT)
+IGNORE_KC( KC_RGHT)
+IGNORE_KC( KC_UP)
+IGNORE_KC( KC_DOWN)
+IGNORE_KC( KC_HOME)
+IGNORE_KC( KC_END)
+IGNORE_KC( ML_LALT)
+IGNORE_KC( ML_LCTL)
+IGNORE_KC( ML_LGUI)
+IGNORE_KC( ML_LSFT)
+#+end_src
+
+**** The Code
+
+Define the data.
+
+#+begin_src C :tangle extensions/mod_lock.h
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+#include USERSPACE_H
+
+typedef struct {
+    bool          locking;
+    uint16_t      mod;
+    uint16_t      trigger;
+} mod_lock_state_t;
+
+extern mod_lock_state_t mod_lock_states[];
+extern uint8_t          NUM_MODLOCK_STATES;
+
+// Custom mod-locking functionality that registers the mod and
+// keeps it registered until the trigger key is tapped again
+// or until a specified cancel key is tapped.
+void process_mod_lock(uint16_t keycode, keyrecord_t *record);
+
+bool is_mod_lock_cancel_key(uint16_t keycode);
+
+#undef IGNORE_KC
+#define IGNORE_KC(KC)                           \
+  case KC:
+#+end_src
+
+
+#+begin_src C :tangle extensions/mod_lock.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>, @possumvibes
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+// Derived from mod_lock by @possumvibes.
+
+#include "mod_lock.h"
+
+#undef MODL
+#define MODL(KEYCODE, MODKC)                    \
+  {false, MODKC, KEYCODE},
+
+#define A_KEY(KEYCODE) case KEYCODE:
+#define BLANK(...)
+
+#undef IGNORE_KC
+#define IGNORE_KC BLANK
+
+mod_lock_state_t modlock_states[] = {
+#ifdef MOD_LOCK_ENABLE
+#include "mod_lock.def"
+#endif
+};
+uint8_t        NUM_MODLOCK_STATES = sizeof(modlock_states) / sizeof(mod_lock_state_t);
+
+void process_mod_lock(uint16_t keycode, keyrecord_t *record) {
+#ifdef MOD_LOCK_ENABLE
+  mod_lock_state_t *curr_state = NULL;
+
+  for (int i = 0; i < NUM_MODLOCK_STATES; ++i) {
+    curr_state = &modlock_states[i];
+
+    if (keycode == curr_state->trigger) {
+      if (record->event.pressed) {
+        if (curr_state->locking) {
+          unregister_code(curr_state->mod);
+        } else {
+          register_code(curr_state->mod);
+        }
+
+        curr_state->locking = !curr_state->locking;
+      }
+    } else {
+      // check for cancel condition on keydown and keyup
+      if (curr_state->locking && is_mod_lock_cancel_key(keycode)) {
+        unregister_code(curr_state->mod);
+        curr_state->locking = false;
+      }
+    }
+  }
+#endif
+}
+
+#undef MODL
+#undef IGNORE_KC
+#define MODL BLANK
+#define IGNORE_KC A_KEY
+bool is_mod_lock_cancel_key(uint16_t keycode) {
+    // Mod locks are exclusively used on the nav layer.
+    // any key besides nav keys should cancel the lock.
+    switch (keycode) {
+#ifdef MOD_LOCK_ENABLE
+#include "mod_lock.def"
+#endif
+      return false;
+    default:
+            return true;
+    }
+}
+#+end_src
+*** Not Dead
+**** Introduction
+As a writer dead keys give me access to accented letters in other languages,
+As a programmer they are a pain, especially for a Vi user. This problem is
+limited to a few characters. This extension helps to fix these
+characters and make them accessible as non-dead keys.
+
+It does this by adding a space afterward. The space is eaten by the OS keyboard driver and the letter
+emerges as needed. Here are some non dead keys for US-Intl.
+Not dead is to give us undead versions of our dead keys like '`´ and ^.
+
+An example.  this makes a =US_DQUO_ND= keycode from the =US_DQUO= dead keycode.
+It does this by adding a space keycode after the initial keycode.  Which for most
+input methods makes the dead key undead.
+**** The Defs
+
+#+begin_src C :tangle defs/not_dead.def
+// Make not dead keys from dead keys.
+// Not dead keycode, dead key
+NOT_DEAD(KC_DQUO_ND, KC_DQUO)
+NOT_DEAD(KC_GRV_ND,  KC_GRV)
+NOT_DEAD(KC_QUOT_ND, KC_QUOT)
+NOT_DEAD(KC_CIRC_ND, KC_CIRC)
+NOT_DEAD(KC_TILD_ND, KC_TILD)
+
+NOT_DEAD(US_DQUO_ND, US_DQUO)
+NOT_DEAD(US_GRV_ND,  US_GRV)
+NOT_DEAD(US_QUOT_ND, US_QUOT)
+NOT_DEAD(US_CIRC_ND, US_CIRC)
+NOT_DEAD(US_TILD_ND, US_TILD)
+
+NOT_DEAD(BP_DQUO_ND, BP_DQUO)
+NOT_DEAD(BP_GRV_ND,  BP_GRV)
+NOT_DEAD(BP_QUOT_ND, BP_QUOT)
+NOT_DEAD(BP_CIRC_ND, BP_CIRC)
+NOT_DEAD(BP_TILD_ND, BP_TILD)
+#+end_src
+
+**** The Code
+This is stupid simple. A function, a macro to wrap a case with said function, a switch statement.
+
+#+begin_src C :tangle extensions/not_dead.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include USERSPACE_H
+
+inline void not_dead(uint16_t kc1, keyrecord_t *record) {
+  if (record->event.pressed) {
+    tap_code16(kc1);
+    tap_code16(KC_SPACE);
+  }
+}
+
+#define NOT_DEAD(KCKEY, KC01)             \
+  case KCKEY:                             \
+  not_dead(KC01, record);                 \
+  break;                                  \
+
+void process_not_dead(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode){
+#include "not_dead.def"
+  }
+}
+#+end_src
+*** N-Shot Mod
+**** Introduction
+I simply modified N-shots to use a def file. This is essentially @possumvibes
+fancier version of @callum's one shot mods. It has ignore and cancel keys,
+and there are one shot mods or N shot mods. Ignore and cancel keys apply
+to all oneshot and n-shots.
+
+N-Shot mods give keycodes for  a 1 or more shot mod.  For instance I have a 2-shot control
+I use to do Ctrl-C Ctrl-C in emacs.
+
+Like lock mods, and smart locks it also has cancel keys and ignore keys which can be set.
+
+**** The Defs
+
+#+begin_src C :tangle defs/nshot.def
+// Define keycodes in custom keys.
+// KEYCode, mod keycode, to set for n-shot.
+// ONESHOT is for one.
+// NSHOT takes a count.
+
+// oneshots
+ONESHOT(OS_LSFT, KC_LSFT)
+ONESHOT(OS_LCTL, KC_LCTL)
+ONESHOT(OS_LALT, KC_LALT)
+ONESHOT(OS_LGUI, KC_LGUI)
+
+ONESHOT(OS_RSFT, KC_RSFT)
+ONESHOT(OS_RCTL, KC_RCTL)
+ONESHOT(OS_RALT, KC_RALT)
+ONESHOT(OS_RGUI, KC_RGUI)
+
+// N-Shots
+NSHOT(TS_LCTL, KC_LCTL, 2)
+NSHOT(TS_RCTL, KC_RCTL, 2)
+
+// Keys which will cancel the n-shots.
+CANCEL_KEY( PANIC)
+CANCEL_KEY( CLEAR)
+//CANCEL_KEY( THM_LH0)
+//CANCEL_KEY( THM_LH1)
+//CANCEL_KEY( THM_RH0)
+//CANCEL_KEY( THM_RH1)
+
+// inherited from @possumvibes, keeping for now.
+// Keys which will be ignored by n-shots.
+//IGNORE_KEY( THM_LH0)
+//IGNORE_KEY( THM_LH1)
+//IGNORE_KEY( THM_RH0)
+//IGNORE_KEY( THM_RH1)
+//IGNORE_KEY( SYM_OSL)
+//IGNORE_KEY( SYM_TG)
+//IGNORE_KEY( NAV_TG)
+//IGNORE_KEY( NUM_OSL)
+//IGNORE_KEY( NUM_TO)
+//IGNORE_KEY( FUN_OSL)
+//IGNORE_KEY( ALPHA)
+IGNORE_KEY( SML_NAV)
+IGNORE_KEY( SPC_TOPR)
+// IGNORE_KEY( SML_KEYPAD)
+//IGNORE_KEY( SML_TOPROWS)
+#+end_src
+
+**** The Code
+
+Just the process nshot bit so we can include this where we want it.
+
+#+begin_src C :tangle extensions/process_nshot.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+// Custom one-or-more-shot implementation that does not rely on timers
+// and persists across layer changes. Based on the users/callum implementation
+// at https://github.com/callum-oakley/qmk_firmware/tree/master/users/callum
+bool process_nshot_state(uint16_t keycode, keyrecord_t *record);
+#+end_src
+Some data structures are needed for this.
+
+#+begin_src C :tangle extensions/nshot_mod.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+#include QMK_KEYBOARD_H
+
+// Represents the four states an n-shot key can be in (from users/callum)
+typedef enum {
+    os_up_unqueued,
+    os_up_queued,
+    os_down_unused,
+    os_down_used,
+} oneshot_state;
+
+typedef struct {
+    uint16_t      trigger;
+    uint16_t      mod;
+    uint8_t       max_count;
+    oneshot_state state;
+    uint8_t       count;
+} nshot_state_t;
+
+extern nshot_state_t nshot_states[];
+extern uint8_t             NUM_NSHOT_STATES;
+
+
+// Keys that should cancel the n-shot mod if tapped
+bool is_nshot_cancel_key(uint16_t keycode);
+
+// Keys that should not count towards n-shot usage (e.g., layer toggles)
+bool is_nshot_ignored_key(uint16_t keycode);
+#+end_src
+
+Build some data, big hairy process function, that I didn't have to write.
+
+#+begin_src C :tangle extensions/nshot_mod.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>, @possumvibes
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+// Derived from nshot_mod by @possumvibes.
+// Derived from one shot_mod by @Callum.
+
+#include "nshot_mod.h"
+#include USERSPACE_H
+
+#undef NSHOT
+#define NSHOT(KEYCODE, MOD, COUNT)              \
+  {KEYCODE, MOD, COUNT, os_up_unqueued, 0},
+
+#undef ONESHOT
+#define ONESHOT(KEYCODE, MOD) NSHOT(KEYCODE, MOD, 1)
+#define A_KEY(KEYCODE) case KEYCODE:
+#define BLANK(...)
+
+#define CANCEL_KEY BLANK
+#define IGNORE_KEY BLANK
+nshot_state_t  nshot_states[] = {
+#include "nshot.def"
+};
+uint8_t        NUM_NSHOT_STATES = sizeof(nshot_states) / sizeof(nshot_state_t);
+
+bool process_nshot_state(uint16_t keycode, keyrecord_t *record) {
+  nshot_state_t *curr_state = NULL;
+
+  switch(keycode){
+  case CLEAR: {
+    clear_oneshot_mods();
+    clear_mods();
+    return false;
+  }
+  case PANIC: {
+    clear_oneshot_mods();
+    clear_mods();
+    if (get_oneshot_layer() != 0) {
+      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+    }
+    layer_move(0);
+    return false;
+  }
+  }
+
+  for (int i = 0; i < NUM_NSHOT_STATES; ++i) {
+    curr_state = &nshot_states[i];
+
+    if (keycode == curr_state->trigger) {
+      if (record->event.pressed) {
+        // Trigger keydown
+        if (curr_state->state == os_up_unqueued) {
+          register_code(curr_state->mod);
+        }
+        curr_state->state = os_down_unused;
+        curr_state->count = 0;
+      } else {
+        // Trigger keyup
+        switch (curr_state->state) {
+        case os_down_unused:
+          // If we didn't use the mod while trigger was held, queue it.
+          curr_state->state = os_up_queued;
+          break;
+        case os_down_used:
+          // If we did use the mod while trigger was held, unregister it.
+          curr_state->state = os_up_unqueued;
+          unregister_code(curr_state->mod);
+          break;
+        default:
+          break;
+        }
+      }
+} else {
+       if (record->event.pressed) {
+         if (is_nshot_cancel_key(keycode) && curr_state->state != os_up_unqueued) {
+           // Cancel oneshot on designated cancel keydown.
+           curr_state->state = os_up_unqueued;
+           curr_state->count = 0;
+           unregister_code(curr_state->mod);
+         }
+       } else {
+         if (!is_nshot_ignored_key(keycode)) {
+           // On non-ignored keyup, consider the oneshot used.
+           switch (curr_state->state) {
+           case os_down_unused:
+             // The mod key is being held as a normal mod.
+             curr_state->state = os_down_used;
+             break;
+           case os_up_queued:
+             // The mod key is being used as an n-shot.
+             // Increment the keys-used count.
+             curr_state->count = curr_state->count + 1;
+
+             // If the n-shot max has been reached, complete the n-shot.
+             if (curr_state->count == curr_state->max_count) {
+               curr_state->state = os_up_unqueued;
+               curr_state->count = 0;
+               unregister_code(curr_state->mod);
+             }
+             break;
+           default:
+             break;
+           }
+         }
+       }
+     }
+   }
+  return true;
+}
+
+// turn off the nshot/oneshot macros
+#undef ONESHOT
+#undef NSHOT
+#define ONESHOT BLANK
+#define NSHOT BLANK
+
+#undef CANCEL_KEY
+#undef IGNORE_KEY
+#define IGNORE_KEY BLANK
+#define CANCEL_KEY A_KEY
+bool is_nshot_cancel_key(uint16_t keycode) {
+  switch (keycode) {
+#include "nshot.def"
+    return true;
+  default:
+    return false;
+  }
+}
+
+#undef CANCEL_KEY
+#undef IGNORE_KEY
+#define CANCEL_KEY BLANK
+#define IGNORE_KEY A_KEY
+bool is_nshot_ignored_key(uint16_t keycode) {
+    switch (keycode) {
+#include "nshot.def"
+      return true;
+    default:
+            return false;
+    }
+}
+#+end_src
+*** One Shot
+**** The Code
+This one does just One shots mods, but does them differently.
+Its bigger and hairier, but I dont think its better. I dont use it.
+
+This code came by way of @jurgen-kluft, I encapsulated the code and made
+the user functions definable with a .def file. This is similar to N-shots.
+This one keeps track of the last key consumed which helps it's decision making.
+It also has cancel and ignore keys like N-shots.
+
+Essentially the same as n-shots, but with less elegant C code. Choose one or
+the other. In evaluation.  The code for nshots is better.
+
+**** The Defs
+
+#+begin_src C :tangle defs/oneshot.def
+// simple one shots.
+// custom-key, Oneshot name.
+  ONESHOT( SOS_LSFT, ONESHOT_LSFT)
+  ONESHOT( SOS_LCTL, ONESHOT_LCTL)
+  ONESHOT( SOS_LALT, ONESHOT_LALT)
+  ONESHOT( SOS_LGUI, ONESHOT_LGUI)
+
+// keys to cancel
+  CANCEL_KEY( KC_ESC)
+
+//  CANCEL_KEY( KC_FNAV)
+//  CANCEL_KEY( KC_FNUM)
+//  CANCEL_KEY( KC_FCAPS)
+
+// keys to ignore.
+IGNORE_KEY( SPC_NAV)
+//  IGNORE_KEY( KC_FNAV)
+//  IGNORE_KEY( KC_FSYM)
+#+end_src
+
+**** The Code
+
+#+begin_src C :tangle extensions/oneshot.h
+#ifdef ONESHOT_ENABLE
+#pragma once
+
+typedef enum {
+  ONESHOT_LCTL = 0,
+  ONESHOT_LSFT = 1,
+  ONESHOT_LALT = 2,
+  ONESHOT_LGUI = 3,
+  ONESHOT_RCTL = 4,
+  ONESHOT_RSFT = 5,
+  ONESHOT_RALT = 6,
+  ONESHOT_RGUI = 7,
+  ONESHOT_NONE = 8,
+  ONESHOT_MOD_COUNT = 8,
+} oneshot_mod;
+
+
+// This function should be called inside proces_record_user and does everything needed to get one shot modifiers working.
+// Returns true if the keycode needs further handling, false otherwise.
+int8_t update_oneshot_modifiers(uint16_t keycode, keyrecord_t *record, int8_t keycode_consumed);
+int8_t turnoff_oneshot_modifiers(void);
+
+// TO BE IMPLEMENTED BY THE USER
+// This function should return one of the oneshot_mod enumerations (see keymap.c implementation)
+oneshot_mod get_modifier_for_trigger_key(uint16_t keycode);
+
+// TO BE IMPLEMENTED BY THE USER
+// This function should return true for keycodes that must be ignored in the oneshot modifier behaviour.
+// You probably want to ignore layer keys. Trigger keys don't need to be specified here.
+bool is_oneshot_modifier_ignored_key(uint16_t keycode);
+
+// TO BE IMPLEMENTED BY THE USER
+// This function should return true for keycodes that should reset all oneshot modifiers.
+bool is_oneshot_modifier_cancel_key(uint16_t keycode);
+
+#endif
+#+end_src
+
+Added the macros. Lipstick on a pig I think. Nothing against pigs.
+
+#+begin_src C :tangle extensions/oneshot.c
+
+#include QMK_KEYBOARD_H
+#include USERSPACE_H
+#include "oneshot.h"
+
+#ifdef ONESHOT_MOD_ENABLE
+
+/* -------------------------------------------- */
+// Add to process_record_user.
+/* int8_t keycode_consumed = 0; */
+
+/* #ifdef ONESHOT_ENABLE */
+/* keycode_consumed += update_oneshot_modifiers(keycode, record, keycode_consumed); */
+/* #endif */
+/* -------------------------------------------- */
+
+#define ONESHOT(KEYCODE, MOD) case KEYCODE: return MOD;
+
+#define A_KEY(KEYCODE) case KEYCODE:
+#define BLANK(...)
+
+#define CANCEL_KEY BLANK
+#define IGNORE_KEY BLANK
+
+// the basic states a oneshot modifier can be in
+typedef enum {
+    ONESHOT_STATE_OFF          = 0,
+    ONESHOT_STATE_PRESSED      = 1,
+    ONESHOT_STATE_QUEUED       = 2,
+    ONESHOT_STATE_CAPSWORD     = 3,
+    ONESHOT_STATE_LOCK         = 4,
+    ONESHOT_STATE_END_PRESSED  = 5,
+} oneshot_state;
+
+oneshot_state modifiers_state_transitions_normal[5] = {ONESHOT_STATE_PRESSED, ONESHOT_STATE_QUEUED, ONESHOT_STATE_LOCK, ONESHOT_STATE_END_PRESSED, ONESHOT_STATE_END_PRESSED};
+
+static oneshot_state modifiers_with_state[ONESHOT_MOD_COUNT] = {
+    ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF, ONESHOT_STATE_OFF,
+};
+
+// oneshot mods always get registered immediately to the operating system, but we also
+// need to keep track if the mod(s) got combined with a normal key (applied)
+static bool unapplied_mods_present = false;
+
+// keycode of the last pressed 'normal' key which haven't been released yet
+static uint16_t repeating_normal_key = 0;
+
+// utility functions (implemented at the bottom of this file)
+static void          set_modifier_state(oneshot_mod osmod, oneshot_state new_state);
+static int8_t        set_modifier_state_all(oneshot_state new_state);
+static void          set_modifier_state_all_from_to(oneshot_state oneshot_state_from, oneshot_state oneshot_state_to);
+static bool          all_modifiers_are_off(void);
+
+int8_t turnoff_oneshot_modifiers() {
+    return set_modifier_state_all(ONESHOT_STATE_OFF);
+}
+
+// see comment in corresponding headerfile
+int8_t update_oneshot_modifiers(uint16_t keycode, keyrecord_t *record, int8_t keycode_consumed) {
+
+    // cancel keys
+  if (is_oneshot_modifier_cancel_key(keycode) && record->event.pressed) {
+    if (keycode_consumed == 0) {
+      unapplied_mods_present = false;
+      keycode_consumed += set_modifier_state_all(ONESHOT_STATE_OFF);
+    } else {
+      keycode_consumed = 0;
+    }
+    return keycode_consumed;
+  }
+
+  // ignored keys
+  if (is_oneshot_modifier_ignored_key(keycode)) {
+    return keycode_consumed;
+  }
+
+  oneshot_mod osmod = get_modifier_for_trigger_key(keycode);
+
+  // trigger keys
+  if (osmod != ONESHOT_NONE) {
+    oneshot_state state = modifiers_with_state[osmod];
+    if (record->event.pressed) {
+      if (state == ONESHOT_STATE_OFF) {
+        unapplied_mods_present = (repeating_normal_key == 0);
+      }
+      oneshot_state tostate = modifiers_state_transitions_normal[state];
+      set_modifier_state(osmod, tostate);
+    } else {
+      if (state == ONESHOT_STATE_PRESSED) {
+        if (!unapplied_mods_present) {
+          set_modifier_state(osmod, ONESHOT_STATE_OFF);
+        } else {
+          set_modifier_state(osmod, ONESHOT_STATE_QUEUED);
+        }
+      } else if (state == ONESHOT_STATE_END_PRESSED) {
+        set_modifier_state(osmod, ONESHOT_STATE_OFF);
+      }
+    }
+  }
+  // normal keys
+  else {
+    if (record->event.pressed) {
+      if (!all_modifiers_are_off()) {
+        if (unapplied_mods_present) {
+          unapplied_mods_present = false;
+        } else {
+          unregister_code(repeating_normal_key);
+          set_modifier_state_all_from_to(ONESHOT_STATE_QUEUED, ONESHOT_STATE_OFF);
+        }
+      }
+      repeating_normal_key = keycode;
+    } else {
+      if (!all_modifiers_are_off()) {
+        unregister_code(keycode);
+        set_modifier_state_all_from_to(ONESHOT_STATE_QUEUED, ONESHOT_STATE_OFF);
+      }
+      repeating_normal_key = 0;
+    }
+  }
+
+  return 0;
+}
+
+// implementation of utility functions
+
+// registers/unregisters a mod to the operating system on state change if necessary
+void update_modifier(oneshot_mod osmod, oneshot_state previous_state, oneshot_state current_state) {
+    if (previous_state == ONESHOT_STATE_OFF) {
+        register_code(KC_LCTL + osmod);
+    } else {
+        if (current_state == ONESHOT_STATE_OFF) {
+            unregister_code(KC_LCTL + osmod);
+        }
+    }
+}
+
+void set_modifier_state(oneshot_mod osmod, oneshot_state new_state) {
+    oneshot_state previous_state = modifiers_with_state[osmod];
+    if (previous_state != new_state) {
+        modifiers_with_state[osmod] = new_state;
+        update_modifier(osmod, previous_state, new_state);
+    }
+}
+
+int8_t set_modifier_state_all(oneshot_state new_state) {
+    int8_t c = 0;
+    for (int8_t i = 0; i < ONESHOT_MOD_COUNT; i++) {
+        oneshot_state previous_state = modifiers_with_state[i];
+        if (previous_state != new_state) {
+            modifiers_with_state[i] = new_state;
+            update_modifier(i, previous_state, new_state);
+            c += 1;
+        }
+    }
+    return c;
+}
+
+void set_modifier_state_all_from_to(oneshot_state oneshot_state_from, oneshot_state oneshot_state_to) {
+    for (int8_t i = 0; i < ONESHOT_MOD_COUNT; i++) {
+        if (modifiers_with_state[i] == oneshot_state_from) {
+            modifiers_with_state[i] = oneshot_state_to;
+            update_modifier(i, oneshot_state_from, oneshot_state_to);
+        }
+    }
+}
+
+bool all_modifiers_are_off() {
+    for (int8_t i = 0; i < ONESHOT_MOD_COUNT; i++) {
+        if (modifiers_with_state[i] != ONESHOT_STATE_OFF) {
+            return false;
+        }
+    }
+    return true;
+}
+
+oneshot_mod get_modifier_for_trigger_key(uint16_t keycode)
+{
+  switch (keycode)
+    {
+#include "oneshot.def"
+      return true;
+    default:
+      return ONESHOT_NONE;
+    }
+}
+
+// turn off the oneshot macros
+#undef ONESHOT
+#define ONESHOT BLANK
+#define NSHOT BLANK
+
+#undef CANCEL_KEY
+#undef IGNORE_KEY
+#define CANCEL_KEY A_KEY
+#define IGNORE_KEY BLANK
+bool is_oneshot_modifier_cancel_key(uint16_t keycode) {
+  switch (keycode) {
+#include "oneshot.def"
+    return true;
+  default:
+    return false;
+  }
+}
+
+#undef CANCEL_KEY
+#undef IGNORE_KEY
+#define CANCEL_KEY BLANK
+#define IGNORE_KEY A_KEY
+bool is_oneshot_modifier_ignored_key(uint16_t keycode) {
+  switch (keycode) {
+#include "oneshot.def"
+    return true;
+  default:
+    return false;
+  }
+}
+
+#endif
+#+end_src
+*** Process Locales
+**** Introduction
+Process locales is just here to enable base layer and locale switching.
+It really lives in *lang/* but it should perhaps live here. Its about to
+get refactored away anyway.  The next iteration will just have multiple layer
+sets to choose from and will all be much simpler as an encapsulated extension.
+
+Mostly I try not to look at this.  :-/
+
+**** Some code.
+
+Just a prototype here.
+This is actually called from extensions.c and therefore =process_record_user()=.
+
+#+begin_src C :tangle lang/locales.h
+#pragma once
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include USERSPACE_H
+
+// Stuff we need for locale and layer switching
+// there can be more but we need to know where they start and end.
+// remember there's limitations on layers.
+// Our locales. so it's easy to switch between them.
+
+bool process_locales(uint16_t keycode, keyrecord_t *record);
+
+#define PROCESS_LOCALES                                         \
+  if (!process_locales(keycode, record)) { return false; }
+#+end_src
+
+Build some data for our locales. The future is just a simple list.
+
+#+begin_src C :tangle lang/locales.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+#include "ericgebhart.h"
+#include "process_locales.h"
+
+// Stuff we need for locale and layer switching
+// there can be more but we need to know where they start and end.
+// remember there's limitations on layers.
+// Our locales. so it's easy to switch between them.
+
+
+const uint16_t base_layer_count = BASE_NAME_COUNT - 1;
+
+const uint16_t locale_layers[][2] = {
+  [LOCALE_DEFAULT] =      {0, base_layer_count},
+#ifdef SECOND_LOCALE
+  [LOCALE_TWO] =    {BASE_NAME_COUNT, BASE_NAME_COUNT + base_layer_count},
+#endif
+};
+
+uint32_t current_locale = LOCALE_DEFAULT;
+#define LOCALE_LAYER_RANGE locale_layers[current_locale]
+#+end_src
+
+***** Simple code.
+Just a good old fashioned hard coded switch statement. Yay!
+All this is is some custom keys to do a function. It is the defacto way to stick something
+in your key process.  =Process_record_user()= examples abound.
+
+This is to give us key codes to cycle through the base layers for the current locale, and
+another for the locales.  Another key to set the current base layer in eeprom.
+
+#+begin_src C :tangle lang/locales.c
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include "ericgebhart.h"
+#include "locales.h"
+
+bool process_locales(uint16_t keycode, keyrecord_t *record) {
+
+  switch (keycode) {
+  case KC_SET_BASE:
+    // set the current default base to eeprom.
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(get_highest_layer(default_layer_state));
+    }
+    break;
+
+    // choose a different set of default layers based on locales.
+  case KC_NEXT_LOCALE:
+    // choose another locale and set the default base to the first layer.
+    if (!record->event.pressed) {
+      if (current_locale + 1 < LOCALES_END){
+        current_locale++;
+      }else{
+        current_locale = 0;
+      }
+      default_layer_set(1UL << LOCALE_LAYER_RANGE[0]);
+    }
+    return false;
+    break;
+
+    // choose a different base layer based on locales.
+    // simply iterates over the list and sets the default layer.
+  case KC_NEXT_BASE_LAYER:
+    if (!record->event.pressed) {
+      uint8_t current = get_highest_layer(default_layer_state);
+      if (current < LOCALE_LAYER_RANGE[1]){
+        current++;
+      }else{
+        current = LOCALE_LAYER_RANGE[0];
+      }
+      default_layer_set(1UL << current);
+    }
+    return false;
+    break;
+  }
+  return true;
+}
+#+end_src
+
+*** Quick Tap
+**** Introduction
+Global Quick tap shortens the window for home row mods so they work more
+like they do on ZMK.  I believe this was written by @dnaq with roots in code from  @dasky.
+
+It is an adaptation of [[https://zmk.dev/docs/behaviors/hold-tap#global-quick-tap][ZMK's global quick tap]].
+
+**** The Code
+
+#+begin_src C :tangle extensions/quick_tap.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>, @possumvibes
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// written by @dnaq.
+#if defined( global_quick_tap) && defined(CONSOLE_KEY_LOGGER_ENABLE)
+    bool process_global_quick_tap(uint16_t keycode, keyrecord_t *record) {
+      static uint16_t global_quick_tap_timer = 0;
+      if (keycode < QK_MOD_TAP || keycode > QK_MOD_TAP_MAX) {
+        global_quick_tap_timer = timer_read();
+        return true;
+      }
+      if (timer_elapsed(global_quick_tap_timer) > TAPPING_TERM) {
+        return true;
+      }
+      if (record->event.pressed) {
+        keycode = keycode & 0xFF;
+        global_quick_tap_timer = timer_read();
+        tap_code(keycode);
+        return false;
+      }
+      return true;
+    }
+#endif
+#+end_src
+
+*** Send String
+**** Introduction
+This is just the usual QMK send string wrapped up so its easy to make new ones without writing code.
+Create a keycode in the def, use it where ever you want.
+
+This gives us access to both  *SEND_STRING* and
+*SEND_STRING_DELAY*. Each entry defines a key to send a string.
+
+**** The Defs
+
+#+begin_src C :tangle defs/send_string.def
+// key to be defined and string to send.
+
+//SEND_STR(MYKEY, "this is a test")
+//SEND_STR_DELAY(MYKEY4, "this is another test")
+
+SEND_STR_DELAY(VRSN, QMK_KEYBOARD ":" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE)
+// SEND_STR_DELAY(VRSN, QMK_KEYBOARD ":" QMK_KEYMAP " # @ " QMK_VERSION)
+#+end_src
+
+**** The Code
+
+Just some macros wrapping some case statements....
+
+#+begin_src C :tangle extensions/send_string.c
+/*
+  Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+#include USERSPACE_H
+#include "version.h"
+
+#define SEND_STR(KEYC, STRING)                  \
+  case KEYC:                                    \
+  if (record->event.pressed) {                  \
+    SEND_STRING(STRING);                        \
+  }                                             \
+  break;
+
+#define SEND_STR_DELAY(KEYC, STRING)                    \
+  case KEYC:                                            \
+  if (record->event.pressed) {                          \
+    SEND_STRING_DELAY(STRING, TAP_CODE_DELAY);     \
+  }                                                \
+  break;
+
+void process_send_strs(uint16_t keycode, keyrecord_t *record){
+#ifdef SEND_STRING_ENABLE
+  switch (keycode) {
+#include "send_string.def"
+  }
+#endif
+}
+#+end_src
+
+*** Smart Lock
+**** Introduction
+Smart lock is like mod lock, but can lock layers and mods. It has ignore keys
+and cancel keys and those can be defined per keycode not just globally as
+in the other locking extensions.
+
+Smart locks are defined in *smart_lock.def*. They create a custom keycode,
+or, they need one, depending on how you look at it. Here they get created.
+
+Create a keycode that will lock a layer or a mod until a cancel key, or a non-ignore
+key is pressed.
+
+It takes a custom key code, a layer or mods, not mod keycode, to apply,
+followed by a list of keycodes to ignore and stay active.
+
+This allows popping to layer which will stick until it doesn't.
+Or to apply mods until it shouldn't. Each definition has it's
+own list of key codes to ignore. Derived from _smart_layers_
+by @possumvibes.
+
+Add a keycode to *custom_keys.def* then assign it to it's action in *smart_lock.def*.
+Notice how we can use our layer chunks for our list of ignore keys. This is quite handy.
+
+**** The Defs
+
+#+begin_src C :tangle defs/smart_lock.def
+// Define smart layers here.
+// SMLL = smart lock layer.
+// SMLM = smart lock mod.
+
+// Keycode, layer/mod.
+// list of keycodes to ignore.
+
+SMLM(SMLM_LSFT, MOD_LSFT,
+  ___VI_ARROWS___,
+  ___HOME_PGDN_PGUP_END___,
+  ___TAB_PGDN_PGUP_BKTAB___,
+  ___SML_MODS_L___)
+
+SMLM(SMLM_LCTL, MOD_LCTL,
+  ___VI_ARROWS___,
+  ___HOME_PGDN_PGUP_END___,
+  ___TAB_PGDN_PGUP_BKTAB___,
+  ___SML_MODS_L___)
+
+SMLM(SMLM_LALT, MOD_LALT,
+  ___VI_ARROWS___,
+  ___HOME_PGDN_PGUP_END___,
+  ___TAB_PGDN_PGUP_BKTAB___,
+  ___SML_MODS_L___)
+
+SMLM(SMLM_LGUI, MOD_LGUI,
+  ___VI_ARROWS___,
+  ___HOME_PGDN_PGUP_END___,
+  ___TAB_PGDN_PGUP_BKTAB___,
+  ___SML_MODS_L___)
+
+SMLM(SMLM_RSFT, MOD_RSFT,
+  ___VI_ARROWS___,
+  ___HOME_PGDN_PGUP_END___,
+  ___TAB_PGDN_PGUP_BKTAB___,
+  ___SML_MODS_L___)
+
+SMLM(SMLM_RCTL, MOD_RCTL,
+  ___VI_ARROWS___,
+  ___HOME_PGDN_PGUP_END___,
+  ___TAB_PGDN_PGUP_BKTAB___,
+  ___SML_MODS_L___)
+
+SMLM(SMLM_RALT, MOD_RALT,
+  ___VI_ARROWS___,
+  ___HOME_PGDN_PGUP_END___,
+  ___TAB_PGDN_PGUP_BKTAB___,
+  ___SML_MODS_L___)
+
+SMLM(SMLM_RGUI, MOD_RGUI,
+  ___VI_ARROWS___,
+  ___HOME_PGDN_PGUP_END___,
+  ___TAB_PGDN_PGUP_BKTAB___,
+  ___SML_MODS_L___)
+
+SMLL(SML_NAV, _NAV, ___NAV_3x10___)
+
+#ifdef MEDIA_LAYER_ENABLE
+SMLL(SML_MEDIA, _MEDIA, ___MEDIA_3x10___)
+#endif
+
+#ifdef MOUSEKEY_ENABLE
+SMLL(SML_NAVm, _NAVm, ___NAVm_3x10___)
+#endif
+
+SMLL(SML_KEYPAD, _KEYPAD_EN,
+  KC_1,
+  KC_2,
+  KC_3,
+  KC_4,
+  KC_5,
+  KC_6,
+  KC_7,
+  KC_8,
+  KC_9,
+  KC_0,
+  KC_PERC,
+  KC_DLR,
+  KC_COMM,
+  KC_DOT,
+  KC_SLSH,
+  KC_MINS,
+  KC_ASTR,
+  KC_PLUS,
+  KC_COLN,
+  KC_SCLN,
+  KC_EQL,
+  // KC_UNDS,
+  KC_BSPC,
+  KC_X,
+  SYM_MO)
+
+// SMLL(SML_KEYPAD_BP, _KEYPAD_BP,
+//   BP_1,
+//   BP_2,
+//   BP_3,
+//   BP_4,
+//   BP_5,
+//   BP_6,
+//   BP_7,
+//   BP_8,
+//   BP_9,
+//   BP_0,
+//   BP_PERC,
+//   BP_DLR,
+//   BP_COMM,
+//   BP_DOT,
+//   BP_SLSH,
+//   BP_MINS,
+//   BP_ASTR,
+//   BP_PLUS,
+//   BP_COLN,
+//   BP_SCLN,
+//   BP_EQL,
+//   // KC_UNDS,
+//   KC_BSPC,
+//   BP_X,
+//   SYM_MO)
+
+#ifdef TOPROWS_LAYER_ENABLE
+SMLL(SML_TOPROWS, _TOPROWS_EN, ___10_SYMBOLS___, ___10_NUMBERS___)
+#endif
+//SMLL(SML_SYMB, _SYMB_EN, ___SYMB_BEAKLB_3x10___)
+#+end_src
+
+**** The Code
+
+The process prototype.
+#+begin_src C :tangle extensions/process_smart_lock.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+///* -------- Process Record -------- */
+void process_smart_lock(uint16_t keycode, keyrecord_t *record);
+#+end_src
+
+Some data structures and some data.
+
+#+begin_src C :tangle extensions/smart_lock.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include QMK_KEYBOARD_H
+#include USERSPACE_H
+
+#ifdef SMART_LOCK_ENABLE
+typedef enum {
+  sml_layer,
+  sml_mod
+} smart_lock_type;
+
+typedef struct {
+  bool     active;
+  const uint16_t *keys;
+  uint16_t keycode;
+  uint16_t thing;
+  smart_lock_type type;
+} smart_lock_t;
+
+
+// smart layer, smart mods
+#undef SMLL
+#undef SMLM
+#define SMLL(key, layer, ...)
+#define SMLM(key, mod, ...)  // to replace mod_lock..
+#define COND_KEYS_END 0
+
+#define CONCATENATE_SA(a, ...) a ## __VA_ARGS__
+#define CONCATENATE_S(a, ...) a ## __VA_ARGS__
+#define CAT_S(a, ...) CONCATENATE_S(a, __VA_ARGS__)
+#define MK_SKEY(KC) CONCATENATE_S(sml_, KC)
+#define MK_ARRAY(KC)                                    \
+  const uint16_t PROGMEM CONCATENATE_SA(sml_, KC)[]
+
+// to create an enum and find how many...
+#define S_ENUM(kc, layer, ...) CAT_S(sml__, kc),
+// create a const array of the condkeys for each SML
+#define S_DATA(kc, thing, ...) MK_ARRAY(kc) = {__VA_ARGS__, COND_KEYS_END};
+
+// create a list of smart_lock structs. Two names, one for mod one for layer to be concise.
+#define S_SMART_LOCK(kc, layer, ...) {false, MK_SKEY(kc), kc, layer, sml_layer},
+#define M_SMART_LOCK(kc, mod, ...)   {false, MK_SKEY(kc), kc, mod,   sml_mod},
+
+#define SML(sk, sa, st, stype)                                          \
+  { .keys = &(sk)[0], .keycode = (sa), .thing = (st), .smart_lock_type = stype}
+#define K_SMLM(key, mod...)   [MK_SKEY(key)] = SML(MK_SKEY(key), key, mod, sml_mod),
+#define K_SMLL(key, layer...) [MK_SKEY(key)] = SML(MK_SKEY(key), key, layer, sml_layer),
+
+// Set everything up
+// - Create enum of names, (sml_keycode). Used as indexes in the arrays.
+//    avoids using the keycodes which would create a sparse/large array.
+// - Create array of conditional locks..
+// - Create array of the conditional keys for the locks, by name.
+
+// Create Enum
+#undef SMLL
+#undef SMLM
+#define SMLL S_ENUM
+#define SMLM S_ENUM
+
+// find how many
+enum smart_locks {
+#include "smart_lock.def"
+  SML_LENGTH
+};
+uint16_t SML_LEN = SML_LENGTH;
+
+// Bake locks into mem, name, ignore/cancel keys
+#undef SMLL
+#undef SMLM
+#undef TOGG
+#define SMLL S_DATA
+#define SMLM S_DATA
+#include "smart_lock.def"
+#undef SMLL
+#undef SMLM
+
+// Fill array of locks by name, kc, layer/mod.
+#define SMLL S_SMART_LOCK
+#define SMLM M_SMART_LOCK
+
+smart_lock_t smart_locks[] = {
+#include "smart_lock.def"
+};
+#undef SMLL
+#undef SMLM
+
+#endif
+#+end_src
+
+A bunch of functions to turn on mods, ignore keys and cancel when asked..
+
+#+begin_src C :tangle extensions/smart_lock.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+// Derived from smart_layers by @Possumvibes
+// Derived from one shot_mod by @Callum.
+
+#include "smart_lock.h"
+#include USERSPACE_H
+
+/* print("string"): Print a simple string. */
+/* uprintf("%s string", var) */
+
+bool ignore_key(uint16_t keycode,
+                const uint16_t *cond_keys){
+
+  // look for non-cancel condition.
+  // look for keys to ignore, if we match, we do nothing.
+  for (; pgm_read_word(cond_keys) != COND_KEYS_END ; ++cond_keys){
+    if (pgm_read_word(cond_keys) == keycode){
+      return true;
+    }
+  }
+  return false;
+}
+
+void deactivate_sml_layer(smart_lock_t *sml){
+  layer_off(sml->thing);
+    sml->active = false;
+}
+void deactivate_sml_mod(smart_lock_t *sml){
+  unregister_mods(sml->thing);
+  sml->active = false;
+}
+
+void deactivate_sml(smart_lock_t *sml){
+  switch(sml->type){
+  case sml_layer:
+    deactivate_sml_layer(sml);
+  case sml_mod:
+    deactivate_sml_mod(sml);
+  }
+}
+
+
+void sml_activate_layer(smart_lock_t *sml){
+  sml->active = true;
+  layer_on(sml->thing);
+}
+
+void sml_maybe_activate_mod(smart_lock_t *sml ){
+  if (sml->active) {
+    unregister_mods(sml->thing);
+  } else {
+    register_mods(sml->thing);
+  }
+  sml->active = !sml->active;
+}
+
+void sml_activate(smart_lock_t *sml){
+  switch(sml->type){
+  case sml_layer:
+    sml_activate_layer(sml);
+    break;
+  case sml_mod:
+sml_maybe_activate_mod(sml);
+      break;
+    }
+}
+
+void update_smart_lock(uint16_t keycode) {
+
+#ifdef SMART_LOCK_ENABLE
+  bool deactivate = false;
+  smart_lock_t *sml;
+
+    for (int i = 0; i < SML_LEN; ++i){
+      sml = &smart_locks[i];
+
+      // if it's a match,
+      // maybe activate/deactivate it if we got it's keycode.
+      if (sml->keycode == keycode){
+        sml_activate(sml);
+        return;
+      }
+
+      // deactivate what we need to.
+      if(sml->active){
+        deactivate = !ignore_key(keycode,  &sml->keys[0]);
+        if (deactivate){
+          deactivate_sml(sml);
+        }
+      }
+  }
+#endif
+  return;
+}
+
+#+end_src
+
+Process it when asked.
+
+#+begin_src C :tangle extensions/smart_lock.c
+void process_smart_lock(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    update_smart_lock(keycode);
+  }
+}
+
+#+end_src
+*** Swapper
+**** Introduction
+This is Callum's Swapper all dressed up.
+
+I added the defs code so they are easy to define. This is a way to
+alternate between 2 keycodes for a key by sending another keycode. An
+example is tab or backtab on one key, which reverses when you press a
+second key. It also allows for mods to be applied. The following example
+defines *SW_WIN*, which sends left alt-tab and shift- left alt- tab, when reversed
+by *SW_REV*.
+
+Note: The /reverse/ key is not automatically defined in the custom keys enum in
+_custom_keycodes.h_. It is convenient to use the same one which causes problems
+for automatically adding it. Add it to *custom_keys.def*. I have obviously already
+added *SW_REV*.
+
+**** The Defs
+
+#+begin_src C :tangle defs/swapper.def
+// KEYCODE, Reverseit kc, KC to send, KC to send in reverse, MODs to apply.
+SWAPPER_KEY(SW_WIN, SW_REV, KC_TAB, S(KC_TAB), KC_LALT)
+SWAPPER_KEY(SW_TAB, SW_REV, KC_TAB, S(KC_TAB), KC_LCTL)
+#+end_src
+
+**** The Code
+
+Some data and some macro like always.
+
+#+begin_src C :tangle extensions/swapper.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include QMK_KEYBOARD_H
+#include USERSPACE_H
+
+typedef struct {
+    bool     active;
+    uint16_t mod;
+    uint16_t forward;
+    uint16_t reverse;
+    uint16_t forward_trigger;
+    uint16_t reverse_trigger;
+} swapper_state_t;
+extern swapper_state_t swapper_states[];
+extern uint8_t         NUM_SWAPPER_STATES;
+
+#undef SWAPPER_KEY
+#define SWAPPER_KEY(KC, REVERSE_IT_KC, FWD_KC, REV_KC, MOD)     \
+  {false, MOD, FWD_KC, REV_KC, KC, REVERSE_IT_KC},
+
+void process_swappers(uint16_t keycode, keyrecord_t *record);
+#+end_src
+
+Process it when asked.
+
+#+begin_src C :tangle extensions/swapper.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com, @possumvibes,@Callum.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+// Derived from swapper by @Possumvibes and @Callum
+
+#include "swapper.h"
+
+swapper_state_t swapper_states[] = {
+#ifdef SWAPPER_ENABLE
+#include "swapper.def"
+#endif
+};
+uint8_t         NUM_SWAPPER_STATES = sizeof(swapper_states) / sizeof(swapper_state_t);
+
+// Based on https://github.com/callum-oakley/qmk_firmware/tree/master/users/callum
+void process_swappers(uint16_t keycode, keyrecord_t *record) {
+#ifdef SWAPPER_ENABLE
+  swapper_state_t *curr_state = NULL;
+  for (int i = 0; i < NUM_SWAPPER_STATES; ++i) {
+    curr_state = &swapper_states[i];
+
+    if (keycode == curr_state->forward_trigger) {
+      if (record->event.pressed) {
+        if (!curr_state->active) {
+          curr_state->active = true;
+          register_code16(curr_state->mod);
+        }
+        register_code16(curr_state->forward);
+      } else {
+        unregister_code16(curr_state->forward);
+        // Don't unregister curr_state->mod until some other key is hit or released.
+      }
+    } else if (curr_state->active && keycode == curr_state->reverse_trigger) {
+      if (record->event.pressed) {
+        register_code16(curr_state->reverse);
+      } else {
+        unregister_code16(curr_state->reverse);
+      }
+    } else if (curr_state->active) {
+      unregister_code16(curr_state->mod);
+      curr_state->active = false;
+    }
+  }
+#endif
+}
+#+end_src
+*** Tap Hold
+**** Introduction
+
+Tap hold creates keycodes which can be used to create a key which does
+one thing on tap, and another on long tap using a timer.
+
+This is not as fancy as linger keys, this does simple things.
+This set of macros just builds a switch statement for us using a few convenience functions
+that do the work.
+
+Tap hold currently has *tap_taplong* and *open_openclose* functions.
+These are in *tap_hold.c*, *tap_hold.h* and *tap_hold.defs*.
+Both use **TAP_HOLD_TERM** as the hold duration.
+
+*Tap_taplong* sends one keycode on tap, and another after a hold of tapping term.
+*Open_openclose*, sends one keycode on tap, plus the second,
+followed by a back arrow.
+
+It works great for a key that does copy on tap and paste on long tap.
+
+I use this also to give matching ([{'<"<``>">'}])  stuff when I hold the opening letter down.
+It provides the close, and a backspace.
+
+Additionally, *open_openclose* will send a triple of the open keycode when tapped with
+the shift modifier on.
+
+With all that it also handles dead keys.
+
+There as also a __not dead__ version of *open_openclose* that accomodates using
+dead keys like quote so that the functionalty behaves as if the key were not
+a dead key, giving a quote, a pair of quotes or a triple of quotes.
+
+The file /tap_hold.defs/ contains all the definitions. Like combos,
+these entries are processed with a function call from **process_record_user**
+
+***** A small experiment.
+It is also possible to trigger a smart lock with a hold.
+This example creates a keycode, `ENTNAV` which can be used
+to type enter, or smart lock the nav layer.
+Note that *SML_NAV* should be defined in *smart_lock.defs*.
+
+__Caveat:__
+This does have the unfortunate behavior of delaying the action
+until key up. So it may not be that useful. I did not like it
+for this particular example.
+
+#+begin_src C
+TP_SML(ENTNAV, KC_ENTER, SML_NAV)
+#+end_src
+
+
+**** The Defs
+
+#+begin_src C :tangle defs/tap_hold.def
+// tap or long tap for different key.
+
+// One key copy/paste
+TP_TPL(KC_CCCV, LCTL(KC_C), LCTL(KC_V))
+// New TaB/Window
+TP_TPL(KC_CTCN, LCTL(KC_T), LCTL(KC_N))
+// Close Tab-window/Quit
+TP_TPL(KC_CWCQ, LCTL(KC_W), LCTL(KC_Q))
+TP_TPL(HOME_END, KC_HOME, KC_END)
+// Xmonad scratch pads or desktop
+//TP_TPL(KC_XM_PORD, LGUI(KC_E), LGUI(KC_T))
+
+//TP_SML(ENTNAV, KC_ENTER, SML_NAV)
+
+
+#if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO) || (DEFAULT_LANG == BEPO)
+TP_TPL(BP_CCCV, LCTL(BP_C), LCTL(BP_V))
+TP_TPL(BP_CTCN, LCTL(BP_T), LCTL(BP_N))
+TP_TPL(BP_CWCQ, LCTL(BP_W), LCTL(BP_Q))
+TP_TPL(BP_XM_PORD, LGUI(BP_E), LGUI(BP_T))
+
+TP_TPL(BP_C_CCED, BP_C, BP_CCED)
+#endif
+
+
+#if defined(SECOND_LOCALE) && (SECOND_LOCALE == US_INT) || (DEFAULT_LANG == US_INT)
+TP_TPL(US_CCCV, LCTL(US_C), LCTL(US_V))
+TP_TPL(US_CTCN, LCTL(US_T), LCTL(US_N))
+TP_TPL(US_CWCQ, LCTL(US_W), LCTL(US_Q))
+TP_TPL(US_XM_PORD, LGUI(US_E), LGUI(US_T))
+
+TP_TPL(US_C_CCED, US_C, US_CCED)
+#endif
+
+// Open on tap and Open with close and back arrow on hold.
+// (){}[]""''``<>
+#  if defined(SECOND_LOCALE) && (SECOND_LOCALE == EN) || (DEFAULT_LANG == EN)
+OPEN_OCL(KC_OCPRN, KC_LPRN, KC_RPRN)
+OPEN_OCL(KC_OCBRC, KC_LBRC, KC_RBRC)
+OPEN_OCL(KC_OCCBR, KC_LCBR, KC_RCBR)
+OPEN_OCL(KC_OCDQUO, KC_DQUO, KC_DQUO)
+OPEN_OCL(KC_OCQUOT, KC_QUOT, KC_QUOT)
+OPEN_OCL(KC_OCGRV, KC_GRAVE, KC_GRAVE)
+OPEN_OCL(KC_OCLTGT, KC_LT, KC_GT)
+#endif
+
+
+#if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO) || (DEFAULT_LANG == BEPO)
+OPEN_OCL(BP_OCPRN, BP_LPRN, BP_RPRN)
+OPEN_OCL(BP_OCBRC, BP_LBRC, BP_RBRC)
+OPEN_OCL(BP_OCCBR, BP_LCBR, BP_RCBR)
+OPEN_OCL(BP_OCDQUO, BP_DQUO, BP_DQUO)
+OPEN_OCL_ND(BP_OCQUOT, BP_QUOT, BP_QUOT)
+OPEN_OCL(BP_OCGRV, BP_GRV, BP_GRV)
+OPEN_OCL(BP_OCLTGT, BP_LT, BP_GT)
+#endif
+
+
+
+#if defined(SECOND_LOCALE) && (SECOND_LOCALE == US_INT) || (DEFAULT_LANG == US_INT)
+OPEN_OCL(US_OCPRN, US_LPRN, US_RPRN)
+OPEN_OCL(US_OCBRC, US_LBRC, US_RBRC)
+OPEN_OCL(US_OCCBR, US_LCBR, US_RCBR)
+OPEN_OCL(US_OCDQUO, US_DQUO, US_DQUO)
+// non dead version of quote.
+OPEN_OCL_ND(US_OCQUOT, US_QUOT, US_QUOT)
+OPEN_OCL(US_OCGRV, US_GRV, US_GRV)
+OPEN_OCL(US_OCLTGT, US_LT, US_GT)
+#endif
+#+end_src
+
+**** The Code
+
+Just the prototype for the processor.
+
+#+begin_src C :tangle extensions/tap_hold.h
+#pragma once
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+void process_tap_hold_user(uint16_t keycode, keyrecord_t* record);
+uint16_t tap_taplong_timer;
+#+end_src
+
+All the functions and macros. *TP_SML* didnt turn out to be such a great idea.
+
+#+begin_src C :tangle extensions/tap_hold.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+/* This is variations on custom tap hold functionality. It makes it easy */
+/* to maintain tap_hold keys and combinations. These combinations go into */
+/* the file "tap_hold.def". Here are two examples. */
+/*  */
+/* This example is tap or tap for TAP_HOLD_TERM, It defines a key */
+/* KC_CCCV, which sends Control-c on tap, and Control-v on hold. */
+/*  */
+/*  TP_TPL(KC_CCCV, LCTL(KC_C), LCTL(KC_V)) */
+/*  */
+/* This is an example of Open - Open and Close. */
+/* It defines a key, KC_OCPRN which when tapped gives an '(' and */
+/* when held gives '()' followed by a backarrow. */
+/* Which places the cursor between them.*/
+/*  */
+/* OPEN_OCL(KC_OCPRN, KC_LPRN, KC_RPRN) */
+/*  */
+/* To use this, add it to your src in rules.mk, and include */
+/* tap_hold.h in your code above process_record_user. */
+/*  */
+/* Add a call like this to use it. */
+/* process_tap_hold_user(keycode, record); */
+/*  */
+/* Note: You must add any custom keycodes to your keycodes enum */
+/* otherwise they will not exist. */
+
+
+#include USERSPACE_H
+#include "stdint.h"
+#include "tap_hold.h"
+void update_smart_lock(uint16_t keycode);
+
+
+void tap_taplong(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+  if (record->event.pressed) {
+    tap_taplong_timer = timer_read();
+  } else {
+    if (timer_elapsed(tap_taplong_timer) > TAP_HOLD_TERM) {
+      tap_code16(kc2);
+    } else {
+      tap_code16(kc1);
+    }
+  }
+}
+
+void tap_sml(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+  if (record->event.pressed) {
+    tap_taplong_timer = timer_read();
+  } else {
+    if (timer_elapsed(tap_taplong_timer) > TAP_HOLD_TERM) {
+      update_smart_lock(kc2);
+    } else {
+      tap_code16(kc1);
+    }
+  }
+}
+
+/* for (){}[]""''<>``. tap for open. Hold for open and close, ending inbetween. */
+/* Assumes a one character length.                                              */
+void open_openclose(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+  if (record->event.pressed) {
+    tap_taplong_timer = timer_read();
+  }else{
+    if (timer_elapsed(tap_taplong_timer) > TAP_HOLD_TERM) {
+      tap_code16(kc1);
+      tap_code16(kc2);
+      tap_code16(KC_LEFT);
+
+    } else {
+      // is shifted
+      uint16_t mod_state = get_mods();
+      if ((mod_state & MOD_MASK_SHIFT) ||
+          (get_oneshot_mods() & MOD_MASK_SHIFT)){
+        del_mods(MOD_MASK_SHIFT);
+        del_oneshot_mods(MOD_MASK_SHIFT);
+
+        tap_code16(kc1);
+        tap_code16(kc1);
+        tap_code16(kc1);
+
+        set_mods(mod_state);
+      }else{
+        tap_code16(kc1);
+      }
+    }
+  }
+}
+
+// open and open close for dead keys.
+void open_openclose_not_dead(uint16_t kc1, uint16_t kc2, keyrecord_t *record) {
+  if (record->event.pressed) {
+    tap_taplong_timer = timer_read();
+  }else{
+    if (timer_elapsed(tap_taplong_timer) > TAP_HOLD_TERM) {
+      tap_code16(kc1);
+      tap_code16(KC_SPACE);
+      tap_code16(kc2);
+      tap_code16(KC_SPACE);
+      tap_code16(KC_LEFT);
+    } else {
+      // is shifted - give a triple
+      uint16_t mod_state = get_mods();
+      if ((mod_state & MOD_MASK_SHIFT) ||
+          (get_oneshot_mods() & MOD_MASK_SHIFT)){
+        del_mods(MOD_MASK_SHIFT);
+        del_oneshot_mods(MOD_MASK_SHIFT);
+
+        tap_code16(kc1);
+        tap_code16(KC_SPACE);
+        tap_code16(kc1);
+        tap_code16(KC_SPACE);
+        tap_code16(kc1);
+        tap_code16(KC_SPACE);
+
+        set_mods(mod_state);
+      }else{
+        tap_code16(kc1);
+        tap_code16(KC_SPACE);
+      }
+    }
+  }
+}
+
+// macros for use in tap_hold.defs.
+#define TP_TPL(KCKEY, KC01, KC02)               \
+  case KCKEY:                                   \
+  tap_taplong(KC01, KC02, record);              \
+  break;
+
+#define TP_SML(KCKEY, KC01, KC02)        \
+  case KCKEY:                            \
+  tap_sml(KC01, KC02, record);           \
+  break;
+
+#define OPEN_OCL(KCKEY, KC01, KC02)             \
+  case KCKEY:                                   \
+  open_openclose(KC01, KC02, record);           \
+  break;
+
+#define OPEN_OCL_ND(KCKEY, KC01, KC02)          \
+  case KCKEY:                                   \
+  open_openclose_not_dead(KC01, KC02, record);  \
+  break;
+
+void process_tap_hold_user(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode){
+#include "tap_hold.def"
+  }
+}
+#+end_src
+
+*** Unicode
+**** Introduction
+This is just the basic unicode example everyone seems to have.
+Add your keys to send unicode strings like so.
+
+An example which creates the *UC_DISA* keycode
+
+**** The Defs
+
+#+begin_src C :tangle defs/unicode.def
+// define keys to send unicode strings.
+ UC_STR(UC_FLIP, "(ノಠ痊ಠ)ノ彡┻━┻")
+ UC_STR(UC_TABL, "┬─┬ノ( º _ ºノ)")
+ UC_STR(UC_SHRG, "¯\\_(ツ)_/¯")
+ UC_STR(UC_DISA, "ಠ_ಠ")
+#+end_src
+
+**** The Code
+
+The process function prototype.
+
+#+begin_src C :tangle extensions/unicode.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+// Custom one-or-more-shot implementation that does not rely on timers
+// and persists across layer changes. Based on the users/callum implementation
+// at https://github.com/callum-oakley/qmk_firmware/tree/master/users/callum
+// make it easy to put unicode keys into process_record
+
+
+void process_unicode_strs(uint16_t keycode, keyrecord_t *record);
+#+end_src
+
+Another constructed switch statement.
+
+#+begin_src C :tangle extensions/unicode.c
+
+/*
+  Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include USERSPACE_H
+#include "process_unicode_common.h"
+
+#undef UC_STR
+#define UC_STR(KEYC, STRING)                    \
+  case KEYC:                                    \
+  if (record->event.pressed) {                  \
+    send_unicode_string(STRING);                \
+  }                                             \
+  break;
+
+void process_unicode_strs(uint16_t keycode, keyrecord_t *record){
+#if defined(UNICODE_ENABLE) && defined(SEND_UNICODE_ENABLE)
+  switch (keycode) {
+#include "unicode.def"
+      }
+#endif
+}
+#+end_src
+
+*** Adaptive keys
+**** Introduction
+Adaptive keys are keys which change the meaning of the key following it. This allows
+for 2 keys in quick succesion to send something else entirely.
+A return code of false means continue processing this keycode.
+
+**** The Defs
+
+This started as an implementation of Alan Reiser's Adaptive keys.
+
+#+begin_src C :tangle defs/adaptive_keys.def
+// define adaptive keys here.
+// name, first key, second key, return, keys...
+
+
+//Left hand adaptives
+// (most are single-handed neighbor fingers, bc speed, dexterity limits)
+
+// TC -> TCH
+// roll for tch
+AK(TC, KC_T, KC_C, false, KC_C, KC_H)
+// Take advantage of B & V being phonotacically similar
+// (and in same finger/column) to process as adaptive key
+// reducing the finger spread from middle-index
+ AK(MB, KC_M, KC_B, false, KC_B)
+ AK(NB, KC_N, KC_B, false, KC_B)
+ AK(MV, KC_M, KC_V, false, KC_B)
+ AK(NV, KC_N, KC_V, false, KC_B)
+
+// "t" is midway between MB (or MV?)
+// so use same finger, shifted toward middle
+// column, to make it an inward roll.
+ AK(TB, KC_T, KC_B, true, KC_BSPC, KC_M)
+ AK(TV, KC_T, KC_V, true, KC_BSPC, KC_M)
+
+ // for (Bronze/Neu-hx)
+ AK(DB, KC_D, KC_B, true, KC_BSPC, KC_L)
+ AK(DV, KC_D, KC_V, true, KC_BSPC, KC_L)
+ AK(PB, KC_P, KC_B, true, KC_BSPC, KC_L)
+ AK(PV, KC_P, KC_V, true, KC_BSPC, KC_L)
+
+ AK(MG, KC_M, KC_G, false, KC_L)
+ AK(PG, KC_P, KC_G, true, KC_BSPC, KC_L)
+ AK(TG, KC_T, KC_G, false, KC_H, KC_I, KC_N, KC_G)
+
+// TK = CK
+// DK = CK
+ AK(TK, KC_T, KC_K, false, KC_BSPC, KC_C, KC_K)
+ AK(DK, KC_D, KC_K, false, KC_BSPC, KC_C, KC_K)
+
+ // M becomes L after MGJPV
+ AK(JM, KC_J, KC_M, true,  KC_BSPC, KC_L)
+ AK(GM, KC_G, KC_M, false, KC_L)
+ AK(PM, KC_P, KC_M, false, KC_L)
+ AK(VM, KC_V, KC_M, false, KC_L)
+ AK(GP, KC_G, KC_P, true,  KC_BSPC, KC_L)
+// quickly typing "?p" yields "?l"
+ AK(BP, KC_B, KC_P, false, KC_L)
+ AK(KP, KC_K, KC_P, false, KC_L)
+ AK(VP, KC_V, KC_P, false, KC_L)
+
+// inner column accommodations
+// to relieve stretch between
+// index and middle (index<->others is easier)
+ AK(BC, KC_B, KC_C, false, KC_L)
+ AK(BD, KC_B, KC_D, false, KC_L)
+ AK(BT, KC_B, KC_T, false, KC_L)
+// quickly typing "k?" yields "kn"
+ AK(KC, KC_K, KC_C, false, KC_N)
+ AK(KD, KC_K, KC_D, false, KC_N)
+ AK(KT, KC_K, KC_T, false, KC_N)
+// quickly typing "mt" yields "ment"
+ AK(MC, KC_M, KC_C, false, KC_E, KC_N, KC_T)
+ AK(MD, KC_M, KC_D, false, KC_E, KC_N, KC_T)
+ AK(MT, KC_M, KC_T, false, KC_E, KC_N, KC_T)
+
+ AK(BF, KC_B, KC_F, false, KC_L)
+ AK(KF, KC_K, KC_F, false, KC_L)
+// pull S up a row (more helpful for ortho/row staggers)
+ AK(PF, KC_P, KC_F, false, KC_S)
+// roll into C (only for Rhodium)
+ AK(XF, KC_X, KC_F, false, KC_C)
+
+// Make PT SFDigraph into a roll
+ AK(PN, KC_P, KC_N, false, KC_T)
+
+ // SAME-HAND TOWARD PINKY ISSUES
+ AK(MJ, KC_M, KC_J, false, KC_F)
+ // adjacent fingers don't do next row as easily,especially on ring to pinky.
+ AK(BX, KC_B, KC_X, false, KC_R)
+// RING TO PINKY This softens the burden,
+//and equalizes column-stagger & ortho boards.
+ AK(CX, KC_C, KC_X, false, KC_R)
+ AK(DX, KC_D, KC_X, false, KC_R)
+ AK(FX, KC_F, KC_X, false, KC_R)
+ AK(GX, KC_G, KC_X, false, KC_R)
+// bc why not?
+ AK(PX, KC_P, KC_X, false, KC_R)
+ AK(VX, KC_V, KC_X, false, KC_R)
+// L repeater (ie. Platinum/Neu-lx)
+// LW isn't likely, so we'll leave it for the sake of smaller code
+ AK(LX, KC_L, KC_X, false, KC_L)
+
+//  ",A" yields "UA" eliminating SFB
+ AK(COMM_A, KC_COMM, KC_A, true, KC_BSPC, KC_U)
+//  "/A" yields "UA" eliminating SFB
+ AK(SLSH_A, KC_SLSH, KC_A, true, KC_BSPC, KC_U)
+// ",E" or ".E" yields "OE" eliminating SFB
+ AK(COMM_E, KC_COMM, KC_E, true, KC_BSPC, KC_O)
+// "AE" yields "AU" eliminating SFB
+// ",/.A" yields "UA" eliminating SFB
+ AK(AE,     KC_A, KC_E, false, KC_U)
+// ",/.A" yields "UA" eliminating SFB
+ AK(A_COMM, KC_A, KC_COMM, false, KC_U)
+// tight roll controls...so this works
+// "E." or "E," yields "EO" eliminating SFB
+ AK(E_COMM, KC_E, KC_COMM, false, KC_O)
+// ",/.A" yields "UA" eliminating SFB
+ AK(A_SLSH, KC_A, KC_SLSH, false, KC_U)
+ AK(DOT_SLSH, KC_DOT, KC_SLSH, false, KC_U)
+// "you" adaptive?
+// YU = You bc YO (ring-middle) is a tad awk, but yu is easy, and uncommon
+ AK(YU, KC_Y, KC_U, false, KC_O, KC_U)
+// WY = WH do avoid row jump (Gold)
+ // repeater (For Platinum's thumb-L)
+#+end_src
+
+**** The Code
+
+***** The process function prototype.
+
+The header file for use in =process_record_user()=
+or extensions.c
+
+#+begin_src C :tangle extensions/adaptive_keys.h
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+#include <stdbool.h>
+#include <stdint.h>
+bool process_adaptive_key(uint16_t keycode, keyrecord_t *record);
+#+end_src
+
+
+Copyright header for the c file.
+
+#+begin_src C :tangle extensions/adaptive_keys.c
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+/* This code is an adaptation of Alan Reiser's Adaptive keys as implemented */
+/* for Hands Down. */
+
+#include USERSPACE_H
+#include "adaptive_keys.h"
+#include <stddef.h>
+#+end_src
+
+***** The data structure
+
+#+begin_src C :tangle extensions/adaptive_keys.c
+#ifdef ADAPTIVE_KEYS_ENABLE
+
+// our adaptive key struct.
+typedef struct {
+    uint16_t prefix_key;
+    uint16_t keycode;
+    bool processed;
+    const uint16_t *keys;
+} ak_t;
+
+uint16_t prior_keycode;
+
+#+end_src
+
+***** The macros
+
+These are used to map the defs to 3 different things.
+An enum/name, keys/data, and adaptive key structures.
+
+Here is the definition for TK -> CK.
+It backspaces over the T which has already happened. Then sends CK.
+
+#+begin_src C
+// Field names used in the following macros.
+// Name   Prefix  Key   Processed  keys....to.send...
+ AK(TK,   KC_T,   KC_K, false,     KC_BSPC, KC_C, KC_K)
+#+end_src
+
+#+begin_src C :tangle extensions/adaptive_keys.c
+// Processed is the bool return for process_record_user. true to
+// stop further processing, false to let it continue.
+
+#define AK_END 65535
+#define BLANK(...)
+#define AK_STRUCT {prefix_key, key, processed, &ak_keys##name[0]}
+
+// To create an enum index and find out how many we have.
+#define AK_ENUM(name, prefix_key, key, processed, ...) AK_##name,
+
+// Create a bunch of terminated key lists in memory to point at
+#define AK_DATA(name, prefix_key, key, processed, ...) \
+    const uint16_t PROGMEM ak_keys##name[] = {__VA_ARGS__, AK_END};
+
+// build an array of adaptive key structs that point at their keys.
+// use its enum for the index.
+#define AK_ENTRY(name, prefix_key, key, processed, ...) \
+    [AK_##name] = {prefix_key, key, processed, &ak_keys##name[0]},
+
+#+end_src
+***** Putting it in memory.
+
+We define *AK* as different macros to get different things from the definitions.
+Enum uses just the name to create an enum.
+Data uses the name and the variable args to create integer arrays of keycodes
+in memory.
+Entry fills in the AK entry structure.
+
+#+begin_src C :tangle extensions/adaptive_keys.c
+// Create Enum from the names
+#undef AK
+#define AK AK_ENUM
+enum aks {
+#include "adaptive_keys.def"
+    AK_LENGTH
+};
+// set the length
+uint16_t AK_LEN = AK_LENGTH;
+
+// declare arrays with the keys to send.
+#undef AK
+#define AK AK_DATA
+#include "adaptive_keys.def"
+#undef AK
+
+// An array of the Adaptive key entry structures
+#define AK AK_ENTRY
+ak_t adaptive_keys[] = {
+#include "adaptive_keys.def"
+};
+#undef AK
+
+#+end_src
+
+***** Processing it.
+
+The code to process it.  Find if we have a match, then send the keys that should go.
+Return true or false as indicated for the return to process record user.
+
+#+begin_src C :tangle extensions/adaptive_keys.c
+uint16_t adaptive_key_timer = 0;
+
+// find one or return null.
+ak_t* find_adaptive_key(uint16_t keycode, uint16_t prior_keycode){
+  for (int i = 0; i < AK_LEN; ++i) {
+      if (keycode == adaptive_keys[i].keycode &&
+          prior_keycode == adaptive_keys[i].prefix_key){
+          return (&adaptive_keys[i]);
+      }
+  }
+  return NULL;
+}
+
+// Send the keys for the adaptive key pair and
+// return the requested return code.
+bool send_adaptive_keys(ak_t* ak){
+    // loop through the keys and send them until we hit AK_END.
+    for (uint8_t j=0; pgm_read_word(&ak->keys[j]) != AK_END; ++j){
+        tap_code16(pgm_read_word(&ak->keys[j]));
+    }
+
+  return (ak->processed);  // return true or false.
+}
+
+bool process_adaptive_key(uint16_t keycode, keyrecord_t *record) {
+    ak_t* ak = NULL;
+    uint8_t saved_mods = get_mods();
+    bool return_processed = true;
+
+    if (!record->event.pressed)
+        return return_processed;
+
+    // Are we in an adaptive context?
+    if (timer_elapsed(adaptive_key_timer) > ADAPTIVE_TERM) {
+        // outside adaptive threshhold
+        // Set the keycode and timer for the next time around.
+        prior_keycode = keycode;
+        adaptive_key_timer = timer_read();
+        return true; // no adaptive conditions, so return.
+    }
+
+    ak = find_adaptive_key(keycode, prior_keycode);
+
+    if (ak != NULL){  // send the keys if we found one.
+        if (!is_caps_word_on()) { // turn off shift, (first-words & Proper nouns)
+            unregister_mods(MOD_MASK_SHIFT);  //CAPS_WORD/LOCK won't be affected.
+        }
+        return_processed = send_adaptive_keys(ak);
+        register_mods(saved_mods);
+        prior_keycode = 0;
+    } else {
+        // no adaptive key matches, maybe next time.
+        prior_keycode = keycode;
+        adaptive_key_timer = timer_read();
+    }
+    return return_processed;
+}
+#endif
+
+#+end_src

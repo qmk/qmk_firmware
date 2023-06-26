@@ -1,5 +1,5 @@
 /*
-  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+  Copyright 2018-2023 Eric Gebhart <e.a.gebhart@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -17,9 +17,6 @@
 #include "ericgebhart.h"
 #include "extensions.h"
 
-__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
-
-__attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
 
 // Defines actions for my global custom keycodes. Defined in ericgebhart.h file
 // Then runs the _keymap's record handier if not processed here
@@ -31,9 +28,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   PROCESS_EXTENSIONS
 
-  if (process_record_keymap(keycode, record) && process_record_secrets(keycode, record)) {
-    switch (keycode) {
-
+  switch (keycode) {
     case KC_RESET:
       if (!record->event.pressed) {
         reset_keyboard();
@@ -45,7 +40,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // default_layer_set(1UL << _BEAKL);
       // tap_code16(LSFT(KC_SPACE));
       break;
-    }
   }
-  return true;
+return true;
 }

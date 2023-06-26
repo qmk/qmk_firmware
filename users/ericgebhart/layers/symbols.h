@@ -14,105 +14,19 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-/******************************************************************/
-/*                                                                */
-/* Symbol layers:                                                 */
-/*                                                                */
-/* The BEAKL15 Symbol layer with or without additions.            */
-/*                                                                */
-/* There is the offical beakl symbol layer, an extended symbol    */
-/* layer which is expanded with: !?@`'/-;.                        */
-/*                                                                */
-/* Placing these 8 keys in the pinky and index corners            */
-/* at the edges of the, 3x3, BEAKL home Region.                   */
-/*                                                                */
-/* Beakl has these keys in it's base layer which isn't the case   */
-/* for other layouts like dvorak, colemak, etc.                   */
-/*                                                                */
-/* The third layer moves /:? to more accessible places.           */
-/* to make vi keybindings more accessible.                        */
-/*                                                                */
-/* Note that there are 2 widths. 12 and 10. The wider layer adds  */
-/* - and ; to the middle row edges.                               */
-/*                                                                */
-/* Official:                                                      */
-/*         <$>   [_]                                              */
-/*      - \(")# %{=}| ;                                           */
-/*         :*+   &^~                                              */
-/*                                                                */
-/*   not yet implemented                                          */
-/* BEAKL27 (punctuation layer):                                   */
-/*   ↹@$#↹  ~^`                                                  */
-/*   ↹<=>   [_]                                                   */
-/*   \(-)+ %{;}!                                                  */
-/*    *:/⏎  |~&                                                   */
-/*                                                                */
-/*                                                                */
-/* BEAKL Extended symbol layer                                    */
-/* Expanded with: !?@`'/-;                                        */
-/*                                                                */
-/* A:                                                             */
-/*        `<$>' ?[_]-                                             */
-/*      - \(")# %{=}| ;                                           */
-/*        @:*+; !&^~/                                             */
-/*                                                                */
-/* Optimized for Vi.                                              */
-/* B:                                                             */
-/*                                                                */
-/*        `<$>' ?[_]-                                             */
-/*      - \(")# !{:}/ ;                                           */
-/*        @=*+; %&^~|                                             */
-/*                                                                */
-/* C:                                                             */
-/*                                                                */
-/*        `<$>' ?[_-]                                             */
-/*      - \("#) !{:/} ;                                           */
-/*        @=*+; %&^~|                                             */
-/*                                                                */
-/*                                                                */
-/* Both ; and ' could have found their dvorak positions. Analysis showed */
-/* that only caused pinky overuse. Rotating the symbols around Put better */
-/* keys on the index finger which showed a huge improvement in efficiency. */
-/* The same is true of the exclamation point.                     */
-/*                                                                */
-
-/* Beakl Wi */
-
-/* This Symbol layer does not improve on the above extended symbol */
-/* layers in my opinon, for my usage. */
-
-/* The original symbol was the Left side with defined/but/transparent */
-/* right. The regex layer was the opposite. I combined them into one, I am */
-/* not sure of the functionality that might be lost due to that, but they */
-/* are defined as original sans extra tap dance functions. It would be easy to */
-/* make two layers with transparent right and left. There is duplication */
-/* of | and *. */
-
-/* Symbols on the left */
-/* .*&+ */
-/* ?!/| */
-/* <>%@ */
-
-// regex on the right
-/* *[^] */
-/* ?($) */
-/* |{#} */
-
-// Altogether
-/* .*&+  *[^] */
-/* ?!/|  ?($) */
-/* <>%@  |{#} */
-/******************************************************************/
 
 // Left
 #define ___SB_L1___          _OCLTGT, _DLR,    _GT
+#define ___SB_L1d___         _OCLTGT, _OCQUOT, _GT
 #define ___SB_L2___  _BSLS,  _OCPRN,  _OCDQUO, _RPRN, _HASH
 #define ___SB_L2c___ _BSLS,  _OCPRN,  _OCDQUO, _HASH, _RPRN
+#define ___SB_L2d___ _BSLS,  _OCPRN,  _OCDQUO, _HASH, _PERC
 #define ___SB_L3___          _COLN,   _ASTR,   _PLUS
 
 // Right
 #define ___SB_R1___          _OCBRC,   _UNDS,     _RBRC
 #define ___SB_R1c___         _OCBRC,   _UNDS,     _MINS
+#define ___SB_R1d___ _OCBRC, _QUES,    _UNDS,     _EXLM
 #define ___SB_R2___  _PERC,  _OCCBR,   _EQL,      _RCBR,  _PIPE
 #define ___SB_R3___          _AMPR,    _CIRC_ND,  _TILD_ND
 
@@ -122,6 +36,7 @@
 #define ___SB_R2a___ _PERC,  _OCCBR,   _EXLM,  _RCBR,  _PIPE
 #define ___SB_R2b___ _EXLM,  _OCCBR,   _COLN,  _RCBR,  _SLSH
 #define ___SB_R2c___ _EXLM,  _OCCBR,   _COLN,  _SLSH,  _RCBR
+#define ___SB_R2d___ _OCCBR, _MINS,    _COLN,  _SLSH,  _PIPE
 
 // ---------------------------
 // ---------------------------
@@ -172,6 +87,26 @@
   CHUNK_LANG_MAP(_OCGRV, ___SB_L1___,  _OCQUOT,   _QUES,  ___SB_R1c___, _RBRC, \
                  ___SB_L2c___,                     ___SB_R2c___,        \
                  _AT,    ___SB_L3b___, _SCLN,     _PERC, ___SB_R3___, _PIPE)
+
+// Next evolution.
+// Use combos to get closing )]} instead of on the map.
+// only need closes to 'fix something' that got out of wack somehow.
+//
+// pipe gets it's old home back, @ moves to index, pinkies get less load.
+// [{ get demoted, ?! move up. @ moves to inner index,
+// percent gets a better spot on the other side.
+// and ' gets to be in the center, while $ gets a corner. pinkies are almost free.
+// maybe ?_! can switch around some.  Room to mess around with the corners.
+
+#define CARTE_SYMB_D                            \
+  carte_de_map("   `<'>$  [?_! ",               \
+               "   \\(\"#%  {-:/|",             \
+               "    =*+;  @&^~ ")
+
+#define ___SYMB_D_3x10___                                   \
+  CHUNK_LANG_MAP(_OCGRV, ___SB_L1d___,  _DLR,   ___SB_R1d___, _NO,   \
+                 ___SB_L2d___,                  ___SB_R2d___,           \
+                 _NO,    ___SB_L3b___, _SCLN,     _AT, ___SB_R3___, _NO)
 
 // wants ( and ) on the left thumb.
 #define CARTE_SYMB_MIRYOKU                                  \

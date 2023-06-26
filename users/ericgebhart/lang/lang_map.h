@@ -29,8 +29,10 @@
 #define BKWKC _BKW
 #define BK2KC _BK2
 #define HDKC _HD
+#define HDVKC _HDV
 #define HD_ELANKC _HD_E
 #define HD_DASHKC _HD_D
+// ^^^ Add new ones here. ^^^
 
 #define CONCATENATETKC(a, ...) a ## __VA_ARGS__
 #define CATTKC(a, ...) CONCATENATETKC(a, __VA_ARGS__)

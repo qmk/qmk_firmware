@@ -16,9 +16,9 @@
 */
 
 #include USERSPACE_H
-#include "accented_keys.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include "accented_keys.h"
 
 static inline void tap_accented_letter(uint16_t letter, uint16_t dead_key) {
     uint8_t mod_state = get_mods();
@@ -38,7 +38,6 @@ static inline void tap_accented_letter(uint16_t letter, uint16_t dead_key) {
     tap_accented_letter(K1, DEAD_KEY);          \
   }                                             \
   return false;
-
 
 bool process_accent_keys(uint16_t keycode, keyrecord_t* record) {
   switch(keycode){

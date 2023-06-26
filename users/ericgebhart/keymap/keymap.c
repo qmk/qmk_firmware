@@ -23,6 +23,15 @@
 
 #include "keyboards.h"
 
+// This goes here because introspection.c needs for it to be
+// in keymap.c or in the value of
+// INTROSPECTION_KEYMAP_C = keymap/keymap.c
+// in rules.mk.
+// This include file generates code defining the combo datastructures
+// for whatever you have in combos.defs. And the introspector wants
+// to inspect them.
+#include "keymap_combo.h"
+
 // set up the wrapper macros.
 #define BASE_LAYER(NAME, ...)  [NAME] = BASE(__VA_ARGS__)
 #define BASE_LAYERt6(NAME, ...)  [NAME] = BASEt6(__VA_ARGS__)
@@ -45,7 +54,6 @@
 // BK, BKW for beakl maps on en-qwerty and bepo.
 // BKW is automatic in map_beakl.h
 #define ALT_TARGET_IS NONE // NONE, DV=dvorak, BK=Beakl, BK2, BKW=Beaklwi.
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

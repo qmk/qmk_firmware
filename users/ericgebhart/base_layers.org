@@ -1,0 +1,1953 @@
+* Base Keymap Layers
+
+These are all of the base layer definitions in this configuration.
+There are over 50. I have grouped them as best I can into
+files of related keymaps.  Keymap families of a sort.
+
+I abandoned qwerty for dvorak more than  25 years ago
+and that certainly saved me from my carpal tunnel symptoms.
+I find keyboard layouts very interesting.
+I like to learn and explore new layouts. So that is easy to do here.
+
+** Files
+These are the source files tangled from this literate code org document.
+Its all copyrights here.
+*** =base_layers.h=
+This file contains the master include list of all the other base layer files.
+
+#+begin_src C :tangle base_layers/base_layers.h
+#pragma once
+/*
+  Copyright 2018-2023 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+*** =dvorak.h=
+#+begin_src C :tangle base_layers/dvorak.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+
+*** =qwerty.h=
+#+begin_src C :tangle base_layers/qwerty.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+*** =maks.h=
+#+begin_src C :tangle base_layers/maks.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+*** =alt.h=
+#+begin_src C :tangle base_layers/alt.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+*** =gap.h=
+#+begin_src C :tangle base_layers/gap.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+*** =hands_down.h=
+#+begin_src C :tangle base_layers/hands_down.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+*** =beakl.h=
+#+begin_src C :tangle base_layers/beakl.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+*** =bepo.h=
+#+begin_src C :tangle base_layers/bepo.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+*** =carpalx.h=
+#+begin_src C :tangle base_layers/carpalx.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+** A Base Layer Template
+
+*** Some Parts
+We need all the parts to build our maps. Any keycodes we have, the language
+key code fixer and the way to let the Oled know what our keymap looks like.
+These are included here so no one else needs to.
+
+#+begin_src C :tangle base_layers/base_layers.h
+#include "custom_keycodes.h"
+#include "lang_map.h"
+#include "oled_stuff.h"
+#+end_src
+
+*** The Template
+
+There are two parts here, the map of the keymap for the oled and the map
+of the keymap for the keymap. Both are easy.
+
+If the keymap you want to create has a family it belongs to and that family has a file/section,
+then put it there. If not, create a new file, put your map in it and add it to the list.
+
+In the template the names should match. Just replace 'EMPTY' in the template below with your
+keymap name.
+
+Names and layout part names all have *___triple-understores___*
+at each end so they are easily identifiable as larger, or complete layer chunks.
+This naming is also a remnant of the original wrapper code we used. I got tired of
+all the underscores and shortened them right away.  I do like it this way as they
+are easily seen and identified if named well.
+
+**** Le carte de map
+First is the Carte de map, The map of the keymap that we give to the Oled.
+It takes 3 strings and you can put whatever you want in there. It may or may not
+display properly as is the case with accent letters.   And dont let it get too long and
+not fit. That doesn't work very well.
+
+#+begin_src C :tangle base_layers/base_layers.h
+// an empty template.
+
+/* #define CARTE_EMPTY                \ */
+/*   carte_de_map("  ",               \ */
+/*                "  ",               \ */
+/*                "  ") */
+#+end_src
+
+**** Key Map
+This is the actual keymap. With the exception of the TL_ keycodes everything here is
+indicated by an underscore and its letter. _A will indicate *KC__A* for en and *BP_A* for
+Bépo.
+
+This is the 5 column, 3x5 x 2 or 3x10, however you want to think of it, keymap.
+
+#+begin_src C :tangle base_layers/base_layers.h
+/*                      */
+/* #define ___EMPTY___                             \ */
+/*   LANG_MAP(_, _, _, _, _,   _, _, _, _, _,      \ */
+/*            _, _, _, _, _,   _, _, _, _, _,      \ */
+/*            _, _, _, _, _,   _, _, _, _, _)        */
+
+#+end_src
+
+** The Keymaps.
+*** The list of families
+
+Pull in all the definitions.
+
+#+begin_src C :tangle base_layers/base_layers.h
+// dvorak, capewell-dvorak, ahei, and boo.
+#include "dvorak.h"
+//qwerty, workman, norman,
+#include "qwerty.h"
+// Colemak, halmak, minimak, etc.
+#include "maks.h"
+// eucalyn, maltron
+#include "alt.h"
+// mtgap, ctgap, apt
+#include "gap.h"
+// some hands down.
+#include "hands_down.h"
+// some beakls.
+#include "beakl.h"
+// bepo, optimot, beakl19bis, godox-fr?.
+#include "bepo.h"
+// some carpalxs.
+#include "carpalx.h"
+
+#+end_src
+
+This is the end of =base_layers.h=
+
+#+begin_src C :tangle base_layers/base_layers.h
+// Provides all the base layers we have.
+// base_layers.h ends here.
+#+end_src
+
+*** Combo ref - sort of random here. Used or not ?
+#+begin_src C :tangle base_layers/qwerty.h
+// Layer for combo reference. Make more than one by changing lang is.
+#define ___COMBO_REF___                                                 \
+  LANG_MAP(_1L1,  _1L2, _1L3, _1L4,  _1L5,   _1R1, _1R2, _1R3, _1R4, _1R5, \
+           _2L1,  _2L2, _2L3, _2L4,  _2L5,   _2R1, _2R2, _2R3, _2R4, _2R5, \
+           _3L1,  _3L2, _3L3, _3L4,  _3L5,   _3R1, _3R2, _3R3, _3R4, _3R5)
+
+#+end_src
+*** Alternate misfits
+**** Maltron
+#+begin_src C :tangle base_layers/alt.h
+// e goes on the left thumb
+#define CARTE_MALTRON                           \
+  carte_de_map("   qpycb  vmuzl",               \
+               "   anisf  ctdor",               \
+               "   ;/jg,  .wk-x e")
+
+#define ___MALTRON___                                                   \
+  LANG_MAP(_Q,      _P,      _Y, _C, _B,       _V,     _M, _U, _Z,      _L, \
+           _A,      _N,      _I, _S, _F,       _D,     _T, _D, _O,      _R, \
+           TL_SCLN, TL_SLSH, _J, _G, TL_COMM,  TL_DOT, _W, _K, TL_MINS, _X)
+#+end_src
+**** EUCALYN
+#+begin_src C :tangle base_layers/alt.h
+
+#define CARTE_EUCALYN                           \
+  carte_de_map("   /,.fq  aoeiu",               \
+               "   zxcvw  mrdyp",               \
+               "   gtksn  bhjl;")
+
+#define ___EUCALYN___                                                   \
+  LANG_MAP(TL_SLSH, TL_COMM, TL_DOT, _F, _Q,   _A, _O, _E, _I, _U,      \
+           _Z,      _X,      _C,     _V, _W,   _M, _R, _D, _Y, _P,      \
+           _G,      _T,      _K,     _S, _N,   _B, _H, _J, _L, TL_SCLN)
+
+
+#+end_src
+**** RSTHD
+#+begin_src C :tangle base_layers/alt.h
+
+// RSTHD
+/* j c y f k | z l , u q = */
+/* r s t h d | m n a i o - */
+/* / v g p b | x w . ; ' */
+/* e */
+
+// need a thumb cluster for this.
+// removed = and -, edge keys if you've got them.
+// e goes on left thumb
+
+#define CARTE_RSTHD                           \
+  carte_de_map("   jcyfk  zl,uq",             \
+               "   rsthd  mnaio",             \
+               "   /vgpb  xw.;' e")
+
+#define ___RSTHD___                                                     \
+  LANG_MAP(_J, _C, _Y, _F, _K,   _Z, _L, TL_COMM, _U,      _Q,          \
+           _R, _S, _T, _H, _D,   _M, _N, _A,      _I,      _O,          \
+           _/, _V, _G, _P, _B,   _X, _W, TL_DOT,  TL_SCLN, TL_QUOT)
+#+end_src
+**** Hands Up
+#+begin_src C :tangle base_layers/alt.h
+
+#define CARTE_HANDS_UP                    \
+  carte_de_map("  fyou,  kwclp",          \
+               "  hiea.  dtsrn",          \
+               "  bj'z;  vmgxq")
+
+#define ___HANDS_UP___                                         \
+  LANG_MAP(_F, _Y, _O,      _U, TL_COMM,   _K, _W, _C, _L, _P, \
+           _H, _I, _E,      _A, TL_DOT ,   _D, _T, _S, _R, _N, \
+           _B, _J, TL_QUOT, _Z, TL_SCLN,   _V, _M, _G, _X, _Q)
+#+end_src
+**** White
+#+begin_src C :tangle base_layers/alt.h
+
+#define CARTE_WHITE                             \
+  carte_de_map("  vyd,'  jmlu-",                \
+               "  atheb  csnoi",                \
+               "  pkgwq  xrf.z")
+
+#define ___WHITE___                                                     \
+  LANG_MAP(_V, _Y, _D, TL_COMM, TL_QUOT,   _J, _M, _L, _U,     _MINS,   \
+           _A, _T, _H, _E,      _B,        _C, _S, _N, _O,     _I,      \
+           _P, _K, _G, _W,      _Q,        _X, _R, _F, TL_DOT, _Z)
+
+#+end_src
+**** ISRT
+#+begin_src C :tangle base_layers/alt.h
+
+#define CARTE_ISRT                              \
+  carte_de_map("  yclmk  zfu,'",                \
+               "  isrtg  pneao",                \
+               "  qvwdj  bh/.x")
+
+#define ___ISRT___                                                      \
+  LANG_MAP(_Y, _C, _L, _M, _K,   _Z, _F, _U,      TL_COMM, TL_QUOT,     \
+           _I, _S, _R, _T, _G,   _P, _N, _E,      _A,      _O,          \
+           _Q, _V, _W, _D, _J,   _B, _H, TL_SLSH, TL_DOT,  _X)
+#+end_src
+**** Soul
+#+begin_src C :tangle base_layers/alt.h
+
+#define CARTE_SOUL                              \
+  carte_de_map("  qwldp  kmuy;",                \
+               "  srtg   fneio",                \
+               "  zxcvj  bh,./")
+
+#define ___SOUL___                                                      \
+  LANG_MAP(_Q, _W, _L, _D, _P,   _K, _M, _U,      _Y,     TL_SCLN,      \
+           _A, _S, _R, _T, _G,   _F, _N, _E,      _I,     _O,           \
+           _Z, _X, _C, _V, _J,   _B, _H, TL_COMM, TL_DOT, TL_SLSH)
+#+end_src
+**** Niro
+#+begin_src C :tangle base_layers/alt.h
+
+#define CARTE_NIRO                              \
+  carte_de_map("  qwudp  jfyl;",                \
+               "  asetg  hniro",                \
+               "  zxcvb  km,./")
+
+#define ___NIRO___                                                      \
+  LANG_MAP(_Q, _W, _U, _D, _P,   _J, _F, _Y,      _L,     TL_SCLN,      \
+           _A, _S, _E, _T, _G,   _H, _N, _I,      _R,     _O,           \
+           _Z, _X, _C, _V, _B,   _K, _M, TL_COMM, TL_DOT, TL_SLSH)
+#+end_src
+**** Asset
+#+begin_src C :tangle base_layers/alt.h
+
+#define CARTE_ASSET                             \
+  carte_de_map("  qwjfg   ypul;",               \
+               "  asetd   hnior",               \
+               "  zxcvb   km,./")
+
+#define ___Asset___                                                     \
+  LANG_MAP(_Q, _W, _J, _F, _G,    _Y, _P, _U,      _L,     TL_SCLN,     \
+           _A, _S, _E, _T, _D,    _H, _N, _I,      _O,     _R,          \
+           _Z, _X, _C, _V, _B,    _K, _M, TL_COMM, TL_DOT, TL_SLSH)
+#+end_src
+**** Whorf
+#+begin_src C :tangle base_layers/alt.h
+
+#define CARTE_WHORF                             \
+  carte_de_map("flhdm  vwou,",                  \
+               "srntk  gyaei",                  \
+               "xjbzq  pc';. ")
+
+#define ___WHORF___                                                    \
+  LANG_MAP(_F, _L, _H, _D, _M,   _V, _W, _O,      _U,      TL_COMM,    \
+           _S, _R, _N, _T, _K,   _G, _Y, _A,      _E,      _I,         \
+           _X, _J, _B, _Z, _Q,   _P, _C, TL_QUOT, TL_SCLN, TL_DOT )
+#+end_src
+**** Whorf 6
+#+begin_src C :tangle base_layers/alt.h
+
+#define CARTE_WHORF6                            \
+  carte_de_map("vlhkj  gwou.",                  \
+               "srntk  ydeai",                  \
+               "xqbfz  pc',; ")
+
+#define ___WHORF6___                                                    \
+  LANG_MAP(_V, _L, _H, _D, _M,   _G, _W, _O,      _U,      TL_DOT,      \
+           _S, _R, _N, _T, _K,   _Y, _D, _E,      _A,      _I,          \
+           _X, _Q, _B, _F, _Z,   _P, _C, TL_QUOT, TL_COMM, TL_SCLN )
+#+end_src
+**** +rsht/iena+
+#+begin_src C :tangle base_layers/alt.h
+
+/* rsht/iena */
+/* jfldv @uopq */
+/* zrshtg   .iena: */
+/* xcmwk  /y,b?       */
+#+end_src
+
+**** Pine
+#+begin_src C :tangle base_layers/alt.h
+#define CARTE_PINE                      \
+  carte_de_map("ylrdw  jmou,  ",        \
+               "csntg  phaei  ",        \
+               "xzqvk  bf'/.  ")
+
+#define ___PINE___                                                      \
+  LANG_MAP( _Y, _L, _R, _D, _W, _J, _M, _O, _U, TL_COMM,                \
+            _C, _S, _N, _T, _G, _P, _H, _A, _E, _I,                     \
+            _X, _Z, _Q, _V, _K, _B, _F, TL_QUOT, TL_SLSH, TL_DOT  )
+#+end_src
+
+**** Graphite
+
+This one still needs to have the proper shifted symbol pairs created for it.
+See more on github here: [[https://github.com/rdavison/graphite-layout][Graphite]]
+
+#+begin_src C :tangle base_layers/alt.h
+/* Graphite
+ https://github.com/rdavison/graphite-layout
+ ~ ! @ # $ %  ^ & * ( ) { }
+   B L D W Z  _ F O U J : + |
+   N R T S G  Y H A E I ?
+   Q X M C V  K P > " <
+
+ ` 1 2 3 4 5  6 7 8 9 0 [ ]
+   b l d w z  ' f o u j ; = \
+   n r t s g  y h a e i ,
+   q x m c v  k p . - /
+*/
+
+#define CARTE_GRAPHITE                 \
+  carte_de_map("bldwz  'fouj",         \
+               "nrtsg  yhaei" ,        \
+               "qqmcv  kp.-/")
+
+#define ___GRAPHITE___                                                  \
+  LANG_MAP(_B, _L, _D, _W, _Z,   _TL_UND, _F, _O,      _U,      _J,     \
+           _N, _R, _T, _S, _G,   _Y,      _H, _A,      _E,      _I,     \
+           _Q, _X, _M, _C, _V,   _K,      _P, TL_DOT,  TL_DASH, TL_SLSH )
+#+end_src
+
+*** Beakl
+**** Introduction
+ beakl, balanced effort key layout.
+ Beakl 15 and 19 are somewhat more related.
+ Beakl-27 is the latest from 2020, The website for Beakl is now gone.
+ Beakl-wi is a Beakl derivative from the darndest thing.
+
+
+ Remember the - and ; outside pinky keys.
+ Or use the 6 size.
+ Both are on the symbol layer too. So you
+ wont lose them at least. These are the TL keycodes. a more integrated
+ solution awaits.
+ =KC_BK_COMM=, =KC_BK_QUOT=, =KC_BK_DOT= - =Beakl->Qwerty=
+
+ =BP_BK_COMM=, =BP_BK_QUOT=, =BP_BK_DOT= - =Beakl->Bepo=
+ take care of the different shifted chars.
+
+**** Beakl 27
+
+Altered shifted pairs: dot = .`  comma = ,?   dquot = !"
+Alt target is BK2
+
+***** Base layer
+=32104 76598=
+=qhoux gcmrv=
+=yiea. dstnb=
+=j",k' wflpz=
+
+***** Shift layer
+  =!@$#% ^(*)&=
+  =QHOUX GCMRV=
+  =YIEA` DSTNB=
+  =J!?K' WFLPZ=
+
+***** 27
+
+#+begin_src C :tangle base_layers/beakl.h
+
+#define CARTE_BEAKL27                           \
+  carte_de_map(" qhoux gcmrz ",                 \
+               " yiea. dstnb ",                 \
+               " j\",k' wflpv ")
+
+// Alt target is BK
+// altered shifted pairs: quot = '`  comma = ,!   dot = .@
+#define ___BEAKL27___                                                   \
+  LANG_MAP(_Q, _H,      _O,      _U, _X,      _G, _C, _M, _R, _Z,       \
+           _Y, _I,      _E,      _A, TL_DOT,  _D, _S, _T, _N, _B,       \
+           _J, TL_DQUO, TL_COMM, _K, TL_QUOT, _W, _F, _L, _P, _V)
+#+end_src
+
+***** 27a
+#+begin_src C :tangle base_layers/beakl.h
+
+#define CARTE_BEAKL27a                          \
+  carte_de_map(" j\",k' gcmrz ",                 \
+               " yiea. dstnb ",                  \
+               " qhoux wflpv ")
+
+// Alt target is BK
+// altered shifted pairs: quot = '`  comma = ,!   dot = .@
+#define ___BEAKL27a___                                                  \
+  LANG_MAP(_J, TL_DQUO, TL_COMM, _K, TL_QUOT, _G, _C, _M, _R, _Z,       \
+           _Y, _I,      _E,      _A, TL_DOT,  _D, _S, _T, _N, _B,       \
+           _Q, _H,      _O,      _U, _X, _W, _F, _L, _P, _V)
+
+#+end_src
+**** 15
+#+begin_src C :tangle base_layers/beakl.h
+
+/* BEAKL 15 (main layer): */
+/*   40123 76598   */
+#define CARTE_BEAKL15                           \
+  carte_de_map(" qhoux gcrfz ",                 \
+               " yiea. dstnb ",                 \
+               " j/,k' wmlpv ")
+
+// Alt target is BK
+#define ___BEAKL15___                                           \
+  LANG_MAP(_Q, _H,    _O,      _U, _X,      _G, _C, _R, _F, _Z, \
+           _Y, _I,    _E,      _A, TL_DOT,  _D, _S, _T, _N, _B, \
+           _J, _SLSH, TL_COMM, _K, TL_QUOT, _W, _M, _L, _P, _V)
+#+end_src
+**** 19
+#+begin_src C :tangle base_layers/beakl.h
+
+/* BEAKL 19    */
+// Beakl 19.  scores better than 15, better in french also.
+// Both are lots better than dvorak or bepo.
+
+/* same symbols and keypad as 15 */
+/* number row is different */
+/*  32104 76598  */
+
+// Alt target is BK
+#define CARTE_BEAKL19                           \
+  carte_de_map(" q.ouj wdnm, ",                 \
+               " haeik gsrtp ",                 \
+               " z'/yx bclfv ")
+
+#define ___BEAKL19___                                                   \
+  LANG_MAP(_Q, _DOT,  _O,    _U, _J, _W,    _D, _N, _M, TL_COMM,        \
+           _H, _A,    _E,    _I, _K, _G,    _S, _R, _T, _P,             \
+           _Z, _QUOT, _SLSH, _Y, _X, _B,    _C, _L, _F, _V)
+
+#+end_src
+**** 19bis - French
+
+I found this modified Beakl 19 in KLA data, it was a quick modification that added,
+as easily as possible, the most common french accent letters to
+the existing Beakl 19 keymap. Its scores were surprisingly good,
+so I worked on it a little and came up with this one which is even better.
+
+It scores better than Bépo and Dvorak, and Colemak in both English and french.
+*YMMV!!*
+
+These are  full 3x12 matrix layouts.
+
+***** Least common french and english letters. *BEAKL 19bis* - Beakl/Bépo hybrid. English with French optimisations.
+
+ Least used letters in french xzykw QJÀ are fairly high in use.
+
+ XZ are good choices for pushing out, from english and french,
+ or using chords in both languages. Bad choices for Vi.
+
+ Note: The percentages came from different sources so do not
+ match between languages.
+
+Least used letters in French
+
+ |---+--------|
+ | Q | 0.89 % |
+ | J | 0.71 % |
+ | À | 0.54 % |
+ | X | 0.42 % |
+ | È | 0.35 % |
+ | Ê | 0.24 % |
+ | Z | 0.21 % |
+ | Y | 0.19 % |
+ | K | 0.16 % |
+ | Ô | 0.07 % |
+ | Û | 0.05 % |
+ | W | 0.04 % |
+
+ Least used letters in english
+ |---+---------+------|
+ | X | 0.2902% | 1.48 |
+ | Z | 0.2722% | 1.39 |
+ | J | 0.1965% | 1.00 |
+ | Q | 0.1962% |  (1) |
+
+
+***** BEAKL 19bis - original.
+
+The é and è were simply added for analysis by the KLA, not real use.
+ even so, this layout scores well for french, better than bepo and mtgap.
+
+  =qyouz  wdnck=
+ =-hiea,  gtrsp;=
+ =èj'é.x  vmlfb=
+
+***** BEAKL 19bis mod z.
+ French optimised with some english.
+ This version rearranges things a little based on fequency.
+ Dead keys and the most common accent keys are available.
+
+ Since it needs 3x12, I filled in the corners and removed ;.
+ Leaving y where it is. the o and the e might cause sfbs.
+ Put é on a different finger from e.
+ Swap z, e's, add à, ^, and ê, swap ; for -.
+ It might be beneficial to swap w and à, as à is much more frequent than w
+
+#+begin_src C :tangle base_layers/beakl.h
+#define CARTE_BEAKL19bis                        \
+  carte_de_map(" àqyoué  wdnck^ ",              \
+               " ;hiea,  gtrsp- ",              \
+               " zj'è.x  vmlfbê  ")
+
+#define ___BEAKL19bis_3x12___                                           \
+  LANG_MAP6(                                                            \
+            _AGRV, _Q, _Y,    _O,    _U,   _EACU,   _W, _D, _N, _C, _K, _DCIR, \
+            _SCLN, _H, _I,    _E,    _A,   _COMM,   _G, _T, _R, _S, _P, _MINS, \
+            _Z,    _J, _QUOT, _EGRV, _DOT, _X,      _V, _M, _L, _F, _B, _ECIR)
+
+#+end_src
+**** WI
+#+begin_src C :tangle base_layers/beakl.h
+
+// Beakl Wi.   This is the most current beakl this size. 18/01/2022.
+// Nothing on the 6th outer columns but layer toggle buttons. All 6.
+// altered shifted pairs: dot = .` comma = ,~  colon = :;
+// i is on the left thumb.
+/* ;you- ctrsv */
+/* qheaw gdnmz */
+/* j,.k' bplfx */
+/*    i        */
+
+#define CARTE_BEAKLWI                           \
+  carte_de_map(" ;you- ctrsv ",                 \
+               " qheaw gdnmz ",                 \
+               " j,.k' bplfx i")
+
+#define ___BEAKLWI___                                                   \
+  LANG_MAP(TL_COLN, _Y,      _O,     _U, _MINS,   _C, _T, _R, _S, _V,   \
+           _Q,      _H,      _E,     _A, _W,      _G, _D, _N, _M, _Z,   \
+           _J,      TL_COMM, TL_DOT, _K, _QUOT,   _B, _P, _L, _F, _X)
+
+// Thumbs.
+#define ___BEAKLWI_CRKBD_THUMBS___ LT_ESC, LT_I, LT_TAB,  LT_ENT, LT_SPC, LT_BSPC
+#+end_src
+**** WIa
+#+begin_src C :tangle base_layers/beakl.h
+
+// My version, loses KC_mins, because it's easier on my symbol layer.
+// put I in it's dvorak spot instead of thumbs, move W up to make room for I.
+// I'd rather have w and i on different fingers. One domino...
+
+// beakl-wi - mod iw-
+
+#define CARTE_BEAKLWIa                          \
+  carte_de_map(" ;youw ctrsv ",                 \
+               " qheai gdnmz ",                 \
+               " j,.k' bplfx ")
+
+// Alt target is BKW
+#define ___BEAKLWIa___                                                  \
+  LANG_MAP(TL_SCLN, _Y,      _O,     _U, _W,      _C, _T, _R, _S, _V,   \
+           _Q,      _H,      _E,     _A, _I,      _G, _D, _N, _M, _Z,   \
+           _J,      TL_COMM, TL_DOT, _K, _QUOT,   _B, _P, _L, _F, _X)
+#+end_src
+**** WIb
+#+begin_src C :tangle base_layers/beakl.h
+
+#define CARTE_BEAKLWIb                          \
+  carte_de_map(" j,.k' ctrsv ",                 \
+               " qheai gdnmz ",                 \
+               " ;youw bplfx ")
+
+// Alt target is BKW
+#define ___BEAKLWIb___                                                  \
+  LANG_MAP(_J,      TL_COMM, TL_DOT, _K, _QUOT, _C, _T, _R, _S, _V,     \
+           _Q,      _H,      _E,     _A, _I,    _G, _D, _N, _M, _Z,   \
+           TL_SCLN, _Y,      _O,     _U, _W,    _B, _P, _L, _F, _X)
+#+end_src
+*** Bépo
+ Maps based on BEPO.  These tend to want to be  3x12, squeezing
+ them into a 3x10 can be a challenge. The compact versions attempt
+ that with some success.
+
+ It is generally accepted that Optimot is the better layout in this group.
+ There are many variations.  Béop, Béopy, Godox-fr, etc. They are most
+ easily found on the [[https:/bepo.fr][Bepo website]].
+**** Optimot
+#+begin_src C :tangle base_layers/bepo.h
+
+// OPtimot by @Pyjam.
+/*  àjoéb fdl’qxz */
+/*  aieu, ptsrn^ç */
+/* êkyè.w gcmhvz */
+
+// -- rearranged z, and ç to get 3x12
+#define CARTE_OPTIMOT                           \
+  carte_de_map(" çàjoéb fdl’qx ",               \
+               "  aieu, ptsrn^ ",               \
+               " êkyè.w gcmhvz ")
+
+#define ___OPTIMOT_3x12___                                              \
+  LANG_MAP6(                                                            \
+            _CCED, _AGRV, _J, _O,    _EACU, _B,     _F, _D, _L, _QUOT, _Q,  _X, \
+            _TAB,  _A,    _I, _E,    _U,    _COMM,  _P, _T, _S, _R,    _N,  _DCIR, \
+            _ECIR, _K,    _Y, _EGRV, _DOT,  _W,     _G, _C, _M, _H,    _V,  _Z)
+#+end_src
+**** Optimot Compact
+#+begin_src C :tangle base_layers/bepo.h
+
+// no z or x. combos exist for them.
+#define CARTE_OPTIMOT_COMPACT                  \
+  carte_de_map(" àjoéb fdl’q ",                \
+               " aieu, ptsrn ",                \
+               " kyè.w gcmhv ")
+
+#define ___OPTIMOT_3x10___                                             \
+  LANG_MAP6(                                                           \
+            _AGRV, _J, _O,    _EACU, _B,     _F, _D, _L, _QUOT, _Q,    \
+            _A,    _I, _E,    _U,    _COMM,  _P, _T, _S, _R,    _N,    \
+            _K,    _Y, _EGRV, _DOT,  _W,     _G, _C, _M, _H,    _V,)
+
+#+end_src
+**** Bépo Compact
+
+Fitting Bépo into a 3x10.
+
+This one Depends on a mod tap on C for Ç , so we don't need CCED, on the base map.
+It drops À and Ê for a little more room in the corner.
+
+#+begin_src C :tangle base_layers/bepo.h
+// Maybe Use this for C
+//BP_C_CCED = MT(BP_CCED, BP_C)
+
+// BEPO
+
+// No quot, à or ç
+/* bépoè vdljz */
+/* auie, ctsrn */
+/* myx.k qghfw */
+#define CARTE_BEPOc                             \
+  carte_de_map("   bépoè  vdljz",               \
+               "   auie,  ctsrn",               \
+               "   myx.k  qghfw")
+
+#define ___BEPOc_3x10___                                        \
+  LANG_MAP(                                                     \
+           _B, _EACU, _P, _O,   _EGRV,    _V, _D, _L, _J, _Z,   \
+           _A, _U,    _I, _E,   _COMM,    _C, _T, _S, _R, _N,   \
+           _M, _Y,    _X, _DOT, _K,       _Q, _G, _H, _F, _W)
+
+
+#+end_src
+**** Bépo
+#+begin_src C :tangle base_layers/bepo.h
+#define CARTE_BEPO                              \
+  carte_de_map(" çbépoè ^vdljz ",               \
+               "  auie, ctsrnm ",               \
+               " êàyx.k ’qghfw ")
+
+#define ___BEPO_3x12___                                                 \
+  LANG_MAP6(_CCED, _B,    _EACU, _P, _O,   _EGRV,    _DCIR, _V, _D, _L, _J, _Z, \
+            _TAB,  _A,    _U,    _I, _E,   _COMM,    _C,    _T, _S, _R, _N, _M, \
+            _ECIR, _AGRV, _Y,    _X, _DOT, _K,       _QUOT, _Q, _G, _H, _F, _W)
+
+#+end_src
+**** +Godox-Fr+
+#+begin_src C
+// dont like this one much.
+/* #define ___GODOX_3x12___                                                \ */
+/*   LANG_MAP6(___, _AGRV, _B, _EACU, _dot, _mins,    _DCIR, _V, _L,  _M, _X, _CCED, \ */
+/*             ___,  _O,   _U, _I,    _A,   _J,       _G,    _T, _S,  _N, _R, _F, \ */
+/*             ___, _Q,    _Y, _EGRV, _P,   _K,       _W,    _D, _UP, _H, _C, _Z) */
+/* // E goes on left thumb. */
+#+end_src
+*** Carpalx
+**** QFMLWY
+#+begin_src C :tangle base_layers/carpalx.h
+#define CARTE_CARPALX_QFMLWY                    \
+  carte_de_map("   qfmlw  yuobj",               \
+               "   dstnr  iaeh;",               \
+               "   zvgcx  pk,./")
+
+#define ___CARPALX_QFMLWY___                                            \
+  LANG_MAP(_Q, _F, _M, _L, _W,   _Y, _U, _O,      _B,     _J,           \
+           _D, _S, _T, _N, _R,   _I, _A, _E,      _H,     TL_SCLN,      \
+           _Z, _V, _G, _C, _X,   _P, _K, TL_COMM, TL_DOT, TL_SLSH)
+#+end_src
+**** QFMLWB
+#+begin_src C :tangle base_layers/carpalx.h
+
+#define CARTE_CARPALX_QFMLWB                    \
+  carte_de_map("   qgmlw  byuv;",               \
+               "   dstnr  iaeoh",               \
+               "   zxcfj  kp,./")
+
+#define ___CARPALX_QGMLWB___                                            \
+  LANG_MAP(_Q, _G, _M, _L, _W,   _B, _Y, _U,      _V,     TL_SCLN,      \
+           _D, _S, _T, _N, _R,   _I, _A, _E,      _O,     _H,           \
+           _Z, _X, _C, _F, _J,   _K, _P, TL_COMM, TL_DOT, TL_SLSH)
+#+end_src
+**** QGMLWY
+#+begin_src C :tangle base_layers/carpalx.h
+
+#define CARTE_CARPALX_QGMLWY                    \
+  carte_de_map("   qgmlw  yfub;",               \
+               "   dstnr  iaeoh",               \
+               "   zxcvj  kp,./")
+
+#define ___CARPALX_QGMLWY___                                            \
+  LANG_MAP(_Q, _G, _M, _L, _W,   _Y, _F, _U,      _B,     TL_SCLN,      \
+           _D, _S, _T, _N, _R,   _I, _A, _E,      _O,     _H,           \
+           _Z, _X, _C, _V, _J,   _K, _P, TL_COMM, TL_DOT, TL_SLSH)
+#+end_src
+*** Colemak
+**** Colemak
+#+begin_src C :tangle base_layers/maks.h
+#define CARTE_COLEMAK                           \
+  carte_de_map("   qwfpg  jluy;",               \
+               "   arstd  hneio",               \
+               "   zxcvb  km,./")
+
+#define ___COLEMAK___                                                   \
+  LANG_MAP(_Q, _W, _F, _P, _G,    _J, _L,  _U,      _Y,     TL_SCLN,    \
+           _A, _R, _S, _T, _D,    _H, _N,  _E,      _I,     _O,         \
+           _Z, _X, _C, _V, _B,    _K, _M,  TL_COMM, TL_DOT, TL_SLSH)
+
+#+end_src
+**** Colemak DH
+#+begin_src C :tangle base_layers/maks.h
+
+#define CARTE_COLEMAK_DH                        \
+  carte_de_map("   qwfpb  jluy;",               \
+               "   arstg  mneio",               \
+               "   zxcdv  kh,./")
+
+#define ___COLEMAK_DH___                                                \
+  LANG_MAP(_Q, _W, _F, _P, _B,    _J, _L, _U,      _Y,     TL_SCLN,     \
+           _A, _R, _S, _T, _G,    _M, _N, _E,      _I,     _O,          \
+           _Z, _X, _C, _D, _V,    _K, _H, TL_COMM, TL_DOT, TL_SLSH)
+
+#+end_src
+**** Halmak
+#+begin_src C :tangle base_layers/maks.h
+#define CARTE_HALMAK                            \
+  carte_de_map("  wlrbz  ;qudj",                \
+               "  shnt,  .aeoi",                \
+               "  fmvc/  gpxky")
+
+#define ___HALMAK___                                            \
+  LANG_MAP(_W, _L, _R, _B, _Z,        TL_SCLN, _Q, _U, _D, _J,  \
+           _S, _H, _N, _T, TL_COMM,   _DOT,    _A, _E, _O, _I,  \
+           _F, _M, _V, _C, TL_SLSH,   _G,      _P, _X, _K, _Y)
+
+#+end_src
+**** Minimak
+#+begin_src C :tangle base_layers/maks.h
+#define CARTE_MINIMAK                           \
+  carte_de_map("  qwdrk  yuiop",                \
+               "  astfg  hjel;",                \
+               "  zxcvb  nm,./")
+
+#define ___MINIMAK___                                                   \
+  LANG_MAP(_Q, _W, _D, _R, _K,   _Y, _U, _I,      _O,     _P,           \
+           _A, _S, _T, _F, _G,   _H, _J, _E,      _L,     TL_SCLN,      \
+           _Z, _X, _C, _V, _B,   _N, _M, TL_COMM, TL_DOT, TL_SLSH)
+
+#+end_src
+**** Minimak 8
+#+begin_src C :tangle base_layers/maks.h
+#define CARTE_MINIMAK_8                         \
+  carte_de_map("  qwdrk  yuilp",                \
+               "  astfg  hneo;",                \
+               "  zxcvb  jm,./")
+
+#define ___MINIMAK_8___                                                 \
+  LANG_MAP(_Q, _W, _D, _R, _K,   _Y, _U, _I,      _L,     _P,           \
+           _A, _S, _T, _F, _G,   _H, _N, _E,      _O,     TL_SCLN,      \
+           _Z, _X, _C, _V, _B,   _J, _M, TL_COMM, TL_DOT, TL_SLSH)
+
+
+#+end_src
+**** Minimak 12
+#+begin_src C :tangle base_layers/maks.h
+#define CARTE_MINIMAK_12                        \
+  carte_de_map("  qwdfk  yuil;",                \
+               "  astrg  hneop",                \
+               "  zxcvb  jm,./")
+
+#define ___MINIMAK_12___                                                \
+  LANG_MAP(_Q, _W, _D, _F, _K,   _Y, _U, _I,      _L,     _SCLN,        \
+           _A, _S, _T, _R, _G,   _H, _N, _E,      _O,     _P,           \
+           _Z, _X, _C, _V, _B,   _J, _M, TL_COMM, TL_DOT, TL_SLSH)
+
+
+#+end_src
+**** Semimak JQ
+#+begin_src C :tangle base_layers/maks.h
+#define CARTE_SEMIMAK_JQ                        \
+  carte_de_map( "  flhvz  'wuoy",               \
+                "  srntk  cdeai",               \
+                "  xjbmq  pg,./")
+
+#define ___SEMIMAK_JQ___                                                \
+  LANG_MAP(_F, _L, _H, _V, _Z,   TL_QUOT, _W, _U, _O, _Y,               \
+           _S, _R, _N, _T, _K,   _C, _D, _E, _A, _I,                    \
+           _X, _J, _B, _M, _Q,   _P, _G, TL_COMM, TL_DOT, TL_SLSH)
+
+#+end_src
+**** Semimak
+#+begin_src C :tangle base_layers/maks.h
+#define CARTE_SEMIMAK                            \
+  carte_de_map( "  flhvz  qwuoy",                \
+                "  srntk  cdeai",                \
+                "  x'bmj  pg,./")
+
+#define ___SEMIMAK___                                                \
+  LANG_MAP(_F, _L, _H, _V, _Z,      _Q, _W, _U, _O, _Y,                 \
+           _S, _R, _N, _T, _K,      _C, _D, _E, _A, _I,                 \
+           _X, TL_QUOT, _B, _M, _J,  _P, _G, TL_COMM, TL_DOT, TL_SLSH)
+
+#+end_src
+**** Aptmak 30
+#+begin_src C :tangle base_layers/maks.h
+
+// APTMAP E on thumb.
+#define CARTE_APTMAK_30                         \
+  carte_de_map( "  ;wfpb  qluy'",               \
+                "  rsthk  jnaio",               \
+                "  xcgdv  zm,./  e")
+
+#define ___APTMAK_30___                                                 \
+  LANG_MAP(TL_SCLN, _W, _F, _P, _B,      _Q, _L, _U, _Y, TL_QUOT,       \
+           _R,      _S, _T, _H, _K,      _J, _N, _A, _I, _O,            \
+           _X,      _C, _D, _M, _V,      _P, _G, TL_COMM, TL_DOT, TL_SLSH)
+
+
+#+end_src
+**** Aptmak
+#+begin_src C :tangle base_layers/maks.h
+#define CARTE_APTMAK                            \
+  carte_de_map( "  /wfpb  jluy'",               \
+                "  rsthk  vnaio",               \
+                "  xcgdq  zm,.;  e")
+
+#define ___APTMAK___                                                    \
+  LANG_MAP(TL_SLSH, _W, _F, _P, _B,      _J, _L, _U, _Y, TL_QUOT,       \
+           _R,      _S, _T, _H, _K,      _V, _N, _A, _I, _O,            \
+           _X,      _C, _G, _D, _Q,      _Z, _M, TL_COMM, TL_DOT, TL_SCLN)
+
+#+end_src
+**** Aptmak Alt
+ Aptmak twist from @GNU on HD.
+ Needs combos for jqz.
+ Repeat ⟳ key goes where SLSH is.
+
+#+begin_src C :tangle base_layers/maks.h
+// aptmak twist from @GNU on HD.
+// Needs combos for jqz.
+// repeat ⟳ key goes where SLSH is.
+#define CARTE_APTMAK_ALT                        \
+  carte_de_map( "  /wfpk  xluy'",               \
+                "  crstb  vnaio",               \
+                "   cgd    h,.   e")
+
+#define ___APTMAK_ALT___                                                \
+  LANG_MAP(TL_SLSH, _W, _F, _P, _K,      _X, _L, _U, _Y, TL_QUOT,       \
+           _C,      _R, _S, _T, _B,      _V, _N, _A, _I, _O,            \
+           _NO,      _C, _G, _D, _NO,      _NO, _H, TL_COMM, TL_DOT, _NO)
+#+end_src
+*** Dvorak
+**** Dvorak
+#+begin_src C :tangle base_layers/dvorak.h
+#define CARTE_DVORAK                            \
+  carte_de_map(" ',.py fgcrl ",                 \
+               " aoeui dhtns ",                 \
+               " ;qjkx bmwvz ")
+
+#define ___DVORAK___                                                    \
+  LANG_MAP(TL_QUOT,  TL_COMM, TL_DOT, _P,  _Y,   _F, _G, _C, _R, _L,    \
+           _A,       _O,      _E,     _U,  _I,   _D, _H, _T, _N, _S,    \
+           TL_SCLN,  _Q,      _J,     _K,  _X,   _B, _M, _W, _V, _Z)
+#+end_src
+**** RLC IU Swaps.
+#+begin_src C :tangle base_layers/dvorak.h
+
+#define CARTE_DVORAK_RLC_IU                     \
+  carte_de_map(" ',.py frglc ",                 \
+               " aoeiu dhtns ",                 \
+               " ;qjkx bmwvz ")
+
+#define ___DVORAK_RLC_IU___                                             \
+  LANG_MAP(TL_QUOT,  TL_COMM, TL_DOT, _P,  _Y,   _F, _R, _G, _L, _C,    \
+           _A,       _O,      _E,     _I,  _U,   _D, _H, _T, _N, _S,    \
+           TL_SCLN,  _Q,      _J,     _K,  _X,   _B, _M, _W, _V, _Z)
+#+end_src
+**** Boo
+#+begin_src C :tangle base_layers/dvorak.h
+
+#define CARTE_BOO                               \
+  carte_de_map("  ,.ucv  qfdly",                \
+               "  aoesg  bntri",                \
+               "  ;x'wz  phmkj")
+
+#define ___BOO___                                                       \
+  LANG_MAP( TL_COMM, TL_DOT, _U,      _C, _V,   _Q, _F, _D, _L, _Y,     \
+            _A,      _O,     _E,      _S, _G,   _B, _N, _T, _R, _I,     \
+            TL_SCLN, _X,     TL_QUOT, _W, _Z,   _P, _H, _M, _K, _J)
+#+end_src
+**** Capewell Dvorak
+#+begin_src C :tangle base_layers/dvorak.h
+
+#define CARTE_CAPEWELL_DVORAK                   \
+  carte_de_map( "  ',.py  qfgrk",               \
+                "  oaeiu  dhtns",               \
+                "  zxcvj  lmwb;")
+
+#define ___CAPEWELL_DVORAK___                                           \
+  LANG_MAP(TL_QUOT, TL_COMM, TL_DOT, _P, _Y,   _Q, _F, _G, _R, _K,      \
+           _O,      _A,      _E,     _I, _U,   _D, _H, _T, _N, _S,      \
+           _Z,      _X,      _C,     _V, _J,   _L, _M, _W, _B, TL_SCLN)
+
+#+end_src
+**** AHEI
+#+begin_src C :tangle base_layers/dvorak.h
+//ahei - derived from dvorak.
+// x moved to left side. j on pinky.
+/*;pouyq gdlm/= */
+/* ahei, fstnr- */
+/* j'k.x bcwvz */
+
+#define CARTE_AHEI                              \
+  carte_de_map("pouyq  gdlm/",                  \
+               "ahei,  fstnr",                  \
+               "j'k.x  bcwvz")
+
+#define ___AHEI___                                                      \
+LANG_MAP(_P, _O,      _U, _Y,     _Q,       _G, _D, _L, _M, TL_SLSH, \
+         _A, _H,      _E, _I,     TL_COMM,  _F, _S, _T, _N, _R,      \
+         _J, TL_QUOT, _K, TL_DOT, _X,       _B, _C, _W, _V, _Z)
+#+end_src
+*** hands Down
+
+The hands down family grew out of MTGap long ago and continues to evolve.
+
+//https://sites.google.com/alanreiser.com/handsdown/home
+
+**** Alternate shift keys
+#+begin_src C :tangle base_layers/hands_down.h
+
+/* alt shift keys "? '!  dash and elan */
+/* (< {[  - elan                       */
+/* dash has thumbs of ,; and .:        */
+/* dash and the rest get these too.    */
+/* alt shifts   ;: .& /\* '? "! ,| -+  */
+/* COMBOS - z = jg, z=vg, q=uk, q=mp.  */
+
+#+end_src
+
+**** Neu
+#+begin_src C :tangle base_layers/hands_down.h
+
+//https://sites.google.com/alanreiser.com/handsdown/home
+
+// The only 3x12 layout. The rest are 3x10.
+#define CARTE_HD_NEU                            \
+  carte_de_map( "  wfmpv  /.q\"'z",            \
+                "  rsntb  ,aeihj",             \
+                "  xcldg  -uoykK")
+
+#define ___HD_NEU___                                                    \
+  LANG_MAP(_SML_NAV,   _W, _F, _M, _P, _V , TL_SLSH, TL_DOT, _Q, TL_DQUO, TL_QUOT, _Z, \
+           _TAB,       _R, _S, _N, _T, _B , TL_COMM, _A,     _E, _I,      _H,    _J, \
+           _OS_ACCENT, _X, _C, _L, _D, _G , TL_MINS, _U,     _O, _Y,      _K, _SML_KEYPAD)
+
+#+end_src
+
+**** Neu Narrow 3x10
+#+begin_src C :tangle base_layers/hands_down.h
+
+// modified to fit 3x10.
+// combos for j and z.
+#define CARTE_HD_NEU_NARROW                    \
+  carte_de_map( "  wfmpv  /.q\"'",             \
+                "  rsntb  ,aeih",              \
+                "  xcldg  -uoyk")
+
+#define ___HD_NEU_NARROW___                                          \
+LANG_MAP(_W, _F, _M, _P, _V,  TL_SLSH, TL_DOT, _Q, TL_DQUO, TL_QUOT, \
+         _R, _S, _N, _T, _G,  TL_COMM, _A,     _E, _I,      _H,      \
+         _X, _C, _L, _D, _B,  TL_MINS, _U,     _O, _Y,      _K,      \
+         )
+#+end_src
+**** Neu Narrow 3x10 Mirrored
+#+begin_src C :tangle base_layers/hands_down.h
+
+// modified to fit 3x10.
+// mirrored.
+#define CARTE_HD_NEU_NARROW_M                   \
+  carte_de_map("   '\"q./  vpmfw",               \
+               "   hiea,  btnsr",               \
+               "   kyou-  gdlcx")
+
+#define ___HD_NEU_NARROW_M___                                           \
+  LANG_MAP(TL_QUOT, TL_DQUO, _Q, TL_DOT, TL_SLSH,   _V, _P, _M, _F, _W, \
+           _H,      _I,      _E, _A,     TL_COMM,   _B, _T, _N, _S, _R, \
+           _K,      _Y,      _O, _U,     TL_MINS,   _G, _D, _L, _C, _X)
+
+#+end_src
+**** Ref
+#+begin_src C :tangle base_layers/hands_down.h
+
+#define CARTE_HD_REF                            \
+  carte_de_map("    qchpv   kyoj/",             \
+               "    rsntg   wueia",             \
+               "    xmldb   zf',.")
+
+#define ___HD_REF___                                                    \
+  LANG_MAP(_Q, _C, _H, _P, _V,   _K, _Y, _O,      _J,       TL_SLSH,    \
+           _R, _S, _N, _T, _G,   _W, _U, _E,      _I,       _A,         \
+           _X, _M, _L, _D, _B,   _Z, _F, TL_QUOT, TL_COMM,  TL_DOT )
+
+#+end_src
+**** Titanium
+#+begin_src C :tangle base_layers/hands_down.h
+
+// no z or q, use combos.
+#define CARTE_HD_TITANIUM                       \
+  carte_de_map("  jgmpv  ;./\"' ",              \
+               "  csntw  ,aeih ",               \
+               "  xfldb  -uoyk  r")
+
+#define ___HD_TITANIUM___                                               \
+  LANG_MAP(_J, _G, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_DQUO, TL_QUOT, \
+           _C, _S, _N, _T, _W , TL_COMM, _A, _E, _I, _H,                \
+           _X, _F, _L, _D, _B , TL_MINS, _U, _O, _Y, _K)
+#+end_src
+
+**** Mithril
+
+#+begin_src C :tangle base_layers/hands_down.h
+
+//___HD_MITHRIL___
+
+//Combos.
+// z, x on combos. r on thumb.
+//Symbol pairs: #_ .: =* /? '" ,; -+
+
+// no z or q, use combos.
+#define CARTE_HD_MITHRIL                       \
+  carte_de_map("  wpgdz  #.=j' ",              \
+               "  cnstk  ,iela ",               \
+               "  ybfmv  /uoh-  r")
+
+#define ___HD_MITHRIL___                                                  \
+  LANG_MAP(_W, _P, _G, _D, _Z,  TL_SCLN, TL_DOT, TL_EQL, _J, TL_QUOT, \
+           _C, _N, _S, _T, _K , TL_COMM, _I, _E, _L, _A,                \
+           _Y, _B, _F, _M, _V , TL_SLSH, _U, _O, _h, TL_MINS)
+#+end_src
+**** Vibranium
+
+I've named these as they appeared in the discord channel for Vibranium.
+*At the moment they use the same top puncuation line as the other HD layouts.  - fix this.*
+There needs to be a =TL_HASH=. and a =*, but these are very personal things.
+
+
+According to Alan's thoughts:
+_Also, I think it would be more informative to refer to the Vibranium variations by the letter in the lower left. This would be 'vb'. The original would be 'vp' and the other would be 'vf'.
+they're are super close._
+
+#+begin_src C :tangle base_layers/hands_down.h
+
+//___HD_VIBRANIUM___
+
+//Combos.
+//WX for Z,
+//XG  for Qu, hold to delete the u._
+//Symbol pairs: #_ .: =* /? '" ,; -+
+
+// no z or q, use combos.
+#define CARTE_HD_VIBRANIUM                       \
+  carte_de_map("  wxmgj  ;.=/' ",              \
+               "  csntk  ,aeih ",               \
+               "  pfldv  -uoyb  r")
+
+#define ___HD_VIBRANIUM___                                               \
+  LANG_MAP(_W, _X, _M, _G, _J,  TL_SCLN, TL_DOT, TL_EQL, TL_SLSH, TL_QUOT, \
+           _C, _S, _N, _T, _K , TL_COMM, _A, _E, _I, _H,                \
+           _P, _F, _L, _D, _V , TL_MINS, _U, _O, _Y, _B)
+#+end_src
+
+
+**** Vibranium No alpha on thumb.
+
+Alan created one like this.
+I've added the less modified one that keeps punctuation.
+One needs z on a combo and loses slash and quote.
+The other needs zq and x on combos but keeps slash and quote.
+
+#+begin_src C :tangle base_layers/hands_down.h
+// Move R to right corner displace b, Move b to middle, Move k down,
+// swap corners for x and put v there.
+// x displaces '.
+// q displaces /.
+
+//     vwmgj  ;.=qx
+//     scntb  ,aeih
+//     fpldk  -uoyr
+//        z/
+
+// z and / need a combo or something else.
+#define CARTE_HD_VIBRANIUM_NT                       \
+  carte_de_map("  vwmgj  ;.=qx ",              \
+               "  scntb  ,aeih ",               \
+               "  fpldk  -uoyr ")
+
+#define ___HD_VIBRANIUM_NT___                                               \
+  LANG_MAP(_W, _X, _M, _G, _J,  TL_SCLN, TL_DOT, TL_EQL, TL_SLSH, TL_QUOT, \
+           _S, _C, _N, _T, _K , TL_COMM, _A, _E, _I, _H,                \
+           _P, _F, _L, _D, _V , TL_MINS, _U, _O, _Y, _B)
+
+
+// put qx and z on combos. keep ' and /.
+#define CARTE_HD_VIBRANIUM_NTP                  \
+  carte_de_map("  vwmgj  ;.=/' ",              \
+               "  scntb  ,aeih ",               \
+               "  fpldk  -uoyr ")
+
+#define ___HD_VIBRANIUM_NTP___                                               \
+  LANG_MAP(_W, _X, _M, _G, _J,  TL_SCLN, TL_DOT, TL_EQL, TL_SLSH, TL_QUOT, \
+           _S, _C, _N, _T, _K , TL_COMM, _A, _E, _I, _H,                \
+           _P, _F, _L, _D, _V , TL_MINS, _U, _O, _Y, _B)
+
+#+end_src
+
+**** Vibranium Alternate VF and VP
+
+Alan: The W on pinky is a concern...this is a reasonable alternative.
+A bit higher center column, of course, and fractionally higher SFBs, but the SC rolls are better, and the pinky is spared both F&W. redirects are still great.
+Depends on where you might like your w.
+
+#+begin_src C :tangle base_layers/hands_down.h
+#define CARTE_HD_VIBRANIUM_VF                       \
+  carte_de_map("  xpmgj  ;.=/' ",              \
+               "  scntk  ,aeih ",               \
+               "  vfldw  -uoyb  r")
+
+#define ___HD_VIBRANIUM_VF___                                               \
+  LANG_MAP(_X, _P, _M, _G, _J,  TL_SCLN, TL_DOT, TL_EQL, TL_SLSH, TL_QUOT, \
+           _S, _C, _N, _T, _K , TL_COMM, _A, _E, _I, _H,                \
+           _V, _F, _L, _D, _W , TL_MINS, _U, _O, _Y, _B)
+
+#define CARTE_HD_VIBRANIUM_VP                       \
+  carte_de_map("  xwmgj  ;.=/' ",              \
+               "  scntb  ,aeih ",               \
+               "  vpldk  -uoyf  r")
+
+#define ___HD_VIBRANIUM_VP___                                               \
+  LANG_MAP(_X, _W, _M, _G, _J,  TL_SCLN, TL_DOT, TL_EQL, TL_SLSH, TL_QUOT, \
+           _S, _C, _N, _T, _B , TL_COMM, _A, _E, _I, _H,                \
+           _V, _P, _L, _D, _W , TL_MINS, _U, _O, _Y, _F)
+#+end_src
+
+**** Vibranium Alternate B
+Alan: I'm really feeling the love for this though.
+
+#+begin_src C :tangle base_layers/hands_down.h
+#define CARTE_HD_VIBRANIUM_B                       \
+  carte_de_map("  xwmgj  ;.=/' ",              \
+               "  csntk  ,aeih ",               \
+               "  bpldv  -uoyf  r")
+
+#define ___HD_VIBRANIUM_B___                                               \
+  LANG_MAP(_X, _W, _M, _G, _J,  TL_SCLN, TL_DOT, TL_EQL, TL_SLSH, TL_QUOT, \
+           _C, _S, _N, _T, _K , TL_COMM, _A, _E, _I, _H,                \
+           _B, _P, _L, _D, _V , TL_MINS, _U, _O, _Y, _F)
+
+#+end_src
+
+
+**** Rhodium
+#+begin_src C :tangle base_layers/hands_down.h
+
+
+#define CARTE_HD_RHODIUM                        \
+  carte_de_map("  bjhgx  ;./\"' ",              \
+               "  csntk  ,aeim ",               \
+               "  pfldv  -uoyw  r")
+
+#define ___HD_RHODIUM___                                                \
+  LANG_MAP(_W, _V, _M, _G, _EQL,  TL_SCLN, TL_DOT, TL_SLSH, TL_DQUO, TL_QUOT, \
+           _C, _S, _N, _T, _K ,   TL_COMM, _A, _E, _I, _M,              \
+           _P, _F, _L, _D, _X ,   TL_MINS, _U, _O, _Y, _W)
+#+end_src
+**** Rhodium B variation
+#+begin_src C :tangle base_layers/hands_down.h
+
+#define CARTE_HD_RHODIUMB                       \
+  carte_de_map("  wvmg=  ;./j' ",               \
+               "  csntk  ,aeih ",               \
+               "  pfldx  -uoyb  r")
+
+#define ___HD_RHODIUMB___                                               \
+  LANG_MAP(_W, _V, _M, _G, _EQL,  TL_SCLN, TL_DOT, TL_SLSH, _J, TL_QUOT, \
+           _C, _S, _N, _T, _K ,   TL_COMM, _A, _E, _I, _H,              \
+           _P, _F, _L, _D, _X ,   TL_MINS, _U, _O, _Y, _B)
+#+end_src
+**** Rhodium C variation
+#+begin_src C :tangle base_layers/hands_down.h
+
+// from @exanimo
+// qzx on the edges, combos or elsewhere.
+#define CARTE_HD_RHODIUMC                       \
+  carte_de_map("  `',.=  jwhv/\\ ",             \
+               " qmeia-  gtnscx ",              \
+               "  kyou;  bdlfpz  r")
+
+// qzx on the edges, combos or elsewhere.
+#define CARTE_HD_RHODIUMC2                       \
+  carte_de_map("  `\".'  jwhv/ ",                \
+               "  meia,  gtnsc ",                \
+               "  koyu-  bdlfp  r")
+
+#define ___HD_RHODIUMC___                                               \
+  LANG_MAP(_GRV, TL_SLASH, TL_DQUO, TL_DOT, _EQL,  _J, _W, _H, _J, _V,  \
+           _M,   _E,       _I,      _A,  TL_COMM,  _G, _T, _N, _S, _C, \
+           _K,   _O,       _Y,      _U,  TL_MINS,  _B, _D, _L, _F, _P)
+
+#+end_src
+**** Vroomy
+#+begin_src C :tangle base_layers/hands_down.h
+
+#define CARTE_HD_VROOMY                         \
+  carte_de_map("  xflb'  ;.=jv ",               \
+               "  csndk  ,aeir ",               \
+               "  wghp/  -uoym  t")
+
+#define ___HD_VROOMY___                                                 \
+  LANG_MAP(_X, _F, _L, _B, TL_QUOT,  TL_SCLN, TL_DOT, _EQL, _J, _V,     \
+           _C, _S, _N, _D, _K,       TL_COMM, _A, _E, _I, _H,           \
+           _W, _G, _H, _P, TL_SLSH,  TL_MINS, _U, _O, _Y, _B)
+#+end_src
+**** Gold
+#+begin_src C :tangle base_layers/hands_down.h
+
+#define CARTE_HD_GOLD                                           \
+  carte_de_map("  jgmpv  ;./\"' ",                              \
+               "  rsndb  ,aeih ",                               \
+               "  xflcw  -uoyk  t")
+
+#define ___HD_GOLD___                                                   \
+  LANG_MAP(_J, _G, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_DQUO, TL_QUOT, \
+           _R, _S, _N, _D, _B , TL_COMM, _A, _E, _I, _H,                \
+           _X, _F, _L, _C, _W , TL_MINS, _U, _O, _Y, _K)
+/* t, ␣ */
+#+end_src
+**** Platinum
+#+begin_src C :tangle base_layers/hands_down.h
+
+/* jz pq alt shifts   ;: .& /\* '? "! ,| -+ */
+
+#define CARTE_HD_PLATINUM                       \
+  carte_de_map( "jghpv   ;./'\"",               \
+                "rsntb   ,aeic",                \
+                "xfmdk   -uowy  l")
+/* l   ␣   */
+
+#define ___HD_PLATINUM___                                               \
+  LANG_MAP(_J, _G, _H, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
+           _R, _S, _N, _T, _B,  TL_COMM, _A, _E, _I, _C,                \
+           _X, _F, _M, _D, _K,  TL_MINS, _U, _O, _W, _Y)
+#+end_src
+**** Silver
+#+begin_src C :tangle base_layers/hands_down.h
+
+#define CARTE_HD_SILVER                         \
+  carte_de_map("jgmpv   ;./'\"",                \
+               "rshtb   ,aeic",                 \
+               "xfldk   -uowy  n")
+/* n   ␣   */
+
+#define ___HD_SILVER___                                 \
+  LANG_MAP(_J, _G, _M, _P, _V,  TL_SCLN, TL_DOT, TL_SLSH, TL_QUOT, TL_DQUO, \
+           _R, _S, _H, _T, _B,  TL_COMM, _A, _E, _I, _C,                \
+           _X, _F, _L, _D, _K,  TL_MINS, _U, _O, _W, _Y)
+#+end_src
+**** Bronze
+#+begin_src C :tangle base_layers/hands_down.h
+
+#define CARTE_HD_BRONZE                         \
+  carte_de_map("jgmpv   ;./'\"",                \
+               "rsntb   ,aeic",                 \
+               "xfldk   -uowy  h")
+/* h   ␣   */
+
+#define ___HD_BRONZE___                                 \
+  LANG_MAP(_J, _G , _M, _P, _V , TL_SCLN, TL_DOT, TL_SLSH , TL_QUOT, TL_DQUO, \
+           _R, _S, _N, _T, _B , TL_COMM, _A, _E, _I, _C,                \
+           _X, _F, _L, _D, _K , TL_MINS, _U, _O, _W, _Y)
+#+end_src
+**** Elan
+#+begin_src C :tangle base_layers/hands_down.h
+
+#define CARTE_HD_ELAN                          \
+  carte_de_map("vghpk   /({'\"",               \
+               "rsntf   jaeci",                \
+               "xmldb   -uowy")
+/* ,; .:  ␣  ⏎ */
+
+/* vz g  h  p  kq  /\* (< {[ '! "? */
+/* TL_COMM; TL_DOT:  _␣  ⏎ */
+#define ___HD_ELAN___                                                   \
+  LANG_MAP(_V, _G, _H, _P, _K,   TL_SLSH, TL_LPRN, TL_LCBR, TL_QUOT, TL_DQUO, \
+           _R, _S, _N, _T, _F,   _J, _A, _E, _C, _I,                    \
+           _X, _M, _L, _D, _B,   TL_MINS, _U, _O, _W, _Y)
+
+#+end_src
+**** Dash
+#+begin_src C :tangle base_layers/hands_down.h
+
+#define CARTE_HD_DASH                          \
+    carte_de_map("jgmpv   ;.'\"/",             \
+                 "rsntb   ,haoi",              \
+                 "xcldw   -fuky  e")
+    /*   e   ␣   */
+
+#define ___HD_DASH___                                                   \
+  LANG_MAP(_J, _G, _M, _P, _V , TL_SCLN, TL_DOT, TL_QUOT, TL_DQUO, TL_SLSH, \
+           _R, _S, _N, _T, _B , TL_COMM, _H, _A, _O, _I,                \
+           _X, _C, _L, _D, _W , TL_MINS, _F, _U, _K, _Y)
+#+end_src
+*** MTGap
+**** MTGap
+
+An alternate. Z below or on thumb.
+ Reference: MTGAP
+ =y p o u - | b d l c k j=
+ =i n e a , | m h t s r v=
+ =( " ' . _ | ) f w g x=
+   z
+
+#+begin_src C :tangle base_layers/gap.h
+#define CARTE_MTGAP                             \
+  carte_de_map("   ypouj  kdlcw",               \
+               "   inea,  mhtsr",               \
+               "   qz/.;  bfgvx")
+
+#define ___MTGAP___                                                     \
+  LANG_MAP(_Y, _P, _O,      _U,     _J,        _K, _D, _L, _C, _W,      \
+           _I, _N, _E,      _A,     TL_COMM,   _M, _H, _T, _S, _R,      \
+           _Q, _Z, TL_SLSH, TL_DOT, TL_SCLN,   _B, _F, _G, _V, _X)
+#+end_src
+**** Apt
+#+begin_src C :tangle base_layers/gap.h
+
+/* //APT v3*/
+/* https://github.com/Apsu/APT */
+#define CARTE_APT                               \
+  carte_de_map("   wgdfb  qluoy",               \
+               "   rsthk  jneai ",             \
+               "   xcmpv  z,.'/")
+
+#define ___APT___                                                       \
+  LANG_MAP(_W, _G, _D, _F, _B,    _Q, _L, _U, _O, _Y,                   \
+           _R, _S, _T, _H, _K,    _J, _N, _E, _A, _I,           \
+           _X, _C, _M, _P, _V,    _Z, TL_COMM, TL_DOT, TL_QUOT, TL_SLSH)
+
+#+end_src
+**** CTGap
+#+begin_src C :tangle base_layers/gap.h
+
+#define CARTE_CTGAP                             \
+  carte_de_map("  vplcf  kuoyj",                \
+               "  rntsd  'aeih",                \
+               "  zbmgw  x,.;q")
+
+#define ___CTGAP___                                                     \
+  LANG_MAP(_V, _P, _L, _C, _F,   _K,      _U,      _O,     _Y,      _J, \
+           _R, _N, _T, _S, _D,   TL_QUOT, _A,      _E,     _I,      _H, \
+           _Z, _B, _M, _G, _W,   _X,      TL_COMM, TL_DOT, TL_SCLN, _Q)
+#+end_src
+**** Canary
+#+begin_src C :tangle base_layers/gap.h
+
+#define CARTE_CANARY                                           \
+  carte_de_map( "  wlypb   zfou'",                                 \
+                "  crstg   mneia",                                 \
+                "  qjvdk   xh/,.")
+
+#define ___CANARY___                                                    \
+  LANG_MAP(_W, _L, _Y, _P, _B, _Z, _F, _O,      _U,      TL_QUOT,       \
+           _C, _R, _S, _T, _G, _M, _N, _E,      _I,      _A,            \
+           _Q, _J, _V, _D, _K, _X, _H, TL_SLSH, TL_COMM, TL_DOT)
+#+end_src
+*** Qwerty
+**** Qwerty
+#+begin_src C :tangle base_layers/qwerty.h
+
+#define CARTE_QWERTY                            \
+  carte_de_map("   qwert  yuiop",               \
+               "   asdfg  hjkl;",               \
+               "   zxcvb  nm,./")
+
+// Need TLKC around comm, dot, and quot, and scln
+// Qwerty based layers that I don't really use.
+#define ___QWERTY___                                                    \
+  LANG_MAP(_Q, _W, _E, _R, _T, _Y,  _U,  _I,      _O,     _P,           \
+           _A, _S, _D, _F, _G, _H,  _J,  _K,      _L,     TL_SCLN,      \
+           _Z, _X, _C, _V, _B, _N,  _M,  TL_COMM, TL_DOT, TL_SLSH)
+
+#+end_src
+**** Azerty
+#+begin_src C :tangle base_layers/qwerty.h
+#define CARTE_AZERTY                           \
+  carte_de_map("   azert  yuiop",               \
+               "   qsdfg  hjkl;",               \
+               "   wxcvb  nm,./")
+
+// Need TLKC around comm, dot, and quot, and scln
+// Qwerty based layers that I don't really use.
+#define ___AZERTY___                                                    \
+  LANG_MAP(_A, _Z, _E, _R, _T, _Y,  _U,  _I,      _O,     _P,           \
+           _Q, _S, _D, _F, _G, _H,  _J,  _K,      _L,     TL_SCLN,      \
+           _W, _X, _C, _V, _B, _N,  _M,  TL_COMM, TL_DOT, TL_SLSH)
+
+#+end_src
+**** Workman
+#+begin_src C :tangle base_layers/qwerty.h
+
+
+#define CARTE_WORKMAN                           \
+  carte_de_map("   qdrwb  jfup;",               \
+               "   ashtg  yneio",               \
+               "   zxmcv  kl,./")
+
+#define ___WORKMAN___                                                   \
+  LANG_MAP(_Q, _D, _R, _W, _B,   _J, _F, _U,      _P,     _SCLN,        \
+           _A, _S, _H, _T, _G,   _Y, _N, _E,      _O,     _I,           \
+           _Z, _X, _M, _C, _V,   _K, _L, TL_COMM, TL_DOT, TL_SLSH)
+
+#+end_src
+**** Norman
+#+begin_src C :tangle base_layers/qwerty.h
+#define CARTE_NORMAN                            \
+  carte_de_map("   qwdfk  jurl;",               \
+               "   asetg  yniou",               \
+               "   zxcvb  pm,./")
+#define ___NORMAN___                                                    \
+  LANG_MAP(_Q, _W, _D, _F, _K,   _J, _U, _R,      _L,     TL_SCLN,      \
+           _A, _S, _E, _T, _G,   _Y, _N, _I,      _O,     _U,           \
+           _Z, _X, _C, _V, _B,   _P, _M, TL_COMM, TL_DOT, TL_SLSH)
+#+end_src
+** Random KLA map data
+This is just some KLA data I found and used to create some of these layouts.
+
+#+begin_src C :tangle kla-data.txt
+/*
+This file can be commented by blocks or single lines using //
+Blank lines are ignored
+*/
+/*
+Bigram frequencies in stats.csv
+*/
+
+[keys]
+L21 L22 L23 L24 L25 L26 R26 R25 R24 R23 R22 R21
+L31 L32 L33 L34 L35 L36 R36 R35 R34 R33 R32 R31
+L41 L42 L43 L44 L45 L46 R46 R45 R44 R43 R42 R41
+
+[weights]
+5.0 3.6 2.4 1.8 2.2 3.5 3.5 2.2 1.8 2.4 3.6 5.0
+4.0 1.6 1.2 1.0 1.0 3.0 3.0 1.0 1.0 1.2 1.6 4.0
+5.0 3.4 2.6 2.2 1.8 4.0 4.0 1.8 2.2 2.6 3.4 5.0
+
+/*
+Weights should:
+- limit weak fingers
+- limit bottom row
+- increase home row
+- limit finger travel distance
+
+https://colemakmods.github.io/mod-dh/compare.html
+*/
+
+[penalties]
+  ,same_row,row_jump1,row_jump2
+ii,      2.5,     3.5,      4.5  // same finger
+im,      0.5,     1.0,      2.0
+ir,      0.5,     0.8,      1.5
+ip,      0.5,     0.8,      1.1
+mi,     -1.5,    -0.5,      1.5  // inward roll
+mm,      2.5,     3.5,      4.5  // same finger
+mr,      0.5,     1.0,      2.0
+mp,      0.5,     0.8,      1.5
+ri,     -1.5,    -0.5,      1.5  // inward roll
+rm,     -2.0,    -0.5,      1.2  // inward roll
+rr,      2.5,     3.5,      4.5  // same finger
+rp,      1.0,     1.5,      2.5
+pi,     -1.0,     0.0,      1.0  // inward roll
+pm,     -1.0,     0.0,      1.5  // inward roll
+pr,     -1.0,     0.0,      1.5  // inward roll
+pp,      3.0,     4.0,      5.5  // same finger
+
+/*
+Only apply if not the same letter, and both letters on the same hand.
+
+i, m, r, and p refer to the fingers (index, middle, ring, pinky)
+The columns refer to how many rows separate the two keys
+
+Penalties should:
+- limit same finger typing (except same key twice)
+- balance hands
+- favor inward rolling
+(last 2 in opposition with each other)
+*/
+
+[layouts]
+
+>>Qwerty
+# q w e r t y i o u p #
+é a s d f g h j k l ; '
+è z x c v b n m , . / -
+
+>>Azerty
+è a z e r t y u i o p ^
+' q s d f g h j k l m ù
+é w x c v b n , . : ! -
+
+>>Qwertz
+# q w e r t z u i o p ü
+é a s d f g h j k l ö ä
+è y x c v b n m , . - '
+
+>>Bépo 40%
+# b é p o è ^ v d l j z
+- a u i e , c t s r n m
+ç à y x . k ' q g h f w
+
+// https://github.com/TeXitoi/keyberon#whats-the-layout
+>>Bépo keyberon
+# b é p o è ^ v d l j z
+w a u i e , c t s r n m
+- à y x . k ' q g h f ç
+
+>>Dvorak
+- ' , . p y f g c r l #
+é a o e u i d h t n s #
+è ; q j k x b m w v z #
+
+>>Colemak
+# q w f p g j l u y ; #
+é a r s t d h n e i o '
+è z x c v b k m , . / -
+
+>>Colemak DH
+# q w f p b j l u y ; #
+é a r s t g m n e i o '
+è z x c d v k h , . / -
+
+>>Colemak DH mod
+# q w f p b j l u y é è
+# a r s t g m n e i o -
+# z x c d v k h , . ' /
+
+>>Workman
+# q d r w b j f u p ; #
+é a s h t g y n e o i '
+è z x m c v k l , . / -
+
+>>Norman
+# q w d f k j u r l ; #
+é a s e t g y n i o h '
+è z x c v b p m , . / -
+
+>>Carpalx
+# q g m l w b y u v ; é
+è d s t n r i a e o h '
+# z x c f j k p , . / -
+
+>>Neo
+- x v l c w k h g f q ß
+é u i a e o s n r t d y
+è ü ö ä p z b m , . j '
+
+// http://mkweb.bcgsc.ca/carpalx/?full_optimization
+>>qgmlwyfub
+# q g m l w y f u b ; é
+è d s t n r i a e o h '
+# z x c v j k p , . / -
+
+// https://mathematicalmulticore.wordpress.com/the-keyboard-layout-project/
+>>MTGAP
+# y p o u j k d l c w #
+é i n e a , m h t s r '
+è q z / . : b f g v x -
+
+// http://mtgap.bilfo.com/official_keyboard.html
+// http://mtgap.bilfo.com/completed_keyboard.html
+>>MTGAP 2.0
+# , f h d k j c u l . #
+é o a n t g m s e r i -
+è q x b p z y w ' v ; #
+
+>>MTGAP "Easy"
+# q w l d b j f u k p #
+é a s r t g h n e o i -
+è z x c v ; y m , . / '
+
+>>MTGAP "shortcuts"
+# k g l d b j h u f . #
+é r o t s w m n e a i -
+è z x v c q y p , ' ; #
+
+>>MTGAP "standard"
+# k l h c b j d u f . #
+é o r n s g w t e a i -
+è x q v m z y p , ' ; #
+
+>>MTGAP "ergonomic"
+# . f u d j q h c w k #
+é i a e t p l n s r o -
+è ' , y g z - m b v x #
+
+// https://geekhack.org/index.php?topic=67604.0
+>>Oneproduct
+# p l d w g j x o y q è
+- n r s t m u a e i h '
+# z c f v b , . ? ; k é
+
+// https://bepo.fr/wiki/Utilisateur:Bibidibop
+>>Coeur
+# é w o p y b ' d l j z
+x a u e i , c t s r n h
+# - à è . k g m f q v #
+
+// https://geekhack.org/index.php?topic=98275.0
+>>Kaehi
+# q w l d g j u o p / é
+è n r s t m k a e h i '
+# z x c v b y f , . ; -
+
+// https://deskthority.net/wiki/BEAKL
+>>BEAKL 15
+é q h o u x g c r f z #
+- y i e a . d s t n b ;
+è j / , k ' w m l p v #
+
+// https://web.archive.org/web/20190906220509/http://shenafu.com/smf/index.php?topic=89.msg2566#msg2566
+>>BEAKL 19
+é q . o u j w d n m , #
+- h a e i k g s r t p ;
+è z ' / y x b c l f v #
+
+// https://www.reddit.com/r/ErgoDoxEZ/comments/gsvpug/layout_of_the_month_beakl_15/ftcan68/?context=3
+>>BEAKL 19bis
+# q y o u z w d n c k #
+- h i e a , g t r s p ;
+è j ' é . x v m l f b #
+
+// https://www.reddit.com/r/ErgoMechKeyboards/comments/j1eopm/hands_down_layout_is_ready_for_daily_use/g7bjmr7/?context=3
+>>BEAKL 19 Opt French
+# w m r d v y u o q x #
+# g s n t p , i e a h -
+# k f l c b j é ' . z è
+
+// http://millikeys.sourceforge.net/asset/
+>>ASSET
+# q w j f g y p u l ; #
+é a s e t d h n i o r '
+è z x c v b k m , . / -
+
+// https://sourceforge.net/projects/qwpr/
+>>Qwpr
+# q w p r f y u k l ; #
+é a s d t g h n i o e '
+è z x c v b j m , . / -
+
+// http://www.minimak.org/
+>>Minimak-8key
+# q w d r k y u i l p #
+é a s t f g h n e o ; '
+è z x c v b j m , . / -
+
+// https://github.com/mw8/white_keyboard_layout
+// adapted to ergo keyboard
+>>White
+# v y d , ' j m l u ( )
+é a t h e b c s n o i -
+è p k g w q x r f . z #
+
+// https://github.com/jackrosenthal/threelayout
+>>Three
+# q f u y z x k c w b #
+é o h e a i d r t n s -
+è , m . j ; g l p v ' #
+
+//https://sites.google.com/alanreiser.com/handsdown
+>>Hands down
+# q c h g j y f o b ' #
+é s n r t p w u e i a #
+è x m l d z v k . , ; -
+
+//https://sites.google.com/alanreiser.com/handsdown
+>>Notarize
+# q w d f p y u k l ' #
+é a s t e g h n i o r #
+è z x c v b j m . , ; -
+
+// http://kennetchaz.github.io/symmetric-typing/soul.html
+>>Soul mod
+# q w l d p k m u y ; '
+è a s r t g f n e i o é
+# j z x c v b h , . / -
+
+// http://kennetchaz.github.io/symmetric-typing/niro.html
+>>Niro mod
+# q w u d p j f y l ; #
+é a s e t g h n i r o '
+è b z x c v k m , . / -
+
+// https://docs.google.com/document/d/1yiCnIi1oagV1D8ZouMt-TRFRG8d6AfSBIwQkBvSflvY/edit
+>>The-1
+# k m l u ? v d r ' q #
+é a t h e . c s n o i -
+è z p f j , b g w x y /
+
+// https://engram.dev
+>>Engram 2.0
+# b y o u ' " l d w v z
+é c i e a , . h t s n q
+è g x j k - ? r m f p #
+
+// https://github.com/MadRabbit/halmak
+>>Halmak
+# w l r b z ; q u d j #
+é s h n t , . a e o i '
+è f m v c / g p x k y -
+
+// https://keyboard-design.com/letterlayout.html?layout=optimal-digram.en.ansi
+>>Optimal digram
+# q y u . , f m l d p z
+é s i e a o h n r t c g
+è j ) ' ? ( x v w k b -
+
+// https://keyboard-design.com/letterlayout.html?layout=uciea-keyboard.en.ansi
+>>Uciea
+# p y u o - k d h f x q
+é c i e a ' g t n s r v
+è z " , . ; w m l b j -
+
+// https://keyboard-design.com/letterlayout.html?layout=x1.en.ergodox
+// . and , moved
+>>x1
+# k y o ' ! f c l p q z
+é h i e a u d s t n r v
+è j ? . , # w g m b x -
+#+end_src

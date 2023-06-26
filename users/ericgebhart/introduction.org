@@ -1,0 +1,141 @@
+* Introduction
+
+I'm slowly pulling this all into org. I hope that improves the ability for people to
+explore and understand this.  The primary files here so far are /config.h/ and /rules.mk/.
+These are the traditional files for QMK configuration. There is movement to json, but
+I have not yet ventured there, nor is it quite ready yet.
+
+So this is a literate config which tangles it's self to it's target code files.
+
+Essentially, if you can tangle this file from emacs you can treat it as a live configuration
+for your keyboard.  All the configuration flags are here along with explanations.
+
+I wanted to make it just a bunch of checkboxes, checkboxes are really nice in org.
+but that was more complex. Getting it organized and together has to happen anyway.
+So its source code inclusion with explanations along the way.
+If there is nothing about configuration in a section I try to say so.
+
+I will try to go in an organized and logical manner so that a complete picture of
+this configuration can be realized. However, if you have something specific, jump
+right there. It goes without saying this is best viewed in Emacs org mode, although
+github does a nice job of rendering them.  I usually fold all the bullets to start, if you
+are an org user you know these things already.
+
+
+** Current build:
+Its sort of important to know the gist of a qmk config, what was its intended target ?  What
+language is it on, how big is it,  what maps, features does it have. This helps some.
+
+#+begin_src shell
+grep '^#define' config.h
+#+end_src
+
+This current configuration, whatever it is,
+
+- Uses Us-Intl with dead keys for its language keycodes, ie. US_.
+  Can use en/KC, or fr/BP as well. Easy to add more.
+- Built for RP2040 - a liatris mcu. lots of memory.
+- Keyboard: My frankenkyria.  Reverse thumb 4th row, U-of-4 thumbs.
+- Too big for AVR,
+  - Should fit with with LTO, and no keylogger, adaptive keys.  YMMV.
+    Fitting firmware to an AVR is a personal journey.
+
+It does _not_ have rgb of any sort.  No memory or time.
+
+It has
+- Maps:
+  - Dvorak
+  - Hands down
+  - Maybe a Beakl,
+  - Some other trial map.
+  - Over 60 others to choose from.
+- Oled. - The information is nice to have.
+- A lot of combos
+- Mouse keys on.
+- Caps Word
+- Combo reference layers
+- Alternative shifted keys.
+- An accent key layer
+- Not dead keys
+- Adaptive keys from Hands Down
+- Tap-Hold/Linger keys - keys which send other things when held.
+- Smart lock layers
+- Smart lock mods
+- Oneshots, N-shots.  - Callum kind.
+- Heatmap keylogger - Precondition's
+
+
+** C macro and the C pre-processor
+There is a lot of C macro here. It is not terribly bright, but it is amazingly flexible.
+It is essentially string substitution at its convoluted best.
+
+It is what makes all this work. The biggest thing that
+makes it work though, is consistent naming and organization of all the parts that go
+together. Its worth noting how things are named here.
+
+** Wrapper wrappers
+
+I started the same as @drashna way back when, with all the wrapper wrappers.  Over time my
+wrappers have evolved to more easily incorporate language, mod wrapper layers, Oled keymap
+display and layer definitions which are much easier to read and write. Particularly the base layers.
+
+The result here now, is that most everything uses a 3 or 4x10 or 12, layer definition.  This makes the
+layers easy to define and understand.
+
+** Language
+Early in my use of QMK I had began teaching myself French and was using my computer
+in french, and decided that I wanted to learn Bépo.  It wasn't so easy back then, and unicode
+was even more difficult then than now. It became a major part of my configuration that it
+incorporate the ability to have 2 sets of keymaps for different locales.
+
+This configuration supports english, english international, and bépo.
+New languages are easy to add. I just havent as I have most of the characters I need.
+
+
+** Multiple Base layers
+
+I wanted to explore Bépo, so I needed an easy way to have different default base layers on different computer locales.  I could fall back to Dvorak when I needed to, but use Bépo or Beakl or some
+other layout as my default when ever I wanted.
+
+So here, you can define as many base layers as is reasonable, with 2 locales more than 4 is a bad
+idea. You want to stay under the 16th layer max for LT(). 2 locales doesn't quite double it all.
+
+Only one of the base layers will show up. But, if you go to the layers layer you can cycle through
+the locales and the base layers within each locale. It can also be assigned to eeprom so that it
+will persist.
+
+This was important in the same way as language, they were intertwined. I needed to be able
+to type dvorak with french, and ultimately, I can now type Bépo with *US-intl*. But all of this leads
+to exploration and before long I wanted /Beakl/ in french and english, and there there are all the others.
+There is a big world of alpha layouts out there to find, learn and explore. So this configuration allows
+multiple base layers and an easy way to set one of them as default.
+
+There are now over 50 base layers to choose from. Qwerty, dvorak and colemak are just the most boring
+layouts available. I frequently have 4 base layers or more that I am using.
+
+** Multiple functional layers
+
+This configuration has the idea of functional layers, most folks seem
+to categorize at least a symbol and number layers, a navigation layer,
+media, function pads, keypads, toprows, etc.
+
+Here we turn on the ones we want then we assign which flavor of which thing we want for layer.
+There are several keypads, navigation layers, and so forth. We choose which types of layers we want,
+then we assign a layer definition to it.
+
+** Mod layer wrappers
+
+This is sort of intended for HRMs, but works for LTs and anything else that can wrap a keycode
+for its behavior.
+
+HRMs are a big deal for some, I still try them out. I got really annoyed at how difficult they are
+to change and manage. So I made a wrapper layer for them. They are defined as a sparse matrix
+and are very easy to create and manage.  Once created they can just be turned on and off.
+Actually there has to be an active one, but it can be /transparent/.
+
+** Extensions
+There are a lot of extensions here. Some are mine, some come directly from the QMK documentation,
+others come from Discord, or other configurations like Callum's oneshot mods.
+mod locks, combos, alternate keys, tap holds, etc.
+I've wrapped them all in macro making them easy to manage and define.
+The extensions are easily lifted out of here, or used directly from here by another map.

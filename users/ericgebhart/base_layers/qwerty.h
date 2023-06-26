@@ -22,7 +22,6 @@
            _2L1,  _2L2, _2L3, _2L4,  _2L5,   _2R1, _2R2, _2R3, _2R4, _2R5, \
            _3L1,  _3L2, _3L3, _3L4,  _3L5,   _3R1, _3R2, _3R3, _3R4, _3R5)
 
-
 #define CARTE_QWERTY                            \
   carte_de_map("   qwert  yuiop",               \
                "   asdfg  hjkl;",               \
@@ -46,8 +45,6 @@
   LANG_MAP(_A, _Z, _E, _R, _T, _Y,  _U,  _I,      _O,     _P,           \
            _Q, _S, _D, _F, _G, _H,  _J,  _K,      _L,     TL_SCLN,      \
            _W, _X, _C, _V, _B, _N,  _M,  TL_COMM, TL_DOT, TL_SLSH)
-
-
 
 #define CARTE_WORKMAN                           \
   carte_de_map("   qdrwb  jfup;",               \

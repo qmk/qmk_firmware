@@ -4,8 +4,8 @@
 // unshifted key and it's required mods.
 // the desired shifted keys and it's required mods.
 
+#if (LANG_IS == BEPO || (defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO))
 // for dvorak on bepo
-#if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO)
   MK_KEY(BP_DV_1,    BP_DQUO, MOD_LSFT,      BP_DCIR, MOD_LSFT)
   MK_KEY(BP_DV_2,    BP_LDAQ, MOD_LSFT,      BP_AT, MOD_NONE)
   MK_KEY(BP_DV_3,    BP_RDAQ, MOD_LSFT,      BP_DLR, MOD_LSFT)
@@ -26,159 +26,236 @@
   MK_KEY(BP_DV_DOT,  BP_DOT, MOD_NONE,       BP_RDAQ, MOD_BIT(KC_RALT))
   MK_KEY(BP_DV_QUOT, BP_QUOT, MOD_NONE,      BP_DQUO, MOD_NONE)
   MK_KEY(BP_DV_MINS, BP_MINS, MOD_NONE,      KC_SPC, MOD_BIT(KC_RALT))
+
 #endif
 
 #if defined(BEAKL15_LAYER_ENABLE) || defined(BEAKL19_LAYER_ENABLE)
-  // Keys for BEAKL 15, 19 on Qwerty
+     // Keys for BEAKL 15, 19 on Qwerty
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
   MK_KEY(KC_BK_DOT,  KC_DOT, MOD_NONE,    KC_2, MOD_LSFT)
   MK_KEY(KC_BK_COMM, KC_COMM, MOD_NONE,  KC_1, MOD_LSFT)
   MK_KEY(KC_BK_QUOT, KC_QUOT, MOD_NONE,   KC_GRV, MOD_NONE)
+#  endif
 
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
   MK_KEY(US_BK_DOT,  KC_DOT, MOD_NONE,    KC_2, MOD_LSFT)
   MK_KEY(US_BK_COMM, KC_COMM, MOD_NONE,  KC_1, MOD_LSFT)
   MK_KEY(US_BK_QUOT, KC_QUOT, MOD_NONE,   KC_GRV, MOD_NONE)
+#  endif
 
-  // Keys for BEAKL WI on Qwerty
-  MK_KEY(KC_BKW_DOT,  KC_DOT, MOD_NONE,   KC_GRV, MOD_NONE)
-  MK_KEY(KC_BKW_COMM, KC_COMM, MOD_NONE,  KC_TILD, MOD_NONE)
-  MK_KEY(KC_BKW_COLN, KC_SCLN, MOD_LSFT,  KC_SCLN, MOD_NONE)
-
-#  if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO) || (DEFAULT_LANG == BEPO)
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || LANG_IS == BEPO)
   // Keys for BEAKL on BEPO
   MK_KEY(BP_BK_DOT,  BP_DOT, MOD_NONE,    BP_AT, MOD_NONE)
   MK_KEY(BP_BK_COMM, BP_COMM, MOD_NONE,   BP_EXLM, MOD_NONE)
   MK_KEY(BP_BK_QUOT, BP_QUOT, MOD_NONE,   BP_PERC, MOD_LSFT)
-
-
-#    ifdef BEAKLWI_LAYER_ENABLE
-  // Keys for BEAKL WI on BEPO
-  MK_KEY(BP_BKW_DOT,  BP_DOT, MOD_NONE,   BP_GRV, MOD_NONE)
-  MK_KEY(BP_BKW_COMM, BP_COMM, MOD_NONE,  BP_TILD, MOD_NONE)
-  MK_KEY(BP_BKW_COLN, BP_COLN, MOD_LSFT,  BP_SCLN, MOD_NONE)
-#    endif
+#  endif
+#endif
 
   // Keys for BEAKL 27 on BEPO
-#    ifdef BEAKL27_LAYER_ENABLE
+#if defined(BEAKL27_LAYER_ENABLE) || defined(BEAKL27a_LAYER_ENABLE)
+
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || LANG_IS == BEPO)
   MK_KEY(BP_BK2_DOT,  BP_DOT, MOD_NONE,    BP_GRV, MOD_NONE)
   MK_KEY(BP_BK2_COMM, BP_COMM, MOD_NONE,   BP_QUES, MOD_NONE)
   MK_KEY(BP_BK2_EXLM, BP_EXLM, MOD_NONE,   BP_PERC, MOD_LSFT)
   MK_KEY(BP_BK2_QUOT, BP_QUOT, MOD_NONE,   BP_QUOT, MOD_NONE)
-#    endif
+#  endif
+
+  // Keys for BEAKL 27 on Qwerty
+  /* // altered shifted pairs: dot = .`  comma = ,?   dquot = "! */
+
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+  MK_KEY(KC_BK2_DOT,  KC_DOT,  MOD_NONE, KC_GRV,  MOD_NONE)
+  MK_KEY(KC_BK2_COMM, KC_COMM, MOD_NONE, KC_QUES, MOD_NONE)
+  MK_KEY(KC_BK2_EXLM, KC_EXLM, MOD_NONE, KC_DQUO, MOD_NONE)
+  MK_KEY(KC_BK2_QUOT, KC_QUOT, MOD_NONE, KC_QUOT, MOD_NONE)
+#  endif
+
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
+  MK_KEY(US_BK2_DOT,  US_DOT,  MOD_NONE,   US_GRV,  MOD_NONE)
+  MK_KEY(US_BK2_COMM, US_COMM, MOD_NONE,   US_QUES, MOD_NONE)
+  MK_KEY(US_BK2_EXLM, US_EXLM, MOD_NONE,   US_DQUO, MOD_NONE)
+  MK_KEY(US_BK2_DQUO, US_DQUO, MOD_NONE,   US_EXLM, MOD_NONE)
+  MK_KEY(US_BK2_QUOT, US_QUOT, MOD_NONE,   US_QUOT, MOD_NONE)
 #  endif
 #endif
 
-#ifdef BEAKL27_LAYER_ENABLE
-  // Keys for BEAKL 27 on Qwerty
-  /* // altered shifted pairs: dot = .`  comma = ,?   dquot = "! */
-  MK_KEY(KC_BK2_DOT, KC_DOT, MOD_NONE,    KC_GRV, MOD_NONE)
-  MK_KEY(KC_BK2_COMM, KC_COMM, MOD_NONE,  KC_QUES, MOD_NONE)
-  MK_KEY(KC_BK2_EXLM, KC_EXLM, MOD_NONE,   KC_DQUO, MOD_NONE)
-  MK_KEY(KC_BK2_QUOT, KC_QUOT, MOD_NONE,   KC_QUOT, MOD_NONE)
+#if defined(BEAKLWI_LAYER_ENABLE) \
+        || defined(BEAKLWIa_LAYER_ENABLE) \
+        || defined(BEAKLWIb_LAYER_ENABLE)
+  // Keys for BEAKL WI on BEPO
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || LANG_IS == BEPO)
+  MK_KEY(BP_BKW_DOT,  BP_DOT, MOD_NONE,   BP_GRV, MOD_NONE)
+  MK_KEY(BP_BKW_COMM, BP_COMM, MOD_NONE,  BP_TILD, MOD_NONE)
+  MK_KEY(BP_BKW_COLN, BP_COLN, MOD_LSFT,  BP_SCLN, MOD_NONE)
+#  endif
 
-  MK_KEY(US_BK2_DOT, US_DOT, MOD_NONE,    US_GRV, MOD_NONE)
-  MK_KEY(US_BK2_COMM, US_COMM, MOD_NONE,  US_QUES, MOD_NONE)
-  MK_KEY(US_BK2_EXLM, US_EXLM, MOD_NONE,   US_DQUO, MOD_NONE)
-  MK_KEY(US_BK2_QUOT, US_QUOT, MOD_NONE,   US_QUOT, MOD_NONE)
+  // Keys for BEAKL WI on Qwerty
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+  MK_KEY(KC_BKW_DOT,  KC_DOT, MOD_NONE,   KC_GRV, MOD_NONE)
+  MK_KEY(KC_BKW_COMM, KC_COMM, MOD_NONE,  KC_TILD, MOD_NONE)
+  MK_KEY(KC_BKW_COLN, KC_SCLN, MOD_LSFT,  KC_SCLN, MOD_NONE)
+#  endif
 #endif
 
+// Symbol pairs: #_ .: =* /? '" ,; -+
+#if defined(HD_VIBRANIUM_LAYER_ENABLE) ||   \
+    defined(HD_VIBRANIUM_NT_LAYER_ENABLE) ||   \
+    defined(HD_VIBRANIUM_NTP_LAYER_ENABLE) ||   \
+    defined(HD_VIBRANIUM_VF_LAYER_ENABLE) ||   \
+    defined(HD_VIBRANIUM_VP_LAYER_ENABLE) ||   \
+    defined(HD_VIBRANIUM_B_LAYER_ENABLE) ||   \
+    defined(HD_MITHRIL_LAYER_ENABLE)
+
+  // for en qwerty
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+
+  MK_KEY(KC_HDV_HASH, KC_HASH, MOD_NONE, KC_UNDS,   MOD_LSFT) // "!
+  MK_KEY(KC_HDV_DOT,  KC_DOT,  MOD_NONE, KC_COLN,  MOD_NONE) // .:
+  MK_KEY(KC_HDV_EQL,  KC_EQL,  MOD_NONE, KC_8,     MOD_LSFT) // =*
+  MK_KEY(KC_HDV_SLSH, KC_SLSH, MOD_NONE, KC_QUES,  MOD_LSFT) // /?
+  MK_KEY(KC_HDV_COMM, KC_COMM, MOD_NONE, KC_SCLN,  MOD_NONE) // ,;
+  MK_KEY(KC_HDV_QUOT, KC_QUOT, MOD_NONE, KC_DQUO,  MOD_LSFT) // '"
+  MK_KEY(KC_HDV_MINS, KC_MINS, MOD_NONE, KC_EQUAL, MOD_LSFT) // -+
+
+  MK_KEY(KC_HDV_DQUO, KC_QUOT, MOD_LSFT, KC_1,     MOD_LSFT)
+  MK_KEY(KC_HDV_SCLN, KC_SCLN, MOD_NONE, KC_SCLN,  MOD_LSFT) // ;:
+#  endif
+
+  // for us international
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
+  MK_KEY(US_HDV_HASH, US_HASH, MOD_NONE, US_UNDS, MOD_LSFT) // "!
+  MK_KEY(US_HDV_DOT,  US_DOT,  MOD_NONE, US_COLN,  MOD_NONE) // .:
+  MK_KEY(US_HDV_EQL,  US_EQL,  MOD_NONE, US_8,     MOD_LSFT) // =*
+  MK_KEY(US_HDV_SLSH, US_SLSH, MOD_NONE, US_QUES,  MOD_NONE) // /?
+  MK_KEY(US_HDV_COMM, US_COMM, MOD_NONE, US_SCLN,  MOD_NONE) // ,;
+  MK_KEY(US_HDV_QUOT, US_QUOT, MOD_NONE, US_DQUO,  MOD_NONE) // '"
+  MK_KEY(US_HDV_MINS, US_MINS, MOD_NONE, US_EQUAL, MOD_LSFT) // -+
+
+  MK_KEY(US_HDV_DQUO, US_QUOT, MOD_LSFT, US_1,     MOD_LSFT)
+  MK_KEY(US_HDV_SCLN, US_SCLN, MOD_NONE, US_COLN,  MOD_NONE) // ;:
+#  endif
+
+  // for bepo
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || DEFAULT_LANG == BEPO)
+  MK_KEY(BP_HDV_HASH, BP_HASH, MOD_NONE, BP_UNDS,  MOD_NONE) // "!
+  MK_KEY(BP_HDV_DOT,  BP_DOT,  MOD_NONE, BP_COLN,  MOD_NONE) // .:
+  MK_KEY(BP_HDV_EQL,  BP_EQL,  MOD_NONE, BP_ASTR,  MOD_NONE) // =*
+  MK_KEY(BP_HDV_SLSH, BP_SLSH, MOD_NONE, BP_QUES,  MOD_NONE) // /?
+  MK_KEY(BP_HDV_COMM, BP_COMM, MOD_NONE, BP_SCLN,  MOD_NONE) // ,;
+  MK_KEY(BP_HDV_QUOT, BP_QUOT, MOD_NONE, BP_DQUO,  MOD_LSFT) // '"
+  MK_KEY(BP_HDV_MINS, BP_MINS, MOD_NONE, BP_PLUS,  MOD_LSFT) // -+
+
+  MK_KEY(BP_HDV_DQUO, BP_DQUO, MOD_NONE, BP_QUES, MOD_NONE)
+  MK_KEY(BP_HDV_SCLN, BP_SCLN, MOD_NONE, BP_COLN, MOD_NONE) // ;:
+#  endif
+
+#endif //vibranium
 
 // shifted pairs: dot = .` comma = ,~  colon = :;
-
 #if defined(HD_NEU_LAYER_ENABLE) ||        \
     defined(HD_NEU_NARROW_LAYER_ENABLE) || \
+    defined(HD_NEU_NARROW_M_LAYER_ENABLE) || \
     defined(HD_GOLD_LAYER_ENABLE) ||       \
     defined(HD_SILVER_LAYER_ENABLE) ||     \
     defined(HD_BRONZE_LAYER_ENABLE) ||     \
     defined(HD_PLATINUM_LAYER_ENABLE) ||   \
     defined(HD_REF_LAYER_ENABLE)
 
-// hands down alterations.
-/* alt shifts   ;: .& /\* '? "! ,| -+ */
-// for en qwerty
+  // hands down alterations.
+  // alt shifts   ;: .& /* '? "! ,| -+
+
+  // for en qwerty
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+
   MK_KEY(KC_HD_DQUO, KC_QUOT, MOD_LSFT, KC_1,     MOD_LSFT) // "!
   MK_KEY(KC_HD_QUOT, KC_QUOT, MOD_NONE, KC_SLSH,  MOD_LSFT) // '?
-
   MK_KEY(KC_HD_DOT,  KC_DOT,  MOD_NONE, KC_7,     MOD_LSFT) // .&
   MK_KEY(KC_HD_SCLN, KC_SCLN, MOD_NONE, KC_SCLN,     MOD_LSFT) // ;:
   MK_KEY(KC_HD_COMM, KC_COMM, MOD_NONE, KC_BSLS,  MOD_LSFT) // ,|
   MK_KEY(KC_HD_MINS, KC_MINS, MOD_NONE, KC_EQL, MOD_LSFT) // -+
   MK_KEY(KC_HD_SLSH, KC_SLSH, MOD_NONE, KC_8,     MOD_LSFT) // /*
 
+#  endif
+
   // for us international
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
   MK_KEY(US_HD_DQUO, US_QUOT, MOD_LSFT, US_1,     MOD_LSFT)
   MK_KEY(US_HD_QUOT, US_QUOT, MOD_NONE, KC_SLSH,  MOD_LSFT)
-
   MK_KEY(US_HD_DOT,  US_DOT,  MOD_NONE, US_7,     MOD_LSFT)
   MK_KEY(US_HD_SCLN, KC_SCLN, MOD_NONE, KC_SCLN,  MOD_LSFT) // ;:
   MK_KEY(US_HD_COMM, US_COMM, MOD_NONE, US_BSLS,  MOD_LSFT)
   MK_KEY(US_HD_MINS, US_MINS, MOD_NONE, US_EQL, MOD_LSFT)
   MK_KEY(US_HD_SLSH, US_SLSH, MOD_NONE, US_8,     MOD_LSFT)
+#  endif
 
-// for bepo
-#if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO) || (DEFAULT_LANG == BEPO)
+  // for bepo
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || DEFAULT_LANG == BEPO)
   MK_KEY(BP_HD_DQUO, BP_DQUO, MOD_NONE, BP_QUES, MOD_NONE)
   MK_KEY(BP_HD_QUOT, BP_QUOT, MOD_NONE, BP_EXLM, MOD_NONE)
   MK_KEY(BP_HD_SCLN, BP_SCLN, MOD_NONE, BP_COLN, MOD_NONE) // ;:
-
   MK_KEY(BP_HD_DOT,  BP_DOT,  MOD_NONE, BP_AMPR, MOD_NONE)
   MK_KEY(BP_HD_COMM, BP_COMM, MOD_NONE, BP_PIPE, MOD_NONE)
   MK_KEY(BP_HD_MINS, BP_MINS, MOD_NONE, BP_PLUS, MOD_NONE)
   MK_KEY(BP_HD_SLSH, BP_SLSH, MOD_NONE, BP_ASTR, MOD_NONE)
-#endif
+#  endif
 
 #endif
 
-
-/* alt shifts   ;: .& /\* '? "! ,| -+  */
 #ifdef HD_DASH_LAYER_ENABLE
 // DASH and Elan have these reversed from the metals.
 /* //alt shift keys. "? '! */
+
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
   MK_KEY(KC_HD_D_DQUO, KC_DQUO, MOD_NONE, KC_SLSH, MOD_LSFT) // "?
   MK_KEY(KC_HD_D_QUOT, KC_QUOT, MOD_NONE, KC_1,    MOD_LSFT) // '!
-
   MK_KEY(KC_HD_D_DOT,  KC_DOT,  MOD_NONE, KC_7,     MOD_LSFT) // .&
   MK_KEY(KC_HD_D_COMM, KC_COMM, MOD_NONE, KC_BSLS,  MOD_LSFT) // ,|
   MK_KEY(KC_HD_D_MINS, KC_MINS, MOD_NONE, KC_EQL, MOD_LSFT) // -+
   MK_KEY(KC_HD_D_SLSH, KC_SLSH, MOD_NONE, KC_8,     MOD_LSFT) // /*
+#  endif
 
   // for us international
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
   MK_KEY(US_HD_D_DQUO, US_QUOT, MOD_LSFT, KC_SLSH,  MOD_LSFT)
   MK_KEY(US_HD_D_QUOT, US_QUOT, MOD_NONE, US_1,     MOD_LSFT)
-
   MK_KEY(US_HD_D_DOT,  US_DOT,  MOD_NONE, US_7,     MOD_LSFT)
-  MK_KEY(US_HD_D_COMM, US_COMM, MOD_NONE, US_BSLS,  MOD_LSFT)
+    MK_KEY(US_HD_D_COMM, US_COMM, MOD_NONE, US_BSLS,  MOD_LSFT)
   MK_KEY(US_HD_D_MINS, US_MINS, MOD_NONE, US_EQL, MOD_LSFT)
   MK_KEY(US_HD_D_SLSH, US_SLSH, MOD_NONE, US_8,     MOD_LSFT)
+#  endif
 
-// for bepo
-#if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO) || (DEFAULT_LANG == BEPO)
+  // for bepo
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || DEFAULT_LANG == BEPO)
   MK_KEY(BP_HD_D_DQUO, BP_DQUO, MOD_NONE, BP_QUES, MOD_NONE)
-  MK_KEY(BP_HD_D_QUOT, BP_QUOT, MOD_NONE, BP_EXLM, MOD_NONE)
-
+    MK_KEY(BP_HD_D_QUOT, BP_QUOT, MOD_NONE, BP_EXLM, MOD_NONE)
   MK_KEY(BP_HD_D_DOT,  BP_DOT,  MOD_NONE, BP_AMPR, MOD_NONE)
   MK_KEY(BP_HD_D_COMM, BP_COMM, MOD_NONE, BP_PIPE, MOD_NONE)
   MK_KEY(BP_HD_D_MINS, BP_MINS, MOD_NONE, BP_PLUS, MOD_NONE)
   MK_KEY(BP_HD_D_SLSH, BP_SLSH, MOD_NONE, BP_ASTR, MOD_NONE)
-#endif
+#  endif
 
 #endif
 
 #ifdef HD_ELAN_LAYER_ENABLE
-// Elan has alt shift of comma and dot on the thumb.
-// en
-  MK_KEY(KC_HD_E_DQUO, KC_QUOT, MOD_LSFT, KC_SLSH, MOD_LSFT)
-  MK_KEY(KC_HD_E_QUOT, KC_QUOT, MOD_NONE, KC_1, MOD_LSFT)
-// the rest is the same
-  MK_KEY(KC_HD_E_MINS,    KC_MINS, MOD_NONE, KC_EQL, MOD_LSFT) // -+
-  MK_KEY(KC_HD_E_SLSH,    KC_SLSH, MOD_NONE, KC_8,     MOD_LSFT) // /*
-// until .: and ,;
+  // Elan has alt shift of comma and dot on the thumb.
+  // en
+#  if (LANG_IS == EN || (defined(SECOND_LOCALE) && SECOND_LOCALE == EN))
+  MK_KEY(KC_HD_E_DQUO,  KC_DQUO, MOD_NONE, KC_SLSH, MOD_LSFT)
+  MK_KEY(KC_HD_E_QUOT,  KC_QUOT, MOD_NONE, KC_1, MOD_LSFT)
+  // the rest is the same
+  MK_KEY(KC_HD_E_MINS,  KC_MINS, MOD_NONE, KC_EQL, MOD_LSFT) // -+
+  MK_KEY(KC_HD_E_SLSH,  KC_SLSH, MOD_NONE, KC_8,     MOD_LSFT) // /*
+  // until .: and ,;
   MK_KEY(KC_HD_E_DOT,   KC_DOT,  MOD_NONE, KC_SCLN, MOD_LSFT) // .:
   MK_SKEY(KC_HD_E_COMM, KC_COMM, KC_SCLN) // ,;
-/* (< {[ */
+  /* (< {[ */
   MK_KEY(KC_HD_E_LPRN, KC_LPRN, MOD_NONE, KC_COMM, MOD_LSFT)
   MK_KEY(KC_HD_E_LCBR, KC_LCBR, MOD_NONE, KC_LBRC, MOD_NONE )
+#  endif
 
-// US-intl
+  // US-intl
+#  if (LANG_IS == US_INT || (defined(SECOND_LOCALE) && SECOND_LOCALE == US_INT))
   MK_KEY(US_HD_E_DQUO, US_QUOT, MOD_LSFT, KC_SLSH, MOD_LSFT)
   MK_KEY(US_HD_E_QUOT, US_QUOT, MOD_NONE, US_1, MOD_LSFT)
 // the rest is the same
@@ -190,9 +267,10 @@
 /* (< {[ */
   MK_KEY(US_HD_E_LPRN, US_LPRN, MOD_NONE, US_COMM, MOD_LSFT)
   MK_KEY(US_HD_E_LCBR, US_LCBR, MOD_NONE, US_LBRC, MOD_NONE )
+#  endif
 
 // bepo
-#if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO) || (DEFAULT_LANG == BEPO)
+#  if ((defined(SECOND_LOCALE) && SECOND_LOCALE == BEPO) || DEFAULT_LANG == BEPO))
   MK_KEY(BP_HD_E_DQUO, BP_DQUO, MOD_NONE, BP_SLSH, MOD_NONE)
   MK_KEY(BP_HD_E_QUOT, BP_QUOT, MOD_NONE, BP_EXLM, MOD_NONE)
 // the rest is the same
@@ -204,5 +282,5 @@
 /* (< {[ */
   MK_KEY(BP_HD_E_LPRN, BP_LPRN, MOD_NONE, BP_COMM, MOD_LSFT)
   MK_KEY(BP_HD_E_LCBR, BP_LCBR, MOD_NONE, BP_LBRC, MOD_NONE )
-#endif
+#  endif
 #endif

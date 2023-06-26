@@ -15,35 +15,6 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// beakl, balanced effort key layout.
-// Beakl 15 and 19 are somewhat more related.
-// Beakl-wi is the latest. It feels a little bit more like a system.
-
-
-// Remember the - and ; outside pinky keys.
-// Or use the 6 size.
-// Both are on the symbol layer too. So you
-// wont lose them at least.
-// KC_BK_COMM, KC_BK_QUOT, KC_BK_DOT - Beakl->Qwerty
-// BP_BK_COMM, BP_BK_QUOT, BP_BK_DOT - Beakl->Bepo
-// take care of the different shifted chars.
-
-
-/* BEAKL 27 (main layer): */
-/* // altered shifted pairs: dot = .`  comma = ,?   dquot = !" */
-/* Alt target is BK2 */
-
-/* 32104 76598 */
-/* qhoux gcmrv */
-/* yiea. dstnb */
-/* j",k' wflpz */
-
-/* BEAKL 27 (shift layer): */
-/*   !@$#% ^(*)& */
-/*   QHOUX GCMRV */
-/*   YIEA` DSTNB */
-/*   J!?K' WFLPZ */
-
 
 #define CARTE_BEAKL27                           \
   carte_de_map(" qhoux gcmrz ",                 \
@@ -51,13 +22,25 @@
                " j\",k' wflpv ")
 
 // Alt target is BK
+// altered shifted pairs: quot = '`  comma = ,!   dot = .@
 #define ___BEAKL27___                                                   \
   LANG_MAP(_Q, _H,      _O,      _U, _X,      _G, _C, _M, _R, _Z,       \
            _Y, _I,      _E,      _A, TL_DOT,  _D, _S, _T, _N, _B,       \
-           _J, TL_EXLM, TL_COMM, _K, TL_QUOT, _W, _F, _L, _P, _V)
+           _J, TL_DQUO, TL_COMM, _K, TL_QUOT, _W, _F, _L, _P, _V)
+
+#define CARTE_BEAKL27a                          \
+  carte_de_map(" j\",k' gcmrz ",                 \
+               " yiea. dstnb ",                  \
+               " qhoux wflpv ")
+
+// Alt target is BK
+// altered shifted pairs: quot = '`  comma = ,!   dot = .@
+#define ___BEAKL27a___                                                  \
+  LANG_MAP(_J, TL_DQUO, TL_COMM, _K, TL_QUOT, _G, _C, _M, _R, _Z,       \
+           _Y, _I,      _E,      _A, TL_DOT,  _D, _S, _T, _N, _B,       \
+           _Q, _H,      _O,      _U, _X, _W, _F, _L, _P, _V)
 
 /* BEAKL 15 (main layer): */
-// altered shifted pairs: quot = '`  comma = ,!   dot = .@
 /*   40123 76598   */
 #define CARTE_BEAKL15                           \
   carte_de_map(" qhoux gcrfz ",                 \
@@ -89,23 +72,6 @@
            _H, _A,    _E,    _I, _K, _G,    _S, _R, _T, _P,             \
            _Z, _QUOT, _SLSH, _Y, _X, _B,    _C, _L, _F, _V)
 
-//BEAKL 19bis - original.
-// the é and è were simply added for analysis not real use.
-// even so, this layout scores well for french, better than
-// bepo and mtgap
-/*  qyouz  wdnck   */
-/* -hiea,  gtrsp; */
-/* èj'é.x  vmlfb   */
-
-// A 3x12
-//BEAKL 19bis mod z.
-// French optimised with some english.
-// This version rearranges things a little based on fequency.
-// Since it needs 3x12, I filled in the corners and removed ;.
-// Leaving y where it is. the o and the e might cause sfbs.
-// Put é on a different finger from e.
-// swap z, e's, add à, ^, and ê, swap ; for -.
-// it might be beneficial to swap w and à, as à is much more frequent than w
 #define CARTE_BEAKL19bis                        \
   carte_de_map(" àqyoué  wdnck^ ",              \
                " ;hiea,  gtrsp- ",              \
@@ -116,7 +82,6 @@
             _AGRV, _Q, _Y,    _O,    _U,   _EACU,   _W, _D, _N, _C, _K, _DCIR, \
             _SCLN, _H, _I,    _E,    _A,   _COMM,   _G, _T, _R, _S, _P, _MINS, \
             _Z,    _J, _QUOT, _EGRV, _DOT, _X,      _V, _M, _L, _F, _B, _ECIR)
-
 
 // Beakl Wi.   This is the most current beakl this size. 18/01/2022.
 // Nothing on the 6th outer columns but layer toggle buttons. All 6.
@@ -153,6 +118,17 @@
 
 // Alt target is BKW
 #define ___BEAKLWIa___                                                  \
-  LANG_MAP(TL_COLN, _Y,      _O,     _U, _W,      _C, _T, _R, _S, _V,   \
+  LANG_MAP(TL_SCLN, _Y,      _O,     _U, _W,      _C, _T, _R, _S, _V,   \
            _Q,      _H,      _E,     _A, _I,      _G, _D, _N, _M, _Z,   \
            _J,      TL_COMM, TL_DOT, _K, _QUOT,   _B, _P, _L, _F, _X)
+
+#define CARTE_BEAKLWIb                          \
+  carte_de_map(" j,.k' ctrsv ",                 \
+               " qheai gdnmz ",                 \
+               " ;youw bplfx ")
+
+// Alt target is BKW
+#define ___BEAKLWIb___                                                  \
+  LANG_MAP(_J,      TL_COMM, TL_DOT, _K, _QUOT, _C, _T, _R, _S, _V,     \
+           _Q,      _H,      _E,     _A, _I,    _G, _D, _N, _M, _Z,   \
+           TL_SCLN, _Y,      _O,     _U, _W,    _B, _P, _L, _F, _X)

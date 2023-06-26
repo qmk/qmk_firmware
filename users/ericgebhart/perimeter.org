@@ -1,0 +1,1276 @@
+* Perimeter keys - Edges, tops, bottoms and Thumbs
+
+** Introduction
+
+These are the perimeter key set definitions. Its everything outside of
+the common 3x10, home row matrix.  Usually, the map below works out,
+and even if it doesn't its pieces do. I had to add a special 18 function key row
+for the kinesis.  Each keyboard brings new things, and more and more often
+the parts are already here.
+
+There is overlap with the
+3x12 layouts like Bépo, Optimot and hands down Neu. In those cases
+the edge keys are turned off and the matrix should be filled by the input
+layer definition.
+
+It really is all the edges and middle of the keyboard.
+Left, right, top and bottom, and then the middle too.
+
+The layouts and base layers are almost all 3x10 matrices which leaves
+all the rest of the keyboard to take care of.
+
+This is the design of it, but nothing says that a layout over in [[keyboards.org][the keyboards definition]] can not
+rearrange and use these pieces, or not, as it sees fit. I have done that with my viterbi, I relocated home row
+in its matrix so I had more 'thumb' keys.
+
+These are just here to make it easy to create and maintain keymaps which behave consistently.
+
+These are the definitions for the Flavors of top number rows,
+outer pinky columns and thumb key clusters.
+
+     |-------+-----------+---------+-----------+--------|
+     | Left0 | Numbers L | middle0 | numbers R | Right0 |
+     | Left1 | +keys0-5+   | middle1 | +Keys6-10+  | Right1 |
+     | Left2 | +keys11-15+ | middle2 | +Keys16-20+ | Right2 |
+     | Left3 | +keys20-25+ | middle3 | +Keys25-30+ | Right3 |
+     | The   | Bottom    | row     | and       | Parts  |
+     |       | ThumbsL   |         | ThumbsR   |        |
+
+For the middle, bottom and thumbs, the pieces are built up into logical parts so that
+they can be shared and rearranged between definitions easily.
+
+      The zero row is for the number row.
+      The bottom row is 2 rows below home row where space bar usually goes.
+      It is where the arrow keys are on the Kinesis, ergodox and dactyl.
+      The thumbs are just a set of keys to fill in all thumb keys.
+
+The particular pieces we define here (as needed) are:
+
+     - Edge, 6th column, outer pinky keys
+       The edge keys are just a selection of 8 keys, left and right,  0-3.
+       They are languagified, but usually dont need it. At the same time,
+       its easy enough.
+
+     - Middle section keys
+       The middle section keys have a left and right, and middle key. I had an
+       ergodox and viterbi before I had an xd75.  For 15 columns we just add
+       a middle key and use a 3 key middle piece.  Using the same parts makes
+       all the different keyboard layouts be as consistent as possible.
+
+      The ergodox is missing the 2 middle keys on the home row, that is middle
+      row 2, so maybe its good to rearrange them in the layout for the ergodox.
+
+     - Bottom row
+       These are the bottom row on a plank type keyboard.  Two rows below home row.
+        or the partial bottom row above or next to the thumb keys
+        on bigger split keyboards
+
+     - Thumb key groups
+       There is a core group of 6 keys for the thumbs which has many flavors to choose
+       from.  Imagine a Corne keyboard.  Its those 6 thumb keys, 3 on each side.
+       This is what you are choosing in the configuration when you set *THUMBS_ARE*.
+       Those keys are then set within a bigger set of keys for the keyboards that need them.
+
+    - Top Rows
+      These are number, symbol, and function key rows and other things for use on the top rows of a
+      larger key layout, which has a number row and maybe a function key row.
+
+** The files
+
+These all live in *perimeter/* now.  They never quite fit in with the layers that use them.
+Top rows has a name clash with the toprows in layers, that uses it.  So this is better
+organized and less vague in its shape. Still not to my liking.
+
+*** =edge_keys.h=
+
+#+begin_src C :tangle perimeter/edge_keys.h
+#pragma once
+/*
+  Copyright 2018-2023 Erica Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+
+*** =thumb_keys.h=
+
+#+begin_src C :tangle perimeter/thumbs.h
+/*
+  Copyright 2018-2023 Erica Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.
+*/
+#+end_src
+
+*** =toprows.h=
+#+begin_src C :tangle perimeter/toprows.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+
+** The Edge Key Sets.
+Edge columns. N rows by 6 columns per side.
+Outside pinky keys are 'yes'
+Should be undef/def'd by the keyboard's keymap if no.
+*** The Setup - =EDGE_KEY()=
+
+This is just our worker macro.
+
+We use *EDGE_KEY_SET_IS* to create a suffix for our key names.
+Because of historical evolution these guys have a different scheme
+than other names around here.
+
+Their row number ends up in the middle of the name.
+
+For example:
+    *LEFT_0* in the layout is *EDGE_KEY(LEFT0)*, which becomes *LEFT0_EN_norm*.
+    or whatever is appropriate for the current *LANG_IS* setting.
+
+This is all courtesy of *EDGE_KEY* macro, which adds the The locale and suffix
+to the end of the name for us.
+
+To define a new set, just make a new *SFX* value for the edge key set name,
+and define The corresponding *LEFT_* and *Right_,* then row *0-4*, plus *_SFX*  values for your keys.
+
+
+#+begin_src C :tangle perimeter/edge_keys.h
+#define CONCATENATEE(a, ...) a ## __VA_ARGS__
+#define CATE(a, ...) CONCATENATEE(a, __VA_ARGS__)
+// EDGES
+// outside pinky keys row 0-3.
+// Qwerty and Bepo, - Applies
+// to foreign layouts on bepo. dvorak_bp, beakl_bp.
+// Use by Wrapping the root like so. LANG_N(LEFT0)
+// Add more languages by adding more definitions.
+#define EDGE_KEY(KNAME) CATE(LANG_N(KNAME), EDGE_KEY_SFX)
+#define LEFT_0 EDGE_KEY(LEFT0)
+#define LEFT_1 EDGE_KEY(LEFT1)
+#define LEFT_2 EDGE_KEY(LEFT2)
+#define LEFT_3 EDGE_KEY(LEFT3)
+#define RIGHT_0 EDGE_KEY(RIGHT0)
+#define RIGHT_1 EDGE_KEY(RIGHT1)
+#define RIGHT_2 EDGE_KEY(RIGHT2)
+#define RIGHT_3 EDGE_KEY(RIGHT3)
+#+end_src
+
+*** Edge key Set names
+
+Here we relate the Set name to the suffix for the keycodes.
+To create a new Edge key set start by adding a suffix here.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+// The edge key set name suffixes.
+#define EDGE_KEY_SFX CATE(CATE(EDGE_KEY_SET_IS, _), SFX)
+#define SML_SFX _sml
+#define NOKC_SFX _nokc
+#define NORM_SFX _norm
+#define TEST_SFX _test
+#define REF1_SFX _ref1
+#define REF2_SFX _ref2
+#+end_src
+
+*** The Sets
+
+Here we add the actual keys.
+
+**** En
+***** Norm
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+// Edge key sets
+// a mostly normalish set of edge keys.
+#define LEFT0_EN_norm KC_GRV
+#define LEFT1_EN_norm KC_GRV
+#define LEFT2_EN_norm KC_TAB
+#define LEFT3_EN_norm KC_BSLS
+
+#define RIGHT0_EN_norm KC_EQL
+#define RIGHT1_EN_norm KC_EQL
+#define RIGHT2_EN_norm KC_MINS
+#define RIGHT3_EN_norm KC_SLSH
+#+end_src
+
+***** SML, Smart lock layers on the corners.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+// smart lock edges mostly
+#define LEFT0_EN_sml SML_NAV
+#define LEFT1_EN_sml SML_NAV
+#define LEFT2_EN_sml KC_TAB
+#ifdef ACCENTS_MORTE_LAYER_ENABLE
+#define LEFT3_EN_sml TT(_ACCENTS_MORTE_EN)
+#else
+#define LEFT3_EN_sml ___
+#endif
+
+#define RIGHT0_EN_sml SML_KEYPAD
+#define RIGHT1_EN_sml SML_KEYPAD
+#define RIGHT2_EN_sml KC_MINS
+#define RIGHT3_EN_sml TT(_LAYERS)
+#+end_src
+
+***** NoKC - no keys, not transparent
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+// empty no kc edges
+#define LEFT0_EN_nokc KC_NO
+#define LEFT1_EN_nokc KC_NO
+#define LEFT2_EN_nokc KC_NO
+#define LEFT3_EN_nokc KC_NO
+
+#define RIGHT0_EN_nokc KC_NO
+#define RIGHT1_EN_nokc KC_NO
+#define RIGHT2_EN_nokc KC_NO
+#define RIGHT3_EN_nokc KC_NO
+
+#+end_src
+
+***** Test: A set to experiment with
+
+#+begin_src C :tangle perimeter/edge_keys.h
+//test edge keys
+#define LEFT0_EN_test KC_NO
+#define LEFT1_EN_test KC_NO
+#define LEFT2_EN_test KC_NO
+#define LEFT3_EN_test KC_NO
+
+#define RIGHT0_EN_test KC_NO
+#define RIGHT1_EN_test KC_NO
+#define RIGHT2_EN_test KC_NO
+#define RIGHT3_EN_test KC_NO
+
+#+end_src
+
+**** Bepo
+***** Norm: A set to experiment with
+
+#+begin_src C :tangle perimeter/edge_keys.h
+// bepo
+// mostly normal expected things
+#define LEFT0_BP_norm BP_GRV
+#define LEFT1_BP_norm BP_GRV
+#define LEFT2_BP_norm BP_TAB
+#define LEFT3_BP_norm BP_BSLS
+
+#define RIGHT0_BP_norm BP_EQL
+#define RIGHT1_BP_norm BP_EQL
+#define RIGHT2_BP_norm BP_DV_MINS
+#define RIGHT3_BP_norm BP_SLSH
+#+end_src
+
+***** SML, Smart lock layers on the corners.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+// smart locks mostly, tab, mins
+#define LEFT0_BP_sml SML_NAV
+#define LEFT1_BP_sml SML_NAV
+#define LEFT2_BP_sml KC_TAB
+#define LEFT3_BP_sml TT(_ACCENTS_MORTE_BP)
+
+#define RIGHT0_BP_sml SML_KEYPAD_BP
+#define RIGHT1_BP_sml SML_KEYPAD_BP
+#define RIGHT2_BP_sml BP_MINS
+#define RIGHT3_BP_sml TT(_LAYERS)
+#+end_src
+
+***** NoKC - no keys, not transparent
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+// empty nokc edges
+#define LEFT0_BP_nokc KC_NO
+#define LEFT1_BP_nokc KC_NO
+#define LEFT2_BP_nokc KC_NO
+#define LEFT3_BP_nokc KC_NO
+
+#define RIGHT0_BP_nokc KC_NO
+#define RIGHT1_BP_nokc KC_NO
+#define RIGHT2_BP_nokc KC_NO
+#define RIGHT3_BP_nokc KC_NO
+#+end_src
+
+***** Test: A set to experiment with
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+// test edges
+#define LEFT0_BP_test KC_NO
+#define LEFT1_BP_test KC_NO
+#define LEFT2_BP_test KC_NO
+#define LEFT3_BP_test KC_NO
+
+#define RIGHT0_BP_test KC_NO
+#define RIGHT1_BP_test KC_NO
+#define RIGHT2_BP_test KC_NO
+#define RIGHT3_BP_test KC_NO
+
+#+end_src
+
+**** Combo reference layers
+
+***** ref1: Just some names for the ref1 layer
+
+#+begin_src C :tangle perimeter/edge_keys.h
+// bepo
+
+// Edges for the combo reference layers.
+#define LEFT0_CB_ref1 L0_CB
+#define LEFT1_CB_ref1 L1_CB
+#define LEFT2_CB_ref1 L2_CB
+#define LEFT3_CB_ref1 L3_CB
+
+#define RIGHT0_CB_ref1 R0_CB
+#define RIGHT1_CB_ref1 R1_CB
+#define RIGHT2_CB_ref1 R2_CB
+#define RIGHT3_CB_ref1 R3_CB
+#+end_src
+
+
+***** ref2: Just some names for the ref2 layer
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+#define LEFT0_CB_ref2 L0_CB2
+#define LEFT1_CB_ref2 L1_CB2
+#define LEFT2_CB_ref2 L2_CB2
+#define LEFT3_CB_ref2 L3_CB2
+
+#define RIGHT0_CB_ref2 R0_CB2
+#define RIGHT1_CB_ref2 R1_CB2
+#define RIGHT2_CB_ref2 R2_CB2
+#define RIGHT3_CB_ref2 R3_CB2
+
+#+end_src
+
+** Middle keys
+
+These are for keyboards with keys further inward than the usual inner index finger column.
+Rebound, viterbi, xd75 and ergodox all have something in the middle.  I havent had a keyboard
+wider than 15 columns, and that needs 3 middle columns, the rebound only needed one, and everyone
+else needed 2 or none in the middle.   So we make a left and a right and then build everything with
+them.  Combo ref layers are boring, but we have to do them if we want combos on combo ref layers
+in that part of the keyboard. - The ref layer must be fully defined and we are piecing it together like all
+the others.
+
+Its up to the keyboard layout to decide what to use when it builds its matrix.
+
+**** Left and right
+
+Use =LN_LAYERNAME= and =LANG_KC= to give locale specific layer names and key codes
+
+#+begin_src C :tangle perimeter/edge_keys.h
+/******************************************************************/
+/* Middle Keysets for various keyboards                           */
+// MIDDLES
+/// Middle left and right keys.
+/******************************************************************/
+#define ___MIDDLE_LT___ OSL(_LAYERS)
+#define ___MIDDLE_L1___ LANG_KC(_CCCV)
+#define ___MIDDLE_L2___ TO(LN_SYMB)
+#define ___MIDDLE_L3___ TO(_NAV)
+
+#define ___MIDDLE_RT___ _X_
+#define ___MIDDLE_R1___ LANG_KC(_CCCV)
+#define ___MIDDLE_R2___ TO(LN_TOPROWS)
+#define ___MIDDLE_R3___ ___
+#+end_src
+
+**** 3 keys
+
+Bépo and EN use the same keys.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+// There are 3 keys in the middle of a 15x matrix
+#define ___3_MIDDLE_T___ ___MIDDLE_LT___,    LCTL(LANG_KC(_A)), ___MIDDLE_RT___
+#define ___3_MIDDLE_1___ ___MIDDLE_L1___,    LCTL(LANG_KC(_X)), ___MIDDLE_R1___
+#define ___3_MIDDLE_2___ ___MIDDLE_L2___,    TO_RGB,            ___MIDDLE_R2___
+#define ___3_MIDDLE_3___ ___MIDDLE_L3___,    TO(LN_SYMB),       ___MIDDLE_R3___
+
+// 2 keys in the middle of a 14x matrix  - For viterbi and ergodox.
+#define ___3_MIDDLE_T_EN___ ___3_MIDDLE_T___
+#define ___3_MIDDLE_1_EN___ ___3_MIDDLE_1___
+#define ___3_MIDDLE_2_EN___ ___3_MIDDLE_2___
+#define ___3_MIDDLE_3_EN___ ___3_MIDDLE_3___
+
+#define ___3_MIDDLE_T_BP___ ___3_MIDDLE_T___
+#define ___3_MIDDLE_1_BP___ ___3_MIDDLE_1___
+#define ___3_MIDDLE_2_BP___ ___3_MIDDLE_2___
+#define ___3_MIDDLE_3_BP___ ___3_MIDDLE_3___
+
+#+end_src
+
+**** 2 keys
+
+The same with 2 keys, which is just our Left and Right.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+// 2 keys in the middle of a 14x matrix  - For viterbi and ergodox.
+#define ___2_MIDDLE_T___ ___MIDDLE_LT___,    ___MIDDLE_RT___
+#define ___2_MIDDLE_1___ ___MIDDLE_L1___,    ___MIDDLE_R1___
+#define ___2_MIDDLE_2___ ___MIDDLE_L2___,    ___MIDDLE_R2___
+#define ___2_MIDDLE_3___ ___MIDDLE_L3___,    ___MIDDLE_R3___
+
+#define ___2_MIDDLE_T_EN___ ___2_MIDDLE_T___
+#define ___2_MIDDLE_1_EN___ ___2_MIDDLE_1___
+#define ___2_MIDDLE_2_EN___ ___2_MIDDLE_2___
+#define ___2_MIDDLE_3_EN___ ___2_MIDDLE_3___
+
+#define ___2_MIDDLE_T_BP___ ___2_MIDDLE_T___
+#define ___2_MIDDLE_1_BP___ ___2_MIDDLE_1___
+#define ___2_MIDDLE_2_BP___ ___2_MIDDLE_2___
+#define ___2_MIDDLE_3_BP___ ___2_MIDDLE_3___
+
+#+end_src
+
+**** Combo ref layers
+
+This is really boring. Except that it helps to know where these are going
+when you go to write some combos that use them.
+
+I really should have named these differently but havent had the time to change them.
+There are notes in the code somewhere.
+
+Fill these in on the combo ref layers so we can put combos there.
+Just a bunch of keycodes that dont do anything but can be assigned to
+combos.
+
+***** 2 middle keys
+
+See how T for Top lingers and mixes with 0 as the number row indicator.
+
+****** ref layer 1
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+#define ___2_MIDDLE_T_CB___ CB_0M1, CB_0M2
+#define ___2_MIDDLE_1_CB___ CB_1M1, CB_1M2
+#define ___2_MIDDLE_2_CB___ CB_2M1, CB_2M2
+#define ___2_MIDDLE_3_CB___ CB_3M1, CB_3M2
+#define ___2_MIDDLE_4_CB___ CB_4M1, CB_4M2
+#+end_src
+
+****** ref layer 2
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+#define ___2_MIDDLE_T_CB2___ CB2_0M1, CB2_0M2
+#define ___2_MIDDLE_1_CB2___ CB2_1M1, CB2_1M2
+#define ___2_MIDDLE_2_CB2___ CB2_2M1, CB2_2M2
+#define ___2_MIDDLE_3_CB2___ CB2_3M1, CB2_3M2
+#define ___2_MIDDLE_4_CB2___ CB2_4M1, CB2_4M2
+#+end_src
+
+***** 3 middle keys
+
+****** ref layer 1
+
+#+begin_src C :tangle perimeter/edge_keys.h
+#define ___3_MIDDLE_T_CB___ CB_0M1, CB_0M2, CB_0M3
+#define ___3_MIDDLE_1_CB___ CB_1M1, CB_1M2, CB_1M3
+#define ___3_MIDDLE_2_CB___ CB_2M1, CB_2M2, CB_2M3
+#define ___3_MIDDLE_3_CB___ CB_3M1, CB_3M2, CB_3M3
+#define ___3_MIDDLE_4_CB___ CB_4M1, CB_4M2, CB_4M3
+#+end_src
+
+****** ref layer 2
+
+#+begin_src C :tangle perimeter/edge_keys.h
+#define ___3_MIDDLE_T_CB2___ CB2_0M1, CB2_0M2, CB2_0M3
+#define ___3_MIDDLE_1_CB2___ CB2_1M1, CB2_1M2, CB2_1M3
+#define ___3_MIDDLE_2_CB2___ CB2_2M1, CB2_2M2, CB2_2M3
+#define ___3_MIDDLE_3_CB2___ CB2_3M1, CB2_3M2, CB2_3M3
+#define ___3_MIDDLE_4_CB2___ CB2_4M1, CB2_4M2, CB2_4M3
+
+#+end_src
+
+***** Middle bottom row for combo refs.
+
+****** 4 and 5 key sets.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+#define ___4_MIDDLE_4_CB___ CB_4M1, CB_4M2, CB_4M3, CB_4M4
+#define ___5_MIDDLE_4_CB___ ___4_MIDDLE_4_CB___, CB_4M5
+
+#define ___4_MIDDLE_4_CB2___ CB2_4M1, CB2_4M2, CB2_4M3, CB2_4M4
+#define ___5_MIDDLE_4_CB2___ ___4_MIDDLE_4_CB2___, CB2_4M5
+
+#define ___4_LEFT_4_CB___  CB_4L1, CB_4L2, CB_4L3, CB_4L4
+#define ___4_RIGHT_4_CB___ CB_4R1, CB_4R2, CB_4R3, CB_4R4
+
+#define ___4_LEFT_4_CB2___ CB2_4L1, CB2_4L2, CB2_4L3, CB2_4L4
+#define ___4_RIGHT_4_CB2___ CB2_4R1, CB2_4R2, CB2_4R3, CB2_4R4
+
+#define ___5_LEFT_4_CB___ ___4_LEFT_4_CB___, CB_4L5
+#define ___5_RIGHT_4_CB___ ___4_RIGHT_4_CB___, CB_4R5
+
+#define ___5_LEFT_4_CB2___ ___4_LEFT_4_CB2___, CB2_4L5
+#define ___5_RIGHT_4_CB2___ ___4_RIGHT_4_CB2___, CB2_4R5
+#+end_src
+
+***** The bottom rows
+
+****** 12-13
+
+#+begin_src C :tangle perimeter/edge_keys.h
+#define ___13_BOTTOM_CB___ ___5_LEFT_4_CB___,    \
+    ___3_MIDDLE_4_CB___,                         \
+    ___5_RIGHT_4_CB___
+
+#define ___12_BOTTOM_CB___ ___5_LEFT_4_CB___,    \
+    ___2_MIDDLE_4_CB___,                         \
+    ___5_RIGHT_4_CB___
+
+#define ___13_BOTTOM_CB2___ ___5_LEFT_4_CB2___,  \
+    ___3_MIDDLE_4_CB2___,                        \
+    ___5_RIGHT_4_CB2___
+
+#define ___12_BOTTOM_CB2___ ___5_LEFT_4_CB2___,  \
+    ___2_MIDDLE_4_CB2___,                 \
+    ___5_RIGHT_4_CB2___
+
+#+end_src
+
+***** Bottom left and right.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+#define ___4_BOTTOM_LEFT_CB___ ___4_LEFT_4_CB___
+#define ___4_BOTTOM_RIGHT_CB___ ___4_RIGHT_4_CB___
+
+#define ___4_BOTTOM_LEFT_CB2___ ___4_LEFT_4_CB2___
+#define ___4_BOTTOM_RIGHT_CB2___ ___4_RIGHT_4_CB2___
+
+#define ___5_BOTTOM_LEFT_CB___ ___5_LEFT_4_CB___
+#define ___5_BOTTOM_RIGHT_CB___ ___5_RIGHT_4_CB___
+
+#define ___5_BOTTOM_LEFT_CB2___ ___5_LEFT_4_CB2___
+#define ___5_BOTTOM_RIGHT_CB2___ ___5_RIGHT_4_CB2___
+#+end_src
+
+***** Bottom rows with locale
+
+For the combo ref layers we cheat a little and use CB and CB2 as our locale. This allows us to
+use the same mechanism used by the regular layers to get the right keycodes for locale.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+// basically a 5th row in a 5x matrix. but maybe a 4th if there isnt a number row.
+#define ___15_BOTTOM_CB___  ___5_LEFT_4_CB___,    ___5_MIDDLE_4_CB___, ___5_RIGHT_4_CB___
+#define ___15_BOTTOM_CB2___  ___5_LEFT_4_CB2___,    ___5_MIDDLE_4_CB2___, ___5_RIGHT_4_CB2___
+
+#define ___14_BOTTOM_CB___ ___5_LEFT_4_CB___, ___4_MIDDLE_4_CB___, ___5_RIGHT_4_CB___
+#define ___14_BOTTOM_CB2___ ___5_LEFT_4_CB2___, ___4_MIDDLE_4_CB2___, ___5_RIGHT_4_CB2___
+
+
+#+end_src
+
+** Bottom rows
+These are the second row below home row.  These are mostly based on
+my experience with the kinesis but would also be the space bar row on
+a normal keyboard, which I don't own.
+
+*** Middle.
+
+These are all 4 and 5 wide, to give 2 keys to each side.  I use them as middle thumb keys on
+an ortho or split.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+
+
+// becomes the upper thumbs, the real 4th row if we throw away
+// the number row at the top.
+// this is the 4th row on the viterbi above the thumbrow if the number
+// row is not used for numbers.
+#define ___4_MIDDLE_4___    LSFT(KC_TAB),    HOME_END,    KC_PGDN, KC_TAB
+#define ___4_MIDDLE_4b___   TAB_BKTAB,       HOME_END,    KC_PGDN, KC_PGUP
+
+// bottom middle row of 15 column layout.
+// #define ___5_MIDDLE_THUMBS___ CTL_BSPC,    ALT_DEL,     XMONAD_ESC,  ALT_ENT,   CTL_SPC
+#define ___5_MIDDLE_THUMBS___ ALT_DEL, BSPC_TOPR, ESC_SYMB, ENT_NAV, SPC_TOPR
+#+end_src
+
+*** Bottom Left, Bottom Right
+These are the default bottom row on Kinesis, Ergodox and dactyl
+***** En, default
+
+Still mostly the same as the kinesis bottom row
+
+#+begin_src C :tangle perimeter/edge_keys.h
+/********************************************************************/
+/*  The bottom row and thumbs as needed.                            */
+/********************************************************************/
+// Only the 14 and 15 wide bottom rows have bepo versions.
+// all others are handled through macros.
+
+#define ___5_BOTTOM_LEFT___  ___X2___,  KC_INS,  KC_LEFT, KC_RIGHT
+#define ___5_BOTTOM_RIGHT___ KC_UP,  KC_DOWN,  KC_BSLS, ___X2___
+
+#define ___5_BOTTOM_LEFT_EN___  ___5_BOTTOM_LEFT___
+#define ___5_BOTTOM_RIGHT_EN___  ___5_BOTTOM_RIGHT___
+
+#define ___4_BOTTOM_LEFT___  LCTL(KC_V),  KC_INS,  KC_LEFT,   KC_RIGHT
+#define ___4_BOTTOM_RIGHT___ KC_UP,       KC_DOWN, KC_BSLS, LCTL(KC_C)
+
+#define ___4_BOTTOM_LEFT_EN___  ___4___ //___4_BOTTOM_LEFT___
+#define ___4_BOTTOM_RIGHT_EN___  ___4___ //___4_BOTTOM_RIGHT___
+#+end_src
+
+***** Bépo
+
+Again with bépo, but bepo wants some of that keyboard, because it doesn't really fit in 3x12.
+Bépo spills over into the bottom row when it can.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+// the bottom rows  for keyboards on bepo.
+// bepo on bepo - not enough space to go around....
+#define ___5_BOTTOM_LEFT_BP___  _X_,    BP_EACU,  _X_,           KC_LEFT, KC_RIGHT
+#define ___5_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN,  BP_BSLS,  BP_CCED,  BP_PERC
+
+#define ___4_BOTTOM_LEFT_BP___  LCTL(BP_C),  BP_EACU,  KC_LEFT, KC_RIGHT
+#define ___4_BOTTOM_RIGHT_BP___ KC_UP,  KC_DOWN, BP_BSLS,  BP_CCED
+
+// for combo ref layers for kinesis, dactyl and kinesis.
+#define ___5_BOTTOM_LEFT_FR___  ___X3___,  KC_LEFT, KC_RIGHT
+#define ___5_BOTTOM_RIGHT_FR___ KC_UP,  KC_DOWN,  BP_BSLS, ___X2___
+#+end_src
+
+*** Bottom rows.
+
+This just brings them altogether into a nice name we can use in our layouts.
+**** 14 and 15 column
+
+#+begin_src C :tangle perimeter/edge_keys.h
+// basically a 5th row in a 5x matrix. but maybe a 4th if there isnt a number row.
+// need an en, because we a have a BP and we used it directly in the layout.
+#define ___15_BOTTOM_EN___  ___5_BOTTOM_LEFT___,    ___5_MIDDLE_THUMBS___, ___5_BOTTOM_RIGHT___
+#define ___15_BOTTOM_FR___  ___5_BOTTOM_LEFT_FR___, ___5_MIDDLE_THUMBS___, ___5_BOTTOM_RIGHT_FR___
+#define ___15_BOTTOM_BP___  ___5_BOTTOM_LEFT_BP___, ___5_MIDDLE_THUMBS___, ___5_BOTTOM_RIGHT_BP___
+
+// need an en, because we a have a BP and we used it directly in the layout.
+#define ___14_BOTTOM_EN___    ___5_BOTTOM_LEFT___,    ___4_MIDDLE_4b___, ___5_BOTTOM_RIGHT___
+#define ___14_BOTTOM_FR___ ___5_BOTTOM_LEFT_FR___, ___4_MIDDLE_4b___, ___5_BOTTOM_RIGHT_FR___
+#define ___14_BOTTOM_BP___ ___5_BOTTOM_LEFT_BP___, ___4_MIDDLE_4b___, ___5_BOTTOM_RIGHT_BP___
+
+// for the viterbi, turn off everything, just give the basic thumbs.
+#define ___14_THUMBS_BOTTOM___   ___X4___, ___6_ERGO_THUMBS___, ___X4___
+#+end_src
+
+**** 12 and 13 column
+These are from old wrapper code. They still work with a local suffix.
+
+#+begin_src C :tangle perimeter/edge_keys.h
+/********************************************************************/
+/* BOTTOMS, sorta like THUMBS                                       */
+/********************************************************************/
+// for xd75 or other layouts with a center column.
+
+  // for a last, 4th thumb row. for rebound.
+  // backtab, home end, ----, pgup, pgdn, tab ?
+#define ___13_BOTTOM___                                           \
+  KC_BKTAB, HOME_END, KC_TAB, TT(_NAV), BSPC_SYMB, ESC_TOPR,      \
+    OSL(_LAYERS),                                               \
+    ENT_NAV, SPC_TOPR, KC_LEFT, KC_PGUP, KC_PGDN, KC_RIGHT
+
+#define ___13_BOTTOM_EN___ ___13_BOTTOM___
+#define ___13_BOTTOM_BP___ ___13_BOTTOM___
+
+#define ___12_BOTTOM___                                         \
+  KC_BKTAB, HOME_END, KC_TAB, TT(_NAV), BSPC_SYMB, ESC_TOPR,    \
+    ENT_NAV, SPC_TOPR, KC_LEFT, KC_PGUP, KC_PGDN, KC_RIGHT
+
+#define ___12_BOTTOM_EN___ ___12_BOTTOM___
+#define ___12_BOTTOM_BP___ ___12_BOTTOM___
+
+#+end_src
+
+** Thumbs
+*** Introduction
+The thumb keys are defined together, left and right,  split them down the middle evenly as you think
+about them.  The number at the front is the number of keys in the key set.
+
+It evolved this way, and I haven't changed it. *___6_ergo_thumbs_* is the prefix for the changing
+group of the 6 central thumb keys.
+
+Some keyboards like the kinesis, ergodox and kyria have one or more rows above which
+must integrate into the layout, they are sometimes defined as part of another row.
+These are defined as smaller pieces so that can be done as needed at the layout level.
+
+*** Upper thumb key parts
+
+These are the extra keys that go above the bottom row of thumb keys on keyboards
+like the kyria, kinesis, ergodox and dactyl.
+
+I just define them here so they are consistent with each other and then use them as needed.
+A number in front is the number of keys, the number at the back is the intended row.
+
+#+begin_src C :tangle perimeter/thumbs.h
+// Split thumbs.
+
+// Split these down the middle to think in left and right hand.
+// Top row on kinesis, ergodox, etc.
+#define ___THUMBS_1___                                  \
+  ___X___  , MO_ADJUST,   MO_LAYERS, OSL(LN_TOPROWS)
+
+// Middle row on kinesis, ergodox, etc.
+#define ___THUMBS_2___   HOME_END,   KC_PGUP
+
+#define ___4_THUMBS_1___  ___X___, KC_HOME, KC_PGUP, OSL(LN_TOPROWS)
+#define ___6_THUMBS_2___  KC_LSFT,    KC_BKTAB, KC_END,  KC_PGDN, KC_TAB, KC_RSFT
+#define ___6_THUMBS_2_CB___  KC_LSFT,    KC_BKTAB, KC_END,  KC_PGDN, KC_TAB, KC_RSFT
+
+#define ___6_THUMBS_2a___ BSPC_SYMB, ESC_TOPR, ESC_TOPR, ENT_NAV, ENT_NAV, SPC_TOPR
+#define ___6_THUMBS_2a_CB___ BSPC_SYMB, ESC_TOPR, ESC_TOPR, ENT_NAV, ENT_NAV, SPC_TOPR
+
+// for the kyria
+#define ___4_THUMBS_def___       OS_LALT, OS_LCTL, SML_NAV, OS_LSFT
+#+end_src
+
+*** Flavors - The Definitions !!
+These are the actual definitions of the thumb key sets.
+They are all groups of 6 keys. 3 for the left side 3 for the right side. Going from left to right.
+
+They are named by their functionality, thumb keys with mods, or layers, or just transparent,
+or keypad type keys, etc.  I've used all of these at some time or another, I keep changing
+and trying new things. The possibilities are endless.
+
+There are thumb key groups which accomodate alpha keys on thumb which is common with
+hands down and a few other layouts.
+
+**** Layers
+
+#+begin_src C :tangle perimeter/thumbs.h
+
+#define ___6_ERGO_THUMBS_layers___                              \
+  SML_NAV, BSPC_SYMB, ESC_TOPR, ENT_NAV, SPC_TOPR, ACCCENTS_RALT
+
+#+end_src
+
+**** Transparent
+
+#+begin_src C :tangle perimeter/thumbs.h
+// Transparent.
+#define ___6_ERGO_THUMBS_trns___ ___6___
+
+#+end_src
+
+**** Test
+
+#+begin_src C :tangle perimeter/thumbs.h
+// A place to test stuff.
+#define ___6_ERGO_THUMBS_tst___                                 \
+  TT_KEYPAD, BSPC_SYMB, ESC_TOPR, ENT_NAV, SPC_TOPR, KC_XM_PORD
+
+#+end_src
+
+**** Mods
+
+#+begin_src C :tangle perimeter/thumbs.h
+#define ___6_ERGO_THUMBS_mods___                                \
+  ALT_DEL, CTL_BSPC, GUI_ESC,  ALT_ENT, CTL_SPC, XC_XM_PORD
+
+#+end_src
+
+**** Mods and Layers
+
+#+begin_src C :tangle perimeter/thumbs.h
+#define ___6_ERGO_THUMBS_mod_layers___                          \
+  ALT_DEL, BSPC_SYMB, GUI_ESC,  CTL_ENT, SPC_TOPR, ACCENTS_RALT
+
+#+end_src
+
+**** Mod Layers Nav
+
+#+begin_src C :tangle perimeter/thumbs.h
+#define ___6_ERGO_THUMBS_mod_layers_nav___                      \
+  ALT_DEL, BSPC_SYMB, GUI_ESC,  ENT_NAV, SPC_TOPR, ACCENTS_RALT
+
+#+end_src
+
+**** Left alpha thumb
+
+#+begin_src C :tangle perimeter/thumbs.h
+// for keymaps that need a letter on the thumb.
+#define ___6_ERGO_THUMBS_left_letter___                                 \
+  BSPC_ALT, TH_LTR_SYM, GUI_ESC,  ENT_NAV, SPC_TOPR, KC_TAB
+
+#+end_src
+
+**** Hands Down
+
+#+begin_src C :tangle perimeter/thumbs.h
+// an attempt at an approximation of the HD thumbs as they are on the site.
+// really should be expected to be a starting point that doesnt strand you.
+#define ___6_ERGO_THUMBS_hd___                                  \
+  BSPC_ALT, TH_LTR_SYM, GUI_ESC, ENT_NAV, SPC_TOPR, ACCENTS_CTL
+#define ___6_ERGO_THUMBS_hd_a___                                        \
+  OS_LSHIFT, TH_LTR_SYM, GUI_ESC, BSPC_ALT, SPC_TOPR, ACCENTS_CTL
+#define ___6_ERGO_THUMBS_hd_simple___                   \
+  MO_SYMB, THUMB_LETTER, KC_ENT, KC_BSPC, KC_SPC, MO_TOPROWS
+/* HD dash has thumbs of ,; and .:        */
+#define ___6_ERGO_THUMBS_hd_dash___                                     \
+  LANG_KC(TL_COMM), TL_DOT_SYMB, GUI_ESC, ENT_NAV, SPC_TOPR, BSPC_NUM
+
+#+end_src
+
+**** Miryoku
+
+#+begin_src C :tangle perimeter/thumbs.h
+// miryoku thumbs, either its toprows or keypad for numbers.
+#define ___6_ERGO_THUMBS_miryoku_tr___                          \
+  ESC_MEDIA, SPACE_NAV, TAB_NAVM,  ENT_SYM, BSPC_TOPR, DEL_FUN
+#define ___6_ERGO_THUMBS_miryoku___                             \
+  ESC_MEDIA, SPACE_NAV, TAB_NAVM,  ENT_SYM, BSPC_NUM, DEL_FUN
+// lose the tab key, put a letter where space was.
+// move space to the right side, put backspace where tab was.
+#define ___6_ERGO_THUMBS_miryoku_ltr___                         \
+  ESC_MEDIA, TH_LTR_NAV, BSPC_NAVm,  ENT_SYM, SPC_NUM, DEL_FUN
+#define ___6_ERGO_THUMBS_miryoku_tr_ltr___                      \
+  ESC_MEDIA, TH_LTR_NAV, BSPC_NAVm,  ENT_SYM, SPC_TOPR, DEL_FUN
+
+#define ___6_ERGO_THUMBS_miryoku_ltr_tab___                      \
+  BSPC_MEDIA, TH_LTR_NAV, TAB_NAVM,    ENT_SYM, SPC_NUM, DEL_FUN
+
+#define ___6_ERGO_THUMBS_miryoku_tr_ltr_tab___                   \
+  BSPC_MEDIA, TH_LTR_NAV, TAB_NAVM,    ENT_SYM, SPC_TOPR, DEL_FUN
+
+#+end_src
+
+**** Media, mouse, keypad...
+
+#+begin_src C :tangle perimeter/thumbs.h
+#define ___6_ERGO_THUMBS_media___ ___3___, ___STOP_PLAY_MUTE___
+#define ___6_ERGO_THUMBS_mouse___ ___3___, ___3MOUSE_BTNS_R___
+#define ___6_ERGO_THUMBS_keypad___ \
+  LANG_KC(_DOT), LANG_KC(_0), LANG_KC(_MINS), ___3___
+#define ___6_ERGO_THUMBS_symb___                                \
+  LANG_KC(_OCPRN), LANG_KC(_RPRN), LANG_KC(_UNDS), ___3___
+
+#+end_src
+
+**** Beakl Wi
+
+#+begin_src C :tangle perimeter/thumbs.h
+// So here's the beakl wi thumbs adapted to this combined layer system.
+//
+#define ___6_ERGO_THUMBS_WI___                                  \
+  ESC_TOPR, I_SYMB, TAB_NUM,  ENT_NAV, SPC_SYMB, BSPC_NAV
+
+// Like my other thumb rows. With an I.
+#define ___6_ERGO_THUMBS_WIa___                                 \
+  BSPC_NAV, I_SYMB, ESC_TOPR, ENT_NAV, SPC_TOPR, TAB_NUM
+#+end_src
+
+**** Combo reference layer fill.
+
+#+begin_src C :tangle perimeter/thumbs.h
+#define ___6_ERGO_THUMBS_COMBO___ CB_TH1, CB_TH2, CB_TH3, CB_TH4, CB_TH5, CB_TH6
+#define ___6_ERGO_THUMBS_COMBO2___ CB2_TH1, CB2_TH2, CB2_TH3, CB2_TH4, CB2_TH5, CB2_TH6
+
+#+end_src
+
+
+*** Flavor Suffix Selector
+
+*THUMB_EXT* is the thumb name extension to be used for a configuration choice of thumbs.
+
+We give it a name for thumbs are, like DEFAULT, or TRNS, MODS, or MIRYOKU, and we get a name
+that resolves to set of keys we've defined above.  Later it is resolved the rest of the way.
+
+This is basically a suffix selector for the name we give it. The result of this is used later,
+with *___6_ERGO_THUMBS_* to create a full name.  Combine the parts to get the name that should
+be defined above.  For something like a ferris, a *4_ergo_thumbs* variant, perhaps with a better name
+should be created.
+
+#+begin_src C :tangle perimeter/thumbs.h
+// Give the right symbol suffix by the value of THUMBS_ARE
+// Basically we choose the right cluster here, so the layout
+// level doesn't know or care.
+//
+// ___foo  --> ___foo_WI___, or ___foo_WIa___, or ___foo_def___.
+// THUMBS_ARE = WI, or WIa, or DEFAULT, TEST, TRNS, MOD_LAYERS, etc.
+// the value of THUMB_LETTER is the key used when needed.
+#define THUMB_EXT CAT(THUMBS_ARE, _EXT)
+#define WI_EXT _WI___
+#define WIa_EXT _WIa___
+#define DEFAULT_EXT _mod_layers_nav___  //change this to change the default.
+#define TEST_EXT _tst___
+#define TRNS_EXT _trns___
+#define MODS_EXT _mods___
+#define LAYERS_EXT _layers___
+#define MODS_LAYERS_EXT _mod_layers___
+#define MODS_LAYERS_NAV_EXT _mod_layers_nav___
+#define MIRYOKU_EXT _miryoku___
+#define MIRYOKU_TR_EXT _miryoku_tr___
+#define MIRYOKU_LTR_EXT _miryoku_ltr___  // miryoku versions with a letter
+#define MIRYOKU_LTR_TAB_EXT _miryoku_ltr_tab___
+#define MIRYOKU_TR_LTR_EXT _miryoku_tr_ltr___
+#define MIRYOKU_TR_LTR_TAB_EXT _miryoku_tr_ltr_tab___
+#define TH_LTR_EXT _left_letter___ // takes a letter for the left thumb.
+#define HD_DASH_EXT _hd_dash___
+#define HD_EXT _hd___  // takes a letter for the left thumb.
+#define HDA_EXT _hd_a___  // relocate backspace
+#define HD_SIMPLE_EXT _hd_simple___  // no LTs or MT´s.
+// for the function layers
+#define COMBO_EXT _COMBO___
+#define COMBO2_EXT _COMBO2___
+#define MEDIA_THUMBS_EXT _media___
+#define MOUSE_THUMBS_EXT _mouse___
+#define KEYPAD_THUMBS_EXT _keypad___
+#define SYMB_THUMBS_EXT _symb___
+#+end_src
+
+*** Selection Target names
+These are names that we can use in our layouts, that will unravel to the thumb keys we want.
+There are thumb sets with 6, 10, 12 and 16 keys. All have the same core 6 thumbs.
+The first define here is the trick. It builds a name from our 6 ergo thumbs prefix and whatever
+our flavor selector *THUMB_EXT* macro gave it. That is the name of the thumb key set we
+will use.
+
+This 6 key macro is then used in all other thumb key set definitions so they will all  be the same
+at their core.
+
+**** The core 6 keys, eg. Corne.
+
+The real flavor selector is acting here.
+
+#+begin_src C :tangle perimeter/thumbs.h
+#define ___6_ERGO_THUMBS___ CAT2(___6_ERGO_THUMBS, THUMB_EXT)
+#+end_src
+
+**** 6 keys per side, eg. Kinesis, Ergodox, Dactyl
+
+When the layout calls
+#+begin_src C
+MAP_CHUNK(___12_DOX_ALL_THUMBS)
+#+end_src
+
+That turns into:
+ =___12_DOX_ALL_THUMBS_EN___= or =___12_DOX_ALL_THUMBS_BP___=, etc.
+ In most cases thumb keys seem to not need too many locale / language considerations.
+
+#+begin_src C :tangle perimeter/thumbs.h
+
+/* // consolidated for kinesis, ergodox, and dactyl */
+/* //for the ergodox and kinesis. */
+//___12___
+
+#define ___12_DOX_ALL_THUMBS___ \
+          ___THUMBS_1___,       \
+          ___THUMBS_2___,       \
+          ___6_ERGO_THUMBS___
+
+#define ___12_DOX_ALL_THUMBS_EN___ ___12_DOX_ALL_THUMBS___
+#define ___12_DOX_ALL_THUMBS_BP___ ___12_DOX_ALL_THUMBS___
+#+end_src
+
+**** 7 keys per side, eg. The Kyria.
+
+The Kyria has 4 keys in the middle of the row above, and 10 keys on the bottom row
+of the matrix which gives us the other 5 thumb keys on each side.
+*___6_ERGO_THUMBS___* goes in the middle of the 10 keys and unravels to whatever it
+should based on what was chosen in the config.
+
+Two default key sets, a 4 and a 10. Then we use them everywhere we want them.
+
+#+begin_src C :tangle perimeter/thumbs.h
+#define ___10_ERGO_THUMBS_def___ _X_, _X_, ___6_ERGO_THUMBS___, _X_, _X_
+
+#define ___4_THUMBS_EN___ ___4_THUMBS_def___
+#define ___4_THUMBS_BP___ ___4_THUMBS_def___
+#define ___10_ERGO_THUMBS_EN___ ___10_ERGO_THUMBS_def___
+#define ___10_ERGO_THUMBS_BP___ ___10_ERGO_THUMBS_def___
+#+end_src
+
+**** 16 thumb keys - My weird dactyl
+
+Craziness. 8 thumb keys per side.
+
+#+begin_src C :tangle perimeter/thumbs.h
+#define ___16_ALL_THUMBS___                     \
+  ___4_THUMBS_1___,                             \
+    ___6_THUMBS_2___,                           \
+    ___6_ERGO_THUMBS___
+
+#define ___16_ALL_THUMBS_EN___ ___16_ALL_THUMBS___
+#define ___16_ALL_THUMBS_BP___ ___16_ALL_THUMBS___
+#define ___16_ALL_THUMBSa___                    \
+  ___4_THUMBS_1___,                             \
+    ___6_THUMBS_2a___,                          \
+    ___6_ERGO_THUMBS___
+
+#define ___16_ALL_THUMBSa_EN___ ___16_ALL_THUMBSa___
+#define ___16_ALL_THUMBSa_BP___ ___16_ALL_THUMBSa___
+#+end_src
+
+**** The Combo Reference layers.
+
+These are just combo reference made up key codes so we can put different combos on
+our thumbs using the reference layers if we want to.
+
+***** Reference layer One.
+#+begin_src C :tangle perimeter/thumbs.h
+// combo reference layer thumbs for the kyria.
+// for the kyria, note the odd numbering...a 0 row, and a,b,c,d for the extras
+// on either side of the central 6 thumbs.
+#define ___2_THUMBS_CB___       CB_1TH1,   CB_1TH2
+#define ___4_THUMBS_CB___       CB_0TH1,   CB_0TH2, CB_0TH3, CB_0TH4
+#define ___6_THUMBS_CB___       CB_1TH1,   CB_1TH2, CB_1TH3, CB_1TH4, CB_1TH5, CB_1TH6
+
+#define ___10_ERGO_THUMBS_CB___ CB_THA,    CB_THB,      \
+    ___6_ERGO_THUMBS___, CB_THC, CB_THD
+#define ___12_ERGO_THUMBS_CB___ ___2_THUMBS_CB___,              \
+    CB_THA,    CB_THB,  ___6_ERGO_THUMBS___, CB_THC, CB_THD
+#define ___12_DOX_ALL_THUMBS_CB___ ___4_THUMBS_CB___, ___2_THUMBS_CB___, ___6_ERGO_THUMBS___
+#define ___16_DOX_ALL_THUMBS_CB___ ___4_THUMBS_CB___, ___6_THUMBS_2_CB___, ___6_ERGO_THUMBS___
+#define ___16_DOX_ALL_THUMBSa_CB___ ___4_THUMBS_CB___, ___6_THUMBS_2a_CB___, ___6_ERGO_THUMBS___
+
+#+end_src
+
+***** Reference layer two.
+
+#+begin_src C :tangle perimeter/thumbs.h
+
+
+#define ___2_THUMBS_CB2___       CB2_1TH1, CB2_1TH2
+#define ___4_THUMBS_CB2___       CB2_0TH1, CB2_0TH2, CB2_0TH3, CB2_0TH4
+#define ___6_THUMBS_CB2___       CB2_1TH1, CB2_1TH2, CB2_1TH3, CB2_1TH4, CB2_1TH5, CB2_1TH6
+#define ___10_ERGO_THUMBS_CB2___ CB2_THA,  CB2_THB,     \
+    ___6_ERGO_THUMBS___, CB2_THC, CB2_THD
+#define ___12_ERGO_THUMBS_CB2___ ___2_THUMBS_CB2___,      \
+    CB2_THA,  CB2_THB, ___6_ERGO_THUMBS___, CB2_THC, CB2_THD
+#define ___12_DOX_ALL_THUMBS_CB2___ ___4_THUMBS_CB2___, ___2_THUMBS_CB2___, ___6_ERGO_THUMBS___
+#define ___16_DOX_ALL_THUMBS_CB2___ ___4_THUMBS_CB2___, ___6_THUMBS_2_CB2___, ___6_ERGO_THUMBS___
+#define ___16_DOX_ALL_THUMBSa_CB2___ ___4_THUMBS_CB2___, ___6_THUMBS_2a_CB2___, ___6_ERGO_THUMBS___
+
+#+end_src
+
+
+** Odd remnant? Commented out to see.
+
+Im really not sure what this was intended to be. It appears that they are no longer used.
+The only references to *EXP_THUMB_EXT* are these two lines here, and there is no reference
+to them and I cannot see that they are constructed either.
+
+Commented them out to see if anything blows up.
+
+#+begin_src C :tangle perimeter/thumbs.h
+// for the kyria, mostly for the combo reference layers.
+// #define ___10_ERGO_THUMBS___ CATR(___10_ERGO_THUMBS, EXP_THUMB_EXT)
+// #define ___4_THUMBS___ CAT2(___4_THUMBS, EXP_THUMB_EXT)
+#+end_src
+
+#+begin_src C :tangle perimeter/thumbs.h
+// Basically give the same 4 top thumbs and bottom outer 4 thumbs for everyone.
+// Could be different for every one, but the core 6 is enough for now I think.
+// Everyone is the same except the combo reference layers.
+// Let 6 ERGO_THUMBS do it´s thing inside.
+#define EXP_THUMB_EXT CAT(THUMBS_ARE, _EXP_EXT)
+#define WI_EXP_EXT _def___
+#define WIa_EXP_EXT _def___
+#define DEFAULT_EXP_EXT _def___
+#define TEST_EXP_EXT _def___
+#define TRNS_EXP_EXT _def___
+#define MODS_EXP_EXT _def___
+#define LAYERS_EXP_EXT _def___
+#define MODS_LAYERS_EXP_EXT _def___
+#define MODS_LAYERS_NAV_EXP_EXT _def___
+#define MIRYOKU_EXP_EXT _def___
+#define MIRYOKU_TR_EXP_EXT _def___
+#define MIRYOKU_LTR_EXP_EXT _def___
+#define MIRYOKU_TR_LTR_EXP_EXT _def___
+#define TH_LTR_EXP_EXT _def___
+#define HD_DASH_EXP_EXT _def___
+#define HD_EXP_EXT _def___
+#define HDA_EXP_EXT _def___
+#define HD_SIMPLE_EXP_EXT _def___
+// for the function layers
+#define COMBO_EXP_EXT _COMBO___
+#define COMBO2_EXT _COMBO2___
+#define MEDIA_THUMBS_EXP_EXT _def___
+#define MOUSE_THUMBS_EXP_EXT _def___
+#define KEYPAD_THUMBS_EXP_EXT _def___
+#define SYMB_THUMBS_EXP_EXT _def___
+#+end_src
+
+** Top Rows
+
+These are some row definitions for and from the number row.  There are numbers
+rows of different types as well as symbol and function key rows. They dont necessarily have
+to go on top either thats just where their inspiration came from.
+
+Note that the ones that need it are wrapped in *LANG_* macros so they can be used directly in the maps
+without further LANG wrapping.
+
+*** Mods Row
+
+Here are some Smart lock and one-shot mods to play with.
+
+#+begin_src C :tangle perimeter/toprows.h
+// 5 wide, with the two shot control.
+#define ___OS_MODS_L___   OS_LGUI, OS_LALT, OS_LCTL, OS_LSFT, TS_LCTL
+#define ___OS_MODS_R___   TS_RCTL, OS_RSFT, OS_RCTL, OS_RALT, OS_RGUI
+// 4 wide.
+#define ___SML_MODS_L___  SMLM_LGUI, SMLM_LALT, SMLM_LCTL, SMLM_LSFT
+#define ___SML_MODS_R___  SMLM_RSFT, SMLM_RCTL, SMLM_RALT, SMLM_RGUI
+
+
+//#define ___MODS_ROW___ ___OS_MODS_L___, ___, ___SML_MODS_R___
+#define ___MODS_ROW___ ___SML_MODS_L___, ___, ___OS_MODS_R___
+#+end_src
+
+*** Number Rows
+
+Some different number rows to choose from
+
+**** 1-9,0 - just normal.
+
+#+begin_src C :tangle perimeter/toprows.h
+/*******************************************************************/
+/** TOP ROWS  Func,Symbols, Numbers you find there.               **/
+/*******************************************************************/
+// ltkc  language target keycode DV, BK, BKW, NONE
+//   _1 = DV_1 or _1 = BP_DV_1 or KC_1
+#define ___10_NUMBERS___                                \
+  LANG_ROW(_1, _2, _3, _4, _5, _6, _7, _8, _9, _0)
+#+end_src
+
+**** Beakl 15 - 40123 76598
+
+#+begin_src C :tangle perimeter/toprows.h
+/*  40123 76598  */
+#define ___10_NUMBERS_BEAKL15___                        \
+  LANG_ROW(_4, _0, _1, _2, _3, _7, _6, _5, _9, _8)
+#+end_src
+
+**** Beakl 19 - 32104 76598
+
+This rolls the opposite way from Beakl 15.
+
+#+begin_src C :tangle perimeter/toprows.h
+
+/*  32104 76598  */
+#define ___10_NUMBERS_BEAKL19___                        \
+  LANG_ROW(_3, _2, _1, _0, _4, _7, _6, _5, _9, _8)
+#+end_src
+
+**** Suggestions from @JohnM
+- 8423671059
+- 6523891047
+
+#+begin_src C :tangle perimeter/toprows.h
+
+#define ___10_NUMBERS_JOHNM___                  \
+  LANG_ROW(_8, _4, _2, _3, _6, _7, _1, _0, _5, _9)
+
+#define ___10_NUMBERS_JOHNM2___                         \
+  LANG_ROW(_6, _5, _2, _3, _8, _9, _1, _0, _4, _7)
+#+end_src
+
+*** Symbol Rows
+
+These are all standard, Bépo has numbers shifted instead of symbols. It also likes 12 columns if it can get it.
+
+#+begin_src C :tangle perimeter/toprows.h
+
+// a top symbol row if someone wants it.
+#define ___10_SYMBOLS___                                                \
+  LANG_ROW(_EXLM, _AT, _HASH, _DLR, _PERC, _CIRC, _AMPR, _ASTR, _LPRN, _RPRN)
+
+// standard bepo top row
+#define ___10_SYMBOLS_BEPO___                                           \
+  LANG_ROW(_DQUO, _LDAQ, _RDAQ, _LPRN, _RPRN, _AT, _PLUS, _MINS, _SLSH, _ASTR)
+
+#define ___12_SYMBOLS_BEPO___                           \
+  LANG_ROW12(_DLR, _DQUO, _LDAQ, _RDAQ, _LPRN, _RPRN,   \
+             _AT,  _PLUS, _MINS, _SLSH, _ASTR, _EQL)
+#+end_src
+
+*** Function key Rows
+
+Function keys. 10, 12, wide regular, and beakl 15 order.
+
+#+begin_src C :tangle perimeter/toprows.h
+
+// function key rows work for everyone.
+#define ___10_FUNCS___                                                  \
+  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10
+
+#define ___12_FUNCS___ ___10_FUNCS___, KC_F11, KC_F12
+
+#define ___10_FUNCS_BEAKL15___                  \
+  KC_F4,   KC_F10,   KC_F1,   KC_F2,   KC_F3,   \
+    KC_F7,   KC_F6,   KC_F5,   KC_F9,   KC_F8
+
+#define ___12_FUNCS_BEAKL15___ KC_F11, ___10_FUNCS_BEAKL15___, KC_F12
+#+end_src
+
+*** Kinesis Function key Row. 18 keys!
+
+Too many, too small and squishy. I never use them.
+
+#+begin_src C :tangle perimeter/toprows.h
+// Kinesis function key row. I don't use them. but might as well define them.
+#define ___KINTFUNC_L___ KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8
+// #define ___KINTFUNC_RIGHT___ KC_F9, KC_F10, KC_F11, KC_F12, KC_PSCR, KC_SCRL, KC_PAUS, KC_FN0, QK_BOOT
+#define ___KINTFUNC_R___ KC_F9, KC_F10, KC_F11, KC_F12, XXX, XXX, XXX, XXX, QK_BOOT
+#+end_src
+
+
+** Summary
+Perimeter keys are basically all the parts of the keyboard which are outside of
+the 3x5 left and right hand rectangle that surrounds home row.  Here we can
+define edge keys and middle key sections that can be used in our keyboard's
+layout to pad out all the keys we need. We then have bottom and top rows
+to choose from or make up, and a variety of thumb key sets to choose from.
+
+Edge keys and thumb keys can be given names so they can easily be selected
+in the configuration.
+
+The 6 ergo thumb keys are super easy to change or add to so that
+experimenting with thumb key configurations is easy to do.
+
+All of it really just boils down to configuration choices.  This file connects those
+choices to the actual definitions when building it parts for the keymap.

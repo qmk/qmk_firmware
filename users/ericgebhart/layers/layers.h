@@ -15,98 +15,123 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "keycodes.h"
-/*********************************************************************/
-/* Non-Base Layer Definitions.                                       */
-/*                                                                   */
-/* Keypads, sympads, funcpads, symbols, RGB, Layers, Controls, etc.  */
-/* Qwerty and Bepo versions exist as needed.                         */
-/*                                                                   */
-/* This file defines every auxillary layer I use on every keyboard   */
-/* Ergodox, keebio/viterbi, xd75, rebound, crkbd, morpho, dactyl,..  */
-/*********************************************************************/
-/********************************************************************************/
-/* The following Transient/Non-Base Layers are provided within.                 */
-/* Each layer is named with the size of Keymatrix it has entries for.           */
-/* 3x10 are usual for these.  I had 3x12's but I didn't need the edges really.  */
-/* It was an attempt to accommodate Bepo which is 13 columns wide.              */
-/* Even in a 3x12 Bepo is wonky. So I gave up on it. I also gave up on 4 row    */
-/* layers, I really want my keys in that 3x5 space. Everything on the edges can */
-/* stay as it is.  Splitting is managed in the macros as                        */
-/* needed. BP indicates the Bepo equivalent to the Qwerty layer when needed.    */
-/********************************************************************************/
-/*                                                                              */
-/* Explore below to see what they all are.                                      */
-/* Naming gives the sizes of things, a prefix number is the length.             */
-/* BP is the bepo version of things.                                            */
-/* BKL is the beakl 15 version of a layout or chunk.                            */
-/* C on the end of a name means its a compact version of something.             */
-/* Compact meaning for use on a 3 row layout.                                   */
-/*                                                                              */
-/* TOPROWS - numbers, symbols, functions, all on one layer.                     */
-/* ___TOPROWS_3x10___                                                           */
-/* ___TOPROWS_BP_3x10___                                                        */
-/*                                                                              */
-/* KEYPADS/FUNCPADS.                                                            */
-/* ___KP_C_3x10___                                                              */
-/* ___KP_C_BP_3x10___                                                           */
-/* ___KP_C_BKL_FUNC_3x10___  -- BEAKL key/func pads.                            */
-/* ___KP_C_BKL_FUNC_BP_3x10___                                                  */
-/*                                                                              */
-/* SYMBOLS   -Beakl or Beakl extended                                           */
-/* ___SYMB_BEAKL_3x10___                                                        */
-/* ___SYMB_BEAKL_BP_3x10___                                                     */
-/*                                                                              */
-/* Beakl extended symbol layer with additional corner symbols.                  */
-/* For use with non-beakl base layers.                                          */
-/* ___SYMB_BEAKLA_3x10___                                                       */
-/* ___SYMB_BEAKLA_BP_3x10___                                                    */
-/* For use with vi bindings optimized                                           */
-/* ___SYMB_BEAKLB_3x10___                                                       */
-/* ___SYMB_BEAKLB_BP_3x10___                                                    */
-/*                                                                              */
-/* NAVIGATION                                                                   */
-/* ___NAV_3x10___                                                               */
-/*                                                                              */
-/* CONTROLS                                                                     */
-/* ___RGB_3x10___                                                               */
-/* ___ADJUST_3x10___                                                            */
- /* ___LAYERS_3x10___                                                            */
- /********************************************************************************/
- /*********************************************************************/
- /* XXXXXX Layer chunk  -- These are the final layers.                */
- /*                                                                   */
-/* Each section defines the necessary pieces to create a layer.      */
-/* It builds them up into consistently shaped lists for the layout   */
-/* wrapper.                                                          */
-/*                                                                   */
-/* Each Section ends with a _Layer Chunk_. This is so the            */
-/* layer can be easily given to the Layout Wrapper macros which      */
-/* takes a list of keys in lengths of 2x3x5, 2x3x6, 2x4x5, or 2x4x6. */
-/*                                                                   */
-/* All of my keyboard definitions use these same chunks with similar */
-/* macros. The differences between keyboards are all managed in the  */
-/* macro. Here we just have nice rectangular sets of keys to         */
-/* complete a layout.                                                */
-/*********************************************************************/
+#include "custom_keycodes.h"
 
-// these are needed so that groups of defined keys will unravel
-// into their values. The Base layers don't need them becuse the
-// keys are explicit in their passing. Here, chunks are made for
-// convenience and reuse. They don't unravel unless we wrap these
-// in var args.
 #define CHUNK_LANG_MAP(...) LANG_MAP(__VA_ARGS__)
 #define CHUNK_LANG_ROW(...) LANG_ROW(__VA_ARGS__)
 
-// 5 wide, with the two shot control.
-#define ___OS_MODS_L___   OS_LGUI, OS_LALT, OS_LCTL, OS_LSFT, TS_LCTL
-#define ___OS_MODS_R___   TS_RCTL, OS_RSFT, OS_RCTL, OS_RALT, OS_RGUI
-// 4 wide.
-#define ___SML_MODS_L___  SMLM_LGUI, SMLM_LALT, SMLM_LCTL, SMLM_LSFT
-#define ___SML_MODS_R___  SMLM_RSFT, SMLM_RCTL, SMLM_RALT, SMLM_RGUI
+// moved smart/one-shot mod row to perimeter/toprows.
 
+#include "accents.h"
+#include "toprows.h"
 #include "keypads.h"
 #include "nav.h"
 #include "symbols.h"
-#include "toprows.h"
 #include "utility.h"
+
+/********************************************************************************/
+/* MEDIA  - Mute, Vol, play, pause, stop, next, prev, etc.   */
+/********************************************************************************/
+#define ___PRV_PLAY_NXT_STOP___ KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP
+#define ___VDN_MUTE_VUP___ KC_VOLD, KC_MUTE, KC_VOLU
+
+#define ___PRV_VDN_VUP_NXT___ KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
+#define ___STOP_PLAY_MUTE___ KC_MSTP, KC_MPLY, KC_MUTE
+
+#define ___MUTE_PRV_PLAY_NXT_STOP___  KC_MUTE,  KC_MPRV, KC_MPLY, KC_MNXT, KC_MSTP
+#define ___MUTE_PLAY_STOP___  KC_MUTE,  KC_MPLY,  KC_MSTP
+
+#define CARTE_MEDIA                      \
+  carte_de_map(" ",                      \
+               "  < vdn vup >",          \
+               "  stp play mute")
+
+// miryoku, to be used with stop play mute on thumbs. - MEDIA thumbs.
+#define ___MEDIA_3x10___                        \
+  ___5___, ___5___,                             \
+    ___5___, ___, ___PRV_VDN_VUP_NXT___,        \
+    ___5___, ___5___
+
+/********************************************************************************/
+/* RGB  - Control those lights.                                                 */
+
+/* ___, HUE SAT_INT MOD (UP),            | */
+/* ___, HUE SAT INT MOD (DOWN), RGB_TOG  | P_B_R_SW_SN___, ___ */
+/* ___6___,                              | ___, ___RGB_KXGT___, ___ */
+/********************************************************************************/
+// RGB FUNCTION Keysets
+// RGB row for the _FN layer from the redo of the default keymap.c
+#define ___RGB_HUE_SAT_INT_UP___ RGB_HUI, RGB_SAI, RGB_VAI, RGB_RMOD
+#define ___RGB_HUE_SAT_INT_DN___ RGB_HUD, RGB_SAD, RGB_VAD, RGB_MOD
+#define ___RGB_MODE_PRV_NXT___   RGB_RMOD, RGB_MOD
+#define ___RGB_TOGGLE___         RGB_TOG
+#define ___RGB_P_B_R_SW_SN___    RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN
+#define ___RGB_KXGT___           RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T
+
+/// An RGB Layer
+#define ___10_RGB_1___ ___RGB_HUE_SAT_INT_UP___, ___,     ___5___
+#define ___10_RGB_2___ ___RGB_HUE_SAT_INT_DN___, RGB_TOG, ___RGB_P_B_R_SW_SN___
+#define ___10_RGB_3___ ___5___,                                ___, ___RGB_KXGT___
+
+/********************************************************************************/
+/* The RGB LAYER Chunk                                                          */
+/********************************************************************************/
+#define ___RGB_3x10___ ___10_RGB_1___, ___10_RGB_2___, ___10_RGB_3___
+
+/********************************************************************************/
+/* ADJUST - Miscellaneous Melange.                                              */
+/********************************************************************************/
+// For an Adjust layer. Like RBB with audio, flash, etc.
+#define ___ADJUST_L1___ ___RGB_HUE_SAT_INT_UP___,       RGB_TOG
+#define ___ADJUST_L2___ MU_TOG, CK_TOGG, AU_ON, AU_OFF, CG_NORM
+#define ___ADJUST_L3___ ___RGB_HUE_SAT_INT_DN___,       KC_RGB_T
+
+#define ___ADJUST_R1___  ___, KC_MAKE, VRSN, MG_NKRO, KC_RESET
+#define ___ADJUST_R2___  EE_CLR, ___PRV_PLAY_NXT_STOP___,
+#define ___ADJUST_R3___  MG_NKRO, ___VDN_MUTE_VUP___, RGB_IDL
+/********************************************************************************/
+/* The Adjust LAYER Chunks                                                      */
+/********************************************************************************/
+#define ___ADJUST_3x10___  ___ADJUST_L1___, ___ADJUST_R1___,    \
+    ___ADJUST_L2___, ___ADJUST_R2___,                           \
+    ___ADJUST_L3___, ___ADJUST_R3___
+
+/********************************************************************************/
+/* LAYERS - Define a base layer, switch to any layer. Get around. Experiment.   */
+/*                                                                              */
+/* Base Layers on the left hand,                                                */
+/* transient layers on the right. Centered on the home region.                  */
+/* A good place to attach an experimental layer.                                */
+/*                                                                              */
+/********************************************************************************/
+//  Base Layers
+// this was kc_dvorak et al. But since its configurable as to who would be here
+// that no longer makes sense. So next keys for locale and base layer. and a set to
+// make it permanent. Cycling of layers is based on current locale.
+#define ___BASE_LAYERS___ ___, KC_SET_BASE, KC_NEXT_BASE_LAYER, KC_NEXT_LOCALE, ___
+
+// transient layers.
+#define ___5_LAYERS_T___     ___, MO(_NAV),  MO_SYMB,  MO_KEYPAD,  MO_TOPROWS
+#ifdef SECOND_LOCALE
+#undef LANG_IS
+#define LANG_IS SECOND_LOCALE
+#define ___5_LAYERS_T_BP___  ___, MO(_NAV),  MO_SYMB,  MO_KEYPAD,  MO_TOPROWS
+#undef LANG_IS
+#define LANG_IS DEFAULT_LANG
+#else
+#define ___5_LAYERS_T_BP___  ___, MO(_NAV),  ___3___
+#endif
+
+#define ___5_LAYERS_T_CTL___ ___, MO_RGB, ___, ___, MO_ADJUST
+
+
+#define CARTE_LAYERS                            \
+  carte_de_map("          |Nv S K TR",          \
+               "  EE Bs Ln|Nv S K TR",          \
+               " ")
+
+/// A Layers Layer
+#define ___LAYERS_3x10___                       \
+  ___5___,            ___5_LAYERS_T_BP___,      \
+    ___BASE_LAYERS___,  ___5_LAYERS_T___,       \
+    ___5___,            ___5_LAYERS_T_CTL___

@@ -1,0 +1,960 @@
+* Some internals
+There is no configuration in this section, only explanation and code.
+I dont have a better place for this at the moment.
+However, it does explain a few things:
+
+- Where a lot of stuff is.
+- How to define a new locale,
+- How the keymap is constructed,
+- How to make a new base layer,
+- Some explanation of Thumb and edge keys
+- Target language keycodes, what they are and how to make them.
+- Other custom codes
+
+This needs to be documented and this seems like a good spot. Its likely you'll want
+to make some customizations and additions so here are some of the basic building
+blocks. This section is more about creating new base layers and how to handle odd key codes
+on languages that dont match up.  How custom key codes work here, automatically.
+Things you might want to know, to better understand the choices at hand.
+
+** *lang/* Defining a New Locale
+
+*** Introduction
+If you need a new language choice, or you want an inkling of how this
+works then you are in the right place.  There are a few parts to this.
+first there is the header files with the alternate keycodes from the usual *KC* keycodes.
+Then there can be some troublesome keys that aren't what we want.
+Lastly, we need punctuation keycodes for our target language. These are the biggest
+missing piece, and usually only amount to some custome punctuation and
+symbol key definitions. We stick to the naming conventions here, and everything
+will just fall together.
+
+*** keycodes
+
+This configuration mostly manages its custom keycodes automatically. Keycodes are
+managed as an extension with all the rest in *defs/* and *extensions/*.  QMK provides
+header files with keycodes for many languages.
+
+For this to work, the header file for the language to be supported must be provided.
+In this configuration, they are included in =lang/keymap_keycodes.h=.  They live by
+default in =qmk_firmware/Quantum/keymap-extras/=.
+
+This is pulled into lang.h so everyone has it.
+
+#+begin_src C :tangle lang/lang_keycodes.h
+#include "keymap_bepo.h"
+//#include "keymap_us_international.h"
+#include "keymap_us_international_linux.h"
+#+end_src
+
+*** Defining a new language target.
+
+Languages are defined by adding some names to the configuration and to lang.h
+You dont need to know this, unless you want to, or you want to add a new language
+to this configuration.
+
+The set up is a few C macros.
+
+*** The Code
+***** Pay no attention to the man behind the curtain...
+
+#+begin_src C :tangle ./lang/lang.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+#include "lang_keycodes.h"
+
+// Language macros to change the names of things to
+// match the value of LANG_IS, and EDGE_COLS.
+// it would be nice to have consistency, but there isn't.
+// Keys need a prefix, layer chunks need a different suffix,
+// defines that are are opposite, of keys.
+//
+// In order to change layer and other names to match lang.
+// foo --> foo_bp or foo.
+
+// A new language just needs entries to match so
+// that it will create the proper names when LANG_IS
+// set to the appropriate values.
+// sonly the pfx and sfx functions need additions for
+// another language.
+// The rest is making sure there are keymap chunks
+// defined as needed.
+#define COMMA ,
+
+#define CONCATENATE(a, ...) a ## __VA_ARGS__
+#define CAT(a, ...) CONCATENATE(a, __VA_ARGS__)
+
+// We need another one with a different name.
+// The macros are painted blue otherwise.
+// Cat gets used at a low level, around keys, or layers basically.
+// Cat 2 is used for thumb cluster choices, any of which can contain
+// a number of CATS down at the bottom. -- nested macros of the same
+// name get painted blue.  So here we are. :-).  look in edge_keys.h
+// for THUMBS
+#define CONCATENATE2(a, ...) a ## __VA_ARGS__
+#define CAT2(a, ...) CONCATENATE2(a, __VA_ARGS__)
+
+#define CONCATENATE3(a, ...) a ## __VA_ARGS__
+#define CAT3(a, ...) CONCATENATE3(a, __VA_ARGS__)
+
+
+#define EMPTY()
+#define DEFER(id) id EMPTY()
+#define OBSTRUCT(...) __VA_ARGS__ DEFER(EMPTY)()
+#define EXPAND(...) __VA_ARGS__
+#+END_SRC
+
+***** An example; The important bits.
+
+Here is where the language prefixes are set.  We'll need an equivalent to *KC_NO.* Then
+a name from the config combined with KC to indicate which language prefix the wrappers
+should use for their keycode prefix.  I have also used this mechanism to create two combo
+reference layers.
+
+I could perhaps refactor this, but it is working as is. Things came from different places and
+converged here,  so we have 4 different names to provide.
+
+- =prefix_NO=  is =KC_NO=  - Official language prefix from the headers.
+- =prefix= - Official language prefix from the headers.
+- =_prefix= -  for a suffix :-)
+- =_prefix__= - for a thing that goes in the middle.
+
+For instance, =US_INT=  is the value we set in the config for *LANG_IS*.
+To define a language target for =US_intl= named as =US_INT= to be used
+as our *LANG_IS* value we define the following.  These four entries for any given
+language is all that is needed to provide basic support.
+
+#+begin_src C
+#define US_INTKC US
+#define US_NO KC_NO
+#define US_INT_SFX _US
+#define US_INT_SFX _US__
+#+end_src
+
+***** The actual code.
+Here is the actual chunk of the file. Maybe I should just add them all and be done.
+
+#+begin_src C :tangle ./lang/lang.h
+#define BP_NO KC_NO
+#define US_NO KC_NO
+
+#define CB_NO KC_NO
+#define CB2_NO KC_NO
+
+// Give the right keycode prefix by LANG_IS
+#define LANG_PFX CAT(LANG_IS, KC)
+#define COMBOKC CB
+#define COMBO2KC CB2
+#define BEPOKC BP
+#define ENKC KC
+#define US_INTKC US
+
+// Give the right symbol suffix by LANG_IS
+#define LANG_SFX CAT(CAT(LANG_IS, _), SFX)
+#define LOCALE_LAYERS_SFX _LL // for counting the base layers.
+#define COMBO_SFX _CB
+#define COMBO2_SFX _CB2
+#define BEPO_SFX _BP
+#define EN_SFX _EN
+#define US_INT_SFX _EN
+
+// Give the right map chunk suffix by LANG_IS
+#define LANG_MAPSFX CAT(CAT(LANG_IS, _), MAPSFX)
+#define COMBO_MAPSFX _CB___
+#define COMBO2_MAPSFX _CB2___
+#define BEPO_MAPSFX _BP___
+#define EN_MAPSFX _EN___
+#define US_INT_MAPSFX _EN___
+#+END_SRC
+
+***** The Final macro wrappers
+
+These are the macros that get used by the wrappers to create the keymaps.
+I will be happy when layer names by locale go away.
+
+#+begin_src C :tangle ./lang/lang.h
+// These use the mapping above to get their job done.
+
+// In order to create keycode names to match lang.
+// A  --> BP_A or KC_A,US_A
+#define LANG_KC(NAME) CAT(LANG_PFX, NAME)
+
+// _SYMB -> _SYMB_EN
+// _SYMB -> _SYMB_BP
+#define LANG_N(NAME) CAT(NAME, LANG_SFX)
+
+// In order to map chunk names to match lang.
+// MAP_CHUNK(___15_BOTTOM) --> ___15_BOTTOM_EN___ or ___15_BOTTOM_BP___
+#define MAP_CHUNK(NAME) CAT3(NAME, LANG_MAPSFX)
+#+END_SRC
+
+Just a little thing so we can  display things properly. A hard coded hack. meh.
+Changing soon I hope.
+
+#+begin_src C :tangle ./lang/lang.h
+// for the oled layer map switch
+#ifdef SECOND_LOCALE
+#define LCASE(NAME)                          \
+  case CAT2(NAME, _EN):                      \
+  case CAT2(NAME, _BP):
+#else
+#define LCASE(NAME)                          \
+  case CAT2(NAME, _EN):
+#endif
+#+end_src
+
+** The Core Keymap
+
+The keymap is a list of layers which are defined elsewhere. But maybe it
+will help to see it. Otherwise carry on to the next section.
+
+The keymap is not a thing to look at here. It really doesn't have anything in it.
+It mostly just includes all the possible keymaps and turns only the ones you chose.
+
+Each Alpha layout family and functional layer set has its own /map.c/ which the master
+keymap includes.
+
+It goes through the maps twice in case you chose more than one locale such that it creates
+a double stacked layer set. There is a better way now. A future improvement awaits.
+
+Each family and set of layers is responsible for choosing the proper layer to activate or not.
+Here it is the dvorak version in case you are curious. As usual there is a bit of macro wrapper code to start.
+Some families maps go to extra lengths to create their proper maps. Like Beakl and Hands Down.
+
+We have both 5 and 6 column split layouts, or 10 and 12 column layouts depending upon how
+you look at them.  5 column is default, and the 6th, outer pinky columns are automatically filled in.
+
+*T* layers are what I thought of as Transient layers like navigation, and the keypad, etc.
+
+Oddly, my default keycode prefix is DV because I never used Qwerty on QMK. It works out the same,
+so it is harmless.
+
+**** The keymap code. Sortof.
+
+#+begin_src C :tangle keymap/keymap.c
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+
+/* This is my keymap. Enable the layers you want in config.h. */
+
+#include QMK_KEYBOARD_H
+#include "ericgebhart.h"
+#include "layouts.h"
+
+#include "keyboards.h"
+
+// This goes here because introspection.c needs for it to be
+// in keymap.c or in the value of
+// INTROSPECTION_KEYMAP_C = keymap/keymap.c
+// in rules.mk.
+// This include file generates code defining the combo datastructures
+// for whatever you have in combos.defs. And the introspector wants
+// to inspect them.
+#include "keymap_combo.h"
+
+// set up the wrapper macros.
+#define BASE_LAYER(NAME, ...)  [NAME] = BASE(__VA_ARGS__)
+#define BASE_LAYERt6(NAME, ...)  [NAME] = BASEt6(__VA_ARGS__)
+#define T_LAYER(LNAME, ...)  [LNAME] = TRANS(__VA_ARGS__)
+
+
+// One that takes 5 and one that takes 6 for bepo and other big maps
+// that need 3x12 instead of 3x10.
+#ifdef BASE_NUMBER_ROW
+#define B_LAYER(LNAME, NUMS, LAYOUT) BASE_LAYER(LNAME, NUMS, LAYOUT)
+#define B_LAYERt6(LNAME, NUMS, LAYOUT) BASE_LAYERt6(LNAME, NUMS, LAYOUT)
+#else
+// if there is no number row, don't give it one.
+#define B_LAYER(LNAME, NUMS, LAYOUT) BASE_LAYER(LNAME, LAYOUT)
+#define B_LAYERt6(LNAME, NUMS, LAYOUT) BASE_LAYERt6(LNAME, LAYOUT)
+#endif
+#+end_src
+
+The beginning of the actual maps. All we do is twiddle language and and get a map or not.
+
+#+begin_src C :tangle keymap/keymap.c
+// Find alt local key definitions.
+// DV for dvorak/qwerty maps on bepo.
+// BK, BKW for beakl maps on en-qwerty and bepo.
+// BKW is automatic in map_beakl.h
+#define ALT_TARGET_IS NONE // NONE, DV=dvorak, BK=Beakl, BK2, BKW=Beaklwi.
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+  // Default lang, Base layers
+#include "map_dvorak.h"
+#include "map_maks.h"
+#include "map_qwerty.h"
+#include "map_beakl.h"
+#include "map_alt.h"
+#include "map_gap.h"
+#include "map_carpalx.h"
+#include "map_hd.h"
+#include "map_bepo.h"
+
+  // create a set of layers for a second locale.
+#ifdef SECOND_LOCALE
+#undef LANG_IS
+#define LANG_IS SECOND_LOCALE
+
+  // changes alt target for us, because both en-qwerty and fr-bepo
+  // need a beakl alt target.
+#include "map_beakl.h"
+
+  // Qwerty based layers. Need a DV alt target to get the right shifted keys.
+#undef ALT_TARGET_IS
+#define ALT_TARGET_IS DV // NONE, DV = dvorak, BK=Beakl, BKW=Beaklwi.
+
+#include "map_dvorak.h"
+#include "map_maks.h"
+#include "map_qwerty.h"
+#include "map_alt.h"
+#include "map_gap.h"
+#include "map_carpalx.h"
+#include "map_hd.h"
+
+#undef ALT_TARGET_IS
+#define ALT_TARGET_IS NONE // NONE, DV = dvorak, BK=Beakl, BKW=Beaklwi.
+
+#include "map_bepo.h"
+
+#undef LANG_IS
+#define LANG_IS DEFAULT_LANG
+#endif // bepo
+
+
+// SYMBOL LAYER
+#include "map_symbols.h"
+
+#ifdef SECOND_LOCALE
+#undef LANG_IS
+#define LANG_IS SECOND_LOCALE
+
+#include "map_symbols.h"
+
+#undef LANG_IS
+#define LANG_IS DEFAULT_LANG
+#endif
+
+
+  // KEYPAD LAYER
+#include "map_keypads.h"
+
+#ifdef SECOND_LOCALE
+#undef LANG_IS
+#define LANG_IS SECOND_LOCALE
+
+#include "map_keypads.h"
+
+#undef LANG_IS
+#define LANG_IS DEFAULT_LANG
+#endif
+
+
+// TOPROWS LAYER
+#include "map_toprows.h"
+
+#include "map_accented.h"
+
+#ifdef SECOND_LOCALE
+#undef LANG_IS
+#define LANG_IS SECOND_LOCALE
+
+#include "map_toprows.h"
+
+#include "map_accented.h"
+
+#undef LANG_IS
+#define LANG_IS EN
+#endif
+
+// functional non language based layers.
+#include "map_funcs.h"
+
+};
+#+end_src
+
+It just turns stuff on and off and tries to use the layers you told it to.
+The layers are divided into groups. The base layers are organized by layout
+family to the best of my ability. So Qwerty, Norman and Workman are together,
+as are Dvorak, Capewell-Dvorak and Boo.
+
+Families of layouts in base_layers/ are these.
+- alt  - Miscellaneous uncategorized or one of a kind base layers.
+- Beakl
+- Bepo
+- Carpalx
+- Dvorak
+- Gap   - MTGap
+- Hands Down
+- Maks  - Colemak
+- Qwerty
+- Accents.h - Accented letters, dead keys etc.
+- Toprows - some row definitions that are based on the number row.
+
+As an example here is the Dvorak part of the keymap from =map_dvorak.h=.
+Any time a new Dvorak family layout is defined
+it should be added to this /dvorak_keymap.c/ to be enabled as a base layer choice.
+
+#+begin_src C
+/*
+  Copyright 2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#ifdef DVORAK_LAYER_ENABLE
+B_LAYER(LANG_N(_DVORAK), ___10_NUMBERS___, ___DVORAK___),
+#endif
+#ifdef DVORAK_RLC_IU_LAYER_ENABLE
+  B_LAYER(LANG_N(_DVORAK_RLC_IU), ___10_NUMBERS___, ___DVORAK_RLC_IU___),
+#endif
+#ifdef BOO_LAYER_ENABLE
+  B_LAYER(LANG_N(_BOO), ___10_NUMBERS___, ___BOO___),
+#endif
+#ifdef CAPEWELL_DVORAK_LAYER_ENABLE
+  B_LAYER(LANG_N(_CAPEWELL_DVORAK), ___10_NUMBERS___, ___CAPEWELL_DVORAK___),
+#endif
+#ifdef AHEI_LAYER_ENABLE
+  B_LAYER(LANG_N(_AHEI), ___10_NUMBERS___, ___AHEI___),
+#endif
+#+end_src
+
+Additionally in the layers directory holds several sets of functional layers.
+Perimeter.org tangles to perimeter/ where all the layout parts like edge keys
+top rows, bottom rows and thumb definitions are.
+
+- =edge_keys=  - The sixth, outer pinky columns, and the middle columns when needed.
+- =thumbs= - The thumb clusters
+- toprows - rows derived from the top plus some.
+
+- layer families
+  - =keypads=
+  - =layers=
+  - =nav=
+  - =symbols=
+  - =toprows=
+  - =utility=
+
+** Base layers
+
+Thanks to all of that, defining base layers is super easy, and it should be easier,
+once I get tangling working properly for them. So that all this boilerplate code
+would be done for me when I make a new layer map.
+
+Here is the definition for dvorak. The Carte is the map for the Oled. Which could
+also be automated.
+
+Notice the *TL,* Target-Language, keycodes.
+
+The names of the parts are important. They must match in this pattern so we can automate some
+stuff. The lang map macro takes care of adding the keycode prefix for the language set.
+Mods are automatically applied later.
+
+#+begin_src C
+#define CARTE_DVORAK                            \
+  carte_de_map(" ',.py fgcrl ",                 \
+               " aoeui dhtns ",                 \
+               " ;qjkx bmwvz ")
+
+#define ___DVORAK___                                                    \
+  LANG_MAP(TL_QUOT,  TL_COMM, TL_DOT, _P,  _Y,   _F, _G, _C, _R, _L,    \
+           _A,       _O,      _E,     _U,  _I,   _D, _H, _T, _N, _S,    \
+           TL_SCLN,  _Q,      _J,     _K,  _X,   _B, _M, _W, _V, _Z)
+#+end_src
+
+Defining base layers is super nice, especially if you are used to default common QMK,
+and this really should be nicer. A proper change would send this next section to an archive.
+As well as combine the carte and the map into one definition.
+
+**** Adding a new Base Layer.
+
+This stuff needs to be automated... So obvious, make up a name,
+Put name in these 4 places... name these two things that name plus this and that and
+put this after it...
+
+First just define your map following the pattern above. It should be a 3x10 or 3x12 matrix.
+If you need Target Language codes see the next section.
+
+- Add your key map entry to the appropriate =base_layouts/= layout family file or create a new one.
+- Add its name to the appropriate place in =layer_names/=.
+- Add your key map name to the *oled/oled_layer.c*
+- Add your key map's  Carte de map, to *oled/_cartes.c*
+
+As new layers are created the new names need to be added
+in =layer_names/=  util, func, or base, and in =oled/= in the cartes and layers.
+This gives the layer its language translated entry in our keymap.
+If we don't do this it doesn't exist. It is wrapped in language stuff to create a language
+centric enum value for our layer, again for
+those other reasons that will go away soon, and so will =LANG_N=.
+
+Here is the one for dvorak from =base_names.h=.
+#+begin_src C
+#ifdef DVORAK_LAYER_ENABLE
+    LANG_N(_DVORAK),
+#endif
+#+end_src
+
+Adding it to the keymap is making an entry.  We dont know if they will want a number row or
+not, so we provide one in case. We guarantee the size, and that's all a layout can do.
+
+An example keymap entry from *keymap/map_dvorak.h*.  We supply a number row just in case.  We
+don't know if it will use it, and we dont care as long as it gives us a valid map.
+
+#+begin_src C
+#ifdef DVORAK_LAYER_ENABLE
+  B_LAYER(LANG_N(_DVORAK), ___10_NUMBERS___, ___DVORAK___),
+#endif
+#+end_src
+
+A example Layer name entry for the display.
+  #+begin_src C
+#ifdef DVORAK_LAYER_ENABLE
+    WRITE_STR_LAYER(_DVORAK, "Dvorak")
+#endif
+#+end_src
+
+An example layer map entry for the display.
+The consistency in naming is important, it finishes it for us.
+
+  #+begin_src C
+#ifdef DVORAK_LAYER_ENABLE
+        SHOW_MAP(_DVORAK)
+#endif
+#+end_src
+
+Currently the best way to add a new keymap is to define it, then do a ripgrep or ag
+to find all the occurrences to the keymap defined next to it, and just fill it in.
+
+** TL_ - Target language keycodes
+**** Introduction
+These address the problem of your computers locale giving you keys that dont
+match the layout you are trying to use on it from your keyboard. So my first one
+was wanting Dvorak on a french computer.  The numbers are inverted with the symbols
+on Bepo. The punctuation keys are different. Beakl on qwerty and french had the same
+problem.  Hands Down layouts all have some special keys that are unlike those elsewhere.
+again, usually punctuation pairs. It just happens that I thought it was a language problem
+at first. But its really just a keycode, input method problem that comes from trying to use
+random keymaps on top of an OS looking to give Qwerty, Azerty or Bepo.
+
+At any rate, here they are. TL_ codes.
+
+The *TL* keycodes are *Target Language* keycodes. They can be defined in any
+number of ways, but usually I use my [[file://extensions.org][*Alt Local*]] extension to create alternative
+keycodes with accents or alternate shifted key pairs.
+The *alt shift* extension can also often fill the need at a much lighter weight.
+The keys must be properly named for their target.
+
+They tend to be almost exclusively punctuation. Another example is
+how Bepo has its number row inverted from Qwerty/Azerty. The numbers are shifted
+instead of the symbols. So dvorak on bepo, or bepo on US Intl is problematic.
+Target language keycodes solve this problem.
+
+The first step is recognizing there is a need. That results in a desire to have an alternate target
+in addition to the language.  Alt targets are defined in here in =lang/lang_map.h=.
+There isnt anything to do but add your one line #define for a name and its piece of keycode name.
+
+As usual this starts with some macro to make some names. If you have some special keymap that
+needs a special key pairing you are in the right place.  Figure out your name part  and add it to the list.
+You will be the one using it in your loading of it from your piece of the *keymap/*.
+Both Hands down and Beakl key maps have good examples.
+
+**** Lang Map, mapping characters.
+
+The purpose of the code here is to map our characters, TL or not, to their target encoding
+so that they become KC_, BP_ or US_, ??_, key codes and send the right keycodes for our chosen
+input method.
+
+***** The Code
+
+The *LKC* macro takes care of our character naming for most things. It turns *_A* into
+*KC_A*, *US_A*, or *BP_A*, or whatever the *LANG_IS* is set to.
+
+Below that is how that is combined with the *ALT_TARGET_IS*, to create what the *TL_* keycode
+ultimately becomes.
+
+#+begin_src C :tangle lang/lang_map.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+,*/
+#define CONCATENATEKC(a, ...) a ## __VA_ARGS__
+#define CATKC(a, ...) CONCATENATEKC(a, __VA_ARGS__)
+#define LKC(NAME) CATKC(LANG_PFX, NAME)
+#+end_src
+
+Take care of the Target Language keycodes.  Mostly odd punctuation pairings.
+
+#+begin_src C :tangle lang/lang_map.h
+// NONE, DV = dvorak, BK=Beakl, BK2=Beakl27, BKW=Beaklwi.
+// Give the right keycode prefix by Alt target _IS
+#define ALT_TARGET_IS NONE
+#define TARGET_PFX CATKC(ALT_TARGET_IS, KC)
+#define NONEKC
+#define DVKC _DV
+#define BKKC _BK
+#define BKWKC _BKW
+#define BK2KC _BK2
+#define HDKC _HD
+#define HDVKC _HDV
+#define HD_ELANKC _HD_E
+#define HD_DASHKC _HD_D
+// ^^^ Add new ones here. ^^^
+
+#define CONCATENATETKC(a, ...) a ## __VA_ARGS__
+#define CATTKC(a, ...) CONCATENATETKC(a, __VA_ARGS__)
+#+end_src
+
+***** The TL unravel magic
+
+This next line is the magic bit where the unraveling happens.  Note that this gets
+used below *inside LKC()*.  =TL_COMM= = LKC ( TLKC ( =_COMM= )).
+
+Currently these are defined with the altlocal keys extension, but can be done with
+any of the extensions which are capable.
+
+#+begin_src C :tangle lang/lang_map.h
+// depending on the value of ALT_TARGET_IS and LANG_IS.
+// TL_COMM -> TLKC(_COMM)
+// TLKC(_COMM) -> _BK_COMM, _DV_COMM, _BK2_COMM, _BK_COMM, _HD_COMM...
+#define TLKC(NAME) CATTKC(TARGET_PFX, NAME)
+#+end_src
+
+***** Some Macros to make life easier.
+
+This is the boring bit. Rows of 10 or 12. Matrices of 3x10, or 3x12.
+Give back an expanded matrix of realized keycodes.
+
+#+begin_src C :tangle lang/lang_map.h
+
+#define LANG_ROW(K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A)      \
+  LKC(K01), LKC(K02), LKC(K03), LKC(K04), LKC(K05),                     \
+    LKC(K06), LKC(K07), LKC(K08), LKC(K09), LKC(K0A)                    \
+
+#define LANG_ROW12(K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C) \
+  LKC(K01), LKC(K02), LKC(K03), LKC(K04), LKC(K05), LKC(K06),           \
+    LKC(K07), LKC(K08), LKC(K09), LKC(K0A), LKC(K0B), LKC(K0C)          \
+
+// takes a 3x10
+#define LANG_MAP(K01, K02, K03, K04, K05,               \
+                 K06, K07, K08, K09, K0A,               \
+                 K11, K12, K13, K14, K15,               \
+                 K16, K17, K18, K19, K1A,               \
+                 K21, K22, K23, K24, K25,               \
+                 K26, K27, K28, K29, K2A)               \
+  LKC(K01), LKC(K02), LKC(K03), LKC(K04), LKC(K05),     \
+    LKC(K06), LKC(K07), LKC(K08), LKC(K09), LKC(K0A),   \
+    LKC(K11), LKC(K12), LKC(K13), LKC(K14), LKC(K15),   \
+    LKC(K16), LKC(K17), LKC(K18), LKC(K19), LKC(K1A),   \
+    LKC(K21), LKC(K22), LKC(K23), LKC(K24), LKC(K25),   \
+    LKC(K26), LKC(K27), LKC(K28), LKC(K29), LKC(K2A)
+
+
+// takes a 3x12
+#define LANG_MAP6(K01, K02, K03, K04, K05, K06,                 \
+                  K07, K08, K09, K0A, K0B, K0C,                 \
+                  K11, K12, K13, K14, K15, K16,                 \
+                  K17, K18, K19, K1A, K1B, K1C,                 \
+                  K21, K22, K23, K24, K25, K26,                 \
+                  K27, K28, K29, K2A, K2B, K2C)                 \
+  LKC(K01), LKC(K02), LKC(K03), LKC(K04), LKC(K05), LKC(K06),   \
+    LKC(K07), LKC(K08), LKC(K09), LKC(K0A), LKC(K0B), LKC(K0C), \
+    LKC(K11), LKC(K12), LKC(K13), LKC(K14), LKC(K15), LKC(K16), \
+    LKC(K18), LKC(K18), LKC(K19), LKC(K1A), LKC(K1B), LKC(K1C), \
+    LKC(K21), LKC(K22), LKC(K23), LKC(K24), LKC(K25), LKC(K26), \
+    LKC(K27), LKC(K28), LKC(K29), LKC(K2A), LKC(K2B), LKC(K2C)
+#+end_src
+
+
+To determine your name it is only necessary to know your target locale's prefix, in
+my case en, us, or bp.  and make up your own 2 or 3 letter piece of name *_foo* would do.
+
+=lang_your-name_keycode=  for example above.
+=TL_COMM= on US intl in the Hands down gold layout will result in  a keycode of =US_HD_COMM=.
+
+So that is how to determine the name of the keycode you want to create.  This is the worst pain point
+for making a layout work on any language. Not so bad.
+
+These keys are easiest to define in /defs/altlocal_keys.def/ , The most important thing is to know how the name is constructed so that the can be properly defined.
+
+
+** Custom keycodes, edge keys and thumbs.
+Not sure where this goes. but its here, so ...
+
+*** Custom Keycodes
+
+Most extensions automatically create their keycodes with the keycodes extension which
+also loads =defs/custom_keys.def= so that any random keycodes can be defined there.
+
+*** Edge Keys
+
+I have always viewed the extra middle and outer pinky columns as something that stays relatively static.
+They seldom changed, and so I defined them in one place and used them everywhere. It is not necessary
+to use them, a layout can be specified as 3x12, the Bepo, Optimot, Beakl19bis, and Hands Down Neu layouts
+are all examples of wider keymaps.
+
+So, we can turn them on and off. I think a separate document is a better idea for these.
+feel free to browse *layers/edge_keys.h*. or the readme.org there when I finally get to it.
+
+*** Thumbs
+
+Having been a Kinesis keyboard user since 1998 I have always had thumb keys on QMK.  They have changed
+over the years, and like many I have reduced the size of my keyboards. As a result, my core thumb cluster
+code is 6 keys, 3 on each side.  Keyboards like Kyria, Kinesis, Ergodox and dactyl all fill in around this core
+cluster of 6 keys.  Everything discussed here is in /perimeter/thumbs.h/.
+
+If you are used to QMK wrapper macros elsewhere, this will seem familiar with a twist.
+Each thumb key set is defined in the same way.
+
+As an example, here is one. Currently all of them begin with the *___6_ergo_thumbs_* prefix. A left over
+name from another time that I should factor out.
+
+This is the *mod_layers_ext* thumb cluster definition.  This works well for a Corne.
+
+#+begin_src C
+#define ___6_ERGO_THUMBS_mod_layers___                          \
+  ALT_DEL, BSPC_SYMB, GUI_ESC,  CTL_ENT, SPC_TOPR, ACCENTS_RALT
+#+end_src
+
+To enable it to be selected in /config.h/ an entry for its suffix must be made.
+
+#+begin_src C
+#define MODS_LAYERS_EXT _mod_layers___
+#+end_src
+
+This is what connects the configuration entry
+
+#+begin_src C
+#define THUMBS_ARE MODS_LAYERS_EXT
+#+end_src
+
+in config.h with the actual thumb key definition found in thumbs.h.
+
+** Structure of layouts and maps
+*** Introduction
+
+Everything is here in my user space. If you look at my keymaps you will see they are empty,
+and that I might have some rules or config there if anything.  I have Kyria, Kinesis, Corne, Rebound,
+Ergodox, Xd75, and Viterbi maps, and a few others.
+
+The last time I checked I still needed a skeleton of structure for a keymap in a keyboard. It wasnt always
+necessary, but something made it not work sometimes and I never looked into it.
+
+The base layers keymaps are getting to be to be as simple as possible.
+They are independent of language, mods, and matrix size.
+
+*** Laziness
+
+All of this started with a desire for multilingual keymaps and a strong dose of laziness.
+I didnt want to do everything twice. And redo it forever.
+
+Separating the layout from the language and later mods became important just for relief of
+the maintainence required from two keymaps in different languages.
+
+This separation, and ability to swap out mods or base layers without modifying my keymap
+are at the center of the design of these macros that nest like russian dolls down to a matrix
+of numbers.
+
+It has been very important to me that language, mod layers, (HRMs), and layouts be encapsulated and independent of one another.
+
+** Russian dolls - wrappers of wrappers of wrappers.
+
+This really all started with the keymap wrapper macros back when user space started.
+I blame @drashna. This is all really similar, but evolved. The challenge is using variadic
+macros and forcing the macro unwind when you want it without getting painted blue.
+
+I stuck some language stuff in front of the wrappers, and then put another wrapper for mods
+after the original wrappers, or inside of them if you prefer. And I stopped calling them wrappers
+because essentially that is the entire purpose of the C macro language, - to wrap things, so
+they are easier to use, and less prone to error.  Now the names are shorter.
+
+The organization of this is based on wrapping all the keymaps and the keycodes that go in them.
+At the bottom There is the =LANG_N= macro it handles key codes and layer names by giving them
+their proper names.
+Then there is the **LANG_ROW** and *LANG_MAP** which gives back a language encoded keycode
+matrix filled in to 3x10. The language can affect a few different names within the layouts.
+There are variants, *MAP_CHUNK* just gives what it has without language processing.
+
+Layouts for the keyboard matrices are in keyboards/layouts.h.
+This is a wrapper layer between the keymap and the keyboard matrix. It is where everything
+comes together and unravels.
+
+Its one step above the keyboard's *LAYOUT* macro. This is the piece we have to make for
+the keyboards shape. Then we use those shapes for the keyboards they fit.
+They allow us to have uniform layouts which always take a consistent size matrix
+that  we can fill around and treat in a consistent way regardless of the shape and size
+of keyboard.
+
+Here are the wrappers for the Kyria a 3x6-7 per side split kb.
+
+*** Base layer wrapper 3x10, regular size
+
+This first is the basic wrapper for base layers. It takes 3x10 column rows for its input.
+This should be the size of the base layout we give it. We apply the mods row by row,
+left and right. This is boiler plate code, its mostly the same always.
+The mods macros also add on the 6th, pinky, column as needed.
+At the bottom give some map chunks to to fill in the upper 4 thumb keys, and
+then give it the standard ergo thumbs size 10. Which gives whatever flavor was chosen.
+
+#+begin_src C
+#define Base_2x6_8_5(                                                   \
+                     K01, K02, K03, K04, K05, \
+                     K06, K07, K08, K09, K0A,                           \
+                     K11, K12, K13, K14, K15,                           \
+                     K16, K17, K18, K19, K1A,                           \
+                     K21, K22, K23, K24, K25,                           \
+                     K26, K27, K28, K29, K2A)                           \
+  LAYOUT_VARG(                                                          \
+              MOD_ROW(ROW1L)(K01, K02, K03, K04, K05),                  \
+              MOD_ROW(ROW1R)(K06, K07, K08, K09, K0A),                  \
+                                                                        \
+              MOD_ROW(ROW2L)(K11, K12, K13, K14, K15),                  \
+              MOD_ROW(ROW2R)(K16, K17, K18, K19, K1A),                  \
+                                                                        \
+              MOD_ROW(ROW3L)(K21, K22, K23, K24, K25),                  \
+              MAP_CHUNK(___4_THUMBS),                                   \
+              MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A),                  \
+              MAP_CHUNK(___10_ERGO_THUMBS)                              \
+                                                                        )
+#+end_src
+
+*** Wide  3x12 input
+
+The t6 version just takes 3 rows by 12 other wise its all the same.  Elsewhere the keymap
+switches to the t6 version if it has a layout that is 12 wide.
+
+#+begin_src C
+#define Base_2x6_8_5t6(                                                \
+                       K01, K02, K03, K04, K05, K06,                    \
+                       K07, K08, K09, K0A, K0B, K0C,                    \
+                       K11, K12, K13, K14, K15, K16,                    \
+                       K17, K18, K19, K1A, K1B, K1C,                    \
+                       K21, K22, K23, K24, K25, K26,                    \
+                       K27, K28, K29, K2A, K2B, K2C)                    \
+  LAYOUT_VARG(                                                          \
+              MOD_ROW(ROW1L)(K01, K02, K03, K04, K05, K06),            \
+              MOD_ROW(ROW1R)(K07, K08, K09, K0A, K0B, K0C),            \
+              MOD_ROW(ROW2L)(K11, K12, K13, K14, K15, K16),            \
+              MOD_ROW(ROW2R)(K17, K18, K19, K1A, K1B, K1C),            \
+              MOD_ROW(ROW3L)(K21, K22, K23, K24, K25, K26),            \
+              MAP_CHUNK(___4_THUMBS),                                   \
+              MOD_ROW(ROW3R)(K27, K28, K29, K2A, K2B, K2C),             \
+              MAP_CHUNK(___10_ERGO_THUMBS)                              \
+              )
+#+end_src
+
+*** Transient layer NO MODS, 3x10 input matrix.
+The transient layers dont need hrms and all that. We take 3x10 but put transparent
+keys on the 6th columns so whatever is on base will show through.
+
+#+begin_src C
+// All we really need is to add the see through thumbs to the end.
+#define Transient_2x6_8_5(                                              \
+                          K01, K02, K03, K04, K05,                      \
+                          K07, K08, K09, K0A, K0B,                      \
+                          K11, K12, K13, K14, K15,                      \
+                          K17, K18, K19, K1A, K1B,                      \
+                          K21, K22, K23, K24, K25,                      \
+                          K27, K28, K29, K2A, K2B                       \
+                                                                        ) \
+  LAYOUT_VARG(                                                          \
+              ___, K01, K02, K03, K04, K05,                             \
+              K07, K08, K09, K0A, K0B, ___,                             \
+              ___, K11, K12, K13, K14, K15,                             \
+              K17, K18, K19, K1A, K1B, ___,                             \
+              ___, K21, K22, K23, K24, K25,                             \
+              ___4___,                                                \
+              K27, K28, K29, K2A, K2B, ___,                           \
+              MAP_CHUNK(___10_ERGO_THUMBS)                             \
+                                                                        )
+
+#+end_src
+
+There is a base a baset6 for the 12 column base layers. and a trans for the transient layers.
+The last thing we need to know is how many columns the keyboard needs, verses how many
+the layouts we are using want. These want 5 in 6 out per side.
+The transient layer doesnt count because its not using the mod macros.
+
+Now that we have that, we can tell the wrapper macros which ones to use
+by setting *BASE*, *BASEt6*, *TRANS*, and the columns in and out. In this case that is 5 in and 6 out.
+
+*** The keyboard definition.
+
+#+begin_src C
+// Kyria
+#ifdef KEYBOARD_splitkb_kyria
+#define BASE Base_2x6_8_5
+#define BASEt6 Base_2x6_8_5t6
+#define TRANS Transient_2x6_8_5
+#define BASE_COLS_IN_OUT 5_6 // 5, 5_6, 6
+#endif
+#+end_src
+
+The layout takes the resulting matrix after *LANG_N* is done with it.
+It then applies the mod layer wrappers to each row, or as a chunk if that is reasonable.
+The edge keys are added in here if they are needed.
+The layouts are all fairly easy to create and once you have a shape, its good to go.
+
+The resulting use in the keymap looks like this.   *B_LAYER* is either *BASE* or *BASEt6*,
+*LANG_N* (*_DVORAK*) turns into *_DVORAK__EN*, BP, or whatever to give a good layer name enumeration.
+If base number rows are on, we give them just in case,
+and then we give the definition of the entire Dvorak base layer.
+
+We can change *LANG_IS* and call this again and get another dvorak map for another language.
+
+#+begin_src C
+B_LAYER(LANG_N(_DVORAK), ___10_NUMBERS___, ___DVORAK___),
+#+end_src

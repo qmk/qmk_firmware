@@ -46,6 +46,21 @@ void oled_render_layer_map(void) {
 #ifdef MINIMAK_12_LAYER_ENABLE
         SHOW_MAP(_MINIMAK_12)
 #endif
+#ifdef SEMIMAK_JQ_LAYER_ENABLE
+        SHOW_MAP(_SEMIMAK_JQ)
+#endif
+#ifdef SEMIMAK_LAYER_ENABLE
+        SHOW_MAP(_SEMIMAK)
+#endif
+#ifdef APTMAK_LAYER_ENABLE
+        SHOW_MAP(_APTMAK)
+#endif
+#ifdef APTMAK_30_LAYER_ENABLE
+        SHOW_MAP(_APTMAK_30)
+#endif
+#ifdef APTMAK_ALT_LAYER_ENABLE
+        SHOW_MAP(_APTMAK_ALT)
+#endif
 
 #ifdef DVORAK_LAYER_ENABLE
         SHOW_MAP(_DVORAK)
@@ -67,6 +82,10 @@ void oled_render_layer_map(void) {
         SHOW_MAP(_BEAKL27)
 #endif
 
+#ifdef BEAKL27a_LAYER_ENABLE
+        SHOW_MAP(_BEAKL27a)
+#endif
+
 #ifdef BEAKL15_LAYER_ENABLE
         SHOW_MAP(_BEAKL15)
 #endif
@@ -77,6 +96,14 @@ void oled_render_layer_map(void) {
 
 #ifdef BEAKLWI_LAYER_ENABLE
         SHOW_MAP(_BEAKLWI)
+#endif
+
+#ifdef BEAKLWIa_LAYER_ENABLE
+        SHOW_MAP(_BEAKLWIa)
+#endif
+
+#ifdef BEAKLWIb_LAYER_ENABLE
+        SHOW_MAP(_BEAKLWIb)
 #endif
 
 #ifdef CARPALX_QFMLWY_LAYER_ENABLE
@@ -116,8 +143,48 @@ void oled_render_layer_map(void) {
         SHOW_MAP(_HD_NEU_NARROW)
 #endif
 
+#ifdef HD_NEU_NARROW_M_LAYER_ENABLE
+        SHOW_MAP(_HD_NEU_NARROW_M)
+#endif
+
 #ifdef HD_TITANIUM_LAYER_ENABLE
         SHOW_MAP(_HD_TITANIUM)
+#endif
+
+#ifdef HD_VIBRANIUM_LAYER_ENABLE
+        SHOW_MAP(_HD_VIBRANIUM)
+#endif
+
+#ifdef HD_VIBRANIUM_NT_LAYER_ENABLE
+        SHOW_MAP(_HD_VIBRANIUM_NT)
+#endif
+#ifdef HD_VIBRANIUM_NTP_LAYER_ENABLE
+        SHOW_MAP(_HD_VIBRANIUM_NTP)
+#endif
+#ifdef HD_VIBRANIUM_VF_LAYER_ENABLE
+        SHOW_MAP(_HD_VIBRANIUM_VF)
+#endif
+#ifdef HD_VIBRANIUM_VP_LAYER_ENABLE
+        SHOW_MAP(_HD_VIBRANIUM_VP)
+#endif
+#ifdef HD_VIBRANIUM_B_LAYER_ENABLE
+        SHOW_MAP(_HD_VIBRANIUM_B)
+#endif
+
+#ifdef HD_MITHRIL_LAYER_ENABLE
+        SHOW_MAP(_HD_MITHRIL)
+#endif
+
+#ifdef HD_VROOMY_LAYER_ENABLE
+        SHOW_MAP(_HD_VROOMY)
+#endif
+
+#ifdef HD_RHODIUM_LAYER_ENABLE
+        SHOW_MAP(_HD_RHODIUM)
+#endif
+
+#ifdef HD_RHODIUMB_LAYER_ENABLE
+        SHOW_MAP(_HD_RHODIUMB)
 #endif
 
 #ifdef HD_GOLD_LAYER_ENABLE
@@ -176,6 +243,12 @@ void oled_render_layer_map(void) {
 #ifdef WHORF6_LAYER_ENABLE
         SHOW_MAP(_WHORF6)
 #endif
+#ifdef PINE_LAYER_ENABLE
+        SHOW_MAP(_PINE)
+#endif
+#ifdef GRAPHITE_LAYER_ENABLE
+        SHOW_MAP(_GRAPHITE)
+#endif
 
 #ifdef BEPO_LAYER_ENABLE
         SHOW_MAP(_BEPO)
@@ -200,19 +273,31 @@ void oled_render_layer_map(void) {
     switch (lyr) {
 #ifdef TOPROWS_LAYER_ENABLE
       LCASE(_TOPROWS)
-#  ifdef TOPROWS_BKL_NUMS
 #    ifdef TOPROWS_MOD
         CARTE_TOPROWS_MOD
 #    else
-#      ifdef TOPROWS_BKL_19_NUMS
-        CARTE_TOPROWS_BKL19
+#      ifdef TOPROWS_BKL_15
+        CARTE_TOPROWS_BKL15
 #      else
+#        ifdef TOPROWS_BKL_19
+        CARTE_TOPROWS_BKL19
+#        else
+#          ifdef TOPROWS
         CARTE_TOPROWS
+#          else
+#            ifdef TOPROWS_JOHNM_MOD
+        CARTE_TOPROWS_JOHNM_MOD
+#            else
+#              ifdef TOPROWS_JOHNM2_MOD
+        CARTE_TOPROWS_JOHNM2_MOD
+#              else
+        CARTE_RAISE
+#              endif
+#            endif
+#          endif
+#        endif
 #      endif
 #    endif
-#  else // not beakl nums.
-        CARTE_RAISE
-#  endif
         break;
 #endif
 
@@ -261,6 +346,9 @@ void oled_render_layer_map(void) {
 #  ifdef SYMBOL_BEAKL_C
             CARTE_SYMB_BEAKLC
 #  endif
+#  ifdef SYMBOL_D
+            CARTE_SYMB_D
+#  endif
 #  ifdef SYMBOL_MIRYOKU
             CARTE_SYMB_MIRYOKU
 #  endif
@@ -273,39 +361,44 @@ void oled_render_layer_map(void) {
             break;
 #endif
 
-#ifdef KEYAD_LAYER_ENABLE
+#ifdef KEYPAD_LAYER_ENABLE
           LCASE(_KEYPAD)
-#ifdef KEYPAD_BEAKL
-#ifdef KEYPAD_BEAKL_WI
-      CARTE_KP_BKL_WI
-#endif
-#ifdef KEYPAD_MODS
-        CARTE_KP_BKL_MODS
-#endif
-#if !defined(KEYPAD_MODS) && !defined(KEYPAD_BEAKL_WI)
-        CARTE_KP_BKL_FUNC
-#endif
-#ifdef KEYPAD_MIRYOKU
+
+#  ifdef KEYPAD_BEAKL
+#    ifdef KEYPAD_BEAKL_WI
+          CARTE_KP_BKL_WI
+#    else
+#      ifdef KEYPAD_MODS
+                   CARTE_KP_BKL_MODS
+#      else
+           CARTE_KP_BKL_FUNC
+#      endif
+#    endif
+
+#  else  //not beakl
+
+#    ifdef KEYPAD_MIRYOKU
         CARTE_KP_MIRYOKU
-#endif
+#    else
 
-#else // not beakl.
-#ifdef KEYPAD_RIGHT
-#ifdef KEYPAD_MODS
-        CARTE_MODS_KP
-#else
-        CARTE_FP_KP
-#endif
+#      ifdef KEYPAD_RIGHT
+#        ifdef KEYPAD_MODS
+            CARTE_MODS_KP
+#        else
+            CARTE_FP_KP
+#        endif
 
-#else // not keypad right.
-#ifdef KEYPAD_MODS
-        CARTE_KP_MODS
-#else
-        CARTE_KP_FP  // the final default.
-#endif
-#endif // end not keypad right.
-#endif // end not beakl
-        break;
+#      else // kp Left
+#        ifdef KEYPAD_MODS
+            CARTE_KP_MODS
+#        else
+            CARTE_KP_FP
+#        endif
+#      endif
+#    endif
+
+#  endif // not beakl
+            break;
 #endif // end keypad.
 
 #ifdef MORTE_LAYER_ENABLE

@@ -17,7 +17,6 @@
 
 #include "ericgebhart.h"
 
-#include "quantum.h"
 #include "version.h"
 #include "action.h"
 #include "action_layer.h"

@@ -65,5 +65,11 @@
     B_LAYER(LANG_N(_WHORF), ___10_NUMBERS___, ___WHORF___),
 #endif
 #ifdef WHORF6_LAYER_ENABLE
-    B_LAYER(LANG_N(_WHORF6), ___10_NUMBERS___, ___WHORF6___),
+      B_LAYER(LANG_N(_WHORF6), ___10_NUMBERS___, ___WHORF6___),
+#endif
+#ifdef PINE_LAYER_ENABLE
+      B_LAYER(LANG_N(_PINE), ___10_NUMBERS___, ___PINE___),
+#endif
+#ifdef GRAPHITE_LAYER_ENABLE
+      B_LAYER(LANG_N(_GRAPHITE), ___10_NUMBERS___, ___GRAPHITE___),
 #endif

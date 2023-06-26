@@ -20,16 +20,24 @@
 #  undef THUMBS_ARE
 #  define THUMBS_ARE TOPROWS_LAYER_THUMBS
 
-#  ifdef TOPROWS_BKL_15_NUMS
-T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_3x10___),
+#  ifdef TOPROWS_BKL_15
+T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_BKL15_3x10___),
 #  endif
 
-#  ifdef TOPROWS_BKL_19_NUMS
+#  ifdef TOPROWS_BKL_19
   T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_BKL19_3x10___),
 #  endif
 
 #  ifdef TOPROWS_MOD
   T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_MOD_3x10___),
+#  endif
+
+#  ifdef TOPROWS_JOHNM_MOD
+  T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_JOHNM_MOD_3x10___),
+#  endif
+
+#  ifdef TOPROWS_JOHNM2_MOD
+  T_LAYER(LANG_N(_TOPROWS), ___TOPROWS_JOHNM2_MOD_3x10___),
 #  endif
 
 // Not beakl numbers. Give a basic en-qwerty toprows layer.

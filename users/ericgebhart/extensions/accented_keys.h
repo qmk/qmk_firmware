@@ -16,4 +16,5 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdbool.h>
 bool process_accent_keys(uint16_t keycode, keyrecord_t* record);

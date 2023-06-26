@@ -60,6 +60,21 @@
 #ifdef MINIMAK_12_LAYER_ENABLE
       LANG_N(_MINIMAK_12),
 #endif
+#ifdef SEMIMAK_JQ_LAYER_ENABLE
+      LANG_N(_SEMIMAK_JQ),
+#endif
+#ifdef SEMIMAK_LAYER_ENABLE
+      LANG_N(_SEMIMAK),
+#endif
+#ifdef APTMAK_LAYER_ENABLE
+      LANG_N(_APTMAK),
+#endif
+#ifdef APTMAK_30_LAYER_ENABLE
+      LANG_N(_APTMAK_30),
+#endif
+#ifdef APTMAK_ALT_LAYER_ENABLE
+      LANG_N(_APTMAK_ALT),
+#endif
 
 
 #ifdef BEAKL15_LAYER_ENABLE
@@ -71,8 +86,17 @@
 #ifdef BEAKL27_LAYER_ENABLE
       LANG_N(_BEAKL27),
 #endif
+#ifdef BEAKL27a_LAYER_ENABLE
+      LANG_N(_BEAKL27a),
+#endif
 #ifdef BEAKLWI_LAYER_ENABLE
       LANG_N(_BEAKLWI),
+#endif
+#ifdef BEAKLWIa_LAYER_ENABLE
+      LANG_N(_BEAKLWIa),
+#endif
+#ifdef BEAKLWIb_LAYER_ENABLE
+      LANG_N(_BEAKLWIb),
 #endif
 
 #ifdef MALTRON_LAYER_ENABLE
@@ -106,7 +130,13 @@
         LANG_N(_WHORF),
 #endif
 #ifdef WHORF6_LAYER_ENABLE
-        LANG_N(_WHORF6),
+      LANG_N(_WHORF6),
+#endif
+#ifdef PINE_LAYER_ENABLE
+      LANG_N(_PINE),
+#endif
+#ifdef GRAPHITE_LAYER_ENABLE
+      LANG_N(_GRAPHITE),
 #endif
 
 #ifdef CARPALX_QFMLWY_LAYER_ENABLE
@@ -134,11 +164,49 @@
 #endif
 
 
+#ifdef HD_VIBRANIUM_LAYER_ENABLE
+      LANG_N(_HD_VIBRANIUM),
+#endif
+#ifdef HD_VIBRANIUM_NT_LAYER_ENABLE
+      LANG_N(_HD_VIBRANIUM_NT),
+#endif
+#ifdef HD_VIBRANIUM_NTP_LAYER_ENABLE
+      LANG_N(_HD_VIBRANIUM_NTP),
+#endif
+#ifdef HD_VIBRANIUM_VF_LAYER_ENABLE
+      LANG_N(_HD_VIBRANIUM_VF),
+#endif
+#ifdef HD_VIBRANIUM_VP_LAYER_ENABLE
+      LANG_N(_HD_VIBRANIUM_VP),
+#endif
+#ifdef HD_VIBRANIUM_B_LAYER_ENABLE
+      LANG_N(_HD_VIBRANIUM_B),
+#endif
+#ifdef HD_MITHRIL_LAYER_ENABLE
+      LANG_N(_HD_MITHRIL),
+#endif
+
+#ifdef HD_VROOMY_LAYER_ENABLE
+      LANG_N(_HD_VROOMY),
+#endif
+#ifdef HD_RHODIUMB_LAYER_ENABLE
+      LANG_N(_HD_RHODIUMB),
+#endif
+#ifdef HD_RHODIUM_LAYER_ENABLE
+      LANG_N(_HD_RHODIUM),
+#endif
+
 #ifdef HD_NEU_LAYER_ENABLE
-        LANG_N(_HD_NEU),
+      LANG_N(_HD_NEU),
 #endif
 #ifdef HD_NEU_NARROW_LAYER_ENABLE
-        LANG_N(_HD_NEU_NARROW),
+      LANG_N(_HD_NEU_NARROW),
+#endif
+#ifdef HD_NEU_NARROW_M_LAYER_ENABLE
+      LANG_N(_HD_NEU_NARROW_M),
+#endif
+#ifdef HD_TITANIUM_LAYER_ENABLE
+      LANG_N(_HD_TITANIUM),
 #endif
 #ifdef HD_GOLD_LAYER_ENABLE
         LANG_N(_HD_GOLD),

@@ -4,6 +4,8 @@
 
 //COMBO_REF_LAYER(_DVORAK_BP, _COMBO_REF2)
 COMBO_REF_LAYER(_NAV, _NAV)
+COMBO_REF_LAYER(_SYMB_EN, _SYMB_EN)
+DEFAULT_REF_LAYER(_COMBO_REF)
 
 
 // COMBOS
@@ -14,25 +16,57 @@ COMBO_REF_LAYER(_NAV, _NAV)
 
 
 // reference COMBO_REF
-COMB(TSCTL,      TS_LCTL,       CB_1L3, CB_1L4)
-COMB(SMLNAV1,    SML_NAV,       CB_1L2, CB_1L3)
-COMB(OSACCENTMT, SML_KEYPAD,    CB_1L2, CB_1R4)
+// I don't rememember why I decided to not mirror the sides. :-/
 
-#ifdef TOPROWS_LAYER_ENABLE
-COMB(OSTOPROWS,  SML_TOPROWS,   CB_1L3, CB_1R3)
-#endif
+// for now, the columns are
 
-//COMB(OSlsftT,    OS_LSFT,       CB_1L4, CB_1R2)
+// Left                               Right
+// pinky, ring, middle, index, inner, inner, index, middle, ring, pinky.
+//   1      2      3      4      5      1      2       3      4     5
+// perhaps:
+//   p      r      m      i      ii     ii     i       m      r     p
+// would be better.
+
+// Row 1
+
+// index/index
+COMB(SMLKEYPAD,  SML_KEYPAD,         CB_1L4, CB_1R2)
+// middle/middle
+COMB(OSACCENTM,  OSL_ACCENTS_MORTE,  CB_1L3, CB_1R3)
+// ring/ring  - 2 shot ctrl
+COMB(TSCTL,      TS_LCTL,       CB_1L2, CB_1R4)
+
+// #ifdef TOPROWS_LAYER_ENABLE
+// COMB(OSTOPROWS,  SML_TOPROWS,   CB_1L3, CB_1R3)
+// #endif
+
+// Row 2 - homerow.
+
+// left: index + :
+// right: index, middle, ring - sft, gui, enter
+// right index + :
+// left: index, middle, ring  - sft, escape, backspace
+// left: middle - right: ring - tab
 COMB(OSSFT,      OS_LSFT,        CB_2L4, CB_2R2)
-COMB(TSCTL2,     TS_LCTL,       CB_1L4, CB_1R2)
+COMB(OSGUI,      OS_LGUI,        CB_2L4, CB_2R3)
+COMB(CENTER,     KC_ENTER,       CB_2L4, CB_2R4)
+COMB(CESC,       KC_ESC,         CB_2L3, CB_2R2)
+COMB(CBKSP,      KC_BSPC,        CB_2L2, CB_2R2)
+COMB(CTAB,       KC_TAB,         CB_2L3, CB_2R4)
 
-// COMB(SMLNAV,  SML_NAV,        CB_2L4, CB_2R2)
+// ring/ring
 COMB(OSCTL,      OS_LCTL,        CB_2L2, CB_2R4)
 
-COMB(OSACCENTM, OSL_ACCENTS_MORTE,  CB_2L3, CB_2R3)
+// middle/middle
+COMB(SMLNAV,     SML_NAV,        CB_2L3, CB_2R3)
 
-COMB(capsword,  CAPS_WORD,      CB_3L4, CB_3R2)
+// Row 3
+// index/index
+COMB(capsword,  QK_CAPS_WORD_TOGGLE,      CB_3L4, CB_3R2)
+
+// middle/middle
 COMB(OSRALT,    OS_RALT,        CB_3L3, CB_3R3)
+// ring/ring
 COMB(OSLALT2,   OS_LALT,        CB_3L2, CB_3R4)
 
 COMB(OSLAYER,   LAYER_OSL,      CB_3L1, CB_3R5)
@@ -50,16 +84,16 @@ COMB(_Z,  KC_Z, CB_3R3, CB_3R4)
 COMB(SMLMEDIA,      SML_MEDIA,            CB_TH3, CB_0TH2)
 #endif
 
-COMB(OSLACCENT2,    OSL_ACCENTS_MORTE,        CB_TH4, CB_0TH3)
+// COMB(OSLACCENT2,    OSL_ACCENTS_MORTE,        CB_TH4, CB_0TH3)
 COMB(KEYPAD,   SML_KEYPAD,     CB_TH5, CB_0TH4)
-
 
 
 // reference COMBO_REF2
 
-#if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO)
-COMB(TSCTL_BP,     TS_LCTL,        CB_1L3, CB_1L4)
-COMB(SMLNAV1_bp,   SML_NAV,        CB_1L2, CB_1L3)
+#if defined(COMBO_REF_LAYER_TWO_ENABLE)
+#  if defined(SECOND_LOCALE) && (SECOND_LOCALE == BEPO)
+COMB(TSCTL_BP,     TS_LCTL,        CB2_1L3, CB2_1L4)
+COMB(SMLNAV1_bp,   SML_NAV,        CB2_1L2, CB2_1L3)
 
 #ifdef ACCENTS_MORTE_LAYER_ENABLE
 COMB(OSLACCENT_bp, OSL(_ACCENTS_MORTE_BP),  CB2_2L1, CB2_2L2)
@@ -71,7 +105,7 @@ COMB(OSCTL_BP,     OS_LCTL,        CB2_2L3, CB2_2L4)
 COMB(OSSFT_BP,     OS_LSFT,        CB2_2R2, CB2_2R3)
 // COMB(SMLKEYPAD_BP, SML_KEYPAD_BP,  CB2_2R3, CB2_2R4)
 
-COMB(capsword_BP,  CAPS_WORD_ON,   CB2_3L4, CB2_3R2)
+COMB(capsword_BP,  QK_CAPS_WORD_TOGGLE,   CB2_3L4, CB2_3R2)
 
 // COMB(OSLSYMBP_BP,  OSL(_SYMB_BP),  CB2_TH2, CB2_TH5)
 COMB(LNAV_BP,      SML_NAV,        CB2_TH3, CB2_TH4)
@@ -79,12 +113,18 @@ COMB(LNAV_BP,      SML_NAV,        CB2_TH3, CB2_TH4)
 COMB(_Qbp,  BP_Q, CB2_3L2, CB2_3L3)
 COMB(_Xbp,  BP_X, CB2_3L3, CB2_3L4)
 COMB(_Zbp,  BP_Z, CB2_3R3, CB2_3R4)
+#  endif
 #endif
 
 
 // Reference nav layer
 COMB(END_nav,   KC_END,  KC_PGUP, KC_PGDN)
 COMB(HOME_nav,  KC_HOME, KC_UP,   KC_DOWN)
+
+// should be somehow wrapped with LANG ?
+COMB(paren_sym, US_RPRN, US_OCDQUO, US_HASH)
+COMB(brack_sym, US_RBRC, US_QUES, US_UNDS)
+COMB(brace_sym, US_RCBR, US_MINS, US_COLN)
 
 
 //COMB(JKL_SPC,  KC_SPC,   KC_J,  KC_X)

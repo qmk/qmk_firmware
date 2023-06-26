@@ -15,6 +15,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 // e goes on the left thumb
 #define CARTE_MALTRON                           \
   carte_de_map("   qpycb  vmuzl",               \
@@ -35,8 +36,6 @@
   LANG_MAP(TL_SLSH, TL_COMM, TL_DOT, _F, _Q,   _A, _O, _E, _I, _U,      \
            _Z,      _X,      _C,     _V, _W,   _M, _R, _D, _Y, _P,      \
            _G,      _T,      _K,     _S, _N,   _B, _H, _J, _L, TL_SCLN)
-
-
 
 // RSTHD
 /* j c y f k | z l , u q = */
@@ -77,7 +76,6 @@
   LANG_MAP(_V, _Y, _D, TL_COMM, TL_QUOT,   _J, _M, _L, _U,     _MINS,   \
            _A, _T, _H, _E,      _B,        _C, _S, _N, _O,     _I,      \
            _P, _K, _G, _W,      _Q,        _X, _R, _F, TL_DOT, _Z)
-
 
 #define CARTE_ISRT                              \
   carte_de_map("  yclmk  zfu,'",                \
@@ -144,7 +142,35 @@
 /* zrshtg   .iena: */
 /* xcmwk  /y,b?       */
 
-// pine
-/* y l r d w  j m o u ,  */
-/* c s n t g  p h a e i  */
-/* x z q v k  b f ' / .  */
+#define CARTE_PINE                      \
+  carte_de_map("ylrdw  jmou,  ",        \
+               "csntg  phaei  ",        \
+               "xzqvk  bf'/.  ")
+
+#define ___PINE___                                                      \
+  LANG_MAP( _Y, _L, _R, _D, _W, _J, _M, _O, _U, TL_COMM,                \
+            _C, _S, _N, _T, _G, _P, _H, _A, _E, _I,                     \
+            _X, _Z, _Q, _V, _K, _B, _F, TL_QUOT, TL_SLSH, TL_DOT  )
+
+/* Graphite
+ https://github.com/rdavison/graphite-layout
+ ~ ! @ # $ %  ^ & * ( ) { }
+   B L D W Z  _ F O U J : + |
+   N R T S G  Y H A E I ?
+   Q X M C V  K P > " <
+
+ ` 1 2 3 4 5  6 7 8 9 0 [ ]
+   b l d w z  ' f o u j ; = \
+   n r t s g  y h a e i ,
+   q x m c v  k p . - /
+*/
+
+#define CARTE_GRAPHITE                 \
+  carte_de_map("bldwz  'fouj",         \
+               "nrtsg  yhaei" ,        \
+               "qqmcv  kp.-/")
+
+#define ___GRAPHITE___                                                  \
+  LANG_MAP(_B, _L, _D, _W, _Z,   _TL_UND, _F, _O,      _U,      _J,     \
+           _N, _R, _T, _S, _G,   _Y,      _H, _A,      _E,      _I,     \
+           _Q, _X, _M, _C, _V,   _K,      _P, TL_DOT,  TL_DASH, TL_SLSH )

@@ -18,7 +18,7 @@
 
 #ifdef OLED_CUSTOM_ENABLE
 
-#include "quantum.h"
+//#include "quantum.h"
 //#include "oled_driver.h"
 
 void oled_render_mod_lock_status(void);

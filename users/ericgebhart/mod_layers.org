@@ -1,0 +1,1493 @@
+* Mod Wrapper Layer
+** Introduction
+These are the definitions for mods to be applied to the layers in order
+to create Home Row Mods or apply MT, LT, or any other keycode wrapping
+function  to any key in your 3x10 or 12 keymap.
+
+This mechanism uses left and right, 5 and 6 column *Row* macros to
+apply mods a piece at a time to the base 3x12 or  4x12 keymap matrix.
+
+These macros also add in the outer pinky, edge keys, as needed to fill a
+12 column row. Defining a new mod layer is simply a matter of creating
+another set of mod wrapper rows with the appropriate names.
+
+The Mod Core macro used by layouts never changes as it uses the
+Mod Wrapper Rows which define the mods row by row, left and right.  Layouts may
+use the row wrappers directly or the =MOD_CORE= macro to handle the
+entire matrix.
+
+*** Files
+These are just the copyright headers for the files tangled from this document.
+**** =mod_layer.h=
+#+begin_src C :tangle mod_layers/mod_layer.h
+#pragma once
+
+/*
+  Copyright 2018 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#+end_src
+**** =trns_mods.h=
+  #+begin_src C :tangle mod_layers/trns_mods.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include "mod_layer_parms.h"
+#+end_src
+**** =alt_mods.h=
+  #+begin_src C :tangle mod_layers/alt_mods.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include "mod_layer_parms.h"
+#+end_src
+**** =hrm_scag.h=
+  #+begin_src C :tangle mod_layers/hrm_sacg.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include "mod_layer_parms.h"
+#+end_src
+**** =hrm_gacs.h=
+  #+begin_src C :tangle mod_layers/hrm_gacs.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include "mod_layer_parms.h"
+#+end_src
+**** =hrm_gacs_miryoku.h=
+  #+begin_src C :tangle mod_layers/hrm_gacs_miryoku.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include "mod_layer_parms.h"
+
+// Home row mods variant of mod layers.
+
+// MOD_ROW
+// variants.
+// input 5 get six, left and right language specific outer edge keys.
+
+// no edge keys.
+// input 5 get 5 with mods applied.
+
+// input 6 get 6 with mods applied.
+
+// base cols in out.  5, 5_6, 6.
+// input column count, output column count, if different.
+
+// ROW0  - Number row.
+// LEFT.
+#+end_src
+**** =hrm_gasc.h=
+  #+begin_src C :tangle mod_layers/hrm_gasc.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include "mod_layer_parms.h"
+
+// Home row mods variant of mod layers.
+
+// MOD_ROW
+// variants.
+// input 5 get six, left and right language specific outer edge keys.
+
+// no edge keys.
+// input 5 get 5 with mods applied.
+
+// input 6 get 6 with mods applied.
+
+// base cols in out.  5, 5_6, 6.
+// input column count, output column count, if different.
+
+// ROW0  - Number row.
+#+end_src
+**** =hrs_nav.h=
+  #+begin_src C :tangle mod_layers/hrs_nav.h
+#pragma once
+/*
+  Copyright 2018-2022 Eric Gebhart <e.a.gebhart@gmail.com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+#include "mod_layer_parms.h"
+#+end_src
+These are wrappers that can be used in the keyboard layout to apply mods to a
+layer. This allows mods, and keymaps and layers to be modified, swapped in and out,
+and turned on and off without modifying the keymaps.
+
+Each mod wrapper layer simply defines the row macros that the Mod Core macro needs.
+Each of the three rows is broken into Left and Right, and has three variants,
+5 wide, 6 wide, and 5 wide into  6 wide.
+** Keeper of the Mods
+The *mod_layer.h* file is the keeper of the mods. It is where the include for the mods are,
+and where the general use macros live.
+*** Parameter lists
+
+Our macro parameter lists.  Everything takes a list of 5 or  6 keys.
+For laziness and clarity. Less code, only modifiable *K0?* variables are exposed.
+We need these here, or in each one, or in a .h, and included before everyone.
+
+#+begin_src C :tangle mod_layers/mod_layer_parms.h
+  #define K1_5  K01, K02, K03, K04, K05
+  #define K2_6  K02, K03, K04, K05, K06
+  #define K1_6  K01, K2_6
+#+end_src
+
+*** Creating a new set
+The naming is the most important part, but is easily managed.  Heres an example
+of adding a new mod layer called 'another'
+
+If you are doing it in here with emacs and org, then you probably know to just copy the node and
+do a substitute for the names.
+
+If you just want to do the non emacs, unixy way, then here's a little sed script to
+turn =trns_mods.h= into =another_mods.h= which will
+be a blank slate for new mods to be applied. All it does is turn all occurances of '=trns='
+in =trns_mods.h= into '=another=' and put the new file in '=another_mods.h='.
+
+#+begin_src shell
+ sed 's/trns/another/g' trns_mods.h > another_mods.h
+#+end_src
+
+This gets us a new mod layer wrapper, which we can modify as we wish.
+
+Next steps can be done just below, and are the following:
+ - Include statement.
+ - Define the mod layer suffix.
+ - Set *MODS_ARE* in the configuration to the new mod layer name.
+
+Here are the example pieces for each that work with our 'another' example.
+The first 2 are in =mod_layers.org= and can be added directly in the next
+2 sections.  The third goes over in [[file://config.org][config.org]].
+#+begin_src C
+#include "another_mods.h"
+...
+#define ANOTHER_MOD _another
+...
+#define MODS_ARE ANOTHER
+#+end_src
+
+When done, we will have a mod layer named *ANOTHER* that can be selected in the
+configuration.
+
+*** Includes
+
+Here are all of our mod wrapper files. All the includes we need which are
+tangled from this document.
+
+Each must define three row mods per side for 4 rows.
+They are easy to define and mostly the things you want will be few.
+
+They are simplifying and becoming smaller, but I still like them separate so far.
+There is no reason I can't have well organized, pretty code for non-emacs org users.
+
+I do anticipate that these might evaporate further. But we will see.
+
+Add your file to the list of includes.
+#+begin_src C :tangle mod_layers/mod_layer.h
+#include "custom_keycodes.h"
+#include "alt_mods.h"
+#include "hrm_sacg.h"
+#include "hrm_gacs.h"
+#include "hrm_gacs_miryoku.h"
+#include "hrm_gasc.h"
+#include "hrs_nav.h"
+#include "trns_mods.h"
+#+end_src
+
+A little bit of concatenation code. More than one to avoid being painted blue.
+I wonder if I could cosolidate all of these in one place. That would be nice.
+Nothing really to look at here. Variadic concatenaters.
+
+#+begin_src C :tangle mod_layers/mod_layer.h
+#define CONCATENATER(a, ...) a ## __VA_ARGS__
+#define CATR(a, ...) CONCATENATER(a, __VA_ARGS__)
+#define CONCATENATER2(a, ...) a ## __VA_ARGS__
+#define CATR2(a, ...) CONCATENATER2(a, __VA_ARGS__)
+#define CONCATENATER3(a, ...) a ## __VA_ARGS__
+#define CATR3(a, ...) CONCATENATER3(a, __VA_ARGS__)
+#+end_src
+
+*** Mod Layer Suffixes
+**** Introduction
+This is how we derive the mod layer suffix from the configuration option.
+Adding a new mod layer requires that its name be added to this list.
+
+**** How it works.
+The value of *MODS_ARE* is appended with *_MOD* to find the mod layer name
+suffix. This value goes into *MOD_EXT* which is used elsewhere to build the
+mod layer macros when the layout needs them.
+
+In the configuration set *MODS_ARE* to your new mod wrapper layer and you are done.
+
+These are the actual mod layer suffix names.
+Define your mod layer's Extension here by adding it to the list of defines.
+#+begin_src C :tangle mod_layers/mod_layer.h
+// mod layer name construction. add new layer extensions here.
+// TRNS, ALT, HRM_GACS, HRM_SCAG, HRM_GASC, MIRYOKU_HRM_GASC
+#define MOD_EXT CATR3(MODS_ARE, _MOD)
+#define TRNS_MOD _trns
+#define HRM_SCAG_MOD _hrm_scag
+#define HRM_GACS_MOD _hrm_gacs
+#define HRM_GASC_MOD _hrm_gasc
+#define MIRYOKU_HRM_GACS_MOD _miryoku_hrm_gacs
+#define ALT_MOD _alt
+#define HRS_NAV_MOD _hrs_nav
+#+end_src
+
+** Mod wrappers
+*** Introduction
+The mod rows are built from 6 pieces.  There are three on the left
+and 3 on the right.  This is to accommodate 3x10 layouts, 3x12 layouts,
+and keyboards which need 3x10 or 3x12. The macros work with one half
+row at a time.
+
+For each keyboard row, there are 3 row definitions for the left, and another 3 for the right.
+Each is derived from the previous. It seems like a lot, 3x2 x 4 rows, but its really simple.
+
+The row definitions come in left and right.
+
+For one row, one side,
+- First macro, The first 5 keys to mod
+- Second macro, mod for the  outer pinky column
+- Third macro, uses first two.
+
+The first definition is 5 columns, K01-K05,
+and is used by the second and third definitions to mod their columns.
+
+*The 6th column can be modded* in the second definition.
+Wrap K01 for the edge key on the left and K06 for the key on the right.
+
+The last, third, 5 in 6 out definition simply needs to exist as it is derived from the other two.
+
+Here is an example from the Transparent mod layer, Row 0, Left side.
+#+begin_src C
+// ROW0  - Number row.
+// LEFT.
+#define ROW0L_5_trns(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Mod K01, the 6th, outer pinky column, how you like it.
+#define ROW0L_6_trns(K01, K02, K03, K04, K05, K06) \
+  K01 \
+  , ROW0L_5_trns(K02, K03, K04, K05, K06)
+
+// Take 5 and put an extra column in front.
+// 5 into 6, derivitive of the first two.
+#define ROW0L_5_6_trns(K01, K02, K03, K04, K05) \
+  ROW0L_6_trns(LEFT_0, K01, K02, K03, K04, K05)
+#+end_src
+
+*** Transparent Rows
+**** Row 0 - Number Row
+***** Left
+#+begin_src C :tangle mod_layers/trns_mods.h
+
+// ROW0  - Number row.
+// LEFT.
+#define ROW0L_5_trns(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Mod K01, the 6 th, outer pinky column, how you want it.
+#define ROW0L_6_trns(K01, K02, K03, K04, K05, K06) \
+  K01 \
+  , ROW0L_5_trns(K02, K03, K04, K05, K06)
+
+// Take 5 and put an extra column in front.
+// 5 into 6, derivitive of the first two.
+#define ROW0L_5_6_trns(K01, K02, K03, K04, K05) \
+  ROW0L_6_trns(LEFT_0, K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/trns_mods.h
+// RIGHT.
+// First 5 mods go here.
+#define ROW0R_5_trns(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Take 6, give 6.  Mod K06 how you want it.
+#define ROW0R_6_trns(K01, K02, K03, K04, K05, K06) \
+  ROW0R_5_trns(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW0R_5_6_trns(K01, K02, K03, K04, K05) \
+  ROW0R_6_trns(K01, K02, K03, K04, K05, RIGHT_0)
+#+end_src
+**** Row 1
+***** Left
+#+begin_src C :tangle mod_layers/trns_mods.h
+
+// ROW1
+// LEFT.
+#define ROW1L_5_trns(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW1L_6_trns(K01, K02, K03, K04, K05, K06) \
+  K01 \
+  , ROW1L_5_trns(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW1L_5_6_trns(K01, K02, K03, K04, K05) \
+  ROW1L_6_trns(LEFT_1, K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/trns_mods.h
+// RIGHT.
+#define ROW1R_5_trns(K01, K02, K03, K04, K05)                            \
+  K01, K02, K03, K04, K05                                  \
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW1R_6_trns(K01, K02, K03, K04, K05, K06) \
+  ROW1R_5_trns(K01, K02, K03, K04, K05), \
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW1R_5_6_trns(K01, K02, K03, K04, K05) \
+  ROW1R_6_trns(K01, K02, K03, K04, K05, RIGHT_1)
+#+end_src
+**** Row 2 - Home Row
+***** Left
+#+begin_src C :tangle mod_layers/trns_mods.h
+
+// HOME ROW - ROW2
+// LEFT.
+#define ROW2L_5_trns(K01, K02, K03, K04, K05)            \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW2L_6_trns(K01, K02, K03, K04, K05, K06) \
+    K01                         \
+    , ROW2L_5_trns(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW2L_5_6_trns(K01, K02, K03, K04, K05) \
+  ROW2L_6_trns(LEFT_2, K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/trns_mods.h
+// RIGHT.
+#define ROW2R_5_trns(K01, K02, K03, K04, K05)   \
+  K01, K02,  K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW2R_6_trns(K01, K02, K03, K04, K05, K06) \
+  ROW2R_5_trns(K01, K02, K03, K04, K05), \
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW2R_5_6_trns(K01, K02, K03, K04, K05) \
+  ROW2R_6_trns(K01, K02, K03, K04, K05, RIGHT_2)
+#+end_src
+**** Row 3
+***** Left
+#+begin_src C :tangle mod_layers/trns_mods.h
+
+// ROW 3
+// LEFT.
+#define ROW3L_5_trns(K01, K02, K03, K04, K05) \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW3L_6_trns(K01, K02, K03, K04, K05, K06)  \
+    K01        \
+    , ROW3L_5_trns(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW3L_5_6_trns(K01, K02, K03, K04, K05) \
+  ROW3L_6_trns(LEFT_3, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/trns_mods.h
+// RIGHT.
+#define ROW3R_5_trns(K01, K02, K03, K04, K05)   \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW3R_6_trns(K01, K02, K03, K04, K05, K06) \
+    ROW3R_5_trns(K01, K02, K03, K04, K05), \
+    K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW3R_5_6_trns(K01, K02, K03, K04, K05) \
+    ROW3R_6_trns(K01, K02, K03, K04, K05, RIGHT_3)
+  #+end_src
+*** Alt
+**** Row 0 - Number Row
+***** Left
+#+begin_src C :tangle mod_layers/alt_mods.h
+// LEFT.
+#define ROW0L_5_alt(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW0L_6_alt(K01, K02, K03, K04, K05, K06)  \
+  K01 \
+  , ROW0L_5_alt(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW0L_5_6_alt(K01, K02, K03, K04, K05) \
+  ROW0L_6_alt(LEFT_0, K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/alt_mods.h
+
+// RIGHT.
+#define ROW0R_5_alt(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW0R_6_alt(K01, K02, K03, K04, K05, K06) \
+  ROW0R_5_alt(K01, K02, K03, K04, K05), \
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW0R_5_6_alt(K01, K02, K03, K04, K05) \
+  ROW0R_6_alt(K01, K02, K03, K04, K05, RIGHT_0)
+#+end_src
+**** Row 1
+***** Left
+#+begin_src C :tangle mod_layers/alt_mods.h
+// ROW1
+// LEFT.
+#define ROW1L_5_alt(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW1L_6_alt(K01, K02, K03, K04, K05, K06)  \
+  K01 \
+  ,  ROW1L_5_alt(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW1L_5_6_alt(K01, K02, K03, K04, K05) \
+  ROW1L_6_alt(LEFT_1, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/alt_mods.h
+// RIGHT.
+#define ROW1R_5_alt(K01, K02, K03, K04, K05)                            \
+  K01, K02, K03, K04, K05                                               \
+    // Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW1R_6_alt(K01, K02, K03, K04, K05, K06)       \
+  ROW1R_5_alt(K01, K02, K03, K04, K05), K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW1R_5_6_alt(K01, K02, K03, K04, K05)          \
+  ROW1R_6_alt(K01, K02, K03, K04, K05, RIGHT_1)
+
+
+#+end_src
+**** Row 2 - Home Row
+***** Left
+#+begin_src C :tangle mod_layers/alt_mods.h
+// HOME ROW - ROW2
+// LEFT.
+#define ROW2L_5_alt(K01, K02, K03, K04, K05)            \
+  K01, K02, LT(_NAV, K03), MT(MOD_LSFT, K04), K05
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW2L_6_alt(K01, K02, K03, K04, K05, K06) \
+   K01 \
+   , ROW2L_5_alt(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW2L_5_6_alt(K01, K02, K03, K04, K05) \
+  ROW2L_6_alt(LEFT_2, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/alt_mods.h
+// RIGHT.
+#define ROW2R_5_alt(K01, K02, K03, K04, K05)                            \
+  K01, MT(MOD_LSFT, K02),  LT(_NAV, K03), K04, K05                      \
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW2R_6_alt(K01, K02, K03, K04, K05, K06) \
+  ROW2R_5_alt(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW2R_5_6_alt(K01, K02, K03, K04, K05) \
+  ROW2R_6_alt(K01, K02, K03, K04, K05, RIGHT_2)
+#+end_src
+**** Row 3
+***** Left
+#+begin_src C :tangle mod_layers/alt_mods.h
+// ROW 3
+// LEFT.
+#define ROW3L_5_alt(K01, K02, K03, K04, K05)            \
+  K01, K02, LT(_NAV, K03), K04, MT(MOD_LSFT, K05)
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW3L_6_alt(K01, K02, K03, K04, K05, K06) \
+  K01 \
+  , ROW3L_5_alt(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW3L_5_6_alt(K01, K02, K03, K04, K05) \
+  ROW3L_6_alt(LEFT_3,  K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/alt_mods.h
+// RIGHT.
+#define ROW3R_5_alt(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW3R_6_alt(K01, K02, K03, K04, K05, K06) \
+  ROW3R_5_alt(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW3R_5_6_alt(K01, K02, K03, K04, K05) \
+  ROW3R_6_alt(K01, K02, K03, K04, K05, RIGHT_3)
+  #+end_src
+*** SCAG
+**** Row 0 - Number Row
+***** Left
+#+begin_src C :tangle mod_layers/hrm_sacg.h
+// LEFT.
+#define ROW0L_5_hrm_sacg(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW0L_6_hrm_sacg(K01, K02, K03, K04, K05, K06) \
+  K01    \
+  , ROW0L_5_hrm_sacg(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW0L_5_6_hrm_sacg(K01, K02, K03, K04, K05) ROW0L_6_hrm_sacg(LEFT_0, K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_sacg.h
+// RIGHT.
+#define ROW0R_5_hrm_sacg(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW0R_6_hrm_sacg(K01, K02, K03, K04, K05, K06) \
+  ROW0R_5_hrm_sacg(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW0R_5_6_hrm_sacg(K01, K02, K03, K04, K05) \
+  ROW0R_6_hrm_sacg(K01, K02, K03, K04, K05, RIGHT_0)
+#+end_src
+**** Row 1
+***** Left
+#+begin_src C :tangle mod_layers/hrm_sacg.h
+// ROW1
+// LEFT.
+#define ROW1L_5_hrm_sacg(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, LT(_NAV, K04), K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW1L_6_hrm_sacg(K01, K02, K03, K04, K05, K06)  \
+  K01    \
+  , ROW1L_5_hrm_sacg(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW1L_5_6_hrm_sacg(K01, K02, K03, K04, K05) \
+  ROW1L_6_hrm_sacg(LEFT_1, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_sacg.h
+// RIGHT.
+#define ROW1R_5_hrm_sacg(K01, K02, K03, K04, K05)                       \
+  K01, K02, K03, K04, LT(_LAYERS, K05)                                  \
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW1R_6_hrm_sacg(K01, K02, K03, K04, K05, K06) \
+  ROW1R_5_hrm_sacg(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW1R_5_6_hrm_sacg(K01, K02, K03, K04, K05) \
+  ROW1R_6_hrm_sacg(K01, K02, K03, K04, K05, RIGHT_1)
+
+
+#+end_src
+**** Row 2 - Home Row
+
+***** Left
+#+begin_src C :tangle mod_layers/hrm_sacg.h
+// LEFT.
+#define ROW2L_5_hrm_sacg(K01, K02, K03, K04, K05)                       \
+  MT(MOD_LSFT, K01), MT(MOD_LALT, K02), MT(MOD_LCTL, K03), MT(MOD_LGUI, K04), K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW2L_6_hrm_sacg(K01, K02, K03, K04, K05, K06)   \
+   K01    \
+   , ROW2L_5_hrm_sacg(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW2L_5_6_hrm_sacg(K01, K02, K03, K04, K05) \
+  ROW2L_6_hrm_sacg(LEFT_2, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_sacg.h
+// RIGHT.
+#define ROW2R_5_hrm_sacg(K01, K02, K03, K04, K05)                       \
+  K01, MT(MOD_RGUI, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RSFT, K05)
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW2R_6_hrm_sacg(K01, K02, K03, K04, K05, K06) \
+  ROW2R_5_hrm_sacg(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW2R_5_6_hrm_sacg(K01, K02, K03, K04, K05) \
+  ROW2R_6_hrm_sacg(K01, K02, K03, K04, K05, RIGHT_2)
+#+end_src
+**** Row 3
+***** Left
+#+begin_src C :tangle mod_layers/hrm_sacg.h
+// ROW 3
+// LEFT.
+#define ROW3L_5_hrm_sacg(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW3L_6_hrm_sacg(K01, K02, K03, K04, K05, K06)  \
+  K01    \
+  ,  ROW3L_5_hrm_sacg(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW3L_5_6_hrm_sacg(K01, K02, K03, K04, K05) \
+  ROW3L_6_hrm_sacg(LEFT_3,  K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_sacg.h
+// RIGHT.
+#define ROW3R_5_hrm_sacg(K01, K02, K03, K04, K05)       \
+  K01, LT(_NAV, K02), K03, LT(LANG_N(_SYMB), K04), K05
+
+// Take and put an extra column in front.
+#define ROW3R_6_hrm_sacg(K01, K02, K03, K04, K05, K06) \
+  ROW3R_5_hrm_sacg(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW3R_5_6_hrm_sacg(K01, K02, K03, K04, K05) \
+  ROW3R_6_hrm_sacg(K01, K02, K03, K04, K05, RIGHT_3)
+  #+end_src
+*** GACS
+**** Row 0 - Number Row
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gacs.h
+// LEFT.
+#define ROW0L_5_hrm_gacs(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW0L_6_hrm_gacs(K01, K02, K03, K04, K05, K06) \
+  K01,    \
+  , ROW0L_5_hrm_gacs(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW0L_5_6_hrm_gacs(K01, K02, K03, K04, K05) \
+  ROW0L_6_hrm_gacs(LEFT_0, K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gacs.h
+// RIGHT.
+#define ROW0R_5_hrm_gacs(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW0R_6_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+  ROW0R_5_hrm_gacs(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW0R_5_6_hrm_gacs(K01, K02, K03, K04, K05) \
+  ROW0R_6_hrm_gacs(K01, K02, K03, K04, K05, RIGHT_0)
+#+end_src
+**** Row 1
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gacs.h
+// ROW1
+// LEFT.
+#define ROW1L_5_hrm_gacs(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, LT(_NAV, K04), K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW1L_6_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+  K01 \
+  , ROW1L_5_hrm_gacs(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW1L_5_6_hrm_gacs(K01, K02, K03, K04, K05)     \
+  ROW1L_6_hrm_gacs(LEFT_1, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gacs.h
+// RIGHT.
+#define ROW1R_5_hrm_gacs(K01, K02, K03, K04, K05)                       \
+  K01, K02, K03, K04, LT(_LAYERS, K05)                                  \
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW1R_6_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+  ROW1R_5_hrm_gacs(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW1R_5_6_hrm_gacs(K01, K02, K03, K04, K05) \
+  ROW1R_6_hrm_gacs(K01, K02, K03, K04, K05, RIGHT_1)
+
+#+end_src
+**** Row 2 - Home Row
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gacs.h
+// LEFT.
+#define ROW2L_5_hrm_gacs(K01, K02, K03, K04, K05)                       \
+  MT(MOD_LGUI, K01), MT(MOD_LALT, K02), MT(MOD_LCTL, K03), MT(MOD_LSFT, K04), K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW2L_6_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+   K01    \
+   ,  ROW2L_5_hrm_gacs(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW2L_5_6_hrm_gacs(K01, K02, K03, K04, K05) \
+  ROW2L_6_hrm_gacs(LEFT_2, K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gacs.h
+// RIGHT.
+#define ROW2R_5_hrm_gacs(K01, K02, K03, K04, K05)                       \
+  K01, MT(MOD_RSFT, K02),  MT(MOD_RCTL, K03), MT(MOD_RALT, K04), MT(MOD_RGUI, K05) \
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW2R_6_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+  ROW2R_5_hrm_gacs(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW2R_5_6_hrm_gacs(K01, K02, K03, K04, K05) \
+  ROW2R_6_hrm_gacs(K01, K02, K03, K04, K05, RIGHT_2)
+#+end_src
+**** Row 3
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gacs.h
+// ROW 3
+// LEFT.
+#define ROW3L_5_hrm_gacs(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW3L_6_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+   K01    \
+   , ROW3L_5_hrm_gacs(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW3L_5_6_hrm_gacs(K01, K02, K03, K04, K05) \
+  ROW3L_6_hrm_gacs(LEFT_3,  K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gacs.h
+// RIGHT.
+#define ROW3R_5_hrm_gacs(K01, K02, K03, K04, K05)       \
+  K01, LT(_NAV, K02), K03, LT(LANG_N(_SYMB), K04), K05
+
+// Take and put an extra column in front.
+#define ROW3R_6_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+  ROW3R_5_hrm_gacs(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW3R_5_6_hrm_gacs(K01, K02, K03, K04, K05) \
+  ROW3R_6_hrm_gacs(K01, K02, K03, K04, K05, RIGHT_3)
+  #+end_src
+*** GACS - Miryoku
+**** Row 0 - Number Row
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gacs_miryoku.h
+#define ROW0L_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW0L_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+   K01,    \
+   , ROW0L_5_miryoku_hrm_gacs(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW0L_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)   \
+   ROW0L_6_miryoku_hrm_gacs(LEFT_0, K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/miryoku_hrm_gacs_mods.h
+// RIGHT.
+#define ROW0R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW0R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06) \
+   ROW0R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05),          \
+   K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW0R_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)    \
+   ROW0R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, RIGHT_0)
+#+end_src
+**** Row 1
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gacs_miryoku.h
+
+// ROW1
+// LEFT.
+#define ROW1L_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, LT(_NAV, K04), K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW1L_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+   K01    \
+   , ROW1L_5_miryoku_hrm_gacs(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW1L_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)   \
+   ROW1L_6_miryoku_hrm_gacs(LEFT_1, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gacs_miryoku.h
+// RIGHT.
+#define ROW1R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)      \
+  K01, K02, K03, K04, LT(_LAYERS, K05)
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW1R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+   ROW1R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05),\
+   K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW1R_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)     \
+  ROW1R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, RIGHT_1)
+
+#+end_src
+**** Row 2 - Home Row
+
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gacs_miryoku.h
+// LEFT.
+#define ROW2L_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)                       \
+  MT(MOD_LGUI, K01), MT(MOD_LALT, K02), MT(MOD_LCTL, K03), MT(MOD_LSFT, K04), K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW2L_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+   K01  \
+   , ROW2L_5_miryoku_hrm_gacs(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW2L_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05) ROW2L_6_miryoku_hrm_gacs(LEFT_2, K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gacs_miryoku.h
+// RIGHT.
+#define ROW2R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)                       \
+  K01, MT(MOD_RSFT, K02),  MT(MOD_RCTL, K03), MT(MOD_LALT, K04), MT(MOD_RGUI, K05)
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW2R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+   ROW2R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05),            \
+   K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW2R_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)  \
+   ROW2R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, RIGHT_2)
+#+end_src
+**** Row 3
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gacs_miryoku.h
+// ROW 3
+// LEFT.
+#define ROW3L_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)       \
+  K01, MT(MOD_RALT, K02), K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW3L_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+  K01    \
+  ,  ROW3L_5_miryoku_hrm_gacs(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW3L_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)  \
+   ROW3L_6_miryoku_hrm_gacs(LEFT_3,  K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gacs_miryoku.h
+// RIGHT.
+#define ROW3R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, MT(MOD_RALT, K04), K05
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW3R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, K06)  \
+  ROW3R_5_miryoku_hrm_gacs(K01, K02, K03, K04, K05), \
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW3R_5_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05)  \
+  ROW3R_6_miryoku_hrm_gacs(K01, K02, K03, K04, K05, RIGHT_3)
+  #+end_src
+*** GASC
+**** Row 0 - Number Row
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gasc.h
+// LEFT.
+#define ROW0L_5_hrm_gasc(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW0L_6_hrm_gasc(K01, K02, K03, K04, K05, K06)  \
+    K01    \
+    , ROW0L_5_hrm_gasc(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW0L_5_6_hrm_gasc(K01, K02, K03, K04, K05) \
+  ROW0L_6_hrm_gasc(LEFT_0, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gasc.h
+// RIGHT.
+#define ROW0R_5_hrm_gasc(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW0R_6_hrm_gasc(K01, K02, K03, K04, K05, K06)  \
+  ROW0R_5_hrm_gasc(K01, K02, K03, K04, K05),\
+   K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW0R_5_6_hrm_gasc(K01, K02, K03, K04, K05) \
+  ROW0R_6_hrm_gasc(K01, K02, K03, K04, K05, RIGHT_0)
+
+
+#+end_src
+**** Row 1
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gasc.h
+// ROW1
+// LEFT.
+#define ROW1L_5_hrm_gasc(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, LT(_NAV, K04), K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW1L_6_hrm_gasc(K01, K02, K03, K04, K05, K06)  \
+    K01    \
+    ,  ROW1L_5_hrm_gasc(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW1L_5_6_hrm_gasc(K01, K02, K03, K04, K05) \
+  ROW1L_6_hrm_gasc(LEFT_1, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gasc.h
+// RIGHT.
+#define ROW1R_5_hrm_gasc(K01, K02, K03, K04, K05)                       \
+  K01, K02, K03, K04, LT(_LAYERS, K05)                                  \
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW1R_6_hrm_gasc(K01, K02, K03, K04, K05, K06)  \
+  ROW1R_5_hrm_gasc(K01, K02, K03, K04, K05),\
+   K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW1R_5_6_hrm_gasc(K01, K02, K03, K04, K05) \
+  ROW1R_6_hrm_gasc(K01, K02, K03, K04, K05, RIGHT_1)
+
+#+end_src
+**** Row 2 - Home Row
+
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gasc.h
+// LEFT.
+#define ROW2L_5_hrm_gasc(K01, K02, K03, K04, K05)                       \
+  MT(MOD_LGUI, K01), MT(MOD_LALT, K02), MT(MOD_LSFT, K03), MT(MOD_LCTL, K04), K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW2L_6_hrm_gasc(K01, K02, K03, K04, K05, K06)  \
+   K01    \
+   , ROW2L_5_hrm_gasc(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW2L_5_6_hrm_gasc(K01, K02, K03, K04, K05) \
+  ROW2L_6_hrm_gasc(LEFT_2, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gasc.h
+// RIGHT.
+#define ROW2R_5_hrm_gasc(K01, K02, K03, K04, K05)                       \
+  K01, MT(MOD_RCTL, K02),  MT(MOD_RSFT, K03), MT(MOD_RALT, K04), MT(MOD_RGUI, K05) \
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW2R_6_hrm_gasc(K01, K02, K03, K04, K05, K06)  \
+  ROW2R_5_hrm_gasc(K01, K02, K03, K04, K05),\
+   K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW2R_5_6_hrm_gasc(K01, K02, K03, K04, K05) \
+  ROW2R_6_hrm_gasc(K01, K02, K03, K04, K05, RIGHT_2)
+#+end_src
+**** Row 3
+***** Left
+#+begin_src C :tangle mod_layers/hrm_gasc.h
+// ROW 3
+// LEFT.
+#define ROW3L_5_hrm_gasc(K01, K02, K03, K04, K05)       \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+// Mod K01 how you want it.
+#define ROW3L_6_hrm_gasc(K01, K02, K03, K04, K05, K06)  \
+   K01,    \
+   , ROW3L_5_hrm_gasc(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW3L_5_6_hrm_gasc(K01, K02, K03, K04, K05) \
+  ROW3L_6_hrm_gasc(LEFT_3,  K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrm_gasc.h
+// RIGHT.
+#define ROW3R_5_hrm_gasc(K01, K02, K03, K04, K05)       \
+  K01, LT(_NAV, K02), K03, LT(LANG_N(_SYMB), K04), K05
+
+// Take and put an extra column in front.
+#define ROW3R_6_hrm_gasc(K01, K02, K03, K04, K05, K06)  \
+  ROW3R_5_hrm_gasc(K01, K02, K03, K04, K05),\
+   K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW3R_5_6_hrm_gasc(K01, K02, K03, K04, K05) \
+  ROW3R_6_hrm_gasc(K01, K02, K03, K04, K05, RIGHT_3)
+  #+end_src
+*** Navigation - LTs
+**** Row 0 - Number Row
+***** Left
+#+begin_src C :tangle mod_layers/hrs_nav.h
+// LEFT.
+#define ROW0L_5_hrs_nav(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+#define ROW0L_6_hrs_nav(K01, K02, K03, K04, K05, K06)  \
+    K01 \
+    , ROW0L_5_hrs_nav(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW0L_5_6_hrs_nav(K01, K02, K03, K04, K05) \
+  ROW0L_6_hrs_nav(LEFT_0, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/nav_mods.h
+// RIGHT.
+#define ROW0R_5_hrs_nav(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+#define ROW0R_6_hrs_nav(K01, K02, K03, K04, K05, K06) \
+  ROW0R_5_hrs_nav(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW0R_5_6_hrs_nav(K01, K02, K03, K04, K05) \
+  ROW0R_6_hrs_nav(K01, K02, K03, K04, K05, RIGHT_0)
+#+end_src
+**** Row 1
+***** Left
+#+begin_src C :tangle mod_layers/hrs_nav.h
+// ROW1
+// LEFT.
+#define ROW1L_5_hrs_nav(K01, K02, K03, K04, K05)    \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+#define ROW1L_6_hrs_nav(K01, K02, K03, K04, K05, K06)  \
+   K01 \
+   , ROW1L_5_hrs_nav(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW1L_5_6_hrs_nav(K01, K02, K03, K04, K05) \
+  ROW1L_6_hrs_nav(LEFT_1, K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrs_nav.h
+// RIGHT.
+#define ROW1R_5_hrs_nav(K01, K02, K03, K04, K05)                            \
+  K01, K02, K03, K04, K05                                               \
+
+// Take and put an extra column in front.
+#define ROW1R_6_hrs_nav(K01, K02, K03, K04, K05, K06) \
+  ROW1R_5_hrs_nav(K01, K02, K03, K04, K05),\
+   K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW1R_5_6_hrs_nav(K01, K02, K03, K04, K05) \
+  ROW1R_6_hrs_nav(K01, K02, K03, K04, K05, RIGHT_1)
+#+end_src
+**** Row 2 - Home Row
+***** Left
+#+begin_src C :tangle mod_layers/hrs_nav.h
+// LEFT.
+#define ROW2L_5_hrs_nav(K01, K02, K03, K04, K05)            \
+  MT(MOD_LSFT, K01), K02, LT(_NAV, K03), K04, K05
+
+// Take and put an extra column in front.
+#define ROW2L_6_hrs_nav(K01, K02, K03, K04, K05, K06)  \
+   K01 \
+   ,  ROW2L_5_hrs_nav(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW2L_5_6_hrs_nav(K01, K02, K03, K04, K05) \
+  ROW2L_6_hrs_nav(LEFT_2, K01, K02, K03, K04, K05)
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrs_nav.h
+// RIGHT.
+#define ROW2R_5_hrs_nav(K01, K02, K03, K04, K05)                            \
+  K01, K02,  LT(_NAV, K03), K04, MT(MOD_LSFT, K05)                      \
+
+// Take and put an extra column in front.
+// Mod K06 how you want it.
+#define ROW2R_6_hrs_nav(K01, K02, K03, K04, K05, K06) \
+  ROW2R_5_hrs_nav(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW2R_5_6_hrs_nav(K01, K02, K03, K04, K05)  \
+  ROW2R_6_hrs_nav(K01, K02, K03, K04, K05, RIGHT_2)
+
+#+end_src
+**** Row 3
+***** Left
+#+begin_src C :tangle mod_layers/hrs_nav.h
+// LEFT.
+#define ROW3L_5_hrs_nav(K01, K02, K03, K04, K05)        \
+  K01, K02, LT(_NAV, K03), K04, MT(MOD_LSFT, K05)
+
+// Take and put an extra column in front.
+#define ROW3L_6_hrs_nav(K01, K02, K03, K04, K05, K06)  \
+   K01     \
+   , ROW3L_5_hrs_nav(K02, K03, K04, K05, K06)
+
+// 5 into 6, derivitive of the first two.
+#define ROW3L_5_6_hrs_nav(K01, K02, K03, K04, K05) \
+  ROW3L_6_hrs_nav(LEFT_3,  K01, K02, K03, K04, K05)
+
+#+end_src
+***** Right
+#+begin_src C :tangle mod_layers/hrs_nav.h
+// RIGHT.
+#define ROW3R_5_hrs_nav(K01, K02, K03, K04, K05)        \
+  K01, K02, K03, K04, K05
+
+// Take and put an extra column in front.
+#define ROW3R_6_hrs_nav(K01, K02, K03, K04, K05, K06) \
+  ROW3R_5_hrs_nav(K01, K02, K03, K04, K05),\
+  K06
+
+// 5 into 6, derivitive of the first two.
+#define ROW3R_5_6_hrs_nav(K01, K02, K03, K04, K05) ROW3R_6_hrs_nav(K01, K02, K03, K04, K05, RIGHT_3)
+
+  #+end_src
+
+** Mod Row Macro
+*** Introduction
+This is our worker that wraps up everything nicely for us.
+Understanding this will help everything make sense here.
+But there is nothing to change or add here.
+
+First we turn the row prefix and column I/O name into a *row_name* that reflects
+its columns in and out.  Then we use that name with the Mod layer name to
+create the proper row macro names for the mod layer and the number of
+rows in and out for that specific keyboard and key layout matrix.
+
+This way, all we need to know is the Row # and left or right.
+The value of *BASE_COLS_IN_OUT* and *MODS_ARE* are use to
+create the names that we defined in our mod row wrapper macros.
+*** How It Works
+In this example, mods are set to  the *alt*  mods layer.  If the columns in and out
+were set to 5 the row names would be like this.
+
+- *ROW0L_5_alt*,  *ROW0R_5_alt*,
+- *ROW1L_5_alt*,  *ROW1R_5_alt*,
+- *ROW2L_5_alt*,  *ROW2R_5_alt*,
+- *ROW3L_5_alt*,  *ROW3R_5_alt*,
+
+**** The First Step
+
+*MOD_COL_NAME(ROW0L)*
+Becomes one of these:  *ROW0L_5*, *ROW0L_6*, *ROW0L_5_6*
+
+That result is then used to create the name of the row macro to use.
+**** The Second Step
+
+*MOD_ROW(ROW0L)*
+Becomes one of these:  *ROW0L_5_alt*, *ROW0L_6_alt*, *ROW0L_5_6_alt*
+
+**** The Code
+
+#+begin_src C :tangle mod_layers/mod_layer.h
+// MOD_COL_NAME(ROW0L) -- > ROW0L_5, ROW0L_6, ROW0L_5_6
+#define MOD_COL_NAME(NAME) CATR2(CATR(NAME, _), BASE_COLS_IN_OUT)
+// MOD_ROW(ROW0L) -- > ROW0L_5_alt, ROW0L_6_alt, ROW0L_5_6_alt
+#define MOD_ROW(NAME) CATR3(MOD_COL_NAME(NAME), MOD_EXT)
+#+end_src
+** Mod Core Matrix Macros
+*** For convenience.
+These are the different size matrices that can take an entire key matrix
+directly. It makes the keyboard layout a little bit easier to write if
+these fit the keyboard.
+
+They will not fit if your keyboard has some number of
+keys in the middle between the two inner index columns.
+Rebound, Ergodox, Viterbi, and xd75  cannot use these macros for that reason.
+
+If these don't fit the keyboard the *mod_row* macros will have to be used
+directly within the layout in the same way they are used here.
+
+*** 3x5
+Takes 6x5 column row chunks to create 3 rows of 10 or  12.
+
+#+begin_src C :tangle mod_layers/mod_layer.h
+
+#define MOD_CORE_3x5(                           \
+                     K01, K02, K03, K04, K05,   \
+                     K06, K07, K08, K09, K0A,   \
+                     K11, K12, K13, K14, K15,   \
+                     K16, K17, K18, K19, K1A,   \
+                     K21, K22, K23, K24, K25,   \
+                     K26, K27, K28, K29, K2A)   \
+  MOD_ROW(ROW1L)(K01, K02, K03, K04, K05),      \
+    MOD_ROW(ROW1R)(K06, K07, K08, K09, K0A),     \
+    MOD_ROW(ROW2L)(K11, K12, K13, K14, K15),     \
+    MOD_ROW(ROW2R)(K16, K17, K18, K19, K1A),     \
+    MOD_ROW(ROW3L)(K21, K22, K23, K24, K25),     \
+    MOD_ROW(ROW3R)(K26, K27, K28, K29, K2A)
+
+#+end_src
+*** 3x6
+Takes 6x6 column row chunks to create 3 rows of 10 or  12.
+#+begin_src C :tangle mod_layers/mod_layer.h
+
+#define MOD_CORE_3x6(K01, K02, K03, K04, K05, K06,      \
+                     K07, K08, K09, K0A, K0B, K0C,      \
+                     K11, K12, K13, K14, K15, K16,      \
+                     K17, K18, K19, K1A, K1B, K1C,      \
+                     K21, K22, K23, K24, K25, K26,      \
+                     K27, K28, K29, K2A, K2B, K2C)      \
+  MOD_ROW(ROW1L)(K01, K02, K03, K04, K05, K06),         \
+    MOD_ROW(ROW1R)(K07, K08, K09, K0A, K0B, K0C),       \
+    MOD_ROW(ROW2L)(K11, K12, K13, K14, K15, K16),       \
+    MOD_ROW(ROW2R)(K17, K18, K19, K1A, K1B, K1C),       \
+    MOD_ROW(ROW3L)(K21, K22, K23, K24, K25, K26),       \
+    MOD_ROW(ROW3R)(K27, K28, K29, K2A, K2B, K2C)
+
+#+end_src
+*** 4x5
+Takes 8x5 column row chunks to create 4 rows of 10 or  12.
+#+begin_src C :tangle mod_layers/mod_layer.h
+
+/// 4 rows for keyboards with number rows.
+#define MOD_CORE_4x5(                                   \
+                     K01, K02, K03, K04, K05,           \
+                     K06, K07, K08, K09, K0A,           \
+                     K11, K12, K13, K14, K15,           \
+                     K16, K17, K18, K19, K1A,           \
+                     K21, K22, K23, K24, K25,           \
+                     K26, K27, K28, K29, K2A,           \
+                     K31, K32, K33, K34, K35,           \
+                     K36, K37, K38, K39, K3A)           \
+  MOD_ROW(ROW0L)(K01, K02, K03, K04, K05),                              \
+    MOD_ROW(ROW0R)(K06, K07, K08, K09, K0A),                            \
+    MOD_CORE_3x5(K11, K12, K13, K14, K15,                               \
+                 K16, K17, K18, K19, K1A,                               \
+                 K21, K22, K23, K24, K25,                               \
+                 K26, K27, K28, K29, K2A,                               \
+                 K31, K32, K33, K34, K35,                               \
+                 K36, K37, K38, K39, K3A)
+
+
+#+end_src
+*** 4x6
+Takes 8x6 column row chunks to create 4 rows of 10 or  12.
+#+begin_src C :tangle mod_layers/mod_layer.h
+
+#define MOD_CORE_4x6(K01, K02, K03, K04, K05, K06,                      \
+                     K07, K08, K09, K0A, K0B, K0C,                      \
+                     K11, K12, K13, K14, K15, K16,                      \
+                     K17, K18, K19, K1A, K1B, K1C,                      \
+                     K21, K22, K23, K24, K25, K26,                      \
+                     K27, K28, K29, K2A, K2B, K2C,                      \
+                     K31, K32, K33, K34, K35, K36,                      \
+                     K37, K38, K39, K3A, K3B, K3C                       \
+                     )                                                  \
+    MOD_ROW(ROW0L)(K01, K02, K03, K04, K05, K06),                       \
+      MOD_ROW(ROW0R)(K07, K08, K09, K0A, K0B, K0C),                     \
+      MOD_CORE_3x6(K11, K12, K13, K14, K15, K16,                        \
+                   K17, K18, K19, K1A, K1B, K1C,                        \
+                   K21, K22, K23, K24, K25, K26,                        \
+                   K27, K28, K29, K2A, K2B, K2C,                        \
+                   K31, K32, K33, K34, K35, K36,                        \
+                   K37, K38, K39, K3A, K3B, K3C)
+#+end_src

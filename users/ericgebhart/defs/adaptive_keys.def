@@ -1,0 +1,114 @@
+// define adaptive keys here.
+// name, first key, second key, return, keys...
+
+
+//Left hand adaptives
+// (most are single-handed neighbor fingers, bc speed, dexterity limits)
+
+// TC -> TCH
+// roll for tch
+AK(TC, KC_T, KC_C, false, KC_C, KC_H)
+// Take advantage of B & V being phonotacically similar
+// (and in same finger/column) to process as adaptive key
+// reducing the finger spread from middle-index
+ AK(MB, KC_M, KC_B, false, KC_B)
+ AK(NB, KC_N, KC_B, false, KC_B)
+ AK(MV, KC_M, KC_V, false, KC_B)
+ AK(NV, KC_N, KC_V, false, KC_B)
+
+// "t" is midway between MB (or MV?)
+// so use same finger, shifted toward middle
+// column, to make it an inward roll.
+ AK(TB, KC_T, KC_B, true, KC_BSPC, KC_M)
+ AK(TV, KC_T, KC_V, true, KC_BSPC, KC_M)
+
+ // for (Bronze/Neu-hx)
+ AK(DB, KC_D, KC_B, true, KC_BSPC, KC_L)
+ AK(DV, KC_D, KC_V, true, KC_BSPC, KC_L)
+ AK(PB, KC_P, KC_B, true, KC_BSPC, KC_L)
+ AK(PV, KC_P, KC_V, true, KC_BSPC, KC_L)
+
+ AK(MG, KC_M, KC_G, false, KC_L)
+ AK(PG, KC_P, KC_G, true, KC_BSPC, KC_L)
+ AK(TG, KC_T, KC_G, false, KC_H, KC_I, KC_N, KC_G)
+
+// TK = CK
+// DK = CK
+ AK(TK, KC_T, KC_K, false, KC_BSPC, KC_C, KC_K)
+ AK(DK, KC_D, KC_K, false, KC_BSPC, KC_C, KC_K)
+
+ // M becomes L after MGJPV
+ AK(JM, KC_J, KC_M, true,  KC_BSPC, KC_L)
+ AK(GM, KC_G, KC_M, false, KC_L)
+ AK(PM, KC_P, KC_M, false, KC_L)
+ AK(VM, KC_V, KC_M, false, KC_L)
+ AK(GP, KC_G, KC_P, true,  KC_BSPC, KC_L)
+// quickly typing "?p" yields "?l"
+ AK(BP, KC_B, KC_P, false, KC_L)
+ AK(KP, KC_K, KC_P, false, KC_L)
+ AK(VP, KC_V, KC_P, false, KC_L)
+
+// inner column accommodations
+// to relieve stretch between
+// index and middle (index<->others is easier)
+ AK(BC, KC_B, KC_C, false, KC_L)
+ AK(BD, KC_B, KC_D, false, KC_L)
+ AK(BT, KC_B, KC_T, false, KC_L)
+// quickly typing "k?" yields "kn"
+ AK(KC, KC_K, KC_C, false, KC_N)
+ AK(KD, KC_K, KC_D, false, KC_N)
+ AK(KT, KC_K, KC_T, false, KC_N)
+// quickly typing "mt" yields "ment"
+ AK(MC, KC_M, KC_C, false, KC_E, KC_N, KC_T)
+ AK(MD, KC_M, KC_D, false, KC_E, KC_N, KC_T)
+ AK(MT, KC_M, KC_T, false, KC_E, KC_N, KC_T)
+
+ AK(BF, KC_B, KC_F, false, KC_L)
+ AK(KF, KC_K, KC_F, false, KC_L)
+// pull S up a row (more helpful for ortho/row staggers)
+ AK(PF, KC_P, KC_F, false, KC_S)
+// roll into C (only for Rhodium)
+ AK(XF, KC_X, KC_F, false, KC_C)
+
+// Make PT SFDigraph into a roll
+ AK(PN, KC_P, KC_N, false, KC_T)
+
+ // SAME-HAND TOWARD PINKY ISSUES
+ AK(MJ, KC_M, KC_J, false, KC_F)
+ // adjacent fingers don't do next row as easily,especially on ring to pinky.
+ AK(BX, KC_B, KC_X, false, KC_R)
+// RING TO PINKY This softens the burden,
+//and equalizes column-stagger & ortho boards.
+ AK(CX, KC_C, KC_X, false, KC_R)
+ AK(DX, KC_D, KC_X, false, KC_R)
+ AK(FX, KC_F, KC_X, false, KC_R)
+ AK(GX, KC_G, KC_X, false, KC_R)
+// bc why not?
+ AK(PX, KC_P, KC_X, false, KC_R)
+ AK(VX, KC_V, KC_X, false, KC_R)
+// L repeater (ie. Platinum/Neu-lx)
+// LW isn't likely, so we'll leave it for the sake of smaller code
+ AK(LX, KC_L, KC_X, false, KC_L)
+
+//  ",A" yields "UA" eliminating SFB
+ AK(COMM_A, KC_COMM, KC_A, true, KC_BSPC, KC_U)
+//  "/A" yields "UA" eliminating SFB
+ AK(SLSH_A, KC_SLSH, KC_A, true, KC_BSPC, KC_U)
+// ",E" or ".E" yields "OE" eliminating SFB
+ AK(COMM_E, KC_COMM, KC_E, true, KC_BSPC, KC_O)
+// "AE" yields "AU" eliminating SFB
+// ",/.A" yields "UA" eliminating SFB
+ AK(AE,     KC_A, KC_E, false, KC_U)
+// ",/.A" yields "UA" eliminating SFB
+ AK(A_COMM, KC_A, KC_COMM, false, KC_U)
+// tight roll controls...so this works
+// "E." or "E," yields "EO" eliminating SFB
+ AK(E_COMM, KC_E, KC_COMM, false, KC_O)
+// ",/.A" yields "UA" eliminating SFB
+ AK(A_SLSH, KC_A, KC_SLSH, false, KC_U)
+ AK(DOT_SLSH, KC_DOT, KC_SLSH, false, KC_U)
+// "you" adaptive?
+// YU = You bc YO (ring-middle) is a tad awk, but yu is easy, and uncommon
+ AK(YU, KC_Y, KC_U, false, KC_O, KC_U)
+// WY = WH do avoid row jump (Gold)
+ // repeater (For Platinum's thumb-L)

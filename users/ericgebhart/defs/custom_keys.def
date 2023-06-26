@@ -1,7 +1,6 @@
 // custom key codes.
   EPRM,
   //VRSN,
-  CAPS_WORD_ON,
 
   // LAYERStuff.
   KC_NEXT_LOCALE,
@@ -51,7 +50,18 @@
   CB_3L1, CB_3L2, CB_3L3, CB_3L4, CB_3L5,
   CB_4L1, CB_4L2, CB_4L3, CB_4L4, CB_4L5,
   CB_4R1, CB_4R2, CB_4R3, CB_4R4, CB_4R5,
+// core 6 thumb keys for combo reference layer
+ CB_TH1, CB_TH2, CB_TH3, CB_TH4, CB_TH5, CB_TH6,
+ CB_1TH1,  CB_1TH2, CB_1TH3, CB_1TH4, CB_1TH5, CB_1TH6,
+// edge keys for the combo reference layer
+ L0_CB, L1_CB, L2_CB, L3_CB,
+ R0_CB, R1_CB, R2_CB, R3_CB,
+ // for the extra thumb keys on the kyria
+ CB_0TH1 , CB_0TH2, CB_0TH3, CB_0TH4,
+ CB_THA, CB_THB, CB_THC, CB_THD,
 
+
+// combo ref2
   CB2_0M1, CB2_0M2, CB2_0M3,
   CB2_1M1, CB2_1M2, CB2_1M3,
   CB2_2M1, CB2_2M2, CB2_2M3,
@@ -70,17 +80,11 @@
   CB2_4R1, CB2_4R2, CB2_4R3, CB2_4R4, CB2_4R5,
 
 // core 6 thumb keys for combo reference layer
- CB_TH1, CB_TH2, CB_TH3, CB_TH4, CB_TH5, CB_TH6,
  CB2_TH1, CB2_TH2, CB2_TH3, CB2_TH4, CB2_TH5, CB2_TH6,
- CB_1TH1,  CB_1TH2, CB_1TH3, CB_1TH4, CB_1TH5, CB_1TH6,
  CB2_1TH1, CB2_1TH2, CB2_1TH3, CB2_1TH4, CB2_1TH5, CB2_1TH6,
-
- // for the extra thumb keys on the kyria
- CB_0TH1 , CB_0TH2, CB_0TH3, CB_0TH4,
- CB_THA, CB_THB, CB_THC, CB_THD,
-
 // edge keys for the combo reference layer
- L0_CB, L1_CB, L2_CB, L3_CB,
- R0_CB, R1_CB, R2_CB, R3_CB,
  L0_CB2, L1_CB2, L2_CB2, L3_CB2,
  R0_CB2, R1_CB2, R2_CB2, R3_CB2,
+// for the extra thumb keys on the kyria
+ CB2_0TH1 , CB2_0TH2, CB2_0TH3, CB2_0TH4,
+ CB2_THA, CB22_THB, CB2_THC, CB2_THD,
