@@ -199,9 +199,6 @@ void music_scale_user(void)
 
 #endif
 
-void matrix_scan_user(void) {
-}
-
 //Tap Dance Definitions
 tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
@@ -211,40 +208,3 @@ tap_dance_action_t tap_dance_actions[] = {
   [TD_A_TAB]  = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_TAB),
   [TD_Q_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC)
 };
-
-// don't know what this is doing...
-/*
-void led_set_user(uint8_t usb_led) {
-
-  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-    DDRD |= (1 << 5); PORTD &= ~(1 << 5);
-  } else {
-    DDRD &= ~(1 << 5); PORTD &= ~(1 << 5);
-  }
-
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-    DDRB |= (1 << 0); PORTB &= ~(1 << 0);
-  } else {
-    DDRB &= ~(1 << 0); PORTB &= ~(1 << 0);
-  }
-
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_KANA)) {
-
-  } else {
-
-  }
-
-}
-*/

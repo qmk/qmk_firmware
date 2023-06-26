@@ -130,14 +130,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
     )
 };
 
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    switch (keycode) {
     case MAC:
@@ -170,8 +162,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
   }
   return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }
