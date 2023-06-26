@@ -1,4 +1,4 @@
-# Dactyl with Arduino Pro Micro
+# Dactyl (Pro Micro)
 
 See https://github.com/adereth/dactyl-keyboard for the original Version.
 

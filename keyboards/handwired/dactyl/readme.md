@@ -1,39 +1,32 @@
 # Dactyl
 
-See https://github.com/adereth/dactyl-keyboard
+![Dactyl](https://i.imgur.com/3s2sqdGh.png)
 
-The Dactyl uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
+The *Dactyl* is a parameterized, split-bodied, concave key-well, columnar arranged, ergonomic keyboard. The 'legacy' configuration of this board required a microcontroller and I/O expander, though modern renditions require 2 micro controllers.
 
-Linux users need to modify udev rules as described on the [Teensy
-Linux page].  Some distributions provide a binary, maybe called
-`teensy-loader-cli`.
+- Default is the modernized 2 micro controller configuration in the `promicro` sub-directory.
+- The legacy configuration has been retained and is available in the `legacy` sub-directory.
 
-[Teensy Linux page]: https://www.pjrc.com/teensy/loader_linux.html
+* Keyboard Maintainer: [Matthew Adereth](https://github.com/adereth)
+* Hardware Supported: 
+    * **Default** (Promicro): Arduino Pro Micro controllers, of clones of
+    * Legacy: Teensy2 controller and MCP23018 I/O expander
+* Hardware Availability: [Case Files](https://github.com/adereth/dactyl-keyboard)
 
-To flash the firmware:
+Make examples for this keyboard (after setting up your build environment):
 
-  - Build the firmware with `make handwired/dactyl:<keymapname>`, for example `make handwired/dactyl:default`
-  - This will result in a hex file called `handwired_dactyl_<keymapname>.hex`, e.g.
-    `handwired_dactyl_default.hex`
+    make handwired/dactyl:default
 
-  - Start the teensy loader.
+Flashing examples for this keyboard:
 
-  - Load the .hex file into it.
+    make handwired/dactyl:default:flash
 
-  - Put the Teensy in firmware-loading mode:
-    * If your current layout has a `QK_BOOT` key, press it.
-    * If you lack a RESET key, press the reset button on the Teensy board itself.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-  - Click the button in the Teensy app to download the firmware.
+## Bootloader
 
-To flash with ´teensy-loader-cli´:
+Enter the bootloader in 3 ways:
 
-  - Build the firmware as above
-
-  - Run `<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w handwired_dactyl_<keymapname>.hex`
-
-  - If you like, you can do both at once: `make handwired/dactyl:<keymapname>:teensy`
-
-  - Put the Teensy in firmware-loading mode:
-    * If your current layout has a `QK_BOOT` key, press it.
-    * If you lack a RESET key, press the reset button on the Teensy board itself.
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

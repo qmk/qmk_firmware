@@ -1,4 +1,8 @@
+// Copyright 2019 Matthew Adereth
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "dactyl.h"
+#include "quantum.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
