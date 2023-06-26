@@ -180,28 +180,24 @@ void protocol_post_init(void) {
 }
 
 void protocol_pre_task(void) {
-    usb_event_queue_task();
-
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DRIVER.state == USB_SUSPENDED) {
-        print("[s]");
+        dprintln("suspending keyboard");
         while (USB_DRIVER.state == USB_SUSPENDED) {
-            /* Do this in the suspended state */
-            suspend_power_down(); // on AVR this deep sleeps for 15ms
-            /* Remote wakeup */
+            suspend_power_down();
             if ((USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED) && suspend_wakeup_condition()) {
+                /* issue a remote wakeup event to the host which should resume
+                 * the bus and get our keyboard out of suspension. */
                 usbWakeupHost(&USB_DRIVER);
-                restart_usb_driver(&USB_DRIVER);
             }
         }
-        /* Woken up */
-        // variables has been already cleared by the wakeup hook
-        send_keyboard_report();
-#    ifdef MOUSEKEY_ENABLE
-        mousekey_send();
-#    endif /* MOUSEKEY_ENABLE */
+        /* after a successful wakeup a USB_EVENT_WAKEUP is signaled to QMK by
+         * ChibiOS, which triggers a wakeup callback that restores the state of
+         * the keyboard. Therefore we do nothing here. */
     }
 #endif
+
+    usb_event_queue_task();
 }
 
 void protocol_post_task(void) {
