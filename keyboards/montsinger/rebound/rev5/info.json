@@ -1,6 +1,6 @@
 {
     "manufacturer": "Montsinger",
-    "keyboard_name": "montsinger/rebound/rev4pi",
+    "keyboard_name": "montsinger/rebound/rev5",
     "maintainer": "rossman360",
     "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
