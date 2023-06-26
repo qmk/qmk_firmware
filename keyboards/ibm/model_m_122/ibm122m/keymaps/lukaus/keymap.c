@@ -552,7 +552,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
-
-void led_set_user(uint8_t usb_led) {
-
-}
