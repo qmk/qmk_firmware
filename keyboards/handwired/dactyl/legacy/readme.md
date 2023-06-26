@@ -1,8 +1,6 @@
 # Dactyl (Legacy)
 
-See https://github.com/adereth/dactyl-keyboard
-
-The Dactyl uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
+The Legacy configuration for Dactyl uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
 
 Linux users need to modify udev rules as described on the [Teensy
 Linux page].  Some distributions provide a binary, maybe called
@@ -12,9 +10,9 @@ Linux page].  Some distributions provide a binary, maybe called
 
 To flash the firmware:
 
-  - Build the firmware with `make handwired/dactyl:<keymapname>`, for example `make handwired/dactyl:default`
-  - This will result in a hex file called `handwired_dactyl_<keymapname>.hex`, e.g.
-    `handwired_dactyl_default.hex`
+  - Build the firmware with `make handwired/dactyl/legacy:<keymapname>`, for example `make handwired/dactyl/legacy:default`
+  - This will result in a hex file called `handwired_dactyl_legacy_<keymapname>.hex`, e.g.
+    `handwired_dactyl_legacy_default.hex`
 
   - Start the teensy loader.
 
@@ -30,18 +28,10 @@ To flash with ´teensy-loader-cli´:
 
   - Build the firmware as above
 
-  - Run `<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w handwired_dactyl_<keymapname>.hex`
+  - Run `<path/to/>teensy_loader_cli -mmcu=atmega32u4 -w handwired_dactyl_legacy_<keymapname>.hex`
 
-  - If you like, you can do both at once: `make handwired/dactyl:<keymapname>:teensy`
+  - If you like, you can do both at once: `make handwired/dactyl/legacy:<keymapname>:teensy`
 
   - Put the Teensy in firmware-loading mode:
     * If your current layout has a `QK_BOOT` key, press it.
     * If you lack a RESET key, press the reset button on the Teensy board itself.
-    
-Make examples for this keyboard (after setting up your build environment):
-
-    make handwired/dactyl/legacy:default
-
-Flashing examples for this keyboard:
-
-    make handwired/dactyl/legacy:default:flash

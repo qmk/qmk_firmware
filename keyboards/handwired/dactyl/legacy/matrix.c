@@ -10,7 +10,7 @@
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "dactyl.h"
+#include "legacy.h"
 #include "i2c_master.h"
 #include "timer.h"
 
