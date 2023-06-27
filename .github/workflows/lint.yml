@@ -88,7 +88,7 @@ jobs:
         QMK_KEYBOARDS_BASE_COUNT=$(qmk list-keyboards | wc -l)
 
         # Get the keyboard list and count for the PR
-        git checkout -f ${{ github.head_ref }}
+        git checkout -f ${{ github.ref }}
         git merge --no-commit --squash ${{ github.base_ref }}
         QMK_KEYBOARDS_PR=$(qmk list-keyboards)
         QMK_KEYBOARDS_PR_COUNT=$(qmk list-keyboards | wc -l)
