@@ -26,6 +26,9 @@
         "pid": "0x0A00",
         "vid": "0xA81C"
     },
+    "bootmagic": {
+        "matrix": [1, 0]
+    },
     "ws2812": {
         "driver": "vendor",
         "pin": "GP4"
