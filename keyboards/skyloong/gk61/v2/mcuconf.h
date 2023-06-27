@@ -13,10 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+
+
 #pragma once
 
-#define HAL_USE_PWM TRUE
-#define HAL_USE_I2C TRUE
+#include_next <mcuconf.h>
 
-#include_next <halconf.h>
-
+#undef STM32_I2C_USE_I2C1
+#define STM32_I2C_USE_I2C1 TRUE

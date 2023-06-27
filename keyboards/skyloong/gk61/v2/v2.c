@@ -14,8 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
 #include "quantum.h"
 
 const is31_led __flash g_is31_leds[RGB_MATRIX_LED_COUNT] = {
@@ -93,9 +91,9 @@ const is31_led __flash g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS13_SW9, CS14_SW9, CS15_SW9},
     {0, CS13_SW10, CS14_SW10, CS15_SW10},
 };
-/*
+
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_USART1_REMAP | AFIO_MAPR_TIM3_REMAP_PARTIALREMAP;
 
 }
-*/
+

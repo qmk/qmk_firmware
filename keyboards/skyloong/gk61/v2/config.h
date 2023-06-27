@@ -16,7 +16,7 @@
 #pragma once
 
 /*
- * RGB matrix driver config (IS31FL3743)
+ * RGB matrix driver config (IS31FL3743A)
  *
  * This is a 7-bit address, that gets left-shifted and bit 0
  * set to 0 for write, 1 for read (as per I2C protocol)
@@ -27,17 +27,21 @@
  * 11 <-> VCC
  * ADDR1 represents A1:A0 of the 7-bit address.
  * ADDR2 represents A3:A2 of the 7-bit address.
- * The result is: 0b101(ADDR2)(ADDR1)
+ * The result is: 0b010(ADDR2)(ADDR1)
  */
-#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_1 0b0100000
 
 #define DRIVER_COUNT 1
-#define DRIVER_1_LED_TOTAL 192
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL)
-#define ISSI_PWM_FREQUENCY 10000
+#define RGB_MATRIX_LED_COUNT 192
 #define __flash  PROGMEM
 
+#define RGB_MATRIX_TYPING_HEATMAP_SPREAD 18
+#define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 25
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS  //Enable frame effects
 #define RGB_MATRIX_KEYPRESSES  //Reacts to keypress
+#define RGB_MATRIX_DEFAULT_SPD 50  // Sets the default animation speed, if none has been set
+#define RGB_MATRIX_DEFAULT_HUE 180 // Sets the default hue value, if none has been set
+#define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
 #define RGB_DISABLE_WHEN_USB_SUSPENDED   //turn off effects when suspended
 
 
