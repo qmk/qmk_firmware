@@ -15,6 +15,7 @@
         "nkro": true
     },
     "matrix_pins": {
+        "custom_lite": true,
         "cols": ["GP23", "GP21", "GP16", "GP15", "GP14", "GP13", "GP12", "GP9", "GP8", "GP7", "GP6", "GP5"],
         "rows": ["GP20", "GP22", "GP26", "GP27"]
     },
