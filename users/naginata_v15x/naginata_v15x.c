@@ -117,7 +117,7 @@ const uint32_t ng_key[] = {
 
 
 #define MAXKEYS 4
-int NKEYS[] = {1, 2, 5, 10};
+static int NKEYS[] = {1, 2, 5, 10};
 #define NCOMBI 4
 #define NDOUJI 3
 static int kcomSize = 0;
@@ -703,6 +703,10 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         keycnt++;
         ninputs2[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
         ng_chrcount++;
+        if (keycnt == MAXKEYS) {
+          naginata_type();
+          ng_chrcount = 0;
+        }
   #ifdef CONSOLE_ENABLE
   uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
   #endif
@@ -721,7 +725,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           }
         }
         // 全部キーを離したら
-        if (keycnt == 0) {
+        if (keycnt == 0 && ng_chrcount > 0) {
           naginata_type();
           ng_chrcount = 0;
         }
@@ -896,7 +900,7 @@ int evaluate() {
       // }
       s += scoring(i, j, doujiSize[i][j]);
     }
-    score[i] = s;
+    score[i] = s / (double)combiSize[i];
   }
 
   // 一番点数が高いものを返す
@@ -927,7 +931,7 @@ double scoring(int x, int y, int size) {
   #ifdef CONSOLE_ENABLE
   uprintf("<scoring return=%u\n", (int)(0.5 * 1000));
   #endif
-        return 0.5; // 単打を優先するか、同時押しを優先するかをチューニングする
+        return 0.8; // 単打を優先するか、同時押しを優先するかをチューニングする
     }
 
     // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
