@@ -1,0 +1,26 @@
+{
+    "keyboard_name": "Keychron C1 Pro",
+    "manufacturer": "Keychron",
+    "url": "https://github.com/Keychron",
+    "maintainer": "lalalademaxiya1",
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
+    "usb": {
+        "vid": "0x3434"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "dip_switch": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1", "A8", "A9", "A10", "H3"],
+        "rows": ["B5", "B4", "B3", "A15", "A14", "A13"]
+    },
+    "diode_direction": "ROW2COL",
+    "community_layouts": ["tkl_ansi"]
+}

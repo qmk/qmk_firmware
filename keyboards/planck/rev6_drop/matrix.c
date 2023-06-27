@@ -27,6 +27,7 @@ void matrix_init_custom(void) {
     // actual matrix setup - cols
     for (int i = 0; i < MATRIX_COLS; i++) {
         setPinOutput(matrix_col_pins[i]);
+        writePinLow(matrix_col_pins[i]);
     }
 
     // rows
