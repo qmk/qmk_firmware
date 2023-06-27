@@ -26,7 +26,7 @@ If you have found a folder called `.../qmk_firmware/layouts/community/ortho_4x12
 
 
 
-Now you could be ready to flash your keyboard. Flashing is done with the instruction on Miryoku website. [Find your Keyboard on the page]([miryoku_qmk/users/manna-harbour_miryoku at miryoku · manna-harbour/miryoku_qmk · GitHub](https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku)). When your keyboard is found. you could replace `manna-harbour_miryoku` with `joppa` . Here is the [description to flash the Lets'split keyboard]([miryoku_qmk/users/manna-harbour_miryoku at miryoku · manna-harbour/miryoku_qmk · GitHub](https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku#ortho_4x12)):
+Now you could be ready to flash your keyboard. Flashing is done with the instruction on Miryoku website. [Find your Keyboard on the page](https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku). When your keyboard is found. you could replace `manna-harbour_miryoku` with `joppa` . Here is the [description to flash the Lets'split keyboard](https://github.com/manna-harbour/miryoku_qmk/tree/miryoku/users/manna-harbour_miryoku#ortho_4x12):
 
 ```bash
 make lets_split:manna-harbour_miryoku:\
@@ -67,7 +67,7 @@ Trouble when flashing the keyboard. All keys are dead if these criteria's is not
 A litle tweak has to be done in this file
 
 [.../qmk_firmware/keyboards/handwired/dactyl_manuform/3x5_3
-/info.json]([qmk_firmware/keyboards/handwired/dactyl_manuform/3x5_3/info.json at master · qmk/qmk_firmware · GitHub](https://github.com/qmk/qmk_firmware/blob/master/keyboards/handwired/dactyl_manuform/3x5_3/info.json)). The property `diode_direction`. has to be set to `COL2ROW` instead of `ROW2COL`.
+/info.json](https://github.com/qmk/qmk_firmware/blob/master/keyboards/handwired/dactyl_manuform/3x5_3/info.json). The property `diode_direction`. has to be set to `COL2ROW` instead of `ROW2COL`.
 
 ```json
     "diode_direction": "COL2ROW",
@@ -82,29 +82,3 @@ RGB_MATRIX_ENABLE = no     # Enable WS2812 RGB matrix
 RGBLIGHT_SUPPORTED = no
 RGB_MATRIX_SUPPORTED = no
 ```
-
-
-
-The instructions in section [Your keyboard](#your-keyboard) is folowe
-
-
-
-[setup environment like this description](https://filterpaper.github.io/qmk/userspace.html?utm_source=pocket_mylist)
-
-I have 2 different keyboards to maintain. `Lets'split` and a handmade `Dactyl manuform 3x5_3`
-
-This is a attemt to collect all my keyboards in one userspace
-
-- .../qmk_firmware/users/craftsmandigital
-
-## Lets'split
-
-This keyboard config is located here:
-
-- https://github.com/craftsmandigital/manna-harbour_miryoku
-
-## Dactyl manuform 3x5_3
-
-This keyboard does not have a repo on gitub yet, but some related info is in this repo:
-
-- https://github.com/craftsmandigital/3x5_3
