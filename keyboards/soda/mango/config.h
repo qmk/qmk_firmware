@@ -10,9 +10,6 @@
 #define RGB_MATRIX_KEYPRESSES
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
-#define RGB_MATRIX_DEFAULT_HUE 0 // Sets the default hue value, if none has been set
-#define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
-#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_DEFAULT_SPD 150 
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED //
