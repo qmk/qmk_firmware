@@ -19,6 +19,9 @@
 // General Configs
 #define NO_ACTION_ONESHOT
 #define FORCE_NKRO
+
+// Layer Toggle
+#undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE 3
 
 // Mouse Configs
