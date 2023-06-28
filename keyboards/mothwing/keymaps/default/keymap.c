@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // entirely and just use numbers.
 
 enum layer_number {
-    _QWERTY = 0,
+    _QWERTY,
     _RAISE,
     _LOWER,
 };
