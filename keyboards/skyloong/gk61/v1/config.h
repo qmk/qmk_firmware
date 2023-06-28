@@ -33,9 +33,6 @@
 #define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 192
 
-#define RGB_MATRIX_TYPING_HEATMAP_SPREAD 18
-#define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 25
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS  //Enable frame effects
 #define RGB_MATRIX_KEYPRESSES  //Reacts to keypress
 #define RGB_DISABLE_WHEN_USB_SUSPENDED   //turn off effects when suspended
-

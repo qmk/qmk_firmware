@@ -27,9 +27,11 @@
 
             "cycle_out_in": false,
             "cycle_out_in_dual": false,
-            "cycle_pinwheel": false,
+            "cycle_pinwheel": true,
+
             "cycle_spiral": false,
-            "cycle_up_down": false,
+            "cycle_up_down": true,
+
             "dual_beacom": false,
             "gradient_left_right": false,
             "gradient_up_down": false,
@@ -41,7 +43,7 @@
             "pixel_fractal":false,
             "pixel_rain": false,
             "rainbow_moving_chevron": false,
-            "rainbow_pinwheels":false,
+            "rainbow_pinwheels":true,
             "raindrops": true,
 
             "ranbow_beacon": false,
@@ -82,7 +84,7 @@
             {"matrix": [1, 11], "x": 11.5, "y": 1, "flags": 4},
             {"matrix": [1, 12], "x": 12.5, "y": 1, "flags": 4},
             {"matrix": [1, 13], "x": 13.5, "y": 1, "flags": 4},
-            {"matrix": [2, 0], "x": 0, "y": 2, "flags": 4},
+            {"matrix": [2, 0], "x": 0, "y": 2, "flags": 8},
             {"matrix": [2, 1], "x": 1.75, "y": 2, "flags": 4},
             {"matrix": [2, 2], "x": 2.75, "y": 2, "flags": 4},
             {"matrix": [2, 3], "x": 3.75, "y": 2, "flags": 4},
