@@ -248,6 +248,9 @@ void tap_mods(int num_mods, uint16_t *mods, int *counts) {
     for (int i = 0; i < num_mods; i++) {
         if (counts[i] == 0) {
             tap_code16(mods[i]);
+
+            dprintf("TAPPED: 0x%04X\n", mods[i]);
+            dprintln("----------------------------------");
         }
     }
 }
@@ -259,6 +262,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t mods[4];
     bool is_l_mod = is_left_mod(keycode);
     bool is_r_mod = is_right_mod(keycode);
+
+    if (record->event.pressed) {
+        dprintf("DOWN: 0x%04X, col: %u, row: %u\n", keycode, record->event.key.col, record->event.key.row);
+    } else {
+        dprintf("UP:   0x%04X, col: %u, row: %u\n", keycode, record->event.key.col, record->event.key.row);
+    }
+    dprintf("l: %u, r: %u, m: %04X %04X %04X %04X\n", l_mods, r_mods, mods[0], mods[1], mods[2], mods[3]);
+    dprintf("time: %5u, int: %u, count: %u\n", record->event.time, record->tap.interrupted, record->tap.count);
+    dprintln("----------------------------------");
 
     if (l_mods > 0) {
         // opposite key
