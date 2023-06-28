@@ -676,9 +676,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           naginata_type();
           ng_chrcount = 0;
         }
-  #ifdef CONSOLE_ENABLE
-  uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
-  #endif
+        #ifdef CONSOLE_ENABLE
+        uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
+        #endif
         return false;
         break;
     }
@@ -698,9 +698,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           naginata_type();
           ng_chrcount = 0;
         }
-  #ifdef CONSOLE_ENABLE
-  uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
-  #endif
+        #ifdef CONSOLE_ENABLE
+        uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
+        #endif
         return false;
         break;
     }
@@ -897,36 +897,36 @@ double scoring(int x, int y, int size) {
   #endif
 
   if (size == 1) { // 単打の重み
-  #ifdef CONSOLE_ENABLE
-  uprintf("<scoring return=%u\n", (int)(0.5 * 1000));
-  #endif
-        return 0.8; // 単打を優先するか、同時押しを優先するかをチューニングする
-    }
+    #ifdef CONSOLE_ENABLE
+    uprintf("<scoring return=%u\n", (int)(0.5 * 1000));
+    #endif
+    return 0.8; // 単打を優先するか、同時押しを優先するかをチューニングする
+  }
 
-    // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
-    uint32_t s2 = noutput[x][y][0].pressTime;
-    uint32_t e2 = noutput[x][y][0].releaseTime;
-    for (int i = 1; i < size; i++) {
-        if (noutput[x][y][i].pressTime > s2) {
-            s2 = noutput[x][y][i].pressTime;
-        }
-        if (noutput[x][y][i].releaseTime < e2) {
-            e2 = noutput[x][y][i].releaseTime;
-        }
+  // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
+  uint32_t s2 = noutput[x][y][0].pressTime;
+  uint32_t e2 = noutput[x][y][0].releaseTime;
+  for (int i = 1; i < size; i++) {
+    if (noutput[x][y][i].pressTime > s2) {
+      s2 = noutput[x][y][i].pressTime;
     }
+    if (noutput[x][y][i].releaseTime < e2) {
+      e2 = noutput[x][y][i].releaseTime;
+    }
+  }
   #ifdef CONSOLE_ENABLE
   uprintf(" scoring s2=%lu, e2=%lu\n", s2, e2);
   #endif
-    double w = (double)(e2 - s2); // キーが重なっている時間
-    double s = 0.0;
-    for (int i = 0; i < size; i++) {
-      double pt = (double)(noutput[x][y][i].releaseTime - noutput[x][y][i].pressTime);
-        s += w / pt;
-    }
+  double w = (double)(e2 - s2); // キーが重なっている時間
+  double s = 0.0;
+  for (int i = 0; i < size; i++) {
+    double pt = (double)(noutput[x][y][i].releaseTime - noutput[x][y][i].pressTime);
+      s += w / pt;
+  }
 
   #ifdef CONSOLE_ENABLE
   uprintf("<scoring return=%lu, w=%lu\n", (uint32_t)(s * 1000), (uint32_t)(w * 1000));
   #endif
 
-    return s;
+  return s;
 }
