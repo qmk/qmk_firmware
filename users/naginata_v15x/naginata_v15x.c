@@ -867,7 +867,7 @@ int evaluate() {
       // for (int k = 0; k < doujiSize[i][j]; k++) {
       //   l[k] = noutput[i][j][k];
       // }
-      s += scoring(i, j, doujiSize[i][j]);
+      s += scoring(noutput[i][j], doujiSize[i][j]);
     }
     score[i] = s / (double)combiSize[i];
   }
@@ -888,11 +888,11 @@ int evaluate() {
   return maxIndex;
 }
 
-double scoring(int x, int y, int size) {
+double scoring(Keystroke ks[], int size) {
   #ifdef CONSOLE_ENABLE
   uprintf(">scoring size=%u\n", size);
   for (int i = 0; i < size; i++) {
-    uprintf(" scoring key=%lu, pressTime=%lu, releaseTime=%lu\n", noutput[x][y][i].keycode, noutput[x][y][i].pressTime, noutput[x][y][i].releaseTime);
+    uprintf(" scoring key=%lu, pressTime=%lu, releaseTime=%lu\n", ks[i].keycode, ks[i].pressTime, ks[i].releaseTime);
   }
   #endif
 
@@ -904,14 +904,14 @@ double scoring(int x, int y, int size) {
   }
 
   // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
-  uint32_t s2 = noutput[x][y][0].pressTime;
-  uint32_t e2 = noutput[x][y][0].releaseTime;
+  uint32_t s2 = ks[0].pressTime;
+  uint32_t e2 = ks[0].releaseTime;
   for (int i = 1; i < size; i++) {
-    if (noutput[x][y][i].pressTime > s2) {
-      s2 = noutput[x][y][i].pressTime;
+    if (ks[i].pressTime > s2) {
+      s2 = ks[i].pressTime;
     }
-    if (noutput[x][y][i].releaseTime < e2) {
-      e2 = noutput[x][y][i].releaseTime;
+    if (ks[i].releaseTime < e2) {
+      e2 = ks[i].releaseTime;
     }
   }
   #ifdef CONSOLE_ENABLE
@@ -920,7 +920,7 @@ double scoring(int x, int y, int size) {
   double w = (double)(e2 - s2); // キーが重なっている時間
   double s = 0.0;
   for (int i = 0; i < size; i++) {
-    double pt = (double)(noutput[x][y][i].releaseTime - noutput[x][y][i].pressTime);
+    double pt = (double)(ks[i].releaseTime - ks[i].pressTime);
       s += w / pt;
   }
 

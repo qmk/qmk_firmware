@@ -47,7 +47,7 @@ typedef struct {
 } Keystroke;
 
 int evaluate(void);
-double scoring(int, int, int);
+double scoring(Keystroke[], int);
 
 // bool enable_naginata(uint16_t, keyrecord_t *);
 
