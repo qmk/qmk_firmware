@@ -35,8 +35,8 @@
 #define RGB_MATRIX_LED_COUNT 192
 #define __flash  PROGMEM
 
-#define RGB_MATRIX_TYPING_HEATMAP_SPREAD 18
-#define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 25
+#define RGB_MATRIX_TYPING_HEATMAP_SPREAD 180
+#define RGB_MATRIX_TYPING_HEATMAP_AREA_LIMIT 220
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS  //Enable frame effects
 #define RGB_MATRIX_KEYPRESSES  //Reacts to keypress
 #define RGB_MATRIX_DEFAULT_SPD 50  // Sets the default animation speed, if none has been set
