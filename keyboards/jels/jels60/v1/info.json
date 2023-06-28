@@ -12,9 +12,7 @@
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": false,
-        "rgblight": false,
-        "audio": false
+        "nkro": false
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu"
