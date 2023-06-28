@@ -11,10 +11,7 @@
     "features": {
         "encoder": true,
         "mousekey": true,
-        "extrakey": true,
-        "console": false,
-        "command": false,
-        "nkro": false
+        "extrakey": true
     },
     "encoder": {
         "rotary": [{ "pin_a": "D3", "pin_b": "D5", "resolution": 4 }]
