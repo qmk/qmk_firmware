@@ -133,7 +133,7 @@ uint16_t qp_get_width(painter_device_t device) {
     painter_driver_t *driver = (painter_driver_t *)device;
 
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_get_width: fail (validation_ok == false)\n");
+        qp_dprintf("qp_get_width: fail (invalid driver)\n");
         return 0;
     }
 
@@ -158,7 +158,7 @@ uint16_t qp_get_height(painter_device_t device) {
     painter_driver_t *driver = (painter_driver_t *)device;
 
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_get_height: fail (validation_ok == false)\n");
+        qp_dprintf("qp_get_height: fail (invalid driver)\n");
         return 0;
     }
 
@@ -183,7 +183,7 @@ painter_rotation_t qp_get_rotation(painter_device_t device) {
     painter_driver_t *driver = (painter_driver_t *)device;
 
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_get_rotation: fail (validation_ok == false)\n");
+        qp_dprintf("qp_get_rotation: fail (invalid driver)\n");
         return QP_ROTATION_0;
     }
 
@@ -198,7 +198,7 @@ uint16_t qp_get_offset_x(painter_device_t device) {
     painter_driver_t *driver = (painter_driver_t *)device;
 
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_get_offset_x: fail (validation_ok == false)\n");
+        qp_dprintf("qp_get_offset_x: fail (invalid driver)\n");
         return 0;
     }
 
@@ -215,7 +215,7 @@ uint16_t qp_get_offset_y(painter_device_t device) {
     painter_rotation_t offset_y = driver->offset_y;
 
     if (!driver || !driver->validate_ok) {
-        qp_dprintf("qp_get_offset_y: fail (validation_ok == false)\n");
+        qp_dprintf("qp_get_offset_y: fail (invalid driver)\n");
         return 0;
     }
 
@@ -225,6 +225,12 @@ uint16_t qp_get_offset_y(painter_device_t device) {
 
 void qp_get_geometry(painter_device_t device, uint16_t *width, uint16_t *height, painter_rotation_t *rotation, uint16_t *offset_x, uint16_t *offset_y) {
     qp_dprintf("qp_geometry: entry\n");
+    painter_driver_t *driver = (painter_driver_t *)device;
+
+    if (!driver || !driver->validate_ok) {
+        qp_dprintf("qp_geometry: fail (invalid driver)\n");
+        return;
+    }
 
     if (width) {
         *width = qp_get_width(device);
