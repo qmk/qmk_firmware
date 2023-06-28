@@ -1,9 +1,8 @@
 LTO_ENABLE = yes
 
-# MOUSEKEY_ENABLE = yes
-# EXTRAKEY_ENABLE = yes
-# NKRO_ENABLE = yes
-# RGBLIGHT_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+NKRO_ENABLE = yes
 
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 COMMAND_ENABLE = no
