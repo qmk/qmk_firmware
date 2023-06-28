@@ -247,7 +247,7 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
         }
     } else if (layer_state_is((AUTO_MOUSE_TARGET_LAYER)) && timer_elapsed(auto_mouse_context.timer.active) > auto_mouse_context.config.timeout) {
         layer_off((AUTO_MOUSE_TARGET_LAYER));
-        auto_mouse_context.timer.active = 0;
+        auto_mouse_context.timer.active         = 0;
         auto_mouse_context.total_mouse_movement = (total_mouse_movement_t){.x = 0, .y = 0, .h = 0, .v = 0};
     }
 }
