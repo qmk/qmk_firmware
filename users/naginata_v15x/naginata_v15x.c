@@ -115,72 +115,41 @@ const uint32_t ng_key[] = {
 };
 
 
-
-#define MAXKEYS 4
-static int NKEYS[] = {1, 2, 5, 10};
-#define NCOMBI 4
+#define NKEYS 4
 #define NDOUJI 3
 static int kcomSize = 0;
 static int combiSize[10] = {0};
-static int doujiSize[10][NCOMBI] = {0};
+static int doujiSize[10][NKEYS] = {0};
 
 // 文字入力バッファ
 static Keystroke ninputs2[NGBUFFER];
-static Keystroke noutput[10][NCOMBI][NDOUJI];
+static Keystroke noutput[10][NKEYS][NDOUJI];
 
-const int COMBI[][10][NCOMBI][NDOUJI] = {
+const int NCOMB[] = {1, 2, 5, 10};
+const int COMBINDEX[] = {0, 1, 3, 8, 18};
+const int COMBI[18][NKEYS][NDOUJI] = {
   // 1 key
-  {   
-    {{ 0, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}
-  },
+  {{ 0, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
   // 2 keys
-  {
-    {{ 0, -1, -1}, { 1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{ 0,  1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}
-  },
+  {{ 0, -1, -1}, { 1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
+  {{ 0,  1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
   // 3 keys
-  {
-    {{ 0, -1, -1}, { 1, -1, -1}, { 2, -1, -1}, {-1, -1, -1}},
-    {{ 0,  1, -1}, { 2, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{ 0, -1, -1}, { 1,  2, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{ 0,  1, -1}, { 0,  2, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{ 0,  1,  2}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}
-  },
+  {{ 0, -1, -1}, { 1, -1, -1}, { 2, -1, -1}, {-1, -1, -1}},
+  {{ 0,  1, -1}, { 2, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
+  {{ 0, -1, -1}, { 1,  2, -1}, {-1, -1, -1}, {-1, -1, -1}},
+  {{ 0,  1, -1}, { 0,  2, -1}, {-1, -1, -1}, {-1, -1, -1}},
+  {{ 0,  1,  2}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
   // 4 keys
-  {
-    {{ 0, -1, -1}, { 1, -1, -1}, { 2, -1, -1}, { 3, -1, -1}},
-    {{ 0,  1, -1}, { 2, -1, -1}, { 3, -1, -1}, {-1, -1, -1}},
-    {{ 0, -1, -1}, { 1,  2, -1}, { 3, -1, -1}, {-1, -1, -1}},
-    {{ 0, -1, -1}, { 1, -1, -1}, { 2,  3, -1}, {-1, -1, -1}},
-    {{ 0,  1,  2}, { 3, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{ 0,  1, -1}, { 2,  3, -1}, {-1, -1, -1}, {-1, -1, -1}},
-    {{ 0, -1, -1}, { 1,  2,  3}, {-1, -1, -1}, {-1, -1, -1}},
-    {{ 0,  1, -1}, { 0,  2, -1}, { 0,  3, -1}, {-1, -1, -1}},
-    {{ 0,  1, -1}, { 0,  2, -1}, { 3, -1, -1}, {-1, -1, -1}},
-    {{ 0, -1, -1}, { 1,  2, -1}, { 1,  3, -1}, {-1, -1, -1}}
-  }
+  {{ 0, -1, -1}, { 1, -1, -1}, { 2, -1, -1}, { 3, -1, -1}},
+  {{ 0,  1, -1}, { 2, -1, -1}, { 3, -1, -1}, {-1, -1, -1}},
+  {{ 0, -1, -1}, { 1,  2, -1}, { 3, -1, -1}, {-1, -1, -1}},
+  {{ 0, -1, -1}, { 1, -1, -1}, { 2,  3, -1}, {-1, -1, -1}},
+  {{ 0,  1,  2}, { 3, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
+  {{ 0,  1, -1}, { 2,  3, -1}, {-1, -1, -1}, {-1, -1, -1}},
+  {{ 0, -1, -1}, { 1,  2,  3}, {-1, -1, -1}, {-1, -1, -1}},
+  {{ 0,  1, -1}, { 0,  2, -1}, { 0,  3, -1}, {-1, -1, -1}},
+  {{ 0,  1, -1}, { 0,  2, -1}, { 3, -1, -1}, {-1, -1, -1}},
+  {{ 0, -1, -1}, { 1,  2, -1}, { 1,  3, -1}, {-1, -1, -1}}
 };
 
 // カナ変換テーブル
@@ -703,7 +672,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         keycnt++;
         ninputs2[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
         ng_chrcount++;
-        if (keycnt == MAXKEYS) {
+        if (keycnt == NKEYS) {
           naginata_type();
           ng_chrcount = 0;
         }
@@ -767,9 +736,9 @@ void naginata_type(void) {
       memcpy_P(&bngmap, &ngmap[j], sizeof(bngmap));
       if (keycomb_buf == bngmap.key) {
         send_string(bngmap.kana);
-  #ifdef CONSOLE_ENABLE
-  uprintf(" send_string %s\n", bngmap.kana);
-  #endif
+        #ifdef CONSOLE_ENABLE
+        uprintf(" send_string %s\n", bngmap.kana);
+        #endif
       }
     }
   }
@@ -788,51 +757,51 @@ int evaluate() {
 
   kcomSize = 0;
   // combiSize[10] = {0}
-  // doujiSize[10][NCOMBI] = {0}
+  // doujiSize[10][NKEYS] = {0}
 
   // キー数に応じて組み合わせを選定
-  // Keystroke a1[NCOMBI][NDOUJI];
+  // Keystroke a1[NKEYS][NDOUJI];
   // Keystroke b1[NDOUJI];
   naginata_keymap bngmap; // PROGMEM buffer
 
-  for (int i = 0; i < NKEYS[ng_chrcount - 1]; i++) { // 組み合わせごとに
-  #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate i=%u, kcomSize=%u\n", i, kcomSize);
-  #endif
+  for (int i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
+    #ifdef CONSOLE_ENABLE
+    uprintf(" evaluate i=%u, kcomSize=%u\n", i, kcomSize);
+    #endif
     int flag = 1; // 組み合わせが、かな辞書にあるかどうか
     int a1Size = 0;
-    for (int j = 0; j < NCOMBI; j++) { // 組み合わせの順番に
-  #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate   j=%u\n", j);
-  #endif
-      if (COMBI[ng_chrcount - 1][i][j][0] == -1) {
-  #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate   j=%u, break\n", j);
-  #endif
+    for (int j = 0; j < NKEYS; j++) { // 組み合わせの順番に
+      #ifdef CONSOLE_ENABLE
+      uprintf(" evaluate   j=%u\n", j);
+      #endif
+      if (COMBI[i][j][0] == -1) {
+        #ifdef CONSOLE_ENABLE
+        uprintf(" evaluate   j=%u, break\n", j);
+        #endif
         break;
       }
 
       int b1Size = 0;
       for (int k = 0; k < NDOUJI; k++) { // 同時に押しているキー
-  #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate     k=%u\n", k);
-  #endif
-        if (COMBI[ng_chrcount - 1][i][j][k] == -1) {
+        #ifdef CONSOLE_ENABLE
+        uprintf(" evaluate     k=%u\n", k);
+        #endif
+        if (COMBI[i][j][k] == -1) {
           break;
         } else {
           // b1[b1Size++] = ninputs2[COMBI[ng_chrcount - 1][i][j][k]];
-          noutput[kcomSize][j][k] = ninputs2[COMBI[ng_chrcount - 1][i][j][k]];
+          noutput[kcomSize][j][k] = ninputs2[COMBI[i][j][k]];
           b1Size++;
         }
       }
       doujiSize[kcomSize][j] = b1Size; //あとで辞書にない可能性もあるけど、オーバーライトされるか
-  #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate   b1Size=%u\n", b1Size);
-  uprintf(" evaluate   kcomSize=%u\n", kcomSize);
-  for (int k = 0; k < doujiSize[kcomSize][j]; k++) {
-    uprintf(" evaluate   noutput %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", kcomSize, j, k, noutput[kcomSize][j][k].keycode,  noutput[kcomSize][j][k].pressTime,  noutput[kcomSize][j][k].releaseTime);
-  }
-  #endif
+      #ifdef CONSOLE_ENABLE
+      uprintf(" evaluate   b1Size=%u\n", b1Size);
+      uprintf(" evaluate   kcomSize=%u\n", kcomSize);
+      for (int k = 0; k < doujiSize[kcomSize][j]; k++) {
+        uprintf(" evaluate   noutput %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", kcomSize, j, k, noutput[kcomSize][j][k].keycode,  noutput[kcomSize][j][k].pressTime,  noutput[kcomSize][j][k].releaseTime);
+      }
+      #endif
 
       // バッファ内のキーを組み合わせる
       uint32_t keycomb_buf = 0UL;
@@ -848,9 +817,9 @@ int evaluate() {
           break;
         }
       }
-  #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate   isExist=%u\n", isExist);
-  #endif
+      #ifdef CONSOLE_ENABLE
+      uprintf(" evaluate   isExist=%u\n", isExist);
+      #endif
       if (isExist) {
         // for (int k = 0; k < NDOUJI; k++) {
         //   a1[a1Size][k] = b1[k];
@@ -870,9 +839,9 @@ int evaluate() {
     //     }
     //   }
     // }
-  #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate flag=%u\n", flag);
-  #endif
+    #ifdef CONSOLE_ENABLE
+    uprintf(" evaluate flag=%u\n", flag);
+    #endif
     if (flag)
       kcomSize++;
   }
