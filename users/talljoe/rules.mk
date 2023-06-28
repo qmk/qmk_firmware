@@ -1,4 +1,6 @@
-SRC += talljoe.c macros.c $(wildcard users/talljoe/tapdance/*.c)
+INTROSPECTION_KEYMAP_C = talljoe.c
+
+SRC += macros.c $(wildcard users/talljoe/tapdance/*.c)
 ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
   SRC += visualizer.c
 endif

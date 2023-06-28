@@ -19,7 +19,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
     - name: Disable safe.directory check
@@ -35,7 +35,7 @@ jobs:
 
     - name: Get changed files
       id: file_changes
-      uses: tj-actions/changed-files@v35
+      uses: tj-actions/changed-files@v37
 
     - name: Run qmk formatters
       shell: 'bash {0}'
