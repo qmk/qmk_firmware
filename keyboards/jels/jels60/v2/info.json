@@ -1,16 +1,13 @@
 {
     "bootloader": "rp2040",
     "processor": "RP2040",
-    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": false,
-        "rgblight": true,
-        "audio": false
+        "nkro": false
     },
     "matrix_pins": {
         "cols": ["GP24", "GP25", "GP23", "GP21", "GP22", "GP2", "GP1", "GP0", "GP6", "GP18", "GP19", "GP20", "GP9", "GP8"],
@@ -23,10 +20,6 @@
     "rgblight": {
         "led_count": 22,
         "sleep": true,
-        "hue_steps": 8,
-        "saturation_steps": 8,
-        "brightness_steps": 8,
-        "max_brightness": 255,
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -42,6 +35,5 @@
     },
     "indicators": {
         "caps_lock": "GP28"
-    },
-    "debounce": 5
+    }
 }
