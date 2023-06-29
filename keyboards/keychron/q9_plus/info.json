@@ -29,6 +29,9 @@
             {"pin_a": "B4", "pin_b": "B5"}
         ]
     },
+    "dynamic_keymap": {
+        "layer_count": 5
+    },
     "layouts": {
         "LAYOUT_54_ansi": {
             "layout": [
