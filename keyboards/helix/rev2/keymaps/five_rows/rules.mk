@@ -1,8 +1,7 @@
 USER_NAME := mtei
-SPLIT_KEYBOARD = yes
 
- CONSOLE_ENABLE = no        # Console for debug
- COMMAND_ENABLE = no        # Commands for debug and configuration
+CONSOLE_ENABLE = no        # Console for debug
+COMMAND_ENABLE = no        # Commands for debug and configuration
  # CONSOLE_ENABLE and COMMAND_ENABLE
  #      yes, no  +1500
  #      yes, yes +3200

@@ -11,6 +11,5 @@ BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 OLED_ENABLE = no      # OLED display
-SPLIT_KEYBOARD = yes
 
 DEFAULT_FOLDER = uzu42/rev1

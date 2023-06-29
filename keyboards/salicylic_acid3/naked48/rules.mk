@@ -12,6 +12,4 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = no
 
-SPLIT_KEYBOARD = yes
-
 DEFAULT_FOLDER = salicylic_acid3/naked48/rev1

@@ -27,7 +27,6 @@ OLED_DRIVER = SSD1306    # Enable the OLED Driver
 
 ENCODER_ENABLE = yes
 
-SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
 LTO_ENABLE = yes
 OPT = 3

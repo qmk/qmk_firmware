@@ -12,7 +12,6 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 MIDI_ENABLE = yes           # MIDI support
 ENCODER_ENABLE = yes        # encoder on mute button
-SPLIT_KEYBOARD = yes        # Enables split keyboard support
 RGB_MATRIX_ENABLE = no      # Use RGB matrix (Don't enable this when RGBLIGHT_ENABLE is used.)
 
 LTO_ENABLE = yes

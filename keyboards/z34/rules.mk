@@ -10,7 +10,6 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no          # Audio output
-SPLIT_KEYBOARD = yes       # Split common
 LTO_ENABLE = yes           # Enables Link Time Optimization (LTO) which reduces the compiled size
 
 # There are no extra pins, so we make sure to disable OLED and Encoders

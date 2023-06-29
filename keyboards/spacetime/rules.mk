@@ -12,7 +12,4 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 OLED_ENABLE = no
 
-# Enable generic behavior for split boards
-SPLIT_KEYBOARD = yes
-
 DEFAULT_FOLDER = spacetime/rev1

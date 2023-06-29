@@ -4,7 +4,6 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 TERMINAL_ENABLE = no
 
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
-SPLIT_KEYBOARD = no
 KEY_LOCK_ENABLE = no
 RGB_MATRIX_ENABLE = yes
 LAYOUTS = planck_mit

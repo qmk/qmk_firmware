@@ -10,6 +10,4 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 
-SPLIT_KEYBOARD = yes
-
 DEFAULT_FOLDER = handwired/splittest/promicro

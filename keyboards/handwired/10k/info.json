@@ -18,6 +18,9 @@
     "nkro": false,
     "rgblight": false
   },
+  "split": {
+    "enabled": true
+  },
   "usb": {
     "vid": "0x6869",
     "pid": "0x0001",

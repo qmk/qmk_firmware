@@ -11,6 +11,5 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
-SPLIT_KEYBOARD = yes
 
 DEFAULT_FOLDER = keebio/foldkb/rev1

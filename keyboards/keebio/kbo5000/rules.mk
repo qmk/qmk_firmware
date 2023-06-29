@@ -11,6 +11,5 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 LTO_ENABLE = yes
-SPLIT_KEYBOARD = yes
 
 DEFAULT_FOLDER = keebio/kbo5000/rev1

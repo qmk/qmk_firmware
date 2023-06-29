@@ -1,3 +1,6 @@
 {
-    "url": "https://bastardkb.com/dilemma"
+    "url": "https://bastardkb.com/dilemma",
+    "split": {
+        "enabled": true
+    }
 }

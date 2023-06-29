@@ -1,6 +1,3 @@
-# this is split keyboard.
-SPLIT_KEYBOARD = yes
-
 # Build Options
 #   change yes to no to disable
 #

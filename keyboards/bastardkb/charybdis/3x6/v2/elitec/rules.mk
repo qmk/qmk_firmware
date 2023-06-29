@@ -16,8 +16,6 @@ RGB_MATRIX_SUPPORTED = yes  # RGB matrix is supported and enabled by default
 RGBLIGHT_SUPPORTED = yes    # RGB underglow is supported, but not enabled by default
 RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 
-SPLIT_KEYBOARD = yes
-
 POINTING_DEVICE_ENABLE = yes # Enable trackball
 POINTING_DEVICE_DRIVER = pmw3360
 MOUSE_SHARED_EP = no # Unify multiple HID interfaces into a single Endpoint

@@ -10,7 +10,6 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 AUDIO_ENABLE = no           # Audio output
-SPLIT_KEYBOARD = yes        # Enables split keyboard support
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 NO_USB_STARTUP_CHECK = yes

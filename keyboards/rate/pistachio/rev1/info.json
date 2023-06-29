@@ -4,6 +4,9 @@
         "led_count": 2,
         "split_count": [1, 1]
     },
+    "split": {
+        "enabled": true
+    },
     "ws2812": {
         "pin": "D2"
     },

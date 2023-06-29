@@ -16,6 +16,9 @@
     "ws2812": {
         "pin": "B2"
     },
+    "split": {
+        "enabled": true
+    },
     "debounce": 10,
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
