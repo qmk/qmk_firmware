@@ -20,7 +20,7 @@ TODO
 
 x 親指エンター
 x 英数字に戻る
-AVRで動くようにする
+x AVRで動くようにする
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
 編集モードの追加
@@ -149,7 +149,7 @@ const int COMBINDEX[] = {0, 1, 3, 8, 18}; // COMBI配列の各キー数の最初
   同時押しの組み合わせを列挙している
   数字はninputの配列添字、-1はnull 
 */
-const int COMBI[NCOMBI][NKEYS][NDOUJI] = { 
+const PROGMEM int COMBI[NCOMBI][NKEYS][NDOUJI] = { 
   // 1 key
   {{ 0, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
   // 2 keys
@@ -821,6 +821,7 @@ int evaluate() {
 
   combiSize = 0;
   naginata_keymap bngmap; // PROGMEM buffer
+  int bcombi = 0;
 
   for (int i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
     #ifdef CONSOLE_ENABLE
@@ -832,7 +833,8 @@ int evaluate() {
       #ifdef CONSOLE_ENABLE
       uprintf(" evaluate   j=%u\n", j);
       #endif
-      if (COMBI[i][j][0] == -1) {
+      memcpy_P(&bcombi, &COMBI[i][j][0], sizeof(bcombi));
+      if (bcombi == -1) {
         #ifdef CONSOLE_ENABLE
         uprintf(" evaluate   j=%u, break\n", j);
         #endif
@@ -844,10 +846,11 @@ int evaluate() {
         #ifdef CONSOLE_ENABLE
         uprintf(" evaluate     k=%u\n", k);
         #endif
-        if (COMBI[i][j][k] == -1) {
+        memcpy_P(&bcombi, &COMBI[i][j][k], sizeof(bcombi));
+        if (bcombi == -1) {
           break;
         } else {
-          ngingroup[combiSize][j][k] = nginput[COMBI[i][j][k]];
+          ngingroup[combiSize][j][k] = nginput[bcombi];
           b1Size++;
         }
       }
