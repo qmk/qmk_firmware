@@ -21,14 +21,10 @@
 #define DRIVER_ADDR_1 0b1110111
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 26
-#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT 26
 
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
 #define PHASE_CHANNEL MSKPHASE_9CHANNEL
 
 /* Enable num-lock LED */
 #define NUM_LOCK_LED_INDEX 5
-
-/* Encoder Configuration */
-#define ENCODER_DEFAULT_POS 0x3
