@@ -25,6 +25,7 @@ x AVRで動くようにする
 単打の時は評価関数を飛ばす
 編集モードの追加 (編集モードはかな変換と異なる処理にする)
 5キーの組み合わせへの拡張
+前置シフト
 
 */
 
@@ -683,6 +684,18 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
       case NG_SHFT ... NG_SHFT2:
+        if (!naginata_config.kouchi_shift) {
+          if (ng_chrcount >= 1) {
+            naginata_type();
+            ng_chrcount = 0;
+            keycomb = 0UL;
+          }
+          nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
+          ng_chrcount++;
+          keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
+          return false;
+          break;
+        }
       case NG_Q ... NG_SLSH:
         keycnt++;
         if (keycnt > NKEYS) {
