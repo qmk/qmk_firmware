@@ -49,6 +49,23 @@ typedef struct {
 int evaluate(void);
 double scoring(Keystroke[], int);
 
+void ng_cut(void);
+void ng_copy(void);
+void ng_paste(void);
+void ng_up(int);
+void ng_down(int);
+void ng_left(int);
+void ng_right(int);
+void ng_home(void);
+void ng_end(void);
+void ng_katakana(void);
+void ng_save(void);
+void ng_hiragana(void);
+void ng_redo(void);
+void ng_undo(void);
+void ng_saihenkan(void);
+void ng_eof(void);
+
 // bool enable_naginata(uint16_t, keyrecord_t *);
 
 // なぜKC_キーコードを使わず、NG_キーコードを定義するのか

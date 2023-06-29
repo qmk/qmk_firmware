@@ -19,7 +19,7 @@
 TODO
 
 x 親指エンター
-英数字に戻る
+x 英数字に戻る
 AVRで動くようにする
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
@@ -36,7 +36,6 @@ AVRで動くようにする
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
 static bool is_naginata = false; // 薙刀式がオンかオフか
 static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番号
-static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 static uint16_t ngon_keys[2]; // 薙刀式をオンにするキー(通常HJ)
 static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
 static uint8_t keycnt = 0UL; //　押しているキーの数
@@ -127,19 +126,27 @@ const uint32_t ng_key[] = {
 };
 
 
-#define NKEYS 4
-#define NDOUJI 3
-static int kcomSize = 0;
-static int combiSize[10] = {0};
-static int doujiSize[10][NKEYS] = {0};
+#define NKEYS 4 // 最大何キーまでバッファに貯めるか
+#define NDOUJI 3 // 組み合わせにある同時押しするキーの数、薙刀式なら3
+#define NCOMBIPERKEY 10 // COMBI配列のキーごとの最大数
 
 // 文字入力バッファ
-static Keystroke ninputs2[NGBUFFER];
-static Keystroke noutput[10][NKEYS][NDOUJI];
+static Keystroke nginput[NGBUFFER]; // 入力バッファ
+static Keystroke ngingroup[NCOMBIPERKEY][NKEYS][NDOUJI]; // 入力バッファを同時押しの組み合わせでグループ化
 
-const int NCOMB[] = {1, 2, 5, 10};
-const int COMBINDEX[] = {0, 1, 3, 8, 18};
-const int COMBI[18][NKEYS][NDOUJI] = {
+static int combiSize = 0; // ngingroupの配列のサイズ
+static int keySize[NCOMBIPERKEY] = {0}; // ngingroupの配列のサイズ
+static int doujiSize[NCOMBIPERKEY][NKEYS] = {0}; // ngingroupの配列のサイズ
+
+const int COMBINDEX[] = {0, 1, 3, 8, 18}; // COMBI配列の各キー数の最初の位置
+
+#define NCOMBI 18 // COMBI配列の大きさ
+/* 
+  nginputをngingroupへ変換する
+  同時押しの組み合わせを列挙している
+  数字はninputの配列添字、-1はnull 
+*/
+const int COMBI[NCOMBI][NKEYS][NDOUJI] = { 
   // 1 key
   {{ 0, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
   // 2 keys
@@ -355,6 +362,13 @@ const PROGMEM naginata_keymap ngmap[] = {
 
   // 非標準の変換
   {.key = B_X|B_C|B_M       , .kana = "pyu"     }, // ピュ
+
+  // 別途処理しないといけない変換
+  {.key = B_T               , .kana = ""}, //
+  {.key = B_Y               , .kana = ""}, //
+  {.key = B_H|B_J           , .kana = ""}, //　かなオン
+  {.key = B_F|B_G           , .kana = ""}, //　かなオフ
+
 };
 
 // 薙刀式のレイヤー、オンオフするキー
@@ -379,7 +393,6 @@ void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
 // 薙刀式をオン
 void naginata_on(void) {
   is_naginata = true;
-  keycomb = 0UL;
   naginata_clear();
   layer_on(naginata_layer);
 
@@ -390,7 +403,6 @@ void naginata_on(void) {
 // 薙刀式をオフ
 void naginata_off(void) {
   is_naginata = false;
-  keycomb = 0UL;
   naginata_clear();
   layer_off(naginata_layer);
 
@@ -402,19 +414,6 @@ void naginata_off(void) {
 bool naginata_state(void) {
   return is_naginata;
 }
-
-// バッファから先頭n文字を削除する
-// void compress_buffer(int n) {
-//   if (ng_chrcount == 0) return;
-//   for (int j = 0; j < NGBUFFER; j++) {
-//     if (j + n < NGBUFFER) {
-//       ninputss[j] = ninputss[j + n];
-//     } else {
-//       ninputss[j] = 0;
-//     }
-//   }
-//   ng_chrcount -= n;
-// }
 
 void switchOS(uint8_t os) {
   naginata_config.os = os;
@@ -682,7 +681,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
       case NG_SHFT ... NG_SHFT2:
       case NG_Q ... NG_SLSH:
         keycnt++;
-        ninputs2[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
+        nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
         ng_chrcount++;
         if (keycnt == NKEYS) {
           naginata_type();
@@ -700,8 +699,8 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         if (keycnt > 0)
           keycnt--;
         for (int i = 0; i < ng_chrcount; i++) {
-          if (keycode == ninputs2[i].keycode) {
-            ninputs2[i].releaseTime = record->event.time;
+          if (keycode == nginput[i].keycode) {
+            nginput[i].releaseTime = record->event.time;
             break;
           }
         }
@@ -729,10 +728,10 @@ void naginata_type(void) {
   #ifdef CONSOLE_ENABLE
   uprintf(">naginata_type ng_chrcount=%u\n", ng_chrcount);
   for (int i = 0; i < ng_chrcount; i++)
-    uprintf(" naginata_type key=%lu, pressTime=%lu, releaseTime=%lu\n",  ninputs2[i].keycode,  ninputs2[i].pressTime,  ninputs2[i].releaseTime);
+    uprintf(" naginata_type key=%lu, pressTime=%lu, releaseTime=%lu\n",  nginput[i].keycode,  nginput[i].pressTime,  nginput[i].releaseTime);
   #endif
 
-  if (ng_chrcount == 1 && ninputs2[0].keycode == NG_SHFT2) {
+  if (ng_chrcount == 1 && nginput[0].keycode == NG_SHFT2) {
     tap_code(KC_ENT);
     return;
   }
@@ -743,20 +742,36 @@ void naginata_type(void) {
   int n = evaluate();
 
   // かなへ変換する
-  for (int i = 0; i < combiSize[n]; i++) {
+  for (int i = 0; i < keySize[n]; i++) {
     // バッファ内のキーを組み合わせる
     uint32_t keycomb_buf = 0UL;
     for (int j = 0; j < doujiSize[n][i]; j++) {
-      keycomb_buf |= ng_key[noutput[n][i][j].keycode - NG_Q];
+      keycomb_buf |= ng_key[ngingroup[n][i][j].keycode - NG_Q];
     }
-    for (int j = 0; j < sizeof ngmap / sizeof bngmap; j++) {
-      memcpy_P(&bngmap, &ngmap[j], sizeof(bngmap));
-      if (keycomb_buf == bngmap.key) {
-        send_string(bngmap.kana);
-        #ifdef CONSOLE_ENABLE
-        uprintf(" send_string %s\n", bngmap.kana);
-        #endif
-      }
+    switch (keycomb_buf) {
+      case B_T:
+        ng_left(1);
+        break;
+      case B_Y:
+        ng_right(1);
+        break;
+      case B_H|B_J:
+        naginata_on();
+        break;
+      case B_F|B_G:
+        naginata_off();
+        break;
+      default:
+        for (int j = 0; j < sizeof ngmap / sizeof bngmap; j++) {
+          memcpy_P(&bngmap, &ngmap[j], sizeof(bngmap));
+          if (keycomb_buf == bngmap.key) {
+            send_string(bngmap.kana);
+            #ifdef CONSOLE_ENABLE
+            uprintf(" send_string %s\n", bngmap.kana);
+            #endif
+          }
+        }
+        break;
     }
   }
   #ifdef CONSOLE_ENABLE
@@ -769,21 +784,15 @@ int evaluate() {
   uprintf(">evaluate ng_chrcount=%u\n", ng_chrcount);
   #endif
 
-  // 入力 Keystrokeの1次元配列 ninputs2
+  // 入力 Keystrokeの1次元配列 nginput
   // 出力 Keystrokeの2次元配列 (同時押しの組み合わせの配列)
 
-  kcomSize = 0;
-  // combiSize[10] = {0}
-  // doujiSize[10][NKEYS] = {0}
-
-  // キー数に応じて組み合わせを選定
-  // Keystroke a1[NKEYS][NDOUJI];
-  // Keystroke b1[NDOUJI];
+  combiSize = 0;
   naginata_keymap bngmap; // PROGMEM buffer
 
   for (int i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
     #ifdef CONSOLE_ENABLE
-    uprintf(" evaluate i=%u, kcomSize=%u\n", i, kcomSize);
+    uprintf(" evaluate i=%u, combiSize=%u\n", i, combiSize);
     #endif
     int flag = 1; // 組み合わせが、かな辞書にあるかどうか
     int a1Size = 0;
@@ -806,24 +815,23 @@ int evaluate() {
         if (COMBI[i][j][k] == -1) {
           break;
         } else {
-          // b1[b1Size++] = ninputs2[COMBI[ng_chrcount - 1][i][j][k]];
-          noutput[kcomSize][j][k] = ninputs2[COMBI[i][j][k]];
+          ngingroup[combiSize][j][k] = nginput[COMBI[i][j][k]];
           b1Size++;
         }
       }
-      doujiSize[kcomSize][j] = b1Size; //あとで辞書にない可能性もあるけど、オーバーライトされるか
+      doujiSize[combiSize][j] = b1Size; //あとで辞書にない可能性もあるけど、オーバーライトされるか
       #ifdef CONSOLE_ENABLE
       uprintf(" evaluate   b1Size=%u\n", b1Size);
-      uprintf(" evaluate   kcomSize=%u\n", kcomSize);
-      for (int k = 0; k < doujiSize[kcomSize][j]; k++) {
-        uprintf(" evaluate   noutput %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", kcomSize, j, k, noutput[kcomSize][j][k].keycode,  noutput[kcomSize][j][k].pressTime,  noutput[kcomSize][j][k].releaseTime);
+      uprintf(" evaluate   combiSize=%u\n", combiSize);
+      for (int k = 0; k < doujiSize[combiSize][j]; k++) {
+        uprintf(" evaluate   ngingroup %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", combiSize, j, k, ngingroup[combiSize][j][k].keycode,  ngingroup[combiSize][j][k].pressTime,  ngingroup[combiSize][j][k].releaseTime);
       }
       #endif
 
       // バッファ内のキーを組み合わせる
       uint32_t keycomb_buf = 0UL;
       for (int k = 0; k < b1Size; k++) {
-        keycomb_buf |= ng_key[noutput[kcomSize][j][k].keycode - NG_Q];
+        keycomb_buf |= ng_key[ngingroup[combiSize][j][k].keycode - NG_Q];
       }
       // 辞書に存在するかチェック
       int isExist = 0;
@@ -838,61 +846,47 @@ int evaluate() {
       uprintf(" evaluate   isExist=%u\n", isExist);
       #endif
       if (isExist) {
-        // for (int k = 0; k < NDOUJI; k++) {
-        //   a1[a1Size][k] = b1[k];
-        // }
         a1Size++;
       } else {
         flag = 0;
         break; // 辞書になければスキップ
       }
     }
-    combiSize[kcomSize] = a1Size; // a1Size++したあとでは
+    keySize[combiSize] = a1Size; // a1Size++したあとでは
 
-    // if (flag) { // 辞書にあったら登録
-    //   for (int k = 0; k < combiSize[kcomSize]; k++) {
-    //     for (int l = 0; l < doujiSize[kcomSize][k]; l++) {
-    //       noutput[kcomSize][k][l] = a1[k][l];
-    //     }
-    //   }
-    // }
     #ifdef CONSOLE_ENABLE
     uprintf(" evaluate flag=%u\n", flag);
     #endif
     if (flag)
-      kcomSize++;
+      combiSize++;
   }
   #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate kcomSize=%u\n", kcomSize);
-  for (int i = 0; i < kcomSize; i++) {
-    uprintf(" evaluate   combiSize=%u\n", combiSize[i]);
-    for (int j = 0; j < combiSize[i]; j++) {
+  uprintf(" evaluate combiSize=%u\n", combiSize);
+  for (int i = 0; i < combiSize; i++) {
+    uprintf(" evaluate   keySize=%u\n", keySize[i]);
+    for (int j = 0; j < keySize[i]; j++) {
       uprintf(" evaluate     doujiSize=%u\n", doujiSize[i][j]);
       for (int k = 0; k < doujiSize[i][j]; k++) {
-        uprintf(" evaluate       noutput %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", i, j, k, noutput[i][j][k].keycode,  noutput[i][j][k].pressTime,  noutput[i][j][k].releaseTime);
+        uprintf(" evaluate       ngingroup %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", i, j, k, ngingroup[i][j][k].keycode,  ngingroup[i][j][k].pressTime,  ngingroup[i][j][k].releaseTime);
       }
     }
   }
   #endif
     
   // 各組み合わせの点数を求める
-  double score[10];
-  for (int i = 0; i < kcomSize; i++) {
+  double score[NCOMBIPERKEY];
+  for (int i = 0; i < combiSize; i++) {
     double s = 0;
-    for (int j = 0; j < combiSize[i]; j++) {
-      // Keystroke l[NDOUJI];
-      // for (int k = 0; k < doujiSize[i][j]; k++) {
-      //   l[k] = noutput[i][j][k];
-      // }
-      s += scoring(noutput[i][j], doujiSize[i][j]);
+    for (int j = 0; j < keySize[i]; j++) {
+      s += scoring(ngingroup[i][j], doujiSize[i][j]);
     }
-    score[i] = s / (double)combiSize[i];
+    score[i] = s / (double)keySize[i];
   }
 
   // 一番点数が高いものを返す
   double maxScore = score[0];
   int maxIndex = 0;
-  for (int i = 1; i < kcomSize; i++) {
+  for (int i = 1; i < combiSize; i++) {
     if (score[i] > maxScore) {
       maxScore = score[i];
       maxIndex = i;
@@ -946,4 +940,230 @@ double scoring(Keystroke ks[], int size) {
   #endif
 
   return s;
+}
+
+void ng_cut() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      register_code(KC_LCTL);
+      tap_code(KC_X);
+      unregister_code(KC_LCTL);
+      break;
+    case NG_MAC:
+      register_code(KC_LCMD);
+      tap_code(KC_X);
+      unregister_code(KC_LCMD);
+      break;
+  }
+}
+
+void ng_copy() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      register_code(KC_LCTL);
+      tap_code(KC_C);
+      unregister_code(KC_LCTL);
+      break;
+    case NG_MAC:
+      register_code(KC_LCMD);
+      tap_code(KC_C);
+      unregister_code(KC_LCMD);
+      break;
+  }
+}
+
+void ng_paste() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      register_code(KC_LCTL);
+      tap_code(KC_V);
+      unregister_code(KC_LCTL);
+      break;
+    case NG_MAC:
+      register_code(KC_LCMD);
+      tap_code(KC_V);
+      unregister_code(KC_LCMD);
+      break;
+  }
+}
+
+void ng_up(int c) {
+  if (naginata_config.tategaki) {
+    for (int i = 0; i < c; i++ )
+      tap_code(KC_UP);
+  } else {
+    for (int i = 0; i < c; i++ )
+      tap_code(KC_LEFT);
+  }
+}
+
+void ng_down(int c) {
+  if (naginata_config.tategaki) {
+    for (int i = 0; i < c; i++ )
+      tap_code(KC_DOWN);
+  } else {
+    for (int i = 0; i < c; i++ )
+      tap_code(KC_RIGHT);
+  }
+}
+
+void ng_left(int c) {
+  if (naginata_config.tategaki) {
+    for (int i = 0; i < c; i++ )
+      tap_code(KC_LEFT);
+  } else {
+    for (int i = 0; i < c; i++ )
+      tap_code(KC_DOWN);
+  }
+}
+
+void ng_right(int c) {
+  if (naginata_config.tategaki) {
+    for (int i = 0; i < c; i++ )
+      tap_code(KC_RIGHT);
+  } else {
+    for (int i = 0; i < c; i++ )
+      tap_code(KC_UP);
+  }
+}
+
+void ng_home() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      tap_code(KC_HOME);
+      break;
+    case NG_MAC:
+      register_code(KC_LCTL);
+      tap_code(KC_A);
+      unregister_code(KC_LCTL);
+      break;
+  }
+}
+
+void ng_end() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      tap_code(KC_END);
+      break;
+    case NG_MAC:
+      register_code(KC_LCTL);
+      tap_code(KC_E);
+      unregister_code(KC_LCTL);
+      break;
+  }
+}
+
+void ng_katakana() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      register_code(KC_LCTL);
+      tap_code(KC_I);
+      unregister_code(KC_LCTL);
+      break;
+    case NG_MAC:
+      register_code(KC_LCTL);
+      tap_code(KC_K);
+      unregister_code(KC_LCTL);
+      break;
+  }
+}
+
+void ng_save() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      register_code(KC_LCTL);
+      tap_code(KC_S);
+      unregister_code(KC_LCTL);
+      break;
+    case NG_MAC:
+      register_code(KC_LCMD);
+      tap_code(KC_S);
+      unregister_code(KC_LCMD);
+      break;
+  }
+}
+
+void ng_hiragana() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      register_code(KC_LCTL);
+      tap_code(KC_U);
+      unregister_code(KC_LCTL);
+      break;
+    case NG_MAC:
+      register_code(KC_LCTL);
+      tap_code(KC_J);
+      unregister_code(KC_LCTL);
+      break;
+  }
+}
+
+void ng_redo() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      register_code(KC_LCTL);
+      tap_code(KC_Y);
+      unregister_code(KC_LCTL);
+      break;
+    case NG_MAC:
+      register_code(KC_LCMD);
+      tap_code(KC_Y);
+      unregister_code(KC_LCMD);
+      break;
+  }
+}
+
+void ng_undo() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      register_code(KC_LCTL);
+      tap_code(KC_Z);
+      unregister_code(KC_LCTL);
+      break;
+    case NG_MAC:
+      register_code(KC_LCMD);
+      tap_code(KC_Z);
+      unregister_code(KC_LCMD);
+      break;
+  }
+}
+
+void ng_saihenkan() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      tap_code(KC_INT4);
+      break;
+    case NG_MAC:
+      tap_code(KC_LANGUAGE_1);
+      tap_code(KC_LANGUAGE_1);
+      break;
+  }
+}
+
+void ng_eof() {
+  switch (naginata_config.os) {
+    case NG_WIN:
+    case NG_LINUX:
+      register_code(KC_LCTL);
+      tap_code(KC_END);
+      unregister_code(KC_LCTL);
+      break;
+    case NG_MAC:
+      register_code(KC_LCMD);
+      tap_code(KC_DOWN);
+      unregister_code(KC_LCMD);
+      break;
+  }
+
 }
