@@ -946,7 +946,7 @@ double scoring(Keystroke ks[], int size) {
     #ifdef CONSOLE_ENABLE
     uprintf("<scoring return=%u\n", (int)(0.5 * 1000));
     #endif
-    return 0.8; // 単打を優先するか、同時押しを優先するかをチューニングする
+    return 1; // 単打を優先するか、同時押しを優先するかをチューニングする
   }
 
   // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
