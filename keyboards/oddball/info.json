@@ -8,6 +8,9 @@
         "pid": "0xCA49",
         "device_version": "0.0.1"
     },
+    "split": {
+        "enabled": true
+    },
     "processor": "atmega32u4",
     "layouts": {
         "LAYOUT": {

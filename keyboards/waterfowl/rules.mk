@@ -13,5 +13,4 @@ AUDIO_ENABLE = no           # Audio output
 
 OLED_ENABLE = yes        # Enables the use of OLED displays
 OLED_DRIVER = SSD1306    # Specifies the type of OLED
-SPLIT_KEYBOARD = yes     # Enables split functionality
 ENCODER_ENABLE = yes	 # Enables the encoders

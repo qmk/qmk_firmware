@@ -10,4 +10,3 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-SPLIT_KEYBOARD = yes		# Split keyboard flag disabled as manual edits had to be done to the split common files

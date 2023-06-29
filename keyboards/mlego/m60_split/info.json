@@ -6,6 +6,9 @@
     "usb": {
         "vid": "0xBABA"
     },
+    "split": {
+        "enabled": true
+    },
     "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_ortho_5x12": {
