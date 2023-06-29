@@ -4,7 +4,7 @@ A split keyboard with 3x6 vertically staggered keys and 4 thumb keys.
 
 * Keyboard Maintainer: [tan-t](https://github.com/tan-t)
 * Hardware Supported: MOTHWING PCB
-* Hardware Availability: currently unavailable. merch will be open around May 2023.
+* Hardware Availability: currently unavailable. merch will be open around August 2023.
 
 Make example for this keyboard (after setting up your build environment):
 

@@ -1,1 +1,1 @@
-DEFAULT_FOLDER = mothwing/rev1
+# This file intentionally left blank
