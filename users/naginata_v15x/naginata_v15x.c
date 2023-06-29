@@ -1,4 +1,4 @@
-/* Copyright 2018-2022 eswai <@eswai>
+/* Copyright eswai <@eswai>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/*
+
+TODO
+
+x 親指エンター
+英数字に戻る
+AVRで動くようにする
+グローバル変数を減らす
+単打の時は評価関数を飛ばす
+
+*/
 
 #include QMK_KEYBOARD_H
 #include "naginata.h"
@@ -719,6 +731,11 @@ void naginata_type(void) {
   for (int i = 0; i < ng_chrcount; i++)
     uprintf(" naginata_type key=%lu, pressTime=%lu, releaseTime=%lu\n",  ninputs2[i].keycode,  ninputs2[i].pressTime,  ninputs2[i].releaseTime);
   #endif
+
+  if (ng_chrcount == 1 && ninputs2[0].keycode == NG_SHFT2) {
+    tap_code(KC_ENT);
+    return;
+  }
 
   naginata_keymap bngmap; // PROGMEM buffer
 
