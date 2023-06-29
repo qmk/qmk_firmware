@@ -296,7 +296,7 @@ However, this slightly different sequence will not be affected by the “permiss
 
 In the sequence above the dual-role key is released before the other key is released, and if that happens within the tapping term, the “permissive hold” mode will still choose the tap action for the dual-role key, and the sequence will be registered as `al` by the host. We could describe this as a “rolling press” (the two keys' key down and key up events behave as if you were rolling a ball across the two keys, first pressing each key down in sequence and then releasing them in the same order).
 
-?> The `PERMISSIVE_HOLD` option is not noticeable if you also enable `HOLD_ON_OTHER_KEY_PRESS` because the latter option considers both the “nested tap” and “rolling press” sequences like shown above as a hold action, not the tap action. `HOLD_ON_OTHER_KEY_PRESS` makes the Tap-Or-Hold decision earlier in the chain of key events, thus taking a precedence over `PERMISSIVE_HOLD`.  This remark also applies to default mod-taps.
+?> The `PERMISSIVE_HOLD` option is not noticeable if you also enable `HOLD_ON_OTHER_KEY_PRESS` because the latter option considers both the “nested tap” and “rolling press” sequences like shown above as a hold action, not the tap action. `HOLD_ON_OTHER_KEY_PRESS` makes the Tap-Or-Hold decision earlier in the chain of key events, thus taking a precedence over `PERMISSIVE_HOLD`.
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
@@ -351,8 +351,6 @@ An example of a sequence that is affected by the “hold on other key press” m
 ```
 
 Normally, if you do all this within the `TAPPING_TERM` (default: 200ms), this will be registered as `al` by the firmware and host system.  With the `HOLD_ON_OTHER_KEY_PRESS` option enabled, the Layer Tap key is considered as a layer switch if another key is pressed, and the above sequence would be registered as `KC_RGHT` (the mapping of `L` on layer 2).
-
-?> The `HOLD_ON_OTHER_KEY_PRESS` option is essentially redundant with the default mod-tap behaviour. The only notable difference is that `HOLD_ON_OTHER_KEY_PRESS` reduces the delay before the key events are made visible to the host.
 
 For more granular control of this feature, you can add the following to your `config.h`:
 
