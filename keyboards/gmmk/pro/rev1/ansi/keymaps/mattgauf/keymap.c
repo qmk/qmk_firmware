@@ -113,7 +113,7 @@ bool rgb_matrix_indicators_user(void) {
 
 
 // Called on start
-void dynamic_macro_record_start_user(void) {
+void dynamic_macro_record_start_user(int8_t direction) {
     dprint("-- Recording Started\n");
     layer_on(_UTILITY);
 }

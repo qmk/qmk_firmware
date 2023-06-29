@@ -17,7 +17,6 @@
 #pragma once
 
 #define EE_HANDS
-#define IGNORE_MOD_TAP_INTERRUPT
 
 // Fix for Elite C rev3
 #define SPLIT_USB_DETECT

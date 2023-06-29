@@ -24,7 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * to repeating that information all over the place.
  */
 
-#include QMK_KEYBOARD_H
+#include "matrix.h"
+#include "debug.h"
+#include "wait.h"
 #include "i2c_master.h"
 
 extern i2c_status_t tca9555_status;

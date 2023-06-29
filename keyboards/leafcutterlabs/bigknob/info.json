@@ -13,6 +13,9 @@
       {"pin_a": "D0", "pin_b": "D2"}
     ]
   },
+  "ws2812": {
+    "pin": "C7"
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "matrix_pins": {
@@ -26,11 +29,11 @@
   "layouts": {
     "LAYOUT_ortho_1x5": {
       "layout": [
-        {"x":0, "y":0, "matrix": [0, 0]},
-        {"x":1, "y":0, "matrix": [0, 1]},
-        {"x":2, "y":0, "matrix": [0, 2]},
-        {"x":3, "y":0, "matrix": [0, 3]},
-        {"x":4, "y":0, "matrix": [0, 4]}
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]},
+        {"x": 2, "y": 0, "matrix": [0, 2]},
+        {"x": 3, "y": 0, "matrix": [0, 3]},
+        {"x": 4, "y": 0, "matrix": [0, 4]}
       ]
     }
   }

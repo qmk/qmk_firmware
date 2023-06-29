@@ -232,7 +232,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * https://docs.qmk.fm/#/feature_macros?id=super-alt%e2%86%aftab
  */
 #if defined(ENCODER_MAP_ENABLE)
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
         /* Left Hand */                                                     /* Right Hand */
         /* Switch between tabs. (Control + Tab). */                         /* Switch between open apps on Mac. (Command + Tab + timer logic) */
         [_QWERTY] =  { ENCODER_CCW_CW(S(C(KC_TAB)), C(KC_TAB)),             ENCODER_CCW_CW(CMD_TAB_CCW, CMD_TAB_CW)  },

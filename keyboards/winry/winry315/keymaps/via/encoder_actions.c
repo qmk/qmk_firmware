@@ -37,7 +37,8 @@ static void exec_encoder_action(uint8_t index, bool clockwise, bool pressed) {
     keyevent_t encoder_event = (keyevent_t) {
         .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
         .pressed = pressed,
-        .time = (timer_read() | 1)
+        .time = timer_read(),
+        .type = KEY_EVENT
     };
     // clang-format on
     action_exec(encoder_event);
