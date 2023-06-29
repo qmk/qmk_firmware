@@ -3,8 +3,6 @@
 
 #define MEDAPP LT(MEDIA, KC_APP)
 
-uint8_t current_layer_global = 255;
-
 enum layers {
     DEFAULT,
     PROG1,
@@ -86,25 +84,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_LSFT,_______,C(KC_Y),C(KC_X),C(KC_C),C(KC_V), KC_SPC, KC_END,_______,C(KC_PGUP),C(KC_PGDN),_______,        _______,           _______,          _______,_______,_______,_______,
          _______,_______,_______,               LT(MISC, KC_SPC),                        _______,_______,_______,_______,   _______,_______,_______,  _______,_______),
 };
-
-void matrix_scan_user(void) {
-    uint8_t layer;
-    layer = get_highest_layer(layer_state);
-
-    if (current_layer_global != layer) {
-        current_layer_global = layer;
-
-        // unset CAPSLOCK and SCROLL LOCK LEDs
-        led_set(host_keyboard_leds() & ~(1<<USB_LED_CAPS_LOCK));
-        led_set(host_keyboard_leds() & ~(1<<USB_LED_SCROLL_LOCK));
-        // set SCROLL LOCK LED when the mouse layer is active, CAPS LOCK when PROG layer is active
-        if (layer == MOUSE1 || layer == MOUSE2) {
-          led_set(host_keyboard_leds() | (1<<USB_LED_SCROLL_LOCK));
-        } else if (layer == PROG1 || layer == PROG2) {
-          led_set(host_keyboard_leds() | (1<<USB_LED_CAPS_LOCK));
-        }
-    }
-}
 
 void tap_helper(keyrecord_t *record, uint16_t orig_mod, uint16_t macro_mod, uint16_t macro_kc ) {
   if (record->event.pressed) {
