@@ -5,7 +5,7 @@
 #ifdef OLED_ENABLE
 void render_host_led_state(void) {
     char    led_state_str[24];
-    uint8_t led_state = host_keyboard_led_state();
+    led_t led_state = host_keyboard_led_state();
 
     snprintf(led_state_str, sizeof(led_state_str), "NL:%s CL:%s SL:%s", led_state.num_lock ? "on" : "- ", led_state.caps_lock ? "on" : "- ", led_state.scroll_lock ? "on" : "- ");
     oled_write(led_state_str, false);
