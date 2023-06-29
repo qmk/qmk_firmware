@@ -23,6 +23,7 @@ x 英数字に戻る
 AVRで動くようにする
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
+編集モードの追加
 
 */
 
@@ -39,6 +40,8 @@ static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番�
 static uint16_t ngon_keys[2]; // 薙刀式をオンにするキー(通常HJ)
 static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
 static uint8_t keycnt = 0UL; //　押しているキーの数
+static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
+static bool is_henshu = false; // 編集モードかどうか
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -626,55 +629,55 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
     layer_off(naginata_layer);
 
   // OS切り替え(UNICODE出力)
-  // if (record->event.pressed) {
-  //   switch (keycode) {
-  //     case NG_ON:
-  //       naginata_on();
-  //       return false;
-  //       break;
-  //     case NG_OFF:
-  //       naginata_off();
-  //       return false;
-  //       break;
-  //     case NG_CLR:
-  //       naginata_clear();
-  //       return false;
-  //       break;
-  //     case NGSW_WIN:
-  //       switchOS(NG_WIN);
-  //       return false;
-  //       break;
-  //     case NGSW_MAC:
-  //       switchOS(NG_MAC);
-  //       return false;
-  //       break;
-  //     case NGSW_LNX:
-  //       switchOS(NG_LINUX);
-  //       return false;
-  //       break;
-  //     case NG_MLV:
-  //       mac_live_conversion_toggle();
-  //       return false;
-  //       break;
-  //     case NG_SHOS:
-  //       ng_show_os();
-  //       return false;
-  //       break;
-  //     case NG_TAYO:
-  //       tategaki_toggle();
-  //       return false;
-  //       break;
-  //     case NG_KOTI:
-  //       kouchi_shift_toggle();
-  //       return false;
-  //       break;
-  //   }
-  // }
+  if (record->event.pressed) {
+    switch (keycode) {
+      case NG_ON:
+        naginata_on();
+        return false;
+        break;
+      case NG_OFF:
+        naginata_off();
+        return false;
+        break;
+      case NG_CLR:
+        naginata_clear();
+        return false;
+        break;
+      case NGSW_WIN:
+        switchOS(NG_WIN);
+        return false;
+        break;
+      case NGSW_MAC:
+        switchOS(NG_MAC);
+        return false;
+        break;
+      case NGSW_LNX:
+        switchOS(NG_LINUX);
+        return false;
+        break;
+      case NG_MLV:
+        mac_live_conversion_toggle();
+        return false;
+        break;
+      case NG_SHOS:
+        ng_show_os();
+        return false;
+        break;
+      case NG_TAYO:
+        tategaki_toggle();
+        return false;
+        break;
+      case NG_KOTI:
+        kouchi_shift_toggle();
+        return false;
+        break;
+    }
+  }
   if (!is_naginata)
     return enable_naginata(keycode, record);
 
-  // if (process_modifier(keycode, record))
-  //   return true;
+  if (process_modifier(keycode, record))
+    return true;
 
   if (record->event.pressed) {
     switch (keycode) {
@@ -683,6 +686,24 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         keycnt++;
         nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
         ng_chrcount++;
+
+        keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
+        // 編集モードの判定
+        if (keycomb == (B_D | B_F) ||
+            keycomb == (B_J | B_K) ||
+            keycomb == (B_C | B_V) ||
+            keycomb == (B_M | B_COMM) ||
+            keycomb == (B_U | B_I) ||
+            keycomb == (B_E | B_R))
+          is_henshu = true;
+        if ((keycomb & (B_D | B_F)) != (B_D | B_F) &&
+            (keycomb & (B_J | B_K)) != (B_J | B_K) &&
+            (keycomb & (B_C | B_V)) != (B_C | B_V) &&
+            (keycomb & (B_M | B_COMM)) != (B_M | B_COMM) &&
+            (keycomb & (B_U | B_I)) != (B_U | B_I) &&
+            (keycomb & (B_E | B_R)) != (B_E | B_R))
+          is_henshu = false;
+        
         if (keycnt == NKEYS) {
           naginata_type();
           ng_chrcount = 0;
@@ -698,6 +719,17 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
       case NG_Q ... NG_SHFT2:  
         if (keycnt > 0)
           keycnt--;
+        
+        keycomb &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
+        // 編集モードの判定
+        if ((keycomb & (B_D | B_F)) != (B_D | B_F) &&
+            (keycomb & (B_J | B_K)) != (B_J | B_K) &&
+            (keycomb & (B_C | B_V)) != (B_C | B_V) &&
+            (keycomb & (B_M | B_COMM)) != (B_M | B_COMM) &&
+            (keycomb & (B_U | B_I)) != (B_U | B_I) &&
+            (keycomb & (B_E | B_R)) != (B_E | B_R))
+          is_henshu = false;
+
         for (int i = 0; i < ng_chrcount; i++) {
           if (keycode == nginput[i].keycode) {
             nginput[i].releaseTime = record->event.time;
