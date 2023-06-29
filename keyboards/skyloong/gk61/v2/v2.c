@@ -95,5 +95,11 @@ const is31_led __flash g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_USART1_REMAP | AFIO_MAPR_TIM3_REMAP_PARTIALREMAP;
 
-}
+};
 
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(28, 255, 255, 255); // assuming caps lock is at led #28
+    }
+    return false;
+}
