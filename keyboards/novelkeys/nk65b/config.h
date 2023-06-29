@@ -17,16 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { A0, A1, A2, B11, B6 }
-#define MATRIX_COL_PINS { A3, A4, A5, A6, A7, B0, B1, B2, B10, B12, B13, B14, B15, A8, A9 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* RGB options */
 
-#define RGB_DI_PIN B4
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 1
 #define WS2812_PWM_PAL_MODE 1

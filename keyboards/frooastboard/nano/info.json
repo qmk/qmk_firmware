@@ -7,26 +7,11 @@
     "layouts": {
         "LAYOUT": {
           "layout": [
-            {
-              "label": "Z",
-              "x": 0,
-              "y": 0
-            },
-            {
-              "label": "X",
-              "x": 1,
-              "y": 0
-            },
-            {
-              "label": "Esc",
-              "x": 0,
-              "y": 1
-            },
-            {
-              "label": "~",
-              "x": 1,
-              "y": 1
-            }
+            {"matrix": [0, 0], "x": 0, "y": 0},
+            {"matrix": [0, 1], "x": 1, "y": 0},
+
+            {"matrix": [1, 0], "x": 0, "y": 1},
+            {"matrix": [1, 1], "x": 1, "y": 1}
           ]
         }
     },
@@ -38,6 +23,9 @@
         "vid": "0x4642",
         "pid": "0x6F21",
         "device_version": "0.0.1"
+    },
+    "ws2812": {
+      "pin": "B4"
     },
     "bootmagic": {
         "matrix": [1, 1]

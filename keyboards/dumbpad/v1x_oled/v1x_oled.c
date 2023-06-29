@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v1x_oled.h"
+#include "quantum.h"
 
 #include <stdio.h>
 char wpm_str[10];

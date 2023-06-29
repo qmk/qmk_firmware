@@ -51,6 +51,9 @@ def create_make_target(target, dry_run=False, parallel=1, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
+    if cli.config.general.verbose:
+        env.append('VERBOSE=true')
+
     return [make_cmd, *(['-n'] if dry_run else []), *get_make_parallel_args(parallel), *env, target]
 
 
@@ -175,9 +178,6 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=Fa
     if bootloader:
         make_command.append(bootloader)
 
-    for key, value in env_vars.items():
-        make_command.append(f'{key}={value}')
-
     make_command.extend([
         f'KEYBOARD={user_keymap["keyboard"]}',
         f'KEYMAP={user_keymap["keymap"]}',
@@ -197,6 +197,9 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=Fa
         'SILENT=false',
         'QMK_BIN="qmk"',
     ])
+
+    for key, value in env_vars.items():
+        make_command.append(f'{key}={value}')
 
     return make_command
 

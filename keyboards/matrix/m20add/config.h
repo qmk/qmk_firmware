@@ -79,7 +79,6 @@
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
 // rgb light setting
-#define RGB_DI_PIN B4  // reserved pin for future usage
 #define RGBLED_NUM 20
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

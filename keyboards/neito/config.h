@@ -15,16 +15,10 @@
  */
 #pragma once
 
-#define MATRIX_ROW_PINS { E6, F0, F5, F6, C7, C6, B4, D7, D6, D4 }
-#define MATRIX_COL_PINS { F4, F1, F7, B2, D1, D2, B3, B1 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #define GRAVE_ESC_CTRL_OVERRIDE
 
 /* RGB Light Configuration */
 
-#define RGB_DI_PIN D5
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -40,7 +34,6 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 200
 
 /* Handle volume control issue with rotary encoder */
 

@@ -6,13 +6,25 @@
   "usb": {
     "vid": "0xFEED",
     "pid": "0xB195",
-    "device_version": "0.0.1"
+    "device_version": "0.0.1",
+    "force_nkro": true
   },
+  "ws2812": {
+    "pin": "B3"
+  },
+  "matrix_pins": {
+    "cols": ["D3"],
+    "rows": ["C5", "D2"]
+  },
+  "diode_direction": "ROW2COL",
   "processor": "atmega32u2",
   "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
-      "layout": [ {"x": 0, "y": 0 }, {"x": 0, "y": 1 }]
+      "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [1, 0], "x": 0, "y": 1}
+      ]
     }
   }
 }
