@@ -684,6 +684,10 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
       case NG_SHFT ... NG_SHFT2:
       case NG_Q ... NG_SLSH:
         keycnt++;
+        if (keycnt > NKEYS) {
+          naginata_type();
+          ng_chrcount = 0;
+        }
         nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
         ng_chrcount++;
 
@@ -704,10 +708,6 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
             (keycomb & (B_E | B_R)) != (B_E | B_R))
           is_henshu = false;
         
-        if (keycnt == NKEYS) {
-          naginata_type();
-          ng_chrcount = 0;
-        }
         #ifdef CONSOLE_ENABLE
         uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
         #endif
