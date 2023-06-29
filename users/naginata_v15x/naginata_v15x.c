@@ -23,7 +23,8 @@ x 英数字に戻る
 x AVRで動くようにする
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
-編集モードの追加
+編集モードの追加 (編集モードはかな変換と異なる処理にする)
+5キーの組み合わせへの拡張
 
 */
 
@@ -944,7 +945,7 @@ double scoring(Keystroke ks[], int size) {
 
   if (size == 1) { // 単打の重み
     #ifdef CONSOLE_ENABLE
-    uprintf("<scoring return=%u\n", (int)(0.5 * 1000));
+    uprintf("<scoring return=%u\n", (int)(1 * 1000));
     #endif
     return 1; // 単打を優先するか、同時押しを優先するかをチューニングする
   }
