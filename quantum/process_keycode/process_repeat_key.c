@@ -97,7 +97,7 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record) {
 
     if (keycode == QK_REPEAT_KEY) {
 #ifndef NO_ALT_REPEAT_KEY
-#	ifdef ALT_REPEAT_MASK
+#    ifdef ALT_REPEAT_MASK
         uint8_t mod = get_mods();
         if (mod & ALT_REPEAT_MASK) {
             del_mods(ALT_REPEAT_MASK);
@@ -105,8 +105,8 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record) {
             set_mods(mod);
             return false;
         }
-#	endif // ALT_REPEAT_MASK
-#endif // NO_ALT_REPEAT_KEY
+#    endif // ALT_REPEAT_MASK
+#endif     // NO_ALT_REPEAT_KEY
         repeat_key_invoke(&record->event);
         return false;
 #ifndef NO_ALT_REPEAT_KEY
