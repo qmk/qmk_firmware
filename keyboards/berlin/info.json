@@ -9,7 +9,8 @@
     "url": "https://github.com/berlinkeys/berlin",
     "features": {
         "encoder": true,
-        "extrakey": true
+        "extrakey": true,
+        "nkro": true
     },
     "usb": {
         "device_version": "1.0.0",

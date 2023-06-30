@@ -22,11 +22,17 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
 
 bool dip_switch_update_kb(uint8_t index, bool active) {
-    switch (index) {
-        case 0: // ENC0 Switch
-            if(active) {
-                tap_code(KC_MUTE);
-            }
+    if (!dip_switch_update_user(index, active)) {
+        return false; /* Don't process further events if user function exists and returns false */
     }
-    return false;
+    if (index == 0) { // ENC0 Button
+        if(active) {
+            tap_code(KC_MUTE);
+        }
+    } else if (index == 1) {
+        if(active) {
+                tap_code(KC_C);
+        }
+    }
+    return true;
 }
