@@ -23,7 +23,7 @@
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define OLED_FONT_H "keyboards/keycapsss/kimiko/keymaps/rgb_matrix/glcdfont.c"
+#define OLED_FONT_H "keyboards/keycapsss/kimiko/keymaps/oriaj3/glcdfont.c"
 // #define OLED_FONT_WIDTH 5
 // #define OLED_FONT_HEIGHT 7
 
