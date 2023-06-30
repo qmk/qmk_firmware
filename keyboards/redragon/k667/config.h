@@ -26,16 +26,3 @@
 
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL+DRIVER_2_LED_TOTAL)
 
-#define    ENABLE_RGB_MATRIX_SOLID_COLOR              
-#define    ENABLE_RGB_MATRIX_ALPHAS_MODS              
-#define    ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN         
-#define    ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT      
-#define    ENABLE_RGB_MATRIX_BREATHING                
-#define    ENABLE_RGB_MATRIX_BAND_SAT                 
-#define    ENABLE_RGB_MATRIX_BAND_VAL                 
-#define    ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL          
-#define    ENABLE_RGB_MATRIX_CYCLE_ALL                
-#define    ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT         
-#define    ENABLE_RGB_MATRIX_CYCLE_UP_DOWN            
-#define    ENABLE_RGB_MATRIX_HUE_WAVE                 
-#define    ENABLE_RGB_MATRIX_PIXEL_FLOW               
