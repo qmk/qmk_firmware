@@ -1,6 +1,6 @@
 # zed65
 
-![Zed65](https://i.imgur.com/T5Lm6OYlh.png)
+![Zed65](https://i.imgur.com/PevF9snh.png)
 
 A 65% PCB, APM32F103.
 
