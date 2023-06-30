@@ -45,7 +45,7 @@ void slider(void) {
     if (divisor++) { /* only run the slider function 1/256 times it's called */
         return;
     }
-    midi_send_cc(&midi_device, 2, midi2vol, 0x7F - (analogReadPin(SLIDER_PIN) >> 3));
+    midi_send_cc(&midi_device, 2, 0x3E, 0x7F - (analogReadPin(SLIDER_PIN_A) >> 3));
 }
 
 
