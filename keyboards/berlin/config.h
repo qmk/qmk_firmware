@@ -20,3 +20,7 @@
 //#define NO_ACTION_ONESHOT
 
 #define DIP_SWITCH_PINS { D9, E6 }
+
+#define SLIDER_PIN_A A2
+#define SLIDER_PIN_B A1
+#define SLIDER_PIN_C A0
