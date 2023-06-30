@@ -176,9 +176,9 @@
                 { "label": "Ctrl", "matrix": [3, 0], "x": 0, "y": 3, "w": 1.25 },
                 { "label": "Win", "matrix": [3, 1], "x": 1.25, "y": 3, "w": 1.25 },
                 { "label": "Alt", "matrix": [3, 2], "x": 2.5, "y": 3, "w": 1.25 },
-                { "label": "Space", "matrix": [3, 4], "x": 3.75, "y": 3, "w": 6.25 },
+                { "label": "Space", "matrix": [3, 4], "x": 3.75, "y": 3, "w": 2.25 },
                 { "label": "Space", "matrix": [3, 6], "x": 6, "y": 3, "w": 2.75 },
-                { "label": "Fn", "matrix": [3, 8], "x": 8.75, "y": 3, "w": 1.25 },
+                { "label": "Fn", "matrix": [3, 8], "x": 8.75, "y": 3 },
                 { "label": "Left", "matrix": [3, 9], "x": 9.75, "y": 3 },
                 { "label": "Down", "matrix": [3, 10], "x": 10.75, "y": 3 },
                 { "label": "Right", "matrix": [3, 11], "x": 11.75, "y": 3 }
