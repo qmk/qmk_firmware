@@ -96,6 +96,17 @@ bool process_repeat_key(uint16_t keycode, keyrecord_t* record) {
     }
 
     if (keycode == QK_REPEAT_KEY) {
+#ifndef NO_ALT_REPEAT_KEY
+#ifdef ALT_REPEAT_MASK
+        uint8_t mod = get_mods();
+        if(mod & ALT_REPEAT_MASK) {
+            del_mods(ALT_REPEAT_MASK);
+            alt_repeat_key_invoke(&record->event);
+            set_mods(mod);
+            return false;
+        }
+#endif // SHIFT_ALT_REPEAT_KEY
+#endif // NO_ALT_REPEAT_KEY
         repeat_key_invoke(&record->event);
         return false;
 #ifndef NO_ALT_REPEAT_KEY
