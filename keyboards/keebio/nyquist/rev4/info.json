@@ -20,7 +20,7 @@
         "encoder": {
             "right": {
                 "rotary": [
-                    {"pin_a": "GP0", "pin_b": "GP1" }
+                    {"pin_a": "GP1", "pin_b": "GP0" }
                 ]
             }
         },
@@ -35,13 +35,13 @@
         }
     },
     "matrix_pins": {
-        "cols": ["GP29", "GP22", "GP0", "GP5", "GP11", "GP6"],
+        "cols": ["GP29", "GP22", "GP0", "GP3", "GP11", "GP6"],
         "rows": ["GP2", "GP1", "GP17", "GP25", "GP24"]
     },
     "encoder": {
         "enabled": true,
         "rotary": [
-            {"pin_a": "GP27", "pin_b": "GP26" }
+            {"pin_a": "GP26", "pin_b": "GP27" }
         ]
     },
     "ws2812": {
