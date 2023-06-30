@@ -18,6 +18,8 @@
 #include "analog.h"
 #include "gpio.h"
 #include "wait.h"
+#include "timer.h"
+#include <stdlib.h>
 
 // Set Parameters
 uint16_t minAxisValue = ANALOG_JOYSTICK_AXIS_MIN;

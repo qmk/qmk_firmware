@@ -9,7 +9,7 @@ static uint16_t current_state = 0;
 
 void set_lights_default(void) {
     #ifdef RGBLIGHT_ENABLE
-        if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+        if (host_keyboard_led_state().caps_lock) {
             rgblight_sethsv_noeeprom(HSV_CAPS);
         } else {
             if (current_state == _BASE_MAC) {
@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             set_lights_default();
             #endif
             return true;
-        case RESET:
+        case QK_BOOT:
             #ifdef RGBLIGHT_ENABLE
             rgblight_sethsv_noeeprom(HSV_RESET);
             #endif

@@ -182,7 +182,7 @@ void matrix_init(void)
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -214,7 +214,7 @@ uint8_t matrix_scan(void)
         }
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 
@@ -244,16 +244,4 @@ void matrix_print(void)
         print_bin_reverse8(matrix_get_row(row));
         print("\n");
     }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        for (uint8_t j = 0; j < MATRIX_COLS; j++) {
-            if (matrix_is_on(i, j))
-                count++;
-        }
-    }
-    return count;
 }

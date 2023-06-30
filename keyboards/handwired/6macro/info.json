@@ -1,10 +1,37 @@
 {
     "keyboard_name": "6macro",
+    "manufacturer": "joaofbmaia",
     "url": "",
     "maintainer": "joaofbmaia",
+    "usb": {
+      "vid": "0xFEED",
+      "pid": "0x0037",
+      "device_version": "0.0.1"
+    },
+    "ws2812": {
+      "pin": "D2"
+    },
+    "rgb_matrix": {
+      "driver": "WS2812"
+    },
+    "matrix_pins": {
+      "cols": ["B0", "B1", "B2"],
+      "rows": ["B3", "B4"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "layouts": {
       "LAYOUT": {
-        "layout": [{"label":"k00", "x":0, "y":0}, {"label":"k01", "x":1, "y":0}, {"label":"k02", "x":2, "y":0}, {"label":"k10", "x":0, "y":1}, {"label":"k11", "x":1, "y":1}, {"label":"k12", "x":2, "y":1}]
+        "layout": [
+          {"label": "k00", "matrix": [0, 0], "x": 0, "y": 0},
+          {"label": "k01", "matrix": [0, 1], "x": 1, "y": 0},
+          {"label": "k02", "matrix": [0, 2], "x": 2, "y": 0},
+
+          {"label": "k10", "matrix": [1, 0], "x": 0, "y": 1},
+          {"label": "k11", "matrix": [1, 1], "x": 1, "y": 1},
+          {"label": "k12", "matrix": [1, 2], "x": 2, "y": 1}
+        ]
       }
     }
   }

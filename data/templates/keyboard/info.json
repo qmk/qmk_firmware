@@ -15,7 +15,7 @@
         "device_version": "1.0.0"
     },
     "features": {
-        "bootmagic_lite": true,
+        "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,

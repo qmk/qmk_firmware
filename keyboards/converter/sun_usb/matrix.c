@@ -15,7 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include QMK_KEYBOARD_H
+#include "matrix.h"
+#include "host.h"
+#include "led.h"
+#include "debug.h"
+#include "wait.h"
 #include "uart.h"
 
 /*
@@ -86,9 +90,9 @@ void matrix_init(void)
     /*     print("."); */
     /*     while (uart_read()); */
     /*     uart_write(0x01); */
-    /*     _delay_ms(500); */
+    /*     wait_ms(500); */
     /*     if (uart_read() == 0xFF) { */
-    /*         _delay_ms(500); */
+    /*         wait_ms(500); */
     /*         if (uart_read() == 0x04) */
     /*             break; */
     /*     } */
@@ -97,7 +101,7 @@ void matrix_init(void)
 
     /* PORTD &= ~(1<<6); */
 
-    matrix_init_quantum();
+    matrix_init_kb();
     return;
 }
 
@@ -112,7 +116,7 @@ uint8_t matrix_scan(void)
     switch (code) {
         case 0xFF:  // reset success: FF 04
             print("reset: ");
-            _delay_ms(500);
+            wait_ms(500);
             code = uart_read();
             xprintf("%02X\n", code);
             if (code == 0x04) {
@@ -122,12 +126,12 @@ uint8_t matrix_scan(void)
             return 0;
         case 0xFE:  // layout: FE <layout>
             print("layout: ");
-            _delay_ms(500);
+            wait_ms(500);
             xprintf("%02X\n", uart_read());
             return 0;
         case 0x7E:  // reset fail: 7E 01
             print("reset fail: ");
-            _delay_ms(500);
+            wait_ms(500);
             xprintf("%02X\n", uart_read());
             return 0;
         case 0x7F:
@@ -148,7 +152,7 @@ uint8_t matrix_scan(void)
         }
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return code;
 }
 
@@ -178,13 +182,4 @@ void matrix_print(void)
         print_bin_reverse8(matrix_get_row(row));
         print("\n");
     }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop(matrix[i]);
-    }
-    return count;
 }

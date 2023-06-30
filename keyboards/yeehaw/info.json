@@ -1,10 +1,46 @@
 {
-  "keyboard_name": "Yeehaw", 
-  "url": "https://squashkb.com/product/yeehaw", 
-  "maintainer": "Tsquash", 
+  "keyboard_name": "Yeehaw",
+  "manufacturer": "squashkb",
+  "url": "https://squashkb.com/product/yeehaw",
+  "maintainer": "Tsquash",
+  "usb": {
+    "vid": "0x5351",
+    "pid": "0x5458",
+    "device_version": "1.0.0"
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "D1", "pin_b": "D0"}
+    ]
+  },
+  "ws2812": {
+    "pin": "B2"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "matrix_pins": {
+    "direct": [
+      ["D2", "D4", "C6", "E6", "F5", "B1", "D3", "D7", "B4", "F6", "B3", "B5", "F7", "F4"]
+    ]
+  },
   "layouts": {
       "LAYOUT": {
-          "layout": [{"label":"VOLU", "x":1, "y":0}, {"label":"VOLD", "x":1, "y":1}, {"label":"M1", "x":2, "y":1.5}, {"label":"UP", "x":3, "y":1.5}, {"label":"MNXT", "x":1, "y":2}, {"label":"M2", "x":4, "y":2}, {"label":"LEFT", "x":2, "y":2.5}, {"label":"DOWN", "x":3, "y":2.5}, {"label":"MO(1)", "x":0, "y":2.75}, {"label":"MPRV", "x":1, "y":3}, {"label":"RIGHT", "x":4, "y":3}, {"label":"MPLY", "x":2, "y":3.5}, {"label":"CTL S", "x":3, "y":3.5}, {"label":"RGB TOG", "x":2.5, "y":4.5}]
+          "layout": [
+            {"x": 1, "y": 0, "matrix": [0, 0]},
+            {"x": 1, "y": 1, "matrix": [0, 1]},
+            {"x": 2, "y": 1.5, "matrix": [0, 2]},
+            {"x": 3, "y": 1.5, "matrix": [0, 3]},
+            {"x": 1, "y": 2, "matrix": [0, 4]},
+            {"x": 4, "y": 2, "matrix": [0, 5]},
+            {"x": 2, "y": 2.5, "matrix": [0, 6]},
+            {"x": 3, "y": 2.5, "matrix": [0, 7]},
+            {"x": 0, "y": 2.75, "matrix": [0, 8]},
+            {"x": 1, "y": 3, "matrix": [0, 9]},
+            {"x": 4, "y": 3, "matrix": [0, 10]},
+            {"x": 2, "y": 3.5, "matrix": [0, 11]},
+            {"x": 3, "y": 3.5, "matrix": [0, 12]},
+            {"x": 2.5, "y": 4.5, "matrix": [0, 13]}
+          ]
       }
   }
 }

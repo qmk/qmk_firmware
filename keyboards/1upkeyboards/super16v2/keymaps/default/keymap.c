@@ -27,8 +27,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_ortho_4x4( /* Fn Layer */
     RGB_TOG,   RGB_HUI,    RGB_SAI,    RGB_VAI,
     RGB_MOD,   RGB_HUD,    RGB_SAD,    RGB_VAD,
-    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,
-    KC_TRNS,   KC_TRNS,    KC_TRNS,    RESET
+    RGB_SPD,   RGB_SPI,    KC_TRNS,    KC_TRNS,
+    KC_TRNS,   KC_TRNS,    KC_TRNS,    QK_BOOT
   ),
 };
 
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code_delay(KC_VOLU, 10);
+        } else {
+            tap_code_delay(KC_VOLD, 10);
+        }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+            rgb_matrix_increase_hue();
+        } else {
+            rgb_matrix_decrease_hue();
+        }
+    }
+    return false;
+}

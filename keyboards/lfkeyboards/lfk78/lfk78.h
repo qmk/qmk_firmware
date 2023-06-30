@@ -2,14 +2,6 @@
 
 #include "quantum.h"
 
-#if defined(KEYBOARD_lfkeyboards_lfk78_revb)
-#    include "revb.h"
-#elif defined(KEYBOARD_lfkeyboards_lfk78_revc)
-#    include "revc.h"
-#elif defined(KEYBOARD_lfkeyboards_lfk78_revj)
-#    include "revj.h"
-#endif
-
 typedef struct RGB_Color {
     uint16_t red;
     uint16_t green;
@@ -30,4 +22,4 @@ extern const Layer_Info layer_info[];
 #define CLICK_ENABLED 0
 
 void reset_keyboard_kb(void);
-void click(uint16_t freq, uint16_t duration);
+void clicking_notes(uint16_t freq, uint16_t duration);

@@ -6,11 +6,11 @@
         #include "../../rev3/config.h"
         #include "../../rev3/rev3.h"
         enum dynamic_macro_keycodes {
-            DYN_REC_START1 = DYNAMIC_MACRO_RANGE,
-            DYN_REC_START2,
-            DYN_REC_STOP,
-            DYN_MACRO_PLAY1,
-            DYN_MACRO_PLAY2,
+            DM_REC1 = DYNAMIC_MACRO_RANGE,
+            DM_REC2,
+            DM_RSTP,
+            DM_PLY1,
+            DM_PLY2,
         };
         #define QMK_KEYBOARD_H "rev3.h"
     #endif
@@ -57,7 +57,7 @@
             // Space into Shift
         #define LSHFSP SFT_T(KC_SPACE)
             // Backspace into Shift
-        #define LSHFBK SFT_T(KC_BSPACE)
+        #define LSHFBK SFT_T(KC_BSPC)
 
     // Switching layers
         #define LTO_BS TO(_QWERTY_MAC)          // Go to Base Layer
@@ -66,8 +66,8 @@
         #define LLY_A LT(_NAV, KC_A)            // From A
             // Go to _PUNC
         #define LLY_TB LT(_PUNC, KC_TAB)        // From Tab
-        #define LLY_BK LT(_PUNC, KC_BSPACE)     // From Backspace
-        #define LLY_BS LT(_PUNC, KC_BSLASH)     // From Backslash
+        #define LLY_BK LT(_PUNC, KC_BSPC)       // From Backspace
+        #define LLY_BS LT(_PUNC, KC_BSLS)       // From Backslash
             // Others
         #define LLY_GR LT(_ONEHD, KC_GRV)       // Go to _ONEHD from `
         #define LLY_ET LT(_EXTRA, KC_ENT)       // Go to _EXTRA from Enter
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * LY|Bkp 	-> To _PUNC
      * LY|ENT 	-> To_EXTRA
      */
-    [_QWERTY_MAC] = LAYOUT_preonic_grid( \
+    [_QWERTY_MAC] = LAYOUT_preonic_grid(
         LCAGEQ,	    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINUS,
         LLY_TB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    LLY_BS,
         KC_HYPR,    LLY_A, 	 LCT_S,   LAT_D,   LWN_F,   KC_G,    KC_H,    LWN_J,   LAT_K,   LCT_L,   LLY_SC,  KC_QUOT,
@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | LY|` |MH/ESC| LY|DL|LW|Bkp|LY|Bk |    Space    |LY|ENT|RS|Bkp|   [  |   ]  |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
-    [_QWERTY_WIN] = LAYOUT_preonic_grid( \
+    [_QWERTY_WIN] = LAYOUT_preonic_grid(
         LCAGEQ,	    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINUS,
         LLY_TB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    LLY_BS,
         KC_HYPR,    LLY_A, 	 LWN_S,   LAT_D,   LCT_F,   KC_G,    KC_H,    LCT_J,   LAT_K,   LWN_L,   LLY_SC,  KC_QUOT,
@@ -191,9 +191,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | Ctrl | ESC  |  Alt |LW|Bkp|LY|Bk |    Space    |LY|ENT|RS|Bkp|   [  |   ]  |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
-    [_GAMING] = LAYOUT_preonic_grid( \
+    [_GAMING] = LAYOUT_preonic_grid(
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINUS,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLASH,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
         KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    LLY_SC,  KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_EQUAL,
         KC_LCTL, KC_ESC,  KC_LALT, LOWER,   LLY_BK,  KC_SPC,  KC_SPC,  LLY_ET,  RAISE,   KC_LBRC, KC_RBRC, LLSWIT
@@ -212,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | CTRL | ALT  | CMD  |      | XXXX |    Space    | XXXX |      | XXXX | XXXX |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
-    [_MUSIC] = LAYOUT_preonic_grid( \
+    [_MUSIC] = LAYOUT_preonic_grid(
         KC_ESC ,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -233,12 +233,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | CTRL |  Alt |  CMD | !!!! | Bksp |    Space    | Enter|      | Vol- | Vol+ |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
-    [_LOWER] = LAYOUT_preonic_grid( \
+    [_LOWER] = LAYOUT_preonic_grid(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,
         KC_TAB,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, KC_HOME, KC_PGUP,  KC_DEL,
         KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, XXXXXXX, XXXXXXX, XXXXXXX, KC_PAUS, KC_END,  KC_PGDN,  KC_F12,
         _______, KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT,  KC_INS,
-        KC_LCTL, KC_LALT, KC_LGUI, __LYB__, KC_BSPC, KC_SPC,  KC_SPC,  KC_ENT, _______, KC_VOLD, KC_VOLU,  LLSWIT\
+        KC_LCTL, KC_LALT, KC_LGUI, __LYB__, KC_BSPC, KC_SPC,  KC_SPC,  KC_ENT, _______, KC_VOLD, KC_VOLU,  LLSWIT
     ),
 
     /* Raise
@@ -254,12 +254,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | CTRL |  Alt |  CMD |      | Bksp |    Space    | Enter| !!!! | MPL1 | MPL2 |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
-    [_RAISE] = LAYOUT_preonic_grid( \
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_SLCK,  KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
+    [_RAISE] = LAYOUT_preonic_grid(
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_SCRL,  KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
         KC_TAB,  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, XXXXXXX,  KC_AMPR, KC_ASTR, KC_LCBR, KC_RCBR, KC_DEL,
-        KC_CLCK, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15, XXXXXXX,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, XXXXXXX,
-        _______, KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20, XXXXXXX,  KC_NUHS, KC_NUBS, DYN_REC_START1,   DYN_REC_START2, DYN_REC_STOP,
-        KC_LCTL, KC_LALT, KC_LGUI, _______, KC_BSPC, KC_SPC,  KC_SPC,  KC_ENT,  __LYB__, DYN_MACRO_PLAY1,  DYN_MACRO_PLAY2, LLSWIT
+        KC_CAPS, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15, XXXXXXX,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, XXXXXXX,
+        _______, KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20, XXXXXXX,  KC_NUHS, KC_NUBS, DM_REC1, DM_REC2, DM_RSTP,
+        KC_LCTL, KC_LALT, KC_LGUI, _______, KC_BSPC, KC_SPC,  KC_SPC,  KC_ENT,  __LYB__, DM_PLY1, DM_PLY2, LLSWIT
     ),
 
     /* Adjust (Lower + Raise)
@@ -275,12 +275,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |      |      |      |      |      |             |      |      |      |      |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
-    [_ADJUST] = LAYOUT_preonic_grid( \
+    [_ADJUST] = LAYOUT_preonic_grid(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,
-        KC_TAB,  RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, XXXXXXX,
-    /*_______, _______, MU_MOD,  AU_ON,   AU_OFF,  QWERTY,  QWWIN,	 QWERTY,  COLEMAK, DVORAK,  _______, _______, \ Remove this if adding Colemak and Dvorak*/
-        _______, _______, MU_MOD,  AU_ON,   AU_OFF,  QWERTY,  QWWIN,   QWERTY,  QWWIN,   _______, _______, KC_F12,
-        _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+        KC_TAB,  QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX,
+    /*_______, _______, MU_NEXT,  AU_ON,   AU_OFF,  QWERTY,  QWWIN,	 QWERTY,  COLEMAK, DVORAK,  _______, _______, Remove this if adding Colemak and Dvorak*/
+        _______, _______, MU_NEXT, AU_ON,   AU_OFF,  QWERTY,  QWWIN,   QWERTY,  QWWIN,   _______, _______, KC_F12,
+        _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, LLSWIT
     ),
 
@@ -297,7 +297,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |  ~   |  _   |  ^   | Del  | !!!! |    Space    | Enter| XXXX |  [   |   ]  |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
-    [_PUNC] = LAYOUT_preonic_grid( \
+    [_PUNC] = LAYOUT_preonic_grid(
         KC_PLUS,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_UNDS,
         __LYB__,  KC_AMPR,  KC_PIPE,  KC_LCBR,  KC_RCBR,  KC_MINS,  KC_MINS,  XXXXXXX,  XXXXXXX,  KC_LCBR,  KC_RCBR,  KC_PIPE,
         KC_DQUO,  KC_SLSH,  KC_ASTR,  KC_LPRN,  KC_RPRN,  KC_PLUS,  KC_PLUS,  XXXXXXX,  XXXXXXX,  KC_LBRC,  KC_RBRC,  KC_DQUO,
@@ -318,12 +318,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | CTRL |  ALT |  CMD |  Del | Bksp |    Space    | !!!! |      | MPL1 | MPL2 |LY_SW |
      * `-----------------------------------------------------------------------------------'
      */
-    [_EXTRA] = LAYOUT_preonic_grid( \
-        KC_ESC,   _______,  _______,  _______,  _______,  KC_SLCK,  _______,  _______,  _______,  _______,  _______,  _______,
+    [_EXTRA] = LAYOUT_preonic_grid(
+        KC_ESC,   _______,  _______,  _______,  _______,  KC_SCRL,  _______,  _______,  _______,  _______,  _______,  _______,
         KC_TAB,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_DEL,
-        KC_CLCK,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DYN_REC_START1, DYN_REC_START2, DYN_REC_STOP,
-        KC_LCTL,  KC_LALT,  KC_LGUI,  KC_DEL,  KC_BSPC,  KC_SPC,   KC_SPC,   __LYB__,  _______,  DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  LLSWIT
+        KC_CAPS,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  DM_REC1,  DM_REC2,  DM_RSTP,
+        KC_LCTL,  KC_LALT,  KC_LGUI,  KC_DEL,  KC_BSPC,  KC_SPC,   KC_SPC,   __LYB__,  _______,   DM_PLY1,  DM_PLY2,  LLSWIT
     ),
 
     /* Numeric Pad
@@ -339,8 +339,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |      | XXXX | !!!! | XXXX | Bksp |    Space    | NUM0 | NUM0 | NUM. | NENT | QMAC |
      * `-----------------------------------------------------------------------------------'
      */
-    [_NUM] = LAYOUT_preonic_grid( \
-        KC_ESC ,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_NLCK,  KC_PSLS,  KC_PAST,  KC_PMNS,  XXXXXXX,
+    [_NUM] = LAYOUT_preonic_grid(
+        KC_ESC ,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_NUM,   KC_PSLS,  KC_PAST,  KC_PMNS,  XXXXXXX,
         _______,  KC_HOME,  KC_UP,    KC_END,   KC_PGUP,  XXXXXXX,  XXXXXXX,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  XXXXXXX,
         KC_DQUO,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_PGDN,  XXXXXXX,  XXXXXXX,  KC_P4,    KC_P5,    KC_P6,    KC_PPLS,  XXXXXXX,
         _______,  KC_LCTL,  KC_LALT,  KC_LGUI,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_P1,    KC_P2,    KC_P3,    KC_PENT,  KC_BSPC,
@@ -360,7 +360,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | CTRL | ALT  | CMD  |      | Bksp |    Space    | Enter| VILM | VOLD | VOLU | QMAC |
      * `-----------------------------------------------------------------------------------'
      */
-    [_NAV] = LAYOUT_preonic_grid( \
+    [_NAV] = LAYOUT_preonic_grid(
         KC_ESC,   _______,  _______,  KC_BTN3,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  KC_A,     KC_BTN2,  KC_MS_U,  KC_BTN1,  KC_WH_U,  KC_PGUP,  KC_HOME,  KC_UP,    KC_END,   _______,  KC_DEL,
         _______,  __LYB__,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_WH_D,  KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT,  __LYB__,  _______,
@@ -381,12 +381,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * | !!!! |  Esc |  Del |  Ent | Bksp |             | MWLT | MWBT | MWUP | MWRT |LY_SW |
     * `-----------------------------------------------------------------------------------'
     */
-    [_ONEHD] = LAYOUT_preonic_grid( \
+    [_ONEHD] = LAYOUT_preonic_grid(
         KC_ESC ,  KC_6,     KC_7,     KC_8,     KC_9,      KC_0,     KC_MINUS, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,
         _______,  KC_Y,     KC_U,     KC_I,     KC_O,      KC_P,     LMW_L3,   LMW_FS,   LMW_R3,   LMW_TL,   LMW_TR,  XXXXXXX,
         _______,  KC_H,     KC_J,     KC_K,     KC_L,      KC_SCLN,  LMW_L1,   LMW_M1,   LMW_R1,   LMW_BL,   LMW_BR,  XXXXXXX,
         _______,  KC_N,     KC_M,     KC_COMM,  KC_DOT,    KC_SLSH,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,
-        __LYB__,  KC_ESC,  KC_DEL,    KC_ENT,   KC_BSPACE, KC_SPC,   KC_SPC,   LMW_LT,   LMW_BT,   LMW_TP,   LMW_RT,  LLSWIT
+        __LYB__,  KC_ESC,  KC_DEL,    KC_ENT,   KC_BSPC,   KC_SPC,   KC_SPC,   LMW_LT,   LMW_BT,   LMW_TP,   LMW_RT,  LLSWIT
     ),
 
     /* Layer Switcher
@@ -402,7 +402,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | XXXX | XXXX | NUM  | XXXX | XXXX |    XXXXX    | XXXX | XXXX | XXXX | XXXX | !!!! |
      * `-----------------------------------------------------------------------------------'
      */
-    [_LYSWT] = LAYOUT_preonic_grid( \
+    [_LYSWT] = LAYOUT_preonic_grid(
         KC_ESC ,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  	XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         BACKLIT,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  	XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
         XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  TO(_GAMING), XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX,  TO(_NAV), XXXXXXX,
@@ -419,7 +419,7 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Play sound on Macro stop
 #ifdef AUDIO_ENABLE
         switch (keycode) {
-            case DYN_REC_STOP:
+            case QK_DYNAMIC_MACRO_RECORD_STOP:
                 if (record->event.pressed) {
                     PLAY_SONG(tone_macro_record_stop);
                 }
@@ -506,13 +506,13 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 #ifdef AUDIO_ENABLE
             // Play sound on Macro record start
-        case DYN_REC_START1:
+        case QK_DYNAMIC_MACRO_RECORD_START_1:
             if (record->event.pressed) {
                 PLAY_SONG(tone_macro1_record);
             }
             return false;
             break;
-        case DYN_REC_START2:
+        case QK_DYNAMIC_MACRO_RECORD_START_2:
             if (record->event.pressed) {
                 PLAY_SONG(tone_macro2_record);
             }

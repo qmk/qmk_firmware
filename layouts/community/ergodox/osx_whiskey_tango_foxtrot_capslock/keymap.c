@@ -15,6 +15,10 @@ enum layer_names {
 
 typedef enum onoff_t {OFF, ON} onoff;
 
+#define caps_led_on  ergodox_right_led_2_on
+#define caps_led_off ergodox_right_led_2_off
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -123,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     // MEDIA AND TENKEY
     [MDIA] = LAYOUT_ergodox(
-       KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_F14,  KC_F15,
+       QK_BOOT, KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_F14,  KC_F15,
        KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
@@ -132,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                              KC_TRNS,
                                            KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand
-       KC_NO,   KC_NO,   KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, KC_NO,
+       KC_NO,   KC_NO,   KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS, KC_NO,
        KC_NO,   KC_NO,   KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_NO,
                 KC_NO,   KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_NO,
        KC_NO,   KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_PENT, KC_NO,
@@ -142,6 +146,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS
     ),
 };
+#ifndef NO_FAKE_CAPS
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    static onoff caps_state = OFF;
+
+    switch (keycode) {
+        case KC_CAPS:
+            if (record->event.pressed) {
+                if (caps_state == OFF) {
+                    caps_led_on();
+                    caps_state = ON;
+                } else {
+                    caps_led_off();
+                    caps_state = OFF;
+                }
+            }
+            break;
+        default:
+            if (keycode < KC_A || keycode > KC_Z) {
+                // This isn't an alpha or a KC_CAPS, continue on as usual.
+                return true;
+            }
+            if (record->event.pressed) {
+                bool shifted = (caps_state == ON && get_mods() == 0);
+                if (shifted) {
+                    register_code(KC_LSFT);
+                }
+                register_code(keycode);
+                if (shifted) {
+                    unregister_code(KC_LSFT);
+                }
+            } else {
+                unregister_code(keycode);
+            }
+            break;
+    }
+    // If we get here, we've already handled the keypresses.
+    return false;
+}
+#endif
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {

@@ -60,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_MOUSE] = LAYOUT_4x6_right(
-        _______, _______, _______, _______, _______, _______,                        KC_WH_U, _______, _______, _______, DPI_CONFIG, _______,
-        _______, _______, _______, _______, _______, _______,                        KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, _______,
+        _______, _______, _______, _______, _______, _______,                        KC_WH_U, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD, SNP_TOG,
+        _______, _______, _______, _______, _______, _______,                        KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, SNIPING,
         _______, _______, _______, _______, _______, _______,                        KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
                           _______, _______,                                                            _______, _______,
                                             _______, _______,                                 _______,
@@ -105,11 +105,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      _______, _______,    _______, _______
     ),
     [_ADJUST] = LAYOUT_4x6_right_wrapper(
-        KC_MAKE, _________________ADJUST_L1_________________,                      _________________ADJUST_R1_________________, KC_RST,
-        VRSN,    _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, EEP_RST,
-        UC_MOD,  _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, TG_MODS,
-                          HPT_DWLI, HPT_DWLD,                                                        TG_GAME, TG_DBLO,
-                                            HPT_TOG, HPT_BUZ,                               KC_NUKE,
+        QK_MAKE, _________________ADJUST_L1_________________,                      _________________ADJUST_R1_________________, QK_BOOT,
+        VRSN,    _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, EE_CLR,
+        UC_NEXT, _________________ADJUST_L3_________________,                      _________________ADJUST_R3_________________, TG_MODS,
+                          HF_DWLU, HF_DWLD,                                                        TG_GAME, TG_DBLO,
+                                            HF_TOGG, HF_BUZZ,                               KC_NUKE,
                                                      _______, _______,             _______,
                                                      _______, _______,    KC_NUKE, _______
     ),

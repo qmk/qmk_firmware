@@ -62,8 +62,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_preonic_grid(
-  KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LEAD,
+  QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    QK_LEAD,
   LCTL_T(KC_ESC),
            KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   OSL(_BRACKET),
@@ -95,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = LAYOUT_preonic_grid(
-  KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_LEAD,
+  QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, QK_LEAD,
   LCTL_T(KC_ESC),
            KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   OSL(_BRACKET),
@@ -128,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT_preonic_grid(
-  KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_LEAD,
+  QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    QK_LEAD,
   LCTL_T(KC_ESC),
            KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH,
   OSL(_BRACKET),
@@ -212,8 +212,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | F11  | F12  | F13  | F14  | F15  | F16  | F17  | F18  | F19  | F20  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Qwerty|Colemk|Dvorak|      |      |      |      |      |      |Print |RESET |
- * |      |      |      |      |      |      |      |      |      |      |screen|RESET |
+ * |      |Qwerty|Colemk|Dvorak|      |      |      |      |      |      |Print |QK_BOOT |
+ * |      |      |      |      |      |      |      |      |      |      |screen|QK_BOOT |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |Sleep |show  |      |      |finder|mv win|      |Lock  |      |      |
  * |      |      |      |Dsktp |      |      |Hddn  |clkw  |      |screen|      |      |
@@ -227,14 +227,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_preonic_grid(
   XXXXXXX, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  XXXXXXX,
-  XXXXXXX, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), RESET,
+  XXXXXXX, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SCMD(KC_5), QK_BOOT,
   XXXXXXX, XXXXXXX, C(LCMD(KC_PAUSE)),
                              LCMD(KC_F4),
                                       XXXXXXX, XXXXXXX, SCMD(KC_DOT),
                                                                  LCA(KC_J), XXXXXXX, C(LCMD(KC_Q)), XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS, SCMD(KC_V),
-                                               XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP,   XXXXXXX, LCAG(KC_UP), TG(_ADJUST),
-  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC__VOLDOWN, XXXXXXX, LCAG(KC_DOWN), XXXXXXX
+                                               XXXXXXX, XXXXXXX, KC_MUTE,  KC_VOLU,     XXXXXXX, LCAG(KC_UP), TG(_ADJUST),
+  _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_VOLD,     XXXXXXX, LCAG(KC_DOWN), XXXXXXX
 )
 
 
@@ -362,120 +362,113 @@ float leader_succeed_song[][2] = SONG(STARTUP_SOUND);
 //float leader_fail_song[][2] = SONG(GOODBYE_SOUND);
 float leader_fail_song[][2] = SONG(NO_SOUND);
 #endif
-LEADER_EXTERNS();
 
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    did_leader_succeed = leading = false;
-
-    // tap dance
-    // sort by first key
-
-    SEQ_ONE_KEY(KC_C) {
-      SEND_STRING(SS_TAP(X_CAPS));
-      did_leader_succeed = true;
-    }
-
-    SEQ_ONE_KEY(KC_BSPC) {
-      SEND_STRING(SS_TAP(X_DEL));
-      did_leader_succeed = true;
-    }
-
-    SEQ_ONE_KEY(KC_D) {
-      SEND_STRING("{}"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_D, KC_B) {
-      SEND_STRING("Dear Brother");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_D, KC_B, KC_S) {
-      SEND_STRING("Dear Brothers and Sister");
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_D, KC_D) {
-      SEND_STRING("{");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_D, KC_D, KC_D) {
-      SEND_STRING("}");
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_D, KC_S) {
-      SEND_STRING("Dear Sister");
-      did_leader_succeed = true;
-    }
-
-    // Html Tags
-    SEQ_TWO_KEYS(KC_H, KC_T) {
-      SEND_STRING("<></>"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-
-    SEQ_TWO_KEYS(KC_I, KC_C) {
-      SEND_STRING("In Christ,");
-      did_leader_succeed = true;
-    }
-
-    SEQ_ONE_KEY(KC_J) {
-      SEND_STRING("<>"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_J, KC_J) {
-      SEND_STRING("<");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_J, KC_J, KC_J) {
-      SEND_STRING(">");
-      did_leader_succeed = true;
-    }
-
-    SEQ_TWO_KEYS(KC_T, KC_S) {
-      SEND_STRING("Thanks!");
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_T, KC_Y) {
-      SEND_STRING("Thank you!");
-      did_leader_succeed = true;
-    }
-
-    SEQ_ONE_KEY(KC_X) {
-      SEND_STRING("()"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_X, KC_X) {
-      SEND_STRING("(");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_X, KC_X, KC_X) {
-      SEND_STRING(")");
-      did_leader_succeed = true;
-    }
-
-    SEQ_ONE_KEY(KC_Z) {
-      SEND_STRING("[]"SS_TAP(X_LEFT));
-      did_leader_succeed = true;
-    }
-    SEQ_TWO_KEYS(KC_Z, KC_Z) {
-      SEND_STRING("[");
-      did_leader_succeed = true;
-    }
-    SEQ_THREE_KEYS(KC_Z, KC_Z, KC_Z) {
-      SEND_STRING("]");
-      did_leader_succeed = true;
-    }
-
-    leader_end();
-  }
-}
-
-void leader_start(void) {
+void leader_start_user(void) {
 #ifdef AUDIO_ENABLE
     PLAY_SONG(leader_start_song);
 #endif
 }
 
-void leader_end(void) {
+void leader_end_user(void) {
+  did_leader_succeed = false;
+
+  // tap dance
+  // sort by first key
+
+  if (leader_sequence_one_key(KC_C)) {
+    SEND_STRING(SS_TAP(X_CAPS));
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_one_key(KC_BSPC)) {
+    SEND_STRING(SS_TAP(X_DEL));
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_one_key(KC_D)) {
+    SEND_STRING("{}"SS_TAP(X_LEFT));
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_D, KC_B)) {
+    SEND_STRING("Dear Brother");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_three_keys(KC_D, KC_B, KC_S)) {
+    SEND_STRING("Dear Brothers and Sister");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_D, KC_D)) {
+    SEND_STRING("{");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_three_keys(KC_D, KC_D, KC_D)) {
+    SEND_STRING("}");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_D, KC_S)) {
+    SEND_STRING("Dear Sister");
+    did_leader_succeed = true;
+  }
+
+  // Html Tags
+  if (leader_sequence_two_keys(KC_H, KC_T)) {
+    SEND_STRING("<></>"SS_TAP(X_LEFT));
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_two_keys(KC_I, KC_C)) {
+    SEND_STRING("In Christ,");
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_one_key(KC_J)) {
+    SEND_STRING("<>"SS_TAP(X_LEFT));
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_J, KC_J)) {
+    SEND_STRING("<");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_three_keys(KC_J, KC_J, KC_J)) {
+    SEND_STRING(">");
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_two_keys(KC_T, KC_S)) {
+    SEND_STRING("Thanks!");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_T, KC_Y)) {
+    SEND_STRING("Thank you!");
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_one_key(KC_X)) {
+    SEND_STRING("()"SS_TAP(X_LEFT));
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_X, KC_X)) {
+    SEND_STRING("(");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_three_keys(KC_X, KC_X, KC_X)) {
+    SEND_STRING(")");
+    did_leader_succeed = true;
+  }
+
+  if (leader_sequence_one_key(KC_Z)) {
+    SEND_STRING("[]"SS_TAP(X_LEFT));
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_two_keys(KC_Z, KC_Z)) {
+    SEND_STRING("[");
+    did_leader_succeed = true;
+  }
+  if (leader_sequence_three_keys(KC_Z, KC_Z, KC_Z)) {
+    SEND_STRING("]");
+    did_leader_succeed = true;
+  }
+
   if (did_leader_succeed) {
 #ifdef AUDIO_ENABLE
     PLAY_SONG(leader_succeed_song);

@@ -1,9 +1,3 @@
-# MCU name
-MCU = at90usb1286
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -16,8 +10,8 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = yes          # Audio output
-ENCODER_ENABLE = yes
-HAPTIC_ENABLE = yes
-HAPTIC_DRIVER = DRV2605L
+ENCODER_ENABLE = yes        # Rotary encoder
+HAPTIC_ENABLE = yes         # Rumble feefback
+HAPTIC_DRIVER = DRV2605L    # Rumble motor
 
-LTO_ENABLE = yes
+LTO_ENABLE = yes            # Link time optimization

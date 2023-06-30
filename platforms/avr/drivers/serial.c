@@ -498,6 +498,10 @@ bool soft_serial_transaction(int sstd_index) {
     sei();
     return true;
 }
+#else
+#    ifndef USE_I2C
+#        error SOFT_SERIAL_PIN or USE_I2C is required but has not been defined.
+#    endif
 #endif
 
 // Helix serial.c history

@@ -17,4 +17,4 @@
 #pragma once
 
 #undef PRODUCT
-#define PRODUCT MadHatter\x27s Hotswap Kbd67 rev1
+#define PRODUCT "MadHatter's Hotswap Kbd67 rev1"

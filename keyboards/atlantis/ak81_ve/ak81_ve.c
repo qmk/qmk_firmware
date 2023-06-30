@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#include "ak81_ve.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
@@ -40,8 +40,8 @@ led_config_t g_led_config = { {
   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 
-  4, 4, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
-  4, 4, 4, 1, 1, 4, 1, 1, 1, 
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 
   2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
 } };
 #endif
@@ -52,9 +52,30 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         return false;
     }
     if (clockwise) {
-        tap_code(KC_VOLD);
-    } else {
-        tap_code(KC_VOLU);
+        switch (get_highest_layer(layer_state)) {
+          case 0:
+            tap_code(KC_VOLU);
+            break;
+          case 1:
+            rgb_matrix_step();
+            break;
+          default:
+            tap_code(KC_VOLU);
+            break;
+        }
+      }
+    else {
+        switch (get_highest_layer(layer_state)) {
+          case 0:
+            tap_code(KC_VOLD);
+            break;
+          case 1:
+            rgb_matrix_step_reverse();
+            break;
+          default:
+            tap_code(KC_VOLD);
+            break;
+        }
     }
     return true;
 }

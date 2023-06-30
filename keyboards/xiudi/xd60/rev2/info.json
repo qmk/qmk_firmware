@@ -1,0 +1,21 @@
+{
+    "keyboard_name": "XD60 Rev 2",
+    "usb": {
+        "pid": "0x6060"
+    },
+    "matrix_pins": {
+        "cols": ["F0", "F1", "E6", "C7", "C6", "B6", "D4", "B1", "B7", "B5", "B4", "D7", "D6", "B3"],
+        "rows": ["D0", "D1", "D2", "D3", "D5"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "pin": "F5",
+        "levels": 6,
+        "on_state": 0
+    },
+    "ws2812": {
+        "pin": "F6"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

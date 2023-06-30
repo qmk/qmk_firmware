@@ -13,25 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x0483
-#define PRODUCT_ID      0xA372
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    GeekBoards
-#define PRODUCT         Macropad v2
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
-
-#define DIRECT_PINS {{B13, B15, B3, B5}, {B12, B14, A13, B7}}
-#define UNUSED_PINS
+#pragma once
 
 #define RGBLED_NUM 42
-#define DRIVER_LED_TOTAL 42
-#define RGB_DI_PIN A7
+#define RGB_MATRIX_LED_COUNT 42
 
 // PWM RGB Underglow Defines
 #define WS2812_PWM_DRIVER PWMD3
@@ -92,20 +78,13 @@
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_UP_DOWN
-#    define RGB_MATRIX_STARTUP_SAT 255
-#    define RGB_MATRIX_STARTUP_VAL 192
-#    define RGB_MATRIX_STARTUP_SPD 30
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_UP_DOWN
+#    define RGB_MATRIX_DEFAULT_SAT 255
+#    define RGB_MATRIX_DEFAULT_VAL 192
+#    define RGB_MATRIX_DEFAULT_SPD 30
 #endif //RGB_MATRIX_ENABLE
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define WAIT_FOR_USB
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
 
 #define TAP_CODE_DELAY 10

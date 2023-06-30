@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_landscape(
         TT(_FN1), TT(_FN2), KC_MUTE,
 
-        KC_NLCK,  KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_BSPC,
+        KC_NUM,   KC_PSLS,  KC_PAST, KC_PMNS, KC_PPLS,      KC_BSPC,
         KC_TAB,   KC_P7,    KC_P8,   KC_P9,   KC_PDOT,      KC_RGUI,
         KC_RSFT,  KC_P4,    KC_P5,   KC_P6,   KC_COMMA,     KC_RCTL,
         KC_P0,    KC_P1,    KC_P2,   KC_P3,   KC_PENT,      KC_RALT,
@@ -44,14 +44,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, ENCFUNC,
 
         _______,  KC_F10,   KC_F11,  KC_F12,  KC_PSCR,      _______,
-        _______,  KC_F7,    KC_F8,   KC_F9,   KC_SLCK,      _______,
+        _______,  KC_F7,    KC_F8,   KC_F9,   KC_SCRL,      _______,
         _______,  KC_F4,    KC_F5,   KC_F6,   KC_PAUS,      _______,
         _______,  KC_F1,    KC_F2,   KC_F3,   _______,      _______,
 
                  _______, _______, _______
     ),
 	[_FN2] = LAYOUT_landscape(
-        _______,  _______, RESET,
+        _______,  _______, QK_BOOT,
 
         _______,  _______,  KC_MPLY,  KC_MPRV, KC_MNXT,     _______,
         _______,  _______,  _______,  _______, _______,     _______,
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
     [_BASE] = LAYOUT(
                   TT(_FN2),TT(_FN3),TT(_FN4),LT(_RGB,KC_PSCR),
-				  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+				  KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
                   KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_MUTE,  KC_P4,   KC_P5,   KC_P6,   _______,
         TT(_FN1), KC_P1,   KC_P2,   KC_P3,   KC_PENT,
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 				          TT(_FN3), TT(_FN4), TT(_RGB)
     ),
     [_FN1] = LAYOUT(
-                  _______, _______, _______, RESET,
+                  _______, _______, _______, QK_BOOT,
                   KC_CALC, _______, _______, _______,
                   _______, _______, _______, _______,
         ENCFUNC,  KC_TAB,  _______, _______, _______,
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   _______, _______, _______, _______,
                   _______, _______, KC_MPLY, KC_MPRV,
                   _______, _______, _______, KC_MNXT,
-        RESET,    _______, _______, _______, _______,
+        QK_BOOT,  _______, _______, _______, _______,
         _______,  _______, _______, _______, _______,
         _______,  _______, _______, _______, _______,
 
@@ -175,10 +175,10 @@ static const keycodedescType PROGMEM keyselection[] = {
         {"Break",   KC_PAUS},
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
-        {"RESET",   RESET},   // firmware flash mode
+        {"RESET",   QK_BOOT},   // firmware flash mode
 };
 
-#define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
+#define MAX_KEYSELECTION ARRAY_SIZE(keyselection)
 
 static uint8_t selectedkey_idx = 0;
 static keycodedescType selectedkey_rec;
@@ -200,7 +200,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case ENCFUNC:
         if (record->event.pressed) {
-            selectedkey_rec.keycode == RESET ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle RESET code
+            selectedkey_rec.keycode == QK_BOOT ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle QK_BOOT code
         } else {
             // when keycode is released
         }
@@ -274,7 +274,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 break;
             }
         }
-        return true;
+        return false;
     }
 #endif
 
@@ -296,6 +296,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 	}
 
     #ifdef LANDSCAPE_MODE
+    oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+       return OLED_ROTATION_0;       // do not flip the display
+    }
+
     bool oled_task_user(void) {
 
         render_logo();
@@ -365,10 +369,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
     // regular mode
     #ifndef LANDSCAPE_MODE
- 	oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-		return OLED_ROTATION_270;       // flips the display 270 degrees
-	}
-
     bool oled_task_user(void) {
 		render_logo();
 		oled_set_cursor(0,5);

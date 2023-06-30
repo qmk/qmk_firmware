@@ -1,7 +1,7 @@
 #include "unicode.h"
 
 //#ifdef UNICODEMAP_ENABLE
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [BANG]      = 0x0203D,// ‽
   [IRONY]     = 0x02E2E,// ⸮
   [DEGREE]    = 0x000B0,// °

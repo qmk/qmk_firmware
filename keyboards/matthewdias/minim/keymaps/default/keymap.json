@@ -1,5 +1,5 @@
 {
-  "keyboard": "minim",
+  "keyboard": "matthewdias/minim",
   "keymap": "default",
   "layout": "LAYOUT",
   "layers": [

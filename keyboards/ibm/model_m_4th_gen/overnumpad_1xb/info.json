@@ -1,0 +1,26 @@
+{
+    "keyboard_name": "IBM Model M (4th generation)",
+    "manufacturer": "IBM/Purdea Andrei",
+    "url": "https://github.com/purdeaandrei/overnumpad_controller_1xb",
+    "maintainer": "purdeaandrei",
+    "usb": {
+        "vid": "0x16C0",
+        "pid": "0x27DB",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "C11",
+        "num_lock": "C12",
+        "scroll_lock": "C10"
+    },
+    "processor": "STM32F446", // RET6
+    "bootloader": "stm32-dfu",
+    "diode_direction": "ROW2COL",
+    "matrix_pins": {
+        // All pins in order from left-to-right, as seen on the keyboard:
+        // C3, C2, C1, C0, A3, A4, A5, A6, A7, C4, C5, B0, B1, B10, B12, B13, B14, B15, C6, C7, C8, C9, A8, A9, A10,
+        // On this keyboard columns and rows are staggered:
+        "cols": ["C3", "C2", "C1", "C0", "A3", "A4", "A5", "A6", "C4", "B0", "B10", "B13", "C6", "C7", "C8", "C9"],
+        "rows": ["A7", "C5", "B1", "B12", "B14", "B15", "A8", "A9"]
+    }
+}

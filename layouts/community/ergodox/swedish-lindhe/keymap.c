@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS,         KC_A,     KC_S,     KC_D,    KC_F,    KC_G,
     KC_LSFT,         KC_Z,     KC_X,     KC_C,    KC_V,    KC_B,   SE_ACUT,
     CTL_T(SE_QUOT),  SE_CIRC,  SE_ASTR,  KC_LALT, KC_LGUI,
-                                               KC_LCTRL,  KC_LALT,
+                                                 KC_LCTL, KC_LALT,
                                                           SE_TILD,
                                          KC_SPC, KC_BSPC, KC_ESC,
     // right hand
@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS, KC_PSLS, KC_PAST, KC_PMNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_7,    KC_8,    KC_9,    KC_PPLS, KC_TRNS,
                 KC_TRNS, KC_4,    KC_5,    KC_6,    KC_PPLS, KC_TRNS,
-       RESET,   KC_TRNS, KC_1,    KC_2,    KC_3,    KC_PENT, KC_TRNS,
+       QK_BOOT, KC_TRNS, KC_1,    KC_2,    KC_3,    KC_PENT, KC_TRNS,
                          KC_0,    KC_COMM, KC_DOT,  KC_PENT, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -162,7 +162,7 @@ void matrix_init_user(void) {
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

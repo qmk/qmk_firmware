@@ -63,8 +63,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 通常、これら全てを `TAPPING_TERM` (デフォルト: 200ms) 内で行うと、ファームウェアとホストシステムによって `ax` として登録されます。許容ホールドを有効にすると、別のキーがタップされた場合にモッドタップキーを修飾キーと見なすように処理を変更し、 `X` (`SHIFT`+`x`)  と登録されます。
 
-?> `モッドタップ割り込みの無視`を有効にしている場合、これにより両方の動きが変更されます。通常のキーには、最初のキーが最初に放された場合、あるいは両方のキーが  `TAPPING_TERM` より長くホールドされた場合に、修飾キーが追加されます。
-
 この機能をより細かく制御するために、以下を `config.h` に追加することができます:
 
 ```c
@@ -77,51 +75,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(1, KC_BSPC):
-            return true;
-        default:
-            return false;
-    }
-}
-```
-
-## モッドタップ割り込みの無視
-
-この設定を有効にするには、これを `config.h` に追加してください:
-
-```c
-#define IGNORE_MOD_TAP_INTERRUPT
-```
-
-許容ホールドと同様に、これは高速なタイピストのためのファームウェアの処理方法を変更します。モッドタップキーを押し、他のキーを押し、モッドタップキーを放し、通常のキーを放すと、`TAPPING_TERM` 内で押された場合でも、通常はモッドと通常のキーが出力されます。これは、ローリングコンボキーや、頻繁に使用するキー(例えば、`RCTL_T(KC_QUOT)`)にモッドタップを使う高速なタイピストには望ましくない場合があります。
-
-`モッドタップ割り込みの無視`を設定するには、両方のキーを `TAPPING_TERM` の間ホールドすると、(その修飾キーの)ホールド機能を実行する必要があります。
-
-例えば:
-
-- `SFT_T(KC_A)` を押す
-- `KC_X` を押す
-- `SFT_T(KC_A)` を放す
-- `KC_X` を放す
-
-通常、これは大文字の `X` (`SHIFT`+`x`)、またはモッド + キーを送信します。`モッドタップ割り込みの無視` を有効にすると、ホールドアクションを登録するには、両方のキーを `TAPPING_TERM` の間ホールドする必要があります。この場合、素早いタップは `ax` を送信しますが、両方をホールドすると、大文字の `X`  (`SHIFT`+`x`) を出力します。
-
-
-?> __注意__: これはモディファイアにのみ関係し、レイヤー切り替えキーには関係しません。
-
-?> `許容ホールド`を有効にすると、これは両方がどのように動作するかを変更します。通常のキーには、最初のキーが最初に放された場合、あるいは両方のキーが  `TAPPING_TERM` より長くホールドされた場合に、修飾キーが追加されます。
-
-この機能をより細かく制御するために、以下を `config.h` に追加することができます:
-
-```c
-#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
-```
-
-そして、以下の関数をキーマップに追加します:
-
-```c
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case SFT_T(KC_SPC):
             return true;
         default:
             return false;

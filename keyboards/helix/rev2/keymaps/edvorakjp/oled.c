@@ -19,7 +19,7 @@ void render_layer_state(void) {
     char layer_name[17];
     oled_write_P(PSTR("Layer: "), false);
 
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case L_EDVORAKJP_BASE:
             oled_write_ln_P(PSTR("Default"), false);
             break;

@@ -14,14 +14,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "dogtag.h"
+#include "quantum.h"
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (clockwise) {
-        tap_code(KC_MS_WH_DOWN);
+    keypos_t key;
+    if (index == 0) {
+        if (clockwise) {
+            key.row = 2;
+            key.col = 1;
+        } else {
+            key.row = 2;
+            key.col = 0;
+        }
+        uint8_t layer = layer_switch_get_layer(key);
+        uint16_t keycode = keymap_key_to_keycode(layer, key);
+
+        tap_code16(keycode);
     } else {
-        tap_code(KC_MS_WH_UP);
+        if (clockwise) {
+            key.row = 5;
+            key.col = 0;
+        } else {
+            key.row = 5;
+            key.col = 1;
+        }
+        uint8_t  layer   = layer_switch_get_layer(key);
+        uint16_t keycode = keymap_key_to_keycode(layer, key);
+
+        tap_code16(keycode);
     }
 
     return true;

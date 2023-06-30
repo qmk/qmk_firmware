@@ -1,0 +1,229 @@
+{
+    "keycodes": {
+
+        "0x7700": {
+            "group": "macro",
+            "key": "QK_MACRO_0",
+            "aliases": [
+                "MC_0"
+            ]
+        },
+        "0x7701": {
+            "group": "macro",
+            "key": "QK_MACRO_1",
+            "aliases": [
+                "MC_1"
+            ]
+        },
+        "0x7702": {
+            "group": "macro",
+            "key": "QK_MACRO_2",
+            "aliases": [
+                "MC_2"
+            ]
+        },
+        "0x7703": {
+            "group": "macro",
+            "key": "QK_MACRO_3",
+            "aliases": [
+                "MC_3"
+            ]
+        },
+        "0x7704": {
+            "group": "macro",
+            "key": "QK_MACRO_4",
+            "aliases": [
+                "MC_4"
+            ]
+        },
+        "0x7705": {
+            "group": "macro",
+            "key": "QK_MACRO_5",
+            "aliases": [
+                "MC_5"
+            ]
+        },
+        "0x7706": {
+            "group": "macro",
+            "key": "QK_MACRO_6",
+            "aliases": [
+                "MC_6"
+            ]
+        },
+        "0x7707": {
+            "group": "macro",
+            "key": "QK_MACRO_7",
+            "aliases": [
+                "MC_7"
+            ]
+        },
+        "0x7708": {
+            "group": "macro",
+            "key": "QK_MACRO_8",
+            "aliases": [
+                "MC_8"
+            ]
+        },
+        "0x7709": {
+            "group": "macro",
+            "key": "QK_MACRO_9",
+            "aliases": [
+                "MC_9"
+            ]
+        },
+        "0x770A": {
+            "group": "macro",
+            "key": "QK_MACRO_10",
+            "aliases": [
+                "MC_10"
+            ]
+        },
+        "0x770B": {
+            "group": "macro",
+            "key": "QK_MACRO_11",
+            "aliases": [
+                "MC_11"
+            ]
+        },
+        "0x770C": {
+            "group": "macro",
+            "key": "QK_MACRO_12",
+            "aliases": [
+                "MC_12"
+            ]
+        },
+        "0x770D": {
+            "group": "macro",
+            "key": "QK_MACRO_13",
+            "aliases": [
+                "MC_13"
+            ]
+        },
+        "0x770E": {
+            "group": "macro",
+            "key": "QK_MACRO_14",
+            "aliases": [
+                "MC_14"
+            ]
+        },
+        "0x770F": {
+            "group": "macro",
+            "key": "QK_MACRO_15",
+            "aliases": [
+                "MC_15"
+            ]
+        },
+        "0x7710": {
+            "group": "macro",
+            "key": "QK_MACRO_16",
+            "aliases": [
+                "MC_16"
+            ]
+        },
+        "0x7711": {
+            "group": "macro",
+            "key": "QK_MACRO_17",
+            "aliases": [
+                "MC_17"
+            ]
+        },
+        "0x7712": {
+            "group": "macro",
+            "key": "QK_MACRO_18",
+            "aliases": [
+                "MC_18"
+            ]
+        },
+        "0x7713": {
+            "group": "macro",
+            "key": "QK_MACRO_19",
+            "aliases": [
+                "MC_19"
+            ]
+        },
+        "0x7714": {
+            "group": "macro",
+            "key": "QK_MACRO_20",
+            "aliases": [
+                "MC_20"
+            ]
+        },
+        "0x7715": {
+            "group": "macro",
+            "key": "QK_MACRO_21",
+            "aliases": [
+                "MC_21"
+            ]
+        },
+        "0x7716": {
+            "group": "macro",
+            "key": "QK_MACRO_22",
+            "aliases": [
+                "MC_22"
+            ]
+        },
+        "0x7717": {
+            "group": "macro",
+            "key": "QK_MACRO_23",
+            "aliases": [
+                "MC_23"
+            ]
+        },
+        "0x7718": {
+            "group": "macro",
+            "key": "QK_MACRO_24",
+            "aliases": [
+                "MC_24"
+            ]
+        },
+        "0x7719": {
+            "group": "macro",
+            "key": "QK_MACRO_25",
+            "aliases": [
+                "MC_25"
+            ]
+        },
+        "0x771A": {
+            "group": "macro",
+            "key": "QK_MACRO_26",
+            "aliases": [
+                "MC_26"
+            ]
+        },
+        "0x771B": {
+            "group": "macro",
+            "key": "QK_MACRO_27",
+            "aliases": [
+                "MC_27"
+            ]
+        },
+        "0x771C": {
+            "group": "macro",
+            "key": "QK_MACRO_28",
+            "aliases": [
+                "MC_28"
+            ]
+        },
+        "0x771D": {
+            "group": "macro",
+            "key": "QK_MACRO_29",
+            "aliases": [
+                "MC_29"
+            ]
+        },
+        "0x771E": {
+            "group": "macro",
+            "key": "QK_MACRO_30",
+            "aliases": [
+                "MC_30"
+            ]
+        },
+        "0x771F": {
+            "group": "macro",
+            "key": "QK_MACRO_31",
+            "aliases": [
+                "MC_31"
+            ]
+        }
+    }
+}

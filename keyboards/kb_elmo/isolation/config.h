@@ -17,31 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xA68C
-#define PRODUCT_ID   0x4EE6
-#define DEVICE_VER   0x0001
-#define MANUFACTURER kb-elmo
-#define PRODUCT      ISOlation
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
-/* direct key pin */
-#define DIRECT_PINS {{ B0 }}
-#define UNUSED_PINS
-
 /* RGB backlight */
-#define RGB_DI_PIN B2
-#ifdef RGB_DI_PIN
 #    define RGBLED_NUM 3
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
 #    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -52,11 +32,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_TWINKLE
-#endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

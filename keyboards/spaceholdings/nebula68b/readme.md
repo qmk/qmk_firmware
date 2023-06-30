@@ -29,4 +29,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 - Unplug
 - Hold Escape
 - Plug In
-- Flash using QMK Toolbox or dfu-util (`make nebula65b:<keymap>:flash`)
+- Flash using QMK Toolbox or dfu-util (`make nebula68b:<keymap>:flash`)

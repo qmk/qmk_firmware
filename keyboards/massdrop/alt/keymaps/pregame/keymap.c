@@ -14,7 +14,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "keymap.h"
+#include QMK_KEYBOARD_H
+
+#define MILLISECONDS_IN_SECOND 1000
+
+// These are just to make it neater to use builtin HSV values in the keymap
+#define RED {HSV_RED}
+#define CORAL {HSV_CORAL}
+#define ORANGE {HSV_ORANGE}
+#define GOLDEN {HSV_GOLDENROD}
+#define GOLD {HSV_GOLD}
+#define YELLOW {HSV_YELLOW}
+#define CHART {HSV_CHARTREUSE}
+#define GREEN {HSV_GREEN}
+#define SPRING {HSV_SPRINGGREEN}
+#define TURQ {HSV_TURQUOISE}
+#define TEAL {HSV_TEAL}
+#define CYAN {HSV_CYAN}
+#define AZURE {HSV_AZURE}
+#define BLUE {HSV_BLUE}
+#define PURPLE {HSV_PURPLE}
+#define MAGENT {HSV_MAGENTA}
+#define PINK {HSV_PINK}
+
+
+
+//========================================================== CONFIGURABLE DEFAULTS ==========================================================
+extern bool g_suspend_state;
+extern rgb_config_t rgb_matrix_config;
+bool disable_layer_color;
+
+enum alt_keycodes {
+    U_T_AUTO = SAFE_RANGE, // USB Extra Port Toggle Auto Detect / Always Active
+    U_T_AGCR,              // USB Toggle Automatic GCR control
+    DBG_TOG,               // DEBUG Toggle On / Off
+    DBG_MTRX,              // DEBUG Toggle Matrix Prints
+    DBG_KBD,               // DEBUG Toggle Keyboard Prints
+    DBG_MOU,               // DEBUG Toggle Mouse Prints
+    MD_BOOT,               // Restart into bootloader after hold timeout
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -36,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     [1] = LAYOUT_65_ansi_blocker(
         KC_GRV,  KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_F13,   KC_CALC,
-        RGB_M_P, RGB_SPD,  RGB_HUI, RGB_SPI, RGB_SAI, RGB_VAI, _______, U_T_AUTO, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_MYCM,
+        RGB_M_P, RGB_SPD,  RGB_HUI, RGB_SPI, RGB_SAI, RGB_VAI, _______, U_T_AUTO, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, KC_MYCM,
         RGB_TOG, RGB_RMOD, RGB_HUD, RGB_MOD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______,          KC_MUTE,  KC_VOLU,
         _______, _______,  _______, _______, _______, MD_BOOT, NK_TOGG, DBG_TOG, _______, _______, _______, _______,          KC_VOLU,  KC_VOLD,
         _______, _______,  _______,                            KC_MPLY,                            _______, _______, KC_HOME, KC_VOLD,  KC_END
@@ -81,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #undef _______
 #define _______ {0, 0, 0}
 
-const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
+const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
     [0] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, CHART,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -182,7 +220,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 void set_layer_color(int layer) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         HSV hsv = {
             .h = pgm_read_byte(&ledmap[layer][i][0]),
             .s = pgm_read_byte(&ledmap[layer][i][1]),
@@ -199,11 +237,12 @@ void set_layer_color(int layer) {
         }
     }
 }
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (g_suspend_state || disable_layer_color ||
         rgb_matrix_get_flags() == LED_FLAG_NONE ||
         rgb_matrix_get_flags() == LED_FLAG_UNDERGLOW) {
             return;
         }
     set_layer_color(get_highest_layer(layer_state));
+    return false;
 }

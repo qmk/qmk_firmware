@@ -69,6 +69,10 @@
 #    define ISSI_CSPULLUP PUR_32KR
 #endif
 
+#ifndef ISSI_GLOBALCURRENT
+#    define ISSI_GLOBALCURRENT 0xFF
+#endif
+
 #define ISSI_MAX_LEDS 351
 
 // Transfer buffer for TWITransmitData()
@@ -100,13 +104,11 @@ void IS31FL3741_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 }
 
 bool IS31FL3741_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // unlock the command register and select PG2
-    IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
-    IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM0);
+    // Assume PG0 is already selected
 
     for (int i = 0; i < 342; i += 18) {
         if (i == 180) {
-            // unlock the command register and select PG2
+            // unlock the command register and select PG1
             IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
             IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM1);
         }
@@ -163,7 +165,7 @@ void IS31FL3741_init(uint8_t addr) {
     IS31FL3741_write_register(addr, ISSI_REG_CONFIGURATION, 0x01);
 
     // Set Golbal Current Control Register
-    IS31FL3741_write_register(addr, ISSI_REG_GLOBALCURRENT, 0xFF);
+    IS31FL3741_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
     // Set Pull up & Down for SWx CSy
     IS31FL3741_write_register(addr, ISSI_REG_PULLDOWNUP, ((ISSI_CSPULLUP << 4) | ISSI_SWPULLUP));
 
@@ -175,7 +177,7 @@ void IS31FL3741_init(uint8_t addr) {
 
 void IS31FL3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31_led led;
-    if (index >= 0 && index < DRIVER_LED_TOTAL) {
+    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
         g_pwm_buffer[led.driver][led.r]          = red;
@@ -186,7 +188,7 @@ void IS31FL3741_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void IS31FL3741_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         IS31FL3741_set_color(i, red, green, blue);
     }
 }
@@ -218,6 +220,10 @@ void IS31FL3741_set_led_control_register(uint8_t index, bool red, bool green, bo
 
 void IS31FL3741_update_pwm_buffers(uint8_t addr, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
+        // unlock the command register and select PG2
+        IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5);
+        IS31FL3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM0);
+
         IS31FL3741_write_pwm_buffer(addr, g_pwm_buffer[index]);
     }
 
@@ -240,7 +246,7 @@ void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {
 
         // CS1_SW1 to CS30_SW6 are on PG2
         for (int i = CS1_SW1; i <= CS30_SW6; ++i) {
-            IS31FL3741_write_register(addr, i, g_scaling_registers[0][i]);
+            IS31FL3741_write_register(addr, i, g_scaling_registers[index][i]);
         }
 
         // unlock the command register and select PG3
@@ -249,7 +255,7 @@ void IS31FL3741_update_led_control_registers(uint8_t addr, uint8_t index) {
 
         // CS1_SW7 to CS39_SW9 are on PG3
         for (int i = CS1_SW7; i <= CS39_SW9; ++i) {
-            IS31FL3741_write_register(addr, i - CS1_SW7, g_scaling_registers[0][i]);
+            IS31FL3741_write_register(addr, i - CS1_SW7, g_scaling_registers[index][i]);
         }
 
         g_scaling_registers_update_required[index] = false;

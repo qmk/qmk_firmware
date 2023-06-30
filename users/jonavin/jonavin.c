@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef TD_LSFT_CAPSLOCK_ENABLE
   // Tap once for shift, twice for Caps Lock but only if Win Key in not disabled
-    void dance_LSFT_finished(qk_tap_dance_state_t *state, void *user_data) {
+    void dance_LSFT_finished(tap_dance_state_t *state, void *user_data) {
         if (state->count == 1 || keymap_config.no_gui) {
             register_code16(KC_LSFT);
         } else {
@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         }
     }
 
-    void dance_LSFT_reset(qk_tap_dance_state_t *state, void *user_data) {
+    void dance_LSFT_reset(tap_dance_state_t *state, void *user_data) {
         if (state->count == 1 || keymap_config.no_gui) {
             unregister_code16(KC_LSFT);
         } else {
@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         }
     }
 
-    qk_tap_dance_action_t tap_dance_actions[] = {
+    tap_dance_action_t tap_dance_actions[] = {
     // Tap once for shift, twice for Caps Lock
         [TD_LSFT_CAPSLOCK] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
         [TD_LSFT_CAPS_WIN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LSFT_finished, dance_LSFT_reset),
@@ -212,8 +212,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 // Turn on/off NUM LOCK if current state is different
 void activate_numlock(bool turn_on) {
-    if (IS_HOST_LED_ON(USB_LED_NUM_LOCK) != turn_on) {
-        tap_code(KC_NUMLOCK);
+    if (host_keyboard_led_state().num_lock != turn_on) {
+        tap_code(KC_NUM_LOCK);
     }
 }
 

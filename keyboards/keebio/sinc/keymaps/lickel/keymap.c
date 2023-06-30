@@ -16,23 +16,11 @@
 
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-#ifdef VIA_ENABLE
-    KC_MISSION_CONTROL = USER00,
-#else
-    KC_MISSION_CONTROL = SAFE_RANGE,
-#endif
-    KC_LAUNCHPAD
-};
-
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
-
 // clang-format off
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_80_with_macro(
-    KC_MUTE,          KC_ESC,  KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, KC_DEL,  KC_MPLY,
+    KC_MUTE,          KC_ESC,  KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, BL_DOWN, BL_UP,   KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, KC_DEL,  KC_MPLY,
     KC_F1,   KC_F2,   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC, KC_HOME,
     KC_F3,   KC_F4,   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP,
     KC_F5,   KC_F6,   KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGDN,
@@ -62,48 +50,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
     _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______
-  )
+  ),
 };
 
 // clang-format on
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-        return false;
-    } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-        return false;
-    } else {
-        return true;
-    }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_MISSION_CONTROL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-        case KC_LAUNCHPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-        default:
-            return true;
-    }
-}
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+	[0] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
+	[1] = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD), ENCODER_CCW_CW(KC_MNXT, KC_MPRV) },
+	[2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
+	[3] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
+};
+#endif

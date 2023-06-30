@@ -1,10 +1,3 @@
-# MCU name
-MCU = STM32F303
-BOARD = QMK_PROTON_C
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,13 +10,9 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = yes           # Audio output
 RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
-WS2812_DRIVER = pwm
 
 # Do not enable RGB_MATRIX_ENABLE together with RGBLIGHT_ENABLE
 RGB_MATRIX_ENABLE = no
-RGB_MATRIX_DRIVER = WS2812
 
 ENCODER_ENABLE = yes
 DIP_SWITCH_ENABLE = yes
-
-LAYOUTS = ortho_5x12

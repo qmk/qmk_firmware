@@ -6,17 +6,24 @@ A modern, low-profile split ergonomic keyboard
 * Hardware Supported: elite-C V4
 * Hardware Availability: [Bastard Keyboards](https://bastardkb.com/)
 
-Make example for this keyboard (after setting up your build environment):
+## Building the firmware
 
-    make bastardkb/scylla:default
+**You must specify the shield version when compiling/flashing the firmware.**
+
+The template is:
+
+```shell
+qmk compile -kb bastardkb/scylla/{VERSION}/elitec -km {KEYMAP}
+```
+
+| Shield Version  | default                                                       | via                                                       |
+| --------------- | ------------------------------------------------------------- | --------------------------------------------------------- |
+| v1 (Elite-C)    | `qmk compile -kb bastardkb/scylla/v1/elitec -km default`      | `qmk compile -kb bastardkb/scylla/v1/elitec -km via`      |
+| v2 (Elite-C)    | `qmk compile -kb bastardkb/scylla/v2/elitec -km default`      | `qmk compile -kb bastardkb/scylla/v2/elitec -km via`      |
+| v2 (Splinky v2) | `qmk compile -kb bastardkb/scylla/v2/splinky/v2 -km default`  | `qmk compile -kb bastardkb/scylla/v2/splinky/v2 -km via`  |
+| v2 (Splinky v3) | `qmk compile -kb bastardkb/scylla/v2/splinky/v3 -km default`  | `qmk compile -kb bastardkb/scylla/v2/splinky/v3 -km via`  |
+| v2 (STeMCell)   | `qmk compile -kb bastardkb/scylla/v2/stemcell -km default`    | `qmk compile -kb bastardkb/scylla/v2/stemcell -km via`    |
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 See the [keyboard build instructions](https://docs.bastardkb.com)
-
-
-## Important information regarding the reset
-
-If you modify this firmware, make sure to always have a RESET key that can be triggered using only the master side ! This way you ensure that you can always flash the keyboard, even if you mess up.
-
-Otherwise if you're stuck, open the case and reset manually by shorting Gnd and Rst, or pressing the RST button.

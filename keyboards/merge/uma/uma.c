@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "uma.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 void suspend_power_down_user(void) {
@@ -50,8 +50,6 @@ static const char PROGMEM merge_logo[] = {
     0x01, 0x00, 0x01, 0x01, 0x03, 0x03, 0x03, 0x03, 0x03, 0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00
 };
 
-int current_wpm = 0;
-
 static void print_status_narrow(void) {
     oled_set_cursor(0,1);
     oled_write_raw_P(merge_logo, sizeof(merge_logo));
@@ -86,6 +84,7 @@ static void print_status_narrow(void) {
     //oled_write_ln_P(PSTR(" "), false);
     oled_write_P(PSTR("-----"), false);
 
+#ifdef WPM_ENABLE
     // WPM counter Start
     oled_set_cursor(0,13);
     oled_write(" ", false);
@@ -93,6 +92,7 @@ static void print_status_narrow(void) {
     oled_set_cursor(0,14);
     oled_write(" WPM ", false);
     // WPM counter End
+#endif
 }
 
 bool oled_task_kb(void) {

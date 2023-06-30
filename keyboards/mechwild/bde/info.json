@@ -1,0 +1,30 @@
+{
+    "manufacturer": "MechWild",
+    "url": "mechwild.com",
+    "maintainer": "kylemccreery",
+    "usb": {
+        "vid": "0x6D77"
+    },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "debug": false,
+        "extrakey": true,
+        "mousekey": true,
+        "rgblight": true,
+        "nkro": true
+    },
+    "development_board": "promicro",
+    "rgblight": {
+        "sleep": true,
+        "max_brightness": 255
+    },
+    "tapping": {
+        "tap_keycode_delay": 10,
+        "tap_capslock_delay": 10
+    }
+}
