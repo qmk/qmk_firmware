@@ -1,0 +1,53 @@
+{
+    "manufacturer": "depermana12",
+    "keyboard_name": "dp3000",
+    "maintainer": "depermana12",
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false
+    },
+    "build": {
+        "lto": true
+    },
+    "url": "https://github.com/depermana12",
+    "usb": {
+        "device_version": "1.0.1",
+        "vid": "0x4450",
+        "pid": "0x6470"
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "B2", "pin_b": "B1"},
+            { "pin_a": "F4", "pin_b": "F5"}
+        ]
+    },
+    "ws2812": { "pin": "B5"
+    },
+    "matrix_pins": {
+         "cols": ["D4", "D7", "B4", "C6"],
+         "rows": ["F6", "F7", "B3"]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [0, 3], "x": 3, "y": 0 },
+                { "matrix": [1, 0], "x": 0, "y": 1 },
+                { "matrix": [1, 1], "x": 1, "y": 1 },
+                { "matrix": [1, 2], "x": 2, "y": 1 },
+                { "matrix": [1, 3], "x": 3, "y": 1 },
+                { "matrix": [2, 0], "x": 0, "y": 2 },
+                { "matrix": [2, 1], "x": 1, "y": 2 },
+                { "matrix": [2, 2], "x": 2, "y": 2 },
+                { "matrix": [2, 3], "x": 3, "y": 2 }
+            ]
+        }
+    }
+}
