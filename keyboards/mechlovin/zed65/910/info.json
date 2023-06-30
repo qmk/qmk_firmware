@@ -42,7 +42,6 @@
         "pin": "A7",
         "driver": "spi"
     },
-    "community_layouts": ["65_ansi_blocker_tsangan"],
     "layouts": {
         "LAYOUT_65_iso_tsangan_split_bs": {
             "layout": [
