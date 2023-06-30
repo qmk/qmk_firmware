@@ -1,5 +1,1 @@
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
-ENCODER_ENABLE = yes
-ENCODER_MAP_ENABLE = yes
-OLED_ENABLE = yes
+# This file intentionally left blank
