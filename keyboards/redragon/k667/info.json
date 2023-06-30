@@ -47,7 +47,7 @@
             "gradient_left_right": true,
             "breathing": true,
             "band_sat": true,
-            "band_val": true,,
+            "band_val": true,
             "band_spiral_val": true,
             "cycle_all": true,
             "cycle_left_right": true,

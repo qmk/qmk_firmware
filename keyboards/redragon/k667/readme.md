@@ -2,7 +2,7 @@
 
 ![k667](https://i.imgur.com/7K5h5Ob.jpg)
 
-A customizable 80% keyboard.
+A customizable 75% keyboard.
 
 - Keyboard Maintainer: [temp4gh](https://github.com/temp4gh)
 - Hardware Supported: K667 PCB
