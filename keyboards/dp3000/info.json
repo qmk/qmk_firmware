@@ -10,6 +10,10 @@
         "command": false,
         "console": false,
         "extrakey": true,
+        "encoder": true,
+        "encoder_map": true,
+        "rgb_matrix": true,
+        "oled": true,
         "mousekey": false,
         "nkro": false
     },
@@ -28,7 +32,39 @@
             { "pin_a": "F4", "pin_b": "F5"}
         ]
     },
-    "ws2812": { "pin": "B5"
+    "ws2812": {
+        "pin": "B5"
+    },
+    "rgb_matrix":{
+        "driver":"WS2812",
+        "animations": {
+            "alphas_mods": true,
+			"gradient_up_down": true,
+			"gradient_left_right": true,
+			"breathing": true,
+            "band_sat": true,
+			"band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron":true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+			"raindrops": true,
+			"hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "typing_heatmap": true,
+            "solid_reactive_simple": true,
+			"solid_reactive": true,
+			"solid_reactive_multinexus": true,
+            "splash": true,
+            "solid_splash": true
+        }
     },
     "matrix_pins": {
          "cols": ["D4", "D7", "B4", "C6"],
