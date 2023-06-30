@@ -34,6 +34,7 @@
 #define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 192
 #define __flash  PROGMEM
+#define ISSI_GLOBALCURRENT 200
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS  //Enable frame effects
 #define RGB_MATRIX_KEYPRESSES  //Reacts to keypress

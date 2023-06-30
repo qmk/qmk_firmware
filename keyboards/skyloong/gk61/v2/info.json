@@ -11,7 +11,7 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
+        "command": true,
         "console": false,
         "extrakey": true,
         "mousekey": true,
@@ -132,7 +132,8 @@
     "usb": {
         "device_version": "2.0.0",
         "pid": "0x6061",
-        "vid": "0x1EA7"
+        "vid": "0x1EA7",
+        "max_power": 380
     },
     "community_layouts": ["60_ansi"],
     "layouts": {
