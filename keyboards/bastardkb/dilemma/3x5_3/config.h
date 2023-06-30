@@ -17,19 +17,9 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { GP4, GP5, GP27, GP26 }
-#define MATRIX_COL_PINS \
-    { GP8, GP9, GP7, GP6, GP28 }
-
 /* Handedness. */
 #define SPLIT_HAND_PIN GP29
 #define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
-
-/* RGB settings. */
-#define RGB_DI_PIN GP0  // Per-key.
-// #define RGB_DI_PIN GP10 // Underglow.
 
 /* CRC. */
 #define CRC8_USE_TABLE

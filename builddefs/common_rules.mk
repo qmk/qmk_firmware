@@ -152,6 +152,7 @@ endif
 # To produce a UF2 file in your build, add to your keyboard's rules.mk:
 #      FIRMWARE_FORMAT = uf2
 UF2CONV = $(TOP_DIR)/util/uf2conv.py
+UF2CONV_ARGS ?=
 UF2_FAMILY ?= 0x0
 
 # Compiler flags to generate dependency files.
@@ -219,7 +220,7 @@ gccversion :
 	@$(BUILD_CMD)
 
 %.uf2: %.elf
-	$(eval CMD=$(HEX) $< $(BUILD_DIR)/$(TARGET).tmp && $(UF2CONV) $(BUILD_DIR)/$(TARGET).tmp --output $@ --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
+	$(eval CMD=$(HEX) $< $(BUILD_DIR)/$(TARGET).tmp && $(UF2CONV) $(UF2CONV_ARGS) $(BUILD_DIR)/$(TARGET).tmp --output $@ --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
 	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
 	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)

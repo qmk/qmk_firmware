@@ -8,16 +8,27 @@
         "pid": "0x3304",
         "device_version": "0.0.1"
     },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "matrix_pins": {
+        "cols": ["F4", "D7"],
+        "rows": ["F6"]
+    },
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "B7"
+    },
+    "ws2812": {
+        "pin": "B2"
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "k00", "x": 0, "y": 0},
-                {"label": "k01", "x": 1, "y": 0}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0}
             ]
         }
     }

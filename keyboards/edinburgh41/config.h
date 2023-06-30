@@ -3,17 +3,8 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS \
-    { F4, F5, F6, F7, B1, B3, B2 }
-#define MATRIX_COL_PINS \
-    { D1, D4, C6, D7, E6, B4 }
-
-#define DIODE_DIRECTION COL2ROW
-
 // Underglow LED settings
 
-#define RGB_DI_PIN D0
 #define RGBLED_NUM 10
 
 // Thumbstick settings

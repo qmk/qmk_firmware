@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define DIODE_DIRECTION COL2ROW
-
-/* Matrix config */
-    #define MATRIX_ROW_PINS {D7, E1, F2, F0, F1}
-    #define MATRIX_COL_PINS {E6, E0, A3, A4, A5, A6, A7, C7, C5, C4, C3, C2, C1, C0, D6, A2, A1, A0, F3}
     #define RGBLED_NUM 26     // Number of LEDs
 
 #define AUDIO_VOICES
@@ -30,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PWM_MAP {2, 4, 8, 16, 40, 55, 70, 128, 200, 255}
 
-#define RGB_DI_PIN F4  // Have to set it to something to get the ws2812 code to compile
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

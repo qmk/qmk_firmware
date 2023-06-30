@@ -194,6 +194,7 @@ That said, there are a number of Pro Micro replacements with ARM controllers:
 * [Blok](https://boardsource.xyz/store/628b95b494dfa308a6581622)
 * [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)
 * [0xCB Helios](https://keeb.supply/products/0xcb-helios) ([Open Source](https://github.com/0xCB-dev/0xCB-Helios), DIY/PCBA/Shop)
+* [Liatris](https://splitkb.com/products/liatris)
 * [Michi](https://github.com/ci-bus/michi-promicro-rp2040)
 
 There are other, non-Pro Micro compatible boards out there. The most popular being:

@@ -2,7 +2,7 @@
 
 //#include "uart.h"
 
-void pointing_device_task(void){
+bool pointing_device_task(void){
 	/*report_mouse_t currentReport = {};
     uint32_t timeout = 0;
 
@@ -56,7 +56,7 @@ void pointing_device_task(void){
     } else {
 	xprintf("\r\nRequested packet, data 4 was %d",uart_data[4]);
     }*/
-    pointing_device_send();
+    return pointing_device_send();
 }
 
 void led_init(void) {

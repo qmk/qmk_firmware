@@ -27,7 +27,7 @@ jobs:
       matrix:
         keymap: [default, via]
 
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
     - name: Disable safe.directory check
