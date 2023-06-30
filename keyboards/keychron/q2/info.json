@@ -4,6 +4,9 @@
     "maintainer": "lalalademaxiya1",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
+    "dynamic_keymap": {
+        "layer_count": 5
+    },
     "features": {
         "audio": false,
         "backlight": false,

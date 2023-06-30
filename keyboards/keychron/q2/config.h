@@ -35,9 +35,6 @@
 /* turn off effects when suspended */
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-/* Use 5 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 5
-
 /* Encoder Configuration*/
 #ifdef ENCODER_ENABLE
     #define ENCODER_DEFAULT_POS 0x3
