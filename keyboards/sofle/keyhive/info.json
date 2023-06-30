@@ -48,8 +48,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "community_layouts": ["split_4x6_sofl"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_split_4x6_sofl": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.5},
                 {"matrix": [0, 1], "x": 1, "y": 0.375},
