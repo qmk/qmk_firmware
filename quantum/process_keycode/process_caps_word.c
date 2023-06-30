@@ -128,6 +128,28 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
         }
 #endif // DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 
+#ifdef DOUBLE_TAP_RSHIFT_TURNS_ON_CAPS_WORD
+        // Double tapping right shift turns on Caps Word.
+        //
+        // NOTE: This works with KC_RSFT and one-shot left shift. It
+        // wouldn't make sense with mod-tap or Space Cadet shift since
+        // double tapping would of course trigger the tapping action.
+        if (record->event.pressed) {
+            static bool     tapped = false;
+            static uint16_t timer  = 0;
+            if (keycode == KC_RSFT || keycode == OSM(MOD_RSFT)) {
+                if (tapped && !timer_expired(record->event.time, timer)) {
+                    // Left shift was double tapped, activate Caps Word.
+                    caps_word_on();
+                }
+                tapped = true;
+                timer  = record->event.time + GET_TAPPING_TERM(keycode, record);
+            } else {
+                tapped = false; // Reset when any other key is pressed.
+            }
+        }
+#endif // DOUBLE_TAP_RSHIFT_TURNS_ON_CAPS_WORD
+
         return true;
     }
 
