@@ -386,28 +386,4 @@ void led_set_user(uint8_t usb_led) {
         bnumlock = false;
     }
 
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-
-    } else {
-
-    }
-
-    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-    } else {
-
-    }
-
-    if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-    } else {
-
-    }
-
-    if (usb_led & (1 << USB_LED_KANA)) {
-
-    } else {
-
-    }
-
 }

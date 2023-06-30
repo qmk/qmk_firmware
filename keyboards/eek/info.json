@@ -19,6 +19,14 @@
     "ws2812": {
         "pin": "D3"
     },
+    "rgblight": {
+        "hue_steps": 4,
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 36,
+        "max_brightness": 200,
+        "sleep": true
+    },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "community_layouts": ["split_3x5_3"],

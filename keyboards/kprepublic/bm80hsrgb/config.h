@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 87
 
-#define RGBLED_NUM 87
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 //#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS

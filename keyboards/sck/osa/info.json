@@ -18,6 +18,11 @@
         "num_lock": "C7",
         "scroll_lock": "B6"
     },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 9,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D4"
     },

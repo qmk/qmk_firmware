@@ -9,6 +9,9 @@
   },
   "processor": "atmega32u4",
   "bootloader": "halfkay",
+  "tapping": {
+    "toggle": 1
+  },
   "layouts": {
     "LAYOUT": {
       "layout": [

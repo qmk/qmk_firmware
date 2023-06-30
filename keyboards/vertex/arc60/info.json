@@ -18,6 +18,9 @@
         "caps_lock": "C13",
         "on_state": 0
     },
+    "rgblight": {
+        "led_count": 9
+    },
     "ws2812": {
         "pin": "B15"
     },

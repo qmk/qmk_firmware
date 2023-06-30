@@ -18,6 +18,12 @@
       {"pin_a": "B3", "pin_b": "B2"}
     ]
   },
+  "rgblight": {
+    "hue_steps": 6,
+    "saturation_steps": 4,
+    "brightness_steps": 8,
+    "led_count": 4
+  },
   "ws2812": {
     "pin": "F7"
   },

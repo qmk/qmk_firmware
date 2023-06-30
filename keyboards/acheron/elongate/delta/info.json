@@ -19,6 +19,11 @@
         "breathing": true,
         "breathing_period": 3
     },
+    "rgblight": {
+        "led_count": 16,
+        "max_brightness": 200,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "B15"
     },

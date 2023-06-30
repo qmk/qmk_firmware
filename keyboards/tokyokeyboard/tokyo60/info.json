@@ -18,6 +18,12 @@
         "pin": "B7",
         "levels": 6
     },
+    "rgblight": {
+        "hue_steps": 12,
+        "saturation_steps": 12,
+        "brightness_steps": 12,
+        "led_count": 10
+    },
     "ws2812": {
         "pin": "F7"
     },

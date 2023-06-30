@@ -21,6 +21,9 @@
             {"pin_a": "C15", "pin_b": "C14"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "bootmagic": {
         "matrix": [1, 3]
     },

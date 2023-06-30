@@ -5,6 +5,10 @@
     "split": {
         "soft_serial_pin": "D2"
     },
+    "rgblight": {
+        "led_count": 54,
+        "split_count": [27, 27]
+    },
     "ws2812": {
         "pin": "D3"
     },
