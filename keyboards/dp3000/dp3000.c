@@ -15,15 +15,30 @@
  */
 #include "quantum.h"
 
-led_config_t g_led_config = {{
-    { NO_LED, NO_LED, NO_LED, NO_LED},
-    { 3, 2, 1, 0 },
-    { 4, 5, 6, 7 }
-},  {
-    {  0, 32 }, { 25, 32 }, { 37, 32 }, { 75, 32 },
-    { 75, 16 }, { 37, 16 }, { 25, 16 }, { 0, 16  }
-},  {
-     4, 4, 4, 4, 4, 4, 4, 4
+bool oled_task_kb(void) {
+    oled_write_P(PSTR("LAYER: "), false);
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("0"), false);
+            break;
+        case 1:
+            oled_write_P(PSTR("1"), false);
+            break;
+        case 2:
+            oled_write_P(PSTR("2"), false);
+            break;
+        case 3:
+            oled_write_P(PSTR("3"), false);
+            break;
     }
-};
 
+    led_t led_state = host_keyboard_led_state();
+    oled_set_cursor(0, 1);
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    oled_set_cursor(0, 2);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_set_cursor(0, 3);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+
+    return false;
+}
