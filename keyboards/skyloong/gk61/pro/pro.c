@@ -1,3 +1,5 @@
+// Copyright 2023 linlin012 (@linlin012)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
 const is31_led __flash g_is31_leds[RGB_MATRIX_LED_COUNT] = {
@@ -77,7 +79,7 @@ const is31_led __flash g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS13_SW10, CS14_SW10, CS15_SW10}
 };
 
-#if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_INDEX)
+#if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
@@ -116,7 +118,36 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
             RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 0, 0, 0);
         }
     }
+
+    if (get_highest_layer(layer_state) == 2) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
+    } else  {
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+        }
+    }
+
+    if (get_highest_layer(layer_state) == 1) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 255, 255, 255);
+    } else  {
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 0, 0, 0);
+        }
+    }
+
+    if (get_highest_layer(layer_state) == 3) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
+        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
+        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 255, 255, 255);
+    } else  {
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 0, 0, 0);
+        }
+    }
+
     return true;
 }
 
-#endif  // CAPS_LOCK_LED_INDEX
+#endif
