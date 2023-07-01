@@ -17,21 +17,12 @@
 #pragma once
 
 /* Key matrix pins */
-#define MATRIX_ROW_PINS \
-    { B5, B4, B3, A15, A14, A13 }
-#define MATRIX_COL_PINS \
-    { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 #define NO_PIN_START 10
 #define NO_PIN_NUM 10
 #define CLR_REG_VAL 0x3FF
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 60
-#define DRIVER_2_LED_TOTAL 48
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
-/* Encoder Configuration */
-#define ENCODER_DEFAULT_POS 0x3
+#define RGB_MATRIX_LED_COUNT 108
 
 /* Enable caps-lock LED*/
 #define CAPS_LOCK_LED_INDEX 61
