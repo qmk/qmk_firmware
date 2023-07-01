@@ -24,10 +24,12 @@ x 前置シフト
 x 編集モードの追加 (編集モードはかな変換と異なる処理にする)
 x AVRで動くようにする (固有名詞をオフにする)
 x もも　が出ない
+x ５キー以上打鍵した時の処理
 
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
 5キーの組み合わせへの拡張
+「なんと」が編集モードに入る
 
 */
 
@@ -44,7 +46,7 @@ static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
 static uint8_t keycnt = 0UL; //　押しているキーの数
 static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 static bool is_henshu = false; // 編集モードかどうか
-static bool henshu_done = false; // 編集モードかどうか
+static bool henshu_done = false; // 編集モードを実行したか、編集モード空打ちだったか
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -700,6 +702,14 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
       case NG_Q ... NG_SLSH:
         keycnt++;
 
+        if (keycnt > NKEYS) {
+          for (int i = 0; i < ng_chrcount; i++) {
+            nginput[i].releaseTime = record->event.time;
+          }
+          naginata_type();
+          ng_chrcount = 0;
+        }
+
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
         if (is_henshu) {
           if (exec_henshu(keycomb))
@@ -722,10 +732,6 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
             (keycomb & (B_E | B_R)) != (B_E | B_R))
           is_henshu = false;
         
-        if (keycnt > NKEYS) {
-          naginata_type();
-          ng_chrcount = 0;
-        }
         nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
         ng_chrcount++;
 
@@ -742,7 +748,6 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           keycnt--;
         
         keycomb &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
-        // 編集モードの判定
         // 編集モードの判定
         if (keycomb == (B_D | B_F) ||
             keycomb == (B_J | B_K) ||
