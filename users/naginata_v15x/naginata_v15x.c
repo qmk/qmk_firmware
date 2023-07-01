@@ -705,7 +705,8 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 
         if (keycnt > NKEYS || ng_chrcount >= NKEYS) {
           for (int i = 0; i < ng_chrcount; i++) {
-            nginput[i].releaseTime = record->event.time;
+            if (nginput[i].releaseTime == 0)
+              nginput[i].releaseTime = record->event.time;
           }
           naginata_type();
           ng_chrcount = 0;
@@ -766,8 +767,8 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
             (keycomb & (B_E | B_R)) != (B_E | B_R))
           is_henshu = false;
 
-        for (int i = ng_chrcount -  1; i >= 0; i--) { //　連続シフト　もも
-          if (keycode == nginput[i].keycode) {
+        for (int i = 0; i < ng_chrcount; i++) { //　連続シフト　もも
+          if (keycode == nginput[i].keycode && nginput[i].releaseTime == 0) {
             nginput[i].releaseTime = record->event.time;
             break;
           }
