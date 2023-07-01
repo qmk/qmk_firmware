@@ -136,11 +136,11 @@ const uint32_t ng_key[] = {
 static Keystroke nginput[NKEYS]; // 入力バッファ
 static Keystroke ngingroup[NCOMBIPERKEY][NKEYS][NDOUJI]; // 入力バッファを同時押しの組み合わせでグループ化
 
-static int combiSize = 0; // ngingroupの配列のサイズ
-static int keySize[NCOMBIPERKEY] = {0}; // ngingroupの配列のサイズ
-static int doujiSize[NCOMBIPERKEY][NKEYS] = {0}; // ngingroupの配列のサイズ
+static uint8_t combiSize = 0; // ngingroupの配列のサイズ
+static uint8_t keySize[NCOMBIPERKEY] = {0}; // ngingroupの配列のサイズ
+static uint8_t doujiSize[NCOMBIPERKEY][NKEYS] = {0}; // ngingroupの配列のサイズ
 
-const int COMBINDEX[] = {0, 1, 3, 8, 18}; // COMBI配列の各キー数の最初の位置
+const uint8_t COMBINDEX[] = {0, 1, 3, 8, 18}; // COMBI配列の各キー数の最初の位置
 
 #define NCOMBI 18 // COMBI配列の大きさ
 /* 
@@ -148,7 +148,7 @@ const int COMBINDEX[] = {0, 1, 3, 8, 18}; // COMBI配列の各キー数の最初
   同時押しの組み合わせを列挙している
   数字はninputの配列添字、-1はnull 
 */
-const PROGMEM int COMBI[NCOMBI][NKEYS][NDOUJI] = { 
+const PROGMEM int8_t COMBI[NCOMBI][NKEYS][NDOUJI] = { 
   // 1 key
   {{ 0, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}},
   // 2 keys
@@ -803,7 +803,7 @@ void naginata_type(void) {
   naginata_keymap bngmap; // PROGMEM buffer
 
   // ngingroupを作って、その中で一番評価値が高い組み合わせのインデックスnを返す
-  int n = evaluate();
+  uint8_t n = evaluate();
 
   // かなへ変換する
   for (int i = 0; i < keySize[n]; i++) {
@@ -853,14 +853,14 @@ int evaluate() {
 
   combiSize = 0;
   naginata_keymap bngmap; // PROGMEM buffer
-  int bcombi = 0; // PROGMEM buffer
+  int8_t bcombi = 0; // PROGMEM buffer
 
   for (int i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
     #ifdef CONSOLE_ENABLE
     uprintf(" evaluate i=%u, combiSize=%u\n", i, combiSize);
     #endif
-    int flag = 1; // 組み合わせが、かな辞書にあるかどうか
-    int a1Size = 0;
+    bool flag = true; // 組み合わせが、かな辞書にあるかどうか
+    uint8_t a1Size = 0;
     for (int j = 0; j < NKEYS; j++) { // 組み合わせの順番に
       #ifdef CONSOLE_ENABLE
       uprintf(" evaluate   j=%u\n", j);
@@ -874,7 +874,7 @@ int evaluate() {
       }
 
       // ngingroupを作る
-      int b1Size = 0;
+      uint8_t b1Size = 0;
       for (int k = 0; k < NDOUJI; k++) { // 同時に押しているキー
         #ifdef CONSOLE_ENABLE
         uprintf(" evaluate     k=%u\n", k);
@@ -902,11 +902,11 @@ int evaluate() {
         keycomb_buf |= ng_key[ngingroup[combiSize][j][k].keycode - NG_Q];
       }
       // 辞書に存在するかチェック
-      int isExist = 0;
+      bool isExist = 0;
       for (int k = 0; k < sizeof ngmap / sizeof bngmap; k++) {
         memcpy_P(&bngmap, &ngmap[k], sizeof(bngmap));
         if (keycomb_buf == bngmap.key) {
-          isExist = 1;
+          isExist = true;
           break;
         }
       }
@@ -916,7 +916,7 @@ int evaluate() {
       if (isExist) {
         a1Size++;
       } else {
-        flag = 0;
+        flag = false;
         break; // 辞書になければ追加しない
       }
     }
