@@ -53,7 +53,7 @@
             "cycle_left_right": true,
             "cycle_up_down": true,
             "hue_wave": true,
-            "pixel_flow": true,
+            "pixel_flow": true
         },
         "driver": "IS31FL3733",
         "layout": [
