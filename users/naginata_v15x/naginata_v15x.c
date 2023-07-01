@@ -20,12 +20,13 @@ TODO
 
 x 親指エンター
 x 英数字に戻る
-x AVRで動くようにする
+x 前置シフト
+x 編集モードの追加 (編集モードはかな変換と異なる処理にする)
+
+AVRで動くようにする
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
-編集モードの追加 (編集モードはかな変換と異なる処理にする)
 5キーの組み合わせへの拡張
-x 前置シフト
 
 */
 
@@ -33,8 +34,6 @@ x 前置シフト
 #include "naginata.h"
 
 #include <string.h>
-
-#define NGBUFFER 10 // キー入力バッファのサイズ
 
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
 static bool is_naginata = false; // 薙刀式がオンかオフか
@@ -44,6 +43,7 @@ static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
 static uint8_t keycnt = 0UL; //　押しているキーの数
 static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 static bool is_henshu = false; // 編集モードかどうか
+static bool henshu_done = false; // 編集モードかどうか
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -83,9 +83,6 @@ static bool is_henshu = false; // 編集モードかどうか
 #define B_SLSH (1UL<<29)
 
 #define B_SHFT (1UL<<30)
-
-// 文字入力バッファ
-// static uint16_t ninputs[NGBUFFER];
 
 // キーコードとキービットの対応
 // メモリ削減のため配列はNG_Qを0にしている
@@ -136,7 +133,7 @@ const uint32_t ng_key[] = {
 #define NCOMBIPERKEY 10 // COMBI配列のキーごとの最大数
 
 // 文字入力バッファ
-static Keystroke nginput[NGBUFFER]; // 入力バッファ
+static Keystroke nginput[NKEYS]; // 入力バッファ
 static Keystroke ngingroup[NCOMBIPERKEY][NKEYS][NDOUJI]; // 入力バッファを同時押しの組み合わせでグループ化
 
 static int combiSize = 0; // ngingroupの配列のサイズ
@@ -684,6 +681,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
       case NG_SHFT ... NG_SHFT2:
+        // 前置シフト限定の場合、変換を開始する
         if (!naginata_config.kouchi_shift) {
           if (ng_chrcount >= 1) {
             naginata_type();
@@ -696,16 +694,517 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           return false;
           break;
         }
+        // 後置シフトの場合、下の処理へ続く
       case NG_Q ... NG_SLSH:
         keycnt++;
-        if (keycnt > NKEYS) {
-          naginata_type();
-          ng_chrcount = 0;
-        }
-        nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
-        ng_chrcount++;
 
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
+        if (is_henshu) {
+          switch (keycomb) {
+            case B_J|B_K|B_Q: // ^{End}
+              ng_eof();
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_W: // 《》{改行}{↑}
+              ng_send_unicode_string("《》");
+              ng_up(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_R: // ^s
+              ng_save();
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_T: // ・
+              ng_send_unicode_string("・");
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_A: // ……{改行}
+              ng_send_unicode_string("……");
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_S: // (){改行}{↑}
+              ng_send_unicode_string("()");
+              ng_up(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_D: // ？{改行}
+              ng_send_unicode_string("？");
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_F: // 「」{改行}{↑}
+              ng_send_unicode_string("「」");
+              ng_up(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_G: // 『』{改行}{↑}
+              ng_send_unicode_string("『』");
+              ng_up(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_Z: // ││{改行}
+              ng_send_unicode_string("││");
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_X: // 【】{改行}{↑}
+              ng_send_unicode_string("【】");
+              ng_up(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_C: // ！{改行}
+              ng_send_unicode_string("！");
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_V: // {改行}{↓}
+              tap_code(KC_ENT);
+              ng_down(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_J|B_K|B_B: // ／{改行}
+              ng_send_unicode_string("／");
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_Y: // {Home}
+              ng_home();
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_U: // +{End}{BS}
+              register_code(KC_LSFT);
+              ng_end();
+              unregister_code(KC_LSFT);
+              tap_code(KC_BSPC);
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_I: // {vk1Csc079}
+              ng_saihenkan();
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_O: // {Del}
+              tap_code(KC_DEL);
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_P: // {Esc 3}
+              tap_code(KC_ESC);
+              tap_code(KC_ESC);
+              tap_code(KC_ESC);
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_H: // {Enter}{End}
+              tap_code(KC_ENT);
+              ng_end();
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_J: // {↑}
+              ng_up(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_K: // +{↑}
+              register_code(KC_LSFT);
+              ng_up(1);
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_L: // +{↑ 7}
+              register_code(KC_LSFT);
+              ng_up(7);
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_SCLN: // ^i
+              ng_katakana();
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_N: // {End}
+              ng_end();
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_M: // {↓}
+              ng_down(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_COMM: // +{↓}
+              register_code(KC_LSFT);
+              ng_down(1);
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_DOT: // +{↓ 7}
+              register_code(KC_LSFT);
+              ng_down(7);
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_D|B_F|B_SLSH: // ^u
+              ng_hiragana();
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_Q: // {Home}{Del 3}{BS}{←}
+              ng_home();
+              tap_code(KC_DEL);tap_code(KC_DEL);tap_code(KC_DEL);
+              tap_code(KC_BSPC);
+              ng_left(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_W: // ^x｜{改行}^v《》{改行}{↑}
+              ng_cut();
+              ng_send_unicode_string("｜");
+              ng_paste();
+              ng_send_unicode_string("《》");
+              ng_up(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_E: // {Home}{改行}{Space 3}{←}
+              ng_home();
+              tap_code(KC_ENT);
+              tap_code(KC_SPC);
+              tap_code(KC_SPC);
+              tap_code(KC_SPC);
+              ng_left(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_R: // {Space 3}
+              tap_code(KC_SPC);
+              tap_code(KC_SPC);
+              tap_code(KC_SPC);
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_T: // 〇{改行}
+              ng_send_unicode_string("〇");
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_A: // {Home}{Del 1}{BS}{←}
+              ng_home();
+              tap_code(KC_DEL);
+              tap_code(KC_BSPC);
+              ng_left(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_S: // ^x(^v){改行}{Space}+{↑}^x
+              ng_cut();
+              ng_send_unicode_string("(");
+              ng_paste();
+              ng_send_unicode_string(")");
+              tap_code(KC_SPC);
+              register_code(KC_LSFT);
+              ng_up(1);
+              unregister_code(KC_LSFT);
+              ng_cut();
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_D: // {Home}{改行}{Space 1}{←}
+              ng_home();
+              tap_code(KC_ENT);
+              tap_code(KC_SPC);
+              ng_left(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_F: // ^x「^v」{改行}{Space}+{↑}^x
+              ng_cut();
+              ng_send_unicode_string("「");
+              ng_paste();
+              ng_send_unicode_string("」");
+              tap_code(KC_SPC);
+              register_code(KC_LSFT);
+              ng_up(1);
+              unregister_code(KC_LSFT);
+              ng_cut();
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_G: // ^x『^v』{改行}{Space}+{↑}^x
+              ng_cut();
+              ng_send_unicode_string("『");
+              ng_paste();
+              ng_send_unicode_string("』");
+              tap_code(KC_SPC);
+              register_code(KC_LSFT);
+              ng_up(1);
+              unregister_code(KC_LSFT);
+              ng_cut();
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_Z: // 　　　×　　　×　　　×{改行 2}
+              ng_send_unicode_string("　　　×　　　×　　　×");
+              tap_code(KC_ENT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_X: // ^x【^v】{改行}{Space}+{↑}^x
+              ng_cut();
+              ng_send_unicode_string("【");
+              ng_paste();
+              ng_send_unicode_string("】");
+              tap_code(KC_SPC);
+              register_code(KC_LSFT);
+              ng_up(1);
+              unregister_code(KC_LSFT);
+              ng_cut();
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_C: // {改行}{End}{改行}}
+              tap_code(KC_ENT);
+              ng_end();
+              tap_code(KC_ENT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_V: // {改行}{End}{改行}「」{改行}{↑}
+              tap_code(KC_ENT);
+              ng_end();
+              tap_code(KC_ENT);
+              ng_send_unicode_string("「」");
+              ng_up(1);
+              henshu_done = true;
+              return true;
+              break;
+            case B_M|B_COMM|B_B: // {End}{改行}
+              ng_end();
+              tap_code(KC_ENT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_Y: // +{Home}
+              register_code(KC_LSFT);
+              ng_home();
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_U: // ^x
+              ng_cut();
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_I: // ^z
+              ng_undo();
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_O: // ^y
+              ng_redo();
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_P: // ^v
+              ng_paste();
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_H: // ^c
+              ng_copy();
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_J: // {→ 5}
+              ng_right(5);
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_K: // +{→}
+              register_code(KC_LSFT);
+              ng_right(1);
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_L: // +{→ 5}
+              register_code(KC_LSFT);
+              ng_right(5);
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_SCLN: // +{→ 20}
+              register_code(KC_LSFT);
+              ng_right(20);
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_N: // +{End}
+              register_code(KC_LSFT);
+              ng_end();
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_M: // {← 5}
+              ng_left(5);
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_COMM: // +{←}
+              register_code(KC_LSFT);
+              ng_left(1);
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_DOT: // +{← 5}
+              register_code(KC_LSFT);
+              ng_left(5);
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+            case B_C|B_V|B_SLSH: // +{← 20}
+              register_code(KC_LSFT);
+              ng_left(20);
+              unregister_code(KC_LSFT);
+              henshu_done = true;
+              return true;
+              break;
+      // 固有名詞
+            case B_U|B_I|B_W: // 臨兵闘者皆陣烈在前
+              ng_send_unicode_string("臨兵闘者皆陣烈在前");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_E: // 天狗
+              ng_send_unicode_string("天狗");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_R: // シンイチ
+              ng_send_unicode_string("シンイチ");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_T: // ネムカケ
+              ng_send_unicode_string("ネムカケ");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_D: // 小鴉
+              ng_send_unicode_string("小鴉");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_F: // 光太郎
+              ng_send_unicode_string("光太郎");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_G: // 三神
+              ng_send_unicode_string("三神");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_Z: // 火よ、在れ
+              ng_send_unicode_string("火よ、在れ");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_X: // 火の剣
+              ng_send_unicode_string("火の剣");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_C: // 罵詈雑
+              ng_send_unicode_string("罵詈雑");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_V: // 心の闇
+              ng_send_unicode_string("心の闇");
+              henshu_done = true;
+              return true;
+              break;
+            case B_U|B_I|B_B: // 峯
+              ng_send_unicode_string("峯");
+              henshu_done = true;
+              return true;
+              break;
+            case B_E|B_R|B_Y: // 才一
+              ng_send_unicode_string("才一");
+              henshu_done = true;
+              return true;
+              break;
+            case B_E|B_R|B_U: // さくら
+              ng_send_unicode_string("さくら");
+              henshu_done = true;
+              return true;
+              break;
+            case B_E|B_R|B_I: // 酒田
+              ng_send_unicode_string("酒田");
+              henshu_done = true;
+              return true;
+              break;
+            case B_E|B_R|B_H: // 鞍馬
+              ng_send_unicode_string("鞍馬");
+              henshu_done = true;
+              return true;
+              break;
+            case B_E|B_R|B_J: // 青鬼
+              ng_send_unicode_string("青鬼");
+              henshu_done = true;
+              return true;
+              break;
+            case B_E|B_R|B_K: // 百地
+              ng_send_unicode_string("百地");
+              henshu_done = true;
+              return true;
+              break;
+            case B_E|B_R|B_SCLN: // 不動金縛りの術
+              ng_send_unicode_string("不動金縛りの術");
+              henshu_done = true;
+              return true;
+              break;
+            case B_E|B_R|B_B: // 鬼塚
+              ng_send_unicode_string("鬼塚");
+              henshu_done = true;
+              return true;
+              break;
+            case B_E|B_R|B_N: // 赤石
+              ng_send_unicode_string("赤石");
+              henshu_done = true;
+              return true;
+              break;
+            case B_E|B_R|B_DOT: // 霊槍
+              ng_send_unicode_string("霊槍");
+              henshu_done = true;
+              return true;
+              break;          }
+        }
+
         // 編集モードの判定
         if (keycomb == (B_D | B_F) ||
             keycomb == (B_J | B_K) ||
@@ -722,6 +1221,13 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
             (keycomb & (B_E | B_R)) != (B_E | B_R))
           is_henshu = false;
         
+        if (keycnt > NKEYS) {
+          naginata_type();
+          ng_chrcount = 0;
+        }
+        nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
+        ng_chrcount++;
+
         #ifdef CONSOLE_ENABLE
         uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
         #endif
@@ -736,6 +1242,14 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         
         keycomb &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
         // 編集モードの判定
+        // 編集モードの判定
+        if (keycomb == (B_D | B_F) ||
+            keycomb == (B_J | B_K) ||
+            keycomb == (B_C | B_V) ||
+            keycomb == (B_M | B_COMM) ||
+            keycomb == (B_U | B_I) ||
+            keycomb == (B_E | B_R))
+          is_henshu = true;
         if ((keycomb & (B_D | B_F)) != (B_D | B_F) &&
             (keycomb & (B_J | B_K)) != (B_J | B_K) &&
             (keycomb & (B_C | B_V)) != (B_C | B_V) &&
@@ -752,6 +1266,11 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         }
         // 全部キーを離したら
         if (keycnt == 0 && ng_chrcount > 0) {
+          if (henshu_done) { // 編集モードを実行した後のDF等は変換しない
+            henshu_done = false;
+            ng_chrcount = 0;
+            return false;
+          }
           naginata_type();
           ng_chrcount = 0;
         }
@@ -784,7 +1303,7 @@ void naginata_type(void) {
 
   naginata_keymap bngmap; // PROGMEM buffer
 
-  //
+  // ngingroupを作って、その中で一番評価値が高い組み合わせのインデックスnを返す
   int n = evaluate();
 
   // かなへ変換する
@@ -825,17 +1344,17 @@ void naginata_type(void) {
   #endif
 }
 
+// ngingroupを作って、その中で一番評価値が高い組み合わせのインデックスnを返す
+// 入力 Keystrokeの1次元配列 nginput
+// 出力 Keystrokeの2次元配列 (同時押しの組み合わせの配列)
 int evaluate() {
   #ifdef CONSOLE_ENABLE
   uprintf(">evaluate ng_chrcount=%u\n", ng_chrcount);
   #endif
 
-  // 入力 Keystrokeの1次元配列 nginput
-  // 出力 Keystrokeの2次元配列 (同時押しの組み合わせの配列)
-
   combiSize = 0;
   naginata_keymap bngmap; // PROGMEM buffer
-  int bcombi = 0;
+  int bcombi = 0; // PROGMEM buffer
 
   for (int i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
     #ifdef CONSOLE_ENABLE
@@ -855,6 +1374,7 @@ int evaluate() {
         break;
       }
 
+      // ngingroupを作る
       int b1Size = 0;
       for (int k = 0; k < NDOUJI; k++) { // 同時に押しているキー
         #ifdef CONSOLE_ENABLE
@@ -898,7 +1418,7 @@ int evaluate() {
         a1Size++;
       } else {
         flag = 0;
-        break; // 辞書になければスキップ
+        break; // 辞書になければ追加しない
       }
     }
     keySize[combiSize] = a1Size; // a1Size++したあとでは
@@ -923,6 +1443,7 @@ int evaluate() {
   #endif
     
   // 各組み合わせの点数を求める
+  // 同時おしごとの平均値とする (合計だと単打など同時押しが少ない方がスコアが高くなるので)
   double score[NCOMBIPERKEY];
   for (int i = 0; i < combiSize; i++) {
     double s = 0;
