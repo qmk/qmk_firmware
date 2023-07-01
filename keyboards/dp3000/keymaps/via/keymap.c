@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_5, KC_6, KC_7, KC_8
         ),
     [1] = LAYOUT(
-        QK_BOOT,                MO(1),
+        QK_BOOT,                _______,
         KC_1,   KC_2,  KC_3,     KC_4,
         TO(0), TO(2), TO(3), RGB_TOG
         ),
@@ -55,30 +55,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [2] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI),   ENCODER_CCW_CW(RGB_SPD, RGB_SPI) },
     [3] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD),  ENCODER_CCW_CW(KC_RIGHT, KC_LEFT)},
 };
-bool oled_task_user(void) {
-    oled_write_P(PSTR("LAYER: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_P(PSTR("0"), false);
-            break;
-        case 1:
-            oled_write_P(PSTR("1"), false);
-            break;
-        case 2:
-            oled_write_P(PSTR("2"), false);
-            break;
-        case 3:
-            oled_write_P(PSTR("3"), false);
-            break;
-    }
-
-    led_t led_state = host_keyboard_led_state();
-    oled_set_cursor(0, 1);
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_set_cursor(0, 2);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_set_cursor(0, 3);
-    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-
-    return false;
-}
