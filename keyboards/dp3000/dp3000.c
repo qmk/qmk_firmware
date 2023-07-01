@@ -16,6 +16,9 @@
 #include "quantum.h"
 
 bool oled_task_kb(void) {
+     if (!oled_task_user()) {
+          return false;
+     }
     oled_write_P(PSTR("LAYER: "), false);
     switch (get_highest_layer(layer_state)) {
         case 0:
