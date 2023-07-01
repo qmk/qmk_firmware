@@ -4,7 +4,6 @@
 #pragma once
 
 /* RGB */
-#ifdef RGB_MATRIX_ENABLE
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
 #define WS2812_SPI_SCK_PIN B13
@@ -13,4 +12,3 @@
 #define RGB_MATRIX_LED_COUNT 6
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
-#endif
