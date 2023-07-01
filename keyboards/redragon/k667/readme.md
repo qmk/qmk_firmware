@@ -1,6 +1,6 @@
 # K667
 
-![k667](https://i.imgur.com/7K5h5Ob.jpg)
+![k667](https://i.imgur.com/7K5h5Obh.jpg)
 
 A customizable 75% keyboard.
 
