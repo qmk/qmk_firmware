@@ -3,8 +3,7 @@
     "keyboard_name": "dp3000",
     "maintainer": "depermana12",
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -64,7 +63,17 @@
 			"solid_reactive_multinexus": true,
             "splash": true,
             "solid_splash": true
-        }
+        },
+		"layout":[
+            { "matrix": [1, 0], "x":  0, "y": 32, "flags":4 },
+            { "matrix": [1, 1], "x": 25, "y": 32, "flags":4 },
+            { "matrix": [1, 2], "x": 37, "y": 32, "flags":4 },
+            { "matrix": [1, 3], "x": 75, "y": 32, "flags":4 },
+            { "matrix": [2, 0], "x": 75, "y": 16, "flags":4 },
+            { "matrix": [2, 1], "x": 37, "y": 16, "flags":4 },
+            { "matrix": [2, 2], "x": 25, "y": 16, "flags":4 },
+            { "matrix": [2, 3], "x":  0, "y": 16, "flags":4 }
+         ]
     },
     "matrix_pins": {
          "cols": ["D4", "D7", "B4", "C6"],
