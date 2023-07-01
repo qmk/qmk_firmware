@@ -100,7 +100,7 @@
         "vid": "0x1EA7"
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0, "w": 1},
                 {"matrix": [0, 1], "x": 1, "y": 0},
