@@ -149,6 +149,7 @@
             { "flags": 8, "x": 207, "y": 27 }
         ]
     },
+    "community_layouts": ["75_ansi"],
     "layouts":{
         "LAYOUT_75_ansi": {
             "layout": [                
