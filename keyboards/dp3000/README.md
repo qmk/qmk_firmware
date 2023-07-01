@@ -1,6 +1,6 @@
 # DP3000
 
-<img src="https://i.imgur.com/uBHS8EY.jpg" alt="dp3000 macropad" title="dp3000 macropad">
+![dp3000 macropad](https://i.imgur.com/uBHS8EY.jpg)
 
 dp3000 is a simple yet elegant macropad, 2x4 (8 keys), dual encoder, embedded with an Atmel 32u4 chip, powered by QMK.
 
