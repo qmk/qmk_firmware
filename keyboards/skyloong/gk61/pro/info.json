@@ -162,9 +162,9 @@
     },
     "community_layouts": ["60_ansi"],
     "layouts": {
-        "LAYOUT_ansi_61": {
+        "LAYOUT_all": {
             "c_macro": false,
-            "json_layout": true,
+            "json_layout": false,
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0, "w": 1},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -297,7 +297,7 @@
                 {"matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_space_split": {
+        "LAYOUT_60_ansi_space_split": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0, "w": 1},
                 {"matrix": [0, 1], "x": 1, "y": 0},
