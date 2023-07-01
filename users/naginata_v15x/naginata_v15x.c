@@ -25,6 +25,7 @@ x 編集モードの追加 (編集モードはかな変換と異なる処理に�
 x AVRで動くようにする (固有名詞をオフにする)
 x もも　が出ない
 x ５キー以上打鍵した時の処理
+x シフトしたまま入力し続けると暴走する
 
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
@@ -702,12 +703,13 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
       case NG_Q ... NG_SLSH:
         keycnt++;
 
-        if (keycnt > NKEYS) {
+        if (keycnt > NKEYS || ng_chrcount >= NKEYS) {
           for (int i = 0; i < ng_chrcount; i++) {
             nginput[i].releaseTime = record->event.time;
           }
           naginata_type();
           ng_chrcount = 0;
+          keycomb = 0UL;
         }
 
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
@@ -775,10 +777,12 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           if (henshu_done) { // 編集モードを実行した後のDF等は変換しない
             henshu_done = false;
             ng_chrcount = 0;
+            keycomb = 0;
             return false;
           }
           naginata_type();
           ng_chrcount = 0;
+          keycomb = 0;
         }
         #if defined(CONSOLE_ENABLE) && defined(LOG_PROCESS_NAGINATA)
         uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
