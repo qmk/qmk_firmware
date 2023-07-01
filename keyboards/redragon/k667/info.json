@@ -149,9 +149,8 @@
             { "flags": 8, "x": 207, "y": 27 }
         ]
     },
-    "community_layouts": ["75_ansi"],
     "layouts":{
-        "LAYOUT_75_ansi": {
+        "LAYOUT": {
             "layout": [                
                 {"matrix": [0, 0], "label": "ESC", "x":0, "y":0},                
                 {"matrix": [0, 2], "label": "F1", "x":2, "y":0},
