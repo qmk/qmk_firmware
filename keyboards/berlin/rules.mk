@@ -1,2 +1,5 @@
 DIP_SWITCH_ENABLE = yes
 MIDI_ENABLE = yes
+ANALOG_ENABLE = yes
+
+SRC+=analog.c
