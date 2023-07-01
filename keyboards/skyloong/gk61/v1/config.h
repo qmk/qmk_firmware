@@ -31,7 +31,7 @@
 #define DRIVER_ADDR_1  0b1110100
 
 #define DRIVER_COUNT 1
-#define RGB_MATRIX_LED_COUNT 192
+#define RGB_MATRIX_LED_COUNT 64
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS  //Enable frame effects
 #define RGB_MATRIX_KEYPRESSES  //Reacts to keypress
