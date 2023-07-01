@@ -49,6 +49,7 @@ typedef struct {
 int evaluate(void);
 double scoring(Keystroke[], int);
 
+bool exec_henshu(uint32_t);
 void ng_cut(void);
 void ng_copy(void);
 void ng_paste(void);
