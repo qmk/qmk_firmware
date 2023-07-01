@@ -171,8 +171,10 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 // When you add source files to SRC in rules.mk, you can use functions.
 const char *default_layer(void);
-//const char *read_layer_state(void);
+const char *highest_layer(void);
+const char *caps_lock(void);
 const char *read_logo(void);
+//const char *read_layer_state(void);
 //void set_keylog(uint16_t keycode, keyrecord_t *record);
 //const char *read_keylog(void);
 //const char *read_keylogs(void);
@@ -184,7 +186,12 @@ const char *read_logo(void);
 bool oled_task_user(void) {
     if(is_keyboard_master()) {
         // If you want to change the display of OLED, you need to change here
-        oled_write_ln(default_layer(), false);
+        oled_write(default_layer(), false);
+        oled_set_cursor(0, 2);
+        oled_write(PSTR("Layer"), false);
+        oled_write(highest_layer(), false);
+        oled_set_cursor(0, 15);
+        oled_write(caps_lock(), false);
         //oled_write_ln(read_layer_state(), false);
         //oled_write_ln(read_keylog(), false);
         //oled_write_ln(read_keylogs(), false);
