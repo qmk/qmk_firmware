@@ -10,15 +10,11 @@ A customizable 75% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-```
-  make redragon/k667:default
-```
+    make redragon/k667:default
 
 Flashing example for this keyboard:
 
-```
-  make redragon/k667:default:flash
-```
+    make redragon/k667:default:flash
 
 **Reset Key**: Hold down the key located at *K10*, commonly programmed as *Grave* while plugging in the keyboard.
 
