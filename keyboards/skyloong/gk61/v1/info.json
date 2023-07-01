@@ -133,7 +133,7 @@
         "max_power": 380,
         "force_nkro": true
     },
-
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
