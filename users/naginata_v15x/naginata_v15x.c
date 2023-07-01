@@ -1053,8 +1053,11 @@ void ng_paste() {
       break;
     case NG_MAC:
       register_code(KC_LCMD);
+      wait_ms(100);
       tap_code(KC_V);
+      wait_ms(100);
       unregister_code(KC_LCMD);
+      wait_ms(100);
       break;
   }
 }
