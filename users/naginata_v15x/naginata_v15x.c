@@ -22,8 +22,9 @@ x 親指エンター
 x 英数字に戻る
 x 前置シフト
 x 編集モードの追加 (編集モードはかな変換と異なる処理にする)
+x AVRで動くようにする (固有名詞をオフにする)
+x もも　が出ない
 
-AVRで動くようにする
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
 5キーの組み合わせへの拡張
@@ -613,9 +614,10 @@ void naginata_clear(void) {
   keycnt = 0;
 }
 
+// #define LOG_PROCESS_NAGINATA
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
-  #ifdef CONSOLE_ENABLE
+  #if defined(CONSOLE_ENABLE) && defined(LOG_PROCESS_NAGINATA)
   uprintf(">process_naginata, is_naginata=%u, keycode=%u, press=%u\n", is_naginata, keycode, record->event.pressed);
   #endif
 
@@ -727,7 +729,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
         ng_chrcount++;
 
-        #ifdef CONSOLE_ENABLE
+        #if defined(CONSOLE_ENABLE) && defined(LOG_PROCESS_NAGINATA)
         uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
         #endif
         return false;
@@ -757,7 +759,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
             (keycomb & (B_E | B_R)) != (B_E | B_R))
           is_henshu = false;
 
-        for (int i = 0; i < ng_chrcount; i++) {
+        for (int i = ng_chrcount -  1; i >= 0; i--) { //　連続シフト　もも
           if (keycode == nginput[i].keycode) {
             nginput[i].releaseTime = record->event.time;
             break;
@@ -773,23 +775,24 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           naginata_type();
           ng_chrcount = 0;
         }
-        #ifdef CONSOLE_ENABLE
+        #if defined(CONSOLE_ENABLE) && defined(LOG_PROCESS_NAGINATA)
         uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
         #endif
         return false;
         break;
     }
   }
-  #ifdef CONSOLE_ENABLE
+  #if defined(CONSOLE_ENABLE) && defined(LOG_PROCESS_NAGINATA)
   uprintf("<process_naginata return=true\n");
   #endif
 
   return true;
 }
 
+// #define LOG_NAGINATA_TYPE
 // キー入力を文字に変換して出力する
 void naginata_type(void) {
-  #ifdef CONSOLE_ENABLE
+  #if defined(CONSOLE_ENABLE) && defined(LOG_NAGINATA_TYPE)
   uprintf(">naginata_type ng_chrcount=%u\n", ng_chrcount);
   for (int i = 0; i < ng_chrcount; i++)
     uprintf(" naginata_type key=%lu, pressTime=%lu, releaseTime=%lu\n",  nginput[i].keycode,  nginput[i].pressTime,  nginput[i].releaseTime);
@@ -830,7 +833,7 @@ void naginata_type(void) {
           memcpy_P(&bngmap, &ngmap[j], sizeof(bngmap));
           if (keycomb_buf == bngmap.key) {
             send_string(bngmap.kana);
-            #ifdef CONSOLE_ENABLE
+            #if defined(CONSOLE_ENABLE) && defined(LOG_NAGINATA_TYPE)
             uprintf(" send_string %s\n", bngmap.kana);
             #endif
           }
@@ -838,16 +841,17 @@ void naginata_type(void) {
         break;
     }
   }
-  #ifdef CONSOLE_ENABLE
+  #if defined(CONSOLE_ENABLE) && defined(LOG_NAGINATA_TYPE)
   uprintf("<naginata_type\n");
   #endif
 }
 
+// #define LOG_EVALUATE
 // ngingroupを作って、その中で一番評価値が高い組み合わせのインデックスnを返す
 // 入力 Keystrokeの1次元配列 nginput
 // 出力 Keystrokeの2次元配列 (同時押しの組み合わせの配列)
 int evaluate() {
-  #ifdef CONSOLE_ENABLE
+  #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
   uprintf(">evaluate ng_chrcount=%u\n", ng_chrcount);
   #endif
 
@@ -856,18 +860,18 @@ int evaluate() {
   int8_t bcombi = 0; // PROGMEM buffer
 
   for (int i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
-    #ifdef CONSOLE_ENABLE
-    uprintf(" evaluate i=%u, combiSize=%u\n", i, combiSize);
+    #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
+    uprintf(" evaluate COMBI[%u], combiSize=%u\n", i, combiSize);
     #endif
     bool flag = true; // 組み合わせが、かな辞書にあるかどうか
     uint8_t a1Size = 0;
     for (int j = 0; j < NKEYS; j++) { // 組み合わせの順番に
-      #ifdef CONSOLE_ENABLE
+      #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
       uprintf(" evaluate   j=%u\n", j);
       #endif
       memcpy_P(&bcombi, &COMBI[i][j][0], sizeof(bcombi));
       if (bcombi == -1) {
-        #ifdef CONSOLE_ENABLE
+        #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
         uprintf(" evaluate   j=%u, break\n", j);
         #endif
         break;
@@ -876,7 +880,7 @@ int evaluate() {
       // ngingroupを作る
       uint8_t b1Size = 0;
       for (int k = 0; k < NDOUJI; k++) { // 同時に押しているキー
-        #ifdef CONSOLE_ENABLE
+        #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
         uprintf(" evaluate     k=%u\n", k);
         #endif
         memcpy_P(&bcombi, &COMBI[i][j][k], sizeof(bcombi));
@@ -888,7 +892,7 @@ int evaluate() {
         }
       }
       doujiSize[combiSize][j] = b1Size; //あとで辞書にない可能性もあるけど、オーバーライトされるか
-      #ifdef CONSOLE_ENABLE
+      #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
       uprintf(" evaluate   b1Size=%u\n", b1Size);
       uprintf(" evaluate   combiSize=%u\n", combiSize);
       for (int k = 0; k < doujiSize[combiSize][j]; k++) {
@@ -910,7 +914,7 @@ int evaluate() {
           break;
         }
       }
-      #ifdef CONSOLE_ENABLE
+      #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
       uprintf(" evaluate   isExist=%u\n", isExist);
       #endif
       if (isExist) {
@@ -922,38 +926,36 @@ int evaluate() {
     }
     keySize[combiSize] = a1Size; // a1Size++したあとでは
 
-    #ifdef CONSOLE_ENABLE
+    #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
     uprintf(" evaluate flag=%u\n", flag);
     #endif
     if (flag)
       combiSize++;
   }
-  #ifdef CONSOLE_ENABLE
-  uprintf(" evaluate combiSize=%u\n", combiSize);
-  for (int i = 0; i < combiSize; i++) {
-    uprintf(" evaluate   keySize=%u\n", keySize[i]);
-    for (int j = 0; j < keySize[i]; j++) {
-      uprintf(" evaluate     doujiSize=%u\n", doujiSize[i][j]);
-      for (int k = 0; k < doujiSize[i][j]; k++) {
-        uprintf(" evaluate       ngingroup %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", i, j, k, ngingroup[i][j][k].keycode,  ngingroup[i][j][k].pressTime,  ngingroup[i][j][k].releaseTime);
-      }
-    }
-  }
-  #endif
-    
+
   // 各組み合わせの点数を求める
   // 同時おしごとの平均値とする (合計だと単打など同時押しが少ない方がスコアが高くなるので)
-  double score[NCOMBIPERKEY];
+  uint32_t score[NCOMBIPERKEY];
   for (int i = 0; i < combiSize; i++) {
-    double s = 0;
+    uint32_t s = 0;
     for (int j = 0; j < keySize[i]; j++) {
       s += scoring(ngingroup[i][j], doujiSize[i][j]);
     }
-    score[i] = s / (double)keySize[i];
+    score[i] = s / keySize[i];
+
+    #if defined(CONSOLE_ENABLE)
+    uprintf(" evaluate combi=%u, score=%lu\n", i, score[i]);
+    for (int j = 0; j < keySize[i]; j++) {
+      uprintf(" evaluate   douji=%u\n", doujiSize[i][j]);
+      for (int k = 0; k < doujiSize[i][j]; k++) {
+        uprintf(" evaluate     ngingroup %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", i, j, k, ngingroup[i][j][k].keycode,  ngingroup[i][j][k].pressTime,  ngingroup[i][j][k].releaseTime);
+      }
+    }
+    #endif
   }
 
   // 一番点数が高いものを返す
-  double maxScore = score[0];
+  uint32_t maxScore = score[0];
   int maxIndex = 0;
   for (int i = 1; i < combiSize; i++) {
     if (score[i] > maxScore) {
@@ -961,15 +963,17 @@ int evaluate() {
       maxIndex = i;
     }
   }
-  #ifdef CONSOLE_ENABLE
-  uprintf("<evaluate return=%u\n", maxIndex);
+  
+  #if defined(CONSOLE_ENABLE)
+  uprintf("<evaluate return maxIndex=%u, score=%lu\n", maxIndex, maxScore);
   #endif
 
   return maxIndex;
 }
 
-double scoring(Keystroke ks[], int size) {
-  #ifdef CONSOLE_ENABLE
+// #define LOG_SCORING
+uint32_t scoring(Keystroke ks[], int size) {
+  #if defined(CONSOLE_ENABLE) && defined(LOG_SCORING)
   uprintf(">scoring size=%u\n", size);
   for (int i = 0; i < size; i++) {
     uprintf(" scoring key=%lu, pressTime=%lu, releaseTime=%lu\n", ks[i].keycode, ks[i].pressTime, ks[i].releaseTime);
@@ -977,10 +981,10 @@ double scoring(Keystroke ks[], int size) {
   #endif
 
   if (size == 1) { // 単打の重み
-    #ifdef CONSOLE_ENABLE
-    uprintf("<scoring return=%u\n", (int)(1 * 1000));
+    #if defined(CONSOLE_ENABLE) && defined(LOG_SCORING)
+    uprintf("<scoring return=%u\n", 1000);
     #endif
-    return 1; // 単打を優先するか、同時押しを優先するかをチューニングする
+    return 1000; // 単打を優先するか、同時押しを優先するかをチューニングする
   }
 
   // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
@@ -994,18 +998,19 @@ double scoring(Keystroke ks[], int size) {
       e2 = ks[i].releaseTime;
     }
   }
-  #ifdef CONSOLE_ENABLE
+  #if defined(CONSOLE_ENABLE) && defined(LOG_SCORING)
   uprintf(" scoring s2=%lu, e2=%lu\n", s2, e2);
   #endif
-  double w = (double)(e2 - s2); // キーが重なっている時間
-  double s = 0.0;
-  for (int i = 0; i < size; i++) {
-    double pt = (double)(ks[i].releaseTime - ks[i].pressTime);
-      s += w / pt;
+  uint32_t w = e2 - s2; // キーが重なっている時間
+  uint32_t s = 0.0;
+  if (s2 < e2) {
+    for (int i = 0; i < size; i++) {
+      s += w * 1000 / (ks[i].releaseTime - ks[i].pressTime);
+    }
   }
 
-  #ifdef CONSOLE_ENABLE
-  uprintf("<scoring return=%lu, w=%lu\n", (uint32_t)(s * 1000), (uint32_t)(w * 1000));
+  #if defined(CONSOLE_ENABLE) && defined(LOG_SCORING)
+  uprintf("<scoring return=%lu, w=%lu\n", s, w);
   #endif
 
   return s;

@@ -47,7 +47,7 @@ typedef struct {
 } Keystroke;
 
 int evaluate(void);
-double scoring(Keystroke[], int);
+uint32_t scoring(Keystroke[], int);
 
 bool exec_henshu(uint32_t);
 void ng_cut(void);
