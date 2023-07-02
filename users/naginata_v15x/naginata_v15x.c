@@ -26,12 +26,12 @@ x AVRで動くようにする (固有名詞をオフにする)
 x もも　が出ない
 x ５キー以上打鍵した時の処理
 x シフトしたまま入力し続けると暴走する
+x 前置シフトだと連続シフトにならない
 
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
 5キーの組み合わせへの拡張、　「もみもみ」とか
 「なんと」が編集モードに入る
-前置シフトだと連続シフトにならない
 
 */
 
@@ -985,7 +985,7 @@ uint32_t scoring(Keystroke ks[], int size) {
   }
 
   // 前置シフト
-  if (!naginata_config.kouchi_shift && ks[1].keycode == NG_SHFT) {
+  if (!naginata_config.kouchi_shift && (ks[1].keycode == NG_SHFT || ks[1].keycode == NG_SHFT2)) {
     return 0;
   }
 
