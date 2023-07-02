@@ -253,10 +253,11 @@ void render_status(struct CharacterMatrix *matrix) {
 
   // Host Keyboard LED Status
   char led[40];
+  led_t led_state = host_keyboard_led_state();
     snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
+            led_state.num_lock ? "NUMLOCK" : "       ",
+            led_state.caps_lock ? "CAPS" : "    ",
+            led_state.scroll_lock ? "SCLK" : "    ");
   matrix_write(matrix, led);
 }
 

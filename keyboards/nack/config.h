@@ -17,18 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define TAPPING_TOGGLE 2
-
 #ifdef RGB_MATRIX_ENABLE
     #define WS2812_SPI SPID1
     #define WS2812_SPI_MOSI_PAL_MODE 5
-    #define RGBLED_NUM 52
-    #define RGB_MATRIX_LED_COUNT RGBLED_NUM
+    #define RGB_MATRIX_LED_COUNT 52
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128 // Max brightness of LEDs
     #define RGB_MATRIX_DEFAULT_VAL 64
-    #define RGB_MATRIX_HUE_STEP 10
-    #define RGB_MATRIX_SAT_STEP 10
-    #define RGB_MATRIX_VAL_STEP 10
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

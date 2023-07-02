@@ -205,7 +205,7 @@ const char code_to_name[60] = {
 static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
   char name = ' ';
-  uint8_t leds = host_keyboard_leds();
+  led_t led_state = host_keyboard_led_state();
 
   if (keycode < 60)
   {
@@ -218,9 +218,9 @@ static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
            record->event.key.col,
            keycode,
            name,
-          (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ',
-          (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ',
-          (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' '
+          led_state.num_lock ? 'N' : ' ',
+          led_state.caps_lock ? 'C' : ' ',
+          led_state.scroll_lock ? 'S' : ' '
            );
 }
 #endif

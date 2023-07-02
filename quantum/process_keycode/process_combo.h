@@ -37,7 +37,7 @@
 #    define COMBO_BUFFER_LENGTH 4
 #endif
 
-typedef struct {
+typedef struct combo_t {
     const uint16_t *keys;
     uint16_t        keycode;
 #ifdef EXTRA_SHORT_COMBOS

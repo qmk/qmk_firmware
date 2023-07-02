@@ -72,7 +72,7 @@ const uint16_t PROGMEM zeroDot_combo[] = {KC_P0, KC_PDOT, COMBO_END};
 const uint16_t PROGMEM leftDown_combo[] = {KC_LEFT, KC_DOWN, COMBO_END};
 const uint16_t PROGMEM prevPlay_combo[] = {KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO1] = COMBO_ACTION(zeroDot_combo),
   [COMBO2] = COMBO_ACTION(leftDown_combo),
   [COMBO3] = COMBO_ACTION(prevPlay_combo),

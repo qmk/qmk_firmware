@@ -21,6 +21,12 @@
         "caps_lock": "B2",
         "on_state": 0
     },
+    "rgblight": {
+        "hue_steps": 10,
+        "saturation_steps": 15,
+        "brightness_steps": 15,
+        "led_count": 20
+    },
     "ws2812": {
         "pin": "F5"
     },

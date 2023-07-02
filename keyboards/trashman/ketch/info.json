@@ -9,6 +9,10 @@
     "device_version": "0.0.1",
     "max_power": 100
   },
+  "rgblight": {
+    "led_count": 10,
+    "sleep": true
+  },
   "ws2812": {
     "pin": "F4"
   },

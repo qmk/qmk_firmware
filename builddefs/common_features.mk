@@ -213,10 +213,10 @@ else
     SRC += eeprom_driver.c eeprom_spi.c
   else ifeq ($(strip $(EEPROM_DRIVER)), legacy_stm32_flash)
     # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
-    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_FLASH_EMULATED
+    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
     COMMON_VPATH += $(DRIVER_PATH)/flash
-    SRC += eeprom_driver.c eeprom_stm32.c flash_stm32.c
+    SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
   else ifeq ($(strip $(EEPROM_DRIVER)), transient)
     # Transient EEPROM implementation -- no data storage but provides runtime area for it
     OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
@@ -906,10 +906,11 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     OPT_DEFS += -DBLUETOOTH_ENABLE
     NO_USB_STARTUP_CHECK := yes
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
-    SRC += outputselect.c bluetooth.c
+    SRC += outputselect.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), BluefruitLE)
         OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE -DHAL_USE_SPI=TRUE
+        SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
         QUANTUM_LIB_SRC += analog.c
         QUANTUM_LIB_SRC += spi_master.c
@@ -917,6 +918,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
         OPT_DEFS += -DBLUETOOTH_RN42 -DHAL_USE_SERIAL=TRUE
+        SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
         QUANTUM_LIB_SRC += uart.c
     endif

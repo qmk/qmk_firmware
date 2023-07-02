@@ -4,15 +4,12 @@ The Combo feature is a chording type solution for adding custom actions. It lets
 
 To enable this feature, you need to add `COMBO_ENABLE = yes` to your `rules.mk`.
 
-Additionally, in your `config.h`, you'll need to specify the number of combos that you'll be using, by adding `#define COMBO_COUNT 1` (replacing 1 with the number that you're using). It is also possible to not define this and instead set the variable `COMBO_LEN` yourself. There's a trick where we don't need to think about this variable at all. More on this later.
-
-
 Then, in your `keymap.c` file, you'll need to define a sequence of keys, terminated with `COMBO_END`, and a structure to list the combination of keys, and its resulting action.
 
 ```c
 const uint16_t PROGMEM test_combo1[] = {KC_A, KC_B, COMBO_END};
 const uint16_t PROGMEM test_combo2[] = {KC_C, KC_D, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     COMBO(test_combo1, KC_ESC),
     COMBO(test_combo2, LCTL(KC_Z)), // keycodes with modifiers are possible too!
 };
@@ -33,7 +30,7 @@ It is possible to overlap combos. Before, with the example below both combos wou
 ```c
 const uint16_t PROGMEM test_combo1[] = {LSFT_T(KC_A), LT(1, KC_B), COMBO_END};
 const uint16_t PROGMEM test_combo2[] = {LSFT_T(KC_A), LT(1, KC_B), KC_C, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     COMBO(test_combo1, KC_ESC)
     COMBO(test_combo2, KC_TAB)
 };
@@ -41,17 +38,15 @@ combo_t key_combos[COMBO_COUNT] = {
 
 ## Examples
 
-A long list of combos can be defined in an `enum` list that ends with `COMBO_LENGTH` and you can leave `COMBO_COUNT` undefined:
+A long list of combos can be defined in an `enum` list:
 
 ```c
 enum combos {
   AB_ESC,
   JK_TAB,
   QW_SFT,
-  SD_LAYER,
-  COMBO_LENGTH
+  SD_LAYER
 };
-uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
@@ -72,9 +67,7 @@ For a more complicated implementation, you can use the `process_combo_event` fun
 enum combo_events {
   EM_EMAIL,
   BSPC_LSFT_CLEAR,
-  COMBO_LENGTH
 };
-uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM email_combo[] = {KC_E, KC_M, COMBO_END};
 const uint16_t PROGMEM clear_line_combo[] = {KC_BSPC, KC_LSFT, COMBO_END};
@@ -259,18 +252,6 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 }
 ```
 
-### Variable Length Combos
-If you leave `COMBO_COUNT` undefined in `config.h`, it allows you to programmatically declare the size of the Combo data structure and avoid updating `COMBO_COUNT`. Instead a variable called `COMBO_LEN` has to be set. It can be set with something similar to the following in `keymap.c`: `uint16_t COMBO_LEN = ARRAY_SIZE(key_combos);` or by adding `COMBO_LENGTH` as the *last* entry in the combo enum and then `uint16_t COMBO_LEN = COMBO_LENGTH;` as such:
-```c
-enum myCombos {
-    ...,
-    COMBO_LENGTH
-};
-uint16_t COMBO_LEN = COMBO_LENGTH;
-```
-Regardless of the method used to declare `COMBO_LEN`, this also requires to convert the `combo_t key_combos[COMBO_COUNT] = {...};` line to `combo_t key_combos[] = {...};`.
-
-
 ### Combo timer
 
 Normally, the timer is started on the first key press and then reset on every subsequent key press within the `COMBO_TERM`.
@@ -300,10 +281,8 @@ Here's an example where a combo resolves to two modifiers, and on key releases t
 
 ```c
 enum combos {
-  AB_MODS,
-  COMBO_LENGTH
+  AB_MODS
 };
-uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM ab_combo[] = {KC_A, KC_B, COMBO_END};
 
@@ -414,7 +393,5 @@ COMB(QW_UNDO,  C(KC_Z),  KC_Q, KC_W)
 SUBS(TH_THE,   "the",    KC_T, KC_H) // SUBS uses SEND_STRING to output the given string.
 ...
 ```
-
-Now, you can update only one place to add or alter combos. You don't even need to remember to update the `COMBO_COUNT` or the `COMBO_LEN` variables at all. Everything is taken care of. Magic!
 
 For small to huge ready made dictionaries of combos, you can check out http://combos.gboards.ca/.

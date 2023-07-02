@@ -52,10 +52,7 @@ void process_combo_event(uint16_t combo_index, bool pressed);
 #define TOGG A_ENUM
 enum combos {
 #include "combos.def"
-    COMBO_LENGTH
 };
-// Export length to combo module
-uint16_t COMBO_LEN = COMBO_LENGTH;
 
 // Bake combos into mem
 #undef COMB

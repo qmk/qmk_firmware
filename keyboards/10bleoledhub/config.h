@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #define SSD1306OLED
 
-#define RGBLED_NUM 4
-
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
