@@ -31,8 +31,6 @@
 #    define RGB_MATRIX_LED_COUNT 67
 #    define RGB_DISABLE_AFTER_TIMEOUT 1 // number of ticks to wait until disabling effects  
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
-#    define RGB_MATRIX_LED_FLUSH_LIMIT 16
-#    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
