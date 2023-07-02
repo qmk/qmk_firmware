@@ -1,0 +1,21 @@
+{
+    "manufacturer": "Qneatandtidy",
+    "maintainer": "Deemen17",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "usb": {
+        "vid": "0x0198"
+    },
+    "features": {
+        "nkro": true,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 0]
+    }
+}
