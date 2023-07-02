@@ -131,7 +131,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 #ifdef DOUBLE_TAP_RSHIFT_TURNS_ON_CAPS_WORD
         // Double tapping right shift turns on Caps Word.
         //
-        // NOTE: This works with KC_RSFT and one-shot left shift. It
+        // NOTE: This works with KC_RSFT and one-shot right shift. It
         // wouldn't make sense with mod-tap or Space Cadet shift since
         // double tapping would of course trigger the tapping action.
         if (record->event.pressed) {
