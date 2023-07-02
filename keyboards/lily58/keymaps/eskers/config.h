@@ -27,11 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define QUICK_TAP_TERM 0
 #define PERMISSIVE_HOLD
-#define TAPPING_TERM 150
+#define TAPPING_TERM 250
 
 // Configure Caps Word
 #define DOUBLE_TAP_RSHIFT_TURNS_ON_CAPS_WORD // Custom function in process_caps_word.c
-#define CAPS_WORD_IDLE_TIMEOUT 2500  // 2.5 seconds
+#define CAPS_WORD_IDLE_TIMEOUT 1500  // 2.5 seconds
 
 // Enable button flashing
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior
