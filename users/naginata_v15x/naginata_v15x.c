@@ -923,7 +923,7 @@ void evaluate() {
     } // j
 
     if (!isExist) {
-      break; // 辞書になければ追加しない
+      continue; // 辞書になければ追加しない
     }
 
     uint32_t s = 0;
