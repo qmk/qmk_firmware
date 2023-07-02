@@ -11,7 +11,7 @@
 
 char default_layer_str[6];
 char highest_layer_str[12];
-char caps_lock_str[6];
+char caps_state_str[6];
 
 const char *default_layer(void) {
     switch (get_highest_layer(default_layer_state)) {
@@ -54,17 +54,24 @@ const char *highest_layer(void) {
     return highest_layer_str;
 }
 
-const char *caps_lock(void) {
+const char *caps_state(void) {
     led_t led_state = host_keyboard_led_state();
 
     switch(led_state.caps_lock) {
         case 1:
-            snprintf(caps_lock_str, sizeof(caps_lock_str), "CAPS ");
+            if(!is_caps_word_on()) {
+                snprintf(caps_state_str, sizeof(caps_state_str), "CPSLK");
+            } else {
+                snprintf(caps_state_str, sizeof(caps_state_str), "cpswd");
+            }
             break;
         default:
-            snprintf(caps_lock_str, sizeof(caps_lock_str), "     ");
+            if(!is_caps_word_on()) {
+                snprintf(caps_state_str, sizeof(caps_state_str), "     ");
+            } else {
+                snprintf(caps_state_str, sizeof(caps_state_str), "CPSWD");
+            }
     }
 
-    return caps_lock_str;
-
+    return caps_state_str;
 }
