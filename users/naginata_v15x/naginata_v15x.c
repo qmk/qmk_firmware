@@ -29,8 +29,9 @@ x シフトしたまま入力し続けると暴走する
 
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
-5キーの組み合わせへの拡張
+5キーの組み合わせへの拡張、　「もみもみ」とか
 「なんと」が編集モードに入る
+前置シフトだと連続シフトにならない
 
 */
 
@@ -686,20 +687,6 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
       case NG_SHFT ... NG_SHFT2:
-        // 前置シフト限定の場合、変換を開始する
-        if (!naginata_config.kouchi_shift) {
-          if (ng_chrcount >= 1) {
-            naginata_type();
-            ng_chrcount = 0;
-            keycomb = 0UL;
-          }
-          nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
-          ng_chrcount++;
-          keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
-          return false;
-          break;
-        }
-        // 後置シフトの場合、下の処理へ続く
       case NG_Q ... NG_SLSH:
         keycnt++;
 
@@ -995,6 +982,11 @@ uint32_t scoring(Keystroke ks[], int size) {
     uprintf("<scoring return=%u\n", 1000);
     #endif
     return 1000; // 単打を優先するか、同時押しを優先するかをチューニングする
+  }
+
+  // 前置シフト
+  if (!naginata_config.kouchi_shift && ks[1].keycode == NG_SHFT) {
+    return 0;
   }
 
   // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
