@@ -553,7 +553,7 @@ void ng_send_unicode_string_P(const char *pstr) {
 
 // modifierが押されたら薙刀式レイヤーをオフしてベースレイヤーに戻す
 // get_mods()がうまく動かない
-static int n_modifier = 0;
+static int8_t n_modifier = 0;
 
 bool process_modifier(uint16_t keycode, keyrecord_t *record) {
   if (IS_MODIFIER_KEYCODE(keycode) || IS_QK_MOD_TAP(keycode)) {
@@ -728,7 +728,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         keycnt++;
 
         if (keycnt > NKEYS || ng_chrcount >= NKEYS) {
-          for (int i = 0; i < ng_chrcount; i++) {
+          for (uint8_t i = 0; i < ng_chrcount; i++) {
             if (nginput[i].releaseTime == 0)
               nginput[i].releaseTime = record->event.time;
           }
@@ -791,7 +791,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
             (keycomb & (B_E | B_R)) != (B_E | B_R))
           is_henshu = false;
 
-        for (int i = 0; i < ng_chrcount; i++) { //　連続シフト　もも
+        for (uint8_t i = 0; i < ng_chrcount; i++) { //　連続シフト　もも
           if (keycode == nginput[i].keycode && nginput[i].releaseTime == 0) {
             nginput[i].releaseTime = record->event.time;
             break;
@@ -828,7 +828,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 void naginata_type(void) {
   #if defined(CONSOLE_ENABLE) && defined(LOG_NAGINATA_TYPE)
   uprintf(">naginata_type ng_chrcount=%u\n", ng_chrcount);
-  for (int i = 0; i < ng_chrcount; i++)
+  for (uint8_t i = 0; i < ng_chrcount; i++)
     uprintf(" naginata_type key=%lu, pressTime=%lu, releaseTime=%lu\n",  nginput[i].keycode,  nginput[i].pressTime,  nginput[i].releaseTime);
   #endif
 
@@ -843,10 +843,10 @@ void naginata_type(void) {
   evaluate();
 
   // かなへ変換する
-  for (int i = 0; i < keySize; i++) {
+  for (uint8_t i = 0; i < keySize; i++) {
     // バッファ内のキーを組み合わせる
     uint32_t keycomb_buf = 0UL;
-    for (int j = 0; j < doujiSize[i]; j++) {
+    for (uint8_t j = 0; j < doujiSize[i]; j++) {
       keycomb_buf |= ng_key[ngingroup[i][j].keycode - NG_Q];
     }
     switch (keycomb_buf) {
@@ -863,7 +863,7 @@ void naginata_type(void) {
         naginata_off();
         break;
       default:
-        for (int j = 0; j < sizeof ngmap / sizeof bngmap; j++) {
+        for (uint16_t j = 0; j < sizeof ngmap / sizeof bngmap; j++) {
           memcpy_P(&bngmap, &ngmap[j], sizeof(bngmap));
           if (keycomb_buf == bngmap.key) {
             send_string(bngmap.kana);
@@ -898,12 +898,12 @@ void evaluate() {
   int8_t bcombi = 0; // PROGMEM buffer
   bool isExist = false;
 
-  for (int i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
+  for (uint8_t i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
     #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
     uprintf(" evaluate COMBI[%u]\n", i);
     #endif
     uint8_t tkeySize = 0;
-    for (int j = 0; j < NKEYS; j++) { // 組み合わせの順番に
+    for (uint8_t j = 0; j < NKEYS; j++) { // 組み合わせの順番に
       #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
       uprintf(" evaluate   j=%u\n", j);
       #endif
@@ -917,7 +917,7 @@ void evaluate() {
 
       // ngingroupを作る
       uint8_t tdouji = 0;
-      for (int k = 0; k < NDOUJI; k++) { // 同時に押しているキー
+      for (uint8_t k = 0; k < NDOUJI; k++) { // 同時に押しているキー
         #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
         uprintf(" evaluate     k=%u\n", k);
         #endif
@@ -932,19 +932,19 @@ void evaluate() {
       tdoujiSize[j] = tdouji; //あとで辞書にない可能性もあるけど、オーバーライトされるか
       #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
       uprintf(" evaluate   tdouji=%u\n", tdouji);
-      for (int k = 0; k < tdoujiSize[j]; k++) {
+      for (uint8_t k = 0; k < tdoujiSize[j]; k++) {
         uprintf(" evaluate   tmpgroup %u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", j, k, tmpgroup[j][k].keycode,  tmpgroup[j][k].pressTime,  tmpgroup[j][k].releaseTime);
       }
       #endif
 
       // バッファ内のキーを組み合わせる
       uint32_t keycomb_buf = 0UL;
-      for (int k = 0; k < tdouji; k++) {
+      for (uint8_t k = 0; k < tdouji; k++) {
         keycomb_buf |= ng_key[tmpgroup[j][k].keycode - NG_Q];
       }
       // 辞書に存在するかチェック
       isExist = false;
-      for (int k = 0; k < sizeof ngmap / sizeof bngmap; k++) {
+      for (uint16_t k = 0; k < sizeof ngmap / sizeof bngmap; k++) {
         memcpy_P(&bngmap, &ngmap[k], sizeof(bngmap));
         if (keycomb_buf == bngmap.key) {
           isExist = true;
@@ -965,16 +965,16 @@ void evaluate() {
     }
 
     uint32_t s = 0;
-    for (int j = 0; j < tkeySize; j++) {
+    for (uint8_t j = 0; j < tkeySize; j++) {
       s += scoring(tmpgroup[j], tdoujiSize[j]);
     }
     score = s / tkeySize;
 
     #if defined(CONSOLE_ENABLE)
     uprintf(" evaluate combi=%u, score=%lu\n", i, score);
-    for (int j = 0; j < tkeySize; j++) {
+    for (uint8_t j = 0; j < tkeySize; j++) {
       uprintf(" evaluate   douji=%u\n", tdoujiSize[j]);
-      for (int k = 0; k < tdoujiSize[j]; k++) {
+      for (uint8_t k = 0; k < tdoujiSize[j]; k++) {
         uprintf(" evaluate     tmpgroup %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", i, j, k, tmpgroup[j][k].keycode,  tmpgroup[j][k].pressTime,  tmpgroup[j][k].releaseTime);
       }
     }
@@ -983,9 +983,9 @@ void evaluate() {
     if (score > maxScore) {
       maxScore = score;
       keySize = tkeySize;
-      for (int j = 0; j < keySize; j++) {
+      for (uint8_t j = 0; j < keySize; j++) {
         doujiSize[j] = tdoujiSize[j];
-        for (int k = 0; k < doujiSize[j]; k++) {
+        for (uint8_t k = 0; k < doujiSize[j]; k++) {
           ngingroup[j][k] = tmpgroup[j][k];
         }
       }
@@ -999,10 +999,10 @@ void evaluate() {
 }
 
 // #define LOG_SCORING
-uint32_t scoring(Keystroke ks[], int size) {
+uint32_t scoring(Keystroke ks[], uint8_t size) {
   #if defined(CONSOLE_ENABLE) && defined(LOG_SCORING)
   uprintf(">scoring size=%u\n", size);
-  for (int i = 0; i < size; i++) {
+  for (uint8_t i = 0; i < size; i++) {
     uprintf(" scoring key=%lu, pressTime=%lu, releaseTime=%lu\n", ks[i].keycode, ks[i].pressTime, ks[i].releaseTime);
   }
   #endif
@@ -1022,7 +1022,7 @@ uint32_t scoring(Keystroke ks[], int size) {
   // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
   uint32_t s2 = ks[0].pressTime;
   uint32_t e2 = ks[0].releaseTime;
-  for (int i = 1; i < size; i++) {
+  for (uint8_t i = 1; i < size; i++) {
     if (ks[i].pressTime > s2) {
       s2 = ks[i].pressTime;
     }
@@ -1036,7 +1036,7 @@ uint32_t scoring(Keystroke ks[], int size) {
   uint32_t w = e2 - s2; // キーが重なっている時間
   uint32_t s = 0.0;
   if (s2 < e2) {
-    for (int i = 0; i < size; i++) {
+    for (uint8_t i = 0; i < size; i++) {
       s += w * 1000 / (ks[i].releaseTime - ks[i].pressTime);
     }
   }
@@ -1099,42 +1099,42 @@ void ng_paste() {
   }
 }
 
-void ng_up(int c) {
+void ng_up(uint8_t c) {
   if (naginata_config.tategaki) {
-    for (int i = 0; i < c; i++ )
+    for (uint8_t i = 0; i < c; i++ )
       tap_code(KC_UP);
   } else {
-    for (int i = 0; i < c; i++ )
+    for (uint8_t i = 0; i < c; i++ )
       tap_code(KC_LEFT);
   }
 }
 
-void ng_down(int c) {
+void ng_down(uint8_t c) {
   if (naginata_config.tategaki) {
-    for (int i = 0; i < c; i++ )
+    for (uint8_t i = 0; i < c; i++ )
       tap_code(KC_DOWN);
   } else {
-    for (int i = 0; i < c; i++ )
+    for (uint8_t i = 0; i < c; i++ )
       tap_code(KC_RIGHT);
   }
 }
 
-void ng_left(int c) {
+void ng_left(uint8_t c) {
   if (naginata_config.tategaki) {
-    for (int i = 0; i < c; i++ )
+    for (uint8_t i = 0; i < c; i++ )
       tap_code(KC_LEFT);
   } else {
-    for (int i = 0; i < c; i++ )
+    for (uint8_t i = 0; i < c; i++ )
       tap_code(KC_DOWN);
   }
 }
 
-void ng_right(int c) {
+void ng_right(uint8_t c) {
   if (naginata_config.tategaki) {
-    for (int i = 0; i < c; i++ )
+    for (uint8_t i = 0; i < c; i++ )
       tap_code(KC_RIGHT);
   } else {
-    for (int i = 0; i < c; i++ )
+    for (uint8_t i = 0; i < c; i++ )
       tap_code(KC_UP);
   }
 }
@@ -1541,7 +1541,7 @@ bool exec_henshu(uint32_t keycomb) {
       return true;
       break;
     case B_M|B_COMM|B_Z: // 　　　×　　　×　　　×{改行 2}
-      ng_send_unicode_string_P(PSTR("　　　×　　　×　　　×"));
+      ng_send_unicode_string_P(PSTR("　　　×　　　×　　　×")); // 33bytes + eos
       tap_code(KC_ENT);
       henshu_done = true;
       return true;
