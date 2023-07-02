@@ -54,4 +54,5 @@ const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
     {0, L_1,    J_1,    K_1}, // 19
     {0, C_2,    A_2,    B_2}, // 20
 };
+
 #endif // RGB_MATRIX_ENABLE

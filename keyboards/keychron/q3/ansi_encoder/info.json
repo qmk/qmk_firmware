@@ -1,12 +1,6 @@
 {
-    "usb": {
-        "pid": "0x0121",
-        "device_version": "1.0.0"
-    },
-    "features": {
-        "encoder": true
-    },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "A10", "pin_b": "A8"}
         ]
@@ -109,8 +103,14 @@
     },
     "matrix_pins": {
         "rows": ["B5", "B4", "B3", "A15", "A14", "A13"],
-        "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", null, null, null, null, null, null, null, null],
-        "custom_lite": true
+        "custom": true,
+        "custom_lite": true,
+        "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", null, null, null, null, null, null, null, null]
+        
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0121" 
     },
     "layouts": {
         "LAYOUT_tkl_f13_ansi": {

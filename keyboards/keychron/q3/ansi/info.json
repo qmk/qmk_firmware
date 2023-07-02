@@ -1,8 +1,4 @@
 {
-    "usb": {
-        "pid": "0x0120",
-        "device_version": "1.0.0"
-    },
     "rgb_matrix": {
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
@@ -102,6 +98,10 @@
     "matrix_pins": {
         "rows": ["B5", "B4", "B3", "A15", "A14", "A13"],
         "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1", "A8", "A9", "A10", "H3"]
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0120"
     },
     "layouts": {
         "LAYOUT_tkl_ansi": {
