@@ -39,14 +39,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |  ¿  ¡  |   Z  |   X  |   C  |   V  |   B  |SH/Del| Alt  |  | Tab  |LShift|   N  |   M  | ,  ; | . :  | -  _ |  ?  !  |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |W+Sh+S|NumPad| Lower| Bksp | Ctrl |  | Enter| Space| Raise| GUI  |  ≡   |
+ *                        |W+Sh+S| Caps | Lower| Bksp | Ctrl |  | Enter| Space| Raise| GUI  |  ≡   |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-        KC_ESC,  ES_Q, ES_W, ES_E,      ES_R,         ES_T,                                                        ES_Y,       ES_U,    ES_I,    ES_O,   ES_P,    ES_CCED,
-        ES_MORD, ES_A, ES_S, ES_D,      ES_F,         ES_G,                                                        ES_H,       ES_J,    ES_K,    ES_L,   ES_NTIL, ES_ACUT,
-        ES_IEXL, ES_Z, ES_X, ES_C,      ES_V,         ES_B,       SFT_T(KC_DEL), KC_LALT, KC_TAB,  SFT_T(KC_CAPS), ES_N,       ES_M,    ES_COMM, ES_DOT, ES_MINS, KC_EMQM,
-                             LSG(ES_S), MO(_NUMERIC), MO(_LOWER), KC_BSPC,       KC_LCTL, KC_ENT,  KC_SPC,         MO(_RAISE), KC_LGUI, KC_APP
+        KC_ESC,  ES_Q, ES_W, ES_E,      ES_R,    ES_T,                                                 ES_Y,       ES_U,    ES_I,    ES_O,   ES_P,    ES_CCED,
+        ES_MORD, ES_A, ES_S, ES_D,      ES_F,    ES_G,                                                 ES_H,       ES_J,    ES_K,    ES_L,   ES_NTIL, ES_ACUT,
+        ES_IEXL, ES_Z, ES_X, ES_C,      ES_V,    ES_B,       SFT_T(KC_DEL), KC_LALT, KC_TAB,  KC_LSFT, ES_N,       ES_M,    ES_COMM, ES_DOT, ES_MINS, KC_EMQM,
+                             LSG(ES_S), KC_CAPS, MO(_LOWER), KC_BSPC,       KC_LCTL, KC_ENT,  KC_SPC,  MO(_RAISE), KC_LGUI, KC_APP
     ),
 /*
  * Lower Layer: navigation
