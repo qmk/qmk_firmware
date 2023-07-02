@@ -52,11 +52,6 @@
 #define DIP_SWITCH_PINS { A14, B13 }
 #define DIP_SWITCH_PINS_RIGHT { A14, B0 }
 
-/* RGB LED Configuration */
-#define RGBLED_NUM 156
-#define RGBLED_SPLIT { 78, 78 }
-#define RGBLIGHT_LIMIT_VAL 255
-
 // RGB Lighting Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgblight?id=effect-and-animation-toggles
@@ -138,7 +133,6 @@
 
 #define TOUCH_UPDATE_INTERVAL 33
 #define OLED_UPDATE_INTERVAL 33
-#define TAP_CODE_DELAY 5
 
 /* Audio Configuration */
 #define AUDIO_PIN A4

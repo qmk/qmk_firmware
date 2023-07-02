@@ -2,6 +2,9 @@
     "usb": {
         "pid": "0x0102"
     },
+    "rgblight": {
+        "led_count": 16
+    },
     "ws2812": {
         "pin": "A8"
     }

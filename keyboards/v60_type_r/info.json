@@ -17,6 +17,9 @@
     "pin": "F7",
     "on_state": 0
   },
+  "rgblight": {
+    "led_count": 1
+  },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "community_layouts": ["60_ansi", "60_iso"],

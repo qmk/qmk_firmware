@@ -9,6 +9,12 @@
         "device_version": "0.0.1",
         "force_nkro": true
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 74,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "E2"
     },

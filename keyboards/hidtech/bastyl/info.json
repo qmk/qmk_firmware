@@ -19,6 +19,10 @@
     "ws2812": {
         "pin": "D2"
     },
+    "rgblight": {
+        "led_count": 38,
+        "split": true
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

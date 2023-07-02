@@ -8,6 +8,13 @@
     "pid": "0x1012",
     "device_version": "0.0.1"
   },
+  "rgblight": {
+    "hue_steps": 10,
+    "saturation_steps": 10,
+    "brightness_steps": 10,
+    "led_count": 16,
+    "sleep": true
+  },
   "ws2812": {
     "pin": "B15"
   },

@@ -8,6 +8,13 @@
         "pid": "0xDCCB",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "hue_steps": 16,
+        "saturation_steps": 16,
+        "brightness_steps": 16,
+        "led_count": 11,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D3"
     },

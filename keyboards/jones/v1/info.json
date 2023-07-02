@@ -12,6 +12,11 @@
     "cols": ["B3", "B2", "E6", "D6", "D4", "B0", "B1", "B7", "B4", "D7"],
     "rows": ["B3", "B2", "E6", "D6", "D4", "B0", "B1", "B7", "B4", "D7"]
   },
+  "rgblight": {
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "led_count": 4
+  },
   "ws2812": {
     "pin": "F1"
   },
@@ -104,13 +109,7 @@
         {"label": "k93", "matrix": [9, 3], "x": 11, "y": 4, "w": 1.25},
         {"label": "k47", "matrix": [4, 7], "x": 12.25, "y": 4, "w": 1.25},
         {"label": "k91", "matrix": [9, 1], "x": 13.5, "y": 4},
-        {"label": "k41", "matrix": [4, 1], "x": 14.5, "y": 4},
-
-        {"label": "k85", "matrix": [8, 5], "x": 0, "y": 5},
-        {"label": "k86", "matrix": [8, 6], "x": 1, "y": 5},
-
-        {"label": "k95", "matrix": [9, 5], "x": 14, "y": 5},
-        {"label": "k96", "matrix": [9, 6], "x": 15, "y": 5}
+        {"label": "k41", "matrix": [4, 1], "x": 14.5, "y": 4}
       ]
     }
   }

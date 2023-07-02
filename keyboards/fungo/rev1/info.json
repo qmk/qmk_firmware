@@ -22,9 +22,15 @@
       }
     }
   },
+  "qmk": {
+    "tap_keycode_delay": 50
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "debounce": 3,
+  "tapping": {
+    "toggle": 3
+  },
   "layout_aliases": {
     "LAYOUT_fungo_split_num": "LAYOUT"
   },

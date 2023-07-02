@@ -16,7 +16,5 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY 16
-
 #define LEADER_TIMEOUT 250
 #define LEADER_PER_KEY_TIMING 150

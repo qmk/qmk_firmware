@@ -16,6 +16,10 @@
     "ws2812": {
         "pin": "B7"
     },
+    "rgblight": {
+        "led_count": 24,
+        "max_brightness": 172
+    },
     "processor": "at90usb646",
     "bootloader": "atmel-dfu",
     "community_layouts": [

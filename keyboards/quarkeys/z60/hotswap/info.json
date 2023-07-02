@@ -15,6 +15,13 @@
     "ws2812": {
         "pin": "D6"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 80,
+        "max_brightness": 140,
+        "sleep": true
+    },
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
