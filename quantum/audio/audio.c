@@ -129,7 +129,7 @@ void audio_init(void) {
     }
     audio_config.raw = eeconfig_read_audio();
 #else // EEPROM settings
-    audio_config.enable        = true;
+    audio_config.enable = true;
 #    ifdef AUDIO_CLICKY_ON
     audio_config.clicky_enable = true;
 #    endif
@@ -564,7 +564,7 @@ void audio_decrease_tempo(uint8_t tempo_change) {
  *                 = 69.904 * note_tempo.
  */
 uint16_t audio_duration_to_ms(uint16_t duration_bpm) {
-  return ((uint32_t)duration_bpm * 1875) / ((uint_fast16_t) note_tempo * 2);
+    return ((uint32_t)duration_bpm * 1875) / ((uint_fast16_t)note_tempo * 2);
 }
 
 /**
@@ -581,6 +581,5 @@ uint16_t audio_duration_to_ms(uint16_t duration_bpm) {
  *     <= UINT16_MAX.
  */
 uint16_t audio_ms_to_duration(uint16_t duration_ms) {
-  return ((uint32_t)duration_ms * 2 * note_tempo) / 1875;
+    return ((uint32_t)duration_ms * 2 * note_tempo) / 1875;
 }
-
