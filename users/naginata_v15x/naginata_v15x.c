@@ -858,6 +858,7 @@ void evaluate() {
 
   naginata_keymap bngmap; // PROGMEM buffer
   int8_t bcombi = 0; // PROGMEM buffer
+  bool isExist = false;
 
   for (int i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
     #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
@@ -904,7 +905,7 @@ void evaluate() {
         keycomb_buf |= ng_key[tmpgroup[j][k].keycode - NG_Q];
       }
       // 辞書に存在するかチェック
-      bool isExist = false;
+      isExist = false;
       for (int k = 0; k < sizeof ngmap / sizeof bngmap; k++) {
         memcpy_P(&bngmap, &ngmap[k], sizeof(bngmap));
         if (keycomb_buf == bngmap.key) {
