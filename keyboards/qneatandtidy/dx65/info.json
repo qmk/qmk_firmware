@@ -13,9 +13,5 @@
         "console": false,
         "extrakey": true,
         "mousekey": true
-    },
-    "bootmagic": {
-        "enabled": true,
-        "matrix": [0, 0]
     }
 }
