@@ -129,7 +129,7 @@ void audio_init(void) {
     }
     audio_config.raw = eeconfig_read_audio();
 #else // EEPROM settings
-    audio_config.enable = true;
+    audio_config.enable        = true;
 #    ifdef AUDIO_CLICKY_ON
     audio_config.clicky_enable = true;
 #    endif
