@@ -10,7 +10,8 @@
     },
     "matrix_pins": {
         "cols": ["B15", "B10", "B0", "A5", "A4", "A3"],
-        "rows": ["A10", "A15", "B3", "B4"]
+        "rows": ["A10", "A15", "B3", "B4"],
+        "io_delay": 5
     },
     "diode_direction": "COL2ROW",
     "encoder": {
