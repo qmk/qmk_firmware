@@ -732,12 +732,19 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           naginata_type();
 
           // 押しているキーは残す
+          // シフト系のキー以外を残すと2度変換してしまう
           Keystroke tks[NKEYS];
           uint8_t tch = 0;
           for (uint8_t i = 0; i < ng_chrcount; i++) {
-            if (nginput[i].releaseTime == 0) {
+            if (nginput[i].releaseTime == 0 && 
+               (nginput[i].keycode == NG_SHFT || 
+                nginput[i].keycode == NG_SHFT2 ||
+                nginput[i].keycode == NG_F ||
+                nginput[i].keycode == NG_V ||
+                nginput[i].keycode == NG_J ||
+                nginput[i].keycode == NG_M )) {
               tks[tch] = nginput[i];
-              tks[tch].pressTime = record->event.time; // 仕切り直す
+              // tks[tch].pressTime = record->event.time; // 仕切り直す
               tch++;
             }
           }
