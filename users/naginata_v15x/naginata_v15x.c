@@ -513,8 +513,10 @@ void ng_show_os(void) {
 //   }
 // }
 
+#define MAX_STRLEN 40
 void ng_send_unicode_string_P(const char *pstr) {
-  char str[30];
+  if (strlen_P(pstr) > MAX_STRLEN) return;
+  char str[MAX_STRLEN];
   strcpy_P(str, pstr);
 
   switch (naginata_config.os) {
