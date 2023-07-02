@@ -8,7 +8,7 @@ enum layer_number {
     _LOWER,
     _RAISE,
     _ADJUST,
-    _ALT
+    _GLOWER
 };
 
 // Keycodes
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_QWERTY] = LAYOUT(
-  KC_ESC,   UK_1,   UK_2,    UK_3,    UK_4,    UK_5,                        UK_6,       UK_7,   UK_8,    UK_9,    UK_0,     UK_MINS,
+  QK_GESC,  UK_1,   UK_2,    UK_3,    UK_4,    UK_5,                        UK_6,       UK_7,   UK_8,    UK_9,    UK_0,     UK_MINS,
   KC_TAB,   UK_Q,   UK_W,    UK_E,    UK_R,    UK_T,                        UK_Y,       UK_U,   UK_I,    UK_O,    UK_P,     UK_HASH,
   KC_LCTL,  UK_A,   UK_S,    UK_D,    UK_F,    UK_G,                        UK_H,       UK_J,   UK_K,    UK_L,    UK_SCLN,  RCTL_T(UK_QUOT),
   KC_LSFT,  UK_Z,   UK_X,    UK_C,    UK_V,    UK_B,       KC_MEH, KC_MEH,  UK_N,       UK_M,   UK_COMM, UK_DOT,  UK_SLSH,  KC_RSFT,
@@ -56,11 +56,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '----------------------------'
  */
   [_GAMING] = LAYOUT(
-  KC_ESC,   UK_1,   UK_2,    UK_3,    UK_4,    UK_5,                      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,
-  KC_TAB,   UK_Q,   UK_W,    UK_E,    UK_R,    UK_T,                      UK_Y,    UK_U,    UK_I,    UK_O,    UK_P,     UK_HASH,
-  KC_LCTL,  UK_A,   UK_S,    UK_D,    UK_F,    UK_G,                      UK_H,    UK_J,    UK_K,    UK_L,    UK_SCLN,  RCTL_T(UK_QUOT),
-  KC_LSFT,  UK_Z,   UK_X,    UK_C,    UK_V,    UK_B,     UK_LBRC, KC_MEH, UK_N,    UK_M,    UK_COMM, UK_DOT,  UK_SLSH,  KC_RSFT,
-                             KC_RBRC, KC_LALT, MO(_ALT), KC_SPC,  KC_ENT, KC_QWRT, KC_BSPC, KC_HYPR
+  QK_GESC,  UK_1,   UK_2,    UK_3,    UK_4,    UK_5,                         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,
+  KC_TAB,   UK_Q,   UK_W,    UK_E,    UK_R,    UK_T,                         UK_Y,    UK_U,    UK_I,    UK_O,    UK_P,     UK_HASH,
+  KC_LCTL,  UK_A,   UK_S,    UK_D,    UK_F,    UK_G,                         UK_H,    UK_J,    UK_K,    UK_L,    UK_SCLN,  RCTL_T(UK_QUOT),
+  KC_LSFT,  UK_Z,   UK_X,    UK_C,    UK_V,    UK_B,        UK_LBRC, KC_MEH, UK_N,    UK_M,    UK_COMM, UK_DOT,  UK_SLSH,  KC_RSFT,
+                             KC_RBRC, KC_LALT, MO(_GLOWER), KC_SPC,  KC_ENT, KC_QWRT, KC_BSPC, KC_HYPR
   ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, RSFT(UK_1),    RSFT(UK_2), RSFT(UK_3), RSFT(UK_4), RSFT(UK_5),                UK_CIRC, UK_AMPR, UK_ASTR, UK_QUOT, KC_QUES, KC_TRNS,
   KC_TRNS, RSFT(UK_BSLS), UK_LCBR,    UK_LBRC,    UK_LPRN,    UK_LABK,                   UK_RABK, UK_RPRN, UK_RBRC, UK_RCBR, UK_COLN, UK_AT,
   KC_TRNS, UK_BSLS,       KC_TRNS,    UK_TILD,    UK_MINS,    UK_EQL,  UK_GRV,  UK_GRV,  UK_EQL,  UK_PLUS, UK_UNDS, KC_TRNS, UK_EURO, KC_TRNS,
-                                      KC_TRNS,     KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_TRNS
+                                      KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_TRNS
 ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '-------'--------------------'
  */
-  [_ALT] = LAYOUT(
+  [_GLOWER] = LAYOUT(
   KC_TRNS,  UK_6,    UK_7,    UK_8,    UK_9,    UK_0,                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
   KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, UK_Y,                      KC_VOLU, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,
   KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, UK_H,                      KC_VOLD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,

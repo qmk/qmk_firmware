@@ -6,7 +6,7 @@
 #define L_LOWER 2
 #define L_RAISE 3
 #define L_ADJUST 4
-#define L_ALT 5
+#define L_GLOWER 5
 #define L_ADJUST_TRI (L_ADJUST | L_RAISE | L_LOWER)
 
 char default_layer_str[6];
@@ -44,8 +44,8 @@ const char *highest_layer(void) {
         case L_ADJUST_TRI:
             snprintf(highest_layer_str, sizeof(highest_layer_str), "ADJ  ");
             break;
-        case L_ALT:
-            snprintf(highest_layer_str, sizeof(highest_layer_str), "ALT  ");
+        case L_GLOWER:
+            snprintf(highest_layer_str, sizeof(highest_layer_str), "LOWER");
             break;
         default:
             snprintf(highest_layer_str, sizeof(highest_layer_str), "Undef");
