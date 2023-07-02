@@ -27,10 +27,11 @@ x もも　が出ない
 x ５キー以上打鍵した時の処理
 x シフトしたまま入力し続けると暴走する
 x 前置シフトだと連続シフトにならない
+x 　「もみもみ」などの連続シフトで5キー以上
 
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
-5キーの組み合わせへの拡張、　「もみもみ」とか
+5キーの組み合わせへの拡張
 「なんと」が編集モードに入る
 
 */
@@ -728,13 +729,24 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         keycnt++;
 
         if (keycnt > NKEYS || ng_chrcount >= NKEYS) {
-          for (uint8_t i = 0; i < ng_chrcount; i++) {
-            if (nginput[i].releaseTime == 0)
-              nginput[i].releaseTime = record->event.time;
-          }
           naginata_type();
-          ng_chrcount = 0;
+
+          // 押しているキーは残す
+          Keystroke tks[NKEYS];
+          uint8_t tch = 0;
+          for (uint8_t i = 0; i < ng_chrcount; i++) {
+            if (nginput[i].releaseTime == 0) {
+              tks[tch] = nginput[i];
+              tks[tch].pressTime = record->event.time; // 仕切り直す
+              tch++;
+            }
+          }
+          ng_chrcount = tch;
           keycomb = 0UL;
+          for (uint8_t i = 0; i < tch; i++) {
+            nginput[i] = tks[i];
+            keycomb |= ng_key[tks[i].keycode - NG_Q];
+          }
         }
 
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
@@ -1000,6 +1012,7 @@ void evaluate() {
 
 // #define LOG_SCORING
 uint32_t scoring(Keystroke ks[], uint8_t size) {
+  uint32_t now = timer_read32();
   #if defined(CONSOLE_ENABLE) && defined(LOG_SCORING)
   uprintf(">scoring size=%u\n", size);
   for (uint8_t i = 0; i < size; i++) {
@@ -1021,12 +1034,12 @@ uint32_t scoring(Keystroke ks[], uint8_t size) {
 
   // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
   uint32_t s2 = ks[0].pressTime;
-  uint32_t e2 = ks[0].releaseTime;
+  uint32_t e2 = ks[0].releaseTime > 0 ? ks[0].releaseTime : now;
   for (uint8_t i = 1; i < size; i++) {
     if (ks[i].pressTime > s2) {
       s2 = ks[i].pressTime;
     }
-    if (ks[i].releaseTime < e2) {
+    if (ks[i].releaseTime > 0 && ks[i].releaseTime < e2) {
       e2 = ks[i].releaseTime;
     }
   }
@@ -1037,7 +1050,7 @@ uint32_t scoring(Keystroke ks[], uint8_t size) {
   uint32_t s = 0.0;
   if (s2 < e2) {
     for (uint8_t i = 0; i < size; i++) {
-      s += w * 1000 / (ks[i].releaseTime - ks[i].pressTime);
+      s += w * 1000 / ((ks[i].releaseTime > 0 ? ks[i].releaseTime : now) - ks[i].pressTime);
     }
   }
 
