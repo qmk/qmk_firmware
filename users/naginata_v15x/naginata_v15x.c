@@ -139,11 +139,10 @@ const uint32_t ng_key[] = {
 
 // 文字入力バッファ
 static Keystroke nginput[NKEYS]; // 入力バッファ
-static Keystroke ngingroup[NCOMBIPERKEY][NKEYS][NDOUJI]; // 入力バッファを同時押しの組み合わせでグループ化
+static Keystroke ngingroup[NKEYS][NDOUJI]; // 入力バッファを同時押しの組み合わせでグループ化
 
-static uint8_t combiSize = 0; // ngingroupの配列のサイズ
-static uint8_t keySize[NCOMBIPERKEY] = {0}; // ngingroupの配列のサイズ
-static uint8_t doujiSize[NCOMBIPERKEY][NKEYS] = {0}; // ngingroupの配列のサイズ
+static uint8_t keySize = 0; // ngingroupの配列のサイズ
+static uint8_t doujiSize[NKEYS] = {0}; // ngingroupの配列のサイズ
 
 const uint8_t COMBINDEX[] = {0, 1, 3, 8, 18}; // COMBI配列の各キー数の最初の位置
 
@@ -803,14 +802,14 @@ void naginata_type(void) {
   naginata_keymap bngmap; // PROGMEM buffer
 
   // ngingroupを作って、その中で一番評価値が高い組み合わせのインデックスnを返す
-  uint8_t n = evaluate();
+  evaluate();
 
   // かなへ変換する
-  for (int i = 0; i < keySize[n]; i++) {
+  for (int i = 0; i < keySize; i++) {
     // バッファ内のキーを組み合わせる
     uint32_t keycomb_buf = 0UL;
-    for (int j = 0; j < doujiSize[n][i]; j++) {
-      keycomb_buf |= ng_key[ngingroup[n][i][j].keycode - NG_Q];
+    for (int j = 0; j < doujiSize[i]; j++) {
+      keycomb_buf |= ng_key[ngingroup[i][j].keycode - NG_Q];
     }
     switch (keycomb_buf) {
       case B_T:
@@ -844,24 +843,27 @@ void naginata_type(void) {
 }
 
 // #define LOG_EVALUATE
-// ngingroupを作って、その中で一番評価値が高い組み合わせのインデックスnを返す
+// ngingroupを作って中で一番評価値が高い組み合わせのインデックスnを返す
 // 入力 Keystrokeの1次元配列 nginput
 // 出力 Keystrokeの2次元配列 (同時押しの組み合わせの配列)
-int evaluate() {
+void evaluate() {
   #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
   uprintf(">evaluate ng_chrcount=%u\n", ng_chrcount);
   #endif
 
-  combiSize = 0;
+  Keystroke tmpgroup[NKEYS][NDOUJI]; // 入力バッファを同時押しの組み合わせでグループ化
+  uint32_t score = 0;
+  uint32_t maxScore = 0;
+  uint8_t tdoujiSize[NKEYS] = {0}; // ngingroupの配列のサイズ
+
   naginata_keymap bngmap; // PROGMEM buffer
   int8_t bcombi = 0; // PROGMEM buffer
 
   for (int i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
     #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
-    uprintf(" evaluate COMBI[%u], combiSize=%u\n", i, combiSize);
+    uprintf(" evaluate COMBI[%u]\n", i);
     #endif
-    bool flag = true; // 組み合わせが、かな辞書にあるかどうか
-    uint8_t a1Size = 0;
+    uint8_t tkeySize = 0;
     for (int j = 0; j < NKEYS; j++) { // 組み合わせの順番に
       #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
       uprintf(" evaluate   j=%u\n", j);
@@ -875,7 +877,7 @@ int evaluate() {
       }
 
       // ngingroupを作る
-      uint8_t b1Size = 0;
+      uint8_t tdouji = 0;
       for (int k = 0; k < NDOUJI; k++) { // 同時に押しているキー
         #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
         uprintf(" evaluate     k=%u\n", k);
@@ -884,26 +886,25 @@ int evaluate() {
         if (bcombi == -1) {
           break;
         } else {
-          ngingroup[combiSize][j][k] = nginput[bcombi];
-          b1Size++;
+          tmpgroup[j][k] = nginput[bcombi];
+          tdouji++;
         }
       }
-      doujiSize[combiSize][j] = b1Size; //あとで辞書にない可能性もあるけど、オーバーライトされるか
+      tdoujiSize[j] = tdouji; //あとで辞書にない可能性もあるけど、オーバーライトされるか
       #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
-      uprintf(" evaluate   b1Size=%u\n", b1Size);
-      uprintf(" evaluate   combiSize=%u\n", combiSize);
-      for (int k = 0; k < doujiSize[combiSize][j]; k++) {
-        uprintf(" evaluate   ngingroup %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", combiSize, j, k, ngingroup[combiSize][j][k].keycode,  ngingroup[combiSize][j][k].pressTime,  ngingroup[combiSize][j][k].releaseTime);
+      uprintf(" evaluate   tdouji=%u\n", tdouji);
+      for (int k = 0; k < tdoujiSize[j]; k++) {
+        uprintf(" evaluate   tmpgroup %u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", j, k, tmpgroup[j][k].keycode,  tmpgroup[j][k].pressTime,  tmpgroup[j][k].releaseTime);
       }
       #endif
 
       // バッファ内のキーを組み合わせる
       uint32_t keycomb_buf = 0UL;
-      for (int k = 0; k < b1Size; k++) {
-        keycomb_buf |= ng_key[ngingroup[combiSize][j][k].keycode - NG_Q];
+      for (int k = 0; k < tdouji; k++) {
+        keycomb_buf |= ng_key[tmpgroup[j][k].keycode - NG_Q];
       }
       // 辞書に存在するかチェック
-      bool isExist = 0;
+      bool isExist = false;
       for (int k = 0; k < sizeof ngmap / sizeof bngmap; k++) {
         memcpy_P(&bngmap, &ngmap[k], sizeof(bngmap));
         if (keycomb_buf == bngmap.key) {
@@ -914,58 +915,48 @@ int evaluate() {
       #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
       uprintf(" evaluate   isExist=%u\n", isExist);
       #endif
-      if (isExist) {
-        a1Size++;
-      } else {
-        flag = false;
+      if (!isExist) {
         break; // 辞書になければ追加しない
       }
+      tkeySize++;
+    } // j
+
+    if (!isExist) {
+      break; // 辞書になければ追加しない
     }
-    keySize[combiSize] = a1Size; // a1Size++したあとでは
 
-    #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
-    uprintf(" evaluate flag=%u\n", flag);
-    #endif
-    if (flag)
-      combiSize++;
-  }
-
-  // 各組み合わせの点数を求める
-  // 同時おしごとの平均値とする (合計だと単打など同時押しが少ない方がスコアが高くなるので)
-  uint32_t score[NCOMBIPERKEY];
-  for (int i = 0; i < combiSize; i++) {
     uint32_t s = 0;
-    for (int j = 0; j < keySize[i]; j++) {
-      s += scoring(ngingroup[i][j], doujiSize[i][j]);
+    for (int j = 0; j < tkeySize; j++) {
+      s += scoring(tmpgroup[j], tdoujiSize[j]);
     }
-    score[i] = s / keySize[i];
+    score = s / tkeySize;
 
     #if defined(CONSOLE_ENABLE)
-    uprintf(" evaluate combi=%u, score=%lu\n", i, score[i]);
-    for (int j = 0; j < keySize[i]; j++) {
-      uprintf(" evaluate   douji=%u\n", doujiSize[i][j]);
-      for (int k = 0; k < doujiSize[i][j]; k++) {
-        uprintf(" evaluate     ngingroup %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", i, j, k, ngingroup[i][j][k].keycode,  ngingroup[i][j][k].pressTime,  ngingroup[i][j][k].releaseTime);
+    uprintf(" evaluate combi=%u, score=%lu\n", i, score);
+    for (int j = 0; j < tkeySize; j++) {
+      uprintf(" evaluate   douji=%u\n", tdoujiSize[j]);
+      for (int k = 0; k < tdoujiSize[j]; k++) {
+        uprintf(" evaluate     tmpgroup %u,%u,%u key=%lu, pressTime=%lu, releaseTime=%lu\n", i, j, k, tmpgroup[j][k].keycode,  tmpgroup[j][k].pressTime,  tmpgroup[j][k].releaseTime);
       }
     }
     #endif
-  }
 
-  // 一番点数が高いものを返す
-  uint32_t maxScore = score[0];
-  int maxIndex = 0;
-  for (int i = 1; i < combiSize; i++) {
-    if (score[i] > maxScore) {
-      maxScore = score[i];
-      maxIndex = i;
+    if (score > maxScore) {
+      maxScore = score;
+      keySize = tkeySize;
+      for (int j = 0; j < keySize; j++) {
+        doujiSize[j] = tdoujiSize[j];
+        for (int k = 0; k < doujiSize[j]; k++) {
+          ngingroup[j][k] = tmpgroup[j][k];
+        }
+      }
     }
   }
   
   #if defined(CONSOLE_ENABLE)
-  uprintf("<evaluate return maxIndex=%u, score=%lu\n", maxIndex, maxScore);
+  uprintf("<evaluate return score=%lu\n", maxScore);
   #endif
 
-  return maxIndex;
 }
 
 // #define LOG_SCORING

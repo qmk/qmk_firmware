@@ -46,7 +46,7 @@ typedef struct {
   uint32_t releaseTime;
 } Keystroke;
 
-int evaluate(void);
+void evaluate(void);
 uint32_t scoring(Keystroke[], int);
 
 bool exec_henshu(uint32_t);
