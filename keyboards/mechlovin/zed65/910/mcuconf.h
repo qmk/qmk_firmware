@@ -1,6 +1,4 @@
-/* Copyright 2012 Jun Wako <wakojun@gmail.com>
- * Copyright 2015 Jack Humbert
- * Copyright 2021 Gaston Jorquera
+/* Copyright 2023 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* This is the c configuration file for the keymap. */
-
 #pragma once
 
-#define MASTER_LEFT
+#include_next <mcuconf.h>
 
-#define QUICK_TAP_TERM 0
-#define TAPPING_TERM 150 /* ms */
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+
+#undef STM32_SPI_USE_SPI1
+#define STM32_SPI_USE_SPI1 TRUE
