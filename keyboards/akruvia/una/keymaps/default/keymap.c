@@ -68,35 +68,3 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
     return state;
 }
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    uint8_t current_layer;
-
-    switch (keycode) {
-        // Custom keyboard layer handling
-        case KC_TOGGLE_LOWER_LAYER:
-            if (record->event.pressed) {
-                current_layer = get_highest_layer(layer_state);
-                if (current_layer != _LAYER_LOWER) {
-                    layer_move(_LAYER_LOWER);
-                } else {
-                    layer_move(_DEFAULT);
-                }
-            }
-            return false;
-        // Custom keyboard layer handling
-        case KC_TOGGLE_UPPER_LAYER:
-            if (record->event.pressed) {
-                current_layer = get_highest_layer(layer_state);
-                if (current_layer != _LAYER_UPPER) {
-                    layer_move(_LAYER_UPPER);
-                } else {
-                    layer_move(_DEFAULT);
-                }
-            }
-            return false;
-        // Process other keycodes normally
-        default:
-            return true;
-    }
-}
