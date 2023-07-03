@@ -147,7 +147,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false;
     }
-    if (host_keyboard_led_state().caps_lock) {
+    if (host_keyboard_led_state()。caps_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(44, 255, 255, 255);
     }
     if (keymap_config.no_gui) {
@@ -158,41 +158,20 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
 #endif
 
-enum __layers {
-    WIN_B,
-    WIN_FN,
-    MAC_B,
-    MAC_FN
-};
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }
     switch (keycode) {
-        case DF(WIN_B):
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(WIN_B);
-                layer_state_set(1<<WIN_B);
-            }
-            return false;
-        case DF(MAC_B):
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(MAC_B);
-                layer_state_set(1<<MAC_B);
-                keymap_config.no_gui     = 0;
-                eeconfig_update_keymap(keymap_config.raw);
-            }
-            return false;
 #ifdef RGB_MATRIX_ENABLE
         case RGB_TOG:
-            if (record->event.pressed) {
+            if (record->事件。pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
                         rgb_matrix_set_flags(LED_FLAG_NONE);
                         rgb_matrix_set_color_all(0, 0, 0);
                     } break;
-                    default: {
+                    默认: {
                         rgb_matrix_set_flags(LED_FLAG_ALL);
                     } break;
                 }
@@ -203,7 +182,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 #endif
-        default:
+        默认:
             return true;
     }
 }
