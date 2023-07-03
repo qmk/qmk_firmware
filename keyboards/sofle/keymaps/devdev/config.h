@@ -39,26 +39,27 @@
 #endif
 #define ENCODER_DIRECTION_FLIP
 
-
-#define RGBLIGHT_SLEEP
+#ifndef RGBLIGHT_SLEEP
+#    define RGBLIGHT_SLEEP
+#endif
 //
 #define RGBLIGHT_LAYERS
 
 /* ws2812 RGB LED */
-#define WS2812_DI_PIN D3
-
-
-#ifdef RGB_MATRIX_ENABLE
-#define RGBLED_NUM 35    // Number of LEDs
-#define RGBLED_NUM 35    // Number of LEDs
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#ifndef WS2812_DI_PIN
+#    define WS2812_DI_PIN D3
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-    #undef RGBLED_NUM
+#    ifdef RGBLED_NUM
+#        undef RGBLED_NUM
+#    endif
+#    ifdef RGBLED_SPLIT
+#        undef RGBLED_SPLIT
+#    endif
 
 	//#define RGBLIGHT_EFFECT_BREATHING
-	#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 	//#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 	//#define RGBLIGHT_EFFECT_SNAKE
 	//#define RGBLIGHT_EFFECT_KNIGHT
@@ -68,27 +69,36 @@
 	//#define RGBLIGHT_EFFECT_ALTERNATING
 	//#define RGBLIGHT_EFFECT_TWINKLE
 
-    #define RGBLED_NUM 70
-	//#define RGBLED_SPLIT
-	#define RGBLED_SPLIT { 35, 35 } // haven't figured out how to use this yet
+#    define RGBLED_NUM 70
+#    define RGBLED_SPLIT { 35, 35 } // haven't figured out how to use this yet
 
-	//#define RGBLED_NUM 30
-    #define RGBLIGHT_LIMIT_VAL 120
-    #define RGBLIGHT_HUE_STEP 10
-    #define RGBLIGHT_SAT_STEP 17
-    #define RGBLIGHT_VAL_STEP 17
+#    ifndef RGBLIGHT_LIMIT_VAL   
+#        define RGBLIGHT_LIMIT_VAL 120
+#    endif
+#    ifndef RGBLIGHT_HUE_STEP
+#        define RGBLIGHT_HUE_STEP 10
+#    endif
+#    ifndef RGBLIGHT_SAT_STEP
+#        define RGBLIGHT_SAT_STEP 17
+#    endif
+#    ifndef RGBLIGHT_VAL_STEP
+#        define RGBLIGHT_VAL_STEP 17
+#    endif
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-#   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
+#    ifdef RGB_MATRIX_LED_COUNT
+#        undef RGB_MATRIX_LED_COUNT
+#    endif
+#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 
-#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_GRADIENT_LEFT_RIGHT
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_GRADIENT_LEFT_RIGHT
 
 #    define RGB_MATRIX_HUE_STEP 8
 #    define RGB_MATRIX_SAT_STEP 8

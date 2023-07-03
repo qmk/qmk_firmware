@@ -14,7 +14,6 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */  
 
-
 #pragma once
 
 /* Disable unused and unneeded features to reduce on firmware size */
@@ -26,5 +25,4 @@
 #    undef OLED_FONT_H
 #endif
 
-
-#define OLED_FONT_H "users/devdev/glcdfont.c"
+#define OLED_FONT_H "./glcdfont.c"
