@@ -44,7 +44,7 @@
         },
         "transport": {
             "protocol": "serial_usart",
-            "sync_matrix_state": false
+            "sync_matrix_state": true
         }
     },
     "encoder": {
