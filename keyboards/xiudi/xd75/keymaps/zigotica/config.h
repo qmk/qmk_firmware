@@ -23,5 +23,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // needed to get same layers as split keyboards
 // see users/zigotica/zigotica.h
-#define ORTHOLINEAR_KEYBOARD yes
+#define ORTHOLINEAR_KEYBOARD
 
