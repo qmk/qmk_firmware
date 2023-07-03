@@ -20,20 +20,7 @@ bool oled_task_kb(void) {
           return false;
      }
     oled_write_P(PSTR("LAYER: "), false);
-    switch (get_highest_layer(layer_state)) {
-        case 0:
-            oled_write_P(PSTR("0"), false);
-            break;
-        case 1:
-            oled_write_P(PSTR("1"), false);
-            break;
-        case 2:
-            oled_write_P(PSTR("2"), false);
-            break;
-        case 3:
-            oled_write_P(PSTR("3"), false);
-            break;
-    }
+    oled_write_char('0' + get_highest_layer(layer_state), false);
 
     led_t led_state = host_keyboard_led_state();
     oled_set_cursor(0, 1);
