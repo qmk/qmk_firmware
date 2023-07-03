@@ -17,7 +17,7 @@
 #pragma once
 
 /* RGB Matrix Configuration */
-#define RGB_MATRIX_LED_COUNT 89
+#define RGB_MATRIX_LED_COUNT 90
 #define SPLIT_TRANSPORT_MIRROR
 
 /* Enable caps-lock LED */

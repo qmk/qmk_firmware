@@ -11,10 +11,12 @@ A customizable 75% split keyboard.
 Make example for this keyboard (after setting up your build environment):
 
     make keychron/q11/ansi_encoder:default
+    make keychron/q11/iso_encoder:default
 
 Flashing example for this keyboard:
 
     make keychron/q11/ansi_encoder:default:flash
+    make keychron/q11/iso_encoder:default:flash
 
 **Reset Key**: Hold down the key located at *K01*, which programmed as *Esc* while plugging in the keyboard.
 
