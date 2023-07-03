@@ -109,7 +109,7 @@ ISR(TIMERx_COMPA_vect) {
             uint8_t duration : 2;
             uint8_t index : 6;
         } pwm;
-    } timer = {.row = 0};
+    } timer                = {.row = 0};
     static led_t led_state = {0};
 
     timer.row++;
