@@ -31,7 +31,7 @@ RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 **config.h**
 ```
 [...]
-#define RGB_DI_PIN F7
+#define WS2812_DI_PIN F7
 #define RGBLED_NUM 15        // Change this number to the amount of LEDs on the strip you soldered
 [...]
 ```

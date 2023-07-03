@@ -33,7 +33,7 @@
         "blok": {
             "processor": "RP2040",
             "bootloader": "rp2040",
-            "board": "QMK_PM2040"
+            "board": "QMK_BLOK"
         },
         "michi": {
             "processor": "RP2040",
@@ -71,6 +71,11 @@
             "board": "BONSAI_C4"
         },
         "helios": {
+            "processor": "RP2040",
+            "bootloader": "rp2040",
+            "board": "QMK_PM2040"
+        },
+        "liatris": {
             "processor": "RP2040",
             "bootloader": "rp2040",
             "board": "QMK_PM2040"

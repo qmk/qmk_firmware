@@ -13,7 +13,6 @@ AUDIO_ENABLE = no           # Audio output
 
 # RGB options
 RGB_MATRIX_ENABLE = no
-RGB_MATRIX_DRIVER = custom
 
 # Additional files for RGB lighting
 SRC += k_type-rgbdriver.c

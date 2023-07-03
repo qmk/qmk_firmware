@@ -24,3 +24,5 @@ SRC =	keyboards/wilba_tech/wt_main.c \
 		drivers/led/issi/is31fl3733.c \
 		quantum/color.c \
 		i2c_master.c
+
+DEFAULT_FOLDER = novelkeys/nk65/base

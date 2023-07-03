@@ -17,12 +17,6 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { GP29, GP26, GP5, GP4, GP9 }
-#define MATRIX_COL_PINS \
-    { GP27, GP28, GP15, GP6, GP7, GP8 }
-
 /* Handedness. */
 #define MASTER_RIGHT
 
@@ -30,9 +24,6 @@
 // If so, uncomment the following code, and undefine MASTER_RIGHT above.
 // #define SPLIT_HAND_PIN GP13
 // #define SPLIT_HAND_PIN_LOW_IS_LEFT  // High -> right, Low -> left.
-
-/* RGB settings. */
-#define RGB_DI_PIN GP0
 
 /* Reset. */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET

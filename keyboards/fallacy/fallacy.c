@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "fallacy.h"
+#include "quantum.h"
 #include "indicators.h"
 
 void matrix_init_kb(void) {

@@ -13,6 +13,5 @@ AUDIO_ENABLE = no           # Audio output
 BLUETOOTH_ENABLE = yes      # Enable Bluetooth
 BLUETOOTH_DRIVER = BluefruitLE
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 
 LTO_ENABLE = yes

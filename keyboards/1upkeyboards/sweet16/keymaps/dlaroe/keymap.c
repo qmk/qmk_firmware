@@ -1,4 +1,4 @@
-#include "sweet16.h"
+#include QMK_KEYBOARD_H
 
 enum layers {
  num,

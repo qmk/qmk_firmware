@@ -8,13 +8,32 @@
     "pid": "0xEA4F",
     "device_version": "0.0.1"
   },
+  "ws2812": {
+    "pin": "D3"
+  },
+  "matrix_pins": {
+    "cols": ["B6", "B2", "B3", "B1", "F7", "F6", "B5", "B4", "E6", "D7", "C6", "D4"],
+    "rows": ["F4"]
+  },
+  "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "layouts": {
     "LAYOUT": {
       "layout": [
-        {"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":4, "y":0}, {"x":5, "y":0},
-        {"x":0, "y":1}, {"x":1, "y":1}, {"x":2, "y":1}, {"x":3, "y":1}, {"x":4, "y":1}, {"x":5, "y":1}
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+        {"matrix": [0, 3], "x": 3, "y": 0},
+        {"matrix": [0, 4], "x": 4, "y": 0},
+        {"matrix": [0, 5], "x": 5, "y": 0},
+
+        {"matrix": [0, 6], "x": 0, "y": 1},
+        {"matrix": [0, 7], "x": 1, "y": 1},
+        {"matrix": [0, 8], "x": 2, "y": 1},
+        {"matrix": [0, 9], "x": 3, "y": 1},
+        {"matrix": [0, 10], "x": 4, "y": 1},
+        {"matrix": [0, 11], "x": 5, "y": 1}
       ]
     }
   }

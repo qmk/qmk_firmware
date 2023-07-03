@@ -73,7 +73,7 @@ const uint16_t PROGMEM ent_combo[] = {HM_K, HM_L, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {HM_F, HM_D, COMBO_END};
 const uint16_t PROGMEM esc_combo[] = {HM_D, HM_S, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     COMBO(ae_combo, RALT(KC_Q)),
     COMBO(ss_combo, RALT(KC_S)),
     COMBO(ue_combo, RALT(KC_Y)),
@@ -290,7 +290,7 @@ bool caps_word_press_user(uint16_t keycode) {
 // │ e n c o d e r                                             │
 // └───────────────────────────────────────────────────────────┘
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_NAVIGATION] =  { ENCODER_CCW_CW(KC_LEFT, KC_RGHT) },
     [_QWERTY] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_COLEMAK] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
@@ -298,7 +298,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_NUMBERS] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_FUNCTION] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }
 };
-
-
-
-

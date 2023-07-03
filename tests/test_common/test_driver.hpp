@@ -20,6 +20,7 @@
 #include <stdint.h>
 #include "host.h"
 #include "keyboard_report_util.hpp"
+#include "keycode_util.hpp"
 #include "test_logger.hpp"
 
 class TestDriver {
@@ -97,6 +98,17 @@ class TestDriver {
  * @brief Sets gmock expectation that no keyboard report will be sent at all.
  */
 #define EXPECT_NO_REPORT(driver) EXPECT_ANY_REPORT(driver).Times(0)
+
+/** @brief Tests whether keycode `actual` is equal to `expected`. */
+#define EXPECT_KEYCODE_EQ(actual, expected) EXPECT_THAT((actual), KeycodeEq((expected)))
+
+MATCHER_P(KeycodeEq, expected_keycode, "is equal to " + testing::PrintToString(expected_keycode) + ", keycode " + get_keycode_identifier_or_default(expected_keycode)) {
+    if (arg == expected_keycode) {
+        return true;
+    }
+    *result_listener << "keycode " << get_keycode_identifier_or_default(arg);
+    return false;
+}
 
 /**
  * @brief Verify and clear all gmock expectations that have been setup until
