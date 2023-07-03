@@ -72,7 +72,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void keyboard_post_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
+    rgblight_enable_noeeprom();
     set_lights_default();
 #endif
 }
