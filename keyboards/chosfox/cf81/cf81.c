@@ -165,13 +165,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #ifdef RGB_MATRIX_ENABLE
         case RGB_TOG:
-            if (record->事件。pressed) {
+            if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
                         rgb_matrix_set_flags(LED_FLAG_NONE);
                         rgb_matrix_set_color_all(0, 0, 0);
                     } break;
-                    默认: {
+                    default: {
                         rgb_matrix_set_flags(LED_FLAG_ALL);
                     } break;
                 }
@@ -182,7 +182,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 #endif
-        默认:
+        default:
             return true;
     }
 }
