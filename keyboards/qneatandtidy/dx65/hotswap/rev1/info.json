@@ -154,8 +154,9 @@
             {"matrix": [4, 14], "x": 224, "y": 64, "flags": 1}
         ]
     },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
-        "LAYOUT_65_ansi": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "1", "matrix": [0, 1], "x": 1, "y": 0 },
