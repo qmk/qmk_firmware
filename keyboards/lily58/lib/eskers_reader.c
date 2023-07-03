@@ -1,22 +1,28 @@
 #include "quantum.h"
 #include <stdio.h>
+#include <stdbool.h>
 
-#define L_QWERTY 0
-#define L_GAMING 1
-#define L_LOWER 2
-#define L_RAISE 3
-#define L_ADJUST 4
-#define L_GLOWER 5
-#define L_ADJUST_TRI (L_ADJUST | L_RAISE | L_LOWER)
+#define L_WINDOWS 0
+#define L_LINUX 1
+#define L_GAMING 2
+#define L_LOWER 3
+#define L_RAISE 4
+#define L_ADJUST 5
+#define L_ADJ 6
+#define L_GLOWER 7
 
 char default_layer_str[6];
 char highest_layer_str[12];
 char caps_state_str[6];
+char icon_str[24];
 
 const char *default_layer(void) {
     switch (get_highest_layer(default_layer_state)) {
-        case L_QWERTY:
-            snprintf(default_layer_str, sizeof(default_layer_str), "QWRTY");
+        case L_WINDOWS:
+            snprintf(default_layer_str, sizeof(default_layer_str), "WIN  ");
+            break;
+        case L_LINUX:
+            snprintf(default_layer_str, sizeof(default_layer_str), "TUX  ");
             break;
         case L_GAMING:
             snprintf(default_layer_str, sizeof(default_layer_str), "GAME ");
@@ -30,7 +36,8 @@ const char *default_layer(void) {
 
 const char *highest_layer(void) {
     switch (get_highest_layer(layer_state)) {
-        case L_QWERTY:
+        case L_WINDOWS:
+        case L_LINUX:
         case L_GAMING:
             snprintf(highest_layer_str, sizeof(highest_layer_str), "BASE ");
             break;
@@ -38,14 +45,12 @@ const char *highest_layer(void) {
             snprintf(highest_layer_str, sizeof(highest_layer_str), "RAISE");
             break;
         case L_LOWER:
+        case L_GLOWER:
             snprintf(highest_layer_str, sizeof(highest_layer_str), "LOWER");
             break;
         case L_ADJUST:
-        case L_ADJUST_TRI:
+        case L_ADJ:
             snprintf(highest_layer_str, sizeof(highest_layer_str), "ADJ  ");
-            break;
-        case L_GLOWER:
-            snprintf(highest_layer_str, sizeof(highest_layer_str), "LOWER");
             break;
         default:
             snprintf(highest_layer_str, sizeof(highest_layer_str), "Undef");
@@ -74,4 +79,13 @@ const char *caps_state(void) {
     }
 
     return caps_state_str;
+}
+
+const char *mode_state(void) {
+    static char icon_str[] = {
+        151,152,10,
+        183,184,0
+    };
+
+  return icon_str;
 }
