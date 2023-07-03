@@ -3,5 +3,3 @@
 # backlight effects.
 NO_SUSPEND_POWER_DOWN = yes
 
-# Wear-levering driver
-WEAR_LEVELING_DRIVER = rp2040_flash
