@@ -178,7 +178,8 @@ void encoder_action_unregister(void) {
             keyevent_t encoder_event = (keyevent_t) {
                 .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
                 .pressed = false,
-                .time = (timer_read() | 1)
+                .time = timer_read(),
+                .type = KEY_EVENT
             };
             encoder_state[index] = 0;
             action_exec(encoder_event);
@@ -190,7 +191,8 @@ void encoder_action_register(uint8_t index, bool clockwise) {
     keyevent_t encoder_event = (keyevent_t) {
         .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
         .pressed = true,
-        .time = (timer_read() | 1)
+        .time = timer_read(),
+        .type = KEY_EVENT
     };
     encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
     action_exec(encoder_event);
@@ -212,7 +214,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
 debug_enable=true;
-#ifdef RGB_DI_PIN
   #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;
@@ -220,6 +221,5 @@ debug_enable=true;
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
   #endif
-#endif
 
 }

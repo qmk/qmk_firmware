@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include QMK_KEYBOARD_H
 
 enum layers{
@@ -67,7 +67,7 @@ const uint16_t PROGMEM combo_tab[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_T, KC_Y, COMBO_END};
 const uint16_t PROGMEM combo_del[] = {KC_Q, KC_W, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO_BSPC] = COMBO(combo_bspc,KC_BSPC),
   [COMBO_ENT] = COMBO(combo_ent,KC_ENT),
   [COMBO_TAB] = COMBO(combo_tab,KC_TAB),

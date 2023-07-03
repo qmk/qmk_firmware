@@ -400,12 +400,10 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
             // If Retro Shift is disabled, possible custom actions shouldn't happen.
             // clang-format off
 #   if defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
-#       if defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
+#       ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
             const bool is_hold_on_interrupt = get_hold_on_other_key_press(keycode, record);
-#       elif defined(IGNORE_MOD_TAP_INTERRUPT)
-            const bool is_hold_on_interrupt = false;
 #       else
-            const bool is_hold_on_interrupt = IS_QK_MOD_TAP(keycode);
+            const bool is_hold_on_interrupt = false;
 #       endif
 #   endif
         if (IS_RETRO(keycode)
@@ -443,12 +441,8 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
 #    endif
         ) {
             // Fixes modifiers not being applied to rolls with AUTO_SHIFT_MODIFIERS set.
-#    if !defined(IGNORE_MOD_TAP_INTERRUPT) || defined(HOLD_ON_OTHER_KEY_PRESS_PER_KEY)
-            if (autoshift_flags.in_progress
-#        ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-                && get_hold_on_other_key_press(keycode, record)
-#        endif
-            ) {
+#    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+            if (autoshift_flags.in_progress && get_hold_on_other_key_press(keycode, record)) {
                 autoshift_end(KC_NO, now, false, &autoshift_lastrecord);
             }
 #    endif

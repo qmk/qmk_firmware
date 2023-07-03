@@ -18,6 +18,29 @@ from qmk.path import is_keyboard
 UNICODE_SUPPORT = sys.stdout.encoding.lower().startswith('utf')
 
 
+def _strip_api_content(info_json):
+    # Ideally this would only be added in the API pathway.
+    info_json.pop('platform', None)
+    info_json.pop('platform_key', None)
+    info_json.pop('processor_type', None)
+    info_json.pop('protocol', None)
+    info_json.pop('config_h_features', None)
+    info_json.pop('keymaps', None)
+    info_json.pop('keyboard_folder', None)
+    info_json.pop('parse_errors', None)
+    info_json.pop('parse_warnings', None)
+
+    for layout in info_json.get('layouts', {}).values():
+        layout.pop('filename', None)
+        layout.pop('c_macro', None)
+        layout.pop('json_layout', None)
+
+    if 'matrix_pins' in info_json:
+        info_json.pop('matrix_size', None)
+
+    return info_json
+
+
 def show_keymap(kb_info_json, title_caps=True):
     """Render the keymap in ascii art.
     """
@@ -81,7 +104,6 @@ def print_friendly_output(kb_info_json):
         cli.echo('{fg_blue}Maintainer{fg_reset}: QMK Community')
     else:
         cli.echo('{fg_blue}Maintainer{fg_reset}: %s', kb_info_json['maintainer'])
-    cli.echo('{fg_blue}Keyboard Folder{fg_reset}: %s', kb_info_json.get('keyboard_folder', 'Unknown'))
     cli.echo('{fg_blue}Layouts{fg_reset}: %s', ', '.join(sorted(kb_info_json['layouts'].keys())))
     cli.echo('{fg_blue}Processor{fg_reset}: %s', kb_info_json.get('processor', 'Unknown'))
     cli.echo('{fg_blue}Bootloader{fg_reset}: %s', kb_info_json.get('bootloader', 'Unknown'))
@@ -141,6 +163,7 @@ def print_parsed_rules_mk(keyboard_name):
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
 @cli.argument('--ascii', action='store_true', default=not UNICODE_SUPPORT, help='Render layout box drawings in ASCII only.')
 @cli.argument('-r', '--rules-mk', action='store_true', help='Render the parsed values of the keyboard\'s rules.mk file.')
+@cli.argument('-a', '--api', action='store_true', help='Show fully processed info intended for API consumption.')
 @cli.subcommand('Keyboard information.')
 @automagic_keyboard
 @automagic_keymap
@@ -171,9 +194,12 @@ def info(cli):
     else:
         kb_info_json = info_json(cli.config.info.keyboard)
 
+    if not cli.args.api:
+        kb_info_json = _strip_api_content(kb_info_json)
+
     # Output in the requested format
     if cli.args.format == 'json':
-        print(json.dumps(kb_info_json, cls=InfoJSONEncoder))
+        print(json.dumps(kb_info_json, cls=InfoJSONEncoder, sort_keys=True))
         return True
     elif cli.args.format == 'text':
         print_dotted_output(kb_info_json)

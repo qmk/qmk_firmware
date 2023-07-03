@@ -17,15 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// ROWS: Top to bottom, COLS: Left to right
-
-#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { B1, B3, B2, B6 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

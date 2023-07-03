@@ -13,7 +13,6 @@
 #include QMK_KEYBOARD_H
 #include "sten.h"
 #include "keymap_steno.h"
-#define IGNORE_MOD_TAP_INTERRUPT
 
 // Steno Layers
 #define FUNCT	( LSD | LK | LP | LH )
