@@ -17,11 +17,11 @@
 #include <keymap_spanish.h>
 
 enum layers {
-    _QWERTY = 0,
-    _LOWER,
-    _RAISE,
-    _ADJUST,
-    _NUMERIC
+    _DEFAULT = 0,
+    _NAVI,
+    _SYMBOLS,
+    _NUMERIC,
+    _CONFIG
 };
 
 enum keycodes {
@@ -30,7 +30,7 @@ enum keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
- * Base Layer: QWERTY
+ * Default
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |  ESC   |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  Ç     |
@@ -42,14 +42,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |W+Sh+S| Caps | Lower| Bksp | Ctrl |  | Enter| Space| Raise| GUI  |  ≡   |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_QWERTY] = LAYOUT(
-        KC_ESC,  ES_Q, ES_W, ES_E,      ES_R,    ES_T,                                                 ES_Y,       ES_U,    ES_I,    ES_O,   ES_P,    ES_CCED,
-        ES_MORD, ES_A, ES_S, ES_D,      ES_F,    ES_G,                                                 ES_H,       ES_J,    ES_K,    ES_L,   ES_NTIL, ES_ACUT,
-        ES_IEXL, ES_Z, ES_X, ES_C,      ES_V,    ES_B,       SFT_T(KC_DEL), KC_LALT, KC_TAB,  KC_LSFT, ES_N,       ES_M,    ES_COMM, ES_DOT, ES_MINS, KC_EMQM,
-                             LSG(ES_S), KC_CAPS, MO(_LOWER), KC_BSPC,       KC_LCTL, KC_ENT,  KC_SPC,  MO(_RAISE), KC_LGUI, KC_APP
+    [_DEFAULT] = LAYOUT(
+        KC_ESC,  ES_Q, ES_W, ES_E,      ES_R,    ES_T,                                                ES_Y,         ES_U,    ES_I,    ES_O,   ES_P,    ES_CCED,
+        ES_MORD, ES_A, ES_S, ES_D,      ES_F,    ES_G,                                                ES_H,         ES_J,    ES_K,    ES_L,   ES_NTIL, ES_ACUT,
+        ES_IEXL, ES_Z, ES_X, ES_C,      ES_V,    ES_B,      SFT_T(KC_DEL), KC_LALT, KC_TAB,  KC_LSFT, ES_N,         ES_M,    ES_COMM, ES_DOT, ES_MINS, KC_EMQM,
+                             LSG(ES_S), KC_CAPS, MO(_NAVI), KC_BSPC,       KC_LCTL, KC_ENT,  KC_SPC,  MO(_SYMBOLS), KC_LGUI, KC_APP
     ),
 /*
- * Lower Layer: navigation
+ * Navi
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        | Ct+Y | Ct+Z | Ct+V | Ct+C | Ct+V |                              | PageUp| Home |  Up  | End  | C+Hom|        |
@@ -61,14 +61,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |       |      |Ctrl+C|
  *                        `----------------------------------'  `-----------------------------------'
  */
-    [_LOWER] = LAYOUT(
+    [_NAVI] = LAYOUT(
       _______, C(KC_Y), C(KC_Z), C(KC_V), C(KC_C), C(KC_X),                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  C(KC_HOME), XXXXXXX,
       XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, C(KC_END),  XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, C(KC_C)
     ),
 /*
- * Raise Layer: symbols
+ * Symbols
  *
  * ,-------------------------------------------.                              ,------------------------------------------.
  * |        |  |   |  &   |  {   |  }   |  "   |                              |  $   |  [   |  ]   |  %   |  @   |       |
@@ -80,14 +80,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_RAISE] = LAYOUT(
+    [_SYMBOLS] = LAYOUT(
         _______, ES_PIPE, ES_AMPR, ES_LCBR, ES_RCBR, ES_DQUO,                                     ES_DLR,  ES_LBRC, ES_RBRC, ES_PERC, ES_AT,   XXXXXXX,
         ES_MINS, ES_ASTR, ES_PLUS, ES_LPRN, ES_RPRN, ES_EQL,                                      ES_SCLN, ES_LABK, ES_RABK, ES_SLSH, ES_BSLS, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, ES_TILD, ES_GRV,  ES_QUOT, _______, _______, _______, _______, ES_HASH, ES_CIRC, ES_EURO, XXXXXXX, XXXXXXX, XXXXXXX,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
- * Adjust Layer: Function keys, RGB
+ * Numeric
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |  F1  |  F2  |  F3  |  F4  |   €  |                              | BSPC |  F5  |  F11 |  F12 |      |  BSPC  |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |   1  |   2  |   3  |   4  |   5  |                              |   6  |   7  |   8  |   9  |   0  |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |   +  |   ,  |   *  |      |      |  |      |      |   /  |   .  |   :  |   -  |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_NUMERIC] = LAYOUT(
+      _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   ES_EURO,                                     KC_BSPC, KC_F5,   KC_F11,  KC_F12,  XXXXXXX, KC_BSPC,
+      XXXXXXX, ES_1,    ES_2,    ES_3,    ES_4,    ES_5,                                        ES_6,    ES_7,    ES_8,    ES_9,    ES_0,    XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_COMM, KC_PAST, _______, _______, _______, _______, KC_PSLS, KC_PDOT, ES_COLN, KC_PMNS, XXXXXXX, XXXXXXX,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+/*
+ * Config
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      | VAI  | SAI  | HUI  | MOD  |                              |      | Next | Vol+ |      |      |        |
@@ -100,32 +120,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_ADJUST] = LAYOUT(
+    [_CONFIG]= LAYOUT(
       _______, XXXXXXX, RGB_VAI, RGB_SAI, RGB_HUI, RGB_M_B,                                     XXXXXXX, KC_MNXT, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, RGB_VAD, RGB_SAD, RGB_HUD, RGB_TOG,                                     XXXXXXX, KC_MPLY, KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_M_P, _______, _______, _______, _______, XXXXXXX, KC_MPRV, KC_VOLD, XXXXXXX, XXXXXXX, XXXXXXX,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
- /*
-  * Numeric Layer
-  *
-  * ,-------------------------------------------.                              ,-------------------------------------------.
-  * |        |  F1  |  F2  |  F3  |  F4  |   €  |                              | BSPC |  F5  |  F11 |  F12 |      |  BSPC  |
-  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-  * |        |   1  |   2  |   3  |   4  |   5  |                              |   6  |   7  |   8  |   9  |   0  |        |
-  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-  * |        |      |      |   +  |   ,  |   *  |      |      |  |      |      |   /  |   .  |   :  |   -  |      |        |
-  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-  *                        |      |      |      |      |      |  |      |      |      |      |      |
-  *                        |      |      |      |      |      |  |      |      |      |      |      |
-  *                        `----------------------------------'  `----------------------------------'
-  */
-     [_NUMERIC] = LAYOUT(
-       _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   ES_EURO,                                     KC_BSPC, KC_F5,   KC_F11,  KC_F12,  XXXXXXX, KC_BSPC,
-       XXXXXXX, ES_1,    ES_2,    ES_3,    ES_4,    ES_5,                                        ES_6,    ES_7,    ES_8,    ES_9,    ES_0,    XXXXXXX,
-       XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_COMM, KC_PAST, _______, _______, _______, _______, KC_PSLS, KC_PDOT, ES_COLN, KC_PMNS, XXXXXXX, XXXXXXX,
-                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-     ),
 // /*
 //  * Layer template
 //  *
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    return update_tri_layer_state(state, _NAVI, _SYMBOLS, _CONFIG);
 }
 
 uint8_t mod_state;
@@ -197,20 +197,20 @@ bool oled_task_user(void) {
         // Host Keyboard Layer Status
         oled_write_P(PSTR("Layer: "), false);
         switch (get_highest_layer(layer_state|default_layer_state)) {
-            case _QWERTY:
+            case _DEFAULT:
                 oled_write_P(PSTR("Alfa\n"), false);
                 break;
-            case _LOWER:
-                oled_write_P(PSTR("Movimiento\n"), false);
+            case _NAVI:
+                oled_write_P(PSTR("Navi\n"), false);
                 break;
-            case _RAISE:
-                oled_write_P(PSTR("C. Especiales\n"), false);
+            case _SYMBOLS:
+                oled_write_P(PSTR("Symbols\n"), false);
                 break;
-            case _ADJUST:
-                oled_write_P(PSTR("Config.\n"), false);
+            case _CONFIG:
+                oled_write_P(PSTR("Config\n"), false);
                 break;
             case _NUMERIC:
-                oled_write_P(PSTR("Tecl. num.\n"), false);
+                oled_write_P(PSTR("Numeric\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
@@ -243,7 +243,7 @@ bool oled_task_user(void) {
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch (get_highest_layer(layer_state)) {
-        case _LOWER:
+        case _NAVI:
             if (clockwise) {
                 tap_code16(C(KC_LEFT));
             } else {
