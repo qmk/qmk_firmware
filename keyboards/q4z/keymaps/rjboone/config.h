@@ -18,6 +18,4 @@
 #undef TAPPING_TERM
 #define TAPPING_TERM 300
 
-#undef COMBO_COUNT
-#define COMBO_COUNT 5
 #define COMBO_TERM 50

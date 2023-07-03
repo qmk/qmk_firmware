@@ -11,6 +11,11 @@
     "ws2812": {
         "pin": "F1"
     },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 6,
+        "max_brightness": 50
+    },
     "matrix_pins": {
         "cols": ["F5", "F7", "F4"],
         "rows": ["D7", "F0", "F6"]

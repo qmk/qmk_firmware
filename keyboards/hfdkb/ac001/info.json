@@ -20,6 +20,9 @@
     "ws2812": {
         "pin": "A1"
     },
+    "qmk": {
+        "tap_keycode_delay": 5
+    },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "layouts": {

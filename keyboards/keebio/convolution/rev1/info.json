@@ -11,7 +11,7 @@
         "console": true,
         "rgblight": false,
         "backlight": false,
-        "rgb_matrix": true,
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["GP0", "GP4", "GP9", "GP8", "GP20", "GP21", "GP23", "GP24", "GP17"],

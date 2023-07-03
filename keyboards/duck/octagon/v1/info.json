@@ -15,6 +15,9 @@
     "bootmagic": {
         "matrix": [5, 10]
     },
+    "rgblight": {
+        "led_count": 17
+    },
     "ws2812": {
         "pin": "D6"
     },

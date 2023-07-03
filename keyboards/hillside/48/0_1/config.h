@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define RGBLIGHT_SLEEP
-
 /* Haptic hardware */
 // The Pimoroni is the likely hardware, for which these settings work
 #define FB_ERM_LRA 1

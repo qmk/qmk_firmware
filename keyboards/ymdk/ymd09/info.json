@@ -22,7 +22,7 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "rgb_matrix": true,
+        "rgb_matrix": true
     },
     "ws2812": {
         "pin": "E2"
@@ -58,6 +58,6 @@
             {"flags": 4, "matrix": [2, 1], "x": 32, "y": 64}, //2
             {"flags": 4, "matrix": [2, 0], "x": 0, "y": 64}   //3
         ],
-        "center_point": [32, 32],
+        "center_point": [32, 32]
     }
 }

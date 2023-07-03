@@ -26,7 +26,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* Define RGBLED */
-#define RGBLED_NUM 1
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -41,8 +40,6 @@
 
 //The 3D-printed version of Boston uses APA106 LEDs, which are reversed
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
-
-#define TAP_CODE_DELAY 15
 
 /*
  * Feature disable options

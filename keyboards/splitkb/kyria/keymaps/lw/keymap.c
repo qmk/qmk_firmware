@@ -52,8 +52,6 @@ const uint32_t unicode_map[] PROGMEM = {
     [SECTION]       = 0x00A7, // §
     [DEGREE]        = 0x00B0, // °
 };
-// usage: X(ACUTE), XP(CEDIL,CEDIL_MAJ)
-
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -74,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_QWERTZ] = LAYOUT(
   KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Z,    KC_U,    KC_I,    KC_O,    KC_P,  KC_DEL,
-  KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, XP(APOST,QUOTE), KC_BSPC, //  XP(APOST,QUOTE) or KC_QUOT
+  KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, UP(APOST,QUOTE), KC_BSPC, //  UP(APOST,QUOTE) or KC_QUOT
  KC_LSFT,    KC_Y,    KC_X,    KC_C,    KC_V,    KC_B, KC_BSLS, KC_GRV,  KC_LPRN,    KC_RPRN, KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SCLN, KC_CAPS,
                             KC_LCTL, KC_LGUI, KC_LALT,  KC_SPC,   MO(1),   MO(2),    SC_SENT, KC_MINS, KC_EXLM, KC_SLSH
     ),
@@ -138,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
  _______, KC_BRIU, KC_MNXT, KC_MFFD, KC_MPLY, KC_VOLU,                                     KC_HOME, KC_PGUP,   KC_UP, KC_PGDN, _______,  KC_DEL,
  _______, KC_BRID, KC_MPRV, KC_MRWD, KC_MSTP, KC_VOLD,                                      KC_END, KC_LEFT, KC_DOWN, KC_RGHT, KC_SCRL, KC_BSPC,
- KC_LSFT, US_ACUT, US_DGRV, US_DCIR, US_DIAE, KC_MUTE, _______, UC_NEXT, KC_RSFT,  KC_APP, KC_PSCR, XP(CEDIL,CEDIL_MAJ), XP(SECTION,DEGREE), _______, LCTL(KC_S),  KC_INS,
+ KC_LSFT, US_ACUT, US_DGRV, US_DCIR, US_DIAE, KC_MUTE, _______, UC_NEXT, KC_RSFT,  KC_APP, KC_PSCR, UP(CEDIL,CEDIL_MAJ), UP(SECTION,DEGREE), _______, LCTL(KC_S),  KC_INS,
                             KC_LCTL, KC_LGUI, KC_LALT, _______,   MO(1),   MO(2), LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V)
     ),
 

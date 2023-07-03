@@ -176,8 +176,6 @@ QMK での全ての利用可能な設定にはデフォルトがあります。�
   * ワンショットがタイムアウトするまでの時間
 * `#define ONESHOT_TAP_TOGGLE 2`
   * ワンショットトグルが引き起こされるまでのタップ数
-* `#define COMBO_COUNT 2`
-  * [コンボ](ja/feature_combo.md)機能で使っているコンボの数にこれを設定します。
 * `#define COMBO_TERM 200`
   * コンボキーが検出されるまでの時間。定義されていない場合は、デフォルトは `TAPPING_TERM` です。
 * `#define TAP_CODE_DELAY 100`

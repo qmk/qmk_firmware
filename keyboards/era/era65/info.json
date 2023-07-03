@@ -30,7 +30,7 @@
         "pin": "GP0"
     },
     "indicators": {
-        "caps_lock": "GP12",
+        "caps_lock": "GP12"
     },
     "layouts": {
         "LAYOUT_65_combo": {

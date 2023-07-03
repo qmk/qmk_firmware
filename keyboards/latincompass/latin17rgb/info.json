@@ -8,6 +8,13 @@
     "pid": "0x7C97",
     "device_version": "0.0.1"
   },
+  "rgblight": {
+    "hue_steps": 5,
+    "saturation_steps": 5,
+    "brightness_steps": 5,
+    "led_count": 8,
+    "sleep": true
+  },
   "ws2812": {
     "pin": "B7"
   },

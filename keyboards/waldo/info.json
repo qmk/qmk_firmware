@@ -16,6 +16,12 @@
         "pin": "B7",
         "breathing": true
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 10,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "B0"
     },

@@ -412,7 +412,7 @@ static void backlight_handlers_slave(matrix_row_t master_matrix[], matrix_row_t 
     uint8_t backlight_level = split_shmem->backlight_level;
     split_shared_memory_unlock();
 
-    backlight_set(backlight_level);
+    backlight_level_noeeprom(backlight_level);
 }
 
 #    define TRANSACTIONS_BACKLIGHT_MASTER() TRANSACTION_HANDLER_MASTER(backlight)

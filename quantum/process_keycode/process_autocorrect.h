@@ -9,6 +9,7 @@
 
 bool process_autocorrect(uint16_t keycode, keyrecord_t *record);
 bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods);
+bool process_autocorrect_default_handler(uint16_t *keycode, keyrecord_t *record, uint8_t *typo_buffer_size, uint8_t *mods);
 bool apply_autocorrect(uint8_t backspaces, const char *str);
 
 bool autocorrect_is_enabled(void);

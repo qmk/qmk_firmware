@@ -7,6 +7,12 @@
         "vid": "0xFEED",
         "pid": "0x1191"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 12,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "D7"
     }
