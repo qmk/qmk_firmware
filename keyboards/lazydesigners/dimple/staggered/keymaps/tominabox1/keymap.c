@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-bool led_set_user(led_t led_state) {
+bool led_update_user(led_t led_state) {
 if (led_state.caps_lock) {
 	writePinLow(E6);
 	} else {

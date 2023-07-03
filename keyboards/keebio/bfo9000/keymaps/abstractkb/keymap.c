@@ -56,7 +56,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-bool led_set_user(led_t led_state) {
+bool led_update_user(led_t led_state) {
   if (led_state.caps_lock) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_ALTERNATING);
   } else {
