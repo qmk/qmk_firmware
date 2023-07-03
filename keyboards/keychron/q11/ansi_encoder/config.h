@@ -18,7 +18,6 @@
 
 /* RGB Matrix Configuration */
 #define RGB_MATRIX_LED_COUNT 89
-#define SPLIT_TRANSPORT_MIRROR
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 23
