@@ -4,6 +4,7 @@
 #include "quantum.h"
 
 void keyboard_post_init_kb(void) {
+    PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
     // If the keyboard is master, turn on power to the split half, and to underglow LEDs
     if (is_keyboard_master()) {
         setPinOutput(A15);
