@@ -32,14 +32,14 @@ void rgblight_set(void) {
         }
     }
     if (noah_led_mode) {
-      uint8_t ind_led = host_keyboard_leds();
-      if (IS_LED_ON(ind_led, USB_LED_CAPS_LOCK)) {
+      led_t led_state = host_keyboard_led_state();
+      if (led_state.caps_lock) {
         noah_leds[0] = led[0];
       }
-      if (IS_LED_ON(ind_led, USB_LED_SCROLL_LOCK)) {
+      if (led_state.scroll_lock) {
         noah_leds[1] = led[1];
       }
-      if (IS_LED_ON(ind_led, USB_LED_NUM_LOCK)) {
+      if (led_state.num_lock) {
         noah_leds[2] = led[2];
       }
       for (int32_t i = 0; i < 4; i++) {
