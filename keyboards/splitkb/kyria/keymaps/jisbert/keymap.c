@@ -20,6 +20,7 @@ enum layers {
     _DEFAULT = 0,
     _NAVI,
     _SYMBOLS,
+    _FUNCTION,
     _NUMERIC,
     _CONFIG
 };
@@ -62,10 +63,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `-----------------------------------'
  */
     [_NAVI] = LAYOUT(
-      _______, C(KC_Y), C(KC_Z), C(KC_V), C(KC_C), C(KC_X),                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  C(KC_HOME), XXXXXXX,
-      XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, C(KC_END),  XXXXXXX,
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, C(KC_C)
+      _______, C(KC_Y),       C(KC_Z), C(KC_V), C(KC_C), C(KC_X),                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  C(KC_HOME), XXXXXXX,
+      XXXXXXX, KC_LGUI,       KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, C(KC_END),  XXXXXXX,
+      XXXXXXX, MO(_FUNCTION), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,
+                                       _______, _______, _______, _______, _______, _______, _______, _______, _______, C(KC_C)
     ),
 /*
  * Symbols
@@ -81,29 +82,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYMBOLS] = LAYOUT(
-        _______, ES_PIPE, ES_AMPR, ES_LCBR, ES_RCBR, ES_DQUO,                                     ES_DLR,  ES_LBRC, ES_RBRC, ES_PERC, ES_AT,   XXXXXXX,
-        ES_MINS, ES_ASTR, ES_PLUS, ES_LPRN, ES_RPRN, ES_EQL,                                      ES_SCLN, ES_LABK, ES_RABK, ES_SLSH, ES_BSLS, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, ES_TILD, ES_GRV,  ES_QUOT, _______, _______, _______, _______, ES_HASH, ES_CIRC, ES_EURO, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, ES_PIPE, ES_AMPR, ES_LCBR, ES_RCBR, ES_DQUO,                                     ES_DLR,  ES_LBRC, ES_RBRC, ES_PERC, ES_AT,        XXXXXXX,
+        ES_MINS, ES_ASTR, ES_PLUS, ES_LPRN, ES_RPRN, ES_EQL,                                      ES_SCLN, ES_LABK, ES_RABK, ES_SLSH, ES_BSLS,      XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, ES_TILD, ES_GRV,  ES_QUOT, _______, _______, _______, _______, ES_HASH, ES_CIRC, ES_EURO, XXXXXXX, MO(_NUMERIC), XXXXXXX,
                                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+/*
+ * Function
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |      |      |      |                              |      |  F5  |  F11 |  F12 |      |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |                              |      |  F1  |  F2  |  F3  |Alt+F4|        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_FUNCTION] = LAYOUT(
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, KC_F5,   KC_F11,  KC_F12,  XXXXXXX,  XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, KC_F1,   KC_F2,   KC_F3,   A(KC_F4), XXXXXXX,
+      XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
  * Numeric
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |   €  |                              | BSPC |  F5  |  F11 |  F12 |      |  BSPC  |
+ * |        |   6  |   7  |   8  |   9  |   0  |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |   1  |   2  |   3  |   4  |   5  |                              |   6  |   7  |   8  |   9  |   0  |        |
+ * |        |   1  |   2  |   3  |   4  |   5  |                              |      |      |      |      |      |        |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |      |   +  |   ,  |   *  |      |      |  |      |      |   /  |   .  |   :  |   -  |      |        |
+ * |        |   /  |   :  |   ,  |   .  |   -  |      |      |  |      |      |      |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NUMERIC] = LAYOUT(
-      _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   ES_EURO,                                     KC_BSPC, KC_F5,   KC_F11,  KC_F12,  XXXXXXX, KC_BSPC,
-      XXXXXXX, ES_1,    ES_2,    ES_3,    ES_4,    ES_5,                                        ES_6,    ES_7,    ES_8,    ES_9,    ES_0,    XXXXXXX,
-      XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_COMM, KC_PAST, _______, _______, _______, _______, KC_PSLS, KC_PDOT, ES_COLN, KC_PMNS, XXXXXXX, XXXXXXX,
+      _______, ES_6,    ES_7,    ES_8,    ES_9,    ES_0,                                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, ES_1,    ES_2,    ES_3,    ES_4,    ES_5,                                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, KC_PSLS, ES_COLN, KC_COMM, KC_PDOT, KC_PMNS, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 /*
@@ -206,11 +227,14 @@ bool oled_task_user(void) {
             case _SYMBOLS:
                 oled_write_P(PSTR("Symbols\n"), false);
                 break;
-            case _CONFIG:
-                oled_write_P(PSTR("Config\n"), false);
+            case _FUNCTION:
+                oled_write_P(PSTR("Function\n"), false);
                 break;
             case _NUMERIC:
                 oled_write_P(PSTR("Numeric\n"), false);
+                break;
+            case _CONFIG:
+                oled_write_P(PSTR("Config\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
