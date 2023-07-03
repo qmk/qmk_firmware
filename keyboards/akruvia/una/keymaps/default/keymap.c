@@ -9,11 +9,6 @@ enum layers {
     _LAYER_UPPER
 };
 
-enum keycodes {
-    KC_TOGGLE_LOWER_LAYER = SAFE_RANGE,
-    KC_TOGGLE_UPPER_LAYER
-};
-
 enum rgb_led {
     RGB_CAPSLOCK_LED,
     RGB_LOWER_LAYER_LED,
