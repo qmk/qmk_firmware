@@ -36,4 +36,3 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS  //Enable frame effects
 #define RGB_MATRIX_KEYPRESSES  //Reacts to keypress
 #define RGB_DISABLE_WHEN_USB_SUSPENDED   //turn off effects when suspended
-#define g_suspend_state !RGB_DISABLE_WHEN_USB_SUSPENDED
