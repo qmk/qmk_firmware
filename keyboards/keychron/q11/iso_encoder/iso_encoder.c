@@ -18,12 +18,12 @@
 
 #ifdef RGB_MATRIX_ENABLE
 const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
-/* Refer to IS31 manual for these locations
+/* Refer to CKLED2001 manual for these locations
  *   driver
  *   |  R location
- *   |  |       G location
- *   |  |       |       B location
- *   |  |       |       | */
+ *   |  |     G location
+ *   |  |     |     B location
+ *   |  |     |     | */
     {0, A_2,  C_2,  B_2},  // ESC
     {0, A_3,  C_3,  B_3},  // F1
     {0, A_4,  C_4,  B_4},  // F2
@@ -58,7 +58,8 @@ const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
     {0, J_7,  L_7,  K_7},  // G
 
     {0, J_9,  L_9,  K_9},  // M4
-    {0, J_11, L_11, K_11}, // Shift_J
+    {0, J_10, L_10, K_10}, // Shift_L
+    {0, J_11, L_11, K_11}, // NUBS
     {0, J_12, L_12, K_12}, // Z
     {0, J_13, L_13, K_13}, // X
     {0, J_14, L_14, K_14}, // C
@@ -97,7 +98,6 @@ const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
     {0, G_12, I_12, H_12}, // P
     {0, G_11, I_11, H_11}, // [
     {0, G_10, I_10, H_10}, // ]
-    {0, G_9,  I_9,  H_9},  // \||
     {0, G_8,  I_8,  H_8},  // PgDn
 
     {0, J_16, L_16, K_16}, // H
@@ -106,7 +106,8 @@ const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
     {0, J_13, L_13, K_13}, // J
     {0, J_12, L_12, K_12}, // ;:
     {0, J_11, L_11, K_11}, // '"
-    {0, J_9,  L_9,  K_9},  // Enter
+    {0, J_9,  L_9,  K_9},  // NUHS
+    {0, G_9,  I_9,  H_9},  // Enter
     {0, J_8,  L_8,  K_8},  // Home
 
     {0, J_7,  L_7,  K_7},  // N
