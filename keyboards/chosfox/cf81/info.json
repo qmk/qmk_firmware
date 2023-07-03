@@ -9,6 +9,9 @@
         "device_version": "1.0.0",
         "suspend_wakeup_delay": 400
     },
+    "eeprom": {
+        "driver": "wear_leveling"
+    },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "features": {
