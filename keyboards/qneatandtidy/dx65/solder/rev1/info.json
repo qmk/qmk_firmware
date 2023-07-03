@@ -5,7 +5,6 @@
         "device_version": "0.0.1",
         "suspend_wakeup_delay": 5000
     },
-    "eeprom": "wear_leveling",
     "features": {
         "rgblight": true,
         "rgb_matrix": true
