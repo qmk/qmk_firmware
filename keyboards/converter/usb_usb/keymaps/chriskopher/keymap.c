@@ -184,3 +184,38 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
 }
+
+enum combo_event {
+    SD_LAYER_COMBO,
+    KL_MEH_COMBO,
+};
+
+const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};  // Combo: S + D for SuperDuper mode
+const uint16_t PROGMEM kl_combo[] = {KC_K, KC_L, COMBO_END};  // Combo: K + L for Meh modifier
+
+// Register the combo action
+combo_t key_combos[] = {
+    [SD_LAYER_COMBO] = COMBO_ACTION(sd_combo),
+    [KL_MEH_COMBO]   = COMBO_ACTION(kl_combo),
+};
+
+// Called after a combo event is triggered
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch (combo_index) {
+        case SD_LAYER_COMBO:
+            if (pressed) {
+                layer_on(_SUPERDUPER);
+            } else {
+                layer_off(_SUPERDUPER);
+            }
+            break;
+
+        case KL_MEH_COMBO:
+            if (pressed) {
+                register_mods(MOD_MEH);
+            } else {
+                unregister_mods(MOD_MEH);
+            }
+            break;
+    }
+}

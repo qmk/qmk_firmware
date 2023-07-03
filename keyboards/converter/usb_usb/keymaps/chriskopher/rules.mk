@@ -21,4 +21,4 @@ TAP_DANCE_ENABLE = yes # Used to allow multiple taps of a key to perform differe
 
 LTO_ENABLE = yes # Reduces the compiled firmware size
 
-SRC += combo.c tap_dance.c
+SRC += tap_dance.c
