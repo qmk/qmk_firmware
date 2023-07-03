@@ -10,7 +10,6 @@
         "console": false,
         "extrakey": true,
         "encoder": true,
-        "encoder_map": true,
         "rgb_matrix": true,
         "oled": true,
         "mousekey": false,
