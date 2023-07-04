@@ -198,13 +198,13 @@ bool led_update_kb(led_t led_state) {
     return false;
 }
 
-void matrix_scan_user(void) {
+void matrix_scan_kb(void) {
 
     toggle_leds();
 
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
     switch (keycode) {
         case (TT(_LWR)):
@@ -225,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     }
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
 
 #ifdef RGBLIGHT_ENABLE
 
@@ -238,7 +238,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #ifdef RGBLIGHT_ENABLE
 
-layer_state_t default_layer_state_set_user(layer_state_t state) {
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
 
     set_default_rgb_layers(state);
     return state;
@@ -246,7 +246,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 
 #endif
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
 
 #ifdef RGBLIGHT_ENABLE
   // Enable the LED layers
