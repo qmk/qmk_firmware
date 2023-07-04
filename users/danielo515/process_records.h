@@ -54,7 +54,9 @@ enum layers {
     _LOWER,
     _RAISE,
     _MACROS,
-    _SAFE_LAYER
+    _SAFE_LAYER,
+    // redox specific
+    _GAMING
 };
 
 //===== Function letters

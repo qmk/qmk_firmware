@@ -138,14 +138,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
-#ifdef KEYBOARD_redox_wireless
+
 void alt_tab_activated(void){
     layer_on(_NAV);
 };
 void alt_tab_deactivated(void){
     layer_off(_NAV);
 };
-
+#ifdef KEYBOARD_redox_wireless
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _QWERTY:
