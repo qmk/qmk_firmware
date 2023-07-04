@@ -78,6 +78,9 @@
         "led_count": 20,
         "saturation_steps": 8
     },
+    "ws2812": {
+        "pin": "B15"
+    },
     "url": "https://gitlab.com/m-lego/m65",
     "usb": {
         "device_version": "0.0.1",
