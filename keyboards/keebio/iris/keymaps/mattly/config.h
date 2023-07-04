@@ -1,4 +1,4 @@
-/*p
+/*
 Copyright 2017 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
