@@ -43,8 +43,7 @@ void draw_wasd_key(wasd_state_t wasd_state) {
             if (wasd_state.shift) {
                 k &= ~shiftbits;
             }
-            sprintf(stringbuffer, "%c", k);
-            oled_write(stringbuffer, false);
+            oled_write_char(k, false);
         } else {
             oled_write_P(PSTR(" "), false);
         }
@@ -54,11 +53,9 @@ void draw_wasd_key(wasd_state_t wasd_state) {
 void draw_thumb_debug(thumbstick_polar_position_t thumbstick_polar_position) {
     //draw oled row showing thumbstick direction and distance from center
     oled_write_P(PSTR("Dir:"), false);
-    sprintf (stringbuffer , "%4d", thumbstick_polar_position.angle);
-    oled_write(stringbuffer , false);
+    oled_write(get_u16_str(thumbstick_polar_position.angle, ' '), false);
     oled_write_P(PSTR(" Dist:"), false);
-    sprintf (stringbuffer , "%4d", thumbstick_polar_position.distance);
-    oled_write_ln(stringbuffer , false);
+    oled_write_ln(get_u16_str(thumbstick_polar_position.distance, ' '), false);
     //print registered key codes
     oled_write_P(PSTR("Keycodes: "), false);
     draw_wasd_key( wasd_state );
