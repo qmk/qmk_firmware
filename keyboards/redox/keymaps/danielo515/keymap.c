@@ -2,16 +2,6 @@
 #include "danielo515.h"
 
 // Shortcut to make keymap more readable
-enum layers {
-   _QWERTY,
-   _SYMB,
-   _NAV,
-   _ADJUST,
-   _GAMING,
-   _F,
-   _D,
-   _S
-};
 
 # define SYM_L   OSL(_SYMB)
 
