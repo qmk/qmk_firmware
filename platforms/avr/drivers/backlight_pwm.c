@@ -1,7 +1,8 @@
-#include "quantum.h"
 #include "backlight.h"
 #include "backlight_driver_common.h"
-#include "debug.h"
+#include "progmem.h"
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 // Maximum duty cycle limit
 #ifndef BACKLIGHT_LIMIT_VAL
