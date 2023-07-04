@@ -12,7 +12,6 @@
         "pin": "F5",
      },
      "rgblight": {
-        "pin": "F5",
         "led_count":18,
         "sleep":true,
         "animations": {
