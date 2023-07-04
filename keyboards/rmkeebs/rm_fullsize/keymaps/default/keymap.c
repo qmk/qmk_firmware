@@ -47,10 +47,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             // when keycode KC_00 is pressed
             SEND_STRING("00");
-        } else {
-            // when keycode KC_00 is released
         }
-        break;
+        return false;
     }
     return true;
 };
