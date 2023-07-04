@@ -1,5 +1,7 @@
 # DMOTE
 
+![DMOTE](https://i.imgur.com/JYkB6LBh.jpg)
+
 The “**D**actyl-**M**anuForm: **O**pposable **T**humb **E**dition” is made from a Clojure
 application maintained [here](https://github.com/veikman/dactyl-keyboard).
 The application supports varied physical layouts and therefore matrices.
