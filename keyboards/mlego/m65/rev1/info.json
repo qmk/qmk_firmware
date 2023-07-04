@@ -1,12 +1,4 @@
 {
-    "usb": {
-        "pid": "0x6061",
-        "device_version": "0.0.1"
-    },
-    "matrix_pins": {
-        "cols": ["A10", "A15", "B3", "B4", "B5", "B9", "B8", "B7", "B6", "C15", "A0", "A7", "B10"],
-        "rows": ["B11", "B0", "B1", "A2", "A3"]
-    },
     "manufacturer": "Alin Elena",
     "keyboard_name": "mlego/m65 rev1",
     "maintainer": "alin elena",
@@ -32,6 +24,10 @@
         "mousekey": true,
         "nkro": true,
         "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["A10", "A15", "B3", "B4", "B5", "B9", "B8", "B7", "B6", "C15", "A0", "A7", "B10"],
+        "rows": ["B11", "B0", "B1", "A2", "A3"]
     },
     "indicators": {
         "caps_lock": "C13",
@@ -76,9 +72,6 @@
         },
         "led_count": 20,
         "saturation_steps": 8
-    },
-    "ws2812": {
-        "pin": "B15"
     },
     "url": "https://gitlab.com/m-lego/m65",
     "usb": {
