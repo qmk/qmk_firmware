@@ -44,6 +44,5 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_DIRECTION_FLIP
 
-#define ENCODER_RESOLUTION 4
 
 #define AUDIO_CLICKY
