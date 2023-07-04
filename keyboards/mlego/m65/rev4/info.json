@@ -55,6 +55,9 @@
         "pin": "B15"
     },
     "processor": "STM32F401",
+    "ws2812": {
+        "pin": "B15"
+    },
     "rgblight": {
         "animations": {
             "alternating": true,
@@ -73,7 +76,6 @@
             "enabled": true
         },
         "led_count": 20,
-        "pin": "B15",
         "saturation_steps": 8
     },
     "url": "https://gitlab.com/m-lego/m65",
