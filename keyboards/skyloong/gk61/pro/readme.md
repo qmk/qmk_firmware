@@ -1,18 +1,18 @@
-# qk61
+# GK61 PRO
 
-![qk61](imgur.com image replace me!)
-
+![GK61 PRO](https://i.imgur.com/DTetyVLh.jpg)
 
 ## The PCB features:
 * QMK & VIA compatibility
 * RGB Matrix backlight
+* The space bar position switch and encoder are interchangeable
 
 
 The following is the QMK Firmware for the Destop 60% keylayout -  designed in Dongguan Jizhi Electronic Technology Co., Ltd
 
 * Keyboard Maintainer: [linlin012](https://github.com/linlin012)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: DestopPCB for Skyloong keylayout 60%, STM32F103C8T6
+* Hardware Availability: http://www.skyloong.com.cn
 
 Make example for this keyboard (after setting up your build environment):
 
