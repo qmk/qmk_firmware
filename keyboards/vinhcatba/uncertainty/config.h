@@ -14,15 +14,9 @@
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2        // DMA1 Stream 2 for TIM3_UP (table 28 in reference manual)
 #define WS2812_DMA_CHANNEL 5                        // DMA Channel 5 for TIM3_UP  (table 28 in reference manual)
 
-/* i2c peripheral config */
-#define I2C_DRIVER I2CD1
-#define I2C1_SCL_PIN B6
-#define I2C1_SDA_PIN B7
-#define I2C_SCL_PAL_MODE 4
-#define I2C_SDA_PAL_MODE 4
 
 #define I2C1_CLOCK_SPEED 400000
-#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
+#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_16_9
 
 /* eeprom i2c driver config */
 #define EXTERNAL_EEPROM_I2C_BASE_ADDRESS 0b10100000
