@@ -11,10 +11,7 @@
         "device_version": "0.0.1"
     },
     "features": {
-        "bootmagic": {
-            "enable":true,
-            "matrix": [1,0]
-        },
+        "bootmagic":true,
         "command": false,
         "console": false,
         "extrakey": true,
