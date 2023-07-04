@@ -53,9 +53,6 @@
         "cols": ["A10", "A15", "B3", "B4", "B5", "B9", "B8", "B7", "B6", "C15", "A0", "A7", "B10"],
         "rows": ["B11", "B0", "B1", "A2", "A3"]
     },
-    "ws2812": {
-        "pin": "B15"
-    },
     "rgblight": {
         "animations": {
             "alternating": true,
