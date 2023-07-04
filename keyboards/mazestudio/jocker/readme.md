@@ -1,6 +1,6 @@
 # Jocker 1800
 
-![sebelas]( https://i.imgur.com/07zQeZhh.png )
+![jocker1800]( https://i.imgur.com/aQEiE4H.jpg )
 
 PCB Replacement for Austin 1800
 
