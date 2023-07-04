@@ -90,7 +90,7 @@ const char *highest_layer(void) {
         case L_WINDOWS:
         case L_LINUX:
         case L_GAMING:
-            snprintf(highest_layer_str, sizeof(highest_layer_str), "BASE ");
+            snprintf(highest_layer_str, sizeof(highest_layer_str), " BASE");
             break;
         case L_RAISE:
             snprintf(highest_layer_str, sizeof(highest_layer_str), "RAISE");
@@ -100,7 +100,7 @@ const char *highest_layer(void) {
             snprintf(highest_layer_str, sizeof(highest_layer_str), "LOWER");
             break;
         case L_ADJUST:
-            snprintf(highest_layer_str, sizeof(highest_layer_str), "ADJ  ");
+            snprintf(highest_layer_str, sizeof(highest_layer_str), " ADJ ");
             break;
         default:
             snprintf(highest_layer_str, sizeof(highest_layer_str), "Undef");

@@ -211,8 +211,7 @@ bool oled_task_user(void) {
     if(is_keyboard_master()) {
         // If you want to change the display of OLED, you need to change here
         oled_write_raw_P(mode_state(), 64);
-        oled_set_cursor(0, 2);
-        oled_write(PSTR("Layer"), false);
+        oled_set_cursor(0, 3);
         oled_write(highest_layer(), false);
         oled_set_cursor(0, 15);
         oled_write(caps_state(), false);
