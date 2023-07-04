@@ -1,6 +1,6 @@
-#include "quantum.h"
 #include "backlight.h"
 #include "backlight_driver_common.h"
+#include "gpio.h"
 
 #if !defined(BACKLIGHT_PIN) && !defined(BACKLIGHT_PINS)
 #    error "Backlight pin/pins not defined. Please configure."
