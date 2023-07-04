@@ -2,6 +2,17 @@
 #include "danielo515.h"
 
 // Shortcut to make keymap more readable
+enum layers {
+   _QWERTY,
+   _SYMB,
+   _NAV,
+   _ADJUST,
+   _GAMING,
+   _F,
+   _D,
+   _S
+};
+
 # define SYM_L   OSL(_SYMB)
 
 # define KC_ALAS LALT_T(KC_PAST) // alt or keypad *
@@ -137,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
-
+#ifdef KEYBOARD_redox_wireless
 void alt_tab_activated(void){
     layer_on(_NAV);
 };
@@ -174,5 +185,4 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
   return state;
 }
-
-
+#endif

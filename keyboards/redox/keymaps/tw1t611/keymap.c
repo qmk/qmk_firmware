@@ -1,9 +1,9 @@
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
 
-enum {
-  QWERTZ = 0,
-  MOD,
+enum layers {
+  QWERTZ,
+  MOD
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

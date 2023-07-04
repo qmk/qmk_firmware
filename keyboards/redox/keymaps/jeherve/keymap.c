@@ -21,11 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _COLEMAK 0
-#define _SYMB 1
-#define _NAV 2
-#define _INTER 3
-#define _ADJUST 4
+enum layers {
+   _COLEMAK,
+   _SYMB,
+   _NAV,
+   _INTER,
+   _ADJUST
+};
 
 // Define song.
 #ifdef AUDIO_ENABLE
@@ -244,7 +246,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
     eeconfig_update_default_layer(default_layer);
     default_layer_set(default_layer);
 }
-
+#ifdef RGBLIGHT_ENABLE
 // Change LED colors depending on the layer.
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
@@ -266,3 +268,4 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
     return state;
 };
+#endif

@@ -20,20 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Change the default tapping toggle value (normally 5) */
 #define TAPPING_TOGGLE 2
 
-/* Select hand configuration */
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
-#undef RGBLED_NUM
-#define RGBLED_NUM 14
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_SLEEP
-
+#ifdef UNICODE_ENABLE
 /* Set Unicode mode by default */
-#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS
+#    define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS
+#endif
 
 /* Custom startup sound */
 #ifdef AUDIO_ENABLE
