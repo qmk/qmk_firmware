@@ -15,18 +15,18 @@
 
 #include QMK_KEYBOARD_H
 
+enum layer_names {
+    _QWERTY,
+    _SYMBOL,
+    _ADJUST
+  };
+
 #define SY_LBRC LT(_SYMBOL, KC_LBRC)
 #define SY_RBRC LT(_SYMBOL, KC_RBRC)
 #define SY_SPC  LT(_SYMBOL, KC_SPC)
 #define A_COMM  LALT_T(KC_COMM)
 #define A_DOT   LALT_T(KC_DOT)
 #define ADJ     MO(_ADJUST)
-
-enum layer_names {
-    _QWERTY,
-    _SYMBOL,
-    _ADJUST
-  };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

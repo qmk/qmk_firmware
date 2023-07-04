@@ -29,12 +29,6 @@ enum dactyl_layers {
   _ADJUST
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  SYMB,
-  NUM,
-};
-
 // Shortcut to make keymap more readable
 #define L_SYM  MO(_SYMB)
 #define L_NUM  MO(_NUM)

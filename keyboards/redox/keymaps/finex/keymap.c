@@ -3,7 +3,7 @@
 extern keymap_config_t keymap_config;
 
 // Layer names
-enum{
+enum layers {
   // - Base layers:
   _COLEMAKDHMK,
   _COLEMAKDHMK_MAC,
@@ -15,8 +15,8 @@ enum{
   _FUNC,
   _RHSH, // Righ hand shifted keycodes
   _LHSH, // Left hand shifted keycodes
-  // - Adjust layer:
-  _ADJUST
+  // - Adjust layer
+  _ADJUST 
 };
 
 // Custom keycodes
@@ -38,6 +38,7 @@ enum custom_keycodes {
   ASC_CBRR
 };
 
+#ifdef TAP_DANCE_ENABLE
 // Tap dance keycodes
 enum tap_dance{
   TD_SCLN, // ;; -> :
@@ -100,14 +101,13 @@ void dance_rbrc_reset (tap_dance_state_t *state, void *user_data) {
   }
 }
 
-
 //Tap Dance Definitions
 tap_dance_action_t tap_dance_actions[] = {
   [TD_SCLN]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_scln_finished, dance_scln_reset),
   [TD_LBRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_lbrc_finished, dance_lbrc_reset),
   [TD_RBRC]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_rbrc_finished, dance_rbrc_reset)
 };
-
+#endif
 
 // Shortcut to make keymap more readable
 
@@ -382,5 +382,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,     XXXXXXX ,    XXXXXXX ,XXXXXXX ,        XXXXXXX ,XXXXXXX ,    XXXXXXX ,     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX
     //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   )
-
 };

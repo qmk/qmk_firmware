@@ -13,13 +13,6 @@ enum layers{
    _ADJUST
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  SYMB,
-  NAV,
-  ADJUST,
-};
-
 // Shortcut to make keymap more readable
 #define KC_BKSL KC_BSLS
 #define SYM_L   MO(_SYMB)
