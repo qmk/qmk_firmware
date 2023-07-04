@@ -3,17 +3,12 @@
     "keyboard_name": "gk61 pro",
     "maintainer": "linlin012",
     "bootloader": "stm32duino",
-    "config_h_features": {
-        "encoder": true,
-        "encoder_map": true,
-        "rgb_matrix": true,
-        "via": true
-    },
+
     "diode_direction": "ROW2COL",
     "encoder": {
         "enabled": true,
         "rotary": [
-            {"pin_a": "C5", "pin_b": "C4"}
+            {"pin_a": "C5", "pin_b": "C4", "resolution": 2}
         ]
     },
     "features": {
@@ -25,10 +20,9 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "via": true
+        "rgb_matrix": true
     },
-    "keymaps": {},
+
     "matrix_pins": {
         "cols": ["B11", "C6", "C7", "B12", "B13", "B14", "B15", "B10", "B1", "B0", "D2", "B3", "B4", "B5"],
         "rows": ["A15", "C10", "C11", "C12", "A3"]
