@@ -68,28 +68,33 @@
             {"x": 152, "y": 64, "flags": 2},
             {"x": 138, "y": 64, "flags": 2},
             {"x": 124, "y": 64, "flags": 2},
-            {"x": 124, "y": 64, "flags": 2},
-            {"x": 119, "y": 64, "flags": 2},
-            {"x": 114, "y": 64, "flags": 2},
-            {"x": 117, "y": 64, "flags": 2},
-            {"x": 122, "y": 27, "flags": 2},
-            {"x": 126, "y": 5, "flags": 2},
-            {"x": 140, "y": 5, "flags": 2},
-            {"x": 155, "y": 5, "flags": 2},
-            {"x": 168, "y": 5, "flags": 2},
-            {"x": 181, "y": 5, "flags": 2},
-            {"x": 196, "y": 5, "flags": 2},
-            {"x": 211, "y": 5, "flags": 2},
-            {"x": 224, "y": 5, "flags": 2},
-            {"x": 224, "y": 30, "flags": 2},
-            {"x": 224, "y": 64, "flags": 2}
-        ]
-    },
-    "rgblight": {
-        "led_count": 53,
-        "max_brightness": 128,
-        "split": true,
-        "split_count": [27, 26]
+            {"x": 124, "y": 53, "flags": 2},
+            {"x": 119, "y": 42, "flags": 2},
+            {"x": 114, "y": 31, "flags": 2},
+            {"x": 117, "y": 19, "flags": 2},
+            {"x": 122, "y": 8, "flags": 2},
+            {"x": 126, "y": 1, "flags": 2},
+            {"x": 140, "y": 1, "flags": 2},
+            {"x": 155, "y": 1, "flags": 2},
+            {"x": 168, "y": 1, "flags": 2},
+            {"x": 181, "y": 1, "flags": 2},
+            {"x": 196, "y": 1, "flags": 2},
+            {"x": 211, "y": 1, "flags": 2},
+            {"x": 224, "y": 1, "flags": 2},
+            {"x": 224, "y": 8, "flags": 2},
+            {"x": 224, "y": 19, "flags": 2}
+        ],
+        "animations": {
+            "solid_color": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_spiral": true,
+            "rainbow_beacon": true
+        }
     },
     "split": {
         "bootmagic": {
