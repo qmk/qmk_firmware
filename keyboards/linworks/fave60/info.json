@@ -8,7 +8,10 @@
         "pin": "B7",
         "breathing": true
     },
-   "ws2812": {
+    "ws2812": {
+        "pin": "F5",
+     },
+     "rgblight": {
         "pin": "F5",
         "led_count":18,
         "sleep":true,
