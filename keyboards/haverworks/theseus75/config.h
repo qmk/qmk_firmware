@@ -44,3 +44,12 @@
 
 #define RGBLIGHT_SLEEP
 #define WS2812_EXTERNAL_PULLUP
+
+// Not yet available in `info.json`
+#ifdef RGB_MATRIX_ENABLE
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
+#    define RGB_MATRIX_LED_COUNT 53
+#    define RGB_MATRIX_SPLIT { 27, 26 }
+#    define SPLIT_TRANSPORT_MIRROR
+#    define NOP_FUDGE 0.4
+#endif
