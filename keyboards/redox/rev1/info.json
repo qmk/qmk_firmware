@@ -17,6 +17,9 @@
     "nkro": true,
     "rgblight": true
   },
+  "split":{
+    "enabled": true
+  },
   "rgblight": {
     "led_count": 14,
     "split": true
