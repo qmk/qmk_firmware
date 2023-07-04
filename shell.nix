@@ -1,29 +1,9 @@
 let
   # We specify sources via Niv: use "niv update nixpkgs" to update nixpkgs, for example.
   sources = import ./util/nix/sources.nix { };
-
-  # `tomlkit` >= 0.8.0 is required to build `jsonschema` >= 4.11.0 (older
-  # version do not support some valid TOML syntax: sdispater/tomlkit#148).  The
-  # updated `tomlkit` must be used by `makeRemoveSpecialDependenciesHook`
-  # inside `poetry2nix`, therefore just providing the updated version through
-  # our `nix/pyproject.toml` does not work, and using an overlay is required.
-  pythonOverlay = final: prev: {
-    python3 = prev.python3.override {
-      packageOverrides = self: super: {
-        tomlkit = super.tomlkit.overridePythonAttrs(old: rec {
-          version = "0.11.4";
-          src = super.fetchPypi {
-            inherit (old) pname;
-            inherit version;
-            sha256 = "sha256-MjWpAQ+uVDI+cnw6wG+3IHUv5mNbNCbjedrsYPvUSoM=";
-          };
-        });
-      };
-    };
-  };
 in
 # However, if you want to override Niv's inputs, this will let you do that.
-{ pkgs ? import sources.nixpkgs { overlays = [ pythonOverlay ]; }
+{ pkgs ? import sources.nixpkgs {}
 , poetry2nix ? pkgs.callPackage (import sources.poetry2nix) { }
 , avr ? true
 , arm ? true
@@ -49,14 +29,6 @@ let
   pythonEnv = poetry2nix.mkPoetryEnv {
     projectDir = ./util/nix;
     overrides = poetry2nix.overrides.withDefaults (self: super: {
-      pillow = super.pillow.overridePythonAttrs(old: {
-        # Use preConfigure from nixpkgs to fix library detection issues and
-        # impurities which can break the build process; this also requires
-        # adding propagatedBuildInputs and buildInputs from the same source.
-        propagatedBuildInputs = (old.buildInputs or []) ++ pkgs.python3.pkgs.pillow.propagatedBuildInputs;
-        buildInputs = (old.buildInputs or []) ++ pkgs.python3.pkgs.pillow.buildInputs;
-        preConfigure = (old.preConfigure or "") + pkgs.python3.pkgs.pillow.preConfigure;
-      });
       qmk = super.qmk.overridePythonAttrs(old: {
         # Allow QMK CLI to run "qmk" as a subprocess (the wrapper changes
         # $PATH and breaks these invocations).
