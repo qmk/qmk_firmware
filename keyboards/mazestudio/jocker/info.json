@@ -11,15 +11,15 @@
         "device_version": "0.0.1"
     },
     "features": {
-        "bootmagic":{
-            "enabled": true,
-            "matrix": [1, 0]
-        },
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
+    },
+    "bootmagic":{
+        "enabled": true,
+        "matrix": [1, 0]
     },
     "build": {
         "lto": true
