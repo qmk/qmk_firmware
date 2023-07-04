@@ -3,7 +3,6 @@
 
 
 /* Define RGB */
-#define RGBLED_NUM 91
 #define RGB_MATRIX_LED_COUNT 91
 
 #ifdef RGB_MATRIX_ENABLE
