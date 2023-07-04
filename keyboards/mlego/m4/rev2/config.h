@@ -83,7 +83,6 @@ It uses four pins from the MCU to provide 16 output pins */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
 #ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X32
 #    define I2C1_SCL_PIN GP7
 #    define I2C1_SDA_PIN GP6
 #    define I2C_DRIVER I2CD1

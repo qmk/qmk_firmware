@@ -33,6 +33,10 @@
         "caps_lock": "GP25",
         "on_state": 0
     },
+    "ws2812": {
+        "pin": "GP12",
+        "driver":"vendor" 
+    },
     "rgblight": {
         "animations": {
             "alternating": true,
@@ -50,7 +54,6 @@
             "enabled": true
         },
         "led_count": 1,
-        "pin": "GP12",
         "max_brightness": 64
 
     },
