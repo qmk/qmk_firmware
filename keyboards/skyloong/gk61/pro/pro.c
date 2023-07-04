@@ -71,7 +71,7 @@ const is31_led __flash g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS13_SW3,  CS14_SW3,  CS15_SW3},
     {0, CS13_SW4,  CS14_SW4,  CS15_SW4},
     {0, CS13_SW5,  CS14_SW5,  CS15_SW5},
-    {0, CS16_SW10, CS17_SW10, CS18_SW10},
+    {0, CS13_SW5,  CS14_SW5,  CS15_SW5},
     {0, CS13_SW6,  CS14_SW6,  CS15_SW6},
     {0, CS13_SW7,  CS14_SW7,  CS15_SW7},
     {0, CS13_SW8,  CS14_SW8,  CS15_SW8},
