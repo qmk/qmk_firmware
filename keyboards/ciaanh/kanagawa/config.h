@@ -21,12 +21,3 @@
 #    define I2C1_SDA_PIN GP0
 #    define I2C1_SCL_PIN GP1
 #endif
-
-#ifdef RGB_MATRIX_ENABLE
-     /* RGB Defines */
-#    define WS2812_DI_PIN GP4
-
-//      /* Enable Framebuffer and keypress effects */
-// #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-// #    define RGB_MATRIX_KEYPRESSES
-#endif
