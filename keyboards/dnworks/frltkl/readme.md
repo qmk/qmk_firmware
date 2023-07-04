@@ -1,12 +1,10 @@
 # FRLTKL
 
-![FRLTKL]()
-
-PCB that supports FRLTKL's designed by dnworks, such as DNDD and HITC.
+PCB that supports FRLTKLs designed by dnworks, such as DNDD and HITC.
 
 * Keyboard Maintainer: [Zeix](https://github.com/itsme-zeix)
 * Hardware Supported: DNDD Solder PCB rev1 & HITC Solder PCB rev1
-* Hardware Availability: -
+* Hardware Availability: [dnworks.co](https://dnworks.co/)
 
 Make example for this keyboard (after setting up your build environment):
 
