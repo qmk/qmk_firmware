@@ -9,9 +9,6 @@ enum unicode_names { la = 0, lA, lb, lB, lc, lC, ld, lD, le, lE, lf, lF, lg, lG,
 
 enum layer_names { _QW = 0, _LWR, _RSE, _ADJ };
 
-// let us assume we start with both layers off
-static bool toggle_lwr = false;
-static bool toggle_rse = false;
 
 #ifdef OLED_ENABLE
 void user_oled_magic(void);
@@ -29,7 +26,7 @@ void                             set_default_rgb_layers(layer_state_t);
 void toggle_leds(void);
 void set_led_toggle(const uint8_t, const bool);
 
-static inline void init_lwr_rse_led(void) {
+static inline void init_lwr_rse_led(const bool toggle_lwr, const bool toggle_rse) {
 #ifdef LED_LWR_PIN
     setPinOutput(LED_LWR_PIN);
     writePin(LED_LWR_PIN, toggle_lwr);

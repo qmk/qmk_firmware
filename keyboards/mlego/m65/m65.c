@@ -21,6 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
+// let us assume we start with both layers off
+static bool toggle_lwr = false;
+static bool toggle_rse = false;
+
 #ifdef RGBLIGHT_ENABLE
 
 const rgblight_segment_t PROGMEM my_qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, RGBLED_NUM, HSV_OFF});
@@ -189,7 +193,7 @@ bool oled_task_kb(void) {
 #endif
 
 
-bool led_update_user(led_t led_state) {
+bool led_update_kb(led_t led_state) {
     // Disable the default LED update code, so that lock LEDs could be reused to show layer status.
     return false;
 }
@@ -250,7 +254,7 @@ void keyboard_post_init_user(void) {
 
 #endif
 
-init_lwr_rse_led();
+init_lwr_rse_led(toggle_lwr, toggle_rse);
 
 #ifdef OLED_ENABLE
     init_timer();
