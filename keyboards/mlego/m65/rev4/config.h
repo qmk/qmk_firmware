@@ -7,7 +7,6 @@
 #define LED_LWR_PIN B12
 
 #ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X32
 #    define I2C1_SCL_PIN B9
 #    define I2C1_SDA_PIN B8
 #    define OLED_BRIGHTNESS 128
