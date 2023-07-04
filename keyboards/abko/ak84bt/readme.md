@@ -10,15 +10,11 @@ A customizable 80% keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-```
-  make abko/ak84bt:default
-```
+    make abko/ak84bt:default
 
 Flashing example for this keyboard:
 
-```
-  make abko/ak84bt:default:flash
-```
+    make abko/ak84bt:default:flash
 
 **Reset Key**: Hold down the key located at *K10*, commonly programmed as *Grave* while plugging in the keyboard.
 
