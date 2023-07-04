@@ -3,7 +3,7 @@
     "manufacturer": "veikman",
     "url": "https://github.com/veikman/dactyl-keyboard",
     "maintainer": "veikman",
-    "development_board": "elite_c",
+    "development_board": "promicro",
     "usb": {
         "vid": "0x444D",
         "pid": "0x3632",
