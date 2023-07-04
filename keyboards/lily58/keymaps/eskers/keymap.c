@@ -9,7 +9,6 @@ enum layer_number {
     _LOWER,
     _RAISE,
     _ADJUST,
-    _ADJ,
     _GLOWER
 };
 
@@ -17,7 +16,8 @@ enum layer_number {
 enum my_keycodes {
   KC_WIN = SAFE_RANGE,
   KC_LIN,
-  KC_GAME
+  KC_GAME,
+  KC_ADJ
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   UK_Q,   UK_W,    UK_E,    UK_R,    UK_T,                         UK_Y,        UK_U,    UK_I,    UK_O,    UK_P,     UK_HASH,
   KC_LCTL,  UK_A,   UK_S,    UK_D,    UK_F,    UK_G,                         UK_H,        UK_J,    UK_K,    UK_L,    UK_SCLN,  RCTL_T(UK_QUOT),
   KC_LSFT,  UK_Z,   UK_X,    UK_C,    UK_V,    UK_B,        UK_LBRC, KC_MEH, UK_N,        UK_M,    UK_COMM, UK_DOT,  UK_SLSH,  KC_RSFT,
-                             KC_RBRC, KC_LALT, MO(_GLOWER), KC_SPC,  KC_ENT, MO(_ADJ),    KC_BSPC, KC_HYPR
+                             KC_RBRC, KC_LALT, MO(_GLOWER), KC_SPC,  KC_ENT, KC_ADJ,    KC_BSPC, KC_HYPR
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, UK_BSLS,       KC_TRNS,    UK_TILD,    UK_MINS,    UK_EQL,  UK_GRV,  UK_GRV,  UK_EQL,  UK_PLUS, UK_UNDS, KC_TRNS, UK_EURO, KC_TRNS,
                                       KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_TRNS
 ),
-/* ADJUST / ADJ
+/* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -145,13 +145,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_ADJUST] = LAYOUT(
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, KC_WIN,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_GAME,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_LIN,  XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                             _______, _______, _______, _______, _______, _______, _______, _______
-),
-[_ADJ] = LAYOUT(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, KC_WIN,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_GAME,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_LIN,  XXXXXXX, XXXXXXX,
@@ -201,8 +194,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 // When you add source files to SRC in rules.mk, you can use functions.
-//const char *mode_state(void);
-const char *default_layer(void);
+const char *mode_state(void);
 const char *highest_layer(void);
 const char *caps_state(void);
 const char *read_logo(void);
@@ -218,9 +210,8 @@ const char *read_logo(void);
 bool oled_task_user(void) {
     if(is_keyboard_master()) {
         // If you want to change the display of OLED, you need to change here
-        //oled_write(mode_state(), false);
-        oled_write(default_layer(), false);
-        oled_set_cursor(0, 3);
+        oled_write_raw_P(mode_state(), 64);
+        oled_set_cursor(0, 2);
         oled_write(PSTR("Layer"), false);
         oled_write(highest_layer(), false);
         oled_set_cursor(0, 15);
@@ -245,22 +236,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_WIN:
             if (record->event.pressed) {
-            // Set default and change layer to _WINDOWS
+                // Set default and change layer to _WINDOWS
                 set_single_persistent_default_layer(_WINDOWS);
             }
             return false; // Skip all further processing of this key
         case KC_LIN:
             if (record->event.pressed) {
-            // Set default and change layer to _LINUX
+                // Set default and change layer to _LINUX
                 set_single_persistent_default_layer(_LINUX);
             }
             return false; // Skip all further processing of this key
         case KC_GAME:
             if (record->event.pressed) {
-            // Set default and change layer to _GAMING
+                // Set default and change layer to _GAMING
                 set_single_persistent_default_layer(_GAMING);
             }
             return false; // Skip all further processing of this key
+        case KC_ADJ:
+            if (record->event.pressed) {
+                // Set layer to _ADJUST
+                layer_on(_LOWER);
+                layer_on(_RAISE);
+            } else {
+                layer_off(_LOWER);
+                layer_off(_RAISE);
+            }
+            return false;
+
         default:
             return true; // Process all other keycodes normally
     }
