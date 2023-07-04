@@ -1,6 +1,6 @@
 # Model H - A USB capable PCB for the IBM Model M keyboard
 
-![modelh](https://modelh.club/modelh_assembled.jpg)
+![modelh](https://i.imgur.com/4ymGdkM.jpg)
 
 This conversion kit allows you to replace your IBM Model M's original internal controller board with a modern USB board. This aims to match the footprint of the original controller and plugs into the original keyboard matrix, but exposes a USB port through the original SDL connector.
 
