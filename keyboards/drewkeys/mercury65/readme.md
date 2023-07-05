@@ -1,6 +1,6 @@
 # Mercury65
 
-![Mercury65](https://i.imgur.com/rjfARj3.jpeg)
+![Mercury65](https://i.imgur.com/rjfARj3h.jpeg)
 
 *65% Form Factor with a Separated Arrow Cluster used for Mercury65*
 
