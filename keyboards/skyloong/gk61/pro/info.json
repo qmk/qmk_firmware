@@ -28,15 +28,7 @@
         "cols": ["B11", "C6", "C7", "B12", "B13", "B14", "B15", "B10", "B1", "B0", "D2", "B3", "B4", "B5"],
         "rows": ["A15", "C10", "C11", "C12", "A3"]
     },
-    "matrix_size": {
-        "cols": 14,
-        "rows": 5
-    },
-    "platform": "STM32",
-    "platform_key": "chibios",
     "processor": "STM32F103",
-    "processor_type": "arm",
-    "protocol": "ChibiOS",
     "rgb_matrix": {
         "animations": {
             "alphas_mods": false,
