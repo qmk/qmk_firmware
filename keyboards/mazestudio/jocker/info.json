@@ -11,14 +11,17 @@
         "device_version": "0.0.1"
     },
     "features": {
+        "bootmagic": true,
         "command": false,
         "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
     },
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "bootmagic":{
-        "enabled": true,
         "matrix": [1, 0]
     },
     "build": {
