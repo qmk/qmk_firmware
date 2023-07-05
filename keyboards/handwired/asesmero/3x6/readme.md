@@ -11,10 +11,7 @@ A simple 3x6 Keyboard made for use it as a streamdeck.
 
 Make example for this keyboard (after setting up your build environment):
 
-    Promicro:
     make handwired/asesmero/3x6/promicro:default
-
-    RP2040:
     make handwired/asesmero/3x6/rp2040:default
 
 Flashing example for this keyboard:
