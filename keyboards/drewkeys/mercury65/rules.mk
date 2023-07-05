@@ -1,1 +1,1 @@
-# all settings within info.json
+# This file intentionally left blank
