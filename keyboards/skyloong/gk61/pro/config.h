@@ -3,12 +3,6 @@
 
 #pragma once
 
-/* Encoder Configuration */
-#ifdef ENCODER_ENABLE
-#    define ENCODER_RESOLUTION 2
-#    define ENCODER_DEFAULT_POS 0x3
-#endif
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
