@@ -5,7 +5,7 @@
 ## The PCB features:
 * QMK & VIA compatibility
 * RGB Matrix backlight
-* The space bar position switch and encoder are interchangeable
+* The space bar position switch can be interchanged with encoder module.
 
 
 The following is the QMK Firmware for the Destop 60% keylayout -  designed in Dongguan Jizhi Electronic Technology Co., Ltd
