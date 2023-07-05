@@ -1,6 +1,6 @@
 # model_f_labs/f62
 
-![model_f_labs/f62](https://www.modelfkeyboards.com/wp-content/uploads/2015/12/2019-12-16_00-36-09.jpg)
+![model_f_labs/f62](https://imgbox.com/1hPUzXct)
 
 A short description of the keyboard/project
 
