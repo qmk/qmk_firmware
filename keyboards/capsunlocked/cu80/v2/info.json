@@ -70,7 +70,8 @@
     "url": "https://caps-unlocked.com/cu80-round-2/",
     "usb": {
         "device_version": "0.0.1",
-        "vid": "0x4355"
+        "vid": "0x4355",
+        "no_startup_check": true
     },
     "ws2812": {
         "pin": "E6"
