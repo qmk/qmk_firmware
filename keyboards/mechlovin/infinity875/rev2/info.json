@@ -15,7 +15,6 @@
     },
     "rgblight": {
         "led_count": 24,
-        "pin": "B15",
         "hue_steps": 10,
         "saturation_steps": 17,
         "brightness_steps": 17,
@@ -31,6 +30,10 @@
             "alterating": true,
             "twinkle": true
         }
+    },
+    "ws2812": {
+        "pin": "B15",
+        "driver": "spi"
     },
     "features": {
         "bootmagic": true,
