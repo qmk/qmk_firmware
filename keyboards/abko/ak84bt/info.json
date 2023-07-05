@@ -123,8 +123,8 @@
     },
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x4321",
-        "vid": "0x7654"
+        "pid": "0x0021",
+        "vid": "0x03F6"
     },
     "layouts": {
         "LAYOUT_75_ansi": {
