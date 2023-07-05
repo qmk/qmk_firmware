@@ -1,7 +1,5 @@
 {
-    "processor": "STM32F401",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F401",
+    "development_board": "blackpill_f401",
     "keyboard_name": "Kinesis",
     "url": "https://github.com/alvicstep/kintwin",
     "manufacturer": "https://github.com/alvicstep/kintwin",
