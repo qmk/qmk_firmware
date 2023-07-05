@@ -1,6 +1,6 @@
 # Haven80 Solder
 
-![haven 80 hotswap](https://i.imgur.com/TBXFqE5.png)
+![haven 80 hotswap](https://i.imgur.com/TBXFqE5h.png)
 
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
