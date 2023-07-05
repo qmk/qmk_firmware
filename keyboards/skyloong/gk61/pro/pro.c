@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-const is31_led __flash g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
