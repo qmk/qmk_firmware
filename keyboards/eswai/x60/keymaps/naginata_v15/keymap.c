@@ -14,16 +14,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "os_detection.h"
 #include "twpair_on_jis.h"
 
 // 薙刀式
 #include "naginata.h"
 NGKEYS naginata_keys;
 // 薙刀式
+#define NAGINATA_TIMEOUT 15000
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _BASE,
+  _WIN,
+  _MAC,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
 // 薙刀式
@@ -36,13 +39,12 @@ enum layer_names {
 enum custom_keycodes {
     KANAON = NG_SAFE_RANGE,
     EISUON,
-    SAKA,
 };
 
-uint32_t oled_sleep_timer;
+static deferred_token my_token;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT(
+  [_WIN] = LAYOUT(
 //            ,         ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,
 	  	KC_GRV  ,KC_1     ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_MINS ,KC_EQL  ,KC_HOME ,KC_END  , \
 		  KC_TAB  ,KC_K     ,KC_D    ,KC_N    ,KC_F    ,KC_Q    ,KC_J    ,KC_BSPC ,KC_R    ,KC_U    ,KC_P    ,KC_QUOT ,KC_DEL  , \
@@ -51,13 +53,22 @@ CTL_T(KC_ESC) ,KC_W     ,KC_I    ,KC_S    ,KC_A    ,KC_G    ,KC_Y    ,KC_E    ,K
 		  KC_LCTL ,KC_LWIN  ,MO(_LOWER)       ,LSFT_T(KC_SPC)   ,LSFT_T(KC_ENT)   ,MO(_RAISE)       ,KC_LALT ,KC_LEFT ,KC_DOWN ,KC_RGHT
   ),
 
+  [_MAC] = LAYOUT(
+//            ,         ,         ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,
+	  	KC_GRV  ,KC_1     ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_MINS ,KC_EQL  ,KC_HOME ,KC_END  , \
+		  KC_TAB  ,KC_K     ,KC_D    ,KC_N    ,KC_F    ,KC_Q    ,KC_J    ,KC_BSPC ,KC_R    ,KC_U    ,KC_P    ,KC_QUOT ,KC_DEL  , \
+CMD_T(KC_ESC) ,KC_W     ,KC_I    ,KC_S    ,KC_A    ,KC_G    ,KC_Y    ,KC_E    ,KC_T    ,KC_H    ,KC_B    ,KC_SCLN ,KC_ENT  , \
+		  KC_LSFT ,KC_Z     ,KC_X    ,KC_V    ,KC_C    ,KC_L    ,KC_M    ,KC_O    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_LBRC ,KC_UP   ,KC_RBRC, \
+		  KC_LCTL ,KC_LCMD  ,MO(_LOWER)       ,LSFT_T(KC_SPC)   ,LSFT_T(KC_ENT)   ,MO(_RAISE)       ,KC_LALT ,KC_LEFT ,KC_DOWN ,KC_RGHT
+  ),
+
   [_LOWER] = LAYOUT(
 //            ,         ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,        ,
 	    XXXXXXX ,KC_F1    ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,KC_F12  ,XXXXXXX ,XXXXXXX , \
-      SAKA    ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_SLSH ,KC_7    ,KC_8    ,KC_9    ,KC_MINS ,XXXXXXX ,XXXXXXX , \
+      XXXXXXX ,XXXXXXX  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_SLSH ,KC_7    ,KC_8    ,KC_9    ,KC_MINS ,XXXXXXX ,XXXXXXX , \
    LWIN(KC_E) ,XXXXXXX  ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LT   ,KC_ASTR ,KC_4    ,KC_5    ,KC_6    ,KC_PLUS ,XXXXXXX ,XXXXXXX , \
       XXXXXXX ,XXXXXXX  ,KC_RBRC ,KC_RCBR ,KC_RPRN ,KC_GT   ,KC_0    ,KC_1    ,KC_2    ,KC_3    ,KC_EQL  ,XXXXXXX ,KC_PGUP ,XXXXXXX , \
-		  _______ ,_______  ,_______          ,_______          ,_______         ,_______           ,_______ ,XXXXXXX ,KC_PGDN ,XXXXXXX
+		  _______ ,_______  ,_______          ,_______          ,_______         ,_______           ,_______ ,KC_HOME ,KC_PGDN ,KC_END
   ),
 
   [_RAISE] = LAYOUT(
@@ -89,7 +100,13 @@ CTL_T(KC_ESC) ,KC_W     ,KC_I    ,KC_S    ,KC_A    ,KC_G    ,KC_Y    ,KC_E    ,K
 
 };
 
+uint32_t kanaoff(uint32_t trigger_time, void *cb_arg) {
+    naginata_off();
+    return NAGINATA_TIMEOUT;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  extend_deferred_exec(my_token, NAGINATA_TIMEOUT);
 
   switch (keycode) {
     case EISUON:
@@ -108,12 +125,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case SAKA:
-      if (record->event.pressed) {
-        SEND_STRING("sakamoto-yuki");
-      }
-      return false;
-      break;      
   }
 
   // 薙刀式
@@ -132,11 +143,32 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
   // 薙刀式
   uint16_t ngonkeys[] = {KC_Y, KC_E};
   uint16_t ngoffkeys[] = {KC_A, KC_G};
   set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
   // 薙刀式
-}
+  
+  wait_ms(400);
+  switch (detected_host_os()) {
+    case OS_WINDOWS:
+      layer_move(_WIN);
+      switchOS(NG_WIN);
+      break;
+    case OS_MACOS:
+    case OS_IOS:
+      layer_move(_MAC);
+      switchOS(NG_MAC);
+      break;
+    case OS_LINUX:
+      layer_move(_WIN);
+      switchOS(NG_LINUX);
+      break;
+    default:
+      layer_move(_WIN);
+      switchOS(NG_WIN);
+  }
 
+  my_token = defer_exec(NAGINATA_TIMEOUT, kanaoff, NULL);
+}
