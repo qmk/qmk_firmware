@@ -5,22 +5,7 @@
 
 
 #ifdef RGB_MATRIX_ENABLE
-
-#define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 64
-#define __flash  PROGMEM
-
-/* Set Configuration for the Global Current Register */
-#define ISSI_GLOBALCURRENT 255
-
-/* Set to infinit, which is use in USB mode by default */
-//#define RGB_MATRIX_TIMEOUT RGB_MATRIX_TIMEOUT_INFINITE
-
-/* Allow shutdown of led driver to save power */
-#define RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
-/* Turn off backlight on low brightness to save power */
-#define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 32
-
 #define CAPS_LOCK_INDEX 28
 #define WIN_MOD_INDEX 16
 #define MAC_MOD_INDEX 17
