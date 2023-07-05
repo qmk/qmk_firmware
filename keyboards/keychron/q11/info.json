@@ -45,6 +45,9 @@
         "transport": {
             "protocol": "serial_usart",
             "sync_matrix_state": true
+        },
+        "bootmagic": {
+            "matrix": [6, 7]
         }
     },
     "encoder": {
