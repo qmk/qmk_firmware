@@ -1,6 +1,6 @@
 # uncertainty
 
-![uncertainty](https://i.imgur.com/IKrn37B.jpeg)
+![uncertainty](https://i.imgur.com/IKrn37Bh.jpeg)
 
 *This is an open source keyboard with exposed-component design. It has 96% (1800) layout with extra 3 keys on the left for custom macro (default are Copy, Paste and open Calculator). It features OLED screen, RGB Backlight, Encoder and VIA-supported. Powered by a STM32F401 Blackpill.*
 

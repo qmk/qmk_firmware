@@ -11,8 +11,9 @@
     },
     "features": {
         "bootmagic": true,
-        "command": true,
-        "console": true,
+        "command": false,
+        "console": false,
+        "wpm": true,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
