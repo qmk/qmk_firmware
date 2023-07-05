@@ -101,8 +101,9 @@ CMD_T(KC_ESC) ,KC_W     ,KC_I    ,KC_S    ,KC_A    ,KC_G    ,KC_Y    ,KC_E    ,K
 };
 
 uint32_t kanaoff(uint32_t trigger_time, void *cb_arg) {
+  if (naginata_state())
     naginata_off();
-    return NAGINATA_TIMEOUT;
+  return NAGINATA_TIMEOUT;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

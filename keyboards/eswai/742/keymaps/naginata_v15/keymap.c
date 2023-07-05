@@ -16,6 +16,7 @@
 #include QMK_KEYBOARD_H
 #include "os_detection.h"
 #include "twpair_on_jis.h"
+#include "print.h"
 
 // 薙刀式
 #include "naginata.h"
@@ -44,6 +45,7 @@ enum custom_keycodes {
 
 uint32_t oled_sleep_timer;
 uint32_t naginata_timer;
+static deferred_token my_token;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_WIN] = LAYOUT(
@@ -98,9 +100,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+uint32_t kanaoff(uint32_t trigger_time, void *cb_arg) {
+  if (naginata_state())
+    naginata_off();
+  return NAGINATA_TIMEOUT;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
-  naginata_timer = timer_read32() + NAGINATA_TIMEOUT;
+
+  #ifdef CONSOLE_ENABLE
+  uprintf("%5u, %u, %5u\n", keycode, record->event.pressed, record->event.time);
+  #endif
 
   switch (keycode) {
     case EISUON:
@@ -122,8 +133,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case PASTE: // VS Codeのプチフリ対策
       if (record->event.pressed) {
         register_code(KC_LCMD);
-        wait_ms(40);
+        wait_ms(100);
         tap_code(KC_V);
+        wait_ms(100);
         unregister_code(KC_LCMD);
       }
       return false;
@@ -173,8 +185,7 @@ void keyboard_post_init_user(void) {
       switchOS(NG_WIN);
   }
 
-  oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
-  naginata_timer = timer_read32() + NAGINATA_TIMEOUT;
+  my_token = defer_exec(NAGINATA_TIMEOUT, kanaoff, NULL);
 }
 
 #ifdef OLED_ENABLE
@@ -306,12 +317,6 @@ static void render_eisu(void) {
 }
 
 bool oled_task_user(void) {
-    if (timer_expired32(timer_read32(), naginata_timer)) {
-      if (naginata_state()) {
-        naginata_off();
-      }
-    }
-
     // なぜかマスター側は明示的にOLEDのスリープ処理が必要
     if (is_keyboard_master()) {
       if (timer_expired32(timer_read32(), oled_sleep_timer)) {
