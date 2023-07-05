@@ -1,0 +1,407 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ # │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ ^ │ ¸ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ` │ < │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ « │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ É │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "KC_GRV": {
+            "key": "FC_HASH",
+            "label": "#",
+        }
+        "KC_1": {
+            "key": "FC_1",
+            "label": "1",
+        }
+        "KC_2": {
+            "key": "FC_2",
+            "label": "2",
+        }
+        "KC_3": {
+            "key": "FC_3",
+            "label": "3",
+        }
+        "KC_4": {
+            "key": "FC_4",
+            "label": "4",
+        }
+        "KC_5": {
+            "key": "FC_5",
+            "label": "5",
+        }
+        "KC_6": {
+            "key": "FC_6",
+            "label": "6",
+        }
+        "KC_7": {
+            "key": "FC_7",
+            "label": "7",
+        }
+        "KC_8": {
+            "key": "FC_8",
+            "label": "8",
+        }
+        "KC_9": {
+            "key": "FC_9",
+            "label": "9",
+        }
+        "KC_0": {
+            "key": "FC_0",
+            "label": "0",
+        }
+        "KC_MINS": {
+            "key": "FC_MINS",
+            "label": "-",
+        }
+        "KC_EQL": {
+            "key": "FC_EQL",
+            "label": "=",
+        }
+        "KC_Q": {
+            "key": "FC_Q",
+            "label": "Q",
+        }
+        "KC_W": {
+            "key": "FC_W",
+            "label": "W",
+        }
+        "KC_E": {
+            "key": "FC_E",
+            "label": "E",
+        }
+        "KC_R": {
+            "key": "FC_R",
+            "label": "R",
+        }
+        "KC_T": {
+            "key": "FC_T",
+            "label": "T",
+        }
+        "KC_Y": {
+            "key": "FC_Y",
+            "label": "Y",
+        }
+        "KC_U": {
+            "key": "FC_U",
+            "label": "U",
+        }
+        "KC_I": {
+            "key": "FC_I",
+            "label": "I",
+        }
+        "KC_O": {
+            "key": "FC_O",
+            "label": "O",
+        }
+        "KC_P": {
+            "key": "FC_P",
+            "label": "P",
+        }
+        "KC_LBRC": {
+            "key": "FC_DCIR",
+            "label": "^ (dead)",
+        }
+        "KC_RBRC": {
+            "key": "FC_CEDL",
+            "label": "¸ (dead)",
+        }
+        "KC_A": {
+            "key": "FC_A",
+            "label": "A",
+        }
+        "KC_S": {
+            "key": "FC_S",
+            "label": "S",
+        }
+        "KC_D": {
+            "key": "FC_D",
+            "label": "D",
+        }
+        "KC_F": {
+            "key": "FC_F",
+            "label": "F",
+        }
+        "KC_G": {
+            "key": "FC_G",
+            "label": "G",
+        }
+        "KC_H": {
+            "key": "FC_H",
+            "label": "H",
+        }
+        "KC_J": {
+            "key": "FC_J",
+            "label": "J",
+        }
+        "KC_K": {
+            "key": "FC_K",
+            "label": "K",
+        }
+        "KC_L": {
+            "key": "FC_L",
+            "label": "L",
+        }
+        "KC_SCLN": {
+            "key": "FC_SCLN",
+            "label": ";",
+        }
+        "KC_QUOT": {
+            "key": "FC_DGRV",
+            "label": "` (dead)",
+        }
+        "KC_NUHS": {
+            "key": "FC_LABK",
+            "label": "<",
+        }
+        "KC_NUBS": {
+            "key": "FC_LDAQ",
+            "label": "«",
+        }
+        "KC_Z": {
+            "key": "FC_Z",
+            "label": "Z",
+        }
+        "KC_X": {
+            "key": "FC_X",
+            "label": "X",
+        }
+        "KC_C": {
+            "key": "FC_C",
+            "label": "C",
+        }
+        "KC_V": {
+            "key": "FC_V",
+            "label": "V",
+        }
+        "KC_B": {
+            "key": "FC_B",
+            "label": "B",
+        }
+        "KC_N": {
+            "key": "FC_N",
+            "label": "N",
+        }
+        "KC_M": {
+            "key": "FC_M",
+            "label": "M",
+        }
+        "KC_COMM": {
+            "key": "FC_COMM",
+            "label": ",",
+        }
+        "KC_DOT": {
+            "key": "FC_DOT",
+            "label": ".",
+        }
+        "KC_SLSH": {
+            "key": "FC_EACU",
+            "label": "É",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ | │ ! │ " │ / │ $ │ % │ ? │ & │ * │ ( │ ) │ _ │ + │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │   │   │   │   │   │   │   │   │ ¨ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │ : │   │ > │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ » │   │   │   │   │   │   │   │ ' │   │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "S(FC_HASH)": {
+            "key": "FC_PIPE",
+            "label": "|",
+        }
+        "S(FC_1)": {
+            "key": "FC_EXLM",
+            "label": "!",
+        }
+        "S(FC_2)": {
+            "key": "FC_DQUO",
+            "label": "\"",
+        }
+        "S(FC_3)": {
+            "key": "FC_SLSH",
+            "label": "/",
+        }
+        "S(FC_4)": {
+            "key": "FC_DLR",
+            "label": "$",
+        }
+        "S(FC_5)": {
+            "key": "FC_PERC",
+            "label": "%",
+        }
+        "S(FC_6)": {
+            "key": "FC_QUES",
+            "label": "?",
+        }
+        "S(FC_7)": {
+            "key": "FC_AMPR",
+            "label": "&",
+        }
+        "S(FC_8)": {
+            "key": "FC_ASTR",
+            "label": "*",
+        }
+        "S(FC_9)": {
+            "key": "FC_LPRN",
+            "label": "(",
+        }
+        "S(FC_0)": {
+            "key": "FC_RPRN",
+            "label": ")",
+        }
+        "S(FC_MINS)": {
+            "key": "FC_UNDS",
+            "label": "_",
+        }
+        "S(FC_EQL)": {
+            "key": "FC_PLUS",
+            "label": "+",
+        }
+        "S(FC_CEDL)": {
+            "key": "FC_DIAE",
+            "label": "¨ (dead)",
+        }
+        "S(FC_SCLN)": {
+            "key": "FC_COLN",
+            "label": ":",
+        }
+        "S(FC_LDAQ)": {
+            "key": "FC_RDAQ",
+            "label": "»",
+        }
+        "S(FC_COMM)": {
+            "key": "FC_QUOT",
+            "label": "'",
+        }
+/* AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ \ │ ± │ @ │ £ │ ¢ │ ¤ │ ¬ │ ¦ │ ² │ ³ │ ¼ │ ½ │ ¾ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │ € │   │   │   │   │   │ § │ ¶ │ [ │ ] │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │ ~ │ { │ } │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ ° │   │   │   │   │   │   │ µ │ ¯ │shy│ ´ │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "ALGR(FC_HASH)": {
+            "key": "FC_BSLS",
+            "label": "\\",
+        }
+        "ALGR(FC_1)": {
+            "key": "FC_PLMN",
+            "label": "±",
+        }
+        "ALGR(FC_2)": {
+            "key": "FC_AT",
+            "label": "@",
+        }
+        "ALGR(FC_3)": {
+            "key": "FC_PND",
+            "label": "£",
+        }
+        "ALGR(FC_4)": {
+            "key": "FC_CENT",
+            "label": "¢",
+        }
+        "ALGR(FC_5)": {
+            "key": "FC_CURR",
+            "label": "¤",
+        }
+        "ALGR(FC_6)": {
+            "key": "FC_NOT",
+            "label": "¬",
+        }
+        "ALGR(FC_7)": {
+            "key": "FC_BRKP",
+            "label": "¦",
+        }
+        "ALGR(FC_8)": {
+            "key": "FC_SUP2",
+            "label": "²",
+        }
+        "ALGR(FC_9)": {
+            "key": "FC_SUP3",
+            "label": "³",
+        }
+        "ALGR(FC_0)": {
+            "key": "FC_QRTR",
+            "label": "¼",
+        }
+        "ALGR(FC_MINS)": {
+            "key": "FC_HALF",
+            "label": "½",
+        }
+        "ALGR(FC_EQL)": {
+            "key": "FC_TQTR",
+            "label": "¾",
+        }
+        "ALGR(FC_E)": {
+            "key": "FC_EURO",
+            "label": "€",
+        }
+        "ALGR(FC_O)": {
+            "key": "FC_SECT",
+            "label": "§",
+        }
+        "ALGR(FC_P)": {
+            "key": "FC_PARA",
+            "label": "¶",
+        }
+        "ALGR(FC_DCIR)": {
+            "key": "FC_LBRC",
+            "label": "[",
+        }
+        "ALGR(FC_CEDL)": {
+            "key": "FC_RBRC",
+            "label": "]",
+        }
+        "ALGR(FC_SCLN)": {
+            "key": "FC_TILD",
+            "label": "~",
+        }
+        "ALGR(FC_DGRV)": {
+            "key": "FC_LCBR",
+            "label": "{",
+        }
+        "ALGR(FC_LABK)": {
+            "key": "FC_RCBR",
+            "label": "}",
+        }
+        "ALGR(FC_LDAQ)": {
+            "key": "FC_DEG",
+            "label": "°",
+        }
+        "ALGR(FC_M)": {
+            "key": "FC_MICR",
+            "label": "µ",
+        }
+        "ALGR(FC_COMM)": {
+            "key": "FC_MACR",
+            "label": "¯",
+        }
+        "ALGR(FC_DOT)": {
+            "key": "FC_SHYP",
+            "label": "­ (soft hyphen)",
+        }
+        "ALGR(FC_EACU)": {
+            "key": "FC_ACUT",
+            "label": "´ (dead)",
+        }
+    }
+}

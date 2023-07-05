@@ -20,6 +20,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 
 |Layout                           |Keycodes Header                  |Sendstring LUT Header               |
 |---------------------------------|---------------------------------|------------------------------------|
+|Canadian French                  |`keymap_canadian_french.h`       |`sendstring_canadian_french.h`      |
 |Canadian Multilingual (CSA)      |`keymap_canadian_multilingual.h` |`sendstring_canadian_multilingual.h`|
 |Croatian                         |`keymap_croatian.h`              |`sendstring_croatian.h`             |
 |Czech                            |`keymap_czech.h`                 |`sendstring_czech.h`                |
