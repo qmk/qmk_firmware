@@ -6,7 +6,6 @@
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "url": "https://www.rocketkeyboards.com/collections/mercury65/products/gb-mercury65-keyboard",
-    "keyboard_folder": "drewkeys/mercury65",
     "usb": {
         "vid": "0xDE43",
         "pid": "0x1034",
