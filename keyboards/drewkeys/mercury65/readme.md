@@ -16,6 +16,7 @@ Make example for this keyboard (after setting up your build environment):
 Flashing example for this keyboard:
 
     make drewkeys/mercury65:default:flash
+## Bootloader
 
 Resetting Board: Press the button on the PCB next to the spacebar to soft reset the board to reflash (bootloader mode).
 
