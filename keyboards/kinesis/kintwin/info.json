@@ -7,7 +7,18 @@
     "usb": {
         "device_version": "0.0.3",
         "vid": "0xFEED",
-        "pid": "0x4B4E"        
+        "pid": "0x4B4E",
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "console": false,
+        "command": false,
+        "mousekey": false,
+        "extrakey": false,
+        "nkro": true,
     },
     "matrix_pins": {
         "rows": ["A0", "A1", "A2", "A3", "A4", "A5", "A6"],
