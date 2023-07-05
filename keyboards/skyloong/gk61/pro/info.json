@@ -6,7 +6,6 @@
 
     "diode_direction": "ROW2COL",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "C5", "pin_b": "C4", "resolution": 2}
         ]
