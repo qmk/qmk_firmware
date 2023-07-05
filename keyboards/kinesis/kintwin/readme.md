@@ -10,7 +10,7 @@
 The main difference between KinTwin and KinT controllers is that the former utilizes **Blackpill STM32F401** development board and the latter utilizes **Teensy** development boards.
 
 * Keyboard Maintainer: Alex Stepanov
-* Hardware Supported: KinTwin PCB
+* Hardware Supported: KinTwin PCB, WeAct Black Pill STM32F401 micro controller
 * Hardware Availability: [Open Source (CC-BY-SA)](https://github.com/alvicstep/kintwin)
 
 Make example for this keyboard (after setting up your build environment):
