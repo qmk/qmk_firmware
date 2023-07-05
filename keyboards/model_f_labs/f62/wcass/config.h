@@ -37,10 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
-#define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -118,8 +114,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // assignments are disabled by default.
 // Instead the more common Num Lock and Caps Lock are assigned the following
 // way by default, and this can be used in combination with the solenoid:
-#define LED_NUM_LOCK_PIN B4
-#define LED_CAPS_LOCK_PIN B5
 
 // Uncomment below if the leds are on when the pin is driving zero:
 //#define LED_NUM_LOCK_ACTIVE_LOW
