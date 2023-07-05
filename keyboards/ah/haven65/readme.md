@@ -1,6 +1,6 @@
 #Haven65
 
-![haven 65](https://i.imgur.com/M1l1DaO.png)
+![haven 65](https://i.imgur.com/M1l1DaOh.png)
 
 
 * Keyboard Maintainer: [Freather](https://github.com/CMMS-Freather)
