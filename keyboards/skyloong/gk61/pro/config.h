@@ -3,16 +3,6 @@
 
 #pragma once
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
 
 #ifdef RGB_MATRIX_ENABLE
 
