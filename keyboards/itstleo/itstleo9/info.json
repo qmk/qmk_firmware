@@ -1,8 +1,7 @@
 {
     "manufacturer": "Its TLeo",
-    "keyboard_name": "itstleo/handwired/ItsTleo9_32u4",
+    "keyboard_name": "ItsTleo9",
     "maintainer": "Its TLeo",
-    "bootloader": "caterina",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -12,11 +11,6 @@
         "mousekey": true,
         "nkro": true
     },
-    "matrix_pins": {
-        "cols": ["D1", "D0", "D4"],
-        "rows": ["F4", "F5", "F6"]
-    },
-    "processor": "atmega32u4",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
