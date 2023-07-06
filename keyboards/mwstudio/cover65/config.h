@@ -16,12 +16,6 @@
 
 #pragma once
 
-#define FORCE_NKRO
-
-#define WS2812_DI_PIN B8
-
-#define RGBLED_NUM 21
-
 #define WS2812_PWM_DRIVER PWMD4               // default: PWMD2
 #define WS2812_PWM_CHANNEL 3                  // default: 2
 //#define WS2812_PWM_COMPLEMENTARY_OUTPUT       // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
