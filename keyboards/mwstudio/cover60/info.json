@@ -18,6 +18,9 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
+    "force_nkro": true,
+    "ws2812_di_pin": "B8",
+    "rgbled_num": 19,
     "url": "",
     "usb": {
         "device_version": "1.0.0",
