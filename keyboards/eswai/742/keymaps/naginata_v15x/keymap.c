@@ -38,9 +38,7 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    KANAON = NG_SAFE_RANGE,
-    EISUON,
-    PASTE,
+    PASTE = NG_SAFE_RANGE,
 };
 
 uint32_t oled_sleep_timer;
@@ -73,14 +71,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ ,XXXXXXX ,XXXXXXX ,KC_COLN ,KC_SCLN ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_SLSH ,KC_7   ,KC_8   ,KC_9   ,KC_MINS ,KC_DEL , \
     _______ ,XXXXXXX ,KC_LBRC ,KC_LCBR ,KC_LPRN ,KC_LT   ,XXXXXXX ,XXXXXXX ,KC_ASTR ,KC_4   ,KC_5   ,KC_6   ,KC_PLUS ,_______, \
     _______ ,XXXXXXX ,KC_RBRC ,KC_RCBR ,KC_RPRN ,KC_GT   ,XXXXXXX ,XXXXXXX ,KC_0    ,KC_1   ,KC_2   ,KC_3   ,KC_EQL  ,_______, \
-    QK_BOOT ,_______ ,_______ ,_______ ,_______ ,_______,                   KANAON  ,_______,_______,_______,_______ ,_______
+    QK_BOOT ,_______ ,_______ ,_______ ,_______ ,_______,                   _______ ,_______,_______,_______,_______ ,_______
   ),
 
   [_RAISE] = LAYOUT(
     _______   ,KC_TILD   ,KC_AT     ,KC_HASH   ,KC_DLR    ,XXXXXXX,      XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_HOME   ,KC_UP     ,KC_END    ,XXXXXXX   ,KC_DEL    , \
     _______   ,KC_CIRC   ,KC_AMPR   ,KC_QUES   ,KC_PERC   ,KC_INT3,      XXXXXXX, XXXXXXX ,XXXXXXX   ,KC_LEFT   ,KC_DOWN   ,KC_RGHT   ,XXXXXXX   ,XXXXXXX   , \
     _______   ,KC_GRV    ,KC_PIPE   ,KC_EXLM   ,KC_UNDS   ,LALT(KC_INT3),XXXXXXX, XXXXXXX ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,_______   , \
-    _______   ,_______   ,_______   ,_______   ,_______   ,EISUON      ,           _______        ,_______   ,_______   ,_______   ,_______   ,_______
+    _______   ,_______   ,_______   ,_______   ,_______   ,_______      ,           _______        ,_______   ,_______   ,_______   ,_______   ,_______
   ),
 
   [_ADJUST] = LAYOUT(
@@ -115,22 +113,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #endif
 
   switch (keycode) {
-    case EISUON:
-      if (record->event.pressed) {
-        // 薙刀式
-        naginata_off();
-        // 薙刀式
-      }
-      return false;
-      break;
-    case KANAON:
-      if (record->event.pressed) {
-        // 薙刀式
-        naginata_on();
-        // 薙刀式
-      }
-      return false;
-      break;
     case PASTE: // VS Codeのプチフリ対策
       if (record->event.pressed) {
         register_code(KC_LCMD);
