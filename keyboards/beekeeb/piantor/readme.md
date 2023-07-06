@@ -19,6 +19,12 @@ Flashing example for this keyboard:
 Flashing example for Weact, using Miryoku for the keymap:
 
     make beekeeb/piantor/weact:manna-harbour_miryoku:flash
+    
+To use the Weact RP2040 without the VBUS circuit, we can compile using SPLIT_USB_DETECT by not defining a USB VBUS pin:
+
+    make beekeeb/piantor/no_vbus_sense:default:flash
+    
+See more regarding VBUS sensing and QMK [HERE](https://docs.beekeeb.com/piantor-keyboard#vbus-sensing-and-qmk).
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
