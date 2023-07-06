@@ -9,8 +9,8 @@
         "vid": "0xFEED",
         "pid": "0x4B4E",
         "shared_endpoint": {
-            "keyboard": true
-        }
+            "keyboard": true   
+        } 
     },
     "features": {
         "bootmagic": true,
@@ -18,18 +18,13 @@
         "command": false,
         "mousekey": false,
         "extrakey": false,
-        "nkro": true,
+        "nkro": true
     },
     "matrix_pins": {
         "rows": ["A0", "A1", "A2", "A3", "A4", "A5", "A6"],
         "cols": ["A7", "B0", "B1", "B10", "B9", "B8", "B7", "B14", "B13", "B12", "C14", "C15", "B15", "B6", "B5"]
     },
     "diode_direction": "ROW2COL",
-    "indicators": {
-        "caps_lock": "A15",
-        "scroll_lock": "B3",
-        "on_state": 0
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [

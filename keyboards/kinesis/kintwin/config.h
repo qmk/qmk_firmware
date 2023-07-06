@@ -16,7 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define LED_KPD_PIN C13
-#define LED_CAPS_PIN A15
-#define LED_NUM_PIN B4
-#define LED_SCRL_PIN B3
+//defined variables per https://docs.qmk.fm/#/feature_led_indicators
+#define LED_COMPOSE_PIN C13
+#define LED_CAPS_LOCK_PIN A15
+#define LED_NUM_LOCK_PIN B4
+#define LED_SCROLL_LOCK_PIN B3
+#define LED_PIN_ON_STATE 0
