@@ -6,8 +6,7 @@
     },
     "features": {
         "rgblight": true,
-        "backlight": true,
-        "nkro": true
+        "backlight": true
     },
     "backlight": {
         "pin": "B6",
