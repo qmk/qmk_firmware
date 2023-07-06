@@ -17,6 +17,7 @@
         "pid": "0x0001",
         "vid": "0x4954"
     },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [
