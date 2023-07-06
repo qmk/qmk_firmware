@@ -212,9 +212,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 void housekeeping_task_keymap(void) {  // runs frequently to update info
 #ifdef KEYBOARD_ergodox_ez
-    uint8_t modifiers     = get_mods();
-    uint8_t led_usb_state = host_keyboard_leds();
-    uint8_t one_shot      = get_oneshot_mods();
+    uint8_t modifiers = get_mods();
+    led_t   led_state = host_keyboard_led_state();
+    uint8_t one_shot  = get_oneshot_mods();
 
     if (!skip_leds) {
         ergodox_board_led_off();
@@ -225,7 +225,7 @@ void housekeeping_task_keymap(void) {  // runs frequently to update info
         // Since we're not using the LEDs here for layer indication anymore,
         // then lets use them for modifier indicators.  Shame we don't have 4...
         // Also, no "else", since we want to know each, independently.
-        if ((modifiers | one_shot) & MOD_MASK_SHIFT || led_usb_state & (1 << USB_LED_CAPS_LOCK)) {
+        if ((modifiers | one_shot) & MOD_MASK_SHIFT || led_state.caps_lock) {
             ergodox_right_led_2_on();
             ergodox_right_led_2_set(50);
         }

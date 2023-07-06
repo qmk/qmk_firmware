@@ -101,7 +101,7 @@ bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
         return false;
     }
-    if (IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(30, 0xFF, 0x00, 0x00);
     }
     return true;
