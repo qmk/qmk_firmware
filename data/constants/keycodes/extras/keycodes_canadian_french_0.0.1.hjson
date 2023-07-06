@@ -14,195 +14,195 @@
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
         "KC_GRV": {
-            "key": "FC_HASH",
+            "key": "FR_HASH",
             "label": "#",
         }
         "KC_1": {
-            "key": "FC_1",
+            "key": "FR_1",
             "label": "1",
         }
         "KC_2": {
-            "key": "FC_2",
+            "key": "FR_2",
             "label": "2",
         }
         "KC_3": {
-            "key": "FC_3",
+            "key": "FR_3",
             "label": "3",
         }
         "KC_4": {
-            "key": "FC_4",
+            "key": "FR_4",
             "label": "4",
         }
         "KC_5": {
-            "key": "FC_5",
+            "key": "FR_5",
             "label": "5",
         }
         "KC_6": {
-            "key": "FC_6",
+            "key": "FR_6",
             "label": "6",
         }
         "KC_7": {
-            "key": "FC_7",
+            "key": "FR_7",
             "label": "7",
         }
         "KC_8": {
-            "key": "FC_8",
+            "key": "FR_8",
             "label": "8",
         }
         "KC_9": {
-            "key": "FC_9",
+            "key": "FR_9",
             "label": "9",
         }
         "KC_0": {
-            "key": "FC_0",
+            "key": "FR_0",
             "label": "0",
         }
         "KC_MINS": {
-            "key": "FC_MINS",
+            "key": "FR_MINS",
             "label": "-",
         }
         "KC_EQL": {
-            "key": "FC_EQL",
+            "key": "FR_EQL",
             "label": "=",
         }
         "KC_Q": {
-            "key": "FC_Q",
+            "key": "FR_Q",
             "label": "Q",
         }
         "KC_W": {
-            "key": "FC_W",
+            "key": "FR_W",
             "label": "W",
         }
         "KC_E": {
-            "key": "FC_E",
+            "key": "FR_E",
             "label": "E",
         }
         "KC_R": {
-            "key": "FC_R",
+            "key": "FR_R",
             "label": "R",
         }
         "KC_T": {
-            "key": "FC_T",
+            "key": "FR_T",
             "label": "T",
         }
         "KC_Y": {
-            "key": "FC_Y",
+            "key": "FR_Y",
             "label": "Y",
         }
         "KC_U": {
-            "key": "FC_U",
+            "key": "FR_U",
             "label": "U",
         }
         "KC_I": {
-            "key": "FC_I",
+            "key": "FR_I",
             "label": "I",
         }
         "KC_O": {
-            "key": "FC_O",
+            "key": "FR_O",
             "label": "O",
         }
         "KC_P": {
-            "key": "FC_P",
+            "key": "FR_P",
             "label": "P",
         }
         "KC_LBRC": {
-            "key": "FC_DCIR",
+            "key": "FR_DCIR",
             "label": "^ (dead)",
         }
         "KC_RBRC": {
-            "key": "FC_CEDL",
+            "key": "FR_CEDL",
             "label": "¸ (dead)",
         }
         "KC_A": {
-            "key": "FC_A",
+            "key": "FR_A",
             "label": "A",
         }
         "KC_S": {
-            "key": "FC_S",
+            "key": "FR_S",
             "label": "S",
         }
         "KC_D": {
-            "key": "FC_D",
+            "key": "FR_D",
             "label": "D",
         }
         "KC_F": {
-            "key": "FC_F",
+            "key": "FR_F",
             "label": "F",
         }
         "KC_G": {
-            "key": "FC_G",
+            "key": "FR_G",
             "label": "G",
         }
         "KC_H": {
-            "key": "FC_H",
+            "key": "FR_H",
             "label": "H",
         }
         "KC_J": {
-            "key": "FC_J",
+            "key": "FR_J",
             "label": "J",
         }
         "KC_K": {
-            "key": "FC_K",
+            "key": "FR_K",
             "label": "K",
         }
         "KC_L": {
-            "key": "FC_L",
+            "key": "FR_L",
             "label": "L",
         }
         "KC_SCLN": {
-            "key": "FC_SCLN",
+            "key": "FR_SCLN",
             "label": ";",
         }
         "KC_QUOT": {
-            "key": "FC_DGRV",
+            "key": "FR_DGRV",
             "label": "` (dead)",
         }
         "KC_NUHS": {
-            "key": "FC_LABK",
+            "key": "FR_LABK",
             "label": "<",
         }
         "KC_NUBS": {
-            "key": "FC_LDAQ",
+            "key": "FR_LDAQ",
             "label": "«",
         }
         "KC_Z": {
-            "key": "FC_Z",
+            "key": "FR_Z",
             "label": "Z",
         }
         "KC_X": {
-            "key": "FC_X",
+            "key": "FR_X",
             "label": "X",
         }
         "KC_C": {
-            "key": "FC_C",
+            "key": "FR_C",
             "label": "C",
         }
         "KC_V": {
-            "key": "FC_V",
+            "key": "FR_V",
             "label": "V",
         }
         "KC_B": {
-            "key": "FC_B",
+            "key": "FR_B",
             "label": "B",
         }
         "KC_N": {
-            "key": "FC_N",
+            "key": "FR_N",
             "label": "N",
         }
         "KC_M": {
-            "key": "FC_M",
+            "key": "FR_M",
             "label": "M",
         }
         "KC_COMM": {
-            "key": "FC_COMM",
+            "key": "FR_COMM",
             "label": ",",
         }
         "KC_DOT": {
-            "key": "FC_DOT",
+            "key": "FR_DOT",
             "label": ".",
         }
         "KC_SLSH": {
-            "key": "FC_EACU",
+            "key": "FR_EACU",
             "label": "É",
         }
 /* Shifted symbols
@@ -218,72 +218,72 @@
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
-        "S(FC_HASH)": {
-            "key": "FC_PIPE",
+        "S(FR_HASH)": {
+            "key": "FR_PIPE",
             "label": "|",
         }
-        "S(FC_1)": {
-            "key": "FC_EXLM",
+        "S(FR_1)": {
+            "key": "FR_EXLM",
             "label": "!",
         }
-        "S(FC_2)": {
-            "key": "FC_DQUO",
+        "S(FR_2)": {
+            "key": "FR_DQUO",
             "label": "\"",
         }
-        "S(FC_3)": {
-            "key": "FC_SLSH",
+        "S(FR_3)": {
+            "key": "FR_SLSH",
             "label": "/",
         }
-        "S(FC_4)": {
-            "key": "FC_DLR",
+        "S(FR_4)": {
+            "key": "FR_DLR",
             "label": "$",
         }
-        "S(FC_5)": {
-            "key": "FC_PERC",
+        "S(FR_5)": {
+            "key": "FR_PERC",
             "label": "%",
         }
-        "S(FC_6)": {
-            "key": "FC_QUES",
+        "S(FR_6)": {
+            "key": "FR_QUES",
             "label": "?",
         }
-        "S(FC_7)": {
-            "key": "FC_AMPR",
+        "S(FR_7)": {
+            "key": "FR_AMPR",
             "label": "&",
         }
-        "S(FC_8)": {
-            "key": "FC_ASTR",
+        "S(FR_8)": {
+            "key": "FR_ASTR",
             "label": "*",
         }
-        "S(FC_9)": {
-            "key": "FC_LPRN",
+        "S(FR_9)": {
+            "key": "FR_LPRN",
             "label": "(",
         }
-        "S(FC_0)": {
-            "key": "FC_RPRN",
+        "S(FR_0)": {
+            "key": "FR_RPRN",
             "label": ")",
         }
-        "S(FC_MINS)": {
-            "key": "FC_UNDS",
+        "S(FR_MINS)": {
+            "key": "FR_UNDS",
             "label": "_",
         }
-        "S(FC_EQL)": {
-            "key": "FC_PLUS",
+        "S(FR_EQL)": {
+            "key": "FR_PLUS",
             "label": "+",
         }
-        "S(FC_CEDL)": {
-            "key": "FC_DIAE",
+        "S(FR_CEDL)": {
+            "key": "FR_DIAE",
             "label": "¨ (dead)",
         }
-        "S(FC_SCLN)": {
-            "key": "FC_COLN",
+        "S(FR_SCLN)": {
+            "key": "FR_COLN",
             "label": ":",
         }
-        "S(FC_LDAQ)": {
-            "key": "FC_RDAQ",
+        "S(FR_LDAQ)": {
+            "key": "FR_RDAQ",
             "label": "»",
         }
-        "S(FC_COMM)": {
-            "key": "FC_QUOT",
+        "S(FR_COMM)": {
+            "key": "FR_QUOT",
             "label": "'",
         }
 /* AltGr symbols
@@ -299,108 +299,108 @@
  * │    │    │    │                        │    │    │    │    │
  * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
  */
-        "ALGR(FC_HASH)": {
-            "key": "FC_BSLS",
+        "ALGR(FR_HASH)": {
+            "key": "FR_BSLS",
             "label": "\\",
         }
-        "ALGR(FC_1)": {
-            "key": "FC_PLMN",
+        "ALGR(FR_1)": {
+            "key": "FR_PLMN",
             "label": "±",
         }
-        "ALGR(FC_2)": {
-            "key": "FC_AT",
+        "ALGR(FR_2)": {
+            "key": "FR_AT",
             "label": "@",
         }
-        "ALGR(FC_3)": {
-            "key": "FC_PND",
+        "ALGR(FR_3)": {
+            "key": "FR_PND",
             "label": "£",
         }
-        "ALGR(FC_4)": {
-            "key": "FC_CENT",
+        "ALGR(FR_4)": {
+            "key": "FR_CENT",
             "label": "¢",
         }
-        "ALGR(FC_5)": {
-            "key": "FC_CURR",
+        "ALGR(FR_5)": {
+            "key": "FR_CURR",
             "label": "¤",
         }
-        "ALGR(FC_6)": {
-            "key": "FC_NOT",
+        "ALGR(FR_6)": {
+            "key": "FR_NOT",
             "label": "¬",
         }
-        "ALGR(FC_7)": {
-            "key": "FC_BRKP",
+        "ALGR(FR_7)": {
+            "key": "FR_BRKP",
             "label": "¦",
         }
-        "ALGR(FC_8)": {
-            "key": "FC_SUP2",
+        "ALGR(FR_8)": {
+            "key": "FR_SUP2",
             "label": "²",
         }
-        "ALGR(FC_9)": {
-            "key": "FC_SUP3",
+        "ALGR(FR_9)": {
+            "key": "FR_SUP3",
             "label": "³",
         }
-        "ALGR(FC_0)": {
-            "key": "FC_QRTR",
+        "ALGR(FR_0)": {
+            "key": "FR_QRTR",
             "label": "¼",
         }
-        "ALGR(FC_MINS)": {
-            "key": "FC_HALF",
+        "ALGR(FR_MINS)": {
+            "key": "FR_HALF",
             "label": "½",
         }
-        "ALGR(FC_EQL)": {
-            "key": "FC_TQTR",
+        "ALGR(FR_EQL)": {
+            "key": "FR_TQTR",
             "label": "¾",
         }
-        "ALGR(FC_E)": {
-            "key": "FC_EURO",
+        "ALGR(FR_E)": {
+            "key": "FR_EURO",
             "label": "€",
         }
-        "ALGR(FC_O)": {
-            "key": "FC_SECT",
+        "ALGR(FR_O)": {
+            "key": "FR_SECT",
             "label": "§",
         }
-        "ALGR(FC_P)": {
-            "key": "FC_PARA",
+        "ALGR(FR_P)": {
+            "key": "FR_PARA",
             "label": "¶",
         }
-        "ALGR(FC_DCIR)": {
-            "key": "FC_LBRC",
+        "ALGR(FR_DCIR)": {
+            "key": "FR_LBRC",
             "label": "[",
         }
-        "ALGR(FC_CEDL)": {
-            "key": "FC_RBRC",
+        "ALGR(FR_CEDL)": {
+            "key": "FR_RBRC",
             "label": "]",
         }
-        "ALGR(FC_SCLN)": {
-            "key": "FC_TILD",
+        "ALGR(FR_SCLN)": {
+            "key": "FR_TILD",
             "label": "~",
         }
-        "ALGR(FC_DGRV)": {
-            "key": "FC_LCBR",
+        "ALGR(FR_DGRV)": {
+            "key": "FR_LCBR",
             "label": "{",
         }
-        "ALGR(FC_LABK)": {
-            "key": "FC_RCBR",
+        "ALGR(FR_LABK)": {
+            "key": "FR_RCBR",
             "label": "}",
         }
-        "ALGR(FC_LDAQ)": {
-            "key": "FC_DEG",
+        "ALGR(FR_LDAQ)": {
+            "key": "FR_DEG",
             "label": "°",
         }
-        "ALGR(FC_M)": {
-            "key": "FC_MICR",
+        "ALGR(FR_M)": {
+            "key": "FR_MICR",
             "label": "µ",
         }
-        "ALGR(FC_COMM)": {
-            "key": "FC_MACR",
+        "ALGR(FR_COMM)": {
+            "key": "FR_MACR",
             "label": "¯",
         }
-        "ALGR(FC_DOT)": {
-            "key": "FC_SHYP",
+        "ALGR(FR_DOT)": {
+            "key": "FR_SHYP",
             "label": "­ (soft hyphen)",
         }
-        "ALGR(FC_EACU)": {
-            "key": "FC_ACUT",
+        "ALGR(FR_EACU)": {
+            "key": "FR_ACUT",
             "label": "´ (dead)",
         }
     }
