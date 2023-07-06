@@ -19,11 +19,18 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
+     "ws2812": {
+        "pin": "B8"
+    },
+    "rgblight": {
+        "led_count": 21
+    },
     "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x6510",
-        "vid": "0x7BA1"
+        "vid": "0x7BA1",
+        "force_nkro": true
     },
     "encoder": {
         "rotary": [
