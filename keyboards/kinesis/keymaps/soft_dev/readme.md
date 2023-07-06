@@ -25,9 +25,9 @@ The **soft_dev** layout is optimized for software development on a Windows machi
 
 #### Layout Layers
 
-<img src="https://i.imgur.com/86LCI3zh.jpg"> 
-<img src="https://i.imgur.com/Gv4WBw7h.jpg"/> 
-<img src="https://i.imgur.com/gKXMUI2h.jpg"/> 
+![](https://i.imgur.com/86LCI3zh.jpg)
+![](https://i.imgur.com/Gv4WBw7h.jpg) 
+![](https://i.imgur.com/gKXMUI2h.jpg) 
 
 #### Notes
 - MO(1) - switch to **KEYPAD** layer while key is being pressed
