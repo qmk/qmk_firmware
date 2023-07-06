@@ -15,34 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-enum my_keycodes {
-    KC_MISSION_CONTROL = SAFE_RANGE,
-    KC_LAUNCHPAD
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_MISSION_CONTROL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false; /* Skip all further processing of this key */
-
-        case KC_LAUNCHPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-            return false; /* Skip all further processing of this key */
-
-        default:
-            return true; /* Process all other keycodes normally */
-    }
-}
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_iso(
         KC_ESC,    KC_BRIGHTNESS_DOWN,   KC_BRIGHTNESS_UP,   KC_MISSION_CONTROL,   KC_LAUNCHPAD,     RGB_VAD,   RGB_VAI,   KC_MEDIA_PREV_TRACK,   KC_MEDIA_PLAY_PAUSE,     KC_MEDIA_NEXT_TRACK,   KC_KB_MUTE,  KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,     KC_DEL,     MO(1),
