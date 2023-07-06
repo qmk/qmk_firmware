@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
 #define RP2040
 
 #define MATRIX_COL_PINS \
@@ -25,7 +23,7 @@
 #define MATRIX_ROW_PINS \
     { GP18, GP19, GP20, GP21, GP22 }
 
-#define I2C_DRIVER I2CD1
+#define I2C_DRIVER I2CD0
 #define I2C1_SCL_PIN GP0
 #define I2C1_SDA_PIN GP1
 //#define I2C1_SCL_PAL_MODE 4
@@ -37,23 +35,7 @@
 
 #define OLED_INIT
 
-#define RGB_DI_PIN GP2
-
-/* From the WS2812B-Mini V3 Docs: https://datasheet.lcsc.com/szlcsc/2005251033_Worldsemi-WS2812B-Mini_C527089.pdf
-T0H 0 220ns~380ns
-T1H 1 580ns~1µs
-T0L 0 580ns~1µs
-T1L 1 580ns~1µs
-TRES  > 280µs
-*/
-
-//#define WS2812_TIMING	1250
-//#define WS2812_T0H	320
-//#define WS2812_T0L	700
-//#define WS2812_T1H	700
-//#define WS2812_T1L	700
-//#define WS2812_TRST_US 300
-//WS2812_T0L < (50 + WS2812_T1L)?
+#define WS2812_DI_PIN GP2
 
 #define NOP_FUDGE 0.4
 /*
@@ -74,17 +56,14 @@ TRES  > 280µs
 #define SPI_DC_PIN GP8
 #define HW_RST_PIN GP9
 #define SPI_SCK_PIN GP6
-//#define SPI_SCK_PAL_MODE 5
 #define SPI_MOSI_PIN GP7
-//#define SPI_MOSI_PAL_MODE 5
-#define SPI_MISO_PIN GP4 //can be used as uart tx as well?
+#define SPI_MISO_PIN GP4
 
 //This number can be calculated by dividing the MCU’s clock speed
 //by the desired SPI clock speed. For example, an MCU running at 8 MHz
 //wanting to talk to an SPI device at 4 MHz would set the divisor to 2
 //#define SPI_DIVISOR (CPU_CLOCK / 1000000) //rp1040 runs at 133Mhz, SPI at 16Mhz (for new Board)
 #define SPI_DIVISOR (CPU_CLOCK / 16000000) //rp1040 runs at 133Mhz, SPI at 16Mhz
-//#define SPI_MISO_PAL_MODE 5
 
 // Shift register to select the display
 //#define SR_NMR_PIN //NO_PIN if possible

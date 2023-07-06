@@ -10,6 +10,8 @@
 #include "base/fonts/gfx_used_fonts.h"
 
 #include "quantum/quantum_keycodes.h"
+#include "version.h"
+#include "print.h"
 
 #include <transactions.h>
 
@@ -23,7 +25,7 @@
 //6 sec
 #define FADE_TRANSITION_TIME 6000
 //1 min
-#define FADE_OUT_TIME 6000
+#define FADE_OUT_TIME 60000
 //20 min
 #define TURN_OFF_TIME 1200000
 
@@ -229,10 +231,10 @@ void housekeeping_task_user(void) {
             g_contrast = DISP_OFF;
         } else if(g_contrast < MIN_BRIGHT) {
             int32_t time_after = PK_MAX(elapsed_time_since_update - FADE_OUT_TIME - FADE_TRANSITION_TIME, 0)/300;
-            int8_t amplitude = time_after%17;
-            if(amplitude>8) amplitude = 16-amplitude;
+            int8_t amplitude = time_after%15;
+            if(amplitude>7) amplitude = 14-amplitude;
 
-            if(amplitude>3) amplitude = amplitude-3;
+            if(amplitude>2) amplitude = amplitude-2;
             else amplitude = 0;
 
             g_contrast = -amplitude;
@@ -246,56 +248,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
         MO(_FNL),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
-        KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_LANG,
-        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_HOME,
+        KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
+        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
-                    KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_BSPC,
-                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_BSLS,
+                    KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_BSLS,
+                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_SLASH,
         KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    KC_ENTER,
-        KC_PGDN,    KC_PGUP,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
-        KC_END,     KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
+        KC_LANG,    KC_HYPR,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_UP,      KC_RSFT,
+        KC_MEH,     KC_BSPC,    KC_SPC,                 KC_RALT,    KC_LEFT,    KC_DOWN,    KC_RIGHT
         ),
     //Function Layer (Fn)
     [_FNL] = LAYOUT_left_right_stacked(
-        TO(_UL),    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
+        OSL(_UL),    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
         KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         KC_CAPS,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    KC_MS_BTN2,             _______,    _______,    _______,
 
-                    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     KC_F12,
+                    KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,    TO(_UL),
                     _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    TO(_NL),
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,                _______,    KC_PGUP,    KC_PGDN,    _______
+        _______,    _______,    _______,    _______,    _______,    _______,    KC_PGUP,    _______,
+        _______,    _______,    _______,                _______,    KC_HOME,    KC_PGDN,    KC_END
         ),
      //Num Layer
     [_NL] = LAYOUT_left_right_stacked(
         KC_NO,      KC_NUM,     KC_PSLS,    KC_PAST,    KC_PMNS,    KC_NO,      KC_NO,
         KC_MS_BTN1, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,    KC_INS,     KC_NO,
         KC_NO,      KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PPLS,    KC_DEL,     KC_NO,     _______,
-        KC_NO,      KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PENT,    KC_NO,      KC_NO,     KC_NO,
+        KC_NO,      KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PENT,    KC_NO,      KC_NO,     _______,
         TO(_BL),    KC_KP_0,    KC_PDOT,    KC_PENT,                KC_MS_BTN2, KC_NO,     KC_NO,
 
                     KC_NO,      KC_NO,      KC_NUM,     KC_PSLS,    KC_PAST,    KC_PMNS,   KC_NO,
                     KC_NO,      KC_INS,     KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,   KC_NO,
         _______,    KC_NO,      KC_DEL,     KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PPLS,   KC_NO,
-        KC_NO,      KC_NO,      KC_NO,      KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PENT,   KC_NO,
-        KC_NO,      KC_NO,      KC_NO,                  KC_KP_0,    KC_PDOT,    KC_PENT,   TO(_BL)
+        _______,    _______,    KC_NO,      KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PENT,   KC_NO,
+        _______,    KC_NO,      KC_NO,                  KC_KP_0,    KC_PDOT,    KC_PENT,   TO(_BL)
         ),
     //Util Layer
     [_UL] = LAYOUT_left_right_stacked(
-         KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
+        KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     _______,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
-        TO(_BL),    RGB_RMOD,   RGB_TOG,    RGB_MOD,                QK_RBT,     QK_MAKE,   QK_BOOT,
+        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     QK_DEBUG_TOGGLE,
+        TO(_BL),    KC_INCC,    KC_NO,      KC_DECC,                QK_RBT,     QK_MAKE,   QK_BOOT,
 
                     KC_MPRV,    KC_MPLY,    KC_MSTP,    KC_MNXT,    KC_MUTE,    KC_VOLD,   KC_VOLU,
                     KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
         _______,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
-        KC_NO,      KC_NO,      KC_NO,                  KC_INCC,    KC_NO,      KC_DECC,   TO(_BL)
+        KC_NO,      KC_NO,      KC_NO,                  RGB_RMOD,   RGB_TOG,    RGB_MOD,   TO(_BL)
         ),
     //Language Selection Layer
     [_LL] = LAYOUT_left_right_stacked(
@@ -313,32 +315,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         )
 };
 
+#define LX(x,y) ((x)/2),y
 led_config_t g_led_config = { {// Key Matrix to LED Index
-                              {0, 1, 2, 3, 4, 5, 6, NO_LED},
-                              {7, 8, 9, 10, 11, 12, 13, NO_LED},
-                              {14, 15, 16, 17, 18, 19, 20, NO_LED},
-                              {21, 22, 23, 24, 25, 26, 27, NO_LED},
-                              {28, 29, 30, 31, 32, 33, 34, 35},
+                              {6, 5, 4, 3, 2, 1, 0, NO_LED},
+                              {13, 12, 11, 10, 9, 8, 7, NO_LED},
+                              {20, 19, 18, 17, 16, 15, 14, NO_LED},
+                              {27, 26, 25, 24, 23, 22, 21, NO_LED},
+                              {35, 34, 33, 32, 31, 30, 29, 28},
+/*
+    lc0r0, lc1r0 ,lc2r0, lc3r0, lc4r0, lc5r0 ,lc6r0, \
+    lc0r1, lc1r1 ,lc2r1, lc3r1, lc4r1, lc5r1 ,lc6r1, \
+    lc0r2, lc1r2 ,lc2r2, lc3r2, lc4r2, lc5r2 ,lc6r2, lc7r3, \
+    lc0r3, lc1r3 ,lc2r3, lc3r3, lc4r3, lc5r3 ,lc6r3, lc7r4, \
+    lc0r4, lc1r4 ,lc2r4, lc3r4,        lc4r4 ,lc5r4, lc6r4, \
 
-                              {NO_LED, 36, 37, 38, 39, 40, 41, 42},
-                              {NO_LED, 43, 44, 45, 46, 47, 48, 49},
-                              {NO_LED, 50, 51, 52, 53, 54, 55, 56},
-                              {NO_LED, 57, 58, 59, 60, 61, 62, 63},
-                              {64, 65, 66, 67, 68, 69, 70, 71}
+    { lc0r0, lc1r0 ,lc2r0, lc3r0, lc4r0, lc5r0 ,lc6r0, KC_NO }, \
+    { lc0r1, lc1r1 ,lc2r1, lc3r1, lc4r1, lc5r1 ,lc6r1, KC_NO }, \
+    { lc0r2, lc1r2 ,lc2r2, lc3r2, lc4r2, lc5r2 ,lc6r2, KC_NO }, \
+    { lc0r3, lc1r3 ,lc2r3, lc3r3, lc4r3, lc5r3 ,lc6r3, lc7r3 }, \
+    { lc0r4, lc1r4 ,lc2r4, lc3r4, lc4r4, lc5r4 ,lc6r4, lc7r4 }, \
+*/
+                              {NO_LED, 42, 41, 40, 39, 38, 37, 36},
+                              {NO_LED, 49, 48, 47, 46, 45, 44, 43},
+                              {NO_LED, 56, 55, 54, 53, 52, 51, 50},
+                              {NO_LED, 63, 62, 61, 60, 59, 58, 57},
+                              {71, 70, 69, 68, 67, 66, 65, 64}
                              },
                              {
-                                 // LED Index to Physical Position
-                                 {6 / 2, 9},   {36 / 2, 9},   {61 / 2, 5},  {85 / 2, 1},   {110 / 2, 5},  {135 / 2, 9},  {160 / 2, 9},
-                                 {6 / 2, 33},  {36 / 2, 33},  {61 / 2, 29}, {85 / 2, 25},  {110 / 2, 19}, {135 / 2, 33}, {160 / 2, 33},
-                                 {6 / 2, 58},  {36 / 2, 58},  {61 / 2, 54}, {85 / 2, 50},  {110 / 2, 54}, {135 / 2, 58}, {160 / 2, 58},
-                                 {6 / 2, 83},  {36 / 2, 83},  {61 / 2, 79}, {85 / 2, 75},  {110 / 2, 79}, {135 / 2, 83}, {160 / 2, 83},
-                                 {12 / 2, 107},{36 / 2, 107}, {61 / 2, 103},{85 / 2, 99},  {126 / 2, 113},{157 / 2, 118},{185 / 2, 127}, {196 / 2, 99},
+                                // LED Index to Physical Position
+                                                {LX(144, 9)},   {LX(129, 9)},   {LX(104, 5)},   {LX(79, 1)},    {LX(55, 5)},    {LX(30, 9)},    {LX(0, 9)},
+                                                {LX(144, 33)},  {LX(129, 33)},  {LX(104, 19)},  {LX(79, 25)},   {LX(55, 29)},   {LX(30, 33)},   {LX(0, 33)},
+                                                {LX(144, 58)},  {LX(129, 58)},  {LX(104, 54)},  {LX(79, 50)},   {LX(55, 54)},   {LX(30, 58)},   {LX(0, 58)},
+                                                {LX(144, 83)},  {LX(129, 83)},  {LX(104, 79)},  {LX(79, 75)},   {LX(55, 79)},   {LX(30, 83)},   {LX(0, 83)},
+                {LX(170, 99)},  {LX(170, 127)}, {LX(144, 118)}, {LX(129, 113)},                 {LX(79, 99)},   {LX(55, 103)},  {LX(30, 107)},  {LX(6, 107)},
 
-                                 {206 / 2, 9},  {236 / 2, 9},   {261 / 2, 5},  {285 / 2, 1},   {310 / 2, 5},  {335 / 2, 9},  {360 / 2, 9},
-                                 {206 / 2, 33}, {236 / 2, 33},  {261 / 2, 29}, {285 / 2, 25},  {310 / 2, 19}, {335 / 2, 33}, {360 / 2, 33},
-                                 {206 / 2, 58}, {236 / 2, 58},  {261 / 2, 54}, {285 / 2, 50},  {310 / 2, 54}, {335 / 2, 58}, {360 / 2, 58},
-                                 {206 / 2, 83}, {236 / 2, 83},  {261 / 2, 79}, {285 / 2, 75},  {310 / 2, 79}, {335 / 2, 83}, {360 / 2, 83},
-                    {212 / 2, 99}, {236 / 2, 127},{261 / 2, 118}, {285 / 2, 113},{326 / 2, 99},  {357 / 2, 103},{385 / 2, 107},{196 / 2, 107}
+                                                {LX(446, 9)},   {LX(415, 9)},   {LX(390, 5)},   {LX(365, 1)},   {LX(341, 5)},   {LX(316, 9)},   {LX(286, 9)},
+                                                {LX(446, 33)},  {LX(415, 33)},  {LX(390, 19)},  {LX(365, 25)},  {LX(341, 29)},  {LX(316, 33)},  {LX(286, 33)},
+                                                {LX(446, 58)},  {LX(415, 58)},  {LX(390, 54)},  {LX(365, 50)},  {LX(341, 54)},  {LX(316, 58)},  {LX(286, 58)},
+                                                {LX(446, 83)},  {LX(415, 83)},  {LX(390, 79)},  {LX(365, 75)},  {LX(341, 79)},  {LX(316, 83)},  {LX(286, 83)},
+                                                {LX(440, 107)}, {LX(415, 107)}, {LX(390, 103)}, {LX(365, 99)},                  {LX(324, 113)}, {LX(290, 118)}, {LX(264, 127)},  {LX(264, 99)}
                              },
                              {
                                  // LED Index to Flag
@@ -355,7 +370,7 @@ led_config_t g_led_config = { {// Key Matrix to LED Index
                                  4, 4, 4, 4, 4, 4, 4, 4
                              } };
 
-const uint16_t* get_led_matrix_text() {
+const uint16_t* get_led_matrix_text(void) {
     switch(rgb_matrix_get_mode()) {
 
         case RGB_MATRIX_SPLASH:
@@ -446,8 +461,12 @@ const uint16_t* get_led_matrix_text() {
 
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
-    case KC_LEAD:
+    case QK_LEAD:
         return u"Lead";
+    case KC_HYPR:
+        return u"Hypr";
+    case KC_MEH:
+        return u"Meh";
     case KC_NUM_LOCK:
         return !state.num_lock ? u"Nm" ICON_NUMLOCK_OFF : u"Nm" ICON_NUMLOCK_ON;
     case KC_KP_SLASH:
@@ -479,7 +498,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_KP_3:
         return !state.num_lock ? ARROWS_DOWNSTOP : u"3";
     case KC_CALCULATOR:
-        return u"Calc";
+        return u"   " PRIVATE_CALC;
     case KC_KP_0:
         return !state.num_lock ? u"Ins" : u"0";
     case KC_KP_DOT:
@@ -489,7 +508,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case QK_BOOTLOADER:
         return u"Boot";
     case QK_DEBUG_TOGGLE:
-        return u"Dbg";
+        return debug_enable==0? u"Dbg\r\v" ICON_SWITCH_OFF : u"Dbg\r\v" ICON_SWITCH_ON;
     case RGB_RMOD:
         return u"RGB\v" ICON_LEFT;
     case RGB_TOG:
@@ -525,13 +544,13 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_MS_RIGHT:
         return u"  " ICON_RIGHT;
     case KC_AUDIO_MUTE:
-        return u"Mute";
+        return u"  " PRIVATE_MUTE;
     case KC_AUDIO_VOL_DOWN:
-        return u"  " ICON_VOL_DOWN;
+        return u"  " PRIVATE_VOL_DOWN;
     case KC_AUDIO_VOL_UP:
-        return u"  " ICON_VOL_UP;
+        return u"  " PRIVATE_VOL_UP;
     case KC_PRINT_SCREEN:
-        return u"PScn";
+        return u"  " PRIVATE_SCREEN;
     case KC_SCROLL_LOCK:
         return u"ScLk";
     case KC_PAUSE:
@@ -549,13 +568,17 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     case KC_DELETE:
         return TECHNICAL_ERASERIGHT;
     case KC_MYCM:
-        return u"My\r\vComp";
+        return u"  " PRIVATE_PC;
     case MO(_FNL):
         return u"Fn\r\v\t" ICON_LAYER;
     case TO(_NL):
-        return u"Num\r\v\t" ICON_LAYER;
+        return u"Nm\r\v\t" ICON_LAYER;
+    case MO(_NL):
+        return u"Nm!\r\v\t" ICON_LAYER;
     case TO(_BL):
         return u"Base\r\v\t" ICON_LAYER;
+    case OSL(_UL):
+        return u"Util*\r\v\t" ICON_LAYER;
     case TO(_UL):
         return u"Util\r\v\t" ICON_LAYER;
     case KC_F1:
@@ -651,6 +674,44 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     return u"[?]";
 }
 
+const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
+    switch (keycode)
+    {
+        case KC_F2: return u"      " PRIVATE_NOTE;
+        case KC_F5: return u"     " ARROWS_CIRCLE;
+        case QK_DEBUG_TOGGLE: return debug_enable==0 ? u"\v" ICON_SWITCH_OFF : u"\v" ICON_SWITCH_ON;
+        case RGB_TOG: return rgb_matrix_is_enabled() ? u"\v" ICON_SWITCH_ON : u"\v" ICON_SWITCH_OFF;
+        default: break;
+    }
+
+    if( (get_mods() & MOD_MASK_CTRL) != 0) {
+        switch(keycode) {
+            case KC_A: return u"    " BOX_WITH_CHECK_MARK;
+            case KC_C: return u"   " CLIPBOARD_COPY;
+            case KC_D: return u"    " PRIVATE_DELETE;
+            case KC_F: return u"   " PRIVATE_FIND;
+            case KC_X: return u"    " CLIPBOARD_CUT;
+            case KC_V: return u"    " CLIPBOARD_PASTE;
+            case KC_S: return u"    " PRIVATE_FLOPPY;
+            case KC_O: return u"     " FILE_OPEN;
+            case KC_P: return u"    " PRIVATE_PRINTER;
+            case KC_Z: return u"    " ARROWS_UNDO;
+            case KC_Y: return u"    " ARROWS_REDO;
+            default: break;
+        }
+    } else if((get_mods() & MOD_MASK_GUI) != 0) {
+        switch(keycode) {
+            case KC_D:      return u"    " PRIVATE_SCREEN;
+            case KC_L:      return u"    " PRIVATE_LOCK;
+            case KC_UP:     return u"     " PRIVATE_MAXIMIZE;
+            case KC_DOWN:   return u"     " PRIVATE_WINDOW;
+            default: break;
+        }
+    }
+    return NULL;
+}
+
+
 void update_displays(enum refresh_mode mode) {
     uint8_t layer = get_highest_layer(layer_state);
     if (layer > _LL) {
@@ -692,6 +753,10 @@ void update_displays(enum refresh_mode mode) {
                         const uint16_t* text = keycode_to_disp_text(keycode, state);
                         kdisp_set_buffer(0x00);
                         kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
+                        text = keycode_to_disp_overlay(keycode, state);
+                        if(text!=NULL) {
+                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
+                        }
                         kdisp_send_buffer();
                     }
                 }
@@ -836,6 +901,22 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
         case RGB_RMOD:
             request_disp_refresh();
             break;
+        case QK_DEBUG_TOGGLE:
+            if (!debug_enable) {
+                debug_enable = 1;
+            } else if (!debug_keyboard) {
+                debug_keyboard = 1;
+            } else if (!debug_matrix) {
+                debug_matrix = 1;
+            } else {
+                debug_enable   = 0;
+                debug_keyboard = 0;
+                debug_matrix   = 0;
+            }
+            dprintf("DEBUG: enable=%u, keyboard=%u, matrix=%u\n", debug_enable, debug_keyboard, debug_matrix);
+            dprint(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE "\n");
+            eeconfig_update_debug(debug_config.raw);
+            break;
         default:
             break;
         }
@@ -866,7 +947,7 @@ void set_displays(int8_t contrast) {
         //kdisp_scroll(true);
         //kdisp_invert(true);
         kdisp_scroll(false);
-        kdisp_scroll_modehv(true, 3, 3);
+        kdisp_scroll_modehv(true, 3, 2);
         kdisp_scroll(true);
     }
     old_contrast = contrast;
@@ -892,7 +973,7 @@ bool display_wakeup(keyrecord_t* record) {
 }
 void keyboard_post_init_user(void) {
     //rgb_matrix_disable_noeeprom();
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_CROSS);
     rgb_matrix_enable_noeeprom();
 
     // Customise these values to desired behaviour
@@ -1017,12 +1098,19 @@ void matrix_slave_scan_user(void) {
     matrix_scan_user();
 }
 
+oled_rotation_t oled_init_user(oled_rotation_t rotation){
+    dprint("OLED init\n");
+    return rotation;
+}
+
 void suspend_power_down_kb(void) {
+    dprint("Suspend power down\n");
     g_contrast = DISP_OFF;
     sync_and_refresh_displays();
 }
 
 void suspend_wakeup_init_kb(void) {
+    dprint("Suspend wakeup\n");
     g_contrast = FULL_BRIGHT;
     sync_and_refresh_displays();
 }
