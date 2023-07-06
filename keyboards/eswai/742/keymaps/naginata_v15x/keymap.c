@@ -108,6 +108,7 @@ uint32_t kanaoff(uint32_t trigger_time, void *cb_arg) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   oled_sleep_timer = timer_read32() + OLED_TIMEOUT;
+  extend_deferred_exec(my_token, NAGINATA_TIMEOUT);
 
   #ifdef CONSOLE_ENABLE
   uprintf("%5u, %u, %5u\n", keycode, record->event.pressed, record->event.time);
