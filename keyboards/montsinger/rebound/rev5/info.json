@@ -38,7 +38,7 @@
     "rgb_matrix": {
         "driver": "WS2812"
     },
-    "rgblight": {
+    "ws2812": {
         "pin": "GP21"
     },
     "url": "https://montsinger.net",
