@@ -16,9 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "m65.h"
-#ifdef CONSOLE_ENABLE
-#include "print.h"
-#endif
 
 
 // let us assume we start with both layers off
