@@ -1,6 +1,6 @@
 # itstleo/handwired/it9_rp2040
 
-This is my first handwire macropad project call itstleo9 or it9, using orthor 3x3 layout powered with 2 MCU are promicro ATmega32u4 and RasberryPi RP2040 for simple flash using QMK Toolbox and Drag&Drop file. Supported for Via and Vial keymap.
+Handwired 3x3 macropad built with Pro Micro compatible microcontrollers
 
 * Keyboard Maintainer: [ItsTLeo](https://github.com/ItsTLeo)
 * Hardware Supported: RP2040
