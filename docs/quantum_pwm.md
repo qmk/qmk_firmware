@@ -262,7 +262,7 @@ void period_pin_B6_low(void) {
     qpwm_set_period_callback(backlight_pwm, b6_low);
 }
 
-void trigger_pin_disable(void) {
+void period_pin_disable(void) {
     qpwm_set_period_callback(backlight_pwm, NULL);
 }
 ```
