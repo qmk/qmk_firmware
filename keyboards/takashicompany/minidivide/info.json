@@ -22,7 +22,6 @@
         "rows": ["F4", "F5", "F6", "F7"]
     },
     "pin_compatible": "promicro",
-    "processor": "atmega32u4",
     "rgblight": {
         "animations": {
             "alternating": true,
