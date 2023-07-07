@@ -48,6 +48,7 @@
 #    include "sleep_led.h"
 #endif
 #include "suspend.h"
+#include "wait.h"
 
 #include "usb_descriptor.h"
 #include "lufa.h"
