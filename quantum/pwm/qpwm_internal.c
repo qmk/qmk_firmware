@@ -13,7 +13,7 @@ static pwm_device_t qpwm_devices[QPWM_NUM_DEVICES] = {NULL};
 
 bool qpwm_internal_register_device(pwm_device_t driver) {
     for (uint8_t i = 0; i < QPWM_NUM_DEVICES; i++) {
-        if(qpwm_devices[i] == NULL) {
+        if (qpwm_devices[i] == NULL) {
             qpwm_devices[i] = driver;
             return true;
         }
@@ -30,9 +30,8 @@ bool qpwm_internal_register_device(pwm_device_t driver) {
 _Static_assert((QUANTUM_PWM_TASK_THROTTLE) >= 0 && (QUANTUM_PWM_TASK_THROTTLE) < 1000, "QUANTUM_PWM_TASK_THROTTLE must be between 0 and 999");
 
 void qpwm_internal_task(void) {
-
     static uint32_t last_tick = 0;
-    uint32_t now              = timer_read32();
+    uint32_t        now       = timer_read32();
     if (TIMER_DIFF_32(now, last_tick) < (QUANTUM_PWM_TASK_THROTTLE)) {
         return;
     }

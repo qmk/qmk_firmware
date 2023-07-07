@@ -66,9 +66,9 @@ int main(void) {
 #endif
 
 #ifdef QUANTUM_PWM_ENABLE
-         // Run Quantum PWM task
-         void qpwm_internal_task(void);
-         qpwm_internal_task();
+        // Run Quantum PWM task
+        void qpwm_internal_task(void);
+        qpwm_internal_task();
 #endif
 
 #ifdef DEFERRED_EXEC_ENABLE

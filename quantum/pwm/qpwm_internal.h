@@ -14,7 +14,9 @@
 #    include <print.h>
 #    define qpwm_dprintf(...) dprintf(__VA_ARGS__)
 #else
-#    define qpwm_dprintf(...)  do { } while (0)
+#    define qpwm_dprintf(...) \
+        do {                  \
+        } while (0)
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

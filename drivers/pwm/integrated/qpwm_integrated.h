@@ -11,4 +11,3 @@
 typedef struct integrated_pwm_device_t {
     pwm_driver_t base;
 } integrated_pwm_device_t;
-

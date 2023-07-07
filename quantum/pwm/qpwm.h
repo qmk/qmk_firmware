@@ -23,14 +23,14 @@
 /**
  * @typedef A handle to a Quantum PWM device, such as a hardware peripheral or external I2C PWM chip. Most Quantum PWM
  *          APIs require this argument in order to perform operations on the PWM device.
- *         
+ *
  */
 typedef const void *pwm_device_t;
 
 /**
- * @typedef A function pointer to a Quantum PWM callback. Callback functions of this type may be called 
+ * @typedef A function pointer to a Quantum PWM callback. Callback functions of this type may be called
  *          whenever PWM event triggers or the PWM period elapses.
- *         
+ *
  */
 typedef void (*pwm_driver_callback_t)(void);
 
@@ -59,13 +59,13 @@ bool qpwm_power(pwm_device_t device, bool power_on);
 /**
  * Sets the frequency at which the PWM device is running.
  * Units are in Hz.
- * 
+ *
  * @note qpwm_set_frequency and qpwm_set_period control the same
  * variable. Quantum PWM drivers may internally stores this
  * information as a period to match the underlying settings in
  * units of clock ticks. Drivers may also allow the period to be written
  * directly. Some driver implementations have limited frequency range
- * and/or precision, or may only permit fixed frequency operation. 
+ * and/or precision, or may only permit fixed frequency operation.
  * set_frequency() applies a "best effort" approach to match the
  * assigned frequency.
  *
@@ -77,8 +77,8 @@ bool qpwm_power(pwm_device_t device, bool power_on);
 bool qpwm_set_frequency(pwm_device_t device, float frequency);
 
 /**
- * Sets the duty cycle for the PWM device. 
- * 
+ * Sets the duty cycle for the PWM device.
+ *
  * @note Duty cycle is a float as a percentage, valid ranges are from 0.00% to 100.00%:
  *
  * @param device[in] the handle of the device to control
@@ -89,7 +89,7 @@ bool qpwm_set_frequency(pwm_device_t device, float frequency);
 bool qpwm_set_duty_cycle(pwm_device_t device, float duty);
 
 /**
- * Sets the trigger callback for the PWM device. 
+ * Sets the trigger callback for the PWM device.
  *
  * @param device[in] the handle of the device to control
  * @param trigger_callback[in] the callback function to execute upon triggering
@@ -100,7 +100,7 @@ bool qpwm_set_trigger_callback(pwm_device_t device, pwm_driver_callback_t trigge
 
 
 /**
- * Sets the period callback for the PWM device. 
+ * Sets the period callback for the PWM device.
  *
  * @param device[in] the handle of the device to control
  * @param period_callback[in] the callback function to execute upon PWM period elapsing
@@ -108,7 +108,6 @@ bool qpwm_set_trigger_callback(pwm_device_t device, pwm_driver_callback_t trigge
  * @return false if setting the callback function failed
  */
 bool qpwm_set_period_callback(pwm_device_t device, pwm_driver_callback_t period_callback);
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum PWM Drivers
@@ -124,4 +123,3 @@ bool qpwm_set_period_callback(pwm_device_t device, pwm_driver_callback_t period_
 #else // QUANTUM_PWM_SOFTWARE_PWM_ENABLE
 #    define SOFTWARE_PWM_NUM_DEVICES 0
 #endif // QUANTUM_PWM_SOFTWARE_PWM_ENABLE
-

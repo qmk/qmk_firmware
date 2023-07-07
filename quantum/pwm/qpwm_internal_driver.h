@@ -15,21 +15,18 @@ typedef bool (*pwm_driver_set_duty_cycle_func)(pwm_device_t device, float duty);
 typedef bool (*pwm_driver_set_trigger_callback_func)(pwm_device_t device, pwm_driver_callback_t trigger_callback);
 typedef bool (*pwm_driver_set_period_callback_func)(pwm_device_t device, pwm_driver_callback_t period_callback);
 
-
 // Driver vtable definition
 typedef struct pwm_driver_vtable_t {
     pwm_driver_init_func                 init;
     pwm_driver_power_func                power;
-    pwm_driver_set_frequency_func        set_frequency; 
+    pwm_driver_set_frequency_func        set_frequency;
     pwm_driver_set_duty_cycle_func       set_duty_cycle;
     pwm_driver_set_trigger_callback_func set_trigger_callback;
-    pwm_driver_set_period_callback_func  set_period_callback;    
+    pwm_driver_set_period_callback_func  set_period_callback;
 } pwm_driver_vtable_t;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver base definition
-
-//typedef void (*pwm_driver_callback_t)(void);
 
 typedef struct pwm_driver_t {
     const pwm_driver_vtable_t *driver_vtable;
@@ -42,7 +39,7 @@ typedef struct pwm_driver_t {
 
     pwm_driver_callback_t trigger_callback;
     pwm_driver_callback_t period_callback;
-    
+
 } pwm_driver_t;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

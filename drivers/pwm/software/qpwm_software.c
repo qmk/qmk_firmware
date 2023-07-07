@@ -7,7 +7,7 @@
 
 typedef struct software_pwm_device_t {
     pwm_driver_t base;
-    
+
     software_pwm_update_task_func_t update_task_func;
 
     bool enabled;
@@ -17,7 +17,6 @@ typedef struct software_pwm_device_t {
 // Driver storage
 software_pwm_device_t software_pwm_drivers[SOFTWARE_PWM_NUM_DEVICES] = {0};
 
-
 // Init control
 bool software_pwm_init(pwm_device_t device) {
     return true;
@@ -25,31 +24,31 @@ bool software_pwm_init(pwm_device_t device) {
 
 // Power control
 bool software_pwm_power(pwm_device_t device, bool power_on) {
-    software_pwm_device_t *driver = (software_pwm_device_t *) device;
-    driver->enabled = power_on;
-    if (driver->base.period_callback) {    
-        driver->base.period_callback();  // Return to the baseline state
+    software_pwm_device_t *driver = (software_pwm_device_t *)device;
+    driver->enabled               = power_on;
+    if (driver->base.period_callback) {
+        driver->base.period_callback(); // Return to the baseline state
     }
     return true;
 }
 
 // Frequency control
 bool software_pwm_set_frequency(pwm_device_t device, float frequency) {
-    pwm_driver_t *driver = (pwm_driver_t *) device;
-    driver->frequency = frequency;
+    pwm_driver_t *driver = (pwm_driver_t *)device;
+    driver->frequency    = frequency;
     return true;
 }
 
 // PWM duty cycle control
 bool software_pwm_set_duty_cycle(pwm_device_t device, float duty_cycle) {
-    pwm_driver_t *driver = (pwm_driver_t *) device;
-    driver->duty_cycle = duty_cycle;
+    pwm_driver_t *driver = (pwm_driver_t *)device;
+    driver->duty_cycle   = duty_cycle;
     return true;
 }
 
 // PWM trigger callback assignment
 bool software_pwm_set_trigger_callback(pwm_device_t device, pwm_driver_callback_t trigger_callback) {
-    pwm_driver_t *driver = (pwm_driver_t *) device;
+    pwm_driver_t *driver     = (pwm_driver_t *)device;
     driver->trigger_callback = trigger_callback;
     return true;
 }
@@ -60,8 +59,6 @@ bool software_pwm_set_period_callback(pwm_device_t device, pwm_driver_callback_t
     driver->period_callback = period_callback;
     return true;
 }
-
-
 
 void software_pwm_update_task_func(pwm_device_t device, uint8_t tick) {
     software_pwm_device_t *driver = (software_pwm_device_t *)device;
@@ -87,20 +84,20 @@ void software_pwm_update_task_func(pwm_device_t device, uint8_t tick) {
             0b0111111111111111,
             0b1111111111111111,
         };
-      
-        index = floor(driver->base.duty_cycle*17.0/100.0);
+
+        index = floor(driver->base.duty_cycle * 17.0 / 100.0);
         if (index > 16) {
             index = 16;
         }
-        if(duty_table[index] & ((uint16_t)1 << (tick % 16))) {
-            // driver->trigger_func(); 
+        if (duty_table[index] & ((uint16_t)1 << (tick % 16))) {
+            // driver->trigger_func();
             if (driver->base.trigger_callback) {
-                driver->base.trigger_callback();  
+                driver->base.trigger_callback();
             }
         } else {
             // driver->period_func();
             if (driver->base.period_callback) {
-                driver->base.period_callback(); 
+                driver->base.period_callback();
             }
         }
     }
@@ -110,12 +107,12 @@ void software_pwm_update_task_func(pwm_device_t device, uint8_t tick) {
 // Driver vtable
 
 const pwm_driver_vtable_t software_pwm_driver_vtable = {
-        .init                  = software_pwm_init,
-        .power                 = software_pwm_power,
-        .set_frequency         = software_pwm_set_frequency,
-        .set_duty_cycle        = software_pwm_set_duty_cycle, 
-        .set_trigger_callback  = software_pwm_set_trigger_callback, 
-        .set_period_callback   = software_pwm_set_period_callback, 
+    .init                  = software_pwm_init,
+    .power                 = software_pwm_power,
+    .set_frequency         = software_pwm_set_frequency,
+    .set_duty_cycle        = software_pwm_set_duty_cycle,
+    .set_trigger_callback  = software_pwm_set_trigger_callback,
+    .set_period_callback   = software_pwm_set_period_callback, 
 };
 
 // Factory function for creating a handle to the PWM device
@@ -123,12 +120,12 @@ pwm_device_t make_software_pwm_device(void (*trigger_callback)(void), void (*per
     for (uint32_t i = 0; i < SOFTWARE_PWM_NUM_DEVICES; ++i) {
         software_pwm_device_t *driver = &software_pwm_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable = (const pwm_driver_vtable_t *)&software_pwm_driver_vtable;
-            driver->base.frequency = 0;         /* unused in this implementation */
-            driver->base.duty_cycle = 50;       /* default to 50% duty cycle upon creation */
-            driver->base.period_callback = (pwm_driver_callback_t)period_callback;
+            driver->base.driver_vtable    = (const pwm_driver_vtable_t *)&software_pwm_driver_vtable;
+            driver->base.frequency        = 0;  /* unused in this implementation */
+            driver->base.duty_cycle       = 50; /* default to 50% duty cycle upon creation */
+            driver->base.period_callback  = (pwm_driver_callback_t)period_callback;
             driver->base.trigger_callback = (pwm_driver_callback_t)trigger_callback;
-            driver->update_task_func = (software_pwm_update_task_func_t)software_pwm_update_task_func;
+            driver->update_task_func      = (software_pwm_update_task_func_t)software_pwm_update_task_func;
 
             if (!qpwm_internal_register_device((pwm_device_t)driver)) {
                 memset(driver, 0, sizeof(software_pwm_device_t));

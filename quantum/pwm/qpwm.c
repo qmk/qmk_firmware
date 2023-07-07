@@ -30,8 +30,6 @@ bool qpwm_init(pwm_device_t device) {
     return ret;
 }
 
-
-
 ///////////////////////////////////////////////////////////
 // Quantum PWM External API: qpwm_power
 
@@ -111,4 +109,3 @@ bool qpwm_set_period_callback(pwm_device_t device, pwm_driver_callback_t period_
     qpwm_dprintf("qpwm_set_period_callback: %s\n", ret ? "ok" : "fail");
     return ret;
 }
-
