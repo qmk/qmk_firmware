@@ -1,6 +1,7 @@
 // Copyright 2023 ziptyze (@ziptyze)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#pragma once
 
 /* Define RGB */
 #define RGB_MATRIX_LED_COUNT 91
