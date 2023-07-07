@@ -51,7 +51,6 @@
 
 #include "usb_descriptor.h"
 #include "lufa.h"
-#include "quantum.h"
 #include "usb_device_state.h"
 #include <util/atomic.h>
 
