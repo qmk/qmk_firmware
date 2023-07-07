@@ -21,7 +21,3 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
 #endif
-
-#ifdef  IS31FL3743A
-#define __flash  PROGMEM
-#endif
