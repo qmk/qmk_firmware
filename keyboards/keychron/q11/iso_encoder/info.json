@@ -1,10 +1,10 @@
 {
     "usb": {
-        "pid": "0x01E0",
+        "pid": "0x01E1",
         "device_version": "1.0.0"
     },
     "rgb_matrix": {
-        "split_count": [42, 47],
+        "split_count": [43, 47],
         "layout": [
             {"matrix":[0, 1], "flags":1, "x":17,  "y":0},
             {"matrix":[0, 2], "flags":1, "x":31,  "y":0},
@@ -38,18 +38,19 @@
             {"matrix":[3, 6], "flags":4, "x":97,  "y":40},
 
             {"matrix":[4, 0],  "flags":1, "x":0,   "y":52},
+            {"matrix":[4, 1],  "flags":1, "x":19,  "y":52},
             {"matrix":[4, 2],  "flags":1, "x":34,  "y":52},
             {"matrix":[4, 3],  "flags":4, "x":48,  "y":52},
-            {"matrix":[4, 4],  "flags":4, "x":61,  "y":52},
+            {"matrix":[4, 4],  "flags":4, "x":62,  "y":52},
             {"matrix":[4, 5],  "flags":4, "x":76,  "y":52},
             {"matrix":[4, 6],  "flags":4, "x":90,  "y":52},
-            {"matrix":[4, 7],  "flags":4, "x":102, "y":52},
+            {"matrix":[4, 7],  "flags":4, "x":103, "y":52},
             {"matrix":[5, 0],  "flags":1, "x":0,   "y":64},
             {"matrix":[5, 1],  "flags":1, "x":19,  "y":64},
             {"matrix":[5, 2],  "flags":1, "x":36,  "y":64},
             {"matrix":[5, 3],  "flags":1, "x":53,  "y":64},
-            {"matrix":[5, 4],  "flags":1, "x":70,  "y":64},
-            {"matrix":[5, 6],  "flags":4, "x":94,  "y":64},
+            {"matrix":[5, 4],  "flags":1, "x":71,  "y":64},
+            {"matrix":[5, 6],  "flags":4, "x":95,  "y":64},
 
             {"matrix":[6, 0], "flags":1, "x":110, "y":0},
             {"matrix":[6, 1], "flags":1, "x":124, "y":0},
@@ -68,14 +69,13 @@
             {"matrix":[7, 6], "flags":1, "x":200, "y":15},
             {"matrix":[7, 8], "flags":1, "x":224, "y":15},
 
-            {"matrix":[8, 0], "flags":4, "x":104, "y":27},
+            {"matrix":[8, 0], "flags":4, "x":103, "y":27},
             {"matrix":[8, 1], "flags":4, "x":117, "y":27},
             {"matrix":[8, 2], "flags":4, "x":131, "y":27},
             {"matrix":[8, 3], "flags":4, "x":145, "y":27},
             {"matrix":[8, 4], "flags":4, "x":158, "y":27},
             {"matrix":[8, 5], "flags":4, "x":172, "y":27},
             {"matrix":[8, 6], "flags":4, "x":186, "y":27},
-            {"matrix":[8, 7], "flags":4, "x":203, "y":27},
             {"matrix":[8, 8], "flags":1, "x":224, "y":27},
             {"matrix":[9, 0], "flags":4, "x":107, "y":40},
             {"matrix":[9, 1], "flags":4, "x":121, "y":40},
@@ -83,7 +83,8 @@
             {"matrix":[9, 3], "flags":4, "x":148, "y":40},
             {"matrix":[9, 4], "flags":4, "x":162, "y":40},
             {"matrix":[9, 5], "flags":4, "x":176, "y":40},
-            {"matrix":[9, 7], "flags":1, "x":198, "y":40},
+            {"matrix":[9, 7], "flags":1, "x":190, "y":40},
+            {"matrix":[8, 7], "flags":1, "x":208, "y":36},
             {"matrix":[9, 8], "flags":1, "x":224, "y":40},
 
             {"matrix":[10, 0], "flags":4, "x":114, "y":52},

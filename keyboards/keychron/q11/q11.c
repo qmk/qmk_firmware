@@ -47,7 +47,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 }
 #endif
 
-#if defined(RGB_MATRIX_ENABLE) && (defined(CAPS_LOCK_LED_INDEX) || defined(NUM_LOCK_LED_INDEX))
+#if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
@@ -100,3 +100,63 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     return true;
 }
 #endif
+
+#define ADC_BUFFER_DEPTH 1
+#define ADC_NUM_CHANNELS 1
+#define ADC_SAMPLING_RATE ADC_SMPR_SMP_12P5
+#define ADC_RESOLUTION ADC_CFGR_RES_10BITS
+
+static int16_t analogReadPin_my(pin_t pin) {
+    ADCConfig          adcCfg = {};
+    adcsample_t        sampleBuffer[ADC_NUM_CHANNELS * ADC_BUFFER_DEPTH];
+    ADCDriver         *targetDriver       = &ADCD1;
+    ADCConversionGroup adcConversionGroup = {
+        .circular     = FALSE,
+        .num_channels = (uint16_t)(ADC_NUM_CHANNELS),
+        .cfgr         = ADC_RESOLUTION,
+    };
+
+    palSetLineMode(pin, PAL_MODE_INPUT_ANALOG);
+    switch (pin) {
+        case B0:
+            adcConversionGroup.smpr[2] = ADC_SMPR2_SMP_AN15(ADC_SAMPLING_RATE);
+            adcConversionGroup.sqr[0]  = ADC_SQR1_SQ1_N(ADC_CHANNEL_IN15);
+            sampleBuffer[0]            = 0;
+            break;
+        case B1:
+            adcConversionGroup.smpr[2] = ADC_SMPR2_SMP_AN16(ADC_SAMPLING_RATE);
+            adcConversionGroup.sqr[0]  = ADC_SQR1_SQ1_N(ADC_CHANNEL_IN16);
+            sampleBuffer[0]            = 0;
+            break;
+        default:
+            return 0;
+    }
+    adcStart(targetDriver, &adcCfg);
+    if (adcConvert(targetDriver, &adcConversionGroup, &sampleBuffer[0], ADC_BUFFER_DEPTH) != MSG_OK) {
+        return 0;
+    }
+
+    return *sampleBuffer;
+}
+
+void keyboard_post_init_kb(void) {
+    // 1. The pin A5/B5 of the USB C interface in the left hand is connected to the pin A0 of MCU,
+    // A0 will be set to output and write high when keyboard initial.
+    // 2. The same pin in the right hand is connected to the pin B0 and B1 of MCU respectively,
+    // and the ADC function of B0 and B1 will be enabled when keyboard initial.
+    // 3. because the serial usart RXD and TXD is multiplexed on USB's D+ and D- in the right hand.
+    // So detect the voltage on the pin A5/B5 of the USB C interface by ADC,
+    // and disable USB connectivity when the ADC value exceeds 1000,
+    // to avoid affecting the serial usart communication between the left hand and the right hand.
+    if (is_keyboard_left()) {
+        setPinOutput(A0);
+        writePinHigh(A0);
+    } else {
+        if ((analogReadPin_my(B0) > 1000) || (analogReadPin_my(B1) > 1000)) {
+            setPinInput(A11);
+            setPinInput(A12);
+        }
+    }
+
+    keyboard_post_init_user();
+}
