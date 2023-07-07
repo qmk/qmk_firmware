@@ -1,7 +1,6 @@
 // Copyright 2022 Stefan Kerkmann
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
 #include "serial_usart.h"
 #include "serial_protocol.h"
 #include "hardware/pio.h"
