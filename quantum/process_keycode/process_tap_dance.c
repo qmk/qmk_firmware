@@ -95,11 +95,9 @@ static inline void process_tap_dance_action_on_each_tap(tap_dance_action_t *acti
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_tap);
 }
 
-#ifdef TAP_DANCE_ON_EACH_RELEASE
 static inline void process_tap_dance_action_on_each_release(tap_dance_action_t *action) {
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_release);
 }
-#endif
 
 static inline void process_tap_dance_action_on_reset(tap_dance_action_t *action) {
     _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_reset);
@@ -164,9 +162,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
                 process_tap_dance_action_on_each_tap(action);
                 active_td = action->state.finished ? 0 : keycode;
             } else {
-#ifdef TAP_DANCE_ON_EACH_RELEASE
                 process_tap_dance_action_on_each_release(action);
-#endif
                 if (action->state.finished) {
                     process_tap_dance_action_on_reset(action);
                 }
