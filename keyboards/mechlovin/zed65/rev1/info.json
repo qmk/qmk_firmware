@@ -41,7 +41,20 @@
         "pin": "A7",
         "driver": "spi"
     },
-    "community_layouts": ["65_ansi_blocker_tsangan"],
+    "community_layouts": [
+        "65_ansi",
+        "65_ansi_split_bs",
+        "65_ansi_blocker",
+        "65_ansi_blocker_split_bs",
+        "65_ansi_blocker_tsangan",
+        "65_ansi_blocker_tsangan_split_bs",
+        "65_iso",
+        "65_iso_split_bs",
+        "65_iso_blocker",
+        "65_iso_blocker_split_bs",
+        "65_iso_blocker_tsangan",
+        "65_iso_blocker_tsangan_split_bs"
+    ],
     "layout_aliases": {
         "LAYOUT_65_ansi_tsangan": "LAYOUT_65_ansi",
         "LAYOUT_65_iso_tsangan_split_bs": "LAYOUT_65_iso_split_bs",
