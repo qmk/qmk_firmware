@@ -30,8 +30,8 @@ typedef struct ch_integrated_pwm_device_t {
 // Driver and callback storage
 ch_integrated_pwm_device_t ch_integrated_pwm_drivers[INTEGRATED_PWM_NUM_DEVICES] = {0};
 
-// These functions are used for as the PWM driver callbacks directly, which
-// requires accepting a (Chibios-specific) PWMDriver* argument. The only job
+// These functions are used for the PWM driver callbacks directly, which
+// requires accepting a (ChibiOS-specific) PWMDriver* argument. The only job
 // of these callback functions is to redirect the call to a non-Chibios-specific
 // callback function typed as void (*_callback)(void).  
 #define MAKE_CH_INTEGRATED_PWM_TRIGGER_CALLBACK(index) \
@@ -49,7 +49,7 @@ void ch_integrated_pwm_period_callback##index(PWMDriver *pwmp) { \
 #define MAKE_CH_INTEGRATED_PWM_TRIGGER_CALLBACK_FN_NAME(index) ch_integrated_pwm_trigger_callback##index
 #define MAKE_CH_INTEGRATED_PWM_PERIOD_CALLBACK_FN_NAME(index) ch_integrated_pwm_period_callback##index
 
-// Generate the trigger callbacks and periodic callbacks for each PWM device (as-needed)
+// Generate unique ChibiOS-compatible trigger callbacks and periodic callbacks for each PWM device (as-needed)
 #if INTEGRATED_PWM_NUM_DEVICES > 0
 MAKE_CH_INTEGRATED_PWM_TRIGGER_CALLBACK(0);
 MAKE_CH_INTEGRATED_PWM_PERIOD_CALLBACK(0);
@@ -116,7 +116,7 @@ MAKE_CH_INTEGRATED_PWM_PERIOD_CALLBACK(15);
 #endif
 
 
-// Driver and callback storage
+// Store the callback function pointers in an array so they can be accessed by index value
 pwmcallback_t ch_integrated_pwm_trigger_callbacks[INTEGRATED_PWM_NUM_DEVICES] = {
     #if INTEGRATED_PWM_NUM_DEVICES > 0
     ch_integrated_pwm_trigger_callback0,

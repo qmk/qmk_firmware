@@ -159,31 +159,6 @@ Callback functions must accept no arguments and return no values.
 
 #### ** PWM Initialisation **
 
-
-
-
-/**
- * Sets the trigger callback for the PWM device. 
- *
- * @param device[in] the handle of the device to control
- * @param trigger_callback[in] the callback function to execute upon triggering
- * @return true if setting the callback function succeeded
- * @return false if setting the callback function failed
- */
-
-
-
-/**
- * Sets the period callback for the PWM device. 
- *
- * @param device[in] the handle of the device to control
- * @param period_callback[in] the callback function to execute upon PWM period elapsing
- * @return true if setting the callback function succeeded
- * @return false if setting the callback function failed
- */
-bool qpwm_set_period_callback(pwm_device_t device, pwm_driver_callback_t period_callback);
-
-
 ```c
 bool qpwm_init(pwm_device_t device);
 ```

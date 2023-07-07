@@ -27,7 +27,6 @@ bool software_pwm_init(pwm_device_t device) {
 bool software_pwm_power(pwm_device_t device, bool power_on) {
     software_pwm_device_t *driver = (software_pwm_device_t *) device;
     driver->enabled = power_on;
-    //driver->period_func(); 
     if (driver->base.period_callback) {    
         driver->base.period_callback();  // Return to the baseline state
     }

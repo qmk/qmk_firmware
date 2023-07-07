@@ -25,7 +25,7 @@ bool qpwm_internal_register_device(pwm_device_t driver) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Quantum Painter Core API: qpwm_internal_task
+// Quantum PWM Core API: qpwm_internal_task
 
 _Static_assert((QUANTUM_PWM_TASK_THROTTLE) >= 0 && (QUANTUM_PWM_TASK_THROTTLE) < 1000, "QUANTUM_PWM_TASK_THROTTLE must be between 0 and 999");
 
