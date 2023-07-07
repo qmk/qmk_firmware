@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Dactyl-Manuform (5x6) 62 Keys",
+    "keyboard_name": "Dactyl-Manuform (4x6 + 4 and 3 for thumbs)",
     "manufacturer": "joshreve",
-    "url": "https://github.com/okke-formsma/dactyl-manuform-tight",
-    "maintainer": "rekarnar",
+    "url": "https://github.com/joshreve/dactyl-keyboard",
+    "maintainer": "rek",
     "usb": {
         "vid": "0x444D",
         "pid": "0x3536",
