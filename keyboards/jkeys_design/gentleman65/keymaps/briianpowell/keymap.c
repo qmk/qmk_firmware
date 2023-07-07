@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "features/custom_shift_keys.h"
 
 #define FN_ESC LT(_FUNC, KC_ESC)
 
@@ -28,6 +29,10 @@ enum gentleman_keycodes {
     WORKMAN,
     FUNC,
 };
+
+const custom_shift_key_t custom_shift_keys[] = {{KC_ESC, KC_TILD}};
+
+uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY] = LAYOUT_65_ansi_rwkl_split_bs(
@@ -78,6 +83,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_custom_shift_keys(keycode, record)) {
+        return false;
+    }
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
@@ -90,7 +98,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
     }
-    
+
     return true;
 }
-
