@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { F5, B5, B6, B2, B3 }
-#define MATRIX_COL_PINS { E6, B4, D7, B1 }
-
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN F4
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 16
     #define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING
@@ -37,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif
 
 /* OLED Configuration */
 #ifdef OLED_ENABLE

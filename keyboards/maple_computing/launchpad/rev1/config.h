@@ -17,16 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "../config.h"
-
-/* Let's Macro V2 pin-out */
-#define MATRIX_ROW_PINS { C6, B1, B3, D7 }
-#define MATRIX_COL_PINS { D2, F7 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #define RGBLED_NUM 10
-#define RGB_DI_PIN F6
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

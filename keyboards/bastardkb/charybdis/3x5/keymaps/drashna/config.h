@@ -39,8 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SPLIT_HAND_PIN C14 // high = left, low = right
 
 // WS2812 RGB LED strip input and number of LEDs
-#    undef RGB_DI_PIN
-#    define RGB_DI_PIN A1
+#    undef WS2812_DI_PIN
+#    define WS2812_DI_PIN A1
 #    undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #    define WS2812_PWM_DRIVER PWMD2 // default: PWMD2

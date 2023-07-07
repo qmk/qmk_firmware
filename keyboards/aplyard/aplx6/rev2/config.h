@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* 9Key PCB default pin-out */
-#define MATRIX_ROW_PINS { B4, B5 }
-#define MATRIX_COL_PINS { C6, D7, E6 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 #define TAPPING_TERM 200
 
 #define TAP_CODE_DELAY 50

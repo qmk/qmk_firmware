@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kb16.h"
+#include "quantum.h"
 
 // OLED animation
 #include "./lib/logo.h"

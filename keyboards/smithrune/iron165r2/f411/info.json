@@ -4,6 +4,10 @@
         "levels": 20,
         "breathing": true
     },
+    "ws2812": {
+        "pin": "B15",
+        "driver": "pwm"
+    },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu"
 }
