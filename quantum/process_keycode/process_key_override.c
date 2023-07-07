@@ -322,6 +322,15 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 
         clear_active_override(false);
 
+#ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
+        // Send a dummy keycode before unregistering the modifier(s)
+        // so that suppressing the modifier(s) doesn't falsely get interpreted
+        // by the host OS as a tap of a modifier key.
+        // For example, unintended activations of the start menu on Windows when
+        // using a GUI+<kc> key override with suppressed mods.
+        neutralize_flashing_modifiers(active_mods);
+#endif
+
         active_override                 = override;
         active_override_trigger_is_down = true;
 
