@@ -1,6 +1,6 @@
 # qk21_V1
 
-![qk21](imgur.com image replace me!)
+![qk21](https://i.imgur.com/d65CJC5h.jpg)
 
 The following is the QMK Firmware for the number pad 6x4 keylayout - designed in Dongguan Jizhi Electronic Technology Co., Ltd
 
