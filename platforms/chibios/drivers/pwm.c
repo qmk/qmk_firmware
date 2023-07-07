@@ -295,13 +295,13 @@ bool ch_integrated_pwm_set_frequency(pwm_device_t device, float frequency) {
 
     if (driver->pwm_started == false) {
         // PWM not running, update configuration data only
-        CH_INTEGRATED_PWM_CONFIG.period      = (CH_INTEGRATED_PWM_CONFIG.frequency / frequency ); // (timer clock frequency / PWM frequency)
+        CH_INTEGRATED_PWM_CONFIG.period      = (CH_INTEGRATED_PWM_CONFIG.frequency / frequency); // (timer clock frequency / PWM frequency)
         CH_INTEGRATED_PWM_DRIVER_PTR->period = CH_INTEGRATED_PWM_CONFIG.period;
         return true;
     }
 
     chSysLockFromISR();
-    pwmChangePeriodI(CH_INTEGRATED_PWM_DRIVER_PTR, (CH_INTEGRATED_PWM_CONFIG.frequency / frequency ));
+    pwmChangePeriodI(CH_INTEGRATED_PWM_DRIVER_PTR, (CH_INTEGRATED_PWM_CONFIG.frequency / frequency));
     pwmEnableChannelI(CH_INTEGRATED_PWM_DRIVER_PTR, (CH_INTEGRATED_PWM_CHANNEL - 1), PWM_PERCENTAGE_TO_WIDTH(CH_INTEGRATED_PWM_DRIVER_PTR, (uint16_t)(driver->base.duty_cycle * 100.0)));
     chSysUnlockFromISR();
     return true;
@@ -370,12 +370,12 @@ bool ch_integrated_pwm_set_period_callback(pwm_device_t device, pwm_driver_callb
 // Driver vtable
 
 const pwm_driver_vtable_t integrated_pwm_driver_vtable = {
-    .init                   = ch_integrated_pwm_init,
-    .power                  = ch_integrated_pwm_power,
-    .set_frequency          = ch_integrated_pwm_set_frequency,
-    .set_duty_cycle         = ch_integrated_pwm_set_duty_cycle,
-    .set_trigger_callback   = ch_integrated_pwm_set_trigger_callback,
-    .set_period_callback    = ch_integrated_pwm_set_period_callback,
+    .init                  = ch_integrated_pwm_init,
+    .power                 = ch_integrated_pwm_power,
+    .set_frequency         = ch_integrated_pwm_set_frequency,
+    .set_duty_cycle        = ch_integrated_pwm_set_duty_cycle,
+    .set_trigger_callback  = ch_integrated_pwm_set_trigger_callback,
+    .set_period_callback   = ch_integrated_pwm_set_period_callback,
 };
 
 // Factory function for creating a handle to the PWM device
@@ -446,7 +446,7 @@ ch_integrated_pwm_config_t make_ch_integrated_pwm_config(PWMDriver *pwm_driver, 
 // A integrated_pwm_config_t can also be made entirely from scratch similar to how this function creates it.
 ch_integrated_pwm_pin_t make_ch_integrated_pwm_pin(pin_t pin, iomode_t pal_mode) {
     ch_integrated_pwm_pin_t ch_pwm_pin;
-    ch_pwm_pin.pin = pin;
+    ch_pwm_pin.pin      = pin;
     ch_pwm_pin.pal_mode = pal_mode;
 
     return ch_pwm_pin;

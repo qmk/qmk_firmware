@@ -55,7 +55,7 @@ bool software_pwm_set_trigger_callback(pwm_device_t device, pwm_driver_callback_
 
 // PWM period callback assignment
 bool software_pwm_set_period_callback(pwm_device_t device, pwm_driver_callback_t period_callback) {
-    pwm_driver_t *driver = (pwm_driver_t *) device;
+    pwm_driver_t *driver    = (pwm_driver_t *)device;
     driver->period_callback = period_callback;
     return true;
 }
@@ -107,12 +107,12 @@ void software_pwm_update_task_func(pwm_device_t device, uint8_t tick) {
 // Driver vtable
 
 const pwm_driver_vtable_t software_pwm_driver_vtable = {
-    .init                  = software_pwm_init,
-    .power                 = software_pwm_power,
-    .set_frequency         = software_pwm_set_frequency,
-    .set_duty_cycle        = software_pwm_set_duty_cycle,
-    .set_trigger_callback  = software_pwm_set_trigger_callback,
-    .set_period_callback   = software_pwm_set_period_callback, 
+    .init                 = software_pwm_init,
+    .power                = software_pwm_power,
+    .set_frequency        = software_pwm_set_frequency,
+    .set_duty_cycle       = software_pwm_set_duty_cycle,
+    .set_trigger_callback = software_pwm_set_trigger_callback,
+    .set_period_callback  = software_pwm_set_period_callback,
 };
 
 // Factory function for creating a handle to the PWM device

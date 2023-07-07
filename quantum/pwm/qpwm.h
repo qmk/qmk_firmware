@@ -98,7 +98,6 @@ bool qpwm_set_duty_cycle(pwm_device_t device, float duty);
  */
 bool qpwm_set_trigger_callback(pwm_device_t device, pwm_driver_callback_t trigger_callback);
 
-
 /**
  * Sets the period callback for the PWM device.
  *
