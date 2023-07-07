@@ -18,6 +18,6 @@ Flashing example for this keyboard:
     make keychron/q11/ansi_encoder:default:flash
     make keychron/q11/iso_encoder:default:flash
 
-**Reset Key**: The master and slave side should be flashed individually, to enter flashing mode, hold down the key located at *K01*, which programmed as *Esc* while plugging in the keyboard for the master side and hold down the key located at *K67*, which programmed as *Del* while plugging in the keyboard for the slave side.
+**Reset Key**: Hold down the key located at *K01*, which programmed as *Esc* while plugging in the keyboard.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

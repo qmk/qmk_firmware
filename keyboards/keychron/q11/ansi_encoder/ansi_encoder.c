@@ -125,4 +125,5 @@ const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
     {0, G_1,  I_1,  H_1},  // Down
     {0, G_7,  I_7,  H_7},  // Right
 };
+
 #endif

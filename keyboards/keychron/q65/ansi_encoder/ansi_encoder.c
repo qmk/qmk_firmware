@@ -19,12 +19,12 @@
 #ifdef RGB_MATRIX_ENABLE
 
 const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
-/* Refer to CKLED manual for these locations
+/* Refer to CKLED2001 manual for these locations
  *   driver
  *   |  R location
- *   |  |       G location
- *   |  |       |       B location
- *   |  |       |       | */
+ *   |  |     G location
+ *   |  |     |     B location
+ *   |  |     |     | */
     {0, C_15, A_15, B_15}, // Esc
     {0, C_14, A_14, B_14}, // 1!
     {0, C_13, A_13, B_13}, // 2@
@@ -128,8 +128,8 @@ led_config_t g_led_config = {
         1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,
         1, 9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1,    1,
         1, 1,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    1, 1, 1,
-        1, 1, 1, 1,          4,          1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1,          4,          1, 4, 4, 1, 1, 1,
     }
 };
 
-#endif // RGB_MATRIX_ENABLE
+#endif
