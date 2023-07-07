@@ -40,6 +40,4 @@ ifeq ($(strip $(OVERLOAD_FEATURES)), yes)
     CUSTOM_UNICODE_ENABLE = yes
     CUSTOM_POINTING_DEVICE = yes
     CUSTOM_SPLIT_TRANSPORT_SYNC = yes
-
-    DEBOUNCE_TYPE = asym_eager_defer_pk
 endif

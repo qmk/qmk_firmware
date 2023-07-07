@@ -1,12 +1,13 @@
 """Functions that help us generate and use info.json files.
 """
 import json
-from collections.abc import Mapping
-from functools import lru_cache
-from pathlib import Path
-
 import hjson
 import jsonschema
+from collections.abc import Mapping
+from functools import lru_cache
+from typing import OrderedDict
+from pathlib import Path
+
 from milc import cli
 
 
@@ -101,3 +102,37 @@ def deep_update(origdict, newdict):
             origdict[key] = value
 
     return origdict
+
+
+def merge_ordered_dicts(dicts):
+    """Merges nested OrderedDict objects resulting from reading a hjson file.
+    Later input dicts overrides earlier dicts for plain values.
+    If any value is "!delete!", the existing value will be removed from its parent.
+    Arrays will be appended. If the first entry of an array is "!reset!", the contents of the array will be cleared and replaced with RHS.
+    Dictionaries will be recursively merged. If any entry is "!reset!", the contents of the dictionary will be cleared and replaced with RHS.
+    """
+    result = OrderedDict()
+
+    def add_entry(target, k, v):
+        if k in target and isinstance(v, (OrderedDict, dict)):
+            if "!reset!" in v:
+                target[k] = v
+            else:
+                target[k] = merge_ordered_dicts([target[k], v])
+            if "!reset!" in target[k]:
+                del target[k]["!reset!"]
+        elif k in target and isinstance(v, list):
+            if v[0] == '!reset!':
+                target[k] = v[1:]
+            else:
+                target[k] = target[k] + v
+        elif v == "!delete!" and isinstance(target, (OrderedDict, dict)):
+            del target[k]
+        else:
+            target[k] = v
+
+    for d in dicts:
+        for (k, v) in d.items():
+            add_entry(result, k, v)
+
+    return result

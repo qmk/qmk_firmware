@@ -15,14 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifdef VIA_ENABLE
-  #define USER_START USER00
-#else
-  #define USER_START SAFE_RANGE
-#endif
-
 enum jpe230_keycodes {
-  KC_LSRS = USER_START,
+  KC_LSRS = QK_KB_0,
   KC_LERS,
   KC_LSRE
 };

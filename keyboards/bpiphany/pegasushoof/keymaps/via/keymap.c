@@ -1,4 +1,5 @@
-/* Copyright 2016 Daniel Svensson <dsvensson@gmail.com>
+/*!
+ * Copyright 2016 Daniel Svensson <dsvensson@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,19 +41,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,                            _______,                            _______, _______, QK_BOOT,   _______,    KC_MPRV, KC_MSTP, KC_MNXT
   )
 };
-
-bool led_update_user(led_t led_state) {
-    if (led_state.caps_lock) {
-        ph_caps_led_on();
-    } else {
-        ph_caps_led_off();
-    }
-
-    if (led_state.scroll_lock) {
-        ph_sclk_led_on();
-    } else {
-        ph_sclk_led_off();
-    }
-    return false;
-}
-

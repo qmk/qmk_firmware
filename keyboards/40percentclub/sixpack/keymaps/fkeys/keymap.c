@@ -26,7 +26,7 @@ enum {
 };
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for F13 to F18, twice for F19 to F24
     [F13F19] = ACTION_TAP_DANCE_DOUBLE(KC_F13, KC_F19), [F14F20] = ACTION_TAP_DANCE_DOUBLE(KC_F14, KC_F20), [F15F21] = ACTION_TAP_DANCE_DOUBLE(KC_F15, KC_F21),
     [F16F22] = ACTION_TAP_DANCE_DOUBLE(KC_F16, KC_F22), [F17F23] = ACTION_TAP_DANCE_DOUBLE(KC_F17, KC_F23), [F18F24] = ACTION_TAP_DANCE_DOUBLE(KC_F18, KC_F24)

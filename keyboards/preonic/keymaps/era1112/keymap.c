@@ -66,7 +66,7 @@ typedef struct {
     td_state_t state;
 } td_tap_t;
 
-td_state_t cur_dance(qk_tap_dance_state_t* state);
+td_state_t cur_dance(tap_dance_state_t* state);
 
 /* Return an integer that corresponds to what kind of tap dance should be executed.
  *
@@ -95,7 +95,7 @@ td_state_t cur_dance(qk_tap_dance_state_t* state);
  * For the third point, there does exist the 'TD_DOUBLE_SINGLE_TAP', however this is not fully tested
  *
  */
-td_state_t cur_dance(qk_tap_dance_state_t* state) {
+td_state_t cur_dance(tap_dance_state_t* state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) {
             return TD_1_TAP;
@@ -117,15 +117,15 @@ td_state_t cur_dance(qk_tap_dance_state_t* state) {
 
 //----------- 2tap capslock --------------//
 //----------------------------------------//
-void twoCapsLock_finished(qk_tap_dance_state_t* state, void* user_data);
-void twoCapsLock_reset(qk_tap_dance_state_t* state, void* user_data);
+void twoCapsLock_finished(tap_dance_state_t* state, void* user_data);
+void twoCapsLock_reset(tap_dance_state_t* state, void* user_data);
 
 static td_tap_t twoCapsLock_tap_state = {
     .is_press_action = true,
     .state = TD_NONE
 };
 
-void twoCapsLock_finished(qk_tap_dance_state_t* state, void* user_data) {
+void twoCapsLock_finished(tap_dance_state_t* state, void* user_data) {
     twoCapsLock_tap_state.state = cur_dance(state);
     switch (twoCapsLock_tap_state.state) {
     case TD_NONE: register_code(KC_LSFT); break;
@@ -142,7 +142,7 @@ void twoCapsLock_finished(qk_tap_dance_state_t* state, void* user_data) {
     }
 }
 
-void twoCapsLock_reset(qk_tap_dance_state_t* state, void* user_data) {
+void twoCapsLock_reset(tap_dance_state_t* state, void* user_data) {
     switch (twoCapsLock_tap_state.state) {
     case TD_UNKNOWN: unregister_code(KC_LSFT); break;
     case TD_NONE: unregister_code(KC_LSFT); break;
@@ -202,7 +202,7 @@ enum custom_keycodes {
 
 static bool blinky = false;         // Track blinky behavior on/off for keycode
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_2_CAPSLOCK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, twoCapsLock_finished, twoCapsLock_reset)
 };
 

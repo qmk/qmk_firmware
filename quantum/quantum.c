@@ -76,7 +76,7 @@ void do_code16(uint16_t code, void (*f)(uint8_t)) {
 }
 
 __attribute__((weak)) void register_code16(uint16_t code) {
-    if (IS_MOD(code) || code == KC_NO) {
+    if (IS_MODIFIER_KEYCODE(code) || code == KC_NO) {
         do_code16(code, register_mods);
     } else {
         do_code16(code, register_weak_mods);
@@ -86,7 +86,7 @@ __attribute__((weak)) void register_code16(uint16_t code) {
 
 __attribute__((weak)) void unregister_code16(uint16_t code) {
     unregister_code(code);
-    if (IS_MOD(code) || code == KC_NO) {
+    if (IS_MODIFIER_KEYCODE(code) || code == KC_NO) {
         do_code16(code, unregister_mods);
     } else {
         do_code16(code, unregister_weak_mods);
@@ -112,6 +112,14 @@ __attribute__((weak)) void tap_code16_delay(uint16_t code, uint16_t delay) {
  */
 __attribute__((weak)) void tap_code16(uint16_t code) {
     tap_code16_delay(code, code == KC_CAPS_LOCK ? TAP_HOLD_CAPS_DELAY : TAP_CODE_DELAY);
+}
+
+__attribute__((weak)) bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    return pre_process_record_user(keycode, record);
+}
+
+__attribute__((weak)) bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return true;
 }
 
 __attribute__((weak)) bool process_action_kb(keyrecord_t *record) {
@@ -168,7 +176,7 @@ void soft_reset_keyboard(void) {
 
 /* Convert record into usable keycode via the contained event. */
 uint16_t get_record_keycode(keyrecord_t *record, bool update_layer_cache) {
-#ifdef COMBO_ENABLE
+#if defined(COMBO_ENABLE) || defined(REPEAT_KEY_ENABLE)
     if (record->keycode) {
         return record->keycode;
     }
@@ -202,14 +210,12 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
 
 /* Get keycode, and then process pre tapping functionality */
 bool pre_process_record_quantum(keyrecord_t *record) {
-    if (!(
+    uint16_t keycode = get_record_keycode(record, true);
+    return pre_process_record_kb(keycode, record) &&
 #ifdef COMBO_ENABLE
-            process_combo(get_record_keycode(record, true), record) &&
+           process_combo(keycode, record) &&
 #endif
-            true)) {
-        return false;
-    }
-    return true; // continue processing
+           true;
 }
 
 /* Get keycode, and then call keyboard function */
@@ -238,6 +244,14 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 #endif
 
+#ifdef TAP_DANCE_ENABLE
+    if (preprocess_tap_dance(keycode, record)) {
+        // The tap dance might have updated the layer state, therefore the
+        // result of the keycode lookup might change.
+        keycode = get_record_keycode(record, true);
+    }
+#endif
+
 #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled() && record->event.pressed) {
         velocikey_accelerate();
@@ -250,14 +264,6 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 #endif
 
-#ifdef TAP_DANCE_ENABLE
-    if (preprocess_tap_dance(keycode, record)) {
-        // The tap dance might have updated the layer state, therefore the
-        // result of the keycode lookup might change.
-        keycode = get_record_keycode(record, true);
-    }
-#endif
-
     if (!(
 #if defined(KEY_LOCK_ENABLE)
             // Must run first to be able to mask key_up events.
@@ -266,6 +272,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(DYNAMIC_MACRO_ENABLE) && !defined(DYNAMIC_MACRO_USER_CALL)
             // Must run asap to ensure all keypresses are recorded.
             process_dynamic_macro(keycode, record) &&
+#endif
+#ifdef REPEAT_KEY_ENABLE
+            process_last_key(keycode, record) && process_repeat_key(keycode, record) &&
 #endif
 #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
             process_clicky(keycode, record) &&
@@ -342,6 +351,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef AUTOCORRECT_ENABLE
             process_autocorrect(keycode, record) &&
+#endif
+#ifdef TRI_LAYER_ENABLE
+            process_tri_layer(keycode, record) &&
 #endif
             true)) {
         return false;
@@ -443,31 +455,13 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
     default_layer_set((layer_state_t)1 << default_layer);
 }
 
-layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-    layer_state_t mask12 = ((layer_state_t)1 << layer1) | ((layer_state_t)1 << layer2);
-    layer_state_t mask3  = (layer_state_t)1 << layer3;
-    return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
-}
-
-void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-    layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
-}
-
-// TODO: remove legacy api
-void matrix_init_quantum() {
-    matrix_init_kb();
-}
-void matrix_scan_quantum() {
-    matrix_scan_kb();
-}
-
 //------------------------------------------------------------------------------
 // Override these functions in your keymap file to play different tunes on
 // different events such as startup and bootloader jump
 
-__attribute__((weak)) void startup_user() {}
+__attribute__((weak)) void startup_user(void) {}
 
-__attribute__((weak)) void shutdown_user() {}
+__attribute__((weak)) void shutdown_user(void) {}
 
 void suspend_power_down_quantum(void) {
     suspend_power_down_kb();

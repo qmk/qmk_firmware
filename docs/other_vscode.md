@@ -46,16 +46,7 @@ Before starting, you will want to make sure that you have all of the build tools
 
 This part is super simple.  However, there is some configuration that we need to do to ensure things are configured correctly.
 
-### Configuring VS Code
-
-First, we need to set up IntelliSense. This isn't strictly required, but it will make your life a LOT easier. To do this, we need to create the `.vscode/c_cpp_properties.json` file in the QMK Firmware folder, You can do this all manually, but I've done most of the work already. 
-
-Grab [this file](https://gist.github.com/drashna/48e2c49ce877be592a1650f91f8473e8) and save it.  You may need to edit this file, if you didn't install MSYS2 to the default location, or are using WSL/LxSS.  
-
-Once you have saved this file, you will need to reload VS Code, if it was already running. 
-
-?> You should see an `extensions.json` and `settings.json` file in the `.vscode` folder, as well.
-
+#### MSYS2 Setup
 
 Now, we will set up the MSYS2 window to show up in VSCode as the integrated terminal.  This has a number of advantages. Mostly, you can control+click on errors and jump to those files.  This makes debugging much easier.  It's also nice, in that you don't have to jump to another window. 
 
@@ -97,21 +88,32 @@ Now, we will set up the MSYS2 window to show up in VSCode as the integrated term
 
 No, really, that's it.  The paths needed are already included when installing the packages, and it is much better about detecting the current workspace files and parsing them for IntelliSense. 
 
-## Plugins
+## Extensions
 
 There are a number of extensions that you may want to install:
 
-* [Git Extension Pack](https://marketplace.visualstudio.com/items?itemName=donjayamanne.git-extension-pack) - 
-This installs a bunch of Git related tools that may make using Git with QMK Firmware easier.
+* [Git Extension Pack](https://marketplace.visualstudio.com/items?itemName=donjayamanne.git-extension-pack) - This installs a bunch of Git related tools that may make using Git with QMK Firmware easier.
+* [clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) - _[Optional]_ -  This is the language server for C/C++ that VS Code uses.  It provides IntelliSense and other features.
 * [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig) - _[Optional]_ -  Helps to keep the code to the QMK Coding Conventions.
 * [GitHub Markdown Preview](https://marketplace.visualstudio.com/items?itemName=bierner.github-markdown-preview) - _[Optional]_ - Makes the markdown preview in VS Code more like GitHub's.
 * [VS Live Share Extension Pack](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare-pack) - _[Optional]_ - This extension allows somebody else to access your workspace (or you to access somebody else's workspace) and help out.  This is great if you're having issues and need some help from somebody.
 
-Restart once you've installed any extensions
+Restart once you've installed any extensions.
 
 # Configure VS Code for QMK
+
 1. Click <kbd><kbd>File</kbd> > <kbd>Open Folder</kbd></kbd>
-2. Open the QMK Firmware folder that you cloned from GitHub. 
+2. Open the QMK Firmware folder that you cloned from GitHub.
 3. Click <kbd><kbd>File</kbd> > <kbd>Save Workspace As...</kbd></kbd>
 
-And now you're ready to code QMK Firmware in VS Code
+## Configuring VS Code
+
+Using the [standard `compile_commands.json` database](https://clang.llvm.org/docs/JSONCompilationDatabase.html), we can get the VS code _clangd_ extension to use the correct includes and defines used for your keyboard and keymap.
+
+1. Run `qmk generate-compilation-database -kb <keyboard> -km <keymap>` to generate the `compile_commands.json`.
+1. Inside VS code, press <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd> (macOS: <kbd><kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd>) to open the command palette.
+1. Start typing `clangd: Download Language Server` and select it when it appears. Note that this only needs to be done once on clangd extension installation, if it didn't already ask to do so.
+1. Inside VS code, press <kbd><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd> (macOS: <kbd><kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd></kbd>) to open the command palette.
+1. Start typing `clangd: Restart Language Server` and select it when it appears.
+
+Now you're ready to code QMK Firmware in VS Code!

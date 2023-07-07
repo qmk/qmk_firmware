@@ -361,11 +361,11 @@ void custom_config_reset(void){
   eeprom_update_byte((uint8_t*)EEPROM_ENABLED_ENCODER_MODES, 0x1F);
 }
 
-void backlight_config_save(){
+void backlight_config_save(void){
   eeprom_update_byte((uint8_t*)EEPROM_CUSTOM_BACKLIGHT, kb_backlight_config.raw);
 }
 
-void custom_config_load(){
+void custom_config_load(void){
   kb_backlight_config.raw = eeprom_read_byte((uint8_t*)EEPROM_CUSTOM_BACKLIGHT);
 #ifdef DYNAMIC_KEYMAP_ENABLE
   oled_mode = eeprom_read_byte((uint8_t*)EEPROM_DEFAULT_OLED);

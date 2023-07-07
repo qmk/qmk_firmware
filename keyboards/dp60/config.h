@@ -15,15 +15,11 @@
  */
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 #define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
 
 /*
  * Feature disable options
@@ -38,7 +34,6 @@
 
 //rgb light setting
 #define RGBLED_NUM      18
-#define RGB_DI_PIN      D7
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

@@ -17,37 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *                  NO_DIODE = switches are directly connected to AVR pins
- *
-*/
-#define DIRECT_PINS {   \
-    { D4, F6, B5, E6 }, \
-    { F5, F7, B4, C6 } \
-}
-
-#define BACKLIGHT_PIN D7
-#define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
 #define RGBLIGHT_SLEEP
 
 
 /* ws2812B RGB LED */
 #ifdef RGBLIGHT_ENABLE
-#   define RGB_DI_PIN F4
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -62,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_HUE_STEP 10
 #    define RGBLIGHT_SAT_STEP 17
 #    define RGBLIGHT_VAL_STEP 17
-#    define RGBLIGHT_LIMIT_VAL 255
 #endif
 
 #ifdef OLED_ENABLE

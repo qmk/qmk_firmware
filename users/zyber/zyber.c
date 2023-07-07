@@ -65,14 +65,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 /* Screenshoot */
-void dance_SSHT_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_SSHT_finished(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
 		tap_code16(C(S(G(KC_4))));
 	} else {
 		tap_code(KC_4);
 	}
 }
-void dance_SSHT_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_SSHT_reset(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
 		unregister_code16(C(S(G(KC_4))));
 	} else {
@@ -81,14 +81,14 @@ void dance_SSHT_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 /* Å */
-void dance_LBRC_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_LBRC_finished(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
 		tap_code16(A(KC_LBRC));
 	} else {
 		tap_code(KC_LBRC);
 	}
 }
-void dance_LBRC_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_LBRC_reset(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
 		unregister_code16(A(KC_LBRC));
 	} else {
@@ -97,14 +97,14 @@ void dance_LBRC_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 /* Ö */
-void dance_SCLN_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_SCLN_finished(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
 		tap_code16(A(KC_SCLN));
 	} else {
 		tap_code(KC_SCLN);
 	}
 }
-void dance_SCLN_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_SCLN_reset(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
 		unregister_code16(A(KC_SCLN));
 	} else {
@@ -113,14 +113,14 @@ void dance_SCLN_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 /* Ä */
-void dance_QUOT_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_QUOT_finished(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
 		tap_code16(A(KC_QUOT));
 	} else {
 		tap_code(KC_QUOT);
 	}
 }
-void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_QUOT_reset(tap_dance_state_t *state, void *user_data) {
 	if (state->count == 2) {
 		unregister_code16(A(KC_QUOT));
 	} else {
@@ -128,7 +128,7 @@ void dance_QUOT_reset(qk_tap_dance_state_t *state, void *user_data) {
 	}
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
 	[SSHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_SSHT_finished, dance_SSHT_reset),
 	[LBRC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LBRC_finished, dance_LBRC_reset),
 	[SCLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_SCLN_finished, dance_SCLN_reset),

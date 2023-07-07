@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define LED_NUM_LOCK_PIN D0
-#define LED_CAPS_LOCK_PIN D1
-#define LED_SCROLL_LOCK_PIN D6
-
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -34,15 +28,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 12
-
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 3
-
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 13
-
-#define MATRIX_ROW_PINS { B0, B1, B2, B3 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3}
-
-#define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE 5

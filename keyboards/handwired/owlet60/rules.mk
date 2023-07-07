@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,5 +14,3 @@ CUSTOM_MATRIX = yes
 OLED_ENABLE = no
 
 SRC += matrix.c
-
-LAYOUTS = alice alice_split_bs

@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_all(
                   KC_TRNS,  CK_DOWN,   CK_UP,     CK_RST,
-                  MU_TOG,   MU_MOD,    KC_TRNS,   KC_TRNS,
+                  MU_TOGG,  MU_NEXT,   KC_TRNS,   KC_TRNS,
                   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,
                   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,
                   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [1] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI) },
     [2] = { ENCODER_CCW_CW(RGB_SAD, RGB_SAI) },

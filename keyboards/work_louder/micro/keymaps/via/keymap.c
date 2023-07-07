@@ -24,14 +24,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [3] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        USER00,  USER01,  USER03,  USER05,
-        XXXXXXX, USER02,  USER04,  USER06,
+        QK_KB_0, QK_KB_1, QK_KB_3, QK_KB_5,
+        XXXXXXX, QK_KB_2, QK_KB_4, QK_KB_6,
         XXXXXXX, XXXXXXX, XXXXXXX, TO(0)
     )
 };
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),           ENCODER_CCW_CW(C(KC_Z), C(KC_Y))  },
     { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
     { ENCODER_CCW_CW(_______, _______),           ENCODER_CCW_CW(_______, _______)  },
@@ -53,7 +53,7 @@ work_louder_config_t work_louder_config;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case USER09:
+        case QK_KB_9:
             if (record->event.pressed) {
                 work_louder_config.led_level++;
                 if (work_louder_config.led_level > 4) {

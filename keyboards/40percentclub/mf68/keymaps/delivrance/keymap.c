@@ -138,7 +138,7 @@ void led_blink(void) {
     backlight_toggle();
 }
 
-void dynamic_macro_record_start_user(void) {
+void dynamic_macro_record_start_user(int8_t direction) {
     led_blink();
 }
 
@@ -197,7 +197,7 @@ void led_set_user(uint8_t usb_led) {
 static uint32_t timer;
 static bool is_idle;
 
-void matrix_scan_user() {
+void matrix_scan_user(void) {
     // Check the timer only if the keyboard is not idle
     if (!is_idle) {
         if (timer_elapsed32(timer) >= (uint32_t) BACKLIGHT_IDLE_TIMEOUT * 1000) {

@@ -323,7 +323,7 @@
 #define __________________ADJUST_L2__________________   KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MNXT
 #define __________________ADJUST_L3__________________   KC_VRSN, AU_ON,   AU_OFF,  CG_SWAP, CG_NORM
 
-#define __________________ADJUST_R1__________________   MU_MOD, MU_ON,   MU_OFF,  MI_ON,   MI_OFF
-#define __________________ADJUST_R2__________________   MUV_IN, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD
-#define __________________ADJUST_R3__________________   MUV_DE, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD
+#define __________________ADJUST_R1__________________   MU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF
+#define __________________ADJUST_R2__________________   AU_NEXT, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD
+#define __________________ADJUST_R3__________________   AU_PREV, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD
 // clang-format on

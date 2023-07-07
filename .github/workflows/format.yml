@@ -19,9 +19,12 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
@@ -30,16 +33,14 @@ jobs:
       run: |
         pip3 install -r requirements-dev.txt
 
-    - uses: trilom/file-changes-action@v1.2.4
+    - name: Get changed files
       id: file_changes
-      with:
-        output: ' '
-        fileOutput: ' '
+      uses: tj-actions/changed-files@v37
 
     - name: Run qmk formatters
       shell: 'bash {0}'
       run: |
-        cat ~/files_added.txt ~/files_modified.txt > ~/files_changed.txt
+        echo '${{ steps.file_changes.outputs.added_files}}' '${{ steps.file_changes.outputs.modified_files}}' > ~/files_changed.txt
         qmk format-c --core-only $(< ~/files_changed.txt) || true
         qmk format-python $(< ~/files_changed.txt) || true
         qmk format-text $(< ~/files_changed.txt) || true

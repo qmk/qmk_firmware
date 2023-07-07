@@ -53,6 +53,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 
 - keyboard moves within the repository *must* go through the `develop` branch instead of `master`, so as to ensure compatibility for users
     - `data/mappings/keyboard_aliases.hjson` must be updated to reflect the move, so users with pre-created configurator keymap.json files continue to detect the correct keyboard
+- keyboard updates and refactors (eg. to data driven) *must* go through `develop` to reduce `master` -> `develop` merge conflicts
 - PR submissions from a `kbfirmware` export (or equivalent) will not be accepted unless converted to new QMK standards -- try `qmk import-kbfirmware` first
 - `info.json`
     - With the move to [data driven](https://docs.qmk.fm/#/data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
@@ -61,7 +62,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - valid maintainer
         - valid USB VID/PID and device version
         - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
-        - `layout` definitions should include matrix positions, so that `LAYOUT` macros can be generated at build time
+        - `layout` definitions must include matrix positions, so that `LAYOUT` macros can be generated at build time
             - should use standard definitions if applicable
             - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
             - If the keyboard only has a single electrical/switch layout:
@@ -69,15 +70,25 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
             - If the keyboard has multiple electrical/switch layouts:
                 - include a `LAYOUT_all` which specifies all possible layout positions in the electrical matrix
                 - use alternate layout names for all other possible layouts, preferring community layout names if an equivalent is available (e.g. `LAYOUT_tkl_ansi`, `LAYOUT_ortho_4x4` etc.)
+        - Microcontroller and bootloader
+        - Diode Direction (if not using direct pins)
+    - the following are required to be configured in `info.json` if necessary
+      - Direct pin configuration
+      - Backlight Configuration (where applicable)
+      - Split keyboard configuration (where applicable)
+      - Encoder Configuration
+      - Bootmagic Configuration
+      - LED Indicator Configuration
 - `readme.md`
-    - standard template should be present -- [link to template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
+    - must follow the [template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
     - flash command is present, and has `:flash` at end
     - valid hardware availability link (unless handwired) -- private groupbuys are okay, but one-off prototypes will be questioned. If open-source, a link to files should be provided.
     - clear instructions on how to reset the board into bootloader mode
     - a picture about the keyboard and preferably about the PCB, too
         - images are not to be placed in the `qmk_firmware` repository
         - images should be uploaded to an external image hosting service, such as [imgur](https://imgur.com/).
-        - if imgur is used, images should be resized appropriately: append "h" to the image url i.e. `https://i.imgur.com/vqgE7Ok.jpg` becomes `https://i.imgur.com/vqgE7Okh.jpg`
+        - if imgur is used, images should be resized appropriately: append "h" to the image url i.e. [https://i.imgur.com/vqgE7Ok.jpg](https://i.imgur.com/vqgE7Ok.jpg) becomes [https://i.imgur.com/vqgE7Ok**h**.jpg](https://i.imgur.com/vqgE7Okh.jpg)
+        - image links should link directly to the image, not a "preview" -- i.e. [https://imgur.com/vqgE7Ok](https://imgur.com/vqgE7Ok) should be [https://i.imgur.com/vqgE7Okh.jpg](https://i.imgur.com/vqgE7Okh.jpg) when using imgur
 - `rules.mk`
     - removed `MIDI_ENABLE`, `FAUXCLICKY_ENABLE` and `HD44780_ENABLE`
     - modified `# Enable Bluetooth with the Adafruit EZ-Key HID` -> `# Enable Bluetooth`
@@ -88,11 +99,17 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
       - `COMBO_ENABLE`
       - `ENCODER_MAP_ENABLE`
 - keyboard `config.h`
-    - don't repeat `MANUFACTURER` in the `PRODUCT` value
     - no `#define DESCRIPTION`
     - no Magic Key Options, MIDI Options or HD44780 configuration
     - user preference configurable `#define`s need to be moved to keymap `config.h`
-    - "`DEBOUNCE`" instead of "`DEBOUNCING_DELAY`"
+    - default values should not be redefined, such as `DEBOUNCE`, RGB related settings, etc.
+      - feature specific documentation contains most default values
+      - `grep` or alternative tool can be used to search for default values in core directories (e.g. `grep -r "define DEBOUNCE" quantum`)
+    - no copy/pasted comment blocks explaining a feature and/or its caveats -- this is what the docs are for
+      - `Force NKRO to be enabled ... toggled again during a power-up`
+      - commented-out unused defines, such as RGB effects
+    - no `#include "config_common.h`
+    - no `#define MATRIX_ROWS/COLS`, unless necessary (e.g. a keyboard with a custom matrix)
     - bare minimum required code for a board to boot into QMK should be present
         - initialisation code for the matrix and critical devices
         - mirroring existing functionality of a commercial board (like custom keycodes and special animations etc.) should be handled through non-`default` keymaps
@@ -104,31 +121,27 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions.md?id=keyboard_pre_init_-function-documentation)
     - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix.md?id=lite)
     - prefer LED indicator [Configuration Options](feature_led_indicators.md?id=configuration-options) to custom `led_update_*()` implementations where possible
-    - Encoder support should not require any keyboard-level code, and associated keymaps should now leverage the [Encoder Map](feature_encoders.md?id=encoder-map) feature instead.
+    - hardware that's enabled at the keyboard level and requires configuration such as OLED displays or encoders should have basic functionality implemented here
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
-    - `LAYOUT` macros should be moved to `info.json`
+    - `LAYOUT` macros are no longer accepted and should instead be moved to `info.json`
 - keymap `config.h`
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
-    - `QMKBEST`/`QMKURL` removed
-    - if using `MO(_LOWER)` and `MO(_RAISE)` keycodes or equivalent, and the keymap has an adjust layer when holding both keys -- if the keymap has no "direct-to-adjust" keycode (such as `MO(_ADJUST)`) then you should prefer to write...
-        ```
-        layer_state_t layer_state_set_user(layer_state_t state) {
-          return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-        }
-        ```
-        ...instead of manually handling `layer_on()`, `update_tri_layer()` inside the keymap's `process_record_user()`.
+    - `QMKBEST`/`QMKURL` example macros removed
+    - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](https://docs.qmk.fm/#/feature_tri_layer) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
 - default (and via) keymaps should be "pristine"
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
+    - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. basic mod taps and home row mods would be acceptable where their use is necessary
     - standard layouts preferred in these keymaps, if possible
+    - should use [encoder map feature](https://docs.qmk.fm/#/feature_encoders?id=encoder-map), rather than `encoder_update_user()`
     - default keymap should not enable VIA -- the VIA integration documentation requires a keymap called `via`
 - submitters can have a personal (or bells-and-whistles) keymap showcasing capabilities in the same PR but it shouldn't be embedded in the 'default' keymap
 - submitters can also have a "manufacturer-matching" keymap that mirrors existing functionality of the commercial product, if porting an existing board
 - Do not include VIA json files in the PR. These do not belong in the QMK repository as they are not used by QMK firmware -- they belong in the [VIA Keyboard Repo](https://github.com/the-via/keyboards)
 - Do not include KLE json files in the PR. These have no use within QMK.
 - Do not include source files from another keyboard or vendors keyboard folder. Including core files is fine.
-  - For instance, only `wilba_tech` boards shall include `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine for any and all boards.
+  - For instance, only `wilba_tech` boards shall include `keyboards/wilba_tech/wt_main.c` and  `keyboards/wilba_tech/wt_rgb_backlight.c`. But including `drivers/sensors/pmw3360.c` is absolutely fine for any and all boards that require it.
   - Code that needs to be used by multiple boards is a candidate for core code changes, and should be separated out.
 
 Also, specific to ChibiOS:
@@ -145,7 +158,13 @@ Also, specific to ChibiOS:
 
 ## Core PRs :id=core-pr
 
-- must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
+- all core PRs must now target `develop` branch, which will subsequently be merged back to `master` on the breaking changes timeline
+- as indicated above, the smallest set of changes to core components should be included in each PR
+    - PRs containing multiple areas of change will be asked to be split up and raised separately
+    - keyboard and keymap changes should only be included if they affect base keyboard builds, or the default-like `default`, `via`, `default_????` keymaps etc.
+        - keymap modifications for anything other than the default-like keymaps **should not be included in the initial PR** in order to simplify the review process
+        - the core PR submitter should submit a followup PR affecting other keymaps after initial PR merge
+        - large-scale refactoring or consolidation PRs that affect other keymaps (such as renaming keycodes) should always be raised separately
 - any new boards adding support for new hardware now requires a corresponding test board under `keyboards/handwired/onekey`
     - for new MCUs, a new "child" keyboard should be added that targets your newly-added MCU, so that builds can be verified
     - for new hardware support such as display panels, core-side matrix implementations, or other peripherals, an associated keymap should be provided

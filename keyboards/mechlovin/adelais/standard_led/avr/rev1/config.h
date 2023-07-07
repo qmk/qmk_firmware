@@ -31,18 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
 
-#define LED_NUM_LOCK_PIN D7
-#define LED_CAPS_LOCK_PIN E6
-#define LED_SCROLL_LOCK_PIN F7
-#define LED_PIN_ON_STATE 1
-
-#define BACKLIGHT_PIN B5
-#define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_BREATHING
-
-#define RGB_DI_PIN E2
 #define RGBLED_NUM 23
-#define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -54,11 +43,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 
-#define ENCODERS_PAD_A { D3, D5, C7 }
-#define ENCODERS_PAD_B { D2, B6, C6 }
-#define ENCODER_RESOLUTION 4
-
 #define TAP_CODE_DELAY 10
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

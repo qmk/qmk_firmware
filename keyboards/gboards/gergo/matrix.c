@@ -17,16 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "matrix.h"
-#include <stdint.h>
-#include <stdbool.h>
-#include <avr/io.h>
 #include "wait.h"
-#include "action_layer.h"
-#include "print.h"
 #include "debug.h"
 #include "util.h"
 #include "debounce.h"
-#include QMK_KEYBOARD_H
+#include "gergo.h"
 
 #ifdef BALLER
 #include <avr/interrupt.h>
@@ -153,7 +148,7 @@ void matrix_init(void) {
   }
 
     debounce_init(MATRIX_ROWS);
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 void matrix_power_up(void) {
@@ -260,7 +255,7 @@ uint8_t matrix_scan(void) {
     }
 
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     enableInterrupts();
 

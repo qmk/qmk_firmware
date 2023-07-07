@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma once
+
 #include_next <mcuconf.h>
 
 // Underglow uses TIM4, Backlight TIM1, so both are enabled here.

@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -18,4 +12,3 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 DEBOUNCE_TYPE	  = sym_defer_pk
-LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_tsangan_hhkb

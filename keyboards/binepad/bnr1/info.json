@@ -2,7 +2,6 @@
     "manufacturer": "Binepad",
     "keyboard_name": "BNR1",
     "maintainer": "Binpad",
-    "debounce": 5,
     "features": {
         "bootmagic": true,
         "command": false,

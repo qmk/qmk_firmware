@@ -124,13 +124,13 @@ void led_set_user(uint8_t usb_led)
 }
 
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(30); // gets rid of tick
     PLAY_SONG(tone_my_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_my_goodbye);
     _delay_ms(3000);

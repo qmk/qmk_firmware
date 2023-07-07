@@ -8,15 +8,33 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
+  "ws2812": {
+    "pin": "F7"
+  },
+  "matrix_pins": {
+    "cols": ["B7", "B3", "F0"],
+    "rows": ["B4", "E6"]
+  },
+  "diode_direction": "COL2ROW",
+  "encoder": {
+    "rotary": [
+      {"pin_a": "D2", "pin_b": "D3"},
+      {"pin_a": "F6", "pin_b": "F5"}
+    ]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "atmel-dfu",
   "layouts": {
     "LAYOUT": {
-      "layout": [ 
-        { "w": 1, "x": 0, "y": 0 }, 
-        { "w": 1, "x": 1, "y": 0 }, 
-        { "w": 1, "x": 2, "y": 0 }, 
-        { "w": 1, "x": 0, "y": 1 }, 
-        { "w": 1, "x": 1, "y": 1 }, 
-        { "w": 1, "x": 2, "y": 1 } ]
+      "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+
+        {"matrix": [1, 0], "x": 0, "y": 1},
+        {"matrix": [1, 1], "x": 1, "y": 1},
+        {"matrix": [1, 2], "x": 2, "y": 1}
+      ]
     }
   }
 }

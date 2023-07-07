@@ -8,10 +8,10 @@ from milc import cli
 
 from qmk.datetime import current_datetime
 from qmk.info import info_json
-from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import json_load
+from qmk.keymap import list_keymaps
 from qmk.keyboard import find_readme, list_keyboards
-from qmk.keycodes import load_spec, list_versions
+from qmk.keycodes import load_spec, list_versions, list_languages
 
 DATA_PATH = Path('data')
 TEMPLATE_PATH = DATA_PATH / 'templates/api/'
@@ -42,7 +42,14 @@ def _resolve_keycode_specs(output_folder):
         overall = load_spec(version)
 
         output_file = output_folder / f'constants/keycodes_{version}.json'
-        output_file.write_text(json.dumps(overall, indent=4), encoding='utf-8')
+        output_file.write_text(json.dumps(overall, separators=(',', ':')), encoding='utf-8')
+
+    for lang in list_languages():
+        for version in list_versions(lang):
+            overall = load_spec(version, lang)
+
+            output_file = output_folder / f'constants/keycodes_{lang}_{version}.json'
+            output_file.write_text(json.dumps(overall, separators=(',', ':')), encoding='utf-8')
 
     # Purge files consumed by 'load_spec'
     shutil.rmtree(output_folder / 'constants/keycodes/')
@@ -56,7 +63,13 @@ def _filtered_copy(src, dst):
         data = json_load(src)
 
         dst = dst.with_suffix('.json')
-        dst.write_text(json.dumps(data, indent=4), encoding='utf-8')
+        dst.write_text(json.dumps(data, separators=(',', ':')), encoding='utf-8')
+        return dst
+
+    if dst.suffix == '.jsonschema':
+        data = json_load(src)
+
+        dst.write_text(json.dumps(data), encoding='utf-8')
         return dst
 
     return shutil.copy2(src, dst)
@@ -103,24 +116,44 @@ def generate_api(cli):
 
     # Generate and write keyboard specific JSON files
     for keyboard_name in keyboard_list:
-        kb_all[keyboard_name] = info_json(keyboard_name)
+        kb_json = info_json(keyboard_name)
+        kb_all[keyboard_name] = kb_json
+
         keyboard_dir = v1_dir / 'keyboards' / keyboard_name
         keyboard_info = keyboard_dir / 'info.json'
         keyboard_readme = keyboard_dir / 'readme.md'
         keyboard_readme_src = find_readme(keyboard_name)
 
+        # Populate the list of JSON keymaps
+        for keymap in list_keymaps(keyboard_name, c=False, fullpath=True):
+            kb_json['keymaps'][keymap.name] = {
+                # TODO: deprecate 'url' as consumer needs to know its potentially hjson
+                'url': f'https://raw.githubusercontent.com/qmk/qmk_firmware/master/{keymap}/keymap.json',
+
+                # Instead consumer should grab from API and not repo directly
+                'path': (keymap / 'keymap.json').as_posix(),
+            }
+
         keyboard_dir.mkdir(parents=True, exist_ok=True)
-        keyboard_json = json.dumps({'last_updated': current_datetime(), 'keyboards': {keyboard_name: kb_all[keyboard_name]}})
+        keyboard_json = json.dumps({'last_updated': current_datetime(), 'keyboards': {keyboard_name: kb_json}}, separators=(',', ':'))
         if not cli.args.dry_run:
-            keyboard_info.write_text(keyboard_json)
+            keyboard_info.write_text(keyboard_json, encoding='utf-8')
             cli.log.debug('Wrote file %s', keyboard_info)
 
             if keyboard_readme_src:
                 shutil.copyfile(keyboard_readme_src, keyboard_readme)
                 cli.log.debug('Copied %s -> %s', keyboard_readme_src, keyboard_readme)
 
-        if 'usb' in kb_all[keyboard_name]:
-            usb = kb_all[keyboard_name]['usb']
+            # resolve keymaps as json
+            for keymap in kb_json['keymaps']:
+                keymap_hjson = kb_json['keymaps'][keymap]['path']
+                keymap_json = v1_dir / keymap_hjson
+                keymap_json.parent.mkdir(parents=True, exist_ok=True)
+                keymap_json.write_text(json.dumps(json_load(Path(keymap_hjson)), separators=(',', ':')), encoding='utf-8')
+                cli.log.debug('Wrote keymap %s', keymap_json)
+
+        if 'usb' in kb_json:
+            usb = kb_json['usb']
 
             if 'vid' in usb and usb['vid'] not in usb_list:
                 usb_list[usb['vid']] = {}
@@ -145,17 +178,17 @@ def generate_api(cli):
     _resolve_keycode_specs(v1_dir)
 
     # Write the global JSON files
-    keyboard_all_json = json.dumps({'last_updated': current_datetime(), 'keyboards': kb_all}, cls=InfoJSONEncoder)
-    usb_json = json.dumps({'last_updated': current_datetime(), 'usb': usb_list}, cls=InfoJSONEncoder)
-    keyboard_list_json = json.dumps({'last_updated': current_datetime(), 'keyboards': keyboard_list}, cls=InfoJSONEncoder)
-    keyboard_aliases_json = json.dumps({'last_updated': current_datetime(), 'keyboard_aliases': keyboard_aliases}, cls=InfoJSONEncoder)
-    keyboard_metadata_json = json.dumps(keyboard_metadata, cls=InfoJSONEncoder)
-    constants_metadata_json = json.dumps({'last_updated': current_datetime(), 'constants': _list_constants(v1_dir)})
+    keyboard_all_json = json.dumps({'last_updated': current_datetime(), 'keyboards': kb_all}, separators=(',', ':'))
+    usb_json = json.dumps({'last_updated': current_datetime(), 'usb': usb_list}, separators=(',', ':'))
+    keyboard_list_json = json.dumps({'last_updated': current_datetime(), 'keyboards': keyboard_list}, separators=(',', ':'))
+    keyboard_aliases_json = json.dumps({'last_updated': current_datetime(), 'keyboard_aliases': keyboard_aliases}, separators=(',', ':'))
+    keyboard_metadata_json = json.dumps(keyboard_metadata, separators=(',', ':'))
+    constants_metadata_json = json.dumps({'last_updated': current_datetime(), 'constants': _list_constants(v1_dir)}, separators=(',', ':'))
 
     if not cli.args.dry_run:
-        keyboard_all_file.write_text(keyboard_all_json)
-        usb_file.write_text(usb_json)
-        keyboard_list_file.write_text(keyboard_list_json)
-        keyboard_aliases_file.write_text(keyboard_aliases_json)
-        keyboard_metadata_file.write_text(keyboard_metadata_json)
-        constants_metadata_file.write_text(constants_metadata_json)
+        keyboard_all_file.write_text(keyboard_all_json, encoding='utf-8')
+        usb_file.write_text(usb_json, encoding='utf-8')
+        keyboard_list_file.write_text(keyboard_list_json, encoding='utf-8')
+        keyboard_aliases_file.write_text(keyboard_aliases_json, encoding='utf-8')
+        keyboard_metadata_file.write_text(keyboard_metadata_json, encoding='utf-8')
+        constants_metadata_file.write_text(constants_metadata_json, encoding='utf-8')

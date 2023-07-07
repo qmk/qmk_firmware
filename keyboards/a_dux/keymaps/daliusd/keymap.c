@@ -101,7 +101,7 @@ enum unicode_names {
     LT_CB,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [SNEK]  = 0x1F40D, // 🐍
     [EURO]  = 0x20ac, // €
     [LT_S_A] = 0x105, // ą

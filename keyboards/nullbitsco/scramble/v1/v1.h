@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "scramble.h"
+#include "quantum.h"
 
 // Indication LED settings
 #define LED_ON          2
