@@ -192,6 +192,10 @@ extern layer_state_t layer_state;
 #    include "qp.h"
 #endif
 
+#ifdef QUANTUM_PWM_ENABLE
+#    include "qpwm.h"
+#endif
+
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
 #endif

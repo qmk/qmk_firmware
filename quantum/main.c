@@ -65,6 +65,12 @@ int main(void) {
         qp_internal_task();
 #endif
 
+#ifdef QUANTUM_PWM_ENABLE
+         // Run Quantum PWM task
+         void qpwm_internal_task(void);
+         qpwm_internal_task();
+#endif
+
 #ifdef DEFERRED_EXEC_ENABLE
         // Run deferred executions
         void deferred_exec_task(void);

@@ -184,6 +184,11 @@ ifeq ($(strip $(QUANTUM_PAINTER_ENABLE)), yes)
     include $(QUANTUM_DIR)/painter/rules.mk
 endif
 
+QUANTUM_PWM_ENABLE ?= no
+ ifeq ($(strip $(QUANTUM_PWM_ENABLE)), yes)
+     include $(QUANTUM_DIR)/pwm/rules.mk
+ endif
+
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling legacy_stm32_flash
 EEPROM_DRIVER ?= vendor
 ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
