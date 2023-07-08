@@ -184,7 +184,7 @@ led_config_t g_led_config = {
 
 bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     uint8_t this_mod = get_mods();
-    uint8_t this_led = host_keyboard_leds();
+    led_t   this_led = host_keyboard_led_state();
     uint8_t this_osm = get_oneshot_mods();
 #    ifdef KEYBOARD_planck_ez
 #        define THUMB_LED 41
@@ -208,7 +208,7 @@ bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
             break;
     }
 
-    if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
+    if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led.caps_lock) {
         if (!layer_state_cmp(layer_state, _ADJUST)) {
             RGB_MATRIX_INDICATOR_SET_COLOR(24, 0x00, 0xFF, 0x00);
         }

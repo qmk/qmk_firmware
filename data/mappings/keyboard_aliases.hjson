@@ -212,6 +212,9 @@
     "gmmk/pro/iso": {
         "target": "gmmk/pro/rev1/iso"
     },
+    "handwired/dactyl_manuform/6x6_kinesis": {
+        "target": "handwired/dactyl_kinesis"
+    },
     "handwired/ferris": {
         "target": "ferris/0_1"
     },
