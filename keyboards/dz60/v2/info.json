@@ -39,6 +39,9 @@
         "hue_steps": 10,
         "led_count": 16,
         "saturation_steps": 10
+    },
+    "ws2812": {
+        "pin": "B2"
     }
 }
 
