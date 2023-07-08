@@ -1,7 +1,7 @@
-#include "quantum.h"
 #include "backlight.h"
+#include "gpio.h"
+#include "wait.h"
 #include <hal.h>
-#include "debug.h"
 
 // Maximum duty cycle limit
 #ifndef BACKLIGHT_LIMIT_VAL
@@ -13,7 +13,7 @@
 #        define BACKLIGHT_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    else
 // GPIOV2 && GPIOV3
-#        define BACKLIGHT_PAL_MODE 5
+#        define BACKLIGHT_PAL_MODE 2
 #    endif
 #endif
 

@@ -1,7 +1,6 @@
-#include "quantum.h"
 #include "backlight.h"
 #include "backlight_driver_common.h"
-#include "debug.h"
+#include "wait.h"
 
 #ifndef BACKLIGHT_GPT_DRIVER
 #    define BACKLIGHT_GPT_DRIVER GPTD15
