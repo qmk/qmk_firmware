@@ -20,5 +20,3 @@
 void default_status(void);
 void dp3000_logo(void);
 bool oled_task_kb(void);
-void oled_timer_reset(void);
-bool process_record_kb(uint16_t keycode, keyrecord_t *record);
