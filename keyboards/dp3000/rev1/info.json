@@ -42,11 +42,7 @@
             {"matrix": [2, 0], "x": 75, "y": 16, "flags": 4},
             {"matrix": [2, 1], "x": 37, "y": 16, "flags": 4},
             {"matrix": [2, 2], "x": 25, "y": 16, "flags": 4},
-            {"matrix": [2, 3], "x": 0, "y": 16, "flags": 4},
-            {"x": 168, "y": 16, "flags": 2},
-            {"x": 56, "y": 16, "flags": 2},
-            {"x": 56, "y": 48, "flags": 2},
-            {"x": 168, "y": 48, "flags": 2}
+            {"matrix": [2, 3], "x": 0, "y": 16, "flags": 4}
         ],
         "max_brightness": 150,
         "sat_steps": 8,
