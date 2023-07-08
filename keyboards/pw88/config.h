@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WD2812_BYTE_ORDER_RGB // Force the WS2812 implementation to use RGB byte order, by default the WS2812 implementation uses GRB byte order
 
 #undef RGBLED_NUM
-#define RGB_DI_PIN GP0
+#define WS2812_DI_PIN GP0
 
 /* Define RGB */
 #define RGBLED_NUM 34
