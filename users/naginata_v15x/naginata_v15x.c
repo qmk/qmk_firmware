@@ -735,8 +735,8 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 
           // 押しているキーは残す
           // シフト系のキー以外を残すと2度変換してしまう
-          Keystroke tks[NKEYS];
           uint8_t tch = 0;
+          keycomb = 0UL;
           for (uint8_t i = 0; i < ng_chrcount; i++) {
             if (nginput[i].releaseTime == 0 && 
                (nginput[i].keycode == NG_SHFT || 
@@ -745,18 +745,14 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
                 nginput[i].keycode == NG_V ||
                 nginput[i].keycode == NG_J ||
                 nginput[i].keycode == NG_M )) {
-              tks[tch] = nginput[i];
-              tks[tch].pressTime = record->event.time; // 仕切り直す
+              nginput[tch] = nginput[i];
+              nginput[tch].pressTime = record->event.time; // 仕切り直す
+              keycomb |= ng_key[nginput[tch].keycode - NG_Q];
               tch++;
               break; // キャリーオーバーするのも１キーだけ
             }
           }
           ng_chrcount = tch;
-          keycomb = 0UL;
-          for (uint8_t i = 0; i < tch; i++) {
-            nginput[i] = tks[i];
-            keycomb |= ng_key[tks[i].keycode - NG_Q];
-          }
         }
 
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
