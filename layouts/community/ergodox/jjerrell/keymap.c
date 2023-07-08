@@ -94,12 +94,12 @@ layer_state_t layer_state_set_keymap(layer_state_t state) {
 
 void matrix_scan_keymap(void) {
     uint8_t modifiers = get_mods();
-    uint8_t led_usb_state = host_keyboard_leds();
+    led_t   led_state = host_keyboard_led_state();
     uint8_t one_shot = get_oneshot_mods();
     uint8_t layer_is_workman = layer_state_is(_WORKMAN);
 
     if ((modifiers) && (layer_is_workman)) {
-        if (modifiers & MOD_MASK_SHIFT || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MOD_MASK_SHIFT) {
+        if (modifiers & MOD_MASK_SHIFT || led_state.caps_lock || one_shot & MOD_MASK_SHIFT) {
             ergodox_right_led_1_on();
             ergodox_right_led_1_set( 25 );
         } else {

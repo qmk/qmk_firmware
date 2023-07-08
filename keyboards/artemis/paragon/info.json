@@ -28,8 +28,11 @@
         "pid": "0x3449",
         "vid": "0x8C27"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 2], "x": 1.5, "y": 0 },
