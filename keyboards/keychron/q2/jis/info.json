@@ -1,8 +1,4 @@
 {
-    "usb": {
-        "pid": "0x0114",
-        "device_version": "1.0.0"
-    },
     "rgb_matrix": {
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 4, "flags": 1}, 
@@ -80,6 +76,10 @@
             {"matrix": [2, 12], "x": 209, "y": 64, "flags": 1},
             {"matrix": [4, 14], "x": 223, "y": 64, "flags": 1}
         ]
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0114"
     },
     "layouts": {
         "LAYOUT_jis_71": {

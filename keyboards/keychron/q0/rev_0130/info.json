@@ -1,9 +1,5 @@
 {
     "keyboard_name": "Q0",
-    "usb": {
-        "pid": "0x0130",
-        "device_version": "1.0.2"
-    },
     "matrix_pins": {
         "cols": ["A5", "A6", "A7", "B0"],
         "rows": ["B5", "B4", "B3", "A15", "A14", "A13"]
@@ -38,6 +34,10 @@
             {"flags": 4, "matrix": [5, 2], "x": 75, "y": 32},
             {"flags": 1, "matrix": [4, 3], "x": 112, "y": 29}
         ]
+    },
+    "usb": {
+        "device_version": "1.0.2",
+        "pid": "0x0130"
     },
     "layouts": {
         "LAYOUT_numpad_6x4": {

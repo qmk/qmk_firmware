@@ -1,12 +1,6 @@
 {
-    "usb": {
-        "pid": "0x0113",
-        "device_version": "1.0.0"
-    },
-    "features": {
-        "encoder": true
-    },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "A10", "pin_b": "B5"}
         ]
@@ -87,6 +81,10 @@
             {"matrix": [4, 14], "x": 224, "y": 64, "flags": 1}
 
         ]
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0113"
     },
     "layouts": {
         "LAYOUT_iso_68": {

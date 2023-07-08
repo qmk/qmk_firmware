@@ -1,23 +1,17 @@
 {
     "keyboard_name": "Keychron Q0 Plus",
-    "usb": {
-        "pid": "0x0131",
-        "device_version": "1.0.0"
-    },
-    "matrix_pins": {
-        "cols": ["C14", "C15", "A0", "A1", "A2"],
-        "rows": ["B5", "B4", "B3", "A15", "A14", "A13"]
-    },
-    "features": {
-        "encoder": true
+    "bootmagic": {
+        "matrix": [0, 1]
     },
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "A3", "pin_b": "A4"}
         ]
     },
-    "bootmagic": {
-        "matrix": [0, 1]
+    "matrix_pins": {
+        "cols": ["C14", "C15", "A0", "A1", "A2"],
+        "rows": ["B5", "B4", "B3", "A15", "A14", "A13"]
     },
     "rgb_matrix": {
         "layout": [
@@ -53,6 +47,10 @@
             {"flags": 4, "matrix": [5, 1], "x": 84, "y": 64},
             {"flags": 1, "matrix": [5, 3], "x": 168, "y": 64}
         ]
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0131"
     },
     "layouts": {
         "LAYOUT_numpad_6x5": {
