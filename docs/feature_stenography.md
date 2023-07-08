@@ -138,7 +138,7 @@ bool post_process_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t
 
 This function is called after a key has been processed, but before any decision about whether or not to send a chord. This is where to put hooks for things like, say, live displays of steno chords or keys.
 
-If `IS_PRESSED(record->event)` is false, and `n_pressed_keys` is 0 or 1, the chord will be sent shortly, but has not yet been sent. This relieves you of the need of keeping track of where a packet ends and another begins.
+If `record->event.pressed` is false, and `n_pressed_keys` is 0 or 1, the chord will be sent shortly, but has not yet been sent. This relieves you of the need of keeping track of where a packet ends and another begins.
 
 The `chord` argument contains the packet of the current chord as specified by the protocol in use. This is *NOT* simply a list of chorded steno keys of the form `[STN_E, STN_U, STN_BR, STN_GR]`. Refer to the appropriate protocol section of this document to learn more about the format of the packets in your steno protocol/mode of choice.
 

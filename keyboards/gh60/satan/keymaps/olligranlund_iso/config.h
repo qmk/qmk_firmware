@@ -3,8 +3,8 @@
 #define BACKLIGHT_LEVELS 10
 
 // Underlight configuration
-#undef RGB_DI_PIN
-#define RGB_DI_PIN B2
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN B2
 #undef RGBLED_NUM
 #define RGBLED_NUM 16        // Number of LEDs
 #undef RGBLIGHT_HUE_STEP

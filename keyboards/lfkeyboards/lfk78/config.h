@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_MAP { 8, 16, 40, 55, 70, 128, 200, 255 }
 
 #define TAPPING_TERM 200
@@ -28,8 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUDIO_PIN C6
 #define AUDIO_VOICES
 
-#define RGB_DI_PIN C7 // Have to set it to something to get the ws2812 code to compile
-#ifdef RGB_DI_PIN
 #    define RGBLIGHT_HUE_STEP 10
 #    define RGBLIGHT_SAT_STEP 17
 #    define RGBLIGHT_VAL_STEP 17
@@ -43,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_TWINKLE
-
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

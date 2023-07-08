@@ -42,14 +42,9 @@ This is the C configuration file for the keymap
 #define QMK_LED     D5
 #define QMK_SPEAKER C6
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // When enabled, typing a mod-tap plus second within term will register as the mod-combo
-// Ref: https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold 
+// Ref: https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold
 #define PERMISSIVE_HOLD
-
-#define COMBO_COUNT 2
 
 // Set the COMBO_TERM so low that I won't type the keys one after each other during normal typing.
 // They would have be held together intentionally to trigger this.
@@ -59,4 +54,3 @@ This is the C configuration file for the keymap
 // I want a relatively low timeout, so if I accidentally type "Shift", I can pause just briefly and move on.
 #define ONESHOT_TAP_TOGGLE 3  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 2000  /* Time (in ms) before the one shot key is released */
-

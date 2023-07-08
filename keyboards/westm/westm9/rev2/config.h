@@ -16,8 +16,6 @@
 
 #pragma once
 
-// The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN F1
 #define RGBLED_NUM 14
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

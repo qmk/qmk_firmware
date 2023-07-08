@@ -19,6 +19,5 @@
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D1
 #define RGBLED_NUM 1
 #endif

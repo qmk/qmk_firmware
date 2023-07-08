@@ -27,8 +27,6 @@
  * the diode direction is COL(umn) to ROW */
 #define DIODE_DIRECTION COL2ROW
 
-/* RGB Data Pin */
-#define RGB_DI_PIN C7
 /* The number of RGB LEDs connected */
 #define RGB_MATRIX_LED_COUNT 105
 /* Set the maximum brightness to 110 to avoid going over 500 mA.
@@ -44,8 +42,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* Set the max power consumption for the keyboard, which is 500 mA. */
-#define USB_MAX_POWER_CONSUMPTION 500
-
-#define FORCE_NKRO

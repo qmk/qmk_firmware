@@ -48,7 +48,6 @@ quantum/version.h
 .idea/
 .project
 .settings/
-.vagrant/
 
 # ?
 .dep
