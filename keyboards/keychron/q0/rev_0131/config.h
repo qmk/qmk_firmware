@@ -23,6 +23,9 @@
 /* RGB Matrix Configuration */
 #define RGB_MATRIX_LED_COUNT 26
 
+/* Encoder Configuration*/
+#define ENCODER_DEFAULT_POS 0x3
+
 /* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
 #define PHASE_CHANNEL MSKPHASE_9CHANNEL
 
