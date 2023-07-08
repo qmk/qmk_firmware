@@ -1,6 +1,6 @@
-#include "quantum.h"
 #include "backlight.h"
 #include "backlight_driver_common.h"
+#include "util.h"
 
 #ifdef BACKLIGHT_BREATHING
 #    error "Backlight breathing is not available for software PWM. Please disable."
