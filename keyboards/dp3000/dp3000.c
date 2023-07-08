@@ -20,7 +20,6 @@
 #define CUSTOM_OLED_TIMEOUT 30000
 
 static uint32_t logo_timer = 0;
-static uint32_t oled_timer = 0;
 static bool display_logo = true;
 
 void dp3000_logo(void) {
@@ -82,8 +81,10 @@ bool oled_task_kb(void) {
         oled_clear();
         logo_timer = timer_read32();
     }
-    if (timer_elapsed32(oled_timer) > CUSTOM_OLED_TIMEOUT) {
+    if (last_input_activity_elapsed() > CUSTOM_OLED_TIMEOUT) {
         oled_off();
+    }else {
+        oled_on();
     }
     if (display_logo) {
         dp3000_logo();
@@ -92,16 +93,4 @@ bool oled_task_kb(void) {
     }
 
     return false;
-}
-
-void oled_timer_reset(void) {
-    oled_timer = timer_read32();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        oled_timer_reset();
-    }
-
-    return true;
 }
