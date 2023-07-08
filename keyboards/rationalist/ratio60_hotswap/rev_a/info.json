@@ -185,7 +185,7 @@
                 { "label": "Win", "matrix": [4, 1], "w": 1.25, "x": 1.25, "y": 4 },
                 { "label": "Alt", "matrix": [4, 2], "w": 1.25, "x": 2.5, "y": 4 },
                 { "label": "Space", "matrix": [4, 6], "w": 6.25, "x": 3.75, "y": 4 },
-                { "label": "Alt", "matrix": [4, 7], "w": 1.25, "x": 10, "y": 4 },
+                { "label": "Alt", "matrix": [4, 8], "w": 1.25, "x": 10, "y": 4 },
                 { "label": "Win", "matrix": [4, 11], "w": 1.25, "x": 11.25, "y": 4 },
                 { "label": "Menu", "matrix": [4, 12], "w": 1.25, "x": 12.5, "y": 4 },
                 { "label": "Ctrl", "matrix": [4, 13], "w": 1.25, "x": 13.75, "y": 4 }
