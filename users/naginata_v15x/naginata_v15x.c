@@ -28,6 +28,7 @@ x ５キー以上打鍵した時の処理
 x シフトしたまま入力し続けると暴走する
 x 前置シフトだと連続シフトにならない
 x 　「もみもみ」などの連続シフトで5キー以上
+x ガブガブ、FJ両方ともキャリーオーバーするのでうまくいかない
 
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
@@ -745,8 +746,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
                 nginput[i].keycode == NG_J ||
                 nginput[i].keycode == NG_M )) {
               tks[tch] = nginput[i];
-              // tks[tch].pressTime = record->event.time; // 仕切り直す
+              tks[tch].pressTime = record->event.time; // 仕切り直す
               tch++;
+              break; // キャリーオーバーするのも１キーだけ
             }
           }
           ng_chrcount = tch;
