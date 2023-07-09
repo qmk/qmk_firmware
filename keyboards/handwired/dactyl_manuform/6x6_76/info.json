@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Dactyl-Manuform (6x6+4)",
+    "keyboard_name": "Dactyl-ManuForm (6x6_76)",
     "manufacturer": "tshort",
     "url": "",
     "maintainer": "dmik",
@@ -20,6 +20,7 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D0"
     },
     "development_board": "promicro",
