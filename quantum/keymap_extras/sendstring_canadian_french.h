@@ -19,7 +19,7 @@
 #pragma once
 
 #include "keymap_canadian_french.h"
-#include "quantum.h"
+#include "send_string.h"
 
 // clang-format off
 
