@@ -1,6 +1,6 @@
 # santy65
 
-![Santy65](https://i.imgur.com/VcNGcUT.jpg)
+![Santy65](https://i.imgur.com/VcNGcUTh.jpg)
 
 A split 65% keyboard using 2 rotary encoders and a trackball. 
 Can be built with either:
