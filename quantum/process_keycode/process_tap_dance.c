@@ -15,6 +15,12 @@
  */
 
 #include "process_tap_dance.h"
+#include "quantum.h"
+#include "action_layer.h"
+#include "action_tapping.h"
+#include "action_util.h"
+#include "timer.h"
+#include "wait.h"
 
 static uint16_t active_td;
 static uint16_t last_tap_time;
