@@ -1,0 +1,9 @@
+{
+    "split": {
+        "enabled" : true
+    },
+    "manufacturer": "carbonfet",
+    "url": "https://github.com/carbonfet/dactyl-manuform",
+    "maintainer": "dunk2k",
+    "tags": ["split"]
+}
