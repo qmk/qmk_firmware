@@ -1,10 +1,13 @@
 #include <LUFA/Drivers/USB/USB.h>
-#include "audio.h"
 #include "qmk_midi.h"
 #include "sysex_tools.h"
 #include "midi.h"
 #include "usb_descriptor.h"
 #include "process_midi.h"
+
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#endif
 
 /*******************************************************************************
  * MIDI
