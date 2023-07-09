@@ -3,6 +3,10 @@
     "features": {
         "rgblight": true
     },
+    "usb": {
+        "device_version": "2.0.0",
+        "pid": "0x3132"
+    },
     "rgblight": {
         "animations": {
             "alternating": true,
