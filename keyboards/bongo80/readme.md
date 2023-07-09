@@ -1,9 +1,9 @@
 # Bongo80
 
-![Bongo80](https://i.imgur.com/bL6ZGjV.jpg?1)
-![Wiring](https://i.imgur.com/iivkFWs.jpg)
+![Bongo80](https://i.imgur.com/bL6ZGjVh.jpg?1)
+![Wiring](https://i.imgur.com/iivkFWsh.jpg)
 *Note that I messed up the matrix on mine (seen above), and had to hook up (1, 1) to be in column 12, as I started soldering before fully planning the keymap 😅. However, this keymap follows the below wiring spec.*
-![Wiring Diagram](https://i.imgur.com/d7epIFM.png)
+![Wiring Diagram](https://i.imgur.com/d7epIFMh.png)
 
 Based on a KBDfans tiger80 lite chassis and plate, this custom handwired board uses an RP2040 (pi pico) and an oled screen with a typing speed reactive bongo cat animation.
 
