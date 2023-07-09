@@ -48,6 +48,9 @@
     "ws2812": {
         "pin": "B5"
     },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B0", "pin_b": "A2", "resolution": 4},

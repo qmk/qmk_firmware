@@ -14,6 +14,9 @@
     "ws2812": {
         "pin": "F4"
     },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
     "matrix_pins": {
         "cols": ["B1", "B3", "B2", "B6"],
         "rows": ["C6", "D7", "E6", "B4", "B5"]
