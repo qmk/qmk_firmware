@@ -3,7 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum layers{
+enum layers {
     _QWERTY,
     _FN,
     _NUMPAD
