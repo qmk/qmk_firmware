@@ -10,6 +10,9 @@
         "pin": "D3",
         "driver": "pwm"
     },
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
     "matrix_pins": {
         "cols": ["F5", "B6", "D7", "E6", "B4"],
         "rows": ["F7", "C6", "D4", "B5"]
