@@ -9,17 +9,16 @@ Based on a KBDfans tiger80 lite chassis and plate, this custom handwired board u
 
 * Keyboard Maintainer: [sam kelly](https://github.com/samkellu)
 * Hardware Supported: 
-    - 83x Cherry style switches (I used NK Creams)
-    - 83x 1N148 diodes
-    - RP2040 (pi pico)
-    - SSD1306 OLED 128x64
-    - KBDfans tiger80 lite case, plate, gasket socks
-<br>
-<br>
+  - 83x Cherry style switches (I used NK Creams)
+  - 83x 1N148 diodes
+  - RP2040 (pi pico)
+  - SSD1306 OLED 128x64
+  - KBDfans tiger80 lite case, plate, gasket socks
+
 * Hardware Availability: 
-    - [Case](https://kbdfans.com/collections/tiger-lite/products/kbdfans-tiger-lite-abs-plastic-case)
-    - [Plate + Gasket Socks](https://kbdfans.com/products/tiger-lite-keyboard-accessories?pr_prod_strat=copurchase&pr_rec_id=faa28a205&pr_rec_pid=6944675233931&pr_ref_pid=6944669532299&pr_seq=uniform)
-    - [Pi Pico](https://www.raspberrypi.com/products/raspberry-pi-pico/)
+  - [Case](https://kbdfans.com/collections/tiger-lite/products/kbdfans-tiger-lite-abs-plastic-case)
+  - [Plate + Gasket Socks](https://kbdfans.com/products/tiger-lite-keyboard-accessories?pr_prod_strat=copurchase&pr_rec_id=faa28a205&pr_rec_pid=6944675233931&pr_ref_pid=6944669532299&pr_seq=uniform)
+  - [Pi Pico](https://www.raspberrypi.com/products/raspberry-pi-pico/)
 
 Make example for this keyboard (after setting up your build environment):
 
