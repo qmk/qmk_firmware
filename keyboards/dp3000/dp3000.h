@@ -17,6 +17,8 @@
  */
 #pragma once
 
+#include "quantum.h"
+
 void default_status(void);
 void dp3000_logo(void);
 bool oled_task_kb(void);
