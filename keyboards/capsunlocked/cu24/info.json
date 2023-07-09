@@ -18,6 +18,9 @@
         "levels": 5,
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 5
+    },
     "ws2812": {
         "pin": "F4"
     },

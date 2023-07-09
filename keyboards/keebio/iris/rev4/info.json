@@ -19,6 +19,7 @@
         "levels": 5
     },
     "rgblight": {
+        "led_count": 12,
         "split_count": [6, 6]
     },
     "ws2812": {

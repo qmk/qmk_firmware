@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* define tapping term */
-#define TAPPING_TERM 120
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -36,8 +33,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 70
-#define RGBLIGHT_SPLIT
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 70

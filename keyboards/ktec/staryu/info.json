@@ -19,6 +19,7 @@
         "pin": "C6"
     },
     "rgblight": {
+        "led_count": 1,
         "max_brightness": 200
     },
     "processor": "atmega32u2",

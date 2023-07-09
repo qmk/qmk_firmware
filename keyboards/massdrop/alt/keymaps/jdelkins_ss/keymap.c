@@ -26,7 +26,6 @@ uint16_t rgb_idle_seconds = 0;
 uint16_t rgb_timer;
 uint8_t save_layer;
 
-#define NUMLOCK_ON (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))
 #define MODS_SHIFT (get_mods() & MOD_MASK_SHIFT)
 #define MODS_CTRL (get_mods() & MOD_MASK_CTRL)
 
@@ -143,7 +142,7 @@ static void set_rgb_layer(int layer) {
 void matrix_init_keymap(void) {
     set_rgb_layer(_QWERTY);
     // force numlock on upon startup
-    if (!NUMLOCK_ON) {
+    if (!host_keyboard_led_state().num_lock) {
         tap_code(KC_NUM_LOCK);
     }
 };

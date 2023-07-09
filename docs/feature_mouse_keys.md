@@ -101,7 +101,7 @@ This is an extension of the accelerated mode. The kinetic mode uses a quadratic 
 Tips:
 
 * The smoothness of the cursor movement depends on the `MOUSEKEY_INTERVAL` setting. The shorter the interval is set the smoother the movement will be.  Setting the value too low makes the cursor unresponsive.  Lower settings are possible if the micro processor is fast enough. For example: At an interval of `8` milliseconds, `125` movements per second will be initiated.  With a base speed of `1000` each movement will move the cursor by `8` pixels.
-* Mouse wheel movements are implemented differently from cursor movements. While it's okay for the cursor to move multiple pixels at once for the mouse wheel this would lead to jerky movements. Instead, the mouse wheel operates at step size `2`. Setting mouse wheel speed is done by adjusting the number of wheel movements per second.
+* Mouse wheel movements are implemented differently from cursor movements. While it's okay for the cursor to move multiple pixels at once for the mouse wheel this would lead to jerky movements. Instead, the mouse wheel operates at step size `1`. Setting mouse wheel speed is done by adjusting the number of wheel movements per second.
 
 ### Constant mode
 

@@ -8,6 +8,10 @@
         "device_version": "0.0.1",
         "force_nkro": true
     },
+    "rgblight": {
+        "led_count": 18,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "B9",
         "driver": "pwm"
@@ -21,6 +25,9 @@
         "rotary": [
             {"pin_a": "A15", "pin_b": "A14", "resolution": 2}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "backlight": {
         "pin": "A10",

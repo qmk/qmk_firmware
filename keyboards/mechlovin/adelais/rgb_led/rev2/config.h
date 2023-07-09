@@ -1,6 +1,5 @@
 #pragma once
 
-#define RGBLED_NUM      23
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -11,9 +10,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
 
 //rgb matrix setting
 // This is a 7-bit address, that gets left-shifted and bit 0
@@ -86,5 +82,3 @@
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 #define RGB_MATRIX_DISABLE_KEYCODES
-
-#define TAP_CODE_DELAY 10

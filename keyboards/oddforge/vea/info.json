@@ -11,6 +11,10 @@
     "backlight": {
         "pin": "D4"
     },
+    "rgblight": {
+        "led_count": 18,
+        "sleep": true
+    },
     "ws2812": {
         "driver": "custom"
     },

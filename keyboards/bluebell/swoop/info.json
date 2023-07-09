@@ -12,7 +12,10 @@
     "pin": "D3"
   },
   "rgblight": {
+    "hue_steps": 10,
+    "led_count": 36,
     "max_brightness": 150,
+    "sleep": true,
     "split_count": [18, 18]
   },
   "matrix_pins": {
