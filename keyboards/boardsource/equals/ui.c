@@ -7,7 +7,8 @@
 
 static painter_device_t      oled;
 static painter_font_handle_t font;
-void                         ui_init(void) {
+
+__attribute__((weak)) void ui_init(void) {
     oled = qp_st7735_make_spi_device(128, 160, OLED_CS_PIN, OLED_DC_PIN, OLED_RST_PIN, 8, 0);
     font = qp_load_font_mem(font_thintel15);
     qp_init(oled, QP_ROTATION_0);
@@ -17,7 +18,7 @@ void                         ui_init(void) {
     qp_flush(oled);
 }
 
-void ui_task(void) {
+__attribute__((weak)) void ui_task(void) {
     static const char *text  = "Layer:";
     int16_t            width = qp_textwidth(font, text);
     qp_drawtext(oled, 20, 140, font, text);
