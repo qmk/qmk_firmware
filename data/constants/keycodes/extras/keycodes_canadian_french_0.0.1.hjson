@@ -278,6 +278,10 @@
             "key": "FR_COLN",
             "label": ":",
         }
+        "S(FR_LABK)": {
+            "key": "FR_RABK",
+            "label": ">",
+        }
         "S(FR_LDAQ)": {
             "key": "FR_RDAQ",
             "label": "»",

@@ -91,6 +91,7 @@
 #define FR_PLUS S(FR_EQL)  // +
 #define FR_DIAE S(FR_CEDL) // ¨ (dead)
 #define FR_COLN S(FR_SCLN) // :
+#define FR_RABK S(FR_LABK) // >
 #define FR_RDAQ S(FR_LDAQ) // »
 #define FR_QUOT S(FR_COMM) // '
 #define FR_BSLS ALGR(FR_HASH) // (backslash)
@@ -119,4 +120,5 @@
 #define FR_MACR ALGR(FR_COMM) // ¯
 #define FR_SHYP ALGR(FR_DOT)  // ­ (soft hyphen)
 #define FR_ACUT ALGR(FR_EACU) // ´ (dead)
+
 
