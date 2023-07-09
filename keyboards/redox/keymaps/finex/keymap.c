@@ -16,7 +16,7 @@ enum layers {
   _RHSH, // Righ hand shifted keycodes
   _LHSH, // Left hand shifted keycodes
   // - Adjust layer
-  _ADJUST 
+  _ADJUST
 };
 
 // Custom keycodes
