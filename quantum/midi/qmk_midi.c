@@ -1,4 +1,5 @@
 #include <LUFA/Drivers/USB/USB.h>
+#include "audio.h"
 #include "qmk_midi.h"
 #include "sysex_tools.h"
 #include "midi.h"

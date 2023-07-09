@@ -15,6 +15,7 @@
  */
 
 #include "process_combo.h"
+#include <stddef.h>
 #include "process_auto_shift.h"
 #include "caps_word.h"
 #include "timer.h"
