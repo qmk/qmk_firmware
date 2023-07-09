@@ -138,7 +138,6 @@ const uint32_t ng_key[] = {
 
 #define NKEYS 4 // 最大何キーまでバッファに貯めるか
 #define NDOUJI 3 // 組み合わせにある同時押しするキーの数、薙刀式なら3
-#define NCOMBIPERKEY 10 // COMBI配列のキーごとの最大数
 
 // 文字入力バッファ
 static Keystroke nginput[NKEYS]; // 入力バッファ
@@ -1022,7 +1021,7 @@ void evaluate() {
 
 // #define LOG_SCORING
 uint32_t scoring(Keystroke ks[], uint8_t size) {
-  uint32_t now = timer_read32();
+  uint16_t now = timer_read();
   #if defined(CONSOLE_ENABLE) && defined(LOG_SCORING)
   uprintf(">scoring size=%u\n", size);
   for (uint8_t i = 0; i < size; i++) {
@@ -1043,8 +1042,8 @@ uint32_t scoring(Keystroke ks[], uint8_t size) {
   }
 
   // 点数=キー同士が重なる時間を、それぞれのキーを押している時間で割る
-  uint32_t s2 = ks[0].pressTime;
-  uint32_t e2 = ks[0].releaseTime > 0 ? ks[0].releaseTime : now;
+  uint16_t s2 = ks[0].pressTime;
+  uint16_t e2 = ks[0].releaseTime > 0 ? ks[0].releaseTime : now;
   for (uint8_t i = 1; i < size; i++) {
     if (ks[i].pressTime > s2) {
       s2 = ks[i].pressTime;
@@ -1056,8 +1055,8 @@ uint32_t scoring(Keystroke ks[], uint8_t size) {
   #if defined(CONSOLE_ENABLE) && defined(LOG_SCORING)
   uprintf(" scoring s2=%lu, e2=%lu\n", s2, e2);
   #endif
-  uint32_t w = e2 - s2; // キーが重なっている時間
-  uint32_t s = 0.0;
+  uint32_t w = e2 - s2; // キーが重なっている時間、uint16_tにするとおかしくなる？
+  uint32_t s = 0;
   if (s2 < e2) {
     for (uint8_t i = 0; i < size; i++) {
       s += w * 1000 / ((ks[i].releaseTime > 0 ? ks[i].releaseTime : now) - ks[i].pressTime);

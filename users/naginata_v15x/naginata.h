@@ -37,9 +37,9 @@ bool process_naginata(uint16_t, keyrecord_t *);
 void set_naginata(uint8_t, uint16_t *, uint16_t *);
 
 typedef struct {
-  uint32_t keycode;
-  uint32_t pressTime;
-  uint32_t releaseTime;
+  uint16_t keycode;
+  uint16_t pressTime;
+  uint16_t releaseTime;
 } Keystroke;
 
 void evaluate(void);
