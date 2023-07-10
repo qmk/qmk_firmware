@@ -5,3 +5,4 @@ RGB_MATRIX_ENABLE = no     # Disable keyboard RGB matrix, as it is enabled by de
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 CONVERT_TO=liatris		   # Convert from Elite-C to Liatris
 COMBO_ENABLE = yes
+SEND_STRING_ENABLE = yes
