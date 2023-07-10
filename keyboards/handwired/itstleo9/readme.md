@@ -3,9 +3,8 @@
 Handwired 3x3 macropad built with Pro Micro compatible microcontrollers
 
 * Keyboard Maintainer: [ItsTLeo](https://github.com/ItsTLeo)
-* Hardware Supported: RP2040, Promicro ATmega32u4
-* Hardware Availability: [RP2040](https://aliexpress.com/item/1005005616524430.html?gatewayAdapt=glo2vnm),
-                         [Promicro](https://aliexpress.com/item/32888212119.html)
+* Hardware Supported: RP2040/ATmega32U4 Pro Micro
+* Hardware Availability: [RP2040](https://aliexpress.com/item/1005005616524430.html), [ATmega32U4](https://aliexpress.com/item/32888212119.html)
 
 Make example for this keyboard (after setting up your build environment):
 
