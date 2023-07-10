@@ -1,4 +1,4 @@
-/* Copyright 2023 Sam Kelly (@samkellu)
+/* Copyright 2023 sam kelly (@samkellu)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,12 +12,11 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+*/
 
 #pragma once
 
-#define HAL_USE_I2C TRUE
-#define I2C_DRIVER I2CD0
-#define I2C1_SDA_PIN GP8
-#define I2C1_SCL_PIN GP9
-#define OLED_DISPLAY_128X64
+#undef RP_I2C_USE_I2C0
+#define RP_I2C_USE_I2C0 TRUE
+#undef RP_I2C_USE_I2C1
+#define RP_I2C_USE_I2C1 FALSE

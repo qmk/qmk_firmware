@@ -9,8 +9,8 @@ Based on a KBDfans tiger80 lite chassis and plate, this custom handwired board u
 
 * Keyboard Maintainer: [sam kelly](https://github.com/samkellu)
 * Hardware Supported: 
-  - 83x Cherry style switches (I used NK Creams)
-  - 83x 1N148 diodes
+  - 84x Cherry style switches (I used NK Creams)
+  - 84x 1N148 diodes
   - RP2040 (pi pico)
   - SSD1306 OLED 128x64
   - KBDfans tiger80 lite case, plate, gasket socks
