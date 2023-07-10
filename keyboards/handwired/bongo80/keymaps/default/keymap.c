@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include "bongo80.h"
 
 enum layers {
 	_QWERTY, _MEDIA

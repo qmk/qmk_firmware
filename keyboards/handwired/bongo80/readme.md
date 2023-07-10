@@ -22,11 +22,11 @@ Based on a KBDfans tiger80 lite chassis and plate, this custom handwired board u
 
 Make example for this keyboard (after setting up your build environment):
 
-    make bongo80:default
+    make handwired/bongo80:default
 
 Flashing example for this keyboard:
 
-    make bongo80:default:flash
+    make handwired/bongo80:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

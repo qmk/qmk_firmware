@@ -1,4 +1,4 @@
-/* Copyright 2023 sam kelly (@samkellu)
+/* Copyright 2023 Sam Kelly (@samkellu)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,10 +12,22 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 #pragma once
 
+// Represents an animation, including the frames and length (time) per frame
+struct frame_set {
+	const int len;
+	int frame_len;
+	const char** frames;
+};
+
+enum state {
+	IDLE = 0, SLOW = 1, MED = 2, FAST = 3
+};
+
+// Images
 // Generated using https://javl.github.io/image2cpp/
 // 'both_down', 128x56px
 static const char both_down [] PROGMEM = {

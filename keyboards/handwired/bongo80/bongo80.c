@@ -14,30 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
-#include "images.h"
 #include QMK_KEYBOARD_H
+#include <stdio.h>
+#include "bongo80.h"
+#include "oled.h"
 
 #ifdef OLED_ENABLE
-
-enum keycodes {
-	KC_OLED_STATE = SAFE_RANGE,
-};
 
 // Time per frame in millis
 #define FRAME_LENGTH_SLOW 400
 #define FRAME_LENGTH_MED 300
 #define FRAME_LENGTH_FAST 200
-
-// Represents an animation, including the frames and length (time) per frame
-struct frame_set {
-	const int len;
-	int frame_len;
-	const char** frames;
-};
-
-enum state {
-	IDLE = 0, SLOW = 1, MED = 2, FAST = 3
-};
 
 // Framesets for each typing state
 struct frame_set no_caps[] = {
