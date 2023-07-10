@@ -1,4 +1,4 @@
-# itstleo/handwired/it9_rp2040
+# itstleo9
 
 Handwired 3x3 macropad built with Pro Micro compatible microcontrollers
 
