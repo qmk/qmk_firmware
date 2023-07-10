@@ -1,12 +1,12 @@
 # Jelly Evolv - Hotswap 7U PCB
 
-![jelly evolv](https://i.imgur.com/yZ89zVk.jpg)
+![jelly evolv](https://i.imgur.com/yZ89zVkh.jpg)
 
 A 75% made by Owlab.
 
 * Keyboard Maintainer: [owlab](https://github.com/lizhenmingdirk)
 * Hardware Supported: Jelly Evolv Hotswap 7U PCB
-* Hardware Availability: 
+* Hardware Availability: Ended groupbuy: https://www.zfrontier.com/app/flow/W58MLYOGdVVQ
 
 Make example for this keyboard (after setting up your build environment):
 

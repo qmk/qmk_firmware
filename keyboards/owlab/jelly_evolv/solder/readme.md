@@ -1,12 +1,12 @@
 # Jelly Evolv - soldered PCB
 
-![jelly evolv](https://imgur.com/Kk49RUV.jpg)
+![jelly evolv](https://i.imgur.com/Kk49RUVh.jpg)
 
 A 75% made by Owlab.
 
 * Keyboard Maintainer: [owlab](https://github.com/lizhenmingdirk)
 * Hardware Supported: Jelly Evolv solder PCB
-* Hardware Availability: 
+* Hardware Availability: Ended groupbuy: https://www.zfrontier.com/app/flow/W58MLYOGdVVQ
 
 Make example for this keyboard (after setting up your build environment):
 

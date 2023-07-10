@@ -1,29 +1,9 @@
 {
     "keyboard_name": "Jelly Evolv Hotswap_6.25U",
-    "manufacturer": "OwLab",
-    "url": "",
-    "maintainer": "Owlab",
     "usb": {
-        "vid": "0x4F53",
         "pid": "0x3655",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
     },
-    "matrix_pins": {
-        "cols": ["A7", "B0", "B1", "B2", "B10", "B11", "B12", "B13", "B14", "B15", "A8", "A9", "A10", "A15", "B4"],
-        "rows": ["A1", "A2", "A3", "A5", "A4", "A6"]
-    },
-    "diode_direction": "COL2ROW",
-    "ws2812": {
-        "pin": "B3"
-    },
-    "indicators": {
-        "caps_lock": "A0",
-        "on_state": 0
-    },
-    "debounce": 5,
-    "processor": "STM32F103",
-    "board": "STM32_F103_STM32DUINO",
     "layouts": {
         "LAYOUT": {
             "layout": [
