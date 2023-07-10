@@ -3,7 +3,6 @@
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
-#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 #undef TAPPING_TERM
 #define TAPPING_TERM 280 // 400
