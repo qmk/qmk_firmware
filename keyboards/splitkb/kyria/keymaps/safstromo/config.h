@@ -34,4 +34,5 @@
 #    	define RGBLIGHT_LIMIT_VAL 150
 #    endif
 #endif
-
+#define LED_CAPS_LOCK_PIN 24
+#define LED_PIN_ON_STATE 0

@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 /*
- * Sym Layer: Numbers and symbols
+ * Sym Layer: Symbols
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |    `   |  !   |  @   |  #   |  $   |  %   |                              |   ^  |  [   |  ]   |  &   |  *   |   =    |
@@ -200,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * DO NOT edit the rev1.c file; instead override the weakly defined default functions by your own.
  */
 
-/* DELETE THIS LINE TO UNCOMMENT (1/2)
+
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
@@ -215,30 +215,27 @@ bool oled_task_user(void) {
         // clang-format on
 
         oled_write_P(qmk_logo, false);
-        oled_write_P(PSTR("Kyria rev1.0\n\n"), false);
+        oled_write_P(PSTR("Kyria\n\n"), false);
 
         // Host Keyboard Layer Status
         oled_write_P(PSTR("Layer: "), false);
-        switch (get_highest_layer(layer_state|default_layer_state)) {
-            case _QWERTY:
+        switch (get_highest_layer(layer_state | default_layer_state)) {
+            case 0:
                 oled_write_P(PSTR("QWERTY\n"), false);
                 break;
-            case _DVORAK:
-                oled_write_P(PSTR("Dvorak\n"), false);
-                break;
-            case _COLEMAK_DH:
+            case 1:
                 oled_write_P(PSTR("Colemak-DH\n"), false);
                 break;
-            case _NAV:
-                oled_write_P(PSTR("Nav\n"), false);
+            case 2:
+                oled_write_P(PSTR("Nav/Num\n"), false);
                 break;
-            case _SYM:
+            case 3:
                 oled_write_P(PSTR("Sym\n"), false);
                 break;
-            case _FUNCTION:
+            case 4:
                 oled_write_P(PSTR("Function\n"), false);
                 break;
-            case _ADJUST:
+            case 5:
                 oled_write_P(PSTR("Adjust\n"), false);
                 break;
             default:
@@ -290,28 +287,37 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
-DELETE THIS LINE TO UNCOMMENT (2/2) */
-const uint16_t PROGMEM backspace_combo[] = {KC_N, KC_E, COMBO_END};
+
+const uint16_t PROGMEM backspace_combo[] = {RCTL_T(KC_N), RSFT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM esc_combo[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM tab_combo[] = {KC_R, KC_S, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM a_combo[] = {KC_U, KC_Y, COMBO_END};
-const uint16_t PROGMEM ae_combo[] = {KC_E, KC_I, COMBO_END};
+const uint16_t PROGMEM ae_combo[] = {RSFT_T(KC_E), LALT_T(KC_I), COMBO_END};
 const uint16_t PROGMEM oe_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM lprn_combo[] = {KC_F, KC_P, COMBO_END};
-const uint16_t PROGMEM lbrc_combo[] = {KC_C, KC_D, COMBO_END};
+const uint16_t PROGMEM lcbr_combo[] = {KC_C, KC_D, COMBO_END};
 const uint16_t PROGMEM rprn_combo[] = {KC_L, KC_U, COMBO_END};
-const uint16_t PROGMEM rbrc_combo[] = {KC_H, KC_COMM, COMBO_END};
+const uint16_t PROGMEM rcbr_combo[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM under_combo[] = {KC_M, KC_K, COMBO_END};
 combo_t key_combos[] = {
         COMBO(backspace_combo, KC_BSPC),
         COMBO(esc_combo, KC_ESC),
         COMBO(tab_combo, KC_TAB),
         COMBO(del_combo, KC_DEL),
+        COMBO(ae_combo, RALT(KC_Q)),
+        COMBO(oe_combo, RALT(KC_P)),
         COMBO(a_combo, RALT(KC_W)),
         COMBO(lprn_combo, KC_LPRN),
-        COMBO(lbrc_combo, KC_LBRC),
+        COMBO(lcbr_combo, KC_LCBR),
         COMBO(rprn_combo, KC_RPRN),
-        COMBO(rbrc_combo, KC_RBRC),
+        COMBO(rcbr_combo, KC_RCBR),
         COMBO(under_combo, KC_UNDS),
 };
+void keyboard_pre_init_user(void) {
+    // Set our LED pin as output
+    setPinOutput(24);
+    // Turn the LED off
+    // (Due to technical reasons, high is off and low is on)
+    writePinHigh(24);
+}
