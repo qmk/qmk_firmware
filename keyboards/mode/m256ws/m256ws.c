@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "eeconfig.h"
 #include "quantum.h"
 
 #ifdef VIA_ENABLE
