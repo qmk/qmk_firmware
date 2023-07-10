@@ -128,11 +128,7 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SPC_SFT:   return 150;
-        case BSP_QNM:   return 150;
-        case KC_A:
-        case KC_S:
-        case KC_E:
-        case KC_N:      return 250;
+        case BSP_QNM:   return 130;
         default:        return TAPPING_TERM;
     }
 }
