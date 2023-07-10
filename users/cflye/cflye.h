@@ -10,7 +10,7 @@
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
-enum layers { _BASE, _GAMING, _SYM, _NUM, _NAV,  _MEDIA, _FUN, _MOUSE  };
+enum layers { _BASE, _QWERTY, _GAMING, _SYM, _NUM, _NAV,  _MEDIA, _FUN, _MOUSE  };
 
 enum custom_keycodes {
     VRSN = SAFE_RANGE,
@@ -24,7 +24,8 @@ enum {
     TD_BOOT,
     TD_EECLEAR,
     TD_BASE,
-    TD_GAMING
+    TD_GAMING,
+    TD_QWERTY
 };
 
 enum unicode_names {
@@ -53,6 +54,19 @@ enum unicode_names {
 #define HOME_E RCTL_T(KC_E)
 #define HOME_I LALT_T(KC_I)
 #define HOME_O RGUI_T(KC_O)
+
+// QWERTY
+// Left-hand home row mods
+//#define HOME_A LGUI_T(KC_A)
+#define HOME_QS LALT_T(KC_S)
+#define HOME_D LCTL_T(KC_D)
+#define HOME_F LSFT_T(KC_F)
+
+// Right-hand home row mods
+#define HOME_J RSFT_T(KC_J)
+#define HOME_K RCTL_T(KC_K)
+#define HOME_L LALT_T(KC_L)
+#define HOME_SCLN RGUI_T(KC_SCLN)
 
 // Left-hand home row mods sym
 
