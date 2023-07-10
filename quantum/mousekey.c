@@ -392,7 +392,8 @@ void mousekey_on(uint8_t code) {
 #    endif
 
 #    ifndef MOUSEKEY_INERTIA
-    // Restart acceleration for overlapping mouse key presses
+    // If mouse report is not zero, the current mousekey press is overlapping
+    // with another. Restart acceleration for smoother directional transition.
     if (mouse_report.x || mouse_report.y || mouse_report.h || mouse_report.v) {
 #        ifdef MK_KINETIC_SPEED
         mouse_timer = timer_read() - (MOUSEKEY_INTERVAL << 2);
