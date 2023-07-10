@@ -28,22 +28,10 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 *    **cols** :     D1  ,  D0   ,  D4
 *    **rows** :     F4  ,  F5   ,  F6
 
-## Firmware flash (for RP2040)
-
-When entered the bootloader mode, drag the .uf2 firmware into bootloader folder, wait a little bit and its all set, start using our new macropad
-
-## Bootloader RP2040
+## Bootloader
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: **Hold boot button** and press **rst button** 2 time, when it's appear the folder of rp2040 you entered the bootloader mode
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
-
-## Bootloader Promicro
-
-Enter the bootloader in 3 ways:
-
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (top left key) and plug in the keyboard
+* **Physical reset button**: Double-press reset button
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
