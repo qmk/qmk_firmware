@@ -1,0 +1,32 @@
+COMB(DEF_ESC,       KC_ESC,         KC_Q, KC_W)
+COMB(DEF_TAB,       KC_TAB,         KC_F, KC_G)
+COMB(DEF_ENT,       KC_ENT,         KC_V, KC_B)
+COMB(DEFR_TAB,      KC_TAB,         KC_J, KC_H)
+COMB(DEFR_ENT,      KC_ENT,         KC_M, KC_N)
+
+// Modifiers
+COMB(DEF_WIN,       KC_LGUI,        DEL_NAV, KC_SPC)           // Thumbs R: _ x x
+COMB(DEF_RALT,      KC_RALT,        KC_SPC, BSP_NUM)           // Thumbs R: x x _
+COMB(DEF_RESET,     MO(_RESET),     DEL_NAV, BSP_NUM)          // Thumbs R: x _ x
+
+COMB(DEF_CA,        C(KC_LALT),     KC_LCTL, KC_LALT)          // Thumbs L: x _ x
+COMB(DEF_CS,        C(KC_LSFT),     KC_LCTL, KC_LSFT)          // Thumbs L: _ x x
+COMB(DEF_AS,        A(KC_LSFT),     KC_LALT, KC_LSFT)          // Thumbs L: x x _
+COMB(DEF_MEH,       KC_MEH,         KC_LCTL, KC_LSFT, KC_LALT) // Thumbs L: x x x
+
+COMB(NUM_RALT,      RALTNUM,        KC_LALT, BSP_NUM)
+
+// Numpad
+COMB(NUM_PENT,      KC_PENT,        KC_5, KC_EQL)
+COMB(NUMR_PENT,     KC_PENT,        KC_6, KC_TILD)
+COMB(NUM_TAB,       KC_TAB,         KC_4, KC_MINS)
+COMB(NUMR_TAB,      KC_TAB,         KC_7, KC_HASH)
+
+// Mouse
+COMB(NAV_M_3,       KC_BTN3,        KC_BTN1, KC_BTN2)
+COMB(DEF_ZOOM,      ZOOM,           KC_X, KC_C, KC_V)
+COMB(DEF_SCRL,      DRGSCRL,        KC_X, KC_C)
+
+COMB(DEF_M_1,       KC_BTN1,        KC_COMM, KC_DOT)
+COMB(DEF_M_3,       KC_BTN3,        KC_COMM, KC_DOT, KC_EXLM)
+COMB(DEF_M_2,       KC_BTN2,        KC_DOT, KC_EXLM)
