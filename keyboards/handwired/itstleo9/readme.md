@@ -8,11 +8,13 @@ Handwired 3x3 macropad built with Pro Micro compatible microcontrollers
 
 Make example for this keyboard (after setting up your build environment):
 
-    make itstleo/itstleo9:default
-
+    make handwired/itstleo9/promicro:default
+    make handwired/itstleo9/rp2040:default
+    
 Flashing example for this keyboard:
 
-    make itstleo/itstleo9:default:flash
+    make handwired/itstleo9/promicro:default:flash
+    make handwired/itstleo9/rp2040:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs). Dont know how to make a handwire keyboard, check it out [SkottoKeebs handwire tutorial](https://www.youtube.com/watch?v=hjml-K-pV4E&pp=ygUTaGFuZHdpcmUgYSBtYWNyb3BhZA%3D%3D)
 
