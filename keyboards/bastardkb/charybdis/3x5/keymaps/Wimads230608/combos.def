@@ -1,0 +1,53 @@
+COMBO_REF_LAYER(_EXP, _DEF) //for combos on _EXP layer, reference _DEF layer instead
+
+// MODS (thumbs)
+COMB(DEF_CS,        C(KC_LSFT),     KC_LCTL, KC_LSFT)          // Thumb L: x x _   CTRL  SHFT
+COMB(DEF_AS,        A(KC_LSFT),     KC_LALT, KC_LSFT)          // Thumb L: _ x x   ALT   SHFT
+COMB(DEF_CA,        C(KC_LALT),     KC_LCTL, KC_LALT)          // Thumb L: x _ x   CTRL  ALT
+COMB(DEF_MEH,       KC_MEH,         KC_LCTL, KC_LSFT, KC_LALT) // Thumb L: x x x   CTRL  ALT  SHFT
+
+                                                               // Thumb R: x x _
+COMB(DEF_RST,       MO(_RST),       KC_SPC,  BSP_GUI)          // Thumb R: _ x x   reset layer
+COMB(DEF_RAW,       G(KC_RALT),     DEL_RLT, BSP_GUI)          // Thumb R: x _ x   RALT  WIN
+COMB(DEF_HPR,       KC_HYPR,        DEL_RLT, KC_SPC, BSP_GUI)  // Thumb R: x x x   CTRL  ALT  SHFT  WIN
+
+COMB(DEF_RAC,       C(KC_RALT),     KC_LCTL, BSP_GUI)  // ThumbLR: _ _ x   _ _ x   CTRL  RALT
+COMB(DEF_RAS,       S(KC_RALT),     KC_LSFT, BSP_GUI)  // ThumbLR: _ x _   _ _ x   SHFT  RALT
+COMB(DEF_CW,        C(KC_LGUI),     KC_LCTL, DEL_RLT)  // ThumbLR: _ _ x   x _ _   CTRL  WIN
+COMB(DEF_SW,        S(KC_LGUI),     KC_LSFT, DEL_RLT)  // ThumbLR: _ x _   x _ _   SHFT  WIN
+COMB(DEF_AW,        A(KC_LGUI),     KC_LALT, DEL_RLT)  // ThumbLR: x _ _   x _ _   ALT   WIN
+
+// ESC/TAB/ENT
+COMB(DEF_ESC,       KC_ESC,         KC_Q,    KC_W) //QW Escape
+COMB(DEF_TAB,       KC_TAB,         JJJ_NAV, KC_H) //JH Tab
+COMB(DEF_ENT,       KC_ENT,         KC_N,    KC_M) //NM Enter
+
+// NUMPAD
+COMB(NUM_ENT,       KC_PENT,        KC_ASTR, KC_1) //*1 Numpad enter
+COMB(NUM_EQL,       KC_EQL,         KC_PLUS, KC_4) //+4 =
+
+// MOUSE
+COMB(DEF_LMB,       KC_BTN1,        FFF_NAV, KC_G) //FG Left Mouse Button
+COMB(DEF_RMB,       KC_BTN2,        KC_R,    KC_T) //RT Right Mouse Button
+COMB(DEF_MMB,       KC_BTN3,        KC_V,    KC_B) //VB Middle Mouse Button
+COMB(DEF_DRT,       DRGcTOG,        FFF_NAV, KC_B) //FB Dragscroll Toggle
+COMB(DEF_DRZ,       DRGZOOM,        KC_G,    KC_V) //GV Dragzoom (ctrl+dragscroll)
+COMB(DEF_BWD,       KC_BTN4,        KC_R,    KC_G) //RG back
+COMB(DEF_FWD,       KC_BTN5,        FFF_NAV, KC_T) //FT forward
+
+COMB(DEFrLMB,       KC_BTN1,        KC_Y, UUU_DRG)
+COMB(DEFrRMB,       KC_BTN2,        KC_J, UUU_DRG)
+COMB(DEFrMMB,       KC_BTN3,        KC_H, UUU_DRG)
+COMB(DEFrDRT,       DRGcTOG,        KC_N, JJJ_NAV)
+
+// LEGACY MOUSE (old configuration)
+/*
+COMB(DEF_MMB,       KC_BTN3,        KC_BTN1,     KC_BTN2)         //Left hand dedicated keys
+COMB(DEF_ZM,        DRGZOOM,           kcX_NUM, kcC_NAV) //Zoom (CTRL+SCROLL)
+
+COMB(DEFrLMB,       KC_BTN1,        KC_COMM, KC_DOT)  //,. Mouse 1
+COMB(DEFrRMB,       KC_BTN2,        KC_DOT,  KC_EXLM) //.! Mouse 2
+COMB(DEFrMMB,       KC_BTN3,        KC_COMM, KC_DOT, KC_EXLM) //,.! Mouse 3
+COMB(DEFrSCR,       DRGcTOG,        KC_K,    KC_DOT)  //K. Mouse Toggle dragscroll
+COMB(DEFrZM,        DRGZOOM,           JJJ_NAV, KC_COMM) //J, Mouse Zoom
+*/

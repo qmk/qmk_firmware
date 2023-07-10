@@ -1,0 +1,151 @@
+//COMBO_REF_LAYER(_EXP, _DEF) //for combos on _EXP layer, reference _DEF layer instead
+
+// MODS (thumbs)
+COMB(DEF_CS,        C(KC_LSFT),     KC_LCTL, KC_LSFT)          // Thumb L: x x _   CTRL  SHFT
+COMB(DEF_AS,        A(KC_LSFT),     KC_LALT, KC_LSFT)          // Thumb L: _ x x   ALT   SHFT
+COMB(DEF_CA,        C(KC_LALT),     KC_LCTL, KC_LALT)          // Thumb L: x _ x   CTRL  ALT
+COMB(DEF_MEH,       KC_MEH,         KC_LCTL, KC_LSFT, KC_LALT) // Thumb L: x x x   CTRL  ALT  SHFT
+
+                                                               // Thumb R: x x _
+COMB(DEF_RST,       MO(_RST),       KC_SPC,  BSP_GUI)          // Thumb R: _ x x   reset layer
+COMB(DEF_RAW,       G(KC_RALT),     DEL_RLT, BSP_GUI)          // Thumb R: x _ x   RALT  WIN
+COMB(DEF_HPR,       KC_HYPR,        DEL_RLT, KC_SPC, BSP_GUI)  // Thumb R: x x x   CTRL  ALT  SHFT  WIN
+
+COMB(DEF_RAC,       C(KC_RALT),     KC_LCTL, BSP_GUI)  // ThumbLR: _ _ x   _ _ x   CTRL  RALT
+COMB(DEF_RAS,       S(KC_RALT),     KC_LSFT, BSP_GUI)  // ThumbLR: _ x _   _ _ x   SHFT  RALT
+COMB(DEF_CW,        C(KC_LGUI),     KC_LCTL, DEL_RLT)  // ThumbLR: _ _ x   x _ _   CTRL  WIN
+COMB(DEF_SW,        S(KC_LGUI),     KC_LSFT, DEL_RLT)  // ThumbLR: _ x _   x _ _   SHFT  WIN
+COMB(DEF_AW,        A(KC_LGUI),     KC_LALT, DEL_RLT)  // ThumbLR: x _ _   x _ _   ALT   WIN
+
+// ESC/TAB/ENT
+COMB(DEF_ESC,       KC_ESC,         KC_Q,    KC_W) //QW Escape
+COMB(DEF3ESC,       KC_ESC,         KC_W,    KC_E,    KC_R)
+COMB(DEF_TAB,       KC_TAB,         FFF_NAV, KC_G) //JH Tab
+COMB(DEF3TAB,       KC_TAB,         KC_S,    DDD_SNI,    FFF_NAV)
+COMB(DEF_ENT,       KC_ENT,         KC_V,    KC_B) //NM Enter
+COMB(DEF3ENT,       KC_ENT,         XXX_NUM, KC_C,    KC_V)
+COMB(DEF_BSP,       KC_BSPC,        KC_R,    KC_G) //NM Enter
+COMB(DEF_DEL,       KC_DEL,         FFF_NAV, KC_B) //NM Enter
+
+
+COMB(DEFrTAB,       KC_TAB,         JJJ_NAV, KC_H) //JH Tab
+COMB(DEr3TAB,       KC_TAB,         JJJ_NAV, KC_K,    KC_L)
+COMB(DEFrENT,       KC_ENT,         KC_N,    KC_M) //NM Enter
+COMB(DEr3ENT,       KC_ENT,         KC_M,    KC_COMM, DOT_NUM)
+
+// NUMPAD
+COMB(NUM_ENT,       KC_PENT,        KC_HASH, KC_RBRC) //*1 Numpad enter
+COMB(NUMrENT,       KC_PENT,        KC_ASTR, KC_1) //*1 Numpad enter
+COMB(NUM_EQL,       KC_EQL,         KC_PLUS, KC_4) //+4 =
+
+// MOUSE
+COMB(DEF_LMB,       KC_BTN1,        FFF_NAV, KC_S) //FG Left Mouse Button
+COMB(DEF_RMB,       KC_BTN2,        KC_R,    KC_W) //RT Right Mouse Button
+COMB(DEF_MMB,       KC_BTN3,        KC_V,    XXX_NUM) //VB Middle Mouse Button
+COMB(DEF_DRZ,       DRGZOOM,        KC_S,    KC_V) //FB Dragscroll Toggle
+COMB(DEF_DRT,       DRGcTOG,        FFF_NAV, XXX_NUM) //GV Dragzoom (ctrl+dragscroll)
+COMB(DEF_FWD,       KC_BTN5,        KC_R,    KC_S) //RG back
+COMB(DEF_BWD,       KC_BTN4,        FFF_NAV, KC_W) //FT forward
+
+COMB(DEFrLMB,       KC_BTN1,        KC_Y, UUU_DRG)
+COMB(DEFrRMB,       KC_BTN2,        KC_J, UUU_DRG)
+COMB(DEFrMMB,       KC_BTN3,        KC_H, UUU_DRG)
+COMB(DEFrDRT,       DRGcTOG,        KC_N, JJJ_NAV)
+
+// LEGACY MOUSE (old configurQC_0ion)
+/*
+COMB(DEF_MMB,       KC_BTN3,        KC_BTN1,     KC_BTN2)         //Left hand dedicQC_0ed keys
+COMB(DEF_ZM,        DRGZOOM,           kcX_NUM, kcC_NAV) //Zoom (CTRL+SCROLL)
+
+COMB(DEFrLMB,       KC_BTN1,        KC_COMM, KC_DOT)  //,. Mouse 1
+COMB(DEFrRMB,       KC_BTN2,        KC_DOT,  KC_EXLM) //.! Mouse 2
+COMB(DEFrMMB,       KC_BTN3,        KC_COMM, KC_DOT, KC_EXLM) //,.! Mouse 3
+COMB(DEFrSCR,       DRGcTOG,        KC_K,    KC_DOT)  //K. Mouse Toggle dragscroll
+COMB(DEFrZM,        DRGZOOM,           JJJ_NAV, KC_COMM) //J, Mouse Zoom
+*/
+
+///QWERTAI CHORDS
+//XX__
+COMB(CB_Q,      KC_Q,       QC_R, QC_O)
+COMB(CB_X,      KC_X,       QC_A, QC_S)
+COMB(CB_Z,      KC_Z,       QC_A, QC_O)
+COMB(CB_DLR,    KC_DLR,     QC_R, QC_S)
+//_XX_
+COMB(CB_D,      KC_D,       QC_O, QC_I)
+COMB(CB_C,      KC_C,       QC_S, QC_E)
+COMB(CB_L,      KC_L,       QC_S, QC_I)
+COMB(CB_K,      KC_K,       QC_O, QC_E)
+//__XX
+COMB(CB_H,      KC_H,       QC_I, QC_T)
+COMB(CB_B,      KC_B,       QC_E, QC_N)
+COMB(CB_F,      KC_F,       QC_E, QC_T)
+COMB(CB_V,      KC_V,       QC_I, QC_N)
+//X_X_
+COMB(CB_P,      KC_P,       QC_R, QC_I)
+COMB(CB_QUOT,   KC_QUOT,    QC_A, QC_E)
+COMB(CB_COMM,   KC_COMM,    QC_A, QC_I)
+COMB(CB_LPRN,   KC_LPRN,    QC_R, QC_E)
+//X__X
+COMB(CB_Y,      KC_Y,       QC_R, QC_T)
+COMB(CB_J,      KC_J,       QC_A, QC_N)
+COMB(CB_DOT,    KC_DOT,     QC_A, QC_T)
+COMB(CB_RPRN,   KC_RPRN,    QC_R, QC_N)
+//_X_X
+COMB(CB_U,      KC_U,       QC_O, QC_T)
+COMB(CB_M,      KC_M,       QC_S, QC_N)
+COMB(CB_W,      KC_W,       QC_S, QC_T)
+COMB(CB_G,      KC_G,       QC_O, QC_N)
+//XXX
+COMB(CB_TAB,    KC_TAB,     QC_O, QC_I, QC_T)
+COMB(CB_ENT,    KC_ENT,     QC_S, QC_E, QC_N)
+COMB(CB_ESC,    KC_ESC,     QC_R, QC_O, QC_I)
+COMB(CBmESC,    KC_ESC,     QCSNIPE, QC_BTN2, QC_SCRL)
+COMB(CB_NAV,    MO(_QNV),    QC_A, QC_S, QC_E)
+
+COMB(CB_LGUI,   OSM(MOD_LGUI),    QC_A, QC_R)
+COMB(CB_LALT,   OSM(MOD_LALT),    QC_S, QC_O)
+COMB(CB_RALT,   OSM(MOD_RALT),    QC_I, QC_E)
+COMB(CB_LCTL,   OSM(MOD_LCTL),    QC_N, QC_T)
+
+COMB(CB_LEAD,   QK_LEAD,    QC_N, QC_I, QC_S)
+COMB(CB_DEL,    KC_DEL,     QC_T, QC_I, QC_S)
+COMB(CB_BSPC,   KC_BSPC,    QC_N, QC_I, QC_O)
+
+//00__
+COMB(CB_AMPR,   KC_AMPR,    QC_0, QC_9)
+COMB(CB_PIPE,   KC_PIPE,    DOTCOMM, QC_3)
+COMB(CB_TILD,   KC_TILD,    DOTCOMM, QC_9)
+COMB(CB_BSLS,   KC_BSLS,    QC_0, QC_3)
+//_00_
+COMB(CB_6,      KC_6,       QC_9, QC_8)
+COMB(CB_HASH,   KC_HASH,    QC_3, QC_2)
+COMB(CB_LT,     KC_LT,      QC_3, QC_8)
+COMB(CB_GT,     KC_GT,      QC_9, QC_2)
+//__00
+COMB(CB_4,      KC_4,       QC_8, QC_7)
+COMB(CB_AT,     KC_AT,      QC_2, QC_1)
+COMB(CB_PLUS,   KC_PLUS,    QC_2, QC_7)
+COMB(CB_MINS,   KC_MINS,    QC_8, QC_1)
+//0_0_
+COMB(CB_PERC,   KC_PERC,    QC_0, QC_8)
+COMB(CB_GRV,    KC_GRV,     DOTCOMM, QC_2)
+COMB(CB_QUES,   KC_QUES,    DOTCOMM, QC_8)
+COMB(CB_LBRC,   KC_LBRC,    QC_0, QC_2)
+//0__0
+COMB(CB_CIRC,   KC_CIRC,    QC_0, QC_7)
+COMB(CB_UNDS,   KC_UNDS,    DOTCOMM, QC_1)
+COMB(CB_EXLM,   KC_EXLM,    DOTCOMM, QC_7)
+COMB(CB_RBRC,   KC_RBRC,    QC_0, QC_1)
+//_0_0
+COMB(CB_5,      KC_5,       QC_9, QC_7)
+COMB(CB_EQL,    KC_EQL,     QC_3, QC_1)
+COMB(CB_ASTR,   KC_ASTR,    QC_3, QC_7)
+COMB(CB_SLSH,   KC_SLSH,    QC_9, QC_1)
+//special keycodes
+COMB(CB_RST,    QK_BOOT,    QC_3, QC_8, QC_1)
+//Mouse
+COMB(CB_BTN3,   KC_BTN3,    QC_BTN1, QC_BTN2)
+COMB(CB_DRZM,   DRGZOOM,    QC_BTN1, QC_SCRL)
+COMB(CB_DRTG,   DRGcTOG,    QC_BTN2, QC_SCRL)
+
+COMB(CB_CTL,    KC_LCTL,    SPC_SFT, BSP_QNM)
