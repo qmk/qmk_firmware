@@ -95,6 +95,7 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define ___________________NAV_R3___________________    KC_INS,            KC_HOME,           KC_PGDN,           KC_PGUP,           KC_END
 #define ___________________NAV_R4___________________    ___________________BLANK___________________
 
+
 #define __________________MOUSE_L1__________________    TD(TD_BOOT),       XXXXXXX,           XXXXXXX,           XXXXXXX,        XXXXXXX
 #define __________________MOUSE_L2__________________    KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NA
 #define __________________MOUSE_L3__________________    ___________________BLANK___________________
@@ -111,3 +112,14 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #define _________________THUMB_LEFT________________     KC_NO,             KC_NO,             LT(_MEDIA,KC_ESC), LT(_NAV,KC_SPC),   LT(_MOUSE,KC_BSPC)
 #define _________________THUMB_RIGHT_______________     LT(_FUN,KC_DEL),   LT(_SYM,KC_ENT),   LT(_NUM,KC_TAB),   KC_NO,             KC_NO
 
+
+// VI Versions
+
+#define ___________________NAV_VI_R2________________    KC_LEFT,           KC_DOWN,           KC_UP,             KC_RGHT,           CW_TOGG
+#define ___________________NAV_VI_R3________________    KC_HOME,           KC_PGDN,           KC_PGUP,           KC_END,            KC_INS
+
+#define __________________MEDIA_VI_R2_______________    KC_MPRV,           KC_VOLD,           KC_VOLU,           KC_MNXT,           U_NU
+#define __________________MEDIA_VI_R3_______________    U_NU,              KC_MPLY,           U_NU,              U_NU,              OU_AUTO
+
+#define __________________MOUSE_VI_R2_______________    KC_MS_L,           KC_MS_D,           KC_MS_U,           KC_MS_R,           U_NU
+#define __________________MOUSE_VI_R3_______________    KC_WH_L,           KC_WH_D,           KC_WH_U,           KC_WH_R,           U_NU
