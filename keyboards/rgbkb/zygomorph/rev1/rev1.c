@@ -1,4 +1,4 @@
-#include "zygomorph.h"
+#include "quantum.h"
 
 
 #ifdef RGB_MATRIX_ENABLE

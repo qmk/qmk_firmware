@@ -22,18 +22,15 @@
         "console": false,
         "command": false,
         "nkro": false,
-        "backlight": false,
-        "rgblight": true,
-        "audio": false,
-        "key_lock": false
+        "rgblight": true
+    },
+    "ws2812": {
+        "pin": "B5"
     },
     "rgblight": {
-        "pin": "B5",
         "led_count": 20,
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
-        "max_brightness": 255,
         "sleep": true,
         "animations": {
             "alternating": true,

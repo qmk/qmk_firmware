@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define _MASTER_RIGHT
 // #define EE_HANDS
 
-#undef RGB_DI_PIN
-#define RGB_DI_PIN D3
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN D3
 #undef RGBLED_NUM
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -50,7 +50,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 }
 #endif
 
-#define COMBO_COUNT 1
-
-#define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM 220

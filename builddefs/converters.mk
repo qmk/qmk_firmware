@@ -7,7 +7,12 @@ endif
 
 # TODO: opt in rather than assume everything uses a pro micro
 PIN_COMPATIBLE ?= promicro
+
+# Remove whitespace from any rule.mk provided vars
+#   - env cannot be overwritten but cannot have whitespace anyway
+CONVERT_TO:=$(strip $(CONVERT_TO))
 ifneq ($(CONVERT_TO),)
+
     # stash so we can overwrite env provided vars if needed
     ACTIVE_CONVERTER=$(CONVERT_TO)
 
@@ -23,13 +28,13 @@ ifneq ($(CONVERT_TO),)
     TARGET := $(TARGET)_$(CONVERT_TO)
 
     # Configure any defaults
-    OPT_DEFS += -DCONVERT_TO_$(strip $(shell echo $(CONVERT_TO) | tr '[:lower:]' '[:upper:]'))
-    OPT_DEFS += -DCONVERTER_TARGET=\"$(strip $(CONVERT_TO))\"
+    OPT_DEFS += -DCONVERT_TO_$(shell echo $(CONVERT_TO) | tr '[:lower:]' '[:upper:]')
+    OPT_DEFS += -DCONVERTER_TARGET=\"$(CONVERT_TO)\"
     OPT_DEFS += -DCONVERTER_ENABLED
     VPATH += $(CONVERTER)
 
     # Configure for "alias" - worst case it produces an idential define
-    OPT_DEFS += -DCONVERT_TO_$(strip $(shell echo $(ACTIVE_CONVERTER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DCONVERT_TO_$(shell echo $(ACTIVE_CONVERTER) | tr '[:lower:]' '[:upper:]')
 
     # Finally run any converter specific logic
     include $(CONVERTER)/converter.mk

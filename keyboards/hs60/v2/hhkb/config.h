@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define HS60_HHKB
 
-#define MATRIX_ROW_PINS { B3, B4, B5, A8, A4 }
-#define MATRIX_COL_PINS { A13, A10, A9, A14, A15, B8, B9, C13, C14, C15, A0, A1, A2, A3 }
-// To enable debugger set A13 A14 -> A5 A6
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Backlight options */
 
 #define RGB_BACKLIGHT_ENABLED 1

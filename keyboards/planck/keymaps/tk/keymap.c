@@ -318,7 +318,7 @@ void keyboard_post_init_user(void) {
 
 static bool prerecord_clicky = false;
 
-void dynamic_macro_record_start_user(void) {
+void dynamic_macro_record_start_user(int8_t direction) {
     prerecord_clicky = is_clicky_on();
     if (!prerecord_clicky) {
         clicky_on();

@@ -143,7 +143,7 @@ def generate_keycode_extras(cli):
     """
 
     # Build the header file.
-    keycodes_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "keymap.h"', '// clang-format off']
+    keycodes_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "keycodes.h"', '// clang-format off']
 
     keycodes = load_spec(cli.args.version, cli.args.lang)
 
