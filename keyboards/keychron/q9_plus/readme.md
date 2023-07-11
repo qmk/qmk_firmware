@@ -1,6 +1,6 @@
 # Keychron Q9 Plus
 
-![Keychron Q9 Plus](https://i.imgur.com/Yp9K7Gs.jpg)
+![Keychron Q9 Plus](https://i.imgur.com/Yp9K7Gsh.jpg)
 
 A customizable 40% keyboard.
 
