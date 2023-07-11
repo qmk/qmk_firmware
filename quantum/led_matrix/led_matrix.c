@@ -20,6 +20,10 @@
 #include "led_matrix.h"
 #include "progmem.h"
 #include "eeprom.h"
+#include "eeconfig.h"
+#include "keyboard.h"
+#include "sync_timer.h"
+#include "debug.h"
 #include <string.h>
 #include <math.h>
 #include "led_tables.h"

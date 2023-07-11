@@ -17,6 +17,7 @@
 #pragma once
 
 #include "eeconfig.h" // for EECONFIG_SIZE
+#include "action.h"
 
 // Keyboard level code can change where VIA stores the magic.
 // The magic is the build date YYMMDD encoded as BCD in 3 bytes,

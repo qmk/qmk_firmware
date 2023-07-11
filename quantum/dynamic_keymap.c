@@ -14,11 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "dynamic_keymap.h"
 #include "keymap_introspection.h" // to get keymaps[][][]
 #include "eeprom.h"
 #include "progmem.h" // to read default from flash
-#include "quantum.h" // for send_string()
-#include "dynamic_keymap.h"
+#include "send_string.h" // for send_string()
+#include "keycodes.h"
 
 #ifdef VIA_ENABLE
 #    include "via.h" // for VIA_EEPROM_CONFIG_END

@@ -21,7 +21,6 @@
 #include "musical_notes.h"
 #include "song_list.h"
 #include "voices.h"
-#include "quantum.h"
 #include <math.h>
 
 #if defined(__AVR__)

@@ -16,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
-#include "quantum.h"
 #include "keyboard.h"
+#include "keycode_config.h"
 #include "matrix.h"
 #include "keymap_introspection.h"
 #include "magic.h"
@@ -107,6 +107,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef LEADER_ENABLE
 #    include "leader.h"
+#endif
+#ifdef UNICODE_COMMON_ENABLE
+#    include "unicode.h"
+#endif
+#ifdef WPM_ENABLE
+#    include "wpm.h"
 #endif
 
 static uint32_t last_input_modification_time = 0;
