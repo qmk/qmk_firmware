@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |  ⌥↑  | PgUp |  ⌥↓  |      |      |           |      |  ⌘]  | ⌥⌘↑  |   ↑  | ⌥⌘↓  |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      | Home | PgDn |  End |      |------|           |------|  ⌘[  |   ←  |   ↓  |   →  |      |   F16  |
+ * |        | ⌃⇧⌘← | Home | PgDn |  End | ⌃⇧⌘→ |------|           |------|  ⌘[  |   ←  |   ↓  |   →  |      |   F16  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |  ⏯  |  ⏮  |   ⏭ |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MDIA] = LAYOUT_ergodox(
        KC_TRNS,     KC_F14 ,        KC_F15 ,            KC_PSCR,        KC_SCRL,                KC_PAUS,        KC_TRNS,  /* F14 dims screen, F15 brightens */
        KC_TRNS,     KC_TRNS,        LALT(KC_UP),        KC_PGUP,        LALT(KC_DOWN),          KC_TRNS,        KC_TRNS,
-       KC_TRNS,     KC_TRNS,        KC_HOME,            KC_PGDN,        KC_END ,                KC_TRNS,        
+       KC_TRNS,     C(S(G(KC_LEFT))),KC_HOME,           KC_PGDN,        KC_END ,                C(S(G(KC_RGHT))),        
        KC_TRNS,     KC_TRNS,        KC_TRNS,            KC_TRNS,        KC_TRNS,                KC_TRNS,        KC_TRNS,
        KC_TRNS,     KC_TRNS,        KC_TRNS,            KC_TRNS,        KC_TRNS,          
                                                                         KC_TRNS,                KC_TRNS,
