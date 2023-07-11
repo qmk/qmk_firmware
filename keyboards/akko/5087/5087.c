@@ -147,9 +147,6 @@ kb_config_t kb_config;
 
 void keyboard_post_init_kb(void) {
     kb_config.raw = eeconfig_read_kb(); // Read status from EEPROM
-    if (kb_config.MacMode_flag) { 
-        layer_on(MAC_B);
-    }
     if (kb_config._WASD_layer_flag) {
         layer_on(kb_config.MacMode_flag ? MAC_W : WIN_W);
     }
@@ -183,24 +180,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 #ifndef DISABLE_5085_KEYCODES
         case DF(WIN_B):
             if (record->event.pressed) {
-                set_single_persistent_default_layer(WIN_B);
-                layer_state_set(1 << WIN_B);
                 kb_config.MacMode_flag     = false;
                 kb_config._WASD_layer_flag = false;
                 eeconfig_update_kb(kb_config.raw);
             }
-            return false;
+            return true;
         case DF(MAC_B):
             if (record->event.pressed) {
-                set_single_persistent_default_layer(MAC_B);
-                layer_state_set(1 << MAC_B);
                 keymap_config.no_gui = 0;
                 eeconfig_update_keymap(keymap_config.raw);
                 kb_config.MacMode_flag     = true;
                 kb_config._WASD_layer_flag = false;
                 eeconfig_update_kb(kb_config.raw);
             }
-            return false;
+            return true;
         case TG(WIN_W):
             if (record->event.pressed) {
                 kb_config._WASD_layer_flag = !layer_state_is(WIN_W);
