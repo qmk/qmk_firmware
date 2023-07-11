@@ -8,6 +8,35 @@
         "pid": "0x8888",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgblight": true,
+        "nkro": true
+    },
+    "ws2812": {
+        "pin": "GP0",
+        "driver": "vendor"
+    },
+    "rgblight": {
+        "led_count": 34,
+        "layers": {
+             "enabled": true
+        },
+        "animation": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
     "matrix_pins": {
         "cols": ["GP4", "GP3", "GP2", "GP26", "GP25", "GP24", "GP23", "GP20", "GP19", "GP18", "GP29", "GP28", "GP27", "GP14", "GP1", "GP5", "GP6"],
         "rows": ["GP8", "GP11", "GP10", "GP9", "GP13", "GP12"]
