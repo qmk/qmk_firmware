@@ -75,6 +75,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef STENO_ENABLE
 #    include "process_steno.h"
 #endif
+#ifdef KEY_OVERRIDE_ENABLE
+#    include "process_key_override.h"
+#endif
 #ifdef SECURE_ENABLE
 #    include "secure.h"
 #endif

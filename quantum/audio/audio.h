@@ -21,11 +21,6 @@
 #include "musical_notes.h"
 #include "song_list.h"
 #include "voices.h"
-#include <math.h>
-
-#if defined(__AVR__)
-#    include <avr/io.h>
-#endif
 
 #if defined(AUDIO_DRIVER_PWM)
 #    include "audio_pwm.h"
