@@ -18,6 +18,7 @@
     "layout_aliases": {
         "LAYOUT_tkl_ansi": "LAYOUT_tkl_f13_ansi"
     },
+    "community_layouts": ["tkl_f13_ansi"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi": {
             "layout": [
