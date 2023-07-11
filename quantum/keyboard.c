@@ -33,6 +33,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sendchar.h"
 #include "eeconfig.h"
 #include "action_layer.h"
+#ifdef AUDIO_ENABLE
+#    include "audio.h"
+#endif
+#if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
+#    include "process_music.h"
+#endif
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
 #endif
@@ -54,8 +60,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
+#ifdef AUTO_SHIFT_ENABLE
+#    include "process_auto_shift.h"
+#endif
+#ifdef COMBO_ENABLE
+#    include "process_combo.h"
+#endif
+#ifdef TAP_DANCE_ENABLE
+#    include "process_tap_dance.h"
+#endif
 #ifdef STENO_ENABLE
 #    include "process_steno.h"
+#endif
+#ifdef SECURE_ENABLE
+#    include "secure.h"
 #endif
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing_device.h"

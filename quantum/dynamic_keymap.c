@@ -15,14 +15,14 @@
  */
 
 #include "dynamic_keymap.h"
-#include "keymap_introspection.h" // to get keymaps[][][]
+#include "keymap_introspection.h"
 #include "eeprom.h"
-#include "progmem.h" // to read default from flash
-#include "send_string.h" // for send_string()
+#include "progmem.h"
+#include "send_string.h"
 #include "keycodes.h"
 
 #ifdef VIA_ENABLE
-#    include "via.h" // for VIA_EEPROM_CONFIG_END
+#    include "via.h"
 #    define DYNAMIC_KEYMAP_EEPROM_START (VIA_EEPROM_CONFIG_END)
 #else
 #    define DYNAMIC_KEYMAP_EEPROM_START (EECONFIG_SIZE)
