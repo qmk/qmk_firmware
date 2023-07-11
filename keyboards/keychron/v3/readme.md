@@ -11,10 +11,20 @@ A customizable 80% keyboard.
 Make example for this keyboard (after setting up your build environment):
 
     make keychron/v3/ansi:default
+    make keychron/v3/ansi_encoder:default
+    make keychron/v3/iso:default
+    make keychron/v3/iso_encoder:default
+    make keychron/v3/jis:default
+    make keychron/v3/jis_encoder:default
 
 Flashing example for this keyboard:
 
     make keychron/v3/ansi:default:flash
+    make keychron/v3/ansi_encoder:default:flash
+    make keychron/v3/iso:default:flash
+    make keychron/v3/iso_encoder:default:flash
+    make keychron/v3/jis:default:flash
+    make keychron/v3/jis_encoder:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 
