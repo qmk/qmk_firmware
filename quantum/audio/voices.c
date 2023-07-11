@@ -16,6 +16,7 @@
  */
 #include "voices.h"
 #include "audio.h"
+#include "timer.h"
 #include <stdlib.h>
 
 uint8_t note_timbre      = TIMBRE_DEFAULT;

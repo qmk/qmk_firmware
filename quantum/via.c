@@ -30,7 +30,12 @@
 #include "eeconfig.h"
 #include "matrix.h"
 #include "timer.h"
+#include "wait.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
+
+#if defined(AUDIO_ENABLE)
+#    include "audio.h"
+#endif
 
 #if defined(BACKLIGHT_ENABLE)
 #    include "backlight.h"
