@@ -1,16 +1,18 @@
 # Keychron V4
 
+![Keychron V4](https://i.imgur.com/I8XYxlbh.jpg)
+
 A customizable 60% keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron V4
-* Hardware Availability: [Keychron](https://www.keychron.com)
+* Hardware Availability: [Keychron V4 QMK Custom Mechanical Keyboard](https://www.keychron.com/products/keychron-v4-qmk-custom-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
     make keychron/v4/ansi:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make keychron/v4/ansi:default:flash
 

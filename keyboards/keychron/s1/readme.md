@@ -1,38 +1,20 @@
 # Keychron S1
 
-A customizable 75% keyboard with RGB backlight and White backlight.
+![Keychron S1](https://i.imgur.com/X1GFlYKh.jpg)
+
+A customizable 75% keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron S1
-* Hardware Availability: [Keychron](https://www.keychron.com)
+* Hardware Availability: [Keychron S1 QMK Custom Mechanical Keyboard](https://www.keychron.com/products/keychron-s1-qmk-custom-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
-* For RGB backlight version:
-
-```bash
-make keychron/s1/ansi/rgb:default
-```
-
-* For White backlight version:
-
-```bash
-make keychron/s1/ansi/white:default
-```
+    make keychron/s1/ansi/rgb:default
 
 Flashing example for this keyboard:
 
-* For RGB backlight version:
-
-```bash
-make keychron/s1/ansi/rgb:default:flash
-```
-
-* For White backlight version:
-
-```bash
-make keychron/s1/ansi/white:default:flash
-```
+    make keychron/s1/ansi/rgb:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 
