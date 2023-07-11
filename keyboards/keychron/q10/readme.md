@@ -1,18 +1,22 @@
 # Keychron Q10
 
+![Keychron Q10](https://i.imgur.com/QhqPOQQh.jpg)
+
 A customizable 75% ergonomic keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q10
-* Hardware Availability: [Keychron](https://www.keychron.com)
+* Hardware Availability: [Keychron Q10 (Alice Layout) QMK Custom Mechanical Keyboard](https://www.keychron.com/products/keychron-q10-alice-layout-qmk-custom-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
     make keychron/q10/ansi_encoder:default
+    make keychron/q10/iso_encoder:default
 
 Flashing example for this keyboard:
 
     make keychron/q10/ansi_encoder:default:flash
+    make keychron/q10/iso_encoder:default:flash
 
 **Reset Key**: Hold down the key located at *K01*, which programmed as *Esc* while plugging in the keyboard.
 

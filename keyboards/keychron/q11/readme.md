@@ -1,6 +1,6 @@
 # Keychron Q11
 
-![Keychron Q11](https://i.imgur.com/FPTNqKj.jpg)
+![Keychron Q11](https://i.imgur.com/fRZPpJNh.jpg)
 
 A customizable 75% split keyboard.
 

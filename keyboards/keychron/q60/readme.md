@@ -1,16 +1,18 @@
 # Keychron Q60
 
+[Keychron Q60](https://i.imgur.com/Uxgs4Srh.jpg)
+
 A customizable 60% keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q60
-* Hardware Availability: [Keychron](https://www.keychron.com)
+* Hardware Availability: [Keychron Q60 QMK Custom Mechanical Keyboard](https://www.keychron.com)
 
 Make example for this keyboard (after setting up your build environment):
 
     make keychron/q60/ansi:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make keychron/q60/ansi:default:flash
 
