@@ -60,6 +60,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
+#ifdef HAPTIC_ENABLE
+#    include "haptic.h"
+#endif
 #ifdef AUTO_SHIFT_ENABLE
 #    include "process_auto_shift.h"
 #endif
