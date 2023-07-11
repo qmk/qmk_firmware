@@ -1,5 +1,4 @@
 {
-    "community_layouts": ["75_ansi"],
     "led_matrix": {
         "animations": {
             "none": true,
