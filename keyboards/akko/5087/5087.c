@@ -151,7 +151,7 @@ void keyboard_post_init_kb(void) {
         layer_on(MAC_B);
     }
     if (kb_config._WASD_layer_flag) {
-        kb_config.MacMode_flag ? layer_on(MAC_W) : layer_on(WIN_W);
+        layer_on(kb_config.MacMode_flag ? MAC_W : WIN_W);
     }
 }
 
