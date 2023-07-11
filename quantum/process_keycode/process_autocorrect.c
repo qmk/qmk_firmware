@@ -6,7 +6,11 @@
 
 #include "process_autocorrect.h"
 #include <string.h>
+#include "keycodes.h"
+#include "quantum_keycodes.h"
 #include "keycode_config.h"
+#include "send_string.h"
+#include "action_util.h"
 
 #if __has_include("autocorrect_data.h")
 #    include "autocorrect_data.h"
