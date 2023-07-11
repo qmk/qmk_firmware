@@ -7,6 +7,9 @@
         "device_version": "0.0.1",
         "max_power": 50
     },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
     "matrix_pins": {
         "cols": ["LINE_PIN18", "LINE_PIN14", "LINE_PIN15", "LINE_PIN20", "LINE_PIN22", "LINE_PIN19", "LINE_PIN6"],
         "rows": ["LINE_PIN8", "LINE_PIN9", "LINE_PIN10", "LINE_PIN11", "LINE_PIN7", "LINE_PIN16", "LINE_PIN5", "LINE_PIN3", "LINE_PIN4", "LINE_PIN1", "LINE_PIN0", "LINE_PIN2", "LINE_PIN17", "LINE_PIN23", "LINE_PIN21"]

@@ -7,6 +7,9 @@
         "device_version": "0.0.2",
         "max_power": 100
     },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
     "matrix_pins": {
         "cols": ["E7", "F0", "F7", "B1", "B3", "B0", "D5"],
         "rows": ["D7", "E0", "E1", "C0", "C6", "F6", "D4", "D2", "D3", "D0", "B7", "D1", "E6", "B4", "B2"]

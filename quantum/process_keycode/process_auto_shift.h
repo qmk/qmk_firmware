@@ -16,7 +16,11 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
+#include "keyboard.h"
+#include "keycodes.h"
 
 #ifndef AUTO_SHIFT_TIMEOUT
 #    define AUTO_SHIFT_TIMEOUT 175
