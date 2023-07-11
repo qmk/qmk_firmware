@@ -15,10 +15,10 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "bongo80.h"
 
 enum layers {
-	_QWERTY, _MEDIA
+	_QWERTY,
+    _MEDIA,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
