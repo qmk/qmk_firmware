@@ -26,6 +26,7 @@
 #include "debug.h"
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 #include "led_tables.h"
 
 #include <lib/lib8tion/lib8tion.h>
