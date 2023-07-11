@@ -24,7 +24,7 @@
         "layers": {
              "enabled": true
         },
-        "animation": {
+        "animations": {
             "alternating": true,
             "breathing": true,
             "christmas": true,
