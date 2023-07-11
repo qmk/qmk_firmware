@@ -1,5 +1,6 @@
 #include "audio.h"
 #include "process_audio.h"
+#include <math.h>
 
 #ifndef VOICE_CHANGE_SONG
 #    define VOICE_CHANGE_SONG SONG(VOICE_CHANGE_SOUND)

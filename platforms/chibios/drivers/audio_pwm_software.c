@@ -25,8 +25,6 @@ this driver uses the chibios-PWM system to produce a square-wave on any given ou
 
  */
 #include "audio.h"
-#include <ch.h>
-#include <hal.h>
 #include "gpio.h"
 
 #if !defined(AUDIO_PIN)
