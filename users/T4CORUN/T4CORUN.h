@@ -33,10 +33,12 @@ enum keycodes {
 #define ___x___ KC_NO
 
 //tap toggle layer
-#define NAVGTIN    TT(_NAVIGATION)
-#define NUMBERS    TT(_NUMBER)
-#define GAMENUM    TT(_GAMENUMBER)
-#define ADJUST     TT(_ADJUST)
+#define GOHOME     TO(_DEFAULT_LAYER_1)
+
+#define NAVGTIN    MO(_NAVIGATION)
+#define NUMBERS    MO(_NUMBER)
+#define GAMENUM    MO(_GAMENUMBER)
+#define ADJUST     MO(_ADJUST)
 
 
 //pinky layer taps
@@ -401,11 +403,11 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 /*
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  | Home | Up   | End  | PgUp |    | Ins  |      | App  |      | MOU  |
+*   | Esc  | Home | Up   | End  | PgUp |    | Ins  |      | App  |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |      | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |      |      |      |      |      |
+*   | Undo | Cut  | Copy | Pste | Redo |    |      |      |      |      | MOU  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | Tab  | Bpsc | Ent  |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
@@ -415,9 +417,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define ___________________NAV_L3__________________        _________________UCCPR_L___________________
 #   define          __________NAV_L4_________                 KC_TAB,  KC_BSPC, KC_ENT
 
-#   define ___________________NAV_R1__________________        KC_INS,  ___x___, KC_APP,  ___x___, TR_MOUS
+#   define ___________________NAV_R1__________________        KC_INS,  ___x___, KC_APP,  ___x___, ___x___
 #   define ___________________NAV_R2__________________        KC_DEL,  _____________SCAG_MODS____________
-#   define ___________________NAV_R3__________________        __________________NONE_5___________________ 
+#   define ___________________NAV_R3__________________        ___x___, ___x___, ___x___, ___x___, TR_MOUS 
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          __________NAV_R4_________                 KC_SPC,  _______
@@ -458,29 +460,29 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |      |      | MouU |      | MwU  |    | sDPI | DPI  |      |      | MOU  |
+*   |      |      | MouU |      | MwU  |    | sDPI | DPI  |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      | MouL | MouD | MouR | MwD  |    |      | Shft | Ctrl | Alt  | Gui  |
+*   |      | MouL | MouD | MouR | MwD  |    |SniTog| Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |Sniper|      |LyrTap|DrgScr|      |    |DrgTog| MB1  | MB2  | MB3  |SniTog|
+*   |Sniper|      |LyrTap|DrgScr|      |    |DrgTog| MB1  | MB2  | MB3  |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  | MB2  | MB3  |    | MB5  | MB4  |      |
+*                 | MB1  | HOME | MB3  |    | MB5  |      |      |
 *                 `------+------+------'    `------+------+------'
 */
 
 #   define __________________MOUSE_L1_________________        ___x___, ___x___, TR_MOUU, ___x___, TR_MWHU
 #   define __________________MOUSE_L2_________________        ___x___, TR_MOUL, TR_MOUD, TR_MOUR, TR_MWHD
 #   define __________________MOUSE_L3_________________        TR_SNIP, ___x___, _______, TR_DRGS, ___x___
-#   define          _________MOUSE_L4________                 KC_BTN1, KC_BTN2, KC_BTN3
+#   define          _________MOUSE_L4________                 KC_BTN1, GOHOME,  KC_BTN3
 
-#   define __________________MOUSE_R1_________________        TR_SDPI, TR_PDPI, ___x___, ___x___, TR_MOUS
-#   define __________________MOUSE_R2_________________        ___x___, _____________SCAG_MODS____________
-#   define __________________MOUSE_R3_________________        TR_DRGT, KC_BTN1, KC_BTN2, KC_BTN3, TR_SNIT
+#   define __________________MOUSE_R1_________________        TR_SDPI, TR_PDPI, ___x___, ___x___, ___x___
+#   define __________________MOUSE_R2_________________        TR_SNIT, _____________SCAG_MODS____________
+#   define __________________MOUSE_R3_________________        TR_DRGT, KC_BTN1, KC_BTN2, KC_BTN3, ___x___
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          _________MOUSE_R4________                 KC_BTN5, KC_BTN4
+#   define          _________MOUSE_R4________                 KC_BTN5, ___x___
 #else
-#   define          _________MOUSE_R4________                 KC_BTN5, KC_BTN4, ___x___
+#   define          _________MOUSE_R4________                 KC_BTN5, ___x___, ___x___
 #endif
 
 

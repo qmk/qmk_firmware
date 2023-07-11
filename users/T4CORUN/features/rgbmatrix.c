@@ -79,7 +79,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
       rgb_matrix_set_color(LED_MOUSETAP, RGB_AZURE);
       
       rgb_matrix_set_color(LED_MOUSE_LB1, RGB_CORAL);
-      rgb_matrix_set_color(LED_MOUSE_LB2, RGB_CORAL);
       rgb_matrix_set_color(LED_MOUSE_LB3, RGB_CORAL);
 
       rgb_matrix_set_color(LED_MOUSE_RB1, RGB_CORAL);
@@ -87,6 +86,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
       rgb_matrix_set_color(LED_MOUSE_RB3, RGB_CORAL);
       rgb_matrix_set_color(LED_MOUSE_RB4, RGB_CORAL);
       rgb_matrix_set_color(LED_MOUSE_RB5, RGB_CORAL);
+
+      rgb_matrix_set_color(LED_HOME, RGB_CYAN);
       break;
 
     case _GAMENUMBER:
