@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make keychron/q9_plus/ansi_encoder:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make keychron/q9_plus/ansi:default:flash
 
