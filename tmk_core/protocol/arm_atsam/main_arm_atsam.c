@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host_driver.h"
 #include "keycode_config.h"
 #include <string.h>
-#include "quantum.h"
 
 // From protocol directory
 #include "arm_atsam_protocol.h"

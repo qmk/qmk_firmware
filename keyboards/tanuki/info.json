@@ -8,6 +8,11 @@
     "pid": "0x6464",
     "device_version": "0.0.1"
   },
+  "rgblight": {
+    "hue_steps": 10,
+    "led_count": 5,
+    "sleep": true
+  },
   "ws2812": {
     "pin": "D1"
   },

@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define RGBLED_NUM 20  // Number of LEDs
 // RGB effects
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 3
 #define RGBLED_HUE_STEP 8
 #define RGBLED_SAT_STEP 8
 #define RGBLED_VAL_STEP 8

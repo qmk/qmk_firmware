@@ -98,6 +98,15 @@ static void init(void) {
 
 #    elif defined(IS31FL3741)
     IS31FL3741_init(DRIVER_ADDR_1);
+#        if defined(DRIVER_ADDR_2)
+    IS31FL3741_init(DRIVER_ADDR_2);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL3741_init(DRIVER_ADDR_3);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL3741_init(DRIVER_ADDR_4);
+#                endif
+#            endif
+#        endif
 
 #    elif defined(IS31FLCOMMON)
     IS31FL_common_init(DRIVER_ADDR_1, ISSI_SSR_1);
@@ -196,6 +205,15 @@ static void init(void) {
 
 #    elif defined(IS31FL3741)
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+#        if defined(DRIVER_ADDR_2)
+    IS31FL3741_update_led_control_registers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL3741_update_led_control_registers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL3741_update_led_control_registers(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
+#        endif
 
 #    elif defined(IS31FLCOMMON)
 #        ifdef ISSI_MANUAL_SCALING
@@ -315,6 +333,12 @@ static void flush(void) {
     IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
 #        if defined(DRIVER_ADDR_2)
     IS31FL3741_update_pwm_buffers(DRIVER_ADDR_2, 1);
+#            if defined(DRIVER_ADDR_3)
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_3, 2);
+#                if defined(DRIVER_ADDR_4)
+    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_4, 3);
+#                endif
+#            endif
 #        endif
 }
 
@@ -402,11 +426,17 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 
 // LED color buffer
 LED_TYPE rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
+bool     ws2812_dirty = false;
 
-static void init(void) {}
+static void init(void) {
+    ws2812_dirty = false;
+}
 
 static void flush(void) {
-    ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
+    if (ws2812_dirty) {
+        ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
+        ws2812_dirty = false;
+    }
 }
 
 // Set an led in the buffer to a color
@@ -424,6 +454,11 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
     }
 #    endif
 
+    if (rgb_matrix_ws2812_array[i].r == r && rgb_matrix_ws2812_array[i].g == g && rgb_matrix_ws2812_array[i].b == b) {
+        return;
+    }
+
+    ws2812_dirty                 = true;
     rgb_matrix_ws2812_array[i].r = r;
     rgb_matrix_ws2812_array[i].g = g;
     rgb_matrix_ws2812_array[i].b = b;

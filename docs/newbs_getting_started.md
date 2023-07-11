@@ -120,7 +120,7 @@ NOTE: remember to follow the instructions printed at the end of installation (us
 
 ### ** Windows **
 
-After installing QMK you can set it up with this command:
+Open QMK MSYS and run the following command:
 
     qmk setup
 
@@ -128,7 +128,7 @@ In most situations you will want to answer `y` to all of the prompts.
 
 ### ** macOS **
 
-After installing QMK you can set it up with this command:
+Open Terminal and run the following command:
 
     qmk setup
 
@@ -136,7 +136,7 @@ In most situations you will want to answer `y` to all of the prompts.
 
 ### ** Linux/WSL **
 
-After installing QMK you can set it up with this command:
+Open your preferred terminal app and run the following command:
 
     qmk setup
 
@@ -150,7 +150,7 @@ Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$
 
 ###  ** FreeBSD **
 
-After installing QMK you can set it up with this command:
+Open your preferred terminal app and run the following command:
 
     qmk setup
 

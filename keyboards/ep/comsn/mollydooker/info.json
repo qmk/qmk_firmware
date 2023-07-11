@@ -15,6 +15,11 @@
     "ws2812": {
         "pin": "B0"
     },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 84,
+        "max_brightness": 35
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

@@ -4,14 +4,12 @@
 #pragma once
 
 #ifndef OLED_UPDATE_INTERVAL
-#    ifdef OLED_DRIVER_SH1107
-#        define OLED_UPDATE_INTERVAL 75
+#    ifdef SPLIT_KEYBOARD
+#        define OLED_UPDATE_INTERVAL 60
+#    elif defined(OLED_DISPLAY_128X128)
+#        define OLED_UPDATE_INTERVAL 30
 #    else
-#        ifdef SPLIT_KEYBOARD
-#            define OLED_UPDATE_INTERVAL 60
-#        else
-#            define OLED_UPDATE_INTERVAL 15
-#        endif
+#        define OLED_UPDATE_INTERVAL 15
 #    endif
 #endif
 #define OLED_DISABLE_TIMEOUT
@@ -40,24 +38,3 @@
 #define OLED_LOGO_SCIFI
 // #    define OLED_LOGO_SETS3N
 // #    define OLED_LOGO_SKEEB
-
-#ifdef OLED_DRIVER_SH1107
-#    define OLED_DISPLAY_CUSTOM
-#    define OLED_IC_SH1107 2
-#    define OLED_DISPLAY_128X128
-#    define OLED_DISPLAY_WIDTH 128
-#    define OLED_DISPLAY_HEIGHT 128
-#    define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH)
-#    define OLED_BLOCK_TYPE uint32_t
-#    define OLED_SOURCE_MAP \
-        { 0, 8, 16, 24, 32, 40, 48, 56 }
-#    define OLED_TARGET_MAP \
-        { 56, 48, 40, 32, 24, 16, 8, 0 }
-#    define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)
-#    define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
-#    define OLED_COM_PINS COM_PINS_ALT
-#    define OLED_IC OLED_IC_SH1107
-#    ifndef OLED_BRIGHTNESS
-#        define OLED_BRIGHTNESS 50
-#    endif
-#endif

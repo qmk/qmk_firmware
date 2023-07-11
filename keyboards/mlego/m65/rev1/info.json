@@ -18,6 +18,10 @@
         "num_lock": "B12",
         "scroll_lock": "B13"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "led_count": 20
+    },
     "ws2812": {
         "pin": "B15"
     },

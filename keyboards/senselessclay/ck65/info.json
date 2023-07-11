@@ -11,6 +11,11 @@
     "ws2812": {
         "pin": "B1"
     },
+    "rgblight": {
+        "led_count": 69,
+        "max_brightness": 122,
+        "sleep": true
+    },
     "matrix_pins": {
         "cols": ["F0", "D5", "D3", "D2", "D1", "D0", "F7", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4"],
         "rows": ["B3", "B2", "F1", "F4", "F5"]

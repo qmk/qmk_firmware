@@ -1,5 +1,9 @@
 #pragma once
 
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
+
 float compute_freq_for_midi_note(uint8_t note);
 
 bool process_audio(uint16_t keycode, keyrecord_t *record);

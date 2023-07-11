@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define TAP_CODE_DELAY 10
-
 /* Audio functionality */
 #define AUDIO_PIN C6
 #define AUDIO_CLICKY

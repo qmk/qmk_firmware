@@ -8,6 +8,9 @@
         "pid": "0x505A",
         "device_version": "0.0.1"
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "rgb_matrix": {
         "driver": "AW20216"
     },
