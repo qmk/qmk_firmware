@@ -17,7 +17,8 @@
     "bootloader": "atmel-dfu",
     "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],
     "layout_aliases": {
-        "LAYOUT_tkl_ansi_7u": "LAYOUT_tkl_f13_ansi_tsangan"
+        "LAYOUT_tkl_ansi_7u": "LAYOUT_tkl_f13_ansi_tsangan",
+        "LAYOUT_tkl_iso_7u": "LAYOUT_tkl_f13_iso_tsangan"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -449,7 +450,7 @@
                 {"matrix": [10, 8], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_tkl_iso_7u": {
+        "LAYOUT_tkl_f13_iso_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
