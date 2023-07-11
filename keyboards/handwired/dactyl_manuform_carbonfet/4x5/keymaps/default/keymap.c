@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum layers {
     _BASE,
     _RAISE,
-    _LOWER
+    _LOWER,
 };
 
 #define SFT_ESC  SFT_T(KC_ESC)
