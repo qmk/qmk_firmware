@@ -317,7 +317,6 @@ TEST_F(TapDance, QuadFunction) {
     run_one_scan_loop();
 }
 
-
 TEST_F(TapDance, DanceFnAdvancedWithRelease) {
     TestDriver driver;
     InSequence s;
