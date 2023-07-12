@@ -18,11 +18,8 @@
 
 #define SPLIT_HAND_PIN F4
 
-// Not yet available in `info.json`
-#ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X32
-#    define SPLIT_OLED_ENABLE
-#endif
+#define OLED_DISPLAY_128X32
+#define SPLIT_OLED_ENABLE
 
 // Not yet available in `info.json`
 #ifdef RGB_MATRIX_ENABLE
