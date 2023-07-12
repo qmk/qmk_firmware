@@ -27,4 +27,3 @@
 #define ANALOG_AXIS_PIN_X B0
 #define ANALOG_AXIS_PIN_Y B1
 
-#define WS2812_DI_PIN B14 
