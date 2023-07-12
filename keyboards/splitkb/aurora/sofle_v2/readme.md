@@ -1,4 +1,4 @@
-![Aurora Sofle v2](https://raw.githubusercontent.com/splitkb/qmk_firmware/assets/aurora/sofle/sofle.jpg)
+![Aurora Sofle v2](https://i.imgur.com/8MlWV7h.jpg)
 
 # Aurora Sofle v2
 The Aurora Sofle v2 is a redesign by splitkb.com of the popular Sofle v2 by Josef Adamcik.
