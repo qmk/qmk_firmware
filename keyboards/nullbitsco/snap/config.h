@@ -58,7 +58,6 @@
 #define MATRIX_EXT_PIN_RIGHT B6
 
 /* Optional SMT LED pins */
-#define RGB_DI_PIN B2
 #define RGBLED_NUM 10
 #define RGBLED_SPLIT { 5, 5 }
 #define RGBLIGHT_LED_MAP { 8, 9, 0, 1, 2, 6, 7, 3, 4, 5 }  

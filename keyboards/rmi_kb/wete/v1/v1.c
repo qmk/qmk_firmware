@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "v1.h"
+#include "quantum.h"
 
 void keyboard_pre_init_user(void) {
     // Initialize indicator LED pins

@@ -1,4 +1,5 @@
 /* Copyright 2021 Jasper Chan
+ *           2023 Huckies <https://github.com/Huckies>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +16,7 @@
  */
 
 #include "aw20216.h"
+#include "wait.h"
 #include "spi_master.h"
 
 /* The AW20216 appears to be somewhat similar to the IS31FL743, although quite
@@ -34,6 +36,8 @@
 
 #define AW_REG_CONFIGURATION 0x00 // PG0
 #define AW_REG_GLOBALCURRENT 0x01 // PG0
+#define AW_REG_RESET 0x2F         // PG0
+#define AW_REG_MIXFUNCTION 0x46   // PG0
 
 // Default value of AW_REG_CONFIGURATION
 // D7:D4 = 1011, SWSEL (SW1~SW12 active)
@@ -41,7 +45,10 @@
 // D2:D1 = 00, OSDE (open/short detection enable)
 // D0 = 0, CHIPEN (write 1 to enable LEDs when hardware enable pulled high)
 #define AW_CONFIG_DEFAULT 0b10110000
+#define AW_MIXCR_DEFAULT 0b00000000
+#define AW_RESET_CMD 0xAE
 #define AW_CHIPEN 1
+#define AW_LPEN (0x01 << 1)
 
 #define AW_PWM_REGISTER_COUNT 216
 
@@ -94,6 +101,10 @@ static inline bool AW20216_write_register(pin_t cs_pin, uint8_t page, uint8_t re
     return AW20216_write(cs_pin, page, reg, &value, 1);
 }
 
+void AW20216_soft_reset(pin_t cs_pin) {
+    AW20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_RESET, AW_RESET_CMD);
+}
+
 static void AW20216_init_scaling(pin_t cs_pin) {
     // Set constant current to the max, control brightness with PWM
     for (uint8_t i = 0; i < AW_PWM_REGISTER_COUNT; i++) {
@@ -111,15 +122,23 @@ static inline void AW20216_soft_enable(pin_t cs_pin) {
     AW20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_CONFIGURATION, AW_CONFIG_DEFAULT | AW_CHIPEN);
 }
 
+static inline void AW20216_auto_lowpower(pin_t cs_pin) {
+    AW20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_MIXFUNCTION, AW_MIXCR_DEFAULT | AW_LPEN);
+}
+
 void AW20216_init(pin_t cs_pin, pin_t en_pin) {
     setPinOutput(en_pin);
     writePinHigh(en_pin);
+
+    AW20216_soft_reset(cs_pin);
+    wait_ms(2);
 
     // Drivers should start with all scaling and PWM registers as off
     AW20216_init_current_limit(cs_pin);
     AW20216_init_scaling(cs_pin);
 
     AW20216_soft_enable(cs_pin);
+    AW20216_auto_lowpower(cs_pin);
 }
 
 void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {

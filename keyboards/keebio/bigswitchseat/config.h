@@ -3,15 +3,6 @@
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- */
-
-#define MATRIX_ROW_PINS { E6 }
-#define MATRIX_COL_PINS { F0 }
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

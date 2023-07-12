@@ -9,4 +9,3 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
-WS2812_DRIVER = i2c
