@@ -1,6 +1,8 @@
 //*********WIMADS SKELETYL-CHARYBDIS MOD**********//
 /* TO DO:
-* per key tapping term
+* revamped thumbcluster for qwerty layers
+* copy paste comnbos
+* per key combo term
 */
 
 #include QMK_KEYBOARD_H
@@ -115,11 +117,11 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
         case QTY_CS ... QTYrDRT:
             if (_QAI == get_highest_layer(default_layer_state)){
                 return false;
-            }
+            } return true;
         case QAI_Q ... QAI_DRTG:
             if (_QTY == get_highest_layer(default_layer_state)) {
                 return false;
-            }
+            } return true;
     }
     return true;
 }
