@@ -47,10 +47,7 @@
                 "rows": ["F4", "F5", "F6", "F7"]
             }
         },
-        "soft_serial_pin": "D2",
-        "transport": {
-            "protocol": "serial"
-        }
+        "soft_serial_pin": "D2"
     },
     "url": "",
     "usb": {
