@@ -19,6 +19,7 @@
 #include "process_auto_shift.h"
 #include "caps_word.h"
 #include "timer.h"
+#include "wait.h"
 #include "keyboard.h"
 #include "keymap_common.h"
 #include "action_layer.h"
