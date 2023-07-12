@@ -1,16 +1,16 @@
 {
     "manufacturer": "splitkb.com",
-    "url": "https://splitkb.com",
     "maintainer": "splitkb",
-    "usb": {
-        "vid": "0x8D1D",
-        "device_version": "1.0.0"
+    "build": {
+        "lto": true
     },
     "development_board": "elite_c",
     "split": {
         "enabled": true
     },
-    "build": {
-        "lto": true
+    "url": "https://splitkb.com",
+    "usb": {
+        "device_version": "1.0.0",
+        "vid": "0x8D1D"
     }
 }
