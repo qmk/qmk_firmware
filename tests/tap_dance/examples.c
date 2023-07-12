@@ -187,13 +187,25 @@ void x_reset(tap_dance_state_t *state, void *user_data) {
     xtap_state.state = TD_NONE;
 }
 
+static void release_press(tap_dance_state_t *state, void *user_data) {
+    tap_code16(KC_P);
+}
+
+static void release_unpress(tap_dance_state_t *state, void *user_data) {
+    tap_code16(KC_U);
+}
+
+static void release_finished(tap_dance_state_t *state, void *user_data) {
+    tap_code16(KC_F);
+}
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
     [CT_EGG]      = ACTION_TAP_DANCE_FN(dance_egg),
     [CT_FLSH]     = ACTION_TAP_DANCE_FN_ADVANCED(dance_flsh_each, dance_flsh_finished, dance_flsh_reset),
     [CT_CLN]      = ACTION_TAP_DANCE_TAP_HOLD(KC_COLN, KC_SCLN),
-    [X_CTL]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset)
+    [X_CTL]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
+    [TD_RELEASE]  = ACTION_TAP_DANCE_FN_ADVANCED_WITH_RELEASE(release_press, release_unpress, release_finished, NULL),
 };
 
 // clang-format on

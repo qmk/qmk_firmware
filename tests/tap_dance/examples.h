@@ -26,6 +26,7 @@ enum {
     CT_FLSH,
     CT_CLN,
     X_CTL,
+    TD_RELEASE,
 };
 
 #ifdef __cplusplus
