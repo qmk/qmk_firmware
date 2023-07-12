@@ -14,9 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "matrix.h"
-#include "quantum.h"
-#include <stdlib.h>
+#include "debounce.h"
 #include <string.h>
 
 void debounce_init(uint8_t num_rows) {}

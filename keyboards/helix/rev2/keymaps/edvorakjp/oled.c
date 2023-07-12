@@ -5,13 +5,9 @@
 #ifdef OLED_ENABLE
 void render_host_led_state(void) {
     char    led_state_str[24];
-    uint8_t leds = host_keyboard_leds();
+    led_t led_state = host_keyboard_led_state();
 
-    bool is_num_lock_enabled    = leds & (1 << USB_LED_NUM_LOCK);
-    bool is_caps_lock_enabled   = leds & (1 << USB_LED_CAPS_LOCK);
-    bool is_scroll_lock_enabled = leds & (1 << USB_LED_SCROLL_LOCK);
-
-    snprintf(led_state_str, sizeof(led_state_str), "NL:%s CL:%s SL:%s", is_num_lock_enabled ? "on" : "- ", is_caps_lock_enabled ? "on" : "- ", is_scroll_lock_enabled ? "on" : "- ");
+    snprintf(led_state_str, sizeof(led_state_str), "NL:%s CL:%s SL:%s", led_state.num_lock ? "on" : "- ", led_state.caps_lock ? "on" : "- ", led_state.scroll_lock ? "on" : "- ");
     oled_write(led_state_str, false);
 }
 

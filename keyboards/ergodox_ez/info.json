@@ -11,6 +11,9 @@
         "brightness_steps": 12,
         "sleep": true
     },
+    "build": {
+        "debounce_type": "sym_eager_pr"
+    },
     "ws2812": {
         "pin": "D7"
     },
