@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// Same pins for Round-Robin matrix.
-#define MATRIX_ROW_PINS { B3, B2, E6, D6, D4, B0, B1, B7, B4, D7 }
-#define MATRIX_COL_PINS { B3, B2, E6, D6, D4, B0, B1, B7, B4, D7 }
-
-#define DIODE_DIRECTION COL2ROW
-
 /* Audio */
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN C6
@@ -32,17 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* RGBLIGHT */
-#define RGB_DI_PIN F1
-#ifdef RGB_DI_PIN
   #define RGBLED_NUM 4 // Left(2) + Right(2)
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
   /*== Lighting Layers ==*/
   #define RGBLIGHT_LAYERS
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
-#endif
 
 /* External EEPROM */
 // Use 24LC64 EEPROM

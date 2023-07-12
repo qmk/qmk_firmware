@@ -1,9 +1,5 @@
 #pragma once
 
-#define MATRIX_ROW_PINS { B1, A0, C13, A1, A2}
-#define MATRIX_COL_PINS { A10, A9, A8, B15, B14, B13, B12, B11, B10, B8, B4, B5, B3, C14, A7 }
-
-#define RGB_DI_PIN A15
 #define RGBLED_NUM      23
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

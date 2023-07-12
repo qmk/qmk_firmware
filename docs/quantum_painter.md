@@ -32,16 +32,20 @@ Supported devices:
 
 ## Quantum Painter Configuration :id=quantum-painter-config
 
-| Option                                   | Default | Purpose                                                                                                                                     |
-|------------------------------------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| `QUANTUM_PAINTER_NUM_IMAGES`             | `8`     | The maximum number of images/animations that can be loaded at any one time.                                                                 |
-| `QUANTUM_PAINTER_NUM_FONTS`              | `4`     | The maximum number of fonts that can be loaded at any one time.                                                                             |
-| `QUANTUM_PAINTER_CONCURRENT_ANIMATIONS`  | `4`     | The maximum number of animations that can be executed at the same time.                                                                     |
-| `QUANTUM_PAINTER_LOAD_FONTS_TO_RAM`      | `FALSE` | Whether or not fonts should be loaded to RAM. Relevant for fonts stored in off-chip persistent storage, such as external flash.             |
-| `QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE`    | `32`    | The limit of the amount of pixel data that can be transmitted in one transaction to the display. Higher values require more RAM on the MCU. |
-| `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`   | `FALSE` | If 256-color palettes are supported. Requires significantly more RAM on the MCU.                                                            |
-| `QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS` | `FALSE` | If native color range is supported. Requires significantly more RAM on the MCU.                                                             |
-| `QUANTUM_PAINTER_DEBUG`                  | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation, use only for debugging.     |
+| Option                                            | Default | Purpose                                                                                                                                                                                      |
+|---------------------------------------------------|---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `QUANTUM_PAINTER_DISPLAY_TIMEOUT`                 | `30000` | This controls the amount of time (in milliseconds) that all displays will remain on after the last user input. If set to `0`, the display will remain on indefinitely.                       |
+| `QUANTUM_PAINTER_TASK_THROTTLE`                   | `1`     | This controls the amount of time (in milliseconds) that the Quantum Painter internal task will wait between each execution. Affects animations, display timeout, and LVGL timing if enabled. |
+| `QUANTUM_PAINTER_NUM_IMAGES`                      | `8`     | The maximum number of images/animations that can be loaded at any one time.                                                                                                                  |
+| `QUANTUM_PAINTER_NUM_FONTS`                       | `4`     | The maximum number of fonts that can be loaded at any one time.                                                                                                                              |
+| `QUANTUM_PAINTER_CONCURRENT_ANIMATIONS`           | `4`     | The maximum number of animations that can be executed at the same time.                                                                                                                      |
+| `QUANTUM_PAINTER_LOAD_FONTS_TO_RAM`               | `FALSE` | Whether or not fonts should be loaded to RAM. Relevant for fonts stored in off-chip persistent storage, such as external flash.                                                              |
+| `QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE`             | `1024`  | The limit of the amount of pixel data that can be transmitted in one transaction to the display. Higher values require more RAM on the MCU.                                                  |
+| `QUANTUM_PAINTER_SUPPORTS_256_PALETTE`            | `FALSE` | If 256-color palettes are supported. Requires significantly more RAM on the MCU.                                                                                                             |
+| `QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS`          | `FALSE` | If native color range is supported. Requires significantly more RAM on the MCU.                                                                                                              |
+| `QUANTUM_PAINTER_DEBUG`                           | _unset_ | Prints out significant amounts of debugging information to CONSOLE output. Significant performance degradation, use only for debugging.                                                      |
+| `QUANTUM_PAINTER_DEBUG_ENABLE_FLUSH_TASK_OUTPUT`  | _unset_ | By default, debug output is disabled while the internal task is flushing the display(s). If you want to keep it enabled, add this to your `config.h`. Note: Console will get clogged.        |
+
 
 Drivers have their own set of configurable options, and are described in their respective sections.
 

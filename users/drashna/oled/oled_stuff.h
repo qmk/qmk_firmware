@@ -18,6 +18,7 @@
 
 #include "quantum.h"
 #include "oled_driver.h"
+#include "oled_assets.h"
 #ifdef DEFFERED_EXEC_ENABLE
 extern deferred_token kittoken;
 #endif
@@ -55,7 +56,7 @@ void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_st
 
 #    define OLED_RENDER_KEYLOGGER "Keylogger: "
 #    ifndef OLED_KEYLOGGER_LENGTH
-#        define OLED_KEYLOGGER_LENGTH 10
+#        define OLED_KEYLOGGER_LENGTH 9
 #    endif
 #    define OLED_RENDER_LAYOUT_NAME "Layout: "
 #    define OLED_RENDER_LAYOUT_QWERTY "Qwerty"
@@ -102,7 +103,7 @@ void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_st
 #else
 #    define OLED_RENDER_KEYLOGGER "KLogr"
 #    ifndef OLED_KEYLOGGER_LENGTH
-#        define OLED_KEYLOGGER_LENGTH 6
+#        define OLED_KEYLOGGER_LENGTH 5
 #    endif
 
 #    define OLED_RENDER_LAYOUT_NAME "Lyout"
@@ -149,7 +150,7 @@ void oled_pan_section(bool left, uint16_t y_start, uint16_t y_end, uint16_t x_st
 #    define OLED_RENDER_WPM_COUNTER "WPM: "
 #endif
 
-extern char keylog_str[];
+extern char oled_keylog_str[OLED_KEYLOGGER_LENGTH + 1];
 
 #ifndef OLED_WPM_GRAPH_MAX_WPM
 #    define OLED_WPM_GRAPH_MAX_WPM 120

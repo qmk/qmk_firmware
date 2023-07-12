@@ -16,10 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#define MATRIX_COL_PINS { A0, A3, A4, A7, B5, B4, B3 }
-#define MATRIX_ROW_PINS { A2, A1, B8, A10, C15, A15, B7, B6, C14, C13}
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_PAL_MODE      1
@@ -27,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Underglow */
 #define RGBLED_NUM 16
 #define WS2812_EXTERNAL_PULLUP
-#define RGB_DI_PIN A8
 
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8

@@ -15,7 +15,7 @@ Different keyboards have different ways to enter this special mode. If your PCB 
 * Press the physical `RESET` button, usually located on the underside of the PCB
 * Locate header pins on the PCB labeled `RESET` and `GND`, and short them together while plugging your PCB in
 
-If you've attempted all of the above to no avail, and the main chip on the board says `STM32` on it, this may be a bit more complicated. Generally your best bet is to ask on [Discord](https://discord.gg/Uq7gcHh) for assistance. It's likely some photos of the board will be asked for -- if you can get them ready beforehand it'll help move things along!
+If you've attempted all of the above to no avail, and the main chip on the board says `STM32` or `RP2-B1` on it, this may be a bit more complicated. Generally your best bet is to ask on [Discord](https://discord.gg/Uq7gcHh) for assistance. It's likely some photos of the board will be asked for -- if you can get them ready beforehand it'll help move things along!
 
 Otherwise, you should see a message in yellow, similar to this in QMK Toolbox:
 
@@ -30,6 +30,8 @@ and this bootloader device will also be present in Device Manager, System Inform
 The simplest way to flash your keyboard will be with the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases).
 
 However, the Toolbox is currently only available for Windows and macOS. If you're using Linux (or just wish to flash the firmware from the command line), skip to the [Flash your Keyboard from the Command Line](#flash-your-keyboard-from-the-command-line) section.
+
+?> QMK Toolbox is not necessary for flashing [RP2040 devices](https://docs.qmk.fm/#/flashing?id=raspberry-pi-rp2040-uf2).
 
 ### Load the File into QMK Toolbox
 
