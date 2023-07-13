@@ -27,7 +27,7 @@ x もも　が出ない
 x ５キー以上打鍵した時の処理
 x シフトしたまま入力し続けると暴走する
 x 前置シフトだと連続シフトにならない
-x 　「もみもみ」などの連続シフトで5キー以上
+x 「もみもみ」などの連続シフトで5キー以上
 x ガブガブ、FJ両方ともキャリーオーバーするのでうまくいかない
 
 グローバル変数を減らす
@@ -181,6 +181,9 @@ const PROGMEM int8_t COMBI[NCOMBI][NKEYS][NDOUJI] = {
   {{ 0,  1, -1}, { 1,  2, -1}, { 1,  3, -1}, {-1, -1, -1}}, // 01  12  13 : 1が連続シフト
   {{ 0, -1, -1}, { 1,  2, -1}, { 1,  3, -1}, {-1, -1, -1}}, // 0   12  13 : 1が連続シフト
   {{ 0, -1, -1}, { 1,  2, -1}, { 2,  3, -1}, {-1, -1, -1}}  // 0   12  23 : 2が連続シフト
+  // 5 keys 候補
+  // 全組み合わせをあげるのは現実的ではないので、ありそうなものだけにするか
+  // もみもみ　がぶがぶ　
 };
 
 // カナ変換テーブル
@@ -1001,7 +1004,7 @@ void evaluate() {
     }
     #endif
 
-    if (score > maxScore) {
+    if (score >= maxScore) {
       maxScore = score;
       keySize = tkeySize;
       for (uint8_t j = 0; j < keySize; j++) {
@@ -1031,9 +1034,9 @@ uint32_t scoring(Keystroke ks[], uint8_t size) {
 
   if (size == 1) { // 単打の重み
     #if defined(CONSOLE_ENABLE) && defined(LOG_SCORING)
-    uprintf("<scoring return=%u\n", 1000);
+    uprintf("<scoring return=%u\n", 100);
     #endif
-    return 1000; // 単打を優先するか、同時押しを優先するかをチューニングする
+    return 100; // 単打を優先するか、同時押しを優先するかをチューニングする
   }
 
   // 前置シフト
