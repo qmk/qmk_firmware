@@ -28,7 +28,7 @@
             "alternating": true,
             "twinkle": true,
             "breathing": true
-        },
+        }
     },
     "ws2812": {
         "pin": "B15",
