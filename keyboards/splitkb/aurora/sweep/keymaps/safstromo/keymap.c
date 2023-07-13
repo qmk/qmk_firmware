@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_Q,KC_W        ,KC_F        ,KC_P        ,KC_B,                           KC_J  ,KC_L        ,KC_U        ,KC_Y        ,KC_SCLN ,
             KC_A,LALT_T(KC_R),LSFT_T(KC_S),LCTL_T(KC_T),KC_G,                           KC_M  ,RCTL_T(KC_N),RSFT_T(KC_E),LALT_T(KC_I),KC_O    ,
             KC_Z,KC_X        ,KC_C        ,KC_D        ,KC_V,                           KC_K  ,KC_H        ,KC_COMM     ,KC_DOT      ,KC_SLSH ,
-                                           SYM       ,KC_BSPC,                        KC_ENT,NAV
+                                           SYM       ,KC_SPC,                        KC_ENT,NAV
             ),
 /*
 * Gaming: Gaming layer
@@ -158,6 +158,7 @@ const uint16_t PROGMEM rcbr_combo[] = {KC_H, KC_COMM, COMBO_END};
 const uint16_t PROGMEM under_combo[] = {KC_M, KC_K, COMBO_END};
 const uint16_t PROGMEM arrow_combo[] = {LCTL_T(KC_T), KC_G, COMBO_END};
 const uint16_t PROGMEM arroweql_combo[] = {KC_P, KC_B, COMBO_END};
+const uint16_t PROGMEM back_to_colemak[] = {KC_ENT, KC_SPC, COMBO_END};
 combo_t key_combos[] = {
         COMBO(backspace_combo, KC_BSPC),
         COMBO(esc_combo, KC_ESC),
@@ -173,6 +174,7 @@ combo_t key_combos[] = {
         COMBO(under_combo, KC_UNDS),
         COMBO(arrow_combo, ARROW),
         COMBO(arroweql_combo, ARROW_EQL),
+        COMBO(back_to_colemak, COLEMAK),
 };
 void keyboard_pre_init_user(void) {
     // Set our LED pin as output
