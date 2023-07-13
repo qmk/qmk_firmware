@@ -7,8 +7,10 @@
 #define ADJUST   MO(_ADJUST)
 #define COPY     LCTL(KC_C)
 #define PASTE    LCTL(KC_V)
-#define UNDO    LCTL(KC_Z)
+#define UNDO     LCTL(KC_Z)
 #define CUT      LCTL(KC_X)
+#define SFT_QT   LSFT(RALT(KC_DQT))
+#define ALT_SQT  RALT(KC_QUOT)
 
 enum layers {
     _COLEMAK_DH = 0,
@@ -74,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------|                              |------+------+------+------+------|
 * |      | CUT  | COPY | UNDO | PASTE|                              | PgDn | Home |  End |Insert|Delete|
 * `--------------------+------+------|                              |------+------+------+------+------'
-*                      |  Sym |Space |                              | Enter|  Nav |
+*                      |Fkeys |Space |                              | Enter|      |
 *                      `-------------'                              `-------------'
 */
 	[_NAV] = LAYOUT(
@@ -86,21 +88,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
 * Sym Layer: Symbols
 *
-* ,----------------------------------.                              ,----------------------------------.
-* |   Q  |   W  |   F  |   P  |   B  |                              |   J  |   L  |   U  |   Y  | ;  : |
-* |------+------+------+------+------|                              |------+------+------+------+------|
-* |   A  |alt(R)|sft(S)|ctl(T)|   G  |                              |   M  |ctl(N)|sft(E)|alt(I)|   O  |
-* |------+------+------+------+------|                              |------+------+------+------+------|
-* |   Z  |   X  |   C  |   D  |   V  |                              |   K  |   H  | ,  < | . >  | /  ? |
-* `--------------------+------+------|                              |------+------+------+------+------'
-*                      |  Sym |Space |                              | Enter|  Nav |
-*                      `-------------'                              `-------------'
+* ,----------------------------------.                                ,-----------------------------------.
+* |   !    |   @  |   #  |   $  |   %  |                              |   ^  |   [  |   ]  |   &  |   *   |
+* |--------+------+------+------+------|                              |------+------+------+------+-------|
+* |GUI(tab)|  alt |   "  |   '  |   |  |                              |   _  |   {  |   }  |   =  |Backspc|
+* |--------+------+------+------+------|                              |------+------+------+------+-------|
+* |   ESC  |   ~  |   `  |   |  |   \  |                              |   -  |   (  |   )  |   +  | Delete|
+* `----------------------+------+------|                              |------+------+------+------+-------'
+*                        |      |  GUI |                              | Enter| Fkeys|
+*                        `-------------'                              `-------------'
 */
 	[_SYM] = LAYOUT(
-        KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                    KC_CIRC, KC_LBRC, KC_RBRC, KC_AMPR, KC_ASTR,
-        KC_EXLM,  KC_AT , LSFT(RALT(KC_DQT)), RALT(KC_QUOT), KC_PIPE,                   KC_UNDS, KC_LCBR, KC_RCBR, KC_EQL , KC_BSPC,
-        KC_TILD, KC_TILD, KC_GRV, KC_PIPE, KC_BSLS,                                     KC_MINS, KC_LPRN, KC_RPRN, KC_PPLS, KC_SLSH,
-                                    _______,_______,                                  _______, FKEYS
+        KC_EXLM       ,KC_AT  , KC_HASH ,  KC_DLR, KC_PERC,                             KC_CIRC, KC_LBRC, KC_RBRC, KC_AMPR, KC_ASTR,
+        LGUI_T(KC_TAB),KC_LALT, SFT_QT  , ALT_SQT, KC_PIPE,                             KC_UNDS, KC_LCBR, KC_RCBR, KC_EQL , LALT_T(KC_BSPC),
+        KC_ESC        ,KC_TILD, KC_GRV  , KC_PIPE, KC_BSLS,                             KC_MINS, KC_LPRN, KC_RPRN, KC_PPLS, KC_DEL,
+                                           _______,KC_LGUI,                             KC_TRNS, FKEYS
 ),
 /*
 * Function/media Layer: Function/media keys
