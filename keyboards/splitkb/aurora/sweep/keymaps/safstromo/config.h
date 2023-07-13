@@ -32,3 +32,5 @@
      // The default is 40
 #    define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 #endif
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
