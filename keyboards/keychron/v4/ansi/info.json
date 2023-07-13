@@ -21,6 +21,7 @@
     "layout_aliases": {
         "LAYOUT_ansi_61": "LAYOUT_60_ansi"
     },
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [
