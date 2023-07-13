@@ -1,18 +1,18 @@
-# creek70
+# epiphany70
 
-More Info at [creek70](https://shop.wuquestudio.com/)
+More Info at [epiphany70](https://shop.wuquestudio.com/)
 
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
-* Hardware Supported: creek 70
-* Hardware Availability: [creek70](https://shop.wuquestudio.com/)  
+* Hardware Supported: epiphany 70
+* Hardware Availability: [epiphany70](https://shop.wuquestudio.com/)  
 
 Make example for this keyboard (after setting up your build environment):  
 
-    make wuque/creek70:default
+    make wuque/epiphany70:default
 
 Flashing example for this keyboard:
 
-    make wuque/creek70:default:flash
+    make wuque/epiphany70:default:flash
 
 ## Bootloader
 
