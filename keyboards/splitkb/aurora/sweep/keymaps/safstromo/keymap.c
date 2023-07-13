@@ -5,9 +5,10 @@
 #define NAV      MO(_NAV)
 #define FKEYS    MO(_FUNCTION)
 #define ADJUST   MO(_ADJUST)
-
 #define COPY     LCTL(KC_C)
 #define PASTE    LCTL(KC_V)
+#define UNDO    LCTL(KC_Z)
+#define CUT      LCTL(KC_X)
 
 enum layers {
     _COLEMAK_DH = 0,
@@ -61,26 +62,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB  , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,                                    KC_T , KC_Y,   KC_U ,  KC_I ,   KC_O ,
         KC_LSFT , KC_A ,  KC_S   ,  KC_D  ,   KC_F ,                                    KC_G , KC_H,   KC_J ,  KC_K ,   KC_L ,
         KC_LCTL , KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,                                    KC_B , KC_N,   KC_M ,KC_COMM, KC_DOT ,
-                                    KC_SLSH, KC_SPC ,                                    KC_ENT , NAV
+                                    KC_SLSH, KC_SPC ,                                   KC_ENT , NAV
 ),
 /*
 * Nav/Num Layer: Numbers, navigation
 *
 * ,----------------------------------.                              ,----------------------------------.
-* |   Q  |   W  |   F  |   P  |   B  |                              |   J  |   L  |   U  |   Y  | ;  : |
+* |   1  |   2  |  3   |  4   |  5   |                              |   6  |   7  |   8  |   9  |  0   |
 * |------+------+------+------+------|                              |------+------+------+------+------|
-* |   A  |alt(R)|sft(S)|ctl(T)|   G  |                              |   M  |ctl(N)|sft(E)|alt(I)|   O  |
+* |  GUI |  Alt | Shift| CTRL |      |                              | PgUp |  ←   |   ↓  |  ↑   |  →   |
 * |------+------+------+------+------|                              |------+------+------+------+------|
-* |   Z  |   X  |   C  |   D  |   V  |                              |   K  |   H  | ,  < | . >  | /  ? |
+* |      | CUT  | COPY | UNDO | PASTE|                              | PgDn | Home |  End |Insert|Delete|
 * `--------------------+------+------|                              |------+------+------+------+------'
 *                      |  Sym |Space |                              | Enter|  Nav |
 *                      `-------------'                              `-------------'
 */
 	[_NAV] = LAYOUT(
-        KC_1  ,  KC_2  ,  KC_3  ,  KC_4  ,  KC_5  ,                                     KC_6   ,  KC_7  ,  KC_8  , KC_9 ,  KC_0  ,
+        KC_1   ,  KC_2  ,  KC_3  ,  KC_4  ,  KC_5  ,                                    KC_6   ,  KC_7  ,  KC_8  , KC_9 ,  KC_0  ,
         KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                                    KC_PGUP, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,
-        _______, _______, _______, _______, _______,                                    KC_PGDN , KC_HOME, KC_END , KC_INS, KC_DEL,
-                                    FKEYS, _______,                                     _______, _______
+        _______, CUT    , COPY   , UNDO   , PASTE  ,                                    KC_PGDN, KC_HOME, KC_END , KC_INS, KC_DEL,
+                                    FKEYS, KC_TRNS ,                                    KC_TRNS, _______
 ),
 /*
 * Sym Layer: Symbols
