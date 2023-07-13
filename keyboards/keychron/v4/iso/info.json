@@ -18,8 +18,11 @@
     "diode_direction": "ROW2COL",
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_iso_62": "LAYOUT_60_iso"
+    },
     "layouts": {
-        "LAYOUT_iso_62": {
+        "LAYOUT_60_iso": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
