@@ -1077,14 +1077,10 @@ void ng_cut() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_X);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_X));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_X);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_X));
       break;
   }
 }
@@ -1093,14 +1089,10 @@ void ng_copy() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_C);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_C));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_C);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_C));
       break;
   }
 }
@@ -1109,9 +1101,7 @@ void ng_paste() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_V);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_V));
       break;
     case NG_MAC:
       register_code(KC_LCMD);
@@ -1125,42 +1115,42 @@ void ng_paste() {
 }
 
 void ng_up(uint8_t c) {
-  if (naginata_config.tategaki) {
-    for (uint8_t i = 0; i < c; i++ )
+  for (uint8_t i = 0; i < c; i++) { // サイズ削減
+    if (naginata_config.tategaki) {
       tap_code(KC_UP);
-  } else {
-    for (uint8_t i = 0; i < c; i++ )
+    } else {
       tap_code(KC_LEFT);
+    }
   }
 }
 
 void ng_down(uint8_t c) {
-  if (naginata_config.tategaki) {
-    for (uint8_t i = 0; i < c; i++ )
+  for (uint8_t i = 0; i < c; i++) {
+    if (naginata_config.tategaki) {
       tap_code(KC_DOWN);
-  } else {
-    for (uint8_t i = 0; i < c; i++ )
+    } else {
       tap_code(KC_RIGHT);
+    }
   }
 }
 
 void ng_left(uint8_t c) {
-  if (naginata_config.tategaki) {
-    for (uint8_t i = 0; i < c; i++ )
+  for (uint8_t i = 0; i < c; i++) {
+    if (naginata_config.tategaki) {
       tap_code(KC_LEFT);
-  } else {
-    for (uint8_t i = 0; i < c; i++ )
+    } else {
       tap_code(KC_DOWN);
+    }
   }
 }
 
 void ng_right(uint8_t c) {
-  if (naginata_config.tategaki) {
-    for (uint8_t i = 0; i < c; i++ )
+  for (uint8_t i = 0; i < c; i++) {
+    if (naginata_config.tategaki) {
       tap_code(KC_RIGHT);
-  } else {
-    for (uint8_t i = 0; i < c; i++ )
+    } else {
       tap_code(KC_UP);
+    }
   }
 }
 
@@ -1171,9 +1161,7 @@ void ng_home() {
       tap_code(KC_HOME);
       break;
     case NG_MAC:
-      register_code(KC_LCTL);
-      tap_code(KC_A);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_A));
       break;
   }
 }
@@ -1185,9 +1173,7 @@ void ng_end() {
       tap_code(KC_END);
       break;
     case NG_MAC:
-      register_code(KC_LCTL);
-      tap_code(KC_E);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_E));
       break;
   }
 }
@@ -1196,14 +1182,10 @@ void ng_katakana() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_I);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_I));
       break;
     case NG_MAC:
-      register_code(KC_LCTL);
-      tap_code(KC_K);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_K));
       break;
   }
 }
@@ -1212,14 +1194,10 @@ void ng_save() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_S);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_S));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_S);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_S));
       break;
   }
 }
@@ -1228,14 +1206,10 @@ void ng_hiragana() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_U);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_U));
       break;
     case NG_MAC:
-      register_code(KC_LCTL);
-      tap_code(KC_J);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_J));
       break;
   }
 }
@@ -1244,14 +1218,10 @@ void ng_redo() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_Y);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_Y));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_Y);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_Y));
       break;
   }
 }
@@ -1260,14 +1230,10 @@ void ng_undo() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_Z);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_Z));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_Z);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_Z));
       break;
   }
 }
@@ -1289,14 +1255,10 @@ void ng_eof() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_END);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_END));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_DOWN);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_DOWN));
       break;
   }
 }
