@@ -4,7 +4,6 @@
 #pragma once
 
 
-#ifdef RGB_MATRIX_ENABLE
 #define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 64
 #define CAPS_LOCK_INDEX 28
@@ -19,5 +18,3 @@
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
-#endif
