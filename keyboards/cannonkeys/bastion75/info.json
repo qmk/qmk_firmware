@@ -35,12 +35,13 @@
         "levels": 15,
         "pin": "GP22"
     },
-    "ws2812": {"pin": "GP7"},
+    "ws2812": {
+        "pin": "GP7",
+        "driver": "vendor"
+    },
     "rgblight": {
         "led_count": 20,
         "hue_steps": 17,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
         "animations": {
             "static_gradient": true,
             "twinkle": true,
