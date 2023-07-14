@@ -1,3 +1,22 @@
+/*
+ * dctucker keymap for ergodox_ez
+ * Copyright (C) 2023 Casey Tucker <dctucker@hotmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include QMK_KEYBOARD_H
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
@@ -26,6 +45,8 @@ enum custom_keycodes {
 };
 
 #define ZOOMKEY LALT(LCTL(LGUI(KC_Z)))
+#define LCTLINS LCTL(KC_INS)
+#define LSFTINS LSFT(KC_INS)
 #define LT1SIX  LT(1, KC_6)
 #define LT1KPLS LT(1, KC_KP_PLUS)
 #define LT1S    LT(1, KC_SCOLON)
@@ -46,27 +67,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_EQL ,  KC_BSLS, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , MONEYQ ,
 		CTLESC , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                    KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
 		KC_LSFT, KC_Z   , KC_COMM, KC_X   , KC_C   , KC_V   , KC_B   ,  MOUSE1 , KC_B   , KC_N   , KC_M   , KC_DOT , KC_SLSH, RSHL4  ,
-		CTLDEL , KC_F1  , KC_PPLS, KC_LALT, KC_LGUI,                                      KC_RGUI, KC_RALT, KC_PMNS, KC_LBRC, KC_RBRC,
+		KC_DEL , KC_F1  , KC_PPLS, KC_LALT, KC_LGUI,                                      KC_RGUI, KC_RALT, KC_PMNS, KC_LBRC, KC_RBRC,
 		                                             KC_HOME, KC_END ,  KC_LEFT, KC_RGHT,
 		                                                      KC_PGUP,  KC_UP  ,
 		                                    KC_BSPC, BARS   , KC_PGDN,  KC_DOWN, CTLENT , SPCAP
 	),
 	[1] = LAYOUT_ergodox_pretty(
-		_______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , _______,  _______, KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_DEL ,
-		KC_F13 , KC_EXLM, KC_AT  , KC_LCBR, KC_RCBR, KC_PIPE, _______,  _______, KC_UP  , KC_P7  , KC_P8  , KC_P9  , KC_PAST, KC_F11 ,
-		KC_F14 , KC_HASH, KC_DLR , KC_LPRN, KC_RPRN, KC_GRV ,                    KC_DOWN, KC_P4  , KC_P5  , KC_P6  , KC_PPLS, KC_F12 ,
-		KC_F15 , KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______,  _______, KC_PMNS, KC_P1  , KC_P2  , KC_P3  , KC_PSLS, _______,
+		_______, _______, _______, _______, KC_BRID, KC_BRIU, _______,  KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 ,
+		KC_F14 , KC_EXLM, KC_AT  , KC_LCBR, KC_RCBR, KC_PIPE, _______,  _______, KC_UP  , KC_P7  , KC_P8  , KC_P9  , KC_PAST, KC_F12 ,
+		KC_F15 , KC_HASH, KC_DLR , KC_LPRN, KC_RPRN, KC_GRV ,                    KC_DOWN, KC_P4  , KC_P5  , KC_P6  , KC_PPLS, KC_F13 ,
+		_______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______,  _______, KC_PMNS, KC_P1  , KC_P2  , KC_P3  , KC_PSLS, _______,
 		_______, _______, _______, _______, _______,                                      KC_P0  , KC_PDOT, KC_PDOT, KC_PENT, _______,
 		                                            RGB_MOD,  _______,  RGB_TOG,  RGB_SLD,
 		                                                      _______,  _______,
 		                                   RGB_VAD, RGB_VAI,  _______,  _______,  RGB_HUD,  RGB_HUI
 	),
 	[2] = LAYOUT_ergodox_pretty(
-		_______, KC_BRID, KC_BRIU, _______, _______, _______, KC_SLEP,  _______, KC_VOLD, KC_VOLU, _______, _______, _______, KC_DEL ,
-		_______, _______, _______, KC_MS_U, _______, _______, _______,  KC_MUTE, _______, _______, _______, _______, _______, _______,
+		KC_F14 , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,  _______, KC_VOLD, KC_VOLU, _______, _______, _______, KC_DEL ,
+		KC_F15 , _______, _______, KC_MS_U, _______, _______, _______,  KC_MUTE, _______, _______, _______, _______, _______, _______,
 		KC_CAPS, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,                    _______, _______, _______, _______, KC_MPLY,
-		KC_CAPS, ZOOMKEY, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,
-		RESET  , _______, _______, KC_BTN1, KC_BTN2,                                      _______, _______, _______, _______, _______,
+		_______, ZOOMKEY, _______, _______, LCTLINS, LSFTINS, _______,  _______, _______, _______, _______, _______, _______, _______,
+		QK_RBT , KC_SLEP, _______, KC_BTN1, KC_BTN2,                                      _______, _______, _______, _______, _______,
 		                                             _______, _______,  KC_MPRV, KC_MNXT,
 		                                                      _______,  _______,
 		                                    _______, _______, _______,  _______, _______, KC_MPLY
@@ -75,11 +96,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , _______,  KC_PIPE, KC_CIRC, KC_AMPR, KC_PAST, KC_LPRN, KC_RPRN, _______,
 		_______, _______, _______, _______, _______, _______, _______,  KC_PIPE, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC, KC_BSLS,
 		KC_ESC , _______, _______, _______, _______, _______,                    KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_COLN, _______,
-		_______, _______, _______, _______, _______, _______, _______,  _______, BACKN  , KC_MINS, EARROW , ARROW  , COMMENT, _______,
+		_______, _______, _______, _______, _______, _______, _______,  _______, _______, BACKN  , EARROW , ARROW  , COMMENT, _______,
 		_______, _______, _______, _______, _______,                                      _______, _______, _______, KC_LPRN, KC_RPRN,
-		                                             KC_F10 , KC_F11 ,  KC_F14 , KC_F15 ,
-		                                                      KC_F9  ,  KC_F13 ,
-		                                    H12    , _______, KC_F12 ,  KC_F16 , KC_PENT, H16
+		                                             _______, _______,  _______, _______,
+		                                                      _______,  _______,
+		                                    _______, _______, _______,  _______, KC_PENT, _______
 	),
 	[4] = LAYOUT_ergodox_pretty(
 		_______, _______, _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______,
@@ -96,50 +117,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
   [1] = ACTION_LAYER_TAP_TOGGLE(1)
 };
-
-/*
-void on_each_tap_fn(qk_tap_dance_state_t *state, void *user_data) {
-	if (state->count == 1) {
-		send_string("-");
-	} else if (state->count == 2) {
-		send_string("-");
-	} else if (state->count == 3) {
-		send_string("\b\b");
-	} else if (state->count >= 4) {
-		send_string("\b");
-	} else {
-		//reset_tap_dance (state);
-	}
-}
-void on_dance_finished_fn(qk_tap_dance_state_t *state, void *user_data) {
-	if (state->count == 3) {
-		register_code(KC_BSPC);
-	}
-}
-void on_dance_reset_fn(qk_tap_dance_state_t *state, void *user_data) {
-	unregister_code(KC_BSPC);
-}
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [0] = ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)
-};
-*/
-
-
-/*
-// leaving this in place for compatibilty with old keymaps cloned and re-compiled.
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-*/
 
 bool xtra_sent = true;
 bool ctl_xtra_sent = true;
@@ -175,11 +152,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				if( ! ctl_xtra_sent ){
 					if( timer_elapsed(lctl_timer) < 500 ){
 						if( host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK) ){
-							add_key(KC_RSHIFT);
+							add_key(KC_RSFT);
 							add_key(KC_ESC);
 							send_keyboard_report();
 							del_key(KC_ESC);
-							del_key(KC_RSHIFT);
+							del_key(KC_RSFT);
 							send_keyboard_report();
 						} else {
 							send_string("\033");
@@ -240,7 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				layer_off(3);
 				if( ! xtra_sent ){
 					int mods = get_mods();
-					if( mods & MOD_BIT(KC_RSHIFT) ){
+					if( mods & MOD_BIT(KC_RSFT) ){
 						send_string("|");
 					} else {
 						send_string("_");
@@ -254,16 +231,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			xtra_sent = true;
 			if( record->event.pressed ){
 				int mods = get_mods();
-				add_key(KC_RSHIFT);
+				add_key(KC_RSFT);
 				send_keyboard_report();
-				if( mods & MOD_BIT(KC_LSHIFT) ){
+				if( mods & MOD_BIT(KC_LSFT) ){
 					add_key(KC_4);
 				} else {
 					add_key(KC_QUOTE);
 				}
 				send_keyboard_report();
 			} else {
-				del_key(KC_RSHIFT);
+				del_key(KC_RSFT);
 				del_key(KC_4);
 				del_key(KC_QUOTE);
 				send_keyboard_report();
@@ -287,7 +264,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case COMMENT:
 			xtra_sent = true;
 			if( record->event.pressed ){
-				if( get_mods() & MOD_BIT(KC_LSHIFT) ){
+				if( get_mods() & MOD_BIT(KC_LSFT) ){
 					send_string("*/");
 				} else {
 					send_string("/*");
@@ -324,7 +301,7 @@ void led_set_user(uint8_t usb_led)
 }
 
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
 
     uint8_t layer = biton32(state);
 
