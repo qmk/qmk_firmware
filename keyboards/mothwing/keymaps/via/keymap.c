@@ -23,8 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum layer_number {
     _QWERTY,
     _RAISE,
-    _LOWER,
-    _ADJUST,
+    _LOWER
 };
 
 #define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
@@ -69,16 +68,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
                          QK_BOOT  , _______, _______, _______,     _______, _______, _______, _______
     //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
-    ),
-    [_ADJUST] = LAYOUT(
-    //,--------+--------+--------+--------+--------+--------.   ,--------+--------+--------+--------+--------+--------.
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
-                         KC_TRNS, KC_TRNS, KC_TRNS , KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
-    //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
-    ),
+    )
 };
