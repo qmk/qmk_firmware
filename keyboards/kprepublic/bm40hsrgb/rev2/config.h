@@ -19,15 +19,7 @@
 // IS31FL3733 configuration
 #    define DRIVER_COUNT 1
 #    define DRIVER_ADDR_1 0b1010000
-#    define ISSI_LED_TOTAL 47
-// Underglow LEDs are WS2812, but someone might want to use RGBLIGHT for them;
-// don't use those LEDs in RGB Matrix in that case.
-#    ifdef RGBLIGHT_ENABLE
-#        define WS2812_LED_TOTAL 0
-#    else
-#        define WS2812_LED_TOTAL 6
-#    endif
-#    define RGB_MATRIX_LED_COUNT ISSI_LED_TOTAL + WS2812_LED_TOTAL
+#    define RGB_MATRIX_LED_COUNT 47
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #endif
