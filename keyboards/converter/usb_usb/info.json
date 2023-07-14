@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "processor": "atmega32u4",
-    "community_layouts": ["fullsize_ansi", "fullsize_iso"],
+    "community_layouts": ["fullsize_ansi", "fullsize_iso", "fullsize_jis"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

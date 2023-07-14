@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "arm_atsam_protocol.h"
 #    include "led.h"
 #    include "rgb_matrix.h"
+#    include "eeprom.h"
 #    include <string.h>
 #    include <math.h>
 

@@ -191,6 +191,12 @@ def convert_requested_format(im, format):
     return im
 
 
+def rgb_to565(r, g, b):
+    msb = ((r >> 3 & 0x1F) << 3) + (g >> 5 & 0x07)
+    lsb = ((g >> 2 & 0x07) << 5) + (b >> 3 & 0x1F)
+    return [msb, lsb]
+
+
 def convert_image_bytes(im, format):
     """Convert the supplied image to the equivalent bytes required by the QMK firmware.
     """
@@ -248,41 +254,25 @@ def convert_image_bytes(im, format):
 
     if image_format == 'IMAGE_FORMAT_RGB565':
         # Take the red, green, and blue channels
-        image_bytes_red = im.tobytes("raw", "R")
-        image_bytes_green = im.tobytes("raw", "G")
-        image_bytes_blue = im.tobytes("raw", "B")
-        image_pixels_len = len(image_bytes_red)
+        red = im.tobytes("raw", "R")
+        green = im.tobytes("raw", "G")
+        blue = im.tobytes("raw", "B")
 
         # No palette
         palette = None
 
-        bytearray = []
-        for x in range(image_pixels_len):
-            # 5 bits of red, 3 MSb of green
-            byte = ((image_bytes_red[x] >> 3 & 0x1F) << 3) + (image_bytes_green[x] >> 5 & 0x07)
-            bytearray.append(byte)
-            # 3 LSb of green, 5 bits of blue
-            byte = ((image_bytes_green[x] >> 2 & 0x07) << 5) + (image_bytes_blue[x] >> 3 & 0x1F)
-            bytearray.append(byte)
+        bytearray = [byte for r, g, b in zip(red, green, blue) for byte in rgb_to565(r, g, b)]
 
     if image_format == 'IMAGE_FORMAT_RGB888':
         # Take the red, green, and blue channels
-        image_bytes_red = im.tobytes("raw", "R")
-        image_bytes_green = im.tobytes("raw", "G")
-        image_bytes_blue = im.tobytes("raw", "B")
-        image_pixels_len = len(image_bytes_red)
+        red = im.tobytes("raw", "R")
+        green = im.tobytes("raw", "G")
+        blue = im.tobytes("raw", "B")
 
         # No palette
         palette = None
 
-        bytearray = []
-        for x in range(image_pixels_len):
-            byte = image_bytes_red[x]
-            bytearray.append(byte)
-            byte = image_bytes_green[x]
-            bytearray.append(byte)
-            byte = image_bytes_blue[x]
-            bytearray.append(byte)
+        bytearray = [byte for r, g, b in zip(red, green, blue) for byte in (r, g, b)]
 
     if len(bytearray) != expected_byte_count:
         raise Exception(f"Wrong byte count, was {len(bytearray)}, expected {expected_byte_count}")
