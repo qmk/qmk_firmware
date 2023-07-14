@@ -14,7 +14,15 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+		"rgblight": true
+    },
+    "ws2812": {
+        "pin": "GP0",
+        "driver": "vendor"
+    },
+    "rgblight": {
+        "led_count": 88
     },
   "bootloader": "rp2040",
   "processor": "RP2040",

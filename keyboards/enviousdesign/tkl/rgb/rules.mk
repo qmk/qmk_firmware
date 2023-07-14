@@ -1,15 +1,1 @@
-# Build Options
-BOOTMAGIC_ENABLE = no
-MOUSEKEY_ENABLE = yes
-EXTRAKEY_ENABLE = yes
-CONSOLE_ENABLE = no
-COMMAND_ENABLE = no
-NKRO_ENABLE = no
-BACKLIGHT_ENABLE = no
-RGBLIGHT_ENABLE = no
-AUDIO_ENABLE = no
-
-#for rgb to work with rp2040
-RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
-WS2812_DRIVER = vendor
+# This file is intentionally left blank
