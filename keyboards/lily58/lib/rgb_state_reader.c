@@ -1,5 +1,4 @@
 #ifdef RGBLIGHT_ENABLE
-#include "quantum.h"
 #include <stdio.h>
 #include "rgblight.h"
 
