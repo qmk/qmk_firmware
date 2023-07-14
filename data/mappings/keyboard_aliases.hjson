@@ -401,7 +401,7 @@
         "target": "mechlovin/adelais/rgb_led/rev1"
     },
     "mechlovin/adelais/standard_led": {
-        "target": "mechlovin/adelais/standard_led/rev2"
+        "target": "mechlovin/adelais/standard_led/arm/rev2"
     },
     "mechlovin/delphine": {
         "target": "mechlovin/delphine/mono_led"

@@ -1,5 +1,6 @@
 """Helpful decorators that subcommands can use.
 """
+import contextlib
 import functools
 from time import monotonic
 
@@ -82,3 +83,32 @@ def lru_cache(timeout=10, maxsize=128, typed=False):
         return wrapped_func
 
     return wrapper_cache
+
+
+def profile_code(func):
+    """Profile the execution of a function.
+
+    This will print out a call graph of the function's execution.
+    """
+    @contextlib.contextmanager
+    def profile_execution():
+        try:
+            profiling = False
+            with contextlib.suppress(ImportError):
+                import yappi
+                yappi.start()
+                profiling = True
+            yield
+        finally:
+            if profiling:
+                func_stats = yappi.get_func_stats()
+                func_stats.save('callgrind.out.' + func.__name__, 'CALLGRIND')
+                yappi.stop()
+                yappi.clear_stats()
+
+    @functools.wraps(func)
+    def wrapped_func(*args, **kwargs):
+        with profile_execution():
+            return func(*args, **kwargs)
+
+    return wrapped_func

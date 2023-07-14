@@ -9,7 +9,7 @@ from milc import cli
 
 from qmk.constants import CHIBIOS_PROCESSORS, LUFA_PROCESSORS, VUSB_PROCESSORS
 from qmk.c_parse import find_layouts, parse_config_h_file, find_led_config
-from qmk.json_schema import deep_update, json_load, validate
+from qmk.json_schema import deep_update, json_load, json_load_cached, validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
@@ -121,7 +121,7 @@ def _validate(keyboard, info_data):
         exit(1)
 
 
-def info_json(keyboard):
+def info_json(keyboard, skip_validation=False):
     """Generate the info.json data for a specific keyboard.
     """
     cur_dir = Path('keyboards')
@@ -153,7 +153,7 @@ def info_json(keyboard):
             info_data['layouts'][layout_name] = layout_json
 
     # Merge in the data from info.json, config.h, and rules.mk
-    info_data = merge_info_jsons(keyboard, info_data)
+    info_data = merge_info_jsons(keyboard, info_data, skip_validation=skip_validation)
     info_data = _process_defaults(info_data)
     info_data = _extract_rules_mk(info_data, rules_mk(str(keyboard)))
     info_data = _extract_config_h(info_data, config_h(str(keyboard)))
@@ -165,7 +165,8 @@ def info_json(keyboard):
     info_data = _extract_led_config(info_data, str(keyboard))
 
     # Validate
-    _validate(keyboard, info_data)
+    if not skip_validation:
+        _validate(keyboard, info_data)
 
     # Check that the reported matrix size is consistent with the actual matrix size
     _check_matrix(info_data)
@@ -549,7 +550,7 @@ def _extract_config_h(info_data, config_c):
     """
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_config_map = json_load(Path('data/mappings/info_config.hjson'))
+    info_config_map = json_load_cached(Path('data/mappings/info_config.hjson'))
 
     for config_key, info_dict in info_config_map.items():
         info_key = info_dict['info_key']
@@ -595,7 +596,7 @@ def _extract_config_h(info_data, config_c):
 def _process_defaults(info_data):
     """Process any additional defaults based on currently discovered information
     """
-    defaults_map = json_load(Path('data/mappings/defaults.hjson'))
+    defaults_map = json_load_cached(Path('data/mappings/defaults.hjson'))
     for default_type in defaults_map.keys():
         thing_map = defaults_map[default_type]
         if default_type in info_data:
@@ -629,7 +630,7 @@ def _extract_rules_mk(info_data, rules):
 
     # Pull in data from the json map
     dotty_info = dotty(info_data)
-    info_rules_map = json_load(Path('data/mappings/info_rules.hjson'))
+    info_rules_map = json_load_cached(Path('data/mappings/info_rules.hjson'))
 
     for rules_key, info_dict in info_rules_map.items():
         info_key = info_dict['info_key']
@@ -836,7 +837,7 @@ def unknown_processor_rules(info_data, rules):
     return info_data
 
 
-def merge_info_jsons(keyboard, info_data):
+def merge_info_jsons(keyboard, info_data, skip_validation=False):
     """Return a merged copy of all the info.json files for a keyboard.
     """
     for info_file in find_info_json(keyboard):
@@ -847,13 +848,14 @@ def merge_info_jsons(keyboard, info_data):
             _log_error(info_data, "Invalid file %s, root object should be a dictionary." % (str(info_file),))
             continue
 
-        try:
-            validate(new_info_data, 'qmk.keyboard.v1')
-        except jsonschema.ValidationError as e:
-            json_path = '.'.join([str(p) for p in e.absolute_path])
-            cli.log.error('Not including data from file: %s', info_file)
-            cli.log.error('\t%s: %s', json_path, e.message)
-            continue
+        if not skip_validation:
+            try:
+                validate(new_info_data, 'qmk.keyboard.v1')
+            except jsonschema.ValidationError as e:
+                json_path = '.'.join([str(p) for p in e.absolute_path])
+                cli.log.error('Not including data from file: %s', info_file)
+                cli.log.error('\t%s: %s', json_path, e.message)
+                continue
 
         # Merge layout data in
         if 'layout_aliases' in new_info_data:
@@ -927,7 +929,7 @@ def keymap_json_config(keyboard, keymap):
     return km_info_json.get('config', {})
 
 
-def keymap_json(keyboard, keymap):
+def keymap_json(keyboard, keymap, skip_validation=False):
     """Generate the info.json data for a specific keymap.
     """
     # TODO: resolve keymap.py and info.py circular dependencies
@@ -941,7 +943,7 @@ def keymap_json(keyboard, keymap):
     keymap_file = keymap_folder / 'keymap.json'
 
     # Build the info.json file
-    kb_info_json = info_json(keyboard)
+    kb_info_json = info_json(keyboard, skip_validation=True)  # No need to run validation here, we'll do it after load
 
     # Merge in the data from keymap.json
     km_info_json = keymap_json_config(keyboard, keymap) if keymap_file.exists() else {}
@@ -950,5 +952,9 @@ def keymap_json(keyboard, keymap):
     # Merge in the data from config.h, and rules.mk
     _extract_rules_mk(kb_info_json, parse_rules_mk_file(keymap_rules))
     _extract_config_h(kb_info_json, parse_config_h_file(keymap_config))
+
+    # Validate
+    if not skip_validation:
+        _validate(keyboard, kb_info_json)
 
     return kb_info_json

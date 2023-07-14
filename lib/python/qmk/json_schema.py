@@ -42,7 +42,15 @@ def json_load(json_file, strict=True):
         exit(1)
 
 
-@lru_cache(maxsize=0)
+@lru_cache(maxsize=20)
+def json_load_cached(json_file):
+    """Load a json file from disk, using a cache to avoid parsing the same file multiple times.
+
+    Note: file must be a Path object.
+    """
+    return json_load(json_file)
+
+
 def load_jsonschema(schema_name):
     """Read a jsonschema file from disk.
     """
@@ -57,7 +65,7 @@ def load_jsonschema(schema_name):
     return json_load(schema_path)
 
 
-@lru_cache(maxsize=0)
+@lru_cache(maxsize=None)
 def compile_schema_store():
     """Compile all our schemas into a schema store.
     """
@@ -73,7 +81,7 @@ def compile_schema_store():
     return schema_store
 
 
-@lru_cache(maxsize=0)
+@lru_cache(maxsize=20)
 def create_validator(schema):
     """Creates a validator for the given schema id.
     """

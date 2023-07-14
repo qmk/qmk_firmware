@@ -2,6 +2,7 @@
 """
 import contextlib
 import fnmatch
+import itertools
 import logging
 import multiprocessing
 import re
@@ -42,29 +43,31 @@ def _keymap_exists(keyboard, keymap):
 
 def _load_keymap_info(keyboard, keymap):
     with ignore_logging():
-        return (keyboard, keymap, keymap_json(keyboard, keymap))
+        return (keyboard, keymap, keymap_json(keyboard, keymap, skip_validation=True))
 
 
-def search_keymap_targets(keymap='default', filters=[], print_vals=[]):
-    targets = []
-
-    with multiprocessing.Pool() as pool:
+def search_keymap_targets(keymap='default', filters=[], print_vals=[], parallel=True):
+    def _search_inner_func(pool=None):
+        _map_func = pool.map if pool is not None else map
+        _starmap_func = pool.starmap if pool is not None else itertools.starmap
+        targets = []
         cli.log.info(f'Retrieving list of keyboards with keymap "{keymap}"...')
         target_list = []
+        keyboard_list = qmk.keyboard.list_keyboards()
         if keymap == 'all':
-            kb_to_kms = pool.map(_all_keymaps, qmk.keyboard.list_keyboards())
+            kb_to_kms = _map_func(_all_keymaps, keyboard_list)
             for targets in kb_to_kms:
                 keyboard = targets[0]
                 keymaps = targets[1]
                 target_list.extend([(keyboard, keymap) for keymap in keymaps])
         else:
-            target_list = [(kb, keymap) for kb in filter(lambda kb: kb is not None, pool.starmap(_keymap_exists, [(kb, keymap) for kb in qmk.keyboard.list_keyboards()]))]
+            target_list = [(kb, keymap) for kb in filter(lambda kb: kb is not None, _starmap_func(_keymap_exists, [(kb, keymap) for kb in keyboard_list]))]
 
         if len(filters) == 0:
             targets = [(kb, km, {}) for kb, km in target_list]
         else:
             cli.log.info('Parsing data for all matching keyboard/keymap combinations...')
-            valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in pool.starmap(_load_keymap_info, target_list)]
+            valid_keymaps = [(e[0], e[1], dotty(e[2])) for e in _starmap_func(_load_keymap_info, target_list)]
 
             function_re = re.compile(r'^(?P<function>[a-zA-Z]+)\((?P<key>[a-zA-Z0-9_\.]+)(,\s*(?P<value>[^#]+))?\)$')
             equals_re = re.compile(r'^(?P<key>[a-zA-Z0-9_\.]+)\s*=\s*(?P<value>[^#]+)$')
@@ -122,4 +125,9 @@ def search_keymap_targets(keymap='default', filters=[], print_vals=[]):
 
             targets = [(e[0], e[1], [(p, e[2].get(p)) for p in print_vals]) for e in valid_keymaps]
 
-    return targets
+        return targets
+
+    if parallel:
+        with multiprocessing.Pool() as pool:
+            return _search_inner_func(pool)
+    return _search_inner_func(None)

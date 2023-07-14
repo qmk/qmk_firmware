@@ -15,6 +15,7 @@ from qmk.search import search_keymap_targets
 )
 @cli.argument('-p', '--print', arg_only=True, action='append', default=[], help="For each matched target, print the value of the supplied info.json key. May be passed multiple times.")
 @cli.argument('-km', '--keymap', type=str, default='default', help="The keymap name to build. Default is 'default'.")
+@cli.argument('-n', '--no-parallel', arg_only=True, action='store_true', default=True, help="Don't execute in parallel.")
 @cli.subcommand('Find builds which match supplied search criteria.')
 def find(cli):
     """Search through all keyboards and keymaps for a given search criteria.
@@ -23,7 +24,7 @@ def find(cli):
     if len(cli.args.filter) == 0 and len(cli.args.print) > 0:
         cli.log.warning('No filters supplied -- keymaps not parsed, unable to print requested values.')
 
-    targets = search_keymap_targets(cli.args.keymap, cli.args.filter, cli.args.print)
+    targets = search_keymap_targets(cli.args.keymap, cli.args.filter, cli.args.print, False if cli.args.no_parallel else True)
     for keyboard, keymap, print_vals in targets:
         print(f'{keyboard}:{keymap}')
 

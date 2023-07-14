@@ -40,6 +40,9 @@ quantum/version.h
 /keyboards/**/kb.h
 /keyboards/**/kb.c
 
+# Python profiling
+callgrind.out.*
+
 # Eclipse/PyCharm/Other IDE Settings
 *.iml
 .browse.VC.db*

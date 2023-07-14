@@ -5,10 +5,11 @@ from math import ceil
 from pathlib import Path
 import os
 from glob import glob
+from functools import lru_cache
 
 import qmk.path
 from qmk.c_parse import parse_config_h_file
-from qmk.json_schema import json_load
+from qmk.json_schema import json_load_cached
 from qmk.makefile import parse_rules_mk_file
 
 BOX_DRAWING_CHARACTERS = {
@@ -69,7 +70,7 @@ def keyboard_folder(keyboard):
 
     This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
     """
-    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    aliases = json_load_cached(Path('data/mappings/keyboard_aliases.hjson'))
 
     if keyboard in aliases:
         keyboard = aliases[keyboard].get('target', keyboard)
@@ -112,6 +113,7 @@ def list_keyboards(resolve_defaults=True):
     return sorted(set(found))
 
 
+@lru_cache(maxsize=50)
 def resolve_keyboard(keyboard):
     cur_dir = Path('keyboards')
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
