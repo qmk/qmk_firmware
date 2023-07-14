@@ -18,16 +18,18 @@
 #include "keymap_bepo.h"
 #include "keymap_french.h"
 
-// keymaps
-#define BEPO 0	// default layer, for bepo compatible systems
-#define QW_B 1	// bepo to qwerty base compat layer, for qwerty systems
-#define QW_A 2	// bepo with altgr key to qwerty compat layer
-#define QW_S 3	// bepo with shift key to qwerty compat layer
-#define AZ_B 4	// bepo to azerty base compat layer, for azerty systems
-#define AZ_A 5	// bepo with altgr key to azerty compat layer
-#define AZ_S 6	// bepo with shift key to azerty compat layer
-#define FNAV 7	// function / navigation / mouse layer
-#define NUMK 8	// numeric keypad layer
+// layers
+enum keyboard_layers {
+  BEPO,  // default layer, for bepo compatible systems
+  QW_B,  // bepo to qwerty base compat layer, for qwerty systems
+  QW_A,  // bepo with altgr key to qwerty compat layer
+  QW_S,  // bepo with shift key to qwerty compat layer
+  AZ_B,  // bepo to azerty base compat layer, for azerty systems
+  AZ_A,  // bepo with altgr key to azerty compat layer
+  AZ_S,  // bepo with shift key to azerty compat layer
+  FNAV,  // function / navigation / mouse layer
+  NUMK,  // numeric keypad layer
+};
 
 // macros
 enum custom_keycodes {
