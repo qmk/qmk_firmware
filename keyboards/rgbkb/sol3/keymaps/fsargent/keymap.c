@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	C(KC_GRV),	KC_F1,		KC_F2,		KC_F3,	KC_F4,		KC_F5,		TO(_MAC),					_______,	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	KC_DEL,
 	C(KC_TAB),	A(KC_BSPC),	A(KC_LEFT),	KC_UP,	A(KC_RGHT),	A(KC_DEL),	KC_RCBR,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
 	KC_MEH,		G(KC_LEFT),	KC_LEFT,		KC_DOWN,	KC_RGHT,		G(KC_RGHT),	KC_RPRN,					KC_F11,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
-	KC_LSFT,		KC_HOME,		G(KC_DOWN),	KC_DEL,	A(KC_DOWN),	KC_END,		KC_RBRC,					KC_F12,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
+	KC_LSFT,		KC_HOME,		G(KC_DOWN),	KC_DEL,	G(KC_UP),		KC_END,		KC_RBRC,					KC_F12,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
 	_______,		_______,		_______,		_______,	_______,		_______,		_______,	_______,	KC_BTN2,	KC_MPLY,	KC_BTN1,	KC_APP,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,														KC_F13,	KC_F14,	_______,	_______,	_______,	_______,
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_GRV,		KC_F1,		KC_F2,		KC_F3,	KC_F4,		KC_F5,		TO(_WIN),					_______,	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	KC_DEL,
 	C(KC_TAB),	C(KC_BSPC),	C(KC_LEFT),	KC_UP,	C(KC_RGHT),	C(KC_DEL),	KC_RCBR,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
 	KC_MEH,		KC_HOME,		KC_LEFT,		KC_DOWN,	KC_RGHT,		KC_END,		KC_RPRN,					KC_F11,	KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
-	KC_LSFT,		KC_HOME,		C(KC_DOWN),	KC_DEL,	A(KC_DOWN),	KC_END,		KC_RBRC,					KC_F12,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
+	KC_LSFT,		C(KC_HOME),	C(KC_DOWN),	KC_DEL,	C(KC_UP),		C(KC_END),		KC_RBRC,					KC_F12,	KC_WH_D,	KC_WH_D,	KC_NO,	KC_NO,	KC_PGDN,	_______,
 	_______,		_______,		_______,		_______,	_______,		_______,		_______,	_______,	KC_BTN3,	KC_BTN2,	KC_BTN1,	_______,	_______,	_______,	_______,	_______,
 
 	_______,	_______,	_______,	_______,	_______,	_______,												 _______,	_______,	_______,	_______,	_______,	_______,
