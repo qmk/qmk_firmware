@@ -17,10 +17,6 @@
 
 #if defined(RGB_MATRIX_ENABLE)
 
-#    include "i2c_master.h"
-#    include "is31fl3733.h"
-#    include "ws2812.h"
-
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, B_1,  A_1,  C_1 },
     { 0, B_2,  A_2,  C_2 },
@@ -73,7 +69,5 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, K_11, J_11, L_11 },
     { 0, K_12, J_12, L_12 }
 };
-
-// clang-format on
 
 #endif /* RGB_MATRIX_ENABLE */
