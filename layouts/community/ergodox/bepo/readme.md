@@ -17,7 +17,7 @@ Placement des touches de combinaison ("Shift", "Alt", "Ctrl"...) adapté aux pou
 
 Les touches "Alt" et "Alt Gr" sont accessibles avec les pouces sur la rangée du bas comme sur la TypeMatrix 2030, avec une symétrie gauche / droite.
 
-Les touches "Ctrl" sont placées sur la même ligne que les touche "Alt" et "Alt Gr" comme sur un clavier clasique, elles sont accessibles aux pouces sur la rangée du bas (moins éloigné que le groupe de touches de pouces pour des petites mains).
+Les touches "Ctrl" sont placées sur la même ligne que les touche "Alt" et "Alt Gr" comme sur un clavier classique, elles sont accessibles aux pouces sur la rangée du bas (moins éloigné que le groupe de touches de pouces pour des petites mains).
 
 Les touches "Backspace" et "Delete" sont placées comme sur la TypeMatrix 2030, du côté gauche uniquement (pour laisser celles de la main droite servir de {caps,num,scroll}lock puisqu'elles ont des LED).
 
@@ -33,4 +33,4 @@ Touche permettant de basculer en mode BEPO sur un système configuré pour un cl
 
 Touche permettant de basculer en mode BEPO sur un système configuré pour un clavier AZERTY. Cette compatibilité n'est pas parfaite (pas de gestion des caractères non présents sur le clavier AZERTY, et les combinaisons de touches ne sont pas toutes supportées puisque le clavier traduit déjà certaines touches en combinaisons) mais reste pratique pour une saisie de texte occasionnelle et pour faire du bureau à distance vers un système Windows sans BEPO.
 
-> Olivier Smedts <olivier@gid0.org>
+> Olivier Smedts <olivier@gid0.org> <https://github.com/gid0/qmk_firmware>
