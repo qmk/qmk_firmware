@@ -318,7 +318,7 @@ Examples:
 {
     "encoder": {
         "rotary": [
-            { "pin_a": "B5", "pin_b": "A2", "resolution": 4 }
+            { "pin_a": "B5", "pin_b": "A2", "resolution": 4 },
             { "pin_a": "B6", "pin_b": "A3", "resolution": 2 }
         ]
     }
