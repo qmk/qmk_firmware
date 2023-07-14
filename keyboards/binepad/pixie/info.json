@@ -25,7 +25,6 @@
         "rows": ["GP28", "GP5"]
     },
     "encoder": {
-        "enabled": true,
         "rotary": [
             {
                 "pin_a": "GP18",
