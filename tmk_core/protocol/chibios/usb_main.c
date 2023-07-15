@@ -420,16 +420,9 @@ static usb_driver_configs_t drivers = {
  */
 
 #define USB_EVENT_QUEUE_SIZE 16
-usbevent_t event_queue[USB_EVENT_QUEUE_SIZE];
-uint8_t    event_queue_head;
-uint8_t    event_queue_tail;
-
-void usb_event_queue_init(void) {
-    // Initialise the event queue
-    memset(&event_queue, 0, sizeof(event_queue));
-    event_queue_head = 0;
-    event_queue_tail = 0;
-}
+static usbevent_t event_queue[USB_EVENT_QUEUE_SIZE];
+static uint8_t    event_queue_head;
+static uint8_t    event_queue_tail;
 
 static inline bool usb_event_queue_enqueue(usbevent_t event) {
     uint8_t next = (event_queue_head + 1) % USB_EVENT_QUEUE_SIZE;
@@ -442,11 +435,14 @@ static inline bool usb_event_queue_enqueue(usbevent_t event) {
 }
 
 static inline bool usb_event_queue_dequeue(usbevent_t *event) {
+    osalSysLock();
     if (event_queue_head == event_queue_tail) {
+        osalSysUnlock();
         return false;
     }
     *event           = event_queue[event_queue_tail];
     event_queue_tail = (event_queue_tail + 1) % USB_EVENT_QUEUE_SIZE;
+    osalSysUnlock();
     return true;
 }
 
@@ -500,12 +496,12 @@ void usb_event_queue_task(void) {
 /* Handles the USB driver global events
  * TODO: maybe disable some things when connection is lost? */
 static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
+    osalSysLockFromISR();
+
     switch (event) {
         case USB_EVENT_ADDRESS:
-            return;
-
+            break;
         case USB_EVENT_CONFIGURED:
-            osalSysLockFromISR();
             /* Enable the endpoints specified into the configuration. */
 #ifndef KEYBOARD_SHARED_EP
             usbInitEndpointI(usbp, KEYBOARD_IN_EPNUM, &kbd_ep_config);
@@ -534,12 +530,11 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
                 }
                 qmkusbConfigureHookI(&drivers.array[i].driver);
             }
-            osalSysUnlockFromISR();
             if (last_suspend_state) {
                 usb_event_queue_enqueue(USB_EVENT_WAKEUP);
             }
             usb_event_queue_enqueue(USB_EVENT_CONFIGURED);
-            return;
+            break;
         case USB_EVENT_SUSPEND:
             /* Falls into.*/
         case USB_EVENT_UNCONFIGURED:
@@ -547,27 +542,22 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
         case USB_EVENT_RESET:
             usb_event_queue_enqueue(event);
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
-                chSysLockFromISR();
                 /* Disconnection event on suspend.*/
                 qmkusbSuspendHookI(&drivers.array[i].driver);
-                chSysUnlockFromISR();
             }
-            return;
-
+            break;
         case USB_EVENT_WAKEUP:
-            // TODO: from ISR! print("[W]");
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
-                chSysLockFromISR();
                 /* Disconnection event on suspend.*/
                 qmkusbWakeupHookI(&drivers.array[i].driver);
-                chSysUnlockFromISR();
             }
             usb_event_queue_enqueue(USB_EVENT_WAKEUP);
-            return;
-
+            break;
         case USB_EVENT_STALLED:
-            return;
+            break;
     }
+
+    osalSysUnlockFromISR();
 }
 
 /* Function used locally in os/hal/src/usb.c for getting descriptors

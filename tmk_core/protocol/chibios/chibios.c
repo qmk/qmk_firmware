@@ -144,7 +144,6 @@ static host_driver_t *driver = NULL;
 
 void protocol_pre_init(void) {
     /* Init USB */
-    usb_event_queue_init();
     init_usb_driver(&USB_DRIVER);
 
 #ifdef MIDI_ENABLE

@@ -41,9 +41,6 @@ void restart_usb_driver(USBDriver *usbp);
  * ---------------
  */
 
-/* Initialisation of the FIFO */
-void usb_event_queue_init(void);
-
 /* Task to dequeue and execute any handlers for the USB events on the main thread */
 void usb_event_queue_task(void);
 
