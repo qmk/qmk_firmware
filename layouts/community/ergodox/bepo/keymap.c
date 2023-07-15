@@ -29,6 +29,7 @@ enum keyboard_layers {
     AZ_S,  // bepo with shift key to azerty compat layer
     FNAV,  // function / navigation / mouse layer
     NUMK,  // numeric keypad layer
+    QWER,  // qwerty layer for bepo systems
 };
 
 // macros
@@ -61,7 +62,7 @@ BP_DLR,		BP_DQUO,	BP_LDAQ,	BP_RDAQ,	BP_LPRN,	BP_RPRN,	KC_DEL,
 BP_PERC,	BP_B,		BP_EACU,	BP_P,		BP_O,		BP_EGRV,	KC_BSPC,
 BP_W,		BP_A,		BP_U,		BP_I,		BP_E,		BP_COMM,
 BP_ECIR,	BP_AGRV,	BP_Y,		BP_X,		BP_DOT,		BP_K,		KC_TAB,
-KC_ESC,		KC_INS,		KC_LGUI,	KC_LCTL,	KC_LALT,
+LCTL_T(KC_ESC),	KC_INS,		KC_LGUI,	KC_LCTL,	KC_LALT,
 														DF(BEPO),	DF(QW_B),
 																MO(NUMK),
 												KC_SPC,		KC_LSFT,	MO(FNAV),
@@ -369,7 +370,38 @@ KC_NO,		KC_NO,		KC_TRNS,	KC_TRNS,	KC_TRNS,
 								KC_KP_0,	KP_00,		KC_KP_COMMA,	KC_KP_ENTER,	KC_NO,
 KC_TRNS,	KC_TRNS,
 KC_TRNS,
-KC_TRNS,	KC_TRNS,	KC_NO)
+KC_TRNS,	KC_TRNS,	KC_NO),
+/* Keymap 9: qwerty layer for bepo
+ *
+ * ,--------------------------------------------------.      ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |      |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|      |------+------+------+------+------+------+--------|
+ * |        |   Q  |   W  |   E  |   R  |   T  |      |      |      |   Y  |   U  |   I  |   O  |   P  |        |
+ * |--------+------+------+------+------+------|      |      |      |------+------+------+------+------+--------|
+ * |        |   A  |   S  |   D  |   F  |   G  |------|      |------|   H  |   J  |   K  |   L  |      |        |
+ * |--------+------+------+------+------+------|      |      |      |------+------+------+------+------+--------|
+ * |        |   Z  |   X  |   C  |   V  |   B  |      |      |      |   N  |   M  |      |      |      |        |
+ * `--------+------+------+------+------+-------------'      `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                  |      |      |      |      |      |
+ *   `----------------------------------'                                  `----------------------------------'
+ *                                      ,-------------.      ,-------------.
+ *                                      |      |      |      |      |      |
+ *                               ,------|------|------|      |------+------+------.
+ *                               |      |      |      |      |      |      |      |
+ *                               |      |      |------|      |------|      |      |
+ *                               |      |      |      |      |      |      |      |
+ *                               `--------------------'      `--------------------'
+ */
+[QWER] = LAYOUT_ergodox_pretty(
+_______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______,
+_______, BP_Q,    BP_W,    BP_E,    BP_R,    BP_T,    _______,          _______, BP_Y,    BP_U,    BP_I,    BP_O,    BP_P,    _______,
+_______, BP_A,    BP_S,    BP_D,    BP_F,    BP_G,                               BP_H,    BP_J,    BP_K,    BP_L,    _______, _______,
+_______, BP_Z,    BP_X,    BP_C,    BP_V,    BP_B,    _______,          _______, BP_N,    BP_M,    _______, _______, _______, _______,
+_______, _______, _______, _______, _______,                                              _______, _______, _______, _______, _______,
+                                             _______, _______,          _______, _______,
+                                                      _______,          _______,
+                                    _______, _______, _______,          _______, _______, _______
+),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -381,7 +413,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
                 SEND_STRING(SS_UP(X_KP_0));
             }
-            break;
+            return false;
+        // add a momentary layer switch to the Mod-Tap ESC/LCTL key so that bepo users can use qwerty-like ctrl key bindings
+        case LCTL_T(KC_ESC):
+            if (record->event.pressed) {
+                layer_on(QWER);
+            } else {
+                layer_off(QWER);
+            }
+            return true;
     }
     return true;
 };
