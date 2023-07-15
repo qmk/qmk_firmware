@@ -31,6 +31,6 @@ Touche de fonction permettant l'accès au pavé numérique comme sur la TypeMatr
 
 Touche permettant de basculer en mode BEPO sur un système configuré pour un clavier QWERTY. Cette compatibilité n'est pas parfaite (pas encore de gestion des accents mais ça devrait être faisable avec une disposition en qwerty international, et les combinaisons de touches ne sont pas toutes supportées puisque le clavier traduit déjà certaines touches en combinaisons) mais reste pratique pour une saisie de texte occasionnelle et pour des accès BIOS ou console en QWERTY.
 
-Touche permettant de basculer en mode BEPO sur un système configuré pour un clavier AZERTY. Cette compatibilité n'est pas parfaite (pas de gestion des caractères non présents sur le clavier AZERTY, et les combinaisons de touches ne sont pas toutes supportées puisque le clavier traduit déjà certaines touches en combinaisons) mais reste pratique pour une saisie de texte occasionnelle et pour faire du bureau à distance vers un système Windows sans BEPO.
+De la même façon, une touche permet de basculer en mode BEPO sur un système configuré pour un clavier AZERTY. Les mêmes limitations s'appliquent et il n'y a pas de gestion des caractères non présents sur le clavier AZERTY, mais ce mode de compatibilité reste pratique pour une saisie de texte occasionnelle et pour faire du bureau à distance vers un système Windows sans BEPO.
 
 > Olivier Smedts <olivier@gid0.org> <https://github.com/gid0/qmk_firmware>
