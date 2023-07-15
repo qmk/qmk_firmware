@@ -15,11 +15,11 @@ The main difference between KinTwin and KinT controllers is that the former util
 
 Make example for this keyboard (after setting up your build environment):
 
-    `qmk compile -kb kinesis/kintwin -km default`
+    make kinesis/kintwin:default
 
 Flashing example for this keyboard:
 
-    `make kinesis/kintwin:default:flash`
+    make kinesis/kintwin:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
