@@ -32,25 +32,7 @@ void suspend_power_down(void) {
  */
 void suspend_wakeup_init(void) {
     // clear keyboard state
-    // need to do it manually, because we're running from ISR
-    //  and clear_keyboard() calls print
-    // so only clear the variables in memory
-    // the reports will be sent from main.c afterwards
-    // or if the PC asks for GET_REPORT
-    clear_mods();
-    clear_weak_mods();
-    clear_keys();
-#ifdef MOUSEKEY_ENABLE
-    mousekey_clear();
-    mousekey_send();
-#endif /* MOUSEKEY_ENABLE */
-#ifdef PROGRAMMABLE_BUTTON_ENABLE
-    programmable_button_clear();
-#endif /* PROGRAMMABLE_BUTTON_ENABLE */
-#ifdef EXTRAKEY_ENABLE
-    host_system_send(0);
-    host_consumer_send(0);
-#endif /* EXTRAKEY_ENABLE */
+    clear_keyboard();
 
     suspend_wakeup_init_quantum();
 }
