@@ -25,6 +25,13 @@
         "cols": ["A7", "B0", "B1", "B10", "B9", "B8", "B7", "B14", "B13", "B12", "C14", "C15", "B15", "B6", "B5"]
     },
     "diode_direction": "ROW2COL",
+    "indicators": {
+        "caps_lock": "A15",
+        "scroll_lock": "B3",
+        "num_lock": "B4",
+        "compose": "C13",
+        "on_state": 0
+    },    
     "layouts": {
         "LAYOUT": {
             "layout": [
