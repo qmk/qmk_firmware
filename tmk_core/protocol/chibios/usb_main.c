@@ -463,18 +463,14 @@ static inline void usb_event_wakeup_handler(void) {
 #endif /* SLEEP_LED_ENABLE */
 }
 
-bool last_suspend_state = false;
-
 void usb_event_queue_task(void) {
     usbevent_t event;
     while (usb_event_queue_dequeue(&event)) {
         switch (event) {
             case USB_EVENT_SUSPEND:
-                last_suspend_state = true;
                 usb_event_suspend_handler();
                 break;
             case USB_EVENT_WAKEUP:
-                last_suspend_state = false;
                 usb_event_wakeup_handler();
                 break;
             case USB_EVENT_CONFIGURED:
@@ -497,6 +493,7 @@ void usb_event_queue_task(void) {
  * TODO: maybe disable some things when connection is lost? */
 static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
     osalSysLockFromISR();
+    static bool was_suspended = false;
 
     switch (event) {
         case USB_EVENT_ADDRESS:
@@ -530,28 +527,27 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
                 }
                 qmkusbConfigureHookI(&drivers.array[i].driver);
             }
-            if (last_suspend_state) {
+            if (was_suspended) {
                 usb_event_queue_enqueue(USB_EVENT_WAKEUP);
+                was_suspended = false;
             }
             usb_event_queue_enqueue(USB_EVENT_CONFIGURED);
             break;
         case USB_EVENT_SUSPEND:
-            /* Falls into.*/
+            was_suspended = true;
         case USB_EVENT_UNCONFIGURED:
-            /* Falls into.*/
         case USB_EVENT_RESET:
             usb_event_queue_enqueue(event);
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
-                /* Disconnection event on suspend.*/
                 qmkusbSuspendHookI(&drivers.array[i].driver);
             }
             break;
         case USB_EVENT_WAKEUP:
             for (int i = 0; i < NUM_USB_DRIVERS; i++) {
-                /* Disconnection event on suspend.*/
                 qmkusbWakeupHookI(&drivers.array[i].driver);
             }
             usb_event_queue_enqueue(USB_EVENT_WAKEUP);
+            was_suspended = false;
             break;
         case USB_EVENT_STALLED:
             break;
