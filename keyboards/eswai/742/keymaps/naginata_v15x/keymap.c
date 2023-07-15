@@ -44,6 +44,7 @@ enum custom_keycodes {
 uint32_t naginata_timer;
 static deferred_token my_token;
 bool update_oled = true;
+bool ng_state = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_WIN] = LAYOUT(
@@ -334,6 +335,10 @@ static void render_eisu(void) {
 }
 
 bool oled_task_user(void) {
+  if (naginata_state() != ng_state) {
+    update_oled = true;
+    ng_state = naginata_state();
+  }
   if (is_keyboard_master()) {
     if (update_oled) { // 内容が変化する時だけ書き換えないとスリープに入らない。
       if (naginata_state()) {
