@@ -20,20 +20,20 @@
 
 // layers
 enum keyboard_layers {
-  BEPO,  // default layer, for bepo compatible systems
-  QW_B,  // bepo to qwerty base compat layer, for qwerty systems
-  QW_A,  // bepo with altgr key to qwerty compat layer
-  QW_S,  // bepo with shift key to qwerty compat layer
-  AZ_B,  // bepo to azerty base compat layer, for azerty systems
-  AZ_A,  // bepo with altgr key to azerty compat layer
-  AZ_S,  // bepo with shift key to azerty compat layer
-  FNAV,  // function / navigation / mouse layer
-  NUMK,  // numeric keypad layer
+    BEPO,  // default layer, for bepo compatible systems
+    QW_B,  // bepo to qwerty base compat layer, for qwerty systems
+    QW_A,  // bepo with altgr key to qwerty compat layer
+    QW_S,  // bepo with shift key to qwerty compat layer
+    AZ_B,  // bepo to azerty base compat layer, for azerty systems
+    AZ_A,  // bepo with altgr key to azerty compat layer
+    AZ_S,  // bepo with shift key to azerty compat layer
+    FNAV,  // function / navigation / mouse layer
+    NUMK,  // numeric keypad layer
 };
 
 // macros
 enum custom_keycodes {
-  KP_00 = SAFE_RANGE  // keypad "double 0"
+    KP_00 = SAFE_RANGE  // keypad "double 0"
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -373,17 +373,17 @@ KC_TRNS,	KC_TRNS,	KC_NO)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch(keycode) {
-    // keypad "double 0"
-    case KP_00:
-      if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_KP_0) SS_DOWN(X_KP_0));
-      } else {
-        SEND_STRING(SS_UP(X_KP_0));
-      }
-      break;
-  }
-  return true;
+    switch(keycode) {
+        // keypad "double 0"
+        case KP_00:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_KP_0) SS_DOWN(X_KP_0));
+            } else {
+                SEND_STRING(SS_UP(X_KP_0));
+            }
+            break;
+    }
+    return true;
 };
 
 void matrix_init_user (void) {
