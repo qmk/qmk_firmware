@@ -20,7 +20,7 @@
         "midi": true,
         "rgblight": true,
         "lto": true
-    }
+    },
     "encoder": {
         "enabled": true,
         "rotary": [
