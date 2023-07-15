@@ -227,6 +227,6 @@ void slider(void) {
     }
 }
  
-void matrix_scan_user(void) {
+void housekeeping_task_user(void) {
     slider();
 }
