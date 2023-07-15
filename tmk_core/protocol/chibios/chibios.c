@@ -180,6 +180,8 @@ void protocol_post_init(void) {
 }
 
 void protocol_pre_task(void) {
+    usb_event_queue_task();
+
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DRIVER.state == USB_SUSPENDED) {
         dprintln("suspending keyboard");
@@ -193,11 +195,10 @@ void protocol_pre_task(void) {
         }
         /* after a successful wakeup a USB_EVENT_WAKEUP is signaled to QMK by
          * ChibiOS, which triggers a wakeup callback that restores the state of
-         * the keyboard. Therefore we do nothing here. */
+         * the keyboard. We immedialty check for this after waking up. */
+        usb_event_queue_task();
     }
 #endif
-
-    usb_event_queue_task();
 }
 
 void protocol_post_task(void) {
