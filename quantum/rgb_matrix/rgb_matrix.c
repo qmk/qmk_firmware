@@ -19,8 +19,13 @@
 #include "rgb_matrix.h"
 #include "progmem.h"
 #include "eeprom.h"
+#include "eeconfig.h"
+#include "keyboard.h"
+#include "sync_timer.h"
+#include "debug.h"
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include <lib/lib8tion/lib8tion.h>
 
