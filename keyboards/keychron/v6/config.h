@@ -43,6 +43,7 @@
 
 #ifdef ENCODER_ENABLE
     #define ENCODER_DEFAULT_POS 0x3
+#endif
 
 /* EEPROM Driver Configuration */
 #define WEAR_LEVELING_LOGICAL_SIZE 2048
