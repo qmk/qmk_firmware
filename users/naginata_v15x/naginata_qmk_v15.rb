@@ -346,11 +346,11 @@ def outputHenshu(pk, m, k)
     if $henshu.key? i
       d << $henshu[i]
     else
-      d << "ng_send_unicode_string(\"#{i}\");"
+      d << "ng_send_unicode_string_P(PSTR(\"#{i}\"));"
     end
   end
   $hcase += d.flatten.map{|x| "        #{x}"}
-  $hcase << "        compress_buffer(nt);"
+  $hcase << "        henshu_done = true;"
   $hcase << "        return true;"
   $hcase << "        break;"
   $hkey << "  {.key = #{pk}|B_#{k}}, // #{m}"
