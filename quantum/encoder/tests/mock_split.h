@@ -22,9 +22,6 @@
 #define SPLIT_KEYBOARD
 typedef uint8_t pin_t;
 
-void encoder_state_raw(uint8_t* slave_state);
-void encoder_update_raw(uint8_t* slave_state);
-
 extern bool pins[];
 extern bool pinIsInputHigh[];
 

@@ -670,7 +670,7 @@ void keyboard_task(void) {
 #endif
 
 #ifdef ENCODER_ENABLE
-    if (encoder_read()) {
+    if (encoder_task()) {
         last_encoder_activity_trigger();
         activity_has_occurred = true;
     }
