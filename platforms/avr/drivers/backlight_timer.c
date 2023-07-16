@@ -75,11 +75,11 @@ ISR(TIMERx_COMPA_vect) {
 // Triggered when the counter reaches the TOP value
 // this one triggers at F_CPU/ICRx = 16MHz/65536 =~ 244 Hz
 ISR(TIMERx_OVF_vect) {
-#    ifdef BACKLIGHT_BREATHING
+#ifdef BACKLIGHT_BREATHING
     if (is_breathing()) {
         breathing_task();
     }
-#    endif
+#endif
     // for very small values of OCRxx (or backlight level)
     // we can't guarantee this whole code won't execute
     // at the same time as the compare match interrupt
@@ -153,7 +153,7 @@ static uint16_t breathing_counter = 0;
 
 static uint8_t breath_scale_counter = 1;
 /* Run the breathing loop at ~120Hz*/
-const uint8_t   breathing_ISR_frequency = 120;
+const uint8_t breathing_ISR_frequency = 120;
 
 static bool breathing = false;
 
@@ -255,7 +255,7 @@ void backlight_init_ports(void) {
     TCCRxA = _BV(WGM11); // = 0b00000010;
     // clock select clk/1
     TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
-    ICRx = BACKLIGHT_RESOLUTION;
+    ICRx   = BACKLIGHT_RESOLUTION;
 
     backlight_init();
 

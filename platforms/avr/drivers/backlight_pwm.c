@@ -127,21 +127,20 @@
 #define BREATHING_SCALE_FACTOR F_CPU / BACKLIGHT_RESOLUTION / 120
 
 static inline void enable_pwm(void) {
-#    if BACKLIGHT_ON_STATE == 1
+#if BACKLIGHT_ON_STATE == 1
     TCCRxA |= _BV(COMxx1);
-#    else
+#else
     TCCRxA |= _BV(COMxx1) | _BV(COMxx0);
-#    endif
+#endif
 }
 
 static inline void disable_pwm(void) {
-#    if BACKLIGHT_ON_STATE == 1
+#if BACKLIGHT_ON_STATE == 1
     TCCRxA &= ~(_BV(COMxx1));
-#    else
+#else
     TCCRxA &= ~(_BV(COMxx1) | _BV(COMxx0));
-#    endif
+#endif
 }
-
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
 static uint16_t cie_lightness(uint16_t v) {
@@ -198,7 +197,7 @@ static uint16_t breathing_counter = 0;
 
 static uint8_t breath_scale_counter = 1;
 /* Run the breathing loop at ~120Hz*/
-const uint8_t   breathing_ISR_frequency = 120;
+const uint8_t breathing_ISR_frequency = 120;
 
 bool is_breathing(void) {
     return !!(TIMSKx & _BV(TOIEx));
@@ -265,9 +264,7 @@ static inline uint16_t scale_backlight(uint16_t v) {
  *
  * The following ISR runs at F_CPU/ISRx. With a 16MHz clock and default pwm resolution, that means 244Hz
  */
-ISR(TIMERx_OVF_vect)
-{
-
+ISR(TIMERx_OVF_vect) {
     // Only run this ISR at ~120 Hz
     if (breath_scale_counter++ == BREATHING_SCALE_FACTOR) {
         breath_scale_counter = 1;
@@ -318,7 +315,7 @@ void backlight_init_ports(void) {
     */
     TCCRxA = _BV(COMxx1) | _BV(WGM11);            // = 0b00001010;
     TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
-    ICRx = BACKLIGHT_RESOLUTION;
+    ICRx   = BACKLIGHT_RESOLUTION;
 
     backlight_init();
 
