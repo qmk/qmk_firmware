@@ -29,10 +29,11 @@ x シフトしたまま入力し続けると暴走する
 x 前置シフトだと連続シフトにならない
 x 「もみもみ」などの連続シフトで5キー以上
 x ガブガブ、FJ両方ともキャリーオーバーするのでうまくいかない
+x じょじょの連続シフト
+x 5キーの組み合わせへの拡張
 
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
-5キーの組み合わせへの拡張
 「なんと」が編集モードに入る
 エクストリームな入力に対しても暴走しないようにする(シフトしたまま連打とか)
 
@@ -600,34 +601,6 @@ void ng_show_os(void) {
   }
 }
 
-// void ng_send_unicode_string(const char *str) {
-//   switch (naginata_config.os) {
-//     case NG_LINUX:
-//       tap_code(KC_INTERNATIONAL_5);
-//       send_unicode_string(str);
-//       tap_code(KC_INTERNATIONAL_4);
-//       break;
-//     case NG_WIN:
-//       send_unicode_string(str);
-//       tap_code(KC_ENT);
-//       break;
-//     case NG_MAC: // Karabiner-Elementsが必要
-//       // TODO 未確定の文字列が残っていたら確定しておきたい
-//       tap_code(KC_LANGUAGE_2); // 未確定文字を確定する
-//       register_code(KC_LCTL); // Unicode HEX Inputへ切り替え
-//       tap_code(KC_F20);
-//       unregister_code(KC_LCTL);
-//       wait_ms(UNICODE_TYPE_DELAY);
-//       send_unicode_string(str);
-//       wait_ms(UNICODE_TYPE_DELAY);
-//       register_code(KC_LSFT); // 日本語入力へ切り替え。再変換にならないように「shift+かな」「かな」の2打にする。
-//       tap_code(KC_LANGUAGE_1);
-//       unregister_code(KC_LSFT);
-//       tap_code(KC_LANGUAGE_1);
-//       break;
-//   }
-// }
-
 #define MAX_STRLEN 40
 void ng_send_unicode_string_P(const char *pstr) {
   if (strlen_P(pstr) > MAX_STRLEN) return;
@@ -770,6 +743,27 @@ void naginata_clear(void) {
   keycnt = 0;
 }
 
+// 編集モードの判定
+bool check_henshu() {
+  bool h = false;
+  if (keycomb == (B_D | B_F) ||
+      keycomb == (B_J | B_K) ||
+      keycomb == (B_C | B_V) ||
+      keycomb == (B_M | B_COMM) ||
+      keycomb == (B_U | B_I) ||
+      keycomb == (B_E | B_R))
+    h = true;
+  if ((keycomb & (B_D | B_F)) != (B_D | B_F) &&
+      (keycomb & (B_J | B_K)) != (B_J | B_K) &&
+      (keycomb & (B_C | B_V)) != (B_C | B_V) &&
+      (keycomb & (B_M | B_COMM)) != (B_M | B_COMM) &&
+      (keycomb & (B_U | B_I)) != (B_U | B_I) &&
+      (keycomb & (B_E | B_R)) != (B_E | B_R))
+    h = false;
+
+  return h;
+}
+
 // #define LOG_PROCESS_NAGINATA
 // 薙刀式の入力処理
 bool process_naginata(uint16_t keycode, keyrecord_t *record) {
@@ -879,21 +873,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
             return true;
         }
 
-        // 編集モードの判定
-        if (keycomb == (B_D | B_F) ||
-            keycomb == (B_J | B_K) ||
-            keycomb == (B_C | B_V) ||
-            keycomb == (B_M | B_COMM) ||
-            keycomb == (B_U | B_I) ||
-            keycomb == (B_E | B_R))
-          is_henshu = true;
-        if ((keycomb & (B_D | B_F)) != (B_D | B_F) &&
-            (keycomb & (B_J | B_K)) != (B_J | B_K) &&
-            (keycomb & (B_C | B_V)) != (B_C | B_V) &&
-            (keycomb & (B_M | B_COMM)) != (B_M | B_COMM) &&
-            (keycomb & (B_U | B_I)) != (B_U | B_I) &&
-            (keycomb & (B_E | B_R)) != (B_E | B_R))
-          is_henshu = false;
+        is_henshu = check_henshu();
         
         nginput[ng_chrcount] = (Keystroke){.keycode = keycode, .pressTime = record->event.time, .releaseTime = 0}; // キー入力をバッファに貯める
         ng_chrcount++;
@@ -911,21 +891,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           keycnt--;
         
         keycomb &= ~ng_key[keycode - NG_Q]; // キーの重ね合わせ
-        // 編集モードの判定
-        if (keycomb == (B_D | B_F) ||
-            keycomb == (B_J | B_K) ||
-            keycomb == (B_C | B_V) ||
-            keycomb == (B_M | B_COMM) ||
-            keycomb == (B_U | B_I) ||
-            keycomb == (B_E | B_R))
-          is_henshu = true;
-        if ((keycomb & (B_D | B_F)) != (B_D | B_F) &&
-            (keycomb & (B_J | B_K)) != (B_J | B_K) &&
-            (keycomb & (B_C | B_V)) != (B_C | B_V) &&
-            (keycomb & (B_M | B_COMM)) != (B_M | B_COMM) &&
-            (keycomb & (B_U | B_I)) != (B_U | B_I) &&
-            (keycomb & (B_E | B_R)) != (B_E | B_R))
-          is_henshu = false;
+        is_henshu = check_henshu();
 
         for (uint8_t i = 0; i < ng_chrcount; i++) { //　連続シフト　もも
           if (keycode == nginput[i].keycode && nginput[i].releaseTime == 0) {
