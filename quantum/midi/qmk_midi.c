@@ -7,6 +7,7 @@
 
 #ifdef AUDIO_ENABLE
 #    include "audio.h"
+#    include <math.h>
 #endif
 
 /*******************************************************************************

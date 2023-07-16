@@ -583,3 +583,6 @@ uint16_t audio_duration_to_ms(uint16_t duration_bpm) {
 uint16_t audio_ms_to_duration(uint16_t duration_ms) {
     return ((uint32_t)duration_ms * 2 * note_tempo) / 1875;
 }
+
+__attribute__((weak)) void audio_on_user(void) {}
+__attribute__((weak)) void audio_off_user(void) {}
