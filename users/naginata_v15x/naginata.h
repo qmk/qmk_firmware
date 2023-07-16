@@ -16,7 +16,7 @@
 
 #pragma once
 
-void naginata_type(void);
+uint8_t naginata_type(bool);
 void naginata_clear(void);
 
 bool process_modifier(uint16_t, keyrecord_t *);
@@ -42,7 +42,7 @@ typedef struct {
   uint16_t releaseTime;
 } Keystroke;
 
-void evaluate(void);
+uint8_t evaluate(void);
 uint32_t scoring(Keystroke[], uint8_t);
 
 bool exec_henshu(uint32_t);

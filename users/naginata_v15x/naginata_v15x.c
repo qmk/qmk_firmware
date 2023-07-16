@@ -144,7 +144,6 @@ const uint32_t ng_key[] = {
 static Keystroke nginput[NKEYS]; // 入力バッファ
 static Keystroke ngingroup[NKEYS][NDOUJI]; // 入力バッファを同時押しの組み合わせでグループ化
 
-static uint8_t keySize = 0; // ngingroupの配列のサイズ
 static uint8_t doujiSize[NKEYS] = {0}; // ngingroupの配列のサイズ
 
 #define NCOMBI 63 // COMBI配列の大きさ
@@ -180,7 +179,7 @@ const PROGMEM int8_t COMBI[NCOMBI][NKEYS][NDOUJI] = {
   {{ 0,  1, -1}, { 0,  2, -1}, { 0,  3, -1}, {-1, -1, -1}, {-1, -1, -1}}, // 01  02  03
   {{ 0,  1, -1}, { 0,  2, -1}, { 3, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}, // 01  02  3
   {{ 0,  1,  2}, { 0,  3, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}, // 012 03
-  {{ 0,  1, -1}, { 0,  2,  3}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}, // 01 023
+  {{ 0,  1, -1}, { 0,  2,  3}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}, // 01  023
   // 1連続シフト
   {{ 0,  1, -1}, { 1,  2, -1}, { 3, -1, -1}, {-1, -1, -1}, {-1, -1, -1}}, // 01  12  3
   {{ 0,  1, -1}, { 1,  2, -1}, { 1,  3, -1}, {-1, -1, -1}, {-1, -1, -1}}, // 01  12  13
@@ -245,7 +244,6 @@ const PROGMEM int8_t COMBI[NCOMBI][NKEYS][NDOUJI] = {
 static Keystroke nginput[NKEYS]; // 入力バッファ
 static Keystroke ngingroup[NKEYS][NDOUJI]; // 入力バッファを同時押しの組み合わせでグループ化
 
-static uint8_t keySize = 0; // ngingroupの配列のサイズ
 static uint8_t doujiSize[NKEYS] = {0}; // ngingroupの配列のサイズ
 
 #define NCOMBI 27 // COMBI配列の大きさ
@@ -845,13 +843,12 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         keycnt++;
 
         if (keycnt > NKEYS || ng_chrcount >= NKEYS) {
-          naginata_type();
+          int ntyped = naginata_type(true);
 
           // 押しているキーは残す
           // シフト系のキー以外を残すと2度変換してしまう
           uint8_t tch = 0;
-          keycomb = 0UL;
-          for (uint8_t i = 0; i < ng_chrcount; i++) {
+          for (uint8_t i = 0; i < ntyped; i++) {
             if (nginput[i].releaseTime == 0 && 
                (nginput[i].keycode == NG_SHFT || 
                 nginput[i].keycode == NG_SHFT2 ||
@@ -861,12 +858,19 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
                 nginput[i].keycode == NG_M )) {
               nginput[tch] = nginput[i];
               nginput[tch].pressTime = record->event.time; // 仕切り直す
-              keycomb |= ng_key[nginput[tch].keycode - NG_Q];
               tch++;
               break; // キャリーオーバーするのも１キーだけ
             }
           }
+          for (uint8_t i = ntyped; i < ng_chrcount; i++) {
+            nginput[tch] = nginput[i];
+            tch++;
+          }
           ng_chrcount = tch;
+          keycomb = 0UL;
+          for (uint8_t i = 0; i < ng_chrcount; i++) {
+            keycomb |= ng_key[nginput[i].keycode - NG_Q];
+          }
         }
 
         keycomb |= ng_key[keycode - NG_Q]; // キーの重ね合わせ
@@ -937,7 +941,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
             keycomb = 0;
             return false;
           }
-          naginata_type();
+          naginata_type(false);
           ng_chrcount = 0;
           keycomb = 0;
         }
@@ -957,7 +961,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 
 // #define LOG_NAGINATA_TYPE
 // キー入力を文字に変換して出力する
-void naginata_type(void) {
+// partial 部分変換するかどうか
+// 戻り値 変換処理したキーの数
+uint8_t naginata_type(bool partial) {
   #if defined(CONSOLE_ENABLE) && defined(LOG_NAGINATA_TYPE)
   uprintf(">naginata_type ng_chrcount=%u\n", ng_chrcount);
   for (uint8_t i = 0; i < ng_chrcount; i++)
@@ -966,15 +972,16 @@ void naginata_type(void) {
 
   if (ng_chrcount == 1 && nginput[0].keycode == NG_SHFT2) {
     tap_code(KC_ENT);
-    return;
+    return 1;
   }
 
   naginata_keymap bngmap; // PROGMEM buffer
 
-  // ngingroupを作って、その中で一番評価値が高い組み合わせのインデックスnを返す
-  evaluate();
+  uint8_t keySize = evaluate();
 
   // かなへ変換する
+  if (partial) keySize = 1; // partialの時は、最初の組み合わせだけ出力する
+  
   for (uint8_t i = 0; i < keySize; i++) {
     // バッファ内のキーを組み合わせる
     uint32_t keycomb_buf = 0UL;
@@ -1007,6 +1014,13 @@ void naginata_type(void) {
         break;
     }
   }
+
+  if (partial) {
+    return doujiSize[0];
+  } else {
+    return ng_chrcount;
+  }
+
   #if defined(CONSOLE_ENABLE) && defined(LOG_NAGINATA_TYPE)
   uprintf("<naginata_type\n");
   #endif
@@ -1014,7 +1028,7 @@ void naginata_type(void) {
 
 // #define LOG_EVALUATE
 // ngingroupを作って中で一番評価値が高い組み合わせngingroupに入れる
-void evaluate() {
+uint8_t evaluate() {
   #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
   uprintf(">evaluate ng_chrcount=%u\n", ng_chrcount);
   #endif
@@ -1027,6 +1041,7 @@ void evaluate() {
   naginata_keymap bngmap; // PROGMEM buffer
   int8_t bcombi = 0; // PROGMEM buffer
   bool isExist = false;
+  uint8_t keySize = 0;
 
   for (uint8_t i = COMBINDEX[ng_chrcount - 1]; i < COMBINDEX[ng_chrcount]; i++) { // 組み合わせごとに
     #if defined(CONSOLE_ENABLE) && defined(LOG_EVALUATE)
@@ -1125,6 +1140,8 @@ void evaluate() {
   #if defined(CONSOLE_ENABLE)
   uprintf("<evaluate return score=%lu\n", maxScore);
   #endif
+
+  return keySize;
 
 }
 
