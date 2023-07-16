@@ -30,9 +30,7 @@
 #define PIN_START_74HC595 11
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 60
-#define DRIVER_2_LED_TOTAL 49
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT 109
 
 /* Enable caps-lock LED*/
 #define CAPS_LOCK_LED_INDEX 60
