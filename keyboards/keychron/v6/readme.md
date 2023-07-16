@@ -1,18 +1,26 @@
 # Keychron V6
 
+![Keychron V6](https://i.imgur.com/Os99bILh.jpg)
+
 A customizable 100% keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron V6
-* Hardware Availability: [Keychron](https://www.keychron.com)
+* Hardware Availability: [Keychron V6 QMK Custom Mechanical Keyboard](https://www.keychron.com/products/keychron-v6-qmk-custom-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/v6/v6_ansi_stm32l432:default
+    make keychron/v6/ansi:default
+    make keychron/v6/ansi_encoder:default
+    make keychron/v6/iso:default
+    make keychron/v6/iso_encoder:default
 
 Flashing example for this keyboard:
 
-    make keychron/v6/v6_ansi_stm32l432:flash
+    make keychron/v6/ansi:flash
+    make keychron/v6/ansi_encoder:flash
+    make keychron/v6/iso:flash
+    make keychron/v6/iso_encoder:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

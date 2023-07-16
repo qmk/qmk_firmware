@@ -1,10 +1,12 @@
 # Keychron V10
 
+![Keychron V10](https://i.imgur.com/Dh1WLdDh.jpg)
+
 A customizable 75% ergonomic keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron V10
-* Hardware Availability: [Keychron](https://www.keychron.com)
+* Hardware Availability: [Keychron V10 (Alice Layout) QMK Custom Mechanical Keyboard](https://www.keychron.com/products/keychron-v10-alice-layout-qmk-custom-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
