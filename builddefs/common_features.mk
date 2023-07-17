@@ -728,7 +728,7 @@ ifeq ($(strip $(HAPTIC_ENABLE)),yes)
     else
         COMMON_VPATH += $(DRIVER_PATH)/haptic
 
-        ifeq ($(strip $(HAPTIC_DRIVER)), drv2650l)
+        ifeq ($(strip $(HAPTIC_DRIVER)), drv2605l)
             SRC += drv2605l.c
             QUANTUM_LIB_SRC += i2c_master.c
             OPT_DEFS += -DHAPTIC_DRV2605L
