@@ -61,7 +61,7 @@ bool encoder_update_user(uint8_t index, bool clockwise);
 #    define NUM_ENCODERS_MAX_PER_SIDE MAX(NUM_ENCODERS_LEFT, NUM_ENCODERS_RIGHT)
 
 #    ifndef MAX_QUEUED_ENCODER_EVENTS
-#        define MAX_QUEUED_ENCODER_EVENTS ((NUM_ENCODERS_MAX_PER_SIDE) + 1)
+#        define MAX_QUEUED_ENCODER_EVENTS MAX(4, ((NUM_ENCODERS_MAX_PER_SIDE) + 1))
 #    endif // MAX_QUEUED_ENCODER_EVENTS
 
 typedef struct encoder_event_t {
