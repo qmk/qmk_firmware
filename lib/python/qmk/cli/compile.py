@@ -32,7 +32,7 @@ def _is_keymap_target(keyboard, keymap):
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
-@cli.argument('--compiledb', arg_only=True, action='store_true', help="Gemerates the clang compile_commands.json file during build.")
+@cli.argument('--compiledb', arg_only=True, action='store_true', help="Generates the clang compile_commands.json file during build. Implies --clean.")
 @cli.subcommand('Compile a QMK Firmware.')
 @automagic_keyboard
 @automagic_keymap
