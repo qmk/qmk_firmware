@@ -27,6 +27,7 @@ enum {
     CT_CLN,
     X_CTL,
     TD_RELEASE,
+    TD_RELEASE_AND_FINISH,
 };
 
 #ifdef __cplusplus

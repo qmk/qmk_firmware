@@ -165,6 +165,9 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
                 process_tap_dance_action_on_each_release(action);
                 if (action->state.finished) {
                     process_tap_dance_action_on_reset(action);
+                    if (active_td == keycode) {
+                        active_td = 0;
+                    }
                 }
             }
 
