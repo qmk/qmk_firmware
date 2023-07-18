@@ -19,8 +19,7 @@
 #include "rgb_matrix.h"
 #include "i2c_master.h"
 #include "is31fl3733-dual.h"
-
-
+#include "gpio.h"
 
 static void init(void) {
     i2c_init(&I2CD1, I2C1_SCL_PIN, I2C1_SDA_PIN);

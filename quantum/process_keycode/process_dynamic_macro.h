@@ -18,7 +18,9 @@
 /* Author: Wojciech Siewierski < wojciech dot siewierski at onet dot pl > */
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
 
 /* May be overridden with a custom value. Be aware that the effective
  * macro length is half of this value: each keypress is recorded twice
