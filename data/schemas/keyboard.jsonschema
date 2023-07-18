@@ -477,6 +477,10 @@
                     }
                 },
                 "brightness_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "driver": {
+                    "type": "string",
+                    "enum": ["apa102", "custom", "ws2812"]
+                },
                 "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "layers": {
                     "type": "object",

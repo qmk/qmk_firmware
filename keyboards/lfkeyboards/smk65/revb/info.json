@@ -6,6 +6,7 @@
         "levels": 8
     },
     "rgblight": {
+        "driver": "custom",
         "hue_steps": 10,
         "led_count": 20
     },
