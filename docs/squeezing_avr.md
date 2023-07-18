@@ -88,6 +88,21 @@ Or if you're not using layers at all, you can outright remove the functionality 
 #define NO_ACTION_LAYER
 ```
 
+## Magic keycodes
+
+There are two `__attribute__ ((weak))` placeholder functions available to customize magic keycodes. If you are not using that feature to swap keycodes, such as backslash with backspace, add the following to your `keymap.c` or user space code:
+```c
+uint16_t keycode_config(uint16_t keycode) {
+    return keycode;
+}
+```
+Likewise, if you are not using magic keycodes to swap modifiers, such as Control with GUI, add the following to your `keymap.c` or user space code:
+```c
+uint8_t mod_config(uint8_t mod) {
+    return mod;
+}
+```
+Both of them will overwrite the placeholder functions with a simple return statement to reduce firmware size.
 
 ## OLED tweaks
 

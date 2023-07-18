@@ -165,7 +165,7 @@ if(IS_LAYER_ON(NSSL)) {
 
 //capslock leds
 
-if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+if (host_keyboard_led_state().caps_lock) {
     rgb_matrix_set_color_all(50, 15.6, 0);
   }
 
