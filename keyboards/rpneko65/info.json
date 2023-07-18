@@ -18,10 +18,21 @@
         "mousekey": true,
         "nkro": true
     },
+    "rgblight": {
+      "led_count": "1"
+      "pin": "GP18"
+      "hue_steps": "8"
+      "saturation_steps": "8"
+      "brightness_steps": "8"
+    },
+    "ws2812": {
+      "pin": "GP18"
+      "driver": "vendor"
+    },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
-        "rows": ["GP28_ADC2", "GP27_ADC1", "GP26_ADC0", "GP25", "GP24"],
-        "cols": ["GP29_ADC3", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP6", "GP5", "GP4", "GP3", "GP2", "GP0", "GP1"]
+        "rows": ["GP28", "GP27", "GP26", "GP25", "GP24"],
+        "cols": ["GP29", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP6", "GP5", "GP4", "GP3", "GP2", "GP0", "GP1"]
     },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
