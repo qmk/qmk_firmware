@@ -1,0 +1,31 @@
+// https://docs.qmk.fm/#/feature_combo?id=dictionary-management
+
+COMB(   LALTC_TAB,                                  // NAME
+        KC_TAB,                                     // RESULT
+        KC_LALT, KC_C                               // CHORD KEYS
+)
+COMB(   LGUIS_ESC,
+        KC_ESC,
+        KC_LGUI, KC_S
+)
+COMB(   SS_SYSTEM,
+        MO(SYSTEM),
+        KC_SPC, KC_RSFT
+)
+COMB(   LS_SYSTEM,
+        MO(SYSTEM),
+        KC_LSFT, KC_RSFT
+)
+COMB(   PANIC_RETURN,
+        TO(RSTHD),
+        KC_LALT, KC_EQUAL
+)
+
+SUBS(   OU_OU,
+        "ou",
+        KC_O, KC_U
+)
+SUBS(   QU_QU,
+        "qu",
+        KC_Q, KC_U
+)

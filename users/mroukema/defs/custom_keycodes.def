@@ -1,0 +1,101 @@
+// dot/comma that shift to exclemation/question mark
+CUSTOM_SHIFTABLE_KEYCODE(       KC_DTEX,                // CUSTOM KEYCODE
+                                KC_DOT,                 // BASE KEYCODE
+                                KC_EXLM                 // SHIFTED KEYCODE
+)
+CUSTOM_SHIFTABLE_KEYCODE(       KC_CMQM,
+                                KC_COMMA,
+                                KC_QUES
+)
+
+/*
+ * Parens/braces that shift to thier mirror
+ * Special handling (record->tap.count) for mirrorable custom keycodes that are on mod tap keys
+ */
+// CUSTOM_SHIFTABLE_MOD_KEYCODE( LGUI_T,            // MOD KEY OVERLAPPING WITH CUSTOM KEYCODE
+//                               KC_TG_LPRN,        // CUSTOM KEYCODE
+//                               KC_LPRN,           // BASE KEYCODE
+//                               KC_RPRN            // SHIFTED KEYCODE
+// )
+
+// Parens/braces that shift to thier mirror
+CUSTOM_SHIFTABLE_KEYCODE(   KC_TG_LPRN,             // CUSTOM KEYCODE
+                            KC_LPRN,                // BASE KEYCODE
+                            KC_RPRN                 // SHIFTED KEYCODE
+)
+CUSTOM_SHIFTABLE_KEYCODE(   KC_TG_RPRN,
+                            KC_RPRN,
+                            KC_LPRN
+)
+CUSTOM_SHIFTABLE_KEYCODE(   KC_TG_LBRC,
+                            KC_LBRC,
+                            KC_RBRC
+)
+CUSTOM_SHIFTABLE_KEYCODE(   KC_TG_RBRC,
+                            KC_RBRC,
+                            KC_LBRC
+)
+CUSTOM_SHIFTABLE_KEYCODE(   KC_TG_LCBR,
+                            KC_LCBR,
+                            KC_RCBR
+)
+CUSTOM_SHIFTABLE_KEYCODE(   KC_TG_RCBR,
+                            KC_RCBR,
+                            KC_LCBR
+)
+CUSTOM_SHIFTABLE_KEYCODE(   KC_TG_LLT,
+                            KC_LT,
+                            KC_GT
+)
+CUSTOM_SHIFTABLE_KEYCODE(   KC_TG_RGT,
+                            KC_GT,
+                            KC_LT
+)
+
+// Symbols that shift to numbers
+CUSTOM_SHIFTABLE_KEYCODE(       KC_SLSH_0,              // CUSTOM KEYCODE
+                                KC_SLSH,                // BASE KEYCODE
+                                KC_0                    // SHIFTED KEYCODE
+)
+CUSTOM_SHIFTABLE_KEYCODE(       KC_AMPR_1,
+                                KC_AMPR,
+                                KC_1
+)
+CUSTOM_SHIFTABLE_KEYCODE(       KC_AT_2,
+                                KC_AT,
+                                KC_2
+)
+CUSTOM_SHIFTABLE_KEYCODE(       KC_HASH_3,
+                                KC_HASH,
+                                KC_3
+)
+CUSTOM_SHIFTABLE_KEYCODE(       KC_DLR_4,
+                                KC_DLR,
+                                KC_4
+)
+CUSTOM_SHIFTABLE_KEYCODE(       KC_PERC_5,
+                                KC_PERC,
+                                KC_5
+)
+CUSTOM_SHIFTABLE_KEYCODE(       KC_CIRC_6,
+                                KC_CIRC,
+                                KC_6
+)
+CUSTOM_SHIFTABLE_KEYCODE(       KC_QUES_7,
+                                KC_QUES,
+                                KC_7
+)
+CUSTOM_SHIFTABLE_KEYCODE(       KC_COLN_8,
+                                KC_COLN,
+                                KC_8
+)
+CUSTOM_SHIFTABLE_KEYCODE(       KC_DQUO_9,
+                                KC_DQUO,
+                                KC_9
+)
+
+// Keypad Dot that shifts to comma
+CUSTOM_SHIFTABLE_KEYCODE(       KC_KP_DOT_COMMA,
+                                KC_KP_DOT,
+                                KC_COMMA
+)
