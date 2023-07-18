@@ -1,6 +1,7 @@
 {
     "manufacturer": "lendunistus",
     "keyboard_name": "RPNeko65",
+    "url": "https://github.com/lendunistus/rpneko65"
     "maintainer": "lendunistus",
     "processor": "RP2040",
     "bootloader": "rp2040",

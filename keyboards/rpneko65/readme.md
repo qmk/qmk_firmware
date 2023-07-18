@@ -6,7 +6,7 @@ A multi-layout PCB for the Bakeneko65
 
 * Keyboard Maintainer: [lendunistus](https://github.com/lendunistus)
 * Hardware Supported: [Bakeneko65](https://github.com/kkatano/bakeneko-65)
-* Hardware Availability: [Open source on GitHub](https://github.com/lendunistus/rp2040-bakeneko65)
+* Hardware Availability: [Open source on GitHub](https://github.com/lendunistus/rpneko65
 
 Make example for this keyboard (after setting up your build environment):
 
