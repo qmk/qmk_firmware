@@ -1,16 +1,18 @@
 # Keychron Q65
 
+![Keychron Q65](https://i.imgur.com/5Cbb1C5h.jpg)
+
 A customizable 65% keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q65
-* Hardware Availability: [Keychron](https://www.keychron.com)
+* Hardware Availability: [KKeychron Q65 QMK Custom Mechanical Keyboardeychron](https://www.keychron.com/products/keychron-q65-qmk-custom-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
     make keychron/q65/ansi_encoder:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make keychron/q65/ansi_encoder:default:flash
 
