@@ -21,7 +21,8 @@
     },
     "matrix_pins": {
         "cols": ["A0", "B11", "B0", "B10", "B12", "B2", "A8"],
-        "rows": ["A1", "A3", "B3", "A13", "B15", null, null]
+        "rows": ["A1", "A3", "B3", "A13", "B15", null, null],
+        "io_delay": 5
     },
     "diode_direction": "COL2ROW",
     "encoder": {

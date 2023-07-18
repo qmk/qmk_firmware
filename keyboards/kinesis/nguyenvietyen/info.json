@@ -13,6 +13,7 @@
         "compose": "D7",
         "on_state": 0
     },
+    "debounce": 1,
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "layouts": {

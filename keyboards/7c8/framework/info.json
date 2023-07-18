@@ -21,6 +21,10 @@
     "qmk": {
         "tap_keycode_delay": 16
     },
+    "leader_key": {
+        "timeout": 250,
+        "timing": true
+    },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
     "layouts": {

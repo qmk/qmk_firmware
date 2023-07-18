@@ -15,7 +15,10 @@
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 40,
-        "max_brightness": 150
+        "max_brightness": 150,
+        "animations": {
+            "rainbow_swirl": true
+        }
     },
     "matrix_pins": {
         "cols": ["F5", "C7", "B7", "B2", "B4"],
