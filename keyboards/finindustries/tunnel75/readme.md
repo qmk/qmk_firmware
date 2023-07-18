@@ -1,8 +1,7 @@
 # Tunnel75
 
 -   Keyboard Maintainer: [Zengxlll](https://github.com/Zengxlll)
--   Hardware Supported: _The PCBs, controllers supported_
--   Hardware Availability: _Links to where you can find this hardware_
+-   Hardware Supported: STM32F103CBT6
 
 Make example for this keyboard (after setting up your build environment):
 
