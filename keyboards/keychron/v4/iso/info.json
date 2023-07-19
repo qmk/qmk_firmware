@@ -73,8 +73,12 @@
         "device_version": "1.0.0",
         "pid": "0x0340"
     },
+    "layout_aliases": {
+        "LAYOUT_iso_62": "LAYOUT_60_iso"
+    },
+    "community_layouts": ["60_iso"],
     "layouts": {
-        "LAYOUT_iso_62": {
+        "LAYOUT_60_iso": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -121,7 +125,7 @@
                 {"matrix": [1, 13], "x": 13.75, "y": 1, "w": 1.25, "h": 2},
                 
                 {"matrix": [3, 0], "x": 0, "y": 3, "w": 1.25},
-                {"matrix": [3, 1], "x": 1.25, "y": 3.25},
+                {"matrix": [3, 1], "x": 1.25, "y": 3},
                 {"matrix": [3, 2], "x": 2.25, "y": 3},
                 {"matrix": [3, 3], "x": 3.25, "y": 3},
                 {"matrix": [3, 4], "x": 4.25, "y": 3},
