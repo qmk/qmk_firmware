@@ -68,8 +68,6 @@ static uint8_t thisHand, thatHand;
 static uint8_t thatCount;
 #endif
 
-static uint8_t encoder_value[NUM_ENCODERS] = {0};
-
 __attribute__((weak)) void encoder_wait_pullup_charge(void) {
     wait_us(100);
 }
@@ -92,7 +90,7 @@ __attribute__((weak)) uint8_t encoder_graycode_read_pin(uint8_t index, bool pad_
 __attribute__((weak)) void encoder_graycode_post_init_kb(void) {
     extern void encoder_graycode_handle_read(uint8_t index, uint8_t pin_a_state, uint8_t pin_b_state);
     // Unused normally, but can be used for things like setting up pin-change interrupts in keyboard code.
-    // During the interrupt, call `encoder_handle_read()` with the pin states and it'll queue up an encoder event if needed.
+    // During the interrupt, read the pins then call `encoder_handle_read()` with the pin states and it'll queue up an encoder event if needed.
 }
 
 void encoder_graycode_post_init(void) {
@@ -123,7 +121,6 @@ void encoder_driver_init(void) {
     // because all the arrays are static locals, rerunning tests in the same
     // executable doesn't reset any of these. Kinda crappy having test-only code
     // here, but it's the simplest solution.
-    memset(encoder_value, 0, sizeof(encoder_value));
     memset(encoder_state, 0, sizeof(encoder_state));
     memset(encoder_pulses, 0, sizeof(encoder_pulses));
     static const pin_t encoders_pad_a_left[] = ENCODERS_PAD_A;
@@ -146,7 +143,7 @@ void encoder_driver_init(void) {
     }
 #endif // defined(SPLIT_KEYBOARD) && defined(ENCODERS_PAD_A_RIGHT) && defined(ENCODERS_PAD_B_RIGHT)
 
-    // Encoder resolutions is handled purely master-side, so concatenate the two arrays
+    // Encoder resolutions is defined differently in config.h, so concatenate
 #if defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
 #    if defined(ENCODER_RESOLUTIONS_RIGHT)
     static const uint8_t encoder_resolutions_right[NUM_ENCODERS_RIGHT] = ENCODER_RESOLUTIONS_RIGHT;
@@ -164,15 +161,16 @@ void encoder_driver_init(void) {
 static void encoder_handle_state_change(uint8_t index, uint8_t state) {
     uint8_t i = index;
 
+#ifdef SPLIT_KEYBOARD
+    index += thisHand;
+#endif
+
 #ifdef ENCODER_RESOLUTIONS
-    const uint8_t resolution = encoder_resolutions[i];
+    const uint8_t resolution = encoder_resolutions[index];
 #else
     const uint8_t resolution = ENCODER_RESOLUTION;
 #endif
 
-#ifdef SPLIT_KEYBOARD
-    index += thisHand;
-#endif
     encoder_pulses[i] += encoder_LUT[state & 0xF];
 
 #ifdef ENCODER_DEFAULT_POS
@@ -182,7 +180,6 @@ static void encoder_handle_state_change(uint8_t index, uint8_t state) {
     if (encoder_pulses[i] >= resolution) {
 #endif
 
-            encoder_value[index]++;
             encoder_queue_event(index, ENCODER_COUNTER_CLOCKWISE);
         }
 
@@ -191,7 +188,6 @@ static void encoder_handle_state_change(uint8_t index, uint8_t state) {
 #else
     if (encoder_pulses[i] <= -resolution) { // direction is arbitrary here, but this clockwise
 #endif
-            encoder_value[index]--;
             encoder_queue_event(index, ENCODER_CLOCKWISE);
         }
         encoder_pulses[i] %= resolution;
