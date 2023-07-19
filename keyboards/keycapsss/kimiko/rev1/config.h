@@ -16,15 +16,6 @@
 
 #pragma once
 
-/* SK6812 RGB LED */
-#define RGB_DI_PIN D3
-
-#ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 60  // Total number of LEDs
-#   define RGBLED_SPLIT { 30, 30 } // LEDs per side
-#   define RGBLIGHT_SPLIT
-#endif
-
 // Limit the power draw
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40

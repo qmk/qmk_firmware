@@ -8,11 +8,16 @@
         "pid": "0x1111",
         "device_version": "1.0.0"
     },
+    "rgblight": {
+        "led_count": 12,
+        "split_count": [6, 6]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 0,"y": 0},
-                {"x": 1,"y": 0}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+
+                {"matrix": [1, 0], "x": 1, "y": 0}
             ]
         }
     }

@@ -22,8 +22,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN B1
-#ifdef RGB_DI_PIN
     #define RGBLIGHT_EFFECT_ALTERNATING
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_CHRISTMAS
@@ -34,9 +32,3 @@
     #define RGBLIGHT_EFFECT_SNAKE
     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
     #define RGBLIGHT_EFFECT_TWINKLE
-
-    #define RGBLED_NUM 4
-    #define RGBLIGHT_HUE_STEP 8
-    #define RGBLIGHT_SAT_STEP 8
-    #define RGBLIGHT_VAL_STEP 8
-#endif

@@ -17,13 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN E2
 #define RGB_MATRIX_LED_COUNT 69
-#ifdef RGB_DI_PIN
-#    define RGBLED_NUM 69
 #    define RGB_MATRIX_KEYPRESSES
-#    define RGBLIGHT_LIMIT_VAL 180 // Limit to vendor-recommended value
-#endif
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180 // Limit to vendor-recommended value
 // RGB Matrix Animation modes. Explicitly enabled

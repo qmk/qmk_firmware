@@ -6,14 +6,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGB_DI_PIN B5
-#ifdef RGB_DI_PIN
-#define RGBLED_NUM 5
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-#define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -26,4 +18,3 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYER_BLINK
-#endif

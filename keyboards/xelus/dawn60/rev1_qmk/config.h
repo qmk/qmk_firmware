@@ -21,7 +21,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 //RGB Underglow defines
-#define RGB_DI_PIN F0
 #define WS2812_LED_TOTAL 20
 
 //RGB Matrix defines

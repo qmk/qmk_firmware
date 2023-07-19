@@ -5,7 +5,7 @@ import shutil
 from milc import cli
 from milc.questions import question
 
-from qmk.path import is_keyboard, keymap
+from qmk.path import is_keyboard, keymaps, keymap
 from qmk.git import git_get_username
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder
@@ -50,9 +50,9 @@ def new_keymap(cli):
         return False
 
     # generate keymap paths
-    km_path = keymap(kb_name)
-    keymap_path_default = km_path / 'default'
-    keymap_path_new = km_path / user_name
+    keymaps_dirs = keymaps(kb_name)
+    keymap_path_default = keymap(kb_name, 'default')
+    keymap_path_new = keymaps_dirs[0] / user_name
 
     if not keymap_path_default.exists():
         cli.log.error(f'Default keymap {{fg_cyan}}{keymap_path_default}{{fg_reset}} does not exist!')

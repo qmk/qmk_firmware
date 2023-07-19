@@ -22,8 +22,5 @@
 
 #define SPLIT_HAND_PIN F0
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
 // teensy has vbus detection issues - use usb detection instead
 #define SPLIT_USB_DETECT

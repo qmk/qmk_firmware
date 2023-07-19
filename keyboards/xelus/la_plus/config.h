@@ -23,8 +23,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 // RGB Matrix
-// The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN F1
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 32
 

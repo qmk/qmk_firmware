@@ -67,7 +67,6 @@ enum custom_keycodes {
 #define RAISE MO(2)
 
 
-// HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* Qwerty

@@ -24,7 +24,5 @@
 #define DRIVER_1_LED_TOTAL 21
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 
-#define RGB_MATRIX_CENTER { 56, 16 }
-
 /* Enable num-lock LED */
 #define NUM_LOCK_LED_INDEX 4

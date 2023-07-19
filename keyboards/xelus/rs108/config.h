@@ -44,6 +44,3 @@
 
 // HSE CLK
 #define STM32_HSECLK 16000000
-
-//Force NKRO
-#define FORCE_NKRO

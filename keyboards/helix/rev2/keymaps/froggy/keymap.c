@@ -71,7 +71,6 @@ enum macro_keycodes {
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 
-#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Base
@@ -178,10 +177,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,  _______, KC_PDOT,    KC_COMM, _______, _______,        _______
       )
 };
-#else
-#error "undefined keymaps"
-#endif
-
 
 #ifdef AUDIO_ENABLE
 
@@ -709,9 +704,10 @@ void render_status(struct CharacterMatrix *matrix) {
   int rows = 0;
 
   //Set Indicator icon
-  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 4; } else { rown = 0; }
-  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowa = 4; } else { rowa = 0; }
-  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; } else { rows = 0; }
+  led_t led_state = host_keyboard_led_state();
+  if (led_state.num_lock) { rown = 4; } else { rown = 0; }
+  if (led_state.caps_lock) { rowa = 4; } else { rowa = 0; }
+  if (led_state.scroll_lock) { rows = 4; } else { rows = 0; }
   if (layer_state == L_FUNC) { rowf = 4; }
 
   matrix_write(matrix, indctr[rown]  [0]);
@@ -818,9 +814,10 @@ void render_status(void) {
   int rows = 0;
 
   //Set Indicator icon
-  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 4; } else { rown = 0; }
-  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowa = 4; } else { rowa = 0; }
-  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; } else { rows = 0; }
+  led_t led_state = host_keyboard_led_state();
+  if (led_state.num_lock) { rown = 4; } else { rown = 0; }
+  if (led_state.caps_lock) { rowa = 4; } else { rowa = 0; }
+  if (led_state.scroll_lock) { rows = 4; } else { rows = 0; }
   if (layer_state == L_FUNC) { rowf = 4; }
 
   oled_write(indctr[rown]  [0], false);

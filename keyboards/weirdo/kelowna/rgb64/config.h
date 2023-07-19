@@ -15,13 +15,6 @@
   */ 
 #pragma once
 
-#define RGB_DI_PIN A6
-#define RGBLED_NUM 64
-//#define RGBLIGHT_DISABLE_KEYCODES
-
-
-
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

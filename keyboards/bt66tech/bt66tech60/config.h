@@ -35,16 +35,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGB_DI_PIN B15
-#define RGBLED_NUM 9
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 5
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
  */
-
-#define FORCE_NKRO
 
 /* disable debug print */
 //#define NO_DEBUG

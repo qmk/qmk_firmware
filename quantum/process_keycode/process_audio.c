@@ -1,5 +1,6 @@
 #include "audio.h"
 #include "process_audio.h"
+#include <math.h>
 
 #ifndef VOICE_CHANGE_SONG
 #    define VOICE_CHANGE_SONG SONG(VOICE_CHANGE_SOUND)
@@ -61,6 +62,3 @@ void process_audio_noteoff(uint8_t note) {
 void process_audio_all_notes_off(void) {
     stop_all_notes();
 }
-
-__attribute__((weak)) void audio_on_user(void) {}
-__attribute__((weak)) void audio_off_user(void) {}

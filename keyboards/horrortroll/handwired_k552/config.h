@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 // SPI configuration
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5
@@ -51,9 +48,6 @@
     #define RGB_MATRIX_LED_COUNT 24
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
     #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-
-    /* RGB Matrix config */
-    #define RGB_DI_PIN C14
 
     /* RGB Matrix effect */
     #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

@@ -9,6 +9,12 @@
         "pin": "B0",
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 23
+    },
+    "ws2812": {
+        "pin": "A7"
+    },
     "indicators": {
         "caps_lock": "B2",
         "num_lock": "C15",

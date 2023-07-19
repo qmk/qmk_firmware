@@ -15,8 +15,6 @@
  */
 #pragma once
 
-#define RGB_DI_PIN F7
-#ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -29,9 +27,3 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_EFFECT_RAINBOW_MOOD + 6) 
 #define RGBLIGHT_DEFAULT_SPD 10
-#define RGBLED_NUM 30
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 10
-#define RGBLIGHT_VAL_STEP 10
-#define RGBLIGHT_LIMIT_VAL 130 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
-#endif

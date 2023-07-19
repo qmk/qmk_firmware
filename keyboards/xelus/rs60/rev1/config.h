@@ -20,6 +20,3 @@
 
 // Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
-
-//Force NKRO
-#define FORCE_NKRO

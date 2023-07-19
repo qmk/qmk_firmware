@@ -16,13 +16,6 @@
 
 #pragma once
 
-#define IGNORE_MOD_TAP_INTERRUPT
-
-// The Teensy LC power consumption is unknown as per
-// https://www.pjrc.com/store/teensylc.html but since
-// https://www.pjrc.com/store/teensy41.html says 100mA, let's go with half.
-#define USB_MAX_POWER_CONSUMPTION 50
-
 /* We use the i.MX RT1060 high-speed GPIOs (GPIO6-9) which are connected to the
  * AHB bus (AHB_CLK_ROOT), which runs at the same speed as the ARM Core Clock,
  * i.e. 600 MHz. See MIMXRT1062, page 949, 12.1 Chip-specific GPIO information.

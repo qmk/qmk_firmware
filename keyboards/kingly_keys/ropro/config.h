@@ -22,11 +22,6 @@
  /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* ws2812 RGB LED --- DIN Pin Routed to VIA on main PCB marked "RGB" */
-#define RGB_DI_PIN D3
-
-#define RGBLED_NUM 18
-
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

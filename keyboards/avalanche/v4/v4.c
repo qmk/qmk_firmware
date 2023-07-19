@@ -1,7 +1,7 @@
 // Copyright 2022 Vitaly Volkov (@vlkv)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "v4.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {

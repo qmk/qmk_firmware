@@ -13,7 +13,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN E6
 #define RGB_MATRIX_LED_COUNT 92
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200

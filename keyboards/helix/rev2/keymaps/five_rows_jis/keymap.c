@@ -43,7 +43,6 @@ enum custom_keycodes {
 #define ML_RAIE MO(_RAI_E)
 #define ML_ADJ  MO(_ADJUST)
 
-#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Qwerty JIS Normal
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -193,10 +192,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-#else
-#error "undefined keymaps"
-#endif
-
 #if defined(SSD1306OLED) || defined(OLED_ENABLE)
 char keylog[24] = {};
 const char code_to_name[60] = {
@@ -210,7 +205,7 @@ const char code_to_name[60] = {
 static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
   char name = ' ';
-  uint8_t leds = host_keyboard_leds();
+  led_t led_state = host_keyboard_led_state();
 
   if (keycode < 60)
   {
@@ -223,9 +218,9 @@ static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
            record->event.key.col,
            keycode,
            name,
-          (leds & (1<<USB_LED_NUM_LOCK)) ? 'N' : ' ',
-          (leds & (1<<USB_LED_CAPS_LOCK)) ? 'C' : ' ',
-          (leds & (1<<USB_LED_SCROLL_LOCK)) ? 'S' : ' '
+          led_state.num_lock ? 'N' : ' ',
+          led_state.caps_lock ? 'C' : ' ',
+          led_state.scroll_lock ? 'S' : ' '
            );
 }
 #endif

@@ -16,18 +16,11 @@
 
 #pragma once
 
-#define ENCODERS_CCW_KEY { { 4, 5 } } // Note:  array is { col, row )
-#define ENCODERS_CW_KEY  { { 3, 5 } } // Note:  array is { col, row )
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-#define FORCE_NKRO
-
-#define RGB_DI_PIN B1
-#ifdef RGB_DI_PIN
 
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -80,5 +73,3 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH               // Full gradient & value pulse away from multiple key hits then fades value out
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH              // Hue & value pulse away from a single key hit then fades value out
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH         // Hue & value pulse away from multiple key hits then fades value out
-
-#endif

@@ -17,7 +17,6 @@
 #pragma once
 
 /* Underglow + top RGB configuration */
-#define RGB_DI_PIN D4
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -28,14 +27,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#if !defined(RGBLED_NUM)
-/* RGB LED count
- * No external LED PCB: 10
- * External LED PCB: 14
- */
-#    define RGBLED_NUM 14
-#endif
 
 /*
  * Feature disable options

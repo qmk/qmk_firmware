@@ -16,16 +16,12 @@
 
 #pragma once
 
-/* define tapping term */
-#define TAPPING_TERM 120
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D3
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -37,10 +33,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 70
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 30, 40 }    // Number of LEDs
-#define RGBLIGHT_LIMIT_VAL 100
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 70

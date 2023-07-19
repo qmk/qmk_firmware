@@ -21,8 +21,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* RGB Setup */
-#define RGB_DI_PIN D0
-#define RGBLED_NUM 3
-#define RGBLIGHT_SLEEP

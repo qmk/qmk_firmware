@@ -90,8 +90,10 @@ def find_layouts(file):
                     cli.log.error('Invalid LAYOUT macro in %s: Empty parameter name in macro %s at pos %s.', file, macro_name, i)
                 elif key['label'] not in matrix_locations:
                     cli.log.error('Invalid LAYOUT macro in %s: Key %s in macro %s has no matrix position!', file, key['label'], macro_name)
+                elif len(matrix_locations.get(key['label'])) > 1:
+                    cli.log.error('Invalid LAYOUT macro in %s: Key %s in macro %s has multiple matrix positions (%s)', file, key['label'], macro_name, ', '.join(str(x) for x in matrix_locations[key['label']]))
                 else:
-                    key['matrix'] = matrix_locations[key['label']]
+                    key['matrix'] = matrix_locations[key['label']][0]
 
             parsed_layouts[macro_name] = {
                 'layout': parsed_layout,
@@ -186,7 +188,9 @@ def _parse_matrix_locations(matrix, file, macro_name):
         row = row.replace('{', '').replace('}', '')
         for col_num, identifier in enumerate(row.split(',')):
             if identifier != 'KC_NO':
-                matrix_locations[identifier] = [row_num, col_num]
+                if identifier not in matrix_locations:
+                    matrix_locations[identifier] = []
+                matrix_locations[identifier].append([row_num, col_num])
 
     return matrix_locations
 
@@ -237,19 +241,24 @@ def _parse_led_config(file, matrix_cols, matrix_rows):
     position_raw = []
     flags = []
 
-    found_led_config = False
+    found_led_config_t = False
+    found_g_led_config = False
     bracket_count = 0
     section = 0
     current_row_index = 0
     current_row = []
 
     for _type, value in lex(_preprocess_c_file(file), CLexer()):
-        # Assume g_led_config..stuff..;
-        if value == 'g_led_config':
-            found_led_config = True
+        if not found_g_led_config:
+            # Check for type
+            if value == 'led_config_t':
+                found_led_config_t = True
+            # Type found, now check for name
+            elif found_led_config_t and value == 'g_led_config':
+                found_g_led_config = True
         elif value == ';':
-            found_led_config = False
-        elif found_led_config:
+            found_g_led_config = False
+        else:
             # Assume bracket count hints to section of config we are within
             if value == '{':
                 bracket_count += 1

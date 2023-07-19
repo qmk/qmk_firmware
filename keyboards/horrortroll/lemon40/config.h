@@ -16,16 +16,8 @@
 
 #pragma once
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 /* RGB light config */
 #ifdef RGBLIGHT_ENABLE
-   
-    /* RGB light pin */
-    #define RGB_DI_PIN F4
-    #define RGBLED_NUM 15
-
     /* RGB light effect */
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD

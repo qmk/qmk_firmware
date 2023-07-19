@@ -16,15 +16,12 @@
 
 #pragma once
 
-#define RGB_DI_PIN D7
 #define RGB_MATRIX_LED_COUNT 110
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100 // limits maximum brightness of LEDs to 100 out of 255.
-#define RGBLIGHT_LIMIT_VAL 100 // limits maximum brightness of LEDs to 100 out of 255.
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGBLED_NUM 110
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

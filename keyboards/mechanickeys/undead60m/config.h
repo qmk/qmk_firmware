@@ -17,10 +17,6 @@
 #pragma once
 
 /* RGB Underglow */
-#define RGB_DI_PIN F7
-#ifdef RGB_DI_PIN
-  #define RGBLED_NUM 16
-  #define RGBLIGHT_SLEEP
   #define RGBLIGHT_EFFECT_BREATHING
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -31,4 +27,3 @@
   #define RGBLIGHT_EFFECT_RGB_TEST
   #define RGBLIGHT_EFFECT_ALTERNATING
   #define RGBLIGHT_EFFECT_TWINKLE
-#endif

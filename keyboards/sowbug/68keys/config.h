@@ -18,11 +18,8 @@
 
 #pragma once
 
-#define RGB_DI_PIN B9
-
 #define RGB_MATRIX_KEYPRESSES
-#define RGBLED_NUM 68
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 68
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
 // RGB Matrix Animation modes. Explicitly enabled

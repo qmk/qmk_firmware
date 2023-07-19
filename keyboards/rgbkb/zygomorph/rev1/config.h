@@ -21,13 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 #define EE_HANDS
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B7
 #ifndef RGBLIGHT_SPLIT_ENABLE
     #define RGBLED_NUM 30
 #else
     #define RGBLED_NUM 60
-    #define RGBLED_SPLIT { 30, 30 }
 #endif
 
 #define RGBLIGHT_EFFECT_BREATHING

@@ -17,14 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN E2
 // The number of LEDs connected
 #define RGB_MATRIX_LED_COUNT 73
-#ifdef RGB_DI_PIN
-    #define RGBLED_NUM 73
     #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
-#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

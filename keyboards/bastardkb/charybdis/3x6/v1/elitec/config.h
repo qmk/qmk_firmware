@@ -20,8 +20,5 @@
 /* Handedness. */
 #define MASTER_RIGHT
 
-/* RGB settings. */
-#define RGB_DI_PIN D3
-
 /* PMW3360 settings. */
 #define POINTING_DEVICE_CS_PIN B0

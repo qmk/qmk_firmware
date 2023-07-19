@@ -17,9 +17,6 @@
 
 #pragma once
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 #ifdef OLED_ENABLE
     /* Mapping I2C2 for OLED */
     #define I2C1_SCL_PIN B10
@@ -32,7 +29,6 @@
 
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
-    #define RGB_DI_PIN A10
     #define RGB_MATRIX_LED_COUNT 16
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
     #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS

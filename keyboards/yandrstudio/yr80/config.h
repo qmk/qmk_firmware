@@ -18,10 +18,6 @@
 
 #ifdef RGBLIGHT_ENABLE
 
-#    define RGB_DI_PIN A7
-#    define RGBLED_NUM 1
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-
 #    define RGBLIGHT_LAYERS
 #    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 #    define RGBLIGHT_LAYERS_RETAIN_VAL

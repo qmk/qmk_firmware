@@ -19,15 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define TAPPING_TOGGLE 3
-
-#define USB_MAX_POWER_CONSUMPTION 100
-
 /* RGB underglow */
-// The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
-// The same pin is used on the JJ40, at least.
-#define RGBLED_NUM 18
-#define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -38,4 +30,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-/*#define RGBLIGHT_VAL_STEP 20*/

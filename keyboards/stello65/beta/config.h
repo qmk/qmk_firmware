@@ -3,9 +3,6 @@
 
 #pragma once
 
-#define ENCODERS_CW_KEY  { { 4, 7 } }
-#define ENCODERS_CCW_KEY { { 4, 6 } }
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

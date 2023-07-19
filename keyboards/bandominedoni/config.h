@@ -23,8 +23,6 @@
 
 #define SPLIT_USB_DETECT
 
-#define RGB_DI_PIN D3
-
 #ifdef RGB_MATRIX_ENABLE
 
 /* ws2812 RGB MATRIX */
@@ -139,5 +137,3 @@
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
-
-#define TAP_CODE_DELAY 10

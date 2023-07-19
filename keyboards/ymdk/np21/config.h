@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGBLED_NUM 5
-//#define RGBLIGHT_HUE_STEP 8
-//#define RGBLIGHT_SAT_STEP 8
-//#define RGBLIGHT_VAL_STEP 8
-//#define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//#define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -54,5 +48,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-
-#define USB_MAX_POWER_CONSUMPTION 100

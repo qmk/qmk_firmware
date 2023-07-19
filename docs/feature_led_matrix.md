@@ -139,7 +139,7 @@ Currently only 4 drivers are supported, but it would be trivial to support for m
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address
@@ -158,7 +158,7 @@ Eg `#define ISSI_MANUAL_SCALING 3`
 Then Define the array listing all the LEDs you want to override in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_scaling[ISSI_MANUAL_SCALING] = {
+const is31_led PROGMEM g_is31_scaling[ISSI_MANUAL_SCALING] = {
  *   LED Index
  *   |  Scaling
  *   |  | */
@@ -378,13 +378,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 
 ## EEPROM storage :id=eeprom-storage
 
-The EEPROM for it is currently shared with the RGB Matrix system (it's generally assumed only one feature would be used at a time), but could be configured to use its own 32bit address with:
-
-```c
-#define EECONFIG_LED_MATRIX (uint32_t *)28
-```
-
-Where `28` is an unused index from `eeconfig.h`.
+The EEPROM for it is currently shared with the RGB Matrix system (it's generally assumed only one feature would be used at a time).
 
 ### Direct Operation :id=direct-operation
 |Function                                    |Description  |
