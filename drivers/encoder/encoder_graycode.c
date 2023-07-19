@@ -75,11 +75,24 @@ __attribute__((weak)) void encoder_wait_pullup_charge(void) {
 }
 
 __attribute__((weak)) void encoder_init_pin(uint8_t index, bool pad_b) {
-    setPinInputHigh(pad_b ? encoders_pad_b[index] : encoders_pad_a[index]);
+    pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
+    if (pin != NO_PIN) {
+        setPinInputHigh(pin);
+    }
 }
 
 __attribute__((weak)) uint8_t encoder_read_pin(uint8_t index, bool pad_b) {
-    return readPin(pad_b ? encoders_pad_b[index] : encoders_pad_a[index]) ? 1 : 0;
+    pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
+    if (pin != NO_PIN) {
+        return readPin(pin) ? 1 : 0;
+    }
+    return 0;
+}
+
+__attribute__((weak)) void encoder_init_post_kb(void) {
+    extern void encoder_handle_read(uint8_t index, uint8_t pin_a_state, uint8_t pin_b_state);
+    // Unused normally, but can be used for things like setting up pin-change interrupts in keyboard code.
+    // During the interrupt, call `encoder_handle_read()` with the pin states and it'll queue up an encoder event if needed.
 }
 
 void encoder_driver_init(void) {
@@ -140,9 +153,11 @@ void encoder_driver_init(void) {
     for (uint8_t i = 0; i < thisCount; i++) {
         encoder_state[i] = (encoder_read_pin(i, false) << 0) | (encoder_read_pin(i, true) << 1);
     }
+
+    encoder_init_post_kb();
 }
 
-static bool encoder_handle_state_change(uint8_t index, uint8_t state) {
+static void encoder_handle_state_change(uint8_t index, uint8_t state) {
     bool    changed = false;
     uint8_t i       = index;
 
@@ -186,13 +201,17 @@ static bool encoder_handle_state_change(uint8_t index, uint8_t state) {
     return changed;
 }
 
-void encoder_driver_task(void) {
+void encoder_handle_read(uint8_t index, uint8_t pin_a_state, uint8_t pin_b_state) {
+    uint8_t state = pin_a_state | (pin_b_state << 1);
+    if ((encoder_state[index] & 0x3) != state) {
+        encoder_state[index] <<= 2;
+        encoder_state[index] |= state;
+        encoder_handle_state_change(index, encoder_state[index]);
+    }
+}
+
+__attribute__((weak)) void encoder_driver_task(void) {
     for (uint8_t i = 0; i < thisCount; i++) {
-        uint8_t new_status = (encoder_read_pin(i, false) << 0) | (encoder_read_pin(i, true) << 1);
-        if ((encoder_state[i] & 0x3) != new_status) {
-            encoder_state[i] <<= 2;
-            encoder_state[i] |= new_status;
-            encoder_handle_state_change(i, encoder_state[i]);
-        }
+        encoder_handle_read(i, encoder_read_pin(i, false), encoder_read_pin(i, true));
     }
 }
