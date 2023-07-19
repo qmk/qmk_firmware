@@ -29,7 +29,6 @@
     },
     "diode_direction": "COL2ROW",
     "ws2812": { "pin": "B0" },
-
     "rgblight": {
         "led_count": 12,
         "sleep": true,
