@@ -115,7 +115,7 @@
                 {"x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65v3_ansi_blocker": {
+        "LAYOUT_65_blocker": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
@@ -189,7 +189,7 @@
                 {"x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65v3_iso_blocker": {
+        "LAYOUT_65_iso_blocker": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},
