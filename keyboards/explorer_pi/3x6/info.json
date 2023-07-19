@@ -11,6 +11,7 @@
         "rows": ["GP6", "GP7", "GP8", "GP9"]
     },
     "split": {
+        "enabled": true,
         "matrix_pins": {
             "right": {
                 "cols": ["GP9", "GP8", "GP7", "GP6", "GP5", "GP4"],
