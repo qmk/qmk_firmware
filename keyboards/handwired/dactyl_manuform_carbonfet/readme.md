@@ -35,9 +35,9 @@ Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 ### Alteration
 | Code | Description | Diagram </br> *4x6 example* |
 | :---: | :---: | :---: | 
-| ex | **Ex**tended Bottom Row: Key count on the finger well bottom row is extended outward from the default 2 |  ![ex](https://i.imgur.com/pnW1LPwh.png) |
-| eic | **E**xtended **I**nner **C**olumn: Each half gains an additional inner column though the bottom key of said column is ommitted | ![eic](https://i.imgur.com/myKWapoh.png) |
-| exic | *ex* and *eic* combined | ![exic](https://i.imgur.com/iAIRVikh.png) |
+| ex | **Ex**tended Bottom Row: Key count on the finger well bottom row is extended outward from the default 2 |  ![ex](https://i.imgur.com/ifhDa7Zh.png) |
+| eic | **E**xtended **I**nner **C**olumn: Each half gains an additional inner column though the bottom key of said column is ommitted | ![eic](https://i.imgur.com/stuHtsXh.png) |
+| exic | *ex* and *eic* combined | ![exic](https://i.imgur.com/t37nF0uh.png) |
 
 ### Legacy 5x7 variant
 
