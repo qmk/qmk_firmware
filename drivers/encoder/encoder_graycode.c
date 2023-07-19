@@ -74,14 +74,14 @@ __attribute__((weak)) void encoder_wait_pullup_charge(void) {
     wait_us(100);
 }
 
-__attribute__((weak)) void encoder_init_pin(uint8_t index, bool pad_b) {
+__attribute__((weak)) void encoder_graycode_init_pin(uint8_t index, bool pad_b) {
     pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
     if (pin != NO_PIN) {
         setPinInputHigh(pin);
     }
 }
 
-__attribute__((weak)) uint8_t encoder_read_pin(uint8_t index, bool pad_b) {
+__attribute__((weak)) uint8_t encoder_graycode_read_pin(uint8_t index, bool pad_b) {
     pin_t pin = pad_b ? encoders_pad_b[index] : encoders_pad_a[index];
     if (pin != NO_PIN) {
         return readPin(pin) ? 1 : 0;
@@ -89,10 +89,23 @@ __attribute__((weak)) uint8_t encoder_read_pin(uint8_t index, bool pad_b) {
     return 0;
 }
 
-__attribute__((weak)) void encoder_init_post_kb(void) {
-    extern void encoder_handle_read(uint8_t index, uint8_t pin_a_state, uint8_t pin_b_state);
+__attribute__((weak)) void encoder_graycode_post_init_kb(void) {
+    extern void encoder_graycode_handle_read(uint8_t index, uint8_t pin_a_state, uint8_t pin_b_state);
     // Unused normally, but can be used for things like setting up pin-change interrupts in keyboard code.
     // During the interrupt, call `encoder_handle_read()` with the pin states and it'll queue up an encoder event if needed.
+}
+
+void encoder_graycode_post_init(void) {
+    for (uint8_t i = 0; i < thisCount; i++) {
+        encoder_graycode_init_pin(i, false);
+        encoder_graycode_init_pin(i, true);
+    }
+    encoder_wait_pullup_charge();
+    for (uint8_t i = 0; i < thisCount; i++) {
+        encoder_state[i] = (encoder_graycode_read_pin(i, false) << 0) | (encoder_graycode_read_pin(i, true) << 1);
+    }
+
+    encoder_graycode_post_init_kb();
 }
 
 void encoder_driver_init(void) {
@@ -145,21 +158,11 @@ void encoder_driver_init(void) {
     }
 #endif // defined(SPLIT_KEYBOARD) && defined(ENCODER_RESOLUTIONS)
 
-    for (uint8_t i = 0; i < thisCount; i++) {
-        encoder_init_pin(i, false);
-        encoder_init_pin(i, true);
-    }
-    encoder_wait_pullup_charge();
-    for (uint8_t i = 0; i < thisCount; i++) {
-        encoder_state[i] = (encoder_read_pin(i, false) << 0) | (encoder_read_pin(i, true) << 1);
-    }
-
-    encoder_init_post_kb();
+    encoder_graycode_post_init();
 }
 
 static void encoder_handle_state_change(uint8_t index, uint8_t state) {
-    bool    changed = false;
-    uint8_t i       = index;
+    uint8_t i = index;
 
 #ifdef ENCODER_RESOLUTIONS
     const uint8_t resolution = encoder_resolutions[i];
@@ -180,7 +183,6 @@ static void encoder_handle_state_change(uint8_t index, uint8_t state) {
 #endif
 
             encoder_value[index]++;
-            changed = true;
             encoder_queue_event(index, ENCODER_COUNTER_CLOCKWISE);
         }
 
@@ -190,7 +192,6 @@ static void encoder_handle_state_change(uint8_t index, uint8_t state) {
     if (encoder_pulses[i] <= -resolution) { // direction is arbitrary here, but this clockwise
 #endif
             encoder_value[index]--;
-            changed = true;
             encoder_queue_event(index, ENCODER_CLOCKWISE);
         }
         encoder_pulses[i] %= resolution;
@@ -198,10 +199,9 @@ static void encoder_handle_state_change(uint8_t index, uint8_t state) {
         encoder_pulses[i] = 0;
     }
 #endif
-    return changed;
 }
 
-void encoder_handle_read(uint8_t index, uint8_t pin_a_state, uint8_t pin_b_state) {
+void encoder_graycode_handle_read(uint8_t index, uint8_t pin_a_state, uint8_t pin_b_state) {
     uint8_t state = pin_a_state | (pin_b_state << 1);
     if ((encoder_state[index] & 0x3) != state) {
         encoder_state[index] <<= 2;
@@ -212,6 +212,6 @@ void encoder_handle_read(uint8_t index, uint8_t pin_a_state, uint8_t pin_b_state
 
 __attribute__((weak)) void encoder_driver_task(void) {
     for (uint8_t i = 0; i < thisCount; i++) {
-        encoder_handle_read(i, encoder_read_pin(i, false), encoder_read_pin(i, true));
+        encoder_graycode_handle_read(i, encoder_graycode_read_pin(i, false), encoder_graycode_read_pin(i, true));
     }
 }
