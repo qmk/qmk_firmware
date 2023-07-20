@@ -26,7 +26,6 @@
             "twinkle": true
         },
         "saturation_steps": 8,
-        "hue_steps": 8,
         "brightness_steps": 8,
         "max_brightness": 150,
         "led_count": 11
