@@ -18,6 +18,56 @@
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
+enum my_keycodes {
+    RGB_R = QK_USER,
+    RGB_G,
+    RGB_B,
+    RGB_W,
+    SW_cy,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    switch (keycode) {
+
+        case RGB_R:
+            if (record->event.pressed) {
+                rgb_matrix_sethsv(0, 255, 255);
+                rgb_matrix_mode(1);
+            }
+            return false; /* Skip all further processing of this key */
+
+        case RGB_G:
+            if (record->event.pressed) {
+                rgb_matrix_sethsv(85, 255, 255);
+                rgb_matrix_mode(1);
+            }
+            return false; /* Skip all further processing of this key */
+
+        case RGB_B:
+            if (record->event.pressed) {
+                rgb_matrix_sethsv(170, 255, 255);
+                rgb_matrix_mode(1);
+            }
+            return false; /* Skip all further processing of this key */
+
+        case RGB_W:
+            if (record->event.pressed) {
+                rgb_matrix_sethsv(0, 0, 255);
+                rgb_matrix_mode(1);
+            }
+            return false; /* Skip all further processing of this key */
+
+        case SW_cy:
+            rgb_matrix_sethsv(0, 255, 255);
+            rgb_matrix_mode(13);
+            return false; /* Skip all further processing of this key */
+
+        
+        default:
+            return true; /* Process all other keycodes normally */
+    }
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: Base Layer (Default Layer)
@@ -32,6 +82,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_DEL,   KC_NO,
             QK_BOOT,  KC_NO,    KC_NO,    KC_NO,    RGB_TOG,  RGB_MOD,  RGB_RMOD, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,
             KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,              KC_NO,    KC_NO,
-            KC_LSFT,  KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_RSFT,            RGB_VAI,  KC_NO,
+            KC_LSFT,  RGB_R,    RGB_G,    RGB_B,    RGB_W,    SW_cy,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_RSFT,            RGB_VAI,  KC_NO,
             KC_NO,    KC_NO,    KC_NO,                        KC_NO,                                  KC_NO,    KC_NO,              RGB_SPD,  RGB_VAD,  RGB_SPI),
 };
