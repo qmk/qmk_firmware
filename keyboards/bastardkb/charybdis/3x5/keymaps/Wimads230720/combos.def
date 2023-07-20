@@ -1,3 +1,55 @@
+// MODS (thumbs)
+COMB(QTY_CS,        C(KC_LSFT),     KC_LCTL, KC_LSFT)          // Thumb L: x x _   CTRL  SHFT
+COMB(QTY_AS,        A(KC_LSFT),     KC_LALT, KC_LSFT)          // Thumb L: _ x x   ALT   SHFT
+COMB(QTY_CA,        C(KC_LALT),     KC_LCTL, KC_LALT)          // Thumb L: x _ x   CTRL  ALT
+COMB(QTY_MEH,       KC_MEH,         KC_LCTL, KC_LSFT, KC_LALT) // Thumb L: x x x   CTRL  ALT  SHFT
+                                                               // Thumb R: x x _
+COMB(QTY_RST,       MO(_RST),       KC_SPC,  BSP_GUI)          // Thumb R: _ x x   reset layer
+COMB(QTY_RAW,       G(KC_RALT),     DEL_RLT, BSP_GUI)          // Thumb R: x _ x   RALT  WIN
+COMB(QTY_HPR,       KC_HYPR,        DEL_RLT, KC_SPC, BSP_GUI)  // Thumb R: x x x   CTRL  ALT  SHFT  WIN
+
+COMB(QTY_RAC,       C(KC_RALT),     KC_LCTL, BSP_GUI)  // ThumbLR: _ _ x   _ _ x   CTRL  RALT
+COMB(QTY_RAS,       S(KC_RALT),     KC_LSFT, BSP_GUI)  // ThumbLR: _ x _   _ _ x   SHFT  RALT
+COMB(QTY_CW,        C(KC_LGUI),     KC_LCTL, DEL_RLT)  // ThumbLR: _ _ x   x _ _   CTRL  WIN
+COMB(QTY_SW,        S(KC_LGUI),     KC_LSFT, DEL_RLT)  // ThumbLR: _ x _   x _ _   SHFT  WIN
+COMB(QTY_AW,        A(KC_LGUI),     KC_LALT, DEL_RLT)  // ThumbLR: x _ _   x _ _   ALT   WIN
+
+// ESC/TAB/ENT
+COMB(QTY_ESC,       KC_ESC,         KC_Q,    KC_W) //QW Escape
+COMB(QTY3ESC,       KC_ESC,         KC_W,    KC_E,    KC_R)
+COMB(QTY_TAB,       KC_TAB,         FFF_NAV, KC_G) //JH Tab
+COMB(QTY3TAB,       KC_TAB,         KC_S,    DDD_SNI,    FFF_NAV)
+COMB(QTY_ENT,       KC_ENT,         KC_V,    KC_B) //NM Enter
+COMB(QTY3ENT,       KC_ENT,         XXX_NUM, KC_C,    KC_V)
+COMB(QTY_BSP,       KC_BSPC,        KC_R,    KC_G) //NM Enter
+COMB(QTY_DEL,       KC_DEL,         FFF_NAV, KC_B) //NM Enter
+
+
+COMB(QTYrTAB,       KC_TAB,         JJJ_NAV, KC_H) //JH Tab
+COMB(QTY3rTAB,      KC_TAB,         JJJ_NAV, KC_K,    KC_L)
+COMB(QTYrENT,       KC_ENT,         KC_N,    KC_M) //NM Enter
+COMB(QTY3rENT,      KC_ENT,         KC_M,    KC_COMM, DOT_NUM)
+
+// NUMPAD
+COMB(NUM_ENT,       KC_PENT,        KC_HASH, KC_RBRC) //*1 Numpad enter
+COMB(NUMrENT,       KC_PENT,        KC_ASTR, KC_1) //*1 Numpad enter
+COMB(NUM_EQL,       KC_EQL,         KC_PLUS, KC_4) //+4 =
+
+// MOUSE
+COMB(QTY_LMB,       KC_BTN1,        FFF_NAV, KC_S) //FG Left Mouse Button
+COMB(QTY_RMB,       KC_BTN2,        KC_R,    KC_W) //RT Right Mouse Button
+COMB(QTY_MMB,       KC_BTN3,        KC_V,    XXX_NUM) //VB Middle Mouse Button
+COMB(QTY_DRZ,       DRGZOOM,        KC_S,    KC_V) //FB Dragscroll Toggle
+COMB(QTY_DRT,       DRGcTOG,        FFF_NAV, XXX_NUM) //GV Dragzoom (ctrl+dragscroll)
+COMB(QTY_FWD,       KC_BTN5,        KC_R,    KC_S) //RG back
+COMB(QTY_BWD,       KC_BTN4,        FFF_NAV, KC_W) //FT forward
+
+COMB(QTYrLMB,       KC_BTN1,        KC_Y, UUU_DRG)
+COMB(QTYrRMB,       KC_BTN2,        KC_J, UUU_DRG)
+COMB(QTYrMMB,       KC_BTN3,        KC_H, UUU_DRG)
+COMB(QTYrDRT,       DRGcTOG,        KC_N, JJJ_NAV)
+
+///QWERTAI CHORDS
 //XX__
 COMB(QAI_Q,         KC_Q,           KC_R, KC_O)
 COMB(QAI_X,         KC_X,           KC_A, KC_S)
@@ -53,13 +105,13 @@ COMB(QAI_AW,        A(KC_LGUI),     SPC_SFT, KC_S, KC_A)
 COMB(QAI_MEH,       KC_MEH,         SPC_SFT, KC_N, KC_E, KC_S)
 COMB(QAI_HYPR,      KC_HYPR,        SPC_SFT, KC_T, KC_I, KC_O)
 
-COMB(QAI__NAV,      MO(_NAV),       SPC_SFT, BSP_NUM)
+COMB(QAI_QNV,       MO(_QNV),       SPC_SFT, BSP_QNM)
 
-COMB(QAI_DEL,       KC_DEL,         BSP_NUM, KC_N)
-COMB(QAI_BSPC,      KC_BSPC,        BSP_NUM, KC_T)
-COMB(QAI__CTL,      MO(_CTL),       BSP_NUM, KC_E)
-COMB(QAI_ENT,       KC_ENT,         BSP_NUM, KC_S)
-COMB(QAI_TAB,       KC_TAB,         BSP_NUM, KC_O)
+COMB(QAI_DEL,       KC_DEL,         BSP_QNM, KC_N)
+COMB(QAI_BSPC,      KC_BSPC,        BSP_QNM, KC_T)
+COMB(QAI_QSC,       MO(_QSC),       BSP_QNM, KC_E)
+COMB(QAI_ENT,       KC_ENT,         BSP_QNM, KC_S)
+COMB(QAI_TAB,       KC_TAB,         BSP_QNM, KC_O)
 COMB(QAI_F5,        KC_F5,          KC_BTN4, KC_BTN5)
 
 //00__
