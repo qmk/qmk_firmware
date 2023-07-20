@@ -1,9 +1,8 @@
 //*********WIMADS SKELETYL-CHARYBDIS MOD**********//
 /* TO DO:
-* Fn keys
-* clean up customshift
-* explore quantum modifier idea
-* wrap deadhold feature into customshift code
+* revamped thumbcluster for qwerty layers
+* copy paste comnbos
+* per key combo term
 */
 
 #include QMK_KEYBOARD_H
@@ -28,23 +27,37 @@
 
 /*********KEYMAPS*******/
 enum charybdis_keymap_layers {
+    _QTY = 1, //default qwerty
     _QAI = 0, //qwertai
-    _NUM = 1, //numbers and symbols
-    _NAV = 2, //navigation
-    _CTL = 3, //simplified common ctrl short cuts
+    _NUM = 2, //numbers and symbol
+    _QNM = 3, //numbers for qwertai
+    _NAV = 4, //navigation and miscelaneous keys
+    _QNV = 5, //navigation for Qwertai
+    _RST = 6, //reset keyboard
+    _QSC = 7, //qwertai short cuts
 };
 
 enum custom_keycodes {
         CLEARKB = SAFE_RANGE,   //clears all keys and/or layers that might be stuck
         DRGZOOM, //ctrl + drgscrl (defined in macro, since C(DRGSCRL) doesn't work)
         SNIPE,
+        SETQAI, SETQTY,
 };
 
 //Custom keycodes:
 #define DRGcTOG DRG_TOG         //DRG_TOG for combos (for some reason DRG_TOG keycode doesn't work in combos.def)
 #define DRGcSCR DRGSCRL
 #define DOTCOMM LT(10, KC_DOT)  //KC_DOT, KC_COMM on shif; swap behavoiur by double tap (further defined in macro)
-#define BSP_NUM LT(_NUM, KC_BSPC)
+#define DEL_RLT RALT_T(KC_DEL)  //DEL _ Left Windows
+#define BSP_GUI LGUI_T(KC_BSPC) //BSPC _ Right Alt
+#define XXX_NUM LT(_NUM, KC_X)  //S _ Num layer
+#define FFF_NAV LT(_NAV, KC_F)  //F _ Nav layer
+#define DOT_NUM LT(_NUM, KC_DOT)  //L _ Num layer
+#define JJJ_NAV LT(_NAV, KC_J)  //J _ Nav layer
+#define UUU_DRG LT(10, KC_U)    //U _ dragscroll
+#define DDD_SNI LT(10, KC_D)    //D _ snipe
+//specific for qwertai
+#define BSP_QNM LT(_QNM, KC_BSPC)
 #define SPC_SFT LSFT_T(KC_SPC)
 //Dead-hold keys (normal on tap, dead key on hold, further defined in macro)
 #define DH_QUOT LT(11, KC_QUOT)
@@ -57,39 +70,78 @@ enum custom_keycodes {
 
 //Keymaps
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [_QTY] = LAYOUT_Wimads( //default layer
+      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    UUU_DRG, KC_I,    KC_O,    KC_P,
+      KC_A,    KC_S,    DDD_SNI, FFF_NAV, KC_G,             KC_H,    JJJ_NAV, KC_K,    KC_L,    KC_QUOT,
+      KC_Z,    XXX_NUM, KC_C,    KC_V,    KC_B,             KC_N,    KC_M,    KC_COMM, DOT_NUM, KC_EXLM,
+                        KC_LCTL, KC_LSFT, KC_LALT,          DEL_RLT, KC_SPC,  BSP_GUI  //trackball: default
+  ),
   [_QAI] = LAYOUT_Wimads( //default layer
       SNIPE,   KC_BTN2, DRGcSCR, KC_BTN1, XXXXXXX,          XXXXXXX, KC_BTN1, DRGcSCR, KC_BTN2, DRGSCRL,
       KC_R,    KC_O,    KC_I,    KC_T,    XXXXXXX,          XXXXXXX, KC_T,    KC_I,    KC_O,    KC_R,
       KC_A,    KC_S,    KC_E,    KC_N,    XXXXXXX,          XXXXXXX, KC_N,    KC_E,    KC_S,    KC_A,
-                        BSP_NUM, SPC_SFT, XXXXXXX,          XXXXXXX, SPC_SFT, BSP_NUM  //trackball: default
+                        BSP_QNM, SPC_SFT, XXXXXXX,          XXXXXXX, SPC_SFT, BSP_QNM  //trackball: default
   ),
   [_NUM] = LAYOUT_Wimads( //number and symbol layer
+      KC_AT,   KC_DLR,  KC_AMPR, KC_PIPE, KC_TILD,          KC_CIRC, KC_7,    KC_8,    KC_9,    KC_PERC,
+      KC_LCBR, KC_LPRN, KC_RPRN, KC_RCBR, KC_GRV,           KC_PLUS, KC_4,    KC_5,    KC_6,    KC_MINS,
+      KC_LBRC, KC_LT,   KC_GT,   KC_RBRC, KC_HASH,          KC_ASTR, KC_1,    KC_2,    KC_3,    KC_SLSH,
+                        _______, _______, _______,          KC_UNDS, KC_0,    DOTCOMM  //trackball: snipe
+  ),
+  [_QNM] = LAYOUT_Wimads( //number and symbol layer
       XXXXXXX, KC_BTN4, KC_F5,   KC_BTN5, XXXXXXX,          XXXXXXX, KC_BTN4, KC_F5,   KC_BTN5, XXXXXXX,
       DOTCOMM, KC_9,    KC_8,    KC_7,    XXXXXXX,          XXXXXXX, KC_7,    KC_8,    KC_9,    DOTCOMM,
       KC_0,    KC_3,    KC_2,    KC_1,    XXXXXXX,          XXXXXXX, KC_1,    KC_2,    KC_3,    KC_0,
                         _______, _______, XXXXXXX,          XXXXXXX, _______, _______  //trackball: snipe
   ),
-  [_NAV] = LAYOUT_Wimads( //navigation
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      KC_PGUP, KC_HOME, KC_UP,   KC_END,  XXXXXXX,          XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_PGUP,
-      KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,          XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,
-                        _______, _______, XXXXXXX,          XXXXXXX, _______, _______  //trackball: dragscroll
+  [_NAV] = LAYOUT_Wimads( //navigation and misc layer
+      KC_PSCR, KC_BRK,  KC_INS,  XXXXXXX, KC_BTN5,          KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_VOLU,
+      XXXXXXX, KC_SCRL, KC_F5,   XXXXXXX, KC_F5,            KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD,
+     DF(_QAI), XXXXXXX, KC_CAPS, XXXXXXX, KC_BTN4,          KC_NUM,  KC_MENU, KC_BTN4, KC_BTN5, KC_MUTE,
+                        _______, _______, _______,          _______, KC_F5,   _______  //trackball: dragscroll
   ),
-  [_CTL] = LAYOUT_Wimads( //short cuts
+  [_QNV] = LAYOUT_Wimads( //navigation and misc layer
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_DEL,  KC_HOME, KC_UP,   KC_END,  XXXXXXX,          XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_DEL,
+     DF(_QTY), KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,          XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, DF(_QTY),
+                        KC_BSPC, _______, XXXXXXX,          XXXXXXX, _______, KC_BSPC  //trackball: dragscroll
+  ),
+  [_QSC] = LAYOUT_Wimads( //short cuts
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       C(KC_Z), KC_BTN4, KC_BTN5, C(KC_Y), XXXXXXX,          XXXXXXX, C(KC_Y), KC_BTN4, KC_BTN5, C(KC_Z),
       C(KC_A), C(KC_X), C(KC_C), C(KC_V), XXXXXXX,          XXXXXXX, C(KC_V), C(KC_C), C(KC_X), C(KC_A),
-                        _______, _______, XXXXXXX,          XXXXXXX, _______, _______  //trackball: default
+                        XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX  //trackball: default
+  ),
+  [_RST] = LAYOUT_Wimads( //reset layer
+      QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+     DF(_QAI), XXXXXXX, CLEARKB, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                        XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX  //trackball: default
   ),
 };
 
 /*********CUSTOM KEY BEHAVIOURS********/
 
+//Turn combos on or off per layer:
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    switch (combo_index) {
+        case QTY_CS ... QTYrDRT:
+            if (_QAI == get_highest_layer(default_layer_state)){
+                return false;
+            } return true;
+        case QAI_Q ... QAI_DRTG:
+            if (_QTY == get_highest_layer(default_layer_state)) {
+                return false;
+            } return true;
+    }
+    return true;
+}
+
 //Tap-hold configuration
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case SPC_SFT:   return 150;
-        case BSP_NUM:   return 130;
+        case BSP_QNM:   return 130;
         default:        return TAPPING_TERM;
     }
 }
@@ -129,12 +181,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     const uint16_t mod_shift = get_mods() & MOD_MASK_SHIFT; //track shift state for customshift behaviours
     static bool dotcomm_state = true; //true = dot; false = comma;
     switch(keycode) {
+        //general keycodes
         case CLEARKB:
             if (record->event.pressed) {
                 clear_keyboard(); //clears all keys and modifiers that might be stuck
                 layer_clear();    //clears all layers that might be stuck
             } return false;
-
         case DOTCOMM:
             if (record->event.pressed && record->tap.count == 2) {//swap DOTCOMM state on double tap
                 dotcomm_state = !dotcomm_state; //swap state
@@ -157,6 +209,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 }
             } return false;
 
+        case SPC_SFT: //send ". " on double tap space
+            if (record->event.pressed && record->tap.count == 2) {
+                tap_code16(KC_BSPC);
+                tap_code16(KC_DOT);
+                tap_code16(KC_SPC);
+                return false;
+            } return true;
+
         //Dead-hold keys:
         case DH_QUOT:
             if (record->event.pressed && !record->tap.count) {
@@ -169,20 +229,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             } return true;
         case DH_GRV:
             if (record->event.pressed && !record->tap.count) {
-                layer_off(_NUM);
+                layer_off(_QNM);
                 tap_code16(C(KC_GRV));
                 return false;
             } return true;
         case DH_TILD:
             if (record->event.pressed && !record->tap.count) {
-                layer_off(_NUM);
+                layer_off(_QNM);
                 tap_code16(C(S(KC_GRV)));
             } else if (record->event.pressed) {
                 tap_code16(S(KC_GRV));
             } return false; //can't return true for tapped code because outside basic keycode range
         case DH_CIRC:
             if (record->event.pressed && !record->tap.count) {
-                layer_off(_NUM);
+                layer_off(_QNM);
                 tap_code16(C(S(KC_6)));
             } else if (record->event.pressed) {
                 tap_code16(S(KC_6));
@@ -199,11 +259,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
                 wait_ms(10);
                 unregister_code16(KC_LCTL);
             } return false;
+        case XXX_NUM: //sniping
+        case DDD_SNI:
         case SNIPE:
             if (record->event.pressed) {
                 charybdis_set_pointer_sniping_enabled(true);
             } else {
                 charybdis_set_pointer_sniping_enabled(false);
+            } return true;
+        case DOT_NUM: //shiping and custom shift
+            if (record->event.pressed && mod_shift) {
+                charybdis_set_pointer_sniping_enabled(true);
+                unregister_mods(mod_shift);
+                tap_code16(S(KC_SCLN));
+                register_mods(mod_shift);
+                return false;
+            } else if (record->event.pressed) {
+                charybdis_set_pointer_sniping_enabled(true);
+            } else {
+                charybdis_set_pointer_sniping_enabled(false);
+            } return true;
+        case UUU_DRG:
+        case FFF_NAV:
+        case JJJ_NAV: //dragscroll
+            if (record->event.pressed) {
+                charybdis_set_pointer_dragscroll_enabled(true);
+            } else {
+                charybdis_set_pointer_dragscroll_enabled(false);
             } return true;
 
         //customshift:
