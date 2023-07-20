@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGB_DI_PIN A10
 #define RGBLED_NUM 15
 #define RGB_MATRIX_LED_COUNT 15
 

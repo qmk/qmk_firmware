@@ -17,14 +17,6 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { D0, D1, B6, F5 }
-#define MATRIX_COL_PINS { F4, F6, F7, B5, B4, D7, D6, D4, D5, D3, D2, B0 }
-
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN C7
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 8
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
@@ -40,4 +32,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif

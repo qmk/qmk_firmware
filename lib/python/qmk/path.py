@@ -36,8 +36,8 @@ def keyboard(keyboard_name):
     return Path('keyboards') / keyboard_name
 
 
-def keymap(keyboard_name):
-    """Locate the correct directory for storing a keymap.
+def keymaps(keyboard_name):
+    """Returns all of the `keymaps/` directories for a given keyboard.
 
     Args:
 
@@ -45,15 +45,34 @@ def keymap(keyboard_name):
             The name of the keyboard. Example: clueboard/66/rev3
     """
     keyboard_folder = keyboard(keyboard_name)
+    found_dirs = []
 
     for _ in range(MAX_KEYBOARD_SUBFOLDERS):
         if (keyboard_folder / 'keymaps').exists():
-            return (keyboard_folder / 'keymaps').resolve()
+            found_dirs.append((keyboard_folder / 'keymaps').resolve())
 
         keyboard_folder = keyboard_folder.parent
 
+    if len(found_dirs) > 0:
+        return found_dirs
+
     logging.error('Could not find the keymaps directory!')
     raise NoSuchKeyboardError('Could not find keymaps directory for: %s' % keyboard_name)
+
+
+def keymap(keyboard_name, keymap_name):
+    """Locate the directory of a given keymap.
+
+    Args:
+
+        keyboard_name
+            The name of the keyboard. Example: clueboard/66/rev3
+        keymap_name
+            The name of the keymap. Example: default
+    """
+    for keymap_dir in keymaps(keyboard_name):
+        if (keymap_dir / keymap_name).exists():
+            return (keymap_dir / keymap_name).resolve()
 
 
 def normpath(path):
