@@ -17,6 +17,8 @@
 #define RGBLED_NUM 2
 #define RGBLIGHT_LED_MAP { 0,  1 }
 
+#define TAPPING_TERM 220
+#define TAPPING_FORCE_HOLD
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
