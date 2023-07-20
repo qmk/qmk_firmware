@@ -1,5 +1,5 @@
 #include "backlight.h"
-#include "gpio.h"
+#include "backlight_driver_common.h"
 #include "progmem.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -9,111 +9,38 @@
 #    define BACKLIGHT_LIMIT_VAL 255
 #endif
 
-#if (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) && (BACKLIGHT_PIN == B5 || BACKLIGHT_PIN == B6 || BACKLIGHT_PIN == B7)
+#ifndef BACKLIGHT_PWM_TIMER
+#    define BACKLIGHT_PWM_TIMER 1
+#endif
+
+#if BACKLIGHT_PWM_TIMER == 1
 #    define ICRx ICR1
 #    define TCCRxA TCCR1A
 #    define TCCRxB TCCR1B
+#    define TIMERx_COMPA_vect TIMER1_COMPA_vect
 #    define TIMERx_OVF_vect TIMER1_OVF_vect
-#    define TIMSKx TIMSK1
+#    if defined(__AVR_ATmega32A__) // This MCU has only one TIMSK register
+#        define TIMSKx TIMSK
+#    else
+#        define TIMSKx TIMSK1
+#    endif
 #    define TOIEx TOIE1
 
-#    if BACKLIGHT_PIN == B5
-#        define COMxx0 COM1A0
-#        define COMxx1 COM1A1
-#        define OCRxx OCR1A
-#    elif BACKLIGHT_PIN == B6
-#        define COMxx0 COM1B0
-#        define COMxx1 COM1B1
-#        define OCRxx OCR1B
-#    elif BACKLIGHT_PIN == B7
-#        define COMxx0 COM1C0
-#        define COMxx1 COM1C1
-#        define OCRxx OCR1C
-#    endif
-#elif (defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB647__) || defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__)) && (BACKLIGHT_PIN == C4 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
-#    define ICRx ICR3
+#    define OCIExA OCIE1A
+#    define OCRxx OCR1A
+#elif BACKLIGHT_PWM_TIMER == 3
+#    define ICRx ICR1
 #    define TCCRxA TCCR3A
 #    define TCCRxB TCCR3B
+#    define TIMERx_COMPA_vect TIMER3_COMPA_vect
 #    define TIMERx_OVF_vect TIMER3_OVF_vect
 #    define TIMSKx TIMSK3
 #    define TOIEx TOIE3
 
-#    if BACKLIGHT_PIN == C4
-#        if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-#            error This MCU has no C4 pin!
-#        else
-#            define COMxx0 COM3C0
-#            define COMxx1 COM3C1
-#            define OCRxx OCR3C
-#        endif
-#    elif BACKLIGHT_PIN == C5
-#        if (defined(__AVR_ATmega16U4__) || defined(__AVR_ATmega32U4__))
-#            error This MCU has no C5 pin!
-#        else
-#            define COMxx0 COM3B0
-#            define COMxx1 COM3B1
-#            define OCRxx OCR3B
-#        endif
-#    elif BACKLIGHT_PIN == C6
-#        define COMxx0 COM3A0
-#        define COMxx1 COM3A1
-#        define OCRxx OCR3A
-#    endif
-#elif (defined(__AVR_AT90USB162__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega32U2__)) && (BACKLIGHT_PIN == B7 || BACKLIGHT_PIN == C5 || BACKLIGHT_PIN == C6)
-#    define ICRx ICR1
-#    define TCCRxA TCCR1A
-#    define TCCRxB TCCR1B
-#    define TIMERx_OVF_vect TIMER1_OVF_vect
-#    define TIMSKx TIMSK1
-#    define TOIEx TOIE1
-
-#    if BACKLIGHT_PIN == B7
-#        define COMxx0 COM1C0
-#        define COMxx1 COM1C1
-#        define OCRxx OCR1C
-#    elif BACKLIGHT_PIN == C5
-#        define COMxx0 COM1B0
-#        define COMxx1 COM1B1
-#        define OCRxx OCR1B
-#    elif BACKLIGHT_PIN == C6
-#        define COMxx0 COM1A0
-#        define COMxx1 COM1A1
-#        define OCRxx OCR1A
-#    endif
-#elif defined(__AVR_ATmega32A__) && (BACKLIGHT_PIN == D4 || BACKLIGHT_PIN == D5)
-#    define ICRx ICR1
-#    define TCCRxA TCCR1A
-#    define TCCRxB TCCR1B
-#    define TIMERx_OVF_vect TIMER1_OVF_vect
-#    define TIMSKx TIMSK
-#    define TOIEx TOIE1
-
-#    if BACKLIGHT_PIN == D4
-#        define COMxx0 COM1B0
-#        define COMxx1 COM1B1
-#        define OCRxx OCR1B
-#    elif BACKLIGHT_PIN == D5
-#        define COMxx0 COM1A0
-#        define COMxx1 COM1A1
-#        define OCRxx OCR1A
-#    endif
-#elif (defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328__)) && (BACKLIGHT_PIN == B1 || BACKLIGHT_PIN == B2)
-#    define ICRx ICR1
-#    define TCCRxA TCCR1A
-#    define TCCRxB TCCR1B
-#    define TIMERx_OVF_vect TIMER1_OVF_vect
-#    define TIMSKx TIMSK1
-#    define TOIEx TOIE1
-
-#    if BACKLIGHT_PIN == B1
-#        define COMxx0 COM1A0
-#        define COMxx1 COM1A1
-#        define OCRxx OCR1A
-#    elif BACKLIGHT_PIN == B2
-#        define COMxx0 COM1B0
-#        define COMxx1 COM1B1
-#        define OCRxx OCR1B
-#    endif
+#    define OCIExA OCIE3A
+#    define OCRxx OCR3A
+#else
+#    error Invalid backlight PWM timer!
 #endif
 
 #ifndef BACKLIGHT_RESOLUTION
@@ -126,20 +53,44 @@
 
 #define BREATHING_SCALE_FACTOR F_CPU / BACKLIGHT_RESOLUTION / 120
 
-static inline void enable_pwm(void) {
-#if BACKLIGHT_ON_STATE == 1
-    TCCRxA |= _BV(COMxx1);
-#else
-    TCCRxA |= _BV(COMxx1) | _BV(COMxx0);
-#endif
+// The idea of software PWM assisted by hardware timers is the following
+// we use the hardware timer in fast PWM mode like for hardware PWM, but
+// instead of letting the Output Match Comparator control the led pin
+// (which is not possible since the backlight is not wired to PWM pins on the
+// CPU), we do the LED on/off by oursleves.
+// The timer is setup to count up to 0xFFFF, and we set the Output Compare
+// register to the current 16bits backlight level (after CIE correction).
+// This means the CPU will trigger a compare match interrupt when the counter
+// reaches the backlight level, where we turn off the LEDs,
+// but also an overflow interrupt when the counter rolls back to 0,
+// in which we're going to turn on the LEDs.
+// The LED will then be on for OCRxx/0xFFFF time, adjusted every 244Hz,
+// or F_CPU/BACKLIGHT_RESOLUTION if used.
+
+// Triggered when the counter reaches the OCRx value
+ISR(TIMERx_COMPA_vect) {
+    backlight_pins_off();
 }
 
-static inline void disable_pwm(void) {
-#if BACKLIGHT_ON_STATE == 1
-    TCCRxA &= ~(_BV(COMxx1));
-#else
-    TCCRxA &= ~(_BV(COMxx1) | _BV(COMxx0));
+// Triggered when the counter reaches the TOP value
+// this one triggers at F_CPU/ICRx = 16MHz/65536 =~ 244 Hz
+ISR(TIMERx_OVF_vect) {
+#ifdef BACKLIGHT_BREATHING
+    if (is_breathing()) {
+        breathing_task();
+    }
 #endif
+    // for very small values of OCRxx (or backlight level)
+    // we can't guarantee this whole code won't execute
+    // at the same time as the compare match interrupt
+    // which means that we might turn on the leds while
+    // trying to turn them off, leading to flickering
+    // artifacts (especially while breathing, because breathing_task
+    // takes many computation cycles).
+    // so better not turn them on while the counter TOP is very low.
+    if (OCRxx > ICRx / 250 + 5) {
+        backlight_pins_on();
+    }
 }
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
@@ -174,11 +125,16 @@ void backlight_set(uint8_t level) {
     if (level > BACKLIGHT_LEVELS) level = BACKLIGHT_LEVELS;
 
     if (level == 0) {
-        // Turn off PWM control on backlight pin
-        disable_pwm();
+        if (OCRxx) {
+            TIMSKx &= ~(_BV(OCIExA));
+            TIMSKx &= ~(_BV(TOIEx));
+        }
+        backlight_pins_off();
     } else {
-        // Turn on PWM control of backlight pin
-        enable_pwm();
+        if (!OCRxx) {
+            TIMSKx |= _BV(OCIExA);
+            TIMSKx |= _BV(TOIEx);
+        }
     }
     // Set the brightness
     set_pwm(cie_lightness(rescale_limit_val(ICRx * (uint32_t)level / BACKLIGHT_LEVELS)));
@@ -199,17 +155,19 @@ static uint8_t breath_scale_counter = 1;
 /* Run the breathing loop at ~120Hz*/
 const uint8_t breathing_ISR_frequency = 120;
 
+static bool breathing = false;
+
 bool is_breathing(void) {
-    return !!(TIMSKx & _BV(TOIEx));
+    return breathing;
 }
 
 #    define breathing_interrupt_enable() \
         do {                             \
-            TIMSKx |= _BV(TOIEx);        \
+            breathing = true;            \
         } while (0)
 #    define breathing_interrupt_disable() \
         do {                              \
-            TIMSKx &= ~_BV(TOIEx);        \
+            breathing = false;            \
         } while (0)
 
 #    define breathing_min()        \
@@ -259,12 +217,7 @@ static inline uint16_t scale_backlight(uint16_t v) {
     return v / BACKLIGHT_LEVELS * get_backlight_level();
 }
 
-/* Assuming a 16MHz CPU clock and a timer that resets at 64k (ICR1), the following interrupt handler will run
- * about 244 times per second.
- *
- * The following ISR runs at F_CPU/ISRx. With a 16MHz clock and default pwm resolution, that means 244Hz
- */
-ISR(TIMERx_OVF_vect) {
+void breathing_task(void) {
     // Only run this ISR at ~120 Hz
     if (breath_scale_counter++ == BREATHING_SCALE_FACTOR) {
         breath_scale_counter = 1;
@@ -291,29 +244,16 @@ ISR(TIMERx_OVF_vect) {
 #endif // BACKLIGHT_BREATHING
 
 void backlight_init_ports(void) {
-    setPinOutput(BACKLIGHT_PIN);
-#if BACKLIGHT_ON_STATE == 1
-    writePinLow(BACKLIGHT_PIN);
-#else
-    writePinHigh(BACKLIGHT_PIN);
-#endif
+    // Setup backlight pin as output and output to on state.
+    backlight_pins_init();
 
     // I could write a wall of text here to explain... but TL;DW
     // Go read the ATmega32u4 datasheet.
     // And this: http://blog.saikoled.com/post/43165849837/secret-konami-cheat-code-to-high-resolution-pwm-on
 
-    // Pin PB7 = OCR1C (Timer 1, Channel C)
-    // Compare Output Mode = Clear on compare match, Channel C = COM1C1=1 COM1C0=0
-    // (i.e. start high, go low when counter matches.)
-    // WGM Mode 14 (Fast PWM) = WGM13=1 WGM12=1 WGM11=1 WGM10=0
-    // Clock Select = clk/1 (no prescaling) = CS12=0 CS11=0 CS10=1
-
-    /*
-    14.8.3:
-    "In fast PWM mode, the compare units allow generation of PWM waveforms on the OCnx pins. Setting the COMnx1:0 bits to two will produce a non-inverted PWM [..]."
-    "In fast PWM mode the counter is incremented until the counter value matches either one of the fixed values 0x00FF, 0x01FF, or 0x03FF (WGMn3:0 = 5, 6, or 7), the value in ICRn (WGMn3:0 = 14), or the value in OCRnA (WGMn3:0 = 15)."
-    */
-    TCCRxA = _BV(COMxx1) | _BV(WGM11);            // = 0b00001010;
+    // TimerX setup, Fast PWM mode count to TOP set in ICRx
+    TCCRxA = _BV(WGM11); // = 0b00000010;
+    // clock select clk/1
     TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
     ICRx   = BACKLIGHT_RESOLUTION;
 
