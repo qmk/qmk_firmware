@@ -19,48 +19,75 @@ enum layers {
 
 enum my_keycodes { LP_A = SAFE_RANGE, LP_S, LP_U, LP_O };
 
-enum {
-  TD_U = 0
-};
+enum { TD_U = 0 };
 
+/*
+ * ,-----------------------------------.   ,-----------------------------------.
+ * |     |     |     |     |     |     |   |     |     |     |     |     |     |
+ * |-----+-----+-----+-----+-----+-----|   |-----+-----+-----+-----+-----+-----|
+ * |     |     |     |     |     |     |   |     |     |     |     |     |     |
+ * |-----+-----+-----+-----+-----+-----|   |-----+-----+-----+-----+-----+-----|
+ * |     |     |     |     |     |     |   |     |     |     |     |     |     |
+ * `-----------------+-----+-----+-----|   |-----+-----+-----+-----------------'
+ *                   |     |     |     |   |     |     |     |
+ *                   `-----+-----+-----'   `-----+-----+-----'
+ */
+
+/* 0-Writing Layer
+ * ,-----------------------------------.   ,-----------------------------------.
+ * | tab |  q  |  w  | e/€ |  r  |  t  |   |  z  | u/ü |  i  | o/ö |  p  |     |
+ * |-----+-----+-----+-----+-----+-----|   |-----+-----+-----+-----+-----+-----|
+ * | ctl | a/ä | s/ß |  d  |  f  |  g  |   |  h  |  j  |  k  |  l  |     |     |
+ * |-----+-----+-----+-----+-----+-----|   |-----+-----+-----+-----+-----+-----|
+ * | sft |  z  |  x  |  c  |  v  |  b  |   |  n  |  m  |  ,  |  .  |  -  | esc |
+ * `-----------------+-----+-----+-----|   |-----+-----+-----+-----------------'
+ *                   | L_2 | L_1 | spc |   | ent |bcksp| del |
+ *                   `-----+-----+-----'   `-----+-----+-----'
+ */
+
+/* 1-Num Block Layer
+ * ,-----------------------------------.   ,-----------------------------------.
+ * |     |     |     |     |     |     |   |  7  |  8  |  9  |  *  |     |     |
+ * |-----+-----+-----+-----+-----+-----|   |-----+-----+-----+-----+-----+-----|
+ * |     |  ←  |  ↑  |  ↓  |  →  |     |   |  4  |  5  |  6  |  -  |     |     |
+ * |-----+-----+-----+-----+-----+-----|   |-----+-----+-----+-----+-----+-----|
+ * |     |     |     |     |     |     |   |  1  |  2  |  3  |  +  |     |     |
+ * `-----------------+-----+-----+-----|   |-----+-----+-----+-----------------'
+ *                   |     | XXX |     |   |  0  |  ,  | ent |
+ *                   `-----+-----+-----'   `-----+-----+-----'
+ */
+
+/* 2-Punctuation mark Layer
+ * ,-----------------------------------.   ,-----------------------------------.
+ * |     |     |     |  \  |  ^  |  "  |   |  `  |  |  |  ~  |     |     |     |
+ * |-----+-----+-----+-----+-----+-----|   |-----+-----+-----+-----+-----+-----|
+ * |     |  <  |  >  |  [  |  ]  |  /  |   |  =  |  {  |  }  |  (  |  )  |     |
+ * |-----+-----+-----+-----+-----+-----|   |-----+-----+-----+-----+-----+-----|
+ * |     |     |     |     |     |     |   |     |     |     |     |     |     |
+ * `-----------------+-----+-----+-----|   |-----+-----+-----+-----------------'
+ *                   | XXX |     |     |   |  ?  |  !  |     |
+ *                   `-----+-----+-----'   `-----+-----+-----'
+ */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {[0] = LAYOUT_split_3x6_3(KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, DE_Z, DE_U, KC_I, LP_O, KC_P, KC_BSPC, KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_LSFT, DE_Y, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ESC, KC_LGUI, MO(1), KC_SPC, KC_ENT, MO(2), KC_RALT),
                                                               [1] = LAYOUT_split_3x6_3(KC_TAB, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC, KC_LCTL, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO, KC_LSFT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LGUI, KC_TRNS, KC_SPC, KC_ENT, MO(3), KC_RALT),
-                                                              [2] = LAYOUT_split_3x6_3(KC_TAB, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, KC_LCTL, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS, KC_GRV, KC_LSFT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD, KC_LGUI, MO(3), KC_SPC, KC_ENT, KC_TRNS, KC_RALT),
-                                                              [3] = LAYOUT_split_3x6_3(QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LGUI, KC_TRNS, KC_SPC, KC_ENT, KC_TRNS, KC_RALT)};
+                                                              [2] = LAYOUT_split_3x6_3(KC_TAB, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, KC_LCTL, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS, KC_GRV, KC_LSFT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD, KC_LGUI, MO(3), KC_SPC, KC_ENT, KC_TRNS, KC_RALT)};
 
-// static bool process_tap_or_long_press_key(keyrecord_t *record, uint16_t long_press_keycode) {
-//     static uint16_t key_timer;
-//     if (record->tap.count == 0) { // Key is being held.
-//         if (record->event.pressed) {
-//             key_timer = timer_read();
-//             if (timer_elapsed(key_timer) > 500) {
-//                 // do something if less than 100ms have passed
-//                 tap_code16(DE_Z);
-//                 return false;
-//             } else {
-//             tap_code16(DE_U);
-//             return false;
-//             }
-//         }
-//         return false; // Skip default handling.
-//     }
-//     return true; // Continue default handling.
-// }
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if(!process_record_user_umlaute(keycode,record)) return false;
+    if (!process_record_user_umlaute(keycode, record)) return false;
     return true;
 }
 
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
-    debug_enable = true;
+    // debug_enable = true;
     // debug_matrix=true;
     // debug_keyboard=true;
     // debug_mouse=true;
 }
 
 void matrix_scan_user(void) {
-check_umlaute_mod_tap_timers();
+    check_umlaute_mod_tap_timers();
 }
