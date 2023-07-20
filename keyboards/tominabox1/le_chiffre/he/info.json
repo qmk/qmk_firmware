@@ -14,12 +14,6 @@
         "rows": ["B3", "D4", "F1", "C6"]
     },
     "processor": "atmega32u4",
-    "rgb_matrix": {
-        "driver": "WS2812",
-        "sat_steps": 8,
-        "val_steps": 8,
-        "speed_steps": 10
-    },
     "usb": {
         "device_version": "0.0.3"
     },
