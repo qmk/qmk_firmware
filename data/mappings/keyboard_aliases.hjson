@@ -212,6 +212,9 @@
     "gmmk/pro/iso": {
         "target": "gmmk/pro/rev1/iso"
     },
+    "handwired/dactyl_manuform/3x5_3": {
+        "target": "handwired/dactyl_minidox"
+    },
     "handwired/dactyl_manuform/6x6_kinesis": {
         "target": "handwired/dactyl_kinesis"
     },
