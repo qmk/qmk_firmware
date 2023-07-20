@@ -1,5 +1,6 @@
 //*********WIMADS SKELETYL-CHARYBDIS MOD**********//
 /* TO DO:
+* trackball behaniour on layers (snipe/scroll)
 * Fn keys
 * clean up customshift
 * explore quantum modifier idea
@@ -49,9 +50,9 @@ enum custom_keycodes {
 #define DH_TILD LT(12, KC_TILD) //further defined in macro
 #define DH_CIRC LT(12, KC_CIRC) //further defined in macro
 //Keycodes for combos.def (workaround for charybdis keycodes)
-#define DRGcTOG DRG_TOG
-#define DRGcSCR DRGSCRL
-#define SNIcPIN SNIPING
+#define DRGTOGc DRG_TOG
+#define DRGSCRc DRGSCRL
+#define SNIPINc SNIPING
 
 
 #include "g/keymap_combo.h"     //include combo dictionary after custom keycodes, so custom keycodes can be used in combos.def
@@ -59,7 +60,7 @@ enum custom_keycodes {
 //Keymaps
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QAI] = LAYOUT_Wimads( //default layer
-      SNIcPIN, KC_BTN2, DRGcSCR, KC_BTN1, XXXXXXX,          XXXXXXX, KC_BTN1, DRGcSCR, KC_BTN2, DRGSCRL,
+      SNIPINc, KC_BTN2, DRGSCRc, KC_BTN1, XXXXXXX,          XXXXXXX, KC_BTN1, DRGSCRc, KC_BTN2, DRGSCRL,
       KC_R,    KC_O,    KC_I,    KC_T,    XXXXXXX,          XXXXXXX, KC_T,    KC_I,    KC_O,    KC_R,
       KC_A,    KC_S,    KC_E,    KC_N,    XXXXXXX,          XXXXXXX, KC_N,    KC_E,    KC_S,    KC_A,
                         BSP_NUM, SPC_SFT, XXXXXXX,          XXXXXXX, SPC_SFT, BSP_NUM  //trackball: default
