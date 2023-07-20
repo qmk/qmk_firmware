@@ -32,7 +32,7 @@ COMB(QAI_G,         KC_G,           KC_O, KC_N)
 COMB(QAI_COMM,      KC_COMM,        KC_O, KC_I, KC_T)
 COMB(QAI_DOT,       KC_DOT,         KC_S, KC_E, KC_N)
 COMB(QAI_ESC,       KC_ESC,         KC_R, KC_O, KC_I)
-COMB(QAImESC,       KC_ESC,         SNIPE, KC_BTN2, KC_SCRL)
+COMB(QAImESC,       KC_ESC,         SNIcPIN, KC_BTN2, DRGcSCR)
 COMB(QAI4TAB,       KC_TAB,         KC_R, KC_O, KC_I, KC_T)
 COMB(QAI4ENT,       KC_ENT,         KC_A, KC_S, KC_E, KC_N)
 //TX
@@ -96,9 +96,11 @@ COMB(QAI_SLSH,      KC_SLSH,        KC_9, KC_1)
 COMB(QAI_EXLM,      KC_EXLM,        KC_3, KC_2, KC_1)
 COMB(QAI_QUES,      KC_QUES,        KC_7, KC_8, KC_9)
 
-//special keycodes
-COMB(QAI_RST,       QK_BOOT,        KC_R, KC_S, KC_E, KC_T)
-//Mouse
+///Mouse
 COMB(QAI_BTN3,      KC_BTN3,        KC_BTN1, KC_BTN2)
 COMB(QAI_DRZM,      DRGZOOM,        KC_BTN1, DRGcSCR)
 COMB(QAI_DRTG,      DRGcTOG,        KC_BTN2, DRGcSCR)
+
+///special keycodes
+COMB(QAI_RST,       QK_BOOT,        KC_R, KC_S, KC_E, KC_T) //ReSET
+COMB(QAI_CLKB,      CLEARKB,        KC_S, KC_E, KC_O, KC_I) //CLearKb
