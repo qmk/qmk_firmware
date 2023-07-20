@@ -2,7 +2,7 @@
 Kinesis Contoured family of keyboards belong to a relatively small group of keyboards that utilize thumb clusters. The keycap profiles of thumb cluster keys make it easy to press multiple keys simultaneously by a thumb finger. Co-locating CTRL, SHIFT and KEYPAD modifiers in the thumb cluster gives truly unique capabilities to these keyboards.
 
 ### Software Developer Layout
-The **soft_dev** layout is optimized for software development on a Windows machine. It is a result of many years of daily usage. It is a great starting point for your own design.
+The **alvicstep** layout is optimized for software development on a Windows machine. It is a result of many years of daily usage. It is a great starting point for your own design.
 
 #### Layout Features
 - 3 layers: default layer, keypad layer, numpad layer

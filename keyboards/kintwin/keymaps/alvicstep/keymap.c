@@ -45,7 +45,7 @@ enum layer_names {
 */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_BASE] = LAYOUT_pretty(
+[_BASE] = LAYOUT(
 KC_ESC,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_F7,KC_F8,                 KC_F9,KC_F10,KC_F11,KC_F12,KC_PSCR,KC_SCRL,KC_PAUS,TO(_KEYPAD),QK_BOOT,
 KC_MINS,KC_1,KC_2,KC_3,KC_4,KC_5,                                       KC_6,KC_7,KC_8,KC_9,KC_0,KC_EQL,
 KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,                                        KC_Y,KC_U,KC_I,KC_O,KC_P,KC_BSLS,
@@ -77,7 +77,7 @@ KC_GRV,KC_LGUI,KC_ESC,MO(_NUMPAD),                                      KC_LBRC,
 *                                 |      |       | Ctrl |         | Ctrl |      |      |
 *                                 `-------------- ------'         `--------------------'
 */
-[_KEYPAD] = LAYOUT_pretty(
+[_KEYPAD] = LAYOUT(
  KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,                 KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,TO(_BASE),KC_NO,
  KC_UNDS,KC_EXLM,KC_AT,KC_HASH,KC_DLR,KC_PERC,                          KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_PLUS,
  KC_NO,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,                                   KC_NO,KC_HOME,KC_UP,KC_END,KC_NO,KC_PIPE,
@@ -108,7 +108,7 @@ KC_GRV,KC_LGUI,KC_ESC,MO(_NUMPAD),                                      KC_LBRC,
 *                                 `--------------------'         `--------------------'
 */
 
-[_NUMPAD] = LAYOUT_pretty(
+[_NUMPAD] = LAYOUT(
  KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,                 KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,
  KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,                                   KC_NO,TO(_BASE),KC_EQL,KC_SLSH,KC_ASTR,KC_NO,
  KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,                                   KC_NO,KC_7,KC_8,KC_9,KC_MINS,KC_NO,
