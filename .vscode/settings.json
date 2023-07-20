@@ -27,5 +27,6 @@
     "python.formatting.provider": "yapf",
     "[json]": {
 	    "editor.formatOnSave": false
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
