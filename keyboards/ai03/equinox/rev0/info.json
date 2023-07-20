@@ -5,6 +5,7 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "driver": "timer",
         "pin": "D1",
         "levels": 5,
         "breathing": true
