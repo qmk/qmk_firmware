@@ -1,12 +1,12 @@
 # SouthPad
 
-![Southpad](https://i.imgur.com/Wl71thnh.jpg)
+![Southpad](https://i.imgur.com/oXi69cu.png)
 
 This is a left-handed, mirrored numberpad with USB-C connection and Kailh hotswap sockets, built on the RP2040 MCU.
 
 Default layout is such:
 
-![SouthPad Layout](https://i.imgur.com/jc7T2jl.jpg)
+![SouthPad Layout](https://i.imgur.com/Zwxpa7a.png)
 
 * Keyboard Maintainer: [Logan Butler](https://github.com/MatchstickWorks)
 * Hardware Supported: SouthPad v2 PCB

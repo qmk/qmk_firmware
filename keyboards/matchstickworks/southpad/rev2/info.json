@@ -1,7 +1,5 @@
 {
     "keyboard_name": "SouthPad v2",
-    "manufacturer": "MatchstickWorks",
-    "maintainer": "MatchstickWorks",
     "processor": "RP2040",
     "bootloader": "rp2040",
     "usb": {

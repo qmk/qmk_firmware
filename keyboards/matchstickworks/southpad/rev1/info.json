@@ -1,20 +1,25 @@
 {
     "keyboard_name": "SouthPad",
-    "manufacturer": "MatchstickWorks",
-    "url": "",
-    "maintainer": "MatchstickWorks",
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
+    "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["B0", "B1", "B2", "B4"],
         "rows": ["B3", "B5", "B6", "B7", "C7", "C6"]
     },
-    "diode_direction": "COL2ROW",
-    "processor": "atmega32u2",
-    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_numpad_6x4_southpaw": {
             "layout": [
