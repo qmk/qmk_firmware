@@ -17,10 +17,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "ergodox_ez.h"
-#include "debug.h"
-#include "action_layer.h"
-#include "version.h"
 #include "keymap_german.h"
 #include "keymap_nordic.h"
 
@@ -114,9 +110,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(1)
-};
 
 bool xtra_sent = true;
 bool ctl_xtra_sent = true;
@@ -130,12 +123,6 @@ void keyboard_post_init_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
 		// dynamically generate these.
-		case EPRM:
-			if (record->event.pressed) {
-				eeconfig_init();
-			}
-			return false;
-			break;
 		case RGB_SLD:
 			if (record->event.pressed) {
 				rgblight_mode(1);
@@ -216,7 +203,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			} else {
 				layer_off(3);
 				if( ! xtra_sent ){
-					int mods = get_mods();
+					uint8_t mods = get_mods();
 					if( mods & MOD_BIT(KC_RSFT) ){
 						send_string("|");
 					} else {
@@ -230,7 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case MONEYQ:
 			xtra_sent = true;
 			if( record->event.pressed ){
-				int mods = get_mods();
+				uint8_t mods = get_mods();
 				add_key(KC_RSFT);
 				send_keyboard_report();
 				if( mods & MOD_BIT(KC_LSFT) ){
@@ -303,7 +290,7 @@ void led_set_user(uint8_t usb_led)
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
