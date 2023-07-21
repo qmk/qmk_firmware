@@ -1,0 +1,32 @@
+{
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "cols": ["A9", "A0", "A8", "C13", "C4", "C2", "B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4"],
+        "rows": ["B3", "A15", "A3", "A10", "B14"]
+    },
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "B12"
+    },
+    "ws2812": {
+        "pin": "B15",
+        "driver": "spi"
+    },
+        "rgblight": {
+        "led_count": 24,
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    }
+}
