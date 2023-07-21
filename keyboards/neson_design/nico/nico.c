@@ -19,7 +19,6 @@
 
 #include "quantum.h"
 #ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
 
 static bool alert = false;
 static bool backup = false;
