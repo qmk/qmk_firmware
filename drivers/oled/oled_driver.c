@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "spi_master.h"
 #elif defined(OLED_TRANSPORT_I2C)
 #    include "i2c_master.h"
+#    include "keyboard.h"
 #endif
 #include "oled_driver.h"
 #include OLED_FONT_H
