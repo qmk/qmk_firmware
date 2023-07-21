@@ -34,6 +34,7 @@
         "pin": "B15",
         "driver": "spi"
     },
+   "community_layouts": ["tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
