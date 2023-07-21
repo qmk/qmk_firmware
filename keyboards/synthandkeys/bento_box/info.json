@@ -25,9 +25,9 @@
     },
     "matrix_pins": {
         "direct": [
-            [null, null, null, "A9", "A8"],
-            [null, "B10", null, "B9", "B6"],
-            ["B0", "A5", "A2", null, null],
+            ["A9", "A8"],
+            ["B9", "B6"],
+            ["B0", "A5", "A2"],
             ["A7", "A4", "A1", "B8", "B5"],
             ["A6", "A3", "A0", "B7", "B4"]
         ]
