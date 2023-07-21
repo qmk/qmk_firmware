@@ -1,6 +1,6 @@
 # itstleo/itstleo40
 
-![itstleo/itstleo40](https://imgur.com/a/ia5BiIb)
+![itstleo/itstleo40](https://i.imgur.com/snNWZPmh.jpeg)
 
 * ItsTLeo first pcb using planck mit community layout, powered by QMK with VIA supported
 
