@@ -1,3 +1,5 @@
+#include <string.h>
+#include "matrix.h"
 #include "rgb_matrix.h"
 #include "sn32f24xb.h"
 
