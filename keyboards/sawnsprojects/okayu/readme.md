@@ -1,6 +1,6 @@
 # Okayu
 
-![Okayu](https://i.imgur.com/pRnRHl8.png)
+![Okayu](https://i.imgur.com/pRnRHl8h.png)
 
 A Wibu 60% keyboard PCB Design by inspire of Nekomata Okayu and can fit many keyboard case
 
