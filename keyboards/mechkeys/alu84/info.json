@@ -17,6 +17,12 @@
         "pin": "B6",
         "breathing": true
     },
+    "rgblight": {
+        "hue_steps": 10,
+        "saturation_steps": 10,
+        "brightness_steps": 10,
+        "led_count": 16
+    },
     "ws2812": {
         "pin": "E2"
     },

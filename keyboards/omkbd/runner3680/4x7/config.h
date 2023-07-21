@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* define tapping term */
-#define TAPPING_TERM 120
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -35,9 +32,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 56
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 28, 28 }    // Number of LEDs
 
 #define SELECT_SOFT_SERIAL_SPEED 1
 /*Sets the protocol speed when using serial communication*/

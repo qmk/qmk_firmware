@@ -25,8 +25,8 @@
 #define NO_HAPTIC_PUNCTUATION
 #define NO_HAPTIC_NAV 
 #define NO_HAPTIC_NUMERIC
-#define DRV_GREETING       alert_750ms
-#define DRV_MODE_DEFAULT   sharp_tick1
+#define DRV2605L_GREETING       alert_750ms
+#define DRV2605L_DEFAULT_MODE   sharp_tick1
 #endif
 
 

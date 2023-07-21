@@ -310,14 +310,14 @@ bool process_record_quantum(keyrecord_t *record) {
 #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
             process_music(keycode, record) &&
 #endif
+#ifdef CAPS_WORD_ENABLE
+            process_caps_word(keycode, record) &&
+#endif
 #ifdef KEY_OVERRIDE_ENABLE
             process_key_override(keycode, record) &&
 #endif
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
-#endif
-#ifdef CAPS_WORD_ENABLE
-            process_caps_word(keycode, record) &&
 #endif
 #if defined(UNICODE_COMMON_ENABLE)
             process_unicode_common(keycode, record) &&
@@ -468,7 +468,7 @@ void suspend_power_down_quantum(void) {
 #ifndef NO_SUSPEND_POWER_DOWN
 // Turn off backlight
 #    ifdef BACKLIGHT_ENABLE
-    backlight_set(0);
+    backlight_level_noeeprom(0);
 #    endif
 
 #    ifdef LED_MATRIX_ENABLE

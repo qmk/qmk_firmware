@@ -17,9 +17,6 @@
 #pragma once
 
 #ifdef RGBLIGHT_ENABLE
-    /* RGB Lighting config */
-    #define RGBLED_NUM 24
-
     /* RGB Lighting effect */
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD

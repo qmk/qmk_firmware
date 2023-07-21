@@ -16,6 +16,13 @@
         "caps_lock": "C6",
         "on_state": 0
     },
+    "rgblight": {
+        "hue_steps": 10,
+        "saturation_steps": 10,
+        "brightness_steps": 10,
+        "led_count": 4,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "F0"
     },
