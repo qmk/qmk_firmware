@@ -31,10 +31,6 @@
 #    include "rgblight.h"
 #endif
 
-#if defined(SPLIT_WATCHDOG_ENABLE)
-#    include "bootloader.h"
-#endif
-
 #ifndef SPLIT_USB_TIMEOUT
 #    define SPLIT_USB_TIMEOUT 2000
 #endif
