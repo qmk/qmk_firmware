@@ -1,3 +1,3 @@
 VIA_ENABLE = yes
 
-SRC += via_apc.c
+SRC += keyboards/cipulot/common/via_apc.c
