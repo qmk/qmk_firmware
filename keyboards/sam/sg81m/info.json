@@ -17,6 +17,8 @@
         "caps_lock": "B0"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 10,
         "sleep": true
     },

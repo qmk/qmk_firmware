@@ -3,9 +3,6 @@
 
 #pragma once
 
-    #define RGBLIGHT_HUE_STEP 8
-    #define RGBLIGHT_SAT_STEP 8
-    #define RGBLIGHT_VAL_STEP 8
     #define RGBLIGHT_LAYERS 2
     #define RGBLIGHT_LAYER_BLINK
 

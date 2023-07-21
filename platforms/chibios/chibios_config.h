@@ -71,7 +71,11 @@
 
 // STM32 compatibility
 #if defined(MCU_STM32)
-#    define CPU_CLOCK STM32_SYSCLK
+#    if defined(STM32_CORE_CK)
+#        define CPU_CLOCK STM32_CORE_CK
+#    else
+#        define CPU_CLOCK STM32_SYSCLK
+#    endif
 
 #    if defined(STM32F1XX)
 #        define USE_GPIOV1

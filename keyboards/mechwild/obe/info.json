@@ -18,6 +18,9 @@
             {"pin_a": "B5", "pin_b": "B4"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "indicators": {
         "caps_lock": "B9",
         "num_lock": "B8"
@@ -26,6 +29,8 @@
         "matrix": [5, 4]
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 10,
         "sleep": true
     },

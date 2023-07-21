@@ -9,6 +9,8 @@
         "device_version": "1.0.0"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 16,
         "sleep": true
     },
@@ -24,6 +26,9 @@
         "rotary": [
             {"pin_a": "B7", "pin_b": "D5"}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

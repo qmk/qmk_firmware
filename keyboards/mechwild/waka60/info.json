@@ -9,6 +9,8 @@
         "device_version": "1.0.1"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 3,
         "sleep": true
     },
@@ -24,6 +26,9 @@
         "rotary": [
             {"pin_a": "A3", "pin_b": "A2"}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "layouts": {
         "LAYOUT": {

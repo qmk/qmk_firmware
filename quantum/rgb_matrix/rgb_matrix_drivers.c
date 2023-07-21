@@ -15,6 +15,7 @@
  */
 
 #include "rgb_matrix.h"
+#include "util.h"
 
 /* Each driver needs to define the struct
  *    const rgb_matrix_driver_t rgb_matrix_driver;

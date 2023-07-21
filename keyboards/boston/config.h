@@ -41,8 +41,6 @@
 //The 3D-printed version of Boston uses APA106 LEDs, which are reversed
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
 
-#define TAP_CODE_DELAY 15
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

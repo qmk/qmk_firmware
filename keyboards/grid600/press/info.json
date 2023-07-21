@@ -13,6 +13,7 @@
         "rows": ["F0"]
     },
     "rgblight": {
+        "hue_steps": 10,
         "led_count": 4,
         "sleep": true
     },

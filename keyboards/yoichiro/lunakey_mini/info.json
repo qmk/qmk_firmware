@@ -17,6 +17,8 @@
         "soft_serial_pin": "D2"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 12,
         "sleep": true,
         "led_map": [0, 1, 2, 3, 4, 5, 11, 10, 9, 8, 7, 6],

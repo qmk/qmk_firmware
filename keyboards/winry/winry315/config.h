@@ -12,9 +12,6 @@
 // RGB Lighting configuration.  This mode is used by the vendor firmware, and
 // can be chosen if the full RGB Matrix support is not desired for some reason.
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_HUE_STEP 8
-#    define RGBLIGHT_SAT_STEP 8
-#    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

@@ -8,6 +8,8 @@
         "vid": "0x4450"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 16,
         "sleep": true
     },
@@ -23,6 +25,9 @@
         "rotary": [
             {"pin_a": "F1", "pin_b": "F0"}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

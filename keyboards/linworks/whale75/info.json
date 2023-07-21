@@ -26,6 +26,9 @@
             {"pin_a": "A15", "pin_b": "A14", "resolution": 2}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "backlight": {
         "pin": "A10",
         "levels": 5,

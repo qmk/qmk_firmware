@@ -26,6 +26,9 @@
             }
         }
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "ws2812": {
         "pin": "D3"
     },

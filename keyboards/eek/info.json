@@ -20,6 +20,9 @@
         "pin": "D3"
     },
     "rgblight": {
+        "hue_steps": 4,
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 36,
         "max_brightness": 200,
         "sleep": true

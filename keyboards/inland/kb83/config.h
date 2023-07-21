@@ -19,9 +19,6 @@
 
 #define RGB_TRIGGER_ON_KEYDOWN
 
-/* encoder resolution */
-#define TAP_CODE_DELAY 15
-
 /* DIP switch */
 #define DIP_SWITCH_PINS \
     { A9 }

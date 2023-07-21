@@ -11,6 +11,7 @@
         "pin": "B5"
     },
     "rgblight": {
+        "hue_steps": 10,
         "led_count": 2,
         "max_brightness": 200,
         "sleep": true

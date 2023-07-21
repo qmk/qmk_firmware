@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SELECT_SOFT_SERIAL_SPEED 1
 
-#    define RGBLIGHT_HUE_STEP 8
-#    define RGBLIGHT_SAT_STEP 8
 #    ifndef IOS_DEVICE_ENABLE
 #        define RGBLIGHT_VAL_STEP 16
 #        define RGBLIGHT_LIMIT_VAL 128 /* The maximum brightness level */

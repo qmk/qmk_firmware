@@ -37,10 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6, B0, B1 }
 #define MATRIX_COL_PINS { D4, D7, C7, F1, F4, F5, D6, D5, E6, B0, B1 }
 
-/* COL2ROW, ROW2COL*/
-// No need to define DIODE_DIRECTION for Jones' custom Round-Robin matrix.
-//#define DIODE_DIRECTION COL2ROW
-
 /* Audio */
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN C6
@@ -48,9 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define AUDIO_CLICKY
 #endif
 
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
   /*== Lighting Layers ==*/
   #define RGBLIGHT_LAYERS
   // #define RGBLIGHT_MAX_LAYERS 2

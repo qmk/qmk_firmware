@@ -20,8 +20,13 @@
         "soft_serial_pin": "D0"
     },
     "rgblight": {
-        "led_count": 9
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 9,
         "split": true
+    },
+    "tapping": {
+        "term": 120
     },
     "ws2812": {
         "pin": "F0"
