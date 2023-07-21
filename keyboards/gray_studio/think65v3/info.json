@@ -31,6 +31,11 @@
     "rgblight": {
       "led_count": 6,
       "sleep": true,
+      "max_brightness": 150,
+      "layers": {
+          "enabled": true
+          "override_rgb": true
+      },
         "animations": {
             "alternating": true,
             "breathing": true,
