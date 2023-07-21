@@ -17,9 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // WS2812 RGB LED strip input and number of LEDs
-#define RGB_MATRIX_LED_COUNT 36
-#define RGB_MATRIX_SPLIT { 18, 18 }
-#define RGB_MATRIX_CENTER { 133, 54 }
+#ifdef RBG_MATRIX_ENABLE
+#    define RGB_MATRIX_LED_COUNT 36
+#    define RGB_MATRIX_SPLIT { 18, 18 }
+#    define RGB_MATRIX_CENTER { 133, 54 }
+#endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #undef LOCKING_SUPPORT_ENABLE
