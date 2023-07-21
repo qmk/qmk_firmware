@@ -20,7 +20,6 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "hue_steps": 8,
         "led_count": 4,
         "max_brightness": 180,
         "saturation_steps": 8,
