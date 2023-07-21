@@ -108,7 +108,7 @@
 #endif
 
 // Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[17];
+uint8_t g_twi_transfer_buffer[65];
 
 // These buffers match the SLED1734X PWM registers 0x20-0x9F.
 // Storing them like this is optimal for I2C transfers to the registers.
@@ -164,51 +164,51 @@ bool SLED1734X_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // select the first frame
     page_frame_select[1] = SLED_PAGE_FRAME_1;
     i2c_transmit(addr << 1, page_frame_select, 2, SLED_TIMEOUT);
-    // transmit PWM registers in 8 transfers of 16 bytes
-    // g_twi_transfer_buffer[] is 17 bytes
+    // transmit PWM registers in 2 transfers of 64 bytes
+    // g_twi_transfer_buffer[] is 65 bytes
 
-    // iterate over the pwm_buffer contents at 16 byte intervals
-    for (int i = 0; i < SLED_FRAME_OFFSET; i += 16) {
+    // iterate over the pwm_buffer contents at 64 byte intervals
+    for (int i = 0; i < SLED_FRAME_OFFSET; i += 64) {
         // set the first register, e.g. 0x20, 0x30, 0x40, etc.
         g_twi_transfer_buffer[0] = SLED_OFFSET + i;
-        // copy the data from i to i+15
+        // copy the data from i to i+63
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x20-0x2F, 0x30-0x3F, etc. in one transfer
-        for (int j = 0; j < 16; j++) {
+        for (int j = 0; j < 64; j++) {
             g_twi_transfer_buffer[1 + j] = pwm_buffer[i + j];
         }
 
 #if SLED_PERSISTENCE > 0
         for (uint8_t i = 0; i < SLED_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, SLED_TIMEOUT) != 0) return false;
+            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 65, SLED_TIMEOUT) != 0) return false;
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, SLED_TIMEOUT) != 0) return false;
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 65, SLED_TIMEOUT) != 0) return false;
 #endif
     }
     // select the second frame
     page_frame_select[1] = SLED_PAGE_FRAME_2;
     i2c_transmit(addr << 1, page_frame_select, 2, SLED_TIMEOUT);
-    // transmit PWM registers in 8 transfers of 16 bytes
-    // g_twi_transfer_buffer[] is 17 bytes
+    // transmit PWM registers in 2 transfers of 64 bytes
+    // g_twi_transfer_buffer[] is 65 bytes
 
     // iterate over the pwm_buffer contents at 16 byte intervals
-    for (int i = 0; i < SLED_FRAME_OFFSET; i += 16) {
+    for (int i = 0; i < SLED_FRAME_OFFSET; i += 64) {
         // set the first register, e.g. 0x20, 0x30, 0x40, etc.
         g_twi_transfer_buffer[0] = SLED_OFFSET + i;
-        // copy the data from i to i+15
+        // copy the data from i to i+63
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x20-0x2f, 0x30-0x3f, etc. in one transfer
-        for (int j = 0; j < 16; j++) {
+        for (int j = 0; j < 64; j++) {
             g_twi_transfer_buffer[1 + j] = pwm_buffer[SLED_FRAME_OFFSET + i + j];
         }
 
 #if SLED_PERSISTENCE > 0
         for (uint8_t i = 0; i < SLED_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, SLED_TIMEOUT) != 0) return false;
+            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 65, SLED_TIMEOUT) != 0) return false;
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, SLED_TIMEOUT) != 0) return false;
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 65, SLED_TIMEOUT) != 0) return false;
 #endif
     }
     return true;
