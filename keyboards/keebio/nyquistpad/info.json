@@ -5,7 +5,7 @@
     "keyboard_name": "Nyquistpad",
     "usb": {
         "vid": "0xCB10",
-        "pid": "0x1146",
+        "pid": "0x1356",
         "device_version": "1.0.0"
     },
     "processor": "RP2040",
