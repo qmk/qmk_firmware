@@ -9,8 +9,6 @@
 
 #pragma once
 
-#define MATRIX_IO_DELAY 5
-
 #define BUSY_WAIT
 #define BUSY_WAIT_INSTRUCTIONS 35 // Increase if two rows are pressed at the same time.
 #define GPIO_INPUT_PIN_DELAY 10
@@ -51,10 +49,6 @@
 /* LED Turbo DIP Switch */
 #define DIP_SWITCH_PINS { A14, B13 }
 #define DIP_SWITCH_PINS_RIGHT { A14, B0 }
-
-/* RGB LED Configuration */
-#define RGBLED_NUM 156
-#define RGBLED_SPLIT { 78, 78 }
 
 // RGB Lighting Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -137,7 +131,6 @@
 
 #define TOUCH_UPDATE_INTERVAL 33
 #define OLED_UPDATE_INTERVAL 33
-#define TAP_CODE_DELAY 5
 
 /* Audio Configuration */
 #define AUDIO_PIN A4

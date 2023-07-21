@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "drashna.h"
+#include <stdio.h>
+#include <ctype.h>
 
 userspace_config_t userspace_config;
 
@@ -139,7 +141,7 @@ float autocorrect_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 #        endif
 #    endif
 
-bool apply_autocorrect(uint8_t backspaces, const char* str) {
+bool apply_autocorrect(uint8_t backspaces, const char* str, char *typo, char *correct) {
     if (layer_state_is(_GAMEPAD)) {
         return false;
     }
@@ -188,7 +190,7 @@ void oneshot_locked_mods_changed_user(uint8_t mods) {
 #    endif
 #endif
 
-void format_layer_bitmap_string(char* buffer, layer_state_t state, layer_state_t default_state) {
+void format_layer_bitmap_string(char *buffer, layer_state_t state, layer_state_t default_state) {
     for (int i = 0; i < 16; i++) {
         if (i == 0 || i == 4 || i == 8 || i == 12) {
             *buffer = ' ';
@@ -206,4 +208,112 @@ void format_layer_bitmap_string(char* buffer, layer_state_t state, layer_state_t
         ++buffer;
     }
     *buffer = 0;
+}
+
+#if defined(OS_DETECTION_ENABLE) && defined(DEFERRED_EXEC_ENABLE)
+os_variant_t os_type;
+
+uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
+    if (is_keyboard_master()) {
+        os_type = detected_host_os();
+        if (os_type) {
+            bool is_mac = (os_type == OS_MACOS) || (os_type == OS_IOS);
+            if (keymap_config.swap_lctl_lgui != is_mac) {
+                keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = is_mac;
+                eeconfig_update_keymap(keymap_config.raw);
+            }
+#    ifdef UNICODE_COMMON_ENABLE
+            set_unicode_input_mode_soft(keymap_config.swap_lctl_lgui ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE);
+#    endif
+            switch (os_type) {
+                case OS_UNSURE:
+                    xprintf("unknown OS Detected\n");
+                    break;
+                case OS_LINUX:
+                    xprintf("Linux Detected\n");
+                    break;
+                case OS_WINDOWS:
+                    xprintf("Windows Detected\n");
+                    break;
+#    if 0
+                case OS_WINDOWS_UNSURE:
+                    xprintf("Windows? Detected\n");
+                    break;
+#    endif
+                case OS_MACOS:
+                    xprintf("MacOS Detected\n");
+                    break;
+                case OS_IOS:
+                    xprintf("iOS Detected\n");
+                    break;
+#    if 0
+                case OS_PS5:
+                    xprintf("PlayStation 5 Detected\n");
+                    break;
+                case OS_HANDHELD:
+                    xprintf("Nintend Switch/Quest 2 Detected\n");
+                    break;
+#    endif
+            }
+        }
+    }
+
+    return os_type ? 0 : 500;
+}
+#endif
+
+static host_driver_t *host_driver          = 0;
+static bool           host_driver_disabled = false;
+
+void set_keyboard_lock(bool status) {
+    if (!status && !host_get_driver()) {
+        host_set_driver(host_driver);
+    } else if (status && host_get_driver()) {
+        host_driver = host_get_driver();
+        clear_keyboard();
+        host_set_driver(0);
+    } else if (status) {
+        clear_keyboard();
+    }
+
+    host_driver_disabled = status;
+}
+
+void toggle_keyboard_lock(void) {
+    set_keyboard_lock(!host_driver_disabled);
+}
+
+bool get_keyboard_lock(void) {
+    return host_driver_disabled;
+}
+
+const char *get_layer_name_string(layer_state_t state, bool alt_name) {
+    switch (get_highest_layer(state)) {
+        case _QWERTY:
+            return alt_name ? "Num Pad" : "QWERTY";
+        case _COLEMAK:
+            return "Colemak";
+        case _COLEMAK_DH:
+            return "Colemak-DH";
+        case _DVORAK:
+            return "Dvorak";
+        case _GAMEPAD:
+            return "Gamepad";
+        case _DIABLO:
+            return "Diablo";
+        case _DIABLOII:
+            return "Diablo II";
+        case _MOUSE:
+            return alt_name ? "Macros" : "Mouse";
+        case _MEDIA:
+            return "Media";
+        case _LOWER:
+            return "Lower";
+        case _RAISE:
+            return "Raise";
+        case _ADJUST:
+            return "Adjust";
+        default:
+            return "Unknown";
+    }
 }

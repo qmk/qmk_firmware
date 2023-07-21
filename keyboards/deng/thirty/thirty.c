@@ -46,3 +46,8 @@ led_config_t g_led_config = {
 };
 
 #endif
+
+void board_init(void) {
+    // Remap B11 AF to TIM2_CH4
+    AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_PARTIALREMAP2;
+}

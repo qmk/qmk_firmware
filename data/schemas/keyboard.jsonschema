@@ -60,6 +60,9 @@
                 "MK64FX512",
                 "MK66FX1M0",
                 "RP2040",
+                "SN32F248F",
+                "SN32F248BF",
+                "SN32F268F",
                 "STM32F042",
                 "STM32F072",
                 "STM32F103",
@@ -71,6 +74,8 @@
                 "STM32F446",
                 "STM32G431",
                 "STM32G474",
+                "STM32H723",
+                "STM32H733",
                 "STM32L412",
                 "STM32L422",
                 "STM32L432",
@@ -193,7 +198,8 @@
                 "uf2boot",
                 "unknown",
                 "usbasploader",
-                "wb32-dfu"
+                "wb32-dfu",
+                "sn32-dfu"
             ]
         },
         "bootloader_instructions": {
@@ -491,6 +497,11 @@
                     }
                 },
                 "led_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_map": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "pin": {
                     "$ref": "qmk.definitions.v1#/mcu_pin",

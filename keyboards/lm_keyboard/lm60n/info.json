@@ -17,6 +17,12 @@
         "caps_lock": "C7",
         "num_lock": "B7"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 41,
+        "sleep": true
+    },
     "ws2812": {
         "pin": "B0"
     },

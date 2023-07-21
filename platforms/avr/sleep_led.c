@@ -109,16 +109,19 @@ ISR(TIMERx_COMPA_vect) {
             uint8_t duration : 2;
             uint8_t index : 6;
         } pwm;
-    } timer = {.row = 0};
+    } timer                = {.row = 0};
+    static led_t led_state = {0};
 
     timer.row++;
 
     // LED on
     if (timer.pwm.count == 0) {
-        led_set(1 << USB_LED_CAPS_LOCK);
+        led_state.caps_lock = true;
+        led_set(led_state.raw);
     }
     // LED off
     if (timer.pwm.count == pgm_read_byte(&breathing_table[timer.pwm.index])) {
-        led_set(0);
+        led_state.caps_lock = false;
+        led_set(led_state.raw);
     }
 }

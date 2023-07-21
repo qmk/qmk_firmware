@@ -17,7 +17,6 @@
 #pragma once
 
 /* RGB Underglow */
-#define RGBLED_NUM 28
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

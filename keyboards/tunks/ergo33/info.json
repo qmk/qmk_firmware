@@ -7,6 +7,9 @@
     "pid": "0xA0A1",
     "device_version": "0.0.1"
   },
+  "rgblight": {
+    "led_count": 14
+  },
   "ws2812": {
     "pin": "D4"
   },

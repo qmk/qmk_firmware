@@ -71,7 +71,11 @@
 
 // STM32 compatibility
 #if defined(MCU_STM32)
-#    define CPU_CLOCK STM32_SYSCLK
+#    if defined(STM32_CORE_CK)
+#        define CPU_CLOCK STM32_CORE_CK
+#    else
+#        define CPU_CLOCK STM32_SYSCLK
+#    endif
 
 #    if defined(STM32F1XX)
 #        define USE_GPIOV1
@@ -163,4 +167,8 @@
 
 #ifndef SPI_MISO_FLAGS
 #    define SPI_MISO_FLAGS PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST
+#endif
+
+#if defined(SN32F2)
+#    define CPU_CLOCK SN32_HCLK
 #endif

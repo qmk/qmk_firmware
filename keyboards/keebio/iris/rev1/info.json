@@ -10,11 +10,15 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "driver": "timer",
         "pin": "D2",
         "levels": 5
     },
     "split": {
         "soft_serial_pin": "D0"
+    },
+    "rgblight": {
+        "led_count": 12
     },
     "ws2812": {
         "pin": "D3"

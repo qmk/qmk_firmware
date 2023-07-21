@@ -18,6 +18,10 @@
         "num_lock": "B12",
         "scroll_lock": "B13"
     },
+    "rgblight": {
+        "led_count": 16,
+        "split_count": [8, 8]
+    },
     "ws2812": {
         "pin": "B15"
     },

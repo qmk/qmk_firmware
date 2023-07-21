@@ -80,6 +80,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format off
 
+#if defined(RGBLIGHT_ENABLE)
+__attribute__((weak))
+void set_rgb_by_layer(layer_state_t state) {
+    return;
+}
+#endif 
+
 layer_state_t layer_state_set_user(layer_state_t state) {
+#   if defined(RGBLIGHT_ENABLE)
+    set_rgb_by_layer(state);
+#   endif
     return update_tri_layer_state(state, _FUNCTION, _ADJUST, _SECRET);
 }

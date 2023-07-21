@@ -14,8 +14,13 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "driver": "timer",
         "pin": "F7",
         "on_state": 0
+    },
+    "rgblight": {
+        "led_count": 4,
+        "sleep": true
     },
     "ws2812": {
         "pin": "F6"

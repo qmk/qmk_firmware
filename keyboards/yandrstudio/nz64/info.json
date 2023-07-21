@@ -4,6 +4,9 @@
         "pid": "0xAAAF",
         "device_version": "1.0.0"
     },
+    "rgblight": {
+        "led_count": 82
+    },
     "ws2812": {
         "pin": "A7",
         "driver": "pwm"
