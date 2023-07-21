@@ -1,3 +1,6 @@
+// Copyright 2023 Danny Nguyen (danny@keeb.io)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "quantum.h"
 
 void eeconfig_init_kb(void) {
