@@ -426,30 +426,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-void matrix_init_user (void) {
+void keyboard_post_init_user(void) {
     ergodox_board_led_off();
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+bool led_update_user(led_t led_state) {
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+
+    if (led_state.num_lock) {
         ergodox_right_led_1_set(8);
         ergodox_right_led_1_on();
-    } else {
-        ergodox_right_led_1_off();
     }
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         ergodox_right_led_2_set(2);
         ergodox_right_led_2_on();
-    } else {
-        ergodox_right_led_2_off();
     }
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+    if (led_state.scroll_lock) {
         ergodox_right_led_3_set(6);
         ergodox_right_led_3_on();
-    } else {
-        ergodox_right_led_3_off();
     }
+
+    return false;
 }
