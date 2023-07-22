@@ -3,9 +3,6 @@
     "keyboard_name": "DIVINE 1.0.0",
     "maintainer": "eerraa",
     "bootloader": "rp2040",
-    "bootmagic": {
-        "matrix": [0, 1]
-    },
     "build": {
         "debounce_type": "sym_defer_pk"
     },
