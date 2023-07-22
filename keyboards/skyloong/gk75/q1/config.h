@@ -4,9 +4,6 @@
 #pragma once
 
 #ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A {A1, A3, A0, C14}
-#define ENCODERS_PAD_B { A2, A4, C13, C15 }
-#define ENCODER_RESOLUTIONS { 1, 1, 1, 1 }
 #define ENCODER_MAP_KEY_DELAY 20
 #endif
 
