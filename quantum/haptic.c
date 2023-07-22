@@ -106,9 +106,9 @@ void haptic_init(void) {
 void haptic_task(void) {
 #ifdef HAPTIC_SOLENOID
 // Only run task on seconary boards if the user desires
-#if defined(SPLIT_KEYBOARD) && !defined(SPLIT_HAPTIC_ENABLE)
+#    if defined(SPLIT_KEYBOARD) && !defined(SPLIT_HAPTIC_ENABLE)
     if (!is_keyboard_master()) return;
-#endif
+#    endif
     solenoid_check();
 #endif // HAPTIC_SOLENOID
 }
