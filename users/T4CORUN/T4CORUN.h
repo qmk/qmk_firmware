@@ -281,104 +281,59 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   |   Q  |   W  |   E  |   R  |   T  |    |   Y  |   U  |   I  |   O  |   P  |
+*   | Q    | W    | E    | R    | T    |    | Y    | U    | I    | O    | P    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |   A  |   S  |   D  |   F  |   G  |    |   H  |   J  |   K  |   L  |   '  |
+*   | A    | S    | D    | F    | G    |    | H    | J    | K    | L    | '    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | FUNZ |   X  | MOUC |   V  |   B  |    |   N  |   M  |   ,  |   .  | ADJ/ |
+*   | Z    | X    | MOUC | V    | B    |    | N    | M    | ,    | .    | FUN/ |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      |      |      |    |      |      |      |
+*                 | MB1  | NUM  | Lsft |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #   define _________________QWERTY_L2_________________        TR_A,    TR_S,    TR_D,    TR_F,    KC_G
 #   define _________________QWERTY_L3_________________        FUNC_Z,  KC_X,    TR_MOUC, KC_V,    KC_B
+#   define          ________QWERTY_L4________                 _________BASE_L4_________
 
 #   define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #   define _________________QWERTY_R2_________________        KC_H,    TR_J,    TR_K,    TR_L,    TR_QT
 #   define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  AD_SLSH
-
+#   define          ________QWERTY_R4________                 _________BASE_R4_________
 
 /*
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   |   Q  |   W  |   F  |   P  |   B  |    |   J  |   L  |   U  |   Y  |   '  |
+*   | Q    | W    | F    | P    | B    |    | J    | L    | U    | Y    | '    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |   A  |   R  |   S  |   T  |   G  |    |   M  |   N  |   E  |   I  |   O  |
+*   | A    | R    | S    | T    | G    |    | M    | N    | E    | I    | O    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | FUNZ |   X  | MOUC |   D  |   V  |    |   K  |   H  |   ,  |   .  | ADJ/ |
+*   | Z    | X    | MOUC | D    | V    |    | K    | H    | ,    | .    | FUN/ |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      |      |      |    |      |      |      |
+*                 | MB1  | NUM  | Lsft |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ________________COLEMAKDH_L1_______________        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
 #   define ________________COLEMAKDH_L2_______________        TR_A,    TR_R,    TR_S,    TR_T,    KC_G
 #   define ________________COLEMAKDH_L3_______________        FUNC_Z,  KC_X,    TR_MOUC, KC_D,    KC_V
+#   define          _______COLEMAKDH_L4______                 _________BASE_L4_________
 
 #   define ________________COLEMAKDH_R1_______________        KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
 #   define ________________COLEMAKDH_R2_______________        KC_M,    TR_N,    TR_E,    TR_I,    TR_O
 #   define ________________COLEMAKDH_R3_______________        KC_K,    KC_H,    KC_COMM, KC_DOT,  AD_SLSH
+#   define          _______COLEMAKDH_R4______                 _________BASE_R4_________
 
 /*
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Tab  |   Q  |   W  |   E  |   R  |    |      |      |      |      |      |
+*   | Esc  | Snip | File | Bpsc | `    |    | [    | 7    | 8    | 9    | ]    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Num  |   A  |   S  |   D  |   F  |    |      |      |      |      |      |
+*   | Gui  | Alt  | Ctrl | Shft | .    |    | -    | 4    | 5    | 6    | =    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |  Z   |   X  |   C  |   V  |   B  |    |      |      |      |      | ADJ  |
+*   | Undo | Cut  | Copy | Pste | Redo |    | ;    | 1    | 2    | 3    | \    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Ctrl | Spc  | Shift|    |      | Nav  |      |
-*                 `------+------+------'    `------+------+------'
-*/
-#   define _______________GAMING_BASE_L1______________        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R
-#   define _______________GAMING_BASE_L2______________        GAMENUM, KC_A,    KC_S,    KC_D,    KC_F
-#   define _______________GAMING_BASE_L3______________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-#   define          ______GAMING_BASE_L4_____                 KC_LCTL, KC_SPC,  KC_LSFT
-
-#   define _______________GAMING_BASE_R1______________        __________________NONE_5___________________
-#   define _______________GAMING_BASE_R2______________        __________________NONE_5___________________
-#   define _______________GAMING_BASE_R3______________        ___x___, ___x___, ___x___, ___x___, ADJUST
-
-# if defined(KEYBOARD_bastardkb_charybdis_3x5) 
-#   define          ______GAMING_BASE_R4_____                 ___x___, NAVGTIN
-# else
-#   define          ______GAMING_BASE_R4_____                 ___x___, NAVGTIN, ___x___
-# endif //KEYBOARD_bastardkb_charybdis_3x5
-
-
-/*
-* For 3x5 configuration
-*
-*   ,----------------------------------.    ,----------------------------------.
-*   |      | Esc  |  ~   |   G  |   T  |    |      |      |      |      |      |
-*   +------+------+------+------+------|    +------+------+------+------+------+
-*   |LyrTap|   1  |   2  |   3  |   4  |    |      |      |      |      |      |
-*   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      |   5  |   6  |   7  |   8  |    |      |      |      |      |      |
-*   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Alt  |      |      |    |      |      |      |
-*                 `------+------+------'    `------+------+------'
-*/
-#   define _______________GAMING_NUM_L1_______________        ___x___, KC_ESC,  KC_TILD, KC_G,    KC_T
-#   define _______________GAMING_NUM_L2_______________        _______, KC_1,    KC_2,    KC_3,    KC_4
-#   define _______________GAMING_NUM_L3_______________        ___x___, KC_5,    KC_6,    KC_7,    KC_8
-#   define          ______GAMING_NUM_L4______                 KC_LALT, ___x___, ___x___
-
-
-/*
-* For 3x5 configuration
-*
-*   ,----------------------------------.    ,----------------------------------.
-*   | Esc  | Snip | File | Bpsc |   `  |    |   [  |   7  |   8  |   9  |   ]  |
-*   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Gui  | Alt  | Ctrl | Shft |   .  |    |   -  |   4  |   5  |   6  |   =  |
-*   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |   ;  |   1  |   2  |   3  |   \  |
-*   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  |LyrTap| Ent  |    | Spc  |   0  |      |
+*                 | MB1  | LTap | Ent  |    | Spc  | 0    |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define _________________NUMPAD_L1_________________        KC_ESC,  W_SNIP,  W_FILE,  KC_BSPC, KC_GRV
@@ -403,13 +358,13 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 /*
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  | Home | Up   | End  | PgUp |    | Ins  |      | App  |      |      |
+*   | Esc  | Home | Up   | End  | PgUp |    | Ins  |      |NxtTab|DMRec1|DMPly1|
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | Gui  |
+*   | Caps | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |      |      |      |      | MOU  |
+*   | Undo | Cut  | Copy | Pste | Redo |    |      |      | App  |DMRec2|DMPly2|
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Tab  | Bpsc | Ent  |    | Spc  | NAV  |      |
+*                 | Tab  | Bpsc | Ent  |    | Spc  | LTap |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ___________________NAV_L1__________________        KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
@@ -430,13 +385,13 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |      |      |      |      |      |    |ScrLck|  F7  |  F8  |  F9  | F10  |
+*   |ScrLck|  F7  |  F8  |  F9  | F10  |    |QWERTY|ClmkDH|Gaming|RGBTog|RGBMod|
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | GUI  | Alt  | Ctrl | Shft |PrnScr|    |CapLck|  F4  |  F5  |  F6  | F11  |
+*   |PrnScr|  F4  |  F5  |  F6  | F11  |    |      | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |LyrTap|      | Vol- | Vol+ | Mute |    |PauBrk|  F1  |  F2  |  F3  | F12  |
+*   |PauBrk|  F1  |  F2  |  F3  | F12  |    | Hue+ | Sat+ | Vib+ | Spd+ | LTap |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  |DMRec1|DMPly1|    |DMPly2|DMRec2|      |
+*                 | Mute | Vol- | Vol+ |    | Rbt  | Boot |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define _________________FUNCPAD_L1________________        __________________NONE_5___________________
@@ -462,11 +417,11 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   ,----------------------------------.    ,----------------------------------.
 *   |      |      | MouU |      | MwU  |    | sDPI | DPI  |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      | MouL | MouD | MouR | MwD  |    |SniTog| Shft | Ctrl | Alt  | Gui  |
+*   |      | MouL | MouD | MouR | MwD  |    |      | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |Sniper|      |LyrTap|DrgScr|      |    |DrgTog| MB1  | MB2  | MB3  |      |
+*   |      |      | LTap |DrgScr|Sniper|    |      | MB1  | MB2  | MB3  |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  | HOME | MB3  |    | MB5  |      |      |
+*                 | MB1  | MB2  | MB3  |    | MB5  | MB4  |      |
 *                 `------+------+------'    `------+------+------'
 */
 
@@ -485,33 +440,53 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define          _________MOUSE_R4________                 KC_BTN5, ___x___, ___x___
 #endif
 
-
 /*
+* For 3x5 configuration
+*
 *   ,----------------------------------.    ,----------------------------------.
-*   |      |      |      |      |      |    |QWERTY|ClmkDH|Gaming|      | 1STog|
+*   | Tab  | Q    | W    | E    | R    |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Hue+ | Sat+ | Vib+ | Spd+ |      |    |      | Shft |      |ClkUp |      |
+*   | Num  | A    | S    | D    | F    |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |RGBTog|RGBMod|      |      |      |    |AudTog|MusTog|ClkTog|ClkDn |LyrTap|
+*   | Z    | X    | C    | V    | B    |    |      |      |      |      | ADJ  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      | Boot | Rbt  |    | Rbt  | Boot |      |
+*                 | Ctrl | Spc  | Shft |    |      | Nav  |      |
 *                 `------+------+------'    `------+------+------'
 */
+#   define _______________GAMING_BASE_L1______________        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R
+#   define _______________GAMING_BASE_L2______________        GAMENUM, KC_A,    KC_S,    KC_D,    KC_F
+#   define _______________GAMING_BASE_L3______________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+#   define          ______GAMING_BASE_L4_____                 KC_LCTL, KC_SPC,  KC_LSFT
 
-#   define _________________ADJUST_L1_________________        __________________NONE_5___________________
-#   define _________________ADJUST_L2_________________        TR_RHUI, TR_RSAI, TR_RVAI, TR_RSPI, ___x___
-#   define _________________ADJUST_L3_________________        TR_RTOG, TR_RMOD, __________NONE_3_________
-#   define          ________ADJUST_L4________                 ___x___, QK_BOOT, QK_RBT
+#   define _______________GAMING_BASE_R1______________        __________________NONE_5___________________
+#   define _______________GAMING_BASE_R2______________        __________________NONE_5___________________
+#   define _______________GAMING_BASE_R3______________        ___x___, ___x___, ___x___, ___x___, ADJUST
 
-#   define _________________ADJUST_R1_________________        QWERTY,  CLMAKDH, TR_GAME, ___x___, TR_OSTG
-#   define _________________ADJUST_R2_________________        ___x___, KC_LSFT, ___x___, TR_CKUP, ___x___
-#   define _________________ADJUST_R3_________________        TR_ATOG, TR_MTOG, TR_CTOG, TR_CKDN, _______
+# if defined(KEYBOARD_bastardkb_charybdis_3x5) 
+#   define          ______GAMING_BASE_R4_____                 ___x___, NAVGTIN
+# else
+#   define          ______GAMING_BASE_R4_____                 ___x___, NAVGTIN, ___x___
+# endif //KEYBOARD_bastardkb_charybdis_3x5
 
-#if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          ________ADJUST_R4________                 QK_RBT,  QK_BOOT
-#else
-#   define          ________ADJUST_R4________                 QK_RBT,  QK_BOOT, ___x___
-#endif
+
+/*
+* For 3x5 configuration
+*
+*   ,----------------------------------.    ,----------------------------------.
+*   |      | Esc  | ~    | G    | T    |    |      |      |      |      |      |
+*   +------+------+------+------+------|    +------+------+------+------+------+
+*   | LTap | 1    | 2    | 3    | 4    |    |      |      |      |      |      |
+*   +------+------+------+------+------|    +------+------+------+------+------+
+*   |      | 5    | 6    | 7    | 8    |    |      |      |      |      |      |
+*   `------+------+------+------+------+    +------+------+------+------+------'
+*                 | Alt  |      |      |    |      |      |      |
+*                 `------+------+------'    `------+------+------'
+*/
+#   define _______________GAMING_NUM_L1_______________        ___x___, KC_ESC,  KC_TILD, KC_G,    KC_T
+#   define _______________GAMING_NUM_L2_______________        _______, KC_1,    KC_2,    KC_3,    KC_4
+#   define _______________GAMING_NUM_L3_______________        ___x___, KC_5,    KC_6,    KC_7,    KC_8
+#   define          ______GAMING_NUM_L4______                 KC_LALT, ___x___, ___x___
+
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
