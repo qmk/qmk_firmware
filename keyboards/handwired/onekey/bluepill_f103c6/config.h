@@ -22,8 +22,6 @@
 
 #define ADC_PIN A0
 
-#define RGB_CI_PIN A2
-
 // This code does not fit into the really small flash of STM32F103x6 together
 // with CONSOLE_ENABLE=yes, and the debugging console is probably more
 // important for the "onekey" testing firmware.  In a real firmware you may be

@@ -6,18 +6,31 @@
     "usb": {
         "vid": "0xFFFE",
         "pid": "0x0001",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "force_nkro": true
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "matrix_pins": {
+        "cols": ["A5", "A6", "A7", "C4", "C5"],
+        "rows": ["B15"]
+    },
+    "diode_direction": "ROW2COL",
+    "ws2812": {
+        "pin": "A1"
     },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
-            {"label":"~", "x":0, "y":0},
-            {"label":"!", "x":1, "y":0},
-            {"label":"3", "x":2, "y":0},
-            {"label":"4", "x":3, "y":0},
-            {"label":"@", "x":4, "y":0}]
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0}
+            ]
         }
     }
 }

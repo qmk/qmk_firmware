@@ -100,7 +100,6 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 #define TAPPING_TERM 200
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #ifdef KEYBOARD_crkbd_rev1
 

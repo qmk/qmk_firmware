@@ -8,8 +8,6 @@
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-#define RGB_DI_PIN E6
-
 // RGB Matrix Animation modes
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -60,5 +58,3 @@
 #undef ENABLE_RGB_MATRIX_DUAL_BEACON
 #undef ENABLE_RGB_MATRIX_RAINBOW_BEACON
 #undef ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-
-#define FORCE_NKRO

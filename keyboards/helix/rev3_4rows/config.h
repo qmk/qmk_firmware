@@ -46,7 +46,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Dip switch on matrix grid */
 #define DIP_SWITCH_MATRIX_GRID { {0,6}, {1,6}, {5,6}, {6,6} }
 
-#define RGB_DI_PIN D3
 #define RGBLED_NUM 50 // Number of LEDs
 
 #ifdef RGB_MATRIX_ENABLE
@@ -70,7 +69,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_HUE_STEP 8
 //   #define RGBLIGHT_SAT_STEP 8
 //   #define RGBLIGHT_VAL_STEP 8
-   #define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
 //   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 //   #define RGBLIGHT_EFFECT_BREATHING
    #define RGBLIGHT_EFFECT_RAINBOW_MOOD

@@ -76,4 +76,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLIGHT_HUE_STEP
 #undef RGBLIGHT_SAT_STEP
 #undef RGBLIGHT_VAL_STEP
-#undef RGBLIGHT_LIMIT_VAL
