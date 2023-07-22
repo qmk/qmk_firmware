@@ -13,7 +13,7 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": false,
+        "console": true,
         "command": false,
         "nkro": true,
         "rgblight": true
@@ -279,8 +279,7 @@
                 {"label": "K0A", "matrix": [0, 10], "x": 10, "y": 0},
                 {"label": "K0B", "matrix": [0, 11], "x": 11, "y": 0},
                 {"label": "K0C", "matrix": [0, 12], "x": 12, "y": 0},
-                {"label": "K0C", "matrix": [0, 13], "x": 12, "y": 0},
-                {"label": "K0C", "matrix": [0, 14], "x": 12, "y": 0},
+                {"label": "K0C", "matrix": [0, 13], "x": 13, "y": 0},
 
                 {"label": "K10", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "K11", "matrix": [1, 1], "x": 1.5, "y": 1},
@@ -323,8 +322,8 @@
                 {"label": "K3A", "matrix": [3, 10], "x": 10.25, "y": 3},
                 {"label": "K3B", "matrix": [3, 11], "x": 11.25, "y": 3},
                 {"label": "K3C", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 1.75},
-                {"label": "K3C", "matrix": [3, 13], "x": 14, "y": 3},
-
+                {"label": "K3D", "matrix": [3, 13], "x": 14, "y": 3},
+                
                 {"label": "K40", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
                 {"label": "K41", "matrix": [4, 1], "x": 1.5, "y": 4},
                 {"label": "K42", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.5},
