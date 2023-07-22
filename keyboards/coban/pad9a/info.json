@@ -7,7 +7,7 @@
     "usb": {
         "pid": "0xCC9A",
         "vid": "0xCB3A",
-        "device_version": "1.0.0"
+        "device_version": "1.1.0"
     },
     "matrix_pins": {
         "direct": [

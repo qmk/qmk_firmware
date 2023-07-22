@@ -20,7 +20,7 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
 #define WS2812_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral
-#define RGB_DI_PIN GP14
+#define WS2812_DI_PIN GP14
 #define RGBLED_NUM 6
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
