@@ -11,11 +11,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_TAB,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,        KC_Y,     KC_U,       KC_I,     KC_O,        KC_P,     KC_LBRC,  KC_RBRC,              KC_PGUP,
         KC_CAPS,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,        KC_H,     KC_J,       KC_K,     KC_L,     KC_SCLN,     KC_QUOT,   KC_ENT,   KC_NUBS,   KC_PGDN,
         KC_LSFT,  KC_NUHS,     KC_Z,     KC_X,     KC_C,     KC_V,      KC_SPC,     KC_N,       KC_M,  KC_COMM,      KC_DOT,     KC_SLSH,  KC_RSFT,     KC_UP,
-        KC_LCTL,  KC_LGUI,  KC_LALT,             KC_SPC,   KC_SPC,        KC_B,   KC_SPC,              KC_RALT,       MO(1),      KC_APP,  KC_LEFT,   KC_DOWN,   KC_RGHT
+        KC_LCTL,  KC_LGUI,  KC_LALT,             KC_SPC,   KC_SPC,        KC_B,   KC_SPC,              KC_RALT,       MO(1),     KC_RCTL,  KC_LEFT,   KC_DOWN,   KC_RGHT
     ),
 
     [1] = LAYOUT_all(
-        _______,             KC_F14,   KC_F15, C(KC_UP),  KC_WSCH,   G(KC_SPC), LCA(KC_A),   KC_MPRV,  KC_MPLY,    KC_MNXT,      KC_MUTE,  KC_VOLD,  KC_VOLU,   KC_PAUS,
+        _______,             KC_F14,   KC_F15, G(KC_TAB),  KC_WSCH,  G(C(KC_S)), LCA(KC_A),   KC_MPRV,  KC_MPLY,    KC_MNXT,      KC_MUTE,  KC_VOLD,  KC_VOLU,   KC_PAUS,
         _______,  _______,  _______,  _______,  _______,  _______,     _______,   _______,    _______,  _______,    RGB_TOG,     RGB_RMOD,  RGB_MOD,   KC_DEL,   KC_END,
         _______,  _______,  _______,  _______,  _______,  _______,     _______,   _______,   _______,  _______,    _______,      _______,  _______,              KC_INS,
         _______,  _______,  _______,  _______,  _______,  _______,     _______,   _______,   _______,  _______,    _______,      _______,  _______,  _______,   KC_PGDN,
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R), ENCODER_CCW_CW(KC_WH_D, KC_WH_U), ENCODER_CCW_CW(KC_RIGHT, KC_LEFT) },
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(RGB_VAD, RGB_VAI), ENCODER_CCW_CW(C(KC_WH_D), C(KC_WH_U)), ENCODER_CCW_CW(LSG(KC_TAB),G(KC_TAB)) },
     [1] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI), ENCODER_CCW_CW(RGB_VAD, RGB_VAI), ENCODER_CCW_CW(RGB_SPD, RGB_SPI), ENCODER_CCW_CW(RGB_SAD, RGB_SAI) }
 };
 #endif
