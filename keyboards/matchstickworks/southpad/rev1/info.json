@@ -21,7 +21,7 @@
         "rows": ["B3", "B5", "B6", "B7", "C7", "C6"]
     },
     "layouts": {
-        "LAYOUT_numpad_6x4_southpaw": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
