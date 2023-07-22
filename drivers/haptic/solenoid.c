@@ -23,7 +23,6 @@
 #include "util.h"
 #include <stdlib.h>
 
-uint8_t      solenoid_dwell  = SOLENOID_DEFAULT_DWELL;
 static pin_t solenoid_pads[] = SOLENOID_PINS;
 #define NUMBER_OF_SOLENOIDS ARRAY_SIZE(solenoid_pads)
 bool     solenoid_on[NUMBER_OF_SOLENOIDS]      = {false};
@@ -53,7 +52,7 @@ void solenoid_set_buzz(uint8_t buzz) {
 }
 
 void solenoid_set_dwell(uint8_t dwell) {
-    solenoid_dwell = dwell;
+    haptic_set_dwell(dwell);
 }
 
 /**
@@ -119,7 +118,7 @@ void solenoid_check(void) {
         elapsed[i] = timer_elapsed(solenoid_start[i]);
 
         // Check if it's time to finish this solenoid click cycle
-        if (elapsed[i] > solenoid_dwell) {
+        if (elapsed[i] > haptic_config.dwell) {
             solenoid_stop(i);
             continue;
         }
