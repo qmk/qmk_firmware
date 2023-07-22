@@ -44,10 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_MAX_SPEED    MOUSEKEY_MAX_SPEED
 #define MOUSEKEY_WHEEL_TIME_TO_MAX  MOUSEKEY_TIME_TO_MAX
 
-#define TAPPING_TOGGLE  1
-
-#define TAPPING_TERM    200
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -78,9 +74,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_HUE_STEP 12
-#define RGBLIGHT_SAT_STEP 255
-#define RGBLIGHT_VAL_STEP 12
 
 // Pick one of the modes
 // Defaults to 15 mirror, for legacy behavior
@@ -93,8 +86,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISABLE_SPACE_CADET_ROLLOVER
 
 #define RGBW
-
-#define RGBLIGHT_SLEEP
 
 /*
  * The debounce filtering reports a key/switch change directly,

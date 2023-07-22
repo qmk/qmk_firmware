@@ -13,6 +13,7 @@
     "levels": 10
   },
   "rgblight": {
+    "led_count": 16,
     "max_brightness": 50
   },
   "indicators": {

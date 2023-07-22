@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define RGBLIGHT_SLEEP
-
 /* Haptic hardware */
 // The Pimoroni is the likely hardware, for which these settings work
 #define FB_ERM_LRA 1
@@ -18,5 +16,5 @@
 
 /* Haptic waveforms */
 // Two mild waveforms
-#define DRV_GREETING alert_750ms
-#define DRV_MODE_DEFAULT sharp_tick3_60
+#define DRV2605L_GREETING alert_750ms
+#define DRV2605L_DEFAULT_MODE sharp_tick3_60

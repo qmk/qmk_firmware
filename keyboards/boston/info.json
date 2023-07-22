@@ -18,10 +18,16 @@
             {"pin_a": "C13", "pin_b": "F1", "resolution": 2}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 15
+    },
     "backlight": {
         "pin": "A6",
         "levels": 6,
         "breathing": true
+    },
+    "rgblight": {
+        "led_count": 1
     },
     "ws2812": {
         "pin": "A5"

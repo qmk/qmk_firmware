@@ -8,6 +8,10 @@
         "pid": "0x1257",
         "device_version": "1.0.0"
     },
+    "rgblight": {
+        "led_count": 16,
+        "split_count": [8, 8]
+    },
     "ws2812": {
         "pin": "D3"
     },

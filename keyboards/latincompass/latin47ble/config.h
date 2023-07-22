@@ -16,11 +16,6 @@
 
 #pragma once
 
-     #define RGBLED_NUM 3
-     #define RGBLIGHT_HUE_STEP 8
-     #define RGBLIGHT_SAT_STEP 8
-     #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -31,8 +26,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#define TAPPING_TERM 250
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
