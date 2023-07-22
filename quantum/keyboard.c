@@ -365,9 +365,6 @@ void quantum_init(void) {
 #if defined(UNICODE_COMMON_ENABLE)
     unicode_input_mode_init();
 #endif
-#ifdef HAPTIC_ENABLE
-    haptic_init();
-#endif
 }
 
 /** \brief keyboard_init
@@ -431,6 +428,9 @@ void keyboard_init(void) {
 #endif
 #ifdef BLUETOOTH_ENABLE
     bluetooth_init();
+#endif
+#ifdef HAPTIC_ENABLE
+    haptic_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
@@ -587,10 +587,6 @@ void quantum_task(void) {
     decay_wpm();
 #endif
 
-#ifdef HAPTIC_ENABLE
-    haptic_task();
-#endif
-
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_read(false);
 #endif
@@ -694,6 +690,10 @@ void keyboard_task(void) {
 
 #ifdef BLUETOOTH_ENABLE
     bluetooth_task();
+#endif
+
+#ifdef HAPTIC_ENABLE
+    haptic_task();
 #endif
 
     led_task();
