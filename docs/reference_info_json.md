@@ -142,7 +142,7 @@ Configures the [Backlight](feature_backlight.md) feature.
     * `pin`
         * The GPIO pin connected to the backlight circuit.
     * `pins`
-        * A list of GPIO pins connected to the backlight LEDs (`software` driver only).
+        * A list of GPIO pins connected to the backlight LEDs (`software` and `timer` drivers only).
 
 ## Bluetooth :id=bluetooth
 
