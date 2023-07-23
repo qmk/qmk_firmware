@@ -36,18 +36,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
-uint8_t divisor = 0;
-void slider(void){
-  if (divisor++) { // only run the slider function 1/256 times it's called
-      return;
-  }
-  midi_send_cc(&midi_device, 2, 0x3E, 0x7F - (analogReadPin(SLIDER_PIN) >> 3));
-  uprintf("%d string", analogReadPin(SLIDER_PIN) );
-}
-
-void housekeeping_task_user(void) {
-  slider();
-}
 
 static uint32_t oled_logo_timer = 0;
 static bool clear_logo = true;
