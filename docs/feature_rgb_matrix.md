@@ -12,7 +12,7 @@ There is basic support for addressable RGB matrix lighting with the I2C IS31FL37
 
 ```make
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = IS31FL3731
+RGB_MATRIX_DRIVER = is31fl3731
 ```
 
 You can use between 1 and 4 IS31FL3731 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
@@ -76,7 +76,7 @@ There is basic support for addressable RGB matrix lighting with the I2C IS31FL37
 
 ```make
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = IS31FL3733
+RGB_MATRIX_DRIVER = is31fl3733
 ```
 
 You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
@@ -162,7 +162,7 @@ There is basic support for addressable RGB matrix lighting with the I2C IS31FL37
 
 ```make
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = IS31FL3736
+RGB_MATRIX_DRIVER = is31fl3736
 ```
 You can use between 1 and 4 IS31FL3736 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard.
 
@@ -238,7 +238,7 @@ There is basic support for addressable RGB matrix lighting with the I2C IS31FL37
 
 ```make
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = IS31FL3737
+RGB_MATRIX_DRIVER = is31fl3737
 ```
 You can use between 1 and 4 IS31FL3737 IC's. Do not specify `DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard.
 
@@ -428,7 +428,7 @@ There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{
 
 ```make
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
+RGB_MATRIX_DRIVER = ws2812
 ```
 
 Configure the hardware via your `config.h`:
@@ -450,7 +450,7 @@ There is basic support for APA102 based addressable LED strands. To enable it, a
 
 ```make
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = APA102
+RGB_MATRIX_DRIVER = apa102
 ```
 
 Configure the hardware via your `config.h`:
@@ -470,7 +470,7 @@ There is basic support for addressable RGB matrix lighting with the SPI AW20216 
 
 ```make
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = AW20216
+RGB_MATRIX_DRIVER = aw20216
 ```
 
 You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:

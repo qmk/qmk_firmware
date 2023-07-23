@@ -12,7 +12,7 @@
     "pin": "D4"
   },
   "rgb_matrix": {
-    "driver": "WS2812",
+    "driver": "ws2812",
     "speed_steps": 10
   },
   "rgblight": {

@@ -9,7 +9,7 @@
         "device_version": "1.0.0"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "encoder": {
         "rotary": [
