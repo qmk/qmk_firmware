@@ -33,9 +33,11 @@
         "rgblight": true,
         "encoder": true
     },
+    "ws2812": {
+        "pin": "A8"
+    },
     "rgblight": {
         "led_count": 16,
-        "pin": "A8",
         "animations": {
             "alternating": true,
             "breathing": true,
