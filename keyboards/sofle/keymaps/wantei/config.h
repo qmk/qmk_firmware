@@ -17,23 +17,19 @@
 
 #pragma once
 
-/* The way how "handedness" is decided (which half is which),
+/* By default left side is selected as master,
 see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
-for more options.
-*/
-
-// OLED settings
-#ifdef OLED_ENABLE
-	#define OLED_TIMEOUT 80000 //120000 = 2 minutes in ms.
-	#define OLED_BRIGHTNESS 90 // Default 100.
-	#define SPLIT_WPM_ENABLE //Enable WPM across split keyboards (+268).
-	#define SPLIT_OLED_ENABLE //Synx on/off OLED state between halves (+100).
-#endif
+for more options. */
 
 #if defined(KEYBOARD_sofle_rev1)
+#    define SPLIT_LAYER_STATE_ENABLE
+#    define SPLIT_LED_STATE_ENABLE
+#    define SPLIT_WPM_ENABLE
+#    define SPLIT_WATCHDOG_ENABLE
 // Add RGB underglow and top facing lighting
-#    define RGB_DI_PIN D3
-#    define RGBLED_NUM 70
+// Add RGB underglow and top facing lighting
+#    define WS2812_DI_PIN D3
+#    define RGBLED_NUM 72
 #    define RGBLED_SPLIT \
         { 36, 36 }
 #    ifdef RGB_MATRIX_ENABLE
