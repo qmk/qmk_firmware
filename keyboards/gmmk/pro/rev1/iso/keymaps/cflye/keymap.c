@@ -36,7 +36,7 @@ LAYOUT_gmmk_pro_iso_wrapper(\
     KC_TAB,     K00,     K01,     K02,     K03,     K04,     XXX,     K05,     K06,     K07,     K08,     K09,     XXX,                  KC_PGUP,\
     KC_LSFT,    K10,     K11,     K12,     K13,     K14,     KC_AA,   K15,     K16,     K17,     K18,     K19,     KC_RSFT,     KC_ENT,  KC_PGDN,\
     KC_LCTL,    K20,     K21,     K22,     K23,     K24,     KC_AE,   KC_OE,   K25,     K26,     K27,     K28,     K29,         KC_UP,   KC_END,\
-    KC_LGUI,    K32,     LT(_NAV,KC_ESC),                KC_SPC,                       K36, K37, KC_LGUI,              KC_LEFT, KC_DOWN, KC_RGHT\
+    KC_LGUI,    K32,     LT(_NAV,KC_ESC),                KC_SPC,                       K36, K37, KC_RCTL,              KC_LEFT, KC_DOWN, KC_RGHT\
 )
 
 #define LAYOUT_gmmk_pro_iso_gaming(\
@@ -48,10 +48,10 @@ LAYOUT_gmmk_pro_iso_wrapper(\
 LAYOUT_gmmk_pro_iso_wrapper(\
     KC_ESC,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  TOG_WS,      KC_MPLY,\
     KC_GRV,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXX,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_BSPC,     KC_DEL,\
-    KC_TAB,     K00,     K01,     K02,     K03,     K04,     XXX,     K05,     K06,     K07,     K08,     K09,     XXX,                  KC_PGUP,\
-    KC_LSFT,    K10,     K11,     K12,     K13,     K14,     KC_AA,   K15,     K16,     K17,     K18,     K19,     KC_RSFT, KC_ENT,      KC_PGDN,\
-    KC_LCTL,    K20,     K21,     K22,     K23,     K24,     KC_AE,   KC_OE,   K25,     K26,     K27,     K28,     K29,         KC_UP,   KC_END,\
-    K32,        K33,     KC_LALT,                         KC_SPC,                       K36, K37, KC_LGUI,             KC_LEFT, KC_DOWN, KC_RGHT\
+    KC_TAB,     K00,     K01,     K02,     K03,     K04,     K05,     K06,     K07,     K08,     K09,     KC_AA,   XXX,                  KC_PGUP,\
+    KC_LCTL,    K10,     K11,     K12,     K13,     K14,     K15,     K16,     K17,     K18,     KC_AE,   KC_OE,   KC_NUHS,     KC_ENT,  KC_PGDN,\
+    KC_LSFT,    KC_NUBS, K20,     K21,     K22,     K23,     K24,     K25,     K26,     K27,     K28,     K29,     KC_LSFT,     KC_UP,   KC_END,\
+    KC_LGUI,    K32,     KC_LALT,                         KC_SPC,                       K36, K37, KC_RCTL,             KC_LEFT, KC_DOWN, KC_RGHT\
 )
 
 #define LAYOUT_base_wrapper(...) LAYOUT_gmmk_pro_iso_base(__VA_ARGS__)
@@ -101,9 +101,9 @@ https://docs.qmk.fm/#/one_shot_keys - to tap for symbols
     _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
 ),
 [_GAMING] = LAYOUT_gaming_wrapper(
-    _________________GAMING_L1__________________, _________________GAMING_R1__________________,
-    _________________GAMING_L2__________________, _________________GAMING_R2__________________,
-    _________________GAMING_L3__________________, _________________GAMING_R3__________________,
+    _________________QWERTY_L1__________________, _________________QWERTY_R1__________________,
+    _________________QWERTY_L2_NO_HOME__________, _________________QWERTY_R2_NO_HOME__________,
+    _________________QWERTY_L3__________________, _________________QWERTY_R3__________________,
     _________________THUMB_LEFT________________,  _________________THUMB_RIGHT_______________
 ),
 [_SYM] = LAYOUT_base_wrapper(
