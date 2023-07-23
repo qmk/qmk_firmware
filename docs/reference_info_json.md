@@ -150,7 +150,7 @@ Configures the [Bluetooth](feature_bluetooth.md) feature.
 
 * `bluetooth`
     * `driver`
-        * The driver to use. Must be one of `custom`, `BluefruitLE`, `RN42`.
+        * The driver to use. Must be one of `custom`, `bluefruit_le`, `rn42`.
 
 ## Bootmagic :id=bootmagic
 
@@ -322,7 +322,7 @@ Configures the [LED Matrix](feature_led_matrix.md) feature.
         * The centroid (geometric center) of the LEDs. Used for certain effects.
         * Default: `[112, 32]`
     * `driver` (Required)
-        * The driver to use. Must be one of `custom`, `CKLED2001`, `IS31FL3731`, `IS31FL3742A`, `IS31FL3743A`, `IS31FL3745`, `IS31FL3746A`.
+        * The driver to use. Must be one of `ckled2001`, `custom`, `is31fl3731`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`.
     * `layout` (Required)
         * List of LED configuration dictionaries. Each dictionary contains:
             * `flags` (Required)
@@ -357,7 +357,7 @@ Configures the [LED Matrix](feature_led_matrix.md) feature.
     * The debounce time in milliseconds.
     * Default: `5` (5 ms)
 * `diode_direction`
-    * Which way the diodes are "pointing". Unused for `matrix_pins.direct`; must be one of `COL2ROW`, `ROW2COL`.
+    * Which way the diodes are "pointing". Unused for `matrix_pins.direct`. Must be one of `COL2ROW`, `ROW2COL`.
 * `matrix_pins`
     * `cols`
         * A list of GPIO pins connected to the matrix columns.
@@ -466,6 +466,9 @@ Configures the [RGB Lighting](feature_rgblight.md) feature.
     * `brightness_steps`
         * The number of brightness adjustment steps.
         * Default: `17`
+    * `driver`
+        * The driver to use. Must be one of `apa102`, `custom`, `ws2812`.
+        * Default: `"ws2812"`
     * `hue_steps`
         * The number of hue adjustment steps.
         * Default: `8`
@@ -520,7 +523,7 @@ Configures the [RGB Matrix](feature_rgb_matrix.md) feature.
         * The centroid (geometric center) of the LEDs. Used for certain effects.
         * Default: `[112, 32]`
     * `driver` (Required)
-        * The driver to use. Must be one of `custom`, `AW20216`, `CKLED2001`, `IS31FL3731`, `IS31FL3733`, `IS31FL3736`, `IS31FL3737`, `IS31FL3741`, `IS31FL3742A`, `IS31FL3743A`, `IS31FL3745`, `IS31FL3746A`, `WS2812`.
+        * The driver to use. Must be one of `aw20216`, `ckled2001`, `custom`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `ws2812`.
     * `hue_steps`
         * The number of hue adjustment steps.
         * Default: `8`
