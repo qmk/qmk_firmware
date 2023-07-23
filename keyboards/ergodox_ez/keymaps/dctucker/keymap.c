@@ -113,11 +113,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool xtra_sent = true;
 bool ctl_xtra_sent = true;
 uint16_t lctl_timer, rctl_timer;
-bool caps = false;
-
-void keyboard_post_init_user(void) {
-	led_set_user(host_keyboard_leds());
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
@@ -130,7 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				unregister_code(KC_LCTL);
 				if( ! ctl_xtra_sent ){
 					if( timer_elapsed(lctl_timer) < 500 ){
-						if( host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK) ){
+						if( host_keyboard_led_state().caps_lock ){
 							add_key(KC_RSFT);
 							add_key(KC_ESC);
 							send_keyboard_report();
@@ -179,7 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				register_code(KC_SPC);
 			} else {
 				unregister_code(KC_SPC);
-				if( caps ){ // if( host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK) ){
+				if (host_keyboard_led_state().caps_lock) {
 					add_key(KC_CAPS);
 					send_keyboard_report();
 					del_key(KC_CAPS);
@@ -268,15 +263,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true;
 }
 
-void led_set_user(uint8_t usb_led)
+bool led_update_user(led_t led_state)
 {
-	if( usb_led & (1<<USB_LED_CAPS_LOCK) ){
-		caps = true;
+	if(led_state.caps_lock) {
 		ergodox_right_led_3_on();
 	} else {
-		caps = false;
 		ergodox_right_led_3_off();
 	}
+	return false;
 }
 
 
