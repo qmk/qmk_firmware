@@ -256,7 +256,7 @@ I added comment maps to better visualize the map. I intended to only
 show the definition once so its less comments to change when I change
 a mapping
 
-I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
+I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 */
 
 #   define         __________NONE_3_________                  ___x___, ___x___, ___x___
@@ -289,6 +289,12 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | MB1  | NUM  | Lsft |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
+*
+* //NOTE for , and .
+* //NOTE either do tap dance to get () [] {} etc (costs memory)
+* //NOTE or modify the tap and hold to do , ( and . )
+* //NOTE maybe swap out / and -
+* https://docs.qmk.fm/#/mod_tap?id=changing-both-tap-and-hold
 */
 #   define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #   define _________________QWERTY_L2_________________        TR_A,    TR_S,    TR_D,    TR_F,    KC_G
@@ -333,13 +339,15 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Undo | Cut  | Copy | Pste | Redo |    | ;    | 1    | 2    | 3    | \    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  | LTap | Ent  |    | Spc  | 0    |      |
+*                 |      | LTap |      |    | Spc  | 0    |      |
 *                 `------+------+------'    `------+------+------'
+*
+* //NOTE depending on what we do on the base layer 
 */
 #   define _________________NUMPAD_L1_________________        KC_ESC,  W_SNIP,  W_FILE,  KC_BSPC, KC_GRV
 #   define _________________NUMPAD_L2_________________        _____________GACS_MODS____________, KC_DOT
 #   define _________________NUMPAD_L3_________________        _________________UCCPR_L___________________
-#   define          ________NUMPAD_L4________                 TR_BTN1, _______, KC_ENT
+#   define          ________NUMPAD_L4________                 ___x___, _______, ___x___
 
 #   define _________________NUMPAD_R1_________________        TR_LBRC, KC_7,    KC_8,    KC_9,    TR_RBRC
 #   define _________________NUMPAD_R2_________________        KC_MINS, KC_4,    KC_5,    KC_6,    KC_EQL
@@ -358,13 +366,13 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 /*
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  | Home | Up   | End  | PgUp |    | Ins  |      |NxtTab|DMRec1|DMPly1|
+*   | Esc  | Home | Up   | End  | PgUp |    | Ins  |      |NxtTab|DMRec1|DMPly1|//TODO pending NextTab, remove insert
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Caps | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | Gui  |
+*   |      | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |      |      | App  |DMRec2|DMPly2|
+*   | Undo | Cut  | Copy | Pste | Redo |    |      |      | App  |DMRec2|DMPly2|//TODO maybe put VIM mouse on here so you can get rid of the mouse layer?
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Tab  | Bpsc | Ent  |    | Spc  | LTap |      |
+*                 | Tab  | Bpsc | Ent  |    |      | LT   |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ___________________NAV_L1__________________        KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
@@ -372,41 +380,41 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses
 #   define ___________________NAV_L3__________________        _________________UCCPR_L___________________
 #   define          __________NAV_L4_________                 KC_TAB,  KC_BSPC, KC_ENT
 
-#   define ___________________NAV_R1__________________        KC_INS,  ___x___, KC_APP,  ___x___, ___x___
+#   define ___________________NAV_R1__________________        KC_INS,  ___x___, KC_APP,  TR_DMR1, TR_DMP1
 #   define ___________________NAV_R2__________________        KC_DEL,  _____________SCAG_MODS____________
-#   define ___________________NAV_R3__________________        ___x___, ___x___, ___x___, ___x___, TR_MOUS 
+#   define ___________________NAV_R3__________________        ___x___, ___x___, ___x___, TR_DMR2, TR_DMP2 
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          __________NAV_R4_________                 KC_SPC,  _______
+#   define          __________NAV_R4_________                 ___x___, _______
 #else
-#   define          __________NAV_R4_________                 KC_SPC,  _______, ___x___
+#   define          __________NAV_R4_________                 ___x___, _______, ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |ScrLck|  F7  |  F8  |  F9  | F10  |    |QWERTY|ClmkDH|Gaming|RGBTog|RGBMod|
+*   |ScrLck|  F7  |  F8  |  F9  | F10  |    |QWERTY|ClmkDH|Gaming| Rbt  | Boot |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |PrnScr|  F4  |  F5  |  F6  | F11  |    |      | Shft | Ctrl | Alt  | Gui  |
+*   |PrnScr|  F4  |  F5  |  F6  | F11  |    | Caps | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |PauBrk|  F1  |  F2  |  F3  | F12  |    | Hue+ | Sat+ | Vib+ | Spd+ | LTap |
+*   |PauBrk|  F1  |  F2  |  F3  | F12  |    | Hue+ | Sat+ | Vib+ | Spd+ | LT   |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Mute | Vol- | Vol+ |    | Rbt  | Boot |      |
+*                 | Mute | Vol- | Vol+ |    |RGBTog|RGBMod|      |
 *                 `------+------+------'    `------+------+------'
 */
-#   define _________________FUNCPAD_L1________________        __________________NONE_5___________________
-#   define _________________FUNCPAD_L2________________        _____________GACS_MODS____________, KC_PSCR
-#   define _________________FUNCPAD_L3________________        _______, ___x___, KC_VOLD, KC_VOLU, KC_MUTE
-#   define          ________FUNCPAD_L4_______                 TR_BTN1, TR_DMR1, TR_DMP1
+#   define _________________FUNCPAD_L1________________        KC_SCRL, KC_F7,   KC_F8,   KC_F9,   KC_F10
+#   define _________________FUNCPAD_L2________________        KC_PSCR, KC_F4,   KC_F5,   KC_F6,   KC_F11
+#   define _________________FUNCPAD_L3________________        KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F12
+#   define          ________FUNCPAD_L4_______                 KC_MUTE, KC_VOLD, KC_VOLU
 
-#   define _________________FUNCPAD_R1________________        KC_SCRL, KC_F7,   KC_F8,   KC_F9,   KC_F10
-#   define _________________FUNCPAD_R2________________        KC_CAPS, KC_F4,   KC_F5,   KC_F6,   KC_F11
-#   define _________________FUNCPAD_R3________________        KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F12
+#   define _________________CONFIG_R1_________________        QWERTY,  CLMAKDH, TR_GAME, QK_RBT,  QK_BOOT
+#   define _________________CONFIG_R2_________________        KC_CAPS, _____________SCAG_MODS____________
+#   define _________________CONFIG_R3_________________        TR_RHUI, TR_RSAI, TR_RVAI, TR_RSPI, _______
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          ________FUNCPAD_R4_______                 TR_DMP2, TR_DMR2
+#   define          ________CONFIG_R4________                 TR_RTOG, TR_RMOD
 #else
-#   define          ________FUNCPAD_R4_______                 TR_DMP2, TR_DMR2, ___x___
+#   define          ________CONFIG_R4________                 QK_RBT,  QK_BOOT, ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #   define _________________FUNCROW_L_________________        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
