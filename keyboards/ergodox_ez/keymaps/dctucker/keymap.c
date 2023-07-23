@@ -25,7 +25,6 @@
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
-  RGB_SLD,
   XTRA,
   ARROW,
   EARROW,
@@ -74,24 +73,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_F15 , KC_HASH, KC_DLR , KC_LPRN, KC_RPRN, KC_GRV ,                    KC_DOWN, KC_P4  , KC_P5  , KC_P6  , KC_PPLS, KC_F13 ,
 		_______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______,  _______, KC_PMNS, KC_P1  , KC_P2  , KC_P3  , KC_PSLS, _______,
 		_______, _______, _______, _______, _______,                                      KC_P0  , KC_PDOT, KC_PDOT, KC_PENT, _______,
-		                                            RGB_MOD,  _______,  RGB_TOG,  RGB_SLD,
-		                                                      _______,  _______,
-		                                   RGB_VAD, RGB_VAI,  _______,  _______,  RGB_HUD,  RGB_HUI
+		                                            RGB_RMOD, RGB_MOD,  _______, _______,
+		                                                      RGB_VAI,  RGB_HUI,
+		                                    RGB_M_P, RGB_TOG, RGB_VAD,  RGB_HUD, KC_PENT, _______
 	),
 	[2] = LAYOUT_ergodox_pretty(
 		KC_F14 , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,  _______, KC_VOLD, KC_VOLU, _______, _______, _______, KC_DEL ,
 		KC_F15 , _______, _______, KC_MS_U, _______, _______, _______,  KC_MUTE, _______, _______, _______, _______, _______, _______,
 		KC_CAPS, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,                    _______, _______, _______, _______, KC_MPLY,
 		_______, ZOOMKEY, _______, _______, LCTLINS, LSFTINS, _______,  _______, _______, _______, _______, _______, _______, _______,
-		QK_RBT , KC_SLEP, _______, KC_BTN1, KC_BTN2,                                      _______, _______, _______, _______, _______,
+		QK_BOOT, KC_SLEP, _______, KC_BTN1, KC_BTN2,                                      _______, _______, _______, _______, _______,
 		                                             _______, _______,  KC_MPRV, KC_MNXT,
 		                                                      _______,  _______,
 		                                    _______, _______, _______,  _______, _______, KC_MPLY
 	),
 	[3] = LAYOUT_ergodox_pretty(
-		_______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , _______,  KC_PIPE, KC_CIRC, KC_AMPR, KC_PAST, KC_LPRN, KC_RPRN, _______,
-		_______, _______, _______, _______, _______, _______, _______,  KC_PIPE, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC, KC_BSLS,
-		KC_ESC , _______, _______, _______, _______, _______,                    KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_COLN, _______,
+		_______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,  KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 ,
+		_______, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC, _______,  KC_PIPE, _______, _______, _______, _______, _______, KC_F12 ,
+		KC_ESC , _______, _______, _______, _______, _______,                    KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_COLN, MONEYQ ,
 		_______, _______, _______, _______, _______, _______, _______,  _______, _______, BACKN  , EARROW , ARROW  , COMMENT, _______,
 		_______, _______, _______, _______, _______,                                      _______, _______, _______, KC_LPRN, KC_RPRN,
 		                                             _______, _______,  _______, _______,
@@ -122,13 +121,6 @@ void keyboard_post_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
-		// dynamically generate these.
-		case RGB_SLD:
-			if (record->event.pressed) {
-				rgblight_mode(1);
-			}
-			return false;
-			break;
 		case CTLESC:
 			if( record->event.pressed ){
 				ctl_xtra_sent = false;
