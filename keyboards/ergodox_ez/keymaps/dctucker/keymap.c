@@ -20,8 +20,6 @@
 #include "keymap_german.h"
 #include "keymap_nordic.h"
 
-#define ________ KC_TRANSPARENT
-
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
