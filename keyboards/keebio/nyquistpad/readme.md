@@ -1,7 +1,7 @@
 Nyquistpad
 ==========
 
-A 4x6 macropad keyboard based off of a prototype Nyquist PCB.
+A 5x6 macropad keyboard based off of a prototype Nyquist PCB.
 
 Keyboard Maintainer: Keebio  
 Hardware Supported: Nyquistpad PCB  
