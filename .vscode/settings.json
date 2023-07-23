@@ -11,6 +11,7 @@
     },
     "files.associations": {
         "*.h": "c",
+        "*.ino": "cpp",
         "*.c": "c",
         "*.inc": "c",
         "*.cpp": "cpp",
@@ -18,7 +19,16 @@
         "xstddef": "c",
         "type_traits": "c",
         "utility": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "ios": "c",
+        "regex": "c",
+        "random": "c",
+        "variant": "c",
+        "chrono": "c",
+        "limits": "c",
+        "algorithm": "c",
+        "locale": "c",
+        "string": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
