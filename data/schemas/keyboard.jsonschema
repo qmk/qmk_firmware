@@ -389,8 +389,9 @@
                 "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "reactive": {
                     "type": "object",
-                    "additionalProperties": {
-                        "type": "boolean"
+                    "properties": {
+                        "keypresses": {"type": "boolean"},
+                        "keyreleases": {"type": "boolean"}
                     }
                 },
                 "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
@@ -448,8 +449,9 @@
                 "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "reactive": {
                     "type": "object",
-                    "additionalProperties": {
-                        "type": "boolean"
+                    "properties": {
+                        "keypresses": {"type": "boolean"},
+                        "keyreleases": {"type": "boolean"}
                     }
                 },
                 "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
