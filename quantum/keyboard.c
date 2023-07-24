@@ -467,6 +467,22 @@ void keyboard_init(void) {
     debug_enable = true;
 #endif
 
+#if defined(DEBUG_ENABLE)
+    debug_enable = true;
+#endif
+
+#if defined(DEBUG_KEYBOARD_ENABLE)
+    debug_config.keyboard = true;
+#endif
+
+#if defined(DEBUG_MATRIX_ENABLE)
+    debug_config.matrix = true;
+#endif
+
+#if defined(DEBUG_MOUSE_ENABLE)
+    debug_config.mouse = true;
+#endif
+
     keyboard_post_init_kb(); /* Always keep this last */
 }
 

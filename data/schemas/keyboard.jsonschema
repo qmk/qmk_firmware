@@ -701,6 +701,13 @@
         "qmk": {
             "type": "object",
             "additionalProperties": false,
+            "debug": {
+                "enable": {"type": "boolean"},
+                "keyboard": {"type": "boolean"},
+                "matrix": {"type": "boolean"},
+                "matrix_scan_rate": {"type": "boolean"},
+                "mouse": {"type": "boolean"},
+            },
             "properties": {
                 "keys_per_scan": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "tap_keycode_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},

@@ -45,6 +45,13 @@
     // Combos
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
 
+    // Debug
+    "DEBUG_ENABLE": {"info_key": "qmk.debug.enable", "value_type": "bool"},
+    "DEBUG_KEYBOARD_ENABLE": {"info_key": "qmk.debug.keyboard", "value_type": "bool"},
+    "DEBUG_MATRIX_ENABLE": {"info_key": "qmk.debug.matrix", "value_type": "bool"},
+    "DEBUG_MATRIX_SCAN_RATE": {"info_key": "qmk.debug.matrix_scan_rate", "value_type": "bool"},
+    "DEBUG_MOUSE_ENABLE": {"info_key": "qmk.debug.mouse", "value_type": "bool"},
+
     // Dynamic Keymap
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
