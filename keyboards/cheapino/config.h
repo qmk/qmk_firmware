@@ -29,7 +29,8 @@
 // Pick good defaults for enabling homerow modifiers
 #define TAPPING_TERM 230
 
- #define RGB_DI_PIN GP16                               // The pin connected to the data pin of the LEDs
+
+#define WS2812_DI_PIN GP16 // The pin connected to the data pin of the LEDs
  #define RGBLED_NUM 1                     // The number of LEDs connected
 
 
