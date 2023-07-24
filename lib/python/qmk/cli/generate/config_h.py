@@ -164,14 +164,16 @@ def generate_led_animations_config(led_feature_json, config_h_lines, prefix):
         if led_feature_json['animations'][animation]:
             config_h_lines.append(generate_define(f'{prefix}{animation.upper()}'))
 
+
 def generate_led_extra_config(led_feature_json, config_h_lines, prefix):
     if led_feature_json['disable_on_suspend']:
-            config_h_lines.append(generate_define(f'{prefix}{"DISABLE_WHEN_USB_SUSPENDED"}'))
+        config_h_lines.append(generate_define(f'{prefix}{"DISABLE_WHEN_USB_SUSPENDED"}'))
     if led_feature_json['framebuffer']:
-            config_h_lines.append(generate_define(f'{prefix}{"FRAMEBUFFER_EFFECTS"}'))
+        config_h_lines.append(generate_define(f'{prefix}{"FRAMEBUFFER_EFFECTS"}'))
     for reactive in led_feature_json.get('reactive', {}):
         if led_feature_json['reactive'][reactive]:
             config_h_lines.append(generate_define(f'{prefix}{"MATRIX_"}{reactive.upper()}'))
+
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
