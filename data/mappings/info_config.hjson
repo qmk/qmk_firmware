@@ -63,8 +63,12 @@
     "LEADER_TIMEOUT": {"info_key": "leader_key.timeout", "value_type": "int"},
 
     // LED Matrix
+    "LED_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "led_matrix.disable_on_suspend", "value_type": "bool"},
     "LED_MATRIX_CENTER": {"info_key": "led_matrix.center_point", "value_type": "array.int"},
+    "LED_MATRIX_FRAMEBUFFER_EFFECTS": {"info_key": "led_matrix.framebuffer", "value_type": "bool"},
     "LED_MATRIX_HUE_STEP": {"info_key": "led_matrix.hue_steps", "value_type": "int"},
+    "LED_MATRIX_KEYPRESSES": {"info_key": "led_matrix.reactive.keypresses", "value_type": "bool"},
+    "LED_MATRIX_KEYRELEASES": {"info_key": "led_matrix.reactive.keyreleases", "value_type": "bool"},
     "LED_MATRIX_MAXIMUM_BRIGHTNESS": {"info_key": "led_matrix.max_brightness", "value_type": "int"},
     "LED_MATRIX_SAT_STEP": {"info_key": "led_matrix.sat_steps", "value_type": "int"},
     "LED_MATRIX_SPD_STEP": {"info_key": "led_matrix.speed_steps", "value_type": "int"},
@@ -101,8 +105,12 @@
     "PS2_DATA_PIN": {"info_key": "ps2.data_pin"},
 
     // RGB Matrix
+    "RGB_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "rgb_matrix.disable_on_suspend", "value_type": "bool"},
     "RGB_MATRIX_CENTER": {"info_key": "rgb_matrix.center_point", "value_type": "array.int"},
+    "RGB_MATRIX_FRAMEBUFFER_EFFECTS": {"info_key": "rgb_matrix.framebuffer", "value_type": "bool"},
     "RGB_MATRIX_HUE_STEP": {"info_key": "rgb_matrix.hue_steps", "value_type": "int"},
+    "RGB_MATRIX_KEYPRESSES": {"info_key": "rgb_matrix.reactive.keypresses", "value_type": "bool"},
+    "RGB_MATRIX_KEYRELEASES": {"info_key": "rgb_matrix.reactive.keyreleases", "value_type": "bool"},
     "RGB_MATRIX_MAXIMUM_BRIGHTNESS": {"info_key": "rgb_matrix.max_brightness", "value_type": "int"},
     "RGB_MATRIX_SAT_STEP": {"info_key": "rgb_matrix.sat_steps", "value_type": "int"},
     "RGB_MATRIX_SPD_STEP": {"info_key": "rgb_matrix.speed_steps", "value_type": "int"},
