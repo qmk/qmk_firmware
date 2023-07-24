@@ -14,8 +14,16 @@
             {"pin_a": "F7", "pin_b": "F6"}
         ]
     },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
+    "development_board": "promicro",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "encoder": true
+    },
+    "bootmagic": {
+        "matrix": [0, 3]
+    },
     "matrix_pins": {
         "direct": [
             ["D7", "C6", "D4", "D1"],

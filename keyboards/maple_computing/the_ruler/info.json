@@ -8,11 +8,26 @@
     "pid": "0x6007",
     "device_version": "0.0.1"
   },
+  "ws2812": {
+    "pin": "E6"
+  },
+  "matrix_pins": {
+    "cols": ["D6", "D7", "B4", "B5", "B6", "C6"],
+    "rows": ["C7"]
+  },
+  "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
   "layouts": {
       "LAYOUT": {
-          "layout": [{"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0}, {"x":4, "y":0}, {"x":5, "y":0, "w":2}]
+          "layout": [
+              {"matrix": [0, 0], "x": 0, "y": 0},
+              {"matrix": [0, 1], "x": 1, "y": 0},
+              {"matrix": [0, 2], "x": 2, "y": 0},
+              {"matrix": [0, 3], "x": 3, "y": 0},
+              {"matrix": [0, 4], "x": 4, "y": 0},
+              {"matrix": [0, 5], "x": 5, "y": 0, "w": 2}
+          ]
       }
   }
 }

@@ -169,7 +169,8 @@ void encoder_action_unregister(void) {
             keyevent_t encoder_event = (keyevent_t) {
                 .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
                 .pressed = false,
-                .time = (timer_read() | 1)
+                .time = timer_read(),
+                .type = KEY_EVENT
             };
             encoder_state[index] = 0;
             action_exec(encoder_event);
@@ -181,7 +182,8 @@ void encoder_action_register(uint8_t index, bool clockwise) {
     keyevent_t encoder_event = (keyevent_t) {
         .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
         .pressed = true,
-        .time = (timer_read() | 1)
+        .time = timer_read(),
+        .type = KEY_EVENT
     };
     encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
     action_exec(encoder_event);

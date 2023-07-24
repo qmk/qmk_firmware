@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define MATRIX_COL_PINS { B11, B10, B1, B0, A7, A6, A5, B14, A15, A0, C15, C14}
-#define MATRIX_ROW_PINS { B12, C13, A2, A1 }
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER PWMD1
 #define BACKLIGHT_PWM_CHANNEL 1
 
@@ -39,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGB_DI_PIN B15
 #define RGBLED_NUM 9
 #define WS2812_SPI SPID2
 

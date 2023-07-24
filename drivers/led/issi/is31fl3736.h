@@ -19,6 +19,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 #include "progmem.h"
 
 // Simple interface option.
@@ -58,8 +59,8 @@ void IS31FL3736_mono_set_led_control_register(uint8_t index, bool enabled);
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3736_update_pwm_buffers(uint8_t addr1, uint8_t addr2);
-void IS31FL3736_update_led_control_registers(uint8_t addr1, uint8_t addr2);
+void IS31FL3736_update_pwm_buffers(uint8_t addr, uint8_t index);
+void IS31FL3736_update_led_control_registers(uint8_t addr, uint8_t index);
 
 #define PUR_0R 0x00   // No PUR resistor
 #define PUR_05KR 0x01 // 0.5k Ohm resistor
