@@ -65,6 +65,19 @@ enum sol_keycodes {
 #define LBRC 		MT(MOD_LALT, KC_LBRC)
 #define RBRC 		MT(MOD_LGUI, KC_RBRC)
 
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+	switch (keycode) {
+		// Immediately select the hold action when another key is pressed.
+		case CMD_T(KC_BSPC):
+			return true;
+		case CMD_T(KC_BSPC):
+			return true;
+		default:
+			// Do not select the hold action when another key is pressed.
+			return false;
+    }
+}
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -88,15 +101,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_MAC] = LAYOUT(
 	LT(_MEH,KC_GRV),	KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	KC_ESC,			KC_NO,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_MINUS,
 	KC_TAB,			KC_Q,	KC_W,	KC_E,	KC_R,	KC_T,	TO(_MAC),			KC_NO,	KC_Y,	KC_U,	KC_I,	KC_O,	KC_P,	KC_BSLS,
-	MEHESC,			KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	TO(_WIN),			KC_F21,	KC_H,	KC_J,	KC_K,	KC_L,	KC_SCLN,	KC_QUOT,
-	KC_LSFT,			KC_Z,	KC_X,	KC_C,	KC_V,	KC_B,	TO(_GAME),		KC_F22,	KC_N,	KC_M,	KC_COMM,	KC_DOT,	KC_SLSH,	KC_RSFT,
-	KC_LCTL,			LBRC,	RBRC,	MO(_SYM),				MO(_NAV),
+	MEHESC,			KC_A,	KC_S,	KC_D,	KC_F,	KC_G,	TO(_WIN),			KC_VOLU,	KC_H,	KC_J,	KC_K,	KC_L,	KC_SCLN,	KC_QUOT,
+	KC_LSFT,			KC_Z,	KC_X,	KC_C,	KC_V,	KC_B,	TO(_GAME),		KC_VOLD,	KC_N,	KC_M,	KC_COMM,	KC_DOT,	KC_SLSH,	KC_RSFT,
+	KC_LCTL,			LBRC,	RBRC,	MO(_SYM),		MO(_NAV),
+	CMD_T(KC_BSPC),	MT(MOD_LCTL, KC_DEL),	MT(MOD_LALT, KC_ENT),
+																			KC_ENT,	KC_MPLY,	KC_SPC,
+																			LT(_SYM, KC_MINUS),	LT(_NAV, KC_EQL),	KC_RGUI,	KC_RALT,	KC_RCTL,
 
-	CMD_T(KC_BSPC),	MT(MOD_LALT, KC_DEL),	MT(MOD_LCTL, KC_ENT),
-																				KC_ENT,	KC_MPLY,	KC_SPC,
-																				LT(_SYM, KC_MINUS),	LT(_NAV, KC_EQL),	KC_RGUI,	KC_RALT,	KC_RCTL,
-
-	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,								KC_VOLU,	KC_VOLD,	KC_NO,	KC_NO,		KC_NO,		KC_NO,
+	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,	KC_VOLD,	KC_VOLU,									KC_VOLU,	KC_VOLD,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 	KC_WH_D,	KC_WH_U,	KC_LBRC,	KC_LPRN,	KC_LCBR,													KC_H,	KC_J,	KC_MNXT,	KC_MPLY,	KC_MPRV
 	),
 
