@@ -12,6 +12,9 @@
         "mousekey": true,
         "nkro": false
     },
+    "community_layouts": [
+        "split_3x5_3"
+    ],
     "matrix_pins": {
         "cols": ["GP0", "GP0", "GP1", "GP1", "GP2", "GP2", "GP29", "GP29", "GP28", "GP28", "GP27", "GP27"],
         "rows": ["GP6", "GP5", "GP4", "GP3"]
