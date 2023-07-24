@@ -2,7 +2,7 @@
 
 ![Cover65](https://i.imgur.com/m1EFfOU.png)
 
-Support STM32F103 keyboard.
+Support STM32F103 keyboard..
 
 * Keyboard Maintainer: [TW59420](https://github.com/TW59420)
 * Hardware Supported: STM32F103
