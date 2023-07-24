@@ -577,8 +577,20 @@
                     }
                 },
                 "matrix_grid": {
-                    "type": "array",
-                    "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                        "low_right: {"type": "boolean"}
+                    }
+                },
+                "split_pin": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "low_left: {"type": "boolean"}
+                    }
                 },
                 "matrix_pins": {
                     "type": "object",
@@ -608,6 +620,7 @@
                         }
                     }
                 },
+                "haptic": {"type": "boolean"},
                 "main": {
                     "type": "string",
                     "enum": ["eeprom", "left", "matrix_grid", "pin", "right"]

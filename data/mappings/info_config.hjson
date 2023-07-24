@@ -133,6 +133,11 @@
     // Split Keyboard
     "SOFT_SERIAL_PIN": {"info_key": "split.soft_serial_pin"},
     "SOFT_SERIAL_SPEED": {"info_key": "split.soft_serial_speed"},
+    "SPLIT_HAND_MATRIX_GRID": {"info_key": "split.matrix_grid.pins"},
+    "SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT": {"info_key": "split.matrix_grid.low_right", "value_type": "bool"},
+    "SPLIT_HAND_PIN": {"info_key": "split.split_pin.pin"},
+    "SPLIT_HAND_PIN_LOW_IS_LEFT": {"info_key": "split.split_pin.low_left", "value_type": "bool"},
+    "SPLIT_HAPTIC_ENABLE": {"info_key": "split.haptic", "value_type": "bool"},
     "SPLIT_MODS_ENABLE": {"info_key": "split.transport.sync_modifiers", "value_type": "bool"},
     "SPLIT_TRANSPORT_MIRROR": {"info_key": "split.transport.sync_matrix_state", "value_type": "bool"},
     "SPLIT_USB_DETECT": {"info_key": "split.usb_detect.enabled", "value_type": "bool"},
