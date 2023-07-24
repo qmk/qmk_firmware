@@ -51,22 +51,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB        ,KC_Y   ,KC_R   ,KC_O    ,KC_U   ,KC_COMM, C(KC_X)  , C(KC_Z) ,KC_DOT ,KC_BSPC,KC_L   ,KC_F   ,KC_P    ,KC_QUOT , 
     CTL_T(KC_ESC) ,KC_D   ,KC_S   ,KC_A    ,KC_I   ,KC_G   , C(KC_C)  , C(KC_S) ,KC_J   ,KC_E   ,KC_H   ,KC_T   ,KC_K    ,KC_SCLN , 
     KC_LSFT       ,KC_V   ,KC_Z   ,KC_X    ,KC_M   ,KC_C   , C(KC_V)  , C(KC_Y) ,KC_N   ,KC_W   ,KC_B   ,KC_Q   ,KC_SLSH ,KC_RSFT   , 
-    KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
+    KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,TL_LOWR ,LSFT_T(KC_SPC)    ,LSFT_T(KC_ENT)   ,TL_UPPR,KC_LEFT,KC_DOWN,KC_UP   ,KC_RGHT
     ),
 
   [_MAC] = LAYOUT(
     KC_TAB        ,KC_K   ,KC_D   ,KC_N    ,KC_F   ,KC_Q   , G(KC_X)  , G(KC_Z) ,KC_J   ,KC_BSPC,KC_R   ,KC_U   ,KC_P    ,KC_QUOT , \
     CMD_T(KC_ESC) ,KC_W   ,KC_I   ,KC_S    ,KC_A   ,KC_G   , G(KC_C)  , G(KC_S) ,KC_Y   ,KC_E   ,KC_T   ,KC_H   ,KC_B    ,KC_SCLN , \
     KC_LSFT       ,KC_Z   ,KC_X   ,KC_V    ,KC_C   ,KC_L   , PASTE    , G(KC_Y) ,KC_M   ,KC_O   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_RSFT , \
-    KC_LCTL       ,KC_LALT,KC_LCTL,KC_LCMD,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_DOWN,KC_UP,KC_RGHT
+    KC_LCTL       ,KC_LALT,KC_LCTL,KC_LCMD,TL_LOWR ,LSFT_T(KC_SPC)    ,LSFT_T(KC_ENT)   ,TL_UPPR,KC_LEFT,KC_DOWN,KC_UP   ,KC_RGHT
     ),
-
-  // [_QWERTY] = LAYOUT(
-  //   KC_TAB        ,KC_Q   ,KC_W   ,KC_E    ,KC_R   ,KC_T   ,G(KC_X)   ,G(KC_Z)  ,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P    ,KC_QUOT , 
-  //   CTL_T(KC_ESC) ,KC_A   ,KC_S   ,KC_D    ,KC_F   ,KC_G   ,G(KC_C)   ,G(KC_S)  ,KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN ,KC_SCLN , 
-  //   KC_LSFT       ,KC_Z   ,KC_X   ,KC_C    ,KC_V   ,KC_B   ,G(KC_V)   ,G(KC_Y)  ,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH ,KC_RSFT   , 
-  //   KC_LCTL       ,KC_LALT,KC_LWIN,KC_LCTL,MO(_LOWER),LSFT_T(KC_SPC)  ,LSFT_T(KC_ENT)   ,MO(_RAISE),KC_LEFT,KC_UP,KC_DOWN ,KC_RGHT
-  //   ),
 
   [_LOWER] = LAYOUT(
     _______ ,XXXXXXX ,XXXXXXX ,KC_COLN ,KC_SCLN ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_SLSH ,KC_7   ,KC_8   ,KC_9   ,KC_MINS ,KC_DEL , \
@@ -141,11 +134,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
 void keyboard_post_init_user(void) {
+  set_tri_layer_layers(_LOWER, _RAISE, _ADJUST);
+
   // 薙刀式
   uint16_t ngonkeys[] = {KC_Y, KC_E};
   uint16_t ngoffkeys[] = {KC_A, KC_G};
