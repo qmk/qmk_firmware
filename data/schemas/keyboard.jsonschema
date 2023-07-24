@@ -580,7 +580,12 @@
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
-                        "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                        "pins": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                        },
                         "low_right: {"type": "boolean"}
                     }
                 },
