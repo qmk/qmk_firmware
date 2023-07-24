@@ -18,11 +18,11 @@
         "rows": ["GP11", "GP12", "GP13", "GP1", "GP16"]
     },
     "indicators": {
-        "caps_lock": "GP3",
+        "caps_lock": "GP14",
         "on_state": 0
     },
     "ws2812": {
-        "pin": "GP14",
+        "pin": "GP3",
         "driver": "vendor"
     },
     "rgblight": {
