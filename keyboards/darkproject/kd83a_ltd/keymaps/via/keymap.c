@@ -84,7 +84,6 @@ void led_init_ports(void) {
   setPinOutput(C15);
   writePinLow(C15);
   writePinLow(C0);
-  //palSetGroupMode(PAL_PORT(C0), PAL_PORT_BIT(PAL_PAD(C0)) | PAL_PORT_BIT(PAL_PAD(C14)) | PAL_PORT_BIT(PAL_PAD(C15)), 0U, PAL_MODE_OUTPUT_PUSHPULL);
 };
 
 
