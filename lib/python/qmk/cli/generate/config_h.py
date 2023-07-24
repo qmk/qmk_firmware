@@ -130,22 +130,22 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
 
 def generate_split_config(kb_info_json, config_h_lines):
     """Generate the config.h lines for split boards."""
-    if 'primary' in kb_info_json['split']:
-        if kb_info_json['split']['primary'] in ('left', 'right'):
+    if 'main' in kb_info_json['split']:
+        if kb_info_json['split']['main'] in ('left', 'right'):
             config_h_lines.append('')
             config_h_lines.append('#ifndef MASTER_LEFT')
             config_h_lines.append('#    ifndef MASTER_RIGHT')
-            if kb_info_json['split']['primary'] == 'left':
+            if kb_info_json['split']['main'] == 'left':
                 config_h_lines.append('#        define MASTER_LEFT')
-            elif kb_info_json['split']['primary'] == 'right':
+            elif kb_info_json['split']['main'] == 'right':
                 config_h_lines.append('#        define MASTER_RIGHT')
             config_h_lines.append('#    endif // MASTER_RIGHT')
             config_h_lines.append('#endif // MASTER_LEFT')
-        elif kb_info_json['split']['primary'] == 'pin':
+        elif kb_info_json['split']['main'] == 'pin':
             config_h_lines.append(generate_define('SPLIT_HAND_PIN'))
-        elif kb_info_json['split']['primary'] == 'matrix_grid':
+        elif kb_info_json['split']['main'] == 'matrix_grid':
             config_h_lines.append(generate_define('SPLIT_HAND_MATRIX_GRID', f'{{ {",".join(kb_info_json["split"]["matrix_grid"])} }}'))
-        elif kb_info_json['split']['primary'] == 'eeprom':
+        elif kb_info_json['split']['main'] == 'eeprom':
             config_h_lines.append(generate_define('EE_HANDS'))
 
     if 'protocol' in kb_info_json['split'].get('transport', {}):
