@@ -26,9 +26,8 @@
 #define OLED_RENDER_LAYER_BASE        " Def "
 #define OLED_RENDER_LAYER_NUMBER      " Num "
 #define OLED_RENDER_LAYER_NAVIGATION  " Nav "
-#define OLED_RENDER_LAYER_FUNCTION    " Fun "
 #define OLED_RENDER_LAYER_MOUSE       " Mou "
-#define OLED_RENDER_LAYER_ADJUST      " Adj "
+#define OLED_RENDER_LAYER_CONFIG      " Con "
 
 #define KEYLOG_LEN 5
 

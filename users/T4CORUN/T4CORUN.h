@@ -7,6 +7,8 @@
 
 //#include "wrappers.h"
 
+//bool process_tap_or_long_press_key(keyrecord_t* record, uint16_t long_press_keycode);
+
 enum layers {
   _QWERTY = 0,
   FIRST_DEFAULT_LAYER = 0,  
@@ -14,10 +16,9 @@ enum layers {
   _GAMING,
   _NUMBER,
   _NAVIGATION,
-  _FUNCTION,
   _MOUSE,
   _GAMENUMBER,
-  _ADJUST
+  _CONFIG
 };
 
 enum keycodes {
@@ -38,12 +39,10 @@ enum keycodes {
 #define NAVGTIN    MO(_NAVIGATION)
 #define NUMBERS    MO(_NUMBER)
 #define GAMENUM    MO(_GAMENUMBER)
-#define ADJUST     MO(_ADJUST)
-
+#define CONFIG     MO(_CONFIG)
 
 //pinky layer taps
-#define AD_SLSH    LT(_ADJUST, KC_SLSH)
-#define FUNC_Z     LT(_FUNCTION, KC_Z)
+#define DASHCON    LT(_CONFIG, KC_MINS)
 
 //Windows Shortcuts
 #define SC_COPY    LCTL(KC_C)
@@ -53,7 +52,6 @@ enum keycodes {
 #define SC_REDO    LCTL(KC_Y)
 #define W_SNIP     LSG(KC_S)
 #define W_FILE     LGUI(KC_E)
-
 
 /*
 We will move all as many preprocessor directives here so the wrapper is easier to follow
@@ -76,7 +74,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #endif //ONESHOT_ENABLE
 
 
-
 #if defined(MOUSELAYER_ENABLE)
 #   define TR_MOUC LT(_MOUSE, KC_C)
 #   define TR_BTN1 KC_BTN1
@@ -86,7 +83,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_BTN1 ___x___
 #   define TR_MOUS ___x___
 #endif //MOUSELAYER_ENABLE
-
 
 
 #if defined(MOUSEKEY_ENABLE)
@@ -104,7 +100,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_MWHU ___x___
 #   define TR_MWHD ___x___
 #endif //MOUSEKEY_ENABLE
-
 
 
 //these keycodes come from the cnano
@@ -125,7 +120,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #endif //POINTING_DEVICE_ENABLE
 
 
-
 #if defined(GAMELAYER_ENABLE) 
 #   define TR_GAME GAMING
 #else
@@ -133,49 +127,59 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #endif //GAMELAYER_ENABLE
 
 
+#if defined(TAPHOLD_ENABLE)
+#   define TR_COMM  LT(_DEFAULT_LAYER_1, KC_COMM)
+#   define TR_DOT   LT(_DEFAULT_LAYER_1, KC_DOT)
+#else
+#   define TR_COMM  KC_COMM
+#   define TR_DOT   KC_DOT
+#endif //TAPHOLD_ENABLE
 
 #if defined(HOMEROWMOD_ENABLE)
-//Home Row Mods QWERTY
-#   define TR_A  LGUI_T(KC_A)
-#   define TR_S  LALT_T(KC_S)
-#   define TR_D  LCTL_T(KC_D)
-#   define TR_F  LSFT_T(KC_F)
-
-#   define TR_J  LSFT_T(KC_J)
-#   define TR_K  LCTL_T(KC_K)
-#   define TR_L  LALT_T(KC_L)
-#   define TR_QT LGUI_T(KC_QUOT)
-//Home Row Mods COLEMAKDH
-#   define TR_R  LALT_T(KC_R)
-#   define TR_S  LCTL_T(KC_S)
-#   define TR_T  LSFT_T(KC_T)
-
-#   define TR_N  LSFT_T(KC_N)
-#   define TR_E  LCTL_T(KC_E)
-#   define TR_I  LALT_T(KC_I)
-#   define TR_O  LGUI_T(KC_O)
+//QWERTY Home Row Mods
+#   define TR_A     LGUI_T(KC_A)
+#   define TR_SA    LALT_T(KC_S)
+#   define TR_D     LCTL_T(KC_D)
+#   define TR_F     LSFT_T(KC_F)
+#   define TR_J     LSFT_T(KC_J)
+#   define TR_K     LCTL_T(KC_K)
+#   define TR_L     LALT_T(KC_L)
+//COLEMAKDH Home Row Mods 
+#   define TR_R     LALT_T(KC_R)
+#   define TR_SC    LCTL_T(KC_S)
+#   define TR_T     LSFT_T(KC_T)
+#   define TR_N     LSFT_T(KC_N)
+#   define TR_E     LCTL_T(KC_E)
+#   define TR_I     LALT_T(KC_I)
+#   define TR_O     LGUI_T(KC_O)
 #else
-//Home Row Mods QWERTY
-#   define TR_A  KC_A
-#   define TR_S  KC_S
-#   define TR_D  KC_D
-#   define TR_F  KC_F
-
-#   define TR_J  KC_J
-#   define TR_K  KC_K
-#   define TR_L  KC_L
-#   define TR_QT KC_QUOT
+//QWERTY Home Row Mods
+#   define TR_A     KC_A
+#   define TR_SA    KC_S
+#   define TR_D     KC_D
+#   define TR_F     KC_F
+#   define TR_J     KC_J
+#   define TR_K     KC_K
+#   define TR_L     KC_L
 //Home Row Mods COLEMAKDH
-#   define TR_R  KC_R
-#   define TR_S  KC_S
-#   define TR_T  KC_T
-
-#   define TR_N  KC_N
-#   define TR_E  KC_E
-#   define TR_I  KC_I
-#   define TR_O  KC_O
+#   define TR_R     KC_R
+#   define TR_SC    KC_S
+#   define TR_T     KC_T
+#   define TR_N     KC_N
+#   define TR_E     KC_E
+#   define TR_I     KC_I
+#   define TR_O     KC_O
 #endif //HOMEROWMOD_ENABLE
 
+//Tap Hold takes precedence over Home Row Mods when we have overlapping keys 
+//there should be another key with that mod tap
+#if defined(TAPHOLD_ENABLE)
+#   define TR_QT    LT(_DEFAULT_LAYER_1, KC_QUOT)
+#elif defined(HOMEROWMOD_ENABLE)
+#   define TR_QT    LGUI_T(KC_QUOT)
+#else
+#   define TR_QT    KC_QUOT
+#endif
 
 
 #if defined(TAP_DANCE_ENABLE)
@@ -185,7 +189,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_LBRC KC_LBRC
 #   define TR_RBRC KC_RBRC
 #endif //TAP_DANCE_ENABLE
-
 
 
 #if defined(DYNAMIC_MACRO_ENABLE)
@@ -199,7 +202,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_DMR2 ___x___
 #   define TR_DMP2 ___x___
 #endif //DYNAMIC_MACRO_ENABLE
-
 
 
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
@@ -219,7 +221,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #endif //RGB_MATRIX_ENABLE or RGBLIGHT_ENABLE
 
 
-
 #if defined(AUDIO_ENABLE)
 #   define TR_ATOG AU_TOGG
 #   define TR_MTOG MU_TOGG
@@ -233,9 +234,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_CKUP ___x___
 #   define TR_CKDN ___x___
 #endif //AUDIO_ENABLE
-
-
-
 
 
 /*
@@ -285,7 +283,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | A    | S    | D    | F    | G    |    | H    | J    | K    | L    | '    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Z    | X    | MOUC | V    | B    |    | N    | M    | ,    | .    | FUN/ |
+*   | Z    | X    | MOUC | V    | B    |    | N    | M    | ,    | .    | CON- |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | MB1  | NUM  | Lsft |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
@@ -294,16 +292,18 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 * //NOTE either do tap dance to get () [] {} etc (costs memory)
 * //NOTE or modify the tap and hold to do , ( and . )
 * //NOTE maybe swap out / and -
-* https://docs.qmk.fm/#/mod_tap?id=changing-both-tap-and-hold
+* https://docs.qmk.fm/#/mod_tap?id=changing-both-tasp-and-hold
+* https://getreuer.info/posts/keyboards/triggers/index.html#tap-vs.-long-press
+* https://www.jonashietala.se/series/t-34/ he focuses on a keymap for programming/VIM
 */
 #   define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#   define _________________QWERTY_L2_________________        TR_A,    TR_S,    TR_D,    TR_F,    KC_G
-#   define _________________QWERTY_L3_________________        FUNC_Z,  KC_X,    TR_MOUC, KC_V,    KC_B
+#   define _________________QWERTY_L2_________________        TR_A,    TR_SA,   TR_D,    TR_F,    KC_G
+#   define _________________QWERTY_L3_________________        KC_Z,    KC_X,    TR_MOUC, KC_V,    KC_B
 #   define          ________QWERTY_L4________                 _________BASE_L4_________
 
 #   define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #   define _________________QWERTY_R2_________________        KC_H,    TR_J,    TR_K,    TR_L,    TR_QT
-#   define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  AD_SLSH
+#   define _________________QWERTY_R3_________________        KC_N,    KC_M,    TR_COMM, TR_DOT,  DASHCON
 #   define          ________QWERTY_R4________                 _________BASE_R4_________
 
 /*
@@ -314,19 +314,19 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | A    | R    | S    | T    | G    |    | M    | N    | E    | I    | O    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Z    | X    | MOUC | D    | V    |    | K    | H    | ,    | .    | FUN/ |
+*   | Z    | X    | MOUC | D    | V    |    | K    | H    | ,    | .    | CON- |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | MB1  | NUM  | Lsft |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ________________COLEMAKDH_L1_______________        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
-#   define ________________COLEMAKDH_L2_______________        TR_A,    TR_R,    TR_S,    TR_T,    KC_G
-#   define ________________COLEMAKDH_L3_______________        FUNC_Z,  KC_X,    TR_MOUC, KC_D,    KC_V
+#   define ________________COLEMAKDH_L2_______________        TR_A,    TR_R,    TR_SC,   TR_T,    KC_G
+#   define ________________COLEMAKDH_L3_______________        KC_Z,    KC_X,    TR_MOUC, KC_D,    KC_V
 #   define          _______COLEMAKDH_L4______                 _________BASE_L4_________
 
-#   define ________________COLEMAKDH_R1_______________        KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
+#   define ________________COLEMAKDH_R1_______________        KC_J,    KC_L,    KC_U,    KC_Y,    TR_QT
 #   define ________________COLEMAKDH_R2_______________        KC_M,    TR_N,    TR_E,    TR_I,    TR_O
-#   define ________________COLEMAKDH_R3_______________        KC_K,    KC_H,    KC_COMM, KC_DOT,  AD_SLSH
+#   define ________________COLEMAKDH_R3_______________        KC_K,    KC_H,    KC_COMM, KC_DOT,  DASHCON
 #   define          _______COLEMAKDH_R4______                 _________BASE_R4_________
 
 /*
@@ -335,9 +335,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   ,----------------------------------.    ,----------------------------------.
 *   | Esc  | Snip | File | Bpsc | `    |    | [    | 7    | 8    | 9    | ]    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Gui  | Alt  | Ctrl | Shft | .    |    | -    | 4    | 5    | 6    | =    |
+*   | Gui  | Alt  | Ctrl | Shft | .    |    | ;    | 4    | 5    | 6    | =    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    | ;    | 1    | 2    | 3    | \    |
+*   | Undo | Cut  | Copy | Pste | Redo |    | /    | 1    | 2    | 3    | \    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      | LTap |      |    | Spc  | 0    |      |
 *                 `------+------+------'    `------+------+------'
@@ -350,8 +350,8 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 #   define          ________NUMPAD_L4________                 ___x___, _______, ___x___
 
 #   define _________________NUMPAD_R1_________________        TR_LBRC, KC_7,    KC_8,    KC_9,    TR_RBRC
-#   define _________________NUMPAD_R2_________________        KC_MINS, KC_4,    KC_5,    KC_6,    KC_EQL
-#   define _________________NUMPAD_R3_________________        KC_SCLN, KC_1,    KC_2,    KC_3,    KC_BSLS
+#   define _________________NUMPAD_R2_________________        KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL
+#   define _________________NUMPAD_R3_________________        KC_SLSH, KC_1,    KC_2,    KC_3,    KC_BSLS
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________NUMPAD_R4________                 KC_SPC,  KC_0
@@ -392,6 +392,11 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 
 /*
+* Explore making the two pinky keys toggle to this layer
+* remove reboot
+* move caps lock to another key
+* move spd to caps lock to make rooM
+* move boot over one, and make a key to go back to base layer
 *   ,----------------------------------.    ,----------------------------------.
 *   |ScrLck|  F7  |  F8  |  F9  | F10  |    |QWERTY|ClmkDH|Gaming| Rbt  | Boot |
 *   +------+------+------+------+------|    +------+------+------+------+------+
@@ -456,7 +461,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Num  | A    | S    | D    | F    |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Z    | X    | C    | V    | B    |    |      |      |      |      | ADJ  |
+*   | Z    | X    | C    | V    | B    |    |      |      |      |      | CON  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | Ctrl | Spc  | Shft |    |      | Nav  |      |
 *                 `------+------+------'    `------+------+------'
@@ -468,7 +473,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 #   define _______________GAMING_BASE_R1______________        __________________NONE_5___________________
 #   define _______________GAMING_BASE_R2______________        __________________NONE_5___________________
-#   define _______________GAMING_BASE_R3______________        ___x___, ___x___, ___x___, ___x___, ADJUST
+#   define _______________GAMING_BASE_R3______________        ___x___, ___x___, ___x___, ___x___, CONFIG
 
 # if defined(KEYBOARD_bastardkb_charybdis_3x5) 
 #   define          ______GAMING_BASE_R4_____                 ___x___, NAVGTIN

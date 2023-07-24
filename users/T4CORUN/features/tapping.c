@@ -18,6 +18,8 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+
+#if defined(HOMEROWMOD_ENABLE)
     //QWERTY Home Row Mods
     case TR_A:
     case TR_S:
@@ -25,16 +27,23 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case TR_QT:
     //COLEMAKdh Home Row Mods
     case TR_R:
+    case TR_S2:
     case TR_I:
     case TR_O:
       return TAPPING_TERM + 30;
+#endif //HOMEROWMOD_ENABLE
+
     //layer taps
-    case AD_SLSH:
-    case FUNC_Z:
-    case ADJUST:
+    case DASHCON:
+    case CONFIG:
       return TAPPING_TERM + 50;
+
+#if defined(MOUSELAYER_ENABLE)
     case TR_MOUC:
       return TAPPING_TERM - 30;
+#endif //MOUSELAYER_ENABLE
+
+
     default:
       //uprintf("tapping term: %d \n", TAPPING_TERM);
       return TAPPING_TERM;

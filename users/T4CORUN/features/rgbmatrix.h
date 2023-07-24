@@ -9,12 +9,10 @@
 
 //qmk_firmware\keyboards\crkbd\rev1\rev1.c
 #if defined(KEYBOARD_crkbd_rev1)
-
 //layers
 #   define LED_NUMBER 13
 #   define LED_NAVIGATION 40
-#   define LED_FUNCTION 21
-#   define LED_ADJUST 48
+#   define LED_CONFIG 48
 #   define LED_MOUSE 15
 #   define LED_GAMENUMBER 22
 
@@ -25,7 +23,7 @@
 
 //indicators
 #   define LED_CAPSLOCK 35
-#   define LED_SCRLOCK 36
+#   define LED_SCRLOCK 23
 
 //dpad
 #   define LED_DPAD_L 19
@@ -67,12 +65,9 @@
 //layers
 #   define LED_NUMBER 16
 #   define LED_NAVIGATION 34
-#   define LED_FUNCTION 0
-#   define LED_ADJUST 18
-#   define LED_MOUSETOG 18
-#   define LED_MOUSETAP 6
+#   define LED_CONFIG 18
+#   define LED_MOUSE 6
 #   define LED_GAMENUMBER 1
-#   define LED_HOME 16
 
 //base layers
 #   define LED_QWERTY 30
@@ -81,7 +76,7 @@
 
 //indicators
 #   define LED_CAPSLOCK 31
-#   define LED_SCRLOCK 30
+#   define LED_SCRLOCK 2
 
 //dpad
 #   define LED_DPAD_L 4

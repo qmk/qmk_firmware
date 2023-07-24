@@ -42,6 +42,13 @@ ifeq ($(strip $(HOMEROWMOD_ENABLE)), yes)
   OPT_DEFS += -DHOMEROWMOD_ENABLE
 endif
 
+#TAPHOLD_ENABLE is custom
+#This will override HOMEROWMOD_ENABLE when there is overlapping keycodes
+TAPHOLD_ENABLE ?= no
+ifeq ($(strip $(TAPHOLD_ENABLE)), yes)
+	OPT_DEFS += -DTAPHOLD_ENABLE
+endif
+
 #AUTOMOUSE_ENABLE is custom
 POINTING_DEVICE_ENABLE ?= no
 AUTOMOUSE_ENABLE ?= no
