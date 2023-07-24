@@ -164,14 +164,14 @@ def generate_led_animations_config(led_feature_json, config_h_lines, prefix):
         if led_feature_json['animations'][animation]:
             config_h_lines.append(generate_define(f'{prefix}{animation.upper()}'))
 
-def generate_led_reactive_config(led_feature_json, config_h_lines, prefix):
-    for reactive in led_feature_json.get('reactive', {}):
-        if led_feature_json['reactive'][reactive]:
-            config_h_lines.append(generate_define(f'{prefix}{reactive.upper()}'))
-
-def generate_led_framebuffer_config(led_feature_json, config_h_lines, prefix):
+def generate_led_extra_config(led_feature_json, config_h_lines, prefix):
+    if led_feature_json['disable_on_suspend']:
+            config_h_lines.append(generate_define(f'{prefix}{"DISABLE_WHEN_USB_SUSPENDED"}'))
     if led_feature_json['framebuffer']:
             config_h_lines.append(generate_define(f'{prefix}{"FRAMEBUFFER_EFFECTS"}'))
+    for reactive in led_feature_json.get('reactive', {}):
+        if led_feature_json['reactive'][reactive]:
+            config_h_lines.append(generate_define(f'{prefix}{"MATRIX_"}{reactive.upper()}'))
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
@@ -210,13 +210,11 @@ def generate_config_h(cli):
 
     if 'led_matrix' in kb_info_json:
         generate_led_animations_config(kb_info_json['led_matrix'], config_h_lines, 'ENABLE_LED_MATRIX_')
-        generate_led_reactive_config(kb_info_json['led_matrix'], config_h_lines, 'LED_MATRIX_')
-        generate_led_framebuffer_config(kb_info_json['led_matrix'], config_h_lines, 'LED_')
+        generate_led_extra_config(kb_info_json['led_matrix'], config_h_lines, 'LED_')
 
     if 'rgb_matrix' in kb_info_json:
         generate_led_animations_config(kb_info_json['rgb_matrix'], config_h_lines, 'ENABLE_RGB_MATRIX_')
-        generate_led_reactive_config(kb_info_json['rgb_matrix'], config_h_lines, 'RGB_MATRIX_')
-        generate_led_framebuffer_config(kb_info_json['rgb_matrix'], config_h_lines, 'RGB_')
+        generate_led_extra_config(kb_info_json['rgb_matrix'], config_h_lines, 'RGB_')
 
     if 'rgblight' in kb_info_json:
         generate_led_animations_config(kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_')

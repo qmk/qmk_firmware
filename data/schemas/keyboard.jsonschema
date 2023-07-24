@@ -373,6 +373,7 @@
                         "type": "boolean"
                     }
                 },
+                "disable_on_suspend" : {"type": "boolean"},
                 "driver": {"type": "string"},
                 "center_point": {
                     "type": "array",
@@ -431,6 +432,7 @@
                         "type": "boolean"
                     }
                 },
+                "disable_on_suspend" : {"type": "boolean"},
                 "driver": {"type": "string"},
                 "center_point": {
                     "type": "array",
