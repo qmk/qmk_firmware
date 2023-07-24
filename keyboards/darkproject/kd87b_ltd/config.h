@@ -17,9 +17,7 @@
 
 #pragma once
 
-//#define TAP_CODE_DELAY 5
-
-#define GPIO_INPUT_PIN_DELAY 3
+#define GPIO_INPUT_PIN_DELAY 6
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
