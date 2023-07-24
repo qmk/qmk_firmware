@@ -17,20 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, A15, B10 }
-#define MATRIX_COL_PINS { A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, B11, B8, B9, C13 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* NKRO */
-#define FORCE_NKRO
-
 /* RGB Strip*/
-#define RGB_DI_PIN B15
-#ifdef RGB_DI_PIN
 #    define RGBLIGHT_EFFECT_ALTERNATING
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_CHRISTMAS
@@ -44,5 +31,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 10
-#    define RGBLIGHT_LIMIT_VAL 255    
-#endif

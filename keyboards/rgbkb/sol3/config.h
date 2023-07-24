@@ -9,13 +9,6 @@
 
 #pragma once
 
-
-// Last pins reserved for encoder / touch encoder support
-#define MATRIX_ROW_PINS       { B15,  A8, A15, B12, A3, NO_PIN }
-#define MATRIX_ROW_PINS_RIGHT { B15, B14,  A8, A13, A7, NO_PIN }
-// Empty matrix entries used for encoder / touch encoder support
-#define MATRIX_COL_PINS       { A6, A7, B0, B2, B1,  B9,  B3,  B4 }
-#define MATRIX_COL_PINS_RIGHT { B9, B8, B4, A6, A3, B10, B12, B11 }
 #define MATRIX_IO_DELAY 5
 
 #define BUSY_WAIT
@@ -27,9 +20,6 @@
 #define TOUCH_TERM 350 // time of a "button" touch, longer inputs will be a swipe
 #define TOUCH_RESOLUTION 25 // sensitivity of swipes, lower=faster
 #define TOUCH_SEGMENTS 3
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
 
 /* CRC Configuration */
 #define CRC8_OPTIMIZE_SPEED
@@ -63,10 +53,8 @@
 #define DIP_SWITCH_PINS_RIGHT { A14, B0 }
 
 /* RGB LED Configuration */
-#define RGB_DI_PIN B5
 #define RGBLED_NUM 156
 #define RGBLED_SPLIT { 78, 78 }
-#define RGBLIGHT_LIMIT_VAL 255
 
 // RGB Lighting Animation modes. Explicitly enabled
 // For full list of effects, see:

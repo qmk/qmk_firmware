@@ -14,6 +14,9 @@
             {"pin_a": "B3", "pin_b": "B1"}
         ]
     },
+    "ws2812": {
+        "pin": "D3"
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "matrix_pins": {
@@ -24,12 +27,12 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":0.5, "y":0.75, "matrix": [0, 4]},
-                {"x":2.5, "y":0.75, "matrix": [0, 5]},
-                {"x":0, "y":1.75, "matrix": [0, 0]},
-                {"x":1, "y":1.75, "matrix": [0, 1]},
-                {"x":2, "y":1.75, "matrix": [0, 2]},
-                {"x":3, "y":1.75, "matrix": [0, 3]}
+                {"x": 0.5, "y": 0, "matrix": [0, 4]},
+                {"x": 2.5, "y": 0, "matrix": [0, 5]},
+                {"x": 0, "y": 1, "matrix": [0, 0]},
+                {"x": 1, "y": 1, "matrix": [0, 1]},
+                {"x": 2, "y": 1, "matrix": [0, 2]},
+                {"x": 3, "y": 1, "matrix": [0, 3]}
             ]
         }
     }

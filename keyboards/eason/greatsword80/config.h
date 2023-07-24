@@ -16,11 +16,5 @@
 
 #pragma once
 
-#define MATRIX_ROW_PINS { D0, D1, D2, D3, D5, D4 }
-#define MATRIX_COL_PINS { D6, D7, B4, B5, B6, C6, C7, E2, F7, F6, F5, F4, B0, B1, B2, B3 }
-
-
-#define DIODE_DIRECTION COL2ROW
-
 #define LED_CAPS_LOCK_PIN  F0
 #define LED_PIN_ON_STATE 0

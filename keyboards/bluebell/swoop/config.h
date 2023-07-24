@@ -15,11 +15,6 @@
  */
 #pragma once
 
-// wiring of each half
-#define MATRIX_ROW_PINS { D4, C6, D7, E6 }
-#define MATRIX_COL_PINS { B1, F7, F6, F5, F4 }
-#define DIODE_DIRECTION COL2ROW
-
 #define EE_HANDS
 
 // OLED driver
@@ -29,8 +24,6 @@
 #endif
 
 // RGB underglow and per key
-#define RGB_DI_PIN D3
-#ifdef RGB_DI_PIN
   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
@@ -39,9 +32,7 @@
   #define RGBLED_SPLIT \
         { 18, 18 }
   #define RGBLIGHT_SPLIT
-  #define RGBLIGHT_LIMIT_VAL 150
   #define RGBLIGHT_HUE_STEP 10
   #define RGBLIGHT_SAT_STEP 17
   #define RGBLIGHT_VAL_STEP 17
   #define RGBLIGHT_SLEEP
-#endif

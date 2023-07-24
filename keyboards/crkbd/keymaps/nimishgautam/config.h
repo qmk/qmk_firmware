@@ -15,13 +15,11 @@
 
 
 // combo
-#define COMBO_COUNT 7
 #define EXTRA_SHORT_COMBOS
 
 //Tapping values
 //#define QUICK_TAP_TERM 0
 #define TAPPING_TERM 200
-#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD_PER_KEY
 
 
@@ -69,7 +67,7 @@
     // NOTE: the below effects are super cool but they go absolutely nuts if you manually set hsv colors (eg with layers)
 
     //#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-    //#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH 
+    //#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
     //#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #endif
 
