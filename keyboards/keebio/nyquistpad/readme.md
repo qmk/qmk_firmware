@@ -2,8 +2,8 @@
 
 A 5x6 macropad keyboard based off of a prototype Nyquist PCB.
 
-* Keyboard Maintainer: Keebio  
-* Hardware Supported: Nyquistpad PCB  
+* Keyboard Maintainer: Keebio
+* Hardware Supported: Nyquistpad PCB
 * Hardware Availability: [Keebio](https://keeb.io/)
 
 Make example for this keyboard (after setting up your build environment):
