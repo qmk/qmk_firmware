@@ -89,7 +89,7 @@ static dacsample_t dac_buffer_empty[AUDIO_DAC_BUFFER_SIZE] = {AUDIO_DAC_OFF_VALU
 /* keep track of the sample position for for each frequency */
 static float dac_if[AUDIO_MAX_SIMULTANEOUS_TONES] = {0.0};
 
-static float   active_tones_snapshot[AUDIO_MAX_SIMULTANEOUS_TONES] = {0, 0};
+static float   active_tones_snapshot[AUDIO_MAX_SIMULTANEOUS_TONES] = {0};
 static uint8_t active_tones_snapshot_length                        = 0;
 
 typedef enum {
