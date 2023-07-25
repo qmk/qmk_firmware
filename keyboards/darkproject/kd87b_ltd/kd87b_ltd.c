@@ -125,3 +125,13 @@ const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {1, CS10_SW5,  CS11_SW5,  CS12_SW5},  //  86, Right
 };
 #endif
+
+void led_init_ports(void) {
+  setPinOutput(C0);
+  setPinOutput(C14);
+  setPinOutput(C15);
+  writePinLow(C0);
+  writePinLow(C14);
+  writePinLow(C15);
+};
+
