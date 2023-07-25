@@ -41,6 +41,7 @@ static inline void unselect_rows(void) {
     }
 }
 
+
 static inline void select_row(uint8_t row) {
     if (row != 11)
         ATOMIC_BLOCK_FORCEON {
