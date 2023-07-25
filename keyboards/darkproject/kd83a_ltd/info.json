@@ -33,9 +33,8 @@
         "rows": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10"] // For default scanning matrix routine add B12 to the end of rows array and change code below accordingly.
     }, // Pin B12 is present in matix for HOME button and is used during scan of B9 pin row in custom matrix code so it was removed here for optimization.
     "encoder": {
-        "enabled": true,
         "rotary": [
-            { "pin_a": "C2", "pin_b": "C3" }
+            { "pin_a": "C3", "pin_b": "C2" }
         ]
     },
     "qmk": {
