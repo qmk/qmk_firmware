@@ -2,7 +2,7 @@
     "keyboard_name": "Dactyl ManuForm Carbonfet 6x6 eic",
     "usb": {
         "vid": "0x444D",
-        "pid": "0x3435",
+        "pid": "0xC66B",
         "device_version": "1.0.0"
     },
     "features": {
