@@ -28,7 +28,7 @@ extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
 // matrix code
-// ultra fast read_cols code.
+// ultra fast read_cols code
 static inline matrix_row_t read_cols(void) {
     uint16_t portA_pin_state = palReadPort(PAL_PORT(A0));
     return (((portA_pin_state & ((1U << 5) - 1U)) ^ ((1U << 5) - 1U)) |
@@ -56,9 +56,9 @@ static inline void select_row(uint8_t row) {
 void matrix_init_custom(void) {
     // initialize key pins
     ATOMIC_BLOCK_FORCEON {
-        palSetGroupMode(PAL_PORT(B0),  rows_bits, 0U, (PAL_WB32_MODE_OUTPUT | PAL_WB32_OTYPE_PUSHPULL | PAL_WB32_OSPEED_HIGH | PAL_WB32_CURRENT_LEVEL3));
-        palSetPort(PAL_PORT(B0),   rows_bits);
-        palSetGroupMode(PAL_PORT(A0),  cols_bits, 0U, (PAL_WB32_MODE_INPUT | PAL_WB32_PUPDR_PULLUP | PAL_WB32_OSPEED_HIGH));
+        palSetGroupMode(PAL_PORT(B0), rows_bits, 0U, (PAL_WB32_MODE_OUTPUT | PAL_WB32_OTYPE_PUSHPULL | PAL_WB32_OSPEED_HIGH | PAL_WB32_CURRENT_LEVEL3));
+        palSetPort(PAL_PORT(B0), rows_bits);
+        palSetGroupMode(PAL_PORT(A0), cols_bits, 0U, (PAL_WB32_MODE_INPUT | PAL_WB32_PUPDR_PULLUP | PAL_WB32_OSPEED_HIGH));
     }
 }
 
