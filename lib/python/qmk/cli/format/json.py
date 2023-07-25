@@ -15,6 +15,7 @@ from qmk.path import normpath
 
 @cli.argument('json_file', arg_only=True, type=normpath, help='JSON file to format')
 @cli.argument('-f', '--format', choices=['auto', 'keyboard', 'keymap'], default='auto', arg_only=True, help='JSON formatter to use (Default: autodetect)')
+@cli.argument('-i', '--inplace', action='store_true', arg_only=True, help='If set, will operate in-place on the input file')
 @cli.subcommand('Generate an info.json file for a keyboard.', hidden=False if cli.config.user.developer else True)
 def format_json(cli):
     """Format a json file.
@@ -61,5 +62,11 @@ def format_json(cli):
 
                 json_file['layers'][layer_num] = current_layer
 
+    output = json.dumps(json_file, cls=json_encoder, sort_keys=True)
+
+    if cli.args.inplace:
+        with open(cli.args.json_file, 'w+') as outfile:
+            outfile.write(output)
+
     # Display the results
-    print(json.dumps(json_file, cls=json_encoder, sort_keys=True))
+    print(output)
