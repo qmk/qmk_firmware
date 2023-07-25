@@ -141,3 +141,12 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 #endif
+
+void led_init_ports(void) {
+  setPinOutput(C0);
+  setPinOutput(C14);
+  setPinOutput(C15);
+  writePinLow(C0);
+  writePinLow(C14);
+  writePinLow(C15);
+};
