@@ -4,8 +4,7 @@
     "url": "https://github.com/adereth/dactyl-keyboard",
     "maintainer": "qmk",
     "usb": {
-        "vid": "0x444C",
-        "device_version": "1.0.0"
+        "vid": "0x444C"    
     },
     "features": {
         "bootmagic": true,
