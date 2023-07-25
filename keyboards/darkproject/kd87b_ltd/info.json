@@ -180,7 +180,7 @@
             "solid_splash": true,
             "solid_multisplash": true
         },
-        "layout": [ //[row,col]
+        "layout": [
             { "matrix": [1, 3], "x": 0, "y": 0, "flags": 4 }, //   0, Esc
             { "matrix": [2, 6], "x": 24, "y": 0, "flags": 4 }, //   1, F1
             { "matrix": [3, 6], "x": 36, "y": 0, "flags": 4 }, //   2, F2
