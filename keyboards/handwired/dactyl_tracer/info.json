@@ -4,7 +4,7 @@
     "url": "https://github.com/mjohns/tracer",
     "maintainer": "mjohns",
     "usb": {
-        "vid": "0xFEED",
+        "vid": "0x444E",
         "pid": "0x1307",
         "device_version": "0.0.1"
     },
