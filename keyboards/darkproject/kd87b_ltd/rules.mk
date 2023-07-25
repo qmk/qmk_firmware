@@ -10,5 +10,3 @@ OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 # Ultrafast custom matrix scanning code
 CUSTOM_MATRIX = lite
 SRC += matrix.c
-
-GRAVE_ESC_ENABLE = no #No need for this feature because keyboard has F row and dedicated escape button
