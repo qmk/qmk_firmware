@@ -20,10 +20,7 @@
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 
 enum my_keycodes {
-    KC_SIRI = QK_USER,
-    KC_DND,
-    KC_SPOT,
-    KC_EJ,
+    KC_SIRI = QK_USER
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -38,29 +35,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false; /* Skip all further processing of this key */
 
-        case KC_DND:
-            if (record->event.pressed) {
-                host_system_send(0x9B);
-            } else {
-                host_system_send(0);
-            }
-            return false; /* Skip all further processing of this key */
-
-        case KC_SPOT:
-            if (record->event.pressed) {
-                host_consumer_send(0x221);
-            } else {
-                host_consumer_send(0);
-            }
-            return false; /* Skip all further processing of this key */
-
-        case KC_EJ:
-            if (record->event.pressed) {
-                host_consumer_send(0x0B8);
-            } else {
-                host_consumer_send(0);
-            }
-            return false; /* Skip all further processing of this key */
         default:
             return true; /* Process all other keycodes normally */
     }
