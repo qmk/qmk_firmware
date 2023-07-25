@@ -29,7 +29,3 @@
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-// RGB Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
-// #    define ENABLE_RGB_MATRIX_ALPHAS_MODS

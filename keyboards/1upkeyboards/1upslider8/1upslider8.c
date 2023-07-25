@@ -23,17 +23,18 @@
 #include "quantum/midi/midi_device.h"
 
 uint8_t divisor = 0;
-	void slider(void){
-	  if (divisor++) { // only run the slider function 1/256 times it's called
-	      return;
-	  }
-	  midi_send_cc(&midi_device, 2, 0x3E, 0x7F - (analogReadPin(SLIDER_PIN) >> 3));
-	  uprintf("%d string", analogReadPin(SLIDER_PIN) );
-	}
+void slider(void) {
+  if (divisor++) { // only run the slider function 1/256 times it's called
+    return;
+  }
+  midi_send_cc(&midi_device, 2, 0x3E, 0x7F - (analogReadPin(SLIDER_PIN) >> 3));
+  uprintf("%d string", analogReadPin(SLIDER_PIN));
+}
 
-	void housekeeping_task_user(void) {
-	  slider();
-	}
+void housekeeping_task_kb(void) {
+    slider();
+    housekeeping_task_user();
+}
 
 static uint32_t oled_logo_timer = 0;
 static bool clear_logo = true;
@@ -379,8 +380,9 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-void matrix_init_user(void) {
+void matrix_init_kb(void) {
     midi_register_cc_callback(&_midi_device, slider8_cc_callback);
+    matrix_init_user();
 }
 
 #    define SHOW_LOGO 5000
