@@ -964,7 +964,7 @@ The EEPROM for it is currently shared with the LED Matrix system (it's generally
 
 ### Indicators :id=indicators
 
-If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `rgb_matrix_indicators_kb` or `rgb_matrix_indicators_user` function for that:
+If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, then you can use the `rgb_matrix_indicators_kb` function on the keyboard level source file, or `rgb_matrix_indicators_user` function in the user `keymap.c`.
 ```c
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {

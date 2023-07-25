@@ -9,6 +9,7 @@
       "device_version": "0.0.1"
   },
   "backlight": {
+    "driver": "timer",
     "pin": "D7",
     "breathing": true
   },

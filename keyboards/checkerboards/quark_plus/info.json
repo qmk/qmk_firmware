@@ -31,6 +31,7 @@
       ]
     },
     "backlight": {
+      "driver": "timer",
       "pin": "C4",
       "levels": 6,
       "breathing": true
