@@ -17,8 +17,6 @@
 
 #pragma once
 
-#define ENCODER_DIRECTION_FLIP
-
 #define GPIO_INPUT_PIN_DELAY 6
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
