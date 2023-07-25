@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:keyboards/cipulot/ec_theca/halconf.h
 /* Copyright 2023 Cipulot
+========
+/* Copyright 2020 QMK
+>>>>>>>> e0ecc772495b92032d36d918cfdb3c631bbdd078:keyboards/mechlovin/infinity88/rev3/halconf.h
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +20,13 @@
 
 #pragma once
 
+<<<<<<<< HEAD:keyboards/cipulot/ec_theca/halconf.h
 #define HAL_USE_ADC TRUE
+========
+#define HAL_USE_PWM TRUE
+
+#define HAL_USE_SPI TRUE
+>>>>>>>> e0ecc772495b92032d36d918cfdb3c631bbdd078:keyboards/mechlovin/infinity88/rev3/halconf.h
 
 #include_next <halconf.h>
+
