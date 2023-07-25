@@ -35,9 +35,6 @@
     "bootmagic": {
         "matrix": [1, 3] // Hold ESC on start up to clear EEPROM and boot into bootloader mode
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_tkl_ansi"
-    },
     "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
