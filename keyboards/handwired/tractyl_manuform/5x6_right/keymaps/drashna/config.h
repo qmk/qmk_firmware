@@ -32,5 +32,5 @@
 
 
 #define FB_ERM_LRA         0
-#define DRV_GREETING       alert_750ms
-#define DRV_MODE_DEFAULT   buzz
+#define DRV2605L_GREETING       alert_750ms
+#define DRV2605L_DEFAULT_MODE   buzz

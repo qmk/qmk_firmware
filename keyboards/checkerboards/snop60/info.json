@@ -19,6 +19,7 @@
         ]
     },
     "backlight": {
+        "driver": "timer",
         "pin": "D1",
         "levels": 6,
         "breathing": true

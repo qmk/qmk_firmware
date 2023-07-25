@@ -5,7 +5,6 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
-        "driver": "software",
         "pin": "B7",
         "levels": 10
     },
