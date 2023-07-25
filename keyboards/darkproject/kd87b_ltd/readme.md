@@ -1,6 +1,6 @@
 # Dark Project KD87b LTD
 
-![Dark Project KD87b LTD](https://i.postimg.cc/y6tqnJRR/KD87b-LTD.png)
+![Dark Project KD87b LTD](https://i.postimg.cc/qBcnzcwM/KD87b-LTD.png)
 
 80% 87 keys keyboard. Equipped with the WestBerry WB32FQ95 ARM Cortex-M3 microcontroller
 
