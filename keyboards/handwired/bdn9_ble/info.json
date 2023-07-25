@@ -9,6 +9,7 @@
     "device_version": "1.0.0"
   },
   "backlight": {
+    "driver": "timer",
     "pin": "F6",
     "levels": 5
   },

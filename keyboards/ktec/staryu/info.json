@@ -9,6 +9,7 @@
         "device_version": "2.0.5"
     },
     "backlight": {
+        "driver": "timer",
         "pins": ["C2", "C7", "D5", "D6", "B0"],
         "levels": 10
     },
