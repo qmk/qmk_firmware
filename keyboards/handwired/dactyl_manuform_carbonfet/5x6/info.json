@@ -1,17 +1,8 @@
 {
     "keyboard_name": "Dactyl ManuForm Carbonfet 5x6",
     "usb": {
-        "vid": "0x444D",
         "pid": "0xC560",
         "device_version": "1.0.0"
-    },
-    "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "console": false,
-        "command": true,
-        "nkro": false
     },
     "ws2812": {
         "pin": "D3"

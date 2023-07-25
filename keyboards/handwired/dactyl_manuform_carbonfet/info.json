@@ -1,9 +1,20 @@
 {
-    "split": {
-        "enabled" : true
-    },
     "manufacturer": "carbonfet",
     "url": "https://github.com/carbonfet/dactyl-manuform",
     "maintainer": "dunk2k",
+    "usb": {
+        "vid": "0x444D"
+    },
+    "features": {
+        "bootmagic": true,
+        "console": false,
+        "command": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "split": {
+        "enabled" : true
+    },
     "tags": ["split"]
 }

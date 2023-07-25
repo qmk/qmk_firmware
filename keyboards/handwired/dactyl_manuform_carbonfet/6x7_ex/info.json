@@ -1,17 +1,8 @@
 {
     "keyboard_name": "Dactyl ManuForm Carbonfet 6x7 ex",
     "usb": {
-        "vid": "0x444D",
         "pid": "0xC67A",
         "device_version": "1.0.0"
-    },
-    "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "console": false,
-        "command": true,
-        "nkro": false
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5", "D1"],
