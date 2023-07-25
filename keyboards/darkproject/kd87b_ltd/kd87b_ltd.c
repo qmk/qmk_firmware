@@ -134,4 +134,3 @@ void led_init_ports(void) {
   writePinLow(C14);
   writePinLow(C15);
 };
-
