@@ -252,7 +252,8 @@
         "encoder": {
             "$ref": "#/definitions/encoder_config",
             "properties": {
-                "enabled": {"type": "boolean"}
+                "enabled": {"type": "boolean"},
+                "map": {"type": "boolean"}
             }
         },
         "features": {"$ref": "qmk.definitions.v1#/boolean_array"},
@@ -715,6 +716,13 @@
                 "esc_input": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "led": {"$ref": "qmk.definitions.v1#/mcu_pin"},
                 "speaker": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+            }
+        },
+        "wear_leveling": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {"type": "string"}
             }
         },
         "ws2812": {
