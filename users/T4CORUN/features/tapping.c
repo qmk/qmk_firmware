@@ -34,7 +34,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #endif //HOMEROWMOD_ENABLE
 
     //layer taps
-    case DASHCON:
     case CONFIG:
       return TAPPING_TERM + 50;
 

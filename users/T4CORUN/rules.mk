@@ -20,13 +20,8 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 endif
 
 OLED_ENABLE ?= no
-#KEYLOG_ENABLE appears to be custom
-KEYLOG_ENABLE ?= no
 ifeq ($(strip $(OLED_ENABLE)), yes)
 	SRC += $(USER_PATH)/features/oled.c
-	ifeq ($(strip $(KEYLOG_ENABLE)), yes)
-	  OPT_DEFS += -DKEYLOG_ENABLE
-	endif
 endif
 
 
@@ -37,7 +32,7 @@ ifeq ($(strip $(COMBO_ENABLE)), yes)
 endif
 
 #HOMEROWMOD_ENABLE is custom
-HOMEROWMOD_ENABLE ?= yes
+HOMEROWMOD_ENABLE ?= no
 ifeq ($(strip $(HOMEROWMOD_ENABLE)), yes)
   OPT_DEFS += -DHOMEROWMOD_ENABLE
 endif

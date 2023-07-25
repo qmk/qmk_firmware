@@ -8,6 +8,6 @@ USER_NAME := t4corun
 GAMELAYER_ENABLE = yes
 COMBO_ENABLE = yes
 ONESHOT_ENABLE = yes
-HOMEROWMOD_ENABLE = no
+TAPHOLD_ENABLE = yes
 
 #override $qmk_firmware\keyboards\bastardkb\charybdis\3x5\v2\splinky_3\rules.mk

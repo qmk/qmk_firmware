@@ -4,8 +4,8 @@
 enum combos {
   COMDOT_DRGTOG,
   MDOT_SNPTOG,
-  NUMSHFT_MB2,
   SPCNAV_MB4,
+  OP_CONFIG,
   COMBO_LENGTH
 };
 
