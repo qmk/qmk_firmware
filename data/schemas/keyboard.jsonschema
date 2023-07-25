@@ -252,8 +252,7 @@
         "encoder": {
             "$ref": "#/definitions/encoder_config",
             "properties": {
-                "enabled": {"type": "boolean"},
-                "map": {"type": "boolean"}
+                "enabled": {"type": "boolean"}
             }
         },
         "features": {"$ref": "qmk.definitions.v1#/boolean_array"},
