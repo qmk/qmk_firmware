@@ -189,6 +189,14 @@ void protocol_pre_task(void) {
                 /* issue a remote wakeup event to the host which should resume
                  * the bus and get our keyboard out of suspension. */
                 usbWakeupHost(&USB_DRIVER);
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
+                /* Some hubs, kvm switches, and monitors do weird things, with
+                 * USB device state bouncing around wildly on wakeup, yielding
+                 * race conditions that can corrupt the keyboard state.
+                 *
+                 * Pause for a while to let things settle... */
+                wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+#    endif
             }
         }
         /* after a successful wakeup a USB_EVENT_WAKEUP is signaled to QMK by
