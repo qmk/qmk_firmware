@@ -39,7 +39,7 @@
         ]
     },
     "qmk": {
-        "tap_keycode_delay": 5,
+        "tap_keycode_delay": 5
     },
     "bootmagic": {
         "matrix": [1, 3] // Hold ESC on start up to clear EEPROM and boot into bootloader mode
