@@ -721,18 +721,23 @@ ifeq ($(strip $(FNV_ENABLE)), yes)
     SRC += qmk_fnv_type_validation.c hash_32a.c hash_64a.c
 endif
 
+VALID_HAPTIC_DRIVER_TYPES := drv2605l solenoid
 ifeq ($(strip $(HAPTIC_ENABLE)),yes)
-    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    ifeq ($(filter $(HAPTIC_DRIVER),$(VALID_HAPTIC_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid HAPTIC_DRIVER,HAPTIC_DRIVER="$(HAPTIC_DRIVER)" is not a valid Haptic driver)
+    else
+        COMMON_VPATH += $(DRIVER_PATH)/haptic
 
-    ifneq ($(filter DRV2605L, $(HAPTIC_DRIVER)), )
-        SRC += DRV2605L.c
-        QUANTUM_LIB_SRC += i2c_master.c
-        OPT_DEFS += -DDRV2605L
-    endif
+        ifeq ($(strip $(HAPTIC_DRIVER)), drv2605l)
+            SRC += drv2605l.c
+            QUANTUM_LIB_SRC += i2c_master.c
+            OPT_DEFS += -DHAPTIC_DRV2605L
+        endif
 
-    ifneq ($(filter SOLENOID, $(HAPTIC_DRIVER)), )
-        SRC += solenoid.c
-        OPT_DEFS += -DSOLENOID_ENABLE
+        ifeq ($(strip $(HAPTIC_DRIVER)), solenoid)
+            SRC += solenoid.c
+            OPT_DEFS += -DHAPTIC_SOLENOID
+        endif
     endif
 endif
 

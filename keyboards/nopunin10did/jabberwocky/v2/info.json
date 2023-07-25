@@ -14,8 +14,8 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
-        "driver": "software",
-        "pins": ["D6"],
+        "driver": "timer",
+        "pin": "D6",
         "levels": 6
     },
     "indicators": {
