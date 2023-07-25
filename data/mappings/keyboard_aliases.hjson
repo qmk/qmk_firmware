@@ -227,6 +227,21 @@
     "handwired/p1800fl": {
         "target": "team0110/p1800fl"
     },
+    "handwired/jscotto/scotto9": {
+        "target": "handwired/scottokeebs/scotto9"
+    },
+    "handwired/jscotto/scotto36": {
+        "target": "handwired/scottokeebs/scotto36"
+    },
+    "handwired/jscotto/scotto40": {
+        "target": "handwired/scottokeebs/scotto40"
+    },
+    "handwired/jscotto/scottocmd": {
+        "target": "handwired/scottokeebs/scottocmd"
+    },
+    "handwired/jscotto/scottostarter": {
+        "target": "handwired/scottokeebs/scottostarter"
+    },
     "helix/pico/sc/back": {
         "target": "helix/pico/sc"
     },
