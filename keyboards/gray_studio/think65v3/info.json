@@ -9,10 +9,9 @@
        "usb": {
         "vid":"0x4753",
         "pid":"0x4003",
-        "device_version": "0.0.3",
+        "device_version": "0.0.3"
     },
     "features": {
-        "backlight": false,
         "bootmagic": true,
         "command": false,
         "console": false,
@@ -22,8 +21,8 @@
         "rgblight": true
     },
     "ws2812": {
-    "pin": "B10",
-  }
+        "pin": "B10"
+    }
     "matrix_pins": {
         "cols": ["A3", "A5", "A4", "B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15", "B0", "A8", "B15", "B14", "B13"],
         "rows": ["A6", "B12", "A2", "A0", "A1"]
@@ -31,6 +30,11 @@
 "rgblight": {
     "led_count": 6,
       "sleep": true,
+      "max_brightness": 150,
+      "layers": {
+          "enabled": true
+          "override_rgb": true
+      },
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -42,7 +46,7 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
-    },
+        }
  },
     "layouts": {
         "LAYOUT": {
