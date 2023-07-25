@@ -78,15 +78,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
-void led_init_ports(void) {
-  setPinOutput(C0);
-  setPinOutput(C14);
-  setPinOutput(C15);
-  writePinLow(C15);
-  writePinLow(C0);
-};
-
-
 layer_state_t layer_state_set_user(layer_state_t state) {
 
     writePin(C0, layer_state_cmp(state, 1));
