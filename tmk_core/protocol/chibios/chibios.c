@@ -183,7 +183,6 @@ void protocol_pre_task(void) {
 
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DRIVER.state == USB_SUSPENDED) {
-        dprintln("suspending keyboard");
         while (USB_DRIVER.state == USB_SUSPENDED) {
             suspend_power_down();
             if ((USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED) && suspend_wakeup_condition()) {
