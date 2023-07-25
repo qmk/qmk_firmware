@@ -15,7 +15,7 @@
     },
     "indicators": {
         "caps_lock": "GP17",
-        "on_state": 1
+        "on_state": 0
     },
     "rgblight": {
         "led_count": 2,
