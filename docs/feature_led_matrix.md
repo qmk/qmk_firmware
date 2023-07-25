@@ -139,7 +139,7 @@ Currently only 4 drivers are supported, but it would be trivial to support for m
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address
@@ -158,7 +158,7 @@ Eg `#define ISSI_MANUAL_SCALING 3`
 Then Define the array listing all the LEDs you want to override in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_scaling[ISSI_MANUAL_SCALING] = {
+const is31_led PROGMEM g_is31_scaling[ISSI_MANUAL_SCALING] = {
  *   LED Index
  *   |  Scaling
  *   |  | */
@@ -433,7 +433,7 @@ The EEPROM for it is currently shared with the RGB Matrix system (it's generally
 
 ### Indicators :id=indicators
 
-If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `led_matrix_indicators_kb` or `led_matrix_indicators_user` function for that:
+If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, then you can use the `led_matrix_indicators_kb` function on the keyboard level source file, or `led_matrix_indicators_user` function in the user `keymap.c`.
 ```c
 bool led_matrix_indicators_kb(void) {
     if (!led_matrix_indicators_user()) {

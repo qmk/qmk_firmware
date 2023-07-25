@@ -4,6 +4,7 @@
         "pid": "0x1828"
     },
     "rgblight": {
+        "led_count": 42,
         "split_count": [21, 21]
     },
     "community_layouts": ["split_3x6_3"],

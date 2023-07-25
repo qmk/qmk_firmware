@@ -15,6 +15,7 @@
         "velocikey": true
     },
     "rgblight": {
+        "led_count": 7,
         "sleep": true
     },
     "ws2812": {

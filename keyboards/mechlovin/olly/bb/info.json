@@ -13,6 +13,7 @@
         "breathing": true
     },
     "rgblight": {
+        "led_count": 24,
         "sleep": true
     },
     "ws2812": {

@@ -58,7 +58,6 @@
 #define MATRIX_EXT_PIN_RIGHT B6
 
 /* Optional SMT LED pins */
-#define RGBLED_NUM 10
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -69,12 +68,6 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-/* Optional encoder pins */
-#define ENCODERS_PAD_A { B3 }
-#define ENCODERS_PAD_B { B1 }
-#define ENCODERS_PAD_A_RIGHT { B4 }
-#define ENCODERS_PAD_B_RIGHT { B5 }
 
 /* Optional speaker pin */
 #define AUDIO_PIN B6

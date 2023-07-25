@@ -38,6 +38,7 @@
         "pin": "F4"
     },
     "rgblight": {
+        "led_count": 72,
         "max_brightness": 120,
         "split_count": [36, 36]
     },

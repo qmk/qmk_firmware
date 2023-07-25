@@ -20,6 +20,7 @@
         "pin": "D2"
     },
     "rgblight": {
+        "led_count": 38,
         "split": true
     },
     "development_board": "elite_c",

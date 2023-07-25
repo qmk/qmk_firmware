@@ -15,7 +15,6 @@
  */
 #pragma once
 
-#define RGBLED_NUM 24
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -36,8 +35,5 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define ENCODERS_CW_KEY  { { 0, 0 },{ 2, 0 } }
-#define ENCODERS_CCW_KEY { { 6, 0 },{ 8, 0 } }
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3

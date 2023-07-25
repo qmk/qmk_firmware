@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// WS2812 RGB LED strip input and number of LEDs
-#define RGBLED_NUM      20
-
 #define AUDIO_PIN       C6
 
 #define EE_HANDS

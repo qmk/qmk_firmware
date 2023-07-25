@@ -9,6 +9,7 @@
         "device_version": "0.0.1"
     },
     "rgblight": {
+        "led_count": 17,
         "sleep": true
     },
     "ws2812": {
@@ -24,6 +25,9 @@
         "rotary": [
             {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "backlight": {
         "pin": "A9",

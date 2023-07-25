@@ -11,7 +11,6 @@ DYNAMIC_TAPPING_TERM_ENABLE = yes               # Enable Dynamic Tapping Term to
 
 # Custom matrix setup
 CUSTOM_MATRIX = lite
-DEBOUNCE_TYPE = sym_eager_pk
 
 VPATH += drivers/gpio
 SRC += mcp23018.c matrix.c

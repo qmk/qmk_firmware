@@ -19,6 +19,9 @@
         "levels": 12,
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 18
+    },
     "ws2812": {
         "driver": "i2c"
     },
@@ -29,6 +32,9 @@
     },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
+    "tapping": {
+        "toggle": 3
+    },
     "layouts": {
         "LAYOUT_default": {
             "layout": [

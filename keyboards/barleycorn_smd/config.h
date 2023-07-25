@@ -38,7 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { D4, D6, D7, B4, B5, B6, C6, C7, D5, D5, D5, D5, D5, D5, D5, D5, D5, D5 }
 #define PORT_EXPANDER_ADDRESS 0x20
 
-#define RGBLED_NUM 15
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL

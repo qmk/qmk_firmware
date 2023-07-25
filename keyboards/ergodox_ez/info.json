@@ -7,7 +7,12 @@
         "device_version": "0.0.1"
     },
     "rgblight": {
+        "hue_steps": 12,
+        "brightness_steps": 12,
         "sleep": true
+    },
+    "build": {
+        "debounce_type": "sym_eager_pr"
     },
     "ws2812": {
         "pin": "D7"
@@ -18,6 +23,9 @@
     "processor": "atmega32u4",
     "bootloader": "halfkay",
     "debounce": 30,
+    "tapping": {
+        "toggle": 1
+    },
     "community_layouts": ["ergodox"],
     "layouts": {
         "LAYOUT_ergodox": {

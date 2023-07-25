@@ -18,9 +18,10 @@
 #include "keyboard.h"
 #include "timer.h"
 #include "transport.h"
-#include "quantum.h"
 #include "wait.h"
+#include "debug.h"
 #include "usb_util.h"
+#include "bootloader.h"
 
 #ifdef EE_HANDS
 #    include "eeconfig.h"

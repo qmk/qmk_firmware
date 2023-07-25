@@ -18,6 +18,7 @@
         "scroll_lock": "B2"
     },
     "rgblight": {
+        "led_count": 27,
         "sleep": true
     },
     "ws2812": {

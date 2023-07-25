@@ -10,6 +10,7 @@
     "max_power": 100
   },
   "rgblight": {
+    "led_count": 10,
     "sleep": true
   },
   "ws2812": {

@@ -34,8 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 
 #ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 123
-
 #   define RGBLIGHT_LAYERS
 
 // By default, LEDs of the buttons which are pressed turn on.
@@ -169,8 +167,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
-
-#define TAP_CODE_DELAY 10
 
 /* 2021/01/22 added to shrink firmware size */
 // NO_ACTION_TAPPING -1964 bytes, however, this disables Layer mods...

@@ -9,6 +9,7 @@
         "device_version": "0.0.1"
     },
     "rgblight": {
+        "led_count": 9,
         "sleep": true
     },
     "ws2812": {
@@ -20,6 +21,7 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "driver": "timer",
         "pin": "D6",
         "breathing": true
     },

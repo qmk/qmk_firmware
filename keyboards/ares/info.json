@@ -22,6 +22,9 @@
     "bootmagic": {
         "matrix": [4, 0]
     },
+    "rgblight": {
+        "led_count": 16
+    },
     "ws2812": {
         "driver": "i2c"
     },
