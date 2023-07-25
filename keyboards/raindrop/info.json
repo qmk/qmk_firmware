@@ -5,7 +5,7 @@
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4C50",
-        "pid": "0x9999",
+        "pid": "0x3333",
         "device_version": "0.0.1"
     },
     "matrix_pins": {
