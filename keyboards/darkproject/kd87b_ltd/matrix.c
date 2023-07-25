@@ -35,13 +35,11 @@ static inline matrix_row_t read_cols(void) {
             (((portA_pin_state >> (PAL_PAD(A8) - 5)) & (((1U << 3) - 1U) << 5)) ^ ((((1U << 3) - 1U)) << 5)));
 }
 
-
 static inline void unselect_rows(void) {
     ATOMIC_BLOCK_FORCEON {
     palSetPort(PAL_PORT(B0), rows_bits);
     }
 }
-
 
 static inline void select_row(uint8_t row) {
     if (row != 11)
@@ -53,7 +51,6 @@ static inline void select_row(uint8_t row) {
         palClearPort(PAL_PORT(B12), PAL_PORT_BIT(PAL_PAD(B12)));
         }
 }
-
 
 // Only need to init the pins. Debounce / raw matrix are initialized already for us.
 void matrix_init_custom(void) {
@@ -73,6 +70,7 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         select_row(current_row);
         matrix_output_select_delay();
+        
         matrix_row_t cols = read_cols();
 
         unselect_rows();
