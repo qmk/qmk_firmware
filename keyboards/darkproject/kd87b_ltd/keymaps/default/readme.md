@@ -1,1 +1,1 @@
-# The Default Dark Project KD87b LTD Layout
+# The Default Dark Project KD87b LTD layout
