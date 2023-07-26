@@ -17,7 +17,7 @@
 #include "rgb_matrix.h"
 
 void rgb_matrix_set_color_flags(uint8_t red, uint8_t green, uint8_t blue, uint8_t flags) {
-    for (uint8_t ii = 0; ii < DRIVER_LED_TOTAL; ii++) {
+    for (uint8_t ii = 0; ii < RGB_MATRIX_LED_COUNT; ii++) {
         if (g_led_config.flags[ii] & flags) {
             rgb_matrix_set_color(ii, red, green, blue);
         }

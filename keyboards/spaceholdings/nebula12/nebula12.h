@@ -15,21 +15,5 @@
  */
 #pragma once
 
-#define XXX KC_NO
-
 #include "quantum.h"
 #include "../wilba_tech/wt_rgb_backlight_keycodes.h"
-
-// This a shortcut to help you visually see your layout.
-
-#define LAYOUT_all( \
-    K00, K01, K02, \
-    K10, K11, K12, \
-    K20, K21, K22, \
-    K30, K31, K32 \
-) { \
-    { K00, K01, K02, }, \
-    { K10, K11, K12, }, \
-    { K20, K21, K22, }, \
-    { K30, K31, K32, }  \
-}

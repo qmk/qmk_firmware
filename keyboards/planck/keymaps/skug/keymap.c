@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_DEFAULT] = LAYOUT_planck_grid(
     KC_TAB , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y    , KC_U   , KC_I   , KC_O   , KC_P   , SE_ARNG,
     UTILITY, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H    , KC_J   , KC_K   , KC_L   , SE_ODIA, SE_ADIA,
-    KC_LSPO, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N    , KC_M   , KC_COMM, KC_DOT , SE_MINS, KC_RSPC,
+    SC_LSPO, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N    , KC_M   , KC_COMM, KC_DOT , SE_MINS, SC_RSPC,
     LFT_CTR, KC_LALT, KC_LGUI, SE_AT  , ESC_LOW, KC_ENT , KC_SPC  , BSP_RAI, _______, KC_ALGR, SE_ASTR, RGT_CTR
 ),
 
@@ -130,8 +130,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9   , KC_F10 , KC_F11 , KC_F12 ,
-    _______, QK_BOOT, MU_MOD , AU_ON  , AU_OFF , AG_NORM, AG_SWAP, DEFAULT, XXXXXXX , XXXXXXX, UTILITY, _______,
+    KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,
+    _______, QK_BOOT, MU_NEXT, AU_ON  , AU_OFF , AG_NORM, AG_SWAP, DEFAULT, XXXXXXX, XXXXXXX, UTILITY, _______,
     _______, SE_PIPE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )

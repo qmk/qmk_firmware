@@ -45,18 +45,18 @@ enum {
 #endif
 };
 
-uint8_t cur_dance(qk_tap_dance_state_t *state);
+uint8_t cur_dance(tap_dance_state_t *state);
 
 #ifdef TAP_DANCE_LALT_GIT
-void lalt_finished(qk_tap_dance_state_t *state, void *user_data);
-void lalt_reset(qk_tap_dance_state_t *state, void *user_data);
+void lalt_finished(tap_dance_state_t *state, void *user_data);
+void lalt_reset(tap_dance_state_t *state, void *user_data);
 #    define TD_LALT TD(TD_LALT_GIT)
 #endif
 
 #ifdef TAP_DANCE_LSFT_CAPS
 #    ifdef LAYERS_PROGRAMMER
-void pg_lsft_finished(qk_tap_dance_state_t *state, void *user_data);
-void pg_lsft_reset(qk_tap_dance_state_t *state, void *user_data);
+void pg_lsft_finished(tap_dance_state_t *state, void *user_data);
+void pg_lsft_reset(tap_dance_state_t *state, void *user_data);
 #    endif
 #endif
 

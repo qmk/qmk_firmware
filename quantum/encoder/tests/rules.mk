@@ -56,3 +56,13 @@ encoder_split_no_right_SRC := \
 	$(QUANTUM_PATH)/encoder/tests/mock_split.c \
 	$(QUANTUM_PATH)/encoder/tests/encoder_tests_split_no_right.cpp \
 	$(QUANTUM_PATH)/encoder.c
+
+encoder_split_role_DEFS := -DENCODER_TESTS -DENCODER_ENABLE -DENCODER_MOCK_SPLIT
+encoder_split_role_INC := $(QUANTUM_PATH)/split_common
+encoder_split_role_CONFIG := $(QUANTUM_PATH)/encoder/tests/config_mock_split_role.h
+
+encoder_split_role_SRC := \
+	platforms/test/timer.c \
+	$(QUANTUM_PATH)/encoder/tests/mock_split.c \
+	$(QUANTUM_PATH)/encoder/tests/encoder_tests_split_role.cpp \
+	$(QUANTUM_PATH)/encoder.c

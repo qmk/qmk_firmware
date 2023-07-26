@@ -129,9 +129,7 @@ bool IS31FL3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
         // Copy the data from i to i+15.
         // Device will auto-increment register for data after the first byte
         // Thus this sets registers 0x00-0x0F, 0x10-0x1F, etc. in one transfer.
-        for (int j = 0; j < 16; j++) {
-            g_twi_transfer_buffer[1 + j] = pwm_buffer[i + j];
-        }
+        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, 16);
 
 #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
@@ -195,7 +193,7 @@ void IS31FL3733_init(uint8_t addr, uint8_t sync) {
 }
 
 void IS31FL3733_set_value(int index, uint8_t value) {
-    if (index >= 0 && index < DRIVER_LED_TOTAL) {
+    if (index >= 0 && index < LED_MATRIX_LED_COUNT) {
         is31_led led = g_is31_leds[index];
 
         g_pwm_buffer[led.driver][led.v]          = value;
@@ -204,7 +202,7 @@ void IS31FL3733_set_value(int index, uint8_t value) {
 }
 
 void IS31FL3733_set_value_all(uint8_t value) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < LED_MATRIX_LED_COUNT; i++) {
         IS31FL3733_set_value(i, value);
     }
 }

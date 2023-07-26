@@ -38,7 +38,7 @@ void matrix_init_custom(void) {
 
     /* columns read via shift-register on SPI lines */
 
-    /* Enable SPI, Master, set clock rate fck/2.  First bit already at Qh
+    /* Enable SPI, Master, set clock rate fck/16.  First bit already at Qh
      * output before clock edge (CPHA=0).  SN74HC165 shift register shifts
      * on low-to-high transition (CPOL=1).  Receive the LSB first (DORD=1).
      */

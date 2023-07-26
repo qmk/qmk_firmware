@@ -23,7 +23,7 @@
 
 // Example 1
 
-void dance_egg(qk_tap_dance_state_t *state, void *user_data) {
+void dance_egg(tap_dance_state_t *state, void *user_data) {
     if (state->count >= 100) {
         // SEND_STRING("Safety dance!");
         tap_code(KC_C);
@@ -34,7 +34,7 @@ void dance_egg(qk_tap_dance_state_t *state, void *user_data) {
 
 // Example 2
 
-void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
+void dance_flsh_each(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             register_code(KC_3);
@@ -54,14 +54,14 @@ void dance_flsh_each(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_flsh_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_flsh_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count >= 4) {
         // reset_keyboard();
         tap_code(KC_R);
     }
 }
 
-void dance_flsh_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_flsh_reset(tap_dance_state_t *state, void *user_data) {
     unregister_code(KC_1);
     // wait_ms(50);
     unregister_code(KC_2);
@@ -79,7 +79,7 @@ typedef struct {
 } tap_dance_tap_hold_t;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    qk_tap_dance_action_t *action;
+    tap_dance_action_t *action;
 
     switch (keycode) {
         case TD(CT_CLN):
@@ -92,7 +92,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void tap_dance_tap_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
     if (state->pressed) {
@@ -110,7 +110,7 @@ void tap_dance_tap_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void tap_dance_tap_hold_reset(qk_tap_dance_state_t *state, void *user_data) {
+void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
     if (tap_hold->held) {
@@ -142,7 +142,7 @@ typedef struct {
     td_state_t state;
 } td_tap_t;
 
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
         else return TD_SINGLE_HOLD;
@@ -163,7 +163,7 @@ static td_tap_t xtap_state = {
     .state = TD_NONE
 };
 
-void x_finished(qk_tap_dance_state_t *state, void *user_data) {
+void x_finished(tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case TD_SINGLE_TAP: register_code(KC_X); break;
@@ -175,7 +175,7 @@ void x_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void x_reset(qk_tap_dance_state_t *state, void *user_data) {
+void x_reset(tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case TD_SINGLE_TAP: unregister_code(KC_X); break;
         case TD_SINGLE_HOLD: unregister_code(KC_LCTL); break;
@@ -188,7 +188,7 @@ void x_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
     [CT_EGG]      = ACTION_TAP_DANCE_FN(dance_egg),
     [CT_FLSH]     = ACTION_TAP_DANCE_FN_ADVANCED(dance_flsh_each, dance_flsh_finished, dance_flsh_reset),

@@ -76,7 +76,7 @@ def generate_info_json(cli):
     # Build the info.json file
     kb_info_json = info_json(cli.config.generate_info_json.keyboard)
     strip_info_json(kb_info_json)
-    info_json_text = json.dumps(kb_info_json, indent=4, cls=InfoJSONEncoder)
+    info_json_text = json.dumps(kb_info_json, indent=4, cls=InfoJSONEncoder, sort_keys=True)
 
     if cli.args.output:
         # Write to a file

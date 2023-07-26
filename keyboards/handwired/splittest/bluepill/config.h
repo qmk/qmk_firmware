@@ -3,12 +3,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-// wiring of each half
-#define MATRIX_ROW_PINS { B10 }
-#define MATRIX_COL_PINS { B1 }
-
 #define SPLIT_HAND_PIN A7
 
 #if !(defined(USE_SDI1_ON_STANDARD_ROLE_PINS) || defined(USE_SDI1_ON_ALTERNATE_ROLE_PINS) || defined(USE_SDI2))

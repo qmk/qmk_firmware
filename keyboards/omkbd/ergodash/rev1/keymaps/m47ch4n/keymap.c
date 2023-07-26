@@ -23,12 +23,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | SHIFT|ADJUST|  ALT |  GUI |||||||| LOWER| SPACE|      ||||||||      | ENTER| RAISE||||||||  GUI |  ALT |ADJUST| SHIFT|
      * ,----------------------------------------------------------------------------------------------------------------------.
      */
-    [_QWERTY] = LAYOUT( \
-      KC_ESC,  CSTM_1,  CSTM_2,  CSTM_3,  CSTM_4,  CSTM_5,  JP_KANA,                        JP_KANA, CSTM_6,  CSTM_7,  CSTM_8,  CSTM_9,  CSTM_0,  GRV    , \
-      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    JP_MHEN,                        JP_HENK, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    BSLS   , \
-      KC_LGUI, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LANG2,                       JP_LANG1,KC_H,    KC_J,    KC_K,    KC_L,    SCLN,    QUOT   , \
-      SHIFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    SHIFT  ,                        SHIFT,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFT  , \
-      SHIFT,   ADJUST,  KC_LALT, KC_LCTL,          LOWER,   KC_SPC ,XXXXXXX,        XXXXXXX,KC_ENT , RAISE,            KC_LCTL, KC_LALT, ADJUST,  SHIFT    \
+    [_QWERTY] = LAYOUT(
+      KC_ESC,  CSTM_1,  CSTM_2,  CSTM_3,  CSTM_4,  CSTM_5,  JP_KANA,                        JP_KANA, CSTM_6,  CSTM_7,  CSTM_8,  CSTM_9,  CSTM_0,  GRV    ,
+      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    JP_MHEN,                        JP_HENK, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    BSLS   ,
+      KC_LGUI, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_LNG2,                        JP_LANG1,KC_H,    KC_J,    KC_K,    KC_L,    SCLN,    QUOT   ,
+      SHIFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    SHIFT  ,                        SHIFT,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHIFT  ,
+      SHIFT,   ADJUST,  KC_LALT, KC_LCTL,          LOWER,   KC_SPC ,XXXXXXX,        XXXXXXX,KC_ENT , RAISE,            KC_LCTL, KC_LALT, ADJUST,  SHIFT
     ),
 
     /* Lower
@@ -45,11 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,----------------------------------------------------------------------------------------------------------------------.
      */
     [_LOWER] = LAYOUT(
-      KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                        _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12 , \
-      TILD,    EXLM,    AT,      HASH,    DLR,     PERC,    _______,                        _______, CIRC,    AMPR,    ASTR,    LPRN,    RPRN,    PIPE   , \
-      _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                        _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0   , _______, \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, MINS,    UNDS,    _______,                        _______, PLUS,    EQL,     LBRC,    RBRC,    XXXXXXX, _______, \
-      _______, _______, _______, _______,          _______, KC_ESC ,_______,        _______,KC_BSPC, _______,          _______, _______, _______, _______  \
+      KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                        _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12 ,
+      TILD,    EXLM,    AT,      HASH,    DLR,     PERC,    _______,                        _______, CIRC,    AMPR,    ASTR,    LPRN,    RPRN,    PIPE   ,
+      _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                        _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0   , _______,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, MINS,    UNDS,    _______,                        _______, PLUS,    EQL,     LBRC,    RBRC,    XXXXXXX, _______,
+      _______, _______, _______, _______,          _______, KC_ESC ,_______,        _______,KC_BSPC, _______,          _______, _______, _______, _______
     ),
 
     /* Raise
@@ -66,11 +66,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,----------------------------------------------------------------------------------------------------------------------.
      */
     [_RAISE] = LAYOUT(
-      KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                        _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12 , \
-      TILD,    EXLM,    AT,      HASH,    DLR,     PERC,    _______,                        _______, CIRC,    AMPR,    ASTR,    LPRN,    RPRN,    PIPE   , \
-      _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                        _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0   , _______, \
-      _______, XXXXXXX, LBRC,    RBRC,    MINS,    UNDS,    _______,                        _______, PLUS,    EQL,     XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-      _______, _______, _______, _______,          _______, KC_ESC ,_______,        _______,KC_BSPC, _______,          _______, _______, _______, _______  \
+      KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______,                        _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12 ,
+      TILD,    EXLM,    AT,      HASH,    DLR,     PERC,    _______,                        _______, CIRC,    AMPR,    ASTR,    LPRN,    RPRN,    PIPE   ,
+      _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                        _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0   , _______,
+      _______, XXXXXXX, LBRC,    RBRC,    MINS,    UNDS,    _______,                        _______, PLUS,    EQL,     XXXXXXX, XXXXXXX, XXXXXXX, _______,
+      _______, _______, _______, _______,          _______, KC_ESC ,_______,        _______,KC_BSPC, _______,          _______, _______, _______, _______
     ),
 
     /* Adjust
@@ -87,11 +87,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,----------------------------------------------------------------------------------------------------------------------.
      */
     [_ADJUST] = LAYOUT(
-      _______, _______, _______, _______, _______, _______, US     ,                        JP,      _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______, _______, \
-      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, _______,                        _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______, \
-      _______, _______, LCBR,    RCBR,    _______, _______, _______,                        _______, _______, _______, LCBR,    RCBR,    _______, _______, \
-      _______, _______, _______, _______,          _______, _______,_______,        _______,_______, _______,          _______, _______, _______, _______  \
+      _______, _______, _______, _______, _______, _______, US     ,                        JP,      _______, _______, _______, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______, _______,
+      _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  XXXXXXX, _______,                        _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, _______,
+      _______, _______, LCBR,    RCBR,    _______, _______, _______,                        _______, _______, _______, LCBR,    RCBR,    _______, _______,
+      _______, _______, _______, _______,          _______, _______,_______,        _______,_______, _______,          _______, _______, _______, _______
     )};
 // clang-format on
 
@@ -115,13 +115,13 @@ void persistent_default_layer_set(uint16_t default_layer) {
     default_layer_set(default_layer);
 }
 
-#define SEND_STRING_RESTORE(STR) (SHIFT_PRESSED ? SEND_STRING(STR SS_DOWN(X_LSHIFT)) : SEND_STRING(STR SS_UP(X_LSHIFT)))
+#define SEND_STRING_RESTORE(STR) (SHIFT_PRESSED ? SEND_STRING(STR SS_DOWN(X_LSFT)) : SEND_STRING(STR SS_UP(X_LSFT)))
 
 #define KEY(CODE) (record->event.pressed ? SEND_STRING(SS_DOWN(X_##CODE)) : SEND_STRING_RESTORE(SS_UP(X_##CODE)))
 
-#define KEY_SHIFT(CODE) (record->event.pressed ? SEND_STRING(SS_DOWN(X_LSHIFT) SS_DOWN(X_##CODE)) : SEND_STRING_RESTORE(SS_UP(X_##CODE)))
+#define KEY_SHIFT(CODE) (record->event.pressed ? SEND_STRING(SS_DOWN(X_LSFT) SS_DOWN(X_##CODE)) : SEND_STRING_RESTORE(SS_UP(X_##CODE)))
 
-#define KEY_UPSHIFT(CODE) (record->event.pressed ? SEND_STRING(SS_UP(X_LSHIFT) SS_DOWN(X_##CODE)) : SEND_STRING_RESTORE(SS_UP(X_##CODE)))
+#define KEY_UPSHIFT(CODE) (record->event.pressed ? SEND_STRING(SS_UP(X_LSFT) SS_DOWN(X_##CODE)) : SEND_STRING_RESTORE(SS_UP(X_##CODE)))
 
 #define SHIFT_DU(CODE_DOWN, CODE_UP) (SHIFT_PRESSED ? CODE_DOWN : CODE_UP)
 #define CASE_US(CODE, US, JP)                   \
@@ -180,10 +180,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case SHIFT:
             if (record->event.pressed) {
-                SEND_STRING(SS_DOWN(X_LSHIFT));
+                SEND_STRING(SS_DOWN(X_LSFT));
                 SHIFT_PRESSED = true;
             } else {
-                SEND_STRING(SS_UP(X_LSHIFT));
+                SEND_STRING(SS_UP(X_LSFT));
                 SHIFT_PRESSED = false;
             }
             return false;

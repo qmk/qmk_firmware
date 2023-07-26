@@ -33,7 +33,7 @@ You can define up to 32 macros in a `keymap.json` file, as used by [Configurator
     ],
     "layout": "LAYOUT_all",
     "layers": [
-        ["MACRO_0", "MACRO_1", "MACRO_2", "MACRO_3"]
+        ["QK_MACRO_0", "QK_MACRO_1", "QK_MACRO_2", "QK_MACRO_3"]
     ]
 }
 ```
@@ -52,7 +52,7 @@ If you type in a language other than English, or use a non-QWERTY layout like Co
     ],
     "layout": "LAYOUT_all",
     "layers": [
-        ["MACRO_0"]
+        ["QK_MACRO_0"]
     ]
 }
 ```
@@ -199,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #### Advanced Macros
 
-In addition to the `process_record_user()` function, is the `post_process_record_user()` function. This runs after `process_record` and can be used to do things after a keystroke has been sent.  This is useful if you want to have a key pressed before and released after a normal key, for instance. 
+In addition to the `process_record_user()` function, is the `post_process_record_user()` function. This runs after `process_record` and can be used to do things after a keystroke has been sent.  This is useful if you want to have a key pressed before and released after a normal key, for instance.
 
 In this example, we modify most normal keypresses so that `F22` is pressed before the keystroke is normally sent, and release it __only after__ it's been released.
 

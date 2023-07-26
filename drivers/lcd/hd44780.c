@@ -158,7 +158,7 @@ void hd44780_on(bool cursor, bool blink) {
     }
 }
 
-void hd44780_off() {
+void hd44780_off(void) {
     hd44780_command(HD44780_CMD_DISPLAY);
 }
 

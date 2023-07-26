@@ -37,17 +37,15 @@ enum combo_events {
   ED_ENTER,
 
   ED_CS_ENTER,
-  BSPC_LSFT_CLEAR,
-  COMBO_LENGTH
+  BSPC_LSFT_CLEAR
 };
-uint16_t COMBO_LEN = COMBO_LENGTH; // do not remove - needed for combos to work
 
 const uint16_t PROGMEM combo_up[] = {KC_W, KC_R, COMBO_END};
 const uint16_t PROGMEM combo_left[] = {KC_S, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_right[] = {KC_F, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_down[] = {KC_S, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_prev_word[] = {KC_S, KC_LCTRL, COMBO_END};
-const uint16_t PROGMEM combo_next_word[] = {KC_F, KC_LCTRL, COMBO_END};
+const uint16_t PROGMEM combo_prev_word[] = {KC_S, KC_LCTL, COMBO_END};
+const uint16_t PROGMEM combo_next_word[] = {KC_F, KC_LCTL, COMBO_END};
 const uint16_t PROGMEM combo_end[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM combo_home[] = {KC_E, KC_R, COMBO_END};
 
@@ -64,7 +62,7 @@ const uint16_t PROGMEM combo_f8[] = {KC_8, KC_I, COMBO_END};
 const uint16_t PROGMEM combo_f9[] = {KC_9, KC_O, COMBO_END};
 const uint16_t PROGMEM combo_f10[] = {KC_0, KC_P, COMBO_END};
 const uint16_t PROGMEM combo_f11[] = {LT(GIT,KC_SLSH), KC_RSFT, COMBO_END};
-const uint16_t PROGMEM combo_f12[] = {KC_RALT, KC_RCTRL, COMBO_END};
+const uint16_t PROGMEM combo_f12[] = {KC_RALT, KC_RCTL, COMBO_END};
 const uint16_t PROGMEM combo_pscreen[] = {TO(WORKMAN), KC_RALT, COMBO_END};
 
 const uint16_t PROGMEM done_sm[] = {KC_LEFT, KC_RIGHT, COMBO_END};
@@ -95,7 +93,7 @@ combo_t key_combos[] = {
   [ED_F10] = COMBO(combo_f10, KC_F10),
   [ED_F11] = COMBO(combo_f11, KC_F11),
   [ED_F12] = COMBO(combo_f12, KC_F12),
-  [ED_PSCREEN] = COMBO(combo_pscreen, KC_PSCREEN),
+  [ED_PSCREEN] = COMBO(combo_pscreen, KC_PRINT_SCREEN),
 
   [ED_CS_ENTER] = COMBO_ACTION(done_sm),
   #endif
@@ -122,7 +120,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
             tap_code16(A(KC_RIGHT));
           }
         }
-        break; 
+        break;
       case BSPC_LSFT_CLEAR:
         if (pressed) {
           tap_code16(KC_END);
@@ -134,7 +132,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         if (pressed) {
           tap_code16(C(S(KC_ENTER)));
         }
-        break;        
+        break;
     }
 }
 
@@ -169,7 +167,7 @@ bool handle_del_bspace(void) {
     layer_off(GIT_R);
     layer_off(GIT_S);
 
-    press_n_times(char_to_bspace, KC_BSPACE);
+    press_n_times(char_to_bspace, KC_BACKSPACE);
     char_to_bspace = 1;
     press_n_times(char_to_del, KC_DEL);
     char_to_del = 0;
@@ -210,63 +208,63 @@ void send_string_with_translation(char *string) {
 
         case 'w':
           toPrint = 'd';
-          break; 
+          break;
         case 'e':
           toPrint = 'r';
-          break; 
+          break;
         case 'r':
           toPrint = 'w';
-          break; 
+          break;
         case 't':
           toPrint = 'b';
-          break; 
+          break;
         case 'y':
           toPrint = 'j';
-          break; 
+          break;
         case 'u':
           toPrint = 'f';
-          break; 
+          break;
         case 'i':
           toPrint = 'u';
-          break; 
+          break;
         case 'o':
           toPrint = 'p';
-          break; 
+          break;
         case 'p':
           toPrint = ';';
-          break; 
+          break;
 
         case 'd':
           toPrint = 'h';
-          break; 
+          break;
         case 'f':
           toPrint = 't';
-          break; 
+          break;
         case 'h':
           toPrint = 'y';
-          break; 
+          break;
         case 'j':
           toPrint = 'n';
-          break; 
+          break;
         case 'k':
           toPrint = 'e';
-          break; 
+          break;
         case 'l':
           toPrint = 'o';
-          break; 
+          break;
         case ';':
           toPrint = 'i';
-          break; 
+          break;
 
         case 'b':
           toPrint = 'm';
-          break; 
+          break;
         case 'n':
           toPrint = 'k';
-          break; 
+          break;
         case 'm':
           toPrint = 'l';
-          break; 
+          break;
       }
       if (isUpperCase) {
         isUpperCase = 0;

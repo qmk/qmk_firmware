@@ -1,8 +1,3 @@
-# MCU name
-MCU = STM32F411
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
 CONVERT_TO = stemcell
 
 # Build Options
@@ -22,12 +17,9 @@ AUDIO_SUPPORTED = no        # Audio is not supported
 RGB_MATRIX_SUPPORTED = yes  # RGB matrix is supported and enabled by default
 RGBLIGHT_SUPPORTED = yes    # RGB underglow is supported, but not enabled by default
 RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
-RGB_MATRIX_DRIVER = WS2812
 
 SPLIT_KEYBOARD = yes
-LAYOUTS = split_3x6_3
 
 SERIAL_DRIVER = usart
-WS2812_DRIVER = pwm
 
 DEBOUNCE_TYPE = asym_eager_defer_pk
