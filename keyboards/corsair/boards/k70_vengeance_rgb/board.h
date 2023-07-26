@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 /* Board identifiers. */
-#define K70_VENGEANCE_RGB
+#define k70_vengeance_rgb
 #define BOARD_NAME "Corsair K70 Vengeance RGB"
 
 #define LPC11U35
