@@ -125,7 +125,6 @@ const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
 };
 #endif
 
-
 void led_init_ports(void) {
   setPinOutput(C0);
   setPinOutput(C14);
