@@ -61,3 +61,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,  KC_LALT,  KC_LGUI,                      KC_SPC,                                 KC_RALT,  _______,  KC_RCTL,  RGB_SPD,  RGB_VAD,  RGB_SPI),
 
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+        [Win] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+        [Mac] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+        [Winfn] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)  },
+        [Macfn] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
+};
+#endif
+
