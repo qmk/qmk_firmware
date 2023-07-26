@@ -33,7 +33,7 @@
             "layout": [
                 {"matrix": [0, 0], "label": "Esc", "x": 0, "y": 0},
                 {"matrix": [0, 1], "label": "Delete", "x": 1, "y": 0},
-                {"matrix": [0, 2], "label": "Home", "x": 2, "y": 0},
+                {"matrix": [0, 2], "label": "Fn", "x": 2, "y": 0},
                 {"matrix": [0, 3], "label": "Encoder", "x": 3, "y": 0},
 
                 {"matrix": [1, 0], "label": "num", "x": 0, "y": 1.5},
@@ -62,7 +62,7 @@
         "LAYOUT_southpaw": {
             "layout": [
                 {"matrix": [0, 0], "label": "Encoder", "x": 0, "y": 0},
-                {"matrix": [0, 1], "label": "Home", "x": 1, "y": 0},
+                {"matrix": [0, 1], "label": "Fn", "x": 1, "y": 0},
                 {"matrix": [0, 2], "label": "Delete", "x": 2, "y": 0},
                 {"matrix": [0, 3], "label": "Esc", "x": 3, "y": 0},
 
