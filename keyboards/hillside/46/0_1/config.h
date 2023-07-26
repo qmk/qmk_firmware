@@ -21,5 +21,5 @@
 
 /* Haptic waveforms */
 // Two mild waveforms
-#define DRV_GREETING alert_750ms
-#define DRV_MODE_DEFAULT sharp_tick3_60
+#define DRV2605L_GREETING alert_750ms
+#define DRV2605L_DEFAULT_MODE sharp_tick3_60
