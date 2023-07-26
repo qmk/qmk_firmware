@@ -30,7 +30,6 @@
     "ws2812": {
       "pin": "D0"
     },
-
     "rgblight": {
       "led_count": 7,
       "sleep": true,
