@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_LAY0] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN) },
     [_LAY1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
     [_LAY2] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
