@@ -126,22 +126,6 @@ const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
 #endif
 
 
-#ifdef ENCODER_ENABLE
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    return true;
-}
-#endif
-
 void led_init_ports(void) {
   setPinOutput(C0);
   setPinOutput(C14);
