@@ -9,7 +9,7 @@ Support STM32F103 keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mwstudio/cover65:default 
+    make mwstudio/cover65:default
 
 Flashing example for this keyboard:
 
