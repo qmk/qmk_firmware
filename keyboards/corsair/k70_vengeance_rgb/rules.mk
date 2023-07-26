@@ -25,6 +25,5 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes			# Enables Link Time Optimization
-ENCODER_ENABLE = yes		# For Volume Knob
 # Bootloader selection
 BOOTLOADER = custom
