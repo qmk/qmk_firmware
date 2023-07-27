@@ -460,6 +460,19 @@ make crkbd:manna-harbour_miryoku:flash # crkbd
 #+END_SRC
 
 
+**** split_4x6_lili
+
+Only the main 5x3 alphas and the inner 3 thumb keys are used.
+
+Keyboards supporting this layout: lily58, boardsource/lulu, clickety_split/leeloo.
+
+Example build command lines:
+
+#+BEGIN_SRC sh :tangle no
+make lily58:manna-harbour_miryoku:flash # lily58
+make boardsource/lulu:manna-harbour_miryoku:flash # boardsource/lulu
+#+END_SRC
+
 
 *** Keyboards
 
@@ -642,17 +655,6 @@ To build for this keyboard,
 
 #+BEGIN_SRC sh :tangle no
 make keyboardio/model01:manna-harbour_miryoku:flash
-#+END_SRC
-
-
-**** lily58
-
-Only the main 5x3 alphas and the inner 3 thumb keys are used.
-
-To build for this keyboard,
-
-#+BEGIN_SRC sh :tangle no
-make lily58:manna-harbour_miryoku:flash
 #+END_SRC
 
 
