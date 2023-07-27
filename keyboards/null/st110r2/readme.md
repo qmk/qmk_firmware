@@ -11,11 +11,11 @@ null ST110r2 is a custom PCB/keyboard project that supports multiple layouts and
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb null/st110r2 -km default
+    make null/st110r2:default
 
 Flashing example for this keyboard:
 
-    qmk flash -kb null/st110r2 -km default
+    make null/st110r2:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
