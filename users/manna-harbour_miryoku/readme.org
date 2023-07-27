@@ -459,6 +459,16 @@ make bastardkb/tbkmini:manna-harbour_miryoku:flash # bastardkb/tbkmini
 make crkbd:manna-harbour_miryoku:flash # crkbd
 #+END_SRC
 
+**** split_4x6_sofl
+
+For each half: the top row, outer column, inner encoder, and 2 outward most keys on bottom row are unused.
+
+Example build command lines:
+
+#+BEGIN_SRC sh :tangle no
+make sofle:manna-harbour_miryoku:flash # sofle
+make keycapsss/kimiko:manna-harbour_miryoku:flash # keycapsss/kimiko
+#+END_SRC
 
 
 *** Keyboards
@@ -698,16 +708,6 @@ To build for this keyboard,
 #+BEGIN_SRC sh :tangle no
 make satt/vision:manna-harbour_miryoku:flash
 #+END_SRC
-
-
-**** sofle
-
-To build for this keyboard,
-
-#+BEGIN_SRC sh :tangle no
-make sofle:manna-harbour_miryoku:flash
-#+END_SRC
-
 
 **** splitkb/kyria
 
