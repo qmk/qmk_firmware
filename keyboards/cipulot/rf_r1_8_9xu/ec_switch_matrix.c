@@ -153,7 +153,7 @@ bool ecsm_matrix_scan(matrix_row_t current_matrix[]) {
     for (int col = 0; col < sizeof(col_channels); col++) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             ecsm_sw_value[row][col] = ecsm_readkey_raw(0, row, col);
-            updated |= ecsm_update_key(&current_matrix[row], row, col, ecsm_sw_value[row][col]);
+            updated |= ecsm_update_key(&current_matrix[row], col, ecsm_sw_value[row][col]);
         }
     }
 
@@ -162,7 +162,7 @@ bool ecsm_matrix_scan(matrix_row_t current_matrix[]) {
     for (int col = 0; col < sizeof(col_channels); col++) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             ecsm_sw_value[row][col + 8] = ecsm_readkey_raw(1, row, col);
-            updated |= ecsm_update_key(&current_matrix[row], row, col + 8, ecsm_sw_value[row][col + 8]);
+            updated |= ecsm_update_key(&current_matrix[row], col + 8, ecsm_sw_value[row][col + 8]);
         }
     }
     return updated;
