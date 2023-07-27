@@ -7,11 +7,11 @@
 #include "quantum.h"
 #include "le_chiffre.h"
 
-static char     keylog_str[KEYLOG_LEN] = {};
-static uint16_t log_timer              = 0;
-
 /* BEGIN STANDARD QMK FUNCTIONS */
 #if defined(OLED_ENABLE) // Special thanks to Sickbabies for this great OLED widget!
+
+static char     keylog_str[KEYLOG_LEN] = {};
+static uint16_t log_timer              = 0;
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_90;
