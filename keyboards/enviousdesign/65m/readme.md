@@ -1,6 +1,6 @@
 # EnvKB 65M
 
-![image of EnvKB 65M PCB](https://i.imgur.com/3d76sz9.png)
+![image of EnvKB 65M PCB](https://i.imgur.com/3d76sz9h.png)
 
 A low cost 65% kit featuring split space and an attempt at fitting a standard keycap set.
 

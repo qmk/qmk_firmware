@@ -1,6 +1,6 @@
 # EnvKB 60F
 
-![Image of the EnvKB 60F PCB](https://i.imgur.com/c5xMEg0.png)
+![Image of the EnvKB 60F PCB](https://i.imgur.com/c5xMEg0h.png)
 
 
 A low cost Standard 60% Design which takes inspiration from the CFTKB Mysterium.
