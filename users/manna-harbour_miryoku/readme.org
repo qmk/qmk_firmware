@@ -680,14 +680,14 @@ make pluckey:manna-harbour_miryoku:flash
 #+END_SRC
 
 
-**** redox_w
+**** redox
 
 Only the main 5x3 alphas and the main 3 thumb keys are used.
 
 To build for this keyboard,
 
 #+BEGIN_SRC sh :tangle no
-make redox_w:manna-harbour_miryoku:flash
+make redox:manna-harbour_miryoku:flash
 #+END_SRC
 
 
