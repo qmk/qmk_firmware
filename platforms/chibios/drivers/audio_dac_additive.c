@@ -66,7 +66,7 @@ static const dacsample_t dac_buffer_triangle[AUDIO_DAC_BUFFER_SIZE] = {
 #endif // AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE
 #ifdef AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE
 static const dacsample_t dac_buffer_square[AUDIO_DAC_BUFFER_SIZE] = {
-    [0 ... AUDIO_DAC_BUFFER_SIZE / 2 - 1]                     = 0,                    // first and
+    [0 ... AUDIO_DAC_BUFFER_SIZE / 2 - 1]                     = AUDIO_DAC_OFF_VALUE,  // first and
     [AUDIO_DAC_BUFFER_SIZE / 2 ... AUDIO_DAC_BUFFER_SIZE - 1] = AUDIO_DAC_SAMPLE_MAX, // second half
 };
 #endif // AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE
