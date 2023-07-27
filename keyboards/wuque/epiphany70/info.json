@@ -48,6 +48,9 @@
         "twinkle": true
       }
     },
+    "layout_aliases": {
+      "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
       "LAYOUT_all": {
         "layout": [
