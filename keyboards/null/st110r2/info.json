@@ -6,17 +6,12 @@
     "bootloader": "halfkay",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": false,
-        "command": true,
-        "console": true,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "audio": false,
-        "midi": false,
-        "rgblight": false,
-        "backlight": false,
-        "unicode": false
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["F0", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "C0", "C1", "C2", "C3", "C4", "C5", "C6"],
