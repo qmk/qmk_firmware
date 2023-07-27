@@ -135,7 +135,7 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
          *      timer runs with 3*AUDIO_DAC_SAMPLE_RATE; and the DAC callback
          *      is called twice per conversion.*/
 
-        dac_if[i] = fmod(dac_if[i], AUDIO_DAC_BUFFER_SIZE);
+        dac_if[i] = fmodf(dac_if[i], AUDIO_DAC_BUFFER_SIZE);
 
         // Wavetable generation/lookup
         uint16_t dac_i = (uint16_t)dac_if[i];
