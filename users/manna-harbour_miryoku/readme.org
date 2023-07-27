@@ -463,6 +463,8 @@ make crkbd:manna-harbour_miryoku:flash # crkbd
 
 For each half: the top row, outer column, inner encoder, and 2 outward most keys on bottom row are unused.
 
+Keyboards supporting this layout: sofle, keycapsss/kimiko, tkw/grandiceps.
+
 Example build command lines:
 
 #+BEGIN_SRC sh :tangle no
