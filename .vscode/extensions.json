@@ -1,28 +1,23 @@
 // Suggested extensions
 {
   "recommendations": [
-    "EditorConfig.EditorConfig",
-    "xaver.clang-format",
-    "llvm-vs-code-extensions.vscode-clangd",
-    "bierner.github-markdown-preview",
-    "donjayamanne.git-extension-pack",
-
-    "plorefice.devicetree",
+    "ms-vscode.cpptools-extension-pack",
+		"streetsidesoftware.code-spell-checker",
+		"plorefice.devicetree",
 		"fabiospampinato.vscode-diff",
 		"kdcro101.favorites",
 		"yzhang.markdown-all-in-one",
-		"bierner.markdown-checkbox",
 		"svsool.markdown-memo",
 		"yzane.markdown-pdf",
 		"bierner.markdown-preview-github-styles",
 		"takumii.markdowntable",
 		"skn0tt.markdown-link-expander",
 		"davidanson.vscode-markdownlint",
-		"zurassic.monokai-slate",
 		"mushan.vscode-paste-image",
 		"ms-vscode.powershell",
 		"cobaltblu27.rainbow-highlighter",
-		"vscode-icons-team.vscode-icons",
-		"gruntfuggly.todo-tree"
+		"gruntfuggly.todo-tree",
+		"azemoh.one-monokai",
+		"pkief.material-icon-theme"
   ]
 }

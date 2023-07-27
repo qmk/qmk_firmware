@@ -20,6 +20,7 @@
 #define OLED_RENDER_LAYER_BASE        " Def "
 #define OLED_RENDER_LAYER_NUMBER      " Num "
 #define OLED_RENDER_LAYER_NAVIGATION  " Nav "
+#define OLED_RENDER_LAYER_SYMBOl      " Sym "
 #define OLED_RENDER_LAYER_CONFIG      " Con "
 
 #if defined(MOUSELAYER_ENABLE)

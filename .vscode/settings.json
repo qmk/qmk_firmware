@@ -31,5 +31,6 @@
     },
     "clangd.arguments": [
         "--header-insertion=never"
-    ]
+    ],
+    "C_Cpp.default.compilerPath": "cl.exe"
 }

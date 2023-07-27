@@ -12,7 +12,8 @@
 //layers
 #   define LED_NUMBER 13
 #   define LED_NAVIGATION 40
-#   define LED_CONFIG 48
+#   define LED_CONFIG_L 45
+#   define LED_CONFIG_R 50
 #   define LED_MOUSE 15
 #   define LED_GAMENUMBER 22
 
@@ -65,7 +66,8 @@
 //layers
 #   define LED_NUMBER 16
 #   define LED_NAVIGATION 34
-#   define LED_CONFIG 18
+#   define LED_CONFIG_L 21
+#   define LED_CONFIG_R 20
 #   define LED_MOUSE 6
 #   define LED_GAMENUMBER 1
 

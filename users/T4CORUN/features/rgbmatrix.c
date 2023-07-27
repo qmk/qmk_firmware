@@ -65,8 +65,14 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
       rgb_matrix_set_color(LED_NAVIGATION, RGB_AZURE);
       break;
 
+    case _SYMBOL:
+      rgb_matrix_set_color(LED_NUMBER, RGB_PURPLE);
+      rgb_matrix_set_color(LED_NAVIGATION, RGB_PURPLE);
+      break;
+
     case _CONFIG:
-      rgb_matrix_set_color(LED_CONFIG, RGB_AZURE);
+      rgb_matrix_set_color(LED_CONFIG_L, RGB_AZURE);
+      rgb_matrix_set_color(LED_CONFIG_R, RGB_AZURE);
 
       switch (current_default_layer) {
         
