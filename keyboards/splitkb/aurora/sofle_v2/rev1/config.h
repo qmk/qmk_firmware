@@ -1,4 +1,4 @@
-/* Copyright 2022 Jouke Witteveen
+/* Copyright 2023 splitkb.com <support@splitkb.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,9 @@
 
 #pragma once
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#define SPLIT_HAND_PIN F4
 
-enum {
-    TD_ESC_CAPS,
-    CT_EGG,
-    CT_FLSH,
-    CT_CLN,
-    X_CTL,
-    TD_RELEASE,
-    TD_RELEASE_AND_FINISH,
-};
+#define OLED_DISPLAY_128X32
+#define SPLIT_OLED_ENABLE
 
-#ifdef __cplusplus
-}
-#endif
+#define RGB_MATRIX_LED_COUNT 70
