@@ -16,6 +16,10 @@
   "split": {
     "soft_serial_pin": "D2"
   },
+  "rgblight": {
+    "hue_steps": 10,
+    "led_count": 7
+  },
   "ws2812": {
     "pin": "B6"
   },

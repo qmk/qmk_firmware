@@ -34,6 +34,9 @@
     "indicators": {
         "caps_lock": "D2"
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],

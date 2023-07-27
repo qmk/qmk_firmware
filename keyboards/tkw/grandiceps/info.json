@@ -11,11 +11,14 @@
         "driver": "pwm"
     },
     "rgblight": {
-        "max_brightness": 120
+        "led_count": 16,
+        "max_brightness": 120,
+        "split_count": [8, 8]
     },
     "matrix_pins": {
         "cols": ["B0", "A7", "A3", "A5", "A4", "A2"],
-        "rows": ["B12", "A6", "B13", "B9", "B8"]
+        "rows": ["B12", "A6", "B13", "B9", "B8"],
+        "io_delay": 5
     },
     "diode_direction": "COL2ROW",
     "encoder": {
@@ -31,6 +34,9 @@
                 "rows": ["B12", "A6", "B13", "B9", "B8"]
             }
         }
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",

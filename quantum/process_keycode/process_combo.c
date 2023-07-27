@@ -14,11 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "keymap_common.h"
-#include "print.h"
 #include "process_combo.h"
+#include <stddef.h>
+#include "process_auto_shift.h"
+#include "caps_word.h"
+#include "timer.h"
+#include "wait.h"
+#include "keyboard.h"
+#include "keymap_common.h"
+#include "action_layer.h"
 #include "action_tapping.h"
-#include "action.h"
+#include "action_util.h"
 #include "keymap_introspection.h"
 
 __attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) {}

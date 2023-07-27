@@ -67,6 +67,7 @@ This is the default mode. You can adjust the cursor and scrolling acceleration u
 |`MOUSEKEY_TIME_TO_MAX`      |30     |Time until maximum cursor speed is reached               |
 |`MOUSEKEY_WHEEL_DELAY`      |10     |Delay between pressing a wheel key and wheel movement    |
 |`MOUSEKEY_WHEEL_INTERVAL`   |80     |Time between wheel movements                             |
+|`MOUSEKEY_WHEEL_DELTA`      |1      |Wheel movement step size                                 |
 |`MOUSEKEY_WHEEL_MAX_SPEED`  |8      |Maximum number of scroll steps per scroll action         |
 |`MOUSEKEY_WHEEL_TIME_TO_MAX`|40     |Time until maximum scroll speed is reached               |
 
@@ -101,7 +102,7 @@ This is an extension of the accelerated mode. The kinetic mode uses a quadratic 
 Tips:
 
 * The smoothness of the cursor movement depends on the `MOUSEKEY_INTERVAL` setting. The shorter the interval is set the smoother the movement will be.  Setting the value too low makes the cursor unresponsive.  Lower settings are possible if the micro processor is fast enough. For example: At an interval of `8` milliseconds, `125` movements per second will be initiated.  With a base speed of `1000` each movement will move the cursor by `8` pixels.
-* Mouse wheel movements are implemented differently from cursor movements. While it's okay for the cursor to move multiple pixels at once for the mouse wheel this would lead to jerky movements. Instead, the mouse wheel operates at step size `2`. Setting mouse wheel speed is done by adjusting the number of wheel movements per second.
+* Mouse wheel movements are implemented differently from cursor movements. While it's okay for the cursor to move multiple pixels at once for the mouse wheel this would lead to jerky movements. Instead, the mouse wheel operates at step size `1`. Setting mouse wheel speed is done by adjusting the number of wheel movements per second.
 
 ### Constant mode
 

@@ -12,6 +12,9 @@
         "pin": "B8",
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 16
+    },
     "ws2812": {
         "pin": "A7",
         "driver": "spi"

@@ -71,6 +71,8 @@
                 "STM32F446",
                 "STM32G431",
                 "STM32G474",
+                "STM32H723",
+                "STM32H733",
                 "STM32L412",
                 "STM32L422",
                 "STM32L432",
@@ -491,6 +493,11 @@
                     }
                 },
                 "led_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_map": {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                },
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "pin": {
                     "$ref": "qmk.definitions.v1#/mcu_pin",

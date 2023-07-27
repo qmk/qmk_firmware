@@ -25,6 +25,10 @@
             }
         }
     },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 48
+    },
     "ws2812": {
         "pin": "D3"
     },

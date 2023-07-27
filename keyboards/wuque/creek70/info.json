@@ -30,7 +30,11 @@
     "pin": "D0"
   },
   "rgblight": {
-    "max_brightness": 200
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "led_count": 7,
+    "max_brightness": 200,
+    "sleep": true
   },
   "layout_aliases": {
     "LAYOUT": "LAYOUT_all"

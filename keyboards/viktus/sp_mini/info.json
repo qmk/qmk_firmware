@@ -26,6 +26,10 @@
             }
         }
     },
+    "rgblight": {
+        "led_count": 24,
+        "split_count": [12, 12]
+    },
     "ws2812": {
         "pin": "E6"
     },

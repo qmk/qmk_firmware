@@ -25,7 +25,10 @@
         "pin": "D3"
     },
     "rgblight": {
-        "max_brightness": 120
+        "led_count": 100,
+        "max_brightness": 120,
+        "sleep": true,
+        "split_count": [48, 52]
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

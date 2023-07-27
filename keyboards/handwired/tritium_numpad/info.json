@@ -21,6 +21,9 @@
     "num_lock": "D5",
     "on_state": 0
   },
+  "rgblight": {
+    "led_count": 4
+  },
   "ws2812": {
     "pin": "D2"
   },
