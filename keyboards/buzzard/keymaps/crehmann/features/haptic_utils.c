@@ -4,7 +4,7 @@
 #include "haptic_utils.h"
 
 #ifdef HAPTIC_ENABLE
-#include "drivers/haptic/DRV2605L.h"
+#include "drivers/haptic/drv2605l.h"
 #endif
 
 #ifdef HAPTIC_ENABLE
@@ -23,19 +23,19 @@ void process_layer_pulse(layer_state_t state) {
 #ifdef HAPTIC_ENABLE
     switch (get_highest_layer(state)) {
         case 1:
-            DRV_pulse(soft_bump);
+            drv2605l_pulse(soft_bump);
             break;
         case 2:
-            DRV_pulse(sh_dblsharp_tick);
+            drv2605l_pulse(sh_dblsharp_tick);
             break;
         case 3:
-            DRV_pulse(lg_dblclick_str);
+            drv2605l_pulse(lg_dblclick_str);
             break;
         case 4:
-            DRV_pulse(soft_bump);
+            drv2605l_pulse(soft_bump);
             break;
         case 5:
-            DRV_pulse(pulsing_sharp);
+            drv2605l_pulse(pulsing_sharp);
             break;
     }
 #endif

@@ -17,6 +17,15 @@
 
 /* Author: Wojciech Siewierski < wojciech dot siewierski at onet dot pl > */
 #include "process_dynamic_macro.h"
+#include <stddef.h>
+#include "action_layer.h"
+#include "keycodes.h"
+#include "debug.h"
+#include "wait.h"
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
 
 // default feedback method
 void dynamic_macro_led_blink(void) {

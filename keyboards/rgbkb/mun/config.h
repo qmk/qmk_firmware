@@ -9,8 +9,6 @@
 
 #pragma once
 
-#define MATRIX_IO_DELAY 5
-
 #define BUSY_WAIT
 #define BUSY_WAIT_INSTRUCTIONS 35 // Increase if two rows are pressed at the same time.
 #define GPIO_INPUT_PIN_DELAY 10

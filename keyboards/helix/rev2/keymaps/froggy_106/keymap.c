@@ -782,9 +782,10 @@ void render_status(struct CharacterMatrix *matrix) {
   int rowj = 1;
 
   //Set Indicator icon
-  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 4; }
-  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowa = 4; }
-  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; }
+  led_t led_state = host_keyboard_led_state();
+  if (led_state.num_lock) { rown = 4; }
+  if (led_state.caps_lock) { rowa = 4; }
+  if (led_state.scroll_lock) { rows = 4; }
   if (IS_LAYER_ON(_FUNC)) { rowf = 4; }
 
   //Set Mode icon
@@ -909,9 +910,10 @@ void render_status(void) {
   int rowj = 1;
 
   //Set Indicator icon
-  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 4; }
-  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowa = 4; }
-  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; }
+  led_t led_state = host_keyboard_led_state();
+  if (led_state.num_lock) { rown = 4; }
+  if (led_state.caps_lock) { rowa = 4; }
+  if (led_state.scroll_lock) { rows = 4; }
   if (IS_LAYER_ON(_FUNC)) { rowf = 4; }
 
   //Set Mode icon

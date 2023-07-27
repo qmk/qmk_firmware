@@ -35,5 +35,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RATED_VOLTAGE      3
 #define V_PEAK             5
 
-#define DRV_GREETING       alert_750ms
-#define DRV_MODE_DEFAULT   buzz
+#define DRV2605L_GREETING       alert_750ms
+#define DRV2605L_DEFAULT_MODE   buzz
