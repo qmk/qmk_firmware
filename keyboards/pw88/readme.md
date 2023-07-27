@@ -1,6 +1,6 @@
 # PW88
 
-![%PW88%](https://i.imgur.com/0uN5u2g.jpg)
+![%PW88%](https://i.imgur.com/0uN5u2gh.jpg)
 
 
 * Keyboard Maintainer: [Matthijs Muller](https://github.com/smollchungus)
