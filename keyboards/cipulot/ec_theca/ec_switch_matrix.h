@@ -32,5 +32,5 @@ int      ecsm_init(ecsm_config_t const* const ecsm_config);
 int      ecsm_update(ecsm_config_t const* const ecsm_config);
 bool     ecsm_matrix_scan(matrix_row_t current_matrix[]);
 uint16_t ecsm_readkey_raw(uint8_t channel, uint8_t row, uint8_t col);
-bool     ecsm_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t sw_value);
+bool     ecsm_update_key(matrix_row_t* current_row, uint8_t col, uint16_t sw_value);
 void     ecsm_print_matrix(void);

@@ -134,17 +134,17 @@ uint16_t ecsm_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
 }
 
 // Update press/release state of key
-bool ecsm_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t sw_value) {
+bool ecsm_update_key(matrix_row_t* current_row, uint8_t col, uint16_t sw_value) {
     bool current_state = (*current_row >> col) & 1;
 
     // Press to release
-    if (current_state && sw_value < config.ecsm_actuation_threshold) {
+    if (current_state && sw_value < config.ecsm_release_threshold) {
         *current_row &= ~(1 << col);
         return true;
     }
 
     // Release to press
-    if ((!current_state) && sw_value > config.ecsm_release_threshold) {
+    if ((!current_state) && sw_value > config.ecsm_actuation_threshold) {
         *current_row |= (1 << col);
         return true;
     }
