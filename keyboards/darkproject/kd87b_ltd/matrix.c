@@ -20,35 +20,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debounce.h"
 #include "quantum.h"
 
-#define rows_bits   PAL_PORT_BIT(PAL_PAD(B0)) | PAL_PORT_BIT(PAL_PAD(B1)) | PAL_PORT_BIT(PAL_PAD(B2)) | PAL_PORT_BIT(PAL_PAD(B3)) | PAL_PORT_BIT(PAL_PAD(B4)) | PAL_PORT_BIT(PAL_PAD(B5)) | PAL_PORT_BIT(PAL_PAD(B6)) | PAL_PORT_BIT(PAL_PAD(B7)) | PAL_PORT_BIT(PAL_PAD(B8)) | PAL_PORT_BIT(PAL_PAD(B9)) | PAL_PORT_BIT(PAL_PAD(B10)) | PAL_PORT_BIT(PAL_PAD(B12))
-#define cols_bits   PAL_PORT_BIT(PAL_PAD(A0)) | PAL_PORT_BIT(PAL_PAD(A1)) | PAL_PORT_BIT(PAL_PAD(A2)) | PAL_PORT_BIT(PAL_PAD(A3)) | PAL_PORT_BIT(PAL_PAD(A4)) | PAL_PORT_BIT(PAL_PAD(A8)) | PAL_PORT_BIT(PAL_PAD(A9)) | PAL_PORT_BIT(PAL_PAD(A10))
+#define rows_bits PAL_PORT_BIT(PAL_PAD(B0)) | PAL_PORT_BIT(PAL_PAD(B1)) | PAL_PORT_BIT(PAL_PAD(B2)) | PAL_PORT_BIT(PAL_PAD(B3)) | PAL_PORT_BIT(PAL_PAD(B4)) | PAL_PORT_BIT(PAL_PAD(B5)) | PAL_PORT_BIT(PAL_PAD(B6)) | PAL_PORT_BIT(PAL_PAD(B7)) | PAL_PORT_BIT(PAL_PAD(B8)) | PAL_PORT_BIT(PAL_PAD(B9)) | PAL_PORT_BIT(PAL_PAD(B10)) | PAL_PORT_BIT(PAL_PAD(B12))
+#define cols_bits PAL_PORT_BIT(PAL_PAD(A0)) | PAL_PORT_BIT(PAL_PAD(A1)) | PAL_PORT_BIT(PAL_PAD(A2)) | PAL_PORT_BIT(PAL_PAD(A3)) | PAL_PORT_BIT(PAL_PAD(A4)) | PAL_PORT_BIT(PAL_PAD(A8)) | PAL_PORT_BIT(PAL_PAD(A9)) | PAL_PORT_BIT(PAL_PAD(A10))
 
 /* matrix state(1:on, 0:off) */
-extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
-extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
+extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
+extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
 // matrix code
 // ultra fast read_cols code
 static inline matrix_row_t read_cols(void) {
     uint16_t portA_pin_state = palReadPort(PAL_PORT(A0));
-    return (((portA_pin_state & ((1U << 5) - 1U)) ^ ((1U << 5) - 1U)) |
-            (((portA_pin_state >> (PAL_PAD(A8) - 5)) & (((1U << 3) - 1U) << 5)) ^ ((((1U << 3) - 1U)) << 5)));
+    return (((portA_pin_state & ((1U << 5) - 1U)) ^ ((1U << 5) - 1U)) | (((portA_pin_state >> (PAL_PAD(A8) - 5)) & (((1U << 3) - 1U) << 5)) ^ ((((1U << 3) - 1U)) << 5)));
 }
 
 static inline void unselect_rows(void) {
     ATOMIC_BLOCK_FORCEON {
-    palSetPort(PAL_PORT(B0), rows_bits);
+        palSetPort(PAL_PORT(B0), rows_bits);
     }
 }
 
 static inline void select_row(uint8_t row) {
-    if (row != 11)
-        ATOMIC_BLOCK_FORCEON {
-        palClearPort(PAL_PORT(B0), PAL_PORT_BIT(row));
+    if (row != 11) ATOMIC_BLOCK_FORCEON {
+            palClearPort(PAL_PORT(B0), PAL_PORT_BIT(row));
         }
     else
         ATOMIC_BLOCK_FORCEON {
-        palClearPort(PAL_PORT(B12), PAL_PORT_BIT(PAL_PAD(B12)));
+            palClearPort(PAL_PORT(B12), PAL_PORT_BIT(PAL_PAD(B12)));
         }
 }
 
@@ -70,17 +68,16 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         select_row(current_row);
         matrix_output_select_delay();
-        
+
         matrix_row_t cols = read_cols();
 
         unselect_rows();
 
         changed |= (current_matrix[current_row] != cols);
         current_matrix[current_row] = cols;
-        
-        while ((palReadPort(PAL_PORT(A0)) & ((((1U << 5) - 1U)) | (((1U << 3) - 1U) << 8))) != ((((1U << 5) - 1U)) | (((1U << 3) - 1U) << 8)))    // Wait for all Col signals to go HIGH
-            wait_cpuclock(1);
 
+        while ((palReadPort(PAL_PORT(A0)) & ((((1U << 5) - 1U)) | (((1U << 3) - 1U) << 8))) != ((((1U << 5) - 1U)) | (((1U << 3) - 1U) << 8))) // Wait for all Col signals to go HIGH
+            wait_cpuclock(1);
     }
 
     return changed;
