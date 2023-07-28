@@ -37,8 +37,6 @@ enum planck_keycodes {
   NOMOD
 };
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
 #define MOU_Z LT(_MOUSE, KC_Z)
 #define MOU_SCLN LT(_MOUSE, KC_SCLN)
 #define NAV_SLSH LT(_NAV, KC_SLSH)
@@ -89,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     CT_ESC,  CTL_A,   ALT_S,   GUI_D,   SFT_F,   KC_G,    KC_H,    SFT_J,   GUI_K,   ALT_L,   CTL_SCLN,KC_QUOT,
     CW_TOGG, MOU_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  NAV_SLSH,KC_ENT,
-    HYPER,   KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    HYPER,   KC_LCTL, KC_LALT, KC_LGUI, TL_LOWR,   KC_SPC,  KC_SPC,  TL_UPPR,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Colemak
@@ -107,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
     CT_ESC,  CTL_A,   ALT_R,   GUI_S,   SHFT_T,   KC_G,    KC_M,    SFT_N,   GUI_E,   ALT_I,   CTL_O,   KC_QUOT,
     CW_TOGG, MOU_Z,   KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  NAV_SLSH,KC_ENT,
-    HYPER,   KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    HYPER,   KC_LCTL, KC_LALT, KC_LGUI, TL_LOWR,   KC_SPC,  KC_SPC,  TL_UPPR,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 /* Qwerty without home row mod
  * ,-----------------------------------------------------------------------------------.
@@ -124,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     CT_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-    HYPER,   KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    HYPER,   KC_LCTL, KC_LALT, KC_LGUI, TL_LOWR,   KC_SPC,  KC_SPC,  TL_UPPR,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
@@ -327,14 +325,4 @@ void matrix_scan_user(void) {
         }
     }
 #endif
-}
-
-bool music_mask_user(uint16_t keycode) {
-  switch (keycode) {
-    case RAISE:
-    case LOWER:
-      return false;
-    default:
-      return true;
-  }
 }

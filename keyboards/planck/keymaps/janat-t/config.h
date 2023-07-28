@@ -24,18 +24,25 @@
 
 #define MIDI_BASIC
 
-// Most tactile encoders have detents every 4 stages
-#define ENCODER_RESOLUTION 4
-
 // Configure the global tapping term (default: 200ms)
 #define TAPPING_TERM 180
 
 // Prevent normal rollover on alphas from accidentally triggering mods.
 #define PERMISSIVE_HOLD
 
-#define MOUSEKEY_DELAY 100
-
-#define USB_POLLING_INTERVAL_MS 1
+#ifndef MOUSEKEY_INTERVAL
+#define MOUSEKEY_INTERVAL 10
+#endif
+#ifndef MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_MAX_SPEED 3
+#endif
+#ifndef MOUSEKEY_TIME_TO_MAX
+#define MOUSEKEY_TIME_TO_MAX 100
+#endif
 
 // Enable rapid switch from tap to hold, disables double tap hold auto-repeat.
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
+
+#define TRI_LAYER_LOWER_LAYER 3
+#define TRI_LAYER_UPPER_LAYER 4
+#define TRI_LAYER_ADJUST_LAYER 7
