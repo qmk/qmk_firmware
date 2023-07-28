@@ -228,12 +228,7 @@ void SLED1734X_init(uint8_t addr) {
     // then set up the mode and other settings, clear the PWM registers,
     // then disable software shutdown.
 
-    // select "function register" bank
-    SLED1734X_write_register(addr, SLED_COMMANDREGISTER, SLED_PAGE_FUNCTION);
-
-    // enable software shutdown
-    SLED1734X_write_register(addr, SLED_REG_SHUTDOWN, SLED_REG_SHUTDOWN_MODE);
-
+    SLED1734X_sw_shutdown(addr);
     // sync mode
     SLED1734X_write_register(addr, SLED_REG_CONFIG, SLED_REG_CONFIG_SYNC);
     // matrix type
@@ -293,11 +288,7 @@ void SLED1734X_init(uint8_t addr) {
         SLED1734X_write_register(addr, i, 0x00);
     }
 
-    // select "function register" bank
-    SLED1734X_write_register(addr, SLED_COMMANDREGISTER, SLED_PAGE_FUNCTION);
-
-    // disable software shutdown
-    SLED1734X_write_register(addr, SLED_REG_SHUTDOWN, SLED_REG_NORMAL_MODE);
+    SLED1734X_sw_return_normal(addr);
 }
 
 void SLED1734X_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
