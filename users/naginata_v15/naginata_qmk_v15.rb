@@ -1,4 +1,4 @@
-# v15候補D版
+# v15fix版
 
 tanda = <<ETANDA
 ゔ|き|て|し|{←}|{→}|{BS}|る|す|へ|@|[  |
@@ -8,14 +8,14 @@ ETANDA
 
 shifted = <<ESHIFTED
  ゔ|ぬ|り |ね       |+{←}|+{→}|さ       |よ|え|ゆ|`|{{}|
- せ|み|に |ま       |ち   |や   |の       |も|つ|ふ|*|{}}|
- ほ|ひ|を |、{Enter}|め   |お   |。{Enter}|む|わ|れ|_|
+ せ|め|に |ま       |ち   |や   |の       |も|つ|ふ|*|{}}|
+ ほ|ひ|を |、{Enter}|み   |お   |。{Enter}|む|わ|れ|_|
 ESHIFTED
 
 mode1l = <<MEND
-^{End}    |《》{改行}{↑}|/*ディ*/|^s            |・            ||||||||
-……{改行}|(){改行}{↑}  |？{改行}|「」{改行}{↑}|『』{改行}{↑}||||||||
-││{改行}|【】{改行}{↑}|！{改行}|{改行}{↓}    |／{改行}      |||||||
+^{End}    |『』{改行}{↑}|/*ディ*/|^s            |・            ||||||||
+……{改行}|(){改行}{↑}  |？{改行}|「」{改行}{↑}|《》{改行}{↑}||||||||
+――{改行}|【】{改行}{↑}|！{改行}|{改行}{↓}    |{改行}{←}    |||||||
 MEND
 
 mode1r = <<MEND
@@ -25,27 +25,27 @@ mode1r = <<MEND
 MEND
 
 mode2l = <<MEND
-{Home}{Del 3}{BS}{←}           |^x｜{改行}^v《》{改行}{↑}  |{Home}{改行}{Space 3}{←}|{Space 3}                      |〇{改行}      ||||||||
-{Home}{Del 1}{BS}{←}           |^x(^v){改行}{Space}+{↑}^x  |{Home}{改行}{Space 1}{←}|^x「^v」{改行}{Space}+{↑}^x   |^x『^v』{改行}{Space}+{↑}^x||||||||
-　　　×　　　×　　　×{改行 2}|^x【^v】{改行}{Space}+{↑}^x|{改行}{End}{改行}}       |{改行}{End}{改行}「」{改行}{↑}|{End}{改行}   |||||||
+{Home}{→}{End}{Del 4}{←}      |^x『^v』{改行}{Space}+{↑}^x|{Home}{改行}{Space 3}{←}|{Space 3}                      |〇{改行}                                ||||||||
+{Home}{→}{End}{Del 2}{←}      |^x(^v){改行}{Space}+{↑}^x  |{Home}{改行}{Space 1}{←}|^x「^v」{改行}{Space}+{↑}^x   |^x｜{改行}^v《》{改行}{↑}{Space}+{↑}^x||||||||
+　　　×　　　×　　　×{改行 2}|^x【^v】{改行}{Space}+{↑}^x|／{改行}                 |{改行}{End}{改行}「」{改行}{↑}|{改行}{End}{改行}{Space}                |||||||
 MEND
 
 mode2r = <<MEND
-|||||+{Home}|^x    |^z   |^y      |^v      |  |  |
-|||||^c     |{→ 5}|+{→}|+{→ 5} |+{→ 20}|  |  |
-|||||+{End} |{← 5}|+{←}|+{← 5} |+{← 20}|  |
+|||||+{Home}|^x  |^v   |^y      |^z      |  |  |
+|||||^c     |{→}|+{→}|+{→ 5} |+{→ 20}|  |  |
+|||||+{End} |{←}|+{←}|+{← 5} |+{← 20}|  |
 MEND
 
 koyul = <<MEND
 |臨兵闘者皆陣烈在前|天狗      |シンイチ  |ネムカケ  ||||||||
-        |          |小鴉      |光太郎    |三神      ||||||||
-火よ、在れ|火の剣   |罵詈雑    |心の闇    |峯        ||||||||
+三神     |峯        |小鴉      |光太郎    |          ||||||||
+火よ、在れ|火の剣   |罵詈雑    |心の闇    |          ||||||||
 MEND
 
 koyur = <<MEND
 |||||才一      |さくら    |酒田      |          |          |          |          |
 |||||鞍馬      |青鬼      |百地      |      |不動金縛りの術|          |
-|||||鬼塚      |赤石      |          |          |霊槍      |          |
+|||||鬼塚      |赤石      |八幡      |          |霊槍      |          |
 MEND
 
 eiji    = %w(Q W E R T  Y U I O P  A S D F G  H J K L SCLN  Z X C V B  N M COMM DOT SLSH)
@@ -308,7 +308,9 @@ $henshu = {
   "^{End}" => ["ng_eof();"],
   "{BS}" => ["tap_code(KC_BSPC);"],
   "{Del 1}" => ["tap_code(KC_DEL);"],
-  "{Del 3}" => ["tap_code(KC_DEL);" * 3],
+  "{Del 2}" => ["tap_code(KC_DEL);"] * 2,
+  "{Del 3}" => ["tap_code(KC_DEL);"] * 3,
+  "{Del 4}" => ["tap_code(KC_DEL);"] * 4,
   "{Del}" => ["tap_code(KC_DEL);"],
   "{End}" => ["ng_end();"],
   "{Enter}" => ["tap_code(KC_ENT);"],
@@ -322,6 +324,7 @@ $henshu = {
   "{←}" => ["ng_left(1);"],
   "{↑}" => ["ng_up(1);"],
   "{→ 5}" => ["ng_right(5);"],
+  "{→}" => ["ng_right(1);"],
   "{↓}" => ["ng_down(1);"],
   "{改行 2}" => ["tap_code(KC_ENT);"] * 2,
   "{改行}" => ["tap_code(KC_ENT);"],
@@ -342,11 +345,17 @@ def outputHenshu(pk, m, k)
   $hcase << "      case #{pk}|B_#{k}: // #{m}"
   v = m.scan(/((?:\^?\+?{.+?})|(?:\^.)|(?:[^{}\^\+]+))/).flatten
   d = []
+  uc = false
   v.each do |i|
     if $henshu.key? i
+      if i == "{改行}" && uc
+        uc = false
+        next
+      end
       d << $henshu[i]
     else
-      d << "ng_send_unicode_string(\"#{i}\");"
+      d << "ng_send_unicode_string_P(PSTR(\"#{i}\"));"
+      uc = true
     end
   end
   $hcase += d.flatten.map{|x| "        #{x}"}

@@ -155,9 +155,9 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_Z                      , .kana = "ho"      }, // ほ
   {.key = B_SHFT|B_Z               , .kana = "ho"      }, // ほ
   {.key = B_SHFT|B_F               , .kana = "ma"      }, // ま
-  {.key = B_SHFT|B_S               , .kana = "mi"      }, // み
+  {.key = B_SHFT|B_B               , .kana = "mi"      }, // み
   {.key = B_SHFT|B_COMM            , .kana = "mu"      }, // む
-  {.key = B_SHFT|B_B               , .kana = "me"      }, // め
+  {.key = B_SHFT|B_S               , .kana = "me"      }, // め
   {.key = B_SHFT|B_K               , .kana = "mo"      }, // も
   {.key = B_SHFT|B_H               , .kana = "ya"      }, // や
   {.key = B_SHFT|B_P               , .kana = "yu"      }, // ゆ
@@ -248,9 +248,9 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_M|B_X|B_H              , .kana = "pya"     }, // ぴゃ
   {.key = B_M|B_X|B_P              , .kana = "pyu"     }, // ぴゅ
   {.key = B_M|B_X|B_I              , .kana = "pyo"     }, // ぴょ
-  {.key = B_S|B_H                  , .kana = "mya"     }, // みゃ
-  {.key = B_S|B_P                  , .kana = "myu"     }, // みゅ
-  {.key = B_S|B_I                  , .kana = "myo"     }, // みょ
+  {.key = B_B|B_H                  , .kana = "mya"     }, // みゃ
+  {.key = B_B|B_P                  , .kana = "myu"     }, // みゅ
+  {.key = B_B|B_I                  , .kana = "myo"     }, // みょ
   {.key = B_E|B_H                  , .kana = "rya"     }, // りゃ
   {.key = B_E|B_P                  , .kana = "ryu"     }, // りゅ
   {.key = B_E|B_I                  , .kana = "ryo"     }, // りょ
@@ -430,7 +430,12 @@ void ng_show_os(void) {
   }
 }
 
-void ng_send_unicode_string(const char *str) {
+#define MAX_STRLEN 40
+void ng_send_unicode_string_P(const char *pstr) {
+  if (strlen_P(pstr) > MAX_STRLEN) return;
+  char str[MAX_STRLEN];
+  strcpy_P(str, pstr);
+
   switch (naginata_config.os) {
     case NG_LINUX:
       tap_code(KC_INTERNATIONAL_5);
@@ -442,17 +447,22 @@ void ng_send_unicode_string(const char *str) {
       tap_code(KC_ENT);
       break;
     case NG_MAC: // Karabiner-Elementsが必要
-      // TODO 未確定の文字列が残っていたら確定しておきたい
       tap_code(KC_LANGUAGE_2); // 未確定文字を確定する
+      wait_ms(10);
       register_code(KC_LCTL); // Unicode HEX Inputへ切り替え
+      wait_ms(10);
       tap_code(KC_F20);
+      wait_ms(10);
       unregister_code(KC_LCTL);
-      wait_ms(UNICODE_TYPE_DELAY);
+      wait_ms(10);
       send_unicode_string(str);
-      wait_ms(UNICODE_TYPE_DELAY);
+      wait_ms(10);
       register_code(KC_LSFT); // 日本語入力へ切り替え。再変換にならないように「shift+かな」「かな」の2打にする。
+      wait_ms(10);
       tap_code(KC_LANGUAGE_1);
+      wait_ms(10);
       unregister_code(KC_LSFT);
+      wait_ms(10);
       tap_code(KC_LANGUAGE_1);
       break;
   }
@@ -798,8 +808,8 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
-      case B_J|B_K|B_W: // 《》{改行}{↑}
-        ng_send_unicode_string("《》");
+      case B_J|B_K|B_W: // 『』{改行}{↑}
+        ng_send_unicode_string_P(PSTR("『』"));
         ng_up(1);
         compress_buffer(nt);
         return true;
@@ -810,51 +820,51 @@ bool naginata_lookup(int nt, bool shifted) {
         return true;
         break;
       case B_J|B_K|B_T: // ・
-        ng_send_unicode_string("・");
+        ng_send_unicode_string_P(PSTR("・"));
         compress_buffer(nt);
         return true;
         break;
       case B_J|B_K|B_A: // ……{改行}
-        ng_send_unicode_string("……");
+        ng_send_unicode_string_P(PSTR("……"));
         compress_buffer(nt);
         return true;
         break;
       case B_J|B_K|B_S: // (){改行}{↑}
-        ng_send_unicode_string("()");
+        ng_send_unicode_string_P(PSTR("()"));
         ng_up(1);
         compress_buffer(nt);
         return true;
         break;
       case B_J|B_K|B_D: // ？{改行}
-        ng_send_unicode_string("？");
+        ng_send_unicode_string_P(PSTR("？"));
         compress_buffer(nt);
         return true;
         break;
       case B_J|B_K|B_F: // 「」{改行}{↑}
-        ng_send_unicode_string("「」");
+        ng_send_unicode_string_P(PSTR("「」"));
         ng_up(1);
         compress_buffer(nt);
         return true;
         break;
-      case B_J|B_K|B_G: // 『』{改行}{↑}
-        ng_send_unicode_string("『』");
+      case B_J|B_K|B_G: // 《》{改行}{↑}
+        ng_send_unicode_string_P(PSTR("《》"));
         ng_up(1);
         compress_buffer(nt);
         return true;
         break;
-      case B_J|B_K|B_Z: // ││{改行}
-        ng_send_unicode_string("││");
+      case B_J|B_K|B_Z: // ――{改行}
+        ng_send_unicode_string_P(PSTR("――"));
         compress_buffer(nt);
         return true;
         break;
       case B_J|B_K|B_X: // 【】{改行}{↑}
-        ng_send_unicode_string("【】");
+        ng_send_unicode_string_P(PSTR("【】"));
         ng_up(1);
         compress_buffer(nt);
         return true;
         break;
       case B_J|B_K|B_C: // ！{改行}
-        ng_send_unicode_string("！");
+        ng_send_unicode_string_P(PSTR("！"));
         compress_buffer(nt);
         return true;
         break;
@@ -864,8 +874,9 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
-      case B_J|B_K|B_B: // ／{改行}
-        ng_send_unicode_string("／");
+      case B_J|B_K|B_B: // {改行}{←}
+        tap_code(KC_ENT);
+        ng_left(1);
         compress_buffer(nt);
         return true;
         break;
@@ -958,20 +969,28 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
-      case B_M|B_COMM|B_Q: // {Home}{Del 3}{BS}{←}
+      case B_M|B_COMM|B_Q: // {Home}{→}{End}{Del 4}{←}
         ng_home();
-        tap_code(KC_DEL);tap_code(KC_DEL);tap_code(KC_DEL);
-        tap_code(KC_BSPC);
+        ng_right(1);
+        ng_end();
+        tap_code(KC_DEL);
+        tap_code(KC_DEL);
+        tap_code(KC_DEL);
+        tap_code(KC_DEL);
         ng_left(1);
         compress_buffer(nt);
         return true;
         break;
-      case B_M|B_COMM|B_W: // ^x｜{改行}^v《》{改行}{↑}
+      case B_M|B_COMM|B_W: // ^x『^v』{改行}{Space}+{↑}^x
         ng_cut();
-        ng_send_unicode_string("｜");
+        ng_send_unicode_string_P(PSTR("『"));
         ng_paste();
-        ng_send_unicode_string("《》");
+        ng_send_unicode_string_P(PSTR("』"));
+        tap_code(KC_SPC);
+        register_code(KC_LSFT);
         ng_up(1);
+        unregister_code(KC_LSFT);
+        ng_cut();
         compress_buffer(nt);
         return true;
         break;
@@ -993,23 +1012,25 @@ bool naginata_lookup(int nt, bool shifted) {
         return true;
         break;
       case B_M|B_COMM|B_T: // 〇{改行}
-        ng_send_unicode_string("〇");
+        ng_send_unicode_string_P(PSTR("〇"));
         compress_buffer(nt);
         return true;
         break;
-      case B_M|B_COMM|B_A: // {Home}{Del 1}{BS}{←}
+      case B_M|B_COMM|B_A: // {Home}{→}{End}{Del 2}{←}
         ng_home();
+        ng_right(1);
+        ng_end();
         tap_code(KC_DEL);
-        tap_code(KC_BSPC);
+        tap_code(KC_DEL);
         ng_left(1);
         compress_buffer(nt);
         return true;
         break;
       case B_M|B_COMM|B_S: // ^x(^v){改行}{Space}+{↑}^x
         ng_cut();
-        ng_send_unicode_string("(");
+        ng_send_unicode_string_P(PSTR("("));
         ng_paste();
-        ng_send_unicode_string(")");
+        ng_send_unicode_string_P(PSTR(")"));
         tap_code(KC_SPC);
         register_code(KC_LSFT);
         ng_up(1);
@@ -1028,9 +1049,9 @@ bool naginata_lookup(int nt, bool shifted) {
         break;
       case B_M|B_COMM|B_F: // ^x「^v」{改行}{Space}+{↑}^x
         ng_cut();
-        ng_send_unicode_string("「");
+        ng_send_unicode_string_P(PSTR("「"));
         ng_paste();
-        ng_send_unicode_string("」");
+        ng_send_unicode_string_P(PSTR("」"));
         tap_code(KC_SPC);
         register_code(KC_LSFT);
         ng_up(1);
@@ -1039,11 +1060,12 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
-      case B_M|B_COMM|B_G: // ^x『^v』{改行}{Space}+{↑}^x
+      case B_M|B_COMM|B_G: // ^x｜{改行}^v《》{改行}{↑}{Space}+{↑}^x
         ng_cut();
-        ng_send_unicode_string("『");
+        ng_send_unicode_string_P(PSTR("｜"));
         ng_paste();
-        ng_send_unicode_string("』");
+        ng_send_unicode_string_P(PSTR("《》"));
+        ng_up(1);
         tap_code(KC_SPC);
         register_code(KC_LSFT);
         ng_up(1);
@@ -1053,16 +1075,17 @@ bool naginata_lookup(int nt, bool shifted) {
         return true;
         break;
       case B_M|B_COMM|B_Z: // 　　　×　　　×　　　×{改行 2}
-        ng_send_unicode_string("　　　×　　　×　　　×");
+        ng_send_unicode_string_P(PSTR("　　　×　　　×　　　×"));
+        tap_code(KC_ENT);
         tap_code(KC_ENT);
         compress_buffer(nt);
         return true;
         break;
       case B_M|B_COMM|B_X: // ^x【^v】{改行}{Space}+{↑}^x
         ng_cut();
-        ng_send_unicode_string("【");
+        ng_send_unicode_string_P(PSTR("【"));
         ng_paste();
-        ng_send_unicode_string("】");
+        ng_send_unicode_string_P(PSTR("】"));
         tap_code(KC_SPC);
         register_code(KC_LSFT);
         ng_up(1);
@@ -1071,10 +1094,8 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
-      case B_M|B_COMM|B_C: // {改行}{End}{改行}}
-        tap_code(KC_ENT);
-        ng_end();
-        tap_code(KC_ENT);
+      case B_M|B_COMM|B_C: // ／{改行}
+        ng_send_unicode_string_P(PSTR("／"));
         compress_buffer(nt);
         return true;
         break;
@@ -1082,14 +1103,16 @@ bool naginata_lookup(int nt, bool shifted) {
         tap_code(KC_ENT);
         ng_end();
         tap_code(KC_ENT);
-        ng_send_unicode_string("「」");
+        ng_send_unicode_string_P(PSTR("「」"));
         ng_up(1);
         compress_buffer(nt);
         return true;
         break;
-      case B_M|B_COMM|B_B: // {End}{改行}
+      case B_M|B_COMM|B_B: // {改行}{End}{改行}{Space}
+        tap_code(KC_ENT);
         ng_end();
         tap_code(KC_ENT);
+        tap_code(KC_SPC);
         compress_buffer(nt);
         return true;
         break;
@@ -1105,8 +1128,8 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
-      case B_C|B_V|B_I: // ^z
-        ng_undo();
+      case B_C|B_V|B_I: // ^v
+        ng_paste();
         compress_buffer(nt);
         return true;
         break;
@@ -1115,8 +1138,8 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
-      case B_C|B_V|B_P: // ^v
-        ng_paste();
+      case B_C|B_V|B_P: // ^z
+        ng_undo();
         compress_buffer(nt);
         return true;
         break;
@@ -1125,8 +1148,8 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
-      case B_C|B_V|B_J: // {→ 5}
-        ng_right(5);
+      case B_C|B_V|B_J: // {→}
+        ng_right(1);
         compress_buffer(nt);
         return true;
         break;
@@ -1158,8 +1181,8 @@ bool naginata_lookup(int nt, bool shifted) {
         compress_buffer(nt);
         return true;
         break;
-      case B_C|B_V|B_M: // {← 5}
-        ng_left(5);
+      case B_C|B_V|B_M: // {←}
+        ng_left(1);
         compress_buffer(nt);
         return true;
         break;
@@ -1188,112 +1211,117 @@ bool naginata_lookup(int nt, bool shifted) {
 // 固有名詞
       #ifndef NG_NO_KOYUMEISHI
       case B_U|B_I|B_W: // 臨兵闘者皆陣烈在前
-        ng_send_unicode_string("臨兵闘者皆陣烈在前");
+        ng_send_unicode_string_P(PSTR("臨兵闘者皆陣烈在前"));
         compress_buffer(nt);
         return true;
         break;
       case B_U|B_I|B_E: // 天狗
-        ng_send_unicode_string("天狗");
+        ng_send_unicode_string_P(PSTR("天狗"));
         compress_buffer(nt);
         return true;
         break;
       case B_U|B_I|B_R: // シンイチ
-        ng_send_unicode_string("シンイチ");
+        ng_send_unicode_string_P(PSTR("シンイチ"));
         compress_buffer(nt);
         return true;
         break;
       case B_U|B_I|B_T: // ネムカケ
-        ng_send_unicode_string("ネムカケ");
+        ng_send_unicode_string_P(PSTR("ネムカケ"));
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_U|B_I|B_A: // 三神
+        ng_send_unicode_string_P(PSTR("三神"));
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_U|B_I|B_S: // 峯
+        ng_send_unicode_string_P(PSTR("峯"));
         compress_buffer(nt);
         return true;
         break;
       case B_U|B_I|B_D: // 小鴉
-        ng_send_unicode_string("小鴉");
+        ng_send_unicode_string_P(PSTR("小鴉"));
         compress_buffer(nt);
         return true;
         break;
       case B_U|B_I|B_F: // 光太郎
-        ng_send_unicode_string("光太郎");
-        compress_buffer(nt);
-        return true;
-        break;
-      case B_U|B_I|B_G: // 三神
-        ng_send_unicode_string("三神");
+        ng_send_unicode_string_P(PSTR("光太郎"));
         compress_buffer(nt);
         return true;
         break;
       case B_U|B_I|B_Z: // 火よ、在れ
-        ng_send_unicode_string("火よ、在れ");
+        ng_send_unicode_string_P(PSTR("火よ、在れ"));
         compress_buffer(nt);
         return true;
         break;
       case B_U|B_I|B_X: // 火の剣
-        ng_send_unicode_string("火の剣");
+        ng_send_unicode_string_P(PSTR("火の剣"));
         compress_buffer(nt);
         return true;
         break;
       case B_U|B_I|B_C: // 罵詈雑
-        ng_send_unicode_string("罵詈雑");
+        ng_send_unicode_string_P(PSTR("罵詈雑"));
         compress_buffer(nt);
         return true;
         break;
       case B_U|B_I|B_V: // 心の闇
-        ng_send_unicode_string("心の闇");
-        compress_buffer(nt);
-        return true;
-        break;
-      case B_U|B_I|B_B: // 峯
-        ng_send_unicode_string("峯");
+        ng_send_unicode_string_P(PSTR("心の闇"));
         compress_buffer(nt);
         return true;
         break;
       case B_E|B_R|B_Y: // 才一
-        ng_send_unicode_string("才一");
+        ng_send_unicode_string_P(PSTR("才一"));
         compress_buffer(nt);
         return true;
         break;
       case B_E|B_R|B_U: // さくら
-        ng_send_unicode_string("さくら");
+        ng_send_unicode_string_P(PSTR("さくら"));
         compress_buffer(nt);
         return true;
         break;
       case B_E|B_R|B_I: // 酒田
-        ng_send_unicode_string("酒田");
+        ng_send_unicode_string_P(PSTR("酒田"));
         compress_buffer(nt);
         return true;
         break;
       case B_E|B_R|B_H: // 鞍馬
-        ng_send_unicode_string("鞍馬");
+        ng_send_unicode_string_P(PSTR("鞍馬"));
         compress_buffer(nt);
         return true;
         break;
       case B_E|B_R|B_J: // 青鬼
-        ng_send_unicode_string("青鬼");
+        ng_send_unicode_string_P(PSTR("青鬼"));
         compress_buffer(nt);
         return true;
         break;
       case B_E|B_R|B_K: // 百地
-        ng_send_unicode_string("百地");
+        ng_send_unicode_string_P(PSTR("百地"));
         compress_buffer(nt);
         return true;
         break;
       case B_E|B_R|B_SCLN: // 不動金縛りの術
-        ng_send_unicode_string("不動金縛りの術");
+        ng_send_unicode_string_P(PSTR("不動金縛りの術"));
         compress_buffer(nt);
         return true;
         break;
       case B_E|B_R|B_B: // 鬼塚
-        ng_send_unicode_string("鬼塚");
+        ng_send_unicode_string_P(PSTR("鬼塚"));
         compress_buffer(nt);
         return true;
         break;
       case B_E|B_R|B_N: // 赤石
-        ng_send_unicode_string("赤石");
+        ng_send_unicode_string_P(PSTR("赤石"));
+        compress_buffer(nt);
+        return true;
+        break;
+      case B_E|B_R|B_M: // 八幡
+        ng_send_unicode_string_P(PSTR("八幡"));
         compress_buffer(nt);
         return true;
         break;
       case B_E|B_R|B_DOT: // 霊槍
-        ng_send_unicode_string("霊槍");
+        ng_send_unicode_string_P(PSTR("霊槍"));
         compress_buffer(nt);
         return true;
         break;
@@ -1343,14 +1371,10 @@ void ng_cut() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_X);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_X));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_X);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_X));
       break;
   }
 }
@@ -1359,14 +1383,10 @@ void ng_copy() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_C);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_C));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_C);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_C));
       break;
   }
 }
@@ -1375,55 +1395,56 @@ void ng_paste() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_V);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_V));
       break;
     case NG_MAC:
       register_code(KC_LCMD);
+      wait_ms(100);
       tap_code(KC_V);
+      wait_ms(100);
       unregister_code(KC_LCMD);
+      wait_ms(100);
       break;
   }
 }
 
-void ng_up(int c) {
-  if (naginata_config.tategaki) {
-    for (int i = 0; i < c; i++ )
+void ng_up(uint8_t c) {
+  for (uint8_t i = 0; i < c; i++) { // サイズ削減
+    if (naginata_config.tategaki) {
       tap_code(KC_UP);
-  } else {
-    for (int i = 0; i < c; i++ )
+    } else {
       tap_code(KC_LEFT);
+    }
   }
 }
 
-void ng_down(int c) {
-  if (naginata_config.tategaki) {
-    for (int i = 0; i < c; i++ )
+void ng_down(uint8_t c) {
+  for (uint8_t i = 0; i < c; i++) {
+    if (naginata_config.tategaki) {
       tap_code(KC_DOWN);
-  } else {
-    for (int i = 0; i < c; i++ )
+    } else {
       tap_code(KC_RIGHT);
+    }
   }
 }
 
-void ng_left(int c) {
-  if (naginata_config.tategaki) {
-    for (int i = 0; i < c; i++ )
+void ng_left(uint8_t c) {
+  for (uint8_t i = 0; i < c; i++) {
+    if (naginata_config.tategaki) {
       tap_code(KC_LEFT);
-  } else {
-    for (int i = 0; i < c; i++ )
+    } else {
       tap_code(KC_DOWN);
+    }
   }
 }
 
-void ng_right(int c) {
-  if (naginata_config.tategaki) {
-    for (int i = 0; i < c; i++ )
+void ng_right(uint8_t c) {
+  for (uint8_t i = 0; i < c; i++) {
+    if (naginata_config.tategaki) {
       tap_code(KC_RIGHT);
-  } else {
-    for (int i = 0; i < c; i++ )
+    } else {
       tap_code(KC_UP);
+    }
   }
 }
 
@@ -1434,9 +1455,7 @@ void ng_home() {
       tap_code(KC_HOME);
       break;
     case NG_MAC:
-      register_code(KC_LCTL);
-      tap_code(KC_A);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_A));
       break;
   }
 }
@@ -1448,9 +1467,7 @@ void ng_end() {
       tap_code(KC_END);
       break;
     case NG_MAC:
-      register_code(KC_LCTL);
-      tap_code(KC_E);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_E));
       break;
   }
 }
@@ -1459,14 +1476,10 @@ void ng_katakana() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_I);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_I));
       break;
     case NG_MAC:
-      register_code(KC_LCTL);
-      tap_code(KC_K);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_K));
       break;
   }
 }
@@ -1475,14 +1488,10 @@ void ng_save() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_S);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_S));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_S);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_S));
       break;
   }
 }
@@ -1491,14 +1500,10 @@ void ng_hiragana() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_U);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_U));
       break;
     case NG_MAC:
-      register_code(KC_LCTL);
-      tap_code(KC_J);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_J));
       break;
   }
 }
@@ -1507,14 +1512,10 @@ void ng_redo() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_Y);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_Y));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_Y);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_Y));
       break;
   }
 }
@@ -1523,14 +1524,10 @@ void ng_undo() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_Z);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_Z));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_Z);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_Z));
       break;
   }
 }
@@ -1552,15 +1549,10 @@ void ng_eof() {
   switch (naginata_config.os) {
     case NG_WIN:
     case NG_LINUX:
-      register_code(KC_LCTL);
-      tap_code(KC_END);
-      unregister_code(KC_LCTL);
+      tap_code16(LCTL(KC_END));
       break;
     case NG_MAC:
-      register_code(KC_LCMD);
-      tap_code(KC_DOWN);
-      unregister_code(KC_LCMD);
+      tap_code16(LCMD(KC_DOWN));
       break;
   }
-
 }
