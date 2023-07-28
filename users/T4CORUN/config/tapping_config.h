@@ -25,7 +25,7 @@ https://docs.qmk.fm/#/one_shot_keys
 #define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
 
-#define QUICK_TAP_TERM 120
+#define QUICK_TAP_TERM 100
 #define QUICK_TAP_TERM_PER_KEY
 
 #define TAPPING_TOGGLE 3

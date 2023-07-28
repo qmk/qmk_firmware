@@ -22,26 +22,26 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #if defined(HOMEROWMOD_ENABLE)
     //QWERTY Home Row Mods
     case TR_A:
-    case TR_S:
+    case TR_SA:
     case TR_L:
-    case TR_QT:
+    case TR_QUOT:
     //COLEMAKdh Home Row Mods
     case TR_R:
-    case TR_S2:
+    case TR_SC:
     case TR_I:
     case TR_O:
       return TAPPING_TERM + 30;
 #endif //HOMEROWMOD_ENABLE
 
-    //layer taps
-    case CONFIG:
-      return TAPPING_TERM + 50;
-
 #if defined(MOUSELAYER_ENABLE)
     case TR_MOUC:
+    case TR_MOUZ:
       return TAPPING_TERM - 30;
 #endif //MOUSELAYER_ENABLE
 
+    case NAVGTIN:
+    case NUMBERS:
+      return TAPPING_TERM - 80;
 
     default:
       //uprintf("tapping term: %d \n", TAPPING_TERM);

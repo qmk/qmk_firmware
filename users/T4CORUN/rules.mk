@@ -25,7 +25,7 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
 endif
 
 
-COMBO_ENABLE ?= no
+COMBO_ENABLE ?= yes
 ifeq ($(strip $(COMBO_ENABLE)), yes)
 #	SRC += $(USER_PATH)/combo.c
 	INTROSPECTION_KEYMAP_C = $(USER_PATH)/features/combo.c
@@ -39,8 +39,9 @@ endif
 
 #TAPHOLD_ENABLE is custom
 #This will override HOMEROWMOD_ENABLE when there is overlapping keycodes
-TAPHOLD_ENABLE ?= no
+TAPHOLD_ENABLE ?= yes
 ifeq ($(strip $(TAPHOLD_ENABLE)), yes)
+	SRC += $(USER_PATH)/features/taphold.c
 	OPT_DEFS += -DTAPHOLD_ENABLE
 endif
 
@@ -72,7 +73,7 @@ ifeq ($(strip $(GAMELAYER_ENABLE)), yes)
 endif
 
 #ONESHOT_ENABLED is custom
-ONESHOT_ENABLE ?= no
+ONESHOT_ENABLE ?= yes
 ifeq ($(strip $(ONESHOT_ENABLE)), yes)
 	OPT_DEFS += -DONESHOT_ENABLE
 endif

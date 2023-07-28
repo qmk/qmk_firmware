@@ -43,10 +43,10 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
 #if defined(ONESHOT_ENABLE)
   uint8_t current_osm = get_oneshot_mods();
 
-  bool isShift = ( (current_mod & MOD_BIT(KC_LSFT)) || (current_osm & MOD_BIT(KC_LSFT)) );
-  bool isCtrl  = ( (current_mod & MOD_BIT(KC_LCTL)) || (current_osm & MOD_BIT(KC_LCTL)) );
-  bool isAlt   = ( (current_mod & MOD_BIT(KC_LALT)) || (current_osm & MOD_BIT(KC_LALT)) );
-  bool isGUI   = ( (current_mod & MOD_BIT(KC_LGUI)) || (current_osm & MOD_BIT(KC_LGUI)) );
+  bool isShift = ((current_mod & MOD_BIT(KC_LSFT)) || (current_osm & MOD_BIT(KC_LSFT)));
+  bool isCtrl  = ((current_mod & MOD_BIT(KC_LCTL)) || (current_osm & MOD_BIT(KC_LCTL)));
+  bool isAlt   = ((current_mod & MOD_BIT(KC_LALT)) || (current_osm & MOD_BIT(KC_LALT)));
+  bool isGUI   = ((current_mod & MOD_BIT(KC_LGUI)) || (current_osm & MOD_BIT(KC_LGUI)));
 #else
   bool isShift = (current_osm & MOD_BIT(KC_LSFT));
   bool isCtrl  = (current_osm & MOD_BIT(KC_LCTL));
@@ -73,6 +73,8 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max){
     case _CONFIG:
       rgb_matrix_set_color(LED_CONFIG_L, RGB_AZURE);
       rgb_matrix_set_color(LED_CONFIG_R, RGB_AZURE);
+
+      rgb_matrix_set_color(LED_RESET, RGB_RED);
 
       switch (current_default_layer) {
         

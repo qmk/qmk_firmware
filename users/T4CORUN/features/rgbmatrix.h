@@ -60,6 +60,8 @@
 #   define LED_GUI_L 22
 #   define LED_GUI_R 49
 
+//Reset LED
+#   define LED_RESET 48
 
 //qmk_firmware\keyboards\bastardkb\charybdis\3x5\3x5.c
 #elif defined(KEYBOARD_bastardkb_charybdis_3x5)
@@ -113,4 +115,7 @@
 //GUI keys
 #   define LED_GUI_L 1
 #   define LED_GUI_R 19
+
+//Reset LED
+#   define LED_RESET 18
 #endif

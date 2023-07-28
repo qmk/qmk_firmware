@@ -1,8 +1,8 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
-#if defined(OLED_ENABLE)
-#   include "features/oled.h"
+#if defined(TAPHOLD_ENABLE)
+#   include "features/taphold.h"
 #endif
 
 //#include "wrappers.h"
@@ -57,8 +57,8 @@ enum keycodes {
 #define ___x___ KC_NO
 
 //momentary layer
-#define NAVGTIN    MO(_NAVIGATION)
-#define NUMBERS    MO(_NUMBER)
+#define NAVGTIN    LT(_NAVIGATION, KC_0)
+#define NUMBERS    LT(_NUMBER, KC_BSPC)
 #define GAMENUM    MO(_GAMENUMBER)
 #define CONFIG     MO(_CONFIG)
 
@@ -186,27 +186,27 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_SCLN  LT(_DEFAULT_LAYER_1, TH_SCLN)
 #else
 //Double Taps
-#   define TR_UNDS  TH_UNDS
-#   define TR_LABK  TH_LABK
-#   define TR_RABK  TH_RABK
-#   define TR_SLSH  TH_SLSH
-#   define TR_BSLS  TH_BSLS
-#   define TR_HASH  TH_HASH
-#   define TR_MINS  TH_MINS
+#   define TR_UNDS  KC_UNDS
+#   define TR_LABK  KC_LABK
+#   define TR_RABK  KC_RABK
+#   define TR_SLSH  KC_SLSH
+#   define TR_BSLS  KC_BSLS
+#   define TR_HASH  KC_HASH
+#   define TR_MINS  KC_MINS
 //Double Taps with Spaces
-#   define TR_PIPE  TH_PIPE
-#   define TR_AMPR  TH_AMPR
-#   define TR_EQL   TH_EQL
+#   define TR_PIPE  KC_PIPE
+#   define TR_AMPR  KC_AMPR
+#   define TR_EQL   KC_EQL
 //Triple Tap
-#   define TR_GRV   TH_GRV
+#   define TR_GRV   KC_GRV
 //Custom
-#   define TR_EXLM  TH_EXLM
-#   define TR_LPRN  TH_LPRN
-#   define TR_LCBR  TH_LCBR
-#   define TR_DQUO  TH_DQUO
-#   define TR_COMM  TH_COMM
-#   define TR_DOT   TH_DOT
-#   define TR_SCLN  TH_SCLN
+#   define TR_EXLM  KC_EXLM
+#   define TR_LPRN  KC_LPRN
+#   define TR_LCBR  KC_LCBR
+#   define TR_DQUO  KC_DQUO
+#   define TR_COMM  KC_COMM
+#   define TR_DOT   KC_DOT
+#   define TR_SCLN  KC_SCLN
 #endif //TAPHOLD_ENABLE
 
 //Tap Hold takes precedence over Home Row Mods when we have overlapping keys 
@@ -359,7 +359,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | MOUZ | X    | MOUC | V    | B    |    | N    | M    | ,    | .    | -    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  | NUM  | Lsft |    | Spc  | NAV  |      |
+*                 | MB1  |NUMBsp| Lsft |    | Spc  | NAV0 |      |
 *                 `------+------+------'    `------+------+------'
 *
 */
@@ -383,7 +383,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | MOUZ | X    | MOUC | D    | V    |    | K    | H    | ,    | .    | -    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  | NUM  | Lsft |    | Spc  | NAV  |      |
+*                 | MB1  |NUMBsp| Lsft |    | Spc  | NAV0  |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ________________COLEMAKDH_L1_______________        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
@@ -400,62 +400,33 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  | Snip | File |      |      |    | =    | 7    | 8    | 9    | +    |
+*   | Esc  | Snip | File |      | `    |    | =    | 7    | 8    | 9    | +    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Gui  | Alt  | Ctrl | Shft | -    |    | .    | 4    | 5    | 6    | *    |
+*   | Gui  | Alt  | Ctrl | Shft | -    |    | ;    | 4    | 5    | 6    | *    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    | 0    | 1    | 2    | 3    | /    |
+*   | Undo | Cut  | Copy | Pste | Redo |    | .    | 1    | 2    | 3    | /    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      | NUM  |      |    | Bksp | NAV  |      |
+*                 |      |NUMBsp|      |    | Spc  | NAV0 |      |
 *                 `------+------+------'    `------+------+------'
 *
 */
-#   define _________________NUMPAD_L1_________________        KC_ESC,  W_SNIP,  W_FILE,  ___x___, ___x___
+#   define _________________NUMPAD_L1_________________        KC_ESC,  W_SNIP,  W_FILE,  ___x___, TR_GRV
 #   define _________________NUMPAD_L2_________________        _____________GACS_MODS____________, KC_MINS
 #   define _________________NUMPAD_L3_________________        _________________UCCPR_L___________________
 #   define          ________NUMPAD_L4________                 ___x___, _______, ___x___
 
 #   define _________________NUMPAD_R1_________________        KC_EQL,  KC_7,    KC_8,    KC_9,    KC_PLUS
-#   define _________________NUMPAD_R2_________________        KC_DOT,  KC_4,    KC_5,    KC_6,    KC_ASTR
-#   define _________________NUMPAD_R3_________________        KC_0,    KC_1,    KC_2,    KC_3,    KC_BSLS
+#   define _________________NUMPAD_R2_________________        TR_SCLN, KC_4,    KC_5,    KC_6,    KC_ASTR
+#   define _________________NUMPAD_R3_________________        KC_DOT,  KC_1,    KC_2,    KC_3,    KC_BSLS
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          ________NUMPAD_R4________                 KC_BSPC, _______
+#   define          ________NUMPAD_R4________                 KC_SPC,  _______
 #else
-#   define          ________NUMPAD_R4________                 KC_BSPC, _______, ___x___
+#   define          ________NUMPAD_R4________                 KC_SPC,  _______, ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #   define __________________NUMROW_L_________________        KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #   define __________________NUMROW_R_________________        KC_6,    KC_7,    KC_8,    KC_9,    KC_0
-
-
-/*
-*
-*   ,----------------------------------.    ,----------------------------------.
-*   | Esc  | Home | Up   | End  | PgUp |    | Ins  |      |NxtTab|DMRec1|DMPly1|
-*   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | Gui  |
-*   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |      | Bksp | App  |DMRec2|DMPly2|
-*   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Tab  | NUM  | Ent  |    |      | NAV  |      |
-*                 `------+------+------'    `------+------+------'
-*/
-#   define ___________________NAV_L1__________________        KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
-#   define ___________________NAV_L2__________________        ___x___, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
-#   define ___________________NAV_L3__________________        _________________UCCPR_L___________________
-#   define          __________NAV_L4_________                 KC_TAB,  _______, KC_ENT
-
-#   define ___________________NAV_R1__________________        KC_INS,  ___x___, NXT_TAB, TR_DMR1, TR_DMP1
-#   define ___________________NAV_R2__________________        KC_DEL,  _____________SCAG_MODS____________
-#   define ___________________NAV_R3__________________        ___x___, KC_BSPC, KC_APP,  TR_DMR2, TR_DMP2 
-
-#if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          __________NAV_R4_________                 ___x___, _______
-#else
-#   define          __________NAV_R4_________                 ___x___, _______, ___x___
-#endif //KEYBOARD_bastardkb_charybdis_3x5
-
 
 
 /*
@@ -464,28 +435,26 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   ,----------------------------------.    ,----------------------------------.
 *   | %    | ^    | *    | +    | `    |    | =    | #    | @    | $    | "    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | |    | {    | }    | ?    | -    |    | ;    | !    | [    | ]    | '    |
+*   | |    | {    | }    | !    | -    |    | ;    | ?    | [    | ]    | '    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | &    | <    | >    | ,    | \    |    | /    | .    | (    | )    | _    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      | NUM  |      |    |      | NAV  |      |              
+*                 |      |NUMBsp|      |    |      | NAV0 |      |              
 *                 `------+------+------'    `------+------+------'
 *
-* Symbols only found on other layers
-*   ^
 *
 * Need to use One shot shift to hit the following symbols
 *   ~ 
-*   :
+*   : (can activate via tap hold as well)
 * 
 */
 #   define _________________SYMBOL_L1_________________        KC_PERC, KC_CIRC, KC_ASTR, KC_PLUS, TR_GRV
-#   define _________________SYMBOL_L2_________________        TR_PIPE, TR_LCBR, KC_RCBR, KC_QUES, TR_MINS
+#   define _________________SYMBOL_L2_________________        TR_PIPE, TR_LCBR, KC_RCBR, TR_EXLM, TR_MINS
 #   define _________________SYMBOL_L3_________________        TR_AMPR, TR_LABK, TR_RABK, KC_COMM, TR_BSLS
 #   define          ________SYMBOL_L4________                 ___x___, _______, ___x___
 
 #   define _________________SYMBOL_R1_________________        TR_EQL,  TR_HASH, KC_AT,   KC_DLR,  TR_DQUO
-#   define _________________SYMBOL_R2_________________        TR_SCLN, TR_EXLM, TR_LBRC, KC_RBRC, TR_QUOT
+#   define _________________SYMBOL_R2_________________        TR_SCLN, KC_QUES, TR_LBRC, KC_RBRC, TR_QUOT
 #   define _________________SYMBOL_R3_________________        TR_SLSH, KC_DOT,  TR_LPRN, KC_RPRN, TR_UNDS
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
@@ -495,7 +464,32 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 
+/*
+*
+*   ,----------------------------------.    ,----------------------------------.
+*   | Esc  | Home | Up   | End  | PgUp |    |DMRec1|DMPly1|NxtTab|DMPly2|DMRec2|
+*   +------+------+------+------+------|    +------+------+------+------+------+
+*   |      | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | Gui  |
+*   +------+------+------+------+------|    +------+------+------+------+------+
+*   | Undo | Cut  | Copy | Pste | Redo |    | Ins  | Bksp |      |      | App  |
+*   `------+------+------+------+------+    +------+------+------+------+------'
+*                 | Tab  |NUMBsp| Ent  |    |      | NAV0 |      |
+*                 `------+------+------'    `------+------+------'
+*/
+#   define ___________________NAV_L1__________________        KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
+#   define ___________________NAV_L2__________________        ___x___, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN
+#   define ___________________NAV_L3__________________        _________________UCCPR_L___________________
+#   define          __________NAV_L4_________                 KC_TAB,  _______, KC_ENT
 
+#   define ___________________NAV_R1__________________        TR_DMR1, TR_DMP1, NXT_TAB, TR_DMP2, TR_DMR2
+#   define ___________________NAV_R2__________________        KC_DEL,  _____________SCAG_MODS____________
+#   define ___________________NAV_R3__________________        KC_INS,  KC_BSPC, ___x___, ___x___, KC_APP 
+
+#if defined(KEYBOARD_bastardkb_charybdis_3x5)
+#   define          __________NAV_R4_________                 ___x___, _______
+#else
+#   define          __________NAV_R4_________                 ___x___, _______, ___x___
+#endif //KEYBOARD_bastardkb_charybdis_3x5
 
 /*
 *   ,----------------------------------.    ,----------------------------------.

@@ -9,11 +9,9 @@ combo_t key_combos[COMBO_LENGTH] = {
 
 #if defined(POINTING_DEVICE_ENABLE)
   [COMDOT_DRGTOG]   = COMBO(commadot_combo, DRG_TOG),
-
   [MDOT_SNPTOG]     = COMBO(mdot_combo, SNP_TOG),
 #else
   [COMDOT_DRGTOG]   = COMBO(commadot_combo, ___x___),
-
   [MDOT_SNPTOG]     = COMBO(mdot_combo, ___x___),  
 #endif //POINTING_DEVICE_ENABLE
 
@@ -72,7 +70,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
       return COMBO_TERM;
 
     case OP_CONFIG:
-      return COMBO_HOLD_TERM + 50;
+      return COMBO_HOLD_TERM + 150;
 
     default:
       return COMBO_TERM;
