@@ -4,7 +4,7 @@ Meletrix's first mass-produced mechanical keyboard.
 More Info at [zoom_pad](https://meletrix.com/).
 
 * Keyboard Maintainer: [spbgzh](https://github.com/spbgzh)
-* Hardware Supported: zoom65 Standard
+* Hardware Supported: zoom_pad Standard
 * Hardware Availability: [zoom_pad](https://meletrix.com/)
 
 Make example for this keyboard (after setting up your build environment):
