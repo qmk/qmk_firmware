@@ -721,7 +721,10 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "driver": {"type": "string"}
+                "driver": {
+                    "type": "string",
+                    "enum": ["custom", "embedded_flash", "legacy", "none", "rp2040_flash", "spi_flash"]
+                }
             }
         },
         "ws2812": {
