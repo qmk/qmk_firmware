@@ -41,7 +41,15 @@ enum LAYERS {
 #include "luna.h"    // Include the pet you want.
 #include "pet.h"     // Include the pet library.
 #include "oled.h"    // Include the oled (call the pet from here).
-#include "rotary.h" // Include the encoder settings.
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [QWERT] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_DOWN, KC_UP) },
+    [GAMES] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_DOWN, KC_UP) },
+    [FUNCS] = { ENCODER_CCW_CW(MS_LEFT, MS_RGHT), ENCODER_CCW_CW(MS_DOWN, MS_UP) },
+    [CNTRL] = { ENCODER_CCW_CW(MS_LEFT, MS_RGHT), ENCODER_CCW_CW(MS_DOWN, MS_UP) },
+};
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [QWERT] = LAYOUT(
