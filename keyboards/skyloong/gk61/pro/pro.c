@@ -119,34 +119,45 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    if (get_highest_layer(layer_state) == 2) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
-    } else  {
+    switch (get_highest_layer(layer_state)) {
+      case 0:{
+        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-        }
-    }
-
-    if (get_highest_layer(layer_state) == 1) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 255, 255, 255);
-    } else  {
-        if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 0, 0, 0);
         }
-    }
+      } break;
 
-    if (get_highest_layer(layer_state) == 3) {
+      case 1:{
+        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 255, 255, 255);
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+        }
+      } break;
+
+      case 2:{
+        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
+        if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 0, 0, 0);
+        }
+      } break;
+
+      case 3:{
         RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
         RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
         RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 255, 255, 255);
-    } else  {
+      } break;
+
+      default:{
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
             RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
             RGB_MATRIX_INDICATOR_SET_COLOR(WIN_LOCK_INDEX, 0, 0, 0);
         }
+      }
     }
-
     return true;
 }
 
