@@ -2,6 +2,7 @@ BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 ENCODER_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
 CONSOLE_ENABLE = no         # Console for debug
 RGBLIGHT_ENABLE = no
 WPM_ENABLE = yes
