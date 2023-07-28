@@ -1,6 +1,6 @@
 # SouthPad
 
-![Southpad](https://i.imgur.com/oXi69cu.png)
+![Southpad](https://i.imgur.com/oXi69cuh.png)
 
 This is a left-handed, mirrored numberpad with USB-C connection and Kailh hotswap sockets, built on the RP2040 MCU.
 
