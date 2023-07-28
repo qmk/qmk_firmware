@@ -6,7 +6,7 @@ This is a left-handed, mirrored numberpad with USB-C connection and Kailh hotswa
 
 Default layout is such:
 
-![SouthPad Layout](https://i.imgur.com/Zwxpa7a.png)
+![SouthPad Layout](https://i.imgur.com/Zwxpa7ah.png)
 
 * Keyboard Maintainer: [Logan Butler](https://github.com/MatchstickWorks)
 * Hardware Supported: SouthPad v2 PCB
