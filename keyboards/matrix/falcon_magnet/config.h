@@ -39,5 +39,3 @@
 #define COL_A_PIN       A8
 #define COL_B_PIN       B15
 #define COL_C_PIN       B14
-
-#define RGBLED_NUM      4
