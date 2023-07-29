@@ -461,7 +461,7 @@ make crkbd:manna-harbour_miryoku:flash # crkbd
 
 **** split_4x6_sofl
 
-For each half: the top row, outer column, inner encoder, and 2 outward most keys on bottom row are unused.
+Only the main 5x3 alphas and the inner 3 thumb keys are used.
 
 Keyboards supporting this layout: sofle, keycapsss/kimiko, tkw/grandiceps.
 
