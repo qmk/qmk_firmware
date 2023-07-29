@@ -88,7 +88,7 @@
             {"matrix": [1, 4], "x": 59, "y": 13, "flags": 4},
             {"matrix": [1, 5], "x": 74, "y": 13, "flags": 4},
             {"matrix": [1, 6], "x": 88, "y": 13, "flags": 4},
-            {"matrix": [1, 7], "x": 103, "y": 13, "flags": 4},
+            {"matrix": [1, 7], "x": 103, "y": 13, "flags": 8},
             {"matrix": [1, 8], "x": 118, "y": 13, "flags": 4},
             {"matrix": [1, 9], "x": 132, "y": 13, "flags": 4},
             {"matrix": [1, 10], "x": 147, "y": 13, "flags": 4},
@@ -168,10 +168,10 @@
     },
     "encoder": {
         "rotary": [
-            { "pin_a": "A1", "pin_b": "A2", "resolution": 1 },
-            { "pin_a": "A3", "pin_b": "A4", "resolution": 1 },
-            { "pin_a": "A0", "pin_b": "C13", "resolution": 1 },
-            { "pin_a": "C14", "pin_b": "C15", "resolution": 1 }
+            { "pin_a": "A1", "pin_b": "A2", "resolution": 2 },
+            { "pin_a": "A3", "pin_b": "A4", "resolution": 2 },
+            { "pin_a": "A0", "pin_b": "C13", "resolution": 2 },
+            { "pin_a": "C14", "pin_b": "C15", "resolution": 2 }
         ]
     }
 

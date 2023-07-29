@@ -16,6 +16,7 @@
 #define WIN_MOD_INDEX 20
 #define MAC_MOD_INDEX 21
 #define WIN_LOCK_INDEX 75
+#define SDB B12
 
 /* RGB Matrix Animation modes. Explicitly enabled
  * For full list of effects, see:

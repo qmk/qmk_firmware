@@ -105,11 +105,11 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 
 #if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }
+
     switch (keycode) {
 #    ifdef RGB_MATRIX_ENABLE
         case RGB_TOG:
@@ -124,7 +124,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                     } break;
                 }
             }
-            return false;
+         return false;
 #    endif
     }
     return true;
@@ -134,7 +134,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false;
     }
-    // RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
 
     if (host_keyboard_led_state().caps_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX, 255, 255, 255);
@@ -144,32 +143,56 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    if (get_highest_layer(layer_state) == 1) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
-    } else  {
+   switch (get_highest_layer(layer_state)) {
+      case 0:{
+        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-        }
-    }
-
-
-    if (get_highest_layer(layer_state) >= 2) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
+         }
+      } break;
+      case 1:{
         RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
-    } else  {
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
-            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
-        }
-    }
+         }
+      } break;
 
-    return true;
+      case 2:{
+        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
+        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
+      } break;
+
+      case 3:{
+        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
+        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
+      } break;
+
+      default:{
+         if (!rgb_matrix_get_flags()) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+         }
+      }
+    }
+    return false;
 }
 
+void suspend_power_down_kb() {
+    rgb_matrix_set_flags(LED_FLAG_NONE);
+    rgb_matrix_set_color_all(0, 0, 0);
+    writePinLow(SDB);
+}
+
+void suspend_wakeup_init_kb() {
+    writePinHigh(SDB);
+    rgb_matrix_set_flags(LED_FLAG_ALL);
+}
 #endif
 
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
+    setPinOutput(SDB);
+    writePinHigh(SDB);
 }
 
