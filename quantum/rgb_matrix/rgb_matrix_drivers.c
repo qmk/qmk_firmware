@@ -351,7 +351,8 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_color = IS31FL3741_set_color,
-    .get_color = IS31FL3741_get_color.set_color_all = IS31FL3741_set_color_all,
+    .get_color = IS31FL3741_get_color,
+    .set_color_all = IS31FL3741_set_color_all,
 };
 
 #    elif defined(IS31FLCOMMON)
