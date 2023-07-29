@@ -179,6 +179,23 @@ void IS31FL3736_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     }
 }
 
+color_result_t IS31FL3736_get_color(int index) {
+    is31_led led;
+    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
+        memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
+
+        return (color_result_t) {
+            .color = {
+                .r = g_pwm_buffer[led.driver][led.r],
+                .g = g_pwm_buffer[led.driver][led.g],
+                .b = g_pwm_buffer[led.driver][led.b]
+            },
+            .success = true
+        };
+    }
+    return (color_result_t) {};
+}
+
 void IS31FL3736_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         IS31FL3736_set_color(i, red, green, blue);

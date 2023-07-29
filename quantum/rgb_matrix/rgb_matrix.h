@@ -239,6 +239,13 @@ typedef struct {
     void (*init)(void);
     /* Set the colour of a single LED in the buffer. */
     void (*set_color)(int index, uint8_t r, uint8_t g, uint8_t b);
+
+    /* Get the colour of a single LED in the buffer.
+     *
+     * If the color cannot be fetched for any reason
+     * the returned result will be unsuccessful
+     */
+    color_result_t (*get_color)(int index);
     /* Set the colour of all LEDS on the keyboard in the buffer. */
     void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
     /* Flush any buffered changes to the hardware. */

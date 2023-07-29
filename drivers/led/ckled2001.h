@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "progmem.h"
+#include "color.h"
 
 typedef struct ckled2001_led {
     uint8_t driver : 2;
@@ -34,6 +35,7 @@ bool CKLED2001_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 bool CKLED2001_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void CKLED2001_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+color_result_t CKLED2001_get_color(int index);
 void CKLED2001_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
 void CKLED2001_set_led_control_register(uint8_t index, bool red, bool green, bool blue);

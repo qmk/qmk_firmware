@@ -154,6 +154,22 @@ void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     g_pwm_buffer_update_required[led.driver] = true;
 }
 
+color_result_t AW20216_get_color(int index) {
+    aw_led led;
+    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
+        memcpy_P(&led, (&g_aw_leds[index]), sizeof(led));
+        return (color_result_t) {
+            .color = {
+                .r = g_pwm_buffer[led.driver][led.r],
+                .g = g_pwm_buffer[led.driver][led.g],
+                .b = g_pwm_buffer[led.driver][led.b]
+            },
+            .success = true
+        };
+    }
+    return (color_result_t) {};
+}
+
 void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
         AW20216_set_color(i, red, green, blue);

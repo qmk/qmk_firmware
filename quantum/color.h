@@ -139,6 +139,11 @@ typedef struct PACKED {
     uint8_t v;
 } HSV;
 
+typedef struct {
+    RGB color;
+    bool success;
+} color_result_t;
+
 #if defined(_MSC_VER)
 #    pragma pack(pop)
 #endif

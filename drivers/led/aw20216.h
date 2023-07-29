@@ -20,7 +20,7 @@
 #include <stdbool.h>
 #include "progmem.h"
 #include "gpio.h"
-
+#include "color.h"
 typedef struct aw_led {
     uint8_t driver : 2;
     uint8_t r;
@@ -32,6 +32,7 @@ extern const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT];
 
 void AW20216_init(pin_t cs_pin, pin_t en_pin);
 void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+color_result_t AW20216_get_color(int index);
 void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 void AW20216_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 

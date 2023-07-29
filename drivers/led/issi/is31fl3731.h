@@ -21,6 +21,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "progmem.h"
+#include "color.h"
 
 typedef struct is31_led {
     uint8_t driver : 2;
@@ -36,6 +37,7 @@ void IS31FL3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
 void IS31FL3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
 void IS31FL3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+color_result_t IS31FL3731_get_color(int index);
 void IS31FL3731_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
 void IS31FL3731_set_led_control_register(uint8_t index, bool red, bool green, bool blue);

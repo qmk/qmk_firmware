@@ -263,6 +263,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = init,
     .flush         = flush,
     .set_color     = IS31FL3731_set_color,
+    .get_color     = IS31FL3731_get_color,
     .set_color_all = IS31FL3731_set_color_all,
 };
 
@@ -284,6 +285,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_color = IS31FL3733_set_color,
+    .get_color = IS31FL3733_get_color,
     .set_color_all = IS31FL3733_set_color_all,
 };
 
@@ -305,6 +307,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_color = IS31FL3736_set_color,
+    .get_color = IS31FL3736_get_color,
     .set_color_all = IS31FL3736_set_color_all,
 };
 
@@ -326,6 +329,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_color = IS31FL3737_set_color,
+    .get_color = IS31FL3737_get_color,
     .set_color_all = IS31FL3737_set_color_all,
 };
 
@@ -347,6 +351,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_color = IS31FL3741_set_color,
+    .get_color = IS31FL3741_get_color
     .set_color_all = IS31FL3741_set_color_all,
 };
 
@@ -368,6 +373,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_color = IS31FL_RGB_set_color,
+    .get_color = IS31FL_RGB_get_color,
     .set_color_all = IS31FL_RGB_set_color_all,
 };
 
@@ -389,6 +395,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_color = CKLED2001_set_color,
+    .get_color = CKLED2001_get_color,
     .set_color_all = CKLED2001_set_color_all,
 };
 #    endif
@@ -416,6 +423,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = init,
     .flush         = flush,
     .set_color     = AW20216_set_color,
+    .get_color     = AW20216_get_color,
     .set_color_all = AW20216_set_color_all,
 };
 
@@ -468,6 +476,20 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
 #    endif
 }
 
+static color_result_t get_led(int index) {
+    if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
+        return (color_result_t) {
+            .color = {
+                .r = rgb_matrix_ws2812_array[index].r,
+                .g = rgb_matrix_ws2812_array[index].g,
+                .b = rgb_matrix_ws2812_array[index].b
+            },
+            .success = true
+        };
+    }
+    return (color_result_t) {};
+}
+
 static void setled_all(uint8_t r, uint8_t g, uint8_t b) {
     for (int i = 0; i < ARRAY_SIZE(rgb_matrix_ws2812_array); i++) {
         setled(i, r, g, b);
@@ -478,6 +500,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = init,
     .flush         = flush,
     .set_color     = setled,
+    .get_color     = get_led,
     .set_color_all = setled_all,
 };
 #endif
