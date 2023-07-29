@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum layer_names {
     _QWERTY,   // OS-side Colemak. Default.
     _COLEMAK,  // Keyboard-side Colemak. Portability, emergency.
-    _NUMERIC
+    _NUMERIC,
 };
 
 // Shorthand:
@@ -42,64 +42,39 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        KC_VOLD, KC_VOLU, CM_W,    CM_F,    CM_P,    CM_G,
-        KC_TAB,  CM_Q,    CM_R,    CM_S,    CM_T,    CM_D,
-        KC_BSPC, CM_A,    CM_X,    CM_C,    CM_V,    CM_B,
-        SLQ,     CM_Z,    KC_HOME, KC_PGUP, KC_END,
-                                   KC_PGDN,          KC_ENT,  KC_SPC,
-                                                 SC_LSPO, KC_LGUI, KC_MINS,
-                                                     BK_LCTL, KC_LALT,
-
-                     CM_J,    CM_L,    CM_U,    CM_Y,    KC_MPLY, KC_MUTE,
-                     CM_H,    CM_N,    CM_E,    CM_I,    CM_SCLN, KC_BSLS,
-                     CM_K,    CM_M,    KC_COMM, KC_DOT,  CM_O,    KC_QUOT,
-                              KC_LEFT, KC_UP,   KC_RGHT, KC_SLSH, SRQ,
-            KC_DEL,  KC_ESC,           KC_DOWN,
-        KC_EQL,  LAYER_N, SC_RSPC,
-            KC_RALT, BK_RCTL
+        KC_VOLD, KC_VOLU, CM_W,    CM_F,    CM_P,    CM_G,                                     CM_J,    CM_L,    CM_U,    CM_Y,    KC_MPLY, KC_MUTE,
+        KC_TAB,  CM_Q,    CM_R,    CM_S,    CM_T,    CM_D,                                     CM_H,    CM_N,    CM_E,    CM_I,    CM_SCLN, KC_BSLS,
+        KC_BSPC, CM_A,    CM_X,    CM_C,    CM_V,    CM_B,                                     CM_K,    CM_M,    KC_COMM, KC_DOT,  CM_O,    KC_QUOT,
+        SLQ,     CM_Z,    KC_HOME, KC_PGUP, KC_END,                                                     KC_LEFT, KC_UP,   KC_RGHT, KC_SLSH, SRQ,
+                                   KC_PGDN,          KC_ENT,  KC_SPC,                 KC_DEL,  KC_ESC,           KC_DOWN,
+                                                 SC_LSPO, KC_LGUI, KC_MINS,       KC_EQL,  LAYER_N, SC_RSPC,
+                                                     BK_LCTL, KC_LALT,                KC_RALT, BK_RCTL        
     ),
 
     [_COLEMAK] = LAYOUT(
-        _______, _______, KC_W,    KC_F,    KC_P,    KC_G,
-        _______, KC_Q,    KC_R,    KC_S,    KC_T,    KC_D,
-        _______, KC_A,    KC_X,    KC_C,    KC_V,    KC_B,
-        _______, KC_Z,    _______, _______, _______,
-                                   _______,          _______, _______,
-                                                 _______, _______, _______,
-                                                     _______, _______,
-
-                     KC_J,    KC_L,    KC_U,    KC_Y,    _______, _______,
-                     KC_H,    KC_N,    KC_E,    KC_I,    KC_SCLN, _______,
-                     KC_K,    KC_M,    _______, _______, KC_O,    _______,
-                              _______, _______, _______, _______, _______,
-            _______, _______,          _______,
-        _______, _______, _______,
-            _______, _______
+        _______, _______, KC_W,    KC_F,    KC_P,    KC_G,                                     KC_J,    KC_L,    KC_U,    KC_Y,    _______, _______,
+        _______, KC_Q,    KC_R,    KC_S,    KC_T,    KC_D,                                     KC_H,    KC_N,    KC_E,    KC_I,    KC_SCLN, _______,
+        _______, KC_A,    KC_X,    KC_C,    KC_V,    KC_B,                                     KC_K,    KC_M,    _______, _______, KC_O,    _______,
+        _______, KC_Z,    _______, _______, _______,                                                    _______, _______, _______, _______, _______,
+                                   _______,          _______, _______,                _______, _______,          _______,
+                                                 _______, _______, _______,       _______, _______, _______,
+                                                     _______, _______,                _______, _______
     ),
 
     [_NUMERIC] = LAYOUT(
-        LAYER_C, KC_INS,  KC_F2,   KC_F3,   KC_F4,   KC_F5,
-        KC_F12,  KC_F1,   KC_2,    KC_3,    KC_4,    KC_5,
-        _______, KC_1,    KC_AT,   KC_HASH, KC_DLR,  KC_PERC,
-        KC_GRV,  KC_EXLM, KC_BTN1, KC_WH_U, KC_BTN2,
-                                   KC_WH_D,          RGB_MOD, _______,
-                                                 _______, _______, EMDASH,
-                                                     _______, _______,
-
-                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   QK_BOOT,   KC_WAKE, // *
-                     KC_6,    KC_7,    KC_8,    KC_9,    KC_F10,  KC_F11,
-                     KC_CIRC, KC_AMPR, KC_ASTR, KC_APP,  KC_0,    PASTE,
-                              KC_MS_L, KC_MS_U, KC_MS_R, KC_PSCR, RGB_TOG,
-            KC_ACL1, KC_ACL2,          KC_MS_D,
-        KC_ACL0, _______, _______,
-            _______, _______
+        LAYER_C, KC_INS,  KC_F2,   KC_F3,   KC_F4,   KC_F5,                                   KC_F6,   KC_F7,   KC_F8,   KC_F9,   QK_BOOT,   KC_WAKE, // *
+        KC_F12,  KC_F1,   KC_2,    KC_3,    KC_4,    KC_5,                                    KC_6,    KC_7,    KC_8,    KC_9,    KC_F10,  KC_F11,
+        _______, KC_1,    KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                 KC_CIRC, KC_AMPR, KC_ASTR, KC_APP,  KC_0,    PASTE,
+        KC_GRV,  KC_EXLM, KC_BTN1, KC_WH_U, KC_BTN2,                                                   KC_MS_L, KC_MS_U, KC_MS_R, KC_PSCR, RGB_TOG,
+                                   KC_WH_D,          RGB_MOD, _______,               KC_ACL1, KC_ACL2,          KC_MS_D,
+                                                 _______, _______, EMDASH,       KC_ACL0, _______, _______,
+                                                     _______, _______,               _______, _______
     )
 };
 
 // *KC_WAKE: Used in place of KC_SLEP because X11 with i3 on prerelease
 //  Debian 10 was seeing duplicate keypress and release events for sleep
 //  (regardless of i3 binding), which ruined the function.
-
 
 /*
 The rest is all about lighting control.
