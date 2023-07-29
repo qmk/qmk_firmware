@@ -15,7 +15,8 @@
         "key_override": true,
         "combo": true,
         "tap_dance": true,
-        "rgblight": true
+        "rgblight": true,
+        "caps_word": true
     },
     "matrix_pins": {
         "rows": ["GP29", "GP28", "GP14", "GP6", "GP7"],
@@ -26,7 +27,8 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
-        "vid": "0xFEED"
+        "vid": "0xFEED",
+        "polling_interval": 1
     },
     "ws2812": {
         "driver": "vendor",
@@ -75,7 +77,8 @@
         },
         "usb_detect": {
             "enabled": true,
-            "timeout": 2500
+            "timeout": 2500,
+            "polling_interval": 1
         }
     },
     "layouts": {

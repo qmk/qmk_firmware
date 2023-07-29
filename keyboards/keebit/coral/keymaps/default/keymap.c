@@ -21,19 +21,22 @@
 
 // Rotary
 #define L_ROT TD(TD_MNXT_MPREV)
-#define R_ROT KC_MPLY
+#define R_ROT TD(TD_MPLY_MUTE)
 
 
 // ###### TAP DANCE ######
 
 enum TapDance {
     TD_MNXT_MPREV,
+    TD_MPLY_MUTE,
 };
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Media-Next, twice for Media-Previous
     [TD_MNXT_MPREV] = ACTION_TAP_DANCE_DOUBLE(KC_MNXT, KC_MPRV),
+    // Tap once for Play/Pause, twice for Audio Mute
+    [TD_MPLY_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MUTE),
 };
 
 // ###### LAYERS ######
@@ -112,5 +115,5 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 const uint16_t PROGMEM caps_combo[] = {L_THUMB, R_THUMB, COMBO_END};
 
 combo_t key_combos[] = {
-    [CAPS_COMBO] = COMBO(caps_combo, KC_CAPS),
+    [CAPS_COMBO] = COMBO(caps_combo, QK_CAPS_WORD_TOGGLE),
 };
