@@ -902,6 +902,7 @@ The EEPROM for it is currently shared with the LED Matrix system (it's generally
 |--------------------------------------------|-------------|
 |`rgb_matrix_set_color_all(r, g, b)`         |Set all of the LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM) |
 |`rgb_matrix_set_color(index, r, g, b)`      |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255, and `index` is between 0 and `RGB_MATRIX_LED_COUNT` (not written to EEPROM) |
+|`rgb_matrix_get_color(index)`               |Get the RGB data for a single LED stored in the matrix buffer, a result struct is returned with a `color` field and a `success` field, if success is `false`, then the RGB data could not be successfully acquired |
 
 ### Disable/Enable Effects :id=disable-enable-effects
 |Function                                    |Description  |
