@@ -12,6 +12,8 @@
         "pin": "D4"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 17,
         "max_brightness": 120,
         "sleep": true

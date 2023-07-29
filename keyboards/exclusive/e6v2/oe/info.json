@@ -20,6 +20,9 @@
         "breathing_period": 3
     },
     "rgblight": {
+        "hue_steps": 12,
+        "saturation_steps": 12,
+        "brightness_steps": 12,
         "led_count": 8
     },
     "ws2812": {

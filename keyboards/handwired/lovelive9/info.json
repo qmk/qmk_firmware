@@ -18,6 +18,7 @@
         "breathing_period": 2
     },
     "rgblight": {
+        "hue_steps": 10,
         "led_count": 9
     },
     "ws2812": {

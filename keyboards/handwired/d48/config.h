@@ -2,9 +2,6 @@
 
 /* RGB Underglow */
 #ifdef RGBLIGHT_ENABLE
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -33,9 +30,6 @@
 #define OLED_FONT_H "glcdfont_d48.c"
 #define OLED_TIMEOUT 0
 // #define OLED_SCROLL_TIMEOUT 1000
-
-/* Taps (encoder tap_code) */
-#define TAP_CODE_DELAY 10
 
 /* I2C */
 //#define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2

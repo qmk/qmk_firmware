@@ -16,6 +16,9 @@
             {"pin_a": "B12", "pin_b": "B13"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "indicators": {
@@ -24,6 +27,8 @@
         "scroll_lock": "C15"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 23
     },
     "ws2812": {

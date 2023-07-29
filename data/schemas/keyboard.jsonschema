@@ -71,6 +71,8 @@
                 "STM32F446",
                 "STM32G431",
                 "STM32G474",
+                "STM32H723",
+                "STM32H733",
                 "STM32L412",
                 "STM32L422",
                 "STM32L432",
@@ -146,7 +148,7 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["BluefruitLE", "RN42", "custom"]
+                    "enum": ["bluefruit_le", "custom", "rn42"]
                 }
             }
         },

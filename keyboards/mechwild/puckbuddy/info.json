@@ -19,13 +19,21 @@
             {"pin_a": "B3", "pin_b": "A15"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "indicators": {
         "caps_lock": "C13",
         "on_state": 0
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 3,
         "sleep": true
+    },
+    "tapping": {
+        "term": 0
     },
     "ws2812": {
         "pin": "A3"

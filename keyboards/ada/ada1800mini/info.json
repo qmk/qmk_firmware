@@ -12,6 +12,8 @@
         "pin": "F0"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 100,
         "max_brightness": 200,
         "sleep": true

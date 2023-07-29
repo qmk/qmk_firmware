@@ -12,6 +12,8 @@
         "pin": "E6"
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 13,
         "max_brightness": 128
     },
@@ -25,6 +27,9 @@
             {"pin_a": "F6", "pin_b": "F7", "resolution": 2},
             {"pin_a": "D2", "pin_b": "D1", "resolution": 2}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",

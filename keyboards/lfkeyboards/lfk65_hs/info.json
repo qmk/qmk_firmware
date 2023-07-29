@@ -17,6 +17,7 @@
     "levels": 8
   },
   "rgblight": {
+    "hue_steps": 10,
     "led_count": 20
   },
   "ws2812": {

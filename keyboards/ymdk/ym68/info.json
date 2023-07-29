@@ -19,6 +19,8 @@
         "breathing": true
     },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 20,
         "sleep": true
     },

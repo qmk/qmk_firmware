@@ -4,7 +4,7 @@ A compact 40% keyboard with 42 keys.
 
 * Keyboard Maintainer: [Audite Marlow](https://github.com/auditemarlow)
 * Hardware Supported: RS40 PCB
-* Hardware Availability: https://www.aliexpress.com/store/911983021
+* Hardware Availability: [KJ-Modify Store on AliExpress](https://www.aliexpress.us/item/3256803963501165.html)
 
 Make example for this keyboard (after setting up your build environment):
 

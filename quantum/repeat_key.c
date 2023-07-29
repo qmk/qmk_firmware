@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include "repeat_key.h"
+#include "quantum_keycodes.h"
 
 // Variables saving the state of the last key press.
 static keyrecord_t last_record = {0};

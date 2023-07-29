@@ -3,6 +3,9 @@
         "pid": "0x10FF"
     },
     "rgblight": {
+        "hue_steps": 32,
+        "saturation_steps": 32,
+        "brightness_steps": 32,
         "led_count": 26
     },
     "ws2812": {

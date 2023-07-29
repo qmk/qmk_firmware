@@ -9,6 +9,9 @@
         "device_version": "0.0.1"
     },
     "rgblight": {
+        "hue_steps": 5,
+        "saturation_steps": 5,
+        "brightness_steps": 5,
         "led_count": 18,
         "sleep": true
     },

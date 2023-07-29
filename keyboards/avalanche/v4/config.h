@@ -4,10 +4,6 @@
 #pragma once
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_HUE_STEP  10    
-#    define RGBLIGHT_SAT_STEP  17    
-#    define RGBLIGHT_VAL_STEP  17    
-
 #    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL+2
 
 #    define RGBLIGHT_EFFECT_ALTERNATING

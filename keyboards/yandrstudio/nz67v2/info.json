@@ -23,6 +23,9 @@
             {"pin_a": "A9", "pin_b": "A10"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 15
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [

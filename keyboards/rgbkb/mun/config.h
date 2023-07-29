@@ -9,8 +9,6 @@
 
 #pragma once
 
-#define MATRIX_IO_DELAY 5
-
 #define BUSY_WAIT
 #define BUSY_WAIT_INSTRUCTIONS 35 // Increase if two rows are pressed at the same time.
 #define GPIO_INPUT_PIN_DELAY 10
@@ -133,7 +131,6 @@
 
 #define TOUCH_UPDATE_INTERVAL 33
 #define OLED_UPDATE_INTERVAL 33
-#define TAP_CODE_DELAY 5
 
 #define WEAR_LEVELING_BACKING_SIZE 4096
 #define WEAR_LEVELING_LOGICAL_SIZE 2048

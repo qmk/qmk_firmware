@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* RGB light config */
-#define RGBLIGHT_VAL_STEP 17
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -32,6 +31,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 2.0
 #define RGBLIGHT_EFFECT_BREATHE_MAX 255
 
-/* long tapping config */
-#define TAPPING_TERM 500
 #define PERMISSIVE_HOLD

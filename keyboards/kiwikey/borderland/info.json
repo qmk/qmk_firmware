@@ -18,7 +18,12 @@
             {"pin_a": "F5", "pin_b": "F6"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
         "led_count": 18
     },
     "ws2812": {

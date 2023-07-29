@@ -21,10 +21,14 @@
             {"pin_a": "A2", "pin_b": "A3"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 20
+    },
     "bootmagic": {
         "matrix": [4, 1]
     },
     "rgblight": {
+        "brightness_steps": 8,
         "led_count": 16,
         "sleep": true
     },

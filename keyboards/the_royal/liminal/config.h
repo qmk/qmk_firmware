@@ -4,7 +4,3 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-#define RGBLIGHT_HUE_STEP 6
-#define RGBLIGHT_SAT_STEP 4
-#define RGBLIGHT_VAL_STEP 4

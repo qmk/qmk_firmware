@@ -14,6 +14,9 @@
     },
     "diode_direction": "COL2ROW",
     "rgblight": {
+        "hue_steps": 10,
+        "saturation_steps": 15,
+        "brightness_steps": 15,
         "led_count": 20
     },
     "ws2812": {

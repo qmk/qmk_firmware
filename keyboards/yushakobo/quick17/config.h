@@ -30,19 +30,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //        #define RGB_MATRIX_DEFAULT_HUE 128
 //        #define RGB_MATRIX_DEFAULT_SAT 255
         #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#    define RGB_MATRIX_HUE_STEP 8
-#    define RGB_MATRIX_SAT_STEP 8
-#    define RGB_MATRIX_VAL_STEP 8
-#    define RGB_MATRIX_SPD_STEP 10
 #endif
 
 
 
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_HUE_STEP 8
-#    define RGBLIGHT_SAT_STEP 8
-#    define RGBLIGHT_VAL_STEP 8
 //#    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

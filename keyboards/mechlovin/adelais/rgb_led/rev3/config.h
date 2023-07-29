@@ -30,9 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
 #endif 
 
 #ifdef RGB_MATRIX_ENABLE
@@ -107,5 +104,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
 #endif
-
-#define TAP_CODE_DELAY 10

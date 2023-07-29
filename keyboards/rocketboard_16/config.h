@@ -27,14 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT_VAL_STEP 8
 
 // OLED stuff
 #define OLED_DISPLAY_128X64
 #define OLED_FONT_H "custom_font.h"
-
-// Allows for rotary encoder volume control
-#define TAP_CODE_DELAY 20
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
