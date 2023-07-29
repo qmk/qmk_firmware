@@ -1,0 +1,86 @@
+{
+    "manufacturer": "MechWild",
+    "keyboard_name": "BB40",
+    "url": "https://mechwild.com/product/bb40/",
+    "maintainer": "kylemccreery",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x1714",
+        "vid": "0x6D77"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true,
+        "encoder": true,
+    },
+    "indicators": {
+        "caps_lock": "B8",
+        "num_lock": "B7",
+        "scroll_lock": "B9"
+    },
+
+    "matrix_pins": {
+        "rows": ["B12", "B13", "B14", "B15"],
+        "cols": ["B10", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "C15"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "B4"}
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0],  "x": 0,  "y": 0},
+                {"matrix": [0, 1],  "x": 1,  "y": 0},
+                {"matrix": [0, 2],  "x": 2,  "y": 0},
+                {"matrix": [0, 3],  "x": 3,  "y": 0},
+                {"matrix": [0, 4],  "x": 4,  "y": 0},
+                {"matrix": [0, 5],  "x": 5,  "y": 0},
+                {"matrix": [0, 6],  "x": 6,  "y": 0},
+                {"matrix": [0, 7],  "x": 7,  "y": 0},
+                {"matrix": [0, 8],  "x": 8,  "y": 0},
+                {"matrix": [0, 9],  "x": 9,  "y": 0},
+                {"matrix": [0, 10], "x": 10, "y": 0},
+                {"matrix": [0, 11], "x": 11, "y": 0},
+                {"matrix": [1, 0],  "x": 0,  "y": 1},
+                {"matrix": [1, 1],  "x": 1,  "y": 1},
+                {"matrix": [1, 2],  "x": 2,  "y": 1},
+                {"matrix": [1, 3],  "x": 3,  "y": 1},
+                {"matrix": [1, 4],  "x": 4,  "y": 1},
+                {"matrix": [1, 5],  "x": 5,  "y": 1},
+                {"matrix": [1, 6],  "x": 6,  "y": 1},
+                {"matrix": [1, 7],  "x": 7,  "y": 1},
+                {"matrix": [1, 8],  "x": 8,  "y": 1},
+                {"matrix": [1, 9],  "x": 9,  "y": 1},
+                {"matrix": [1, 11], "x": 11, "y": 1},
+                {"matrix": [2, 0],  "x": 0,  "y": 2},
+                {"matrix": [2, 2],  "x": 2,  "y": 2},
+                {"matrix": [2, 3],  "x": 3,  "y": 2},
+                {"matrix": [2, 4],  "x": 4,  "y": 2},
+                {"matrix": [2, 5],  "x": 5,  "y": 2},
+                {"matrix": [2, 6],  "x": 6,  "y": 2},
+                {"matrix": [2, 7],  "x": 7,  "y": 2},
+                {"matrix": [2, 8],  "x": 8,  "y": 2},
+                {"matrix": [2, 9],  "x": 9,  "y": 2},
+                {"matrix": [2, 10], "x": 10, "y": 2},
+                {"matrix": [2, 11], "x": 11, "y": 2},
+                {"matrix": [3, 0],  "x": 0,  "y": 3},
+                {"matrix": [3, 1],  "x": 1,  "y": 3},
+                {"matrix": [3, 2],  "x": 2,  "y": 3},
+                {"matrix": [3, 4],  "x": 4,  "y": 3},
+                {"matrix": [3, 6],  "x": 6,  "y": 3},
+                {"matrix": [3, 7],  "x": 7,  "y": 3},
+                {"matrix": [3, 8],  "x": 8,  "y": 3},
+                {"matrix": [3, 9],  "x": 9,  "y": 3},
+                {"matrix": [3, 10], "x": 10, "y": 3},
+                {"matrix": [3, 11], "x": 11, "y": 3}
+            ]
+        }
+    }
+}
