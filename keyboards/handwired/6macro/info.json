@@ -10,7 +10,15 @@
     },
     "rgblight": {
       "hue_steps": 10,
-      "led_count": 10
+      "led_count": 10,
+      "animations": {
+        "breathing": true,
+        "rainbow_mood": true,
+        "rainbow_swirl": true,
+        "snake": true,
+        "knight": true,
+        "static_gradient": true
+      }
     },
     "ws2812": {
       "pin": "D2"
