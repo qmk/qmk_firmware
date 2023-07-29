@@ -16,24 +16,64 @@
 
 #include "quantum.h"
 
+#if defined(BACKLIGHT_ENABLE) || defined(LED_MATRIX_ENABLE)
+#    include "process_backlight.h"
+#endif
+
 #ifdef BLUETOOTH_ENABLE
 #    include "outputselect.h"
 #endif
 
-#ifdef BACKLIGHT_ENABLE
-#    include "backlight.h"
+#ifdef GRAVE_ESC_ENABLE
+#    include "process_grave_esc.h"
+#endif
+
+#ifdef HAPTIC_ENABLE
+#    include "process_haptic.h"
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    include "process_joystick.h"
+#endif
+
+#ifdef LEADER_ENABLE
+#    include "process_leader.h"
+#endif
+
+#ifdef MAGIC_KEYCODE_ENABLE
+#    include "process_magic.h"
 #endif
 
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"
 #endif
 
-#ifdef VELOCIKEY_ENABLE
-#    include "velocikey.h"
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+#    include "process_programmable_button.h"
 #endif
 
-#ifdef HAPTIC_ENABLE
-#    include "haptic.h"
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#    include "process_rgb.h"
+#endif
+
+#ifdef SECURE_ENABLE
+#    include "process_secure.h"
+#endif
+
+#ifdef TRI_LAYER_ENABLE
+#    include "process_tri_layer.h"
+#endif
+
+#ifdef UNICODE_COMMON_ENABLE
+#    include "process_unicode_common.h"
+#endif
+
+#ifdef UNICODE_ENABLE
+#    include "process_unicode.h"
+#endif
+
+#ifdef VELOCIKEY_ENABLE
+#    include "velocikey.h"
 #endif
 
 #ifdef AUDIO_ENABLE
