@@ -14,7 +14,10 @@
     "backlight": {
         "pin": "A6",
         "levels": 6,
-        "breathing": true,
+        "breathing": true
+    },
+    "rgblight": {
+        "led_count": 20,
         "animations": {
             "breathing": true,
             "rainbow_mood": true,
@@ -27,9 +30,6 @@
             "alternating": true,
             "twinkle": true
         }
-    },
-    "rgblight": {
-        "led_count": 20
     },
     "ws2812": {
         "pin": "B15",

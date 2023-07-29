@@ -15,7 +15,10 @@
   "diode_direction": "COL2ROW",
   "backlight": {
     "pin": "B8",
-    "breathing": true,
+    "breathing": true
+  },
+  "rgblight": {
+    "led_count": 16,
     "animations": {
       "breathing": true,
       "rainbow_mood": true,
@@ -28,9 +31,6 @@
       "alternating": true,
       "twinkle": true
     }
-  },
-  "rgblight": {
-    "led_count": 16
   },
   "ws2812": {
     "pin": "A7",
