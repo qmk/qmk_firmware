@@ -16,7 +16,13 @@
     "brightness_steps": 8,
     "led_count": 66,
     "max_brightness": 120,
-    "split_count": [33, 33]
+    "split_count": [33, 33],
+    "animations": {
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "static_gradient": true,
+      "rgb_test": true
+    }
   },
   "matrix_pins": {
     "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2"],
