@@ -1,2 +1,1 @@
-# This file intentionally left blank
-SPLIT_KEYBOARD = yes
+F_CPU = 8000000
