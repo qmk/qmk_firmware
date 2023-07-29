@@ -426,13 +426,20 @@ void rgb_matrix_task(void) {
 
     uint8_t effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
 
+    // TODO: This will stop the indicator code running when backlight is disabled,
+    //       is this intentional?
+    //       as somebody might want no effect but still indicators, need to check how it works
+    bool should_render_matrix = suspend_backlight || !rgb_matrix_config.enable;
+    uint8_t current_mode = should_render_matrix ? 0 : rgb_matrix_config.mode;
+
+
     switch (rgb_task_state) {
         case STARTING:
             rgb_task_start();
             break;
         case RENDERING:
-            rgb_task_render(effect);
-            if (effect) {
+            rgb_task_render(current_mode);
+            if (should_render_matrix) {
                 // Only run the basic indicators in the last render iteration (default there are 5 iterations)
                 if (rgb_effect_params.iter == RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
                     rgb_matrix_indicators();
@@ -441,7 +448,7 @@ void rgb_matrix_task(void) {
             }
             break;
         case FLUSHING:
-            rgb_task_flush(effect);
+            rgb_task_flush(current_mode);
             break;
         case SYNCING:
             rgb_task_sync();
@@ -449,8 +456,68 @@ void rgb_matrix_task(void) {
     }
 }
 
+// TODO: MOVE RGB INDICATOR EXAMPLE
+#ifndef NUMBER_OF_INDICATOR_MATCHERS
+    #define NUMBER_OF_INDICATOR_MATCHERS 0
+#endif
+static t_rgb_indicator_matcher rgb_indicator_matchers[NUMBER_OF_INDICATOR_MATCHERS] = {
+    {
+        .index = 1,
+        .led_state = {
+            .num_lock = true,
+        },
+        .add_red = false,
+        .red = 255,
+
+        .add_green = true,
+        .green = 0,
+
+        .add_red = true,
+        .blue = 0
+    },
+    {
+        .index = 1,
+        .led_state = {
+            .caps_lock = true,
+        },
+        .add_red = true,
+        .red = 0,
+
+        .add_green = false,
+        .green = 255,
+
+        .add_red = true,
+        .blue = 0
+    }
+};
+
 void rgb_matrix_indicators(void) {
-    rgb_matrix_indicators_kb();
+    if (!rgb_matrix_indicators_kb()) return;
+
+    led_t led_state = host_keyboard_led_state();
+    for (size_t i = 0; i < NUMBER_OF_INDICATOR_MATCHERS; i++) {
+        t_rgb_indicator_matcher matcher = rgb_indicator_matchers[i];
+        if (matcher.index >= 0 && matcher.index < RGB_MATRIX_LED_COUNT) {
+            uprintf("LED %i is out of range of the rgb matrix configuration", matcher.index);
+        } else if (rgb_matrix_config.flags[matcher.index] != LED_FLAG_INDICATOR) {
+            uprintf("LED %i is not configured as an indicator but has indicator config provided", matcher.index);
+        } else if(matcher.led_state & led_state == matcher.led_state) {
+            RGB new_color = {
+                .r = matcher.red,
+                .g = matcher.green,
+                .b = matcher.blue
+            };
+
+            color_result_t current_color = rgb_matrix_driver.get_color(matcher.index);
+            if(current_color.success) {
+                new_color.r += matcher.add_red ? current_color.color.r : 0;
+                new_color.g += matcher.add_green ? current_color.color.g : 0;
+                new_color.b += matcher.add_blue ? current_color.color.b : 0;;
+            }
+
+            rgb_matrix_set_color(matcher.index, new_red, new_green, new_blue);
+        }
+    }
 }
 
 __attribute__((weak)) bool rgb_matrix_indicators_kb(void) {
