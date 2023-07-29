@@ -140,7 +140,7 @@ typedef struct PACKED {
 } HSV;
 
 typedef struct {
-    RGB color;
+    RGB  color;
     bool success;
 } color_result_t;
 

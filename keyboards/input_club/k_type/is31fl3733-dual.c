@@ -18,9 +18,9 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-#include "is31fl3733-dual.h"
-#include "i2c_master.h"
-#include "wait.h"
+#    include "is31fl3733-dual.h"
+#    include "i2c_master.h"
+#    include "wait.h"
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -32,31 +32,31 @@
 // ADDR1 represents A1:A0 of the 7-bit address.
 // ADDR2 represents A3:A2 of the 7-bit address.
 // The result is: 0b101(ADDR2)(ADDR1)
-#define ISSI_ADDR_DEFAULT 0x50
+#    define ISSI_ADDR_DEFAULT 0x50
 
-#define ISSI_COMMANDREGISTER 0xFD
-#define ISSI_COMMANDREGISTER_WRITELOCK 0xFE
-#define ISSI_INTERRUPTMASKREGISTER 0xF0
-#define ISSI_INTERRUPTSTATUSREGISTER 0xF1
+#    define ISSI_COMMANDREGISTER 0xFD
+#    define ISSI_COMMANDREGISTER_WRITELOCK 0xFE
+#    define ISSI_INTERRUPTMASKREGISTER 0xF0
+#    define ISSI_INTERRUPTSTATUSREGISTER 0xF1
 
-#define ISSI_PAGE_LEDCONTROL 0x00  // PG0
-#define ISSI_PAGE_PWM 0x01         // PG1
-#define ISSI_PAGE_AUTOBREATH 0x02  // PG2
-#define ISSI_PAGE_FUNCTION 0x03    // PG3
+#    define ISSI_PAGE_LEDCONTROL 0x00 // PG0
+#    define ISSI_PAGE_PWM 0x01        // PG1
+#    define ISSI_PAGE_AUTOBREATH 0x02 // PG2
+#    define ISSI_PAGE_FUNCTION 0x03   // PG3
 
-#define ISSI_REG_CONFIGURATION 0x00  // PG3
-#define ISSI_REG_GLOBALCURRENT 0x01  // PG3
-#define ISSI_REG_RESET 0x11          // PG3
-#define ISSI_REG_SWPULLUP 0x0F       // PG3
-#define ISSI_REG_CSPULLUP 0x10       // PG3
+#    define ISSI_REG_CONFIGURATION 0x00 // PG3
+#    define ISSI_REG_GLOBALCURRENT 0x01 // PG3
+#    define ISSI_REG_RESET 0x11         // PG3
+#    define ISSI_REG_SWPULLUP 0x0F      // PG3
+#    define ISSI_REG_CSPULLUP 0x10      // PG3
 
-#ifndef ISSI_TIMEOUT
-#    define ISSI_TIMEOUT 5000
-#endif
+#    ifndef ISSI_TIMEOUT
+#        define ISSI_TIMEOUT 5000
+#    endif
 
-#ifndef ISSI_PERSISTENCE
-#    define ISSI_PERSISTENCE 0
-#endif
+#    ifndef ISSI_PERSISTENCE
+#        define ISSI_PERSISTENCE 0
+#    endif
 
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20];
@@ -78,17 +78,17 @@ bool IS31FL3733_write_register(uint8_t index, uint8_t addr, uint8_t reg, uint8_t
     g_twi_transfer_buffer[0] = reg;
     g_twi_transfer_buffer[1] = data;
 
-#if ISSI_PERSISTENCE > 0
+#    if ISSI_PERSISTENCE > 0
     for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
         if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 2, TIME_US2I(ISSI_TIMEOUT)) != 0) {
             return false;
         }
     }
-#else
+#    else
     if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 2, TIME_US2I(ISSI_TIMEOUT)) != 0) {
         return false;
     }
-#endif
+#    endif
     return true;
 }
 
@@ -108,17 +108,17 @@ bool IS31FL3733_write_pwm_buffer(uint8_t index, uint8_t addr, uint8_t *pwm_buffe
             g_twi_transfer_buffer[1 + j] = pwm_buffer[i + j];
         }
 
-#if ISSI_PERSISTENCE > 0
+#    if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
             if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 17, TIME_US2I(ISSI_TIMEOUT)) != 0) {
                 return false;
             }
         }
-#else
+#    else
         if (i2c_transmit(index, addr << 1, g_twi_transfer_buffer, 17, TIME_US2I(ISSI_TIMEOUT)) != 0) {
             return false;
         }
-#endif
+#    endif
     }
     return true;
 }
@@ -173,7 +173,7 @@ void IS31FL3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 color_result_t IS31FL3733_get_color(int index) {
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         is31_led led = g_is31_leds[index];
-
+        // clang-format off
         return (color_result_t) {
             .color = {
                 .r = g_pwm_buffer[led.driver][led.r],
@@ -182,8 +182,9 @@ color_result_t IS31FL3733_get_color(int index) {
             },
             .success = true
         };
+        // clang-format on
     }
-    return (color_result_t) {};
+    return (color_result_t){};
 }
 
 void IS31FL3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
@@ -247,6 +248,5 @@ void IS31FL3733_update_led_control_registers(uint8_t addr, uint8_t index) {
     }
     g_led_control_registers_update_required[index] = false;
 }
-
 
 #endif

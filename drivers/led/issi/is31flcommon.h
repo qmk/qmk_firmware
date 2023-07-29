@@ -70,10 +70,10 @@ void IS31FL_common_update_scaling_register(uint8_t addr, uint8_t index);
 
 #ifdef RGB_MATRIX_ENABLE
 // RGB Matrix Specific scripts
-void IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-RGB IS31FL_RGB_get_color(int index);
-void IS31FL_RGB_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
-void IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blue);
+void           IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+color_result_t IS31FL_RGB_get_color(int index);
+void           IS31FL_RGB_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void           IS31FL_RGB_set_scaling_buffer(uint8_t index, bool red, bool green, bool blue);
 #elif defined(LED_MATRIX_ENABLE)
 // LED Matrix Specific scripts
 void IS31FL_simple_set_scaling_buffer(uint8_t index, bool value);

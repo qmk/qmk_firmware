@@ -351,8 +351,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_color = IS31FL3741_set_color,
-    .get_color = IS31FL3741_get_color
-    .set_color_all = IS31FL3741_set_color_all,
+    .get_color = IS31FL3741_get_color.set_color_all = IS31FL3741_set_color_all,
 };
 
 #    elif defined(IS31FLCOMMON)
@@ -478,6 +477,7 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
 
 static color_result_t get_led(int index) {
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
+        // clang-format off
         return (color_result_t) {
             .color = {
                 .r = rgb_matrix_ws2812_array[index].r,
@@ -486,8 +486,9 @@ static color_result_t get_led(int index) {
             },
             .success = true
         };
+        // clang-format on
     }
-    return (color_result_t) {};
+    return (color_result_t){};
 }
 
 static void setled_all(uint8_t r, uint8_t g, uint8_t b) {

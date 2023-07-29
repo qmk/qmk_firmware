@@ -191,6 +191,7 @@ void IS31FL_RGB_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
 color_result_t IS31FL_RGB_get_color(int index) {
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         is31_led led = g_is31_leds[index];
+        // clang-format off
         return (color_result_t) {
             .color = {
                 .r = g_pwm_buffer[led.driver][led.r],
@@ -199,8 +200,9 @@ color_result_t IS31FL_RGB_get_color(int index) {
             },
             .success = true
         };
+        // clang-format on
     }
-    return (color_result_t) {};
+    return (color_result_t){};
 }
 
 void IS31FL_RGB_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {

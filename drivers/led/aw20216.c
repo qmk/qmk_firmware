@@ -158,6 +158,7 @@ color_result_t AW20216_get_color(int index) {
     aw_led led;
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_aw_leds[index]), sizeof(led));
+        // clang-format off
         return (color_result_t) {
             .color = {
                 .r = g_pwm_buffer[led.driver][led.r],
@@ -166,8 +167,9 @@ color_result_t AW20216_get_color(int index) {
             },
             .success = true
         };
+        // clang-format on
     }
-    return (color_result_t) {};
+    return (color_result_t){};
 }
 
 void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
