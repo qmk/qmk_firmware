@@ -1,6 +1,10 @@
 //  Copyright 2023 JZ-Skyloong (@JZ-Skyloong)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
+int FN_WIN = 0;
+int FN_MAC = 0;
+int L_WIN = 0;
+int L_MAC = 0;
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
@@ -126,8 +130,40 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
          return false;
 #    endif
+     case TO(0):
+      if (record->event.pressed) {
+       L_WIN = 1;
+      } else {
+       L_WIN = 0;
+      }
+      return true; // continue all further processing of this key
+
+     case MO(2):
+      if (record->event.pressed) {
+       FN_WIN = 1;
+      } else {
+       FN_WIN = 0;
+      }
+      return true; // continue all further processing of this key
+
+     case TO(1):
+      if (record->event.pressed) {
+       L_MAC = 1;
+      } else {
+       L_MAC = 0;
+      }
+      return true; // continue all further processing of this key
+
+     case MO(3):
+      if (record->event.pressed) {
+       FN_MAC = 1;
+      } else {
+       FN_MAC = 0;
+      }
+      return true; // continue all further processing of this key
+    default:
+      return true;
     }
-    return true;
 }
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
@@ -144,28 +180,44 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     }
 
    switch (get_highest_layer(layer_state)) {
-      case 0:{
+      case 2:{
         RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
          }
       } break;
-      case 1:{
+      case 3:{
         RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
         if (!rgb_matrix_get_flags()) {
             RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
          }
       } break;
 
-      case 2:{
-        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
-        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
-      } break;
+      case 0:{
+       if (L_WIN) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
+            if (!rgb_matrix_get_flags()) {
+               RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+            }
+            }else{
+                if (!rgb_matrix_get_flags()) {
+                   RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+                 }
+              }
+         } break;
 
-      case 3:{
-        RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 255, 255, 255);
-        RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
-      } break;
+     case 1:{
+       if (L_MAC) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 255, 255, 255);
+            if (!rgb_matrix_get_flags()) {
+               RGB_MATRIX_INDICATOR_SET_COLOR(WIN_MOD_INDEX, 0, 0, 0);
+            }
+            }else{
+                if (!rgb_matrix_get_flags()) {
+                   RGB_MATRIX_INDICATOR_SET_COLOR(MAC_MOD_INDEX, 0, 0, 0);
+                 }
+              }
+         } break;
 
       default:{
          if (!rgb_matrix_get_flags()) {
@@ -195,4 +247,3 @@ void board_init(void) {
     setPinOutput(SDB);
     writePinHigh(SDB);
 }
-
