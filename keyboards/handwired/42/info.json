@@ -8,6 +8,9 @@
         "pid": "0x0000",
         "device_version": "0.0.3"
     },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
     "tapping": {
         "term": 100
     },
