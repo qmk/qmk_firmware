@@ -21,6 +21,9 @@
     "tapping": {
         "term": 250
     },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
     "ws2812": {
         "pin": "B7"
     },
