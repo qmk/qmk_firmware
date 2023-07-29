@@ -33,13 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // for "Generic" Promicro to be detected correctly as lefthand side (slave)
 #define SPLIT_USB_DETECT
 
-#ifdef RGBLIGHT_ENABLE
 #   define RGBLIGHT_LAYERS
-
-// By default, LEDs of the buttons which are pressed turn on.
-// #    define RGBLIGHT_EFFECT_TWINKLE
-// #    define RGBLIGHT_EFFECT_KNIGHT
-#endif
 
 #ifdef RGB_MATRIX_ENABLE
 /* ws2812 RGB MATRIX */
