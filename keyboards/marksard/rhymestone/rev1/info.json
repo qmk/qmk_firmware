@@ -31,7 +31,13 @@
         "led_count": 40,
         "max_brightness": 150,
         "sleep": true,
-        "split_count": [20, 20]
+        "split_count": [20, 20],
+        "animations": {
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "knight": true,
+            "static_gradient": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
