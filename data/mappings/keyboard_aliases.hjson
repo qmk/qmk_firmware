@@ -216,7 +216,10 @@
         "target": "handwired/dactyl_minidox"
     },
     "handwired/dactyl_manuform/6x6_kinesis": {
-        "target": "handwired/dactyl_kinesis"
+        "target": "handwired/dactyl_kinesis",
+        "layouts" : {
+            "LAYOUT_6x6_kinesis" : "LAYOUT"
+        }   
     },
     "handwired/ferris": {
         "target": "ferris/0_1"
