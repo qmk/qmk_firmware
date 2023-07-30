@@ -58,7 +58,7 @@ enum custom_keycodes {
 
 // Custom Setup
 #define TAPPING_TERM 200
-#define RGB_IDLE_TIMEOUT_MS (5*1000)
+#define RGB_IDLE_TIMEOUT_MS (10*60*1000)
 
 /*
 * ┌───┬───┐  ┌───┬───┬───┬───┐
