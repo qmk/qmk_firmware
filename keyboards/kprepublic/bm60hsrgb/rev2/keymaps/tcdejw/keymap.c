@@ -26,12 +26,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 
 };
-<<<<<<< HEAD
-=======
-
-
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-        if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
-    RGB_MATRIX_INDICATOR_SET_COLOR(28, , G, B); //capslock key
-}
->>>>>>> master
