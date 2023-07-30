@@ -1,6 +1,8 @@
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += muse.c
+    SRC += muse_mode.c
 endif
+SRC += tap_dance.c
 
 CAPS_WORD_ENABLE = yes
 TAP_DANCE_ENABLE = yes

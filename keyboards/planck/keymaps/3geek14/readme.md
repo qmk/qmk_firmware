@@ -8,8 +8,7 @@ the board, so I was able to use the left layer key from the default layout.
 Notable carry-overs from my other layouts:
 * tap/hold to use CTRL from the [Z] and [/] keys
 * tap/hold to use GUI from the ['] key
-* tap dance to type ellipsis from the [.] key and en and em dashes from the [-]
-  key
+* tap dance to type ellipsis from the [.] key
 * a layer with various emoji macros and a numpad
 
 By defining strings in a custom user-includes.h file, you can get your own email

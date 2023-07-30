@@ -15,27 +15,33 @@
  */
 
 #pragma once
+#include "quantum.h"
 
-#ifdef AUDIO_ENABLE
-#    define STARTUP_SONG SONG(PLANCK_SOUND)
-#endif
+enum planck_layers {
+    _QWERTY,
+    _COLEMAK, // one day…I might learn this
+    _RAISE,
+    _LOWER,
+    _MUSIC,
+    _ADJUST,
+    _UTILS,
+};
 
-#define MIDI_BASIC
-#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
-#define TAP_CODE_DELAY 10
-#define TAPPING_TERM 175
+enum planck_keycodes {
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    END_MUS,
+    SHRUG,
+    SIGNATURE,
+    EMAIL,
+    THUMB_U,
+    WAVE,
+    EYES,
+    INTERRO,
+};
 
-// Unicode support for WinCompose with Right Alt as compose key
-#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
-#define UNICODE_KEY_WINC KC_RALT
-
-// Reduces firmware size and limits to 8 layers
-#define LAYER_STATE_8BIT
-
-#if __has_include("user_includes.h")
-#    include "user_includes.h"
-#else
-#    define EMAIL_STRING ""
-#    define SIGNATURE_STRING ""
-#endif
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+#define SCREEN_LEFT LCTL(LGUI(KC_LEFT))
+#define SCREEN_RIGHT LCTL(LGUI(KC_RIGHT))
+#define SCREENSHOT LGUI(LSFT(KC_S))
