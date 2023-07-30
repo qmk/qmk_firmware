@@ -212,11 +212,19 @@
     "gmmk/pro/iso": {
         "target": "gmmk/pro/rev1/iso"
     },
+    "handwired/dactyl": {
+        "layouts": {
+            "LAYOUT_dactyl": "LAYOUT"
+        }
+    },
     "handwired/dactyl_manuform/6x6_kinesis": {
         "target": "handwired/dactyl_kinesis"
     },
     "handwired/dactyl_promicro": {
-        "target": "handwired/dactyl/promicro"
+        "target": "handwired/dactyl/promicro",
+        "layouts": {
+            "LAYOUT_6x6": "LAYOUT"
+        }
     },
     "handwired/ferris": {
         "target": "ferris/0_1"
