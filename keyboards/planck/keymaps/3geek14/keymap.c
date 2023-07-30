@@ -189,7 +189,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case END_MUS:
             if (record->event.pressed) {
                 layer_off(_MUSIC);
-                music_off();
+                #ifdef AUDIO_ENABLE
+                    music_off();
+                #endif
             }
             return false;
         case SHRUG:
