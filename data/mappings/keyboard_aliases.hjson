@@ -219,7 +219,10 @@
         "target": "handwired/dactyl_kinesis"
     },
     "handwired/dactyl_manuform/dmote/62key": {
-        "target": "handwired/dmote"
+        "target": "handwired/dmote",
+        "layouts": {
+            "LAYOUT_62key" : "LAYOUT"
+        }
     },    
     "handwired/ferris": {
         "target": "ferris/0_1"
