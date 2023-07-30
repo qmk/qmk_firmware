@@ -38,6 +38,9 @@
 #define ALT_DEL ALT_T(KC_DEL)
 #define ALT_ENT ALT_T(KC_ENT)
 
+// Shift+Enter tap/hold
+#define SFT_ENT SFT_T(KC_ENT)
+
 // GUI tap/hold
 #define WIN_UP  GUI_T(KC_UP)
 #define WINRGHT GUI_T(KC_RIGHT)
@@ -77,7 +80,6 @@ void macro1(qk_tap_dance_state_t *state, void *user_data) {
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [MR1] = ACTION_TAP_DANCE_FN(macro1),
-    [TDTEST] = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -89,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB , DV_A   , DV_O   , NAV_E  , SH_DV_U, SYM_I  ,          SYM_D  , SH_DV_H, DV_T   , DV_N   , DV_S   , DV_MINS,
     KC_LSFT, DV_SCLN, DV_Q   , DV_J   , DV_K   , DV_X   ,          DV_B   , DV_M   , DV_W   , DV_V   , DV_Z   , KC_RSFT,
                                         KC_F13 , KC_F14 ,          KC_F13 , KC_F14 ,
-                                        CT_BSPC, ALT_DEL,          ALT_ENT, CT_SPC ,
+                                        CT_BSPC, ALT_DEL,          SFT_ENT,  CT_SPC ,
                                         KC_DOWN, WIN_UP ,          WINRGHT, KC_LEFT,
                                         MO_UTIL, TD(MR1),          XXXXXXX, MO_UTIL
   ),
