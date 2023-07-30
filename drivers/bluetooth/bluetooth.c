@@ -60,3 +60,9 @@ void bluetooth_send_consumer(uint16_t usage) {
     rn42_send_consumer(usage);
 #endif
 }
+
+void bluetooth_send_system(uint16_t usage) {}
+
+uint8_t bluetooth_led_state(void) {
+    return 0;
+}
