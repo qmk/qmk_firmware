@@ -66,7 +66,7 @@ Characters often come in lower and upper case pairs, such as å and Å. To make 
 
 This is most useful when creating a keymap for an international layout with special characters. Instead of having to put the lower and upper case versions of a character on separate keys, you can have them both on the same key by using `XP()`. This helps blend Unicode keys in with regular alphas.
 
-Due to keycode size constraints, _i_ and _j_ can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127. This is enough for most use cases, but if you'd like to customize the index calculation, you can override the [`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L36) function. This also allows you to, say, check Ctrl instead of Shift/Caps.
+Due to keycode size constraints, _i_ and _j_ can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127. This is enough for most use cases, but if you'd like to customize the index calculation, you can override the [`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/a7b2f4233ca2062037303e783ced30d9376c9443/quantum/process_keycode/process_unicodemap.c#L24) function. This also allows you to, say, check Ctrl instead of Shift/Caps.
 
 <br>
 
