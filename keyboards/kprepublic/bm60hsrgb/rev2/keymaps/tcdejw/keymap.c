@@ -26,3 +26,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 
 };
+
+//Static LEDs
+
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+
+    RGB_MATRIX_INDICATOR_SET_COLOR(0, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(1, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(2, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(3, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(4, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(5, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(6, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(7, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(8, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(9, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(10, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(11, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(12, 128, 128, 128);
+    RGB_MATRIX_INDICATOR_SET_COLOR(13, 128, 128, 128);
+
+switch (get_highest_layer(layer_state)) {
+        case 0:
+            RGB_MATRIX_INDICATOR_SET_COLOR(0, 0, 128, 128);
+            RGB_MATRIX_INDICATOR_SET_COLOR(13, 0, 128, 128);
+            break;
+        case 1:
+            RGB_MATRIX_INDICATOR_SET_COLOR(12, 128, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(1, 128, 0, 0);
+            break;
+        case 2:
+            RGB_MATRIX_INDICATOR_SET_COLOR(2, 0, 128, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(11, 0, 128, 0);
+            break;
+        case 3:
+            RGB_MATRIX_INDICATOR_SET_COLOR(3, 0, 0, 128);
+            RGB_MATRIX_INDICATOR_SET_COLOR(10, 0, 0, 128);
+            break;
+        case 4:
+            RGB_MATRIX_INDICATOR_SET_COLOR(4, 0, 128, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(9, 0, 128, 0);
+            break;
+        case 5:
+            RGB_MATRIX_INDICATOR_SET_COLOR(5, 0, 0, 128);
+            RGB_MATRIX_INDICATOR_SET_COLOR(8, 0, 0, 128);
+            break;
+        default:
+            // white
+            RGB_MATRIX_INDICATOR_SET_COLOR(2, 128, 128, 128);
+            break;
+    }
+
+  return false;
+}
+#endif
