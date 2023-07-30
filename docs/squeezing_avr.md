@@ -75,7 +75,7 @@ MUSIC_ENABLE = no
 
 There are also some options for layers, that can reduce the firmware size. All of these settings are for your `config.h`.
 
-You can limit the number of layers that the firmware uses -- if you're using less than 8 layers in total:
+You can limit the number of layers that the firmware uses -- if you're using up to 8 layers in total:
 ```c
 #define LAYER_STATE_8BIT
 ```
