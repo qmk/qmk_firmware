@@ -4,7 +4,7 @@ endif
 
 CAPS_WORD_ENABLE = yes
 TAP_DANCE_ENABLE = yes
-UNICODEMAP_ENABLE = yes # I maybe need this for send_unicode_string
+UNICODE_COMMON = yes
 
 # Firmware size optimizations:
 LTO_ENABLE = yes

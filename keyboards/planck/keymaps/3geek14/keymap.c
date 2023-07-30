@@ -45,9 +45,6 @@ enum planck_keycodes {
     INTERRO,
 };
 
-// needs to be defined, but I don't use it
-const uint32_t unicode_map[] PROGMEM = {};
-
 enum tap_dance_declarations {
     TD_DOT_DOTS,
     TD_DASHES,
