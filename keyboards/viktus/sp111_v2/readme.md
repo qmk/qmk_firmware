@@ -1,4 +1,4 @@
-# viktus/sp111_v2
+# Viktus Styrka v2
 
 ![viktus/sp111_v2](https://imgur.com/ApgZRhg)
 

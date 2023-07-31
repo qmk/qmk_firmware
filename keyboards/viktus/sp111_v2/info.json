@@ -4,10 +4,6 @@
     "maintainer": "blindassassin111",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "config_h_features": {
-        "rgb_matrix": true,
-        "rgblight": false
-    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,

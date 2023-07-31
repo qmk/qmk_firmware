@@ -1,1 +1,1 @@
-F_CPU = 8000000
+# This file intentionally left blank

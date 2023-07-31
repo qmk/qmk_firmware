@@ -3,30 +3,19 @@
 
 #pragma once
 
-//#define MATRIX_ROWS 12
-//#define MATRIX_COLS 11
-//
-//#define MATRIX_ROW_PINS { C7, B6, B5, B4, D7, D6 }
-//#define MATRIX_COL_PINS { C6, F6, F5, F4, F1, F7, B7, D2, D3, D5, D4 }
-//#define MATRIX_ROW_PINS_RIGHT { C7, B6, F4, F5, F6, F7 }
-//#define MATRIX_COL_PINS_RIGHT { C6, F1, B4, B5, D2, D3, D5, D4, D6, D7 }
-//
-///* Split Defines */
-//#define SPLIT_USB_DETECT
-//#define MASTER_LEFT
-//#define USE_I2C
+/* Split Defines */
+#define SPLIT_USB_DETECT
 
 // The pin connected to the data pin of the LEDs
-//#define RGB_DI_PIN F0
+#define RGB_DI_PIN F0
 
 #ifdef RGB_MATRIX_ENABLE
-    #define RGB_DI_PIN F0
     // The number of LEDs connected
     #define RGB_MATRIX_LED_COUNT 3
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
     #define RGB_MATRIX_KEYPRESSES
     #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-    //#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+    #define EECONFIG_KB_DATA_SIZE 12
     // RGB Matrix Animation modes. Explicitly enabled
     // For full list of effects, see:
     // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
@@ -75,8 +64,7 @@
     // #define ENABLE_RGB_MATRIX_MULTISPLASH
     // #define ENABLE_RGB_MATRIX_SOLID_SPLASH
     // #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-    #define EECONFIG_KB_DATA_SIZE 4
+    //
 #endif
 
 /*
