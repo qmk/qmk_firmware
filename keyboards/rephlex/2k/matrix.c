@@ -14,6 +14,7 @@
 void matrix_init_custom(void) {
     uint16_t rest_adc_value = ADC_RESOLUTION >> 1;
     for (uint16_t i = 0; i < sizeof(lut); i++) {
+        // Search LUT for rest index
         if (lut[i] == 0) {
             rest_adc_value = i + 1;
             break;
