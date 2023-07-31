@@ -1527,7 +1527,7 @@ void scap_finished(tap_dance_state_t* state, void* user_data) {
             register_code(KC_LSFT);
             break;
         default:
-            if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
+            if (host_keyboard_led_state().caps_lock) {
                 tap_code(KC_CAPS);
                 reset_tap_dance(state);
                 break;

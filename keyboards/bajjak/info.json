@@ -13,6 +13,9 @@
     "tapping": {
         "toggle": 1
     },
+    "build": {
+        "debounce_type": "sym_eager_pr"
+    },
     "layouts": {
         "LAYOUT_6x7": {
             "layout": [

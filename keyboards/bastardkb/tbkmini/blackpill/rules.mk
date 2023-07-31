@@ -21,5 +21,3 @@ KEYBOARD_SHARED_EP = yes
 
 EEPROM_DRIVER = spi
 SERIAL_DRIVER = usart
-
-DEBOUNCE_TYPE = asym_eager_defer_pk

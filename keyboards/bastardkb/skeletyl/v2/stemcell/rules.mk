@@ -19,5 +19,3 @@ RGBLIGHT_SUPPORTED = yes    # RGB underglow is supported, but not enabled by def
 RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 
 SERIAL_DRIVER = usart
-
-DEBOUNCE_TYPE = asym_eager_defer_pk

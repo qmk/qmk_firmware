@@ -120,6 +120,9 @@
             ]
         }
     },
+    "ws2812": {
+        "pin": "GP18"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "split_count": [48, 48],

@@ -12,6 +12,5 @@ AUDIO_ENABLE = yes          # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 SRC += matrix.c
-DEBOUNCE_TYPE = sym_eager_pk
 
 DEFAULT_FOLDER = handwired/xealous/rev1

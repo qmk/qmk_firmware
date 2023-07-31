@@ -3,10 +3,6 @@
 
 #pragma once
 
-/* Change the USB polling rate [default = 1000Hz (1ms)] and
- * use larger value of keys per scan for elite games */
-#define USB_POLLING_INTERVAL_MS  2  // 500Hz
-
 /* LED Matrix & Animations */
 #ifdef RGB_MATRIX_ENABLE
 
