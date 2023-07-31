@@ -7,7 +7,7 @@
 #define SPLIT_USB_DETECT
 
 // The pin connected to the data pin of the LEDs
-#define RGB_DI_PIN F0
+#define WS2812_DI_PIN F0
 
 #ifdef RGB_MATRIX_ENABLE
     // The number of LEDs connected
