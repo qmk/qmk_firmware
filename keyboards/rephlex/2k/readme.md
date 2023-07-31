@@ -1,4 +1,4 @@
-# %rephlex/2k%
+# rephlex/2k
 
 ![%KEYBOARD%](imgur.com image replace me!)
 
