@@ -68,11 +68,11 @@
             {"matrix": [4, 0], "x": 224, "y": 7, "flags": 1},
             {"matrix": [5, 0], "x": 224, "y": 24, "flags": 1},
             {"matrix": [6, 0], "x": 224, "y": 41, "flags": 1}
-        ]LAYOUT_split_3x6_3_thumb
+        ]
     },
     "development_board": "promicro",
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_split_3x6_3"
+        "LAYOUT": "LAYOUT_split_3x6_3_thumb"
     },
     "layouts": {
         "LAYOUT_split_3x5_3_thumb": {
@@ -118,11 +118,11 @@
                 {"matrix": [3, 5], "x": 5, "y": 3.2, "h": 1.5},
 
                 {"matrix": [7, 5], "x": 7, "y": 3.2, "h": 1.5},
-         LAYOUT_split_3x6_3_thumb[7, 4], "x": 8, "y": 3.7},
+                {"matrix": [7, 4], "x": 8, "y": 3.7},
                 {"matrix": [7, 3], "x": 9, "y": 3.7}
             ]
         },
-        "LAYOUT_split_3x6_3": {
+        "LAYOUT_split_3x6_3_thumb": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.3},
                 {"matrix": [0, 1], "x": 1, "y": 0.3},

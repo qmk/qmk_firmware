@@ -88,7 +88,7 @@
                 {"matrix": [4, 2], "x": 6, "y": 5},
 
                 {"matrix": [9, 3], "x": 10, "y": 5},
-         LAYOUT_split_3x6_3_thumb[9, 1], "x": 11, "y": 5}
+                {"matrix": [9, 1], "x": 11, "y": 5}
             ]
         },
         "LAYOUT_split_3x6_3": {

@@ -19,7 +19,7 @@
     "features": {
       "encoder": true
     },
-    "encoLAYOUT_split_3x6_3_thumb
+    "encoder": {
         "rotary": [
             { "pin_a": "B5", "pin_b": "B4" },
             { "pin_a": "B6", "pin_b": "B2" }
