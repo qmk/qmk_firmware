@@ -100,3 +100,21 @@ const ckled2001_led PROGMEM g_ckled2001_leds[RGB_MATRIX_LED_COUNT] = {
 
 };
 #endif
+
+void suspend_power_down_kb() {
+    rgb_matrix_set_flags(LED_FLAG_NONE);
+    rgb_matrix_set_color_all(0, 0, 0);
+    writePinLow(SDB);
+
+}
+
+void suspend_wakeup_init_kb() {
+    writePinHigh(SDB);
+    rgb_matrix_set_flags(LED_FLAG_ALL);
+}
+
+
+void board_init(void) {
+    setPinOutput(SDB);
+    writePinHigh(SDB);
+}
