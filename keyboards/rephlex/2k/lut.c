@@ -1,6 +1,7 @@
 // Copyright 2023 RephlexZero (@RephlexZero)
 // SPDX-License-Identifier: GPL-2.0-or-later
-// SLSS49E LUT
+
+// SLSS49E Lookup table for calibration
 uint8_t lut[4096] = {
         255.0, 255.0, 255.0, 255.0, 255.0, 255.0, 255.0, 255.0,
         255.0, 255.0, 255.0, 255.0, 255.0, 255.0, 255.0, 255.0,
