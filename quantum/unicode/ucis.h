@@ -22,7 +22,7 @@
 #endif
 
 typedef struct {
-    char *   mnemonic;
+    char*    mnemonic;
     uint32_t code_points[UCIS_MAX_CODE_POINTS];
 } ucis_symbol_t;
 

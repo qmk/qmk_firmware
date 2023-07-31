@@ -32,7 +32,7 @@ TEST_F(UnicodeMap, sends_unicodemap_pair_from_keycode) {
     TestDriver driver;
 
     auto key_shift = KeymapKey(0, 0, 0, KC_LEFT_SHIFT);
-    auto key_up = KeymapKey(0, 1, 0, UP(0, 1));
+    auto key_up    = KeymapKey(0, 1, 0, UP(0, 1));
 
     set_keymap({key_shift, key_up});
 

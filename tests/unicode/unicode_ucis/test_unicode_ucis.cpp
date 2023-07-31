@@ -8,9 +8,11 @@
 
 using testing::_;
 
+// clang-format off
 const ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
     UCIS_SYM("qmk", 0x03A8) // Ψ
 );
+// clang-format on
 
 class UnicodeUCIS : public TestFixture {};
 

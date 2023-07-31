@@ -5,8 +5,8 @@
 #include "unicode.h"
 #include "action.h"
 
-uint8_t count                         = 0;
-bool    active                        = false;
+uint8_t count                        = 0;
+bool    active                       = false;
 char    input[UCIS_MAX_INPUT_LENGTH] = {0};
 
 void ucis_start(void) {
@@ -63,7 +63,7 @@ static bool match_mnemonic(char *mnemonic) {
 }
 
 void ucis_finish(void) {
-    uint8_t i = 0;
+    uint8_t i     = 0;
     bool    found = false;
     for (; ucis_symbol_table[i].mnemonic; i++) {
         if (match_mnemonic(ucis_symbol_table[i].mnemonic)) {
@@ -83,7 +83,7 @@ void ucis_finish(void) {
 }
 
 void ucis_cancel(void) {
-    count       = 0;
+    count  = 0;
     active = false;
 }
 
