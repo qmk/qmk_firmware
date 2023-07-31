@@ -113,7 +113,7 @@ To edit it, you may:
 
 If you decide to use the latter workflow, here are the steps to follow:
 
-* From the [QMK Configurator](https://config.qmk.fm/#/splitkb/aurora/sweep/rev1/LAYOUT_split_3x5_2), hit the "import QMK keymap json file" button (it has a drawing with an up arrow on it).
+* From the [QMK Configurator](https://config.qmk.fm/#/splitkb/aurora/sweep/rev1/LAYOUT_split_3x5_2_thumb), hit the "import QMK keymap json file" button (it has a drawing with an up arrow on it).
 * Browse to the location of your keymap (for example, `<your qmk repo>/keyboards/splitkb/aurora/sweep/keymaps/default/keymap.json`)
 * Perform any modification to the keymap in the web UI
 * Export the keymap to your downloads folder, by hitting the "Export QMK keymap json file" button (it has a drawing with a down arrow on it)

@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         //`--------------------------'  `--------------------------'
 
         */
-    [_DVORAK] = LAYOUT_split_3x6_3(
+    [_DVORAK] = LAYOUT_split_3x6_3_thumb(
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
 LT(_NUMPAD,KC_TAB),  ES_DOT, ES_COMM, ES_NTIL,    ES_P,    ES_Y,                         ES_F,    ES_G,    ES_C,    ES_H,    ES_L, KC_BSPC,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -84,7 +84,7 @@ LSFT_T(ES_LABK), ES_MINS,    ES_Q,    ES_J,    ES_K,    ES_X,                   
 
         */
 
-    [_NAVIGATE] = LAYOUT_split_3x6_3(
+    [_NAVIGATE] = LAYOUT_split_3x6_3_thumb(
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
          KC_TAB,    ES_Z,    ES_V,    ES_C, KC_LCTL, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, KC_BSPC,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -109,7 +109,7 @@ LSFT_T(ES_LABK), ES_MINS,    ES_Q,    ES_J,    ES_K,    ES_X,                   
 
         */
 
-    [_SYMBOLS] = LAYOUT_split_3x6_3(
+    [_SYMBOLS] = LAYOUT_split_3x6_3_thumb(
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         XXXXXXX, ES_IEXL, ES_EXLM, ES_LPRN, ES_RPRN, XXXXXXX,                      XXXXXXX,  ES_EQL, ES_ASTR,  ES_GRV, ES_CIRC, KC_BSPC,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -134,7 +134,7 @@ LSFT_T(ES_LABK), ES_MINS,    ES_Q,    ES_J,    ES_K,    ES_X,                   
 
         */
 
-    [_NUMPAD] = LAYOUT_split_3x6_3(
+    [_NUMPAD] = LAYOUT_split_3x6_3_thumb(
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
          KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      ES_MINS,    ES_7,    ES_8,    ES_9, ES_SLSH, KC_BSPC,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -146,7 +146,7 @@ LSFT_T(ES_LABK), ES_MINS,    ES_Q,    ES_J,    ES_K,    ES_X,                   
                                         //`--------------------------'  `--------------------------'
     ),
 
-    [_ADJUST] = LAYOUT_split_3x6_3(
+    [_ADJUST] = LAYOUT_split_3x6_3_thumb(
     //,-----------------------------------------------------.                    ,-----------------------------------------------------.
           QK_BOOT,  RGBRST,RGB_RMOD, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|

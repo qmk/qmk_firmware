@@ -85,4 +85,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #define OLED_DISABLE_TIMEOUT
 
-#define LAYOUT LAYOUT_split_3x6_3
+#define LAYOUT LAYOUT_split_3x6_3_thumb

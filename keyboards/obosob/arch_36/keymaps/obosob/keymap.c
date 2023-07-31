@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                       ________| Shift  | | Shift  |________
 //                                               |________| |________|
 
-    [_QWERTY] = LAYOUT_split_3x5_3(
+    [_QWERTY] = LAYOUT_split_3x5_3_thumb(
       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,
       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    SYM,     MISC,    KC_SLSH,
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                       ________| Shift  | | Shift  |________
 //                                               |________| |________|
 
-    [_COLMAK] = LAYOUT_split_3x5_3(
+    [_COLMAK] = LAYOUT_split_3x5_3_thumb(
       KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,
       KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                      KC_K,    KC_N,    KC_E,    KC_I,    KC_O,
       KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                      KC_M,    KC_H,    SYM,     MISC,    KC_SLSH,
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                             |________|  ****  |        | |        |        |________|
 //                                      |________|        | |        |________|
 //                                               |________| |________|
-    [_NUM] = LAYOUT_split_3x5_3(
+    [_NUM] = LAYOUT_split_3x5_3_thumb(
      KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX,                    KC_PLUS, KC_7,    KC_8,    KC_9,    KC_SLSH,
      KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX,                    KC_COMM, KC_4,    KC_5,    KC_6,    KC_DOT,
      KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,                    KC_MINS, KC_1,    KC_2,    KC_3,    KC_ASTR,
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                             |________|        |        |  |        |  ****  |________|
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|
-    [_NAV] = LAYOUT_split_3x5_3(
+    [_NAV] = LAYOUT_split_3x5_3_thumb(
       OS_GUI,  OS_ALT,  OS_CTL,  OS_SFT,  XXXXXXX,                    KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_PSCR,
       KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_INS,
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, AS_TAB,  A_TAB,   XXXXXXX, XXXXXXX,
@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|
 //
-    [_SYM] = LAYOUT_split_3x5_3(
+    [_SYM] = LAYOUT_split_3x5_3_thumb(
          KC_LT,   KC_GT,   KC_LCBR, KC_RCBR, KC_GRV,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUPI,
          KC_ASTR, KC_HASH, KC_LPRN, KC_RPRN, KC_CIRC,                  KC_UNDS, KC_MINS, XXXXXXX, KC_AMPR, KC_PIPE,
          KC_NUBS, KC_DLR,  KC_LBRC, KC_RBRC, KC_DQUO,                  KC_EQL,  KC_PLUS, _______, KC_PERC, KC_NUHS,
@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|
 //
-    [_MISC] = LAYOUT_split_3x5_3(
+    [_MISC] = LAYOUT_split_3x5_3_thumb(
         LTGT,    LTGTC,   CBR,     CBR,     GRV,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, PRN,     PRN,     XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, BRC,     BRC,     XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX,
@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                             |________|  ****  |        |  |        |  ****  |________|
 //                                      |________|        |  |        |________|
 //                                               |________|  |________|
-    [_ADJUST] = LAYOUT_split_3x5_3(
+    [_ADJUST] = LAYOUT_split_3x5_3_thumb(
         XXXXXXX, WOKE,    EE_CLR,  QK_BOOT, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI,                     XXXXXXX, QWERTY,  COLEMAK, XXXXXXX, XXXXXXX,
         XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,

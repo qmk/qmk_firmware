@@ -2,8 +2,8 @@
 
 Applies to layouts:
 - LAYOUT_ortho_4x10
-- LAYOUT_split_3x5_2
-- LAYOUT_split_3x5_3
+- LAYOUT_split_3x5_2_thumb
+- LAYOUT_split_3x5_3_thumb
 
 ### QWERTY
 

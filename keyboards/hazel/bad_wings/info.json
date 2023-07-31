@@ -20,9 +20,9 @@
     "deferred_exec": true,
     "nkro": false
   },
-  "community_layouts": ["split_3x5_3"],
+  "community_layouts": ["split_3x5_3_thumb"],
   "layouts": {
-    "LAYOUT_split_3x5_3": {
+    "LAYOUT_split_3x5_3_thumb": {
       "layout": [
         {"label": "K00", "matrix": [0, 0], "w": 1, "x": 0, "y": 0.75},
         {"label": "K10", "matrix": [1, 0], "w": 1, "x": 1, "y": 0.5},

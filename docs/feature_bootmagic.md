@@ -26,7 +26,7 @@ And to trigger the bootloader, you hold this key down when plugging the keyboard
 When [handedness](feature_split_keyboard.md#setting-handedness) is predetermined via options like `SPLIT_HAND_PIN` or `EE_HANDS`, you might need to configure a different key between halves. To identify the correct key for the right half, examine the split key matrix defined in the `<keyboard>.h` file, e.g.:
 
 ```c
-#define LAYOUT_split_3x5_2( \
+#define LAYOUT_split_3x5_2_thumb( \
         L01, L02, L03, L04, L05,   R01, R02, R03, R04, R05, \
         L06, L07, L08, L09, L10,   R06, R07, R08, R09, R10, \
         L11, L12, L13, L14, L15,   R11, R12, R13, R14, R15, \

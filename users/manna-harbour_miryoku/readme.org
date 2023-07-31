@@ -420,7 +420,7 @@ make planck/rev6:manna-harbour_miryoku:flash FORCE_LAYOUT=planck_mit # planck re
 
 
 
-**** split_3x5_2
+**** split_3x5_2_thumb
 
 [[#thumb-combos][Thumb combos]] are enabled automatically for this layout.
 
@@ -434,7 +434,7 @@ make ferris/sweep:manna-harbour_miryoku:flash # ferris/sweep
 #+END_SRC
 
 
-**** split_3x5_3
+**** split_3x5_3_thumb
 
 Keyboards supporting this layout: arch_36, boardsource/microdox, centromere, crkbd, eek, miniaxe, minidox/rev1, pteron36, squiggle/rev1, suihankey/split/rev1.
 
@@ -446,7 +446,7 @@ make minidox:manna-harbour_miryoku:flash # minidox
 #+END_SRC
 
 
-**** split_3x6_3
+**** split_3x6_3_thumb
 
 The outer columns are unused.
 

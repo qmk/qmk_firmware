@@ -21,7 +21,7 @@
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTZ] = LAYOUT_split_3x6_3(
+    [_QWERTZ] = LAYOUT_split_3x6_3_thumb(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
              KC_TAB,    DE_Q,    DE_W,    DE_E,    DE_R,    DE_T,                         DE_Z,    DE_U,    DE_I,    DE_O,    DE_P, DE_UDIA,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             //`--------------------------'  `--------------------------'
 
         ),
-    [_SYMBOL] = LAYOUT_split_3x6_3(
+    [_SYMBOL] = LAYOUT_split_3x6_3_thumb(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX, DE_UNDS, DE_LBRC, DE_RBRC, DE_CIRC,                      DE_EXLM, DE_LABK, DE_RABK,  DE_EQL, DE_AMPR,   DE_SS,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             //`--------------------------'  `--------------------------'
 
         ),
-    [_NUMBER] = LAYOUT_split_3x6_3(
+    [_NUMBER] = LAYOUT_split_3x6_3_thumb(
         //,-----------------------------------------------------.                    ,-----------------------------------------------------.
             XXXXXXX, XXXXXXX, KC_PAGE_UP, KC_UP, KC_PAGE_DOWN, XXXXXXX,                XXXXXXX,    DE_7,    DE_8,    DE_9, DE_ASTR, DE_SLSH,
         //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|

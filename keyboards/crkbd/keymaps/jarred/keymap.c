@@ -18,7 +18,7 @@ extern rgblight_config_t rgblight_config;
                    K31, K32, K33, K34, K35, K36 \
   )
 
-#define LAYOUT_crkbd_wrapper(...) LAYOUT_split_3x6_3(__VA_ARGS__)
+#define LAYOUT_crkbd_wrapper(...) LAYOUT_split_3x6_3_thumb(__VA_ARGS__)
 
 #define QWERTY_4_CRKBD KC_LCTL, MO(_LW), KC_SPC, KC_ENT, MO(_LW), KC_RALT
 

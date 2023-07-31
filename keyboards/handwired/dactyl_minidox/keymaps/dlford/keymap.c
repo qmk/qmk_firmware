@@ -328,7 +328,7 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_split_3x5_3(
+    [_QWERTY] = LAYOUT_split_3x5_3_thumb(
         //|--------------------------------------------|                    |--------------------------------------------|
             CSA_Q,   CA_W,    CS_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    CS_I,    CA_O,    CSA_P,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
@@ -339,7 +339,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
         //                           |--------+--------+--------|  |--------+--------+--------|
     ),
-    [_COLEMAK] = LAYOUT_split_3x5_3(
+    [_COLEMAK] = LAYOUT_split_3x5_3_thumb(
         //|--------------------------------------------|                    |--------------------------------------------|
             CSA_Q,   CA_W,    CS_F,    KC_P,    KC_G,                         KC_J,    KC_L,    CS_U,    CA_Y,    CSA_SCLN,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
@@ -350,7 +350,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        KC_ESC,  LT3_SPC, KC_BSPC,    KC_DEL, LT2_TAB,  KC_ENT
         //                           |--------+--------+--------|  |--------+--------+--------|
     ),
-    [_NAVIGATION] = LAYOUT_split_3x5_3(
+    [_NAVIGATION] = LAYOUT_split_3x5_3_thumb(
         //|--------------------------------------------|                    |--------------------------------------------|
             CSA_F1,  CA_F2,   CS_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   CS_F8,  CA_F9,   CSA_F10,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
@@ -361,7 +361,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         VVV,    TG(4),    VVV,         VVV,    VVV,     VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
     ),
-    [_SPECIAL] = LAYOUT_split_3x5_3(
+    [_SPECIAL] = LAYOUT_split_3x5_3_thumb(
         //|--------------------------------------------|                    |--------------------------------------------|
             CSA_1,   CA_2,    CS_3,    KC_4,    KC_5,                         KC_6,    KC_7,    CS_8,    CA_9,    CSA_0,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|
@@ -372,7 +372,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         VVV,     VVV,     VVV,        VVV,    TG(4),    VVV
         //                           |--------+--------+--------|  |--------+--------+--------|
     ),
-    [_MOUSE] = LAYOUT_split_3x5_3(
+    [_MOUSE] = LAYOUT_split_3x5_3_thumb(
         //|--------------------------------------------|                    |--------------------------------------------|
             KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R, DM_REC1,                      KC_WSTP, KC_ACL2, KC_ACL1, KC_ACL0, KC_WFWD,
         //|--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------|

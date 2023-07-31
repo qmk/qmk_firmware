@@ -11,7 +11,7 @@ You can build all keymaps I maintain at once using `./users/bcat/compile.sh`.
 ## Canonical keymaps
 
 * [Split 3x6 + 3 thumb
-keys](https://github.com/qmk/qmk_firmware/tree/master/layouts/community/split_3x6_3/bcat):
+keys](https://github.com/qmk/qmk_firmware/tree/master/layouts/community/split_3x6_3_thumb/bcat):
 Columnar-staggered split ergo layout, preferred for typing. Used on Crkbd.
 
 * [60% Tsangan

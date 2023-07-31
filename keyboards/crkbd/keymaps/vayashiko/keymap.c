@@ -27,7 +27,7 @@ enum custom_layers {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_split_3x6_3(
+  [_QWERTY] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [_LOWER] = LAYOUT_split_3x6_3(
+  [_LOWER] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
     KC_DELETE,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                      XXXXXXX,    KC_7,    KC_8,    KC_9, JP_MINS,KC_DELETE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_RAISE] = LAYOUT_split_3x6_3(
+  [_RAISE] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC, JP_EXLM,  JP_DQT, JP_HASH,  KC_DLR, JP_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_MINS, JP_CIRC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_ADJUST] = LAYOUT_split_3x6_3(
+  [_ADJUST] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|

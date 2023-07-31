@@ -1,7 +1,7 @@
 {
     "keyboard": "boardsource/unicorne",
     "keymap": "via",
-    "layout": "LAYOUT_split_3x6_3",
+    "layout": "LAYOUT_split_3x6_3_thumb",
     "config": {
         "features": {
             "via": true

@@ -9,7 +9,7 @@
 // to build: qmk compile -kb crkbd/rev1 -km dvorak_42_key
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_split_3x6_3(
+  [BASE] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
    OSL(VSCODE), KC_QUOTE, KC_COMMA, KC_DOT,  KC_P,   KC_Y,                         KC_F,   KC_G,   KC_C,     KC_R,  KC_L,    KC_TAB,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -22,7 +22,7 @@ OSM(MOD_LSFT),KC_SEMICOLON, KC_Q,  KC_J,    KC_K,   KC_X,                       
 
   ),
 
-  [KEYNAV] = LAYOUT_split_3x6_3(
+  [KEYNAV] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
 KC_ESC, RCTL(KC_ENTER), RCTL(KC_K), RCTL(KC_Z), RCTL(KC_S), RCTL(KC_N),          KC_TRNS, KC_HOME, KC_UP, KC_END, KC_PGUP, KC_DELETE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -35,7 +35,7 @@ KC_TRNS, RCTL(KC_P), RCTL(KC_O),  RCTL(KC_A), RCTL(KC_B), NP_DUPE_LINE,     KC_T
   ),
 
 
-  [KEYSEL] = LAYOUT_split_3x6_3(
+  [KEYSEL] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
     KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                KC_TRNS, RSFT(KC_HOME), RSFT(KC_UP), RSFT(KC_END), RSFT(KC_PGUP), KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -48,7 +48,7 @@ KC_TRNS, RCTL(KC_P), RCTL(KC_O),  RCTL(KC_A), RCTL(KC_B), NP_DUPE_LINE,     KC_T
   ),
 
 
-  [SHELL_NAV] = LAYOUT_split_3x6_3(
+  [SHELL_NAV] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                              ,-----------------------------------------------------.
 TO(BASE),SHELL_GIT_DIFF, SHELL_PGREP, SHELL_PLESS, SHELL_LESS, KC_TRNS,              RCTL(KC_D), KC_HOME, KC_UP, KC_END, RCTL(KC_L), RCTL(KC_X),
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
@@ -60,7 +60,7 @@ KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, KC_TRN
                                       //`--------------------------'            `--------------------------'
   ),
 
-  [SHELL_SCREEN] = LAYOUT_split_3x6_3(
+  [SHELL_SCREEN] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                                 ,-----------------------------------------------------.
 TO(BASE),KC_TRNS, SCREEN_READREG_3, SCREEN_READREG_2, SCREEN_READREG_1,KC_TRNS,          KC_TRNS,         SCREEN_7, SCREEN_8, SCREEN_9, SCREEN_RENAME, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                                 |--------+--------+--------+--------+--------+--------|
@@ -72,7 +72,7 @@ TO(BASE),KC_TRNS,SCREEN_PASTEREG_3,SCREEN_PASTEREG_2,SCREEN_PASTEREG_1,SCREEN_DE
                                       //`--------------------------'                `--------------------------'
   ),
 
-  [VSCODE] = LAYOUT_split_3x6_3(
+  [VSCODE] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                             ,-----------------------------------------------------.
 TO(BASE), KC_TRNS, VS_FIND_FILES, VS_CMT_BLOCK, VS_CMT_LINE, VS_BM_LISTALL,                     VS_COPYLINEDOWN, VS_REFERENCES, VS_DEFINITION, VS_IMPLEMENTATION, VS_LINE,   VS_BRACKET,
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
@@ -84,7 +84,7 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, VS_BM_CLEARALL,                    
                                       //`--------------------------'            `--------------------------'
   ),
   
-  [COMBINED] = LAYOUT_split_3x6_3(
+  [COMBINED] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
     KC_TILD,   KC_EXLM, KC_AT,   KC_HASH, KC_DLR, KC_PERC,                        KC_PLUS,   KC_7,  KC_8,   KC_9,  KC_ASTR,  KC_PIPE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -98,7 +98,7 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, VS_BM_CLEARALL,                    
 
   // chrome OS keyboard shortcuts: https://support.google.com/chromebook/answer/183101?hl=en
   // search key == windows key
-  [BROWSER_CONTROL] = LAYOUT_split_3x6_3(
+  [BROWSER_CONTROL] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                                     ,-----------------------------------------------------.
 KC_TRNS, KC_TRNS, KC_BTN3, KC_MS_U, KC_BTN1, KC_BTN2,                                       KC_UP, KC_PGUP, KC_PGDN, KC_MS_WH_UP, KC_TRNS, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                                     |--------+--------+--------+--------+--------+--------|
@@ -111,7 +111,7 @@ KC_TRNS, RCTL(LSFT(KC_TAB)), RCTL(KC_TAB), WINDOWS10_WORKSPACE_LEFT, WINDOWS10_W
   ),
 
 
-  [SHORTCUTS] = LAYOUT_split_3x6_3(
+  [SHORTCUTS] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                             ,-----------------------------------------------------.
     KC_F1,    KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                                MEH(KC_F1), MEH(KC_F2), MEH(KC_F3), MEH(KC_F4), MEH(KC_F5), MEH(KC_F6),
   //|--------+--------+--------+--------+--------+--------|                             |--------+--------+--------+--------+--------+--------|
@@ -125,7 +125,7 @@ KC_TRNS, OSM(MOD_LSFT), OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), KC_TRNS,   
 
   /*
   // empty layer
-  [15] = LAYOUT_split_3x6_3(
+  [15] = LAYOUT_split_3x6_3_thumb(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
     KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|

@@ -29,7 +29,7 @@ enum dilemma_keymap_layers {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [LAYER_BASE] = LAYOUT_split_3x5_3(
+  [LAYER_BASE] = LAYOUT_split_3x5_3_thumb(
   // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                   ╰───────────────────────────╯ ╰──────────────────────────╯
   ),
 
-  [LAYER_NAV] = LAYOUT_split_3x5_3(
+  [LAYER_NAV] = LAYOUT_split_3x5_3_thumb(
   // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
         KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLU,    XXXXXXX, KC_HOME,   KC_UP,  KC_END,  KC_DEL,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                   ╰───────────────────────────╯ ╰──────────────────────────╯
   ),
 
-  [LAYER_SYM] = LAYOUT_split_3x5_3(
+  [LAYER_SYM] = LAYOUT_split_3x5_3_thumb(
   // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
         KC_ESC, KC_LBRC, KC_LCBR, KC_LPRN, KC_TILD,    KC_CIRC, KC_RPRN, KC_RCBR, KC_RBRC,  KC_GRV,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                   ╰───────────────────────────╯ ╰──────────────────────────╯
   ),
 
-  [LAYER_NUM] = LAYOUT_split_3x5_3(
+  [LAYER_NUM] = LAYOUT_split_3x5_3_thumb(
   // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
           KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,   KC_0,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤

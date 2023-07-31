@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "qmk",
     "layouts": {
-        "LAYOUT_split_3x6_3": {
+        "LAYOUT_split_3x6_3_thumb": {
             "layout": [
                 {"x":0, "y":0.25},
                 {"x":1, "y":0.25},

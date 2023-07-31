@@ -27,7 +27,7 @@
 #   define LAYOUT_3x14_wrapper(...)  LAYOUT(__VA_ARGS__)
 #endif
 #if (defined(KEYBOARD_hazel_bad_wings))
-#   define LAYOUT_split_3x5_3_wrapper(...)  LAYOUT_split_3x5_3(__VA_ARGS__)
+#   define LAYOUT_split_3x5_3_thumb_wrapper(...)  LAYOUT_split_3x5_3_thumb(__VA_ARGS__)
 #endif
 #if (defined(KEYBOARD_idobao_id75_v1))
 #   define LAYOUT_ortho_5x15_wrapper(...)  LAYOUT_ortho_5x15(__VA_ARGS__)

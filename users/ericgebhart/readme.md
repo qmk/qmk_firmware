@@ -888,7 +888,7 @@ and make it fit the keyboard.
 
 The layouts defined in _layouts.h_ take a list of keys. and give them
 to the keyboard's layout.  The Corne (crkbd), uses a layout called
-  `LAYOUT_split_3x6_3`. So for the corne, I have a `Base_3x6_6` that
+  `LAYOUT_split_3x6_3_thumb`. So for the corne, I have a `Base_3x6_6` that
   is the same shape, in its resolution.
   
 There are layouts for Corne, ergodox, kinesis, dactyl, viterbi, xd75, rebound.

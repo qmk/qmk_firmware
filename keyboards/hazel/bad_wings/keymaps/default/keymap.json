@@ -4,7 +4,7 @@
   "documentation": "",
   "keyboard": "hazel/bad_wings",
   "keymap": "default",
-  "layout": "LAYOUT_split_3x5_3",
+  "layout": "LAYOUT_split_3x5_3_thumb",
   "layers": [
     [
       "KC_Q",

@@ -32,7 +32,7 @@
         "soft_serial_pin": "D0"
     },
     "development_board": "promicro",
-    "community_layouts": ["split_3x6_3", "split_3x5_3"],
+    "community_layouts": ["split_3x6_3_thumb", "split_3x5_3_thumb"],
     "layouts": {
         "LAYOUT": {
             "layout": [
@@ -105,7 +105,7 @@
                 {"matrix": [8, 5], "x": 16, "y": 3.35}
             ]
         },
-        "LAYOUT_split_3x6_3": {
+        "LAYOUT_split_3x6_3_thumb": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.35},
                 {"matrix": [0, 1], "x": 1, "y": 0.35},
@@ -158,7 +158,7 @@
                 {"matrix": [9, 3], "x": 11, "y": 3.1, "h": 2}
             ]
         },
-        "LAYOUT_split_3x5_3": {
+        "LAYOUT_split_3x5_3_thumb": {
             "layout": [
                 {"matrix": [0, 1], "x": 0, "y": 0.35},
                 {"matrix": [0, 2], "x": 1, "y": 0.1},

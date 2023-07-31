@@ -89,7 +89,7 @@ combo_t key_combos[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_split_3x5_3(
+  [BASE] = LAYOUT_split_3x5_3_thumb(
  // BASE
   //,--------------------------------------------,                    ,--------------------------------------------.
          SE_Q,    SE_W,    SE_F,    SE_P,    SE_B,                         SE_Y,    SE_L,    SE_U,    SE_K, SE_QUOT,
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [MBO] = LAYOUT_split_3x5_3(
+  [MBO] = LAYOUT_split_3x5_3_thumb(
   // Mouse
   //,--------------------------------------------,                    ,--------------------------------------------.
       _______, _______, _______, _______, _______,                      KC_BTN1, KC_BTN2, _______, _______, _______,
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [SYM] = LAYOUT_split_3x5_3(
+  [SYM] = LAYOUT_split_3x5_3_thumb(
   // Symbols
   //,--------------------------------------------,                    ,--------------------------------------------.
       SE_SECT, SE_ACUT, SE_SLSH, SE_TILD, _______,                      _______, SE_PIPE, SE_BSLS, SE_DIAE, SE_CIRC,
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              //`--------------------------'  '--------------------------'
   ),
 
-  [NUM] = LAYOUT_split_3x5_3(
+  [NUM] = LAYOUT_split_3x5_3_thumb(
   // Numbers
   //,--------------------------------------------,                    ,--------------------------------------------.
       _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                      _______,    SE_7,    SE_8,    SE_9, SE_QUOT,
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              //`--------------------------'  '--------------------------'
   ),
 
-  [FN] = LAYOUT_split_3x5_3(
+  [FN] = LAYOUT_split_3x5_3_thumb(
   // FN
   //,--------------------------------------------,                    ,--------------------------------------------.
       _______, _______, _______, _______, _______,                      _______,   KC_F7,   KC_F8,   KC_F9,  KC_F10,

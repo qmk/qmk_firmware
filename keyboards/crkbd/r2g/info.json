@@ -10,14 +10,14 @@
         "split_count": [27, 27]
     },
     "ws2812": {
-        "pin": "D3"
+        "pin": "D3"LAYOUT_split_3x6_3_thumb
     },
     "bootloader": "atmel-dfu",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x6_3"
     },
     "layouts": {
-        "LAYOUT_split_3x5_3": {
+        "LAYOUT_split_3x5_3_thumb": {
             "layout": [
                 {"matrix": [0, 1], "x": 0, "y": 0.3},
                 {"matrix": [0, 2], "x": 1, "y": 0.1},
@@ -60,7 +60,7 @@
                 {"matrix": [3, 5], "x": 5, "y": 3.2, "h": 1.5},
 
                 {"matrix": [7, 5], "x": 7, "y": 3.2, "h": 1.5},
-                {"matrix": [7, 4], "x": 8, "y": 3.7},
+         LAYOUT_split_3x6_3_thumb[7, 4], "x": 8, "y": 3.7},
                 {"matrix": [7, 3], "x": 9, "y": 3.7}
             ]
         },

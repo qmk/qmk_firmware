@@ -14,10 +14,10 @@
         "rgb_matrix": true
     },
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_split_3x5_2"
+        "LAYOUT": "LAYOUT_split_3x5_2_thumb"
     },
     "layouts": {
-        "LAYOUT_split_3x5_2": {
+        "LAYOUT_split_3x5_2_thumb": {
             "layout": [
                 {"label": "L01", "matrix": [0, 4], "x": 0, "y": 0.93},
                 {"label": "L02", "matrix": [0, 3], "x": 1, "y": 0.31},
@@ -60,7 +60,7 @@
         }
     },
     "community_layouts": [
-        "split_3x5_2"
+        "split_3x5_2_thumb"
     ],
     "diode_direction": "ROW2COL",
     "matrix_pins": {

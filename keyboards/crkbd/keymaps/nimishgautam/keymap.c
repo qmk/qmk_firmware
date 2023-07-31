@@ -98,7 +98,7 @@ combo_t key_combos[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_split_3x6_3(  //basic
+  [_BASE] = LAYOUT_split_3x6_3_thumb(  //basic
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,     KC_MINUS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  [_NUMS] = LAYOUT_split_3x6_3( //numbers
+  [_NUMS] = LAYOUT_split_3x6_3_thumb( //numbers
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      SCREENSHOT,   KC_EXCLAIM,KC_AT, KC_HASH, KC_DOLLAR,KC_PERCENT,            KC_CIRCUMFLEX,    KC_7,    KC_8,    KC_9,    KC_TRANSPARENT, KC_PIPE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-     [_NUM_MASK] = LAYOUT_split_3x6_3( //NUM MASK, so I can still have backspace/enter/tab etc but with the nums, arrows and formatters too
+     [_NUM_MASK] = LAYOUT_split_3x6_3_thumb( //NUM MASK, so I can still have backspace/enter/tab etc but with the nums, arrows and formatters too
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT, KC_UP, KC_TRANSPARENT,KC_TRANSPARENT,      KC_TRANSPARENT, KC_7,    KC_8,    KC_9, KC_TRANSPARENT, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_TEXT_NAV] = LAYOUT_split_3x6_3( //text nav and special navigation (lock screen, adjust layer, etc)
+  [_TEXT_NAV] = LAYOUT_split_3x6_3_thumb( //text nav and special navigation (lock screen, adjust layer, etc)
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       LOCK_SCREEN, KC_PSCR, SELECT_LEFT_LINE, KC_UP, SELECT_RIGHT_LINE, TD(TD_MOVE_BEGIN_LINE),                    TD(TD_MOVE_END_LINE), KC_MS_WH_UP, EMOJI_KBD, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
-    [_ADJUST] = LAYOUT_split_3x6_3( // adjust things
+    [_ADJUST] = LAYOUT_split_3x6_3_thumb( // adjust things
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // RGB MOD changes the mode, it's the most important one
     // right side mostly no-op so I can play with the visualization
 
-   [_FN_KEYS] = LAYOUT_split_3x6_3( //fn keys, terminal text navigation keys
+   [_FN_KEYS] = LAYOUT_split_3x6_3_thumb( //fn keys, terminal text navigation keys
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
      KC_TRANSPARENT, KC_LCBR,KC_LBRC, KC_RBRC, KC_RCBR, MOVE_BEGIN_LINE_TERMINAL,                           MOVE_END_LINE_TERMINAL, KC_F7,    KC_F8,    KC_F9,    KC_F11, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|

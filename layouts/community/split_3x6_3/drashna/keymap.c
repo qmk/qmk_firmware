@@ -35,19 +35,19 @@ enum crkbd_keycodes {
 #endif
 
 // clang-format off
-#define LAYOUT_split_3x6_3_wrapper(...)      LAYOUT_split_3x6_3(__VA_ARGS__)
-#define LAYOUT_split_3x6_3_base( \
+#define LAYOUT_split_3x6_3_thumb_wrapper(...)      LAYOUT_split_3x6_3_thumb(__VA_ARGS__)
+#define LAYOUT_split_3x6_3_thumb_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
-  LAYOUT_split_3x6_3_wrapper( \
+  LAYOUT_split_3x6_3_thumb_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
     ALT_T(KC_TAB), K11,  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                                         OS_LGUI, KC_SPC,  BK_LWER, DL_RAIS,  MID_TMB,  OS_RGUI                                      \
   )
-#define LAYOUT_base_wrapper(...)       LAYOUT_split_3x6_3_base(__VA_ARGS__)
+#define LAYOUT_base_wrapper(...)       LAYOUT_split_3x6_3_thumb_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT_LAYER_1] = LAYOUT_base_wrapper(
@@ -74,21 +74,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
     ),
 
-  [_LOWER] = LAYOUT_split_3x6_3_wrapper(
+  [_LOWER] = LAYOUT_split_3x6_3_thumb_wrapper(
     KC_F11,  _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, KC_F11,
     KC_F12,  _________________LOWER_L2__________________,                    _________________LOWER_R2__________________, KC_PIPE,
     _______, _________________LOWER_L3__________________,                    _________________LOWER_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_RAISE] = LAYOUT_split_3x6_3_wrapper(
+  [_RAISE] = LAYOUT_split_3x6_3_thumb_wrapper(
     _______, _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, _______,
     _______, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, KC_BSLS,
     _______, _________________RAISE_L3__________________,                    _________________RAISE_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_ADJUST] = LAYOUT_split_3x6_3_wrapper(
+  [_ADJUST] = LAYOUT_split_3x6_3_thumb_wrapper(
     QK_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, QK_BOOT,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EE_CLR,
     KEYLOCK, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, RGB_IDL,

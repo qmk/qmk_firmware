@@ -36,5 +36,5 @@ Enter the bootloader in 3 ways:
 The following [community layouts](/layouts/) are supported:
 | Layout | Diagram |
 | :---: | :---: |
-| Split_3x6_3 | ![split_3x6_3](https://i.imgur.com/xBVDsqE.jpg) |
-| Split_3x5_3 | ![split_3x5_3](https://i.imgur.com/nc0dbH1.jpg) |
+| split_3x6_3_thumb | ![split_3x6_3_thumb](https://i.imgur.com/xBVDsqE.jpg) |
+| split_3x5_3_thumb | ![split_3x5_3_thumb](https://i.imgur.com/nc0dbH1.jpg) |

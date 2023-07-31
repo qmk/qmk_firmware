@@ -41,7 +41,7 @@ compile 9key
 compile ai03/polaris 60_tsangan_hhkb
 compile cannonkeys/an_c 60_tsangan_hhkb
 compile cannonkeys/instant60 60_tsangan_hhkb
-compile crkbd/rev1 split_3x6_3
+compile crkbd/rev1 split_3x6_3_thumb
 compile dz60 60_ansi_split_bs_rshift
 compile dz60 60_tsangan_hhkb
 compile eco/rev2
