@@ -1,3 +1,6 @@
+// Copyright 2023 RephlexZero (@RephlexZero)
+// SPDX-License-Identifier: GPL-2.0-or-later
+#pragma once
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
   // Key Matrix to LED Index

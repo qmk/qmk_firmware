@@ -3,7 +3,7 @@
 SRC += analog.c
 SRC += matrix.c
 SRC += lut.c
-SRC += scanFunctions.c
+SRC += scanfunctions.c
 
 
 CUSTOM_MATRIX = lite

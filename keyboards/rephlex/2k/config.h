@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-
-
 #ifdef VIA_ENABLE
 #define VIA_EEPROM_CUSTOM_CONFIG_SIZE 48
 #define DYNAMIC_KEYMAP_LAYER_COUNT 1
@@ -14,9 +12,6 @@
 #define DEBUG_MATRIX
 #define DEBUG_MATRIX_SCAN_RATE
 #define USB_POLLING_INTERVAL_MS 1
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
 
 #define ADC_RESOLUTION 12
 

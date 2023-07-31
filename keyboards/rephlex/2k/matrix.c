@@ -1,3 +1,5 @@
+// Copyright 2023 RephlexZero (@RephlexZero)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
@@ -7,7 +9,7 @@
 #include "analog.h"
 #include "2k.h"
 #include "lut.h"
-#include "scanFunctions.h"
+#include "scanfunctions.h"
 
 void matrix_init_custom(void) {
     uint16_t rest_adc_value = ADC_RESOLUTION >> 1;
@@ -17,9 +19,9 @@ void matrix_init_custom(void) {
             break;
         }
     }
-    recalibrate(rest_adc_value);
-    wait_ms(100);
-    recalibrate(rest_adc_value);
+    calibrate(rest_adc_value);
+    wait_ms(100); // Let ADC reach steady state
+    calibrate(rest_adc_value);
 }
 
 matrix_row_t previous_matrix[MATRIX_ROWS];

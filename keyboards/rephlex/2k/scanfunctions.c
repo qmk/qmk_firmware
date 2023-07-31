@@ -1,9 +1,11 @@
+// Copyright 2023 RephlexZero (@RephlexZero)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 #include "2k.h"
 #include "analog.h"
 
 
-void recalibrate(uint16_t rest_adc_value) {
+void calibrate(uint16_t rest_adc_value) {
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         for (uint8_t j = 0; j < MATRIX_COLS; j++) {
             keys[i][j].offset = rest_adc_value - analogReadPin(matrix_pins[i][j]);
