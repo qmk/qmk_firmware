@@ -75,7 +75,7 @@ MUSIC_ENABLE = no
 
 There are also some options for layers, that can reduce the firmware size. All of these settings are for your `config.h`.
 
-You can limit the number of layers that the firmware uses -- if you're using less than 8 layers in total:
+You can limit the number of layers that the firmware uses -- if you're using up to 8 layers in total:
 ```c
 #define LAYER_STATE_8BIT
 ```
@@ -88,6 +88,21 @@ Or if you're not using layers at all, you can outright remove the functionality 
 #define NO_ACTION_LAYER
 ```
 
+## Magic keycodes
+
+There are two `__attribute__ ((weak))` placeholder functions available to customize magic keycodes. If you are not using that feature to swap keycodes, such as backslash with backspace, add the following to your `keymap.c` or user space code:
+```c
+uint16_t keycode_config(uint16_t keycode) {
+    return keycode;
+}
+```
+Likewise, if you are not using magic keycodes to swap modifiers, such as Control with GUI, add the following to your `keymap.c` or user space code:
+```c
+uint8_t mod_config(uint8_t mod) {
+    return mod;
+}
+```
+Both of them will overwrite the placeholder functions with a simple return statement to reduce firmware size.
 
 ## OLED tweaks
 
@@ -194,6 +209,7 @@ That said, there are a number of Pro Micro replacements with ARM controllers:
 * [Blok](https://boardsource.xyz/store/628b95b494dfa308a6581622)
 * [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)
 * [0xCB Helios](https://keeb.supply/products/0xcb-helios) ([Open Source](https://github.com/0xCB-dev/0xCB-Helios), DIY/PCBA/Shop)
+* [Liatris](https://splitkb.com/products/liatris)
 * [Michi](https://github.com/ci-bus/michi-promicro-rp2040)
 
 There are other, non-Pro Micro compatible boards out there. The most popular being:

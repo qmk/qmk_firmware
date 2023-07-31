@@ -38,5 +38,5 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B7, D5 }
 
 /* ws2812 RGB LED */
-#undef RGB_DI_PIN
-#define RGB_DI_PIN B5
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN B5

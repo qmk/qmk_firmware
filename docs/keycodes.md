@@ -803,6 +803,15 @@ See also: [Programmable Button](feature_programmable_button.md)
 |`QK_PROGRAMMABLE_BUTTON_31`|`PB_31`|Programmable button 31|
 |`QK_PROGRAMMABLE_BUTTON_32`|`PB_32`|Programmable button 32|
 
+## Repeat Key :id=repeat-key
+
+See also: [Repeat Key](feature_repeat_key.md)
+
+|Keycode                |Aliases  |Description                          |
+|-----------------------|---------|-------------------------------------|
+|`QK_REPEAT_KEY`        |`QK_REP` |Repeat the last pressed key          |
+|`QK_ALT_REPEAT_KEY`    |`QK_AREP`|Perform alternate of the last key    |
+
 ## Space Cadet :id=space-cadet
 
 See also: [Space Cadet](feature_space_cadet.md)

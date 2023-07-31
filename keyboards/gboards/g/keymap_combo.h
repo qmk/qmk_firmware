@@ -1,3 +1,5 @@
+#pragma once
+
 // Keymap helpers
 // define reference layers per layer.
 #define REF_LAYER_FOR_LAYER(LAYER, REF_LAYER)   \
@@ -39,10 +41,7 @@
 #define TOGG A_ENUM
 enum combos {
 #include "combos.def"
-    COMBO_LENGTH
 };
-// Export length to combo module
-uint16_t COMBO_LEN = COMBO_LENGTH;
 
 // Bake combos into mem
 #undef COMB

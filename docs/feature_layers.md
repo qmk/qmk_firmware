@@ -64,7 +64,7 @@ There are a number of functions (and variables) related to how you can use or ma
 | `layer_move(layer)`                          | Turns specified layer on, and all other layers off.                                                     |
 | `layer_on(layer)`                            | Turns specified layer on, leaves all other layers in existing state.                                    |
 | `layer_off(layer)`                           | Turns specified layer off, leaves all other layers in existing state.                                   |
-| `layer_invert(layer)`                        | Interverts/toggles the state of the specified layer                                                     |
+| `layer_invert(layer)`                        | Inverts/toggles the state of the specified layer                                                        |
 | `layer_or(layer_mask)`                       | Turns on layers based on matching bits between specifed layer and existing layer state.                 |
 | `layer_and(layer_mask)`                      | Turns on layers based on matching enabled bits between specifed layer and existing layer state.         |
 | `layer_xor(layer_mask)`                      | Turns on layers based on non-matching bits between specifed layer and existing layer state.             |
@@ -125,6 +125,54 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
   return state;
 }
+```
+
+### Example: Keycode to cycle through layers
+
+This example shows how to implement a custom keycode to cycle through a range of layers.
+
+```c
+// Define the keycode, `QK_USER` avoids collisions with existing keycodes
+enum keycodes {
+  KC_CYCLE_LAYERS = QK_USER,
+};
+
+// 1st layer on the cycle
+#define LAYER_CYCLE_START 0
+// Last layer on the cycle
+#define LAYER_CYCLE_END   4
+
+// Add the behaviour of this new keycode
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_CYCLE_LAYERS:
+      // Our logic will happen on presses, nothing is done on releases
+      if (!record->event.pressed) { 
+        // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
+        return false;
+      }
+
+      uint8_t current_layer = get_highest_layer(layer_state);
+
+      // Check if we are within the range, if not quit
+      if (current_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
+        return false;
+      }
+
+      uint8_t next_layer = current_layer + 1;
+      if (next_layer > LAYER_CYCLE_END) {
+          next_layer = LAYER_CYCLE_START;
+      }
+      layer_move(next_layer);
+      return false;
+
+    // Process other keycodes normally
+    default:
+      return true;
+  }
+}
+
+// Place `KC_CYCLE_LAYERS` as a keycode in your keymap
 ```
 
 Use the `IS_LAYER_ON_STATE(state, layer)` and `IS_LAYER_OFF_STATE(state, layer)` macros to check the status of a particular layer.
