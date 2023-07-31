@@ -91,7 +91,7 @@
                 {"matrix": [9, 1], "x": 11, "y": 5}
             ]
         },
-        "LAYOUT_split_3x6_3": {
+        "LAYOUT_split_3x6_3_thumb": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
