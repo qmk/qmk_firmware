@@ -154,3 +154,20 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 #endif
+
+void suspend_power_down_kb() {
+    rgb_matrix_set_flags(LED_FLAG_NONE);
+    rgb_matrix_set_color_all(0, 0, 0);
+    writePinLow(SDB);
+}
+
+void suspend_wakeup_init_kb() {
+    writePinHigh(SDB);
+    rgb_matrix_set_flags(LED_FLAG_ALL);
+}
+
+
+void board_init(void) {
+    setPinOutput(SDB);
+    writePinHigh(SDB);
+}
