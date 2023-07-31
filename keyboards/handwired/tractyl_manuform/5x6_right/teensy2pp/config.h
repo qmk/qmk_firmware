@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGBLIGHT_LIMIT_VAL 80
-
 #define DEBUG_LED_PIN   D6
 
 #define AUDIO_PIN       C6

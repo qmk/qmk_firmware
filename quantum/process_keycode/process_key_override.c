@@ -19,6 +19,10 @@
 #include "report.h"
 #include "timer.h"
 #include "debug.h"
+#include "wait.h"
+#include "action_util.h"
+#include "quantum.h"
+#include "quantum_keycodes.h"
 
 #ifndef KEY_OVERRIDE_REPEAT_DELAY
 #    define KEY_OVERRIDE_REPEAT_DELAY 500

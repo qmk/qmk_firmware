@@ -217,6 +217,9 @@
             "LAYOUT_dactyl": "LAYOUT"
         }
     },
+    "handwired/dactyl_manuform/3x5_3": {
+        "target": "handwired/dactyl_minidox"
+    },
     "handwired/dactyl_manuform/6x6_kinesis": {
         "target": "handwired/dactyl_kinesis"
     },
@@ -234,6 +237,21 @@
     },
     "handwired/p1800fl": {
         "target": "team0110/p1800fl"
+    },
+    "handwired/jscotto/scotto9": {
+        "target": "handwired/scottokeebs/scotto9"
+    },
+    "handwired/jscotto/scotto36": {
+        "target": "handwired/scottokeebs/scotto36"
+    },
+    "handwired/jscotto/scotto40": {
+        "target": "handwired/scottokeebs/scotto40"
+    },
+    "handwired/jscotto/scottocmd": {
+        "target": "handwired/scottokeebs/scottocmd"
+    },
+    "handwired/jscotto/scottostarter": {
+        "target": "handwired/scottokeebs/scottostarter"
     },
     "helix/pico/sc/back": {
         "target": "helix/pico/sc"
@@ -318,6 +336,9 @@
     },
     "kbdfans/kbd67/mkiirgb": {
         "target": "kbdfans/kbd67/mkiirgb/v1"
+    },
+    "keebio/chocopad": {
+        "target": "keebio/chocopad/rev1"
     },
     "keebio/dsp40": {
         "target": "keebio/dsp40/rev1"

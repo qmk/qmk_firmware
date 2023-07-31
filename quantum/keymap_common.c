@@ -22,7 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "action.h"
 #include "debug.h"
-#include "quantum.h"
+#include "keycode_config.h"
+#include "quantum_keycodes.h"
+
+#ifdef ENCODER_MAP_ENABLE
+#    include "encoder.h"
+#endif
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
