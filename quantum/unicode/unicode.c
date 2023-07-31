@@ -73,16 +73,8 @@ static int8_t  selected_count = ARRAY_SIZE(selected);
 static int8_t  selected_index;
 #endif
 
-/** \brief unicode input mode set at user level
- *
- * Run user code on unicode input mode change
- */
 __attribute__((weak)) void unicode_input_mode_set_user(uint8_t input_mode) {}
 
-/** \brief unicode input mode set at keyboard level
- *
- *  Run keyboard code on unicode input mode change
- */
 __attribute__((weak)) void unicode_input_mode_set_kb(uint8_t input_mode) {
     unicode_input_mode_set_user(input_mode);
 }

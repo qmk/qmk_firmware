@@ -17,7 +17,8 @@
 #include "process_unicode_common.h"
 #include "unicode.h"
 #include "action_util.h"
-#include "keycode.h"
+#include "keycodes.h"
+#include "modifiers.h"
 
 #if defined(UNICODE_ENABLE)
 #    include "process_unicode.h"
