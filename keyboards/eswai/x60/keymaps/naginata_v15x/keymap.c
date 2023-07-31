@@ -21,7 +21,7 @@
 #include "naginata.h"
 NGKEYS naginata_keys;
 // 薙刀式
-#define NAGINATA_TIMEOUT 15000
+#define NAGINATA_TIMEOUT 30000
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
