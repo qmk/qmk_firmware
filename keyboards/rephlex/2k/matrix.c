@@ -47,6 +47,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
                     matrix_read_cols_static_actuation(&current_matrix[current_row], current_col, key);
                     break;
                 case flashing:
+                default:
                     bootloader_jump();
                     break;
             }
