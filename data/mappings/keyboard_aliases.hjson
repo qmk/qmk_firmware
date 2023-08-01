@@ -1,13 +1,9 @@
 {
     // Format for each entry:
     // "<alias>": {
-    //     "target": "<keyboard_folder>",
-    //     "layouts": {
-    //         "<layout_alias>": "<layout_target>"
-    //     }
+    //     "target": "<keyboard_folder>"
     // }
     //
-    // Both target and layouts are optional.
     "2_milk": {
         "target": "spaceman/2_milk"
     },
@@ -140,21 +136,6 @@
     "daisy": {
         "target": "ktec/daisy"
     },
-    "doro67/multi": {
-        "layouts": {
-            "LAYOUT_ansi": "LAYOUT_65_ansi_blocker"
-        }
-    },
-    "doro67/regular": {
-        "layouts": {
-            "LAYOUT": "LAYOUT_65_ansi_blocker"
-        }
-    },
-    "doro67/rgb": {
-        "layouts": {
-            "LAYOUT": "LAYOUT_65_ansi_blocker"
-        }
-    },
     "drakon": {
         "target": "jagdpietr/drakon"
     },
@@ -285,10 +266,7 @@
         "target": "keyhive/honeycomb"
     },
     "idb_60": {
-        "target": "idb/idb_60",
-        "layouts": {
-            "LAYOUT": "LAYOUT_all"
-        }
+        "target": "idb/idb_60"
     },
     "idobo": {
         "target": "idobao/id75"
@@ -309,19 +287,13 @@
         "target": "jones/v03_1"
     },
     "kamigakushi": {
-        "target": "jaykeeb/kamigakushi",
-        "layouts": {
-            "LAYOUT": "LAYOUT_65_ansi_blocker_tsangan"
-        }
+        "target": "jaykeeb/kamigakushi"
     },
     "katana60": {
         "target": "rominronin/katana60/rev1"
     },
     "kbdfans/kbd67mkiirgb": {
-        "target": "kbdfans/kbd67/mkiirgb",
-        "layouts": {
-            "LAYOUT": "LAYOUT_65_ansi_blocker"
-        }
+        "target": "kbdfans/kbd67/mkiirgb"
     },
     "kbdfans/kbd67/mkiirgb": {
         "target": "kbdfans/kbd67/mkiirgb/v1"
@@ -467,11 +439,6 @@
     "mschwingen/modelm": {
         "target": "ibm/model_m/mschwingen"
     },
-    "noxary/268_2": {
-        "layouts": {
-            "LAYOUT": "LAYOUT_65_ansi_blocker"
-        }
-    },
     "oddball": {
         "target": "oddball/v1"
     },
@@ -496,11 +463,6 @@
     "peiorisboards/ixora": {
         "target": "coarse/ixora"
     },
-    "percent/canoe": {
-        "layouts": {
-            "LAYOUT_iso": "LAYOUT_65_iso_blocker"
-        }
-    },
     "plaid": {
         "target": "dm9records/plaid"
     },
@@ -512,21 +474,6 @@
     },
     "polilla": {
         "target": "polilla/rev1"
-    },
-    "preonic/rev1": {
-        "layouts": {
-            "LAYOUT_preonic_grid": "LAYOUT_ortho_5x12"
-        }
-    },
-    "preonic/rev2": {
-        "layouts": {
-            "LAYOUT_preonic_grid": "LAYOUT_ortho_5x12"
-        }
-    },
-    "preonic/rev3": {
-        "layouts": {
-            "LAYOUT_preonic_grid": "LAYOUT_ortho_5x12"
-        }
     },
     "primekb/prime_l": {
         "target": "primekb/prime_l/v1"
@@ -619,10 +566,7 @@
         "target": "underscore33/rev1"
     },
     "vinta": {
-        "target": "coarse/vinta",
-        "layouts": {
-            "LAYOUT_67_ansi": "LAYOUT_65_ansi_blocker"
-        }
+        "target": "coarse/vinta"
     },
     "wasdat": {
         "target": "maartenwut/wasdat"

@@ -12,7 +12,7 @@ There is basic support for addressable LED matrix lighting with the I2C IS31FL37
 
 ```make
 LED_MATRIX_ENABLE = yes
-LED_MATRIX_DRIVER = IS31FL3731
+LED_MATRIX_DRIVER = is31fl3731
 ```
 
 You can use between 1 and 4 IS31FL3731 IC's. Do not specify `LED_DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
