@@ -442,20 +442,29 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *                 |      |NUMBsp|      |    |      | NAV0 |      |              
 *                 `------+------+------'    `------+------+------'
 *
+*   ,----------------------------------.    ,----------------------------------.
+*   | %    | ^    | $    | +    | `    |    | =    | #    | *    | |    | "    |
+*   +------+------+------+------+------|    +------+------+------+------+------+
+*   | &    | {    | }    | @    | -    |    | ;    | ?    | [    | ]    | '    |
+*   +------+------+------+------+------|    +------+------+------+------+------+
+*   |      | <    | >    | ,    | \    |    | /    | !    | (    | )    | _    |
+*   `------+------+------+------+------+    +------+------+------+------+------'
+*                 |      |NUMBsp|      |    |      | NAV0 |      |              
+*                 `------+------+------'    `------+------+------'
 *
 * Need to use One shot shift to hit the following symbols
 *   ~ 
 *   : (can activate via tap hold as well)
 * 
 */
-#   define _________________SYMBOL_L1_________________        KC_PERC, KC_CIRC, KC_ASTR, KC_PLUS, TR_GRV
-#   define _________________SYMBOL_L2_________________        TR_PIPE, TR_LCBR, KC_RCBR, TR_EXLM, TR_MINS
-#   define _________________SYMBOL_L3_________________        TR_AMPR, TR_LABK, TR_RABK, KC_COMM, TR_BSLS
+#   define _________________SYMBOL_L1_________________        KC_PERC, KC_CIRC, KC_DLR,  KC_PLUS, TR_GRV
+#   define _________________SYMBOL_L2_________________        TR_AMPR, TR_LCBR, KC_RCBR, KC_AT,   TR_MINS
+#   define _________________SYMBOL_L3_________________        ___x___, TR_LABK, TR_RABK, KC_COMM, TR_BSLS
 #   define          ________SYMBOL_L4________                 ___x___, _______, ___x___
 
-#   define _________________SYMBOL_R1_________________        TR_EQL,  TR_HASH, KC_AT,   KC_DLR,  TR_DQUO
+#   define _________________SYMBOL_R1_________________        TR_EQL,  TR_HASH, KC_ASTR, TR_PIPE, TR_DQUO
 #   define _________________SYMBOL_R2_________________        TR_SCLN, KC_QUES, TR_LBRC, KC_RBRC, TR_QUOT
-#   define _________________SYMBOL_R3_________________        TR_SLSH, KC_DOT,  TR_LPRN, KC_RPRN, TR_UNDS
+#   define _________________SYMBOL_R3_________________        TR_SLSH, TR_EXLM, TR_LPRN, KC_RPRN, TR_UNDS
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________SYMBOL_R4________                 ___x___, _______
