@@ -29,7 +29,7 @@ const char PROGMEM lechiffre_logo[96] = {
     0x00, 0x06, 0x06, 0x06, 0x06, 0x06, 0x00, 0x06, 0x06, 0x06, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00
 };
 
-const char PROGMEM oled_section_break[6] = "-----";
+const char PROGMEM oled_section_break[6] = OLED_SECTION_BREAK;
 /* END CONSTANTS */
 
 /* TRACKERS */
@@ -49,8 +49,11 @@ bool oled_task_kb(void) {
     }
     oled_write_raw_P(lechiffre_logo, sizeof(lechiffre_logo));
     oled_set_cursor(0, 3);
+    oled_write_P(oled_section_break, false);
     render_layer_status(get_u8_str(get_highest_layer(layer_state | default_layer_state), ' '));
+    oled_write_P(oled_section_break, false);
     render_mod_status(get_mods() | get_oneshot_mods());
+    oled_write_P(oled_section_break, false);
     render_keylock_status(host_keyboard_led_state());
 
     return true;
@@ -88,7 +91,6 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
 }
 
 void render_keylock_status(led_t led_state) {
-    oled_write_P(oled_section_break, false);
     oled_write_P(PSTR("C"), led_state.caps_lock);
     oled_write_P(PSTR(" "), false);
     oled_write_P(PSTR("N"), led_state.num_lock);
@@ -97,7 +99,6 @@ void render_keylock_status(led_t led_state) {
 }
 
 void render_keylogger_status(void) {
-    oled_write_P(oled_section_break, false);
     // zero out log after 30s idle time
     if (strlen(keylog_str) > 0 && timer_elapsed(log_timer) > 30000) {
         keylog_str[0] = 0x00;
@@ -108,12 +109,13 @@ void render_keylogger_status(void) {
 }
 
 void render_layer_status(const char* layer_name) {
-    oled_write_P(oled_section_break, false);
-    oled_write_ln(layer_name, false);
+    oled_write(layer_name, false);
+    if (strlen(layer_name) < oled_max_chars()) {
+        oled_advance_page(true);
+    }
 }
 
 void render_mod_status(uint8_t modifiers) {
-    oled_write_P(oled_section_break, false);
     oled_write_ln_P(PSTR("SHFT"), (modifiers & MOD_MASK_SHIFT));
     oled_write_ln_P(PSTR("ALT"), (modifiers & MOD_MASK_ALT));
     oled_write_ln_P(PSTR("CTRL"), (modifiers & MOD_MASK_CTRL));

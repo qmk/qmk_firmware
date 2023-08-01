@@ -36,9 +36,13 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 bool oled_task_user(void) {
     oled_write_raw_P(lechiffre_logo, sizeof(lechiffre_logo));
     oled_set_cursor(0, 3);
+    oled_write_P(oled_section_break, false);
     render_layer_status(get_u8_str(get_highest_layer(layer_state | default_layer_state), ' '));
+    oled_write_P(oled_section_break, false);
     render_mod_status(get_mods() | get_oneshot_mods());
+    oled_write_P(oled_section_break, false);
     render_keylock_status(host_keyboard_led_state());
+    oled_write_P(oled_section_break, false);
     render_keylogger_status();
 
     return false;

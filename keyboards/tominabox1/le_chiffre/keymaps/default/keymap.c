@@ -109,9 +109,13 @@ bool oled_task_user(void) {
     oled_write_raw_P(lechiffre_logo, sizeof(lechiffre_logo));
     // Renders the current keyboard state (layer, lock, caps, scroll, etc);
     oled_set_cursor(0, 3);
+    oled_write_P(oled_section_break, false);
     render_layer_status(oled_layer_buf);
+    oled_write_P(oled_section_break, false);
     render_mod_status(get_mods() | get_oneshot_mods());
+    oled_write_P(oled_section_break, false);
     render_keylock_status(host_keyboard_led_state());
+    oled_write_P(oled_section_break, false);
     render_keylogger_status();
 
     return false;
