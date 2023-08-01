@@ -24,13 +24,6 @@ enum layer_names {
 // Defines the keycodes used by our macros in process_record_user
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /* #define LAYOUT_split_bksp_275_rspace( \
-    k000, k001, k002, k003, k004, k005, k403,  k006, k007, k008, k009, k010, k011, k012, k013, k014, \
-    k100, k101, k102, k103, k104, k105,        k106, k107, k108, k109, k110, k111, k112, k113, k114, \
-    k200, k201, k202, k203, k204, k205,        k206, k207, k208, k209, k210, k211, k212,       k214, \
-    k300, k301, k302, k303, k304, k305,        k306, k307, k308, k309, k310, k311, k312, k313,       \
-    k400,       k402,       k404, k405,        k406,             K409,      k410,       k411, k412, k413        \
-) \ */
     [_BASE] = LAYOUT_split_bksp_275_rspace(
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS,    KC_EQL,     KC_GRAVE,   KC_BSPC,     KC_DEL,
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC,    KC_RBRC,    KC_BSLS,                 KC_PGUP,
@@ -39,8 +32,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL,          KC_LALT,          KC_SPC,  MO(_FN),          KC_SPC,  KC_RALT,            KC_RGUI,                           KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FN] = LAYOUT_split_bksp_275_rspace(
-    KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, BL_BRTG, BL_TOGG, BL_INC,  BL_DEC,  KC_TRNS, KC_TRNS, KC_INS,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET  , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_HOME,
+    KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, BL_BRTG, BL_TOGG, BL_UP,   BL_DOWN, KC_TRNS, KC_TRNS, KC_INS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT  , KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_HOME,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_END,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
     KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS

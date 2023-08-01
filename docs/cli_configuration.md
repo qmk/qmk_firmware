@@ -108,7 +108,7 @@ compile.keymap: skully -> None
 |-----|---------------|-------------|
 | user.keyboard | None | The keyboard path (Example: `clueboard/66/rev4`) |
 | user.keymap | None | The keymap name (Example: `default`) |
-| user.name | None | The user's github username. |
+| user.name | None | The user's GitHub username. |
 
 # All Configuration Options
 

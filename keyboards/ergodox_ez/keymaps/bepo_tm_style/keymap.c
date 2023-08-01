@@ -54,19 +54,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 0: basic keys.
   [BASE] = LAYOUT_ergodox(
     /* left hand */
-    BP_DLR,   BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, KC_DEL,
-    KC_TAB,   BP_B,    BP_ECUT, BP_P,    BP_O,    BP_EGRV, KC_BSPC,
+    BP_DLR,   BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN, KC_DEL,
+    KC_TAB,   BP_B,    BP_EACU, BP_P,    BP_O,    BP_EGRV, KC_BSPC,
     KC_LSFT,  BP_A,    BP_U,    BP_I,    BP_E,    BP_COMM,
-    KC_LCTRL, BP_AGRV, BP_Y,    BP_X,    BP_DOT,  BP_K,    KC_ENT,
-    ESC_FN,   BP_ECRC, KC_LGUI, KC_LALT, SPC_RALT,
+    KC_LCTL,  BP_AGRV, BP_Y,    BP_X,    BP_DOT,  BP_K,    KC_ENT,
+    ESC_FN,   BP_ECIR, KC_LGUI, KC_LALT, SPC_RALT,
                                                           TT(SWAP), KC_MNXT,
                                                                     KC_MPLY,
                                                   TT(FN), TT(NUMS), KC_MPRV,
     /* right hand */
         KC_DEL,  BP_AT,   BP_PLUS,  BP_MINS, BP_SLSH,     BP_ASTR, BP_EQL,
-        KC_BSPC, BP_DCRC, BP_V,     BP_D,    BP_L,        BP_J,    BP_Z,
+        KC_BSPC, BP_DCIR, BP_V,     BP_D,    BP_L,        BP_J,    BP_Z,
                  BP_C,    BP_T,     BP_S,    BP_R,        BP_N,    M_RSFT,
-        KC_ENT,  BP_APOS, BP_Q,     BP_G,    BP_H,        BP_F,    W_RCTL,
+        KC_ENT,  BP_QUOT, BP_Q,     BP_G,    BP_H,        BP_F,    W_RCTL,
                           SPC_RALT, KC_LALT, TT(SYSLEDS), BP_CCED, PERC_FN,
     KC_LEFT, KC_RIGHT,
     KC_UP,
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_SLEP, KC_F1, KC_F2,  KC_F3,   KC_F4,    KC_F5,    ___,
     ___,     ___,   ___,    ___,     ___,      ___,      ___,
     ___,     ___,   ___,    ___,     ___,      KC_LSFT,
-    ___,     ___,   MK_CUT, MK_COPY, MK_PASTE, KC_LCTRL, ___,
+    ___,     ___,   MK_CUT, MK_COPY, MK_PASTE, KC_LCTL,  ___,
     ___,     ___,   ___,    ___,     ___,
                                                      ___, KC_VOLU,
                                                           KC_VOLD,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_SLEP, KC_F1, KC_F2,   KC_F3,   KC_F4,    KC_F5,    ___,
     ___,     ___,   KC_BTN4, KC_MS_U, KC_BTN5,  ___,      ___,
     ___,     ___,   KC_MS_L, KC_MS_D, KC_MS_R,  KC_LSFT,
-    ___,     ___,   MK_CUT,  MK_COPY, MK_PASTE, KC_LCTRL, ___,
+    ___,     ___,   MK_CUT,  MK_COPY, MK_PASTE, KC_LCTL,  ___,
     ___,     ___,   ___,     ___,     ___,
                                                   ___, KC_VOLU,
                                                        KC_VOLD,
@@ -128,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    ___,
                                          ___, ___, ___,
     /* right hand */
-         ___,     ___,     ___,   ___,   ___,     ___,     KC_NLCK,
-         ___,     KC_PEQL, KC_P7, KC_P8, KC_P9,   KC_PMNS, KC_SLCK,
+         ___,     ___,     ___,   ___,   ___,     ___,     KC_NUM,
+         ___,     KC_PEQL, KC_P7, KC_P8, KC_P9,   KC_PMNS, KC_SCRL,
                   KC_PCMM, KC_P4, KC_P5, KC_P6,   KC_PPLS, ___,
          KC_PENT, KC_P0,   KC_P1, KC_P2, KC_P3,   KC_PAST, ___,
                            ___,   ___,   ___,     KC_PSLS, ___,
@@ -190,24 +190,24 @@ static bool is_macro1_recording = false;
 // The current set of active layers (as a bitmask).
 // There is a global 'layer_state' variable but it is set after the call
 // to layer_state_set_user().
-static uint32_t current_layer_state = 0;
-uint32_t layer_state_set_user(uint32_t state);
+static layer_state_t current_layer_state = 0;
+layer_state_t layer_state_set_user(layer_state_t state);
 
 // Method called at the end of the tap dance on the TAP_MACRO key. That key is
 // used to start recording a macro (double tap or more), to stop recording (any
 // number of tap), or to play the recorded macro (1 tap).
-void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
+void macro_tapdance_fn(tap_dance_state_t *state, void *user_data) {
   uint16_t keycode;
   keyrecord_t record;
   dprintf("macro_tap_dance_fn %d\n", state->count);
   if (is_macro1_recording) {
-    keycode = DYN_REC_STOP;
+    keycode = DM_RSTP;
     is_macro1_recording = false;
     layer_state_set_user(current_layer_state);
   } else if (state->count == 1) {
-    keycode = DYN_MACRO_PLAY1;
+    keycode = DM_PLY1;
   } else {
-    keycode = DYN_REC_START1;
+    keycode = DM_REC1;
     is_macro1_recording = true;
     layer_state_set_user(current_layer_state);
   }
@@ -219,7 +219,7 @@ void macro_tapdance_fn(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // The definition of the tap dance actions:
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   // This Tap dance plays the macro 1 on TAP and records it on double tap.
   [TAP_MACRO] = ACTION_TAP_DANCE_FN(macro_tapdance_fn),
 };
@@ -315,7 +315,7 @@ void led_set_user(uint8_t usb_led) {
   }
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   current_layer_state = state;
   swap_hands = LAYER_ON(SWAP);
 

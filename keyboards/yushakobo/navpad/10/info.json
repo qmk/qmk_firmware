@@ -1,0 +1,23 @@
+{
+    "keyboard_name": "navpad 1.0",
+    "manufacturer": "yushakobo",
+    "url": "https://shop.yushakobo.jp/products/navpad-10",
+    "maintainer": "yushakobo",
+    "usb": {
+        "vid": "0x3265",
+        "pid": "0x0008"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6"}
+        ]
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgblight": {
+        "max_brightness": 120
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina"
+}

@@ -1,7 +1,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #include "alt.h"
 
-#include "led_matrix.h"
+#include "md_rgb_matrix.h"
 #include "rgb_matrix.h"
 #include "config_led.h"
 
@@ -37,11 +37,11 @@ led_config_t g_led_config = { {
     { 224,  13 }, { 224,  25 }, { 224,  38 }, { 224,  50 }, { 222,  62 }, { 191,  64 }, { 179,  64 }, { 167,  64 }, { 153,  64 }, { 139,  64 }, { 125,  64 }, { 112,  64 }, {  98,  64 }, {  84,  64 }, {  70,  64 },
     {  56,  64 }, {  42,  64 }, {  28,  64 }, {   1,  62 }, {   0,  50 }, {   0,  38 }, {   0,  25 }, {   0,  13 }
 }, {
-    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 4,
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1,
+    9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1,
+    1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1,
+    1, 1, 1, 4, 1, 1, 1, 1, 1,
   // Underglow LEDs
     2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -50,9 +50,12 @@ led_config_t g_led_config = { {
 
 
 #ifdef USB_LED_INDICATOR_ENABLE
-void rgb_matrix_indicators_kb(void)
-{
-  led_matrix_indicators();
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
+    md_rgb_matrix_indicators_advanced(led_min, led_max);
+    return true;
 }
 #endif // USB_LED_INDICATOR_ENABLE
 

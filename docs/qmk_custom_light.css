@@ -28,3 +28,31 @@
 .markdown-section pre {
   padding: 0;
 }
+
+@media only screen and (min-width: 768px) {
+  .flex-container {
+    display:flex;
+    flex-flow:row;
+  }
+  .flex-container > p {
+    flex-basis: 100%;
+    flex: 1;
+    margin: 1em 2em 1em 2em;
+  }
+}
+
+.docsify-tabs__tab:focus {
+  outline: none !important;
+}
+
+.docsify-tabs__content .anchor {
+  transition: none;
+}
+
+:root {
+  --docsifytabs-border-color: #ddd;
+  --docsifytabs-tab-highlight-color: var(--theme-color, #0074d9);
+
+  --docsifytabs-tab-background: #f8f8f8;
+  --docsifytabs-tab-background-active: transparent;
+}

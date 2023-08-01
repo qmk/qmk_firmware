@@ -26,18 +26,18 @@ enum custom_keycodes {             // Make sure have the awesome keycode ready
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN3, 
-        KC_WH_U, ALT_TAB, KC_WH_L, 
-        KC_WH_D, TT(1), KC_WH_R 
+        KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN3,
+        KC_WH_U, ALT_TAB, KC_WH_L,
+        KC_WH_D, TT(1), KC_WH_R
     ),
     [1] = LAYOUT(
-        RESET,   KC_ACL0, KC_ACL1, 
-        KC_VOLU, KC_ACL2, KC_BRIU, 
-        KC_VOLD, TO(1),  KC_BRID 
+        QK_BOOT, KC_ACL0, KC_ACL1,
+        KC_VOLU, KC_ACL2, KC_BRIU,
+        KC_VOLD, TO(1),  KC_BRID
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
             tap_code(KC_MS_LEFT);
@@ -52,6 +52,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC_MS_D);
         }
     }
+    return true;
 }
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {               // This will do most of the grunt work with the keycodes.

@@ -1,0 +1,40 @@
+{
+    "keyboard_name": "TouhouPad rev2",
+    "manufacturer": "Pimentoso",
+    "url": "https://github.com/Pimentoso/TouhouPad_v2",
+    "maintainer": "Pimentoso",
+    "usb": {
+        "vid": "0xD00D",
+        "pid": "0x0031",
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "F4"
+    },
+    "matrix_pins": {
+        "cols": ["C6", "D7", "E6", "B4", "B6", "B2", "B3", "B1", "F7", "F6"],
+        "rows": ["D4"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 9], "x": 5.25, "y": 0},
+                {"matrix": [0, 8], "x": 6.25, "y": 0},
+
+                {"matrix": [0, 0], "x": 0, "y": 1},
+                {"matrix": [0, 1], "x": 1, "y": 1},
+                {"matrix": [0, 2], "x": 2, "y": 1},
+
+                {"matrix": [0, 7], "x": 6.25, "y": 1.75},
+                {"matrix": [0, 4], "x": 5.25, "y": 2.75},
+                {"matrix": [0, 5], "x": 6.25, "y": 2.75},
+                {"matrix": [0, 6], "x": 7.25, "y": 2.75},
+
+                {"matrix": [0, 3], "x": 3.25, "y": 3}
+            ]
+        }
+    }
+}

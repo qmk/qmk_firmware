@@ -11,7 +11,8 @@ enum rys_keycodes {
   STOKEN1 = SAFE_RANGE,
   STOKEN2,
   STOKEN3,
-  STOKEN4
+  STOKEN4,
+  STOKEN5,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -36,6 +37,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(RYS_STOKEN4);
       }
       break;
+    case STOKEN5:
+      if (record->event.pressed) {
+        SEND_STRING(RYS_STOKEN5);
+      }
+      break;
   }
   return true;
 };
@@ -45,22 +51,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,---------------------------.
    * | ST1  | ST2  | ST3  | ST4  |
    * |---------------------------|
-   * |      | LOCK | VOL- | VOL+ |
+   * |MO(1) | LOCK | VOL- | VOL+ |
    * `---------------------------'
    */
    [_BL0] = LAYOUT(
-     STOKEN1, STOKEN2, STOKEN3,     STOKEN4,
-     _______, MACOSLK, KC__VOLDOWN, KC__VOLUP),
+     STOKEN1, STOKEN2, STOKEN3, STOKEN4,
+    MO(_FL1), MACOSLK, KC_VOLD, KC_VOLU),
   /* Keymap base layer (_FL1) - function layer 1
    * ,---------------------------.
    * |      |      |      |      |
    * |---------------------------|
-   * |      |      |      |      |
+   * |      | ST5  |   \  | RST  |
    * `---------------------------'
    */
    [_FL1] = LAYOUT(
      _______, _______, _______, _______,
-     _______, _______, _______, _______),
+     _______, STOKEN5, KC_NUBS, QK_BOOT),
   /* Keymap base layer (_FL2) - function layer 2
    * ,---------------------------.
    * |      |      |      |      |

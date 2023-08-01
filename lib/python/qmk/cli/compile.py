@@ -2,20 +2,34 @@
 
 You can compile a keymap already in the repo or using a QMK Configurator export.
 """
-import subprocess
-from argparse import FileType
+from argcomplete.completers import FilesCompleter
 
 from milc import cli
 
 import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json
+from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json, build_environment
+from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keymap import keymap_completer, locate_keymap
 
 
-@cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), help='The configurator export to compile')
-@cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
+def _is_keymap_target(keyboard, keymap):
+    if keymap == 'all':
+        return True
+
+    if locate_keymap(keyboard, keymap):
+        return True
+
+    return False
+
+
+@cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='The configurator export to compile')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
+@cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
+@cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
+@cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
+@cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.subcommand('Compile a QMK Firmware.')
 @automagic_keyboard
 @automagic_keymap
@@ -26,35 +40,37 @@ def compile(cli):
 
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
-    command = None
+    # Build the environment vars
+    envs = build_environment(cli.args.env)
+
+    # Determine the compile command
+    commands = []
 
     if cli.args.filename:
         # If a configurator JSON was provided generate a keymap and compile it
-        # FIXME(skullydazed): add code to check and warn if the keymap already exists when compiling a json keymap.
         user_keymap = parse_configurator_json(cli.args.filename)
-        keymap_path = qmk.path.keymap(user_keymap['keyboard'])
-        command = compile_configurator_json(user_keymap)
+        commands = [compile_configurator_json(user_keymap, parallel=cli.config.compile.parallel, clean=cli.args.clean, **envs)]
 
-        cli.log.info('Wrote keymap to {fg_cyan}%s/%s/keymap.c', keymap_path, user_keymap['keymap'])
+    elif cli.config.compile.keyboard and cli.config.compile.keymap:
+        # Generate the make command for a specific keyboard/keymap.
+        if not _is_keymap_target(cli.config.compile.keyboard, cli.config.compile.keymap):
+            cli.log.error('Invalid keymap argument.')
+            cli.print_help()
+            return False
 
-    else:
-        if cli.config.compile.keyboard and cli.config.compile.keymap:
-            # Generate the make command for a specific keyboard/keymap.
-            command = create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap)
+        if cli.args.clean:
+            commands.append(create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, 'clean', **envs))
+        commands.append(create_make_command(cli.config.compile.keyboard, cli.config.compile.keymap, parallel=cli.config.compile.parallel, **envs))
 
-        elif not cli.config.compile.keyboard:
-            cli.log.error('Could not determine keyboard!')
-        elif not cli.config.compile.keymap:
-            cli.log.error('Could not determine keymap!')
-
-    # Compile the firmware, if we're able to
-    if command:
-        cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(command))
-        if not cli.args.dry_run:
-            cli.echo('\n')
-            subprocess.run(command)
-
-    else:
+    if not commands:
         cli.log.error('You must supply a configurator export, both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
-        cli.echo('usage: qmk compile [-h] [-b] [-kb KEYBOARD] [-km KEYMAP] [filename]')
+        cli.print_help()
         return False
+
+    cli.log.info('Compiling keymap with {fg_cyan}%s', ' '.join(commands[-1]))
+    if not cli.args.dry_run:
+        cli.echo('\n')
+        for command in commands:
+            ret = cli.run(command, capture_output=False)
+            if ret.returncode:
+                return ret.returncode

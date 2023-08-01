@@ -30,9 +30,13 @@ size_t clamp_length(intptr_t offset, size_t len) {
     return len;
 }
 
-void eeprom_driver_init(void) { eeprom_driver_erase(); }
+void eeprom_driver_init(void) {
+    eeprom_driver_erase();
+}
 
-void eeprom_driver_erase(void) { memset(transientBuffer, 0x00, TRANSIENT_EEPROM_SIZE); }
+void eeprom_driver_erase(void) {
+    memset(transientBuffer, 0x00, TRANSIENT_EEPROM_SIZE);
+}
 
 void eeprom_read_block(void *buf, const void *addr, size_t len) {
     intptr_t offset = (intptr_t)addr;

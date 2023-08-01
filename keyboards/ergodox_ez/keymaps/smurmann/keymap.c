@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LCBR,
         ALL_T(KC_CAPS), KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        LT(MDIA,KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_LALT,
-        KC_LCTRL,       KC_LBRC,      KC_RBRC,        KC_GRV, KC_QUOT,
+        KC_LCTL,        KC_LBRC,      KC_RBRC,        KC_GRV, KC_QUOT,
                                                      KC_PSCR, KC_LGUI,
                                                               KC_INS,
                                                KC_SPC,KC_BSPC,KC_DEL,
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MDIA] = LAYOUT_ergodox(
        // left hand
           VRSN,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,
-         RESET,_______,KC_BTN1,KC_MS_U,KC_BTN2,_______,_______,
+         QK_BOOT,_______,KC_BTN1,KC_MS_U,KC_BTN2,_______,_______,
        _______,_______,KC_MS_L,KC_MS_D,KC_MS_R,_______,
        _______,_______,KC_ACL0,KC_ACL1,KC_ACL2,_______,_______,
         _______,_______,_______,_______,_______,
@@ -101,24 +101,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______,
        _______, _______, _______
 ),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      break;
-    case 1:
-      if (record->event.pressed) { // For resetting EEPROM
-        eeconfig_init();
-      }
-      break;
-  }
-  return MACRO_NONE;
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -157,7 +139,7 @@ void matrix_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-   uint8_t layer = biton32(layer_state);
+   uint8_t layer = get_highest_layer(layer_state);
 
    if(layer == 1)
    {
@@ -175,7 +157,7 @@ void matrix_scan_user(void) {
    }
 
   if(keyboard_report->mods & MOD_BIT(KC_LSFT))
-  { 
+  {
       ergodox_right_led_1_set (LED_BRIGHTNESS_HI);
       ergodox_right_led_1_on ();
   } else {
@@ -199,8 +181,8 @@ void matrix_scan_user(void) {
      }
   }
 
-  if(keyboard_report->mods & MOD_BIT(KC_LCTRL))
-  { 
+  if(keyboard_report->mods & MOD_BIT(KC_LCTL))
+  {
       ergodox_right_led_3_set (LED_BRIGHTNESS_HI);
       ergodox_right_led_3_on ();
   } else {
@@ -213,7 +195,7 @@ void matrix_scan_user(void) {
 };
 
 void led_set_user(uint8_t usb_led){
- if (usb_led & (1 << USB_LED_CAPS_LOCK)) 
+ if (usb_led & (1 << USB_LED_CAPS_LOCK))
    {
       capsOn = true;
    }else {

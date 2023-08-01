@@ -13,15 +13,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "268_2.h"
+#include "quantum.h"
 
-void led_set_kb(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        setPinOutput(B0);
-        writePinHigh(B0);
-    } else {
-        setPinInput(B0);
+void matrix_init_kb(void) {
+  // put your keyboard start-up code here
+  // runs once when the firmware starts up
+  setPinOutput(B0);
+  matrix_init_user();
+}
+
+bool led_update_kb(led_t led_state) {
+    if(led_update_user(led_state)) {
+        writePin(B0, led_state.caps_lock);
     }
-
-    led_set_user(usb_led);
+    return true;
 }

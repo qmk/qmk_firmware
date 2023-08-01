@@ -1,4 +1,23 @@
+/**
+ * matrix.c
+ *
+  Copyright 2020 astro <yuleiz@gmail.com>
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "quantum.h"
+
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
 
 static uint8_t debouncing = DEBOUNCE;
 
@@ -45,7 +64,7 @@ void matrix_init(void)
     matrix_debouncing[i] = 0;
   }
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -77,7 +96,7 @@ uint8_t matrix_scan(void)
     }
   }
 
-  matrix_scan_quantum();
+  matrix_scan_kb();
   return 1;
 }
 
@@ -108,7 +127,7 @@ static void init_rows(void)
   setPinInputHigh(D4);
 }
 
-static uint8_t read_rows()
+static uint8_t read_rows(void)
 {
   return ((readPin(E6) ? 0 : (1 << 0)) |
           (readPin(F6) ? 0 : (1 << 1)) |

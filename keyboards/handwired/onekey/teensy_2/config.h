@@ -16,8 +16,8 @@
 
 #pragma once
 
-#include "config_common.h"
 
-#define MATRIX_COL_PINS { F4 }
-#define MATRIX_ROW_PINS { F5 }
-#define UNUSED_PINS
+#define ADC_PIN F6
+
+#define QMK_WAITING_TEST_BUSY_PIN F6
+#define QMK_WAITING_TEST_YIELD_PIN F7

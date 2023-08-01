@@ -1,4 +1,4 @@
-BOOTMAGIC_ENABLE = no
+BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 EXTRAKEY_ENABLE = no
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no

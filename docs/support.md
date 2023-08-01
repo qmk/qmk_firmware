@@ -12,6 +12,6 @@ If you need help with something, the best place to get quick support is going to
 
 The official QMK forum is [/r/olkb](https://reddit.com/r/olkb) on [reddit.com](https://reddit.com).
 
-## Github Issues
+## GitHub Issues
 
 You can open an [issue on GitHub](https://github.com/qmk/qmk_firmware/issues). This is especially handy when your issue will require long-term discussion or debugging.

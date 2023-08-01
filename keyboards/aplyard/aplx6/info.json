@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "Aplx6",
+    "manufacturer": "Aplyard",
+    "url": "",
+    "maintainer": "Aplyard",
+    "usb": {
+        "vid": "0xE0E0"
+    }
+}

@@ -16,12 +16,8 @@ You should have received a copy of the GNU General Public License
 long with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include QMK_KEYBOARD_CONFIG_H
 #define USE_MIT_LAYOUT
 
 #define TAPPING_TERM 250
-
-#endif

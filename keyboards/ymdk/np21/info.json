@@ -1,0 +1,129 @@
+{
+    "keyboard_name": "NP21",
+    "manufacturer": "YMDK",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x594D",
+        "pid": "0x5021",
+        "device_version": "2.0.0",
+        "max_power": 100
+    },
+    "matrix_pins": {
+        "cols": ["A0", "A1", "A2", "A3", "A4", "A5"],
+        "rows": ["B0", "B1", "B2", "B3"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "pin": "D4",
+        "levels": 12,
+        "breathing": true
+    },
+    "ws2812": {
+        "driver": "i2c"
+    },
+    "indicators": {
+        "num_lock": "D0"
+    },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid",
+    "community_layouts": ["ortho_6x4", "numpad_6x4"],
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_4x6"
+    },
+    "layouts": {
+        "LAYOUT_ortho_6x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 0], "x": 1, "y": 0},
+                {"matrix": [2, 0], "x": 2, "y": 0},
+                {"matrix": [3, 0], "x": 3, "y": 0},
+
+                {"matrix": [0, 1], "x": 0, "y": 1.25},
+                {"matrix": [1, 1], "x": 1, "y": 1.25},
+                {"matrix": [2, 1], "x": 2, "y": 1.25},
+                {"matrix": [3, 1], "x": 3, "y": 1.25},
+
+                {"matrix": [0, 2], "x": 0, "y": 2.25},
+                {"matrix": [1, 2], "x": 1, "y": 2.25},
+                {"matrix": [2, 2], "x": 2, "y": 2.25},
+                {"matrix": [3, 2], "x": 3, "y": 2.25},
+
+                {"matrix": [0, 3], "x": 0, "y": 3.25},
+                {"matrix": [1, 3], "x": 1, "y": 3.25},
+                {"matrix": [2, 3], "x": 2, "y": 3.25},
+                {"matrix": [3, 3], "x": 3, "y": 3.25},
+
+                {"matrix": [0, 4], "x": 0, "y": 4.25},
+                {"matrix": [1, 4], "x": 1, "y": 4.25},
+                {"matrix": [2, 4], "x": 2, "y": 4.25},
+                {"matrix": [3, 4], "x": 3, "y": 4.25},
+
+                {"matrix": [0, 5], "x": 0, "y": 5.25},
+                {"matrix": [1, 5], "x": 1, "y": 5.25},
+                {"matrix": [2, 5], "x": 2, "y": 5.25},
+                {"matrix": [3, 5], "x": 3, "y": 5.25}
+            ]
+        },
+        "LAYOUT_ortho_4x6": {
+            "layout": [
+                {"matrix": [0, 5], "x": 0, "y": 0},
+                {"matrix": [0, 4], "x": 1, "y": 0},
+                {"matrix": [0, 3], "x": 2, "y": 0},
+                {"matrix": [0, 2], "x": 3, "y": 0},
+                {"matrix": [0, 1], "x": 4, "y": 0},
+                {"matrix": [0, 0], "x": 5.25, "y": 0},
+
+                {"matrix": [1, 5], "x": 0, "y": 1},
+                {"matrix": [1, 4], "x": 1, "y": 1},
+                {"matrix": [1, 3], "x": 2, "y": 1},
+                {"matrix": [1, 2], "x": 3, "y": 1},
+                {"matrix": [1, 1], "x": 4, "y": 1},
+                {"matrix": [1, 0], "x": 5.25, "y": 1},
+
+                {"matrix": [2, 5], "x": 0, "y": 2},
+                {"matrix": [2, 4], "x": 1, "y": 2},
+                {"matrix": [2, 3], "x": 2, "y": 2},
+                {"matrix": [2, 2], "x": 3, "y": 2},
+                {"matrix": [2, 1], "x": 4, "y": 2},
+                {"matrix": [2, 0], "x": 5.25, "y": 2},
+
+                {"matrix": [3, 5], "x": 0, "y": 3},
+                {"matrix": [3, 4], "x": 1, "y": 3},
+                {"matrix": [3, 3], "x": 2, "y": 3},
+                {"matrix": [3, 2], "x": 3, "y": 3},
+                {"matrix": [3, 1], "x": 4, "y": 3},
+                {"matrix": [3, 0], "x": 5.25, "y": 3}
+            ]
+        },
+        "LAYOUT_numpad_6x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 0], "x": 1, "y": 0},
+                {"matrix": [2, 0], "x": 2, "y": 0},
+                {"matrix": [3, 0], "x": 3, "y": 0},
+
+                {"matrix": [0, 1], "x": 0, "y": 1.25},
+                {"matrix": [1, 1], "x": 1, "y": 1.25},
+                {"matrix": [2, 1], "x": 2, "y": 1.25},
+                {"matrix": [3, 1], "x": 3, "y": 1.25},
+
+                {"matrix": [0, 2], "x": 0, "y": 2.25},
+                {"matrix": [1, 2], "x": 1, "y": 2.25},
+                {"matrix": [2, 2], "x": 2, "y": 2.25},
+
+                {"matrix": [0, 3], "x": 0, "y": 3.25},
+                {"matrix": [1, 3], "x": 1, "y": 3.25},
+                {"matrix": [2, 3], "x": 2, "y": 3.25},
+                {"matrix": [3, 2], "x": 3, "y": 2.25, "h": 2},
+
+                {"matrix": [0, 4], "x": 0, "y": 4.25},
+                {"matrix": [1, 4], "x": 1, "y": 4.25},
+                {"matrix": [2, 4], "x": 2, "y": 4.25},
+
+                {"matrix": [0, 5], "x": 0, "y": 5.25, "w": 2},
+                {"matrix": [2, 5], "x": 2, "y": 5.25},
+                {"matrix": [3, 4], "x": 3, "y": 4.25, "h": 2}
+            ]
+        }
+    }
+}

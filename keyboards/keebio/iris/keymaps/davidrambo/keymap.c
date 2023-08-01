@@ -1,35 +1,30 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
 //keycode shorthands
-#define KC____  KC_TRNS // three underscores "___" for transparent
-#define KC_SYM  MO(3)
-#define KC_MAC  TO(0)
-#define KC_PC   TO(1)
-#define KC_GM   TO(2)
-#define KC_NAVMAC LT(4, KC_TAB)
-#define KC_NAVPC  LT(5, KC_TAB)
+#define MACNAV LT(4, KC_TAB)
+#define PCNAV  LT(5, KC_TAB)
 
 //text editor shortcuts for NAV and NAVPC
-#define KC_AL   LALT(KC_LEFT)
-#define KC_AR   LALT(KC_RGHT)
-#define KC_CL   LCTL(KC_LEFT)
-#define KC_CR   LCTL(KC_RGHT)
-#define KC_ABSPC LALT(KC_BSPC)
-#define KC_CBSPC LCTL(KC_BSPC)
+#define ALEFT   LALT(KC_LEFT)
+#define ARGHT   LALT(KC_RGHT)
+#define CLEFT   LCTL(KC_LEFT)
+#define CRGHT   LCTL(KC_RGHT)
+#define ABSPC LALT(KC_BSPC)
+#define CBSPC LCTL(KC_BSPC)
 
 //internet browser tab shortcuts and window swapping for Mac and Windows
-#define KC_GSL  LGUI(S(KC_LEFT))
-#define KC_GSR  LGUI(S(KC_RGHT))
-#define KC_CPGD LCTL(KC_PGDN)
-#define KC_CPGU LCTL(KC_PGUP)
+#define GSL  LGUI(S(KC_LEFT))
+#define GSR  LGUI(S(KC_RGHT))
+#define CTLPGDN LCTL(KC_PGDN)
+#define CTLPGUP LCTL(KC_PGUP)
 
-#define KC_CMBS  GUI_T(KC_BSPC)
-#define KC_CTBS  CTL_T(KC_BSPC)
-#define KC_C_TAB LCTL(KC_TAB)
-#define KC_G_TAB LGUI(KC_TAB)
-#define KC_A_TAB LALT(KC_TAB)
+#define CMBS  GUI_T(KC_BSPC)
+#define CTBS  CTL_T(KC_BSPC)
+#define C_TAB LCTL(KC_TAB)
+#define G_TAB LGUI(KC_TAB)
+#define A_TAB LALT(KC_TAB)
+
+#define SFLK TD(SFT_LCK)     // alias for tapdance
 
 //layer shorthands
 #define _COLEMAK 0
@@ -39,102 +34,99 @@ extern keymap_config_t keymap_config;
 #define _NAVMAC 4
 #define _NAVPC 5
 
-enum {
-//	SFT_LCK //tapdance declarations
+enum custom_keycodes {
+    SFT_LCK, //tapdance declarations
     COLEMAK = 0,
     PC,
     GAME,
     SYMBOL,
     NAV, //Navigation layer for Mac Colemak
     NAVPC, //Navigation layer for PC Colemak
-    SFT_LCK //tapdance declaration
 };
-
-#define KC_SFLK TD(SFT_LCK)     // alias for tapdance
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[_COLEMAK] = LAYOUT_kc(
-  //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     ESC , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,MINS,
-  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     GRV , Q  , W  , F  , P  , G  ,                J  , L  , U  , Y  ,SCLN,BSPC,
-  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-   NAVMAC, A  , R  , S  , T  , D  ,                H  , N  , E  , I  , O  ,QUOT,
-  //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     SFLK, Z  , X  , C  , V  , B  , PC ,     ENT , K  , M  ,COMM, DOT,SLSH,RSFT,
-  //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
-                       LCTL,LGUI,CMBS,         SPC, SYM, LALT
-  //                  `----+----+----'        `----+----+----'
+	[_COLEMAK] = LAYOUT(
+  //,------+------+------+------+------+------.                    ,------+------+------+------+------+------.
+     KC_ESC, KC_1 , KC_2 , KC_3 , KC_4, KC_5,                       KC_6  , KC_7 , KC_8 , KC_9 , KC_0  , KC_MINS,
+  //|------+------+------+------+------+------|                    |------+------+------+------+------+------|
+     KC_GRV, KC_Q , KC_W , KC_F , KC_P, KC_G,                       KC_J  , KC_L , KC_U , KC_Y , KC_SCLN,KC_BSPC,
+  //|------+------+------+------+------+------|                    |------+------+------+------+------+------|
+     MACNAV, KC_A , KC_R , KC_S , KC_T, KC_D,                       KC_H  , KC_N , KC_E , KC_I , KC_O, KC_QUOT,
+  //|------+------+------+------+------+------+------.      ,------|------+------+------+------+------+------|
+     KC_LSFT,KC_Z , KC_X , KC_C , KC_V, KC_B , TO(1),        KC_ENT, KC_K, KC_M , KC_COMM,KC_DOT,KC_SLSH,KC_RSFT,
+  //`------+------+------+------+------+----+------/         \-----+------+------+------+------+------+------'
+                              KC_LCTL, KC_LALT, CMBS,         KC_SPC, MO(3), KC_RALT
+  //                          `------+------+------'           `------+------+------'
   ),
 
-    [_PC] = LAYOUT_kc(
-    ___ , ___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    [_PC] = LAYOUT(
+    _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______,
         
-    NAVPC,___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    PCNAV  , _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______,
         
-    ___ , ___ , ___ , ___ , ___ , ___ , GM, ___, ___ , ___ , ___ , ___ , ___ , ___ , 
+    _______, _______, _______, _______, _______, _______, TO(2),    _______, _______, _______, _______, _______, _______, _______, 
         
-                      LGUI , LCTL , CTBS ,    ___ , ___ , ___ 
+                                    KC_LALT, KC_LGUI, CTBS,            _______, _______, _______
     ),
    
-    [_GAME] = LAYOUT_kc(
-    ___ , ___ , ___ , ___ , ___ , ___ ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    [_GAME] = LAYOUT(
+    _______, _______, _______, _______, _______, _______,            _______, _______, _______, _______, _______, _______,
+       
+    KC_B   , KC_T   , KC_Q   , KC_W   , KC_E   , KC_R   ,                _______, _______, _______, _______, _______, _______,
         
-     B  ,  T  ,  Q  ,  W  ,  E  ,  R  ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    KC_TAB , KC_LSFT, KC_A   , KC_S   , KC_D   , KC_F   ,                _______, _______, _______, _______, _______, _______,
         
-    TAB , LSFT,  A  ,  S  ,  D  ,  F  ,          ___ , ___ , ___ , ___ , ___ , ___ ,
+    KC_LALT, KC_LCTL, KC_Z   , KC_X   , KC_C   , KC_V   , KC_M,   KC_P , _______, _______, _______, _______, _______, _______, 
         
-    LALT, LCTL,  Z  ,  X  ,  C  ,  V  ,  M,   P , ___, ___ , ___ , ___ , ___ , ___ , 
-        
-                          G   ,  I  , SPC,    BSPC, MAC, ___ 
+                                   KC_G, KC_I, KC_SPC,                KC_BSPC, TO(0), _______
     ), 
     
-    [_SYMBOL] = LAYOUT_kc(
+    [_SYMBOL] = LAYOUT(
     
-    ___ , ___ , ___ , ___ , ___ , ___ ,         ___ , ___ , ___ , ___ , ___ , ___ ,
+    KC_F12 , KC_F1  , KC_F2 , KC_F3  , KC_F4  , KC_F5,                      KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11,
     
-    LBRC,  1  ,  2  ,  3  ,  4  ,  5  ,          6  ,  7  ,  8  ,  9  ,  0  , RBRC,
+    KC_LBRC, KC_1   , KC_2  , KC_3   , KC_4   , KC_5,                       KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_RBRC,
         
-    BSLS, EXLM, AT  , HASH, DLR , PERC,         CIRC, AMPR, ASTR, LPRN, RPRN, EQL ,
+    KC_BSLS, KC_EXLM, KC_AT , KC_HASH, KC_DLR , KC_PERC,                    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_EQL,
         
-    ___ , HOME, END , VOLD, VOLU, MPLY,___,  ___,___, MINS, ___ , ___ , ___ , ___ , 
+    _______, KC_HOME, KC_END, KC_VOLD, KC_VOLU, KC_MPLY, _______,   _______, _______, KC_MINS, _______, _______, _______, _______, 
         
-                        ___ , ___ , ___,      ___, ___ , ___ 
+                           _______, _______, _______,                    _______, _______, _______
     ),
    
-    [_NAVMAC] = LAYOUT_kc(
+    [_NAVMAC] = LAYOUT(
     
-    ___ , ___ , ___ , ___ , ___ , ___ ,         ___ , ___ , ___ , ___ , ___ , ___ ,
+    QK_BOOT, _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,         C_TAB, AL ,  UP ,  AR , DEL , ___ ,
+    _______, _______, _______, _______, _______, _______,                    C_TAB,   ALEFT  ,  KC_UP , ARGHT  , KC_DEL , _______,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,         GSL , LEFT, DOWN, RGHT, GSR , ___ ,
+    _______, _______, _______, _______, _______, _______,                    GSL ,    KC_LEFT, KC_DOWN, KC_RGHT, GSR    , _______,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,G_TAB,ABSPC, ___ , ___ , ___ , ___ , 
+    _______, _______, _______, _______, _______, _______, _______,  _______, G_TAB,   ABSPC  , _______, _______, _______, _______, 
         
-                        ___ , ___ , ___ ,       ___ , ___ , ___ 
+                                   _______, _______, _______,         _______, _______, _______
     ),
     
-    [_NAVPC] = LAYOUT_kc(
+    [_NAVPC] = LAYOUT(
     
-    ___ , ___ , ___ , ___ , ___ , ___ ,         ___ , ___ , ___ , ___ , ___ , ___ ,
+    QK_BOOT , _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,         C_TAB, CL ,  UP ,  CR , DEL , ___ ,
+    _______, _______, _______, _______, _______, _______,                   C_TAB  , CLEFT  , KC_UP  , CRGHT  , KC_DEL , _______,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,         CPGU, LEFT, DOWN, RGHT, CPGD, ___ ,
+    _______, _______, _______, _______, _______, _______,                   CTLPGUP, KC_LEFT, KC_DOWN, KC_RGHT, CTLPGDN, _______,
         
-    ___ , ___ , ___ , ___ , ___ , ___ ,___,  ___,A_TAB,CBSPC, ___ , ___ , ___ , ___ , 
+    _______, _______, _______, _______, _______, _______,_______,  _______, A_TAB  , CBSPC, _______, _______, _______, _______, 
         
-                        ___ , ___ , ___ ,       ___ , ___ , ___ 
+                              _______, _______, _______,                _______, _______, _______
     ),
    
 };
 
-// Shift vs. capslock function. From bbaserdem's Planck keymap.
-void caps_tap (qk_tap_dance_state_t *state, void *user_data) {
+// Shift vs. capslock function. From bbaserdem's Planck keymap (since deprecated).
+void caps_tap (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code (KC_LSFT);
     } else if (state->count == 2) {
@@ -142,7 +134,7 @@ void caps_tap (qk_tap_dance_state_t *state, void *user_data) {
         register_code (KC_CAPS);
     }
 }
-void caps_tap_end (qk_tap_dance_state_t *state, void *user_data) {
+void caps_tap_end (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code (KC_LSFT);
     } else {
@@ -150,7 +142,7 @@ void caps_tap_end (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     //Tap once for Shift, twice for Caps Lock
     [SFT_LCK] = ACTION_TAP_DANCE_FN_ADVANCED( caps_tap, NULL, caps_tap_end)
 };

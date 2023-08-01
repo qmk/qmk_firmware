@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script finds all rules.mk files in keyboards/ subdirectories,
 # and deletes the build option filesize impacts from them.

@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SE_AO   KC_LBRC
 #define SE_CIRC KC_RBRC
 #define SE_QUOT KC_BSLS
-#define SE_OE   KC_SCLN
-#define SE_AE   KC_QUOT
+#define SE_ODIA KC_SCLN
+#define SE_ADIA KC_QUOT
 #define SE_MINS KC_SLSH
 #define SE_LTGT KC_NUBS
 #define SE_LCBR RALT(KC_7)
@@ -42,54 +42,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/* Layer 0: Blowrak ISO layer, a Swedish take on Dvorak */
-	[KM_BLOWRAK] = LAYOUT( \
-		KC_ESC,          KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,    KC_PSCR,KC_SLCK,KC_PAUS, \
-		SE_HALF, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   SE_PLUS,SE_ACUT,KC_BSPC,   KC_INS, KC_HOME,KC_PGUP, \
-		KC_TAB,  SE_AO,  SE_AE,  SE_OE,  KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_COMM,SE_CIRC,SE_QUOT,   KC_DEL, KC_END, KC_PGDN, \
-		KC_LCTRL,KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_H,   KC_D,   KC_T,   KC_N,   KC_S,   SE_MINS,        KC_ENT,                             \
-		KC_LSFT, SE_LTGT,KC_DOT, KC_Q,   KC_J,   KC_K,   KC_B,   KC_X,   KC_M,   KC_W,   KC_V,   KC_Z,           KC_RSFT,           KC_UP,           \
-		MO(KM_MEDIA),KC_LGUI,KC_LALT,                   KC_SPC,                          KC_RALT,KC_RGUI,KC_MENU,KC_FN1,    KC_LEFT,KC_DOWN,KC_RGHT),
+	[KM_BLOWRAK] = LAYOUT(
+		KC_ESC,          KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,    KC_PSCR,KC_SCRL,KC_PAUS,
+		SE_HALF, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   SE_PLUS,SE_ACUT,KC_BSPC,   KC_INS, KC_HOME,KC_PGUP,
+		KC_TAB,  SE_AO,  SE_ADIA,SE_ODIA,KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_COMM,SE_CIRC,SE_QUOT,   KC_DEL, KC_END, KC_PGDN,
+		KC_LCTL, KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_H,   KC_D,   KC_T,   KC_N,   KC_S,   SE_MINS,        KC_ENT,
+		KC_LSFT, SE_LTGT,KC_DOT, KC_Q,   KC_J,   KC_K,   KC_B,   KC_X,   KC_M,   KC_W,   KC_V,   KC_Z,           KC_RSFT,           KC_UP,
+		MO(KM_MEDIA),KC_LGUI,KC_LALT,                   KC_SPC,                          KC_RALT,KC_RGUI,KC_MENU,TG(KM_QWERTY), KC_LEFT,KC_DOWN,KC_RGHT),
 	/* Layer 1: Standard ISO layer */
-	[KM_QWERTY] = LAYOUT( \
-		KC_ESC,          KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,    KC_PSCR,KC_SLCK,KC_PAUS, \
-		SE_HALF, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   SE_PLUS,SE_ACUT,KC_BSPC,   KC_INS, KC_HOME,KC_PGUP, \
-		KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   SE_AO,  SE_CIRC,SE_QUOT,   KC_DEL, KC_END, KC_PGDN, \
-		KC_LCTRL,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   SE_OE,  SE_AE,          KC_ENT,                             \
-		KC_LSFT, SE_LTGT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, SE_MINS,        KC_RSFT,           KC_UP,           \
-		MO(KM_MEDIA),KC_LGUI,KC_LALT,                   KC_SPC,                          KC_RALT,KC_RGUI,KC_MENU,KC_FN1,    KC_LEFT,KC_DOWN,KC_RGHT),
+	[KM_QWERTY] = LAYOUT(
+		KC_ESC,          KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,    KC_PSCR,KC_SCRL,KC_PAUS,
+		SE_HALF, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   SE_PLUS,SE_ACUT,KC_BSPC,   KC_INS, KC_HOME,KC_PGUP,
+		KC_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   SE_AO,  SE_CIRC,SE_QUOT,   KC_DEL, KC_END, KC_PGDN,
+		KC_LCTL, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   SE_ODIA,SE_ADIA,        KC_ENT,
+		KC_LSFT, SE_LTGT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, SE_MINS,        KC_RSFT,           KC_UP,
+		MO(KM_MEDIA),KC_LGUI,KC_LALT,                   KC_SPC,                          KC_RALT,KC_RGUI,KC_MENU,TG(KM_QWERTY), KC_LEFT,KC_DOWN,KC_RGHT),
 	/* Layer 2: Media layer */
-	[KM_MEDIA] = LAYOUT( \
-		_______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   KC_WAKE,KC_PWR, KC_SLEP, \
-		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,KC_VOLU, \
-		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   KC_MUTE,_______,KC_VOLD, \
-		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,                            \
-		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,           KC_MPLY,         \
-		_______,_______,_______,                        _______,                        _______,_______,RESET  ,_______,   KC_MPRV,KC_MSTP,KC_MNXT),
+	[KM_MEDIA] = LAYOUT(
+		_______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   KC_WAKE,KC_PWR, KC_SLEP,
+		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,KC_VOLU,
+		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   KC_MUTE,_______,KC_VOLD,
+		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,
+		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,           KC_MPLY,
+		_______,_______,_______,                        _______,                        _______,_______,QK_BOOT,_______,   KC_MPRV,KC_MSTP,KC_MNXT),
 	/* Layer 3: Programming layer */
-	[KM_HAXHAX] = LAYOUT( \
-		_______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______, \
-		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______, \
-		_______,SE_LCBR,SE_PIPE,SE_RCBR,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______, \
-		_______,SE_LBRC,SE_BSLS,SE_RBRC,_______,_______,_______,_______,_______,_______,_______,_______,        _______,                            \
-		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,           _______,         \
+	[KM_HAXHAX] = LAYOUT(
+		_______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,
+		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,
+		_______,SE_LCBR,SE_PIPE,SE_RCBR,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,
+		_______,SE_LBRC,SE_BSLS,SE_RBRC,_______,_______,_______,_______,_______,_______,_______,_______,        _______,
+		_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,           _______,
 		_______,_______,_______,                        _______,                        _______,_______,_______,_______,   _______,_______,_______),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-	[1] = ACTION_LAYER_TOGGLE(KM_QWERTY)
 };
 
 void matrix_scan_user(void)
 {
-	uint8_t layer = biton32(layer_state);
+	uint8_t layer = get_highest_layer(layer_state);
 	switch (layer) {
 		case KM_BLOWRAK:
-			ph_caps_led_on();
-			ph_sclk_led_off();
+			writePin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
+			writePin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE);
 			break;
 		case KM_QWERTY:
-			ph_sclk_led_on();
-			ph_caps_led_off();
+			writePin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
+			writePin(LED_SCROLL_LOCK_PIN, LED_PIN_ON_STATE);
 			break;
 	}
 }

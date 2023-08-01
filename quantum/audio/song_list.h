@@ -20,6 +20,10 @@
 
 #include "musical_notes.h"
 
+#if __has_include("user_song_list.h")
+#    include "user_song_list.h"
+#endif // if file exists
+
 #define NO_SOUND
 
 /* Ode to Joy
@@ -112,7 +116,7 @@
 
 /* Title:            La Campanella
  * Author/Composer:  Frank Lizst
- + License:          Public Domain
+ * License:          Public Domain
  */
 #define CAMPANELLA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 \
     Q__NOTE(_DS4), E__NOTE(_DS4), E__NOTE(_DS5), Q__NOTE(_DS5), E__NOTE(_DS5), E__NOTE(_DS6), Q__NOTE(_DS5), E__NOTE(_DS5), E__NOTE(_DS6), Q__NOTE(_CS5), E__NOTE(_CS5), E__NOTE(_DS6), Q__NOTE(_B4), E__NOTE(_B4), E__NOTE(_DS6), Q__NOTE(_B4), E__NOTE(_B4), E__NOTE(_DS6), Q__NOTE(_AS4), E__NOTE(_AS4), E__NOTE(_DS6), Q__NOTE(_GS4), E__NOTE(_GS4), E__NOTE(_DS6), Q__NOTE(_G4), E__NOTE(_G4), E__NOTE(_DS6), Q__NOTE(_GS4), E__NOTE(_GS4), E__NOTE(_DS6), Q__NOTE(_AS4), E__NOTE(_AS4), E__NOTE(_DS6), Q__NOTE(_DS4), E__NOTE(_DS4), E__NOTE(_DS6), Q__NOTE(_DS5), E__NOTE(_DS5), E__NOTE(_DS6), Q__NOTE(_E5), E__NOTE(_E5), E__NOTE(_DS6), Q__NOTE(_DS5), E__NOTE(_DS5), E__NOTE(_DS6), Q__NOTE(_CS5), E__NOTE(_CS5), E__NOTE(_DS6), Q__NOTE(_B4), E__NOTE(_B4), E__NOTE(_DS6), Q__NOTE(_B4), E__NOTE(_B4), E__NOTE(_DS6), Q__NOTE(_AS4), E__NOTE(_AS4), E__NOTE(_DS6), Q__NOTE(_GS4), E__NOTE(_GS4), E__NOTE(_DS6), Q__NOTE(_G4), E__NOTE(_G4), E__NOTE(_DS6), Q__NOTE(_GS4), E__NOTE(_GS4), E__NOTE(_DS6), Q__NOTE(_AS4), \
@@ -128,11 +132,23 @@
 
 /* Title:            Nocturne Op. 9 No. 1 in B flat minor
  * Author/Composer:  Chopin
-   License:          Public Domain
-*/
+ * License:          Public Domain
+ */
 #define NOCTURNE_OP_9_NO_1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       \
     H__NOTE(_BF5), H__NOTE(_C6), H__NOTE(_DF6), H__NOTE(_A5), H__NOTE(_BF5), H__NOTE(_GF5), W__NOTE(_F5), W__NOTE(_F5), W__NOTE(_F5), W__NOTE(_F5), H__NOTE(_GF5), H__NOTE(_F5), H__NOTE(_EF5), H__NOTE(_C5), B__NOTE(_DF5), W__NOTE(_BF4), Q__NOTE(_BF5), Q__NOTE(_C6), Q__NOTE(_DF6), Q__NOTE(_A5), Q__NOTE(_BF5), Q__NOTE(_A5), Q__NOTE(_GS5), Q__NOTE(_A5), Q__NOTE(_C6), Q__NOTE(_BF5), Q__NOTE(_GF5), Q__NOTE(_F5), Q__NOTE(_GF5), Q__NOTE(_E5), Q__NOTE(_F5), Q__NOTE(_BF5), Q__NOTE(_A5), Q__NOTE(_AF5), Q__NOTE(_G5), Q__NOTE(_GF5), Q__NOTE(_F5), Q__NOTE(_E5), Q__NOTE(_EF5), Q__NOTE(_D5), Q__NOTE(_DF5), Q__NOTE(_C5), Q__NOTE(_DF5), Q__NOTE(_C5), Q__NOTE(_B4), Q__NOTE(_C5), Q__NOTE(_F5), Q__NOTE(_E5), Q__NOTE(_EF5), B__NOTE(_DF5), W__NOTE(_BF4), W__NOTE(_BF5), W__NOTE(_BF5), W__NOTE(_BF5), BD_NOTE(_AF5), W__NOTE(_DF5), H__NOTE(_BF4), H__NOTE(_C5), H__NOTE(_DF5), H__NOTE(_GF5), H__NOTE(_GF5), BD_NOTE(_F5), W__NOTE(_EF5), H__NOTE(_F5), H__NOTE(_EF5), H__NOTE(_DF5), H__NOTE(_A4), B__NOTE(_AF4), \
         W__NOTE(_DF5), W__NOTE(_EF5), H__NOTE(_F5), H__NOTE(_EF5), H__NOTE(_DF5), H__NOTE(_EF5), BD_NOTE(_F5),
+
+/* Title:            State Anthem of the Soviet Union
+ * Author/Composer:  Alexander Alexandrov
+ * License:          Public Domain
+ */
+#define USSR_ANTHEM B__NOTE(_G6), B__NOTE(_C7), W__NOTE(_G6), H__NOTE(_A6), B__NOTE(_B6), W__NOTE(_E6), W__NOTE(_E6), B__NOTE(_A6), W__NOTE(_G6), H__NOTE(_F6), B__NOTE(_G6), W__NOTE(_C6), W__NOTE(_C6), B__NOTE(_D6), W__NOTE(_D6), W__NOTE(_E6), B__NOTE(_D6), W__NOTE(_D6), W__NOTE(_G6), B__NOTE(_F6), W__NOTE(_G6), W__NOTE(_A6), B__NOTE(_B6),
+
+/* Title:            Hymn Risen
+ * Author/Composer:  Terrance Andrew Davis
+ * License:          Public Domain
+ */
+#define TOS_HYMN_RISEN H__NOTE(_D5), H__NOTE(_E5), HD_NOTE(_F5), HD_NOTE(_F5), H__NOTE(_F5), HD_NOTE(_D5), E__NOTE(_E5), E__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_D5), Q__NOTE(_D5), H__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_G5), Q__NOTE(_F5), H__NOTE(_D5), H__NOTE(_E5), HD_NOTE(_F5), HD_NOTE(_F5), H__NOTE(_F5), HD_NOTE(_D5), E__NOTE(_E5), E__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_D5), Q__NOTE(_D5), H__NOTE(_E5), H__NOTE(_C5), Q__NOTE(_G5), Q__NOTE(_F5), H__NOTE(_D5), H__NOTE(_C5), W__NOTE(_D5), W__NOTE(_E5), Q__NOTE(_A4), H__NOTE(_A4), Q__NOTE(_E5), Q__NOTE(_E5), Q__NOTE(_F5), Q__NOTE(_E5), Q__NOTE(_D5), Q__NOTE(_G5), Q__NOTE(_B4), Q__NOTE(_D5), Q__NOTE(_C5), M__NOTE(_F5, 80), H__NOTE(_D5), H__NOTE(_C5), W__NOTE(_D5), W__NOTE(_E5), Q__NOTE(_A4), H__NOTE(_A4), Q__NOTE(_E5), Q__NOTE(_E5), Q__NOTE(_F5), Q__NOTE(_E5), Q__NOTE(_D5), Q__NOTE(_G5), Q__NOTE(_B4), Q__NOTE(_D5), Q__NOTE(_C5), M__NOTE(_F5, 80)
 
 /* Removed sounds
  +   This list is here solely for compatibility, so that removed songs don't just break things
@@ -140,44 +156,126 @@
  *   proof of permission to use them, or public domain status.
  */
 
-#define CLOSE_ENCOUNTERS_5_NOTE
-#define DOE_A_DEER
-#define IN_LIKE_FLINT
-#define IMPERIAL_MARCH
-#define BASKET_CASE
-#define COIN_SOUND
-#define ONE_UP_SOUND
-#define SONIC_RING
-#define ZELDA_PUZZLE
-#define ZELDA_TREASURE
-#define OVERWATCH_THEME
-#define MARIO_THEME
-#define MARIO_GAMEOVER
-#define MARIO_MUSHROOM
-#define E1M1_DOOM
-#define DISNEY_SONG
-#define NUMBER_ONE
-#define CABBAGE_SONG
-#define OLD_SPICE
-#define VICTORY_FANFARE_SHORT
-#define ALL_STAR
-#define RICK_ROLL
-#define FF_PRELUDE
-#define TO_BOLDLY_GO
-#define KATAWARE_DOKI
-#define MEGALOVANIA
-#define MICHISHIRUBE
-#define LIEBESLEID
-#define MELODIES_OF_LIFE
-#define EYES_ON_ME
-#define SONG_OF_THE_ANCIENTS
-#define NIER_AMUSEMENT_PARK
-#define COPIED_CITY
-#define VAGUE_HOPE_COLD_RAIN
-#define KAINE_SALVATION
-#define WEIGHT_OF_THE_WORLD
-#define ISABELLAS_LULLABY
-#define TERRAS_THEME
-#define RENAI_CIRCULATION
-#define PLATINUM_DISCO
-#define LP_NUMB
+#ifndef CLOSE_ENCOUNTERS_5_NOTE
+#    define CLOSE_ENCOUNTERS_5_NOTE
+#endif
+#ifndef DOE_A_DEER
+#    define DOE_A_DEER
+#endif
+#ifndef IN_LIKE_FLINT
+#    define IN_LIKE_FLINT
+#endif
+#ifndef IMPERIAL_MARCH
+#    define IMPERIAL_MARCH
+#endif
+#ifndef BASKET_CASE
+#    define BASKET_CASE
+#endif
+#ifndef COIN_SOUND
+#    define COIN_SOUND
+#endif
+#ifndef ONE_UP_SOUND
+#    define ONE_UP_SOUND
+#endif
+#ifndef SONIC_RING
+#    define SONIC_RING
+#endif
+#ifndef ZELDA_PUZZLE
+#    define ZELDA_PUZZLE
+#endif
+#ifndef ZELDA_TREASURE
+#    define ZELDA_TREASURE
+#endif
+#ifndef OVERWATCH_THEME
+#    define OVERWATCH_THEME
+#endif
+#ifndef MARIO_THEME
+#    define MARIO_THEME
+#endif
+#ifndef MARIO_GAMEOVER
+#    define MARIO_GAMEOVER
+#endif
+#ifndef MARIO_MUSHROOM
+#    define MARIO_MUSHROOM
+#endif
+#ifndef E1M1_DOOM
+#    define E1M1_DOOM
+#endif
+#ifndef DISNEY_SONG
+#    define DISNEY_SONG
+#endif
+#ifndef NUMBER_ONE
+#    define NUMBER_ONE
+#endif
+#ifndef CABBAGE_SONG
+#    define CABBAGE_SONG
+#endif
+#ifndef OLD_SPICE
+#    define OLD_SPICE
+#endif
+#ifndef VICTORY_FANFARE_SHORT
+#    define VICTORY_FANFARE_SHORT
+#endif
+#ifndef ALL_STAR
+#    define ALL_STAR
+#endif
+#ifndef RICK_ROLL
+#    define RICK_ROLL
+#endif
+#ifndef FF_PRELUDE
+#    define FF_PRELUDE
+#endif
+#ifndef TO_BOLDLY_GO
+#    define TO_BOLDLY_GO
+#endif
+#ifndef KATAWARE_DOKI
+#    define KATAWARE_DOKI
+#endif
+#ifndef MEGALOVANIA
+#    define MEGALOVANIA
+#endif
+#ifndef MICHISHIRUBE
+#    define MICHISHIRUBE
+#endif
+#ifndef LIEBESLEID
+#    define LIEBESLEID
+#endif
+#ifndef MELODIES_OF_LIFE
+#    define MELODIES_OF_LIFE
+#endif
+#ifndef EYES_ON_ME
+#    define EYES_ON_ME
+#endif
+#ifndef SONG_OF_THE_ANCIENTS
+#    define SONG_OF_THE_ANCIENTS
+#endif
+#ifndef NIER_AMUSEMENT_PARK
+#    define NIER_AMUSEMENT_PARK
+#endif
+#ifndef COPIED_CITY
+#    define COPIED_CITY
+#endif
+#ifndef VAGUE_HOPE_COLD_RAIN
+#    define VAGUE_HOPE_COLD_RAIN
+#endif
+#ifndef KAINE_SALVATION
+#    define KAINE_SALVATION
+#endif
+#ifndef WEIGHT_OF_THE_WORLD
+#    define WEIGHT_OF_THE_WORLD
+#endif
+#ifndef ISABELLAS_LULLABY
+#    define ISABELLAS_LULLABY
+#endif
+#ifndef TERRAS_THEME
+#    define TERRAS_THEME
+#endif
+#ifndef RENAI_CIRCULATION
+#    define RENAI_CIRCULATION
+#endif
+#ifndef PLATINUM_DISCO
+#    define PLATINUM_DISCO
+#endif
+#ifndef LP_NUMB
+#    define LP_NUMB
+#endif

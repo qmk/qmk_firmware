@@ -15,36 +15,25 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-    #define CONFIG_H
+#pragma once
 
-    #include "config_common.h"
+/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
+#define LOCKING_SUPPORT_ENABLE
+/* Locking resynchronize hack */
+#define LOCKING_RESYNC_ENABLE
 
-    /* USB Device descriptor parameter */
-    #define VENDOR_ID       0xFEED
-    #define PRODUCT_ID      0x6060
-    #define DEVICE_VER      0x0001
-    #define MANUFACTURER    DARKOU
-    #define PRODUCT         DK60
-    #define DESCRIPTION     QMK keyboard firmware for DK60 support
+/*
+ * Feature disable options
+ *  These options are also useful to firmware size reduction.
+ */
 
-    /* key matrix size */
-    #define MATRIX_ROWS 5
-    #define MATRIX_COLS 13
+/* disable debug print */
+//#define NO_DEBUG
 
-    // ROWS: Top to bottom, COLS: Left to right
-    #define MATRIX_ROW_PINS { B6, B4, D7, D6, D4 }
-    #define MATRIX_COL_PINS { B0, B3, B2, B1, D3, D5, B5, B7, C6, C7, D0, D1, D2 }
-    #define UNUSED_PINS
+/* disable print */
+//#define NO_PRINT
 
-    /* COL2ROW or ROW2COL */
-    #define DIODE_DIRECTION COL2ROW
-
-    /* Set 0 if debouncing isn't needed */
-    #define DEBOUNCE 5
-
-    /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-    #define LOCKING_SUPPORT_ENABLE
-    /* Locking resynchronize hack */
-    #define LOCKING_RESYNC_ENABLE
-#endif
+/* disable action features */
+//#define NO_ACTION_LAYER
+//#define NO_ACTION_TAPPING
+//#define NO_ACTION_ONESHOT

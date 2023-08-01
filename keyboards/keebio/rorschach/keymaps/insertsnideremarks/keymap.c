@@ -43,20 +43,20 @@ enum {
   PSLPAS
 };
 
-void dance_LAYER_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_LAYER_finished(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
      layer_on(_ADJUST2);
      set_oneshot_layer(_ADJUST2, ONESHOT_START);
   }
 }
-void dance_LAYER_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_LAYER_reset(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
      layer_off(_ADJUST2);
      clear_oneshot_layer_state(ONESHOT_PRESSED);
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
 [ADJ]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LAYER_finished, dance_LAYER_reset),  //  Double-tap to activate Adjust layer via oneshot layer
 [LBCB]   = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),  // Left bracket on a single-tap, left brace on a double-tap
 [RBCB]   = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),  // Right bracket on a single-tap, right brace on a double-tap
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_COLEMAK] = LAYOUT(
   KC_TAB,  KC_Q,   KC_W,    KC_F,    KC_P,   KC_G,                    KC_J,   KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
   CTLESC,  KC_A,   KC_R,    KC_S,    KC_T,   KC_D,                    KC_H,   KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
-  KC_LSPO, KC_Z,   KC_X,    KC_C,    KC_V,   KC_B,                    KC_K,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+  SC_LSPO, KC_Z,   KC_X,    KC_C,    KC_V,   KC_B,                    KC_K,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
   KC_INS,  KC_GRV, KC_LBRC, KC_RBRC, ALTAPP, SPCFN,                   BSPCFN, KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
                                              ENTNS, KC_BSPC,  KC_ENT, DELNS
 ),
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
   KC_TAB,  KC_Q,   KC_W,    KC_E,    KC_R,   KC_T,                    KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
   CTLESC,  KC_A,   KC_S,    KC_D,    KC_F,   KC_G,                    KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-  KC_LSPO, KC_Z,   KC_X,    KC_C,    KC_V,   KC_B,                    KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC,
+  SC_LSPO, KC_Z,   KC_X,    KC_C,    KC_V,   KC_B,                    KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SC_RSPC,
   KC_INS,  KC_GRV, KC_LBRC, KC_RBRC, ALTAPP, SPCFN,                   BSPCFN, KC_RGUI, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
                                              ENTNS, KC_BSPC,  KC_ENT, DELNS
 ),
@@ -203,9 +203,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                          `---------------'  `---------------'
 */
 [_NUMPAD] = LAYOUT(
-  _______, KC_P6,   KC_P7,    KC_P8,      KC_P9,     KC_P0,                      KC_NLCK, KC_P7, KC_P8,  KC_P9,   KC_PSLS, _______,
+  _______, KC_P6,   KC_P7,    KC_P8,      KC_P9,     KC_P0,                      KC_NUM,  KC_P7, KC_P8,  KC_P9,   KC_PSLS, _______,
   _______, KC_P1,   KC_P2,    KC_P3,      KC_P4,     KC_P5,                      KC_TAB,  KC_P4, KC_P5,  KC_P6,   KC_PAST, _______,
-  _______, KC_NLCK, KC_PDOT,  TD(PSLPAS), TD(PMNUN), TD(PPLEQ),                  _______, KC_P1, KC_P2,  KC_P3,   KC_PMNS, _______,
+  _______, KC_NUM,  KC_PDOT,  TD(PSLPAS), TD(PMNUN), TD(PPLEQ),                  _______, KC_P1, KC_P2,  KC_P3,   KC_PMNS, _______,
   KC_LPRN, KC_RPRN, TD(LBCB), TD(RBCB),   _______,   _______,                    _______, KC_P0, KC_EQL, KC_PDOT, KC_PPLS, _______,
                                                      _______, _______,  KC_PENT, _______
 ),
@@ -213,7 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Adjust layer
 *  (Enter/Number + Delete/Number2 to access; Numpad is a toggle)
 *  ,-----------------------------------------------.                  ,-----------------------------------------------.
-*  |       |Colemak| Qwerty|       |       |       |                  | Numpad|       |       | Ctrl+Y|       | RESET |
+*  |       |Colemak| Qwerty|       |       |       |                  | Numpad|       |       | Ctrl+Y|       | QK_BOOT |
 *  |-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
 *  |       |       |       |       |       |       |                  |       |NKROTog|       |       |       |       |
 *  |-------+-------+-------+-------+-------+-------|                  |-------+-------+-------+-------+-------+-------|
@@ -225,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                                          `---------------'  `---------------'
 */
 [_ADJUST] = LAYOUT(
-  _______, COLEMAK,  QWERTY, _______, _______, _______,                    NUMPAD,  _______, _______, _______, _______, RESET,
+  _______, COLEMAK,  QWERTY, _______, _______, _______,                    NUMPAD,  _______, _______, _______, _______, QK_BOOT,
   _______, _______, _______, _______, _______, _______,                    _______, NKROTG,  _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______,
@@ -233,7 +233,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST2] = LAYOUT(
-  _______, COLEMAK,  QWERTY, _______, _______, _______,                    NUMPAD,  _______, _______, _______, _______, RESET,
+  _______, COLEMAK,  QWERTY, _______, _______, _______,                    NUMPAD,  _______, _______, _______, _______, QK_BOOT,
   _______, _______, _______, _______, _______, _______,                    _______, NKROTG,  _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______,
@@ -242,7 +242,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _NUMBERS, _NUMBERS2, _ADJUST);
 }
 

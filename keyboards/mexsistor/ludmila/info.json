@@ -1,0 +1,34 @@
+{
+    "keyboard_name": "Ludmila Macropad",
+    "manufacturer": "Kevin M.",
+    "url": "",
+    "maintainer": "Kevin M.",
+    "usb": {
+        "vid": "0x69CC",
+        "pid": "0x6BF6",
+        "device_version": "0.0.1"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F6", "pin_b": "F5"}
+        ]
+    },
+    "ws2812": {
+        "pin": "D1"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+
+                {"matrix": [2, 0], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1}
+            ]
+        }
+    }
+}

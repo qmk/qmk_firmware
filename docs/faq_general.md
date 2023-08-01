@@ -34,7 +34,7 @@ Additionally, you can find additional `git` and GitHub related links [here](newb
 
 Awesome! Open up a Pull Request for it. We'll review the code, and merge it!
 
-### What if I want to do brand it with `QMK`?
+### What if I want to brand it with `QMK`?
 
 That's amazing! We would love to assist you with that!
 

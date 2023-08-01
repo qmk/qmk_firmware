@@ -11,13 +11,18 @@ enum kuatsure_keycodes {
   USER_SAFE_RANGE,
 };
 
+#define ONESHOT_TAP_TOGGLE 2
+#define KT_LSFT OSM(MOD_LSFT)
+
 enum {
   TD_LBRC = 0,
   TD_RBRC,
+  TD_SLSH
 };
 
 #define KT_LBRC TD(TD_LBRC)
 #define KT_RBRC TD(TD_RBRC)
+#define KT_SLSH TD(TD_SLSH)
 
 #define TAPPING_TERM 200
 
@@ -33,8 +38,6 @@ void tmux_pane_zoom(void);
 #undef LEADER_TIMEOUT
 #define LEADER_TIMEOUT 300
 
-#define LAYOUT_preonic_grid_wrapper(...)   LAYOUT_preonic_grid(__VA_ARGS__)
-
 #define _________________NUMBER_L1_________________        KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _________________NUMBER_R1_________________        KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
@@ -47,7 +50,8 @@ void tmux_pane_zoom(void);
 
 #define _________________QWERTY_R1_________________        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
 #define _________________QWERTY_R2_________________        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
-#define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
+#define _________________QWERTY_R3_________________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KT_SLSH
+#define _________________QWERTY_R3_M_______________        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP
 
 #define ____________FUNCTION_1____________                 KC_F1,   KC_F2,   KC_F3,   KC_F4
 #define ____________FUNCTION_2____________                 KC_F5,   KC_F6,   KC_F7,   KC_F8

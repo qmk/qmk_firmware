@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "lily58.h"
+#include "timer.h"
 
 char timelog_str[24] = {};
 int last_time = 0;

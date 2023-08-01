@@ -1,6 +1,6 @@
 # Userspace: Sharing Code Between Keymaps
 
-If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your github username, `<name>`) with the following structure:
+If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your GitHub username, `<name>`) with the following structure:
 
 * `/users/<name>/` (added to the path automatically)
   * `readme.md` (optional, recommended)
@@ -73,7 +73,7 @@ The reason for this, is that `<name>.h` won't be added in time to add settings (
 
 ## Readme (`readme.md`)
 
-Please include authorship (your name, github username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
+Please include authorship (your name, GitHub username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
 
 You can use this as a template: 
 ```
@@ -93,7 +93,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ```
 
-You'd want to replace the year, name, email and github username with your info. 
+You'd want to replace the year, name, email and GitHub username with your info. 
 
 Additionally, this is a good place to document your code, if you wish to share it with others. 
 
@@ -111,7 +111,7 @@ This is ideal for when you want ensure everything compiles successfully when pre
 
 ## Examples
 
-For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).  
+For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/_example).  
 For a more complicated example, checkout [`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna)'s userspace.
 
 
@@ -184,7 +184,7 @@ If you wanted to consolidate macros and other functions into your userspace for 
 
 First, you'd want to go through all of your `keymap.c` files and replace `process_record_user` with `process_record_keymap` instead.   This way, you can still use keyboard specific codes on those boards, and use your custom "global" keycodes as well.   You'll also want to replace `SAFE_RANGE` with `NEW_SAFE_RANGE` so that you wont have any overlapping keycodes
 
-Then add `#include <name.h>` to all of your keymap.c files.  This allows you to use these new keycodes without having to redefine them in each keymap.
+Then add `#include "<name>.h"` to all of your keymap.c files.  This allows you to use these new keycodes without having to redefine them in each keymap.
 
 Once you've done that, you'll want to set the keycode definitions that you need to the `<name>.h`  file. For instance:
 ```c
@@ -240,7 +240,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 For boards that may not have a shift button (such as on a macro pad), we need a way to always include the bootloader option.  To do that, add the following to the `rules.mk` in your userspace folder: 
 
-```make 
+```make
 ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
     OPT_DEFS += -DFLASH_BOOTLOADER
 endif
@@ -252,4 +252,4 @@ Also, holding Shift will add the flash target (`:flash`) to the command.  Holdin
 
 And for the boards that lack a shift key, or that you want to always attempt the flashing part, you can add `FLASH_BOOTLOADER = yes` to the `rules.mk` of that keymap.
 
-?> This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely. And this doesn't support BootloadHID or mdloader. 
+?> This should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely.

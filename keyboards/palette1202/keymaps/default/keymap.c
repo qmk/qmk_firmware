@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   #include <string.h>
   #include "lib/oled_helper.h"
 #endif
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_CS_1] = LAYOUT(
       KC_TAB,       LCTL(KC_A), KC_E,         KC_P,          LCTL(KC_0),
       MO(WIN_CS_2), KC_M,       KC_BSPC,      KC_B,          KC_HYPR,
-                    KC_LSFT,    KC_LCTRL,     LCTL(KC_Z),    KC_SPC
+                    KC_LSFT,    KC_LCTL,      LCTL(KC_Z),    KC_SPC
     ),
     [WIN_CS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          LCTL(KC_GRV),
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_PS_1] = LAYOUT(
       KC_TAB,       LCTL(KC_A), KC_E,         KC_B,          LCTL(KC_1),
       MO(WIN_PS_2), KC_L,       LCTL(KC_DEL), LCTL(KC_QUOT), KC_MEH,
-                    KC_LSFT,    KC_LCTRL,     LCTL(KC_Z),    KC_SPC
+                    KC_LSFT,    KC_LCTL,      LCTL(KC_Z),    KC_SPC
     ),
     [WIN_PS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          KC_ESC,
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   uint8_t currentDefault = get_highest_layer(default_layer_state);
   uint8_t currentLayer = get_highest_layer(layer_state);
   if (index == 0) { /* the upper encoder */
@@ -116,121 +116,122 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          tap_code16(!clockwise ? G(KC_EQL) : G(KC_MINS));
+          tap_code16(!clockwise ? G(KC_MINS) : G(KC_EQL));
         } else {
           // Fn Layer
           // rotate canvas
-          tap_code(!clockwise ? KC_QUOT : KC_MINS);
+          tap_code(!clockwise ? KC_MINS : KC_QUOT);
         }
         break;
       case MAC_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          tap_code16(!clockwise ? G(KC_EQL) : G(KC_MINS));
+          tap_code16(!clockwise ? G(KC_MINS) : G(KC_EQL));
         } else {
           // Fn Layer
           // undo / redo
-          tap_code16(!clockwise ? S(G(KC_Z)) : G(KC_Z));
+          tap_code16(!clockwise ? G(KC_Z) : S(G(KC_Z)));
         }
         break;
       case WIN_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          tap_code16(!clockwise ? C(KC_EQL) : C(KC_MINS));
+          tap_code16(!clockwise ? C(KC_MINS) : C(KC_EQL));
         } else {
           // Fn Layer
           // rotate canvas
-          tap_code(!clockwise ? KC_QUOT : KC_MINS);
+          tap_code(!clockwise ? KC_MINS : KC_QUOT);
         }
         break;
       case WIN_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // Zoom
-          tap_code16(!clockwise ? C(KC_SCLN) : C(KC_MINS));
+          tap_code16(!clockwise ? C(KC_MINS) : C(KC_SCLN));
         } else {
           // Fn Layer
           // undo / redo
-          tap_code16(!clockwise ? C(S(KC_Z)) : C(KC_Z));
+          tap_code16(!clockwise ? C(KC_Z) : C(S(KC_Z)));
         }
         break;
       case IOS_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
-          // Zoom 
-          tap_code16(!clockwise ? G(KC_SCLN) : G(KC_MINS));
+          // Zoom
+          tap_code16(!clockwise ? G(KC_MINS) : G(KC_SCLN));
         } else {
           // Fn Layer
           // rotate canvas
-          tap_code(!clockwise ? KC_EQL : KC_MINS);
+          tap_code(!clockwise ? KC_MINS : KC_EQL);
         }
         break;
       default:
         break;
     }
-  } else if (index == 1) { /* the lower encoder */ 
+  } else if (index == 1) { /* the lower encoder */
     switch (currentDefault) {
       case MAC_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // size of brush
-          tap_code(!clockwise ? KC_RBRC : KC_LBRC);
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          tap_code16(!clockwise ? G(KC_RBRC) : G(KC_LBRC));
+          tap_code16(!clockwise ? G(KC_LBRC) : G(KC_RBRC));
         }
         break;
       case MAC_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // size of brush
-          tap_code(!clockwise ? KC_RBRC : KC_LBRC);
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          tap_code16(!clockwise ? KC_RCBR : KC_LCBR);
+          tap_code16(!clockwise ? KC_LCBR : KC_RCBR);
         }
         break;
       case WIN_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // rotate canvas
-          tap_code(!clockwise ? KC_RBRC : KC_LBRC);
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          tap_code16(!clockwise ? C(KC_RBRC) : C(KC_LBRC));
+          tap_code16(!clockwise ? C(KC_LBRC) : C(KC_RBRC));
         }
         break;
       case WIN_PS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // rotate canvas
-          tap_code(!clockwise ? KC_RBRC : KC_LBRC);
+          tap_code(!clockwise ? KC_LBRC : KC_RBRC);
         } else {
           // Fn Layer
           // opacity of brush
-          tap_code16(!clockwise ? KC_RCBR : KC_LCBR);
+          tap_code16(!clockwise ? KC_LCBR : KC_RCBR);
         }
         break;
       case IOS_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
           // size of brush
-          tap_code(!clockwise ? KC_BSLS : KC_RBRC);
+          tap_code(!clockwise ? KC_RBRC : KC_BSLS);
         } else {
           // Fn Layer
           // opacity of brush
-          tap_code16(!clockwise ? G(KC_BSLS) : G(KC_RBRC));
+          tap_code16(!clockwise ? G(KC_RBRC) : G(KC_BSLS));
         }
         break;
       default:
         break;
     }
   }
+    return true;
 }
 
 // custom keycode
@@ -272,8 +273,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // OLED Display
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
   // get layer Number
   uint8_t currentDefault = get_highest_layer(default_layer_state);
   uint8_t currentLayer = get_highest_layer(layer_state);
@@ -325,5 +326,6 @@ void oled_task_user(void) {
     // pressed key / 4th line of the logo
     render_row(3, "    ");
   }
+    return false;
 }
-#endif // #ifdef OLED_DRIVER_ENABLE
+#endif // #ifdef OLED_ENABLE

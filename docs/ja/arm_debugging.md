@@ -1,8 +1,8 @@
 # Eclipse を使った ARM デバッグ
 
 <!---
-  original document: eae21eed7:docs/arm_debugging.md
-  git diff eae21eed7 HEAD -- docs/arm_debugging.md | cat
+  original document: 0.8.58:docs/arm_debugging.md
+  git diff 0.8.58 HEAD -- docs/arm_debugging.md | cat
 -->
 
 このページでは、SWD アダプタとオープンソース/フリーツールを使って ARM MCU をデバッグするためのセットアップ方法について説明します。このガイドでは、GNU MCU Eclipse IDE for C/C++ Developers および OpenOCD を必要な依存関係と一緒にインストールします。
@@ -60,7 +60,7 @@ Java は Eclipse で必要とされるため、[ここ](https://www.oracle.com/t
 
 Eclipse に QMK をビルドしようとするデバイスを教える必要があります。QMK フォルダを右クリック -> Properties -> C/C++ Build -> Settings を選択します。Devices タブを選択し、Devices の下から MCU の適切な種類を選択します。私の例では、STM32F303CC です。
 
-この間に、Build コマンドもセットアップしましょう。C/C++ Build を選択し、Behavior タブを選択します。build コマンドのところで、`all` を必要な make コマンドに置き換えます。例えば、rev6 Planck の default キーマップの場合、これは `planck/rev6:default` になります。Apply and Close を選択します。
+この間に、Build コマンドもセットアップしましょう。C/C++ Build を選択し、Behavior タブを選択します。Build コマンドのところで、`all` を必要な make コマンドに置き換えます。例えば、rev6 Planck の default キーマップの場合、これは `planck/rev6:default` になります。Apply and Close を選択します。
 
 ## ビルド
 
@@ -70,13 +70,13 @@ Eclipse に QMK をビルドしようとするデバイスを教える必要が�
 
 ### デバッガの接続
 
-ARM MCU は、クロック信号(SWCLK) とデータ信号(SWDIO) で構成される Single Wire Debug (SWD) プロトコルを使います。MCU を 完全に操作するには、この2本のワイヤとグラウンドを接続するだけで十分です。ここでは、キーボードは USB を介して電力が供給されると想定しています。手動でリセットボタンを使えるため、RESET 信号は必要ありません。より高度なセットアップのために printf と scanf をホストに非同期にパイプする SWO 信号を使用できますが、私たちのセットアップでは無視します。
+ARM MCU は、クロック信号(SWCLK) とデータ信号(SWDIO) で構成される Single Wire Debug (SWD) プロトコルを使います。MCU を完全に操作するには、この2本のワイヤとグラウンドを接続するだけで十分です。ここでは、キーボードは USB を介して電力が供給されると想定しています。手動でリセットボタンを使えるため、RESET 信号は必要ありません。より高度なセットアップのために printf と scanf をホストに非同期にパイプする SWO 信号を使用できますが、私たちのセットアップでは無視します。
 
 注意: SWCLK と SWDIO ピンがキーボードのマトリックスで使われていないことを確認してください。もし使われている場合は、一時的に他のピンに切り替えることができます。
 
 ### デバッガの設定
 
-QMK フォルダを右クリックし、Debug As -> Debug Configurations... を選択します。ここで、GDB OpenOCD Debugging をダブルクリックします。Debugger タブを選択し、MCU に必要な設定を入力します。これを見つけるにはいじったりググったりする必要があるかもしれません。STM32F3 用のデフォルトスクリプトは stm32f3discovery.cfg と呼ばれます。OpenOCD に伝えるには、Config options で `-f board/stm32f3discovery.cfg` と入力します。
+QMK フォルダを右クリックし、Debug As -> Debug Configurations... を選択します。ここで、GDB OpenOCD Debugging をダブルクリックします。Debugger タブを選択し、MCU に必要な設定を入力します。これを見つけるにはいじったりググったりする必要があるかもしれません。STM32F3 用のデフォルトスクリプトは `stm32f3discovery.cfg` と呼ばれます。OpenOCD に伝えるには、Config options で `-f board/stm32f3discovery.cfg` と入力します。
 
 注意: 私の場合、この設定スクリプトはリセット操作を無効にするために編集が必要です。スクリプトの場所は、通常はパス `openocd/version/.content/scripts/board` の下の実際の実行可能フィールドの中で見つかります。ここで、私は `reset_config srst_only` を `reset_config none` に編集しました。
 
@@ -86,7 +86,7 @@ Apply and Close を選択します。
 
 キーボードをリセットしてください。
 
-虫アイコンをクリックし、もし全てうまく行けば Debug パースペクティブに移動します。ここでは、main 関数の最初でプログラムカウンタが停止するので、Play ボタンを押します。全てのデバッガのほとんどの機能は ARM MCU で動作しますが、正確な詳細については google があなたのお友達です！
+虫アイコンをクリックし、もし全てうまく行けば Debug パースペクティブに移動します。ここでは、main 関数の最初でプログラムカウンタが停止し、Play ボタンが押されるのを待ちます。全てのデバッガのほとんどの機能は Arm MCU で動作しますが、正確な詳細については Google があなたのお友達です！
 
 
 ハッピーデバッギング！

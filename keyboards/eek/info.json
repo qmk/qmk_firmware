@@ -1,0 +1,77 @@
+{
+    "keyboard_name": "eek!",
+    "manufacturer": "klackygears",
+    "url": "http://www.keyboard-layout-editor.com/#/gists/3e4d0cd1534dd4e4b9f25cf2b36d0d63",
+    "maintainer": "klackygears",
+    "usb": {
+        "vid": "0x4A53",
+        "pid": "0x0002",
+        "device_version": "0.0.4"
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "matrix_pins": {
+        "cols": ["D4", "C6", "B6", "B2", "B3", "B1", "F7", "F6", "F5", "F4"],
+        "rows": ["D7", "E6", "B4", "B5"]
+    },
+    "diode_direction": "COL2ROW",
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgblight": {
+        "max_brightness": 200
+    },
+    "processor": "atmega32u4",
+    "bootloader": "qmk-dfu",
+    "community_layouts": ["split_3x5_3"],
+    "layouts": {
+        "LAYOUT_split_3x5_3": {
+            "layout": [
+                {"x": 0, "y": 0.88},
+                {"x": 1, "y": 0.38},
+                {"x": 2, "y": 0},
+                {"x": 3, "y": 0.38},
+                {"x": 4, "y": 0.5},
+
+                {"x": 6, "y": 0.5},
+                {"x": 7, "y": 0.38},
+                {"x": 8, "y": 0},
+                {"x": 9, "y": 0.38},
+                {"x": 10, "y": 0.88},
+
+                {"x": 0, "y": 1.88},
+                {"x": 1, "y": 1.38},
+                {"x": 2, "y": 1},
+                {"x": 3, "y": 1.38},
+                {"x": 4, "y": 1.5},
+
+                {"x": 6, "y": 1.5},
+                {"x": 7, "y": 1.38},
+                {"x": 8, "y": 1},
+                {"x": 9, "y": 1.38},
+                {"x": 10, "y": 1.88},
+
+                {"x": 0, "y": 2.88},
+                {"x": 1, "y": 2.38},
+                {"x": 2, "y": 2},
+                {"x": 3, "y": 2.38},
+                {"x": 4, "y": 2.5},
+
+                {"x": 6, "y": 2.5},
+                {"x": 7, "y": 2.38},
+                {"x": 8, "y": 2},
+                {"x": 9, "y": 2.38},
+                {"x": 10, "y": 2.88},
+
+                {"x": 2, "y": 3.25},
+                {"x": 3, "y": 3.38},
+                {"x": 4, "y": 3.5},
+
+                {"x": 6, "y": 3.5},
+                {"x": 7, "y": 3.38},
+                {"x": 8, "y": 3.25}
+            ]
+        }
+    }
+}

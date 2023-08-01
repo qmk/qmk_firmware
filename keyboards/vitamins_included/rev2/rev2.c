@@ -1,12 +1,4 @@
-#include "rev2.h"
-
-
-#ifdef SSD1306OLED
-void led_set_kb(uint8_t usb_led) {
-    // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-    led_set_user(usb_led);
-}
-#endif
+#include "quantum.h"
 
 bool is_keyboard_left(void) {
     #if defined(MASTER_LEFT)
@@ -25,7 +17,3 @@ bool is_keyboard_left(void) {
 
     return is_keyboard_master();
 }
-
-void matrix_init_kb(void) {
-	matrix_init_user();
-};

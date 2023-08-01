@@ -1,0 +1,50 @@
+name: Update API Data
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+    - master
+    - develop
+    paths:
+    - 'keyboards/**'
+    - 'layouts/community/**'
+    - 'lib/python/**'
+    - 'data/**'
+    - '.github/workflows/api.yml'
+  workflow_dispatch:
+
+jobs:
+  api_data:
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    # protect against those who work in their fork on 'important' branches
+    if: github.repository == 'qmk/qmk_firmware'
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+        persist-credentials: false
+
+    - name: Install dependencies
+      run: |
+        pip3 install -r requirements-dev.txt
+
+    - name: Generate API Data
+      run: |
+        qmk generate-api
+
+    - name: Upload API Data
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ github.ref == 'refs/heads/develop' && secrets['API_SPACE_DEVELOP'] || secrets['API_SPACE_MASTER'] }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.SPACES_ACCESS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.SPACES_SECRET_KEY }}
+        AWS_S3_ENDPOINT: https://nyc3.digitaloceanspaces.com
+        SOURCE_DIR: '.build/api_data'

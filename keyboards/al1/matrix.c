@@ -1,201 +1,102 @@
-#include <stdint.h>
-#include <stdbool.h>
-#include <avr/io.h>
-#include <util/delay.h>
-#include "print.h"
-#include "debug.h"
-#include "util.h"
+/* Copyright 2022
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "matrix.h"
+#include "gpio.h"
+#include "sn74x154.h"
 
-#ifndef DEBOUNCE
-#   define DEBOUNCE 5
-#endif
-static uint8_t debouncing = DEBOUNCE;
+static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 
-static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
-
-static uint8_t read_rows(void);
-static void init_rows(void);
-static void unselect_cols(void);
-static void select_col(uint8_t col);
-
-inline uint8_t matrix_rows(void) {
-  return MATRIX_ROWS;
-}
-
-inline uint8_t matrix_cols(void) {
-  return MATRIX_COLS;
-}
-
-__attribute__ ((weak))
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
-
-__attribute__ ((weak))
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
-__attribute__ ((weak))
-void matrix_init_user(void) {
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}
-
-void matrix_init(void) {
-  // initialize row and col
-    unselect_cols();
-    init_rows();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        matrix[i] = 0;
-        matrix_debouncing[i] = 0;
-    }
-  matrix_init_quantum();
-}
-
-uint8_t matrix_scan(void) {
-  for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-    select_col(col);
-    _delay_us(3);
-    uint8_t rows = read_rows();
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-      bool prev_bit = matrix_debouncing[row] & ((matrix_row_t)1<<col);
-      bool curr_bit = rows & (1<<row);
-      if (prev_bit != curr_bit) {
-        matrix_debouncing[row] ^= ((matrix_row_t)1<<col);
-        debouncing = DEBOUNCE;
-      }
-    }
-    unselect_cols();
-  }
-
-  if (debouncing) {
-    if (--debouncing) {
-      _delay_ms(1);
-    } else {
-      for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        matrix[i] = matrix_debouncing[i];
-      }
-    }
-  }
-
-  matrix_scan_quantum();
-  return 1;
-}
-
-bool matrix_is_modified(void) {
-  if (debouncing)
-    return false;
-  else
-    return true;
-}
-
-inline bool matrix_is_on(uint8_t row, uint8_t col) {
-  return (matrix[row] & ((matrix_row_t)1<<col));
-}
-
-inline matrix_row_t matrix_get_row(uint8_t row) {
-  return matrix[row];
-}
-
-void matrix_print(void) {
-  print("\nr/c 0123456789ABCDEF\n");
-  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    xprintf("%02X: %032lb\n", row, bitrev32(matrix_get_row(row)));
-  }
-}
-
-uint8_t matrix_key_count(void) {
-  uint8_t count = 0;
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    count += bitpop32(matrix[i]);
-  }
-  return count;
-}
-
-/* Row pin configuration
+/* All columns use a 74HC154 4-to-16 demultiplexer.
+ * D3 is the enable pin, must be set high to use it.
  *
- * row: 0    1    2    3    4    5
- * pin: C7   B1   B2   C6   B4   B5
- *
+ *     A3   A2   A1   A0
+ *     D7   D6   D5   D4
+ * 0:   0    0    0    0
+ * 1:   0    0    0    1
+ * 2:   0    0    1    0
+ * 3:   0    0    1    1
+ * 4:   0    1    0    0
+ * 5:   0    1    0    1
+ * 6:   0    1    1    0
+ * 7:   0    1    1    1
+ * 8:   1    0    0    0
+ * 9:   1    0    0    1
+ * 10:  1    0    1    0
+ * 11:  1    0    1    1
+ * 12:  1    1    0    0
+ * 13:  1    1    0    1
+ * 14:  1    1    1    0
+ * 15:  1    1    1    1
  */
-static void init_rows(void)
-{
-  DDRC &= ~0b11000000;
-  DDRB &= ~0b00110110;
-  PORTC |= 0b11000000;
-  PORTB |= 0b00110110;
-}
-
-static uint8_t read_rows(void) {
-  return (PINC&(1<<PC7) ? 0 : (1<<0)) |
-    (PINB&(1<<PB1) ? 0 : (1<<1)) |
-    (PINB&(1<<PB2) ? 0 : (1<<2)) |
-    (PINC&(1<<PC6) ? 0 : (1<<3)) |
-    (PINB&(1<<PB4) ? 0 : (1<<4)) |
-    (PINB&(1<<PB5) ? 0 : (1<<5));
-}
-
-/* Row pin configuration
- * pin:     D3  D7  D6  D5  D4
- * row: off  0   x   x   x   x
- *      0    1   0   0   0   0
- *      1    1   0   0   0   1
- *      2    1   0   0   1   0
- *      3    1   0   0   1   1
- *      4    1   0   1   0   0
- *      5    1   0   1   0   1
- *      6    1   0   1   1   0
- *      7    1   0   1   1   1
- *      8    1   1   0   0   0
- *      9    1   1   0   0   1
- *      10   1   1   0   1   0
- *      11   1   1   0   1   1
- *      12   1   1   1   0   0
- *      13   1   1   1   0   1
- *      14   1   1   1   1   0
- *      15   1   1   1   1   1
- */
-static void  unselect_cols(void)
-{
-  // output high(DDR:1, PORT:1) to unselect
-  DDRB  |= (1 << PD3);
-  PORTB |= (1 << PD3);
-}
-
 static void select_col(uint8_t col) {
-  DDRD  |= (1<<PD3 | 1<<PD4 | 1<<PD5 | 1<<PD6 | 1<<PD7);
+    sn74x154_set_addr(col);
+}
 
-  PORTD &= ~(1<<PD3);
+static void init_pins(void) {
+    for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        setPinInputHigh(row_pins[x]);
+    }
+}
 
-  if (col & (1<<0)) {
-    PORTD |= (1<<PD4);
-  }
-  else {
-    PORTD &= ~(1<<PD4);
-  }
-  if (col & (1<<1)) {
-    PORTD |= (1<<PD5);
-  }
-  else {
-    PORTD &= ~(1<<PD5);
-  }
-  if (col & (1<<2)) {
-    PORTD |= (1<<PD6);
-  }
-  else {
-    PORTD &= ~(1<<PD6);
-  }
-  if (col & (1<<3)) {
-    PORTD |= (1<<PD7);
-  }
-  else {
-    PORTD &= ~(1<<PD7);
-  }
+static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
+    bool matrix_changed = false;
+
+    // Select col and wait for col seleciton to stabilize
+    select_col(current_col);
+    matrix_io_delay();
+
+    // For each row...
+    for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
+        // Store last value of row prior to reading
+        matrix_row_t last_row_value = current_matrix[row_index];
+
+        // Check row pin state
+        if (readPin(row_pins[row_index]) == 0) {
+            // Pin LO, set col bit
+            current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
+        } else {
+            // Pin HI, clear col bit
+            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
+        }
+
+        // Determine if the matrix changed state
+        if ((last_row_value != current_matrix[row_index]) && !(matrix_changed)) {
+            matrix_changed = true;
+        }
+    }
+
+    return matrix_changed;
+}
+
+void matrix_init_custom(void) {
+    // initialize demultiplexer
+    sn74x154_init();
+    sn74x154_set_enabled(true);
+    // initialize key pins
+    init_pins();
+}
+
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    bool changed = false;
+
+    // Set col, read rows
+    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+        changed |= read_rows_on_col(current_matrix, current_col);
+    }
+
+    return changed;
 }

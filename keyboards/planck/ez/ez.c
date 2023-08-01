@@ -1,4 +1,6 @@
 /* Copyright 2018 Jack Humbert <jack.humb@gmail.com>
+ * Copyright 2015 ZSA Technology Labs Inc (@zsa)
+ * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,13 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ez.h"
-#include "ch.h"
-#include "hal.h"
+#include <ch.h>
+#include <hal.h>
 
 keyboard_config_t keyboard_config;
-
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -105,16 +106,6 @@ led_config_t g_led_config = { {
     1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1
 } };
 
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_color_all(0, 0, 0);
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
- void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
 #endif
 
 /* Left B9   Right B8 */
@@ -258,7 +249,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     planck_ez_left_led_off();
     planck_ez_right_led_off();
     state = layer_state_set_user(state);
-    uint8_t layer = biton32(state);
+    uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case PLANCK_EZ_LED_LOWER:
             planck_ez_left_led_on();
@@ -327,15 +318,52 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #ifdef AUDIO_ENABLE
 bool music_mask_kb(uint16_t keycode) {
     switch (keycode) {
-    case QK_LAYER_TAP ... QK_ONE_SHOT_LAYER_MAX:
-    case QK_LAYER_TAP_TOGGLE ... QK_LAYER_MOD_MAX:
+    case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+    case QK_TO ... QK_TO_MAX:
+    case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+    case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
+    case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+    case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+    case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+    case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
+    case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
     case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-    case AU_ON ... MUV_DE:
-    case RESET:
-    case EEP_RST:
+    case AU_ON ... AU_PREV:
+    case QK_BOOT:
+    case QK_CLEAR_EEPROM:
         return false;
     default:
         return music_mask_user(keycode);
     }
 }
 #endif
+
+#ifdef SWAP_HANDS_ENABLE
+__attribute__ ((weak))
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+    {{5, 4}, {4, 4}, {3, 4}, {2, 4}, {1, 4}, {0, 4}},
+    {{5, 5}, {4, 5}, {3, 5}, {2, 5}, {1, 5}, {0, 5}},
+    {{5, 6}, {4, 6}, {3, 6}, {2, 6}, {1, 6}, {0, 6}},
+    {{5, 3}, {4, 3}, {3, 3}, {2, 3}, {1, 3}, {0, 3}},
+    
+    {{5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},
+    {{5, 1}, {4, 1}, {3, 1}, {2, 1}, {1, 1}, {0, 1}},
+    {{5, 2}, {4, 2}, {3, 2}, {2, 2}, {1, 2}, {0, 2}},
+    {{5, 7}, {4, 7}, {3, 7}, {2, 7}, {1, 7}, {0, 7}},
+};
+
+#    ifdef ENCODER_MAP_ENABLE
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {0};
+#    endif
+#endif
+
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
+    {36, 37, 38, 39, 40, 41},
+    {24, 25, 26, 27, 28, 29},
+    {12, 13, 14, 15, 16, 17},
+    { 0,  1,  2, 10, 11,  6},
+    {42, 43, 44, 45, 46, 47},
+    {30, 31, 32, 33, 34, 35},
+    {18, 19, 20, 21, 22, 23},
+    { 7,  8,  9,  3,  4,  5}
+};

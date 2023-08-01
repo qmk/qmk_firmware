@@ -1,1 +1,1 @@
-RGB_MATRIX_ENABLE = IS31FL3733# Use RGB matrix
+RGB_MATRIX_ENABLE = yes # Use RGB matrix

@@ -37,6 +37,12 @@ typedef struct
 	uint8_t index;
 } backlight_config_indicator;
 
+#if defined(RGB_BACKLIGHT_M6_B)
+#define RGB_BACKLIGHT_CUSTOM_COLORS_COUNT 6
+#elif defined(RGB_BACKLIGHT_M10_C)
+#define RGB_BACKLIGHT_CUSTOM_COLORS_COUNT 10
+#endif
+
 typedef struct
 {
 	bool use_split_backspace:1;         // |
@@ -58,10 +64,10 @@ typedef struct
 	backlight_config_indicator layer_2_indicator;	// 3 bytes
 	backlight_config_indicator layer_3_indicator;	// 3 bytes
 	uint16_t alphas_mods[5];            // 10 bytes
-#if defined(RGB_BACKLIGHT_M6_B)
-	HS custom_color[6];                 // 12 bytes
+#if defined(RGB_BACKLIGHT_M6_B) || defined(RGB_BACKLIGHT_M10_C)
+	HS custom_color[RGB_BACKLIGHT_CUSTOM_COLORS_COUNT];                 // 12 or 20 bytes
 #endif
-} backlight_config;                // = 31 bytes (M6-B = 43 bytes)
+} backlight_config;                // = 31 bytes (M6-B = 43 bytes, M10-C 51 bytes)
 
 void backlight_config_load(void);
 void backlight_config_save(void);
@@ -75,7 +81,6 @@ void backlight_timer_enable(void);
 void backlight_timer_disable(void);
 
 void backlight_set_suspend_state(bool state);
-void backlight_set_indicator_state(uint8_t state);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
@@ -107,3 +112,4 @@ void backlight_color_2_sat_decrease(void);
 
 void backlight_test_led( uint8_t index, bool red, bool green, bool blue );
 void backlight_debug_led(bool state);
+void backlight_device_indication(uint8_t value);

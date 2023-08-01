@@ -1,0 +1,9 @@
+# Install the necessary requirements
+-r requirements.txt
+
+# Python development requirements
+nose2
+flake8
+pep8-naming
+pyflakes
+yapf
