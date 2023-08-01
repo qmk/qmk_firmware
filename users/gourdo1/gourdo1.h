@@ -134,7 +134,7 @@ bool get_rgb_nightmode(void);
 
 // IDLE TIMEOUTS
 #ifdef IDLE_TIMEOUT_ENABLE
-#define TIMEOUT_THRESHOLD_DEFAULT 15 // default timeout minutes
+#define TIMEOUT_THRESHOLD_DEFAULT 140 // default timeout minutes
 #define TIMEOUT_THRESHOLD_MAX 140 // upper limits (2 hours and 10 minutes -- no rgb indicators above this value)
 
 //prototype  functions
