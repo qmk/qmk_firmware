@@ -3,7 +3,6 @@
 #include "2k.h"
 #include "quantum.h"
 #include "analog.h"
-#include "rgbmatrix.h"
 #include "eeprom.h"
 
 key_t keys[MATRIX_ROWS][MATRIX_COLS] = {0};

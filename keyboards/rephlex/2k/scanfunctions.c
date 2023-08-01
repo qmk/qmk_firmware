@@ -106,7 +106,6 @@ void matrix_read_cols_continuous_dynamic_actuation(matrix_row_t *current_row, ui
             update_extremum(key);
             key->continuous_rapid_trigger = false;
         }
-
     } else if (key->value > g_config.actuation_point) {
         register_key(current_row, current_col);
         update_extremum(key);
