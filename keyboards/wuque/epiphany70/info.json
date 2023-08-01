@@ -11,7 +11,7 @@
       "console": false,
       "extrakey": true,
       "mousekey": true,
-      "nkro": true,
+      "nkro": true
     },
     "matrix_pins": {
       "rows": ["B3", "B2", "F0", "D3", "D1"],
