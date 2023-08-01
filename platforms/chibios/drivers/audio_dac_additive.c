@@ -138,10 +138,10 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
 
         while (new_dac_if >= AUDIO_DAC_BUFFER_SIZE)
             new_dac_if -= AUDIO_DAC_BUFFER_SIZE;
+        dac_if[i] = new_dac_if;
 
         // Wavetable generation/lookup
         size_t dac_i = (size_t)new_dac_if;
-        dac_if[i] = new_dac_if;
 
 #if defined(AUDIO_DAC_SAMPLE_WAVEFORM_SINE)
         value += dac_buffer_sine[dac_i] / active_tones_snapshot_length;
