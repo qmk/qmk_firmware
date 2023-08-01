@@ -38,29 +38,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_NO, KC_LALT, KC_DEL, KC_PGDN, KC_SPC, KC_PGUP, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT)
 };
 // clang-format on
-
-uint16_t pressed_time = 0;
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    switch (keycode) {
-        case EE_CLR: {
-            if (record->event.pressed) {
-                pressed_time = timer_read();
-            } else {
-                pressed_time = 0;
-            }
-            return false;
-        }
-        default: return true;
-    }
-}
-
-void housekeeping_task_user(void) {
-
-    if (pressed_time && (timer_elapsed(pressed_time) >= 5000)) {
-        pressed_time = 0;
-        eeconfig_init();
-        eeconfig_update_rgb_matrix_default();
-    }
-}
