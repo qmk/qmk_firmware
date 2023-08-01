@@ -6,6 +6,9 @@
  * using a external generator (Like is done for the ASETNIOP base keymaps)
  * With this disgusting bodge, you can just edit your .defs and compile!
  */
+
+#pragma once
+
 #include "g/engine.h"
 
 // Clear all X Macros

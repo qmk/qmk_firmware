@@ -18,8 +18,6 @@
 
 
 #define RGB_TRIGGER_ON_KEYDOWN
-/* Force NKRO on boot up regardless of the setting saved in the EEPROM (uncomment to enable it) */
-#define FORCE_NKRO
 
 /* encoder resolution */
 #define TAP_CODE_DELAY 15

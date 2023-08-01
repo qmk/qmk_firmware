@@ -721,6 +721,8 @@ enum qk_keycode_defines {
     QK_AUTOCORRECT_TOGGLE = 0x7C76,
     QK_TRI_LAYER_LOWER = 0x7C77,
     QK_TRI_LAYER_UPPER = 0x7C78,
+    QK_REPEAT_KEY = 0x7C79,
+    QK_ALT_REPEAT_KEY = 0x7C7A,
     QK_KB_0 = 0x7E00,
     QK_KB_1 = 0x7E01,
     QK_KB_2 = 0x7E02,
@@ -1362,6 +1364,8 @@ enum qk_keycode_defines {
     AC_TOGG    = QK_AUTOCORRECT_TOGGLE,
     TL_LOWR    = QK_TRI_LAYER_LOWER,
     TL_UPPR    = QK_TRI_LAYER_UPPER,
+    QK_REP     = QK_REPEAT_KEY,
+    QK_AREP    = QK_ALT_REPEAT_KEY,
 };
 
 // Range Helpers
@@ -1413,6 +1417,6 @@ enum qk_keycode_defines {
 #define IS_MACRO_KEYCODE(code) ((code) >= QK_MACRO_0 && (code) <= QK_MACRO_31)
 #define IS_BACKLIGHT_KEYCODE(code) ((code) >= QK_BACKLIGHT_ON && (code) <= QK_BACKLIGHT_TOGGLE_BREATHING)
 #define IS_RGB_KEYCODE(code) ((code) >= RGB_TOG && (code) <= RGB_MODE_TWINKLE)
-#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_TRI_LAYER_UPPER)
+#define IS_QUANTUM_KEYCODE(code) ((code) >= QK_BOOTLOADER && (code) <= QK_ALT_REPEAT_KEY)
 #define IS_KB_KEYCODE(code) ((code) >= QK_KB_0 && (code) <= QK_KB_31)
 #define IS_USER_KEYCODE(code) ((code) >= QK_USER_0 && (code) <= QK_USER_31)

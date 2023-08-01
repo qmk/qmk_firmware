@@ -53,6 +53,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
 
 - keyboard moves within the repository *must* go through the `develop` branch instead of `master`, so as to ensure compatibility for users
     - `data/mappings/keyboard_aliases.hjson` must be updated to reflect the move, so users with pre-created configurator keymap.json files continue to detect the correct keyboard
+- keyboard updates and refactors (eg. to data driven) *must* go through `develop` to reduce `master` -> `develop` merge conflicts
 - PR submissions from a `kbfirmware` export (or equivalent) will not be accepted unless converted to new QMK standards -- try `qmk import-kbfirmware` first
 - `info.json`
     - With the move to [data driven](https://docs.qmk.fm/#/data_driven_config) keyboard configuration, we encourage contributors to utilise as many features as possible of the info.json [schema](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema).
@@ -61,7 +62,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
         - valid maintainer
         - valid USB VID/PID and device version
         - displays correctly in Configurator (press Ctrl+Shift+I to preview local file, turn on fast input to verify ordering)
-        - `layout` definitions should include matrix positions, so that `LAYOUT` macros can be generated at build time
+        - `layout` definitions must include matrix positions, so that `LAYOUT` macros can be generated at build time
             - should use standard definitions if applicable
             - use the Community Layout macro names where they apply (preferred above `LAYOUT`/`LAYOUT_all`)
             - If the keyboard only has a single electrical/switch layout:
@@ -123,7 +124,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - hardware that's enabled at the keyboard level and requires configuration such as OLED displays or encoders should have basic functionality implemented here
 - `<keyboard>.h`
     - `#include "quantum.h"` appears at the top
-    - `LAYOUT` macros should be moved to `info.json`
+    - `LAYOUT` macros are no longer accepted and should instead be moved to `info.json`
 - keymap `config.h`
     - no duplication of `rules.mk` or `config.h` from keyboard
 - `keymaps/default/keymap.c`
@@ -131,6 +132,7 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - if using `MO(1)` and `MO(2)` keycodes together to access a third layer, the [Tri Layer](https://docs.qmk.fm/#/feature_tri_layer) feature should be used, rather than manually implementing this using `layer_on/off()` and `update_tri_layer()` functions in the keymap's `process_record_user()`.
 - default (and via) keymaps should be "pristine"
     - bare minimum to be used as a "clean slate" for another user to develop their own user-specific keymap
+    - what does pristine mean? no custom keycodes. no advanced features like tap dance or macros. basic mod taps and home row mods would be acceptable where their use is necessary
     - standard layouts preferred in these keymaps, if possible
     - should use [encoder map feature](https://docs.qmk.fm/#/feature_encoders?id=encoder-map), rather than `encoder_update_user()`
     - default keymap should not enable VIA -- the VIA integration documentation requires a keymap called `via`

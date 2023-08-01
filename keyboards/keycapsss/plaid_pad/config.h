@@ -16,14 +16,5 @@
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { C0, C1, C2, C3 }
-#define MATRIX_COL_PINS { B0, D7, D6, D5 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-#define USB_MAX_POWER_CONSUMPTION 100
-
 // Fix for volume controll with encoder (steadily in/decrease)
 #define TAP_CODE_DELAY 60

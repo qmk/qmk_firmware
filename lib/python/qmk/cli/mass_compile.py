@@ -9,9 +9,11 @@ from milc import cli
 
 from qmk.constants import QMK_FIRMWARE
 from qmk.commands import _find_make, get_make_parallel_args
+from qmk.keyboard import resolve_keyboard
 from qmk.search import search_keymap_targets
 
 
+@cli.argument('builds', nargs='*', arg_only=True, help="List of builds in form <keyboard>:<keymap> to compile in parallel. Specifying this overrides all other target search options.")
 @cli.argument('-t', '--no-temp', arg_only=True, action='store_true', help="Remove temporary files during build.")
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
@@ -37,7 +39,11 @@ def mass_compile(cli):
     builddir = Path(QMK_FIRMWARE) / '.build'
     makefile = builddir / 'parallel_kb_builds.mk'
 
-    targets = search_keymap_targets(cli.args.keymap, cli.args.filter)
+    if len(cli.args.builds) > 0:
+        targets = list(sorted(set([(resolve_keyboard(e[0]), e[1]) for e in [b.split(':') for b in cli.args.builds]])))
+    else:
+        targets = search_keymap_targets(cli.args.keymap, cli.args.filter)
+
     if len(targets) == 0:
         return
 
@@ -71,9 +77,6 @@ all: {keyboard_safe}_{keymap_name}_binary
                     f"""\
 	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.elf" 2>/dev/null || true
 	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.map" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.hex" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.bin" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/{keyboard_safe}_{keymap_name}.uf2" 2>/dev/null || true
 	@rm -rf "{QMK_FIRMWARE}/.build/obj_{keyboard_safe}" || true
 	@rm -rf "{QMK_FIRMWARE}/.build/obj_{keyboard_safe}_{keymap_name}" || true
 """# noqa

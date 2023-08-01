@@ -41,6 +41,9 @@
     "angel64": {
         "target": "angel64/alpha"
     },
+    "ashpil/modelm_usbc": {
+        "target": "ibm/model_m/ashpil_usbc"
+    },
     "at101_blackheart": {
         "target": "viktus/at101_bh"
     },
@@ -113,6 +116,15 @@
     "cmm_studio/saka68": {
         "target": "cmm_studio/saka68/solder"
     },
+    "converter/modelm101": {
+        "target": "ibm/model_m/teensypp"
+    },
+    "converter/modelm101_teensy2": {
+        "target": "ibm/model_m/teensy2"
+    },
+    "converter/modelm_ssk": {
+        "target": "ibm/model_m_ssk/teensypp_ssk"
+    },
     "cospad": {
         "target": "kprepublic/cospad"
     },
@@ -148,6 +160,15 @@
     },
     "durgod/k320": {
         "target": "durgod/k3x0/k320"
+    },
+    "durgod/hades": {
+        "target": "durgod/dgk6x/hades_ansi"
+    },
+    "durgod/hades_ansi": {
+        "target": "durgod/dgk6x/hades_ansi"
+    },
+    "durgod/hades_iso": {
+        "target": "durgod/dgk6x/hades_iso"
     },
     "dztech/dz60rgb": {
         "target": "dztech/dz60rgb/v1"
@@ -193,6 +214,9 @@
     },
     "handwired/ferris": {
         "target": "ferris/0_1"
+    },
+    "handwired/ibm122m": {
+        "target": "ibm/model_m_122/ibm122m"
     },
     "handwired/p1800fl": {
         "target": "team0110/p1800fl"
@@ -248,6 +272,9 @@
     "idobo": {
         "target": "idobao/id75"
     },
+    "jacky_studio/piggy60": {
+        "target": "jacky_studio/piggy60/rev1"
+    },
     "jj40": {
         "target": "kprepublic/jj40"
     },
@@ -260,6 +287,12 @@
     "jones": {
         "target": "jones/v03_1"
     },
+    "kamigakushi": {
+        "target": "jaykeeb/kamigakushi",
+        "layouts": {
+            "LAYOUT": "LAYOUT_65_ansi_blocker_tsangan"
+        }
+    },
     "katana60": {
         "target": "rominronin/katana60/rev1"
     },
@@ -271,6 +304,9 @@
     },
     "kbdfans/kbd67/mkiirgb": {
         "target": "kbdfans/kbd67/mkiirgb/v1"
+    },
+    "keebio/chocopad": {
+        "target": "keebio/chocopad/rev1"
     },
     "keebio/dsp40": {
         "target": "keebio/dsp40/rev1"
@@ -406,6 +442,9 @@
     },
     "montsinger/rebound": {
         "target": "montsinger/rebound/rev1"
+    },
+    "mschwingen/modelm": {
+        "target": "ibm/model_m/mschwingen"
     },
     "noxary/268_2": {
         "layouts": {
@@ -925,6 +964,12 @@
     "m3n3van": {
         "target": "matthewdias/m3n3van"
     },
+    "massdrop/thekey": {
+        "target": "drop/thekey/v1"
+    },
+    "massdrop/thekey_v2": {
+        "target": "drop/thekey/v2"
+    },
     "mechmini/v1": {
         "target": "mechkeys/mechmini/v1"
     },
@@ -1222,6 +1267,9 @@
     "treadstone48/rev2": {
         "target": "marksard/treadstone48/rev2"
     },
+    "tronguylabs/m122_3270": {
+        "target": "ibm/model_m_122/m122_3270"
+    },
     "ua62": {
         "target": "nacly/ua62"
     },
@@ -1281,6 +1329,9 @@
     },
     "ymdk_np21": {
         "target": "ymdk/np21"
+    },
+    "yugo_m/model_m_101": {
+        "target": "ibm/model_m/yugo_m"
     },
     "yurei": {
         "target": "kkatano/yurei"
