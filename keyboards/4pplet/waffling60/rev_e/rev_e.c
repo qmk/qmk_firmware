@@ -16,6 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "rev_e.h"
 
+void keyboard_pre_init_kb(void) {
+    rgblight_set_effect_range(0, 16);
+    keyboard_pre_init_user();
+}
+
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (CAPS_LOCK_ENABLE && res) {
@@ -28,20 +33,3 @@ bool led_update_kb(led_t led_state) {
     }
     return res;
 }
-
-// This will be overridden by encoder map in all default keymaps, but serves as a catch-all for user keymaps that may omit the map.
-#if defined (ENCODER_ENABLE) && !defined (ENCODER_MAP_ENABLE)
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-      return false; /* Don't process further events if user function exists and returns false */
-    }
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            tap_code_delay(KC_VOLU, 10);
-        } else {
-            tap_code_delay(KC_VOLD, 10);
-        }
-    }
-    return true;
-}
-#endif
