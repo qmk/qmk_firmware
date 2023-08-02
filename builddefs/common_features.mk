@@ -697,11 +697,6 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
                 QUANTUM_LIB_SRC += i2c_master.c \
                                    i2c_slave.c
             endif
-        else ifeq ($(PLATFORM),CHIBIOS)
-            ifneq ($(NO_I2C),yes)
-                QUANTUM_LIB_SRC += i2c_master.c \
-                                   i2c_slave.c
-            endif
         endif
 
         OPT_DEFS += -DSERIAL_DRIVER_$(strip $(shell echo $(SERIAL_DRIVER) | tr '[:lower:]' '[:upper:]'))
