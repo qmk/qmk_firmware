@@ -14,7 +14,12 @@
   "build": {
     "lto": true
   },
+  "features": {
+    "extrakey": true,
+    "oled": true
+  },
   "encoder": {
+    "enabled": true,
     "rotary": [
       {"pin_a": "F5", "pin_b": "F4"}
     ]
