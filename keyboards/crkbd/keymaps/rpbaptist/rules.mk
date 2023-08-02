@@ -7,11 +7,11 @@ LTO_ENABLE = yes
 #
 EXTRAKEY_ENABLE    = yes  # Audio control and System control(+450)
 NKRO_ENABLE        = yes  # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-# DYNAMIC_MACRO_ENABLE = yes
+DYNAMIC_MACRO_ENABLE = no
 
 MOUSEKEY_ENABLE    = no   # Mouse keys(+4700)
 RGBLIGHT_ENABLE    = no   # Enable WS2812 RGB underlight.
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE   = no   # Virtual DIP switch configuration(+1000)
 CONSOLE_ENABLE     = no   # Console for debug(+400)
 COMMAND_ENABLE     = no   # Commands for debug and configuration
 BACKLIGHT_ENABLE   = no   # Enable keyboard backlight functionality
@@ -31,8 +31,14 @@ BOOTLOADER       = qmk-dfu
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 
+DEBOUNCE_TYPE = sym_eager_pk
+
 ifeq ($(strip $(THEME)), godspeed)
     OPT_DEFS += -DTHEME_GODSPEED
+endif
+
+ifeq ($(strip $(THEME)), godspeed_ares)
+    OPT_DEFS += -DTHEME_GODSPEED_ARES
 endif
 
 ifeq ($(strip $(THEME)), pulse)
@@ -41,4 +47,16 @@ endif
 
 ifeq ($(strip $(THEME)), laser)
     OPT_DEFS += -DTHEME_LASER
+endif
+
+ifeq ($(strip $(THEME)), milkshake)
+    OPT_DEFS += -DTHEME_MILKSHAKE
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+	SRC += rgb.c
+endif
+
+ifeq ($(strip $(OLED_ENABLE)), yes)
+	SRC+= oled.c
 endif
