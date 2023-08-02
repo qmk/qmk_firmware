@@ -1,7 +1,10 @@
-MOUSEKEY_ENABLE = yes    # Mouse keys
-RGBLIGHT_ENABLE = no    # Enable WS2812 RGB underlight.
-VIA_ENABLE      = no    # Disable VIA
-OLED_ENABLE     = no
-OLED_DRIVER     = SSD1306
-LTO_ENABLE      = no
-POINTING_DEVICE_ENABLE = no
+MOUSEKEY_ENABLE        = yes                # Enable Mouse keys
+RGBLIGHT_ENABLE        = no                 # Disable WS2812 RGB underlight.
+VIA_ENABLE             = no                 # Disable VIA
+TAP_DANCE_ENABLE       = yes                # Enable Tap Dance
+OLED_ENABLE            = no                # Disable OLED
+OLED_DRIVER            = SSD1306            # Designate SSD1306as OLED driver
+LTO_ENABLE             = yes			    # Enable Link Time Optimization
+POINTING_DEVICE_ENABLE = no				    # Enable pointing device
+UNICODE_ENABLE         = no                # Enable unicode character calls
+WPM_ENABLE             = no				# Enable WPM tracking
