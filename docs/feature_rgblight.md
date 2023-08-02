@@ -90,7 +90,7 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 
 |Define                     |Default                     |Description                                                                                                                |
 |---------------------------|----------------------------|---------------------------------------------------------------------------------------------------------------------------|
-|`RGBLIGHT_HUE_STEP`        |`10`                        |The number of steps to cycle through the hue by                                                                            |
+|`RGBLIGHT_HUE_STEP`        |`8`                         |The number of steps to cycle through the hue by                                                                            |
 |`RGBLIGHT_SAT_STEP`        |`17`                        |The number of steps to increment the saturation by                                                                         |
 |`RGBLIGHT_VAL_STEP`        |`17`                        |The number of steps to increment the brightness by                                                                         |
 |`RGBLIGHT_LIMIT_VAL`       |`255`                       |The maximum brightness level                                                                                               |

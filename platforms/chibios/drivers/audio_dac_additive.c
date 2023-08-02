@@ -66,7 +66,7 @@ static const dacsample_t dac_buffer_triangle[AUDIO_DAC_BUFFER_SIZE] = {
 #endif // AUDIO_DAC_SAMPLE_WAVEFORM_TRIANGLE
 #ifdef AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE
 static const dacsample_t dac_buffer_square[AUDIO_DAC_BUFFER_SIZE] = {
-    [0 ... AUDIO_DAC_BUFFER_SIZE / 2 - 1]                     = 0,                    // first and
+    [0 ... AUDIO_DAC_BUFFER_SIZE / 2 - 1]                     = AUDIO_DAC_OFF_VALUE,  // first and
     [AUDIO_DAC_BUFFER_SIZE / 2 ... AUDIO_DAC_BUFFER_SIZE - 1] = AUDIO_DAC_SAMPLE_MAX, // second half
 };
 #endif // AUDIO_DAC_SAMPLE_WAVEFORM_SQUARE
@@ -135,7 +135,7 @@ __attribute__((weak)) uint16_t dac_value_generate(void) {
          *      timer runs with 3*AUDIO_DAC_SAMPLE_RATE; and the DAC callback
          *      is called twice per conversion.*/
 
-        dac_if[i] = fmod(dac_if[i], AUDIO_DAC_BUFFER_SIZE);
+        dac_if[i] = fmodf(dac_if[i], AUDIO_DAC_BUFFER_SIZE);
 
         // Wavetable generation/lookup
         uint16_t dac_i = (uint16_t)dac_if[i];
