@@ -25,6 +25,9 @@
     "ws2812": {
         "pin": "B1"
     },
+    "bluetooth": {
+        "driver": "custom"
+    },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
     "community_layouts": ["60_ansi", "60_iso", "60_hhkb", "60_ansi_split_bs_rshift", "60_tsangan_hhkb"],

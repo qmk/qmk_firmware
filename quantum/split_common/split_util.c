@@ -206,9 +206,6 @@ void split_pre_init(void) {
 #endif
 
     if (is_keyboard_master()) {
-#if defined(USE_I2C) && defined(SSD1306OLED)
-        matrix_master_OLED_init();
-#endif
         transport_master_init();
     }
 }
