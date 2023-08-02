@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #pragma once
 
-#define SSD1306OLED
-
 #define RGB_MATRIX_LED_COUNT 18
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

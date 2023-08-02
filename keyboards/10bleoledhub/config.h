@@ -16,6 +16,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #pragma once
 
-#define SSD1306OLED
-
 #define OLED_FONT_H "./lib/glcdfont.c"
