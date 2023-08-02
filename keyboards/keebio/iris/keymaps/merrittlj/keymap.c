@@ -1,35 +1,15 @@
-// Copyright 2023 Danny Nguyen (@nooges)
+// Copyright 2023 Lucas Merritt (merrittlj)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 
-#define _DVORAK 0
-#define _SHIFT 1
-#define _SYMBOL 2
-#define _FUNCTION 3
-#define _ADDITIONAL 4
-
-#define KC_LBRACE S(KC_LBRC)
-#define KC_RBRACE S(KC_RBRC)
-#define KC_LESSTHAN S(KC_COMMA)
-#define KC_MORETHAN S(KC_DOT)
-// #define KC_UNDERSCORE S(KC_MINUS)
-#define KC_PLUS S(KC_EQUAL)
-// #define KC_PIPE S(KC_BSLS)
-#define KC_DQUOTE S(KC_QUOTE)
-// #define KC_COLON S(KC_SCLN)
-#define KC_QMARK S(KC_SLSH)
-// #define KC_TILDE S(KC_GRAVE)
-#define KC_BANG S(KC_1)
-#define KC_AT S(KC_2)
-#define KC_HASH S(KC_3)
-// #define KC_DOLLAR S(KC_4)
-#define KC_PCNT S(KC_5)
-#define KC_AHEAD S(KC_6)
-#define KC_AND S(KC_7)
-// #define KC_ASTERISK S(KC_8)
-#define KC_LPAREN S(KC_9)
-#define KC_RPAREN S(KC_0)
+enum layers {
+    _DVORAK,
+    _SHIFT,
+    _SYMBOL,
+    _FUNCTION,
+    _ADDITIONAL,
+};
 
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
@@ -56,15 +36,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SHIFT] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+     KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, XXXXXXX,
+     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, XXXXXXX,
+     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX, XXXXXXX, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, XXXXXXX,          XXXXXXX, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, XXXXXXX,
+     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    XXXXXXX, XXXXXXX, KC_TRNS,                   XXXXXXX, XXXXXXX, XXXXXXX
+                                    KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -72,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX, KC_ASTERISK,KC_PLUS,KC_MINUS,KC_UNDERSCORE,KC_EQUAL,                    KC_LBRC, KC_RBRC, KC_LESSTHAN,KC_MORETHAN,KC_PIPE,KC_AHEAD,
+     XXXXXXX, KC_LABK, KC_MINUS,KC_LBRC, KC_LPRN, KC_EQUAL,                           KC_ASTR, KC_RPRN, KC_RBRC, KC_UNDS, KC_RABK, KC_CIRC,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX, KC_SCLN, KC_COMMA,KC_DOT,  KC_DQUOTE,KC_QUOTE,                          KC_LBRACE,KC_RBRACE,KC_LPAREN,KC_RPAREN,KC_SLSH,KC_BSLS,
+     XXXXXXX, KC_DQUO, KC_COMMA,KC_LCBR, KC_SCLN, KC_QUOT,                            KC_PLUS, KC_DOT,  KC_RCBR, KC_SLSH, KC_PIPE, KC_BSLS,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX, KC_HASH, KC_BANG, KC_AND,  KC_COLON,KC_QMARK,XXXXXXX,          XXXXXXX, KC_GRAVE,KC_TILDE,KC_AT,   KC_DOLLAR,KC_PCNT,XXXXXXX,
+     XXXXXXX, KC_QUES, KC_EXLM, KC_AMPR, KC_COLN, KC_HASH, XXXXXXX,          XXXXXXX, KC_PERC, KC_AT,   KC_GRAVE,KC_DLR,  KC_TILDE,XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
