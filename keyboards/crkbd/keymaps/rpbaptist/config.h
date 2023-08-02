@@ -84,6 +84,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM_PER_KEY
 
+#define TAP_CODE_DELAY 10
 #define TAPPING_TOGGLE 2
 
 #ifdef MOUSEKEY_ENABLE
