@@ -654,7 +654,7 @@ void keyboard_task(void) {
 #endif
 
 #if RGB_MATRIX_TIMEOUT > 0
-    // Wake the RGB matrix or reset the RGB matrix timeout timer if there was activity 
+    // Wake the RGB matrix or reset the RGB matrix timeout timer if there was activity
     // on the encoders or pointing device.
     if (activity_has_occurred) rgb_matrix_activity();
 #endif
