@@ -10,7 +10,7 @@ Leeloo v2 is the evolution of Leeloo, which is a 4x6x5m ortholinear split keyboa
 
 # Leeloo
 
-![Leeloo](https://i.imgur.com/x1ew17D.jpg)
+![Leeloo](https://i.imgur.com/x1ew17Dh.jpg)
 
 The original design and release of Leeloo.
 
