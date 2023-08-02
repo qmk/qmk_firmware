@@ -49,10 +49,10 @@ while lang_key:
 static enum lang_layer g_lang = LANG_EN;
 //[[[end]]]
 
-enum kb_layers { _BL = 0, _FNL = 1, _NL = 2, _UL = 3, _LL = 4 };
+enum kb_layers { _L0 = 0x00, _BL=_L0, _L1 = 0x01, _L2 = 0x02, _FL = 0x03, _NL = 0x04, _UL = 0x05, _LS = 0x06 };
 
 enum my_keycodes {
-    KC_LANG = SAFE_RANGE, KC_DECC, KC_INCC,
+    KC_LANG = SAFE_RANGE, KC_DECC, KC_INCC, KC_TOGBASE, KC_BASE, KC_L0, KC_L1, KC_L2,
     /*[[[cog
       for lang in languages:
           cog.out(f"KC_{lang}, ")
@@ -85,12 +85,12 @@ struct display_info disp_row_3 = { BITMASK4(0) };
 enum refresh_mode { START_FIRST_HALF, START_SECOND_HALF, DONE_ALL, ALL_AT_ONCE };
 static enum refresh_mode g_refresh = DONE_ALL;
 static int8_t g_contrast = FULL_BRIGHT;
-
+static layer_state_t g_default_ls = 0;
 static uint16_t last_key = 0;
-
 typedef struct _poly_sync_t {
     uint8_t lang;
     int8_t contrast;
+    layer_state_t default_ls;
 } poly_sync_t;
 
 typedef struct _poly_state_t {
@@ -151,6 +151,14 @@ void update_performed(void) {
     last_update = timer_read32();
 }
 
+layer_state_t persistent_default_layer_get(void) {
+    return (layer_state_t)eeconfig_read_default_layer();
+}
+
+void persistent_default_layer_set(uint16_t default_layer) {
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
+}
 
 void request_disp_refresh(void) {
     g_refresh = ALL_AT_ONCE;
@@ -162,14 +170,15 @@ void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t ou
     if (in_len != 0 && in_data != NULL) {
         g_lang = ((poly_sync_t*)in_data)->lang;
         g_contrast = ((poly_sync_t*)in_data)->contrast;
+        g_default_ls = ((poly_sync_t*)in_data)->default_ls;
     }
 }
 
 void sync_and_refresh_displays(void) {
     if (is_keyboard_master()) {
         //master syncs data
-        if (g_lang != g_state.s.lang || g_contrast != g_state.s.contrast ){
-            poly_sync_t send = { g_lang, g_contrast};
+        if (g_lang != g_state.s.lang || g_contrast != g_state.s.contrast || g_default_ls != g_state.s.default_ls ){
+            poly_sync_t send = { g_lang, g_contrast, g_default_ls};
             if (transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(send), &send)) {
                 g_state.s.lang = g_lang;
                 //dprint("poly state sync done!\n");
@@ -192,12 +201,14 @@ void sync_and_refresh_displays(void) {
     if (led_state.raw != g_state.led_state.raw ||
         mod_state != g_state.mod_state ||
         layer_state != g_state.layer_state ||
-        g_state.s.lang != g_lang) {
+        g_state.s.lang != g_lang ||
+        g_state.s.default_ls != g_default_ls) {
 
         g_state.led_state = host_keyboard_led_state();
         g_state.mod_state = get_mods();
         g_state.layer_state = layer_state;
         g_state.s.lang = g_lang;
+        g_state.s.default_ls = g_default_ls;
         request_disp_refresh();
     }
 
@@ -243,33 +254,59 @@ void housekeeping_task_user(void) {
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    //Base Layer
-    [_BL] = LAYOUT_left_right_stacked(
-        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
+    //Base Layers
+    [_L0] = LAYOUT_left_right_stacked(
+        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
-        MO(_FNL),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
+        MO(_FL),    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
+        KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_NUHS,    MO(_NL),
+        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
+
+                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
+                    KC_HYPR,    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,
+        KC_NO,      KC_MEH,     KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,
+        KC_LANG,    KC_BSLS,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
+        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
+        ),
+    [_L1] = LAYOUT_left_right_stacked(
+        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
+        KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
+        MO(_FL),    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
         KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
-                    KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_BSLS,
-                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_SLASH,
-        KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    KC_ENTER,
-        KC_LANG,    KC_HYPR,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_UP,      KC_RSFT,
-        KC_MEH,     KC_BSPC,    KC_SPC,                 KC_RALT,    KC_LEFT,    KC_DOWN,    KC_RIGHT
+                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
+                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_HYPR,
+        KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    KC_BSLS,
+        KC_LANG,    KC_MEH,     KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
+        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
+        ),
+    [_L2] = LAYOUT_left_right_stacked(
+        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
+        KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
+        MO(_FL),    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
+        KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
+        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
+
+                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
+                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_HYPR,
+        KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    KC_BSLS,
+        KC_LANG,    KC_MEH,     KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
+        KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
     //Function Layer (Fn)
-    [_FNL] = LAYOUT_left_right_stacked(
-        OSL(_UL),    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
+    [_FL] = LAYOUT_left_right_stacked(
+        OSL(_UL),   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,     TO(_UL),
         KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         KC_CAPS,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    KC_MS_BTN2,             _______,    _______,    _______,
 
-                    KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,    TO(_UL),
+                    KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,
                     _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        _______,    _______,    _______,    _______,    _______,    _______,    _______,    TO(_NL),
-        _______,    _______,    _______,    _______,    _______,    _______,    KC_PGUP,    _______,
-        _______,    _______,    _______,                _______,    KC_HOME,    KC_PGDN,    KC_END
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
      //Num Layer
     [_NL] = LAYOUT_left_right_stacked(
@@ -277,41 +314,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MS_BTN1, KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,    KC_INS,     KC_NO,
         KC_NO,      KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PPLS,    KC_DEL,     KC_NO,     _______,
         KC_NO,      KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PENT,    KC_NO,      KC_NO,     _______,
-        TO(_BL),    KC_KP_0,    KC_PDOT,    KC_PENT,                KC_MS_BTN2, KC_NO,     KC_NO,
+        KC_BASE,    KC_KP_0,    KC_PDOT,    KC_PENT,                KC_MS_BTN2, KC_NO,     KC_NO,
 
                     KC_NO,      KC_NO,      KC_NUM,     KC_PSLS,    KC_PAST,    KC_PMNS,   KC_NO,
                     KC_NO,      KC_INS,     KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_PPLS,   KC_NO,
         _______,    KC_NO,      KC_DEL,     KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PPLS,   KC_NO,
         _______,    _______,    KC_NO,      KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PENT,   KC_NO,
-        _______,    KC_NO,      KC_NO,                  KC_KP_0,    KC_PDOT,    KC_PENT,   TO(_BL)
+        _______,    KC_NO,      KC_NO,                  KC_KP_0,    KC_PDOT,    KC_PENT,   KC_BASE
         ),
     //Util Layer
     [_UL] = LAYOUT_left_right_stacked(
+        KC_NO,      KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,      KC_NO,
         KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     _______,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     QK_DEBUG_TOGGLE,
-        TO(_BL),    KC_INCC,    KC_NO,      KC_DECC,                QK_RBT,     QK_MAKE,   QK_BOOT,
+        KC_BASE,    KC_INCC,    KC_NO,      KC_DECC,                QK_RBT,     QK_MAKE,   QK_BOOT,
 
+                    KC_F18,     KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,    KC_F24,
                     KC_MPRV,    KC_MPLY,    KC_MSTP,    KC_MNXT,    KC_MUTE,    KC_VOLD,   KC_VOLU,
-                    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
         _______,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
-        KC_NO,      KC_NO,      KC_NO,                  RGB_RMOD,   RGB_TOG,    RGB_MOD,   TO(_BL)
+        KC_NO,      KC_NO,      KC_TOGBASE, KC_L0,      KC_L1,      KC_L2,      KC_NO,     KC_NO,
+        KC_NO,      KC_NO,      KC_NO,                  RGB_RMOD,   RGB_TOG,    RGB_MOD,   KC_BASE
         ),
     //Language Selection Layer
-    [_LL] = LAYOUT_left_right_stacked(
+    [_LS] = LAYOUT_left_right_stacked(
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
         KC_NO,      KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_LANG_GR, KC_NO,      KC_NO,
         KC_NO,      KC_LANG_FR, KC_LANG_DE, KC_LANG_JA, KC_LANG_TR, KC_NO,      KC_NO,      KC_MS_BTN1,
         KC_NO,      KC_LANG_IT, KC_LANG_EN, KC_LANG_KO, KC_NO,      KC_NO,      KC_NO,      KC_NO,
-        TO(_BL),    KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,
+        KC_BASE,    KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,
 
                     KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
                     KC_NO,      KC_LANG_GR, KC_LANG_AR, KC_LANG_ES, KC_LANG_PT, KC_NO,      KC_NO,
         _______,    KC_NO,      KC_LANG_TR, KC_LANG_JA, KC_LANG_DE, KC_LANG_FR, KC_NO,      KC_NO,
         KC_NO,      KC_NO,      KC_NO,      KC_LANG_KO, KC_LANG_EN, KC_LANG_IT, KC_NO,      KC_NO,
-        KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,      TO(_BL)
+        KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,      KC_BASE
         )
 };
 
@@ -467,12 +504,13 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"Hypr";
     case KC_MEH:
         return u"Meh";
+    case KC_EXEC:
+        return u"Exec";
     case KC_NUM_LOCK:
         return !state.num_lock ? u"Nm" ICON_NUMLOCK_OFF : u"Nm" ICON_NUMLOCK_ON;
     case KC_KP_SLASH:
         return u"/";
     case KC_KP_ASTERISK:
-        return u"*";
     case KC_KP_MINUS:
         return u"-";
     case KC_KP_7:
@@ -569,42 +607,50 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return TECHNICAL_ERASERIGHT;
     case KC_MYCM:
         return u"  " PRIVATE_PC;
-    case MO(_FNL):
+    case MO(_FL):
         return u"Fn\r\v\t" ICON_LAYER;
     case TO(_NL):
         return u"Nm\r\v\t" ICON_LAYER;
     case MO(_NL):
         return u"Nm!\r\v\t" ICON_LAYER;
-    case TO(_BL):
+    case KC_BASE:
         return u"Base\r\v\t" ICON_LAYER;
+    case KC_TOGBASE:
+        return u"TgBL\r\v\t" ICON_LAYER;
+    case KC_L0:
+        return g_default_ls==_L0 ? u"BL 0" ICON_LAYER u"\r\v" ICON_SWITCH_ON : u"BL 0" ICON_LAYER u"\r\v" ICON_SWITCH_OFF;
+    case KC_L1:
+        return g_default_ls==_L1 ? u"BL 1" ICON_LAYER u"\r\v" ICON_SWITCH_ON : u"BL 0" ICON_LAYER u"\r\v" ICON_SWITCH_OFF;
+    case KC_L2:
+        return g_default_ls==_L2 ? u"BL 2" ICON_LAYER u"\r\v" ICON_SWITCH_ON : u"BL 0" ICON_LAYER u"\r\v" ICON_SWITCH_OFF;
     case OSL(_UL):
         return u"Util*\r\v\t" ICON_LAYER;
     case TO(_UL):
         return u"Util\r\v\t" ICON_LAYER;
-    case KC_F1:
-        return u" F1";
-    case KC_F2:
-        return u" F2";
-    case KC_F3:
-        return u" F3";
-    case KC_F4:
-        return u" F4";
-    case KC_F5:
-        return u" F5";
-    case KC_F6:
-        return u" F6";
-    case KC_F7:
-        return u" F7";
-    case KC_F8:
-        return u" F8";
-    case KC_F9:
-        return u" F9";
-    case KC_F10:
-        return u" F10";
-    case KC_F11:
-        return u" F11";
-    case KC_F12:
-        return u" F12";
+    case KC_F1: return u" F1";
+    case KC_F2: return u" F2";
+    case KC_F3: return u" F3";
+    case KC_F4: return u" F4";
+    case KC_F5: return u" F5";
+    case KC_F6: return u" F6";
+    case KC_F7: return u" F7";
+    case KC_F8: return u" F8";
+    case KC_F9: return u" F9";
+    case KC_F10:return u" F10";
+    case KC_F11:return u" F11";
+    case KC_F12:return u" F12";
+    case KC_F13:return u" F13";
+    case KC_F14:return u" F14";
+    case KC_F15:return u" F15";
+    case KC_F16:return u" F16";
+    case KC_F17:return u" F17";
+    case KC_F18:return u" F18";
+    case KC_F19:return u" F19";
+    case KC_F20:return u" F20";
+    case KC_F21:return u" F21";
+    case KC_F22:return u" F22";
+    case KC_F23:return u" F23";
+    case KC_F24:return u" F24";
     case KC_LEFT_CTRL:
     case KC_RIGHT_CTRL:
         return TECHNICAL_COMMAND;
@@ -714,8 +760,8 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
 
 void update_displays(enum refresh_mode mode) {
     uint8_t layer = get_highest_layer(layer_state);
-    if (layer > _LL) {
-        layer = _BL;
+    if (layer > _LS) {
+        layer = g_default_ls;
     }
 
     led_t state = host_keyboard_led_state();
@@ -808,6 +854,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return display_wakeup(record);
 }
 
+
+
+
 void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (keycode == KC_CAPS_LOCK) {
         request_disp_refresh();
@@ -815,66 +864,59 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     if (!record->event.pressed) {
         switch (keycode) {
-        /*case RGB_TOGGLE:
-            rgb_matrix_toggle_noeeprom();
+        case KC_L0:
+            g_default_ls = _L0;
+            persistent_default_layer_set(g_default_ls);
             request_disp_refresh();
-            break;*/
+            break;
+        case KC_L1:
+            g_default_ls = _L1;
+            persistent_default_layer_set(g_default_ls);
+            request_disp_refresh();
+            break;
+        case KC_L2:
+            g_default_ls = _L2;
+            persistent_default_layer_set(g_default_ls);
+            request_disp_refresh();
+            break;
+        case KC_TOGBASE:
+            g_default_ls = (g_default_ls==_L0) ? _L1 : (g_default_ls==_L1) ? _L2 : _L0;
+            persistent_default_layer_set(g_default_ls);
+            request_disp_refresh();
+            break;
+        case KC_BASE:
+            layer_clear();
+            layer_on(g_default_ls);
+            break;
         case KC_RIGHT_SHIFT:
         case KC_LEFT_SHIFT:
             request_disp_refresh();
             break;
-        /*case KC_NXTL:
-            if (IS_LAYER_ON(_UL)) {
-                layer_off(_UL);
-            }
-            else {
-                layer_on(_UL);
-            }
-            break;
-        case RGB_NEXT:
-            rgb_matrix_step_noeeprom();
-            break;
-        case RGB_PREV:
-            rgb_matrix_step_reverse_noeeprom();
-            break;*/
         case KC_DECC:
             dec_brightness();
             break;
         case KC_INCC:
             inc_brightness();
             break;
-        /*case KC_SAVE_EE:
-            rgb_matrix_mode(rgb_matrix_get_mode());
-            if (rgb_matrix_is_enabled()) {
-                rgb_matrix_enable();
-            }
-            else {
-                rgb_matrix_disable();
-            }
-            break;
-        case KC_RST_DSP:
-            kdisp_init(NUM_SHIFT_REGISTERS);
-            kdisp_setup(true);
-            break;*/
             /*[[[cog
             for lang in languages:
-                cog.outl(f'case KC_{lang}: g_lang = {lang}; layer_off(_LL); break;')
+                cog.outl(f'case KC_{lang}: g_lang = {lang}; layer_off(_LS); break;')
             ]]]*/
-            case KC_LANG_EN: g_lang = LANG_EN; layer_off(_LL); break;
-            case KC_LANG_DE: g_lang = LANG_DE; layer_off(_LL); break;
-            case KC_LANG_FR: g_lang = LANG_FR; layer_off(_LL); break;
-            case KC_LANG_ES: g_lang = LANG_ES; layer_off(_LL); break;
-            case KC_LANG_PT: g_lang = LANG_PT; layer_off(_LL); break;
-            case KC_LANG_IT: g_lang = LANG_IT; layer_off(_LL); break;
-            case KC_LANG_TR: g_lang = LANG_TR; layer_off(_LL); break;
-            case KC_LANG_KO: g_lang = LANG_KO; layer_off(_LL); break;
-            case KC_LANG_JA: g_lang = LANG_JA; layer_off(_LL); break;
-            case KC_LANG_AR: g_lang = LANG_AR; layer_off(_LL); break;
-            case KC_LANG_GR: g_lang = LANG_GR; layer_off(_LL); break;
+            case KC_LANG_EN: g_lang = LANG_EN; layer_off(_LS); break;
+            case KC_LANG_DE: g_lang = LANG_DE; layer_off(_LS); break;
+            case KC_LANG_FR: g_lang = LANG_FR; layer_off(_LS); break;
+            case KC_LANG_ES: g_lang = LANG_ES; layer_off(_LS); break;
+            case KC_LANG_PT: g_lang = LANG_PT; layer_off(_LS); break;
+            case KC_LANG_IT: g_lang = LANG_IT; layer_off(_LS); break;
+            case KC_LANG_TR: g_lang = LANG_TR; layer_off(_LS); break;
+            case KC_LANG_KO: g_lang = LANG_KO; layer_off(_LS); break;
+            case KC_LANG_JA: g_lang = LANG_JA; layer_off(_LS); break;
+            case KC_LANG_AR: g_lang = LANG_AR; layer_off(_LS); break;
+            case KC_LANG_GR: g_lang = LANG_GR; layer_off(_LS); break;
             //[[[end]]]
         case KC_F1:case KC_F2:case KC_F3:case KC_F4:case KC_F5:case KC_F6:
         case KC_F7:case KC_F8:case KC_F9:case KC_F10:case KC_F11:case KC_F12:
-            layer_off(_LL);
+            layer_off(_LS);
             break;
         default:
             break;
@@ -888,12 +930,12 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
             request_disp_refresh();
             break;
         case KC_LANG:
-            if (IS_LAYER_ON(_LL)) {
+            if (IS_LAYER_ON(_LS)) {
                 g_lang = (g_lang + 1) % NUM_LANG;
-                layer_off(_LL);
+                layer_off(_LS);
             }
             else {
-                layer_on(_LL);
+                layer_on(_LS);
             }
             break;
         case RGB_TOG:
@@ -985,6 +1027,9 @@ void keyboard_post_init_user(void) {
     //pointing_device_set_cpi(20000);
     //pointing_device_set_cpi(2000);
     //pimoroni_trackball_set_rgbw(0,0,255,100);
+    g_default_ls = persistent_default_layer_get();
+    layer_clear();
+    layer_on(g_default_ls);
     uprintf("PolyKybd ready.");
 
     wait_ms(500);

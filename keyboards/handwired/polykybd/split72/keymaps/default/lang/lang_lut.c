@@ -630,17 +630,17 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_THAL,                  u"\v" ARABIC_SHADDA,          ARABIC_THAL,                  
     /*  LANG_GR  */  BACKSLASH u"\r\v\t" NOT_SIGN, u"|" u"\r\v\t" NOT_SIGN,      BACKSLASH u"\r\v\t" NOT_SIGN
     },
-    /*KC_NONUS_HASH*/ {BACKSLASH u"\r\v\t|",         u"|",                         BACKSLASH,                    
-    /*  LANG_DE  */  u"<" u"\r\v\t|",              u">" u"\r\v\t|",              NULL,                         
-    /*  LANG_FR  */  u"<",                         u">",                         NULL,                         
-    /*  LANG_ES  */  u"<",                         u">",                         u"<",                         
-    /*  LANG_PT  */  u"<",                         u">",                         u"<",                         
-    /*  LANG_IT  */  u"<",                         u">",                         u"<",                         
-    /*  LANG_TR  */  u"<" u"\r\v\t|",              u">" u"\r\v\t|",              u"<" u"\r\v\t|",              
+    /*KC_NONUS_HASH*/ {u"#" u"\r\v\t~",              u"~",                         u"#",                         
+    /*  LANG_DE  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_FR  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_ES  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_PT  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_IT  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_TR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_KO  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_JA  */  NULL,                         NULL,                         NULL,                         
-    /*  LANG_AR  */  BACKSLASH,                    u"|",                         BACKSLASH,                    
-    /*  LANG_GR  */  u">",                         u"<",                         u">"
+    /*  LANG_AR  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_GR  */  NULL,                         NULL,                         NULL
     },
     /*KC_SEMICOLON*/ {u";" u"\r\v\t:",              u":",                         u";",                         
     /*  LANG_DE  */  UMLAUT_O_SMALL,               UMLAUT_O,                     NULL,                         
@@ -654,7 +654,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_KAF,                   u":",                         ARABIC_KAF,                   
     /*  LANG_GR  */  GREEK_TONOS u"\r\v\t" GREEK_DIALYTIKA_TONOS,GREEK_DIALYTIKA u"\r\v\t" GREEK_DIALYTIKA_TONOS,GREEK_TONOS u"\r\v\t" GREEK_DIALYTIKA_TONOS
     },
-    /*KC_QUOTE   */ {u"'" u"\r\v\t“",              QUOTE,                        u"'",                         
+    /*KC_QUOTE   */ {u"'" u"\r\v\t" QUOTE,         QUOTE,                        u"'" u"\r\v\t" QUOTE,         
     /*  LANG_DE  */  UMLAUT_A_SMALL,               UMLAUT_A,                     NULL,                         
     /*  LANG_FR  */  U_WITH_GRAVE,                 u"%",                         NULL,                         
     /*  LANG_ES  */  ACUTE_ACCENT u"\r\v\t{",      DIAERESIS u"\r\v\t{",         ACUTE_ACCENT u"\r\v\t{",      
@@ -714,13 +714,29 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_ZAH,                   ARABIC_QMARK,                 ARABIC_ZAH,                   
     /*  LANG_GR  */  u"/",                         u"?",                         u"/"
     },
+    /*KC_NONUS_BACKSLASH*/ {BACKSLASH u"\r\v\t|",         u"|",                         BACKSLASH,                    
+    /*  LANG_DE  */  u"<" u"\r\v\t> |",            u">" u"\r\v\t|",              NULL,                         
+    /*  LANG_FR  */  u"<",                         u">",                         NULL,                         
+    /*  LANG_ES  */  u"<",                         u">",                         u"<",                         
+    /*  LANG_PT  */  u"<",                         u">",                         u"<",                         
+    /*  LANG_IT  */  u"<",                         u">",                         u"<",                         
+    /*  LANG_TR  */  u"<" u"\r\v\t|",              u">" u"\r\v\t|",              u"<" u"\r\v\t|",              
+    /*  LANG_KO  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_JA  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_AR  */  BACKSLASH,                    u"|",                         BACKSLASH,                    
+    /*  LANG_GR  */  u">",                         u"<",                         u">"
+    },
     //[[[end]]]
 };
 
 const uint16_t* translate_keycode(uint8_t used_lang, uint16_t keycode, bool shift, bool caps_lock) {
-    if(keycode < KC_A || keycode > KC_SLASH) return NULL;
-
     uint16_t index = keycode - KC_A;
+
+    if(keycode==KC_NONUS_BACKSLASH) {
+        index = ALPHA + NUM + ADDITIONAL - 1;
+    } else if((keycode < KC_A || keycode > KC_SLASH)) {
+        return NULL;
+    }
 
     const uint16_t* lower_case = lang_plane[index][used_lang*3];
     if(lower_case==NULL) {

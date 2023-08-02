@@ -17,12 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    2
+#define DEBOUNCE    5
 
 /* Oled Size */
 
@@ -36,8 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FADE_OUT_INTERVAL 7
 
 #define MOUSEKEY_MOVE_DELTA	2
-
-//#define WS2812_TRST_US 80
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES

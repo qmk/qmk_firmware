@@ -26,10 +26,8 @@
 #define I2C_DRIVER I2CD0
 #define I2C1_SCL_PIN GP0
 #define I2C1_SDA_PIN GP1
-//#define I2C1_SCL_PAL_MODE 4
-//#define I2C1_SDA_PAL_MODE 4
 #define I2C1_OPMODE OPMODE_I2C
-#define I2C1_CLOCK_SPEED 400000
+#define I2C1_CLOCK_SPEED 100000
 #define OLED_UPDATE_INTERVAL 1
 #define I2C1_DUTY_CYCLE STD_DUTY_CYCLE
 
@@ -38,19 +36,8 @@
 #define WS2812_DI_PIN GP2
 
 #define NOP_FUDGE 0.4
-/*
-#define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
-#define WS2812_PWM_CHANNEL 2  // default: 2
-#define WS2812_PWM_PAL_MODE 2  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
-//#define WS2812_PWM_COMPLEMENTARY_OUTPUT // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#define WS2812_DMA_CHANNEL 2  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-//#define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM3_UP // DMAMUX configuration for TIMx_UP -- only required if your MCU has a DMAMUX peripheral, see the respective reference manual for the appropriate values for your MCU.
-*/
-
 
 // SPI interface to write to the selected display
-
 #define SPI_DRIVER SPID0
 #define SPI_SS_PIN GP17
 #define SPI_DC_PIN GP8
@@ -62,8 +49,7 @@
 //This number can be calculated by dividing the MCU’s clock speed
 //by the desired SPI clock speed. For example, an MCU running at 8 MHz
 //wanting to talk to an SPI device at 4 MHz would set the divisor to 2
-//#define SPI_DIVISOR (CPU_CLOCK / 1000000) //rp1040 runs at 133Mhz, SPI at 16Mhz (for new Board)
-#define SPI_DIVISOR (CPU_CLOCK / 16000000) //rp1040 runs at 133Mhz, SPI at 16Mhz
+#define SPI_DIVISOR (CPU_CLOCK / 10000000) //rp1040 runs at 133Mhz, SPI at 10Mhz
 
 // Shift register to select the display
 //#define SR_NMR_PIN //NO_PIN if possible
