@@ -57,8 +57,8 @@ enum keycodes {
 #define ___x___ KC_NO
 
 //momentary layer
-#define NAVGTIN    LT(_NAVIGATION, KC_0)
-#define NUMBERS    LT(_NUMBER, KC_BSPC)
+#define NAVGTIN    MO(_NAVIGATION)
+#define NUMBERS    MO(_NUMBER)
 #define GAMENUM    MO(_GAMENUMBER)
 #define CONFIG     MO(_CONFIG)
 
@@ -359,7 +359,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | MOUZ | X    | MOUC | V    | B    |    | N    | M    | ,    | .    | -    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  |NUMBsp| Lsft |    | Spc  | NAV0 |      |
+*                 | MB1  | NUM  | Lsft |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 *
 */
@@ -383,7 +383,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | MOUZ | X    | MOUC | D    | V    |    | K    | H    | ,    | .    | -    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | MB1  |NUMBsp| Lsft |    | Spc  | NAV0  |      |
+*                 | MB1  | NUM  | Lsft |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ________________COLEMAKDH_L1_______________        KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
@@ -400,13 +400,13 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  | Snip | File |      | `    |    | =    | 7    | 8    | 9    | +    |
+*   | Esc  | Snip | File |      | `    |    |      | 7    | 8    | 9    |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Gui  | Alt  | Ctrl | Shft | -    |    | ;    | 4    | 5    | 6    | *    |
+*   | Gui  | Alt  | Ctrl | Shft | -    |    | .    | 4    | 5    | 6    | 0    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    | .    | 1    | 2    | 3    | /    |
+*   | Undo | Cut  | Copy | Pste | Redo |    |      | 1    | 2    | 3    |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      |NUMBsp|      |    | Spc  | NAV0 |      |
+*                 |      | NUM  |      |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 *
 */
@@ -415,9 +415,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 #   define _________________NUMPAD_L3_________________        _________________UCCPR_L___________________
 #   define          ________NUMPAD_L4________                 ___x___, _______, ___x___
 
-#   define _________________NUMPAD_R1_________________        KC_EQL,  KC_7,    KC_8,    KC_9,    KC_PLUS
-#   define _________________NUMPAD_R2_________________        TR_SCLN, KC_4,    KC_5,    KC_6,    KC_ASTR
-#   define _________________NUMPAD_R3_________________        KC_DOT,  KC_1,    KC_2,    KC_3,    KC_BSLS
+#   define _________________NUMPAD_R1_________________        ___x___, KC_7,    KC_8,    KC_9,    ___x___
+#   define _________________NUMPAD_R2_________________        KC_DOT,  KC_4,    KC_5,    KC_6,    KC_0
+#   define _________________NUMPAD_R3_________________        ___x___, KC_1,    KC_2,    KC_3,    ___x___
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________NUMPAD_R4________                 KC_SPC,  _______
@@ -439,7 +439,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |      | <    | >    | ,    | \    |    | /    | !    | (    | )    | _    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      |NUMBsp|      |    |      | NAV0 |      |              
+*                 |      | NUM  |      |    |      | NAV  |      |              
 *                 `------+------+------'    `------+------+------'
 *
 * Need to use One shot shift to hit the following symbols
@@ -472,7 +472,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Undo | Cut  | Copy | Pste | Redo |    | Ins  | Bksp |      |      | App  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Tab  |NUMBsp| Ent  |    |      | NAV0 |      |
+*                 | Tab  | NUM  | Ent  |    |      | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ___________________NAV_L1__________________        KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
