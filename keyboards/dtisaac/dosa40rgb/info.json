@@ -8,6 +8,9 @@
         "pid": "0x4973",
         "device_version": "0.0.4"
     },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
     "ws2812": {
         "pin": "D0"
     },

@@ -1,5 +1,11 @@
 {
+    "keyboard_name": "YMD75 / MT84",
+    "manufacturer": "YMDK",
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
+        "vid": "0x20A0",
+        "pid": "0x422D",
         "device_version": "1.0.0"
     },
     "matrix_pins": {
@@ -14,8 +20,26 @@
     "ws2812": {
         "driver": "i2c"
     },
+    "rgblight": {
+        "led_count": 16,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
     "indicators": {
         "caps_lock": "D1"
+    },
+    "dynamic_keymap": {
+        "layer_count": 3
     },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
