@@ -1,8 +1,5 @@
 /*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+Copyright 2015 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,7 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
-// place overrides here
+#define PICO_XOSC_STARTUP_DELAY_MULTIPLIER 64
 
-/* #define SSD1306OLED */
+#define BACKLIGHT_PWM_DRIVER PWMD3
+#define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
+
+#define WS2812_PIO_USE_PIO1
