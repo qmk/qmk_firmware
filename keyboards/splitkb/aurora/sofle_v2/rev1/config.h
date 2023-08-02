@@ -1,4 +1,4 @@
-/* Copyright 2019 Kyle Terry
+/* Copyright 2023 splitkb.com <support@splitkb.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev2.h"
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-#ifdef SSD1306OLED
-  return process_record_gfx(keycode,record) && process_record_user(keycode, record);
-#else
-  return process_record_user(keycode, record);
-#endif
-}
+#pragma once
+
+#define SPLIT_HAND_PIN F4
+
+#define OLED_DISPLAY_128X32
+#define SPLIT_OLED_ENABLE
+
+#define RGB_MATRIX_LED_COUNT 70
