@@ -257,6 +257,12 @@ void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
 #endif // defined(RGB_MATRIX_FRAMEBUFFER_EFFECTS) && defined(ENABLE_RGB_MATRIX_TYPING_HEATMAP)
 }
 
+#if RGB_MATRIX_TIMEOUT > 0
+void rgb_matrix_activity(void) {
+    rgb_anykey_timer = 0;
+}
+#endif
+
 void rgb_matrix_test(void) {
     // Mask out bits 4 and 5
     // Increase the factor to make the test animation slower (and reduce to make it faster)
