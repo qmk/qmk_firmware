@@ -26,3 +26,6 @@
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 47
+
+/* Set Default Tapping Term */
+#define TAPPING_TERM 210

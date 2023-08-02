@@ -15,6 +15,7 @@ DIP_SWITCH_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
 EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = embedded_flash
+DYNAMIC_TAPPING_TERM_ENABLE  = yes	# Enable Dynamic Tapping Term
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
