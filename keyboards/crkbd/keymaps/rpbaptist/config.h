@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_ONESHOT
 #define NO_USB_STARTUP_CHECK
 
+#define LAYER_STATE_8BIT
+
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5  // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #    define IDLE_TIMEOUT 60000 * 5

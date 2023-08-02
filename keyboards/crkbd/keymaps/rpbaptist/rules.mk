@@ -20,6 +20,9 @@ AUDIO_ENABLE       = no   # Audio output on port C6
 UNICODE_ENABLE     = no   # Unicode
 BLUETOOTH_ENABLE   = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 SWAP_HANDS_ENABLE  = no   # Enable one-hand typing
+GRAVE_ESC_ENABLE   = no
+MAGIC_ENABLE       = no
+MUSIC_ENABLE       = no
 
 RGB_MATRIX_ENABLE = yes
 
