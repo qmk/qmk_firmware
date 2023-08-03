@@ -16,6 +16,10 @@
 
 #pragma once
 
+/* Key matrix pins */
+#define MATRIX_ROW_PINS { B5, B4, B3, A15, A14, A13 }
+#define MATRIX_COL_PINS { A10, A9, A8, B1, B0, A7, A6, A5, A4, A3, A2, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, C14 }
+
 /* Pin connected to DS of 74HC595 */
 #define DATA_PIN_74HC595 C15
 /* Pin connected to SH_CP of 74HC595 */
