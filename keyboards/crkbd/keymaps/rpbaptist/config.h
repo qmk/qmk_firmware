@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_USB_STARTUP_CHECK
 
 #define LAYER_STATE_8BIT
+#define SPLIT_OLED_ENABLE
+#define SPLIT_LAYER_STATE_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5  // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
