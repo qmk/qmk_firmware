@@ -28,11 +28,11 @@ This is where I access F keys, arrow keys, page up, down, home, end and F keys. 
 
 ### UTIL
 
-Short for utility. This is accessed by pressing both `SYM` and `NAV` at the same time. It has a software `RESET` key, media keys, RGB control and switches main layer between Colemak and a gaming layer.
+Short for utility. This is accessed by pressing both `SYM` and `NAV` at the same time. It has a software `QK_BOOT` key, control for RGB and switching the main layer. More on the RGB below.
 
 ### NUMPAD"
 
-This gives access to a numpad on the right half with some additional symbols I find useful when using the numpad. It also contains dynamic macro's which I'm not really using tbh.
+This gives access to a numpad on the right half with some additional symbols I find useful when using the numpad. The left half has media control.
 
 ### GAMING
 
@@ -41,6 +41,10 @@ Sometimes I switch to type in Discord, Steam, or in game chat, so I think it's m
 I put movement on FRST (would be ESDF on QWERTY), because it lines up more comfortably with the columnar staggered layout of the Corne. It also gives more easy access to all keys on left half.
 
 Most notable here is that there are no tap and hold differences anymore on left hand side besides the new layer key. This is a different layer than `SYM`.
+
+### WASD
+
+This is functionally the same as the `GAMING` layer, but uses traditional WASD layout. This is done for games where I don't need to type and want to just jump in without rebinding everything.
 
 ### GAMING_EXT
 
