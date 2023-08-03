@@ -18,7 +18,7 @@ typedef union {
     };
 } user_config_t;
 
-user_config_t user_config;
+extern user_config_t user_config;
 
 const char *rgb_matrix_anim_oled_text(uint8_t mode);
 void        rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_min, uint8_t led_max);

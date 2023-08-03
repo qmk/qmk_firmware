@@ -54,6 +54,7 @@ void check_default_layer(uint8_t led_min, uint8_t led_max) {
     }
 }
 
+user_config_t user_config;
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
   if (
     user_config.rgb_layer_indicator && rgb_matrix_config.enable &&
