@@ -5,12 +5,6 @@
             {"pin_a": "A10", "pin_b": "A8"}
         ]
     },
-    "matrix_pins": {
-        "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", null, null, null, null, null, null, null, null],
-        "custom": true,
-        "custom_lite": true,
-        "rows": ["B5", "B4", "B3", "A15", "A14", "A13"]
-    },
     "rgb_matrix": {
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
