@@ -9,21 +9,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Z,   KC_X,   KC_C,
         KC_GRV,   KC_ESC,   KC_F2
     ),
-    [1] = LAYOUT(
-                KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS
-    ),
-    [2] = LAYOUT(
-                KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS
-    ),
-    [3] = LAYOUT(
-                KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS,
-        KC_TRNS,   KC_TRNS,   KC_TRNS
-    )
 };
 
 #if defined(ENCODER_MAP_ENABLE)
