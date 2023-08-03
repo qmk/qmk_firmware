@@ -19,7 +19,7 @@
 
 enum planck_layers {
     _QWERTY,
-    _COLEMAK, // one day…I might learn this
+    _COLEMAK_DH, // one day…I might learn this
     _RAISE,
     _LOWER,
     _MUSIC,

@@ -43,21 +43,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(_UTILS),     KC_LCTL,      KC_LALT, KC_LGUI, MO(_LOWER), KC_SPC, XXXXXXX, MO(_RAISE), KC_LEFT,  KC_DOWN,  KC_UP,            KC_RIGHT
     ),
 
-    /* Colemak
+    /* Colemak DH
     * ,-----------------------------------------------------------------------------------.
-    * |  Esc |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+    * |  Esc |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * |  Tab |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |   '  |
+    * |  Tab |   A  |   R  |   S  |   T  |   G  |   M  |   N  |   E  |   I  |   O  |   '  |
     * |------+------+------+------+------+------+------+------+------+------+------+------|
-    * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  | Enter|
+    * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  | Enter|
     * |------+------+------+------+------+------+------+------+------+------+------+------|
     * | UTILS| Ctrl |  Alt |  GUI | Lower|    Space    | Raise| Left | Down |  Up  | Right|
     * `-----------------------------------------------------------------------------------'
     */
-    [_COLEMAK] = LAYOUT_planck_grid(
-        KC_ESCAPE,      KC_Q,         KC_W,    KC_F,    KC_P,       KC_G,   KC_J,    KC_L,       KC_U,     KC_Y,     KC_SEMICOLON,     KC_BACKSPACE,
-        LALT_T(KC_TAB), KC_A,         KC_R,    KC_S,    KC_T,       KC_D,   KC_H,    KC_N,       KC_E,     KC_I,     KC_O,             LGUI_T(KC_QUOTE),
-        KC_LSFT,        LCTL_T(KC_Z), KC_X,    KC_C,    KC_V,       KC_B,   KC_K,    KC_M,       KC_COMMA, DOT_DOTS, RCTL_T(KC_SLASH), RSFT_T(KC_ENT),
+    [_COLEMAK_DH] = LAYOUT_planck_grid(
+        KC_ESCAPE,      KC_Q,         KC_W,    KC_F,    KC_P,       KC_B,   KC_J,    KC_L,       KC_U,     KC_Y,     KC_SEMICOLON,     KC_BACKSPACE,
+        LALT_T(KC_TAB), KC_A,         KC_R,    KC_S,    KC_T,       KC_G,   KC_M,    KC_N,       KC_E,     KC_I,     KC_O,             LGUI_T(KC_QUOTE),
+        KC_LSFT,        LCTL_T(KC_Z), KC_X,    KC_C,    KC_D,       KC_V,   KC_K,    KC_H,       KC_COMMA, DOT_DOTS, RCTL_T(KC_SLASH), RSFT_T(KC_ENT),
         MO(_UTILS),     KC_LCTL,      KC_LALT, KC_LGUI, MO(_LOWER), KC_SPC, XXXXXXX, MO(_RAISE), KC_LEFT,  KC_DOWN,  KC_UP,            KC_RIGHT
     ),
 
@@ -178,7 +178,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case COLEMAK:
             if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
+                set_single_persistent_default_layer(_COLEMAK_DH);
             }
             return false;
         case MU_ON:
