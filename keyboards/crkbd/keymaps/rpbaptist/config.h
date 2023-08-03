@@ -91,7 +91,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 2
 
 #ifdef OLED_ENABLE
-#    define OLED_TIMEOUT 600000
+#    define OLED_TIMEOUT 60000 * 10
 #    define OLED_FONT_H "glcdfont_multi.c"
 #endif
 
