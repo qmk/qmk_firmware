@@ -305,7 +305,7 @@ typedef enum drv2605l_effect_t {
 
 /* Register bit array unions */
 
-typedef union drv2605l_reg_feedback_ctrl_t { /* register 0x1A */
+typedef union { /* register 0x1A */
     uint8_t raw;
     struct {
         uint8_t BEMF_GAIN : 2;
@@ -313,9 +313,9 @@ typedef union drv2605l_reg_feedback_ctrl_t { /* register 0x1A */
         uint8_t BRAKE_FACTOR : 3;
         uint8_t ERM_LRA : 1;
     } bits;
-};
+} drv2605l_reg_feedback_ctrl_t;
 
-typedef union drv2605l_reg_ctrl1_t { /* register 0x1B */
+typedef union { /* register 0x1B */
     uint8_t raw;
     struct {
         uint8_t C1_DRIVE_TIME : 5;
@@ -323,9 +323,9 @@ typedef union drv2605l_reg_ctrl1_t { /* register 0x1B */
         uint8_t : 1;
         uint8_t C1_STARTUP_BOOST : 1;
     } bits;
-};
+} drv2605l_reg_ctrl1_t;
 
-typedef union drv2605l_reg_ctrl2_t { /* register 0x1C */
+typedef union { /* register 0x1C */
     uint8_t raw;
     struct {
         uint8_t C2_IDISS_TIME : 2;
@@ -334,9 +334,9 @@ typedef union drv2605l_reg_ctrl2_t { /* register 0x1C */
         uint8_t C2_BRAKE_STAB : 1;
         uint8_t C2_BIDIR_INPUT : 1;
     } bits;
-};
+} drv2605l_reg_ctrl2_t;
 
-typedef union drv2605l_reg_ctrl3_t { /* register 0x1D */
+typedef union { /* register 0x1D */
     uint8_t raw;
     struct {
         uint8_t C3_LRA_OPEN_LOOP : 1;
@@ -347,9 +347,9 @@ typedef union drv2605l_reg_ctrl3_t { /* register 0x1D */
         uint8_t C3_ERM_OPEN_LOOP : 1;
         uint8_t C3_NG_THRESH : 2;
     } bits;
-};
+} drv2605l_reg_ctrl3_t;
 
-typedef union drv2605l_reg_ctrl4_t { /* register 0x1E */
+typedef union { /* register 0x1E */
     uint8_t raw;
     struct {
         uint8_t C4_OTP_PROGRAM : 1;
@@ -359,4 +359,4 @@ typedef union drv2605l_reg_ctrl4_t { /* register 0x1E */
         uint8_t C4_AUTO_CAL_TIME : 2;
         uint8_t C4_ZC_DET_TIME : 2;
     } bits;
-};
+} drv2605l_reg_ctrl4_t;
