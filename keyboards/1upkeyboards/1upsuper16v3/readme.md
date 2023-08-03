@@ -1,4 +1,4 @@
-# Super16v3
+# 1upSuper16v3
 
 This keyboard is the Super16v3 from 1upkeyboards, a 4x4 macropad with the option for up to four encoders in the top row.  Notable features include in-switch per-key addressable RGB LEDs and thirty two 1mm underglow RGB LEDs; for bright and smooth lighting effects. The Super16v3 utilises an rp2040 microcontroller, wired using direct pins.
 
