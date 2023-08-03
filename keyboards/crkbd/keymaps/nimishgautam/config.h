@@ -13,7 +13,6 @@
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
 
-
 // combo
 #define EXTRA_SHORT_COMBOS
 
@@ -22,13 +21,11 @@
 #define TAPPING_TERM 200
 #define PERMISSIVE_HOLD_PER_KEY
 
-
 // Try to save some memory
 #define NO_ACTION_ONESHOT
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 #define LAYER_STATE_8BIT  //8 layers max
-
 
 // which lighting effects to include (less saves memory)
 #ifdef RGBLIGHT_ENABLE
@@ -80,7 +77,6 @@
 #define AUTO_SHIFT_ENABLED
 #define AUTO_SHIFT_TIMEOUT_PER_KEY
 */
-
 
 // oled font (for logo etc)
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
