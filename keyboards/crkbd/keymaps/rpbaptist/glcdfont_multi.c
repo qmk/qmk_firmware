@@ -1,3 +1,6 @@
+// Copyright 2023 Your Name (@rpbaptist)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "progmem.h"
 
 // Helidox 8x6 font with QMK Firmware Logo

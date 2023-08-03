@@ -1,3 +1,6 @@
+// Copyright 2023 Your Name (@rpbaptist)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "rpbaptist.h"
 #include "rgb_matrix.h"
 

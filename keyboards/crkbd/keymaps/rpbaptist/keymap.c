@@ -1,3 +1,6 @@
+// Copyright 2023 Your Name (@rpbaptist)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "rpbaptist.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
