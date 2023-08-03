@@ -16,6 +16,10 @@
 
 #pragma once
 
+/* Key matrix size */
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 20
+
 /* RGB Matrix Driver Configuration */
 #define DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1110111

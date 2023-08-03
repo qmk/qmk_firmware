@@ -1,10 +1,4 @@
 {
-    "matrix_pins": {
-        "cols": ["A10", "A9", "A8", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", null, null, null, null, null, null, null, null, "C14"],
-        "custom": true,
-        "custom_lite": true,
-        "rows": ["B5", "B4", "B3", "A15", "A14", "A13"]
-    },
     "rgb_matrix": {
         "driver": "CKLED2001",
         "layout": [
@@ -123,11 +117,9 @@
             {"matrix": [4, 16], "x": 224, "y": 58, "flags": 1}
         ]
     },
-    "url": "https://github.com/Keychron",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0160",
-        "vid": "0x3434"
+        "pid": "0x0160"
     },
     "layouts": {
         "LAYOUT_ansi_108": {
