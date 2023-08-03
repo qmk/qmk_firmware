@@ -31,8 +31,8 @@ extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 // ultra fast read_cols code
 static inline matrix_row_t read_cols(void) {
     uint16_t portA_pin_state = palReadPort(PAL_PORT(A0));
-    return (((portA_pin_state & ((1U << 5) - 1U)) ^ ((1U << 5) - 1U)) |
-            (((portA_pin_state >> (PAL_PAD(A8) - 5)) & (((1U << 3) - 1U) << 5)) ^ ((((1U << 3) - 1U)) << 5)));
+    return (((portA_pin_state & 0b11111) ^ 0b11111) |
+            (((portA_pin_state >> 3) & 0b11100000) ^ 0b11100000));
 }
 
 static inline void unselect_rows(void) {
@@ -78,7 +78,7 @@ uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
         changed |= (current_matrix[current_row] != cols);
         current_matrix[current_row] = cols;
         
-        while ((palReadPort(PAL_PORT(A0)) & ((((1U << 5) - 1U)) | (((1U << 3) - 1U) << 8))) != ((((1U << 5) - 1U)) | (((1U << 3) - 1U) << 8)))    // Wait for all Col signals to go HIGH
+        while ((palReadPort(PAL_PORT(A0)) & 0b11100011111) != 0b11100011111)     // Wait for all Col signals to go HIGH
             wait_cpuclock(1);
 
     }
