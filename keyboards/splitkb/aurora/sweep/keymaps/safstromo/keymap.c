@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ,----------------------------------.                              ,----------------------------------.
 * |   Q  |   W  |   F  |   P  |   B  |                              |   J  |   L  |   U  |   Y  | ;  : |
 * |------+------+------+------+------|                              |------+------+------+------+------|
-* |   A  |alt(R)|sft(S)|ctl(T)|   G  |                              |   M  |ctl(N)|sft(E)|alt(I)|   O  |
+* |GUI(A)|alt(R)|sft(S)|ctl(T)|   G  |                              |   M  |ctl(N)|sft(E)|alt(I)|GUI(O)|
 * |------+------+------+------+------|                              |------+------+------+------+------|
 * |   Z  |   X  |   C  |   D  |   V  |                              |   K  |   H  | ,  < | . >  | /  ? |
 * `--------------------+------+------|                              |------+------+------+------+------'
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 	[_COLEMAK_DH] = LAYOUT(
             KC_Q,KC_W        ,KC_F        ,KC_P        ,KC_B,                           KC_J  ,KC_L        ,KC_U        ,KC_Y        ,KC_SCLN ,
-            KC_A,LALT_T(KC_R),LSFT_T(KC_S),LCTL_T(KC_T),KC_G,                           KC_M  ,RCTL_T(KC_N),RSFT_T(KC_E),LALT_T(KC_I),KC_O    ,
+            KC_Aaaaaaaaaaaaaaa,LALT_T(KC_R),LSFT_T(KC_S),LCTL_T(KC_T),KC_G,                   KC_M  ,RCTL_T(KC_N),RSFT_T(KC_E),LALT_T(KC_I),LGUI_T(KC_O),
             KC_Z,KC_X        ,KC_C        ,KC_D        ,KC_V,                           KC_K  ,KC_H        ,KC_COMM     ,KC_DOT      ,KC_SLSH ,
                                            SYM         ,KC_SPC,                         KC_ENT,NAV
             ),
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM backspace_combo[] = {RCTL_T(KC_N), RSFT_T(KC_E), COMBO_END};
 const uint16_t PROGMEM esc_combo[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM tab_combo[] = {KC_R, KC_S, COMBO_END};
+const uint16_t PROGMEM tab_combo[] = {LALT_T(KC_R), LSFT_T(KC_S), COMBO_END};
 const uint16_t PROGMEM del_combo[] = {KC_DOT, KC_SLSH, COMBO_END};
 const uint16_t PROGMEM a_combo[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM ae_combo[] = {RSFT_T(KC_E), LALT_T(KC_I), COMBO_END};
