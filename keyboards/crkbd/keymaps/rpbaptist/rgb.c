@@ -249,7 +249,7 @@ void matrix_scan_rgb(void) {
     }
 }
 
-void matrix_scan_user(void) {
+void housekeeping_task_user(void) {
     static bool has_ran_yet;
     if (!has_ran_yet) {
         has_ran_yet = true;

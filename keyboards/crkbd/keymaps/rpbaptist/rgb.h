@@ -40,7 +40,6 @@ void        rgb_matrix_set_gaming_defaults(void);
 void        rgb_matrix_set_typing_defaults(void);
 void        rgb_matrix_set_defaults(void);
 void        matrix_scan_rgb(void);
-void        matrix_scan_user(void);
 void        eeconfig_init_user(void);
 void        keyboard_post_init_user(void);
 bool        process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record);
