@@ -241,7 +241,7 @@ void rgb_matrix_set_defaults(void) {
 }
 
 void matrix_scan_rgb(void) {
-    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_active_mode && sync_timer_elapsed32(idle_timer) > user_config.rgb_matrix_idle_timeout) {
+    if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_active_mode && last_input_activity_elapsed() > user_config.rgb_matrix_idle_timeout) {
         if (user_config.rgb_layer_indicator) {
             rgb_matrix_turn_off_underglow();
         }

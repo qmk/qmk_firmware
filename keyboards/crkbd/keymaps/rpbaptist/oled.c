@@ -95,7 +95,7 @@ void render_status(void) {
 }
 
 bool oled_task_user(void) {
-    if (sync_timer_elapsed32(idle_timer) > OLED_TIMEOUT) {
+    if (last_input_activity_elapsed() > OLED_TIMEOUT) {
         oled_off();
     } else {
         oled_on();

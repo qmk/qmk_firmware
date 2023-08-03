@@ -145,10 +145,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint8_t saved_mods   = 0;
     uint16_t       temp_keycode = keycode;
 
-#if defined(RGB_MATRIX_ENABLE) || defined(OLED_ENABLE)
-    idle_timer = sync_timer_read32();
-#endif
-
 #ifdef RGB_MATRIX_ENABLE
     process_record_user_rgb_matrix(temp_keycode, record);
 #endif

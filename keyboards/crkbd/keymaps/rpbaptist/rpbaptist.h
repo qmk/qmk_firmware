@@ -4,10 +4,6 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
-#if defined(RGB_MATRIX_ENABLE) || defined(OLED_ENABLE)
-uint32_t idle_timer;
-#endif
-
 #if defined(RGB_MATRIX_ENABLE)
 #    include "rgb.h"
 #endif
