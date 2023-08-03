@@ -202,6 +202,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+// Override functions to save memory
+// https://docs.qmk.fm/#/squeezing_avr?id=magic-keycodes
 uint16_t keycode_config(uint16_t keycode) {
     return keycode;
 }
