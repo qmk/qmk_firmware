@@ -1,5 +1,10 @@
 {
     "keyboard_name": "Equals 60",
+    "bootloader": "rp2040",
+    "processor": "RP2040",
+    "features": {
+        "audio":true
+    },
     "matrix_pins": {
         "cols": ["GP0", "GP1", "GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP8", "GP9", "GP10", "GP11"],
         "rows": ["GP12", "GP13", "GP16", "GP17", "GP18"]

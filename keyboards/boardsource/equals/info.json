@@ -1,7 +1,6 @@
 {
     "manufacturer": "Boardsource",
     "maintainer": "Boardsource",
-    "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -10,10 +9,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "audio":true
-    },
-    "processor": "RP2040",
+        "rgb_matrix": true
+        },
     "url": "",
     "usb": {
         "device_version": "1.0.0",
