@@ -29,12 +29,6 @@
         "rgb_matrix": true,
         "rgblight": false
     },
-    "matrix_pins": {
-        "cols": [null, null, null, null, null, null, null, null, "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1"],
-        "custom": true,
-        "custom_lite": true,
-        "rows": ["B4", "B3", "A15", "A14", "A13"]
-    },
     "processor": "STM32L432",
     "rgb_matrix": {
         "animations": {
