@@ -2,7 +2,7 @@
 #include "g/keymap_combo.h"
 
 enum {
-    _ALPHA,   // default
+    _ALPHA = SAFE_RANGE,   // default
     _SPECIAL, // special characters
     _NUMBERS  // numbers/function/motion
 };

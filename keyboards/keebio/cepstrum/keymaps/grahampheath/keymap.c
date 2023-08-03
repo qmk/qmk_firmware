@@ -6,11 +6,11 @@
 // #include "g/keymap_combo.h"
 #include "features/mouse_turbo_click.h"
 enum {
-    _ALPHA,   // default
+    _ALPHA = SAFE_RANGE,   // default
     _SPECIAL, // special characters
     _CONTROL, // special characters
     _NUMBERS,  // numbers/function/motion
-    TURBO = SAFE_RANGE,
+    TURBO,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
