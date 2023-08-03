@@ -1,0 +1,8 @@
+{
+    "rgblight": {
+        "led_count": 13
+    },
+    "ws2812": {
+        "pin": "GP4"
+    }
+}

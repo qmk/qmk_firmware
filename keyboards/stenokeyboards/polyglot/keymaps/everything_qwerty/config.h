@@ -16,9 +16,6 @@
 
 #pragma once
 
-#define RGB_DI_PIN GP4
-#define RGBLED_NUM 13
-
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

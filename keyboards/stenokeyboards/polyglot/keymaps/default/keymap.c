@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Peter C. Park <peter@stenokeyboards.com>
+Copyright 2023 StenoKeyboards
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -85,7 +85,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // initialize steno protocol
-void keyboard_post_init_user(void)
-{
-  steno_set_mode(STENO_MODE_GEMINI);
+void keyboard_post_init_user(void) {
+   steno_set_mode(STENO_MODE_GEMINI);
 }

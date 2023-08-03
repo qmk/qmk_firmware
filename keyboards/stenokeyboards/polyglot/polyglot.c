@@ -1,4 +1,4 @@
-/* Copyright 2021 Stefan Kerkmann
+/* Copyright 2023 StenoKeyboards
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,4 +16,3 @@
 
 #include QMK_KEYBOARD_H
 #include "polyglot.h"
-
