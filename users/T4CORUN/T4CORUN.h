@@ -400,24 +400,24 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  | Snip | File |      | `    |    | Bksp | 7    | 8    | 9    |      |
+*   | Esc  | Snip | File |      | `    |    |      | 7    | 8    | 9    |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Gui  | Alt  | Ctrl | Shft | ,    |    | .    | 4    | 5    | 6    | 0    |
+*   | Gui  | Alt  | Ctrl | Shft | -    |    | 0    | 4    | 5    | 6    | .    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    | -    | 1    | 2    | 3    |      |
+*   | Undo | Cut  | Copy | Pste | Redo |    | Bksp | 1    | 2    | 3    | ,    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      | NUM  |      |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 *
 */
 #   define _________________NUMPAD_L1_________________        KC_ESC,  W_SNIP,  W_FILE,  ___x___, TR_GRV
-#   define _________________NUMPAD_L2_________________        _____________GACS_MODS____________, KC_COMM
+#   define _________________NUMPAD_L2_________________        _____________GACS_MODS____________, KC_MINS
 #   define _________________NUMPAD_L3_________________        _________________UCCPR_L___________________
 #   define          ________NUMPAD_L4________                 ___x___, _______, ___x___
 
-#   define _________________NUMPAD_R1_________________        KC_BSPC, KC_7,    KC_8,    KC_9,    ___x___
-#   define _________________NUMPAD_R2_________________        KC_DOT,  KC_4,    KC_5,    KC_6,    KC_0
-#   define _________________NUMPAD_R3_________________        KC_MINS, KC_1,    KC_2,    KC_3,    ___x___
+#   define _________________NUMPAD_R1_________________        ___x___, KC_7,    KC_8,    KC_9,    ___x___
+#   define _________________NUMPAD_R2_________________        KC_0,    KC_4,    KC_5,    KC_6,    KC_DOT
+#   define _________________NUMPAD_R3_________________        KC_BSPC, KC_1,    KC_2,    KC_3,    KC_COMM
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________NUMPAD_R4________                 KC_SPC,  _______
@@ -437,7 +437,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | &    | {    | }    | @    | -    |    | ;    | ?    | [    | ]    | '    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      | <    | >    | ,    | \    |    | /    | !    | (    | )    | _    |
+*   |      | <    | >    | \    | !    |    | Bksp | /    | (    | )    | _    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      | NUM  |      |    |      | NAV  |      |              
 *                 `------+------+------'    `------+------+------'
@@ -449,19 +449,18 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 */
 #   define _________________SYMBOL_L1_________________        KC_PERC, KC_CIRC, KC_DLR,  KC_PLUS, TR_GRV
 #   define _________________SYMBOL_L2_________________        TR_AMPR, TR_LCBR, KC_RCBR, KC_AT,   TR_MINS
-#   define _________________SYMBOL_L3_________________        ___x___, TR_LABK, TR_RABK, KC_COMM, TR_BSLS
+#   define _________________SYMBOL_L3_________________        ___x___, TR_LABK, TR_RABK, TR_BSLS, TR_EXLM
 #   define          ________SYMBOL_L4________                 ___x___, _______, ___x___
 
 #   define _________________SYMBOL_R1_________________        TR_EQL,  TR_HASH, KC_ASTR, TR_PIPE, TR_DQUO
 #   define _________________SYMBOL_R2_________________        TR_SCLN, KC_QUES, TR_LBRC, KC_RBRC, TR_QUOT
-#   define _________________SYMBOL_R3_________________        TR_SLSH, TR_EXLM, TR_LPRN, KC_RPRN, TR_UNDS
+#   define _________________SYMBOL_R3_________________        KC_BSPC, TR_SLSH, TR_LPRN, KC_RPRN, TR_UNDS
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________SYMBOL_R4________                 ___x___, _______
 #else
 #   define          ________SYMBOL_R4________                 ___x___, _______, ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
-
 
 /*
 *
@@ -470,7 +469,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |      | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    | Ins  | Bksp |      |      | App  |
+*   | Undo | Cut  | Copy | Pste | Redo |    | Bksp |      |      | Ins  | App  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | Tab  | NUM  | Ent  |    |      | NAV  |      |
 *                 `------+------+------'    `------+------+------'
