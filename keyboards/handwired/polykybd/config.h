@@ -17,10 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
-
-/* Oled Size */
 
 #define OLED_DISPLAY_128X64
 #define OLED_FONT_START	32

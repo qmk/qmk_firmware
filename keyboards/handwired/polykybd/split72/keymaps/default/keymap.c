@@ -49,10 +49,10 @@ while lang_key:
 static enum lang_layer g_lang = LANG_EN;
 //[[[end]]]
 
-enum kb_layers { _L0 = 0x00, _BL=_L0, _L1 = 0x01, _L2 = 0x02, _FL = 0x03, _NL = 0x04, _UL = 0x05, _LS = 0x06 };
+enum kb_layers { _L0 = 0x00, _BL=_L0, _L1 = 0x01, _L2 = 0x02, _FL = 0x03, _NL = 0x04, _UL = 0x05, _LS = 0x06, _ADDLANG1 = 0x07};
 
 enum my_keycodes {
-    KC_LANG = SAFE_RANGE, KC_DECC, KC_INCC, KC_TOGBASE, KC_BASE, KC_L0, KC_L1, KC_L2,
+    KC_LANG = SAFE_RANGE, KC_DECC, KC_INCC, KC_TOGBASE, KC_BASE, KC_L0, KC_L1, KC_L2, //KC_ADDLANG1,
     /*[[[cog
       for lang in languages:
           cog.out(f"KC_{lang}, ")
@@ -252,6 +252,27 @@ void housekeeping_task_user(void) {
         }
     }
 }
+enum unicode_names {
+    UM_A,
+    UM_AC,
+    UM_O,
+    UM_OC,
+    UM_U,
+    UM_UC,
+    SZ,
+    SZC
+};
+
+const uint32_t unicode_map[] PROGMEM = {
+    [UM_A]  = 0xe4,
+    [UM_AC] = 0xc4,
+    [UM_O]  = 246,
+    [UM_OC] = 214,
+    [UM_U]  = 252,
+    [UM_UC] = 220,
+    [SZ]  = 223,
+    [SZC] = 0x1E9E
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //Base Layers
@@ -276,9 +297,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
-                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_HYPR,
+                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    MO(_ADDLANG1),
         KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    KC_BSLS,
-        KC_LANG,    KC_MEH,     KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
+        KC_LANG,    KC_HYPR,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
     [_L2] = LAYOUT_left_right_stacked(
@@ -289,9 +310,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
                     KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
-                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_HYPR,
+                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    MO(_ADDLANG1),
         KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    KC_BSLS,
-        KC_LANG,    KC_MEH,     KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
+        KC_LANG,    KC_HYPR,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
     //Function Layer (Fn)
@@ -338,19 +359,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     //Language Selection Layer
     [_LS] = LAYOUT_left_right_stacked(
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-        KC_NO,      KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_LANG_GR, KC_NO,      KC_NO,
-        KC_NO,      KC_LANG_FR, KC_LANG_DE, KC_LANG_JA, KC_LANG_TR, KC_NO,      KC_NO,      KC_MS_BTN1,
-        KC_NO,      KC_LANG_IT, KC_LANG_EN, KC_LANG_KO, KC_NO,      KC_NO,      KC_NO,      KC_NO,
-        KC_BASE,    KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,
+                        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+                        KC_NO,      KC_LANG_PT, KC_LANG_ES, KC_LANG_AR, KC_LANG_GR, KC_NO,      KC_NO,
+        QK_UNICODE_MODE_WINCOMPOSE, KC_LANG_FR, KC_LANG_DE, KC_LANG_JA, KC_LANG_TR, KC_NO,      KC_NO,      KC_MS_BTN1,
+        QK_UNICODE_MODE_EMACS,      KC_LANG_IT, KC_LANG_EN, KC_LANG_KO, KC_NO,      KC_NO,      KC_NO,      KC_NO,
+        KC_BASE,                    KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,
 
-                    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-                    KC_NO,      KC_LANG_GR, KC_LANG_AR, KC_LANG_ES, KC_LANG_PT, KC_NO,      KC_NO,
-        _______,    KC_NO,      KC_LANG_TR, KC_LANG_JA, KC_LANG_DE, KC_LANG_FR, KC_NO,      KC_NO,
-        KC_NO,      KC_NO,      KC_NO,      KC_LANG_KO, KC_LANG_EN, KC_LANG_IT, KC_NO,      KC_NO,
+                    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      QK_UNICODE_MODE_MACOS,
+                    KC_NO,      KC_LANG_GR, KC_LANG_AR, KC_LANG_ES, KC_LANG_PT, KC_NO,      QK_UNICODE_MODE_LINUX,
+        _______,    KC_NO,      KC_LANG_TR, KC_LANG_JA, KC_LANG_DE, KC_LANG_FR, KC_NO,      QK_UNICODE_MODE_WINDOWS,
+        KC_NO,      KC_NO,      KC_NO,      KC_LANG_KO, KC_LANG_EN, KC_LANG_IT, KC_NO,      QK_UNICODE_MODE_BSD,
         KC_NO,      KC_NO,      KC_NO,                  KC_NO,      KC_NO,      KC_NO,      KC_BASE
+        ),
+    [_ADDLANG1] = LAYOUT_left_right_stacked(
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    XP(UM_A,UM_AC),   XP(SZ,SZC),    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,                _______,    _______,    _______,
+
+                    _______,    _______,    _______,    _______,    _______,    _______,     _______,
+                    _______,    XP(UM_U,UM_UC),    _______,    XP(UM_O,UM_OC),    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,                _______,    _______,    _______,    _______
         )
 };
+
 
 #define LX(x,y) ((x)/2),y
 led_config_t g_led_config = { {// Key Matrix to LED Index
@@ -498,6 +533,12 @@ const uint16_t* get_led_matrix_text(void) {
 
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
+    case QK_UNICODE_MODE_MACOS: return u"Mac\r\vInp";
+    case QK_UNICODE_MODE_LINUX: return u"Linux\r\vInp";
+    case QK_UNICODE_MODE_WINDOWS: return u"Win\r\vInp";
+    case QK_UNICODE_MODE_BSD: return u"BSD\r\vInp";
+    case QK_UNICODE_MODE_WINCOMPOSE: return u"Win\r\vCmp";
+    case QK_UNICODE_MODE_EMACS: return u"Emcs\r\vInp";
     case QK_LEAD:
         return u"Lead";
     case KC_HYPR:
@@ -627,6 +668,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u"Util*\r\v\t" ICON_LAYER;
     case TO(_UL):
         return u"Util\r\v\t" ICON_LAYER;
+    case MO(_ADDLANG1):
+        return u"Intl";
     case KC_F1: return u" F1";
     case KC_F2: return u" F2";
     case KC_F3: return u" F3";
@@ -717,7 +760,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     }
     break;
     }
-    return u"[?]";
+    return NULL;//return u"[?]";
 }
 
 const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
@@ -759,10 +802,11 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
 
 
 void update_displays(enum refresh_mode mode) {
+    uint16_t text_buffer[2];
     uint8_t layer = get_highest_layer(layer_state);
-    if (layer > _LS) {
+    /*if (layer > _LS) {
         layer = g_default_ls;
-    }
+    }*/
 
     led_t state = host_keyboard_led_state();
     //the left side has an offset of 0, the right side an offset of MATRIX_ROWS_PER_SIDE
@@ -798,6 +842,11 @@ void update_displays(enum refresh_mode mode) {
                     if(keycode!=KC_TRNS) {
                         const uint16_t* text = keycode_to_disp_text(keycode, state);
                         kdisp_set_buffer(0x00);
+                        if(text==NULL) {
+                            text_buffer[0] = keycode;
+                            text_buffer[1] = 0;
+                            text = text_buffer;
+                        }
                         kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
                         text = keycode_to_disp_overlay(keycode, state);
                         if(text!=NULL) {
@@ -864,6 +913,15 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     if (!record->event.pressed) {
         switch (keycode) {
+        /*case KC_ADDLANG1:
+            if (IS_LAYER_ON(_ADDLANG1)) {
+                layer_clear();
+                layer_on(g_default_ls);
+            } else {
+                layer_clear();
+                layer_on(g_default_ls);
+                layer_on(_ADDLANG1);
+            }*/
         case KC_L0:
             g_default_ls = _L0;
             persistent_default_layer_set(g_default_ls);
