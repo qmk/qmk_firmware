@@ -12,13 +12,15 @@ typedef union {
         bool     rgb_matrix_idle_anim : 1;
         uint8_t  rgb_matrix_active_mode : 4;
         uint8_t  rgb_matrix_idle_mode : 4;
-        uint8_t  rgb_matrix_active_speed : 8;
-        uint8_t  rgb_matrix_idle_speed : 8;
-        uint32_t rgb_matrix_idle_timeout : 32;
+        uint8_t  rgb_matrix_active_speed : 2;
+        uint8_t  rgb_matrix_idle_speed : 2;
+        uint32_t rgb_matrix_idle_timeout : 18;
     };
 } user_config_t;
 
 extern user_config_t user_config;
+
+_Static_assert(sizeof(user_config_t) == sizeof(uint32_t), "Userspace EECONFIG out of spec.");
 
 const char *rgb_matrix_anim_oled_text(uint8_t mode);
 void        rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_min, uint8_t led_max);
