@@ -9,13 +9,8 @@ COMB(dfTab,      KC_TAB,          KC_D, KC_F)
 // COMB(cvEnt,      KC_ENT,          KC_C, KC_V)
 // COMB(uiEsc,      KC_ESC,          KC_U, KC_I)
 COMB(jkCol,      KC_COLN,         KC_J, KC_K)
-// COMB(hnEnt,      KC_ENT,          KC_H, KC_N)
+COMB(hnEnt,      KC_ENT,          KC_H, KC_N)
 // COMB(aeEnd, KC_END, MOD_LCTL, KC_E)
-
-// #include "combos/germ-mouse-keys.def"
 
 // User includes
 #include "gergoplex.def"
-
-// Word completion
-//#include "combos/eng-combos.def"
