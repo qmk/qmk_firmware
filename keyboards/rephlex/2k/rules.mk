@@ -7,4 +7,3 @@ SRC += scanfunctions.c
 CUSTOM_MATRIX = lite
 
 OPT = 3
-
