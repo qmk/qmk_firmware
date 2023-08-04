@@ -97,12 +97,6 @@ void render_status(void) {
 }
 
 bool oled_task_user(void) {
-    if (last_input_activity_elapsed() > OLED_TIMEOUT) {
-        oled_off();
-    } else {
-        oled_on();
-    }
-
     if (is_keyboard_master()) {
         render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
