@@ -249,6 +249,12 @@ void housekeeping_task_user(void) {
     matrix_scan_rgb();
 }
 
+void eeconfig_init_user(void) {
+    user_config.raw = 0;
+    rgb_matrix_set_defaults();
+    eeconfig_update_user(user_config.raw);
+}
+
 void keyboard_post_init_user(void) {
     set_single_persistent_default_layer(_COLEMAKDH);
     rgb_matrix_set_defaults();
