@@ -23,19 +23,19 @@ void process_layer_pulse(layer_state_t state) {
 #ifdef HAPTIC_ENABLE
     switch (get_highest_layer(state)) {
         case 1:
-            drv2605l_pulse(soft_bump);
+            drv2605l_pulse(DRV2605L_EFFECT_SOFT_BUMP_100);
             break;
         case 2:
-            drv2605l_pulse(sh_dblsharp_tick);
+            drv2605l_pulse(DRV2605L_EFFECT_SHORT_DOUBLE_SHARP_TICK_1_100);
             break;
         case 3:
-            drv2605l_pulse(lg_dblclick_str);
+            drv2605l_pulse(DRV2605L_EFFECT_LONG_DOUBLE_SHARP_CLICK_STRONG_1_100);
             break;
         case 4:
-            drv2605l_pulse(soft_bump);
+            drv2605l_pulse(DRV2605L_EFFECT_SOFT_BUMP_100);
             break;
         case 5:
-            drv2605l_pulse(pulsing_sharp);
+            drv2605l_pulse(DRV2605L_EFFECT_PULSING_SHARP_1_100);
             break;
     }
 #endif
