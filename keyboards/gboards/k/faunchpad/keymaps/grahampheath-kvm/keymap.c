@@ -1,5 +1,22 @@
 #include QMK_KEYBOARD_H
 
+/*
+  KVM Commands
+  SL = Scroll Lock, KC_SLCK
+
+  SL, SL, Page Up = Previous port
+  SL, SL, Page Down = Next port
+  SL, SL, [1-4] = Select port by number
+  SL, SL, F11 = Toggle Buzzer
+  SL, SL, F12 = Switching Speed (mouse gesture mode)
+  SL, SL, Space = Enable auto switching
+  SL, SL, [+ or -] = Increase/decrease switching interval
+  ESC = Exit switching mode
+  SL, SL, F2 = Toggle keyboard and mouse passthrough mode
+
+  Manual: https://m.media-amazon.com/images/I/B1eWHCNCqIS.pdf
+
+*/
 enum custom_keycodes {
     PREV = SAFE_RANGE,
     NEXT,
@@ -17,6 +34,19 @@ enum custom_keycodes {
 
 int msecs = 600;
 //TAP_CODE_DELAY = 600;
+
+
+/*
+ *  .-------------------------------------.
+ *  | PREV   | Next   |    2     |SCR_LOCK|
+ *  |-------------------------------------|
+ *  |PORTONE |PORTTWO |PORTTHREE |PORTFOUR|
+ *  '-------------------------------------'
+ */
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [0] = LAYOUT_faunch( PREV,     NEXT,     KC_2,       KC_SCROLL_LOCK,
+                       PORTONE,  PORTTWO,  PORTTHREE,  PORTFOUR)
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -102,35 +132,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-
-/*    
- *  .---------------------------.
- *  |      |      |      |      | 
- *  |---------------------------|
- *  |PORTONE |PORTTWO |PORTTHREE |PORTFOUR | 
- *  '---------------------------'
- */
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_faunch( PREV,     NEXT,     KC_2,       KC_SCROLL_LOCK,
-                       PORTONE,  PORTTWO,  PORTTHREE,  PORTFOUR)
-};
-
 // Don't fuck with this, thanks.
 size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
-
-/*
-  SL = Scroll Lock, KC_SLCK
-
-  SL, SL, Page Up = Previous port
-  SL, SL, Page Down = Next port
-  SL, SL, [1-4] = Select port by number
-  SL, SL, F11 = Toggle Buzzer 
-  SL, SL, F12 = Switching Speed (mouse gesture mode)
-  SL, SL, Space = Enable auto switching
-  SL, SL, [+ or -] = Increase/decrease switching interval
-  ESC = Exit switching mode
-  SL, SL, F2 = Toggle keyboard and mouse passthrough mode
-
-  Manual: https://m.media-amazon.com/images/I/B1eWHCNCqIS.pdf
-
-*/
