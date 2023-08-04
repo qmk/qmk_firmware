@@ -26,11 +26,11 @@ enum polyglot_layers {
 };
 
 enum polyglot_keycodes {
-  STENO = SAFE_RANGE
- ,QWERTY
- ,RAISE
- ,LOWER
- ,BACK
+    STENO = SAFE_RANGE,
+    QWERTY,
+    RAISE,
+    LOWER,
+    BACK,
 };
 
 #define RAISE MO(_RAISE)
