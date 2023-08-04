@@ -115,7 +115,6 @@ bool rgb_matrix_mode_active(uint8_t mode) {
 void rgb_matrix_update_current_mode(uint8_t mode) {
     rgb_matrix_config.speed = rgb_matrix_speed_for_mode(mode);
     rgb_matrix_mode_noeeprom(mode);
-    eeconfig_update_user(user_config.raw);
 }
 
 void rgb_matrix_update_dynamic_mode(uint8_t mode) {
@@ -238,8 +237,6 @@ void rgb_matrix_set_defaults(void) {
     rgb_matrix_set_typing_defaults();
 
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
-
-    eeprom_update_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
 }
 
 void matrix_scan_rgb(void) {
@@ -258,12 +255,6 @@ void housekeeping_task_user(void) {
         startup_user();
     }
     matrix_scan_rgb();
-}
-
-void eeconfig_init_user(void) {
-    user_config.raw = 0;
-    rgb_matrix_mode_noeeprom(user_config.rgb_matrix_active_mode);
-    keyboard_init();
 }
 
 void keyboard_post_init_user(void) {
