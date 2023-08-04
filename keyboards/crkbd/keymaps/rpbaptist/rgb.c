@@ -44,18 +44,6 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
     }
 }
 
-void check_default_layer(uint8_t led_min, uint8_t led_max) {
-    switch (get_highest_layer(default_layer_state)) {
-        case _COLEMAKDH:
-            rgb_matrix_layer_helper(THEME_HSV, led_min, led_max);
-            break;
-        case _GAMING:
-        case _WASD:
-            rgb_matrix_layer_helper(HSV_RED, led_min, led_max);
-            break;
-    }
-}
-
 user_config_t user_config;
 
 bool rgb_matrix_in_idle(void) {
@@ -64,7 +52,7 @@ bool rgb_matrix_in_idle(void) {
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (user_config.rgb_layer_indicator && !rgb_matrix_in_idle()) {
-        switch (get_highest_layer(layer_state)) {
+        switch (get_highest_layer(layer_state | default_layer_state)) {
             case _GAMING_EXT:
                 rgb_matrix_layer_helper(HSV_PURPLE, led_min, led_max);
                 break;
@@ -80,10 +68,13 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             case _NUMPAD:
                 rgb_matrix_layer_helper(HSV_CORAL, led_min, led_max);
                 break;
-            default: {
-                check_default_layer(led_min, led_max);
+            case _COLEMAKDH:
+                rgb_matrix_layer_helper(THEME_HSV, led_min, led_max);
                 break;
-            }
+            case _GAMING:
+            case _WASD:
+                rgb_matrix_layer_helper(HSV_RED, led_min, led_max);
+                break;
         }
     }
     return false;

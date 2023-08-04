@@ -24,7 +24,6 @@ _Static_assert(sizeof(user_config_t) == sizeof(uint32_t), "Userspace EECONFIG ou
 
 const char *rgb_matrix_anim_oled_text(uint8_t mode);
 void        rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_min, uint8_t led_max);
-void        check_default_layer(uint8_t led_min, uint8_t led_max);
 void        rgb_matrix_turn_off_underglow(void);
 uint8_t     rgb_matrix_speed_for_mode(uint8_t mode);
 bool        rgb_matrix_mode_active(uint8_t mode);
