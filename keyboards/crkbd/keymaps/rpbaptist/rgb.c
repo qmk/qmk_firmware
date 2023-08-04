@@ -57,12 +57,13 @@ void check_default_layer(uint8_t led_min, uint8_t led_max) {
 }
 
 user_config_t user_config;
+
+bool rgb_matrix_in_idle(void) {
+    return (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode);
+}
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-  if (
-    user_config.rgb_layer_indicator && rgb_matrix_config.enable &&
-      (!user_config.rgb_matrix_idle_anim || rgb_matrix_get_mode() != user_config.rgb_matrix_idle_mode)
-  )
-    {
+    if (user_config.rgb_layer_indicator && !rgb_matrix_in_idle()) {
         switch (get_highest_layer(layer_state)) {
             case _GAMING_EXT:
                 rgb_matrix_layer_helper(HSV_PURPLE, led_min, led_max);
