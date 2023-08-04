@@ -33,10 +33,18 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
         bool shifted = get_mods() & MOD_MASK_SHIFT;
         switch (keycode) {
             case QK_UNICODE_MODE_NEXT:
-                cycle_unicode_input_mode(shifted ? -1 : +1);
+                if (shifted) {
+                    unicode_input_mode_step_reverse();
+                } else {
+                    unicode_input_mode_step();
+                }
                 break;
             case QK_UNICODE_MODE_PREVIOUS:
-                cycle_unicode_input_mode(shifted ? +1 : -1);
+                if (shifted) {
+                    unicode_input_mode_step();
+                } else {
+                    unicode_input_mode_step_reverse();
+                }
                 break;
             case QK_UNICODE_MODE_MACOS:
                 set_unicode_input_mode(UNICODE_MODE_MACOS);

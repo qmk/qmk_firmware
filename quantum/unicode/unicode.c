@@ -164,6 +164,10 @@ uint8_t get_unicode_input_mode(void) {
     return unicode_config.input_mode;
 }
 
+static void persist_unicode_input_mode(void) {
+    eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode);
+}
+
 void set_unicode_input_mode(uint8_t mode) {
     unicode_config.input_mode = mode;
     persist_unicode_input_mode();
@@ -174,26 +178,34 @@ void set_unicode_input_mode(uint8_t mode) {
     dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
 }
 
-void cycle_unicode_input_mode(int8_t offset) {
+static void cycle_unicode_input_mode(int8_t offset) {
 #if UNICODE_SELECTED_MODES != -1
     selected_index = (selected_index + offset) % selected_count;
     if (selected_index < 0) {
         selected_index += selected_count;
     }
+
     unicode_config.input_mode = selected[selected_index];
+
 #    if UNICODE_CYCLE_PERSIST
     persist_unicode_input_mode();
 #    endif
+
 #    ifdef AUDIO_ENABLE
     unicode_play_song(unicode_config.input_mode);
 #    endif
+
     unicode_input_mode_set_kb(unicode_config.input_mode);
     dprintf("Unicode input mode cycle to: %u\n", unicode_config.input_mode);
 #endif
 }
 
-void persist_unicode_input_mode(void) {
-    eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode);
+void unicode_input_mode_step(void) {
+    cycle_unicode_input_mode(1);
+}
+
+void unicode_input_mode_step_reverse(void) {
+    cycle_unicode_input_mode(-1);
 }
 
 __attribute__((weak)) void unicode_input_start(void) {

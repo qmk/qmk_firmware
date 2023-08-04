@@ -64,9 +64,15 @@ uint8_t get_unicode_input_mode(void);
  */
 void set_unicode_input_mode(uint8_t mode);
 
-void cycle_unicode_input_mode(int8_t offset);
+/**
+ * \brief Change to the next Unicode input mode.
+ */
+void unicode_input_mode_step(void);
 
-void persist_unicode_input_mode(void);
+/**
+ * \brief Change to the previous Unicode input mode.
+ */
+void unicode_input_mode_step_reverse(void);
 
 /**
  * \brief User-level callback, invoked when the input mode is changed.
