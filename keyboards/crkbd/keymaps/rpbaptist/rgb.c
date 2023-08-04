@@ -68,12 +68,12 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             case _NUMPAD:
                 rgb_matrix_layer_helper(HSV_CORAL, led_min, led_max);
                 break;
-            case _COLEMAKDH:
-                rgb_matrix_layer_helper(THEME_HSV, led_min, led_max);
-                break;
             case _GAMING:
             case _WASD:
                 rgb_matrix_layer_helper(HSV_RED, led_min, led_max);
+                break;
+            default:
+                rgb_matrix_layer_helper(THEME_HSV, led_min, led_max);
                 break;
         }
     }
