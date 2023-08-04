@@ -220,7 +220,7 @@ void rgb_matrix_set_typing_defaults(void) {
 }
 
 void rgb_matrix_set_defaults(void) {
-    rgb_matrix_config.enable = 1;
+    rgb_matrix_enable_noeeprom();
     rgb_matrix_sethsv_noeeprom(THEME_HSV);
 
     user_config.rgb_layer_indicator  = true;
@@ -250,10 +250,8 @@ void housekeeping_task_user(void) {
 }
 
 void keyboard_post_init_user(void) {
-    user_config.raw = eeconfig_read_user();
     set_single_persistent_default_layer(_COLEMAKDH);
     rgb_matrix_set_defaults();
-    rgb_matrix_enable_noeeprom();
 }
 
 bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
