@@ -16,7 +16,7 @@ enum custom_keycodes {
 };
 
 int msecs = 600;
-int TAP_CODE_DELAY = 600;
+//TAP_CODE_DELAY = 600;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -24,8 +24,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           if (record->event.pressed) {
               // when keycode QMKBEST is pressed
               // SEND_STRING(SS_TAP() SS_DELAY(600) SS_TAP(X_SCROLLLOCK) SS_DELAY(600) SS_TAP());
-              tap_code(KC_SCROLLLOCK);
-              tap_code(KC_SCROLLLOCK);
+              tap_code(KC_SCROLL_LOCK);
+              tap_code(KC_SCROLL_LOCK);
               tap_code(KC_1);
           } else {
               // when keycode QMKBEST is released
@@ -36,8 +36,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           // when keycode QMKBEST is pressed
           // SEND_STRING(SS_TAP(X_SCROLLLOCK) SS_DELAY(600) SS_TAP(X_SCROLLLOCK) SS_DELAY(600) SS_TAP(X_2));
-          tap_code(KC_SCROLLLOCK);
-          tap_code(KC_SCROLLLOCK);
+          tap_code(KC_SCROLL_LOCK);
+          tap_code(KC_SCROLL_LOCK);
           tap_code(KC_2);
           
         } else {
@@ -49,8 +49,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           // when keycode QMKBEST is pressed
           // SEND_STRING(SS_TAP(X_SCROLLLOCK) SS_DELAY(600) SS_TAP(X_SCROLLLOCK) SS_DELAY(600) SS_TAP(X_3));
-          tap_code(KC_SCROLLLOCK);
-          tap_code(KC_SCROLLLOCK);
+          tap_code(KC_SCROLL_LOCK);
+          tap_code(KC_SCROLL_LOCK);
           tap_code(KC_3);
           
         } else {
@@ -65,8 +65,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           
         } else {
           // when keycode QMKBEST is released
-          tap_code(KC_SCROLLLOCK);
-          tap_code(KC_SCROLLLOCK);
+          tap_code(KC_SCROLL_LOCK);
+          tap_code(KC_SCROLL_LOCK);
           tap_code(KC_4);
           
         }
@@ -76,9 +76,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           // when keycode QMKBEST is pressed
           // SEND_STRING(SS_TAP(X_SCROLLLOCK) SS_DELAY(600) SS_TAP(X_SCROLLLOCK) SS_DELAY(600) SS_TAP(X_PGDOWN));
-          tap_code(KC_SCROLLLOCK);
-          tap_code(KC_SCROLLLOCK);
-          tap_code(KC_PGDOWN);
+          tap_code(KC_SCROLL_LOCK);
+          tap_code(KC_SCROLL_LOCK);
+          tap_code(KC_PGDN);
           
         } else {
           // when keycode QMKBEST is released
@@ -89,8 +89,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           // when keycode QMKBEST is pressed
           // SEND_STRING(SS_TAP(X_SCROLLLOCK) SS_DELAY(600) SS_TAP(X_SCROLLLOCK) SS_DELAY(600) SS_TAP(X_PGUP));
-          tap_code(KC_SCROLLLOCK);
-          tap_code(KC_SCROLLLOCK);
+          tap_code(KC_SCROLL_LOCK);
+          tap_code(KC_SCROLL_LOCK);
           tap_code(KC_PGUP);
           
         } else {
@@ -111,7 +111,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  *  '---------------------------'
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_faunch( PREV,     NEXT,     KC_2,       KC_SCROLLLOCK,
+  [0] = LAYOUT_faunch( PREV,     NEXT,     KC_2,       KC_SCROLL_LOCK,
                        PORTONE,  PORTTWO,  PORTTHREE,  PORTFOUR)
 };
 

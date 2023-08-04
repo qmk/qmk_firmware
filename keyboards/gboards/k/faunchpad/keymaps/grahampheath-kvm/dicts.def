@@ -6,4 +6,4 @@
 // #include "dicts/move.def"
 // #include "dicts/media.def"
 // #include "dicts/special.def"
-#include "dicts/deep_rock.def"
+// #include "dicts/deep_rock.def"
