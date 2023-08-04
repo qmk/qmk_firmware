@@ -9,6 +9,18 @@
         "device_version": "0.0.1",
         "force_nkro": true
     },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true
+    },
+    "stenography": {
+        "enabled": true,
+        "protocol": "geminipr"
+    },
     "matrix_pins": {
         "cols": ["GP24", "GP23", "GP21", "GP20", "GP19", "GP18", "GP11", "GP10", "GP9", "GP8", "GP6", "GP5"],
         "rows": ["GP26", "GP25", "GP17", "GP16"]
