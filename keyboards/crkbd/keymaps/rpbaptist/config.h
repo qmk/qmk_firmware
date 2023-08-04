@@ -26,7 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_ONESHOT
 #define NO_USB_STARTUP_CHECK
 
-#define LAYER_STATE_8BIT
+#define LAYER_STATE_8BIT // 8 layer limit
+
 #define SPLIT_OLED_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_ACTIVITY_ENABLE
