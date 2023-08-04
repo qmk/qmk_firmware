@@ -28,9 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LAYER_STATE_8BIT // 8 layer limit
 
-#define SPLIT_OLED_ENABLE
-#define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_ACTIVITY_ENABLE
+#define SPLIT_LAYER_STATE_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
@@ -93,6 +92,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 2
 
 #ifdef OLED_ENABLE
+#    define SPLIT_OLED_ENABLE
 #    define OLED_TIMEOUT 60000 * 10
 #    define OLED_FONT_H "glcdfont_multi.c"
 #endif
