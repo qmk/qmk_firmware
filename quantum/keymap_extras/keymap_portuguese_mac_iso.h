@@ -24,7 +24,7 @@
 *******************************************************************************/
 
 #pragma once
-#include "keymap.h"
+#include "keycodes.h"
 // clang-format off
 
 // Aliases

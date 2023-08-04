@@ -2,7 +2,7 @@
     "manufacturer": "Zach White",
     "keyboard_name": "DirectPins ProMicro",
     "maintainer": "skullydazed",
-    "bootloader": "atmel-dfu",
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -22,7 +22,6 @@
             ["B5", "B6"]
         ]
     },
-    "processor": "atmega32u4",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x2320",
@@ -31,16 +30,16 @@
     "layouts": {
         "LAYOUT_all": {
             "layout": [
-                {"label":"D3", "matrix": [0, 0], "x":0, "y":0},
-                {"label":"D2", "matrix": [1, 0], "x":0, "y":1},
-                {"label":"D1", "matrix": [2, 0], "x":0, "y":4}, {"label":"F4", "matrix": [2, 1], "x":2, "y":4},
-                {"label":"D0", "matrix": [3, 0], "x":0, "y":5}, {"label":"F5", "matrix": [3, 1], "x":2, "y":5},
-                {"label":"D4", "matrix": [4, 0], "x":0, "y":6}, {"label":"F6", "matrix": [4, 1], "x":2, "y":6},
-                {"label":"C6", "matrix": [5, 0], "x":0, "y":7}, {"label":"F7", "matrix": [5, 1], "x":2, "y":7},
-                {"label":"D7", "matrix": [6, 0], "x":0, "y":8}, {"label":"B1", "matrix": [6, 1], "x":2, "y":8},
-                {"label":"E6", "matrix": [7, 0], "x":0, "y":9}, {"label":"B3", "matrix": [7, 1], "x":2, "y":9},
-                {"label":"B4", "matrix": [8, 0], "x":0, "y":10}, {"label":"B2", "matrix": [8, 1], "x":2, "y":10},
-                {"label":"B5", "matrix": [9, 0], "x":0, "y":11}, {"label":"B6", "matrix": [9, 1], "x":2, "y":11}
+                {"label": "D3", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "D2", "matrix": [1, 0], "x": 0, "y": 1},
+                {"label": "D1", "matrix": [2, 0], "x": 0, "y": 4}, {"label": "F4", "matrix": [2, 1], "x": 2, "y": 4},
+                {"label": "D0", "matrix": [3, 0], "x": 0, "y": 5}, {"label": "F5", "matrix": [3, 1], "x": 2, "y": 5},
+                {"label": "D4", "matrix": [4, 0], "x": 0, "y": 6}, {"label": "F6", "matrix": [4, 1], "x": 2, "y": 6},
+                {"label": "C6", "matrix": [5, 0], "x": 0, "y": 7}, {"label": "F7", "matrix": [5, 1], "x": 2, "y": 7},
+                {"label": "D7", "matrix": [6, 0], "x": 0, "y": 8}, {"label": "B1", "matrix": [6, 1], "x": 2, "y": 8},
+                {"label": "E6", "matrix": [7, 0], "x": 0, "y": 9}, {"label": "B3", "matrix": [7, 1], "x": 2, "y": 9},
+                {"label": "B4", "matrix": [8, 0], "x": 0, "y": 10}, {"label": "B2", "matrix": [8, 1], "x": 2, "y": 10},
+                {"label": "B5", "matrix": [9, 0], "x": 0, "y": 11}, {"label": "B6", "matrix": [9, 1], "x": 2, "y": 11}
             ]
         }
     }

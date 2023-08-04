@@ -16,15 +16,6 @@
 
 #pragma once
 
-
-#define MATRIX_COL_PINS \
-    { A14, A15, B13, B14, B15, A13, A0, A1, A2, A3, A6, A7 }
-#define MATRIX_ROW_PINS \
-    { B9, B8, A10, A9 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* I2C - required for custom i2c_init */
 #define I2C1_SCL_PIN B6
 #define I2C1_SDA_PIN B7
@@ -38,7 +29,6 @@
 #define AUDIO_PWM_CHANNEL 1
 
 /* RGB LED */
-#define RGB_DI_PIN B1
 #define RGBLED_NUM 8
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGBLIGHT_EFFECT_BREATHING

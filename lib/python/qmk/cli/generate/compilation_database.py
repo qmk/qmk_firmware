@@ -15,6 +15,8 @@ from milc import cli, MILC
 from qmk.commands import create_make_command
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
+from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keymap import keymap_completer
 
 
 @lru_cache(maxsize=10)
@@ -74,8 +76,8 @@ def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
     return records
 
 
-@cli.argument('-kb', '--keyboard', help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.argument('-km', '--keymap', help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard\'s name')
+@cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap\'s name')
 @cli.subcommand('Create a compilation database.')
 @automagic_keyboard
 @automagic_keymap
@@ -104,7 +106,7 @@ def generate_compilation_database(cli: MILC) -> Union[bool, int]:
 
     if not command:
         cli.log.error('You must supply both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
-        cli.echo('usage: qmk compiledb [-kb KEYBOARD] [-km KEYMAP]')
+        cli.echo('usage: qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]')
         return False
 
     # remove any environment variable overrides which could trip us up

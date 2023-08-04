@@ -17,15 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/*
- * Keyboard Matrix Assignments
- */
-#define MATRIX_ROW_PINS { C4, C5, C6, C7, A7 }
-#define MATRIX_COL_PINS { D1, D5, D6, D7, C0, C1, C2, C3, A6, A5, A4, A3, A2, A1, A0 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 /* Workaround for https://github.com/qmk/qmk_firmware/issues/11389 */
 #define IGNORE_ATOMIC_BLOCK

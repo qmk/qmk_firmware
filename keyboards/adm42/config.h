@@ -16,9 +16,6 @@
 
 #pragma once
 
-
-#define DIODE_DIRECTION ROW2COL
-
 #define TAP_CODE_DELAY 1
 
 #if defined(CONSOLE_ENABLE)

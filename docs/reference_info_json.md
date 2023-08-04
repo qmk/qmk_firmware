@@ -252,7 +252,6 @@ The following animations can be enabled:
 
 |Key              |Description                           |
 |-----------------|--------------------------------------|
-|`all`            |Enable all additional animation modes.|
 |`alternating`    |Enable alternating animation mode.    |
 |`breathing`      |Enable breathing animation mode.      |
 |`christmas`      |Enable christmas animation mode.      |

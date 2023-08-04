@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "keymap.h" // to get keymaps[][][]
+#include "keymap_introspection.h" // to get keymaps[][][]
 #include "eeprom.h"
 #include "progmem.h" // to read default from flash
 #include "quantum.h" // for send_string()

@@ -6,10 +6,10 @@
 
 /* ws2812 RGB LED */
 #ifndef RGBLIGHT_ENABLE
-#undef RGB_DI_PIN
+#undef WS2812_DI_PIN
 #endif
 #if defined(KEYBOARD_preonic_rev2)
-  #define RGB_DI_PIN B3
+  #define WS2812_DI_PIN B3
   #undef RGBLED_NUM
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
