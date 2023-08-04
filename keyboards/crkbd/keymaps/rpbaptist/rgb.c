@@ -197,7 +197,6 @@ void rgb_matrix_toggle_color_passive_mode(void) {
 
 void rgb_matrix_toggle_underglow_layer_indicator(void) {
     user_config.rgb_layer_indicator ^= 1;
-    eeconfig_update_user(user_config.raw);
     if (user_config.rgb_layer_indicator) {
         layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
     } else {
