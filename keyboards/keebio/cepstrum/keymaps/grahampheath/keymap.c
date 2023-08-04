@@ -6,7 +6,7 @@
 // #include "g/keymap_combo.h"
 #include "features/mouse_turbo_click.h"
 enum {
-    _ALPHA = SAFE_RANGE,   // default
+    _ALPHA,   // default
     _SPECIAL, // special characters
     _CONTROL, // special characters
     _NUMBERS,  // numbers/function/motion
