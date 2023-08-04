@@ -106,9 +106,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   }
   return true;
 }
-
-// initialize steno protocol
-void keyboard_post_init_user(void)
-{
-  steno_set_mode(STENO_MODE_GEMINI);
-}
