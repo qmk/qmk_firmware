@@ -84,7 +84,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// initialize steno protocol
-void keyboard_post_init_user(void) {
-   steno_set_mode(STENO_MODE_GEMINI);
-}
