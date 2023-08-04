@@ -22,8 +22,8 @@ void render_crkbd_logo(void) {
 }
 
 user_config_t user_config;
+
 void render_status(void) {
-    // oled_write_P(PSTR("Layout: "), false);
     switch (get_highest_layer(default_layer_state)) {
         case _COLEMAKDH:
             oled_write_P(PSTR("TYPE "), false);
@@ -98,12 +98,12 @@ void render_status(void) {
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        render_status();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+        render_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_crkbd_logo();
 #ifdef RGB_MATRIX_ENABLE
         if (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode) {
-            oled_scroll_left();  // Turns on scrolling
+            oled_scroll_left(); // Turns on scrolling
         } else {
             oled_scroll_off();
         }

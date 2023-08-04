@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_ACTIVITY_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5  // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+#    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 #    define IDLE_TIMEOUT 60000 * 4
 #    define GAMING_IDLE_TIMEOUT 10000
 #    define RGB_MATRIX_TYPING_ACTIVE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #    define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 
-#    define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
+#    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 
 #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
@@ -81,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define RGB_MATRIX_TYPING_ACTIVE RGB_MATRIX_TYPING_HEATMAP
 #        define RGB_MATRIX_TYPING_PASSIVE RGB_MATRIX_CYCLE_LEFT_RIGHT
 #    else
-#        define THEME_HSV 123, 255, 125  // default to PULSE
+#        define THEME_HSV 123, 255, 125 // default to PULSE
 #    endif
 #endif
 

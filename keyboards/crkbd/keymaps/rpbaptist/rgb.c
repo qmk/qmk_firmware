@@ -5,31 +5,32 @@
 #include "rgb_matrix.h"
 
 #ifdef OLED_ENABLE
-    const char *rgb_matrix_anim_oled_text(uint8_t mode) {
-        switch (mode) {
-            case RGB_MATRIX_TYPING_HEATMAP:
-                return PSTR("Heat ");
-            case RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS:
-                return PSTR("Nexus");
-            case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
-                return PSTR("Ease ");
-            case RGB_MATRIX_SOLID_COLOR:
-                return PSTR("Solid");
-            case RGB_MATRIX_BREATHING:
-                return PSTR("Fade ");
-            case RGB_MATRIX_CYCLE_ALL:
-                return PSTR("Cycle");
-            case RGB_MATRIX_RAINBOW_PINWHEELS:
-                return PSTR("Wheel");
-            case RGB_MATRIX_CYCLE_LEFT_RIGHT:
-                return PSTR("Wave ");
-            default:
-                return PSTR("");
-        }
+const char *rgb_matrix_anim_oled_text(uint8_t mode) {
+    switch (mode) {
+        case RGB_MATRIX_TYPING_HEATMAP:
+            return PSTR("Heat ");
+        case RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS:
+            return PSTR("Nexus");
+        case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
+            return PSTR("Ease ");
+        case RGB_MATRIX_SOLID_COLOR:
+            return PSTR("Solid");
+        case RGB_MATRIX_BREATHING:
+            return PSTR("Fade ");
+        case RGB_MATRIX_CYCLE_ALL:
+            return PSTR("Cycle");
+        case RGB_MATRIX_RAINBOW_PINWHEELS:
+            return PSTR("Wheel");
+        case RGB_MATRIX_CYCLE_LEFT_RIGHT:
+            return PSTR("Wave ");
+        default:
+            return PSTR("");
     }
+}
 #endif
 
 extern led_config_t g_led_config;
+
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_min, uint8_t led_max) {
     HSV hsv = {hue, sat, val};
     if (hsv.v > rgb_matrix_get_val()) {
@@ -101,7 +102,7 @@ uint8_t rgb_matrix_speed_for_mode(uint8_t mode) {
 }
 
 bool rgb_matrix_mode_active(uint8_t mode) {
-    return(mode == RGB_MATRIX_SOLID_REACTIVE_SIMPLE || mode == RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS || mode == RGB_MATRIX_TYPING_HEATMAP);
+    return (mode == RGB_MATRIX_SOLID_REACTIVE_SIMPLE || mode == RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS || mode == RGB_MATRIX_TYPING_HEATMAP);
 }
 
 void rgb_matrix_update_current_mode(uint8_t mode) {
@@ -189,7 +190,7 @@ void rgb_matrix_toggle_color_passive_mode(void) {
 void rgb_matrix_toggle_underglow_layer_indicator(void) {
     user_config.rgb_layer_indicator ^= 1;
     if (user_config.rgb_layer_indicator) {
-        layer_state_set(layer_state);  // This is needed to immediately set the layer color (looks better)
+        layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
     } else {
         rgb_matrix_turn_off_underglow();
     }
@@ -250,7 +251,7 @@ void housekeeping_task_user(void) {
 }
 
 void eeconfig_init_user(void) {
-    user_config.raw = 0;
+    user_config.raw                  = 0;
     user_config.rgb_layer_indicator  = true;
     user_config.rgb_matrix_idle_anim = true;
 
@@ -282,12 +283,12 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
                 rgb_matrix_set_defaults();
             }
             break;
-        case RGB_UND:  // Toggle separate underglow status
+        case RGB_UND: // Toggle separate underglow status
             if (record->event.pressed) {
                 rgb_matrix_toggle_underglow_layer_indicator();
             }
             break;
-        case RGB_IDL:  // Toggle idle/heatmap animation
+        case RGB_IDL: // Toggle idle/heatmap animation
             if (record->event.pressed) {
                 rgb_matrix_toggle_idle_animation_change();
             }

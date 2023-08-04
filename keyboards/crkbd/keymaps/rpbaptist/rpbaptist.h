@@ -26,16 +26,16 @@ enum layer_names {
 enum custom_keycodes {
     BSP_DEL = SAFE_RANGE,
 #if defined(RGB_MATRIX_ENABLE)
-    RGB_RST,  // Reset RGB
-    RGB_UND,  // Toggle RGB underglow as layer indicator
-    RGB_ATG,  // Toggle active RGB mode
-    RGB_PST,  // Toggle simple passive RGB mode
-    RGB_PCT,  // Toggle colorful passive RGB mode
-    RGB_IDL,  // RGB Idling animations
+    RGB_RST, // Reset RGB
+    RGB_UND, // Toggle RGB underglow as layer indicator
+    RGB_ATG, // Toggle active RGB mode
+    RGB_PST, // Toggle simple passive RGB mode
+    RGB_PCT, // Toggle colorful passive RGB mode
+    RGB_IDL, // RGB Idling animations
 #endif
-    TYPING,  // Switch to Colemak layer
-    GAMING,  // Switch to gaming Colemak layer
-    WASD     // Switch to gaming with WASD positions
+    TYPING, // Switch to Colemak layer
+    GAMING, // Switch to gaming Colemak layer
+    WASD    // Switch to gaming with WASD positions
 };
 
 // Layer toggle and switch
