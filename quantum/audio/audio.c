@@ -311,6 +311,10 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
         return;
     }
 
+    if (n_count == 0) {
+        return;
+    }
+
     if (!audio_initialized) {
         audio_init();
     }
