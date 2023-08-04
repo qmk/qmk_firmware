@@ -491,11 +491,11 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |ScrLck|  F7  |  F8  |  F9  | F10  |    |QWERTY|ClmkDH|Gaming|      |      |
+*   |ScrLck|  F7  |  F8  |  F9  | F10  |    |QWERTY|ClmkDH|Gaming| Boot |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |PrnScr|  F4  |  F5  |  F6  | F11  |    | Caps | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |PauBrk|  F1  |  F2  |  F3  | F12  |    | Hue+ | Sat+ | Vib+ | Spd+ | Boot |
+*   |PauBrk|  F1  |  F2  |  F3  | F12  |    | Hue+ | Sat+ | Vib+ | Spd+ |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | Mute | Vol- | Vol+ |    |RGBTog|RGBMod|      |
 *                 `------+------+------'    `------+------+------'
@@ -505,9 +505,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 #   define _________________FUNCPAD_L3________________        KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F12
 #   define          ________FUNCPAD_L4_______                 KC_MUTE, KC_VOLD, KC_VOLU
 
-#   define _________________CONFIG_R1_________________        QWERTY,  CLMAKDH, TR_GAME, _______, _______
+#   define _________________CONFIG_R1_________________        QWERTY,  CLMAKDH, TR_GAME, QK_BOOT, _______
 #   define _________________CONFIG_R2_________________        KC_CAPS, _____________SCAG_MODS____________
-#   define _________________CONFIG_R3_________________        TR_RHUI, TR_RSAI, TR_RVAI, TR_RSPI, QK_BOOT
+#   define _________________CONFIG_R3_________________        TR_RHUI, TR_RSAI, TR_RVAI, TR_RSPI, _______
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________CONFIG_R4________                 TR_RTOG, TR_RMOD

@@ -12,7 +12,7 @@
 //layers
 #   define LED_NUMBER 13
 #   define LED_NAVIGATION 40
-#   define LED_CONFIG_L 45
+#   define LED_CONFIG_L 48
 #   define LED_CONFIG_R 50
 #   define LED_MOUSE 15
 #   define LED_GAMENUMBER 22
@@ -61,14 +61,14 @@
 #   define LED_GUI_R 49
 
 //Reset LED
-#   define LED_RESET 48
+#   define LED_RESET 45
 
 //qmk_firmware\keyboards\bastardkb\charybdis\3x5\3x5.c
 #elif defined(KEYBOARD_bastardkb_charybdis_3x5)
 //layers
 #   define LED_NUMBER 16
 #   define LED_NAVIGATION 34
-#   define LED_CONFIG_L 21
+#   define LED_CONFIG_L 18
 #   define LED_CONFIG_R 20
 #   define LED_MOUSE 6
 #   define LED_GAMENUMBER 1
@@ -117,5 +117,5 @@
 #   define LED_GUI_R 19
 
 //Reset LED
-#   define LED_RESET 18
+#   define LED_RESET 21
 #endif
