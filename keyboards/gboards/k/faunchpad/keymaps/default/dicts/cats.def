@@ -1,0 +1,22 @@
+// Base + Cats
+SUBS( FP01 | FP11,                str_cat1,                 "https://tenor.com/ZrF5.gif")
+SUBS( FP02 | FP12,                str_cat2,                 "https://tenor.com/MlF8.gif")
+SUBS( FP03 | FP13,                str_cat3,                 "https://tenor.com/zFTG.gif")
+SUBS( FP04 | FP14,                str_cat4,                 "https://tenor.com/3j1u.gif")
+
+SUBS( FP01 | FP02,                str_cat5,                 "https://tenor.com/IpA4.gif")
+SUBS( FP02 | FP03,                str_cat6,                 "https://tenor.com/Nand.gif")
+SUBS( FP03 | FP04,                str_cat7,                 "https://tenor.com/bbldB.gif")
+SUBS( FP11 | FP12,                str_cat8,                 "https://tenor.com/oohE.gif")
+SUBS( FP12 | FP13,                str_cat9,                 "https://tenor.com/w1DM.gif")
+SUBS( FP13 | FP14,                str_cat10,                "https://tenor.com/wfEk.gif")
+SUBS( FP12 | FP13 |  FP02|FP03,   str_cat11,                "https://tenor.com/XL3s.gif")
+
+SUBS( FP01,                       str_cat12,                "https://tenor.com/Ain1.gif")
+SUBS( FP02,                       str_cat13,                "https://tenor.com/yiMM.gif")
+SUBS( FP03,                       str_cat14,                "https://tenor.com/Fqdy.gif")
+SUBS( FP04,                       str_cat15,                "https://tenor.com/2OG5.gif")
+SUBS( FP11,                       str_cat16,                "https://tenor.com/XFgo.gif")
+SUBS( FP12,                       str_cat17,                "https://tenor.com/uYwy.gif")
+SUBS( FP13,                       str_cat18,                "https://tenor.com/81Qj.gif")
+PRES( FP14,                                                 KC_ENT)

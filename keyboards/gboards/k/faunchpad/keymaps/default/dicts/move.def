@@ -1,0 +1,7 @@
+// Movement Layer
+PRES( MOVE | FP12,                                          KC_LEFT)
+PRES( MOVE | FP13,                                          KC_DOWN)
+PRES( MOVE | FP03,                                          KC_UP)
+PRES( MOVE | FP14,                                          KC_RIGHT)
+PRES( MOVE | FP02,                                          KC_PGUP)
+PRES( MOVE | FP04,                                          KC_PGDN)
