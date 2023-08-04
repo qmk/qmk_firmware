@@ -2,10 +2,10 @@
 #include "t4corun.h"
 
 enum combos {
-  COMDOT_DRGTOG,
-  MDOT_SNPTOG,
-  SPCNAV_MB4,
-  OP_CONFIG,
+  DRAGTOGGLE,
+  SNIPERTOGGLE,
+  MOUSEBUTTON4,
+  CONFIGLAYER,
   COMBO_LENGTH
 };
 
