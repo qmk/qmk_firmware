@@ -28,9 +28,7 @@
     "ws2812": {
         "pin": "A15"
     },
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C",
+    "development_board": "proton_c",
     "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],
     "layouts": {
         "LAYOUT_all": {

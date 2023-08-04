@@ -26,9 +26,7 @@
             {"pin_a": "B12", "pin_b": "B13"}
         ]
     },
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C",
+    "development_board": "proton_c",
     "community_layouts": ["ortho_5x12"],
     "layout_aliases": {
         "LAYOUT_preonic_grid": "LAYOUT_ortho_5x12"

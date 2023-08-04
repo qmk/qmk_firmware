@@ -22,7 +22,5 @@
             {"pin_a": "C15", "pin_b": "C14", "resolution": 2}
         ]
     },
-    "processor": "STM32F401",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F401"
+    "development_board": "blackpill_f401"
 }

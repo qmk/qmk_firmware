@@ -2,7 +2,6 @@
     "manufacturer": "Yaya-alone-Team",
     "keyboard_name": "Kepler-33",
     "maintainer": "Seityaya",
-    "bootloader": "stm32-dfu",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -11,8 +10,7 @@
         "mousekey": true,
         "nkro": true
     },
-    "processor": "STM32F401",
-    "board": "BLACKPILL_STM32_F401",
+    "development_board": "blackpill_f401",
     "url": "https://github.com/seityaya/Kepler-33",
     "usb": {
         "device_version": "1.0.0",

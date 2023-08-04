@@ -2,9 +2,7 @@
     "usb": {
         "pid": "0xAD01"
     },
-    "processor": "STM32F303",
-    "board": "QMK_PROTON_C",
-    "bootloader": "stm32-dfu",
+    "development_board": "proton_c",
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_alice_split_bs"
     },

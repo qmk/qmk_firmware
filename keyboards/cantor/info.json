@@ -2,7 +2,6 @@
     "manufacturer": "Diego Palacios",
     "keyboard_name": "cantor",
     "maintainer": "diepala",
-    "bootloader": "stm32-dfu",
     "features": {
         "bootmagic": true,
         "command": false,
@@ -11,8 +10,7 @@
         "mousekey": true,
         "nkro": true
     },
-    "processor": "STM32F401",
-    "board": "BLACKPILL_STM32_F401",
+    "development_board": "blackpill_f401",
     "url": "https://github.com/diepala/cantor",
     "usb": {
         "device_version": "1.0.0",

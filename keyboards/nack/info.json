@@ -23,9 +23,7 @@
         "rows": ["A0", "A1", "A2", "A3"]
     },
     "diode_direction": "ROW2COL",
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C",
+    "development_board": "proton_c",
     "tapping": {
         "toggle": 2
     },

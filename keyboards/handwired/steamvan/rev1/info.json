@@ -24,9 +24,7 @@
     "pin": "A7",
     "driver": "spi"
   },
-  "processor": "STM32F303",
-  "bootloader": "stm32-dfu",
-  "board": "QMK_PROTON_C",
+  "development_board": "proton_c",
   "layouts": {
     "LAYOUT_standard": {
       "layout": [

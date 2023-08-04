@@ -40,9 +40,7 @@
         "scroll_lock": "A13",
         "on_state": 0
     },
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C",
+    "development_board": "proton_c",
    "layouts": {
         "LAYOUT_all": {
             "layout": [

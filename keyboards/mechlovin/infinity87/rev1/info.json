@@ -12,7 +12,5 @@
         "caps_lock": "A4",
         "scroll_lock": "A8"
     },
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu",
-    "board": "QMK_PROTON_C"
+    "development_board": "proton_c"
 }
