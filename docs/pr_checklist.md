@@ -42,7 +42,7 @@ If there are any inconsistencies with these recommendations, you're best off [cr
 
 - `#include QMK_KEYBOARD_H` preferred to including specific board files
 - prefer layer `enum`s to `#define`s
-- require custom keycode `enum`s to `#define`s, first entry must have ` = SAFE_RANGE`
+- custom keycode `enum`s must have first entry `= SAFE_RANGE`
 - terminating backslash (`\`) in lines of LAYOUT macro parameters is superfluous and should be removed
 - some care with spacing (e.g., alignment on commas or first char of keycodes) makes for a much nicer-looking keymap
 
