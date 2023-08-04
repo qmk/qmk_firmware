@@ -631,7 +631,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_GR  */  BACKSLASH u"\r\v\t" NOT_SIGN, u"|" u"\r\v\t" NOT_SIGN,      BACKSLASH u"\r\v\t" NOT_SIGN
     },
     /*KC_NONUS_HASH*/ {u"#" u"\r\v\t~",              u"~",                         u"#",                         
-    /*  LANG_DE  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_DE  */  u"#" u"\r\v\t'",              u"'",                         NULL,                         
     /*  LANG_FR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_ES  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_PT  */  NULL,                         NULL,                         NULL,                         
@@ -678,12 +678,12 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  u">",                         u"<",                         u">",                         
     /*  LANG_GR  */  GRAVE_ACCENT,                 u"~",                         GRAVE_ACCENT
     },
-    /*KC_COMMA   */ {COMMA u"\r\v\t<",             u"<",                         COMMA,                        
-    /*  LANG_DE  */  NULL,                         u";",                         NULL,                         
+    /*KC_COMMA   */ {COMMA u"\r\v\t<",             u"<",                         COMMA u"\r\v\t<",             
+    /*  LANG_DE  */  COMMA u"\r\v\t;",             u";",                         NULL,                         
     /*  LANG_FR  */  u";",                         u".",                         NULL,                         
-    /*  LANG_ES  */  u",",                         u";",                         u",",                         
-    /*  LANG_PT  */  u",",                         u";",                         u",",                         
-    /*  LANG_IT  */  u"," u"\r\v\t" DBL_ANGLE_QMARK_L,u";" u"\r\v\t" DBL_ANGLE_QMARK_L,u"," u"\r\v\t" DBL_ANGLE_QMARK_L,
+    /*  LANG_ES  */  COMMA,                        u";",                         COMMA,                        
+    /*  LANG_PT  */  COMMA,                        u";",                         COMMA,                        
+    /*  LANG_IT  */  COMMA u"\r\v\t" DBL_ANGLE_QMARK_L,u";" u"\r\v\t" DBL_ANGLE_QMARK_L,COMMA u"\r\v\t" DBL_ANGLE_QMARK_L,
     /*  LANG_TR  */  UMLAUT_O_SMALL,               UMLAUT_O,                     NULL,                         
     /*  LANG_KO  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_JA  */  HIRAGANA_NE,                  CJK_IDEOG_COMMA,              NULL,                         
@@ -691,7 +691,7 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_GR  */  COMMA,                        u"<",                         COMMA
     },
     /*KC_DOT     */ {u"." u"\r\v\t>",              u">",                         u".",                         
-    /*  LANG_DE  */  NULL,                         u":",                         NULL,                         
+    /*  LANG_DE  */  u"." u"\r\v\t:",              u":",                         NULL,                         
     /*  LANG_FR  */  u":",                         u"/",                         NULL,                         
     /*  LANG_ES  */  u".",                         u":",                         u".",                         
     /*  LANG_PT  */  u".",                         u":",                         u".",                         
@@ -714,17 +714,17 @@ static const uint16_t* lang_plane [ALPHA + NUM + ADDITIONAL][NUM_LANG * 3] = {
     /*  LANG_AR  */  ARABIC_ZAH,                   ARABIC_QMARK,                 ARABIC_ZAH,                   
     /*  LANG_GR  */  u"/",                         u"?",                         u"/"
     },
-    /*KC_NONUS_BACKSLASH*/ {BACKSLASH u"\r\v\t|",         u"|",                         BACKSLASH,                    
-    /*  LANG_DE  */  u"<" u"\r\v\t> |",            u">" u"\r\v\t|",              NULL,                         
-    /*  LANG_FR  */  u"<",                         u">",                         NULL,                         
-    /*  LANG_ES  */  u"<",                         u">",                         u"<",                         
-    /*  LANG_PT  */  u"<",                         u">",                         u"<",                         
-    /*  LANG_IT  */  u"<",                         u">",                         u"<",                         
-    /*  LANG_TR  */  u"<" u"\r\v\t|",              u">" u"\r\v\t|",              u"<" u"\r\v\t|",              
+    /*KC_NONUS_BACKSLASH*/ {u"<" u"\r\v\t>|",             u">" u"\r\v\t|",              u"<" u"\r\v\t>|",             
+    /*  LANG_DE  */  u"<" u"\r\v\t>|",             u">" u"\r\v\t|",              NULL,                         
+    /*  LANG_FR  */  u"<" u"\r\v\t>|",             u">" u"\r\v\t|",              NULL,                         
+    /*  LANG_ES  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_PT  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_IT  */  NULL,                         NULL,                         NULL,                         
+    /*  LANG_TR  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_KO  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_JA  */  NULL,                         NULL,                         NULL,                         
     /*  LANG_AR  */  BACKSLASH,                    u"|",                         BACKSLASH,                    
-    /*  LANG_GR  */  u">",                         u"<",                         u">"
+    /*  LANG_GR  */  NULL,                         NULL,                         NULL
     },
     //[[[end]]]
 };

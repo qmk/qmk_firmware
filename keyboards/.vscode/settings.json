@@ -1,19 +1,7 @@
 {
     "files.associations": {
-        "spi_helper.h": "c",
-        "helpers.h": "c",
-        "polykybd.h": "c",
-        "lang_lut.h": "c",
-        "*.tcc": "c",
-        "string_view": "c",
-        "algorithm": "c",
-        "random": "c",
-        "limits": "c",
-        "numeric": "c",
-        "ranges": "c",
-        "shift_reg.h": "c",
-        "type_traits": "c",
-        "split72.h": "c",
-        "disp_array.h": "c"
+        "*.c": "c",
+        "*.h": "c",
+        "*.inc": "c"
     }
 }

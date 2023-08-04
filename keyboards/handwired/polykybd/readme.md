@@ -18,43 +18,47 @@ Hardware Availability:
 
 - `deprecated/4x2` and `deprecated4x5` were the first dev boards running QMK, these folders are not maintained and also will not compile.
 - `wave` was the first version of the 72-key split keyboard and is still maintained.
-- `split72` is the next hardware iteration of `wave` with only slight differences. Only `split72` is actively developed.
+- `split72` is the current hardware iteration of `wave` with slight differences. Only `split72` is actively developed.
 
 ## Clean
 
-$ make clean
+`make clean`
 or
-$ rm -rf .build
+`rm -rf .build`
 
 ## Build
 
-$ make handwired/polykybd/split72:default
-$ qmk compile -kb handwired/polykybd/split72 -km default
+`make handwired/polykybd/split72:default`
+`qmk compile -kb handwired/polykybd/split72 -km default`
 
 ### Flash split setup via EE Hands
 
-make handwired/polykybd/split72:default:uf2-split-right
-make handwired/polykybd/split72:default:uf2-split-left
+`make handwired/polykybd/split72:default:uf2-split-right`
+`make handwired/polykybd/split72:default:uf2-split-left`
 
 ## After merging master into branch update dependencies with
 
-$ make git-submodule
+`make git-submodule`
 
 ### Init submodules
 
-$ git submodule update --init --recursive
+`git submodule update --init --recursive`
+
+### Updates tags to display the right verion
+
+`git fetch --tags upstream`
 
 ## Check image size
 
-$ size .build//handwired_polykybd_split72_rp2040pico_default.elf -B
+`size .build//handwired_polykybd_split72_rp2040pico_default.elf -B`
 
 ### Copy image to RPI
 
-$ cp .build/handwired_polykybd_split72_rp2040pico_default.uf2 /media/$USER/RPI-RP2/
+`cp .build/handwired_polykybd_split72_rp2040pico_default.uf2 /media/$USER/RPI-RP2/`
 
 ## Get debug output
 
-$ qmk console
+`qmk console`
 
 # General
 

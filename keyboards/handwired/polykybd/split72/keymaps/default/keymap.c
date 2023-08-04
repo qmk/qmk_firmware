@@ -49,7 +49,7 @@ while lang_key:
 static enum lang_layer g_lang = LANG_EN;
 //[[[end]]]
 
-enum kb_layers { _L0 = 0x00, _BL=_L0, _L1 = 0x01, _L2 = 0x02, _FL = 0x03, _NL = 0x04, _UL = 0x05, _LS = 0x06, _ADDLANG1 = 0x07};
+enum kb_layers { _L0 = 0x00, _BL=_L0, _L1 = 0x01, _L2 = 0x02, _FL0 = 0x03, _FL1 = 0x04, _NL = 0x05, _UL = 0x06, _LS = 0x07, _ADDLANG1 = 0x08};
 
 enum my_keycodes {
     KC_LANG = SAFE_RANGE, KC_DECC, KC_INCC, KC_TOGBASE, KC_BASE, KC_L0, KC_L1, KC_L2, //KC_ADDLANG1,
@@ -103,6 +103,7 @@ typedef struct _poly_state_t {
 poly_state_t g_state;
 
 static int32_t last_update;
+static bool g_first_sync = false;
 
 bool display_wakeup(keyrecord_t* record);
 void update_displays(enum refresh_mode mode);
@@ -177,14 +178,11 @@ void user_sync_poly_data_handler(uint8_t in_len, const void* in_data, uint8_t ou
 void sync_and_refresh_displays(void) {
     if (is_keyboard_master()) {
         //master syncs data
-        if (g_lang != g_state.s.lang || g_contrast != g_state.s.contrast || g_default_ls != g_state.s.default_ls ){
+        if (!g_first_sync || g_lang != g_state.s.lang || g_contrast != g_state.s.contrast || g_default_ls != g_state.s.default_ls ){
             poly_sync_t send = { g_lang, g_contrast, g_default_ls};
             if (transaction_rpc_send(USER_SYNC_POLY_DATA, sizeof(send), &send)) {
                 g_state.s.lang = g_lang;
-                //dprint("poly state sync done!\n");
-            }
-            else {
-                //dprint("poly state sync failed!\n");
+                g_first_sync = true;
             }
         }
     }
@@ -264,13 +262,13 @@ enum unicode_names {
 };
 
 const uint32_t unicode_map[] PROGMEM = {
-    [UM_A]  = 0xe4,
-    [UM_AC] = 0xc4,
-    [UM_O]  = 246,
-    [UM_OC] = 214,
-    [UM_U]  = 252,
-    [UM_UC] = 220,
-    [SZ]  = 223,
+    [UM_A]  = UMLAUT_A_SMALL[0],
+    [UM_AC] = UMLAUT_A[0],
+    [UM_O]  = UMLAUT_O_SMALL[0],
+    [UM_OC] = UMLAUT_O[0],
+    [UM_U]  = UMLAUT_U_SMALL[0],
+    [UM_UC] = UMLAUT_U[0],
+    [SZ]  = ESZETT[0],
     [SZC] = 0x1E9E
 };
 
@@ -279,7 +277,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_L0] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
-        MO(_FL),    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
+        MO(_FL0),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
         KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_NUHS,    MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
@@ -290,22 +288,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
     [_L1] = LAYOUT_left_right_stacked(
-        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
+        KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
-        MO(_FL),    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
+        MO(_FL1),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
         KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
-        KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
+        KC_LCTL,    KC_LWIN,    KC_LALT,    MO(_ADDLANG1),          KC_SPACE,   KC_DEL,     KC_ENTER,
 
-                    KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,
-                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    MO(_ADDLANG1),
+                    KC_7,       KC_8,       KC_9,       KC_0,       KC_MINUS,   KC_EQUAL,   KC_HYPR,
+                    KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       KC_LBRC,    KC_NUBS,
         KC_NO,      KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_RBRC,    KC_BSLS,
-        KC_LANG,    KC_HYPR,    KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
+        KC_LANG,    KC_APP,     KC_N,       KC_M,       KC_COMMA,   KC_DOT,     KC_SLASH,   KC_RSFT,
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
     [_L2] = LAYOUT_left_right_stacked(
         KC_ESC,     KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_NUBS,
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_GRAVE,
-        MO(_FL),    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
+        MO(_FL1),   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOTE,   KC_MS_BTN1,
         KC_LSFT,    KC_NUHS,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       MO(_NL),
         KC_LCTL,    KC_LWIN,    KC_LALT,    KC_APP,                 KC_SPACE,   KC_DEL,     KC_ENTER,
 
@@ -316,7 +314,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ENTER,   KC_BSPC,    KC_SPC,                 KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT
         ),
     //Function Layer (Fn)
-    [_FL] = LAYOUT_left_right_stacked(
+    [_FL0] = LAYOUT_left_right_stacked(
         OSL(_UL),   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,     TO(_UL),
         KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
@@ -326,6 +324,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,
                     _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
+        ),
+    [_FL1] = LAYOUT_left_right_stacked(
+        OSL(_UL),   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,
+        KC_MS_BTN1, _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    KC_MS_BTN2,             _______,    _______,    _______,
+
+                    KC_F7,      KC_F8,      KC_F9,      KC_F10,      KC_F11,     KC_F12,    TO(_UL),
+                    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+        _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_CAPS,
         TO(_NL),    _______,    _______,    _______,    _______,    _______,    _______,    _______,
         _______,    _______,    _______,                KC_HOME,    KC_PGUP,    KC_PGDN,    KC_END
         ),
@@ -345,13 +356,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ),
     //Util Layer
     [_UL] = LAYOUT_left_right_stacked(
-        KC_NO,      KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,      KC_NO,
+        KC_NO,      KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,     KC_F18,
         KC_MYCM,    KC_CALC,    KC_PSCR,    KC_SCRL,    KC_BRK,     KC_NO,      KC_NO,
         KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     _______,
-        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     QK_DEBUG_TOGGLE,
+        KC_NO,      KC_NO,      SH_TOGG,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     QK_DEBUG_TOGGLE,
         KC_BASE,    KC_INCC,    KC_NO,      KC_DECC,                QK_RBT,     QK_MAKE,   QK_BOOT,
 
-                    KC_F18,     KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,    KC_F24,
+                    KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,    KC_NO,
                     KC_MPRV,    KC_MPLY,    KC_MSTP,    KC_MNXT,    KC_MUTE,    KC_VOLD,   KC_VOLU,
         _______,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,     KC_NO,
         KC_NO,      KC_NO,      KC_TOGBASE, KC_L0,      KC_L1,      KC_L2,      KC_NO,     KC_NO,
@@ -394,19 +405,7 @@ led_config_t g_led_config = { {// Key Matrix to LED Index
                               {20, 19, 18, 17, 16, 15, 14, NO_LED},
                               {27, 26, 25, 24, 23, 22, 21, NO_LED},
                               {35, 34, 33, 32, 31, 30, 29, 28},
-/*
-    lc0r0, lc1r0 ,lc2r0, lc3r0, lc4r0, lc5r0 ,lc6r0, \
-    lc0r1, lc1r1 ,lc2r1, lc3r1, lc4r1, lc5r1 ,lc6r1, \
-    lc0r2, lc1r2 ,lc2r2, lc3r2, lc4r2, lc5r2 ,lc6r2, lc7r3, \
-    lc0r3, lc1r3 ,lc2r3, lc3r3, lc4r3, lc5r3 ,lc6r3, lc7r4, \
-    lc0r4, lc1r4 ,lc2r4, lc3r4,        lc4r4 ,lc5r4, lc6r4, \
 
-    { lc0r0, lc1r0 ,lc2r0, lc3r0, lc4r0, lc5r0 ,lc6r0, KC_NO }, \
-    { lc0r1, lc1r1 ,lc2r1, lc3r1, lc4r1, lc5r1 ,lc6r1, KC_NO }, \
-    { lc0r2, lc1r2 ,lc2r2, lc3r2, lc4r2, lc5r2 ,lc6r2, KC_NO }, \
-    { lc0r3, lc1r3 ,lc2r3, lc3r3, lc4r3, lc5r3 ,lc6r3, lc7r3 }, \
-    { lc0r4, lc1r4 ,lc2r4, lc3r4, lc4r4, lc5r4 ,lc6r4, lc7r4 }, \
-*/
                               {NO_LED, 42, 41, 40, 39, 38, 37, 36},
                               {NO_LED, 49, 48, 47, 46, 45, 44, 43},
                               {NO_LED, 56, 55, 54, 53, 52, 51, 50},
@@ -444,7 +443,6 @@ led_config_t g_led_config = { {// Key Matrix to LED Index
 
 const uint16_t* get_led_matrix_text(void) {
     switch(rgb_matrix_get_mode()) {
-
         case RGB_MATRIX_SPLASH:
             return u"Sp";
         case RGB_MATRIX_MULTISPLASH:
@@ -533,12 +531,12 @@ const uint16_t* get_led_matrix_text(void) {
 
 const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     switch (keycode) {
-    case QK_UNICODE_MODE_MACOS: return u"Mac\r\vInp";
-    case QK_UNICODE_MODE_LINUX: return u"Linux\r\vInp";
-    case QK_UNICODE_MODE_WINDOWS: return u"Win\r\vInp";
-    case QK_UNICODE_MODE_BSD: return u"BSD\r\vInp";
-    case QK_UNICODE_MODE_WINCOMPOSE: return u"Win\r\vCmp";
-    case QK_UNICODE_MODE_EMACS: return u"Emcs\r\vInp";
+    case QK_UNICODE_MODE_MACOS: return u"Mac";
+    case QK_UNICODE_MODE_LINUX: return u"Lnx";
+    case QK_UNICODE_MODE_WINDOWS: return u"Win";
+    case QK_UNICODE_MODE_BSD: return u"BSD";
+    case QK_UNICODE_MODE_WINCOMPOSE: return u"WCmp";
+    case QK_UNICODE_MODE_EMACS: return u"Emcs";
     case QK_LEAD:
         return u"Lead";
     case KC_HYPR:
@@ -648,7 +646,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return TECHNICAL_ERASERIGHT;
     case KC_MYCM:
         return u"  " PRIVATE_PC;
-    case MO(_FL):
+    case MO(_FL0):
+    case MO(_FL1):
         return u"Fn\r\v\t" ICON_LAYER;
     case TO(_NL):
         return u"Nm\r\v\t" ICON_LAYER;
@@ -725,6 +724,8 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
         return u" +";
     case KC_LANG:
         return PRIVATE_WORLD;
+    case SH_TOGG:
+        return u"SwpH";
     case QK_MAKE:
         return u"Make";
     case QK_REBOOT:
@@ -760,7 +761,7 @@ const uint16_t* keycode_to_disp_text(uint16_t keycode, led_t state) {
     }
     break;
     }
-    return NULL;//return u"[?]";
+    return NULL;
 }
 
 const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
@@ -802,16 +803,15 @@ const uint16_t* keycode_to_disp_overlay(uint16_t keycode, led_t state) {
 
 
 void update_displays(enum refresh_mode mode) {
-    uint16_t text_buffer[2];
     uint8_t layer = get_highest_layer(layer_state);
     /*if (layer > _LS) {
         layer = g_default_ls;
     }*/
 
     led_t state = host_keyboard_led_state();
+    bool capital_case = ((get_mods() & MOD_MASK_SHIFT) != 0) || state.caps_lock;
     //the left side has an offset of 0, the right side an offset of MATRIX_ROWS_PER_SIDE
-    uint8_t offset = is_keyboard_master() ? 0 : MATRIX_ROWS_PER_SIDE;
-
+    uint8_t offset = is_keyboard_left() ? 0 : MATRIX_ROWS_PER_SIDE;
     uint8_t start_row = 0;
 
     //select first display (and later on shift that 0 till the end)
@@ -838,16 +838,18 @@ void update_displays(enum refresh_mode mode) {
             }
             else {
                 if (disp_idx != 255) {
-                    uint16_t keycode = keymaps[layer][r + offset][c];
+                    keycode = keymaps[layer][r + offset][c];
                     if(keycode!=KC_TRNS) {
                         const uint16_t* text = keycode_to_disp_text(keycode, state);
                         kdisp_set_buffer(0x00);
-                        if(text==NULL) {
-                            text_buffer[0] = keycode;
-                            text_buffer[1] = 0;
-                            text = text_buffer;
+                        if(text==NULL){
+                            if((keycode&QK_UNICODEMAP_PAIR)!=0){
+                                uint16_t chr = capital_case ? QK_UNICODEMAP_PAIR_GET_SHIFTED_INDEX(keycode) : QK_UNICODEMAP_PAIR_GET_UNSHIFTED_INDEX(keycode);
+                                kdisp_write_gfx_char(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, unicode_map[chr]);
+                            }
+                        } else {
+                            kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
                         }
-                        kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
                         text = keycode_to_disp_overlay(keycode, state);
                         if(text!=NULL) {
                             kdisp_write_gfx_text(ALL_FONTS, sizeof(ALL_FONTS) / sizeof(GFXfont*), 28, 22, text);
@@ -913,15 +915,6 @@ void post_process_record_user(uint16_t keycode, keyrecord_t* record) {
 
     if (!record->event.pressed) {
         switch (keycode) {
-        /*case KC_ADDLANG1:
-            if (IS_LAYER_ON(_ADDLANG1)) {
-                layer_clear();
-                layer_on(g_default_ls);
-            } else {
-                layer_clear();
-                layer_on(g_default_ls);
-                layer_on(_ADDLANG1);
-            }*/
         case KC_L0:
             g_default_ls = _L0;
             persistent_default_layer_set(g_default_ls);
@@ -1131,8 +1124,7 @@ bool oled_task_user(void) {
     snprintf(buffer, sizeof(buffer), "\nRGB:%2d", rgb_matrix_get_mode());
     oled_write(buffer, false);
 
-    snprintf(buffer, sizeof(buffer), "\n%s", is_keyboard_master() ? "MASTER" : "SLAVE");
-    //snprintf(buffer, sizeof(buffer), "\n%s %s", is_keyboard_master() ? "MASTER" : "SLAVE", is_keyboard_left() ? "LEFT", "RIGHT");
+    snprintf(buffer, sizeof(buffer), "\n%s %s", is_keyboard_master() ? "USB-Host" : "Bridge", is_keyboard_left() ? "LEFT" : "RIGHT");
 
     oled_write(buffer, false);
 
