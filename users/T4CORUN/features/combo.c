@@ -1,34 +1,34 @@
 #include "combo.h"
 
-const uint16_t PROGMEM commadot_combo[]     = {TR_COMM, TR_DOT,     COMBO_END};
-const uint16_t PROGMEM mdot_combo[]         = {KC_M,    TR_DOT,     COMBO_END};
-const uint16_t PROGMEM spacenav_combo[]     = {KC_SPC,  NAVGTIN,    COMBO_END};
-const uint16_t PROGMEM op_combo[]           = {KC_O,    KC_P,       COMBO_END};
+const uint16_t PROGMEM dragtog_combo[]     = {TR_COMM, TR_DOT,     COMBO_END};
+const uint16_t PROGMEM sniptog_combo[]     = {KC_M,    TR_DOT,     COMBO_END};
+const uint16_t PROGMEM moubtn4_combo[]     = {KC_SPC,  NAVGTIN,    COMBO_END};
+const uint16_t PROGMEM cfglayr_combo[]     = {KC_P,    TR_MINS,    COMBO_END};
 
 combo_t key_combos[COMBO_LENGTH] = {
 
 #if defined(POINTING_DEVICE_ENABLE)
-  [COMDOT_DRGTOG]   = COMBO(commadot_combo, DRG_TOG),
-  [MDOT_SNPTOG]     = COMBO(mdot_combo, SNP_TOG),
+  [DRAGTOGGLE]      = COMBO(dragtog_combo, DRG_TOG),
+  [SNIPERTOGGLE]    = COMBO(sniptog_combo, SNP_TOG),
 #else
-  [COMDOT_DRGTOG]   = COMBO(commadot_combo, ___x___),
-  [MDOT_SNPTOG]     = COMBO(mdot_combo, ___x___),  
+  [DRAGTOGGLE]      = COMBO(dragtog_combo, ___x___),
+  [SNIPERTOGGLE]    = COMBO(sniptog_combo, ___x___),  
 #endif //POINTING_DEVICE_ENABLE
 
 #if defined(MOUSELAYER_ENABLE)
-  [SPCNAV_MB4]      = COMBO(spacenav_combo, KC_BTN4),
+  [MOUSEBUTTON4]    = COMBO(moubtn4_combo, KC_BTN4),
 #else
-  [SPCNAV_MB4]      = COMBO(spacenav_combo, ___x___),
+  [MOUSEBUTTON4]    = COMBO(moubtn4_combo, ___x___),
 #endif //MOUSELAYER_ENABLE
 
-  [OP_CONFIG]       = COMBO(op_combo, CONFIG) 
+  [CONFIGLAYER]     = COMBO(cfglayr_combo, CONFIG) 
 };
 
 
 bool get_combo_must_hold(uint16_t index, combo_t *combo) {
   switch (index) {
       
-    case OP_CONFIG:
+    case CONFIGLAYER:
       return true;
 
     default:
@@ -40,9 +40,9 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
   
   switch (index) {
       
-    case COMDOT_DRGTOG:
-    case MDOT_SNPTOG:
-    case SPCNAV_MB4:
+    case DRAGTOGGLE:
+    case SNIPERTOGGLE:
+    case MOUSEBUTTON4:
       return true;
 
     default:
@@ -64,12 +64,12 @@ bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   // or with combo index, i.e. its name from enum.
   switch (index) {
-    case COMDOT_DRGTOG:
-    case MDOT_SNPTOG:
-    case SPCNAV_MB4:
+    case DRAGTOGGLE:
+    case SNIPERTOGGLE:
+    case MOUSEBUTTON4:
       return COMBO_TERM;
 
-    case OP_CONFIG:
+    case CONFIGLAYER:
       return COMBO_HOLD_TERM + 150;
 
     default:

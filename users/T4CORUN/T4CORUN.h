@@ -481,7 +481,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 #   define ___________________NAV_R1__________________        TR_DMR1, TR_DMP1, NXT_TAB, TR_DMP2, TR_DMR2
 #   define ___________________NAV_R2__________________        KC_DEL,  _____________SCAG_MODS____________
-#   define ___________________NAV_R3__________________        KC_INS,  KC_BSPC, ___x___, ___x___, KC_APP 
+#   define ___________________NAV_R3__________________        KC_BSPC, ___x___, ___x___, KC_INS,  KC_APP 
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          __________NAV_R4_________                 ___x___, _______
