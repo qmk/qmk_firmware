@@ -251,7 +251,13 @@ void housekeeping_task_user(void) {
 
 void eeconfig_init_user(void) {
     user_config.raw = 0;
-    rgb_matrix_set_defaults();
+    user_config.rgb_layer_indicator  = true;
+    user_config.rgb_matrix_idle_anim = true;
+
+    rgb_matrix_enable();
+    rgb_matrix_sethsv(THEME_HSV);
+    rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
+
     eeconfig_update_user(user_config.raw);
 }
 
@@ -274,7 +280,6 @@ bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
         case RGB_RST:
             if (record->event.pressed) {
                 rgb_matrix_set_defaults();
-                rgb_matrix_enable();
             }
             break;
         case RGB_UND:  // Toggle separate underglow status
