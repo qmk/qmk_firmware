@@ -1,15 +1,6 @@
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1337
-#define PRODUCT_ID      0x0006
-#define DEVICE_VER      1
-#define MANUFACTURER    g Heavy Industries
-#define PRODUCT     		FaunchPad
-#define DESCRIPTION     Teeny Toiny Macropad
-#define VERSION 				"Rev 2: Chorded Boogaloo"
+//#include "config_common.h"
 
 #define FORCE_NKRO
 
