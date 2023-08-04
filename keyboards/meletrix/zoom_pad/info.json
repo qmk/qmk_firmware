@@ -28,11 +28,15 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_pad": "LAYOUT_numpad_6x4",
+        "LAYOUT_pad_southpaw": "LAYOUT_numpad_6x4_southpaw"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_pad": {
             "layout": [
                 {"matrix": [0, 0], "label": "Esc", "x": 0, "y": 0},
-                {"matrix": [0, 1], "label": "Delete", "x": 1, "y": 0},
+                {"matrix": [0, 1], "label": "Tab", "x": 1, "y": 0},
                 {"matrix": [0, 2], "label": "Fn", "x": 2, "y": 0},
                 {"matrix": [0, 3], "label": "Encoder", "x": 3, "y": 0},
 
@@ -59,11 +63,11 @@
                 {"matrix": [5, 2], "label": ".", "x": 2, "y": 5.5}
             ]
         },
-        "LAYOUT_southpaw": {
+        "LAYOUT_pad_southpaw": {
             "layout": [
                 {"matrix": [0, 0], "label": "Encoder", "x": 0, "y": 0},
                 {"matrix": [0, 1], "label": "Fn", "x": 1, "y": 0},
-                {"matrix": [0, 2], "label": "Delete", "x": 2, "y": 0},
+                {"matrix": [0, 2], "label": "Tab", "x": 2, "y": 0},
                 {"matrix": [0, 3], "label": "Esc", "x": 3, "y": 0},
 
                 {"matrix": [1, 0], "label": "-", "x": 0, "y": 1.5},

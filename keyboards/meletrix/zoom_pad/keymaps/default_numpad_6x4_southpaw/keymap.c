@@ -24,20 +24,20 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_southpaw(
-        KC_MUTE, MO(1),   KC_DEL,  KC_ESC,
+    [0] = LAYOUT_pad_southpaw(
+        KC_MUTE, MO(1),   KC_TAB,  KC_ESC,
         KC_PMNS, KC_PSLS, KC_PAST, KC_NUM,
         KC_PPLS, KC_P7,   KC_P8,   KC_P9,
-        KC_P4,   KC_P5,   KC_P6,
+                 KC_P4,   KC_P5,   KC_P6,
         KC_PENT, KC_P1,   KC_P2,   KC_P3,
                  KC_P0,            KC_PDOT
     ),
-    [1] = LAYOUT_southpaw(
-        KC_MPLY, _______, _______, _______,
+    [1] = LAYOUT_pad_southpaw(
+        KC_MPLY, _______, _______, QK_BOOT,
         _______, _______, _______, _______,
-        _______, _______, _______, _______,
-        _______, _______, _______,
-        _______, _______, _______, _______,
-                 _______,          _______
+        _______, KC_HOME, KC_UP,   KC_PGUP,
+                 KC_LEFT, XXXXXXX, KC_RGHT,
+        _______, KC_END,  KC_DOWN, KC_PGDN,
+                 KC_DEL,           KC_INS
     ),
 };
