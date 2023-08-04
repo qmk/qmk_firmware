@@ -4,28 +4,30 @@
 #include "rpbaptist.h"
 #include "rgb_matrix.h"
 
-const char *rgb_matrix_anim_oled_text(uint8_t mode) {
-    switch (mode) {
-        case RGB_MATRIX_TYPING_HEATMAP:
-            return PSTR("Heat ");
-        case RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS:
-            return PSTR("Nexus");
-        case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
-            return PSTR("Ease ");
-        case RGB_MATRIX_SOLID_COLOR:
-            return PSTR("Solid");
-        case RGB_MATRIX_BREATHING:
-            return PSTR("Fade ");
-        case RGB_MATRIX_CYCLE_ALL:
-            return PSTR("Cycle");
-        case RGB_MATRIX_RAINBOW_PINWHEELS:
-            return PSTR("Wheel");
-        case RGB_MATRIX_CYCLE_LEFT_RIGHT:
-            return PSTR("Wave ");
-        default:
-            return PSTR("");
+#ifdef OLED_ENABLE
+    const char *rgb_matrix_anim_oled_text(uint8_t mode) {
+        switch (mode) {
+            case RGB_MATRIX_TYPING_HEATMAP:
+                return PSTR("Heat ");
+            case RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS:
+                return PSTR("Nexus");
+            case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
+                return PSTR("Ease ");
+            case RGB_MATRIX_SOLID_COLOR:
+                return PSTR("Solid");
+            case RGB_MATRIX_BREATHING:
+                return PSTR("Fade ");
+            case RGB_MATRIX_CYCLE_ALL:
+                return PSTR("Cycle");
+            case RGB_MATRIX_RAINBOW_PINWHEELS:
+                return PSTR("Wheel");
+            case RGB_MATRIX_CYCLE_LEFT_RIGHT:
+                return PSTR("Wave ");
+            default:
+                return PSTR("");
+        }
     }
-}
+#endif
 
 extern led_config_t g_led_config;
 void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_min, uint8_t led_max) {
