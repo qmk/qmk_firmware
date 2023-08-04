@@ -19,10 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap_steno.h"
 
 enum polyglot_layers {
- _STENO_DEFAULT = 0
- ,_QWERTY
- ,_RAISE
- ,_LOWER
+    _STENO_DEFAULT,
+    _QWERTY,
+    _RAISE,
+    _LOWER,
 };
 
 enum polyglot_keycodes {

@@ -19,28 +19,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keymap_steno.h"
 
 enum polyglot_layers {
- _UNI_GEMINI = 0
- ,_QWERTY
- ,_DVORAK
- ,_COLEMAK
- ,_RAISE
- ,_LOWER
- ,_GEMINI
- ,_PLOVER
- ,_UNI_PLOVER
+    _UNI_GEMINI,
+    _QWERTY,
+    _DVORAK,
+    _COLEMAK,
+    _RAISE,
+    _LOWER,
+    _GEMINI,
+    _PLOVER,
+    _UNI_PLOVER,
 };
 
 enum polyglot_keycodes {
-  UNI_GEMINI = SAFE_RANGE
- ,QWERTY
- ,DVORAK
- ,COLEMAK
- ,RAISE
- ,LOWER
- ,GEMINI
- ,PLOVER
- ,UNI_PLOVER
- ,BACK
+    UNI_GEMINI = SAFE_RANGE,
+    QWERTY,
+    DVORAK,
+    COLEMAK,
+    RAISE,
+    LOWER,
+    GEMINI,
+    PLOVER,
+    UNI_PLOVER,
+    BACK,
 };
 
 int default_keymap = _QWERTY;
@@ -215,10 +215,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       return false;
   }
   return true;
-}
-
-// initialize steno protocol
-void keyboard_post_init_user(void)
-{
-  steno_set_mode(STENO_MODE_GEMINI);
 }
