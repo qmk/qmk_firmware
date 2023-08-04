@@ -1,6 +1,6 @@
 # Viktus Styrka v2
 
-![viktus/sp111_v2](https://imgur.com/ApgZRhg)
+![viktus/sp111_v2](https://i.imgur.com/ApgZRhgh.png)
 
 A split southpaw fullsize-esque layout. Round 2 of the board has RGB LED indicators.
 
