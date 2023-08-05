@@ -33,8 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define TAPPING_TERM 220
-#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_TERM 205
 #define TAPPING_FORCE_HOLD
 
 #define MASTER_RIGHT
