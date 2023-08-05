@@ -18,7 +18,7 @@ extern const uint32_t unicode_map[] PROGMEM;
 /**
  * \brief Get the index into the `unicode_map` array for the given keycode, respecting shift state for pair keycodes.
  *
- * \param keycode The `UM(i)` or `UP(i, j)` keycode to get the index of.
+ * \param keycode The Unicode Map keycode to get the index of.
  *
  * \return An index into the `unicode_map` array.
  */

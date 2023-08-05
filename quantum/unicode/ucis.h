@@ -55,14 +55,14 @@ void ucis_start(void);
 bool ucis_active(void);
 
 /**
- * \brief Get the input count of the input sequence.
+ * \brief Get the number of characters in the input sequence buffer.
  *
- * \return The number of characters input in the current sequence.
+ * \return The current input sequence buffer length.
  */
 uint8_t ucis_count(void);
 
 /**
- * \brief Add the given keycode to the input sequence.
+ * \brief Add the given keycode to the input sequence buffer.
  *
  * \param keycode The keycode to add. Must be between `KC_A` and `KC_Z`, or `KC_1` and `KC_0`.
  *
@@ -72,6 +72,8 @@ bool ucis_add(uint16_t keycode);
 
 /**
  * \brief Remove the last character from the input sequence.
+ *
+ * \return `true` if the sequence was not empty.
  */
 bool ucis_remove_last(void);
 

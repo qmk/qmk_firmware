@@ -89,17 +89,17 @@ void unicode_input_mode_set_user(uint8_t input_mode);
 void unicode_input_mode_set_kb(uint8_t input_mode);
 
 /**
- * \brief Begin the Unicode input sequence.
+ * \brief Begin the Unicode input sequence. The exact behavior depends on the currently selected input mode.
  */
 void unicode_input_start(void);
 
 /**
- * \brief Complete the Unicode input sequence.
+ * \brief Complete the Unicode input sequence. The exact behavior depends on the currently selected input mode.
  */
 void unicode_input_finish(void);
 
 /**
- * \brief Cancel the Unicode input sequence.
+ * \brief Cancel the Unicode input sequence. The exact behavior depends on the currently selected input mode.
  */
 void unicode_input_cancel(void);
 
@@ -118,7 +118,7 @@ void register_hex(uint16_t hex);
 void register_hex32(uint32_t hex);
 
 /**
- * \brief Send a single Unicode character.
+ * \brief Input a single Unicode character. A surrogate pair will be sent if required by the input mode.
  *
  * \param code_point The code point of the character to send.
  */
