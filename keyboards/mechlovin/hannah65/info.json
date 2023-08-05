@@ -12,5 +12,7 @@
         "caps_lock": "B9",
         "on_state": 0
     },
-    "development_board": "proton_c"
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C"
 }

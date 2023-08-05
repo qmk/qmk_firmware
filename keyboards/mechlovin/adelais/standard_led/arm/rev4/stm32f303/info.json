@@ -1,3 +1,5 @@
 {
-    "development_board": "proton_c"
+    "processor": "STM32F303",
+    "board": "QMK_PROTON_C",
+    "bootloader": "stm32-dfu"
 }

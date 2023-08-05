@@ -12,7 +12,9 @@
         "rows": ["B1", "B10", "B11", "B14", "B12"]
     },
     "diode_direction": "COL2ROW",
-    "development_board": "proton_c",
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "debounce": 3,
     "layouts": {
         "LAYOUT_65_ansi_blocker": {

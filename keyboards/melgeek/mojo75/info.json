@@ -16,7 +16,9 @@
         "rows": ["B11", "B10", "B1", "B0", "A7", "A6"]
     },
     "diode_direction": "COL2ROW",
-    "development_board": "proton_c",
+    "processor": "STM32F303",
+    "bootloader": "stm32-dfu",
+    "board": "QMK_PROTON_C",
     "debounce": 3,
     "community_layouts": ["75_ansi"],
     "layouts": {

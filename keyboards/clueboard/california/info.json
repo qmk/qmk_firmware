@@ -2,7 +2,9 @@
     "keyboard_name": "Clueboard California",
     "url": "",
     "maintainer": "skullydazed",
-    "development_board": "proton_c",
+    "processor": "STM32F303",
+    "board": "QMK_PROTON_C",
+    "bootloader": "stm32-dfu",
     "matrix_pins": {
         "direct": [
             ["A10", "A9"],
