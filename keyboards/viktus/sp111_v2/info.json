@@ -25,11 +25,38 @@
         "cols": 11,
         "rows": 12
     },
+    "ws2812": {
+        "pin": "F0"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "max_brightness": 150,
         "layout": [
-        ]
+            { "flags": 8, "x": 0, "y": 0 },
+            { "flags": 8, "x": 0, "y": 1 },
+            { "flags": 8, "x": 0, "y": 2 }
+        ],
+        "animations": {
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true
+        }
     },
     "split": {
         "enabled": true,
