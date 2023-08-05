@@ -25,7 +25,7 @@ enum layer_names {
     _F12,
     _F13,
     _FN1,
-    _FN2
+    _FN2,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
