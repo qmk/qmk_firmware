@@ -132,6 +132,11 @@ def parse_config_h_file(config_h_file, config_h=None):
 
             line = line.split()
 
+            # merge known token patterns for future processing
+            if line[0] == '#' and line[1] in ['define', 'undef']:
+                line.pop(0)
+                line[0] = '#' + line[0]
+
             if line[0] == '#define':
                 if len(line) == 1:
                     cli.log.error('%s: Incomplete #define! On or around line %s' % (config_h_file, linenum))
