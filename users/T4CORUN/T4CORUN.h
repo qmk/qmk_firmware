@@ -406,7 +406,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | Esc  | Snip | File |      | `    |    | =    | 7    | 8    | 9    |      |
+*   | Esc  | Snip | File |      | `    |    | =    | 7    | 8    | 9    | Tab  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Gui  | Alt  | Ctrl | Shft | ;    |    | Bksp | 4    | 5    | 6    | .    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
@@ -421,7 +421,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 #   define _________________NUMPAD_L3_________________        _________________UCCPR_L___________________
 #   define          ________NUMPAD_L4________                 ________NUMSYM_L4________
 
-#   define _________________NUMPAD_R1_________________        TR_EQL,  KC_7,    KC_8,    KC_9,    ___x___
+#   define _________________NUMPAD_R1_________________        TR_EQL,  KC_7,    KC_8,    KC_9,    KC_TAB
 #   define _________________NUMPAD_R2_________________        KC_BSPC, KC_4,    KC_5,    KC_6,    KC_DOT
 #   define _________________NUMPAD_R3_________________        KC_SPC,  KC_1,    KC_2,    KC_3,    TR_MINS
 
