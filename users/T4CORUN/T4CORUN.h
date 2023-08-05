@@ -408,9 +408,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   ,----------------------------------.    ,----------------------------------.
 *   | Esc  | Snip | File |      | `    |    | =    | 7    | 8    | 9    |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Gui  | Alt  | Ctrl | Shft | ;    |    | -    | 4    | 5    | 6    | .    |
+*   | Gui  | Alt  | Ctrl | Shft | ;    |    | Bksp | 4    | 5    | 6    | .    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    | Bksp | 1    | 2    | 3    | ,    |
+*   | Undo | Cut  | Copy | Pste | Redo |    | -    | 1    | 2    | 3    | ,    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      | NUM  |      |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
@@ -422,8 +422,8 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 #   define          ________NUMPAD_L4________                 ________NUMSYM_L4________
 
 #   define _________________NUMPAD_R1_________________        TR_EQL,  KC_7,    KC_8,    KC_9,    ___x___
-#   define _________________NUMPAD_R2_________________        TR_MINS, KC_4,    KC_5,    KC_6,    KC_DOT
-#   define _________________NUMPAD_R3_________________        KC_BSPC, KC_1,    KC_2,    KC_3,    KC_COMM
+#   define _________________NUMPAD_R2_________________        KC_BSPC, KC_4,    KC_5,    KC_6,    KC_DOT
+#   define _________________NUMPAD_R3_________________        TR_MINS, KC_1,    KC_2,    KC_3,    KC_COMM
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________NUMPAD_R4________                 KC_0,    _______
@@ -441,9 +441,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   ,----------------------------------.    ,----------------------------------.
 *   | %    | ^    | $    | +    | `    |    | =    | #    | *    | |    | "    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | &    | {    | }    | @    | ;    |    | -    | ?    | [    | ]    | '    |
+*   | &    | {    | }    | @    | ;    |    | Bksp | ?    | [    | ]    | '    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      | <    | >    | \    | !    |    | Bksp | /    | (    | )    | _    |
+*   |      | <    | >    | \    | !    |    | -    | /    | (    | )    | _    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      | NUM  |      |    |      | NAV  |      |              
 *                 `------+------+------'    `------+------+------'
@@ -459,8 +459,8 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 #   define          ________SYMBOL_L4________                 ________NUMSYM_L4________
 
 #   define _________________SYMBOL_R1_________________        TR_EQL,  TR_HASH, KC_ASTR, TR_PIPE, TR_DQUO
-#   define _________________SYMBOL_R2_________________        TR_MINS, KC_QUES, TR_LBRC, KC_RBRC, TR_QUOT
-#   define _________________SYMBOL_R3_________________        KC_BSPC, TR_SLSH, TR_LPRN, KC_RPRN, TR_UNDS
+#   define _________________SYMBOL_R2_________________        KC_BSPC, KC_QUES, TR_LBRC, KC_RBRC, TR_QUOT
+#   define _________________SYMBOL_R3_________________        TR_MINS, TR_SLSH, TR_LPRN, KC_RPRN, TR_UNDS
 #   define          ________SYMBOL_R4________                 ________NAVSYM_R4________
 
 
@@ -469,9 +469,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   ,----------------------------------.    ,----------------------------------.
 *   | Esc  | Home | Up   | End  | PgUp |    |DMRec1|DMPly1|NxtTab|DMPly2|DMRec2|
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      | Left | Down | Right| PgDn |    | Del  | Shft | Ctrl | Alt  | Gui  |
+*   |      | Left | Down | Right| PgDn |    | Bksp | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    | Bksp |      |      | Ins  | App  |
+*   | Undo | Cut  | Copy | Pste | Redo |    |      | Del  |      | Ins  | App  |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 | Tab  | NUM  | Ent  |    |      | NAV  |      |
 *                 `------+------+------'    `------+------+------'
@@ -482,8 +482,8 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 #   define          __________NAV_L4_________                 KC_TAB,  _______, KC_ENT
 
 #   define ___________________NAV_R1__________________        TR_DMR1, TR_DMP1, NXT_TAB, TR_DMP2, TR_DMR2
-#   define ___________________NAV_R2__________________        KC_DEL,  _____________SCAG_MODS____________
-#   define ___________________NAV_R3__________________        KC_BSPC, ___x___, ___x___, KC_INS,  KC_APP
+#   define ___________________NAV_R2__________________        KC_BSPC, _____________SCAG_MODS____________
+#   define ___________________NAV_R3__________________        ___x___, KC_DEL,  ___x___, KC_INS,  KC_APP
 #   define          __________NAV_R4_________                 ________NAVSYM_R4________
 
 /*
