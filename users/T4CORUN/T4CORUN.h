@@ -410,9 +410,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Gui  | Alt  | Ctrl | Shft | ;    |    | Bksp | 4    | 5    | 6    | .    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    | -    | 1    | 2    | 3    | ,    |
+*   | Undo | Cut  | Copy | Pste | Redo |    | Spc  | 1    | 2    | 3    | -    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      | NUM  |      |    | Spc  | NAV  |      |
+*                 |      | NUM  |      |    | 0    | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 *
 */
@@ -423,7 +423,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 #   define _________________NUMPAD_R1_________________        TR_EQL,  KC_7,    KC_8,    KC_9,    ___x___
 #   define _________________NUMPAD_R2_________________        KC_BSPC, KC_4,    KC_5,    KC_6,    KC_DOT
-#   define _________________NUMPAD_R3_________________        TR_MINS, KC_1,    KC_2,    KC_3,    KC_COMM
+#   define _________________NUMPAD_R3_________________        KC_SPC,  KC_1,    KC_2,    KC_3,    TR_MINS
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
 #   define          ________NUMPAD_R4________                 KC_0,    _______
@@ -443,7 +443,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | &    | {    | }    | @    | ;    |    | Bksp | ?    | [    | ]    | '    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      | <    | >    | \    | !    |    | -    | /    | (    | )    | _    |
+*   |      | <    | >    | \    | !    |    | _    | /    | (    | )    | -    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      | NUM  |      |    |      | NAV  |      |              
 *                 `------+------+------'    `------+------+------'
@@ -460,7 +460,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 #   define _________________SYMBOL_R1_________________        TR_EQL,  TR_HASH, KC_ASTR, TR_PIPE, TR_DQUO
 #   define _________________SYMBOL_R2_________________        KC_BSPC, KC_QUES, TR_LBRC, KC_RBRC, TR_QUOT
-#   define _________________SYMBOL_R3_________________        TR_MINS, TR_SLSH, TR_LPRN, KC_RPRN, TR_UNDS
+#   define _________________SYMBOL_R3_________________        TR_UNDS, TR_SLSH, TR_LPRN, KC_RPRN, TR_MINS
 #   define          ________SYMBOL_R4________                 ________NAVSYM_R4________
 
 
@@ -471,9 +471,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |      | Left | Down | Right| PgDn |    | Bksp | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    |      | Del  |      | Ins  | App  |
+*   | Undo | Cut  | Copy | Pste | Redo |    | App  | Del  | Vol- | Vol+ | Mute |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Tab  | NUM  | Ent  |    |      | NAV  |      |
+*                 | Tab  | NUM  | Ent  |    | Ins  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define ___________________NAV_L1__________________        KC_ESC,  KC_HOME, KC_UP,   KC_END,  KC_PGUP
@@ -483,7 +483,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 #   define ___________________NAV_R1__________________        TR_DMR1, TR_DMP1, NXT_TAB, TR_DMP2, TR_DMR2
 #   define ___________________NAV_R2__________________        KC_BSPC, _____________SCAG_MODS____________
-#   define ___________________NAV_R3__________________        ___x___, KC_DEL,  ___x___, KC_INS,  KC_APP
+#   define ___________________NAV_R3__________________        ___x___, KC_DEL,  KC_VOLD, KC_VOLU, KC_MUTE
 #   define          __________NAV_R4_________                 ________NAVSYM_R4________
 
 /*
@@ -494,13 +494,13 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |PauBrk|  F1  |  F2  |  F3  | F12  |    | Hue+ | Sat+ | Vib+ | Spd+ |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 | Mute | Vol- | Vol+ |    |RGBTog|RGBMod|      |
+*                 |      |      |      |    |RGBTog|RGBMod|      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define _________________FUNCPAD_L1________________        KC_SCRL, KC_F7,   KC_F8,   KC_F9,   KC_F10
 #   define _________________FUNCPAD_L2________________        KC_PSCR, KC_F4,   KC_F5,   KC_F6,   KC_F11
 #   define _________________FUNCPAD_L3________________        KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F12
-#   define          ________FUNCPAD_L4_______                 KC_MUTE, KC_VOLD, KC_VOLU
+#   define          ________FUNCPAD_L4_______                 __________NONE_3_________
 
 #   define _________________CONFIG_R1_________________        QWERTY,  CLMAKDH, TR_GAME, QK_BOOT, _______
 #   define _________________CONFIG_R2_________________        KC_CAPS, _____________SCAG_MODS____________
