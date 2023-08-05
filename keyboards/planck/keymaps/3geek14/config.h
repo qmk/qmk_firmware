@@ -28,7 +28,6 @@
 
 // Unicode support for WinCompose with Right Alt as compose key
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
-#define UNICODE_KEY_WINC KC_RALT
 
 // Reduces firmware size and limits to 8 layers
 #define LAYER_STATE_8BIT
