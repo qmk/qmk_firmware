@@ -1,3 +1,1 @@
-# MCU name
-MCU = STM32F401
-BOARD = BLACKPILL_STM32_F401
+# File is intentionally blank
