@@ -176,30 +176,6 @@ void usb_endpoint_out_configure_cb(usb_endpoint_out_t *endpoint) {
     (void)usb_start_receive(endpoint);
 }
 
-void usb_endpoint_in_sof_cb(usb_endpoint_in_t *endpoint) {
-    /* If the USB driver is not in the appropriate state then transactions
-       must not be started.*/
-    if ((usbGetDriverStateI(endpoint->config.usbp) != USB_ACTIVE) || (endpoint->state != ENDPOINT_READY)) {
-        return;
-    }
-
-    /* If there is already a transaction ongoing then another one cannot be
-       started.*/
-    if (usbGetTransmitStatusI(endpoint->config.usbp, endpoint->config.ep)) {
-        return;
-    }
-
-    /* Checking if there only a buffer partially filled, if so then it is
-       enforced in the queue and transmitted.*/
-    if (obqTryFlushI(&endpoint->obqueue)) {
-        size_t   n;
-        uint8_t *buffer = obqGetFullBufferI(&endpoint->obqueue, &n);
-        osalDbgAssert(buffer != NULL, "queue is empty");
-
-        usbStartTransmitI(endpoint->config.usbp, endpoint->config.ep, buffer, n);
-    }
-}
-
 void usb_endpoint_in_tx_complete_cb(USBDriver *usbp, usbep_t ep) {
     usb_endpoint_in_t *endpoint = usbp->in_params[ep - 1U];
     size_t             n;
@@ -299,6 +275,25 @@ bool usb_endpoint_in_send(usb_endpoint_in_t *endpoint, const uint8_t *data, size
 
         return true;
     }
+}
+
+void usb_endpoint_in_flush(usb_endpoint_in_t *endpoint, bool padded) {
+    osalDbgCheck(endpoint != NULL);
+
+    output_buffers_queue_t *obqp = &endpoint->obqueue;
+
+    if (padded && obqp->ptr != NULL) {
+        ptrdiff_t bytes_left = (size_t)obqp->top - (size_t)obqp->ptr;
+        while (bytes_left > 0) {
+            // Putting bytes into a buffer that has space left should never
+            // fail and be instant, therefore we don't check the return value
+            // for errors here.
+            obqPutTimeout(obqp, 0, TIME_IMMEDIATE);
+            bytes_left--;
+        }
+    }
+
+    obqFlush(obqp);
 }
 
 bool usb_endpoint_out_receive(usb_endpoint_out_t *endpoint, uint8_t *data, size_t size, sysinterval_t timeout) {

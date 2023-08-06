@@ -181,11 +181,12 @@ void usb_endpoint_in_start(usb_endpoint_in_t *endpoint);
 void usb_endpoint_in_stop(usb_endpoint_in_t *endpoint);
 
 bool usb_endpoint_in_send(usb_endpoint_in_t *endpoint, const uint8_t *data, size_t size, sysinterval_t timeout, bool buffered);
+void usb_endpoint_in_flush(usb_endpoint_in_t *endpoint, bool padded);
+bool usb_endpoint_in_is_inactive(usb_endpoint_in_t *endpoint);
 
 void usb_endpoint_in_suspend_cb(usb_endpoint_in_t *endpoint);
 void usb_endpoint_in_wakeup_cb(usb_endpoint_in_t *endpoint);
 void usb_endpoint_in_configure_cb(usb_endpoint_in_t *endpoint);
-void usb_endpoint_in_sof_cb(usb_endpoint_in_t *endpoint);
 void usb_endpoint_in_tx_complete_cb(USBDriver *usbp, usbep_t ep);
 
 void usb_endpoint_out_init(usb_endpoint_out_t *endpoint);

@@ -60,6 +60,8 @@ static virtual_timer_t keyboard_idle_timer;
 
 static void keyboard_idle_timer_cb(struct ch_virtual_timer *, void *arg);
 static bool send_report(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
+static bool __attribute__((__unused__)) send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
+static void __attribute__((__unused__)) flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded);
 static bool __attribute__((__unused__)) receive_report(usb_endpoint_out_lut_t endpoint, void *report, size_t size);
 
 #if defined(VIRTSER_ENABLE)
@@ -410,19 +412,18 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
     return false;
 }
 
-static void usb_sof_cb(USBDriver *usbp) {
-    osalSysLockFromISR();
-    for (int i = 0; i < USB_ENDPOINT_IN_COUNT; i++) {
-        usb_endpoint_in_sof_cb(&usb_endpoints_in[i]);
-    }
-    osalSysUnlockFromISR();
+static __attribute__((unused)) void dummy_cb(USBDriver *usbp) {
+    (void)usbp;
 }
 
 static const USBConfig usbcfg = {
     usb_event_cb,          /* USB events callback */
     usb_get_descriptor_cb, /* Device GET_DESCRIPTOR request callback */
     usb_requests_hook_cb,  /* Requests hook callback */
-    usb_sof_cb             /* Start Of Frame callback */
+#if STM32_USB_USE_OTG1 == TRUE || STM32_USB_USE_OTG2 == TRUE
+    dummy_cb, /* Workaround for OTG Peripherals not servicing new interrupts
+    after resuming from suspend. */
+#endif
 };
 
 void init_usb_driver(USBDriver *usbp) {
@@ -524,7 +525,7 @@ uint8_t keyboard_leds(void) {
 /**
  * @brief Send a report to the host, the report is enqueued into an output
  * queue and send once the USB endpoint becomes empty.
- * 
+ *
  * @param endpoint USB IN endpoint to send the report from
  * @param report pointer to the report
  * @param size size of the report
@@ -536,11 +537,12 @@ static bool send_report(usb_endpoint_in_lut_t endpoint, void *report, size_t siz
 }
 
 /**
- * @brief Send a report to the host, but delay the sending until the size of endpoint
- * report is reached. This is useful if the report is being updated frequently.
- * The complete report is then enqueued into an output queue and send once the
- * USB endpoint becomes empty.
- * 
+ * @brief Send a report to the host, but delay the sending until the size of
+ * endpoint report is reached or the incompletely filled buffer is flushed with
+ * a call to `flush_report_buffered`. This is useful if the report is being
+ * updated frequently. The complete report is then enqueued into an output
+ * queue and send once the USB endpoint becomes empty.
+ *
  * @param endpoint USB IN endpoint to send the report from
  * @param report pointer to the report
  * @param size size of the report
@@ -551,9 +553,20 @@ static bool send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, s
     return usb_endpoint_in_send(&usb_endpoints_in[endpoint], (uint8_t *)report, size, TIME_MS2I(100), true);
 }
 
+/** @brief Flush all buffered reports which were enqueued with a call to
+ * `send_report_buffered` that haven't been send. If necessary the buffered
+ * report can be padded with zeros up to the endpoints maximum size.
+ *
+ * @param endpoint USB IN endpoint to flush the reports from
+ * @param padded Pad the buffered report with zeros up to the endpoints maximum size
+ */
+static void flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded) {
+    usb_endpoint_in_flush(&usb_endpoints_in[endpoint], padded);
+}
+
 /**
  * @brief Receive a report from the host.
- * 
+ *
  * @param endpoint USB OUT endpoint to receive the report from
  * @param report pointer to the report
  * @param size size of the report
@@ -633,7 +646,9 @@ int8_t sendchar(uint8_t c) {
     return (int8_t)send_report_buffered(USB_ENDPOINT_IN_CONSOLE, &c, sizeof(uint8_t));
 }
 
-void console_task(void) {}
+void console_task(void) {
+    flush_report_buffered(USB_ENDPOINT_IN_CONSOLE, true);
+}
 
 #endif /* CONSOLE_ENABLE */
 
@@ -715,7 +730,7 @@ bool virtser_usb_request_cb(USBDriver *usbp) {
 void virtser_init(void) {}
 
 void virtser_send(const uint8_t byte) {
-    send_report(USB_ENDPOINT_IN_CDC_DATA, (void *)&byte, sizeof(byte));
+    send_report_buffered(USB_ENDPOINT_IN_CDC_DATA, (void *)&byte, sizeof(byte));
 }
 
 __attribute__((weak)) void virtser_recv(uint8_t c) {
@@ -729,6 +744,8 @@ void virtser_task(void) {
             virtser_recv(buffer[i]);
         }
     }
+
+    flush_report_buffered(USB_ENDPOINT_IN_CDC_DATA, false);
 }
 
 #endif
