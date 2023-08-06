@@ -1151,7 +1151,7 @@ void ng_home() {
       tap_code(KC_HOME);
       break;
     case NG_MAC:
-      tap_code16(LCTL(KC_A));
+      tap_code16(LCTL(KC_A)); // シフトだと効かない
       break;
   }
 }
@@ -1163,7 +1163,7 @@ void ng_end() {
       tap_code(KC_END);
       break;
     case NG_MAC:
-      tap_code16(LCTL(KC_E));
+      tap_code16(LCTL(KC_E)); // これはシフトが効く
       break;
   }
 }
@@ -1248,7 +1248,10 @@ void ng_eof() {
       tap_code16(LCTL(KC_END));
       break;
     case NG_MAC:
-      tap_code16(LCMD(KC_DOWN));
+      if (naginata_config.tategaki)
+        tap_code16(LCMD(KC_LEFT));
+      else
+        tap_code16(LCMD(KC_DOWN));
       break;
   }
 }

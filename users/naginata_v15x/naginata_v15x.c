@@ -1361,7 +1361,10 @@ void ng_eof() {
       tap_code16(LCTL(KC_END));
       break;
     case NG_MAC:
-      tap_code16(LCMD(KC_DOWN));
+      if (naginata_config.tategaki)
+        tap_code16(LCMD(KC_LEFT));
+      else
+        tap_code16(LCMD(KC_DOWN));
       break;
   }
 }
