@@ -11,7 +11,6 @@ ALTTAB_SCROLL_ENABLE = yes
 
 INVERT_NUMLOCK_INDICATOR = yes
 
-RGB_MATRIX_FUNCTION_COLOR = RGB_GOLD # See https://docs.qmk.fm/#/feature_rgb_matrix?id=colors
 
 RGB_MATRIX_KEYPRESSES = yes
 RGB_MATRIX_FRAMEBUFFER_EFFECTS = yes
