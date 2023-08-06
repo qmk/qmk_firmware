@@ -45,13 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 - KC_RAISESPC     _RAISE layer mod when held, space when tapped
 - KC_LOWERSPC     _LOWER layer mod when held, space when tapped
 - KC_TSTOG        toggles between volume and Alt-Tab encoder control
-- When EMOTICON_ENABLE = yes
-  - EMO_SHRUG       `\_("/)_/`
-  - EMO_CONFUSE     (*_*)
-  - EMD_TEARS       (T_T)
-  - EMO_NERVOUS     (~_~;)
-  - EMO_JOY         (^o^)
-  - EMO_SAD         :'-(
 
 ## AVAILABLE ENCODER ACTIONS
 
@@ -96,10 +89,6 @@ IDLE_TIMEOUT_ENABLE = yes
 
 - Enables Timer functionality; for RGB idle timeouts that can be changed dynamically
 - When enabled, use this in the keymap for an additional matrix processing:  void matrix_scan_keymap(void)
-
-EMOTICON_ENABLE
-
-- adds EMO_ keycodes for text emojis
 
 INVERT_NUMLOCK_INDICATOR
 

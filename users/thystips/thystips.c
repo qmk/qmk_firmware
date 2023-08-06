@@ -162,30 +162,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 #endif // RGB_MATRIX_ENABLE
 
-#ifdef EMOTICON_ENABLE
-        case EMO_SHRUG:
-            if (record->event.pressed) SEND_STRING("`\\_(''/)_/`");
-            break;
-        case EMO_CONFUSE:
-            if (record->event.pressed) SEND_STRING("(*_*)");
-            break;
-        case EMO_TEARS:
-            if (record->event.pressed) SEND_STRING("(T_T)");
-            break;
-        case EMO_NERVOUS:
-            if (record->event.pressed) SEND_STRING("(~_~;)");
-            break;
-        case EMO_JOY:
-            if (record->event.pressed) SEND_STRING("(^o^)");
-            break;
-        case EMO_SAD:
-            if (record->event.pressed) SEND_STRING(":'-(");
-            break;
-        case EMO_TFLIP:
-            if (record->event.pressed) SEND_STRING("(ノಠ痊ಠ)ノ彡┻━┻");
-            break;
-#endif // EMOTICON_ENABLE
-
 #ifdef ALTTAB_SCROLL_ENABLE
         case KC_TSTOG:
             if (record->event.pressed) encoder_toggle_alttabscroll();

@@ -35,8 +35,6 @@
 #    define RGB_MATRIX_KEYPRESSES RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #endif
 
-#define EMOTICON_ENABLE
-
 #ifdef ENCODER_ENABLE
 #    ifndef ENCODER_DEFAULTACTIONS_INDEX
 #        define ENCODER_DEFAULTACTIONS_INDEX 0 // can select encoder index if there are multiple encoders

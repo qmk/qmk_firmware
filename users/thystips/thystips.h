@@ -36,14 +36,6 @@ enum custom_user_keycodes {
     RGB_NITE,  // Turns off all rgb but allow rgb indicators to work
     RGB_DEF,   // Restore default RGB config
 
-    EMO_SHRUG,   // `\_("/)_/`
-    EMO_CONFUSE, // (*_*)
-    EMO_SAD,     // :'-(
-    EMO_NERVOUS, // (~_~;)
-    EMO_JOY,     // (^o^)
-    EMO_TEARS,   // (T_T)
-    EMO_TFLIP,   // (ノಠ痊ಠ)ノ彡┻━┻
-
     KC_TSTOG, // Tab Scroll Toggle
 
     NEW_SAFE_RANGE // new safe range for keymap level custom keycodes
