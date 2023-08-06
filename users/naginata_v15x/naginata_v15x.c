@@ -32,6 +32,7 @@ x ガブガブ、FJ両方ともキャリーオーバーするのでうまくい�
 x じょじょの連続シフト
 x 5キーの組み合わせへの拡張
 
+編集モードを英字モードでも使いたい --> v15xxで試す
 グローバル変数を減らす
 単打の時は評価関数を飛ばす
 「なんと」が編集モードに入る
@@ -136,7 +137,7 @@ const uint32_t ng_key[] = {
   [NG_SHFT2 - NG_Q] = B_SHFT,
 };
 
-#if defined(BOARD_GENERIC_RP2040) || defined(BOARD_GENERIC_PROMICRO_RP2040)
+#if !defined(__AVR__)
 
 #define NKEYS 5 // 最大何キーまでバッファに貯めるか
 #define NDOUJI 3 // 組み合わせにある同時押しするキーの数、薙刀式なら3
@@ -374,6 +375,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_F|B_P                  , .kana = "be"      }, // べ
   {.key = B_J|B_Z                  , .kana = "bo"      }, // ぼ
   {.key = B_Q                      , .kana = "vu"      }, // ゔ
+  {.key = B_SHFT|B_Q               , .kana = "vu"      }, // ゔ
 
   // 半濁音
   {.key = B_M|B_C                  , .kana = "pa"      }, // ぱ
@@ -488,6 +490,8 @@ const PROGMEM naginata_keymap ngmap[] = {
   // 別途処理しないといけない変換
   {.key = B_T               , .kana = ""}, //
   {.key = B_Y               , .kana = ""}, //
+  {.key = B_SHFT|B_T        , .kana = ""}, //
+  {.key = B_SHFT|B_Y        , .kana = ""}, //
   {.key = B_H|B_J           , .kana = ""}, //　かなオン
   {.key = B_F|B_G           , .kana = ""}, //　かなオフ
 
@@ -960,6 +964,16 @@ uint8_t naginata_type(bool partial) {
         break;
       case B_Y:
         ng_right(1);
+        break;
+      case B_SHFT|B_T:
+        register_code(KC_LSFT);
+        ng_left(1);
+        unregister_code(KC_LSFT);
+        break;
+      case B_SHFT|B_Y:
+        register_code(KC_LSFT);
+        ng_right(1);
+        unregister_code(KC_LSFT);
         break;
       case B_H|B_J:
         naginata_on();
@@ -1630,7 +1644,6 @@ bool exec_henshu(uint32_t keycomb) {
       break;
     case B_M|B_COMM|B_Z: // 　　　×　　　×　　　×{改行 2}
       ng_send_unicode_string_P(PSTR("　　　×　　　×　　　×"));
-      tap_code(KC_ENT);
       tap_code(KC_ENT);
       henshu_done = true;
       return true;

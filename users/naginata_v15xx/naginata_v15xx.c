@@ -134,7 +134,7 @@ const uint32_t ng_key[] = {
   [NG_SHFT2 - NG_Q] = B_SHFT,
 };
 
-#if defined(BOARD_GENERIC_RP2040) || defined(BOARD_GENERIC_PROMICRO_RP2040)
+#if !defined(__AVR__)
 
 #define NKEYS 5 // 最大何キーまでバッファに貯めるか
 #define NDOUJI 3 // 組み合わせにある同時押しするキーの数、薙刀式なら3
@@ -372,6 +372,7 @@ const PROGMEM naginata_keymap ngmap[] = {
   {.key = B_F|B_P                  , .kana = "be"      }, // べ
   {.key = B_J|B_Z                  , .kana = "bo"      }, // ぼ
   {.key = B_Q                      , .kana = "vu"      }, // ゔ
+  {.key = B_SHFT|B_Q               , .kana = "vu"      }, // ゔ
 
   // 半濁音
   {.key = B_M|B_C                  , .kana = "pa"      }, // ぱ
@@ -486,8 +487,8 @@ const PROGMEM naginata_keymap ngmap[] = {
   // 別途処理しないといけない変換
   {.key = B_T               , .kana = ""}, //
   {.key = B_Y               , .kana = ""}, //
-  {.key = B_H|B_J           , .kana = ""}, //　かなオン
-  {.key = B_F|B_G           , .kana = ""}, //　かなオフ
+  {.key = B_SHFT|B_T        , .kana = ""}, //
+  {.key = B_SHFT|B_Y        , .kana = ""}, //
 
 };
 
@@ -658,13 +659,10 @@ bool process_modifier(uint16_t keycode, keyrecord_t *record) {
   return false;
 }
 
-static uint8_t nkeypress = 0; // 同時にキーを押している数
-
 // バッファをクリアする
 void naginata_clear(void) {
   ng_chrcount = 0;
   n_modifier = 0;
-  nkeypress = 0;
   keycnt = 0;
 }
 
@@ -732,8 +730,10 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   // if (process_modifier(keycode, record))
   //   return true;
 
-  if (henshu_mode > 0 && record->event.pressed) {
-    exec_henshu(keycode);
+  if (henshu_mode > 0) {
+    if (record->event.pressed) {
+      exec_henshu(keycode);
+    }
     return false;
   }
 
@@ -805,6 +805,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
           ng_chrcount = 0;
           keycomb = 0;
         }
+        if (keycnt == 0 || ng_chrcount == 0)
+          naginata_clear();
+
         #if defined(CONSOLE_ENABLE) && defined(LOG_PROCESS_NAGINATA)
         uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
         #endif
@@ -855,12 +858,16 @@ uint8_t naginata_type(bool partial) {
       case B_Y:
         ng_right(1);
         break;
-      // case B_H|B_J:
-      //   naginata_on();
-      //   break;
-      // case B_F|B_G:
-      //   naginata_off();
-      //   break;
+      case B_SHFT|B_T:
+        register_code(KC_LSFT);
+        ng_left(1);
+        unregister_code(KC_LSFT);
+        break;
+      case B_SHFT|B_Y:
+        register_code(KC_LSFT);
+        ng_right(1);
+        unregister_code(KC_LSFT);
+        break;
       default:
         for (uint16_t j = 0; j < sizeof ngmap / sizeof bngmap; j++) {
           memcpy_P(&bngmap, &ngmap[j], sizeof(bngmap));
@@ -1496,7 +1503,6 @@ bool exec_henshu(uint16_t keycode) {
           break;
         case NG_Z: // 　　　×　　　×　　　×{改行 2}
           ng_send_unicode_string_P(PSTR("　　　×　　　×　　　×"));
-          tap_code(KC_ENT);
           tap_code(KC_ENT);
           return true;
           break;
