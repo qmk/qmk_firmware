@@ -15,4 +15,4 @@ INVERT_NUMLOCK_INDICATOR = yes
 RGB_MATRIX_KEYPRESSES = yes
 RGB_MATRIX_FRAMEBUFFER_EFFECTS = yes
 
-ENCODER_MAP_ENABLE = no # See https://docs.qmk.fm/#/feature_encoders?id=encoder-map
+ENCODER_MAP_ENABLE = no
