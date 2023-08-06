@@ -61,6 +61,7 @@ void ng_redo(void);
 void ng_undo(void);
 void ng_saihenkan(void);
 void ng_eof(void);
+void set_henshu(uint8_t);
 
 // なぜKC_キーコードを使わず、NG_キーコードを定義するのか
 // 1. 英字レイアウトがQWERTYでない場合でもOK
@@ -113,72 +114,6 @@ typedef enum naginata_keycodes {
   NG_TAYO,
   NG_KOTI,
 
-  H1_Q, // 編集モード
-  H1_W,
-  H1_E,
-  H1_R,
-  H1_T,
-  H1_Y,
-  H1_U,
-  H1_I,
-  H1_O,
-  H1_P,
-
-  H1_A,
-  H1_S,
-  H1_D,
-  H1_F,
-  H1_G,
-  H1_H,
-  H1_J,
-  H1_K,
-  H1_L,
-  H1_SCLN,
-
-  H1_Z,
-  H1_X,
-  H1_C,
-  H1_V,
-  H1_B,
-  H1_N,
-  H1_M,
-  H1_COMM,
-  H1_DOT,
-  H1_SLSH,
-
-  H2_Q,
-  H2_W,
-  H2_E,
-  H2_R,
-  H2_T,
-  H2_Y,
-  H2_U,
-  H2_I,
-  H2_O,
-  H2_P,
-
-  H2_A,
-  H2_S,
-  H2_D,
-  H2_F,
-  H2_G,
-  H2_H,
-  H2_J,
-  H2_K,
-  H2_L,
-  H2_SCLN,
-
-  H2_Z,
-  H2_X,
-  H2_C,
-  H2_V,
-  H2_B,
-  H2_N,
-  H2_M,
-  H2_COMM,
-  H2_DOT,
-  H2_SLSH,
-
 } NGKEYS;
 
 // EEPROMに保存する設定
@@ -194,9 +129,8 @@ typedef union {
 
 user_config_t naginata_config;
 
-#define NG_SAFE_RANGE SAFE_RANGE + 102
+#define NG_SAFE_RANGE SAFE_RANGE + 42
 
 #define NG_WIN 1
 #define NG_MAC 2
 #define NG_LINUX 3
-

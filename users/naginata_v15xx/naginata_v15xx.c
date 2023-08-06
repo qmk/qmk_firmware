@@ -50,6 +50,7 @@ static bool is_naginata = false; // 薙刀式がオンかオフか
 static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番号
 static uint8_t keycnt = 0UL; //　押しているキーの数
 static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
+static uint8_t henshu_mode = 0;
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -505,6 +506,10 @@ void set_naginata(uint8_t layer) {
   ng_set_unicode_mode(naginata_config.os);
 }
 
+void set_henshu(uint8_t m) {
+  henshu_mode = m;
+}
+
 // 薙刀式をオン
 void naginata_on(void) {
   is_naginata = true;
@@ -671,12 +676,12 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   #endif
 
   // まれに薙刀モードオンのまま、レイヤーがオフになることがあるので、対策
-  if (n_modifier == 0 && is_naginata && !layer_state_is(naginata_layer))
-    layer_on(naginata_layer);
-  if (n_modifier == 0 && !is_naginata && layer_state_is(naginata_layer))
-    layer_off(naginata_layer);
-  if (n_modifier > 0 && layer_state_is(naginata_layer))
-    layer_off(naginata_layer);
+  // if (n_modifier == 0 && is_naginata && !layer_state_is(naginata_layer))
+  //   layer_on(naginata_layer);
+  // if (n_modifier == 0 && !is_naginata && layer_state_is(naginata_layer))
+  //   layer_off(naginata_layer);
+  // if (n_modifier > 0 && layer_state_is(naginata_layer))
+  //   layer_off(naginata_layer);
 
   // OS切り替え(UNICODE出力)
   if (record->event.pressed) {
@@ -729,6 +734,11 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
   if (process_modifier(keycode, record))
     return true;
 
+  if (henshu_mode > 0 && record->event.pressed) {
+    exec_henshu(keycode);
+    return false;
+  }
+
   if (record->event.pressed) {
     switch (keycode) {
       case NG_SHFT ... NG_SHFT2:
@@ -774,10 +784,6 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         #if defined(CONSOLE_ENABLE) && defined(LOG_PROCESS_NAGINATA)
         uprintf("<process_naginata return=false, keycnt=%u\n", keycnt);
         #endif
-        return false;
-        break;
-      case H1_Q ... H2_SLSH:
-        exec_henshu(keycode);
         return false;
         break;
     }
@@ -1243,356 +1249,365 @@ void ng_eof() {
 }
 
 bool exec_henshu(uint16_t keycode) {
-  switch (keycode) {
-    #ifndef NG_NO_HENSHU1
-    case H1_Q: // ^{End}
-      ng_eof();
-      return true;
+  switch (henshu_mode) {
+    case 1:
+      switch (keycode) {
+        #ifndef NG_NO_HENSHU1
+        case NG_Q: // ^{End}
+          ng_eof();
+          return true;
+          break;
+        case NG_W: // 『』{改行}{↑}
+          ng_send_unicode_string_P(PSTR("『』"));
+          ng_up(1);
+          return true;
+          break;
+        case NG_R: // ^s
+          ng_save();
+          return true;
+          break;
+        case NG_T: // ・
+          ng_send_unicode_string_P(PSTR("・"));
+          return true;
+          break;
+        case NG_A: // ……{改行}
+          ng_send_unicode_string_P(PSTR("……"));
+          return true;
+          break;
+        case NG_S: // (){改行}{↑}
+          ng_send_unicode_string_P(PSTR("()"));
+          ng_up(1);
+          return true;
+          break;
+        case NG_D: // ？{改行}
+          send_string("?");
+          return true;
+          break;
+        case NG_F: // 「」{改行}{↑}
+          ng_send_unicode_string_P(PSTR("「」"));
+          ng_up(1);
+          return true;
+          break;
+        case NG_G: // 《》{改行}{↑}
+          ng_send_unicode_string_P(PSTR("《》"));
+          ng_up(1);
+          return true;
+          break;
+        case NG_Z: // ――{改行}
+          ng_send_unicode_string_P(PSTR("――"));
+          return true;
+          break;
+        case NG_X: // 【】{改行}{↑}
+          ng_send_unicode_string_P(PSTR("【】"));
+          ng_up(1);
+          return true;
+          break;
+        case NG_C: // ！{改行}
+          send_string("!");
+          return true;
+          break;
+        case NG_V: // {改行}{↓}
+          tap_code(KC_ENT);
+          ng_down(1);
+          return true;
+          break;
+        case NG_B: // {改行}{←}
+          tap_code(KC_ENT);
+          ng_left(1);
+          return true;
+          break;
+        case NG_Y: // {Home}
+          ng_home();
+          return true;
+          break;
+        case NG_U: // +{End}{BS}
+          register_code(KC_LSFT);
+          ng_end();
+          unregister_code(KC_LSFT);
+          tap_code(KC_BSPC);
+          return true;
+          break;
+        case NG_I: // {vk1Csc079}
+          ng_saihenkan();
+          return true;
+          break;
+        case NG_O: // {Del}
+          tap_code(KC_DEL);
+          return true;
+          break;
+        case NG_P: // {Esc 3}
+          tap_code(KC_ESC);
+          tap_code(KC_ESC);
+          tap_code(KC_ESC);
+          return true;
+          break;
+        case NG_H: // {Enter}{End}
+          tap_code(KC_ENT);
+          ng_end();
+          return true;
+          break;
+        case NG_J: // {↑}
+          ng_up(1);
+          return true;
+          break;
+        case NG_K: // +{↑}
+          register_code(KC_LSFT);
+          ng_up(1);
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_L: // +{↑ 7}
+          register_code(KC_LSFT);
+          ng_up(7);
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_SCLN: // ^i
+          ng_katakana();
+          return true;
+          break;
+        case NG_N: // {End}
+          ng_end();
+          return true;
+          break;
+        case NG_M: // {↓}
+          ng_down(1);
+          return true;
+          break;
+        case NG_COMM: // +{↓}
+          register_code(KC_LSFT);
+          ng_down(1);
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_DOT: // +{↓ 7}
+          register_code(KC_LSFT);
+          ng_down(7);
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_SLSH: // ^u
+          ng_hiragana();
+          return true;
+          break;
+        #endif
+        break;
+      }
       break;
-    case H1_W: // 『』{改行}{↑}
-      ng_send_unicode_string_P(PSTR("『』"));
-      ng_up(1);
-      return true;
+    case 2:
+      switch (keycode) {
+        #ifndef NG_NO_HENSHU2
+        case NG_Q: // {Home}{→}{End}{Del 4}{←}
+          ng_home();
+          ng_right(1);
+          ng_end();
+          tap_code(KC_DEL);
+          tap_code(KC_DEL);
+          tap_code(KC_DEL);
+          tap_code(KC_DEL);
+          ng_left(1);
+          return true;
+          break;
+        case NG_W: // ^x『^v』{改行}{Space}+{↑}^x
+          ng_cut();
+          ng_send_unicode_string_P(PSTR("『"));
+          ng_paste();
+          ng_send_unicode_string_P(PSTR("』"));
+          tap_code(KC_SPC);
+          register_code(KC_LSFT);
+          ng_up(1);
+          unregister_code(KC_LSFT);
+          ng_cut();
+          return true;
+          break;
+        case NG_E: // {Home}{改行}{Space 3}{←}
+          ng_home();
+          tap_code(KC_ENT);
+          tap_code(KC_SPC);
+          tap_code(KC_SPC);
+          tap_code(KC_SPC);
+          ng_left(1);
+          return true;
+          break;
+        case NG_R: // {Space 3}
+          tap_code(KC_SPC);
+          tap_code(KC_SPC);
+          tap_code(KC_SPC);
+          return true;
+          break;
+        case NG_T: // 〇{改行}
+          ng_send_unicode_string_P(PSTR("〇"));
+          return true;
+          break;
+        case NG_A: // {Home}{→}{End}{Del 2}{←}
+          ng_home();
+          ng_right(1);
+          ng_end();
+          tap_code(KC_DEL);
+          tap_code(KC_DEL);
+          ng_left(1);
+          return true;
+          break;
+        case NG_S: // ^x(^v){改行}{Space}+{↑}^x
+          ng_cut();
+          ng_send_unicode_string_P(PSTR("("));
+          ng_paste();
+          ng_send_unicode_string_P(PSTR(")"));
+          tap_code(KC_SPC);
+          register_code(KC_LSFT);
+          ng_up(1);
+          unregister_code(KC_LSFT);
+          ng_cut();
+          return true;
+          break;
+        case NG_D: // {Home}{改行}{Space 1}{←}
+          ng_home();
+          tap_code(KC_ENT);
+          tap_code(KC_SPC);
+          ng_left(1);
+          return true;
+          break;
+        case NG_F: // ^x「^v」{改行}{Space}+{↑}^x
+          ng_cut();
+          ng_send_unicode_string_P(PSTR("「"));
+          ng_paste();
+          ng_send_unicode_string_P(PSTR("」"));
+          tap_code(KC_SPC);
+          register_code(KC_LSFT);
+          ng_up(1);
+          unregister_code(KC_LSFT);
+          ng_cut();
+          return true;
+          break;
+        case NG_G: // ^x｜{改行}^v《》{改行}{↑}{Space}+{↑}^x
+          ng_cut();
+          ng_send_unicode_string_P(PSTR("｜"));
+          ng_paste();
+          ng_send_unicode_string_P(PSTR("《》"));
+          ng_up(1);
+          tap_code(KC_SPC);
+          register_code(KC_LSFT);
+          ng_up(1);
+          unregister_code(KC_LSFT);
+          ng_cut();
+          return true;
+          break;
+        case NG_Z: // 　　　×　　　×　　　×{改行 2}
+          ng_send_unicode_string_P(PSTR("　　　×　　　×　　　×"));
+          tap_code(KC_ENT);
+          tap_code(KC_ENT);
+          return true;
+          break;
+        case NG_X: // ^x【^v】{改行}{Space}+{↑}^x
+          ng_cut();
+          ng_send_unicode_string_P(PSTR("【"));
+          ng_paste();
+          ng_send_unicode_string_P(PSTR("】"));
+          tap_code(KC_SPC);
+          register_code(KC_LSFT);
+          ng_up(1);
+          unregister_code(KC_LSFT);
+          ng_cut();
+          return true;
+          break;
+        case NG_C: // ／{改行}
+          ng_send_unicode_string_P(PSTR("／"));
+          return true;
+          break;
+        case NG_V: // {改行}{End}{改行}「」{改行}{↑}
+          tap_code(KC_ENT);
+          ng_end();
+          tap_code(KC_ENT);
+          ng_send_unicode_string_P(PSTR("「」"));
+          ng_up(1);
+          return true;
+          break;
+        case NG_B: // {改行}{End}{改行}{Space}
+          tap_code(KC_ENT);
+          ng_end();
+          tap_code(KC_ENT);
+          tap_code(KC_SPC);
+          return true;
+          break;
+        case NG_Y: // +{Home}
+          register_code(KC_LSFT);
+          ng_home();
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_U: // ^x
+          ng_cut();
+          return true;
+          break;
+        case NG_I: // ^v
+          ng_paste();
+          return true;
+          break;
+        case NG_O: // ^y
+          ng_redo();
+          return true;
+          break;
+        case NG_P: // ^z
+          ng_undo();
+          return true;
+          break;
+        case NG_H: // ^c
+          ng_copy();
+          return true;
+          break;
+        case NG_J: // {→}
+          ng_right(1);
+          return true;
+          break;
+        case NG_K: // +{→}
+          register_code(KC_LSFT);
+          ng_right(1);
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_L: // +{→ 5}
+          register_code(KC_LSFT);
+          ng_right(5);
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_SCLN: // +{→ 20}
+          register_code(KC_LSFT);
+          ng_right(20);
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_N: // +{End}
+          register_code(KC_LSFT);
+          ng_end();
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_M: // {←}
+          ng_left(1);
+          return true;
+          break;
+        case NG_COMM: // +{←}
+          register_code(KC_LSFT);
+          ng_left(1);
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_DOT: // +{← 5}
+          register_code(KC_LSFT);
+          ng_left(5);
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+        case NG_SLSH: // +{← 20}
+          register_code(KC_LSFT);
+          ng_left(20);
+          unregister_code(KC_LSFT);
+          return true;
+          break;
+      }
       break;
-    case H1_R: // ^s
-      ng_save();
-      return true;
-      break;
-    case H1_T: // ・
-      ng_send_unicode_string_P(PSTR("・"));
-      return true;
-      break;
-    case H1_A: // ……{改行}
-      ng_send_unicode_string_P(PSTR("……"));
-      return true;
-      break;
-    case H1_S: // (){改行}{↑}
-      ng_send_unicode_string_P(PSTR("()"));
-      ng_up(1);
-      return true;
-      break;
-    case H1_D: // ？{改行}
-      send_string("?");
-      return true;
-      break;
-    case H1_F: // 「」{改行}{↑}
-      ng_send_unicode_string_P(PSTR("「」"));
-      ng_up(1);
-      return true;
-      break;
-    case H1_G: // 《》{改行}{↑}
-      ng_send_unicode_string_P(PSTR("《》"));
-      ng_up(1);
-      return true;
-      break;
-    case H1_Z: // ――{改行}
-      ng_send_unicode_string_P(PSTR("――"));
-      return true;
-      break;
-    case H1_X: // 【】{改行}{↑}
-      ng_send_unicode_string_P(PSTR("【】"));
-      ng_up(1);
-      return true;
-      break;
-    case H1_C: // ！{改行}
-      send_string("!");
-      return true;
-      break;
-    case H1_V: // {改行}{↓}
-      tap_code(KC_ENT);
-      ng_down(1);
-      return true;
-      break;
-    case H1_B: // {改行}{←}
-      tap_code(KC_ENT);
-      ng_left(1);
-      return true;
-      break;
-    case H1_Y: // {Home}
-      ng_home();
-      return true;
-      break;
-    case H1_U: // +{End}{BS}
-      register_code(KC_LSFT);
-      ng_end();
-      unregister_code(KC_LSFT);
-      tap_code(KC_BSPC);
-      return true;
-      break;
-    case H1_I: // {vk1Csc079}
-      ng_saihenkan();
-      return true;
-      break;
-    case H1_O: // {Del}
-      tap_code(KC_DEL);
-      return true;
-      break;
-    case H1_P: // {Esc 3}
-      tap_code(KC_ESC);
-      tap_code(KC_ESC);
-      tap_code(KC_ESC);
-      return true;
-      break;
-    case H1_H: // {Enter}{End}
-      tap_code(KC_ENT);
-      ng_end();
-      return true;
-      break;
-    case H1_J: // {↑}
-      ng_up(1);
-      return true;
-      break;
-    case H1_K: // +{↑}
-      register_code(KC_LSFT);
-      ng_up(1);
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H1_L: // +{↑ 7}
-      register_code(KC_LSFT);
-      ng_up(7);
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H1_SCLN: // ^i
-      ng_katakana();
-      return true;
-      break;
-    case H1_N: // {End}
-      ng_end();
-      return true;
-      break;
-    case H1_M: // {↓}
-      ng_down(1);
-      return true;
-      break;
-    case H1_COMM: // +{↓}
-      register_code(KC_LSFT);
-      ng_down(1);
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H1_DOT: // +{↓ 7}
-      register_code(KC_LSFT);
-      ng_down(7);
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H1_SLSH: // ^u
-      ng_hiragana();
-      return true;
-      break;
-    #endif
-    #ifndef NG_NO_HENSHU2
-    case H2_Q: // {Home}{→}{End}{Del 4}{←}
-      ng_home();
-      ng_right(1);
-      ng_end();
-      tap_code(KC_DEL);
-      tap_code(KC_DEL);
-      tap_code(KC_DEL);
-      tap_code(KC_DEL);
-      ng_left(1);
-      return true;
-      break;
-    case H2_W: // ^x『^v』{改行}{Space}+{↑}^x
-      ng_cut();
-      ng_send_unicode_string_P(PSTR("『"));
-      ng_paste();
-      ng_send_unicode_string_P(PSTR("』"));
-      tap_code(KC_SPC);
-      register_code(KC_LSFT);
-      ng_up(1);
-      unregister_code(KC_LSFT);
-      ng_cut();
-      return true;
-      break;
-    case H2_E: // {Home}{改行}{Space 3}{←}
-      ng_home();
-      tap_code(KC_ENT);
-      tap_code(KC_SPC);
-      tap_code(KC_SPC);
-      tap_code(KC_SPC);
-      ng_left(1);
-      return true;
-      break;
-    case H2_R: // {Space 3}
-      tap_code(KC_SPC);
-      tap_code(KC_SPC);
-      tap_code(KC_SPC);
-      return true;
-      break;
-    case H2_T: // 〇{改行}
-      ng_send_unicode_string_P(PSTR("〇"));
-      return true;
-      break;
-    case H2_A: // {Home}{→}{End}{Del 2}{←}
-      ng_home();
-      ng_right(1);
-      ng_end();
-      tap_code(KC_DEL);
-      tap_code(KC_DEL);
-      ng_left(1);
-      return true;
-      break;
-    case H2_S: // ^x(^v){改行}{Space}+{↑}^x
-      ng_cut();
-      ng_send_unicode_string_P(PSTR("("));
-      ng_paste();
-      ng_send_unicode_string_P(PSTR(")"));
-      tap_code(KC_SPC);
-      register_code(KC_LSFT);
-      ng_up(1);
-      unregister_code(KC_LSFT);
-      ng_cut();
-      return true;
-      break;
-    case H2_D: // {Home}{改行}{Space 1}{←}
-      ng_home();
-      tap_code(KC_ENT);
-      tap_code(KC_SPC);
-      ng_left(1);
-      return true;
-      break;
-    case H2_F: // ^x「^v」{改行}{Space}+{↑}^x
-      ng_cut();
-      ng_send_unicode_string_P(PSTR("「"));
-      ng_paste();
-      ng_send_unicode_string_P(PSTR("」"));
-      tap_code(KC_SPC);
-      register_code(KC_LSFT);
-      ng_up(1);
-      unregister_code(KC_LSFT);
-      ng_cut();
-      return true;
-      break;
-    case H2_G: // ^x｜{改行}^v《》{改行}{↑}{Space}+{↑}^x
-      ng_cut();
-      ng_send_unicode_string_P(PSTR("｜"));
-      ng_paste();
-      ng_send_unicode_string_P(PSTR("《》"));
-      ng_up(1);
-      tap_code(KC_SPC);
-      register_code(KC_LSFT);
-      ng_up(1);
-      unregister_code(KC_LSFT);
-      ng_cut();
-      return true;
-      break;
-    case H2_Z: // 　　　×　　　×　　　×{改行 2}
-      ng_send_unicode_string_P(PSTR("　　　×　　　×　　　×"));
-      tap_code(KC_ENT);
-      tap_code(KC_ENT);
-      return true;
-      break;
-    case H2_X: // ^x【^v】{改行}{Space}+{↑}^x
-      ng_cut();
-      ng_send_unicode_string_P(PSTR("【"));
-      ng_paste();
-      ng_send_unicode_string_P(PSTR("】"));
-      tap_code(KC_SPC);
-      register_code(KC_LSFT);
-      ng_up(1);
-      unregister_code(KC_LSFT);
-      ng_cut();
-      return true;
-      break;
-    case H2_C: // ／{改行}
-      ng_send_unicode_string_P(PSTR("／"));
-      return true;
-      break;
-    case H2_V: // {改行}{End}{改行}「」{改行}{↑}
-      tap_code(KC_ENT);
-      ng_end();
-      tap_code(KC_ENT);
-      ng_send_unicode_string_P(PSTR("「」"));
-      ng_up(1);
-      return true;
-      break;
-    case H2_B: // {改行}{End}{改行}{Space}
-      tap_code(KC_ENT);
-      ng_end();
-      tap_code(KC_ENT);
-      tap_code(KC_SPC);
-      return true;
-      break;
-    case H2_Y: // +{Home}
-      register_code(KC_LSFT);
-      ng_home();
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H2_U: // ^x
-      ng_cut();
-      return true;
-      break;
-    case H2_I: // ^v
-      ng_paste();
-      return true;
-      break;
-    case H2_O: // ^y
-      ng_redo();
-      return true;
-      break;
-    case H2_P: // ^z
-      ng_undo();
-      return true;
-      break;
-    case H2_H: // ^c
-      ng_copy();
-      return true;
-      break;
-    case H2_J: // {→}
-      ng_right(1);
-      return true;
-      break;
-    case H2_K: // +{→}
-      register_code(KC_LSFT);
-      ng_right(1);
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H2_L: // +{→ 5}
-      register_code(KC_LSFT);
-      ng_right(5);
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H2_SCLN: // +{→ 20}
-      register_code(KC_LSFT);
-      ng_right(20);
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H2_N: // +{End}
-      register_code(KC_LSFT);
-      ng_end();
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H2_M: // {←}
-      ng_left(1);
-      return true;
-      break;
-    case H2_COMM: // +{←}
-      register_code(KC_LSFT);
-      ng_left(1);
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H2_DOT: // +{← 5}
-      register_code(KC_LSFT);
-      ng_left(5);
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    case H2_SLSH: // +{← 20}
-      register_code(KC_LSFT);
-      ng_left(20);
-      unregister_code(KC_LSFT);
-      return true;
-      break;
-    #endif
+      #endif
   // // 固有名詞
   //   #ifndef NG_NO_KOYUMEISHI
   //   case B_U|B_I|B_W: // 臨兵闘者皆陣烈在前

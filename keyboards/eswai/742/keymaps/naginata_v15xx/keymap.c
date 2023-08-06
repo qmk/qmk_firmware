@@ -31,8 +31,6 @@ enum layer_names {
    _WIN,
 // 薙刀式
   _NAGINATA, // 薙刀式入力レイヤー
-  _HENSHU1,
-  _HENSHU2,
 // 薙刀式
   _LOWER,
   _RAISE,
@@ -97,22 +95,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ ,NG_Z    ,NG_X    ,NG_C    ,NG_V    ,NG_B    ,_______ ,_______ ,NG_N    ,NG_M    ,NG_COMM ,NG_DOT  ,NG_SLSH ,_______ , 
     _______ ,_______ ,_______ ,_______ ,_______ ,NG_SHFT          ,NG_SHFT2         ,_______ ,_______ ,_______ ,_______ ,_______
   ),
-
-  [_HENSHU1] = LAYOUT(
-//  ++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++, 
-    _______ ,H1_Q    ,H1_W    ,H1_E    ,H1_R    ,H1_T    ,_______ ,_______ ,H1_Y    ,H1_U    ,H1_I    ,H1_O    ,H1_P    ,_______ , 
-    _______ ,H1_A    ,H1_S    ,H1_D    ,H1_F    ,H1_G    ,_______ ,_______ ,H1_H    ,H1_J    ,H1_K    ,H1_L    ,H1_SCLN ,_______ , 
-    _______ ,H1_Z    ,H1_X    ,H1_C    ,H1_V    ,H1_B    ,_______ ,_______ ,H1_N    ,H1_M    ,H1_COMM ,H1_DOT  ,H1_SLSH ,_______ , 
-    _______ ,_______ ,_______ ,_______ ,_______ ,_______          ,_______          ,_______ ,_______ ,_______ ,_______ ,_______
-  ),
-
-  [_HENSHU2] = LAYOUT(
-//  ++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++, 
-    _______ ,H2_Q    ,H2_W    ,H2_E    ,H2_R    ,H2_T    ,_______ ,_______ ,H2_Y    ,H2_U    ,H2_I    ,H2_O    ,H2_P    ,_______ , 
-    _______ ,H2_A    ,H2_S    ,H2_D    ,H2_F    ,H2_G    ,_______ ,_______ ,H2_H    ,H2_J    ,H2_K    ,H2_L    ,H2_SCLN ,_______ , 
-    _______ ,H2_Z    ,H2_X    ,H2_C    ,H2_V    ,H2_B    ,_______ ,_______ ,H2_N    ,H2_M    ,H2_COMM ,H2_DOT  ,H2_SLSH ,_______ , 
-    _______ ,_______ ,_______ ,_______ ,_______ ,_______          ,_______          ,_______ ,_______ ,_______ ,_______ ,_______
-  ),
 // 薙刀式
 
 };
@@ -131,20 +113,58 @@ const uint16_t PROGMEM h2lk[]  = {NG_M, NG_COMM, COMBO_END};
 const uint16_t PROGMEM h2re[]  = {KC_V, KC_C, COMBO_END};
 const uint16_t PROGMEM h2rk[]  = {NG_C, NG_V, COMBO_END};
 
-combo_t key_combos[] = {
-  COMBO(ngone, NG_ON),
-  COMBO(ngofe, NG_OFF),
-  COMBO(ngone, NG_ON),
-  COMBO(ngofk, NG_OFF),
-  COMBO(h1re, MO(_HENSHU1)),
-  COMBO(h1rk, MO(_HENSHU1)),
-  COMBO(h1le, MO(_HENSHU1)),
-  COMBO(h1lk, MO(_HENSHU1)),
-  COMBO(h2re, MO(_HENSHU2)),
-  COMBO(h2rk, MO(_HENSHU2)),
-  COMBO(h2le, MO(_HENSHU2)),
-  COMBO(h2lk, MO(_HENSHU2)),
+enum combo_events {
+  CMBON1,
+  CMBON2,
+  CMBOF1,
+  CMBOF2,
+  HENSHU1RE,
+  HENSHU1RK,
+  HENSHU1LE,
+  HENSHU1LK,
+  HENSHU2RE,
+  HENSHU2RK,
+  HENSHU2LE,
+  HENSHU2LK,
 };
+
+combo_t key_combos[] = {
+  [CMBON1] = COMBO(ngone, NG_ON),
+  [CMBON2] = COMBO(ngofe, NG_OFF),
+  [CMBOF1] = COMBO(ngone, NG_ON),
+  [CMBOF2] = COMBO(ngofk, NG_OFF),
+  [HENSHU1RE] = COMBO_ACTION(h1re),
+  [HENSHU1RK] = COMBO_ACTION(h1rk),
+  [HENSHU1LE] = COMBO_ACTION(h1le),
+  [HENSHU1LK] = COMBO_ACTION(h1lk),
+  [HENSHU2RE] = COMBO_ACTION(h2re),
+  [HENSHU2RK] = COMBO_ACTION(h2rk),
+  [HENSHU2LE] = COMBO_ACTION(h2le),
+  [HENSHU2LK] = COMBO_ACTION(h2lk),
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case HENSHU1RE ... HENSHU1LK:
+      if (pressed) {
+        layer_on(_NAGINATA);
+        set_henshu(1);
+      } else {
+        layer_off(_NAGINATA);
+        set_henshu(0);
+      }
+      break;
+    case HENSHU2RE ... HENSHU2LK:
+      if (pressed) {
+        layer_on(_NAGINATA);
+        set_henshu(2);
+      } else {
+        layer_off(_NAGINATA);
+        set_henshu(0);
+      }
+      break;
+  }
+}
 // 薙刀式
 
 // uint32_t kanaoff(uint32_t trigger_time, void *cb_arg) {
