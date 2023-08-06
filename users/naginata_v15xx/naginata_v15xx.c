@@ -728,11 +728,9 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
         break;
     }
   }
-  // if (!is_naginata)
-  //   return enable_naginata(keycode, record);
 
-  if (process_modifier(keycode, record))
-    return true;
+  // if (process_modifier(keycode, record))
+  //   return true;
 
   if (henshu_mode > 0 && record->event.pressed) {
     exec_henshu(keycode);
@@ -857,12 +855,12 @@ uint8_t naginata_type(bool partial) {
       case B_Y:
         ng_right(1);
         break;
-      case B_H|B_J:
-        naginata_on();
-        break;
-      case B_F|B_G:
-        naginata_off();
-        break;
+      // case B_H|B_J:
+      //   naginata_on();
+      //   break;
+      // case B_F|B_G:
+      //   naginata_off();
+      //   break;
       default:
         for (uint16_t j = 0; j < sizeof ngmap / sizeof bngmap; j++) {
           memcpy_P(&bngmap, &ngmap[j], sizeof(bngmap));
@@ -1260,6 +1258,10 @@ bool exec_henshu(uint16_t keycode) {
         case NG_W: // 『』{改行}{↑}
           ng_send_unicode_string_P(PSTR("『』"));
           ng_up(1);
+          return true;
+          break;
+        case NG_E: // ディ
+          send_string("dhi");
           return true;
           break;
         case NG_R: // ^s

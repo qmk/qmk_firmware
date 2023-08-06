@@ -150,7 +150,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         layer_on(_NAGINATA);
         set_henshu(1);
       } else {
-        layer_off(_NAGINATA);
+        if (!naginata_state())
+          layer_off(_NAGINATA);
         set_henshu(0);
       }
       break;
@@ -159,7 +160,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         layer_on(_NAGINATA);
         set_henshu(2);
       } else {
-        layer_off(_NAGINATA);
+        if (!naginata_state())
+          layer_off(_NAGINATA);
         set_henshu(0);
       }
       break;
