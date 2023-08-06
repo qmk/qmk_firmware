@@ -2,10 +2,17 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "rpbaptist.h"
-#include "rgb_matrix.h"
+
+uint32_t transport_user_config = 0;
+
+void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
+    if (initiator2target_buffer_size == sizeof(transport_user_config)) {
+        memcpy(&transport_user_config, initiator2target_buffer, initiator2target_buffer_size);
+    }
+}
 
 #ifdef OLED_ENABLE
-const char *rgb_matrix_anim_oled_text(uint8_t mode) {
+const char* rgb_matrix_anim_oled_text(uint8_t mode) {
     switch (mode) {
         case RGB_MATRIX_TYPING_HEATMAP:
             return PSTR("Heat ");
@@ -45,7 +52,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t led_
     }
 }
 
-user_config_t user_config;
+extern user_config_t user_config;
 
 bool rgb_matrix_in_idle(void) {
     return (user_config.rgb_matrix_idle_anim && rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode);
@@ -241,6 +248,30 @@ void matrix_scan_rgb(void) {
     }
 }
 
+void user_transport_sync(void) {
+    // Keep track of the last state, so that we can tell if we need to propagate to slave
+    static uint32_t last_config = 0, last_sync = 0;
+
+    // Check if the state values are different
+    // or if sync timer elapsed
+    if (memcmp(&user_config, &last_config, sizeof(transport_user_config)) || (timer_elapsed32(last_sync) > 250)) {
+        memcpy(&last_config, &user_config, sizeof(transport_user_config));
+
+        if (transaction_rpc_send(USER_CONFIG_SYNC, sizeof(transport_user_config), &transport_user_config)) {
+            last_sync = timer_read32();
+        }
+    }
+}
+
+void user_transport_update(void) {
+    if (is_keyboard_master()) {
+        transport_user_config = user_config.raw;
+        user_transport_sync();
+    } else {
+        user_config.raw = transport_user_config;
+    }
+}
+
 void housekeeping_task_user(void) {
     static bool has_ran_yet;
     if (!has_ran_yet) {
@@ -248,6 +279,9 @@ void housekeeping_task_user(void) {
         startup_user();
     }
     matrix_scan_rgb();
+
+    // Update config to slave
+    user_transport_update();
 }
 
 void eeconfig_init_user(void) {
@@ -265,9 +299,12 @@ void eeconfig_init_user(void) {
 void keyboard_post_init_user(void) {
     set_single_persistent_default_layer(_COLEMAKDH);
     rgb_matrix_set_defaults();
+
+    // Register user config sync
+    transaction_register_rpc(USER_CONFIG_SYNC, user_config_sync);
 }
 
-bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user_rgb_matrix(uint16_t keycode, keyrecord_t* record) {
     if (user_config.rgb_matrix_idle_anim) {
         if (rgb_matrix_get_mode() == user_config.rgb_matrix_idle_mode) {
             rgb_matrix_update_current_mode(user_config.rgb_matrix_active_mode);

@@ -4,6 +4,8 @@
 #pragma once
 #include QMK_KEYBOARD_H
 
+#include "quantum.h"
+
 #if defined(RGB_MATRIX_ENABLE)
 #    include "rgb.h"
 #endif
