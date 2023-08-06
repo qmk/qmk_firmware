@@ -189,9 +189,7 @@ void keyboard_post_init_user(void) {
   set_tri_layer_layers(_LOWER, _RAISE, _ADJUST);
 
   // 薙刀式
-  uint16_t ngonkeys[] = {KC_Y, KC_E};
-  uint16_t ngoffkeys[] = {KC_A, KC_G};
-  set_naginata(_NAGINATA, ngonkeys, ngoffkeys);
+  set_naginata(_NAGINATA);
   // 薙刀式
 
   wait_ms(400);

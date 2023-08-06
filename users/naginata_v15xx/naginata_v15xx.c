@@ -48,8 +48,6 @@ x 編集モードを英字モードでも使いたい
 static uint8_t ng_chrcount = 0; // 文字キー入力のカウンタ
 static bool is_naginata = false; // 薙刀式がオンかオフか
 static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番号
-static uint16_t ngon_keys[2]; // 薙刀式をオンにするキー(通常HJ)
-static uint16_t ngoff_keys[2]; // 薙刀式をオフにするキー(通常FG)
 static uint8_t keycnt = 0UL; //　押しているキーの数
 static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 
@@ -493,12 +491,8 @@ const PROGMEM naginata_keymap ngmap[] = {
 };
 
 // 薙刀式のレイヤー、オンオフするキー
-void set_naginata(uint8_t layer, uint16_t *onk, uint16_t *offk) {
+void set_naginata(uint8_t layer) {
   naginata_layer = layer;
-  ngon_keys[0] = *onk;
-  ngon_keys[1] = *(onk+1);
-  ngoff_keys[0] = *offk;
-  ngoff_keys[1] = *(offk+1);
 
   naginata_config.raw = eeconfig_read_user();
   if (naginata_config.os != NG_WIN && naginata_config.os != NG_MAC && naginata_config.os != NG_LINUX) {

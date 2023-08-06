@@ -33,8 +33,7 @@ void tategaki_toggle(void);
 void kouchi_shift_toggle(void);
 
 bool process_naginata(uint16_t, keyrecord_t *);
-// void set_naginata(uint8_t);
-void set_naginata(uint8_t, uint16_t *, uint16_t *);
+void set_naginata(uint8_t);
 
 typedef struct {
   uint16_t keycode;
@@ -45,7 +44,6 @@ typedef struct {
 uint8_t evaluate(void);
 uint32_t scoring(Keystroke[], uint8_t);
 
-// bool check_henshu(void);
 bool exec_henshu(uint16_t);
 void ng_cut(void);
 void ng_copy(void);
@@ -63,8 +61,6 @@ void ng_redo(void);
 void ng_undo(void);
 void ng_saihenkan(void);
 void ng_eof(void);
-
-// bool enable_naginata(uuint8_t16_t, keyrecord_t *);
 
 // なぜKC_キーコードを使わず、NG_キーコードを定義するのか
 // 1. 英字レイアウトがQWERTYでない場合でもOK
@@ -198,7 +194,7 @@ typedef union {
 
 user_config_t naginata_config;
 
-#define NG_SAFE_RANGE SAFE_RANGE + 42
+#define NG_SAFE_RANGE SAFE_RANGE + 102
 
 #define NG_WIN 1
 #define NG_MAC 2
