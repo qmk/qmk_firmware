@@ -41,3 +41,7 @@
    - etc.
 */
 // #define MIDI_ADVANCED
+
+// CUSTOM config
+
+#define CAPS_WORD_INVERT_ON_SHIFT
