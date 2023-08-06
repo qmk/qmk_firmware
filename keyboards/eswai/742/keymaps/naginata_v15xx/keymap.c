@@ -21,8 +21,9 @@
 // 薙刀式
 #include "naginata.h"
 NGKEYS naginata_keys;
-#define NAGINATA_TIMEOUT 30000
 // 薙刀式
+
+// #define NAGINATA_TIMEOUT 30000 
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
@@ -40,10 +41,9 @@ enum layer_names {
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-    PASTE = NG_SAFE_RANGE,
+    PASTE = NG_SAFE_RANGE, // 薙刀式
 };
 
-uint32_t naginata_timer;
 // static deferred_token my_token;
 bool update_oled = true;
 bool ng_state = false;
@@ -89,6 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ ,_______ ,_______ ,_______ ,_______ ,XXXXXXX          ,XXXXXXX          ,_______ ,_______ ,_______ ,_______ ,_______
   ),
 
+// 薙刀式
   [_NAGINATA] = LAYOUT(
 //  ++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++,++++++++, 
     _______ ,NG_Q    ,NG_W    ,NG_E    ,NG_R    ,NG_T    ,_______ ,_______ ,NG_Y    ,NG_U    ,NG_I    ,NG_O    ,NG_P    ,_______ , 
@@ -112,21 +113,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ ,H2_Z    ,H2_X    ,H2_C    ,H2_V    ,H2_B    ,_______ ,_______ ,H2_N    ,H2_M    ,H2_COMM ,H2_DOT  ,H2_SLSH ,_______ , 
     _______ ,_______ ,_______ ,_______ ,_______ ,_______          ,_______          ,_______ ,_______ ,_______ ,_______ ,_______
   ),
+// 薙刀式
 
 };
 
+// 薙刀式
 const uint16_t PROGMEM ngone[] = {KC_Y, KC_E, COMBO_END};
 const uint16_t PROGMEM ngofe[] = {KC_A, KC_G, COMBO_END};
 const uint16_t PROGMEM ngonk[] = {NG_H, NG_J, COMBO_END};
 const uint16_t PROGMEM ngofk[] = {NG_F, NG_G, COMBO_END};
-const uint16_t PROGMEM h1le[] = {KC_E, KC_T, COMBO_END};
-const uint16_t PROGMEM h1lk[] = {NG_J, NG_K, COMBO_END};
-const uint16_t PROGMEM h1re[] = {KC_S, KC_A, COMBO_END};
-const uint16_t PROGMEM h1rk[] = {NG_D, NG_F, COMBO_END};
-const uint16_t PROGMEM h2le[] = {KC_O, KC_COMM, COMBO_END};
-const uint16_t PROGMEM h2lk[] = {NG_M, NG_COMM, COMBO_END};
-const uint16_t PROGMEM h2re[] = {KC_V, KC_C, COMBO_END};
-const uint16_t PROGMEM h2rk[] = {NG_C, NG_V, COMBO_END};
+const uint16_t PROGMEM h1le[]  = {KC_E, KC_T, COMBO_END};
+const uint16_t PROGMEM h1lk[]  = {NG_J, NG_K, COMBO_END};
+const uint16_t PROGMEM h1re[]  = {KC_S, KC_A, COMBO_END};
+const uint16_t PROGMEM h1rk[]  = {NG_D, NG_F, COMBO_END};
+const uint16_t PROGMEM h2le[]  = {KC_O, KC_COMM, COMBO_END};
+const uint16_t PROGMEM h2lk[]  = {NG_M, NG_COMM, COMBO_END};
+const uint16_t PROGMEM h2re[]  = {KC_V, KC_C, COMBO_END};
+const uint16_t PROGMEM h2rk[]  = {NG_C, NG_V, COMBO_END};
 
 combo_t key_combos[] = {
   COMBO(ngone, NG_ON),
@@ -142,6 +145,7 @@ combo_t key_combos[] = {
   COMBO(h2le, MO(_HENSHU2)),
   COMBO(h2lk, MO(_HENSHU2)),
 };
+// 薙刀式
 
 // uint32_t kanaoff(uint32_t trigger_time, void *cb_arg) {
 //   if (naginata_state())
