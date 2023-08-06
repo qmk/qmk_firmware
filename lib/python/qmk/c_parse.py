@@ -124,6 +124,7 @@ def parse_config_h_file(config_h_file, config_h=None):
         config_h_text = config_h_text.replace('\\\n', '')
         config_h_text = strip_multiline_comment(config_h_text)
 
+        ignore = False
         for linenum, line in enumerate(config_h_text.split('\n')):
             line = strip_line_comment(line).strip()
 
@@ -136,6 +137,14 @@ def parse_config_h_file(config_h_file, config_h=None):
             if line[0] == '#' and line[1] in ['define', 'undef']:
                 line.pop(0)
                 line[0] = '#' + line[0]
+
+            # ignore conditional blocks
+            if line[0] in ['#if', '#ifdef']:
+                ignore = True
+            elif line[0] == '#endif':
+                ignore = False
+            if ignore:
+                continue
 
             if line[0] == '#define':
                 if len(line) == 1:
