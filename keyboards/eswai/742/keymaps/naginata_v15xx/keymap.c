@@ -44,7 +44,7 @@ enum custom_keycodes {
 };
 
 uint32_t naginata_timer;
-static deferred_token my_token;
+// static deferred_token my_token;
 bool update_oled = true;
 bool ng_state = false;
 
@@ -143,14 +143,14 @@ combo_t key_combos[] = {
   COMBO(h2lk, MO(_HENSHU2)),
 };
 
-uint32_t kanaoff(uint32_t trigger_time, void *cb_arg) {
-  if (naginata_state())
-    naginata_off();
-  return NAGINATA_TIMEOUT;
-}
+// uint32_t kanaoff(uint32_t trigger_time, void *cb_arg) {
+//   if (naginata_state())
+//     naginata_off();
+//   return NAGINATA_TIMEOUT;
+// }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  extend_deferred_exec(my_token, NAGINATA_TIMEOUT);
+  // extend_deferred_exec(my_token, NAGINATA_TIMEOUT);
 
   #ifdef CONSOLE_ENABLE
   uprintf("%5u, %u, %5u\n", keycode, record->event.pressed, record->event.time);
@@ -214,7 +214,7 @@ void keyboard_post_init_user(void) {
       switchOS(NG_WIN);
   }
 
-  my_token = defer_exec(NAGINATA_TIMEOUT, kanaoff, NULL);
+  // my_token = defer_exec(NAGINATA_TIMEOUT, kanaoff, NULL);
 }
 
 #ifdef OLED_ENABLE
