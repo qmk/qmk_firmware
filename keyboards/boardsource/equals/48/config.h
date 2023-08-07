@@ -6,7 +6,6 @@
 
 #define RGB_MATRIX_LED_COUNT 58
 #define WS2812_DI_PIN GP21
-#define RGB_DI_PIN  GP21
 
 #define AUDIO_PIN GP29
 #define AUDIO_PWM_DRIVER PWMD6
