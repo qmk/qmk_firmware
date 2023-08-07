@@ -23,6 +23,15 @@ enum planck_keycodes { COLEMAK = SAFE_RANGE, QWERTY, DVORAK, PLOVER, BACKLIT, EX
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
+// combos
+const uint16_t PROGMEM enter_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
+const uint16_t PROGMEM esc_combo[] = {KC_W, KC_F, COMBO_END};
+
+combo_t key_combos[] = {
+    COMBO(enter_combo, KC_ENT),
+    COMBO(esc_combo, KC_ESC),
+};
+
 /* clang-format off */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -39,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_COLEMAK] =  LAYOUT_planck_grid(
     KC_TAB,                 KC_Q,               KC_W,               KC_F,               KC_P,               KC_B,           KC_J,           KC_L,               KC_U,               KC_Y,               KC_SCLN,                KC_BSPC,
-    MT(MOD_LCTL, KC_QUOTE), MT(MOD_LCTL, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LALT, KC_R), MT(MOD_LSFT, KC_T), KC_G,           KC_M,           MT(MOD_RSFT, KC_N), MT(MOD_RALT, KC_E), MT(MOD_RGUI, KC_I), MT(MOD_RCTL, KC_O),     QK_MACRO_0, // TODO: Add macro quote
+    MT(MOD_LCTL, KC_QUOTE), MT(MOD_LCTL, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LALT, KC_R), MT(MOD_LSFT, KC_T), KC_G,           KC_M,           MT(MOD_RSFT, KC_N), MT(MOD_RALT, KC_E), MT(MOD_RGUI, KC_I), MT(MOD_RCTL, KC_O),     MACRO_QUOTE,
     CW_TOGG,                MT(MOD_LSFT, KC_Z), KC_X,               KC_C,               KC_D,               KC_V,           KC_K,           KC_H,               KC_COMMA,           KC_DOT,             MT(MOD_RSFT, KC_SLASH), KC_BSLS,
     TG(_MOUSE),             KC_TRANSPARENT,     KC_TRANSPARENT,     KC_DELETE,          LOWER,              KC_RSFT,        KC_SPC,         RAISE,              KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT
 ),
@@ -110,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
-    _______,     _______, KC_PGUP, KC_UP,   KC_PGDN, _______, _______, _______,     QK_MACRO_1, KC_PIPE,                KC_BSLS,                 _______,
+    _______,     _______, KC_PGUP, KC_UP,   KC_PGDN, _______, _______, _______,     ARROW, KC_PIPE,                KC_BSLS,                 _______,
     _______,     KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,  KC_END,  _______, MT(MOD_RSFT, KC_MINUS),  MT(MOD_LALT, KC_EQUAL), MT(MOD_LGUI, KC_LBRC), MT(MOD_LCTL, KC_RBRC),KC_QUOTE,
     KC_CAPS, _______, _______, _______, _______,   _______, _______, KC_UNDS,     KC_PLUS,    KC_LCBR,                KC_RCBR,                   KC_CAPS,
     _______,     _______, _______, _______, _______,   _______, _______, _______,     _______,    _______,                _______,                   _______
@@ -238,8 +247,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case MACRO_QUOTE:
              if (record->event.pressed) {
-                register_code(KC_QUOTE);
-                register_code(KC_SPC);
+                SEND_STRING("' ");
              }
             return true;
             break;
