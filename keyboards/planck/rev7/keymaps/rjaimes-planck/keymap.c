@@ -26,10 +26,12 @@ enum planck_keycodes { COLEMAK = SAFE_RANGE, QWERTY, DVORAK, PLOVER, BACKLIT, EX
 // combos
 const uint16_t PROGMEM enter_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM esc_combo[] = {KC_W, KC_F, COMBO_END};
+const uint16_t PROGMEM delete_line[] = {KC_Y, KC_SCLN, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(enter_combo, KC_ENT),
     COMBO(esc_combo, KC_ESC),
+    COMBO(delete_line, LCTL(KC_BSPC)),
 };
 
 /* clang-format off */
