@@ -33,5 +33,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Bluetooth */
 #define BATTERY_LEVEL_PIN   B6
-
-#define VIA_HAS_BROKEN_KEYCODES
