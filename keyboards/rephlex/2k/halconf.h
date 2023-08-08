@@ -1,5 +1,5 @@
-// Copyright 2023 RephlexZero (@RephlexZero)
-// SPDX-License-Identifier: GPL-2.0-or-later
+/* Copyright 2023 RephlexZero (@RephlexZero)
+SPDX-License-Identifier: GPL-2.0-or-later */
 #pragma once
 
 #undef HAL_USE_I2C

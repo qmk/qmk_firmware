@@ -1,15 +1,13 @@
-// Copyright 2023 RephlexZero (@RephlexZero)
-// SPDX-License-Identifier: GPL-2.0-or-later
-
+/* Copyright 2023 RephlexZero (@RephlexZero)
+SPDX-License-Identifier: GPL-2.0-or-later */
 #include <math.h>
 #include "scanfunctions.h"
 
-// Equation parameters for the sensor-magnet linearity mapping
+/* Equation parameters for the sensor-magnet linearity mapping */
 const double a = 16654600.6755;
 const double b = -0.00955994866577;
 const double c = -1278.75103145;
 const double d = 16652478.4163;
-
 
 uint16_t distance_to_adc(uint8_t distance) {
     distance = min(max(distance, 0), 255);
@@ -19,7 +17,6 @@ uint16_t distance_to_adc(uint8_t distance) {
 uint8_t adc_to_distance(uint16_t adc) {
     return min(max(((log(1 - ((adc + d) / a)) / -b) - c), 0), 255);
 }
-
 
 uint8_t lut[4096] = {0};
 

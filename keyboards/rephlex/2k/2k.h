@@ -1,5 +1,5 @@
-// Copyright 2023 RephlexZero (@RephlexZero)
-// SPDX-License-Identifier: GPL-2.0-or-later
+/* Copyright 2023 RephlexZero (@RephlexZero)
+SPDX-License-Identifier: GPL-2.0-or-later */
 #pragma once
 
 #include <stdint.h>
@@ -23,7 +23,7 @@ enum analog_key_modes {
     flashing
 };
 
-//struct to save configs
+/* global struct to save keypress logic params */
 typedef struct {
     uint8_t mode: 8;
     uint16_t actuation_point: 8;
@@ -31,11 +31,11 @@ typedef struct {
     uint8_t release_sensitivity: 8;
     uint8_t press_hysteresis: 8;
     uint8_t release_hysteresis: 8;
-} via_config; // 48 bits
+} via_config; /* 48 bits */
 extern via_config g_config;
 
 typedef struct {
-    // For individual analog key states
+    /* For individual analog key data */
     uint8_t value;
     uint8_t extremum;
     int16_t offset;
@@ -43,7 +43,6 @@ typedef struct {
 } key_t;
 extern key_t keys[MATRIX_ROWS][MATRIX_COLS];
 
-// function declaration
 void via_config_set_value(uint8_t *data);
 
 void via_config_get_value(uint8_t *data);
