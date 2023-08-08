@@ -5,9 +5,9 @@
     "manufacturer": "https://github.com/alvicstep/kintwin",
     "maintainer": "Alex Stepanov",
     "usb": {
-        "device_version": "0.0.3",
-        "vid": "0xFEED",
-        "pid": "0x4B4E",
+        "device_version": "0.0.1",
+        "vid": "0x4B53",
+        "pid": "0x0001",
         "shared_endpoint": {
             "keyboard": true   
         } 
