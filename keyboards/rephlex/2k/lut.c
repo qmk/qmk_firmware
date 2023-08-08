@@ -1,11 +1,10 @@
 // Copyright 2023 RephlexZero (@RephlexZero)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-// SLSS49E Lookup table for calibration
-#include <stdint.h>
 #include <math.h>
 #include "scanfunctions.h"
 
+// Equation parameters for the sensor-magnet linearity mapping
 const double a = 16654600.6755;
 const double b = -0.00955994866577;
 const double c = -1278.75103145;
