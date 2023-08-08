@@ -3,6 +3,7 @@
 Spits out a JSON file formatted with one of QMK's formatters.
 """
 import json
+import sys
 
 from jsonschema import ValidationError
 from milc import cli
@@ -10,16 +11,15 @@ from milc import cli
 from qmk.info import info_json
 from qmk.json_schema import json_load, validate
 from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder
-from qmk.path import normpath
+from . import qmk_formatter
 
 
-@cli.argument('json_file', arg_only=True, type=normpath, help='JSON file to format')
 @cli.argument('-f', '--format', choices=['auto', 'keyboard', 'keymap'], default='auto', arg_only=True, help='JSON formatter to use (Default: autodetect)')
-@cli.subcommand('Generate an info.json file for a keyboard.', hidden=False if cli.config.user.developer else True)
-def format_json(cli):
+@qmk_formatter
+def format_json(cli, file):
     """Format a json file.
     """
-    json_file = json_load(cli.args.json_file)
+    json_file = json_load(file)
 
     if cli.args.format == 'auto':
         try:
@@ -62,4 +62,10 @@ def format_json(cli):
                 json_file['layers'][layer_num] = current_layer
 
     # Display the results
-    print(json.dumps(json_file, cls=json_encoder, sort_keys=True))
+    out = open(file, "w") if cli.args.inplace else sys.stdout
+    print(
+        json.dumps(json_file, cls=json_encoder, sort_keys=True),
+        file=out
+    )
+    cli.log.info(f'Json file correctly formatted! ({file})')
+    out.close()
