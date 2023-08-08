@@ -24,7 +24,7 @@
         "rgblight": true
     },
     "ws2812": {
-        "pin": "C7",
+        "pin": "C7"
     },
     "rgblight": {
         "led_count": 1,
