@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
+#include <stdint.h>
 #include "quantum.h"
 
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];

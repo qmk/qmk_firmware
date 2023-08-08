@@ -13,19 +13,17 @@
 
 void matrix_init_custom(void) {
     uint16_t rest_adc_value = ADC_RESOLUTION >> 1;
-    for (uint16_t i = 0; i < sizeof(lut); i++) {
-        // Search LUT for rest index
-        if (lut[i] == 0) {
-            rest_adc_value = i + 1;
-            break;
-        }
-    }
-    calibrate(rest_adc_value);
+
+    generate_lut();
+    rest_adc_value = distance_to_adc(0) + 1;
+
+    get_sensor_offsets(rest_adc_value);
     wait_ms(100); // Let ADC reach steady state
-    calibrate(rest_adc_value);
+    get_sensor_offsets(rest_adc_value);
 }
 
 matrix_row_t previous_matrix[MATRIX_ROWS];
+
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     memcpy(previous_matrix, current_matrix, sizeof(previous_matrix));

@@ -1,5 +1,6 @@
 // Copyright 2023 RephlexZero (@RephlexZero)
 // SPDX-License-Identifier: GPL-2.0-or-later
+#include <stdint.h>
 #include "2k.h"
 #include "quantum.h"
 #include "analog.h"
