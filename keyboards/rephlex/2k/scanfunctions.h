@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
+#include "quantum.h"
+#include "2k.h"
+
 void update_extremum(key_t *key);
 
 void register_key(matrix_row_t *current_row, uint8_t current_col);

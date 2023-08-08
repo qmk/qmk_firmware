@@ -21,8 +21,10 @@ uint8_t adc_to_distance(uint16_t adc) {
     return min(max(((log(1 - ((adc + d) / a)) / -b) - c), 0), 255);
 }
 
+
+uint8_t lut[4096] = {0};
+
 void generate_lut(void) {
-    uint8_t lut[4096] = {0};
     for (uint16_t i = 0; i < a - d; i++) {
         lut[i] = adc_to_distance(i);
     }
