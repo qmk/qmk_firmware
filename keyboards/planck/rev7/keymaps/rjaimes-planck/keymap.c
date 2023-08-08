@@ -37,15 +37,15 @@ combo_t key_combos[] = {
 /* clang-format off */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Colemak
+/* Colemak DH mod (RS swap)
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+ * | Tab  |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  '   |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  '   |
+ * |  '   |   A  |   S  |   R  |   T  |   G  |   M  |   N  |   E  |   I  |   O  |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |cap_wd|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |  \   |
+ * |cap_wd|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * |Mouse |      |      |Delete|Lower |    Space    |Raise |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] =  LAYOUT_planck_grid(
@@ -93,38 +93,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | | Home | End  |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * |   ~  |   !  |   @    |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |      |
+ * |------+------+--------+------+------+------+------+------+------+------+------+------|
+ * | Del  |   1  |   2    |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  '   |
+ * |------+------+--------+------+------+------+------+------+------+------+------+------|
+ * |      |      |Previous| Play | Next |      |      | Mute | Vol+ | Vol- |      |      |
+ * |------+------+--------+------+------+------+------+------+------+------+------+------|
+ * |      |      |        |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
-    KC_TILD,        KC_EXLM,        KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,        KC_CIRC,        KC_AMPR,        KC_ASTR,        KC_LPRN,        KC_RPRN,        KC_TRANSPARENT,
-    KC_GRAVE,       MT(MOD_LCTL, KC_1),MT(MOD_LGUI, KC_2),MT(MOD_LALT, KC_3),MT(MOD_LSFT, KC_4),KC_5,           KC_6,           MT(MOD_RSFT, KC_7),MT(MOD_LALT, KC_8),MT(MOD_LGUI, KC_9),MT(MOD_LCTL, KC_0),KC_QUOTE,
-    KC_CAPS,    KC_TRANSPARENT, KC_MEDIA_PREV_TRACK,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_NEXT_TRACK,KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_TRANSPARENT, KC_CAPS,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+    KC_TILD,        KC_EXLM,            KC_AT,               KC_HASH,             KC_DLR,              KC_PERC,        KC_CIRC,        KC_AMPR,            KC_ASTR,            KC_LPRN,            KC_RPRN,            KC_TRANSPARENT,
+    KC_GRAVE,       MT(MOD_LCTL, KC_1), MT(MOD_LGUI, KC_2),  MT(MOD_LALT, KC_3),  MT(MOD_LSFT, KC_4),  KC_5,           KC_6,           MT(MOD_RSFT, KC_7), MT(MOD_LALT, KC_8), MT(MOD_LGUI, KC_9), MT(MOD_LCTL, KC_0), KC_QUOTE,
+    KC_CAPS,        KC_TRANSPARENT,     KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_MUTE,      KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,    KC_TRANSPARENT,     KC_CAPS,
+    KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,      KC_TRANSPARENT,      KC_TRANSPARENT,      KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT
 ),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |      |      |Pg Up |  Up  |Pg Dwn|      |      |      |  =>  |   |  |   \  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
+ * |      | Home | Left | Down |Right | End  |      |   -  |   =  |   [  |   ]  |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |Pg Up |Pg Dn |      |
+ * | CAPS |      |      |      |      |      |      |  _   |   +  |   {  |   }  | CAPS |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
-    _______,     _______, KC_PGUP, KC_UP,   KC_PGDN, _______, _______, _______,     ARROW, KC_PIPE,                KC_BSLS,                 _______,
-    _______,     KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,  KC_END,  _______, MT(MOD_RSFT, KC_MINUS),  MT(MOD_LALT, KC_EQUAL), MT(MOD_LGUI, KC_LBRC), MT(MOD_LCTL, KC_RBRC),KC_QUOTE,
-    KC_CAPS, _______, _______, _______, _______,   _______, _______, KC_UNDS,     KC_PLUS,    KC_LCBR,                KC_RCBR,                   KC_CAPS,
-    _______,     _______, _______, _______, _______,   _______, _______, _______,     _______,    _______,                _______,                   _______
+    _______, _______, KC_PGUP, KC_UP,   KC_PGDN,  _______, _______, _______,                ARROW,                  KC_PIPE,               KC_BSLS,               _______,
+    _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END,  _______, MT(MOD_RSFT, KC_MINUS), MT(MOD_LALT, KC_EQUAL), MT(MOD_LGUI, KC_LBRC), MT(MOD_LCTL, KC_RBRC), KC_QUOTE,
+    KC_CAPS, _______, _______, _______, _______,  _______, _______, KC_UNDS,                KC_PLUS,                KC_LCBR,               KC_RCBR,               KC_CAPS,
+    _______, _______, _______, _______, _______,  _______, _______, _______,                _______,                _______,               _______,               _______
 ),
 
 [_MOUSE] = LAYOUT_planck_grid(
@@ -155,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Adjust (Lower + Raise)
  *                      v------------------------RGB CONTROL--------------------v
  * ,-----------------------------------------------------------------------------------.
- * |      | Reset|Debug | RGB  |RGBMOD| HUE+ | HUE- | SAT+  | SAT- |BRGTH+|BRGTH-|  Del |
+ * |Reset |      |Debug | RGB  |RGBMOD| HUE+ | HUE- | SAT+  | SAT- |BRGTH+|BRGTH-|  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |MUSmod|Aud on|Audoff|AGnorm|AGswap|Colemak|Qwerty|Dvorak|Plover|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -187,7 +187,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
-                print("mode just switched to qwerty and this is a huge string\n");
                 set_single_persistent_default_layer(_QWERTY);
             }
             return false;
@@ -240,6 +239,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+
         // MACROS
         case ARROW:
             if (record->event.pressed) {
