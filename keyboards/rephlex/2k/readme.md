@@ -1,6 +1,6 @@
 # rephlex/2k
 
-![%KEYBOARD%](imgur.com image replace me!)
+![%rephlex 2k%](https://imgur.com/a/D1X33nu)
 
 *An analog keypad intended for Osu! with dynamic actuation point, VIA, OLED and RGB*
 
@@ -22,9 +22,7 @@ with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Not possible due to analog calibration of keyboard on boot
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Unmapped due to small layout.
-* **VIA**: Enter the flashing mode in the VIA configurator.
+* **VIA**: Enter the flashing mode in the VIA configurator.xz
