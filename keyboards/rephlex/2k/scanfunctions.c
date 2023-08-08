@@ -13,6 +13,14 @@ void calibrate(uint16_t rest_adc_value) {
     }
 }
 
+int min(int a, int b) {
+    return a < b ? a : b;
+}
+
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
 void update_extremum(key_t *key) {
     key->extremum = key->value;
 }
