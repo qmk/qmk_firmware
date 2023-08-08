@@ -48,8 +48,6 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
       key = KC_BSLS; break;
     case TR_HASH:
       key = KC_HASH; break;
-    case TR_MINS:
-      key = KC_MINS; break;
     
     //Double Taps with Spaces
     case TR_PIPE:
@@ -76,6 +74,10 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
       key = KC_QUOT; break;
     case TR_DQUO:
       key = KC_DQUO; break;
+    case TR_MINS:
+      key = KC_MINS;
+      altkey = LSFT(KC_MINS);
+      break;
     case TR_COMM:
       key = KC_COMM;
       altkey = LSFT(KC_9);
@@ -107,32 +109,31 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
       case TR_SLSH:
       case TR_BSLS:
       case TR_HASH:
-      case TR_MINS:
         isShift ? double_tap(LSFT(key)) : double_tap(key);
-        return false;
+        break;
 
       //Double Taps with Spaces
       case TR_PIPE:
       case TR_AMPR:
       case TR_EQL:
         isShift ? double_tap_space(LSFT(key)) : double_tap_space(key);
-        return false;
+        break;
 
       //Triple Tap
       case TR_GRV:
         isShift ? triple_tap(LSFT(key)) : triple_tap(key);
-        return false;   
+        break;
 
       //custom
       case TR_EXLM:
         send_string(" != ");
-        return false;
+        break;
       case TR_LPRN:
         double_parens_left(KC_LPRN, KC_RPRN);
-        return false;
+        break;
       case TR_LBRC:
         double_parens_left(KC_LBRC, KC_RBRC);
-        return false;
+        break;
       case TR_LCBR:
         double_parens_left(KC_LCBR, KC_RCBR);
         break;
@@ -143,6 +144,7 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
       //case TR_DQUO:
       //  double_parens_left(key, key);
       //  return false;
+      case TR_MINS:
       case TR_COMM:
       case TR_DOT:
       case TR_SCLN:

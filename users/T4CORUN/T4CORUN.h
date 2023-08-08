@@ -57,7 +57,8 @@ enum keycodes {
 #define ___x___ KC_NO
 
 //momentary layer
-#define NAVGTIN    MO(_NAVIGATION)
+//#define NAVGTIN    MO(_NAVIGATION)
+#define NAVGTIN    LT(_NAVIGATION, KC_0)
 #define NUMBERS    MO(_NUMBER)
 #define GAMENUM    MO(_GAMENUMBER)
 #define CONFIG     MO(_CONFIG)
@@ -75,6 +76,8 @@ enum keycodes {
 /*
 We will move all as many preprocessor directives here so the wrapper is easier to follow
 - Any keycodes with prefix TR has behavior dependent on if the feature is enabled.
+- If the feature is disabled then the key is just the normal key
+- Some keycodes are used in certain features, some features will override others
 - We will only define things that are used across different layers. Entire layers are turned off in the keymap
 */
 
@@ -159,8 +162,7 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #endif //GAMELAYER_ENABLE
 
 
-//There seems to be an issue with the ANSI shifted keys. see if we can do a mod
-
+//For tap hold keys we will override the hold to issue alternate keystrokes rather than enable the layer
 #if defined(TAPHOLD_ENABLE)
 //Double Taps
 #   define TR_UNDS  LT(_DEFAULT_LAYER_1, TH_UNDS)
@@ -410,9 +412,9 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | Gui  | Alt  | Ctrl | Shft | ;    |    | Bksp | 4    | 5    | 6    | .    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | Undo | Cut  | Copy | Pste | Redo |    | Spc  | 1    | 2    | 3    | -    |
+*   | Undo | Cut  | Copy | Pste | Redo |    |      | 1    | 2    | 3    | -    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      | NUM  |      |    | 0    | NAV  |      |
+*                 |      | NUM  |      |    | Spc  | NAV  |      |
 *                 `------+------+------'    `------+------+------'
 *
 */
@@ -423,12 +425,12 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 #   define _________________NUMPAD_R1_________________        TR_EQL,  KC_7,    KC_8,    KC_9,    KC_TAB
 #   define _________________NUMPAD_R2_________________        KC_BSPC, KC_4,    KC_5,    KC_6,    KC_DOT
-#   define _________________NUMPAD_R3_________________        KC_SPC,  KC_1,    KC_2,    KC_3,    TR_MINS
+#   define _________________NUMPAD_R3_________________        ___x___, KC_1,    KC_2,    KC_3,    TR_MINS
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          ________NUMPAD_R4________                 KC_0,    _______
+#   define          ________NUMPAD_R4________                 KC_SPC,  _______
 #else
-#   define          ________NUMPAD_R4________                 KC_0,    _______, ___x___
+#   define          ________NUMPAD_R4________                 KC_SPC,  _______, ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #   define __________________NUMROW_L_________________        KC_1,    KC_2,    KC_3,    KC_4,    KC_5
@@ -483,7 +485,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 #   define ___________________NAV_R1__________________        TR_DMR1, TR_DMP1, NXT_TAB, TR_DMP2, TR_DMR2
 #   define ___________________NAV_R2__________________        KC_BSPC, _____________SCAG_MODS____________
-#   define ___________________NAV_R3__________________        ___x___, KC_DEL,  KC_VOLD, KC_VOLU, KC_MUTE
+#   define ___________________NAV_R3__________________        KC_APP,  KC_DEL,  KC_VOLD, KC_VOLU, KC_MUTE
 #   define          __________NAV_R4_________                 ________NAVSYM_R4________
 
 /*
