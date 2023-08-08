@@ -19,7 +19,7 @@
         "split_count": [18, 18]
     },
     "ws2812": {
-        "pin": "GP0",
+        "pin": "GP10",
         "driver": "vendor"
     },
     "processor": "RP2040",
