@@ -97,6 +97,15 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     /* DO NOT call raw_hid_send(data,length) here, let caller do this */
 }
 
+enum via_dynamic_actuation {
+    id_mode = 1,
+    id_actuation_point,
+    id_press_sensitivity,
+    id_release_sensitivity,
+    id_press_hysteresis,
+    id_release_hysteresis,
+};
+
 void via_config_set_value(uint8_t *data) {
     /* data = [ value_id, value_data ] */
     uint8_t *value_id   = &(data[0]);

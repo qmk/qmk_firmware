@@ -12,7 +12,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "lut.h"
 #include "scanfunctions.h"
 
-
 void matrix_init_custom(void) {
     uint16_t rest_adc_value = ADC_RESOLUTION >> 1;
 
@@ -24,15 +23,14 @@ void matrix_init_custom(void) {
     get_sensor_offsets(rest_adc_value);
 }
 
+enum analog_key_modes { dynamic_actuation = 0, continuous_dynamic_actuation, static_actuation, flashing };
 matrix_row_t previous_matrix[MATRIX_ROWS];
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
-
     memcpy(previous_matrix, current_matrix, sizeof(previous_matrix));
 
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-
             key_t *key = &keys[current_row][current_col];
             key->value = lut[analogReadPin(matrix_pins[current_row][current_col]) + key->offset];
             key->value = min(key->value * CALIBRATION_RANGE / lut[1100 + key->offset], 255);
