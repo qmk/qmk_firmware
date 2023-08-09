@@ -38,6 +38,16 @@
 */
 #ifdef RGB_MATRIX_ENABLE
 
+
+/* Turn off RGB light when host is asleep. (Doesn't seem to work for mac)? */
+#    define RGBLIGHT_SLEEP
+#    define RGBLIGHT_LAYERS
+
+// Decrease decay of heatmap rgb effect
+#    define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
+// If you're setting colors per key, this is required. 
+#    define SPLIT_LAYER_STATE_ENABLE
+
 // Default effect when EEPROM cleared
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 
@@ -53,5 +63,4 @@
 #    define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
 #    define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #    define ENABLE_RGB_MATRIX_PIXEL_RAIN
-
 #endif
