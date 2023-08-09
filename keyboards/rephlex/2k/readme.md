@@ -1,6 +1,5 @@
 # rephlex/2k
-
-![%rephlex 2k%](https://imgur.com/a/D1X33nu)
+![Rephlex/2k](https://media.discordapp.net/attachments/1007286874525667470/1138624777045684345/cV64ZQW.jpeg?width=913&height=685)
 
 *An analog keypad intended for Osu! with dynamic actuation point, VIA, OLED and RGB*
 
