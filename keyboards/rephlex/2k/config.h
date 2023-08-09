@@ -22,7 +22,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 #define TAPPING_TERM 135
 
-#ifdef RGB_MATRIX_ENABLE
+
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
@@ -75,7 +75,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
-#endif
 
 #define I2C1_SCL_PIN GP19
 #define I2C1_SDA_PIN GP18
