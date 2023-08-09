@@ -32,9 +32,6 @@
 #    define LED_CAPS_LOCK_PIN GP24
 #elif KEYBOARD_framework_jis
 #    define LED_CAPS_LOCK_PIN GP24
-#elif KEYBOARD_framework_numpad
-#    define LED_NUM_LOCK_PIN GP24
-#elif KEYBOARD_framework_macropad
 #endif
 
 // PWM single one backlight configuration
