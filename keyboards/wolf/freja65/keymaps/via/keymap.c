@@ -1,6 +1,5 @@
-// Copyright 2023 contact@vwolf.be
+// Copyright 2020-2022 QMK (@qmk)
 // SPDX-License-Identifier: GPL-2.0-or-later
-
 
 #include QMK_KEYBOARD_H
 
