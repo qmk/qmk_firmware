@@ -1,0 +1,62 @@
+{
+    "keyboard_name": "Laptop 16 RGB Macropad",
+    "manufacturer": "Framework",
+    "maintainer": "JohnAZoidberg",
+    "bootloader": "rp2040",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "command": false,
+        "nkro": true,
+        "audio": false
+    },
+    "debounce": 5,
+    "processor": "RP2040",
+    "url": "https://fr.mw/FRAKDNEN",
+    "usb": {
+        "device_version": "0.2.2",
+        "pid": "0x0013",
+        "vid": "0x32AC",
+        "force_nkro": true
+    },
+    "backlight": {
+        "pin": "GP25"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "x": 0, "y": 0, "h": 0.75 },
+                { "x": 1.25, "y": 0, "h": 0.75 },
+                { "x": 2.5, "y": 0, "h": 0.75 },
+                { "x": 3.75, "y": 0, "h": 0.75 },
+
+                { "x": 0, "y": 1, "h": 1.25 },
+                { "x": 1.25, "y": 1, "h": 1.25 },
+                { "x": 2.5, "y": 1, "h": 1.25 },
+                { "x": 3.75, "y": 1, "h": 1.25 },
+
+                { "x": 0, "y": 2.5, "h": 1.25 },
+                { "x": 1.25, "y": 2.5, "h": 1.25 },
+                { "x": 2.5, "y": 2.5, "h": 1.25 },
+                { "x": 3.75, "y": 2.5, "h": 1.25 },
+
+                { "x": 0, "y": 4, "h": 1.25 },
+                { "x": 1.25, "y": 4, "h": 1.25 },
+                { "x": 2.5, "y": 4, "h": 1.25 },
+                { "x": 3.75, "y": 4, "h": 1.25 },
+
+                { "x": 0, "y": 5.5, "h": 1.25 },
+                { "x": 1.25, "y": 5.5, "h": 1.25 },
+                { "x": 2.5, "y": 5.5, "h": 1.25 },
+                { "x": 3.75, "y": 5.5, "h": 1.25 },
+
+                { "x": 0, "y": 7, "w": 2.25, "h": 1.25 },
+                { "x": 1.25, "y": 7, "h": 1.25 },
+                { "x": 2.5, "y": 7, "h": 1.25 },
+                { "x": 3.75, "y": 7, "h": 1.25 }
+            ]
+        }
+    }
+}
