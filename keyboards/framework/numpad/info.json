@@ -14,7 +14,7 @@
     },
     "debounce": 5,
     "processor": "RP2040",
-    "url": "https://fr.mw/FRAKDMEN",
+    "url": "https://frame.work/de/en/products/laptop16-diy-amd-7040",
     "usb": {
         "device_version": "0.2.2",
         "pid": "0x0014",
@@ -49,6 +49,6 @@
                 { "label": "0", "x": 0, "y": 7, "w": 2.25, "h": 1.25 },
                 { "label": ".", "x": 2.5, "y": 7, "h": 1.25 }
             ]
-        },
+        }
     }
 }
