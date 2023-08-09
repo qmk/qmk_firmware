@@ -77,10 +77,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #define RGB_MATRIX_KEYPRESSES
 #endif
 
-#ifdef OLED_ENABLE
 #define I2C1_SCL_PIN GP19
 #define I2C1_SDA_PIN GP18
 #define OLED_BRIGHTNESS 128
-#define OLED_TIMEOUT 0
 #define OLED_UPDATE_INTERVAL 1000
-#endif
