@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+    - leon
+
+jobs:
+  build-leon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build Firmware
+        uses: ./
+        with:
+          keymap-path: "keyboards/splitkb/aurora/sweep/keymaps/leon"
+          keyboard: "splitkb/aurora/sweep/rev1"
+          keymap: "leon"
+      - name: Upload a Firmware
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: firmware
+          path: build
