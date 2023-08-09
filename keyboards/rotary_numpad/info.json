@@ -10,7 +10,8 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true
     },
     "matrix_pins": {
         "cols": ["F5", "F4", "B5", "B4"],
@@ -49,5 +50,12 @@
                 {"matrix": [4, 3], "x": 3, "y": 4, "h": 2}
             ]
         }
+    },
+    "encoder": {
+    	"rotary": [
+    		{"pin_a": "D1", "pin_b": "D0", "resolution": 1},
+    		{"pin_a": "D4", "pin_b": "C6", "resolution": 1},
+    		{"pin_a": "D7", "pin_b": "E6", "resolution": 1}
+    	]
     }
 }

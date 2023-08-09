@@ -53,3 +53,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_INS,  KC_DEL,  _______
     )
 };
+
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (!encoder_update_user(index, clockwise)) {
+      return false; /* Don't process further events if user function exists and returns false */
+    }
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_VOLU);
+        } else {
+			tap_code(KC_VOLD);
+        }
+    } else if (index == 1) { /* Second encoder */
+        if (clockwise) {
+            tap_code(KC_UP);
+        } else {
+            tap_code(KC_DOWN);
+        }
+    }else if (index == 2) { /* Third encoder */
+            if (clockwise) {
+                tap_code(KC_RIGHT);
+            } else {
+                tap_code(KC_LEFT);
+            }
+        }
+    return true;
+}
