@@ -36,6 +36,7 @@ via_config g_config = {
     .release_hysteresis  = 5,
 };
 
+#ifdef VIA_ENABLE
 void values_load(void) {
     eeprom_read_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
 }
@@ -142,3 +143,4 @@ void via_config_get_value(uint8_t *data) {
             break;
     }
 }
+#endif
