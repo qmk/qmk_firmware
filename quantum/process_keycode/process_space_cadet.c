@@ -98,7 +98,11 @@ void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdM
             register_mods(MOD_BIT(holdMod));
         }
     } else {
+#ifdef BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+        if (sc_last == holdMod && timer_elapsed(sc_timer) < GET_TAPPING_TERM(sc_keycode, record) && !is_caps_word_on()) {
+#else
         if (sc_last == holdMod && timer_elapsed(sc_timer) < GET_TAPPING_TERM(sc_keycode, record)) {
+#endif
             if (holdMod != tapMod) {
                 if (IS_MODIFIER_KEYCODE(holdMod)) {
                     unregister_mods(MOD_BIT(holdMod));
