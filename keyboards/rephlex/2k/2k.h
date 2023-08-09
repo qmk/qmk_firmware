@@ -8,12 +8,12 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 /* global struct to save keypress logic params */
 typedef struct {
-    uint8_t mode: 8;
-    uint16_t actuation_point: 8;
-    uint8_t press_sensitivity: 8;
-    uint8_t release_sensitivity: 8;
-    uint8_t press_hysteresis: 8;
-    uint8_t release_hysteresis: 8;
+    uint8_t mode;
+    uint8_t actuation_point;
+    uint8_t press_sensitivity;
+    uint8_t release_sensitivity;
+    uint8_t press_hysteresis;
+    uint8_t release_hysteresis;
 } analog_config; /* 6 bytes */
 _Static_assert(sizeof(analog_config) == VIA_EEPROM_CUSTOM_CONFIG_SIZE, "Size mismatch");
 extern analog_config g_config;
