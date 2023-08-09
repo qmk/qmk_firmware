@@ -14,6 +14,11 @@ enum preonic_keycodes {
   RAISE,
 };
 
+enum custom_keycodes {
+    KC_LDSK,
+    KC_RDSK
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -62,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      | DWord|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |   `  |      |      | MVUP |      |      |      |      |      |      |      |      |
+ * |   `  |      | LDsk | MVUP | RDsk |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      | MVDN |      |      |      |   -  |   =  |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -73,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_preonic_grid(
   _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______, C(KC_DEL),
-  KC_GRV,  _______, _______, A(KC_UP),   _______, _______, _______, _______, _______, _______, _______, _______,
+  KC_GRV,  _______, KC_LDSK, A(KC_UP),   KC_RDSK, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, A(KC_DOWN), _______, _______, _______, KC_MINS, KC_EQL,  _______, _______, _______,
   _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______,    _______, _______, _______, _______, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT
@@ -85,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      | Reset| Debug|      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |Aud cy|Aud on|AudOff|AGnorm|AGswap|Qwerty|      |      |      |      |
+ * |      |      |MACWIN|Aud on|AudOff|AGnorm|AGswap|Qwerty|      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|MusOff|MidiOn|MidOff|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -95,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_preonic_grid(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, C(A(KC_DEL)),
   _______, QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,
-  _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______, _______, _______,
+  _______, _______, CG_TOGG, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______, _______, _______,
   _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
@@ -131,6 +136,86 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
           return false;
           break;
+          case KC_PRVWD:
+            if (record->event.pressed) {
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_LALT));
+                    register_code(KC_LEFT);
+                } else {
+                    register_mods(mod_config(MOD_LCTL));
+                    register_code(KC_LEFT);
+                }
+            } else {
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_LALT));
+                    unregister_code(KC_LEFT);
+                } else {
+                    unregister_mods(mod_config(MOD_LCTL));
+                    unregister_code(KC_LEFT);
+                }
+            }
+            return false;
+            break;
+        case KC_NXTWD:
+            if (record->event.pressed) {
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_LALT));
+                    register_code(KC_RIGHT);
+                } else {
+                    register_mods(mod_config(MOD_LCTL));
+                    register_code(KC_RIGHT);
+                }
+            } else {
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_LALT));
+                    unregister_code(KC_RIGHT);
+                } else {
+                    unregister_mods(mod_config(MOD_LCTL));
+                    unregister_code(KC_RIGHT);
+                }
+            }
+            return false;
+            break;
+        case KC_LDSK:
+            if (record->event.pressed) {
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_LGUI));
+                    register_code(KC_LEFT);
+                } else {
+                    register_mods(mod_config(MOD_MASK_CG));
+                    register_code(KC_LEFT);
+                }
+            } else {
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_LGUI));
+                    unregister_code(KC_LEFT);
+                } else {
+                    unregister_mods(mod_config(MOD_MASK_CG));
+                    unregister_code(KC_LEFT);
+                }
+            }
+            return false;
+            break;
+        case KC_RDSK:
+            if (record->event.pressed) {
+                if (keymap_config.swap_lctl_lgui) {
+                    register_mods(mod_config(MOD_LGUI));
+                    register_code(KC_RIGHT);
+                } else {
+                    register_mods(mod_config(MOD_MASK_CG));
+                    register_code(KC_RIGHT);
+                }
+            } else {
+                if (keymap_config.swap_lctl_lgui) {
+                    unregister_mods(mod_config(MOD_LGUI));
+                    unregister_code(KC_RIGHT);
+                } else {
+                    unregister_mods(mod_config(MOD_MASK_CG));
+                    unregister_code(KC_RIGHT);
+                }
+            }
+            return false;
+            break;
       }
     return true;
 };
