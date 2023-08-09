@@ -1,5 +1,5 @@
-// Copyright 2023 RephlexZero (@RephlexZero)
-// SPDX-License-Identifier: GPL-2.0-or-later
+/* Copyright 2023 RephlexZero (@RephlexZero)
+SPDX-License-Identifier: GPL-2.0-or-later */
 #pragma once
 
 #ifdef VIA_ENABLE
@@ -9,7 +9,7 @@
 #endif
 
 #define DEBOUNCE 0
-//#define DEBUG_MATRIX
+/*#define DEBUG_MATRIX*/
 #define DEBUG_MATRIX_SCAN_RATE
 #define USB_POLLING_INTERVAL_MS 1
 
@@ -58,10 +58,10 @@
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN
 #define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-// enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
+/* enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined */
 #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-// enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
+/* enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined */
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
