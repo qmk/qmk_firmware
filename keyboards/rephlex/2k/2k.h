@@ -5,6 +5,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include <stdint.h>
 #include "quantum.h"
 
+/* TODO: Move these to a better place */
 /* global struct to save keypress logic params */
 typedef struct {
     uint8_t mode;
@@ -26,6 +27,8 @@ typedef struct {
 } key_t;
 extern key_t keys[MATRIX_ROWS][MATRIX_COLS];
 
+#ifdef VIA_ENABLE
 void via_config_set_value(uint8_t *data);
 
 void via_config_get_value(uint8_t *data);
+#endif
