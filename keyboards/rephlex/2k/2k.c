@@ -116,13 +116,13 @@ void via_config_set_value(uint8_t *data) {
             g_config.mode = *value_data;
             break;
         case id_actuation_point:
-            g_config.actuation_point = *value_data;
+            g_config.actuation_point = *value_data * 255 / 40;
             break;
         case id_press_sensitivity:
-            g_config.press_sensitivity = *value_data;
+            g_config.press_sensitivity = *value_data * 255 / 40;
             break;
         case id_release_sensitivity:
-            g_config.release_sensitivity = *value_data;
+            g_config.release_sensitivity = *value_data * 255 / 40;
             break;
         case id_press_hysteresis:
             g_config.press_hysteresis = *value_data;
@@ -142,13 +142,13 @@ void via_config_get_value(uint8_t *data) {
             *value_data = g_config.mode;
             break;
         case id_actuation_point:
-            *value_data = g_config.actuation_point;
+            *value_data = g_config.actuation_point * 40 / 255;
             break;
         case id_press_sensitivity:
-            *value_data = g_config.press_sensitivity;
+            *value_data = g_config.press_sensitivity * 40 / 255;
             break;
         case id_release_sensitivity:
-            *value_data = g_config.release_sensitivity;
+            *value_data = g_config.release_sensitivity * 40 / 255;
             break;
         case id_press_hysteresis:
             *value_data = g_config.press_hysteresis;

@@ -5,7 +5,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include <stdint.h>
 #include "quantum.h"
 
-
 /* global struct to save keypress logic params */
 typedef struct {
     uint8_t mode;
