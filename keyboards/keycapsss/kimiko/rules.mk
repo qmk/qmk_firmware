@@ -9,4 +9,7 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = keycapsss/kimiko/rev1
+# LTO: Link Time Optimizations.
+# Reduce compiled size, but will automatically disable the legacy TMK Macros and Functions features.
+# This does not affect QMK Macros and Layers
+LTO_ENABLE = yes
