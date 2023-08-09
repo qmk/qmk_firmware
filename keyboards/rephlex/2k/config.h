@@ -3,7 +3,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #pragma once
 
 #ifdef VIA_ENABLE
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 48
+#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 6
 #define DYNAMIC_KEYMAP_LAYER_COUNT 1
 #define VIA_FIRMWARE_VERSION 1
 #endif

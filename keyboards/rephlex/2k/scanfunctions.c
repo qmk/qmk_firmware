@@ -86,7 +86,7 @@ void matrix_read_cols_dynamic_actuation(matrix_row_t *current_row, uint8_t curre
 }
 
 void matrix_read_cols_continuous_dynamic_actuation(matrix_row_t *current_row, uint8_t current_col, key_t *key) {
-    if (key->continuous_rapid_trigger) {
+    if (key->continuous_dynamic_actuation) {
         if (*current_row & (1 << current_col)) {
             /* Key is pressed
             Is key still moving down? */
@@ -112,11 +112,11 @@ void matrix_read_cols_continuous_dynamic_actuation(matrix_row_t *current_row, ui
         if (key->value == 0) {
             deregister_key(current_row, current_col);
             update_extremum(key);
-            key->continuous_rapid_trigger = false;
+            key->continuous_dynamic_actuation = false;
         }
     } else if (key->value > g_config.actuation_point) {
         register_key(current_row, current_col);
         update_extremum(key);
-        key->continuous_rapid_trigger = true;
+        key->continuous_dynamic_actuation = true;
     }
 }

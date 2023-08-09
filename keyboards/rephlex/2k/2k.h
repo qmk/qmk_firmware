@@ -31,15 +31,16 @@ typedef struct {
     uint8_t release_sensitivity: 8;
     uint8_t press_hysteresis: 8;
     uint8_t release_hysteresis: 8;
-} via_config; /* 48 bits */
-extern via_config g_config;
+} analog_config; /* 6 bytes */
+_Static_assert(sizeof(analog_config) == VIA_EEPROM_CUSTOM_CONFIG_SIZE, "Size mismatch");
+extern analog_config g_config;
 
 typedef struct {
     /* For individual analog key data */
     uint8_t value;
     uint8_t extremum;
     int16_t offset;
-    bool continuous_rapid_trigger;
+    bool    continuous_dynamic_actuation;
 } key_t;
 extern key_t keys[MATRIX_ROWS][MATRIX_COLS];
 

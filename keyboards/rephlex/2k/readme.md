@@ -21,7 +21,8 @@ with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-Enter the bootloader in 2 ways:
+Enter the bootloader in 3 ways:
 
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **VIA**: Enter the flashing mode in the VIA configurator.xz
+* **Bootmagic reset**: Hold down the top left key and plug in the keyboard.
+* **Physical reset button**: Briefly hold the button on the back of the PCB whilst plugging in the keyboard.
+* **Keycode in layout**: There is no key mapped to `QK_BOOT` in the pre-created keymaps, but you may assign this key in any keymaps you create.

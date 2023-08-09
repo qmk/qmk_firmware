@@ -9,7 +9,7 @@
     "bootmagic": true,
     "mousekey": false,
     "extrakey": false,
-    "console": false,
+    "console": true,
     "command": true,
     "nkro": true,
     "rgb_matrix": true,
