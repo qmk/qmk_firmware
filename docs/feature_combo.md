@@ -312,49 +312,19 @@ If you, for example, use multiple base layers for different key layouts, one for
 
 With `#define COMBO_ONLY_FROM_LAYER 0` in config.h, the combos' keys are always checked from layer `0`, even if other layers are active.
 
-#### Combo reference layers by layer.
+### Layer reference combos
 
-If not using `COMBO_ONLY_FROM_LAYER` it is possible to specify a
-combo reference layer for any layer using the `combo_ref_from_layer` hook. 
-The combo macros automatically create this function from the `COMBO_REF_LAYER()`
-entries given.
+The `combo_ref_from_layer` function can be used to specify a combo reference layer for any layers, and it can also be configured to return a default combo reference layer for the current active layer.
 
-This function returns the assigned reference layer for the current layer.
-if there is no match, it returns the  default reference layer if set, 
-or the current layer otherwise. A default layer can be set with
-`DEFAULT_REF_LAYER(_MY_COMBO_REF_LAYER)`
-
-If not set, the default reference layer selection from the automatically generated 
-`combo-ref-from-layer()` will be the current layer.
-
-The following `combo_ref_from_layer` function 
-will give a reference layer of _QWERTY for the _DVORAK layer and
-will give the _NAV layer as a reference to it's self. All other layers
-will have the default for their combo reference layer. If the default
-is not set, all other layers will reference themselves.
-
-    ```c
-    #define COMBO_REF_DEFAULT _MY_COMBO_LAYER
-    ...
-
-    uint8_t combo_ref_from_layer(uint8_t layer){
-        switch (get_highest_layer(layer_state)){
-            case _DVORAK: return _QWERTY;
-            case _NAV: return _NAV;
-            default: return _MY_COMBO_LAYER;
-        }
-        return layer;  // important if default is not in case.
+In the following example, the `_DVORAK` layer will reference combo keys from the `_QWERTY` layer:
+```c
+uint8_t combo_ref_from_layer(uint8_t layer){
+    switch (get_highest_layer(layer_state)){
+        case _DVORAK: return _QWERTY;
     }
-    ```
-
-The equivalent definition using the combo macros is this:
-
-    ```c
-    COMBO_REF_LAYER(_DVORAK, _QWERTY)
-    COMBO_REF_LAYER(_NAV, _NAV)
-    DEFAULT_REF_LAYER(_MY_COMBO_LAYER).
-    ```
-    
+    return layer;
+}
+```
 
 ## User callbacks
 
