@@ -11,7 +11,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #define DEBOUNCE 0
 /*#define DEBUG_MATRIX*/
 #define DEBUG_MATRIX_SCAN_RATE
-#define USB_POLLING_INTERVAL_MS 1
 
 #define ADC_RESOLUTION 12
 
