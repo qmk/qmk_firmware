@@ -5,7 +5,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include <stdint.h>
 #include "quantum.h"
 
-extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 
 /* global struct to save keypress logic params */
 typedef struct {

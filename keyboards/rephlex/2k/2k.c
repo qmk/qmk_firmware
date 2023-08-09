@@ -7,9 +7,9 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "eeprom.h"
 #include "config.h"
 
-key_t keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
-pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS] = MATRIX_PINS;
 
+
+extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 void bootmagic_lite(void) {
     if (analogReadPin(matrix_pins[BOOTMAGIC_LITE_ROW][BOOTMAGIC_LITE_COLUMN] < 1350)) {
         bootloader_jump();

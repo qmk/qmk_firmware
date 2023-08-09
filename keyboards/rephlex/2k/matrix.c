@@ -12,6 +12,9 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "lut.h"
 #include "scanfunctions.h"
 
+pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS] = MATRIX_PINS;
+key_t keys[MATRIX_ROWS][MATRIX_COLS] = {0};
+
 void matrix_init_custom(void) {
     uint16_t rest_adc_value = ADC_RESOLUTION >> 1;
 
