@@ -2,7 +2,7 @@
     "manufacturer": "ThoccSupply",
     "keyboard_name": "XOX70_Hotswap",
     "maintainer": "ToastyStoemp",
-    "bootloader": "custom",
+    "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -10,7 +10,7 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
+        "nkro": false,
         "rgb_matrix": true,
         "rgblight": false
     },
