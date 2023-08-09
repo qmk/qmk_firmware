@@ -5,9 +5,7 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_framework_ansi
-#    include "ansi.h"
-#elif KEYBOARD_framework_iso
+#if KEYBOARD_framework_iso
 #    include "iso.h"
 #elif KEYBOARD_framework_jis
 #    include "jis.h"
