@@ -5,9 +5,7 @@
 
 #include "quantum.h"
 
-#if KEYBOARD_framework_jis
-#    include "jis.h"
-#elif KEYBOARD_framework_numpad
+#if KEYBOARD_framework_numpad
 #    include "numpad.h"
 #endif
 
