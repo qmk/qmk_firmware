@@ -4,7 +4,7 @@
   "maintainer": "RephlexZero",
   "processor": "RP2040",
   "bootloader": "rp2040",
-  "url": "https://github.com/RephlexZero/qmk_firmware/tree/rephlex/keyboards/rephlex/2k",
+  "url": "https://github.com/RephlexZero/MoonPad",
   "features": {
     "bootmagic": true,
     "mousekey": false,
