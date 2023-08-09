@@ -31,6 +31,9 @@
 /* Disable LED lighting when PC is in suspend */
 #define LED_DISABLE_WHEN_USB_SUSPENDED
 
+/* Enable caps-lock LED */
+#define CAPS_LOCK_LED_INDEX 46
+
 // LED Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_led_matrix?id=led-matrix-effects
