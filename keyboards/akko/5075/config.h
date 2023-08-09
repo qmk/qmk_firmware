@@ -16,7 +16,7 @@
 
 #pragma once
 
-/* Use 5 dynamic keymap layers */
+/* Use 6 dynamic keymap layers */
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
 /*encoder resolution */
@@ -26,9 +26,6 @@
 #define DIP_SWITCH_PINS { A9 }
 
 /* LED Indicators */
-// #define LED_CAPS_LOCK_PIN    A15
-// #define LED_NUM_LOCK_PIN       C10
-// #define LED_SCROLL_LOCK_PIN     C11
 #define LED_MAC_OS_PIN      C10
 #define LED_WIN_LOCK_PIN    C11
 
