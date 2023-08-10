@@ -36,7 +36,7 @@
 // OLED definitions
 //------------------------------------------
 #ifdef OLED_ENABLE
-#define OLED_FONT_H "keyboards/keycapsss/kimiko/keymaps/default/glcdfont.c"
+#define OLED_FONT_H "keyboards/keycapsss/kimiko/rev2/keymaps/default/glcdfont.c"
 // #define OLED_FONT_WIDTH 5
 // #define OLED_FONT_HEIGHT 7
 // #define OLED_DISPLAY_128X64 //128x64 needs this define, for  128x32 display no extra define is needed and this can be removed/commented
@@ -53,7 +53,7 @@
 	// #define RGB_MATRIX_KEYRELEASES
 
 	// These modes don’t require any additional defines.
-	#define	   ENABLE_RGB_MATRIX_NONE 
+	#define	   ENABLE_RGB_MATRIX_NONE
 	#define    ENABLE_RGB_MATRIX_SOLID_COLOR     // Static single hue, no speed support
 
 	// #define    ENABLE_RGB_MATRIX_ALPHAS_MODS        // Static dual hue, speed is hue for secondary hue
@@ -103,7 +103,7 @@
 	// #define    ENABLE_RGB_MATRIX_MULTISPLASH         // Full gradient & value pulse away from multiple key hits then fades value out
 	// #define    ENABLE_RGB_MATRIX_SOLID_SPLASH        // Hue & value pulse away from a single key hit then fades value out
 	// #define    ENABLE_RGB_MATRIX_SOLID_MULTISPLASH   // Hue & value pulse away from multiple key hits then fades value out
-	
+
 	#define RGB_MATRIX_VAL_STEP 4
 	#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
 	#define RGB_MATRIX_DEFAULT_HUE 0 // Sets the default hue value, if none has been set
