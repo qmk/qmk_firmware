@@ -14,6 +14,7 @@
 #include "usb_device_state.h"
 #include "usb_descriptor.h"
 #include "usb_driver.h"
+#include "usb_endpoints.h"
 
 /* -------------------------
  * General USB driver header
@@ -30,6 +31,8 @@ void init_usb_driver(USBDriver *usbp);
 
 /* Restart the USB driver and bus */
 void restart_usb_driver(USBDriver *usbp);
+
+bool send_report(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
 
 /* ---------------
  * USB Event queue
@@ -53,3 +56,14 @@ void usb_event_queue_task(void);
 int8_t sendchar(uint8_t c);
 
 #endif /* CONSOLE_ENABLE */
+
+/* --------------
+ * Virtser header
+ * --------------
+ */
+
+#if defined(VIRTSER_ENABLE)
+
+bool virtser_usb_request_cb(USBDriver *usbp);
+
+#endif

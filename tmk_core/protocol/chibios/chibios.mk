@@ -7,6 +7,7 @@ SRC += $(CHIBIOS_DIR)/chibios.c
 SRC += usb_descriptor.c
 SRC += $(CHIBIOS_DIR)/usb_driver.c
 SRC += $(CHIBIOS_DIR)/usb_endpoints.c
+SRC += $(CHIBIOS_DIR)/usb_report_handling.c
 SRC += $(CHIBIOS_DIR)/usb_util.c
 SRC += $(LIBSRC)
 

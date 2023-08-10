@@ -221,4 +221,5 @@ void protocol_post_task(void) {
 #ifdef RAW_ENABLE
     raw_hid_task();
 #endif
+    usb_idle_task();
 }

@@ -16,9 +16,11 @@
 #include <string.h>
 
 #include "usb_main.h"
+#include "usb_report_handling.h"
 
 #include "host.h"
 #include "suspend.h"
+#include "timer.h"
 #ifdef SLEEP_LED_ENABLE
 #    include "sleep_led.h"
 #    include "led.h"
@@ -52,41 +54,13 @@ extern keymap_config_t keymap_config;
 extern usb_endpoint_in_t  usb_endpoints_in[USB_ENDPOINT_IN_COUNT];
 extern usb_endpoint_out_t usb_endpoints_out[USB_ENDPOINT_OUT_COUNT];
 
-uint8_t _Alignas(2) keyboard_idle          = 0;
-uint8_t _Alignas(2) keyboard_protocol      = 1;
-uint8_t                keyboard_led_state  = 0;
-uint8_t                keyboard_idle_count = 0;
-static virtual_timer_t keyboard_idle_timer;
+uint8_t _Alignas(2) keyboard_idle     = 0;
+uint8_t _Alignas(2) keyboard_protocol = 1;
+uint8_t keyboard_led_state            = 0;
 
-static void keyboard_idle_timer_cb(struct ch_virtual_timer *, void *arg);
-static bool send_report(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
 static bool __attribute__((__unused__)) send_report_buffered(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
 static void __attribute__((__unused__)) flush_report_buffered(usb_endpoint_in_lut_t endpoint, bool padded);
 static bool __attribute__((__unused__)) receive_report(usb_endpoint_out_lut_t endpoint, void *report, size_t size);
-
-#if defined(VIRTSER_ENABLE)
-bool virtser_usb_request_cb(USBDriver *usbp);
-#endif
-
-report_keyboard_t keyboard_report_sent = {0};
-report_mouse_t    mouse_report_sent    = {0};
-
-union {
-    uint8_t           report_id;
-    report_keyboard_t keyboard;
-#ifdef EXTRAKEY_ENABLE
-    report_extra_t extra;
-#endif
-#ifdef MOUSE_ENABLE
-    report_mouse_t mouse;
-#endif
-#ifdef DIGITIZER_ENABLE
-    report_digitizer_t digitizer;
-#endif
-#ifdef JOYSTICK_ENABLE
-    report_joystick_t joystick;
-#endif
-} universal_report_blank = {0};
 
 /* ---------------------------------------------------------
  *            Descriptors and USB driver objects
@@ -118,7 +92,6 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
 
     return &descriptor;
 }
-
 
 /* ---------------------------------------------------------
  *                  USB driver functions
@@ -293,41 +266,7 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
             case USB_RTYPE_DIR_DEV2HOST:
                 switch (setup->bRequest) {
                     case HID_REQ_GetReport:
-                        switch (setup->wIndex) {
-#ifndef KEYBOARD_SHARED_EP
-                            case KEYBOARD_INTERFACE:
-                                usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, KEYBOARD_REPORT_SIZE, NULL);
-                                return TRUE;
-                                break;
-#endif
-#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
-                            case MOUSE_INTERFACE:
-                                usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
-                                return TRUE;
-                                break;
-#endif
-#ifdef SHARED_EP_ENABLE
-                            case SHARED_INTERFACE:
-#    ifdef KEYBOARD_SHARED_EP
-                                if (setup->wValue.lbyte == REPORT_ID_KEYBOARD) {
-                                    usbSetupTransfer(usbp, (uint8_t *)&keyboard_report_sent, KEYBOARD_REPORT_SIZE, NULL);
-                                    return true;
-                                }
-#    endif
-#    ifdef MOUSE_SHARED_EP
-                                if (setup->wValue.lbyte == REPORT_ID_MOUSE) {
-                                    usbSetupTransfer(usbp, (uint8_t *)&mouse_report_sent, sizeof(mouse_report_sent), NULL);
-                                    return true;
-                                }
-#    endif
-#endif /* SHARED_EP_ENABLE */
-                            default:
-                                universal_report_blank.report_id = setup->wValue.lbyte;
-                                usbSetupTransfer(usbp, (uint8_t *)&universal_report_blank, setup->wLength, NULL);
-                                return true;
-                        }
-                        break;
-
+                        return usb_get_report_cb(usbp);
                     case HID_REQ_GetProtocol:
                         if (setup->wIndex == KEYBOARD_INTERFACE) {
                             usbSetupTransfer(usbp, &keyboard_protocol, sizeof(uint8_t), NULL);
@@ -336,10 +275,8 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
                         break;
 
                     case HID_REQ_GetIdle:
-                        usbSetupTransfer(usbp, &keyboard_idle, sizeof(uint8_t), NULL);
-                        return true;
+                        return usb_get_idle_cb(usbp);
                 }
-                break;
 
             case USB_RTYPE_DIR_HOST2DEV:
                 switch (setup->bRequest) {
@@ -353,38 +290,15 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
                                 return true;
                         }
                         break;
-
                     case HID_REQ_SetProtocol:
                         if (setup->wIndex == KEYBOARD_INTERFACE) {
                             keyboard_protocol = setup->wValue.word;
-#ifdef NKRO_ENABLE
-                            if (!keyboard_protocol && keyboard_idle) {
-#else  /* NKRO_ENABLE */
-                            if (keyboard_idle) {
-#endif /* NKRO_ENABLE */
-                                /* arm the idle timer if boot protocol & idle */
-                                osalSysLockFromISR();
-                                chVTSetI(&keyboard_idle_timer, 4 * TIME_MS2I(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
-                                osalSysUnlockFromISR();
-                            }
                         }
                         usbSetupTransfer(usbp, NULL, 0, NULL);
                         return true;
-
                     case HID_REQ_SetIdle:
                         keyboard_idle = setup->wValue.hbyte;
-                        /* arm the timer */
-#ifdef NKRO_ENABLE
-                        if (!keymap_config.nkro && keyboard_idle) {
-#else  /* NKRO_ENABLE */
-                        if (keyboard_idle) {
-#endif /* NKRO_ENABLE */
-                            osalSysLockFromISR();
-                            chVTSetI(&keyboard_idle_timer, 4 * TIME_MS2I(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
-                            osalSysUnlockFromISR();
-                        }
-                        usbSetupTransfer(usbp, NULL, 0, NULL);
-                        return true;
+                        return usb_set_idle_cb(usbp);
                 }
                 break;
         }
@@ -447,8 +361,6 @@ void init_usb_driver(USBDriver *usbp) {
     wait_ms(50);
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
-
-    chVTObjectInit(&keyboard_idle_timer);
 }
 
 __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
@@ -484,39 +396,6 @@ __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
  * ---------------------------------------------------------
  */
 
-/* Idle requests timer code
- * callback (called from ISR, unlocked state) */
-static void keyboard_idle_timer_cb(struct ch_virtual_timer *timer, void *arg) {
-    (void)timer;
-    USBDriver *usbp = (USBDriver *)arg;
-
-    osalSysLockFromISR();
-
-    /* check that the states of things are as they're supposed to */
-    if (usbGetDriverStateI(usbp) != USB_ACTIVE) {
-        /* do not rearm the timer, should be enabled on IDLE request */
-        osalSysUnlockFromISR();
-        return;
-    }
-
-#ifdef NKRO_ENABLE
-    if (!keymap_config.nkro && keyboard_idle && keyboard_protocol) {
-#else  /* NKRO_ENABLE */
-    if (keyboard_idle && keyboard_protocol) {
-#endif /* NKRO_ENABLE */
-        /* TODO: are we sure we want the KBD_ENDPOINT? */
-        if (!usbGetTransmitStatusI(usbp, KEYBOARD_IN_EPNUM)) {
-            usbStartTransmitI(usbp, KEYBOARD_IN_EPNUM, (uint8_t *)&keyboard_report_sent, KEYBOARD_EPSIZE);
-        }
-        /* rearm the timer */
-        chVTSetI(&keyboard_idle_timer, 4 * TIME_MS2I(keyboard_idle), keyboard_idle_timer_cb, (void *)usbp);
-    }
-
-    /* do not rearm the timer if the condition above fails
-     * it should be enabled again on either IDLE or SET_PROTOCOL requests */
-    osalSysUnlockFromISR();
-}
-
 /* LED status */
 uint8_t keyboard_leds(void) {
     return keyboard_led_state;
@@ -532,7 +411,7 @@ uint8_t keyboard_leds(void) {
  * @return true Success
  * @return false Failure
  */
-static bool send_report(usb_endpoint_in_lut_t endpoint, void *report, size_t size) {
+bool send_report(usb_endpoint_in_lut_t endpoint, void *report, size_t size) {
     return usb_endpoint_in_send(&usb_endpoints_in[endpoint], (uint8_t *)report, size, TIME_MS2I(100), false);
 }
 
@@ -584,8 +463,6 @@ void send_keyboard(report_keyboard_t *report) {
     } else {
         send_report(USB_ENDPOINT_IN_KEYBOARD, report, KEYBOARD_REPORT_SIZE);
     }
-
-    keyboard_report_sent = *report;
 }
 
 void send_nkro(report_nkro_t *report) {
@@ -602,7 +479,6 @@ void send_nkro(report_nkro_t *report) {
 void send_mouse(report_mouse_t *report) {
 #ifdef MOUSE_ENABLE
     send_report(USB_ENDPOINT_IN_MOUSE, report, sizeof(report_mouse_t));
-    mouse_report_sent = *report;
 #endif
 }
 
