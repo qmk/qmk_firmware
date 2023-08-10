@@ -5,7 +5,7 @@
 
 /* - Encoder settings - */
 #ifdef ENCODER_ENABLE
-#    define ENCODER_RESOLUTION 4
+#define ENCODER_RESOLUTION 4
 #endif
 #ifdef ENCODER_MAP_ENABLE
 // Key delay for encoders (necessary for some keycodes)
@@ -38,14 +38,13 @@
 */
 #ifdef RGB_MATRIX_ENABLE
 
-
 /* Turn off RGB light when host is asleep. (Doesn't seem to work for mac)? */
 #    define RGBLIGHT_SLEEP
 #    define RGBLIGHT_LAYERS
 
 // Decrease decay of heatmap rgb effect
 #    define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
-// If you're setting colors per key, this is required. 
+// If you're setting colors per key, this is required.
 #    define SPLIT_LAYER_STATE_ENABLE
 
 // Default effect when EEPROM cleared

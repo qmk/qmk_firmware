@@ -3,11 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum custom_layers {
-    _QWERTY,
-    _LOWER,
-    _RAISE
-};
+enum custom_layers { _QWERTY, _LOWER, _RAISE };
 
 /* Defines macros for use with the configurators "Any" key. (These are non-standard macros using the "Magnet" app on Mac). */
 /* Move active application right half. */
@@ -52,9 +48,7 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 /**
- * Keymap. Generated via configurator.
- * https://config.qmk.fm/#/junco/rev1/LAYOUT_split4x6_r1
- *
+ * Keymap.
  * The rotary encoders are programmed manually below because the configurator does not support them yet.
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -78,8 +72,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EQL,       KC_1,         KC_2,         KC_3,    KC_4,          TD5ENT,                                      KC_6,   KC_7,         KC_8,     KC_9,         KC_0,            KC_MINS, 
         KC_TAB,       KC_Q,         KC_W,         KC_E,    KC_R,          KC_T,                                        KC_Y,   KC_U,         KC_I,     KC_O,         KC_P,            KC_BSLS, 
         LT(1,KC_DEL), LT(2,KC_A),   LCTL_T(KC_S), KC_D,    LGUI_T(KC_F),  KC_G,                                        KC_H,   RGUI_T(KC_J), KC_K,     RCTL_T(KC_L), LT(2,KC_SCLN),   LT(1,KC_QUOT), 
-        KC_LSFT,      LALT_T(KC_Z), KC_X,         KC_C,    KC_V,          KC_B,           KC_MINIM,  KC_MAXIM,         KC_N,   KC_M,         KC_COMM,  KC_DOT,       RALT_T(KC_SLSH), KC_RSFT, 
-                                                  KC_LEFT, KC_RGHT,       QK_GESC, C_SPC, KC_BSPC,   KC_TAB,   KC_ENT, KC_DEL, KC_UP,        KC_DOWN
+        KC_LSFT,      LALT_T(KC_Z), KC_X,         KC_C,    KC_V,          KC_B,            KC_MINIM,  KC_MAXIM,         KC_N,   KC_M,         KC_COMM,  KC_DOT,       RALT_T(KC_SLSH), KC_RSFT, 
+                                                  KC_LEFT, KC_RGHT,       QK_GESC, KC_SPC, KC_BSPC,   KC_TAB,   KC_ENT, KC_DEL, KC_UP,        KC_DOWN
     ),
 
     /*
@@ -98,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
     */
 
-	[_LOWER] = LAYOUT_split4x6_r1(
+    [_LOWER] = LAYOUT_split4x6_r1(
         KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                      KC_F6,   KC_F7, KC_F8, KC_F9, KC_F10,  KC_F11, 
         KC_TRNS, KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                                    DT_PRNT, KC_7,  KC_8,  KC_9,  KC_ASTR, KC_F12, 
         KC_TRNS, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,                                     DT_UP,   KC_4,  KC_5,  KC_6,  KC_PPLS, KC_TRNS, 
@@ -121,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       │___│___│___│___│QMK│       │QMK│___│___│___│___│
                       └───┴───┴───┴───┴───┘       └───┴───┴───┴───┴───┘
     */    
-	[_RAISE] = LAYOUT_split4x6_r1(
+    [_RAISE] = LAYOUT_split4x6_r1(
         RGB_TOG, KC_ACL0, KC_ACL1, KC_ACL2, KC_TRNS, KC_TRNS,                                        KC_TRNS, KC_TRNS, RGB_MOD, RGB_RMOD, RGB_HUI, RGB_HUD, 
         KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS,                                        KC_TRNS, KC_BTN1, KC_UP,   KC_BTN2,  RGB_SAI, RGB_SAD, 
         KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,                                        KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT,  RGB_VAI, RGB_VAD, 
@@ -209,6 +203,5 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     /* Scrolls left & right. (Shift + Mouse Wheel Up). */ /* Scrolls up and down. (Page Down & Page Up - mouse wheel scroll incraments are too small) */
     [_LOWER] = {ENCODER_CCW_CW(S(KC_MS_WH_UP), S(KC_MS_WH_DOWN)), ENCODER_CCW_CW(KC_PGDN, KC_PGUP)},
     /* Selects adjacent words. (Command + Shift + Right Arrow). */ /* Jumps to end/start of line. Hold shift to select. (Gui + arrow). */
-    [_RAISE] = {ENCODER_CCW_CW(C(S(KC_LEFT)), C(S(KC_RGHT))), ENCODER_CCW_CW(G(KC_LEFT), G(KC_RGHT))}
-};
+    [_RAISE] = {ENCODER_CCW_CW(C(S(KC_LEFT)), C(S(KC_RGHT))), ENCODER_CCW_CW(G(KC_LEFT), G(KC_RGHT))}};
 #endif
