@@ -1,13 +1,12 @@
 # city42
 
-![city42](https://i.imgur.com/xrSKhqRh.png)
-![city42PCB](https://i.imgur.com/R7u1KB8h.png)
+![city42](https://i.imgur.com/YZNW4EZ.jpg)
 
 *A pre-built, low profile, unibody split keyboard based on the RP2040 processor*
 
 * Keyboard Maintainer: [Kevin Gee](https://github.com/controller-works)
-* Hardware Supported: *city42 split ergonomic keyboard*
-* Hardware Availability: *https://controller.works/products/city42-low-profile-ergonomic-keyboard* Hardware is available as pre-built units only.
+* Hardware Supported: *city42 split unibody ergonomic keyboard*
+* Hardware Availability: *[Controller Works Retail Site](https://controller.works/products/city42-ergonomic-keyboard)* Hardware is available as pre-built units only.
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -25,6 +24,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ## Features
 - Highly integrated design with microcontroller and USB connectors on the main board
 - RP2040 processor by Raspberry Pi Foundation running at 130 MHz with 16MB flash memory
+- 40mm Cirque trackpad
 - 42 per-key RGB LEDs
 - ESD and over-current protection on USB
 - Reset and boot tactile switches
