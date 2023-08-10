@@ -8,6 +8,8 @@ Kawii9 rev2 is a keypad with per-key RGB and expandable modules. There are 3 var
 2. with a 1.3" OLED screen and a rotary encoder,
 3. with another rotary encoder and a RGB indicator LED
 
+More infos: https://kiwikey.vn/mechkey/kawii9/
+
 * Keyboard Maintainer: [KiwiKey](https://github.com/kiwikey)
 * Hardware Supported: Kawii9 rev2 PCB
 * Hardware Availability: from Group-buy, or via KiwiKey Website (https://kiwikey.vn/mechkey/kawii9/)

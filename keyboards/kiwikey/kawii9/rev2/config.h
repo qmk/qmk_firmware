@@ -3,7 +3,7 @@
 #ifdef OLED_ENABLE
 // OLED screen definitions
 #define OLED_DISPLAY_128X64
-#define OLED_TIMEOUT 20000
+#define OLED_TIMEOUT 30000
 #define OLED_BRIGHTNESS 255
 #define OLED_FONT_H "keyboards/kiwikey/kawii9/rev2/lib/glcdfont.c"
 #endif
@@ -36,5 +36,3 @@
 // Set default RGB Matrix mode
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_UP_DOWN
 #endif
-
-//#define WPM_UNFILTERED

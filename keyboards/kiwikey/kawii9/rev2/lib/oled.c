@@ -24,18 +24,21 @@
 static uint32_t key_timer = 0;
 static uint8_t rgb_val = 0;
 
-#define SUB_UI_TIMEOUT 2000 // ms
-static char sub_ui_mode = 0;
-// Sub UI Mode = 0 : WPM graph
+// Sub UI is the bottom half of OLED screen, shows WPM chart, RGB infos,...
+// sub_ui_mode = 0 : WPM graph
 //               1 : RGB control
 //               2 : Media control (to do)
+#define SUB_UI_TIMEOUT 2000 // ms
+static char sub_ui_mode = 0;
 
+// Configuration for Key Matrix
 #define MATRIX_DISPLAY_X    107
 #define MATRIX_DISPLAY_Y    11
 #define MATRIX_DISPLAY_SIZE 22
 #define KEY_SIZE            4
 #define KEY_SPACING         3
 
+// Configuration for WPM Graph
 #define GRAPH_ZERO_X           20  // This is zero origin
 #define GRAPH_ZERO_Y           63  // of the WPM graph
 #define GRAPH_WIDTH            105
@@ -44,6 +47,10 @@ static char sub_ui_mode = 0;
 #define GRAPH_LINE_THICKNESS   1
 float max_wpm = 100.0;
 uint16_t graph_timer = 0;
+
+// RGB Matrix naming, copy from @tzarc
+#if defined(RGB_MATRIX_ENABLE)
+#include <rgb_matrix.h>
 
 #if defined(RGB_MATRIX_EFFECT)
 #    undef RGB_MATRIX_EFFECT
@@ -81,6 +88,7 @@ const char* rgb_matrix_name(uint8_t effect) {
             return "UNKNOWN";
     }
 }
+#endif // defined(RGB_MATRIX_ENABLE)
 
 void render_matrix(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS-2; x++) {
@@ -131,20 +139,17 @@ void render_ui_frame(void) {
     oled_advance_page(false);
     oled_advance_page(false);
     oled_advance_page(false);
-    
-    // for LAYER X
+    // Outline for layer number
     draw_line_h(35, 7, 7, true);
     draw_line_v(34, 8, 7, true);
     draw_line_v(35, 8, 8, true);
     draw_line_v(42, 8, 7, true);
-
-    // for RGB Mode #XX
+    // Outline for RGB mode number
     draw_line_h(23, 23, 19, true);
     draw_line_v(22, 24, 7, true);
     draw_line_v(23, 24, 8, true);
     draw_line_v(42, 24, 7, true);
-
-    // Key Matrix outline
+    // Outline for Key Matrix
     draw_line_h(MATRIX_DISPLAY_X -2, MATRIX_DISPLAY_Y -3, MATRIX_DISPLAY_SIZE, true);
     draw_line_h(MATRIX_DISPLAY_X -2, MATRIX_DISPLAY_Y -2 + MATRIX_DISPLAY_SIZE, MATRIX_DISPLAY_SIZE, true);
     draw_line_v(MATRIX_DISPLAY_X -3, MATRIX_DISPLAY_Y -2, MATRIX_DISPLAY_SIZE, true);
@@ -169,11 +174,9 @@ void render_stats(void) {
     // Current layer
     oled_set_cursor(6, 1);
     oled_write_char(get_highest_layer(layer_state) + 0x30, true);
-    
     // Current WPM
     oled_set_cursor(13, 1);
     oled_write(get_u8_str(get_current_wpm(), '0'), false);
-    
     // Show current RGB mode (#__)
     oled_set_cursor(4,3);
     if (rgb_matrix_is_enabled()) {
@@ -184,8 +187,7 @@ void render_stats(void) {
     else {
         oled_write_P(PSTR("OFF"), true);
     }
-    
-    // RGB brightness (%)
+    // RGB brightness (percentage %)
     oled_set_cursor(9, 3);
     rgb_val = (rgb_matrix_is_enabled() ? rgb_matrix_get_val()*100/RGB_MATRIX_MAXIMUM_BRIGHTNESS : 0);
     if (rgb_matrix_is_enabled()) {
@@ -236,10 +238,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             sub_ui_mode = 1;
             ui_clear();
             break;
+        /** TODO 
         case KC_AUDIO_MUTE ... KC_MEDIA_EJECT:
             sub_ui_mode = 2;
             ui_clear();
             break;
+        ***/
         default:
             break;
     }
