@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Kimiko",
+    "keyboard_name": "Kimiko Rev2",
     "manufacturer": "Keycapsss",
     "url": "https://keycapsss.com",
-    "maintainer": "@ben_roe Keycapsss",
+    "maintainer": "BenRoe",
     "usb": {
         "vid": "0x7983",
         "pid": "0x4B69",
