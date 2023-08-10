@@ -5,11 +5,18 @@ Custom keymap created by: Chad Stovern <hello@chadstovern.com>
 #include QMK_KEYBOARD_H
 
 enum ferris_layers {
-  _COLEMAK_DH,
-  _NUM_SYM,
-  _FUN_NAV,
-  _GAME,
-  _GAME_FUN,
+    _COLEMAK_DH,
+    _NUM_SYM,
+    _FUN_NAV,
+    _GAME,
+    _GAME_FUN,
+};
+
+enum custom_keycodes {
+    KVM_1 = SAFE_RANGE,
+    KVM_2,
+    KVM_3,
+    KVM_4,
 };
 
 /* thumb mods */
@@ -33,9 +40,6 @@ enum ferris_layers {
 #define HOME_DWN CMD_T(KC_DOWN)
 #define HOME_UP OPT_T(KC_UP)
 #define HOME_RGT CTL_T(KC_RGHT)
-#define HOME_J CMD_T(KC_J)
-#define HOME_K OPT_T(KC_K)
-#define HOME_L CTL_T(KC_L)
 #define HOME_QT SFT_T(KC_QUOT)
 
 /* misc mods */
@@ -48,7 +52,7 @@ enum ferris_layers {
 #include "g/keymap_combo.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_COLEMAK_DH] = LAYOUT(
+    [_COLEMAK_DH] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
     | Q    | W    | F    | P    | B    |            | J    | L    | U    | Y    | ; :  |
@@ -71,16 +75,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             CMD_TAB, NUM_BSPC,     FUN_SPC, CMD_ENT
   ),
 
-  [_NUM_SYM] = LAYOUT(
+    [_NUM_SYM] = LAYOUT(
 /*
+    commonly used symbols:
+    - javascript: ( ) { } ; = > / [ ] + _ |
+    - clojure:    ( ) [ ] : ; / { } - > = _ +
+    - misc/nav:   ^ |
+
     .------.------.------.------.------.            .------.------.------.------.------.
     | 1 !  | 2 @  | 3 #  | 4 $  | 5 %  |            | 6 ^  | 7 &  | 8 *  | 9 (  | 0 )  |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | ` ~  |      |      |      |      |            | H    | J    | K    | L    | ' "  |
-    | SFT  | RCTL | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
+    | ` ~  | {    | }    |      | ~    |            | ^    | +    | (    | )    | ' "  |
+    | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
     |------+------+------+------+------|            |------+------+------+------+------|
-    |      |      |      |      |      |            | - _  | = +  | [ {  | ] }  | \ |  |
+    |      |      |      | >    |      |            | - _  | = +  | [ {  | ] }  | \ |  |
     | SFT  | .    | ,    |      |      |            |      |      |      |      | SFT  |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
@@ -88,13 +97,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             |      |      |      |      |      |
                             '------'------'      '------'------'
 */
-    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,   KC_8,    KC_9,    KC_0,
-    HOME_BT, KC_RCTL, KC_LOPT, KC_LCMD, XXXXXXX,      KC_H,    HOME_J, HOME_K,  HOME_L,  HOME_QT,
-    KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, SFT_BSLS,
+    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,     KC_0,
+    HOME_BT, KC_LCBR, KC_RCBR, XXXXXXX, KC_TILD,      KC_CIRC, KC_PLUS, KC_LPRN, KC_RPRN, HOME_QT,
+    KC_LSFT, KC_DOT,  KC_COMM, KC_RABK, XXXXXXX,      KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,  SFT_BSLS,
                                KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS
   ),
 
-  [_FUN_NAV] = LAYOUT(
+    [_FUN_NAV] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
     | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
@@ -103,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |      |      |      |      |      |            | ←    | ↓    | ↑    | →    |      |
     | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | RGB  |      |      |      |      |            | F11  | F12  | PGDN | PGUP | GAME |
+    | RGB  | KVM4 | KVM3 | KVM2 | KVM1 |            | F11  | F12  | PGDN | PGUP | GAME |
     | TOG  |      |      |      |      |            | VolD | VolU |      |      | TOG  |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
@@ -113,10 +122,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
     KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV,  KC_MPLY, KC_MNXT,  KC_MUTE,
     KC_LSFT, KC_LCTL,  KC_LOPT, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_RSFT,
-    RGB_TOG, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU,  KC_PGDN, KC_PGUP,  GAME_TOG,
+    RGB_TOG, KVM_4,    KVM_3,   KVM_2,   KVM_1,        KC_VOLD, KC_VOLU,  KC_PGDN, KC_PGUP,  GAME_TOG,
                                 KC_TRNS, KC_ESC,       KC_TRNS, KC_TRNS
   ),
-  [_GAME] = LAYOUT(
+    [_GAME] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
     | TAB  | Q    | W    | E    | R    |            | Y    | U    | I    | O    | P    |
@@ -139,16 +148,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             KC_LCTL, KC_SPC,      GFUN_SPC, GOPT_ENT
 ),
 
-  [_GAME_FUN] = LAYOUT(
+    [_GAME_FUN] = LAYOUT(
 /*
     .------.------.------.------.------.            .------.------.------.------.------.
-    | ↓↓↓  |      |      |      | T    |            |      | F7   | F8   | F9   | F10  |
+    | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
     |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | ↓↓↓  |      |      |      | G    |            |      | \ |  | [ {  | ] }  |      |
+    | ↓↓↓  |      |      |      |      |            |      | \ |  | [ {  | ] }  |      |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | ↓↓↓  |      |      |      | B    |            | F11  | F12  |      |      | ↓↓↓  |
+    | ↓↓↓  |      |      |      |      |            | F11  | F12  |      |      | ↓↓↓  |
     |      |      |      |      |      |            | VolD | VolU |      |      |      |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
@@ -156,45 +165,72 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             |      |      |      |      |      |
                             '------'------'      '------'------'
 */
-    KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_T,         XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,
-    KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_G,         XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
-    KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, KC_B,         KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, KC_TRNS,
+    KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,
+    KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
+    KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, KC_TRNS,
                                 KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS
 )
 
 };
 
 
+/* macro configuration */
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KVM_1:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_1));
+            }
+            break;
+        case KVM_2:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_2));
+            }
+            break;
+        case KVM_3:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_3));
+            }
+            break;
+        case KVM_4:
+            if (record->event.pressed) {
+                SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_4));
+            }
+            break;
+    }
+    return true;
+};
+
 /* per key configuration */
 
 // https://precondition.github.io/home-row-mods#finding-the-sweet-spot
 bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case CMD_TAB:  // make CMD SPC faster
-    case SFT_Z:    // make bottom row SFT faster
-    case SFT_SLSH: // make bottom row SFT faster
-    case SFT_BSLS: // make bottom row SFT faster
-        return false;
-    default:
-        return true;
+        case CMD_TAB:  // make CMD SPC faster
+        case SFT_Z:    // make bottom row SFT faster
+        case SFT_SLSH: // make bottom row SFT faster
+        case SFT_BSLS: // make bottom row SFT faster
+            return false;
+        default:
+            return true;
     }
 }
 
 // https://precondition.github.io/home-row-mods#finding-the-sweet-spot
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    /* adjust home row key timing to prevent letter rolls triggering modifiers */
-    case HOME_A:
-    case HOME_R:
-    case HOME_S:
-    case HOME_T:
-    case HOME_N:
-    case HOME_E:
-    case HOME_I:
-    case HOME_O:
-        return TAPPING_TERM + 75;
-    default:
-        return TAPPING_TERM;
+        /* adjust home row key timing to prevent letter rolls triggering modifiers */
+        case HOME_A:
+        case HOME_R:
+        case HOME_S:
+        case HOME_T:
+        case HOME_N:
+        case HOME_E:
+        case HOME_I:
+        case HOME_O:
+            return TAPPING_TERM + 75;
+        default:
+            return TAPPING_TERM;
     }
 }
 
@@ -204,10 +240,6 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
         case NUM_BSPC:
         case FUN_SPC:
         case CMD_ENT:
-        case HOME_J:
-        case HOME_K:
-        case HOME_L:
-        case KC_H:
         case HOME_DWN:
         case HOME_UP:
         case HOME_RGT:
