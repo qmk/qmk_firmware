@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-// SPDX-FileCopyrightText: 2023 Mischback <dev@mischback.de>
+// SPDX-FileCopyrightText: 2023 Mischback <mischback.dev@googlemail.com>
 // SPDX-FileType: SOURCE
 
 #pragma once
