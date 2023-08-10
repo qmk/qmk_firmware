@@ -203,5 +203,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     /* Scrolls left & right. (Shift + Mouse Wheel Up). */ /* Scrolls up and down. (Page Down & Page Up - mouse wheel scroll incraments are too small) */
     [_LOWER] = {ENCODER_CCW_CW(S(KC_MS_WH_UP), S(KC_MS_WH_DOWN)), ENCODER_CCW_CW(KC_PGDN, KC_PGUP)},
     /* Selects adjacent words. (Command + Shift + Right Arrow). */ /* Jumps to end/start of line. Hold shift to select. (Gui + arrow). */
-    [_RAISE] = {ENCODER_CCW_CW(C(S(KC_LEFT)), C(S(KC_RGHT))), ENCODER_CCW_CW(G(KC_LEFT), G(KC_RGHT))}};
+    [_RAISE] = {ENCODER_CCW_CW(C(S(KC_LEFT)), C(S(KC_RGHT))), ENCODER_CCW_CW(G(KC_LEFT), G(KC_RGHT))}
+};
 #endif
