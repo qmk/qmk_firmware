@@ -3,7 +3,7 @@
     "keyboard_name": "city42",
     "maintainer": "controller-works",
     "processor": "RP2040",
-    "url": "https://controller.works/products/city42-low-profile-ergonomic-keyboard",
+    "url": "https://controller.works/products/city42-ergonomic-keyboard",
     "tags": ["RP2040", "choc v1", "choc spaced" ],
     "usb": {
         "device_version": "1.0.0",
@@ -22,7 +22,7 @@
             ["GP12", "GP13", "GP14", "GP15"]
     },
     "ws2812": {
-        "pin": "GP29"
+        "pin": "GP29",
         "driver": "vendor"
      },
     "features": {
