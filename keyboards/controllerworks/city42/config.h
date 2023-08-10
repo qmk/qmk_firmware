@@ -21,11 +21,6 @@
 #define RGBLED_NUM 42
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
-/* Top left key */
-#define BOOTMAGIC_LITE_ROW    0
-#define BOOTMAGIC_LITE_COLUMN 0
-/* Top right key on right half */
-
 /* Cirque trackpad over SPI. Production */
 #define SPI_SCK_PIN GP18
 #define SPI_MOSI_PIN GP19
