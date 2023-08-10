@@ -18,8 +18,7 @@
 #pragma once
 
 #define WS2812_PIO_USE_PIO1
-#define RGBLED_NUM 42
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 42
 
 /* Cirque trackpad over SPI. Production */
 #define SPI_SCK_PIN GP18
