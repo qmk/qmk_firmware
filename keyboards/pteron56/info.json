@@ -6,12 +6,12 @@
     "usb": {
         "vid": "0x6D4B",
         "pid": "0x7056",
-        "device_version": "0.2"
-    }
+        "device_version": "0.2.0"
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "matrix_pins": {
-        "rows": ["D3", "D2", "F4", "D4", "B5"]
+        "rows": ["D3", "D2", "F4", "D4", "B5"],
         "cols": ["E6", "B4", "D7", "C6", "D0", "D1", "F6", "F7", "B1", "B3", "B6", "B2"]
     },
     "diode_direction": "ROW2COL",
@@ -28,9 +28,9 @@
         "key_lock": false
     },
     "layouts": {
-        "LAYOUT":[
-            "layout": 
-                [{"label":"0,3", "x":3, "y":0.25}, 
+        "LAYOUT":{
+            "layout": [
+                {"label":"0,3", "x":3, "y":0.25}, 
                 {"label":"0,8", "x":11.5, "y":0.25}, 
                 {"label":"0,2", "x":2, "y":0.5}, 
                 {"label":"0,4", "x":4, "y":0.5}, 
@@ -85,7 +85,8 @@
                 {"label":"4,3", "x":0.25, "y":-6},
                 {"label":"4,8", "x":-0.5, "y":-8.75},
                 {"label":"4,9", "x":0, "y":-9.0},
-                {"label":"4,10", "x":0.25, "y":-9.25}]
+                {"label":"4,10", "x":0.25, "y":-9.25}
             ]
+        }
     }
 }
