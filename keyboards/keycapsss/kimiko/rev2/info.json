@@ -9,7 +9,6 @@
         "device_version": "2.0.0"
     },
     "diode_direction": "COL2ROW",
-    "debounce": 5,
     "matrix_pins": {
         "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
         "rows": ["D4", "C6", "D7", "E6", "B4", "B5"]
