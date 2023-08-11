@@ -19,6 +19,11 @@
         "extrakey": true,
         "encoder": true
     },
+    "rgblight": {
+        "split": true,
+        "led_count": 62,
+        "split_count": [31, 31]
+    },
     "encoder": {
         "rotary": [{ "pin_a": "F5", "pin_b": "F4" }]
     },
