@@ -1,6 +1,3 @@
-OLED_ENABLE = yes
-
-ENCODER_ENABLE = yes       # Enables the use of one or more encoders
 ENCODER_MAP_ENABLE = yes
 
 RGBLIGHT_ENABLE = no      # Enable keyboard 'old' RGB lightning
