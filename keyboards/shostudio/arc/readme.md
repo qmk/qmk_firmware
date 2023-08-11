@@ -3,7 +3,7 @@
 ![arc](https://i.imgur.com/HQdls1nh.png)
 
 ARC PCB, An ergonomic 65% keyboard PCB.
-* Keyboard Maintainer: [Mechlovin'](https://mechlovin.studio)
+* Keyboard Maintainer: [shostudios](https://shostudios.co/)
 * Hardware Supported: ARC, APM32F103
 * Hardware Availability: [shostudios](https://shostudios.co/)
 

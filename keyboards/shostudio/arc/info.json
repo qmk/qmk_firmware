@@ -2,7 +2,7 @@
     "keyboard_name": "ARC",
     "manufacturer": "Mechlovin Studio",
     "url": "",
-    "maintainer": "Mechlovin' Studio",
+    "maintainer": "Shostudio",
     "usb": {
         "vid": "0x5050",
         "pid": "0x65AC",
