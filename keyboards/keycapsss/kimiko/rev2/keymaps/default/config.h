@@ -48,7 +48,7 @@
 // 'new' RGB Matrix definitions, used when RGB_MATRIX_ENABLE = yes in rules.mk
 //------------------------------------------
 #ifdef RGB_MATRIX_ENABLE
-	// #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
+	#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 	// #define RGB_MATRIX_KEYPRESSES
 	// #define RGB_MATRIX_KEYRELEASES
 
@@ -56,7 +56,7 @@
 	#define	   ENABLE_RGB_MATRIX_NONE
 	#define    ENABLE_RGB_MATRIX_SOLID_COLOR     // Static single hue, no speed support
 
-	// #define    ENABLE_RGB_MATRIX_ALPHAS_MODS        // Static dual hue, speed is hue for secondary hue
+	#define    ENABLE_RGB_MATRIX_ALPHAS_MODS        // Static dual hue, speed is hue for secondary hue
 	// #define    ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN    // Static gradient top to bottom, speed controls how much gradient changes
 	// #define    ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT    // Static gradient left to right, speed controls how much gradient changes
 	// #define    ENABLE_RGB_MATRIX_BREATHING           // Single hue brightness cycling animation
@@ -75,7 +75,7 @@
 	// #define    ENABLE_RGB_MATRIX_CYCLE_PINWHEEL      // Full gradient spinning pinwheel around center of keyboard
 	// #define    ENABLE_RGB_MATRIX_CYCLE_SPIRAL        // Full gradient spinning spiral around center of keyboard
 	// #define    ENABLE_RGB_MATRIX_DUAL_BEACON         // Full gradient spinning around center of keyboard
-	// #define    ENABLE_RGB_MATRIX_RAINBOW_BEACON      // Full tighter gradient spinning around center of keyboard
+	#define    ENABLE_RGB_MATRIX_RAINBOW_BEACON      // Full tighter gradient spinning around center of keyboard
 	// #define    ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS   // Full dual gradients spinning two halfs of keyboard
 	// #define    ENABLE_RGB_MATRIX_RAINDROPS           // Randomly changes a single key's hue
 	// #define    ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS // Randomly changes a single key's hue and saturation
@@ -87,7 +87,7 @@
 	// #define    ENABLE_RGB_MATRIX_PIXEL_RAIN          // Randomly light keys with random hues
 
 	// These modes also require the RGB_MATRIX_FRAMEBUFFER_EFFECTS define to be available.
-	// #define    ENABLE_RGB_MATRIX_TYPING_HEATMAP      // How hot is your WPM!
+	#define    ENABLE_RGB_MATRIX_TYPING_HEATMAP      // How hot is your WPM!
 	// #define    ENABLE_RGB_MATRIX_DIGITAL_RAIN        // That famous computer simulation
 
 	// These modes also require the RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES define to be available.
@@ -109,7 +109,7 @@
 	#define RGB_MATRIX_DEFAULT_HUE 0 // Sets the default hue value, if none has been set
 	#define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
 	#define RGB_MATRIX_DEFAULT_VAL 60 //RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
-	#define RGB_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
+	#define RGB_MATRIX_DEFAULT_SPD 60 // Sets the default animation speed, if none has been set
 #endif
 //------------------------------------------
 
