@@ -14,6 +14,7 @@
 
 #include "process_caps_word.h"
 #include "process_auto_shift.h"
+#include "process_space_cadet.h"
 #include "caps_word.h"
 #include "keycodes.h"
 #include "quantum_keycodes.h"
