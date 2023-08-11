@@ -126,8 +126,9 @@ enum custom_keycodes {
 
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 
-#define SIX_TRNS   _______, _______, _______, _______, _______, _______
 #define THREE_TRNS _______, _______, _______
+#define FOUR_TRNS  _______, _______, _______, _______
+#define SIX_TRNS   _______, _______, _______, _______, _______, _______
 
 // Layer definition
 enum layer_names {
@@ -207,7 +208,7 @@ enum layer_names {
 
 // LAYER 5 RGB
 #define ROW5_LEFT_RGB SIX_TRNS
-#define ROW4_LEFT_RGB QK_RBT , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define ROW4_LEFT_RGB QK_RBT , QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #define ROW3_LEFT_RGB RGB_TOG, RGB_MOD, RGB_SAI, RGB_HUI, RGB_VAI, RGB_SPI
 #define ROW2_LEFT_RGB XXXXXXX,RGB_RMOD, RGB_SAD, RGB_HUD, RGB_VAD, RGB_SPD
 #define ROW1_LEFT_RGB                            XXXXXXX, XXXXXXX, RGB_LYR
@@ -266,12 +267,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_ORANGE); rgblight_mode_noeeprom(1); }
             break;
         case _5_RGB:
-            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_TEAL); rgblight_mode_noeeprom(1); }
+            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_PINK); rgblight_mode_noeeprom(1); }
             break;
         case _6_FN:
             if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_PURPLE); rgblight_mode_noeeprom(1); }
             break;
-        default: //  for any other layers, or the default layer
+        default: //  for any other layers
             if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_WHITE); rgblight_mode_noeeprom(1); }
             break;
     }
