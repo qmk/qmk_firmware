@@ -15,6 +15,7 @@
     },
     "features": {
         "mousekey": true,
+        "oled": true,
         "extrakey": true,
         "encoder": true
     },
