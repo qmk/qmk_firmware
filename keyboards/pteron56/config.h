@@ -17,8 +17,6 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "config_common.h"
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6D4B
 #define PRODUCT_ID      0x7056
