@@ -9,7 +9,9 @@ Initially developed by [FSund](https://github.com/fsund), this keyboard was desi
 Users have reported reduced finger movement, reduced wrist movement, and better typing comfort and swiftness with the Pteron layouts compared to a standard keyboard. 
 
 * Keyboard Maintainer: [Alex Moore](https://github.com/kraken-jokes)
-* Hardware Supported: [PCB]Pteron56v0.2, Pteron56v0.2hsu, Pteron56v0.3, Pteron56v0.4e [MCU]Pro-Micro, Elite-C
+* Hardware Supported:
+    * PCB: Pteron56v0.2, Pteron56v0.2hsu, Pteron56v0.3, Pteron56v0.4e
+    * MCU: Pro-Micro, Elite-C
 * Hardware Availability: moorekeys.etsy.com. Open source though so it varies.
 
 Note: Pteron56v0.1 users can also use this directory, but *must* use the brant keymap (pteron56:brant)
