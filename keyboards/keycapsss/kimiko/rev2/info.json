@@ -17,7 +17,12 @@
         "mousekey": true,
         "oled": true,
         "extrakey": true,
-        "encoder": true
+        "encoder": true,
+        "nkro": true,
+        "lto": true
+    },
+    "build": {
+        "lto": true
     },
     "rgblight": {
         "split": true,

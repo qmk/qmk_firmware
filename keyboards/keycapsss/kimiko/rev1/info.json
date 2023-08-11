@@ -12,7 +12,22 @@
         "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
         "rows": ["C6", "D7", "E6", "B4", "B5"]
     },
-    "diode_direction": "COL2ROW",
+    "features": {
+        "mousekey": true,
+        "oled": true,
+        "extrakey": true,
+        "encoder": true,
+        "nkro": true,
+        "lto": true
+    },
+    "build": {
+        "lto": true
+    },
+    "rgblight": {
+        "split": true,
+        "led_count": 60,
+        "split_count": [30, 30]
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "F4", "pin_b": "F5"}
