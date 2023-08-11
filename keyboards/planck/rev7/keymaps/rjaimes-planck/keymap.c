@@ -18,7 +18,7 @@
 
 enum planck_layers { _COLEMAK, _QWERTY, _DVORAK, _LOWER, _RAISE, _MOUSE, _PLOVER, _ADJUST };
 
-enum planck_keycodes { COLEMAK = SAFE_RANGE, QWERTY, DVORAK, PLOVER, BACKLIT, EXT_PLV, ARROW, MACRO_QUOTE };
+enum planck_keycodes { COLEMAK = SAFE_RANGE, QWERTY, DVORAK, PLOVER, BACKLIT, EXT_PLV, ARROW, MACRO_QUOTE, A_CHIQUITA };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -103,17 +103,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
-    KC_TILD,        KC_EXLM,            KC_AT,               KC_HASH,             KC_DLR,              KC_PERC,        KC_CIRC,        KC_AMPR,            KC_ASTR,            KC_LPRN,            KC_RPRN,            KC_TRANSPARENT,
+    KC_TILD,        KC_EXLM,            KC_AT,               KC_HASH,             KC_DLR,              KC_PERC,        KC_CIRC,        KC_AMPR,            KC_ASTR,            KC_LPRN,            KC_RPRN,            _______,
     KC_GRAVE,       MT(MOD_LCTL, KC_1), MT(MOD_LGUI, KC_2),  MT(MOD_LALT, KC_3),  MT(MOD_LSFT, KC_4),  KC_5,           KC_6,           MT(MOD_RSFT, KC_7), MT(MOD_LALT, KC_8), MT(MOD_LGUI, KC_9), MT(MOD_LCTL, KC_0), KC_QUOTE,
     KC_CAPS,        KC_TRANSPARENT,     KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_MUTE,      KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,    KC_TRANSPARENT,     KC_CAPS,
-    KC_TRANSPARENT, KC_TRANSPARENT,     KC_TRANSPARENT,      KC_TRANSPARENT,      KC_TRANSPARENT,      KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT
+    _______,        _______,            _______,             _______,             _______,             _______,        KC_NO,          _______,            _______,            _______,            _______,            _______
 ),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |      |      |Pg Up |  Up  |Pg Dwn|      |      |      |  =>  |   |  |   \  |      |
+ * |      |      |Pg Up |  Up  |Pg Dwn|      |ª_mac |   ª  |  =>  |   |  |   \  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Home | Left | Down |Right | End  |      |   -  |   =  |   [  |   ]  |  '   |
+ * |      | Home | Left | Down |Right | End  |      |   -  |   =  |   [  |   ]  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | CAPS |      |      |      |      |      |      |  _   |   +  |   {  |   }  | CAPS |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -121,10 +121,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
-    _______, _______, KC_PGUP, KC_UP,   KC_PGDN,  _______, _______, _______,                ARROW,                  KC_PIPE,               KC_BSLS,               _______,
-    _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END,  _______, MT(MOD_RSFT, KC_MINUS), MT(MOD_LALT, KC_EQUAL), MT(MOD_LGUI, KC_LBRC), MT(MOD_LCTL, KC_RBRC), KC_QUOTE,
-    KC_CAPS, _______, _______, _______, _______,  _______, _______, KC_UNDS,                KC_PLUS,                KC_LCBR,               KC_RCBR,               KC_CAPS,
-    _______, _______, _______, _______, _______,  _______, _______, _______,                _______,                _______,               _______,               _______
+    _______, _______, KC_PGUP, KC_UP,   KC_PGDN,  _______, LALT(KC_9), A_CHIQUITA,             ARROW,                  KC_PIPE,               KC_BSLS,               _______,
+    _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END,  _______,    MT(MOD_RSFT, KC_MINUS), MT(MOD_LALT, KC_EQUAL), MT(MOD_LGUI, KC_LBRC), MT(MOD_LCTL, KC_RBRC), _______,
+    KC_CAPS, _______, _______, _______, _______,  _______, _______,    KC_UNDS,                KC_PLUS,                KC_LCBR,               KC_RCBR,               KC_CAPS,
+    _______, _______, _______, _______, _______,  _______, _______,    _______,                _______,                _______,               _______,               _______
 ),
 
 [_MOUSE] = LAYOUT_planck_grid(
@@ -250,6 +250,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MACRO_QUOTE:
              if (record->event.pressed) {
                 SEND_STRING("' ");
+             }
+            return true;
+            break;
+        case A_CHIQUITA:
+             if (record->event.pressed) {
+                SEND_STRING("ª");
              }
             return true;
             break;
