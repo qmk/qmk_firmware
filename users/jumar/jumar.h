@@ -85,7 +85,7 @@ enum jumar_taps{
 #define ALT_BSP  LALT_T(KC_BSPC)
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Tab, twice for Escape
   [TAB_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_ESC),
   [SFT_CPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
@@ -207,7 +207,7 @@ enum layer_names {
 
 // LAYER 5 RGB
 #define ROW5_LEFT_RGB SIX_TRNS
-#define ROW4_LEFT_RGB RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define ROW4_LEFT_RGB QK_RBT , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 #define ROW3_LEFT_RGB RGB_TOG, RGB_MOD, RGB_SAI, RGB_HUI, RGB_VAI, RGB_SPI
 #define ROW2_LEFT_RGB XXXXXXX,RGB_RMOD, RGB_SAD, RGB_HUD, RGB_VAD, RGB_SPD
 #define ROW1_LEFT_RGB                            XXXXXXX, XXXXXXX, RGB_LYR
@@ -242,37 +242,37 @@ void keyboard_post_init_user(void) {
   // Set default layer, if enabled
   if (user_config.rgb_layer_change) {
     rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom_blue();
+    rgblight_sethsv_noeeprom(HSV_BLUE);
     rgblight_mode_noeeprom(1);
   }
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case _0_QWERTY:
-            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_blue(); rgblight_mode_noeeprom(1); }
+            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_BLUE); rgblight_mode_noeeprom(1); }
             break;
         case _1_SYMBOLS_NUMPAD:
-            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_chartreuse(); rgblight_mode_noeeprom(1); }
+            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_CHARTREUSE); rgblight_mode_noeeprom(1); }
             break;
         case _2_MOUSE_MEDIA:
-            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_coral(); rgblight_mode_noeeprom(1); }
+            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_CORAL); rgblight_mode_noeeprom(1); }
             break;
         case _3_NAV:
-            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_red(); rgblight_mode_noeeprom(1); }
+            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_RED); rgblight_mode_noeeprom(1); }
             break;
         case _4_GAM:
-            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_orange(); rgblight_mode_noeeprom(1); }
+            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_ORANGE); rgblight_mode_noeeprom(1); }
             break;
         case _5_RGB:
-            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_teal(); rgblight_mode_noeeprom(1); }
+            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_TEAL); rgblight_mode_noeeprom(1); }
             break;
         case _6_FN:
-            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_purple(); rgblight_mode_noeeprom(1); }
+            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_PURPLE); rgblight_mode_noeeprom(1); }
             break;
         default: //  for any other layers, or the default layer
-            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_white(); rgblight_mode_noeeprom(1); }
+            if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom(HSV_WHITE); rgblight_mode_noeeprom(1); }
             break;
     }
   return state;
@@ -309,7 +309,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
 
   // use the non noeeprom versions, to write these values to EEPROM too
   rgblight_enable(); // Enable RGB by default
-  rgblight_sethsv_noeeprom_blue();  // Set it to oranrge by default
+  rgblight_sethsv_noeeprom(HSV_BLUE);  // Set it to blue by default
   rgblight_mode(1); // set to solid by default
 }
 
@@ -322,7 +322,7 @@ void matrix_init_user_RGB_LYR(void) {
   // Set default layer, if enabled
   if (user_config.rgb_layer_change) {
     rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom_blue();
+    rgblight_sethsv_noeeprom(HSV_BLUE);
     rgblight_mode_noeeprom(1);
   }
 }
