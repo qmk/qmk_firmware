@@ -110,6 +110,7 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
 #        endif // COMMAND_ENABLE
         ) {
             caps_word_on();
+            reset_space_cadet();
         }
 #    endif     // defined(COMMAND_ENABLE) && !defined(IS_COMMAND)
 #endif         // BOTH_SHIFTS_TURNS_ON_CAPS_WORD
