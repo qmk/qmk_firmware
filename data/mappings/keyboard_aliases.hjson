@@ -1013,6 +1013,51 @@
     "nebula68b": {
         "target": "spaceholdings/nebula68b"
     },
+    "nightly_boards/adellein": {
+        "target": "deskdaily/adellein"
+    },
+	"nightly_boards/alter/rev1": {
+        "target": "deskdaily/alter/rev1"
+    },
+	"nightly_boards/alter_lite": {
+        "target": "deskdaily/alter_lite"
+    },
+	"nightly_boards/conde60": {
+        "target": "deskdaily/conde60"
+    },
+	"nightly_boards/daily60": {
+        "target": "deskdaily/daily60"
+    },
+	"nightly_boards/jisoo": {
+        "target": "deskdaily/jisoo"
+    },
+	"nightly_boards/n2": {
+        "target": "deskdaily/n2"
+    },
+	"nightly_boards/n9": {
+        "target": "deskdaily/n9"
+    },
+	"nightly_boards/n40_o": {
+        "target": "deskdaily/n40_o"
+    },
+	"nightly_boards/n60_s": {
+        "target": "deskdaily/n60_s"
+    },
+	"nightly_boards/n87": {
+        "target": "deskdaily/n87"
+    },
+	"nightly_boards/octopad": {
+        "target": "deskdaily/octopad"
+    },
+	"nightly_boards/octopadplus": {
+        "target": "deskdaily/octopadplus"
+    },
+	"nightly_boards/paraluman": {
+        "target": "deskdaily/paraluman"
+    },
+	"nightly_boards/ph_arisu": {
+        "target": "deskdaily/ph_arisu"
+    },
     "niu_mini": {
         "target": "kbdfans/niu_mini"
     },
@@ -1312,51 +1357,5 @@
     },
     "zinc/reva": {
         "target": "25keys/zinc/reva"
-    },
-    // Moved nightly_boards to deskdaily
-    "nightly_boards/adellein": {
-        "target": "deskdaily/adellein"
-    },
-	"nightly_boards/alter/rev1": {
-        "target": "deskdaily/alter/rev1"
-    },
-	"nightly_boards/alter_lite": {
-        "target": "deskdaily/alter_lite"
-    },
-	"nightly_boards/conde60": {
-        "target": "deskdaily/conde60"
-    },
-	"nightly_boards/daily60": {
-        "target": "deskdaily/daily60"
-    },
-	"nightly_boards/jisoo": {
-        "target": "deskdaily/jisoo"
-    },
-	"nightly_boards/n2": {
-        "target": "deskdaily/n2"
-    },
-	"nightly_boards/n9": {
-        "target": "deskdaily/n9"
-    },
-	"nightly_boards/n40_o": {
-        "target": "deskdaily/n40_o"
-    },
-	"nightly_boards/n60_s": {
-        "target": "deskdaily/n60_s"
-    },
-	"nightly_boards/n87": {
-        "target": "deskdaily/n87"
-    },
-	"nightly_boards/octopad": {
-        "target": "deskdaily/octopad"
-    },
-	"nightly_boards/octopadplus": {
-        "target": "deskdaily/octopadplus"
-    },
-	"nightly_boards/paraluman": {
-        "target": "deskdaily/paraluman"
-    },
-	"nightly_boards/ph_arisu": {
-        "target": "deskdaily/ph_arisu"
     }
 }
