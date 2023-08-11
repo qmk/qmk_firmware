@@ -107,7 +107,7 @@ void unicode_hex2output_single (long unsigned int either) {
 
 
 // Required by QMK Unicode
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
 
 };
 

@@ -1,6 +1,6 @@
 // Copyright (C) 2022 @filterpaper
 // SPDX-License-Identifier: GPL-2.0-or-later
-// Inspired from 4x12 fractal created by @schwarzgrau
+// Inspired by 4x12 fractal from @GEIGEIGEIST
 
 #ifdef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 RGB_MATRIX_EFFECT(PIXEL_FRACTAL)

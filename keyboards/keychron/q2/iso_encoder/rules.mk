@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32L433
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,7 +13,6 @@ AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Enable Encoder
 DIP_SWITCH_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = CKLED2001
 EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = embedded_flash
 

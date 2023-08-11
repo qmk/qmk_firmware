@@ -18,13 +18,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#ifndef SOFT_SERIAL_PIN
-#define SOFT_SERIAL_PIN D2
-#endif
-
-#define DIODE_DIRECTION COL2ROW
-
 // Use the lily version to get the Lily58 logo instead of the qmk logo
 #define OLED_FONT_H "lib/glcdfont_lily.c"

@@ -21,8 +21,8 @@
 
 void led_init_animation(void);
 void led_set_layer(int layer);
-void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data);
-void td_spectacles_reset(qk_tap_dance_state_t *state, void *user_data);
+void td_spectacles_finish(tap_dance_state_t *state, void *user_data);
+void td_spectacles_reset(tap_dance_state_t *state, void *user_data);
 
 enum layer_led_mode {
     ALL_LAYERS_OFF = -1,
@@ -47,7 +47,7 @@ enum mini_layers {
 
 enum { TD_SPEC = 0 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for spectacles macro, hold for layer toggle */
     [TD_SPEC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_spectacles_finish, td_spectacles_reset),
 };
@@ -222,7 +222,7 @@ void set_layer_led(int layerLedMode) {
     }
 }
 
-void led_init_animation() {
+void led_init_animation(void) {
     for (int i = ALL_LAYERS_OFF; i <= ALL_LAYERS_ON; i++) {
         led_set_layer(i);
     }
@@ -295,7 +295,7 @@ void matrix_init_user(void) {
     led_init_animation();
 }
 
-void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data) {
+void td_spectacles_finish(tap_dance_state_t *state, void *user_data) {
     if (state->pressed) {
         layer_on(_LAYER_SELECT);
     } else {
@@ -303,4 +303,4 @@ void td_spectacles_finish(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_spectacles_reset(qk_tap_dance_state_t *state, void *user_data) { layer_off(_LAYER_SELECT); }
+void td_spectacles_reset(tap_dance_state_t *state, void *user_data) { layer_off(_LAYER_SELECT); }

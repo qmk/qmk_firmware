@@ -16,21 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-#define MATRIX_ROW_PINS { F6, F5, F4, F1, F0 }
-#define MATRIX_COL_PINS { B0, B1, B2, B3, B7, D4, D6, D7, B4, B5, B6, C6, C7, F7 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_LED_PROCESS_LIMIT 4

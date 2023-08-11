@@ -10,38 +10,29 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 ## What has been included in past Breaking Changes?
 
+* [2023 May 28](ChangeLog/20230528.md)
+* [2023 Feb 26](ChangeLog/20230226.md)
 * [2022 Nov 26](ChangeLog/20221126.md)
-* [2022 Aug 27](ChangeLog/20220827.md)
-* [2022 May 28](ChangeLog/20220528.md)
-* [2022 Feb 26](ChangeLog/20220226.md)
-* [2021 Nov 27](ChangeLog/20211127.md)
-* [2021 Aug 28](ChangeLog/20210828.md)
-* [2021 May 29](ChangeLog/20210529.md)
-* [2021 Feb 27](ChangeLog/20210227.md)
-* [2020 Nov 28](ChangeLog/20201128.md)
-* [2020 Aug 29](ChangeLog/20200829.md)
-* [2020 May 30](ChangeLog/20200530.md)
-* [2020 Feb 29](ChangeLog/20200229.md)
-* [2019 Aug 30](ChangeLog/20190830.md)
+* [Older Breaking Changes](breaking_changes_history.md)
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for February 26, 2023.
+The next Breaking Change is scheduled for August 27, 2023.
 
 ### Important Dates
 
-* 2022 Nov 26 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2023 Jan 29 - `develop` closed to new PRs.
-* 2023 Jan 29 - Call for testers.
-* 2023 Feb 12 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2023 Feb 19 - `develop` is locked, only critical bugfix PRs merged.
-* 2023 Feb 24 - `master` is locked, no PRs merged.
-* 2023 Feb 26 - Merge `develop` to `master`.
-* 2023 Feb 26 - `master` is unlocked. PRs can be merged again.
+* 2023 May 28 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* 2023 Jul 30 - `develop` closed to new PRs.
+* 2023 Jul 30 - Call for testers.
+* 2023 Aug 13 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2023 Aug 20 - `develop` is locked, only critical bugfix PRs merged.
+* 2023 Aug 25 - `master` is locked, no PRs merged.
+* 2023 Aug 27 - Merge `develop` to `master`.
+* 2023 Aug 27 - `master` is unlocked. PRs can be merged again.
 
 ## What changes will be included?
 
-To see a list of breaking changes merge candidates you can look at the [`core` label](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+label%3Acore+is%3Apr). This label is applied whenever a PR is raised or changed, but only if the PR includes changes to core areas of QMK Firmware. A PR with that label applied is not guaranteed to be merged in the current cycle. New changes might be added between now and when `develop` is closed, and it is generally the responsibility of the submitter to handle conflicts. There is also another label used by QMK Collaborators -- `breaking_change_YYYYqN` -- which signifies to maintainers that it is a strong candidate for inclusion, and should be prioritised for review.
+To see a list of breaking changes merge candidates you can look at the [`core` label](https://github.com/qmk/qmk_firmware/pulls?q=is%3Aopen+label%3Acore+is%3Apr). This label is applied whenever a PR is raised or changed, but only if the PR includes changes to core areas of QMK Firmware. A PR with that label applied is not guaranteed to be merged in the current cycle. New changes might be added between now and when `develop` is closed, and it is generally the responsibility of the submitter to handle conflicts. There is also another label used by QMK Collaborators -- `breaking_change_YYYYqN` -- which signifies to maintainers that it is a strong candidate for inclusion, and should be prioritized for review.
 
 If you want your breaking change to be included in this round you need to create a PR and have it accepted by QMK Collaborators before `develop` closes. After `develop` closes, new submissions will be deferred to the next breaking changes cycle.
 
@@ -57,7 +48,7 @@ Criteria for acceptance:
 
 Strongly suggested:
 
-* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20221126`.
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20230827`.
     * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PRs ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 
@@ -134,12 +125,12 @@ This happens immediately after the previous `develop` branch is merged to `maste
     * Validate each submodule SHA1 matches the qmk fork, e.g. for ChibiOS:
         * Go to [qmk/ChibiOS](https://github.com/qmk/ChibiOS)
         * Compare the commit hash in the above output to the commit hash in the repository
-        * If there's a mismatch, that repository needs to have its `master` branch updated to match (otherwise Configurator won't work):
+        * If there's a mismatch, that repository needs to have its `qmk-master` branch updated to match (otherwise Configurator won't work):
             * `cd lib/chibios`
             * `git fetch --all`
-            * `git checkout master`
+            * `git checkout qmk-master`
             * `git reset --hard <commit hash>`
-            * `git push origin master --force-with-lease`
+            * `git push origin qmk-master --force-with-lease`
 
 * Announce that both `master` and `develop` are now unlocked -- message `@Breaking Changes Updates` on `#qmk_firmware` in Discord:
     * `@Breaking Changes Updates -- Hey folks, develop has now been merged into master -- newest batch of changes are now available for everyone to use!`

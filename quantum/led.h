@@ -55,9 +55,10 @@ void led_wakeup(void);
 
 void led_task(void);
 
-/* Callbacks */
+/* Deprecated callbacks */
 void led_set_user(uint8_t usb_led);
-void led_set_kb(uint8_t usb_led);
+
+/* Callbacks */
 bool led_update_user(led_t led_state);
 bool led_update_kb(led_t led_state);
 void led_update_ports(led_t led_state);

@@ -19,18 +19,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
-
-#define DIRECT_PINS {{D4,D5,B1}, {C3,C2,C1}}
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 10
-
-/* Optional encoder pins */
-#define ENCODERS_PAD_A { D6 }
-#define ENCODERS_PAD_B { D7 }
 #define TAP_CODE_DELAY 10

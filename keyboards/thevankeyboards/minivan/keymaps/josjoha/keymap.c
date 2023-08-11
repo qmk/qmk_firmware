@@ -288,7 +288,7 @@ void speed_led (int speed) {
 
 
 // do this in one place to handle left/right leds being off here
-void isolate_rgblight_set () {
+void isolate_rgblight_set (void) {
 
 # ifdef RGBLIGHT_ENABLE
     if (!leds_on) { // left/right leds are off

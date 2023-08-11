@@ -17,20 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-#define MATRIX_COL_PINS { A3 , B8 , B9 , B1 , B0 , B5 , B4 , B3 , A15, A8 , A1 , A0 , C15, C14, C13}
-#define MATRIX_ROW_PINS { B10, A10, A2 , A5 , A7 }
-
-#define DIODE_DIRECTION COL2ROW
-
-#define LED_CAPS_LOCK_PIN A4
-
-#define DEBOUNCE 5
-
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
 

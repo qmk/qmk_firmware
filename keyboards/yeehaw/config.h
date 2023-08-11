@@ -15,27 +15,10 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 14
-
-/* Keyboard Matrix Assignments */
-#define DIRECT_PINS { \
-{ D2, D4, C6, E6, F5, B1, D3, D7, B4, F6, B3, B5, F7, F4 } \
-}
-
-#define ENCODERS_PAD_A { D1 }
-#define ENCODERS_PAD_B { D0 }
-
-#define RGB_DI_PIN B2
-#ifdef RGB_DI_PIN
   #define RGBLED_NUM 7
   #define RGBLIGHT_HUE_STEP 8
   #define RGBLIGHT_SAT_STEP 8
   #define RGBLIGHT_VAL_STEP 8
-  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -47,4 +30,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif

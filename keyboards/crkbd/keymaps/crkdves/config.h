@@ -26,10 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 #define TAPPING_TERM 200
 // #define RETRO_TAPPING
-// #define IGNORE_MOD_TAP_INTERRUPT
 
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_SLEEP

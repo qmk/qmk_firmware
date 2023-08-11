@@ -43,7 +43,6 @@ enum custom_keycodes {
 #define ML_RAIE MO(_RAI_E)
 #define ML_ADJ  MO(_ADJUST)
 
-#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Qwerty JIS Normal
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -58,12 +57,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Ctrl | GUI  | Alt  |Adjust|Lower |Space |Bksp  |Space |Space |Raise | APP  | Left | Down |Right |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_BASE] = LAYOUT( \
-    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
-    JP_ZKHK, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_AT,   \
-    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_COLN, \
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,  \
-    KC_LCTL, KC_LALT, KC_LGUI, ML_ADJ,  ML_LOW,  KC_SPC,  KC_BSPC, KC_SPC,  KC_SPC,  ML_RAI,  KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT  \
+  [_BASE] = LAYOUT(
+    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+    JP_ZKHK, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_AT,
+    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_COLN,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,
+    KC_LCTL, KC_LALT, KC_LGUI, ML_ADJ,  ML_LOW,  KC_SPC,  KC_BSPC, KC_SPC,  KC_SPC,  ML_RAI,  KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
   /* Qwerty JIS Exchange L and R
@@ -79,12 +78,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Space |Raise |  }]  | APP  | Left | Down |Right |Adjust| Ctrl | GUI  | Alt  |  [{  |Lower | Bksp |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_BAS_E] = LAYOUT( \
-    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,                   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   \
-    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_AT,                     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   \
-    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_COLN,                   XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   \
-    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_ENT,  JP_ZKHK, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   \
-    KC_SPC,  ML_RAIE, JP_RBRC, KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT, ML_ADJ,  KC_LCTL, KC_LALT, KC_LGUI, JP_LBRC, ML_LOWE, KC_BSPC \
+  [_BAS_E] = LAYOUT(
+    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,                   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_AT,                     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_COLN,                   XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_ENT,  JP_ZKHK, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
+    KC_SPC,  ML_RAIE, JP_RBRC, KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT, ML_ADJ,  KC_LCTL, KC_LALT, KC_LGUI, JP_LBRC, ML_LOWE, KC_BSPC
     ),
 
   /* Lower JIS Normal
@@ -100,12 +99,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |      | Del  |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_LOWER] = LAYOUT( \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, JP_CIRC, JP_YEN,  \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_AT,   JP_LBRC, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_SCLN, JP_COLN, JP_RBRC, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, JP_BSLS, \
-    _______, _______, _______, _______, XXXXXXX, XXXXXXX, KC_DEL,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+  [_LOWER] = LAYOUT(
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, JP_CIRC, JP_YEN,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_AT,   JP_LBRC,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_SCLN, JP_COLN, JP_RBRC,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, JP_BSLS,
+    _______, _______, _______, _______, XXXXXXX, XXXXXXX, KC_DEL,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
   /* Lower JIS Exchange L and R
@@ -121,12 +120,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      | Home |PageDn| End  |      |      |      |      |      |      | Del  |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_LOW_E] = LAYOUT( \
-    _______, XXXXXXX, XXXXXXX, KC_MINS, JP_CIRC, JP_YEN,                    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, JP_AT,   JP_LBRC,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, XXXXXXX, XXXXXXX, KC_SCLN, JP_COLN, JP_RBRC,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, KC_COMM, KC_DOT,  KC_SLSH, JP_BSLS, KC_PGUP, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, _______, XXXXXXX, _______, KC_HOME, KC_PGDN, KC_END,  _______, _______, _______, _______, XXXXXXX, _______, KC_DEL   \
+  [_LOW_E] = LAYOUT(
+    _______, XXXXXXX, XXXXXXX, KC_MINS, JP_CIRC, JP_YEN,                    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, JP_AT,   JP_LBRC,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, KC_SCLN, JP_COLN, JP_RBRC,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, KC_COMM, KC_DOT,  KC_SLSH, JP_BSLS, KC_PGUP, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, _______, XXXXXXX, _______, KC_HOME, KC_PGDN, KC_END,  _______, _______, _______, _______, XXXXXXX, _______, KC_DEL
     ),
 
   /* Raise JIS Normal
@@ -142,12 +141,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |      |      |      |      |      |      |MsLeft|MsDown|MsRght|
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_RAISE] = LAYOUT( \
-    _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_WH_L, KC_WH_U, KC_HOME, KC_PGUP, KC_F12,  \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_WH_R, KC_WH_D, KC_END,  KC_PGDN, XXXXXXX, \
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX, \
-    _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R  \
+  [_RAISE] = LAYOUT(
+    _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_WH_L, KC_WH_U, KC_HOME, KC_PGUP, KC_F12,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_WH_R, KC_WH_D, KC_END,  KC_PGDN, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX,
+    _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R
     ),
 
   /* Raise JIS Exchange L and R
@@ -163,12 +162,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |MsLeft|MsDown|MsRght|      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_RAI_E] = LAYOUT( \
-    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,                    _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,   \
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_U, KC_F12,                    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_R, KC_WH_D, XXXXXXX,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-    _______, _______, XXXXXXX, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, XXXXXXX, _______, XXXXXXX  \
+  [_RAI_E] = LAYOUT(
+    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,                    _______, KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_U, KC_F12,                    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_WH_R, KC_WH_D, XXXXXXX,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, _______, XXXXXXX, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, XXXXXXX, _______, XXXXXXX
     ),
 
   /* Adjust (Lower + Raise) Common map for Normal and Exchange
@@ -184,18 +183,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_ADJUST] =  LAYOUT( \
-    XXXXXXX, QK_BOOT, RGBRST,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, QK_BOOT, RGBRST,  XXXXXXX, XXXXXXX, XXXXXXX, \
-    XXXXXXX, DL_BAS,  DL_BASE, AG_NORM, AG_SWAP, XXXXXXX,                   XXXXXXX, DL_BAS,  DL_BASE, AG_NORM, AG_SWAP, XXXXXXX, \
-    XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,                   XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, \
-    XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
+  [_ADJUST] =  LAYOUT(
+    XXXXXXX, QK_BOOT, RGBRST,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, QK_BOOT, RGBRST,  XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, DL_BAS,  DL_BASE, AG_NORM, AG_SWAP, XXXXXXX,                   XXXXXXX, DL_BAS,  DL_BASE, AG_NORM, AG_SWAP, XXXXXXX,
+    XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,                   XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,
+    XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 };
-
-#else
-#error "undefined keymaps"
-#endif
 
 #if defined(SSD1306OLED) || defined(OLED_ENABLE)
 char keylog[24] = {};

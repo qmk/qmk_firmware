@@ -69,7 +69,7 @@ enum unicode_names {
   SUM,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [DEGR]  = 0x00B0, // °
   [PONE]  = 0x00B1, // ±
   [POW2]  = 0x00B2, // ²

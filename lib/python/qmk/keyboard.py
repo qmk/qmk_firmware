@@ -98,14 +98,18 @@ def keyboard_completer(prefix, action, parser, parsed_args):
     return list_keyboards()
 
 
-def list_keyboards():
-    """Returns a list of all keyboards.
+def list_keyboards(resolve_defaults=True):
+    """Returns a list of all keyboards - optionally processing any DEFAULT_FOLDER.
     """
     # We avoid pathlib here because this is performance critical code.
     kb_wildcard = os.path.join(base_path, "**", "rules.mk")
     paths = [path for path in glob(kb_wildcard, recursive=True) if os.path.sep + 'keymaps' + os.path.sep not in path]
 
-    return sorted(set(map(resolve_keyboard, map(_find_name, paths))))
+    found = map(_find_name, paths)
+    if resolve_defaults:
+        found = map(resolve_keyboard, found)
+
+    return sorted(set(found))
 
 
 def resolve_keyboard(keyboard):
@@ -178,7 +182,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
 
         if x >= 0.25 and w == 1.25 and h == 2:
             render_key_isoenter(textpad, x, y, w, h, label, style)
-        elif w == 2.25 and h == 2:
+        elif w == 1.5 and h == 2:
             render_key_baenter(textpad, x, y, w, h, label, style)
         else:
             render_key_rect(textpad, x, y, w, h, label, style)
@@ -271,7 +275,7 @@ def render_key_baenter(textpad, x, y, w, h, label, style):
     w = ceil(w * 4)
     h = ceil(h * 3)
 
-    label_len = w - 2
+    label_len = w + 1
     label_leftover = label_len - len(label)
 
     if len(label) > label_len:
@@ -288,9 +292,9 @@ def render_key_baenter(textpad, x, y, w, h, label, style):
     lab_line = array('u', box_chars['v'] + label_middle + box_chars['v'])
     bot_line = array('u', box_chars['bl'] + label_border_bottom + box_chars['br'])
 
-    textpad[y][x + 3:x + w] = top_line
-    textpad[y + 1][x + 3:x + w] = mid_line
-    textpad[y + 2][x + 3:x + w] = mid_line
-    textpad[y + 3][x:x + w] = crn_line
-    textpad[y + 4][x:x + w] = lab_line
-    textpad[y + 5][x:x + w] = bot_line
+    textpad[y][x:x + w] = top_line
+    textpad[y + 1][x:x + w] = mid_line
+    textpad[y + 2][x:x + w] = mid_line
+    textpad[y + 3][x - 3:x + w] = crn_line
+    textpad[y + 4][x - 3:x + w] = lab_line
+    textpad[y + 5][x - 3:x + w] = bot_line

@@ -41,7 +41,6 @@
     * [Keymap Overview](keymap.md)
     * Development Environments
       * [Docker Guide](getting_started_docker.md)
-      * [Vagrant Guide](getting_started_vagrant.md)
     * Flashing
       * [Flashing](flashing.md)
       * [Flashing ATmega32A (ps2avrgb)](flashing_bootloadhid.md)
@@ -71,6 +70,7 @@
     * [Macros](feature_macros.md)
     * [Mouse Keys](feature_mouse_keys.md)
     * [Programmable Button](feature_programmable_button.md)
+    * [Repeat Key](feature_repeat_key.md)
     * [Space Cadet Shift](feature_space_cadet.md)
     * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
@@ -85,6 +85,7 @@
     * [Key Overrides](feature_key_overrides.md)
     * [Layers](feature_layers.md)
     * [One Shot Keys](one_shot_keys.md)
+    * [OS Detection](feature_os_detection.md)
     * [Raw HID](feature_rawhid.md)
     * [Secure](feature_secure.md)
     * [Send String](feature_send_string.md)
@@ -92,6 +93,7 @@
     * [Swap Hands](feature_swap_hands.md)
     * [Tap Dance](feature_tap_dance.md)
     * [Tap-Hold Configuration](tap_hold.md)
+    * [Tri Layer](feature_tri_layer.md)
     * [Unicode](feature_unicode.md)
     * [Userspace](feature_userspace.md)
     * [WPM Calculation](feature_wpm.md)
@@ -99,6 +101,7 @@
   * Hardware Features
     * Displays
       * [Quantum Painter](quantum_painter.md)
+        * [Quantum Painter LVGL Integration](quantum_painter_lvgl.md)
       * [HD44780 LCD Driver](feature_hd44780.md)
       * [ST7565 LCD Driver](feature_st7565.md)
       * [OLED Driver](feature_oled_driver.md)
@@ -136,7 +139,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20221126.md "QMK v0.19.0 - 2022 Nov 26")
+    * [Most Recent ChangeLog](ChangeLog/20230528.md "QMK v0.21.0 - 2023 May 28")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development

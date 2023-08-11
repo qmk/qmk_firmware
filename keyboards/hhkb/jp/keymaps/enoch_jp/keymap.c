@@ -42,25 +42,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_PSCR, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_LEFT, KC_RGHT, _______, KC_PENT,
         _______, _______, _______, _______, _______, _______, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)};
-
-/*void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-	leading = false;
-	leader_end();
-
-	SEQ_ONE_KEY(KC_RSFT) {
-	  register_code(KC_S);
-	  unregister_code(KC_S);
-	}
-	SEQ_TWO_KEYS(KC_A, KC_S) {
-	  register_code(KC_H);
-	  unregister_code(KC_H);
-	}
-	SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
-	  register_code(KC_LGUI);
-	  register_code(KC_S);
-	  unregister_code(KC_S);
-	  unregister_code(KC_LGUI);
-	}
-  }
-}*/

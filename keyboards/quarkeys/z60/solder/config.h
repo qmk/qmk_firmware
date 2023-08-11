@@ -14,18 +14,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-#define DIODE_DIRECTION COL2ROW
-
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4 }
-#define MATRIX_COL_PINS { E6, F0, F7, F1, F6, F5, F4, C7, B7, D5, C6, B6, B5, D7, D4 }
-
-#define DEBOUNCE 5
-
-#define RGB_DI_PIN D6
 #define RGBLED_NUM 77
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
@@ -43,7 +31,6 @@
 
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-#define RGBLIGHT_LIMIT_VAL 180
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 
 #define RGBLIGHT_SLEEP

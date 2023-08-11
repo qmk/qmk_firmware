@@ -130,18 +130,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_TWO_KEYS(KC_G, KC_P) {
-            SEND_STRING("git push");
-        }
-        SEQ_THREE_KEYS(KC_G, KC_F, KC_P) {
-            SEND_STRING("git push --force-with-lease");
-        }
+void leader_end_user(void) {
+    if (leader_sequence_two_keys(KC_G, KC_P)) {
+        SEND_STRING("git push");
+    }
+    if (leader_sequence_three_keys(KC_G, KC_F, KC_P)) {
+        SEND_STRING("git push --force-with-lease");
     }
 }

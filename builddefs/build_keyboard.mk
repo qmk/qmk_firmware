@@ -29,6 +29,11 @@ KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
 KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
 
+ifeq ($(strip $(DUMP_CI_METADATA)),yes)
+    $(info CI Metadata: KEYBOARD=$(KEYBOARD))
+    $(info CI Metadata: KEYMAP=$(KEYMAP))
+endif
+
 # Force expansion
 TARGET := $(TARGET)
 
@@ -183,7 +188,14 @@ endif
 
 include $(BUILDDEFS_PATH)/converters.mk
 
-include $(BUILDDEFS_PATH)/mcu_selection.mk
+MCU_ORIG := $(MCU)
+include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
+
+# PLATFORM_KEY should be detected in info.json via key 'processor' (or rules.mk 'MCU')
+ifeq ($(PLATFORM_KEY),)
+    $(call CATASTROPHIC_ERROR,Platform not defined)
+endif
+PLATFORM=$(shell echo $(PLATFORM_KEY) | tr '[:lower:]' '[:upper:]')
 
 # Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
@@ -258,24 +270,6 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/$(KEYBOARD_FOLDER_5).h)","")
     FOUND_KEYBOARD_H = $(KEYBOARD_FOLDER_5).h
 endif
 
-# Determine and set parameters based on the keyboard's processor family.
-# We can assume a ChibiOS target When MCU_FAMILY is defined since it's
-# not used for LUFA
-ifdef MCU_FAMILY
-    PLATFORM=CHIBIOS
-    PLATFORM_KEY=chibios
-    FIRMWARE_FORMAT?=bin
-    OPT_DEFS += -DMCU_$(MCU_FAMILY)
-else ifdef ARM_ATSAM
-    PLATFORM=ARM_ATSAM
-    PLATFORM_KEY=arm_atsam
-    FIRMWARE_FORMAT=bin
-else
-    PLATFORM=AVR
-    PLATFORM_KEY=avr
-    FIRMWARE_FORMAT?=hex
-endif
-
 # Find all of the config.h files and add them to our CONFIG_H define.
 CONFIG_H :=
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/config.h)","")
@@ -348,6 +342,15 @@ $(KEYBOARD_OUTPUT)/src/default_keyboard.h: $(INFO_JSON_FILES)
 	@$(BUILD_CMD)
 
 generated-files: $(KEYBOARD_OUTPUT)/src/info_config.h $(KEYBOARD_OUTPUT)/src/default_keyboard.c $(KEYBOARD_OUTPUT)/src/default_keyboard.h
+
+generated-files: $(KEYMAP_OUTPUT)/src/info_deps.d
+
+$(KEYMAP_OUTPUT)/src/info_deps.d:
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-make-dependencies -kb $(KEYBOARD) -km $(KEYMAP) -o $(KEYMAP_OUTPUT)/src/info_deps.d)
+	@$(BUILD_CMD)
+
+-include $(KEYMAP_OUTPUT)/src/info_deps.d
 
 .INTERMEDIATE : generated-files
 
@@ -434,13 +437,6 @@ SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
 
-SKIP_COMPILE := no
-ifneq ($(REQUIRE_PLATFORM_KEY),)
-    ifneq ($(REQUIRE_PLATFORM_KEY),$(PLATFORM_KEY))
-        SKIP_COMPILE := yes
-    endif
-endif
-
 -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/bootloader.mk
 include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
 -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/flash.mk
@@ -458,6 +454,14 @@ $(eval $(call add_qmk_prefix_defs,MCU_PORT_NAME,MCU_PORT_NAME))
 $(eval $(call add_qmk_prefix_defs,MCU_FAMILY,MCU_FAMILY))
 $(eval $(call add_qmk_prefix_defs,MCU_SERIES,MCU_SERIES))
 $(eval $(call add_qmk_prefix_defs,BOARD,BOARD))
+
+# Control whether intermediate file listings are generated
+# e.g.:
+#    make handwired/onekey/blackpill_f411:default KEEP_INTERMEDIATES=yes
+#    cat .build/obj_handwired_onekey_blackpill_f411_default/quantum/quantum.i | sed -e 's@^#.*@@g' -e 's@^\s*//.*@@g' -e '/^\s*$/d' | clang-format
+ifeq ($(strip $(KEEP_INTERMEDIATES)), yes)
+    OPT_DEFS += -save-temps=obj
+endif
 
 # TODO: remove this bodge?
 PROJECT_DEFS := $(OPT_DEFS)
@@ -480,12 +484,7 @@ $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
-ifeq ($(SKIP_COMPILE),no)
 all: build check-size
-else
-all:
-	echo "skipped" >&2
-endif
 
 build: elf cpfirmware
 check-size: build

@@ -33,5 +33,4 @@
 //#define NO_ACTION_ONESHOT
 //
 
-#define SOFT_SERIAL_PIN D2
 #define MASTER_LEFT

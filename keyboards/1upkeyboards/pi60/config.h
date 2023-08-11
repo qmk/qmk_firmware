@@ -3,11 +3,8 @@
 
 #pragma once
 
-#include "config_common.h"
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10
 
-#define RGB_DI_PIN GP17
 #define RGB_MATRIX_LED_COUNT 21
 //#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 //#define RGB_MATRIX_KEYPRESSES

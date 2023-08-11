@@ -16,18 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-enum custom_keycodes {
-#ifdef VIA_ENABLE
-    KC_MISSION_CONTROL = USER00,
-#else
-    KC_MISSION_CONTROL = SAFE_RANGE,
-#endif
-    KC_LAUNCHPAD
-};
-
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
-
 // clang-format off
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -68,31 +56,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 	[0] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN), ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
 	[1] = { ENCODER_CCW_CW(RGB_MOD, RGB_RMOD), ENCODER_CCW_CW(KC_MNXT, KC_MPRV) },
 	[2] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
 	[3] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
 };
 #endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_MISSION_CONTROL:
-            if (record->event.pressed) {
-                host_consumer_send(0x29F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-        case KC_LAUNCHPAD:
-            if (record->event.pressed) {
-                host_consumer_send(0x2A0);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-        default:
-            return true;
-    }
-}
