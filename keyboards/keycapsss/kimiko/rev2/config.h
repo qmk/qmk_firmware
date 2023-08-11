@@ -17,11 +17,6 @@
 #pragma once
 
 /* SK6812 RGB LED are used for lightning*/
-#ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 62  // Total number of LEDs
-#   define RGBLED_SPLIT { 31, 31 } // LEDs per side
-#   define RGBLIGHT_SPLIT
-#endif
 
 // Limit the power draw
 #ifdef IOS_DEVICE_ENABLE
