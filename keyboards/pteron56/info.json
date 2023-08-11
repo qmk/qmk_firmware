@@ -1,5 +1,5 @@
 {
-    "name":"pteron56",
+    "keyboard_name": "pteron56",
     "manufacturer": "Kraken-jokes",
     "url": "https://github.com/kraken-jokes/pteron-pcb",
     "maintainer": "Kraken-jokes",
@@ -8,8 +8,7 @@
         "pid": "0x7056",
         "device_version": "0.2.0"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "matrix_pins": {
         "rows": ["D3", "D2", "F4", "D4", "B5"],
         "cols": ["E6", "B4", "D7", "C6", "D0", "D1", "F6", "F7", "B1", "B3", "B6", "B2"]
@@ -21,11 +20,7 @@
         "extrakey": true,
         "console": false,
         "command": false,
-        "nkro": true,
-        "backlight": false,
-        "rgblight": false,
-        "audio": false,
-        "key_lock": false
+        "nkro": true
     },
     "layouts": {
         "LAYOUT":{
