@@ -10,5 +10,3 @@ AUDIO_ENABLE     = no  # Audio output on port C6
 UNICODE_ENABLE   = no  # Unicode
 BLUETOOTH_ENABLE = no  # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE  = no  # Enable WS2812 RGB underlight. 
-
-CONFIG_H = keymaps/$(KEYMAP)/config.h

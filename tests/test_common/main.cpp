@@ -5,7 +5,7 @@ extern "C" {
 #include "debug.h"
 
 int8_t sendchar(uint8_t c) {
-    fprintf(stderr, "%c", c);
+    fprintf(stdout, "%c", c);
     return 0;
 }
 

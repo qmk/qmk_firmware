@@ -72,8 +72,3 @@ bool led_update_kb(led_t led_state) {
     }
     return true;
 }
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    return true;
-}

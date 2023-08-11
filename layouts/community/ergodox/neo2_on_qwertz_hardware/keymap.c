@@ -5,7 +5,7 @@
 #define UM 0
 
 #define L0   0      // layer_0
-#define L1   1      // layer_1  
+#define L1   1      // layer_1
 #define L2   2      // layer_2
 #define L3   3      // layer_3
 #define L4   4      // layer_4
@@ -344,7 +344,7 @@ void unicode_action_function(uint16_t hi, uint16_t lo) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

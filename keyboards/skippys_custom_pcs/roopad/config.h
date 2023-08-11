@@ -17,42 +17,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x36B6 // skippys_custom_pcs
-#define PRODUCT_ID   0x0001 // RooPad
-#define DEVICE_VER   0x0001 // Version 1
-#define MANUFACTURER    ToastyStoemp
-#define PRODUCT         RooPad
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 5
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *         ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-
-// Checked with Eagle Schematic
-#define MATRIX_ROW_PINS { B5, F6, F5, F4, F1 }
-#define MATRIX_COL_PINS { F0, B4, D7, D6, D4 }
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-#define RGB_DI_PIN B6
 #define RGBLED_NUM 21
 #define RGBLIGHT_SLEEP
 
@@ -66,6 +30,3 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_SNAKE
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

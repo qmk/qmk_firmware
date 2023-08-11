@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C
-#define PRODUCT_ID   0xD181
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Mechlovin.Studio
-#define PRODUCT      Olly BB
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -41,20 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #define MATRIX_ROW_PINS {D6, A5, A4, A3, A6}
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_BREATHING
-
-#define LED_NUM_LOCK_PIN B1
-#define LED_CAPS_LOCK_PIN B0
-#define LED_SCROLL_LOCK_PIN B2
-#define LED_PIN_ON_STATE 1
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN B3
 #define RGBLED_NUM 24
-#define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
 #define RGBLIGHT_EFFECT_BREATHING
@@ -68,5 +49,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

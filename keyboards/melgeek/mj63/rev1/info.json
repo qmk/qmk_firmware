@@ -1,0 +1,10 @@
+{
+    "rgb_matrix": {
+        "driver": "IS31FL3741"
+    },
+    "matrix_pins": {
+        "cols": ["B15", "A8", "A10", "A15", "B3", "B4", "B5", "B8", "B9", "C13", "C14", "C15", "A0", "A1"],
+        "rows": ["B12", "B11", "B10", "B1", "A3"]
+    },
+    "diode_direction": "COL2ROW"
+}

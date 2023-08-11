@@ -240,7 +240,7 @@ void suspend_wakeup_init_user(void) {
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _RAISE:
         rgblight_setrgb (0x00,  0x00, 0xFF);
         break;
@@ -267,7 +267,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 ### `layer_state_set_*` 函数文档
 
-* 键盘/各子版本：`uint32_t layer_state_set_kb(uint32_t state)`
+* 键盘/各子版本：`layer_state_t layer_state_set_kb(layer_state_t state)`
 * 布局: `layer_state_t layer_state_set_user(layer_state_t state)`
 
 
@@ -325,7 +325,7 @@ void keyboard_post_init_user(void) {
 
 ```c
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _RAISE:
         if (user_config.rgb_layer_change) { rgblight_sethsv_noeeprom_magenta(); rgblight_mode_noeeprom(1); }
         break;
@@ -474,4 +474,3 @@ cancel_deferred_exec(my_token);
 ```c
 #define MAX_DEFERRED_EXECUTORS 16
 ```
-

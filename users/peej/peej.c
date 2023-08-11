@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 #ifdef RGBLIGHT_ENABLE
                     rgblight_enable_noeeprom();
                     rgblight_mode_noeeprom(1);
-                    rgblight_setrgb_red();
+                    rgblight_setrgb(RGB_RED);
                 #endif
                 reset_keyboard();
                 break;

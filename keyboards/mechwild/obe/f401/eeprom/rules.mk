@@ -1,0 +1,1 @@
+EEPROM_DRIVER = i2c

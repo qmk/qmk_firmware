@@ -20,11 +20,10 @@
 #define CALC_DIGITS 12
 
 enum rubi_keycodes {
-    ENC_PRESS = SAFE_RANGE,
+    ENC_PRESS = QK_KB_0,
     CL_PLUS,
     CL_STAR,
-    CL_TYPE,
-    NEW_SAFE_RANGE
+    CL_TYPE
 };
 
 enum oled_modes {
@@ -61,42 +60,3 @@ uint16_t handle_encoder_press(void);
 void calcUpdate(void);
 void calcInput(char input);
 void calcOperands(void);
-
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-
-/* Rubi matrix layout
- * ,---------------.
- * |             23|
- * |---------------|
- * | 00| 01| 02| 03|
- * |---------------|
- * | 10| 11| 12|   |
- * |-----------| 13|
- * | 20| 21| 22|   |
- * |---------------|
- * | 30| 31| 32|   |
- * |-----------| 33|
- * |   41  | 42|   |
- * `---------------'
- */
-#define LAYOUT( \
-                       k23, \
-        k00, k01, k02, k03, \
-        k10, k11, k12, k13, \
-        k20, k21, k22, \
-        k30, k31, k32, k33, \
-             k41, k42 \
-) { \
-    { k00,   k01, k02, k03   }, \
-    { k10,   k11, k12, k13   }, \
-    { k20,   k21, k22, k23   }, \
-    { k30,   k31, k32, k33   }, \
-    { KC_NO, k41, k42, KC_NO }  \
-}

@@ -38,7 +38,6 @@
     * [キーマップの概要](ja/keymap.md)
     * 開発環境
       * [Docker のガイド](ja/getting_started_docker.md)
-      * [Vagrant のガイド](ja/getting_started_vagrant.md)
     * 書き込み
       * [書き込み](ja/flashing.md)
       * [ATmega32A の書き込み (ps2avrgb)](ja/flashing_bootloadhid.md)
@@ -69,6 +68,7 @@
     * [モッドタップ](ja/mod_tap.md)
     * [マクロ](ja/feature_macros.md)
     * [マウスキー](ja/feature_mouse_keys.md)
+    * [Repeat Key](ja/feature_repeat_key.md)
     * [Space Cadet Shift](ja/feature_space_cadet.md)
     * [US ANSI シフトキー](ja/keycodes_us_ansi_shifted.md)
 
@@ -85,7 +85,6 @@
     * [スワップハンド](ja/feature_swap_hands.md)
     * [タップダンス](ja/feature_tap_dance.md)
     * [タップホールド設定](ja/tap_hold.md)
-    * [ターミナル](ja/feature_terminal.md)
     * [ユニコード](ja/feature_unicode.md)
     * [ユーザスペース](ja/feature_userspace.md)
     * [WPM 計算](ja/feature_wpm.md)
@@ -137,7 +136,7 @@
       * [EEPROM ドライバ](ja/eeprom_driver.md)
       * [シリアル ドライバ](ja/serial_driver.md)
       * [UART ドライバ](ja/uart_driver.md)
-    * [GPIO 制御](ja/internals_gpio_control.md)
+    * [GPIO 制御](ja/gpio_control.md)
     * [キーボード ガイドライン](ja/hardware_keyboard_guidelines.md)
 
   * Python 開発
@@ -173,10 +172,10 @@
     * [QMK を理解する](ja/understanding_qmk.md)
 
   * QMK の内部詳細(作成中)
-    * [定義](ja/internals_defines.md)
-    * [入力コールバック登録](ja/internals_input_callback_reg.md)
-    * [Midi デバイス](ja/internals_midi_device.md)
-    * [Midi デバイスのセットアップ手順](ja/internals_midi_device_setup_process.md)
-    * [Midi ユーティリティ](ja/internals_midi_util.md)
-    * [Midi 送信関数](ja/internals_send_functions.md)
-    * [Sysex Tools](ja/internals_sysex_tools.md)
+    * [定義](ja/internals/defines.md)
+    * [入力コールバック登録](ja/internals/input_callback_reg.md)
+    * [Midi デバイス](ja/internals/midi_device.md)
+    * [Midi デバイスのセットアップ手順](ja/internals/midi_device_setup_process.md)
+    * [Midi ユーティリティ](ja/internals/midi_util.md)
+    * [Midi 送信関数](ja/internals/send_functions.md)
+    * [Sysex Tools](ja/internals/sysex_tools.md)

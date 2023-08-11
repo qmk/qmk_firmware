@@ -42,15 +42,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |        |        |        | 1      | 2      | 3      | +      |        | LEDMAX |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | RESET  |        |        | FN     |        |        |        |        |        |        | 0      | .      | PENT   |        | LEDLVL |
+ * | QK_BOOT  |        |        | FN     |        |        |        |        |        |        | 0      | .      | PENT   |        | LEDLVL |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
  
  [_FN] = LAYOUT_ortho_5x15( /* FUNCTION */
   FR_EMPT,	FR_F1,		FR_F2,		FR_F3,		FR_F4,		FR_F5,		FR_F6,  	FR_F7,		FR_F8,    	FR_F9,		FR_F10, 	FR_F11,  	FR_F12,   	FR_PSCR,	BL_TOGG,
-  FR_EMPT,	FR_MPRV,	FR_MPLY,	FR_MNXT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_NUML,  	FR_7,     	FR_8,   	FR_9,    	FR_MULT,  	FR_EMPT,	BL_INC,
-  FR_EMPT,	FR_MVDN,	FR_MUTE,	FR_MVUP,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,  	FR_4,     	FR_5,   	FR_6,    	FR_MOIN,  	FR_EMPT,	BL_DEC,
+  FR_EMPT,	FR_MPRV,	FR_MPLY,	FR_MNXT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_NUML,  	FR_7,     	FR_8,   	FR_9,    	FR_MULT,  	FR_EMPT,	BL_UP, 
+  FR_EMPT,	FR_MVDN,	FR_MUTE,	FR_MVUP,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,  	FR_4,     	FR_5,   	FR_6,    	FR_MOIN,  	FR_EMPT,	BL_DOWN,
   FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,  	FR_EMPT,  	FR_1,     	FR_2,   	FR_3,    	FR_PLUS,  	FR_EMPT,	BL_ON,
-  RESET,	FR_EMPT,	FR_EMPT,	FR_TRANS,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,  	FR_EMPT,  	FR_EMPT,  	FR_0,   	FR_DOT,  	FR_ENTK,  	FR_EMPT,	BL_STEP
+  QK_BOOT,	FR_EMPT,	FR_EMPT,	FR_TRANS,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,  	FR_EMPT,  	FR_EMPT,  	FR_0,   	FR_DOT,  	FR_ENTK,  	FR_EMPT,	BL_STEP
  )
 };

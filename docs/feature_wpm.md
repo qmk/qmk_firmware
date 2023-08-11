@@ -1,4 +1,4 @@
-# Word Per Minute (WPM) Calculcation
+# Word Per Minute (WPM) Calculation
 
 The WPM feature uses time between keystrokes to compute a rolling average words per minute rate and makes this available for various uses.
 

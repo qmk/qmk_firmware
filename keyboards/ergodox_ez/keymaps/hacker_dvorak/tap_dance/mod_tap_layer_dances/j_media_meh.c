@@ -4,7 +4,7 @@ static tap j_media_meh_state = {
     .state           = 0
 };
 
-void j_media_meh_finished(qk_tap_dance_state_t *state, void *user_data) {
+void j_media_meh_finished(tap_dance_state_t *state, void *user_data) {
     j_media_meh_state.state = current_dance(state);
     switch (j_media_meh_state.state) {
         case SINGLE_TAP:
@@ -23,7 +23,7 @@ void j_media_meh_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void j_media_meh_reset(qk_tap_dance_state_t *state, void *user_data) {
+void j_media_meh_reset(tap_dance_state_t *state, void *user_data) {
     switch (j_media_meh_state.state) {
         case SINGLE_TAP:
             unregister_code(KC_J);

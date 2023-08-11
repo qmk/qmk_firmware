@@ -30,8 +30,19 @@ static __inline__ void __interrupt_enable__(const uint8_t *__s) {
     (void)__s;
 }
 
-#define ATOMIC_BLOCK(type) for (type, __ToDo = __interrupt_disable__(); __ToDo; __ToDo = 0)
-#define ATOMIC_FORCEON uint8_t sreg_save __attribute__((__cleanup__(__interrupt_enable__))) = 0
+static __inline__ syssts_t __interrupt_lock__(void) {
+    return chSysGetStatusAndLockX();
+}
 
-#define ATOMIC_BLOCK_RESTORESTATE _Static_assert(0, "ATOMIC_BLOCK_RESTORESTATE not implemented")
+static __inline__ void __interrupt_unlock__(const syssts_t *__s) {
+    chSysRestoreStatusX(*__s);
+
+    __asm__ volatile("" ::: "memory");
+}
+
+#define ATOMIC_BLOCK(type) for (type, __ToDo = 1; __ToDo; __ToDo = 0)
+#define ATOMIC_FORCEON uint8_t status_save __attribute__((__cleanup__(__interrupt_enable__))) = __interrupt_disable__()
+#define ATOMIC_RESTORESTATE syssts_t status_save __attribute__((__cleanup__(__interrupt_unlock__))) = __interrupt_lock__()
+
+#define ATOMIC_BLOCK_RESTORESTATE ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
 #define ATOMIC_BLOCK_FORCEON ATOMIC_BLOCK(ATOMIC_FORCEON)

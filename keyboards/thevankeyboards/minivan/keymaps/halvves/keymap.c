@@ -151,7 +151,7 @@ XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX,          XXXXXXX,
 
 /* Adjust
 * ,--------------------------------------------------------------------------.
-* |      |     |     |     |     |QWRTY|COLMK|DVRAK|     |     |     | RESET |
+* |      |     |     |     |     |QWRTY|COLMK|DVRAK|     |     |     | QK_BOOT |
 * |------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-------|
 * |       |     |     |     |     |     |     |     |     |     |     |      |
 * |-------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`------|
@@ -161,7 +161,7 @@ XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX,          XXXXXXX,
 * `--------------------------------------------------------------------------'
 */
 [_ADJUST] = LAYOUT_arrow(
-XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, RESET,
+XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QWERTY,  COLEMAK, DVORAK,  XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX

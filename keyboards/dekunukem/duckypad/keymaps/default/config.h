@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_ONESHOT
 
 #define OLED_TIMEOUT 90000
-#define RGB_DISABLE_TIMEOUT 90000
+#define RGB_MATRIX_TIMEOUT 90000
 
 #define MT_0_0 "   1  "
 #define MT_0_1 "   2  "

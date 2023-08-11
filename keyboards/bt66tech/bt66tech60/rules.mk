@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F103
-
-# Bootloader selection
-BOOTLOADER = stm32duino
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,11 +11,8 @@ BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 SLEEP_LED_ENABLE = yes
-WS2812_DRIVER = spi
 
 DEFAULT_FOLDER = bt66tech/bt66tech60
-
-LAYOUTS = 60_ansi
 
 # Enter lower-power sleep mode when on the ChibiOS idle thread
 OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

@@ -84,11 +84,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       uint8_t num = rand() / (RAND_MAX / NUM_ANSWERS + 1);
       rgblight_mode(1);
       if (num < UNCERTAIN_BREAK) {
-        rgblight_setrgb_green();
+        rgblight_setrgb(RGB_GREEN);
       } else if (num < NO_BREAK) {
-        rgblight_setrgb_yellow();
+        rgblight_setrgb(RGB_YELLOW);
       } else {
-        rgblight_setrgb_red();
+        rgblight_setrgb(RGB_RED);
       }
       send_string(ANSWERS[num]);
       lastTime = timer_read32();
@@ -135,6 +135,6 @@ void led_set_user(uint8_t usb_led) {
 void reset_rgb(void) {
   // This gets called on init and after the timeout for the answer color
   // If you want to change the default color/mode, do it here
-  rgblight_sethsv_blue();
+  rgblight_sethsv(HSV_BLUE);
   rgblight_mode(7);
 }

@@ -17,33 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xB034
-#define PRODUCT_ID      0xFF16
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Rocketboard
-#define PRODUCT         Rocketboard-16
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 4
-
-#define MATRIX_ROW_PINS { A9, B13, B14, B15, B3 }
-#define MATRIX_COL_PINS { B8, B9, B10, B11 }
-#define DIODE_DIRECTION COL2ROW
-
-/* Bootmagic key - row 4, col 1 */
-#define BOOTMAGIC_LITE_ROW 4
-#define BOOTMAGIC_LITE_COLUMN 1
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
-#define RGBLIGHT_ANIMATIONS
-#define RGB_DI_PIN A4
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 16
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_SLEEP
@@ -54,12 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Allows for rotary encoder volume control
 #define TAP_CODE_DELAY 20
-
-/* Encoder stuff */
-#define ENCODERS_PAD_A \
-    { A0, A2 }
-#define ENCODERS_PAD_B \
-    { A1, A3 }
 
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
@@ -79,5 +56,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

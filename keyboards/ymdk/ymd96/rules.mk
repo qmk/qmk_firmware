@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32a
-
-# Bootloader selection
-BOOTLOADER = bootloadhid
-
 # Build Options
 #   change yes to no to disable
 #
@@ -16,6 +10,5 @@ COMMAND_ENABLE = no
 BACKLIGHT_ENABLE = yes
 
 RGBLIGHT_ENABLE = yes
-WS2812_DRIVER = i2c
 
 KEY_LOCK_ENABLE = yes

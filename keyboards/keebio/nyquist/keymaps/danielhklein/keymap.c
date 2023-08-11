@@ -36,7 +36,6 @@ enum custom_keycodes {
 
 // Underglow setup
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_ANIMATIONS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

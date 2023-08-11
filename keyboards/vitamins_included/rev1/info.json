@@ -1,0 +1,17 @@
+{
+    "usb": {
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["F1", "F4", "E2", "B6", "D7", "D6"],
+        "rows": ["F5", "F6", "C7", "F7"]
+    },
+    "diode_direction": "COL2ROW",
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "ws2812": {
+        "pin": "F0"
+    },
+    "bootloader": "caterina"
+}

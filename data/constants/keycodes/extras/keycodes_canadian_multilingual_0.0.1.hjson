@@ -1,0 +1,641 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ / │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ ^ │ Ç │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ È │ À │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ Ù │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ É │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "KC_GRV": {
+            "key": "CA_SLSH",
+            "label": "/",
+        }
+        "KC_1": {
+            "key": "CA_1",
+            "label": "1",
+        }
+        "KC_2": {
+            "key": "CA_2",
+            "label": "2",
+        }
+        "KC_3": {
+            "key": "CA_3",
+            "label": "3",
+        }
+        "KC_4": {
+            "key": "CA_4",
+            "label": "4",
+        }
+        "KC_5": {
+            "key": "CA_5",
+            "label": "5",
+        }
+        "KC_6": {
+            "key": "CA_6",
+            "label": "6",
+        }
+        "KC_7": {
+            "key": "CA_7",
+            "label": "7",
+        }
+        "KC_8": {
+            "key": "CA_8",
+            "label": "8",
+        }
+        "KC_9": {
+            "key": "CA_9",
+            "label": "9",
+        }
+        "KC_0": {
+            "key": "CA_0",
+            "label": "0",
+        }
+        "KC_MINS": {
+            "key": "CA_MINS",
+            "label": "-",
+        }
+        "KC_EQL": {
+            "key": "CA_EQL",
+            "label": "=",
+        }
+        "KC_Q": {
+            "key": "CA_Q",
+            "label": "Q",
+        }
+        "KC_W": {
+            "key": "CA_W",
+            "label": "W",
+        }
+        "KC_E": {
+            "key": "CA_E",
+            "label": "E",
+        }
+        "KC_R": {
+            "key": "CA_R",
+            "label": "R",
+        }
+        "KC_T": {
+            "key": "CA_T",
+            "label": "T",
+        }
+        "KC_Y": {
+            "key": "CA_Y",
+            "label": "Y",
+        }
+        "KC_U": {
+            "key": "CA_U",
+            "label": "U",
+        }
+        "KC_I": {
+            "key": "CA_I",
+            "label": "I",
+        }
+        "KC_O": {
+            "key": "CA_O",
+            "label": "O",
+        }
+        "KC_P": {
+            "key": "CA_P",
+            "label": "P",
+        }
+        "KC_LBRC": {
+            "key": "CA_CIRC",
+            "label": "^ (dead)",
+        }
+        "KC_RBRC": {
+            "key": "CA_CCED",
+            "label": "Ç",
+        }
+        "KC_A": {
+            "key": "CA_A",
+            "label": "A",
+        }
+        "KC_S": {
+            "key": "CA_S",
+            "label": "S",
+        }
+        "KC_D": {
+            "key": "CA_D",
+            "label": "D",
+        }
+        "KC_F": {
+            "key": "CA_F",
+            "label": "F",
+        }
+        "KC_G": {
+            "key": "CA_G",
+            "label": "G",
+        }
+        "KC_H": {
+            "key": "CA_H",
+            "label": "H",
+        }
+        "KC_J": {
+            "key": "CA_J",
+            "label": "J",
+        }
+        "KC_K": {
+            "key": "CA_K",
+            "label": "K",
+        }
+        "KC_L": {
+            "key": "CA_L",
+            "label": "L",
+        }
+        "KC_SCLN": {
+            "key": "CA_SCLN",
+            "label": ";",
+        }
+        "KC_QUOT": {
+            "key": "CA_EGRV",
+            "label": "É",
+        }
+        "KC_NUHS": {
+            "key": "CA_AGRV",
+            "label": "À",
+        }
+        "KC_NUBS": {
+            "key": "CA_UGRV",
+            "label": "Ù",
+        }
+        "KC_Z": {
+            "key": "CA_Z",
+            "label": "Z",
+        }
+        "KC_X": {
+            "key": "CA_X",
+            "label": "X",
+        }
+        "KC_C": {
+            "key": "CA_C",
+            "label": "C",
+        }
+        "KC_V": {
+            "key": "CA_V",
+            "label": "V",
+        }
+        "KC_B": {
+            "key": "CA_B",
+            "label": "B",
+        }
+        "KC_N": {
+            "key": "CA_N",
+            "label": "N",
+        }
+        "KC_M": {
+            "key": "CA_M",
+            "label": "M",
+        }
+        "KC_COMM": {
+            "key": "CA_COMM",
+            "label": ",",
+        }
+        "KC_DOT": {
+            "key": "CA_DOT",
+            "label": ".",
+        }
+        "KC_SLSH": {
+            "key": "CA_EACU",
+            "label": "É",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ \ │ ! │ @ │ # │ $ │ % │ ? │ & │ * │ ( │ ) │ _ │ + │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │   │   │   │   │   │   │   │ ¨ │   │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │ : │   │   │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │   │   │   │   │   │   │   │   │ ' │ " │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "S(CA_SLSH)": {
+            "key": "CA_BSLS",
+            "label": "\\",
+        }
+        "S(CA_1)": {
+            "key": "CA_EXLM",
+            "label": "!",
+        }
+        "S(CA_2)": {
+            "key": "CA_AT",
+            "label": "@",
+        }
+        "S(CA_3)": {
+            "key": "CA_HASH",
+            "label": "#",
+        }
+        "S(CA_4)": {
+            "key": "CA_DLR",
+            "label": "$",
+        }
+        "S(CA_5)": {
+            "key": "CA_PERC",
+            "label": "%",
+        }
+        "S(CA_6)": {
+            "key": "CA_QUES",
+            "label": "?",
+        }
+        "S(CA_7)": {
+            "key": "CA_AMPR",
+            "label": "&",
+        }
+        "S(CA_8)": {
+            "key": "CA_ASTR",
+            "label": "*",
+        }
+        "S(CA_9)": {
+            "key": "CA_LPRN",
+            "label": "(",
+        }
+        "S(CA_0)": {
+            "key": "CA_RPRN",
+            "label": ")",
+        }
+        "S(CA_MINS)": {
+            "key": "CA_UNDS",
+            "label": "_",
+        }
+        "S(CA_EQL)": {
+            "key": "CA_PLUS",
+            "label": "+",
+        }
+        "S(CA_CIRC)": {
+            "key": "CA_DIAE",
+            "label": "¨ (dead)",
+        }
+        "S(CA_SCLN)": {
+            "key": "CA_COLN",
+            "label": ":",
+        }
+        "S(CA_COMM)": {
+            "key": "CA_QUOT",
+            "label": "'",
+        }
+        "S(CA_DOT)": {
+            "key": "CA_DQUO",
+            "label": "\"",
+        }
+/* AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ | │   │   │   │ ¤ │   │   │ { │ } │ [ │ ] │   │ ¬ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │ € │   │   │   │   │   │   │   │ ` │ ~ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │ ° │   │   │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │   │ « │ » │   │   │   │   │   │ < │ > │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "ALGR(CA_SLSH)": {
+            "key": "CA_PIPE",
+            "label": "|",
+        }
+        "ALGR(CA_4)": {
+            "key": "CA_CURR",
+            "label": "¤",
+        }
+        "ALGR(CA_7)": {
+            "key": "CA_LCBR",
+            "label": "{",
+        }
+        "ALGR(CA_8)": {
+            "key": "CA_RCBR",
+            "label": "}",
+        }
+        "ALGR(CA_9)": {
+            "key": "CA_LBRC",
+            "label": "[",
+        }
+        "ALGR(CA_0)": {
+            "key": "CA_RBRC",
+            "label": "]",
+        }
+        "ALGR(CA_EQL)": {
+            "key": "CA_NOT",
+            "label": "¬",
+        }
+        "ALGR(CA_E)": {
+            "key": "CA_EURO",
+            "label": "€",
+        }
+        "ALGR(CA_CIRC)": {
+            "key": "CA_GRV",
+            "label": "` (dead)",
+        }
+        "ALGR(CA_CCED)": {
+            "key": "CA_DTIL",
+            "label": "~ (dead)",
+        }
+        "ALGR(CA_SCLN)": {
+            "key": "CA_DEG",
+            "label": "°",
+        }
+        "ALGR(CA_Z)": {
+            "key": "CA_LDAQ",
+            "label": "«",
+        }
+        "ALGR(CA_X)": {
+            "key": "CA_RDAQ",
+            "label": "»",
+        }
+        "ALGR(CA_COMM)": {
+            "key": "CA_LABK",
+            "label": "<",
+        }
+        "ALGR(CA_DOT)": {
+            "key": "CA_RABK",
+            "label": ">",
+        }
+/* Right Ctrl symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │   │ ¹ │ ² │ ³ │ ¼ │ ½ │ ¾ │   │   │   │   │   │ ¸ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ Ω │ Ł │ Œ │ ¶ │ Ŧ │ ← │ ↓ │ → │ Ø │ Þ │   │ ~ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ Æ │ ß │ Ð │   │ Ŋ │ Ħ │ Ĳ │ ĸ │ Ŀ │ ´ │   │   │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │   │   │   │ ¢ │ “ │ ” │ ŉ │ μ │ ― │ ˙ │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "RCTL(CA_1)": {
+            "key": "CA_SUP1",
+            "label": "¹",
+        }
+        "RCTL(CA_2)": {
+            "key": "CA_SUP2",
+            "label": "²",
+        }
+        "RCTL(CA_3)": {
+            "key": "CA_SUP3",
+            "label": "³",
+        }
+        "RCTL(CA_4)": {
+            "key": "CA_QRTR",
+            "label": "¼",
+        }
+        "RCTL(CA_5)": {
+            "key": "CA_HALF",
+            "label": "½",
+        }
+        "RCTL(CA_6)": {
+            "key": "CA_TQTR",
+            "label": "¾",
+        }
+        "RCTL(CA_EQL)": {
+            "key": "CA_CEDL",
+            "label": "¸ (dead)",
+        }
+        "RCTL(CA_Q)": {
+            "key": "CA_OMEG",
+            "label": "Ω",
+        }
+        "RCTL(CA_W)": {
+            "key": "CA_LSTR",
+            "label": "Ł",
+        }
+        "RCTL(CA_E)": {
+            "key": "CA_OE",
+            "label": "Œ",
+        }
+        "RCTL(CA_R)": {
+            "key": "CA_PARA",
+            "label": "¶",
+        }
+        "RCTL(CA_T)": {
+            "key": "CA_TSTR",
+            "label": "Ŧ",
+        }
+        "RCTL(CA_Y)": {
+            "key": "CA_LARR",
+            "label": "←",
+        }
+        "RCTL(CA_U)": {
+            "key": "CA_DARR",
+            "label": "↓",
+        }
+        "RCTL(CA_I)": {
+            "key": "CA_RARR",
+            "label": "→",
+        }
+        "RCTL(CA_O)": {
+            "key": "CA_OSTR",
+            "label": "Ø",
+        }
+        "RCTL(CA_P)": {
+            "key": "CA_THRN",
+            "label": "Þ",
+        }
+        "RCTL(CA_CCED)": {
+            "key": "CA_TILD",
+            "label": "~",
+        }
+        "RCTL(CA_A)": {
+            "key": "CA_AE",
+            "label": "Æ",
+        }
+        "RCTL(CA_S)": {
+            "key": "CA_SS",
+            "label": "ß",
+        }
+        "RCTL(CA_D)": {
+            "key": "CA_ETH",
+            "label": "Ð",
+        }
+        "RCTL(CA_G)": {
+            "key": "CA_ENG",
+            "label": "Ŋ",
+        }
+        "RCTL(CA_H)": {
+            "key": "CA_HSTR",
+            "label": "Ħ",
+        }
+        "RCTL(CA_J)": {
+            "key": "CA_IJ",
+            "label": "Ĳ",
+        }
+        "RCTL(CA_K)": {
+            "key": "CA_KRA",
+            "label": "ĸ",
+        }
+        "RCTL(CA_L)": {
+            "key": "CA_LMDT",
+            "label": "Ŀ",
+        }
+        "RCTL(CA_SCLN)": {
+            "key": "CA_ACUT",
+            "label": "´ (dead)",
+        }
+        "RCTL(CA_C)": {
+            "key": "CA_CENT",
+            "label": "¢",
+        }
+        "RCTL(CA_V)": {
+            "key": "CA_LDQU",
+            "label": "“",
+        }
+        "RCTL(CA_B)": {
+            "key": "CA_RDQU",
+            "label": "”",
+        }
+        "RCTL(CA_N)": {
+            "key": "CA_APSN",
+            "label": "ŉ",
+        }
+        "RCTL(CA_M)": {
+            "key": "CA_MICR",
+            "label": "μ",
+        }
+        "RCTL(CA_COMM)": {
+            "key": "CA_HRZB",
+            "label": "―",
+        }
+        "RCTL(CA_DOT)": {
+            "key": "CA_DOTA",
+            "label": "˙ (dead)",
+        }
+/* Shift+Right Ctrl symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ - │ ¡ │   │ £ │   │ ⅜ │ ⅝ │ ⅞ │ ™ │ ± │   │ ¿ │ ˛ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │ ® │   │ ¥ │ ↑ │ ı │   │   │ ° │ ¯ │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │ § │   │ ª │   │   │   │   │   │ ˝ │ ˇ │ ˘ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │ ¦ │   │   │ © │ ‘ │ ’ │ ♪ │ º │ × │ ÷ │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "RCTL(S(CA_SLSH))": {
+            "key": "CA_SHYP",
+            "label": "­ (soft hyphen)",
+        }
+        "RCTL(S(CA_1))": {
+            "key": "CA_IEXL",
+            "label": "¡",
+        }
+        "RCTL(S(CA_3))": {
+            "key": "CA_PND",
+            "label": "£",
+        }
+        "RCTL(S(CA_5))": {
+            "key": "CA_TEIG",
+            "label": "⅜",
+        }
+        "RCTL(S(CA_6))": {
+            "key": "CA_FEIG",
+            "label": "⅝",
+        }
+        "RCTL(S(CA_7))": {
+            "key": "CA_SEIG",
+            "label": "⅞",
+        }
+        "RCTL(S(CA_8))": {
+            "key": "CA_TM",
+            "label": "™",
+        }
+        "RCTL(S(CA_9))": {
+            "key": "CA_PLMN",
+            "label": "±",
+        }
+        "RCTL(S(CA_MINS))": {
+            "key": "CA_IQUE",
+            "label": "¿",
+        }
+        "RCTL(S(CA_EQL))": {
+            "key": "CA_OGON",
+            "label": "˛ (dead)",
+        }
+        "RCTL(S(CA_R))": {
+            "key": "CA_REGD",
+            "label": "®",
+        }
+        "RCTL(S(CA_Y))": {
+            "key": "CA_YEN",
+            "label": "¥",
+        }
+        "RCTL(S(CA_U))": {
+            "key": "CA_UARR",
+            "label": "↑",
+        }
+        "RCTL(S(CA_I))": {
+            "key": "CA_DLSI",
+            "label": "ı",
+        }
+        "RCTL(S(CA_CIRC))": {
+            "key": "CA_RNGA",
+            "label": "° (dead)",
+        }
+        "RCTL(S(CA_CCED))": {
+            "key": "CA_MACR",
+            "label": "¯ (dead)",
+        }
+        "RCTL(S(CA_S))": {
+            "key": "CA_SECT",
+            "label": "§",
+        }
+        "RCTL(S(CA_F))": {
+            "key": "CA_FORD",
+            "label": "ª",
+        }
+        "RCTL(S(CA_SCLN))": {
+            "key": "CA_DACU",
+            "label": "˝ (dead)",
+        }
+        "RCTL(S(CA_EGRV))": {
+            "key": "CA_CARN",
+            "label": "ˇ (dead)",
+        }
+        "RCTL(S(CA_AGRV))": {
+            "key": "CA_BREV",
+            "label": "˘ (dead)",
+        }
+        "RCTL(S(CA_UGRV))": {
+            "key": "CA_BRKP",
+            "label": "¦",
+        }
+        "RCTL(S(CA_C))": {
+            "key": "CA_COPY",
+            "label": "©",
+        }
+        "RCTL(S(CA_V))": {
+            "key": "CA_LSQU",
+            "label": "‘",
+        }
+        "RCTL(S(CA_B))": {
+            "key": "CA_RSQU",
+            "label": "’",
+        }
+        "RCTL(S(CA_N))": {
+            "key": "CA_ENOT",
+            "label": "♪",
+        }
+        "RCTL(S(CA_M))": {
+            "key": "CA_MORD",
+            "label": "º",
+        }
+        "RCTL(S(CA_COMM))": {
+            "key": "CA_MUL",
+            "label": "×",
+        }
+        "RCTL(S(CA_DOT))": {
+            "key": "CA_DIV",
+            "label": "÷",
+        }
+    }
+}

@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(SYMBOLS), DE_P, DE_U, OSL(DIAK), DE_COMM, DE_Q, LSFT(DE_G),
         OSL(SYMBOLS), DE_H, DE_I, DE_E, DE_A, DE_O,
      	SFT_T(KC_TAB), DE_K, DE_Y, DE_DOT, DE_QUOT, DE_X, LCTL(DE_D),
-        KC_LCTRL, KC_LALT, KC_NO, KC_NO, KC_NO,
+        KC_LCTL, KC_LALT, KC_NO, KC_NO, KC_NO,
         
 
 	// left hand thumb-cluster
@@ -57,12 +57,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         DE_G, DE_V, DE_C, DE_L, DE_M, DE_B, KC_NO,
                   DE_D, DE_T, DE_R, DE_N, DE_S, TG(ARW),
         LCTL(DE_U), DE_J, DE_G, DE_Z, DE_W, DE_F, KC_RSFT,
-                         KC_H, KC_J, KC_K, KC_L, KC_RCTRL,
+                         KC_H, KC_J, KC_K, KC_L, KC_RCTL,
 
 	// right thumb-cluster
         DE_QUES, DE_DLR,
         LCTL(DE_C),
-        KC_ESCAPE, KC_ENTER, KC_BSPACE
+        KC_ESCAPE, KC_ENTER, KC_BSPC
 ),
 
 
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGDOWN,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGDN,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_HOME, KC_TRNS,
                                                     KC_TRNS,

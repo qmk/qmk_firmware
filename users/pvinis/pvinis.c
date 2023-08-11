@@ -75,7 +75,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef TAP_DANCE_ENABLE
-qk_tap_dance_action_t tap_dance_actions[] = {};
+tap_dance_action_t tap_dance_actions[] = {};
 #endif
 
 void keyboard_post_init_rgb_light(void) {
@@ -95,4 +95,4 @@ void keyboard_post_init_user(void) {
 // Default functions.
 __attribute__((weak)) void keyboard_post_init_user_keymap(void) {}
 
-__attribute__((weak)) uint32_t layer_state_set_user_keymap(uint32_t state) { return state; }
+__attribute__((weak)) layer_state_t layer_state_set_user_keymap(layer_state_t state) { return state; }

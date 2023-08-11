@@ -87,6 +87,7 @@ bool system76_ec_is_unlocked(void) { return bootloader_unlocked; }
 enum Mode {
     MODE_SOLID_COLOR = 0,
     MODE_PER_KEY,
+    #ifndef DISABLE_RGB_MATRIX_ANIMATIONS
     MODE_CYCLE_ALL,
     MODE_CYCLE_LEFT_RIGHT,
     MODE_CYCLE_UP_DOWN,
@@ -98,6 +99,7 @@ enum Mode {
     MODE_RAINDROPS,
     MODE_SPLASH,
     MODE_MULTISPLASH,
+    #endif  // DISABLE_RGB_MATRIX_ANIMATIONS
     MODE_ACTIVE_KEYS,
     MODE_DISABLED,
     MODE_LAST,
@@ -107,6 +109,7 @@ enum Mode {
 static enum rgb_matrix_effects mode_map[] = {
     RGB_MATRIX_SOLID_COLOR,
     RGB_MATRIX_CUSTOM_raw_rgb,
+    #ifndef DISABLE_RGB_MATRIX_ANIMATIONS
     RGB_MATRIX_CYCLE_ALL,
     RGB_MATRIX_CYCLE_LEFT_RIGHT,
     RGB_MATRIX_CYCLE_UP_DOWN,
@@ -118,6 +121,7 @@ static enum rgb_matrix_effects mode_map[] = {
     RGB_MATRIX_RAINDROPS,
     RGB_MATRIX_SPLASH,
     RGB_MATRIX_MULTISPLASH,
+    #endif  // DISABLE_RGB_MATRIX_ANIMATIONS
     RGB_MATRIX_CUSTOM_active_keys,
     RGB_MATRIX_NONE,
 };
@@ -125,20 +129,20 @@ static enum rgb_matrix_effects mode_map[] = {
 
 _Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
 
-RGB raw_rgb_data[DRIVER_LED_TOTAL];
+RGB raw_rgb_data[RGB_MATRIX_LED_COUNT];
 
 // clang-format off
 rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
     // Layer 0
     {
         .enable = 1,
-        .mode = RGB_MATRIX_STARTUP_MODE,
+        .mode = RGB_MATRIX_DEFAULT_MODE,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .h = RGB_MATRIX_DEFAULT_HUE,
+            .s = RGB_MATRIX_DEFAULT_SAT,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 1
@@ -146,11 +150,11 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .h = RGB_MATRIX_DEFAULT_HUE,
+            .s = RGB_MATRIX_DEFAULT_SAT,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 2
@@ -158,11 +162,11 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .h = RGB_MATRIX_DEFAULT_HUE,
+            .s = RGB_MATRIX_DEFAULT_SAT,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
     // Layer 3
@@ -170,11 +174,11 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
         .hsv = {
-            .h = RGB_MATRIX_STARTUP_HUE,
-            .s = RGB_MATRIX_STARTUP_SAT,
-            .v = RGB_MATRIX_STARTUP_VAL,
+            .h = RGB_MATRIX_DEFAULT_HUE,
+            .s = RGB_MATRIX_DEFAULT_SAT,
+            .v = RGB_MATRIX_DEFAULT_VAL,
         },
-        .speed = RGB_MATRIX_STARTUP_SPD,
+        .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
 };
@@ -290,7 +294,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case CMD_LED_GET_COLOR:
             if (!bootloader_unlocked) {
                 uint8_t index = data[2];
-                if (index < DRIVER_LED_TOTAL) {
+                if (index < RGB_MATRIX_LED_COUNT) {
                     data[3] = raw_rgb_data[index].r;
                     data[4] = raw_rgb_data[index].g;
                     data[5] = raw_rgb_data[index].b;
@@ -318,7 +322,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     .b = data[5],
                 };
 
-                if (index < DRIVER_LED_TOTAL) {
+                if (index < RGB_MATRIX_LED_COUNT) {
                     raw_rgb_data[index] = rgb;
                     data[1] = 0;
                 } else {

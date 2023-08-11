@@ -63,7 +63,7 @@ struct layer_rgb {
     uint8_t mode;
     union {
         HSV hsv;
-        RGB rgb[DRIVER_LED_TOTAL];
+        RGB rgb[RGB_MATRIX_LED_COUNT];
     };
 };
 

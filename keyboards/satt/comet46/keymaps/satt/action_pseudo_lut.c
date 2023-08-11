@@ -83,7 +83,7 @@ uint16_t convert_keycode(const uint16_t (*keymap)[2], uint16_t keycode, bool shi
   uint16_t pseudo_keycode;
 
   switch (keycode) {
-    case KC_A ... KC_CAPSLOCK:
+    case KC_A ... KC_CAPS_LOCK:
       #if defined(__AVR__) 
         if (shift_modded) {
           pseudo_keycode = pgm_read_word(&keymap[keycode][1]);

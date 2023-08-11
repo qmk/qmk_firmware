@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "simpler61.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0,  CS3_SW1,  CS2_SW1,  CS1_SW1},
     {0,  CS3_SW2,  CS2_SW2,  CS1_SW2},
     {0,  CS3_SW3,  CS2_SW3,  CS1_SW3},

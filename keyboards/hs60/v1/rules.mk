@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = qmk-dfu
-
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
 # backlight effects.
@@ -21,10 +15,7 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes     # Use RGB matrix
-RGB_MATRIX_DRIVER = IS31FL3731
 RAW_ENABLE = yes
-
-LAYOUTS = 60_ansi 60_iso
 
 # Experimental features for zealcmd please do no enable
 #RAW_ENABLE = yes

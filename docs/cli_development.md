@@ -162,7 +162,7 @@ del(cli.config.<section>.<key>)
 
 ## Writing The Configuration File
 
-The configuration is not written out when it is changed. Most commands do not need to do this. We prefer to have the user change their configuration deliberitely using `qmk config`.
+The configuration is not written out when it is changed. Most commands do not need to do this. We prefer to have the user change their configuration deliberately using `qmk config`.
 
 You can use `cli.save_config()` to write out the configuration.
 

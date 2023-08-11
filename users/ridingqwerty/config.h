@@ -5,7 +5,6 @@
 
 #define TAPPING_TERM 175
 #define MACRO_TIMER 5
-#define TAPPING_FORCE_HOLD_PER_KEY
+#define QUICK_TAP_TERM_PER_KEY
 // testing
 #define TAPPING_TERM_PER_KEY
-//#define IGNORE_MOD_TAP_INTERRUPT // rolling R3 "zxcv", etc...

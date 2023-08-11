@@ -16,34 +16,18 @@
 
 #pragma once
 
-#include "config_common.h"
-
-// USB Device descriptor parameter
-#define VENDOR_ID       0x5845 // XE
-#define PRODUCT_ID      0xA04B // A-K
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Xelus
-#define PRODUCT         AkiS
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { F5, F4, F1, F0, E6 }
-#define MATRIX_COL_PINS { B4, D7, D6, D4, D5, D3, D2, D1, D0, F6, F7, C7, C6, B6, B5 }
-#define UNUSED_PINS
-
 /* RGB Lighting */
-#define RGB_DI_PIN B0
 #define RGBLED_NUM 23
-#define RGBLIGHT_ANIMATIONS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE

@@ -15,41 +15,12 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter
- */
-#define VENDOR_ID       0xBF00
-#define PRODUCT_ID      0xBFFA
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SheuBox
-#define PRODUCT         Fallacy
-
-/* key matrix size
- */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* key matrix pins
- */
-#define MATRIX_ROW_PINS { B1, B2, B3, C6, C7 }
-#define MATRIX_COL_PINS { E6, F0, F1, F4, F5, F6, F7, B6, B5, B4, D7, D6, D4, D5, D3 }
-#define UNUSED_PINS { B0, B7 }
-
-/* COL2ROW or ROW2COL
- */
-#define DIODE_DIRECTION COL2ROW
-
 /* IS31FL3731 driver address (for status LEDs)
  * Using the default defines here, but using a custom implementation
  */
 #define LED_DRIVER_ADDR_1 0b1110100
 #define LED_DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 3
-
-/* Set 0 if debouncing isn't needed
- */
-#define DEBOUNCE 5
+#define LED_MATRIX_LED_COUNT 3
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
  */
@@ -59,10 +30,14 @@
  */
 #define LOCKING_RESYNC_ENABLE
 
-/* prevent stuck modifiers
- */
-#define PREVENT_STUCK_MODIFIERS
-
-#define RGB_DI_PIN D2
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLED_NUM 14

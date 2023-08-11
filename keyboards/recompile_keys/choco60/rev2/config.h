@@ -17,30 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { C5, C4, B6, B7, C7 }
-#define MATRIX_ROW_PINS_RIGHT { D3, D2, D5, D6, B0 }
-/* The last three NO_PIN are dummies to make the same size as MATRIX_ROW_PINS_RIGHT. */
-#define MATRIX_COL_PINS { C6, B4, B3, B2, B1, B0, NO_PIN, NO_PIN, NO_PIN }
-#define MATRIX_COL_PINS_RIGHT { C7, B7, B6, B5, B4, B3, B2, C6, D4 }
-#define UNUSED_PINS
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-#define SOFT_SERIAL_PIN D0
 #define SPLIT_HAND_PIN D1
 
 #define SPLIT_USB_DETECT

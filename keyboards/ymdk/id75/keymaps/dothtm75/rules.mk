@@ -1,0 +1,2 @@
+
+MIDI_ENABLE = yes

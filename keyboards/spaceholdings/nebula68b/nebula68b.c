@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "nebula68b.h"
-#include <lib/lib8tion/lib8tion.h>
+#include "quantum.h"
 
 #ifndef KEYBOARD_spaceholdings_nebula68b_hs
 #ifdef RGB_MATRIX_ENABLE
@@ -41,73 +40,4 @@ led_config_t g_led_config = { {
 } };
 // clang-format on
 #endif
-#endif
-
-#if defined(RGB_MATRIX_ENABLE) && defined(VIA_ENABLE)
-void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
-    uint8_t *command_id = &(data[0]);
-    uint8_t *command_data = &(data[1]);
-    switch (*command_id) {
-        case id_lighting_set_value: {
-            uint8_t *value_id   = &(command_data[0]);
-            uint8_t *value_data = &(command_data[1]);
-            switch (*value_id) {
-                case id_qmk_rgblight_brightness: {
-                    rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), scale8(value_data[0], RGB_MATRIX_MAXIMUM_BRIGHTNESS));
-                    break;
-                }
-                case id_qmk_rgblight_effect: {
-                    rgb_matrix_mode_noeeprom(value_data[0]);
-                    if (value_data[0] == 0) {
-                        rgb_matrix_disable_noeeprom();
-                    } else {
-                        rgb_matrix_enable_noeeprom();
-                    }
-                    break;
-                }
-                case id_qmk_rgblight_effect_speed: {
-                    rgb_matrix_set_speed_noeeprom(value_data[0] * 85);
-                    break;
-                }
-                case id_qmk_rgblight_color: {
-                    rgb_matrix_sethsv_noeeprom(value_data[0], value_data[1], rgb_matrix_get_val());
-                    break;
-                }
-            }
-            break;
-        }
-        case id_lighting_get_value: {
-            uint8_t *value_id   = &(command_data[0]);
-            uint8_t *value_data = &(command_data[1]);
-            switch (*value_id) {
-                case id_qmk_rgblight_brightness: {
-                    value_data[0] = ((uint16_t)rgb_matrix_get_val() * 255) / RGB_MATRIX_MAXIMUM_BRIGHTNESS;
-                    break;
-                }
-                case id_qmk_rgblight_effect: {
-                    value_data[0] = rgb_matrix_get_mode();
-                    break;
-                }
-                case id_qmk_rgblight_effect_speed: {
-                    value_data[0] = rgb_matrix_get_speed() / 85;
-                    break;
-                }
-                case id_qmk_rgblight_color: {
-                    value_data[0] = rgb_matrix_get_hue();
-                    value_data[1] = rgb_matrix_get_sat();
-                    break;
-                }
-            }
-            break;
-        }
-        case id_lighting_save: {
-            eeconfig_update_rgb_matrix();
-            break;
-        }
-        default: {
-            *command_id         = id_unhandled;
-            break;
-        }
-    }
-}
 #endif

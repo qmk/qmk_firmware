@@ -34,12 +34,16 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
  * Added MACLOCK macro.
 ### 0.9
  * Updated code to correspond to new setPinInput behaviour.
+### 0.10
+ * Re-ordered the layers (swapped Destiny & WoW layers in the list).
+ * Removed duplicated keys from RAISE and LOWER layers.
+ * Updated readme.md and fixed an aesthetic typo in keymap.c.
+### 0.11
+ * Added DEL_GUI macro.
+ * Removed WOW layer since I'm no longer supporting Blizzard in any way.
 
 ### TODO:
 
- * Make the layout more efficient, even if it means changing the RAISE
-   and LOWER functionality.
- * Add legends in comments for each layer. Maybe.
  * Enjoy this revision; figure out new things later.
 
 ### Layer 0: Dvorak layer
@@ -51,8 +55,8 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 	|------+------+------+------+------+------|              |------+------+------+------+------+------|
 	| Grv  |   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |   -  |
 	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
-	| Shft |   ;  |   Q  |   J  |   K  |   X  | Gui  ||Enter |   B  |   M  |   W  |   V  |   Z  | Shft |
-	|------+------+------+------+------+------|      ||      |------+------+------+------+------+------|
+	| Shft |   ;  |   Q  |   J  |   K  |   X  | Del/ ||Enter |   B  |   M  |   W  |   V  |   Z  | Shft |
+	|------+------+------+------+------+------| Gui  ||      |------+------+------+------+------+------|
 	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
 	`-----------------------------------------'              `-----------------------------------------'
 
@@ -70,7 +74,7 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
 	`-----------------------------------------'              `-----------------------------------------'
 	 
-### Keymap 2: Colemak layer
+### Layer 2: Colemak layer
 
 	,-----------------------------------------.              ,-----------------------------------------.
 	| Esc  |   1  |   2  |   3  |   4  |   5  |              |   6  |   7  |   8  |   9  |   0  |   -  |
@@ -84,21 +88,7 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
 	`-----------------------------------------'              `-----------------------------------------'
 
-### Keymap 3: WoW gaming layer
-
-	,-----------------------------------------.              ,-----------------------------------------.
-	| Esc  |   1  |   2  |   3  |   4  |   5  |              |   6  |   7  |   8  |   9  |   0  |   \  |
-	|------+------+------+------+------+------|              |------+------+------+------+------+------|
-	| Tab  |   '  |   ,  |   .  |   P  |   Y  |              |   F  |   G  |   C  |   R  |   L  |   /  |
-	|------+------+------+------+------+------|              |------+------+------+------+------+------|
-	| Grv  |   A  |   O  |   E  |   U  |   I  |              |   D  |   H  |   T  |   N  |   S  |   -  |
-	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
-	| Shft |   ;  |   Q  |   J  |   K  |   X  | Alt  ||Ctrl/ |   B  |   M  |   W  |   V  |   Z  | Shft |
-	|------+------+------+------+------+------|      ||Enter |------+------+------+------+------+------|
-	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
-	`-----------------------------------------'              `-----------------------------------------'
-
-### Layer 4: Destiny layer
+### Layer 3: Destiny layer
 
 	,-----------------------------------------.              ,-----------------------------------------.
 	| Esc  |   1  |   2  |   3  |   4  |   5  |              |   6  |   7  |   8  |   9  |   0  |   \  |
@@ -112,12 +102,12 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 	| Ctrl |  Alt | Left | Rght | LOWER| BkSp |------'`------|  Spc | RAISE|  Up  | Down |  Gui | Ctrl |
 	`-----------------------------------------'              `-----------------------------------------'
 
-### Keymap 5: LOWER layer
+### Layer 4: LOWER layer
 
 	,-----------------------------------------.              ,-----------------------------------------.
 	| F11  |  F1  |  F2  |  F3  |  F4  |  F5  |              |  F6  |  F7  |  F8  |  F9  | F10  | F12  |
 	|------+------+------+------+------+------|              |------+------+------+------+------+------|
-	|  ~   |  `   |      |      |      |      |              |      |      |      |      |      |   |  |
+	|      |      |      |      |      |      |              |      |      |      |      |      |      |
 	|------+------+------+------+------+------|              |------+------+------+------+------+------|
 	| Caps |      | Mute | Vol- | Vol+ |      |              |      |      |   +  |   {  |   }  |      |
 	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
@@ -127,12 +117,12 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 	`-----------------------------------------'              `-----------------------------------------'
 
 
-### Keymap 6: RAISE layer
+### Layer 5: RAISE layer
 
 	,-----------------------------------------.              ,-----------------------------------------.
 	| F11  |  F1  |  F2  |  F3  |  F4  |  F5  |              |  F6  |  F7  |  F8  |  F9  | F10  | F12  |
 	|------+------+------+------+------+------|              |------+------+------+------+------+------|
-	|  ~   |  `   |      |      |      |      |              |      |      |      |      |      |   \  |
+	|      |      |      |      |      |      |              |      |      |      |      |      |      |
 	|------+------+------+------+------+------|              |------+------+------+------+------+------|
 	| Caps |      | Mute | Vol- | Vol+ |      |              |      |      |   =  |   [  |   ]  |      |
 	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
@@ -141,14 +131,14 @@ The bottom row is fairly Kinesis-ish since the Contour and Advantage keyboards h
 	|      |      | Home | End  |      | Del  |------'`------|  Ins |      | PgUp | PgDn |      |      |
 	`-----------------------------------------'              `-----------------------------------------'
 
-### Keymap 7: ADJUST layer
+### Layer 6: ADJUST layer
 
 	,-----------------------------------------.              ,-----------------------------------------.
 	|      |      |      |      |      |      |              |      |      |      |      |      |      |
 	|------+------+------+------+------+------|              |------+------+------+------+------+------|
 	|      |RESET |      |      |      |      |              |      |      |      |      |      |      |
 	|------+------+------+------+------+------|              |------+------+------+------+------+------|
-	|      |      |      |      |      |      |              |      |Qwerty|Colemk|Dvorak|      | WoW  |
+	|      |      |      |      |      |      |              |      |Qwerty|Colemk|Dvorak|Destny|      |
 	|------+------+------+------+------+------|------.,------|------+------+------+------+------+------|
 	|      |      |      |      |      |      |      ||      |      |      |      |      |      |      |
 	|------+------+------+------+------+------|      ||      |------+------+------+------+------+------|

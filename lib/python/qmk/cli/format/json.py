@@ -62,4 +62,4 @@ def format_json(cli):
                 json_file['layers'][layer_num] = current_layer
 
     # Display the results
-    print(json.dumps(json_file, cls=json_encoder))
+    print(json.dumps(json_file, cls=json_encoder, sort_keys=True))

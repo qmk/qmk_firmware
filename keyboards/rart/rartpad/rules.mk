@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,5 +11,3 @@ BACKLIGHT_ENABLE = no   # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 ENCODER_ENABLE = yes
-
-LAYOUTS = ortho_5x4 numpad_5x4

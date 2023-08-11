@@ -1,0 +1,11 @@
+{
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+}

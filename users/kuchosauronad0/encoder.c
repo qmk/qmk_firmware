@@ -57,8 +57,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
   }
     return true;
 }
-const uint16_t PROGMEM encoder_actions[][9] = { \
+const uint16_t PROGMEM encoder_actions[][9] = {
 //  None     CTRL     ALT                SHIFT    GUI             CTRL+ALT             CTRL+SHFT ALT+SHFT      HYPER
-  { KC_PGDN, KC_DOWN, KC_AUDIO_VOL_UP,   KC_END,  KC_WWW_FORWARD, KC_AUDIO_MUTE,       KC_RIGHT, LSFT(KC_TAB), KC_MEDIA_NEXT_TRACK}, \
+  { KC_PGDN, KC_DOWN, KC_AUDIO_VOL_UP,   KC_END,  KC_WWW_FORWARD, KC_AUDIO_MUTE,       KC_RIGHT, LSFT(KC_TAB), KC_MEDIA_NEXT_TRACK},
   { KC_PGUP, KC_UP,   KC_AUDIO_VOL_DOWN, KC_HOME, KC_WWW_BACK,    KC_MEDIA_PLAY_PAUSE, KC_LEFT,  KC_TAB,       KC_MEDIA_PREV_TRACK}
 };

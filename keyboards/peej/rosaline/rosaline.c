@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rosaline.h"
+#include "quantum.h"
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     writePin(LED1, record->event.pressed);

@@ -169,4 +169,4 @@ enum {
 
 // Extra stuff that might be needed.
 void     keyboard_post_init_user_keymap(void);
-uint32_t layer_state_set_user_keymap(uint32_t state);
+layer_state_t layer_state_set_user_keymap(layer_state_t state);

@@ -23,3 +23,5 @@ __attribute__((weak)) void bootloader_jump(void) {
     wait_ms(100);
     __BKPT(0);
 }
+
+__attribute__((weak)) void mcu_reset(void) {}

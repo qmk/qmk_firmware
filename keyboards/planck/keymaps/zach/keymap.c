@@ -33,10 +33,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST - Macros, Layer Switching, Function Keys */
-  UNIWIN,  XXXXXXX, XXXXXXX, PENGY,   DUCK,    KC_INS,  KC_NLCK, KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX,
+  UNIWIN,  XXXXXXX, XXXXXXX, PENGY,   DUCK,    KC_INS,  KC_NUM,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX,
   UNILIN,  XXXXXXX, XXXXXXX, RANDIG,  RANDIG,  SWCOLE,  COLEMAK, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX,
   _______, CADKEY,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
-  _______, _______, _______, _______, _______, RESET,   RESET,   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  _______, _______, _______, _______, _______, QK_BOOT, QK_BOOT, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 [_UNICODES] = LAYOUT_planck_grid( /* UNICODES - Extra layer for unicode stuff */

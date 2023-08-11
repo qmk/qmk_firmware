@@ -17,36 +17,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xAC11
-#define PRODUCT_ID      0x4172
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MisterKnife
-#define PRODUCT         Knife66
-
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-#define MATRIX_COL_PINS { B2, B1, B0, A7, A6, A5, A4, B9, B8, B7, B6, B5, B4, B3, A15 }
-#define MATRIX_ROW_PINS { B15, A8, A3, A2, A1 }
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN A9
-
-#ifdef RGB_DI_PIN
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_SLEEP
 #define RGBLED_NUM 6
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 200
-#endif
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
 
 #define WS2812_PWM_DRIVER PWMD1  // default: PWMD1
 #define WS2812_PWM_CHANNEL 2  // default: 2

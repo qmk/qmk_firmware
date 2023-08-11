@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Tap Dance cycles
-void dance_1 (qk_tap_dance_state_t *state, void *user_data) {
+void dance_1 (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return tap_code(KC_DOT);
         else return tap_code(KC_1);
@@ -93,7 +93,7 @@ void dance_1 (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_2 (qk_tap_dance_state_t *state, void *user_data) {
+void dance_2 (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return tap_code(KC_A);
         else return tap_code(KC_2);
@@ -106,7 +106,7 @@ void dance_2 (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_3 (qk_tap_dance_state_t *state, void *user_data) {
+void dance_3 (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return tap_code(KC_D);
         else return tap_code(KC_3);
@@ -119,7 +119,7 @@ void dance_3 (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_4 (qk_tap_dance_state_t *state, void *user_data) {
+void dance_4 (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return tap_code(KC_G);
         else return tap_code(KC_4);
@@ -132,7 +132,7 @@ void dance_4 (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_5 (qk_tap_dance_state_t *state, void *user_data) {
+void dance_5 (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return tap_code(KC_J);
         else return tap_code(KC_5);
@@ -145,7 +145,7 @@ void dance_5 (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_6 (qk_tap_dance_state_t *state, void *user_data) {
+void dance_6 (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return tap_code(KC_M);
         else return tap_code(KC_6);
@@ -158,7 +158,7 @@ void dance_6 (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_7 (qk_tap_dance_state_t *state, void *user_data) {
+void dance_7 (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return tap_code(KC_P);
         else return tap_code(KC_7);
@@ -173,7 +173,7 @@ void dance_7 (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_8 (qk_tap_dance_state_t *state, void *user_data) {
+void dance_8 (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return tap_code(KC_T);
         else return tap_code(KC_8);
@@ -186,7 +186,7 @@ void dance_8 (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_9 (qk_tap_dance_state_t *state, void *user_data) {
+void dance_9 (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return tap_code(KC_W);
         else return tap_code(KC_9);
@@ -201,7 +201,7 @@ void dance_9 (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_0 (qk_tap_dance_state_t *state, void *user_data) {
+void dance_0 (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return tap_code(KC_SPACE);
         else return tap_code(KC_0);
@@ -210,7 +210,7 @@ void dance_0 (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_maiusc (qk_tap_dance_state_t *state, void *user_data) {
+void dance_maiusc (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return set_oneshot_mods(MOD_BIT(KC_LSFT)); 
         else return tap_code(KC_CAPS);
@@ -220,7 +220,7 @@ void dance_maiusc (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance actions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_PNCT] = ACTION_TAP_DANCE_FN (dance_1),
     [TD_ABC] = ACTION_TAP_DANCE_FN (dance_2),
     [TD_DEF] = ACTION_TAP_DANCE_FN (dance_3),

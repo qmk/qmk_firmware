@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
      KC_TAB , KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,KC_SPLT,      KC_SPRT, KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_ENT ,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
-     KC_LSPO, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,KC_SPFN,      KC_GBRC, KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_RSPC,
+     SC_LSPO, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,KC_SPFN,      KC_GBRC, KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,SC_RSPC,
   //|-------+-------+-------+-------+-------+-------+-------|     |-------+-------+-------+-------+-------+-------+-------|
                                      KC_NMPD,KC_BSPC,                      KC_SPC ,KC_SYMB
   // \------------------------------+-------+-------+------/       \------+-------+-------+------------------------------/
@@ -134,15 +134,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_SCAP:
       if (record->event.pressed){
         layer_on(_CAPS);
-        register_code(KC_CAPSLOCK);
-        unregister_code(KC_CAPSLOCK);
+        register_code(KC_CAPS_LOCK);
+        unregister_code(KC_CAPS_LOCK);
       }
       return false;
     case KC_SCOF:
       if (record->event.pressed){
         layer_off(_CAPS);
-        register_code(KC_CAPSLOCK);
-        unregister_code(KC_CAPSLOCK);
+        register_code(KC_CAPS_LOCK);
+        unregister_code(KC_CAPS_LOCK);
       }
       return false;
   }
@@ -151,7 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     switch (layer) {
       case _QWERTY:

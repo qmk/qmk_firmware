@@ -58,14 +58,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_ortho_3x12(
         KC_Q, KC_W, KC_E, KC_R, KC_T, KC_LBRC, KC_RBRC, KC_Y, KC_U, KC_I, KC_O, KC_P,
-        KC_A, KC_S, FNK_D, FAR_F, KC_G, KC_GRAVE, KC_SCOLON, KC_H, KC_J, KC_K, KC_L, KC_QUOT,
+        KC_A, KC_S, FNK_D, FAR_F, KC_G, KC_GRAVE, KC_SCLN, KC_H, KC_J, KC_K, KC_L, KC_QUOT,
         SFT_Z, CTL_X, WIN_C, ALT_V, KC_B, KC_BSPC, CLS_SPC, KC_N, ALT_M, WIN_COMM, CTL_DOT, SFT_ENT
   ),
 
     [_CLOSE] = LAYOUT_ortho_3x12(
         KC_1,     KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, KC_6,    KC_7,       KC_8,     KC_9,    KC_0,
         KC_EXLM,  KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, KC_CIRC, KC_AMPR,    KC_ASTR,  KC_LPRN, KC_RPRN,
-        KC_MINUS, KC_UNDS, KC_EQL,  KC_PLUS, _______, _______, vvv,     _______, KC_SCOLON,  KC_COLON, KC_SLSH, KC_QUES
+        KC_MINUS, KC_UNDS, KC_EQL,  KC_PLUS, _______, _______, vvv,     _______, KC_SCLN,    KC_COLON, KC_SLSH, KC_QUES
   ),
 
     [_FAR] = LAYOUT_ortho_3x12(

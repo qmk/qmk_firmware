@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 
 #ifdef OLED_ENABLE
 static uint32_t        oled_timer = 0;
@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //,-----------------------------------|
            KC_ESC,   KC_F2,  JP_EQL,  KC_DEL,
       //|--------+--------+--------+--------|
-          KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+          KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
       //|--------+--------+--------+--------+--------|
             KC_P7,   KC_P8,   KC_P9,    LCTL(JP_LBRC),
       //|--------+--------+--------+--------+--------|

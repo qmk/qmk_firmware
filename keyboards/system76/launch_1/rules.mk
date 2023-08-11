@@ -1,14 +1,8 @@
-# MCU name
-MCU = atmega32u4
-
 # CPU frequency divided by two since AVR is at 3.3 V
 F_CPU = 8000000
 
 # External oscillator is 16 MHz
 F_USB = 16000000
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
 
 # Build options
 #   change yes to no to disable
@@ -23,7 +17,6 @@ RAW_ENABLE = yes            # Raw HID commands (used by Keyboard Configurator)
 BACKLIGHT_ENABLE = no       # RGB backlight (conflicts with RGB matrix)
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 RGB_MATRIX_ENABLE = yes     # RGB matrix
-RGB_MATRIX_DRIVER = WS2812
 RGB_MATRIX_CUSTOM_KB = yes  # Custom keyboard effects
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes            # Link-time optimization for smaller binary

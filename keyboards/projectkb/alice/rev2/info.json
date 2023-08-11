@@ -1,0 +1,11 @@
+{
+    "ws2812": {
+        "pin": "B15",
+        "driver": "spi"
+    },
+    "matrix_pins": {
+        "cols": ["B1", "B0", "A7", "A1", "A5", "A4", "A3", "A10", "B9", "B8", "B7", "B6", "B5", "B4", "B3", "A15"],
+        "rows": ["B2", "B10", "B11", "A2", "A0"]
+    },
+    "diode_direction": "COL2ROW"
+}

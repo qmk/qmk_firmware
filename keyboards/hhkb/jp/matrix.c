@@ -71,7 +71,7 @@ void matrix_init(void)
     matrix = _matrix0;
     matrix_prev = _matrix1;
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
@@ -159,7 +159,7 @@ uint8_t matrix_scan(void)
         suspend_power_down();
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return 1;
 }
@@ -188,14 +188,6 @@ void matrix_print(void)
     for (uint8_t row = 0; row < matrix_rows(); row++) {
         xprintf("%02X: %08b\n", row, bitrev(matrix_get_row(row)));
     }
-}
-
-uint8_t matrix_key_count(void) {
-    uint8_t count = 0;
-    for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-        count += bitpop16(matrix_get_row(r));
-    }
-    return count;
 }
 
 void matrix_power_up(void) {

@@ -144,13 +144,14 @@ void render_mod_status(uint8_t modifiers) {
     oled_write_ln_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
 }
 
-bool oled_task_user(void) {
+void oled_task_keymap(void) {
     render_lechiffre_logo();
     oled_set_cursor(0,3);
     // render_layer_status();	// Renders the current keyboard state (layer, lock, caps, scroll, etc)
 	render_mod_status(get_mods()|get_oneshot_mods());
 	render_keylock_status(host_keyboard_led_state());
 	render_keylogger_status();
+
     return false;
 }
 

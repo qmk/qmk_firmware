@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [DV] = LAYOUT(
-    PAWFIVE , KC_QUOT , KC_COMM , KC_DOT  , KC_P    , KC_Y    , KC_F    , KC_G    , KC_C    , KC_R    , KC_L    , RESET   ,
+    PAWFIVE , KC_QUOT , KC_COMM , KC_DOT  , KC_P    , KC_Y    , KC_F    , KC_G    , KC_C    , KC_R    , KC_L    , QK_BOOT,
     KC_ESC  , KC_A    , KC_O    , KC_E    , LWR_U   , KC_I    , KC_D    , RSE_H   , KC_T    , KC_N    , KC_S    , XXXXXXX ,
     XXXXXXX , KC_SCLN , KC_Q    , KC_J    , KC_K    , KC_X    , KC_B    , KC_M    , KC_W    , KC_V    , KC_Z    , KC_ENT  ,
     XXXXXXX , CTL_GRV , ALT_TAB , KC_LGUI , LFT_BK  , SFT_SPC , KC_SPC  , LFT_ENT , KC_MINS , KC_EQL  , KC_SLSH , KC_BSLS
@@ -48,6 +48,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ , BWSR_BK , TAB_LFT , KC_UP   , TAB_RGT , BWSR_FW , KC_MUTE , XXXXXXX , SCR_LFT , SCR_FUL , SCR_RGT , _______ ,
     _______ , XXXXXXX , KC_LEFT , KC_DOWN , KC_RGHT , KC_PGUP , KC_VOLU , SLACKUP , XXXXXXX , XXXXXXX , TO(QW)  , _______ ,
     _______ , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_PGDN , KC_VOLD , SLACKDN , XXXXXXX , XXXXXXX , TO(DV)  , _______ ,
-    _______ , RESET   , _______ , _______ , _LAYER_ , KC_BSPC , _______ , KC_LSFT , KC_LGUI , KC_LALT , KC_LCTL , _______
+    _______ , QK_BOOT, _______ , _______ , _LAYER_ , KC_BSPC , _______ , KC_LSFT , KC_LGUI , KC_LALT , KC_LCTL , _______
   )
 };

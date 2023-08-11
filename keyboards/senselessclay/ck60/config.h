@@ -17,39 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4849 // HI
-#define PRODUCT_ID   0x0601 // 60rgb (1)
-#define DEVICE_VER   0x0000 // rev0
-#define MANUFACTURER senselessclay
-#define PRODUCT      ck60
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-/* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { B3, B2, F1, F4, F5 }
-#define MATRIX_COL_PINS { F0, D5, D3, D2, D1, D0, C7, C6, B6, B5, B4, D7, D6, D4 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Debounce reduces chatter */
-#define DEBOUNCE 5
-
 /* RGB matrix lighting */ 
-#define RGB_DI_PIN B1
-#define DRIVER_LED_TOTAL 62
+#define RGB_MATRIX_LED_COUNT 62
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 160   // limit brightness to not overamp the USB
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16       // 16 is equivalent to limiting to 60fps
-#define RGB_DISABLE_AFTER_TIMEOUT 0         // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED      // turn off effects when suspended
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
@@ -74,7 +49,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
 #    define ENABLE_RGB_MATRIX_MULTISPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-/* disable these deprecated features by default */
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION

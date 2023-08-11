@@ -11,7 +11,7 @@ All hardware supported can be found in the [k34 repository](https://github.com/w
 
 ## Flashing Instructions
 
-To enter the bootloader, short the RST and GND pins, or press the key mapped to `RESET`.
+To enter the bootloader, short the RST and GND pins, or press the key mapped to `QK_BOOT`.
 
 Make example for this keyboard (after setting up your build environment):
 

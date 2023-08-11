@@ -84,7 +84,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define WORKMAN  KC_WORKMAN
 #define PLOVER   KC_PLOVER
 
-#define KC_RESET RESET
+#define KC_RESET QK_BOOT
 #define KC_RST   KC_RESET
 
 #define UC_IRNY  UC(0x2E2E)

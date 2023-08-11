@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "redscarf_i.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
   // initialize top row leds
@@ -36,7 +36,7 @@ bool led_update_kb(led_t led_state) {
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
-  switch (biton32(state)) {
+  switch (get_highest_layer(state)) {
     case 1:
       writePinHigh(F6);
       writePinLow(F5);

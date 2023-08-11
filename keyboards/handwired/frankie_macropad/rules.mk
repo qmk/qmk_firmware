@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega16u2
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #

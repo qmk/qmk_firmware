@@ -1,22 +1,38 @@
 {
     "keyboard_name": "FightPad",
+    "manufacturer": "AlisGraveNil",
     "url": "www.clawboards.xyz",
     "maintainer": "AlisGraveNil",
+    "usb": {
+        "vid": "0x7767",
+        "pid": "0x481C",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["D7", "E6", "B4", "B2", "B3", "B1", "F7"],
+        "rows": ["B5", "B6"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"K01 (B5,E6)", "x":1, "y":0},
-                {"label":"K03 (B5,B2)", "x":4, "y":0},
-                {"label":"K04 (B5,B3)", "x":5, "y":0},
-                {"label":"K05 (B5,B1)", "x":6, "y":0},
-                {"label":"K06 (B5,F7)", "x":7, "y":0},
-                {"label":"K10 (B6,D7)", "x":0, "y":1},
-                {"label":"K11 (B6,E6)", "x":1, "y":1},
-                {"label":"K12 (B6,B4)", "x":2, "y":1},
-                {"label":"K13 (B6,B2)", "x":4, "y":1},
-                {"label":"K14 (B6,B3)", "x":5, "y":1},
-                {"label":"K15 (B6,B1)", "x":6, "y":1},
-                {"label":"K16 (B6,F7)", "x":7, "y":1}
+                {"matrix": [0, 1], "x": 1, "y": 0},
+
+                {"matrix": [0, 3], "x": 4, "y": 0},
+                {"matrix": [0, 4], "x": 5, "y": 0},
+                {"matrix": [0, 5], "x": 6, "y": 0},
+                {"matrix": [0, 6], "x": 7, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [1, 3], "x": 4, "y": 1},
+                {"matrix": [1, 4], "x": 5, "y": 1},
+                {"matrix": [1, 5], "x": 6, "y": 1},
+                {"matrix": [1, 6], "x": 7, "y": 1}
             ]
         }
     }

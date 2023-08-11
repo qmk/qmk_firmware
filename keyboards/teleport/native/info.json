@@ -1,0 +1,29 @@
+{
+    "keyboard_name": "Native",
+    "manufacturer": "Anvil",
+    "maintainer": "ebastler",
+    "url": "https://nvil.gg",
+    "bootloader": "stm32-dfu",
+    "processor": "STM32F411",
+    "usb": {
+        "vid": "0x7470",
+        "device_version": "1.0.0",
+        "force_nkro": true
+    },
+    "rgb_matrix": {
+        "driver": "IS31FL3733"
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "diode_direction": "ROW2COL",
+    "matrix_pins": {
+        "cols": ["A5", "A4", "B12", "B14", "B8", "B3", "B4", "B5"],
+        "rows": ["C14", "C15", "C13", "A1", "A15", "A14", "A13", "B13", "B15", "A8", "A2", "A3"]
+    }
+}

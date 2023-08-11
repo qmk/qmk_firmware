@@ -21,7 +21,7 @@ ifeq ($(strip $(COMBO_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(LEADER_ENABLE)), yes)
-     SRC += leader.c
+     SRC += leader_user.c
 endif
 
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")

@@ -19,7 +19,7 @@
 #include "matrix.h"
 #include "bootloader.h"
 #include "debug.h"
-#include "keymap.h"
+#include "keycode_config.h"
 #include "host.h"
 #include "action_layer.h"
 #include "eeconfig.h"

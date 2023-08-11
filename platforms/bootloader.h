@@ -19,3 +19,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* give code for your bootloader to come up if needed */
 void bootloader_jump(void);
+void mcu_reset(void);

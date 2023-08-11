@@ -1,9 +1,3 @@
-# MCU name
-MCU = at90usb1286
-
-# Bootloader selection
-BOOTLOADER = qmk-dfu
-
 # Build Options
 #   change yes to no to disable
 #

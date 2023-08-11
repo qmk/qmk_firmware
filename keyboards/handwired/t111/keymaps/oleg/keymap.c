@@ -49,7 +49,7 @@ enum unicode_names {
   UAST
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [USCT]  = 0x00A7, // §
   [ULSB]  = 0x005B, // [
   [URSB]  = 0x005D, // ]
@@ -94,9 +94,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
     [0] = LAYOUT(
     KC_LGUI,          KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12, KC_VOLD,   KC_VOLU, KC_MUTE,  KC_PSCR,
-    KC_ESC,  KC_1,    KC_2,   KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL, KC_GRV, KC_BSPC,   KC_PGUP, KC_HOME,  KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+    KC_ESC,  KC_1,    KC_2,   KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL, KC_GRV, KC_BSPC,   KC_PGUP, KC_HOME,  KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
     KC_TAB,  KC_Q,    KC_W,   KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,        KC_ENT,    KC_PGDN, KC_END,   KC_P7,   KC_P8,   KC_P9,   KC_EQL,
-    KC_LCTRL, KC_A,   KC_S,   KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_BSLS,                   KC_DEL,  KC_NLCK,  KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+    KC_LCTL, KC_A,   KC_S,   KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_BSLS,                   KC_DEL,  KC_NUM,   KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
     KC_LSFT,          KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MC1,            KC_RSFT,   KC_UP,   KC_DOWN,  KC_P1,   KC_P2,   KC_P3,   KC_PENT,
                    KC_CAPS, KC_LALT,                                KC_SPC,                                    MO(1),                   KC_LEFT, KC_RGHT,     KC_P0,   KC_PDOT
     ),
@@ -116,12 +116,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------------------------------------------------------------------------------------------------------------------------'
 */    
     [1] = LAYOUT(
-    VRSN,             KC_SLEP, _______, UC_MOD,  _______, _______, _______, _______,   _______, _______,        _______,        _______, _______, _______, _______, _______, _______,
-    _______, _______, X(UAT),  X(UHSH), X(UDLR), X(USCT), X(UCFX), X(UAMP), X(UAST),   _______, _______,        _______,               _______, _______, _______, _______, _______, KC_CALC, _______, _______, _______,
-    _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, _______, _______, _______, KC_SYSREQ, KC_SLCK, KC_PAUS,        XP(ULSB, ULCB), XP(URSB, URCB),        _______,   _______, _______, _______, _______, _______, _______,
-    _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN5, _______, _______, _______, _______,   _______, XP(USCO, UCLN), XP(UAPO, UQOT),        _______,                          _______, _______, _______, _______, _______, _______,
-    _______,          _______, _______, KC_BTN4, _______, _______, _______, _______,   XP(UCOM, ULTH), XP(UDOT, UGTH), XP(USLS, UQUE),        KC_APP,               _______,    _______, _______, _______, _______, _______, _______,
-                   _______, _______,                               _______,                                     _______,                                   _______, _______,    _______,   _______
+    VRSN,             KC_SLEP, _______, UC_NEXT, _______, _______, _______, _______, _______, _______,        _______,        _______, _______, _______, _______, _______, _______,
+    _______, _______, X(UAT),  X(UHSH), X(UDLR), X(USCT), X(UCFX), X(UAMP), X(UAST), _______, _______,        _______,               _______, _______, _______, _______, _______, KC_CALC, _______, _______, _______,
+    _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, _______, _______, _______, KC_SYRQ, KC_SCRL, KC_PAUS,        XP(ULSB, ULCB), XP(URSB, URCB),        _______,   _______, _______, _______, _______, _______, _______,
+    _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN5, _______, _______, _______, _______, _______, XP(USCO, UCLN), XP(UAPO, UQOT),        _______,                          _______, _______, _______, _______, _______, _______,
+    _______,          _______, _______, KC_BTN4, _______, _______, _______, _______, XP(UCOM, ULTH), XP(UDOT, UGTH), XP(USLS, UQUE),        KC_APP,               _______,    _______, _______, _______, _______, _______, _______,
+                   _______, _______,                               _______,                                   _______,                                   _______, _______,    _______,   _______
     )
 };
 

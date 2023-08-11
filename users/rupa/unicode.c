@@ -21,7 +21,7 @@ combined_mode_t combined_mode = CM_NULL;
 bool _seeded = false;
 
 #if defined(UNICODEMAP_ENABLE)
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [CCIR] = 0x20DD,  // COMBINING CIRCLE  ⃝
     [CENT] = 0x00A2,  // ¢
     [CHEK] = 0x2713,  // ✓

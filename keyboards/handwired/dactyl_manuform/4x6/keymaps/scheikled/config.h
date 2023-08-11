@@ -9,9 +9,9 @@
 #define SPLIT_HAND_PIN F6
 
 // WS2812 RGB LED strip input and number of LEDs
-#undef RGB_DI_PIN
+#undef WS2812_DI_PIN
 #undef RGBLED_NUM
-#define RGB_DI_PIN F4
+#define WS2812_DI_PIN F4
 #define RGBLED_NUM 52
 #define RGBLED_SPLIT {26, 26}
 #define RGBLIGHT_EFFECT_BREATHING

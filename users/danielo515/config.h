@@ -1,7 +1,6 @@
 #pragma once
 
 #if defined(COMBO_ENABLE)
-#    define COMBO_COUNT 11
 #    define COMBO_TERM 25
 #endif  // !COMBO_ENABLE
 // Timeout settings for leader key

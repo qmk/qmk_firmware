@@ -37,4 +37,4 @@
 #define TAPPING_TERM 200
 
 #undef MANUFACTURER
-#define MANUFACTURER Flare576
+#define MANUFACTURER "Flare576"

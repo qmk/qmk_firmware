@@ -1,7 +1,7 @@
 // Copyright 2021 Kumao Kobo (@kumaokobo)
 // SPDX-License-Identifier: GPL-2.0+
 
-#include "kudox_full.h"
+#include "quantum.h"
 
 #ifdef RGBLIGHT_ENABLE
 void eeconfig_init_kb(void) {

@@ -1,0 +1,20 @@
+{
+    "keyboard_name": "Tractyl Manuform (5x6) BlackPill",
+    "matrix_pins": {
+        "cols": ["A15", "B3", "B4", "B5", "B6", "B7"],
+        "rows": ["B12", "B13", "B14", "B15", "A8", "A10"]
+    },
+    "diode_direction": "COL2ROW",
+    "ws2812": {
+        "pin": "A1",
+        "driver": "pwm"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A13", "pin_b": "A14"}
+        ]
+    },
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu",
+    "board": "BLACKPILL_STM32_F411"
+}

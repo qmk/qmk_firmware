@@ -28,11 +28,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │││││Opt │Cmd │         SpcRse         │Ctrl│││││
  * └┴┴┴┴────┴────┴────────────────────────┴────┴┴┴┴┘
  */
-[_BASE] = LAYOUT( \
-    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-    HY_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,             KC_ENT,  \
-    KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  SLH_LWR, \
-             KC_LOPT, KC_LCMD,          XXXXXXX, SPC_RAI, XXXXXXX,                   XXXXXXX, KC_LCTL           \
+[_BASE] = LAYOUT(
+    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+    HY_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,             KC_ENT,
+    KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  SLH_LWR,
+             KC_LOPT, KC_LCMD,          XXXXXXX, SPC_RAI, XXXXXXX,                   XXXXXXX, KC_LCTL
 ),
 /* Lower
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
@@ -45,11 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │││││    │    │                        │    │││││
  * └┴┴┴┴────┴────┴────────────────────────┴────┴┴┴┴┘
  */
-[_LOWER] = LAYOUT( \
-    KC_DELT, KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, KC_HOME, KC_UP,   KC_PGUP, MC_SLPD, \
-    _______, KC_MUTE, KC_VOLU, NXT_WIN, PRV_TAB, MC_BACK, MC_FWRD, NXT_TAB, KC_LEFT, KC_RGHT,          KC_MPLY, \
-    SF_CAPS,          KC_MPRV, KC_VOLD, KC_MNXT, PX_AFLL, OP_AFLL, _______, KC_END,  KC_DOWN, KC_PGDN, _______, \
-             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______           \
+[_LOWER] = LAYOUT(
+    KC_DEL,  KC_BRMD, KC_BRMU, MC_MSSN, MC_LHPD, _______, _______, _______, KC_HOME, KC_UP,   KC_PGUP, MC_SLPD,
+    _______, KC_MUTE, KC_VOLU, NXT_WIN, PRV_TAB, MC_BACK, MC_FWRD, NXT_TAB, KC_LEFT, KC_RGHT,          KC_MPLY,
+    SF_CAPS,          KC_MPRV, KC_VOLD, KC_MNXT, PX_AFLL, OP_AFLL, _______, KC_END,  KC_DOWN, KC_PGDN, _______,
+             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______
 ),
 /* Raise
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
@@ -63,11 +63,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └┴┴┴┴────┴────┴────────────────────────┴────┴┴┴┴┘
  */
 /*
-[_RAISE] = LAYOUT( \
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_SCLN,          KC_QUOT, \
-    _______,          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_LBRC, KC_RBRC, BSL_LWR, \
-             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______           \
+[_RAISE] = LAYOUT(
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_SCLN,          KC_QUOT,
+    _______,          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_LBRC, KC_RBRC, BSL_LWR,
+             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______
 ), */
 /* Raise
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
@@ -80,11 +80,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * │││││    │    │                        │    │││││
  * └┴┴┴┴────┴────┴────────────────────────┴────┴┴┴┴┘
  */
-[_RAISE] = LAYOUT( \
-    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_LBRC, KC_RBRC, KC_7,    KC_8,    KC_9,    KC_0,    _______, \
-    _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_MINS, KC_PLUS, KC_4,    KC_5,    KC_6,             KC_QUOT, \
-    _______,          KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_SCLN, BSL_LWR, \
-             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______           \
+[_RAISE] = LAYOUT(
+    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_LBRC, KC_RBRC, KC_7,    KC_8,    KC_9,    KC_0,    _______,
+    _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_MINS, KC_PLUS, KC_4,    KC_5,    KC_6,             KC_QUOT,
+    _______,          KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_SCLN, BSL_LWR,
+             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______
 ),
 /* Adjust/Macro
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
@@ -98,11 +98,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └┴┴┴┴────┴────┴────────────────────────┴────┴┴┴┴┘
  */
 
-[_ADJUST] = LAYOUT( \
-    QM_MAKE, _______, _______, EEP_RST, RESET,   _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, \
-    _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______           \
+[_ADJUST] = LAYOUT(
+    QM_MAKE, _______, _______, EE_CLR,  QK_BOOT, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+    _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______
 )
 /* Blank Layer
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
@@ -116,11 +116,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * └┴┴┴┴────┴────┴────────────────────────┴────┴┴┴┴┘
  */
 /*
-[BLANK] = LAYOUT( \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, \
-    _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______           \
+[BLANK] = LAYOUT(
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+    _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+             _______, _______,          XXXXXXX, _______, XXXXXXX,                   XXXXXXX, _______
 )
 */
 

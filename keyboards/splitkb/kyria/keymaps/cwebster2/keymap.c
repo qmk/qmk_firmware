@@ -40,7 +40,7 @@ const uint16_t PROGMEM curly_combo[] = { KC_F, KC_P, COMBO_END };
 const uint16_t PROGMEM parens_combo[] =  { KC_P, KC_B, COMBO_END };
 const uint16_t PROGMEM square_combo[] = { KC_D, KC_V, COMBO_END };
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     [ZX_COPY]  = COMBO(copy_combo, LCTL_T(KC_C)),
     [CV_PASTE] = COMBO(paste_combo, LCTL_T(KC_V)),
     [PB_PARENS] = COMBO(parens_combo, KC_LPRN),
@@ -252,7 +252,7 @@ bool led_update_user(led_t led_state) {
 #endif
 
 #ifdef OLED_ENABLE
-void suspend_power_down_user() {
+void suspend_power_down_user(void) {
     oled_clear();
     oled_off();
 }

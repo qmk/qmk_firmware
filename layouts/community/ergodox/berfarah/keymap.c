@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,VIM_W,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-        KC_TRNS,KC_TRNS,KC_HOME,KC_PGUP,KC_PGDOWN,KC_END,
+        KC_TRNS,KC_TRNS,KC_HOME,KC_PGUP,KC_PGDN,KC_END,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,VIM_B,  KC_TRNS,
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
                                         KC_TRNS,KC_TRNS,
@@ -219,7 +219,7 @@ static inline void mod_layer_with_rgb(keyrecord_t *record, uint8_t layer) {
     bf_set_led(layer);
   } else {
     layer_off(layer);
-    uint8_t currentLayer = biton32(layer_state);
+    uint8_t currentLayer = get_highest_layer(layer_state);
     bf_set_led(currentLayer);
   };
 };
@@ -233,7 +233,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case BF_AFK:
       if (record->event.pressed) {
         layer_on(AFK);
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LSHIFT)SS_TAP(X_POWER)SS_UP(X_LSHIFT)SS_UP(X_LCTRL));
+        SEND_STRING(SS_DOWN(X_LCTL)SS_DOWN(X_LSFT)SS_TAP(X_PWR)SS_UP(X_LSFT)SS_UP(X_LCTL));
       }
       return false; break;
     case BF_WAKE:
@@ -266,7 +266,7 @@ void matrix_init_user(void) {
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();

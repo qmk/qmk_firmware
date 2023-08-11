@@ -25,10 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key combination for magic key command */
 #undef IS_COMMAND
 #define IS_COMMAND() ( \
-    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
+    get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT)) \
 )
 
 #ifdef RGBLIGHT_ENABLE
-#  define RGB_DI_PIN D0
+#  define WS2812_DI_PIN D0
 #  define RGBLED_NUM 4
 #endif // !RGBLIGHT_ENABLE

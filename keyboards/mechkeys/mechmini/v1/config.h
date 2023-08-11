@@ -17,27 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0xCA40
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MECHKEYS
-#define PRODUCT         Mechmini
-
-/* matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 12
-#define MATRIX_ROW_PINS { B0, B1, B2, B3 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4 }
-#define DIODE_DIRECTION COL2ROW
-
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 3
-
 /* RGB underglow */
-// The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
-// The same pin is used on the JJ40, at least.
 #define RGBLED_NUM 16
-#define RGBLIGHT_ANIMATIONS
-#define RGB_DI_PIN E2
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE

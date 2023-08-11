@@ -46,10 +46,10 @@ enum {
     GAME
 };
 
-td_state_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(tap_dance_state_t *state);
 
-void ql_finished(qk_tap_dance_state_t *state, void *user_data);
-void ql_reset(qk_tap_dance_state_t *state, void *user_data);
+void ql_finished(tap_dance_state_t *state, void *user_data);
+void ql_reset(tap_dance_state_t *state, void *user_data);
 
 #define KC_CTL_A  MT(MOD_LCTL, KC_A)     // Tap for A, hold for Control
 #define KC_SFT_Z  MT(MOD_RSFT, KC_Z)     // Tap for Z, hold for Shift
@@ -158,7 +158,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1)
         return TD_SINGLE_TAP;
     if (state->count == 2)
@@ -173,7 +173,7 @@ static td_tap_t ql_tap_state = {
     .state = TD_NONE
 };
 
-void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ql_finished(tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch (ql_tap_state.state) {
         case TD_SINGLE_TAP:
@@ -194,10 +194,19 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ql_reset(tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = TD_NONE;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [GAME] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, ql_finished, ql_reset, 275)
+tap_dance_action_t tap_dance_actions[] = {
+    [GAME] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset)
 };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
+            return 275;
+        default:
+            return TAPPING_TERM;
+    }
+}

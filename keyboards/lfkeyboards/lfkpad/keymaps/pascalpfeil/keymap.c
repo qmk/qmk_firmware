@@ -19,7 +19,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_numpad_6x4(
         KC_ESC,  KC_TAB,  KC_BSPC, MO(1),
-        KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+        KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
         KC_P1,   KC_P2,   KC_P3,
@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* RGB */
     [1] = LAYOUT_numpad_6x4(
         RGB_SAI, RGB_VAI, RGB_HUI, _______,
-        RGB_SAD, RGB_VAD, RGB_HUD, RESET,
+        RGB_SAD, RGB_VAD, RGB_HUD, QK_BOOT,
         RGB_M_X, RGB_M_G, RGB_MOD,
         RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_RMOD,
         RGB_M_P, RGB_M_B, RGB_M_R,
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint8_t number_leds[] = {8, 9, 10, 11, 12, 13, 15, 16, 17};
-const uint8_t number_leds_size = sizeof(number_leds) / sizeof(uint8_t);
+const uint8_t number_leds_size = ARRAY_SIZE(number_leds);
 
 bool led_update_user(led_t led_state) {
     for (uint8_t i = 0; i < number_leds_size; i++)
@@ -67,7 +67,7 @@ bool led_update_user(led_t led_state) {
             // this is needed so that upon disabling num lock, the leds don't stay red 
             rgblight_sethsv_at(rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val(), numer_leds[i]); 
         else
-            rgblight_setrgb_red_at(numer_leds[i]); // set to red
+            rgblight_setrgb_at(RGB_RED, numer_leds[i]); // set to red
 
     return true;
 }

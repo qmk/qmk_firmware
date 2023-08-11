@@ -1,4 +1,4 @@
-/* Copyright 2020-2021 James Young (@noroadsleft)
+/* Copyright 2020-2022 James Young (@noroadsleft)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,6 +64,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 } else {
                     SEND_STRING("$(git branch-name)");
                 }
+            };
+            return false;
+        case G_PWD:
+            if (record->event.pressed) {
+                clear_mods();
+                SEND_STRING("$( pwd | sed -e 's;^.*/keyboards/;;' -e 's;/;_;g')");
             };
             return false;
         case M_SALL:

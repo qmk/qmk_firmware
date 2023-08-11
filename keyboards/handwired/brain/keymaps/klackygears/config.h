@@ -17,11 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#define USE_SERIAL
-
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 150
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

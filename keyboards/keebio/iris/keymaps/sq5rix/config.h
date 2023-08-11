@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #define EE_HANDS
 #define TAPPING_TERM 164
-#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 #define RGBLIGHT_LAYERS
 #define ENCODER_RESOLUTION 4

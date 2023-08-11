@@ -1,0 +1,28 @@
+{
+    "keyboard_name": "Charybdis (4x6) Elite-C",
+    "usb": {
+        "device_version": "1.0.0"
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "matrix_pins": {
+        "cols": ["D5", "C7", "F0", "D7", "E6", "B4"],
+        "rows": ["F1", "B7", "C6", "D4", "B5"]
+    },
+    "diode_direction": "ROW2COL",
+    "split": {
+        "soft_serial_pin": "D2",
+        "matrix_pins": {
+            "right": {
+                "cols": ["F1", "C7", "B7", "D7", "E6", "B4"],
+                "rows": ["D5", "F0", "C6", "D4", "B5"]
+            }
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

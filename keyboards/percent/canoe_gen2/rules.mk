@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,7 +11,5 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 
-LAYOUTS = 65_ansi_blocker_split_bs 65_iso_blocker_split_bs
 RGB_MATRIX_CUSTOM_KB = yes

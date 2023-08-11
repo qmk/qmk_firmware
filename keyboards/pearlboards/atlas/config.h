@@ -17,42 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6963
-#define PRODUCT_ID 0x6964
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Koobaczech
-#define PRODUCT Atlas
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 16
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { D6, E1, C0, C4, E3 }
-#define MATRIX_COL_PINS { D5, D4, C1, C2, C3, C5, C7, A7, A6, A5, A4, A3, A2, A1, A0, F7 }
-#define UNUSED_PINS { E4, E5, E6, E7, F0, F1, F2, F3, B0, B4, B5, B7 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* Encoder Function */
-#define ENCODERS_PAD_A { E0 }
-#define ENCODERS_PAD_B { D7 }
-//#define ENCODER_DIRECTION_FLIP
-#define ENCODER_RESOLUTION 1
-
 /* Audio Function */
 #define AUDIO_CLICKY
 #define AUDIO_PIN C6
@@ -67,8 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*== all animations enabled ==*/
 /* If RGBLIGHT_SLEEP defined, the RGB lighting will be switched off when the host goes to sleep */
-#define RGB_DI_PIN B6
-#ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_CHRISTMAS
@@ -83,16 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_SLEEP
-#endif
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* Indicator Led's*/
-#define LED_CAPS_LOCK_PIN F4
-#define LED_NUM_LOCK_PIN F5
-#define LED_SCROLL_LOCK_PIN F6
-#define LED_PIN_ON_STATE 0
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

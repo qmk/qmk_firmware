@@ -17,7 +17,7 @@
 #include "soldered.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS3_SW1,  CS2_SW1,  CS1_SW1},  /* RGB0-ESC ROW0*/
     {0, CS6_SW1,  CS5_SW1,  CS4_SW1},  /* RGB1-1 */
     {0, CS9_SW1,  CS8_SW1,  CS7_SW1},  /* RGB2-2 */
@@ -115,15 +115,16 @@ led_config_t g_led_config = { {
 
 #endif
 
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void)
-{
-    if (host_keyboard_led_state().caps_lock)
-    {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(31, 255, 255, 255);
     } else {
         rgb_matrix_set_color(31, 0, 0, 0);
     }
+    return true;
 }
 
 enum encoder_modes{
@@ -135,15 +136,15 @@ enum encoder_modes{
 keyboard_config_t keyboard_config;
 rgblight_config_t rgblight_config;
 
-uint8_t pre_hue, pre_sat, pre_val; 
-uint8_t previous_rgb_mode = 0;  
+uint8_t pre_hue, pre_sat, pre_val;
+uint8_t previous_rgb_mode = 0;
 uint8_t dir_hue, dir_sat;
 
-bool encoder_in = false; 
-uint32_t encoder_timer; 
+bool encoder_in = false;
+uint32_t encoder_timer;
 
-bool encoder_ani_start= false;  
-uint32_t encoder_ani_timer = 0;  
+bool encoder_ani_start= false;
+uint32_t encoder_ani_timer = 0;
 
 bool encoder_direction_start = false;
 uint32_t encoder_direction_timer = 0;
@@ -183,7 +184,7 @@ void switch_encoder_mode(uint8_t mode){
             dir_sat = 255;
             break;
         }
-        rgblight_sethsv_noeeprom(dir_hue,dir_sat,pre_val); 
+        rgblight_sethsv_noeeprom(dir_hue,dir_sat,pre_val);
 }
 
 
@@ -194,7 +195,7 @@ void init_encoder_mode(uint8_t mode){
     pre_val = rgblight_get_val();
     encoder_in = true;
 
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);  
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 
     switch_encoder_mode(mode);
 }
@@ -222,21 +223,21 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case RGB_VAI:
         case RGB_VAD:
 
-        if(encoder_in){  
+        if(encoder_in){
                 return false;
-            }  
+            }
         break;
 
         case KC_F13:
-        rgb_matrix_toggle(); 
+        rgb_matrix_toggle();
         break;
 
         case KC_F14:
-        rgb_matrix_step();  
+        rgb_matrix_step();
         break;
 
-        case KC_F15:  
-        rgb_matrix_step_reverse();  
+        case KC_F15:
+        rgb_matrix_step_reverse();
         break;
 
         case KC_F16:
@@ -265,7 +266,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case KC_F22:  //change encoder mode upward
         if(!encoder_direction_start){
-            if(keyboard_config.encoder_mode_index < ENCODER_MODE_THREE){                
+            if(keyboard_config.encoder_mode_index < ENCODER_MODE_THREE){
                 keyboard_config.encoder_mode_index++;
             }
             else{
@@ -282,7 +283,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             else{
                 keyboard_config.encoder_mode_index = ENCODER_MODE_THREE;
-            }      
+            }
             set_encoder_mode(keyboard_config.encoder_mode_index);
         }
         return false;
@@ -299,7 +300,7 @@ void matrix_scan_kb(void) {
     if(encoder_in){
         if(timer_elapsed32(encoder_timer) > 5000){
             rgblight_mode(previous_rgb_mode);
-            rgblight_sethsv(pre_hue, pre_sat, pre_val);     
+            rgblight_sethsv(pre_hue, pre_sat, pre_val);
             encoder_in = false;
         }
     }
@@ -314,7 +315,7 @@ void matrix_scan_kb(void) {
     if(encoder_direction_start){
         if(timer_elapsed32(encoder_direction_timer) > (VOLUME_ANIMATION_TIMER+1500)){
             rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-            rgblight_sethsv_noeeprom(dir_hue, dir_sat, pre_val); 
+            rgblight_sethsv_noeeprom(dir_hue, dir_sat, pre_val);
             encoder_direction_start = false;
         }
     }
@@ -324,19 +325,19 @@ void matrix_scan_kb(void) {
 
 void set_volume_animation(bool increase){
     if(!encoder_ani_start){
-        rgblight_snake_restart(dir_hue, dir_sat, pre_val);  
+        rgblight_snake_restart(dir_hue, dir_sat, pre_val);
     }
 
     if(increase){
-        rgblight_mode_noeeprom(17);  
-    } else {         
+        rgblight_mode_noeeprom(17);
+    } else {
         rgblight_mode_noeeprom(18);
     }
 
     encoder_ani_timer = timer_read32();
     encoder_direction_timer = encoder_ani_timer;
     encoder_ani_start = true;
-    encoder_direction_start = true; 
+    encoder_direction_start = true;
 }
 
 
@@ -353,15 +354,15 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
              switch(encoder_cw_keycode) {
 
                 case KC_F13:
-                rgb_matrix_toggle(); 
+                rgb_matrix_toggle();
                 break;
 
                 case KC_F14:
-                rgb_matrix_step(); 
+                rgb_matrix_step();
                 break;
 
-                case KC_F15:  
-                rgb_matrix_step_reverse();  
+                case KC_F15:
+                rgb_matrix_step_reverse();
                 break;
 
                 case KC_F16:
@@ -392,7 +393,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
                 case KC_VOLD:
                 tap_code(encoder_cw_keycode);
                 break;
-        
+
                 default:
                 tap_code(encoder_cw_keycode);
                 break;
@@ -406,11 +407,11 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
                 break;
 
                 case KC_F14:
-                rgb_matrix_step(); 
+                rgb_matrix_step();
                 break;
 
-                case KC_F15:  
-                rgb_matrix_step_reverse();  
+                case KC_F15:
+                rgb_matrix_step_reverse();
                 break;
 
                 case KC_F16:

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "uma.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 void suspend_power_down_user(void) {

@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |--------------||--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|------------------||
        //
        // |------2.25--------|--------|--------|--------|--------|--------|--------|--------|--------|--------||----1.75------|--------|--------||
-               KC_LSHIFT,      KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,   SFT_T(KC_SLSH), KC_UP,  KC_HYPR,
+               KC_LSFT,        KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,    KC_N,    KC_M,   KC_COMM, KC_DOT,   SFT_T(KC_SLSH), KC_UP,  KC_HYPR,
        // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
        //
        // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_F1,   KC_F2,         KC_F3,               KC_F4,           KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12, KC_DEL,
         KC_TAB,  KC_NO,   KC_HOME,       KC_UP,               KC_END,          KC_NO,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,   KC_NO,   KC_NO,   KC_NO,  KC_NO,
         KC_CAPS, KC_NO,   KC_LEFT,       KC_DOWN,             KC_RIGHT,        KC_NO,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_NO,   KC_NO,   KC_ENT,
-        KC_LSFT, KC_MPRV, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP, KC_MNXT, KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_LOCK, KC_PGUP, KC_INS,
+        KC_LSFT, KC_MPRV, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP, KC_MNXT, KC_NO,   KC_NO,   KC_NO,   KC_NO,    QK_LOCK, KC_PGUP, KC_INS,
         KC_MEH,  KC_LALT, KC_LGUI,       KC_MEDIA_PLAY_PAUSE, KC_TRNS,         KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN,  KC_END
     ),
 
@@ -59,8 +59,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 4: RGB lighting controls and keyboard config, reset */
     LAYOUT_b_4_10(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,          KC_NO,            KC_NO,     TO(5),
-        KC_NO, KC_NO, KC_NO, KC_NO, RESET, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,          KC_NO,            KC_NO,     RGB_HUD,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   RGB_MODE_PLAIN, RGB_MODE_FORWARD, KC_RSHIFT,
+        KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,          KC_NO,            KC_NO,     RGB_HUD,
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   RGB_MODE_PLAIN, RGB_MODE_FORWARD, KC_RSFT,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   RGB_TOG,        RGB_VAI,          RGB_HUI,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, RGB_SAD, RGB_VAD, RGB_SAI
     ),

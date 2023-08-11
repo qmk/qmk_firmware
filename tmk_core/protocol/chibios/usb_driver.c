@@ -60,7 +60,7 @@ static bool qmkusb_start_receive(QMKUSBDriver *qmkusbp) {
     }
 
     /* Checking if there is already a transaction ongoing on the endpoint.*/
-    if (usbGetReceiveStatusI(qmkusbp->config->usbp, qmkusbp->config->bulk_in)) {
+    if (usbGetReceiveStatusI(qmkusbp->config->usbp, qmkusbp->config->bulk_out)) {
         return true;
     }
 

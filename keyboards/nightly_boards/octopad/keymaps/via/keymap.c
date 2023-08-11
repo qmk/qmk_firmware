@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			     MACRO5,  MACRO6,    MACRO7,   MACRO8
 	*/
 	[0] = LAYOUT(
-		KC_VOLD, KC_ESC,   KC_VOLU,  KC_BRID, RESET,  KC_BRIU,
+		KC_VOLD, KC_ESC,   KC_VOLU,  KC_BRID, QK_BOOT,  KC_BRIU,
 		         KC_Q,     KC_W,     KC_E,     KC_R,
 			     KC_A,     KC_S,     KC_D,     KC_F
 		

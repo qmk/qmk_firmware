@@ -112,8 +112,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 	[_ADJUST] = LAYOUT(
-		EEP_RST, RESET,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-		KC_LEAD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   QWERTY,  COLEMAK, KC_NO,   KC_NO,   KC_NO,   KC_NO,
+		EE_CLR,  QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+		QK_LEAD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   QWERTY,  COLEMAK, KC_NO,   KC_NO,   KC_NO,   KC_NO,
 		KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
 		RGB_VAD, RGB_TOG, RGB_VAI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO
 	),
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 	[_VIM] = LAYOUT(
-		EEP_RST, RESET,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+		EE_CLR,  QK_BOOT, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
 		KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_H,    KC_J,    KC_K,    KC_L,    KC_NO,   KC_NO,
 		KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_UP,   KC_NO,
 		RGB_VAD, RGB_TOG, RGB_VAI, KC_NO,   KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT

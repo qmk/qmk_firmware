@@ -4,14 +4,12 @@
 
 #define EECONFIG_USERSPACE (uint8_t *)20
 
-#define SYMBOL      MO(1)
-#define MEDIA       MO(2)
-#define ARROW       MO(3)
-#define FUNCT       MO(4)
-#define KEEB        MO(5)
-
-#define L_BIT_MEH   MOD_BIT(KC_LCTL) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)
-#define L_BIT_HYPR  MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LSFT)
+#define SYMBOL      MO(_SYMBOL)
+#define MEDIA       MO(_MEDIA)
+#define ARROW       MO(_ARROW)
+#define FUNCT       MO(_FUNCT)
+#define KEEB        MO(_KEEB)
+#define HITBOX      TT(_HITBOX)
 
 #define LED_FLASH_DELAY       150
 
@@ -30,6 +28,7 @@ enum {
   _ARROW,
   _FUNCT,
   _KEEB,
+  _HITBOX,
 };
 
 typedef enum {
@@ -68,10 +67,6 @@ enum custom_keycodes {
   M_OS,
   M_DASH,
   M_USSR,
-  M_EHYPR,
-  M_LMHYP,
-  M_SFTY,
-  M_AEST,
 };
 
 void velocikey_accelerate(void);

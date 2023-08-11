@@ -119,7 +119,7 @@ stack of layers                     array_of_action_code[row][column]
 
 ```ascii
 ,-----------------------------------------------------------------------------------.
-|      |RESET |DEBUG |      |      |      |      |DMREC1|DMREC2|      |      |      |
+|      |RESET |Debug |      |      |      |      |DMREC1|DMREC2|      |      |      |
 |------+------+------+------+------+-------------+------+------+------+------+------|
 |      |GAMING|      |      |      |      |      |DMPLY1|DMPLY2|Audoff|Aud on|      |
 |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -133,8 +133,8 @@ stack of layers                     array_of_action_code[row][column]
 
 ```text
 RESET:       Put the keyboard into bootloader mode for flashing
-DEBUG:       Toggle debug mode
-EEP_RST:     Reinitializes the keyboard’s EEPROM (persistent memory)
+Debug:       Toggle debug mode
+EE_CLR:      Reinitializes the keyboard’s EEPROM (persistent memory)
 
 AG_TOG:      Toggle Alt and GUI swap on both sides (Mac)
 
@@ -146,11 +146,11 @@ DM_RSTP:     Finish the macro that is currently being recorded.
 
 AU_ON:   Audio mode on
 AU_OFF:  Audio mode off
-AU_TOG:  Toggles Audio mode
+AU_TOGG: Toggles Audio mode
 MU_ON:   Turn music mode on
 MU_OFF:  Turn music mode off
-MU_TOG:  Toggle music mode
-MU_MOD:  Cycle through the music modes:
+MU_TOGG: Toggle music mode
+MU_NEXT: Cycle through the music modes:
     CHROMATIC_MODE:  Chromatic scale, row changes the octave
     GUITAR_MODE:     Chromatic scale, but the row changes the string (+5 st)
     VIOLIN_MODE:     Chromatic scale, but the row changes the string (+7 st)

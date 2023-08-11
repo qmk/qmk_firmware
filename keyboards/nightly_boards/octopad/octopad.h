@@ -18,22 +18,3 @@
 
 #include "quantum.h"
 #include "encoder_action.h"
-
-/* This is a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT( \
-    E00A, K04,   E00B,  E01A, K14,  E01B, \
-    K00,  K01,   K02,   K03,    \
-    K10,  K11,   K12,   K13    \
-\
-) { \
-    { K00,   K01,   K02,    K03,    K04   }, \
-    { K10,   K11,   K12,    K13,    K14   }, \
-    { E00A,  E00B,  E01A,   E01B,   KC_NO }  \
-}

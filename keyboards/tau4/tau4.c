@@ -15,4 +15,33 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tau4.h"
+#include "quantum.h"
+
+#ifdef OLED_ENABLE
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
+        oled_write_P(PSTR("Tau.4 v1.0\n\n"), false);
+        oled_write_P(PSTR("Layer:\n"), false);
+
+        switch (get_highest_layer(layer_state)) {
+            case 0:
+                oled_write_P(PSTR("Default  "), false);
+                break;
+            case 1:
+                oled_write_P(PSTR("Numpad   "), false);
+                break;
+            case 2:
+                oled_write_P(PSTR("Lower    "), false);
+                break;
+            case 3:
+                oled_write_P(PSTR("Raise    "), false);
+                break;
+            case 4:
+                oled_write_P(PSTR("Adjust   "), false);
+                break;
+            default:
+                oled_write_P(PSTR("Undefined"), false);
+        }
+    return true;
+}
+#endif

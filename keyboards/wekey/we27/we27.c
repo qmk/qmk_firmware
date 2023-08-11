@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "we27.h"
+#include "quantum.h"
 #include "encoder_actions.h"
 
 #ifdef RGB_MATRIX_ENABLE

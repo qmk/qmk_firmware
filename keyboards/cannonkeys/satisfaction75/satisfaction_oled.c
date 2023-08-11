@@ -145,7 +145,7 @@ static char* get_time(void) {
         hour = 12;
     }
 
-    static char time_str[8] = "";
+    static char time_str[11] = "";
     sprintf(time_str, "%02d:%02d%s", hour, minute, is_pm ? "pm" : "am");
 
     return time_str;
@@ -162,13 +162,13 @@ static char* get_date(void) {
         day   = day_config;
     }
 
-    static char date_str[11] = "";
+    static char date_str[15] = "";
     sprintf(date_str, "%04d-%02d-%02d", year, month, day);
 
     return date_str;
 }
 
-void draw_default() {
+void draw_default(void) {
     oled_write_P(PSTR("LAYER "), false);
     oled_write_char(get_highest_layer(layer_state) + 0x30, true);
 
@@ -220,7 +220,7 @@ void draw_default() {
     draw_line_v(71, 0, 8);
 }
 
-void draw_clock() {
+void draw_clock(void) {
     oled_set_cursor(0, 0);
     oled_write(get_date(), false);
     oled_set_cursor(0, 2);

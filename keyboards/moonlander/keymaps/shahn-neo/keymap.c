@@ -24,7 +24,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-    a_umlaut = ML_SAFE_RANGE,
+    a_umlaut = SAFE_RANGE,
     o_umlaut,
     u_umlaut,
     eszett,

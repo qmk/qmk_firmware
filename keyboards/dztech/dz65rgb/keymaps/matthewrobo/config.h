@@ -6,7 +6,7 @@
 #define TAPPING_TERM 150
 
 #define TAP_HOLD_CAPS_DELAY 0
-#undef RGB_MATRIX_STARTUP_MODE
+#undef RGB_MATRIX_DEFAULT_MODE
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
 // #undef ENABLE_RGB_MATRIX_SOLID_COLOR
@@ -47,8 +47,6 @@
 // #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 // #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#define QMK_KEYS_PER_SCAN 4
-
 // #define RGB_MATRIX_KEYRELEASES
 
 // some speed shit
@@ -61,8 +59,7 @@
 #endif // !NO_PRINT
 
 #define NO_ACTION_ONESHOT
-#define TAPPING_FORCE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
+#define QUICK_TAP_TERM 0
 
 // #include "config_led.h"
 // #include "dz60rgb.h"

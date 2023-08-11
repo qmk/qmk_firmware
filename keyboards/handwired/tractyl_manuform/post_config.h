@@ -94,3 +94,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
 #endif
+
+#if defined(RGBLIGHT_ENABLE) && !defined(RGBLIGHT_LIMIT_VAL)
+#    if defined(OLED_ENABLE)
+#        define RGBLIGHT_LIMIT_VAL 100
+#    else
+#        define RGBLIGHT_LIMIT_VAL 150
+#    endif
+#endif
+
+#if !defined(OLED_BRIGHTNESS)
+#    if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+#        define OLED_BRIGHTNESS 80
+#    else
+#        define OLED_BRIGHTNESS 150
+#    endif
+#endif

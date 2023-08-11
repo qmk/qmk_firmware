@@ -16,19 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
-
-#define DEVICE_VER      0x0002
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { F4, F6, D7, B4, D6 }
-#define MATRIX_COL_PINS { F7, F5, D3, B7 }
-
 #define AUDIO_PIN C6
 
-#define RGB_DI_PIN D0
-
-#ifdef RGB_DI_PIN
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -43,5 +32,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 12
-#endif
-

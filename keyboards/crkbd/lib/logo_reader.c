@@ -1,4 +1,4 @@
-#include "crkbd.h"
+#include "quantum.h"
 
 const char *read_logo(void) {
   static char logo[] = {

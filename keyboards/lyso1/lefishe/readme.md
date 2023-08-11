@@ -15,7 +15,7 @@ Enter into the bootloader to flash new firmware in 3 ways:
 
 	* **Bootmagic reset**: Hold down the key at (0,0) in the matrix(The F1 key in this case) and plug the the keyboard in. 
 	* **Physical reset button**: Briefly press the button on the back and left side of the PCB(exactly under where the "2" key would be located) while the PCB is plugged in.
-	* **Keycode in layout**: Press the key mapped to `RESET` (RALT + E in this case) while the keyboard is plugged in. 
+	* **Keycode in layout**: Press the key mapped to `QK_BOOT` (RALT + E in this case) while the keyboard is plugged in. 
 
 Flashing example for this keyboard:
 

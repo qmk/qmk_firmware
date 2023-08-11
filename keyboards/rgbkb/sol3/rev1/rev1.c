@@ -57,10 +57,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
         }
         case 1: {
             // Handle RGB Encoder switch press
-            action_exec((keyevent_t){
-                .key = (keypos_t){.row = isLeftHand ? 4 : 10, .col = 6},
-                .pressed = active, .time = (timer_read() | 1) /* time should not be 0 */
-            });
+            action_exec(MAKE_KEYEVENT(isLeftHand ? 4 : 10, 6, active));
             break;
         }
     }
@@ -68,15 +65,11 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 }
 
 static void process_encoder_matrix(encodermap_t pos) {
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = true, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    action_exec(MAKE_KEYEVENT(pos.r, pos.c, true));
 #if TAP_CODE_DELAY > 0
     wait_ms(TAP_CODE_DELAY);
 #endif
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = false, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    action_exec(MAKE_KEYEVENT(pos.r, pos.c, false));
 }
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -105,7 +98,7 @@ bool touch_encoder_tapped_kb(uint8_t index, uint8_t section) {
     return false;
 }
 
-void matrix_slave_scan_kb() {
+void matrix_slave_scan_kb(void) {
     dip_switch_read(false);
     matrix_slave_scan_user();
 }
@@ -113,16 +106,18 @@ void matrix_slave_scan_kb() {
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
 led_config_t g_led_config = { {
-    {  41,  42,  43,  44,  45,  46,  47 },
-    {  54,  53,  52,  51,  50,  49,  48 },
-    {  55,  56,  57,  58,  59,  60,  61 },
-    {  68,  67,  66,  65,  64,  63,  62 },
+    {  41,  42,  43,  44,  45,  46,  47, NO_LED },
+    {  54,  53,  52,  51,  50,  49,  48, NO_LED },
+    {  55,  56,  57,  58,  59,  60,  61, NO_LED },
+    {  68,  67,  66,  65,  64,  63,  62, NO_LED },
     {  69,  70,  71,  72,  73,  74,  75,  76 },
-    { 119, 120, 121, 122, 123, 124, 125 },
-    { 132, 131, 130, 129, 128, 127, 126 },
-    { 133, 134, 135, 136, 137, 138, 139 },
-    { 146, 145, 144, 143, 142, 141, 140 },
-    { 147, 148, 149, 150, 151, 152, 153 }
+    {  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { 119, 120, 121, 122, 123, 124, 125, NO_LED  },
+    { 132, 131, 130, 129, 128, 127, 126, NO_LED  },
+    { 133, 134, 135, 136, 137, 138, 139, NO_LED  },
+    { 146, 145, 144, 143, 142, 141, 140, NO_LED  },
+    { 147, 148, 149, 150, 151, 152, 153, 154 },
+    {  NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
 }, { // ALL XY VALUES DIVIDE BY 2, THEN ADD 5
     {   1,   6 }, {   1,  13 }, {   1,  19 }, {   1,  25 }, {   1,  31 }, {   1,  37 }, {   1,  43 }, {   1,  49 }, {   4,  52 }, {  11,  52 },
     {  17,  52 }, {  23,  52 }, {  29,  52 }, {  35,  52 }, {  41,  54 }, {  46,  57 }, {  52,  60 }, {  57,  63 }, {  62,  66 }, {  68,  69 },

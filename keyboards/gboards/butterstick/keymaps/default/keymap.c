@@ -180,4 +180,4 @@ uint32_t processQwerty(bool lookup) {
 }
 
 // Don't fuck with this, thanks.
-size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
+size_t keymapsCount  = ARRAY_SIZE(keymaps);

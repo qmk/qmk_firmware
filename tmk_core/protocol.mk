@@ -68,6 +68,19 @@ ifeq ($(strip $(NO_USB_STARTUP_CHECK)), yes)
     TMK_COMMON_DEFS += -DNO_USB_STARTUP_CHECK
 endif
 
+ifeq ($(strip $(JOYSTICK_SHARED_EP)), yes)
+    TMK_COMMON_DEFS += -DJOYSTICK_SHARED_EP
+    SHARED_EP_ENABLE = yes
+endif
+
+ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DJOYSTICK_ENABLE
+    ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
+        TMK_COMMON_DEFS += -DJOYSTICK_SHARED_EP
+        SHARED_EP_ENABLE = yes
+    endif
+endif
+
 ifeq ($(strip $(DIGITIZER_SHARED_EP)), yes)
     TMK_COMMON_DEFS += -DDIGITIZER_SHARED_EP
     SHARED_EP_ENABLE = yes

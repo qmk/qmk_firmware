@@ -17,9 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#include "config_common.h"
 
-/* Use I2C or Serial, not both */
 #define USE_I2C
 #define SCL_CLOCK  800000UL
 
@@ -27,11 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 
 //#define DEBUG_MATRIX_SCAN_RATE //Use this to determine scan-rate.
-#define FORCE_NKRO
-
-#define QMK_KEYS_PER_SCAN 4 //if we press four keys simultaneously, lets process them simultaneously...
-#define DIODE_DIRECTION COL2ROW
-
 
 #ifdef AUDIO_ENABLE
   #define AUDIO_PIN C6

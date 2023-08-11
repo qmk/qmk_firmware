@@ -1,26 +1,7 @@
 #pragma once
 
-#include "config_common.h"
-
-#undef PRODUCT
-#define PRODUCT    Planck Light
-#define PRODUCT_ID 0xBEA2
-#define DEVICE_VER 0x0001
-
-#undef MATRIX_ROW_PINS
-#undef MATRIX_COL_PINS
-
-#define MATRIX_ROW_PINS \
-    { B0, E7, F0, F1 }
-#define MATRIX_COL_PINS \
-    { E6, E3, E4, D3, D4, D5, C0, A7, A6, E1, E0, D7 }
-
 #define AUDIO_PIN     C6
 #define AUDIO_PIN_ALT B5
-
-#undef BACKLIGHT_PIN
-
-#define BACKLIGHT_PIN A5
 
 #define NO_USB_STARTUP_CHECK
 
@@ -39,7 +20,7 @@
 #define DRIVER_COUNT       2
 #define DRIVER_1_LED_TOTAL 25
 #define DRIVER_2_LED_TOTAL 24
-#define DRIVER_LED_TOTAL   (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT   (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

@@ -37,7 +37,7 @@ enum tap_dances{
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder*/
-    switch(biton32(layer_state)){
+    switch(get_highest_layer(layer_state)){
 		case _MAIN:
 			if (clockwise) {
 			  tap_code(KC_VOLU);
@@ -114,7 +114,7 @@ void keyboard_post_init_user(void) {
 }
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Tap once for Escape, twice for Caps Lock
     [TD_TO_DISCORD] = ACTION_TAP_DANCE_LAYER_MOVE(KC_MUTE, _DISCORD),
 	[TD_TO_PHOTOSHOP] = ACTION_TAP_DANCE_LAYER_MOVE(KC_E, _PHOTOSHOP),

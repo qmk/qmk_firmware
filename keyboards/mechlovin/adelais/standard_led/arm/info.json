@@ -1,0 +1,20 @@
+{
+    "keyboard_name": "Adelais",
+    "matrix_pins": {
+        "cols": ["A10", "A9", "A8", "B15", "B14", "B13", "B12", "B11", "B10", "B8", "B4", "B5", "B3", "C14", "A15"],
+        "rows": ["B1", "A0", "C13", "A1", "A2"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "pin": "B0",
+        "breathing": true
+    },
+    "ws2812": {
+        "pin": "A7"
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "num_lock": "C15",
+        "scroll_lock": "B9"
+    }
+}

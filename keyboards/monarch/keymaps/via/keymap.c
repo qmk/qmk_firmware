@@ -27,11 +27,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_VOLD, KC_VOLU
   ),
   [1] = LAYOUT_all(
-      RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,
+      QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,           _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          BL_ON,
-      _______, _______, _______,                                      BL_TOGG,                   _______,                  BL_DEC,  BL_OFF,  BL_INC,
+      _______, _______, _______,                                      BL_TOGG,                   _______,                  BL_DOWN, BL_OFF,  BL_UP,
       _______, _______
   ),
   [2] = LAYOUT_all(
@@ -54,24 +54,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 keyevent_t encoder_ccw = {
     .key = (keypos_t){.row = 5, .col = 0},
-    .pressed = false
+    .pressed = false,
+    .type = KEY_EVENT
 };
 
 keyevent_t encoder_cw = {
     .key = (keypos_t){.row = 5, .col = 1},
-    .pressed = false
+    .pressed = false,
+    .type = KEY_EVENT
 };
 
 void matrix_scan_user(void) {
-    if (IS_PRESSED(encoder_ccw)) {
+    if (encoder_ccw.pressed) {
         encoder_ccw.pressed = false;
-        encoder_ccw.time = (timer_read() | 1);
+        encoder_ccw.time = timer_read();
         action_exec(encoder_ccw);
     }
 
-    if (IS_PRESSED(encoder_cw)) {
+    if (encoder_cw.pressed) {
         encoder_cw.pressed = false;
-        encoder_cw.time = (timer_read() | 1);
+        encoder_cw.time = timer_read();
         action_exec(encoder_cw);
     }
 }
@@ -79,11 +81,11 @@ void matrix_scan_user(void) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
         encoder_cw.pressed = true;
-        encoder_cw.time = (timer_read() | 1);
+        encoder_cw.time = timer_read();
         action_exec(encoder_cw);
     } else {
         encoder_ccw.pressed = true;
-        encoder_ccw.time = (timer_read() | 1);
+        encoder_ccw.time = timer_read();
         action_exec(encoder_ccw);
     }
     return true;

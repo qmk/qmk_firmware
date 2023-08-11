@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "quantum.h"
 
 // WPM-responsive animation stuff here
 # define IDLE_FRAMES 5
@@ -43,7 +45,7 @@ uint8_t current_tap_frame = 0;
 // follow this guide up to and including "CONVERT YOUR IMAGE" https://docs.splitkb.com/hc/en-us/articles/360013811280-How-do-I-convert-an-image-for-use-on-an-OLED-display-
 // replace numbers in brackets with your own
 // if you start getting errors when compiling make sure you didn't accedentally delete a bracket
-static void render_bongocat(void) {
+void render_bongocat(void) {
     static const char PROGMEM idle[IDLE_FRAMES][ANIM_SIZE] = {
         {
         //Idle 1 - 128x32

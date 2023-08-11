@@ -14,29 +14,37 @@
 #define LAYOUT_rebound_base_wrapper(...)       LAYOUT_rebound_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#if defined(ENABLE_QWERTY)
     [_QWERTY] = LAYOUT_rebound_base_wrapper(
         _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
         _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
         _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
     ),
+#endif
 
+#if defined(ENABLE_COLEMAK)
     [_COLEMAK] = LAYOUT_rebound_base_wrapper(
         _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
         _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
         _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
     ),
+#endif
 
+#if defined(ENABLE_DVORAK)
     [_DVORAK] = LAYOUT_rebound_base_wrapper(
         _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
         _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
         _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
     ),
+#endif
 
+#if defined(ENABLE_WORKMAN)
     [_WORKMAN] = LAYOUT_rebound_base_wrapper(
         _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
         _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
         _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
     ),
+#endif
 
     [_LOWER] = LAYOUT_ortho_4x12_wrapper(
         KC_F11,  _________________LOWER_L1__________________, _________________LOWER_R1__________________, KC_F12,
@@ -54,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_ADJUST] =  LAYOUT_ortho_4x12_wrapper(
         KC_MAKE, ___________________BLANK___________________, _________________ADJUST_R1_________________, KC_RST,
-        VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
+        VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EE_CLR,
         MG_NKRO, ___________________BLANK___________________, _________________ADJUST_R3_________________, _______,
         _______, ___________________BLANK___________________, ___________________BLANK___________________, _______
     )

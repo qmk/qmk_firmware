@@ -16,30 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7070
-#define PRODUCT_ID      0x5339
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Nasp
-#define PRODUCT         Plexus75_HE
-
-/* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { C2, D0, D1, D2, D6, B0, B3, B2, C6, B1 }
-#define MATRIX_COL_PINS { C4, C5, D3, C7, B7, B6, B5, B4 }
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
@@ -47,7 +23,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 // ws2812 options
-#define RGB_DI_PIN D4 // pin the DI on the ws2812 is hooked-up to
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
