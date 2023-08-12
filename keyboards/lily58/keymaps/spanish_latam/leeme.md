@@ -1,7 +1,5 @@
 # QMK Firmware - Mapas de Teclado en Español
 
-![Logo de QMK](https://avatars.githubusercontent.com/u/7308757?s=200&v=4)
-
 ¡Bienvenido al repositorio de QMK Firmware! Este repositorio contiene nuevos mapas de teclado para teclados en español, diseñados para que a los usuarios de habla hispana les resulte más fácil construir y configurar sus teclados. A continuación, encontrarás una descripción general de los mapas disponibles e instrucciones sobre cómo usarlos.
 
 ## Mapas de Teclado Incluidos

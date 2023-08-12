@@ -1,7 +1,5 @@
 # QMK Firmware - Spanish Keymaps
 
-![QMK Logo](https://avatars.githubusercontent.com/u/7308757?s=200&v=4)
-
 Welcome to the QMK Firmware repository! This repository contains new keymaps for Spanish keyboards, tailored to make it easier for Spanish users to build and configure their keyboards. Below, you'll find an overview of the keymaps available and instructions on how to use them.
 
 ## Keymaps Included
