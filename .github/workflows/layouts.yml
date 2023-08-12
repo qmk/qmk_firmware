@@ -1,0 +1,41 @@
+name: Builds
+
+on:
+  push:
+    branches: [my]
+
+jobs:
+  build:
+    name: "Build"
+
+    strategy:
+        matrix:
+            keymap: [michael]
+            #keymap: [michael, leon]
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        ref: ${{ github.event.inputs.branch || github.ref }}
+
+    - name: Install dependencies
+      run: pip3 install -r requirements.txt
+
+    - name: Run build (keymap ${{ matrix.keymap }})
+      run: |
+        qmk compile -e CONVERT_TO=promicro_rp2040 -kb splitkb/aurora/sweep -km ${{ matrix.keymap }}
+
+    - name: 'Upload artifacts'
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: artifacts-${{ github.event.inputs.branch || github.ref_name }}-${{ matrix.keymap }}
+        if-no-files-found: ignore
+        path: |
+          *.uf2
+          .build/failed.*
