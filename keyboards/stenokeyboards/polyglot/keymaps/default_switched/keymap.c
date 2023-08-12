@@ -35,6 +35,8 @@ enum polyglot_keycodes {
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
+#define QWERTY TO(_QWERTY)
+#define STENO TO(_STENO_DEFAULT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -89,20 +91,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-		layer_move(_QWERTY);
-      }
-      return false;
-    case STENO:
-      if (record->event.pressed) {
-        layer_move(_STENO_DEFAULT);
-      }
-      return false;
-  }
-  return true;
-}
