@@ -2,16 +2,16 @@ name: Builds
 
 on:
   push:
-    branches: [my]
+    branches:
+        - my
 
 jobs:
   build:
-    name: "Build"
-
     strategy:
         matrix:
             keymap: [michael]
             #keymap: [michael, leon]
+    runs-on: ubuntu-latest
     container: ghcr.io/qmk/qmk_cli
 
     steps:
