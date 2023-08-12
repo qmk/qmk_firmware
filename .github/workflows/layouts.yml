@@ -9,8 +9,7 @@ jobs:
   build:
     strategy:
         matrix:
-            keymap: [michael]
-            #keymap: [michael, leon]
+            keymap: [michael, leon]
     runs-on: ubuntu-latest
     container: ghcr.io/qmk/qmk_cli
 
