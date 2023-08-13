@@ -25,6 +25,3 @@
 	path = lib/lvgl
 	url = https://github.com/qmk/lvgl.git
 	branch = release/v8.2
-[submodule "qmk_firmware"]
-	path = qmk_firmware
-	url = git@github.com:Acliad/qmk_firmware.git
