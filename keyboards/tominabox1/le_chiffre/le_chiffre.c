@@ -55,7 +55,6 @@ bool oled_task_kb(void) {
     render_mod_status(get_mods() | get_oneshot_mods());
     oled_write_P(oled_section_break, false);
     render_keylock_status(host_keyboard_led_state());
-
     return true;
 }
 
@@ -92,9 +91,9 @@ void add_keylog(uint16_t keycode, keyrecord_t *record) {
 
 void render_keylock_status(led_t led_state) {
     oled_write_P(PSTR("C"), led_state.caps_lock);
-    oled_write_P(PSTR(" "), false);
+    oled_advance_char();
     oled_write_P(PSTR("N"), led_state.num_lock);
-    oled_write_P(PSTR(" "), false);
+    oled_advance_char();
     oled_write_P(PSTR("S"), led_state.scroll_lock);
 }
 
