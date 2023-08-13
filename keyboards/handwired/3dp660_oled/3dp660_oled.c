@@ -5,8 +5,6 @@
 
 #if defined (OLED_ENABLE) && ! defined (OLED_USER_DEFINED)
 
-#include <stdio.h>
-char wpm_str[10];
 
 // WPM responsiveness
 #define IDLE_FRAMES 5
