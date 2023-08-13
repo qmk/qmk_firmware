@@ -29,18 +29,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
 	[_LAYERS_SYMBOLS] = LAYOUT(
         _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______, 
         _______, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, 
-        _______, KC_GRV , KC_TILD, KC_BSLS, KC_PIPE, KC_PIPE,                      KC_MINS, KC_EQL , KC_QUOT, KC_LBRC, KC_RBRC, _______,
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,    _______, KC_UNDS, KC_PPLS, KC_DQUO, KC_LCBR, KC_RCBR, _______, 
-                             _______, _______, _______, _______,                _______, MO(3), _______, _______),
+        _______, KC_GRV , KC_TILD, KC_BSLS, KC_PIPE, KC_PIPE,                      KC_QUOT, KC_UNDS, KC_EQL , KC_LBRC, KC_RBRC, _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,    _______, KC_DQUO, KC_MINS, KC_PPLS, KC_LCBR, KC_RCBR, _______, 
+                             _______, _______, _______, _______,                _______, MO(3)  , _______, _______),
 	[_LAYERS_NUM_AND_NAV] = LAYOUT(
         _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
         _______, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                      KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______, 
-        _______, KC_TAB , XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP,                      KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_DEL , _______, 
-        _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_END , KC_PGDN, _______,    _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______, 
+        _______, KC_TAB , XXXXXXX, KC_HOME, KC_PGUP, KC_DEL ,                      KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, XXXXXXX, _______, 
+        _______, KC_TAB , XXXXXXX, KC_END , KC_PGDN, KC_DEL , _______,    _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______, 
                              _______, _______, MO(3)  , _______,                _______, _______, _______, _______),
 	[_LAYERS_CONTROLS] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MPLY, KC_MPRV, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, 
-        XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , XXXXXXX,                      KC_MUTE, KC_VOLU, KC_VOLD, XXXXXXX, KC_PSCR, KC_PSCR, 
+        XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , XXXXXXX,                      KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, KC_PSCR, KC_PSCR, 
         KC_CAPS, KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_BRIU,                      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX, 
         XXXXXXX, KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_BRID, _______,    _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, 
                              _______, _______, _______, _______,                _______, _______, _______, _______)
@@ -111,42 +111,45 @@ bool oled_task_user(void)
 {
     // A 128x32 OLED rotated 90 degrees is 5 characters wide and 16 characters tall
 
-    oled_write_P(PSTR("Role -----"), false);
-    oled_write_P(is_keyboard_master() ? PSTR("HOST ") : PSTR("AGENT"), false);
-    oled_write_P(PSTR("     "), false);
-    oled_write_P(PSTR("Side -----"), false);
-    oled_write_P(is_keyboard_left() ? PSTR("LEFT ") : PSTR("RIGHT"), false);
-    oled_write_P(PSTR("     "), false);
+    bool is_left = is_keyboard_left();
+    bool is_master = is_keyboard_master();
+    uint8_t current_layer = get_highest_layer(layer_state);
+    led_t led_state = host_keyboard_led_state();
 
-    // Keyboard Layer Status
-    oled_write_P(PSTR("Layer-----"), false);
-
-    switch (get_highest_layer(layer_state)) {
-        case _LAYERS_HOME:
-            oled_write_P(PSTR("HOME "), false);
-            break;
-        case _LAYERS_SYMBOLS:
-            oled_write_P(PSTR("SYMS "), false);
-            break;
-        case _LAYERS_NUM_AND_NAV:
-            oled_write_P(PSTR("NM NV "), false);
-            break;
-        case _LAYERS_CONTROLS:
-            oled_write_P(PSTR("CTRLS"), false);
-            break;
+    // Keys display
+    oled_write_P(PSTR("-----"), false);
+    switch (current_layer) {
+        case _LAYERS_HOME:        oled_write_P(is_left ? PSTR("12345qwertasdfgzxcvb")  : PSTR("67890yuiophjkl;nm,./"), false); break;
+        case _LAYERS_SYMBOLS:     oled_write_P(is_left ? PSTR("     !@#$%`~\\||     ") : PSTR("     ^&*()'_=[]\"-+{}"), false); break;
+        case _LAYERS_NUM_AND_NAV: oled_write_P(is_left ? PSTR("     12345T HPDT EPD")  : PSTR("     67890LDUR  LDR "), false); break;
+        case _LAYERS_CONTROLS:    oled_write_P(is_left ? PSTR("     FFFF FFFFBFFFFB")  : PSTR("MMM  VVV PLLLL LLLL "), false); break;
         default:
-            // Or use the write_ln shortcut over adding '\n' to the end of your string
-            oled_write_ln_P(PSTR("UNKNW"), false);
+            oled_write_ln_P(PSTR("UNKNW"), false); // Or use the write_ln shortcut over adding '\n' to the end of your string
             break;
     }
+    oled_write_P(PSTR("-----"), false);
     oled_write_P(PSTR("     "), false);
 
-    // Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
+    // Indicators (Numlock / Capslock / Screenlock / etc.)
     oled_write_P(led_state.num_lock ? PSTR(" NUM ") : PSTR("     "), false);
     oled_write_P(led_state.caps_lock ? PSTR(" CAP ") : PSTR("     "), false);
     oled_write_P(led_state.scroll_lock ? PSTR(" SCR ") : PSTR("     "), false);
-    
+    oled_write_P(PSTR("     "), false);
+
+    // Info
+    oled_write_P(PSTR("Info -----"), false);
+    switch (current_layer) {
+        case _LAYERS_HOME:        oled_write_P(PSTR("HOME "), false); break;
+        case _LAYERS_SYMBOLS:     oled_write_P(PSTR("SYMS "), false); break;
+        case _LAYERS_NUM_AND_NAV: oled_write_P(PSTR("NM NV"), false); break;
+        case _LAYERS_CONTROLS:    oled_write_P(PSTR("CTRLS"), false); break;
+        default:
+            oled_write_ln_P(PSTR("UNKNW"), false); // Or use the write_ln shortcut over adding '\n' to the end of your string
+            break;
+    }
+    oled_write_P(is_master ? PSTR("HOST ") : PSTR("nHOST"), false);
+    oled_write_P(is_left ? PSTR("<<===") : PSTR("===>>"), false);
+
     return false;
 }
 #endif
