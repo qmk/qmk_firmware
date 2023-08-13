@@ -1,6 +1,6 @@
 # rpneko65
 
-![rpneko65](https://raw.githubusercontent.com/lendunistus/rpneko65/rev1/images/rev1-pcb.png)
+![rpneko65](https://raw.githubusercontent.com/lendunistus/rpneko65/rev1/images/rev1-pcb-purple.png)
 
 A multi-layout PCB for the Bakeneko65
 
