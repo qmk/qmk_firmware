@@ -19,10 +19,7 @@
     },
     "processor": "RP2040",
     "rgblight": {
-        "brightness_steps": 8,
-        "hue_steps": 8,
         "led_count": 1,
-        "saturation_steps": 8
     },
     "url": "https://github.com/lendunistus/rpneko65",
     "usb": {
