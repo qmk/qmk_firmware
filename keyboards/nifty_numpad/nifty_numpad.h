@@ -33,33 +33,6 @@
     _a < _b ? _a : _b;       \
 })
 
-// Custom kycode declarations
-enum custom_keycodes {
-    EDIT_GEN = SAFE_RANGE,
-    EDIT_PLACE,
-    EDIT_ETCH,
-    EDIT_SHAPE,
-    ROUTE,
-    SLIDE,
-    VIA,
-    MEASURE,
-    SHOW,
-    UPDATE_SHAPES,
-    ROTATE,
-    MIRROR,
-    PAM,
-    MOVE,
-    RGB_DEF,
-    RGB_IEF
-};
-
-// Layer Defines
-#define _LAYER_RGB 15
-
-// Custom Setup
-#define TAPPING_TERM 200
-#define RGB_IDLE_TIMEOUT_MS (10*60*1000)
-
 /*
 * ┌───┬───┐  ┌───┬───┬───┬───┐
 * │F13│F19│  │F1 │F2 │F3 │F4 │
@@ -95,5 +68,18 @@ enum custom_keycodes {
     { K50, K51,    K52, XXX, K54, XXX}  \
 }
 
+
+#ifdef RGB_IDLE_ENABLE
+#define _LAYER_RGB 15
+// Custom keycode declarations
+enum custom_keycodes {
+    RGB_DEF = SAFE_RANGE,
+    RGB_IEF
+};
+
+#define RGB_IDLE_TIMEOUT_MS (10*60*1000)
+
 // Functions exposed by nifty_numpad.c
 bool rgb_matrix_idle_mode(void);
+
+#endif

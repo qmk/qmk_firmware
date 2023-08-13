@@ -17,6 +17,7 @@
 #include QMK_KEYBOARD_H
 #include "quantum.h"
 
+#ifdef RGB_IDLE_ENABLE
 typedef struct {
     uint8_t mode;
     uint8_t speed;
@@ -54,8 +55,11 @@ void rgb_matrix_state_restore(rgb_matrix_state_t* state){
     rgb_matrix_sethsv_noeeprom(hsv.h, hsv.s, hsv.v);
     rgb_matrix_set_speed_noeeprom(state->speed);
 }
+#endif
 
 void matrix_scan_kb(void) {
+
+    #ifdef RGB_IDLE_ENABLE
     // Check if enough time has passed since last keypress to go into idle mode
     if ( timer_elapsed32(idle_timer) > RGB_IDLE_TIMEOUT_MS && !rgb_idle_mode ) {
         rgb_matrix_state_save(&active_rgb_matrix);
@@ -64,12 +68,15 @@ void matrix_scan_kb(void) {
 
         rgb_matrix_state_restore(&idle_rgb_matrix);
     }
+    #endif
 
     matrix_scan_user();
 };
 
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
+
+    #ifdef RGB_IDLE_ENABLE
     // Track if the last layer was the RGB edit layer
     static bool rgb_was_on = false;
 
@@ -91,6 +98,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
         config.idle_rgb_matrix = idle_rgb_matrix;
         eeconfig_update_kb_datablock(&config);
     }
+    #endif
 
     return layer_state_set_user(state);
 }
@@ -98,6 +106,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 // Process custom keycodes
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
+    #ifdef RGB_IDLE_ENABLE
     // If we were idling and a key was pressed, restore active RGB
     if (record->event.pressed) {
         idle_timer = timer_read32();
@@ -106,10 +115,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             rgb_idle_mode = false;
         }
     }
+    #endif
 
 
     switch (keycode) {
     
+    #ifdef RGB_IDLE_ENABLE
     // Handle all the RGB settings
     case RGB_DEF:
         if (record->event.pressed) {
@@ -191,11 +202,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                                     rgb_matrix_state_save(&active_rgb_matrix);
         }
         return false;
+    #endif
     }
     return process_record_user(keycode, record);
 };
 
 void keyboard_post_init_kb(void) {
+    #ifdef RGB_IDLE_ENABLE
     // Read in the RGB Matrices from before
     eeconfig_read_kb_datablock(&config);
     active_rgb_matrix = config.active_rgb_matrix;
@@ -204,12 +217,14 @@ void keyboard_post_init_kb(void) {
     rgb_matrix_state_restore(&active_rgb_matrix);
     // Start the idle timer for idle mode
     idle_timer = timer_read32();
+    #endif
 
     keyboard_post_init_user();
 }
 
 // Setup default EEPROM config values
 void eeconfig_init_kb_datablock(void){
+    #ifdef RGB_IDLE_ENABLE
     rgb_matrix_state_t default_active_rgb_matrix;
     rgb_matrix_state_t default_idle_rgb_matrix;
 
@@ -228,5 +243,6 @@ void eeconfig_init_kb_datablock(void){
 
     #if (EECONFIG_USER_DATA_SIZE) > 0
     eeconfig_init_user_datablock();
-    #endif
+    #endif // EECONFIG_USER_DATA_SIZE
+    #endif // RGB_IDLE_ENABLE
 }

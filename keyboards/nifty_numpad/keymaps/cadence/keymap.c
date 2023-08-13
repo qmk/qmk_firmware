@@ -5,14 +5,48 @@
 #include "nifty_numpad.h"
 #include "quantum.h"
 
+// Custom String Definitions
+#define STR_EDIT_GEN      "emg"
+#define STR_EDIT_PLACE    "emp"
+#define STR_EDIT_ETCH     "eme"
+#define STR_EDIT_SHAPE    "ems"
+#define STR_ROUTE         "xx"
+#define STR_SLIDE         "dd"
+#define STR_VIA           "vv"
+#define STR_MEASURE       "me"
+#define STR_SHOW          "sh"
+#define STR_UPDATE_SHAPES "sup"
+#define STR_ROTATE        "rr"
+#define STR_MIRROR        "ff"
+#define STR_PAM           "pam"
+#define STR_MOVE          "mm"
+
 // Layer Defines
 #define _LAYER_BL  0
-#define _LAYER_1   1
+#define _LAYER_CAD 1
+#define _LAYER_RGB 15
 
-// Layer Indicator LED index
-#define _NUM_LED_INDEX 8
+#define _LAYER_CAD_LED_INDEX 8
 
 #define TAPPING_TERM 200
+
+// Custom keycode declarations
+enum cadence_keycodes {
+    EDIT_GEN = RGB_IEF + 1,
+    EDIT_PLACE,
+    EDIT_ETCH,
+    EDIT_SHAPE,
+    ROUTE,
+    SLIDE,
+    VIA,
+    MEASURE,
+    SHOW,
+    UPDATE_SHAPES,
+    ROTATE,
+    MIRROR,
+    PAM,
+    MOVE
+};
 
 // Tap Dance Declarations
 enum {
@@ -36,7 +70,7 @@ enum {
 void tap_dance_num_toggle(tap_dance_state_t *state, void *user_data){
     switch(state->count){
         case 1:
-            layer_invert(_LAYER_1);
+            layer_invert(_LAYER_CAD);
             break;
         case 2:
             tap_code16(KC_NUM);
@@ -92,12 +126,8 @@ led_config_t g_led_config = { {
 // Setup keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-     * SCN -> Screenshot
-     * WIN -> Task View
-     * EXP -> Open Explorer
-     * BCK -> Backspace
      * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │F13│F19│  │SCN│WIN│EXP│BCK│
+     * │F13│F19│  │F1 │F2 │F3 │F4 │
      * └───┴───┘  └───┴───┴───┴───┘
      * ┌───┬───┐  ┌───┬───┬───┬───┐
      * │F14│F20│  │Num│ / │ * │ - │
@@ -112,69 +142,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┘  └───────┴───┴───┘
      */
     [_LAYER_BL] = LAYOUT_numpad_6x6(
-        TD(TD_M1), TD(TD_M12),    LT(_LAYER_RGB, KC_BSPC), RGUI(KC_TAB), RGUI(KC_E), RGUI(RSFT(KC_S)),
-        TD(TD_M2), TD(TD_M11),    TD(TD_NUM_TOGGLE),       KC_PSLS,      KC_PAST,    KC_PMNS,
-        TD(TD_M3), TD(TD_M10),    KC_P7,                   KC_P8,        KC_P9,      KC_PPLS,
-        TD(TD_M4), TD(TD_M9),     KC_P4,                   KC_P5,        KC_P6,      
-        TD(TD_M5), TD(TD_M8),     KC_P1,                   KC_P2,        KC_P3,      KC_PENT,
-        TD(TD_M6), TD(TD_M7),     KC_P0,                                 KC_PDOT
+        TD(TD_M1), TD(TD_M12),    LT(_LAYER_RGB, KC_F1), KC_F2,   KC_F3,   KC_F4,
+        TD(TD_M2), TD(TD_M11),    TD(TD_NUM_TOGGLE),     KC_PSLS, KC_PAST, KC_PMNS,
+        TD(TD_M3), TD(TD_M10),    KC_P7,                 KC_P8,   KC_P9,   KC_PPLS,
+        TD(TD_M4), TD(TD_M9),     KC_P4,                 KC_P5,   KC_P6,   
+        TD(TD_M5), TD(TD_M8),     KC_P1,                 KC_P2,   KC_P3,   KC_PENT,
+        TD(TD_M6), TD(TD_M7),     KC_P0,                          KC_PDOT
     ),
 
     /*
      * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │F13│F19│  │F9 │F10│F11│F12│
+     * │F13│F19│  │F1 │F2 │F3 │F4 │
      * └───┴───┘  └───┴───┴───┴───┘
      * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │___│___│  │___│~/ │~* │___│
+     * │F14│F20│  │Num│ / │ * │ - │
      * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │~7 │~8 │~9 │   │
-     * ├───┼───┤  ├───┼───┼───┤___│
-     * │___│___│  │~4 │~5 │~6 │   │
+     * │F15│F21│  │ 7 │ 8 │ 9 │   │
+     * ├───┼───┤  ├───┼───┼───┤ + │
+     * │F16│F22│  │ 4 │ 5 │ 6 │   │
      * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │~1 │~2 │~3 │   │
-     * ├───┼───│  ├───┴───┼───┤___│
-     * │___│___│  │~0     │~. │   │
+     * │F17│F23│  │ 1 │ 2 │ 3 │   │
+     * ├───┼───│  ├───┴───┼───┤Ent│
+     * │F18│F24│  │ 0     │ . │   │
      * └───┴───┘  └───────┴───┴───┘
      */
-    [_LAYER_1] = LAYOUT_numpad_6x6(
-        _______, _______,    KC_F9,             KC_F10,         KC_F11,        KC_F12,
-        _______, _______,    TD(TD_NUM_TOGGLE), RCTL(KC_PSLS), RCTL(KC_PAST), _______,
-        _______, _______,    RCTL(KC_P7),       RCTL(KC_P8),   RCTL(KC_P9),   _______,
-        _______, _______,    RCTL(KC_P4),       RCTL(KC_P5),   RCTL(KC_P6), 
-        _______, _______,    RCTL(KC_P1),       RCTL(KC_P2),   RCTL(KC_P3),   _______,
-        _______, _______,    RCTL(KC_P0),                      RCTL(KC_PDOT)     
+    [_LAYER_CAD] = LAYOUT_numpad_6x6(
+        _______, _______,    EDIT_GEN,                EDIT_PLACE, EDIT_ETCH,     EDIT_SHAPE,
+        _______, _______,    TD(TD_NUM_TOGGLE),      _______,    _______,       _______,
+        _______, _______,    ROUTE,                  SLIDE,      VIA,           KC_F8,
+        _______, _______,    MEASURE,                SHOW,       UPDATE_SHAPES, 
+        _______, _______,    ROTATE,                 MIRROR,     PAM,           KC_F6,
+        _______, _______,    MOVE,                               KC_F9     
     ),
 
     /*
-     * HUI -> Hue Increase
-     * HUD -> Hue Decrease
-     * 
-     * SAI -> Saturation Increase
-     * SAD -> Saturation Decrease
-     * 
-     * VAI -> Value Increase
-     * VAD -> Value Decrease
-     * 
-     * SPI -> Speed Increase
-     * SPD -> Speed Decrease
-     * 
-     * DEF -> Set default effect mode
-     * IEF -> Set idle effect mode
-     * 
-     * ___ -> Base Layer Function
      * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │___│___│  │___│HUI│SAI│VAI│
+     * │F13│F19│  │F1 │F2 │F3 │F4 │
      * └───┴───┘  └───┴───┴───┴───┘
      * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │___│___│  │Num│HUD│SAD│VAD│
+     * │F14│F20│  │Num│ / │ * │ - │
      * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │___│DEF│IEF│   │
-     * ├───┼───┤  ├───┼───┼───┤SPI│
-     * │___│___│  │___│___│___│   │
+     * │F15│F21│  │ 7 │ 8 │ 9 │   │
+     * ├───┼───┤  ├───┼───┼───┤ + │
+     * │F16│F22│  │ 4 │ 5 │ 6 │   │
      * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │___│___│___│   │
-     * ├───┼───│  ├───┴───┼───┤SPD│
-     * │___│___│  │___    │___│   │
+     * │F17│F23│  │ 1 │ 2 │ 3 │   │
+     * ├───┼───│  ├───┴───┼───┤Ent│
+     * │F18│F24│  │ 0     │ . │   │
      * └───┴───┘  └───────┴───┴───┘
      */
     [_LAYER_RGB] = LAYOUT_numpad_6x6(
@@ -190,14 +204,94 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Set the layer toggle key to an indication of the active layer. This is a
 // bit janky and should be done better, but I'm trying to avoid scope creep.
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (layer_state_is(_LAYER_1) && !rgb_matrix_idle_mode()) {
+    if (layer_state_is(_LAYER_CAD) && !rgb_matrix_idle_mode()) {
         // Get a hue that contrasts with current hue
         uint8_t hue = rgb_matrix_get_hue() + 127; 
         // Make sure saturation is high enough to distiguish between hues
         uint8_t sat = 255;
         uint8_t val = min((uint16_t) rgb_matrix_get_val() + 50, 255);
         RGB rgb = hsv_to_rgb((HSV) {hue, sat, val});
-        rgb_matrix_set_color(_NUM_LED_INDEX, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(_LAYER_CAD_LED_INDEX, rgb.r, rgb.g, rgb.b);
     }
     return false;
 }
+
+// Process custom keycodes
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    switch (keycode) {
+
+    // Custom macro strings for Cadence
+    case EDIT_GEN:
+        if (record->event.pressed) {
+            SEND_STRING(STR_EDIT_GEN);
+        }
+        break;
+    case EDIT_PLACE:
+        if (record->event.pressed) {
+            SEND_STRING(STR_EDIT_PLACE);
+        }
+        break;
+    case EDIT_ETCH:
+        if (record->event.pressed) {
+            SEND_STRING(STR_EDIT_ETCH);
+        }
+        break;
+    case EDIT_SHAPE:
+        if (record->event.pressed) {
+            SEND_STRING(STR_EDIT_SHAPE);
+        }
+        break;
+    case ROUTE:
+        if (record->event.pressed) {
+            SEND_STRING(STR_ROUTE);
+        }
+        break;
+    case SLIDE:
+        if (record->event.pressed) {
+            SEND_STRING(STR_SLIDE);
+        }
+        break;
+    case VIA:
+        if (record->event.pressed) {
+            SEND_STRING(STR_VIA);
+        }
+        break;
+    case MEASURE:
+        if (record->event.pressed) {
+            SEND_STRING(STR_MEASURE);
+        }
+        break;
+    case SHOW:
+        if (record->event.pressed) {
+            SEND_STRING(STR_SHOW);
+        }
+        break;
+    case UPDATE_SHAPES:
+        if (record->event.pressed) {
+            SEND_STRING(STR_UPDATE_SHAPES);
+        }
+        break;
+    case ROTATE:
+        if (record->event.pressed) {
+            SEND_STRING(STR_ROTATE);
+        }
+        break;
+    case MIRROR:
+        if (record->event.pressed) {
+            SEND_STRING(STR_MIRROR);
+        }
+        break;
+    case PAM:
+        if (record->event.pressed) {
+            SEND_STRING(STR_PAM);
+        }
+        break;
+    case MOVE:
+        if (record->event.pressed) {
+            SEND_STRING(STR_MOVE);
+        }
+        break;
+    }
+    return true;
+};
