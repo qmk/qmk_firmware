@@ -1,16 +1,25 @@
-# takashicompany/ejectix
+# Ejectix
 
-![takashicompany/ejectix](imgur.com image replace me!)
+![takashicompany/ejectix](https://i.imgur.com/gGk5UVdh.jpg)
 
-*A short description of the keyboard/project*
+Ejectix is a 36-key, low-staggered keyboard.  
+Its layout is similar to that of a conventional keyboard, making it suitable for an introductory keyboard of 30% size.  
+Its relatively simple structure makes it easy to assemble, and it is recommended for those who are just starting to build their own keyboards.  
+Since the firmware is VIA-compatible, it is possible to write the firmware and change the keymap from a web browser by using Remap.  
+The MX socket is also supported, making it easy to replace the keyswitch for long-lasting use.  
+Underglow LEDs can also be used to decorate your desk.
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Ejectix PCB, Pro Micro
+* Hardware Availability: https://github.com/takashicompany/ejectix
 
 Make example for this keyboard (after setting up your build environment):
 
     make takashicompany/ejectix:default
+    
+    or
+    
+    make takashicompany/ejectix:via
 
 Flashing example for this keyboard:
 
