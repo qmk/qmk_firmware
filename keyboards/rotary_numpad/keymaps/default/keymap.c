@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │ r3│ 0 │ . │ r1│
      * └───┴───┴───┴───┘
      */
-    [0] = LAYOUT_dense_6x4(
+    [0] = LAYOUT(
         KC_ESC,  KC_TAB,  MO(1),   KC_BSPC,
         KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │Insert │Del│   │
      * └───────┴───┘───┘
      */
-    [1] = LAYOUT_dense_6x4(
+    [1] = LAYOUT(
         QK_BOOT,   _______, _______, _______,
         _______, _______, _______, _______,
         KC_HOME, KC_UP,   KC_PGUP, _______,
