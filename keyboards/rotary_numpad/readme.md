@@ -1,7 +1,7 @@
 # Rotary Numpad
 
 
-![rotary_numpad](https://i.imgur.com/GwEH4WO.jpeg)
+![rotary_numpad](https://i.imgur.com/GwEH4WOh.jpeg)
 
 *A short description of the keyboard/project*
 
