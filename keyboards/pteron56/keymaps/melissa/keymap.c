@@ -17,18 +17,18 @@
 
 #include QMK_KEYBOARD_H
 
-#define _COPY LCTL(KC_C)
-#define _L1_GUI LT(1,KC_LGUI)
-#define _L1_DEL LT(1,KC_DEL)
-#define _L2_APP LT(2,KC_APP)
-#define _L2_ALT LT(2,KC_LALT)
-#define _PRTSC LGUI(LSFT(KC_S))
-#define _CUT LCTL(KC_X)
-#define _PASTE LCTL(KC_V)
-#define _ALTF4 LALT(KC_F4)
-#define _ALT_ESC LALT(KC_ESC)
-#define _UNDO LCTL(KC_Z)
-#define _CTL_TAB LCTL(KC_TAB)
+#define COPY C(KC_C)
+#define L1_GUI LT(1,KC_LGUI)
+#define L1_DEL LT(1,KC_DEL)
+#define L2_APP LT(2,KC_APP)
+#define L2_ALT LT(2,KC_LALT)
+#define PRTSC LGUI(LSFT(KC_S))
+#define CUT C(KC_X)
+#define PASTE C(KC_V)
+#define ALTF4 A(KC_F4)
+#define ALT_ESC A(KC_ESC)
+#define UNDO C(KC_Z)
+#define CTL_TAB C(KC_TAB)
 
 enum my_keycodes {
     PASS = SAFE_RANGE,
@@ -45,10 +45,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT(
-        _CUT,    KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC,  KC_CIRC, KC_AMPR, KC_PSLS, KC_PAST, KC_INS,  KC_BSPC, 
+        CUT,    KC_EXLM, KC_AT,    KC_HASH, KC_DLR,  KC_PERC,  KC_CIRC, KC_AMPR, KC_PSLS, KC_PAST, KC_INS,  KC_BSPC, 
         KC_TAB,  KC_LBRC, KC_UP,    KC_RBRC, KC_LCBR, KC_RCBR,  KC_NUM,  KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_DEL, 
-        _PASTE,  KC_LEFT, KC_DOWN,  KC_RGHT, _UNDO,   _CTL_TAB, KC_PGUP, KC_P4,   KC_P5,   KC_P6,   KC_PMNS, TO(2), 
-        _COPY,   _ALTF4,  _ALT_ESC, KC_MUTE, KC_MSTP, KC_MPLY,  KC_PGDN, KC_P1,   KC_P2,   KC_P3,   KC_BSLS, TO(0), 
+        PASTE,  KC_LEFT, KC_DOWN,  KC_RGHT, UNDO,   CTL_TAB, KC_PGUP, KC_P4,   KC_P5,   KC_P6,   KC_PMNS, TO(2), 
+        COPY,   ALTF4,  ALT_ESC, KC_MUTE, KC_MSTP, KC_MPLY,  KC_PGDN, KC_P1,   KC_P2,   KC_P3,   KC_BSLS, TO(0), 
                           KC_TRNS, KC_LCTL, KC_LSFT,  KC_LALT, KC_TRNS, KC_TRNS,  KC_TRNS, KC_P0
     ),
 
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_WBAK, KC_WFWD, KC_WSCH, KC_FIND, KC_TRNS, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_PSLS, KC_PAST, 
         KC_DEL,  KC_CALC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P4,   KC_P5,   KC_P6,   KC_TRNS, KC_TRNS, KC_TRNS,
         KC_LBRC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P1,   KC_P2,   KC_P3,   KC_PDOT, KC_TRNS, KC_TRNS,
-                          KC_TRNS, KC_TRNS, _PRTSC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0
+                          KC_TRNS, KC_TRNS, PRTSC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0
     ),
 };
 

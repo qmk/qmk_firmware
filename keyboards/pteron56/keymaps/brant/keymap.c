@@ -17,18 +17,18 @@
 
 #include QMK_KEYBOARD_H
 
-#define _COPY LCTL(KC_C)
-#define _L1_GUI LT(1,KC_LGUI)
-#define _L1_DEL LT(1,KC_DEL)
-#define _L2_APP LT(2,KC_APP)
+#define COPY C(KC_C)
+#define L1_GUI LT(1,KC_LGUI)
+#define L1_DEL LT(1,KC_DEL)
+#define L2_APP LT(2,KC_APP)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, 
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_EQL, 
         KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, 
-        _COPY,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, 
-                          _L1_GUI, KC_LCTL, KC_LSFT, KC_LALT, _L1_DEL, KC_SPC,  _L2_APP, KC_TAB
+        COPY,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, 
+                          L1_GUI, KC_LCTL, KC_LSFT, KC_LALT, L1_DEL, KC_SPC,  L2_APP, KC_TAB
     ),
 
     [1] = LAYOUT(

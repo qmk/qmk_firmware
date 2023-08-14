@@ -17,12 +17,11 @@
 
 #include QMK_KEYBOARD_H
 
-#define _COPY LCTL(KC_C)
-#define _L1_GUI LT(1,KC_LGUI)
-#define _L1_DEL LT(1,KC_DEL)
-#define _L2_APP LT(2,KC_APP)
-#define _L2_ALT LT(2,KC_LALT)
-#define _PRTSC LGUI(LSFT(KC_S))
+#define L1_GUI LT(1,KC_LGUI)
+#define L1_DEL LT(1,KC_DEL)
+#define L2_APP LT(2,KC_APP)
+#define L2_ALT LT(2,KC_LALT)
+#define PRTSC LGUI(LSFT(KC_S))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
@@ -30,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_EQL, 
         KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, 
         KC_RBRC, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, 
-                          _L1_GUI, KC_LCTL, KC_LSFT, _L2_ALT, _L1_DEL, KC_SPC,  _L2_APP, KC_TAB
+                          L1_GUI, KC_LCTL, KC_LSFT, L2_ALT, L1_DEL, KC_SPC,  L2_APP, KC_TAB
     ),
 
     [1] = LAYOUT(
@@ -46,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,  KC_WBAK, KC_WFWD, KC_WSCH, KC_FIND, KC_TRNS, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_PSLS, KC_PAST, 
         KC_DEL,  KC_CALC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P4,   KC_P5,   KC_P6,   KC_TRNS, KC_TRNS, KC_TRNS,
         KC_LBRC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P1,   KC_P2,   KC_P3,   KC_PDOT, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, _PRTSC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0
+        KC_TRNS, KC_TRNS, PRTSC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0
     ),
 };
 
