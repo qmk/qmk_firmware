@@ -24,18 +24,17 @@ enum layers {
 #define DVORAK DF(_DVORAK)
 
 #define SYM MO(_SYM)
-#define SYM_DVERTY TT(_SYM_DVERTY)
-#define NAV TT(_NAV)
+#define SYM_DVERTY MO(_SYM_DVERTY)
+#define NAV MO(_NAV)
 #define FKEYS MO(_FUNCTION)
 #define ADJUST MO(_ADJUST)
-
-#define SYM_OFF TG(_SYM_DVERTY)
-#define NAV_OFF TG(_NAV)
 
 #define CTL_ESC MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
 #define CTL_MINS MT(MOD_RCTL, KC_MINUS)
 #define ALT_ENT MT(MOD_LALT, KC_ENT)
+#define CTL_ENT MT(MOD_LCTL, KC_ENT)
+#define SFT_ENT MT(MOD_LSFT, KC_SPC)
 #define ALT KC_LEFT_ALT
 
 #define UK_BKSL KC_NUBS     // UK backslash
@@ -130,8 +129,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_VOLU, KC_DEL,
       _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD, KC_INS,
-      _______, _______, _______, _______, _______, _______, _______, KC_SLCK, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
-                                 _______, _______, _______, _______, NAV_OFF, _______, _______, _______, _______, _______
+      _______, _______, _______, _______, _______, _______, _______, KC_SCRL, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
 /*
@@ -173,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GRV ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_PIPE ,
      CTL_ESC, KC_EXLM ,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSLS,
      KC_LSFT , UK_BKSL, KC_RBRC, KC_RCBR, KC_MINS, KC_UNDS, _______, _______, _______, _______, KC_PLUS, KC_EQL,  KC_LBRC, KC_LCBR, UK_PIPE, DV_AT,
-                                 _______, _______, _______, KC_LBRC, KC_LCBR, SYM_OFF, _______, _______, _______, _______
+                                 _______, _______, _______, KC_LBRC, KC_LCBR, _______, _______, _______, _______, _______
     ),
 
 /*

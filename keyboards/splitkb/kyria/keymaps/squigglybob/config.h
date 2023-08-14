@@ -24,9 +24,6 @@
 #    define RGBLIGHT_LIMIT_VAL 150
 #endif
 
-// Lets you roll mod-tap keys
-#define IGNORE_MOD_TAP_INTERRUPT
-
 #undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE 2    // can double tap into a layer if set using TT
 #define TAPPING_TERM 150
