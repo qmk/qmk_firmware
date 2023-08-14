@@ -4,9 +4,6 @@
 #pragma once
 
 /* - Encoder settings - */
-#ifdef ENCODER_ENABLE
-#    define ENCODER_RESOLUTION 4
-#endif
 #ifdef ENCODER_MAP_ENABLE
 // Key delay for encoders (necessary for some keycodes)
 #    define ENCODER_MAP_KEY_DELAY 10
