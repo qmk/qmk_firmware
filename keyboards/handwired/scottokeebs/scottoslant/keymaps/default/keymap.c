@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LSFT_T(KC_Z), KC_X,   KC_C,    KC_V,    KC_B,           KC_N, KC_M,          KC_COMMA,      KC_DOT, RSFT_T(KC_SLSH),
                       KC_ESC, KC_LCTL, KC_LALT, LGUI_T(KC_SPC),       LT(1, KC_TAB), LT(2, KC_ENT), KC_ESC
     ),
-    [1] = LAYOUT_3x10_7(
+    [1] = LAYOUT(
         KC_UNDS,         KC_MINS, KC_PLUS, KC_EQL,  KC_COLN, KC_GRV,   KC_MRWD, KC_MPLY, KC_MFFD, KC_DEL,
         KC_LCBR,         KC_LPRN, KC_RPRN, KC_RCBR, KC_PIPE, KC_ESC,   KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT,
         LSFT_T(KC_LBRC), KC_QUOT, KC_DQUO, KC_RBRC, KC_SCLN, KC_TILDE, KC_VOLD, KC_MUTE, KC_VOLU, RSFT_T(KC_BSLS),
