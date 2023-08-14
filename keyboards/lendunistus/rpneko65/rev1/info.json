@@ -19,7 +19,7 @@
     },
     "processor": "RP2040",
     "rgblight": {
-        "led_count": 1,
+        "led_count": 1
     },
     "url": "https://github.com/lendunistus/rpneko65",
     "usb": {
