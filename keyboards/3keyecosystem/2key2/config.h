@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* RGB matrix key backlighting */
-#define RGB_DI_PIN B2
 #define RGB_MATRIX_LED_COUNT 2
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE

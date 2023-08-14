@@ -24,7 +24,6 @@
 #define SPLIT_MODS_ENABLE
 
 #undef USE_I2C
-#undef SSD1306OLED
 
 // #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM 100
@@ -41,8 +40,8 @@
 
 #ifdef RGB_MATRIX_ENABLE
 #    ifdef CONVERT_TO_PROTON_C
-#        undef RGB_DI_PIN
-#        define RGB_DI_PIN A3
+#        undef WS2812_DI_PIN
+#        define WS2812_DI_PIN A3
 #    endif
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)

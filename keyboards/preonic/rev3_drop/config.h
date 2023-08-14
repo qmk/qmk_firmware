@@ -17,11 +17,6 @@
 
 #pragma once
 
-#undef MATRIX_ROW_PINS
-#undef MATRIX_COL_PINS
-#define MATRIX_ROW_PINS { A10, A9, A8, B15, C13, C14, C15, A2, A3, A6 }
-#define MATRIX_COL_PINS { B11, B10, B2, B1, A7, B0 }
-
 #define DIP_SWITCH_PINS { B14, A15, A0, B9 }
 
 #define MUSIC_MAP
@@ -50,8 +45,6 @@
 /*
  * WS2812 Underglow Matrix options
  */
-#define RGB_DI_PIN A1
-#define RGBLED_NUM 9
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -64,7 +57,7 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 
 // RGB Matrix support
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 9
 
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 2

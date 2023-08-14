@@ -198,7 +198,9 @@ bool process_autocorrect_user(uint16_t *keycode, keyrecord_t *record, uint8_t *t
 
 ### Apply Autocorrect
 
-Additionally, `apply_autocorrect(uint8_t backspaces, const char *str)` allows for users to add additional handling to the autocorrection, or replace the functionality entirely. This passes on the number of backspaces needed to replace the words, as well as the replacement string (partial word, not the full word).
+Additionally, `apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct)` allows for users to add additional handling to the autocorrection, or replace the functionality entirely. This passes on the number of backspaces needed to replace the words, as well as the replacement string (partial word, not the full word), and the typo and corrected strings (complete words).
+
+?> Due to the way code works (no notion of words, just a stream of letters), the `typo` and `correct` strings are a best bet and could be "wrong". For example you may get `wordtpyo` & `wordtypo` instead of the expected `tpyo` & `typo`. 
 
 #### Apply Autocorrect Example
 
@@ -209,7 +211,7 @@ This following example will play a sound when a typo is autocorrected and execut
 float autocorrect_song[][2] = SONG(TERMINAL_SOUND);
 #endif
 
-bool apply_autocorrect(uint8_t backspaces, const char *str) {
+bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct) {
 #ifdef AUDIO_ENABLE
     PLAY_SONG(autocorrect_song);
 #endif
@@ -223,18 +225,33 @@ bool apply_autocorrect(uint8_t backspaces, const char *str) {
 
 ?> In this callback function, `return false` will stop the normal processing of autocorrect, which requires manually handling of removing the "bad" characters and typing the new characters.
 
-!> ***IMPORTANT***: `str` is a pointer to `PROGMEM` data for the autocorrection.  If you return false, and want to send the string, this needs to use `send_string_P` and not `send_string` or `SEND_STRING`.
+!> ***IMPORTANT***: `str` is a pointer to `PROGMEM` data for the autocorrection.  If you return false, and want to send the string, this needs to use `send_string_P` and not `send_string` nor `SEND_STRING`.
 
 You can also use `apply_autocorrect` to detect and display the event but allow internal code to execute the autocorrection with `return true`:
 
 ```c
-bool apply_autocorrect(uint8_t backspaces, const char *str) {
+bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct) {
 #ifdef OLED_ENABLE
     oled_write_P(PSTR("Auto-corrected"), false);
+#endif
+#ifdef CONSOLE_ENABLE
+    printf("'%s' was corrected to '%s'\n", typo, correct);
 #endif
     return true;
 }
 ```
+
+### Autocorrect Status
+
+Additional user callback functions to manipulate Autocorrect:
+
+| Function                   | Description                                  |
+|----------------------------|----------------------------------------------|
+| `autocorrect_enable()`     | Turns Autocorrect on.                        |
+| `autocorrect_disable()`    | Turns Autocorrect off.                       |
+| `autocorrect_toggle()`     | Toggles Autocorrect.                         |
+| `autocorrect_is_enabled()` | Returns true if Autocorrect is currently on. |
+
 
 ## Appendix: Trie binary data format :id=appendix
 

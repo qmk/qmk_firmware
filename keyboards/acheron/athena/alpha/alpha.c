@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "alpha.h"
-
+#include "quantum.h"
 
 void board_init(void) {
     setPinInput(B6);
@@ -24,10 +23,9 @@ void board_init(void) {
 
 void keyboard_post_init_kb(void){
  // Defining the backlight pin (A6) as an floating (no pullup or pulldown resistor) opendrain output pin
-    palSetLineMode(BACKLIGHT_PIN, PAL_MODE_ALTERNATE(BACKLIGHT_PAL_MODE) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING);
+    palSetLineMode(BACKLIGHT_PIN, PAL_MODE_ALTERNATE(2) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_OSPEED_HIGHEST | PAL_STM32_PUPDR_FLOATING);
 }
 
-#define LED_PIN_ON_STATE 1
 void led_init_ports(void) {
     palSetLineMode(LED_CAPS_LOCK_PIN, PAL_MODE_OUTPUT_OPENDRAIN | PAL_STM32_PUPDR_FLOATING);
 }

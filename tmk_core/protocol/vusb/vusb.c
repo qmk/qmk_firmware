@@ -435,6 +435,8 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x05, 0x08, //   Usage Page (LED)
     0x19, 0x01, //   Usage Minimum (Num Lock)
     0x29, 0x05, //   Usage Maximum (Kana)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
     0x95, 0x05, //   Report Count (5)
     0x75, 0x01, //   Report Size (1)
     0x91, 0x02, //   Output (Data, Variable, Absolute)

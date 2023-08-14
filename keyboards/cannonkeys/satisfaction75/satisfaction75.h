@@ -2,12 +2,6 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_cannonkeys_satisfaction75_prototype
-    #include "prototype.h"
-#else
-    #include "rev1.h"
-#endif
-
 #include "via.h" // only for EEPROM address
 #define EEPROM_ENABLED_ENCODER_MODES (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 #define EEPROM_CUSTOM_BACKLIGHT (VIA_EEPROM_CUSTOM_CONFIG_ADDR+1)

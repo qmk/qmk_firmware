@@ -11,6 +11,14 @@
     "bootmagic": {
         "matrix": [1, 0]
     },
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 4,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "matrix_pins": {

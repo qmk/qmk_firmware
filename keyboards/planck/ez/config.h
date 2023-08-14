@@ -18,23 +18,6 @@
 
 #pragma once
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-
-#undef MATRIX_ROW_PINS
-#undef MATRIX_COL_PINS
-
-#define MATRIX_ROW_PINS { A10, A9, A8, B15, C13, C14, C15, A2 }
-#define MATRIX_COL_PINS { B11, B10, B2, B1, A7, B0 }
-
 #define MUSIC_MAP
 #undef AUDIO_VOICES
 #undef AUDIO_PIN
@@ -59,7 +42,6 @@
 //#define NO_ACTION_ONESHOT
 
 // #define WS2812_LED_N 2
-// #define RGBLED_NUM WS2812_LED_N
 // #define WS2812_TIM_N 2
 // #define WS2812_TIM_CH 2
 // #define PORT_WS2812     GPIOA
@@ -127,10 +109,6 @@
 #define ENABLE_RGB_MATRIX_MULTISPLASH
 #define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-#define IGNORE_MOD_TAP_INTERRUPT
-
-#define TAPPING_TOGGLE  1
 
 #define MOUSEKEY_INTERVAL           20
 #define MOUSEKEY_DELAY              0

@@ -17,25 +17,6 @@
 
 #pragma once
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-/* Note: These are not used for arm boards. They're here purely as documentation. */
-#undef MATRIX_ROW_PINS
-#undef MATRIX_COL_PINS
-
-#define MATRIX_ROW_PINS \
-    { A10, A9, A8, B15, C13, C14, C15, A2 }
-#define MATRIX_COL_PINS \
-    { B11, B10, B2, B1, A7, B0 }
-
 #define DIP_SWITCH_PINS \
     { B14, A15, A0, B9 }
 
@@ -65,9 +46,7 @@
 /*
  * WS2812 Underglow Matrix options
  */
-#define RGB_DI_PIN A1
-#define RGBLED_NUM 9
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 9
 
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 2

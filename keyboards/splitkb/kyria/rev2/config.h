@@ -17,19 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-// wiring
-#define MATRIX_ROW_PINS \
-    { F6, F7, B1, B3 }
-#define MATRIX_COL_PINS \
-    { B2, B6, B5, B4, E6, D7, C6, D4 }
-#define MATRIX_ROW_PINS_RIGHT \
-    { D4, C6, D7, E6 }
-#define MATRIX_COL_PINS_RIGHT \
-    { B4, B5, B6, B2, B3, B1, F7, F6 }
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
 // Side detection
 // col 4 row 3 on right-hand-side
 #define SPLIT_HAND_MATRIX_GRID E6, B3 // row first because the board is col2row
@@ -48,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SERIAL_USART_TX_PIN      D3
 #    define SERIAL_USART_RX_PIN      D2
 
-#    define RGB_DI_PIN               PAL_LINE(GPIOA, 3)
+#    define WS2812_DI_PIN            PAL_LINE(GPIOA, 3)
 #    define WS2812_PWM_DRIVER        PWMD2                  // default: PWMD2
 #    define WS2812_PWM_CHANNEL       4                      // default: 2
 #    define WS2812_PWM_PAL_MODE      1                      // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
@@ -56,13 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define WS2812_DMA_CHANNEL       2                      // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #    define WS2812_DMAMUX_ID         STM32_DMAMUX1_TIM2_UP  // DMAMUX configuration for TIMx_UP -- only required if your MCU has a DMAMUX peripheral, see the respective reference manual for the appropriate values for your MCU.
 #else
-#    define RGB_DI_PIN D3
+#    define WS2812_DI_PIN D3
 #    define SOFT_SERIAL_PIN D2
 #endif
-
-#define RGBLED_SPLIT \
-    { 10, 10 }
-#define RGBLED_NUM 20
 
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X64
@@ -72,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* RGB matrix support */
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM // Number of LEDs
+#    define RGB_MATRIX_LED_COUNT 20 // Number of LEDs
 #    define RGB_MATRIX_SPLIT { 10, 10 }
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED

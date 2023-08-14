@@ -13,9 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "meira.h"
-#include "action_layer.h"
-#include "action_code.h"
+#include QMK_KEYBOARD_H
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
@@ -28,7 +26,7 @@ extern rgblight_config_t rgblight_config;
 #define _LOWER 3
 #define _RAISE 4
 #define _EMOJI 5
-#define _ADJUST 16
+#define _ADJUST 6
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -393,6 +391,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void led_set_user(uint8_t usb_led) {
-
-}

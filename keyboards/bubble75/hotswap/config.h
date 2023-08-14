@@ -16,28 +16,15 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { F4, F5, F6, F7, C7, F1 }
-#define MATRIX_COL_PINS { B0, B1, B2, B3, E6, F0, D0, D1, D4, D6, D7, B4, B5, B6, C6 }
-#define DIODE_DIRECTION COL2ROW
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define FORCE_NKRO
-
 /* WS2812 RGB */
 #ifdef RGB_MATRIX_ENABLE
-#define RGB_DI_PIN B7
-#define RGBLED_NUM 81
 #define RGB_MATRIX_LED_COUNT 81
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_LAYERS
 //#define RGBLIGHT_LAYER_BLINK
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF

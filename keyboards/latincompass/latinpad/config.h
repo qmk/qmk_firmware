@@ -16,17 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 #pragma once
 
-
-#define MATRIX_ROW_PINS { F4, F5, F6, F7, B1 }
-#define MATRIX_COL_PINS { D4, C6, D7, E6 }
-
-#define DIODE_DIRECTION ROW2COL
-
-#define SSD1306OLED
-#define RGB_DI_PIN D3
-
-#define RGBLED_NUM 18
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 18
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:
 // https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects

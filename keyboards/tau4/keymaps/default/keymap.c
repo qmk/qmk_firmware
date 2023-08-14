@@ -104,7 +104,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 #ifdef ENCODER_MAP_ENABLE
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
         [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
         [_NUMPAD] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
         [_LOWER] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },

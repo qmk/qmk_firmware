@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RGBLED_NUM 64
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -27,13 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-#define RGBLIGHT_LIMIT_VAL 120
-#define USB_MAX_POWER_CONSUMPTION 500
+#define RGB_MATRIX_LED_COUNT 64
 
 // RGB Matrix Animation modes. Explicitly enabled
 // For full list of effects, see:

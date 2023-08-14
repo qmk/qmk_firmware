@@ -17,10 +17,10 @@
     },
     "features": {
         "mousekey": true,
-	"extrakey": true,
-	"console": true,
-	"command": true,
-	"audio": true
+        "extrakey": true,
+        "console": true,
+        "command": true,
+        "audio": true
     },
     "usb": {"pid": "0x23B0"},
     "layouts": {
