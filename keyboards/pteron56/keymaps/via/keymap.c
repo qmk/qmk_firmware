@@ -17,10 +17,10 @@
 
 #include QMK_KEYBOARD_H
 
-#define _L1_GUI LT(1,KC_LGUI)
-#define _L1_DEL LT(1,KC_DEL)
-#define _L2_APP LT(2,KC_APP)
-#define _L2_ALT LT(2,KC_LALT)
+#define L1_GUI LT(1,KC_LGUI)
+#define L1_DEL LT(1,KC_DEL)
+#define L2_APP LT(2,KC_APP)
+#define L2_ALT LT(2,KC_LALT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
