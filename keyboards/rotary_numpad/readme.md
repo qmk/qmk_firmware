@@ -3,15 +3,11 @@
 
 ![rotary_numpad](https://i.imgur.com/GwEH4WOh.jpeg)
 
-*A short description of the keyboard/project*
+This is a personal project of mine where I wanted a number pad that I can put on the left side of keyboard that doesn't have a numberpad. I fell in love with the feel of rotary encoders on my 3d printer, so added three to be able to play around with.
 
 * Keyboard Maintainer: [rabijl](https://github.com/rabijl)
 * Hardware Supported: Sparkfun Pro Micro 5V (atmega32u4)
 * Hardware Availability: https://www.sparkfun.com/products/12640
-
-This is a personal project of mine where I wanted a number pad that I can put on the left \
-side of keyboard that doesn't have a numberpad. I fell in love with the feel of rotary encoders \
-on my 3d printer, so added three to be able to play around with.
 
 ## How to build from scratch
 
@@ -41,18 +37,14 @@ Due to the three rotary encoders, I had to use most of the available pins. Fortu
 
 ## Flashing
 
-Make example for this keyboard (after setting up your build environment): \
-**note:** you may need to run this in the root of the repository for this to work
+Make example for this keyboard (after setting up your build environment):
 
-    ```
-	qmk compile -kb rotary_numpad -km default
-    ```
+    qmk compile -kb rotary_numpad -km default
 
 Flashing example for this keyboard:
 
-    ```
-	qmk flash -kb rotary_numpad -km default
-    ```
+    qmk flash -kb rotary_numpad -km default
+
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
