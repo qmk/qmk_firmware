@@ -1,3 +1,6 @@
+// Copyright 2023 KiwiKey
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 // Render an animation,
 // size of ANIM_WIDTH * ANIM_HEIGHT (in pixel, and MUST be divisible by 8, e.g. 24x32 pixel)
 // at position [ANIM_POS_X, ANIM_POS_Y] as top-left coordinate ([column, row], means the animation is render within text line)

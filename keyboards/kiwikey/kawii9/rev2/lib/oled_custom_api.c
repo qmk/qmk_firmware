@@ -1,3 +1,6 @@
+// Copyright 2023 KiwiKey
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 extern uint8_t oled_buffer[OLED_MATRIX_SIZE];
 extern OLED_BLOCK_TYPE oled_dirty;
 #define OLED_ALL_BLOCKS_MASK (((((OLED_BLOCK_TYPE)1 << (OLED_BLOCK_COUNT - 1)) - 1) << 1) | 1)
