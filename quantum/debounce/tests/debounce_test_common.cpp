@@ -138,11 +138,11 @@ void DebounceTest::runDebounce(bool changed) {
     }
 
     if (std::equal(std::begin(output_matrix_), std::end(output_matrix_), std::begin(cooked_matrix_)) == cooked_changed) {
-        FAIL() << "Fatal error: debounce() reported a wrong cooked matrix change result " << strTime() << "\noutput_matrix: cooked_changed=" << cooked_changed << "\n" << strMatrix(output_matrix_) << "\ncooked_matrix:\n" << strMatrix(cooked_matrix_);
+        FAIL() << "Fatal error: debounce() reported a wrong cooked matrix change result at " << strTime() << "\noutput_matrix: cooked_changed=" << cooked_changed << "\n" << strMatrix(output_matrix_) << "\ncooked_matrix:\n" << strMatrix(cooked_matrix_);
     }
 
     if (current_access_counter() > 1) {
-        FAIL() << "Fatal error: debounce() read the timer multiple times, which is not allowed" << strTime() << "\ntimer: access_count=" << current_access_counter() << "\noutput_matrix: cooked_changed=" << cooked_changed << "\n" << strMatrix(output_matrix_) << "\ncooked_matrix:\n" << strMatrix(cooked_matrix_);
+        FAIL() << "Fatal error: debounce() read the timer multiple times, which is not allowed, at " << strTime() << "\ntimer: access_count=" << current_access_counter() << "\noutput_matrix: cooked_changed=" << cooked_changed << "\n" << strMatrix(output_matrix_) << "\ncooked_matrix:\n" << strMatrix(cooked_matrix_);
     }
 }
 
