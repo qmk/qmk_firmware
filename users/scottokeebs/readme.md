@@ -11,11 +11,11 @@ Applies to layouts:
 By default the keymap will use Colemak, to compile in QWERTY, append the `KEYMAP=QWERTY` environment variable.
 
 ```
-qmk compile -kb <keyboardName> -km scotto -e KEYMAP=QWERTY
+qmk compile -kb <keyboardName> -km scottokeebs -e KEYMAP=QWERTY
 ```
 
 Example for [Scotto34](/keyboards/scottokeebs/scotto34):
 
 ```
-qmk compile -kb scottokeebs/scotto34 -km scotto -e KEYMAP=QWERTY
+qmk compile -kb scottokeebs/scotto34 -km scottokeebs -e KEYMAP=QWERTY
 ```
