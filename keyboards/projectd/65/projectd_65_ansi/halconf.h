@@ -1,4 +1,4 @@
-/* Copyright 2021 meletrix
+/* Copyright (C) 2023 Westberry Technology (ChangZhou) Corp., Ltd
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +16,8 @@
 
 #pragma once
 
-// Note:  array is { col, row )
-#define ENCODERS_CW_KEY  { { 5, 4 } }
-#define ENCODERS_CCW_KEY { { 3, 4 } }
+#define HAL_USE_SPI TRUE
+#define SPI_USE_WAIT TRUE
+#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+
+#include_next <halconf.h>
