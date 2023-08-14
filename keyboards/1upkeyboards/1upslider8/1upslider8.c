@@ -385,7 +385,9 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
+#ifndef SHOW_LOGO
 #    define SHOW_LOGO 5000
+#endif
 bool oled_task_kb(void) {
     if (!oled_task_user()) { return false; }
     if ((timer_elapsed32(oled_logo_timer) < SHOW_LOGO)){
