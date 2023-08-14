@@ -26,4 +26,4 @@
 
 #undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE 2    // can double tap into a layer if set using TT
-#define TAPPING_TERM 150
+#define TAPPING_TERM 175
