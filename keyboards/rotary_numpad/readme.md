@@ -21,23 +21,23 @@ to be very useful to identify different pins. You can find useful information on
 
 ### matrix
 
-Due to the three rotary encoders, I had to use most of the available pins. \
-I therefore fit their buttons into 6 x 4 matrix at strange positions. See the diagram below. \
-In this matrix r1, r2 and r3 are the buttons for each respective encoder.
-				  \
-┌───┬───┬───┬───┐ \
-│Esc│Tab│MO1│Bsp│ \
-├───┼───┼───┼───┤ \
-│Num│\/ │ * │ - │ \
-├───┼───┼───┼───┤ \
-│ 7 │ 8 │ 9 │ + │ \
-├───┼───┼───┼───┤ \
-│ 4 │ 5 │ 6 │ r2│ \
-├───┼───┼───┼───┤ \
-│ 1 │ 2 │ 3 │Ent│ \
-├───┼───┼───┼───┤ \
-│ r3│ 0 │ . │ r1│ \
-└───┴───┴───┴───┘ 
+Due to the three rotary encoders, I had to use most of the available pins. Fortunately, all the buttons still fit in a 6x4 matrix. Looking at the diagram below, the three buttons in the first column correspond to each encoder button.
+
+```
+┌───┐┌───┬───┬───┬───┐
+│Ply││Esc│Tab│MO1│Bsp│
+└───┘├───┼───┼───┼───┤
+     │Num│ / │ * │ - │
+     ├───┼───┼───┼───┤
+     │ 7 │ 8 │ 9 │   │
+┌───┐├───┼───┼───┤ + │
+│Esc││ 4 │ 5 │ 6 │   │
+└───┘├───┼───┼───┼───┤
+     │ 1 │ 2 │ 3 │   │
+┌───┐├───┼───┼───┤Ent│
+│Ent││   0   │ . │   │
+└───┘└───┴───┴───┴───┘
+```
 
 ## Flashing
 

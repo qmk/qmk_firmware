@@ -15,7 +15,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true
+        "encoder": true,
+        "encoder_map": true
     },
     "development_board": "promicro",
     "diode_direction": "COL2ROW",
