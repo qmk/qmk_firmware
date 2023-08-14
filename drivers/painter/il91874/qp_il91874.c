@@ -146,6 +146,11 @@ painter_device_t qp_il91874_make_spi_device(uint16_t panel_width, uint16_t panel
             driver->spi_dc_reset_config.dc_pin                     = dc_pin;
             driver->spi_dc_reset_config.reset_pin                  = reset_pin;
 
+            if (!qp_internal_register_device((painter_device_t)driver)) {
+                memset(driver, 0, sizeof(eink_panel_dc_reset_painter_device_t));
+                return NULL;
+            }
+
             return (painter_device_t)driver;
         }
     }

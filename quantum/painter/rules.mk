@@ -13,7 +13,8 @@ VALID_QUANTUM_PAINTER_DRIVERS := \
 	st7735_spi \
 	st7789_spi \
 	gc9a01_spi \
-	ssd1351_spi
+	ssd1351_spi \
+	il91874_spi
 
 #-------------------------------------------------------------------------------
 
@@ -134,6 +135,19 @@ define handle_quantum_painter_driver
         SRC += \
             $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
             $(DRIVER_PATH)/painter/ssd1351/qp_ssd1351.c
+
+    else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),il91874_spi)
+        DEFERRED_EXEC_ENABLE := yes  # for timeout that prevents damaging screen
+        QUANTUM_PAINTER_NEEDS_SURFACE := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI_DC_RESET := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_IL91874_ENABLE -DQUANTUM_PAINTER_IL91874_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/eink_panel \
+            $(DRIVER_PATH)/painter/il91874
+        SRC += \
+            $(DRIVER_PATH)/painter/eink_panel/qp_eink_panel.c \
+            $(DRIVER_PATH)/painter/il91874/qp_il91874.c
 
     endif
 endef
