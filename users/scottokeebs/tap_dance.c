@@ -13,7 +13,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "tap_dance.h"
-#include "scotto.h"
+#include "scottokeebs.h"
 
 // Create an instance of 'td_tap_t' for the 'x' tap dance.
 static td_tap_t xtap_state = {

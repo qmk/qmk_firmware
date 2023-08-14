@@ -12,4 +12,28 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "scotto.h"
+#pragma once
+#include "scottokeebs.h"
+
+typedef enum {
+    TD_NONE = 0,
+    TD_UNKNOWN,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_HOLD,
+    TD_TRIPLE_HOLD,
+    TD_SINGLE_TAP,
+    TD_DOUBLE_TAP,
+    TD_TRIPLE_TAP
+} td_state_t;
+
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
+
+enum {
+    TD_LCTL_ESC_SPOTLIGHT_EMOJI = 0,
+    TD_LALT_ESC_WINDOWS_EMOJI,
+    TD_ESC_LALT_LCTL_SPOTLIGHT_EMOJI,
+    TD_ESC_LCTL_LALT_WINDOWS_EMOJI
+};
