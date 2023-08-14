@@ -32,10 +32,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_PWM_TARGET_PERIOD 800000
 
 
-#define RGBLED_NUM          52
+#define RGBLED_NUM          57
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT \
-    { 26, 26 }
+    { 26, 31 }
 
 #define DEBUG_LED_PIN      C13
 

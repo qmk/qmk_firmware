@@ -35,12 +35,11 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     mouse_report.y = 0;
 
     if (x != 0 && y != 0 && (timer_elapsed(mouse_debounce_timer) > TAP_CHECK)) {
-#ifdef OLED_ENABLE
-        oled_timer_reset();
-#endif
         if (enable_acceleration) {
-            x = (mouse_xy_report_t)(x > 0 ? pow(4, x) / 2 + x : -pow(4, abs(x)) / 2 + x);
-            y = (mouse_xy_report_t)(y > 0 ? pow(5, y) / 2 + y : -pow(5, abs(y)) / 2 + y);
+            float magnitude = sqrtf( mouse_report.x * mouse_report.x + mouse_report.y * mouse_report.y );
+            float adjusted_magnitude = powf(magnitude, 1.2f);
+            x = (mouse_xy_report_t)(x * adjusted_magnitude);
+            y = (mouse_xy_report_t)(y * adjusted_magnitude);
 //            x = (mouse_xy_report_t)(x > 0 ? x * x / 16 + x : -x * x / 16 + x);
 //            y = (mouse_xy_report_t)(y > 0 ? y * y / 16 + y : -y * y / 16 + y);
         }
@@ -56,6 +55,12 @@ bool process_record_pointing(uint16_t keycode, keyrecord_t* record) {
         case KC_ACCEL:
             enable_acceleration = record->event.pressed;
             break;
+#if defined(POINTING_DEVICE_MOUSE_JIGGLER_ENABLE)
+        case PD_JIGGLER:
+            if (record->event.pressed) {
+                pointing_device_mouse_jiggler_toggle();
+            }
+#endif
         default:
             mouse_debounce_timer  = timer_read();
             break;
@@ -73,6 +78,24 @@ layer_state_t layer_state_set_pointing(layer_state_t state) {
     return state;
 }
 
+#if defined(POINTING_DEVICE_MOUSE_JIGGLER_ENABLE)
+static uint16_t mouse_jiggler_timer;
+
+bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report) {
+    // Only report every 5 seconds.
+    if (userspace_config.mouse_jiggler && timer_elapsed(mouse_jiggler_timer) > 5000) {
+        mouse_jiggler_timer = timer_read();
+        return true;
+    }
+    return memcmp(new_report, old_report, sizeof(report_mouse_t));
+}
+
+void pointing_device_mouse_jiggler_toggle(void) {
+    mouse_jiggler_timer            = timer_read();
+    userspace_config.mouse_jiggler = !userspace_config.mouse_jiggler;
+}
+
+#endif
 
 #if defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
 __attribute__((weak)) bool is_mouse_record_keymap(uint16_t keycode, keyrecord_t *record) { return false; }
