@@ -13,6 +13,9 @@
             {"pin_a": "A2", "pin_b": "A1"}
         ]
     },
+    "rgb_matrix": {
+        "driver": "AW20216"
+    },
     "processor": "WB32F3G71",
     "bootloader": "wb32-dfu",
     "diode_direction": "ROW2COL",
@@ -27,7 +30,7 @@
                 {"label": "/", "matrix": [0, 1], "x": 1, "y": 0},
                 {"label": "*", "matrix": [0, 2], "x": 2, "y": 0},
                 {"label": "-", "matrix": [0, 3], "x": 3, "y": 0},
-                
+
                 {"label": "7", "matrix": [1, 0], "x": 0, "y": 1},
                 {"label": "8", "matrix": [1, 1], "x": 1, "y": 1},
                 {"label": "9", "matrix": [1, 2], "x": 2, "y": 1},
@@ -36,7 +39,7 @@
                 {"label": "4", "matrix": [2, 0], "x": 0, "y": 2},
                 {"label": "5", "matrix": [2, 1], "x": 1, "y": 2},
                 {"label": "6", "matrix": [2, 2], "x": 2, "y": 2},
-                {"label": "CALC", "matrix": [2, 3], "x": 3, "y": 2},
+                {"label": "CALC", "matrix": [2, 3], "x": 4.25, "y": 0},
 
                 {"label": "1", "matrix": [3, 0], "x": 0, "y": 3},
                 {"label": "2", "matrix": [3, 1], "x": 1, "y": 3},
@@ -44,7 +47,7 @@
                 {"label": "RET", "matrix": [3, 3], "x": 3, "y": 3, "h": 2},
 
                 {"label": "0", "matrix": [4, 0], "x": 0, "y": 4, "w": 2},
-                {"label": ".", "matrix": [4, 3], "x": 3, "y": 4}
+                {"label": ".", "matrix": [4, 3], "x": 2, "y": 4}
             ]
         }
     }

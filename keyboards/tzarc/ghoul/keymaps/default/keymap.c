@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = {ENCODER_CCW_CW(RGB_HUI, RGB_HUD)},
     [_LOWER]  = {ENCODER_CCW_CW(RGB_HUI, RGB_HUD)},
     [_RAISE]  = {ENCODER_CCW_CW(RGB_HUI, RGB_HUD)},

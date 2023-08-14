@@ -7,8 +7,6 @@
 #define BACKLIGHT_PWM_CHANNEL 3
 #define BACKLIGHT_PAL_MODE    2
 
-#define RGB_CI_PIN B13
-
 #define ADC_PIN A0
 
 #define SOLENOID_PINS { B12, B13, B14, B15 }

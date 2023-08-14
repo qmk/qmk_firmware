@@ -1,22 +1,5 @@
 #pragma once
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-
-#undef MATRIX_ROW_PINS
-#undef MATRIX_COL_PINS
-
-#define MATRIX_ROW_PINS { A3, B8, B9, B1 }
-#define MATRIX_COL_PINS { A7, A8, B2, B10 }
-
 //Audio
 #undef AUDIO_VOICES
 #undef AUDIO_PIN
@@ -36,17 +19,6 @@
 
 // configure oled driver for the 128x32 oled
 #define OLED_UPDATE_INTERVAL 33 // ~30fps
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
 
 /*
  * Feature disable options
@@ -125,7 +97,6 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 
 #define RGBLED_NUM 10
-#define RGB_DI_PIN B5
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 
 #define RGB_MATRIX_KEYPRESSES

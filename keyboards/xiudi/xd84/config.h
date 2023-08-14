@@ -21,23 +21,6 @@
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-//#define MATRIX_ROW_PINS { D0, D5 }
-//#define MATRIX_COL_PINS { F1, F0, B0 }
-
-/* COL2ROW, ROW2COL */
-//#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN C7
 #define RGBLED_NUM 7
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
