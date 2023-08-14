@@ -19,10 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_DRIVER PWMD0
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_B
 
-/* Define RGB */
-#ifdef RGBLIGHT_ENABLE
-
 #define WS2812_PIO_USE_PIO1
 
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
-#endif
+#define RGB_MATRIX_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL

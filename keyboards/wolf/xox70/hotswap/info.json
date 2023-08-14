@@ -20,7 +20,8 @@
     },
     "processor": "RP2040",
     "ws2812": {
-        "pin": "GP12"
+        "pin": "GP12",
+        "driver" : "vendor"
     },
     "rgb_matrix": {
         "driver": "WS2812",
