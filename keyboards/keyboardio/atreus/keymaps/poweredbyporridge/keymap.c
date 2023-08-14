@@ -74,16 +74,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		     KC_TRNS,      KC_F23,      KC_LCTL,    KC_NO,    KC_TRNS,    KC_NO,     KC_VOLD,    KC_MPLY,     KC_LSFT,   KC_NO,   KC_NO,  KC_TRNS)
 };
 
-
-/* // Two combos */
-/* const uint16_t PROGMEM CtlAlt_combo_L[] = {LCTL_T(KC_ESC), KC_RCTL, COMBO_END}; */
-/* const uint16_t PROGMEM CtlAlt_combo_R[] = {KC_RCTL, LCTL_T(KC_TAB), COMBO_END}; */
-/* combo_t key_combos[COMBO_COUNT] = { */
-/*     COMBO(CtlAlt_combo_L, KC_LALT), // Alt using tab/Ctl and key to left */
-/*     COMBO(CtlAlt_combo_R, KC_LALT), // Alt using Esc/Ctl and key to right */
-/* }; */
-
-
 /* 
 Notes on keys
 or, why on earth do I have keymap 
