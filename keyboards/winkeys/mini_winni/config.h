@@ -18,28 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x574B
-#define PRODUCT_ID      0x7770
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    WinKeys
-#define PRODUCT         Mini Winni
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 4
-
-/* key matrix pins */
-#define DIRECT_PINS { { F4, F5, B4, D7 }, { F6, F7, B6, B5 } }
-#define UNUSED_PINS
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-#define RGB_DI_PIN E6
 #define RGBLED_NUM 4
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

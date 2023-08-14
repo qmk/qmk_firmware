@@ -16,20 +16,9 @@
 
 #pragma once
 
-#include "config_common.h"
 
-#define MATRIX_COL_PINS \
-    { B0 }
-#define MATRIX_ROW_PINS \
-    { A7 }
-#define UNUSED_PINS
-
-#define BACKLIGHT_PIN A1           /* Green LED. */
 #define BACKLIGHT_PWM_DRIVER PWMD5 /* GD32 numbering scheme starts from 0, TIMER4 on GD32 boards is TIMER5 on STM32 boards. */
 #define BACKLIGHT_PWM_CHANNEL 2    /* GD32 numbering scheme starts from 0, Channel 1 on GD32 boards is Channel 2 on STM32 boards. */
-
-#define RGB_DI_PIN A2
-#define RGB_CI_PIN B13
 
 #define ADC_PIN A0
 

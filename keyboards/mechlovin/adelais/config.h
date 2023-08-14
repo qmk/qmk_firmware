@@ -17,12 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D4C // "ML"
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Team.Mechlovin
 
 /* key matrix size */
 #define MATRIX_ROWS 5

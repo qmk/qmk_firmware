@@ -6,7 +6,7 @@
 void keyboard_post_init_rgb(void);
 
 // If rgb enabled, set underglow for layer
-uint32_t layer_state_set_rgb(uint32_t state);
+layer_state_t layer_state_set_rgb(layer_state_t state);
 
 // Enhance matrix scan code. Note: keep this light, since it runs every 100ms
 void matrix_scan_rgb(void);

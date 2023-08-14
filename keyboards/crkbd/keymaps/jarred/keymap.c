@@ -5,10 +5,6 @@
   #include "lufa.h"
   #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
-
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
@@ -65,15 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-void matrix_init_user(void) {
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init();   // turns on the display
-    #endif
-}
-
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 
 // When add source files to SRC in rules.mk, you can use functions.
 const char *read_logo(void);
@@ -84,7 +72,7 @@ const char *read_keylogs(void);
 char matrix_line_str[24];
 
 const char *read_layer_state(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   strcpy(matrix_line_str, "Layer: ");
 
@@ -142,37 +130,18 @@ const char *read_usb_state(void) {
   return matrix_line_str;
 }
 
-void matrix_scan_user(void) {
-   iota_gfx_task();
-}
-
-void matrix_render_user(struct CharacterMatrix *matrix) {
+bool oled_task_user(void) {
   if (is_keyboard_master()) {
-    matrix_write(matrix, read_layer_state());
-    matrix_write(matrix, "\n");
-    matrix_write(matrix, read_usb_state());
-    matrix_write(matrix, "\n");
-    matrix_write(matrix, read_keylogs());
-    matrix_write(matrix, "\n");
+    oled_write_ln(read_layer_state(), false);
+    oled_write_ln(read_usb_state(), false);
+    oled_write_ln(read_keylogs(), false);
   } else {
-    matrix_write(matrix, read_logo());
+    oled_write(read_logo(), false);
   }
+  return false;
 }
 
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-  matrix_clear(&matrix);
-  matrix_render_user(&matrix);
-  matrix_update(&display, &matrix);
-}
-#endif//SSD1306OLED
+#endif
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {

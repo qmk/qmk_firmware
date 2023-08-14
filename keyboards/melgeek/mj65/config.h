@@ -16,23 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xEDED
-#define PRODUCT_ID      0x0065
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MelGeek
-#define PRODUCT         MJ65
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_LED_PROCESS_LIMIT 4
@@ -85,7 +68,7 @@
 // #    define ENABLE_RGB_MATRIX_MULTISPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 // #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-//#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+//#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_ALL
 #define DRIVER_ADDR_1 0b0110000
 #define DRIVER_COUNT 1

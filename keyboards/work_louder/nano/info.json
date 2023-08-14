@@ -1,13 +1,44 @@
 {
-    "keyboard_name": "nano",
-    "url": "",
+    "keyboard_name": "Nano Pad",
+    "manufacturer": "Work Louder",
+    "url": "https://worklouder.cc/",
     "maintainer": "Work Louder",
+    "usb": {
+        "vid": "0x574C",
+        "pid": "0xE6F0",
+        "device_version": "0.0.1",
+        "max_power": 100
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "matrix_pins": {
+        "cols": ["B5", "B6", "C6"],
+        "rows": ["F7"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D7", "pin_b": "B4"}
+        ]
+    },
+    "ws2812": {
+        "pin": "F6"
+    },
+    "rgblight": {
+        "max_brightness": 120
+    },
+    "bootmagic": {
+        "matrix": [0, 2]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "k00", "x": 0, "y": 0},
-                {"label": "k01", "x": 1, "y": 0},
-                {"label": "k02", "x": 2, "y": 0}
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0}
             ]
         }
     }

@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Layer 3: Functions */
   [_FL] = LAYOUT_60_ansi(
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL ,
-    _______, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, KC_SLCK, KC_PAUS, _______,
+    _______, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, KC_SCRL, KC_PAUS, _______,
     _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,          _______,
     KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_END,  _______, _______, _______, _______,                   _______,
     QWERTY,  DVORAK,  COLEMAK,                   _______,                                     _______, _______, _______, _______

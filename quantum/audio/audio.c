@@ -18,6 +18,7 @@
 #include "eeconfig.h"
 #include "timer.h"
 #include "wait.h"
+#include "util.h"
 
 /* audio system:
  *
@@ -112,7 +113,11 @@ static bool    audio_initialized    = false;
 static bool    audio_driver_stopped = true;
 audio_config_t audio_config;
 
-void audio_init() {
+void eeconfig_update_audio_current(void) {
+    eeconfig_update_audio(audio_config.raw);
+}
+
+void audio_init(void) {
     if (audio_initialized) {
         return;
     }
@@ -185,7 +190,7 @@ bool audio_is_on(void) {
     return (audio_config.enable != 0);
 }
 
-void audio_stop_all() {
+void audio_stop_all(void) {
     if (audio_driver_stopped) {
         return;
     }

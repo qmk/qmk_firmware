@@ -23,41 +23,36 @@ __attribute__((weak)) void matrix_scan_keymap(void) {}
 __attribute__((weak)) void leader_scan_secrets(void) {}
 
 #ifdef LEADER_ENABLE
-    LEADER_EXTERNS();
-    void matrix_scan_leader(void) {
-        static uint8_t mods = 0;
-        mods = get_mods();
-        LEADER_DICTIONARY() {
-            leading = false;
-            leader_end();
-            clear_mods();
+void leader_end_user(void) {
+    static uint8_t mods = 0;
+    mods = get_mods();
+    clear_mods();
 
-            // Website Refresh / XCode "Run"
-            SEQ_ONE_KEY(KC_R) {
-                SEND_STRING(SS_LGUI("r"));
-            }
+    // Website Refresh / XCode "Run"
+    if (leader_sequence_one_key(KC_R)) {
+        SEND_STRING(SS_LGUI("r"));
+    }
 
-            SEQ_TWO_KEYS(KC_B, KC_D) {
-                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE), TAP_CODE_DELAY);
-            }
+    if (leader_sequence_two_keys(KC_B, KC_D)) {
+        send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " Built at: " QMK_BUILDDATE), TAP_CODE_DELAY);
+    }
 
-            SEQ_TWO_KEYS(KC_L, KC_C) {
-                send_string_with_delay("/**  */", TAP_CODE_DELAY);
-                wait_ms(TAPPING_TERM);
-                tap_code(KC_LEFT);
-                tap_code(KC_LEFT);
-                tap_code(KC_LEFT);
-                if (!(mods & MOD_MASK_SHIFT)) {
-                    tap_code(KC_ENT);
-                }
-            }
-
-            set_mods(mods);
-            #ifndef NO_SECRETS
-            leader_scan_secrets();
-            #endif // !NO_SECRETS
+    if (leader_sequence_two_keys(KC_L, KC_C)) {
+        send_string_with_delay("/**  */", TAP_CODE_DELAY);
+        wait_ms(TAPPING_TERM);
+        tap_code(KC_LEFT);
+        tap_code(KC_LEFT);
+        tap_code(KC_LEFT);
+        if (!(mods & MOD_MASK_SHIFT)) {
+            tap_code(KC_ENT);
         }
     }
+
+    set_mods(mods);
+    #ifndef NO_SECRETS
+    leader_scan_secrets();
+    #endif // !NO_SECRETS
+}
 #endif
 
 static bool is_first_run = true;
@@ -66,9 +61,7 @@ void matrix_scan_user(void) {
         is_first_run = false;
         startup_user();
     }
-    #ifdef LEADER_ENABLE
-    matrix_scan_leader();
-    #endif
+
     matrix_scan_keymap();
 }
 

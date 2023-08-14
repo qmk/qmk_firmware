@@ -37,15 +37,11 @@ const encodermap_t touch_encoder_map[NUMBER_OF_TOUCH_ENCODERS][TOUCH_ENCODER_OPT
 };
 
 static void process_encoder_matrix(encodermap_t pos) {
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = true, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    action_exec(MAKE_KEYEVENT(pos.r, pos.c, true));
 #if TAP_CODE_DELAY > 0
     wait_ms(TAP_CODE_DELAY);
 #endif
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = false, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    action_exec(MAKE_KEYEVENT(pos.r, pos.c, false));
 }
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -82,15 +78,15 @@ led_config_t g_led_config = { {
     {  14,  15,  16,  17,  18,  19,  20 },
     {  27,  26,  25,  24,  23,  22,  21 },
     {  28,  29,  30,  31,  32,  33,  34 },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
     {  49,  50,  51,  52,  53,  54,  55 },
     {  62,  61,  60,  59,  58,  57,  56 },
     {  63,  64,  65,  66,  67,  68,  69 },
     {  76,  75,  74,  73,  72,  71,  70 },
     {  77,  78,  79,  80,  81,  82,  83 },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
+    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED }
 }, {
     {  16,  16},{  34,  16},{  49,  16},{  64,  16},{  79,  16},{  94,  16},{ 109,  16},
     { 109,  31},{  94,  31},{  79,  31},{  64,  31},{  49,  31},{  34,  31},{  16,  31},

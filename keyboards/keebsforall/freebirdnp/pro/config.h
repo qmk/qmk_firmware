@@ -17,41 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x6B66
-#define PRODUCT_ID      0x1014
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KeebsForAll
-#define PRODUCT         Freebird Numpad
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 4
-
-#define ENCODERS_PAD_A { D4 }
-#define ENCODERS_PAD_B { D5 }
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { D3, B7, B6, B5, B4, B3 }
-#define MATRIX_COL_PINS { C7, B2, B1, B0 }
-#define UNUSED_PINS
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION COL2ROW
-
-/* number of backlight levels */
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

@@ -1,12 +1,6 @@
 SRC = matrix.c \
       i2c_master.c
 
-# MCU name
-MCU = atmega328p
-
-# Bootloader selection
-BOOTLOADER = usbasploader
-
 # Build Options
 #   change yes to no to disable
 #

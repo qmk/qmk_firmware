@@ -23,8 +23,8 @@
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-     KC_VOLU, KC_MPLY, KC_MPRV, RESET,
-     KC_VOLD, KC_MUTE, KC_MNXT, RESET
+     KC_VOLU, KC_MPLY, KC_MPRV, QK_BOOT,
+     KC_VOLD, KC_MUTE, KC_MNXT, QK_BOOT
   ),
 
 };

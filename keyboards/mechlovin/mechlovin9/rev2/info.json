@@ -1,0 +1,27 @@
+{
+    "keyboard_name": "Mechlovin9 Rev2",
+    "usb": {
+        "pid": "0x6509",
+        "device_version": "0.0.2"
+    },
+    "matrix_pins": {
+        "cols": ["B2", "B1", "B0", "B3", "B4", "B5", "D0", "D1", "D5", "D6", "D7", "C0", "C3", "C2", "C1"],
+        "rows": ["A0", "A1", "A2", "A3", "A4"]
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "backlight": true
+    },
+    "backlight": {
+        "pin": "D4",
+        "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "A7"
+    },
+    "bootmagic": {
+        "matrix": [0, 13]
+    },
+    "processor": "atmega32a",
+    "bootloader": "bootloadhid"
+}

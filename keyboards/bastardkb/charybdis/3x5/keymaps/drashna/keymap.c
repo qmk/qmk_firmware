@@ -73,28 +73,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _________________RAISE_L1__________________,    _________________RAISE_R1__________________,
         _________________RAISE_L2__________________,    _________________RAISE_R2__________________,
         _________________RAISE_L3__________________,    _________________RAISE_R3__________________,
-                          REBOOT,  KEYLOCK, _______,    _______, _______
+                          QK_RBT,  _______, _______,    _______, _______
     ),
     [_ADJUST] = LAYOUT_charybdis_3x5_wrapper(
         _________________ADJUST_L1_________________,    _________________ADJUST_R1_________________,
         _________________ADJUST_L2_________________,    _________________ADJUST_R2_________________,
         _________________ADJUST_L3_________________,    _________________ADJUST_R3_________________,
-                          EEP_RST, KC_NUKE, _______,    _______, RESET
+                          EE_CLR, KC_NUKE, _______,    _______, QK_BOOT
     ),
 };
-
-void matrix_init_keyemap(void) { setPinInputHigh(A0); }
-
-void matrix_scan_keymap(void) {
-    if (!readPin(A0)) {
-        reset_keyboard();
-    }
-}
-
-#ifdef USB_VBUS_PIN
-bool usb_vbus_state(void) {
-    setPinInputLow(USB_VBUS_PIN);
-    wait_us(5);
-    return readPin(USB_VBUS_PIN);
-}
-#endif

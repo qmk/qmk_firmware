@@ -2,7 +2,7 @@
 
 ![SofleKeyboard version 2.1 RGB Keyhive](https://i.imgur.com/Oa6spvZ.png)
 
-# Configuring VIA / Vial App
+# Configuring VIA
 
 This firmware will not auto-recognize until [PR #1060](https://github.com/the-via/keyboards/pull/1060) is accepted to the VIA keyboard database. For now you must install the new layout:
 
@@ -10,7 +10,7 @@ This firmware will not auto-recognize until [PR #1060](https://github.com/the-vi
 2. In the VIA app, select `File > Import Keymap` from the menu.
 3. Open the file you just downloaded.
 
-**You'll have to do this every time you use VIA or Vial until the PR is accepted.**
+**You'll have to do this every time you use VIA until the PR is accepted.**
 
 # Using with VIA
 * The default layouts should be loaded automatically.

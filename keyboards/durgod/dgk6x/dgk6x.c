@@ -1,4 +1,4 @@
-/* Copyright 2021 Jessica Sullivan and Don Kjer 
+/* Copyright 2021 Jessica Sullivan and Don Kjer
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,19 +39,13 @@ void led_init_ports(void) {
 
 
 #ifndef WINLOCK_DISABLED
-static bool win_key_locked = false;
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_TGUI:
+        case GUI_TOG:
             if (record->event.pressed) {
-                // Toggle GUI lock on key press
-                win_key_locked = !win_key_locked;
-                writePin(LED_WIN_LOCK_PIN, !win_key_locked);
+                // Toggle LED on key press
+                togglePin(LED_WIN_LOCK_PIN);
             }
-            break;
-        case KC_LGUI:
-            if (win_key_locked) { return false; }
             break;
     }
     return process_record_user(keycode, record);
@@ -60,14 +54,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef RGB_MATRIX_ENABLE
 
-__attribute__ ((weak))
-void rgb_matrix_indicators_user(void)
-{
-    if (host_keyboard_led_state().caps_lock)
-    {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(CAPS_LED, 0xFF, 0xFF, 0xFF);
     }
+    return true;
 }
 #endif /* RGB_MATRIX_ENABLE */
-
-

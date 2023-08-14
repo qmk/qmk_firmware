@@ -50,13 +50,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *     ,------+------.
    *     |   8  |   9  |
    * ,------+------+------.
-   * |   0  | FUNC | RESET|
+   * |   0  | FUNC | QK_BOOT|
    * `--------------------'
    */
   [_FUNC] = LAYOUT(
             BACKLIT,
          KC_8, KC_9,
-    KC_0, _______, RESET
+    KC_0, _______, QK_BOOT
   )
 
 

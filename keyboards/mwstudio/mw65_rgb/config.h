@@ -16,43 +16,10 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7BA1
-#define PRODUCT_ID      0x6502
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    MWStudio
-#define PRODUCT         MW65
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { D0, D1, D2, D3, B7 }
-#define MATRIX_COL_PINS { C6, B6, B5, B4, D7, D6, D4, C7, F7, F6, F5, F4, F1, F0, E6 }
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Encoder pins */
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B2 }
-
-/* RGB Matrix config */
-#define RGB_DI_PIN B3
-
 #ifdef RGB_MATRIX_ENABLE
-    #define DRIVER_LED_TOTAL 83
+    #define RGB_MATRIX_LED_COUNT 83
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
-    #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+    #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
     #define RGB_MATRIX_KEYPRESSES
 
     /* RGB Matrix effect */

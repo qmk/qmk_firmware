@@ -1,0 +1,1 @@
+# The NeXT (both) keymaps for the ASK55

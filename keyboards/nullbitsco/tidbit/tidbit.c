@@ -14,7 +14,9 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
+#include "common/remote_kb.h"
+#include "common/bitc_led.h"
 
 typedef struct PACKED {
     uint8_t r;
@@ -85,15 +87,11 @@ bool oled_task_kb(void) {
 #endif
 
 static void process_encoder_matrix(encodermap_t pos) {
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = true, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    action_exec(MAKE_KEYEVENT(pos.r, pos.c, true));
 #if TAP_CODE_DELAY > 0
     wait_ms(TAP_CODE_DELAY);
 #endif
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = false, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    action_exec(MAKE_KEYEVENT(pos.r, pos.c, false));
 }
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -103,12 +101,8 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 // Use Bit-C LED to show NUM LOCK status
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
-        set_bitc_LED(led_state.num_lock ? LED_DIM : LED_OFF);
-    }
-    return res;
+void led_update_ports(led_t led_state) {
+    set_bitc_LED(led_state.num_lock ? LED_DIM : LED_OFF);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -121,13 +115,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!numlock_set && record->event.pressed) {
         led_t led_state = host_keyboard_led_state();
         if (!led_state.num_lock) {
-            register_code(KC_NLCK);
+            register_code(KC_NUM_LOCK);
         }
         numlock_set = true;
     }
 
     switch (keycode) {
-        case RESET:
+        case QK_BOOT:
             if (record->event.pressed) {
                 set_bitc_LED(LED_DIM);
                 rgblight_disable_noeeprom();

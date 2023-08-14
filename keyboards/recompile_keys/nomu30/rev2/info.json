@@ -1,0 +1,9 @@
+{
+    "matrix_pins": {
+        "cols": ["C4", "C5", "C6", "C7", "B7", "B6", "B5", "B4", "B3", "D5", "D4", "D3"],
+        "rows": ["B2", "B1", "B0"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu"
+}

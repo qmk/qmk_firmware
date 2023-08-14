@@ -16,36 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1805
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    haesbaert
-#define PRODUCT         amigopunk
-
-/* Key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 17
-
-/* Key matrix pins */
-#define MATRIX_ROW_PINS { C0, C1, C2, C3, C4, C5 }
-#define MATRIX_COL_PINS { B6, B5, B4, B3, B2, B1, B0, E7, E6, F0, F1, F2, F3, F4, F5, F6, F7 }
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Encoder setup */
-#ifdef ENCODER_ENABLE
-#define ENCODERS_PAD_A { E0 }
-#define ENCODERS_PAD_B { E1 }
-#endif
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

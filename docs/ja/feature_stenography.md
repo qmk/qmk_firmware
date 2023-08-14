@@ -77,10 +77,10 @@ bool process_steno_user(uint16_t keycode, keyrecord_t *record) { return true; }
 この関数はキーが押されるとキーが処理される前に呼び出されます。キーコードは `QK_STENO_BOLT`、`QK_STENO_GEMINI` あるいは `STN_*` キー値のいずれかでなければなりません。
 
 ```c
-bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed);
+bool post_process_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed);
 ```
 
-この関数はキーが処理された後、ただしコードを送信するかどうかを決める前に呼び出されます。`IS_PRESSED(record->event)` が false で、`pressed` が 0 または 1 の場合は、コードはまもなく送信されますが、まだ送信されてはいません。ここが速記コードあるいはキーのライブ表示などのフックを配置する場所です。
+この関数はキーが処理された後、ただしコードを送信するかどうかを決める前に呼び出されます。`record->event.pressed` が false で、`pressed` が 0 または 1 の場合は、コードはまもなく送信されますが、まだ送信されてはいません。ここが速記コードあるいはキーのライブ表示などのフックを配置する場所です。
 
 
 ## キーコードリファレンス :id=keycode-reference

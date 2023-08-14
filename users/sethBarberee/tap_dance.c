@@ -16,7 +16,7 @@
 #include "tap_dance.h"
 
 // Shamelessly stolen from QMK Docs
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed) {
       return SINGLE_TAP;
@@ -44,14 +44,14 @@ tap caps_status = {
 };
 
 
-void dance_ecap_finished (qk_tap_dance_state_t *state, void *user_data){
+void dance_ecap_finished (tap_dance_state_t *state, void *user_data){
     caps_status.state = cur_dance(state);
     switch(caps_status.state){
         case SINGLE_TAP:
             tap_code(KC_ESC);
             break;
         case SINGLE_HOLD:
-            register_code(KC_LCTRL);
+            register_code(KC_LCTL);
             break;
         case DOUBLE_TAP:
             tap_code(KC_CAPS);
@@ -74,15 +74,15 @@ void dance_ecap_finished (qk_tap_dance_state_t *state, void *user_data){
     }
 }
 
-void dance_ecap_reset (qk_tap_dance_state_t *state, void *user_data){
+void dance_ecap_reset (tap_dance_state_t *state, void *user_data){
     if(caps_status.state == SINGLE_HOLD){
-        unregister_code(KC_LCTRL);
+        unregister_code(KC_LCTL);
     }
     caps_status.state = 0;
 }
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_ECAP]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ecap_finished, dance_ecap_reset),
 // Other declarations would go here, separated by commas, if you have them

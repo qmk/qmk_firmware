@@ -22,12 +22,6 @@
 #include "action.h"
 #include "action_layer.h"
 #include "process_keycode/process_tap_dance.h"
-#include "keymap_bepo.h"
-
-float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
-float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
-
-userspace_config_t userspace_config;
 
 // Add reconfigurable functions here, for keymap customization
 // This allows for a global, userspace functions, and continued

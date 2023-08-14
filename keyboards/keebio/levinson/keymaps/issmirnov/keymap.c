@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 KC_ESC  , _________________QWERTY_L1_________________, _________________QWERTY_R1_________________ , APPS      ,
 KC_TAB  , _________________QWERTY_L2_________________, _________________QWERTY_R2_________________ , MO(_NAVI) ,
 OSMSFT  , _________________QWERTY_L3_________________, _________________QWERTY_R3_________________ , KC_QUOTE  ,
-KC_LCTL , MODSFT , KC_LALT , KC_LGUI , KC_BSPACE , KC_SPC , KC_ENTER , KC_TAB , KC_UP  , KC_DOWN , KC_LEFT       , KC_RGHT
+KC_LCTL , MODSFT , KC_LALT , KC_LGUI , KC_BSPC , KC_SPC , KC_ENTER , KC_TAB , KC_UP  , KC_DOWN , KC_LEFT       , KC_RGHT
 ), // Note: visualizer expects this closing parens to be right at the start of the line.
 
 // Run `./qmk show levinson` from parent dir to see this layer.
@@ -30,7 +30,7 @@ _______ , ___________________BLANK___________________, _______ , _______ , KC_ES
 
 // Run `./qmk show levinson` from parent dir to see this layer.
 [_NUMP] = LAYOUT_ortho_4x12_wrapper(
-_______ , _________________NUMP_L1___________________ , _________________NUMP_R1___________________ , RESET   ,
+_______ , _________________NUMP_L1___________________ , _________________NUMP_R1___________________ , QK_BOOT,
 _______ , _________________NUMP_L2___________________ , _________________NUMP_R2___________________ , _______ ,
 _______ , _________________NUMP_L3___________________ , _________________NUMP_R3___________________ , _______ ,
 _______ , ___________________BLANK___________________ , _______ , _______ , _______ , _______ , TO(_OVERWATCH) , _______
@@ -38,7 +38,7 @@ _______ , ___________________BLANK___________________ , _______ , _______ , ____
 
 // Run `./qmk show levinson` from parent dir to see this layer.
 [_OVERWATCH] = LAYOUT_ortho_4x12_wrapper(
-______________OVERWATCH_L1_________________ , TO(0)            , XXXXXXX          , XXXXXXX          , XXXXXXX        , XXXXXXX          , EEP_RST           ,
+______________OVERWATCH_L1_________________ , TO(0)            , XXXXXXX          , XXXXXXX          , XXXXXXX        , XXXXXXX          , EE_CLR            ,
 ______________OVERWATCH_L2_________________ , RGB_MODE_FORWARD , RGB_MODE_REVERSE , RGB_VAI          , RGB_VAD        , XXXXXXX          , RGB_TOG           ,
 ______________OVERWATCH_L3_________________ , RGB_MODE_PLAIN   , RGB_MODE_BREATHE , RGB_MODE_RAINBOW , RGB_MODE_SWIRL , RGB_MODE_SNAKE   , RGB_MODE_XMAS     ,
 ______________OVERWATCH_L4_________________ , KC_SPACE, RGB_HUI          , RGB_HUD          , RGB_SAI          , RGB_SAD        , RGB_MODE_RGBTEST , RGB_MODE_GRADIENT
@@ -91,7 +91,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   #ifdef RGBLIGHT_ENABLE
     layer_state_set_rgb(state);
   #endif
-  uint8_t layer = biton32(state);
+  uint8_t layer = get_highest_layer(state);
   combo_enable(); // by default, enable combos.
   switch (layer) {
     case 0:

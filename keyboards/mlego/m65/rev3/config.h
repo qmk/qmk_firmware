@@ -17,32 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DEVICE_VER 0x0003
-#define PRODUCT_ID 0x6060
+#ifdef RGBLIGHT_ENABLE
 
-#define LED_NUM_LOCK_PIN B12
-#define LED_SCROLL_LOCK_PIN B13
-#define LED_CAPS_LOCK_PIN C13
-
-//                          0   1   2   3   4
-#define MATRIX_ROW_PINS \
-    { B10, A5, A6, A7, B0 }
-//                         0    1   2   3   4   5   6   7   8    9  10  11   12
-#define MATRIX_COL_PINS \
-    { A10, A15, B3, B4, B5, B9, B8, B7, A1, A2, A3, A4, B1 }
-
-#define ENCODERS_PAD_A \
-    { A0 }
-#define ENCODERS_PAD_B \
-    { B6 }
-
-#define RGB_DI_PIN B15
-
-#define UNUSED_PINS
 #define RGBLIGHT_LAYERS
-
-#define ENCODER_RESOLUTION 4
-
 #undef RGBLED_NUM
 #define RGBLED_NUM 20
 #define RGBLIGHT_EFFECT_BREATHING
@@ -57,3 +34,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
+#endif

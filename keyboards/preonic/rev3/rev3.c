@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev3.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {
@@ -58,4 +58,20 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{5, 8}, {4, 8}, {3, 8}, {2, 8}, {1, 8}, {0, 8}},
     {{5, 9}, {4, 9}, {3, 9}, {2, 9}, {1, 9}, {0, 9}},
 };
+#    ifdef ENCODER_MAP_ENABLE
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {0};
+#    endif
 #endif
+
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
+    {48, 49, 50, 51, 52, 53},
+    {36, 37, 38, 39, 40, 41},
+    {24, 25, 26, 27, 28, 29},
+    {12, 13, 14, 15, 16, 17},
+    {54, 55, 56, 57, 58, 59},
+    {42, 43, 44, 45, 46, 47},
+    {30, 31, 32, 33, 34, 35},
+    {18, 19, 20, 21, 22, 23},
+    { 0,  1,  2,  9, 10, 11},
+    { 6,  7,  8,  3,  4,  5}
+};

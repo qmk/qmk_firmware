@@ -15,41 +15,11 @@
  */
 
 #pragma once
-#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x5350
-#define PRODUCT_ID      0x1727
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    VCL x SawnsProjects
-#define PRODUCT         VCL65
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { F6, F7, F0, F4, B1 }
-#define MATRIX_COL_PINS { B2, B5, F5, C7, B4, C6, D7, D6, D4, D5, D3, D2, B6, D1, D0 }
-#define UNUSED_PINS
-
-/* indicator */
-//  #define LED_CAPS_LOCK_PIN F0
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-/* Caps Lock */
-#define LED_CAPS_LOCK_PIN F1
-#define LED_PIN_ON_STATE 0
-/* rotary */
-
-#define RGB_DI_PIN B7
-#ifdef RGB_DI_PIN
     #define RGBLED_NUM 20
     #define RGBLIGHT_HUE_STEP 8
     #define RGBLIGHT_SAT_STEP 8
     #define RGBLIGHT_VAL_STEP 8
-    #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
     #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
 /*== all animations enable ==*/
@@ -63,4 +33,3 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#endif

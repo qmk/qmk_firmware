@@ -1,18 +1,41 @@
 {
     "keyboard_name": "BAMFK-1",
+    "manufacturer": "Keebio",
     "url": "https://keeb.io",
     "maintainer": "nooges",
+    "usb": {
+        "vid": "0xCB10",
+        "pid": "0x1111",
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "C7", "pin_b": "B5"},
+            {"pin_a": "D7", "pin_b": "D4"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "matrix_pins": {
+        "direct": [
+            ["E6", "B6", "D6", null],
+            [null, null, null, null]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "k00", "x": 1.5, "y": 0, "h":2, "w": 2},
-                {"label": "k01", "x": 0.5, "y": 2.25},
-                {"label": "k02", "x": 3.5, "y": 2.25},
+                {"x": 1.5, "y": 0, "h": 2, "w": 2, "matrix": [0, 0]},
+                {"x": 0.5, "y": 2.25, "matrix": [0, 1]},
+                {"x": 3.5, "y": 2.25, "matrix": [0, 2]},
 
-                {"label": "k10", "x": 0, "y": 3.5},
-                {"label": "k11", "x": 1, "y": 3.5},
-                {"label": "k12", "x": 3, "y": 3.5},
-                {"label": "k13", "x": 4, "y": 3.5}
+                {"x": 0, "y": 3.5, "matrix": [1, 0]},
+                {"x": 1, "y": 3.5, "matrix": [1, 1]},
+                {"x": 3, "y": 3.5, "matrix": [1, 2]},
+                {"x": 4, "y": 3.5, "matrix": [1, 3]}
             ]
         }
     }

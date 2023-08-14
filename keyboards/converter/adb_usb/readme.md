@@ -51,16 +51,8 @@ Keymap
 ------
 To build the default keymap run this command:
 
-    $ make converter/adb_usb:default
-
-You may add your own keymap to the converter/adb_usb/keymaps directory, as you would with any other QMK-powered keyboard.
-
-To build your custom keymap, change the build command to:
-
-    $ make converter/adb_usb:my_keymap
-
-Where 'my_keymap' is the name of your custom keymap directory.
-
+    $ make converter/adb_usb/rev1:default # Pro Micro-based
+    $ make converter/adb_usb/rev2:default # Hasu 32U2 PCB
 
 Locking Caps Lock
 ----------------

@@ -14,69 +14,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifdef LEADER_ENABLE
-
-#    include "process_leader.h"
-#    include <string.h>
-
-#    ifndef LEADER_TIMEOUT
-#        define LEADER_TIMEOUT 300
-#    endif
-
-__attribute__((weak)) void leader_start(void) {}
-
-__attribute__((weak)) void leader_end(void) {}
-
-// Leader key stuff
-bool     leading     = false;
-uint16_t leader_time = 0;
-
-uint16_t leader_sequence[5]   = {0, 0, 0, 0, 0};
-uint8_t  leader_sequence_size = 0;
-
-void qk_leader_start(void) {
-    if (leading) {
-        return;
-    }
-    leader_start();
-    leading              = true;
-    leader_time          = timer_read();
-    leader_sequence_size = 0;
-    memset(leader_sequence, 0, sizeof(leader_sequence));
-}
+#include "process_leader.h"
+#include "leader.h"
 
 bool process_leader(uint16_t keycode, keyrecord_t *record) {
-    // Leader key set-up
     if (record->event.pressed) {
-        if (leading) {
-#    ifndef LEADER_NO_TIMEOUT
-            if (timer_elapsed(leader_time) < LEADER_TIMEOUT)
-#    endif // LEADER_NO_TIMEOUT
-            {
-#    ifndef LEADER_KEY_STRICT_KEY_PROCESSING
-                if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-                    keycode = keycode & 0xFF;
-                }
-#    endif // LEADER_KEY_STRICT_KEY_PROCESSING
-                if (leader_sequence_size < (sizeof(leader_sequence) / sizeof(leader_sequence[0]))) {
-                    leader_sequence[leader_sequence_size] = keycode;
-                    leader_sequence_size++;
-                } else {
-                    leading = false;
-                    leader_end();
-                }
-#    ifdef LEADER_PER_KEY_TIMING
-                leader_time = timer_read();
-#    endif
-                return false;
+        if (leader_sequence_active() && !leader_sequence_timed_out()) {
+#ifndef LEADER_KEY_STRICT_KEY_PROCESSING
+            if (IS_QK_MOD_TAP(keycode)) {
+                keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+            } else if (IS_QK_LAYER_TAP(keycode)) {
+                keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
             }
-        } else {
-            if (keycode == KC_LEAD) {
-                qk_leader_start();
+#endif
+
+            if (!leader_sequence_add(keycode)) {
+                leader_end();
+
+                return true;
             }
+
+#ifdef LEADER_PER_KEY_TIMING
+            leader_reset_timer();
+#endif
+
+            return false;
+        } else if (keycode == QK_LEADER) {
+            leader_start();
         }
     }
+
     return true;
 }
-
-#endif

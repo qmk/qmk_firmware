@@ -1,12 +1,6 @@
-#----------------------------------------------------------------------------
-# make georgi:default:dfu
-# Make sure you have dfu-programmer installed!
-#----------------------------------------------------------------------------
-
 NO_REPEAT				 = no
 VERBOSE					 = yes
 KEYBOARD_SHARED_EP       = yes
-CUSTOM_MATRIX			 = yes
 STENO_LAYERS			 = no
 
 #Firmware reduction options
@@ -24,7 +18,6 @@ ONLY_QWERTY				 = no
 # know what you're doing.
 #
 # No touchy, capiche?
-SRC += matrix.c i2c_master.c
 ifeq ($(strip $(DEBUG_MATRIX)), yes)
     OPT_DEFS += -DDEBUG_MATRIX
 endif
@@ -40,3 +33,5 @@ endif
 ifeq ($(strip $(NO_TAPPING)), yes)
     OPT_DEFS += -DNO_ACTION_TAPPING
 endif
+
+SRC += sten.c

@@ -15,18 +15,6 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0xBABA
-#define MANUFACTURER alin elena
-#define PRODUCT m48
-
-#define MATRIX_ROWS 4  // Rows are doubled-up
-#define MATRIX_COLS 12
-
-#define DEBOUNCE 5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
