@@ -2,7 +2,7 @@
     "manufacturer": "rabijl",
     "keyboard_name": "rotary_numpad",
     "maintainer": "rabijl",
-    "url": "",
+    "url": "https://github.com/RABijl/",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
@@ -15,8 +15,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true,
-        "encoder_map": true
+        "encoder": true
     },
     "development_board": "promicro",
     "diode_direction": "COL2ROW",

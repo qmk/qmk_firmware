@@ -1,0 +1,2 @@
+
+#define ENCODER_MAP_ENABLE

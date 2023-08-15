@@ -3,6 +3,7 @@
 //
 
 #include QMK_KEYBOARD_H
+#include "config.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	/*
@@ -16,9 +17,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │Esc││ 4 │ 5 │ 6 │   │
      * └───┘├───┼───┼───┼───┤
      *      │ 1 │ 2 │ 3 │   │
-     * ┌───┐├───┼───┼───┤Ent│
+     * ┌───┐├───┴───┼───┤Ent│
      * │ENT││   0   │ . │   │
-     * └───┘└───┴───┴───┴───┘
+     * └───┘└───────┴───┴───┘
      */
     [0] = LAYOUT(
         KC_MPLY, KC_ESC,  KC_TAB,  MO(1),   KC_BSPC,

@@ -20,31 +20,37 @@ to be very useful to identify different pins. You can find useful information on
 Due to the three rotary encoders, I had to use most of the available pins. Fortunately, all the buttons still fit in a 6x4 matrix. Looking at the diagram below, the three buttons in the first column correspond to each encoder button.
 
 ```
-┌───┐┌───┬───┬───┬───┐
-│Ply││Esc│Tab│MO1│Bsp│
-└───┘├───┼───┼───┼───┤
-     │Num│ / │ * │ - │
-     ├───┼───┼───┼───┤
-     │ 7 │ 8 │ 9 │   │
-┌───┐├───┼───┼───┤ + │
-│Esc││ 4 │ 5 │ 6 │   │
-└───┘├───┼───┼───┼───┤
-     │ 1 │ 2 │ 3 │   │
-┌───┐├───┼───┼───┤Ent│
-│Ent││   0   │ . │   │
-└───┘└───┴───┴───┴───┘
+        ┌──┐┌──┐┌──┐┌──┐
+        │0A││0B││0C││0D│
+┌──┐    └──┘└──┘└──┘└──┘
+│5A│
+└──┘    ┌──┐┌──┐┌──┐┌──┐
+        │1A││1B││1C││1D│
+        └──┘└──┘└──┘└──┘
+        ┌──┐┌──┐┌──┐┌──┐
+        │2A││2B││2C││2D│
+┌──┐    └──┘└──┘└──┘│  │
+│3D│    ┌──┐┌──┐┌──┐│  │
+└──┘    │3A││3B││3C││  │
+        └──┘└──┘└──┘└──┘
+        ┌──┐┌──┐┌──┐┌──┐
+        │4A││4B││4C││4D│
+        └──┘└──┘└──┘│  │
+┌──┐    ┌──────┐┌──┐│  │
+│5D│    │5B    ││5C││  │
+└──┘    └──────┘└──┘└──┘
+
 ```
 
 ## Flashing
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb rotary_numpad -km default
+    qmk compile -kb handwired/rabijl/rotary_numpad -km default
 
 Flashing example for this keyboard:
 
-    qmk flash -kb rotary_numpad -km default
-
+    qmk flash -kb handwired/rabijl/rotary_numpad -km default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
@@ -52,8 +58,9 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Short reset leads**: tab the reset lead to ground twice quickly after qmk is in flash mode
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Short reset leads**: tap the reset lead to ground twice quickly after qmk is in flash mode
+* **Keycode in layout**: double tap the key mapped to `QK_BOOT`. On the default keymap this can be found by holding in key (0,C) and tapping key (0,A), see the matrix section for the positions of these keys. 
+* **Bootmagic reset**: Hold down the key at (0,A) in the matrix (see matrix section) and plug in the keyboard
 
 **Note:** if the keyboard doesn't show up after putting the keyboard in reset mode, check that 
 your user is added to the `tty` and/or `uucp` groups. \
