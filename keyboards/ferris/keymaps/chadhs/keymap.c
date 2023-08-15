@@ -37,9 +37,6 @@ enum custom_keycodes {
 #define HOME_E OPT_T(KC_E)
 #define HOME_I CTL_T(KC_I)
 #define HOME_O SFT_T(KC_O)
-#define HOME_DWN CMD_T(KC_DOWN)
-#define HOME_UP OPT_T(KC_UP)
-#define HOME_RGT CTL_T(KC_RGHT)
 #define HOME_QT SFT_T(KC_QUOT)
 
 /* misc mods */
@@ -109,10 +106,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
     |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
     |------+------+------+------+------|            |------+------+------+------+------|
-    |      |      |      |      |      |            | ←    | ↓    | ↑    | →    |      |
-    | SFT  | CTL  | OPT  | CMD  |      |            |      | CMD  | OPT  | CTL  | SFT  |
+    | KVM1 | KVM2 | KVM3 | KVM4 |      |            | ←    | ↓    | ↑    | →    |      |
+    |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | RGB  | KVM4 | KVM3 | KVM2 | KVM1 |            | F11  | F12  | PGDN | PGUP | GAME |
+    | RGB  |      |      |      |      |            | F11  | F12  | PGDN | PGUP | GAME |
     | TOG  |      |      |      |      |            | VolD | VolU |      |      | TOG  |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
@@ -121,8 +118,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             '------'------'      '------'------'
 */
     KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV,  KC_MPLY, KC_MNXT,  KC_MUTE,
-    KC_LSFT, KC_LCTL,  KC_LOPT, KC_LCMD, XXXXXXX,      KC_LEFT, HOME_DWN, HOME_UP, HOME_RGT, KC_RSFT,
-    RGB_TOG, KVM_4,    KVM_3,   KVM_2,   KVM_1,        KC_VOLD, KC_VOLU,  KC_PGDN, KC_PGUP,  GAME_TOG,
+    KVM_1,   KVM_2,    KVM_3,   KVM_4,   XXXXXXX,      KC_LEFT, KC_DOWN,  KC_UP,   KC_RIGHT, XXXXXXX,
+    RGB_TOG, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU,  KC_PGDN, KC_PGUP,  GAME_TOG,
                                 KC_TRNS, KC_ESC,       KC_TRNS, KC_TRNS
   ),
     [_GAME] = LAYOUT(
@@ -240,10 +237,6 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
         case NUM_BSPC:
         case FUN_SPC:
         case CMD_ENT:
-        case HOME_DWN:
-        case HOME_UP:
-        case HOME_RGT:
-        case KC_LEFT:
             return false;
         default:
             return true;
