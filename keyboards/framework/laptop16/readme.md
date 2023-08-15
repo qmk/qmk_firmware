@@ -10,7 +10,7 @@ Keyboard input modules for the Framework Laptop 16.
 
 | Name     | Size     | Backlight  | Keys |
 | -------- | -------- | ---------- | ---- |
-| ansi     | Keyboard | RGB/White  |   78 |
+| ansi     | Keyboard | White      |   78 |
 
 Make example for this keyboard (after setting up your build environment):
 

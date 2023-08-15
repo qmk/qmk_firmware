@@ -1,4 +1,4 @@
-// Copyright 2022 Framework Computer
+// Copyright 2022-2023 Framework Computer
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include <stdio.h>
@@ -126,13 +126,6 @@ static bool interpret_adc_row(matrix_row_t cur_matrix[], adc10ksample_t voltage,
         key_state = true;
     }
 
-    // Don't update  matrix on Pico to avoid messing with the debug system
-    // Can't attach the matrix anyways
-    //#ifdef PICO_FL16
-    //(void)key_state;
-    // return false;
-    //#endif
-
     matrix_row_t new_row = cur_matrix[row];
     if (key_state) {
         new_row |= (1 << col);
@@ -140,10 +133,6 @@ static bool interpret_adc_row(matrix_row_t cur_matrix[], adc10ksample_t voltage,
         new_row &= ~(1 << col);
     }
     changed = cur_matrix[row] != new_row;
-    if (key_state) {
-        uprintf("old row: %d\n", cur_matrix[row]);
-        uprintf("new row: %d\n", new_row);
-    }
     cur_matrix[row] = new_row;
 
     return changed;
@@ -210,12 +199,6 @@ void drive_col(int col, bool high) {
             return;
     }
 
-    // Don't drive columns on pico because we're using these GPIOs for other purposes
-    //#ifdef PICO_FL16
-    //    (void)gpio;
-    //    return;
-    //#endif
-
     if (high) {
         // TODO: Could set up the pins with `setPinOutputOpenDrain` instead
         writePinHigh(gpio);
@@ -246,11 +229,6 @@ bool handle_idle(void) {
     if (prev_asleep != asleep) {
         prev_asleep = asleep;
     }
-#ifdef RGB_MATRIX_ENABLE
-    if (rgb_matrix_get_suspend_state() != asleep) {
-        rgb_matrix_set_suspend_state(asleep);
-    }
-#endif
     return false;
 }
 
