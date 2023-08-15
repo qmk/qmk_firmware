@@ -20,8 +20,6 @@
 //#define NO_ACTION_ONESHOT
 
 #define RGB_MATRIX_LED_COUNT 9
-#define WS2812_DI_PIN B6
-#define DRIVER_LED_TOTAL 9
 
 #define RGB_MATRIX_DEFAULT_SPD 40  // Sets the default animation speed, if none has been set
 #define RGB_MATRIX_DEFAULT_VAL 120
