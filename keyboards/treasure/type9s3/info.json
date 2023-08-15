@@ -27,6 +27,9 @@
         "pid": "0x5493",
         "vid": "0x5452"
     },
+    "ws2812": {
+        "pin": "B6"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [
