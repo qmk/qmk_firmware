@@ -41,8 +41,6 @@ enum layers {
 #define UK_PIPE S(UK_BKSL)  // UK pipe symbol
 #define DV_AT S(KC_Q)       // Dvorak @ symbol
 
-#define TAPPING_TOGGLE 2    // can double tap into a layer if set using TT
-
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
 // produces the key `tap` when tapped (i.e. pressed and released)
