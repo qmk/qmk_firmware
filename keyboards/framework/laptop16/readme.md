@@ -8,24 +8,13 @@ Keyboard input modules for the Framework Laptop 16.
 
 ## Variants
 
-There are 5 different hardware variants with different number of keys and
-backlight options.
-
 | Name     | Size     | Backlight  | Keys |
 | -------- | -------- | ---------- | ---- |
 | ansi     | Keyboard | RGB/White  |   78 |
-| iso      | Keyboard | White      |   79 |
-| jis      | Keyboard | White      |   83 |
-| numpad   | Numpad   | White      |   21 |
-| macropad | Numpad   | RGB        |   24 |
 
 Make example for this keyboard (after setting up your build environment):
 
     qmk compile -kb framework/laptop16/ansi -km default
-    qmk compile -kb framework/laptop16/iso -km default
-    qmk compile -kb framework/laptop16/jis -km default
-    qmk compile -kb framework/laptop16/numpad -km default
-    qmk compile -kb framework/laptop16/macropad -km default
 
 Flashing example for the ANSI keyboard:
 
