@@ -1,4 +1,4 @@
-SRC += scotto.c
+SRC += scottokeebs.c
 
 TAP_DANCE_ENABLE = yes
 
