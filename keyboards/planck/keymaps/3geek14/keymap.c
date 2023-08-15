@@ -179,17 +179,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
-                #ifdef AUDIO_ENABLE
-                    PLAY_SONG(qwerty_song);
-                #endif
             }
             return false;
         case COLEMAK:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_COLEMAK_DH);
-                #ifdef AUDIO_ENABLE
-                    PLAY_SONG(colemak_song);
-                #endif
             }
             return false;
         case MU_ON:
