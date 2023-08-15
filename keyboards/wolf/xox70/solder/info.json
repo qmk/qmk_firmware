@@ -37,7 +37,6 @@
         },
         "led_count": 2,
         "max_brightness": 120,
-        "pin": "GP12",
         "sleep": true
     },
     "ws2812": {
