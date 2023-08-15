@@ -3,4 +3,4 @@
 
 #pragma once
 
-#define WS2812_PIO_USE_PIO1
+#define CAPS_LOCK_ENABLE true
