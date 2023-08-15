@@ -31,6 +31,5 @@
 #    define RGBLIGHT_LIMIT_VAL 150
 #endif
 
-#undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE 2    // can double tap into a layer if set using TT
 #define TAPPING_TERM 175
