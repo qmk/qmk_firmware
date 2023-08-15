@@ -132,13 +132,10 @@ static uint8_t base_layer_mode = BASE_MODE_DEFAULT;
 
 /* ***** PROTOTYPES ***** */
 
-void keyboard_post_init_user(void);
 #ifdef RGB_MATRIX_ENABLE
 static void personal_base_layer_lighting(void);
 static void personal_layer_indicator(uint8_t red, uint8_t green, uint8_t blue);
 #endif // RGB_MATRIX_ENABLE
-bool process_record_user(uint16_t keycode, keyrecord_t *record);
-bool rgb_matrix_indicators_user(void);
 
 
 #ifdef RGB_MATRIX_ENABLE
