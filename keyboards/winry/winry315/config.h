@@ -3,10 +3,6 @@
 
 #pragma once
 
-// Encoder mappings (used for VIA).
-#define ENCODERS_CW_KEY  { { 22, 0 }, { 18, 0 }, { 20, 0 } }
-#define ENCODERS_CCW_KEY { { 23, 0 }, { 19, 0 }, { 21, 0 } }
-
 // clang-format on
 
 // RGB Lighting configuration.  This mode is used by the vendor firmware, and

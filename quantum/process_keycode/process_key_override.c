@@ -15,12 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "process_key_override.h"
 #include "report.h"
 #include "timer.h"
-#include "process_key_override.h"
-
-#include <debug.h>
+#include "debug.h"
+#include "wait.h"
+#include "action_util.h"
+#include "quantum.h"
+#include "quantum_keycodes.h"
 
 #ifndef KEY_OVERRIDE_REPEAT_DELAY
 #    define KEY_OVERRIDE_REPEAT_DELAY 500

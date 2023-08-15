@@ -317,14 +317,10 @@ ifneq ($(strip $(FLASH_DRIVER)), none)
 endif
 
 RGBLIGHT_ENABLE ?= no
-VALID_RGBLIGHT_TYPES := WS2812 APA102 custom
-
-ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
-    RGBLIGHT_DRIVER ?= custom
-endif
+VALID_RGBLIGHT_TYPES := ws2812 apa102 custom
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-    RGBLIGHT_DRIVER ?= WS2812
+    RGBLIGHT_DRIVER ?= ws2812
 
     ifeq ($(filter $(RGBLIGHT_DRIVER),$(VALID_RGBLIGHT_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid RGBLIGHT_DRIVER,RGBLIGHT_DRIVER="$(RGBLIGHT_DRIVER)" is not a valid RGB type)
@@ -338,11 +334,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
         RGB_KEYCODES_ENABLE := yes
     endif
 
-    ifeq ($(strip $(RGBLIGHT_DRIVER)), WS2812)
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), ws2812)
         WS2812_DRIVER_REQUIRED := yes
     endif
 
-    ifeq ($(strip $(RGBLIGHT_DRIVER)), APA102)
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), apa102)
         APA102_DRIVER_REQUIRED := yes
     endif
 
@@ -352,8 +348,8 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 endif
 
 LED_MATRIX_ENABLE ?= no
-VALID_LED_MATRIX_TYPES := IS31FL3731 IS31FL3742A IS31FL3743A IS31FL3745 IS31FL3746A CKLED2001 custom
-# TODO: IS31FL3733 IS31FL3737 IS31FL3741
+VALID_LED_MATRIX_TYPES := is31fl3731 is31fl3742a is31fl3743a is31fl3745 is31fl3746a ckled2001 custom
+# TODO: is31fl3733 is31fl3737 is31fl3741
 
 ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(LED_MATRIX_DRIVER),$(VALID_LED_MATRIX_TYPES)),)
@@ -373,42 +369,42 @@ endif
     SRC += $(LIB_PATH)/lib8tion/lib8tion.c
     CIE1931_CURVE := yes
 
-    ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3731)
+    ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3731)
         OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3731-simple.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-	ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3742A)
+	ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3742a)
         OPT_DEFS += -DIS31FLCOMMON -DIS31FL3742A -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-	ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3743A)
+	ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3743a)
         OPT_DEFS += -DIS31FLCOMMON -DIS31FL3743A -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-	ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3745)
+	ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3745)
         OPT_DEFS += -DIS31FLCOMMON -DIS31FL3745 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-	ifeq ($(strip $(LED_MATRIX_DRIVER)), IS31FL3746A)
+	ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3746a)
         OPT_DEFS += -DIS31FLCOMMON -DIS31FL3746A -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-	ifeq ($(strip $(LED_MATRIX_DRIVER)), CKLED2001)
+	ifeq ($(strip $(LED_MATRIX_DRIVER)), ckled2001)
         OPT_DEFS += -DCKLED2001 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += ckled2001-simple.c
@@ -721,18 +717,23 @@ ifeq ($(strip $(FNV_ENABLE)), yes)
     SRC += qmk_fnv_type_validation.c hash_32a.c hash_64a.c
 endif
 
+VALID_HAPTIC_DRIVER_TYPES := drv2605l solenoid
 ifeq ($(strip $(HAPTIC_ENABLE)),yes)
-    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    ifeq ($(filter $(HAPTIC_DRIVER),$(VALID_HAPTIC_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid HAPTIC_DRIVER,HAPTIC_DRIVER="$(HAPTIC_DRIVER)" is not a valid Haptic driver)
+    else
+        COMMON_VPATH += $(DRIVER_PATH)/haptic
 
-    ifneq ($(filter DRV2605L, $(HAPTIC_DRIVER)), )
-        SRC += DRV2605L.c
-        QUANTUM_LIB_SRC += i2c_master.c
-        OPT_DEFS += -DDRV2605L
-    endif
+        ifeq ($(strip $(HAPTIC_DRIVER)), drv2605l)
+            SRC += drv2605l.c
+            QUANTUM_LIB_SRC += i2c_master.c
+            OPT_DEFS += -DHAPTIC_DRV2605L
+        endif
 
-    ifneq ($(filter SOLENOID, $(HAPTIC_DRIVER)), )
-        SRC += solenoid.c
-        OPT_DEFS += -DSOLENOID_ENABLE
+        ifeq ($(strip $(HAPTIC_DRIVER)), solenoid)
+            SRC += solenoid.c
+            OPT_DEFS += -DHAPTIC_SOLENOID
+        endif
     endif
 endif
 
@@ -742,8 +743,8 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += hd44780.c
 endif
 
-VALID_OLED_DRIVER_TYPES := SSD1306 custom
-OLED_DRIVER ?= SSD1306
+VALID_OLED_DRIVER_TYPES := custom ssd1306
+OLED_DRIVER ?= ssd1306
 VALID_OLED_TRANSPORT_TYPES := i2c spi custom
 OLED_TRANSPORT ?= i2c
 ifeq ($(strip $(OLED_ENABLE)), yes)
@@ -898,7 +899,7 @@ ifeq ($(strip $(USBPD_ENABLE)), yes)
 endif
 
 BLUETOOTH_ENABLE ?= no
-VALID_BLUETOOTH_DRIVER_TYPES := BluefruitLE RN42 custom
+VALID_BLUETOOTH_DRIVER_TYPES := bluefruit_le custom rn42
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     ifeq ($(filter $(strip $(BLUETOOTH_DRIVER)),$(VALID_BLUETOOTH_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid BLUETOOTH_DRIVER,BLUETOOTH_DRIVER="$(BLUETOOTH_DRIVER)" is not a valid Bluetooth driver type)
@@ -908,7 +909,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
     SRC += outputselect.c
 
-    ifeq ($(strip $(BLUETOOTH_DRIVER)), BluefruitLE)
+    ifeq ($(strip $(BLUETOOTH_DRIVER)), bluefruit_le)
         OPT_DEFS += -DBLUETOOTH_BLUEFRUIT_LE -DHAL_USE_SPI=TRUE
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
@@ -916,7 +917,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
         QUANTUM_LIB_SRC += spi_master.c
     endif
 
-    ifeq ($(strip $(BLUETOOTH_DRIVER)), RN42)
+    ifeq ($(strip $(BLUETOOTH_DRIVER)), rn42)
         OPT_DEFS += -DBLUETOOTH_RN42 -DHAL_USE_SERIAL=TRUE
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c

@@ -13,6 +13,9 @@
         "rows": ["D7", "C6", "C7", "B5"]
     },
     "diode_direction": "ROW2COL",
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
     "backlight": {
         "pin": "B7",
         "levels": 31,
