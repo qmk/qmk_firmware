@@ -1,9 +1,9 @@
 # CTRL v2
 
-The Massdrop CTRL v2 is a TKL mechanical keyboard featuring dual USB-C connectors, an integrated Hi-Speed USB 2.0 hub, and fully customizable RGB backlighting and underlighting.
+The Drop CTRL v2 is a TKL mechanical keyboard featuring dual USB-C connectors, an integrated Hi-Speed USB 2.0 hub, and fully customizable RGB backlighting and underlighting.
 
 * Keyboard Maintainer: [zvecr](https://github.com/zvecr)
-* Hardware Availability: [Massdrop CTRL Mechanical Keyboard](https://www.massdrop.com/buy/massdrop-ctrl-mechanical-keyboard)
+* Hardware Availability: [Drop CTRL Mechanical Keyboard](https://drop.com/buy/drop-ctrl-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
