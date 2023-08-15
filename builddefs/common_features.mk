@@ -317,14 +317,10 @@ ifneq ($(strip $(FLASH_DRIVER)), none)
 endif
 
 RGBLIGHT_ENABLE ?= no
-VALID_RGBLIGHT_TYPES := WS2812 APA102 custom
-
-ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
-    RGBLIGHT_DRIVER ?= custom
-endif
+VALID_RGBLIGHT_TYPES := ws2812 apa102 custom
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-    RGBLIGHT_DRIVER ?= WS2812
+    RGBLIGHT_DRIVER ?= ws2812
 
     ifeq ($(filter $(RGBLIGHT_DRIVER),$(VALID_RGBLIGHT_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid RGBLIGHT_DRIVER,RGBLIGHT_DRIVER="$(RGBLIGHT_DRIVER)" is not a valid RGB type)
@@ -338,11 +334,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
         RGB_KEYCODES_ENABLE := yes
     endif
 
-    ifeq ($(strip $(RGBLIGHT_DRIVER)), WS2812)
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), ws2812)
         WS2812_DRIVER_REQUIRED := yes
     endif
 
-    ifeq ($(strip $(RGBLIGHT_DRIVER)), APA102)
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), apa102)
         APA102_DRIVER_REQUIRED := yes
     endif
 

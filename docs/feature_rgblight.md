@@ -28,7 +28,7 @@ For APA102 LEDs, add the following to your `rules.mk`:
 
 ```make
 RGBLIGHT_ENABLE = yes
-RGBLIGHT_DRIVER = APA102
+RGBLIGHT_DRIVER = apa102
 ```
 
 At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
