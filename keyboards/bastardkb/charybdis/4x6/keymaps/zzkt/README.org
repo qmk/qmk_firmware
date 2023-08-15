@@ -1,0 +1,321 @@
+# -*- mode: org;  coding: utf-8; -*-
+#+author: nik gaffney <nik@fo.am>
+#+title:  QMK config for Charybdis
+
+Charybdis is an ergonomic keyboard using a split 4x6 layout (or 3x5) with 5+3 thumb keys and integrated trackball.
+
+[[file:img/charybdis-4x6.jpg]]
+
+
+The keyboard can be programmed using  [[https://qmk.fm/][QMK]] firmware for the [[https://github.com/Bastardkb/charybdis][charybdis]] (which currently requires the CNano branch of QMK) With the help of [[https://github.com/mihaiolteanu/mugur][mugur]] (and org-mode) this file can be used as a literate config to generate a keymap and the relevant build files for the QMK firmware…
+
+For reference, comparison and reading the [[https://github.com/manna-harbour/qmk_firmware/blob/crkbd/keyboards/crkbd/keymaps/manna-harbour/readme.org][Crkbd Keymap by Manna Harbour]] and [[https://github.com/qmk/qmk_firmware/tree/master/users/drashna][drashna]] provide good examples of detailed configs, and the [[https://github.com/qmk/qmk_firmware/tree/master/keyboards/crkbd/keymaps][QMK tree]] has further specifics with a wide range of examples.
+
+
+#+caption: alphanumeric, movement and mouse layers
+[[file:img/zzkt-charybdis-4x6.png]]
+
+see also [[http://www.keyboard-layout-editor.com/#/gists/23a1ccf0a44185ebbe90014839799b89][KLE layers (pt.1)]] and KLE layers (pt.2) etc.
+
+* general principles
+
+This config uses a mulit-layer qwerty layout which has emerged from a combination of writing and programming using emacs (and emacs style keybindings) on macos and linux. The numeric layer has numbers on the home row and shifted symbols on the row above, with commonly used brackets on the lowest row symmetrically between sides. The emacs layer(s) provide both command and prefix keys. The movement layer provides arrows (as WASD and HJKL) and jump keys on the left. When the mouse layer is active the keys above the trackball can be used as mouse buttons. There is a QMK reset key on each half of the keyboard.
+
+* specific mappings
+
+Details of keyboard layout, layers, macros and general confusion can be found in the [[https://docs.qmk.fm/#/][QMK docs]]
+
+*Layers*
+  - qwerty and modifiers
+  - numbers, symbols & brackets
+  - movement. arrows & jump
+  - emacs layers
+  - mouse layer
+
+*Trackball*
+  - mounted on the right half
+  - uses keys above the trackball as mouse buttons (i.e. =M=, =comma=,  and =dot= with qwerty layout)
+  - sniping, drag_scroll, etc
+
+*Modifiers*
+  - Left thumb (base layer) Alt/Meta, space and  GUI (held) or space (tap) on top row, with Emacs layer and  =KC_LAPO= below
+  - Right thumb (base layer) Tap toggle numeric layer, Enter (tap) or Right  GUI (held) on top row and =KC_RAPC= below
+
+The =KC_LAPO= key is Left Alt when held and =(= when tapped, it can be used as =Meta=. The =KC_RAPC= key is Right Alt when held and =)= when tapped, it can be used for accents and non-ascii characters with the international macOS input sources.
+
+The =emacs= layer is activated with Left-thumb  (=k45=) and the =hypm= layer can be activated with  (=k80=) and can be used to provide the =H-= prefix bindings defined in =.emacs=  The =hyper= key seen by emacs  can be mapped to =KC_RGUI= rather than the =KC_HYPR= modifier combination (see also the “[[https://github.com/qmk/qmk_firmware/issues/2179][the infamous Apple Fn key]]” for compatibility)
+
+*QMK Reset*
+ - Left. =k45= & =k30=
+ - Right. =k70= & =k80=
+
+
+To create a new layer, start with a blank layer.
+
+#+BEGIN_SRC emacs-lisp :tangle no :results silent :eval no
+("blank"
+ --- --- --- --- --- ---    --- --- --- --- --- ---
+ --- --- --- --- --- ---    --- --- --- --- --- ---
+ --- --- --- --- --- ---    --- --- --- --- --- ---
+ --- --- --- --- --- ---    --- --- --- --- --- ---
+              --- --- ---  --- --- -x-
+                  --- ---  --- -x-)
+#+END_SRC
+
+Details of the =mugur= keycode naming can be found in the documentation of  =mugur--symbol=
+
+#+BEGIN_SRC emacs-lisp :tangle no :results silent
+(find-function 'mugur--symbol)
+#+END_SRC
+
+A complete keymap can be defined within =mugur-mugur= which will generate the required files to build the firmware.
+
+#+name: keymap
+#+BEGIN_SRC emacs-lisp :tangle no :results silent :eval query
+(require 'mugur)
+
+(let ((mugur-qmk-path       "~/code/keyboards/Charybdis/qmk")
+      (mugur-keyboard-name  "bastardkb/charybdis/4x6")
+      (mugur-layout-name    "LAYOUT_split_4x6_5")
+      (mugur-keymap-name    "zzkt")
+      (mugur-tapping-term    175))
+
+ (mugur-mugur
+  '(("base"
+        esc          1   2   3   4   5          6   7   8    9    0               bspace
+        tab          q   w   e   r   t          y   u   i    o    p               -
+         C           a   s   d   f   g          h   j   k    l  scolon           (LT move ?\')
+    (S up) (LT mouse z)  x   c   v   b          n   m comma dot (LT mouse slash) (LT hypm down)
+                      M  space  (G spc)       (TT numeric)  (G ent)  -x-
+                        (MO emacs) lapo       rapc  -x-)
+
+     ("numeric"
+       "~"       ?\!   ?\@   ?\#  ?\$  ?\%     ?\^  ?\&  ?\*   _   +  bspace
+       tab       ?\!   ?\@   ?\#  ?\$  ?\%     ?\^  ?\&  ?\*   -   =  ---
+        0         1     2     3    4    5       6    7    8    9   0  (LT move ent)
+       (S left)  "`"   ?\\   ?\\  ?\{  ?\[     ?\]  ?\} comma dot  |  (S right)
+                                --- --- ---   --- enter -x-
+                            (TG mouse) lapo   rapc  -x-)
+
+     ("move"
+       --- M-<   ---  ---  --- ---      ---  ---  ---  ---  --- ---
+       --- M-v   up   ---  --- ---      ---  ---  ---  ---  --- ---
+       C-a left down right C-e ---     left  up  down right -x- ---
+       --- M-<  C-v   M->  --- ---      ---  ---  ---  ---  --- ---
+                            C  S ---   ---  --- -x-
+                            ---  ---   ---  -x-)
+
+     ("emacs"
+       esc  --- --- (C-x 0) (C-x 2) (C-x 3)      (C-x 4 t)  --- --- --- --- ---
+       ---  --- --- (C-x 0) (C-x 2) (C-x 3)      (C-x 4 t)  --- --- (C-M o) --- ---
+       ---  --- M-%   ---     ---    (H-t)       (C-x b)    --- --- "λ" --- ---
+      reset --- M-x   C-c     ---      ?\(        ?\)  (M-x "magit" ent) --- --- --- ---
+                           ---  ---  (H-i e)   (C-x 8) (MO hypm) -x-
+                                ---    ---      ---  -x-)
+
+     ("hypm"
+         x  --- --- --- --- ( C-a "* " )    ---     ---    ---      ---     ---   ---
+         x  --- --- --- ---  "  - [ ] "     ---     ---     H-i   (H-i o) (H-i l) ---
+        --- --- --- H-d ---  "  - "         ---     ---     ---     ---     ---   reset
+        --- --- --- --- ---    ---          (H-m n) (H-m m) (H-m s) ---     ---   ---
+                       --- --- ---      ---  --- -x-
+                          ---  ---      ---  -x-)
+
+     ("mouse"
+       --- --- --- --- --- ---                         --- --- --- --- --- ---
+       --- "SNIPER_CONFIG" --- --- --- ---             --- --- --- --- --- ---
+       --- "DPI_CONFIG" "DRAG_SCROLL" --- --- ---      --- --- "DRAG_SCROLL" --- --- ---
+       --- --- --- --- --- ---                         --- btn1 btn2 btn3 --- ---
+                                    btn2 btn1 G     --- --- -x-
+                                            C S     --- -x-)
+     )))
+#+END_SRC
+
+
+an optional  base config for Colemak
+
+#+BEGIN_SRC emacs-lisp
+("colemak"
+        esc    1   2   3   4   5      6   7   8    9     0      bspace
+        tab    q   w   f   p   g      j   l   u    y   scolon     -
+         C     a   r   s   t   d      h   n   e    i     o    (LT move ?\')
+     (LT S up) z   x   c   v   b      k   m comma dot  slash  (LT hypm down)
+         (MO emacs) lapo (G space)  ent rapc (TT numeric))
+#+END_SRC
+
+** keymap.c
+
+This will generate a =keymap.c= file with =org-babel-tangle= and should be run before the elisp code block for the keymap described above.
+
+#+BEGIN_SRC c :tangle keymap.c
+#include QMK_KEYBOARD_H
+#include "version.h"
+#include "split_util.h"
+#+END_SRC
+
+ =mugur= will write the keymap and only overwrite the region between these comments.
+
+#+BEGIN_SRC c :tangle keymap.c
+// START-MUGUR-REGION
+// END-MUGUR-REGION
+#+END_SRC
+
+turn on (or off) debug info (check that =CONSOLE_ENABLE= is set accordingly in =rules.mk= )
+
+#+BEGIN_SRC c :tangle keymap.c
+void keyboard_post_init_user(void) {
+  // debug_enable=true;
+  // debug_matrix=true;
+  // debug_keyboard=true;
+  // debug_mouse=true;
+}
+#+END_SRC
+
+** rules.mk
+
+this will create a =rules.mk= file with some specifics for the Charybdis
+
+#+BEGIN_SRC makefile :tangle rules.mk
+# START-MUGUR-REGION
+# END-MUGUR-REGION
+
+# MCU name
+MCU = atmega32u4
+
+# Bootloader selection
+BOOTLOADER         = atmel-dfu
+
+SPLIT_KEYBOARD     = yes
+
+# uncode
+UNICODE_ENABLE     = yes
+
+# Build Options
+BOOTMAGIC_ENABLE   = no    # Bootmagic Lite
+EXTRAKEY_ENABLE    = yes   # Audio control and System control
+CONSOLE_ENABLE     = yes   # Console for debug
+COMMAND_ENABLE     = no    # Commands for debug and configuration
+NKRO_ENABLE        = no    # USB Nkey Rollover
+
+# trackball & mousekeys
+MOUSEKEY_ENABLE        = yes
+POINTING_DEVICE_ENABLE = yes
+MOUSE_SHARED_EP        = no
+
+#  enable configuraiton with VIA
+VIA_ENABLE             = no
+
+# No lighting or audio
+SLEEP_LED_ENABLE  = no    # Breathing sleep LED during USB suspend
+BACKLIGHT_ENABLE  = no    # Enable keyboard backlight functionality
+RGBLIGHT_ENABLE   = no    # Enable keyboard RGB underglow
+AUDIO_ENABLE      = no    # Audio output
+RGB_MATRIX_ENABLE = no
+
+# trackpad driver
+SRC += drivers/sensors/pmw3360.c
+QUANTUM_LIB_SRC += spi_master.c
+
+# enable Link Time Optimization to reduce firmware size
+# see also https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
+EXTRAFLAGS += -flto
+#+END_SRC
+
+** config.h
+
+This will generate a =config.h= file
+
+#+BEGIN_SRC c :tangle config.h
+// START-MUGUR-REGION
+// END-MUGUR-REGION
+#+END_SRC
+
+#+BEGIN_SRC c :tangle config.h
+#define EE_HANDS
+#+END_SRC
+
+…and some layers
+
+#+BEGIN_SRC c :tangle config.h
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6
+#+END_SRC
+
+taping timing and tap/hold (as seen in the [[https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold][QMK docs]])
+
+#+BEGIN_SRC c :tangle config.h
+#define TAPPING_TERM 175
+#define COMBO_TERM 300
+#define PERMISSIVE_HOLD
+#+END_SRC
+
+Unicode input method (tangle as required)
+
+#+BEGIN_SRC c :tangle config.h
+#define UNICODE_SELECTED_MODES UC_MAC
+#+END_SRC
+
+#+BEGIN_SRC c :tangle no
+#define UNICODE_SELECTED_MODES UC_LNX, UC_MAC
+#+END_SRC
+
+The mouse layer can activate auotosniping
+
+#+BEGIN_SRC c :tangle config.h
+#undef CHARYBDIS_AUTO_SNIPER_LAYER
+#define CHARYBDIS_AUTO_SNIPER_LAYER 5
+#+END_SRC
+
+for VIA compatibility (if needed)
+
+#+BEGIN_SRC text
+VENDOR_ID  0x43256
+PRODUCT_ID 0x6195
+#+END_SRC
+
+
+** build (generate, compile and flash cycle)
+
+first tangle this file
+
+#+BEGIN_SRC emacs-lisp :tangle no :results silent
+(org-babel-tangle)
+#+END_SRC
+
+then write the keymap as defined above
+
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle no :results silent
+<<keymap()>>
+#+END_SRC
+
+then compile and/or write to the keyboard
+
+#+name: qmk
+#+BEGIN_SRC shell :dir ~/qmk_firmware :wrap SRC text :results raw :tangle no
+qmk compile -kb bastardkb/charybdis/4x6 -km zzkt
+#+END_SRC
+
+flash the firmware one side at a time. if =EE_HANDS= is enabled, the same command can be used for both sides.
+
+#+name: qmk
+#+BEGIN_SRC shell :dir ~/qmk_firmware :wrap SRC text :results raw  :tangle no
+qmk flash -kb bastardkb/charybdis/4x6 -km zzkt -bl dfu
+#+END_SRC
+
+without =EE_HANDS= or to set handedness the first time…
+
+#+name: qmk
+#+BEGIN_SRC shell :dir ~/qmk_firmware  :wrap SRC text :results raw :tangle no
+qmk flash -km zzkt -bl dfu-split-left
+#+END_SRC
+
+#+name: qmk
+#+BEGIN_SRC shell :dir ~/qmk_firmware wrap SRC text :results raw :tangle no
+qmk flash -km zzkt -bl dfu-split-right
+#+END_SRC
+
+
+* further
+
+ - [[https://bastardkb.com/charybdis/][Charybdis kits]], [[https://github.com/Bastardkb/Charybdis][code]], stl files and docs from [[https://bastardkb.com/][Bastard Keyboards]]
+ - [[https://www.patreon.com/posts/54519382][Build log - Quentin LEBASTARD]]
+ - [[https://en.wikipedia.org/wiki/Keyboard_layout][Keyboard Layouts]] (wikipedia)

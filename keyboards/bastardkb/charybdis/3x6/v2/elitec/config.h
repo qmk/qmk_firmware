@@ -17,8 +17,32 @@
 
 #pragma once
 
+/* Key matrix configuration. */
+#define MATRIX_ROW_PINS \
+    { F7, C6, D4, B5 }
+#define MATRIX_COL_PINS \
+    { F6, F5, B6, D7, E6, B4 }
+
 /* Handedness. */
 #define MASTER_RIGHT
 
+/* RGB settings. */
+#define WS2812_DI_PIN D3
+
 /* PMW3360 settings. */
 #define POINTING_DEVICE_CS_PIN F0
+
+#define TAPPING_TERM 175
+#define TAPPING_TERM_PER_KEY
+
+#define PERMISSIVE_HOLD
+/* #define PERMISSIVE_HOLD_PER_KEY */
+
+#define IGNORE_MOD_TAP_INTERRUPT
+
+#define TAPPING_FORCE_HOLD
+#define TAPPING_FORCE_HOLD_PER_KEY
+
+#define LEADER_TIMEOUT 500
+
+/* #define HOLD_ON_OTHER_KEY_PRESS */

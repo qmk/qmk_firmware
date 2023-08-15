@@ -18,6 +18,8 @@
 
 #pragma once
 
+#define DIODE_DIRECTION ROW2COL
+
 /* Trackball angle adjustment. */
 #define ROTATIONAL_TRANSFORM_ANGLE -25
 

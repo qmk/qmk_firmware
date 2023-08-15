@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                SFT_T(KC_SPACE),  ALT_T(KC_Q),      _______
     ),
     [_MOUSE] = LAYOUT_charybdis_4x6(
-        _______, _______, _______, _______, _______, _______,   _______, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD, PD_JIGGLER,
+        _______, _______, _______, _______, _______, _______,   _______, DPI_RMOD,DPI_MOD, S_D_RMOD,S_D_MOD, _______,
         _______, _______, _______, _______, _______, _______,   KC_WH_U, _______, _______, _______, _______, DRGSCRL,
         _______, _______, _______, _______, _______, _______,   KC_WH_D, KC_BTN1, KC_BTN3, KC_BTN2, KC_BTN6, SNIPING,
         _______, _______, _______, _______, _______, _______,   KC_BTN7, KC_BTN4, KC_BTN5, KC_BTN8, _______, _______,
@@ -129,6 +129,28 @@ void keyboard_post_init_keymap(void) {
 #if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
 void keyboard_pre_init_keymap(void) {
     setPinInputHigh(A0);
+}
+
+void housekeeping_task_keymap(void) {
+    if (!readPin(A0)) {
+        reset_keyboard();
+    }
+}
+#endif
+
+#ifdef USB_VBUS_PIN
+bool usb_vbus_state(void) {
+    setPinInputLow(USB_VBUS_PIN);
+    wait_us(5);
+    return readPin(USB_VBUS_PIN);
+}
+#endif
+
+#if defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
+void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
+    for (int32_t i = 0; i < 40; i++) {
+        __asm__ volatile("nop" ::: "memory");
+    }
 }
 #endif
 

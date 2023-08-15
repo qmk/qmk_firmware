@@ -51,13 +51,43 @@
 #        define CHARYBDIS_DRAGSCROLL_BUFFER_SIZE 6
 #    endif // !CHARYBDIS_DRAGSCROLL_BUFFER_SIZE
 
+// Fixed DPI for carret.
+#    ifndef CHARYBDIS_CARRET_BUFFER
+#        define CHARYBDIS_CARRET_BUFFER 40
+#    endif  // CHARYBDIS_CARRET_BUFFER
+
+#    ifndef CHARYBDIS_POINTER_ACCELERATION_FACTOR
+#        define CHARYBDIS_POINTER_ACCELERATION_FACTOR 24
+#    endif  // !CHARYBDIS_POINTER_ACCELERATION_FACTOR
+
+// default keycodes for the custom mode
+#    ifndef CUSTOM_FN_RIGHT
+#        define CUSTOM_FN_RIGHT KC_BRIGHTNESS_UP
+#    endif  // CUSTOM_FN_RIGHT
+
+#    ifndef CUSTOM_FN_LEFT
+#        define CUSTOM_FN_LEFT KC_BRIGHTNESS_DOWN
+#    endif  // CUSTOM_FN_LEFT
+
+#    ifndef CUSTOM_FN_UP
+#        define CUSTOM_FN_UP KC_AUDIO_VOL_UP
+#    endif  // CUSTOM_FN_UP
+
+#    ifndef CUSTOM_FN_DOWN
+#        define CUSTOM_FN_DOWN KC_AUDIO_VOL_DOWN
+#    endif  // CUSTOM_FN_DOWN
+
 typedef union {
     uint8_t raw;
     struct {
-        uint8_t pointer_default_dpi : 4; // 16 steps available.
-        uint8_t pointer_sniping_dpi : 2; // 4 steps available.
+        uint8_t pointer_default_dpi : 4;  // 16 steps available.
+        uint8_t pointer_sniping_dpi : 2;  // 4 steps available.
         bool    is_dragscroll_enabled : 1;
         bool    is_sniping_enabled : 1;
+        bool    is_carret_enabled : 1;
+        bool    is_custom_enabled : 1;
+        bool    is_modemode_enabled : 1;
+        bool    is_integ_enabled : 1;
     } __attribute__((packed));
 } charybdis_config_t;
 
@@ -75,6 +105,10 @@ static void read_charybdis_config_from_eeprom(charybdis_config_t* config) {
     config->raw                   = eeconfig_read_kb() & 0xff;
     config->is_dragscroll_enabled = false;
     config->is_sniping_enabled    = false;
+    config->is_carret_enabled     = false;
+    config->is_custom_enabled     = false;
+    config->is_modemode_enabled   = false;
+    config->is_integ_enabled      = false;
 }
 
 /**
@@ -176,6 +210,63 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
     maybe_update_pointing_device_cpi(&g_charybdis_config);
 }
 
+bool charybdis_get_pointer_carret_enabled(void) { 
+    return g_charybdis_config.is_carret_enabled;
+}
+
+void charybdis_set_pointer_carret_enabled(bool enable) {
+    g_charybdis_config.is_carret_enabled = enable;
+    maybe_update_pointing_device_cpi(&g_charybdis_config);
+}
+
+void tap_code_fast(uint8_t code) {
+  register_code(code);
+  unregister_code(code);
+}
+
+void tap_tb(uint8_t keycode0, uint8_t keycode1, uint8_t keycode2, uint8_t keycode3, int16_t *move_buffer_x, int16_t *move_buffer_y);
+
+int max(int num1, int num2) { return (num1 > num2) ? num1 : num2; }
+int min(int num1, int num2) { return (num1 > num2) ? num2 : num1; }
+
+void tap_tb(uint8_t keycode0, uint8_t keycode1, uint8_t keycode2, uint8_t keycode3, int16_t *move_buffer_x, int16_t *move_buffer_y) {
+    uint16_t local_carret_dpi = g_charybdis_config.is_integ_enabled? CHARYBDIS_CARRET_BUFFER * 20 : CHARYBDIS_CARRET_BUFFER;
+    local_carret_dpi = g_charybdis_config.is_sniping_enabled? local_carret_dpi : local_carret_dpi / 4;
+    if (abs(*move_buffer_x) + abs(*move_buffer_y) < local_carret_dpi) { return; }
+    if ((abs(*move_buffer_x) > abs(*move_buffer_y)) && (*move_buffer_x > 0)) {
+        for (int8_t i = 0; i <= (abs(*move_buffer_x) + abs(*move_buffer_y)) / local_carret_dpi; i++) {
+            tap_code_fast(keycode0);
+            *move_buffer_x = max(*move_buffer_x - local_carret_dpi, 0);
+        }
+        *move_buffer_y = 0;
+        return;
+    }
+    if ((abs(*move_buffer_x) > abs(*move_buffer_y)) && (*move_buffer_x <= 0)) {
+        for (int8_t i = 0; i <= (abs(*move_buffer_x) + abs(*move_buffer_y)) / local_carret_dpi; i++) {
+            tap_code_fast(keycode1);
+            *move_buffer_x = min(*move_buffer_x + local_carret_dpi, 0);
+        }
+        *move_buffer_y = 0;
+        return;
+    }
+    if ((abs(*move_buffer_x) <= abs(*move_buffer_y)) && (*move_buffer_y > 0)) {
+        for (int8_t i = 0; i <= (abs(*move_buffer_x) + abs(*move_buffer_y)) / local_carret_dpi; i++) {
+            tap_code_fast(keycode2);
+            *move_buffer_y = max(*move_buffer_y - local_carret_dpi, 0);
+        }
+        *move_buffer_x = 0;
+        return;
+    }
+    if ((abs(*move_buffer_x) <= abs(*move_buffer_y)) && (*move_buffer_y <= 0)) {
+        for (int8_t i = 0; i <= (abs(*move_buffer_x) + abs(*move_buffer_y)) / local_carret_dpi; i++) {
+            tap_code_fast(keycode3);
+            *move_buffer_y = min(*move_buffer_y + local_carret_dpi, 0);
+        }
+        *move_buffer_x = 0;
+        return;
+    }
+}
+
 /**
  * \brief Augment the pointing device behavior.
  *
@@ -184,6 +275,8 @@ void charybdis_set_pointer_dragscroll_enabled(bool enable) {
 static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
     static int16_t scroll_buffer_x = 0;
     static int16_t scroll_buffer_y = 0;
+    static int16_t move_buffer_x = 0;
+    static int16_t move_buffer_y = 0;
     if (g_charybdis_config.is_dragscroll_enabled) {
 #    ifdef CHARYBDIS_DRAGSCROLL_REVERSE_X
         scroll_buffer_x -= mouse_report->x;
@@ -205,6 +298,20 @@ static void pointing_device_task_charybdis(report_mouse_t* mouse_report) {
             mouse_report->v = scroll_buffer_y > 0 ? 1 : -1;
             scroll_buffer_y = 0;
         }
+    } else if (g_charybdis_config.is_carret_enabled) {
+#       ifdef CHARYBDIS_CARRET_REVERSE_X
+        move_buffer_x -= mouse_report->x;
+#       else
+        move_buffer_x += mouse_report->x;
+#       endif
+#       ifdef CHARYBDIS_CARRET_REVERSE_Y
+        move_buffer_y -= mouse_report->y;
+#       else
+        move_buffer_y += mouse_report->y;
+#       endif
+        tap_tb(KC_RIGHT, KC_LEFT, KC_UP, KC_DOWN, &move_buffer_x, &move_buffer_y);
+        mouse_report->x = 0;
+        mouse_report->y = 0;
     }
 }
 
@@ -299,6 +406,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         case DRAGSCROLL_MODE_TOGGLE:
             if (record->event.pressed) {
                 charybdis_set_pointer_dragscroll_enabled(!charybdis_get_pointer_dragscroll_enabled());
+            }
+            break;
+        case CARRET_MODE:
+            charybdis_set_pointer_carret_enabled(record->event.pressed);
+            break;
+        case CARRET_MODE_TOGGLE:
+            if (record->event.pressed) {
+                charybdis_set_pointer_carret_enabled(!charybdis_get_pointer_carret_enabled());
             }
             break;
     }

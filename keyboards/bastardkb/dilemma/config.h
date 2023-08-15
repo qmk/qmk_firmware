@@ -18,6 +18,9 @@
 
 #pragma once
 
+
+#define DIODE_DIRECTION ROW2COL
+
 /* Pointing device configuration. */
 
 // Enable use of pointing device on slave split.

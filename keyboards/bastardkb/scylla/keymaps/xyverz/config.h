@@ -28,5 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 300
 #define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 300

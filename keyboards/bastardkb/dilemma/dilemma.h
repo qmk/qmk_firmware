@@ -17,6 +17,16 @@
 
 #pragma once
 
+// clang-format off
+#if defined(KEYBOARD_bastardkb_dilemma_3x5_2_splinky) || defined (KEYBOARD_bastardkb_dilemma_3x5_2_assembled)
+#    include "3x5_2.h"
+#elif defined(KEYBOARD_bastardkb_dilemma_3x5_3)
+#    include "3x5_3.h"
+#else
+#    error "Unsuported format"
+#endif
+// clang-format on
+
 #include "quantum.h"
 
 #ifdef POINTING_DEVICE_ENABLE

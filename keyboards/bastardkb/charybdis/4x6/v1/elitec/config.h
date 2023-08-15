@@ -18,8 +18,22 @@
 
 #pragma once
 
+/* Key matrix configuration. */
+#define MATRIX_ROW_PINS \
+    { F1, B7, C6, D4, B5 }
+#define MATRIX_COL_PINS \
+    { D5, C7, F0, D7, E6, B4 }
+
+#define MATRIX_ROW_PINS_RIGHT \
+    { D5, F0, C6, D4, B5 }
+#define MATRIX_COL_PINS_RIGHT \
+    { F1, C7, B7, D7, E6, B4 }
+
 /* Handedness. */
 #define MASTER_RIGHT
+
+/* RGB settings. */
+#define RGB_DI_PIN D3
 
 /* PMW3360 settings. */
 #define POINTING_DEVICE_CS_PIN B0

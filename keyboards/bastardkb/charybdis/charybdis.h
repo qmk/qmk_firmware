@@ -18,6 +18,18 @@
 
 #pragma once
 
+// clang-format off
+#if defined(KEYBOARD_bastardkb_charybdis_3x5)
+#    include "3x5.h"
+#elif defined(KEYBOARD_bastardkb_charybdis_3x6)
+#    include "3x6.h"
+#elif defined(KEYBOARD_bastardkb_charybdis_4x6)
+#    include "4x6.h"
+#else
+#    error "Unsuported format"
+#endif
+// clang-format on
+
 #include "quantum.h"
 
 #ifdef POINTING_DEVICE_ENABLE
@@ -29,8 +41,11 @@ enum charybdis_keycodes {
     POINTER_SNIPING_DPI_REVERSE,
     SNIPING_MODE,
     SNIPING_MODE_TOGGLE,
+    CARRET_MODE,
+    CARRET_MODE_TOGGLE,
     DRAGSCROLL_MODE,
     DRAGSCROLL_MODE_TOGGLE,
+    
 };
 
 #        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
@@ -41,6 +56,8 @@ enum charybdis_keycodes {
 #        define SNP_TOG SNIPING_MODE_TOGGLE
 #        define DRGSCRL DRAGSCROLL_MODE
 #        define DRG_TOG DRAGSCROLL_MODE_TOGGLE
+#        define CARRETM CARRET_MODE
+#        define CRT_TOG CARRET_MODE_TOGGLE
 #    endif // !NO_CHARYBDIS_KEYCODES
 
 /** \brief Return the current DPI value for the pointer's default mode. */
@@ -109,3 +126,56 @@ bool charybdis_get_pointer_dragscroll_enabled(void);
  */
 void charybdis_set_pointer_dragscroll_enabled(bool enable);
 #endif // POINTING_DEVICE_ENABLE
+
+/** \brief Whether carret-mode is enabled. */
+bool charybdis_get_pointer_carret_enabled(void);
+
+/**
+ * \brief Enable/disable carret mode.
+ *
+ * When carret mode is enabled, horizontal and vertical pointer movements
+ * are translated into button presses of the arrow keys
+ */
+void charybdis_set_pointer_carret_enabled(bool enable);
+
+bool charybdis_get_pointer_custom_enabled(void);
+
+/**
+ * \brief Enable/disable custom mode.
+ *
+ * When custom mode is enabled, horizontal and vertical pointer movements
+ * are translated into user-defined keycodes.
+ * e.g. when the trackball should trigger the bightness increase button
+ * when rotated to the right, set `#define CUSTOM_FN_RIGHT KC_BRIGHTNESS_UP`
+ */
+void charybdis_set_pointer_custom_enabled(bool enable);
+
+bool charybdis_get_pointer_modemode_enabled(void);
+
+/**
+ * \brief Enable/disable custom mode.
+ *
+ * When custom mode is enabled, horizontal and vertical pointer movements
+ * set the different modes. e.g. up disables every mode and goes back to
+ * pointing mode, right sets dragscroll mode, left sets carret mode and
+ * down sets custom mode.
+ */
+void charybdis_set_pointer_modemode_enabled(bool enable);
+
+bool charybdis_get_pointer_integ_enabled(void);
+
+/**
+ * \brief Enable/disable carret mode.
+ *
+ * When integ mode is enabled, the pointer keeps going into the direction
+ * the trackball has been rotated to
+ */
+void charybdis_set_pointer_integ_enabled(bool enable);
+
+/**
+ * \brief Enable/disable carret mode.
+ *
+ * Disable non-stacking pointer modes. Modes that should not
+ * stack are dragscroll, carret, custom and mode-mode.
+ * */
+void charybdis_set_pointer_disable_nonstacking(void);

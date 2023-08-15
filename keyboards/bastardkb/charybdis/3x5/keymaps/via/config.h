@@ -24,6 +24,18 @@
 /* Disable unused features. */
 #define NO_ACTION_ONESHOT
 
+/**
+ * \brief Prevent normal rollover on alphas from accidentally triggering mods.
+ *
+ * Ignores key presses that interrupt a mod-tap.  Must-have for Home Row mod.
+ *
+ * Without `IGNORE_MOD_TAP_INTERRUPT`, within `TAPPING_TERM`:
+ *   Mod(a)🠗 e🠗 Mod(a)🠕 e🠕 ➞ Mod+e
+ * With `IGNORE_MOD_TAP_INTERRUPT`, within `TAPPING_TERM`:
+ *   Mod(a)🠗 e🠗 Mod(a)🠕 e🠕 ➞ ae
+ */
+#define IGNORE_MOD_TAP_INTERRUPT
+
 /* Charybdis-specific features. */
 
 #ifdef POINTING_DEVICE_ENABLE

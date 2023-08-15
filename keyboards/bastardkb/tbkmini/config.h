@@ -18,6 +18,9 @@
 
 #pragma once
 
+
+#define DIODE_DIRECTION ROW2COL
+
 /* RGB settings. */
 #define RGBLED_NUM 42
 #define RGBLED_SPLIT \
