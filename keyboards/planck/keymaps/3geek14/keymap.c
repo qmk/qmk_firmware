@@ -154,11 +154,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-#ifdef AUDIO_ENABLE
-    float colemak_song[][2] = SONG(COLEMAK_SOUND);
-    float qwerty_song[][2] = SONG(QWERTY_SOUND);
-#endif
-
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
