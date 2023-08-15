@@ -2,7 +2,6 @@
 #   change yes to no to disable
 #
 OLED_ENABLE = yes                   # OLED Enabled
-OLED_DRIVER = SSD1306               # OLED Driver
 
 # Cirque touchpad settings
 POINTING_DEVICE_ENABLE = yes                    # Pointing Device Enabled

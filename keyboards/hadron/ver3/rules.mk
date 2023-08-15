@@ -14,5 +14,4 @@ RGB_MATRIX_ENABLE = no # once arm_rgb is implemented
 HAPTIC_ENABLE = yes
 HAPTIC_DRIVER = drv2605l
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 ENCODER_ENABLER = yes
