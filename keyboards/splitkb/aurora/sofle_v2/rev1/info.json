@@ -127,9 +127,9 @@
     "ws2812": {
         "pin": "D3"
     },
-    "community_layouts": ["split_4x6_sofl"],
+    "community_layouts": ["split_4x6_sufl"],
     "layouts": {
-        "LAYOUT_split_4x6_sofl": {
+        "LAYOUT_split_4x6_sufl": {
             "layout": [
                 {"label": "L06", "matrix": [0, 5], "x": 0, "y": 0.5},
                 {"label": "L05", "matrix": [0, 4], "x": 1, "y": 0.375},

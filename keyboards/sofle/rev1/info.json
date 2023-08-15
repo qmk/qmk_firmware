@@ -36,9 +36,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
-    "community_layouts": ["split_4x6_sofl"],
+    "community_layouts": ["split_4x6_sufl"],
     "layouts": {
-        "LAYOUT_split_4x6_sofl": {
+        "LAYOUT_split_4x6_sufl": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.5},
                 {"matrix": [0, 1], "x": 1, "y": 0.375},

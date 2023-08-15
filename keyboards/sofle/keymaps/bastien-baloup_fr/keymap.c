@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `-----------------------------------'            '------''---------------------------'
  */
 
-[0] = LAYOUT_split_4x6_sofl(
+[0] = LAYOUT_split_4x6_sufl(
    KC_GRV    , KC_1   , KC_2   , KC_3   , KC_4   , KC_LBRC,                         S(KC_LBRC), KC_7   , S(KC_QUOT), KC_9   , KC_0   , TG(3)  ,
    KC_ESC    , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                         KC_Y      , KC_U   , KC_I      , KC_O   , KC_P   , KC_BSPC,
    KC_TAB    , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                         KC_H      , KC_J   , KC_K      , KC_L   , KC_SCLN, KC_QUOT,
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/       /          \      \ |      |      |      |      |
  *            `-----------------------------------'            '------''---------------------------'
  */
-[1] = LAYOUT_split_4x6_sofl(
+[1] = LAYOUT_split_4x6_sufl(
    _______, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5),                         S(KC_6) , S(KC_7), S(KC_8)   , S(KC_9)  , S(KC_0)   , _______   ,
    _______, S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_T),                         S(KC_Y) , S(KC_U), S(KC_I)   , S(KC_O)  , S(KC_P)   , _______   ,
    _______, S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_G),                         S(KC_H) , S(KC_J), S(KC_K)   , S(KC_L)  , S(KC_SCLN), S(KC_NUHS),
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/       /          \      \ |      |      |      |      |
  *            `-----------------------------------'            '------''---------------------------'
  */
-[2] = LAYOUT_split_4x6_sofl(
+[2] = LAYOUT_split_4x6_sufl(
   KC_F1  , KC_F2        , KC_F3     , KC_F4        , KC_F5     , KC_F6       ,                         KC_F7    , KC_F8     , KC_F9     , KC_F10       , KC_F11    , KC_F12 ,
   _______, CL_AGRV      , CL_EGRV   , CL_EACU      , KC_5      , KC_MINS     ,                         KC_EQL   , ALGR(KC_6), ALGR(KC_8), ALGR(KC_COMM), ALGR(KC_0), _______,
   _______, ALGR(KC_7)   , ALGR(KC_2), ALGR(KC_3)   , KC_NUBS   , S(KC_NUBS)  ,                         S(KC_EQL), KC_6      , S(KC_DOT) , KC_NUHS      , S(KC_MINS), UC_ELIP,
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/      /           \      \ |      |      |      |      |
  *            `----------------------------------'             '------''---------------------------'
  */
-[3] = LAYOUT_split_4x6_sofl(
+[3] = LAYOUT_split_4x6_sufl(
   _______, _______, _______, _______, _______, _______,                         KC_CAPS, KC_PSCR   , KC_SCRL, KC_PAUS   , KC_INS       , _______      ,
   _______, _______, _______, _______, _______, _______,                         KC_PGUP, KC_HOME   , KC_UP  , KC_END    , KC_DEL       , _______      ,
   _______, _______, _______, _______, _______, _______,                         KC_PGDN, KC_LEFT   , KC_DOWN, KC_RGHT   , C(A(KC_LEFT)), C(A(KC_RGHT)),

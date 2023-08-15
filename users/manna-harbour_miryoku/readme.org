@@ -459,7 +459,7 @@ make bastardkb/tbkmini:manna-harbour_miryoku:flash # bastardkb/tbkmini
 make crkbd:manna-harbour_miryoku:flash # crkbd
 #+END_SRC
 
-**** split_4x6_sofl
+**** split_4x6_sufl
 
 Only the main 5x3 alphas and the inner 3 thumb keys are used.
 

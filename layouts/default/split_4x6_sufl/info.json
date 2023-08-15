@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "split 4x6 sofl layout",
+    "keyboard_name": "split 4x6 sufl layout",
     "url": "",
     "maintainer": "qmk",
     "layouts": {
-        "LAYOUT_split_4x6_sofl": {
+        "LAYOUT_split_4x6_sufl": {
             "layout": [
                 {"x": 0, "y": 0.5},
                 {"x": 1, "y": 0.375},
