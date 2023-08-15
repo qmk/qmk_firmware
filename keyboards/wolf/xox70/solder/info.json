@@ -41,7 +41,7 @@
     },
     "ws2812": {
         "pin": "GP12",
-        "driver" : "vendor"
+        "driver": "vendor"
     },
     "url": "",
     "usb": {
