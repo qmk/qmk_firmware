@@ -16,14 +16,10 @@ pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS] = MATRIX_PINS;
 key_t keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
 
 void matrix_init_custom(void) {
-    // Rest value default to 1/2 of ADC resolution 1/2 Vref
-    uint16_t rest_adc_value = 1 << (ADC_RESOLUTION - 1);
     generate_lut();
-    rest_adc_value = distance_to_adc(0) + 1;
-
-    get_sensor_offsets(rest_adc_value);
+    get_sensor_offsets(distance_to_adc(0));
     wait_ms(100); // Let ADC reach steady state
-    get_sensor_offsets(rest_adc_value);
+    get_sensor_offsets(distance_to_adc(0));
 }
 
 enum analog_key_modes { dynamic_actuation = 0, continuous_dynamic_actuation, static_actuation, flashing };
