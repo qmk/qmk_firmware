@@ -1,6 +1,7 @@
 # rpneko65
 
-![rpneko65](https://i.imgur.com/QUIUSqJ.png)
+![rpneko65](https://i.imgur.com/QUIUSqJh.png)
+
 *PCB rear side*
 
 A multi-layout PCB for the Bakeneko65
