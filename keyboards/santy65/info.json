@@ -2,7 +2,7 @@
     "manufacturer": "Santy",
     "keyboard_name": "santy65",
     "maintainer": "qmk",
-    "bootloader": "qmk-dfu",
+    "bootloader": "atmel-dfu",
     "build": {
         "lto": true
     },

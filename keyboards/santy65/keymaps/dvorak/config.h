@@ -13,14 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-#pragma once
-/* optical sensor settings */
-// define which side the pointing device is on
-#define SPLIT_POINTING_ENABLE
-#define POINTING_DEVICE_LEFT
-// SS Pin on the Trackball sensor 
-#define PMW33XX_CS_PIN B0
-// the sensitivity between 100 and 12000
-#define PMW33XX_CPI 1200
-#define POINTING_DEVICE_INVERT_Y
+ 
+// Decrease firmware size
+#define NO_ACTION_ONESHOT
