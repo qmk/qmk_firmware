@@ -430,7 +430,7 @@ I also use emacs, xmonad, and vimb browser, so mice are not much needed.
 They always need tweaking. Most of these are the official QMK ones and
 the *Tap_hold_term* is for the Tap-hold extension. The defaults tend to work
 until they dont. Alan Reiser of hands down uses 170 as his tapping term
-and 170/5 for the Adaptive key term.
+and 170/5 for the Adaptive keys term.
 
 #+begin_src C :tangle config.h
 #undef TAPPING_TOGGLE
@@ -438,8 +438,6 @@ and 170/5 for the Adaptive key term.
 
 #define TAPPING_TOGGLE  2
 #define TAPPING_TERM    200
-// Alans tapping term.
-// #define TAPPING_TERM 170 // Mod TAP VS HOLD timing in milliseconds
 
 #define TAP_HOLD_TERM    200
 #define COMBO_MUST_HOLD_MODS

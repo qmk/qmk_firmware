@@ -66,8 +66,6 @@
 
 #define TAPPING_TOGGLE  2
 #define TAPPING_TERM    200
-// Alans tapping term.
-// #define TAPPING_TERM 170 // Mod TAP VS HOLD timing in milliseconds
 
 #define TAP_HOLD_TERM    200
 #define COMBO_MUST_HOLD_MODS
