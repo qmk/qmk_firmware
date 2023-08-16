@@ -38,10 +38,6 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
     //Double Taps
     case TR_UNDS:
       key = KC_UNDS; break;
-    case TR_LABK:
-      key = KC_LABK; break;
-    case TR_RABK:
-      key = KC_RABK; break;
     case TR_SLSH:
       key = KC_SLSH; break;
     case TR_BSLS:
@@ -70,6 +66,8 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
       key = KC_LBRC; break;
     case TR_LCBR:
       key = KC_LCBR; break;
+    case TR_LABK:
+      key = KC_LABK; break;
     case TR_QUOT:
       key = KC_QUOT; break;
     case TR_DQUO:
@@ -104,8 +102,6 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
 
       //Double Taps
       case TR_UNDS:
-      case TR_LABK:
-      case TR_RABK:
       case TR_SLSH:
       case TR_BSLS:
       case TR_HASH:
@@ -136,6 +132,9 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
         break;
       case TR_LCBR:
         double_parens_left(KC_LCBR, KC_RCBR);
+        break;
+      case TR_LABK:
+        double_parens_left(KC_LABK, KC_RABK);
         break;
       case TR_QUOT:
       case TR_DQUO:

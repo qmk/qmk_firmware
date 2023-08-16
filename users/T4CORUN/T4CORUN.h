@@ -167,7 +167,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 //Double Taps
 #   define TR_UNDS  LT(_DEFAULT_LAYER_1, TH_UNDS)
 #   define TR_LABK  LT(_DEFAULT_LAYER_1, TH_LABK)
-#   define TR_RABK  LT(_DEFAULT_LAYER_1, TH_RABK)
 #   define TR_SLSH  LT(_DEFAULT_LAYER_1, TH_SLSH)
 #   define TR_BSLS  LT(_DEFAULT_LAYER_1, TH_BSLS)
 #   define TR_HASH  LT(_DEFAULT_LAYER_1, TH_HASH)
@@ -190,7 +189,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 //Double Taps
 #   define TR_UNDS  KC_UNDS
 #   define TR_LABK  KC_LABK
-#   define TR_RABK  KC_RABK
 #   define TR_SLSH  KC_SLSH
 #   define TR_BSLS  KC_BSLS
 #   define TR_HASH  KC_HASH
@@ -457,7 +455,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 */
 #   define _________________SYMBOL_L1_________________        KC_PERC, KC_CIRC, KC_DLR,  KC_PLUS, TR_GRV
 #   define _________________SYMBOL_L2_________________        TR_AMPR, TR_LCBR, KC_RCBR, KC_AT,   TR_SCLN
-#   define _________________SYMBOL_L3_________________        ___x___, TR_LABK, TR_RABK, TR_BSLS, TR_EXLM
+#   define _________________SYMBOL_L3_________________        ___x___, TR_LABK, KC_RABK, TR_BSLS, TR_EXLM
 #   define          ________SYMBOL_L4________                 ________NUMSYM_L4________
 
 #   define _________________SYMBOL_R1_________________        TR_EQL,  TR_HASH, KC_ASTR, TR_PIPE, TR_DQUO

@@ -32,7 +32,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     //https://www.jonashietala.se/series/t-34/ he focuses on a keymap for programming/VIM
     case TR_UNDS:
     case TR_LABK:
-    case TR_RABK:
     case TR_SLSH:
     case TR_BSLS:
     case TR_HASH:
