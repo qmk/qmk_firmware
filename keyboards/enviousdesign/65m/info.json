@@ -17,7 +17,7 @@
         "rows": ["GP21", "GP20", "GP19", "GP18", "GP17"]
     },
     "processor": "RP2040",
-    "url": "Envious.Design",
+    "url": "http://envious.design",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0xA279",
