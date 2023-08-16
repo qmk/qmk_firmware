@@ -16,7 +16,7 @@ typedef struct {
     uint8_t release_hysteresis;
 } analog_config; /* 6 bytes */
 #ifdef VIA_ENABLE
-_Static_assert(sizeof(analog_config) == VIA_EEPROM_CUSTOM_CONFIG_SIZE, "Size mismatch");
+_Static_assert(sizeof(analog_config) == EECONFIG_KB_DATA_SIZE, "Size mismatch");
 #endif
 extern analog_config g_config;
 
