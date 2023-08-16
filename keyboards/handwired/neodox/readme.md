@@ -1,4 +1,4 @@
-# The Neodox keyboard
+# Neodox
 
 Inspired by Redox from Mattia Dal Ben
 
