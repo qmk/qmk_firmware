@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010000  // this is here for compliancy reasons.
 #define DRIVER_COUNT 2
+#define RGB_MATRIX_LED_COUNT 82
 
 // 7 + 8 + 8 + 7 + 8 + 8 = 46
 // 36 + 46 = 82
