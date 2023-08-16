@@ -19,9 +19,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "haptic": false,
         "rgb_matrix": true,
-        "rgblight": false,
         "encoder": true,
         "dip_switch":true
     },
