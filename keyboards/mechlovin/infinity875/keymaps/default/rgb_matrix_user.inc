@@ -62,7 +62,7 @@ bool effect_runner_all(effect_params_t* params, i_f effect_func) {
         RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_esc(effect_params_t* params, i_f effect_func) {
@@ -77,7 +77,7 @@ bool effect_runner_esc(effect_params_t* params, i_f effect_func) {
     for (uint8_t i = 1; i < 18; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_f13(effect_params_t* params, i_f effect_func) {
@@ -94,7 +94,7 @@ bool effect_runner_f13(effect_params_t* params, i_f effect_func) {
     for (uint8_t i = 0; i < 14; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_clus(effect_params_t* params, i_f effect_func) {
@@ -109,7 +109,7 @@ bool effect_runner_clus(effect_params_t* params, i_f effect_func) {
     for (uint8_t i = 0; i < 15; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_dx_dy_all(effect_params_t* params, dx_dy_f effect_func) {
@@ -123,7 +123,7 @@ bool effect_runner_dx_dy_all(effect_params_t* params, dx_dy_f effect_func) {
         RGB     rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, dx, dy, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_dx_dy_esc(effect_params_t* params, dx_dy_f effect_func) {
@@ -140,7 +140,7 @@ bool effect_runner_dx_dy_esc(effect_params_t* params, dx_dy_f effect_func) {
     for (uint8_t i = 1; i < 18; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_dx_dy_f13(effect_params_t* params, dx_dy_f effect_func) {
@@ -160,7 +160,7 @@ bool effect_runner_dx_dy_f13(effect_params_t* params, dx_dy_f effect_func) {
     for (uint8_t i = 0; i < 14; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_dx_dy_clus(effect_params_t* params, dx_dy_f effect_func) {
@@ -177,7 +177,7 @@ bool effect_runner_dx_dy_clus(effect_params_t* params, dx_dy_f effect_func) {
     for (uint8_t i = 0; i < 15; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_sin_cos_all(effect_params_t* params, sin_cos_i_f effect_func) {
@@ -191,7 +191,7 @@ bool effect_runner_sin_cos_all(effect_params_t* params, sin_cos_i_f effect_func)
         RGB rgb = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, cos_value, sin_value, i, time));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_sin_cos_esc(effect_params_t* params, sin_cos_i_f effect_func) {
@@ -208,7 +208,7 @@ bool effect_runner_sin_cos_esc(effect_params_t* params, sin_cos_i_f effect_func)
     for (uint8_t i = 1; i < 18; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_sin_cos_f13(effect_params_t* params, sin_cos_i_f effect_func) {
@@ -228,7 +228,7 @@ bool effect_runner_sin_cos_f13(effect_params_t* params, sin_cos_i_f effect_func)
     for (uint8_t i = 0; i < 14; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 bool effect_runner_sin_cos_clus(effect_params_t* params, sin_cos_i_f effect_func) {
@@ -245,7 +245,7 @@ bool effect_runner_sin_cos_clus(effect_params_t* params, sin_cos_i_f effect_func
     for (uint8_t i = 0; i < 15; i++) {
         rgb_matrix_set_color(i, 0x00, 0x00, 0x00);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 static void raindrops_set_color_all(int i, effect_params_t* params) {
@@ -375,7 +375,7 @@ static bool solid_esc(effect_params_t* params) {
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 // Solid F13
@@ -390,7 +390,7 @@ static bool solid_f13(effect_params_t* params) {
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
         rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 // Solid cluster
@@ -404,7 +404,7 @@ static bool solid_clus(effect_params_t* params) {
     for (uint8_t i = 15 ; i < led_max; i++) {
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 // Breathing all
@@ -420,7 +420,7 @@ bool breathing_all(effect_params_t* params) {
         RGB_MATRIX_TEST_LED_FLAGS();
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 // Breathing ESC
@@ -439,7 +439,7 @@ static bool breathing_esc(effect_params_t* params) {
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
         rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 // Breathing F13
@@ -458,7 +458,7 @@ static bool breathing_f13(effect_params_t* params) {
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
         rgb_matrix_set_color(14, rgb.r, rgb.g, rgb.b);
-    return led_max < DRIVER_LED_TOTAL;  
+    return led_max < RGB_MATRIX_LED_COUNT;  
 }
 
 // Breathing cluster
@@ -476,7 +476,7 @@ static bool breathing_clus(effect_params_t* params) {
         RGB_MATRIX_TEST_LED_FLAGS();
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 // Band Val all
@@ -698,7 +698,7 @@ static bool raindrops_all(effect_params_t* params) {
     if (!params->init) {
         // Change one LED every tick, make sure speed is not 0
         if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 10 == 0) {
-            raindrops_set_color_all(rand() % DRIVER_LED_TOTAL, params);
+            raindrops_set_color_all(rand() % RGB_MATRIX_LED_COUNT, params);
         }
         return false;
     }
@@ -707,7 +707,7 @@ static bool raindrops_all(effect_params_t* params) {
     for (int i = led_min; i < led_max; i++) {
         raindrops_set_color_all(i, params);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 // Raindrops ESC
@@ -715,7 +715,7 @@ static bool raindrops_esc(effect_params_t* params) {
     if (!params->init) {
         // Change one LED every tick, make sure speed is not 0
         if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 10 == 0) {
-            raindrops_set_color_esc(rand() % DRIVER_LED_TOTAL, params);
+            raindrops_set_color_esc(rand() % RGB_MATRIX_LED_COUNT, params);
         }
         return false;
     }
@@ -724,7 +724,7 @@ static bool raindrops_esc(effect_params_t* params) {
     for (int i = led_min; i < led_max; i++) {
         raindrops_set_color_esc(i, params);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 // Raindrops F13
@@ -732,7 +732,7 @@ static bool raindrops_f13(effect_params_t* params) {
     if (!params->init) {
         // Change one LED every tick, make sure speed is not 0
         if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 10 == 0) {
-            raindrops_set_color_f13(rand() % DRIVER_LED_TOTAL, params);
+            raindrops_set_color_f13(rand() % RGB_MATRIX_LED_COUNT, params);
         }
         return false;
     }
@@ -741,7 +741,7 @@ static bool raindrops_f13(effect_params_t* params) {
     for (int i = led_min; i < led_max; i++) {
         raindrops_set_color_f13(i, params);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 // Raindrops Cluster
@@ -749,7 +749,7 @@ static bool raindrops_clus(effect_params_t* params) {
     if (!params->init) {
         // Change one LED every tick, make sure speed is not 0
         if (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 16)) % 10 == 0) {
-            raindrops_set_color_clus(rand() % DRIVER_LED_TOTAL, params);
+            raindrops_set_color_clus(rand() % RGB_MATRIX_LED_COUNT, params);
         }
         return false;
     }
@@ -758,7 +758,7 @@ static bool raindrops_clus(effect_params_t* params) {
     for (int i = led_min; i < led_max; i++) {
         raindrops_set_color_clus(i, params);
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return led_max < RGB_MATRIX_LED_COUNT;
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

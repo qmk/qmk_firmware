@@ -87,7 +87,7 @@
 |`KC_F11`               |                              |F11                                      |✔           |✔            |✔                |
 |`KC_F12`               |                              |F12                                      |✔           |✔            |✔                |
 |`KC_PSCREEN`           |`KC_PSCR`                     |Print Screen                             |✔           |✔<sup>2</sup>|✔                |
-|`KC_SCROLLLOCK`        |`KC_SLCK`, `KC_BRMD`          |Scroll Lock, 画面の明るさダウン (macOS)  |✔           |✔<sup>2</sup>|✔                |
+|`KC_SCROLLLOCK`        |`KC_SCRL`, `KC_BRMD`          |Scroll Lock, 画面の明るさダウン (macOS)  |✔           |✔<sup>2</sup>|✔                |
 |`KC_PAUSE`             |`KC_PAUS`, `KC_BRK`, `KC_BRMU`|Pause, 画面の明るさアップ (macOS)        |✔           |✔<sup>2</sup>|✔                |
 |`KC_INSERT`            |`KC_INS`                      |Insert                                   |✔           |             |✔                |
 |`KC_HOME`              |                              |Home                                     |✔           |✔            |✔                |
@@ -99,7 +99,7 @@
 |`KC_LEFT`              |                              |左矢印                                   |✔           |✔            |✔                |
 |`KC_DOWN`              |                              |下矢印                                   |✔           |✔            |✔                |
 |`KC_UP`                |                              |上矢印                                   |✔           |✔            |✔                |
-|`KC_NUMLOCK`           |`KC_NLCK`                     |テンキー Num Lock と Clear              |✔           |✔            |✔                |
+|`KC_NUMLOCK`           |`KC_NUM`                     |テンキー Num Lock と Clear              |✔           |✔            |✔                |
 |`KC_KP_SLASH`          |`KC_PSLS`                     |テンキー `/`                             |✔           |✔            |✔                |
 |`KC_KP_ASTERISK`       |`KC_PAST`                     |テンキー `*`                             |✔           |✔            |✔                |
 |`KC_KP_MINUS`          |`KC_PMNS`                     |テンキー `-`                             |✔           |✔            |✔                |

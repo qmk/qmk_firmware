@@ -1,3 +1,4 @@
+import platform
 import shutil
 import time
 import os
@@ -56,6 +57,26 @@ def _check_dfu_programmer_version():
         return False
 
 
+def _find_usb_device(vid_hex, pid_hex):
+    # WSL doesnt have access to USB - use powershell instead...?
+    if 'microsoft' in platform.uname().release.lower():
+        ret = cli.run(['powershell.exe', '-command', 'Get-PnpDevice -PresentOnly | Select-Object -Property InstanceId'])
+        if f'USB\\VID_{vid_hex:04X}&PID_{pid_hex:04X}' in ret.stdout:
+            return (vid_hex, pid_hex)
+    else:
+        with DelayedKeyboardInterrupt():
+            # PyUSB does not like to be interrupted by Ctrl-C
+            # therefore we catch the interrupt with a custom handler
+            # and only process it once pyusb finished
+            return usb.core.find(idVendor=vid_hex, idProduct=pid_hex)
+
+
+def _find_uf2_devices():
+    """Delegate to uf2conv.py as VID:PID pairs can potentially fluctuate more than other bootloaders
+    """
+    return cli.run(['util/uf2conv.py', '--list']).stdout.splitlines()
+
+
 def _find_bootloader():
     # To avoid running forever in the background, only look for bootloaders for 10min
     start_time = time.time()
@@ -64,11 +85,7 @@ def _find_bootloader():
             for vid, pid in BOOTLOADER_VIDS_PIDS[bl]:
                 vid_hex = int(f'0x{vid}', 0)
                 pid_hex = int(f'0x{pid}', 0)
-                with DelayedKeyboardInterrupt():
-                    # PyUSB does not like to be interrupted by Ctrl-C
-                    # therefore we catch the interrupt with a custom handler
-                    # and only process it once pyusb finished
-                    dev = usb.core.find(idVendor=vid_hex, idProduct=pid_hex)
+                dev = _find_usb_device(vid_hex, pid_hex)
                 if dev:
                     if bl == 'atmel-dfu':
                         details = _PID_TO_MCU[pid]
@@ -84,6 +101,8 @@ def _find_bootloader():
                     else:
                         details = None
                     return (bl, details)
+        if _find_uf2_devices():
+            return ('_uf2_compatible_', None)
         time.sleep(0.1)
     return (None, None)
 
@@ -173,30 +192,36 @@ def _flash_mdloader(file):
     cli.run(['mdloader', '--first', '--download', file, '--restart'], capture_output=False)
 
 
+def _flash_uf2(file):
+    cli.run(['util/uf2conv.py', '--deploy', file], capture_output=False)
+
+
 def flasher(mcu, file):
     bl, details = _find_bootloader()
     # Add a small sleep to avoid race conditions
     time.sleep(1)
     if bl == 'atmel-dfu':
-        _flash_atmel_dfu(details, file.name)
+        _flash_atmel_dfu(details, file)
     elif bl == 'caterina':
-        if _flash_caterina(details, file.name):
+        if _flash_caterina(details, file):
             return (True, "The Caterina bootloader was found but is not writable. Check 'qmk doctor' output for advice.")
     elif bl == 'hid-bootloader':
         if mcu:
-            if _flash_hid_bootloader(mcu, details, file.name):
+            if _flash_hid_bootloader(mcu, details, file):
                 return (True, "Please make sure 'teensy_loader_cli' or 'hid_bootloader_cli' is available on your system.")
         else:
             return (True, "Specifying the MCU with '-m' is necessary for HalfKay/HID bootloaders!")
     elif bl == 'stm32-dfu' or bl == 'apm32-dfu' or bl == 'gd32v-dfu' or bl == 'kiibohd':
-        _flash_dfu_util(details, file.name)
+        _flash_dfu_util(details, file)
     elif bl == 'usbasploader' or bl == 'usbtinyisp':
         if mcu:
-            _flash_isp(mcu, bl, file.name)
+            _flash_isp(mcu, bl, file)
         else:
             return (True, "Specifying the MCU with '-m' is necessary for ISP flashing!")
     elif bl == 'md-boot':
-        _flash_mdloader(file.name)
+        _flash_mdloader(file)
+    elif bl == '_uf2_compatible_':
+        _flash_uf2(file)
     else:
         return (True, "Known bootloader found but flashing not currently supported!")
 

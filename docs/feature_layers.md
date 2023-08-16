@@ -10,7 +10,7 @@ These functions allow you to activate layers in various ways. Note that layers a
 
 * `DF(layer)` - switches the default layer. The default layer is the always-active base layer that other layers stack on top of. See below for more about the default layer. This might be used to switch from QWERTY to Dvorak layout. (Note that this is a temporary switch that only persists until the keyboard loses power. To modify the default layer in a persistent way requires deeper customization, such as calling the `set_single_persistent_default_layer` function inside of [process_record_user](custom_quantum_functions.md#programming-the-behavior-of-any-keycode).)
 * `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated.
-* `LM(layer, mod)` - Momentarily activates *layer* (like `MO`), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers: `MOD_LCTL`, `MOD_LSFT`, `MOD_LALT`, `MOD_LGUI` (note the use of `MOD_` constants instead of `KC_`). These modifiers can be combined using bitwise OR, e.g. `LM(_RAISE, MOD_LCTL | MOD_LALT)`.
+* `LM(layer, mod)` - Momentarily activates *layer* (like `MO`), but with modifier(s) *mod* active. Only supports layers 0-15. The modifiers this keycode accept are prefixed with `MOD_`, not `KC_`. These modifiers can be combined using bitwise OR, e.g. `LM(_RAISE, MOD_LCTL | MOD_LALT)`.
 * `LT(layer, kc)` - momentarily activates *layer* when held, and sends *kc* when tapped. Only supports layers 0-15.
 * `OSL(layer)` - momentarily activates *layer* until the next key is pressed. See [One Shot Keys](one_shot_keys.md) for details and additional functionality.
 * `TG(layer)` - toggles *layer*, activating it if it's inactive and vice versa
@@ -20,6 +20,12 @@ These functions allow you to activate layers in various ways. Note that layers a
 ### Caveats :id=caveats
 
 Currently, the `layer` argument of `LT()` is limited to layers 0-15, and the `kc` argument to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. This is because QMK uses 16-bit keycodes, of which 4 bits are used for the function identifier and 4 bits for the layer, leaving only 8 bits for the keycode.
+
+For a similar reason, the `layer` argument of `LM()` is also limited to layers 0-15 and the `mod` argument must fit within 5 bits. As a consequence, although left and right modifiers are supported by `LM()`, it is impossible to mix and match left and right modifiers. Specifying at least one right-hand modifier in a combination such as `MOD_RALT|MOD_LSFT` will convert *all* the listed modifiers to their right-hand counterpart. So, using the aforementionned mod-mask will actually send <kbd>Right Alt</kbd>+<kbd>Right Shift</kbd>. Make sure to use the `MOD_xxx` constants over alternative ways of specifying modifiers when defining your layer-mod key.
+
+| `LM(1,KC_LSFT)` | `LM(1,MOD_MASK_SHIFT)` | `LM(1,MOD_BIT(KC_LSFT))` | `LM(1,MOD_LSFT)` |
+|:---------------:|:----------------------:|:------------------------:|:----------------:|
+|       ❌        |          ❌            |           ❌             |        ✅        |
 
 Expanding this would be complicated, at best. Moving to a 32-bit keycode would solve a lot of this, but would double the amount of space that the keymap matrix uses. And it could potentially cause issues, too. If you need to apply modifiers to your tapped keycode, [Tap Dance](feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
@@ -53,17 +59,17 @@ There are a number of functions (and variables) related to how you can use or ma
 
 |Function                                      |Description                                                                                              |
 |----------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| `layer_state_set(layer_mask)`                | Directly sets the layer state (recommended, do not use unless you know what you are doing).             |
+| `layer_state_set(layer_mask)`                | Directly sets the layer state (avoid unless you know what you are doing).                               |
 | `layer_clear()`                              | Clears all layers (turns them all off).                                                                 |
 | `layer_move(layer)`                          | Turns specified layer on, and all other layers off.                                                     |
 | `layer_on(layer)`                            | Turns specified layer on, leaves all other layers in existing state.                                    |
 | `layer_off(layer)`                           | Turns specified layer off, leaves all other layers in existing state.                                   |
-| `layer_invert(layer)`                        | Interverts/toggles the state of the specified layer                                                     |
+| `layer_invert(layer)`                        | Inverts/toggles the state of the specified layer                                                        |
 | `layer_or(layer_mask)`                       | Turns on layers based on matching bits between specifed layer and existing layer state.                 |
 | `layer_and(layer_mask)`                      | Turns on layers based on matching enabled bits between specifed layer and existing layer state.         |
 | `layer_xor(layer_mask)`                      | Turns on layers based on non-matching bits between specifed layer and existing layer state.             |
 | `layer_debug(layer_mask)`                    | Prints out the current bit mask and highest active layer to debugger console.                           |
-| `default_layer_set(layer_mask)`              | Directly sets the default layer state (recommended, do not use unless you know what you are doing).     |
+| `default_layer_set(layer_mask)`              | Directly sets the default layer state (avoid unless you know what you are doing).                       |
 | `default_layer_or(layer_mask)`               | Turns on layers based on matching bits between specifed layer and existing default layer state.         |
 | `default_layer_and(layer_mask)`              | Turns on layers based on matching enabled bits between specifed layer and existing default layer state. |
 | `default_layer_xor(layer_mask)`              | Turns on layers based on non-matching bits between specifed layer and existing default layer state.     |
@@ -119,6 +125,54 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
   return state;
 }
+```
+
+### Example: Keycode to cycle through layers
+
+This example shows how to implement a custom keycode to cycle through a range of layers.
+
+```c
+// Define the keycode, `QK_USER` avoids collisions with existing keycodes
+enum keycodes {
+  KC_CYCLE_LAYERS = QK_USER,
+};
+
+// 1st layer on the cycle
+#define LAYER_CYCLE_START 0
+// Last layer on the cycle
+#define LAYER_CYCLE_END   4
+
+// Add the behaviour of this new keycode
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_CYCLE_LAYERS:
+      // Our logic will happen on presses, nothing is done on releases
+      if (!record->event.pressed) { 
+        // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
+        return false;
+      }
+
+      uint8_t current_layer = get_highest_layer(layer_state);
+
+      // Check if we are within the range, if not quit
+      if (current_layer > LAYER_CYCLE_END || current_layer < LAYER_CYCLE_START) {
+        return false;
+      }
+
+      uint8_t next_layer = current_layer + 1;
+      if (next_layer > LAYER_CYCLE_END) {
+          next_layer = LAYER_CYCLE_START;
+      }
+      layer_move(next_layer);
+      return false;
+
+    // Process other keycodes normally
+    default:
+      return true;
+  }
+}
+
+// Place `KC_CYCLE_LAYERS` as a keycode in your keymap
 ```
 
 Use the `IS_LAYER_ON_STATE(state, layer)` and `IS_LAYER_OFF_STATE(state, layer)` macros to check the status of a particular layer.

@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define CHOREOGRAPH(DANCE, PRESS, RELEASE, TAP, DOUBLETAP)              \
     static bool dance_ ## DANCE ## _pressed;                            \
                                                                         \
-    void dance_ ## DANCE ## _finished(qk_tap_dance_state_t *state, void *user_data) { \
+    void dance_ ## DANCE ## _finished(tap_dance_state_t *state, void *user_data) { \
         if (state->count == 1) {                                        \
             if (state->pressed) {                                       \
                 dance_ ## DANCE ## _pressed = true;                     \
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         }                                                               \
     }                                                                   \
                                                                         \
-    void dance_ ## DANCE ## _reset(qk_tap_dance_state_t *state, void *user_data) { \
+    void dance_ ## DANCE ## _reset(tap_dance_state_t *state, void *user_data) { \
         if (state->count == 1) {                                        \
             if (dance_ ## DANCE ## _pressed) {                          \
                 RELEASE;                                                \
@@ -125,7 +125,7 @@ CHOREOGRAPH(TD_RGHT,
             /* Send a complex macro: C-x C-s Mod-t up.  (Save in
              * Emacs, switch to terminal and recall previous command,
              * hopefully a compile command.) */
-            SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_X) SS_TAP(X_S) SS_UP(X_LCTRL)
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_X) SS_TAP(X_S) SS_UP(X_LCTL)
                         SS_DOWN(X_LGUI) SS_TAP(X_T) SS_UP(X_LGUI) SS_TAP(X_UP)),
             layer_invert(1));
 
@@ -134,11 +134,11 @@ CHOREOGRAPH(TD_RGHT,
  * just sends C-x. */
 
 CHOREOGRAPH(TD_C_X,
-            SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_X)),
-            SEND_STRING(SS_UP(X_LCTRL)),
-            SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_X) SS_UP(X_LCTRL)),);
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_X)),
+            SEND_STRING(SS_UP(X_LCTL)),
+            SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_X) SS_UP(X_LCTL)),);
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     STEPS(TD_LEFT), STEPS(TD_RGHT), STEPS(TD_C_X)
 };
 
@@ -191,8 +191,8 @@ void keyboard_post_init_user(void) {
     const pin_t pins[] = {D0, D1, D2};
     uint8_t i, j;
 
-    for (i = 0 ; i < sizeof(pins) / sizeof(pins[0]) + 2 ; i += 1) {
-        for (j = 0 ; j < sizeof(pins) / sizeof(pins[0]) ; j += 1) {
+    for (i = 0 ; i < ARRAY_SIZE(pins) + 2 ; i += 1) {
+        for (j = 0 ; j < ARRAY_SIZE(pins); j += 1) {
             setPinOutput(pins[j]);
             writePin(pins[j], (j == i || j == i - 1));
         }

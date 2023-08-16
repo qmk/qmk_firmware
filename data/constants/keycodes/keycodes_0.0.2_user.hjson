@@ -1,0 +1,132 @@
+{
+    "keycodes": {
+        "0x7E40": {
+            "group": "user",
+            "key": "QK_USER_0",
+        },
+        "0x7E41": {
+            "group": "user",
+            "key": "QK_USER_1",
+        },
+        "0x7E42": {
+            "group": "user",
+            "key": "QK_USER_2",
+        },
+        "0x7E43": {
+            "group": "user",
+            "key": "QK_USER_3",
+        },
+        "0x7E44": {
+            "group": "user",
+            "key": "QK_USER_4",
+        },
+        "0x7E45": {
+            "group": "user",
+            "key": "QK_USER_5",
+        },
+        "0x7E46": {
+            "group": "user",
+            "key": "QK_USER_6",
+        },
+        "0x7E47": {
+            "group": "user",
+            "key": "QK_USER_7",
+        },
+        "0x7E48": {
+            "group": "user",
+            "key": "QK_USER_8",
+        },
+        "0x7E49": {
+            "group": "user",
+            "key": "QK_USER_9",
+        },
+        "0x7E4A": {
+            "group": "user",
+            "key": "QK_USER_10",
+        },
+        "0x7E4B": {
+            "group": "user",
+            "key": "QK_USER_11",
+        },
+        "0x7E4C": {
+            "group": "user",
+            "key": "QK_USER_12",
+        },
+        "0x7E4D": {
+            "group": "user",
+            "key": "QK_USER_13",
+        },
+        "0x7E4E": {
+            "group": "user",
+            "key": "QK_USER_14",
+        },
+        "0x7E4F": {
+            "group": "user",
+            "key": "QK_USER_15",
+        },
+        "0x7E50": {
+            "group": "user",
+            "key": "QK_USER_16",
+        },
+        "0x7E51": {
+            "group": "user",
+            "key": "QK_USER_17",
+        },
+         "0x7E52": {
+            "group": "user",
+            "key": "QK_USER_18",
+        },
+        "0x7E53": {
+            "group": "user",
+            "key": "QK_USER_19",
+        },
+        "0x7E54": {
+            "group": "user",
+            "key": "QK_USER_20",
+        },
+        "0x7E55": {
+            "group": "user",
+            "key": "QK_USER_21",
+        },
+        "0x7E56": {
+            "group": "user",
+            "key": "QK_USER_22",
+        },
+        "0x7E57": {
+            "group": "user",
+            "key": "QK_USER_23",
+        },
+        "0x7E58": {
+            "group": "user",
+            "key": "QK_USER_24",
+        },
+        "0x7E59": {
+            "group": "user",
+            "key": "QK_USER_25",
+        },
+        "0x7E5A": {
+            "group": "user",
+            "key": "QK_USER_26",
+        },       
+        "0x7E5B": {
+            "group": "user",
+            "key": "QK_USER_27",
+        },
+        "0x7E5C": {
+            "group": "user",
+            "key": "QK_USER_28",
+        },
+        "0x7E5D": {
+            "group": "user",
+            "key": "QK_USER_29",
+        },
+        "0x7E5E": {
+            "group": "user",
+            "key": "QK_USER_30",
+        },
+        "0x7E5F": {
+            "group": "user",
+            "key": "QK_USER_31",
+        },
+    }
+}

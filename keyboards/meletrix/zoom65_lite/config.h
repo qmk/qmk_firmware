@@ -16,32 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-#define MATRIX_ROW_PINS { F0, E6, D5, F1, F4 }
-#define MATRIX_COL_PINS { C7, D3, D2, D1, D0, B7, B3, B2, C6, B6, B5, B4, D7, D6, D4 }
-
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* Enable encoder */
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B0 }
-
-#define ENCODERS 1
-
-#define ENCODER_RESOLUTION 2
-
 // Note:  array is { col, row )
 #define ENCODERS_CW_KEY  { { 5, 4 } }
 #define ENCODERS_CCW_KEY { { 3, 4 } }
-
-#define LED_CAPS_LOCK_PIN F7
-#define LED_PIN_ON_STATE 0
-

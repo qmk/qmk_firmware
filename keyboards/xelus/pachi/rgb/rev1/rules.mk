@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32L422
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,7 +14,6 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 EEPROM_DRIVER = i2c
 
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = custom
 
 COMMON_VPATH += $(DRIVER_PATH)/issi
 SRC += drivers/led/issi/is31fl3741.c

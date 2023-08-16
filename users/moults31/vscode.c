@@ -21,67 +21,67 @@ bool process_record_vsc(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case M_VSC_TERMFOCUS:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("`"));
+                SEND_STRING(SS_LCTL("`"));
             }
             break;
         case M_VSC_SIDEBARFOCUS:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("0"));
+                SEND_STRING(SS_LCTL("0"));
             }
             break;
         case M_VSC_SIDEBARCLOSE:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("b"));
+                SEND_STRING(SS_LCTL("b"));
             }
             break;
         case M_VSC_FILECLOSE:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL("w"));
+                SEND_STRING(SS_LCTL("w"));
             }
             break;
         case M_VSC_FILENXT:
             if (record->event.pressed) {
-                SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_K) SS_TAP(X_PGDOWN) SS_UP(X_LCTRL));
+                SEND_STRING(SS_DOWN(X_LEFT_CTRL) SS_TAP(X_K) SS_TAP(X_PAGE_DOWN) SS_UP(X_LEFT_CTRL));
             }
             break;
         case M_VSC_FILEPRV:
             if (record->event.pressed) {
-                SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_K) SS_TAP(X_PGUP) SS_UP(X_LCTRL));
+                SEND_STRING(SS_DOWN(X_LEFT_CTRL) SS_TAP(X_K) SS_TAP(X_PGUP) SS_UP(X_LEFT_CTRL));
             }
             break;
         case M_VSC_DBGCNSLFOCUS:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_D))));
+                SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_D))));
             }
             break;
         case M_VSC_MVEDTRNXTGRP:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_RIGHT))));
+                SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_RIGHT))));
             }
             break;
         case M_VSC_MVEDTRPRVGRP:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_LEFT))));
+                SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_LEFT))));
             }
             break;
         case M_VSC_EDGRPNXT:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_L))));
+                SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_L))));
             }
             break;
         case M_VSC_EDGRPPRV:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_K))));
+                SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_K))));
             }
             break;
         case M_VSC_VIEWSIZEINC:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_P))));
+                SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_P))));
             }
             break;
         case M_VSC_VIEWSIZEDEC:
             if (record->event.pressed) {
-                SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_O))));
+                SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_O))));
             }
             break;
     }

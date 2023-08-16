@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 #ifdef RGB_MATRIX_ENABLE
-#    define DRIVER_LED_TOTAL 24
+#    define RGB_MATRIX_LED_COUNT 24
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

@@ -28,7 +28,7 @@ void bootmagic_lite(void) {
     if (!is_keyboard_left()) {
         row = BOOTMAGIC_LITE_ROW_RIGHT;
         col = BOOTMAGIC_LITE_COLUMN_RIGHT;
-#if defined(BOOTMAGIC_LITE_EEPROM_ROW) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN) && defined(BOOTMAGIC_LITE_EEPROM_ROW_RIGHT) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN_RIGHT)
+#    if defined(BOOTMAGIC_LITE_EEPROM_ROW) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN) && defined(BOOTMAGIC_LITE_EEPROM_ROW_RIGHT) && defined(BOOTMAGIC_LITE_EEPROM_COLUMN_RIGHT)
         row_e = BOOTMAGIC_LITE_EEPROM_ROW_RIGHT;
         col_e = BOOTMAGIC_LITE_EEPROM_COLUMN_RIGHT;
 #    endif
@@ -44,7 +44,7 @@ void bootmagic_lite(void) {
     if (matrix_get_row(row) & (1 << col)) {
         perform_reset = true;
     }
-#ifdef STM32F411xE
+#if defined(STM32F411xE) && !defined(CONVERTER_ENABLED)
     if (!readPin(A0)) {
         perform_reset = true;
     }

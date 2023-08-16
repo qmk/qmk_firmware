@@ -8,14 +8,29 @@
         "pid": "0x4E34",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "B5"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B1", "pin_b": "B3"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["C6", "D7", "E6", "B4", "F6"]
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":0, "y":0},
-                {"x":1, "y":0},
-                {"x":2, "y":0},
-                {"x":3, "y":0},
-                {"x":4, "y":0}
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 3, "y": 0, "matrix": [0, 3]},
+                {"x": 4, "y": 0, "matrix": [0, 4]}
             ]
         }
     }

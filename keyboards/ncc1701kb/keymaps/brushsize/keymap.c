@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [1] = LAYOUT(
   BL_TOGG,  KC_TRNS, BL_BRTG,
-  BL_INC, BL_DEC,   BL_STEP,
+  BL_UP,  BL_DOWN,  BL_STEP,
   BL_ON,   BL_OFF,  KC_TRNS
 )
 

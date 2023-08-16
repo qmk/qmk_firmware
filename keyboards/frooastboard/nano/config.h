@@ -16,16 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 2
-
-#define BOOTMAGIC_LITE_ROW 1
-#define BOOTMAGIC_LITE_COLUMN 1
-
-#define RGB_DI_PIN B4
 #define RGBLED_NUM 8
 
 #define RGBLIGHT_SLEEP
@@ -36,7 +26,6 @@
 
 #define RGBLIGHT_DEFAULT_HUE 234
 
-#define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_DEFAULT_VAL 190
 
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

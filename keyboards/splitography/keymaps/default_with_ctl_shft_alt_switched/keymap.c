@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                             └──────┴──────┴──────┴──────┘
 
     [_ORANGE] = LAYOUT(
-        PLOVER,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, KC_APP,  KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, XXXXXXX,
+        PLOVER,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   XXXXXXX, KC_APP,  KC_PSCR, KC_SCRL, KC_PAUS, XXXXXXX, XXXXXXX,
         KC_LCTL, KC_F5,   KC_F6,   KC_F7,   KC_F8,   XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGUP, XXXXXXX, XXXXXXX,
         KC_LALT, KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_DEL,  KC_END,  KC_PGDN, KC_BSLS, KC_LGUI,
                                             _______, BLUE,    KC_TAB,  KC_LSFT
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //                             └──────┴──────┴──────┴──────┘
 
     [_GREEN] = LAYOUT(
-        TXBOLT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLCK, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_MINS, XXXXXXX,
+        TXBOLT,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SCRL, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_MINS, XXXXXXX,
         KC_LCTL, KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_CAPS, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, KC_ENT ,
         KC_LALT, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, TG_NUM,  KC_P0,   KC_P1,   KC_P2,   KC_P3,   XXXXXXX, KC_LGUI,
                                             _______, _______, XXXXXXX, KC_LSFT

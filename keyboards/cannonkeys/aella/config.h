@@ -17,21 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
-
-#define MATRIX_COL_PINS { A5, B0, B1, B2, B10, A9, C13, B9, B8, B7, B6, B5, B4, B3, A15, A14 }
-#define MATRIX_ROW_PINS { A13, B12, B11, B14, A8, A7 }
-#define DIODE_DIRECTION COL2ROW
-
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
