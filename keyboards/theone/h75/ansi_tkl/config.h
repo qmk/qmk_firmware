@@ -1,29 +1,20 @@
-
+// Copyright 2023 Persama (@Persama)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 8 /* 按键矩阵层数（超过4层需要在这里定义） This is 4 by default. */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8  //  This is 4 by default.
 
-// This is the size of the EEPROM for the custom VIA-specific data
-#define EECONFIG_USER_DATA_SIZE    8  // 定义保存至EEPROM的用户数据
+#define EECONFIG_USER_DATA_SIZE    8  // This is the size of the EEPROM for the custom VIA-specific data
 
-#define RGB_MATRIX_LED_COUNT       89  // RGB总灯数 (81轴灯+8侧灯)
-
-#if (0)
-#define WS2812_PWM_DRIVER   PWMD3  // default: PWMD2
-#define WS2812_PWM_CHANNEL  2      // default: 2
-#define WS2812_PWM_PAL_MODE 1      // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
-// #define WS2812_PWM_COMPLEMENTARY_OUTPUT        // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
-#define WS2812_DMA_STREAM   STM32_DMA1_STREAM3  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#define WS2812_DMA_CHANNEL  3                   // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#endif
+#define RGB_MATRIX_LED_COUNT       89
 
 #define RGB_MATRIX_CENTER \
     {                     \
         112, 30           \
-    }                                      // 按键中心位置
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 130  // 最大亮度
-#define RGB_MATRIX_VAL_STEP           26   // 用于亮度等级(最大128)(5级)
-#define RGB_MATRIX_SPD_STEP           52   // 用于速度等级(最大256)(5级)
+    }
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 130
+#define RGB_MATRIX_VAL_STEP           26
+#define RGB_MATRIX_SPD_STEP           52
 
 #define RGB_MATRIX_DEFAULT_MODE       RGB_MATRIX_CYCLE_LEFT_RIGHT  // Sets the default mode, if none has been set
 #define RGB_DISABLE_WHEN_USB_SUSPENDED                             // turn off effects when suspended
