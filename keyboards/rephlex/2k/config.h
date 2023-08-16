@@ -12,7 +12,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #define BOOTMAGIC_LITE_COLUMN 0
 
 #define DEBOUNCE 0
-#define DEBUG_MATRIX
+/*#define DEBUG_MATRIX*/
 #define DEBUG_MATRIX_SCAN_RATE
 
 #define ADC_RESOLUTION 12
