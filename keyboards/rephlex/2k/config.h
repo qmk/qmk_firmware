@@ -78,7 +78,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_KEYRELEASES
 
 #define I2C1_SCL_PIN GP19
 #define I2C1_SDA_PIN GP18
