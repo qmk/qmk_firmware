@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // disable backlight after timeout in minutes, 0 = no timeout
 // #define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
+#define RGB_MATRIX_STARTUP_MODE ENABLE_RGB_MATRIX_BAND_VAL
 
 #define DRIVER_ADDR_1 0b1010000
 // #define DRIVER_ADDR_2 0b1010000  // this is here for compliancy reasons.
@@ -46,15 +46,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
-#define RGB_MATRIX_KEYPRESSES
+// #define RGB_MATRIX_KEYPRESSES
 
 // #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 
-#define ENABLE_RGB_MATRIX_BAND_SAT
+// #define ENABLE_RGB_MATRIX_BAND_SAT
 #define ENABLE_RGB_MATRIX_BAND_VAL
 // #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-// #define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-// #define ENABLE_RGB_MATRIX_MULTISPLASH
+#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+#define ENABLE_RGB_MATRIX_MULTISPLASH
 
 
 #define SPLIT_TRANSPORT_MIRROR

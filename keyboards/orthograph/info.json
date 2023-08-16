@@ -3,7 +3,7 @@
     "url": "https://github.com/vladkvit",
     "maintainer": "vladkvit",
     "manufacturer": "vladkvit",
-    "debounce": 3,
+    "debounce": 4,
     "usb": {
         "vid": "0x564B",
         "pid": "0x0602",
@@ -68,6 +68,8 @@
             {"matrix":[6, 4], "flags":4, "x":160,  "y":0},
             {"matrix":[6, 5], "flags":4, "x":176,  "y":0},
             {"matrix":[6, 6], "flags":4, "x":192,  "y":0},
+
+
             {"matrix":[7, 0], "flags":4, "x":96,  "y":12},
             {"matrix":[7, 1], "flags":4, "x":112,  "y":12},
             {"matrix":[7, 2], "flags":4, "x":128,  "y":12},
