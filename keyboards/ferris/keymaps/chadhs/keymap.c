@@ -17,6 +17,8 @@ enum custom_keycodes {
     KVM_2,
     KVM_3,
     KVM_4,
+    VIM_CTLU,
+    VIM_CTLD,
 };
 
 /* thumb mods */
@@ -106,21 +108,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
     |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | KVM1 | KVM2 | KVM3 | KVM4 | ^    |            | ←    | ↓    | ↑    | →    |      |
+    |      |      | VIUP | VIDN |      |            | ←    | ↓    | ↑    | →    |      |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | RGB  |      |      |      |      |            | F11  | F12  | PGDN | PGUP | GAME |
-    | TOG  |      |      |      |      |            | VolD | VolU |      |      | TOG  |
+    | KVM1 | KVM2 | KVM3 | KVM4 |      |            | F11  | F12  | ^    | RBG  | GAME |
+    |      |      |      |      |      |            | VolD | VolU |      | TOG  | TOG  |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
                             | ↓↓↓  | ESC  |      | ↓↓↓  | ↓↓↓  |
                             |      |      |      |      |      |
                             '------'------'      '------'------'
 */
-    KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV,  KC_MPLY, KC_MNXT,  KC_MUTE,
-    KVM_1,   KVM_2,    KVM_3,   KVM_4,   KC_CIRC,      KC_LEFT, KC_DOWN,  KC_UP,   KC_RIGHT, XXXXXXX,
-    RGB_TOG, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU,  KC_PGDN, KC_PGUP,  GAME_TOG,
-                                _______, KC_ESC,       _______, _______
+    KC_F1,   KC_F2,   KC_F3,    KC_F4,    KC_F5,        KC_F6,   KC_MPRV,  KC_MPLY, KC_MNXT,  KC_MUTE,
+    XXXXXXX, XXXXXXX, VIM_CTLU, VIM_CTLD, XXXXXXX,      KC_LEFT, KC_DOWN,  KC_UP,   KC_RIGHT, XXXXXXX,
+    KVM_1,   KVM_2,   KVM_3,    KVM_4,    XXXXXXX,      KC_VOLD, KC_VOLU,  KC_CIRC, RGB_TOG,  GAME_TOG,
+                                _______,  KC_ESC,       _______, _______
   ),
     [_GAME] = LAYOUT(
 /*
@@ -192,6 +194,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KVM_4:
             if (record->event.pressed) {
                 SEND_STRING(SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_RCTL) SS_DELAY(100) SS_TAP(X_4));
+            }
+            break;
+        case VIM_CTLU:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("u"));
+            }
+            break;
+        case VIM_CTLD:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL("d"));
             }
             break;
     }
