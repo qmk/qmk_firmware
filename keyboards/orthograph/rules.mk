@@ -1,5 +1,3 @@
-# MCU name
-MCU = atmega32u4
 
 # Bootloader selection
 #   Teensy       halfkay
@@ -9,7 +7,6 @@ MCU = atmega32u4
 #   QMK DFU      qmk-dfu
 #   ATmega32A    bootloadHID
 #   ATmega328P   USBasp
-BOOTLOADER = atmel-dfu
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
@@ -30,9 +27,6 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-SPLIT_KEYBOARD = yes
-
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = IS31FL3733
 
 DEBOUNCE_TYPE = asym_eager_defer_pk
