@@ -15,7 +15,6 @@ KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+m
 
 SERIAL_DRIVER = usart
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
 
 DEFAULT_FOLDER = tkw/grandiceps/rev1

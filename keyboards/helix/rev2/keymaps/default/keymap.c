@@ -340,20 +340,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
-
 void matrix_init_user(void) {
     #ifdef AUDIO_ENABLE
         startup_user();
     #endif
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_get_mode();
-    #endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
 

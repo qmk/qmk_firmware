@@ -3,7 +3,6 @@ RGBLIGHT_ENABLE = no
 TAP_DANCE_ENABLE = yes
 MOUSEKEY_ENABLE = no
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 
 # Link Time Optimization (Reduces compiled size)

@@ -8,6 +8,9 @@
         "pid": "0x7C99",
         "device_version": "0.0.1"
     },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
     "rgblight": {
         "led_count": 4
     },
