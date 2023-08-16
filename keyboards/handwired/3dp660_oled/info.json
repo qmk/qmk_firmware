@@ -10,7 +10,12 @@
         "console": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "oled": true,
+        "nkro": true,
+        "wpm": true
+    },
+    "build": {
+        "lto": true
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6"],
