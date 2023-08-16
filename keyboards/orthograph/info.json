@@ -2,6 +2,7 @@
     "keyboard_name": "Orthograph",
     "url": "https://github.com/vladkvit",
     "maintainer": "vladkvit",
+    "manufacturer": "vladkvit",
     "debounce": 3,
     "usb": {
         "vid": "0x564B",
