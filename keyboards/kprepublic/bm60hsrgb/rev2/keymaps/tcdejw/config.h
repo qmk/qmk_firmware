@@ -16,8 +16,6 @@
 #pragma once
 
 // disable not used functions for more space
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT
 #define NO_RESET
 #undef LOCKING_SUPPORT_ENABLE   //For MX lock keys only.
