@@ -11,6 +11,7 @@
 #define CUT      LCTL(KC_X)
 #define SFT_QT   LSFT(RALT(KC_DQT))
 #define ALT_SQT  RALT(KC_QUOT)
+#define ALT_SPC  LALT_T(KC_SPC)
 
 enum layers {
     _COLEMAK_DH = 0,
@@ -43,9 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 	[_COLEMAK_DH] = LAYOUT(
             KC_Q,KC_W        ,KC_F        ,KC_P        ,KC_B,                           KC_J  ,KC_L        ,KC_U        ,KC_Y        ,KC_SCLN ,
-            KC_Aaaaaaaaaaaaaaa,LALT_T(KC_R),LSFT_T(KC_S),LCTL_T(KC_T),KC_G,                   KC_M  ,RCTL_T(KC_N),RSFT_T(KC_E),LALT_T(KC_I),LGUI_T(KC_O),
+            KC_A,LALT_T(KC_R),LSFT_T(KC_S),LCTL_T(KC_T),KC_G,                           KC_M  ,RCTL_T(KC_N),RSFT_T(KC_E),LALT_T(KC_I),LGUI_T(KC_O),
             KC_Z,KC_X        ,KC_C        ,KC_D        ,KC_V,                           KC_K  ,KC_H        ,KC_COMM     ,KC_DOT      ,KC_SLSH ,
-                                           SYM         ,KC_SPC,                         KC_ENT,NAV
+                                           SYM         ,ALT_SPC,                         KC_ENT,NAV
             ),
 /*
 * Gaming: Gaming layer
@@ -112,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |------+------+------+------+------|                              |-------+------+------+------+------|
 * |  GUI | Alt  |Shift | Ctrl |RGBTOG|                              |Gaming | Ctrl |Shift |  Alt | F11  |
 * |------+------+------+------+------|                              |-------+------+------+------+------|
-* |      |      |      |      |Adjust|                              |Colemak|Vol Up|Vol DN| Mute | F12  |
+* |Prtscr|      |      |      |Adjust|                              |Colemak|Vol Up|Vol DN| Mute | F12  |
 * `--------------------+------+------|                              |------+------+------+------+-------'
 *                      |      |      |                              |      |      |
 *                      `-------------'                              `-------------'
@@ -120,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_FUNCTION] = LAYOUT(
         KC_F1  ,  KC_F2 ,  KC_F3 ,  KC_F4 ,  KC_F5 ,                                     KC_F6   ,  KC_F7 ,  KC_F8 ,  KC_F9 , KC_F10 ,
         KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, RGB_TOG,                                     GAMING  , KC_LCTL, KC_LSFT, KC_LALT, KC_F11 ,
-        _______, _______, _______, _______, ADJUST ,                                     COLEMAK , KC_VOLU, KC_VOLD, KC_MUTE, KC_F12 ,
+        KC_PSCR, _______, _______, _______, ADJUST ,                                     COLEMAK , KC_VOLU, KC_VOLD, KC_MUTE, KC_F12 ,
                                    _______, _______,                                     _______ , _______
 ),
 /*
