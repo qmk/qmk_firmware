@@ -77,17 +77,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     commonly used symbols:
     - javascript: ( ) { } ; = > / [ ] + _ |
     - clojure:    ( ) [ ] : ; / { } - > = _ +
-    - misc/nav:   ^ |
+    - misc/nav:   $ % ~ | ^
 
     .------.------.------.------.------.            .------.------.------.------.------.
     | 1 !  | 2 @  | 3 #  | 4 $  | 5 %  |            | 6 ^  | 7 &  | 8 *  | 9 (  | 0 )  |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | ` ~  | {    | }    |      | ~    |            | ^    | +    | (    | )    | ' "  |
+    | `    | {    | }    | $    | %    |            | +    | -    | (    | )    | ' "  |
     | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
     |------+------+------+------+------|            |------+------+------+------+------|
-    |      |      |      | >    |      |            | - _  | = +  | [ {  | ] }  | \ |  |
-    | SFT  | .    | ,    |      |      |            |      |      |      |      | SFT  |
+    |      | <    | >    | ~    | |    |            | &    | =    | [    | ]    | \ |  |
+    | SFT  |      |      |      |      |            |      |      |      |      | SFT  |
     '------'------'------'------'------'            '------'------'------'------'------'
                             .------.------.      .------.------.
                             | ↓↓↓  | ↓↓↓  |      | ↓↓↓  | ↓↓↓  |
@@ -95,9 +95,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             '------'------'      '------'------'
 */
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,         KC_6,    KC_7,    KC_8,    KC_9,     KC_0,
-    HOME_BT, KC_LCBR, KC_RCBR, XXXXXXX, KC_TILD,      KC_CIRC, KC_PLUS, KC_LPRN, KC_RPRN, HOME_QT,
-    KC_LSFT, KC_DOT,  KC_COMM, KC_RABK, XXXXXXX,      KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC,  SFT_BSLS,
-                               KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS
+    HOME_BT, KC_LCBR, KC_RCBR, KC_DLR,  KC_PERC,      KC_PLUS, KC_MINS, KC_LPRN, KC_RPRN, HOME_QT,
+    KC_LSFT, KC_LABK, KC_RABK, KC_TILD, KC_PIPE,      KC_AMPR, KC_EQL,  KC_LBRC, KC_RBRC,  SFT_BSLS,
+                               _______, _______,      _______, _______
   ),
 
     [_FUN_NAV] = LAYOUT(
@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     | F1   | F2   | F3   | F4   | F5   |            | F6   | F7   | F8   | F9   | F10  |
     |      |      |      |      |      |            |      | Prev | Play | Next | Mute |
     |------+------+------+------+------|            |------+------+------+------+------|
-    | KVM1 | KVM2 | KVM3 | KVM4 |      |            | ←    | ↓    | ↑    | →    |      |
+    | KVM1 | KVM2 | KVM3 | KVM4 | ^    |            | ←    | ↓    | ↑    | →    |      |
     |      |      |      |      |      |            |      |      |      |      |      |
     |------+------+------+------+------|            |------+------+------+------+------|
     | RGB  |      |      |      |      |            | F11  | F12  | PGDN | PGUP | GAME |
@@ -118,9 +118,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             '------'------'      '------'------'
 */
     KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV,  KC_MPLY, KC_MNXT,  KC_MUTE,
-    KVM_1,   KVM_2,    KVM_3,   KVM_4,   XXXXXXX,      KC_LEFT, KC_DOWN,  KC_UP,   KC_RIGHT, XXXXXXX,
+    KVM_1,   KVM_2,    KVM_3,   KVM_4,   KC_CIRC,      KC_LEFT, KC_DOWN,  KC_UP,   KC_RIGHT, XXXXXXX,
     RGB_TOG, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU,  KC_PGDN, KC_PGUP,  GAME_TOG,
-                                KC_TRNS, KC_ESC,       KC_TRNS, KC_TRNS
+                                _______, KC_ESC,       _______, _______
   ),
     [_GAME] = LAYOUT(
 /*
@@ -163,9 +163,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             '------'------'      '------'------'
 */
     KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,
-    KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
-    KC_TRNS, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, KC_TRNS,
-                                KC_TRNS, KC_TRNS,      KC_TRNS, KC_TRNS
+    _______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, KC_BSLS, KC_LBRC, KC_RBRC, XXXXXXX,
+    _______, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,      KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, _______,
+                                _______, _______,      _______, _______
 )
 
 };
