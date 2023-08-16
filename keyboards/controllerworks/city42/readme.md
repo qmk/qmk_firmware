@@ -1,5 +1,5 @@
 # city42
-![city42](https://i.imgur.com/YZNW4EZ.jpg)
+![city42](https://i.imgur.com/YZNW4EZh.jpg)
 *A pre-built, low profile, unibody split keyboard based on the RP2040 processor*
 * Keyboard Maintainer: [Kevin Gee](https://github.com/controller-works)
 * Hardware Supported: *city42 split unibody ergonomic keyboard*
