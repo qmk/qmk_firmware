@@ -202,28 +202,26 @@ void keyboard_post_init_user(void) {
  * Currently this function is only used to support the custom implementation
  * of RGB lighting.
  *
- * ``RGB_TOG`` is supposed to toggle the LEDs on/off, but this is not working
- * as expected. Instead, the (keymap-specific) flag ``lighting_on`` is used to
- * keep track of the lighting status, which is then picked up in
- * ``rgb_matrix_indicators_user()`` below.
- * This does work well enough for now.
- *
- * My rough guess would be, that this is not working because I messed something
- * up in my ``config.h``.
+ * ``RGB_TOG`` and ``RGB_MOD`` are handled specifically here to support the
+ * custom lightning setup, which is indicating shortcut keys.
  */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
 #ifdef RGB_MATRIX_ENABLE
         case RGB_TOG:
-            // RGB_TOG is not working as expected. Nonetheless, pass the
-            // keycode down the line for further processing.
+            // The V4's code base has some special handling of ``RGB_TOG``
+            // which interferes with the custom lightning in this setup.
+            //
+            // @drashna provided an easy enough solution
+            // (https://github.com/qmk/qmk_firmware/pull/21726#discussion_r1295541346)
+            // Thx!
             if (!record->event.pressed) {
                 lighting_on = !lighting_on;
             }
-            return true;
+
+            rgb_matrix_toggle();
+            return false;
         case RGB_MOD:
-            // RGB_MOD is not working as expected. Nonetheless, pass the
-            // keycode down the line for further processing.
             if (!record->event.pressed) {
                 // Just cycle through the modes forward.
                 // TODO: Enable backwards cycling through Shift/Alt?
@@ -247,9 +245,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * All pre-defined RGB matrix effects are disabled in ``rules.mk``. The purpose
  * of this function is to indicate the currently active layer using the RGB
  * matrix.
- *
- * TODO: Use the LED color to indicate the actual layer, but only apply it to
- *       relevant keys.
  */
 bool rgb_matrix_indicators_user(void) {
     if (!lighting_on) {
