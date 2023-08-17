@@ -28,9 +28,3 @@ typedef struct {
     bool    continuous_dynamic_actuation;
 } key_t;
 extern key_t keys[MATRIX_ROWS][MATRIX_COLS];
-
-#ifdef VIA_ENABLE
-void via_config_set_value(uint8_t *data);
-
-void via_config_get_value(uint8_t *data);
-#endif

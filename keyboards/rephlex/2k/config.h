@@ -8,8 +8,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 #define EECONFIG_KB_DATA_SIZE 6
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
 
 #define DEBOUNCE 0
 #define DEBUG_MATRIX_SCAN_RATE
@@ -20,9 +18,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 2
-#define MATRIX_PINS {{ GP26, GP27 }}
 
-#define TAPPING_TERM 135
 
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
