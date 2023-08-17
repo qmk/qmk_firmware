@@ -8,8 +8,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 #define EECONFIG_KB_DATA_SIZE 6
 
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
 
 #define DEBOUNCE 0
 /*#define DEBUG_MATRIX*/
