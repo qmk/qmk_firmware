@@ -8,7 +8,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 #define EECONFIG_KB_DATA_SIZE 6
 
-
 #define DEBOUNCE 0
 #define DEBUG_MATRIX_SCAN_RATE
 

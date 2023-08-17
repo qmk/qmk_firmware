@@ -42,7 +42,6 @@ void values_save(void) {
 
 void keyboard_post_init_kb(void) {
     values_load();
-    keyboard_post_init_kb()
 }
 
 #ifdef VIA_ENABLE
