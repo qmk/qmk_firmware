@@ -3,7 +3,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "quantum.h"
 #include "2k.h"
 #include "analog.h"
-#include "config.h"
 
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 void get_sensor_offsets(uint16_t rest_adc_value) {
