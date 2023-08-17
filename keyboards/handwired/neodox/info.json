@@ -44,7 +44,6 @@
     "split": {
         "enabled": true,
         "transport": {
-            "protocol": "serial",
             "sync_matrix_state": true,
             "watchdog": true
         }
