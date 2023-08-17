@@ -21,7 +21,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #define MATRIX_COLS 2
 #define MATRIX_PINS {{ GP26, GP27 }}
 
-#define TAPPING_TERM 135
 
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
