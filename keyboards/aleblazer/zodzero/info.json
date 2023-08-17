@@ -11,6 +11,13 @@
         "pid": "0xF911",
         "device_version": "0.0.1"
     },
+    "rgb_matrix": {
+        "driver": "ws2812"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP0"
+    },
     "encoder": {
         "rotary": [
                 {"pin_a": "GP28", "pin_b": "GP29", "resolution": 3}
