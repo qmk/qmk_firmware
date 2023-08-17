@@ -8,12 +8,13 @@ A split keyboard with 4x8 including a thumbcluster, encoders on each side (Panas
 * Hardware Supported: RP2040-Zero
 * Hardware Availability: [Split Logic Keyboards](https://splitlogic.xyz/)
 
-## Make example for this keyboard (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
     make aleblazer/zodzero:default
 
-## Flashing example for this keyboard:
-    make aleblazer/zodzero:default: flash
+Flashing example for this keyboard:
+
+    make aleblazer/zodzero:default:flash
     
 ## Bootloader
 
