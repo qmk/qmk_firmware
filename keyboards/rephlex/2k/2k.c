@@ -14,7 +14,7 @@ void         bootmagic_lite(void) {
     }
 }
 
-#ifdef DEBUG_MATRIX
+#ifdef CONSOLE_ENABLE
 static uint8_t i = 0;
 void           housekeeping_task_user(void) {
     if (i == 0) {
@@ -31,14 +31,7 @@ void           housekeeping_task_user(void) {
 }
 #endif
 
-analog_config g_config = {
-    .mode                = 1,
-    .actuation_point     = 32,
-    .press_sensitivity   = 32,
-    .release_sensitivity = 32,
-    .press_hysteresis    = 5,
-    .release_hysteresis  = 5
-};
+analog_config g_config = {.mode = 1, .actuation_point = 32, .press_sensitivity = 32, .release_sensitivity = 32, .press_hysteresis = 5, .release_hysteresis = 5};
 
 #ifdef VIA_ENABLE
 void values_load(void) {
