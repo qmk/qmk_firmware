@@ -11,7 +11,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "scanfunctions.h"
 
 pin_t         matrix_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
-analog_config g_config                              = {.mode = 1, .actuation_point = 32, .press_sensitivity = 32, .release_sensitivity = 32, .press_hysteresis = 5, .release_hysteresis = 5};
+analog_config g_config                              = {.mode = 1, .actuation_point = 32, .press_sensitivity = 32, .release_sensitivity = 32, .press_hysteresis = 0, .release_hysteresis = 5};
 key_t         keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
 
 void matrix_init_custom(void) {

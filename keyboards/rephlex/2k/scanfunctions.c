@@ -27,11 +27,11 @@ void deregister_key(matrix_row_t *current_row, uint8_t current_col) {
 
 void matrix_read_cols_static_actuation(matrix_row_t *current_row, uint8_t current_col, key_t *key) {
     if (*current_row & (1 << current_col)) {
-        if (key->value < g_config.actuation_point - g_config.release_hysteresis) {
+        if (key->value < MAX(g_config.actuation_point - g_config.release_hysteresis, 0)) {
             deregister_key(current_row, current_col);
         }
     } else {
-        if (key->value > g_config.actuation_point + g_config.press_hysteresis) {
+        if (key->value > MIN(g_config.actuation_point + g_config.press_hysteresis, 255)) {
             register_key(current_row, current_col);
         }
     }
