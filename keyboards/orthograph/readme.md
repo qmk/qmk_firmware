@@ -15,3 +15,11 @@ Flashing example for this keyboard:
     I used QMK Toolbox. Do not forget to flash EEPROM with handedness on both sides!
 
 The reset button is on the underside of each half of the keyboard.
+
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (Escape) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the back of the PCB
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
