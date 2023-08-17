@@ -31,13 +31,22 @@
     },
     "processor": "RP2040",
     "rgblight": {
-        "led_count": 15
+        "led_count": 15,
+        "hue_steps": 8,
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "max_brightness": 150,
+        "sleep": true,
+        "split": true,
+        "layers": {
+            "enabled": true
+        }
     },
     "split": {
         "enabled": true,
         "transport": {
             "protocol": "serial",
-            "sync_matrix_state": false,
+            "sync_matrix_state": true,
             "watchdog": true
         }
     },
