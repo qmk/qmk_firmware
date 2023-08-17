@@ -1,5 +1,5 @@
 /*
-Copyright 2023 Mechlovin'
+Copyright 2021 mechlovin
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,7 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 19
+#define MATRIX_ROW_PINS { D5, D6, A5, A4, A3, A6}
