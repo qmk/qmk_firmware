@@ -665,14 +665,14 @@ void suspend_power_down_user(void) {
 
 #ifdef QUANTUM_PAINTER_ENABLE
     qp_power(lcd, false);
-    #endif
+#endif
 }
 
 void suspend_wakeup_init_user(void) {
 
 #ifdef QUANTUM_PAINTER_ENABLE
     qp_power(lcd, true);
-    #endif
+#endif
 #ifdef RGB_LIGHT_ENABLE
     rgblight_set_suspend_state(false);
 #endif
