@@ -7,12 +7,12 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "print.h"
 #include "quantum.h"
 #include "analog.h"
-#include "2k.h"
 #include "lut.h"
 #include "scanfunctions.h"
 
-pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
-key_t keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
+pin_t         matrix_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+analog_config g_config                              = {.mode = 1, .actuation_point = 32, .press_sensitivity = 32, .release_sensitivity = 32, .press_hysteresis = 5, .release_hysteresis = 5};
+key_t         keys[MATRIX_ROWS][MATRIX_COLS]        = {0};
 
 void matrix_init_custom(void) {
     generate_lut();
@@ -31,7 +31,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
             key_t *key = &keys[current_row][current_col];
             key->value = lut[analogReadPin(matrix_pins[current_row][current_col]) + key->offset];
-            key->value = min(key->value * CALIBRATION_RANGE / lut[1100 + key->offset], 255);
+            key->value = MIN(key->value * CALIBRATION_RANGE / lut[1100 + key->offset], 255);
 
             switch (g_config.mode) {
                 case dynamic_actuation:

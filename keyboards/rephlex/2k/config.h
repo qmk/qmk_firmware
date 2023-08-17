@@ -15,11 +15,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 
 #define CALIBRATION_RANGE 255
 
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 2
-
-
-
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255

@@ -1,7 +1,7 @@
 /* Copyright 2023 RephlexZero (@RephlexZero)
 SPDX-License-Identifier: GPL-2.0-or-later */
 #include "quantum.h"
-#include "2k.h"
+#include "analogkeys.h"
 #include "analog.h"
 
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
@@ -11,14 +11,6 @@ void get_sensor_offsets(uint16_t rest_adc_value) {
             keys[i][j].offset = rest_adc_value - analogReadPin(matrix_pins[i][j]);
         }
     }
-}
-
-int min(int a, int b) {
-    return a < b ? a : b;
-}
-
-int max(int a, int b) {
-    return a > b ? a : b;
 }
 
 void update_extremum(key_t *key) {

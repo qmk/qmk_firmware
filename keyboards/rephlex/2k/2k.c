@@ -5,6 +5,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "quantum.h"
 #include "analog.h"
 #include "eeprom.h"
+#include "analogkeys.h"
 
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 void         bootmagic_lite(void) {
@@ -13,7 +14,7 @@ void         bootmagic_lite(void) {
     }
 }
 
-#ifdef CONSOLE_ENABLE
+#ifdef DEBUG_ENABLE
 static uint8_t i = 0;
 void           housekeeping_task_user(void) {
     if (i == 0) {
@@ -29,8 +30,6 @@ void           housekeeping_task_user(void) {
     i++;
 }
 #endif
-
-analog_config g_config = {.mode = 1, .actuation_point = 32, .press_sensitivity = 32, .release_sensitivity = 32, .press_hysteresis = 5, .release_hysteresis = 5};
 
 void values_load(void) {
     eeconfig_read_kb_datablock(&g_config);

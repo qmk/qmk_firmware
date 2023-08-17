@@ -10,6 +10,7 @@
     "mousekey": false,
     "extrakey": false,
     "console": false,
+    "debug": false,
     "command": true,
     "nkro": true,
     "rgb_matrix": true,
