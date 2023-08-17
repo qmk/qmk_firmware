@@ -320,7 +320,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 
-
+#ifdef __SCROLL_THUMB__
         case THUMB_L3:
             if (__TAPPED__ && __PRESSED__) {
                 tap_code16(KC_DEL);
@@ -331,7 +331,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-
+#endif
         // CLOSING BRACKET PAIRS
         case BRKT:
             if (__PRESSED__) {
