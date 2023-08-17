@@ -74,14 +74,10 @@ enum base_layer_mode {
  *   - [fn1] toggles ``LAYER_EDIT``
  *   - [fn + fn1] toggles ``LAYER_CTRL``
  *
- * As the DIP switch is disabled, the Mac-specific layers were removed.
+ * As the DIP switch is disabled (see ``rules.mk``), the Mac-specific layers
+ * were removed.
  *
- * TODO: Use ``LAYER_EDIT`` for basic editing operations
- *         - ``KC_INS``, ``KC_DEL``
- *           - ``KC_DEL`` might be placed **additionally** on
- *             ``LAYER_MOVE`` -> ``D`` as this is a quite common thing...
- *
- * Reference EMPTY LAYER
+ * Reference EMPTY LAYER (yank 6 lines):
 
     [LAYER_NAME] = LAYOUT_iso_62(
         _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -224,7 +220,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RGB_MOD:
             if (!record->event.pressed) {
                 // Just cycle through the modes forward.
-                // TODO: Enable backwards cycling through Shift/Alt?
                 if ((base_layer_mode + 1) >= BASE_MODE_MAX) {
                     base_layer_mode = BASE_MODE_DEFAULT;
                 } else {
