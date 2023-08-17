@@ -6,18 +6,15 @@
 # Keychron's default keymap is not working and the first layer will be applied
 # as the default to the keyboard.
 #
-# TODO: This might be used for something different...
-#       See https://github.com/qmk/qmk_firmware/blob/master/docs/feature_dip_switch.md
-#       THIS WILL ALSO ENABLE Keychron's default function for switching layers
-#       depending on the position of the DIP, but that function is meant to be
-#       overridden by keymap specific code (see ``keyboards/keychron/v4/v4.c``),
+# The DIP switch may be used for a different purpose by implementing
+# ``dip_switch_update_user(uint8_t index, bool active)`` in ``keymap.c``.
 DIP_SWITCH_ENABLE = no
 
-# The V4's keyboard code enables Mouse Keys (https://docs.qmk.fm/#/feature_mouse_keys),
-# but that feature is not used in this keymap.
+# The V4's keyboard code enables Mouse Keys but that feature is not used in
+# this keymap.
 MOUSEKEY_ENABLE = no
 
 # Enable Link Time Optimization (LTO) to reduce build size.
 #
-# Ref: https://docs.qmk.fm/#/squeezing_avr?id=squeezing-the-most-out-of-avr
+# Not strictly necessary, as there are no size issues!
 LTO_ENABLE = yes
