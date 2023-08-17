@@ -109,6 +109,10 @@ bool qp_eink_panel_flush(painter_device_t device) {
 
     qp_eink_update_can_flush(device);
 
+    // Clear dirty area
+    qp_flush(driver->black_surface);
+    qp_flush(driver->color_surface);
+
     return true;
 }
 
