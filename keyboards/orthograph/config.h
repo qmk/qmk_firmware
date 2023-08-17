@@ -27,11 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 82
 
-// 7 + 8 + 8 + 7 + 8 + 8 = 46
-// 36 + 46 = 82
-
 #define DRIVER_1_LED_TOTAL 82
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 // #define RGB_MATRIX_KEYPRESSES
 
 // #define ENABLE_RGB_MATRIX_ALPHAS_MODS

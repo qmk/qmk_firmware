@@ -3,6 +3,10 @@
     "url": "https://github.com/vladkvit",
     "maintainer": "vladkvit",
     "manufacturer": "vladkvit",
+    "build": {
+        "debounce_type": "asym_eager_defer_pk",
+        "lto": true
+    },
     "debounce": 4,
     "usb": {
         "vid": "0x564B",
@@ -11,11 +15,11 @@
     },
     "features": {
         "rgb_matrix": true,
-        "bootmagic": false,
+        "bootmagic": true,
         "command": false,
         "console": false,
-        "extrakey": false,
-        "mousekey": false,
+        "extrakey": true,
+        "mousekey": true,
         "nkro": true
     },
     "development_board": "elite_c",
