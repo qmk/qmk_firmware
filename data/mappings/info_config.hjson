@@ -20,6 +20,12 @@
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "bool"},
     "SENDSTRING_BELL": {"info_key": "audio.macro_beep", "value_type": "bool"},
 
+    // Auto Mouse - Pointing Device
+    "AUTO_MOUSE_DEFAULT_LAYER": {"info_key": "pointing_device.auto_mouse.default_layer"},
+    "AUTO_MOUSE_TIME": {"info_key": "pointing_device.auto_mouse.time"},
+    "AUTO_MOUSE_DELAY": {"info_key": "pointing_device.auto_mouse.delay"},
+    "AUTO_MOUSE_DEBOUNCE": {"info_key": "pointing_device.auto_mouse.debounce"},
+
     // Backlight
     "BACKLIGHT_BREATHING": {"info_key": "backlight.breathing", "value_type": "bool"},
     "BACKLIGHT_CAPS_LOCK": {"info_key": "backlight.as_caps_lock", "value_type": "bool"},
@@ -100,6 +106,21 @@
     // PS/2
     "PS2_CLOCK_PIN": {"info_key": "ps2.clock_pin"},
     "PS2_DATA_PIN": {"info_key": "ps2.data_pin"},
+
+    // Pointing Device
+    "POINTING_DEVICE_AUTO_MOUSE_ENABLE": {"info_key": "pointing_device.auto_mouse.enabled"},
+    "POINTING_DEVICE_CS_PIN": {"info_key": "pointing_device.pins.cs"},
+    "POINTING_DEVICE_INVERT_X": {"info_key": "pointing_device.invert_x", "value_type": "bool"},
+    "POINTING_DEVICE_INVERT_X_RIGHT": {"info_key": "split.pointing_device.right.invert_x", "value_type": "bool"},
+    "POINTING_DEVICE_INVERT_Y": {"info_key": "pointing_device.invert_y", "value_type": "bool"},
+    "POINTING_DEVICE_INVERT_Y_RIGHT": {"info_key": "split.pointing_device.right.invert_y", "value_type": "bool"},
+    "POINTING_DEVICE_MOTION_PIN": {"info_key": "pointing_device.pins.motion"},
+    "POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW": {"info_key": "pointing_device.pins.motion_active_low", "value_type": "bool"},
+    "POINTING_DEVICE_SDIO_PIN": {"info_key": "pointing_device.pins.sdio"},
+    "POINTING_DEVICE_SCLK_PIN": {"info_key": "pointing_device.pins.sclk"},
+    "POINTING_DEVICE_TASK_THROTTLE_MS": {"info_key": "pointing_device.throttle", "value_type": "int"},
+    "POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE": {"info_key": "pointing_device.gestures.cursor_glide", "value_type": "bool"},
+    "POINTING_DEVICE_GESTURES_SCROLL_ENABLE": {"info_key": "pointing_device.gestures.scroll", "value_type": "bool"},
 
     // RGB Matrix
     "RGB_MATRIX_CENTER": {"info_key": "rgb_matrix.center_point", "value_type": "array.int"},
