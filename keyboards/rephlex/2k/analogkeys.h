@@ -11,7 +11,7 @@ typedef struct {
     uint8_t press_hysteresis;
     uint8_t release_hysteresis;
 } analog_config; /* 6 bytes */
-//_Static_assert(sizeof(analog_config) == EECONFIG_KB_DATA_SIZE, "Size mismatch");
+_Static_assert(sizeof(analog_config) == EECONFIG_KB_DATA_SIZE, "Size mismatch");
 extern analog_config g_config;
 
 typedef struct {
@@ -21,5 +21,4 @@ typedef struct {
     int16_t offset;
     bool    continuous_dynamic_actuation;
 } key_t;
-
 extern key_t keys[MATRIX_ROWS][MATRIX_COLS];
