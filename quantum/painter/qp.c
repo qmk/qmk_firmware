@@ -193,7 +193,7 @@ painter_rotation_t qp_get_rotation(painter_device_t device) {
     }
 
     qp_dprintf("qp_get_rotation: ok\n");
-    return rotation = driver->rotation;
+    return driver->rotation;
 }
 
 uint16_t qp_get_offset_x(painter_device_t device) {
@@ -206,7 +206,7 @@ uint16_t qp_get_offset_x(painter_device_t device) {
     }
 
     qp_dprintf("qp_get_offset_x: ok\n");
-    return offset_x = driver->offset_x;
+    return driver->offset_x;
 }
 
 uint16_t qp_get_offset_y(painter_device_t device) {
