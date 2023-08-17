@@ -24,11 +24,11 @@
         "rows": ["F6", "F7", "B1", "B3", "B2", "B6"]
     },
     "encoder": {
-    	"rotary": [
-    		{"pin_a": "D1", "pin_b": "D0", "resolution": 3},
-    		{"pin_a": "D4", "pin_b": "C6", "resolution": 3},
-    		{"pin_a": "D7", "pin_b": "E6", "resolution": 3}
-    	]
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0", "resolution": 3},
+            {"pin_a": "D4", "pin_b": "C6", "resolution": 3},
+            {"pin_a": "D7", "pin_b": "E6", "resolution": 3}
+         ]
     },
     "layouts": {
         "LAYOUT": {
