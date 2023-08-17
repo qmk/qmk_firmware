@@ -6,44 +6,44 @@
     "usb": {
         "vid": "0x9A94",
         "pid": "0x9F70",
-        "device_version": "0.0.1"
+        "device_version": "1.0.0"
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "matrix_pins": {
-            "rows": [ "A8",  "A9", "A10", "B3", "A15"],
-            "cols": [ "A3", "A2", "A1", "A0", "C15", "C14", "B9", "B8", "B7", "B6", "A7", "A6", "A5", "A4", "B5", "B4"]
-        },
-        "diode_direction": "ROW2COL",
-        "features": {
-            "bootmagic": true,
-            "mousekey": true,
-            "extrakey": true,
-            "console": false,
-            "command": false,
-            "nkro": false,
-            "rgblight": true
-        },
-        "ws2812": {
-            "pin": "B15"
-        },
-        "rgblight": {
-            "led_count": 8,
-            "sleep": true,
-            "animations": {
-                "alternating": true,
-                "breathing": true,
-                "christmas": true,
-                "knight": true,
-                "rainbow_mood": true,
-                "rainbow_swirl": true,
-                "rgb_test": true,
-                "snake": true,
-                "static_gradient": true,
-                "twinkle": true
-            }
-        },
-        "layouts": {
+        "rows": [ "A8",  "A9", "A10", "B3", "A15"],
+        "cols": [ "A3", "A2", "A1", "A0", "C15", "C14", "B9", "B8", "B7", "B6", "A7", "A6", "A5", "A4", "B5", "B4"]
+    },
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": false,
+        "rgblight": true
+    },
+    "ws2812": {
+        "pin": "B15"
+    },
+    "rgblight": {
+        "led_count": 8,
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
+    "layouts": {
         "LAYOUT": {
             "layout": [
                 {"label": "K00 (A8,A3)", "matrix": [0, 0], "x": 0, "y": 0},
@@ -121,7 +121,7 @@
                 {"label": "K4E (A15,B5)", "matrix": [4, 14], "x": 15.25, "y": 4},
                 {"label": "K4F (A15,B4)", "matrix": [4, 15], "x": 16.25, "y": 4},
                 {"label": "K3E (B3,B5)", "matrix": [3, 14], "x": 17.25, "y": 4}
-           ]
-            }
-        },
+            ]
+        }
     }
+}
