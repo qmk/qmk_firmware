@@ -855,7 +855,11 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
                 nginput[i].keycode == NG_J ||
                 nginput[i].keycode == NG_M )) {
               nginput[tch] = nginput[i];
-              nginput[tch].pressTime = record->event.time; // 仕切り直す
+              if (ntyped < ng_chrcount) { // 仕切り直す
+                nginput[tch].pressTime = nginput[ntyped].pressTime;
+              } else {
+                nginput[tch].pressTime = record->event.time;
+              }
               tch++;
               break; // キャリーオーバーするのも１キーだけ
             }
