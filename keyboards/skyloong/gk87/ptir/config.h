@@ -5,7 +5,7 @@
 
 #define CAPS_PIN C15
 #define SCR_PIN C14
-#define WINLK_PIN C13
+#define MAC_PIN C13
 
 #ifdef ENCODER_ENABLE
 #define ENCODER_MAP_KEY_DELAY 20

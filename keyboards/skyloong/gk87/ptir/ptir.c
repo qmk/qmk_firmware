@@ -114,64 +114,6 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {1, CS16_SW5,  CS17_SW5,  CS18_SW5}
 };
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
-
-    switch (keycode) {
-#    ifdef RGB_MATRIX_ENABLE
-        case RGB_TOG:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    } break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                    } break;
-                }
-            }
-         return false;
-#    endif
-     case TO(0):
-      if (record->event.pressed) {
-       L_WIN = 1;
-       set_single_persistent_default_layer(0);
-      } else {
-       L_WIN = 0;
-      }
-      return true; // continue all further processing of this key
-
-     case MO(2):
-      if (record->event.pressed) {
-       FN_WIN = 1;
-      } else {
-       FN_WIN = 0;
-      }
-      return true; // continue all further processing of this key
-
-     case TO(1):
-      if (record->event.pressed) {
-       L_MAC = 1;
-       set_single_persistent_default_layer(1);
-      } else {
-       L_MAC = 0;
-      }
-      return true; // continue all further processing of this key
-
-     case MO(3):
-      if (record->event.pressed) {
-       FN_MAC = 1;
-      } else {
-       FN_MAC = 0;
-      }
-      return true; // continue all further processing of this key
-    default:
-      return true;
-    }
-}
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
@@ -228,6 +170,8 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 
+#endif
+
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if(res) {
@@ -238,19 +182,92 @@ bool led_update_kb(led_t led_state) {
 }
 
 void suspend_power_down_kb() {
+#    ifdef RGB_MATRIX_ENABLE
     rgb_matrix_set_flags(LED_FLAG_NONE);
     rgb_matrix_set_color_all(0, 0, 0);
     writePinLow(SDB);
+#    endif
     writePinLow(SCR_PIN);
     writePinLow(CAPS_PIN);
-    writePinLow(WINLK_PIN);
+    writePinLow(MAC_PIN);
 }
 
 void suspend_wakeup_init_kb() {
+#    ifdef RGB_MATRIX_ENABLE
     writePinHigh(SDB);
     rgb_matrix_set_flags(LED_FLAG_ALL);
+#    endif
 }
-#endif
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
+    switch (keycode) {
+#    ifdef RGB_MATRIX_ENABLE
+        case RGB_TOG:
+            if (record->event.pressed) {
+                switch (rgb_matrix_get_flags()) {
+                    case LED_FLAG_ALL: {
+                        rgb_matrix_set_flags(LED_FLAG_NONE);
+                        rgb_matrix_set_color_all(0, 0, 0);
+                    } break;
+                    default: {
+                        rgb_matrix_set_flags(LED_FLAG_ALL);
+                    } break;
+                }
+            }
+         return false;
+#    endif
+     case TO(0):
+      if (record->event.pressed) {
+       L_WIN = 1;
+       set_single_persistent_default_layer(0); // Save default layer 0 to eeprom
+      } else {
+       L_WIN = 0;
+      }
+      return true; // continue all further processing of this key
+
+     case MO(2):
+      if (record->event.pressed) {
+       FN_WIN = 1;
+      } else {
+       FN_WIN = 0;
+      }
+      return true; // continue all further processing of this key
+
+     case TO(1):
+      if (record->event.pressed) {
+       L_MAC = 1;
+       set_single_persistent_default_layer(1);  //Save default layer 1 to eeprom
+      } else {
+       L_MAC = 0;
+      }
+      return true; // continue all further processing of this key
+
+     case MO(3):
+      if (record->event.pressed) {
+       FN_MAC = 1;
+      } else {
+       FN_MAC = 0;
+      }
+      return true; // continue all further processing of this key
+    default:
+      return true;
+    }
+}
+
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case 0:
+        writePinLow(MAC_PIN);
+        break;
+    case 1:
+        writePinHigh(MAC_PIN);
+        break;
+    }
+  return state;
+}
 
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
@@ -261,6 +278,6 @@ void board_init(void) {
     writePinHigh(CAPS_PIN);
     setPinOutput(SCR_PIN);
     writePinHigh(SCR_PIN);
-    setPinOutput(WINLK_PIN);
-    writePinLow(WINLK_PIN);
+    setPinOutput(MAC_PIN);
+    writePinLow(MAC_PIN);
 }
