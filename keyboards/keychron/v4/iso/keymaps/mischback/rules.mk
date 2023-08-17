@@ -1,7 +1,3 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
-# SPDX-FileCopyrightText: 2023 Mischback <mischback.dev@googlemail.com>
-# SPDX-FileType: SOURCE
-
 # The Keychron V4 features a DIP switch at the back that let the user switch
 # between Mac and Windows layouts. As I run Linux anyways, this switch is not
 # in use for me personally.
