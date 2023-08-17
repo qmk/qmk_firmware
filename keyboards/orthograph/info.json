@@ -9,6 +9,15 @@
         "pid": "0x0602",
         "device_version": "1.0.0"
     },
+    "features": {
+        "rgb_matrix": true,
+        "bootmagic": false,
+        "command": false,
+        "console": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": true
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "matrix_pins": {
