@@ -1,6 +1,6 @@
 # Pteron56
 
-![%Pteron56%](https://i.imgur.com/kt1RSi9h.jpg)
+![Pteron56](https://i.imgur.com/kt1RSi9h.jpg)
 
 The Pteron56 is a 56-key vertically staggered ortholinear keyboard with a 15 degree inward tilt per hand. 
 
