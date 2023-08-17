@@ -30,13 +30,18 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "E6"
+        "soft_serial_pin": "E6",
+        "transport": {
+            "sync_matrix_state": true
+        },
+        "usb_detect":{
+            "enabled": true
+        }
     },
     "rgb_matrix": {
         "driver": "IS31FL3733",
         "split_count": [36,  46],
         "layout": [
-
             {"matrix":[0, 0], "flags":4, "x":0,  "y":0},
             {"matrix":[0, 1], "flags":4, "x":16,  "y":0},
             {"matrix":[0, 2], "flags":4, "x":32,  "y":0},
@@ -122,7 +127,12 @@
             {"matrix":[11, 6], "flags":4, "x":192,  "y":60},
             {"matrix":[11, 7], "flags":4, "x":208,  "y":60}
 
-        ]
+        ],
+        "animations": {
+            "alphas_mods": true,
+            "band_val": true,
+            "cycle_spiral": true
+        }
     },
     "layouts": {
         "LAYOUT": {
@@ -202,13 +212,13 @@
                 {"matrix": [5, 4], "label":"space", "x":0, "y":4.75, "h":2},
                 {"matrix": [5, 5], "label":"fn", "x":1, "y":4.75, "h":2},
                 {"matrix": [11, 0], "label":"space2", "x":-2, "y":4.5, "h":2},
-                {"matrix": [11, 1], "label":"fn", "x":-1.0, "y":4.5, "h":2}
+                {"matrix": [11, 1], "label":"fn", "x":-1.0, "y":4.5, "h":2},
                 {"matrix": [11, 2], "label":"Alt", "x":14.25, "y":5, "w":1.25},
                 {"matrix": [11, 3], "label":"Win", "x":15.5, "y":5, "w":1.25},
                 {"matrix": [11, 4], "label":"Ctrl", "x":16.75, "y":5, "w":1.25},
                 {"matrix": [11, 5], "label":"\u2190", "x":18, "y":5},
                 {"matrix": [11, 6], "label":"\u2193", "x":19, "y":5},
-                {"matrix": [11, 7], "label":"\u2192", "x":20, "y":5},
+                {"matrix": [11, 7], "label":"\u2192", "x":20, "y":5}
 
             ]
         }

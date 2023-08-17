@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* wiring of each half */
 #define EE_HANDS // need to flash eeprom with eeprom-lefthand.eep for left, etc
-#define SPLIT_USB_DETECT
 
 // disable backlight after timeout in minutes, 0 = no timeout
 // #define RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
@@ -29,15 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DRIVER_1_LED_TOTAL 82
 #define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
+
 // #define RGB_MATRIX_KEYPRESSES
-
-// #define ENABLE_RGB_MATRIX_ALPHAS_MODS
-
-// #define ENABLE_RGB_MATRIX_BAND_SAT
-#define ENABLE_RGB_MATRIX_BAND_VAL
-// #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-#define ENABLE_RGB_MATRIX_MULTISPLASH
-
-
-#define SPLIT_TRANSPORT_MIRROR
+// #define ENABLE_RGB_MATRIX_MULTISPLASH
