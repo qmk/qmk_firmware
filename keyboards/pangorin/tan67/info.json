@@ -164,8 +164,9 @@
             {"x": 205, "y": 8, "flags": 2}
         ]
     },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
