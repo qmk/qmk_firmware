@@ -38,12 +38,12 @@
         "transport": {
             "protocol": "serial",
             "sync_matrix_state": false,
-            "watchdog": false
+            "watchdog": true
         }
     },
     "tapping": {
         "term": 200,
-        "term_per_key": false
+        "term_per_key": true
     },
     "url": "https://gitlab.com/neodox/neodox",
     "usb": {
