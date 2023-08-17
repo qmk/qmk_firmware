@@ -14,7 +14,7 @@ In your `rules.mk` add:
 OS_DETECTION_ENABLE = yes
 ```
 
-Include `"os_detection.h"` in your `keymap.c`.
+It will automatically include the required headers file.
 It declares `os_variant_t detected_host_os(void);` which you can call to get detected OS.
 
 It returns one of the following values:
@@ -31,6 +31,35 @@ enum {
 
 ?> Note that it takes some time after firmware is booted to detect the OS.
 This time is quite short, probably hundreds of milliseconds, but this data may be not ready in keyboard and layout setup functions which run very early during firmware startup.
+
+## Callbacks :id=callbacks
+
+If you want to perform custom actions when the OS is detected, then you can use the `process_detected_host_os_kb` function on the keyboard level source file, or `process_detected_host_os_user` function in the user `keymap.c`.
+
+```c
+bool process_detected_host_os_kb(os_variant_t os) {
+    if (!process_detected_host_os_user(os)) {
+        return false;
+    }
+    switch (os) {
+        case OS_MACOS:
+        case OS_IOS:
+            rgb_matrix_set_color_all(RGB_WHITE);
+            break;
+        case OS_WINDOWS:
+            rgb_matrix_set_color_all(RGB_BLUE);
+            break;
+        case OS_LINUX:
+            rgb_matrix_set_color_all(RGB_ORANGE);
+            break;
+        case OS_UNSURE:
+            rgb_matrix_set_color_all(RGB_RED);
+            break;
+    }
+    
+    return true;
+}
+```
 
 ## Debug
 

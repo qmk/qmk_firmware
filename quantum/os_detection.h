@@ -16,9 +16,11 @@
 
 #pragma once
 
-#include <stdint.h>
-
 #ifdef OS_DETECTION_ENABLE
+
+#    include <stdint.h>
+#    include <stdbool.h>
+
 typedef enum {
     OS_UNSURE,
     OS_LINUX,
@@ -31,12 +33,19 @@ void         process_wlength(const uint16_t w_length);
 os_variant_t detected_host_os(void);
 void         erase_wlength_data(void);
 
+void os_detection_task(void);
+
+void process_detected_host_os(os_variant_t os);
+bool process_detected_host_os_kb(os_variant_t os);
+bool process_detected_host_os_user(os_variant_t os);
+
 #    if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 void slave_update_detected_host_os(os_variant_t os);
-#    endif // defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
-#endif
+#    endif
 
-#ifdef OS_DETECTION_DEBUG_ENABLE
+#    ifdef OS_DETECTION_DEBUG_ENABLE
 void print_stored_setups(void);
 void store_setups_in_eeprom(void);
-#endif
+#    endif
+
+#endif // OS_DETECTION_ENABLE
