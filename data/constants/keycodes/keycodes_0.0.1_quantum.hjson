@@ -144,15 +144,24 @@
 
         "0x7C20": {
             "group": "quantum",
-            "key": "OUT_AUTO"
+            "key": "QK_OUTPUT_AUTO",
+            "aliases": [
+                "OU_AUTO"
+            ]
         },
         "0x7C21": {
             "group": "quantum",
-            "key": "OUT_USB"
+            "key": "QK_OUTPUT_USB",
+            "aliases": [
+                "OU_USB"
+            ]
         },
         "0x7C22": {
             "group": "quantum",
-            "key": "OUT_BT"
+            "key": "QK_OUTPUT_BLUETOOTH",
+            "aliases": [
+                "OU_BT"
+            ]
         },
 
         "0x7C30": {

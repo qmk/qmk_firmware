@@ -29,7 +29,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
                 rgb_reset();
 #endif
             return false;
-        case RESET:
+        case QK_BOOT:
             {
                 if (record->event.pressed)
                     reset_timer = timer_read() + 500;

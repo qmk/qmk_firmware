@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "macropad.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -41,16 +41,27 @@ led_config_t g_led_config = { {
 
 #endif
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (index == 0) {
-        if (clockwise) {
-            tap_code_delay(KC_VOLU, 10);
-        } else {
-            tap_code_delay(KC_VOLD, 10);
-        }
-    }
-    return true;
+#ifdef AUDIO_ENABLE
+void keyboard_pre_init_kb(void) {
+    // ensure pin is set and enabled pre-audio init
+    setPinOutput(SPEAKER_SHUTDOWN);
+    writePinHigh(SPEAKER_SHUTDOWN);
+    keyboard_pre_init_user();
+}
+
+void keyboard_post_init_kb(void) {
+    // set pin based on active status
+    writePin(SPEAKER_SHUTDOWN, audio_is_on());
+    keyboard_post_init_user();
+}
+
+void audio_on_user(void) {
+    writePinHigh(SPEAKER_SHUTDOWN);
+}
+
+void audio_off_user(void) {
+    // needs a delay or it runs right after play note.
+    wait_ms(200);
+    writePinLow(SPEAKER_SHUTDOWN);
 }
 #endif

@@ -16,8 +16,6 @@
 
 #include "uart.h"
 
-#include "quantum.h"
-
 #if defined(MCU_KINETIS)
 static SerialConfig serialConfig = {SERIAL_DEFAULT_BITRATE};
 #elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
@@ -42,8 +40,8 @@ void uart_init(uint32_t baud) {
         palSetLineMode(SD1_TX_PIN, SD1_TX_PAL_MODE);
         palSetLineMode(SD1_RX_PIN, SD1_RX_PAL_MODE);
 #else
-        palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE(SD1_TX_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
-        palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE(SD1_RX_PAL_MODE) | PAL_OUTPUT_TYPE_OPENDRAIN);
+        palSetLineMode(SD1_TX_PIN, PAL_MODE_ALTERNATE(SD1_TX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
+        palSetLineMode(SD1_RX_PIN, PAL_MODE_ALTERNATE(SD1_RX_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
 #endif
         sdStart(&SERIAL_DRIVER, &serialConfig);
     }

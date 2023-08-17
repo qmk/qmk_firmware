@@ -82,7 +82,7 @@ uint8_t matrix_scan(void)
         KBD_ID1,
         CONFIG,
         READY,
-        F0,
+        F0_BREAK,
     } state = RESET;
 
     uint8_t code;
@@ -144,7 +144,7 @@ uint8_t matrix_scan(void)
                     debug("\n");
             }
             break;
-        case F0:    // Break code
+        case F0_BREAK:    // Break code
             switch (code) {
                 case 0x00:
                     break;

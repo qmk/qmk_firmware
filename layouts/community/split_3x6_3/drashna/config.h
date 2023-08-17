@@ -24,9 +24,8 @@
 #define SPLIT_MODS_ENABLE
 
 #undef USE_I2C
-#undef SSD1306OLED
 
-// #define TAPPING_FORCE_HOLD
+// #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM 100
 
 #ifdef RGBLIGHT_ENABLE
@@ -41,8 +40,8 @@
 
 #ifdef RGB_MATRIX_ENABLE
 #    ifdef CONVERT_TO_PROTON_C
-#        undef RGB_DI_PIN
-#        define RGB_DI_PIN A3
+#        undef WS2812_DI_PIN
+#        define WS2812_DI_PIN A3
 #    endif
 #    define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
@@ -80,8 +79,13 @@
 #    define NO_MUSIC_MODE
 #endif
 
-#ifdef HAPTIC_ENABLE
-#    define SOLENOID_PIN B7
+#if defined(HAPTIC_ENABLE)
+#    if defined(CONVERT_TO_PROTON_C)
+#        define A13 PAL_LINE(GPIOA, 13)
+#        define SOLENOID_PIN A13
+#    else
+#        define SOLENOID_PIN B7
+#    endif
 #endif
 
 #undef PRODUCT

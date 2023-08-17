@@ -43,13 +43,13 @@ enum {
 
 // Declare the functions to be used with your tap dance key(s)
 // Function associated with all tap dances
-uint8_t cur_dance(qk_tap_dance_state_t *state);
+uint8_t cur_dance(tap_dance_state_t *state);
 // Functions associated with individual tap dances
-void ql_finished(qk_tap_dance_state_t *state, void *user_data);
-void ql_reset(qk_tap_dance_state_t *state, void *user_data);
+void ql_finished(tap_dance_state_t *state, void *user_data);
+void ql_reset(tap_dance_state_t *state, void *user_data);
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset),
 };
@@ -129,8 +129,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT_jp(
         _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,    _______,WIN,    _______,QK_BOOT,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,           _______,_______,
-        _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______,
+        _______,    _______,WIN,    _______,QK_BOOT,_______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,           _______,_______,
+        _______,    AU_TOGG,CK_TOGG,MU_TOGG,MU_NEXT,_______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______,
         _______,        CK_RST, CK_DOWN,CK_UP  ,_______,_______,NUM,     MAC,   _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     )
@@ -300,7 +300,7 @@ typedef struct {
 } tap;
 
 // Determine the current tap dance state
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
+uint8_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (!state->pressed) {
             return SINGLE_TAP;
@@ -331,7 +331,7 @@ static tap ql_tap_state = {
 };
 
 // Functions that control what our tap dance key does
-void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ql_finished(tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch(TAP_DANCE_KEYCODE(state)) {
         case TD(TD_ESC_NUM): // ESC key action
@@ -361,7 +361,7 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ql_reset(tap_dance_state_t *state, void *user_data) {
     switch(TAP_DANCE_KEYCODE(state)) {
         case TD(TD_ESC_NUM):
             // If the key was held down and now is released then switch off the layer

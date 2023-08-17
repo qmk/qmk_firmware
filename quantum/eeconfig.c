@@ -46,6 +46,7 @@ void eeconfig_init_quantum(void) {
 #if defined(EEPROM_DRIVER)
     eeprom_driver_erase();
 #endif
+
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
     eeprom_update_byte(EECONFIG_DEBUG, 0);
     eeprom_update_byte(EECONFIG_DEFAULT_LAYER, 0);
@@ -55,31 +56,23 @@ void eeconfig_init_quantum(void) {
     eeprom_update_byte(EECONFIG_BACKLIGHT, 0);
     eeprom_update_byte(EECONFIG_AUDIO, 0xFF); // On by default
     eeprom_update_dword(EECONFIG_RGBLIGHT, 0);
-    eeprom_update_byte(EECONFIG_STENOMODE, 0);
-    eeprom_update_dword(EECONFIG_HAPTIC, 0);
+    eeprom_update_byte(EECONFIG_RGBLIGHT_EXTENDED, 0);
     eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
-    eeprom_update_dword(EECONFIG_RGB_MATRIX, 0);
-    eeprom_update_word(EECONFIG_RGB_MATRIX_EXTENDED, 0);
-
+    eeprom_update_byte(EECONFIG_UNICODEMODE, 0);
+    eeprom_update_byte(EECONFIG_STENOMODE, 0);
+    uint64_t dummy = 0;
+    eeprom_update_block(&dummy, EECONFIG_RGB_MATRIX, sizeof(uint64_t));
+    eeprom_update_dword(EECONFIG_HAPTIC, 0);
 #if defined(HAPTIC_ENABLE)
     haptic_reset();
-#else
-    // this is used in case haptic is disabled, but we still want sane defaults
-    // in the haptic configuration eeprom. All zero will trigger a haptic_reset
-    // when a haptic-enabled firmware is loaded onto the keyboard.
-    eeprom_update_dword(EECONFIG_HAPTIC, 0);
 #endif
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
-    eeprom_update_dword(EECONFIG_KEYBOARD, (EECONFIG_KB_DATA_VERSION));
-    uint8_t dummy_kb[(EECONFIG_KB_DATA_SIZE)] = {0};
-    eeprom_update_block(EECONFIG_KB_DATABLOCK, dummy_kb, (EECONFIG_KB_DATA_SIZE));
+    eeconfig_init_kb_datablock();
 #endif
 
 #if (EECONFIG_USER_DATA_SIZE) > 0
-    eeprom_update_dword(EECONFIG_USER, (EECONFIG_USER_DATA_VERSION));
-    uint8_t dummy_user[(EECONFIG_USER_DATA_SIZE)] = {0};
-    eeprom_update_block(EECONFIG_USER_DATABLOCK, dummy_user, (EECONFIG_USER_DATA_SIZE));
+    eeconfig_init_user_datablock();
 #endif
 
 #if defined(VIA_ENABLE)
@@ -273,12 +266,19 @@ void eeconfig_update_handedness(bool val) {
 }
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
+/** \brief eeconfig assert keyboard data block version
+ *
+ * FIXME: needs doc
+ */
+bool eeconfig_is_kb_datablock_valid(void) {
+    return eeprom_read_dword(EECONFIG_KEYBOARD) == (EECONFIG_KB_DATA_VERSION);
+}
 /** \brief eeconfig read keyboard data block
  *
  * FIXME: needs doc
  */
 void eeconfig_read_kb_datablock(void *data) {
-    if (eeprom_read_dword(EECONFIG_KEYBOARD) == (EECONFIG_KB_DATA_VERSION)) {
+    if (eeconfig_is_kb_datablock_valid()) {
         eeprom_read_block(data, EECONFIG_KB_DATABLOCK, (EECONFIG_KB_DATA_SIZE));
     } else {
         memset(data, 0, (EECONFIG_KB_DATA_SIZE));
@@ -292,15 +292,30 @@ void eeconfig_update_kb_datablock(const void *data) {
     eeprom_update_dword(EECONFIG_KEYBOARD, (EECONFIG_KB_DATA_VERSION));
     eeprom_update_block(data, EECONFIG_KB_DATABLOCK, (EECONFIG_KB_DATA_SIZE));
 }
+/** \brief eeconfig init keyboard data block
+ *
+ * FIXME: needs doc
+ */
+__attribute__((weak)) void eeconfig_init_kb_datablock(void) {
+    uint8_t dummy_kb[(EECONFIG_KB_DATA_SIZE)] = {0};
+    eeconfig_update_kb_datablock(dummy_kb);
+}
 #endif // (EECONFIG_KB_DATA_SIZE) > 0
 
 #if (EECONFIG_USER_DATA_SIZE) > 0
+/** \brief eeconfig assert user data block version
+ *
+ * FIXME: needs doc
+ */
+bool eeconfig_is_user_datablock_valid(void) {
+    return eeprom_read_dword(EECONFIG_USER) == (EECONFIG_USER_DATA_VERSION);
+}
 /** \brief eeconfig read user data block
  *
  * FIXME: needs doc
  */
 void eeconfig_read_user_datablock(void *data) {
-    if (eeprom_read_dword(EECONFIG_USER) == (EECONFIG_USER_DATA_VERSION)) {
+    if (eeconfig_is_user_datablock_valid()) {
         eeprom_read_block(data, EECONFIG_USER_DATABLOCK, (EECONFIG_USER_DATA_SIZE));
     } else {
         memset(data, 0, (EECONFIG_USER_DATA_SIZE));
@@ -313,5 +328,13 @@ void eeconfig_read_user_datablock(void *data) {
 void eeconfig_update_user_datablock(const void *data) {
     eeprom_update_dword(EECONFIG_USER, (EECONFIG_USER_DATA_VERSION));
     eeprom_update_block(data, EECONFIG_USER_DATABLOCK, (EECONFIG_USER_DATA_SIZE));
+}
+/** \brief eeconfig init user data block
+ *
+ * FIXME: needs doc
+ */
+__attribute__((weak)) void eeconfig_init_user_datablock(void) {
+    uint8_t dummy_user[(EECONFIG_USER_DATA_SIZE)] = {0};
+    eeconfig_update_user_datablock(dummy_user);
 }
 #endif // (EECONFIG_USER_DATA_SIZE) > 0

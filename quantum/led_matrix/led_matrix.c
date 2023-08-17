@@ -19,10 +19,14 @@
 
 #include "led_matrix.h"
 #include "progmem.h"
-#include "config.h"
 #include "eeprom.h"
+#include "eeconfig.h"
+#include "keyboard.h"
+#include "sync_timer.h"
+#include "debug.h"
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 #include "led_tables.h"
 
 #include <lib/lib8tion/lib8tion.h>
@@ -71,16 +75,16 @@ const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #    define LED_MATRIX_SPD_STEP 16
 #endif
 
-#if !defined(LED_MATRIX_STARTUP_MODE)
-#    define LED_MATRIX_STARTUP_MODE LED_MATRIX_SOLID
+#if !defined(LED_MATRIX_DEFAULT_MODE)
+#    define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID
 #endif
 
-#if !defined(LED_MATRIX_STARTUP_VAL)
-#    define LED_MATRIX_STARTUP_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS
+#if !defined(LED_MATRIX_DEFAULT_VAL)
+#    define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS
 #endif
 
-#if !defined(LED_MATRIX_STARTUP_SPD)
-#    define LED_MATRIX_STARTUP_SPD UINT8_MAX / 2
+#if !defined(LED_MATRIX_DEFAULT_SPD)
+#    define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #endif
 
 // globals
@@ -123,9 +127,9 @@ void eeconfig_update_led_matrix(void) {
 void eeconfig_update_led_matrix_default(void) {
     dprintf("eeconfig_update_led_matrix_default\n");
     led_matrix_eeconfig.enable = 1;
-    led_matrix_eeconfig.mode   = LED_MATRIX_STARTUP_MODE;
-    led_matrix_eeconfig.val    = LED_MATRIX_STARTUP_VAL;
-    led_matrix_eeconfig.speed  = LED_MATRIX_STARTUP_SPD;
+    led_matrix_eeconfig.mode   = LED_MATRIX_DEFAULT_MODE;
+    led_matrix_eeconfig.val    = LED_MATRIX_DEFAULT_VAL;
+    led_matrix_eeconfig.speed  = LED_MATRIX_DEFAULT_SPD;
     led_matrix_eeconfig.flags  = LED_FLAG_ALL;
     eeconfig_flush_led_matrix(true);
 }
@@ -367,7 +371,10 @@ void led_matrix_task(void) {
         case RENDERING:
             led_task_render(effect);
             if (effect) {
-                led_matrix_indicators();
+                // Only run the basic indicators in the last render iteration (default there are 5 iterations)
+                if (led_effect_params.iter == LED_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
+                    led_matrix_indicators();
+                }
                 led_matrix_indicators_advanced(&led_effect_params);
             }
             break;

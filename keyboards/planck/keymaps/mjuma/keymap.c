@@ -36,7 +36,7 @@ enum taps {
     TD_SHIFT_CAPS = 0
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_SHIFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 
@@ -171,8 +171,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_planck_grid(
     _______, QK_BOOT, DB_TOGG,   _______,   _______,  _______, _______, DM_REC1, DM_REC2,   _______,   _______,   _______,
     _______, TG(_GAMING), ___,   _______,   _______,  _______, _______, DM_PLY1, DM_PLY2,   AU_OFF,    AU_ON,     _______,
-    _______, _______, _______,   _______,   _______,  _______, _______, DM_RSTP, _______,   MU_OFF,    MU_ON,     MU_MOD,
-    _______, _______, _______,   AG_TOGG,   _______,  _______, _______, _______, _______,   MUV_DE,    MUV_IN,    _______
+    _______, _______, _______,   _______,   _______,  _______, _______, DM_RSTP, _______,   MU_OFF,    MU_ON,     MU_NEXT,
+    _______, _______, _______,   AG_TOGG,   _______,  _______, _______, _______, _______,   AU_PREV,   AU_NEXT,    _______
 )
 
 };

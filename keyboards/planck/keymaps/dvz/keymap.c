@@ -30,7 +30,7 @@ const uint16_t PROGMEM oe_combo[] = {KC_O, KC_E, COMBO_END};
 const uint16_t PROGMEM ue_combo[] = {KC_U, KC_E, COMBO_END};
 const uint16_t PROGMEM sz_combo[] = {KC_S, DE_Z, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [AE] = COMBO(ae_combo, DE_AE),
   [OE] = COMBO(oe_combo, DE_OE),
   [UE] = COMBO(ue_combo, DE_UE),
@@ -148,8 +148,8 @@ LSFT_T(KC_TAB),DE_Y,  KC_X,    KC_C,    KC_V,   KC_B,    KC_N,    KC_M, KC_COMM,
  */
 [_ADJUST] = LAYOUT_planck_grid(
     _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
-    KC_PWR,  _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
-    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+    KC_PWR,  _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
+    _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 

@@ -25,10 +25,10 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES         // reacts to keypresses
 // #define RGB_MATRIX_KEYRELEASES        // reacts to keyreleases (instead of keypresses)
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE // Sets the default mode, if none has been set
-#define RGB_MATRIX_STARTUP_HUE 12
-#define RGB_MATRIX_STARTUP_SPD (UINT8_MAX / 2 + 32)
-#define RGB_MATRIX_STARTUP_VAL 96
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE // Sets the default mode, if none has been set
+#define RGB_MATRIX_DEFAULT_HUE 12
+#define RGB_MATRIX_DEFAULT_SPD (UINT8_MAX / 2 + 32)
+#define RGB_MATRIX_DEFAULT_VAL 96
 // #define RGBLIGHT_HUE_STEP 12        // Units to step when in/decreasing hue
 // #define RGBLIGHT_SAT_STEP 25        // Units to step when in/decreasing saturation
 // #define RGBLIGHT_VAL_STEP 12        // Units to step when in/decreasing value (brightness)

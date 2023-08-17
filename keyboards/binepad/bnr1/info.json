@@ -2,7 +2,6 @@
     "manufacturer": "Binepad",
     "keyboard_name": "BNR1",
     "maintainer": "Binpad",
-    "debounce": 5,
     "features": {
         "bootmagic": true,
         "command": false,
@@ -14,9 +13,7 @@
     },
     "url": "http://binepad.com",
     "usb": {
-        "vid": "0x4249",
-        "pid": "0x4231",
-        "device_version": "1.0.0"
+        "vid": "0x4249"
     },
     "community_layouts": ["ortho_1x1"],
     "layouts": {

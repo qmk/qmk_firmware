@@ -54,16 +54,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static matrix_row_t matrix[MATRIX_ROWS];
 
 __attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
-
-__attribute__ ((weak))
 void matrix_init_kb(void) {
     matrix_init_user();
 }
@@ -92,7 +82,7 @@ uint8_t matrix_cols(void) {
 }
 
 void matrix_init(void) {
-    matrix_init_quantum();
+    matrix_init_kb();
     uart_init(1000000);
 }
 
@@ -190,7 +180,7 @@ uint8_t matrix_scan(void)
     }
     //matrix_print();
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = qmk-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -19,5 +13,3 @@ AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = yes
 SRC += matrix.c
-
-LAYOUTS = 65_ansi

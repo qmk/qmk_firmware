@@ -21,6 +21,7 @@
 #include "rgblight.h"
 #include "color.h"
 #include "debug.h"
+#include "util.h"
 #include "led_tables.h"
 #include <lib/lib8tion/lib8tion.h>
 #ifdef EEPROM_ENABLE
@@ -28,13 +29,6 @@
 #endif
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
-#endif
-
-#ifndef MIN
-#    define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#endif
-#ifndef MAX
-#    define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #endif
 
 #ifdef RGBLIGHT_SPLIT
@@ -127,6 +121,8 @@ LED_TYPE led[RGBLED_NUM];
 
 #ifdef RGBLIGHT_LAYERS
 rgblight_segment_t const *const *rgblight_layers = NULL;
+
+static bool deferred_set_layer_state = false;
 #endif
 
 rgblight_ranges_t rgblight_ranges = {0, RGBLED_NUM, 0, RGBLED_NUM, RGBLED_NUM};
@@ -181,18 +177,19 @@ void rgblight_check_config(void) {
     }
 }
 
-uint32_t eeconfig_read_rgblight(void) {
+uint64_t eeconfig_read_rgblight(void) {
 #ifdef EEPROM_ENABLE
-    return eeprom_read_dword(EECONFIG_RGBLIGHT);
+    return (uint64_t)((eeprom_read_dword(EECONFIG_RGBLIGHT)) | ((uint64_t)eeprom_read_byte(EECONFIG_RGBLIGHT_EXTENDED) << 32));
 #else
     return 0;
 #endif
 }
 
-void eeconfig_update_rgblight(uint32_t val) {
+void eeconfig_update_rgblight(uint64_t val) {
 #ifdef EEPROM_ENABLE
     rgblight_check_config();
-    eeprom_update_dword(EECONFIG_RGBLIGHT, val);
+    eeprom_update_dword(EECONFIG_RGBLIGHT, val & 0xFFFFFFFF);
+    eeprom_update_byte(EECONFIG_RGBLIGHT_EXTENDED, (val >> 32) & 0xFF);
 #endif
 }
 
@@ -267,13 +264,13 @@ void rgblight_reload_from_eeprom(void) {
     }
 }
 
-uint32_t rgblight_read_dword(void) {
+uint64_t rgblight_read_qword(void) {
     return rgblight_config.raw;
 }
 
-void rgblight_update_dword(uint32_t dword) {
+void rgblight_update_qword(uint64_t qword) {
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
-    rgblight_config.raw = dword;
+    rgblight_config.raw = qword;
     if (rgblight_config.enable)
         rgblight_mode_noeeprom(rgblight_config.mode);
     else {
@@ -420,6 +417,10 @@ void rgblight_disable_noeeprom(void) {
     rgblight_set();
 }
 
+void rgblight_enabled_noeeprom(bool state) {
+    state ? rgblight_enable_noeeprom() : rgblight_disable_noeeprom();
+}
+
 bool rgblight_is_enabled(void) {
     return rgblight_config.enable;
 }
@@ -489,7 +490,7 @@ void rgblight_increase_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed < 3) rgblight_config.speed++;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED?
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(rgblight_config.raw); // EECONFIG needs to be increased to support this
+        eeconfig_update_rgblight(rgblight_config.raw);
     }
 }
 void rgblight_increase_speed(void) {
@@ -503,7 +504,7 @@ void rgblight_decrease_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed > 0) rgblight_config.speed--;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED??
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(rgblight_config.raw); // EECONFIG needs to be increased to support this
+        eeconfig_update_rgblight(rgblight_config.raw);
     }
 }
 void rgblight_decrease_speed(void) {
@@ -612,7 +613,7 @@ uint8_t rgblight_get_speed(void) {
 void rgblight_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
     rgblight_config.speed = speed;
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(rgblight_config.raw); // EECONFIG needs to be increased to support this
+        eeconfig_update_rgblight(rgblight_config.raw);
         dprintf("rgblight set speed [EEPROM]: %u\n", rgblight_config.speed);
     } else {
         dprintf("rgblight set speed [NOEEPROM]: %u\n", rgblight_config.speed);
@@ -748,17 +749,13 @@ void rgblight_set_layer_state(uint8_t layer, bool enabled) {
         rgblight_status.enabled_layer_mask &= ~mask;
     }
     RGBLIGHT_SPLIT_SET_CHANGE_LAYERS;
-    // Static modes don't have a ticker running to update the LEDs
-    if (rgblight_status.timer_enabled == false) {
-        rgblight_mode_noeeprom(rgblight_config.mode);
-    }
 
-#    ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-    // If not enabled, then nothing else will actually set the LEDs...
-    if (!rgblight_config.enable) {
-        rgblight_set();
-    }
-#    endif
+    // Calling rgblight_set() here (directly or indirectly) could
+    // potentially cause timing issues when there are multiple
+    // successive calls to rgblight_set_layer_state(). Instead,
+    // set a flag and do it the next time rgblight_task() runs.
+
+    deferred_set_layer_state = true;
 }
 
 bool rgblight_get_layer_state(uint8_t layer) {
@@ -1154,8 +1151,26 @@ void rgblight_task(void) {
         }
     }
 
-#    ifdef RGBLIGHT_LAYER_BLINK
+#    ifdef RGBLIGHT_LAYERS
+#        ifdef RGBLIGHT_LAYER_BLINK
     rgblight_blink_layer_repeat_helper();
+#        endif
+
+    if (deferred_set_layer_state) {
+        deferred_set_layer_state = false;
+
+        // Static modes don't have a ticker running to update the LEDs
+        if (rgblight_status.timer_enabled == false) {
+            rgblight_mode_noeeprom(rgblight_config.mode);
+        }
+
+#        ifdef RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+        // If not enabled, then nothing else will actually set the LEDs...
+        if (!rgblight_config.enable) {
+            rgblight_set();
+        }
+#        endif
+    }
 #    endif
 }
 
@@ -1262,7 +1277,7 @@ void rgblight_effect_snake(animation_status_t *anim) {
         for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
             k = pos + j * increment;
             if (k > RGBLED_NUM) {
-                k = k % RGBLED_NUM;
+                k = k % (RGBLED_NUM);
             }
             if (k < 0) {
                 k = k + rgblight_ranges.effect_num_leds;
@@ -1464,6 +1479,8 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
         return (v * scale) >> 8;
     }
 
+    const uint8_t trigger = scale((uint16_t)0xFF * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY, 127 + rgblight_config.val / 2);
+
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         TwinkleState *t = &(led_twinkle_state[i]);
         HSV *         c = &(t->hsv);
@@ -1482,7 +1499,7 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
             t->life--;
             uint8_t unscaled = frac(breathe_calc(frac(t->life, t->max_life)) - bottom, top - bottom);
             c->v             = scale(rgblight_config.val, unscaled);
-        } else if (rand() < scale((uint16_t)RAND_MAX * RGBLIGHT_EFFECT_TWINKLE_PROBABILITY, 127 + rgblight_config.val / 2)) {
+        } else if ((rand() % 0xFF) < trigger) {
             // This LED is off, but was randomly selected to start brightening
             if (random_color) {
                 c->h = rand() % 0xFF;

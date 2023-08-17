@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD
 
 #ifdef RGB_MATRIX_ENABLE
-    #define RGB_MATRIX_STARTUP_HUE 231
+    #define RGB_MATRIX_DEFAULT_HUE 231
     #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
     #define RGB_MATRIX_TYPING_MEATMAP_DECREASE_DELAY_MS 50
     // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)

@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	LAYOUT(
 		TO(0),
-		CK_TOGG, MU_TOG),
+		CK_TOGG, MU_TOGG),
 
 	LAYOUT(
 		TO(0),

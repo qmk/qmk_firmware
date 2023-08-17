@@ -30,7 +30,9 @@
 #    define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #    define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 
-#    define RGBLIGHT_LIMIT_VAL 225
+#    ifndef RGBLIGHT_LIMIT_VAL
+#       define RGBLIGHT_LIMIT_VAL 225
+#    endif
 #endif  // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
@@ -49,12 +51,14 @@
 #    define QMK_SPEAKER C6
 #endif
 
-#undef PRODUCT
 #if defined(KEYBOARD_keebio_iris_rev2)
+#    undef PRODUCT
 #    define PRODUCT "Drashna Hacked Iris Rev 2"
 #elif defined(KEYBOARD_keebio_iris_rev3)
+#    undef PRODUCT
 #    define PRODUCT "Drashna Hacked Iris Rev 3"
 #elif defined(KEYBOARD_keebio_iris_rev4)
+#    undef PRODUCT
 #    define PRODUCT "Drashna Hacked Iris Rev 4"
 #endif
 

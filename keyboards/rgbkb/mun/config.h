@@ -9,16 +9,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* Matrix Configuration - Rows are doubled up */
-#define MATRIX_ROWS 14
-// Last pins reserved for encoder / touch encoder support
-#define MATRIX_ROW_PINS { A1, A3, B3, A13, B15, NO_PIN, NO_PIN }
-#define MATRIX_COLS 7
-#define MATRIX_COL_PINS { A0, B11, B0, B10, B12, B2, A8 }
-#define MATRIX_IO_DELAY 5
-
 #define BUSY_WAIT
 #define BUSY_WAIT_INSTRUCTIONS 35 // Increase if two rows are pressed at the same time.
 #define GPIO_INPUT_PIN_DELAY 10
@@ -29,13 +19,6 @@
 #define TOUCH_RESOLUTION 25 // sensitivity of swipes, lower=faster
 #define TOUCH_SEGMENTS 3
 
-/* Encoder Configuration */
-#define ENCODERS_PAD_A { B8, B9 }
-#define ENCODERS_PAD_B { A14, A15 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
 /* CRC Configuration */
 #define CRC8_OPTIMIZE_SPEED
 #define CRC8_USE_TABLE
@@ -43,8 +26,6 @@
 /* Split Keyboard Configuration */
 #define EE_HANDS
 #define SPLIT_USB_DETECT
-// also handles the SERIAL_USART_TX_PIN define
-#define SOFT_SERIAL_PIN A9
 #define SERIAL_USART_TX_PAL_MODE 7
 #define SERIAL_USART_TIMEOUT 5
 #define SERIAL_USART_DRIVER SD1
@@ -66,9 +47,6 @@
 #define SPLIT_TRANSACTION_IDS_KB TOUCH_ENCODER_SYNC, RGB_MENU_SYNC
 
 /* RGB LED Configuration */
-#define RGB_DI_PIN B5
-#define RGBLED_NUM 98
-#define RGBLED_SPLIT { 49, 49 }
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -153,4 +131,6 @@
 
 #define TOUCH_UPDATE_INTERVAL 33
 #define OLED_UPDATE_INTERVAL 33
-#define TAP_CODE_DELAY 5
+
+#define WEAR_LEVELING_BACKING_SIZE 4096
+#define WEAR_LEVELING_LOGICAL_SIZE 2048

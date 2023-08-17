@@ -45,7 +45,7 @@ enum custom_keys {
     PSCREEN_APP
 };
 
-void tap_dance_sym_vim_finished(qk_tap_dance_state_t*, void*);
-void tap_dance_sym_vim_reset(qk_tap_dance_state_t*, void*);
+void tap_dance_sym_vim_finished(tap_dance_state_t*, void*);
+void tap_dance_sym_vim_reset(tap_dance_state_t*, void*);
 void tap_dance_process_keycode(uint16_t);
 bool try_handle_macro(uint16_t keycode, keyrecord_t *record);

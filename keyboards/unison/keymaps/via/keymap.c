@@ -47,8 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJ] = LAYOUT_all(
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,    _______,_______,_______,QK_BOOT,  _______,_______,_______,_______,_______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,   _______,
-        _______,    AU_TOG, CK_TOGG,MU_TOG, MU_MOD, _______,_______,_______,_______,_______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,    _______,
+        _______,    _______,_______,_______,QK_BOOT,_______,_______,_______,_______,_______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,   _______,
+        _______,    AU_TOGG,CK_TOGG,MU_TOGG,MU_NEXT,_______,_______,_______,_______,_______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,    _______,
         KC_CAPS,_______,CK_RST, CK_DOWN,CK_UP,  _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     )
@@ -128,10 +128,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
    Post Initialize
 ------------------------------------------------------------------------------ */
 void keyboard_post_init_user(void) {
-    #ifdef RGB_DI_PIN
     // RGB Lighting: Set effect range from just after indicator.
     rgblight_set_effect_range(1, 16);
-    #endif
     #ifdef RGBLIGHT_LAYERS
     // RGB Lighting Layers: Setup LED layers
     rgblight_layers = my_rgb_layers;

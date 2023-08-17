@@ -98,11 +98,11 @@ enum {
 
 // Declare the functions to be used with your tap dance key(s)
 // Function associated with all tap dances
-td_state_t cur_dance(qk_tap_dance_state_t *state);
+td_state_t cur_dance(tap_dance_state_t *state);
 
 // Functions associated with individual tap dances
-void usl_finished(qk_tap_dance_state_t *state, void *user_data);
-void usl_reset(qk_tap_dance_state_t *state, void *user_data);
+void usl_finished(tap_dance_state_t *state, void *user_data);
+void usl_reset(tap_dance_state_t *state, void *user_data);
 
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
@@ -247,7 +247,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_planck_grid( /* ADJUST LAYER */
   RGB_TOG, KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, RGB_HUI, RGB_HUD,     RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, QK_BOOT,
   RGB_MOD, KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, GAMING,  KC_NO,       AU_ON,   AU_OFF,  MU_ON,   MU_OFF,  DB_TOGG,
-  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK_VCP, MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_MOD,
+  KC_TRNS, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, QWERTY,  COLEMAK_VCP, MI_ON,   MI_OFF,  KC_TRNS, KC_TRNS, MU_NEXT,
   KC_NO,   KC_NO,   KC_NO,   KC_SLEP, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_NO,   KC_NO
 )
 };
@@ -304,7 +304,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	  return state;
 }
 
-// void dance_media (qk_tap_dance_state_t *state, void *user_data)
+// void dance_media (tap_dance_state_t *state, void *user_data)
 //     if (state->count == 1) {
 //         tap_code(KC_MPLY);
 //     } else if (state->count == 2) {
@@ -316,12 +316,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 //     }
 // }
 
-// qk_tap_dance_action_t tap_dance_actions[] = {
+// tap_dance_action_t tap_dance_actions[] = {
 //  [0] = ACTION_TAP_DANCE_FN (dance_media),
 // };
 
 // Determine the current tap dance state
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
+td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->interrupted) return TD_SINGLE_HOLD;
     if (state->count == 1) {
         if (!state->pressed) return TD_SINGLE_TAP;
@@ -337,7 +337,7 @@ static td_tap_t usl_tap_state = {
 };
 
 // Functions that control what our tap dance key does
-void usl_finished(qk_tap_dance_state_t *state, void *user_data) {
+void usl_finished(tap_dance_state_t *state, void *user_data) {
     usl_tap_state.state = cur_dance(state);
     switch (usl_tap_state.state) {
         case TD_SINGLE_TAP:
@@ -368,7 +368,7 @@ void usl_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void usl_reset(qk_tap_dance_state_t *state, void *user_data) {
+void usl_reset(tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer
     if (usl_tap_state.state == TD_SINGLE_HOLD) {
         layer_off(_LOWER);
@@ -378,7 +378,7 @@ void usl_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Associate our tap dance key with its functionality
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [UNDS_LOWER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, usl_finished, usl_reset)
 };
 
@@ -511,10 +511,8 @@ enum combo_events {
   CSS_STYLE,
   HTML_GENERIC_TAG,
   CTLRGHT,
-  CTLLEFT,
-  COMBO_LENGTH
+  CTLLEFT
 };
-uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
 
 const uint16_t PROGMEM email_combo[] = {KC_E, KC_M, COMBO_END};
 const uint16_t PROGMEM email_work_combo[] = {KC_E, KC_K, COMBO_END};

@@ -21,7 +21,7 @@
 enum unicode_names { SAE, BAE, SUE, BUE, SOE, BOE, SS, EUR, CPR };
 
 /* Unicode map */
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [SAE] = 0x00E4,  // ä
     [BAE] = 0x00C4,  // Ä
     [SUE] = 0x00FC,  // ü
@@ -123,9 +123,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [UNICODE] = LAYOUT_60_iso(
         _______, _______,      _______, _______, _______, _______, _______, _______,      _______, _______,      _______, _______, _______, KC_BSPC,
-        _______, _______,      _______, X(EUR),  _______, _______, _______, XP(SUE, BUE), _______, XP(SOE, BOE), _______, _______, _______,
-        KC_TRNS, XP(SAE, BAE), X(SS),   _______, _______, _______, _______, _______,      _______, _______,      _______, _______, _______, KC_ENT,
-        KC_LSFT, _______,      _______, _______, X(CPR),  _______, _______, _______,      _______, _______,      _______, _______, KC_RSFT,
+        _______, _______,      _______, UM(EUR),  _______, _______, _______, UP(SUE, BUE), _______, UP(SOE, BOE), _______, _______, _______,
+        KC_TRNS, UP(SAE, BAE), UM(SS),   _______, _______, _______, _______, _______,      _______, _______,      _______, _______, _______, KC_ENT,
+        KC_LSFT, _______,      _______, _______, UM(CPR),  _______, _______, _______,      _______, _______,      _______, _______, KC_RSFT,
         KC_LCTL, KC_LGUI,      KC_LALT,                            KC_SPC,                                       KC_RALT, KC_RGUI, KC_RCTL, _______
     ),
 

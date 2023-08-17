@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TILD,    DESK_LEFT,  	WIN_LEFT,       KC_F4,          WIN_RIGHT,      DESK_RIGHT,     DOCS,       	SNAP_LEFT, 	SNAP_UP,     	SNAP_RIGHT,     SNAP_DOWN,      KC_DEL, 
     KC_CAPS,    KC_QUOT,    	KC_LBRC,        KC_LCBR,        KC_LPRN,        KC_BSLS,        KC_SLSH,    	KC_RPRN, 	KC_RCBR,     	KC_RBRC,    	KC_DQUO,        KC_QUOT, 
     KC_PWR,     KC_SLEP,    	KC_WAKE,        KC_HOME,        BL_BRTG,        BL_STEP,        KC_TRNS,    	KC_CALC, 	KC_LT,     	    KC_GT,     	    KC_COLON,   	KC_LSFT, 
-    TO(0),      KC_LCTL,    	KC_LALT,        KC_LGUI,        KC_LALT,        KC_LCTL,        KC_TRNS,    	KC_TRNS, 	AU_TOG,      	MU_TOG,     	MU_MOD,     	LCTL(KC_RGHT)),
+    TO(0),      KC_LCTL,    	KC_LALT,        KC_LGUI,        KC_LALT,        KC_LCTL,        KC_TRNS,    	KC_TRNS, 	AU_TOGG,      	MU_TOGG,     	MU_NEXT,     	LCTL(KC_RGHT)),
 
   LAYOUT_planck_grid(
     TO(0),      KC_LSCR,    	WIN_LEFT,       KC_MS_WH_UP,    WIN_RIGHT,  	KC_TRNS,        KC_TRNS,    	KC_MS_BTN1, 	KC_MS_U,    	KC_MS_BTN2,    	KC_TRNS,        KC_TRNS, 
@@ -80,57 +80,58 @@ void matrix_init_user(void)
     println("Matrix Init");
 }
 
-void led_set_user(uint8_t usb_led)
+bool led_update_user(led_t led_state)
 {
-    static uint8_t old_usb_led = 0;
+    static led_t old_led_state = {0};
 
     _delay_ms(10); // gets rid of tick
 
     if (!is_playing_notes())
     {
-        if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+        if (led_state.caps_lock && !old_led_state.caps_lock)
         {
                 // If CAPS LK LED is turning on...
                 PLAY_SONG(tone_caps_on);
         }
-        else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+        else if (!led_state.caps_lock && old_led_state.caps_lock)
         {
                 // If CAPS LK LED is turning off...
                 PLAY_SONG(tone_caps_off);
         }
-        else if ((usb_led & (1<<USB_LED_NUM_LOCK)) && !(old_usb_led & (1<<USB_LED_NUM_LOCK)))
+        else if (led_state.num_lock && !old_led_state.num_lock)
         {
                 // If NUM LK LED is turning on...
                 PLAY_SONG(tone_numlk_on);
         }
-        else if (!(usb_led & (1<<USB_LED_NUM_LOCK)) && (old_usb_led & (1<<USB_LED_NUM_LOCK)))
+        else if (!led_state.num_lock && old_led_state.num_lock)
         {
                 // If NUM LED is turning off...
                 PLAY_SONG(tone_numlk_off);
         }
-        else if ((usb_led & (1<<USB_LED_SCROLL_LOCK)) && !(old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
+        else if (led_state.scroll_lock && !old_led_state.scroll_lock)
         {
                 // If SCROLL LK LED is turning on...
                 PLAY_SONG(tone_scroll_on);
         }
-        else if (!(usb_led & (1<<USB_LED_SCROLL_LOCK)) && (old_usb_led & (1<<USB_LED_SCROLL_LOCK)))
+        else if (!led_state.scroll_lock && old_led_state.scroll_lock)
         {
                 // If SCROLL LED is turning off...
                 PLAY_SONG(tone_scroll_off);
         }
     }
 
-    old_usb_led = usb_led;
+    old_led_state = led_state;
+    return false;
 }
 
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(30); // gets rid of tick
     PLAY_SONG(tone_my_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_my_goodbye);
     _delay_ms(3000);

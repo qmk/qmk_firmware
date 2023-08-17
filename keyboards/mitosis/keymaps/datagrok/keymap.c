@@ -85,8 +85,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       QK_BOOT, KC_INS,     KC_PGUP, DB_TOGG, KC_VOLU,        KC_PPLS, KC_P7,   KC_P8,   KC_P9,    KC_PMNS,
       CK_TOGG, KC_HOME,    KC_PGDN, KC_END,  KC_VOLD,        KC_NUM,  KC_P4,   KC_P5,   KC_P6,    KC_PENT,
       KC_LAYO, KC_MPRV,    KC_MPLY, KC_MNXT, KC_MUTE,        KC_PAST, KC_P1,   KC_P2,   KC_P3,    KC_PSLS,
-      /*,      */ CK_UP,   MU_TOG,  _______, _______,        _______, _______, KC_P0,   KC_PDOT,
-      /*,      */ CK_DOWN, MU_MOD,  _______, _______,        _______, _______, _______, _______),
+      /*,      */ CK_UP,   MU_TOGG, _______, _______,        _______, _______, KC_P0,   KC_PDOT,
+      /*,      */ CK_DOWN, MU_NEXT, _______, _______,        _______, _______, _______, _______),
 };
 const bool defaultlayers[] = {
   [_xQ] = true,

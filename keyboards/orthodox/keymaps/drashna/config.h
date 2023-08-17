@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT)))
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGB_DI_PIN D3
+#    define WS2812_DI_PIN D3
 #    define RGBLED_NUM 16  // Number of LEDs
 #    define RGBLED_SPLIT \
         { 8, 8 }
@@ -53,10 +53,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 #endif  // AUDIO_ENABLE
 
-#undef PRODUCT
 #ifdef KEYBOARD_orthodox_rev1
+#    undef PRODUCT
 #    define PRODUCT "Drashna Hacked Orthodox Rev .1"
 #elif KEYBOARD_orthodox_rev3
+#    undef PRODUCT
 #    define PRODUCT "Drashna Hacked Orthodox Rev .3"
 #endif
 

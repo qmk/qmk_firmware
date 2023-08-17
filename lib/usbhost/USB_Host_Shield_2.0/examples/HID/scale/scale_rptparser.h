@@ -38,7 +38,7 @@ public:
 	virtual void OnScaleChanged(const ScaleEventData *evt);
 };
 
-#define RPT_SCALE_LEN	sizeof(ScaleEventData)
+#define RPT_SCALE_LEN	sizeof(ScaleEventData)/sizeof(uint8_t)
 
 class ScaleReportParser : public HIDReportParser
 {

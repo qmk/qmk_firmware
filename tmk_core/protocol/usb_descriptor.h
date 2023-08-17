@@ -132,7 +132,7 @@ typedef struct {
     USB_Descriptor_Endpoint_t  CDC_DataInEndpoint;
 #endif
 
-#ifdef JOYSTICK_ENABLE
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
     // Joystick HID Interface
     USB_Descriptor_Interface_t Joystick_Interface;
     USB_HID_Descriptor_HID_t   Joystick_HID;
@@ -187,7 +187,7 @@ enum usb_interfaces {
     CDI_INTERFACE,
 #endif
 
-#if defined(JOYSTICK_ENABLE)
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
     JOYSTICK_INTERFACE,
 #endif
 
@@ -267,7 +267,11 @@ enum usb_endpoints {
 #endif
 
 #ifdef JOYSTICK_ENABLE
+#    if !defined(JOYSTICK_SHARED_EP)
     JOYSTICK_IN_EPNUM = NEXT_EPNUM,
+#    else
+#        define JOYSTICK_IN_EPNUM SHARED_IN_EPNUM
+#    endif
 #endif
 
 #ifdef DIGITIZER_ENABLE
@@ -304,4 +308,4 @@ enum usb_endpoints {
 #define JOYSTICK_EPSIZE 8
 #define DIGITIZER_EPSIZE 8
 
-uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);
+uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress);

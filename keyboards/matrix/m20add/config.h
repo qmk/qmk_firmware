@@ -71,7 +71,6 @@
 
 
 #define DIODE_DIRECTION COL2ROW
-#define DEBOUNCE    5
 
 // i2c setting
 #define I2C1_SCL_PIN B8
@@ -80,8 +79,6 @@
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2
 
 // rgb light setting
-#define RGB_DI_PIN B4  // reserved pin for future usage
-#define RGBLED_NUM 20
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -96,4 +93,4 @@
 
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_COUNT 1
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 20

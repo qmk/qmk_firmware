@@ -22,7 +22,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* Select hand configuration */
 //#define MASTER_LEFT

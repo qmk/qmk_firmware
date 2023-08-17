@@ -376,7 +376,7 @@ qmk_dict = {
     "Led 0": "BL_TOGG", "Led +": "BL_UP", "Led -": "BL_DOWN", "Led ~": "BL_BRTG",
     # Bootmagic missing
     # Bluetooth
-    "OUT_AUTO": "OUT_AUTO", "OUT_USB": "OUT_USB", "OUT_BT": "OUT_BT",
+    "OU_AUTO": "OU_AUTO", "OU_USB": "OU_USB", "OU_BT": "OU_BT",
     # Layer Switching missing, Lx -> MO(x), Tx -> TG(x)
     "qwertz": "DF(0)", "neo": "DF(2)",
     # Mouse Keys
@@ -388,7 +388,7 @@ qmk_dict = {
     "acc2": "KC_ACL2",
     # Modifiers missinng, add entry for each specific application
     # Mod-Tap Keys missing, add entry for each specific application
-    "_Sh_swp": "LSFT_T(SH_TG)",
+    "_Sh_swp": "LSFT_T(SH_TOGG)",
     # RGB Lighting missing
     # RGB Matrix Lighting missing
     # Thermal Printer missing
@@ -396,7 +396,7 @@ qmk_dict = {
     # One Shot Keys missing
     # Swap Hands
     "_sp_swp": "SHT(KC_SPC)",
-    # Unicode support (via X()) included implicitly
+    # Unicode support included implicitly
     # Switching Unicode Input Modes
     "UC_win": "UC_WINC", "UC_lnx": "UC_LINX", "UC_mac": "UC_MAC",
 

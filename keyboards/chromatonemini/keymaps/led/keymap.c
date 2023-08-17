@@ -278,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE]         = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [_SEPALEFTOCT]  = { ENCODER_CCW_CW(_______, _______)  },
     [_SEPAHALF]     = { ENCODER_CCW_CW(_______, _______)  },
@@ -310,7 +310,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
 
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_enable();
-    rgb_matrix_set_speed(RGB_MATRIX_STARTUP_SPD);
+    rgb_matrix_set_speed(RGB_MATRIX_DEFAULT_SPD);
 #endif  // RGB_MATRIX_ENABLE
     my_init(); // commom codes called from eeconfig_init_user() and keyboard_post_init_user().
 }

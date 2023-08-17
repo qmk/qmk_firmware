@@ -164,24 +164,27 @@ void host_joystick_send(joystick_t *joystick) {
     if (!driver) return;
 
     report_joystick_t report = {
-#    if JOYSTICK_AXES_COUNT > 0
+#    ifdef JOYSTICK_SHARED_EP
+        .report_id = REPORT_ID_JOYSTICK,
+#    endif
+#    if JOYSTICK_AXIS_COUNT > 0
         .axes =
             {
                 joystick->axes[0],
 
-#        if JOYSTICK_AXES_COUNT >= 2
+#        if JOYSTICK_AXIS_COUNT >= 2
                 joystick->axes[1],
 #        endif
-#        if JOYSTICK_AXES_COUNT >= 3
+#        if JOYSTICK_AXIS_COUNT >= 3
                 joystick->axes[2],
 #        endif
-#        if JOYSTICK_AXES_COUNT >= 4
+#        if JOYSTICK_AXIS_COUNT >= 4
                 joystick->axes[3],
 #        endif
-#        if JOYSTICK_AXES_COUNT >= 5
+#        if JOYSTICK_AXIS_COUNT >= 5
                 joystick->axes[4],
 #        endif
-#        if JOYSTICK_AXES_COUNT >= 6
+#        if JOYSTICK_AXIS_COUNT >= 6
                 joystick->axes[5],
 #        endif
             },
@@ -217,10 +220,11 @@ void host_digitizer_send(digitizer_t *digitizer) {
 #    ifdef DIGITIZER_SHARED_EP
         .report_id = REPORT_ID_DIGITIZER,
 #    endif
-        .tip     = digitizer->tipswitch & 0x1,
-        .inrange = digitizer->inrange & 0x1,
-        .x       = (uint16_t)(digitizer->x * 0x7FFF),
-        .y       = (uint16_t)(digitizer->y * 0x7FFF),
+        .in_range = digitizer->in_range,
+        .tip      = digitizer->tip,
+        .barrel   = digitizer->barrel,
+        .x        = (uint16_t)(digitizer->x * 0x7FFF),
+        .y        = (uint16_t)(digitizer->y * 0x7FFF),
     };
 
     send_digitizer(&report);

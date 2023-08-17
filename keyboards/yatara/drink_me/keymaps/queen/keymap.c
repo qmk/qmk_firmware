@@ -9,7 +9,7 @@ enum td_keys {
 };
 
 
-void td_spade_lnx (qk_tap_dance_state_t *state, void *user_data) {
+void td_spade_lnx (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_unicode(0x2660); // ♠
     } else {
@@ -19,7 +19,7 @@ void td_spade_lnx (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-void td_diamond_osx (qk_tap_dance_state_t *state, void *user_data) {
+void td_diamond_osx (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_unicode(0x2666); // ♦
     } else {
@@ -29,7 +29,7 @@ void td_diamond_osx (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-void td_club_win (qk_tap_dance_state_t *state, void *user_data) {
+void td_club_win (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_unicode(0x2663); // ♣
     } else {
@@ -39,7 +39,7 @@ void td_club_win (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-void td_heart_winc (qk_tap_dance_state_t *state, void *user_data) {
+void td_heart_winc (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_unicode(0x2665); // ♥
     } else {
@@ -49,7 +49,7 @@ void td_heart_winc (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_K0] = ACTION_TAP_DANCE_FN(td_spade_lnx),
     [TD_K1] = ACTION_TAP_DANCE_FN(td_diamond_osx),
     [TD_K2] = ACTION_TAP_DANCE_FN(td_club_win),

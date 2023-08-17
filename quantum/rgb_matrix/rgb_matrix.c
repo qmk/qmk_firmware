@@ -18,10 +18,14 @@
 
 #include "rgb_matrix.h"
 #include "progmem.h"
-#include "config.h"
 #include "eeprom.h"
+#include "eeconfig.h"
+#include "keyboard.h"
+#include "sync_timer.h"
+#include "debug.h"
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include <lib/lib8tion/lib8tion.h>
 
@@ -81,29 +85,29 @@ __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
 #    define RGB_MATRIX_SPD_STEP 16
 #endif
 
-#if !defined(RGB_MATRIX_STARTUP_MODE)
+#if !defined(RGB_MATRIX_DEFAULT_MODE)
 #    ifdef ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-#        define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 #    else
 // fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
-#        define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+#        define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
 #    endif
 #endif
 
-#if !defined(RGB_MATRIX_STARTUP_HUE)
-#    define RGB_MATRIX_STARTUP_HUE 0
+#if !defined(RGB_MATRIX_DEFAULT_HUE)
+#    define RGB_MATRIX_DEFAULT_HUE 0
 #endif
 
-#if !defined(RGB_MATRIX_STARTUP_SAT)
-#    define RGB_MATRIX_STARTUP_SAT UINT8_MAX
+#if !defined(RGB_MATRIX_DEFAULT_SAT)
+#    define RGB_MATRIX_DEFAULT_SAT UINT8_MAX
 #endif
 
-#if !defined(RGB_MATRIX_STARTUP_VAL)
-#    define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#if !defined(RGB_MATRIX_DEFAULT_VAL)
+#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #endif
 
-#if !defined(RGB_MATRIX_STARTUP_SPD)
-#    define RGB_MATRIX_STARTUP_SPD UINT8_MAX / 2
+#if !defined(RGB_MATRIX_DEFAULT_SPD)
+#    define RGB_MATRIX_DEFAULT_SPD UINT8_MAX / 2
 #endif
 
 // globals
@@ -146,9 +150,9 @@ void eeconfig_update_rgb_matrix(void) {
 void eeconfig_update_rgb_matrix_default(void) {
     dprintf("eeconfig_update_rgb_matrix_default\n");
     rgb_matrix_config.enable = 1;
-    rgb_matrix_config.mode   = RGB_MATRIX_STARTUP_MODE;
-    rgb_matrix_config.hsv    = (HSV){RGB_MATRIX_STARTUP_HUE, RGB_MATRIX_STARTUP_SAT, RGB_MATRIX_STARTUP_VAL};
-    rgb_matrix_config.speed  = RGB_MATRIX_STARTUP_SPD;
+    rgb_matrix_config.mode   = RGB_MATRIX_DEFAULT_MODE;
+    rgb_matrix_config.hsv    = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL};
+    rgb_matrix_config.speed  = RGB_MATRIX_DEFAULT_SPD;
     rgb_matrix_config.flags  = LED_FLAG_ALL;
     eeconfig_flush_rgb_matrix(true);
 }
@@ -429,7 +433,10 @@ void rgb_matrix_task(void) {
         case RENDERING:
             rgb_task_render(effect);
             if (effect) {
-                rgb_matrix_indicators();
+                // Only run the basic indicators in the last render iteration (default there are 5 iterations)
+                if (rgb_effect_params.iter == RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
+                    rgb_matrix_indicators();
+                }
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
             }
             break;
@@ -460,14 +467,7 @@ void rgb_matrix_indicators_advanced(effect_params_t *params) {
      * and not sure which would be better. Otherwise, this should be called from
      * rgb_task_render, right before the iter++ line.
      */
-#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
-    uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
-    uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;
-    if (max > RGB_MATRIX_LED_COUNT) max = RGB_MATRIX_LED_COUNT;
-#else
-    uint8_t min = 0;
-    uint8_t max = RGB_MATRIX_LED_COUNT;
-#endif
+    RGB_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
     rgb_matrix_indicators_advanced_kb(min, max);
 }
 

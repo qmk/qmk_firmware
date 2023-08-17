@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_NO,    KC_NO, C(KC_LEFT), KC_NO, C(KC_RGHT), KC_NO,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,   KC_INS,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_RSFT,  KC_NO,    WM_5,    WM_4,    WM_3,    WM_2,   MU_TOG,            AU_TOG,  KC_NO,  KC_NO,   KC_LBRC, KC_RBRC, KC_BSLS, KC_NO,
+     KC_RSFT,  KC_NO,    WM_5,    WM_4,    WM_3,    WM_2,   MU_TOGG,           AU_TOGG, KC_NO,  KC_NO,   KC_LBRC, KC_RBRC, KC_BSLS, KC_NO,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                       WM_1,  KC_LGUI,  KC_PIPE,                   KC_UNDS, KC_RCTL, KC_RALT
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_NO,   KC_NO,   KC_NO,   KC_NO,    CS_D,  S(KC_PGDN),                         RGB_VAD, RGB_HUD, RGB_SAD,  KC_NO,   KC_NO,   KC_NO,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT, KC_VOLD, KC_VOLU, KC_MUTE, KC_BRID, KC_BRIU,  MU_MOD,           AU_OFF,  KC_RCTL, KC_LCTL, KC_RALT, KC_LALT, KC_DEL,  KC_NO,
+     KC_LSFT, KC_VOLD, KC_VOLU, KC_MUTE, KC_BRID, KC_BRIU,  MU_NEXT,          AU_OFF,  KC_RCTL, KC_LCTL, KC_RALT, KC_LALT, KC_DEL,  KC_NO,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                       WM_6,  VK_TOGG, RGB_MOD,                   RGB_TOG, BL_TOGG,  BL_STEP
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘

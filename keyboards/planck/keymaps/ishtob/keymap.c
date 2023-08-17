@@ -1,13 +1,6 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 
-#include "planck.h"
-#include "action_layer.h"
-// #include "dynamic_macro.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
-#include "eeconfig.h"
 #include "ishtob.h"
 
 extern keymap_config_t keymap_config;
@@ -191,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ortho_4x12_wrapper(
   DFU, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, KC_DEL,
   _______, MAGIC_TOGGLE_NKRO, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, BL_DOWN,BL_UP,  BL_STEP, BL_TOGG,
+  _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, BL_DOWN,BL_UP,  BL_STEP, BL_TOGG,
   _______, _______, _______, _______, _______, _______, _______, _______, CK_RST, CK_DOWN, CK_UP, CK_TOGG
 )
  
@@ -321,7 +314,7 @@ void matrix_init_keymap(void) {
 
 #ifdef AUDIO_ENABLE
 
-void startup_user()
+void startup_user(void)
 {
     #ifdef RGB_MATRIX_ENABLE
     rgblight_mode(RGB_MATRIX_CYCLE_ALL);
@@ -330,7 +323,7 @@ void startup_user()
     PLAY_SONG(tone_startup);
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     PLAY_SONG(tone_goodbye);
     wait_ms(150);

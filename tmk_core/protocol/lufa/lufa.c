@@ -48,10 +48,10 @@
 #    include "sleep_led.h"
 #endif
 #include "suspend.h"
+#include "wait.h"
 
 #include "usb_descriptor.h"
 #include "lufa.h"
-#include "quantum.h"
 #include "usb_device_state.h"
 #include <util/atomic.h>
 
@@ -298,7 +298,7 @@ void EVENT_USB_Device_Reset(void) {
  *
  * FIXME: Needs doc
  */
-void EVENT_USB_Device_Suspend() {
+void EVENT_USB_Device_Suspend(void) {
     print("[S]");
     usb_device_state_set_suspend(USB_Device_ConfigurationNumber != 0, USB_Device_ConfigurationNumber);
 
@@ -311,7 +311,7 @@ void EVENT_USB_Device_Suspend() {
  *
  * FIXME: Needs doc
  */
-void EVENT_USB_Device_WakeUp() {
+void EVENT_USB_Device_WakeUp(void) {
     print("[W]");
 #if defined(NO_USB_STARTUP_CHECK)
     suspend_wakeup_init();
@@ -404,7 +404,7 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     ConfigSuccess &= Endpoint_ConfigureEndpoint((CDC_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_BULK, CDC_EPSIZE, 1);
 #endif
 
-#ifdef JOYSTICK_ENABLE
+#if defined(JOYSTICK_ENABLE) && !defined(JOYSTICK_SHARED_EP)
     /* Setup joystick endpoint */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((JOYSTICK_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, JOYSTICK_EPSIZE, 1);
 #endif
@@ -858,7 +858,7 @@ void protocol_post_init(void) {
 void protocol_pre_task(void) {
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DeviceState == DEVICE_STATE_Suspended) {
-        print("[s]");
+        dprintln("suspending keyboard");
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             suspend_power_down();
             if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
@@ -901,5 +901,5 @@ void protocol_post_task(void) {
 }
 
 uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue, const uint16_t wIndex, const void **const DescriptorAddress) {
-    return get_usb_descriptor(wValue, wIndex, DescriptorAddress);
+    return get_usb_descriptor(wValue, wIndex, USB_ControlRequest.wLength, DescriptorAddress);
 }

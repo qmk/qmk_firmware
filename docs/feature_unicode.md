@@ -42,7 +42,7 @@ Add the following to your `rules.mk`:
 UNICODEMAP_ENABLE = yes
 ```
 
-Then add `X(i)` keycodes to your keymap, where _i_ is the desired character's index in the mapping table. This can be a numeric value, but it's recommended to keep the indices in an enum and access them by name.
+Then add `UM(i)` keycodes to your keymap, where _i_ is the desired character's index in the mapping table. This can be a numeric value, but it's recommended to keep the indices in an enum and access them by name.
 
 ```c
 enum unicode_names {
@@ -51,20 +51,20 @@ enum unicode_names {
     SNEK
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [BANG]  = 0x203D,  // ‽
     [IRONY] = 0x2E2E,  // ⸮
     [SNEK]  = 0x1F40D, // 🐍
 };
 ```
 
-Then you can use `X(BANG)`, `X(SNEK)` etc. in your keymap.
+Then you can use `UM(BANG)`, `UM(SNEK)` etc. in your keymap.
 
 #### Lower and Upper Case
 
-Characters often come in lower and upper case pairs, such as å and Å. To make inputting these characters easier, you can use `XP(i, j)` in your keymap, where _i_ and _j_ are the mapping table indices of the lower and upper case character, respectively. If you're holding down Shift or have Caps Lock turned on when you press the key, the second (upper case) character will be inserted; otherwise, the first (lower case) version will appear.
+Characters often come in lower and upper case pairs, such as å and Å. To make inputting these characters easier, you can use `UP(i, j)` in your keymap, where _i_ and _j_ are the mapping table indices of the lower and upper case character, respectively. If you're holding down Shift or have Caps Lock turned on when you press the key, the second (upper case) character will be inserted; otherwise, the first (lower case) version will appear.
 
-This is most useful when creating a keymap for an international layout with special characters. Instead of having to put the lower and upper case versions of a character on separate keys, you can have them both on the same key by using `XP()`. This helps blend Unicode keys in with regular alphas.
+This is most useful when creating a keymap for an international layout with special characters. Instead of having to put the lower and upper case versions of a character on separate keys, you can have them both on the same key by using `UP()`. This helps blend Unicode keys in with regular alphas.
 
 Due to keycode size constraints, _i_ and _j_ can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127. This is enough for most use cases, but if you'd like to customize the index calculation, you can override the [`unicodemap_index()`](https://github.com/qmk/qmk_firmware/blob/71f640d47ee12c862c798e1f56392853c7b1c1a8/quantum/process_keycode/process_unicodemap.c#L36) function. This also allows you to, say, check Ctrl instead of Shift/Caps.
 
@@ -83,7 +83,7 @@ UCIS_ENABLE = yes
 Then define a table like this in your keymap file:
 
 ```c
-const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
+const ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
     UCIS_SYM("poop", 0x1F4A9),                // 💩
     UCIS_SYM("rofl", 0x1F923),                // 🤣
     UCIS_SYM("cuba", 0x1F1E8, 0x1F1FA),       // 🇨🇺
@@ -93,15 +93,15 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
 
 By default, each table entry may be up to 3 code points long. This number can be changed by adding `#define UCIS_MAX_CODE_POINTS n` to your `config.h` file.
 
-To use UCIS input, call `qk_ucis_start()`. Then, type the mnemonic for the character (such as "rofl") and hit Space, Enter or Esc. QMK should erase the "rofl" text and insert the laughing emoji.
+To use UCIS input, call `ucis_start()`. Then, type the mnemonic for the character (such as "rofl") and hit Space, Enter or Esc. QMK should erase the "rofl" text and insert the laughing emoji.
 
 #### Customization
 
 There are several functions that you can define in your keymap to customize the functionality of this feature.
 
-* `void qk_ucis_start_user(void)` – This runs when you call the "start" function, and can be used to provide feedback. By default, it types out a keyboard emoji.
-* `void qk_ucis_success(uint8_t symbol_index)` – This runs when the input has matched something and has completed. By default, it doesn't do anything.
-* `void qk_ucis_symbol_fallback (void)` – This runs when the input doesn't match anything. By default, it falls back to trying that input as a Unicode code.
+* `void ucis_start_user(void)` – This runs when you call the "start" function, and can be used to provide feedback. By default, it types out a keyboard emoji.
+* `void ucis_success(uint8_t symbol_index)` – This runs when the input has matched something and has completed. By default, it doesn't do anything.
+* `void ucis_symbol_fallback (void)` – This runs when the input doesn't match anything. By default, it falls back to trying that input as a Unicode code.
 
 You can find the default implementations of these functions in [`process_ucis.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_ucis.c).
 

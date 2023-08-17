@@ -112,7 +112,7 @@ void set_backlight_by_keymap(uint8_t col, uint8_t row){
 #endif
 }
 
-void force_issi_refresh(){
+void force_issi_refresh(void){
 #ifdef ISSI_ENABLE
     issi_devices[0]->led_dirty = true;
     update_issi(0, true);
@@ -121,7 +121,7 @@ void force_issi_refresh(){
 #endif
 }
 
-void led_test(){
+void led_test(void){
 #ifdef ISSI_ENABLE
 #ifdef WATCHDOG_ENABLE
     // This test take a long time to run, disable the WTD until its complete

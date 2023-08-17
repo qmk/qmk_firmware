@@ -16,7 +16,7 @@ enum custom_keycodes {
   RAISE,
 };
 
-#define KC_RST RESET
+#define KC_RST QK_BOOT
 #define KC_ KC_TRNS
 
 #define KC_LOWR MO(_LOWER) // Lower layer

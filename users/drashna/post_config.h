@@ -43,7 +43,8 @@
 #            define RGB_MATRIX_REST_MODE RGB_MATRIX_CYCLE_OUT_IN
 #        endif
 #    endif
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_REST_MODE
+#    undef RGB_MATRIX_DEFAULT_MODE
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_REST_MODE
 #endif
 
 #ifdef MOUSEKEY_ENABLE
@@ -120,7 +121,7 @@
 #    ifndef MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS
 #        define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8
 #    endif
-#endif  // MOUSEKEY_ENABLE
+#endif // MOUSEKEY_ENABLE
 
 #define MOUSE_EXTENDED_REPORT
 
@@ -128,15 +129,15 @@
 #    define TAPPING_TERM 175
 #endif
 
-#ifndef SECURE_UNLOCK_SEQUENCE
-#    define SECURE_UNLOCK_SEQUENCE    \
-        {                             \
-            {2, 1}, {2, 2}, {2, 3}, { \
-                2, 4                  \
-            }                         \
-        }
+#if (__has_include("../../../qmk_secrets/config.h") && !defined(NO_SECRETS))
+#    include "../../../qmk_secrets/config.h"
 #endif
 
 #if defined(SPLIT_KEYBOARD) && defined(PROTOCOL_CHIBIOS) && !defined(USB_SUSPEND_WAKEUP_DELAY)
-#    define USB_SUSPEND_WAKEUP_DELAY 200
+#    define USB_SUSPEND_WAKEUP_DELAY 500
+#endif
+
+#if defined(XAP_ENABLE) && !defined(__AVR__)
+#    undef DYNAMIC_KEYMAP_LAYER_COUNT
+#    define DYNAMIC_KEYMAP_LAYER_COUNT 12
 #endif

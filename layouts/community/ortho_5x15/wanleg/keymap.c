@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(BLUEFRUIT)
 [PAD] = LAYOUT_ortho_5x5_wrapper(
-  _______, _______, _______, OUT_BT, OUT_USB,
+  _______, _______, _______, OU_BT, OU_USB,
   _______________NUMPAD_Row__0_______________, _______,
   _______________NUMPAD_Row__1_______________, _______,
   _______________NUMPAD_Row__2_______________, _______,

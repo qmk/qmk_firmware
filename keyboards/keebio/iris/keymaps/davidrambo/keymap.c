@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Shift vs. capslock function. From bbaserdem's Planck keymap (since deprecated).
-void caps_tap (qk_tap_dance_state_t *state, void *user_data) {
+void caps_tap (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code (KC_LSFT);
     } else if (state->count == 2) {
@@ -134,7 +134,7 @@ void caps_tap (qk_tap_dance_state_t *state, void *user_data) {
         register_code (KC_CAPS);
     }
 }
-void caps_tap_end (qk_tap_dance_state_t *state, void *user_data) {
+void caps_tap_end (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code (KC_LSFT);
     } else {
@@ -142,7 +142,7 @@ void caps_tap_end (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     //Tap once for Shift, twice for Caps Lock
     [SFT_LCK] = ACTION_TAP_DANCE_FN_ADVANCED( caps_tap, NULL, caps_tap_end)
 };

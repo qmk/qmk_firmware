@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 
 #ifndef EECONFIG_MAGIC_NUMBER
-#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE7 // When changing, decrement this value to avoid future re-init issues
+#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE6 // When changing, decrement this value to avoid future re-init issues
 #endif
 #define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
 
@@ -40,18 +40,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_KEYBOARD (uint32_t *)15
 #define EECONFIG_USER (uint32_t *)19
 #define EECONFIG_VELOCIKEY (uint8_t *)23
-
-#define EECONFIG_HAPTIC (uint32_t *)24
-
 // Mutually exclusive
-#define EECONFIG_LED_MATRIX (uint32_t *)28
-#define EECONFIG_RGB_MATRIX (uint32_t *)28
-// Speed & Flags
-#define EECONFIG_LED_MATRIX_EXTENDED (uint16_t *)32
-#define EECONFIG_RGB_MATRIX_EXTENDED (uint16_t *)32
+#define EECONFIG_LED_MATRIX (uint32_t *)24
+#define EECONFIG_RGB_MATRIX (uint64_t *)24
+
+#define EECONFIG_HAPTIC (uint32_t *)32
+#define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)36
 
 // Size of EEPROM being used for core data storage
-#define EECONFIG_BASE_SIZE 34
+#define EECONFIG_BASE_SIZE 37
 
 // Size of EEPROM dedicated to keyboard- and user-specific data
 #ifndef EECONFIG_KB_DATA_SIZE
@@ -134,13 +131,17 @@ bool eeconfig_read_handedness(void);
 void eeconfig_update_handedness(bool val);
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
+bool eeconfig_is_kb_datablock_valid(void);
 void eeconfig_read_kb_datablock(void *data);
 void eeconfig_update_kb_datablock(const void *data);
+void eeconfig_init_kb_datablock(void);
 #endif // (EECONFIG_KB_DATA_SIZE) > 0
 
 #if (EECONFIG_USER_DATA_SIZE) > 0
+bool eeconfig_is_user_datablock_valid(void);
 void eeconfig_read_user_datablock(void *data);
 void eeconfig_update_user_datablock(const void *data);
+void eeconfig_init_user_datablock(void);
 #endif // (EECONFIG_USER_DATA_SIZE) > 0
 
 // Any "checked" debounce variant used requires implementation of:

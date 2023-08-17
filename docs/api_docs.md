@@ -66,3 +66,41 @@ Once your compile job has finished you'll check the `result` key. The value of t
 * `firmware_keymap_url`: A list of URLs for the `keymap.c`
 * `firmware_source_url`: A list of URLs for the full firmware source code
 * `output`: The stdout and stderr for this compile job. Errors will be found here.
+
+## Constants :id=qmk-constants
+
+If you're writing a tool that leverages constants used within QMK, the API is used to publish "locked-in" versions of those constants in order to ensure that any third-party tooling has a canonical set of information to work with.
+
+The list of available constants can be retrieved by accessing one of the following endpoints:
+
+```
+$ curl https://keyboards.qmk.fm/v1/constants_metadata.json # For `master`
+{"last_updated": "2022-11-26 00:00:00 GMT", "constants": {"keycodes": ["0.0.1"]}}
+
+$ curl https://keyboards.develop.qmk.fm/v1/constants_metadata.json # For `develop`
+{"last_updated": "2022-11-26 12:00:00 GMT", "constants": {"keycodes": ["0.0.1", "0.0.2"]}}
+```
+
+!> Versions exported by the `master` endpoint are locked-in. Any extra versions that exist on the `develop` endpoint which don't exist in `master` are subject to change.
+
+?> Only keycodes are currently published, but over time all other "externally visible" IDs are expected to appear on these endpoints.
+
+To retrieve the constants associated with a subsystem, the endpoint format is as follows:
+```
+# https://keyboards.qmk.fm/v1/constants/{subsystem}_{version}.json
+```
+Which, for the metadata endpoint above results in a request of:
+```
+$ curl https://keyboards.qmk.fm/v1/constants/keycodes_0.0.1.json
+{
+    "ranges": {
+        "0x0000/0x00FF": {
+            "define": "QK_BASIC"
+        },
+        "0x0100/0x1EFF": {
+            "define": "QK_MODS"
+        },
+        "0x2000/0x1FFF": {
+            "define": "QK_MOD_TAP"
+<snip>
+```

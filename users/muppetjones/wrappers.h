@@ -65,7 +65,7 @@
  * `----------------------------------' `----------------------------------'
  */
  // NOTE: The "BACKLIT" keycode is planck specific
-#define __ADJUST_L1________________________________ RESET,   DB_TOGG, XXXXXXX, XXXXXXX, XXXXXXX
+#define __ADJUST_L1________________________________ QK_BOOT, DB_TOGG, XXXXXXX, XXXXXXX, XXXXXXX
 #define __ADJUST_L2________________________________ RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD
 #define __ADJUST_L3________________________________ XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX
 
@@ -165,8 +165,6 @@
  * | Play | Stop | Next | Prev | Mute |
  * `----------------------------------'
  */
-// What it MUV_IN and MUV_DE (5C2A and B)?
-// https://github.com/qmk/qmk_firmware/blob/7e832e46de26989b81f2fbf58a0f391b2b0c1aaf/quantum/quantum_keycodes.h#L135
 #define __MEDIA_R1_________________________________ AU_ON,   MI_ON,   MU_ON,   KC_BRMU, KC_VOLU
 #define __MEDIA_R2_________________________________ AU_OFF,  MI_OFF,  MU_OFF,  KC_BRMD, KC_VOLD
 #define __MEDIA_R3_________________________________ KC_MPLY, KC_MSTP, KC_MNXT, KC_MPRV, KC_MUTE

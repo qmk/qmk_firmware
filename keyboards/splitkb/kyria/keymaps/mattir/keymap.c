@@ -56,28 +56,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 };
 
+void leader_end_user(void) {
+  if (leader_sequence_one_key(KC_A)) {
+    tap_code16(SGUI(KC_L));
+  }
+  if (leader_sequence_two_keys(KC_S, KC_S)) {
+    tap_code16(SGUI(KC_5));
+  }
+}
+
 bool is_cmd_tab_active = false;
 uint16_t cmd_tab_timer = 0;
-
-LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
   if (is_cmd_tab_active) {
     if (timer_elapsed(cmd_tab_timer) > 1000) {
       unregister_code(KC_LGUI);
       is_cmd_tab_active = false;
-    }
-  }
-
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_ONE_KEY(KC_A) {
-      tap_code16(SGUI(KC_L));
-    }
-    SEQ_TWO_KEYS(KC_S, KC_S) {
-      tap_code16(SGUI(KC_5));
     }
   }
 }

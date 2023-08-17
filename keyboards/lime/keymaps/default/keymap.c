@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     }
 
     /* Joystick axes settings */
-    joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
+    joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
         [0] = JOYSTICK_AXIS_IN(JOYSTICK_X_PIN, 268, 514, 813),
         [1] = JOYSTICK_AXIS_IN(JOYSTICK_Y_PIN, 865, 519, 260)
     };
