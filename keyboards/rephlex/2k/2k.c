@@ -40,7 +40,6 @@ analog_config g_config = {
     .release_hysteresis  = 5
 };
 
-#ifdef VIA_ENABLE
 void values_load(void) {
     eeconfig_read_kb_datablock(&g_config);
 }
@@ -49,17 +48,12 @@ void values_save(void) {
     eeconfig_update_kb_datablock(&g_config);
 }
 
-void via_init_kb(void) {
-    /* If the EEPROM has the magic, the data is good.
-    OK to load from EEPROM */
-    if (via_eeprom_is_valid()) {
-        values_load();
-    } else {
-        values_save();
-        /* DO NOT set EEPROM valid here, let caller do this */
-    }
+void keyboard_post_init_kb(void) {
+    values_load();
+    keyboard_post_init_kb()
 }
 
+#ifdef VIA_ENABLE
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     /* data = [ command_id, channel_id, value_id, value_data ] */
     uint8_t *command_id        = &(data[0]);
