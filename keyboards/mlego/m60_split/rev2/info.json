@@ -19,6 +19,7 @@
         "scroll_lock": "B13"
     },
     "rgblight": {
+        "led_count": 16,
         "split_count": [8, 8]
     },
     "ws2812": {

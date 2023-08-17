@@ -26,7 +26,9 @@
         "pin": "F6"
     },
     "rgblight": {
-        "max_brightness": 120
+        "led_count": 6,
+        "max_brightness": 120,
+        "sleep": true
     },
     "bootmagic": {
         "matrix": [0, 2]

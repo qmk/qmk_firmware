@@ -3,6 +3,12 @@
     "usb": {
         "device_version": "0.0.3"
     },
+    "rgblight": {
+        "led_count": 39
+    },
+    "tapping": {
+        "term": 500
+    },
     "ws2812": {
         "pin": "B0"
     },

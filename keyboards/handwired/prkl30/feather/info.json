@@ -1,6 +1,14 @@
 {
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 13
+    },
     "ws2812": {
         "pin": "D1"
+    },
+    "bluetooth": {
+        "driver": "bluefruit_le"
     },
     "matrix_pins": {
         "cols": ["D3", "D1", "B7", "D6", "C7", "B6", "B5", "D7", "C6", "D0"],

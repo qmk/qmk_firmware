@@ -13,6 +13,17 @@
         "rows": ["D0", "D1", "D2", "D3"]
     },
     "diode_direction": "COL2ROW",
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 3
+    },
+    "tapping": {
+        "term": 250
+    },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
     "ws2812": {
         "pin": "B7"
     },

@@ -17,7 +17,3 @@
 #pragma once
 
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-
-#ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 1
-#endif

@@ -3,6 +3,9 @@
     "usb": {
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 1
+    },
     "ws2812": {
         "pin": "F6"
     },

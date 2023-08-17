@@ -16,7 +16,6 @@
 #pragma once
 
 //rgb light setting
-#define RGBLED_NUM          6
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -28,9 +27,6 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
-#define RGBLIGHT_HUE_STEP   8
-#define RGBLIGHT_SAT_STEP   8
-#define RGBLIGHT_VAL_STEP   8
 
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 #    define DRIVER_ADDR_1 0b1010000
