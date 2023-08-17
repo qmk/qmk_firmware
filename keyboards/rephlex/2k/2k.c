@@ -5,7 +5,6 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "quantum.h"
 #include "analog.h"
 #include "eeprom.h"
-#include "config.h"
 
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 void         bootmagic_lite(void) {
