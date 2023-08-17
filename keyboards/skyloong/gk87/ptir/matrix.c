@@ -118,8 +118,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        setPinOutput_writeHigh(ALL_KEY_COL_PULL);
         matrix_read_cols_on_row(curr_matrix, current_row);
+        setPinOutput_writeHigh(ALL_KEY_COL_PULL);
     }
 
     matrix_has_changed = memcmp(current_matrix, curr_matrix, sizeof(curr_matrix)) != 0;
