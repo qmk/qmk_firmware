@@ -125,26 +125,16 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 #endif // RGB_MATRIX_ENABLE
 
-enum __layers { WIN_B, WIN_W, WIN_FN, MAC_B, MAC_W, MAC_FN };
-
 // clang-format on
-typedef union {
-    uint32_t raw;
-    struct {
-        bool MacMode_flag : 1;
-        bool _WASD_layer_flag : 1;
-    };
-} kb_config_t;
+enum __layers {
+    WIN_B,
+    WIN_W,
+    WIN_FN,
+    MAC_B,
+    MAC_W,
+    MAC_FN,
+};
 
-kb_config_t kb_config;
-
-void keyboard_post_init_kb(void) {
-    kb_config.raw = eeconfig_read_kb(); // Read status from EEPROM
-    if (kb_config.MacMode_flag) layer_on(MAC_B);
-    if (kb_config._WASD_layer_flag) {
-        kb_config.MacMode_flag ? layer_on(MAC_W) : layer_on(WIN_W);
-    }
-}
 
 void led_init_ports(void) {
     // set our LED pings as output
@@ -174,35 +164,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         case DF(WIN_B):
             if (record->event.pressed) {
                 set_single_persistent_default_layer(WIN_B);
-                layer_state_set(1 << WIN_B);
-                kb_config.MacMode_flag     = false;
-                kb_config._WASD_layer_flag = false;
-                eeconfig_update_kb(kb_config.raw);
             }
             return false;
         case DF(MAC_B):
             if (record->event.pressed) {
                 set_single_persistent_default_layer(MAC_B);
-                layer_state_set(1 << MAC_B);
                 keymap_config.no_gui = 0;
                 eeconfig_update_keymap(keymap_config.raw);
-                kb_config.MacMode_flag     = true;
-                kb_config._WASD_layer_flag = false;
-                eeconfig_update_kb(kb_config.raw);
             }
             return false;
-        case TG(WIN_W):
-            if (record->event.pressed) {
-                kb_config._WASD_layer_flag = !layer_state_is(WIN_W);
-                eeconfig_update_kb(kb_config.raw);
-            }
-            return true;
-        case TG(MAC_W):
-            if (record->event.pressed) {
-                kb_config._WASD_layer_flag = !layer_state_is(MAC_W);
-                eeconfig_update_kb(kb_config.raw);
-            }
-            return true;
         case GU_TOGG:
             if (record->event.pressed) {
                 writePin(LED_WIN_LOCK_PIN, !keymap_config.no_gui);
