@@ -7,7 +7,7 @@
 
 enum framework_keycodes {
     // Function lock button
-    FN_LOCK = SAFE_RANGE,
+    FN_LOCK = QK_KB,
 };
 
 #define SLEEP_GPIO GP0
