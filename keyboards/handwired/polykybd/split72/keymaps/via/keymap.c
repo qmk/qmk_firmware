@@ -1076,7 +1076,7 @@ bool display_wakeup(keyrecord_t* record) {
 }
 void keyboard_post_init_user(void) {
     //rgb_matrix_disable_noeeprom();
-    rgb_matrix_mode_noeeprom(RGB_MATRIX_JELLYBEAN_RAINDROPS);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE_CROSS);
     rgb_matrix_enable_noeeprom();
 
     // Customise these values to desired behaviour

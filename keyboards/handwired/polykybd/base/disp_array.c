@@ -271,48 +271,16 @@ void kdisp_scroll(bool activate) {
     //spi_stop();
 }
 
+//also setup the lines to scroll via kdisp_scroll_vlines
 void kdisp_scroll_modeh(bool left, uint8_t hspeed0to7) {
-    // spi_start(SPI_SS_PIN, false, SPI_MODE, SPI_DIVISOR);
-    spi_prepare_commands();
-    if (left) {
-        static const uint8_t PROGMEM dlist1[] = {SSD1306_LEFT_HORIZONTAL_SCROLL,
-                                                 0,  // dummy a
-                                                 0}; // start b
-        spi_transmit(dlist1, sizeof(dlist1));
-    } else {
-        static const uint8_t PROGMEM dlist1[] = {SSD1306_RIGHT_HORIZONTAL_SCROLL,
-                                                 0,  // dummy a
-                                                 0}; // start b
-        spi_transmit(dlist1, sizeof(dlist1));
-    }
-    switch(hspeed0to7) { //c
-        case 0: spi_write(7); break; //2
-        case 1: spi_write(4); break; //3
-        case 2: spi_write(5); break; //4
-        case 3: spi_write(0); break; //5
-        case 4: spi_write(6); break; //25
-        case 5: spi_write(1); break; //64
-        case 6: spi_write(2); break; //128
-        default: spi_write(3); break; //256
-    }
-
-    static const uint8_t PROGMEM dlist2[] = {0x07,  // end d
-                                             0,     // dummy e
-                                             0xff}; // dummy f
-    spi_transmit(dlist2, sizeof(dlist2));
-    // spi_stop();
-}
-
-void kdisp_scroll_modehv(bool left, uint8_t hspeed0to7, uint8_t voffset0to63) {
-    //spi_start(SPI_SS_PIN, false, SPI_MODE, SPI_DIVISOR);
     spi_prepare_commands();
     if(left) {
-        spi_write(SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL);
+        spi_write(SSD1306_LEFT_HORIZONTAL_SCROLL);
     } else {
-        spi_write(SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL);
+        spi_write(SSD1306_RIGHT_HORIZONTAL_SCROLL);
     }
     spi_write(0); //dummy
-    spi_write(0); //start
+    spi_write(0); //start page
     switch(hspeed0to7) {
         case 0: spi_write(7); break; //2
         case 1: spi_write(4); break; //3
@@ -324,9 +292,34 @@ void kdisp_scroll_modehv(bool left, uint8_t hspeed0to7, uint8_t voffset0to63) {
         default: spi_write(3); break; //256
     }
 
-    spi_write(0x07); //end
+    spi_write(0x05); //end page, maybe as param?
+    spi_write(0); //dummy
+    spi_write(0xff); //dummy
+}
+
+//also setup the lines to scroll via kdisp_scroll_vlines
+void kdisp_scroll_modehv(bool left, uint8_t hspeed0to7, uint8_t voffset0to63) {
+    spi_prepare_commands();
+    if(left) {
+        spi_write(SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL);
+    } else {
+        spi_write(SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL);
+    }
+    spi_write(0); //dummy
+    spi_write(0); //start page
+    switch(hspeed0to7) {
+        case 0: spi_write(7); break; //2
+        case 1: spi_write(4); break; //3
+        case 2: spi_write(5); break; //4
+        case 3: spi_write(0); break; //5
+        case 4: spi_write(6); break; //25
+        case 5: spi_write(1); break; //64
+        case 6: spi_write(2); break; //128
+        default: spi_write(3); break; //256
+    }
+
+    spi_write(0x05); //end page, maybe as param?
     spi_write(voffset0to63&63);
-    //spi_stop();
 }
 
 void kdisp_set_contrast(uint8_t contrast) {
