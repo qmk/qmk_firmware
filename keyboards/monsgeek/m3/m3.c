@@ -150,7 +150,7 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
         writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-        writePin(LED_MAC_OS_PIN, kb_config.MacMode_flag);
+        writePin(LED_MAC_OS_PIN, (get_highest_layer(default_layer_state) == 3));
         writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
     }
     return res;
