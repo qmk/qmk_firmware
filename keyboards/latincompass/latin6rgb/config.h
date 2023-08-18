@@ -17,34 +17,7 @@
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS {C7, C6 }
-#define MATRIX_COL_PINS {F7, F6, F5}
-
-/* COL2ROW, ROW2COL*/
-#define DIODE_DIRECTION ROW2COL
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 3
-
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -107,16 +80,7 @@
 #define DRIVER_ADDR_1 0b1110100
 
 #define DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 6
+#define RGB_MATRIX_LED_COUNT 6
 #endif
-//#define RGB_DI_PIN B7
-//#ifdef RGB_DI_PIN
-//#define RGBLIGHT_ANIMATIONS
-//#define RGBLED_NUM 8
-//#define RGBLIGHT_HUE_STEP 5
-//#define RGBLIGHT_SAT_STEP 5
-//#define RGBLIGHT_VAL_STEP 5
-//#define RGBLIGHT_SLEEP
-//#endif
 
 #define B7_AUDIO

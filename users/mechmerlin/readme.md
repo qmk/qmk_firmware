@@ -17,7 +17,7 @@ This layer is commonly accessed via `MO(_FL)` on the base layer. It consists of 
 This layer is only present on my 60% boards. I habitually use the bottom right modifiers as arrows. 
 
 ### _CL (Control Layer)
-This layer is used for the `RESET` and `EEP_RST` keycodes. 
+This layer is used for the `RESET` and `EE_CLR` keycodes. 
 
 ## Custom Keycodes
 ----

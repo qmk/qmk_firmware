@@ -41,7 +41,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				SEND_STRING("git add ."SS_TAP(X_ENTER));
         break;
       case GIT_COMMIT:
-        SEND_STRING("git commit -m "SS_DOWN(X_LSHIFT)SS_TAP(X_QUOTE)SS_UP(X_LSHIFT));
+        SEND_STRING("git commit -m "SS_DOWN(X_LSFT)SS_TAP(X_QUOTE)SS_UP(X_LSFT));
         break;
       case GIT_PUSH:
         SEND_STRING("git push"SS_TAP(X_ENTER));
@@ -59,21 +59,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_LAYER0] = LAYOUT(                 \
-             KC_ESC,     TO(_LAYER1), \
-    KC_Z,    KC_X,       KC_ENT       \
+  [_LAYER0] = LAYOUT(
+             KC_ESC,     TO(_LAYER1),
+    KC_Z,    KC_X,       KC_ENT
   ),
-  [_LAYER1] = LAYOUT(                 \
-             MUTE,       TO(_LAYER2), \
-    GIT_ADD, GIT_COMMIT, GIT_PUSH     \
+  [_LAYER1] = LAYOUT(
+             MUTE,       TO(_LAYER2),
+    GIT_ADD, GIT_COMMIT, GIT_PUSH
   ),
-  [_LAYER2] = LAYOUT(                 \
-             RGB_MOD,    TO(_LAYER3), \
-    RGB_TOG, RGB_HUD,    RGB_HUI      \
+  [_LAYER2] = LAYOUT(
+             RGB_MOD,    TO(_LAYER3),
+    RGB_TOG, RGB_HUD,    RGB_HUI
   ),
-  [_LAYER3] = LAYOUT(                 \
-             RGB_VAI,    TO(_LAYER0), \
-    RGB_SAD, RGB_VAD,    RGB_SAI      \
+  [_LAYER3] = LAYOUT(
+             RGB_VAI,    TO(_LAYER0),
+    RGB_SAD, RGB_VAD,    RGB_SAI
   )
 };
 

@@ -37,21 +37,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_Navi] = LAYOUT_planck_mit(
       KC_WH_L,    KC_WH_D,   KC_WH_U,        KC_WH_R,        KC_ESC,    KC_NO, KC_NO,       KC_DEL,   KC_HOME,  KC_PGDN,   KC_PGUP,      KC_END,
       KC_LSFT,     HOME_S,    HOME_D,         HOME_F,        KC_TAB,    KC_NO, KC_NO,       KC_ENT,    KC_RSFT,   HOME_K,    HOME_L,     HOME_QU,
-      KC_MS_L,    KC_MS_D,   KC_MS_U,        KC_MS_R,       KC_BTN1,    KC_NO, KC_NO,      KC_BTN2,   KC_LEFT,  KC_DOWN,     KC_UP,     KC_RGHT,    
+      KC_MS_L,    KC_MS_D,   KC_MS_U,        KC_MS_R,       KC_BTN1,    KC_NO, KC_NO,      KC_BTN2,   KC_LEFT,  KC_DOWN,     KC_UP,     KC_RGHT,
         KC_NO,      KC_NO,     KC_NO,          KC_NO,       Lay_SPC,        KC_NO,         KC_BSPC,     KC_NO,    KC_NO,     KC_NO,       KC_NO
-      ),  
+      ),
   [_Numb] = LAYOUT_planck_mit(
       KC_LBRC,        KC_7,     KC_8,          KC_9,        KC_RBRC,    KC_NO, KC_NO,      KC_DEL,      KC_NO,     KC_NO,     KC_NO,       KC_NO,
       KC_SCLN,        KC_4,     KC_5,          KC_6,         KC_EQL,    KC_NO, KC_NO,      KC_ENT,     KC_RSFT,    HOME_K,    HOME_L,     HOME_QU,
-       KC_GRV,        KC_1,     KC_2,          KC_3,        KC_BSLS,    KC_NO, KC_NO,       KC_NO,      KC_NO,     KC_NO,   KC_HAEN,       KC_NO,
+       KC_GRV,        KC_1,     KC_2,          KC_3,        KC_BSLS,    KC_NO, KC_NO,       KC_NO,      KC_NO,     KC_NO,   KR_HAEN,       KC_NO,
         KC_NO,       KC_NO,     KC_NO,         KC_0,        KC_MINS,        KC_NO,        KC_BSPC,      KC_NO,     KC_NO,     KC_NO,       KC_NO
-      ),  
+      ),
   [_Func] = LAYOUT_planck_mit(
       KC_F12,     KC_F7,     KC_F8,           KC_F9,       KC_PSCR,    KC_NO, KC_NO,        QK_BOOT,    KC_NO,     KC_NO,     KC_NO,     KC_NO,
       KC_F11,     KC_F4,     KC_F5,           KC_F6,       KC_SCRL,    KC_NO, KC_NO,      KC_CAPS,     KC_RSFT,    HOME_K,    HOME_L,   HOME_QU,
-      KC_F10,     KC_F1,     KC_F2,           KC_F3,       KC_PAUS,    KC_NO, KC_NO,       KC_INS,      KC_NO,     KC_NO,   KC_HAEN,     KC_NO,
+      KC_F10,     KC_F1,     KC_F2,           KC_F3,       KC_PAUS,    KC_NO, KC_NO,       KC_INS,      KC_NO,     KC_NO,   KR_HAEN,     KC_NO,
       KC_NO,       KC_NO,     KC_NO,          KC_NO,       Lay_SPC,         KC_NO,        KC_BSPC,      KC_NO,     KC_NO,     KC_NO,     KC_NO
-      ), 
+      ),
 };
 
 
@@ -75,10 +75,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 // COMBO key for HOME ROW modifier
-// modify `config.h` file
-// by adding #define COMBO_COUNT 1 (replacing 1 with the number that you’re using).
 // modify `rules.mk` file
-// by adding # COMBO_ENABLE = yes 
+// by adding # COMBO_ENABLE = yes
 
 enum combos {
   SFT_HAN,
@@ -86,6 +84,6 @@ enum combos {
 
 const uint16_t PROGMEM sft_han_combo[] = {LSFT_T(KC_F), LT(_Func,KC_SPC), COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
-  [SFT_HAN] = COMBO(sft_han_combo, KC_HAEN),
+combo_t key_combos[] = {
+  [SFT_HAN] = COMBO(sft_han_combo, KC_LNG1),
 };

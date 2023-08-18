@@ -36,7 +36,7 @@ void check_default_layer(uint8_t mode, uint8_t type) {
     }
 }
 
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (userspace_config.rgb_layer_change && rgb_matrix_config.enable) {
         switch (get_highest_layer(layer_state)) {
             case _RAISE:
@@ -55,6 +55,7 @@ void rgb_matrix_indicators_user(void) {
         }
         check_default_layer(0, LED_FLAG_MODIFIER);
     }
+    return false;
 }
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
@@ -131,7 +132,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
             uint16_t time = scale16by8(RGBLED_NUM, speed / 8);
             hsv.v         = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
             RGB rgb       = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
                     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
                 }
@@ -141,7 +142,7 @@ void rgb_matrix_layer_helper(uint8_t hue, uint8_t sat, uint8_t val, uint8_t mode
         default:  // Solid Color
         {
             RGB rgb = hsv_to_rgb(hsv);
-            for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+            for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
                 if (HAS_FLAGS(g_led_config.flags[i], led_type)) {
                     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
                 }

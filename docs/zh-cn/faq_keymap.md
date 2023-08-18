@@ -80,7 +80,7 @@ https://github.com/tmk/tmk_keyboard/issues/67
 
 启用该功能后，在你的键映射中须改为使用 `KC_LCAP`，`KC_LNUM` 和 `KC_LSCR`。
 
-旧式复古风（vintage style）键盘偶尔能见到锁定式开关，但在现代键盘中见不到了。***因此你基本不会需要这个功能的，直接使用 `KC_CAPS`，`KC_NLCK` 和 `KC_SLCK` 就好***
+旧式复古风（vintage style）键盘偶尔能见到锁定式开关，但在现代键盘中见不到了。***因此你基本不会需要这个功能的，直接使用 `KC_CAPS`，`KC_NUM` 和 `KC_SCRL` 就好***
 
 ## 输入形如法语中软音'Ç'这样的非ASCII字符
 

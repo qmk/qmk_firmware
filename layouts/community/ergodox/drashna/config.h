@@ -28,7 +28,7 @@
 #endif  // RGBLIGHT_ENABLE
 
 #undef PRODUCT
-#define PRODUCT DrashnaDox - Hacked ErgoDox EZ Hybrid Monstrosity
+#define PRODUCT "DrashnaDox - Hacked ErgoDox EZ Hybrid Monstrosity"
 
 #undef DEBOUNCE
 #define DEBOUNCE 20

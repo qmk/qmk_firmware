@@ -29,7 +29,7 @@ static void init(void) {
     i2c_init(&I2CD2, I2C2_SCL_PIN, I2C2_SDA_PIN);
     IS31FL3733_init(1, DRIVER_ADDR_2, 0);
 #    endif
-    for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
+    for (int index = 0; index < RGB_MATRIX_LED_COUNT; index++) {
         bool enabled = true;
         // This only caches it for later
         IS31FL3733_set_led_control_register(index, enabled, enabled, enabled);

@@ -16,18 +16,15 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define BACKLIGHT_PWM_DRIVER  PWMD2
 #define BACKLIGHT_PWM_CHANNEL 1
 
 #define ADC_PIN A0
 
-#define RGB_CI_PIN A2
-
 // This code does not fit into the really small flash of STM32F103x6 together
 // with CONSOLE_ENABLE=yes, and the debugging console is probably more
-// important for the "okeney" testing firmware.  In a real firmware you may be
+// important for the "onekey" testing firmware.  In a real firmware you may be
 // able to use these features if you keep the debugging console disabled.
 #define NO_ACTION_LAYER
 #define NO_ACTION_TAPPING

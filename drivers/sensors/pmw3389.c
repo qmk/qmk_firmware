@@ -8,8 +8,6 @@
 #include "pmw33xx_common.h"
 #include "progmem.h"
 
-extern const size_t pmw33xx_number_of_sensors;
-
 uint16_t pmw33xx_get_cpi(uint8_t sensor) {
     if (sensor >= pmw33xx_number_of_sensors) {
         return 0;

@@ -55,15 +55,15 @@ enum babble_modes {
 /// Hacks to make it easier to create sendstring macros
 
 //"outer" versions wrap text
-#    define OMCTL(arg) SS_DOWN(X_LCTRL) arg SS_UP(X_LCTRL)
+#    define OMCTL(arg) SS_DOWN(X_LCTL) arg SS_UP(X_LCTL)
 #    define OMGUI(arg) SS_DOWN(X_LGUI) arg SS_UP(X_LGUI)
 #    define OMALT(arg) SS_DOWN(X_LALT) arg SS_UP(X_LALT)
-#    define OMSFT(...) SS_DOWN(X_LSHIFT) __VA_ARGS__ SS_UP(X_LSHIFT)
+#    define OMSFT(...) SS_DOWN(X_LSFT) __VA_ARGS__ SS_UP(X_LSFT)
 //"inner" versions wrap a key tap
-#    define IMCTL(arg) SS_DOWN(X_LCTRL) SS_TAP(arg) SS_UP(X_LCTRL)
+#    define IMCTL(arg) SS_DOWN(X_LCTL) SS_TAP(arg) SS_UP(X_LCTL)
 #    define IMGUI(arg) SS_DOWN(X_LGUI) SS_TAP(arg) SS_UP(X_LGUI)
 #    define IMALT(arg) SS_DOWN(X_LALT) SS_TAP(arg) SS_UP(X_LALT)
-#    define IMSFT(arg) SS_DOWN(X_LSHIFT) SS_TAP(arg) SS_UP(X_LSHIFT)
+#    define IMSFT(arg) SS_DOWN(X_LSFT) SS_TAP(arg) SS_UP(X_LSFT)
 
 #    define BABLM(ent, ...)           \
         if (ent == keycode) {         \
