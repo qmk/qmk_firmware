@@ -1,9 +1,9 @@
-# m3
+# MonsGeek M3
 
 A customizable 80% keyboard.
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
-* Hardware Supported: m3
+* Hardware Supported: MonsGeek M3 PCB
 * Hardware Availability: [monsgeek](https://www.monsgeek.com/)
 
 Make example for this keyboard (after setting up your build environment):
