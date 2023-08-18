@@ -1,9 +1,9 @@
-# monsgeek m2
+# MonsGeek M2
 
 A customizable 95% keyboard
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
-* Hardware Supported: monsgeek m2
+* Hardware Supported: MonsGeek M2 PCB
 * Hardware Availability: [monsgeek](https://www.monsgeek.com/)
 
 Make example for this keyboard (after setting up your build environment):
