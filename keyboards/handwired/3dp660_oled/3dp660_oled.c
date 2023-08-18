@@ -1,7 +1,7 @@
 // Copyright 2023 xia0 (@xia0)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 #if defined (OLED_ENABLE) && ! defined (OLED_USER_DEFINED)
 
