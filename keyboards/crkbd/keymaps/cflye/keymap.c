@@ -137,22 +137,31 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
-    switch (layer_state) {
-        case L_BASE:
-            oled_write_ln_P(PSTR("Default"), false);
-            break;
-        case L_LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
-            break;
-        case L_RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
-            break;
-        case L_ADJUST:
-        case L_ADJUST|L_LOWER:
-        case L_ADJUST|L_RAISE:
-        case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P(PSTR("Adjust"), false);
-            break;
+    switch (get_highest_layer(layer_state)) {
+        case _BASE:
+          oled_write_ln_P(PSTR("_BASE: "), false);
+          break;
+        case _GAMING:
+          oled_write_ln_P(PSTR("_GAMING: "), false);
+          break;
+        case _SYM:
+          oled_write_ln_P(PSTR("_SYM: "), false);
+          break;
+        case _NUM:
+          oled_write_ln_P(PSTR("_NUM: "), false);
+          break;
+        case _NAV:
+          oled_write_ln_P(PSTR("_NAV: "), false);
+          break;
+        case _MEDIA:
+          oled_write_ln_P(PSTR("_MEDIA: "), false);
+         break;
+        case _MOUSE:
+          oled_write_ln_P(PSTR("_MOUSE: "), false);
+          break;
+        case _FUN:
+          oled_write_ln_P(PSTR("_FUN: "), false);
+          break;
     }
 }
 
