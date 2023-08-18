@@ -20,7 +20,7 @@ enum custom_key_codes {
     MOVE_END_LINE_TERMINAL, // move to the end of the line in the terminal
     /* macros */
     PASTE_VIM, // paste in vim from system register
-    ACIRCLE, // å 
+    ACIRCLE, // å
     ADOT, // ä
     ODOT, // ö
     COMPOSE_MACRO, // compose key for mac or linux
@@ -40,11 +40,11 @@ enum {
 #define FINDER          LGUI(LALT(KC_SPACE)) //open the search bar for finding apps, docs in-computer, etc
 #define COMPOSE_KEY    KC_SCRL //manually set on linux, to create chars via .Xcompose ()
 #define COMPOSE_MAC     KC_F13 //manually set on mac using some tricks
-#define X_COMPOSE_KEY    X_SCROLLLOCK //for use with macros
+#define X_COMPOSE_KEY    X_SCROLL_LOCK //for use with macros
 #define SHOW_WINDOWS    LCTL(KC_UP) //'Expose' on Mac, overview on linux. Just all the windows
 #define WINDOW_LEFT LCTL(LGUI(LSFT(KC_LEFT))) //custom shortcut for this feature -- make window take up 50% left screen (using gui and ctl to make it os agnostic)
 #define WINDOW_RIGHT LCTL(LGUI(LSFT(KC_RIGHT))) //custom shortcut for this feature -- make window take up 50% right screen (using gui and ctl to make it os agnostic)/fully custom shortcut, using ctl and gui keys so will need them both irrespective of os
-#define SHOW_APP_WINDOWS LCTL(KC_DOWN) 
+#define SHOW_APP_WINDOWS LCTL(KC_DOWN)
 #define LOCK_SCREEN     LCTL(LGUI(KC_Q)) //manually set this on linux to match osx default
 #define EURO            LALT(LSFT(KC_2))
 #define EMOJI_KBD       LCTL(LGUI(KC_SPACE)) //manually set this on linux to match osx default, with 'emote' on linux and a custom shortcut (probably better to use compose feature)
@@ -54,7 +54,7 @@ enum {
 
 #define MOVE_LEFT_TERMINAL LALT(KC_LEFT) //move cursor one word left on the terminal... does not work if .inputrc is set to use vim bindings!
 #define MOVE_RIGHT_TERMINAL LALT(KC_RIGHT) //move cursor one word left on the terminal... does not work if .inputrc is set to use vim bindings!
-#define DEL_WORD_TERMINAL LALT(KC_BSPACE) // delete one word back on terminal ... does not work if .inputrc is set to use vim bindings!
+#define DEL_WORD_TERMINAL LALT(KC_BSPC) // delete one word back on terminal ... does not work if .inputrc is set to use vim bindings!
 
 enum custom_layers {
     _BASE,
@@ -66,7 +66,7 @@ enum custom_layers {
 };
 
 // combo - press space and backspace together to get 'scroll lock', used as the compose key on my custom linux
-const uint16_t PROGMEM compose_combo[] = {KC_BSPACE, KC_SPACE, COMBO_END};
+const uint16_t PROGMEM compose_combo[] = {KC_BSPC, KC_SPACE, COMBO_END};
 
 // combo - press the 2 larger keys on the inner part of the corne to get the search window ('finder' as I'm calling it)
 const uint16_t PROGMEM search_combo[] = {LT(_FN_KEYS, KC_ENTER),LT(_TEXT_NAV, KC_PAST), COMBO_END};
@@ -78,15 +78,15 @@ const uint16_t PROGMEM vim_paste_combo[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM calculator_combo[] = {LT(_NUMS,KC_LPRN),  LT(_NUMS,KC_RPRN), COMBO_END};
 
 // combo - press combo+ a to get å
-const uint16_t PROGMEM acircle_combo[] = { KC_BSPACE, KC_SPACE, MT(MOD_LCTL, KC_A),COMBO_END};
+const uint16_t PROGMEM acircle_combo[] = { KC_BSPC, KC_SPACE, MT(MOD_LCTL, KC_A),COMBO_END};
 
 // combo - press combo+ l to get ä
-const uint16_t PROGMEM adot_combo[] = {KC_BSPACE, KC_SPACE, MT(MOD_RALT,KC_L), COMBO_END};
+const uint16_t PROGMEM adot_combo[] = {KC_BSPC, KC_SPACE, MT(MOD_RALT,KC_L), COMBO_END};
 
 // combo - press combo+ ; to get ö
-const uint16_t PROGMEM odot_combo[] = {KC_BSPACE, KC_SPACE, MT(MOD_LCTL,KC_SCLN),COMBO_END};
+const uint16_t PROGMEM odot_combo[] = {KC_BSPC, KC_SPACE, MT(MOD_LCTL,KC_SCLN),COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     COMBO(compose_combo, COMPOSE_MACRO),
     COMBO(search_combo, FINDER),
     COMBO(calculator_combo, CALCULATOR),
@@ -106,18 +106,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       LT(0, SHOW_WIN_LEFT), KC_Z, KC_X,  KC_C, KC_V,  KC_B,   KC_N,                  KC_M,  KC_COMM, KC_DOT,  KC_SLASH,  LT(0, NUMERIC_WIN_RIGHT),
   //|--------+--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------+--------|
-                                         LT(_NUMS,KC_LPRN),   KC_BSPACE,  LT(_FN_KEYS, KC_ENTER),     LT(_TEXT_NAV, KC_PAST),   KC_SPACE, LT(_NUMS,KC_RPRN)
+                                         LT(_NUMS,KC_LPRN),   KC_BSPC,  LT(_FN_KEYS, KC_ENTER),     LT(_TEXT_NAV, KC_PAST),   KC_SPACE, LT(_NUMS,KC_RPRN)
                                       //`--------------------------'                    `--------------------------'
 
   ),
 
   [_NUMS] = LAYOUT_split_3x6_3( //numbers
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-     SCREENSHOT,   KC_EXCLAIM,KC_AT, KC_HASH, KC_DOLLAR,KC_PERCENT,            KC_CIRCUMFLEX,    KC_7,    KC_8,    KC_9,    KC_TRANSPARENT, KC_PIPE, 
+     SCREENSHOT,   KC_EXCLAIM,KC_AT, KC_HASH, KC_DOLLAR,KC_PERCENT,            KC_CIRCUMFLEX,    KC_7,    KC_8,    KC_9,    KC_TRANSPARENT, KC_PIPE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TO(_BASE), KC_LCTL, KC_LALT, KC_RSFT, KC_LGUI,KC_PLUS,                    KC_EQL, KC_4,  KC_5,  KC_6,  KC_BSLASH, KC_TRANSPARENT,
+      TO(_BASE), KC_LCTL, KC_LALT, KC_RSFT, KC_LGUI,KC_PLUS,                    KC_EQL, KC_4,  KC_5,  KC_6,  KC_BSLS, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCBR, KC_LBRACKET, KC_GRAVE, KC_TILD, PASTE_NOSTYLE, KC_AMPERSAND,      TD(TD_PERIOD_COMMA), KC_1,  KC_2,  KC_3, KC_RBRACKET, KC_RCBR,
+      KC_LCBR, KC_LBRC, KC_GRAVE, KC_TILD, PASTE_NOSTYLE, KC_AMPERSAND,      TD(TD_PERIOD_COMMA), KC_1,  KC_2,  KC_3, KC_RBRC, KC_RCBR,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+-C```-------+--------+--------|
                                           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT , KC_TRANSPARENT  ,  KC_UNDS, KC_0
                                       //`--------------------------'  `--------------------------'
@@ -125,11 +125,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
      [_NUM_MASK] = LAYOUT_split_3x6_3( //NUM MASK, so I can still have backspace/enter/tab etc but with the nums, arrows and formatters too
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-     KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT, KC_UP, KC_TRANSPARENT,KC_TRANSPARENT,      KC_TRANSPARENT, KC_7,    KC_8,    KC_9, KC_TRANSPARENT, KC_TRANSPARENT, 
+     KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT, KC_UP, KC_TRANSPARENT,KC_TRANSPARENT,      KC_TRANSPARENT, KC_7,    KC_8,    KC_9, KC_TRANSPARENT, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       TO(_BASE), KC_TRANSPARENT, KC_LEFT, KC_DOWN, KC_RIGHT,KC_TRANSPARENT,         KC_TRANSPARENT, KC_4,  KC_5,  KC_6, KC_TRANSPARENT, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,      TD(TD_PERIOD_COMMA), KC_1,  KC_2,  KC_3,KC_TRANSPARENT, KC_NLCK,
+     KC_TRANSPARENT, KC_TRANSPARENT,KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,      TD(TD_PERIOD_COMMA), KC_1,  KC_2,  KC_3,KC_TRANSPARENT, KC_NUM,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT , KC_TRANSPARENT  ,  KC_TRANSPARENT, KC_0
                                       //`--------------------------'  `--------------------------'
@@ -137,9 +137,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_TEXT_NAV] = LAYOUT_split_3x6_3( //text nav and special navigation (lock screen, adjust layer, etc)
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      LOCK_SCREEN, KC_PSCR, SELECT_LEFT_LINE, KC_UP, SELECT_RIGHT_LINE, TD(TD_MOVE_BEGIN_LINE),                    TD(TD_MOVE_END_LINE), KC_MS_WH_UP, EMOJI_KBD, KC_TRANSPARENT, KC_TRANSPARENT, RESET,
+      LOCK_SCREEN, KC_PSCR, SELECT_LEFT_LINE, KC_UP, SELECT_RIGHT_LINE, TD(TD_MOVE_BEGIN_LINE),                    TD(TD_MOVE_END_LINE), KC_MS_WH_UP, EMOJI_KBD, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TO(_BASE), SELECT_LEFT_WD, KC_LEFT, KC_DOWN, KC_RIGHT,SELECT_RIGHT_WD,              KC_MS_WH_LEFT, KC_RGUI, KC_RSFT, KC_RALT,KC_RCTRL, KC_CAPS,
+      TO(_BASE), SELECT_LEFT_WD, KC_LEFT, KC_DOWN, KC_RIGHT,SELECT_RIGHT_WD,              KC_MS_WH_LEFT, KC_RGUI, KC_RSFT, KC_RALT,KC_RCTL, KC_CAPS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_INSERT, KC_TRANSPARENT, MOVE_LEFT_WD,KC_PAGE_DOWN,MOVE_RIGHT_WD, KC_PAGE_UP,                    KC_MS_WH_RIGHT, KC_MS_WH_DOWN, KC_HOME, KC_END,KC_TRANSPARENT, TO(_ADJUST),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
    [_FN_KEYS] = LAYOUT_split_3x6_3( //fn keys, terminal text navigation keys
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-     KC_TRANSPARENT, KC_LCBR,KC_LBRACKET, KC_RBRACKET, KC_RCBR, MOVE_BEGIN_LINE_TERMINAL,                           MOVE_END_LINE_TERMINAL, KC_F7,    KC_F8,    KC_F9,    KC_F11, KC_TRANSPARENT, 
+     KC_TRANSPARENT, KC_LCBR,KC_LBRC, KC_RBRC, KC_RCBR, MOVE_BEGIN_LINE_TERMINAL,                           MOVE_END_LINE_TERMINAL, KC_F7,    KC_F8,    KC_F9,    KC_F11, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       TO(_BASE), KC_LCTL, KC_LALT, KC_RSFT, KC_LGUI, KC_TRANSPARENT,                                               KC_TRANSPARENT, KC_F4,  KC_F5,  KC_F6,  KC_F12, KC_TRANSPARENT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT , KC_HASH  ,  KC_TRANSPARENT, KC_F10
                                       //`--------------------------'  `--------------------------'
   )
-  
+
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -183,19 +183,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // as of this writing, you can't do a layer tap (LT)
     // and also send a shifted code, like left parens
-    // If you call such a function, it'll do the layer shift but 
+    // If you call such a function, it'll do the layer shift but
     // it'll ignore the key code on tap... this is the workaround
- 
+
     case LT(_NUMS,KC_LPRN): // Shift to _NUMS layer on hold, but send left paren on press
         if (record->tap.count && record->event.pressed) {
-            tap_code16(KC_LPRN); 
-            return false; 
+            tap_code16(KC_LPRN);
+            return false;
         }
     break;
     case LT(_NUMS,KC_RPRN): // Shift to _NUMS on hold, send right parens on press
         if (record->tap.count && record->event.pressed) {
-            tap_code16(KC_RPRN); 
-            return false; 
+            tap_code16(KC_RPRN);
+            return false;
         }
     break;
 
@@ -203,20 +203,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->tap.count && record->event.pressed) {
                 tap_code16(SHOW_WINDOWS); // Intercept tap function
             } else if (record->event.pressed) {
-                tap_code16(WINDOW_LEFT); // Intercept hold function 
+                tap_code16(WINDOW_LEFT); // Intercept hold function
             }
         return false;
         break;
-    
+
     case LT(0, NUMERIC_WIN_RIGHT):
             if (record->tap.count && record->event.pressed) {
                 layer_on(_NUM_MASK);// Intercept tap function
             } else if (record->event.pressed) {
-                tap_code16(WINDOW_RIGHT); // Intercept hold function 
+                tap_code16(WINDOW_RIGHT); // Intercept hold function
             }
         return false;
         break;
-    
+
     case PASTE_VIM:
         if (record->event.pressed){
             SEND_STRING(SS_TAP(X_ESCAPE)"\"+pi");
@@ -225,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
 
     //only read the keymap config if it's one of the below cases (instead of every time)
-    case DEL_WORD: 
+    case DEL_WORD:
     case SELECT_LEFT_WD:
     case SELECT_RIGHT_WD:
     case SELECT_LEFT_LINE:
@@ -235,7 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MOVE_LEFT_LINE:
     case MOVE_RIGHT_LINE:
     case PASTE_NOSTYLE:
-    case MOVE_BEGIN_LINE_TERMINAL:     
+    case MOVE_BEGIN_LINE_TERMINAL:
     case MOVE_END_LINE_TERMINAL:
     case ACIRCLE:
     case ADOT:
@@ -248,9 +248,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             switch (keycode){
                 case DEL_WORD:
                     if(keymap_config.swap_lctl_lgui){ //Linux
-                        tap_code16(LCTL(KC_BSPACE));
+                        tap_code16(LCTL(KC_BSPC));
                     } else { //osx
-                        tap_code16(LALT(KC_BSPACE));
+                        tap_code16(LALT(KC_BSPC));
                     }
                 break;
                 case SELECT_LEFT_WD:
@@ -313,28 +313,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     if(keymap_config.swap_lctl_lgui){ //Linux
                         tap_code16(LCTL(RSFT(KC_V)));
                     } else { //osx
-                        tap_code16(LGUI(LALT(LSFT(KC_V)))); 
+                        tap_code16(LGUI(LALT(LSFT(KC_V))));
                     }
                 break;
                 case MOVE_BEGIN_LINE_TERMINAL:
                     if(keymap_config.swap_lctl_lgui){ //Linux
                         tap_code16(KC_HOME);
                     } else { //osx
-                        tap_code16(LSFT(KC_HOME)); 
+                        tap_code16(LSFT(KC_HOME));
                     }
                 break;
                 case MOVE_END_LINE_TERMINAL:
                     if(keymap_config.swap_lctl_lgui){ //Linux
                         tap_code16(KC_END);
                     } else { //osx
-                        tap_code16(LSFT(KC_END)); 
+                        tap_code16(LSFT(KC_END));
                     }
                 break;
                 case ACIRCLE: // å
                     if(keymap_config.swap_lctl_lgui){ //Linux
                         SEND_STRING(SS_TAP(X_COMPOSE_KEY)"aa");
                     } else { //osx
-                        tap_code16(LALT(KC_A)); 
+                        tap_code16(LALT(KC_A));
                     }
                 break;
                 case ADOT: // ä
@@ -351,14 +351,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         SEND_STRING(SS_LALT("u")"o");
                     }
                 break;
-                case COMPOSE_MACRO: 
+                case COMPOSE_MACRO:
                     if(keymap_config.swap_lctl_lgui){ //Linux
                         tap_code16(COMPOSE_KEY);
                     } else { //osx
                         tap_code16(COMPOSE_MAC);
                     }
                 break;
-                case SCREENSHOT: 
+                case SCREENSHOT:
                     if(keymap_config.swap_lctl_lgui){ //Linux
                         tap_code16(KC_PSCR);
                     } else { //osx
@@ -375,26 +375,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void dance_left_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_left_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) { //1 tap, move to line left
     keymap_config.raw = eeconfig_read_keymap();
     if(keymap_config.swap_lctl_lgui){ //Linux
         tap_code16(KC_HOME);
     } else { //osx
-    tap_code16(LGUI(KC_LEFT));              
+    tap_code16(LGUI(KC_LEFT));
     }
   } else { //2 taps, make a circumflex
     tap_code16(KC_CIRC);
   }
 }
 
-void dance_right_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_right_finished (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) { // 1 tap, move line right
        keymap_config.raw = eeconfig_read_keymap();
     if(keymap_config.swap_lctl_lgui){ //Linux
         tap_code16(KC_END);
     } else { //osx
-    tap_code16(LGUI(KC_RIGHT));              
+    tap_code16(LGUI(KC_RIGHT));
     }
   } else { //2 taps, dollar
     tap_code16(KC_DOLLAR);
@@ -402,7 +402,7 @@ void dance_right_finished (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 //Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_MOVE_BEGIN_LINE]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_left_finished, NULL),
   [TD_MOVE_END_LINE]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_right_finished, NULL),
   [TD_PERIOD_COMMA] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_COMMA),
@@ -429,7 +429,7 @@ void set_lighting_user(void) {
             led_t led_state = host_keyboard_led_state();
             if(led_state.caps_lock){
                 rgblight_sethsv_noeeprom(HSV_RED);
-            } 
+            }
             //rgblight_sethsv(HSV_OFF);
         break;
         case _NUMS:
@@ -482,7 +482,7 @@ void oled_render_general_state(void){
     else {
         oled_write_ln_P(PSTR("OSX"), false);
     }
-    
+
     //oled_write_ln(get_u8_str(get_current_wpm(), '0'), false);
     /*
     led_t led_state = host_keyboard_led_state();
@@ -492,7 +492,7 @@ void oled_render_general_state(void){
     //Layer color has to be handled by master
 
 
-    // led state doesn't have to be handled by master, but 
+    // led state doesn't have to be handled by master, but
     // the keyboard will freeze if you type too fast
     // and have this handled on the slave side
 
@@ -541,7 +541,7 @@ void oled_render_layer_mod_state(void) {
             break;
         case _FN_KEYS:
             oled_write_ln_P(PSTR("Fn"), false);
-            break;   
+            break;
         default:
             break;
     }
@@ -575,7 +575,7 @@ void oled_render_layer_mod_state(void) {
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         oled_render_general_state();
-    }  
+    }
     else {
         oled_render_layer_mod_state();
     }

@@ -34,8 +34,8 @@ enum crkbd_layers {
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 #define CTLTB CTL_T(KC_TAB)
-#define GUIEI GUI_T(KC_LANG2)
-#define ALTKN ALT_T(KC_LANG1)
+#define GUIEI GUI_T(KC_LNG2)
+#define ALTKN ALT_T(KC_LNG1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_split_3x6_3(

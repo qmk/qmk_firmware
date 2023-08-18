@@ -26,8 +26,8 @@ enum layers {
 };
 
 #define FN    MO(_FN)
-#define LOWER FN_MO13
-#define RAISE FN_MO23
+#define LOWER TL_LOWR
+#define RAISE TL_UPPR
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -133,6 +133,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_VAD, RGB_VAI, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SAD, RGB_SAI, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_HUD, RGB_HUI, RGB_MOD,
-        _______, _______, _______, _______, _______, _______, _______, _______, BL_TOGG, BL_DEC,  BL_INC,  BL_BRTG
+        _______, _______, _______, _______, _______, _______, _______, _______, BL_TOGG, BL_DOWN, BL_UP,   BL_BRTG
     )
 };

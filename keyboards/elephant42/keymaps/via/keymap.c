@@ -18,8 +18,8 @@
 #define KC_VU KC_AUDIO_VOL_UP
 #define KC_VD KC_AUDIO_VOL_DOWN
 #define KC_MU KC_AUDIO_MUTE
-#define KC_LSPC LT(_LOWER, KC_SPC)
-#define KC_RSPC LT(_RAISE, KC_SPC)
+#define KC_LWSP LT(_LOWER, KC_SPC)
+#define KC_RSSP LT(_RAISE, KC_SPC)
 
 enum layer_names {
     _QWERTY,
@@ -31,7 +31,7 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT( \
+  [_QWERTY] = LAYOUT(
   //,-------+-------+-------+-------+-------+-------.                                    ,-------+-------+-------+-------+-------+-------.
      KC_TAB , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  ,                                      KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  ,KC_BSLS,
   //|-------+-------+-------+-------+-------+-------|                                    |-------+-------+-------+-------+-------+-------|
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`-------+-------+-------+-------+-------+-------|                                    |-------+-------+-------+-------+-------+-------'
               KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,                                      KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,
   //        `-------+-------+-------+-------+-------+-------+-------.    ,-------+-------+-------+-------+-------+-------+-------'
-                                     KC_LALT,KC_LCMD,KC_LSPC,KC_LSFT,     KC_DEL ,KC_RSPC,KC_ENT ,KC_BSPC
+                                     KC_LALT,KC_LCMD,KC_LWSP,KC_LSFT,     KC_DEL ,KC_RSSP,KC_ENT ,KC_BSPC
   //                                `-------+-------+-------+-------'    `-------+-------+-------+-------'
   ),
 
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`-------+-------+-------+-------+-------+-------|                                    |-------+-------+-------+-------+-------+-------|
              XXXXXXX,XXXXXXX,KC_LCBR,KC_LBRC,KC_LPRN,                                     KC_RPRN,KC_RBRC,KC_RCBR,KC_UNDS,KC_EQL ,
   //        `-------+-------+-------+-------+-------+-------+-------.    ,-------+-------+-------+-------+-------+-------+-------'
-                                     KC_LALT,KC_LCMD,KC_LSPC,KC_LSFT,     KC_DEL ,KC_RSPC,KC_ENT ,KC_BSPC
+                                     KC_LALT,KC_LCMD,KC_LWSP,KC_LSFT,     KC_DEL ,KC_RSSP,KC_ENT ,KC_BSPC
   //                                `-------+-------+-------+-------'    `-------+-------+-------+-------'
   ),
 
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`-------+-------+-------+-------+-------+-------|                                    |-------+-------+-------+-------+-------+-------'
              KC_BRMD,KC_BRMU,RGB_TOG,RGB_MOD,RGB_VAD,                                     KC_HOME,KC_PGDN,KC_PGUP,KC_END ,XXXXXXX,
   //        `-------+-------+-------+-------+-------+-------+-------.    ,-------+-------+-------+-------+-------+-------+-------'
-                                     KC_LALT,KC_LCMD,KC_LSPC,KC_LSFT,     KC_DEL ,KC_RSPC,KC_ENT ,KC_BSPC
+                                     KC_LALT,KC_LCMD,KC_LWSP,KC_LSFT,     KC_DEL ,KC_RSSP,KC_ENT ,KC_BSPC
   //                                `-------+-------+-------+-------'    `-------+-------+-------+-------'
   ),
 

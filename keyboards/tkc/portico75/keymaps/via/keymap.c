@@ -18,15 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#define ENCODERS 1
-
-#define ENCODERS_CW_KEY { { 14, 3 }  }
-#define ENCODERS_CCW_KEY  { { 14, 4 } }
-
-static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
-static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
-
 //  WT RGB-specific keys:
 //  EF_INC, EF_DEC,   // next/previous backlight effect
 //  H1_INC, H1_DEC,   // Color 1 hue increase/decrease
@@ -51,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______,                   _______,                            _______,   MO(1), _______, _______, _______
+        _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______
     ),
 #else
     [1] = LAYOUT_75_via(
@@ -60,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, _______,                   _______,                            _______,   MO(1), _______, _______, _______
+        _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______
     ),
 #endif
     [2] = LAYOUT_75_via(
@@ -81,29 +72,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void encoder_action_unregister(void) {
-    for (int index = 0; index < ENCODERS; ++index) {
-        if (encoder_state[index]) {
-            keyevent_t encoder_event = (keyevent_t) {
-                .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
-                .pressed = false,
-                .time = (timer_read() | 1)
-            };
-            encoder_state[index] = 0;
-            action_exec(encoder_event);
-        }
-    }
-}
-
-void encoder_action_register(uint8_t index, bool clockwise) {
-    keyevent_t encoder_event = (keyevent_t){.key = clockwise ? encoder_cw[index] : encoder_ccw[index], .pressed = true, .time = (timer_read() | 1)};
-    encoder_state[index]     = (clockwise ^ 1) | (clockwise << 1);
-    action_exec(encoder_event);
-}
-
-void matrix_scan_user(void) { encoder_action_unregister(); }
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    encoder_action_register(index, clockwise);
-    return false;
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+  [0] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+  [1] = {ENCODER_CCW_CW(KC_PGUP, KC_PGDN)},
+  [2] = {ENCODER_CCW_CW(_______, _______)},
+  [3] = {ENCODER_CCW_CW(_______, _______)}
 };
+#endif

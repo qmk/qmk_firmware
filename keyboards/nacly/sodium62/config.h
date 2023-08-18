@@ -16,26 +16,7 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
-
-// wiring of each half
-#define MATRIX_ROW_PINS { F7, D4, D7, B4, B6 }
-#define MATRIX_COL_PINS { D2, C6, E6, B5, B2, B3, B1 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #define SPLIT_HAND_PIN F4
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D3
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -43,13 +24,6 @@
 #define LOCKING_RESYNC_ENABLE
 #define OLED_BRIGHTNESS 128
 
-/* ws2812 RGB LED */
-//#define RGB_DI_PIN B1
-/*
-#define RGBLED_NUM 12    // Number of LEDs
-
-#define RGBLED_SPLIT { 6, 6 }
-*/
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

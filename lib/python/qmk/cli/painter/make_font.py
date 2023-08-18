@@ -33,6 +33,7 @@ def painter_make_font_image(cli):
 @cli.argument('-u', '--unicode-glyphs', default='', help='Also generate the specified unicode glyphs.')
 @cli.argument('-f', '--format', required=True, help='Output format, valid types: %s' % (', '.join(valid_formats.keys())))
 @cli.argument('-r', '--no-rle', arg_only=True, action='store_true', help='Disable the use of RLE to minimise converted image size.')
+@cli.argument('-w', '--raw', arg_only=True, action='store_true', help='Writes out the QFF file as raw data instead of c/h combo.')
 @cli.subcommand('Converts an input font image to something QMK firmware understands')
 def painter_convert_font_image(cli):
     # Work out the format
@@ -53,6 +54,13 @@ def painter_convert_font_image(cli):
     # Render out the data
     out_data = BytesIO()
     font.save_to_qff(format, (False if cli.args.no_rle else True), out_data)
+    out_bytes = out_data.getvalue()
+
+    if cli.args.raw:
+        raw_file = cli.args.output / (cli.args.input.stem + ".qff")
+        with open(raw_file, 'wb') as raw:
+            raw.write(out_bytes)
+        return
 
     # Work out the text substitutions for rendering the output data
     subs = {
@@ -62,8 +70,8 @@ def painter_convert_font_image(cli):
         'year': datetime.date.today().strftime("%Y"),
         'input_file': cli.args.input.name,
         'sane_name': re.sub(r"[^a-zA-Z0-9]", "_", cli.args.input.stem),
-        'byte_count': out_data.getbuffer().nbytes,
-        'bytes_lines': render_bytes(out_data.getbuffer().tobytes()),
+        'byte_count': len(out_bytes),
+        'bytes_lines': render_bytes(out_bytes),
         'format': cli.args.format,
     }
 

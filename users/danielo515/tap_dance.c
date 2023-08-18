@@ -1,7 +1,7 @@
 #include "tap_dance.h"
 //**************** Definitions needed for quad function to work *********************//
 #ifdef QUAD_DANCE
-int cur_dance(qk_tap_dance_state_t *state)
+int cur_dance(tap_dance_state_t *state)
 {
   if (state->count == 1)
   {
@@ -30,8 +30,8 @@ int cur_dance(qk_tap_dance_state_t *state)
 # endif
 
 // Slightly better tap dance double: interruption sends double single and any number over double sends the single that number of times
-void qk_tap_dance_pair_finished_safe(qk_tap_dance_state_t *state, void *user_data) {
-  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+void tap_dance_pair_finished_safe(tap_dance_state_t *state, void *user_data) {
+  tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
   int count = state->count;
   if (state->count == 2) {
     if (state->interrupted){
@@ -47,8 +47,8 @@ void qk_tap_dance_pair_finished_safe(qk_tap_dance_state_t *state, void *user_dat
   }
 }
 
-void qk_tap_dance_pair_reset_safe(qk_tap_dance_state_t *state, void *user_data) {
-  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+void tap_dance_pair_reset_safe(tap_dance_state_t *state, void *user_data) {
+  tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
   if (state->count == 2) {
     unregister_code16 (pair->kc2);
     return;
@@ -58,7 +58,7 @@ void qk_tap_dance_pair_reset_safe(qk_tap_dance_state_t *state, void *user_data) 
 
 //**************** Tap dance functions *********************//
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [COPY_CUT] = ACTION_TAP_DANCE_FN(td_copy_cut),
     [PASTE_DANCE] = ACTION_TAP_DANCE_FN(td_paste),
     [_TD_F1] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_F1),
@@ -75,7 +75,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [_TD_F12] = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_F12),
     [_TD_H_ENTER] = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_ENT),
     [_TD_CLN] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLON),
-    [_TD_SLASH] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_BSLASH),
+    [_TD_SLASH] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_BACKSLASH),
     // OLD ONES
     [LEFT_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT, KC_HOME),
     [RGT_HOME] = ACTION_TAP_DANCE_DOUBLE_SAFE(KC_RGHT, KC_END),
@@ -86,34 +86,34 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [_TD_PASTE] = ACTION_TAP_DANCE_FN(dance_paste)
 };
 
-void td_copy_cut(qk_tap_dance_state_t *state, void *user_data)
+void td_copy_cut(tap_dance_state_t *state, void *user_data)
 {
   if (state->count == 2)
   {
-    onMac ?  SEND_STRING(SS_LGUI("x")) :   SEND_STRING(SS_LCTRL("x"));
+    onMac ?  SEND_STRING(SS_LGUI("x")) :   SEND_STRING(SS_LCTL("x"));
   }
   else
   {
-    onMac ?  SEND_STRING(SS_LGUI("c")) : SEND_STRING(SS_LCTRL("c"));
+    onMac ?  SEND_STRING(SS_LGUI("c")) : SEND_STRING(SS_LCTL("c"));
   }
   reset_tap_dance(state);
 };
 
-void td_paste(qk_tap_dance_state_t *state, void *user_data)
+void td_paste(tap_dance_state_t *state, void *user_data)
 {
   if (state->count == 2)
   {
-    onMac ?  SEND_STRING(SS_DOWN(X_RSHIFT) SS_LGUI("v") SS_UP(X_RSHIFT)) :   SEND_STRING(SS_DOWN(X_RSHIFT) SS_LCTRL("v") SS_UP(X_RSHIFT));
+    onMac ?  SEND_STRING(SS_DOWN(X_RSFT) SS_LGUI("v") SS_UP(X_RSFT)) :   SEND_STRING(SS_DOWN(X_RSFT) SS_LCTL("v") SS_UP(X_RSFT));
   }
   else
   {
-    onMac ?  SEND_STRING(SS_LGUI("v")) : SEND_STRING(SS_LCTRL("v"));
+    onMac ?  SEND_STRING(SS_LGUI("v")) : SEND_STRING(SS_LCTL("v"));
   }
   reset_tap_dance(state);
 };
 
 //===== The awesome tap dance for CUT, COPY and PASTE letters
-void dance_copy (qk_tap_dance_state_t *state, void *user_data) {
+void dance_copy (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) { tap_code16(KC_C); }
   else
   if (state->interrupted) { tap_code16(KC_C);tap_code16(KC_C);}
@@ -122,13 +122,13 @@ void dance_copy (qk_tap_dance_state_t *state, void *user_data) {
   reset_tap_dance (state);
 }
 
-void dance_cut (qk_tap_dance_state_t *state, void *user_data) {
+void dance_cut (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) { tap_code16(KC_X); }
   else { CMD(KC_X); }
   reset_tap_dance (state);
 }
 
-void dance_paste (qk_tap_dance_state_t *state, void *user_data) {
+void dance_paste (tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     tap_code16(KC_V);
   }

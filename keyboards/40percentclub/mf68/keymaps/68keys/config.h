@@ -9,5 +9,5 @@
 #define VENDOR_ID 0xFEED
 #define PRODUCT_ID 0x0A0C
 #define DEVICE_VER 0x0068
-#define MANUFACTURER 68Keys.io
-#define PRODUCT The 68Keys.io Keyboard
+#define MANUFACTURER "68Keys.io"
+#define PRODUCT "The 68Keys.io Keyboard"

@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stdint.h>
 #include "caps_word.h"
+#include "timer.h"
+#include "action.h"
+#include "action_util.h"
 
 /** @brief True when Caps Word is active. */
 static bool caps_word_active = false;
@@ -36,6 +40,8 @@ void caps_word_task(void) {
 void caps_word_reset_idle_timer(void) {
     idle_timer = timer_read() + CAPS_WORD_IDLE_TIMEOUT;
 }
+#else
+void caps_word_task(void) {}
 #endif // CAPS_WORD_IDLE_TIMEOUT > 0
 
 void caps_word_on(void) {

@@ -23,8 +23,9 @@ static const char gaming2_leds[] = {23, 18, 17, 10, 9, 22, 19, 16, 11, 8};
 static const char nav_leds[] = {38, 43, 44, 46};
 static const char fun_leds[] = {45, 44, 37, 46, 43, 38, 47, 42, 39, 40};
 static const char mouse_leds[] = {11, 16, 17, 19};
+static const char adjust_leds[] = {6, 33};
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(26, RGB_RED);
     }
@@ -32,7 +33,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         case _GAMING:
             if (is_keyboard_master()) {
                 for (uint8_t i = 0; i < 4; i++) {
-                    rgb_matrix_set_color(gaming_leds[i], RGB_RED);
+                    rgb_matrix_set_color(gaming_leds[i], 0x88, 0x00, 0x00);
                 }
             }
             break;
@@ -54,7 +55,9 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
             break;
         case _ADJUST:
-                rgb_matrix_set_color(6, RGB_RED);
+            for (uint8_t i = 0; i < 2; i++) {
+                rgb_matrix_set_color(adjust_leds[i], RGB_RED);
+            }
             break;
         case _MOUSE:
             if (is_keyboard_master()) {
@@ -65,4 +68,5 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
 
     }
+    return false;
 }

@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "keycode.h"
 #include "host.h"
-#include "keymap.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
