@@ -3,7 +3,7 @@
 
 #include "quantum.h"
 
-#if defined (OLED_ENABLE) && ! defined (OLED_USER_DEFINED)
+#if defined (OLED_ENABLE)
 
 
 // WPM responsiveness
