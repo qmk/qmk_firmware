@@ -3,7 +3,7 @@
 
 #pragma once
 
-/* LED Driver */
+/* RGB Config */
 #define DRIVER_1_CS B6
 #define DRIVER_1_EN B7
 #define DRIVER_COUNT 1
