@@ -70,6 +70,7 @@
         "pid": "0x000B",
         "vid": "0x4C58"
     },
+    "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [
