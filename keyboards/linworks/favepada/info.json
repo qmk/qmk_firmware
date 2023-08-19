@@ -3,7 +3,6 @@
     "keyboard_name": "favepada",
     "maintainer": "keydler",
     "bootloader": "stm32-dfu",
-    "processor": "STM32F072",
     "diode_direction": "COL2ROW",
     "features": {
         "audio": false,
@@ -22,6 +21,7 @@
         "cols": ["A14", "A15", "B3", "B4"],
         "rows": ["A9", "A8", "B15", "B14", "B13", "B12"]
     },
+    "processor": "STM32F072",
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [
@@ -62,7 +62,11 @@
             { "flags": 4, "x": 224, "y": 43 },
             { "flags": 4, "x": 224, "y": 31 },
             { "flags": 4, "x": 224, "y": 18 }
-        ]
+        ],
+        "max_brightness": 120
+    },
+    "rgblight": {
+        "led_count": 37
     },
     "url": "",
     "usb": {
