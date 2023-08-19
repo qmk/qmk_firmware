@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D5, D2, D4, D3, D0, D1 }
 
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 42
