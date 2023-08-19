@@ -23,6 +23,7 @@
 #include "rgb_matrix_types.h"
 #include "color.h"
 #include "keyboard.h"
+#include "led.h"
 
 #ifdef IS31FL3731
 #    include "is31fl3731.h"
@@ -269,3 +270,10 @@ extern last_hit_t g_last_hit_tracker;
 #ifdef RGB_MATRIX_FRAMEBUFFER_EFFECTS
 extern uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS];
 #endif
+
+typedef struct {
+    int led_index;
+    led_t led_state;
+    HSV color;
+    bool override_brightness_limit;
+} t_rgb_indicator_matcher;

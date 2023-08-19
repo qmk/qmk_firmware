@@ -23,6 +23,7 @@
 #include "keyboard.h"
 #include "sync_timer.h"
 #include "debug.h"
+#include "host.h"
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
@@ -429,17 +430,16 @@ void rgb_matrix_task(void) {
     // TODO: This will stop the indicator code running when backlight is disabled,
     //       is this intentional?
     //       as somebody might want no effect but still indicators, need to check how it works
-    bool should_render_matrix = suspend_backlight || !rgb_matrix_config.enable;
-    uint8_t current_mode = should_render_matrix ? 0 : rgb_matrix_config.mode;
-
+    // bool should_render_matrix = suspend_backlight || !rgb_matrix_config.enable;
+    // uint8_t current_mode = should_render_matrix ? 0 : rgb_matrix_config.mode;
 
     switch (rgb_task_state) {
         case STARTING:
             rgb_task_start();
             break;
         case RENDERING:
-            rgb_task_render(current_mode);
-            if (should_render_matrix) {
+            rgb_task_render(effect);
+            if (effect) {
                 // Only run the basic indicators in the last render iteration (default there are 5 iterations)
                 if (rgb_effect_params.iter == RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
                     rgb_matrix_indicators();
@@ -448,7 +448,7 @@ void rgb_matrix_task(void) {
             }
             break;
         case FLUSHING:
-            rgb_task_flush(current_mode);
+            rgb_task_flush(effect);
             break;
         case SYNCING:
             rgb_task_sync();
@@ -457,65 +457,51 @@ void rgb_matrix_task(void) {
 }
 
 // TODO: MOVE RGB INDICATOR EXAMPLE
+#define NUMBER_OF_INDICATOR_MATCHERS 1
 #ifndef NUMBER_OF_INDICATOR_MATCHERS
     #define NUMBER_OF_INDICATOR_MATCHERS 0
 #endif
 static t_rgb_indicator_matcher rgb_indicator_matchers[NUMBER_OF_INDICATOR_MATCHERS] = {
     {
-        .index = 1,
-        .led_state = {
-            .num_lock = true,
-        },
-        .add_red = false,
-        .red = 255,
-
-        .add_green = true,
-        .green = 0,
-
-        .add_red = true,
-        .blue = 0
-    },
-    {
-        .index = 1,
+        .led_index = 0,
         .led_state = {
             .caps_lock = true,
         },
-        .add_red = true,
-        .red = 0,
-
-        .add_green = false,
-        .green = 255,
-
-        .add_red = true,
-        .blue = 0
+        .color = {
+            .h = 85,
+            .s = 255,
+            .v = 255
+        }
     }
 };
 
 void rgb_matrix_indicators(void) {
     if (!rgb_matrix_indicators_kb()) return;
-
     led_t led_state = host_keyboard_led_state();
     for (size_t i = 0; i < NUMBER_OF_INDICATOR_MATCHERS; i++) {
         t_rgb_indicator_matcher matcher = rgb_indicator_matchers[i];
-        if (matcher.index >= 0 && matcher.index < RGB_MATRIX_LED_COUNT) {
-            uprintf("LED %i is out of range of the rgb matrix configuration", matcher.index);
-        } else if (rgb_matrix_config.flags[matcher.index] != LED_FLAG_INDICATOR) {
-            uprintf("LED %i is not configured as an indicator but has indicator config provided", matcher.index);
-        } else if(matcher.led_state & led_state == matcher.led_state) {
-            RGB new_color = {
-                .r = matcher.red,
-                .g = matcher.green,
-                .b = matcher.blue
+
+        // uprintf("matrix count: %d", RGB_MATRIX_LED_COUNT);
+        if (!(matcher.led_index >= 0 && matcher.led_index < RGB_MATRIX_LED_COUNT)) {
+            dprintf("LED %d is out of range of the rgb matrix configuration\n", matcher.led_index);
+        } else if (!(g_led_config.flags[matcher.led_index] & LED_FLAG_INDICATOR)) {
+            dprintf("LED %d is not configured as an indicator but has indicator config provided\n", matcher.led_index);
+        } else if((matcher.led_state.raw & led_state.raw) == matcher.led_state.raw) {
+            // Rainbow Pinwheels does not work
+            // Pixel Flow does not work
+            // Pixel Rain does not wrok
+            // VIA has Spash instead of Splash
+            uprintf("Updating LED %d\n", matcher.led_index);
+            uint8_t clamped_v = matcher.color.v;
+            if(!matcher.override_brightness_limit && matcher.color.v > rgb_matrix_config.hsv.v)
+                clamped_v = rgb_matrix_config.hsv.v;
+            HSV color_hsv = {
+                .h = matcher.color.h,
+                .s = matcher.color.s,
+                .v = clamped_v
             };
-
-            color_result_t current_color = rgb_matrix_driver.get_color(matcher.index);
-            if(current_color.success) {
-                new_color.r += matcher.add_red ? current_color.color.r : 0;
-                new_color.g += matcher.add_green ? current_color.color.g : 0;
-                new_color.b += matcher.add_blue ? current_color.color.b : 0;;
-            }
-
-            rgb_matrix_set_color(matcher.index, new_red, new_green, new_blue);
+            RGB color = rgb_matrix_hsv_to_rgb(color_hsv);
+            rgb_matrix_set_color(matcher.led_index, color.r, color.g, color.b);
         }
     }
 }
