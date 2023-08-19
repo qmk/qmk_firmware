@@ -8,6 +8,9 @@
         "pid": "0x3000",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 23
+    },
     "ws2812": {
         "pin": "F1"
     },

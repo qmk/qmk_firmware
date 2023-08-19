@@ -1,7 +1,6 @@
 BOOTMAGIC_ENABLE = no
 BOOLOADER = atmel-dfu
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306   # Enables the use of OLED displays
 RGBLIGHT_ENABLE = no    # Enable keyboard RGB underglow
 COMMAND_ENABLE = no 		# Disables the command feature
 COMBO_ENABLE = yes

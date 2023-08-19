@@ -40,9 +40,10 @@ enum my_keycodes {
     Z12, Z13, Z14
 };
 
-#define _DEFAULT 0
-#define _RGB 1
-
+enum layers {
+  _DEFAULT,
+  _RGB
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*

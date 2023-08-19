@@ -1,7 +1,6 @@
 BOOTLOADER = atmel-dfu
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 # These are turned off to save space
 COMMAND_ENABLE = no

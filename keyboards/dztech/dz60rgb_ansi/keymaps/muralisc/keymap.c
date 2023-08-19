@@ -146,7 +146,7 @@ void highlight_layer3(void) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-	  uint8_t this_led = host_keyboard_leds();
+	  led_t led_state = host_keyboard_led_state();
       if (!g_suspend_state) {
         switch (get_highest_layer(layer_state)) {
           case 1:
@@ -161,7 +161,7 @@ bool rgb_matrix_indicators_user(void) {
             break;
         }
       }
-	  if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
+	  if (led_state.caps_lock) {
 	        rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
 	  }
     return false;

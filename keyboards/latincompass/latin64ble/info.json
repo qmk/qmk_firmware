@@ -8,6 +8,13 @@
         "pid": "0x6C71",
         "device_version": "0.0.1"
     },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
+    "rgblight": {
+        "brightness_steps": 25,
+        "led_count": 2
+    },
     "ws2812": {
         "pin": "B7"
     },

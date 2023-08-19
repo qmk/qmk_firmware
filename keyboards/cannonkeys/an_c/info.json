@@ -18,6 +18,9 @@
         "levels": 6,
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 14
+    },
     "ws2812": {
         "pin": "B15",
         "driver": "spi"
