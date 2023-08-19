@@ -20,13 +20,6 @@
 
 #pragma once
 
-<<<<<<<< HEAD:keyboards/handwired/dactyl_manuform/6x6_5/blackpill_f411/chconf.h
 #define CH_CFG_ST_FREQUENCY 10000
 
 #include_next <chconf.h>
-
-========
-#define HOLD_ON_OTHER_KEY_PRESS
-
-#define MIDI_ADVANCED
->>>>>>>> upstream/develop:keyboards/ymdk/id75/keymaps/dothtm75/config.h
