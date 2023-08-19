@@ -4,14 +4,22 @@
 //Matrix logic ADAPTS to PTIR
 
 #include "quantum.h"
+#include "debounce.h"
 
 #define ALL_KEY_COL_PULL A15
 #define TEST_PIN A10
 #define ReadDelayTime 80
 #define MATRIX_INPUT_PRESSED_STATE 0
 
+/* matrix state(1:on, 0:off) */
+extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
+extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
+
 pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+
+// user-defined overridable functions
+__attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
 
 static inline void select_row_delay(uint16_t n) {
     while (n-- > 0) {
@@ -79,7 +87,7 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 
 // matrix code
 
-void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+__attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
     // Start with a clear matrix row
     matrix_row_t current_row_value = 0;
     // Select row
@@ -104,11 +112,20 @@ void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 }
 
 void matrix_init_custom(void) {
-    // TODO: initialize hardware here
-    setPinInput_cols();
     unselect_rows();
     setPinOutput_writeHigh(ALL_KEY_COL_PULL);
     setPinOutput_writeLow(TEST_PIN);
+
+    // initialize key pins
+    setPinInput_cols();
+
+    // initialize matrix state: all keys off
+    memset(matrix, 0, sizeof(matrix));
+    memset(raw_matrix, 0, sizeof(raw_matrix));
+
+    debounce_init(MATRIX_ROWS);
+
+    matrix_init_kb();
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
@@ -124,6 +141,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 
     matrix_has_changed = memcmp(current_matrix, curr_matrix, sizeof(curr_matrix)) != 0;
     if (matrix_has_changed) memcpy(current_matrix, curr_matrix, sizeof(curr_matrix));
-
+    matrix_has_changed = debounce(raw_matrix, matrix, MATRIX_ROWS, matrix_has_changed);
+    matrix_scan_kb();
     return matrix_has_changed;
 }
