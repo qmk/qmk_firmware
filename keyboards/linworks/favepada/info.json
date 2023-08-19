@@ -65,8 +65,8 @@
         ],
         "max_brightness": 120
     },
-    "rgblight": {
-        "led_count": 37
+    "ws2812": {
+        "pin": "B1"
     },
     "url": "",
     "usb": {
