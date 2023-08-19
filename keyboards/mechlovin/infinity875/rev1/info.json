@@ -3,6 +3,9 @@
         "pid": "0x0875",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "rows": ["D5", "D2", "D4", "D3", "D0", "D1"]
+    },
     "indicators": {
         "caps_lock": "D6",
         "scroll_lock": "B4"
