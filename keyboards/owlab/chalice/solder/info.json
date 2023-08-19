@@ -1,0 +1,88 @@
+{
+    "keyboard_name": "Chalice Solder",
+    "manufacturer": "Owlab",
+    "url": "",
+    "maintainer": "Owlab",
+    "usb": {
+        "vid": "0x4F53",
+        "pid": "0x4353",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["A7", "B0", "B1", "B2", "B10", "B11", "B12", "B13", "B14", "B15", "A8", "B6" ],
+        "rows": ["A2", "A3", "A4", "A5" ]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B4", "pin_b": "B5", "resolution": 4},
+            {"pin_a": "B9", "pin_b": "B8", "resolution": 4}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "encoder": true,
+        "nkro": true
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "processor": "STM32F103",
+    "board": "STM32_F103_STM32DUINO",
+    "layouts": {
+        "LAYOUT_sol": {
+            "layout": [
+                {"matrix": [0, 0], "x":0.85, "y":0},
+                {"matrix": [0, 1], "x":1.85, "y":0},
+                {"matrix": [0, 2], "x":2.85, "y":0},
+                {"matrix": [0, 3], "x":3.85, "y":0},
+                {"matrix": [0, 4], "x":4.85, "y":0},
+                {"matrix": [0, 5], "x":5.85, "y":0},
+                {"matrix": [0, 6], "x":6.85, "y":0},
+                {"matrix": [0, 7], "x":7.85, "y":0},
+                {"matrix": [0, 8], "x":8.85, "y":0},
+                {"matrix": [0, 9], "x":9.85, "y":0},
+                {"matrix": [0, 10], "x":10.85, "y":0},
+                {"matrix": [0, 11], "x":11.85, "y":0, "w":1.5},
+                {"matrix": [1, 0], "x":0.25, "y":1, "w":1.75},
+                {"matrix": [1, 1], "x":2, "y":1},
+                {"matrix": [1, 2], "x":3, "y":1},
+                {"matrix": [1, 3], "x":4, "y":1},
+                {"matrix": [1, 4], "x":5, "y":1},
+                {"matrix": [1, 5], "x":6, "y":1},
+                {"matrix": [1, 6], "x":7, "y":1},
+                {"matrix": [1, 7], "x":8, "y":1},
+                {"matrix": [1, 8], "x":9, "y":1},
+                {"matrix": [1, 9], "x":10, "y":1},
+                {"matrix": [1, 10], "x":11, "y":1},
+                {"matrix": [1, 11], "x":12, "y":1, "w":1.75},
+                {"matrix": [2, 0], "x":0, "y":2, "w":1.25},
+                {"matrix": [3, 1], "x":1.25, "y":2},
+                {"matrix": [2, 1], "x":2.25, "y":2},
+                {"matrix": [2, 2], "x":3.25, "y":2},
+                {"matrix": [2, 3], "x":4.25, "y":2},
+                {"matrix": [2, 4], "x":5.25, "y":2},
+                {"matrix": [3, 4], "x":6.25, "y":2},
+                {"matrix": [2, 5], "x":7.25, "y":2},
+                {"matrix": [2, 6], "x":8.25, "y":2},
+                {"matrix": [2, 7], "x":9.25, "y":2},
+                {"matrix": [2, 8], "x":10.25, "y":2},
+                {"matrix": [2, 9], "x":11.25, "y":2},
+                {"matrix": [2, 10], "x":12.25, "y":2},
+                {"matrix": [2, 11], "x":13.25, "y":2, "w":1.25},
+                {"matrix": [3, 0], "x":0, "y":3},
+                {"matrix": [3, 8], "x":1, "y":3},
+                {"matrix": [3, 2], "x":2, "y":3},
+                {"matrix": [3, 3], "x":3, "y":3,  "w":2},
+                {"matrix": [3, 5], "x":5, "y":3},
+                {"matrix": [3, 6], "x":6, "y":3},
+                {"matrix": [3, 7], "x":7, "y":3,  "w":2},
+                {"matrix": [3, 9], "x":9, "y":3},
+                {"matrix": [3, 10], "x":10, "y":3},
+                {"matrix": [3, 11], "x":11, "y":3}
+            ]
+        }
+    }
+}
