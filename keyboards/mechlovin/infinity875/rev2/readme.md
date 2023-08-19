@@ -1,6 +1,6 @@
 # infinity875
 
-![infinity875](https://i.imgur.com/OELfHUvl.jpeg)
+![infinity875](https://i.imgur.com/OELfHUvh.jpeg)
 
 The Infinity 87.5 is in the popular A87 form factor with Top-sided USB Type-C and supports BOTH the F12 and F13 footprints, so it’s compatible with a number of TKL boards like Geonworks Frog/F1-8x; KFE-CE; Singa Jaguar, among others.
 
