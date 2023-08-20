@@ -633,14 +633,13 @@ void sys_layer_init(void)
     }
 }
 
-void keyboard_post_init_user(void)
+void keyboard_post_init_kb(void)
 {
-    // debug_enable = true;
-
     sys_layer_init();
 
     rgb_matrix_set_color_all(0x00, 0x00, 0x00);
     rgb_matrix_update_pwm_buffers();
+    keyboard_post_init_user();
 }
 
 bool rgb_matrix_indicators_user(void)
