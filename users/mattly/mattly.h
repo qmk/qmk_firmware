@@ -25,12 +25,14 @@ enum {
     _NAVNUM,
     _NAVNUM_WIN,
     _SYMBOL,
+    _GAME,
     _FUNCT,
     _FUNCT_WIN,
 };
 
 // == System
 #define TOG_WIN TG(_OVER_WIN)
+#define TOG_GAM TG(_GAME)
 
 // == Thumbs
 // left hand
@@ -47,68 +49,73 @@ enum {
 #define NAVLOCK TG(_NAVNUM)
 #define SYMLOCK TG(_SYMBOL)
 
-
 // == QWERTY
 // left hand home row
-#define A_CTL  MT(MOD_LCTL, KC_A)
-#define A_GUI  MT(MOD_LGUI, KC_A)
-#define S_ALT  MT(MOD_LALT, KC_S)
-#define D_GUI  MT(MOD_LGUI, KC_D)
-#define D_CTL  MT(MOD_LCTL, KC_D)
-#define F_SFT  MT(MOD_LSFT, KC_F)
+#define A_CTL MT(MOD_LCTL, KC_A)
+#define A_GUI MT(MOD_LGUI, KC_A)
+#define S_ALT MT(MOD_LALT, KC_S)
+#define D_GUI MT(MOD_LGUI, KC_D)
+#define D_CTL MT(MOD_LCTL, KC_D)
+#define F_SFT MT(MOD_LSFT, KC_F)
 // left hand aux
-#define W_CTL  MT(MOD_LCTL, KC_W)
-#define W_GUI  MT(MOD_LGUI, KC_W)
-#define E_ALT  MT(MOD_LALT, KC_E)
-#define R_GUI  MT(MOD_LGUI, KC_R)
-#define R_CTL  MT(MOD_LCTL, KC_R)
+#define W_CTL MT(MOD_LCTL, KC_W)
+#define W_GUI MT(MOD_LGUI, KC_W)
+#define E_ALT MT(MOD_LALT, KC_E)
+#define R_GUI MT(MOD_LGUI, KC_R)
+#define R_CTL MT(MOD_LCTL, KC_R)
 
 // right hand home row
-#define J_SFT   MT(MOD_RSFT, KC_J)
-#define K_GUI   MT(MOD_RGUI, KC_K)
-#define K_CTL   MT(MOD_RCTL, KC_K)
-#define L_ALT   MT(MOD_RALT, KC_L)
+#define J_SFT MT(MOD_RSFT, KC_J)
+#define K_GUI MT(MOD_RGUI, KC_K)
+#define K_CTL MT(MOD_RCTL, KC_K)
+#define L_ALT MT(MOD_RALT, KC_L)
 #define MINSCTL MT(MOD_RCTL, KC_MINS)
 #define MINSGUI MT(MOD_RGUI, KC_MINS)
 // right hand aux
-#define U_GUI   MT(MOD_RGUI, KC_U)
-#define U_CTL   MT(MOD_RCTL, KC_U)
-#define I_ALT   MT(MOD_RALT, KC_I)
-#define O_CTL   MT(MOD_RCTL, KC_O)
-#define O_GUI   MT(MOD_RGUI, KC_O)
+#define U_GUI MT(MOD_RGUI, KC_U)
+#define U_CTL MT(MOD_RCTL, KC_U)
+#define I_ALT MT(MOD_RALT, KC_I)
+#define O_CTL MT(MOD_RCTL, KC_O)
+#define O_GUI MT(MOD_RGUI, KC_O)
 
 // == OS X default keys
-// movement by word
+// movement by text
 #define M_BWORD LALT(KC_LEFT)
 #define W_BWORD LCTL(KC_LEFT)
 #define M_FWORD LALT(KC_RIGHT)
 #define W_FWORD LCTL(KC_RIGHT)
 
+#define M_BLINE LGUI(KC_LEFT)
+#define M_ELINE LGUI(KC_RIGHT)
+
+#define M_BPARA  LOPT(KC_UP)
+#define M_NPARA  LOPT(KC_DOWN)
+
 // gui navigation
-#define M_NXWIN  LGUI(KC_GRV)        // Next Window
+#define M_NXWIN LGUI(KC_GRV) // Next Window
 #define W_NXWIN LALT(KC_TAB)
-#define M_PVWIN  LGUI(LSFT(KC_GRV))  // Prev Window
+#define M_PVWIN LGUI(LSFT(KC_GRV)) // Prev Window
 #define W_PVWIN LALT(LSFT(KC_TAB))
-#define M_NXTAB  LGUI(LSFT(KC_RBRC)) // Next Tab
+#define M_NXTAB LGUI(LSFT(KC_RBRC)) // Next Tab
 #define W_NXTAB LCTL(KC_PGDN)
-#define M_PVTAB  LGUI(LSFT(KC_LBRC)) // Prev Tab
+#define M_PVTAB LGUI(LSFT(KC_LBRC)) // Prev Tab
 #define W_PVTAB LCTL(KC_PGUP)
-#define M_NAVBK LGUI(KC_LBRC)       // Navigate Forward
+#define M_NAVBK LGUI(KC_LBRC) // Navigate Forward
 #define W_NAVBK LALT(KC_LEFT)
-#define M_NAVFW LGUI(KC_RBRC)       // Navigate Back
+#define M_NAVFW LGUI(KC_RBRC) // Navigate Back
 #define W_NAVFW LALT(KC_RIGHT)
 
 // == UNDERGLOW
 #ifdef RGBLIGHT_ENABLE
-#define HSV_CAPS     55, 255, 255
-#define HSV_ERR      30, 196, 196
-#define HSV_MAC      20, 255, 128
-#define HSV_WIN      10, 255, 128
-#define HSV_SYMBOL  235, 255, 255
-#define HSV_NAVNUM  250, 255, 255
-#define HSV_FUNCT   210, 255, 255
-#define HSV_RESET   180, 255, 255
+#define HSV_CAPS 55, 255, 255
+#define HSV_ERR 0, 255, 96
+#define HSV_MAC 250, 255, 192
+#define HSV_WIN 250, 192, 128
+#define HSV_SYMBOL 235, 255, 255
+#define HSV_NAVNUM 20, 255, 255
+#define HSV_GAME  40, 255, 255
+#define HSV_FUNCT 200, 255, 255
+#define HSV_RESET 180, 255, 255
 #endif
 
 #endif
-
