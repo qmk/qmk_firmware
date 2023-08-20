@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define MATRIX_DEBUG_DELAY_END()
 #    define MATRIX_DEBUG_GAP()
 #else
-#    define MATRIX_DEBUG_GAP()  asm volatile("nop \n nop":::"memory")
+#    define MATRIX_DEBUG_GAP() asm volatile("nop \n nop" ::: "memory")
 #endif
 
 #ifndef MATRIX_IO_DELAY_ALWAYS
@@ -44,16 +44,16 @@ static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-#  ifdef MATRIX_MUL_SELECT
-static const pin_t col_sel[MATRIX_COLS] = MATRIX_MUL_SEL;
-#  endif
+#    ifdef MATRIX_MUL_SELECT
+static const pin_t col_sel[MATRIX_COLS]  = MATRIX_MUL_SEL;
+#    endif
 #endif
 
 #ifdef MATRIX_IO_DELAY_PORTS
-static const pin_t delay_ports[] = { MATRIX_IO_DELAY_PORTS };
-static const port_data_t delay_masks[] = { MATRIX_IO_DELAY_MASKS };
+static const pin_t       delay_ports[] = {MATRIX_IO_DELAY_PORTS};
+static const port_data_t delay_masks[] = {MATRIX_IO_DELAY_MASKS};
 #    ifdef MATRIX_IO_DELAY_MULSEL
-static const uint8_t delay_sel[] = { MATRIX_IO_DELAY_MULSEL };
+static const uint8_t delay_sel[] = {MATRIX_IO_DELAY_MULSEL};
 #    endif
 #endif
 
@@ -120,10 +120,10 @@ static void unselect_rows(void) {
 }
 
 static void init_pins(void) {
-#ifdef MATRIX_MUL_SELECT
+#        ifdef MATRIX_MUL_SELECT
     setPinOutput(MATRIX_MUL_SELECT);
     writePinLow(MATRIX_MUL_SELECT);
-#endif
+#        endif
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         setPinInputHigh_atomic(col_pins[x]);
@@ -141,10 +141,10 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         // Select the col pin to read (active low)
-#ifdef MATRIX_MUL_SELECT
-        writePin(MATRIX_MUL_SELECT,col_sel[col_index]);
+#        ifdef MATRIX_MUL_SELECT
+        writePin(MATRIX_MUL_SELECT, col_sel[col_index]);
         waitInputPinDelay();
-#endif
+#        endif
         uint8_t pin_state = readPin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
@@ -153,37 +153,38 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Unselect row
     unselect_row(current_row);
-#ifdef MATRIX_IO_DELAY_PORTS
+#        ifdef MATRIX_IO_DELAY_PORTS
     if (current_row_value) {  // wait for col signal to go HIGH
         bool is_pressed;
         do {
             MATRIX_DEBUG_DELAY_START();
             is_pressed = false;
-            for (uint8_t i = 0; i < sizeof(delay_ports)/sizeof(pin_t); i++ ) {
-#    ifdef MATRIX_IO_DELAY_MULSEL
+            for (uint8_t i = 0; i < ARRAY_SIZE(delay_ports); i++) {
+#            ifdef MATRIX_IO_DELAY_MULSEL
                 writePin(MATRIX_MUL_SELECT, delay_sel[i]);
                 waitInputPinDelay();
-#    endif
-                is_pressed |= ( (readPort(delay_ports[i]) & delay_masks[i]) != delay_masks[i] );
+#            endif
+                is_pressed |= ((readPort(delay_ports[i]) & delay_masks[i]) != delay_masks[i]);
             }
             MATRIX_DEBUG_DELAY_END();
         } while (is_pressed);
     }
-#endif
-#ifdef MATRIX_IO_DELAY_ADAPTIVE
+#        endif
+#        ifdef MATRIX_IO_DELAY_ADAPTIVE
     if (current_row_value) {  // wait for col signal to go HIGH
         for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
             MATRIX_DEBUG_DELAY_START();
-#ifdef MATRIX_MUL_SELECT
-            writePin(MATRIX_MUL_SELECT,col_sel[col_index]);
+#            ifdef MATRIX_MUL_SELECT
+            writePin(MATRIX_MUL_SELECT, col_sel[col_index]);
             waitInputPinDelay();
-#endif
-            while (readPin(col_pins[col_index]) == 0) {}
+#            endif
+            while (readPin(col_pins[col_index]) == 0) {
+            }
             MATRIX_DEBUG_DELAY_END();
         }
     }
-#endif
-#ifdef MATRIX_IO_DELAY_ADAPTIVE2
+#        endif
+#        ifdef MATRIX_IO_DELAY_ADAPTIVE2
     if (current_row_value) {  // wait for col signal to go HIGH
         pin_t state;
         do {
@@ -192,19 +193,19 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
             for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
                 MATRIX_DEBUG_DELAY_END();
                 MATRIX_DEBUG_DELAY_START();
-#ifdef MATRIX_MUL_SELECT
-                writePin(MATRIX_MUL_SELECT,col_sel[col_index]);
+#            ifdef MATRIX_MUL_SELECT
+                writePin(MATRIX_MUL_SELECT, col_sel[col_index]);
                 waitInputPinDelay();
-#endif
+#            endif
                 state |= (readPin(col_pins[col_index]) == 0);
             }
             MATRIX_DEBUG_DELAY_END();
         } while (state);
     }
-#endif
+#        endif
     if (MATRIX_IO_DELAY_ALWAYS || current_row + 1 < MATRIX_ROWS) {
         MATRIX_DEBUG_DELAY_START();
-        matrix_output_unselect_delay();  // wait for col signal to go HIGH
+        matrix_output_unselect_delay(current_row, current_row_value != 0);  // wait for col signal to go HIGH
         MATRIX_DEBUG_DELAY_END();
     }
 
@@ -237,6 +238,7 @@ static void init_pins(void) {
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
     bool matrix_changed = false;
+    bool key_pressed = false;
 
     // Select col
     select_col(current_col);
@@ -252,6 +254,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         if (readPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_row_value |= (MATRIX_ROW_SHIFTER << current_col);
+            key_pressed = true;
         } else {
             // Pin HI, clear col bit
             current_row_value &= ~(MATRIX_ROW_SHIFTER << current_col);
@@ -267,7 +270,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     // Unselect col
     unselect_col(current_col);
     if (MATRIX_IO_DELAY_ALWAYS || current_col + 1 < MATRIX_COLS) {
-        matrix_output_unselect_delay();  // wait for col signal to go HIGH
+        matrix_output_unselect_delay(current_col, key_pressed);  // wait for col signal to go HIGH
     }
 
     return matrix_changed;
@@ -292,7 +295,7 @@ void matrix_init(void) {
 
     debounce_init(MATRIX_ROWS);
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void) {
@@ -311,14 +314,16 @@ uint8_t matrix_scan(void) {
         changed |= read_rows_on_col(raw_matrix, current_col);
     }
 #endif
-    MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_GAP();
+    MATRIX_DEBUG_SCAN_END();
+    MATRIX_DEBUG_GAP();
 
     MATRIX_DEBUG_SCAN_START();
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-    MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_GAP();
+    MATRIX_DEBUG_SCAN_END();
+    MATRIX_DEBUG_GAP();
 
     MATRIX_DEBUG_SCAN_START();
-    matrix_scan_quantum();
+    matrix_scan_kb();
     MATRIX_DEBUG_SCAN_END();
     return (uint8_t)changed;
 }

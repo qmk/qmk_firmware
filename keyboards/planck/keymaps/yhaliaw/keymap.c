@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-        KC_LEAD, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_ENT,  KC_SPC,  RAISE,   KC_RGUI, KC_RALT, KC_RCTL, KC_DEL
+        QK_LEAD, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_ENT,  KC_SPC,  RAISE,   KC_RGUI, KC_RALT, KC_RCTL, KC_DEL
     ),
 
     /* Lower
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
     [_ADJUST] = LAYOUT_planck_grid(
-        _______, L_RESET, DEBUG,   EEP_RST, RGB_TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______,
+        _______, L_RESET, DB_TOGG, EE_CLR,  RGB_TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______,
         _______, XXXXXXX, XXXXXXX, AU_ON,   AU_OFF,  AG_SWAP, AG_NORM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, XXXXXXX, XXXXXXX, MU_ON,   MU_OFF,  NK_ON,   NK_OFF,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -158,36 +158,24 @@ void keyboard_post_init_user(void) {
 }
 
 bool leader_found;
-LEADER_EXTERNS();
 
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading      = false;
-        leader_found = false;
-        SEQ_ONE_KEY(L_RESET) {
-            leader_found = true;
-            reset_keyboard();
-        }
-        else
-            SEQ_ONE_KEY(KC_DEL) {
-            leader_found = true;
-            layer_clear();
-        }
-        else
-            SEQ_ONE_KEY(LOWER) {
-            leader_found = true;
-            layer_on(_LOWER);
-        }
-        else
-            SEQ_ONE_KEY(RAISE) {
-            leader_found = true;
-            layer_on(_RAISE);
-        }
-        leader_end();
+void leader_end_user(void) {
+    leader_found = false;
+
+    if (leader_sequence_one_key(L_RESET)) {
+        leader_found = true;
+        reset_keyboard();
+    } else if (leader_sequence_one_key(KC_DEL)) {
+        leader_found = true;
+        layer_clear();
+    } else if (leader_sequence_one_key(LOWER)) {
+        leader_found = true;
+        layer_on(_LOWER);
+    } else if (leader_sequence_one_key(RAISE)) {
+        leader_found = true;
+        layer_on(_RAISE);
     }
-}
 
-void leader_end(void) {
     // Plays sound on if leader sequence found.
     if (leader_found) {
 #ifdef AUDIO_ENABLE

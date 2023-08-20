@@ -14,7 +14,7 @@ The laser cutting file is ideal for Ponoko's P1 board size.
 
 If you want to reflash the pre-installed firmware, use the `.bin` file for Proton C and the `.hex` file for Pro Micro builds. Flash with the QMK Toolbox or via the command line.
 
-Building for Proton C: `make ckeys/handwire_101:default CTPC=yes`
+Building for Proton C: `make ckeys/handwire_101:default CONVERT_TO=proton_c`
 Building for Pro Micro: `make ckeys/handwire_101:default`
 
 Pre-built firmware files (and laser cutting case files) can be found here: https://github.com/c-keys/handwire
@@ -139,7 +139,7 @@ This layer is not currently working but has been left as an example of how to wr
 ```
     /* ADMIN
    * ,-----------------------------------------.
-   * |   RESET    |     |           |    X     |
+   * |   QK_BOOT    |     |           |    X     |
    * |------------+-----+-----------+----------|
    * |ABOUT CKEYS |     |           |          |
    * |------------+-----+-----------+----------|
@@ -150,7 +150,7 @@ This layer is not currently working but has been left as an example of how to wr
    */
 ```
 
-The most important key in this layer is the `RESET` switch. Use it to flash new firmware. It does the same thing as the hardware button on the Proton C. But since you soldered the Proton C with the reset button facing towards the keys, the only way to reach it is to de-solder wires. The reset switch solves this. Program a reset switch into all of your future keyboards.
+The most important key in this layer is the `QK_BOOT` switch. Use it to flash new firmware. It does the same thing as the hardware button on the Proton C. But since you soldered the Proton C with the reset button facing towards the keys, the only way to reach it is to de-solder wires. The reset switch solves this. Program a reset switch into all of your future keyboards.
 
 The `ABOUT CKEYS` is another example of using a macro. It will type out a few sentences about cKeys.
 

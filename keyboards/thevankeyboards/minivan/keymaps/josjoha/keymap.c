@@ -146,7 +146,7 @@ bool led_middle_on = TRUE; // Set to off later, if startup setting is off.
 bool isolate_trigger = FALSE; // detects if _FUN layer move was pressed, and no other key (no normal use of Shift).
 bool capslock; // keeps track of capslock state
 bool numlock; // keeps track of numlock state
-layer_state_t state_recall; // We are calling the function set_led_colors_ from this file as well.
+//layer_state_t state_recall; // We are calling the function set_led_colors_ from this file as well.
 // speed measuring
 bool     speed_measure = SPEED_INIT_VALUE; // feature activated or not on startup
 uint32_t speed_counttime; // counts the time
@@ -288,9 +288,9 @@ void speed_led (int speed) {
 
 
 // do this in one place to handle left/right leds being off here
-void isolate_rgblight_set () {
-# ifdef RGBLIGHT_ENABLE
+void isolate_rgblight_set (void) {
 
+# ifdef RGBLIGHT_ENABLE
     if (!leds_on) { // left/right leds are off
         // overwrite previously colors
         uint8_t led0r = 0; uint8_t led0g = 0; uint8_t led0b = 0;
@@ -305,8 +305,8 @@ void isolate_rgblight_set () {
         setrgb(led2r, led2g, led2b, (LED_TYPE *)&led[2]); // Led 2
     }
     rgblight_set ();
-
 # endif
+
 }
 
 
@@ -335,7 +335,7 @@ void indicate_fun_stay (void) {
 
 
 // _RAR layer leds
-// It is a function because this is called when the Base layer OTHER_BASE key is pressed
+// It is a function because this is also called when the Base layer OTHER_BASE key is pressed
 void indicate_base (void) {
 # ifdef RGBLIGHT_ENABLE
 
@@ -612,6 +612,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                         * Numpad *
 # if defined(BASE_NUMPAD__ALT_BASE)
 #     include "./base_numpad.c" // Numbers pad
+# endif
+
+//                         * Hebrew *
+# if defined(BASE_HEBREW__DEF_BASE) || defined(BASE_HEBREW__ALT_BASE)
+#     include "./base_hebrew.c" // Hebrew
 # endif
 
 // // ⬇ insert your ./base_YOUR_KEYMAP.c #include here:
@@ -1186,8 +1191,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      <pink2    , <pinky           , <ring            , <middl           , <index           , <indx2           |, indx2>        , index>  , middl>           , ring>              , pinky>  , pink2>        ,
 //                ,                  ,                  ,                  , -*-              ,                 <|,>              ,         ,                  ,                    ,         ,               ,
         CTO_BASE  , COUNT_TOG        , COUNT_NULL       , COUNT_WORDMIN    , COUNT_REPORT     , SPEED_TOG         , SPEED_REPORT  , KC_MPLY , KC_MNXT          , KC_MPRV            , KC_MSTP , KC_RSFT       ,
-        KC_CAPS   , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SLCK           , KC_PSCR       , XXXXXXX , KC_VOLU          , KC_VOLD            , KC_MUTE , KC_INS        ,
-        XP_DRA_CG , UNICODE_MODE_LNX , UNICODE_MODE_BSD , UNICODE_MODE_OSX , UNICODE_MODE_WIN , UNICODE_MODE_WINC , XXXXXXX       , XXXXXXX , KC_BRIGHTNESS_UP , KC_BRIGHTNESS_DOWN , XXXXXXX , KC_APP        ,
+        KC_CAPS   , C_KC_PWR         , C_KC_WAKE        , C_KC_SLEP        , C_KC_PAUS        , KC_SCRL           , KC_PSCR       , XXXXXXX , KC_VOLU          , KC_VOLD            , KC_MUTE , KC_INS        ,
+        XP_DRA_CG , UC_LINX          , UC_BSD           , UC_MAC           , UC_WIN           , UC_WINC           , XXXXXXX       , XXXXXXX , KC_BRIGHTNESS_UP , KC_BRIGHTNESS_DOWN , XXXXXXX , KC_APP        ,
 //      -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         LEDS_ON  
 #     ifdef TRANSMINIVAN_LEFTSIDE
@@ -1284,7 +1289,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 , TRANS_MIDLEFT
 #             endif
 
-                                                , KC_NUMLOCK , XXXXXXX , KC__YGUI
+                                                , KC_NUM , XXXXXXX , KC__YGUI
 
 #             ifdef TRANSMINIVAN_RIGHTSIDE
                                                                                   , TRANS_RIGHT
@@ -1376,7 +1381,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     , TRANS_MIDLEFT
 #             endif
 
-                                                    , KC_NUMLOCK , KC_KP_0 
+                                                    , KC_NUM , KC_KP_0 
 
 // See comment in ./base_numpad.c on the first layout (double handed Base layer), about the next few keys:
 // This layer follows that layout Base Numpad.

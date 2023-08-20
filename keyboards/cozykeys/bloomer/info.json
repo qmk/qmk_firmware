@@ -1,0 +1,13 @@
+{
+    "keyboard_name": "Bloomer",
+    "manufacturer": "CozyKeys",
+    "url": "https://github.com/cozykeys/bloomer",
+    "maintainer": "pcewing",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x1191"
+    },
+    "ws2812": {
+        "pin": "D7"
+    }
+}

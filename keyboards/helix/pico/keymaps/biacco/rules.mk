@@ -10,15 +10,9 @@ AUDIO_ENABLE = yes           # Audio output on port B5
 LTO_ENABLE = no  # if firmware size over limit, try this option
 
 # Helix Spacific Build Options
-# you can uncomment and edit follows 6 Variables
-#  jp: 以下の6つの変数を必要に応じて編集し、コメントアウトをはずします。
-# OLED_ENABLE = no            # OLED_ENABLE
-# LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
+# you can uncomment and edit follows 4 Variables
+#  jp: 以下の4つの変数を必要に応じて編集し、コメントアウトをはずします。
 # LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 # LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = no           # LED animations
 # IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
-
-# convert Helix-specific options (that represent combinations of standard options)
-#   into QMK standard options.
-include $(strip $(KEYBOARD_LOCAL_FEATURES_MK))

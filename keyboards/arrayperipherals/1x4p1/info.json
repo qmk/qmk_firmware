@@ -1,17 +1,33 @@
 {
-  "keyboard_name": "[1 x 4] + 1 Macropad",
+  "keyboard_name": "[1x4] + 1 Macropad",
+  "manufacturer": "Array Peripherals",
   "url": "https://github.com/daviddoan",
   "maintainer": "David Doan",
-  "width": 5,
-  "height": 1,
+  "usb": {
+        "vid": "0x4152",
+        "pid": "0x4F46",
+        "device_version": "0.0.1"
+    },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "F0", "pin_b": "F1"}
+    ]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "matrix_pins": {
+    "direct": [
+      ["C7", "B7", "D6", "F5", "F7"]
+    ]
+  },
   "layouts": {
     "LAYOUT_ortho_1x5": {
       "layout": [
-        {"label": "K01", "x":0, "y":0}, 
-        {"label": "K02", "x":1, "y":0},
-        {"label": "K03", "x":2, "y":0},
-        {"label": "K04", "x":3, "y":0},
-        {"label": "K05", "x":4, "y":0}
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]},
+        {"x": 2, "y": 0, "matrix": [0, 2]},
+        {"x": 3, "y": 0, "matrix": [0, 3]},
+        {"x": 4, "y": 0, "matrix": [0, 4]}
       ]
     }
   }

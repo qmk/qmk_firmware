@@ -14,4 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pandora.h"
+#include "quantum.h"
+
+// Encoder click function
+#ifdef DIP_SWITCH_ENABLE
+bool dip_switch_update_kb(uint8_t index, bool active) {
+    if (!dip_switch_update_user(index, active)) { return false; }
+
+    switch (index) {
+    /* First encoder */
+    case 0:
+        if (active) {
+            tap_code(KC_MEDIA_PLAY_PAUSE);
+        }
+        break;
+    }
+    return true;
+}
+#endif

@@ -21,14 +21,54 @@ enum layers {
     DEFAULT
 };
 
+enum combo_events {
+    LED_ADJUST
+};
+
 const uint16_t PROGMEM led_adjust_combo[] = {KC_F22, KC_F24, COMBO_END};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [DEFAULT] = {
-        { KC_F20, KC_F21, KC_MUTE },
-        { KC_F22, KC_F23, KC_F24  }
-    }
+    [DEFAULT] = LAYOUT(
+        KC_F20,  KC_F21,  KC_MUTE,
+        KC_F22,  KC_F23,  KC_F24
+    )
 };
+
+combo_t key_combos[] = {
+    [LED_ADJUST] = COMBO_ACTION(led_adjust_combo)
+};
+
+bool led_adjust_active = false;
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    if (combo_index == LED_ADJUST) {
+        led_adjust_active = pressed;
+    }
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (led_adjust_active) {
+            if (clockwise) {
+                rgblight_increase_val();
+            } else {
+                rgblight_decrease_val();
+            }
+            return false;
+        }
+    } else if (index == 1) {
+        if (led_adjust_active) {
+            if (clockwise) {
+                rgblight_increase_hue();
+            } else {
+                rgblight_decrease_hue();
+            }
+            return false;
+        }
+    }
+
+    return true;
+}
 
 void encoder_one_update(bool clockwise) {
     tap_code(!clockwise ? KC_F18 : KC_F19);

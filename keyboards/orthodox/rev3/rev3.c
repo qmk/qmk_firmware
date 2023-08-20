@@ -19,20 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "orthodox.h"
-
-void matrix_init_kb(void) {
-
-  //// // green led on
-  //// DDRD |= (1<<5);
-  //// PORTD &= ~(1<<5);
-
-  //// // orange led on
-  //// DDRB |= (1<<0);
-  //// PORTB &= ~(1<<0);
-
-  matrix_init_user();
-};
+#include "quantum.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))

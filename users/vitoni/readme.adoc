@@ -1,0 +1,16 @@
+= User functions
+
+Functions are mostly related to changing the RGB lights depending on user interaction and when idling.
+
+== utils.h
+
+Common functions are declared in link:utils.h[]. These function are not directly RGB related but used to modify state and calculate values.
+
+== rgb_matrix_effects.h
+
+Functions in link:rgb_matrix_effects.h[] make use of common function in `utils.h` and are used to create to RGB matrix effects such as fading or breathing.
+
+== vitoni.h
+
+The functions declared in link:vitoni.h[] are used as entry points for usage of RGB effects.
+One entry point is `matrix_scan` based for regular task while the other is `process_record` based for user activity tasks.

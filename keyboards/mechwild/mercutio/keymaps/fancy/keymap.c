@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef ENCODER_ENABLE       // Encoder Functionality
     uint8_t selected_layer = 0;
     bool encoder_update_user(uint8_t index, bool clockwise) {
-        #ifdef OLED_DRIVER_ENABLE
+        #ifdef OLED_ENABLE
             oled_clear();
             oled_render();
         #endif
@@ -72,11 +72,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     }
                 }
         }
-    return true;
+    return false;
     }
 #endif
 
-#ifdef OLED_DRIVER_ENABLE   // OLED Functionality
+#ifdef OLED_ENABLE   // OLED Functionality
     oled_rotation_t oled_init_user(oled_rotation_t rotation) {
         return OLED_ROTATION_180;       // flips the display 180 degrees if offhand
     }
@@ -107,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         oled_write_P(logo_4, false);
     }
 
-    void oled_task_user(void) {
-
-        if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && selected_layer == 0 && get_highest_layer(layer_state) == 0 ) {
+    bool oled_task_user(void) {
+        led_t led_state = host_keyboard_led_state();
+        if ( !led_state.num_lock && !led_state.caps_lock && selected_layer == 0 && get_highest_layer(layer_state) == 0 ) {
             render_name();
             clear_screen = true;
         } else {
@@ -164,5 +164,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             oled_write_P(led_state.num_lock ? PSTR("NLCK ") : PSTR("     "), false);
             oled_write_P(led_state.caps_lock ? PSTR("CAPS ") : PSTR("     "), false);
         }
+    return false;
     }
 #endif

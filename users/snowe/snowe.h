@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wrappers.h"
 #include "keycode_aliases.h"
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
 
 //#if defined(RGBLIGHT_ENABLE)
@@ -35,9 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#if defined(RGB_MATRIX_ENABLE)
 //#    include "rgb_matrix_stuff.h"
 //#endif
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    include "oled_setup.h"
 #endif
 
 
-enum layers { _MAIN, _LOWER, _UPPER, _ADJUST };
+enum layers { _MAIN, _GAMING, _LOWER, _UPPER, _ADJUST };

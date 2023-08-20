@@ -78,8 +78,8 @@ enum layers {
 #define KC_E_GT S(KC_NUBS)
 #define KC_E_TILD ES_TILD
 #define KC_E_MINS ES_MINS
-#define KC_E_OVRR ES_OVRR
-#define KC_E_APOS ES_APOS
+#define KC_E_OVRR ES_MORD
+#define KC_E_APOS ES_QUOT
 #define KC_E_IEXL ES_IEXL
 //==========  Short hand for complex key combinations
 #define WIN_LEFT_HALF LALT(LGUI(KC_LEFT))

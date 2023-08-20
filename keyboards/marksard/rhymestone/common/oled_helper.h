@@ -1,4 +1,9 @@
-#ifdef OLED_DRIVER_ENABLE
+#pragma once
+
+#include <stdint.h>
+#include "action.h"
+
+#ifdef OLED_ENABLE
 
 void render_logo(void);
 void render_lock_status(void);

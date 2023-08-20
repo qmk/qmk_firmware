@@ -16,25 +16,18 @@
 
 #include "work_board.h"
 
-#if !defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) { return false; }
-    if (clockwise) {
-        tap_code(KC_VOLD);
-    } else {
-        tap_code(KC_VOLU);
-    }
-    return true;
-}
-#endif
-
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 #    ifdef RGB_MATRIX_ENABLE
 #        error Cannot run OLED and Per Key RGB at the same time due to pin conflicts
 #    endif
-__attribute__((weak)) oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_90; }
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_90;
+}
 
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
     oled_write_P(PSTR("LAYER"), false);
     oled_write_P(PSTR("Lower"), layer_state_is(3));
     oled_write_P(PSTR("Raise"), layer_state_is(4));
@@ -68,26 +61,65 @@ __attribute__((weak)) void oled_task_user(void) {
     oled_write_P(logo[0][1], !keymap_config.swap_lctl_lgui);
     oled_write_P(logo[1][1], keymap_config.swap_lctl_lgui);
     oled_write_P(PSTR(" NKRO"), keymap_config.nkro);
+
+    return false;
 }
 #endif
 
-
 #ifdef RGB_MATRIX_ENABLE
+// clang-format off
 led_config_t g_led_config = { {
-    {  49,  48,  47,  46,  45,  43,  42,  41,  40,  39,  38,  37},
-    {  25,  26,  27,  28,  29,  30,  31,  32,  33,  34,  35,  36 },
-    {  24,  23,  22,  21,  20,  19,  18,  17,  16,  15,  14,  13 },
-    {   0,   1,   2,   3,   4,   5,   7,   8,   9,  10,  11,  12 },
+    { 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48 },
+    { 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25 },
+    { 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 },
+    { 12, 11, 10,  9,  8,  7,  5,  4,  3,  2,  1,  0}
 }, {
-    { 223,  63 }, { 203,  63 }, { 183,  63 }, { 162,  63 }, { 142,  63 }, { 122,  63 }, { 101,  63 }, {  81,  63 }, {  61,  63 }, {  40,  63 }, {  20,  63 }, {   0,  63 },
+    { 223,  63 }, { 203,  63 }, { 183,  63 }, { 162,  63 }, { 142,  63 }, { 122,  63 }, { 112,  63 }, { 101,  63 }, {  81,  63 }, {  61,  63 }, {  40,  63 }, {  20,  63 }, {   0,  63 },
     {   0,  42 }, {  20,  42 }, {  40,  42 }, {  61,  42 }, {  81,  42 }, { 101,  42 }, { 122,  42 }, { 142,  42 }, { 162,  42 }, { 183,  42 }, { 203,  42 }, { 223,  42 },
     { 223,  21 }, { 203,  21 }, { 183,  21 }, { 162,  21 }, { 142,  21 }, { 122,  21 }, { 101,  21 }, {  81,  21 }, {  61,  21 }, {  40,  21 }, {  20,  21 }, {   0,  21 },
-    {   0,   0 }, {  20,   0 }, {  40,   0 }, {  61,   0 }, {  81,   0 }, { 101,   0 }, { 122,   0 }, { 132,   0 }, { 142,   0 }, { 162,   0 }, { 183,   0 }, { 203,   0 }, { 223,   0 },
+    {   0,   0 }, {  20,   0 }, {  40,   0 }, {  61,   0 }, {  81,   0 }, { 101,   0 }, { 122,   0 }, { 142,   0 }, { 162,   0 }, { 183,   0 }, { 203,   0 }, { 223,   0 }
 }, {
+    1, 1, 1, 1, 1, 4,4,4, 1, 1, 1, 1, 1,
     1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1,
     1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1,
-    1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1,
-    1, 1, 1, 1, 1, 4,4,4, 1, 1, 1, 1, 1
+    1, 4, 4, 4, 4, 4,  4, 4, 4, 4, 4, 1
 } };
+// clang-format on
+
+#    ifdef VIA_ENABLE
+bool via_layout_2u = false;
+
+void via_set_layout_options_kb(uint32_t value) { via_layout_2u = (bool)value; }
+#    endif  // VIA_ENABLE
+
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+#    ifdef VIA_ENABLE
+    if (via_layout_2u) {
+        rgb_matrix_set_color(5, 0, 0, 0);
+        rgb_matrix_set_color(7, 0, 0, 0);
+    } else {
+        rgb_matrix_set_color(6, 0, 0, 0);
+    }
+#    else
+    rgb_matrix_set_color(5, 0, 0, 0);
+    rgb_matrix_set_color(7, 0, 0, 0);
+#    endif
+    return true;
+}
+
+void keyboard_pre_init_kb(void) {
+    setPinOutput(B2);
+    setPinOutput(B3);
+    setPinOutput(B7);
+
+    writePinLow(B2);
+    writePinLow(B3);
+    writePinLow(B7);
+
+    keyboard_pre_init_user();
+}
 
 #endif

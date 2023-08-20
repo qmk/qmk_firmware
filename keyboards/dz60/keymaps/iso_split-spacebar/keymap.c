@@ -4,12 +4,12 @@
 // thanks to atlacat, hailbreno, itsaferbie and weeheavy...
 
 // and special thanks to  AGausmann and drashna for the layer-activated RGB underglow
-// https://www.reddit.com/r/olkb/comments/6t1vdu/update_layeractivated_rgb_underglow/ 
+// https://www.reddit.com/r/olkb/comments/6t1vdu/update_layeractivated_rgb_underglow/
 // https://github.com/AGausmann/qmk_firmware/blob/agausmann-v3.x/keyboards/nyquist/keymaps/agausmann/keymap.c
 
 #include QMK_KEYBOARD_H
 
-/* 
+/*
 * Each layer gets a name for readability.
 * The underscores don't mean anything - you can
 * have a layer called STUFF or any other name.
@@ -23,8 +23,8 @@
 #define NL 2     // Numpad Layer
 #define RL 3     // RGB Layer
 
-/* 
-* Let's give an easier name to the RGB modes 
+/*
+* Let's give an easier name to the RGB modes
 * and assign the ones we want to the different layer
 * these will then be used by the function below
 *
@@ -39,20 +39,20 @@
 #define RGB_XMS RGB_M_X   //rgb christmas
 //
 #define RGB_BL_MODE    rgblight_mode_noeeprom(3)              //rgb mode for BL layer
-#define RGB_BL_LIGHT   rgblight_sethsv_noeeprom_turquoise()   //rgb light for BL layer
+#define RGB_BL_LIGHT   rgblight_sethsv_noeeprom(HSV_TURQUOISE)   //rgb light for BL layer
 //
 #define RGB_FL_MODE    rgblight_mode_noeeprom(1)             //rgb mode for FL layer
-#define RGB_FL_LIGHT   rgblight_sethsv_noeeprom_orange()      //rgb light for FL layer
+#define RGB_FL_LIGHT   rgblight_sethsv_noeeprom(HSV_ORANGE)      //rgb light for FL layer
 //
 #define RGB_NL_MODE    rgblight_mode_noeeprom(12)             //rgb mode for NL layer
-#define RGB_NL_LIGHT   rgblight_sethsv_noeeprom_turquoise()       //rgb light for NL layer
+#define RGB_NL_LIGHT   rgblight_sethsv_noeeprom(HSV_TURQUOISE)       //rgb light for NL layer
 //
 #define RGB_RL_MODE    rgblight_mode_noeeprom(22)             //rgb mode for RL layer
-#define RGB_RL_LIGHT   rgblight_sethsv_noeeprom_red()         //rgb light for RL layer
-      
+#define RGB_RL_LIGHT   rgblight_sethsv_noeeprom(HSV_RED)         //rgb light for RL layer
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	
+
   /* Keymap BL: Base Layer (Default Layer)
    *
    * ,-----------------------------------------------------------.
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	    KC_ESC,    KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,    KC_DEL,
         _______ ,  _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   KC_PSCR,   _______,   _______,
         _______,   KC_MS_LEFT,KC_MS_DOWN,KC_MS_UP,  KC_MS_RIGHT,_______,  _______,   KC_LEFT,   KC_DOWN,   KC_UP,     KC_RIGHT,  _______,   _______,   _______,
-        _______,   _______,   _______,   _______,   _______,   KC_MS_BTN1,KC_MS_BTN2,_______,   KC_HOME,   KC_PGDOWN, KC_PGUP,   KC_END,    _______,
+        _______,   _______,   _______,   _______,   _______,   KC_MS_BTN1,KC_MS_BTN2,_______,   KC_HOME,   KC_PGDN,   KC_PGUP,   KC_END,    _______,
         _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______),
 
   /* Keymap NL: Numpad Layer
@@ -135,12 +135,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
    [RL] = LAYOUT_60_iso_split(
 	//  1          2          3          4          5          6          7          8          9          10         11         12         13         14
-	    TG(RL),    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   RESET,
+	    TG(RL),    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   QK_BOOT,
         _______,   RGB_TOG,   RGB_MOD,   RGB_HUI,   RGB_HUD,   _______,   _______,   RGB_SAI,   RGB_SAD,   RGB_VAI,   RGB_VAD,   _______,   _______,
         _______,   RGB_STA,   RGB_BRE,   RGB_RAI,   RGB_SWI,   _______,   _______,   RGB_SNA,   RGB_KNI,   RGB_GRA,   RGB_XMS,   _______,   _______,   _______,
-        _______,   BL_DEC,    BL_TOGG,   BL_INC,    BL_STEP,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
+        _______,   BL_DOWN,   BL_TOGG,   BL_UP,     BL_STEP,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
         _______,   _______,   _______,   _______,   MO(FL),    _______,   _______,   _______,   TO(BL),    _______),
-        
+
 
 };
 
@@ -156,12 +156,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case NL:
         if (!host_keyboard_led_state().num_lock) {
-             tap_code16(KC_NLCK);
+             tap_code16(KC_NUM_LOCK);
         }
         break;
     default: //  for any other layers, or the default layer
         if (host_keyboard_led_state().num_lock) {
-             tap_code16(KC_NLCK);
+             tap_code16(KC_NUM_LOCK);
         }
         break;
     }
@@ -175,25 +175,25 @@ void matrix_scan_user(void) {
   #ifdef RGBLIGHT_ENABLE
 
   static uint8_t old_layer = 1;
-  uint8_t new_layer = biton32(layer_state);
+  uint8_t new_layer = get_highest_layer(layer_state);
 
   if (old_layer != new_layer) {
     switch (new_layer) {
       case BL:
           RGB_BL_MODE;
-          RGB_BL_LIGHT;        
+          RGB_BL_LIGHT;
         break;
       case FL:
           RGB_FL_MODE;
-          RGB_FL_LIGHT;  
+          RGB_FL_LIGHT;
         break;
       case NL:
-          RGB_NL_MODE; 
-          RGB_NL_LIGHT; 
+          RGB_NL_MODE;
+          RGB_NL_LIGHT;
         break;
       case RL:
-          RGB_RL_MODE; 
-          RGB_RL_LIGHT;        
+          RGB_RL_MODE;
+          RGB_RL_LIGHT;
         break;
     }
 

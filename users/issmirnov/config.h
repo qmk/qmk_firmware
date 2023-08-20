@@ -1,8 +1,5 @@
 #pragma once
 
-// Allows sending more than one key per scan. Useful for chords.
-#define QMK_KEYS_PER_SCAN 4
-
 // how long before a tap becomes a hold
 #undef TAPPING_TERM
 #define TAPPING_TERM 100
@@ -24,7 +21,6 @@
 #define ONESHOT_TIMEOUT 2000
 
 // Enable combos for vim
-#define COMBO_COUNT 5 // Specify the number of combos used. BE SURE TO INCREMENT AS NEEDED
 #define COMBO_TERM 50 // window in milliseconds to trigger combo
 
 // Allow more than 4 keys to be sent to the system. Useful for gaming.

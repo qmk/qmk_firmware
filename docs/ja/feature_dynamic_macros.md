@@ -40,6 +40,7 @@ QMK はその場で作られた一時的なマクロをサポートします。�
 | `DYNAMIC_MACRO_SIZE` | 128 | 動的マクロが使用できるメモリ量を設定します。これは限られたリソースであり、コントローラに依存します。 |
 | `DYNAMIC_MACRO_USER_CALL` | *定義なし* | これを定義すると、ユーザの `keymap.c` ファイルを使ってマクロが起動されます。 |
 | `DYNAMIC_MACRO_NO_NESTING` | *定義なし* | これを定義すると、別のマクロからマクロを呼び出す(入れ子になったマクロ)機能を無効にします。 |
+| `DYNAMIC_MACRO_DELAY` | *定義なし* | 各キーを送信する時の待ち時間（ms単位）を設定します。 |
 
 
 記録中にキーを押すたびに LED が点滅し始めた場合は、マクロバッファにマクロを入れるスペースがもう無いことを意味します。マクロを入れるには、他のマクロ(それらは同じバッファを共有します)を短くするか、`config.h` に `DYNAMIC_MACRO_SIZE` 定義を追加することでバッファを増やします(デフォルト値: 128; ヘッダ内のコメントを読んでください)。
@@ -63,7 +64,7 @@ QMK はその場で作られた一時的なマクロをサポートします。�
 
 direction がどのマクロであるかを示すことに注意してください。`1` がマクロ 1、`-1` がマクロ 2、0 がマクロ無しです。
 
-* `dynamic_macro_record_start_user(void)` - マクロの記録を開始する時に起動されます。
+* `dynamic_macro_record_start_user(int8_t direction)` - マクロの記録を開始する時に起動されます。
 * `dynamic_macro_play_user(int8_t direction)` - マクロを再生する時に起動されます。
 * `dynamic_macro_record_key_user(int8_t direction, keyrecord_t *record)` - マクロの記録中に各キー押下で起動されます。
 * `dynamic_macro_record_end_user(int8_t direction)` - マクロの記録を停止した時に起動されます。

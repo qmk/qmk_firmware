@@ -16,36 +16,6 @@
  */
 
 #pragma once
-#include "config_common.h"
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-// #define DEBOUNCE 6
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-//#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-//#define LOCKING_RESYNC_ENABLE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
 
 /*
  * Feature disable options
@@ -62,32 +32,6 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
-
-/*
- * MIDI options
- */
-
-/* enable basic MIDI features:
-   - MIDI notes can be sent when in Music mode is on
-*/
-//#define MIDI_BASIC
-
-/* enable advanced MIDI features:
-   - MIDI notes can be added to the keymap
-   - Octave shift and transpose
-   - Virtual sustain, portamento, and modulation wheel
-   - etc.
-*/
-//#define MIDI_ADVANCED
-
-/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
- /* Backlight configuration
- */
-#define BACKLIGHT_LEVELS 10
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -97,11 +41,37 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define LED_DRIVER_ADDR_1 0b1110100
-#define I2C1_SCL 8
-#define I2C1_SDA 9
+#define I2C1_SCL_PIN B8
+#define I2C1_SDA_PIN B9
 
 #define LED_DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 71
+#define LED_MATRIX_LED_COUNT 71
+
+// LED Matrix Animation modes. Explicitly enabled
+// For full list of effects, see:
+// https://docs.qmk.fm/#/feature_led_matrix?id=led-matrix-effects
+#define ENABLE_LED_MATRIX_ALPHAS_MODS
+#define ENABLE_LED_MATRIX_BREATHING
+#define ENABLE_LED_MATRIX_BAND
+#define ENABLE_LED_MATRIX_BAND_PINWHEEL
+#define ENABLE_LED_MATRIX_BAND_SPIRAL
+#define ENABLE_LED_MATRIX_CYCLE_LEFT_RIGHT
+#define ENABLE_LED_MATRIX_CYCLE_UP_DOWN
+#define ENABLE_LED_MATRIX_CYCLE_OUT_IN
+#define ENABLE_LED_MATRIX_DUAL_BEACON
+#if defined(LED_MATRIX_KEYREACTIVE_ENABLED)
+#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_SIMPLE
+#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_WIDE
+#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_CROSS
+#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS
+#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_NEXUS
+#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#    define ENABLE_LED_MATRIX_SPLASH
+#    define ENABLE_LED_MATRIX_MULTISPLASH
+#endif
+#define ENABLE_LED_MATRIX_WAVE_LEFT_RIGHT
+#define ENABLE_LED_MATRIX_WAVE_UP_DOWN
 
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4

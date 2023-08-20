@@ -19,8 +19,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_ortho_4x4(
-    KC_NLCK, BL1,     KC_TRNS, KC_PSLS,
-    RESET,   BL2,     KC_TRNS, KC_TRNS,
+    KC_NUM,  BL1,     KC_TRNS, KC_PSLS,
+    QK_BOOT,   BL2,     KC_TRNS, KC_TRNS,
     KC_TRNS, BL3,     KC_TRNS, KC_TRNS,
     KC_TRNS, BL4,     KC_TRNS, KC_TRNS
   ),
@@ -75,41 +75,4 @@ void matrix_init_user(void) {
   /* set LED row pins to output and low */
   DDRB |= (1 << 4) | (1 << 5) | (1 << 6) | (1 << 7);
   PORTB &= ~(1 << 4) & ~(1 << 5) & ~(1 << 6) & ~(1 << 7);
-}
-
-void matrix_scan_user(void) {
-}
-
-void led_set_user(uint8_t usb_led) {
-
-  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-  } else {
-
-  }
-
-  if (usb_led & (1 << USB_LED_KANA)) {
-
-  } else {
-
-  }
-
 }

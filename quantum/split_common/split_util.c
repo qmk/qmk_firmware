@@ -16,7 +16,6 @@
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
-#include "config.h"
 #include "timer.h"
 #include "transport.h"
 #include "quantum.h"
@@ -39,11 +38,27 @@
 #    define SPLIT_USB_TIMEOUT_POLL 10
 #endif
 
+// Max number of consecutive failed communications (one per scan cycle) before the communication is seen as disconnected.
+// Set to 0 to disable the disconnection check altogether.
+#ifndef SPLIT_MAX_CONNECTION_ERRORS
+#    define SPLIT_MAX_CONNECTION_ERRORS 10
+#endif // SPLIT_MAX_CONNECTION_ERRORS
+
+// How long (in milliseconds) to block all connection attempts after the communication has been flagged as disconnected.
+// One communication attempt will be allowed everytime this amount of time has passed since the last attempt. If that attempt succeeds, the communication is seen as working again.
+// Set to 0 to disable communication throttling while disconnected
+#ifndef SPLIT_CONNECTION_CHECK_TIMEOUT
+#    define SPLIT_CONNECTION_CHECK_TIMEOUT 500
+#endif // SPLIT_CONNECTION_CHECK_TIMEOUT
+
+static uint8_t connection_errors = 0;
+
 volatile bool isLeftHand = true;
 
 #if defined(SPLIT_USB_DETECT)
+_Static_assert((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
 static bool usbIsActive(void) {
-    for (uint8_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
+    for (uint16_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
         // This will return true if a USB connection has been established
         if (usb_connected_state()) {
             return true;
@@ -53,8 +68,50 @@ static bool usbIsActive(void) {
     return false;
 }
 #else
-static inline bool usbIsActive(void) { return usb_vbus_state(); }
+static inline bool usbIsActive(void) {
+    return usb_vbus_state();
+}
 #endif
+
+#if defined(SPLIT_WATCHDOG_ENABLE)
+#    if !defined(SPLIT_WATCHDOG_TIMEOUT)
+#        if defined(SPLIT_USB_TIMEOUT)
+#            define SPLIT_WATCHDOG_TIMEOUT (SPLIT_USB_TIMEOUT + 100)
+#        else
+#            define SPLIT_WATCHDOG_TIMEOUT 3000
+#        endif
+#    endif
+#    if defined(SPLIT_USB_DETECT)
+_Static_assert(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
+#    endif
+_Static_assert(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
+
+static uint32_t split_watchdog_started = 0;
+static bool     split_watchdog_done    = false;
+
+void split_watchdog_init(void) {
+    split_watchdog_started = timer_read32();
+}
+
+void split_watchdog_update(bool done) {
+    split_watchdog_done = done;
+}
+
+bool split_watchdog_check(void) {
+    if (!is_transport_connected()) {
+        split_watchdog_done = false;
+    }
+    return split_watchdog_done;
+}
+
+void split_watchdog_task(void) {
+    if (!split_watchdog_done && !is_keyboard_master()) {
+        if (timer_elapsed32(split_watchdog_started) > SPLIT_WATCHDOG_TIMEOUT) {
+            mcu_reset();
+        }
+    }
+}
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
 
 #ifdef SPLIT_HAND_MATRIX_GRID
 void matrix_io_delay(void);
@@ -68,7 +125,7 @@ static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
     uint8_t pin_state = readPin(in_pin);
     // Set out_pin to a setting that is less susceptible to noise.
     setPinInputHigh(out_pin);
-    matrix_io_delay();  // Wait for the pull-up to go HIGH.
+    matrix_io_delay(); // Wait for the pull-up to go HIGH.
     return pin_state;
 }
 #endif
@@ -76,8 +133,11 @@ static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
 __attribute__((weak)) bool is_keyboard_left(void) {
 #if defined(SPLIT_HAND_PIN)
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
-    setPinInput(SPLIT_HAND_PIN);
+#    ifdef SPLIT_HAND_PIN_LOW_IS_LEFT
+    return !readPin(SPLIT_HAND_PIN);
+#    else
     return readPin(SPLIT_HAND_PIN);
+#    endif
 #elif defined(SPLIT_HAND_MATRIX_GRID)
 #    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
     return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
@@ -102,7 +162,7 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 
         // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
         if (usbstate == SLAVE) {
-            usb_disable();
+            usb_disconnect();
         }
     }
 
@@ -111,6 +171,28 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 
 // this code runs before the keyboard is fully initialized
 void split_pre_init(void) {
+#if defined(SPLIT_HAND_PIN)
+    setPinInput(SPLIT_HAND_PIN);
+    wait_us(100);
+#elif defined(EE_HANDS)
+    if (!eeconfig_is_enabled()) {
+        eeconfig_init();
+    }
+    // TODO: Remove once ARM has a way to configure EECONFIG_HANDEDNESS within the emulated eeprom via dfu-util or another tool
+#    if defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
+#        if defined(INIT_EE_HANDS_LEFT)
+#            pragma message "Faking EE_HANDS for left hand"
+    const bool should_be_left = true;
+#        else
+#            pragma message "Faking EE_HANDS for right hand"
+    const bool should_be_left = false;
+#        endif
+    bool       is_left        = eeconfig_read_handedness();
+    if (is_left != should_be_left) {
+        eeconfig_update_handedness(should_be_left);
+    }
+#    endif // defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
+#endif
     isLeftHand = is_keyboard_left();
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
@@ -136,5 +218,46 @@ void split_pre_init(void) {
 void split_post_init(void) {
     if (!is_keyboard_master()) {
         transport_slave_init();
+#if defined(SPLIT_WATCHDOG_ENABLE)
+        split_watchdog_init();
+#endif
     }
+}
+
+bool is_transport_connected(void) {
+    return connection_errors < SPLIT_MAX_CONNECTION_ERRORS;
+}
+
+bool transport_master_if_connected(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+#if SPLIT_MAX_CONNECTION_ERRORS > 0 && SPLIT_CONNECTION_CHECK_TIMEOUT > 0
+    // Throttle transaction attempts if target doesn't seem to be connected
+    // Without this, a solo half becomes unusable due to constant read timeouts
+    static uint16_t connection_check_timer = 0;
+    const bool      is_disconnected        = !is_transport_connected();
+    if (is_disconnected && timer_elapsed(connection_check_timer) < SPLIT_CONNECTION_CHECK_TIMEOUT) {
+        return false;
+    }
+#endif // SPLIT_MAX_CONNECTION_ERRORS > 0 && SPLIT_CONNECTION_CHECK_TIMEOUT > 0
+
+    __attribute__((unused)) bool okay = transport_master(master_matrix, slave_matrix);
+#if SPLIT_MAX_CONNECTION_ERRORS > 0
+    if (!okay) {
+        if (connection_errors < UINT8_MAX) {
+            connection_errors++;
+        }
+#    if SPLIT_CONNECTION_CHECK_TIMEOUT > 0
+        bool connected = is_transport_connected();
+        if (!connected) {
+            connection_check_timer = timer_read();
+            dprintln("Target disconnected, throttling connection attempts");
+        }
+        return connected;
+    } else if (is_disconnected) {
+        dprintln("Target connected");
+#    endif // SPLIT_CONNECTION_CHECK_TIMEOUT > 0
+    }
+
+    connection_errors = 0;
+#endif // SPLIT_MAX_CONNECTION_ERRORS > 0
+    return true;
 }

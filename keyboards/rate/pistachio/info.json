@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "pistachio",
+    "manufacturer": "rate",
+    "url": "",
+    "maintainer": "rate",
+    "usb": {
+        "vid": "0x5255",
+        "pid": "0xD0C2",
+        "device_version": "0.0.1",
+        "force_nkro": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina"
+}

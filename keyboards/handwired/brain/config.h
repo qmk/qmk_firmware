@@ -20,32 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x4A53
-#define PRODUCT_ID 0x0001
-#define DEVICE_VER 0x0001
-#define MANUFACTURER klackygears
-#define PRODUCT Brain
 
 #define SPLIT_USB_DETECT
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 7
-
-// wiring of each half
-
-#define MATRIX_COL_PINS \
-    { D1, D4, C6, D7, E6, B4, B5 }
-#define MATRIX_ROW_PINS \
-    { F4, F5, F6, F7, B1 }
-
-#define MATRIX_COL_PINS_RIGHT \
-    { B5, B4, E6, D7, C6, D4, D1 }
-
-#define DIODE_DIRECTION COL2ROW
 
 /* mouse config */
 #define MOUSEKEY_INTERVAL 20
@@ -54,11 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_MAX_SPEED 7
 #define MOUSEKEY_WHEEL_DELAY 0
 
-/* Set 0 if debouncing isn't needed */
-
-
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D0
 #define EE_HANDS
 
 //#define SPLIT_HAND_PIN B7
@@ -71,13 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Enables This makes it easier for fast typists to use dual-function keys */
 #define PERMISSIVE_HOLD
 
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-
 #define RGBLED_NUM 28  // Number of LEDs
-
-
-#define RGBLIGHT_LIMIT_VAL 120
 
 #define RGBLIGHT_SPLIT
 
@@ -96,15 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
-//#define PREVENT_STUCK_MODIFIERS
 //#define TAPPING_TERM 150
-//#define IGNORE_MOD_TAP_INTERRUPT
-//#define TAPPING_FORCE_HOLD
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 6
-#define BOOTMAGIC_LITE_ROW_RIGHT 5
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
+//#define QUICK_TAP_TERM 0

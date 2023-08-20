@@ -20,19 +20,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: HHKB with hyper key where ctrl used to be, and right half of left
        shift used as a key lock */
     LAYOUT_BZIO(
-        KC_ESC,           KC_1,    KC_2,    KC_3,  KC_4, KC_5, KC_6, KC_7, KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV, \
-        KC_TAB,           KC_Q,    KC_W,    KC_E,  KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,\
-        KC_LCTL,          KC_A,    KC_S,    KC_D,  KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT, KC_ENT,\
-        KC_LSFT, KC_LOCK, KC_Z,    KC_X,    KC_C,  KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, \
+        KC_ESC,           KC_1,    KC_2,    KC_3,  KC_4, KC_5, KC_6, KC_7, KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_GRV,
+        KC_TAB,           KC_Q,    KC_W,    KC_E,  KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC, KC_RBRC, KC_BSPC,
+        KC_LCTL,          KC_A,    KC_S,    KC_D,  KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT, KC_ENT,
+        KC_LSFT, QK_LOCK, KC_Z,    KC_X,    KC_C,  KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
         KC_HYPR, KC_LGUI, KC_LALT, LT(1, KC_SPC),                                           KC_RALT, KC_RGUI, KC_APP,  KC_RCTL),
 
     /* 1: spacefn with WASD arrows/navigation block and extra space key for
        realignment of source code, plus IJKL mouse arrows, volume up/down in <>,
        and caps lock where it used to be */
     LAYOUT_BZIO(
-        KC_ESC,           KC_F1,   KC_F2,   KC_F3,     KC_F4,      KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, \
-        KC_TRNS,          KC_PGUP, KC_UP,   KC_PGDOWN, KC_INSERT,  KC_MS_BTN2, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RESET,   \
-        KC_TRNS,          KC_LEFT, KC_DOWN, KC_RGHT,   KC_DELETE,  KC_MS_BTN1, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS, \
-        KC_TRNS, KC_TRNS, KC_HOME, KC_SPC,  KC_END,    KC_PSCREEN, KC_TRNS,    KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, \
+        KC_ESC,           KC_F1,   KC_F2,   KC_F3,     KC_F4,      KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,
+        KC_TRNS,          KC_PGUP, KC_UP,   KC_PGDN,   KC_INSERT,  KC_MS_BTN2, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT,
+        KC_TRNS,          KC_LEFT, KC_DOWN, KC_RGHT,   KC_DELETE,  KC_MS_BTN1, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_HOME, KC_SPC,  KC_END,    KC_PSCR,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };

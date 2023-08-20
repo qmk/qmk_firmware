@@ -1,0 +1,10 @@
+{
+  "keyboard_name": "Le Chiffre",
+  "manufacturer": "tominabox1",
+  "url": "",
+  "maintainer": "tominabox1",
+  "usb": {
+    "vid": "0x7431",
+    "pid": "0xD645"
+  }
+}

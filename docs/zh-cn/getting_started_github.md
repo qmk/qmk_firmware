@@ -1,6 +1,11 @@
 # 如何在QMK中使用GitHub
 
-GitHub can be a little tricky to those that aren't familiar with it - this guide will walk through each step of forking, cloning, and submitting a pull request with QMK.
+<!---
+  original document: 0.15.12:docs/getting_started_github.md
+  git diff 0.15.12 HEAD -- docs/getting_started_github.md | cat
+-->
+
+对不熟悉 GitHub 的人来说，使用GitHub 可能会有些难度。此教程会教您 fork 和 clone QMK，以及向 QMK 提交 pull request 。
 
 ?> 本教程假设您已安装GitHub，并且您喜欢使用命令行工作。
 
@@ -32,7 +37,6 @@ Submodule path 'lib/chibios': checked out '587968d6cbc2b0e1c7147540872f2a67e59ca
 Submodule path 'lib/chibios-contrib': checked out 'ede48346eee4b8d6847c19bc01420bee76a5e486'
 Submodule path 'lib/googletest': checked out 'ec44c6c1675c25b9827aacd08c02433cccde7780'
 Submodule path 'lib/lufa': checked out 'ce10f7642b0459e409839b23cc91498945119b4d'
-Submodule path 'lib/ugfx': checked out '3e97b74e03c93631cdd3ddb2ce43b963fdce19b2'
 ```
 
 现在你本地计算机有QMK的分叉了,你可以添加你的布局了, 为你的键盘编译并刷新固件吧。如果你觉得你的修改很不错, 你可以添加,提交,然后想你的分叉推出（pull）你的改变，像这样:

@@ -1,6 +1,6 @@
 # @noroadsleft's KC60 keymap
 
-### Last updated: May 3, 2021 16:42 (-0700)
+### Last updated: November 9, 2021, 9:47 (-0800)
 
 ![](https://i.imgur.com/tzhXQYIl.jpg)
 
@@ -47,6 +47,7 @@ My base layers are pretty standard for a 60%, with the following changes:
 - The Right `GUI` key has been replaced with a `MO(_MA)` key, which moves to the Macro layer when held.
 - The `Caps Lock` key has been replaced with a dual function `LT()` key, which opens the Function layer when held, and is `Caps Lock` when tapped.
 - The Left `Control` key has been replaced with a `MT(MOD_CTRL, KC_GRV)` key, which is `Ctrl` when held and <code>&#96; ~</code> when tapped.
+- The Number Row `1` through `0` keys will send Numeric Keypad keycodes instead of Number Row keycodes if tapped while `Right Alt` is active. This functionality is documented in [my userspace readme](../../../../users/noroadsleft/readme.md#emulated-numeric-keypad).
 
 ### Layer 0: Dvorak - `_DV`
 
@@ -95,6 +96,8 @@ I used to have some macro craziness here. I've now switched to leaving my main s
 - Accessed by holding either `Fn` key from any base layer
 
 Arrows, Navigation keys (Insert, Home, Page Up, etc.), and Function keys are here. Also has keys for Calculator, Menu, Volume Control, and shortcuts for Select All, Undo, Cut, Copy, and Paste. Numpad Enter for when I'm working in Adobe Photoshop, because it treats Numpad Enter differently from the regular Enter key.
+
+Similarly to my Emulated Numeric Keypad functionality, the `F1` through `F12` keys will change to `F13` through `F24` while `Right Alt` is active. This functionality is documented in [my userspace readme](../../../../users/noroadsleft/readme.md#emulated-extended-function-keys).
 
 ![Fn layer](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/kc60/keymaps/noroadsleft/function.png)
 

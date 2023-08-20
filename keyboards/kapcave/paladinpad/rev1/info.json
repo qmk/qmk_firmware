@@ -1,0 +1,13 @@
+{
+    "usb": {
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "D0"
+    },
+    "matrix_pins": {
+        "cols": ["D4", "D5", "D3", "B7"],
+        "rows": ["C7", "B6", "B4", "D7", "D6"]
+    },
+    "diode_direction": "COL2ROW"
+}

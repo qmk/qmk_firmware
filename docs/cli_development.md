@@ -14,7 +14,7 @@ If you intend to maintain keyboards and/or contribute to QMK, you can enable the
 
 This will allow you to see all available subcommands.  
 **Note:** You will have to install additional requirements:  
-```bash
+```
 python3 -m pip install -r requirements-dev.txt
 ```
 
@@ -162,7 +162,7 @@ del(cli.config.<section>.<key>)
 
 ## Writing The Configuration File
 
-The configuration is not written out when it is changed. Most commands do not need to do this. We prefer to have the user change their configuration deliberitely using `qmk config`.
+The configuration is not written out when it is changed. Most commands do not need to do this. We prefer to have the user change their configuration deliberately using `qmk config`.
 
 You can use `cli.save_config()` to write out the configuration.
 
@@ -188,7 +188,7 @@ cli.log.info('Reading from %s and writing to %s', cli.args.filename, cli.args.ou
 
 # Testing, and Linting, and Formatting (oh my!)
 
-We use nose2, flake8, and yapf to test, lint, and format code. You can use the `pytest` and `pyformat` subcommands to run these tests:
+We use nose2, flake8, and yapf to test, lint, and format code. You can use the `pytest` and `format-python` subcommands to run these tests:
 
 ### Testing and Linting
 
@@ -196,7 +196,7 @@ We use nose2, flake8, and yapf to test, lint, and format code. You can use the `
 
 ### Formatting
 
-    qmk pyformat
+    qmk format-python
 
 ## Formatting Details
 

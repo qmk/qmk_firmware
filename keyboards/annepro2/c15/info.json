@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "Anne Pro 2 C15 (QMK)",
+    "usb": {
+        "pid": "0xAC15"
+    },
+    "rgb_matrix": {
+        "driver": "custom"
+    },
+    "community_layouts": ["60_ansi"]
+}

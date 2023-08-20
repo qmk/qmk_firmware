@@ -64,10 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_WORKMAN] = LAYOUT_planck_grid(
-  KC_ESC,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC, 
-  KC_TAB,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,	 KC_QUOT, 
-  KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , 
-  KC_LCTL, KC_LGUI, _______, KC_LALT, LOWER,   KC_SPC,  KC_BSPC, ADJUST,  _______, KC_LEFT, KC_DOWN, KC_RGHT 
+  KC_ESC,  KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_BSPC,
+  KC_TAB,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,	 KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
+  KC_LCTL, KC_LGUI, _______, KC_LALT, LOWER,   KC_SPC,  KC_BSPC, ADJUST,  _______, KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
 /* Lower
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------
- * |RESET |DEBUG|       |Aud on|Audoff|      |      |      |      |      |      |Reset |
+ * | Boot |Debug |       |Aud on|Audoff|      |      |      |      |      |      |Reset |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |QWERTY|WORKMAN|      |      | Help |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    RESET,   DEBUG,   _______, _______, AU_ON,    AU_OFF, _______, _______, _______, _______, _______, _______ ,
+    QK_BOOT, DB_TOGG, _______, _______, AU_ON,    AU_OFF, _______, _______, _______, _______, _______, _______ ,
     _______, _______, _______, QWERTY, WORKMAN , _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_END,  KC_VOLU, KC_MPLY,
     MAGIC_TOGGLE_NKRO, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_VOLD, KC_MNXT
@@ -149,7 +149,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void dip_update(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
   switch (index) {
     case 0:
       if (active) {
@@ -159,4 +159,5 @@ void dip_update(uint8_t index, bool active) {
       }
       break;
    }
+   return true;
 }

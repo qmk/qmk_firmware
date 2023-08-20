@@ -17,6 +17,7 @@
 #include QMK_KEYBOARD_H
 
 #define QWERTY 0 // Base qwerty
+#define LAYER1 1
 
 
 /****************************************************************************************************
@@ -56,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			   KC_LCTL,KC_LALT,
                                     KC_LGUI,
                            KC_BSPC,KC_ESC ,KC_END ,
-    KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_PSCR ,KC_SLCK  ,KC_PAUS, KC_FN0, RESET,
+    KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_PSCR ,KC_SCRL  ,KC_PAUS, MO(1), QK_BOOT,
 	KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,
 	KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_BSLS,
 	KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,
@@ -65,5 +66,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_RALT,KC_RCTL,
            KC_PGUP,
            KC_PGDN,KC_ENTER ,KC_SPC
-    )
+    ),
+
+// LAYER1 is activated by the keypad key. It has WAKE on Escape (left-most key),
+// and volume keys on PSCR (mute), SLCK (volume down) and PAUS (volume up),
+// as printed on the Kinesis Advantage 2.
+[LAYER1] = LAYOUT(
+
+           KC_WAKE,  KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO,
+           KC_NO  ,  KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,
+           KC_NO  ,  KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,
+           KC_NO  ,  KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,
+           KC_NO  ,  KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,
+                   KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,
+			   KC_NO  ,KC_NO  ,
+                                    KC_NO  ,
+                           KC_NO  ,KC_NO  ,KC_NO  ,
+    KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_MUTE ,KC_VOLD  ,KC_VOLU, KC_TRNS, KC_NO  ,
+	KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,
+	KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,
+	KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,
+	KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,
+		KC_NO  ,KC_NO  ,KC_NO  ,KC_NO  ,
+           KC_NO  ,KC_NO  ,
+           KC_NO  ,
+           KC_NO  ,KC_NO    ,KC_NO
+    ),
 };

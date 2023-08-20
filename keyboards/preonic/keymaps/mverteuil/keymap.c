@@ -75,23 +75,23 @@ typedef struct {
     t_tap_state right_brackets;
 } t_tap;
 
-t_tap_state get_tapdance_state(qk_tap_dance_state_t *state);
+t_tap_state get_tapdance_state(tap_dance_state_t *state);
 
-void td_numpad_funcrow_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_numpad_funcrow_reset(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data);
-void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data);
+void td_numpad_funcrow_finished(tap_dance_state_t *state, void *user_data);
+void td_numpad_funcrow_reset(tap_dance_state_t *state, void *user_data);
+void td_brackets_left_finished(tap_dance_state_t *state, void *user_data);
+void td_brackets_left_reset(tap_dance_state_t *state, void *user_data);
+void td_brackets_right_finished(tap_dance_state_t *state, void *user_data);
+void td_brackets_right_reset(tap_dance_state_t *state, void *user_data);
 
 /* Tap Dance Definitions */
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for left parenthesis, twice for left bracket, thrice for left brace */
     [TD_BRACKETS_LEFT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_brackets_left_finished, td_brackets_left_reset),
     /* Tap once for right parenthesis, twice for right bracket, thrice for right brace */
     [TD_BRACKETS_RIGHT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_brackets_right_finished, td_brackets_right_reset),
     /* Tap once for control, twice for escape */
-    [TD_CONTROL_ESCAPE] = ACTION_TAP_DANCE_DOUBLE(KC_LCTRL, KC_ESCAPE),
+    [TD_CONTROL_ESCAPE] = ACTION_TAP_DANCE_DOUBLE(KC_LCTL, KC_ESCAPE),
     /* Tap once for plus, twice for equals */
     [TD_PLUS_EQUALS] = ACTION_TAP_DANCE_DOUBLE(KC_PLUS, KC_EQUAL),
     /* Hold for numpad, tap twice to toggle function row, double hold for temporary function row */
@@ -99,7 +99,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     /* Tap once for single quote, twice for double quote */
     [TD_QUOTE_DOUBLEQUOTE] = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DOUBLE_QUOTE),
     /* Tap once for semicolon, twice for colon */
-    [TD_SEMICOLON_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SCOLON, KC_COLON),
+    [TD_SEMICOLON_COLON] = ACTION_TAP_DANCE_DOUBLE(KC_SEMICOLON, KC_COLON),
     /* Tap once for slash, twice for question mark */
     [TD_SLASH_QUESTION] = ACTION_TAP_DANCE_DOUBLE(KC_SLASH, KC_QUESTION),
     /* Tap once for underscore, twice for minus */
@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |AudTog|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX| Debug| Reset|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |ClkTog|ClkFq-|ClkFq+|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|TermOn|TermOf|
+ * |ClkTog|ClkFq-|ClkFq+|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |MusTog|Voice- Voice+|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|XXXXXX|AGnorm|AGswap|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -228,10 +228,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_preonic_1x2uC (
-  AU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX, RGB_HUI, RGB_HUD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DEBUG,   RESET,
-  CK_TOGG, CK_DOWN, CK_UP,   XXXXXXX, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TERM_ON, TERM_OFF,
-  MU_TOG,  MUV_DE,  MUV_IN,  XXXXXXX, RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AG_NORM, AG_SWAP,
-  MI_TOG,  RGB_M_P, RGB_M_B, RGB_M_R,RGB_M_SW,RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, RGB_SPI, KC_LSHIFT,
+  AU_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, RGB_HUI, RGB_HUD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DB_TOGG, QK_BOOT,
+  CK_TOGG, CK_DOWN, CK_UP,   XXXXXXX, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  MU_TOGG, AU_PREV, AU_NEXT, XXXXXXX, RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, AG_NORM, AG_SWAP,
+  MI_TOGG, RGB_M_P, RGB_M_B, RGB_M_R,RGB_M_SW,RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, RGB_SPI, KC_LSFT,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,      RGB_TOG,     _______, XXXXXXX,RGB_RMOD, RGB_SPD, RGB_MOD
 )
 
@@ -242,7 +242,7 @@ float s_audio_on[][2]    = AUDIO_ON_SONG;
 float s_layer_lower[][2] = LAYER_LOWER_SONG;
 float s_layer_raise[][2] = LAYER_RAISE_SONG;
 
-void audio_on_user() { PLAY_SONG(s_audio_on); };
+void audio_on_user(void) { PLAY_SONG(s_audio_on); };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -290,7 +290,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 /* Global TapDance State */
-static t_tap qk_tap_state = {
+static t_tap tap_state = {
     .left_brackets  = 0,
     .numpad_funcrow = 0,
     .right_brackets = 0,
@@ -300,7 +300,7 @@ float s_functionrow_on[][2]  = LAYER_FUNCROW_ON_SONG;
 float s_functionrow_off[][2] = LAYER_FUNCROW_OFF_SONG;
 float s_numpad_toggle[][2]   = LAYER_NMPAD_SONG;
 
-t_tap_state get_tapdance_state(qk_tap_dance_state_t *state) {
+t_tap_state get_tapdance_state(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) {
             return SINGLE_TAP;
@@ -323,9 +323,9 @@ t_tap_state get_tapdance_state(qk_tap_dance_state_t *state) {
         return TAP_DANCE_NO_MATCH;
 }
 
-void td_numpad_funcrow_finished(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_state.numpad_funcrow = get_tapdance_state(state);
-    switch (qk_tap_state.numpad_funcrow) {
+void td_numpad_funcrow_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.numpad_funcrow = get_tapdance_state(state);
+    switch (tap_state.numpad_funcrow) {
         case SINGLE_TAP ... SINGLE_HOLD:
             layer_on(_NUMPAD);
             PLAY_SONG(s_numpad_toggle);
@@ -347,8 +347,8 @@ void td_numpad_funcrow_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_numpad_funcrow_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (qk_tap_state.numpad_funcrow) {
+void td_numpad_funcrow_reset(tap_dance_state_t *state, void *user_data) {
+    switch (tap_state.numpad_funcrow) {
         case SINGLE_HOLD:
             layer_off(_NUMPAD);
             break;
@@ -360,14 +360,14 @@ void td_numpad_funcrow_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_state.left_brackets = get_tapdance_state(state);
-    switch (qk_tap_state.left_brackets) {
+void td_brackets_left_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.left_brackets = get_tapdance_state(state);
+    switch (tap_state.left_brackets) {
         case SINGLE_TAP:
             register_code16(KC_LEFT_PAREN);
             break;
         case DOUBLE_TAP:
-            register_code(KC_LBRACKET);
+            register_code(KC_LEFT_BRACKET);
             break;
         case TRIPLE_TAP:
             register_code16(KC_LEFT_CURLY_BRACE);
@@ -377,13 +377,13 @@ void td_brackets_left_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (qk_tap_state.left_brackets) {
+void td_brackets_left_reset(tap_dance_state_t *state, void *user_data) {
+    switch (tap_state.left_brackets) {
         case SINGLE_TAP:
             unregister_code16(KC_LEFT_PAREN);
             break;
         case DOUBLE_TAP:
-            unregister_code(KC_LBRACKET);
+            unregister_code(KC_LEFT_BRACKET);
             break;
         case TRIPLE_TAP:
             unregister_code16(KC_LEFT_CURLY_BRACE);
@@ -391,17 +391,17 @@ void td_brackets_left_reset(qk_tap_dance_state_t *state, void *user_data) {
         default:
             break;
     }
-    qk_tap_state.left_brackets = 0;
+    tap_state.left_brackets = 0;
 }
 
-void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_state.right_brackets = get_tapdance_state(state);
-    switch (qk_tap_state.right_brackets) {
+void td_brackets_right_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.right_brackets = get_tapdance_state(state);
+    switch (tap_state.right_brackets) {
         case SINGLE_TAP:
             register_code16(KC_RIGHT_PAREN);
             break;
         case DOUBLE_TAP:
-            register_code(KC_RBRACKET);
+            register_code(KC_RIGHT_BRACKET);
             break;
         case TRIPLE_TAP:
             register_code16(KC_RIGHT_CURLY_BRACE);
@@ -411,13 +411,13 @@ void td_brackets_right_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (qk_tap_state.right_brackets) {
+void td_brackets_right_reset(tap_dance_state_t *state, void *user_data) {
+    switch (tap_state.right_brackets) {
         case SINGLE_TAP:
             unregister_code16(KC_RIGHT_PAREN);
             break;
         case DOUBLE_TAP:
-            unregister_code(KC_RBRACKET);
+            unregister_code(KC_RIGHT_BRACKET);
             break;
         case TRIPLE_TAP:
             unregister_code16(KC_RIGHT_CURLY_BRACE);
@@ -425,7 +425,7 @@ void td_brackets_right_reset(qk_tap_dance_state_t *state, void *user_data) {
         default:
             break;
     }
-    qk_tap_state.right_brackets = 0;
+    tap_state.right_brackets = 0;
 }
 
 bool     muse_mode      = false;
@@ -459,7 +459,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return true;
 }
 
-void dip_switch_update_user(uint8_t index, bool active) {
+bool dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0:
             if (active) {
@@ -475,6 +475,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
                 muse_mode = false;
             }
     }
+    return true;
 }
 
 void matrix_scan_user(void) {

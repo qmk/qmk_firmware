@@ -2,20 +2,11 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_cannonkeys_satisfaction75_prototype
-    #include "prototype.h"
-#else
-    #include "rev1.h"
-#endif
-
 #include "via.h" // only for EEPROM address
 #define EEPROM_ENABLED_ENCODER_MODES (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 #define EEPROM_CUSTOM_BACKLIGHT (VIA_EEPROM_CUSTOM_CONFIG_ADDR+1)
 #define EEPROM_DEFAULT_OLED (VIA_EEPROM_CUSTOM_CONFIG_ADDR+2)
 #define EEPROM_CUSTOM_ENCODER (VIA_EEPROM_CUSTOM_CONFIG_ADDR+3)
-
-/* screen off after this many milliseconds */
-#define ScreenOffInterval 60000 /* milliseconds */
 
 typedef union {
     uint8_t raw;
@@ -28,13 +19,13 @@ typedef union {
 
 // Start these at the USER code range in VIA
 enum my_keycodes {
-  ENC_PRESS = 0x5F80,
+  ENC_PRESS = QK_KB_0,
   CLOCK_SET,
   OLED_TOGG
 };
 
-enum s75_keyboard_value_id {
-  id_encoder_modes = 0x80,
+enum s75_custom_value_id {
+  id_encoder_modes = 1,
   id_oled_default_mode,
   id_encoder_custom,
   id_oled_mode
@@ -74,10 +65,10 @@ extern volatile uint8_t led_scrolllock;
 extern uint8_t layer;
 
 // OLED Behavior
-extern uint16_t last_flush;
-extern bool queue_for_send;
 extern uint8_t oled_mode;
-extern bool oled_sleeping;
+extern bool oled_repaint_requested;
+extern bool oled_wakeup_requested;
+extern uint32_t oled_sleep_timer;
 
 // Encoder Behavior
 extern uint8_t encoder_value;
@@ -113,10 +104,9 @@ void set_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior, uint16_t n
 
 void update_time_config(int8_t increment);
 
-__attribute__ ((weak))
-void draw_ui(void);
-void draw_default(void);
-void draw_clock(void);
+void oled_request_wakeup(void);
+void oled_request_repaint(void);
+bool oled_task_needs_to_repaint(void);
 
 void backlight_init_ports(void);
 void backlight_set(uint8_t level);

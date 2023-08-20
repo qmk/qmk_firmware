@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BLED] = LAYOUT(
     BL_STEP, BL_BRTG, BL_TOGG,
     BL_ON,   BL_OFF,  TO(2),
-    BL_INC,  BL_DEC,  TO(0)
+    BL_UP,   BL_DOWN, TO(0)
 )
 };
 // clang-format on
@@ -76,7 +76,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 #endif
 
 /* oled stuff :) */
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 uint16_t startup_timer;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -168,7 +168,7 @@ static void render_rgbled_status(bool) {
         oled_write_ln_P(PSTR("\n"), false);
     }
 }
-void oled_task_user(void) {
+bool oled_task_user(void) {
     static bool finished_timer = false;
     if (!finished_timer && (timer_elapsed(startup_timer) < 1000)) {
         render_logo();
@@ -181,5 +181,6 @@ void oled_task_user(void) {
         render_rgbled_status(true);
         render_logo_font();
     }
+    return false;
 }
 #endif

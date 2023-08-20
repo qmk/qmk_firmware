@@ -43,15 +43,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN2_60] = LAYOUT_alice(
     BL_TOGG,  RGB_TOG, RGB_MOD, RGB_VAD, RGB_VAI, RGB_SAI, RGB_HUD,  RGB_HUI, _______, _______, _______, _______, _______, _______, _______,
-    BL_INC,   VLK_TOG, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______, RESET,
-    BL_DEC,   _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______,          KC_MAKE,
+    BL_UP,    VK_TOGG, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
+    BL_DOWN,  _______, _______, _______, _______, _______, _______,           _______, _______, _______, _______, _______, _______,          KC_MAKE,
     _______,  _______, _______, _______, _______, _______, _______,           _______, NK_TOGG, _______, _______, _______, _______, _______, _______,
               _______,          _______, _______, _______,                             _______,          _______,          TG(_DEFAULT)
   )
 };
 
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
   static const char PROGMEM qmk_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
         0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
@@ -81,5 +81,7 @@ void oled_task_user(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+
+    return false;
 }
 #endif
