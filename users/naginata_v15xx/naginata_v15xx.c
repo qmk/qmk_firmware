@@ -1499,13 +1499,13 @@ bool exec_henshu(uint16_t keycode) {
           ng_cut();
           ng_send_unicode_string_P(PSTR("｜"));
           ng_paste();
-          ng_send_unicode_string_P(PSTR("《》"));
-          ng_up(1);
           tap_code(KC_SPC);
           register_code(KC_LSFT);
           ng_up(1);
           unregister_code(KC_LSFT);
           ng_cut();
+          ng_send_unicode_string_P(PSTR("《》")); # 縦式対策
+          ng_up(1);
           return true;
           break;
         case NG_Z: // 　　　×　　　×　　　×{改行 2}

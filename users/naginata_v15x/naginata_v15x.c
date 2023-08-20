@@ -1639,13 +1639,13 @@ bool exec_henshu(uint32_t keycomb) {
       ng_cut();
       ng_send_unicode_string_P(PSTR("｜"));
       ng_paste();
-      ng_send_unicode_string_P(PSTR("《》"));
-      ng_up(1);
       tap_code(KC_SPC);
       register_code(KC_LSFT);
       ng_up(1);
       unregister_code(KC_LSFT);
       ng_cut();
+      ng_send_unicode_string_P(PSTR("《》"));
+      ng_up(1);
       henshu_done = true;
       return true;
       break;
