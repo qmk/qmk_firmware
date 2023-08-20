@@ -62,16 +62,6 @@ uint8_t side_speed_table[5][5] = {
     [SIDE_OFF]    = {50, 50, 50, 50, 50},
 };
 
-void suspend_power_down_kb(void)
-{
-    rgb_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_kb(void)
-{
-    rgb_matrix_set_suspend_state(false);
-}
-
 static void light_point_playing(uint8_t trend, uint8_t step, uint8_t len, uint8_t *point)
 {
     if (trend) {
