@@ -623,21 +623,21 @@ void ng_send_unicode_string_P(const char *pstr) {
       break;
     case NG_MAC: // Karabiner-Elementsが必要
       tap_code(KC_LANGUAGE_2); // 未確定文字を確定する
-      wait_ms(10);
+      wait_ms(50);
       register_code(KC_LCTL); // Unicode HEX Inputへ切り替え
-      wait_ms(10);
+      wait_ms(50);
       tap_code(KC_F20);
-      wait_ms(10);
+      wait_ms(50);
       unregister_code(KC_LCTL);
-      wait_ms(10);
+      wait_ms(50);
       send_unicode_string(str);
-      wait_ms(10);
+      wait_ms(50);
       register_code(KC_LSFT); // 日本語入力へ切り替え。再変換にならないように「shift+かな」「かな」の2打にする。
-      wait_ms(10);
+      wait_ms(50);
       tap_code(KC_LANGUAGE_1);
-      wait_ms(10);
+      wait_ms(50);
       unregister_code(KC_LSFT);
-      wait_ms(10);
+      wait_ms(50);
       tap_code(KC_LANGUAGE_1);
       break;
   }
