@@ -9,7 +9,7 @@ WPM_ENABLE = yes			# Used to make the pet walk or run based on typing
 COMBO_ENABLE = yes			# Special keyboard combos without many many layers
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-NKRO_ENABLE = yes           # Enable N-Key Rollover (for combos and gaming)
+FORCE_NKRO = yes			# Require N-Key Rollover (for combos)
 
 # Save space
 CONSOLE_ENABLE = no         # Console for debug
