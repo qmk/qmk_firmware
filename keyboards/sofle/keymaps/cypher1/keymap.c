@@ -84,6 +84,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
+enum combo_events {
+  EM_EMAIL,
+  BSPC_LSFT_CLEAR,
+};
+
+const uint16_t PROGMEM email_combo[] = {KC_E, KC_M, COMBO_END};
+const uint16_t PROGMEM clear_line_combo[] = {KC_BSPC, KC_LSFT, COMBO_END};
+
+combo_t key_combos[] = {
+  [EM_EMAIL] = COMBO_ACTION(email_combo),
+  [BSPC_LSFT_CLEAR] = COMBO_ACTION(clear_line_combo),
+};
+/* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case EM_EMAIL:
+      if (pressed) {
+        SEND_STRING("john.doe@example.com");
+      }
+      break;
+    case BSPC_LSFT_CLEAR:
+      if (pressed) {
+        tap_code16(KC_END);
+        tap_code16(S(KC_HOME));
+        tap_code16(KC_BSPC);
+      }
+      break;
+  }
+}
+
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    /* Disable combos when gaming layer is the default */
+    return !layer_state_is(GAMES);
+}
+
 bool data_reset;
 uint16_t data_in;
 uint16_t message_counter = 0;
