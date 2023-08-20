@@ -21,7 +21,7 @@
 #endif
 
 #if PS2_DATA_PIN + 1 != PS2_CLOCK_PIN
-#    error PS/2 Clock pin must be followed by data pin!
+#    error PS/2 clock pin must be consecutive to the PS/2 data pin (PS2_CLOCK_PIN = PS2_DATA_PIN + 1)! See https://github.com/qmk/qmk_firmware/pull/17893#issuecomment-1646972615 for details.
 #endif
 
 static inline void pio_serve_interrupt(void);
