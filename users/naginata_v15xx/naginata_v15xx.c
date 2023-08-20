@@ -1156,7 +1156,7 @@ void ng_home() {
       tap_code(KC_HOME);
       break;
     case NG_MAC:
-      tap_code16(LCTL(KC_A)); // シフトだと効かない
+      tap_code16(LCTL(KC_A)); // 縦書きだとシフトが効かない
       break;
   }
 }
@@ -1168,7 +1168,7 @@ void ng_end() {
       tap_code(KC_END);
       break;
     case NG_MAC:
-      tap_code16(LCTL(KC_E)); // これはシフトが効く
+      tap_code16(LCTL(KC_E));
       break;
   }
 }
@@ -1261,6 +1261,22 @@ void ng_eof() {
   }
 }
 
+void ng_lprn() {
+  if (naginata_state()) {
+    ng_send_unicode_string_P(PSTR("（"));
+  } else {
+    ng_send_unicode_string_P(PSTR("("));
+  }
+}
+
+void ng_rprn() {
+  if (naginata_state()) {
+    ng_send_unicode_string_P(PSTR("）"));
+  } else {
+    ng_send_unicode_string_P(PSTR(")"));
+  }
+}
+
 bool exec_henshu(uint16_t keycode) {
   switch (henshu_mode) {
     case 1:
@@ -1284,7 +1300,8 @@ bool exec_henshu(uint16_t keycode) {
           return true;
           break;
         case NG_T: // ・
-          ng_send_unicode_string_P(PSTR("・"));
+          // ng_send_unicode_string_P(PSTR("・")); // 確定してしまう
+          tap_code16(KC_SLSH);
           return true;
           break;
         case NG_A: // ……{改行}
@@ -1292,12 +1309,17 @@ bool exec_henshu(uint16_t keycode) {
           return true;
           break;
         case NG_S: // (){改行}{↑}
-          ng_send_unicode_string_P(PSTR("()"));
+          ng_lprn();
+          ng_rprn();
           ng_up(1);
           return true;
           break;
         case NG_D: // ？{改行}
-          send_string("?");
+          if (naginata_state()) {
+            send_string("?"SS_TAP(X_ENTER));
+          } else {
+            send_string("?");
+          }
           return true;
           break;
         case NG_F: // 「」{改行}{↑}
@@ -1320,7 +1342,11 @@ bool exec_henshu(uint16_t keycode) {
           return true;
           break;
         case NG_C: // ！{改行}
-          send_string("!");
+          if (naginata_state()) {
+            send_string("!"SS_TAP(X_ENTER));
+          } else {
+            send_string("!");
+          }
           return true;
           break;
         case NG_V: // {改行}{↓}
@@ -1467,9 +1493,9 @@ bool exec_henshu(uint16_t keycode) {
           break;
         case NG_S: // ^x(^v){改行}{Space}+{↑}^x
           ng_cut();
-          ng_send_unicode_string_P(PSTR("("));
+          ng_lprn();
           ng_paste();
-          ng_send_unicode_string_P(PSTR(")"));
+          ng_rprn();
           tap_code(KC_SPC);
           register_code(KC_LSFT);
           ng_up(1);
