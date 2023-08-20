@@ -10,6 +10,7 @@ COMBO_ENABLE = yes			# Special keyboard combos without many many layers
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 FORCE_NKRO = yes			# Require N-Key Rollover (for combos)
+OS_DETECTION_ENABLE = yes   # Support shortcuts that perform OS specific actions
 
 # Save space
 CONSOLE_ENABLE = no         # Console for debug

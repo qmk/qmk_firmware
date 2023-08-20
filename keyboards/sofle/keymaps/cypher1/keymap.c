@@ -43,6 +43,13 @@ enum LAYERS {
 #include "luna.h"    // Include the pet you want.
 #include "pet.h"     // Include the pet library.
 #include "oled.h"    // Include the oled (call the pet from here).
+#include "os_detection.h" // Detect which OS we're talking to.
+
+enum custom_keycodes {
+    USR_CUT = SAFE_RANGE,
+    USR_COPY,
+    USR_PASTE
+};
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
@@ -72,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,                        KC_F6,    KC_F7,    KC_F8,    KC_F9,   KC_F10,   KC_F11,
   _______,  XXXXXXX,    KC_UP,  XXXXXXX,  KC_LBRC,  KC_RBRC,                      MS_W_DN,  MS_W_UP,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_F12,
   _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_HOME,   KC_END,                      MS_LEFT,  MS_DOWN,    MS_UP,  MS_RGHT,  XXXXXXX,  XXXXXXX,
-  _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MINS,   KC_EQL, DF_QWERT,  MS_BTN1,  MS_BTN1,  MS_BTN3,  MS_BTN2,  XXXXXXX,  XXXXXXX,  _______,
+  _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MINS,   KC_EQL, DF_QWERT,  MS_BTN1,  MS_BTN1,  MS_BTN3,  MS_BTN2,  XXXXXXX,  KC_BSLS,  _______,
                       _______,  _______,  _______,  _______,  _______,   KC_DEL,  _______,  _______,  _______,  _______
 ),
 [CNTRL] = LAYOUT(
@@ -85,33 +92,65 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 enum combo_events {
-  EM_EMAIL,
-  BSPC_LSFT_CLEAR,
+  USR_CUT_COMBO,
+  USR_COPY_COMBO,
+  USR_PASTE_COMBO,
 };
-
-const uint16_t PROGMEM email_combo[] = {KC_E, KC_M, COMBO_END};
-const uint16_t PROGMEM clear_line_combo[] = {KC_BSPC, KC_LSFT, COMBO_END};
-
-combo_t key_combos[] = {
-  [EM_EMAIL] = COMBO_ACTION(email_combo),
-  [BSPC_LSFT_CLEAR] = COMBO_ACTION(clear_line_combo),
-};
-/* COMBO_ACTION(x) is same as COMBO(x, KC_NO) */
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
+  // Map combos to custom keys.
   switch(combo_index) {
-    case EM_EMAIL:
+    case USR_CUT_COMBO:
       if (pressed) {
-        SEND_STRING("john.doe@example.com");
+        tap_code16(USR_CUT);
       }
       break;
-    case BSPC_LSFT_CLEAR:
+    case USR_COPY_COMBO:
       if (pressed) {
-        tap_code16(KC_END);
-        tap_code16(S(KC_HOME));
-        tap_code16(KC_BSPC);
+        tap_code16(USR_COPY);
       }
       break;
+    case USR_PASTE_COMBO:
+      if (pressed) {
+        tap_code16(USR_PASTE);
+      }
+      break;
+  }
+}
+
+// Set up combos with modifiers.
+combo_t key_combos[] = {
+  [USR_CUT_COMBO] = COMBO({KC_X, COMBO_END}, KC_LGUI),
+  [USR_COPY_COMBO] = COMBO({KC_C, COMBO_END}, KC_LGUI),
+  [USR_PASTE_COMBO] = COMBO({KC_V, COMBO_END}, KC_LGUI),
+};
+
+void process_platform_combo(uint16_t keycode, keyrecord_t *record) {
+  uint8_t host_os = guess_host_os();
+  uint16_t keycode_to_press = KC_NO;
+  if (host_os == OS_MACOS || host_os == OS_IOS) {
+    switch (keycode) {
+      case USR_COPY:
+        keycode_to_press = G(KC_C);
+        break;
+      case USR_PASTE:
+        keycode_to_press = G(KC_V);
+        break;
+    }
+  } else {
+    switch (keycode) {
+      case USR_COPY:
+        keycode_to_press = C(KC_C);
+        break;
+      case USR_PASTE:
+        keycode_to_press = C(KC_V);
+        break;
+    }
+  }
+  if (record->event.pressed) {
+    register_code16(keycode_to_press);
+  } else {
+    unregister_code16(keycode_to_press);
   }
 }
 
