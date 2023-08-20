@@ -642,10 +642,11 @@ void keyboard_post_init_kb(void)
     keyboard_post_init_user();
 }
 
-bool rgb_matrix_indicators_user(void)
+bool rgb_matrix_indicators_kb(void)
 {
-    m_side_led_show();
-
+    if (!rgb_matrix_indicators_user()) {
+        m_side_led_show();
+    }
     return true;
 }
 
