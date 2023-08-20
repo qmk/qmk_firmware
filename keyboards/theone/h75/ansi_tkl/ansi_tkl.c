@@ -650,7 +650,8 @@ bool rgb_matrix_indicators_kb(void)
     return true;
 }
 
-void housekeeping_task_user(void)
+void housekeeping_task_kb(void)
 {
     long_press_key();
+    housekeeping_task_user();
 }
