@@ -19,7 +19,5 @@
 
 /* RGB Strip*/
 #    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL + 5
-/*== customize breathing effect ==*/
-#    define RGBLIGHT_BREATHE_TABLE_SIZE 256  
 #    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.0
 #    define RGBLIGHT_EFFECT_BREATHE_MAX    100
