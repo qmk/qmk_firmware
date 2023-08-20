@@ -39,16 +39,31 @@ enum LAYERS {
   CNTRL, // Controls for the keyboard (e.g. brightness, colours) and mouse (buttons and movement).
 };
 
+#include "os_detection.h" // Detect which OS we're talking to.
 #include "state.h"   // Include the global state that the pet looks at.
 #include "luna.h"    // Include the pet you want.
 #include "pet.h"     // Include the pet library.
 #include "oled.h"    // Include the oled (call the pet from here).
-#include "os_detection.h" // Detect which OS we're talking to.
 
 enum custom_keycodes {
-    USR_CUT = SAFE_RANGE,
-    USR_COPY,
-    USR_PASTE
+    NONE = SAFE_RANGE,
+};
+
+enum combo_events {
+  USR_CUT,
+  USR_COPY,
+  USR_PASTE,
+};
+
+// Set up combos with modifiers.
+const uint16_t PROGMEM cut_combo[] = {KC_LCTL, KC_X, COMBO_END};
+const uint16_t PROGMEM copy_combo[] = {KC_LCTL, KC_C, COMBO_END};
+const uint16_t PROGMEM paste_combo[] = {KC_LCTL, KC_V, COMBO_END};
+
+combo_t key_combos[] = {
+  [USR_CUT] = COMBO_ACTION(cut_combo),
+  [USR_COPY] = COMBO_ACTION(copy_combo),
+  [USR_PASTE] = COMBO_ACTION(paste_combo),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
@@ -91,72 +106,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-enum combo_events {
-  USR_CUT_COMBO,
-  USR_COPY_COMBO,
-  USR_PASTE_COMBO,
-};
+void tap_super_with_key(uint16_t keycode, bool pressed) {
+  os_variant_t host_os = detected_host_os();
+  uint16_t to_tap = C(keycode);
+  if (host_os == OS_MACOS || host_os == OS_IOS) {
+    to_tap = G(keycode);
+  }
+  if (pressed) {
+    register_code(to_tap);
+  } else {
+    unregister_code(to_tap);
+  }
+}
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   // Map combos to custom keys.
   switch(combo_index) {
-    case USR_CUT_COMBO:
-      if (pressed) {
-        tap_code16(USR_CUT);
-      }
+    case USR_CUT:
+      tap_super_with_key(KC_X, pressed);
       break;
-    case USR_COPY_COMBO:
-      if (pressed) {
-        tap_code16(USR_COPY);
-      }
+    case USR_COPY:
+      tap_super_with_key(KC_C, pressed);
       break;
-    case USR_PASTE_COMBO:
-      if (pressed) {
-        tap_code16(USR_PASTE);
-      }
+    case USR_PASTE:
+      tap_super_with_key(KC_V, pressed);
       break;
-  }
-}
-
-// Set up combos with modifiers.
-combo_t key_combos[] = {
-  [USR_CUT_COMBO] = COMBO({KC_X, COMBO_END}, KC_LGUI),
-  [USR_COPY_COMBO] = COMBO({KC_C, COMBO_END}, KC_LGUI),
-  [USR_PASTE_COMBO] = COMBO({KC_V, COMBO_END}, KC_LGUI),
-};
-
-void process_platform_combo(uint16_t keycode, keyrecord_t *record) {
-  uint8_t host_os = guess_host_os();
-  uint16_t keycode_to_press = KC_NO;
-  if (host_os == OS_MACOS || host_os == OS_IOS) {
-    switch (keycode) {
-      case USR_COPY:
-        keycode_to_press = G(KC_C);
-        break;
-      case USR_PASTE:
-        keycode_to_press = G(KC_V);
-        break;
-    }
-  } else {
-    switch (keycode) {
-      case USR_COPY:
-        keycode_to_press = C(KC_C);
-        break;
-      case USR_PASTE:
-        keycode_to_press = C(KC_V);
-        break;
-    }
-  }
-  if (record->event.pressed) {
-    register_code16(keycode_to_press);
-  } else {
-    unregister_code16(keycode_to_press);
   }
 }
 
 bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
     /* Disable combos when gaming layer is the default */
-    return !layer_state_is(GAMES);
+    return default_layer_state != GAMES;
 }
 
 bool data_reset;

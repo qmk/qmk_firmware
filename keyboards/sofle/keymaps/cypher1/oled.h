@@ -56,12 +56,26 @@ static void print_status_narrow(void) {
     data_str[DATA_LEN-1] = '\0';
     oled_write(data_str, false);
 
-    oled_set_cursor(0, 4);
     led_t led_usb_state = host_keyboard_led_state();
-    if (led_usb_state.caps_lock) {
-        oled_write_ln_P(PSTR("C\nY\nP\nH\nE\nR\n1"), true);
-    } else {
-        oled_write_ln_P(PSTR("c\ny\np\nh\ne\nr\n1"), false);
+    bool invert = led_usb_state.caps_lock;
+    oled_set_cursor(0, 4);
+    os_variant_t host_os = detected_host_os();
+    switch (host_os) {
+        case OS_WINDOWS:
+            oled_write_ln_P(PSTR("C W\nY I\nP N\nH D\nE O\nR W\n1 S"), invert);
+            break;
+        case OS_LINUX:
+            oled_write_ln_P(PSTR("C L\nY I\nP N\nH U\nE X\nR  \n1  "), invert);
+            break;
+        case OS_MACOS:
+            oled_write_ln_P(PSTR("C M\nY A\nP C\nH  \nE O\nR S\n1  "), invert);
+            break;
+        case OS_IOS:
+            oled_write_ln_P(PSTR("C I\nY O\nP S\nH  \nE  \nR  \n1  "), invert);
+            break;
+        default:
+            oled_write_ln_P(PSTR("C  \nY  \nP  \nH  \nE  \nR  \n1  "), invert);
+            break;
     }
     if (is_keyboard_master()) {
         render_pet(0, 13);
