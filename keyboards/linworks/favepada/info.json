@@ -5,17 +5,11 @@
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
-        "command": false,
-        "console": false,
-        "encoder": false,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
         "rgb_matrix": true,
-        "rgblight": false
     },
     "matrix_pins": {
         "cols": ["A14", "A15", "B3", "B4"],
