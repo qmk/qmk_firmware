@@ -24,6 +24,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "community_layouts": ["tkl_ansi_split_bs_rshift", "tkl_ansi_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_tkl_ansi_split_bs_rshift": {
             "layout": [
@@ -131,7 +132,7 @@
                 {"matrix": [11, 8], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_tkl_ansi_split_bs_rshift_tsangan": {
+        "LAYOUT_tkl_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 

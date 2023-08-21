@@ -18,6 +18,7 @@
     },
     "processor": "at90usb646",
     "bootloader": "atmel-dfu",
+    "community_layouts": ["tkl_ansi", "tkl_ansi_tsangan"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
@@ -123,7 +124,7 @@
                 {"matrix": [5, 16], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_tkl_ansi_7u": {
+        "LAYOUT_tkl_ansi_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 

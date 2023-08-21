@@ -14,6 +14,7 @@
   "ws2812": {
     "pin": "B4"
   },
+  "community_layouts": ["tkl_ansi_tsangan", "tkl_iso_tsangan"],
   "layouts": {
     "LAYOUT_tkl_ansi_tsangan": {
       "layout": [
