@@ -22,3 +22,5 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+// The number of LEDs connected
+#define RGB_MATRIX_LED_COUNT 1

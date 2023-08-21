@@ -15,10 +15,12 @@
         "bootmagic": true,
         "command": false,
         "console": false,
+        "rgb_matrix": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rbglight": true
+        "rbglight": false,
+        "backlight":false
     },
     "diode_direction": "COL2ROW",
     "indicators": {
@@ -28,24 +30,18 @@
     "ws2812": {
         "pin": "F4"
     },
-    "rgblight": {
-        "animations": {
-            "alternating": true,
-            "breathing": true,
-            "christmas": true,
-            "knight": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "rgb_test": true,
-            "snake": true,
-            "static_gradient": true,
-            "twinkle": true
-        },
+    "rgb_matrix":{
+        "driver":"WS2812",
         "max_brightness": 200,
-        "led_count": 1,
-        "saturation_steps": 8,
-        "brightness_steps": 8,
-        "sleep": true
+        "led_count":1,
+        "animations": {
+			"breathing": true,
+            "cycle_all": true,
+			"solid_reactive_simple": true
+        },
+		"layout":[
+            { "matrix": [0, 13], "x":  15, "y": 0, "flags":4 }
+         ]
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
