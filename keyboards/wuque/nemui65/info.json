@@ -19,8 +19,6 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rbglight": false,
-        "backlight":false
     },
     "diode_direction": "COL2ROW",
     "indicators": {
