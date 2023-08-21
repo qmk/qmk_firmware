@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	RGB_TOG, 	_______,   	_______,    _______,  	_______,   	_______,   	_______,   	_______,   	_______,   	SYS_WIN,  	SYS_MAC,   	DEV_RESET,	_______, 	_______,	_______,
 	_______,	RGB_VAI,  	RGB_VAD,  	RGB_MOD,   	RGB_HUI, 	RGB_SPI, 	RGB_SPD,	_______,   	_______,   	_______,  	_______,	_______, 	 			_______,	KC_END,
 	_______,				SIDE_VAI,  	SIDE_VAD,  	SIDE_MOD,  	SIDE_HUI,	SIDE_SPI, 	SIDE_SPD, 	_______,   	_______,	_______,	_______,				_______,	_______,
-	_______,	_______,	_______,										_______, 							_______,	MO(1),   	_______,	_______,	_______,    _______),
+	_______,	_______,	_______,										_______, 							_______,	_______,   	_______,	_______,	_______,    _______),
 // layer win
 [2] = LAYOUT(
 	KC_ESC, 	KC_F1,  	KC_F2,  	KC_F3, 		KC_F4,  	KC_F5,  	KC_F6,  	KC_F7,  	KC_F8,  	KC_F9, 		KC_F10, 	KC_F11, 	KC_F12, 				KC_DEL,
