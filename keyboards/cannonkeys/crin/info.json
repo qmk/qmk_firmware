@@ -29,8 +29,6 @@
     },
     "community_layouts": [
         "tkl_nofrow_ansi",
-        "tkl_nofrow_ansi_tsangan",
-        "tkl_nofrow_ansi_tsangan_split_bs_rshift",
         "tkl_nofrow_iso"
     ],
     "layouts": {

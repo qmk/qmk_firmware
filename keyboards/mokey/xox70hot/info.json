@@ -18,7 +18,6 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_tkl_nofrow_ansi_tsangan"
     },
-    "community_layouts": ["tkl_nofrow_ansi_tsangan"],
     "layouts": {
         "LAYOUT_tkl_nofrow_ansi_tsangan": {
             "layout": [
