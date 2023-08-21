@@ -48,11 +48,7 @@ void keyboard_post_init_user() {
     }
 }
 
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
-        return false;
-    }
-
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (LED_FLAG) {
         if (LED_FLAG == mac_led)
             rgb_matrix_set_color(0, 0, 0, 255);
