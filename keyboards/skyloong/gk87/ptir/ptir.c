@@ -172,23 +172,10 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
 #endif
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        writePin(CAPS_PIN, led_state.caps_lock);
-        writePin(SCR_PIN, led_state.scroll_lock);
-    }
-    return res;
-}
-
 void suspend_power_down_kb() {
 #    ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_set_flags(LED_FLAG_NONE);
-    rgb_matrix_set_color_all(0, 0, 0);
     writePinLow(SDB);
 #    endif
-    writePinLow(SCR_PIN);
-    writePinLow(CAPS_PIN);
     writePinLow(MAC_PIN);
 }
 
@@ -277,10 +264,6 @@ void board_init(void) {
     setPinOutput(SDB);
     writePinHigh(SDB);
 #   endif
-    setPinOutput(CAPS_PIN);
-    writePinHigh(CAPS_PIN);
-    setPinOutput(SCR_PIN);
-    writePinHigh(SCR_PIN);
     setPinOutput(MAC_PIN);
     writePinHigh(MAC_PIN);
 }

@@ -3,8 +3,8 @@
 
 #pragma once
 
-#define CAPS_PIN C15
-#define SCR_PIN C14
+#define LED_CAPS_LOCK_PIN C15
+#define LED_SCROLL_LOCK_PIN C14
 #define MAC_PIN C13
 
 #ifdef ENCODER_ENABLE
