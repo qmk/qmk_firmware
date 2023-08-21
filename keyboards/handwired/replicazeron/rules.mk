@@ -1,5 +1,4 @@
 JOYSTICK_ENABLE = yes
-JOYSTICK_DRIVER = analog
 OLED_ENABLE = yes
 
 LEDS_ENABLE = yes
