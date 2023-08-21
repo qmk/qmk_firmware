@@ -30,13 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.0
 #    define RGBLIGHT_EFFECT_BREATHE_MAX    60
 
-
 /* RGB matrix */
 #ifdef RGB_MATRIX_ENABLE
-// i2c setting
-#define USE_I2CV1
-#define I2C1_SCL 8  
-#define I2C1_SDA 9  
 #define I2C1_CLOCK_SPEED 400000  
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2  
 #    define RGB_MATRIX_DISABLE_KEYCODES 

@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #    define RGBLIGHT_LAYERS                   
 #    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF 
-#    define RGBLIGHT_LAYERS_RETAIN_VAL     
+#    define RGBLIGHT_LAYERS_RETAIN_VAL      
 #    define RGBLIGHT_DEFAULT_VAL 10
 #    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL + 5
 #    define RGBLIGHT_SLEEP
