@@ -10,11 +10,11 @@ The following is the QMK Firmware for the number pad 6x4 keylayout - designed in
 
 Make example for this keyboard (after setting up your build environment):
 
-    make qk21/v1:default
+    make skyloong/qk21/v1:default
 
 Flashing example for this keyboard:
 
-    make qk21/v1:default:flash
+    make skyloong/qk21/v1:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
