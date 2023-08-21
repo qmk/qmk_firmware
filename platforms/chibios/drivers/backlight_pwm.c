@@ -55,6 +55,9 @@ static PWMConfig pwmCFG = {
 
 #ifdef BACKLIGHT_BREATHING
 static virtual_timer_t breathing_vt;
+static virtual_timer_t pulse_vt;
+static uint16_t        breathing_counter    = 0;
+static bool            breathing_pulse_flag = false;
 #endif
 
 // See http://jared.geek.nz/2013/feb/linear-led-pwm
@@ -93,6 +96,7 @@ void backlight_init_ports(void) {
 
 #ifdef BACKLIGHT_BREATHING
     chVTObjectInit(&breathing_vt);
+    chVTObjectInit(&pulse_vt);
     if (is_backlight_breathing()) {
         breathing_enable();
     }
@@ -132,11 +136,15 @@ bool is_breathing(void) {
 }
 
 void breathing_enable(void) {
+    breathing_pulse_flag = false;
+    chVTReset(&pulse_vt);
     /* Update frequency is 256Hz -> 3906us intervals */
     chVTSetContinuous(&breathing_vt, TIME_US2I(3906), breathing_callback, NULL);
 }
 
 void breathing_disable(void) {
+    breathing_pulse_flag = false;
+    chVTReset(&pulse_vt);
     chVTReset(&breathing_vt);
 
     // Restore backlight level
@@ -153,10 +161,18 @@ static void breathing_callback(virtual_timer_t *vtp, void *p) {
     uint16_t interval         = (uint16_t)breathing_period * 256 / BREATHING_STEPS;
 
     // resetting after one period to prevent ugly reset at overflow.
-    static uint16_t breathing_counter = 0;
-    breathing_counter                 = (breathing_counter + 1) % (breathing_period * 256);
-    uint8_t  index                    = breathing_counter / interval % BREATHING_STEPS;
-    uint32_t duty                     = cie_lightness(rescale_limit_val(scale_backlight(breathing_table[index] * 256)));
+    breathing_counter = (breathing_counter + 1) % (breathing_period * 256);
+    uint8_t  index    = breathing_counter / interval % BREATHING_STEPS;
+    uint32_t duty     = cie_lightness(rescale_limit_val(scale_backlight(breathing_table[index] * 256)));
+    if (breathing_pulse_flag) {
+        chSysLockFromISR();
+        if (index == BREATHING_STEPS - 1) {
+            breathing_pulse_flag = false;
+        } else {
+            chVTSetI(&pulse_vt, TIME_US2I(3906), breathing_callback, NULL);
+        }
+        chSysUnlockFromISR();
+    }
 
     chSysLockFromISR();
     pwmEnableChannelI(&BACKLIGHT_PWM_DRIVER, BACKLIGHT_PWM_CHANNEL - 1, PWM_FRACTION_TO_WIDTH(&BACKLIGHT_PWM_DRIVER, 0xFFFF, duty));
@@ -165,9 +181,13 @@ static void breathing_callback(virtual_timer_t *vtp, void *p) {
 
 // TODO: integrate generic pulse solution
 void breathing_pulse(void) {
-    backlight_set(is_backlight_enabled() ? 0 : BACKLIGHT_LEVELS);
-    wait_ms(10);
-    backlight_set(is_backlight_enabled() ? get_backlight_level() : 0);
+    if (get_backlight_level() == 0) {
+        breathing_counter = 0;
+    } else {
+        breathing_counter = get_breathing_period() * 256 / 2;
+    }
+    breathing_pulse_flag = true;
+    chVTSet(&pulse_vt, TIME_US2I(3906), breathing_callback, NULL);
 }
 
 #endif
