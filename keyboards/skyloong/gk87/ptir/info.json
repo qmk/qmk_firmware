@@ -2,8 +2,6 @@
     "manufacturer": "skyloong",
     "maintainer": "JZ-Skyloong",
     "bootloader": "stm32duino",
-    //"diode_direction": "COL2ROW",
-
     "features": {
         "bootmagic": true,
         "command": false,
