@@ -288,10 +288,6 @@ void rgb_matrix_test(void) {
 }
 
 static bool rgb_matrix_none(effect_params_t *params) {
-    if (!params->init) {
-        return false;
-    }
-
     rgb_matrix_set_color_all(0, 0, 0);
     return false;
 }
@@ -343,8 +339,11 @@ static void rgb_task_start(void) {
 }
 
 static void rgb_task_render(uint8_t effect) {
-    bool rendering         = false;
+    bool rendering = false;
+
     rgb_effect_params.init = (effect != rgb_last_effect) || (rgb_matrix_config.enable != rgb_last_enable);
+    if(rgb_effect_params.init) rgb_matrix_set_color_all(0, 0, 0);
+
     if (rgb_effect_params.flags != rgb_matrix_config.flags) {
         rgb_effect_params.flags = rgb_matrix_config.flags;
         rgb_matrix_set_color_all(0, 0, 0);
@@ -383,22 +382,16 @@ static void rgb_task_render(uint8_t effect) {
             // ---------------------------------------------
 
         // Factory default magic value
-        case UINT8_MAX: {
+        case UINT8_MAX:
             rgb_matrix_test();
-            rgb_task_state = FLUSHING;
-        }
-            return;
+            rendering = false;
+            break;
     }
 
-    rgb_effect_params.iter++;
-
-    // next task
-    if (!rendering) {
+    if ((!rendering) || (rgb_effect_params.iter >= RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS)) {
         rgb_task_state = FLUSHING;
-        if (!rgb_effect_params.init && effect == RGB_MATRIX_NONE) {
-            // We only need to flush once if we are RGB_MATRIX_NONE
-            rgb_task_state = SYNCING;
-        }
+    } else {
+        rgb_effect_params.iter++;
     }
 }
 
@@ -424,14 +417,8 @@ void rgb_matrix_task(void) {
                              (rgb_anykey_timer > (uint32_t)RGB_MATRIX_TIMEOUT) ||
 #endif // RGB_MATRIX_TIMEOUT > 0
                              false;
-
-    uint8_t effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
-
-    // TODO: This will stop the indicator code running when backlight is disabled,
-    //       is this intentional?
-    //       as somebody might want no effect but still indicators, need to check how it works
-    // bool should_render_matrix = suspend_backlight || !rgb_matrix_config.enable;
-    // uint8_t current_mode = should_render_matrix ? 0 : rgb_matrix_config.mode;
+    bool should_render_effect = !suspend_backlight && rgb_matrix_config.enable;
+    uint8_t effect = should_render_effect ? rgb_matrix_config.mode : RGB_MATRIX_NONE;
 
     switch (rgb_task_state) {
         case STARTING:
@@ -439,11 +426,10 @@ void rgb_matrix_task(void) {
             break;
         case RENDERING:
             rgb_task_render(effect);
-            if (effect) {
+            if (should_render_effect) {
                 // Only run the basic indicators in the last render iteration (default there are 5 iterations)
-                if (rgb_effect_params.iter == RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
-                    rgb_matrix_indicators();
-                }
+                uprintf("should_render: %d, iter: %d\n", should_render_effect, rgb_effect_params.iter);
+                if (rgb_task_state == FLUSHING) rgb_matrix_indicators();
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
             }
             break;
@@ -480,18 +466,11 @@ void rgb_matrix_indicators(void) {
     led_t led_state = host_keyboard_led_state();
     for (size_t i = 0; i < NUMBER_OF_INDICATOR_MATCHERS; i++) {
         t_rgb_indicator_matcher matcher = rgb_indicator_matchers[i];
-
-        // uprintf("matrix count: %d", RGB_MATRIX_LED_COUNT);
         if (!(matcher.led_index >= 0 && matcher.led_index < RGB_MATRIX_LED_COUNT)) {
             dprintf("LED %d is out of range of the rgb matrix configuration\n", matcher.led_index);
         } else if (!(g_led_config.flags[matcher.led_index] & LED_FLAG_INDICATOR)) {
             dprintf("LED %d is not configured as an indicator but has indicator config provided\n", matcher.led_index);
         } else if((matcher.led_state.raw & led_state.raw) == matcher.led_state.raw) {
-            // Rainbow Pinwheels does not work
-            // Pixel Flow does not work
-            // Pixel Rain does not wrok
-            // VIA has Spash instead of Splash
-            uprintf("Updating LED %d\n", matcher.led_index);
             uint8_t clamped_v = matcher.color.v;
             if(!matcher.override_brightness_limit && matcher.color.v > rgb_matrix_config.hsv.v)
                 clamped_v = rgb_matrix_config.hsv.v;
@@ -616,8 +595,8 @@ void rgb_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     if (!rgb_matrix_config.enable) {
         return;
     }
-    if (mode < 1) {
-        rgb_matrix_config.mode = 1;
+    if (mode < 0) {
+        rgb_matrix_config.mode = 0;
     } else if (mode >= RGB_MATRIX_EFFECT_MAX) {
         rgb_matrix_config.mode = RGB_MATRIX_EFFECT_MAX - 1;
     } else {
@@ -651,7 +630,7 @@ void rgb_matrix_step(void) {
 
 void rgb_matrix_step_reverse_helper(bool write_to_eeprom) {
     uint8_t mode = rgb_matrix_config.mode - 1;
-    rgb_matrix_mode_eeprom_helper((mode < 1) ? RGB_MATRIX_EFFECT_MAX - 1 : mode, write_to_eeprom);
+    rgb_matrix_mode_eeprom_helper((mode < 0) ? RGB_MATRIX_EFFECT_MAX - 1 : mode, write_to_eeprom);
 }
 void rgb_matrix_step_reverse_noeeprom(void) {
     rgb_matrix_step_reverse_helper(false);
