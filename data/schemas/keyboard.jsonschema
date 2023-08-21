@@ -59,6 +59,7 @@
                 "MK20DX256",
                 "MK64FX512",
                 "MK66FX1M0",
+                "LPC11Uxx",
                 "RP2040",
                 "STM32F042",
                 "STM32F072",

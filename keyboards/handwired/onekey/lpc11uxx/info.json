@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "Onekey LPC11Uxx",
+    "processor": "LPC11Uxx",
+    "bootloader": "custom",
+    "matrix_pins": {
+        "cols": ["P1_12"],
+        "rows": ["P1_13"]
+    }
+}

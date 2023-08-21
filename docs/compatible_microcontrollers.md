@@ -66,6 +66,10 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
    * PJRC Teensy 3.5
  * [MK66FX1M0](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k6x-ethernet/kinetis-k66-180-mhz-dual-high-speed-full-speed-usbs-2mb-flash-microcontrollers-mcus-based-on-arm-cortex-m4-core:K66_180)
    * PJRC Teensy 3.6
+ * [LPC11UXX](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/lpc1100-arm-cortex-m0-plus-m0/scalable-entry-level-32-bit-microcontroller-mcu-based-on-arm-cortex-m0-plus-and-cortex-m0-cores:LPC11U00)
+   * LPC11U1x
+   * LPC11U2x
+   * LPC11U3x
 
 ### Raspberry Pi
 
