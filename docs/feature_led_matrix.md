@@ -12,7 +12,7 @@ There is basic support for addressable LED matrix lighting with the I2C IS31FL37
 
 ```make
 LED_MATRIX_ENABLE = yes
-LED_MATRIX_DRIVER = IS31FL3731
+LED_MATRIX_DRIVER = is31fl3731
 ```
 
 You can use between 1 and 4 IS31FL3731 IC's. Do not specify `LED_DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
@@ -433,7 +433,7 @@ The EEPROM for it is currently shared with the RGB Matrix system (it's generally
 
 ### Indicators :id=indicators
 
-If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, you can use the `led_matrix_indicators_kb` or `led_matrix_indicators_user` function for that:
+If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, then you can use the `led_matrix_indicators_kb` function on the keyboard level source file, or `led_matrix_indicators_user` function in the user `keymap.c`.
 ```c
 bool led_matrix_indicators_kb(void) {
     if (!led_matrix_indicators_user()) {

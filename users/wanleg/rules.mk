@@ -22,7 +22,7 @@ ifeq ($(strip $(BT)), yes)
   OPT_DEFS += -DBLUEFRUIT
   #Adafruit Bluefruit controller settings
   BLUETOOTH_ENABLE = yes
-  BLUETOOTH_DRIVER = BluefruitLE
+  BLUETOOTH_DRIVER = bluefruit_le
   F_CPU = 8000000
   CONSOLE_ENABLE = no 		# Console for debug(+400)
   COMMAND_ENABLE = no 		# Commands for debug and configuration
