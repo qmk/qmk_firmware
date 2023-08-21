@@ -13,12 +13,10 @@
     "bootloader": "wb32-dfu",
     "features": {
         "bootmagic": true,
-        "mousekey": false,
         "extrakey": true,
         "console": false,
         "command": false,
         "nkro": true,
-        "encoder": false,
         "rgb_matrix": true
     },
     "dynamic_keymap": {
