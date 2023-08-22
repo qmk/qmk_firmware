@@ -1,6 +1,6 @@
 # Converters
 
-This page documents the automated process for converting keyboards to use drop-in replacement Pro Micro controllers. This process is designed to be easy to use and can be completed in a few simple steps.
+This page documents the automated process for converting keyboards to use drop-in replacement controllers. This process is designed to be easy to use and can be completed in a few simple steps.
 
 ## Supported Converters
 
