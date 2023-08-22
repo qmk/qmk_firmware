@@ -31,7 +31,6 @@
 		}
 	},
     "processor": "atmega32u4",
-	"bootloader": "caterina",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
