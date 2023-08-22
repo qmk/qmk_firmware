@@ -44,7 +44,7 @@ static inline void unselect_rows(void) {
 }
 
 static inline void select_row(uint8_t row) {
-    pal_lld_clearport(PAL_PORT(B0), PAL_PORT_BIT(row) | ((row == 9) ? 0b1000000000000 : 0));
+    palClearPort(PAL_PORT(B0), PAL_PORT_BIT(row) | ((row == 9) ? 0b1000000000000 : 0));
 }
 
 // Only need to init the pins. Debounce / raw matrix are initialized already for us.
