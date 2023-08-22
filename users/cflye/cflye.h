@@ -36,7 +36,10 @@ enum unicode_names {
     AA_L,
     AA_U,
     IRONY,
-    SNEK
+    SNEK,
+    // ascii emojies
+    SHRUG,
+
 };
 
 #define KC_AE XP(AE_L,AE_U)

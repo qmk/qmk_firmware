@@ -61,7 +61,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;   
     case U_GAMING: 
         default_layer_set((layer_state_t)1 << _GAMING);
-        return false;    
+        return false;  
+    case SHRUG:
+        if (record->event.pressed) {
+            send_unicode_string("¯\\_(ツ)_/¯");
+        }
+        return false;  
   }
   return process_record_keymap(keycode, record);
 }
