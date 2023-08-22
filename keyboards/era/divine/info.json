@@ -4,7 +4,7 @@
     "maintainer": "eerraa",
     "backlight": {
         "pin": "GP0",
-		"levels": 5
+        "levels": 5
     },
     "bootloader": "rp2040",
     "build": {
