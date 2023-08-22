@@ -15,21 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-
-enum custom_keycodes {
-#ifdef VIA_ENABLE
-    KC_MISS_CTRL = QK_KB_0,
-#else
-    KC_MISS_CTRL = SAFE_RANGE,
-#endif
-    KC_LHPAD
-};
-
-#define KC_MCTL KC_MISSION_CONTROL
-#define KC_LPAD KC_LAUNCHPAD
-#define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_65_ansi_blocker( /* Base */
         QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
