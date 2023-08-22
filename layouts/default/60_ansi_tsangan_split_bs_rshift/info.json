@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "60% ISO Tsangan layout",
+    "keyboard_name": "60% ANSI with split Backspace, split Right Shift, and Tsangan layout",
     "url": "",
     "maintainer": "qmk",
     "layouts": {
-        "LAYOUT_60_iso_tsangan_split_bs_shift": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -34,6 +34,7 @@
                 {"x":10.5, "y":1},
                 {"x":11.5, "y":1},
                 {"x":12.5, "y":1},
+                {"x":13.5, "y":1, "w":1.5},
 
                 {"x":0, "y":2, "w":1.75},
                 {"x":1.75, "y":2},
@@ -47,11 +48,9 @@
                 {"x":9.75, "y":2},
                 {"x":10.75, "y":2},
                 {"x":11.75, "y":2},
-                {"x":12.75, "y":2},
-                {"x":13.75, "y":1, "w":1.25, "h":2},
+                {"x":12.75, "y":2, "w":2.25},
 
-                {"x":0, "y":3, "w":1.25},
-                {"x":1.25, "y":3},
+                {"x":0, "y":3, "w":2.25},
                 {"x":2.25, "y":3},
                 {"x":3.25, "y":3},
                 {"x":4.25, "y":3},
