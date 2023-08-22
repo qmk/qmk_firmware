@@ -91,6 +91,13 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS37_SW4, CS39_SW4, CS38_SW4}, /* RGB22 */
     {0, CS37_SW3, CS39_SW3, CS38_SW3}, /* RGB21 */
     {0, CS31_SW9, CS33_SW9, CS32_SW9}, /* RGB36 */
+	
+	{0, CS5_SW1, CS3_SW1, CS4_SW1}, /* RGB71 */
+    {0, CS5_SW2, CS3_SW2, CS4_SW2}, /* RGB72 */
+    {0, CS5_SW3, CS3_SW3, CS4_SW3}, /* RGB73 */
+    {0, CS5_SW4, CS3_SW4, CS4_SW4}, /* RGB74 */
+    {0, CS5_SW5, CS3_SW5, CS4_SW5}, /* RGB75 */
+    {0, CS5_SW6, CS3_SW6, CS4_SW6}, /* RGB76 */
 };
 
 led_config_t g_led_config = {
@@ -116,47 +123,41 @@ led_config_t g_led_config = {
 	}
 };
 
-const is31_led g_is31_indicator_leds[6] = {
-    {0, CS5_SW1, CS3_SW1, CS4_SW1}, /* RGB71 */
-    {0, CS5_SW2, CS3_SW2, CS4_SW2}, /* RGB72 */
-    {0, CS5_SW3, CS3_SW3, CS4_SW3}, /* RGB73 */
-    {0, CS5_SW4, CS3_SW4, CS4_SW4}, /* RGB74 */
-    {0, CS5_SW5, CS3_SW5, CS4_SW5}, /* RGB75 */
-    {0, CS5_SW6, CS3_SW6, CS4_SW6}, /* RGB76 */
-};
-
-bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-        if (led_state.caps_lock) {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[2], 0xff, 0x00, 0x00);
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[3], 0xff, 0x00, 0x00);
-        } else {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[2], 0x00, 0x00, 0x00);
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[3], 0x00, 0x00, 0x00);
-        }
-
-        if (led_state.num_lock) {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[1], 0x00, 0xff, 0x00);
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[4], 0x00, 0xff, 0x00);
-        } else {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[1], 0x00, 0x00, 0x00);
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[4], 0x00, 0x00, 0x00);
-        }
-
-        if (led_state.scroll_lock) {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[0], 0x00, 0x00, 0xff);
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[5], 0x00, 0x00, 0xff);
-        } else {
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[0], 0x00, 0x00, 0x00);
-            IS31FL3741_set_pwm_buffer(&g_is31_indicator_leds[5], 0x00, 0x00, 0x00);
-        }
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+		return false;
     }
-    return true;
+
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_LEFT, 0xff, 0, 0);
+		RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_RIGHT, 0xff, 0, 0);
+    } else {
+		RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_LEFT, 0, 0, 0);
+		RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_RIGHT, 0, 0, 0);
+    }
+	
+	if (host_keyboard_led_state().num_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_LEFT, 0, 0xff, 0);
+		RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_RIGHT, 0, 0xff, 0);
+    } else {
+		RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_LEFT, 0, 0, 0);
+		RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_RIGHT, 0, 0, 0);
+    }
+	
+	if (host_keyboard_led_state().scroll_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_LEFT, 0, 0, 0xff);
+		RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_RIGHT, 0, 0, 0xff);
+    } else {
+		RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_LEFT, 0, 0, 0);
+		RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_RIGHT, 0, 0, 0);
+    }
+	
+	return false;
 }
 
 void matrix_init_kb(void) {
-    for (int i = 0; i < DRIVER_INDICATOR_LED_TOTAL; ++i) {
-        is31_led led = g_is31_indicator_leds[i];
+    for (int i = SCROLL_LOCK_INDEX_LEFT; i <= SCROLL_LOCK_INDEX_RIGHT; ++i) {
+        is31_led led = g_is31_leds[i];
         IS31FL3741_set_scaling_registers(&led, 0xFF, 0xFF, 0xFF);
     }
 
