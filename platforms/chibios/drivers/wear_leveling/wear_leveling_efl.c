@@ -134,7 +134,7 @@ bool backing_store_lock(void) {
     return true;
 }
 
-static backing_store_int_t RESIDENT_IN_RAM(backing_store_safe_read_from_location)(backing_store_int_t *loc) {
+static backing_store_int_t backing_store_safe_read_from_location(backing_store_int_t *loc) {
     uint32_t value;
     is_issuing_read    = true;
     ecc_error_occurred = false;
@@ -162,10 +162,10 @@ bool backing_store_read(uint32_t address, backing_store_int_t *value) {
     return true;
 }
 
-bool RESIDENT_IN_RAM(backing_store_allow_ecc_errors)(void) {
+bool backing_store_allow_ecc_errors(void) {
     return is_issuing_read;
 }
 
-void RESIDENT_IN_RAM(backing_store_signal_ecc_error)(void) {
+void backing_store_signal_ecc_error(void) {
     ecc_error_occurred = true;
 }
