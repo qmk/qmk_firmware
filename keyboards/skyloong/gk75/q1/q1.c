@@ -133,6 +133,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
      case TO(0):
       if (record->event.pressed) {
        L_WIN = 1;
+       set_single_persistent_default_layer(0);
       } else {
        L_WIN = 0;
       }
@@ -149,6 +150,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
      case TO(1):
       if (record->event.pressed) {
        L_MAC = 1;
+       set_single_persistent_default_layer(1);
       } else {
        L_MAC = 0;
       }
