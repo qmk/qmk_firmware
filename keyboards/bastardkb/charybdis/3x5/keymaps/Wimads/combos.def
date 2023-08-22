@@ -1,8 +1,9 @@
+////ALPHAS////
 //XX__
 COMB(QAI_Q,         KC_Q,           KC_R, KC_O)
 COMB(QAI_X,         KC_X,           KC_A, KC_S)
 COMB(QAI_Z,         KC_Z,           KC_A, KC_O)
-////RS
+ /*unused combo                     KC_R, KC_S*/
 //_XX_
 COMB(QAI_D,         KC_D,           KC_O, KC_I)
 COMB(QAI_C,         KC_C,           KC_S, KC_E)
@@ -17,7 +18,7 @@ COMB(QAI_V,         KC_V,           KC_I, KC_N)
 COMB(QAI_P,         KC_P,           KC_R, KC_I)
 COMB(QAI_QUOT,      DH_QUOT,        KC_A, KC_E)
 COMB(QAI_DLR,       KC_DLR,         KC_A, KC_I)
-////RE
+ /*unused combo                     KC_R, KC_E*/
 //X__X
 COMB(QAI_Y,         KC_Y,           KC_R, KC_T)
 COMB(QAI_J,         KC_J,           KC_A, KC_N)
@@ -42,7 +43,7 @@ COMB(QAI_LCTL,      KC_LCTL,        SPC_SFT, KC_E)                  COMB(QAI_CTL
 COMB(QAI_RCTL,      KC_RCTL,        SPC_SFT, KC_I)
 COMB(QAI_LALT,      KC_LALT,        SPC_SFT, KC_S)                  COMB(QAI_ALT,   KC_LALT,    KC_O, KC_S)
 COMB(QAI_RALT,      C(KC_LALT),     SPC_SFT, KC_O)
-COMB(QAI_LGUI,      KC_LGUI,        SPC_SFT, KC_A)                  COMB(QAI_GUI,   KC_LGUI,    KC_A, KC_R)
+COMB(QAI_LGUI,      KC_LGUI,        SPC_SFT, KC_A)                  //COMB(QAI_GUI,   KC_LGUI,    KC_A, KC_R) //too annoying to mistype
 COMB(QAI_RGUI,      KC_RGUI,        SPC_SFT, KC_R)
 COMB(QAI_CS,        S(KC_LCTL),     SPC_SFT, KC_N, KC_E)
 COMB(QAI_CA,        A(KC_LCTL),     SPC_SFT, KC_S, KC_E)
@@ -62,11 +63,12 @@ COMB(QAI_ENT,       KC_ENT,         BSP_NUM, KC_S)
 COMB(QAI_TAB,       KC_TAB,         BSP_NUM, KC_O)
 COMB(QAI_F5,        KC_F5,          KC_BTN4, KC_BTN5)
 
+////NUMBERS_SYMBOLS////
 //00__
 COMB(QAI_AMPR,      KC_AMPR,        DOTCOMM, KC_9)
 COMB(QAI_PIPE,      KC_PIPE,        KC_0, KC_3)
 COMB(QAI_BSLS,      KC_BSLS,        KC_0, KC_9)
-////DOT3
+ /*unused combo                     DOTCOMM, KC_3*/
 //_00_
 COMB(QAI_6,         KC_6,           KC_9, KC_8)
 COMB(QAI_HASH,      KC_HASH,        KC_3, KC_2)
@@ -81,7 +83,7 @@ COMB(QAI_MINS,      KC_MINS,        KC_8, KC_1)
 COMB(QAI_PERC,      KC_PERC,        DOTCOMM, KC_8)
 COMB(QAI_GRV,       DH_GRV,         KC_0, KC_2)
 COMB(QAI_TILD,      DH_TILD,        KC_0, KC_8)
-////DOT2
+ /*unused combo                     DOTCOMM, KC_2*/
 //0__0
 COMB(QAI_CIRC,      DH_CIRC,        DOTCOMM, KC_7)
 COMB(QAI_UNDS,      KC_UNDS,        KC_0, KC_1)
@@ -96,11 +98,11 @@ COMB(QAI_SLSH,      KC_SLSH,        KC_9, KC_1)
 COMB(QAI_EXLM,      KC_EXLM,        KC_3, KC_2, KC_1)
 COMB(QAI_QUES,      KC_QUES,        KC_7, KC_8, KC_9)
 
-///Mouse
+////MOUSE////
 COMB(QAI_BTN3,      KC_BTN3,        KC_BTN1, KC_BTN2)
 COMB(QAI_DRZM,      DRGZOOM,        KC_BTN1, DRGSCRc)
 COMB(QAI_DRTG,      DRGTOGc,        KC_BTN2, DRGSCRc)
 
-///special keycodes
+////SPECIALS////
 COMB(QAI_RST,       QK_BOOT,        KC_R, KC_S, KC_E, KC_T) //ReSET
 COMB(QAI_CLKB,      CLEARKB,        KC_S, KC_E, KC_O, KC_I) //CLearKeyboarD
