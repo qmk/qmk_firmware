@@ -17,6 +17,9 @@
         "pin": "D4",
         "breathing": true
     },
+    "rgblight": {
+        "led_count": 6
+    },
     "ws2812": {
         "driver": "i2c"
     },

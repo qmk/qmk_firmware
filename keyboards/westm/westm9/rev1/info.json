@@ -2,6 +2,9 @@
     "usb": {
         "pid": "0x0301"
     },
+    "rgblight": {
+        "led_count": 14
+    },
     "ws2812": {
         "pin": "F1"
     }

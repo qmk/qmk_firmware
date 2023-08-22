@@ -21,7 +21,11 @@
         "pin": "D5"
     },
     "rgblight": {
-        "max_brightness": 240
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 6,
+        "max_brightness": 240,
+        "sleep": true
     },
     "bootmagic": {
         "matrix": [0, 1]

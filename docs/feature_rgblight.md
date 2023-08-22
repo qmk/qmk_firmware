@@ -28,7 +28,7 @@ For APA102 LEDs, add the following to your `rules.mk`:
 
 ```make
 RGBLIGHT_ENABLE = yes
-RGBLIGHT_DRIVER = APA102
+RGBLIGHT_DRIVER = apa102
 ```
 
 At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
@@ -523,37 +523,6 @@ By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED 
 
 ```
 <img src="https://user-images.githubusercontent.com/2170248/55743725-08ad7a80-5a6e-11e9-83ed-126a2b0209fc.JPG" alt="simple mapped" width="50%"/>
-
-For keyboards that use the RGB LEDs as a backlight for each key, you can also define it as in the example below.
-
-```c
-// config.h
-
-#define RGBLED_NUM 30
-
-/* RGB LED Conversion macro from physical array to electric array */
-#define LED_LAYOUT( \
-    L00, L01, L02, L03, L04, L05,  \
-    L10, L11, L12, L13, L14, L15,  \
-    L20, L21, L22, L23, L24, L25,  \
-    L30, L31, L32, L33, L34, L35,  \
-    L40, L41, L42, L43, L44, L45 ) \
-  { \
-    L05, L04, L03, L02, L01, L00,   \
-    L10, L11, L12, L13, L14, L15,   \
-    L25, L24, L23, L22, L21, L20,   \
-    L30, L31, L32, L33, L34, L35,   \
-    L46, L45, L44, L43, L42, L41    \
-  }
-
-/* RGB LED logical order map */
-/* Top->Bottom, Right->Left */
-#define RGBLIGHT_LED_MAP LED_LAYOUT( \
-  25, 20, 15, 10,  5,  0,       \
-  26, 21, 16, 11,  6,  1,       \
-  27, 22, 17, 12,  7,  2,       \
-  28, 23, 18, 13,  8,  3,       \
-  29, 24, 19, 14,  9,  4 )
 
 ```
 ## Clipping Range

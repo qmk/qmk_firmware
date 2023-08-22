@@ -23,6 +23,9 @@
       "pin": "D3"
     },
     "rgblight": {
+      "saturation_steps": 8,
+      "brightness_steps": 8,
+      "led_count": 4,
       "max_brightness": 240
     },
     "processor": "atmega32u4",

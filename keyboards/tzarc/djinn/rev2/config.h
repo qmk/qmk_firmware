@@ -17,7 +17,6 @@
 #define SERIAL_USART_FULL_DUPLEX
 
 // RGB configuration
-#define RGBLED_NUM 86
 #define RGB_MATRIX_LED_COUNT 86
 #define RGB_MATRIX_SPLIT \
     { 43, 43 }

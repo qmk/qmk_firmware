@@ -25,7 +25,7 @@ enum unicode_names {
     SURPRISE,
 };
 
-#    define X_BUL (XP(BUL1, BUL2))
-#    define X_DASH (XP(EMDASH, ENDASH))
+#    define X_BUL (UP(BUL1, BUL2))
+#    define X_DASH (UP(EMDASH, ENDASH))
 
 #endif

@@ -6,6 +6,9 @@
         "pid": "0xA649",
         "device_version": "0.0.3"
     },
+    "rgblight": {
+        "led_count": 9
+    },
     "ws2812": {
         "pin": "A1",
         "driver": "pwm"

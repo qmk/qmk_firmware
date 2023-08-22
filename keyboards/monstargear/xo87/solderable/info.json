@@ -17,6 +17,9 @@
         "driver": "custom",
         "pin": "F0"
     },
+    "rgblight": {
+        "led_count": 21
+    },
     "ws2812": {
         "pin": "D7"
     },

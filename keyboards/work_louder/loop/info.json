@@ -30,7 +30,8 @@
         "pin": "F1"
     },
     "rgblight": {
-        "max_brightness": 120
+        "max_brightness": 120,
+        "sleep": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

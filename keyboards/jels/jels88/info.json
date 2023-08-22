@@ -20,7 +20,9 @@
         "pin": "B6"
     },
     "rgblight": {
-        "max_brightness": 225
+        "led_count": 20,
+        "max_brightness": 225,
+        "sleep": true
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
