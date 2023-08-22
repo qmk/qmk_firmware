@@ -1,5 +1,8 @@
 # slider8
 
+![slider8](https://i.imgur.com/AiVQySn.jpg)
+
+
 This keyboard is the slider8 from 1upkeyboards.com, a small macropad with an oled, slide potentiometer, rotary encoder, and 8 switches in a 2x4 ortholinear arrangement with per-key in-switch rgb leds.
 
 The slide potentiometer presents to the computer as a midi device and will need a seperate program to map to device control.
