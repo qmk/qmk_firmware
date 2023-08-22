@@ -5,11 +5,8 @@
 // BEGIN: STM32L4xx Wear-leveling ECC fault handling
 //
 // STM32L4xx have ECC checks for all flash memory access. Whenever there's an
-// ECC failure, the MCU raises the NMI interrupt -- in ChibiOS this is normally
-// used for context switching, but in the case of L4xx we need to ensure the
-// method used for context switching does not collide with the NMI interrupt.
-//
-// Whenever we do receive an ECC-triggered NMI interrupt, we gracefully cater
+// ECC failure, the MCU raises the NMI interrupt. Whenever we receive such an
+// interrupt whilst reading the wear-leveling EEPROM area, we gracefully cater
 // for it, signalling the wear-leveling code that a failure has occurred.
 ///////////////////////////////////////////////////////////////////////////////
 
