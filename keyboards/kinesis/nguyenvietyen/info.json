@@ -6,6 +6,16 @@
         "pid": "0x6060",
         "device_version": "0.0.3"
     },
+    "features": {
+        "bootmagic": true,
+        "console": false,
+        "command": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "audio": false,
+        "backlight": false
+    },
     "indicators": {
         "caps_lock": "E6",
         "num_lock": "D4",

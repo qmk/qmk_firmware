@@ -50,8 +50,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0xC401",
+        "vid": "0x5754"
     },
     "layouts": {
         "LAYOUT": {

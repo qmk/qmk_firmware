@@ -317,14 +317,10 @@ ifneq ($(strip $(FLASH_DRIVER)), none)
 endif
 
 RGBLIGHT_ENABLE ?= no
-VALID_RGBLIGHT_TYPES := WS2812 APA102 custom
-
-ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
-    RGBLIGHT_DRIVER ?= custom
-endif
+VALID_RGBLIGHT_TYPES := ws2812 apa102 custom
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-    RGBLIGHT_DRIVER ?= WS2812
+    RGBLIGHT_DRIVER ?= ws2812
 
     ifeq ($(filter $(RGBLIGHT_DRIVER),$(VALID_RGBLIGHT_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid RGBLIGHT_DRIVER,RGBLIGHT_DRIVER="$(RGBLIGHT_DRIVER)" is not a valid RGB type)
@@ -338,11 +334,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
         RGB_KEYCODES_ENABLE := yes
     endif
 
-    ifeq ($(strip $(RGBLIGHT_DRIVER)), WS2812)
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), ws2812)
         WS2812_DRIVER_REQUIRED := yes
     endif
 
-    ifeq ($(strip $(RGBLIGHT_DRIVER)), APA102)
+    ifeq ($(strip $(RGBLIGHT_DRIVER)), apa102)
         APA102_DRIVER_REQUIRED := yes
     endif
 
@@ -367,6 +363,7 @@ endif
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations/runners
+    POST_CONFIG_H += $(QUANTUM_DIR)/led_matrix/post_config.h
     SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
     SRC += $(QUANTUM_DIR)/led_matrix/led_matrix.c
     SRC += $(QUANTUM_DIR)/led_matrix/led_matrix_drivers.c
@@ -432,6 +429,7 @@ endif
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations/runners
+    POST_CONFIG_H += $(QUANTUM_DIR)/rgb_matrix/post_config.h
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_drivers.c
@@ -747,8 +745,8 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += hd44780.c
 endif
 
-VALID_OLED_DRIVER_TYPES := SSD1306 custom
-OLED_DRIVER ?= SSD1306
+VALID_OLED_DRIVER_TYPES := custom ssd1306
+OLED_DRIVER ?= ssd1306
 VALID_OLED_TRANSPORT_TYPES := i2c spi custom
 OLED_TRANSPORT ?= i2c
 ifeq ($(strip $(OLED_ENABLE)), yes)
