@@ -63,6 +63,7 @@ Most of our style is pretty easy to pick up on. If you are familiar with either 
 
 We have a few different types of changes in QMK, each requiring a different level of rigor. We'd like you to keep the following guidelines in mind no matter what type of change you're making.
 
+* **Before you contribute:** Please make sure your fork is up to date with the upstream `qmk_firmware` repo. This will help minimize CI failures that may not occur for you when compiling locally.
 * Separate PRs into logical units. For example, do not submit one PR covering two separate features, instead submit a separate PR for each feature.
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * Make sure your code change actually compiles.
