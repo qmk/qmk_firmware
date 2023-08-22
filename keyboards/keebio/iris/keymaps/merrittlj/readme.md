@@ -10,6 +10,6 @@ Space, backspace, the symbol layer key, and shift can all be found on the direct
 
 All symbols are seperated into their own layer, accessed via the symbol layer key found on the top-most right direct thumb key. As the standard Dvorak layout contains symbols in the top-left three letters(that would be found on other boards), these have been replaced by the super, control, and meta keys respectively. Symbols on the symbol layer are based on my own personal preference by usage and placement, so feel free to modify as needed.
 
-The keymap's shift layer is a custom shift layer with no numbers, to prevent strange symbol access. The functional layer is where you can find home, end, functional number keys, etc. The additonal layer has miscellaneous keys or specific-to-QMK keys.
+The functional layer is where you can find home, end, functional number keys, etc. The additonal layer has miscellaneous keys or specific-to-QMK keys.
 
 This summary is not a substitute for the actual file if you plan on using this keymap. The keymap isn't based much on evidence, more personal preference: so feel free to modify as wanted.
