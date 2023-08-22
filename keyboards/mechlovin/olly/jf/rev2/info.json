@@ -19,7 +19,7 @@
         "driver": "spi"
     },
     "led_matrix": {
-        "driver": "IS31FL3731"
+        "driver": "is31fl3731"
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
