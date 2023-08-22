@@ -25,3 +25,14 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+
+## holding place for encoder pins
+
+	"encoder": {
+		"rotary": [
+			{"pin_a": "B5", "pin_b": "B6"},
+			{"pin_a": "B4", "pin_b": "B2"},
+            {"pin_a": "B3", "pin_b": "E6"},
+            {"pin_a": "B2", "pin_b": "B4"}
+		]
+    },
