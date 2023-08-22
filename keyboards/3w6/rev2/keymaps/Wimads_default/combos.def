@@ -1,0 +1,66 @@
+////QWERTY////
+//Thumbs Left:
+COMB(QTY_CS,        C(KC_LSFT),     KC_LCTL, KC_LSFT)          // Thumb L: x x _   CTRL  SHFT
+COMB(QTY_AS,        A(KC_LSFT),     KC_LALT, KC_LSFT)          // Thumb L: _ x x   ALT   SHFT
+COMB(QTY_CA,        C(KC_LALT),     KC_LCTL, KC_LALT)          // Thumb L: x _ x   CTRL  ALT
+COMB(QTY_MEH,       KC_MEH,         KC_LCTL, KC_LSFT, KC_LALT) // Thumb L: x x x   CTRL  ALT  SHFT
+//Thumbs Right:
+COMB(QTY__NUM,      MO(_NUM),       DEL_RLT, KC_SPC)           // Thumb R: x x _   number layer
+COMB(QTY__RST,      MO(_RST),       KC_SPC,  BSP_GUI)          // Thumb R: _ x x   reset layer
+COMB(QTY_RAW,       G(KC_RALT),     DEL_RLT, BSP_GUI)          // Thumb R: x _ x   RALT  WIN
+COMB(QTY_HPR,       KC_HYPR,        DEL_RLT, KC_SPC, BSP_GUI)  // Thumb R: x x x   CTRL  ALT  SHFT  WIN
+//Thumbs L/R:
+COMB(QTY_RAC,       C(KC_RALT),     KC_LCTL, BSP_GUI)  // ThumbLR: _ _ x   _ _ x   CTRL  RALT
+COMB(QTY_RAS,       S(KC_RALT),     KC_LSFT, BSP_GUI)  // ThumbLR: _ x _   _ _ x   SHFT  RALT
+COMB(QTY_CW,        C(KC_LGUI),     KC_LCTL, DEL_RLT)  // ThumbLR: _ _ x   x _ _   CTRL  WIN
+COMB(QTY_SW,        S(KC_LGUI),     KC_LSFT, DEL_RLT)  // ThumbLR: _ x _   x _ _   SHFT  WIN
+COMB(QTY_AW,        A(KC_LGUI),     KC_LALT, DEL_RLT)  // ThumbLR: x _ _   x _ _   ALT   WIN
+//Alphas Left: //need to evaluate 3- vs 2-key combos (3-key was put for continuity with TAIPO)
+COMB(QTY_ESC,       KC_ESC,         KC_Q,    KC_W)          //QW Escape
+COMB(QTY3ESC,       KC_ESC,         KC_W,    KC_E,    KC_R) //WER Escape
+COMB(QTY_TAB,       KC_TAB,         KC_F,    KC_G)          //JH Tab
+COMB(QTY3TAB,       KC_TAB,         KC_S,    KC_D,    KC_F) //SDF Tab
+COMB(QTY_ENT,       KC_ENT,         KC_V,    KC_B)          //NM Enter
+COMB(QTY3ENT,       KC_ENT,         XXX_NUM, KC_C,    KC_V) //XCV Enter
+COMB(QTY_BSP,       KC_BSPC,        KC_R,    KC_G)          //RG Backspace
+COMB(QTY_DEL,       KC_DEL,         KC_F,    KC_B)          //FB Delete
+COMB(QTY_RST,       QK_BOOT,        KC_R, KC_S, KC_E, KC_T) //RSET Reset (boot mode)
+COMB(QTY_CKB,       CLEARKB,        KC_A, KC_D, KC_F, KC_G) //ADFG Clear keyboard
+//Alphas Right:
+COMB(QTYrTAB,       KC_TAB,         KC_J,    KC_H)             //JH Tab
+COMB(QTY3rTAB,      KC_TAB,         KC_J,    KC_K,    KC_L)    //JKL Tab
+COMB(QTYrENT,       KC_ENT,         KC_N,    KC_M)             //NM Enter
+COMB(QTY3rENT,      KC_ENT,         KC_M,    KC_COMM, DOT_NUM) //M,. Enter
+COMB(QTYrCKB,       CLEARKB,        KC_H, KC_J, KC_K, KC_QUOT) //HJK" Clear keyboard
+
+////NAVIGATION////vertical combos on qwerty, need to evaluate misfire risk
+//Left:
+COMB(QTY_VUP,       KC_VOLU,        KC_Q,    KC_A) //QA Volume up
+COMB(QTY_VDN,       KC_VOLD,        KC_Z,    KC_A) //ZA Volume down
+ COMB(QTY_MUT,       KC_MUTE,        KC_Z,    KC_Q) //ZQ Mute
+COMB(QTY_HOM,       KC_HOME,        KC_W,    KC_S) //WS Home
+COMB(QTY_LFT,       KC_LEFT,        KC_X,    KC_S) //XS Left
+COMB(QTY_UP,        KC_UP,          KC_E,    KC_D) //ED Up
+COMB(QTY_DWN,       KC_DOWN,        KC_C,    KC_D) //CD Down
+COMB(QTY_END,       KC_END,         KC_R,    KC_F) //RF End
+COMB(QTY_RGT,       KC_RGHT,        KC_V,    KC_F) //VF Right
+COMB(QTY_PUP,       KC_PGUP,        KC_T,    KC_G) //TG Page up
+COMB(QTY_PDN,       KC_PGDN,        KC_B,    KC_G) //BG Page down
+//Right:
+COMB(QTYrBUP,       KC_BRIU,        KC_P,    KC_QUOT) //P" Brightness up
+COMB(QTYrBDN,       KC_BRID,        KC_EXLM, KC_QUOT) //!" Brightness down
+COMB(QTYrHOM,       KC_HOME,        KC_O,    KC_L)    //OL Home
+COMB(QTYrLFT,       KC_LEFT,        DOT_NUM, KC_L)    //.L Left
+COMB(QTYrUP,        KC_UP,          KC_I,    KC_K)    //IK Up
+COMB(QTYrDWN,       KC_DOWN,        KC_COMM, KC_K)    //,K Down
+COMB(QTYrEND,       KC_END,         KC_U,    KC_J)    //UJ End
+COMB(QTYrRGT,       KC_RGHT,        KC_M,    KC_J)    //MJ Right
+COMB(QTYrPUP,       KC_PGUP,        KC_Y,    KC_H)    //YH Page up
+COMB(QTYrPDN,       KC_PGDN,        KC_N,    KC_H)    //NH Page down
+
+////NUMPAD////
+COMB(NUM_ENT,       KC_PENT,        KC_HASH, KC_RBRC) //*1 Numpad enter
+COMB(NUMrENT,       KC_PENT,        KC_ASTR, KC_1)    //*1 Numpad enter
+COMB(NUM_EQL,       KC_EQL,         KC_PLUS, KC_4)    //+4 =
+COMB(NUM_CKB,       CLEARKB,        KC_LCBR, KC_RPRN, KC_RCBR, KC_GRV) //{)}` Clear keyboard
+COMB(NUMrCKB,       CLEARKB,        KC_PLUS, KC_4, KC_5, KC_ASTR)      //+45* Clear keyboard
