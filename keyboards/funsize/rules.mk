@@ -1,0 +1,2 @@
+SPLIT_KEYBOARD = yes
+ENCDOER_ENABLE = yes
