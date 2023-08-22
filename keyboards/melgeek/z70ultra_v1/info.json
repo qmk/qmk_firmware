@@ -8,6 +8,15 @@
         "pid": "0x6575",
         "device_version": "0.0.1"
     },
+	"features": {
+        "rgb_matrix": true,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "rgb_matrix": {
         "driver": "IS31FL3741"
     },
