@@ -12,7 +12,7 @@
     "driver": "ws2812",
     "sat_steps": 8,
     "val_steps": 8,
-    "speed_steps": 10
+    "speed_steps": 10,
   },
   "encoder": {
     "rotary": [
@@ -28,7 +28,13 @@
   "rgblight": {
     "led_count": 50,
     "max_brightness": 120,
-    "split_count": [25, 25]
+    "split_count": [25, 25],
+    "animations": {
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "static_gradient": true,
+      "rgb_test": true
+    }
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",
