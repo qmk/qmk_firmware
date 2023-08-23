@@ -63,13 +63,15 @@
 #endif
 #define ________________________ADJUST_R2________________________ XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
 
-#define ________________________SECRET_L1________________________ M_XXX1  , XXXXXXX , M_XXX3  , XXXXXXX , M_XXX5  , XXXXXXX 
-#define ________________________SECRET_L2________________________ XXXXXXX , M_XXX2  , XXXXXXX , M_XXX4  , XXXXXXX , XXXXXXX 
-#define ________________________SECRET_L3________________________ XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX 
+#if defined(SECRETS_ENABLE)
+#   define ________________________SECRET_L1________________________ M_XXX1  , XXXXXXX , M_XXX3  , XXXXXXX , M_XXX5  , XXXXXXX 
+#   define ________________________SECRET_L2________________________ XXXXXXX , M_XXX2  , XXXXXXX , M_XXX4  , XXXXXXX , XXXXXXX 
+#   define ________________________SECRET_L3________________________ XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX 
                                                                                                                   
-#define ________________________SECRET_R1________________________ XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
-#define ________________________SECRET_R2________________________ XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
-#define ________________________SECRET_R3________________________ XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
+#   define ________________________SECRET_R1________________________ XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
+#   define ________________________SECRET_R2________________________ XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
+#   define ________________________SECRET_R3________________________ XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX
+#endif
 
 #define _______________NAV_1_________________ KC_LEFT , KC_UP   , KC_RGHT , KC_PGUP
 #define _______________NAV_2_________________ KC_HOME , KC_DOWN , KC_END  , KC_PGDN

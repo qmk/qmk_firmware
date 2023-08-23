@@ -14,12 +14,14 @@ enum custom_keycodes {
     RGBRST,
 #   endif
     VRSN,
+#if defined(SECRETS_ENABLE)
     // Secret Macros
     M_XXX1,
     M_XXX2,
     M_XXX3,
     M_XXX4,
     M_XXX5,
+#endif
 };
 
 
@@ -29,7 +31,9 @@ enum layers {
     _FUNCTION,
     _CODE,
     _ADJUST,
+#if defined(SECRETS_ENABLE)
     _SECRET,
+#endif
 };
 
 // Shortcut Keys

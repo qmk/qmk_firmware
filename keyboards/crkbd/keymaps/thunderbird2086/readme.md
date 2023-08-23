@@ -1,6 +1,6 @@
 # Thunderbird2086's custom CRKBD Layout
 
-The concept is Mac and **baby finger** friendly keymap.
+The concept is Mac and **pinky** friendly keymap.
 
 ## Layers
 - Colemak-DH: base layer. The option(⌥) and command(⌘) keys are assigned to thumb blocks as well as home position keys on each side.  Also, far end two columns are assigned to shift(⇧) and control(⌃) keys.
@@ -56,7 +56,18 @@ The concept is Mac and **baby finger** friendly keymap.
 
 - ADJUST: RGB control, Power control, default layer setting, QMK version and reset
   ![adjust](https://i.imgur.com/uDIhigd.png)
-- SECRET: hold `ADJUST` and `FUNCTION` to activate
+
+- SECRET: hold `ADJUST` and `FUNCTION` to activate<br>
+  To enable secret macros, create `secrets.h` as shown below.
+  ```c
+  static const char * const secret[] = {
+      "YOUR_SECRET_1",
+      "YOUR_SECRET_2",
+      "YOUR_SECRET_3",
+      "YOUR_SECRET_4",
+      "YOUR_SECRET_5"
+  };
+  ```
 
 ## Custom OLED
 This keymap includes custom OLED font and code. The font contains some logos and status indidcators from [gotham](../gotham) and [soundmonster](../soundmonster) including my own CAPS LOCK icon.  Enable OLED in rukes.mk to check it out. Feel free to reuse the font or parts of it.

@@ -66,6 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  // \----------------------------/      \-----------------------------/
   ),
 
+#if defined(SECRETS_ENABLE)
   [_SECRET] = LAYOUT_wrapper(
   // +---------+---------+---------+---------+---------+---------+      +---------+---------+---------+---------+---------+---------+
        ________________________SECRET_L1________________________ ,        ________________________SECRET_R1________________________ ,
@@ -77,6 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      XXXXXXX , XXXXXXX , XXXXXXX ,        XXXXXXX , XXXXXXX , XXXXXXX
                                  // \----------------------------/      \-----------------------------/
   )
+#endif
 };
 // clang-format off
 
@@ -91,5 +93,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #   if defined(RGBLIGHT_ENABLE)
     set_rgb_by_layer(state);
 #   endif
+#   if defined(SECRETS_ENABLE)
     return update_tri_layer_state(state, _FUNCTION, _ADJUST, _SECRET);
+#   else
+    return state;
+#   endif 
 }
