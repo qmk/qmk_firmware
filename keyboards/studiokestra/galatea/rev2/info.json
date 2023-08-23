@@ -38,7 +38,6 @@
         "saturation_steps": 8,
         "brightness_steps": 8,
         "max_brightness": 200,
-        "sleep": true,
         "animations": {
             "alternating": true,
             "breathing": true,
