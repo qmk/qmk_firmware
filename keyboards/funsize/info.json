@@ -19,6 +19,7 @@
     },
 	"split": {
 		"enabled": true,
+        "soft_serial_pin": "D2",
         "bootmagic": {
             "matrix": [0, 0]
 		},
@@ -36,12 +37,9 @@
         "pid": "0x0000",
         "vid": "0xBEEF"
     },
-	"encoder": {
+    "encoder": {
 		"rotary": [
-			{"pin_a": "B5", "pin_b": "B6"},
-			{"pin_a": "B4", "pin_b": "B2"},
-            {"pin_a": "B3", "pin_b": "E6"},
-            {"pin_a": "B2", "pin_b": "B4"}
+            {"pin_a": "B3", "pin_b": "E6"}
 		]
     },
     "layouts": {

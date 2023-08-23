@@ -19,5 +19,10 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
-#define SOFT_SERIAL_PIN D2
 #define SPLIT_USB_DETECT
+
+/*#define ENCODERS_PAD_A { B5, B6 }
+#define ENCODERS_PAD_B { B4, B2 }
+#define ENCODERS_PAD_A_RIGHT { B3, E6 }
+#define ENCODERS_PAD_B_RIGHT { B2, B4 }
+*/
