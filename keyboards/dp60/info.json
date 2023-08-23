@@ -17,7 +17,7 @@
         "pin": "D7"
     },
     "rgb_matrix": {
-        "driver": "IS31FL3731"
+        "driver": "is31fl3731"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

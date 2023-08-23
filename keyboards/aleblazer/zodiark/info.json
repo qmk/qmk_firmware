@@ -19,7 +19,7 @@
         "split_count": [34, 34]
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "sat_steps": 8,
         "val_steps": 8,
         "speed_steps": 10

@@ -416,7 +416,7 @@ endif
 
 RGB_MATRIX_ENABLE ?= no
 
-VALID_RGB_MATRIX_TYPES := AW20216 IS31FL3731 IS31FL3733 IS31FL3736 IS31FL3737 IS31FL3741 IS31FL3742A IS31FL3743A IS31FL3745 IS31FL3746A CKLED2001 WS2812 custom
+VALID_RGB_MATRIX_TYPES := aw20216 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a ckled2001 ws2812 custom
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(RGB_MATRIX_DRIVER),$(VALID_RGB_MATRIX_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid RGB_MATRIX_DRIVER,RGB_MATRIX_DRIVER="$(RGB_MATRIX_DRIVER)" is not a valid matrix type)
@@ -437,89 +437,89 @@ endif
     CIE1931_CURVE := yes
     RGB_KEYCODES_ENABLE := yes
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), AW20216)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), aw20216)
         OPT_DEFS += -DAW20216 -DSTM32_SPI -DHAL_USE_SPI=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += aw20216.c
         QUANTUM_LIB_SRC += spi_master.c
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3731)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3731)
         OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3731.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3733)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3733)
         OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3733.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3736)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3736)
         OPT_DEFS += -DIS31FL3736 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3736.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3737)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3737)
         OPT_DEFS += -DIS31FL3737 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3737.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3741)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3741)
         OPT_DEFS += -DIS31FL3741 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3741.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-	ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3742A)
+	ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3742a)
         OPT_DEFS += -DIS31FLCOMMON -DIS31FL3742A -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-	ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3743A)
+	ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3743a)
         OPT_DEFS += -DIS31FLCOMMON -DIS31FL3743A -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-	ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3745)
+	ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3745)
         OPT_DEFS += -DIS31FLCOMMON -DIS31FL3745 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-	ifeq ($(strip $(RGB_MATRIX_DRIVER)), IS31FL3746A)
+	ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3746a)
         OPT_DEFS += -DIS31FLCOMMON -DIS31FL3746A -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31flcommon.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), CKLED2001)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), ckled2001)
         OPT_DEFS += -DCKLED2001 -DSTM32_I2C -DHAL_USE_I2C=TRUE
         COMMON_VPATH += $(DRIVER_PATH)/led
         SRC += ckled2001.c
         QUANTUM_LIB_SRC += i2c_master.c
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), WS2812)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), ws2812)
         OPT_DEFS += -DWS2812
         WS2812_DRIVER_REQUIRED := yes
     endif
 
-    ifeq ($(strip $(RGB_MATRIX_DRIVER)), APA102)
+    ifeq ($(strip $(RGB_MATRIX_DRIVER)), apa102)
         OPT_DEFS += -DAPA102
         APA102_DRIVER_REQUIRED := yes
     endif

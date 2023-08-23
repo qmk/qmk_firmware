@@ -3,7 +3,7 @@
         "device_version": "20.1.9"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["A7", "A8", "B2", "B10"],
