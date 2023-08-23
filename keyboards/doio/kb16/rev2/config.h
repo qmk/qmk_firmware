@@ -23,6 +23,9 @@
     #define I2C1_SDA_PIN B11
     #define I2C_DRIVER I2CD2
 
+    /* Set timeout for displaying boot logo */
+    #define OLED_LOGO_TIMEOUT 5000
+
     /* Use the custom font */
     #define OLED_FONT_H "./lib/glcdfont.c"
 #endif

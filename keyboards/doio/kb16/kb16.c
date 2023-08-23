@@ -32,16 +32,14 @@
     bool oled_task_kb(void) {
         static bool finished_logo = false;
 
-        if ((timer_elapsed(startup_timer) < 5000) && !finished_logo) {
+        if ((timer_elapsed(startup_timer) < OLED_LOGO_TIMEOUT) && !finished_logo) {
             render_logo();
         } else {
             finished_logo = true;
-			
             if (!oled_task_user()) {
                 return false;
             }
         }
-
         return true;
     }
 #endif
