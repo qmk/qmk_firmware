@@ -9,7 +9,7 @@
         "vid": "0xF1F1"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "rgblight": {
         "saturation_steps": 8,

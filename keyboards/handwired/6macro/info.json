@@ -16,7 +16,7 @@
       "pin": "D2"
     },
     "rgb_matrix": {
-      "driver": "WS2812"
+      "driver": "ws2812"
     },
     "matrix_pins": {
       "cols": ["B0", "B1", "B2"],
