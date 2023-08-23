@@ -26,8 +26,6 @@ enum layer_names {
     _FN1,
 };
 
-// enum layer_keycodes { };
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*  Row:    0        1        2        3        4        5        6        7        8        9         10       11        12       13       14     */
     [_BASE] = LAYOUT_60_tsangan_hhkb(
