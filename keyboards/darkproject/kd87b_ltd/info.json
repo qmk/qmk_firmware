@@ -33,7 +33,7 @@
         "rows": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B12"]
     },
     "bootmagic": {
-        "matrix": [1, 3] // Hold ESC on start up to clear EEPROM and boot into bootloader mode
+        "matrix": [1, 3]
     },
     "community_layouts": ["tkl_ansi"],
     "layouts": {
