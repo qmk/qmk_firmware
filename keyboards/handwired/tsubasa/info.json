@@ -12,7 +12,12 @@
         "saturation_steps": 1,
         "brightness_steps": 1,
         "led_count": 12,
-        "split_count": [6, 6]
+        "split_count": [6, 6],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
     },
     "ws2812": {
         "pin": "D2"

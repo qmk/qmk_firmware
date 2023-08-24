@@ -119,7 +119,7 @@
         "pin": "D3"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 2, "x": 51, "y": 13},                    // L RGB1
             {"flags": 2, "x": 22, "y": 18},                    // L RGB2
