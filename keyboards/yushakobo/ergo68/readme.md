@@ -1,12 +1,12 @@
 # ergo68
 
-![ergo68](https://i.imgur.com/u1HeHb9h.jpg)
+![ergo68](https://i.imgur.com/ucr11Mg.jpg)
 
 This is 68 keys Column-staggered Split keyboard.
 
 * Keyboard Maintainer: [yushakobo](https://github.com/yushakobo)
 * Hardware Supported: ergo68 PCB, Pro Micro
-* Hardware Availability: [yushakobo shop](https://shop.yushakobo.jp/products/5384)
+* Hardware Availability: [yushakobo shop](https://shop.yushakobo.jp)
 
 Make example for this keyboard (after setting up your build environment):
 
