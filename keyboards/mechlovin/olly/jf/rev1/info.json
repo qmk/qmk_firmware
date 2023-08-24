@@ -5,9 +5,7 @@
         "device_version": "0.0.1"
     },
     "matrix_pins": {
-        "custom_lite": true
-    },
-    "matrix_pins": {
+        "custom_lite": true,
         "rows": ["D5", "D6", "A5", "A4", "A3", "A6"]
     },
     "backlight": {
