@@ -16,6 +16,9 @@
 
 #pragma once
 
+#define TAPPING_TERM 220
+#define HOLD_ON_OTHER_KEY_PRESS
+
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
