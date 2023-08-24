@@ -44,8 +44,14 @@ def generate_version_h(cli):
 
     dirty_indicator = "*" if git_dirty else ""
 
-    # if git skipped (or failed) make the version #defines error out
-    if git_version in ("NA", current_time):
+    # yapf: disable
+    if (
+        git_version in (
+            "NA",  # git skipped
+            current_time,  # git command failed
+        ) or "." not in git_version  # no tag in git
+    ):
+        # yapf: enable
         error = 'PRAGMA(GCC error "Cant check QMK version under current settings")'
         fallback_versions = [
             f'#    define QMK_MAJOR {error}',
