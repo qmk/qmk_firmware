@@ -18,6 +18,7 @@
     },
     "processor": "atmega32a",
     "bootloader": "usbasploader",
+    "community_layouts": ["60_ansi", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

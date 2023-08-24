@@ -42,6 +42,7 @@
     "layout_aliases": {
         "LAYOUT_all": "LAYOUT_60_ansi_split_bs_rshift"
     },
+    "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift" ,"60_iso"],
     "layouts": {
         "LAYOUT_60_ansi_split_bs_rshift": {
             "layout": [

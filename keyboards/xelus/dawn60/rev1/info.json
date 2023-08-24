@@ -7,6 +7,7 @@
         "rows": ["B1", "B3", "F1", "F6", "F7"]
     },
     "diode_direction": "COL2ROW",
+    "community_layouts": ["60_ansi_arrow"],
     "layouts": {
         "LAYOUT_60_ansi_arrow": {
             "layout": [

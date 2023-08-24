@@ -19,6 +19,7 @@
         "LAYOUT": "LAYOUT_all",
         "LAYOUT_default": "LAYOUT_60_ansi_wkl_split_rshift"
     },
+    "community_layouts": ["LAYOUT_60_ansi_tsangan", "LAYOUT_60_iso_tsangan"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

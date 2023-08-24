@@ -96,6 +96,15 @@
                 {"matrix": [5, 12], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
+        "community_layouts": [
+            "60_ansi",
+            "60_ansi_split_bs_rshift",
+            "60_ansi_tsangan",
+            "60_hhkb",
+            "60_iso",
+            "60_iso_split_bs_rshift",
+            "60_iso_tsangan"
+        ],
         "LAYOUT_60_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},

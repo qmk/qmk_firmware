@@ -18,6 +18,7 @@
     "layout_aliases": {
         "LAYOUT_iso": "LAYOUT_60_iso"
     },
+    "community_layouts": ["60_ansi", "60_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

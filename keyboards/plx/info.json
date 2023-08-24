@@ -18,6 +18,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_60_ansi_tsangan"
     },
+    "community_layouts": ["60_ansi_tsangan", "60_iso_tsangan"],
     "layouts": {
         "LAYOUT_60_ansi_tsangan": {
             "layout": [

@@ -16,7 +16,7 @@
   "bootloader": "stm32-dfu",
   "board": "ST_NUCLEO32_F042K6",
   "maintainer": "qmk",
-  "community_layouts": ["60_ansi", "60_iso"],
+  "community_layouts": ["60_ansi", "60_iso", "60_ansi_arrow"],
   "layouts": {
     "LAYOUT_60_ansi": {
       "layout": [

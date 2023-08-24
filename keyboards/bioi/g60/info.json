@@ -42,6 +42,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
+    "community_layouts": ["60_ansi_arrow", "60_ansi_split_bs_rshift", "60_iso_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

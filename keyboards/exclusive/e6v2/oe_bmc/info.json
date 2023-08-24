@@ -111,6 +111,7 @@
                 {"matrix": [0, 5], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
+        "community_layouts": ["60_ansi", "60_hhkb"],
         "LAYOUT_60_ansi": {
             "layout": [
                 {"matrix": [5, 0], "x": 0, "y": 0},

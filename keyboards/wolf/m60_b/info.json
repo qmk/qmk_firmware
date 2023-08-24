@@ -95,6 +95,7 @@
         "pid": "0x0059",
         "vid": "0x5453"
     },
+    "community_layouts": ["60_hhkb"],
     "layouts": {
         "LAYOUT_60_hhkb": {
             "layout": [
