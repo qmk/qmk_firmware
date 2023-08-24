@@ -1,6 +1,6 @@
 # Mechlovin Olly JF
 
-![jf](https://i.imgur.com/IrfTGE7l.png)
+![jf](https://i.imgur.com/IrfTGE7h.png)
 
 Olly JF PCB, compatible Duck Jetfire keyboard.
 
