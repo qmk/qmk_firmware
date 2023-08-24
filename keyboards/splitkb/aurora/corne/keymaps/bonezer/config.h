@@ -18,6 +18,8 @@
 
 #define TAPPING_TERM 220
 #define HOLD_ON_OTHER_KEY_PRESS
+#define BILATERAL_COMBINATIONS 500
+
 
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
