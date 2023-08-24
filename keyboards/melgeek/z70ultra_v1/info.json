@@ -157,10 +157,7 @@
             { "flags": 4, "matrix": [4, 14], "x": 140, "y": 40 }
         ]
     },
-    "community_layouts": {
-        ["65_ansi_blocker"],
-        ["ansi_split_space"]
-    },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
