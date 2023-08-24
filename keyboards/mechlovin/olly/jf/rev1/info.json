@@ -5,6 +5,7 @@
         "device_version": "0.0.1"
     },
     "backlight": {
+        "enabled": true,
         "pin": "D4",
         "breathing": true
     },
