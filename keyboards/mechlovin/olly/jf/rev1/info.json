@@ -4,6 +4,9 @@
         "pid": "0xD180",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "custom_lite": true
+    },
     "backlight": {
         "enabled": true,
         "pin": "D4",
