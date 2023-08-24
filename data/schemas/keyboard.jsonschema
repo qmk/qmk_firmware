@@ -382,8 +382,6 @@
                 },
                 "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
                 "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
                 "split_count": {
