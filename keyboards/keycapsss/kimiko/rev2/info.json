@@ -18,8 +18,7 @@
         "oled": true,
         "extrakey": true,
         "encoder": true,
-        "nkro": true,
-        "lto": true
+        "nkro": true
     },
     "build": {
         "lto": true
