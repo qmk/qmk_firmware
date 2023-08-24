@@ -34,6 +34,7 @@
         ]
     },
     "split": {
+        "enabled",
         "soft_serial_pin": "D2",
         "matrix_pins": {
             "right": {
