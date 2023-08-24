@@ -46,3 +46,11 @@
  */
 #    define ARRAY_SIZE(array) (__builtin_choose_expr(IS_ARRAY((array)), sizeof((array)) / sizeof((array)[0]), (void)0))
 #endif
+
+#if !defined(PRAGMA)
+/**
+ * @brief Allows using pragmas inside other macros
+ *
+ */
+#    define PRAGMA(arg) _Pragma(STR(arg))
+#endif
