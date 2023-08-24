@@ -184,7 +184,6 @@ void protocol_pre_task(void) {
 #    endif /* MOUSEKEY_ENABLE */
     }
 #endif
-
 }
 
 void protocol_post_task(void) {
