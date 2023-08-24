@@ -30,15 +30,9 @@ When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 #    define DEBOUNCE UINT8_MAX
 #endif
 
-typedef uint8_t debounce_counter_t;
-
 #if DEBOUNCE > 0
-
-#    define DEBOUNCE_ELAPSED 0
-
-static debounce_counter_t debounce_counter = DEBOUNCE_ELAPSED;
-
-static fast_timer_t last_time;
+static bool         debouncing = false;
+static fast_timer_t debouncing_time;
 
 void debounce_init(uint8_t num_rows) {}
 
@@ -46,17 +40,15 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     bool cooked_changed = false;
 
     if (changed) {
-        debounce_counter = DEBOUNCE;
-        last_time        = timer_read_fast();
-    } else if (debounce_counter != DEBOUNCE_ELAPSED) {
-        if (debounce_counter <= timer_elapsed_fast(last_time)) {
-            debounce_counter   = DEBOUNCE_ELAPSED;
-            size_t matrix_size = num_rows * sizeof(matrix_row_t);
-            if (memcmp(cooked, raw, matrix_size) != 0) {
-                memcpy(cooked, raw, matrix_size);
-                cooked_changed = true;
-            }
+        debouncing      = true;
+        debouncing_time = timer_read_fast();
+    } else if (debouncing && timer_elapsed_fast(debouncing_time) >= DEBOUNCE) {
+        size_t matrix_size = num_rows * sizeof(matrix_row_t);
+        if (memcmp(cooked, raw, matrix_size) != 0) {
+            memcpy(cooked, raw, matrix_size);
+            cooked_changed = true;
         }
+        debouncing = false;
     }
 
     return cooked_changed;
