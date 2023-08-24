@@ -3,22 +3,6 @@
 
 #pragma once
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
 /* code taken directly from https://github.com/qmk/qmk_firmware/blob/master/docs/feature_ps2_mouse.md */
 #ifdef PS2_DRIVER_USART
 #define PS2_CLOCK_PIN   D5
