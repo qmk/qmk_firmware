@@ -9,6 +9,7 @@ TKL H87/88c compatible PCB with support for the most common layouts.
 * Hardware Availability: https://RNDKBD.com; https://geon.works/
 * Rev1 firmware is used for Galatea PCBs with no RGB underglow.
 * Rev2 firmware is used for Galatea PCBs with RGB underglow.
+* Rev3 firmware is used for Galatea PCBs with RP2040 chip w/ RGB underglow.
 
 Make example for this keyboard (after setting up your build environment):
 
