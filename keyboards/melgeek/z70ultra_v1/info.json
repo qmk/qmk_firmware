@@ -147,9 +147,9 @@
             { "flags": 4, "matrix": [4, 0],  "x": 0,   "y": 40 },
             { "flags": 4, "matrix": [4, 1],  "x": 10,  "y": 40 },
             { "flags": 4, "matrix": [4, 2],  "x": 20,  "y": 40 },
-			{ "flags": 4, "matrix": [4, 5],  "x": 40,  "y": 40 },
+			{ "flags": 4, "matrix": [4, 4],  "x": 40,  "y": 40 },
             { "flags": 4, "matrix": [4, 5],  "x": 50,  "y": 40 },
-			{ "flags": 4, "matrix": [4, 5],  "x": 60,  "y": 40 },          
+			{ "flags": 4, "matrix": [4, 6],  "x": 60,  "y": 40 },          
             { "flags": 4, "matrix": [4, 9],  "x": 90,  "y": 40 },
             { "flags": 4, "matrix": [4, 10], "x": 100, "y": 40 },
             { "flags": 4, "matrix": [4, 12], "x": 120, "y": 40 },
@@ -157,7 +157,10 @@
             { "flags": 4, "matrix": [4, 14], "x": 140, "y": 40 }
         ]
     },
-    "community_layouts": ["65_ansi_blocker"],
+    "community_layouts": {
+        ["65_ansi_blocker"],
+        ["ansi_split_space"]
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
