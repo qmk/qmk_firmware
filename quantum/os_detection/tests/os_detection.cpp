@@ -233,8 +233,20 @@ TEST_F(OsDetectionTest, TestVusbQuest2) {
     assert_not_reported();
 }
 
+TEST_F(OsDetectionTest, TestDoNotReportIfUsbUnstable) {
+    EXPECT_EQ(check_sequence({0xFF, 0xFF, 0xFF, 0xFE}), OS_LINUX);
+    os_detection_task();
+    assert_not_reported();
+
+    advance_time(OS_DETECTION_DEBOUNCE);
+    os_detection_task();
+    assert_not_reported();
+    EXPECT_EQ(detected_host_os(), OS_LINUX);
+}
+
 TEST_F(OsDetectionTest, TestReportAfterDebounce) {
     EXPECT_EQ(check_sequence({0xFF, 0xFF, 0xFF, 0xFE}), OS_LINUX);
+    os_detection_notify_usb_device_state_change(USB_DEVICE_STATE_CONFIGURED);
     os_detection_task();
     assert_not_reported();
 
@@ -270,6 +282,7 @@ TEST_F(OsDetectionTest, TestReportAfterDebounce) {
 
 TEST_F(OsDetectionTest, TestReportAfterDebounceLongWait) {
     EXPECT_EQ(check_sequence({0x12, 0xFF, 0xFF, 0x4, 0x10, 0xFF, 0xFF, 0xFF, 0x4, 0x10, 0x20A, 0x20A, 0x20A, 0x20A, 0x20A, 0x20A}), OS_WINDOWS);
+    os_detection_notify_usb_device_state_change(USB_DEVICE_STATE_CONFIGURED);
     os_detection_task();
     assert_not_reported();
 
@@ -296,6 +309,7 @@ TEST_F(OsDetectionTest, TestReportAfterDebounceLongWait) {
 
 TEST_F(OsDetectionTest, TestReportUnsure) {
     EXPECT_EQ(check_sequence({0x12, 0xFF}), OS_UNSURE);
+    os_detection_notify_usb_device_state_change(USB_DEVICE_STATE_CONFIGURED);
     os_detection_task();
     assert_not_reported();
 
@@ -322,6 +336,7 @@ TEST_F(OsDetectionTest, TestReportUnsure) {
 
 TEST_F(OsDetectionTest, TestDoNotReportIntermediateResults) {
     EXPECT_EQ(check_sequence({0x12, 0xFF}), OS_UNSURE);
+    os_detection_notify_usb_device_state_change(USB_DEVICE_STATE_CONFIGURED);
     os_detection_task();
     assert_not_reported();
 
@@ -332,6 +347,7 @@ TEST_F(OsDetectionTest, TestDoNotReportIntermediateResults) {
 
     // at this stage, the final result has not been reached yet
     EXPECT_EQ(check_sequence({0xFF}), OS_LINUX);
+    os_detection_notify_usb_device_state_change(USB_DEVICE_STATE_CONFIGURED);
     advance_time(OS_DETECTION_DEBOUNCE - 1);
     os_detection_task();
     assert_not_reported();
@@ -340,6 +356,7 @@ TEST_F(OsDetectionTest, TestDoNotReportIntermediateResults) {
 
     // the remainder is processed
     EXPECT_EQ(check_sequence({0x4, 0x10, 0xFF, 0xFF, 0xFF, 0x4, 0x10, 0x20A, 0x20A, 0x20A, 0x20A, 0x20A, 0x20A}), OS_WINDOWS);
+    os_detection_notify_usb_device_state_change(USB_DEVICE_STATE_CONFIGURED);
     advance_time(OS_DETECTION_DEBOUNCE - 1);
     os_detection_task();
     assert_not_reported();

@@ -20,6 +20,7 @@
 
 #    include <string.h>
 #    include "timer.h"
+#    include "quantum.h"
 
 #    ifdef OS_DETECTION_DEBUG_ENABLE
 #        include "eeconfig.h"
@@ -48,18 +49,24 @@ struct setups_data_t setups_data = {
 };
 
 #    ifndef OS_DETECTION_DEBOUNCE
-#        define OS_DETECTION_DEBOUNCE 100
+#        define OS_DETECTION_DEBOUNCE 200
 #    endif
 
-// 5s should always be more than enough
-#    if OS_DETECTION_DEBOUNCE > 5000
+// 2s should always be more than enough
+#    if OS_DETECTION_DEBOUNCE > 2000
 #        undef OS_DETECTION_DEBOUNCE
-#        define OS_DETECTION_DEBOUNCE 5000
+#        define OS_DETECTION_DEBOUNCE 2000
 #    endif
 
-#    define OS_DETECTION_DEBOUNCE_ELAPSED 0
+#    ifndef OS_DETECTION_KEYBOARD_RESET
+#        define OS_DETECTION_KEYBOARD_RESET true
+#    endif
 
-typedef uint16_t debounce_counter_t;
+#    ifndef OS_DETECTION_KEYBOARD_RESET_BOOTLOADER
+#        define OS_DETECTION_KEYBOARD_RESET_BOOTLOADER false
+#    endif
+
+typedef uint16_t debouncing_t;
 
 static volatile os_variant_t detected_os = OS_UNSURE;
 static os_variant_t          reported_os = OS_UNSURE;
@@ -67,25 +74,38 @@ static os_variant_t          reported_os = OS_UNSURE;
 // we need to be able to report OS_UNSURE if that is the stable result of the guesses
 static bool first_report = true;
 
+// to react on USB state changes
+static volatile enum usb_device_state current_usb_device_state  = USB_DEVICE_STATE_INIT;
+static enum usb_device_state          reported_usb_device_state = USB_DEVICE_STATE_INIT;
+
 // the OS detection might be unstable for a while, "debounce" it
-static volatile debounce_counter_t debounce_counter = OS_DETECTION_DEBOUNCE_ELAPSED;
-static volatile fast_timer_t       last_time;
+static volatile bool         debouncing = false;
+static volatile fast_timer_t last_time;
 
 void os_detection_task(void) {
-    if (debounce_counter != OS_DETECTION_DEBOUNCE_ELAPSED) {
-        if (debounce_counter <= timer_elapsed_fast(last_time)) {
-            debounce_counter = OS_DETECTION_DEBOUNCE_ELAPSED;
+    if (current_usb_device_state == USB_DEVICE_STATE_CONFIGURED) {
+        // debouncing goes for both the detected OS as well as the USB state
+        if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
+            debouncing                = false;
+            reported_usb_device_state = current_usb_device_state;
             if (detected_os != reported_os || first_report) {
-                process_detected_host_os(detected_os);
+                first_report = false;
+                reported_os  = detected_os;
+                process_detected_host_os_kb(detected_os);
             }
         }
     }
-}
-
-void process_detected_host_os(os_variant_t os) {
-    first_report = false;
-    reported_os  = os;
-    process_detected_host_os_kb(os);
+#    if OS_DETECTION_KEYBOARD_RESET
+    // resetting the keyboard on the USB device state change callback results in instability
+    // only take action if it's been stable at least once
+    else if (current_usb_device_state == USB_DEVICE_STATE_INIT && reported_usb_device_state == USB_DEVICE_STATE_CONFIGURED) {
+#        if OS_DETECTION_KEYBOARD_RESET_BOOTLOADER
+        reset_keyboard();
+#        else
+        soft_reset_keyboard();
+#        endif
+    }
+#    endif
 }
 
 __attribute__((weak)) bool process_detected_host_os_kb(os_variant_t os) {
@@ -119,9 +139,9 @@ void make_guess(void) {
         }
     }
     // whatever the result, debounce
-    debounce_counter = OS_DETECTION_DEBOUNCE;
-    detected_os      = guessed;
-    last_time        = timer_read_fast();
+    debouncing  = true;
+    detected_os = guessed;
+    last_time   = timer_read_fast();
 }
 
 void process_wlength(const uint16_t w_length) {
@@ -146,10 +166,19 @@ os_variant_t detected_host_os(void) {
 
 void erase_wlength_data(void) {
     memset(&setups_data, 0, sizeof(setups_data));
-    detected_os      = OS_UNSURE;
-    reported_os      = OS_UNSURE;
-    debounce_counter = OS_DETECTION_DEBOUNCE_ELAPSED;
-    first_report     = true;
+    detected_os               = OS_UNSURE;
+    reported_os               = OS_UNSURE;
+    current_usb_device_state  = USB_DEVICE_STATE_INIT;
+    reported_usb_device_state = USB_DEVICE_STATE_INIT;
+    debouncing                = false;
+    first_report              = true;
+}
+
+void os_detection_notify_usb_device_state_change(enum usb_device_state usb_device_state) {
+    // treat this like any other source of instability
+    current_usb_device_state = usb_device_state;
+    debouncing               = OS_DETECTION_DEBOUNCE;
+    last_time                = timer_read_fast();
 }
 
 #    if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
