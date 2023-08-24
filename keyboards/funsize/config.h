@@ -20,6 +20,7 @@
 //#define NO_ACTION_ONESHOT
 
 #define SPLIT_USB_DETECT
+#define EE_HANDS
 
 /*#define ENCODERS_PAD_A { B5, B6 }
 #define ENCODERS_PAD_B { B4, B2 }
