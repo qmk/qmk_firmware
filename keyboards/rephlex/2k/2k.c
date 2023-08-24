@@ -16,7 +16,7 @@ void         bootmagic_lite(void) {
 
 #ifdef DEBUG_ENABLE
 static uint8_t i = 0;
-void           housekeeping_task_user(void) {
+void           housekeeping_task_kb(void) {
     if (i == 0) {
         uprintf("Mode:%d Actuation Point %d Press/Release sensitivity:%d/%d\n", g_config.mode, g_config.actuation_point, g_config.press_sensitivity, g_config.release_sensitivity);
         for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
