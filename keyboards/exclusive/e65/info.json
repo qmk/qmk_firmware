@@ -43,7 +43,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "community_layouts": ["65_ansi_blocker"],
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs" ,"65_iso_blocker"],
     "layouts": {
         "LAYOUT_65_all_7u_hhkb": {
             "layout": [
@@ -1175,7 +1175,7 @@
                 {"matrix": [4, 15], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65_ansi_blocker_splitbs": {
+        "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

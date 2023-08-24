@@ -31,6 +31,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_65_ansi_blocker"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_tsangan"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
