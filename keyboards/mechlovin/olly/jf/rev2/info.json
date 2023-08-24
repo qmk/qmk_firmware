@@ -19,7 +19,29 @@
         "driver": "spi"
     },
     "led_matrix": {
-        "driver": "is31fl3731"
+        "driver": "is31fl3731",
+        "animations": {
+            "alphas_mods": true,
+            "breathing": true,
+            "band": true,
+            "band_pinwheel": true,
+            "band_spiral": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "dual_beacon": true,
+            "wave_left_right": true,
+            "wave_up_down": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        }
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
