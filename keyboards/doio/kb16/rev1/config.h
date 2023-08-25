@@ -20,9 +20,6 @@
 /* Use the custom font */
 #define OLED_FONT_H "./lib/glcdfont.c"
 
-/* Set timeout for displaying boot logo */
-#define OLED_LOGO_TIMEOUT 5000
-
 #ifdef RGB_MATRIX_ENABLE
     /* RGB Matrix config */
     #define RGB_MATRIX_LED_COUNT 16

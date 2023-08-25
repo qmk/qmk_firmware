@@ -20,6 +20,11 @@
 // OLED animation
 #include "./lib/logo.h"
 
+// Default timeout for displaying boot logo.
+#ifndef OLED_LOGO_TIMEOUT
+    #define OLED_LOGO_TIMEOUT 5000
+#endif
+
 #ifdef OLED_ENABLE
     uint16_t startup_timer; 
 
