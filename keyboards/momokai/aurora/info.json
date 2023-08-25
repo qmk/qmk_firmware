@@ -1,6 +1,6 @@
 {
     "manufacturer": "momokai",
-    "keyboard_name": "momokai/kei_6",
+    "keyboard_name": "momokai/aurora",
     "maintainer": "peepeetee",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
