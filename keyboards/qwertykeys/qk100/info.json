@@ -18,7 +18,7 @@
         "nkro": true
     },
     "processor": "STM32F103",
-    "board": "STM32_F103_STM32DUINO",
+    "bootloader": "stm32duino",
     "ws2812": {
         "pin": "B3"
     },
@@ -36,5 +36,6 @@
         "led_count": 6,
         "max_brightness": 120
         
-    }
+    },
+    "dynamic_keymap.layer_count":2
 }

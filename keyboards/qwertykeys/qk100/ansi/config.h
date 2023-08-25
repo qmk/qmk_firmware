@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2  
-
 #    define RGBLIGHT_LAYERS                   
 #    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF 
 #    define RGBLIGHT_LAYERS_RETAIN_VAL      
