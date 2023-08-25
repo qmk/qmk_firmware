@@ -102,34 +102,34 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
-		return false;
+        return false;
     }
 
     if (host_keyboard_led_state().caps_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_LEFT, 0xff, 0, 0);
-		RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_RIGHT, 0xff, 0, 0);
+        RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_RIGHT, 0xff, 0, 0);
     } else {
-		RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_LEFT, 0, 0, 0);
-		RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_RIGHT, 0, 0, 0);
+        RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_LEFT, 0, 0, 0);
+        RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_INDEX_RIGHT, 0, 0, 0);
     }
 	
-	if (host_keyboard_led_state().num_lock) {
+    if (host_keyboard_led_state().num_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_LEFT, 0, 0xff, 0);
-		RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_RIGHT, 0, 0xff, 0);
+        RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_RIGHT, 0, 0xff, 0);
     } else {
-		RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_LEFT, 0, 0, 0);
-		RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_RIGHT, 0, 0, 0);
+        RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_LEFT, 0, 0, 0);
+        RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_INDEX_RIGHT, 0, 0, 0);
     }
 	
-	if (host_keyboard_led_state().scroll_lock) {
+    if (host_keyboard_led_state().scroll_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_LEFT, 0, 0, 0xff);
-		RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_RIGHT, 0, 0, 0xff);
+        RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_RIGHT, 0, 0, 0xff);
     } else {
-		RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_LEFT, 0, 0, 0);
-		RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_RIGHT, 0, 0, 0);
+        RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_LEFT, 0, 0, 0);
+        RGB_MATRIX_INDICATOR_SET_COLOR(SCROLL_LOCK_INDEX_RIGHT, 0, 0, 0);
     }
 	
-	return false;
+    return false;
 }
 
 void matrix_init_kb(void) {
