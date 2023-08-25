@@ -20,7 +20,9 @@
 
 #    include <string.h>
 #    include "timer.h"
-#    include "quantum.h"
+#    ifdef OS_DETECTION_KEYBOARD_RESET
+#        include "quantum.h"
+#    endif
 
 #    ifdef OS_DETECTION_DEBUG_ENABLE
 #        include "eeconfig.h"
@@ -91,11 +93,7 @@ void os_detection_task(void) {
     // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
     // only take action if it's been stable at least once, to avoid issues with some KVMs
     else if (current_usb_device_state == USB_DEVICE_STATE_INIT && reported_usb_device_state == USB_DEVICE_STATE_CONFIGURED) {
-#        ifdef OS_DETECTION_KEYBOARD_RESET_BOOTLOADER
-        reset_keyboard();
-#        else
         soft_reset_keyboard();
-#        endif
     }
 #    endif
 }

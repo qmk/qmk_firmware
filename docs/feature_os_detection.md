@@ -79,8 +79,6 @@ If your keyboard does not redetect the OS in this situation, you can force the k
   * defined the debounce time for OS detection, in milliseconds
 * `#define OS_DETECTION_KEYBOARD_RESET`
   * enables the keyboard reset upon a USB device reinitilization, such as switching devices on some KVMs
-* `#define OS_DETECTION_KEYBOARD_RESET_BOOTLOADER`
-  * changes the keyboard reset strategy from a soft reset to a full reset, requires `OS_DETECTION_KEYBOARD_RESET` to be defined as well
 
 ## Debug
 
