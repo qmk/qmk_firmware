@@ -13,4 +13,5 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-# This file is intentionally left blank
+
+#define RGB_MATRIX_LED_COUNT 88
