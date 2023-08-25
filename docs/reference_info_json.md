@@ -591,11 +591,6 @@ Configures the [Split Keyboard](feature_split_keyboard.md) feature.
         * `right`
             * `rotary`
                 * See [Encoder](#encoder) config.
-    * `main`
-        * How to determine the main/primary half. Must be one of `eeprom`, `left`, `matrix_grid`, `pin`, `right`.
-    * `matrix_grid`
-        * The GPIO pins of the matrix position which determines the handedness (`matrix_grid` handedness only).
-        * Example: `["A1", "B5"]`
     * `matrix_pins`
         * `right`
             * See [Matrix](#matrix) config.
