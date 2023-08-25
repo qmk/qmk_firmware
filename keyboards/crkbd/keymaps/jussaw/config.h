@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 /* Mod Tap */
-#define TAP_CODE_DELAY 100
+#define TAP_CODE_DELAY 50
 
 /* Mouse key speed and acceleration. */
 #undef MOUSEKEY_DELAY
