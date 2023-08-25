@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* RGB matrix indicator code
 It reads the current matrix color, offsets the hue by 30, 
-and sets val to either 255 or, if defined, RGB_MATRIX_MAXIMUM_BRIGHTNESS
+and sets val to RGB_MATRIX_MAXIMUM_BRIGHTNESS (by default, 255)
 This is applied to both caps lock, and other indicator keys for layer 1 */
 
 bool rgb_matrix_indicators_user(void) {

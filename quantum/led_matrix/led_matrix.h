@@ -37,6 +37,35 @@
 #    include "ckled2001-simple.h"
 #endif
 
+#ifndef LED_MATRIX_TIMEOUT
+#    define LED_MATRIX_TIMEOUT 0
+#endif
+
+#if !defined(LED_MATRIX_MAXIMUM_BRIGHTNESS) || LED_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
+#    undef LED_MATRIX_MAXIMUM_BRIGHTNESS
+#    define LED_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
+#endif
+
+#if !defined(LED_MATRIX_VAL_STEP)
+#    define LED_MATRIX_VAL_STEP 8
+#endif
+
+#if !defined(LED_MATRIX_SPD_STEP)
+#    define LED_MATRIX_SPD_STEP 16
+#endif
+
+#if !defined(LED_MATRIX_DEFAULT_MODE)
+#    define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID
+#endif
+
+#if !defined(LED_MATRIX_DEFAULT_VAL)
+#    define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+#if !defined(LED_MATRIX_DEFAULT_SPD)
+#    define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
+#endif
+
 #ifndef LED_MATRIX_LED_FLUSH_LIMIT
 #    define LED_MATRIX_LED_FLUSH_LIMIT 16
 #endif
