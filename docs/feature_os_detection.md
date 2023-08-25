@@ -61,6 +61,27 @@ bool process_detected_host_os_kb(os_variant_t os) {
 }
 ```
 
+## OS detection stability
+
+The OS detection is currently handled while the USB device descriptor is being assembled. 
+The process is done in steps, generating a number of intermediate results until it stabilizes.
+We therefore resort to debouncing the result until it has been stable for a given amount of milliseconds.
+This amount can be configured, in case your board is not stable within the default debouncing time of 200ms.
+
+## KVM and USB switches
+
+Some KVM and USB switches may not trigger the USB controller on the keyboard to fully reset upon switching machines.
+If your keyboard does not redetect the OS in this situation, you can force the keyboard to reset when the USB initialization event is detected, forcing the USB controller to be reconfigured.
+
+## Configuration Options
+
+* `#define OS_DETECTION_DEBOUNCE 200`
+  * defined the debounce time for OS detection, in milliseconds
+* `#define OS_DETECTION_KEYBOARD_RESET`
+  * enables the keyboard reset upon a USB device reinitilization, such as switching devices on some KVMs
+* `#define OS_DETECTION_KEYBOARD_RESET_BOOTLOADER`
+  * changes the keyboard reset strategy from a soft reset to a full reset, requires `OS_DETECTION_KEYBOARD_RESET` to be defined as well
+
 ## Debug
 
 If OS is guessed incorrectly, you may want to collect data about USB setup packets to refine the detection logic.

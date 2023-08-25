@@ -58,14 +58,6 @@ struct setups_data_t setups_data = {
 #        define OS_DETECTION_DEBOUNCE 2000
 #    endif
 
-#    ifndef OS_DETECTION_KEYBOARD_RESET
-#        define OS_DETECTION_KEYBOARD_RESET true
-#    endif
-
-#    ifndef OS_DETECTION_KEYBOARD_RESET_BOOTLOADER
-#        define OS_DETECTION_KEYBOARD_RESET_BOOTLOADER false
-#    endif
-
 typedef uint16_t debouncing_t;
 
 static volatile os_variant_t detected_os = OS_UNSURE;
@@ -95,11 +87,11 @@ void os_detection_task(void) {
             }
         }
     }
-#    if OS_DETECTION_KEYBOARD_RESET
-    // resetting the keyboard on the USB device state change callback results in instability
-    // only take action if it's been stable at least once
+#    ifdef OS_DETECTION_KEYBOARD_RESET
+    // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
+    // only take action if it's been stable at least once, to avoid issues with some KVMs
     else if (current_usb_device_state == USB_DEVICE_STATE_INIT && reported_usb_device_state == USB_DEVICE_STATE_CONFIGURED) {
-#        if OS_DETECTION_KEYBOARD_RESET_BOOTLOADER
+#        ifdef OS_DETECTION_KEYBOARD_RESET_BOOTLOADER
         reset_keyboard();
 #        else
         soft_reset_keyboard();
