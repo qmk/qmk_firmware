@@ -92,7 +92,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS37_SW3, CS39_SW3, CS38_SW3}, /* RGB21 */
     {0, CS31_SW9, CS33_SW9, CS32_SW9}, /* RGB36 */
 	
-	{0, CS5_SW1, CS3_SW1, CS4_SW1}, /* RGB71 */
+    {0, CS5_SW1, CS3_SW1, CS4_SW1}, /* RGB71 */
     {0, CS5_SW2, CS3_SW2, CS4_SW2}, /* RGB72 */
     {0, CS5_SW3, CS3_SW3, CS4_SW3}, /* RGB73 */
     {0, CS5_SW4, CS3_SW4, CS4_SW4}, /* RGB74 */
