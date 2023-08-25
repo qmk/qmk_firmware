@@ -1,6 +1,6 @@
 # mini1800
 
-![mini1800](imgur.com image replace me!)
+![mini1800](https://imgur.com/t55hjq8)
 
 *A mini1800 layout commission keyboard for LASERman71 utilising the RP2040 MCU*
 

@@ -18,8 +18,8 @@
         "nkro": true
     },
     "indicators": {
-        "num_lock": "GP10",
-        "caps_lock": "GP8",
+        "num_lock": "GP8",
+        "caps_lock": "GP10",
     }
     "diode_direction": "ROW2COL",
     "matrix_pins": {
