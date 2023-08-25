@@ -1,6 +1,6 @@
 # Z70 Ultra v1
 
-![z70ultra](https://drive.google.com/file/d/1m8Qra8L7Nq4I-ewq1_GkKi9j0LVPN7_l/view?usp=sharing)
+![z70ultra](https://i.imgur.com/MzATZCOh.jpg)
 
 A hotswap 65% RGB Custom Mechanical keyboard.
 
