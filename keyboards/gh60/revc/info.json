@@ -20,7 +20,6 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": [
-        "60_abnt2",
         "60_ansi",
         "60_ansi_split_bs_rshift",
         "60_iso",
