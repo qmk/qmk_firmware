@@ -37,5 +37,7 @@
         "max_brightness": 120
         
     },
-    "dynamic_keymap.layer_count":2
+    "dynamic_keymap": {
+        "layer_count": 2
+    }
 }
