@@ -1,4 +1,4 @@
-// Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2021-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp_internal.h"
@@ -20,7 +20,7 @@ tft_panel_dc_reset_painter_device_t ili9163_drivers[ILI9163_NUM_DEVICES] = {0};
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 
-bool qp_ili9163_init(painter_device_t device, painter_rotation_t rotation) {
+__attribute__((weak)) bool qp_ili9163_init(painter_device_t device, painter_rotation_t rotation) {
     // clang-format off
     const uint8_t ili9163_init_sequence[] = {
         // Command,                 Delay,  N, Data[N]
@@ -58,7 +58,7 @@ bool qp_ili9163_init(painter_device_t device, painter_rotation_t rotation) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver vtable
 
-const struct tft_panel_dc_reset_painter_driver_vtable_t ili9163_driver_vtable = {
+const tft_panel_dc_reset_painter_driver_vtable_t ili9163_driver_vtable = {
     .base =
         {
             .init            = qp_ili9163_init,
@@ -69,6 +69,7 @@ const struct tft_panel_dc_reset_painter_driver_vtable_t ili9163_driver_vtable = 
             .viewport        = qp_tft_panel_viewport,
             .palette_convert = qp_tft_panel_palette_convert_rgb565_swapped,
             .append_pixels   = qp_tft_panel_append_pixels_rgb565,
+            .append_pixdata  = qp_tft_panel_append_pixdata,
         },
     .num_window_bytes   = 2,
     .swap_window_coords = false,
@@ -92,8 +93,8 @@ painter_device_t qp_ili9163_make_spi_device(uint16_t panel_width, uint16_t panel
     for (uint32_t i = 0; i < ILI9163_NUM_DEVICES; ++i) {
         tft_panel_dc_reset_painter_device_t *driver = &ili9163_drivers[i];
         if (!driver->base.driver_vtable) {
-            driver->base.driver_vtable         = (const struct painter_driver_vtable_t *)&ili9163_driver_vtable;
-            driver->base.comms_vtable          = (const struct painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
+            driver->base.driver_vtable         = (const painter_driver_vtable_t *)&ili9163_driver_vtable;
+            driver->base.comms_vtable          = (const painter_comms_vtable_t *)&spi_comms_with_dc_vtable;
             driver->base.panel_width           = panel_width;
             driver->base.panel_height          = panel_height;
             driver->base.rotation              = QP_ROTATION_0;
@@ -109,6 +110,12 @@ painter_device_t qp_ili9163_make_spi_device(uint16_t panel_width, uint16_t panel
             driver->spi_dc_reset_config.spi_config.mode            = spi_mode;
             driver->spi_dc_reset_config.dc_pin                     = dc_pin;
             driver->spi_dc_reset_config.reset_pin                  = reset_pin;
+
+            if (!qp_internal_register_device((painter_device_t)driver)) {
+                memset(driver, 0, sizeof(tft_panel_dc_reset_painter_device_t));
+                return NULL;
+            }
+
             return (painter_device_t)driver;
         }
     }

@@ -1,5 +1,23 @@
 {
     "usb": {
         "device_version": "0.0.2"
-    }
+    },
+    "matrix_pins": {
+        "cols": ["F1", "F4", "E2", "B6", "D7", "D6"],
+        "rows": ["F5", "F6", "C7", "F7"]
+    },
+    "diode_direction": "COL2ROW",
+    "qmk_lufa_bootloader": {
+        "esc_input": "F5",
+        "esc_output": "F1",
+        "led": "D5",
+        "speaker": "C6"
+    },
+    "split": {
+        "soft_serial_pin": "D0"
+    },
+    "ws2812": {
+        "pin": "F0"
+    },
+    "bootloader": "qmk-dfu"
 }

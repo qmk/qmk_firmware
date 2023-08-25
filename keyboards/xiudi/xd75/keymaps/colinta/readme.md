@@ -23,7 +23,7 @@ I've implemented my own "tap/hold" feature, identical in spirit to "Space Cadet"
 
 The function layer is only to switch to Qwerty (so other people can use this keyboard - also turns off sticky keys) and to start recording keypresses.
 
-I implemented "stop recording" in a unique way; starting a macro recording sends the keyboard layer to one that has all the macro keys assigned to `DYN_REC_STOP`, and restores the layer to the default when recording is stopped.
+I implemented "stop recording" in a unique way; starting a macro recording sends the keyboard layer to one that has all the macro keys assigned to `DM_RSTP`, and restores the layer to the default when recording is stopped.
 
 I wish Dynamic Macros supported more, because I'd like to record a third macro in the MACRO slot instead of hardcoding it.  I'm using these to store some passwords.
 

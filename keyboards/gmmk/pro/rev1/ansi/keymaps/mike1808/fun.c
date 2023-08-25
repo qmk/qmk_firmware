@@ -19,7 +19,7 @@
 static bool wpm_rgb_enabled = false;
 static uint8_t rgb_mode;
 
-void rgb_matrix_indicators_keymap(void) {
+bool rgb_matrix_indicators_keymap(void) {
     if (wpm_rgb_enabled && rgb_matrix_is_enabled()) {
         uint8_t wpm = get_current_wpm();
         dprintf("WPM = %d\n", wpm);
@@ -28,6 +28,7 @@ void rgb_matrix_indicators_keymap(void) {
         RGB rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
     }
+    return false;
 }
 
 bool process_record_fun(uint16_t keycode, keyrecord_t *record) {

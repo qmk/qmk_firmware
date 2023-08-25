@@ -2,7 +2,7 @@
  * noah.c
  */
 
-#include "noah.h"
+#include "quantum.h"
 
 void bootloader_jump(void) {
     // This board doesn't use the standard DFU bootloader, and no information is available regarding how to enter bootloader mode. All we can do here is reset.
@@ -63,7 +63,7 @@ void matrix_scan_kb(void) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location

@@ -28,19 +28,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#define USE_SERIAL_PD2
-
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 #define TAPPING_TERM 300
 #define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 300
 
 
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM
-    #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
     #define RGBLED_NUM 27
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10
@@ -50,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
     #define RGBLED_NUM 54  // Number of LEDs
-    #define DRIVER_LED_TOTAL RGBLED_NUM
+    #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #endif
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"

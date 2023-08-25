@@ -19,7 +19,7 @@ Flashing example for this keyboard:
 ## Bootloader
 
 Enter the bootloader in 3 ways:
-* **Physical reset button**: Briefly short the pad connected to QK_BOOT and GND on the back
+* **Physical reset button**: Briefly short the pad connected to *RESET* and *GND* on the back
 * **Keycode in layout**: Press the key mapped to `QK_BOOT`, this is the recommened method
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

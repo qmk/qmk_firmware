@@ -4,36 +4,22 @@
 #pragma once
 #include "drashna.h"
 
-#if defined(KEYBOARD_handwired_tractyl_manuform) && defined(POINTING_DEVICE_ENABLE)
-#    define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
-#elif defined(KEYBOARD_bastardkb_charybdis)
-#    define PLACEHOLDER_SAFE_RANGE CHARYBDIS_SAFE_RANGE
-#else
-#    define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
-#endif
-
 enum userspace_custom_keycodes {
-    VRSN = PLACEHOLDER_SAFE_RANGE,           // Prints QMK Firmware and board info
-    KC_QWERTY,                               // Sets default layer to QWERTY
-    FIRST_DEFAULT_LAYER_KEYCODE = KC_QWERTY, // Sets default layer to QWERTY
-    KC_COLEMAK_DH,                           // Sets default layer to COLEMAK
-    KC_COLEMAK,                              // Sets default layer to COLEMAK
-    KC_DVORAK,                               // Sets default layer to DVORAK
-    LAST_DEFAULT_LAYER_KEYCODE = KC_DVORAK,  // Sets default layer to WORKMAN
-    KC_DIABLO_CLEAR,                         // Clears all Diablo Timers
-    KC_RGB_T,                                // Toggles RGB Layer Indication mode
-    RGB_IDL,                                 // RGB Idling animations
-    KC_SECRET_1,                             // test1
-    KC_SECRET_2,                             // test2
-    KC_SECRET_3,                             // test3
-    KC_SECRET_4,                             // test4
-    KC_SECRET_5,                             // test5
-    KC_CCCV,                                 // Hold to copy, tap to paste
-    KC_NUKE,                                 // NUCLEAR LAUNCH DETECTED!!!
-    UC_FLIP,                                 // (ಠ痊ಠ)┻━┻
-    UC_TABL,                                 // ┬─┬ノ( º _ ºノ)
-    UC_SHRG,                                 // ¯\_(ツ)_/¯
-    UC_DISA,                                 // ಠ_ಠ
+    VRSN = QK_USER,  // Prints QMK Firmware and board info
+    KC_DIABLO_CLEAR, // Clears all Diablo Timers
+    KC_RGB_T,        // Toggles RGB Layer Indication mode
+    RGB_IDL,         // RGB Idling animations
+    KC_SECRET_1,     // test1
+    KC_SECRET_2,     // test2
+    KC_SECRET_3,     // test3
+    KC_SECRET_4,     // test4
+    KC_SECRET_5,     // test5
+    KC_CCCV,         // Hold to copy, tap to paste
+    KC_NUKE,         // NUCLEAR LAUNCH DETECTED!!!
+    UC_FLIP,         // (ಠ痊ಠ)┻━┻
+    UC_TABL,         // ┬─┬ノ( º _ ºノ)
+    UC_SHRG,         // ¯\_(ツ)_/¯
+    UC_DISA,         // ಠ_ಠ
     UC_IRNY,
     UC_CLUE,
     KEYLOCK, // Locks keyboard by unmounting driver
@@ -45,11 +31,36 @@ enum userspace_custom_keycodes {
     KC_AUSSIE,
     KC_ZALGO,
     KC_SUPER,
+    KC_COMIC,
     KC_ACCEL,
-    AUTOCORRECT_ON,
-    AUTOCORRECT_OFF,
-    AUTOCORRECT_TOGGLE,
-    NEW_SAFE_RANGE // use "NEWPLACEHOLDER for keymap specific codes
+    OLED_LOCK,
+    OLED_BRIGHTNESS_INC,
+    OLED_BRIGHTNESS_DEC,
+
+    STORE_SETUPS,
+    PRINT_SETUPS,
+
+    PD_JIGGLER,
+
+    DYN_MACRO_PROG,
+    DYN_MACRO_KEY00,
+    DYN_MACRO_KEY01,
+    DYN_MACRO_KEY02,
+    DYN_MACRO_KEY03,
+    DYN_MACRO_KEY04,
+    DYN_MACRO_KEY05,
+    DYN_MACRO_KEY06,
+    DYN_MACRO_KEY07,
+    DYN_MACRO_KEY08,
+    DYN_MACRO_KEY09,
+    DYN_MACRO_KEY10,
+    DYN_MACRO_KEY11,
+    DYN_MACRO_KEY12,
+    DYN_MACRO_KEY13,
+    DYN_MACRO_KEY14,
+    DYN_MACRO_KEY15,
+
+    USER_SAFE_RANGE,
 };
 
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
@@ -74,27 +85,15 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
 #define KC_SEC4 KC_SECRET_4
 #define KC_SEC5 KC_SECRET_5
 
+#define KC_QWERTY DF(_QWERTY)
+#define KC_COLEMAK_DH DF(_COLEMAK_DH)
+#define KC_COLEMAK DF(_COLEMAK)
+#define KC_DVORAK DF(_DVORAK)
+
 #define QWERTY KC_QWERTY
 #define DVORAK KC_DVORAK
 #define COLEMAK KC_COLEMAK
-#define COLEMAKDH KC_COLEMAK_DH
-
-#define DEFLYR1 FIRST_DEFAULT_LAYER_KEYCODE
-#define DEFLYR2 (FIRST_DEFAULT_LAYER_KEYCODE + 1)
-#define DEFLYR3 (FIRST_DEFAULT_LAYER_KEYCODE + 2)
-#define DEFLYR4 (FIRST_DEFAULT_LAYER_KEYCODE + 3)
-#if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 3)
-#    define DEFLYR5 (FIRST_DEFAULT_LAYER_KEYCODE + 4)
-#    define DEFLYR6 (FIRST_DEFAULT_LAYER_KEYCODE + 5)
-#    define DEFLYR7 (FIRST_DEFAULT_LAYER_KEYCODE + 6)
-#    define DEFLYR8 (FIRST_DEFAULT_LAYER_KEYCODE + 7)
-#    if LAST_DEFAULT_LAYER_KEYCODE > (FIRST_DEFAULT_LAYER_KEYCODE + 7)
-#        define DEFLYR9 (FIRST_DEFAULT_LAYER_KEYCODE + 8)
-#        define DEFLYR10 (FIRST_DEFAULT_LAYER_KEYCODE + 9)
-#        define DEFLYR11 (FIRST_DEFAULT_LAYER_KEYCODE + 10)
-#        define DEFLYR12 (FIRST_DEFAULT_LAYER_KEYCODE + 11)
-#    endif
-#endif
+#define CLMKDH KC_COLEMAK_DH
 
 #ifdef SWAP_HANDS_ENABLE
 #    define KC_C1R3 SH_T(KC_TAB)
@@ -128,7 +127,7 @@ bool process_record_unicode(uint16_t keycode, keyrecord_t *record);
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
 
-#define AUTO_CTN AUTOCORRECT_TOGGLE
+#define AUTO_CTN QK_AUTOCORRECT_TOGGLE
 /*
 Custom Keycodes for Diablo 3 layer
 But since TD() doesn't work when tap dance is disabled
@@ -145,3 +144,7 @@ We use custom codes here, so we can substitute the right stuff
 #    define KC_D3_3 KC_3
 #    define KC_D3_4 KC_4
 #endif // TAP_DANCE_ENABLE
+
+#define OL_LOCK OLED_LOCK
+#define OL_BINC OLED_BRIGHTNESS_INC
+#define OL_BDEC OLED_BRIGHTNESS_DEC

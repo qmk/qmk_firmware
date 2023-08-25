@@ -2,7 +2,7 @@
 
 Specifically QMK works by using customized callback functions for everything. This allows for multiple levels of customization. 
 
-`matrix_scan` calls `matrix_scan_quantum`, which calls `matrix_scan_kb`, which calls `matrix_scan_user`. 
+`matrix_scan` calls `matrix_scan_kb`, which calls `matrix_scan_user`. 
 `process_record` calls a bunch of stuff, but eventually calls `process_record_kb` which calls `process_record_user`
 The same goes for `matrix_init`, `layer_state_set`, `led_set`, and a few other functions.  
 
@@ -15,11 +15,6 @@ My [Ergodox EZ Keymap](https://github.com/qmk/qmk_firmware/blob/master/layouts/c
 You can see a list of these files in [callbacks.c](callbacks.c), or a shortend list here 
 
 ```c
-__attribute__((weak)) void matrix_init_keymap(void) {}
-void                       matrix_init_user(void) {
-    matrix_init_keymap();
-}
-
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
 void                       keyboard_post_init_user(void) {
     keyboard_post_init_keymap();

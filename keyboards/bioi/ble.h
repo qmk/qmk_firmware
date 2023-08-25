@@ -15,9 +15,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include <stdbool.h>
-#include "host_driver.h"
-#include "host.h"
-
 
 typedef union {
   uint32_t raw;
@@ -27,9 +24,6 @@ typedef union {
 } keyboard_config_t;
 
 extern keyboard_config_t ble_config;
-
-extern host_driver_t bluefruit_driver;
-extern host_driver_t null_driver;
 
 void send_str(const char *str);
 void usart_init(void);

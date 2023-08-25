@@ -18,9 +18,9 @@
 
 // At the time of this, there are 41 effects! That may be a bit too many to cycle through - keeping what I believe is the best.
 #ifdef RGB_MATRIX_ENABLE
-    #define RGB_DISABLE_TIMEOUT 1200000     // 20 minutes (20 * 60 * 1000ms)
+    #define RGB_MATRIX_TIMEOUT 1200000     // 20 minutes (20 * 60 * 1000ms)
 
-// #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
+// #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
 
 // Below added per: https://beta.docs.qmk.fm/using-qmk/hardware-features/lighting/feature_rgb_matrix#suspended-state-id-suspended-state
     #define RGB_DISABLE_WHEN_USB_SUSPENDED

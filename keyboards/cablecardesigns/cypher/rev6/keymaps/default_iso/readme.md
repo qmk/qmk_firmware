@@ -1,1 +1,1 @@
-# The default iso keymap for cypher
+# The default ISO keymap for Cypher

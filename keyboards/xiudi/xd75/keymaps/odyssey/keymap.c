@@ -13,9 +13,9 @@ typedef enum {
 } td_state_t;
 
 static td_state_t td_state = NONE_NONE;
-int cur_dance (qk_tap_dance_state_t *state);
-void altlp_finished (qk_tap_dance_state_t *state, void *user_data);
-void altlp_reset (qk_tap_dance_state_t *state, void *user_data);
+int cur_dance (tap_dance_state_t *state);
+void altlp_finished (tap_dance_state_t *state, void *user_data);
+void altlp_reset (tap_dance_state_t *state, void *user_data);
 
 // Four differend underglow states for 2 language layouts x 2 states of colemak layer
 enum layer_states {
@@ -65,7 +65,7 @@ void update_led_state_c(void) {
   }
 }
 
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted && state->pressed) { return SINGLE_HOLD; }
     else if (!state->pressed) { return SINGLE_TAP; }
@@ -76,7 +76,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
 }
 
 // Tapdance code stolen long time ago from one of the forum answers i found related to my problem, sadly can't provide link for the credits
-void lesc_finished (qk_tap_dance_state_t *state, void *user_data) {
+void lesc_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -94,7 +94,7 @@ void lesc_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void lesc_reset (qk_tap_dance_state_t *state, void *user_data) {
+void lesc_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_ESC);
@@ -115,7 +115,7 @@ void lesc_reset (qk_tap_dance_state_t *state, void *user_data) {
   update_led_state_c();
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [LESC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lesc_finished, lesc_reset)
 };
 
@@ -138,7 +138,7 @@ _______, _______, _______, _______, _______, _______, _______, _______, _______,
 KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_P7,   KC_P8,   KC_P9,  KC_F7,   KC_F8,   KC_F9,   KC_F10,        KC_F11,        KC_F12,
 QK_BOOT, KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, KC_WH_U, KC_P4,   KC_P5,   KC_P6,  _______, _______, _______, RSFT(KC_MINS), LSFT(KC_MINS), _______,
 _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_MINS, KC_WH_D, KC_P1,   KC_P2,   KC_P3,  _______, KC_PPLS, KC_ACL0, KC_ACL1,       KC_ACL2,       _______,
-_______, KC_ACL0, KC_ACL1, KC_ACL2, KC_WH_L, KC_WH_R, KC_NLCK, KC_PGUP, KC_P0,  _______, _______, _______, _______,       _______,       _______,
+_______, KC_ACL0, KC_ACL1, KC_ACL2, KC_WH_L, KC_WH_R, KC_NUM,  KC_PGUP, KC_P0,  _______, _______, _______, _______,       _______,       _______,
 RGB_TOG, _______, _______, _______, KC_BSPC, KC_BSPC, KC_HOME, KC_PGDN, KC_END, KC_BSPC, KC_BSPC, _______, _______,       _______,       _______
   )
 };
