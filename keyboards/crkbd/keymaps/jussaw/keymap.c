@@ -37,14 +37,6 @@ enum custom_keycodes {
     GAME,
 };
 
-enum {
-    TD_NONE,
-    TD_UNKNOWN,
-    TD_SINGLE_TAP,
-    TD_SINGLE_HOLD,
-    TD_DOUBLE_TAP,
-} td_state_t;
-
 #define LOWER MO(_LOWER)
 #define UPPER MO(_UPPER)
 #define ADJUST MO(_ADJUST)
