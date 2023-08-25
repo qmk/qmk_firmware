@@ -43,6 +43,7 @@
     },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
+    "community_layouts": ["75_iso"],
     "layouts": {
         "LAYOUT": {
             "layout": [
