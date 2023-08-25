@@ -13,4 +13,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-# This file is intentionally left blank
+
+#include "quantum.h"
+
+
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
+        return false;
+    }
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(50, 16, 16, 16); // assuming caps lock is at led #50
+    } 
+    if (host_keyboard_led_state().scroll_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(14, 16, 16, 16); // assuming caps lock is at led #14
+    }
+    if (get_highest_layer(layer_state) == 1) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(83, 16, 16 ,16);
+    }
+    return true;
+}
+#endif
