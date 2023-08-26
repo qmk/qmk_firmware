@@ -307,7 +307,7 @@ bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
 
 spi_status_t spi_write(uint8_t data) {
 #if defined(QMK_MCU_SERIES_STM32H7XX)
-    SCB_CleanDCache_by_Addr((uint32_t*)(((uint32_t)&data) & ~(uint32_t)0x1F), 1+32);
+    SCB_CleanDCache_by_Addr((uint32_t *)(((uint32_t)&data) & ~(uint32_t)0x1F), 1 + 32);
 #endif
 
     uint8_t rxData;
@@ -320,7 +320,7 @@ spi_status_t spi_read(void) {
     uint8_t data = 0;
 
 #if defined(QMK_MCU_SERIES_STM32H7XX)
-    SCB_InvalidateDCache_by_Addr((uint32_t*)(((uint32_t)&data) & ~(uint32_t)0x1F), 1+32);
+    SCB_InvalidateDCache_by_Addr((uint32_t *)(((uint32_t)&data) & ~(uint32_t)0x1F), 1 + 32);
 #endif
 
     spiReceive(&SPI_DRIVER, 1, &data);
@@ -330,7 +330,7 @@ spi_status_t spi_read(void) {
 
 spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
 #if defined(QMK_MCU_SERIES_STM32H7XX)
-    SCB_CleanDCache_by_Addr((uint32_t*)(((uint32_t)data) & ~(uint32_t)0x1F), length+32);
+    SCB_CleanDCache_by_Addr((uint32_t *)(((uint32_t)data) & ~(uint32_t)0x1F), length + 32);
 #endif
 
     spiSend(&SPI_DRIVER, length, data);
@@ -339,7 +339,7 @@ spi_status_t spi_transmit(const uint8_t *data, uint16_t length) {
 
 spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 #if defined(QMK_MCU_SERIES_STM32H7XX)
-    SCB_InvalidateDCache_by_Addr((uint32_t*)(((uint32_t)data) & ~(uint32_t)0x1F), length+32);
+    SCB_InvalidateDCache_by_Addr((uint32_t *)(((uint32_t)data) & ~(uint32_t)0x1F), length + 32);
 #endif
 
     spiReceive(&SPI_DRIVER, length, data);
