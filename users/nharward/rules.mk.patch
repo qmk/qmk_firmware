@@ -1,0 +1,20 @@
+--- ../manna-harbour_miryoku/rules.mk	2023-07-23 11:09:41.581909084 -0700
++++ rules.mk	2023-08-26 13:14:31.533702508 -0700
+@@ -1,6 +1,17 @@
+ # Copyright 2019 Manna Harbour
+ # https://github.com/manna-harbour/miryoku
+ 
++###### This block copyright 2023 Nathaniel Harward
++#      https://github.com/nharward/miryoku_babel
++FORCE_LAYOUT      = split_3x5_3
++RGBLIGHT_ENABLE   = no
++RGB_MATRIX_ENABLE = yes
++
++MIRYOKU_ALPHAS    = QWERTY
++MIRYOKU_TAP       = QWERTY
++MIRYOKU_NAV       = VI
++###### end block copyright 2023 Nathaniel Harward
++
+ MOUSEKEY_ENABLE = yes
+ EXTRAKEY_ENABLE = yes
+ AUTO_SHIFT_ENABLE = yes

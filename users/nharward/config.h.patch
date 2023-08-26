@@ -1,0 +1,16 @@
+--- ../manna-harbour_miryoku/config.h	2023-07-23 11:09:41.581909084 -0700
++++ config.h	2023-08-26 13:04:09.440630142 -0700
+@@ -7,6 +7,13 @@
+ 
+ #include "custom_config.h"
+ 
++////// This block copyright 2023 Nathaniel Harward
++#ifdef RGB_MATRIX_ENABLE
++# define RGB_DISABLE_WHEN_USB_SUSPENDED
++# define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
++#endif
++////// end block copyright 2023 Nathaniel Harward
++
+ // default but used in macros
+ #undef TAPPING_TERM
+ #define TAPPING_TERM 200
