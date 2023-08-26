@@ -13,7 +13,8 @@ VALID_QUANTUM_PAINTER_DRIVERS := \
 	st7735_spi \
 	st7789_spi \
 	gc9a01_spi \
-	ssd1351_spi
+	ssd1351_spi \
+	ls0xx_spi
 
 #-------------------------------------------------------------------------------
 
@@ -134,6 +135,16 @@ define handle_quantum_painter_driver
         SRC += \
             $(DRIVER_PATH)/painter/tft_panel/qp_tft_panel.c \
             $(DRIVER_PATH)/painter/ssd1351/qp_ssd1351.c
+
+	else ifeq ($$(strip $$(CURRENT_PAINTER_DRIVER)),ls0xx_spi)
+        QUANTUM_PAINTER_NEEDS_SURFACE := yes
+        QUANTUM_PAINTER_NEEDS_COMMS_SPI := yes
+        OPT_DEFS += -DQUANTUM_PAINTER_LS0XX_ENABLE -DQUANTUM_PAINTER_LS0XX_SPI_ENABLE
+        COMMON_VPATH += \
+            $(DRIVER_PATH)/painter/mip_panel
+        SRC += \
+            $(DRIVER_PATH)/painter/mip_panel/qp_ls0xx_panel.c \
+            $(DRIVER_PATH)/painter/mip_panel/qp_ls0xx.c
 
     endif
 endef
