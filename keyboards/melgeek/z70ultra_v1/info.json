@@ -13,9 +13,6 @@
     "board": "QMK_PROTON_C",
 	"diode_direction": "COL2ROW",
 	"debounce": 3,
-	"dynamic_keymap": {
-        "layer_count": 4
-    },
 	"features": {
         "rgb_matrix": true,
         "bootmagic": true,
