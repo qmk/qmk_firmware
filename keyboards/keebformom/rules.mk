@@ -11,5 +11,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no          # Audio output
 LTO_ENABLE = yes
-NO_USB_STARTUP_CHECK = yes  
-LAYOUTS = ortho_4x10 
+NO_USB_STARTUP_CHECK = yes
