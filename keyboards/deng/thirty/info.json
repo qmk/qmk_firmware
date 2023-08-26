@@ -29,6 +29,7 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
+    "community_layouts": ["ortho_3x10"],
     "layouts": {
         "LAYOUT_ortho_3x10": {
             "layout": [

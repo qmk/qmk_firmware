@@ -20,6 +20,7 @@
     },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_6x4"],
     "layouts": {
         "LAYOUT_ortho_6x4": {
             "layout": [

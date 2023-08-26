@@ -31,6 +31,7 @@
         "pid": "0x0227",
         "vid": "0x6964"
     },
+    "community_layouts": ["numpad_6x5"],
     "layouts": {
         "LAYOUT_numpad_6x5": {
             "layout": [

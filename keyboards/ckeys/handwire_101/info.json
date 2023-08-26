@@ -18,6 +18,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x4"
     },
+    "community_layouts": ["ortho_4x4"],
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [

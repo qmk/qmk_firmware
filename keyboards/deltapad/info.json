@@ -15,6 +15,7 @@
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
+  "community_layouts": ["numpad_4x4", "ortho_4x4"],
   "layouts": {
     "LAYOUT_ortho_4x4": {
       "layout": [

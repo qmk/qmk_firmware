@@ -22,6 +22,7 @@
         "LAYOUT_gk6_2x2u": "LAYOUT_2x2u",
         "LAYOUT_gk6_1x2u": "LAYOUT_1x2u"
     },
+    "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_2x2u": {
             "layout": [

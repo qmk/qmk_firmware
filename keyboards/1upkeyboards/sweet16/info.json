@@ -6,6 +6,7 @@
   "usb": {
     "vid": "0x6F75"
   },
+  "community_layouts": ["ortho_4x4", "numpad_4x4"],
   "layouts": {
       "LAYOUT_ortho_4x4": {
           "layout": [

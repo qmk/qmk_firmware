@@ -44,7 +44,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
-    "community_layouts": ["ortho_4x12", "ortho_5x12"],
+    "community_layouts": ["ortho_4x6", "ortho_4x12", "ortho_5x12"],
     "layouts": {
       "LAYOUT_ortho_5x12": {
         "layout": [

@@ -57,6 +57,7 @@
         "pid": "0x0012",
         "vid": "0x4B42"
     },
+    "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [

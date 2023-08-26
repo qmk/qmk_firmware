@@ -23,6 +23,7 @@
       ["B2", "B6", "B5"]
     ]
   },
+  "community_layouts": ["ortho_3x3"],
   "layouts": {
     "LAYOUT_ortho_3x3": {
       "layout": [

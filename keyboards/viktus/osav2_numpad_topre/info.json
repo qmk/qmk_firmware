@@ -26,6 +26,7 @@
         "cols": ["F5", "F6", "D3", "D2"],
         "rows": ["A1", "A0", "A3", "A2", "A4"]
     },
+    "community_layouts": ["ortho_5x4"],
     "layouts": {
         "LAYOUT_ortho_5x4": {
             "layout": [

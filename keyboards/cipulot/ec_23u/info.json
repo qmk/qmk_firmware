@@ -52,8 +52,12 @@
         },
         "vid": "0x6369"
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_6x4"
+    },
+    "community_layouts": ["numpad_6x4", "ortho_6x4"],
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT_ortho_6x4": {
             "layout": [
                 {"label": "0,0", "matrix": [0, 0], "x": 0.0, "y": 0.0},
                 {"label": "0,1", "matrix": [0, 1], "x": 1.0, "y": 0.0},

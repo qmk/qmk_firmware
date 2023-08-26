@@ -16,6 +16,7 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega328p",
     "bootloader": "usbasploader",
+    "community_layouts": ["numpad_5x4"],
     "layouts": {
         "LAYOUT_numpad_5x4": {
             "layout": [
