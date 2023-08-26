@@ -33,7 +33,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_CLOCK_SPEED 400000  
 #define I2C1_DUTY_CYCLE FAST_DUTY_CYCLE_2  
 #    define RGB_MATRIX_DISABLE_KEYCODES 
-#    define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED  // turn off effects when suspended
 #    define RGB_MATRIX_KEYPRESSES           // reacts to keypresses
 #    define RGB_MATRIX_FRAMEBUFFER_EFFECTS

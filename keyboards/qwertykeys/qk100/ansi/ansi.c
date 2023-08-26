@@ -130,47 +130,47 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
 
-        case KC_F14:
+        case QK_KB_0:
         rgb_matrix_toggle(); 
         break;
 
-        case KC_F15:
+        case QK_KB_1:
         rgb_matrix_step(); 
         break;
 
-        case KC_F16:  
+        case QK_KB_2:  
         rgb_matrix_step_reverse();  
         break;
 
-        case KC_F17:
+        case QK_KB_3:
         rgb_matrix_increase_hue();  //Increase the hue for effect range LEDs
         break;
 
-        case KC_F18:
+        case QK_KB_4:
         rgb_matrix_decrease_hue(); //Decrease the hue for effect range LEDs
         break;
 
-        case KC_F19:
+        case QK_KB_5:
         rgb_matrix_increase_sat(); //Increase the saturation for effect range LEDs
         break;
 
-        case KC_F20:
+        case QK_KB_6:
         rgb_matrix_decrease_sat(); //Decrease the saturation for effect range LEDs
         break;
 
-        case KC_F21:
+        case QK_KB_7:
         rgb_matrix_increase_val(); //Increase the value for effect range LEDs
         break;
 
-        case KC_F22:
+        case QK_KB_8:
         rgb_matrix_decrease_val();//Decrease the value for effect range LEDs
         break;
         
-        case KC_F23:
+        case QK_KB_9:
         rgb_matrix_increase_speed();//Increase the speed of the animations
         break;
 
-        case KC_F24:
+        case QK_KB_10:
         rgb_matrix_decrease_speed();//Decrease the speed of the animations
         break;
    
