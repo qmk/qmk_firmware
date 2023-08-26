@@ -64,9 +64,7 @@
 
     // LED Matrix
     "LED_MATRIX_CENTER": {"info_key": "led_matrix.center_point", "value_type": "array.int"},
-    "LED_MATRIX_HUE_STEP": {"info_key": "led_matrix.hue_steps", "value_type": "int"},
     "LED_MATRIX_MAXIMUM_BRIGHTNESS": {"info_key": "led_matrix.max_brightness", "value_type": "int"},
-    "LED_MATRIX_SAT_STEP": {"info_key": "led_matrix.sat_steps", "value_type": "int"},
     "LED_MATRIX_SPD_STEP": {"info_key": "led_matrix.speed_steps", "value_type": "int"},
     "LED_MATRIX_SPLIT": {"info_key": "led_matrix.split_count", "value_type": "array.int"},
     "LED_MATRIX_TIMEOUT": {"info_key": "led_matrix.timeout", "value_type": "int"},

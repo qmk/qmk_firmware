@@ -4,7 +4,7 @@
         "device_version": "2.0.0"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["GP27", "GP28", "GP21", "GP6", "GP7", "GP8"],

@@ -25,7 +25,15 @@
         "brightness_steps": 8,
         "led_count": 6,
         "max_brightness": 240,
-        "sleep": true
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "knight": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
     },
     "bootmagic": {
         "matrix": [0, 1]

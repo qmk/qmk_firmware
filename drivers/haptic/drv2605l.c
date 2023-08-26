@@ -41,58 +41,58 @@ void drv2605l_init(void) {
 
     //  drv2605l_write(DRV2605L_REG_FEEDBACK_CTRL,0xB6);
 
-#if FB_ERM_LRA == 0
+#if DRV2605L_FB_ERM_LRA == 0
     /* ERM settings */
-    drv2605l_write(DRV2605L_REG_RATED_VOLTAGE, (RATED_VOLTAGE / 21.33) * 1000);
-#    if ERM_OPEN_LOOP == 0
-    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, (((V_PEAK * (DRIVE_TIME + BLANKING_TIME + IDISS_TIME)) / 0.02133) / (DRIVE_TIME - 0.0003)));
-#    elif ERM_OPEN_LOOP == 1
-    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, (V_PEAK / 0.02196));
+    drv2605l_write(DRV2605L_REG_RATED_VOLTAGE, (DRV2605L_RATED_VOLTAGE / 21.33) * 1000);
+#    if DRV2605L_ERM_OPEN_LOOP == 0
+    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, (((DRV2605L_V_PEAK * (DRV2605L_DRIVE_TIME + DRV2605L_BLANKING_TIME + DRV2605L_IDISS_TIME)) / 0.02133) / (DRV2605L_DRIVE_TIME - 0.0003)));
+#    elif DRV2605L_ERM_OPEN_LOOP == 1
+    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, (DRV2605L_V_PEAK / 0.02196));
 #    endif
-#elif FB_ERM_LRA == 1
-    drv2605l_write(DRV2605L_REG_RATED_VOLTAGE, ((V_RMS * sqrt(1 - ((4 * ((150 + (SAMPLE_TIME * 50)) * 0.000001)) + 0.0003) * F_LRA) / 0.02071)));
-#    if LRA_OPEN_LOOP == 0
-    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, ((V_PEAK / sqrt(1 - (F_LRA * 0.0008)) / 0.02133)));
-#    elif LRA_OPEN_LOOP == 1
-    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, (V_PEAK / 0.02196));
+#elif DRV2605L_FB_ERM_LRA == 1
+    drv2605l_write(DRV2605L_REG_RATED_VOLTAGE, ((DRV2605L_V_RMS * sqrt(1 - ((4 * ((150 + (DRV2605L_SAMPLE_TIME * 50)) * 0.000001)) + 0.0003) * DRV2605L_F_LRA) / 0.02071)));
+#    if DRV2605L_LRA_OPEN_LOOP == 0
+    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, ((DRV2605L_V_PEAK / sqrt(1 - (DRV2605L_F_LRA * 0.0008)) / 0.02133)));
+#    elif DRV2605L_LRA_OPEN_LOOP == 1
+    drv2605l_write(DRV2605L_REG_OVERDRIVE_CLAMP_VOLTAGE, (DRV2605L_V_PEAK / 0.02196));
 #    endif
 #endif
 
-    DRVREG_FBR FB_SET;
-    FB_SET.Bits.ERM_LRA      = FB_ERM_LRA;
-    FB_SET.Bits.BRAKE_FACTOR = FB_BRAKEFACTOR;
-    FB_SET.Bits.LOOP_GAIN    = FB_LOOPGAIN;
-    FB_SET.Bits.BEMF_GAIN    = 0; /* auto-calibration populates this field*/
-    drv2605l_write(DRV2605L_REG_FEEDBACK_CTRL, (uint8_t)FB_SET.Byte);
+    drv2605l_reg_feedback_ctrl_t reg_feedback_ctrl;
+    reg_feedback_ctrl.bits.ERM_LRA      = DRV2605L_FB_ERM_LRA;
+    reg_feedback_ctrl.bits.BRAKE_FACTOR = DRV2605L_FB_BRAKEFACTOR;
+    reg_feedback_ctrl.bits.LOOP_GAIN    = DRV2605L_FB_LOOPGAIN;
+    reg_feedback_ctrl.bits.BEMF_GAIN    = 0; /* auto-calibration populates this field*/
+    drv2605l_write(DRV2605L_REG_FEEDBACK_CTRL, (uint8_t)reg_feedback_ctrl.raw);
 
-    DRVREG_CTRL1 C1_SET;
-    C1_SET.Bits.C1_DRIVE_TIME    = DRIVE_TIME;
-    C1_SET.Bits.C1_AC_COUPLE     = AC_COUPLE;
-    C1_SET.Bits.C1_STARTUP_BOOST = STARTUP_BOOST;
-    drv2605l_write(DRV2605L_REG_CTRL1, (uint8_t)C1_SET.Byte);
+    drv2605l_reg_ctrl1_t reg_ctrl1;
+    reg_ctrl1.bits.C1_DRIVE_TIME    = DRV2605L_DRIVE_TIME;
+    reg_ctrl1.bits.C1_AC_COUPLE     = DRV2605L_AC_COUPLE;
+    reg_ctrl1.bits.C1_STARTUP_BOOST = DRV2605L_STARTUP_BOOST;
+    drv2605l_write(DRV2605L_REG_CTRL1, (uint8_t)reg_ctrl1.raw);
 
-    DRVREG_CTRL2 C2_SET;
-    C2_SET.Bits.C2_BIDIR_INPUT   = BIDIR_INPUT;
-    C2_SET.Bits.C2_BRAKE_STAB    = BRAKE_STAB;
-    C2_SET.Bits.C2_SAMPLE_TIME   = SAMPLE_TIME;
-    C2_SET.Bits.C2_BLANKING_TIME = BLANKING_TIME;
-    C2_SET.Bits.C2_IDISS_TIME    = IDISS_TIME;
-    drv2605l_write(DRV2605L_REG_CTRL2, (uint8_t)C2_SET.Byte);
+    drv2605l_reg_ctrl2_t reg_ctrl2;
+    reg_ctrl2.bits.C2_BIDIR_INPUT   = DRV2605L_BIDIR_INPUT;
+    reg_ctrl2.bits.C2_BRAKE_STAB    = DRV2605L_BRAKE_STAB;
+    reg_ctrl2.bits.C2_SAMPLE_TIME   = DRV2605L_SAMPLE_TIME;
+    reg_ctrl2.bits.C2_BLANKING_TIME = DRV2605L_BLANKING_TIME;
+    reg_ctrl2.bits.C2_IDISS_TIME    = DRV2605L_IDISS_TIME;
+    drv2605l_write(DRV2605L_REG_CTRL2, (uint8_t)reg_ctrl2.raw);
 
-    DRVREG_CTRL3 C3_SET;
-    C3_SET.Bits.C3_LRA_OPEN_LOOP   = LRA_OPEN_LOOP;
-    C3_SET.Bits.C3_N_PWM_ANALOG    = N_PWM_ANALOG;
-    C3_SET.Bits.C3_LRA_DRIVE_MODE  = LRA_DRIVE_MODE;
-    C3_SET.Bits.C3_DATA_FORMAT_RTO = DATA_FORMAT_RTO;
-    C3_SET.Bits.C3_SUPPLY_COMP_DIS = SUPPLY_COMP_DIS;
-    C3_SET.Bits.C3_ERM_OPEN_LOOP   = ERM_OPEN_LOOP;
-    C3_SET.Bits.C3_NG_THRESH       = NG_THRESH;
-    drv2605l_write(DRV2605L_REG_CTRL3, (uint8_t)C3_SET.Byte);
+    drv2605l_reg_ctrl3_t reg_ctrl3;
+    reg_ctrl3.bits.C3_LRA_OPEN_LOOP   = DRV2605L_LRA_OPEN_LOOP;
+    reg_ctrl3.bits.C3_N_PWM_ANALOG    = DRV2605L_N_PWM_ANALOG;
+    reg_ctrl3.bits.C3_LRA_DRIVE_MODE  = DRV2605L_LRA_DRIVE_MODE;
+    reg_ctrl3.bits.C3_DATA_FORMAT_RTO = DRV2605L_DATA_FORMAT_RTO;
+    reg_ctrl3.bits.C3_SUPPLY_COMP_DIS = DRV2605L_SUPPLY_COMP_DIS;
+    reg_ctrl3.bits.C3_ERM_OPEN_LOOP   = DRV2605L_ERM_OPEN_LOOP;
+    reg_ctrl3.bits.C3_NG_THRESH       = DRV2605L_NG_THRESH;
+    drv2605l_write(DRV2605L_REG_CTRL3, (uint8_t)reg_ctrl3.raw);
 
-    DRVREG_CTRL4 C4_SET;
-    C4_SET.Bits.C4_ZC_DET_TIME   = ZC_DET_TIME;
-    C4_SET.Bits.C4_AUTO_CAL_TIME = AUTO_CAL_TIME;
-    drv2605l_write(DRV2605L_REG_CTRL4, (uint8_t)C4_SET.Byte);
+    drv2605l_reg_ctrl4_t reg_ctrl4;
+    reg_ctrl4.bits.C4_ZC_DET_TIME   = DRV2605L_ZC_DET_TIME;
+    reg_ctrl4.bits.C4_AUTO_CAL_TIME = DRV2605L_AUTO_CAL_TIME;
+    drv2605l_write(DRV2605L_REG_CTRL4, (uint8_t)reg_ctrl4.raw);
 
     drv2605l_write(DRV2605L_REG_LIBRARY_SELECTION, DRV2605L_LIBRARY);
 
