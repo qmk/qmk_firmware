@@ -35,12 +35,13 @@ void keyboard_post_init_user(void) {
 #endif
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.num_lock) {
     rgblight_sethsv_noeeprom(HSV_CYAN);
   } else {
     rgblight_sethsv_noeeprom(HSV_MAGENTA);
   }
+  return false;
 }
 
 void shutdown_user (void) {

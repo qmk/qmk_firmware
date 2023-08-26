@@ -7,7 +7,7 @@
     "device_version": "0.0.1"
   },
   "rgb_matrix": {
-    "driver": "IS31FL3737"
+    "driver": "is31fl3737"
   },
   "matrix_pins": {
     "cols": ["B11", "B10", "B2", "B1", "A7", "B0"],
@@ -21,6 +21,9 @@
   },
   "processor": "STM32F303",
   "bootloader": "stm32-dfu",
+  "tapping": {
+    "toggle": 1
+  },
   "community_layouts": ["ortho_4x12", "planck_mit"],
   "layout_aliases": {
     "LAYOUT_planck_grid": "LAYOUT_ortho_4x12",

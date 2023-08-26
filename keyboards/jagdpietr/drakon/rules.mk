@@ -14,5 +14,4 @@ AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 WPM_ENABLE = yes
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 ENCODER_ENABLE = yes
