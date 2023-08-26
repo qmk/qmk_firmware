@@ -2,7 +2,7 @@
 
 The Split-Cloud is a split ortholinear 5x12 layout, forked from the Preonic and Nyquist keyboard models. The default layout adds extra options for some added game compatibility, two control keys for QEmu, and adds a steno layer based on the Planck example.
 
-![Split-Cloud](https://i.imgur.com/QoHAFeX.jpg)
+![Split-Cloud](https://i.imgur.com/QoHAFeXh.jpg)
 
 * Keyboard Maintainer: [Cloud Chagnon](https://github.com/coolsa)
 * Hardware Supported: Pro Micro
