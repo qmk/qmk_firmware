@@ -5,9 +5,8 @@ all: $(TARGETS)
 clean:
 	rm $(TARGETS)
 
-config.h: ../manna-harbour_miryoku/config.h config.h.patch Makefile
+config.h: ../manna-harbour_miryoku/config.h Makefile
 	cp $< $@
-	patch -p0 $@ config.h.patch
 
 custom_config.h: ../manna-harbour_miryoku/custom_config.h Makefile
 	cp $< $@

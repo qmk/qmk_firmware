@@ -4,9 +4,6 @@
 ###### This block copyright 2023 Nathaniel Harward
 #      https://github.com/nharward/miryoku_babel
 FORCE_LAYOUT      = split_3x5_3
-RGBLIGHT_ENABLE   = no
-RGB_MATRIX_ENABLE = yes
-
 MIRYOKU_ALPHAS    = QWERTY
 MIRYOKU_TAP       = QWERTY
 MIRYOKU_NAV       = VI

@@ -7,13 +7,6 @@
 
 #include "custom_config.h"
 
-////// This block copyright 2023 Nathaniel Harward
-#ifdef RGB_MATRIX_ENABLE
-# define RGB_DISABLE_WHEN_USB_SUSPENDED
-# define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#endif
-////// end block copyright 2023 Nathaniel Harward
-
 // default but used in macros
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
