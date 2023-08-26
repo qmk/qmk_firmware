@@ -1,1 +1,0 @@
-STENO_ENABLE = yes

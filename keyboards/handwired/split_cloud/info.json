@@ -15,8 +15,7 @@
         "rows": ["C6", "D7", "E6", "B4", "B5"]
     },
     "bootmagic": {
-        "enabled": true,
-        "matrix": [0, 0]
+        "enabled": true
     },
     "features": {
         "extrakey": true,
@@ -39,8 +38,7 @@
         "enabled": true,
         "protocol": "all"
     }
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "community_layouts": ["ortho_5x12"],
     "layouts": {
         "LAYOUT_ortho_5x12": {
