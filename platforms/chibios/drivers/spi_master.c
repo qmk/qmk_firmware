@@ -1,5 +1,4 @@
 /* Copyright 2020 Nick Brassel (tzarc)
- * Copyright 2023 Pablo Martinez (elpekenin)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
