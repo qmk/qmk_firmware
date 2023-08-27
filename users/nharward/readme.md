@@ -9,5 +9,6 @@ wherever I can, only patching a custom configuration and a modified
 
 ## Updating
 
-Run `make clean` followed by `make`. This will copy (most) source files from
-`../manna-harbour_miryoku` then patch with the minor mods described above.
+Run `make -f .makefile clean` followed by `make -f .makefile`. This will copy
+(most) source files from `../manna-harbour_miryoku` then patch with the minor
+mods described above.
