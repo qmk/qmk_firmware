@@ -557,7 +557,7 @@ void bluefruit_le_task(void) {
         state.last_battery_update = timer_read();
 
         state.vbat = analogReadPin(BATTERY_LEVEL_PIN);
-        bluefruit_le_set_battery_level(100);  // ???
+        bluefruit_le_set_battery_level(100); // TODO
     }
 #endif
 }
