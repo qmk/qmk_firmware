@@ -25,5 +25,3 @@
  */
 #define RGB_MATRIX_LED_COUNT 11
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-
-#define OLED_UPDATE_INTERVAL 5
