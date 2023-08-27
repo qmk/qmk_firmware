@@ -1,0 +1,53 @@
+{
+    "keyboard_name": "Launch Pad",
+    "manufacturer": "Maple Computing",
+    "url": "",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x1337",
+        "pid": "0x6007",
+        "device_version": "0.0.1"
+    },
+    "rgblight": {
+        "led_count": 10,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "F6"
+    },
+    "matrix_pins": {
+        "cols": ["D2", "F7"],
+        "rows": ["C6", "B1", "B3", "D7"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3}
+            ]
+        }
+    }
+}

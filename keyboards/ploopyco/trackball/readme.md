@@ -19,35 +19,32 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Revisions
 
-There are two main revisions for the PloopyCo Tracball, everything up to 1.004, and 1.005-1.006.
+There are two main revisions for the PloopyCo Trackball, everything up to 1.004, and 1.005-1.006.
 
 In the 1.005 revision, button for was changed from pin B5 to B6, and the debug LED pin was changed from F7 to B5. 
 
 The PCB should indicate which revision this is.
 
-# Customzing your PloopyCo Trackball
+# Customizing your PloopyCo Trackball
 
 While the defaults are designed so that it can be plugged in and used right away, there are a number of things that you may want to change.  Such as adding DPI control, or to use the ball to scroll while holding a button.   To allow for this sort of control, there is a callback for both the scroll wheel and the mouse sensor. 
 
-The default behavior for this is:
 
 ```c
-void process_wheel_user(report_mouse_t* mouse_report, int16_t h, int16_t v) {
-    mouse_report->h = h;
-    mouse_report->v = v;
-}
-
-void process_mouse_user(report_mouse_t* mouse_report, int16_t x, int16_t y) {
-    mouse_report->x = x;
-    mouse_report->y = y;
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report){
+    // executed each time the sensor is updated
+    // mouse_report.<attribute> - can be used to access indivdual mouse attributes
+    return mouse_report;
 }
 ```
+
+More information on `report_mouse_t` may be found [here](https://docs.qmk.fm/#/feature_pointing_device?id=manipulating-mouse-reports).
 
 This should allow you to more heavily customize the behavior. 
 
 Alternatively, the `process_wheel` and `process_mouse` functions can both be replaced too, to allow for even more functionality.
 
-Additionally, you can change the DPI/CPI or speed of the trackball by calling `pmw_set_cpi` at any time. Additionally, there is a `DPI_CONFIG` macro that will cycle through an array of options for the DPI.  This is set to 1200, 1600, and 2400, but can be changed.  1600 is also set to the default. 
+Additionally, you can change the DPI/CPI or speed of the trackball by calling `pointing_device_set_cpi` at any time. Additionally, there is a `DPI_CONFIG` macro that will cycle through an array of options for the DPI.  This is set to 1200, 1600, and 2400, but can be changed.  1600 is also set to the default.
 
 To configure/set your own array, there are two defines to use, `PLOOPY_DPI_OPTIONS` to set the array, and `PLOOPY_DPI_DEFAULT`. 
 

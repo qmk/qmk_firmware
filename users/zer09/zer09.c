@@ -43,7 +43,7 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
   static uint8_t is_leds_changes = 1;
-  c_lyr = biton32(layer_state);
+  c_lyr = get_highest_layer(layer_state);
 
   is_leds_changes = is_leds_changes << set_layer_led(c_lyr);
   is_leds_changes = is_leds_changes << shifted_layer();
@@ -69,8 +69,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return process_record_keymap(keycode, record);
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock) {
     rbw_led_keys[RBW_LCAP].status = ENABLED;
     rbw_led_keys[RBW_RCAP].status = ENABLED;
   } else {
@@ -78,11 +78,12 @@ void led_set_user(uint8_t usb_led) {
     rbw_led_keys[RBW_RCAP].status = DISABLED;
   }
 
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+  if (led_state.scroll_lock) {
     rbw_led_keys[RBW_SCRL].status = ENABLED;
   } else {
     rbw_led_keys[RBW_SCRL].status = DISABLED;
   }
 
-  led_set_keymap(usb_led);
+  led_set_keymap(led_state.raw);
+  return false;
 }

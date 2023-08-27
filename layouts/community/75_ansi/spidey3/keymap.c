@@ -15,19 +15,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Numpad
     [_NUMPAD] = LAYOUT_75_ansi(
         _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-        XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_NUMLOCK, XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_0,    KC_PMNS,    KC_PEQL,                _______,    _______,
+        XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_NUM,     XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_7,    KC_KP_8,    KC_KP_9,    KC_KP_0,    KC_PMNS,    KC_PEQL,                _______,    _______,
         _______,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_4,    KC_KP_5,    KC_KP_6,    KC_PCMM,    _______,    _______,                _______,    _______,
-        KC_NUMLOCK, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PPLS,    KC_PAST,                            KC_PENT,    _______,
+        KC_NUM,     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_1,    KC_KP_2,    KC_KP_3,    KC_PPLS,    KC_PAST,                            KC_PENT,    _______,
         _______,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_KP_0,    SPI_KP_00,  KC_PDOT,    KC_PSLS,                            _______,    _______,    _______,
         _______,    _______,    _______,                                    _______,                                            _______,    _______,    _______,    _______,    _______,    _______
     ),
     // FN
     [_FN] = LAYOUT_75_ansi(
-        RESET,      SPI_NORMAL, SPI_WIDE,   SPI_SCRIPT, SPI_BLOCKS, SPI_CIRCLE, SPI_SQUARE, SPI_PARENS, SPI_FRAKTR, XXXXXXX,    XXXXXXX,    XXXXXXX,    SPI_GFLOCK, KC_SLEP,    CH_SUSP,    KC_PWR,
-        EEP_RST,    X(SAD),     X(MEH),     X(HAPPY),   X(ANGRY),   X(THUMBDN), X(THUMBUP), X(SPIDER),  X_BUL,      X(LOL),     X(SURPRISE),X_DASH,     XXXXXXX,                KC_PAUS,    KC_SLCK,
-        XXXXXXX,    RGB_TOG,    RGB_MOD,    RGB_HUD,    RGB_HUI,    RGB_SAD,    RGB_SAI,    RGB_VAD,    RGB_VAI,    RGB_SPD,    RGB_SPI,    VLK_TOG,    XXXXXXX,                XXXXXXX,    KC_BRIU,
-        XXXXXXX,    RGB_M_P,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_G,    RGB_M_T,    SPI_LNX,    XXXXXXX,    XXXXXXX,                            XXXXXXX,    KC_BRID,
-        _______,    SPI_GLO,    XXXXXXX,    SPI_WIN,    UC_MOD,     NK_TOGG,    TG(_NUMPAD),SPI_OSX,    X(LARR),    X(RARR),    DEBUG,      _______,                            KC_VOLU,    KC_MUTE,
-        _______,    _______,    _______,                                    KC_MPLY,                                            CH_ASST,    _______,    CH_CPNL,    KC_MPRV,    KC_VOLD,    KC_MNXT
+        QK_BOOT,    SPI_NORMAL, SPI_WIDE,   SPI_SCRIPT, SPI_BLOCKS, SPI_CIRCLE, SPI_SQUARE, SPI_PARENS, SPI_FRAKTR, SPI_BOLD,   SPI_MATH,   XXXXXXX,    SPI_GFLOCK, KC_SLEP,    CH_SUSP,    KC_PWR,
+        EE_CLR,     UM(SAD),    UM(MEH),    UM(HAPPY),  UM(ANGRY),  UM(THUMBDN),UM(THUMBUP),UM(SPIDER), X_BUL,      UM(LOL),    UM(SURPRISE),X_DASH,     XXXXXXX,                KC_PAUS,    KC_SCRL,
+        XXXXXXX,    RGB_TOG,    RGB_MOD,    RGB_HUD,    RGB_HUI,    RGB_SAD,    RGB_SAI,    RGB_VAD,    RGB_VAI,    SPI_GLO,    VK_TOGG,    XXXXXXX,    XXXXXXX,                XXXXXXX,    KC_BRIU,
+        XXXXXXX,    RGB_M_P,    RGB_M_B,    RGB_M_R,    RGB_M_SW,   RGB_M_SN,   RGB_M_K,    RGB_M_G,    RGB_M_TW,   UC_LINX,    XXXXXXX,    XXXXXXX,                            XXXXXXX,    KC_BRID,
+        _______,    XXXXXXX,    UC_EMAC,    UC_WINC,    UC_NEXT,    NK_TOGG,    TG(_NUMPAD),UC_MAC,     UM(LARR),   UM(RARR),   DB_TOGG,    _______,                            KC_VOLU,    KC_MUTE,
+        _______,    _______,    _______,                                    KC_MPLY,                                            KC_ASST,    _______,    KC_CPNL,    KC_MPRV,    KC_VOLD,    KC_MNXT
     )
 };

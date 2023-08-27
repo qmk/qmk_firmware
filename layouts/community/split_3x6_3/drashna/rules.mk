@@ -1,9 +1,8 @@
-
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in
-#   the appropriate keymap folder that will get included automatically
+#   change to "no" to disable the options
 #
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+
+BOOTMAGIC_ENABLE           = yes # Enable Bootmagic Lite
 MOUSEKEY_ENABLE            = no  # Mouse keys
 EXTRAKEY_ENABLE            = yes # Audio control and System control
 CONSOLE_ENABLE             = no  # Console for debug
@@ -12,24 +11,47 @@ NKRO_ENABLE                = yes # Nkey Rollover - if this doesn't work, see her
 BACKLIGHT_ENABLE           = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE               = no  # Audio output
 UNICODE_ENABLE             = no  # Unicode
-BLUETOOTH_ENABLE           = no  # Enable Bluetooth
 RGBLIGHT_ENABLE            = no  # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE          = no  # Enable one-hand typing
+OS_DETECTION_ENABLE        = no
+CUSTOM_UNICODE_ENABLE      = no
+CUSTOM_POINTING_DEVICE     = no
+CUSTOM_SPLIT_TRANSPORT_SYNC = no
 
-# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
-SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
-ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
-    OLED_ENABLE = yes
-    RGB_MATRIX_ENABLE = yes
-    HAPTIC_ENABLE = no
-    BOOTLOADER = qmk-dfu
+USE_ARM_CONFIG ?= no
+ifeq ($(strip $(CONVERT_TO)), proton_c)
+    USE_ARM_CONFIG = yes
+endif
+ifeq ($(strip $(MCU)), STM32F303)
+    USE_ARM_CONFIG = yes
+endif
+ifeq ($(strip $(MCU)), STM32F401)
+    USE_ARM_CONFIG = yes
+endif
+ifeq ($(strip $(MCU)), STM32F411)
+    USE_ARM_CONFIG = yes
 endif
 
-ifeq ($(strip $(CTPC)), yes)
-    HAPTIC_ENABLE = no
-    WS2812_DRIVER = pwm # won't work without a patch to the ctpc mk file
-    SERIAL_DRIVER = usart
-    SWAP_HANDS_ENABLE = yes
-	WPM_ENABLE = yes
+ifeq ($(strip $(MCU)), atmega32u4)
+    BOOTLOADER             = qmk-hid
+    BOOTLOADER_SIZE        = 512
+endif
+
+ifeq ($(strip $(USE_ARM_CONFIG)), yes)
+    HAPTIC_ENABLE          = no
+    WS2812_DRIVER          = pwm # won't work without a patch to the ctpc mk file
+    SERIAL_DRIVER          = usart
+    WPM_ENABLE             = yes
+    AUTOCORRECT_ENABLE     = yes
+    CAPS_WORD_ENABLE       = yes
+    OS_DETECTION_ENABLE    = yes
+    CUSTOM_UNICODE_ENABLE      = no
+    CUSTOM_POINTING_DEVICE     = no
+    CUSTOM_SPLIT_TRANSPORT_SYNC = no
+endif
+
+ifeq ($(strip $(KEYBOARD)), crkbd/rev1)
+    OLED_ENABLE            = yes
+    RGB_MATRIX_ENABLE      = yes
+    HAPTIC_ENABLE          = no
 endif

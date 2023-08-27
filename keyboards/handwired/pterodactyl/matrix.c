@@ -24,7 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "pterodactyl.h"
 #include "i2c_master.h"
 #include "timer.h"
 
@@ -137,7 +136,7 @@ void matrix_init(void)
         matrix_debouncing[i] = 0;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 void init_expander(void) {
@@ -278,16 +277,8 @@ uint8_t matrix_scan(void)
         }
 #   endif
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
-}
-
-bool matrix_is_modified(void) // deprecated and evidently not called.
-{
-#if (DEBOUNCE > 0)
-    if (debouncing) return false;
-#endif
-    return true;
 }
 
 inline
@@ -314,15 +305,6 @@ void matrix_print(void)
         print_bin_reverse16(matrix_get_row(row));
         print("\n");
     }
-}
-
-uint8_t matrix_key_count(void)
-{
-    uint8_t count = 0;
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        count += bitpop16(matrix[i]);
-    }
-    return count;
 }
 
 #if (DIODE_DIRECTION == COL2ROW)

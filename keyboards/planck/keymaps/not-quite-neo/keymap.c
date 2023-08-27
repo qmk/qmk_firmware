@@ -37,8 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [L01] = LAYOUT_planck_grid(
   KC_ESC,                 L01_LEFT_01,                                 L01_RIGHT_01,                 KC_ENTER,
   MO(L03),                L01_LEFT_02,                                 L01_RIGHT_02,                 MO(L03),
-  KC_LSHIFT,              L01_LEFT_03,                                 L01_RIGHT_03,                 KC_RSFT,
-  KC_LCTRL,KC_LGUI, KC_LALT, MO(L05), MO(L04), KC_SPC,  KC_SPC,  MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTRL
+  KC_LSFT,                L01_LEFT_03,                                 L01_RIGHT_03,                 KC_RSFT,
+  KC_LCTL, KC_LGUI, KC_LALT, MO(L05), MO(L04), KC_SPC,  KC_SPC,  MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTL
 ),
 
 
@@ -111,7 +111,7 @@ L06 -> <TBD>: UNSPECIFIED
 
 /* LFN -> MO(FN): FUNCTION
  * ,-----------------------------------------------------------------------------------.
- * | RESET|                                  |                                  | BACKS|
+ * | QK_BOOT|                                  |                                  | BACKS|
  * |------+                                  |                                  +------|
  * |      |             L06_LEFT             |             L06_RIGHT            |INSERT|
  * |------+                                  |                                  +------|
@@ -121,9 +121,9 @@ L06 -> <TBD>: UNSPECIFIED
  * `-----------------------------------------------------------------------------------'
  */
 [LFN] = LAYOUT_planck_grid(
-  RESET,                  L06_LEFT_01,                                 L06_RIGHT_01,                 KC_BSPC,
+  QK_BOOT,                L06_LEFT_01,                                 L06_RIGHT_01,                 KC_BSPC,
   _______,                L06_LEFT_02,                                 L06_RIGHT_02,                 KC_INS,
   _______,                L06_LEFT_03,                                 L06_RIGHT_03,                 KC_DEL,
-  MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  _______, _______, _______, KC_VOLU, KC_VOLD, KC_MUTE, _______, _______
+  AU_PREV,  AU_NEXT,  MU_ON,   MU_OFF,  _______, _______, _______, KC_VOLU, KC_VOLD, KC_MUTE, _______, _______
 )
 };

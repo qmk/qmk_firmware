@@ -21,24 +21,16 @@ enum custom_layers {
     _LOWER,
     _UPPER,
     _MOUSE,
-    _MEDIA,  
+    _MEDIA,
 };
 #define MD_SPC MT(MOD_LSFT, KC_SPC)
-#define MD_ENT MT(MOD_RALT, KC_ENT)
-#define LT_SPC LT(_LOWER, KC_SPC)
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   UPPER,
   MOUSE,
-  MEDIA,
-  KC_CTB,
-  KC_CSTB,
-  KC_QUIT,
-  KC_CTLW,
-  KC_CTLT,
-  KC_CST
+  MEDIA
 };
 /*
     L00, L01, L02, L03, L04, L05,           R00, R01, R02, R03, R04, R05,
@@ -75,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                            KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_BSLS,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐     ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-      UPPER,   KC_HOME, MOUSE,   KC_RALT, KC_LCTL, MD_SPC,  KC_LALT,       KC_ENT,  KC_BSPC, LOWER,   KC_DEL,  KC_INS,  KC_END,  MEDIA
+      TG(MOUSE), KC_HOME, MO(UPPER),KC_RALT, KC_LCTL, MD_SPC,  KC_LALT,     KC_ENT, KC_BSPC, MO(LOWER), KC_DEL,  KC_INS, KC_END, MO(MEDIA)
 //   └────────┴────────┴────────┴────────┴────────┴────────┴────────┘     └────────┴────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 
@@ -85,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
       _______, _______, _______, _______, _______, _______,                         _______, _______, KC_UP,   KC_LBRC, KC_RBRC, KC_F12,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, _______, _______, _______, _______, _______,                         _______, KC_LEFT, KC_DOWN, KC_RIGHT,_______, _______,
+      _______, _______, KC_LCTL, KC_RCTL, _______, _______,                         _______, KC_LEFT, KC_DOWN, KC_RIGHT,_______, _______,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
       _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐     ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -95,9 +87,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_UPPER] = LAYOUT(
 //   ┌────────┬────────┬────────┬────────┬────────┬────────┐                       ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                           KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+      QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                           KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, _______, _______, _______, _______, _______,                         KC_NLCK, KC_P7,   KC_P8,   KC_P9,   _______, KC_F12,
+      _______, _______, _______, _______, _______, _______,                         KC_NUM,  KC_P7,   KC_P8,   KC_P9,   _______, KC_F12,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
       _______, _______, _______, _______,  _______, _______,                        KC_PPLS, KC_P4,   KC_P5,   KC_P6,   KC_PMNS, _______,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -111,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   ┌────────┬────────┬────────┬────────┬────────┬────────┐                       ┌────────┬────────┬────────┬────────┬────────┬────────┐
       _______, _______, _______, _______, _______, _______,                         _______, _______, _______, _______, _______, _______,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, _______, _______, _______, _______, _______,                         _______, KC_WH_U, KC_MS_U, _______, _______, _______,
+      _______, _______, _______, _______, _______, _______,                         KC_CAPS, KC_WH_U, KC_MS_U, _______, _______, _______,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
-      _______, _______, _______, _______, _______, _______,                         _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN2, KC_BTN3,
+      _______, KC_NUM,  KC_BTN3, KC_BTN2, KC_BTN1, _______,                         _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN2, KC_BTN3,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┤                       ├────────┼────────┼────────┼────────┼────────┼────────┤
       _______, _______, _______, _______, _______, _______,                         _______, KC_WH_D, KC_BTN2, _______, _______, _______,
 //   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┐     ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -136,88 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-// Automatically sets the numlock on at startup
-void led_set_keymap(uint8_t usb_led) {
-  if (!(usb_led & (1<<USB_LED_NUM_LOCK))) {
-    tap_code(KC_NLCK);
-  }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-      } else {
-        layer_off(_LOWER);
-      }
-      return false;
-    case UPPER:
-      if(record->event.pressed) {
-        layer_on(_UPPER);
-      } else {
-        layer_off(_UPPER);
-      }
-      return false;
-    case MOUSE:
-      if (record->event.pressed) {
-        layer_on(_MOUSE);
-      } else {
-        layer_off(_MOUSE);
-      }
-      return false;
-    case MEDIA:
-      if(record->event.pressed) {
-        layer_on(_MEDIA);
-      } else {
-        layer_off(_MEDIA);
-      }
-      return false;
-    case KC_CTB:
-      if(record->event.pressed) {
-        tap_code16(C(KC_TAB));
-      }
-      return false;
-    case KC_CSTB:
-      if(record->event.pressed) {
-        tap_code16(C(S(KC_TAB)));
-      }
-      return false;
-    case KC_QUIT:
-      if(record->event.pressed) {
-        tap_code16(A(KC_F4));
-      }
-      return false;
-    case KC_CTLW:
-        if(record->event.pressed) {
-            tap_code16(C(KC_W));
-        }
-        return false;
-    case KC_CTLT:
-        if(record->event.pressed) {
-            tap_code16(C(KC_T));
-        }
-        return false;
-    case KC_CST:
-        if(record->event.pressed) {
-            tap_code16(C(S(KC_T)));
-        }
-        return false;
-    case  KC_ENT:
-        if(record->event.pressed) {
-          if(get_mods() & MOD_BIT(KC_LSFT)){
-            tap_code(KC_SPC);
-          }
-          else {
-             tap_code(KC_ENT);
-          }
-        }
-        return false;
-  }
-  return true;
+//nano to manibus communcation
+bool led_update_user(led_t state) {
+    if (state.caps_lock != layer_state_is(_MOUSE)) {
+        layer_invert(_MOUSE);
+    }
+    return true;
 }

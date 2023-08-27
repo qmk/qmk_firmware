@@ -18,4 +18,4 @@ To define your password, rename passwd_template.h file to passwd.h and edit the 
 
 To build this keymap, simply run:
 
-    make xd60/rev3:melka  # XD60 rev3
+    make xiudi/xd60/rev3:melka  # XD60 rev3

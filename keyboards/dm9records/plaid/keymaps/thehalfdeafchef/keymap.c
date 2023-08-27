@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | Ctrl | LGUI | Alt  |   [  |Lower |    Space    |Raise |   ]  | RGUI |   \  | RS/) |
      * `-----------------------------------------------------------------------------------'
      */
-    [_QWERTY] = LAYOUT_planck_mit(KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ENT, KC_LCTL, KC_LGUI, KC_LALT, KC_LBRC, LOWER, KC_SPC, RAISE, KC_RBRC, KC_RGUI, KC_BSLS, KC_RSPC),
+    [_QWERTY] = LAYOUT_planck_mit(KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC, KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, SC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ENT, KC_LCTL, KC_LGUI, KC_LALT, KC_LBRC, LOWER, KC_SPC, RAISE, KC_RBRC, KC_RGUI, KC_BSLS, SC_RSPC),
 
     /* Colemak
      * ,-----------------------------------------------------------------------------------.
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
 
-    [_COLEMAK] = LAYOUT_planck_mit(KC_ESC, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_BSPC, KC_TAB, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ENT, KC_LCTL, KC_RALT, KC_LALT, KC_LGUI, LOWER, KC_SPC, RAISE, KC_RBRC, KC_RGUI, KC_BSLS, KC_RSPC),
+    [_COLEMAK] = LAYOUT_planck_mit(KC_ESC, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_BSPC, KC_TAB, KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT, SC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ENT, KC_LCTL, KC_RALT, KC_LALT, KC_LGUI, LOWER, KC_SPC, RAISE, KC_RBRC, KC_RGUI, KC_BSLS, SC_RSPC),
 
     /* Dvorak
      * ,-----------------------------------------------------------------------------------.
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
 
-    [_DVORAK] = LAYOUT_planck_mit(KC_ESC, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSPC, KC_TAB, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_SLSH, KC_LSPO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_ENT, KC_LCTL, KC_RALT, KC_LALT, KC_LGUI, LOWER, KC_SPC, RAISE, KC_RBRC, KC_RGUI, KC_BSLS, KC_RSPC),
+    [_DVORAK] = LAYOUT_planck_mit(KC_ESC, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_BSPC, KC_TAB, KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_SLSH, SC_LSPO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_ENT, KC_LCTL, KC_RALT, KC_LALT, KC_LGUI, LOWER, KC_SPC, RAISE, KC_RBRC, KC_RGUI, KC_BSLS, SC_RSPC),
 
     /* LOWER
      * ,----------------------------------------------------------------------------.
@@ -86,11 +86,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `--------------------------------------------------------------------------------'
      */
 
-    [_RAISE] = LAYOUT_planck_mit(KC_NLCK, KC_P1, KC_P2, KC_P3, KC_PMNS, KC_NO, KC_NO, KC_NO, KC_EXLM, KC_HASH, KC_DLR, KC_PLUS, KC_PSLS, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_NO, KC_NO, KC_NO, KC_PERC, KC_ASTR, KC_AMPR, KC_EQL, KC_PAST, KC_P7, KC_P8, KC_P9, KC_PCMM, KC_NO, KC_NO, KC_NO, KC_UNDS, KC_MINS, KC_AT, KC_TILDE, KC_NO, KC_P0, KC_PDOT, KC_PENT, KC_PEQL, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_GRV),
+    [_RAISE] = LAYOUT_planck_mit(KC_NUM, KC_P1, KC_P2, KC_P3, KC_PMNS, KC_NO, KC_NO, KC_NO, KC_EXLM, KC_HASH, KC_DLR, KC_PLUS, KC_PSLS, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_NO, KC_NO, KC_NO, KC_PERC, KC_ASTR, KC_AMPR, KC_EQL, KC_PAST, KC_P7, KC_P8, KC_P9, KC_PCMM, KC_NO, KC_NO, KC_NO, KC_UNDS, KC_MINS, KC_AT, KC_TILDE, KC_NO, KC_P0, KC_PDOT, KC_PENT, KC_PEQL, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_GRV),
 
     /* Function (Lower + Raise)
      * ,-----------------------------------------------------------------------------------------------------------------------.
-     * | RESET| LCA_T(F1)  | LCA_T(F2) | LCA_T(F3) | LCA_T(F4) | LCA_T(F5) | LCA_T(F6) | LCA_T(F7) |      |      |      |      |
+     * | QK_BOOT| LCA_T(F1)  | LCA_T(F2) | LCA_T(F3) | LCA_T(F4) | LCA_T(F5) | LCA_T(F6) | LCA_T(F7) |      |      |      |      |
      * |------+------------+-----------+-----------+-----------+-----------+-----------+-----------+------+------+------+------+
      * |      |            |           |           |           | QWERTY    | DVORAK    | COLEMAK   |      |      |      |      |
      * |------+------------+-----------+-----------+-----------+-----------+-----------+-----------+------+------+------+------+
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------------------------------------------'
      */
 
-    [_FUNCTION] = LAYOUT_planck_mit(RESET, LCA_T(KC_F1), LCA_T(KC_F2), LCA_T(KC_F3), LCA_T(KC_F4), LCA_T(KC_F5), LCA_T(KC_F6), LCA_T(KC_F7), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QWERTY, DVORAK, COLEMAK, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LED, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)};
+    [_FUNCTION] = LAYOUT_planck_mit(QK_BOOT, LCA_T(KC_F1), LCA_T(KC_F2), LCA_T(KC_F3), LCA_T(KC_F4), LCA_T(KC_F5), LCA_T(KC_F6), LCA_T(KC_F7), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, QWERTY, DVORAK, COLEMAK, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LED, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO)};
 
 // constants to toggle LED behavior
 
@@ -129,7 +129,7 @@ layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_laye
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     switch (layer) {
         case _LOWER:

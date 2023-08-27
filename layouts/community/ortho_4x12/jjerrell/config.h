@@ -32,7 +32,7 @@
 
 #ifdef KEYBOARD_planck_ez_glow
 #undef   PRODUCT
-#define  PRODUCT  Planck EZ Glow - Modified by <@jjerrell>
+#define  PRODUCT  "Planck EZ Glow - Modified by <@jjerrell>"
 #endif
 
 /*

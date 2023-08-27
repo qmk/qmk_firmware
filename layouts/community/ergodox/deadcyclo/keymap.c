@@ -87,13 +87,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	TG(MDIA),    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             LT(SYMB, KC_BSLS),
 	KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,CTL_T(KC_QUOT),
 	MEH_T(KC_NO),KC_N,   KC_M,   KC_COMM,LT(MDIA, KC_DOT), LT(UNI2, KC_SLSH),   KC_RSFT,
-		KC_LALT,  KC_RALT,KC_LEAD,LCTL(LSFT(KC_U)),          LT(SYMB,KC_TILD),
+		KC_LALT,  KC_RALT,QK_LEAD,LCTL(LSFT(KC_U)),          LT(SYMB,KC_TILD),
              KC_PGUP,        KC_INS,
              KC_PGDN,
-             KC_RBRC,KC_BSPC, KC_ENT   
+             KC_RBRC,KC_BSPC, KC_ENT
     ),
-/* Keymap 1: Symbol Layer LCTL(LSFT(KC_U))  
- *                                                  
+/* Keymap 1: Symbol Layer LCTL(LSFT(KC_U))
+ *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |           |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |   F12  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          KC_TRNS,KC_DOT,  KC_0,    KC_EQL,  KC_TRNS,
        RGB_HUD, RGB_HUI,
        KC_TRNS,
-       EEP_RST, KC_DEL, KC_TRNS
+       EE_CLR,  KC_DEL, KC_TRNS
 ),
 /* Keymap 2: Media, mouse and navigation
  *
@@ -192,7 +192,7 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, I3_RUN, KC_TRNS, KC_TRNS,
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |   ▒  |  ▓   |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      | 
+ *                                 |      |      |      |       |      |      |      |
  *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
@@ -218,7 +218,7 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, I3_RUN, KC_TRNS, KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-/* Keymap 4: Unicode 2 
+/* Keymap 4: Unicode 2
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  ¹   |  ²   |  ³   |  ⁴   |  ⁵   |  ⁶   |           |  ⁶   |  ⁷   |  ⁸   |  ⁹   |  ⁰   |  ℃   |   ™    |
@@ -234,12 +234,12 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, I3_RUN, KC_TRNS, KC_TRNS,
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      | 
+ *                                 |      |      |      |       |      |      |      |
  *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// Unicode 2   
+// Unicode 2
 [UNI2] = LAYOUT_ergodox(
 		KC_TRNS, UC(0x00b9), UC(0x00b2), UC(0x00b3), UC(0x2074), UC(0x2075), UC(0x2076),
 		KC_TRNS, UC(0x2081), UC(0x2082), UC(0x2083), UC(0x2084), UC(0x2085), UC(0x2086),
@@ -341,12 +341,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 };
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

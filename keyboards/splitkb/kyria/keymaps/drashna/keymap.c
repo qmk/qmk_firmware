@@ -32,7 +32,7 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-      KC_ESC,  K01,     K02,     K03,     K04,     K05,                                             K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
+  SH_T(KC_ESC), K01,    K02,     K03,     K04,     K05,                                             K06,     K07,     K08,     K09,     K0A,     SH_T(KC_MINS), \
    LALT_T(KC_TAB), K11, K12,     K13,     K14,     K15,                                             K16,     K17,     K18,     K19,     K1A, RALT_T(K1B), \
       OS_LSFT, CTL_T(K21), K22,  K23,     K24,     K25,  TG_GAME, MEH(KC_MINS),   TG_DBLO, KC_CAPS, K26,     K27,     K28,     K29, RCTL_T(K2A), OS_RSFT, \
                                  KC_MUTE, OS_LALT, KC_GRV,  KC_SPC,  BK_LWER,     DL_RAIS, KC_ENT,  OS_RGUI, UC(0x03A8), UC(0x2E2E) \
@@ -90,10 +90,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______
     ),
     [_ADJUST] = LAYOUT_wrapper(
-        KC_MAKE, _________________ADJUST_L1_________________,                                       _________________ADJUST_R1_________________, KC_RESET,
-        VRSN,    _________________ADJUST_L2_________________,                                       _________________ADJUST_R2_________________, EEP_RST,
-        _______, _________________ADJUST_L3_________________, HPT_TOG, HPT_FBK,   MG_NKRO, UC_MOD,  _________________ADJUST_R3_________________, TG_MODS,
-                                   _______, _______, _______, KC_NUKE, _______,   _______, _______, _______, _______, _______
+        QK_MAKE, _________________ADJUST_L1_________________,                                       _________________ADJUST_R1_________________, QK_BOOT,
+        VRSN,    _________________ADJUST_L2_________________,                                       _________________ADJUST_R2_________________, EE_CLR,
+        UC_NEXT, _________________ADJUST_L3_________________, HF_TOGG, HF_FDBK,   MG_NKRO, UC_NEXT, _________________ADJUST_R3_________________, TG_MODS,
+                                   QK_RBT,  _______, KEYLOCK, KC_NUKE, _______,   _______, _______, _______, _______, AUTO_CTN
     ),
 //     [_LAYERINDEX] = LAYOUT_wrapper(
 //       _______, _______, _______, _______, _______, _______,                                       _______, _______, _______, _______, _______, _______,
@@ -104,48 +104,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
-    [_DEFAULT_LAYER_1] = { { KC_DOWN, KC_UP   }, { KC_VOLD, KC_VOLU } },
-    [_DEFAULT_LAYER_2] = { { _______, _______ }, { _______, _______ } },
-    [_DEFAULT_LAYER_3] = { { _______, _______ }, { _______, _______ } },
-    [_DEFAULT_LAYER_4] = { { _______, _______ }, { _______, _______ } },
-    [_GAMEPAD]         = { { _______, _______ }, { _______, _______ } },
-    [_DIABLO]          = { { _______, _______ }, { _______, _______ } },
-    [_MOUSE]           = { { _______, _______ }, { KC_WH_D, KC_WH_U } },
-    [_MEDIA]           = { { _______, _______ }, { _______, _______ } },
-    [_RAISE]           = { { _______, _______ }, { KC_PGDN, KC_PGUP } },
-    [_LOWER]           = { { RGB_MOD, RGB_RMOD}, { RGB_HUD, RGB_HUI } },
-    [_ADJUST]          = { { CK_DOWN, CK_UP   }, { _______, _______ } },
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_DEFAULT_LAYER_1] = { ENCODER_CCW_CW( KC_VOLD, KC_VOLU ), ENCODER_CCW_CW( KC_WH_D, KC_WH_U ) },
+    [_DEFAULT_LAYER_2] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_DEFAULT_LAYER_2] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_DEFAULT_LAYER_2] = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_GAMEPAD]         = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_DIABLO]          = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_MOUSE]           = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( KC_WH_D, KC_WH_U ) },
+    [_MEDIA]           = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( _______, _______ ) },
+    [_RAISE]           = { ENCODER_CCW_CW( _______, _______ ), ENCODER_CCW_CW( KC_PGDN, KC_PGUP ) },
+    [_LOWER]           = { ENCODER_CCW_CW( RGB_MOD, RGB_RMOD), ENCODER_CCW_CW( RGB_HUD, RGB_HUI ) },
+    [_ADJUST]          = { ENCODER_CCW_CW( CK_DOWN, CK_UP   ), ENCODER_CCW_CW( _______, _______ ) },
 };
 #endif
 // clang-format on
 
 #ifdef OLED_ENABLE
-oled_rotation_t oled_init_keymap(oled_rotation_t rotation) { return OLED_ROTATION_180; }
-#endif
+void render_oled_title(bool side) {
+    oled_write_P(side ? PSTR("   Splitkb   ") : PSTR("    Kyria    "), true);
+}
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        // Volume control
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    } else if (index == 1) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
+oled_rotation_t oled_init_keymap(oled_rotation_t rotation) {
+#    ifdef OLED_DISPLAY_128X128
+    return OLED_ROTATION_0;
+#    else
+    return OLED_ROTATION_180;
+#    endif
+}
+
+void oled_render_large_display(bool side) {
+    if (side) {
+        render_wpm_graph(56, 64);
+    } else {
+        // clang-format off
+        static const char PROGMEM kyria_logo[] = {
+            0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,192,224,240,112,120, 56, 60, 28, 30, 14, 14, 14,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7,  7, 14, 14, 14, 30, 28, 60, 56,120,112,240,224,192,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,  0,192,224,240,124, 62, 31, 15,  7,  3,  1,128,192,224,240,120, 56, 60, 28, 30, 14, 14,  7,  7,135,231,127, 31,255,255, 31,127,231,135,  7,  7, 14, 14, 30, 28, 60, 56,120,240,224,192,128,  1,  3,  7, 15, 31, 62,124,240,224,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,240,252,255, 31,  7,  1,  0,  0,192,240,252,254,255,247,243,177,176, 48, 48, 48, 48, 48, 48, 48,120,254,135,  1,  0,  0,255,255,  0,  0,  1,135,254,120, 48, 48, 48, 48, 48, 48, 48,176,177,243,247,255,254,252,240,192,  0,  0,  1,  7, 31,255,252,240,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+            0,  0,  0,255,255,255,  0,  0,  0,  0,  0,254,255,255,  1,  1,  7, 30,120,225,129,131,131,134,134,140,140,152,152,177,183,254,248,224,255,255,224,248,254,183,177,152,152,140,140,134,134,131,131,129,225,120, 30,  7,  1,  1,255,255,254,  0,  0,  0,  0,  0,255,255,255,  0,  0,  0,  0,255,255,  0,  0,192,192, 48, 48,  0,  0,240,240,  0,  0,  0,  0,  0,  0,240,240,  0,  0,240,240,192,192, 48, 48, 48, 48,192,192,  0,  0, 48, 48,243,243,  0,  0,  0,  0,  0,  0, 48, 48, 48, 48, 48, 48,192,192,  0,  0,  0,  0,  0,
+            0,  0,  0,255,255,255,  0,  0,  0,  0,  0,127,255,255,128,128,224,120, 30,135,129,193,193, 97, 97, 49, 49, 25, 25,141,237,127, 31,  7,255,255,  7, 31,127,237,141, 25, 25, 49, 49, 97, 97,193,193,129,135, 30,120,224,128,128,255,255,127,  0,  0,  0,  0,  0,255,255,255,  0,  0,  0,  0, 63, 63,  3,  3, 12, 12, 48, 48,  0,  0,  0,  0, 51, 51, 51, 51, 51, 51, 15, 15,  0,  0, 63, 63,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 48, 48, 63, 63, 48, 48,  0,  0, 12, 12, 51, 51, 51, 51, 51, 51, 63, 63,  0,  0,  0,  0,  0,
+            0,  0,  0,  0, 15, 63,255,248,224,128,  0,  0,  3, 15, 63,127,255,239,207,141, 13, 12, 12, 12, 12, 12, 12, 12, 30,127,225,128,  0,  0,255,255,  0,  0,128,225,127, 30, 12, 12, 12, 12, 12, 12, 12, 13,141,207,239,255,127, 63, 15,  3,  0,  0,128,224,248,255, 63, 15,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,  0,  3,  7, 15, 62,124,248,240,224,192,128,  1,  3,  7, 15, 30, 28, 60, 56,120,112,112,224,224,225,231,254,248,255,255,248,254,231,225,224,224,112,112,120, 56, 60, 28, 30, 15,  7,  3,  1,128,192,224,240,248,124, 62, 15,  7,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+            0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  3,  7, 15, 14, 30, 28, 60, 56,120,112,112,112,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,112,112,112,120, 56, 60, 28, 30, 14, 15,  7,  3,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
+        };
+        // clang-format on
+        oled_set_cursor(0, 7);
+        oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
     }
-    return true;
 }
 #endif
 
-#ifdef RGBLIGHT_LAYERS
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 const rgblight_segment_t PROGMEM shift_layers[]   = RGBLIGHT_LAYER_SEGMENTS({8, 1, 120, 255, 255}, {18, 1, 120, 255, 255});
 const rgblight_segment_t PROGMEM control_layers[] = RGBLIGHT_LAYER_SEGMENTS({6, 1, 0, 255, 255}, {16, 1, 0, 255, 255});
 const rgblight_segment_t PROGMEM alt_layers[]     = RGBLIGHT_LAYER_SEGMENTS({2, 1, 240, 255, 255}, {17, 1, 250, 255, 255});
@@ -153,13 +163,67 @@ const rgblight_segment_t PROGMEM gui_layers[]     = RGBLIGHT_LAYER_SEGMENTS({7, 
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(shift_layers, control_layers, alt_layers, gui_layers);
 
-void keyboard_post_init_keymap(void) { rgblight_layers = my_rgb_layers; }
+void keyboard_post_init_keymap(void) {
+    rgblight_layers = my_rgb_layers;
+}
 
-void matrix_scan_keymap(void) {
+void housekeeping_task_keymap(void) {
     uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
     rgblight_set_layer_state(0, mods & MOD_MASK_SHIFT);
     rgblight_set_layer_state(1, mods & MOD_MASK_CTRL);
     rgblight_set_layer_state(2, mods & MOD_MASK_ALT);
     rgblight_set_layer_state(3, mods & MOD_MASK_GUI);
+}
+#elif defined(RGB_MATRIX_ENABLE) && defined(KEYBOARD_splitkb_kyria_rev3)
+void keyboard_post_init_keymap(void) {
+    extern led_config_t g_led_config;
+    g_led_config.flags[30] = g_led_config.flags[24] = g_led_config.flags[18] = g_led_config.flags[12] = g_led_config.flags[11] = g_led_config.flags[10] = g_led_config.flags[9] = g_led_config.flags[8] = g_led_config.flags[7] = g_led_config.flags[6] = g_led_config.flags[37] = g_led_config.flags[38] = g_led_config.flags[39] = g_led_config.flags[40] = g_led_config.flags[41] = g_led_config.flags[42] = g_led_config.flags[43] = g_led_config.flags[49] = g_led_config.flags[55] = g_led_config.flags[61] = LED_FLAG_MODIFIER;
+}
+
+void check_default_layer(uint8_t mode, uint8_t type, uint8_t led_min, uint8_t led_max) {
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERTY:
+            rgb_matrix_layer_helper(DEFAULT_LAYER_1_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            break;
+        case _COLEMAK_DH:
+            rgb_matrix_layer_helper(DEFAULT_LAYER_2_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            break;
+        case _COLEMAK:
+            rgb_matrix_layer_helper(DEFAULT_LAYER_3_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            break;
+        case _DVORAK:
+            rgb_matrix_layer_helper(DEFAULT_LAYER_4_HSV, mode, rgb_matrix_config.speed, type, led_min, led_max);
+            break;
+    }
+}
+
+bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+    if (userspace_config.rgb_layer_change) {
+        switch (get_highest_layer(layer_state)) {
+            case _GAMEPAD:
+                rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            case _DIABLO:
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            case _RAISE:
+                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            case _LOWER:
+                rgb_matrix_layer_helper(HSV_GREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            case _ADJUST:
+                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            case _MOUSE:
+                rgb_matrix_layer_helper(HSV_PURPLE, 1, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+            default:
+                check_default_layer(0, LED_FLAG_UNDERGLOW, led_min, led_max);
+                break;
+        }
+        check_default_layer(0, LED_FLAG_MODIFIER, led_min, led_max);
+    }
+    return false;
 }
 #endif

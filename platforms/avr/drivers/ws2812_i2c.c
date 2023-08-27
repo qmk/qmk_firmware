@@ -5,15 +5,17 @@
 #    error "RGBW not supported"
 #endif
 
-#ifndef WS2812_ADDRESS
-#    define WS2812_ADDRESS 0xb0
+#ifndef WS2812_I2C_ADDRESS
+#    define WS2812_I2C_ADDRESS 0xB0
 #endif
 
-#ifndef WS2812_TIMEOUT
-#    define WS2812_TIMEOUT 100
+#ifndef WS2812_I2C_TIMEOUT
+#    define WS2812_I2C_TIMEOUT 100
 #endif
 
-void ws2812_init(void) { i2c_init(); }
+void ws2812_init(void) {
+    i2c_init();
+}
 
 // Setleds for standard RGB
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
@@ -23,5 +25,5 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t leds) {
         s_init = true;
     }
 
-    i2c_transmit(WS2812_ADDRESS, (uint8_t *)ledarray, sizeof(LED_TYPE) * leds, WS2812_TIMEOUT);
+    i2c_transmit(WS2812_I2C_ADDRESS, (uint8_t *)ledarray, sizeof(LED_TYPE) * leds, WS2812_I2C_TIMEOUT);
 }

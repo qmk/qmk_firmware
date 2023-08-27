@@ -23,6 +23,7 @@ enum layer_names {
     _HUNGARIAN,
     _COLEMAK,
     _DVORAK,
+    _WORKMAN,
     _LOWER,
     _RAISE,
     _ADJUST
@@ -33,7 +34,7 @@ enum custom_keycodes {
     HUNGARIAN,
     COLEMAK,
     DVORAK,
-    BACKLIT
+    WORKMAN,
 };
 
 #define LOWER MO(_LOWER)
@@ -48,11 +49,11 @@ enum {
     TD_U,
 };
 
-void dance_key_a (qk_tap_dance_state_t *, void *);
-void dance_key_e (qk_tap_dance_state_t *, void *);
-void dance_key_i (qk_tap_dance_state_t *, void *);
-void dance_key_o (qk_tap_dance_state_t *, void *);
-void dance_key_u (qk_tap_dance_state_t *, void *);
+void dance_key_a (tap_dance_state_t *, void *);
+void dance_key_e (tap_dance_state_t *, void *);
+void dance_key_i (tap_dance_state_t *, void *);
+void dance_key_o (tap_dance_state_t *, void *);
+void dance_key_u (tap_dance_state_t *, void *);
 
 layer_state_t layer_state_set_user(layer_state_t);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);

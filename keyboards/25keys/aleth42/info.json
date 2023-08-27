@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "ALETH42",
+    "manufacturer": "25KEYS",
+    "url": "http://www.sho-k.co.uk/tech/aleth42",
+    "maintainer": "monksoffunk",
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xEAC8"
+    }
+}

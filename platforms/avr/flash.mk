@@ -78,7 +78,7 @@ AVRDUDE_PROGRAMMER ?= avrdude
 define EXEC_AVRDUDE
 	list_devices() { \
 		if $(GREP) -q -s icrosoft /proc/version; then \
-		    wmic.exe path Win32_SerialPort get DeviceID 2>/dev/null | LANG=C perl -pne 's/COM(\d+)/COM.($$1-1)/e' | sed 's!COM!/dev/ttyS!' | xargs echo -n | sort; \
+			powershell.exe 'Get-CimInstance -Class Win32_SerialPort | Select -ExpandProperty "DeviceID"' 2>/dev/null | sed -e "s/\r//g" | LANG=C perl -pne 's/COM(\d+)/COM.($$1-1)/e' | sed 's!COM!/dev/ttyS!' | sort; \
 		elif [ "`uname`" = "FreeBSD" ]; then \
 			ls /dev/tty* | grep -v '\.lock$$' | grep -v '\.init$$'; \
 		else \
@@ -130,6 +130,15 @@ avrdude-split-right: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_AVRDUDE,eeprom-righthand.eep)
 
 define EXEC_USBASP
+	if $(AVRDUDE_PROGRAMMER) -p $(AVRDUDE_MCU) -c usbasp 2>&1 | grep -q "could not find USB device with"; then \
+		printf "$(MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY)" ;\
+		sleep $(BOOTLOADER_RETRY_TIME) ;\
+		until $(AVRDUDE_PROGRAMMER) -p $(AVRDUDE_MCU) -c usbasp 2>&1 | (! grep -q "could not find USB device with"); do\
+			printf "." ;\
+			sleep $(BOOTLOADER_RETRY_TIME) ;\
+		done ;\
+		printf "\n" ;\
+	fi
 	$(AVRDUDE_PROGRAMMER) -p $(AVRDUDE_MCU) -c usbasp -U flash:w:$(BUILD_DIR)/$(TARGET).hex
 endef
 
@@ -159,7 +168,8 @@ endef
 hid_bootloader: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_HID_LUFA)
 
-flash:  $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+flash: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(SILENT) || printf "Flashing for bootloader: $(BLUE)$(BOOTLOADER)$(NO_COLOR)\n"
 ifneq ($(strip $(PROGRAM_CMD)),)
 	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
 else ifeq ($(strip $(BOOTLOADER)), caterina)
@@ -168,9 +178,9 @@ else ifeq ($(strip $(BOOTLOADER)), halfkay)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_TEENSY)
 else ifeq (dfu,$(findstring dfu,$(BOOTLOADER)))
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU)
-else ifneq (,$(filter $(BOOTLOADER), usbasploader USBasp))
+else ifeq ($(strip $(BOOTLOADER)), usbasploader)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_USBASP)
-else ifneq (,$(filter $(BOOTLOADER), bootloadhid bootloadHID))
+else ifeq ($(strip $(BOOTLOADER)), bootloadhid)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_BOOTLOADHID)
 else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_HID_LUFA)

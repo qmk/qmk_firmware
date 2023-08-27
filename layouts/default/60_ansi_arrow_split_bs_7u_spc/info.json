@@ -3,7 +3,7 @@
     "url": "https://mr.sendyyk.com",
     "maintainer": "Sendy YK <mr@sendyyk.com>",
     "layouts": {
-        "LAYOUT_60_ansi_arrow": {
+        "LAYOUT_60_ansi_arrow_split_bs_7u_spc": {
             "layout": [
                 {"x": 0, "y": 0},
                 {"x": 1, "y": 0},

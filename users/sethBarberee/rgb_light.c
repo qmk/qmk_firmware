@@ -19,7 +19,7 @@
 layer_state_t layer_state_set_rgb_light(layer_state_t state){
     switch(get_highest_layer(state)) {
       case _QWERTY:
-        rgblight_set_hsv_and_mode(HSV_RED, RGBLIGHT_MODE_BREATHING + 3);
+        rgblight_set_hsv_and_mode(HSV_RED, RGBLIGHT_MODE_TWINKLE + 3);
         break;
       case _LOWER:
         rgblight_set_hsv_and_mode(HSV_GREEN, RGBLIGHT_MODE_BREATHING + 3);

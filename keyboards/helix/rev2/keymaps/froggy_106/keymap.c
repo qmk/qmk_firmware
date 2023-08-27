@@ -1,11 +1,25 @@
 #include QMK_KEYBOARD_H
-#include "keymap_jp.h"
+#include "keymap_japanese.h"
 #include <string.h>
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
 
-extern uint8_t is_master;
+#define LAYOUT_half( \
+    L00, L01, L02, L03, L04, L05,       \
+    L10, L11, L12, L13, L14, L15,       \
+    L20, L21, L22, L23, L24, L25,       \
+    L30, L31, L32, L33, L34, L35, L36,  \
+    L40, L41, L42, L43, L44, L45, L46   \
+) { \
+    { L00, L01, L02, L03, L04, L05, KC_NO }, \
+    { L10, L11, L12, L13, L14, L15, KC_NO }, \
+    { L20, L21, L22, L23, L24, L25, KC_NO }, \
+    { L30, L31, L32, L33, L34, L35, L36 }, \
+    { L40, L41, L42, L43, L44, L45, L46 }, \
+    { _______, _______, _______, _______, _______, _______, KC_NO }, \
+    { _______, _______, _______, _______, _______, _______, KC_NO }, \
+    { _______, _______, _______, _______, _______, _______, KC_NO }, \
+    { _______, _______, _______, _______, _______, _______, _______ }, \
+    { _______, _______, _______, _______, _______, _______, _______ } \
+}
 
 #define DELAY_TIME  75
 static uint16_t key_timer;
@@ -79,145 +93,141 @@ enum macro_keycodes {
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 
-#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Base
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * |  C+z |   ;  |   [  |   (  |   <  |   {  |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | KANA |   P  |   K  |   R  |   A  |   F  |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |  BS  |   D  |   T  |   H  |   E  |   O  |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Shift|   Y  |   S  |   N  |   I  |   U  |Space |      |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Ctrl | Alt  | Gui  | Sym  | Num  | OPT  | Ent  |      |      |      |      |      |      |      |
-   * `-------------------------------------------------------------------------------------------------'
+   * ,-----------------------------------------.
+   * |  C+z |   ;  |   [  |   (  |   <  |   {  |
+   * |------+------+------+------+------+------|
+   * | KANA |   P  |   K  |   R  |   A  |   F  |
+   * |------+------+------+------+------+------|
+   * |  BS  |   D  |   T  |   H  |   E  |   O  |
+   * |------+------+------+------+------+------+------.
+   * | Shift|   Y  |   S  |   N  |   I  |   U  |Space |
+   * |------+------+------+------+------+------+------|
+   * | Ctrl | Alt  | Gui  | Sym  | Num  | OPT  | Ent  |
+   * `------------------------------------------------'
    */
-  [_BASE] = LAYOUT( \
-      LCTL(KC_Z),    KC_SCLN,       KC_LBRC,       KC_LPRN,   KC_LT,     KC_LCBR,                                _______,  _______,  _______,  _______,  _______,  _______, \
-      KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,                                   _______,  _______,  _______,  _______,  _______,  _______, \
-      KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,                                   _______,  _______,  _______,  _______,  _______,  _______, \
-      OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC, _______,  _______,  _______,  _______,  _______,  _______,  _______, \
-      OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), L_SYM,     L_NUM,     OPT_TAP_SP, KC_ENT, _______,  _______,  _______,  _______,  _______,  _______,  _______ \
+  [_BASE] = LAYOUT_half(
+      LCTL(KC_Z),    KC_SCLN,       KC_LBRC,       KC_LPRN,   KC_LT,     KC_LCBR,
+      KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,
+      KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,
+      OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC,
+      OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), L_SYM,     L_NUM,     OPT_TAP_SP, KC_ENT
       ),
-  [_BASE_106] = LAYOUT( \
-      LCTL(KC_Z),    JP_SCLN,       JP_LBRC,       JP_LPRN,   JP_LABK,   JP_LCBR,                                _______,  _______,  _______,  _______,  _______,  _______, \
-      KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,                                   _______,  _______,  _______,  _______,  _______,  _______, \
-      KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,                                   _______,  _______,  _______,  _______,  _______,  _______, \
-      OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC, _______,  _______,  _______,  _______,  _______,  _______,  _______, \
-      OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), L_SYM,     L_NUM,     OPT_TAP_SP, KC_ENT, _______,  _______,  _______,  _______,  _______,  _______,  _______ \
+  [_BASE_106] = LAYOUT_half(
+      LCTL(KC_Z),    JP_SCLN,       JP_LBRC,       JP_LPRN,   JP_LABK,   JP_LCBR,
+      KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,
+      KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,
+      OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC,
+      OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), L_SYM,     L_NUM,     OPT_TAP_SP, KC_ENT
       ),
 
   /* Opt
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * |  Esc |  :   |  ]   |  )   |  >   |  }   |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |  EISU|   J  |   M  |   B  |   '  |  Tab |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |   .  |   V  |   C  |   L  |   Z  |  Q   |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |   X  |   G  |   W  |   -  |  Del | Esc  |      |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |      |   ,  | DTOP |      |      |      |      |      |      |      |      |      |
-   * `-------------------------------------------------------------------------------------------------'
+   * ,-----------------------------------------.
+   * |  Esc |  :   |  ]   |  )   |  >   |  }   |
+   * |------+------+------+------+------+------|
+   * |  EISU|   J  |   M  |   B  |   '  |  Tab |
+   * |------+------+------+------+------+------|
+   * |   .  |   V  |   C  |   L  |   Z  |  Q   |
+   * |------+------+------+------+------+------+------.
+   * |      |   X  |   G  |   W  |   -  |  Del | Esc  |
+   * |------+------+------+------+------+------+------|
+   * |      |      |      |   ,  | DTOP |      |      |
+   * `------------------------------------------------'
    */
-  [_OPT] = LAYOUT( \
-      KC_ESC,  KC_COLN,KC_RBRC, KC_RPRN,KC_GT,     KC_RCBR,                   _______,  _______,  _______,  _______,  _______,  _______, \
-      EISU,    KC_J,   KC_M,    KC_B,   KC_QUOT,   KC_TAB,                    _______,  _______,  _______,  _______,  _______,  _______, \
-      KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,                      _______,  _______,  _______,  _______,  _______,  _______, \
-      _______, KC_X,   KC_G,    KC_W,   KC_MINUS,  KC_DEL,  KC_ESC,  _______, _______,  _______,  _______,  _______,  _______,  _______, \
-      _______, _______,_______, KC_COMM,DESKTOP,   _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______ \
+  [_OPT] = LAYOUT_half(
+      KC_ESC,  KC_COLN,KC_RBRC, KC_RPRN,KC_GT,     KC_RCBR,
+      EISU,    KC_J,   KC_M,    KC_B,   KC_QUOT,   KC_TAB,
+      KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,
+      _______, KC_X,   KC_G,    KC_W,   KC_MINUS,  KC_DEL,  KC_ESC,
+      _______, _______,_______, KC_COMM,DESKTOP,   _______, _______
       ),
-  [_OPT_106] = LAYOUT( \
-      KC_ESC,  JP_COLN,JP_RBRC, JP_RPRN,JP_RABK,   JP_RCBR,                   _______,  _______,  _______,  _______,  _______,  _______, \
-      EISU,    KC_J,   KC_M,    KC_B,   JP_QUOT,   KC_TAB,                    _______,  _______,  _______,  _______,  _______,  _______, \
-      KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,                      _______,  _______,  _______,  _______,  _______,  _______, \
-      _______, KC_X,   KC_G,    KC_W,   JP_MINS,   KC_DEL,  KC_ESC,  _______, _______,  _______,  _______,  _______,  _______,  _______, \
-      _______, _______,_______, KC_COMM,DESKTOP,   _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______ \
+  [_OPT_106] = LAYOUT_half(
+      KC_ESC,  JP_COLN,JP_RBRC, JP_RPRN,JP_RABK,   JP_RCBR,
+      EISU,    KC_J,   KC_M,    KC_B,   JP_QUOT,   KC_TAB,
+      KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,
+      _______, KC_X,   KC_G,    KC_W,   JP_MINS,   KC_DEL,  KC_ESC,
+      _______, _______,_______, KC_COMM,DESKTOP,   _______, _______
       ),
 
   /* Sym
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * |  Ins |  GRV |      |  PU  |  PD  |   ^  |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |   \  |   #  |   =  |   ?  |   %  |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |   $  |  upA |   @  |   !  |   |  |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |  CL  |  <-  |  dwA |  ->  |   _  |   &  |      |      |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |  PS  |      |   ~  |      |      |      |      |      |      |      |      |      |
-   * `-------------------------------------------------------------------------------------------------'
+   * ,-----------------------------------------.
+   * |  Ins |  GRV |      |  PU  |  PD  |   ^  |
+   * |------+------+------+------+------+------|
+   * |      |   \  |   #  |   =  |   ?  |   %  |
+   * |------+------+------+------+------+------|
+   * |      |   $  |  upA |   @  |   !  |   |  |
+   * |------+------+------+------+------+------+------.
+   * |  CL  |  <-  |  dwA |  ->  |   _  |   &  |      |
+   * |------+------+------+------+------+------+------+
+   * |      |      |  PS  |      |   ~  |      |      |
+   * `------------------------------------------------'
    */
-  [_SYM] = LAYOUT( \
-      KC_INS,  KC_GRV,  _______, KC_PGUP, KC_PGDN, KC_CIRC,                   _______,  _______,  _______,  _______,  _______,  _______, \
-      _______, KC_BSLS, KC_HASH, KC_EQL,  KC_QUES, KC_PERC,                   _______,  _______,  _______,  _______,  _______,  _______, \
-      _______, KC_DLR,  KC_UP,   KC_AT,   KC_EXLM, KC_PIPE,                   _______,  _______,  _______,  _______,  _______,  _______, \
-      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,KC_UNDS, KC_AMPR, _______, _______, _______,  _______,  _______,  _______,  _______,  _______, \
-      _______, _______, KC_PSCR, _______, KC_TILD, _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______ \
+  [_SYM] = LAYOUT_half(
+      KC_INS,  KC_GRV,  _______, KC_PGUP, KC_PGDN, KC_CIRC,
+      _______, KC_BSLS, KC_HASH, KC_EQL,  KC_QUES, KC_PERC,
+      _______, KC_DLR,  KC_UP,   KC_AT,   KC_EXLM, KC_PIPE,
+      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,KC_UNDS, KC_AMPR, _______,
+      _______, _______, KC_PSCR, _______, KC_TILD, _______, _______
       ),
-  [_SYM_106] = LAYOUT( \
-      KC_INS,  JP_GRV,  _______, KC_PGUP, KC_PGDN, JP_CIRC,                   _______,  _______,  _______,  _______,  _______,  _______, \
-      _______, JP_BSLS, JP_HASH, JP_EQL,  JP_QUES, JP_PERC,                   _______,  _______,  _______,  _______,  _______,  _______, \
-      _______, JP_DLR,  KC_UP,   JP_AT,   JP_EXLM, JP_PIPE,                   _______,  _______,  _______,  _______,  _______,  _______, \
-      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,JP_UNDS, JP_AMPR, _______, _______, _______,  _______,  _______,  _______,  _______,  _______, \
-      _______, _______, KC_PSCR, _______, JP_TILD, _______, _______, _______, _______,  _______,  _______,  _______,  _______,  _______ \
+  [_SYM_106] = LAYOUT_half(
+      KC_INS,  JP_GRV,  _______, KC_PGUP, KC_PGDN, JP_CIRC,
+      _______, JP_BSLS, JP_HASH, JP_EQL,  JP_QUES, JP_PERC,
+      _______, JP_DLR,  KC_UP,   JP_AT,   JP_EXLM, JP_PIPE,
+      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,JP_UNDS, JP_AMPR, _______,
+      _______, _______, KC_PSCR, _______, JP_TILD, _______, _______
       ),
   
   /* Raise
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      |      | Func | home |  End |      |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |   *  |  7   |  8   |  9   |  -   |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |  .   |   /  |  4   |  5   |  6   |  +   |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |  LN  |  0   |  1   |  2   |  3   |C+S+F1|      |      |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |      |      |  .   |  ,   |      |      |      |      |      |      |      |      |      |      |
-   * `-------------------------------------------------------------------------------------------------'
+   * ,-----------------------------------------.
+   * |      |      | Func | home |  End |      |
+   * |------+------+------+------+------+------|
+   * |      |   *  |  7   |  8   |  9   |  -   |
+   * |------+------+------+------+------+------|
+   * |  .   |   /  |  4   |  5   |  6   |  +   |
+   * |------+------+------+------+------+------+------.
+   * |  LN  |  0   |  1   |  2   |  3   |C+S+F1|      |
+   * |------+------+------+------+------+------+------|
+   * |      |      |  .   |  ,   |      |      |      |
+   * `------------------------------------------------'
    */
-  [_NUM] = LAYOUT( \
-      _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,                          _______,  _______,  _______,  _______,  _______,  _______, \
-      _______,  KC_ASTR, KC_P7,      KC_P8,   KC_P9,   KC_MINS,                          _______,  _______,  _______,  _______,  _______,  _______, \
-      KC_DOT,   KC_SLSH, KC_P4,      KC_P5,   KC_P6,   KC_PLUS,                          _______,  _______,  _______,  _______,  _______,  _______, \
-      KC_NLCK,  KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______, _______, _______,  _______,  _______,  _______,  _______,  _______, \
-      _______,  _______, KC_PDOT,    KC_COMM, _______, _______,        _______, _______, _______,  _______,  _______,  _______,  _______,  _______ \
+  [_NUM] = LAYOUT_half(
+      _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,
+      _______,  KC_ASTR, KC_P7,      KC_P8,   KC_P9,   KC_MINS,
+      KC_DOT,   KC_SLSH, KC_P4,      KC_P5,   KC_P6,   KC_PLUS,
+      KC_NUM,   KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______,
+      _______,  _______, KC_PDOT,    KC_COMM, _______, _______,        _______
       ),
-  [_NUM_106] = LAYOUT( \
-      _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,                          _______,  _______,  _______,  _______,  _______,  _______, \
-      _______,  JP_ASTR, KC_P7,      KC_P8,   KC_P9,   JP_MINS,                          _______,  _______,  _______,  _______,  _______,  _______, \
-      KC_DOT,   JP_SLSH, KC_P4,      KC_P5,   KC_P6,   JP_PLUS,                          _______,  _______,  _______,  _______,  _______,  _______, \
-      KC_NLCK,  KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______, _______, _______,  _______,  _______,  _______,  _______,  _______, \
-      _______,  _______, KC_PDOT,    JP_COMM, _______, _______,        _______, _______, _______,  _______,  _______,  _______,  _______,  _______ \
+  [_NUM_106] = LAYOUT_half(
+      _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,
+      _______,  JP_ASTR, KC_P7,      KC_P8,   KC_P9,   JP_MINS,
+      KC_DOT,   JP_SLSH, KC_P4,      KC_P5,   KC_P6,   JP_PLUS,
+      KC_NUM,   KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______,
+      _______,  _______, KC_PDOT,    JP_COMM, _______, _______,        _______
       ),
   
   /* Func
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * |RGBRST|  Hue |To101 |  RST |  Mac |  Win |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | RGB1 | VAL+ |  F7  |  F8  |  F9  |To106 |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | RGB2 | VAL- |  F4  |  F5  |  F6  | F12  |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * | RGB3 |  F10 |  F1  |  F2  |  F3  | F11  |      |      |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |RGBOFF|      |      |      |      |      |      |      |      |      |      |      |      |      |
-   * `-------------------------------------------------------------------------------------------------'
+   * ,-----------------------------------------.
+   * |RGBRST|  Hue |To101 |  RST |  Mac |  Win |
+   * |------+------+------+------+------+------|
+   * | RGB1 | VAL+ |  F7  |  F8  |  F9  |To106 |
+   * |------+------+------+------+------+------|
+   * | RGB2 | VAL- |  F4  |  F5  |  F6  | F12  |
+   * |------+------+------+------+------+------+------.
+   * | RGB3 |  F10 |  F1  |  F2  |  F3  | F11  |      |
+   * |------+------+------+------+------+------+------|
+   * |RGBOFF|      |      |      |      |      |      |
+   * `------------------------------------------------'
    */
-  [_FUNC] = LAYOUT( \
-      RGBRST,RGB_HUI, TO_101,  RESET,   MAC,     WIN,                         _______,  _______,  _______,  _______,  _______,  _______, \
-      RGB1,  RGB_VAI, KC_F7,   KC_F8,   KC_F9,   TO_106,                      _______,  _______,  _______,  _______,  _______,  _______, \
-      RGB2,  RGB_VAD, KC_F4,   KC_F5,   KC_F6,   KC_F12,                      _______,  _______,  _______,  _______,  _______,  _______, \
-      RGB3,  KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F11,   _______,  _______, _______,  _______,  _______,  _______,  _______,  _______, \
-      RGBOFF,_______, _______, _______, _______, _______,  _______,  _______, _______,  _______,  _______,  _______,  _______,  _______ \
+  [_FUNC] = LAYOUT_half(
+      RGBRST,RGB_HUI, TO_101,  QK_BOOT, MAC,     WIN,
+      RGB1,  RGB_VAI, KC_F7,   KC_F8,   KC_F9,   TO_106,
+      RGB2,  RGB_VAD, KC_F4,   KC_F5,   KC_F6,   KC_F12,
+      RGB3,  KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F11,   _______,
+      RGBOFF,_______, _______, _______, _______, _______,  _______
       )
 };
-#else
-#error "undefined keymaps"
-#endif
 
 void set_mac_mode(bool enable) {
   if(enable){
@@ -317,7 +327,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef RGBLIGHT_ENABLE
     col = record->event.key.col;
     row = record->event.key.row;
-    if (record->event.pressed && ((row < 5 && is_master) || (row >= 5 && !is_master))) {
+    if (record->event.pressed && ((row < 5 && is_keyboard_master()) || (row >= 5 && !is_keyboard_master()))) {
       int end = keybuf_end;
       keybufs[end].col = col;
       keybufs[end].row = row % 5;
@@ -449,24 +459,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    case EISU:
       if (record->event.pressed) {
         if(IS_MODE_MAC()){
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       return false;
       break;
     case KANA:
       if (record->event.pressed) {
         if(IS_MODE_MAC()){
-          register_code(KC_LANG1);
+          register_code(KC_LNG1);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG1);
+        unregister_code(KC_LNG1);
       }
       return false;
       break;
@@ -550,15 +560,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
-//keyboard start-up code. Runs once when the firmware starts up.
-void matrix_init_user(void) {
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
-    #endif
-}
-
 // LED Effect
 #ifdef RGBLIGHT_ENABLE
 unsigned char rgb[7][5][3];
@@ -619,10 +620,6 @@ layer_state_t layer_state_old;
 
 //runs every scan cycle (a lot)
 void matrix_scan_user(void) {
-  #ifdef SSD1306OLED
-    iota_gfx_task();  // this is what updates the display continuously
-  #endif
-
   if(delay_key_stat && (timer_elapsed(key_timer) > DELAY_TIME)){
     if (IS_MODE_106())
       register_delay_code(_BASE_106);
@@ -680,19 +677,11 @@ void matrix_scan_user(void) {
   #endif
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
-
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
+//OLED update loop
+#ifdef OLED_ENABLE
 
 // Render to OLED
-void render_status(struct CharacterMatrix *matrix) {
+void render_status(void) {
 
   // froggy logo
   static char logo[4][17]=
@@ -702,7 +691,7 @@ void render_status(struct CharacterMatrix *matrix) {
     {0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,0},
     {0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0},
   };
-  
+
   static char modectl[4][2][4]=
   {
     {
@@ -722,7 +711,7 @@ void render_status(struct CharacterMatrix *matrix) {
       {0xda,0xdb,0xdc,0}, //JP(106)
     },
   };
-  
+
   static char indctr[8][2][4]=
   {
     // white icon
@@ -769,36 +758,36 @@ void render_status(struct CharacterMatrix *matrix) {
   int rowj = 1;
 
   //Set Indicator icon
-  if (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) { rown = 4; }
-  if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) { rowa = 4; }
-  if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; }
+  led_t led_state = host_keyboard_led_state();
+  if (led_state.num_lock) { rown = 4; }
+  if (led_state.caps_lock) { rowa = 4; }
+  if (led_state.scroll_lock) { rows = 4; }
   if (IS_LAYER_ON(_FUNC)) { rowf = 4; }
 
   //Set Mode icon
   if (IS_MODE_MAC()) { rowm = 2; }
   if (IS_MODE_106()) { rowj = 3; }
 
-  matrix_write(matrix, indctr[rown]  [0]);
-  matrix_write(matrix, indctr[rowf]  [1]);
-  matrix_write(matrix, modectl[rowm] [0]);
-  matrix_write(matrix, logo[0]);
-  matrix_write(matrix, indctr[rown+1][0]);
-  matrix_write(matrix, indctr[rowf+1][1]);
-  matrix_write(matrix, modectl[rowm] [1]);
-  matrix_write(matrix, logo[1]);
-  matrix_write(matrix, indctr[rowa+2][0]);
-  matrix_write(matrix, indctr[rows+2][1]);
-  matrix_write(matrix, modectl[rowj] [0]);
-  matrix_write(matrix, logo[2]);
-  matrix_write(matrix, indctr[rowa+3][0]);
-  matrix_write(matrix, indctr[rows+3][1]);
-  matrix_write(matrix, modectl[rowj] [1]);
-  matrix_write(matrix, logo[3]);
+  oled_write(indctr[rown]  [0], false);
+  oled_write(indctr[rowf]  [1], false);
+  oled_write(modectl[rowm] [0], false);
+  oled_write(logo[0],           false);
+  oled_write(indctr[rown+1][0], false);
+  oled_write(indctr[rowf+1][1], false);
+  oled_write(modectl[rowm] [1], false);
+  oled_write(logo[1],           false);
+  oled_write(indctr[rowa+2][0], false);
+  oled_write(indctr[rows+2][1], false);
+  oled_write(modectl[rowj] [0], false);
+  oled_write(logo[2],           false);
+  oled_write(indctr[rowa+3][0], false);
+  oled_write(indctr[rows+3][1], false);
+  oled_write(modectl[rowj] [1], false);
+  oled_write(logo[3],           false);
 
 }
 
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
+bool oled_task_user(void) {
 
 #if DEBUG_TO_SCREEN
   if (debug_enable) {
@@ -806,14 +795,13 @@ void iota_gfx_task_user(void) {
   }
 #endif
 
-  matrix_clear(&matrix);
-  if(is_master){
-    render_status(&matrix);
+  if (is_keyboard_master()) {
+    render_status();
   }
-  matrix_update(&display, &matrix);
+  return false;
 }
 
-#endif
+#endif // end of OLED_ENABLE
 
 // Local Variables:
 // mode: c++

@@ -243,7 +243,7 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef RGB_MATRIX_ENABLE
 // clang-format off
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /*   driver
  *   |  R location
  *   |  |      G location
@@ -397,4 +397,55 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     keyboard_config.rgb_matrix_enable = true;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
+}
+
+#ifdef ORYX_ENABLE
+static uint16_t loops = 0;
+static bool is_on = false;
+#endif
+
+#ifdef DYNAMIC_MACRO_ENABLE
+static bool is_dynamic_recording = false;
+static uint16_t dynamic_loop_timer;
+
+void dynamic_macro_record_start_user(int8_t direction) {
+    is_dynamic_recording = true;
+    dynamic_loop_timer = timer_read();
+    ergodox_right_led_1_on();
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    is_dynamic_recording = false;
+    layer_state_set_user(layer_state);
+}
+#endif
+
+void matrix_scan_kb(void) {
+#ifdef DYNAMIC_MACRO_ENABLE
+    if (is_dynamic_recording) {
+        ergodox_right_led_1_off();
+        // if (timer_elapsed(dynamic_loop_timer) > 5)
+        {
+            static uint8_t counter;
+            counter++;
+            if (counter > 100) ergodox_right_led_1_on();
+            dynamic_loop_timer = timer_read();
+        }
+    }
+#endif
+
+#ifdef CAPS_LOCK_STATUS
+    led_t led_state = host_keyboard_led_state();
+    if(led_state.caps_lock) {
+        ergodox_right_led_3_on();
+    }
+    else {
+        uint8_t layer = get_highest_layer(layer_state);
+        if(layer != 1) {
+        ergodox_right_led_3_off();
+        }
+    }
+#endif
+
+    matrix_scan_user();
 }

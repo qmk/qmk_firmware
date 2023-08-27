@@ -14,14 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "process_grave_esc.h"
+#include "keycodes.h"
+#include "modifiers.h"
+#include "action_util.h"
 
-/* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
+/* true if the last press of QK_GRAVE_ESCAPE was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
  * Used to ensure that the correct keycode is released if the key is released.
  */
 static bool grave_esc_was_shifted = false;
 
 bool process_grave_esc(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == GRAVE_ESC) {
+    if (keycode == QK_GRAVE_ESCAPE) {
         const uint8_t mods    = get_mods();
         uint8_t       shifted = mods & MOD_MASK_SG;
 

@@ -11,7 +11,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-    RESET  , PAWFIVE, RELOAD ,
+    QK_BOOT, PAWFIVE, RELOAD ,
     SLACKUP, KC_UP  , KC_PGUP,
     SLACKDN, KC_DOWN, KC_PGDN
   ),

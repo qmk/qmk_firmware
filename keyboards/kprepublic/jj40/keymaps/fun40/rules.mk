@@ -1,6 +1,6 @@
 
 
-BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
+BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = no         # Console for debug(+400)
@@ -13,9 +13,5 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 
 RGBLIGHT_ENABLE = yes
-RGBLIGHT_CUSTOM_DRIVER = yes
-DISABLE_WS2812 = yes
-
 
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-

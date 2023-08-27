@@ -43,7 +43,7 @@
 #if defined(CONSOLE_ENABLE) && defined(DEBUG_EEPROM_OUTPUT)
 #    include "timer.h"
 #    include "debug.h"
-#endif  // DEBUG_EEPROM_OUTPUT
+#endif // DEBUG_EEPROM_OUTPUT
 
 static inline void fill_target_address(uint8_t *buffer, const void *addr) {
     uintptr_t p = (uintptr_t)addr;
@@ -91,7 +91,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
         dprintf(" %02X", (int)(((uint8_t *)buf)[i]));
     }
     dprintf("\n");
-#endif  // DEBUG_EEPROM_OUTPUT
+#endif // DEBUG_EEPROM_OUTPUT
 }
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
@@ -122,7 +122,7 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
             dprintf(" %02X", (int)(read_buf[i]));
         }
         dprintf("\n");
-#endif  // DEBUG_EEPROM_OUTPUT
+#endif // DEBUG_EEPROM_OUTPUT
 
         i2c_transmit(EXTERNAL_EEPROM_I2C_ADDRESS((uintptr_t)addr), complete_packet, EXTERNAL_EEPROM_ADDRESS_SIZE + write_length, 100);
         wait_ms(EXTERNAL_EEPROM_WRITE_TIME);

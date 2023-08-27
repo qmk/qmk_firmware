@@ -100,7 +100,7 @@ void uart_init(uint32_t baud) {
 }
 
 // Transmit a byte
-void uart_putchar(uint8_t c) {
+void uart_write(uint8_t data) {
     uint8_t i;
 
     i = tx_buffer_head + 1;
@@ -108,29 +108,41 @@ void uart_putchar(uint8_t c) {
     // return immediately to avoid deadlock when interrupt is disabled(called from ISR)
     if (tx_buffer_tail == i && (SREG & (1 << SREG_I)) == 0) return;
     while (tx_buffer_tail == i)
-        ;  // wait until space in buffer
+        ; // wait until space in buffer
     // cli();
-    tx_buffer[i]   = c;
+    tx_buffer[i]   = data;
     tx_buffer_head = i;
     UCSRnB         = (1 << RXENn) | (1 << TXENn) | (1 << RXCIEn) | (1 << UDRIEn);
     // sei();
 }
 
 // Receive a byte
-uint8_t uart_getchar(void) {
-    uint8_t c, i;
+uint8_t uart_read(void) {
+    uint8_t data, i;
 
     while (rx_buffer_head == rx_buffer_tail)
-        ;  // wait for character
+        ; // wait for character
     i = rx_buffer_tail + 1;
     if (i >= RX_BUFFER_SIZE) i = 0;
-    c              = rx_buffer[i];
+    data           = rx_buffer[i];
     rx_buffer_tail = i;
-    return c;
+    return data;
+}
+
+void uart_transmit(const uint8_t *data, uint16_t length) {
+    for (uint16_t i = 0; i < length; i++) {
+        uart_write(data[i]);
+    }
+}
+
+void uart_receive(uint8_t *data, uint16_t length) {
+    for (uint16_t i = 0; i < length; i++) {
+        data[i] = uart_read();
+    }
 }
 
 // Return whether the number of bytes waiting in the receive buffer is nonzero.
-// Call this before uart_getchar() to check if it will need
+// Call this before uart_read() to check if it will need
 // to wait for a byte to arrive.
 bool uart_available(void) {
     uint8_t head, tail;

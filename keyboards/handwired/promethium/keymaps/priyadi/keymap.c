@@ -13,13 +13,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#if defined(PRIYADI_PROMETHIUM)
-  #include "promethium.h"
-#elif defined(PRIYADI_PLANCK)
-  #include "planck.h"
-#else
-  #error "no keyboard defined"
-#endif
+#include QMK_KEYBOARD_H
 
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -57,13 +51,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "outputselect.h"
 #endif
 #include "led.h"
-#define COUNT(x) (sizeof (x) / sizeof (*(x)))
+#define COUNT(x) ARRAY_SIZE((x))
 
 #define KC_WWWB KC_WWW_BACK
 #define KC_WWWF KC_WWW_FORWARD
 
 // hybrid right-alt & scroll lock (mapped to Compose in OS)
-#define C_RALT MT(MOD_RALT, KC_SLCK)
+#define C_RALT MT(MOD_RALT, KC_SCRL)
 
 // dual use right-shift & del key
 // #define C_RSFT MT(MOD_RSFT, KC_DEL)
@@ -139,9 +133,6 @@ enum planck_keycodes {
   // stub
 #ifndef FAUXCLICKY_ENABLE
   FC_TOG,
-#endif
-#ifndef MODULE_ADAFRUIT_BLE
-  OUT_BT,
 #endif
   RGBDEMO,
   KEYCODE_END
@@ -262,7 +253,7 @@ enum unicode_name {
   PLMIN,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [GRIN] = 0x1F600,
   [TJOY] = 0x1F602,
   [SMILE] = 0x1F601,
@@ -532,7 +523,7 @@ void led_reset(void) {
 }
 
 void led_set_default_layer_indicator(void) {
-  uint8_t default_layer = biton32(default_layer_state);
+  uint8_t default_layer = get_highest_layer(default_layer_state);
   if (default_layer == _QWERTY) {
     rgbsps_set(LED_IND_QWERTY, THEME_COLOR_QWERTY);
     rgbsps_set(LED_IND_ALT, COLOR_BLANK);
@@ -556,7 +547,7 @@ void led_set_layer_indicator(void) {
   rgbsps_set(LED_IND_GREEK, COLOR_BLANK);
   rgbsps_set(LED_IND_EMOJI, COLOR_BLANK);
 
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
   if (oldlayer == layer) {
     return;
   }
@@ -606,14 +597,14 @@ void led_set_unicode_input_mode(void) {
   rgbsps_set(LED_IND_WINDOWS, COLOR_BLANK);
 
   switch (get_unicode_input_mode()) {
-    case UC_LNX:
+    case UNICODE_MODE_LINUX:
       rgbsps_set(LED_IND_LINUX, THEME_COLOR_LINUX);
       break;
-    case UC_OSX:
+    case UNICODE_MODE_MACOS:
       rgbsps_set(LED_IND_APPLE, THEME_COLOR_APPLE);
       break;
-    case UC_WIN:
-    case UC_WINC:
+    case UNICODE_MODE_WINDOWS:
+    case UNICODE_MODE_WINCOMPOSE:
       rgbsps_set(LED_IND_WINDOWS, THEME_COLOR_WINDOWS);
       break;
   }
@@ -791,9 +782,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_PUNC] = LAYOUT(
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, X(LTEQ), X(GTEQ), _______,
-  KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, X(NOTEQ),KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, _______,
-  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, X(PLMIN),KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
+  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, UM(LTEQ), UM(GTEQ), _______,
+  KC_GRV,  KC_ASTR, KC_BSLS, KC_MINS,  KC_EQL, KC_SLSH, UM(NOTEQ),KC_LPRN, KC_RPRN, KC_LABK, KC_RABK, _______,
+  KC_AMPR, KC_CIRC, KC_PIPE, KC_UNDS, KC_PLUS, KC_QUES, UM(PLMIN),KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_COLN, _______,
                                            _______, _______, _______
 ),
@@ -848,9 +839,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_GREEKU] = LAYOUT(
-  _______, XXXXXXX, XXXXXXX,X(UEPSI), X(URHO), X(UTAU),X(UUPSI),X(UTHET),X(UIOTA),X(UOMIC),  X(UPI), _______,
-  _______,X(UALPH),X(USIGM),X(UDELT), X(UPHI),X(UGAMM), X(UETA),  X(UXI),X(UKAPP),X(ULAMB), KC_QUOT, _______,
-  _______,X(UZETA), X(UCHI), X(UPSI),X(UOMEG),X(UBETA),  X(UNU),  X(UMU), KC_COMM, KC_DOT,  KC_SLSH, _______,
+  _______, XXXXXXX, XXXXXXX,UM(UEPSI), UM(URHO), UM(UTAU),UM(UUPSI),UM(UTHET),UM(UIOTA),UM(UOMIC),  UM(UPI), _______,
+  _______,UM(UALPH),UM(USIGM),UM(UDELT), UM(UPHI),UM(UGAMM), UM(UETA),  UM(UXI),UM(UKAPP),UM(ULAMB), KC_QUOT, _______,
+  _______,UM(UZETA), UM(UCHI), UM(UPSI),UM(UOMEG),UM(UBETA),  UM(UNU),  UM(UMU), KC_COMM, KC_DOT,  KC_SLSH, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                            _______, _______, _______
 ),
@@ -867,9 +858,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_GREEKL] = LAYOUT(
-  _______, XXXXXXX,X(FSIGM),X(LEPSI), X(LRHO), X(LTAU),X(LUPSI),X(LTHET),X(LIOTA),X(LOMIC),  X(LPI), _______,
-  _______,X(LALPH),X(LSIGM),X(LDELT), X(LPHI),X(LGAMM), X(LETA),  X(LXI),X(LKAPP),X(LLAMB), KC_QUOT, _______,
-  _______,X(LZETA), X(LCHI), X(LPSI),X(LOMEG),X(LBETA),  X(LNU),  X(LMU), KC_COMM, KC_DOT,  KC_SLSH, _______,
+  _______, XXXXXXX,UM(FSIGM),UM(LEPSI), UM(LRHO), UM(LTAU),UM(LUPSI),UM(LTHET),UM(LIOTA),UM(LOMIC),  UM(LPI), _______,
+  _______,UM(LALPH),UM(LSIGM),UM(LDELT), UM(LPHI),UM(LGAMM), UM(LETA),  UM(LXI),UM(LKAPP),UM(LLAMB), KC_QUOT, _______,
+  _______,UM(LZETA), UM(LCHI), UM(LPSI),UM(LOMEG),UM(LBETA),  UM(LNU),  UM(LMU), KC_COMM, KC_DOT,  KC_SLSH, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                            _______, _______, _______
 ),
@@ -905,10 +896,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_EMOJI] = LAYOUT(
-  X(HART2), X(CRY2),X(WEARY),X(EYERT),X(SMIRK), X(TJOY),X(RECYC),X(UNAMU),X(MUSIC),X(OKHND),X(PENSV), X(PHEW),
-  X(THMUP), X(PRAY),X(SMILE),X(SMIL2),X(FLUSH), X(GRIN),X(HEART),  X(BYE), X(KISS),X(CELEB), X(COOL),X(NOEVS),
-  X(THMDN),X(SLEEP), X(CLAP),  X(CRY),  X(VIC),X(BHART),  X(SUN),X(SMEYE), X(WINK), X(MOON),X(CONFU),X(NOEVH),
-    X(POO), X(EYES), X(HUNRD),_______, X(SKULL),X(HORNS), X(HALO), X(FEAR),_______,X(YUMMY),X(DISAP),X(NOEVK),
+  UM(HART2), UM(CRY2),UM(WEARY),UM(EYERT),UM(SMIRK), UM(TJOY),UM(RECYC),UM(UNAMU),UM(MUSIC),UM(OKHND),UM(PENSV), UM(PHEW),
+  UM(THMUP), UM(PRAY),UM(SMILE),UM(SMIL2),UM(FLUSH), UM(GRIN),UM(HEART),  UM(BYE), UM(KISS),UM(CELEB), UM(COOL),UM(NOEVS),
+  UM(THMDN),UM(SLEEP), UM(CLAP),  UM(CRY),  UM(VIC),UM(BHART),  UM(SUN),UM(SMEYE), UM(WINK), UM(MOON),UM(CONFU),UM(NOEVH),
+    UM(POO), UM(EYES), UM(HUNRD),_______, UM(SKULL),UM(HORNS), UM(HALO), UM(FEAR),_______,UM(YUMMY),UM(DISAP),UM(NOEVK),
                                            _______, _______, _______
 ),
 
@@ -943,9 +934,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYS] = LAYOUT(
-  DEBUG,   QWERTY,  WIN,     XXXXXXX, RESET,   XXXXXXX, XXXXXXX, OUT_USB, XXXXXXX, XXXXXXX, XXXXXXX, RGBDEMO,
+  DB_TOGG, QWERTY,  WIN,     XXXXXXX, QK_BOOT, XXXXXXX, XXXXXXX, OU_USB,  XXXXXXX, XXXXXXX, XXXXXXX, RGBDEMO,
   XXXXXXX, FC_TOG,  XXXXXXX, DVORAK,  XXXXXXX, GLOW,    XXXXXXX, XXXXXXX, WORKMAN, LINUX,   XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OUT_BT,  NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, COLEMAK, XXXXXXX, OU_BT,   NORMAN,  OSX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
                                            _______, _______, _______
 ),
@@ -989,7 +980,7 @@ void process_doublespace(bool pressed, bool *isactive, bool *otheractive, bool *
 }
 #endif
 
-uint32_t layer_state_set_kb(uint32_t state)
+layer_state_t layer_state_set_kb(layer_state_t state)
 {
   // turn on punc layer if both fun & num are on
   if ((state & ((1UL<<_NUM) | (1UL<<_FUN))) == ((1UL<<_NUM) | (1UL<<_FUN))) {
@@ -1017,7 +1008,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   lshift = keyboard_report->mods & MOD_BIT(KC_LSFT);
   rshift = keyboard_report->mods & MOD_BIT(KC_RSFT);
-  layer = biton32(layer_state);
+  layer = get_highest_layer(layer_state);
 
 #ifdef DOUBLESPACE_LAYER_ENABLE
   // double-space: send space immediately if any other key depressed before space is released
@@ -1202,21 +1193,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // OS switchers
     case LINUX:
-      set_unicode_input_mode(UC_LNX);
+      set_unicode_input_mode(UNICODE_MODE_LINUX);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif
       return false;
       break;
     case WIN:
-      set_unicode_input_mode(UC_WINC);
+      set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif
       return false;
       break;
     case OSX:
-      set_unicode_input_mode(UC_OSX);
+      set_unicode_input_mode(UNICODE_MODE_MACOS);
 #ifdef RGBSPS_ENABLE
       led_set_unicode_input_mode();
 #endif
@@ -1264,7 +1255,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void set_output_user(uint8_t output) {
-#ifdef MODULE_ADAFRUIT_BLE
+#ifdef BLUETOOTH_BLUEFRUIT_LE
   switch(output) {
     case OUTPUT_USB:
       led_set_output_usb();
@@ -1278,17 +1269,17 @@ void set_output_user(uint8_t output) {
 #endif
 }
 
-void matrix_init_user() {
+void matrix_init_user(void) {
   wait_ms(500); // give time for usb to initialize
 
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 
 #ifdef RGBSPS_ENABLE
   led_init();
 #endif
 
   // auto detect output on init
-#ifdef MODULE_ADAFRUIT_BLE
+#ifdef BLUETOOTH_BLUEFRUIT_LE
   uint8_t output = auto_detect_output();
   if (output == OUTPUT_USB) {
     set_output(OUTPUT_USB);
@@ -1298,7 +1289,7 @@ void matrix_init_user() {
 #endif
 }
 
-void turn_off_capslock() {
+void turn_off_capslock(void) {
   if (capslock) {
     register_code(KC_CAPS);
     unregister_code(KC_CAPS);
@@ -1315,8 +1306,8 @@ void turn_off_capslock() {
     rgbsps_send();
   }
 
-  void led_set_user(uint8_t usb_led) {
-    bool new_capslock = usb_led & (1<<USB_LED_CAPS_LOCK);
+  bool led_update_user(led_t led_state) {
+    bool new_capslock = led_state.caps_lock;
     if (new_capslock ^ capslock) { // capslock state is different
       if ((capslock = new_capslock)) {
         rgbsps_set(LED_IND_CAPSLOCK, THEME_COLOR_CAPSLOCK);
@@ -1325,11 +1316,12 @@ void turn_off_capslock() {
       }
       rgbsps_send();
     }
+    return false;
   }
 #endif
 
 #ifdef PS2_MOUSE_ENABLE
-  void ps2_mouse_init_user() {
+  void ps2_mouse_init_user(void) {
       uint8_t rcv;
 
       // set TrackPoint sensitivity

@@ -1,0 +1,40 @@
+{
+    "keyboard_name": "Deskpad",
+    "manufacturer": "Hydrogen",
+    "url": "",
+    "maintainer": "Hydrogen BD",
+    "usb": {
+        "vid": "0x4D53",
+        "pid": "0x4450",
+        "device_version": "0.0.1"
+    },
+    "tapping": {
+        "term": 250
+    },
+    "matrix_pins": {
+        "cols": ["D0", "D4", "D1"],
+        "rows": ["D7", "C6"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D3"}
+        ]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "debounce": 3,
+    "layouts": {
+        "LAYOUT_all": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [1, 0], "x": 3, "y": 0},
+                {"matrix": [1, 1], "x": 4, "y": 0},
+
+                {"matrix": [1, 2], "x": 6, "y": 0}
+            ]
+        }
+    }
+}

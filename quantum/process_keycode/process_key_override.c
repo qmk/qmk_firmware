@@ -15,12 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "process_key_override.h"
 #include "report.h"
 #include "timer.h"
-#include "process_key_override.h"
-
-#include <debug.h>
+#include "debug.h"
+#include "wait.h"
+#include "action_util.h"
+#include "quantum.h"
+#include "quantum_keycodes.h"
 
 #ifndef KEY_OVERRIDE_REPEAT_DELAY
 #    define KEY_OVERRIDE_REPEAT_DELAY 500
@@ -106,7 +108,9 @@ void key_override_toggle(void) {
     }
 }
 
-bool key_override_is_enabled(void) { return enabled; }
+bool key_override_is_enabled(void) {
+    return enabled;
+}
 
 // Returns whether the modifiers that are pressed are such that the override should activate
 static bool key_override_matches_active_modifiers(const key_override_t *override, const uint8_t mods) {
@@ -150,7 +154,7 @@ static void schedule_deferred_register(const uint16_t keycode) {
     } else {
         // Wait a very short time when a modifier event triggers the override to avoid false activations when e.g. a modifier is pressed just before a key is released (with the intention of pairing the modifier with a different key), or a modifier is lifted shortly before the trigger key is lifted. Operating systems by default reject modifier-events that happen very close to a non-modifier event.
         defer_reference_time = timer_read32();
-        defer_delay          = 50;  // 50ms
+        defer_delay          = 50; // 50ms
     }
     deferred_register = keycode;
 }
@@ -174,8 +178,8 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     const uint8_t mod_free_replacement = clear_mods_from(active_override->replacement);
 
-    bool unregister_replacement = mod_free_replacement != KC_NO &&    // KC_NO is never registered
-                                  mod_free_replacement < SAFE_RANGE;  // Custom keycodes are never registered
+    bool unregister_replacement = mod_free_replacement != KC_NO &&   // KC_NO is never registered
+                                  mod_free_replacement < SAFE_RANGE; // Custom keycodes are never registered
 
     // Try firing the custom handler
     if (active_override->custom_action != NULL) {
@@ -184,7 +188,7 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     // Then unregister the mod-free replacement key if desired
     if (unregister_replacement) {
-        if (IS_KEY(mod_free_replacement)) {
+        if (IS_BASIC_KEYCODE(mod_free_replacement)) {
             del_key(mod_free_replacement);
         } else {
             key_override_printf("NOT KEY 1\n");
@@ -195,11 +199,11 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     const uint16_t trigger = active_override->trigger;
 
-    const bool reregister_trigger = allow_reregister &&                                                   // Check if allowed from caller
-                                    (active_override->options & ko_option_no_reregister_trigger) == 0 &&  // Check if override allows
-                                    active_override_trigger_is_down &&                                    // Check if trigger is even down
-                                    trigger != KC_NO &&                                                   // KC_NO is never registered
-                                    trigger < SAFE_RANGE;                                                 // A custom keycode should not be registered
+    const bool reregister_trigger = allow_reregister &&                                                  // Check if allowed from caller
+                                    (active_override->options & ko_option_no_reregister_trigger) == 0 && // Check if override allows
+                                    active_override_trigger_is_down &&                                   // Check if trigger is even down
+                                    trigger != KC_NO &&                                                  // KC_NO is never registered
+                                    trigger < SAFE_RANGE;                                                // A custom keycode should not be registered
 
     // Optionally re-register the trigger if it is still down
     if (reregister_trigger) {
@@ -320,6 +324,15 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 
         clear_active_override(false);
 
+#ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
+        // Send a dummy keycode before unregistering the modifier(s)
+        // so that suppressing the modifier(s) doesn't falsely get interpreted
+        // by the host OS as a tap of a modifier key.
+        // For example, unintended activations of the start menu on Windows when
+        // using a GUI+<kc> key override with suppressed mods.
+        neutralize_flashing_modifiers(active_mods);
+#endif
+
         active_override                 = override;
         active_override_trigger_is_down = true;
 
@@ -327,7 +340,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 
         if (!trigger_down && !no_trigger) {
             // When activating a key override the trigger is is always unregistered. In the case where the key that newly pressed is not the trigger key, we have to explicitly remove the trigger key from the keyboard report. If the trigger was just pressed down we simply suppress the event which also has the effect of the trigger key not being registered in the keyboard report.
-            if (IS_KEY(override->trigger)) {
+            if (IS_BASIC_KEYCODE(override->trigger)) {
                 del_key(override->trigger);
             } else {
                 unregister_code(override->trigger);
@@ -336,8 +349,8 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
 
         const uint16_t mod_free_replacement = clear_mods_from(override->replacement);
 
-        bool register_replacement = mod_free_replacement != KC_NO &&    // KC_NO is never registered
-                                    mod_free_replacement < SAFE_RANGE;  // Custom keycodes are never registered
+        bool register_replacement = mod_free_replacement != KC_NO &&   // KC_NO is never registered
+                                    mod_free_replacement < SAFE_RANGE; // Custom keycodes are never registered
 
         // Try firing the custom handler
         if (override->custom_action != NULL) {
@@ -354,7 +367,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
                 schedule_deferred_register(mod_free_replacement);
                 send_keyboard_report();
             } else {
-                if (IS_KEY(mod_free_replacement)) {
+                if (IS_BASIC_KEYCODE(mod_free_replacement)) {
                     add_key(mod_free_replacement);
                 } else {
                     key_override_printf("NOT KEY 2\n");
@@ -400,19 +413,19 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
 #endif
 
     const bool key_down = record->event.pressed;
-    const bool is_mod   = IS_MOD(keycode);
+    const bool is_mod   = IS_MODIFIER_KEYCODE(keycode);
 
     if (key_down) {
         switch (keycode) {
-            case KEY_OVERRIDE_TOGGLE:
+            case QK_KEY_OVERRIDE_TOGGLE:
                 key_override_toggle();
                 return false;
 
-            case KEY_OVERRIDE_ON:
+            case QK_KEY_OVERRIDE_ON:
                 key_override_on();
                 return false;
 
-            case KEY_OVERRIDE_OFF:
+            case QK_KEY_OVERRIDE_OFF:
                 key_override_off();
                 return false;
 

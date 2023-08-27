@@ -34,10 +34,10 @@ void touch_encoder_init(void);
 void touch_encoder_update(int8_t transaction_id);
 
 void touch_encoder_calibrate(void);
-bool touch_encoder_calibrating(void);
+bool touch_encoder_is_calibrating(void);
 
 void touch_encoder_toggle(void);
-bool touch_encoder_toggled(void);
+bool touch_encoder_is_on(void);
 
 // Called when touch encoder is tapped, weak function overridable by the kb
 bool touch_encoder_tapped_kb(uint8_t index, uint8_t section);

@@ -1,6 +1,20 @@
 # Building Your First Firmware
 
-Now that you have setup your build environment you are ready to start building custom firmware. For this section of the guide we will bounce between 3 programs- your file manager, your text editor, and your terminal window. Keep all 3 open until you are done and happy with your keyboard firmware.
+Now that you have set up your build environment you are ready to start building custom firmware. For this section of the guide we will bounce between 3 programs- your file manager, your text editor, and your terminal window. Keep all 3 open until you are done and happy with your keyboard firmware.
+
+## Configure Your Build Environment Defaults (Optional)
+
+You can configure your build environment to set the defaults and make working with QMK less tedious. Let's do that now!
+
+Most people new to QMK only have 1 keyboard. You can set this keyboard as your default with the `qmk config` command. For example, to set your default keyboard to `clueboard/66/rev4`:
+
+    qmk config user.keyboard=clueboard/66/rev4
+
+?> The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev4`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
+
+You can also set your default keymap name. Most people use their GitHub username like the keymap name from the previous steps:
+
+    qmk config user.keymap=<github_username>
 
 ## Create a New Keymap
 
@@ -14,7 +28,7 @@ If you did not configure your environment, or you have multiple keyboards, you c
 
 Look at the output from that command, you should see something like this:
 
-    Ψ <github_username> keymap directory created in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>
+    Ψ Created a new keymap called <github_username> in: /home/me/qmk_firmware/keyboards/clueboard/66/rev3/keymaps/<github_username>.
 
 This is the location of your new `keymap.c` file.
 
@@ -26,7 +40,7 @@ Open your `keymap.c` file in your text editor. Inside this file you'll find the 
 
 This line indicates where the list of Layers begins. Below that you'll find lines containing `LAYOUT`, and these lines indicate the start of a layer. Below that line is the list of keys that comprise a particular layer.
 
-!> When editing your keymap file be careful not to add or remove any commas. If you do you will prevent your firmware from compiling and it may not be easy to figure out where the extra, or missing, comma is.
+!> When editing your keymap file be careful not to add or remove any commas. If you do, you will prevent your firmware from compiling and it may not be easy to figure out where the extra, or missing, comma is.
 
 ## Customize The Layout To Your Liking
 
@@ -45,7 +59,7 @@ When your changes to the keymap are complete you will need to build the firmware
 
     qmk compile
 
-If you did not configure your environment, or you have multiple keyboards, you can specify a keyboard and/or keymap:
+If you did not configure defaults for your environment, or you have multiple keyboards, you can specify a keyboard and/or keymap:
 
     qmk compile -kb <keyboard> -km <keymap>
 

@@ -220,7 +220,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 #endif
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
 
@@ -244,5 +244,6 @@ void oled_task_user(void) {
 
     oled_write_P(PSTR("Mode: "), false);
     oled_write_ln(rgb_mode_name, false);
+    return false;
 }
 #endif

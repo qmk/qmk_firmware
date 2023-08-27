@@ -17,7 +17,7 @@
 
 bool process_record_obs(uint16_t keycode, keyrecord_t *record) {
     // Apply all 4 mods for custom OBS macros
-    register_code(KC_LSHIFT);
+    register_code(KC_LSFT);
     register_code(KC_LCTL);
     register_code(KC_LALT);
     register_code(KC_LGUI);
@@ -71,7 +71,7 @@ bool process_record_obs(uint16_t keycode, keyrecord_t *record) {
     }
 
     // Unpress all 4 mods for custom OBS macros
-    unregister_code(KC_LSHIFT);
+    unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
     unregister_code(KC_LALT);
     unregister_code(KC_LGUI);

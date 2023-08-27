@@ -11,7 +11,6 @@ Velocikey は入力の速度を使って(レインボー渦巻効果のような
 Velocikey を使うためには、2つのステップがあります。最初に、キーボードをコンパイルする時に、`rules.mk` に `VELOCIKEY_ENABLE=yes` を設定する必要があります。例えば:
 
 ```
-BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = no
 STENO_ENABLE = no
 EXTRAKEY_ENABLE = yes

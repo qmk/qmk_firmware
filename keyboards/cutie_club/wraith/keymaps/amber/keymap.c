@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS,             KC_LALT,                                          KC_SPC,                                  KC_RALT,   KC_LEFT,   KC_DOWN,    KC_RGHT
   ),
   [1] = LAYOUT_all(
-    RESET,      KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,     KC_F18,     KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,     _______,    _______,
+    QK_BOOT,    KC_F13,     KC_F14,     KC_F15,     KC_F16,     KC_F17,     KC_F18,     KC_F19,     KC_F20,     KC_F21,     KC_F22,     KC_F23,     KC_F24,     _______,    _______,
     _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
 	  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,                _______,
 	  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_TRNS,
@@ -40,11 +40,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-
-void matrix_init_user(void) {
-
-}
-
 void matrix_scan_user(void) {
   // escape LED on layer 1
   if (IS_LAYER_ON(1)) {
@@ -52,8 +47,4 @@ void matrix_scan_user(void) {
   } else {
     writePinHigh(B0);
   }
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

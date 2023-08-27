@@ -41,7 +41,7 @@ void add_keylog(uint16_t keycode) {
         keylog_str[i] = keylog_str[i - 1];
     }
 
-    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
+    if (keycode < ARRAY_SIZE(code_to_name)) {
         keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
     }
 
@@ -56,18 +56,26 @@ void render_keylogger_status(void) {
 void render_default_layer_state(void) {
     oled_write_P(PSTR("Lyout"), false);
     switch (get_highest_layer(default_layer_state)) {
+#if defined(ENABLE_QWERTY)
         case _QWERTY:
             oled_write_P(PSTR(" QRTY"), false);
             break;
+#endif
+#if defined(ENABLE_COLEMAK)
         case _COLEMAK:
             oled_write_P(PSTR(" COLE"), false);
             break;
+#endif
+#if defined(ENABLE_DVORAK)
         case _DVORAK:
             oled_write_P(PSTR(" DVRK"), false);
             break;
+#endif
+#if defined(ENABLE_WORKMAN)
         case _WORKMAN:
             oled_write_P(PSTR(" WRKM"), false);
             break;
+#endif
     }
 }
 
@@ -78,12 +86,12 @@ void render_layer_state(void) {
     oled_write_P(PSTR(" Mods"), layer_state_is(_MODS));
 }
 
-void render_keylock_status(uint8_t led_usb_state) {
+void render_keylock_status(led_t led_state) {
     oled_write_P(PSTR("Lock:"), false);
     oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
-    oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-    oled_write_ln_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+    oled_write_P(PSTR("N"), led_state.num_lock);
+    oled_write_P(PSTR("C"), led_state.caps_lock);
+    oled_write_ln_P(PSTR("S"), led_state.scroll_lock);
 }
 
 void render_mod_status(uint8_t modifiers) {
@@ -121,7 +129,7 @@ void render_user_status(void) {
 void render_status_main(void) {
     /* Show Keyboard Layout  */
     render_default_layer_state();
-    render_keylock_status(host_keyboard_leds());
+    render_keylock_status(host_keyboard_led_state());
     render_bootmagic_status();
     render_user_status();
 
@@ -137,10 +145,10 @@ void render_status_secondary(void) {
     render_keylogger_status();
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (timer_elapsed32(oled_timer) > 30000) {
         oled_off();
-        return;
+        return false;
     }
 #if !defined(SPLIT_KEYBOARD)
     else {
@@ -152,6 +160,7 @@ void oled_task_user(void) {
     } else {
         render_status_secondary();
     }
+    return false;
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {

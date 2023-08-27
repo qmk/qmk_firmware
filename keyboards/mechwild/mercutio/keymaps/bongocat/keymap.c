@@ -65,19 +65,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   	  KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS )
 };
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (index) {
-        case 0:
-            if (clockwise) {
-                tap_code(KC_VOLU);
-            } else {
-                tap_code(KC_VOLD);
-            }
-        break;
-    }
-    return true;
-}
+#ifdef ENCODER_MAP_ENABLE
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+        [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+        [1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+        [2] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+        [3] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+    };
 #endif
 
 #ifdef OLED_ENABLE
@@ -187,12 +181,13 @@ static void render_anim(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
         render_anim();
         oled_set_cursor(0,4);
         sprintf(wpm_str, "WPM: %03d", get_current_wpm());
         oled_write(wpm_str, false);
 
+    return false;
 }
 
 #endif

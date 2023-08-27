@@ -17,7 +17,6 @@
 
 
 #include QMK_KEYBOARD_H
-#include <stdio.h>
 #include "jonavin.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -25,14 +24,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                                 KC_MUTE,
     KC_TAB,           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     TT(_RAISE),       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFTCAPS, KC_SLSH, KC_Z,  KC_X,  KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,           KC_SFTENT,
+    KC_LSFTCAPS, KC_SLSH, KC_Z,  KC_X,  KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,           SC_SENT,
     KC_LCTL, KC_LGUI, KC_LALT,          KC_SPC,  LT(_LOWER,KC_SPC),         KC_SPC,           KC_RALT, MO(_FN1),  KC_RCTL ),
 
   [_FN1] = LAYOUT_all(
                                                                                                                 ENCFUNC,
     KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
-    KC_CAPS,          KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SLCK, KC_PAUS, KC_NO,   KC_NO,
-    KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NLCK, KC_NO,   KC_NO,   KC_NO,            KC_SFTENT,
+    KC_CAPS,          KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SCRL, KC_PAUS, KC_NO,   KC_NO,
+    KC_TRNS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NUM,  KC_NO,   KC_NO,   KC_NO,            SC_SENT,
     KC_TRNS, KC_WINLCK, KC_TRNS,        KC_TRNS, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS ),
 
   [_LOWER] = LAYOUT_all(
@@ -54,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     Defaults never changes if no encoder present to change it
 */
 typedef struct {
-     char keydesc[6];    // this will be displayed on OLED
+    char keydesc[6];    // this will be displayed on OLED
     uint16_t keycode;   // this is the keycode that will be sent when activted
 } keycodedescType;
 
@@ -69,10 +68,10 @@ static const keycodedescType PROGMEM keyselection[] = {
         {"C-A-D",   KC_CAD},  // Ctrl-Alt-Del
         {"AltF4",   KC_AF4},
         {"PLAY",    KC_MEDIA_PLAY_PAUSE},
-        {"RESET",   RESET},   // firmware flash mode
+        {"FLASH",   QK_BOOT},   // firmware flash mode
 };
 
-#define MAX_KEYSELECTION sizeof(keyselection)/sizeof(keyselection[0])
+#define MAX_KEYSELECTION ARRAY_SIZE(keyselection)
 
 static uint8_t selectedkey_idx = 0;
 static keycodedescType selectedkey_rec;
@@ -94,7 +93,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case ENCFUNC:
         if (record->event.pressed) {
-            selectedkey_rec.keycode == RESET ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle RESET code
+            selectedkey_rec.keycode == QK_BOOT ? reset_keyboard() : tap_code16(selectedkey_rec.keycode); // handle QK_BOOT code
         } else {
             // when keycode is released
         }
@@ -153,7 +152,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                 }
                 break;
         }
-        return true;
+        return false;
     }
 #endif
 
@@ -188,9 +187,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         oled_write_P(logo_4, false);
     }
 
-    void oled_task_user(void) {
-
-        if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && get_selected_layer() == 0 && get_highest_layer(layer_state) == 0 ) {
+    bool oled_task_user(void) {
+        led_t led_state = host_keyboard_led_state();
+        if ( !led_state.num_lock && !led_state.caps_lock && get_selected_layer() == 0 && get_highest_layer(layer_state) == 0 ) {
             render_name();
             clear_screen = true;
         } else {
@@ -201,15 +200,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             }
             render_logo();
             oled_set_cursor(8,2);
-            char fn_str[12];
             switch(get_selected_layer()){
                 case 0:
                     oled_write_P(PSTR("BASE"), false);
                     break;
                 case 1:
-                    sprintf(fn_str, "FN %5s", selectedkey_rec.keydesc);
-                    oled_write(fn_str, false);
-                    //oled_write_P(PSTR("FN "), false);
+                    oled_write_P(PSTR("FN "), false);
+                    oled_write(selectedkey_rec.keydesc, false);
                     break;
                 case 2:
                     oled_write_P(PSTR("LOWER"), false);
@@ -230,8 +227,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
                         oled_write_P(PSTR("Temp BASE"), false);
                         break;
                     case 1:
-                        sprintf(fn_str, "Temp FN %5s", selectedkey_rec.keydesc);
-                        oled_write(fn_str, false);
+                        oled_write_P(PSTR("Temp FN "), false);
+                        oled_write(selectedkey_rec.keydesc, false);
                         break;
                     case 2:
                         oled_write_P(PSTR("Temp LOWER"), false);
@@ -246,12 +243,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             led_t led_state = host_keyboard_led_state();
             oled_set_cursor(8,0);
             uint8_t wpm_count;
-            char wpm_str[10];
             wpm_count=get_current_wpm();
 
             if (wpm_count > 020) { // how wpm when > 20
-                 sprintf(wpm_str, " WPM: %03d", wpm_count);
-                oled_write(wpm_str, false);
+                oled_write_P(PSTR(" WPM: "), false);
+                oled_write(get_u8_str(wpm_count, ' '), false);
             } else {
                 oled_write_P(PSTR(" JONAVIN "), false); // otherwise display keymap name
             }
@@ -263,6 +259,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
         }
 
+    return false;
     }
 
     void suspend_power_down_user(void) {  // shutdown oled when powered down to prevent OLED from showing Mercutio all the time

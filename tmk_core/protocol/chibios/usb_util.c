@@ -14,8 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <hal.h>
+#include "usb_main.h"
 #include "usb_util.h"
 
-void usb_disconnect(void) { usbStop(&USBD1); }
+void usb_disconnect(void) {
+    usbDisconnectBus(&USB_DRIVER);
+    usbStop(&USB_DRIVER);
+}
 
-bool usb_connected_state(void) { return usbGetDriverStateI(&USBD1) == USB_ACTIVE; }
+bool usb_connected_state(void) {
+    return usbGetDriverStateI(&USB_DRIVER) == USB_ACTIVE;
+}

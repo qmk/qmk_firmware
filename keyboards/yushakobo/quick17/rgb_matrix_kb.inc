@@ -27,7 +27,7 @@ enum lighting_types {
     NUM_L
 };
 
-const uint8_t rgb_keymaps [][DRIVER_LED_TOTAL] = {
+const uint8_t rgb_keymaps [][RGB_MATRIX_LED_COUNT] = {
     [_CONTROL] = LED_LAYOUT(
         _____, INDC2, INDC1, INDC2, INDC3, INDC4,
         _____, INDC1, INDC1, INDC1, INDC3, INDC4,
@@ -51,7 +51,7 @@ const uint8_t rgb_keymaps [][DRIVER_LED_TOTAL] = {
 };
 
 static void led_color_set(uint8_t index, uint8_t color_patterns) {
-    HSV hsv = rgb_matrix_config.hsv; // 'quantum/rgblight_list.h'
+    HSV hsv = rgb_matrix_config.hsv; // 'quantum/color.h'
     RGB rgb_white = hsv_to_rgb(_HSV(  0,   0, hsv.v)); // HSV_WHITE
     RGB rgb_indc1 = hsv_to_rgb(_HSV(128, 255, hsv.v)); // HSV_TEAL
     RGB rgb_indc2 = hsv_to_rgb(_HSV(191, 255, hsv.v)); // HSV_PURPLE
@@ -111,7 +111,7 @@ static bool quick17_rgbm_effect (effect_params_t* params) {
             led_color_set(i, rgb_keymaps[_CONTROL][i]);
         }
     }
-    return led_max < DRIVER_LED_TOTAL;
+    return rgb_matrix_check_finished_leds(led_max);
 }
 
 #endif

@@ -111,7 +111,7 @@ void oled_slash_separator(void){
 
 void render_layout_state(void) {
   oled_write_P(PSTR("Layout: "), false);
-  switch (biton32(default_layer_state)) {
+  switch (get_highest_layer(default_layer_state)) {
       case _COLEMAK:
         oled_write_P(PSTR("Colemak"), false);
         break;
@@ -198,12 +198,13 @@ static void render_status(void) {
   render_mod_state(get_mods()|get_oneshot_mods());
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         render_status();
     } else {
         render_logo();
         oled_scroll_left();
     }
+    return false;
 }
 #endif

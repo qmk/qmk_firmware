@@ -68,7 +68,7 @@ float unilin[][2]               = SONG(UNICODE_LINUX);
 #ifdef TAP_DANCE_ENABLE
 #define TAPPING_TERM 200
 
-void dance_raise_press(qk_tap_dance_state_t *state, void *user_data){// Called on each tap
+void dance_raise_press(tap_dance_state_t *state, void *user_data){// Called on each tap
   switch(state->count){      // Only turn the layer on once
     case 1:
         layer_off(_UNICODES);
@@ -77,7 +77,7 @@ void dance_raise_press(qk_tap_dance_state_t *state, void *user_data){// Called o
         break;
   }
 };
-void dance_raise_lift(qk_tap_dance_state_t *state, void *user_data){ // Called on release
+void dance_raise_lift(tap_dance_state_t *state, void *user_data){ // Called on release
   switch(state->count){
     case 1:         // Normal action. Turn off layers
         layer_off(_RAISE);
@@ -87,7 +87,7 @@ void dance_raise_lift(qk_tap_dance_state_t *state, void *user_data){ // Called o
   }
 };
 /////////////////////////////////////////////////////////////////////
-void dance_lower_press(qk_tap_dance_state_t *state, void *user_data){// Called on tap
+void dance_lower_press(tap_dance_state_t *state, void *user_data){// Called on tap
   switch(state->count){
     case 1:         // Turn on lower
         layer_off(_UNICODES);
@@ -96,7 +96,7 @@ void dance_lower_press(qk_tap_dance_state_t *state, void *user_data){// Called o
         break;
   }
 };
-void dance_lower_lift(qk_tap_dance_state_t *state, void *user_data){ // Called on release
+void dance_lower_lift(tap_dance_state_t *state, void *user_data){ // Called on release
   switch(state->count){
     case 1:         // Normal action. Turn off layers
         layer_off(_LOWER);
@@ -114,12 +114,12 @@ void dance_lower_lift(qk_tap_dance_state_t *state, void *user_data){ // Called o
   }
 };
 /////////////////////////////////////////////////////////////////////
-void dance_super_press(qk_tap_dance_state_t *state, void *user_data){   // Called on down
+void dance_super_press(tap_dance_state_t *state, void *user_data){   // Called on down
     if(state->count == 1){
         register_code(KC_LGUI);
     }
 }
-void dance_super_done(qk_tap_dance_state_t *state, void *user_data){    // Called on timeout
+void dance_super_done(tap_dance_state_t *state, void *user_data){    // Called on timeout
   switch(state->count){
     case 2:
         register_code(KC_LGUI);
@@ -128,11 +128,11 @@ void dance_super_done(qk_tap_dance_state_t *state, void *user_data){    // Calle
         break;
   }
 }
-void dance_super_lift(qk_tap_dance_state_t *state, void *user_data){        // Called on up
+void dance_super_lift(tap_dance_state_t *state, void *user_data){        // Called on up
     unregister_code(KC_LGUI);
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [RAI] = ACTION_TAP_DANCE_FN_ADVANCED(dance_raise_press, NULL, dance_raise_lift),
     [LOW] = ACTION_TAP_DANCE_FN_ADVANCED(dance_lower_press, NULL, dance_lower_lift),
     [SUP] = ACTION_TAP_DANCE_FN_ADVANCED(dance_super_press, dance_super_done, dance_super_lift)
@@ -141,31 +141,31 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 //#ifdef UNICODE_ENABLE
 // Unicode shortcuts
-#define IBANG   X(0x203D)
-#define RAROW   X(0x2192)
-#define LAROW   X(0x2190)
-#define DEGREE  X(0x00B0)
-#define OMEGA   X(0x03A9)
-#define WOMEGA  X(0x03C9)
-#define MICRO   X(0x00B5)
-#define PLUMIN  X(0x00B1)
-#define SUPA2   X(0x00B2)
-#define ROMAN1  X(0x2160)
-#define ROMAN2  X(0x2161)
-#define ROMAN3  X(0x2162)
-#define ROMAN4  X(0x2163)
-#define ROMAN5  X(0x2164)
-#define ROMAN6  X(0x2165)
-#define ROMAN7  X(0x2166)
-#define roman1  X(0x2170)
-#define roman2  X(0x2171)
-#define roman3  X(0x2172)
-#define roman4  X(0x2173)
-#define roman5  X(0x2174)
-#define roman6  X(0x2175)
-#define roman7  X(0x2176)
+#define IBANG   UM(0x203D)
+#define RAROW   UM(0x2192)
+#define LAROW   UM(0x2190)
+#define DEGREE  UM(0x00B0)
+#define OMEGA   UM(0x03A9)
+#define WOMEGA  UM(0x03C9)
+#define MICRO   UM(0x00B5)
+#define PLUMIN  UM(0x00B1)
+#define SUPA2   UM(0x00B2)
+#define ROMAN1  UM(0x2160)
+#define ROMAN2  UM(0x2161)
+#define ROMAN3  UM(0x2162)
+#define ROMAN4  UM(0x2163)
+#define ROMAN5  UM(0x2164)
+#define ROMAN6  UM(0x2165)
+#define ROMAN7  UM(0x2166)
+#define roman1  UM(0x2170)
+#define roman2  UM(0x2171)
+#define roman3  UM(0x2172)
+#define roman4  UM(0x2173)
+#define roman5  UM(0x2174)
+#define roman6  UM(0x2175)
+#define roman7  UM(0x2176)
 
-#ifdef UNICODEMAP_ENABLE        // For Unicode characters larger than 0x8000. Send with X(<unicode>)
+#ifdef UNICODEMAP_ENABLE
 enum Ext_Unicode{
     PENGUIN = 0,
     BOAR,
@@ -174,7 +174,7 @@ enum Ext_Unicode{
     CHICK,
     TUMBLER
 };
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [PENGUIN]   = 0x1F427,
     [BOAR]      = 0x1F417,
     [MONKEY]    = 0x1F412,
@@ -182,12 +182,12 @@ const uint32_t PROGMEM unicode_map[] = {
     [CHICK]     = 0x1F425,
     [TUMBLER]   = 0x1F943
 };
-#define PENGY   X(PENGUIN)
-#define BOARY   X(BOAR)
-#define MNKY    X(MONKEY)
-#define DRGN    X(DRAGON)
-#define DUCK    X(CHICK)
-#define TMBL    X(TUMBLER)
+#define PENGY   UM(PENGUIN)
+#define BOARY   UM(BOAR)
+#define MNKY    UM(MONKEY)
+#define DRGN    UM(DRAGON)
+#define DUCK    UM(CHICK)
+#define TMBL    UM(TUMBLER)
 #endif
 
 //#endif
@@ -237,7 +237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SHFT_CAP:
         if(record->event.pressed){
             key_timer = timer_read();               // if the key is being pressed, we start the timer.
-            register_code(KC_LSHIFT);
+            register_code(KC_LSFT);
         } else {                                    // this means the key was just released (tap or "held down")
             if(timer_elapsed(key_timer) < 152){     // Time in ms, the threshold we pick for counting something as a tap.
                 tap(KC_CAPS);
@@ -253,7 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     #endif
                 }
             }
-            unregister_code(KC_LSHIFT);
+            unregister_code(KC_LSFT);
         }
         return false;
         break;
@@ -301,7 +301,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef UNICODE_ENABLE
     case UNIWIN:
         if(record->event.pressed){
-            set_unicode_input_mode(UC_WIN);
+            set_unicode_input_mode(UNICODE_MODE_WINDOWS);
             #ifdef AUDIO_ENABLE
               PLAY_SONG(uniwin);
             #endif
@@ -310,7 +310,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
     case UNILIN:
         if(record->event.pressed){
-            set_unicode_input_mode(UC_LNX);
+            set_unicode_input_mode(UNICODE_MODE_LINUX);
             #ifdef AUDIO_ENABLE
               PLAY_SONG(unilin);
             #endif
@@ -427,7 +427,7 @@ void play_goodbye_tone(void){
   _delay_ms(150);
 }
 
-void shutdown_user(){
+void shutdown_user(void){
     PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();

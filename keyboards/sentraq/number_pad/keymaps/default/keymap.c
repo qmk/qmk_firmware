@@ -33,10 +33,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |   0   | . |   |
      * `---------------'
      */
-    MO(_FN), KC_PSLS, KC_PAST, KC_PMNS, \
-    KC_P7,   KC_P8,   KC_P9,   \
-    KC_P4,   KC_P5,   KC_P6,   KC_PPLS, \
-    KC_P1,   KC_P2,   KC_P3, \
+    MO(_FN), KC_PSLS, KC_PAST, KC_PMNS,
+    KC_P7,   KC_P8,   KC_P9,
+    KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
+    KC_P1,   KC_P2,   KC_P3,
     KC_P0,            KC_PDOT, KC_PENT
   ),
     /* Function Layer: RGB Controls and Numlock
@@ -53,10 +53,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `---------------'
      */
   [_FN] = LAYOUT_numpad_5x4(
-    KC_TRNS, RGB_TOG, RGB_MOD, RGB_RMOD, \
-    KC_NO,   RGB_HUD, RGB_HUI,   \
-    KC_NO,   RGB_SAD, RGB_SAI, KC_NO, \
-    KC_NO,   RGB_VAD, RGB_VAI, \
-    KC_NO,            KC_NO,   KC_NLCK
+    KC_TRNS, RGB_TOG, RGB_MOD, RGB_RMOD,
+    KC_NO,   RGB_HUD, RGB_HUI,
+    KC_NO,   RGB_SAD, RGB_SAI, KC_NO,
+    KC_NO,   RGB_VAD, RGB_VAI,
+    KC_NO,            KC_NO,   KC_NUM
   ),
 };

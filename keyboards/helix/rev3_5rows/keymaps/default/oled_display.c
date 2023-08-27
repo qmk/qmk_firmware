@@ -16,6 +16,8 @@
 
 #include QMK_KEYBOARD_H
 
+#include <stdio.h>
+
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
   _QWERTY = 0,
@@ -101,12 +103,13 @@ static void render_rgbled_status(bool full) {
 #endif
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   if(is_keyboard_master()){
     render_status();
   }else{
     render_logo();
     render_rgbled_status(true);
   }
+    return false;
 }
 #endif

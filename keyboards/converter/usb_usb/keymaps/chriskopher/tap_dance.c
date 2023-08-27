@@ -31,7 +31,7 @@ static int espc_r_tap_state   = 0;
 static int scln_cln_tap_state = 0;
 
 // Watch the state of the tap dance
-int cur_dance(qk_tap_dance_state_t *state) {
+int cur_dance(tap_dance_state_t *state) {
     if (state->pressed) {
         return SINGLE_HOLD;
     }
@@ -49,7 +49,7 @@ int cur_dance(qk_tap_dance_state_t *state) {
 }
 
 // Extended Space Cadet Shift - Left ==================================
-void espc_l_finished(qk_tap_dance_state_t *state, void *user_data) {
+void espc_l_finished(tap_dance_state_t *state, void *user_data) {
     espc_l_tap_state = cur_dance(state);
     switch (espc_l_tap_state) {
         case SINGLE_TAP:  // (
@@ -69,7 +69,7 @@ void espc_l_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void espc_l_reset(qk_tap_dance_state_t *state, void *user_data) {
+void espc_l_reset(tap_dance_state_t *state, void *user_data) {
     switch (espc_l_tap_state) {
         case SINGLE_TAP:  // (
             unregister_code16(LSFT(KC_9));
@@ -89,7 +89,7 @@ void espc_l_reset(qk_tap_dance_state_t *state, void *user_data) {
 // ====================================================================//
 
 // Extended Space Cadet Shift - Right ==================================
-void espc_r_finished(qk_tap_dance_state_t *state, void *user_data) {
+void espc_r_finished(tap_dance_state_t *state, void *user_data) {
     espc_r_tap_state = cur_dance(state);
     switch (espc_r_tap_state) {
         case SINGLE_TAP:  // )
@@ -109,7 +109,7 @@ void espc_r_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void espc_r_reset(qk_tap_dance_state_t *state, void *user_data) {
+void espc_r_reset(tap_dance_state_t *state, void *user_data) {
     switch (espc_r_tap_state) {
         case SINGLE_TAP:  // )
             unregister_code16(LSFT(KC_0));
@@ -129,7 +129,7 @@ void espc_r_reset(qk_tap_dance_state_t *state, void *user_data) {
 // ====================================================================//
 
 // Semicolon - Colon ==================================================
-void scln_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
+void scln_cln_finished(tap_dance_state_t *state, void *user_data) {
     scln_cln_tap_state = cur_dance(state);
     switch (scln_cln_tap_state) {
         case SINGLE_TAP:  // ;
@@ -141,7 +141,7 @@ void scln_cln_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void scln_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
+void scln_cln_reset(tap_dance_state_t *state, void *user_data) {
     switch (scln_cln_tap_state) {
         case SINGLE_TAP:  // ;
             unregister_code16(KC_SCLN);
@@ -154,7 +154,7 @@ void scln_cln_reset(qk_tap_dance_state_t *state, void *user_data) {
 // ====================================================================//
 
 // Associate tap dance with defined functionality
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     // Extended space cadet shift left: Hold - Shift, One - (, Two - {, Three - [
     [ESPC_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, espc_l_finished, espc_l_reset),
     // Extended space cadet shift right: Hold - Shift, One - ), Two - }, Three - ]

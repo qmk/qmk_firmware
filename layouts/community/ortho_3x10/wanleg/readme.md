@@ -14,7 +14,7 @@ Q//Esc | KC_Q | escape | *null*
 2. If you have never flashed your ProMicro with QMK before, you will need to short the RST pin to GND to put it into bootloader mode (you only have 7 seconds to flash once it enters bootloader mode). You may need to touch the RST pin to GND **TWICE** in quick succession if it doesn't flash with just one touch.  
 3. Once connected to your computer, you should be able to flash using  
 `make gherkin:wanleg:avrdude`  
-4. Once you've been able to successfully flash the ProMicro, you should be able to use the `RESET` key for future flashes instead of shorting the RST pin.
+4. Once you've been able to successfully flash the ProMicro, you should be able to use the `QK_BOOT` key for future flashes instead of shorting the RST pin.
 
 ## Linux  
 ### First Flash with QMK  
@@ -34,8 +34,8 @@ If you miss the 7 second window, the ProMicro will leave bootloader mode and the
 ### Subsequent Flashes with QMK
 1. Re-flashing is similar to the initial flash procedure. Plug in your keyboard, open a terminal and run
 `ls /dev/tty*`
-2. Next, hit the `RESET` key on your keyboard and re-run the `ls /dev/tty*` command to find your keyboard's serial port.  
-3. Flash your keyboard with the avrdude command you used for the initial flash within 7 seconds after hitting `RESET`.
+2. Next, hit the `QK_BOOT` key on your keyboard and re-run the `ls /dev/tty*` command to find your keyboard's serial port.  
+3. Flash your keyboard with the avrdude command you used for the initial flash within 7 seconds after hitting `QK_BOOT`.
 
 # ProMicro Bootloader Replacement (Caterina to QMK DFU)
 If you have an Arduino (or clone), you can replace the bootloader for a few extra features (e.g. no more 7 second "flash window", simplified Linux flashing, blinking LED when the ProMicro is in bootloader mode, ability to exit bootloader mode without unplugging your keyboard, among others).
@@ -61,7 +61,7 @@ The instructions below have been adapted from https://www.reddit.com/r/olkb/comm
 #define QMK_LED B0
 ```
 The `QMK_ESC_` lines define where the bootloader escape key is. Refer to the `MATRIX_ROW_PINS` and `MATRIX_COL_PINS` lines in your keyboard's `config.h` to choose your preferred key.  
-You hit the bootloader escape key to exit bootloader mode after you've hit the RESET key to enter bootloader mode (e.g. if you change your mind and don't want to flash just then).  
+You hit the bootloader escape key to exit bootloader mode after you've hit the QK_BOOT key to enter bootloader mode (e.g. if you change your mind and don't want to flash just then).  
 On a Gherkin, B4/F7 corresponds to the top-left corner key.  
 `B0` is an indicator light on one of the ProMicro's onboard LEDs. With QMK DFU, it will flash to indicate the ProMicro is in bootloader mode.  
 You can add `#define QMK_SPEAKER C6` if you have a speaker hooked up to pin C6. The Gherkin PCB already uses pin C6 in its switch layout, so you cannot use a speaker on a standard Gherkin.  

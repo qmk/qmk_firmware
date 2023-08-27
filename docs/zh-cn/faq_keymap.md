@@ -1,151 +1,157 @@
-# 布局常见问题
+# 键映射FAQ
 
-本页本页包含人们经常遇到的关于布局的问题。如果你觉得没什么问题，请先看[布局概览](keymap.md)。
+<!---
+  original document: 0.15.12:docs/faq_keymap.md
+  git diff 0.15.12 HEAD -- docs/faq_keymap.md | cat
+-->
 
-## 我能用什么键码?
-看[键码](keycodes.md)你可以找到你能用的键码索引。可以的话这些链接可以连接到更广泛的文档。
+本页包含人们经常遇到的关于键映射的问题，如果你还没阅读过[键映射概览](zh-cn/keymap.md)，请先阅读一下。
 
-键码实际上定义在[common/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keycode.h).
+## 我能使用的键码有哪些?
+所有可用键码收录在[键码](zh-cn/keycodes.md)页，在有更详尽的文档时，我们会更新这个链接。
 
-## 默认的键码什么样?
+所有键码实际定义在[quantum/keycode.h](https://github.com/qmk/qmk_firmware/blob/master/quantum/keycode.h).
 
-世界上有三种标准键盘设计，分别是：ANSI, ISO, and JIS. 主要是北美用ANSI(译者注：中国很多键盘使用这个), 欧洲和非洲主要使用ISO，日本使用JIS。未提及的区域通常使用ANSI或ISO。与这些设计对应的键代码如下所示：
+## 默认键码是什么?
 
-<!-- 该图片的来源: https://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
-![键盘设计图](https://i.imgur.com/5wsh5wM.png)
+广为使用的键盘配列有三种——ANSI，ISO及JIS。北美主要使用ANSI，欧洲及非洲主要使用ISO，日本主要使用JIS，其它区域多为ANSI或ISO。这三种配列的键码可查阅：
 
-## 我有一些键变成了其他功能或者不工作了
+<!-- Source for this image: https://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
+![键盘配列示意图](https://i.imgur.com/5wsh5wM.png)
 
-QMK有两个功能，Bootmagic和命令行，它允许您在运行中更改键盘的行为。该功能包括但不仅限于, 交换Ctrl/Caps，关闭界面，交换Alt/Gui，交换 Backspace/Backslash，禁用所有键，以及其他的行为改变。
+## 如何对复杂的键码指定自定义的名称？
 
-快速解决方法是插入键盘时按住`Space`+`Backspace`。该操作将重置已保存设置，让这些键回复初始功能。这招不好用的话参阅下方：
+使用更容易理解的自定义的名字去指代一些键码有时很实用，通常我们使用 `#define` 来实现：
 
-* [Bootmagic](feature_bootmagic.md)
-* [命令](feature_command.md) 
+```c
+#define FN_CAPS LT(_FL, KC_CAPSLOCK)
+#define ALT_TAB LALT(KC_TAB)
+```
 
-## 菜单键不好用
+这样键映射代码中就可以使用 `FN_CAPS` 和 `ALT_TAB` 了，可读性好得多。
 
-现在大多数键盘 `KC_RGUI`和`KC_RCTL`中间的键子叫做`KC_APP`。这是因为在这个键子发明之前相关标准里就已经有键叫做`MENU(菜单)`了，所以微软叫他`APP(应用)`键。
+## 一些按键发生了交换，或是不能用了
 
-## `KC_SYSREQ` 不工作
-使用抓屏的键码(`KC_PSCREEN`或`KC_PSCR`)而不用`KC_SYSREQ`。组合键'Alt + Print Screen'会被当作'System request'。
+QMK有两个功能系列，Bootmagic及指令，都可以让键盘随时变得灵活多变，功能包含但不限于交换Ctrl/Caps、锁定Gui键、交换Alt/Gui、交换Backspace/Backslash、禁用所有按键等。
 
-见[issue #168](https://github.com/tmk/tmk_keyboard/issues/168)和
+快速恢复的办法是插入键盘时按住空格+`Backspace`键，这样会重置键盘内存储的设置信息，键盘就会恢复常态。如果问题依旧存在，请参考：
+
+* [Bootmagic](zh-cn/feature_bootmagic.md)
+* [指令](zh-cn/feature_command.md) 
+
+## 菜单键（Menu）不可用
+
+现代键盘上，位于 `KC_RGUI` 及 `KC_RCTL` 间的按键实际上叫做 `KC_APP`。原因是该键被发明时，相关标准中已经有了 `菜单（MENU）` 键，因此微软将该键命名为 `APP` 键。
+
+## `KC_SYSREQ` 不可用
+请使用截图键码（`KC_PSCREEN` 及 `KC_PSCR`）替代 `KC_SYSREQ`，组合键’Alt + Print Screen‘实际上会被识别为’System request‘。
+
+具体参见[issue #168](https://github.com/tmk/tmk_keyboard/issues/168)以及
 * https://en.wikipedia.org/wiki/Magic_SysRq_key
 * https://en.wikipedia.org/wiki/System_request
 
 ## 电源键不工作
 
-这有点让人困惑,QMK有两个"Power(电源)"键码: `KC_POWER` 在键盘/小键盘的HID使用页面中，`KC_SYSTEM_POWER` (或者叫`KC_PWR`)在用户页。
+QMK有两个容易让人迷惑的“电源键”键码：HID键盘页的 `KC_POWER`，及用户页的 `KC_SYSTEM_POWER`（或 `KC_PWR`）。
 
-前者只能被macOS识别，但是后者，即`KC_SLEP`和`KC_WAKE`三大主要操作系统全都支持，所以推荐使用这两个。Windows下这些键立即生效，macOS要长按直到弹出对话框。
+前者只有macOS支持，后者连同 `KC_SLEP` 及 `KC_WAKE` 在所有主流操作系统上都支持，因此使用后者是推荐的做法。在Windows下，按下按键即刻就会生效，而macOS下必须按住直到系统弹出一个对话框。
 
-## 自动大小写锁定
-可以解决'the'问题(正常应为The)。我经常在输入'The'时不慎输入了'the'或者'THe'。自动大小写锁定可以修正此类问题。详见下方链接。
+## 单发修饰键
+用来解决我自己的’the‘麻烦，我总是会将’The‘错输入为’the‘或’THe‘，单发Shift键缓解了我的这个麻烦。
 https://github.com/tmk/tmk_keyboard/issues/67
 
-## 修改 键/层 卡住
-除非正确配置层切换，否则修改键或层可能会卡住。
-对于修改键和图层操作，必须把`KC_TRANS`放到目标层的相同位置，用于注销修改键或在释放事件时返回到上一层。
+## 修饰键/层 卡住了
+层切换功能只有在正确配置的情况下，才不会出现卡住修饰键和层的问题。
+对于修饰键和层切换操作来讲，必须确保 `KC_TRANS` 在切换到目标layer时正确置位，才能让修饰键正确释放。或者在释放动作中确保返回到了之前的层。
+
 * https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
 * https://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
 * https://github.com/tmk/tmk_keyboard/issues/248
 
 
-## 机械自锁开关支持Mechanical Lock Switch Support
+## 机械锁定式开关支持
 
-本功能用于*机械自锁开关*比如[this Alps one](https://deskthority.net/wiki/Alps_SKCL_Lock)。你可以通过向`config.h`添加以下宏来使能该功能：
+该功能支持形如[Alps这款](https://deskthority.net/wiki/Alps_SKCL_Lock)的*机械锁定式开关*，启用该功能须在 `config.h` 中添加如下定义：
 
 ```
 #define LOCKING_SUPPORT_ENABLE
 #define LOCKING_RESYNC_ENABLE
 ```
 
-在使能该功能后，要在键盘中使用`KC_LCAP`, `KC_LNUM` 和 `KC_LSCR`这三个键码。
+启用该功能后，在你的键映射中须改为使用 `KC_LCAP`，`KC_LNUM` 和 `KC_LSCR`。
 
-远古机械键盘偶尔会有自锁机械开关，现在几乎没有了。***大多数情况下你不需要使用该功能，且要使用`KC_CAPS`, `KC_NLCK`和`KC_SLCK`这三个键码。***
+旧式复古风（vintage style）键盘偶尔能见到锁定式开关，但在现代键盘中见不到了。***因此你基本不会需要这个功能的，直接使用 `KC_CAPS`，`KC_NUM` 和 `KC_SCRL` 就好***
 
-## 输入ASCII之外的特殊字符比如Cédille 'Ç'
+## 输入形如法语中软音'Ç'这样的非ASCII字符
 
-请见[Unicode](feature_unicode.md)功能。
+参见[Unicode](zh-cn/feature_unicode.md)功能.
 
-## macOS上的`Fn` 
+## macOS系统下的 `Fn`
 
-不像大多数FN键，苹果上那个有自己的键码...呃，基本上算吧。 他取缔了基本6键无冲HID报告的第六个键码 -- 所以苹果键盘其实是5键无冲的。
+和其它键盘不同，Apple键盘上的Fn有自己的键码...在某种程度上。其占用了基础6KRO HID事件上报中的第六个键码 —— 因此Apple键盘实际上只是5KRO（5键无冲）的。
 
-技术上说QMK可以发送这个键。但是，这样做需要修改报告格式以添加FN键的状态。这还不是最糟糕的，你的键盘的VID和PID和真的苹果键盘不一样的话还不会被识别。
-QMK官方支持这个会被律师函的，所以就当我没说过。
+技术上讲QMK确实能发送这种键码，但这么做需要修改上报事件中Fn键状态的格式。更麻烦的是，只有你的键盘的VID及PID与Apple键盘一致时才会生效。QMK对此提供官方支持可能会有法律风险，换句话说，我们不太可能去这么做的。
 
-详见[issue#2179](https://github.com/qmk/qmk_firmware/issues/2179)。
+具体信息请参见[这个issue](https://github.com/qmk/qmk_firmware/issues/2179)。
 
+## Mac OSX下支持的键有哪些？
+你可以通过查阅以下代码确认OSX下支持的键码。
 
-## Mac OSX的媒体控制键
-#### KC_MNXT 和 KC_MPRV 在Mac上不好用
-使用 `KC_MFFD`(`KC_MEDIA_FAST_FORWARD`) 和 `KC_MRWD`(`KC_MEDIA_REWIND`)，不要用 `KC_MNXT` 和 `KC_MPRV`.
-详见 https://github.com/tmk/tmk_keyboard/issues/195
-
-
-## Mac OSX中支持那些键?
-你可以从此源码中获知在OSX中支持哪些键码
-
-`usb_2_adb_keymap` 阵列映射 键盘/小键盘 页用于ADB扫描码(OSX内部键码).
+`usb_2_adb_keymap` 数组实现了从 Keyboard/Keypad 页到 ADB 扫描码（OSX内部使用的键码）的转换。
 
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/Cosmo_USB2ADB.c
 
-`IOHIDConsumer::dispatchConsumerEvent`会处理用户页面用法。
-<!--翻译问题：上面那两句翻译的不好-> handles Consumer page usages. -->
+以及 `IOHIDConsumer::dispatchConsumerEvent` 负责处理用户页部分。
+
 https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/IOHIDConsumer.cpp
 
 
-## Mac OSX中的JIS键
-岛国特别键比如`無変換(Muhenkan)`, `変換(Henkan)`, `ひらがな(hiragana)`OSX是不是别的。You can use **Seil** to enable those keys, try following options.
-<!--翻译问题：以上“岛国特别键”没有任何地域歧视的意思 -->
-* 在电脑键盘上使能NFER键
-* 在电脑键盘上使能XFER键
-* 在电脑键盘上使能KATAKAN键
+## Mac OSX下的JIS键
+日语体系的JIS键盘有些特殊键码：`無変換(Muhenkan)`, `変換(Henkan)`, `ひらがな(hiragana)` 在OSX下无法被识别，可以尝试通过以下配置借助 **Seil** 来启用这些键。
+
+* 在PC键盘中启用NFER键
+* 在PC键盘中启用XFER键
+* 在PC键盘中启用KATAKANA键
 
 https://pqrs.org/osx/karabiner/seil.html
 
 
-## RN-42蓝牙模块与Karabiner不能有效协同工作
-Karabiner - Mac OSX的改键软件 - 默认RN-42模块是不会被响应的。想要Karabiner和你的键盘协同工作你要使能此选项：
-https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559237
-
-此问题详见下方链接。
+## RN-42蓝牙模块与Karabiner的兼容性问题
+Karabiner - Mac OSX系统下的键映射工具 - 默认会忽略RN-42模块的输入事件。须在Karabiner开启相关选项来支持你的键盘。
+https://github.com/tekezo/Karabiner/issues/403#issuecomment-102559230
+这个问题的其它详细信息参见
 https://github.com/tmk/tmk_keyboard/issues/213
 https://github.com/tekezo/Karabiner/issues/403
 
 
-## Esc 和 <code>&#96;</code> 双功能键
+## Esc和<code>&#96;</code>位于同一个键位
 
-请见[Grave Escape](feature_grave_esc.md)功能。
+参见[Grave Escape](zh-cn/feature_grave_esc.md)功能.
 
-## Mac OSX的弹出键
-`KC_EJCT` 键码在OSX可以使用 https://github.com/tmk/tmk_keyboard/issues/250
-似乎Windows10会忽略该键码，Linux/Xorg可以识别该键码但默认不映射。
+## Mac OSX下的弹出功能
+`KC_EJCT` 在OSX下可用。 https://github.com/tmk/tmk_keyboard/issues/250
+Windows 10应该是忽略了这个键码，Linux/Xorg能识别到，但默认没有映射处理。
 
-目前尚不清楚如何在真正的苹果键盘按出弹出键。HHKB使用`F20`用于弹出键(`Fn+f`)，该功能在MAC模式有效但不保证与苹果弹出键码相符。
+目前尚不清楚Apple键盘上弹出键到底是啥，HHKB在Mac模式下使用 `F20` 来作为弹出键（`Fn+f`），但应该和Apple的弹出键码不是一回事儿。
 
+## 在 `action_util.c` 中的 `weak_mods` 和 `real_mods` 是什么东西？
+___待完善的内容___
 
-## `action_util.c`中的 `weak_mods`和`real_mods`是什么
-___待改善___
+real_mods保存的是现实的/物理上的修饰键状态，而weak_mods保存的是虚拟的或临时的修饰键状态，且不应该影响到真实的修饰键的状态。
 
-real_mods 用于保存实际(物理)修改键的实际状态。
-weak_mods 用于保存虚拟或临时修改键，它将不会影响实际修改键。
+例如你按住了物理键盘上的左shift键，又输入了 ACTION_MODS_KEY(LSHIFT, KC_A)，
 
-以按下左侧Shift键然后输入ACTION_MODS_KEY(LSHIFT, KC_A)为例，
+在weak_mods下,
+* (1) 按住左shift: real_mods |= MOD_BIT(LSHIFT)
+* (2) 按下 ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods |= MOD_BIT(LSHIFT)
+* (3) 松开 ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods &= ~MOD_BIT(LSHIFT)
+real_mods依然保留着修饰键的状态值。
 
-在weak_mods时，
-* (1) 按下不抬起左Shift: real_mods |= MOD_BIT(LSHIFT)
-* (2) 按 ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods |= MOD_BIT(LSHIFT)
-* (3) 抬起 ACTION_MODS_KEY(LSHIFT, KC_A): weak_mods &= ~MOD_BIT(LSHIFT)
-real_mods 还是保持在修改状态。
+非weak_mods时,
+* (1) 按住左shift: real_mods |= MOD_BIT(LSHIFT)
+* (2) 按下 ACTION_MODS_KEY(LSHIFT, KC_A): real_mods |= MOD_BIT(LSHIFT)
+* (3) 松开 ACTION_MODS_KEY(LSHIFT, KC_A): real_mods &= ~MOD_BIT(LSHIFT)
+这时real_mods失去了‘物理键左shift’的状态值。
 
-在没有weak_mods时，
-* (1) 按下不抬起左Shift: real_mods |= MOD_BIT(LSHIFT)
-* (2) 按 ACTION_MODS_KEY(LSHIFT, KC_A): real_mods |= MOD_BIT(LSHIFT)
-* (3) 抬起 ACTION_MODS_KEY(LSHIFT, KC_A): real_mods &= ~MOD_BIT(LSHIFT)
-此时real_mods失去‘实际左Shift’的状态。
-
-weak_mods和real_mods现已全部加入键盘数据包发送豪华套餐。
+在键盘事件发送时，weak_mods会与real_mods求逻辑或。
 https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57

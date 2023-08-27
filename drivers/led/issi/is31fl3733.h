@@ -1,6 +1,7 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2018 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2021 Doni Crosby
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,23 +30,31 @@ typedef struct is31_led {
     uint8_t b;
 } __attribute__((packed)) is31_led;
 
-extern const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL];
+extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
 
-void IS31FL3733_init(uint8_t addr, uint8_t sync);
-bool IS31FL3733_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-bool IS31FL3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+void is31fl3733_init(uint8_t addr, uint8_t sync);
+bool is31fl3733_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-void IS31FL3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-void IS31FL3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3733_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void is31fl3733_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void IS31FL3733_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+void is31fl3733_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3733_update_pwm_buffers(uint8_t addr, uint8_t index);
-void IS31FL3733_update_led_control_registers(uint8_t addr, uint8_t index);
+void is31fl3733_update_pwm_buffers(uint8_t addr, uint8_t index);
+void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index);
+
+#define PUR_0R 0x00   // No PUR resistor
+#define PUR_05KR 0x02 // 0.5k Ohm resistor in t_NOL
+#define PUR_3KR 0x03  // 3.0k Ohm resistor on all the time
+#define PUR_4KR 0x04  // 4.0k Ohm resistor on all the time
+#define PUR_8KR 0x05  // 8.0k Ohm resistor on all the time
+#define PUR_16KR 0x06 // 16k Ohm resistor on all the time
+#define PUR_32KR 0x07 // 32k Ohm resistor in t_NOL
 
 #define A_1 0x00
 #define A_2 0x01

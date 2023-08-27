@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "mj64.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS9_SW1,  CS8_SW1,  CS7_SW1},  /* RGB1 */
     {0, CS9_SW2,  CS8_SW2,  CS7_SW2},  /* RGB3 */
     {0, CS9_SW3,  CS8_SW3,  CS7_SW3},  /* RGB4 */

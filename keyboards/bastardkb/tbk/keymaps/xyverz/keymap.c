@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_LOWER] = LAYOUT_split_4x6_5(
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12, 
-  RESET,   _______, _______, KC_UP,   _______, _______,     _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, _______,
+  QK_BOOT, _______, _______, KC_UP,   _______, _______,     _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, _______,
   KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME,     KC_PGUP, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______,
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_END,      KC_PGDN, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
                              _______, KC_DEL,  _______,     _______, _______, _______,
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE] = LAYOUT_split_4x6_5(
   KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12, 
-  _______, _______, _______, KC_UP,   _______, _______,     _______, KC_PSCR, KC_SLCK, KC_PAUS, _______, RESET,
+  _______, _______, _______, KC_UP,   _______, _______,     _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, QK_BOOT,
   KC_CAPS, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME,     KC_PGUP, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______,
   _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_END,      KC_PGDN, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
                              _______, KC_DEL,  _______,     _______, _______, _______,
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = LAYOUT_split_4x6_5(
   _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
-  _______, RESET,   _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
+  _______, QK_BOOT, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,     _______, WINDOWS, MAC,     _______, _______, _______,
   _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
                              _______, _______, _______,     _______, _______, _______,

@@ -5,8 +5,7 @@ YouTube channel.
 
 It is used on his      
 * [1up60HSE](https://github.com/qmk/qmk_firmware/tree/master/keyboards/1upkeyboards/1up60hse)
-* [dz60rgb-ansi](https://github.com/qmk/qmk_firmware/tree/master/keyboards/dztech/dz60rgb)
-* [HS60 V2](https://github.com/qmk/qmk_firmware/tree/master/keyboards/hs60/v2)
+* [DZ60rgb-ANSI V1](https://github.com/qmk/qmk_firmware/tree/master/keyboards/dztech/dz60rgb)
 
 ## Keymap Notes
 - Arrow toggle switch is tapping the `FN` key once. 

@@ -18,20 +18,9 @@
 
 #include "bcat.h"
 
-enum layer {
-    LAYER_DEFAULT,
-    LAYER_LOWER,
-    LAYER_RAISE,
-    LAYER_ADJUST,
-};
-
-#define LY_LWR MO(LAYER_LOWER)
-#define LY_RSE MO(LAYER_RAISE)
-
-#define KY_CSPC LCTL(KC_SPC)
-#define KY_ZMIN LCTL(KC_EQL)
-#define KY_ZMOUT LCTL(KC_MINS)
-#define KY_ZMRST LCTL(KC_0)
+#if defined(OLED_ENABLE)
+#    include "bcat_oled.h"
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
@@ -46,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LAYER_LOWER] = LAYOUT_split_3x6_3(
         MC_ALTT,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,                      KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  _______,
         KY_CSPC,  KY_ZMRST, KY_ZMOUT, KY_ZMIN,  KC_WBAK,  KC_WFWD,                      KC_PIPE,  KC_UNDS,  KC_PLUS,  KC_LCBR,  KC_RCBR,  KC_TILD,
-        _______,  KC_APP,   KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_LGUI,                      KC_BSLS,  KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_GRV,
+        _______,  KC_APP,   KC_PSCR,  KC_SCRL,  KC_PAUS,  KC_LGUI,                      KC_BSLS,  KC_MINS,  KC_EQL,   KC_LBRC,  KC_RBRC,  KC_GRV,
                                                 _______,  _______,  _______,  _______,  _______,  _______
     ),
     /* Raise layer: http://www.keyboard-layout-editor.com/#/gists/08b44355d4ca85d294bad9e2821f91d7 */
@@ -58,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Adjust layer: http://www.keyboard-layout-editor.com/#/gists/77e7572e077b36a23eb2086017e16fee */
     [LAYER_ADJUST] = LAYOUT_split_3x6_3(
-        _______,  NK_TOGG,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,                      EEP_RST,  RESET,    _______,  _______,  _______,  _______,
+        _______,  _______,  KC_MPLY,  KC_VOLU,  KC_MSTP,  _______,                      EE_CLR,   QK_BOOT,  _______,  _______,  _______,  _______,
         _______,  _______,  KC_MPRV,  KC_VOLD,  KC_MNXT,  _______,                      RGB_RMOD, RGB_VAD,  RGB_VAI,  RGB_MOD,  RGB_SPI,  _______,
         _______,  _______,  _______,  KC_MUTE,  _______,  _______,                      RGB_HUI,  RGB_SAD,  RGB_SAI,  RGB_HUD,  RGB_SPD,  _______,
                                                 _______,  _______,  _______,  RGB_TOG,  _______,  _______
@@ -66,4 +55,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format on
 };
 
-layer_state_t layer_state_set_keymap(layer_state_t state) { return update_tri_layer_state(state, LAYER_LOWER, LAYER_RAISE, LAYER_ADJUST); }
+#if defined(OLED_ENABLE)
+oled_rotation_t oled_init_user(oled_rotation_t rotation) { return is_keyboard_master() ? OLED_ROTATION_270 : OLED_ROTATION_180; }
+
+void oled_task_keymap(const oled_keyboard_state_t *keyboard_state) {
+    render_oled_layers();
+    oled_advance_page(/*clearPageRemainder=*/false);
+    render_oled_indicators(keyboard_state->leds);
+    oled_advance_page(/*clearPageRemainder=*/false);
+    oled_advance_page(/*clearPageRemainder=*/false);
+    render_oled_wpm(keyboard_state->wpm);
+    render_oled_pet(/*col=*/0, /*line=*/12, keyboard_state);
+}
+#endif

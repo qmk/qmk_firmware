@@ -8,8 +8,6 @@ On some keyboards Bootmagic Lite is disabled by default. If this is the case, it
 BOOTMAGIC_ENABLE = yes
 ```
 
-?> You may see `lite` being used in place of `yes`.
-
 Additionally, you may want to specify which key to use. This is especially useful for keyboards that have unusual matrices. To do so, you need to specify the row and column of the key that you want to use. Add these entries to your `config.h` file:
 
 ```c
@@ -25,14 +23,35 @@ And to trigger the bootloader, you hold this key down when plugging the keyboard
 
 ## Split Keyboards
 
-When handedness is predetermined via an option like `SPLIT_HAND_PIN`, you might need to configure a different key between halves. To do so, add these entries to your `config.h` file:
+When [handedness](feature_split_keyboard.md#setting-handedness) is predetermined via options like `SPLIT_HAND_PIN` or `EE_HANDS`, you might need to configure a different key between halves. To identify the correct key for the right half, examine the split key matrix defined in the `<keyboard>.h` file, e.g.:
+
+```c
+#define LAYOUT_split_3x5_2( \
+        L01, L02, L03, L04, L05,   R01, R02, R03, R04, R05, \
+        L06, L07, L08, L09, L10,   R06, R07, R08, R09, R10, \
+        L11, L12, L13, L14, L15,   R11, R12, R13, R14, R15, \
+                       L16, L17,   R16, R17                 \
+    ) \
+    { \
+        { L01, L02, L03, L04, L05 }, \
+        { L06, L07, L08, L09, L10 }, \
+        { L11, L12, L13, L14, L15 }, \
+        { L16, L17, KC_NO, KC_NO, KC_NO }, \
+        { R01, R02, R03, R04, R05 }, \
+        { R06, R07, R08, R09, R10 }, \
+        { R11, R12, R13, R14, R15 }, \
+        { R16, R17, KC_NO, KC_NO, KC_NO }  \
+    }
+```
+
+If you pick the top right key for the right half, it is `R05` on the top layout. Within the key matrix below, `R05` is located on row 4 columnn 4. To use that key as the right half's Bootmagic Lite trigger, add these entries to your `config.h` file:
 
 ```c
 #define BOOTMAGIC_LITE_ROW_RIGHT 4
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 1
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 4
 ```
 
-By default, these values are not set.
+?> These values are not set by default.
 
 ## Advanced Bootmagic Lite
 
@@ -53,7 +72,7 @@ void bootmagic_lite(void) {
 }
 ```
 
-You can additional feature here. For instance, resetting the EEPROM or requiring additional keys to be pressed to trigger Bootmagic Lite. Keep in mind that `bootmagic_lite` is called before a majority of features are initialized in the firmware.
+You can define additional logic here. For instance, resetting the EEPROM or requiring additional keys to be pressed to trigger Bootmagic Lite. Keep in mind that `bootmagic_lite` is called before a majority of features are initialized in the firmware.
 
 ## Addenda
 

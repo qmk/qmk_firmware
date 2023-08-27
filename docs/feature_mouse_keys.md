@@ -48,8 +48,9 @@ Mouse keys supports three different modes to move the cursor:
 * **Kinetic:** Holding movement keys accelerates the cursor with its speed following a quadratic curve until it reaches its maximum speed.
 * **Constant:** Holding movement keys moves the cursor at constant speeds.
 * **Combined:** Holding movement keys accelerates the cursor until it reaches its maximum speed, but holding acceleration and movement keys simultaneously moves the cursor at constant speeds.
+* **Inertia:** Cursor accelerates when key held, and decelerates after key release.  Tracks X and Y velocity separately for more nuanced movements.  Applies to cursor only, not scrolling.
 
-The same principle applies to scrolling.
+The same principle applies to scrolling, in most modes.
 
 Configuration options that are times, intervals or delays are given in milliseconds. Scroll speed is given as multiples of the default scroll step. For example, a scroll speed of 8 means that each scroll action covers 8 times the length of the default scroll step as defined by your operating system or application.
 
@@ -59,13 +60,14 @@ This is the default mode. You can adjust the cursor and scrolling acceleration u
 
 |Define                      |Default|Description                                              |
 |----------------------------|-------|---------------------------------------------------------|
-|`MOUSEKEY_DELAY`            |300    |Delay between pressing a movement key and cursor movement|
-|`MOUSEKEY_INTERVAL`         |50     |Time between cursor movements in milliseconds            |
-|`MOUSEKEY_MOVE_DELTA`       |5      |Step size                                                |
+|`MOUSEKEY_DELAY`            |10     |Delay between pressing a movement key and cursor movement|
+|`MOUSEKEY_INTERVAL`         |20     |Time between cursor movements in milliseconds            |
+|`MOUSEKEY_MOVE_DELTA`       |8      |Step size                                                |
 |`MOUSEKEY_MAX_SPEED`        |10     |Maximum cursor speed at which acceleration stops         |
-|`MOUSEKEY_TIME_TO_MAX`      |20     |Time until maximum cursor speed is reached               |
-|`MOUSEKEY_WHEEL_DELAY`      |300    |Delay between pressing a wheel key and wheel movement    |
-|`MOUSEKEY_WHEEL_INTERVAL`   |100    |Time between wheel movements                             |
+|`MOUSEKEY_TIME_TO_MAX`      |30     |Time until maximum cursor speed is reached               |
+|`MOUSEKEY_WHEEL_DELAY`      |10     |Delay between pressing a wheel key and wheel movement    |
+|`MOUSEKEY_WHEEL_INTERVAL`   |80     |Time between wheel movements                             |
+|`MOUSEKEY_WHEEL_DELTA`      |1      |Wheel movement step size                                 |
 |`MOUSEKEY_WHEEL_MAX_SPEED`  |8      |Maximum number of scroll steps per scroll action         |
 |`MOUSEKEY_WHEEL_TIME_TO_MAX`|40     |Time until maximum scroll speed is reached               |
 
@@ -85,11 +87,11 @@ This is an extension of the accelerated mode. The kinetic mode uses a quadratic 
 |Define                                |Default  |Description                                                    |
 |--------------------------------------|---------|---------------------------------------------------------------|
 |`MK_KINETIC_SPEED`                    |undefined|Enable kinetic mode                                            |
-|`MOUSEKEY_DELAY`                      |8        |Delay between pressing a movement key and cursor movement      |
-|`MOUSEKEY_INTERVAL`                   |8        |Time between cursor movements in milliseconds                  |
-|`MOUSEKEY_MOVE_DELTA`                 |25       |Step size for accelerating from initial to base speed          |
+|`MOUSEKEY_DELAY`                      |5        |Delay between pressing a movement key and cursor movement      |
+|`MOUSEKEY_INTERVAL`                   |10       |Time between cursor movements in milliseconds                  |
+|`MOUSEKEY_MOVE_DELTA`                 |16       |Step size for accelerating from initial to base speed          |
 |`MOUSEKEY_INITIAL_SPEED`              |100      |Initial speed of the cursor in pixel per second                |
-|`MOUSEKEY_BASE_SPEED`                 |1000     |Maximum cursor speed at which acceleration stops               |
+|`MOUSEKEY_BASE_SPEED`                 |5000     |Maximum cursor speed at which acceleration stops               |
 |`MOUSEKEY_DECELERATED_SPEED`          |400      |Decelerated cursor speed                                       |
 |`MOUSEKEY_ACCELERATED_SPEED`          |3000     |Accelerated cursor speed                                       |
 |`MOUSEKEY_WHEEL_INITIAL_MOVEMENTS`    |16       |Initial number of movements of the mouse wheel                 |
@@ -164,11 +166,42 @@ small and detailed movements of the cursor.
 * **KC_ACL2:** This acceleration sets your cursor to the maximum (computer defined) speed. This is
 useful for moving the cursor large distances without much accuracy.
 
-To use constant speed mode, you must at least define `MK_COMBINED` in your keymap’s `config.h` file:
+To use combined speed mode, you must at least define `MK_COMBINED` in your keymap’s `config.h` file:
 
 ```c
 #define MK_COMBINED
 ```
+
+### Inertia mode
+
+This mode provides smooth motion, like sliding on ice.  The cursor accelerates
+along a quadratic curve while a key is held, then glides to a stop after the
+key is released.  Vertical and horizontal movements are tracked independently,
+so the cursor can move in many directions and make curves.
+
+Cannot be used at the same time as Kinetic mode, Constant mode, or Combined mode.
+
+Recommended settings in your keymap’s `config.h` file:
+
+|Define                      |Default  |Description                                                |
+|----------------------------|---------|-----------------------------------------------------------|
+|`MOUSEKEY_INERTIA`          |undefined|Enable Inertia mode                                        |
+|`MOUSEKEY_DELAY`            |150      |Delay between pressing a movement key and cursor movement  |
+|`MOUSEKEY_INTERVAL`         |16       |Time between cursor movements in milliseconds (16 = 60fps) |
+|`MOUSEKEY_MAX_SPEED`        |32       |Maximum cursor speed at which acceleration stops           |
+|`MOUSEKEY_TIME_TO_MAX`      |32       |Number of frames until maximum cursor speed is reached     |
+|`MOUSEKEY_FRICTION`         |24       |How quickly the cursor stops after releasing a key         |
+|`MOUSEKEY_MOVE_DELTA`       |1        |How much to move on first frame (1 strongly recommended)   |
+
+Tips:
+
+* Set `MOUSEKEY_DELAY` to roughly the same value as your host computer's key repeat delay, in ms.  Recommended values are 100 to 300.
+* Set `MOUSEKEY_INTERVAL` to a value of 1000 / your monitor's FPS.  For 60 FPS, 1000/60 = 16.
+* Set `MOUSEKEY_MAX_SPEED` based on your screen resolution and refresh rate, like Width / FPS.  For example, 1920 pixels / 60 FPS = 32 pixels per frame.
+* Set `MOUSEKEY_TIME_TO_MAX` to a value of approximately FPS / 2, to make it reach full speed in half a second (or so).
+* Set `MOUSEKEY_FRICTION` to something between 1 and 255.  Lower makes the cursor glide longer. Values from 8 to 40 are the most effective.
+* Keep `MOUSEKEY_MOVE_DELTA` at 1.  This allows precise movements before the gliding effect starts.
+* Mouse wheel options are the same as the default accelerated mode, and do not use inertia.
 
 ## Use with PS/2 Mouse and Pointing Device
 

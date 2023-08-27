@@ -17,17 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x17EF  // Lenovo
-//#define PRODUCT_ID    0x6009 // ThinkPad Keyboard with TrackPoint
-//#define PRODUCT_ID    0x6047 // ThinkPad Compact USB Keyboard with TrackPoint
-#define PRODUCT_ID   0x6048  // ThinkPad Compact Bluetooth Keyboard with TrackPoint
-//#define PRODUCT_ID    0x6067 // ThinkPad Pro Docking Station
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Priyadi
-#define PRODUCT      Promethium Keyboard
 
 /* key matrix size */
 #define MATRIX_COLS  6
@@ -40,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { F5, F6, F7, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 #define TRACKPOINT_PINS \
     { B7, B6, D7 }
-#define UNUSED_PINS
 
 /*
  * Keyboard Matrix Assignments
@@ -54,58 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define DIODE_DIRECTION      COL2ROW
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE             5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-// #define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-// #define LOCKING_RESYNC_ENABLE
-
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
-
-/*
- * Magic Key Options
- *
- * Magic keys are hotkey commands that allow control over firmware functions of
- * the keyboard. They are best used in combination with the HID Listen program,
- * found here: https://www.pjrc.com/teensy/hid_listen.html
- *
- * The options below allow the magic key functionality to be changed. This is
- * useful if your keyboard/keypad is missing keys and you want magic key support.
- *
- */
-
 /* key combination for command */
-#define IS_COMMAND()         (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT) | MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RCTRL)))
+#define IS_COMMAND()         (get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)))
 
 
 /*
@@ -123,8 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION
 
 #define PS2_MOUSE_INIT_DELAY 2000
 #define BATTERY_POLL         30000
@@ -218,33 +154,20 @@ enum led_sequence {
     LED_TOTAL
 };
 
-#    define RGB_DI_PIN B5
 #    define RGBSPS_NUM LED_TOTAL
 #endif
 
 /* PS/2 mouse */
-#ifdef PS2_USE_BUSYWAIT
-#    define PS2_CLOCK_PORT PORTD
-#    define PS2_CLOCK_PIN  PIND
-#    define PS2_CLOCK_DDR  DDRD
-#    define PS2_CLOCK_BIT  3
-#    define PS2_DATA_PORT  PORTD
-#    define PS2_DATA_PIN   PIND
-#    define PS2_DATA_DDR   DDRD
-#    define PS2_DATA_BIT   2
+#ifdef PS2_DRIVER_BUSYWAIT
+#    define PS2_CLOCK_PIN  D3
+#    define PS2_DATA_PIN   D2
 #endif
 
 /* PS/2 mouse interrupt version */
-#ifdef PS2_USE_INT
+#ifdef PS2_DRIVER_INTERRUPT
 /* uses INT1 for clock line(ATMega32U4) */
-#    define PS2_CLOCK_PORT PORTD
-#    define PS2_CLOCK_PIN  PIND
-#    define PS2_CLOCK_DDR  DDRD
-#    define PS2_CLOCK_BIT  3
-#    define PS2_DATA_PORT  PORTD
-#    define PS2_DATA_PIN   PIND
-#    define PS2_DATA_DDR   DDRD
-#    define PS2_DATA_BIT   2
+#    define PS2_CLOCK_PIN  D3
+#    define PS2_DATA_PIN   D2
 
 #    define PS2_INT_INIT()                          \
         do {                                        \
@@ -262,16 +185,10 @@ enum led_sequence {
 #endif
 
 /* PS/2 mouse USART version */
-#ifdef PS2_USE_USART
+#ifdef PS2_DRIVER_USART
 /* XCK for clock line and RXD for data line */
-#    define PS2_CLOCK_PORT PORTD
-#    define PS2_CLOCK_PIN  PIND
-#    define PS2_CLOCK_DDR  DDRD
-#    define PS2_CLOCK_BIT  5
-#    define PS2_DATA_PORT  PORTD
-#    define PS2_DATA_PIN   PIND
-#    define PS2_DATA_DDR   DDRD
-#    define PS2_DATA_BIT   2
+#define PS2_CLOCK_PIN   D5
+#define PS2_DATA_PIN    D2
 
 /* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
 /* set DDR of CLOCK as input to be slave */

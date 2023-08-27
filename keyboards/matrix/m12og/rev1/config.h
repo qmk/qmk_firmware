@@ -17,14 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x4D58
-#define PRODUCT_ID   0x0369
-#define DEVICE_VER   0x0001
-#define MANUFACTURER matrix
-#define PRODUCT      m12og_v1
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -38,17 +30,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-/* Status LEDs */
-#define LED_CAPS_LOCK_PIN B6
-#define LED_SCROLL_LOCK_PIN B5
-
-/* RGB */
-#define RGB_DI_PIN B8
-#define RGBLIGHT_ANIMATIONS
-
-#define RGBLED_NUM 16
-#define RGBLIGHT_SLEEP
 #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_RGB
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
