@@ -1,0 +1,18 @@
+--- ../../../../../layouts/community/split_3x5_3/manna-harbour_miryoku/config.h	2023-07-23 11:09:41.501910390 -0700
++++ config.h	2023-08-26 16:59:10.041580132 -0700
+@@ -17,3 +17,15 @@
+ K20,   K21,   K22,   K23,   K24,          K25,   K26,   K27,   K28,   K29,\
+               K32,   K33,   K34,          K35,   K36,   K37\
+ )
++
++////// This block copyright 2023 Nathaniel Harward
++#ifdef RGB_MATRIX_ENABLE
++#   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
++#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
++#   define RGB_MATRIX_HUE_STEP 8
++#   define RGB_MATRIX_SAT_STEP 8
++#   define RGB_MATRIX_VAL_STEP 8
++#   define RGB_MATRIX_SPD_STEP 10
++#   define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
++#endif
++////// end block copyright 2023 Nathaniel Harward
