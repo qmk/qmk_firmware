@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "60% ANSI with split Backspace, split Right Shift, and Windows keyless layout",
+    "keyboard_name": "60% ANSI Windows keyless with split Backspace and split Right Shift, and Windows keyless layout",
     "url": "",
     "maintainer": "qmk",
     "layouts": {
