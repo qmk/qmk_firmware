@@ -33,18 +33,6 @@
 //------------------------------------------
 
 
-// OLED definitions
-//------------------------------------------
-#ifdef OLED_ENABLE
-#define OLED_FONT_H "keyboards/keycapsss/kimiko/rev2/keymaps/default/glcdfont.c"
-// #define OLED_FONT_WIDTH 5
-// #define OLED_FONT_HEIGHT 7
-// #define OLED_DISPLAY_128X64 //128x64 needs this define, for  128x32 display no extra define is needed and this can be removed/commented
-
-#endif
-//------------------------------------------
-
-
 // 'new' RGB Matrix definitions, used when RGB_MATRIX_ENABLE = yes in rules.mk
 //------------------------------------------
 #ifdef RGB_MATRIX_ENABLE
