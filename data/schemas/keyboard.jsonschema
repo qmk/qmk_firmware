@@ -176,6 +176,7 @@
         "bootloader": {
             "type": "string",
             "enum": [
+                "apm32-dfu",
                 "atmel-dfu",
                 "bootloadhid",
                 "caterina",
