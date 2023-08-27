@@ -49,6 +49,10 @@
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
 
+    // EEPROM
+    "WEAR_LEVELING_BACKING_SIZE": {"info_key": "eeprom.wear_leveling.backing_size", "value_type": "int"},
+    "WEAR_LEVELING_LOGICAL_SIZE": {"info_key": "eeprom.wear_leveling.logical_size", "value_type": "int"},
+
     // Indicators
     "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
     "LED_NUM_LOCK_PIN": {"info_key": "indicators.num_lock"},
@@ -158,10 +162,6 @@
     "USB_MAX_POWER_CONSUMPTION": {"info_key": "usb.max_power", "value_type": "int"},
     "USB_POLLING_INTERVAL_MS": {"info_key": "usb.polling_interval", "value_type": "int"},
     "USB_SUSPEND_WAKEUP_DELAY": {"info_key": "usb.suspend_wakeup_delay", "value_type": "int"},
-
-    // Wear-leveling
-    "WEAR_LEVELING_BACKING_SIZE": {"info_key": "wear_leveling.backing_size", "value_type": "int"},
-    "WEAR_LEVELING_LOGICAL_SIZE": {"info_key": "wear_leveling.logical_size", "value_type": "int"},
 
     // WS2812
     "WS2812_DI_PIN": {"info_key": "ws2812.pin"},
