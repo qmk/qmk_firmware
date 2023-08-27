@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "60% ISO Windows keyless Tsangan layout",
+    "keyboard_name": "60% ISO with split Backspace, split Right Shift, and Windows keyless Tsangan layout",
     "url": "",
     "maintainer": "qmk",
     "layouts": {
-        "LAYOUT_60_iso_tsangan_wkl": {
+        "LAYOUT_60_iso_wkl_split_bs_rshift": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
@@ -18,7 +18,8 @@
                 {"x":10, "y":0},
                 {"x":11, "y":0},
                 {"x":12, "y":0},
-                {"x":13, "y":0, "w":2},
+                {"x":13, "y":0},
+                {"x":14, "y":0},
 
                 {"x":0, "y":1, "w":1.5},
                 {"x":1.5, "y":1},
@@ -61,7 +62,8 @@
                 {"x":9.25, "y":3},
                 {"x":10.25, "y":3},
                 {"x":11.25, "y":3},
-                {"x":12.25, "y":3, "w":2.75},
+                {"x":12.25, "y":3, "w":1.75},
+                {"x":14, "y":3},
 
                 {"x":0, "y":4, "w":1.5},
                 {"x":2.5, "y":4, "w":1.5},

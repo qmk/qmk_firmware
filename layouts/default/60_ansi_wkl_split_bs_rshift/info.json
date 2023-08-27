@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "60% ANSI with split Backspace, split Right Shift, and Windows keyless Tsangan layout",
+    "keyboard_name": "60% ANSI with split Backspace, split Right Shift, and Windows keyless layout",
     "url": "",
     "maintainer": "qmk",
     "layouts": {
-        "LAYOUT_60_ansi_tsangan_wkl_split_bs_rshift": {
+        "LAYOUT_60_ansi_wkl_split_bs_rshift": {
             "layout": [
                 {"x":0, "y":0},
                 {"x":1, "y":0},
