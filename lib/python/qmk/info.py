@@ -706,6 +706,9 @@ def _extract_led_config(info_data, keyboard):
             except Exception as e:
                 _log_warning(info_data, f'led_config: {file.name}: {e}')
 
+        if info_data[feature].get("layout", None) and not info_data[feature].get("led_count", None):
+            info_data[feature]["led_count"] = len(info_data[feature]["layout"])
+
     return info_data
 
 
