@@ -50,8 +50,9 @@
     "ws2812": {
         "pin": "F0"
     },
+    "community_layouts": ["65_ansi_blocker_split_bs"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 {"label": "K00 (E6,F6)", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01 (E6,B0)", "matrix": [0, 1], "x": 1, "y": 0},

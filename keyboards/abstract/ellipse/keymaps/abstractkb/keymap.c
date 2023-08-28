@@ -21,7 +21,7 @@
 };*/
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT( /* Base */
+  [0] = LAYOUT_ortho_2x3( /* Base */
     KC_MUTE,  RGB_TOG,  BL_TOGG,
     RGB_M_SW,  RGB_M_P,	BL_BRTG
   )

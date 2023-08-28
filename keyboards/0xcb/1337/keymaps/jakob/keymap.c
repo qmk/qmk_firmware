@@ -24,22 +24,22 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_HOME] = LAYOUT(
+[_HOME] = LAYOUT_ortho_3x3(
     KC_MPRV, KC_MNXT, KC_MPLY,
     KC_PGUP, KC_PGDN, TO(3),
     KC_HOME, KC_END,  TO(1)
 ),
-[_MISC] = LAYOUT(
+[_MISC] = LAYOUT_ortho_3x3(
     _______, _______, _______,
     _______, _______, TO(0),
     _______, _______, TO(2)
 ),
-[_RGB] = LAYOUT(
+[_RGB] = LAYOUT_ortho_3x3(
     RGB_HUI, RGB_HUD, RGB_MOD,
     RGB_SAI, RGB_SAD, TO(1),
     RGB_SPI, RGB_SPD, TO(3)
 ),
-[_BLED] = LAYOUT(
+[_BLED] = LAYOUT_ortho_3x3(
     BL_STEP, BL_BRTG, BL_TOGG,
     BL_ON,   BL_OFF,  TO(2),
     BL_UP,   BL_DOWN, TO(0)

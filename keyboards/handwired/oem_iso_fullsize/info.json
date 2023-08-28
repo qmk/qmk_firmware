@@ -15,8 +15,9 @@
     "diode_direction": "ROW2COL",
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",
+    "community_layouts": ["fullsize_iso"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_fullsize_iso": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 

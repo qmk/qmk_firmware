@@ -40,7 +40,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[LAYER_BASE] = LAYOUT_pad21(
+[LAYER_BASE] = LAYOUT_numpad_6x4(
   KC_ESC,  KC_TAB,  KC_BSLS, MO(2),
   KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
   KC_P7,   KC_P8,   KC_P9,
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_P1,   KC_P2,   KC_P3,
   KC_P0,            KC_PDOT, KC_PENT  ),
 
-[LAYER_EDIT] = LAYOUT_pad21(
+[LAYER_EDIT] = LAYOUT_numpad_6x4(
   KC_ESC,  KC_TAB,  KC_SPC,  _______,
   TG(1),   SC_PSTE, SC_REDO, SC_UNDO,
   KC_HOME, KC_UP,   KC_PGUP,
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_END,  KC_DOWN, KC_PGDN,
   KC_BSPC,          KC_DEL,  M_SHFCT),
 
-[LAYER_FUNCTION] = LAYOUT_pad21(
+[LAYER_FUNCTION] = LAYOUT_numpad_6x4(
   BL_TOGG, BL_UP,   BL_DOWN, _______,
   TG(1),   _______, _______, _______,
   _______, _______, _______,

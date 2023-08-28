@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*  |   APLX6   |------|------|------| |
 	*  '----------------------------------'
 	*/
-  [_MEDIA] = LAYOUT(
+  [_MEDIA] = LAYOUT_ortho_2x3(
     KC_MUTE,  KC_MPLY,  TO(1),
     KC_MPRV,  KC_MSTP,  KC_MNXT
   ),
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*  |   APLX6   |------|------|------| |
 	*  '----------------------------------'
 	*/
-  [_DOC] = LAYOUT(
+  [_DOC] = LAYOUT_ortho_2x3(
     KC_HOME, KC_PGUP, TO(2),
     KC_END, KC_PGDN, KC_INS
   ),
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	*  |   APLX6   |------|------|------| |
 	*  '----------------------------------'
 	*/
-  [_POWER] = LAYOUT(
+  [_POWER] = LAYOUT_ortho_2x3(
     KC_CALC, KC_MY_COMPUTER, TO(0),
     KC_COPY, KC_CUT, KC_PASTE
   )
