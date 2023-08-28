@@ -1,6 +1,6 @@
 # Madeline
 
-![Madeline](https://i.imgur.com/MBT5kg2.jpg)
+![Madeline](https://i.imgur.com/MBT5kg2h.jpg)
 
 *A cool QAZ-Alice hybrid designed based on the Adalyn by [Marv](https://github.com/MarvFPV/Adalyn) with a PCB by [Rossman360](https://github.com/Rossman360)*
 * Keyboard Maintainer: [NCKiser](https://github.com/NCKiser)
