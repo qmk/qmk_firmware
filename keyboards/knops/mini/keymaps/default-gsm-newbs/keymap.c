@@ -9,7 +9,7 @@ enum custom_keycodes {
 *  Copy of knopps mini default May 16,2018
 *  Added comments in code to more easilly understand it.
 *
-*   Key Layout
+*   Key LAYOUT_ortho_2x3
 *	 _____	 _____	 _____
 *	| 	  | | 	  | | 	  |
 *	|  1  | |  2  | |  3  |
@@ -19,7 +19,7 @@ enum custom_keycodes {
 *	|  4  | |  5  | |  6  |
 *	|_____| |_____| |_____|
 *
-*  Each Layout row below keys. 1,2,3,4,5,6
+*  Each LAYOUT_ortho_2x3 row below keys. 1,2,3,4,5,6
 *
 *  Hold 3 when powering on for DFU Program Mode
 */
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *
 * Button 1 (stop) is Held to activate Layer 3 only while held, User then selects the keymap to change to
 */
-  	LAYOUT(
+  	LAYOUT_ortho_2x3(
 		LT(3, KC_MSTP), KC_VOLU, KC_MPLY, KC_MPRV, KC_VOLD, KC_MNXT),
 
 /*
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *	|_____| |_____| |_____|
 *
 */
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		LT(3, KC_ESC), C(KC_Z), C(S(KC_Z)), C(KC_X), C(KC_C), C(KC_V)),
 
 /*
@@ -69,11 +69,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *	|_____| |_____| |_____|
 *
 */
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		LT(3, KC_1), KC_2, KC_3, KC_4, M_TGLHF, M_TGG),
 
 /*
-*  Layer 3 Key Layout
+*  Layer 3 Key LAYOUT_ortho_2x3
 *  This Layer does the Layer Selection
 *	 _____	 _____	 _____
 *	| 	  | | 	  | | DFU
@@ -88,45 +88,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * Layers 0,1,2 have Button 1 held to activate this layer. Then press the specific layer to switch to it.
 *
 */
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, QK_BOOT, TO(0), TO(1), TO(2)),
 
 // More Layers that can be used, but are not by default
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	LAYOUT(
+	LAYOUT_ortho_2x3(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 
 };

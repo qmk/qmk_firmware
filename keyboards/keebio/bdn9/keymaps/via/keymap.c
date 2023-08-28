@@ -9,25 +9,25 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_MAIN] = LAYOUT(
+[_MAIN] = LAYOUT_ortho_3x3(
     KC_MPLY, KC_HOME, KC_MUTE,
     MO(1),   KC_UP,   RGB_MOD,
     KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
-[_FN1] = LAYOUT(
+[_FN1] = LAYOUT_ortho_3x3(
     QK_BOOT, BL_STEP, KC_STOP,
     _______, KC_HOME, RGB_MOD,
     KC_MPRV, KC_END , KC_MNXT
 ),
 
-[_FN2] = LAYOUT(
+[_FN2] = LAYOUT_ortho_3x3(
     _______, _______, _______,
     _______, _______, _______,
     _______, _______, _______
 ),
 
-[_FN3] = LAYOUT(
+[_FN3] = LAYOUT_ortho_3x3(
     _______, _______, _______,
     _______, _______, _______,
     _______, _______, _______

@@ -23,8 +23,9 @@
         "pid": "0x0001",
         "vid": "0x4069"
     },
+    "community_layouts": ["tkl_ansi_tsangan"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_ansi_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "F1", "matrix": [0, 1], "x": 2, "y": 0},

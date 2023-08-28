@@ -31,22 +31,22 @@ enum my_layers {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT(
+    [_BASE] = LAYOUT_ortho_3x3(
         KC_MUTE, PANIC  , XXXXXXX,
         FLIGHT , XXXXXXX, RCS    ,
         XXXXXXX, XXXXXXX, XXXXXXX
     ),
-    [_PANIC] = LAYOUT(
+    [_PANIC] = LAYOUT_ortho_3x3(
         QK_BOOT, BASE   , XXXXXXX,
         _______, XXXXXXX, _______,
         KC_F2  , KC_F5  , KC_F9
     ),
-    [_FLIGHT] = LAYOUT(
+    [_FLIGHT] = LAYOUT_ortho_3x3(
         XXXXXXX, _______, KC_M   ,
         BASE   , KC_W   , _______,
         KC_A   , KC_S   , KC_D
     ),
-    [_RCS] = LAYOUT(
+    [_RCS] = LAYOUT_ortho_3x3(
         XXXXXXX, _______, XXXXXXX,
         _______, KC_I   , BASE   ,
         KC_J   , KC_K   , KC_L

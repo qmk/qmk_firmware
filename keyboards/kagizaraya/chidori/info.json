@@ -11,6 +11,10 @@
     },
     "processor": "atmega328p",
     "bootloader": "usbasploader",
+    "layout_aliases": {
+        "LAYOUT_ortho_4x12": "LAYOUT"
+    },
+    "community_layouts": ["ortho_4x12"],
     "layouts": {
         "LAYOUT": {
             "layout": [
