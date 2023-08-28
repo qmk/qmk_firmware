@@ -43,6 +43,7 @@ enum keycodes {
   TH_LCBR,
   TH_LBRC,
   TH_QUOT,
+  TH_SUOT,
   TH_DQUO,
 
   TH_COMM,
@@ -181,6 +182,7 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_EXLM  LT(_DEFAULT_LAYER_1, TH_EXLM)
 #   define TR_LPRN  LT(_DEFAULT_LAYER_1, TH_LPRN)
 #   define TR_LCBR  LT(_DEFAULT_LAYER_1, TH_LCBR)
+#   define TR_SQUO  LT(_DEFAULT_LAYER_1, TH_SQUO)
 #   define TR_DQUO  LT(_DEFAULT_LAYER_1, TH_DQUO)
 #   define TR_COMM  LT(_DEFAULT_LAYER_1, TH_COMM)
 #   define TR_DOT   LT(_DEFAULT_LAYER_1, TH_DOT)
@@ -208,11 +210,6 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_DOT   KC_DOT
 #   define TR_SCLN  KC_SCLN
 #endif //TAPHOLD_ENABLE
-
-
-TR_QUOT
-TR_SQUO
-TR_DQUO
 
 
 //Tap Hold takes precedence over Home Row Mods when we have overlapping keys 
@@ -445,11 +442,11 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 * For 3x5 configuration
 *
 *   ,----------------------------------.    ,----------------------------------.
-*   | %    | ^    | $    | +    | `    |    | =    | #    | *    | |    | "    |
+*   | ~    | ^    | $    | +    | `    |    | =    | #    | *    | |    | "    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   | &    | {    | }    | @    | ;    |    | Bksp | ?    | [    | ]    | '    |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |      | <    | >    | \    | !    |    | _    | /    | (    | )    | -    |
+*   | %    | <    | >    | \    | !    |    | _    | /    | (    | )    | -    |
 *   `------+------+------+------+------+    +------+------+------+------+------'
 *                 |      | NUM  |      |    |      | NAV  |      |              
 *                 `------+------+------'    `------+------+------'
@@ -459,13 +456,13 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   : (can activate via tap hold as well)
 * 
 */
-#   define _________________SYMBOL_L1_________________        KC_PERC, KC_CIRC, KC_DLR,  KC_PLUS, TR_GRV
+#   define _________________SYMBOL_L1_________________        KC_TILD, KC_CIRC, KC_DLR,  KC_PLUS, TR_GRV
 #   define _________________SYMBOL_L2_________________        TR_AMPR, TR_LCBR, KC_RCBR, KC_AT,   TR_SCLN
-#   define _________________SYMBOL_L3_________________        ___x___, TR_LABK, KC_RABK, TR_BSLS, TR_EXLM
+#   define _________________SYMBOL_L3_________________        KC_PERC, TR_LABK, KC_RABK, TR_BSLS, TR_EXLM
 #   define          ________SYMBOL_L4________                 ________NUMSYM_L4________
 
 #   define _________________SYMBOL_R1_________________        TR_EQL,  TR_HASH, KC_ASTR, TR_PIPE, TR_DQUO
-#   define _________________SYMBOL_R2_________________        KC_BSPC, KC_QUES, TR_LBRC, KC_RBRC, TR_QUOT
+#   define _________________SYMBOL_R2_________________        KC_BSPC, KC_QUES, TR_LBRC, KC_RBRC, TR_SQUO
 #   define _________________SYMBOL_R3_________________        TR_UNDS, TR_SLSH, TR_LPRN, KC_RPRN, TR_MINS
 #   define          ________SYMBOL_R4________                 ________NAVSYM_R4________
 
@@ -584,7 +581,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 *   ,----------------------------------.    ,----------------------------------.
 *   |      | Esc  | ~    | G    | T    |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   | GNUM | 1    | 2    | 3    | 4    |    |      |      |      |      |      |mIll3
+*   | GNUM | 1    | 2    | 3    | 4    |    |      |      |      |      |      |
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |      | 5    | 6    | 7    | 8    |    |      |      |      |      |      |
 *   `------+------+------+------+------+    +------+------+------+------+------'
