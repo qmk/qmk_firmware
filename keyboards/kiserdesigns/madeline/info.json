@@ -3,22 +3,24 @@
     "manufacturer": "rubybuilds",
     "maintainer": "NCKiser",
     "bootloader": "rp2040",
-    "bootmagic": {
-        "enabled": true
-    },
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": true,
         "rotary": [
-            { "pin_a": "GP13", "pin_b": "GP15", "resolution": 4 }
+            { "pin_a": "GP13", "pin_b": "GP15" }
         ]
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
     },
     "matrix_pins": {
         "cols": [ "GP25", "GP26", "GP27", "GP28", "GP29", "GP9", "GP0", "GP1", "GP2", "GP3" ],
         "rows": [ "GP5", "GP4", "GP12", "GP7" ]
-    },
-    "mouse_key": {
-        "enabled": true
     },
     "processor": "RP2040",
     "qmk": {
