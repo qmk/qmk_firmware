@@ -25,7 +25,7 @@
       ["B7", "D6", "F7"]
     ]
   },
-  "community_layouts": "ortho_3x3",
+  "community_layouts": ["ortho_3x3"],
   "layouts": {
     "LAYOUT_ortho_3x3": {
       "layout": [
