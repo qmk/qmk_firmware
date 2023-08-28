@@ -370,9 +370,9 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 
 Example:
 ```c
-sethsv(HSV_WHITE, (LED_TYPE *)&led[0]); // led 0
-sethsv(HSV_RED,   (LED_TYPE *)&led[1]); // led 1
-sethsv(HSV_GREEN, (LED_TYPE *)&led[2]); // led 2
+sethsv(HSV_WHITE, (rgb_led_t *)&led[0]); // led 0
+sethsv(HSV_RED,   (rgb_led_t *)&led[1]); // led 1
+sethsv(HSV_GREEN, (rgb_led_t *)&led[2]); // led 2
 rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
 ```
 

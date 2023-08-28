@@ -61,18 +61,18 @@ void static apa102_end_frame(uint16_t num_leds);
 void static apa102_send_frame(uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness);
 void static apa102_send_byte(uint8_t byte);
 
-void apa102_setleds(LED_TYPE *start_led, uint16_t num_leds) {
-    LED_TYPE *end = start_led + num_leds;
+void apa102_setleds(rgb_led_t *start_led, uint16_t num_leds) {
+    rgb_led_t *end = start_led + num_leds;
 
     apa102_start_frame();
-    for (LED_TYPE *led = start_led; led < end; led++) {
+    for (rgb_led_t *led = start_led; led < end; led++) {
         apa102_send_frame(led->r, led->g, led->b, apa102_led_brightness);
     }
     apa102_end_frame(num_leds);
 }
 
 // Overwrite the default rgblight_call_driver to use apa102 driver
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds) {
+void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds) {
     apa102_setleds(start_led, num_leds);
 }
 
