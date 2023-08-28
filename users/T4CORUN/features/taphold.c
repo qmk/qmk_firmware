@@ -11,7 +11,7 @@ void double_tap_space(uint16_t keycode) {
   tap_code16(KC_SPC);
 }
 
-void double_parens_left(uint16_t left, uint16_t right) {
+void insert_brackets(uint16_t left, uint16_t right) {
   tap_code16(left);
   tap_code16(right);
   tap_code16(KC_LEFT);
@@ -125,23 +125,23 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
         send_string(" != ");
         break;
       case TR_LPRN:
-        double_parens_left(KC_LPRN, KC_RPRN);
+        insert_brackets(KC_LPRN, KC_RPRN);
         break;
       case TR_LBRC:
-        double_parens_left(KC_LBRC, KC_RBRC);
+        insert_brackets(KC_LBRC, KC_RBRC);
         break;
       case TR_LCBR:
-        double_parens_left(KC_LCBR, KC_RCBR);
+        insert_brackets(KC_LCBR, KC_RCBR);
         break;
       case TR_LABK:
-        double_parens_left(KC_LABK, KC_RABK);
+        insert_brackets(KC_LABK, KC_RABK);
         break;
       case TR_QUOT:
       case TR_DQUO:
-        isShift ? double_parens_left(LSFT(key), LSFT(key)) : double_parens_left(key, key);
+        isShift ? insert_brackets(LSFT(key), LSFT(key)) : insert_brackets(key, key);
         break;
       //case TR_DQUO:
-      //  double_parens_left(key, key);
+      //  insert_brackets(key, key);
       //  return false;
       case TR_MINS:
       case TR_COMM:

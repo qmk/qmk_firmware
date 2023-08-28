@@ -209,6 +209,12 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #   define TR_SCLN  KC_SCLN
 #endif //TAPHOLD_ENABLE
 
+
+TR_QUOT
+TR_SQUO
+TR_DQUO
+
+
 //Tap Hold takes precedence over Home Row Mods when we have overlapping keys 
 //there should be another key with that mod tap
 #if defined(TAPHOLD_ENABLE)
