@@ -129,32 +129,57 @@ include $(BUILDDEFS_PATH)/build_json.mk
 # Pull in keymap level rules.mk
 ifeq ("$(wildcard $(KEYMAP_PATH))", "")
     # Look through the possible keymap folders until we find a matching keymap.c
-    ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_1)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
-    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_2)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_2)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_2)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
-    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_3)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
-    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_4)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
-    else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
-        -include $(MAIN_KEYMAP_PATH_5)/rules.mk
-        KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
-        KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
-    else ifneq ($(LAYOUTS),)
-        # If we haven't found a keymap yet fall back to community layouts
-        include $(BUILDDEFS_PATH)/build_layout.mk
-    else
-        $(call CATASTROPHIC_ERROR,Invalid keymap,Could not find keymap)
-        # this state should never be reached
+    ifneq ($(QMK_USERSPACE),)
+        ifneq ("$(wildcard $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_1)/keymap.c)","")
+            -include $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_1)/rules.mk
+            KEYMAP_C := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_1)/keymap.c
+            KEYMAP_PATH := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_1)
+        else ifneq ("$(wildcard $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_2)/keymap.c)","")
+            -include $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_2)/rules.mk
+            KEYMAP_C := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_2)/keymap.c
+            KEYMAP_PATH := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_2)
+        else ifneq ("$(wildcard $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_3)/keymap.c)","")
+            -include $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_3)/rules.mk
+            KEYMAP_C := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_3)/keymap.c
+            KEYMAP_PATH := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_3)
+        else ifneq ("$(wildcard $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_4)/keymap.c)","")
+            -include $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_4)/rules.mk
+            KEYMAP_C := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_4)/keymap.c
+            KEYMAP_PATH := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_4)
+        else ifneq ("$(wildcard $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_5)/keymap.c)","")
+            -include $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_5)/rules.mk
+            KEYMAP_C := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_5)/keymap.c
+            KEYMAP_PATH := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_5)
+        endif
+    endif
+    ifeq ($(KEYMAP_PATH),)
+        ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
+            -include $(MAIN_KEYMAP_PATH_1)/rules.mk
+            KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
+            KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
+        else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_2)/keymap.c)","")
+            -include $(MAIN_KEYMAP_PATH_2)/rules.mk
+            KEYMAP_C := $(MAIN_KEYMAP_PATH_2)/keymap.c
+            KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
+        else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
+            -include $(MAIN_KEYMAP_PATH_3)/rules.mk
+            KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
+            KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
+        else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
+            -include $(MAIN_KEYMAP_PATH_4)/rules.mk
+            KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
+            KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
+        else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
+            -include $(MAIN_KEYMAP_PATH_5)/rules.mk
+            KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
+            KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
+        else ifneq ($(LAYOUTS),)
+            # If we haven't found a keymap yet fall back to community layouts
+            include $(BUILDDEFS_PATH)/build_layout.mk
+        else
+            $(call CATASTROPHIC_ERROR,Invalid keymap,Could not find keymap)
+            # this state should never be reached
+        endif
     endif
 endif
 
@@ -358,6 +383,10 @@ ifeq ("$(USER_NAME)","")
     USER_NAME := $(KEYMAP)
 endif
 USER_PATH := users/$(USER_NAME)
+
+ifneq ($(QMK_USERSPACE),)
+    USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
+endif
 
 # Pull in user level rules.mk
 -include $(USER_PATH)/rules.mk

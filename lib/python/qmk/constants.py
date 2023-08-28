@@ -4,8 +4,11 @@ from os import environ
 from datetime import date
 from pathlib import Path
 
+from milc import cli
+
 # The root of the qmk_firmware tree.
 QMK_FIRMWARE = Path.cwd()
+QMK_USERSPACE = environ.get('QMK_USERSPACE') or cli.config.user.overlay_dir or QMK_FIRMWARE
 
 # Upstream repo url
 QMK_FIRMWARE_UPSTREAM = 'qmk/qmk_firmware'

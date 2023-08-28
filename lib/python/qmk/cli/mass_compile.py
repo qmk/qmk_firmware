@@ -7,7 +7,7 @@ from pathlib import Path
 from subprocess import DEVNULL
 from milc import cli
 
-from qmk.constants import QMK_FIRMWARE
+from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE
 from qmk.commands import _find_make, get_make_parallel_args
 from qmk.keyboard import resolve_keyboard
 from qmk.search import search_keymap_targets
@@ -49,6 +49,11 @@ def mass_compile(cli):
 
     builddir.mkdir(parents=True, exist_ok=True)
     with open(makefile, "w") as f:
+
+        userspace_suffix = ''
+        if Path(QMK_FIRMWARE).resolve() != Path(QMK_USERSPACE).resolve():
+            userspace_suffix = f'QMK_USERSPACE={Path(QMK_USERSPACE).resolve()}'
+
         for target in sorted(targets):
             keyboard_name = target[0]
             keymap_name = target[1]
@@ -62,7 +67,7 @@ all: {keyboard_safe}_{keymap_name}_binary
 {keyboard_safe}_{keymap_name}_binary:
 	@rm -f "{build_log}" || true
 	@echo "Compiling QMK Firmware for target: '{keyboard_name}:{keymap_name}'..." >>"{build_log}"
-	+@$(MAKE) -C "{QMK_FIRMWARE}" -f "{QMK_FIRMWARE}/builddefs/build_keyboard.mk" KEYBOARD="{keyboard_name}" KEYMAP="{keymap_name}" COLOR=true SILENT=false {' '.join(cli.args.env)} \\
+	+@$(MAKE) -C "{QMK_FIRMWARE}" -f "{QMK_FIRMWARE}/builddefs/build_keyboard.mk" KEYBOARD="{keyboard_name}" KEYMAP="{keymap_name}" COLOR=true SILENT=false {userspace_suffix} {' '.join(cli.args.env)} \\
 		>>"{build_log}" 2>&1 \\
 		|| cp "{build_log}" "{failed_log}"
 	@{{ grep '\[ERRORS\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \e[1;31m[ERRORS]\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\

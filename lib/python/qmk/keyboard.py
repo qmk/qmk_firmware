@@ -36,7 +36,9 @@ base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
 def find_keyboard_from_dir():
     """Returns a keyboard name based on the user's current directory.
     """
-    relative_cwd = qmk.path.under_qmk_firmware()
+    relative_cwd = qmk.path.under_qmk_userspace()
+    if not relative_cwd:
+        relative_cwd = qmk.path.under_qmk_firmware()
 
     if relative_cwd and len(relative_cwd.parts) > 1 and relative_cwd.parts[0] == 'keyboards':
         # Attempt to extract the keyboard name from the current directory
