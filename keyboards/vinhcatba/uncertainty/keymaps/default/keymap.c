@@ -41,13 +41,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =    {
 
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] =   { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [1] =   { ENCODER_CCW_CW(KC_BRID, KC_BRIU)  }
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [1] = { ENCODER_CCW_CW(KC_BRID, KC_BRIU) }
 };
 #endif // endif ENCODER_MAP_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
-#define HSV_PASTEL_BLUE 150, 155, 51
+#    define HSV_PASTEL_BLUE 150, 155, 51
 
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, HSV_PASTEL_BLUE}       // Light 1 LED, starting with LED 0
