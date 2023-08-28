@@ -905,7 +905,7 @@ __attribute__((weak)) void rgblight_call_driver(rgb_led_t *start_led, uint8_t nu
 
 void rgblight_set(void) {
     rgb_led_t *start_led;
-    uint8_t   num_leds = rgblight_ranges.clipping_num_leds;
+    uint8_t    num_leds = rgblight_ranges.clipping_num_leds;
 
     if (!rgblight_config.enable) {
         for (uint8_t i = rgblight_ranges.effect_start_pos; i < rgblight_ranges.effect_end_pos; i++) {
@@ -1268,9 +1268,9 @@ void rgblight_effect_snake(animation_status_t *anim) {
 
     for (i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         rgb_led_t *ledp = led + i + rgblight_ranges.effect_start_pos;
-        ledp->r        = 0;
-        ledp->g        = 0;
-        ledp->b        = 0;
+        ledp->r         = 0;
+        ledp->g         = 0;
+        ledp->b         = 0;
 #    ifdef RGBW
         ledp->w = 0;
 #    endif
