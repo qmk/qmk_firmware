@@ -3,7 +3,7 @@
 const uint16_t PROGMEM dragtog_combo[]     = {TR_COMM, TR_DOT,     COMBO_END};
 const uint16_t PROGMEM sniptog_combo[]     = {KC_M,    TR_DOT,     COMBO_END};
 const uint16_t PROGMEM moubtn4_combo[]     = {KC_SPC,  NAVGTIN,    COMBO_END};
-const uint16_t PROGMEM cfglayr_combo[]     = {KC_P,    TR_MINS,    COMBO_END};
+const uint16_t PROGMEM cfglayr_combo[]     = {TR_LSFT, KC_SPC,     COMBO_END};
 
 combo_t key_combos[COMBO_LENGTH] = {
 

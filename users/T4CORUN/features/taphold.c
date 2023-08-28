@@ -45,7 +45,9 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
       key = KC_AMPR; break;
     case TR_EQL:
       key = KC_EQL; break;
-     
+    case TR_HYPN:
+      key = KC_MINS; break;
+
     //Triple Tap
     case TR_GRV:
       key = KC_GRV; break;      
@@ -65,7 +67,7 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
       break;
     case TR_LABK:
       key = KC_LABK;
-      altkey = KC_RCBR;
+      altkey = KC_RABK;
       break;
     case TR_SQUO:
       key = KC_QUOT;
@@ -120,6 +122,7 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
       case TR_PIPE:
       case TR_AMPR:
       case TR_EQL:
+      case TR_HYPN:
         isShift ? double_tap(LSFT(key)) : double_tap(key);
         break;
 
@@ -133,7 +136,7 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
       case TR_LBRC:
       case TR_LCBR:
       case TR_LABK:
-      case TR_SUOT:
+      case TR_SQUO:
       case TR_DQUO:
         isShift ? insert_brackets(LSFT(key), LSFT(altkey)) : insert_brackets(key, altkey);
         break;

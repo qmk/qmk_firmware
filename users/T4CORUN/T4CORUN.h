@@ -27,25 +27,25 @@ enum keycodes {
   CLMAKDH,
   GAMING,
 
+  //These are only here to make the case statements unique in taphold.c
   TH_UNDS,
-  TH_LABK,
-  TH_RABK,
   TH_SLSH,
   TH_BSLS,
   TH_HASH,
-  TH_MINS,
   TH_PIPE,
   TH_AMPR,
   TH_EQL,
+  TH_HYPN,
   TH_GRV,
-  TH_EXLM,
   TH_LPRN,
-  TH_LCBR,
   TH_LBRC,
-  TH_QUOT,
-  TH_SUOT,
+  TH_LCBR,
+  TH_LABK,
+  TH_SQUO,
   TH_DQUO,
-
+  TH_EXLM,
+  TH_QUOT,
+  TH_MINS,
   TH_COMM,
   TH_DOT,
   TH_SCLN
@@ -167,45 +167,48 @@ We will move all as many preprocessor directives here so the wrapper is easier t
 #if defined(TAPHOLD_ENABLE)
 //Double Taps
 #   define TR_UNDS  LT(_DEFAULT_LAYER_1, TH_UNDS)
-#   define TR_LABK  LT(_DEFAULT_LAYER_1, TH_LABK)
 #   define TR_SLSH  LT(_DEFAULT_LAYER_1, TH_SLSH)
 #   define TR_BSLS  LT(_DEFAULT_LAYER_1, TH_BSLS)
 #   define TR_HASH  LT(_DEFAULT_LAYER_1, TH_HASH)
-#   define TR_MINS  LT(_DEFAULT_LAYER_1, TH_MINS)
-//Double Taps with Spaces
 #   define TR_PIPE  LT(_DEFAULT_LAYER_1, TH_PIPE)
 #   define TR_AMPR  LT(_DEFAULT_LAYER_1, TH_AMPR)
 #   define TR_EQL   LT(_DEFAULT_LAYER_1, TH_EQL)
+#   define TR_HYPN  LT(_DEFAULT_LAYER_1, TH_HYPN)
 //Triple Tap
 #   define TR_GRV   LT(_DEFAULT_LAYER_1, TH_GRV)
-//Custom
-#   define TR_EXLM  LT(_DEFAULT_LAYER_1, TH_EXLM)
+//Brackets
 #   define TR_LPRN  LT(_DEFAULT_LAYER_1, TH_LPRN)
 #   define TR_LCBR  LT(_DEFAULT_LAYER_1, TH_LCBR)
+#   define TR_LABK  LT(_DEFAULT_LAYER_1, TH_LABK)
 #   define TR_SQUO  LT(_DEFAULT_LAYER_1, TH_SQUO)
 #   define TR_DQUO  LT(_DEFAULT_LAYER_1, TH_DQUO)
+//Custom
+#   define TR_EXLM  LT(_DEFAULT_LAYER_1, TH_EXLM)
+#   define TR_MINS  LT(_DEFAULT_LAYER_1, TH_MINS)
 #   define TR_COMM  LT(_DEFAULT_LAYER_1, TH_COMM)
 #   define TR_DOT   LT(_DEFAULT_LAYER_1, TH_DOT)
 #   define TR_SCLN  LT(_DEFAULT_LAYER_1, TH_SCLN)
 #else
 //Double Taps
 #   define TR_UNDS  KC_UNDS
-#   define TR_LABK  KC_LABK
 #   define TR_SLSH  KC_SLSH
 #   define TR_BSLS  KC_BSLS
 #   define TR_HASH  KC_HASH
-#   define TR_MINS  KC_MINS
-//Double Taps with Spaces
 #   define TR_PIPE  KC_PIPE
 #   define TR_AMPR  KC_AMPR
 #   define TR_EQL   KC_EQL
+#   define TR_HYPN  KC_MINS
 //Triple Tap
 #   define TR_GRV   KC_GRV
-//Custom
-#   define TR_EXLM  KC_EXLM
+//Brackets
 #   define TR_LPRN  KC_LPRN
 #   define TR_LCBR  KC_LCBR
+#   define TR_LABK  KC_LABK
+#   define TR_SQUO  KC_QUOT
 #   define TR_DQUO  KC_DQUO
+//Custom
+#   define TR_EXLM  KC_EXLM
+#   define TR_MINS  KC_MINS
 #   define TR_COMM  KC_COMM
 #   define TR_DOT   KC_DOT
 #   define TR_SCLN  KC_SCLN
@@ -463,7 +466,7 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 #   define _________________SYMBOL_R1_________________        TR_EQL,  TR_HASH, KC_ASTR, TR_PIPE, TR_DQUO
 #   define _________________SYMBOL_R2_________________        KC_BSPC, KC_QUES, TR_LBRC, KC_RBRC, TR_SQUO
-#   define _________________SYMBOL_R3_________________        TR_UNDS, TR_SLSH, TR_LPRN, KC_RPRN, TR_MINS
+#   define _________________SYMBOL_R3_________________        TR_UNDS, TR_SLSH, TR_LPRN, KC_RPRN, TR_HYPN
 #   define          ________SYMBOL_R4________                 ________NAVSYM_R4________
 
 
@@ -491,28 +494,28 @@ I prefer to use KC_NO over KC_TRNS so I don't have accidental presses.
 
 /*
 *   ,----------------------------------.    ,----------------------------------.
-*   |ScrLck|  F7  |  F8  |  F9  | F10  |    |QWERTY|ClmkDH|Gaming| Boot |      |
+*   |ScrLck|  F7  |  F8  |  F9  | F10  |    |QWERTY|ClmkDH|Gaming|RGBTog|RGBMod|
 *   +------+------+------+------+------|    +------+------+------+------+------+
 *   |PrnScr|  F4  |  F5  |  F6  | F11  |    | Caps | Shft | Ctrl | Alt  | Gui  |
 *   +------+------+------+------+------|    +------+------+------+------+------+
-*   |PauBrk|  F1  |  F2  |  F3  | F12  |    | Hue+ | Sat+ | Vib+ | Spd+ |      |
+*   |PauBrk|  F1  |  F2  |  F3  | F12  |    | Hue+ | Sat+ | Vib+ | Spd+ | Boot |
 *   `------+------+------+------+------+    +------+------+------+------+------'
-*                 |      |      |      |    |RGBTog|RGBMod|      |
+*                 |      |      | Lsft |    | Spc  |      |      |
 *                 `------+------+------'    `------+------+------'
 */
 #   define _________________FUNCPAD_L1________________        KC_SCRL, KC_F7,   KC_F8,   KC_F9,   KC_F10
 #   define _________________FUNCPAD_L2________________        KC_PSCR, KC_F4,   KC_F5,   KC_F6,   KC_F11
 #   define _________________FUNCPAD_L3________________        KC_PAUS, KC_F1,   KC_F2,   KC_F3,   KC_F12
-#   define          ________FUNCPAD_L4_______                 __________NONE_3_________
+#   define          ________FUNCPAD_L4_______                 ___x___, ___x___, _______
 
-#   define _________________CONFIG_R1_________________        QWERTY,  CLMAKDH, TR_GAME, QK_BOOT, _______
+#   define _________________CONFIG_R1_________________        QWERTY,  CLMAKDH, TR_GAME, TR_RTOG, TR_RMOD
 #   define _________________CONFIG_R2_________________        KC_CAPS, _____________SCAG_MODS____________
-#   define _________________CONFIG_R3_________________        TR_RHUI, TR_RSAI, TR_RVAI, TR_RSPI, _______
+#   define _________________CONFIG_R3_________________        TR_RHUI, TR_RSAI, TR_RVAI, TR_RSPI, QK_BOOT
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#   define          ________CONFIG_R4________                 TR_RTOG, TR_RMOD
+#   define          ________CONFIG_R4________                 _______, ___x___
 #else
-#   define          ________CONFIG_R4________                 TR_RTOG, TR_RMOD, ___x___
+#   define          ________CONFIG_R4________                 _______, ___x___, ___x___
 #endif //KEYBOARD_bastardkb_charybdis_3x5
 
 #   define _________________FUNCROW_L_________________        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5

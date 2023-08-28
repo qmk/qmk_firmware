@@ -39,12 +39,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TR_PIPE:
     case TR_AMPR:
     case TR_EQL:
+    case TR_HYPN:
     case TR_GRV:
     case TR_EXLM:
     case TR_LPRN:
     case TR_LCBR:
     case TR_LBRC:
     case TR_QUOT:
+    case TR_SQUO:
     case TR_DQUO:
     case TR_COMM:
     case TR_DOT:
