@@ -305,6 +305,9 @@
     "kbdfans/kbd67/mkiirgb": {
         "target": "kbdfans/kbd67/mkiirgb/v1"
     },
+    "keebio/chocopad": {
+        "target": "keebio/chocopad/rev1"
+    },
     "keebio/dsp40": {
         "target": "keebio/dsp40/rev1"
     },
