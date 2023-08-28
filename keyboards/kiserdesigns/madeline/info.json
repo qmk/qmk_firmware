@@ -2,12 +2,10 @@
     "keyboard_name": "Madeline",
     "manufacturer": "rubybuilds",
     "maintainer": "NCKiser",
-    "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
     "bootmagic": {
         "enabled": true
     },
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "encoder": {
         "enabled": true,
