@@ -10,7 +10,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            { "pin_a": "GP13", "pin_b": "GP15", "resolution": 4  }
+            { "pin_a": "GP13", "pin_b": "GP15", "resolution": 4 }
         ]
     },
     "matrix_pins": {
@@ -21,6 +21,9 @@
         "enabled": true
     },
     "processor": "RP2040",
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "url": "https://qmk.fm/keyboards",
     "usb": {
         "device_version": "0.0.1",
