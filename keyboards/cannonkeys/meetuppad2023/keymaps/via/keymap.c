@@ -27,7 +27,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case MYMACRO:
         if (record->event.pressed) {
-				  SEND_STRING("I went to the CannonKeys 2023 meetup and all I got was this macropad");
+            SEND_STRING("I went to the CannonKeys 2023 meetup and all I got was this macropad");
         }
         break;
     }
