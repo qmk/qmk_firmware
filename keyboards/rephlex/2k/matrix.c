@@ -31,7 +31,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
             key_t *key = &keys[current_row][current_col];
             key->value = lut[analogReadPin(matrix_pins[current_row][current_col]) + key->offset];
-            key->value = MIN(key->value * CALIBRATION_RANGE / lut[1100 + key->offset], 255);
+            key->value = MIN((key->value << 8) / lut[1100 + key->offset], 255);
 
             switch (g_config.mode) {
                 case dynamic_actuation:
