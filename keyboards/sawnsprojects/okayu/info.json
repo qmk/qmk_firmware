@@ -29,7 +29,8 @@
     },
     "diode_direction": "COL2ROW",
     "indicators": {
-        "caps_lock": "B12"
+        "caps_lock": "B12",
+        "on_state": 0
     },
     "ws2812": {
         "pin": "B15",
