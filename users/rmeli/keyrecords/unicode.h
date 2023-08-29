@@ -74,13 +74,13 @@ const uint32_t unicode_map[] PROGMEM = {
 };
 
 // Accents
-#define A_GRV XP(aGRV, AGRV)
-#define A_UML XP(aUML, AUML)
-#define E_GRV XP(eGRV, EGRV)
-#define E_ACT XP(eACT, EACT)
-#define I_GRV XP(iGRV, IGRV)
-#define I_CIR XP(iCIR, ICIR)
-#define O_GRV XP(oGRV, OGRV)
-#define O_UML XP(oUML, OUML)
-#define U_GRV XP(uGRV, UGRV)
-#define U_UML XP(uUML, UUML)
+#define A_GRV UP(aGRV, AGRV)
+#define A_UML UP(aUML, AUML)
+#define E_GRV UP(eGRV, EGRV)
+#define E_ACT UP(eACT, EACT)
+#define I_GRV UP(iGRV, IGRV)
+#define I_CIR UP(iCIR, ICIR)
+#define O_GRV UP(oGRV, OGRV)
+#define O_UML UP(oUML, OUML)
+#define U_GRV UP(uGRV, UGRV)
+#define U_UML UP(uUML, UUML)

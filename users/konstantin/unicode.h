@@ -31,7 +31,7 @@
 
 #define UCM_NAME(name, code)    UCM_ ## name,
 #define UCM_ENTRY(name, code)   [UCM_ ## name] = code,
-#define UCM_KEYCODE(name, code) name = X(UCM_ ## name),
+#define UCM_KEYCODE(name, code) name = UM(UCM_ ## name),
 
 #if defined(UNICODE_ENABLE)
 enum unicode_keycodes {

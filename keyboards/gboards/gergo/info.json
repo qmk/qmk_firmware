@@ -8,11 +8,17 @@
         "pid": "0x1307",
         "device_version": "0.0.1"
     },
+    "build": {
+        "debounce_type": "sym_eager_pr"
+    },
     "bootmagic": {
         "matrix": [13, 2]
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "tapping": {
+        "toggle": 1
+    },
     "layout_aliases": {
         "LAYOUT_gergo": "LAYOUT"
     },
