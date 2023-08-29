@@ -26,6 +26,7 @@
 #    include "via.h"
 #    define DYNAMIC_KEYMAP_EEPROM_START (VIA_EEPROM_CONFIG_END)
 #else
+#    include "eeconfig.h"
 #    define DYNAMIC_KEYMAP_EEPROM_START (EECONFIG_SIZE)
 #endif
 
