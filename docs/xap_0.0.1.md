@@ -1,4 +1,4 @@
-<!--- Copyright 2022 QMK --->
+<!--- Copyright 2023 QMK --->
 <!--- SPDX-License-Identifier: GPL-2.0-or-later --->
 
 <!---
@@ -77,7 +77,6 @@ Response messages will always be prefixed by the originating request _token_, di
 
 * Bit 0 (`SUCCESS`): When this bit is set, the request was successfully handled. If not set, all payload data should be disregarded, and the request retried if appropriate (with a new token).
 
-
 ### Example "conversation":
 
 **Request** -- version query:
@@ -99,10 +98,8 @@ Response messages will always be prefixed by the originating request _token_, di
 Subsystem validity should be queried through the “Enabled-in-firmware subsystem query” under the QMK subsystem (route=0x00,0x01).
 This is the primary method for determining if a subsystem has been enabled in the running firmware.
 
-
 ### XAP - `0x00`
 This subsystem is always present, and provides the ability to query information about the XAP protocol of the connected device.
-
 
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |

@@ -1,4 +1,4 @@
-<!--- Copyright 2022 QMK --->
+<!--- Copyright 2023 QMK --->
 <!--- SPDX-License-Identifier: GPL-2.0-or-later --->
 
 <!---
@@ -34,6 +34,7 @@ This document describes the requirements of the QMK XAP ("extensible application
 
 | Name | Definition |
 | -- | -- |
+| _bool_ | Data type that contains values 0 and 1. Implemented as an alias of `u8`. |
 | _struct{}_ | A structure of data, packing different objects together. Data is "compacted" -- there are no padding bytes between fields. Equivalent to a packed C-style `struct`. The order in which they're defined matches the order of the data in the response packet. |
 | _type[n]_ | An array of `type`, with array extent of `N` -- e.g. `u8[2]` signifies two consecutive octets. |
 | _u16_ | An unsigned 16-bit integral, commonly seen as `uint16_t` from _stdint.h_. |
@@ -88,7 +89,6 @@ Response messages will always be prefixed by the originating request _token_, di
 * Bit 1 (`SECURE_FAILURE`): When this bit is set, the requested _route_ was marked _secure_ but an _unlock sequence_ has not completed.
 * Bit 0 (`SUCCESS`): When this bit is set, the request was successfully handled. If not set, all payload data should be disregarded, and the request retried if appropriate (with a new token).
 
-
 ### Example "conversation":
 
 **Request** -- version query:
@@ -110,10 +110,8 @@ Response messages will always be prefixed by the originating request _token_, di
 Subsystem validity should be queried through the “Enabled-in-firmware subsystem query” under the QMK subsystem (route=0x00,0x01).
 This is the primary method for determining if a subsystem has been enabled in the running firmware.
 
-
 ### XAP - `0x00`
 This subsystem is always present, and provides the ability to query information about the XAP protocol of the connected device.
-
 
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
@@ -126,7 +124,6 @@ This subsystem is always present, and provides the ability to query information 
 
 ### QMK - `0x01`
 This subsystem is always present, and provides the ability to address QMK-specific functionality.
-
 
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
@@ -144,14 +141,11 @@ This subsystem is always present, and provides the ability to address QMK-specif
 ### Keyboard - `0x02`
 This subsystem is always present, and reserved for vendor-specific functionality. No routes are defined by XAP.
 
-
 ### User - `0x03`
 This subsystem is always present, and reserved for user-specific functionality. No routes are defined by XAP.
 
-
 ### Keymap - `0x04`
 This subsystem allows for query of currently configured keycodes.
-
 
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
@@ -163,7 +157,6 @@ This subsystem allows for query of currently configured keycodes.
 ### Remapping - `0x05`
 This subsystem allows for live reassignment of keycodes without rebuilding the firmware.
 
-
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
 | Capabilities Query | `0x05 0x01` |  | __Response:__ `u32` | Remapping subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
@@ -174,10 +167,10 @@ This subsystem allows for live reassignment of keycodes without rebuilding the f
 ### Lighting - `0x06`
 This subsystem allows for control over the lighting subsystem.
 
-
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
 | Capabilities Query | `0x06 0x01` |  | __Response:__ `u32` | Lighting subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
+
 
 #### backlight - `0x06 0x02`
 This subsystem allows for control over the backlight subsystem.
@@ -190,6 +183,7 @@ This subsystem allows for control over the backlight subsystem.
 | Set Config | `0x06 0x02 0x04` |  | __Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* mode: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* val: `u8` | Set the current config.|
 | Save Config | `0x06 0x02 0x05` |  |  | Save the current config.|
 
+
 #### rgblight - `0x06 0x03`
 This subsystem allows for control over the rgblight subsystem.
 
@@ -200,6 +194,7 @@ This subsystem allows for control over the rgblight subsystem.
 | Get Config | `0x06 0x03 0x03` |  | __Response:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* mode: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* hue: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* sat: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* val: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* speed: `u8` | Query the current config.|
 | Set Config | `0x06 0x03 0x04` |  | __Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* mode: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* hue: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* sat: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* val: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* speed: `u8` | Set the current config.|
 | Save Config | `0x06 0x03 0x05` |  |  | Save the current config.|
+
 
 #### rgbmatrix - `0x06 0x04`
 This subsystem allows for control over the rgb matrix subsystem.
@@ -212,16 +207,25 @@ This subsystem allows for control over the rgb matrix subsystem.
 | Set Config | `0x06 0x04 0x04` |  | __Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* mode: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* hue: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* sat: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* val: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* speed: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* flags: `u8` | Set the current config.|
 | Save Config | `0x06 0x04 0x05` |  |  | Save the current config.|
 
+### Audio - `0x07`
+    This subsystem allows for control over the audio subsystem.
+
+| Name | Route | Tags | Payloads | Description |
+| -- | -- | -- | -- | -- |
+| Capabilities Query | `0x07 0x01` |  | __Response:__ `u32` | Audio subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.|
+| Get Config | `0x07 0x03` |  | __Response:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* clicky_enable: `u8` | Query the current config.|
+| Set Config | `0x07 0x04` |  | __Request:__<br>&nbsp;&nbsp;&nbsp;&nbsp;* enable: `u8`<br>&nbsp;&nbsp;&nbsp;&nbsp;* clicky_enable: `u8` | Set the current config.|
+| Save Config | `0x07 0x05` |  |  | Save the current config.|
+
 
 ## Broadcast messages
 
-Broadcast messages may be sent by the firmware to the host, without a corresponding inbound request. Each broadcast message uses the token `0xFFFF`, and does not expect a response from the host. Tokens are followed by an _ID_ signifying the type of broadcast, with corresponding _payload_.
-
+Broadcast messages may be sent by the firmware to the host, without a corresponding inbound request. Each broadcast message uses the token `0xFFFF`, and does not expect a response from the host. Tokens are followed by an _ID_ signifying the type of broadcast, then the response _payload_ length, and finally the corresponding _payload_.
 
 ### Log message - `0x00`
 Replicates and replaces the same functionality as if using the standard QMK `CONSOLE_ENABLE = yes` in `rules.mk`. Normal prints within the firmware will manifest as log messages broadcast to the host. `hid_listen` will not be functional with XAP enabled.
 
-Log message payloads include a `u8` signifying the length of the text, followed by the `u8[Length]` containing the text itself.
+Log message payloads include `u8[Length]` containing the text, where the length of the text is the _broadcast_header.length_ field.
 
 **Example Log Broadcast** -- log message "Hello QMK!"
 
@@ -234,10 +238,10 @@ Secure status has changed. Payloads include a `u8` matching a 'Secure Status' re
 
 **Example Secure Status Broadcast** -- secure "Unlocking"
 
-| Byte | 0 | 1 | 2 | 3 |
-| --- | --- | --- | --- | --- |
-| **Purpose** | Token | Token | Broadcast Type | Secure Status |
-| **Value** | `0xFF` | `0xFF` | `0x01` | `0x01` |
+| Byte | 0 | 1 | 2 | 3 | 4 |
+| --- | --- | --- | --- | --- | --- |
+| **Purpose** | Token | Token | Broadcast Type | Length | Secure Status |
+| **Value** | `0xFF` | `0xFF` | `0x01` | `0x01` | `0x01` |
 ### Keyboard - `0x02`
 Reserved for vendor-specific functionality. No messages are defined by XAP.
 ### User - `0x03`

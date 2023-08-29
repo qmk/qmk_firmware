@@ -20,7 +20,7 @@
             '''
             ## Broadcast messages
 
-            Broadcast messages may be sent by the firmware to the host, without a corresponding inbound request. Each broadcast message uses the token `0xFFFF`, and does not expect a response from the host. Tokens are followed by an _ID_ signifying the type of broadcast, with corresponding _payload_.
+            Broadcast messages may be sent by the firmware to the host, without a corresponding inbound request. Each broadcast message uses the token `0xFFFF`, and does not expect a response from the host. Tokens are followed by an _ID_ signifying the type of broadcast, then the response _payload_ length, and finally the corresponding _payload_.
             '''
     }
 
@@ -100,7 +100,7 @@
                     '''
                     Replicates and replaces the same functionality as if using the standard QMK `CONSOLE_ENABLE = yes` in `rules.mk`. Normal prints within the firmware will manifest as log messages broadcast to the host. `hid_listen` will not be functional with XAP enabled.
 
-                    Log message payloads include a `u8` signifying the length of the text, followed by the `u8[Length]` containing the text itself.
+                    Log message payloads include `u8[Length]` containing the text, where the length of the text is the _broadcast_header.length_ field.
 
                     **Example Log Broadcast** -- log message "Hello QMK!"
 
@@ -119,10 +119,10 @@
 
                     **Example Secure Status Broadcast** -- secure "Unlocking"
 
-                    | Byte | 0 | 1 | 2 | 3 |
-                    | --- | --- | --- | --- | --- |
-                    | **Purpose** | Token | Token | Broadcast Type | Secure Status |
-                    | **Value** | `0xFF` | `0xFF` | `0x01` | `0x01` |
+                    | Byte | 0 | 1 | 2 | 3 | 4 |
+                    | --- | --- | --- | --- | --- | --- |
+                    | **Purpose** | Token | Token | Broadcast Type | Length | Secure Status |
+                    | **Value** | `0xFF` | `0xFF` | `0x01` | `0x01` | `0x01` |
                     '''
                 return_type: u8
             }

@@ -17,20 +17,20 @@ __{{ name }}:__ `{{ type }}`
 {% if 'secure' == route.permissions %}__Secure__{% endif %}
 {%- endmacro -%}
 
-{%- for id, route in xap.routes | dictsort %}
+{% for id, route in xap.routes | dictsort %}
 ### {{ route.name }} - `{{ id }}`
 {{ route.description }}
 
 {% if route.routes %}
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
-{%- for subid, subroute in route.routes | dictsort %}
-{%- if not subroute.routes %}
+{% for subid, subroute in route.routes | dictsort %}
+{% if not subroute.routes %}
 | {{ subroute.name }} | `{{ id }} {{ subid }}` | {{ gen_tags(subroute) }} | {{ gen_payloads(subroute) }} | {{ subroute.description | newline_to_br }}|
-{%- endif %}
-{%- endfor %}
+{% endif %}
+{% endfor %}
 
-{%- for subid, subroute in route.routes | dictsort %}
+{% for subid, subroute in route.routes | dictsort %}
 {%- if subroute.routes %}
 
 #### {{ subroute.name }} - `{{ id }} {{ subid }}`
@@ -38,12 +38,13 @@ __{{ name }}:__ `{{ type }}`
 
 | Name | Route | Tags | Payloads | Description |
 | -- | -- | -- | -- | -- |
-{%- for subsubid, subsubroute in subroute.routes | dictsort %}
-{%- if not subsubroute.routes %}
+{% for subsubid, subsubroute in subroute.routes | dictsort %}
+{% if not subsubroute.routes %}
 | {{ subsubroute.name }} | `{{ id }} {{ subid }} {{ subsubid }}` | {{ gen_tags(subsubroute) }} | {{ gen_payloads(subsubroute) }} | {{ subsubroute.description | newline_to_br }}|
-{%- endif %}
-{%- endfor %}
-{%- endif %}
-{%- endfor %}
 {% endif %}
-{%- endfor %}
+{% endfor %}
+
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
