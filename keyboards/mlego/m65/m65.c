@@ -261,4 +261,7 @@ init_lwr_rse_led(toggle_lwr, toggle_rse);
   debug_matrix = true;
   debug_keyboard = true;
 #endif
+
+    keyboard_post_init_user();
+
 }
