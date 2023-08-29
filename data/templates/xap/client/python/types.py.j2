@@ -25,6 +25,7 @@ class {{ name }}(namedtuple('{{ name }}', '{{ members }}')):
 {% set type_definitions = [
   {'name':'XAPRequest', 'members': 'token length data', 'fmt':'<HB61s'},
   {'name':'XAPResponse', 'members': 'token flags length data', 'fmt':'<HBB60s'},
+  {'name':'XAPBroadcast', 'members': 'token event length data', 'fmt':'<HBB60s'},
   {'name':'XAPConfigBacklight', 'members': 'enable mode val', 'fmt':'<BBB'},
   {'name':'XAPConfigRgblight', 'members': 'enable mode hue sat val speed', 'fmt':'<BBBBBB'},
   {'name':'XAPConfigRgbMatrix', 'members': 'enable mode hue sat val speed flags', 'fmt':'<BBBBBBB'}

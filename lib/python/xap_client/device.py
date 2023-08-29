@@ -10,7 +10,7 @@ from typing import Optional
 from struct import pack, unpack
 from platform import platform
 
-from .types import XAPSecureStatus, XAPFlags, XAPRequest, XAPResponse
+from .types import XAPSecureStatus, XAPFlags, XAPRequest, XAPResponse, XAPBroadcast
 from .routes import XAPRoutes, XAPRouteError
 
 
@@ -116,8 +116,8 @@ class XAPDeviceBase:
         while not hasattr(event, '_ret'):
             event.wait(timeout=0.25)
 
-        r = XAPResponse.from_bytes(event._ret)
-        return (r.flags, r.data[:r.length])
+        r = XAPBroadcast.from_bytes(event._ret)
+        return (r.event, r.data[:r.length])
 
 
 class XAPDevice(XAPDeviceBase):

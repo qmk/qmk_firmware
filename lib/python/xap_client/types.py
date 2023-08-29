@@ -59,6 +59,20 @@ class XAPResponse(namedtuple('XAPResponse', 'token flags length data')):
         return self.fmt.pack(*list(self))
 
 
+class XAPBroadcast(namedtuple('XAPBroadcast', 'token event length data')):
+    fmt = Struct('<HBB60s')
+
+    def __new__(cls, *args):
+        return super().__new__(cls, *args)
+
+    @classmethod
+    def from_bytes(cls, data):
+        return cls._make(cls.fmt.unpack(data))
+
+    def to_bytes(self):
+        return self.fmt.pack(*list(self))
+
+
 class XAPConfigBacklight(namedtuple('XAPConfigBacklight', 'enable mode val')):
     fmt = Struct('<BBB')
 

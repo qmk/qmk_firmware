@@ -40,7 +40,7 @@
     type_docs: {
         bool:
             '''
-            Data type that contains values 0 and 1. Implementaed as an alias of `u8`.
+            Data type that contains values 0 and 1. Implemented as an alias of `u8`.
             '''
         u64:
             '''
