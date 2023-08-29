@@ -29,17 +29,17 @@ OLED_ENABLE = yes
 
 |OLED Driver        |Supported Device                    |
 |-------------------|------------------------------------|
-|SSD1306 (default)  |For both SSD1306, SH1106, and SH1107|
+|`ssd1306` (default)|For both SSD1306, SH1106, and SH1107|
 
 e.g.
 ```make
-OLED_DRIVER = SSD1306
+OLED_DRIVER = ssd1306
 ```
 
 |OLED Transport |                                                |
 |---------------|------------------------------------------------|
-|i2c (default)  | Uses I2C for communication with the OLED panel |
-|spi            | Uses SPI for communication with the OLED panel |
+|`i2c` (default)| Uses I2C for communication with the OLED panel |
+|`spi`          | Uses SPI for communication with the OLED panel |
 
 e.g.
 ```make
