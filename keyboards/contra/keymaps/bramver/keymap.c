@@ -106,9 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 
 	[_EMOJI] = LAYOUT_ortho_4x12(
-			_______ , X(CLAP) , X(CUM)  , X(BNIS) , X(BUTT) , X(CAR)  , X(FIRE) , X(REDB) , X(MONY) , X(HNDR) , X(SOS)  , _______ ,
-			_______ , X(CELE) , X(PRAY) , X(NAIL) , X(OK)   , X(THNK) , X(UNAM) , X(HEYE) , X(COOL) , X(EYES) , X(SMIR) , _______ ,
-			_______ , X(TRIU) , X(SCRM) , X(VOMI) , X(DTIV) , X(EXPL) , X(HAIR) , X(DANC) , X(STRN) , X(LEFT) , X(RGHT) , _______ ,
+			_______ , UM(CLAP) , UM(CUM)  , UM(BNIS) , UM(BUTT) , UM(CAR)  , UM(FIRE) , UM(REDB) , UM(MONY) , UM(HNDR) , UM(SOS)  , _______ ,
+			_______ , UM(CELE) , UM(PRAY) , UM(NAIL) , UM(OK)   , UM(THNK) , UM(UNAM) , UM(HEYE) , UM(COOL) , UM(EYES) , UM(SMIR) , _______ ,
+			_______ , UM(TRIU) , UM(SCRM) , UM(VOMI) , UM(DTIV) , UM(EXPL) , UM(HAIR) , UM(DANC) , UM(STRN) , UM(LEFT) , UM(RGHT) , _______ ,
 			_______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ 
 	),
 

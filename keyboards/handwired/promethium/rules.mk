@@ -18,7 +18,6 @@ PS2_ENABLE = yes
 PS2_DRIVER = interrupt
 CUSTOM_MATRIX = yes
 BLUETOOTH_ENABLE = yes
-BLUETOOTH_DRIVER = BluefruitLE
 WS2812_DRIVER_REQUIRED = yes
 
 SRC += rgbsps.c

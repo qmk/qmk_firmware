@@ -30,21 +30,21 @@ typedef struct is31_led {
 
 extern const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT];
 
-void IS31FL3731_init(uint8_t addr);
-void IS31FL3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void IS31FL3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
+void is31fl3731_init(uint8_t addr);
+void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
+void is31fl3731_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 
-void IS31FL3731_set_value(int index, uint8_t value);
-void IS31FL3731_set_value_all(uint8_t value);
+void is31fl3731_set_value(int index, uint8_t value);
+void is31fl3731_set_value_all(uint8_t value);
 
-void IS31FL3731_set_led_control_register(uint8_t index, bool value);
+void is31fl3731_set_led_control_register(uint8_t index, bool value);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3731_update_pwm_buffers(uint8_t addr, uint8_t index);
-void IS31FL3731_update_led_control_registers(uint8_t addr, uint8_t index);
+void is31fl3731_update_pwm_buffers(uint8_t addr, uint8_t index);
+void is31fl3731_update_led_control_registers(uint8_t addr, uint8_t index);
 
 #define C1_1 0x24
 #define C1_2 0x25
