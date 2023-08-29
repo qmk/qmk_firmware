@@ -21,11 +21,9 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_default"
-    },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_tkl_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
