@@ -784,17 +784,7 @@ void init_usb_driver(USBDriver *usbp) {
 __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {
     usbDisconnectBus(usbp);
     usbStop(usbp);
-
-#if USB_SUSPEND_WAKEUP_DELAY > 0
-    // Some hubs, kvm switches, and monitors do
-    // weird things, with USB device state bouncing
-    // around wildly on wakeup, yielding race
-    // conditions that can corrupt the keyboard state.
-    //
-    // Pause for a while to let things settle...
-    wait_ms(USB_SUSPEND_WAKEUP_DELAY);
-#endif
-
+    wait_ms(50);
     usbStart(usbp, &usbcfg);
     usbConnectBus(usbp);
 }
