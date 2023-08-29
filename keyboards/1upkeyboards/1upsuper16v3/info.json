@@ -2,7 +2,6 @@
     "manufacturer": "1upkeyboards",
     "keyboard_name": "1upsuper16v3",
     "maintainer": "ziptyze",
-    "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
     "dynamic_keymap": {
         "layer_count": 10
