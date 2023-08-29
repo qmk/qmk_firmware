@@ -25,9 +25,9 @@
         "pid": "0x0010",
         "vid": "0xFEED"
     },
-    "community_layouts": ["split_3x5_3"],
+    "community_layouts": ["split_3x5_3_thumb"],
     "layouts": {
-        "LAYOUT_split_3x5_3": {
+        "LAYOUT_split_3x5_3_thumb": {
             "layout": [
                 // Row 1
                 { "matrix": [0, 0], "x": 0, "y": 0 },
