@@ -102,7 +102,7 @@ void keyboard_pre_init_kb(void) {
     setPinInput(RGB_IRQ_N_PIN);
 }
 
-void keyboard_post_init_user() {
+void keyboard_post_init_user(void) {
     // RGB enabled by default, no way to turn off. No need to expend EEPROM write cycles here.
     rgb_matrix_enable_noeeprom();
 }

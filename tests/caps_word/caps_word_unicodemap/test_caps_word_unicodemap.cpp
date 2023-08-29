@@ -39,8 +39,8 @@ const uint32_t unicode_map[] PROGMEM = {
     [DELTA_UPPERCASE] = 0x0394,
 };
 
-#define U_DASH XP(ENDASH, EMDASH)
-#define U_DELTA XP(DELTA_LOWERCASE, DELTA_UPPERCASE)
+#define U_DASH UP(ENDASH, EMDASH)
+#define U_DELTA UP(DELTA_LOWERCASE, DELTA_UPPERCASE)
 
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
@@ -93,7 +93,7 @@ TEST_F(CapsWord, ShiftedUnicodeMapKey) {
     tap_keys(key_delta, key_spc, key_delta);
 
     EXPECT_EQ(is_caps_word_on(), false);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Tests typing U_ENDASH while Caps Word is on.
@@ -117,5 +117,5 @@ TEST_F(CapsWord, UnshiftedUnicodeMapKey) {
     tap_key(key_dash);
 
     EXPECT_EQ(is_caps_word_on(), true);
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

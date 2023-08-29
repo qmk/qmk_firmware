@@ -25,7 +25,7 @@
   | [KB16-01 (Rev 2)](https://github.com/qmk/qmk_firmware/tree/master/keyboards/doio/kb16/rev2) | APM32F103CBT6 | TKL          | 0xD010    | 0x1601     | Hotswap, RGB Matrix, 3 Encoder, OLED 128x32  |
   | [M63 RGB](https://github.com/qmk/qmk_firmware/blob/master/keyboards/mss_studio/m63_rgb)     | STM32F072CBU6 | 60%          | 0x4D4B    | 0x6063     | Hotswap, RGB Matrix & Underglow              |
   | [M64 RGB](https://github.com/qmk/qmk_firmware/blob/master/keyboards/mss_studio/m64_rgb)     | STM32F072CBU6 | 60%          | 0x4D4B    | 0x6064     | Hotswap, RGB Matrix & Underglow              |
-
+  | [Pila87](https://github.com/qmk/qmk_firmware/blob/master/keyboards/phage_studio/pila87)     | CKS32F103CBT6 | TKL          | 0x5048    | 0x5887     | Hotswap, RGB Matrix & Underglow (External)   |
 
 ## Contact me if you have any problem
 

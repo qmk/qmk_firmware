@@ -15,7 +15,7 @@
  */
 #include "tap_dances.h"
 
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
+uint8_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return SINGLE_TAP;
         else return SINGLE_HOLD;
@@ -36,7 +36,7 @@ static tap tap_state = {
 };
 
 #ifdef TAP_DANCE_LALT_GIT
-void lalt_finished(qk_tap_dance_state_t *state, void *user_data) {
+void lalt_finished(tap_dance_state_t *state, void *user_data) {
     tap_state.state = cur_dance(state);
     switch (tap_state.state) {
         case SINGLE_HOLD:
@@ -49,7 +49,7 @@ void lalt_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void lalt_reset(qk_tap_dance_state_t *state, void *user_data) {
+void lalt_reset(tap_dance_state_t *state, void *user_data) {
     switch (tap_state.state) {
         case SINGLE_HOLD:
             unregister_mods(MOD_BIT(KC_LALT));
@@ -65,7 +65,7 @@ void lalt_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 #ifdef TAP_DANCE_LSFT_CAPS
 #    ifdef LAYERS_PROGRAMMER
-void pg_lsft_finished(qk_tap_dance_state_t *state, void *user_data) {
+void pg_lsft_finished(tap_dance_state_t *state, void *user_data) {
     tap_state.state = cur_dance(state);
     switch (tap_state.state) {
         case SINGLE_HOLD:
@@ -80,7 +80,7 @@ void pg_lsft_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void pg_lsft_reset(qk_tap_dance_state_t *state, void *user_data) {
+void pg_lsft_reset(tap_dance_state_t *state, void *user_data) {
     switch (tap_state.state) {
         case SINGLE_HOLD:
             unregister_mods(MOD_BIT(KC_LSFT));
@@ -92,7 +92,7 @@ void pg_lsft_reset(qk_tap_dance_state_t *state, void *user_data) {
 #    endif
 #endif
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+dance_action_t tap_dance_actions[] = {
 #ifdef TAP_DANCE_LALT_GIT
     [TD_LALT_GIT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lalt_finished, lalt_reset),
 #endif

@@ -43,7 +43,7 @@
  *
  * See docs.qmk.fm/using-qmk/software-features/tap_hold#tapping-force-hold
  */
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 /*
  * Tap-or-Hold decision modes.
@@ -66,20 +66,6 @@
  * See docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold
  */
 #define PERMISSIVE_HOLD
-
-/**
- * Prevent normal rollover on alphas from accidentally triggering mods.
- *
- * Ignores key presses that interrupt a mod-tap.  Must-have for Home Row mod.
- *
- * Without `IGNORE_MOD_TAP_INTERRUPT`, within `TAPPING_TERM`:
- *   Mod(a)🠗 e🠗 Mod(a)🠕 e🠕 ➞ Mod+e
- * With `IGNORE_MOD_TAP_INTERRUPT`, within `TAPPING_TERM`:
- *   Mod(a)🠗 e🠗 Mod(a)🠕 e🠕 ➞ ae
- *
- * See docs.qmk.fm/using-qmk/software-features/tap_hold#ignore-mod-tap-interrupt
- */
-#define IGNORE_MOD_TAP_INTERRUPT
 
 /** Charybdis-specific features. */
 
@@ -156,10 +142,14 @@
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
 
 // Slow swirl at startup.
+#    undef RGB_MATRIX_DEFAULT_SPD
 #    define RGB_MATRIX_DEFAULT_SPD 32
 
 // Startup values.
+#    undef RGB_MATRIX_DEFAULT_HUE
 #    define RGB_MATRIX_DEFAULT_HUE 0
+#    undef RGB_MATRIX_DEFAULT_SAT
 #    define RGB_MATRIX_DEFAULT_SAT 255
+#    undef RGB_MATRIX_DEFAULT_VAL
 #    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #endif // RGB_MATRIX_ENABLE

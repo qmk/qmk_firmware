@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-void matrix_init_keymap() {}
+void matrix_init_keymap(void) {}
 
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
 layer_state_t layer_state_set_keymap(layer_state_t state) {

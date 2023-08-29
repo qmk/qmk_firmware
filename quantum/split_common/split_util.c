@@ -16,12 +16,12 @@
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
-#include "config.h"
 #include "timer.h"
 #include "transport.h"
-#include "quantum.h"
 #include "wait.h"
+#include "debug.h"
 #include "usb_util.h"
+#include "bootloader.h"
 
 #ifdef EE_HANDS
 #    include "eeconfig.h"
@@ -206,9 +206,6 @@ void split_pre_init(void) {
 #endif
 
     if (is_keyboard_master()) {
-#if defined(USE_I2C) && defined(SSD1306OLED)
-        matrix_master_OLED_init();
-#endif
         transport_master_init();
     }
 }

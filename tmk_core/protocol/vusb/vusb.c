@@ -44,6 +44,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "ring_buffer.h"
 #endif
 
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
+#endif
+
 #define NEXT_INTERFACE __COUNTER__
 
 /*
@@ -431,6 +435,8 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x05, 0x08, //   Usage Page (LED)
     0x19, 0x01, //   Usage Minimum (Num Lock)
     0x29, 0x05, //   Usage Maximum (Kana)
+    0x15, 0x00, //   Logical Minimum (0)
+    0x25, 0x01, //   Logical Maximum (1)
     0x95, 0x05, //   Report Count (5)
     0x75, 0x01, //   Report Size (1)
     0x91, 0x02, //   Output (Data, Variable, Absolute)
@@ -1013,6 +1019,9 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     break;
 #endif
             }
+#ifdef OS_DETECTION_ENABLE
+            process_wlength(rq->wLength.word);
+#endif
             break;
         case USBDESCR_HID:
             switch (rq->wValue.bytes[0]) {

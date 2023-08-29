@@ -46,6 +46,12 @@ static uint8_t oneshot_locked_mods = 0;
 uint8_t        get_oneshot_locked_mods(void) {
     return oneshot_locked_mods;
 }
+void add_oneshot_locked_mods(uint8_t mods) {
+    if ((oneshot_locked_mods & mods) != mods) {
+        oneshot_locked_mods |= mods;
+        oneshot_locked_mods_changed_kb(oneshot_locked_mods);
+    }
+}
 void set_oneshot_locked_mods(uint8_t mods) {
     if (mods != oneshot_locked_mods) {
         oneshot_locked_mods = mods;
@@ -55,6 +61,12 @@ void set_oneshot_locked_mods(uint8_t mods) {
 void clear_oneshot_locked_mods(void) {
     if (oneshot_locked_mods) {
         oneshot_locked_mods = 0;
+        oneshot_locked_mods_changed_kb(oneshot_locked_mods);
+    }
+}
+void del_oneshot_locked_mods(uint8_t mods) {
+    if (oneshot_locked_mods & mods) {
+        oneshot_locked_mods &= ~mods;
         oneshot_locked_mods_changed_kb(oneshot_locked_mods);
     }
 }
@@ -78,7 +90,7 @@ bool has_oneshot_mods_timed_out(void) {
  *   L => are layer bits
  *   S => oneshot state bits
  */
-static int8_t oneshot_layer_data = 0;
+static uint8_t oneshot_layer_data = 0;
 
 inline uint8_t get_oneshot_layer(void) {
     return oneshot_layer_data >> 3;
@@ -98,12 +110,12 @@ enum {
 
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
 static uint16_t oneshot_layer_time = 0;
-inline bool     has_oneshot_layer_timed_out() {
+inline bool     has_oneshot_layer_timed_out(void) {
     return TIMER_DIFF_16(timer_read(), oneshot_layer_time) >= ONESHOT_TIMEOUT && !(get_oneshot_layer_state() & ONESHOT_TOGGLED);
 }
 #        ifdef SWAP_HANDS_ENABLE
 static uint16_t oneshot_swaphands_time = 0;
-inline bool     has_oneshot_swaphands_timed_out() {
+inline bool     has_oneshot_swaphands_timed_out(void) {
     return TIMER_DIFF_16(timer_read(), oneshot_swaphands_time) >= ONESHOT_TIMEOUT && (swap_hands_oneshot == SHO_ACTIVE);
 }
 #        endif
@@ -488,3 +500,28 @@ __attribute__((weak)) void oneshot_layer_changed_kb(uint8_t layer) {
 uint8_t has_anymod(void) {
     return bitpop(real_mods);
 }
+
+#ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
+/** \brief Send a dummy keycode in between the register and unregister event of a modifier key, to neutralize the "flashing modifiers" phenomenon.
+ *
+ * \param active_mods 8-bit packed bit-array describing the currently active modifiers (in the format GASCGASC).
+ *
+ * Certain QMK features like  key overrides or retro tap must unregister a previously
+ * registered modifier before sending another keycode but this can trigger undesired
+ * keyboard shortcuts if the clean tap of a single modifier key is bound to an action
+ * on the host OS, as is for example the case for the left GUI key on Windows, which
+ * opens the Start Menu when tapped.
+ */
+void neutralize_flashing_modifiers(uint8_t active_mods) {
+    // In most scenarios, the flashing modifiers phenomenon is a problem
+    // only for a subset of modifier masks.
+    const static uint8_t mods_to_neutralize[] = MODS_TO_NEUTRALIZE;
+    const static uint8_t n_mods               = ARRAY_SIZE(mods_to_neutralize);
+    for (uint8_t i = 0; i < n_mods; ++i) {
+        if (active_mods == mods_to_neutralize[i]) {
+            tap_code(DUMMY_MOD_NEUTRALIZER_KEYCODE);
+            break;
+        }
+    }
+}
+#endif

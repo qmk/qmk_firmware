@@ -8,7 +8,6 @@
 
 #define TAPPING_TOGGLE 1 // tap just once for TT() to toggle the layer
 #define TAPPING_TERM 200
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #define RGBLIGHT_LAYERS
 

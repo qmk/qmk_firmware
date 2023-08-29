@@ -2,5 +2,13 @@
     "keyboard_name": "Plaid-Pad Rev2",
     "usb": {
         "device_version": "0.0.2"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0"},
+            {"pin_a": "B2", "pin_b": "B1"},
+            {"pin_a": "B4", "pin_b": "B3"},
+            {"pin_a": "D4", "pin_b": "B5"}
+        ]
     }
 }

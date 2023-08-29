@@ -23,7 +23,6 @@
 #define DELTA_X_THRESHOLD 60
 #define DELTA_Y_THRESHOLD 15
 
-// safe range starts at `PLOOPY_SAFE_RANGE` instead.
 bool scroll_enabled = false;
 bool lock_state     = false;
 

@@ -16,17 +16,10 @@
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-//#define BACKLIGHT_LEVELS 3
 
 #define ONESHOT_TIMEOUT 500
 

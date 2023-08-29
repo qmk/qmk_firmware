@@ -133,18 +133,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 /*
- * Enable `IGNORE_MOD_TAP_INTERRUPT` for all modifiers except `Shift`.
- * For more info see `IGNORE_MOD_TAP_INTERRUPT_PER_KEY` in `docs/tap_hold.md`.
+ * Enable `HOLD_ON_OTHER_KEY_PRESS` only for `Shift`.
+ * For more info see `HOLD_ON_OTHER_KEY_PRESS_PER_KEY` in `docs/tap_hold.md`.
  */
 
-bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case S_EQL:
-            return false;
-        case S_MINS:
-            return false;
-        default:
             return true;
+        case S_MINS:
+            return true;
+        default:
+            return false;
     }
 }
 

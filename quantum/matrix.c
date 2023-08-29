@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "debounce.h"
-#include "quantum.h"
+#include "atomic_util.h"
+
 #ifdef SPLIT_KEYBOARD
 #    include "split_common/split_util.h"
 #    include "split_common/transactions.h"
@@ -44,6 +45,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SPLIT_MUTABLE_COL
 #else
 #    define SPLIT_MUTABLE_COL const
+#endif
+
+#ifndef MATRIX_INPUT_PRESSED_STATE
+#    define MATRIX_INPUT_PRESSED_STATE 0
 #endif
 
 #ifdef DIRECT_PINS
@@ -93,7 +98,7 @@ static inline void setPinInputHigh_atomic(pin_t pin) {
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
-        return readPin(pin);
+        return (readPin(pin) == MATRIX_INPUT_PRESSED_STATE) ? 0 : 1;
     } else {
         return 1;
     }
@@ -121,9 +126,7 @@ __attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[]
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
         pin_t pin = direct_pins[current_row][col_index];
-        if (pin != NO_PIN) {
-            current_row_value |= readPin(pin) ? 0 : row_shifter;
-        }
+        current_row_value |= readMatrixPin(pin) ? 0 : row_shifter;
     }
 
     // Update the matrix
@@ -306,7 +309,7 @@ void matrix_init(void) {
 
     debounce_init(ROWS_PER_HAND);
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 #ifdef SPLIT_KEYBOARD
@@ -340,7 +343,7 @@ uint8_t matrix_scan(void) {
     changed = debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed) | matrix_post_scan();
 #else
     changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
-    matrix_scan_quantum();
+    matrix_scan_kb();
 #endif
     return (uint8_t)changed;
 }
