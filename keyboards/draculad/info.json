@@ -13,7 +13,13 @@
         "brightness_steps": 8,
         "led_count": 10,
         "sleep": true,
-        "split": true
+        "split": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "static_gradient": true
+        }
     },
     "ws2812": {
         "pin": "D3"

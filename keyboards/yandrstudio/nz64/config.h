@@ -15,9 +15,6 @@
  */
 #pragma once
 
-/* Fix VIA RGB_light */
-#define VIA_HAS_BROKEN_KEYCODES
-
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_LED_COUNT 82

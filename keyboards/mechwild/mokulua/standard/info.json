@@ -29,7 +29,11 @@
         "brightness_steps": 8,
         "led_count": 16,
         "sleep": true,
-        "split_count": [8, 8]
+        "split_count": [8, 8],
+        "animations": {
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
     },
     "ws2812": {
         "pin": "B6"

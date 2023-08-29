@@ -6,6 +6,16 @@
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "console": false,
+        "command": false,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "audio": false,
+        "backlight": false
+    },
     "processor": "at90usb1286",
     "bootloader": "halfkay",
     "layouts": {
