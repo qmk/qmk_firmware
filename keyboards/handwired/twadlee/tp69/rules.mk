@@ -1,9 +1,3 @@
-# MCU name
-MCU = MKL26Z64
-
-# Bootloader selection
-BOOTLOADER = halfkay
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,5 +14,3 @@ PS2_MOUSE_ENABLE = no
 
 USE_CHIBIOS_CONTRIB = yes
 
-# Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE

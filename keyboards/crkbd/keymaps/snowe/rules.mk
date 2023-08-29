@@ -14,7 +14,6 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 RGBLIGHT_TWINKLE = no
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 RGB_MATRIX_ENABLE = yes
 
 OCEAN_DREAM_ENABLE = yes

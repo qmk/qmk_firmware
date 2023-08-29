@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "handwired_k552.h"
+#include "quantum.h"
 
 // OLED animation
-#include "lib/logo.c"
+#include "lib/logo.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {

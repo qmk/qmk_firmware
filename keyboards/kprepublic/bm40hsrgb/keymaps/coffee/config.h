@@ -5,6 +5,9 @@
 
 #define LAYER_STATE_8BIT
 
+#define TURBO_ENABLE
+#define HOLD_ON_OTHER_KEY_PRESS
+
 // RGB Matrix effects disable
 #ifdef RGB_MATRIX_ENABLE
 #    define UNDERGLOW_DISABLE
@@ -52,14 +55,6 @@
 #    undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
-// If RGBLight is enabled
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLED_NUM RGB_MATRIX_LED_COUNT
-
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#endif
-
 // Feature disable
 #ifndef NO_PRINT
 #    define NO_PRINT
@@ -81,5 +76,13 @@
 
 #ifdef MOUSEKEY_ENABLE
 #    define MOUSEKEY_INTERVAL 16 // 60 FPS
+
+// Speed up the slowest preset
+#    define MK_C_OFFSET_0 4
+#    define MK_C_INTERVAL_0 16
+
+// Speed up the medium preset
+#    define MK_C_OFFSET_1 16
+
 #    define MK_3_SPEED
 #endif

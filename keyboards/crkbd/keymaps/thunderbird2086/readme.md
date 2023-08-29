@@ -54,7 +54,7 @@ The concept is Mac and **baby finger** friendly keymap.
     | ---         | ---                   |  ---             |
     | ESC         | Caps lock             |                  |
 
-- ADJUST: RGB control, Power control, default layer setting and reset
+- ADJUST: RGB control, Power control, default layer setting, QMK version and reset
   ![adjust](https://i.imgur.com/uDIhigd.png)
 - SECRET: hold `ADJUST` and `FUNCTION` to activate
 

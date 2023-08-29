@@ -1,9 +1,3 @@
-# MCU name
-MCU = at90usb1286
-
-# Bootloader selection
-BOOTLOADER = qmk-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,7 +11,5 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 RGB_MATRIX_ENABLE = no      # Enable for pretty RGB matrix effects
-RGB_MATRIX_DRIVER = WS2812  # Define RGB Matrix
 ENCODER_ENABLE = yes        # Enables the use of one or more encoders
 OLED_ENABLE = yes           # Enables the use of OLED displays
-OLED_DRIVER = SSD1306

@@ -20,11 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "keyboard.h"
 #include "action.h"
+#include "bitwise.h"
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
 #    ifndef DYNAMIC_KEYMAP_LAYER_COUNT
 #        define DYNAMIC_KEYMAP_LAYER_COUNT 4
 #    endif
+#    define MAX_LAYER DYNAMIC_KEYMAP_LAYER_COUNT
 #    if DYNAMIC_KEYMAP_LAYER_COUNT <= 8
 #        ifndef LAYER_STATE_8BIT
 #            define LAYER_STATE_8BIT
@@ -112,6 +114,25 @@ void          layer_and(layer_state_t state);
 void          layer_xor(layer_state_t state);
 layer_state_t layer_state_set_user(layer_state_t state);
 layer_state_t layer_state_set_kb(layer_state_t state);
+
+/**
+ * @brief Applies the tri layer to global layer state. Not be used in layer_state_set_(kb|user) functions.
+ *
+ * @param layer1 First layer to check for tri layer
+ * @param layer2 Second layer to check for tri layer
+ * @param layer3 Layer to activate if both other layers are enabled
+ */
+void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
+/**
+ * @brief Applies the tri layer behavior to supplied layer bitmask, without using layer functions.
+ *
+ * @param state Original layer bitmask to check and modify
+ * @param layer1 First layer to check for tri layer
+ * @param layer2 Second layer to check for tri layer
+ * @param layer3 Layer to activate if both other layers are enabled
+ * @return layer_state_t returns a modified layer bitmask with tri layer modifications applied
+ */
+layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
 #else
 #    define layer_state 0
 
@@ -130,6 +151,8 @@ layer_state_t layer_state_set_kb(layer_state_t state);
 #    define layer_xor(state) (void)state
 #    define layer_state_set_kb(state) (void)state
 #    define layer_state_set_user(state) (void)state
+#    define update_tri_layer(layer1, layer2, layer3)
+#    define update_tri_layer_state(state, layer1, layer2, layer3) (void)state
 #endif
 
 /* pressed actions cache */

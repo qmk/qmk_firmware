@@ -16,10 +16,8 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_DI_PIN A10
 #    define RGB_MATRIX_LED_COUNT 28
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define ENABLE_RGB_MATRIX_ALPHAS_MODS

@@ -2,7 +2,7 @@
 
 Just60 keyboard produced by Yang. The keyboard comes with a custom Mass Storage Device bootloader and a TMK based firmware from ydkb.io.
 
-To use a QMK based firmware, you might want to install a QMK bootloader. The PCB exposes 6 pins for ISP(In-System Programming), and they are located just under the ATMega32U4 chip. From left to right, the pins are `VCC`, `SCLK`, `MOSI`, `MISO`, `QK_BOOT`, `GND`. The `GND` is the square one. You could program the flash with any AVR programmer, or a Raspberry Pi with `avrdude`.
+To use a QMK based firmware, you might want to install a QMK bootloader. The PCB exposes 6 pins for ISP(In-System Programming), and they are located just under the ATMega32U4 chip. From left to right, the pins are `VCC`, `SCLK`, `MOSI`, `MISO`, `RESET`, `GND`. The `GND` is the square one. You could program the flash with any AVR programmer, or a Raspberry Pi with `avrdude`.
 
 Backlight LEDs and Bluetooth are not working yet.
 

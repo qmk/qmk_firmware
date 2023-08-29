@@ -8,7 +8,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 // determine the tapdance state to return
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed) { return SINGLE_TAP; }
     else { return SINGLE_HOLD; }
@@ -18,7 +18,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
 }
 
 // handle the possible states for each tapdance keycode you define:
-void ctl_copy_finished (qk_tap_dance_state_t *state, void *user_data) {
+void ctl_copy_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -32,7 +32,7 @@ void ctl_copy_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
+void ctl_copy_reset (tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       break;
@@ -61,7 +61,7 @@ void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
   static uint8_t led_user = 0;
 #endif
 
-void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
+void lock_unlock (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP: // Ctl + Alt + Del to unlock workstation
@@ -97,7 +97,7 @@ void lock_unlock (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_WIN] = ACTION_TAP_DANCE_FN(lock_unlock),
   [TD_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRV),
   [TD_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_copy_finished, ctl_copy_reset)

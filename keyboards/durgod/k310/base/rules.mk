@@ -1,10 +1,5 @@
-# MCU name
-# Actually F070, but close enough
-MCU = STM32F072
-BOARD = DURGOD_STM32_F070
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
+# Wildcard to allow APM32 MCU
+DFU_SUFFIX_ARGS = -v FFFF -p FFFF
 
 # Build Options
 #   change yes to no to disable
@@ -19,5 +14,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
-
-LAYOUTS = fullsize_ansi fullsize_iso

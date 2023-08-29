@@ -66,7 +66,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 const uint16_t PROGMEM combo_ent[] = {KC_DOT, KC_SLSH, COMBO_END};
 
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO_ENT] = COMBO(combo_ent,KC_ENT),
 
 };

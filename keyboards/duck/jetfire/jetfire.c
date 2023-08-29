@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "jetfire.h"
+#include "quantum.h"
 #include "indicator_leds.h"
 
 enum BACKLIGHT_AREAS {
@@ -76,7 +76,7 @@ void backlight_set(uint8_t level)
   backlight_toggle_rgb(level & BACKLIGHT_RGB);
 }
 
-void backlight_update_state()
+void backlight_update_state(void)
 {
   cli();
   send_color(backlight_state_led & (1<<STATE_LED_SCROLL_LOCK) ? 255 : 0,
@@ -95,22 +95,25 @@ void backlight_update_state()
   show();
 }
 
-void led_set_kb(uint8_t usb_led)
-{
-  if(usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    backlight_state_led |=   1<<STATE_LED_CAPS_LOCK;
-  } else {
-    backlight_state_led &= ~(1<<STATE_LED_CAPS_LOCK);
-  }
-  if(usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-    backlight_state_led |=   1<<STATE_LED_SCROLL_LOCK;
-  } else {
-    backlight_state_led &= ~(1<<STATE_LED_SCROLL_LOCK);
-  }
-  if(usb_led & (1<<USB_LED_NUM_LOCK)) {
-    backlight_state_led |=   1<<STATE_LED_NUM_LOCK;
-  } else {
-    backlight_state_led &= ~(1<<STATE_LED_NUM_LOCK);
-  }
-  backlight_update_state();
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+      if(led_state.caps_lock) {
+        backlight_state_led |=   1<<STATE_LED_CAPS_LOCK;
+      } else {
+        backlight_state_led &= ~(1<<STATE_LED_CAPS_LOCK);
+      }
+      if(led_state.scroll_lock) {
+        backlight_state_led |=   1<<STATE_LED_SCROLL_LOCK;
+      } else {
+        backlight_state_led &= ~(1<<STATE_LED_SCROLL_LOCK);
+      }
+      if(led_state.num_lock) {
+        backlight_state_led |=   1<<STATE_LED_NUM_LOCK;
+      } else {
+        backlight_state_led &= ~(1<<STATE_LED_NUM_LOCK);
+      }
+      backlight_update_state();
+    }
+    return res;
 }

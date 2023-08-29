@@ -1,3 +1,4 @@
+// Copyright 2022 Pablo Martinez (@elpekenin)
 // Copyright 2022 Daniel Kao (dkao)
 // Copyright 2022 Stefan Kerkmann (KarlK90)
 // Copyright 2022 Ulrich Spörlein (@uqs)
@@ -17,10 +18,11 @@
 extern const uint8_t pmw33xx_firmware_data[PMW33XX_FIRMWARE_LENGTH] PROGMEM;
 extern const uint8_t pmw33xx_firmware_signature[3] PROGMEM;
 
-static const pin_t cs_pins[]                     = PMW33XX_CS_PINS;
-static bool        in_burst[ARRAY_SIZE(cs_pins)] = {0};
+static const pin_t cs_pins_left[]  = PMW33XX_CS_PINS;
+static const pin_t cs_pins_right[] = PMW33XX_CS_PINS_RIGHT;
 
-const size_t pmw33xx_number_of_sensors = ARRAY_SIZE(cs_pins);
+static bool in_burst_left[ARRAY_SIZE(cs_pins_left)]   = {0};
+static bool in_burst_right[ARRAY_SIZE(cs_pins_right)] = {0};
 
 bool __attribute__((cold)) pmw33xx_upload_firmware(uint8_t sensor);
 bool __attribute__((cold)) pmw33xx_check_signature(uint8_t sensor);

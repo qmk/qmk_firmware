@@ -6,9 +6,7 @@ BOARD = IC_TEENSY_4_1
 MCU = cortex-m4
 ARMV = 7
 
-# Debounce eagerly (report change immediately), keep per-key timers. We can use
-# this because the Cherry MX keyswitches on the Kinesis only produce noise while
-# pressed.
-DEBOUNCE_TYPE = sym_eager_pk
+# Bootloader selection
+BOOTLOADER = halfkay
 
 FIRMWARE_FORMAT = hex

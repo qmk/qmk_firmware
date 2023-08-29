@@ -26,8 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Synchronize Caps Lock LED across halves */
 #define SPLIT_LED_STATE_ENABLE
 
-/* ws2812 RGB LED */
-#define RGBLIGHT_LED_MAP { 1, 2, 3, 12, 13, 14, 15, 0, 7, 6, 5, 4, 11, 10, 9, 8 }
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 
 #define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
