@@ -18,7 +18,9 @@
     "features": {
         "extrakey": true,
         "midi": true,
-        "rgblight": true,
+        "rgblight": true
+    },
+    "build": {
         "lto": true
     },
     "encoder": {
