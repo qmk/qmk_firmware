@@ -1,6 +1,6 @@
 # slider8
 
-![slider8](https://i.imgur.com/AiVQySn.jpg)
+![slider8](https://i.imgur.com/AiVQySnh.jpg)
 
 
 This keyboard is the slider8 from 1upkeyboards.com, a small macropad with an oled, slide potentiometer, rotary encoder, and 8 switches in a 2x4 ortholinear arrangement with per-key in-switch rgb leds.
