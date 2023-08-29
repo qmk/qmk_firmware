@@ -86,7 +86,7 @@ static void swirl_set_color(HSV hsv) {
     uint8_t index = g_led_config.matrix_co[j][i];
 
     if(index != NO_LED){
-        v_values[index] = 255;
+        v_values[index] = 75;
     }
 
     for(uint8_t v = 0; v < RGB_MATRIX_LED_COUNT; v++)

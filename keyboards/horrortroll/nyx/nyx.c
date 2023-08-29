@@ -86,7 +86,7 @@ bool rgb_matrix_indicators_kb(void) {
     }
 
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(30, RGB_CYAN);
+        rgb_matrix_set_color(30, 0, 75, 75);
     } else if (!(rgb_matrix_get_flags() & LED_FLAG_INDICATOR)) {
         rgb_matrix_set_color(30, 0, 0, 0);
     }
