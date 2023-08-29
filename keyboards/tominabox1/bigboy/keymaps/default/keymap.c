@@ -19,15 +19,15 @@
 #define LT1_SPC LT(1, KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [0] = LAYOUT_ortho_2x3(
         KC_1,      KC_2,    KC_3,
         KC_4,      KC_5,    MO(1)
         ),
-    [1] = LAYOUT(
+    [1] = LAYOUT_ortho_2x3(
         QK_BOOT,     KC_NO,   KC_NO,
         KC_NO,     KC_NO,   KC_NO
         ),
-    [2] = LAYOUT(
+    [2] = LAYOUT_ortho_2x3(
         KC_NO,     KC_NO,   KC_NO,
         KC_NO,     KC_NO,   KC_NO
         ),

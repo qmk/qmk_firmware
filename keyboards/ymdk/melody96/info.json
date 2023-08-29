@@ -52,6 +52,7 @@
         "LAYOUT": "LAYOUT_all",
         "LAYOUT_hotswap": "LAYOUT_96_ansi"
     },
+    "community_layouts": ["96_ansi", "96_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

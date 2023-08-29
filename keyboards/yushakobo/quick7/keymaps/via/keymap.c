@@ -30,22 +30,22 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT(
+    [_BASE] = LAYOUT_ortho_3x3(
         KC_MUTE,   MO(_FUNC1), RGB_MOD,
         S(KC_TAB), KC_UP,      KC_TAB,
         KC_LEFT,   KC_DOWN,    KC_RGHT
     ),
-    [_FUNC1] = LAYOUT(
+    [_FUNC1] = LAYOUT_ortho_3x3(
         QK_BOOT,   KC_TRNS, RGB_TOG,
         KC_HOME, KC_VOLU, KC_END,
         KC_MPRV, KC_VOLD, KC_MNXT
     ),
-    [_VIA1] = LAYOUT(
+    [_VIA1] = LAYOUT_ortho_3x3(
         YUSHAURL,XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX
     ),
-    [_VIA2] = LAYOUT(
+    [_VIA2] = LAYOUT_ortho_3x3(
         XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX

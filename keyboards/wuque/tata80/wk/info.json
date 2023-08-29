@@ -19,8 +19,9 @@
   "indicators": {
     "caps_lock": "E6"
   },
+  "community_layouts": ["tkl_f13_ansi"],
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_tkl_f13_ansi": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
 
