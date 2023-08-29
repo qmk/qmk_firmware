@@ -92,11 +92,11 @@ bool process_tap_hold_key(keyrecord_t* record, uint16_t keycode) {
       break;
     case TR_COMM:
       key = KC_COMM;
-      altkey = KC_LABK;
+      altkey = KC_LPRN;
       break;
     case TR_DOT:
       key = KC_DOT;
-      altkey = KC_RABK;
+      altkey = KC_RPRN;
       break;
     case TR_SCLN:
       key = KC_SCLN;
