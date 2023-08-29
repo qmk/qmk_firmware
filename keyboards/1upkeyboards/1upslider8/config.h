@@ -20,7 +20,6 @@
 #define I2C1_SDA_PIN        GP10
 #define OLED_BRIGHTNESS 128
 
-
 #define SLIDER_PIN GP28
 #define MIDI_ADVANCED
 
