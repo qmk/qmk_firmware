@@ -44,7 +44,7 @@
     "diode_direction": "COL2ROW",
     "processor": "RP2040",
     "bootloader": "rp2040",
-    "community_layouts": ["f13_ansi_split_bs_rshift"],
+    "community_layouts": ["tkl_f13_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -146,7 +146,7 @@
                 { "matrix": [5, 16], "x": 17.25, "y": 5.25 }
             ]
         },
-        "LAYOUT_f13_ansi_split_bs_rshift": {
+        "LAYOUT_tkl_f13_ansi_split_bs_rshift": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1.25, "y": 0 },
