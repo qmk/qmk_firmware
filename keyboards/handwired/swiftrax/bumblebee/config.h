@@ -17,9 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* RGB Indicators */
-#define RGBLED_NUM 3
-
 /* Solenid Pin */
 #define SOLENOID_PIN D2
 

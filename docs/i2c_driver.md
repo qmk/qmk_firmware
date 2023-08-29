@@ -72,7 +72,7 @@ Configuration-wise, you'll need to set up the peripheral as per your MCU's datas
 
 The following configuration values depend on the specific MCU in use.
 
-### I2Cv1 :id=i2cv1
+### I2Cv1 :id=arm-configuration-i2cv1
 
 * STM32F1xx
 * STM32F2xx
@@ -88,7 +88,7 @@ See [this page](https://www.playembedded.org/blog/stm32-i2c-chibios/#7_I2Cv1_con
 |`I2C1_CLOCK_SPEED` |`100000`        |
 |`I2C1_DUTY_CYCLE`  |`STD_DUTY_CYCLE`|
 
-### I2Cv2 :id=i2cv2
+### I2Cv2 :id=arm-configuration-i2cv2
 
 * STM32F0xx
 * STM32F3xx
@@ -105,9 +105,9 @@ See [this page](https://www.playembedded.org/blog/stm32-i2c-chibios/#8_I2Cv2_I2C
 |`I2C1_TIMINGR_SCLH`  |`38U`  |
 |`I2C1_TIMINGR_SCLL`  |`129U` |
 
-## Functions :id=functions
+## API :id=api
 
-### `void i2c_init(void)`
+### `void i2c_init(void)` :id=api-i2c-init
 
 Initialize the I2C driver. This function must be called only once, before any of the below functions can be called.
 
@@ -126,28 +126,28 @@ void i2c_init(void) {
 
 ---
 
-### `i2c_status_t i2c_start(uint8_t address, uint16_t timeout)`
+### `i2c_status_t i2c_start(uint8_t address, uint16_t timeout)` :id=api-i2c-start
 
 Start an I2C transaction.
 
-#### Arguments
+#### Arguments :id=api-i2c-start-arguments
 
  - `uint8_t address`  
    The 7-bit I2C address of the device (ie. without the read/write bit - this will be set automatically).
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
-#### Return Value
+#### Return Value :id=api-i2c-start-return
 
 `I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
 
 ---
 
-### `i2c_status_t i2c_transmit(uint8_t address, uint8_t *data, uint16_t length, uint16_t timeout)`
+### `i2c_status_t i2c_transmit(uint8_t address, uint8_t *data, uint16_t length, uint16_t timeout)` :id=api-i2c-transmit
 
 Send multiple bytes to the selected I2C device.
 
-#### Arguments
+#### Arguments :id=api-i2c-transmit-arguments
 
  - `uint8_t address`  
    The 7-bit I2C address of the device.
@@ -158,17 +158,17 @@ Send multiple bytes to the selected I2C device.
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
-#### Return Value
+#### Return Value :id=api-i2c-transmit-return
 
 `I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
 
 ---
 
-### `i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)`
+### `i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)` :id=api-i2c-receive
 
 Receive multiple bytes from the selected I2C device.
 
-#### Arguments
+#### Arguments :id=api-i2c-receive-arguments
 
  - `uint8_t address`  
    The 7-bit I2C address of the device.
@@ -179,17 +179,17 @@ Receive multiple bytes from the selected I2C device.
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
-#### Return Value
+#### Return Value :id=api-i2c-receive-return
 
 `I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
 
 ---
 
-### `i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
+### `i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)` :id=api-i2c-writereg
 
 Writes to a register with an 8-bit address on the I2C device.
 
-#### Arguments
+#### Arguments :id=api-i2c-writereg-arguments
 
  - `uint8_t devaddr`  
    The 7-bit I2C address of the device.
@@ -202,17 +202,17 @@ Writes to a register with an 8-bit address on the I2C device.
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
-#### Return Value
+#### Return Value :id=api-i2c-writereg-return
 
 `I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
 
 ---
 
-### `i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
+### `i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)` :id=api-i2c-writereg16
 
 Writes to a register with a 16-bit address (big endian) on the I2C device.
 
-#### Arguments
+#### Arguments :id=api-i2c-writereg16-arguments
 
  - `uint8_t devaddr`  
    The 7-bit I2C address of the device.
@@ -225,17 +225,17 @@ Writes to a register with a 16-bit address (big endian) on the I2C device.
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
-#### Return Value
+#### Return Value :id=api-i2c-writereg16-return
 
 `I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
 
 ---
 
-### `i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)`
+### `i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)` :id=api-i2c-readreg
 
 Reads from a register with an 8-bit address on the I2C device.
 
-#### Arguments
+#### Arguments :id=api-i2c-readreg-arguments
 
  - `uint8_t devaddr`  
    The 7-bit I2C address of the device.
@@ -246,7 +246,7 @@ Reads from a register with an 8-bit address on the I2C device.
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
-#### Return Value
+#### Return Value :id=api-i2c-readreg-return
 
 `I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
 
@@ -256,7 +256,7 @@ Reads from a register with an 8-bit address on the I2C device.
 
 Reads from a register with a 16-bit address (big endian) on the I2C device.
 
-#### Arguments
+#### Arguments :id=api-i2c-readreg16-arguments
 
  - `uint8_t devaddr`  
    The 7-bit I2C address of the device.
@@ -267,12 +267,12 @@ Reads from a register with a 16-bit address (big endian) on the I2C device.
  - `uint16_t timeout`  
    The time in milliseconds to wait for a response from the target device.
 
-#### Return Value
+#### Return Value :id=api-i2c-readreg16-return
 
 `I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
 
 ---
 
-### `i2c_status_t i2c_stop(void)`
+### `i2c_status_t i2c_stop(void)` :id=api-i2c-stop
 
 Stop the current I2C transaction.

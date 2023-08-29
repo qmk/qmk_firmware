@@ -22,7 +22,7 @@
 #include <stdbool.h>
 #include "rgb_matrix_types.h"
 #include "color.h"
-#include "quantum.h"
+#include "keyboard.h"
 
 #ifdef IS31FL3731
 #    include "is31fl3731.h"
@@ -49,8 +49,9 @@
 #endif
 
 #ifndef RGB_MATRIX_LED_PROCESS_LIMIT
-#    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5
+#    define RGB_MATRIX_LED_PROCESS_LIMIT ((RGB_MATRIX_LED_COUNT + 4) / 5)
 #endif
+#define RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS ((RGB_MATRIX_LED_COUNT + RGB_MATRIX_LED_PROCESS_LIMIT - 1) / RGB_MATRIX_LED_PROCESS_LIMIT)
 
 #if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
 #    if defined(RGB_MATRIX_SPLIT)

@@ -38,6 +38,10 @@ def _strip_api_content(info_json):
     if 'matrix_pins' in info_json:
         info_json.pop('matrix_size', None)
 
+    for feature in ['rgb_matrix', 'led_matrix']:
+        if info_json.get(feature, {}).get("layout", None):
+            info_json[feature].pop('led_count', None)
+
     return info_json
 
 

@@ -8,8 +8,11 @@
         "pid": "0x504A",
         "device_version": "0.0.1"
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "rgb_matrix": {
-        "driver": "AW20216"
+        "driver": "aw20216"
     },
     "matrix_pins": {
         "cols": ["A0", "A1", "A2", "A3", "A4", "A8", "A9", "A10"],

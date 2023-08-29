@@ -19,15 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-// keyboard RGB LED support
-//    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
-#define RGBLED_NUM 6
-
-#define RGBLIGHT_VAL_STEP 17
-
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-
 #if defined(RGBLIGHT_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for stonehenge30 keyboard
 //  120  RGBoff, OLEDoff
