@@ -4,11 +4,29 @@
         "pid": "0x2133",
         "device_version": "2.0.0"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 11,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "B15"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "encoder": {
         "rotary": [
@@ -16,6 +34,9 @@
             {"pin_a": "B3", "pin_b": "A15"},
             {"pin_a": "A10", "pin_b": "A9"}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

@@ -20,7 +20,7 @@
         "pin": "A10"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             { "flags": 4, "matrix": [4, 13], "x": 208, "y": 64 },
             { "flags": 4, "matrix": [4, 12], "x": 192, "y": 64 },

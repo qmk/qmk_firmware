@@ -26,7 +26,7 @@
         "rows": ["C6", "C7", "C8", "C9"]
     },
     "rgb_matrix": {
-        "driver": "IS31FL3733",
+        "driver": "is31fl3733",
         "max_brightness": 200,
         "animations": {
             "breathing": true,

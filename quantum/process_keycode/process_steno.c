@@ -15,6 +15,7 @@
  */
 #include "process_steno.h"
 #include "quantum_keycodes.h"
+#include "eeconfig.h"
 #include "keymap_steno.h"
 #include <string.h>
 #ifdef VIRTSER_ENABLE

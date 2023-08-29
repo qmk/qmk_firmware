@@ -71,10 +71,10 @@ void render_status(void) {
 
     oled_write_P(PSTR("\n"), false);
 
-    uint8_t led_usb_state = host_keyboard_leds();
+    led_t led_state = host_keyboard_led_state();
     oled_write_P(PSTR("Mode:"), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR(" NUM ") : PSTR("\n"), false);
-    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR(" CAPS") : PSTR("\n"), false);
+    oled_write_P(led_state.num_lock ? PSTR(" NUM ") : PSTR("\n"), false);
+    oled_write_P(led_state.caps_lock ? PSTR(" CAPS") : PSTR("\n"), false);
 
 #ifdef RGB_MATRIX_ENABLE
     oled_write_P(PSTR("\n"), false);
