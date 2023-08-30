@@ -121,14 +121,8 @@
 
 // pointing device definitions
 //------------------------------------------
-#ifdef POINTING_DEVICE_ENABLE
-	// #define SPLIT_POINTING_ENABLE // Enable use of pointing device on slave split.
-	// #define POINTING_DEVICE_RIGHT
-
-	#if defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
-	//Pimoroni Trackball
-		// #define POINTING_DEVICE_ROTATION_180 // may be used for trackball in 2nd position
-	#endif
+#if defined(POINTING_DEVICE_DRIVER_pimoroni_trackball)
+#    define POINTING_DEVICE_ROTATION_180 // may be used for trackball in 2nd position
 #endif
 //------------------------------------------
 
