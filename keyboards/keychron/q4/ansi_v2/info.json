@@ -18,6 +18,10 @@
     "diode_direction": "ROW2COL",
     "processor": "STM32L432",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_60_ansi": "LAYOUT_ansi_61"
+    },
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_ansi_61": {
             "layout": [
