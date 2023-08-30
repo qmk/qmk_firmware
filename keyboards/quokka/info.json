@@ -21,7 +21,7 @@
     "processor": "RP2040",
     "rgb_matrix": {
         "center_point": [133, 54],
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             { "flags": 4, "matrix": [3, 4], "x": 122, "y": 85 },
             { "flags": 4, "matrix": [3, 3], "x": 102, "y": 85 },
