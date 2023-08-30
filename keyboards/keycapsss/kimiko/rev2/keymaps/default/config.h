@@ -35,7 +35,6 @@
 
 // 'new' RGB Matrix definitions, used when RGB_MATRIX_ENABLE = yes in rules.mk
 //------------------------------------------
-#ifdef RGB_MATRIX_ENABLE
 	#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 	// #define RGB_MATRIX_KEYPRESSES
 	// #define RGB_MATRIX_KEYRELEASES
