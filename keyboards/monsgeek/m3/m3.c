@@ -135,25 +135,16 @@ enum __layers {
     MAC_FN,
 };
 
-
-void led_init_ports(void) {
-    // set our LED pings as output
-    setPinOutput(LED_CAPS_LOCK_PIN); // LED1 Num Lock
-    writePinLow(LED_CAPS_LOCK_PIN);
+void matrix_init_kb(void) {
     setPinOutput(LED_MAC_OS_PIN); // LDE2 MAC\WIN
     writePinLow(LED_MAC_OS_PIN);
     setPinOutput(LED_WIN_LOCK_PIN); // LED3 Win Lock
     writePinLow(LED_WIN_LOCK_PIN);
 }
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-        writePin(LED_MAC_OS_PIN, (get_highest_layer(default_layer_state) == 3));
-        writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
-    }
-    return res;
+void housekeeping_task_kb(void){
+    writePin(LED_MAC_OS_PIN, (get_highest_layer(default_layer_state) == 3));
+    writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
