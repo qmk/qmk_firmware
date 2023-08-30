@@ -453,7 +453,7 @@
                 {"matrix": [4, 13], "label": "Ctrl", "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_60_iso_split_bs_shift": {
+        "LAYOUT_60_iso_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "label": "\u00ac", "x": 0, "y": 0},
                 {"matrix": [0, 1], "label": "!", "x": 1, "y": 0},
