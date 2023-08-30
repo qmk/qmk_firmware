@@ -95,14 +95,6 @@ const uint32_t unicode_map[] PROGMEM = {
     [rN]   = 0x22BB,  // ⊻
 };
 
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_QW]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [_LWR] = {ENCODER_CCW_CW(RGB_HUD, RGB_HUI)},
-    [_RSE] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
-    [_ADJ] = {ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)},
-};
-#endif
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -253,3 +245,12 @@ adj layer
       RGB_TOG, _______ , _______ , _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_TW, RGB_M_G),
 };
 // clang-format on
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_QW]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+    [_LWR] = {ENCODER_CCW_CW(RGB_HUD, RGB_HUI)},
+    [_RSE] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
+    [_ADJ] = {ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)},
+};
+#endif

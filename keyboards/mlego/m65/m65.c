@@ -1,22 +1,7 @@
-/*
-Copyright 2021-2022 Alin M Elena <alinm.elena@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+// Copyright 2020-2023 alin m elena (@alinelena)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "m65.h"
-
 
 // let us assume we start with both layers off
 static bool toggle_lwr = false;
@@ -79,8 +64,6 @@ void set_led_toggle(const uint8_t layer, const bool state) {
 void toggle_leds(void) {
     led_lwr(toggle_lwr);
     led_rse(toggle_rse);
-   led_t led_state = host_keyboard_led_state();
-   led_caps(led_state.caps_lock);
     if (layer_state_is(_ADJ)) {
         led_lwr(true);
         led_rse(true);
@@ -190,19 +173,18 @@ bool oled_task_kb(void) {
 #endif
 
 
-bool led_update_kb(led_t led_state) {
-    // Disable the default LED update code, so that lock LEDs could be reused to show layer status.
-    return false;
-}
-
 void matrix_scan_kb(void) {
 
-    toggle_leds();
     matrix_scan_user();
+
+    toggle_leds();
 
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+#endif
 
     switch (keycode) {
         case (TT(_LWR)):
@@ -221,9 +203,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         default:
             return true;
     }
+    return process_record_user(keycode, record);
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
+
+   state = layer_state_set_user(state);
 
 #ifdef RGBLIGHT_ENABLE
 
@@ -238,7 +223,10 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 layer_state_t default_layer_state_set_kb(layer_state_t state) {
 
+    state = default_layer_state_set_user(state);
+
     set_default_rgb_layers(state);
+
     return state;
 }
 
@@ -246,16 +234,18 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
 
 void keyboard_post_init_kb(void) {
 
+  init_lwr_rse_led(toggle_lwr, toggle_rse);
+
 #ifdef RGBLIGHT_ENABLE
   // Enable the LED layers
   rgblight_layers = my_rgb();
 #endif
 
-  init_lwr_rse_led(toggle_lwr, toggle_rse);
 
 #ifdef OLED_ENABLE
   init_timer();
 #endif
+
 #ifdef CONSOLE_ENABLE
   debug_enable = true;
   debug_matrix = true;
