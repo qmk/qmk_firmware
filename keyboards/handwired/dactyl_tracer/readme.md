@@ -2,7 +2,7 @@
 
 ![DactylTracer](https://i.imgur.com/ReCBppEh.jpeg)
 
-The Dactyl Tracer is a handwired, split bodied, concave key-well, columnar keyboard. Case design is similar to the [Dactyl CC](/keyboards/handwired/dactyl_cc) though overall design is closer to the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform/). The `Q` Key is vertically offset, from `A` key, to allow for actuation by third/ring finger.
+The Dactyl Tracer is a handwired, split bodied, concave key-well, columnar keyboard. Case design is similar to the [Dactyl CC](/keyboards/handwired/dactyl_cc) though overall design is closer to the [Dactyl ManuForm](/keyboards/handwired/dactyl_manuform/). The `Q` and `P` keys is vertically offset, from `A` and `;` keys respectively, to allow for actuation by third/ring finger.
 
 * Keyboard Maintainer: [Michael Johns](https://github.com/mjohns)
 * Hardware Supported: Pro Micro controller, or clone of
