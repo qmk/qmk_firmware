@@ -76,7 +76,7 @@
             "solid_multisplash": true
         },
         "center_point": [70, 20],
-        "driver": "IS31FL3741",
+        "driver": "is31fl3741",
         "layout": [
             { "flags": 4, "matrix": [0, 0],  "x": 0,   "y": 0 },
             { "flags": 4, "matrix": [0, 1],  "x": 10,  "y": 0 },
