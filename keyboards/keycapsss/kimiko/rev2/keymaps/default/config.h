@@ -127,9 +127,3 @@
 //------------------------------------------
 
 
-// additional split keyboard definitions
-//------------------------------------------
-// #define SPLIT_LAYER_STATE_ENABLE  //syncs state information to the secondary side
-// #define SPLIT_LED_STATE_ENABLE
-// #define SPLIT_MODS_ENABLE
-//------------------------------------------
