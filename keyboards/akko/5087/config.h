@@ -51,6 +51,4 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_KEYRELEASES
 
-//#define DISABLE_5087_KEYKODES/*If you need to change or restore the default QMK button function, please open it*/
