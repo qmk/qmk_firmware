@@ -135,41 +135,17 @@ enum __layers {
 };
 
 // clang-format on
-typedef union {
-    uint32_t raw;
-    struct {
-        bool MacMode_flag : 1;
-        bool _WASD_layer_flag : 1;
-    };
-} kb_config_t;
 
-kb_config_t kb_config;
-
-void keyboard_post_init_kb(void) {
-    kb_config.raw = eeconfig_read_kb(); // Read status from EEPROM
-    if (kb_config._WASD_layer_flag) {
-        layer_on(kb_config.MacMode_flag ? MAC_W : WIN_W);
-    }
-}
-
-void led_init_ports(void) {
-    // set our LED pings as output
-    setPinOutput(LED_CAPS_LOCK_PIN); // LED1 Num Lock
-    writePinLow(LED_CAPS_LOCK_PIN);
+void matrix_init_kb(void) {
     setPinOutput(LED_MAC_OS_PIN); // LDE2 MAC\WIN
     writePinLow(LED_MAC_OS_PIN);
     setPinOutput(LED_WIN_LOCK_PIN); // LED3 Win Lock
     writePinLow(LED_WIN_LOCK_PIN);
 }
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
-        writePin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-        writePin(LED_MAC_OS_PIN, kb_config.MacMode_flag);
-        writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
-    }
-    return res;
+void housekeeping_task_kb(void){
+    writePin(LED_MAC_OS_PIN, (get_highest_layer(default_layer_state) == 3));
+    writePin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
@@ -177,36 +153,18 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         return false;
     }
     switch (keycode) {
-#ifndef DISABLE_5085_KEYCODES
         case DF(WIN_B):
             if (record->event.pressed) {
-                kb_config.MacMode_flag     = false;
-                kb_config._WASD_layer_flag = false;
-                eeconfig_update_kb(kb_config.raw);
+                set_single_persistent_default_layer(WIN_B);
             }
-            return true;
+            return false;
         case DF(MAC_B):
             if (record->event.pressed) {
                 set_single_persistent_default_layer(MAC_B);
                 keymap_config.no_gui = 0;
                 eeconfig_update_keymap(keymap_config.raw);
-                kb_config.MacMode_flag     = true;
-                kb_config._WASD_layer_flag = false;
-                eeconfig_update_kb(kb_config.raw);
             }
-            return true;
-        case TG(WIN_W):
-            if (record->event.pressed) {
-                kb_config._WASD_layer_flag = !layer_state_is(WIN_W);
-                eeconfig_update_kb(kb_config.raw);
-            }
-            return true;
-        case TG(MAC_W):
-            if (record->event.pressed) {
-                kb_config._WASD_layer_flag = !layer_state_is(MAC_W);
-                eeconfig_update_kb(kb_config.raw);
-            }
-            return true;
+            return false;
         case GU_TOGG:
             if (record->event.pressed) {
                 writePin(LED_WIN_LOCK_PIN, !keymap_config.no_gui);
@@ -229,7 +187,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 rgb_matrix_enable();
             }
             return false;
-#endif //DISABLE_5087_KEYKODES
         default:
             return true;
     }
