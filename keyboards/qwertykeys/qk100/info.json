@@ -14,7 +14,7 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-	    "rgblight": true,
+        "rgblight": true,
         "nkro": true
     },
     "processor": "STM32F103",
