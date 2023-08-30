@@ -97,7 +97,6 @@
 	#define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
 	#define RGB_MATRIX_DEFAULT_VAL 60 //RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 	#define RGB_MATRIX_DEFAULT_SPD 60 // Sets the default animation speed, if none has been set
-#endif
 //------------------------------------------
 
 
