@@ -138,7 +138,7 @@ void matrix_init_kb(void) {
         is31fl3741_set_scaling_registers(&led, 0xFF, 0xFF, 0xFF);
     }
 
-    IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3741_update_led_control_registers(DRIVER_ADDR_1, 0);
 
     matrix_init_user();
 }
