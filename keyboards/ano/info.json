@@ -18,6 +18,9 @@
             {"pin_a": "B12", "pin_b": "A14", "resolution": 2}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "layouts": {
