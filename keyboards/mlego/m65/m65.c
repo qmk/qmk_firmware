@@ -198,6 +198,7 @@ bool led_update_kb(led_t led_state) {
 void matrix_scan_kb(void) {
 
     toggle_leds();
+    matrix_scan_user();
 
 }
 
@@ -230,7 +231,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 #endif
 
-    return update_tri_layer_state(state, _LWR, _RSE, _ADJ);
+   return update_tri_layer_state(state, _LWR, _RSE, _ADJ);
 }
 
 #ifdef RGBLIGHT_ENABLE
@@ -247,14 +248,13 @@ void keyboard_post_init_kb(void) {
 
 #ifdef RGBLIGHT_ENABLE
   // Enable the LED layers
-    rgblight_layers = my_rgb();
-
+  rgblight_layers = my_rgb();
 #endif
 
-init_lwr_rse_led(toggle_lwr, toggle_rse);
+  init_lwr_rse_led(toggle_lwr, toggle_rse);
 
 #ifdef OLED_ENABLE
-    init_timer();
+  init_timer();
 #endif
 #ifdef CONSOLE_ENABLE
   debug_enable = true;
@@ -262,6 +262,6 @@ init_lwr_rse_led(toggle_lwr, toggle_rse);
   debug_keyboard = true;
 #endif
 
-    keyboard_post_init_user();
+  keyboard_post_init_user();
 
 }
