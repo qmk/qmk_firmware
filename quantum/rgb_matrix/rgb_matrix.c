@@ -285,9 +285,9 @@ static bool rgb_matrix_none(effect_params_t *params) {
 }
 
 static void rgb_task_timers(void) {
-#if defined(RGB_MATRIX_KEYREACTIVE_ENABLED) || RGB_MATRIX_TIMEOUT > 0
+#if defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
     uint32_t deltaTime = sync_timer_elapsed32(rgb_timer_buffer);
-#endif // defined(RGB_MATRIX_KEYREACTIVE_ENABLED) || RGB_MATRIX_TIMEOUT > 0
+#endif // defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
     rgb_timer_buffer = sync_timer_read32();
 
     // Update double buffer last hit timers

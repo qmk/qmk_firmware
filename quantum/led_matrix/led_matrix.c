@@ -226,9 +226,9 @@ static bool led_matrix_none(effect_params_t *params) {
 }
 
 static void led_task_timers(void) {
-#if defined(LED_MATRIX_KEYREACTIVE_ENABLED) || LED_MATRIX_TIMEOUT > 0
+#if defined(LED_MATRIX_KEYREACTIVE_ENABLED)
     uint32_t deltaTime = sync_timer_elapsed32(led_timer_buffer);
-#endif // defined(LED_MATRIX_KEYREACTIVE_ENABLED) || LED_MATRIX_TIMEOUT > 0
+#endif // defined(LED_MATRIX_KEYREACTIVE_ENABLED)
     led_timer_buffer = sync_timer_read32();
 
     // Update double buffer last hit timers
