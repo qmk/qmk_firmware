@@ -135,7 +135,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 void matrix_init_kb(void) {
     for (int i = SCROLL_LOCK_INDEX_LEFT; i <= SCROLL_LOCK_INDEX_RIGHT; ++i) {
         is31_led led = g_is31_leds[i];
-        IS31FL3741_set_scaling_registers(&led, 0xFF, 0xFF, 0xFF);
+        is31fl3741_set_scaling_registers(&led, 0xFF, 0xFF, 0xFF);
     }
 
     IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
