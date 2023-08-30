@@ -15,11 +15,8 @@
  */
 #pragma once
 
-#ifdef RGB_MATRIX_ENABLE
-// IS31FL3733 configuration
-#    define DRIVER_COUNT 1
-#    define DRIVER_ADDR_1 0b1010000
-#    define RGB_MATRIX_LED_COUNT 47
-#    define RGB_MATRIX_KEYPRESSES
-#    define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#endif
+#define DRIVER_COUNT 1
+#define DRIVER_ADDR_1 0b1010000
+#define RGB_MATRIX_LED_COUNT 47
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
