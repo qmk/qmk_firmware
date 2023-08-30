@@ -19,20 +19,13 @@
 /* SK6812 RGB LED are used for lightning*/
 
 // Limit the power draw
-#ifdef IOS_DEVICE_ENABLE
-  #define RGBLIGHT_LIMIT_VAL 40
-#else
-  #define RGBLIGHT_LIMIT_VAL 80
-#endif
-
+#define RGBLIGHT_LIMIT_VAL 80
 
 // Not yet available in `info.json`
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
-#    define SPLIT_TRANSPORT_MIRROR
-#endif
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 80
+#define RGB_MATRIX_LED_COUNT 62
+#define RGB_MATRIX_SPLIT { 31, 31 }
+#define SPLIT_TRANSPORT_MIRROR
 
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
