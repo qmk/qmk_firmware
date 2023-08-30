@@ -18,6 +18,9 @@
     "levels": 5,
     "breathing": true
   },
+  "tapping": {
+    "term": 175
+  },
   "processor": "at90usb1286",
   "bootloader": "halfkay",
   "layouts": {

@@ -19,13 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define USE_I2C
 
-/* ws2812 RGB LED */
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT { 1, 1 }
-#define RGBLED_NUM 2
 #define RGBLIGHT_LAYERS
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
   #define USB_MAX_POWER_CONSUMPTION 400

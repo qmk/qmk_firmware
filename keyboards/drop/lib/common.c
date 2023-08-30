@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #ifdef RGB_MATRIX_ENABLE
 #    include "host.h"
+#    include "quantum.h"
 #    include "rgb_matrix.h"
 
 #    define LED_FLAG_ANY_SWITCH (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR)

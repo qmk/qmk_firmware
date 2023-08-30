@@ -56,12 +56,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock) {
     rgblight_mode_noeeprom(RGBLIGHT_MODE_ALTERNATING);
   } else {
     layer_state_set_user(layer_state);
   }
+  return false;
 }
 
 void myrgb_toggle(void) {

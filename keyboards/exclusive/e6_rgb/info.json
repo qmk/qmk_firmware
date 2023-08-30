@@ -9,13 +9,30 @@
         "device_version": "0.6.2"
     },
     "rgb_matrix": {
-        "driver": "IS31FL3733"
+        "driver": "is31fl3733"
     },
     "matrix_pins": {
         "cols": ["D7", "B4", "B5", "B6", "C6", "C7", "F7", "F0", "B0", "B1", "D2", "D3", "B3", "B2"],
         "rows": ["F1", "F4", "F5", "F6", "D6"]
     },
     "diode_direction": "COL2ROW",
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 6,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "B7"
     },
