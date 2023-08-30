@@ -5,7 +5,7 @@
 
 /* WS2812 driver config specifically for STM32F401 */
 // DI pin = PB1, which is AF02, TIM3_CH4 (table 9 in datasheet)
-#define RGBLIGHT_LED_MAP { 2,	3,	4,	5,	6,	0,	1,	7,	8,	9,	10,	11,	12,	13}    // index 5 = CAPS; index 6 = NUM
+#define RGBLIGHT_LED_MAP { 2, 3, 4, 5, 6, 0, 1, 7, 8, 9, 10, 11, 12, 13}    // index 5 = CAPS; index 6 = NUM
 
 #define WS2812_PWM_DRIVER PWMD3     // TIM3
 #define WS2812_PWM_CHANNEL 4        // CH4
