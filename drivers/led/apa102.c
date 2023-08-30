@@ -16,14 +16,14 @@
  */
 
 #include "apa102.h"
-#include "quantum.h"
+#include "gpio.h"
 
 #ifndef APA102_NOPS
 #    if defined(__AVR__)
 #        define APA102_NOPS 0 // AVR at 16 MHz already spends 62.5 ns per clock, so no extra delay is needed
 #    elif defined(PROTOCOL_CHIBIOS)
-
 #        include "hal.h"
+#        include "chibios_config.h"
 #        if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(GD32VF103)
 #            define APA102_NOPS (100 / (1000000000L / (CPU_CLOCK / 4))) // This calculates how many loops of 4 nops to run to delay 100 ns
 #        else

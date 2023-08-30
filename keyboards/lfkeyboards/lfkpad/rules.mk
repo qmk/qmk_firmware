@@ -9,7 +9,6 @@ COMMAND_ENABLE = no          # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no        # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
-RGBLIGHT_CUSTOM_DRIVER = yes # RGB code is implemented in lfkeyboards, not qmk base
 AUDIO_ENABLE = no            # Audio output
 SLEEP_LED_ENABLE = yes
 

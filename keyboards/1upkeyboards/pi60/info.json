@@ -41,7 +41,7 @@
         ]
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"flags": 2, "x": 17, "y": 50},
             {"flags": 2, "x": 37, "y": 50},

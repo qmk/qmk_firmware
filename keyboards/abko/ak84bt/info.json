@@ -27,7 +27,7 @@
     },
     "processor": "STM32F103",
     "rgb_matrix": {
-        "driver": "IS31FL3733",
+        "driver": "is31fl3733",
         "layout": [
             {"matrix": [0, 0], "x": 7, "y": 2, "flags": 4},
             {"matrix": [0, 2], "x": 34, "y": 2, "flags": 4},

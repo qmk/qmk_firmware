@@ -104,7 +104,7 @@
         }
     },
     "rgb_matrix": {
-        "driver": "IS31FL3733",
+        "driver": "is31fl3733",
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,
