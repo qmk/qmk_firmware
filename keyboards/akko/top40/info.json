@@ -27,7 +27,7 @@
     },
     "diode_direction": "ROW2COL",
     "rgb_matrix": {
-        "driver": "IS31FL3733",
+        "driver": "is31fl3733",
         "max_brightness": 180,
         "animations": {
             "breathing": true,

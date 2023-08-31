@@ -194,11 +194,12 @@ void matrix_scan_user(void) {
   }
 };
 
-void led_set_user(uint8_t usb_led){
- if (usb_led & (1 << USB_LED_CAPS_LOCK))
+bool led_update_user(led_t led_state){
+ if (led_state.caps_lock)
    {
       capsOn = true;
    }else {
       capsOn = false;
    }
+   return false;
 }
