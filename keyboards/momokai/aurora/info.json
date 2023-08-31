@@ -44,7 +44,7 @@
         "pin": "C7"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             { "flags": 4, "matrix": [2, 0], "x": 51, "y": 51 },
             { "flags": 4, "matrix": [1, 0], "x": 51, "y": 38 },
