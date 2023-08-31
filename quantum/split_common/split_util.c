@@ -199,7 +199,7 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 // this code runs before the keyboard is fully initialized
 void split_pre_init(void) {
     split_config.master = is_keyboard_master_impl();
-    split_config.left        = is_keyboard_left_impl();
+    split_config.left   = is_keyboard_left_impl();
 
     isLeftHand = is_keyboard_left(); // TODO: Remove isLeftHand
 
