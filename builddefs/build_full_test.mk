@@ -17,7 +17,6 @@ $(TEST)_INC := \
 	tests/test_common/common_config.h
 
 $(TEST)_SRC := \
-	$(TMK_COMMON_SRC) \
 	$(QUANTUM_SRC) \
 	$(SRC) \
 	$(QUANTUM_PATH)/keymap_introspection.c \
@@ -31,7 +30,7 @@ $(TEST)_SRC := \
 	tests/test_common/test_logger.cpp \
 	$(patsubst $(ROOTDIR)/%,%,$(wildcard $(TEST_PATH)/*.cpp))
 
-$(TEST)_DEFS := $(TMK_COMMON_DEFS) $(OPT_DEFS) "-DKEYMAP_C=\"keymap.c\""
+$(TEST)_DEFS := $(OPT_DEFS) "-DKEYMAP_C=\"keymap.c\""
 
 $(TEST)_CONFIG := $(TEST_PATH)/config.h
 

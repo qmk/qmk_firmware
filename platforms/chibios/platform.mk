@@ -432,6 +432,15 @@ else
     endif
 endif
 
+# Extra config.h files for the platform
+ifneq ("$(wildcard $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/$(MCU_SERIES)/config.h)","")
+    CONFIG_H += $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/$(MCU_SERIES)/config.h
+endif
+ifneq ("$(wildcard $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/config.h)","")
+    CONFIG_H += $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/config.h
+endif
+CONFIG_H += $(PLATFORM_COMMON_DIR)/config.h
+
 # Assembler flags
 ASFLAGS  += $(SHARED_ASFLAGS) $(TOOLCHAIN_ASFLAGS)
 

@@ -38,7 +38,7 @@
     "driver": "pwm"
   },
   "rgb_matrix": {
-    "driver": "WS2812"
+    "driver": "ws2812"
   },
   "split": {
     "enabled": true,

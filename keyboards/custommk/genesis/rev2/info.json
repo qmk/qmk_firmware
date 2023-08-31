@@ -12,7 +12,22 @@
         "pin": "E6"
     },
     "rgblight": {
-        "max_brightness": 128
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 13,
+        "max_brightness": 128,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "D7", "B4"],
@@ -24,6 +39,9 @@
             {"pin_a": "F6", "pin_b": "F7", "resolution": 2},
             {"pin_a": "D2", "pin_b": "D1", "resolution": 2}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "atmega32u4",
     "bootloader": "qmk-dfu",
@@ -79,39 +97,6 @@
 
                 {"matrix": [4, 2], "x": 0, "y": 4, "w": 2},
                 {"matrix": [4, 3], "x": 2, "y": 4}
-            ]
-        },
-        "LAYOUT_via_6x4": {
-            "layout": [
-                {"matrix": [5, 0], "x": 0, "y": 0},
-                {"matrix": [5, 1], "x": 1, "y": 0},
-                {"matrix": [5, 2], "x": 3, "y": 0},
-                {"matrix": [5, 3], "x": 4, "y": 0},
-
-                {"matrix": [0, 0], "x": 0.5, "y": 1.1},
-                {"matrix": [0, 1], "x": 1.5, "y": 1.1},
-                {"matrix": [0, 2], "x": 2.5, "y": 1.1},
-                {"matrix": [0, 3], "x": 3.5, "y": 1.1},
-
-                {"matrix": [1, 0], "x": 0.5, "y": 2.1},
-                {"matrix": [1, 1], "x": 1.5, "y": 2.1},
-                {"matrix": [1, 2], "x": 2.5, "y": 2.1},
-                {"matrix": [1, 3], "x": 3.5, "y": 2.1},
-
-                {"matrix": [2, 0], "x": 0.5, "y": 3.1},
-                {"matrix": [2, 1], "x": 1.5, "y": 3.1},
-                {"matrix": [2, 2], "x": 2.5, "y": 3.1},
-                {"matrix": [2, 3], "x": 3.5, "y": 3.1},
-
-                {"matrix": [3, 0], "x": 0.5, "y": 4.1},
-                {"matrix": [3, 1], "x": 1.5, "y": 4.1},
-                {"matrix": [3, 2], "x": 2.5, "y": 4.1},
-                {"matrix": [3, 3], "x": 3.5, "y": 4.1},
-
-                {"matrix": [4, 0], "x": 0.5, "y": 5.1},
-                {"matrix": [4, 1], "x": 1.5, "y": 5.1},
-                {"matrix": [4, 2], "x": 2.5, "y": 5.1},
-                {"matrix": [4, 3], "x": 3.5, "y": 5.1}
             ]
         }
     }

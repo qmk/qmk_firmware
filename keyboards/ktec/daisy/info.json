@@ -14,12 +14,31 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "driver": "timer",
         "pin": "D0",
         "levels": 6
     },
     "indicators": {
         "caps_lock": "C6",
         "on_state": 0
+    },
+    "rgblight": {
+        "hue_steps": 12,
+        "saturation_steps": 25,
+        "brightness_steps": 12,
+        "led_count": 8,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "C7"

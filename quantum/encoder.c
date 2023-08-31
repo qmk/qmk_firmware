@@ -16,6 +16,11 @@
  */
 
 #include "encoder.h"
+#include "keyboard.h"
+#include "action.h"
+#include "keycodes.h"
+#include "wait.h"
+
 #ifdef SPLIT_KEYBOARD
 #    include "split_util.h"
 #endif
