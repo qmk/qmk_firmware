@@ -23,8 +23,8 @@ enum layers{
   WIN_FN,
 };
 
-#define KC_TASK LGUI(KC_TAB)
-#define KC_FLXP LGUI(KC_E)
+#define KC_TASK G(KC_TAB)
+#define KC_FLXP G(KC_E)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
