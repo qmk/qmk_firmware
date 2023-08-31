@@ -2,8 +2,6 @@
 
 ## A Customizable 60% Mechanical Keyboard PCB
 
-![A Customizable 60% Mechanical Keyboard PCB](https://cdn.shopify.com/s/files/1/1473/3902/files/1_03_abb48769-9486-44bd-a761-7cd39d7e1bda.jpg)
-
 * Keyboard Maintainer: QMK Community
 * Hardware Supported: DZ60 60% Mechanical Keyboard PCB
 * Hardware Availability: [KBDfans](https://kbdfans.com/collections/60/products/dz60-60-pcb)
