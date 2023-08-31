@@ -19,6 +19,7 @@
         "split_count": [5, 5]
     },
     "split": {
+        "enabled": true,
         "encoder": {
             "right": {
                 "rotary": [
@@ -29,9 +30,6 @@
     },
     "ws2812": {
         "pin": "B2"
-    },
-    "split": {
-        "enabled": true
     },
     "debounce": 10,
     "processor": "atmega32u4",
