@@ -8,7 +8,22 @@ from milc import cli
 
 # The root of the qmk_firmware tree.
 QMK_FIRMWARE = Path.cwd()
-QMK_USERSPACE = environ.get('QMK_USERSPACE') or cli.config.user.overlay_dir or QMK_FIRMWARE
+
+
+# Helper to detect userspace
+def _detect_qmk_userspace():
+    # If we're already in a directory with a Makefile and a keyboards or layouts directory, interpret it as userspace
+    current_dir = Path(environ['ORIG_CWD'])
+    while len(current_dir.parts) > 1:
+        if (current_dir / 'Makefile').is_file() and ((current_dir / 'keyboards').is_dir() or (current_dir / 'layouts').is_dir()):
+            return current_dir
+        current_dir = current_dir.parent
+    # Otherwise, use the environment variable or the configured default
+    return environ.get('QMK_USERSPACE') or cli.config.user.overlay_dir or QMK_FIRMWARE
+
+
+# The detected userspace tree
+QMK_USERSPACE = _detect_qmk_userspace()
 
 # Upstream repo url
 QMK_FIRMWARE_UPSTREAM = 'qmk/qmk_firmware'
