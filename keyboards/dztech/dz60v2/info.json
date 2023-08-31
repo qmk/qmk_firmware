@@ -3,7 +3,6 @@
     "keyboard_name": "DZ60",
     "maintainer": "DZTECH",
     "bootloader": "atmel-dfu",
-    "debounce": 5,
     "diode_direction": "COL2ROW",
     "features": {
         "backlight": false,
