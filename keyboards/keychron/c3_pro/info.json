@@ -21,6 +21,7 @@
         "rows": ["C12", "D2", "B3", "B4", "B5", "B6"]
     },
     "diode_direction": "ROW2COL",
+    "community_layouts: ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {
             "layout": [
