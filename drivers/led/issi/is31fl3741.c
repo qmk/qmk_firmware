@@ -61,6 +61,10 @@
 #    define ISSI_PERSISTENCE 0
 #endif
 
+#ifndef ISSI_CONFIGURATION
+#    define ISSI_CONFIGURATION 0x01
+#endif
+
 #ifndef ISSI_SWPULLUP
 #    define ISSI_SWPULLUP PUR_32KR
 #endif
@@ -162,7 +166,7 @@ void is31fl3741_init(uint8_t addr) {
     is31fl3741_write_register(addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION);
 
     // Set to Normal operation
-    is31fl3741_write_register(addr, ISSI_REG_CONFIGURATION, 0x01);
+    is31fl3741_write_register(addr, ISSI_REG_CONFIGURATION, ISSI_CONFIGURATION);
 
     // Set Golbal Current Control Register
     is31fl3741_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
