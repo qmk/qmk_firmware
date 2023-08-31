@@ -35,8 +35,7 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
-
-    },
+        },
         "brightness_steps": 10,
         "hue_steps": 10,
         "led_count": 16,
