@@ -170,7 +170,7 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
         eeconfig_update_handedness(should_be_left);
     }
 #    endif // defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
-    split_config.left = eeconfig_read_handedness();
+    return eeconfig_read_handedness();
 #elif defined(MASTER_RIGHT)
     return !is_keyboard_master();
 #else
