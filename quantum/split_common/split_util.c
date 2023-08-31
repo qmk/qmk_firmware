@@ -136,21 +136,21 @@ static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
 }
 #endif
 
-__attribute__((weak)) void is_keyboard_left_init(void) {
+__attribute__((weak)) bool is_keyboard_left_impl(void) {
 #if defined(SPLIT_HAND_PIN)
     setPinInput(SPLIT_HAND_PIN);
     wait_us(100);
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
 #    ifdef SPLIT_HAND_PIN_LOW_IS_LEFT
-    split_config.left = !readPin(SPLIT_HAND_PIN);
+    return !readPin(SPLIT_HAND_PIN);
 #    else
-    split_config.left = readPin(SPLIT_HAND_PIN);
+    return readPin(SPLIT_HAND_PIN);
 #    endif
 #elif defined(SPLIT_HAND_MATRIX_GRID)
 #    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
-    split_config.left = peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
+    return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
 #    else
-    split_config.left = !peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
+    return !peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
 #    endif
 #elif defined(EE_HANDS)
     if (!eeconfig_is_enabled()) {
@@ -172,19 +172,20 @@ __attribute__((weak)) void is_keyboard_left_init(void) {
 #    endif // defined(INIT_EE_HANDS_LEFT) || defined(INIT_EE_HANDS_RIGHT)
     split_config.left = eeconfig_read_handedness();
 #elif defined(MASTER_RIGHT)
-    split_config.left = !is_keyboard_master();
+    return !is_keyboard_master();
 #else
-    split_config.left = is_keyboard_master();
+    return is_keyboard_master();
 #endif
 }
 
-__attribute__((weak)) void is_keyboard_master_init(void) {
-    split_config.master = usbIsActive();
+__attribute__((weak)) bool is_keyboard_master_impl(void) {
+    bool is_master = usbIsActive();
 
     // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
-    if (!split_config.master) {
+    if (!is_master) {
         usb_disconnect();
     }
+    return is_master;
 }
 
 __attribute__((weak)) bool is_keyboard_left(void) {
@@ -197,8 +198,8 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 
 // this code runs before the keyboard is fully initialized
 void split_pre_init(void) {
-    is_keyboard_master_init();
-    is_keyboard_left_init();
+    split_config.master = is_keyboard_master_impl();
+    split_config.left        = is_keyboard_left_impl();
 
     isLeftHand = is_keyboard_left(); // TODO: Remove isLeftHand
 
