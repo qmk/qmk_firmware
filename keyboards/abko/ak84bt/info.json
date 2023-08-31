@@ -126,8 +126,11 @@
         "pid": "0x4321",
         "vid": "0x7654"
     },
+    "layout_aliases": {
+        "LAYOUT_75_ansi": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_75_ansi": {
+        "LAYOUT": {
             "layout": [
                 {"label": "ESC", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "F1", "matrix": [0, 2], "x": 2, "y": 0},
