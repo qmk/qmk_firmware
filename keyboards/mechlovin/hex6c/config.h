@@ -18,9 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define BACKLIGHT_PWM_DRIVER PWMD3
-#define BACKLIGHT_PWM_CHANNEL 3
-
-#define TAP_CODE_DELAY 10
 
 #define WEAR_LEVELING_BACKING_SIZE 4096
 #define WEAR_LEVELING_LOGICAL_SIZE 2048
