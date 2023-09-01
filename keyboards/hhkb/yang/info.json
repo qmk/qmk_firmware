@@ -17,7 +17,6 @@
   "processor": "atmega32u4",
   "bootloader": "lufa-ms",
   "debounce": 0,
-  "community_layouts": ["60_hhkb"],
   "layouts": {
     "LAYOUT_60_hhkb": {
       "layout": [
