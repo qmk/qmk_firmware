@@ -9,8 +9,11 @@
         "rows": ["F0", "F1", "F4", "F5", "F6", "B1", "B2", "B3", "D3", "D5", "F7"],
         "cols": ["D0", "D1", "D2", "B0", "D4", "B4", "D6", "D7", "B5"]
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_f13_ansi_tsangan"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
               { "label": "Esc",             "matrix":[0,0],"x": 0, "y": 0 },
               { "label": "F1",              "matrix":[0,1],"x": 1.25, "y": 0 },
