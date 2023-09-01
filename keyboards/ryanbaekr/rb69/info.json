@@ -8,6 +8,21 @@
         "pid": "0x0069",
         "device_version": "0.0.3"
     },
+    "rgblight": {
+        "led_count": 14,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "B0"
     },
@@ -16,8 +31,8 @@
         "rows": ["D7", "C6", "D4", "D0", "D1"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "elite_c",
+    "pin_compatible": "elite_c",
     "layouts": {
         "LAYOUT": {
             "layout": [

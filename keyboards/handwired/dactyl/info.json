@@ -11,6 +11,9 @@
   "processor": "atmega32u4",
   "bootloader": "halfkay",
   "debounce": 15,
+  "tapping": {
+    "toggle": 1
+  },
   "layouts": {
     "LAYOUT_dactyl": {
       "layout": [

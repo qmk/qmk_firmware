@@ -18,16 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLED_NUM 54 // Number of LEDs
-#    define RGBLED_SPLIT \
-        { 27, 27 }
-#    define RGBLIGHT_SPLIT
-#endif
-
 #ifdef RGB_MATRIX_ENABLE
-#    define RGBLED_NUM       54 // Number of LEDs
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#    define RGB_MATRIX_LED_COUNT 54
 #    define RGB_MATRIX_SPLIT \
         { 27, 27 }
 #    define SPLIT_TRANSPORT_MIRROR

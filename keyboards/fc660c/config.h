@@ -22,10 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 16
 
-//#define DIODE_DIRECTION
-
-#define TAPPING_TERM      175
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

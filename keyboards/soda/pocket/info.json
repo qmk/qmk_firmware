@@ -9,11 +9,14 @@
         "device_version": "1.0.2",
         "force_nkro": true
     },
+    "indicators": {
+        "num_lock": "B15"
+    },
     "ws2812": {
         "pin": "C15"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["A2", "A1", "B14", "B4", "B5", "B6", "B7"],

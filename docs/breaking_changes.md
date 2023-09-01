@@ -10,25 +10,25 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 ## What has been included in past Breaking Changes?
 
+* [2023 Aug 27](ChangeLog/20230827.md)
 * [2023 May 28](ChangeLog/20230528.md)
 * [2023 Feb 26](ChangeLog/20230226.md)
-* [2022 Nov 26](ChangeLog/20221126.md)
 * [Older Breaking Changes](breaking_changes_history.md)
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for August 27, 2023.
+The next Breaking Change is scheduled for November 26, 2023.
 
 ### Important Dates
 
-* 2023 May 28 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2023 Jul 30 - `develop` closed to new PRs.
-* 2023 Jul 30 - Call for testers.
-* 2023 Aug 13 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2023 Aug 20 - `develop` is locked, only critical bugfix PRs merged.
-* 2023 Aug 25 - `master` is locked, no PRs merged.
-* 2023 Aug 27 - Merge `develop` to `master`.
-* 2023 Aug 27 - `master` is unlocked. PRs can be merged again.
+* 2023 Aug 27 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* 2023 Oct 29 - `develop` closed to new PRs.
+* 2023 Oct 29 - Call for testers.
+* 2023 Nov 5 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2023 Nov 19 - `develop` is locked, only critical bugfix PRs merged.
+* 2023 Nov 23 - `master` is locked, no PRs merged.
+* 2023 Nov 26 - Merge `develop` to `master`.
+* 2023 Nov 26 - `master` is unlocked. PRs can be merged again.
 
 ## What changes will be included?
 
@@ -48,7 +48,7 @@ Criteria for acceptance:
 
 Strongly suggested:
 
-* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20230827`.
+* The PR has a ChangeLog file describing the changes under `<qmk_firmware>/docs/Changelog/20231126`.
     * This should be in Markdown format, with a name in the format `PR12345.md`, substituting the digits for your PRs ID.
     * One strong recommendation that the ChangeLog document matches the PR description on GitHub, so as to ensure traceability.
 
@@ -119,6 +119,7 @@ This happens immediately after the previous `develop` branch is merged to `maste
     * `git commit -m 'Branch point for <DATE> Breaking Change'`
     * `git tag breakpoint_<YYYY>_<MM>_<DD>`
     * `git push upstream breakpoint_<YYYY>_<MM>_<DD>`
+    * `git push upstream develop`
 
 * All submodules under `lib` now need to be checked against their QMK-based forks:
     * `git submodule foreach git log -n1`

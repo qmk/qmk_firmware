@@ -14,13 +14,4 @@ AUDIO_ENABLE = no           # Audio output
 
 CUSTOM_MATRIX = yes
 
-#ifeq ($(strip $(ISSI_ENABLE)), yes)
-#    TMK_COMMON_DEFS += -DISSI_ENABLE
-#endif
-
-#ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
-#    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
-#endif
-SRC += matrix.c TWIlib.c issi.c lighting.c
-
 DEFAULT_FOLDER = woodkeys/meira/promicro

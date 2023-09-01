@@ -27,7 +27,7 @@ jobs:
 
     - name: Get changed files
       id: file_changes
-      uses: tj-actions/changed-files@v37
+      uses: tj-actions/changed-files@v38
 
     - name: Print info
       run: |
