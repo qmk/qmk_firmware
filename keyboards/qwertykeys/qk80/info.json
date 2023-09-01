@@ -1,0 +1,37 @@
+{
+    "manufacturer": "Qwertykeys",
+    "url": "",
+    "maintainer": "Qwertykeys",
+    "usb": {
+        "vid": "0x4F53"
+    },
+    "matrix_pins": {
+        "rows": ["C13", "A1", "A2", "A3", "A4", "A5" ]
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgblight": true,
+        "nkro": true
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "rgblight": {
+        "animations": {
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true
+        },
+        "brightness_steps": 10,
+        "saturation_steps": 8,
+        "led_count": 7,
+        "max_brightness": 100
+        
+    }
+}
