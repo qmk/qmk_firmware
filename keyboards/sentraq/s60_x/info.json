@@ -7,5 +7,5 @@
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
-  "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_iso", "60_hhkb"]
+  "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_iso", "60_iso_split_bs_rshift", "60_hhkb"]
 }
