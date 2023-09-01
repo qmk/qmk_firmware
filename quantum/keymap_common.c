@@ -119,6 +119,11 @@ action_t action_for_keycode(uint16_t keycode) {
             action_layer = QK_DEF_LAYER_GET_LAYER(keycode);
             action.code  = ACTION_DEFAULT_LAYER_SET(action_layer);
             break;
+        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:;
+            // Set default action_layer in EEPROM
+            action_layer = QK_PERSISTENT_DEF_LAYER_GET_LAYER(keycode);
+            action.code  = ACTION_LAYER_EE_DEFAULT(action_layer);
+            break;
         case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:;
             // Set toggle
             action_layer = QK_TOGGLE_LAYER_GET_LAYER(keycode);
