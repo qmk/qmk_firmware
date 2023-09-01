@@ -1,6 +1,6 @@
 # Keychron C3 Pro
 
-![Keychron C3 Pro](https://i.imgur.com/79sp3PH.jpg)
+![Keychron C3 Pro](https://i.imgur.com/79sp3PHh.jpg)
 
 A customizable 87% keyboard.
 
