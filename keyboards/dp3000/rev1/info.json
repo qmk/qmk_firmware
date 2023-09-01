@@ -37,7 +37,7 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"matrix": [1, 0], "x": 0, "y": 32, "flags": 4},
             {"matrix": [1, 1], "x": 25, "y": 32, "flags": 4},
