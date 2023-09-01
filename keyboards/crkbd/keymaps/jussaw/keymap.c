@@ -102,17 +102,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-----------------------------------------------------.  ,-----------------------------------------------------.
    * |  Tab   |    1   |    2   |    3   |    4   |    5   |  |    6   |    7   |    8   |    9   |    0   |  Bksp  |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |   F11  |   F1   |   F2   |   F3   |   F4   |   F5   |  |        |  Left  |  Down  |   Up   | Right  |  Del   |
+   * |   F11  |   F1   |   F2   |   F3   |   F4   |   F5   |  |  Ins   |  Left  |  Down  |   Up   | Right  |  Del   |
    * +--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
-   * |   F12  |   F6   |   F7   |   F8   |   F9   |  F10   |  |        |  Home  |Pg Down | Pg Up  |  End   | Enter  |
+   * |   F12  |   F6   |   F7   |   F8   |   F9   |  F10   |  |PrntScn |  Home  |Pg Down | Pg Up  |  End   | Enter  |
    * |--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------|
    *                            |  Ctrl  | Adjust |  Alt   |  | Shift  | Trans  |  GUI   |
    *                            `--------------------------'  `--------------------------'
    */
   [_UPPER] = LAYOUT_split_3x6_3(
        KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,       KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
-       KC_F11,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    XXXXXXX, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,  KC_DEL,
-       KC_F12,   KC_F5,   KC_F7,   KC_F8,   KC_F9,  KC_F10,    XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT,
+       KC_F11,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,     KC_INS, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,  KC_DEL,
+       KC_F12,   KC_F5,   KC_F7,   KC_F8,   KC_F9,  KC_F10,    KC_PSCR, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_ENT,
                                  KC_LCTL,  ADJUST, KC_LALT,    KC_RSFT, KC_TRNS, KC_RGUI
   ),
 
