@@ -16,24 +16,16 @@
 
 #pragma once
 
-#ifdef LED_MATRIX_ENABLE
-/* RGB Matrix Driver Configuration */
-#    define DRIVER_COUNT 1
-#    define DRIVER_ADDR_1 0b1110100
-
-/* RGB Matrix Configuration */
-#    define LED_MATRIX_LED_COUNT (99) // Here are twelve leds for side lights
+#define DRIVER_COUNT 1
+#define DRIVER_ADDR_1 0b1110100
+#define LED_MATRIX_LED_COUNT (99) // Here are twelve leds for side lights
 
 /* Use first 7 channels of LED driver */
-#    define PHASE_CHANNEL MSKPHASE_7CHANNEL
+#define PHASE_CHANNEL MSKPHASE_7CHANNEL
 
 /* Set LED driver current */
-#    define CKLED2001_CURRENT_TUNE \
-        { 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50 }
+#define CKLED2001_CURRENT_TUNE \
+    { 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50 }
 
-/* turn off effects when suspended */
-#    define LED_DISABLE_WHEN_USB_SUSPENDED
-
-/* Enable Reactive Animation */
-#    define LED_MATRIX_KEYPRESSES
-#endif
+#define LED_DISABLE_WHEN_USB_SUSPENDED
+#define LED_MATRIX_KEYPRESSES
