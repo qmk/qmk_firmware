@@ -28,6 +28,10 @@ uint16_t maxAxisValue = ANALOG_JOYSTICK_AXIS_MAX;
 uint8_t maxCursorSpeed = ANALOG_JOYSTICK_SPEED_MAX;
 uint8_t speedRegulator = ANALOG_JOYSTICK_SPEED_REGULATOR; // Lower Values Create Faster Movement
 
+#ifdef ANALOG_JOYSTICK_WEIGHTS
+int8_t weights[101] = ANALOG_JOYSTICK_WEIGHTS;
+#endif
+
 int16_t xOrigin, yOrigin;
 
 uint16_t lastCursor = 0;
@@ -64,12 +68,16 @@ int16_t axisCoordinate(pin_t pin, uint16_t origin) {
 
 int8_t axisToMouseComponent(pin_t pin, int16_t origin, uint8_t maxSpeed) {
     int16_t coordinate = axisCoordinate(pin, origin);
+#ifndef ANALOG_JOYSTICK_WEIGHTS
     if (coordinate != 0) {
         float percent = (float)coordinate / 100;
         return percent * maxCursorSpeed * (abs(coordinate) / speedRegulator);
     } else {
         return 0;
     }
+#else
+    return weights[abs(coordinate)] * (coordinate < 0 ? -1 : 1) * maxCursorSpeed / speedRegulator;
+#endif
 }
 
 report_analog_joystick_t analog_joystick_read(void) {
