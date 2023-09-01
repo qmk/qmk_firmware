@@ -35,7 +35,7 @@
         "on_state": 0
     },
     "rgb_matrix": {
-        "driver": "AW20216",
+        "driver": "aw20216",
         "layout": [
             { "flags": 4, "matrix": [0, 0],  "x":   0, "y": 0 },
             { "flags": 4, "matrix": [0, 1],  "x":  16, "y": 0 },
