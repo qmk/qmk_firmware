@@ -21,6 +21,9 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_64_ansi"
+    },
     "community_layouts": ["64_ansi"],
     "layouts": {
         "LAYOUT_64_ansi": {

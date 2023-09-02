@@ -44,6 +44,9 @@
     "diode_direction": "COL2ROW",
     "processor": "RP2040",
     "bootloader": "rp2040",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "community_layouts": ["tkl_f13_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {

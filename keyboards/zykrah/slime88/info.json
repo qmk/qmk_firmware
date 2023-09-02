@@ -23,6 +23,9 @@
         "cols": ["GP26", "GP25", "GP24", "GP23", "GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP0", "GP1", "GP3"]
     },
     "url": "https://github.com/zykrah/slime88",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "community_layouts": ["tkl_f13_ansi_split_bs_rshift", "tkl_f13_ansi_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {

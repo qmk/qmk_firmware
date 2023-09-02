@@ -37,6 +37,9 @@
     "diode_direction": "ROW2COL",
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_64_ansi"
+    },
     "community_layouts": ["64_ansi"],
     "layouts": {
         "LAYOUT_64_ansi": {

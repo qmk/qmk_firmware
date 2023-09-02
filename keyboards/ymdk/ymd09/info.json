@@ -30,6 +30,10 @@
     "build": {
         "lto": true
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_3x3"
+    },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [

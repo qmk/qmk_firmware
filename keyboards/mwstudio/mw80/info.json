@@ -54,6 +54,9 @@
         "vid": "0x7BA1",
         "device_version": "1.0.0"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_f13_ansi"
+    },
     "community_layouts": ["tkl_f13_ansi"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi": {

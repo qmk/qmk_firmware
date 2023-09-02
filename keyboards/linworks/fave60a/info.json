@@ -121,6 +121,9 @@
         "pid": "0x000C",
         "vid": "0x4C58"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_60_tsangan_hhkb"
+    },
     "community_layouts": ["60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_60_tsangan_hhkb": {

@@ -30,6 +30,9 @@
         "rows": ["A3", "A4", "A5", "A7", "C15"]
     },
     "diode_direction": "COL2ROW",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker"
+    },
     "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {

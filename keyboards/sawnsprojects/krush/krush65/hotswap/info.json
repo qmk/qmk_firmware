@@ -46,6 +46,9 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs"],
     "layouts": {
         "LAYOUT_all": {

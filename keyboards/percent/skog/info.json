@@ -41,6 +41,9 @@
     },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
+    "layout_aliases": {
+      "LAYOUT": "LAYOUT_all"
+  },
     "community_layouts": ["tkl_ansi"],
     "layouts": {
       "LAYOUT_all": {

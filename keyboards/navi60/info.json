@@ -27,6 +27,9 @@
         "audio": false,
         "key_lock": false
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "community_layouts": ["60_ansi_split_bs_rshift", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_all": {

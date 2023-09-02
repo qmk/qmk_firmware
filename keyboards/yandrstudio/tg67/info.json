@@ -18,6 +18,9 @@
         "rows": ["B0", "B6", "B1", "B7", "A1"]
     },
     "diode_direction": "COL2ROW",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker"
+    },
     "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {

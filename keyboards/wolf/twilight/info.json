@@ -23,6 +23,9 @@
         "pid": "0x0077",
         "vid": "0x5453"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "community_layouts": ["tkl_f13_ansi_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {

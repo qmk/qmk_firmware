@@ -22,6 +22,9 @@
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "community_layouts": ["60_ansi_split_bs_rshift", "60_tsangan_hhkb"],
     "layouts": {
         "LAYOUT_all": {

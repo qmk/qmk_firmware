@@ -30,6 +30,9 @@
         "cols": ["B12", "B13", "B14", "A15", "B3", "B4", "B5", "B0", "A5", "A4", "A3", "A1", "A2", "B11", "B1", "B2", "B10"],
         "rows": ["B15", "B6", "B7", "B8", "B9", "A6"]
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_f13_ansi"
+    },
     "community_layouts": ["tkl_f13_ansi"],
     "layouts": {
         "LAYOUT_tkl_f13_ansi": {

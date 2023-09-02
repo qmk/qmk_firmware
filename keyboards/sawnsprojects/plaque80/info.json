@@ -47,6 +47,9 @@
         "caps_lock": "E6",
         "scroll_lock": "D2"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "community_layouts": [
         "tkl_ansi",
         "tkl_ansi_split_bs_rshift",
