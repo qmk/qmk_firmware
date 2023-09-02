@@ -13,7 +13,10 @@
         "LAYOUT": "LAYOUT_tkl_f13_ansi_tsangan"
     },
     "community_layouts": [
-        "tkl_f13_ansi_tsangan"
+        "tkl_f13_ansi_tsangan",
+        "tkl_f13_ansi_tsangan_split_bs_rshift",
+        "tkl_f13_iso_tsangan",
+        "tkl_f13_iso_tsangan_split_bs_rshift"
     ],
     "layouts": {
         "LAYOUT_tkl_f13_ansi_tsangan": {
