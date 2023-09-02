@@ -1,10 +1,12 @@
 """This script automates the copying of the default keymap into your own keymap.
 """
 import shutil
+from pathlib import Path
 
 from milc import cli
 from milc.questions import question
 
+from qmk.constants import HAS_QMK_USERSPACE, QMK_USERSPACE, QMK_FIRMWARE
 from qmk.path import is_keyboard, keymaps, keymap
 from qmk.git import git_get_username
 from qmk.decorators import automagic_keyboard, automagic_keymap
@@ -53,6 +55,9 @@ def new_keymap(cli):
     keymaps_dirs = keymaps(kb_name)
     keymap_path_default = keymap(kb_name, 'default')
     keymap_path_new = keymaps_dirs[0] / user_name
+
+    if HAS_QMK_USERSPACE:
+        keymap_path_new = Path(QMK_USERSPACE) / keymaps_dirs[0].relative_to(QMK_FIRMWARE) / user_name
 
     if not keymap_path_default.exists():
         cli.log.error(f'Default keymap {{fg_cyan}}{keymap_path_default}{{fg_reset}} does not exist!')

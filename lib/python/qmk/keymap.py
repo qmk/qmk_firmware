@@ -12,7 +12,7 @@ from pygments.token import Token
 from pygments import lex
 
 import qmk.path
-from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE
+from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.keyboard import find_keyboard_from_dir, keyboard_folder
 from qmk.errors import CppError
 from qmk.info import info_json
@@ -218,7 +218,7 @@ def find_keymap_from_dir():
                 return relative_cwd.parts[1], 'users_directory'
         return None, None
 
-    if Path(QMK_FIRMWARE).resolve() != Path(QMK_USERSPACE).resolve():
+    if HAS_QMK_USERSPACE:
         name, source = _impl_find_keymap_from_dir(qmk.path.under_qmk_userspace())
         if name and source:
             return name, source
@@ -430,7 +430,7 @@ def locate_keymap(keyboard, keymap):
     # Check the keyboard folder first, last match wins
     keymap_path = ''
 
-    for search_dir in [QMK_FIRMWARE, QMK_USERSPACE]:
+    for search_dir in [QMK_FIRMWARE, QMK_USERSPACE] if HAS_QMK_USERSPACE else [QMK_FIRMWARE]:
         checked_dirs = ''
         for dir in keyboard_folder(keyboard).split('/'):
             if checked_dirs:
@@ -452,7 +452,7 @@ def locate_keymap(keyboard, keymap):
     info = info_json(keyboard)
 
     community_parents = list(Path('layouts').glob('*/'))
-    if Path(QMK_FIRMWARE).resolve() != Path(QMK_USERSPACE).resolve() and (Path(QMK_USERSPACE) / "layouts").exists():
+    if HAS_QMK_USERSPACE and (Path(QMK_USERSPACE) / "layouts").exists():
         community_parents.append(Path(QMK_USERSPACE) / "layouts")
 
     for community_parent in community_parents:
@@ -509,7 +509,7 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     info = info_json(keyboard)
 
     community_parents = list(Path('layouts').glob('*/'))
-    if Path(QMK_FIRMWARE).resolve() != Path(QMK_USERSPACE).resolve() and (Path(QMK_USERSPACE) / "layouts").exists():
+    if HAS_QMK_USERSPACE and (Path(QMK_USERSPACE) / "layouts").exists():
         community_parents.append(Path(QMK_USERSPACE) / "layouts")
 
     for community_parent in community_parents:

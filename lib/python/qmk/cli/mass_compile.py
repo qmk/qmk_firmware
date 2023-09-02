@@ -7,7 +7,7 @@ from pathlib import Path
 from subprocess import DEVNULL
 from milc import cli
 
-from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE
+from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.commands import _find_make, get_make_parallel_args
 from qmk.keyboard import resolve_keyboard
 from qmk.search import search_keymap_targets
@@ -51,7 +51,7 @@ def mass_compile(cli):
     with open(makefile, "w") as f:
 
         userspace_suffix = ''
-        if Path(QMK_FIRMWARE).resolve() != Path(QMK_USERSPACE).resolve():
+        if HAS_QMK_USERSPACE:
             userspace_suffix = f'QMK_USERSPACE={Path(QMK_USERSPACE).resolve()}'
 
         for target in sorted(targets):

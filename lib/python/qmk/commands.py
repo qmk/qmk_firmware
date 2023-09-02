@@ -9,7 +9,7 @@ from pathlib import Path
 from milc import cli
 import jsonschema
 
-from qmk.constants import INTERMEDIATE_OUTPUT_PREFIX, QMK_FIRMWARE, QMK_USERSPACE
+from qmk.constants import INTERMEDIATE_OUTPUT_PREFIX, QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.json_schema import json_load, validate
 
 
@@ -51,7 +51,7 @@ def create_make_target(target, dry_run=False, parallel=1, **env_vars):
     for key, value in env_vars.items():
         env.append(f'{key}={value}')
 
-    if Path(QMK_FIRMWARE).resolve() != Path(QMK_USERSPACE).resolve():
+    if HAS_QMK_USERSPACE:
         env.append(f'QMK_USERSPACE={Path(QMK_USERSPACE).resolve()}')
 
     if cli.config.general.verbose:
