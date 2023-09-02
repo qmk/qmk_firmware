@@ -45,7 +45,7 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {
-        "LAYOUT_64_iso": "LAYOUT_60_iso_4th_row_all_1u"
+        "LAYOUT_60_iso_4th_row_all_1u": "LAYOUT_64_iso"
     },
     "community_layouts": [
         "60_abnt2",
@@ -2211,7 +2211,7 @@
                 {"matrix": [4, 14], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_60_iso_4th_row_all_1u": {
+        "LAYOUT_64_iso": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
