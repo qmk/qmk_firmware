@@ -152,8 +152,9 @@
     "ws2812": {
         "pin": "B5"
     },
+    "community_layouts": ["tkl_f13_ansi_tsangan"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x":0, "y":0},
                 {"matrix": [0, 1], "x":1.25, "y":0},
