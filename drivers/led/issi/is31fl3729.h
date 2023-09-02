@@ -55,7 +55,7 @@ void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 // Map CS SW locations to order in PWM / Scaling buffers
 // This matches the ORDER in the Datasheet Register not the POSITION
 // It will always count from 0x01 to (ISSI_MAX_LEDS - 1)
-#ifndef ISSI_MATRIX_16X8
+#ifdef ISSI_MATRIX_16X8
 #    define CS1_SW1 0x01
 #    define CS2_SW1 0x02
 #    define CS3_SW1 0x03

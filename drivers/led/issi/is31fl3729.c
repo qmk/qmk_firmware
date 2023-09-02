@@ -60,14 +60,14 @@
 #    define ISSI_GLOBALCURRENT 0xFF
 #endif
 #ifndef ISSI_PULLDOWNUP
-#    define ISSI_PULLDOWNUP 0x00
+#    define ISSI_PULLDOWNUP 0x33
 #endif
 #ifndef ISSI_PWM_SET
 #    define ISSI_PWM_SET 0x01
 #endif
 
 // Set buffer sizes
-#ifndef ISSI_MATRIX_16X8
+#ifdef ISSI_MATRIX_16X8
 #    define ISSI_MAX_LEDS 128
 #    define ISSI_MAX_SCALINGS 16
 #else
@@ -81,7 +81,7 @@ uint8_t g_twi_transfer_buffer[20] = {0xFF};
 // These buffers match the PWM & scaling registers.
 // Storing them like this is optimal for I2C transfers to the registers.
 uint8_t g_pwm_buffer[DRIVER_COUNT][ISSI_MAX_LEDS];
-bool    g_pwm_buffer_update_required[DRIVER_COUNT]        = {false};
+bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
 uint8_t g_scaling_registers[DRIVER_COUNT][ISSI_MAX_SCALINGS];
 bool    g_scaling_registers_update_required[DRIVER_COUNT] = {false};
@@ -101,27 +101,35 @@ void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 }
 
 bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
-    // transmit PWM registers in 15 transfers of 9 bytes
+    // transmit PWM registers in 15 transfers of ISSI_MAX_SCALINGS bytes
     // g_twi_transfer_buffer[] is 20 bytes
 
     // iterate over the pwm_buffer contents at 9 byte intervals
-    for (int i = 0; i < 135; i += 9) {
-        g_twi_transfer_buffer[0] = i;
-        // copy the data from i to i+15
+
+    // offset due to missing parts IF using 15x9
+    int offset = 0;
+    for (int i = 1; i <= ISSI_MAX_LEDS; i += ISSI_MAX_SCALINGS) {
+        g_twi_transfer_buffer[0] = i + offset;
+        // copy the data from i to i+ISSI_MAX_SCALINGS
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x01-0x10, 0x11-0x20, etc. in one transfer
-        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, 9);
+        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, ISSI_MAX_SCALINGS);
 
 #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 10, ISSI_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, ISSI_MAX_SCALINGS + 1, ISSI_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 10, ISSI_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, ISSI_MAX_SCALINGS + 1, ISSI_TIMEOUT) != 0) {
             return false;
         }
+#endif
+
+#ifdef ISSI_MATRIX_16X8
+        // using 15x9
+        offset++;
 #endif
     }
 
@@ -133,17 +141,6 @@ void is31fl3729_init(uint8_t addr) {
     // in the LED driver's PWM registers, shutdown is enabled last.
     // Set up the mode and other settings, clear the PWM registers,
     // then disable software shutdown.
-
-    // Set PWM on all LEDs to 0
-#ifndef ISSI_MATRIX_16X8
-    for (int i = CS1_SW1; i <= CS16_SW8; i++) {
-        is31fl3729_write_register(addr, i, 0x00);
-    }
-#else
-    for (int i = CS1_SW1; i <= CS15_SW9; i++) {
-        is31fl3729_write_register(addr, i, 0x00);
-    }
-#endif
 
     // Set Pull up & Down for SWx CSy
     is31fl3729_write_register(addr, ISSI_REG_PULLDOWNUP, ISSI_PULLDOWNUP);
@@ -225,7 +222,7 @@ void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 
 void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_scaling_registers_update_required[index]) {
-#ifndef ISSI_MATRIX_16X8
+#ifdef ISSI_MATRIX_16X8
         // 0x90 to 0x9F
         for (int i = 0; i < 16; i++) {
             is31fl3729_write_register(addr, ISSI_REG_SCALING + i, g_scaling_registers[index][i]);
