@@ -13,18 +13,17 @@
 #define STR_ROUTE         "xx"
 #define STR_SLIDE         "dd"
 #define STR_VIA           "vv"
-#define STR_MEASURE       "me"
+#define STR_MEASURE       "~m"
 #define STR_SHOW          "sh"
 #define STR_UPDATE_SHAPES "sup"
-#define STR_ROTATE        "rr"
-#define STR_MIRROR        "ff"
+#define STR_ROTATE        "r"
+#define STR_MIRROR        "f"
 #define STR_PAM           "pam"
-#define STR_MOVE          "mm"
+#define STR_MOVE          "m"
 
 // Layer Defines
 #define _LAYER_BL  0
 #define _LAYER_CAD 1
-#define _LAYER_RGB 15
 
 #define _LAYER_CAD_LED_INDEX 8
 
@@ -82,18 +81,18 @@ void tap_dance_num_toggle(tap_dance_state_t *state, void *user_data){
 tap_dance_action_t tap_dance_actions[] = {
     [TD_NUM_TOGGLE]  = ACTION_TAP_DANCE_FN(tap_dance_num_toggle),
 
-    [TD_M1]  = ACTION_TAP_DANCE_DOUBLE(KC_F13, LCTL(KC_F13)),
-    [TD_M2]  = ACTION_TAP_DANCE_DOUBLE(KC_F14, LCTL(KC_F14)),
-    [TD_M3]  = ACTION_TAP_DANCE_DOUBLE(KC_F15, LCTL(KC_F15)),
-    [TD_M4]  = ACTION_TAP_DANCE_DOUBLE(KC_F16, LCTL(KC_F16)),
-    [TD_M5]  = ACTION_TAP_DANCE_DOUBLE(KC_F17, LCTL(KC_F17)),
-    [TD_M6]  = ACTION_TAP_DANCE_DOUBLE(KC_F18, LCTL(KC_F18)),
-    [TD_M7]  = ACTION_TAP_DANCE_DOUBLE(KC_F19, LCTL(KC_F19)),
-    [TD_M8]  = ACTION_TAP_DANCE_DOUBLE(KC_F20, LCTL(KC_F20)),
-    [TD_M9]  = ACTION_TAP_DANCE_DOUBLE(KC_F21, LCTL(KC_F21)),
-    [TD_M10] = ACTION_TAP_DANCE_DOUBLE(KC_F22, LCTL(KC_F22)),
-    [TD_M11] = ACTION_TAP_DANCE_DOUBLE(KC_F23, LCTL(KC_F23)),
-    [TD_M12] = ACTION_TAP_DANCE_DOUBLE(KC_F24, LCTL(KC_F24))
+    [TD_M1]  = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_1),  LCTL(KC_1)),
+    [TD_M2]  = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_2),  LCTL(KC_2)),
+    [TD_M3]  = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_3),  LCTL(KC_3)),
+    [TD_M4]  = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_4),  LCTL(KC_4)),
+    [TD_M5]  = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_5),  LCTL(KC_5)),
+    [TD_M6]  = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_F5), LCTL(KC_F5)),
+    [TD_M7]  = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_F6), LCTL(KC_F6)),
+    [TD_M8]  = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_6),  LCTL(KC_6)),
+    [TD_M9]  = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_7),  LCTL(KC_7)),
+    [TD_M10] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_8),  LCTL(KC_8)),
+    [TD_M11] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_9),  LCTL(KC_9)),
+    [TD_M12] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_0),  LCTL(KC_0))
 };
 
 // Setup LED map
@@ -142,12 +141,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┘  └───────┴───┴───┘
      */
     [_LAYER_BL] = LAYOUT_numpad_6x6(
-        TD(TD_M1), TD(TD_M12),    LT(_LAYER_RGB, KC_F1), KC_F2,   KC_F3,   KC_F4,
-        TD(TD_M2), TD(TD_M11),    TD(TD_NUM_TOGGLE),     KC_PSLS, KC_PAST, KC_PMNS,
-        TD(TD_M3), TD(TD_M10),    KC_P7,                 KC_P8,   KC_P9,   KC_PPLS,
-        TD(TD_M4), TD(TD_M9),     KC_P4,                 KC_P5,   KC_P6,   
-        TD(TD_M5), TD(TD_M8),     KC_P1,                 KC_P2,   KC_P3,   KC_PENT,
-        TD(TD_M6), TD(TD_M7),     KC_P0,                          KC_PDOT
+        TD(TD_M1), TD(TD_M12),    LT(_LAYER_RGB, (KC_F1)), LALT(LWIN(KC_F)),   KC_F3,   KC_BACKSPACE,
+        TD(TD_M2), TD(TD_M11),    TD(TD_NUM_TOGGLE),                KC_PSLS,   KC_PAST, KC_PMNS,
+        TD(TD_M3), TD(TD_M10),    KC_P7,                            KC_P8,     KC_P9,   KC_PPLS,
+        TD(TD_M4), TD(TD_M9),     KC_P4,                            KC_P5,     KC_P6,   
+        TD(TD_M5), TD(TD_M8),     KC_P1,                            KC_P2,     KC_P3,   KC_PENT,
+        TD(TD_M6), TD(TD_M7),     KC_P0,                                       KC_PDOT
     ),
 
     /*
@@ -171,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,    TD(TD_NUM_TOGGLE),      _______,    _______,       _______,
         _______, _______,    ROUTE,                  SLIDE,      VIA,           KC_F8,
         _______, _______,    MEASURE,                SHOW,       UPDATE_SHAPES, 
-        _______, _______,    ROTATE,                 MIRROR,     PAM,           KC_F6,
+        _______, _______,    ROTATE,                 MIRROR,     PAM,           KC_ESC,
         _______, _______,    MOVE,                               KC_F9     
     ),
 

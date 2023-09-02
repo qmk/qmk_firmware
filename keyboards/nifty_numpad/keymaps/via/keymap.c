@@ -6,6 +6,7 @@
 #define _LAYER_BL  0
 #define _LAYER_RGB 3
 
+
 // Setup LED map
 led_config_t g_led_config = { {
     // Key Matrix to LED Index

@@ -1,12 +1,21 @@
-# nifty_numpad
+# Nifty Numpad
 
-![nifty_numpad](imgur.com image replace me!)
+![Nifty Numpad](https://gitlab.com/Acliad/nifty-numpad/-/raw/main/Docs/Render%20(Blue,%20SS%20screws).png)
 
-*A short description of the keyboard/project*
+Nifty Numpad is a full sized numpad with an extra row and two extra columns of macro keys. It was created because I wanted a companion to my TKL keyboard for work. My main workflow involves heavy use of ECAD programs, so the design was tailored for that, but it is generic enough to be nice for many workflows! 
 
-* Keyboard Maintainer: [Isaac Rex](https://github.com/Isaac Rex)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+
+The main features are:
+- Full sized numpad with row of macro/function keys on the top
+- Two extra columns of macro keys
+- Cherry MX style socketed switches
+- Key Backlights
+- 3D printable case (FDM or resin)
+
+### Development Information:
+* Keyboard Maintainer: [Isaac Rex](https://github.com/Acliad/)
+* Hardware Supported: RP2040
+* Hardware Availability: See [The GitLab Page](https://gitlab.com/Acliad/nifty-numpad) for full details
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -20,8 +29,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (top left) and plug in the keyboard
+* **Physical reset button**: Press the ```RST``` button while holding the ```BOOT_SEL``` button on the back of the PCB
