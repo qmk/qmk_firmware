@@ -42,7 +42,7 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases":{
-        "LAYOUT_planck_mit": "LAYOUT_ortho_4x12_1x2uC"
+        "LAYOUT_ortho_4x12_1x2uC": "LAYOUT_planck_mit"
     },
     "community_layouts": ["ortho_4x12", "planck_mit"],
     "layouts": {
@@ -262,7 +262,7 @@
                 {"matrix": [3, 11], "x": 11, "y": 3}
             ]
         },
-        "LAYOUT_ortho_4x12_1x2uC": {
+        "LAYOUT_planck_mit": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
