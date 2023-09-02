@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
 
-#define TAPPING_TERM    200
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

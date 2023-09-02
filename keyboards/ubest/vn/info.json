@@ -20,7 +20,11 @@
         "pin": "E2"
     },
     "rgblight": {
-        "max_brightness": 240
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 8,
+        "max_brightness": 240,
+        "sleep": true
     },
     "indicators": {
         "caps_lock": "B3",

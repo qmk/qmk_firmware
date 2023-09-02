@@ -32,11 +32,11 @@ void oled_render_locale(void) {
     }
 }
 
-void oled_render_keylock_status(uint8_t led_usb_state) {
+void oled_render_keylock_status(led_t led_state) {
   oled_write_P(PSTR(" Lock:"), false);
-  oled_write_P(PSTR("N"), led_usb_state & (1 << USB_LED_NUM_LOCK));
-  oled_write_P(PSTR("C"), led_usb_state & (1 << USB_LED_CAPS_LOCK));
-  oled_write_P(PSTR("S"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
+  oled_write_P(PSTR("N"), led_state.num_lock);
+  oled_write_P(PSTR("C"), led_state.caps_lock);
+  oled_write_P(PSTR("S"), led_state.scroll_lock);
 }
 
 void oled_render_mod_status(uint8_t modifiers) {
@@ -49,7 +49,7 @@ void oled_render_mod_status(uint8_t modifiers) {
 
 void oled_render_mod_lock_status(void){
   oled_render_mod_status(get_mods() | get_oneshot_mods());
-  oled_render_keylock_status(host_keyboard_leds());
+  oled_render_keylock_status(host_keyboard_led_state());
 }
 
 
@@ -187,6 +187,3 @@ bool oled_task_user(void) {
 
 }
 #endif
-
-/* oled_render_keylock_status(host_keyboard_leds()); */
-/* oled_render_mod_status(get_mods() | get_oneshot_mods()); */

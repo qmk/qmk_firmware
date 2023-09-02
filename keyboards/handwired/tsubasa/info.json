@@ -8,6 +8,17 @@
         "pid": "0x0000",
         "device_version": "1.0.0"
     },
+    "rgblight": {
+        "saturation_steps": 1,
+        "brightness_steps": 1,
+        "led_count": 12,
+        "split_count": [6, 6],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
+    },
     "ws2812": {
         "pin": "D2"
     },
