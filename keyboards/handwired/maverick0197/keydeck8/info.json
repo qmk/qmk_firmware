@@ -26,6 +26,9 @@
         "pid": "0x3031",
         "vid": "0x4D76"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_3x3"
+    },
     "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {

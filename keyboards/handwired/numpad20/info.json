@@ -15,6 +15,9 @@
   "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "halfkay",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_5x4"
+    },
   "community_layouts": ["ortho_5x4"],
   "layouts": {
     "LAYOUT_ortho_5x4": {

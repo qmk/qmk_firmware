@@ -192,6 +192,9 @@
             {"flags": 2, "x":224, "y":64}
     ]
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_ansi"
+    },
     "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {

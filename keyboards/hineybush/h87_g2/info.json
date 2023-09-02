@@ -23,6 +23,9 @@
         "pid": "0x0001",
         "vid": "0x4069"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_tkl_ansi_tsangan"
+    },
     "community_layouts": ["tkl_ansi_tsangan"],
     "layouts": {
         "LAYOUT_tkl_ansi_tsangan": {

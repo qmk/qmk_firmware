@@ -32,6 +32,9 @@
       "pid": "0x3D14",
       "device_version": "0.0.1"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_5x14"
+    },
     "community_layouts": ["ortho_5x14"],
     "layouts": {
         "LAYOUT_ortho_5x14": {
