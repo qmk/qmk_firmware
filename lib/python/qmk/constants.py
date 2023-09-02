@@ -16,7 +16,8 @@ def _detect_qmk_userspace():
     current_dir = Path(environ['ORIG_CWD'])
     while len(current_dir.parts) > 1:
         if (current_dir / 'Makefile').is_file() and ((current_dir / 'keyboards').is_dir() or (current_dir / 'layouts').is_dir()):
-            return current_dir
+            if current_dir.resolve() != Path(QMK_FIRMWARE).resolve():
+                return current_dir
         current_dir = current_dir.parent
     # Otherwise, use the environment variable or the configured default
     return environ.get('QMK_USERSPACE') or cli.config.user.overlay_dir or QMK_FIRMWARE
