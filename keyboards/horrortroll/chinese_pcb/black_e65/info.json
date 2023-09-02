@@ -42,10 +42,10 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {
-        "LAYOUT_65_ansi_blocker_tsangan": "LAYOUT_65_ansi_7u_wk",
-        "LAYOUT_65_ansi_blocker_tsangan_split_bs": "LAYOUT_65_ansi_7u_wk_splitbs",
-        "LAYOUT_65_iso_blocker_tsangan": "LAYOUT_65_iso_7u_wk",
-        "LAYOUT_65_iso_blocker_tsangan_split_bs": "LAYOUT_65_iso_7u_wk_splitbs"
+        "LAYOUT_65_ansi_7u_wk": "LAYOUT_65_ansi_blocker_tsangan",
+        "LAYOUT_65_ansi_7u_wk_splitbs": "LAYOUT_65_ansi_blocker_tsangan_split_bs",
+        "LAYOUT_65_iso_7u_wk": "LAYOUT_65_iso_blocker_tsangan",
+        "LAYOUT_65_iso_7u_wk_splitbs": "LAYOUT_65_iso_blocker_tsangan_split_bs"
     },
     "community_layouts": [
         "65_ansi",
@@ -1663,7 +1663,7 @@
                 {"matrix": [4, 13], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65_ansi_7u_wk": {
+        "LAYOUT_65_ansi_blocker_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -1737,7 +1737,7 @@
                 {"matrix": [4, 13], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65_ansi_7u_wk_splitbs": {
+        "LAYOUT_65_ansi_blocker_tsangan_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -1812,7 +1812,7 @@
                 {"matrix": [4, 13], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65_iso_7u_wk": {
+        "LAYOUT_65_iso_blocker_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -1887,7 +1887,7 @@
                 {"matrix": [4, 13], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65_iso_7u_wk_splitbs": {
+        "LAYOUT_65_iso_blocker_tsangan_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
