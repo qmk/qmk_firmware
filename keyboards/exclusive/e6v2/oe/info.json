@@ -43,7 +43,7 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {
-        "LAYOUT_60_hhkb": "LAYOUT_hhkb_splits"
+        "LAYOUT_hhkb_splits": "LAYOUT_60_hhkb"
     },
     "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_hhkb"],
     "layouts": {
@@ -327,7 +327,7 @@
                 {"matrix": [4, 12], "x": 12.5, "y": 4}
             ]
         },
-        "LAYOUT_hhkb_splits": {
+        "LAYOUT_60_hhkb": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
