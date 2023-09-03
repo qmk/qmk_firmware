@@ -81,7 +81,7 @@ jobs:
 
     - name: Upload binaries
       uses: actions/upload-artifact@v3
-      if: always()
+      if: always() && !cancelled()
       continue-on-error: true
       with:
         name: Firmware
@@ -97,11 +97,12 @@ jobs:
 
     steps:
     - name: Download binaries
+      if: always() && !cancelled()
       uses: actions/download-artifact@v3
 
     - name: Generate Release
       uses: softprops/action-gh-release@v1
-      if: always()
+      if: always() && !cancelled()
       with:
         token: "${{ github.token }}"
         name: Latest Firmware
