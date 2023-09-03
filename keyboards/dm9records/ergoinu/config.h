@@ -24,17 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define MATRIX_ROW_PINS { F6, F7, B1, B3, B2 }
-
-// wiring of each half
-#define MATRIX_COL_PINS { B4, E6, D7, C6, D4, F5, F4 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN B6
-
 #define RGBLED_NUM 7
 
 #ifndef IOS_DEVICE_ENABLE

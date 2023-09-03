@@ -121,7 +121,7 @@
 #    ifndef MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS
 #        define MOUSEKEY_WHEEL_DECELERATED_MOVEMENTS 8
 #    endif
-#endif  // MOUSEKEY_ENABLE
+#endif // MOUSEKEY_ENABLE
 
 #define MOUSE_EXTENDED_REPORT
 
@@ -134,7 +134,7 @@
 #endif
 
 #if defined(SPLIT_KEYBOARD) && defined(PROTOCOL_CHIBIOS) && !defined(USB_SUSPEND_WAKEUP_DELAY)
-#    define USB_SUSPEND_WAKEUP_DELAY 200
+#    define USB_SUSPEND_WAKEUP_DELAY 500
 #endif
 
 #if defined(XAP_ENABLE) && !defined(__AVR__)

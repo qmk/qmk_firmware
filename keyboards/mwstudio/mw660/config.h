@@ -16,10 +16,6 @@
 
 #pragma once
 
-#define FORCE_NKRO
-
-
-#define RGB_DI_PIN B8
 #define DRIVER_LED_TOTAL 34
 #define RGBLED_NUM 34
 
