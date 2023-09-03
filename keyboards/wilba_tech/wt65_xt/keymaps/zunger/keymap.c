@@ -73,7 +73,7 @@ uint8_t current_language(void);
 
 void lang_tap_dance_finished(tap_dance_state_t *state, void *user_data);
 void lang_tap_dance_reset(tap_dance_state_t *state, void *user_data);
-bool process_language_key(uint16_t keycode, keycord_t *record);
+bool process_language_key(uint16_t keycode, keyrecord_t *record);
 
 // OS mode selection helpers.
 enum os_modes {
@@ -238,8 +238,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define NUM_TRANSLATABLE_KEYS KC_CAPS_LOCK
 #define LANGUAGE_COLUMNS (2 * NUM_LANGUAGES - 2)
 
-#define XXXXXX 0x0000
-#define ______ 0x0001
+// Shortcuts for the translation table. Note that the default behavior is transparent!
+#define ______ 0x0000
+#define XXXXXX 0x0001
 
 // The first column of this table is the keycode to be mapped, up to NUM_TRANSLATABLE_KEYS.
 // The second column is (2 * (language - 1) + (shifted ? 1 : 0)), where language is
