@@ -52,7 +52,7 @@
             "digital_rain": true,
             "solid_reactive_simple": true
         },
-        "driver": "ckled2001",
+        "driver": "CKLED2001",
         "hue_steps": 20,
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
