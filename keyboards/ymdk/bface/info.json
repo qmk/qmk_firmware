@@ -42,7 +42,6 @@
   },
   "processor": "atmega32a",
   "bootloader": "bootloadhid",
-  "community_layouts": ["60_ansi"],
   "layouts": {
     "LAYOUT_all": {
       "layout": [
