@@ -1,4 +1,4 @@
-// Copyright 2021 QMK / NachoxMacho
+// Copyright 2023 Isaac Rex (@Acliad)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
@@ -21,9 +21,12 @@
 #define STR_PAM           "pam"
 #define STR_MOVE          "m"
 
-// Layer Defines
-#define _LAYER_BL  0
-#define _LAYER_CAD 1
+// Layers 
+enum LAYERS {
+    LAYER_BL,
+    LAYER_CAD,
+    LAYER_RGB
+};
 
 #define _LAYER_CAD_LED_INDEX 8
 
@@ -69,7 +72,7 @@ enum {
 void tap_dance_num_toggle(tap_dance_state_t *state, void *user_data){
     switch(state->count){
         case 1:
-            layer_invert(_LAYER_CAD);
+            layer_invert(LAYER_CAD);
             break;
         case 2:
             tap_code16(KC_NUM);
@@ -95,33 +98,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_M12] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_0),  LCTL(KC_0))
 };
 
-// Setup LED map
-led_config_t g_led_config = { {
-    // Key Matrix to LED Index
-    { 0,  1,  2,  3,      4,  5      },
-    { 6,  7,  8,  9,      10, 11     },
-    { 12, 13, 14, 15,     16, 17     },
-    { 18, 19, 20, 21,     22, NO_LED },
-    { 23, 24, 25, 26,     27, 28     },
-    { 29, 30, 31, NO_LED, 32, NO_LED }
-}, {
-    // LED Index to Physical Position
-    {  0,   0}, { 43,   0}, { 96,   0}, {139,   0}, {181,   0}, {224,   0}, 
-    {  0,  17}, { 43,  17}, { 96,  17}, {139,  17}, {181,  17}, {224,  17}, 
-    {  0,  29}, { 43,  29}, { 96,  29}, {139,  29}, {181,  29}, {224,  35}, 
-    {  0,  41}, { 43,  41}, { 96,  41}, {139,  41}, {181,  41}, {  0,  52}, 
-    { 43,  52}, { 96,  52}, {139,  52}, {181,  52}, {224,  58}, {  0,  64}, 
-    { 43,  64}, {117,  64}, {181,  64}
-}, {
-    // LED Index to Flag
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT
-} };
-
 // Setup keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -140,8 +116,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │F18│F24│  │ 0     │ . │   │
      * └───┴───┘  └───────┴───┴───┘
      */
-    [_LAYER_BL] = LAYOUT_numpad_6x6(
-        TD(TD_M1), TD(TD_M12),    LT(_LAYER_RGB, (KC_F1)), LALT(LWIN(KC_F)),   KC_F3,   KC_BACKSPACE,
+    [LAYER_BL] = LAYOUT_numpad_6x6(
+        TD(TD_M1), TD(TD_M12),    LT(LAYER_RGB, (KC_F1)), LALT(LWIN(KC_F)),   KC_F3,   KC_BACKSPACE,
         TD(TD_M2), TD(TD_M11),    TD(TD_NUM_TOGGLE),                KC_PSLS,   KC_PAST, KC_PMNS,
         TD(TD_M3), TD(TD_M10),    KC_P7,                            KC_P8,     KC_P9,   KC_PPLS,
         TD(TD_M4), TD(TD_M9),     KC_P4,                            KC_P5,     KC_P6,   
@@ -165,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │F18│F24│  │ 0     │ . │   │
      * └───┴───┘  └───────┴───┴───┘
      */
-    [_LAYER_CAD] = LAYOUT_numpad_6x6(
+    [LAYER_CAD] = LAYOUT_numpad_6x6(
         _______, _______,    EDIT_GEN,                EDIT_PLACE, EDIT_ETCH,     EDIT_SHAPE,
         _______, _______,    TD(TD_NUM_TOGGLE),      _______,    _______,       _______,
         _______, _______,    ROUTE,                  SLIDE,      VIA,           KC_F8,
@@ -190,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │F18│F24│  │ 0     │ . │   │
      * └───┴───┘  └───────┴───┴───┘
      */
-    [_LAYER_RGB] = LAYOUT_numpad_6x6(
+    [LAYER_BL] = LAYOUT_numpad_6x6(
         _______, _______,    _______, RGB_HUI, RGB_SAI, RGB_VAI,
         _______, _______,    _______, RGB_HUD, RGB_SAD, RGB_VAD,
         _______, _______,    _______, RGB_DEF, RGB_IEF, RGB_SPI,
@@ -203,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Set the layer toggle key to an indication of the active layer. This is a
 // bit janky and should be done better, but I'm trying to avoid scope creep.
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (layer_state_is(_LAYER_CAD) && !rgb_matrix_idle_mode()) {
+    if (layer_state_is(LAYER_CAD) && !rgb_matrix_idle_mode()) {
         // Get a hue that contrasts with current hue
         uint8_t hue = rgb_matrix_get_hue() + 127; 
         // Make sure saturation is high enough to distiguish between hues

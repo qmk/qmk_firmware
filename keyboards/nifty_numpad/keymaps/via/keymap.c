@@ -1,38 +1,15 @@
+// Copyright 2023 Isaac Rex (@Acliad)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 #include "nifty_numpad.h"
 #include "quantum.h"
 
-// Layer Defines
+// Layer defines. Using defines instead of enums here to force the RG
+// layer to be 3–this should be more convenient for creating custom
+// layers in VIA
 #define _LAYER_BL  0
 #define _LAYER_RGB 3
-
-
-// Setup LED map
-led_config_t g_led_config = { {
-    // Key Matrix to LED Index
-    { 0,  1,  2,  3,      4,  5      },
-    { 6,  7,  8,  9,      10, 11     },
-    { 12, 13, 14, 15,     16, 17     },
-    { 18, 19, 20, 21,     22, NO_LED },
-    { 23, 24, 25, 26,     27, 28     },
-    { 29, 30, 31, NO_LED, 32, NO_LED }
-}, {
-    // LED Index to Physical Position
-    {  0,   0}, { 43,   0}, { 96,   0}, {139,   0}, {181,   0}, {224,   0}, 
-    {  0,  17}, { 43,  17}, { 96,  17}, {139,  17}, {181,  17}, {224,  17}, 
-    {  0,  29}, { 43,  29}, { 96,  29}, {139,  29}, {181,  29}, {224,  35}, 
-    {  0,  41}, { 43,  41}, { 96,  41}, {139,  41}, {181,  41}, {  0,  52}, 
-    { 43,  52}, { 96,  52}, {139,  52}, {181,  52}, {224,  58}, {  0,  64}, 
-    { 43,  64}, {117,  64}, {181,  64}
-}, {
-    // LED Index to Flag
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT
-} };
 
 // Setup keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

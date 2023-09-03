@@ -1,4 +1,4 @@
-/* Copyright 2023 irex
+/* Copyright 2023 Acliad
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,25 +49,6 @@
 * │F18│F24│  │ 0     │ . │   │
 * └───┴───┘  └───────┴───┴───┘
 */
-#define XXX KC_NO
-#define LAYOUT_numpad_6x6( \
-    K00, K01,   K02, K03, K04, K05, \
-    K10, K11,   K12, K13, K14, K15, \
-                                    \
-    K20, K21,   K22, K23, K24, K25, \
-    K30, K31,   K32, K33, K34,      \
-    K40, K41,   K42, K43, K44, K45, \
-    K50, K51,   K52,      K54       \
-) { \
-    { K00, K01,    K02, K03, K04, K05}, \
-    { K10, K11,    K12, K13, K14, K15}, \
-                                        \
-    { K20, K21,    K22, K23, K24, K25}, \
-    { K30, K31,    K32, K33, K34, XXX}, \
-    { K40, K41,    K42, K43, K44, K45}, \
-    { K50, K51,    K52, XXX, K54, XXX}  \
-}
-
 
 #ifdef RGB_IDLE_ENABLE
 #define _LAYER_RGB 15

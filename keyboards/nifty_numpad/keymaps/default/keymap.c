@@ -1,93 +1,14 @@
-// Copyright 2021 QMK / NachoxMacho
+// Copyright 2023 Isaac Rex (@Acliad)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "nifty_numpad.h"
 #include "quantum.h"
 
-// Layer Defines
-#define _LAYER_BL  0
-#define _LAYER_1   1
-
-// Layer Indicator LED index
-#define _NUM_LED_INDEX 8
-
-#define TAPPING_TERM 200
-
-// Tap Dance Declarations
-enum {
-    TD_NUM_TOGGLE = 0,
-    TD_EDIT_GEN_TOGGLE,
-    TD_M1,
-    TD_M2,
-    TD_M3,
-    TD_M4,
-    TD_M5,
-    TD_M6,
-    TD_M7,
-    TD_M8,
-    TD_M9,
-    TD_M10,
-    TD_M11,
-    TD_M12,
+// Layers 
+enum LAYERS {
+    LAYER_BL,
+    LAYER_RGB
 };
-
-// TD function for 1 tap, toggle layer; 2 taps, press numlock
-void tap_dance_num_toggle(tap_dance_state_t *state, void *user_data){
-    switch(state->count){
-        case 1:
-            layer_invert(_LAYER_1);
-            break;
-        case 2:
-            tap_code16(KC_NUM);
-            break;
-    }
-}
-
-// Tap Dance Definitions
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_NUM_TOGGLE]  = ACTION_TAP_DANCE_FN(tap_dance_num_toggle),
-
-    [TD_M1]  = ACTION_TAP_DANCE_DOUBLE(KC_F13, LCTL(KC_F13)),
-    [TD_M2]  = ACTION_TAP_DANCE_DOUBLE(KC_F14, LCTL(KC_F14)),
-    [TD_M3]  = ACTION_TAP_DANCE_DOUBLE(KC_F15, LCTL(KC_F15)),
-    [TD_M4]  = ACTION_TAP_DANCE_DOUBLE(KC_F16, LCTL(KC_F16)),
-    [TD_M5]  = ACTION_TAP_DANCE_DOUBLE(KC_F17, LCTL(KC_F17)),
-    [TD_M6]  = ACTION_TAP_DANCE_DOUBLE(KC_F18, LCTL(KC_F18)),
-    [TD_M7]  = ACTION_TAP_DANCE_DOUBLE(KC_F19, LCTL(KC_F19)),
-    [TD_M8]  = ACTION_TAP_DANCE_DOUBLE(KC_F20, LCTL(KC_F20)),
-    [TD_M9]  = ACTION_TAP_DANCE_DOUBLE(KC_F21, LCTL(KC_F21)),
-    [TD_M10] = ACTION_TAP_DANCE_DOUBLE(KC_F22, LCTL(KC_F22)),
-    [TD_M11] = ACTION_TAP_DANCE_DOUBLE(KC_F23, LCTL(KC_F23)),
-    [TD_M12] = ACTION_TAP_DANCE_DOUBLE(KC_F24, LCTL(KC_F24))
-};
-
-// Setup LED map
-led_config_t g_led_config = { {
-    // Key Matrix to LED Index
-    { 0,  1,  2,  3,      4,  5      },
-    { 6,  7,  8,  9,      10, 11     },
-    { 12, 13, 14, 15,     16, 17     },
-    { 18, 19, 20, 21,     22, NO_LED },
-    { 23, 24, 25, 26,     27, 28     },
-    { 29, 30, 31, NO_LED, 32, NO_LED }
-}, {
-    // LED Index to Physical Position
-    {  0,   0}, { 43,   0}, { 96,   0}, {139,   0}, {181,   0}, {224,   0}, 
-    {  0,  17}, { 43,  17}, { 96,  17}, {139,  17}, {181,  17}, {224,  17}, 
-    {  0,  29}, { 43,  29}, { 96,  29}, {139,  29}, {181,  29}, {224,  35}, 
-    {  0,  41}, { 43,  41}, { 96,  41}, {139,  41}, {181,  41}, {  0,  52}, 
-    { 43,  52}, { 96,  52}, {139,  52}, {181,  52}, {224,  58}, {  0,  64}, 
-    { 43,  64}, {117,  64}, {181,  64}
-}, {
-    // LED Index to Flag
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT,
-    LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT, LED_FLAG_KEYLIGHT
-} };
 
 // Setup keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -97,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * EXP -> Open Explorer
      * BCK -> Backspace
      * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │F13│F19│  │SCN│WIN│EXP│BCK│
+     * │F13│F19│  │BCK│WIN│EXP│SCN│
      * └───┴───┘  └───┴───┴───┴───┘
      * ┌───┬───┐  ┌───┬───┬───┬───┐
      * │F14│F20│  │Num│ / │ * │ - │
@@ -111,38 +32,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │F18│F24│  │ 0     │ . │   │
      * └───┴───┘  └───────┴───┴───┘
      */
-    [_LAYER_BL] = LAYOUT_numpad_6x6(
-        TD(TD_M1), TD(TD_M12),    LT(_LAYER_RGB, KC_BSPC), RGUI(KC_TAB), RGUI(KC_E), RGUI(RSFT(KC_S)),
-        TD(TD_M2), TD(TD_M11),    TD(TD_NUM_TOGGLE),       KC_PSLS,      KC_PAST,    KC_PMNS,
-        TD(TD_M3), TD(TD_M10),    KC_P7,                   KC_P8,        KC_P9,      KC_PPLS,
-        TD(TD_M4), TD(TD_M9),     KC_P4,                   KC_P5,        KC_P6,      
-        TD(TD_M5), TD(TD_M8),     KC_P1,                   KC_P2,        KC_P3,      KC_PENT,
-        TD(TD_M6), TD(TD_M7),     KC_P0,                                 KC_PDOT
-    ),
-
-    /*
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │F13│F19│  │F9 │F10│F11│F12│
-     * └───┴───┘  └───┴───┴───┴───┘
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │___│___│  │___│~/ │~* │___│
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │~7 │~8 │~9 │   │
-     * ├───┼───┤  ├───┼───┼───┤___│
-     * │___│___│  │~4 │~5 │~6 │   │
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │~1 │~2 │~3 │   │
-     * ├───┼───│  ├───┴───┼───┤___│
-     * │___│___│  │~0     │~. │   │
-     * └───┴───┘  └───────┴───┴───┘
-     */
-    [_LAYER_1] = LAYOUT_numpad_6x6(
-        _______, _______,    KC_F9,             KC_F10,         KC_F11,        KC_F12,
-        _______, _______,    TD(TD_NUM_TOGGLE), RCTL(KC_PSLS), RCTL(KC_PAST), _______,
-        _______, _______,    RCTL(KC_P7),       RCTL(KC_P8),   RCTL(KC_P9),   _______,
-        _______, _______,    RCTL(KC_P4),       RCTL(KC_P5),   RCTL(KC_P6), 
-        _______, _______,    RCTL(KC_P1),       RCTL(KC_P2),   RCTL(KC_P3),   _______,
-        _______, _______,    RCTL(KC_P0),                      RCTL(KC_PDOT)     
+    [LAYER_BL] = LAYOUT_numpad_6x6(
+        KC_F13, KC_F19,    LT(LAYER_RGB, KC_BSPC), RGUI(KC_TAB), RGUI(KC_E), RGUI(RSFT(KC_S)),
+        KC_F14, KC_F20,    KC_NUM,                 KC_PSLS,      KC_PAST,    KC_PMNS,
+        KC_F15, KC_F21,    KC_P7,                  KC_P8,        KC_P9,      KC_PPLS,
+        KC_F16, KC_F22,    KC_P4,                  KC_P5,        KC_P6,      
+        KC_F17, KC_F23,    KC_P1,                  KC_P2,        KC_P3,      KC_PENT,
+        KC_F18, KC_F24,    KC_P0,                                KC_PDOT
     ),
 
     /*
@@ -177,27 +73,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * │___│___│  │___    │___│   │
      * └───┴───┘  └───────┴───┴───┘
      */
-    [_LAYER_RGB] = LAYOUT_numpad_6x6(
+    [LAYER_RGB] = LAYOUT_numpad_6x6(
         _______, _______,    _______, RGB_HUI, RGB_SAI, RGB_VAI,
         _______, _______,    _______, RGB_HUD, RGB_SAD, RGB_VAD,
-        _______, _______,    _______, RGB_DEF, RGB_IEF, RGB_SPI,
+        _______, _______,    _______, RGB_MOD, _______, RGB_SPI,
         _______, _______,    _______, _______, _______, 
         _______, _______,    _______, _______, _______, RGB_SPD,
         _______, _______,    _______,          _______     
     )
 };
-
-// Set the layer toggle key to an indication of the active layer. This is a
-// bit janky and should be done better, but I'm trying to avoid scope creep.
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    if (layer_state_is(_LAYER_1) && !rgb_matrix_idle_mode()) {
-        // Get a hue that contrasts with current hue
-        uint8_t hue = rgb_matrix_get_hue() + 127; 
-        // Make sure saturation is high enough to distiguish between hues
-        uint8_t sat = 255;
-        uint8_t val = min((uint16_t) rgb_matrix_get_val() + 50, 255);
-        RGB rgb = hsv_to_rgb((HSV) {hue, sat, val});
-        rgb_matrix_set_color(_NUM_LED_INDEX, rgb.r, rgb.g, rgb.b);
-    }
-    return false;
-}
