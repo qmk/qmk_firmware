@@ -13,7 +13,7 @@
         "console": false,
         "mousekey": false,
         "nkro": false,
-        "rgb_matrix": true
+        "rgb_matrix": false
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
@@ -206,13 +206,13 @@
                 {"matrix": [18, 0], "x":15.5, "y":10}
             ]
         }
-    }
+    },
     "ws2812": {
         "pin": "GP6",
         "driver": "vendor"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "layout": [
             {"matrix": [10, 0], "x": 120, "y": 0, "flags": 4},
             {"matrix": [10, 1], "x": 128, "y": 0, "flags": 4},
