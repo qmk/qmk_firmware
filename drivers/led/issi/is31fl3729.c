@@ -3,6 +3,7 @@
  * Copyright 2018 Yiancar
  * Copyright 2020 MelGeek
  * Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
+ * Copyright 2023 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -76,7 +77,7 @@
 #endif
 
 // Transfer buffer for TWITransmitData()
-uint8_t g_twi_transfer_buffer[20] = {0xFF};
+uint8_t g_twi_transfer_buffer[20];
 
 // These buffers match the PWM & scaling registers.
 // Storing them like this is optimal for I2C transfers to the registers.
@@ -104,12 +105,9 @@ bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // transmit PWM registers in 15 transfers of ISSI_MAX_SCALINGS bytes
     // g_twi_transfer_buffer[] is 20 bytes
 
-    // iterate over the pwm_buffer contents at 9 byte intervals
-
-    // offset due to missing parts IF using 15x9
-    int offset = 0;
+    // iterate over the pwm_buffer contents at ISSI_MAX_SCALINGS byte intervals
     for (int i = 1; i <= ISSI_MAX_LEDS; i += ISSI_MAX_SCALINGS) {
-        g_twi_transfer_buffer[0] = i + offset;
+        g_twi_transfer_buffer[0] = i;
         // copy the data from i to i+ISSI_MAX_SCALINGS
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x01-0x10, 0x11-0x20, etc. in one transfer
@@ -125,11 +123,6 @@ bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
         if (i2c_transmit(addr << 1, g_twi_transfer_buffer, ISSI_MAX_SCALINGS + 1, ISSI_TIMEOUT) != 0) {
             return false;
         }
-#endif
-
-#ifdef ISSI_MATRIX_16X8
-        // using 15x9
-        offset++;
 #endif
     }
 
@@ -179,28 +172,21 @@ void is31fl3729_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
     }
 }
 
-void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
+void is31fl3729_set_led_control_register(uint8_t index) {
     is31_led led;
     memcpy_P(&led, (&g_is31_leds[index]), sizeof(led));
 
-    if (red) {
-        g_scaling_registers[led.driver][led.r] = 0xFF;
-    } else {
-        g_scaling_registers[led.driver][led.r] = 0x00;
+#ifdef ISSI_MATRIX_16X8
+    // 0x90 to 0x9F
+    for (int i = 0; i < 16; i++) {
+        g_scaling_registers[led.driver][i] = 0xFF;
     }
-
-    if (green) {
-        g_scaling_registers[led.driver][led.g] = 0xFF;
-    } else {
-        g_scaling_registers[led.driver][led.g] = 0x00;
+#else
+    // 0x90 to 0x9E
+    for (int i = 0; i < 15; i++) {
+        g_scaling_registers[led.driver][i] = 0xFF;
     }
-
-    if (blue) {
-        g_scaling_registers[led.driver][led.b] = 0xFF;
-    } else {
-        g_scaling_registers[led.driver][led.b] = 0x00;
-    }
-
+#endif
     g_scaling_registers_update_required[led.driver] = true;
 }
 
@@ -235,12 +221,4 @@ void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index) {
 #endif
         g_scaling_registers_update_required[index] = false;
     }
-}
-
-void is31fl3729_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue) {
-    g_scaling_registers[pled->driver][pled->r] = red;
-    g_scaling_registers[pled->driver][pled->g] = green;
-    g_scaling_registers[pled->driver][pled->b] = blue;
-
-    g_scaling_registers_update_required[pled->driver] = true;
 }

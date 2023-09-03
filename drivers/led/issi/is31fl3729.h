@@ -3,6 +3,7 @@
  * Copyright 2018 Yiancar
  * Copyright 2020 MelGeek
  * Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
+ * Copyright 2023 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +41,7 @@ bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 void is31fl3729_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void is31fl3729_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
+void is31fl3729_set_led_control_register(uint8_t index);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
@@ -48,7 +49,6 @@ void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bo
 // If the buffer is dirty, it will update the driver with the buffer.
 void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index);
-void is31fl3729_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
 
 void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
 
