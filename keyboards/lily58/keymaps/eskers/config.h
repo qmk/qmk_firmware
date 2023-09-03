@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 #define MASTER_LEFT
 
-#define DEBOUNCE 3
+#define DEBOUNCE 4
 
 #define QUICK_TAP_TERM 0
 #define PERMISSIVE_HOLD
