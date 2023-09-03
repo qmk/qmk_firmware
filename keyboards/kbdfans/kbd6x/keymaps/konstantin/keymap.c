@@ -35,7 +35,7 @@ static bool last_checked_layer;
 static void check_light_layer(layer_state_t state) {
     if (IS_LAYER_ON_STATE(state, L_FN)) {
         fn_light();
-    } else if (IS_HOST_LED_ON(USB_LED_CAPS_LOCK)) {
+    } else if (host_keyboard_led_state().caps_lock) {
         caps_light();
     } else {
         restore_light();
@@ -43,8 +43,8 @@ static void check_light_layer(layer_state_t state) {
     last_checked_layer = true;
 }
 
-static void check_light_led(uint8_t leds) {
-    if (IS_LED_ON(leds, USB_LED_CAPS_LOCK)) {
+static void check_light_led(led_t led_state) {
+    if (led_state.caps_lock) {
         caps_light();
     } else if (IS_LAYER_ON(L_FN)) {
         fn_light();
@@ -57,7 +57,7 @@ static void check_light_led(uint8_t leds) {
 static void inline check_light(void) {
     last_checked_layer
         ? check_light_layer(layer_state)
-        : check_light_led(host_keyboard_leds());
+        : check_light_led(host_keyboard_led_state());
 }
 
 void eeconfig_init_keymap(void) {
@@ -103,10 +103,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     // Cannot use LM(L_RCTRL, MOD_RCTL) because it sends LCtrl instead of RCtrl
     case RCTRL:
         if (record->event.pressed) {
-            register_code(KC_RCTRL);
+            register_code(KC_RCTL);
             layer_on(L_RCTRL);
         } else {
-            unregister_code(KC_RCTRL);
+            unregister_code(KC_RCTL);
             layer_off(L_RCTRL);
         }
         break;

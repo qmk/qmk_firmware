@@ -82,25 +82,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           EE_CLR, KC_NUKE, _______,    _______, QK_BOOT
     ),
 };
-
-void matrix_init_keyemap(void) { setPinInputHigh(A0); }
-
-void matrix_scan_keymap(void) {
-    if (!readPin(A0)) {
-        reset_keyboard();
-    }
-}
-
-#ifdef USB_VBUS_PIN
-bool usb_vbus_state(void) {
-    setPinInputLow(USB_VBUS_PIN);
-    wait_us(5);
-    return readPin(USB_VBUS_PIN);
-}
-#endif
-
-void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
-    for (int32_t i = 0; i < 40; i++) {
-        __asm__ volatile("nop" ::: "memory");
-    }
-}

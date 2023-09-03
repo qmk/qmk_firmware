@@ -20,15 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 200
 
 #ifdef UNICODEMAP_ENABLE
-#    define UNICODE_SELECTED_MODES UC_MAC, UC_LNX
+#    define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS, UNICODE_MODE_LINUX
 #endif
 
 #ifdef AUTO_SHIFT_ENABLED
 #    define AUTO_SHIFT_REPEAT
-#endif
-
-#ifdef HOME_ROW_MODS_ENABLED
-#    define IGNORE_MOD_TAP_INTERRUPT
 #endif
 
 #ifdef CAPS_WORD_ENABLE

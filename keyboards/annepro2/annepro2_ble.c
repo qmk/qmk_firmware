@@ -24,15 +24,14 @@
 /* -------------------- Static Function Prototypes -------------------------- */
 static uint8_t ap2_ble_leds(void);
 static void    ap2_ble_mouse(report_mouse_t *report);
-static void    ap2_ble_system(uint16_t data);
-static void    ap2_ble_consumer(uint16_t data);
+static void    ap2_ble_extra(report_extra_t *report);
 static void    ap2_ble_keyboard(report_keyboard_t *report);
 
 static void ap2_ble_swtich_ble_driver(void);
 
 /* -------------------- Static Local Variables ------------------------------ */
 static host_driver_t ap2_ble_driver = {
-    ap2_ble_leds, ap2_ble_keyboard, ap2_ble_mouse, ap2_ble_system, ap2_ble_consumer,
+    ap2_ble_leds, ap2_ble_keyboard, ap2_ble_mouse, ap2_ble_extra
 };
 
 static uint8_t ble_mcu_wakeup[11] = {0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02};
@@ -133,8 +132,6 @@ static uint8_t ap2_ble_leds(void) {
 
 static void ap2_ble_mouse(report_mouse_t *report) {}
 
-static void ap2_ble_system(uint16_t data) {}
-
 static inline uint16_t CONSUMER2AP2(uint16_t usage) {
     switch (usage) {
         case AUDIO_VOL_DOWN:
@@ -154,12 +151,14 @@ static inline uint16_t CONSUMER2AP2(uint16_t usage) {
     }
 }
 
-static void ap2_ble_consumer(uint16_t data) {
-    sdPut(&SD1, 0x0);
-    sdWrite(&SD1, ble_mcu_send_consumer_report, sizeof(ble_mcu_send_consumer_report));
-    sdPut(&SD1, CONSUMER2AP2(data));
-    static const uint8_t dummy[3] = {0};
-    sdWrite(&SD1, dummy, sizeof(dummy));
+static void ap2_ble_extra(report_extra_t *report) {
+    if (report->report_id == REPORT_ID_CONSUMER) {
+        sdPut(&SD1, 0x0);
+        sdWrite(&SD1, ble_mcu_send_consumer_report, sizeof(ble_mcu_send_consumer_report));
+        sdPut(&SD1, CONSUMER2AP2(report->usage));
+        static const uint8_t dummy[3] = {0};
+        sdWrite(&SD1, dummy, sizeof(dummy));
+    }
 }
 
 /*!

@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [1] = { ENCODER_CCW_CW(_______, _______) },
     [2] = { ENCODER_CCW_CW(_______, _______) },
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
         TO(1), KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,   KC_UP, KC_RSFT,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-        TO(2),KC_LCTRL, KC_LGUI, KC_LALT,  KC_DEL, KC_LBRC,  KC_SPC,  KC_SPC, KC_RBRC, KC_RALT, KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT
+        TO(2),KC_LCTL,  KC_LGUI, KC_LALT,  KC_DEL, KC_LBRC,  KC_SPC,  KC_SPC, KC_RBRC, KC_RALT, KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT
   //|-----------------------------------------------------------------------------------------------------------------------------'
   ),
   [1] = LAYOUT(

@@ -117,8 +117,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-在数字及字母键上使用Mod-Tap时推荐启用 `IGNORE_MOD_TAP_INTERRUPT`，以避免在快速按下下一个键时保持功能优先级。参见[忽略Mod Tap中断](zh-cn/tap_hold.md#ignore-mod-tap-interrupt)。
-
 ### 同时改变点击和按住功能
 
 最后一个例子通过 `LT(0,KC_NO)` 实现了点击复制，按住粘贴的功能：

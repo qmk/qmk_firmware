@@ -43,7 +43,7 @@ TEST_F(Secure, test_lock) {
     secure_lock();
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_timeout) {
@@ -58,7 +58,7 @@ TEST_F(Secure, test_unlock_timeout) {
     idle_for(SECURE_IDLE_TIMEOUT + 1);
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request) {
@@ -80,7 +80,7 @@ TEST_F(Secure, test_unlock_request) {
     tap_keys(key_a, key_b, key_c, key_d);
     EXPECT_TRUE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_fail) {
@@ -108,7 +108,7 @@ TEST_F(Secure, test_unlock_request_fail) {
     tap_keys(key_e, key_a, key_b, key_c, key_d);
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_timeout) {
@@ -124,7 +124,7 @@ TEST_F(Secure, test_unlock_request_timeout) {
     EXPECT_FALSE(secure_is_unlocking());
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_fail_mid) {
@@ -151,7 +151,7 @@ TEST_F(Secure, test_unlock_request_fail_mid) {
     EXPECT_FALSE(secure_is_unlocking());
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_fail_out_of_order) {
@@ -179,7 +179,7 @@ TEST_F(Secure, test_unlock_request_fail_out_of_order) {
     EXPECT_FALSE(secure_is_unlocking());
     EXPECT_FALSE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_on_layer) {
@@ -206,7 +206,7 @@ TEST_F(Secure, test_unlock_request_on_layer) {
     EXPECT_TRUE(secure_is_unlocked());
     EXPECT_FALSE(layer_state_is(1));
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_mid_stroke) {
@@ -231,7 +231,7 @@ TEST_F(Secure, test_unlock_request_mid_stroke) {
     tap_keys(key_a, key_b, key_c, key_d);
     EXPECT_TRUE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }
 
 TEST_F(Secure, test_unlock_request_mods) {
@@ -256,5 +256,5 @@ TEST_F(Secure, test_unlock_request_mods) {
     tap_keys(key_a, key_b, key_c, key_d);
     EXPECT_TRUE(secure_is_unlocked());
 
-    testing::Mock::VerifyAndClearExpectations(&driver);
+    VERIFY_AND_CLEAR(driver);
 }

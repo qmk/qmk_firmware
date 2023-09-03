@@ -7,6 +7,20 @@ from PIL import Image, ImageOps
 
 # The list of valid formats Quantum Painter supports
 valid_formats = {
+    'rgb888': {
+        'image_format': 'IMAGE_FORMAT_RGB888',
+        'bpp': 24,
+        'has_palette': False,
+        'num_colors': 16777216,
+        'image_format_byte': 0x09,  # see qp_internal_formats.h
+    },
+    'rgb565': {
+        'image_format': 'IMAGE_FORMAT_RGB565',
+        'bpp': 16,
+        'has_palette': False,
+        'num_colors': 65536,
+        'image_format_byte': 0x08,  # see qp_internal_formats.h
+    },
     'pal256': {
         'image_format': 'IMAGE_FORMAT_PALETTE',
         'bpp': 8,
@@ -144,9 +158,22 @@ def convert_requested_format(im, format):
     ncolors = format["num_colors"]
     image_format = format["image_format"]
 
-    # Ensure we have a valid number of colors for the palette
-    if ncolors <= 0 or ncolors > 256 or (ncolors & (ncolors - 1) != 0):
-        raise ValueError("Number of colors must be 2, 4, 16, or 256.")
+    # -- Check if ncolors is valid
+    # Formats accepting several options
+    if image_format in ['IMAGE_FORMAT_GRAYSCALE', 'IMAGE_FORMAT_PALETTE']:
+        valid = [2, 4, 8, 16, 256]
+
+    # Formats expecting a particular number
+    else:
+        # Read number from specs dict, instead of hardcoding
+        for _, fmt in valid_formats.items():
+            if fmt["image_format"] == image_format:
+                # has to be an iterable, to use `in`
+                valid = [fmt["num_colors"]]
+                break
+
+    if ncolors not in valid:
+        raise ValueError(f"Number of colors must be: {', '.join(valid)}.")
 
     # Work out where we're getting the bytes from
     if image_format == 'IMAGE_FORMAT_GRAYSCALE':
@@ -157,8 +184,17 @@ def convert_requested_format(im, format):
         # If color, convert input to RGB, palettize based on the supplied number of colors, then get the raw palette bytes
         im = im.convert("RGB")
         im = im.convert("P", palette=Image.ADAPTIVE, colors=ncolors)
+    elif image_format in ['IMAGE_FORMAT_RGB565', 'IMAGE_FORMAT_RGB888']:
+        # Convert input to RGB
+        im = im.convert("RGB")
 
     return im
+
+
+def rgb_to565(r, g, b):
+    msb = ((r >> 3 & 0x1F) << 3) + (g >> 5 & 0x07)
+    lsb = ((g >> 2 & 0x07) << 5) + (b >> 3 & 0x1F)
+    return [msb, lsb]
 
 
 def convert_image_bytes(im, format):
@@ -170,8 +206,12 @@ def convert_image_bytes(im, format):
     image_format = format["image_format"]
     shifter = int(math.log2(ncolors))
     pixels_per_byte = int(8 / math.log2(ncolors))
+    bytes_per_pixel = math.ceil(math.log2(ncolors) / 8)
     (width, height) = im.size
-    expected_byte_count = ((width * height) + (pixels_per_byte - 1)) // pixels_per_byte
+    if (pixels_per_byte != 0):
+        expected_byte_count = ((width * height) + (pixels_per_byte - 1)) // pixels_per_byte
+    else:
+        expected_byte_count = width * height * bytes_per_pixel
 
     if image_format == 'IMAGE_FORMAT_GRAYSCALE':
         # Take the red channel
@@ -211,6 +251,28 @@ def convert_image_bytes(im, format):
                     # If color, each input byte is the index into the color palette -- pack them together
                     byte = byte | ((image_bytes[byte_offset] & (ncolors - 1)) << int(n * shifter))
             bytearray.append(byte)
+
+    if image_format == 'IMAGE_FORMAT_RGB565':
+        # Take the red, green, and blue channels
+        red = im.tobytes("raw", "R")
+        green = im.tobytes("raw", "G")
+        blue = im.tobytes("raw", "B")
+
+        # No palette
+        palette = None
+
+        bytearray = [byte for r, g, b in zip(red, green, blue) for byte in rgb_to565(r, g, b)]
+
+    if image_format == 'IMAGE_FORMAT_RGB888':
+        # Take the red, green, and blue channels
+        red = im.tobytes("raw", "R")
+        green = im.tobytes("raw", "G")
+        blue = im.tobytes("raw", "B")
+
+        # No palette
+        palette = None
+
+        bytearray = [byte for r, g, b in zip(red, green, blue) for byte in (r, g, b)]
 
     if len(bytearray) != expected_byte_count:
         raise Exception(f"Wrong byte count, was {len(bytearray)}, expected {expected_byte_count}")

@@ -120,7 +120,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
  *                                        `-------------'       `--------------'
  */
     [_ADJ] = LAYOUT(
-  KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_F5,   KC_F6,   XXXXXXX, KC_NLCK, KC_PEQL, KC_PSLS, KC_PAST, KC_PMNS, XXXXXXX, XXXXXXX,
+  KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_F5,   KC_F6,   XXXXXXX, KC_NUM,  KC_PEQL, KC_PSLS, KC_PAST, KC_PMNS, XXXXXXX, XXXXXXX,
   KC_F7,   KC_F8,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_P4,   KC_P5,   KC_P6,   KC_PENT, XXXXXXX, XXXXXXX, 
   XXXXXXX, XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P1,   KC_P2,   KC_P3,   KC_SPC,  XXXXXXX, XXXXXXX,
@@ -129,14 +129,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
                                               XXXXXXX, XXXXXXX, _______, XXXXXXX
     )
 };
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    switch (keycode) {
@@ -170,8 +162,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
   }
   return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }

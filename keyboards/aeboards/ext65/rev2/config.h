@@ -16,11 +16,6 @@
 
 #pragma once
 
-//RGB Underglow WS2812
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 24
-#define RGB_DI_PIN B15
-
 //SPI
 #define WS2812_SPI SPID2
 #define WS2812_SPI_MOSI_PAL_MODE 0
@@ -41,13 +36,8 @@
 #define I2C1_TIMINGR_SCLL   9U
 
 // LED defines
-#define BACKLIGHT_PIN           B5
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   2
 #define BACKLIGHT_PAL_MODE      1
-
-#define BACKLIGHT_LEVELS 6
-#define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
 
 #define SLEEP_LED_GPT_DRIVER GPTD1

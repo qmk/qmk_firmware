@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_CAPS,         KC_A,     KC_S,     KC_D,    KC_F,    KC_G,
     KC_LSFT,         KC_Z,     KC_X,     KC_C,    KC_V,    KC_B,   SE_ACUT,
     CTL_T(SE_QUOT),  SE_CIRC,  SE_ASTR,  KC_LALT, KC_LGUI,
-                                               KC_LCTRL,  KC_LALT,
+                                                 KC_LCTL, KC_LALT,
                                                           SE_TILD,
                                          KC_SPC, KC_BSPC, KC_ESC,
     // right hand
@@ -154,11 +154,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
 
@@ -185,7 +180,7 @@ void matrix_scan_user(void) {
             break;
     }
 
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         // if capslk is on, set led 1 on
         ergodox_right_led_1_on();
     } else {

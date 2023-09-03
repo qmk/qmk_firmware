@@ -17,19 +17,20 @@ $(TEST)_INC := \
 	tests/test_common/common_config.h
 
 $(TEST)_SRC := \
-	$(TMK_COMMON_SRC) \
 	$(QUANTUM_SRC) \
 	$(SRC) \
-	tests/test_common/keymap.c \
+	$(QUANTUM_PATH)/keymap_introspection.c \
 	tests/test_common/matrix.c \
 	tests/test_common/test_driver.cpp \
 	tests/test_common/keyboard_report_util.cpp \
+	tests/test_common/keycode_util.cpp \
+	tests/test_common/keycode_table.cpp \
 	tests/test_common/test_fixture.cpp \
 	tests/test_common/test_keymap_key.cpp \
 	tests/test_common/test_logger.cpp \
 	$(patsubst $(ROOTDIR)/%,%,$(wildcard $(TEST_PATH)/*.cpp))
 
-$(TEST)_DEFS := $(TMK_COMMON_DEFS) $(OPT_DEFS)
+$(TEST)_DEFS := $(OPT_DEFS) "-DKEYMAP_C=\"keymap.c\""
 
 $(TEST)_CONFIG := $(TEST_PATH)/config.h
 

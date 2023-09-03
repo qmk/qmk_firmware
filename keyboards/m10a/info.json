@@ -8,22 +8,33 @@
         "pid": "0x00AA",
         "device_version": "0.0.1"
     },
+    "matrix_pins": {
+        "cols": ["F5", "F1", "F0"],
+        "rows": ["B6", "F7", "F6", "D6"]
+    },
+    "diode_direction": "ROW2COL",
+    "backlight": {
+        "pin": "B7",
+        "levels": 6
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":0, "y":0},
-                {"x":1, "y":0},
-                {"x":2, "y":0},
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
 
-                {"x":0, "y":1},
-                {"x":1, "y":1},
-                {"x":2, "y":1},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
 
-                {"x":0, "y":2},
-                {"x":1, "y":2},
-                {"x":2, "y":2},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
 
-                {"x":1, "y":3, "w":2}
+                {"matrix": [3, 2], "x": 1, "y": 3, "w": 2}
             ]
         }
     }

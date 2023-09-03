@@ -1,0 +1,20 @@
+{
+    "keycodes": {
+        "0x74F0": {
+            "group": "steno",
+            "key": "QK_STENO_BOLT"
+        },
+        "0x74F1": {
+            "group": "steno",
+            "key": "QK_STENO_GEMINI"
+        },
+        "0x74F2": {
+            "group": "steno",
+            "key": "QK_STENO_COMB"
+        },
+        "0x74FC": {
+            "group": "steno",
+            "key": "QK_STENO_COMB_MAX"
+        }
+    }
+}

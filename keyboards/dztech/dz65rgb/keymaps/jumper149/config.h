@@ -58,6 +58,6 @@
 
 // Fix RGB_MATRIX_STARTUP, because RGB_MATRIX_CYCLE_ALL is disabled.
 // The actual handling of RGB_EFFECTs is done in keymap.c
-#undef RGB_MATRIX_STARTUP_MODE
+#undef RGB_MATRIX_DEFAULT_MODE
 
 #endif

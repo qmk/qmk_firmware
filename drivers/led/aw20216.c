@@ -1,4 +1,5 @@
 /* Copyright 2021 Jasper Chan
+ *           2023 Huckies <https://github.com/Huckies>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,6 +16,7 @@
  */
 
 #include "aw20216.h"
+#include "wait.h"
 #include "spi_master.h"
 
 /* The AW20216 appears to be somewhat similar to the IS31FL743, although quite
@@ -34,6 +36,8 @@
 
 #define AW_REG_CONFIGURATION 0x00 // PG0
 #define AW_REG_GLOBALCURRENT 0x01 // PG0
+#define AW_REG_RESET 0x2F         // PG0
+#define AW_REG_MIXFUNCTION 0x46   // PG0
 
 // Default value of AW_REG_CONFIGURATION
 // D7:D4 = 1011, SWSEL (SW1~SW12 active)
@@ -41,7 +45,10 @@
 // D2:D1 = 00, OSDE (open/short detection enable)
 // D0 = 0, CHIPEN (write 1 to enable LEDs when hardware enable pulled high)
 #define AW_CONFIG_DEFAULT 0b10110000
+#define AW_MIXCR_DEFAULT 0b00000000
+#define AW_RESET_CMD 0xAE
 #define AW_CHIPEN 1
+#define AW_LPEN (0x01 << 1)
 
 #define AW_PWM_REGISTER_COUNT 216
 
@@ -64,7 +71,7 @@
 uint8_t g_pwm_buffer[DRIVER_COUNT][AW_PWM_REGISTER_COUNT];
 bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
-bool AW20216_write(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t* data, uint8_t len) {
+bool aw20216_write(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t* data, uint8_t len) {
     static uint8_t s_spi_transfer_buffer[2] = {0};
 
     if (!spi_start(cs_pin, false, AW_SPI_MODE, AW_SPI_DIVISOR)) {
@@ -89,58 +96,73 @@ bool AW20216_write(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t* data, uint8
     return true;
 }
 
-static inline bool AW20216_write_register(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t value) {
+static inline bool aw20216_write_register(pin_t cs_pin, uint8_t page, uint8_t reg, uint8_t value) {
     // Little wrapper so callers need not care about sending a buffer
-    return AW20216_write(cs_pin, page, reg, &value, 1);
+    return aw20216_write(cs_pin, page, reg, &value, 1);
 }
 
-static void AW20216_init_scaling(pin_t cs_pin) {
+void aw20216_soft_reset(pin_t cs_pin) {
+    aw20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_RESET, AW_RESET_CMD);
+}
+
+static void aw20216_init_scaling(pin_t cs_pin) {
     // Set constant current to the max, control brightness with PWM
     for (uint8_t i = 0; i < AW_PWM_REGISTER_COUNT; i++) {
-        AW20216_write_register(cs_pin, AW_PAGE_SCALING, i, AW_SCALING_MAX);
+        aw20216_write_register(cs_pin, AW_PAGE_SCALING, i, AW_SCALING_MAX);
     }
 }
 
-static inline void AW20216_init_current_limit(pin_t cs_pin) {
+static inline void aw20216_init_current_limit(pin_t cs_pin) {
     // Push config
-    AW20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_GLOBALCURRENT, AW_GLOBAL_CURRENT_MAX);
+    aw20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_GLOBALCURRENT, AW_GLOBAL_CURRENT_MAX);
 }
 
-static inline void AW20216_soft_enable(pin_t cs_pin) {
+static inline void aw20216_soft_enable(pin_t cs_pin) {
     // Push config
-    AW20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_CONFIGURATION, AW_CONFIG_DEFAULT | AW_CHIPEN);
+    aw20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_CONFIGURATION, AW_CONFIG_DEFAULT | AW_CHIPEN);
 }
 
-void AW20216_init(pin_t cs_pin, pin_t en_pin) {
+static inline void aw20216_auto_lowpower(pin_t cs_pin) {
+    aw20216_write_register(cs_pin, AW_PAGE_FUNCTION, AW_REG_MIXFUNCTION, AW_MIXCR_DEFAULT | AW_LPEN);
+}
+
+void aw20216_init(pin_t cs_pin, pin_t en_pin) {
     setPinOutput(en_pin);
     writePinHigh(en_pin);
 
-    // Drivers should start with all scaling and PWM registers as off
-    AW20216_init_current_limit(cs_pin);
-    AW20216_init_scaling(cs_pin);
+    aw20216_soft_reset(cs_pin);
+    wait_ms(2);
 
-    AW20216_soft_enable(cs_pin);
+    // Drivers should start with all scaling and PWM registers as off
+    aw20216_init_current_limit(cs_pin);
+    aw20216_init_scaling(cs_pin);
+
+    aw20216_soft_enable(cs_pin);
+    aw20216_auto_lowpower(cs_pin);
 }
 
-void AW20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+void aw20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     aw_led led;
     memcpy_P(&led, (&g_aw_leds[index]), sizeof(led));
 
+    if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
+        return;
+    }
     g_pwm_buffer[led.driver][led.r]          = red;
     g_pwm_buffer[led.driver][led.g]          = green;
     g_pwm_buffer[led.driver][led.b]          = blue;
     g_pwm_buffer_update_required[led.driver] = true;
 }
 
-void AW20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
-        AW20216_set_color(i, red, green, blue);
+void aw20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        aw20216_set_color(i, red, green, blue);
     }
 }
 
-void AW20216_update_pwm_buffers(pin_t cs_pin, uint8_t index) {
+void aw20216_update_pwm_buffers(pin_t cs_pin, uint8_t index) {
     if (g_pwm_buffer_update_required[index]) {
-        AW20216_write(cs_pin, AW_PAGE_PWM, 0, g_pwm_buffer[index], AW_PWM_REGISTER_COUNT);
+        aw20216_write(cs_pin, AW_PAGE_PWM, 0, g_pwm_buffer[index], AW_PWM_REGISTER_COUNT);
     }
     g_pwm_buffer_update_required[index] = false;
 }

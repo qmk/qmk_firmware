@@ -75,7 +75,7 @@ enum layer_keycodes {
     G_PRE,               //Gradient presets
     REF_G,               //Toggle between linear and reflected gradient
     G_FLIP,              //Flip the gradient colors
-  
+
     //Custom led effect keycode
     RGB_C_E,             //Cycle user effect
 };
@@ -116,7 +116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     {{205, 250, 255}, {140, 215, 125}, false },
     };
 
-    uint8_t gp_length = sizeof(gradient_presets)/sizeof(gradient_presets[0]);
+    uint8_t gp_length = ARRAY_SIZE(gradient_presets);
 
     switch (keycode) {
         case G1_HUI:
@@ -273,20 +273,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (index == 0) {
-    if (clockwise) {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 3));
-    } else {
-        tap_code(dynamic_keymap_get_keycode(biton32(layer_state), 4, 4));
-    }
-  }
-  return true;
-}
-#endif
-
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     switch (biton32(layer_state)) {
         case _FN:
             rgb_matrix_set_color(16, 0, 0, 0); rgb_matrix_set_color(17, 0, 0, 0); rgb_matrix_set_color(18, 0, 0, 0); rgb_matrix_set_color(21, 0, 0, 0);
@@ -332,4 +319,5 @@ void rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(52, 0, 0, 0);
         }
     }
+    return false;
 }

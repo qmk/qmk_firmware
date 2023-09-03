@@ -17,30 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B5 }
-#define MATRIX_COL_PINS { B6 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 50
-
 /* key combination for command */
 #define IS_COMMAND() ( \
     false \
 )
-
-
-#ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 8
-#endif

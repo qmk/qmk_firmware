@@ -15,29 +15,9 @@
  */
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-#define MATRIX_COL_PINS {  A15, B3,  B4,  B6,  B7, B5,  C13, A5,  A4, B14, B15, A8, A9,  A10 }
-#define MATRIX_ROW_PINS {  C14, B13, B12, C15, A3 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Fix VIA RGB_light */
-#define VIA_HAS_BROKEN_KEYCODES
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
-#   define RGB_DI_PIN A7
-#   define RGBLED_NUM 82
-#   define DRIVER_LED_TOTAL RGBLED_NUM
+#   define RGB_MATRIX_LED_COUNT 82
 
 #   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #   define WS2812_PWM_CHANNEL 2  // default: 2
@@ -47,7 +27,6 @@
 
 
 #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 180
-#   define RGBLIGHT_VAL_STEP 18
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED true
 #   define RGB_MATRIX_CENTER { 96, 32 }
 #   define RGB_MATRIX_KEYPRESSES
@@ -103,10 +82,6 @@
 
 
 #ifdef RGBLIGHT_ENABLE
-#   define RGB_DI_PIN A7
-#   define RGBLED_NUM 82
-#   define DRIVER_LED_TOTAL RGBLED_NUM
-
 #   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
 #   define WS2812_PWM_CHANNEL 2  // default: 2
 #   define WS2812_PWM_PAL_MODE 2  // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2

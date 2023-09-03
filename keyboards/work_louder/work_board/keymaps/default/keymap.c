@@ -53,15 +53,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_ADJUST] = LAYOUT(
-        _______, QK_BOOT,   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL , R_M_TOG,
-        _______, _______, MU_MOD,  R_M_TOG, R_M_MOD, R_M_HUI, R_M_HUD, R_M_SAI, R_M_SAD, R_M_VAI, R_M_VAD, _______,
+        _______, QK_BOOT, _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL , R_M_TOG,
+        _______, _______, MU_NEXT, R_M_TOG, R_M_MOD, R_M_HUI, R_M_HUD, R_M_SAI, R_M_SAD, R_M_VAI, R_M_VAD, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     )
 };
 
 
-void dance_enc_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_enc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code(KC_MPLY);
     } else if (state->count == 2) {
@@ -71,7 +71,7 @@ void dance_enc_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_enc_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_enc_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code(KC_MPLY);
     } else if (state->count == 2) {
@@ -82,7 +82,7 @@ void dance_enc_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [ENC_TAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_enc_finished, dance_enc_reset),
 };
 

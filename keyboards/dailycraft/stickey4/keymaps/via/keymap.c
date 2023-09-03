@@ -25,91 +25,24 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
-        KC_A,    KC_B,    KC_C,   KC_D,
-        KC_NO,   KC_NO,   KC_NO,  KC_NO // for encoders
+        KC_A,    KC_B,    KC_C,   KC_D
     ),
     [_FN1] = LAYOUT(
-        KC_NO,   KC_NO,   KC_NO,  KC_NO,
         KC_NO,   KC_NO,   KC_NO,  KC_NO
     ),
     [_FN2] = LAYOUT(
-        KC_NO,   KC_NO,   KC_NO,  KC_NO,
         KC_NO,   KC_NO,   KC_NO,  KC_NO
     ),
     [_FN3] = LAYOUT(
-        KC_NO,   KC_NO,   KC_NO,  KC_NO,
         KC_NO,   KC_NO,   KC_NO,  KC_NO
     )
 };
 
-keyevent_t encoder1_ccw = {
-    .key = (keypos_t){.row = 0, .col = 4},
-    .pressed = false
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
+    [1] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
+    [2] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  },
+    [3] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  }
 };
-
-keyevent_t encoder1_cw = {
-    .key = (keypos_t){.row = 0, .col = 5},
-    .pressed = false
-};
-
-keyevent_t encoder2_ccw = {
-    .key = (keypos_t){.row = 0, .col = 6},
-    .pressed = false
-};
-
-keyevent_t encoder2_cw = {
-    .key = (keypos_t){.row = 0, .col = 7},
-    .pressed = false
-};
-
-void matrix_scan_user(void) {
-    if (IS_PRESSED(encoder1_ccw)) {
-        encoder1_ccw.pressed = false;
-        encoder1_ccw.time = (timer_read() | 1);
-        action_exec(encoder1_ccw);
-    }
-
-    if (IS_PRESSED(encoder1_cw)) {
-        encoder1_cw.pressed = false;
-        encoder1_cw.time = (timer_read() | 1);
-        action_exec(encoder1_cw);
-    }
-
-    if (IS_PRESSED(encoder2_ccw)) {
-        encoder2_ccw.pressed = false;
-        encoder2_ccw.time = (timer_read() | 1);
-        action_exec(encoder2_ccw);
-    }
-
-    if (IS_PRESSED(encoder2_cw)) {
-        encoder2_cw.pressed = false;
-        encoder2_cw.time = (timer_read() | 1);
-        action_exec(encoder2_cw);
-    }
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) { /* First encoder */
-        if (clockwise) {
-            encoder1_cw.pressed = true;
-            encoder1_cw.time = (timer_read() | 1);
-            action_exec(encoder1_cw);
-        } else {
-            encoder1_ccw.pressed = true;
-            encoder1_ccw.time = (timer_read() | 1);
-            action_exec(encoder1_ccw);
-        }
-    } else if (index == 1) {
-        if (clockwise) {
-            encoder2_cw.pressed = true;
-            encoder2_cw.time = (timer_read() | 1);
-            action_exec(encoder2_cw);
-        } else {
-            encoder2_ccw.pressed = true;
-            encoder2_ccw.time = (timer_read() | 1);
-            action_exec(encoder2_ccw);
-        }
-    }
-
-    return true;
-}
+#endif

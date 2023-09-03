@@ -19,7 +19,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_65_ansi( /* Base */
-    KC_GESC, KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
+    QK_GESC, KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
     KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP,
     KC_CAPS, KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGDN,
     KC_LSFT, KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_END,
@@ -77,25 +77,25 @@ bool bootAnimation(void){
                 G = 255;
                 R = 0;
                 B = 0;
-                IS31FL3733_set_color( 6+64-1, R, G, B );
+                is31fl3733_set_color( 6+64-1, R, G, B );
             }
             if (timer_elapsed(ledTimer) > 300){
                 G = 255;
                 R = 255;
                 B = 0;
-                IS31FL3733_set_color( 6+64-1, R, G, B );
+                is31fl3733_set_color( 6+64-1, R, G, B );
             }
             if (timer_elapsed(ledTimer) > 400){
                 G = 255;
                 R = 255;
                 B = 255;
-                IS31FL3733_set_color( 6+64-1, R, G, B );
+                is31fl3733_set_color( 6+64-1, R, G, B );
             }
             if (timer_elapsed(ledTimer) > 500){
                 G = 0;
                 R = 0;
                 B = 0;
-                IS31FL3733_set_color( 6+64-1, R, G, B );
+                is31fl3733_set_color( 6+64-1, R, G, B );
                 ledTimer = timer_read();
                 bootFirst--;
             }
@@ -105,13 +105,13 @@ bool bootAnimation(void){
                 G = 255;
                 R = 255;
                 B = 255;
-                IS31FL3733_set_color( 6+64-1, R, G, B );
+                is31fl3733_set_color( 6+64-1, R, G, B );
             }
             if (timer_elapsed(ledTimer) > 400){
                 G = 0;
                 R = 0;
                 B = 0;
-                IS31FL3733_set_color( 6+64-1, R, G, B );
+                is31fl3733_set_color( 6+64-1, R, G, B );
                 ledTimer = timer_read();
                 bootSec--;
             }
@@ -129,7 +129,7 @@ void breathing(void) {
             G+=fadeStep;
             R+=fadeStep;
             B+=fadeStep;
-            IS31FL3733_set_color( 6+64-1, R, G, B );
+            is31fl3733_set_color( 6+64-1, R, G, B );
             previousTime = time;
         }
     }
@@ -139,7 +139,7 @@ void breathing(void) {
             G-=fadeStep;
             R-=fadeStep;
             B-=fadeStep;
-            IS31FL3733_set_color( 6+64-1, R, G, B );
+            is31fl3733_set_color( 6+64-1, R, G, B );
             previousTime = time;
         } 
     }
@@ -147,7 +147,7 @@ void breathing(void) {
         R=0;
         G=0;
         B=0;
-        IS31FL3733_set_color( 6+64-1, R, G, B );
+        is31fl3733_set_color( 6+64-1, R, G, B );
         previousTime = 0;
         time = 0;
         ledTimer=timer_read();
@@ -169,7 +169,7 @@ void matrix_scan_user(void){
             G = 0;
             R = 0;
             B = 0;
-            IS31FL3733_set_color( 6+64-1, R, G, B );
+            is31fl3733_set_color( 6+64-1, R, G, B );
             prevCapsState = capsState; 
         }
     }

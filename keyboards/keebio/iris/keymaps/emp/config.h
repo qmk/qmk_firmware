@@ -17,9 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use I2C or Serial, not both */
 #undef USE_I2C
-#define USE_SERIAL
 
 /* Select hand configuration */
 #undef MASTER_LEFT
@@ -51,12 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * when off: tap-hold keys are both tapped when typed fast (within tapping term)
  */
 #undef PERMISSIVE_HOLD
-
-/* IGNORE_MOD_TAP_INTERRUPT
- * when on: rolling tap-hold keys taps all keys
- * when off: rolling tap-hold keys modifies keys
-*/
-#undef IGNORE_MOD_TAP_INTERRUPT
 
 /* TAPPING_TERM x (ms)
  * how long before a tap becomes a hold. if set above 500, a key tapped during
