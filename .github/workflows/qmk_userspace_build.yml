@@ -27,20 +27,19 @@ jobs:
     - name: Checkout Userspace
       uses: actions/checkout@v3
       with:
-        path: userspace
         submodules: recursive
 
     - name: Check qmk_firmware exists
       id: check_files
       uses: andstor/file-existence-action@v2
       with:
-        files: userspace/qmk_firmware
+        files: qmk_firmware
 
     - name: Checkout QMK Firmware
       uses: actions/checkout@v3
       if: steps.check_files.outputs.files_exists == 'false'
       with:
-        path: userspace/qmk_firmware
+        path: qmk_firmware
         repository: ${{ inputs.qmk_repo || 'qmk/qmk_firmware' }}
         ref: ${{ inputs.qmk_ref || 'master' }}
         submodules: recursive
@@ -51,7 +50,7 @@ jobs:
     ########################################################
     - name: Patch QMK Firmware with userspace support
       run: |
-        cd userspace/qmk_firmware
+        cd qmk_firmware
         git config --global user.email "nonexistent@email-address.invalid"
         git config --global user.name "QMK GitHub Actions User"
         git remote add qmk https://github.com/qmk/qmk_firmware.git
@@ -62,19 +61,19 @@ jobs:
     - name: Install QMK CLI
       run: |
         python3 -m pip install --upgrade qmk
-        python3 -m pip install -r userspace/qmk_firmware/requirements.txt
+        python3 -m pip install -r qmk_firmware/requirements.txt
 
     - name: Configure QMK CLI
       run: |
         qmk config mass_compile.parallel=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
-        qmk config user.qmk_home=$GITHUB_WORKSPACE/userspace/qmk_firmware
-        qmk config user.overlay_dir=$GITHUB_WORKSPACE/userspace
+        qmk config user.qmk_home=$GITHUB_WORKSPACE/qmk_firmware
+        qmk config user.overlay_dir=$GITHUB_WORKSPACE
 
     - name: Build
       run: |
         qmk mass-compile -e DUMP_CI_METADATA=yes -km ${{ github.repository_owner }} || touch .failed
         # Generate the step summary markdown
-        ./userspace/qmk_firmware/util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
+        ./qmk_firmware/util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
         # Truncate to a maximum of 1MB to deal with GitHub workflow limit
         truncate --size='<960K' $GITHUB_STEP_SUMMARY || true
         # Exit with failure if the compilation stage failed
