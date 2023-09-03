@@ -3,5 +3,4 @@
 
 #pragma once
 
-#define TAPPING_TERM 150
 #define SPLIT_HAND_PIN D1
