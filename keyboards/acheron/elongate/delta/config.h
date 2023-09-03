@@ -17,19 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define MATRIX_COL_PINS { A10, A9, A8, B14, B12, B11, B10, B2, B1, A7, A5, B9, B8, B7, B6 }
-#define MATRIX_ROW_PINS { B3, A15, B0, B4, B5 }
-
-#define DIODE_DIRECTION COL2ROW
-
 #define BACKLIGHT_PWM_DRIVER PWMD3
 #define BACKLIGHT_PWM_CHANNEL 1
 #define BACKLIGHT_PAL_MODE 1
 
-#define RGB_DI_PIN B15
 #define RGBLED_NUM 16
-#define RGBLIGHT_LIMIT_VAL 200
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD

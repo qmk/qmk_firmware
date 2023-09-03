@@ -1,4 +1,4 @@
-#include "kbdmini.h"
+#include "quantum.h"
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, B_9,  A_9,  C_9  }, //LA33

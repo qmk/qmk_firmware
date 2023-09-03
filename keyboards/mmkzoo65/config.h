@@ -16,15 +16,5 @@
 
 #pragma once
 
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B2, B3, B7, E6, B0 }
-#define MATRIX_COL_PINS { B1, F0, F1, F4, F5, F6, F7, D4, D6, D7, B4, B5, B6, C6, C7 }
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-#define FORCE_NKRO
-
 /* 将USB 轮询速率更改为 1000hz 并为精英游戏每次扫描使用更大的密钥*/
 #define USB_POLLING_INTERVAL_MS  2

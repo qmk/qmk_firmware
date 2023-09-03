@@ -17,15 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* Keyboard Matrix Assignments */
-
-#define MATRIX_ROW_PINS { E6, C6, B4, B5, B6 }
-#define MATRIX_COL_PINS { C7, F7, F6, F5, F4, F1, F0, B0, B1, B2, B3, B7, D2, D3, D5 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES

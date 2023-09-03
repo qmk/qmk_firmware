@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "spring.h"
+#include "quantum.h"
 
 enum caps_modes{
     CAPS_MODE_UPPER = 0, //UPPER CASE 

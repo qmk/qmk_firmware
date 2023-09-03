@@ -16,12 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-// wiring of each half
-#define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, B5 }
-
-#define DIODE_DIRECTION COL2ROW
-
 /* Select hand configuration */
 //#define EE_HANDS
 #define MASTER_LEFT
@@ -34,10 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB LED */
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
 #define RGBLED_NUM 69    // Number of LEDs. backlight x69
 #define RGBLED_SPLIT { 34, 35 }
-#define RGBLIGHT_LIMIT_VAL 120 /* The maximum brightness level */
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17

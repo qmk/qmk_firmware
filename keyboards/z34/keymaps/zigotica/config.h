@@ -22,6 +22,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // these should work better for homerow modifiers
 #define TAPPING_TERM 350
 #define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
 #define QUICK_TAP_TERM 0
 
