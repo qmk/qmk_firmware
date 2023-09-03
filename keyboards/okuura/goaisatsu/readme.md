@@ -10,11 +10,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make goaisatsu:default
+    make okuura/goaisatsu:default
 
 Flashing example for this keyboard:
 
-    make goaisatsu:default:flash
+    make okuura/goaisatsu:default:flash
 ## Bootloader
 
 Enter the bootloader in 2 ways:
