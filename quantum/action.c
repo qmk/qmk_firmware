@@ -687,11 +687,6 @@ void process_action(keyrecord_t *record, action_t action) {
                     }
 #    endif // !defined(NO_ACTION_ONESHOT) && !defined(NO_ACTION_TAPPING)
                     break;
-                case OP_EE_DEFAULT:
-                    if (!event.pressed) {
-                        set_single_persistent_default_layer(action.layer_tap.val);
-                    }
-                    break;
                 default:
 #    ifndef NO_ACTION_TAPPING /* tap key */
                     if (event.pressed) {
