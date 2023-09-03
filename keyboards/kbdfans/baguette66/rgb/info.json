@@ -7,11 +7,29 @@
         "pid": "0x0106",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 66,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "E6"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812",
+        "sat_steps": 8,
+        "val_steps": 8,
+        "speed_steps": 10
     },
     "matrix_pins": {
         "cols": ["C6", "C7", "F7", "F6", "B0", "B1", "B2", "B3", "D0", "D1", "D2", "D3", "D5", "D4", "D6"],

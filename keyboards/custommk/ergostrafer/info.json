@@ -79,5 +79,8 @@
             { "pin_a": "B12", "pin_b": "B14"},
             { "pin_a": "B15", "pin_b": "A15"}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     }
 }

@@ -10,7 +10,8 @@
         "pin": "F0"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812",
+        "timeout": 90000
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

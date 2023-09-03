@@ -3,7 +3,6 @@ RGBLIGHT_ENABLE = yes
 OPT_DEFS += -DRGBLED_BACK
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 # Helix specific font file
 OPT_DEFS += -DOLED_FONT_H=\"common/glcdfont.c\"
 # Xulkal specific oled define

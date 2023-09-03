@@ -20,6 +20,26 @@
     "split": {
         "soft_serial_pin": "D0"
     },
+    "tapping": {
+        "term": 120
+    },
+    "rgblight": {
+        "led_count": 24,
+        "led_map": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12],
+        "split_count": [12, 12],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "D3"
     },

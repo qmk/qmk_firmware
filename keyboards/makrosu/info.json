@@ -18,6 +18,9 @@
             {"pin_a": "E6", "pin_b": "D1"}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
     "bootmagic": {
         "matrix": [0, 5]
     },

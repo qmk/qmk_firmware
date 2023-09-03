@@ -12,7 +12,6 @@ RGBLIGHT_ENABLE    = no     # Enable keyboard RGB underglow
 AUDIO_ENABLE       = no     # Audio output
 ENCODER_ENABLE     = yes    # Enable support for rotary encoders
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306    # Enable support for OLED display
 
 # Additional code
 SRC += lib/oled_helper.c  # Adding OLED
