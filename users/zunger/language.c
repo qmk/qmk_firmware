@@ -1,3 +1,4 @@
+/*
 #include QMK_KEYBOARD_H
 #include "users/zunger/base.h"
 #include "users/zunger/language.h"
@@ -20,7 +21,7 @@ Language *current_language(void) {
   }
 }
 
-void lang_tap_dance_finished(tap_dance_state_t *state, Language *user_data) {
+void lang_tap_dance_finished(tap_dance_state_t *state, Language *language) {
     if (state->pressed) {
         language_select_held = language;
     } else if (state->count == 2) {  // Double-tap
@@ -28,7 +29,7 @@ void lang_tap_dance_finished(tap_dance_state_t *state, Language *user_data) {
     }
 }
 
-void lang_tap_dance_reset(tap_dance_state_t *state, Language *user_data) {
+void lang_tap_dance_reset(tap_dance_state_t *state, Language *language) {
     language_select_held = NULL;
 }
 
@@ -45,7 +46,7 @@ bool process_language_key(uint16_t keycode, keyrecord_t *record) {
 
   const uint16_t code_point = pgm_read_word(
     (const uint16_t*)language +   // Translation table
-    keycode * LANGUAGE_COLUMNS +  // Outer index is the keycode
+    keycode * MAX_MAPPABLE_CHAR +  // Outer index is the keycode
     (IS_SHIFTED ? 1 : 0)          // unshifted, then shifted.
   );
 
@@ -175,3 +176,4 @@ Language yiddish = {
   [KC_Y] = {0x05f2, 0xfb1f},  // ײ ‎ ײַ
   [KC_Z] = {0x05d6, XXXXXX},  // ז
 };
+*/

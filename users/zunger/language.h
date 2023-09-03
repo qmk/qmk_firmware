@@ -1,3 +1,4 @@
+/*
 #ifndef USERS_ZUNGER_LANGUAGE_H__
 #define USERS_ZUNGER_LANGUAGE_H__
 
@@ -48,3 +49,5 @@ void lang_tap_dance_finished(tap_dance_state_t *state, Language *user_data);
 void lang_tap_dance_reset(tap_dance_state_t *state, Language *user_data);
 
 #endif  // USERS_ZUNGER_LANGUAGE_H__
+
+*/

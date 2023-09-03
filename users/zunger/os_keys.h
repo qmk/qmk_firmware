@@ -1,3 +1,4 @@
+/*
 #ifndef USERS_ZUNGER_OS_KEYS_H__
 #define USERS_ZUNGER_OS_KEYS_H__
 #include QMK_KEYBOARD_H
@@ -275,3 +276,4 @@ void keyboard_post_init_user() {
 }
 
 #endif  // USERS_ZUNGER_OS_KEYS_H__
+*/

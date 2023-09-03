@@ -111,6 +111,10 @@ enum custom_keycodes {
   KC_ACCENT_END,
 };
 
+#define KC_YIDDISH TD(L_YIDDISH)
+#define KC_GREEK TD(L_GREEK)
+#define KC_CADET TD(L_CADET)
+
 tap_dance_action_t tap_dance_actions[] = {
     [L_GREEK] = LANGUAGE_TAP_DANCE(L_GREEK),
     [L_CADET] = LANGUAGE_TAP_DANCE(L_CADET),
@@ -128,100 +132,11 @@ enum layers_keymap {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_QWERTY] = LAYOUT_65_xt_ansi_blocker_tsangan(
-		KC_ESC,      KC_LLCK,    KC_GRAVE,KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_HOME,
+		KC_ESC,      XXXXXXX,    KC_GRAVE,KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_HOME,
 		KC_PLATFORM, KC_MPLY,    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
 		KC_SCRNSHT,  KC_YIDDISH, KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,                    KC_PGDN,
 		KC_GREEK,    KC_CADET,   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                   KC_UP,   KC_END,
 		KC_VC_HAND,  KC_VC_MUTE, KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                                      MO_FN,            KC_LEFT, KC_DOWN, KC_RGHT),
-
-  /* The Greek and Cadet layers. Tab, backspace, the nav and modifier keys, and the control block
-   * are always transparent.
-   *
-   * QWERTY GREEK   SGREEK  CADET   SCADET  YID      SYID
-   *   `                                    ׳ 05f3   ״ 05f4
-   *   1    ₁ 2081  ¹ 00b9  ¡ 00a1  ¿ 00bf  [transparent]
-   *   2    ₂ 2082  ² 00b2  « 00ab  » 00bb  [transparent]
-   *   3    ₃ 2083  ³ 00b3  £ 00a3  € 20ac  [transparent]
-   *   4    ₄ 2084  ⁴ 2074                  [transparent]
-   *   5    ₅ 2085  ⁵ 2075                  [transparent]
-   *   6    ₆ 2086  ⁶ 2076                  [transparent]
-   *   7    ₇ 2087  ⁷ 2077                  [transparent]
-   *   8    ₈ 2088  ⁸ 2078  ° 00b0  ⊗ 2297  [transparent]
-   *   9    ₉ 2089  ⁹ 2079                  [transparent]
-   *   0    ₀ 2080  ⁰ 2070  ∅ 2205          [transparent]
-   *   -    ₋ 208b  ⁻ 207b  ¬ 00ac  ⊖ 2296  [transparent]
-   *   =    ₊ 208a  ₋ 208b  ≠ 2260  ⊕ 2295  [transparent]
-   *   q    θ 03b8  Θ 0398  ℚ 211a          ק 05e7
-   *   w    ω 03c9  Ω 03a9                  ש 05e9
-   *   e    ε 03b5  Ε 0395  ∃ 2203  ∄ 2204  ע 05e2
-   *   r    ρ 03c1  Ρ 03a1  ℝ 211d          ר 05e8
-   *   t    τ 03c4  Τ 03a4                  ט 05d8  תּ fb4a
-   *   y    ψ 03c8  Ψ 03a8  ∨ 2228  ∧ 2227  ײ 05f2  ײַ fb1f
-   *   u    υ 03c5  Υ 03a5  ∪ 222a  ∩ 2229  ו 05d5  ױ 05f1
-   *   i    ι 03b9  Ι 0399  ∞ 221e  ℵ 2135  י 05d9
-   *   o    ο 03bf  Ο 039f                  ו 05d5  אָ fb2f
-   *   p    π 03c0  Π 03a0  ≡ 2261  ≢ 2262  פ 05e4  ף 05e3
-   *   [                    ± 00b1  ∓ 2213
-   *   ]                    ≈ 2248  ≉ 2249
-   *   \                    ∼ 223c  ≁ 2241
-   *   a    α 03b1  Α 0391  ∀ 2200  Å 212b  א 05d0  אַ fb2e
-   *   s    σ 03c3  Σ 03a3  ∈ 2208  ∉ 2209   ס 05e1 ת 05ea
-   *   d    δ 03b4  Δ 0394  ⊂ 2282  ⊄ 2284   ד 05d3
-   *   f    φ 03c6  Φ 03a6  ⊆ 2286  ⊈ 2288   פֿ fb4e
-   *   g    γ 03b3  Γ 0393  ⊇ 2287  ⊉ 2289   ג 05d2
-   *   h    η 03b7  Η 0397  ← 2190  ⇐ 21d0   ה 05d4
-   *   j            ϑ 03d1  ↓ 2193  ⇓ 21d3   ח 05d7  כֿ fb4d
-   *   k    κ 03ba  Κ 039a  ↑ 2191  ⇑ 21d1   כ 05db  ך 05da
-   *   l    λ 03bb  Λ 039b  → 2192  ⇒ 21d2   ל 05dc
-   *   ;    … 2026  ⋯ 22ef  ↔ 2194  ⇔ 21d4
-   *   '    · 00b7  • 2022  ∴ 2234  ⊙ 2299
-   *   z    ζ 03b6  Ζ 0396  ℤ 2124           ז 05d6
-   *   x    ξ 03be  Ξ 039e  ✘ 2718            צ 05e6  ץ 05e5
-   *   c    χ 03c7  Χ 03a7  ℂ 2102            כ 05db  ך 05da
-   *   v            ς 03c2  ✔ 2714  √ 221a    װ 05f0  בֿ fb4c
-   *   b    β 03b2  Β 0392                    ב 05d1
-   *   n    ν 03bd  Ν 039d  ℕ 2115            נ 05e0  ן 05df
-   *   m    μ 03bc  Μ 039c                    מ 05de  ם 05dd
-   *   ,    ≪ 226a  ≫ 226b  ∂ 2202  ∫ 222b
-   *   .    ≲ 2272  ≳ 2273  ≰ 2270  ≱ 2271
-   *   /                            ⊘ 2298
-   */
-	[_YIDDISH] = LAYOUT_65_xt_ansi_blocker_tsangan(
-		KC_TRNS,  KC_TRNS,    H(05f3), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-    KC_TRNS,  KC_TRNS,    KC_TRNS, H(05e7), H(05e9), H(05e2), H(05e8), H(05d8), H(05f2), H(05d5), H(05d9), H(05d5), H(05e4), KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(05d0), H(05e1), H(05d3), H(fb4e), H(05d2), H(05d4), H(05d7), H(05db), H(05dc), KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(05d6), H(05e6), H(05db), H(05f0), H(05d1), H(05e0), H(05de), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
-	[_SHIFTYIDDISH] = LAYOUT_65_xt_ansi_blocker_tsangan(
-		KC_TRNS,  KC_TRNS,    H(05f4), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, H(fb4a), H(fb1f), H(05f1), KC_TRNS, H(fb2f), H(05e3), KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-    KC_TRNS,  KC_TRNS,    KC_TRNS, H(fb2e), H(05ea), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, H(fb4d), H(05da), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, H(05e5), H(05da), H(fb4c), KC_TRNS, H(05df), H(05dd), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
-	[_GREEK] = LAYOUT_65_xt_ansi_blocker_tsangan(
-		KC_TRNS,  KC_TRNS,    XXXXXXX, H(2081), H(2082), H(2083), H(2084), H(2085), H(2086), H(2087), H(2088), H(2089), H(2080), H(208b), H(208a), KC_TRNS,          KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(03b8), H(03c9), H(03b5), H(03c1), H(03c4), H(03c8), H(03c5), H(03b9), H(03bf), H(03c0), XXXXXXX, XXXXXXX, XXXXXXX,          KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(03b1), H(03c3), H(03b4), H(03c6), H(03b3), H(03b7), XXXXXXX, H(03ba), H(03bb), H(2026), H(00b7), KC_TRNS,                   KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(03b6), H(03be), H(03c7), XXXXXXX, H(03b2), H(03bd), H(03bc), H(226a), H(2272), XXXXXXX, KC_TRNS,                   KC_TRNS, KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
-	[_SHIFTGREEK] = LAYOUT_65_xt_ansi_blocker_tsangan(
-		KC_TRNS,  KC_TRNS,    XXXXXXX, H(00b9), H(00b2), H(00b3), H(2074), H(2075), H(2076), H(2077), H(2078), H(2079), H(2070), H(207b), H(208b), KC_TRNS,          KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(0398), H(03a9), H(0395), H(03a1), H(03a4), H(03a8), H(03a5), H(0399), H(039f), H(03a0), XXXXXXX, XXXXXXX, XXXXXXX,          KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(0391), H(03a3), H(0394), H(03a6), H(0393), H(0397), H(03d1), H(039a), H(039b), H(22ef), H(2022), KC_TRNS,                   KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(0396), H(039e), H(03a7), H(03c2), H(0392), H(039d), H(039c), H(226b), H(2273), XXXXXXX, KC_TRNS,                   KC_TRNS, KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
-	[_CADET] = LAYOUT_65_xt_ansi_blocker_tsangan(
-		KC_TRNS,  KC_TRNS,    XXXXXXX, H(00a1), H(00ab), H(00a3), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, H(00b0), XXXXXXX, H(2205), H(00ac), H(2260), KC_TRNS,          KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(211a), XXXXXXX, H(2203), H(211d), XXXXXXX, H(2228), H(222a), H(221e), XXXXXXX, H(2261), H(00b1), H(2248), H(223c),          KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(2200), H(2208), H(2282), H(2286), H(2287), H(2190), H(2193), H(2191), H(2192), H(2194), H(2234), KC_TRNS,                   KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(2124), H(2718), H(2102), H(2714), XXXXXXX, H(2115), XXXXXXX, H(2202), H(2270), XXXXXXX, KC_TRNS,                   KC_TRNS, KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
-	[_SHIFTCADET] = LAYOUT_65_xt_ansi_blocker_tsangan(
-		KC_TRNS,  KC_TRNS,    XXXXXXX, H(00bf), H(00bb), H(20ac), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, H(2297), XXXXXXX, XXXXXXX, H(2296), H(2295), KC_TRNS,          KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, H(2204), XXXXXXX, XXXXXXX, H(2227), H(2229), H(2135), XXXXXXX, H(2262), H(2213), H(2249), H(2241),          KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, H(212b), H(2209), H(2284), H(2288), H(2289), H(21d0), H(21d3), H(21d1), H(21d2), H(21d4), H(2299), KC_TRNS,                   KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, H(221a), XXXXXXX, XXXXXXX, XXXXXXX, H(222b), H(2271), H(2298), KC_TRNS,                   KC_TRNS, KC_TRNS,
-		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
   // The function layer mostly contains the accent marks, but also has a few meta-control
   // operations. The accent marks are placed by analogy with Mac OS.
 	[_FUNCTION] = LAYOUT_65_xt_ansi_blocker_tsangan(
@@ -229,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, KC_CAGU, XXXXXXX, XXXXXXX, XXXXXXX, KC_CDIA, KC_CCIR, XXXXXXX, XXXXXXX, H(200e), H(200f), XXXXXXX,          XXXXXXX,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, KC_CCED, XXXXXXX, XXXXXXX, KC_CTIL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,                   XXXXXXX, XXXXXXX,
-		KC_TRNS,  KC_TRNS,    KC_RCTL, KC_RGUI, KC_RALT,                            KC_TRNS,                                     KC_TRNS,          XXXXXXX, XXXXXXX, XXXXXXX),
+		KC_TRNS,  KC_TRNS,    KC_RCTL, KC_RGUI, KC_RALT,                            H(200b),                                     KC_TRNS,          XXXXXXX, XXXXXXX, XXXXXXX),
 };
 
 
