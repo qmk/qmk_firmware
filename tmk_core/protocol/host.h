@@ -23,9 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host_driver.h"
 #include "led.h"
 
-#define IS_LED_ON(leds, led_name) ((leds) & (1 << (led_name)))
-#define IS_LED_OFF(leds, led_name) (~(leds) & (1 << (led_name)))
-
 #ifdef __cplusplus
 extern "C" {
 #endif
