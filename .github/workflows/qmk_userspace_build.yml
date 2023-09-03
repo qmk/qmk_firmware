@@ -86,9 +86,9 @@ jobs:
       with:
         name: Firmware
         path: |
-          userspace/*.bin
-          userspace/*.hex
-          userspace/*.uf2
+          *.bin
+          *.hex
+          *.uf2
 
   publish:
     name: Publish
@@ -96,14 +96,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/download-artifact@v3
+    - name: Download binaries
+      uses: actions/download-artifact@v3
 
-    - uses: marvinpinto/action-automatic-releases@latest
+    - name: Generate Release
+      uses: softprops/action-gh-release@v1
       if: always()
       with:
-        repo_token: "${{ github.token }}"
-        automatic_release_tag: "latest"
-        title: "Latest Firmware"
+        token: "${{ github.token }}"
+        name: Latest Firmware
+        tag_name: latest
+        fail_on_unmatched_files: false
+        draft: false
         prerelease: false
         files: |
           **/*.hex
