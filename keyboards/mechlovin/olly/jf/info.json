@@ -14,9 +14,6 @@
         "mousekey": true,
         "rgblight": true
     },
-    "matrix_pins": {
-        "rows": ["D5", "D6", "A5", "A4", "A3", "A6"]
-    },
     "diode_direction": "ROW2COL",
     "rgblight": {
         "led_count": 27,
