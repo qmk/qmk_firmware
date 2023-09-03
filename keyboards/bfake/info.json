@@ -39,7 +39,7 @@
   },
   "processor": "atmega32a",
   "bootloader": "bootloadhid",
-  "community_layouts": ["60_ansi","60_ansi_split_bs_rshift"],
+  "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift"],
   "layouts": {
     "LAYOUT_all": {
       "layout": [
@@ -227,8 +227,7 @@
         {"matrix": [2, 7], "x": 9.75, "y": 2},
         {"matrix": [2, 8], "x": 10.75, "y": 2},
         {"matrix": [3, 8], "x": 11.75, "y": 2},
-        {"matrix": [4, 9], "x": 12.25, "y": 3, "w": 1.75},
-        {"matrix": [5, 10], "x": 14, "y": 3},
+        {"matrix": [4, 10], "x": 12.75, "y": 2, "w": 2.25},
 
         {"matrix": [1, 9], "x": 0, "y": 3, "w": 2.25},
         {"matrix": [4, 1], "x": 2.25, "y": 3},
@@ -241,7 +240,8 @@
         {"matrix": [4, 6], "x": 9.25, "y": 3},
         {"matrix": [4, 7], "x": 10.25, "y": 3},
         {"matrix": [5, 8], "x": 11.25, "y": 3},
-        {"matrix": [4, 9], "x": 12.25, "y": 3, "w": 2.75},
+        {"matrix": [4, 9], "x": 12.25, "y": 3, "w": 1.75},
+        {"matrix": [5, 10], "x": 14, "y": 3},
 
         {"matrix": [0, 9], "x": 0, "y": 4, "w": 1.25},
         {"matrix": [0, 10], "x": 1.25, "y": 4, "w": 1.25},
