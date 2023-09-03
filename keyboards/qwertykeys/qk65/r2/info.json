@@ -2,7 +2,6 @@
     "manufacturer": "Qwertykeys",
     "keyboard_name": "QK65 Hotswap",
     "maintainer": "Siilwyn",
-    "bootloader": "stm32duino",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
