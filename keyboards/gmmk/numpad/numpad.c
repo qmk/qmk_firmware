@@ -19,7 +19,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
+const aw20216_led g_aw20216_leds[RGB_MATRIX_LED_COUNT] = {
 /* Each AW20216 channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
  * See drivers/awinic/aw20216.h for the mapping between register offsets and

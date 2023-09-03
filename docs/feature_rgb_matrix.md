@@ -485,10 +485,10 @@ You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC
 | `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
 | `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `AW_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
-| `AW_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
-| `AW_SPI_MODE` | (Optional) Mode for SPI communication (0-3, defines polarity and phase of the clock) | 3 |
-| `AW_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
+| `AW20216_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
+| `AW20216_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
+| `AW20216_SPI_MODE` | (Optional) Mode for SPI communication (0-3, defines polarity and phase of the clock) | 3 |
+| `AW20216_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
 
 Here is an example using 2 drivers.
 
@@ -510,7 +510,7 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT] = {
+const aw20216_led PROGMEM g_aw20216_leds[RGB_MATRIX_LED_COUNT] = {
 /* Each AW20216 channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
  * See drivers/awinic/aw20216.h for the mapping between register offsets and

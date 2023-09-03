@@ -21,14 +21,14 @@
 #include "progmem.h"
 #include "gpio.h"
 
-typedef struct aw_led {
+typedef struct aw20216_led {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} aw_led;
+} aw20216_led;
 
-extern const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT];
+extern const aw20216_led PROGMEM g_aw20216_leds[RGB_MATRIX_LED_COUNT];
 
 void aw20216_init(pin_t cs_pin, pin_t en_pin);
 void aw20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
