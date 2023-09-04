@@ -59,8 +59,11 @@
         "levels": 17,
         "pin": "A6"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label":"Encoder", "matrix": [1, 0], "x":0.5, "y":0},
                 {"label":"Esc", "matrix": [0, 0], "x":2.5, "y":0},
