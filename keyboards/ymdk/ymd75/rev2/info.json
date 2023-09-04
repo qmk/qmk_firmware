@@ -43,9 +43,12 @@
     },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
-    "community_layouts": ["75_iso"],
+    "layout_aliases":{
+        "LAYOUT": "LAYOUT_75_ansi"
+    },
+    "community_layouts": ["75_ansi", "75_iso"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_75_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
