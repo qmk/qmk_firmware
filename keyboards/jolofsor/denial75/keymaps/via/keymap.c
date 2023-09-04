@@ -129,24 +129,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     	KC_NO,            LEDRED,  LEDBLUE,  LEDYELLOW,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_BRID,
     	KC_NO,  	      LEDORANGE,   LEDGREEN,  LEDPURPLE,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,              RGB_VAI,
    		 KC_NO,  LEDWHITE,   LEDPINK,  LEDBLACK,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,            KC_NO,    KC_NO,    RGB_VAD,
-    	KC_NO,   KC_NO, 	   KC_NO,                  KC_NO,                           KC_NO,   MO(1),   RGB_TOG, KC_NO,    KC_NO,    KC_NO
-	),
-
-    [2] = LAYOUT_75_ansi(
-	    KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    	KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,          KC_NO,  KC_NO,
-    	KC_NO,            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    	KC_NO,  	      KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,
-   		KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,          KC_NO,          KC_NO,  KC_NO,
-    	KC_NO,   KC_NO,   KC_NO,                  KC_NO,                          KC_NO,   KC_NO,          KC_NO,  KC_NO,  KC_NO,  KC_NO
-	),
-
-    [3] = LAYOUT_75_ansi(
-	    KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    	KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,          KC_NO,  KC_NO,
-    	KC_NO,            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-    	KC_NO,  	      KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_NO,
-   		KC_NO,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,          KC_NO,          KC_NO,  KC_NO,
-    	KC_NO,   KC_NO,   KC_NO,                  KC_NO,                          KC_NO,   KC_NO,          KC_NO,  KC_NO,  KC_NO,  KC_NO
+    	KC_NO,   KC_NO, 	   KC_NO,                  KC_NO,                           KC_NO,  KC_TRNS,  RGB_TOG, KC_NO,    KC_NO,    KC_NO
 	)
 };
