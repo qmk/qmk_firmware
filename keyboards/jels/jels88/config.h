@@ -30,7 +30,6 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define RGBLIGHT_DEFAULT_VAL 0  // start off
-#define RGBLIGHT_LIMIT_VAL 225  // keep PCB under 500mA
 #endif
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */

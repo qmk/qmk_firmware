@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Axon40", 
+    "keyboard_name": "Axon40",
     "manufacturer": "Nasp",
-    "url": "", 
-    "maintainer": "nasp", 
+    "url": "",
+    "maintainer": "nasp",
     "usb": {
         "vid": "0x7070",
         "pid": "0x1119",

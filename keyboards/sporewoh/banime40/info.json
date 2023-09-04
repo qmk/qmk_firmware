@@ -1,12 +1,12 @@
 {
-    "keyboard_name": "banime40", 
+    "keyboard_name": "banime40",
     "manufacturer": "sporewoh",
-    "url": "https://github.com/ChrisChrisLoLo/banime40", 
-    "maintainer": "sporewoh", 
+    "url": "https://github.com/ChrisChrisLoLo/banime40",
+    "maintainer": "sporewoh",
     "usb": {
-     	"vid": "0xBEAF",
-     	"pid": "0x0001",
-     	"device_version": "0.0.1"
+        "vid": "0xBEAF",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
      },
      "matrix_pins": {
         "cols": ["B4", "B5", "B6", "B2", "B3", "B1", "F7", "F6", "F5", "F4"],

@@ -1,12 +1,12 @@
 {
-    "keyboard_name": "Equinox", 
+    "keyboard_name": "Equinox",
     "manufacturer": "ai03 Design Studio",
-    "url": "", 
-    "maintainer": "ai03", 
+    "url": "",
+    "maintainer": "ai03",
     "usb": {
-    	"vid": "0xA103",
-    	"pid": "0x0004",
-    	"device_version": "0.0.1"
+        "vid": "0xA103",
+        "pid": "0x0004",
+        "device_version": "0.0.1"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -61,7 +61,6 @@
                 {"label": "Delete", "matrix": [3, 11], "x": 11.75, "y": 3, "w": 1.25}
             ]
         },
-
         "LAYOUT_ansi_split_space": {
             "layout": [
                 {"label": "Tab", "matrix": [0, 0], "x": 0, "y": 0, "w": 1.5},
@@ -112,7 +111,6 @@
                 {"label": "Ctrl", "matrix": [3, 11], "x": 11.75, "y": 3, "w": 1.25}
             ]
         },
-
         "LAYOUT_iso_split_space": {
             "layout": [
                 {"label": "Tab", "matrix": [0, 0], "x": 0, "y": 0, "w": 1.5},

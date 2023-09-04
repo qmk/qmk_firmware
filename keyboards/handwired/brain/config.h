@@ -44,9 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLED_NUM 28  // Number of LEDs
 
-
-#define RGBLIGHT_LIMIT_VAL 120
-
 #define RGBLIGHT_SPLIT
 
 /*

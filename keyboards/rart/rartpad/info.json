@@ -25,6 +25,9 @@
   "ws2812": {
     "pin": "F7"
   },
+  "rgblight": {
+    "max_brightness": 240
+  },
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "community_layouts": ["ortho_5x4", "numpad_5x4"],

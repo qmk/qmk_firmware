@@ -20,7 +20,6 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100 // limits maximum brightness of LEDs to 100 out of 255.
-#define RGBLIGHT_LIMIT_VAL 100 // limits maximum brightness of LEDs to 100 out of 255.
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGBLED_NUM 110

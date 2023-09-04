@@ -81,7 +81,6 @@
                 {"label": "Right", "matrix": [3, 13], "x": 14.25, "y": 3}
             ]
         },
-
         "LAYOUT_625u_space": {
             "layout": [
                 {"label": "F1", "matrix": [0, 0], "x": 0, "y": 0},

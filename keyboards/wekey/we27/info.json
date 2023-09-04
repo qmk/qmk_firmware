@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "We27", 
+    "keyboard_name": "We27",
     "manufacturer": "@wekey",
-    "url": "", 
-    "maintainer": "@wekey.dev", 
+    "url": "",
+    "maintainer": "@wekey.dev",
     "usb": {
         "vid": "0x5559",
         "pid": "0x0001",

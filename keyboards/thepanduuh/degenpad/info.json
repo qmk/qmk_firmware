@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Degenpad", 
+    "keyboard_name": "Degenpad",
     "manufacturer": "ThePanduuh",
-    "url": "https://github.com/ThePanduuh", 
-    "maintainer": "ThePanduuh", 
+    "url": "https://github.com/ThePanduuh",
+    "maintainer": "ThePanduuh",
     "usb": {
         "vid": "0x4A44",
         "pid": "0x4447",

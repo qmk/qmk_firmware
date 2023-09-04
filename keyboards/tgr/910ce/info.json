@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "910CE", 
+    "keyboard_name": "910CE",
     "manufacturer": "TGR",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0x5447",
         "pid": "0x910C",
@@ -106,7 +106,6 @@
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
@@ -182,7 +181,6 @@
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-
         "LAYOUT_65_iso_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},

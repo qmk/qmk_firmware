@@ -1,8 +1,8 @@
 {
-  "keyboard_name": "UD_40 Ortholinear", 
+  "keyboard_name": "UD_40 Ortholinear",
   "manufacturer": "Mech Studio",
-  "url": "https://mech.studio/projects/ud_40/", 
-  "maintainer": "dejaeghered", 
+  "url": "https://mech.studio/projects/ud_40/",
+  "maintainer": "dejaeghered",
   "usb": {
     "vid": "0x4D53",
     "pid": "0x0002",

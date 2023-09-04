@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* Forcing to use NKRO instead 6KRO */
-#define FORCE_NKRO
-
 // SPI configuration
 #define SPI_DRIVER SPID1
 #define SPI_SCK_PIN A5

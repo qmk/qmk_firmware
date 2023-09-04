@@ -10,6 +10,9 @@
         "pin": "B1",
         "driver": "pwm"
     },
+    "rgblight": {
+        "max_brightness": 120
+    },
     "matrix_pins": {
         "cols": ["B0", "A7", "A3", "A5", "A4", "A2"],
         "rows": ["B12", "A6", "B13", "B9", "B8"]

@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "Fallacy", 
+    "keyboard_name": "Fallacy",
     "manufacturer": "SheuBox",
-    "maintainer": "Toraifu", 
+    "maintainer": "Toraifu",
     "usb": {
         "vid": "0xBF00",
         "pid": "0xBFFA",

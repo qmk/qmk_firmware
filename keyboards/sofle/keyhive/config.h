@@ -33,7 +33,6 @@
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLED_NUM 74
 #    define RGBLED_SPLIT {37,37}
-#    define RGBLIGHT_LIMIT_VAL 100 // LED Brightness, high power draw may exceed the USB limitations of 0.6A and cause a crash.
 #    define RGBLIGHT_HUE_STEP  10
 #    define RGBLIGHT_SAT_STEP  17
 #    define RGBLIGHT_VAL_STEP  17

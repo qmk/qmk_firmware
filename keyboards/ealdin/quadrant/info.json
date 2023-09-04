@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Quadrant E-C",
     "manufacturer": "Ealdin",
-    "url": "https://github.com/Ealdin/keyboards/tree/master/Quadrant", 
-    "maintainer": "Ealdin Keyboards", 
+    "url": "https://github.com/Ealdin/keyboards/tree/master/Quadrant",
+    "maintainer": "Ealdin Keyboards",
     "usb": {
         "vid": "0x0192",
         "pid": "0x5154",

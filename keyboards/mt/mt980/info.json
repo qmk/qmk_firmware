@@ -25,6 +25,9 @@
   "ws2812": {
     "pin": "E2"
   },
+  "rgblight": {
+    "max_brightness": 185
+  },
   "bootmagic": {
     "matrix": [5, 0]
   },

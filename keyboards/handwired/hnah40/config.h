@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

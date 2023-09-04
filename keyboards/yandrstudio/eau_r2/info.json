@@ -14,6 +14,9 @@
     "ws2812": {
         "pin": "A8"
     },
+    "rgblight": {
+        "max_brightness": 200
+    },
     "debounce": 8,
     "layouts": {
         "LAYOUT": {

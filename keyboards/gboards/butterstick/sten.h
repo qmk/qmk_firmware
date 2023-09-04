@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "butterstick.h"
+#include QMK_KEYBOARD_H
 #include "mousekey.h"
 #include "keymap_steno.h"
 #include "wait.h"

@@ -32,8 +32,6 @@
         // how long before oneshot times out
     #define ONESHOT_TAP_TOGGLE 2
         // how many taps before oneshot toggle is triggered
-    #define COMBO_COUNT 2
-        // Set this to the number of combos that you're using in the Combo feature.
     #define COMBO_TERM 200
         // how long for the Combo keys to be detected. Defaults to TAPPING_TERM if not defined.
     #define TAP_CODE_DELAY 100

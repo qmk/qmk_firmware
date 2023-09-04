@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "hotDuck", 
+    "keyboard_name": "hotDuck",
     "manufacturer": "h0oni",
-    "url": "", 
-    "maintainer": "h0oni", 
+    "url": "",
+    "maintainer": "h0oni",
     "usb": {
         "vid": "0x4D53",
         "pid": "0x6844",

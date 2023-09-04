@@ -16,7 +16,5 @@
 
 #pragma once
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 #define LED1 C5
 #define LED2 C4

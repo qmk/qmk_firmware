@@ -151,10 +151,15 @@ class Block:
         flags = 0x0
         if familyid:
             flags |= 0x2000
+        if devicetype:
+            flags |= 0x8000
         hd = struct.pack("<IIIIIIII",
             UF2_MAGIC_START0, UF2_MAGIC_START1,
             flags, self.addr, 256, blockno, numblocks, familyid)
         hd += self.bytes[0:256]
+        if devicetype:
+            hd += bytearray(b'\x08\x29\xa7\xc8')
+            hd += bytearray(devicetype.to_bytes(4, 'little'))
         while len(hd) < 512 - 4:
             hd += b"\x00"
         hd += struct.pack("<I", UF2_MAGIC_END)
@@ -283,6 +288,8 @@ def main():
     parser.add_argument('-f', '--family', dest='family', type=str,
                         default="0x0",
                         help='specify familyID - number or name (default: 0x0)')
+    parser.add_argument('-t' , '--device-type', dest='devicetype', type=str,
+                        help='specify deviceTypeID extension tag - number')
     parser.add_argument('-o', '--output', metavar="FILE", dest='output', type=str,
                         help='write output to named file; defaults to "flash.uf2" or "flash.bin" where sensible')
     parser.add_argument('-d', '--device', dest="device_path",
@@ -311,6 +318,9 @@ def main():
             familyid = int(args.family, 0)
         except ValueError:
             error("Family ID needs to be a number or one of: " + ", ".join(families.keys()))
+
+    global devicetype
+    devicetype = int(args.devicetype, 0) if args.devicetype else None
 
     if args.list:
         list_drives()

@@ -7,7 +7,7 @@ First produced as WT60-BX THERMAL for wilba.tech Thermal.
 WT60-B is the hotswap variant PCB.
 WT60-BX is the solderable variant PCB with split backspace and stepped Caps Lock support.
 
-* Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)
+* Keyboard Maintainer: [Wilba](https://github.com/Wilba)
 * Hardware Supported: wilba.tech WT60-BX
 * Hardware Availability: Custom keyboard group buys
 

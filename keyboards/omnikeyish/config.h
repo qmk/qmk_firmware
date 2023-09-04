@@ -20,9 +20,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* force n-key rollover*/
-#define FORCE_NKRO
-
 #define DYNAMIC_MACRO_COUNT 12
 #define DYNAMIC_MACRO_SIZE 48
 #define DYNAMIC_MACRO_EEPROM_STORAGE

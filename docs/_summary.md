@@ -70,6 +70,7 @@
     * [Macros](feature_macros.md)
     * [Mouse Keys](feature_mouse_keys.md)
     * [Programmable Button](feature_programmable_button.md)
+    * [Repeat Key](feature_repeat_key.md)
     * [Space Cadet Shift](feature_space_cadet.md)
     * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
@@ -138,7 +139,7 @@
   * Breaking Changes
     * [Overview](breaking_changes.md)
     * [My Pull Request Was Flagged](breaking_changes_instructions.md)
-    * [Most Recent ChangeLog](ChangeLog/20230226.md "QMK v0.20.0 - 2023 Feb 26")
+    * [Most Recent ChangeLog](ChangeLog/20230528.md "QMK v0.21.0 - 2023 May 28")
     * [Past Breaking Changes](breaking_changes_history.md)
 
   * C Development

@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Twelvekey", 
+    "keyboard_name": "Twelvekey",
     "manufacturer": "kb-elmo",
-    "url": "https://github.com/kb-elmo/twelvekey", 
-    "maintainer": "kb-elmo", 
+    "url": "https://github.com/kb-elmo/twelvekey",
+    "maintainer": "kb-elmo",
     "usb": {
         "vid": "0xA68C",
         "pid": "0x9879",

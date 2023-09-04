@@ -20,7 +20,7 @@
     "bootloader": "usbasploader",
   "layouts": {
     "LAYOUT_ortho_5x12_1x2uC": {
-      "layout": [ 
+      "layout": [
         {"matrix": [1, 0], "x": 0, "y": 0},
         {"matrix": [0, 0], "x": 1, "y": 0},
         {"matrix": [1, 1], "x": 2, "y": 0},
@@ -87,7 +87,7 @@
       ]
     },
     "LAYOUT_ortho_5x12": {
-      "layout": [ 
+      "layout": [
         {"matrix": [1, 0], "x": 0, "y": 0},
         {"matrix": [0, 0], "x": 1, "y": 0},
         {"matrix": [1, 1], "x": 2, "y": 0},

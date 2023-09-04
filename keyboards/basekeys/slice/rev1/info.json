@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Slice", 
+    "keyboard_name": "Slice",
     "manufacturer": "2Moons",
-    "url": "https://www.basekeys.com", 
-    "maintainer": "2Moons", 
+    "url": "https://www.basekeys.com",
+    "maintainer": "2Moons",
     "usb": {
         "vid": "0x04D8",
         "pid": "0xEC17",

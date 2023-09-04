@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Kira 75", 
+    "keyboard_name": "Kira 75",
     "manufacturer": "thesiscamper",
-    "url": "", 
-    "maintainer": "qmk", 
+    "url": "",
+    "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",

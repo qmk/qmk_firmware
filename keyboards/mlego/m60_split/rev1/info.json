@@ -21,6 +21,9 @@
     "ws2812": {
         "pin": "B15"
     },
+    "rgblight": {
+        "max_brightness": 128
+    },
     "split": {
         "bootmagic": {
             "matrix": [5, 0]

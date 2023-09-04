@@ -17,7 +17,6 @@
     "bootloader": "atmel-dfu",
     "community_layouts": ["65_ansi_blocker"],
     "layouts": {
-
         "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},

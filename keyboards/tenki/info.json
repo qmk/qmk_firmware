@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "TENKI", 
+    "keyboard_name": "TENKI",
     "manufacturer": "Pixlup",
-    "url": "https://tokopedia.com/pixlup", 
-    "maintainer": "eriqadams", 
+    "url": "https://tokopedia.com/pixlup",
+    "maintainer": "eriqadams",
     "usb": {
         "vid": "0x5058",
         "pid": "0x5445",
@@ -20,8 +20,8 @@
     "bootloader": "caterina",
     "community_layouts": ["ortho_5x4"],
     "layouts": {
-        "LAYOUT_ortho_5x4": { 
-			"layout": [
+        "LAYOUT_ortho_5x4": {
+            "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},

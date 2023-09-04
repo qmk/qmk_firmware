@@ -7,7 +7,7 @@
     "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B7",
-        "breathing":  true
+        "breathing": true
     },
     "ws2812": {
         "pin": "F6"

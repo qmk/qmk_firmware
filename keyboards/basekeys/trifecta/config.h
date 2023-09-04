@@ -36,9 +36,6 @@
 #define RGBLIGHT_EFFECT_TWINKLE
 #endif
 
-/* Limits the brightness of the LEDS range of 255-0 (255 is default)*/
-#define RGBLIGHT_LIMIT_VAL 128
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

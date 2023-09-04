@@ -23,7 +23,7 @@
     "community_layouts": ["65_ansi", "65_iso"],
     "layouts": {
         "LAYOUT_65_ansi": {
-            "layout":[
+            "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},
@@ -99,7 +99,7 @@
             ]
         },
         "LAYOUT_65_iso": {
-            "layout":[
+            "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},

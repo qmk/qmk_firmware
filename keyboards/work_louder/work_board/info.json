@@ -5,7 +5,8 @@
     "maintainer": "Work Louder",
     "usb": {
       "vid": "0x574C",
-      "pid": "0xDCD1"
+      "pid": "0xDCD1",
+      "max_power": 100
     },
     "rgb_matrix": {
       "driver": "WS2812"
@@ -22,6 +23,9 @@
     },
     "ws2812": {
       "pin": "D1"
+    },
+    "rgblight": {
+      "max_brightness": 120
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

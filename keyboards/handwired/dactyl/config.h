@@ -49,5 +49,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
-
-#define USB_MAX_POWER_CONSUMPTION 500

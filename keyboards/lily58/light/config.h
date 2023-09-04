@@ -23,4 +23,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_SPLIT { 35, 35 }
 #define RGBLED_NUM 70
 #define RGBLIGHT_SPLIT
-#define RGBLIGHT_LIMIT_VAL 120

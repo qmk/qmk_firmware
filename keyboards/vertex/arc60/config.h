@@ -37,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *  These options are also useful to firmware size reduction.
  */
 
-#define FORCE_NKRO
-
 /* disable debug print */
 //#define NO_DEBUG
 

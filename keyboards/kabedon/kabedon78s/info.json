@@ -1,15 +1,15 @@
 {
-    "keyboard_name": "78S", 
+    "keyboard_name": "78S",
     "manufacturer": "Kabe_Don",
-    "url": "", 
-    "maintainer": "370490639", 
+    "url": "",
+    "maintainer": "370490639",
     "usb": {
-    	"vid": "0x4B44",
-    	"pid": "0x3738",
-    	"device_version": "0.0.1"
+        "vid": "0x4B44",
+        "pid": "0x3738",
+        "device_version": "0.0.1"
     },
     "ws2812": {
-    	"pin": "B7"
+        "pin": "B7"
     },
     "matrix_pins": {
         "cols": ["F5", "F4", "F6", "C6", "B6", "B4", "D3", "D1", "D4", "F1", "B3", "D5", "F0", "C7", "D7", "B5", "B2", "E6"],

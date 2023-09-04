@@ -3,6 +3,9 @@
 
 #include "drashna.h"
 
+#ifdef CUSTOM_DYNAMIC_MACROS_ENABLE
+#    include "keyrecords/dynamic_macros.h"
+#endif
 #ifdef I2C_SCANNER_ENABLE
 void housekeeping_task_i2c_scanner(void);
 void keyboard_post_init_i2c(void);
@@ -10,7 +13,10 @@ void keyboard_post_init_i2c(void);
 
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 void                       keyboard_pre_init_user(void) {
-    userspace_config.raw = eeconfig_read_user();
+    eeconfig_read_user_config(&userspace_config.raw);
+    if (!userspace_config.check) {
+        eeconfig_init_user();
+    }
     keyboard_pre_init_keymap();
 }
 // Add reconfigurable functions here, for keymap customization
@@ -24,58 +30,8 @@ void                       keyboard_pre_init_user(void) {
 void keyboard_post_init_qp(void);
 #endif
 
-#ifdef OS_DETECTION_ENABLE
-os_variant_t os_type;
-
-uint32_t startup_exec(uint32_t trigger_time, void *cb_arg) {
-    /* do something */
-
-    if (is_keyboard_master()) {
-        os_type = detected_host_os();
-        if (os_type) {
-            bool is_mac                  = (os_type == OS_MACOS) || (os_type == OS_IOS);
-            keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = is_mac;
-#    ifdef UNICODE_COMMON_ENABLE
-            uint8_t mode = is_mac ? UNICODE_MODE_MACOS : UNICODE_MODE_WINCOMPOSE;
-            if (mode != get_unicode_input_mode()) {
-                set_unicode_input_mode(mode);
-            }
-#    endif
-            switch (os_type) {
-                case OS_UNSURE:
-                    xprintf("unknown OS Detected\n");
-                    break;
-                case OS_LINUX:
-                    xprintf("Linux Detected\n");
-                    break;
-                case OS_WINDOWS:
-                    xprintf("Windows Detected\n");
-                    break;
-#    if 0
-                case OS_WINDOWS_UNSURE:
-                    xprintf("Windows? Detected\n");
-                    break;
-#    endif
-                case OS_MACOS:
-                    xprintf("MacOS Detected\n");
-                    break;
-                case OS_IOS:
-                    xprintf("iOS Detected\n");
-                    break;
-#    if 0
-                case OS_PS5:
-                    xprintf("PlayStation 5 Detected\n");
-                    break;
-                case OS_HANDHELD:
-                    xprintf("Nintend Switch/Quest 2 Detected\n");
-                    break;
-#    endif
-            }
-        }
-    }
-
-    return os_type ? 0 : 500;
-}
+#if defined(OS_DETECTION_ENABLE) && defined(DEFERRED_EXEC_ENABLE)
+uint32_t startup_exec(uint32_t trigger_time, void *cb_arg);
 #endif
 
 __attribute__((weak)) void keyboard_post_init_keymap(void) {}
@@ -103,8 +59,10 @@ void                       keyboard_post_init_user(void) {
     DDRB &= ~(1 << 0);
     PORTB &= ~(1 << 0);
 #endif
-
-#ifdef OS_DETECTION_ENABLE
+#ifdef CUSTOM_DYNAMIC_MACROS_ENABLE
+    dynamic_macro_init();
+#endif
+#if defined(OS_DETECTION_ENABLE) && defined(DEFERRED_EXEC_ENABLE)
     defer_exec(100, startup_exec, NULL);
 #endif
 
@@ -153,9 +111,6 @@ void suspend_power_down_user(void) {
 
 __attribute__((weak)) void suspend_wakeup_init_keymap(void) {}
 void                       suspend_wakeup_init_user(void) {
-#ifdef OLED_ENABLE
-    oled_timer_reset();
-#endif
     suspend_wakeup_init_keymap();
 }
 
@@ -217,6 +172,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 __attribute__((weak)) layer_state_t default_layer_state_set_keymap(layer_state_t state) {
     return state;
 }
+
+#if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
+static float default_layer_songs[][MAX_LAYER][2] = DEFAULT_LAYER_SONGS;
+#endif
+
 layer_state_t default_layer_state_set_user(layer_state_t state) {
     if (!is_keyboard_master()) {
         return state;
@@ -226,6 +186,21 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 #if defined(CUSTOM_RGBLIGHT)
     state = default_layer_state_set_rgb_light(state);
 #endif
+
+    static bool has_init_been_ran = false;
+    // We don't want to run this the first time it's called, since it's read from eeeprom and called
+    // as part of the startup process. But after that, it's okay.
+    if (has_init_been_ran) {
+#if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
+        if (get_highest_layer(state) < MAX_LAYER) {
+            PLAY_SONG(default_layer_songs[get_highest_layer(state)]);
+        }
+#endif
+        eeconfig_update_default_layer(state);
+    } else {
+        has_init_been_ran = true;
+    }
+
     return state;
 }
 
@@ -238,9 +213,21 @@ __attribute__((weak)) void eeconfig_init_keymap(void) {}
 void                       eeconfig_init_user(void) {
     userspace_config.raw              = 0;
     userspace_config.rgb_layer_change = true;
-    userspace_config.autocorrection   = true;
-    eeconfig_update_user(userspace_config.raw);
+    userspace_config.check            = true;
+#if defined(OLED_ENABLE)
+    userspace_config.oled_brightness = OLED_BRIGHTNESS;
+#else
+    userspace_config.oled_brightness = 255;
+#endif
+    eeconfig_update_user_config(&userspace_config.raw);
     eeconfig_init_keymap();
+}
+
+void eeconfig_init_user_datablock(void) {
+#if (EECONFIG_USER_DATA_SIZE) > 4
+    uint8_t eeconfig_empty_temp[(EECONFIG_USER_DATA_SIZE)-4] = {0};
+    eeconfig_update_user_data(eeconfig_empty_temp);
+#endif
 }
 
 #ifdef SPLIT_KEYBOARD

@@ -39,7 +39,6 @@
 #define RGBLED_NUM 70
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 30, 40 }    // Number of LEDs
-#define RGBLIGHT_LIMIT_VAL 100
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #define RGB_MATRIX_LED_COUNT 70

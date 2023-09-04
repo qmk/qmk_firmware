@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "features/custom_shift_keys.h"
 
 #define FN_ESC LT(_FUNC, KC_ESC)
 
@@ -29,8 +30,12 @@ enum gentleman_keycodes {
     FUNC,
 };
 
+const custom_shift_key_t custom_shift_keys[] = {{KC_ESC, KC_TILD}};
+
+uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[_QWERTY] = LAYOUT_all(
+	[_QWERTY] = LAYOUT_65_ansi_rwkl_split_bs(
 		KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC,  KC_TRNS,
 		KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,           KC_BSLS, KC_DEL,
 		FN_ESC,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,            KC_PGUP,
@@ -38,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LCTL,  KC_LGUI, KC_LALT,                            KC_SPC,                            KC_RALT,  KC_RCTL,          KC_LEFT, KC_DOWN,  KC_RGHT
     ),
 
-	[_WORKMAN] = LAYOUT_all(
+	[_WORKMAN] = LAYOUT_65_ansi_rwkl_split_bs(
 		KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_BSPC,  KC_TRNS,
 		KC_TAB,   KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_LBRC, KC_RBRC,          KC_BSLS,  KC_DEL,
 		FN_ESC,   KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT,          KC_ENT,            KC_PGUP,
@@ -46,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_LCTL,  KC_LGUI, KC_LALT,                            KC_SPC,                            KC_RALT,  KC_RCTL,          KC_LEFT, KC_DOWN,  KC_RGHT
     ),
 
-    [_FUNC] = LAYOUT_all(
+    [_FUNC] = LAYOUT_65_ansi_rwkl_split_bs(
         KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS, QK_BOOT,
         KC_TRNS,  KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2, KC_TRNS, KC_TRNS, KC_TRNS, KC_UP,   AG_NORM, AG_SWAP, QWERTY,  WORKMAN,          KC_TRNS, KC_INS,
         KC_TRNS,  KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_END,           KC_TRNS,          KC_HOME,
@@ -78,6 +83,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (!process_custom_shift_keys(keycode, record)) {
+        return false;
+    }
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
@@ -90,7 +98,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
     }
-    
+
     return true;
 }
-

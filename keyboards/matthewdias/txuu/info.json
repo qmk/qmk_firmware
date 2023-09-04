@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "Txuu", 
+    "keyboard_name": "Txuu",
     "manufacturer": "Matthew Dias",
-    "maintainer": "matthewdias", 
+    "maintainer": "matthewdias",
     "usb": {
         "vid": "0x6D64",
         "pid": "0x2809",

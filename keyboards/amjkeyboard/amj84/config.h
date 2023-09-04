@@ -8,8 +8,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define FORCE_NKRO
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

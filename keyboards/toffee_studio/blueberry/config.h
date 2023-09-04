@@ -26,8 +26,6 @@
   21,			                   9,   \
    0,  1,  2,  3,  4,  5,  6,  7,  8    }
 
-/* The maximum brightness level up to 255 */
-#define RGBLIGHT_LIMIT_VAL 192    //limited to 75% brightness
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL

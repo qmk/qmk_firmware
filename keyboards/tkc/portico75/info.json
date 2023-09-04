@@ -1,7 +1,7 @@
 {
-    "keyboard_name": "Portico75", 
+    "keyboard_name": "Portico75",
     "manufacturer": "TKC",
-    "url": "", 
+    "url": "",
     "maintainer": "TerryMathews",
     "usb": {
         "vid": "0x544B",

@@ -32,7 +32,6 @@
   #define RGBLED_SPLIT \
         { 18, 18 }
   #define RGBLIGHT_SPLIT
-  #define RGBLIGHT_LIMIT_VAL 150
   #define RGBLIGHT_HUE_STEP 10
   #define RGBLIGHT_SAT_STEP 17
   #define RGBLIGHT_VAL_STEP 17

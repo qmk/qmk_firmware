@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
-#    define RGBLIGHT_LIMIT_VAL 170 /* The maximum brightness level */
 #    define RGBLIGHT_EFFECT_BREATHING
 #    define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -38,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SPLIT_TRANSPORT_MIRROR
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    define RGB_MATRIX_SPLIT RGBLED_SPLIT
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
+#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 170
 #    define RGB_MATRIX_HUE_STEP RGBLIGHT_HUE_STEP
 #    define RGB_MATRIX_SAT_STEP RGBLIGHT_SAT_STEP
 #    define RGB_MATRIX_VAL_STEP RGBLIGHT_VAL_STEP

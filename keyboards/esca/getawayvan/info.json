@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "GetawayVan", 
+    "keyboard_name": "GetawayVan",
     "manufacturer": "esca",
-    "url": "", 
-    "maintainer": "esca", 
+    "url": "",
+    "maintainer": "esca",
     "usb": {
         "vid": "0xE5CA",
         "pid": "0x0401",
@@ -15,6 +15,9 @@
     "diode_direction": "COL2ROW",
     "ws2812": {
         "pin": "B15"
+    },
+    "rgblight": {
+        "max_brightness": 128
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",

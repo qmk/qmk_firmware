@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "yosino58", 
+    "keyboard_name": "yosino58",
     "manufacturer": "sakuranbo0046",
-    "url": "https://github.com/sakurachari/yosino58", 
-    "maintainer": "sakuranbo0046", 
+    "url": "https://github.com/sakurachari/yosino58",
+    "maintainer": "sakuranbo0046",
     "usb": {
         "vid": "0x0F6A",
         "pid": "0x01B8",

@@ -8,6 +8,12 @@
         "pid": "0x0018",
         "device_version": "0.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgblight": true
+    },
     "ws2812": {
         "pin": "D3"
     },
@@ -17,11 +23,13 @@
     },
     "diode_direction": "COL2ROW",
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "D4", "pin_b": "C6"}
         ]
     },
     "split": {
+        "enabled": true,
         "soft_serial_pin": "D2",
         "matrix_pins": {
             "right": {
@@ -32,6 +40,23 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "rgblight": {
+        "led_count": 8,
+        "split_count": [4, 4],
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

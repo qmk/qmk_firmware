@@ -20,6 +20,9 @@
     "ws2812": {
         "pin": "F7"
     },
+    "rgblight": {
+        "max_brightness": 130
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "community_layouts": ["tkl_ansi", "tkl_ansi_tsangan"],

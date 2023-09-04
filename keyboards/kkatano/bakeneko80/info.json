@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "Bakeneko 80", 
+    "keyboard_name": "Bakeneko 80",
     "manufacturer": "Koichi Katano",
-    "url": "https://github.com/kkatano/bakeneko-80-pcb", 
-    "maintainer": "Koichi Katano", 
+    "url": "https://github.com/kkatano/bakeneko-80-pcb",
+    "maintainer": "Koichi Katano",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x8DEF",

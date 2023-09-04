@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "NK65", 
+    "keyboard_name": "NK65",
     "manufacturer": "Yiancar-Designs",
-    "url": "", 
-    "maintainer": "yiancar", 
+    "url": "",
+    "maintainer": "yiancar",
     "usb": {
         "vid": "0x8968",
         "pid": "0x4E4B",

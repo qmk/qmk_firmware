@@ -19,7 +19,5 @@
 #define RETRO_TAPPING_PER_KEY
 #define TAPPING_TERM_PER_KEY
 
-#define COMBO_COUNT 2             // number of combos used
 #define COMBO_TERM 40             // time out for combos in ms
 #define TAPPING_TERM 200          // time out for tap-hold in ms
-
