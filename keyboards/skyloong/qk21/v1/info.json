@@ -22,7 +22,7 @@
         "pin": "B7"
     },
     "rgb_matrix":{
-        "driver": "WS2812",
+        "driver": "ws2812",
         "animations": {
             "alphas_mods": false,
             "band_pinwheel_sat": false,
