@@ -1,6 +1,10 @@
 {
     "keyboard_name": "Dactyl ManuForm Carbonfet 6x7 ex",
+    "manufacturer": "carbonfet",
+    "url": "https://github.com/carbonfet/dactyl-manuform",
+    "maintainer": "dunk2k",
     "usb": {
+        "vid": "0x444D",
         "pid": "0xC67A",
         "device_version": "1.0.0"
     },
