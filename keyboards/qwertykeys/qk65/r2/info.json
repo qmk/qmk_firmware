@@ -3,19 +3,25 @@
     "keyboard_name": "QK65 Hotswap",
     "maintainer": "Siilwyn",
     "diode_direction": "COL2ROW",
+    "qmk": {
+        "tap_keycode_delay": 5
+    },
     "features": {
         "bootmagic": true,
-        "nkro": true,
-        "extrakey": true
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["A7", "B0", "B1", "B2", "B10", "B11", "B12", "B13", "B14", "B15", "A8", "B6", "B7", "A6", "A15"],
         "rows": ["A1", "A2", "A3", "A4", "A5"]
     },
     "indicators": {
-        "caps_lock": "A0"
+        "caps_lock": "A0",
+        "on_state": 0
     },
     "processor": "STM32F103",
+    "board": "STM32_F103_STM32DUINO",
     "url": "https://www.qwertykeys.com/",
     "usb": {
         "device_version": "0.0.2",
@@ -23,6 +29,7 @@
         "vid": "0x4F53",
         "force_nkro": true
     },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
