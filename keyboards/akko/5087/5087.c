@@ -141,6 +141,8 @@ void matrix_init_kb(void) {
     writePinLow(LED_MAC_OS_PIN);
     setPinOutput(LED_WIN_LOCK_PIN); // LED3 Win Lock
     writePinLow(LED_WIN_LOCK_PIN);
+
+    matrix_init_user();
 }
 
 void housekeeping_task_kb(void){
