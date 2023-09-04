@@ -144,7 +144,7 @@ bool rgb_matrix_indicators_kb(void) {
 // ==========================================================================
 
 #    if WS2812_LED_TOTAL > 0
-LED_TYPE rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
+rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
 #    endif
 
 static void rgb_matrix_driver_init(void) {

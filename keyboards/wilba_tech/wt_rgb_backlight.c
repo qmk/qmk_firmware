@@ -64,7 +64,7 @@
 
 #if defined(RGB_BACKLIGHT_DAWN60)
 #include "ws2812.h"
-LED_TYPE g_ws2812_leds[WS2812_LED_TOTAL];
+rgb_led_t g_ws2812_leds[WS2812_LED_TOTAL];
 #endif
 
 #include "progmem.h"

@@ -180,8 +180,8 @@ void keyboard_post_init_user(void) {
     rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING + 2);
 
     // set other led's to off
-    setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
-    setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+    setrgb(0, 0, 0, (rgb_led_t *)&led[0]);
+    setrgb(0, 0, 0, (rgb_led_t *)&led[1]);
     rgblight_set();
   #endif
 }
@@ -190,23 +190,23 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
   #ifdef RGBLIGHT_ENABLE
     if (layer_state_cmp(state, _ADJUST)) {
-      setrgb(70, 255, 200, (LED_TYPE *)&led[0]);
-      setrgb(255, 70, 100, (LED_TYPE *)&led[1]);
+      setrgb(70, 255, 200, (rgb_led_t *)&led[0]);
+      setrgb(255, 70, 100, (rgb_led_t *)&led[1]);
     } else if (layer_state_cmp(state, _LOWER)) {
-      setrgb(70, 255, 200, (LED_TYPE *)&led[0]);
-      setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+      setrgb(70, 255, 200, (rgb_led_t *)&led[0]);
+      setrgb(0, 0, 0, (rgb_led_t *)&led[1]);
     } else if (layer_state_cmp(state, _RAISE)) {
-      setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
-      setrgb(255, 70, 100, (LED_TYPE *)&led[1]);
+      setrgb(0, 0, 0, (rgb_led_t *)&led[0]);
+      setrgb(255, 70, 100, (rgb_led_t *)&led[1]);
     } else if (layer_state_cmp(state, _UTIL)) {
-      setrgb(200, 70, 225, (LED_TYPE *)&led[0]);
-      setrgb(200, 70, 225, (LED_TYPE *)&led[1]);
+      setrgb(200, 70, 225, (rgb_led_t *)&led[0]);
+      setrgb(200, 70, 225, (rgb_led_t *)&led[1]);
     } else if (layer_state_cmp(state, _MOUSE)) {
-      setrgb(255, 145, 5, (LED_TYPE *)&led[0]);
-      setrgb(255, 145, 5, (LED_TYPE *)&led[1]);
+      setrgb(255, 145, 5, (rgb_led_t *)&led[0]);
+      setrgb(255, 145, 5, (rgb_led_t *)&led[1]);
     } else {
-      setrgb(0, 0, 0, (LED_TYPE *)&led[0]);
-      setrgb(0, 0, 0, (LED_TYPE *)&led[1]);
+      setrgb(0, 0, 0, (rgb_led_t *)&led[0]);
+      setrgb(0, 0, 0, (rgb_led_t *)&led[1]);
     }
 
     rgblight_set();
