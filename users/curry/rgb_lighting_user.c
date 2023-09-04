@@ -142,7 +142,7 @@ void scan_rgblight_fadeout(void) {  // Don't effing change this function .... rg
             if (light->life) {
                 light->life -= 1;
                 if (get_highest_layer(layer_state) == 0) {
-                    sethsv(light->hue + rand() % 0xF, 255, light->life, (LED_TYPE *)&led[light_index]);
+                    sethsv(light->hue + rand() % 0xF, 255, light->life, (rgb_led_t *)&led[light_index]);
                 }
                 light->timer = timer_read();
             } else {

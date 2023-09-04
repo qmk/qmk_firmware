@@ -106,7 +106,7 @@ static uint8_t get_protocol_eq(uint8_t data, int pos) {
     return eq;
 }
 
-static void set_led_color_rgb(LED_TYPE color, int pos) {
+static void set_led_color_rgb(rgb_led_t color, int pos) {
     uint8_t* tx_start = &txbuf[PREAMBLE_SIZE];
 
 #if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
@@ -187,7 +187,7 @@ void ws2812_init(void) {
 #endif
 }
 
-void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
+void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
     static bool s_init = false;
     if (!s_init) {
         ws2812_init();
