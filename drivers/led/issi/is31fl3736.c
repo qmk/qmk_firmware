@@ -76,7 +76,7 @@ uint8_t g_twi_transfer_buffer[20];
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in is31fl3736_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
-uint8_t g_pwm_buffer[DRIVER_COUNT][192];
+uint8_t g_pwm_buffer[IS31FL3736_DRIVER_COUNT][192];
 bool    g_pwm_buffer_update_required[IS31FL3736_DRIVER_COUNT] = {false};
 
 uint8_t g_led_control_registers[IS31FL3736_DRIVER_COUNT][24] = {{0}, {0}};

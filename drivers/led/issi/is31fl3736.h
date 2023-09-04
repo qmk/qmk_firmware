@@ -22,13 +22,6 @@
 #include <string.h>
 #include "progmem.h"
 
-// Simple interface option.
-// If these aren't defined, just define them to make it compile
-
-#ifndef IS31FL3736_DRIVER_COUNT
-#    define IS31FL3736_DRIVER_COUNT 2
-#endif
-
 typedef struct is31_led {
     uint8_t driver : 2;
     uint8_t r;
