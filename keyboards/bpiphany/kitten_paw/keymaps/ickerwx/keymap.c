@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "mousekey.h"
 
 #define MEDAPP LT(MEDIA, KC_APP)
 
