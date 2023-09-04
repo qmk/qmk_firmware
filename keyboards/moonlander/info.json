@@ -13,8 +13,11 @@
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_moonlander": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_moonlander": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.375},
                 {"matrix": [0, 1], "x": 1, "y": 0.375},
