@@ -19,7 +19,6 @@
         "console": false,
         "command": false,
         "nkro": true,
-        "encoder": false,
         "rgb_matrix": true
     },
     "matrix_pins": {
