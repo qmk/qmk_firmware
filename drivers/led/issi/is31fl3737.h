@@ -49,14 +49,14 @@ void is31fl3737_set_led_control_register(uint8_t index, bool red, bool green, bo
 void is31fl3737_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3737_update_led_control_registers(uint8_t addr, uint8_t index);
 
-#define PUR_0R 0x00   // No PUR resistor
-#define PUR_05KR 0x01 // 0.5k Ohm resistor in t_NOL
-#define PUR_1KR 0x02  // 1.0k Ohm resistor in t_NOL
-#define PUR_2KR 0x03  // 2.0k Ohm resistor in t_NOL
-#define PUR_4KR 0x04  // 4.0k Ohm resistor in t_NOL
-#define PUR_8KR 0x05  // 8.0k Ohm resistor in t_NOL
-#define PUR_16KR 0x06 // 16k Ohm resistor in t_NOL
-#define PUR_32KR 0x07 // 32k Ohm resistor in t_NOL
+#define IS31FL3737_PUR_0R 0x00   // No PUR resistor
+#define IS31FL3737_PUR_05KR 0x01 // 0.5k Ohm resistor in t_NOL
+#define IS31FL3737_PUR_1KR 0x02  // 1.0k Ohm resistor in t_NOL
+#define IS31FL3737_PUR_2KR 0x03  // 2.0k Ohm resistor in t_NOL
+#define IS31FL3737_PUR_4KR 0x04  // 4.0k Ohm resistor in t_NOL
+#define IS31FL3737_PUR_8KR 0x05  // 8.0k Ohm resistor in t_NOL
+#define IS31FL3737_PUR_16KR 0x06 // 16k Ohm resistor in t_NOL
+#define IS31FL3737_PUR_32KR 0x07 // 32k Ohm resistor in t_NOL
 
 #define A_1 0x00
 #define A_2 0x01
