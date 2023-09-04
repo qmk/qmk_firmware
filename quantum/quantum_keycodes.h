@@ -93,7 +93,7 @@
 #define QK_DEF_LAYER_GET_LAYER(kc) ((kc)&0x1F)
 
 // Set persistent default layer - 32 layer max
-#define PD(layer) (QK_PERSISTENT_DEF_LAYER | ((layer)&0x1F))
+#define PDF(layer) (QK_PERSISTENT_DEF_LAYER | ((layer)&0x1F))
 #define QK_PERSISTENT_DEF_LAYER_GET_LAYER(kc) ((kc)&0x1F)
 
 // Toggle to layer - 32 layer max
