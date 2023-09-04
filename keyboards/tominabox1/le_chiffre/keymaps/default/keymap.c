@@ -146,9 +146,9 @@ void update_layer_namebuf(layer_state_t layer, bool force_update) {
     if (force_update || layer != top_layer_cache) {
         top_layer_cache = layer;
         if (layer < ARRAY_SIZE(layer_names)) {
-            strncpy_P(oled_layer_buf, (const char*)(pgm_read_word(&layer_names[layer])), ARRAY_SIZE(oled_layer_buf) - 1);
+            memcpy_P(oled_layer_buf, pgm_read_ptr(&layer_names[layer]), ARRAY_SIZE(oled_layer_buf) - 1);
         } else {
-            strncpy(oled_layer_buf, get_u8_str(layer, ' '), ARRAY_SIZE(oled_layer_buf) - 1);
+            memcpy(oled_layer_buf, get_u8_str(layer, ' '), ARRAY_SIZE(oled_layer_buf) - 1);
         }
     }
 }
