@@ -1,0 +1,6 @@
+{
+    "features": {
+        "encoder_map": true,
+        "rgb_matrix": true
+    }
+}
