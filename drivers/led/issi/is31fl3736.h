@@ -25,12 +25,8 @@
 // Simple interface option.
 // If these aren't defined, just define them to make it compile
 
-#ifndef DRIVER_COUNT
-#    define DRIVER_COUNT 2
-#endif
-
-#ifndef RGB_MATRIX_LED_COUNT
-#    define RGB_MATRIX_LED_COUNT 96
+#ifndef IS31FL3736_DRIVER_COUNT
+#    define IS31FL3736_DRIVER_COUNT 2
 #endif
 
 typedef struct is31_led {
@@ -62,14 +58,14 @@ void is31fl3736_mono_set_led_control_register(uint8_t index, bool enabled);
 void is31fl3736_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3736_update_led_control_registers(uint8_t addr, uint8_t index);
 
-#define PUR_0R 0x00   // No PUR resistor
-#define PUR_05KR 0x01 // 0.5k Ohm resistor
-#define PUR_1KR 0x02  // 1.0k Ohm resistor
-#define PUR_2KR 0x03  // 2.0k Ohm resistor
-#define PUR_4KR 0x04  // 4.0k Ohm resistor
-#define PUR_8KR 0x05  // 8.0k Ohm resistor
-#define PUR_16KR 0x06 // 16k Ohm resistor
-#define PUR_32KR 0x07 // 32k Ohm resistor
+#define IS31FL3736_PUR_0R 0x00   // No PUR resistor
+#define IS31FL3736_PUR_05KR 0x01 // 0.5k Ohm resistor
+#define IS31FL3736_PUR_1KR 0x02  // 1.0k Ohm resistor
+#define IS31FL3736_PUR_2KR 0x03  // 2.0k Ohm resistor
+#define IS31FL3736_PUR_4KR 0x04  // 4.0k Ohm resistor
+#define IS31FL3736_PUR_8KR 0x05  // 8.0k Ohm resistor
+#define IS31FL3736_PUR_16KR 0x06 // 16k Ohm resistor
+#define IS31FL3736_PUR_32KR 0x07 // 32k Ohm resistor
 
 #define A_1 0x00
 #define A_2 0x02
