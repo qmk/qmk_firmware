@@ -122,7 +122,7 @@
         }
     },
     "led_matrix": {
-        "driver": "CKLED2001",
+        "driver": "ckled2001",
         "animations": {
             "none": true,
             "solid": true,

@@ -8,16 +8,33 @@
         "pid": "0x3505",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "led_count": 98,
+        "split_count": [49, 49],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "B5",
         "driver": "pwm"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["A0", "B11", "B0", "B10", "B12", "B2", "A8"],
-        "rows": ["A1", "A3", "B3", "A13", "B15", null, null]
+        "rows": ["A1", "A3", "B3", "A13", "B15", null, null],
+        "io_delay": 5
     },
     "diode_direction": "COL2ROW",
     "encoder": {
@@ -25,6 +42,9 @@
             {"pin_a": "B8", "pin_b": "A14"},
             {"pin_a": "B9", "pin_b": "A15"}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 5
     },
     "split": {
         "soft_serial_pin": "A9"
@@ -113,16 +133,6 @@
                 {"matrix": [11, 2], "x": 11.5, "y": 4},
                 {"matrix": [11, 1], "x": 12.5, "y": 4},
                 {"matrix": [11, 0], "x": 13.5, "y": 4},
-
-                {"matrix": [5, 0], "x": 0, "y": 5.5},
-                {"matrix": [5, 1], "x": 1, "y": 5.5},
-                {"matrix": [5, 2], "x": 2, "y": 5.5},
-                {"matrix": [5, 3], "x": 3, "y": 5.5},
-
-                {"matrix": [12, 0], "x": 10.5, "y": 5.5},
-                {"matrix": [12, 1], "x": 11.5, "y": 5.5},
-                {"matrix": [12, 2], "x": 12.5, "y": 5.5},
-                {"matrix": [12, 3], "x": 13.5, "y": 5.5},
 
                 {"matrix": [6, 0], "x": 0, "y": 6.5},
                 {"matrix": [6, 1], "x": 1, "y": 6.5},

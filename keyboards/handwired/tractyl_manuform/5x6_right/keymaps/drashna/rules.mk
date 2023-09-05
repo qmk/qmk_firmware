@@ -35,7 +35,7 @@ ifeq ($(strip $(KEYBOARD)), handwired/tractyl_manuform/5x6_right/f411)
     LTO_SUPPORTED                    = no
     OVERLOAD_FEATURES                = yes
     HAPTIC_ENABLE                    = yes
-    HAPTIC_DRIVER                    = DRV2605L
+    HAPTIC_DRIVER                    = drv2605l
 endif
 
 ifeq ($(strip $(OVERLOAD_FEATURES)), yes)

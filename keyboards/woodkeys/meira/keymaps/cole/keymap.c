@@ -26,7 +26,7 @@ extern rgblight_config_t rgblight_config;
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _ADJUST 16
+#define _ADJUST 5
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -213,8 +213,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   }
   return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }
