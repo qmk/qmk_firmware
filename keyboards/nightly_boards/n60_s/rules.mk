@@ -12,6 +12,3 @@ RGBLIGHT_ENABLE = yes         # Enable keyboard RGB underglow
 AUDIO_ENABLE = yes            # Audio output
 ENCODER_ENABLE = yes          # Enable Rotary Encoders
 LTO_ENABLE = yes
-
-# Added encoder Action
-SRC += encoder_action.c

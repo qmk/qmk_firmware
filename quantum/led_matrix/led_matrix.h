@@ -23,7 +23,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "led_matrix_types.h"
-#include "quantum.h"
+#include "keyboard.h"
 
 #ifdef IS31FL3731
 #    include "is31fl3731-simple.h"
@@ -42,8 +42,9 @@
 #endif
 
 #ifndef LED_MATRIX_LED_PROCESS_LIMIT
-#    define LED_MATRIX_LED_PROCESS_LIMIT (LED_MATRIX_LED_COUNT + 4) / 5
+#    define LED_MATRIX_LED_PROCESS_LIMIT ((LED_MATRIX_LED_COUNT + 4) / 5)
 #endif
+#define LED_MATRIX_LED_PROCESS_MAX_ITERATIONS ((LED_MATRIX_LED_COUNT + LED_MATRIX_LED_PROCESS_LIMIT - 1) / LED_MATRIX_LED_PROCESS_LIMIT)
 
 #if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < LED_MATRIX_LED_COUNT
 #    if defined(LED_MATRIX_SPLIT)

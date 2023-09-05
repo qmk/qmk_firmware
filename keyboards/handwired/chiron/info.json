@@ -17,6 +17,9 @@
         "pin": "B6",
         "levels": 7
     },
+    "rgblight": {
+        "led_count": 4
+    },
     "ws2812": {
         "pin": "D3"
     },

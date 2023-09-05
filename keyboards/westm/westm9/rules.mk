@@ -15,6 +15,5 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
 OLED_ENABLE = yes			# Enable the OLED feature
-OLED_DRIVER = SSD1306    	# OLED driver
 
 DEFAULT_FOLDER = westm/westm9/rev2

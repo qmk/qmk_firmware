@@ -34,11 +34,24 @@
             }
         }
     },
+    "tapping": {
+        "term": 132
+    },
     "ws2812": {
         "pin": "D3"
     },
     "rgblight": {
-        "max_brightness": 120
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 41,
+        "max_brightness": 120,
+        "led_map": [0, 1, 2, 3, 4, 5, 6, 8, 7, 9, 10, 11, 12, 13, 14, 20, 19, 18, 17, 16, 15, 21, 22, 23, 24, 25, 26, 33, 32, 31, 30, 29, 28, 27, 34, 35, 36, 37, 38, 39, 40],
+        "sleep": true,
+        "split_count": [9, 32],
+        "animations": {
+            "rainbow_swirl": true,
+            "rgb_test": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

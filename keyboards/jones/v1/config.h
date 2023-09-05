@@ -25,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 /* RGBLIGHT */
-  #define RGBLED_NUM 4 // Left(2) + Right(2)
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
   /*== Lighting Layers ==*/
   #define RGBLIGHT_LAYERS
   #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF // Overriding RGB Lighting on/off status
