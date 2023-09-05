@@ -81,12 +81,12 @@
 #       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
 #       define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
 #       define ENABLE_RGB_MATRIX_SPLASH
-#       define ENABLE_RGB_MATRIX_SOLID_SPLASH
+#       ifndef VIA_ENABLE
+#           define ENABLE_RGB_MATRIX_SOLID_SPLASH
 //  RAINDROPS don't match well with layer LED indicator (oc) using rgb_matrix_set_color().
 // #define ENABLE_RGB_MATRIX_RAINDROPS
 // #define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 //  Recommendend not to use these.
-#       ifndef VIA_ENABLE
 #           define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
 #           define ENABLE_RGB_MATRIX_BAND_VAL
 #           define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
