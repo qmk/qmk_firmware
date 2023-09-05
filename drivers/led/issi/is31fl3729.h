@@ -41,7 +41,7 @@ bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer);
 void is31fl3729_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void is31fl3729_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 
-void is31fl3729_set_led_control_register(uint8_t index);
+void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bool blue);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).

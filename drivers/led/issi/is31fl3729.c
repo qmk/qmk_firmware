@@ -59,7 +59,7 @@
 #    define ISSI_CONFIGURATION_16x8 0x11
 #endif
 #ifndef ISSI_GLOBALCURRENT
-#    define ISSI_GLOBALCURRENT 0xFF
+#    define ISSI_GLOBALCURRENT 0x40
 #endif
 #ifndef ISSI_PULLDOWNUP
 #    define ISSI_PULLDOWNUP 0x33
@@ -92,18 +92,19 @@
 #else
 #    define DRIVER_4_CONFIG_15x9 false
 #endif
+
 // buffer for runtime check if it is configured as 16x8 or 15x9
-const bool g_driver_config_15x9[DRIVER_COUNT] = {DRIVER_1_CONFIG_15x9
+const bool g_driver_config_15x9[DRIVER_COUNT] = {DRIVER_1_CONFIG_15x9,
 #ifdef DRIVER_ADDR_2
-                                                     DRIVER_2_CONFIG_15x9
+                                                     DRIVER_2_CONFIG_15x9,
 #endif
 #ifdef DRIVER_ADDR_3
-                                                         DRIVER_3_CONFIG_15x9
+                                                         DRIVER_3_CONFIG_15x9,
 #endif
 #ifdef DRIVER_ADDR_4
                                                              DRIVER_4_CONFIG_15x9
 #endif
-}
+};
 
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20];
@@ -134,21 +135,31 @@ bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // iterate over the pwm_buffer contents at ISSI_MAX_SCALINGS byte intervals
     // datasheet does not mention it, but it auto-increments in 15x9 mode, and
     // hence does not require us to skip any addresses
-    for (int i = 1; i <= ISSI_MAX_LEDS; i += ISSI_MAX_SCALINGS) {
+    bool config_15x9 = g_driver_config_15x9[addr];
+
+    int send_size;
+
+    if (config_15x9) {
+        send_size = 15;
+    } else {
+        send_size = 16;
+    }
+		
+    for (int i = 1; i <= ISSI_MAX_LEDS; i += send_size) {
         g_twi_transfer_buffer[0] = i;
         // copy the data from i to i+ISSI_MAX_SCALINGS
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x01-0x10, 0x11-0x20, etc. in one transfer
-        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i - 1, ISSI_MAX_SCALINGS);
+        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, send_size);
 
 #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, ISSI_MAX_SCALINGS + 1, ISSI_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, send_size + 1, ISSI_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, ISSI_MAX_SCALINGS + 1, ISSI_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, send_size + 1, ISSI_TIMEOUT) != 0) {
             return false;
         }
 #endif
@@ -251,6 +262,7 @@ void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index) {
         for (int i = 0; i < 16; i++) {
             is31fl3729_write_register(addr, ISSI_REG_SCALING + i, g_scaling_registers[index][i]);
         }
+
         g_scaling_registers_update_required[index] = false;
     }
 }
