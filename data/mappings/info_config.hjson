@@ -49,6 +49,10 @@
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
 
+    // EEPROM
+    "WEAR_LEVELING_BACKING_SIZE": {"info_key": "eeprom.wear_leveling.backing_size", "value_type": "int", "to_json": false},
+    "WEAR_LEVELING_LOGICAL_SIZE": {"info_key": "eeprom.wear_leveling.logical_size", "value_type": "int", "to_json": false},
+
     // Indicators
     "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
     "LED_NUM_LOCK_PIN": {"info_key": "indicators.num_lock"},
