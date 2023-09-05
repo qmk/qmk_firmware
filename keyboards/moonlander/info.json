@@ -13,8 +13,51 @@
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",
+    "layout_aliases": {
+        "LAYOUT_moonlander": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_moonlander": {
+        "LAYOUT_halfmoon": {
+            "layout": [
+                {"label": "k00", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "k01", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "k02", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "k03", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "k04", "matrix": [0, 4], "x": 4, "y": 0},
+                {"label": "k05", "matrix": [0, 5], "x": 5, "y": 0},
+                {"label": "k06", "matrix": [0, 6], "x": 6, "y": 0},
+                {"label": "k07", "matrix": [1, 0], "x": 7, "y": 0},
+                {"label": "k08", "matrix": [1, 1], "x": 8, "y": 0},
+                {"label": "k09", "matrix": [1, 2], "x": 9, "y": 0},
+                {"label": "k10", "matrix": [1, 3], "x": 10, "y": 0},
+                {"label": "k11", "matrix": [1, 4], "x": 11, "y": 0},
+                {"label": "k12", "matrix": [1, 5], "x": 12, "y": 0},
+                {"label": "k13", "matrix": [1, 6], "x": 13, "y": 0},
+                {"label": "k14", "matrix": [2, 0], "x": 14, "y": 0},
+                {"label": "k15", "matrix": [2, 1], "x": 15, "y": 0},
+                {"label": "k16", "matrix": [2, 2], "x": 16, "y": 0},
+                {"label": "k17", "matrix": [2, 3], "x": 17, "y": 0},
+                {"label": "k18", "matrix": [2, 4], "x": 18, "y": 0},
+                {"label": "k19", "matrix": [2, 5], "x": 19, "y": 0},
+                {"label": "k20", "matrix": [2, 6], "x": 20, "y": 0},
+                {"label": "k21", "matrix": [3, 0], "x": 21, "y": 0},
+                {"label": "k22", "matrix": [3, 1], "x": 22, "y": 0},
+                {"label": "k23", "matrix": [3, 2], "x": 23, "y": 0},
+                {"label": "k24", "matrix": [3, 3], "x": 24, "y": 0},
+                {"label": "k25", "matrix": [3, 4], "x": 25, "y": 0},
+                {"label": "k26", "matrix": [3, 5], "x": 26, "y": 0},
+                {"label": "k27", "matrix": [4, 0], "x": 27, "y": 0},
+                {"label": "k28", "matrix": [4, 1], "x": 28, "y": 0},
+                {"label": "k29", "matrix": [4, 2], "x": 29, "y": 0},
+                {"label": "k30", "matrix": [4, 3], "x": 30, "y": 0},
+                {"label": "k31", "matrix": [4, 4], "x": 31, "y": 0},
+                {"label": "k32", "matrix": [5, 3], "x": 32, "y": 0},
+                {"label": "k33", "matrix": [5, 0], "x": 33, "y": 0},
+                {"label": "k34", "matrix": [5, 1], "x": 34, "y": 0},
+                {"label": "k35", "matrix": [5, 2], "x": 35, "y": 0}
+            ]
+        },
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.375},
                 {"matrix": [0, 1], "x": 1, "y": 0.375},
