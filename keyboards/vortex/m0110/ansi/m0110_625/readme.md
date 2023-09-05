@@ -8,11 +8,11 @@ An 61 keys keyboard, Equipped with the WestBerry Q95 microcontroller.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make vortex/ansi/m0110-625:default
+    make vortex/m0110/ansi/m0110-625:default
 
 Flashing example for this keyboard:
 
-    make vortex/ansi/m0110-625:default:flash
+    make vortex/m0110/ansi/m0110-625:default:flash
 
 To reset the board into bootloader mode, do one of the following:
 
