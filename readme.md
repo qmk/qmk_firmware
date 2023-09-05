@@ -54,11 +54,11 @@ QMK is developed and maintained by Jack Humbert of OLKB with contributions from 
     - To remove all of the keyboard exept the ones we want:
       ```sh
       find ./keyboards -mindepth 1 -maxdepth 1 -type d -not -name ergodox_ez -not -name planck -not -name moonlander -not -name pytest -exec git rm -rf '{}' \;
-      find ./keyboards/planck -mindepth 1 -maxdepth 1 -type d -not -name ez -not -name base -not -name keymaps -exec git rm -rf '{}' \;
+      find ./keyboards/planck -mindepth 1 -maxdepth 1 -type d -not -name ez -not -name base -not -name glow -not -name keymaps -exec git rm -rf '{}' \;
       ```
     - To remove all of the keymaps from folder that we don't want:
       ```sh
-      find ./keyboards/ -mindepth 3 -maxdepth 3 -type d -not -name default -not -name oryx -not -name webusb -not -name glow -not -name reactive -not -name shine -not -name keymaps -exec git rm -rf '{}' \;
+      find ./keyboards/ -mindepth 3 -maxdepth 3 -type d -not -name default -not -name oryx -not -name webusb -not -name glow -not -name reactive -not -name shine -not -name keymaps -not -name halfmoon -exec git rm -rf '{}' \;
       ```
     - Restore necessary files/folders:
       ```sh
