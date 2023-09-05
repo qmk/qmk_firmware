@@ -202,6 +202,13 @@ Configures the [EEPROM](eeprom_driver.md) driver.
     * `driver`
         * The EEPROM backend to use. Must be one of `custom`, `i2c`, `legacy_stm32_flash`, `spi`, `transient`, `vendor`, `wear_leveling`.
         * Default: `"vendor"`
+    * `wear_leveling`
+        * `driver`
+            * The driver to use. Must be one of `embedded_flash`, `legacy`, `rp2040_flash`, `spi_flash`, `custom`.
+        * `backing_size`
+            * Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size.
+        * `logical_size`
+            * Number of bytes “exposed” to the rest of QMK and denotes the size of the usable EEPROM.
 
 ## Encoder :id=encoder
 
