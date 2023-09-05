@@ -92,10 +92,13 @@ MSG_AVAILABLE_KEYMAPS = $(eval $(call GENERATE_MSG_AVAILABLE_KEYMAPS))$(MSG_AVAI
 MSG_BOOTLOADER_NOT_FOUND_BASE = Bootloader not found. Make sure the board is in bootloader mode. See https://docs.qmk.fm/\#/newbs_flashing\n
 MSG_CHECK_FILESIZE = Checking file size of $(TARGET).$(FIRMWARE_FORMAT)
 MSG_CHECK_FILESIZE_SKIPPED = (Firmware size check does not yet support $(MCU_ORIG); skipping)
+MSG_CHECK_STACKSIZE = Checking stack size of $(TARGET)
 MSG_FILE_TOO_BIG = $(ERROR_COLOR)The firmware is too large!$(NO_COLOR) $(CURRENT_SIZE)/$(MAX_SIZE) ($(OVER_SIZE) bytes over)\n
 MSG_FILE_TOO_SMALL = The firmware is too small! $(CURRENT_SIZE)/$(MAX_SIZE)\n
 MSG_FILE_JUST_RIGHT = The firmware size is fine - $(CURRENT_SIZE)/$(MAX_SIZE) ($(PERCENT_SIZE)%%, $(FREE_SIZE) bytes free)\n
 MSG_FILE_NEAR_LIMIT = The firmware size is approaching the maximum - $(CURRENT_SIZE)/$(MAX_SIZE) ($(PERCENT_SIZE)%%, $(FREE_SIZE) bytes free)\n
+MSG_MEMORY_OVERFLOW = $(ERROR_COLOR)RAM usage (not including stack) exceeds available RAM by $(RAM_OVERFLOW_AMOUNT) bytes\n
+MSG_STACK_SIZE = Available stack size: $(STACK_SIZE) bytes\n
 MSG_PYTHON_MISSING = $(ERROR_COLOR)ERROR:$(NO_COLOR) Cannot run \"qmk hello\"!\n\n\
 	Please run $(BOLD)qmk setup$(NO_COLOR) to install all the dependencies QMK requires.\n\n
 MSG_FLASH_BOOTLOADER = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's bootloader is not specified or is not supported by the \":flash\" target at this time.\n\n
