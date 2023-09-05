@@ -119,7 +119,9 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
     config_h_lines.append(generate_define(f'ENCODERS_PAD_B{postfix}', f'{{ {", ".join(b_pads)} }}'))
 
     if None in resolutions:
-        cli.log.debug("Unable to generate ENCODER_RESOLUTION configuration")
+        cli.log.debug(f"Unable to generate ENCODER_RESOLUTION{postfix} configuration")
+    elif len(resolutions) == 0:
+        cli.log.debug(f"Skipping ENCODER_RESOLUTION{postfix} configuration")
     elif len(set(resolutions)) == 1:
         config_h_lines.append(generate_define(f'ENCODER_RESOLUTION{postfix}', resolutions[0]))
     else:

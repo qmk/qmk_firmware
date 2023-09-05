@@ -16,6 +16,11 @@
  */
 
 #include "encoder.h"
+#include "keyboard.h"
+#include "action.h"
+#include "keycodes.h"
+#include "wait.h"
+
 #ifdef SPLIT_KEYBOARD
 #    include "split_util.h"
 #endif
@@ -77,7 +82,29 @@ __attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
-    return encoder_update_user(index, clockwise);
+    bool res = encoder_update_user(index, clockwise);
+#if !defined(ENCODER_TESTS)
+    if (res) {
+        if (clockwise) {
+#    if defined(EXTRAKEY_ENABLE)
+            tap_code_delay(KC_VOLU, 10);
+#    elif defined(MOUSEKEY_ENABLE)
+            tap_code_delay(KC_MS_WH_UP, 10);
+#    else
+            tap_code_delay(KC_PGDN, 10);
+#    endif
+        } else {
+#    if defined(EXTRAKEY_ENABLE)
+            tap_code_delay(KC_VOLD, 10);
+#    elif defined(MOUSEKEY_ENABLE)
+            tap_code_delay(KC_MS_WH_DOWN, 10);
+#    else
+            tap_code_delay(KC_PGUP, 10);
+#    endif
+        }
+    }
+#endif // ENCODER_TESTS
+    return res;
 }
 
 __attribute__((weak)) bool should_process_encoder(void) {
@@ -147,12 +174,12 @@ void encoder_init(void) {
 #ifdef ENCODER_MAP_ENABLE
 static void encoder_exec_mapping(uint8_t index, bool clockwise) {
     // The delays below cater for Windows and its wonderful requirements.
-    action_exec(clockwise ? ENCODER_CW_EVENT(index, true) : ENCODER_CCW_EVENT(index, true));
+    action_exec(clockwise ? MAKE_ENCODER_CW_EVENT(index, true) : MAKE_ENCODER_CCW_EVENT(index, true));
 #    if ENCODER_MAP_KEY_DELAY > 0
     wait_ms(ENCODER_MAP_KEY_DELAY);
 #    endif // ENCODER_MAP_KEY_DELAY > 0
 
-    action_exec(clockwise ? ENCODER_CW_EVENT(index, false) : ENCODER_CCW_EVENT(index, false));
+    action_exec(clockwise ? MAKE_ENCODER_CW_EVENT(index, false) : MAKE_ENCODER_CCW_EVENT(index, false));
 #    if ENCODER_MAP_KEY_DELAY > 0
     wait_ms(ENCODER_MAP_KEY_DELAY);
 #    endif // ENCODER_MAP_KEY_DELAY > 0

@@ -22,12 +22,14 @@
 #include <stdbool.h>
 #include "rgb_matrix_types.h"
 #include "color.h"
-#include "quantum.h"
+#include "keyboard.h"
 
 #ifdef IS31FL3731
 #    include "is31fl3731.h"
 #elif defined(IS31FL3733)
 #    include "is31fl3733.h"
+#elif defined(IS31FL3736)
+#    include "is31fl3736.h"
 #elif defined(IS31FL3737)
 #    include "is31fl3737.h"
 #elif defined(IS31FL3741)
@@ -47,38 +49,41 @@
 #endif
 
 #ifndef RGB_MATRIX_LED_PROCESS_LIMIT
-#    define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5
+#    define RGB_MATRIX_LED_PROCESS_LIMIT ((RGB_MATRIX_LED_COUNT + 4) / 5)
 #endif
+#define RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS ((RGB_MATRIX_LED_COUNT + RGB_MATRIX_LED_PROCESS_LIMIT - 1) / RGB_MATRIX_LED_PROCESS_LIMIT)
 
 #if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
 #    if defined(RGB_MATRIX_SPLIT)
-#        define RGB_MATRIX_USE_LIMITS(min, max)                                                   \
-            uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter;                            \
+#        define RGB_MATRIX_USE_LIMITS_ITER(min, max, iter)                                        \
+            uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (iter);                                  \
             uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;                                     \
             if (max > RGB_MATRIX_LED_COUNT) max = RGB_MATRIX_LED_COUNT;                           \
             uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;                                     \
             if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0]; \
             if (!(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0];
 #    else
-#        define RGB_MATRIX_USE_LIMITS(min, max)                        \
-            uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter; \
-            uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;          \
+#        define RGB_MATRIX_USE_LIMITS_ITER(min, max, iter)       \
+            uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (iter); \
+            uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;    \
             if (max > RGB_MATRIX_LED_COUNT) max = RGB_MATRIX_LED_COUNT;
 #    endif
 #else
 #    if defined(RGB_MATRIX_SPLIT)
-#        define RGB_MATRIX_USE_LIMITS(min, max)                                                   \
+#        define RGB_MATRIX_USE_LIMITS_ITER(min, max, iter)                                        \
             uint8_t       min                   = 0;                                              \
             uint8_t       max                   = RGB_MATRIX_LED_COUNT;                           \
             const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;                               \
             if (is_keyboard_left() && (max > k_rgb_matrix_split[0])) max = k_rgb_matrix_split[0]; \
             if (!(is_keyboard_left()) && (min < k_rgb_matrix_split[0])) min = k_rgb_matrix_split[0];
 #    else
-#        define RGB_MATRIX_USE_LIMITS(min, max) \
-            uint8_t min = 0;                    \
+#        define RGB_MATRIX_USE_LIMITS_ITER(min, max, iter) \
+            uint8_t min = 0;                               \
             uint8_t max = RGB_MATRIX_LED_COUNT;
 #    endif
 #endif
+
+#define RGB_MATRIX_USE_LIMITS(min, max) RGB_MATRIX_USE_LIMITS_ITER(min, max, params->iter)
 
 #define RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b) \
     if (i >= led_min && i < led_max) {             \

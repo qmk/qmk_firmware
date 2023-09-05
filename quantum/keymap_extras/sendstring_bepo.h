@@ -18,8 +18,8 @@
 
 #pragma once
 
+#include "send_string.h"
 #include "keymap_bepo.h"
-#include "quantum.h"
 
 
 const uint8_t ascii_to_shift_lut[16] PROGMEM = {

@@ -19,8 +19,13 @@
 #include "rgb_matrix.h"
 #include "progmem.h"
 #include "eeprom.h"
+#include "eeconfig.h"
+#include "keyboard.h"
+#include "sync_timer.h"
+#include "debug.h"
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include <lib/lib8tion/lib8tion.h>
 
@@ -428,7 +433,10 @@ void rgb_matrix_task(void) {
         case RENDERING:
             rgb_task_render(effect);
             if (effect) {
-                rgb_matrix_indicators();
+                // Only run the basic indicators in the last render iteration (default there are 5 iterations)
+                if (rgb_effect_params.iter == RGB_MATRIX_LED_PROCESS_MAX_ITERATIONS) {
+                    rgb_matrix_indicators();
+                }
                 rgb_matrix_indicators_advanced(&rgb_effect_params);
             }
             break;
@@ -459,14 +467,7 @@ void rgb_matrix_indicators_advanced(effect_params_t *params) {
      * and not sure which would be better. Otherwise, this should be called from
      * rgb_task_render, right before the iter++ line.
      */
-#if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < RGB_MATRIX_LED_COUNT
-    uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * (params->iter - 1);
-    uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT;
-    if (max > RGB_MATRIX_LED_COUNT) max = RGB_MATRIX_LED_COUNT;
-#else
-    uint8_t min = 0;
-    uint8_t max = RGB_MATRIX_LED_COUNT;
-#endif
+    RGB_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
     rgb_matrix_indicators_advanced_kb(min, max);
 }
 

@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include "send_string.h"
 #include "keymap_colemak.h"
 
 const uint8_t ascii_to_keycode_lut[128] PROGMEM = {

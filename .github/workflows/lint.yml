@@ -12,13 +12,13 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    container: qmkfm/qmk_cli
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
@@ -27,7 +27,7 @@ jobs:
 
     - name: Get changed files
       id: file_changes
-      uses: tj-actions/changed-files@v35
+      uses: tj-actions/changed-files@v38
 
     - name: Print info
       run: |
@@ -36,6 +36,7 @@ jobs:
         echo '${{ steps.file_changes.outputs.all_changed_files}}'
 
     - name: Run qmk lint
+      if: always()
       shell: 'bash {0}'
       run: |
         QMK_CHANGES=$(echo -e '${{ steps.file_changes.outputs.all_changed_files}}' | sed 's/ /\n/g')
@@ -72,3 +73,32 @@ jobs:
             exit 255
         fi
         exit $exit_code
+
+    - name: Verify at most one added keyboard
+      if: always()
+      shell: 'bash {0}'
+      run: |
+        git reset --hard
+        git clean -xfd
+
+        # Get the keyboard list and count for the target branch
+        git checkout -f ${{ github.base_ref }}
+        git pull --ff-only
+        QMK_KEYBOARDS_BASE=$(qmk list-keyboards)
+        QMK_KEYBOARDS_BASE_COUNT=$(qmk list-keyboards | wc -l)
+
+        # Get the keyboard list and count for the PR
+        git checkout -f ${{ github.head_ref }}
+        git merge --no-commit --squash ${{ github.base_ref }}
+        QMK_KEYBOARDS_PR=$(qmk list-keyboards)
+        QMK_KEYBOARDS_PR_COUNT=$(qmk list-keyboards | wc -l)
+
+        echo "::group::Keyboards changes in this PR"
+        diff -d -U 0 <(echo "$QMK_KEYBOARDS_BASE") <(echo "$QMK_KEYBOARDS_PR") | grep -vE '^(---|\+\+\+|@@)' | sed -e 's@^-@Removed: @g' -e 's@^+@  Added: @g'
+        echo "::endgroup::"
+
+        if [[ $QMK_KEYBOARDS_PR_COUNT -gt $(($QMK_KEYBOARDS_BASE_COUNT + 1)) ]]; then
+            echo "More than one keyboard added in this PR -- see the PR Checklist."
+            echo "::error::More than one keyboard added in this PR -- see the PR Checklist."
+            exit 1
+        fi
