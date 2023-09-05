@@ -24,7 +24,8 @@
         "vid": "0x6369"
     },
     "layout_aliases": {
-        "LAYOUT_all": "LAYOUT_tkl_ansi"
+        "LAYOUT_all": "LAYOUT_tkl_ansi",
+        "LAYOUT_tkl_ansi_tsangan_wkl": "LAYOUT_tkl_ansi_wkl"
     },
     "layouts": {
         "LAYOUT_tkl_ansi": {
@@ -208,7 +209,7 @@
                 { "label": "4,15", "matrix": [4, 15], "x": 17.25, "y": 5.25 }
             ]
         },
-        "LAYOUT_tkl_ansi_tsangan_wkl": {
+        "LAYOUT_tkl_ansi_wkl": {
             "layout": [
                 { "label": "0,0", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "0,1", "matrix": [0, 1], "x": 2, "y": 0 },
