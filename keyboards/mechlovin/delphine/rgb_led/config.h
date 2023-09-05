@@ -8,7 +8,7 @@
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
 #define DRIVER_ADDR_1 0b1110110
-#define DRIVER_COUNT 1
+#define IS31FL3731_DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 25
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)

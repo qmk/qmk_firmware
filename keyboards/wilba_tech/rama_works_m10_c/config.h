@@ -21,7 +21,7 @@
 #define LOCKING_RESYNC_ENABLE
 
 // IS31FL3731 driver
-#define DRIVER_COUNT 1
+#define IS31FL3731_DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 12
 
 // Enable WT RGB backlight
