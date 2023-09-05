@@ -16,19 +16,24 @@ void         bootmagic_lite(void) {
 
 #ifdef DEBUG_ENABLE
 static uint8_t i = 0;
-void           housekeeping_task_kb(void) {
+void           housekeeping_task_user(void) {
     if (i == 0) {
-        uprintf("Mode:%d Actuation Point %d Press/Release sensitivity:%d/%d\n", g_config.mode, g_config.actuation_point, g_config.press_sensitivity, g_config.release_sensitivity);
-        for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-            uprintf("\n");
-            for (uint8_t j = 0; j < MATRIX_COLS; j++) {
-                uprintf("%d/%d ", keys[i][j].value, analogReadPin(matrix_pins[i][j]));
+        char formattedString[]; // Adjust the buffer size as needed
+
+        snprintf(formattedString, sizeof(formattedString), "Mode: %d Actuation Point: %d Press/Release Sensitivity: %d/%d\n", g_config.mode, g_config.actuation_point, g_config.press_sensitivity, g_config.release_sensitivity);
+
+        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+            for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+                snprintf(formattedString + strlen(formattedString), sizeof(formattedString) - strlen(formattedString), "%d/%d ", keys[row][col].value, analogReadPin(matrix_pins[row][col]));
             }
-            uprintf("\n");
+            strcat(formattedString, "\n\n");
         }
+
+        uprintf("%s", formattedString);
     }
     i++;
 }
+
 #endif
 
 void values_load(void) {
