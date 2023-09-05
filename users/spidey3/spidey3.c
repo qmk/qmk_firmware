@@ -73,19 +73,13 @@ static uint32_t math_glyph_exceptions(const uint16_t keycode, const bool shifted
 }
 
 bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph, uint32_t (*exceptions)(const uint16_t keycode, const bool shifted), uint8_t temp_mod, uint8_t temp_osm) {
-    void _register(uint32_t codepoint) {
-        unicode_input_start();
-        register_hex32(codepoint);
-        unicode_input_finish();
-    }
-
     if ((((temp_mod | temp_osm) & (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI))) == 0) {
         bool shifted = ((temp_mod | temp_osm) & MOD_MASK_SHIFT);
         if (exceptions) {
             uint32_t res = exceptions(keycode, shifted);
             if (res) {
                 if (record->event.pressed) {
-                    _register(res);
+                    register_unicode(res);
                 }
                 return false;
             }
@@ -100,7 +94,7 @@ bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uin
 
                     bool     caps = host_keyboard_led_state().caps_lock;
                     uint32_t base = ((shifted == caps) ? baseAlphaLower : baseAlphaUpper);
-                    _register(base + (keycode - KC_A));
+                    register_unicode(base + (keycode - KC_A));
                     set_mods(temp_mod);
                 }
                 return false;
@@ -109,7 +103,7 @@ bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uin
                     return true;
                 }
                 if (record->event.pressed) {
-                    _register(zeroGlyph);
+                    register_unicode(zeroGlyph);
                 }
                 return false;
             case KC_1 ... KC_9:
@@ -117,12 +111,12 @@ bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uin
                     return true;
                 }
                 if (record->event.pressed) {
-                    _register(baseNumberOne + (keycode - KC_1));
+                    register_unicode(baseNumberOne + (keycode - KC_1));
                 }
                 return false;
             case KC_SPACE:
                 if (record->event.pressed) {
-                    _register(spaceGlyph); // em space
+                    register_unicode(spaceGlyph); // em space
                 }
                 return false;
         }
