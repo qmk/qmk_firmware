@@ -12,7 +12,7 @@
         "encoder_map": true,
         "mousekey": false,
         "nkro": false,
-        "rgb_matrix": true
+        "rgb_matrix": false
     },
     "encoder": {
         "enabled": true
