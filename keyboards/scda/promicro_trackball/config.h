@@ -19,6 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define POINTING_DEVICE_ROTATION_90
 
+#define POINTING_DEVICE_INVERT_Y // remove for normal pointer usage
+#define PIMORONI_TRACKBALL_SCALE 1  // default 5
+
 #ifndef PIMORONI_TRACKBALL_ADDRESS
 #    define PIMORONI_TRACKBALL_ADDRESS 0x0A
 #endif
