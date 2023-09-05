@@ -62,15 +62,6 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
-    "layout_aliases": {
-        "LAYOUT_ansi_blocker": "LAYOUT_ansi_blocker"
-    },
-    "layout_aliases": {
-        "LAYOUT_ansi": "LAYOUT_ansi_blocker"
-    },
-    "layout_aliases": {
-        "LAYOUT_iso": "LAYOUT_iso_blocker"
-    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
