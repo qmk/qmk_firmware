@@ -7,6 +7,9 @@
         "pid": "0x5050",
         "max_power": 100
     },
+    "qmk": {
+        "tap_keycode_delay": 60
+    },
     "matrix_pins": {
         "cols": ["B0", "D7", "D6", "D5"],
         "rows": ["C0", "C1", "C2", "C3"]

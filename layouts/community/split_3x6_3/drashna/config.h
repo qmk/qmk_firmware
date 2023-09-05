@@ -24,7 +24,6 @@
 #define SPLIT_MODS_ENABLE
 
 #undef USE_I2C
-#undef SSD1306OLED
 
 // #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM 100
