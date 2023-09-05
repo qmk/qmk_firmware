@@ -9,8 +9,6 @@
 
 #pragma once
 
-#define MATRIX_IO_DELAY 5
-
 #define BUSY_WAIT
 #define BUSY_WAIT_INSTRUCTIONS 35 // Increase if two rows are pressed at the same time.
 #define GPIO_INPUT_PIN_DELAY 10
@@ -51,24 +49,6 @@
 /* LED Turbo DIP Switch */
 #define DIP_SWITCH_PINS { A14, B13 }
 #define DIP_SWITCH_PINS_RIGHT { A14, B0 }
-
-/* RGB LED Configuration */
-#define RGBLED_NUM 156
-#define RGBLED_SPLIT { 78, 78 }
-
-// RGB Lighting Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_rgblight?id=effect-and-animation-toggles
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
 
 #define RGB_MATRIX_LED_COUNT 156
 #define RGB_MATRIX_SPLIT { 78, 78 }
@@ -137,7 +117,6 @@
 
 #define TOUCH_UPDATE_INTERVAL 33
 #define OLED_UPDATE_INTERVAL 33
-#define TAP_CODE_DELAY 5
 
 /* Audio Configuration */
 #define AUDIO_PIN A4

@@ -14,16 +14,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "keymap_introspection.h" // to get keymaps[][][]
-#include "eeprom.h"
-#include "progmem.h" // to read default from flash
-#include "quantum.h" // for send_string()
 #include "dynamic_keymap.h"
+#include "keymap_introspection.h"
+#include "action.h"
+#include "eeprom.h"
+#include "progmem.h"
+#include "send_string.h"
+#include "keycodes.h"
 
 #ifdef VIA_ENABLE
-#    include "via.h" // for VIA_EEPROM_CONFIG_END
+#    include "via.h"
 #    define DYNAMIC_KEYMAP_EEPROM_START (VIA_EEPROM_CONFIG_END)
 #else
+#    include "eeconfig.h"
 #    define DYNAMIC_KEYMAP_EEPROM_START (EECONFIG_SIZE)
 #endif
 
@@ -152,22 +155,13 @@ void dynamic_keymap_reset(void) {
     for (int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
             for (int column = 0; column < MATRIX_COLS; column++) {
-                if (layer < keymap_layer_count()) {
-                    dynamic_keymap_set_keycode(layer, row, column, keycode_at_keymap_location_raw(layer, row, column));
-                } else {
-                    dynamic_keymap_set_keycode(layer, row, column, KC_TRANSPARENT);
-                }
+                dynamic_keymap_set_keycode(layer, row, column, keycode_at_keymap_location_raw(layer, row, column));
             }
         }
 #ifdef ENCODER_MAP_ENABLE
         for (int encoder = 0; encoder < NUM_ENCODERS; encoder++) {
-            if (layer < encodermap_layer_count()) {
-                dynamic_keymap_set_encoder(layer, encoder, true, keycode_at_encodermap_location_raw(layer, encoder, true));
-                dynamic_keymap_set_encoder(layer, encoder, false, keycode_at_encodermap_location_raw(layer, encoder, false));
-            } else {
-                dynamic_keymap_set_encoder(layer, encoder, true, KC_TRANSPARENT);
-                dynamic_keymap_set_encoder(layer, encoder, false, KC_TRANSPARENT);
-            }
+            dynamic_keymap_set_encoder(layer, encoder, true, keycode_at_encodermap_location_raw(layer, encoder, true));
+            dynamic_keymap_set_encoder(layer, encoder, false, keycode_at_encodermap_location_raw(layer, encoder, false));
         }
 #endif // ENCODER_MAP_ENABLE
     }

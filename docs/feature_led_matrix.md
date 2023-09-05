@@ -12,7 +12,7 @@ There is basic support for addressable LED matrix lighting with the I2C IS31FL37
 
 ```make
 LED_MATRIX_ENABLE = yes
-LED_MATRIX_DRIVER = IS31FL3731
+LED_MATRIX_DRIVER = is31fl3731
 ```
 
 You can use between 1 and 4 IS31FL3731 IC's. Do not specify `LED_DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
@@ -139,7 +139,7 @@ Currently only 4 drivers are supported, but it would be trivial to support for m
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_leds[LED_MATRIX_LED_COUNT] = {
+const is31_led PROGMEM g_is31_leds[LED_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *    driver
  *    |  LED address
@@ -158,7 +158,7 @@ Eg `#define ISSI_MANUAL_SCALING 3`
 Then Define the array listing all the LEDs you want to override in your `<keyboard>.c`:
 
 ```c
-const is31_led __flash g_is31_scaling[ISSI_MANUAL_SCALING] = {
+const is31_led PROGMEM g_is31_scaling[ISSI_MANUAL_SCALING] = {
  *   LED Index
  *   |  Scaling
  *   |  | */
@@ -247,7 +247,6 @@ enum led_matrix_effects {
     LED_MATRIX_CYCLE_UP_DOWN,       // Full gradient scrolling top to bottom
     LED_MATRIX_CYCLE_OUT_IN,        // Full gradient scrolling out to in
     LED_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
-#if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES)
     LED_MATRIX_SOLID_REACTIVE_SIMPLE,   // Pulses keys hit then fades out
     LED_MATRIX_SOLID_REACTIVE_WIDE       // Value pulses near a single key hit then fades out
     LED_MATRIX_SOLID_REACTIVE_MULTIWIDE  // Value pulses near multiple key hits then fades out
@@ -257,7 +256,6 @@ enum led_matrix_effects {
     LED_MATRIX_SOLID_REACTIVE_MULTINEXUS // Value pulses away on the same column and row of multiple key hits then fades out
     LED_MATRIX_SOLID_SPLASH,             // Value pulses away from a single key hit then fades out
     LED_MATRIX_SOLID_MULTISPLASH,        // Value pulses away from multiple key hits then fades out
-#endif
     LED_MATRIX_WAVE_LEFT_RIGHT           // Sine wave scrolling from left to right
     LED_MATRIX_WAVE_UP_DOWN              // Sine wave scrolling from up to down
     LED_MATRIX_EFFECT_MAX
@@ -281,8 +279,6 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_LED_MATRIX_WAVE_LEFT_RIGHT`            |Enables `LED_MATRIX_WAVE_LEFT_RIGHT`          |
 |`#define ENABLE_LED_MATRIX_WAVE_UP_DOWN`               |Enables `LED_MATRIX_WAVE_UP_DOWN`             |
 
-?> These modes don't require any additional defines.
-
 |Reactive Defines                                       |Description                                   |
 |-------------------------------------------------------|----------------------------------------------|
 |`#define ENABLE_LED_MATRIX_SOLID_REACTIVE_SIMPLE`      |Enables `LED_MATRIX_SOLID_REACTIVE_SIMPLE`    |
@@ -295,7 +291,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_LED_MATRIX_SOLID_SPLASH`               |Enables `LED_MATRIX_SOLID_SPLASH`             |
 |`#define ENABLE_LED_MATRIX_SOLID_MULTISPLASH`          |Enables `LED_MATRIX_SOLID_MULTISPLASH`        |
 
-?> These modes also require the `LED_MATRIX_KEYPRESSES` or `LED_MATRIX_KEYRELEASES` define to be available.
+?> These modes introduce additional logic that can increase firmware size.
 
 ## Custom LED Matrix Effects :id=custom-led-matrix-effects
 
@@ -361,9 +357,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 ## Additional `config.h` Options :id=additional-configh-options
 
 ```c
-#define LED_MATRIX_KEYPRESSES // reacts to keypresses
-#define LED_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#define LED_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
+#define LED_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
 #define LED_MATRIX_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
 #define LED_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
 #define LED_MATRIX_LED_PROCESS_LIMIT (LED_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
@@ -373,7 +367,7 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 #define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define LED_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
 #define LED_MATRIX_SPLIT { X, Y }   // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
-                                    // If LED_MATRIX_KEYPRESSES or LED_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
+                                    // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 ```
 
 ## EEPROM storage :id=eeprom-storage

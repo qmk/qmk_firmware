@@ -10,7 +10,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 ENCODER_ENABLE = yes        # Enable rotary encoder
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 WPM_ENABLE = yes
 CUSTOM_MATRIX = lite
 
