@@ -46,8 +46,7 @@
 /*
  * WS2812 Underglow Matrix options
  */
-#define RGBLED_NUM 9
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 9
 
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 2

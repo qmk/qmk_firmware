@@ -11,11 +11,26 @@
         "driver": "pwm"
     },
     "rgblight": {
-        "max_brightness": 120
+        "led_count": 16,
+        "max_brightness": 120,
+        "split_count": [8, 8],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "matrix_pins": {
         "cols": ["B0", "A7", "A3", "A5", "A4", "A2"],
-        "rows": ["B12", "A6", "B13", "B9", "B8"]
+        "rows": ["B12", "A6", "B13", "B9", "B8"],
+        "io_delay": 5
     },
     "diode_direction": "COL2ROW",
     "encoder": {
@@ -31,6 +46,9 @@
                 "rows": ["B12", "A6", "B13", "B9", "B8"]
             }
         }
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "processor": "STM32F411",
     "bootloader": "stm32-dfu",

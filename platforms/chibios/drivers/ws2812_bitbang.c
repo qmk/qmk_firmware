@@ -1,7 +1,7 @@
-#include "quantum.h"
 #include "ws2812.h"
-#include <ch.h>
-#include <hal.h>
+
+#include "gpio.h"
+#include "chibios_config.h"
 
 /* Adapted from https://github.com/bigjosh/SimpleNeoPixelDemo/ */
 

@@ -35,6 +35,7 @@
     "PS2_ENABLE": {"info_key": "ps2.enabled", "value_type": "bool"},
     "PS2_MOUSE_ENABLE": {"info_key": "ps2.mouse_enabled", "value_type": "bool"},
     "RGB_MATRIX_DRIVER": {"info_key": "rgb_matrix.driver"},
+    "RGBLIGHT_DRIVER": {"info_key": "rgblight.driver"},
     "SECURE_ENABLE": {"info_key": "secure.enabled", "value_type": "bool"},
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
     "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "to_c": false},

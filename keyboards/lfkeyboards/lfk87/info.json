@@ -12,6 +12,9 @@
     "driver": "custom",
     "levels": 10
   },
+  "rgblight": {
+    "driver": "custom"
+  },
   "ws2812": {
     "pin": "F4"
   },

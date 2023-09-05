@@ -35,7 +35,7 @@
         "rows": ["GP0", "GP1", "GP2", "GP21", "GP3", "GP4"]
     },
     "rgb_matrix": {
-      "driver": "WS2812"
+      "driver": "ws2812"
     },
     "ws2812": {
         "pin": "GP19",
