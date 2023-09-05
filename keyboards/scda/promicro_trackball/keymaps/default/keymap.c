@@ -48,3 +48,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_G
     )
 };
+
+void trackball_light(void) {
+    uint8_t white = 0;
+    uint8_t red = 255;
+    uint8_t green = 0;
+    uint8_t blue = 0;
+
+    pimoroni_trackball_set_rgbw(red,green,blue,white);
+}
+
+void keyboard_post_init_user(void) {
+    trackball_light();
+}
