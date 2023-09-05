@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "color.h"
 
 bool set_scrolling = true;
 
@@ -49,15 +50,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void trackball_light(void) {
-    uint8_t white = 0;
-    uint8_t red = 255;
-    uint8_t green = 0;
-    uint8_t blue = 0;
+uint16_t hueVal = 0;
+float hueDeltaStepSize = 0.01;
+float hueCycleBuffer = 0;
+void trackball_cycle_light(void) {
+    hueCycleBuffer += hueDeltaStepSize;
 
-    pimoroni_trackball_set_rgbw(red,green,blue,white);
+    // delay: only increase hueVal every 1/delta seconds
+    if (hueCycleBuffer < 1) {
+        return;
+    }
+
+    // compute new hue from integer value of the buffer and
+    // reset delta to decimal points after integer value
+    hueVal += (uint8_t) hueCycleBuffer;
+    hueCycleBuffer -= (uint8_t) hueCycleBuffer; //
+
+    // bring hue back in range
+    if (hueVal >= 255) {
+        hueVal = hueVal % 255;
+    }
+
+    // convert and set value for trackball
+    HSV hsv = {hueVal, 255, 255};
+    RGB rgb = hsv_to_rgb(hsv);
+    pimoroni_trackball_set_rgbw(rgb.r, rgb.g, rgb.b, 0);
 }
 
-void keyboard_post_init_user(void) {
-    trackball_light();
+void housekeeping_task_user(void) {
+    trackball_cycle_light();
 }
