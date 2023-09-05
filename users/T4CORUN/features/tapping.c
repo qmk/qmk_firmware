@@ -40,7 +40,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #endif //MOUSELAYER_ENABLE
 
     case NAVGTIN:
-      return TAPPING_TERM - 75;
+      return TAPPING_TERM - 60; //125
 
     default:
       //uprintf("tapping term: %d \n", TAPPING_TERM);
