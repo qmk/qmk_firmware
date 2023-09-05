@@ -58,7 +58,7 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-	uint8_t this_led = host_keyboard_leds();
+	led_t led_state = host_keyboard_led_state();
 
 	if (!g_suspend_state && rgb_matrix_config.enable) {
 		switch (get_highest_layer(layer_state)) {
@@ -73,13 +73,13 @@ bool rgb_matrix_indicators_user(void) {
 		}
 	}
 
-	if (this_led & (1 << USB_LED_CAPS_LOCK)) {
+	if (led_state.caps_lock) {
 		rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
 	}
 
 	switch (get_highest_layer(layer_state)) {
 	case _LAYER3:
-		if (this_led & (1 << USB_LED_NUM_LOCK)) {
+		if (led_state.num_lock) {
 			rgb_matrix_set_color(13, 0xFF, 0x00, 0x00);
 		} else {
 			rgb_matrix_set_color(13, 0x00, 0x00, 0x00);
@@ -151,23 +151,4 @@ bool rgb_matrix_indicators_user(void) {
 		break;
 	}
     return false;
-}
-
-
-
-
-
-void matrix_init_user(void)
-{
-	//user initialization
-}
-
-void matrix_scan_user(void)
-{
-	//user matrix
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t* record)
-{
-	return true;
 }

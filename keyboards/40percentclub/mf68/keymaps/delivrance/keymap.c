@@ -157,11 +157,11 @@ void dynamic_macro_record_end_user(int8_t direction) {
 // Custom Caps Lock backlight behaviour
 // ------------------------------------
 
-void led_set_user(uint8_t usb_led) {
+bool led_update_user(led_t led_state) {
     // This exists because I don't like the backlight to turn OFF when the Caps Lock is ON.
     // That is, this will turn the backlight ON (at half the brightness) when the Caps Lock is ON as well.
     static bool prev_is_caps_on;
-    bool is_caps_on = IS_LED_ON(usb_led, USB_LED_CAPS_LOCK);
+    bool is_caps_on = led_state.caps_lock;
 
     if (prev_is_caps_on != is_caps_on) {
         prev_is_caps_on = is_caps_on;
@@ -178,7 +178,7 @@ void led_set_user(uint8_t usb_led) {
     }
 
     // Turn on the Pro Micro's on-board LEDs for Caps Lock
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         // Set to low
         setPinOutput(B0);
         writePinLow(B0);
@@ -189,6 +189,7 @@ void led_set_user(uint8_t usb_led) {
         setPinInput(B0);
         setPinInput(D5);
     }
+    return false;
 }
 
 // Backlight idle timeout feature
