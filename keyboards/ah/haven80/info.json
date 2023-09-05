@@ -13,7 +13,7 @@
         "rgblight": true
     },
     "ws2812": {
-    "pin": "E6"
+    "pin": "E6",
   },
     "rgblight": {
         "led_count": 21,
