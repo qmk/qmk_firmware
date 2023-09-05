@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 #include "moonlander.h"
 #include "raw_hid.h"
@@ -27,7 +27,9 @@ bool is_launching     = false;
 #ifdef DYNAMIC_MACRO_ENABLE
 static bool is_dynamic_recording = false;
 
-void dynamic_macro_record_start_user(int8_t direction) { is_dynamic_recording = true; }
+void dynamic_macro_record_start_user(int8_t direction) {
+    is_dynamic_recording = true;
+}
 
 void dynamic_macro_record_end_user(int8_t direction) {
     is_dynamic_recording = false;
@@ -369,14 +371,14 @@ void keyboard_post_init_kb(void) {
 // clang-format off
 #ifdef HALFMOON
 __attribute__ ((weak))
- const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_halfmoon(
+ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
      { 29, 30, 31, 32, 33, 34, 35 },
      { 22, 23, 24, 25, 26, 27, 28 },
      { 15, 16, 17, 18, 19, 20, 21 },
      {  9, 10, 11, 12, 13, 14,  0 },
      {  4,  5,  6,  7,  8,  0,  3 },
      {  0,  0,  0,  0,  0,  1,  2 },
- );
+ };
 #else
 __attribute__ ((weak))
 const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
@@ -394,6 +396,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
     { 0,  0,  0,  4,  5,  6,  7}
 };
 // clang-format on
+#    endif
 #endif
 
 #ifdef CAPS_LOCK_STATUS
