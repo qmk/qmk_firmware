@@ -88,7 +88,7 @@ uint8_t g_twi_transfer_buffer[20] = {0xFF};
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in is31fl3741_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
-uint8_t g_pwm_buffer[DRIVER_COUNT][IS31FL3741_MAX_LEDS];
+uint8_t g_pwm_buffer[IS31FL3741_DRIVER_COUNT][IS31FL3741_MAX_LEDS];
 bool    g_pwm_buffer_update_required[IS31FL3741_DRIVER_COUNT]        = {false};
 bool    g_scaling_registers_update_required[IS31FL3741_DRIVER_COUNT] = {false};
 
