@@ -1,9 +1,6 @@
-/* Copyright 2017 Jason Williams
- * Copyright 2018 Jack Humbert
- * Copyright 2018 Yiancar
- * Copyright 2020 MelGeek
- * Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  * Copyright 2023 Harrison Chan (Xelus)
+ * Copyright 2023 Dimitris Mantzouranis <d3xter93@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,8 +52,7 @@
 
 // Set defaults for Registers
 #ifndef ISSI_CONFIGURATION
-#    define ISSI_CONFIGURATION_15x9 0x01
-#    define ISSI_CONFIGURATION_16x8 0x11
+#    define ISSI_CONFIGURATION 0x01
 #endif
 #ifndef ISSI_GLOBALCURRENT
 #    define ISSI_GLOBALCURRENT 0x40
@@ -69,42 +65,8 @@
 #endif
 
 // Set buffer sizes
-#define ISSI_MAX_LEDS 135
+#define ISSI_MAX_LEDS 143
 #define ISSI_MAX_SCALINGS 16
-
-#ifdef DRIVER_1_15x9
-#    define DRIVER_1_CONFIG_15x9 true
-#else
-#    define DRIVER_1_CONFIG_15x9 false
-#endif
-#ifdef DRIVER_2_15x9
-#    define DRIVER_2_CONFIG_15x9 true
-#else
-#    define DRIVER_2_CONFIG_15x9 false
-#endif
-#ifdef DRIVER_3_15x9
-#    define DRIVER_3_CONFIG_15x9 true
-#else
-#    define DRIVER_3_CONFIG_15x9 false
-#endif
-#ifdef DRIVER_4_15x9
-#    define DRIVER_4_CONFIG_15x9 true
-#else
-#    define DRIVER_4_CONFIG_15x9 false
-#endif
-
-// buffer for runtime check if it is configured as 16x8 or 15x9
-const bool g_driver_config_15x9[DRIVER_COUNT] = {DRIVER_1_CONFIG_15x9,
-#ifdef DRIVER_ADDR_2
-                                                     DRIVER_2_CONFIG_15x9,
-#endif
-#ifdef DRIVER_ADDR_3
-                                                         DRIVER_3_CONFIG_15x9,
-#endif
-#ifdef DRIVER_ADDR_4
-                                                             DRIVER_4_CONFIG_15x9
-#endif
-};
 
 // Transfer buffer for TWITransmitData()
 uint8_t g_twi_transfer_buffer[20];
@@ -114,8 +76,8 @@ uint8_t g_twi_transfer_buffer[20];
 uint8_t g_pwm_buffer[DRIVER_COUNT][ISSI_MAX_LEDS];
 bool    g_pwm_buffer_update_required[DRIVER_COUNT] = {false};
 
-uint8_t g_scaling_registers[DRIVER_COUNT][ISSI_MAX_SCALINGS] = {0};
-bool    g_scaling_registers_update_required[DRIVER_COUNT]    = {false};
+uint8_t g_scaling_registers[DRIVER_COUNT][ISSI_MAX_SCALINGS];
+bool    g_scaling_registers_update_required[DRIVER_COUNT] = {false};
 
 void is31fl3729_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     // Set register address and register data ready to write
@@ -135,31 +97,22 @@ bool is31fl3729_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
     // iterate over the pwm_buffer contents at ISSI_MAX_SCALINGS byte intervals
     // datasheet does not mention it, but it auto-increments in 15x9 mode, and
     // hence does not require us to skip any addresses
-    bool config_15x9 = g_driver_config_15x9[addr];
-
-    int send_size;
-
-    if (config_15x9) {
-        send_size = 15;
-    } else {
-        send_size = 16;
-    }
-		
-    for (int i = 1; i <= ISSI_MAX_LEDS; i += send_size) {
+    for (int i = 0; i <= ISSI_MAX_LEDS; i += ISSI_MAX_SCALINGS) {
         g_twi_transfer_buffer[0] = i;
+
         // copy the data from i to i+ISSI_MAX_SCALINGS
         // device will auto-increment register for data after the first byte
         // thus this sets registers 0x01-0x10, 0x11-0x20, etc. in one transfer
-        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, send_size);
+        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, ISSI_MAX_SCALINGS);
 
 #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, send_size + 1, ISSI_TIMEOUT) != 0) {
+            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, ISSI_MAX_SCALINGS + 1, ISSI_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, send_size + 1, ISSI_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, ISSI_MAX_SCALINGS + 1, ISSI_TIMEOUT) != 0) {
             return false;
         }
 #endif
@@ -174,8 +127,6 @@ void is31fl3729_init(uint8_t addr) {
     // Set up the mode and other settings, clear the PWM registers,
     // then disable software shutdown.
 
-    bool config_15x9 = g_driver_config_15x9[addr];
-
     // Set Pull up & Down for SWx CSy
     is31fl3729_write_register(addr, ISSI_REG_PULLDOWNUP, ISSI_PULLDOWNUP);
 
@@ -185,12 +136,8 @@ void is31fl3729_init(uint8_t addr) {
     // Set Golbal Current Control Register
     is31fl3729_write_register(addr, ISSI_REG_GLOBALCURRENT, ISSI_GLOBALCURRENT);
 
-    // Set to Normal 15x9 operation
-    if (config_15x9) {
-        is31fl3729_write_register(addr, ISSI_REG_CONFIGURATION, ISSI_CONFIGURATION_15x9);
-    } else {
-        is31fl3729_write_register(addr, ISSI_REG_CONFIGURATION, ISSI_CONFIGURATION_16x8);
-    }
+    // Set to Normal operation
+    is31fl3729_write_register(addr, ISSI_REG_CONFIGURATION, ISSI_CONFIGURATION);
 
     // Wait 10ms to ensure the device has woken up.
     wait_ms(10);
@@ -204,6 +151,7 @@ void is31fl3729_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
         if (g_pwm_buffer[led.driver][led.r] == red && g_pwm_buffer[led.driver][led.g] == green && g_pwm_buffer[led.driver][led.b] == blue) {
             return;
         }
+
         g_pwm_buffer_update_required[led.driver] = true;
         g_pwm_buffer[led.driver][led.r]          = red;
         g_pwm_buffer[led.driver][led.g]          = green;
@@ -231,9 +179,11 @@ void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bo
     if (red) {
         g_scaling_registers[led.driver][cs_red] = 0xFF;
     }
+
     if (green) {
         g_scaling_registers[led.driver][cs_green] = 0xFF;
     }
+
     if (blue) {
         g_scaling_registers[led.driver][cs_blue] = 0xFF;
     }
@@ -249,17 +199,9 @@ void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index) {
     g_pwm_buffer_update_required[index] = false;
 }
 
-void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue) {
-    g_pwm_buffer[pled->driver][pled->r] = red;
-    g_pwm_buffer[pled->driver][pled->g] = green;
-    g_pwm_buffer[pled->driver][pled->b] = blue;
-
-    g_pwm_buffer_update_required[pled->driver] = true;
-}
-
 void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index) {
     if (g_scaling_registers_update_required[index]) {
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < ISSI_MAX_SCALINGS; i++) {
             is31fl3729_write_register(addr, ISSI_REG_SCALING + i, g_scaling_registers[index][i]);
         }
 

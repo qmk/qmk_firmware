@@ -1,9 +1,6 @@
-/* Copyright 2017 Jason Williams
- * Copyright 2018 Jack Humbert
- * Copyright 2018 Yiancar
- * Copyright 2020 MelGeek
- * Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2023 HorrorTroll <https://github.com/HorrorTroll>
  * Copyright 2023 Harrison Chan (Xelus)
+ * Copyright 2023 Dimitris Mantzouranis <d3xter93@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,8 +47,6 @@ void is31fl3729_set_led_control_register(uint8_t index, bool red, bool green, bo
 void is31fl3729_update_pwm_buffers(uint8_t addr, uint8_t index);
 void is31fl3729_update_led_control_registers(uint8_t addr, uint8_t index);
 
-void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
-
 // Map CS SW locations to order in PWM / Scaling buffers
 // This matches the ORDER in the Datasheet Register not the POSITION
 // It will always count from 0x01 to (ISSI_MAX_LEDS - 1)
@@ -70,6 +65,7 @@ void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS13_SW1 0x0D
 #define CS14_SW1 0x0E
 #define CS15_SW1 0x0F
+#define CS16_SW1 0x10
 
 #define CS1_SW2 0x11
 #define CS2_SW2 0x12
@@ -86,6 +82,7 @@ void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS13_SW2 0x1D
 #define CS14_SW2 0x1E
 #define CS15_SW2 0x1F
+#define CS16_SW2 0x20
 
 #define CS1_SW3 0x21
 #define CS2_SW3 0x22
@@ -102,6 +99,7 @@ void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS13_SW3 0x2D
 #define CS14_SW3 0x2E
 #define CS15_SW3 0x2F
+#define CS16_SW3 0x30
 
 #define CS1_SW4 0x31
 #define CS2_SW4 0x32
@@ -118,6 +116,7 @@ void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS13_SW4 0x3D
 #define CS14_SW4 0x3E
 #define CS15_SW4 0x3F
+#define CS16_SW4 0x40
 
 #define CS1_SW5 0x41
 #define CS2_SW5 0x42
@@ -134,6 +133,7 @@ void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS13_SW5 0x4D
 #define CS14_SW5 0x4E
 #define CS15_SW5 0x4F
+#define CS16_SW5 0x50
 
 #define CS1_SW6 0x51
 #define CS2_SW6 0x52
@@ -150,6 +150,7 @@ void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS13_SW6 0x5D
 #define CS14_SW6 0x5E
 #define CS15_SW6 0x5F
+#define CS16_SW6 0x60
 
 #define CS1_SW7 0x61
 #define CS2_SW7 0x62
@@ -166,6 +167,7 @@ void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS13_SW7 0x6D
 #define CS14_SW7 0x6E
 #define CS15_SW7 0x6F
+#define CS16_SW7 0x70
 
 #define CS1_SW8 0x71
 #define CS2_SW8 0x72
@@ -182,31 +184,20 @@ void is31fl3729_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define CS13_SW8 0x7D
 #define CS14_SW8 0x7E
 #define CS15_SW8 0x7F
+#define CS16_SW8 0x80
 
-#if defined(ISSI_MATRIX_16X8)
-#    define CS16_SW1 0x10
-#    define CS16_SW2 0x20
-#    define CS16_SW3 0x30
-#    define CS16_SW4 0x40
-#    define CS16_SW5 0x50
-#    define CS16_SW6 0x60
-#    define CS16_SW7 0x70
-#    define CS16_SW8 0x80
-#endif
-#elif defined(ISSI_MATRIX_15X9)
-#    define CS1_SW9 0x81
-#    define CS2_SW9 0x82
-#    define CS3_SW9 0x83
-#    define CS4_SW9 0x84
-#    define CS5_SW9 0x85
-#    define CS6_SW9 0x86
-#    define CS7_SW9 0x87
-#    define CS8_SW9 0x88
-#    define CS9_SW9 0x89
-#    define CS10_SW9 0x8A
-#    define CS11_SW9 0x8B
-#    define CS12_SW9 0x8C
-#    define CS13_SW9 0x8D
-#    define CS14_SW9 0x8E
-#    define CS15_SW9 0x8F
-#endif
+#define CS1_SW9 0x81
+#define CS2_SW9 0x82
+#define CS3_SW9 0x83
+#define CS4_SW9 0x84
+#define CS5_SW9 0x85
+#define CS6_SW9 0x86
+#define CS7_SW9 0x87
+#define CS8_SW9 0x88
+#define CS9_SW9 0x89
+#define CS10_SW9 0x8A
+#define CS11_SW9 0x8B
+#define CS12_SW9 0x8C
+#define CS13_SW9 0x8D
+#define CS14_SW9 0x8E
+#define CS15_SW9 0x8F
