@@ -19,7 +19,6 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "via": true,
         "rgb_matrix": true
     },
     "indicators": {
