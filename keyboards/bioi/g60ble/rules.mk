@@ -13,8 +13,7 @@ BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes
 LTO_ENABLE = yes
 
-# these lines are all for bluetooth
 BLUETOOTH_ENABLE = yes
-SRC += usart.c ble.c
-OPT_DEFS += -DUART_RX1_BUFFER_SIZE=16 -DUART_TX1_BUFFER_SIZE=16
-OPT_DEFS += -DUSART1_ENABLED
+
+QUANTUM_LIB_SRC += uart.c
+SRC += bluetooth_custom.c

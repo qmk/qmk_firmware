@@ -13,23 +13,18 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "bluetooth.h"
-#include "ble.h"
-#include "usart.h"
+#include "uart.h"
 #include "progmem.h"
 #include "wait.h"
 #include "debug.h"
 #include "usb_descriptor.h"
 #include "report.h"
 
-keyboard_config_t ble_config;
-
-static void bluefruit_serial_send(uint8_t);
-
 void send_str(const char *str)
 {
     uint8_t c;
     while ((c = pgm_read_byte(str++)))
-        uart1_putc(c);
+        uart_write(c);
 }
 
 void serial_send(uint8_t data)
@@ -43,7 +38,7 @@ void send_bytes(uint8_t data)
     sprintf(hexStr, "%02X", data);
     for (int j = 0; j < sizeof(hexStr) - 1; j++)
     {
-        uart1_putc(hexStr[j]);
+        uart_write(hexStr[j]);
     }
 }
 
@@ -72,7 +67,12 @@ static void bluefruit_serial_send(uint8_t data)
 }
 
 void bluetooth_init(void) {
-    usart_init();
+    uart_init(76800);
+    wait_ms(250);
+
+    send_str(PSTR("\r\n"));
+    send_str(PSTR("\r\n"));
+    send_str(PSTR("\r\n"));
 }
 
 void bluetooth_task(void) {}
@@ -161,14 +161,4 @@ void bluetooth_send_consumer(uint16_t usage)
 #ifdef BLUEFRUIT_TRACE_SERIAL
     bluefruit_trace_footer();
 #endif
-}
-
-void usart_init(void)
-{
-    uart1_init(UART_BAUD_SELECT_DOUBLE_SPEED(76800, 8000000L));
-    wait_ms(250);
-
-    send_str(PSTR("\r\n"));
-    send_str(PSTR("\r\n"));
-    send_str(PSTR("\r\n"));
 }
