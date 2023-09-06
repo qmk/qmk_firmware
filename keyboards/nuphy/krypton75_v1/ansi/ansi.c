@@ -1,6 +1,6 @@
 // Copyright 2023 Persama (@Persama)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "nuphy_krypton75.h"
+#include "ansi.h"
 
 #include "print.h"
 #include "sidetable.h"

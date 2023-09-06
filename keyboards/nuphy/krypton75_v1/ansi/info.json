@@ -1,6 +1,6 @@
 {
     "keyboard_name": "NuPhy Krypton75",
-    "manufacturer": "github.com/sowbug",
+    "manufacturer": "github.com/persama",
     "bootloader": "stm32-dfu",
     "processor": "STM32F072",
     "usb":{
@@ -178,7 +178,7 @@
         ]
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ansi_81": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "F1", "matrix": [0, 1], "x": 2, "y": 0},
