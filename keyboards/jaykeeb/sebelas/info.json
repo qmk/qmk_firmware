@@ -49,7 +49,8 @@
     },
     "layout_aliases": {
         "LAYOUT_65_ansi_blocker": "LAYOUT_ansi_blocker",
-        "LAYOUT_65_ansi_blocker_split_bs": "LAYOUT_ansi_blocker_split_bs"
+        "LAYOUT_65_ansi_blocker_split_bs": "LAYOUT_ansi_blocker_split_bs",
+        "LAYOUT_65_ansi_blocker_tsangan": "LAYOUT_ansi_blocker_tsangan"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -277,7 +278,7 @@
                 {"label": "\u2192", "matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65_ansi_blocker_tsangan": {
+        "LAYOUT_ansi_blocker_tsangan": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},
