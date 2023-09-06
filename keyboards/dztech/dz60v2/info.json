@@ -44,7 +44,6 @@
         "pin": "B2"
     },
     "usb": {
-        "device_ver": "0x0002",
         "device_version": "0.0.2",
         "pid": "0x2261",
         "vid": "0x445A"
