@@ -481,14 +481,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     switch (keycode) {
-        case MAC_TASK: {
-            if (record->event.pressed) {
-                host_consumer_send(0x029F);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-        }
         case MAC_SEARCH: {
             if (record->event.pressed) {
                 register_code(KC_LGUI);
@@ -500,14 +492,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case MAC_VOICE: {
             if (record->event.pressed) {
                 host_consumer_send(0xcf);
-            } else {
-                host_consumer_send(0);
-            }
-            return false;
-        }
-        case MAC_DNT: {
-            if (record->event.pressed) {
-                host_consumer_send(0x02A0);
             } else {
                 host_consumer_send(0);
             }
