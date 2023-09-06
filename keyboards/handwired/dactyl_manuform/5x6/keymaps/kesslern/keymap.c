@@ -51,37 +51,6 @@ enum custom_keycodes {
     R_FLASH,
 };
 
-// Tap Dance declarations
-enum {
-    MR1,
-};
-
-void macro1(qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count > 3) return;
-
-    keyrecord_t kr;
-    kr.event.pressed = false;
-    uint16_t action  = DYN_REC_STOP;
-
-    if (state->count == 1) {
-        action = DYN_MACRO_PLAY1;
-        kr.event.pressed = false;
-    } else if (state->count == 2) {
-        action = DYN_REC_STOP;
-        kr.event.pressed = true;
-    } else if (state->count == 3) {
-        action = DYN_REC_START1;
-        kr.event.pressed = false;
-    }
-
-    process_dynamic_macro(action, &kr);
-}
-
-// Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [MR1] = ACTION_TAP_DANCE_FN(macro1),
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_5x6(
@@ -93,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_F13 , KC_F14 ,          KC_F13 , KC_F14 ,
                                         CT_BSPC, ALT_DEL,          SFT_ENT,  CT_SPC ,
                                         KC_DOWN, WIN_UP ,          WINRGHT, KC_LEFT,
-                                        MO_UTIL, TD(MR1),          XXXXXXX, MO_UTIL
+                                        MO_UTIL, XXXXXXX,          XXXXXXX, MO_UTIL
   ),
 
   [_SYM] = LAYOUT_5x6(
