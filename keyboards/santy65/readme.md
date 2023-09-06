@@ -8,7 +8,10 @@ Can be built with either:
 - 1 elite-C microcontroller on the left side and a pro-micro on the right side.
 
 * Keyboard Maintainer: [santy](https://github.com/santy81855)
-* Hardware Supported: Elite-c, pro-micro, EC11 rotary encoders, pmw 3360 sensor.
+* Hardware Supported: 
+    * Elite-C and Pro Micro microcontrollers
+    * EC11 rotary encoders
+    * PMW 3360 sensor
 
 Make example for this keyboard (after setting up your build environment):
 
