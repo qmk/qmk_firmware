@@ -8,11 +8,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make nuphy/krypton75:default
+    make nuphy/krypton75_v1/ansi:default
 
 Flashing example for this keyboard:
 
-    make nuphy/krypton75:default:flash
+    make nuphy/krypton75_v1/ansi:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
