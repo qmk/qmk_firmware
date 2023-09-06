@@ -1,6 +1,6 @@
 {
     "manufacturer": "DZTECH",
-    "keyboard_name": "DZ60",
+    "keyboard_name": "DZ60v2",
     "maintainer": "DZTECH",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
