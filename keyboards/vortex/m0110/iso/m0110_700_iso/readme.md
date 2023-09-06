@@ -1,6 +1,6 @@
 # M0110_700_ISO
- ![m0110_700_ansi](https://imgur.com/hZfwgyZ)
- ![m0110_700_ansi](https://imgur.com/N3ezofS)
+ ![m0110_700_ansi](https://imgur.com/hZfwgyZ.png)
+ ![m0110_700_ansi](https://imgur.com/N3ezofS.png)
 
 An 64 keys keyboard, Equipped with the WestBerry Q95 microcontroller.
 
