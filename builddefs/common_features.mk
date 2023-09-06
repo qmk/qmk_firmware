@@ -340,7 +340,7 @@ LED_MATRIX_DRIVER := snled27351
 endif
 
 LED_MATRIX_ENABLE ?= no
-VALID_LED_MATRIX_TYPES := is31fl3218 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a snled27351 custom
+VALID_LED_MATRIX_TYPES := is31fl3218 is31fl3729 is31fl3731 is31fl3733 is31fl3736 is31fl3737 is31fl3741 is31fl3742a is31fl3743a is31fl3745 is31fl3746a snled27351 custom
 
 ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
     ifeq ($(filter $(LED_MATRIX_DRIVER),$(VALID_LED_MATRIX_TYPES)),)
@@ -363,6 +363,12 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
         I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3218-mono.c
+    endif
+
+    ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3729)
+        I2C_DRIVER_REQUIRED = yes
+        COMMON_VPATH += $(DRIVER_PATH)/led/issi
+        SRC += is31fl3729-simple.c
     endif
 
     ifeq ($(strip $(LED_MATRIX_DRIVER)), is31fl3731)
@@ -469,10 +475,9 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3729)
-        OPT_DEFS += -DIS31FL3729 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+        I2C_DRIVER_REQUIRED = yes
         COMMON_VPATH += $(DRIVER_PATH)/led/issi
         SRC += is31fl3729.c
-        QUANTUM_LIB_SRC += i2c_master.c
     endif
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), is31fl3731)
