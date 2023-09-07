@@ -19,20 +19,20 @@ You can use between 1 and 4 IS31FL3729 IC's. Do not specify `LED_DRIVER_ADDR_<N>
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `LED_DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
+| `IS31FL3729_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `IS31FL3729_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `IS31FL3729_CONFIGURATION` | (Optional) Configuration for the Configuration Register | 0x01 |
+| `IS31FL3729_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0x40 |
+| `IS31FL3729_PULLDOWNUP` | (Optional) Configuration for the Pull Up & Pull Down Register | 0x33 |
+| `IS31FL3729_PWM_FREQUENCY` | (Optional) Configuration for the PWM Setting Register | 0x01 |
+| `IS31FL3729_DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
 | `LED_MATRIX_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
 | `LED_DRIVER_ADDR_1` | (Required) Address for the first LED driver | |
 | `LED_DRIVER_ADDR_2` | (Optional) Address for the second LED driver | |
 | `LED_DRIVER_ADDR_3` | (Optional) Address for the third LED driver | |
 | `LED_DRIVER_ADDR_4` | (Optional) Address for the fourth LED driver | |
-| `ISSI_CONFIGURATION` | (Optional) Configuration for the Configuration Register | 0x01 |
-| `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0x40 |
-| `ISSI_PULLDOWNUP` | (Optional) Configuration for the Pull Up & Pull Down Register | 0x33 |
-| `ISSI_PWM_SET` | (Optional) Configuration for the PWM Setting Register | 0x01 |
 
-Drivers does support many matrix layout by using SWS on Configuration Register. Default is using 15 x 9 matrix layout (15 CS pin & 9 SW pin). More info [in datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3729_DS.pdf)
+Drivers does support many matrix layout by using SWS on `IS31FL3729_CONFIGURATION`. Default is using 15 x 9 matrix layout (15 CS pin & 9 SW pin). More info [in datasheet](https://www.lumissil.com/assets/pdf/core/IS31FL3729_DS.pdf)
 
 | Variable | Description | Settings |
 |----------|-------------|----------|
@@ -57,7 +57,7 @@ Here is an example using 2 drivers.
 #define LED_DRIVER_ADDR_1 0b0110100
 #define LED_DRIVER_ADDR_2 0b0110101
 
-#define LED_DRIVER_COUNT 2
+#define IS31FL3729_DRIVER_COUNT 2
 #define LED_DRIVER_1_LED_TOTAL 39
 #define LED_DRIVER_2_LED_TOTAL 28
 #define LED_MATRIX_LED_COUNT (LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL)
