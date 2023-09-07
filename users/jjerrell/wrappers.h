@@ -119,7 +119,7 @@
                             k50, k51, k52,   kb4, kb5, kb6 \
     ) \
  */
-#   define WRAPPER_moonlander(...)    LAYOUT_moonlander(__VA_ARGS__)
+#   define WRAPPER_moonlander(...)    LAYOUT(__VA_ARGS__)
 #   define WRAPPER_moonlander_common( \
              k11, k12, k13, k14, k15,             k71, k72, k73, k74, k75, \
              k21, k22, k23, k24, k25,             k81, k82, k83, k84, k85, \

@@ -21,7 +21,7 @@ enum more_custom_keycodes {
 };
 
 // clang-format off
-#define LAYOUT_moonlander_wrapper(...) LAYOUT_moonlander(__VA_ARGS__)
+#define LAYOUT_moonlander_wrapper(...) LAYOUT(__VA_ARGS__)
 
 #define LAYOUT_moonlander_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \

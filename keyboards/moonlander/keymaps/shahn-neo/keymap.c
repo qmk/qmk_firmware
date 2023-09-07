@@ -32,7 +32,7 @@ enum custom_keycodes {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [BASE] = LAYOUT_moonlander(
+    [BASE] = LAYOUT(
         XXXXXXX, KC_1    , KC_2    , KC_3    , KC_4   , KC_5   , XXXXXXX,    XXXXXXX, KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , XXXXXXX,
         KC_TAB , KC_X    , KC_V    , KC_L    , KC_C   , KC_W   , XXXXXXX,    XXXXXXX, KC_K   , KC_H   , KC_G   , KC_F   , KC_Q   , eszett ,
         XXXXXXX, KC_U    , KC_I    , KC_A    , KC_E   , KC_O   , XXXXXXX,    XXXXXXX, KC_S   , KC_N   , KC_R   , KC_T   , KC_D   , KC_Y   ,
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_LCTL, KC_LSFT, MO(L_3),    MO(L_3), KC_RSFT, KC_SPC
     ),
 
-    [L_3] = LAYOUT_moonlander(
+    [L_3] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, KC_UNDS, KC_LBRC, KC_RBRC, KC_CIRC, XXXXXXX,    XXXXXXX, KC_EXLM, KC_LABK, KC_RABK, KC_EQL , KC_AMPR, XXXXXXX,
         XXXXXXX, KC_BSLS, KC_SLSH, KC_LCBR, KC_RCBR, KC_ASTR, XXXXXXX,    XXXXXXX, KC_QUES, KC_LPRN, KC_RPRN, KC_MINS, KC_COLN, KC_AT  ,
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
-    [L_4] = LAYOUT_moonlander(
+    [L_4] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, KC_PGUP, KC_BSPC, KC_UP  , KC_DEL , KC_PGDN, XXXXXXX,    XXXXXXX, XXXXXXX, KC_7   , KC_8   , KC_9   , XXXXXXX, XXXXXXX,
         XXXXXXX, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END , XXXXXXX,    XXXXXXX, XXXXXXX, KC_4   , KC_5   , KC_6   , XXXXXXX, XXXXXXX,
