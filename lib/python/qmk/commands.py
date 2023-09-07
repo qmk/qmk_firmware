@@ -197,6 +197,9 @@ def compile_configurator_json(user_keymap, bootloader=None, parallel=1, clean=Fa
         'QMK_BIN="qmk"',
     ])
 
+    if HAS_QMK_USERSPACE:
+        make_command.append(f'QMK_USERSPACE={Path(QMK_USERSPACE).resolve()}')
+
     for key, value in env_vars.items():
         make_command.append(f'{key}={value}')
 
