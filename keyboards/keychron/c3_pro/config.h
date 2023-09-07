@@ -19,6 +19,7 @@
 /* Indication led */
 #define LED_MAC_OS_PIN A4
 #define LED_WIN_OS_PIN A5
+#define LED_PIN_ON_STATE 1
 
 /* EEPROM Driver Configuration */
 #define WEAR_LEVELING_LOGICAL_SIZE 2048
