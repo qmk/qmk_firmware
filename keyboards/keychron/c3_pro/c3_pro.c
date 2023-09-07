@@ -23,8 +23,8 @@ static uint8_t  led_toggle_count         = 5;
 void keyboard_post_init_kb(void) {
     setPinOutputPushPull(LED_MAC_OS_PIN);
     setPinOutputPushPull(LED_WIN_OS_PIN);
-    writePin(LED_MAC_OS_PIN, !LED_PIN_ON_STATE);
-    writePin(LED_WIN_OS_PIN, !LED_PIN_ON_STATE);
+    writePin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+    writePin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
 
     layer_state_t last_layer = eeconfig_read_default_layer();
     if (last_layer) {
@@ -50,12 +50,12 @@ void eeconfig_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     if (default_layer_state == (1U << 0)) {
-        writePin(LED_MAC_OS_PIN, LED_PIN_ON_STATE);
-        writePin(LED_WIN_OS_PIN, !LED_PIN_ON_STATE);
+        writePin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
+        writePin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
     }
     if (default_layer_state == (1U << 2)) {
-        writePin(LED_MAC_OS_PIN, !LED_PIN_ON_STATE);
-        writePin(LED_WIN_OS_PIN, LED_PIN_ON_STATE);
+        writePin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+        writePin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
     }
 
     if (os_switch_timer_buffer && timer_elapsed32(os_switch_timer_buffer) > 300) {
