@@ -12,11 +12,7 @@
         "mousekey": true,
         "nkro": true,
         "lto": true,
-        "key_override": true,
-        "combo": true,
-        "tap_dance": true,
-        "rgblight": true,
-        "caps_word": true
+        "rgblight": true
     },
     "matrix_pins": {
         "rows": ["GP29", "GP28", "GP14", "GP6", "GP7"],
