@@ -268,15 +268,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    case BL_TOGG:
-#ifdef ISSI_ENABLE
-        if (record->event.pressed) {
-            print("Enabling backlight\n");
-            issi_init();
-        }
-#endif
-        return false;
-        break;
     case BL_STEP:
         if (record->event.pressed) {
             print("Stepping backlight\n");
