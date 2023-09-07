@@ -23,7 +23,7 @@
 #include "progmem.h"
 
 typedef struct is31_led {
-    uint32_t driver : 2;
+    uint8_t driver : 2;
     uint8_t v;
 } __attribute__((packed)) is31_led;
 

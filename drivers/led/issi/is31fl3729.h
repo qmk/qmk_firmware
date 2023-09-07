@@ -23,10 +23,10 @@
 #include "progmem.h"
 
 typedef struct is31_led {
-    uint32_t driver : 2;
-    uint32_t r;
-    uint32_t g;
-    uint32_t b;
+    uint8_t driver : 2;
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
 } __attribute__((packed)) is31_led;
 
 extern const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT];
