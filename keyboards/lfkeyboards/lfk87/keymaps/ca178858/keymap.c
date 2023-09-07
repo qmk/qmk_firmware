@@ -13,17 +13,6 @@ enum {
     TD_ESC_FUNC = 0,
 };
 
-// Colors of the layer indicator LED
-// This list needs to define layer 0xFFFFFFFF, it is the end of the list, and the unknown layer
-const Layer_Info layer_info[] = {
-    // Layer     Mask           Red     Green   Blue
-    {0x00000000, 0xFFFFFFF8, {0x00, 0xFF, 0x00}}, // base layers (VANILLA, DEFAULT_WKL, DEFAULT_OSX) - green
-    {0x00000008, 0xFFFFFFF8, {0x07FF, 0x07FF, 0x0000}}, // CSGO layer - orange
-    {0x00000010, 0xFFFFFFF0, {0x0000, 0x0000, 0x0FFF}}, // function layer - blue
-    {0x00000020, 0xFFFFFFE0, {0x0FFF, 0x0000, 0x0FFF}}, // settings layer - magenta
-    {0xFFFFFFFF, 0xFFFFFFFF, {0x0FFF, 0x0FFF, 0x0FFF}}, // unknown layer - REQUIRED - white
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap VANILLA: (Base Layer) Default Layer
      * ,-----------------------------------------------------------------------------.
