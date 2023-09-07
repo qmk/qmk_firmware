@@ -1,5 +1,5 @@
-# Dilemma v2 (3x5+3 assembled)
+# Dilemma Max (4x6+4)
 
-This keyboard is an updated version of the [3x5+2 Dilemma](../3x5_2/).
+This keyboard is an upsized version of the [3x5+3 Dilemma](../3x5_3/).
 
-The Dilemma v2 is available at [bastardkb.com](https://bastardkb.com).
+The Dilemma Max is available at [bastardkb.com](https://bastardkb.com).
