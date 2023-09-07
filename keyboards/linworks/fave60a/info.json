@@ -121,8 +121,11 @@
         "pid": "0x000C",
         "vid": "0x4C58"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_60_tsangan_hhkb"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60_tsangan_hhkb": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0], "x": 0, "y": 0 },
                 { "label": "!", "matrix": [0, 1], "x": 1, "y": 0 },
