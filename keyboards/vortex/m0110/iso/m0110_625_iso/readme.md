@@ -1,19 +1,19 @@
-# M0110_625_ISO 
+# M0110_625 ISO 
 ![m0110_625_iso](https://i.imgur.com/UF5fY69h.jpeg)
 
 An 62 keys keyboard, Equipped with the WestBerry Q95 microcontroller.
 
 * Keyboard Maintainer: [GSKY](https://github.com/gksygithub)
-* Hardware Supported: M0110_625 
+* Hardware Supported: M0110_625_iso 
 * Hardware Availability: [GSKY](https://github.com/gskygithub/m0110_625_iso)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make vortex/m0110/iso/m0110_625:default
+    make vortex/m0110/iso/m0110_625_iso:default
 
 Flashing example for this keyboard:
 
-    make vortex/m0110/iso/m0110_625:default:flash
+    make vortex/m0110/iso/m0110_625_iso:default:flash
 
 ## Bootloader
 Enter the bootloader in 3 ways:
