@@ -13,7 +13,7 @@
         "driver": "spi"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "driver": "ws2812",
         "hue_steps": 10,
         "sat_steps": 10,
         "val_steps": 10

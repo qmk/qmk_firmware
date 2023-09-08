@@ -17,7 +17,13 @@
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 7,
-        "led_map": [1, 2, 0, 3, 4, 5, 6]
+        "led_map": [1, 2, 0, 3, 4, 5, 6],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "twinkle": true
+        }
     },
     "ws2812": {
         "pin": "B7"

@@ -24,8 +24,11 @@
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",
+  "layout_aliases": {
+    "LAYOUT_ergoslab": "LAYOUT"
+  },
   "layouts": {
-    "LAYOUT_ergoslab": {
+    "LAYOUT": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0.625},
         {"matrix": [0, 1], "x": 1, "y": 0.125},

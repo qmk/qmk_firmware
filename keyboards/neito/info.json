@@ -37,7 +37,19 @@
         "brightness_steps": 8,
         "led_count": 11,
         "max_brightness": 200,
-        "led_map": [4, 3, 2, 1, 0, 10, 9, 8, 7, 6, 5]
+        "led_map": [4, 3, 2, 1, 0, 10, 9, 8, 7, 6, 5],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

@@ -8,7 +8,7 @@
     "device_version": "0.0.1"
    },
    "rgb_matrix": {
-     "driver": "WS2812"
+     "driver": "ws2812"
    },
   "processor": "atmega32u4",
   "bootloader": "caterina"

@@ -4,9 +4,9 @@
     "url": "https://github.com/adereth/dactyl-keyboard",
     "maintainer": "Matt Adereth",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x3060",
-        "device_version": "0.0.1"
+        "vid": "0x444C",
+        "pid": "0xA460",
+        "device_version": "1.0.0"
     },
     "features": {
         "bootmagic": true,

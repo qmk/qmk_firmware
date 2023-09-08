@@ -12,7 +12,18 @@
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 16,
-        "sleep": true
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
     },
     "ws2812": {
         "pin": "D3"
@@ -33,9 +44,9 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 1.5, "y": 0, "h": 2, "w": 2, "matrix": [0, 0]},
-                {"x": 0.5, "y": 2.25, "matrix": [0, 1]},
-                {"x": 3.5, "y": 2.25, "matrix": [0, 2]}
+                {"x": 1, "y": 0, "h": 2, "w": 2, "matrix": [0, 0]},
+                {"x": 0, "y": 2.25, "matrix": [0, 1]},
+                {"x": 3, "y": 2.25, "matrix": [0, 2]}
             ]
         }
     }
