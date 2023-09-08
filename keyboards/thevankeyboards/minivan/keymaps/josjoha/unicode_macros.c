@@ -2022,7 +2022,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 # endif // REMOVE_DRA
 
 
-        /* _BON layer definitions. Due to running out of X(…), XP(…) space.*/
+        /* _BON layer definitions. */
 
    // ------------------------- row 4
 # ifndef REMOVE_BON // Removes this layer entirely, if set.

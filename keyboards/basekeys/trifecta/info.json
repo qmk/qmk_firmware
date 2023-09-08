@@ -27,7 +27,26 @@
         "pin": "E6"
     },
     "rgblight": {
-        "max_brightness": 128
+        "hue_steps": 10,
+        "led_count": 80,
+        "max_brightness": 128,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "rgb_matrix": {
+        "sat_steps": 8,
+        "val_steps": 8,
+        "speed_steps": 10
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

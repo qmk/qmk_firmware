@@ -16,6 +16,23 @@
     "split": {
         "soft_serial_pin": "D3"
     },
+    "rgblight": {
+        "led_count": 14,
+        "led_map": [6, 5, 4, 3, 2, 1, 0, 13, 12, 11, 10, 9, 8, 7],
+        "split_count": [7, 7],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "B6"
     },
