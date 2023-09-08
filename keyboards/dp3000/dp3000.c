@@ -63,7 +63,7 @@ void default_status(void) {
     oled_set_cursor(0, 0);
     oled_write_P(PSTR("LAYER: "), false);
     oled_write_char('0' + get_highest_layer(layer_state), false);
-    oled_set_cursor(0, 1);
+    oled_advance_page(true);
     oled_write_P(PSTR("LOCK: "), false);
     led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
