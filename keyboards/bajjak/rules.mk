@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = halfkay
-
 # If you have Left LEDs (see
 # https://geekhack.org/index.php?topic=22780.msg873819#msg873819 for
 # details), include the following define:
@@ -29,8 +23,6 @@ SWAP_HANDS_ENABLE = yes     # Allow swapping hands of keyboard
 # Disable unsupported hardware
 BACKLIGHT_SUPPORTED = no
 AUDIO_SUPPORTED = no
-
-DEBOUNCE_TYPE = sym_eager_pr
 
 # project specific files
 SRC += matrix.c 

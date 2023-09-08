@@ -14,10 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 // place overrides here
 #define MUSIC_MASK (keycode != KC_NO)
@@ -25,7 +22,5 @@
    #define STARTUP_SONG SONG(IMPERIAL_MARCH)
    // Disable music mode to keep the firmware size down
    #define NO_MUSIC_MODE
-
-#endif
 
 #endif

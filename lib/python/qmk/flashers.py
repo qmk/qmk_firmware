@@ -71,6 +71,12 @@ def _find_usb_device(vid_hex, pid_hex):
             return usb.core.find(idVendor=vid_hex, idProduct=pid_hex)
 
 
+def _find_uf2_devices():
+    """Delegate to uf2conv.py as VID:PID pairs can potentially fluctuate more than other bootloaders
+    """
+    return cli.run(['util/uf2conv.py', '--list']).stdout.splitlines()
+
+
 def _find_bootloader():
     # To avoid running forever in the background, only look for bootloaders for 10min
     start_time = time.time()
@@ -90,11 +96,13 @@ def _find_bootloader():
                             details = 'halfkay'
                         else:
                             details = 'qmk-hid'
-                    elif bl == 'stm32-dfu' or bl == 'apm32-dfu' or bl == 'gd32v-dfu' or bl == 'kiibohd':
+                    elif bl in {'apm32-dfu', 'gd32v-dfu', 'kiibohd', 'stm32-dfu'}:
                         details = (vid, pid)
                     else:
                         details = None
                     return (bl, details)
+        if _find_uf2_devices():
+            return ('_uf2_compatible_', None)
         time.sleep(0.1)
     return (None, None)
 
@@ -173,15 +181,28 @@ def _flash_dfu_util(details, file):
         cli.run(['dfu-util', '-a', '0', '-d', f'{details[0]}:{details[1]}', '-s', '0x08000000:leave', '-D', file], capture_output=False)
 
 
+def _flash_wb32_dfu_updater(file):
+    if shutil.which('wb32-dfu-updater_cli'):
+        cmd = 'wb32-dfu-updater_cli'
+    else:
+        return True
+
+    cli.run([cmd, '-t', '-s', '0x08000000', '-D', file], capture_output=False)
+
+
 def _flash_isp(mcu, programmer, file):
     programmer = 'usbasp' if programmer == 'usbasploader' else 'usbtiny'
-    # Check if the provide mcu has an avrdude-specific name, otherwise pass on what the user provided
+    # Check if the provided mcu has an avrdude-specific name, otherwise pass on what the user provided
     mcu = AVRDUDE_MCU.get(mcu, mcu)
     cli.run(['avrdude', '-p', mcu, '-c', programmer, '-U', f'flash:w:{file}:i'], capture_output=False)
 
 
 def _flash_mdloader(file):
     cli.run(['mdloader', '--first', '--download', file, '--restart'], capture_output=False)
+
+
+def _flash_uf2(file):
+    cli.run(['util/uf2conv.py', '--deploy', file], capture_output=False)
 
 
 def flasher(mcu, file):
@@ -199,8 +220,11 @@ def flasher(mcu, file):
                 return (True, "Please make sure 'teensy_loader_cli' or 'hid_bootloader_cli' is available on your system.")
         else:
             return (True, "Specifying the MCU with '-m' is necessary for HalfKay/HID bootloaders!")
-    elif bl == 'stm32-dfu' or bl == 'apm32-dfu' or bl == 'gd32v-dfu' or bl == 'kiibohd':
+    elif bl in {'apm32-dfu', 'gd32v-dfu', 'kiibohd', 'stm32-dfu'}:
         _flash_dfu_util(details, file)
+    elif bl == 'wb32-dfu':
+        if _flash_wb32_dfu_updater(file):
+            return (True, "Please make sure 'wb32-dfu-updater_cli' is available on your system.")
     elif bl == 'usbasploader' or bl == 'usbtinyisp':
         if mcu:
             _flash_isp(mcu, bl, file)
@@ -208,6 +232,8 @@ def flasher(mcu, file):
             return (True, "Specifying the MCU with '-m' is necessary for ISP flashing!")
     elif bl == 'md-boot':
         _flash_mdloader(file)
+    elif bl == '_uf2_compatible_':
+        _flash_uf2(file)
     else:
         return (True, "Known bootloader found but flashing not currently supported!")
 

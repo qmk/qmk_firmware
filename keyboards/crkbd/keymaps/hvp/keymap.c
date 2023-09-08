@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "hvp.c"
-#ifdef SSD1306OLED
-#    include "ssd1306.h"
-#    include <string.h>
-#endif
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings

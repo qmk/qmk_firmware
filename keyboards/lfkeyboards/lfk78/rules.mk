@@ -1,6 +1,3 @@
-# Bootloader selection
-BOOTLOADER = atmel-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -11,10 +8,8 @@ CONSOLE_ENABLE = no             # Console for debug
 COMMAND_ENABLE = no             # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes          # Enable keyboard backlight functionality
-BACKLIGHT_DRIVER = custom
 AUDIO_ENABLE = no               # Audio output
 RGBLIGHT_ENABLE = yes           # Enable WS2812 RGB underlight.
-RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lfkeyboards, not qmk base
 SLEEP_LED_ENABLE = yes
 
 ISSI_ENABLE = yes               # If the I2C pullup resistors aren't install this must be disabled

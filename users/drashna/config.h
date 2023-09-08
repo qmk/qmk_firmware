@@ -3,14 +3,10 @@
 
 #pragma once
 
-// Use custom magic number so that when switching branches, EEPROM always gets reset
-#define EECONFIG_MAGIC_NUMBER (uint16_t)0x1339
-
 #ifdef IS_COMMAND
 #    undef IS_COMMAND
 #endif
 #define IS_COMMAND() (((get_mods() | get_oneshot_mods()) & MOD_MASK_SHIFT) == MOD_MASK_SHIFT)
-
 
 #if defined(SPLIT_KEYBOARD)
 #    include "split/split_config.h"
@@ -27,50 +23,24 @@
 #    include "oled/oled_config.h"
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing/pointing_config.h"
+#endif // POINTING_DEVICE_ENABLE
+
+#ifdef AUDIO_ENABLE
+#    include "audio_config.h"
+#endif // AUDIO_ENABLE
+
 #if defined(WPM_ENABLE)
 // #    define WPM_LAUNCH_CONTROL
-// #    define WPM_ALLOW_COUNT_REGRESSOIN
 // #    define WPM_UNFILTERED
+#    define WPM_ALLOW_COUNT_REGRESSION
 #    define WPM_SAMPLE_SECONDS 10
 #    define WPM_SAMPLE_PERIODS 50
 #    define WPM_ESTIMATED_WORD_SIZE 5
 #endif
 
-#ifdef AUDIO_ENABLE
-#    define AUDIO_CLICKY
-#    define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
-
-#    ifdef USER_SONG_LIST
-#        define STARTUP_SONG SONG(RICK_ROLL)
-#        define GOODBYE_SONG SONG(SONIC_RING)
-#        define DEFAULT_LAYER_SONGS \
-            { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND), SONG(OVERWATCH_THEME) }
-#        define UNICODE_SONG_MAC SONG(MARIO_THEME)
-#        define UNICODE_SONG_LNX SONG(MARIO_POWERUP)
-#        define UNICODE_SONG_WIN SONG(MARIO_ONEUP)
-#        define UNICODE_SONG_BSD SONG(RICK_ROLL)
-#        define UNICODE_SONG_WINC SONG(RICK_ROLL)
-#    else
-#        define STARTUP_SONG SONG(STARTUP_SOUND)
-#        define GOODBYE_SONG SONG(GOODBYE_SOUND)
-#        define DEFAULT_LAYER_SONGS \
-            { SONG(QWERTY_SOUND), SONG(COLEMAK_SOUND), SONG(DVORAK_SOUND), SONG(WORKMAN_SOUND) }
-#        define UNICODE_SONG_MAC SONG(QWERTY_SOUND)
-#        define UNICODE_SONG_LNX SONG(COLEMAK_SOUND)
-#        define UNICODE_SONG_WIN SONG(DVORAK_SOUND)
-#        define UNICODE_SONG_BSD SONG(WORKMAN_SOUND)
-#        define UNICODE_SONG_WINC SONG(PLOVER_GOODBYE_SOUND)
-#    endif
-#endif // !AUDIO_ENABLE
-
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS
-
-// #define WPM_ESTIMATED_WORD_SIZE 5
-#define WPM_ALLOW_COUNT_REGRESSION
-// #define WPM_UNFILTERED
-// #define WPM_SAMPLE_SECONDS 5
-// #define WPM_SAMPLE_PERIODS 50
-// #define WPM_LAUNCH_CONTROL
 
 #ifndef ONESHOT_TAP_TOGGLE
 #    define ONESHOT_TAP_TOGGLE 2
@@ -81,15 +51,13 @@
 #endif // !ONESHOT_TIMEOUT
 
 #if defined(PER_KEY_TAPPING)
-#    define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 #    define PERMISSIVE_HOLD_PER_KEY
-#    define TAPPING_FORCE_HOLD_PER_KEY
+#    define QUICK_TAP_TERM_PER_KEY
 #    define HOLD_ON_OTHER_KEY
 #    define RETRO_TAPPING_PER_KEY
 #    define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 #    define TAPPING_TERM_PER_KEY
 #else
-#    define IGNORE_MOD_TAP_INTERRUPT
 #    undef PERMISSIVE_HOLD
 #endif
 
@@ -126,7 +94,22 @@
 #    define C15 PAL_LINE(GPIOC, 15)
 #endif
 
-
 #define ENABLE_COMPILE_KEYCODE
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+/* --- PRINTF_BYTE_TO_BINARY macro's --- */
+#define PRINTF_BINARY_PATTERN_INT8 "%c%c%c%c%c%c%c%c"
+#define PRINTF_BYTE_TO_BINARY_INT8(i) (((i)&0x80ll) ? '1' : '0'), (((i)&0x40ll) ? '1' : '0'), (((i)&0x20ll) ? '1' : '0'), (((i)&0x10ll) ? '1' : '0'), (((i)&0x08ll) ? '1' : '0'), (((i)&0x04ll) ? '1' : '0'), (((i)&0x02ll) ? '1' : '0'), (((i)&0x01ll) ? '1' : '0')
+
+#define PRINTF_BINARY_PATTERN_INT16 PRINTF_BINARY_PATTERN_INT8 " " PRINTF_BINARY_PATTERN_INT8
+#define PRINTF_BYTE_TO_BINARY_INT16(i) PRINTF_BYTE_TO_BINARY_INT8((i) >> 8), PRINTF_BYTE_TO_BINARY_INT8(i)
+#define PRINTF_BINARY_PATTERN_INT32 PRINTF_BINARY_PATTERN_INT16 " " PRINTF_BINARY_PATTERN_INT16
+#define PRINTF_BYTE_TO_BINARY_INT32(i) PRINTF_BYTE_TO_BINARY_INT16((i) >> 16), PRINTF_BYTE_TO_BINARY_INT16(i)
+#define PRINTF_BINARY_PATTERN_INT64 PRINTF_BINARY_PATTERN_INT32 " " PRINTF_BINARY_PATTERN_INT32
+#define PRINTF_BYTE_TO_BINARY_INT64(i) PRINTF_BYTE_TO_BINARY_INT32((i) >> 32), PRINTF_BYTE_TO_BINARY_INT32(i)
+/* --- end macros --- */
+
+#ifndef EECONFIG_USER_DATA_SIZE
+#    define EECONFIG_USER_DATA_SIZE 8
+#endif

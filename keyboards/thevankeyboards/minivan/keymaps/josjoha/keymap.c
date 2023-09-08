@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    * accented characters are defined in unicode_weurope.h
    *
    * Unicode macros facilitate recomputing for re-computing the Dvorak with changed letters 
-   * ('descramble'), and exist because space ran out for * XP(…).
+   * ('descramble'), and exist because space ran out for * UP(…).
    *
    * The led color code might be a bit hairy, due to speed/count middle led overlapping layer color. 
    *
@@ -288,7 +288,7 @@ void speed_led (int speed) {
 
 
 // do this in one place to handle left/right leds being off here
-void isolate_rgblight_set () {
+void isolate_rgblight_set (void) {
 
 # ifdef RGBLIGHT_ENABLE
     if (!leds_on) { // left/right leds are off

@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = halfkay
-
 # Build Options
 #   change yes to no to disable
 #
@@ -17,4 +11,3 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306

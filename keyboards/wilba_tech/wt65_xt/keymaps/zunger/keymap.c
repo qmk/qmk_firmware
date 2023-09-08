@@ -173,7 +173,7 @@ const char *VC_HAND_VALUES[_OS_MODES_MAX] = {SS_LCTL(SS_LSFT("k")), SS_LCTL(SS_L
 const char *SCRNSHT_VALUES[_OS_MODES_MAX] = {SS_LGUI(SS_LSFT("s")), SS_LCMD(SS_LSFT("4"))};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[_QWERTY] = LAYOUT_all(
+	[_QWERTY] = LAYOUT_65_xt_ansi_blocker_tsangan(
 		KC_ESC,      KC_LLCK,    KC_GRAVE,KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_HOME,
 		KC_PLATFORM, KC_MPLY,    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGUP,
 		KC_SCRNSHT,  KC_YIDDISH, KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,                    KC_PGDN,
@@ -232,37 +232,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *   .    ≲ 2272  ≳ 2273  ≰ 2270  ≱ 2271
    *   /                            ⊘ 2298
    */
-	[_YIDDISH] = LAYOUT_all(
+	[_YIDDISH] = LAYOUT_65_xt_ansi_blocker_tsangan(
 		KC_TRNS,  KC_TRNS,    H(05f3), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
     KC_TRNS,  KC_TRNS,    KC_TRNS, H(05e7), H(05e9), H(05e2), H(05e8), H(05d8), H(05f2), H(05d5), H(05d9), H(05d5), H(05e4), KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(05d0), H(05e1), H(05d3), H(fb4e), H(05d2), H(05d4), H(05d7), H(05db), H(05dc), KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(05d6), H(05e6), H(05db), H(05f0), H(05d1), H(05e0), H(05de), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
-	[_SHIFTYIDDISH] = LAYOUT_all(
+	[_SHIFTYIDDISH] = LAYOUT_65_xt_ansi_blocker_tsangan(
 		KC_TRNS,  KC_TRNS,    H(05f4), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, H(fb4a), H(fb1f), H(05f1), KC_TRNS, H(fb2f), H(05e3), KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
     KC_TRNS,  KC_TRNS,    KC_TRNS, H(fb2e), H(05ea), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, H(fb4d), H(05da), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, H(05e5), H(05da), H(fb4c), KC_TRNS, H(05df), H(05dd), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
-	[_GREEK] = LAYOUT_all(
+	[_GREEK] = LAYOUT_65_xt_ansi_blocker_tsangan(
 		KC_TRNS,  KC_TRNS,    XXXXXXX, H(2081), H(2082), H(2083), H(2084), H(2085), H(2086), H(2087), H(2088), H(2089), H(2080), H(208b), H(208a), KC_TRNS,          KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(03b8), H(03c9), H(03b5), H(03c1), H(03c4), H(03c8), H(03c5), H(03b9), H(03bf), H(03c0), XXXXXXX, XXXXXXX, XXXXXXX,          KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(03b1), H(03c3), H(03b4), H(03c6), H(03b3), H(03b7), XXXXXXX, H(03ba), H(03bb), H(2026), H(00b7), KC_TRNS,                   KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(03b6), H(03be), H(03c7), XXXXXXX, H(03b2), H(03bd), H(03bc), H(226a), H(2272), XXXXXXX, KC_TRNS,                   KC_TRNS, KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
-	[_SHIFTGREEK] = LAYOUT_all(
+	[_SHIFTGREEK] = LAYOUT_65_xt_ansi_blocker_tsangan(
 		KC_TRNS,  KC_TRNS,    XXXXXXX, H(00b9), H(00b2), H(00b3), H(2074), H(2075), H(2076), H(2077), H(2078), H(2079), H(2070), H(207b), H(208b), KC_TRNS,          KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(0398), H(03a9), H(0395), H(03a1), H(03a4), H(03a8), H(03a5), H(0399), H(039f), H(03a0), XXXXXXX, XXXXXXX, XXXXXXX,          KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(0391), H(03a3), H(0394), H(03a6), H(0393), H(0397), H(03d1), H(039a), H(039b), H(22ef), H(2022), KC_TRNS,                   KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(0396), H(039e), H(03a7), H(03c2), H(0392), H(039d), H(039c), H(226b), H(2273), XXXXXXX, KC_TRNS,                   KC_TRNS, KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
-	[_CADET] = LAYOUT_all(
+	[_CADET] = LAYOUT_65_xt_ansi_blocker_tsangan(
 		KC_TRNS,  KC_TRNS,    XXXXXXX, H(00a1), H(00ab), H(00a3), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, H(00b0), XXXXXXX, H(2205), H(00ac), H(2260), KC_TRNS,          KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(211a), XXXXXXX, H(2203), H(211d), XXXXXXX, H(2228), H(222a), H(221e), XXXXXXX, H(2261), H(00b1), H(2248), H(223c),          KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(2200), H(2208), H(2282), H(2286), H(2287), H(2190), H(2193), H(2191), H(2192), H(2194), H(2234), KC_TRNS,                   KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(2124), H(2718), H(2102), H(2714), XXXXXXX, H(2115), XXXXXXX, H(2202), H(2270), XXXXXXX, KC_TRNS,                   KC_TRNS, KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
-	[_SHIFTCADET] = LAYOUT_all(
+	[_SHIFTCADET] = LAYOUT_65_xt_ansi_blocker_tsangan(
 		KC_TRNS,  KC_TRNS,    XXXXXXX, H(00bf), H(00bb), H(20ac), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, H(2297), XXXXXXX, XXXXXXX, H(2296), H(2295), KC_TRNS,          KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, H(2204), XXXXXXX, XXXXXXX, H(2227), H(2229), H(2135), XXXXXXX, H(2262), H(2213), H(2249), H(2241),          KC_TRNS,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, H(212b), H(2209), H(2284), H(2288), H(2289), H(21d0), H(21d3), H(21d1), H(21d2), H(21d4), H(2299), KC_TRNS,                   KC_TRNS,
@@ -270,7 +270,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TRNS,  KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                                     KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
   // The function layer mostly contains the accent marks, but also has a few meta-control
   // operations. The accent marks are placed by analogy with Mac OS.
-	[_FUNCTION] = LAYOUT_all(
+	[_FUNCTION] = LAYOUT_65_xt_ansi_blocker_tsangan(
 		QK_BOOT,  KC_TRNS,    KC_CGRV, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,          XXXXXXX,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, KC_CAGU, XXXXXXX, XXXXXXX, XXXXXXX, KC_CDIA, KC_CCIR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
 		KC_TRNS,  KC_TRNS,    KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,
@@ -435,7 +435,7 @@ void toggle_os_mode(void) {
   set_os_mode((os_mode + 1) % _OS_MODES_MAX);
 }
 
-void keyboard_post_init_user() {
+void keyboard_post_init_user(void) {
   set_os_mode(_WINDOWS);
 }
 

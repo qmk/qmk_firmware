@@ -1,8 +1,8 @@
 #pragma once
 
-#include <util/atomic.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "atomic_util.h"
 
 #ifndef RBUF_SIZE
 #    define RBUF_SIZE 32

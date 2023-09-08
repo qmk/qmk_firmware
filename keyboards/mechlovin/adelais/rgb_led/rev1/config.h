@@ -1,9 +1,5 @@
 #pragma once
 
-#define MATRIX_ROW_PINS { B1, A0, C13, A1, A2}
-#define MATRIX_COL_PINS { A10, A9, A8, B15, B14, B13, B12, B11, B10, B8, B4, B5, B3, C14, A15 }
-
-#define RGB_DI_PIN A7
 #define RGB_MATRIX_LED_COUNT 91
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 #define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
@@ -61,7 +57,3 @@
 #    define ENABLE_RGB_MATRIX_MULTISPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-
-#define LED_NUM_LOCK_PIN C15
-#define LED_CAPS_LOCK_PIN B2
-#define LED_SCROLL_LOCK_PIN B9

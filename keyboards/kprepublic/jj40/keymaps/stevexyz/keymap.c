@@ -57,7 +57,7 @@ enum {
   TD_O_GRAVE,
   TD_U_GRAVE,
 };
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_P_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_P, KC_BSPC),
   [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
   [TD_A_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_TAB),
@@ -262,12 +262,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_user(void) {
   // eeconfig_init(); // reset keyboard to a standard default state; useful when new releases messup with eeprom values
   // set num lock on at start (for numonly layer to work)
-  if (!(host_keyboard_leds() & (1<<USB_LED_NUM_LOCK))) {
+  if (!host_keyboard_led_state().num_lock) {
       SEND_STRING(SS_TAP(X_NUM_LOCK)); //register_code(KC_NUM_LOCK); unregister_code(KC_NUM_LOCK);
   }
-}
-
-void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

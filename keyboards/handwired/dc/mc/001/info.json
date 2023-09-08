@@ -6,16 +6,33 @@
     "usb": {
         "vid": "0x4443",
         "pid": "0x4D43",
-        "device_version": "0.0.1"
+        "device_version": "0.0.1",
+        "max_power": 100
     },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B6", "pin_b": "B5"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "matrix_pins": {
+        "direct": [
+            ["B4", "B0", "B1", "B2", "B3"]
+        ]
+    },
+    "debounce": 50,
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "Mute", "x": 0, "y": 0},
-                {"label": "Stop", "x": 1, "y": 0},
-                {"label": "Previous", "x": 2, "y": 0},
-                {"label": "Next", "x": 3, "y": 0},
-                {"label": "Play/Pause", "x": 4, "y": 0}
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 3, "y": 0, "matrix": [0, 3]},
+                {"x": 4, "y": 0, "matrix": [0, 4]}
             ]
         }
     }

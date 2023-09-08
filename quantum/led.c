@@ -69,14 +69,6 @@ uint32_t last_led_activity_elapsed(void) {
  */
 __attribute__((weak)) void led_set_user(uint8_t usb_led) {}
 
-/** \brief Lock LED set callback - keyboard level
- *
- * \deprecated Use led_update_kb() instead.
- */
-__attribute__((weak)) void led_set_kb(uint8_t usb_led) {
-    led_set_user(usb_led);
-}
-
 /** \brief Lock LED update callback - keymap/user level
  *
  * \return True if led_update_kb() should run its own code, false otherwise.
@@ -154,21 +146,21 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
     handle_backlight_caps_lock((led_t)usb_led);
 #endif
 
-    led_set_kb(usb_led);
+    led_set_user(usb_led);
     led_update_kb((led_t)usb_led);
 }
 
 /** \brief Trigger behaviour on transition to suspend
  */
 void led_suspend(void) {
-    uint8_t leds_off = 0;
+    led_t leds_off = {0};
 #ifdef BACKLIGHT_CAPS_LOCK
     if (is_backlight_enabled()) {
         // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
-        leds_off |= (1 << USB_LED_CAPS_LOCK);
+        leds_off.caps_lock = true;
     }
 #endif
-    led_set(leds_off);
+    led_set(leds_off.raw);
 }
 
 /** \brief Trigger behaviour on transition from suspend

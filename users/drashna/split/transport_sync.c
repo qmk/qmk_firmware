@@ -15,9 +15,6 @@ extern unicode_config_t unicode_config;
 extern audio_config_t audio_config;
 extern bool           delayed_tasks_run;
 #endif
-#if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
-extern bool is_oled_enabled;
-#endif
 #if defined(POINTING_DEVICE_ENABLE) && defined(KEYBOARD_handwired_tractyl_manuform)
 extern bool tap_toggling;
 #endif
@@ -26,7 +23,6 @@ extern bool swap_hands;
 #endif
 
 extern userspace_config_t userspace_config;
-extern bool               host_driver_disabled;
 
 uint16_t transport_keymap_config    = 0;
 uint32_t transport_userspace_config = 0, transport_user_state = 0;
@@ -52,8 +48,8 @@ void user_config_sync(uint8_t initiator2target_buffer_size, const void* initiato
 #ifdef CUSTOM_OLED_DRIVER
 #    include "oled/oled_stuff.h"
 void keylogger_string_sync(uint8_t initiator2target_buffer_size, const void* initiator2target_buffer, uint8_t target2initiator_buffer_size, void* target2initiator_buffer) {
-    if (initiator2target_buffer_size == OLED_KEYLOGGER_LENGTH) {
-        memcpy(&keylog_str, initiator2target_buffer, initiator2target_buffer_size);
+    if (initiator2target_buffer_size == (OLED_KEYLOGGER_LENGTH+1)) {
+        memcpy(&oled_keylog_str, initiator2target_buffer, initiator2target_buffer_size);
     }
 }
 #endif
@@ -64,7 +60,7 @@ void keyboard_post_init_transport_sync(void) {
     transaction_register_rpc(RPC_ID_USER_KEYMAP_SYNC, user_keymap_sync);
     transaction_register_rpc(RPC_ID_USER_CONFIG_SYNC, user_config_sync);
 #ifdef CUSTOM_OLED_DRIVER
-    transaction_register_rpc(RPC_ID_USER_KEYLOG_STR, keylogger_string_sync);
+    transaction_register_rpc(RPC_ID_USER_OLED_KEYLOG_STR, keylogger_string_sync);
 #endif
 }
 
@@ -76,9 +72,6 @@ void user_transport_update(void) {
         user_state.audio_enable        = is_audio_on();
         user_state.audio_clicky_enable = is_clicky_on();
 #endif
-#if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
-        user_state.is_oled_enabled = is_oled_enabled;
-#endif
 #if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
         user_state.tap_toggling = get_auto_mouse_toggle();
 #endif
@@ -89,7 +82,7 @@ void user_transport_update(void) {
 #ifdef SWAP_HANDS_ENABLE
         user_state.swap_hands = swap_hands;
 #endif
-        user_state.host_driver_disabled = host_driver_disabled;
+        user_state.host_driver_disabled = get_keyboard_lock();
 
         transport_user_state = user_state.raw;
     } else {
@@ -100,9 +93,6 @@ void user_transport_update(void) {
         unicode_config.input_mode = user_state.unicode_mode;
         unicode_typing_mode       = user_state.unicode_typing_mode;
 #endif
-#if defined(OLED_ENABLE) && !defined(SPLIT_OLED_ENABLE) && defined(CUSTOM_OLED_DRIVER)
-        is_oled_enabled = user_state.is_oled_enabled;
-#endif
 #if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
         if (get_auto_mouse_toggle() != user_state.tap_toggling) {
             auto_mouse_toggle();
@@ -111,7 +101,7 @@ void user_transport_update(void) {
 #ifdef SWAP_HANDS_ENABLE
         swap_hands = user_state.swap_hands;
 #endif
-        host_driver_disabled = user_state.host_driver_disabled;
+        set_keyboard_lock(user_state.host_driver_disabled);
     }
 }
 
@@ -122,7 +112,7 @@ void user_transport_sync(void) {
         static uint32_t last_config = 0, last_sync[4], last_user_state = 0;
         bool            needs_sync = false;
 #ifdef CUSTOM_OLED_DRIVER
-        static char keylog_temp[OLED_KEYLOGGER_LENGTH] = {0};
+        static char keylog_temp[OLED_KEYLOGGER_LENGTH + 1] = {0};
 #endif
 
         // Check if the state values are different
@@ -183,9 +173,9 @@ void user_transport_sync(void) {
 
 #ifdef CUSTOM_OLED_DRIVER
         // Check if the state values are different
-        if (memcmp(&keylog_str, &keylog_temp, OLED_KEYLOGGER_LENGTH)) {
+        if (memcmp(&oled_keylog_str, &keylog_temp, OLED_KEYLOGGER_LENGTH + 1)) {
             needs_sync = true;
-            memcpy(&keylog_temp, &keylog_str, OLED_KEYLOGGER_LENGTH);
+            memcpy(&keylog_temp, &oled_keylog_str, OLED_KEYLOGGER_LENGTH + 1);
         }
         if (timer_elapsed32(last_sync[3]) > 250) {
             needs_sync = true;
@@ -193,7 +183,7 @@ void user_transport_sync(void) {
 
         // Perform the sync if requested
         if (needs_sync) {
-            if (transaction_rpc_send(RPC_ID_USER_KEYLOG_STR, OLED_KEYLOGGER_LENGTH, &keylog_str)) {
+            if (transaction_rpc_send(RPC_ID_USER_OLED_KEYLOG_STR, OLED_KEYLOGGER_LENGTH + 1, &oled_keylog_str)) {
                 last_sync[3] = timer_read32();
             }
             needs_sync = false;

@@ -17,6 +17,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #include <hal.h>
 
@@ -42,19 +43,16 @@
 
 #ifdef USE_GPIOV1
 #    ifndef SD1_TX_PAL_MODE
-#        define SD1_TX_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#        define SD1_TX_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    endif
-
 #    ifndef SD1_RX_PAL_MODE
-#        define SD1_RX_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#        define SD1_RX_PAL_MODE PAL_MODE_INPUT
 #    endif
-
 #    ifndef SD1_CTS_PAL_MODE
-#        define SD1_CTS_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#        define SD1_CTS_PAL_MODE PAL_MODE_INPUT
 #    endif
-
 #    ifndef SD1_RTS_PAL_MODE
-#        define SD1_RTS_PAL_MODE PAL_MODE_ALTERNATE_OPENDRAIN
+#        define SD1_RTS_PAL_MODE PAL_MODE_ALTERNATE_PUSHPULL
 #    endif
 #else
 #    ifndef SD1_TX_PAL_MODE

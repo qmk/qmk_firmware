@@ -22,13 +22,13 @@ enum tap_dances {
     ENC_TAP,
 };
 
-#define LOWER FN_MO13
-#define RAISE FN_MO23
+#define LOWER TL_LOWR
+#define RAISE TL_UPPR
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
-        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, USER09,
+        KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, QK_KB_9,
         KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
         MO(3),   KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 #ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_LOWER]  = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
     [_RAISE]  = { ENCODER_CCW_CW(R_M_RMOD, R_M_MOD) },
@@ -64,7 +64,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
 #endif
 // clang-format on
 
-void dance_enc_finished(qk_tap_dance_state_t *state, void *user_data) {
+void dance_enc_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code(KC_MPLY);
     } else if (state->count == 2) {
@@ -74,7 +74,7 @@ void dance_enc_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_enc_reset(qk_tap_dance_state_t *state, void *user_data) {
+void dance_enc_reset(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         unregister_code(KC_MPLY);
     } else if (state->count == 2) {
@@ -85,7 +85,7 @@ void dance_enc_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [ENC_TAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_enc_finished, dance_enc_reset),
 };
 
@@ -99,10 +99,10 @@ typedef union {
 work_louder_config_t work_louder_config;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == USER09) {
+    if (keycode == QK_KB_9) {
         preprocess_tap_dance(TD(ENC_TAP), record);
         return process_tap_dance(TD(ENC_TAP), record);
-    } else if (keycode == USER10 && record->event.pressed) {
+    } else if (keycode == QK_KB_10 && record->event.pressed) {
         work_louder_config.led_level ^= true;
         eeconfig_update_user(work_louder_config.raw);
         layer_state_set_kb(layer_state);
