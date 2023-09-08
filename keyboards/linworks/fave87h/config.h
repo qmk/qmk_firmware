@@ -18,7 +18,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 /* Define RGB */
-#define RGBLED_NUM 87
 #define RGB_MATRIX_LED_COUNT 87
 
 #ifdef RGB_MATRIX_ENABLE
