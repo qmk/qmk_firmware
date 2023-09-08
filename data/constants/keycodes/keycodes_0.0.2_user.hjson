@@ -1,130 +1,130 @@
 {
     "keycodes": {
-        "0x7E40": {
+        "0x7E80": {
             "group": "user",
             "key": "QK_USER_0",
         },
-        "0x7E41": {
+        "0x7E81": {
             "group": "user",
             "key": "QK_USER_1",
         },
-        "0x7E42": {
+        "0x7E82": {
             "group": "user",
             "key": "QK_USER_2",
         },
-        "0x7E43": {
+        "0x7E83": {
             "group": "user",
             "key": "QK_USER_3",
         },
-        "0x7E44": {
+        "0x7E84": {
             "group": "user",
             "key": "QK_USER_4",
         },
-        "0x7E45": {
+        "0x7E85": {
             "group": "user",
             "key": "QK_USER_5",
         },
-        "0x7E46": {
+        "0x7E86": {
             "group": "user",
             "key": "QK_USER_6",
         },
-        "0x7E47": {
+        "0x7E87": {
             "group": "user",
             "key": "QK_USER_7",
         },
-        "0x7E48": {
+        "0x7E88": {
             "group": "user",
             "key": "QK_USER_8",
         },
-        "0x7E49": {
+        "0x7E89": {
             "group": "user",
             "key": "QK_USER_9",
         },
-        "0x7E4A": {
+        "0x7E8A": {
             "group": "user",
             "key": "QK_USER_10",
         },
-        "0x7E4B": {
+        "0x7E8B": {
             "group": "user",
             "key": "QK_USER_11",
         },
-        "0x7E4C": {
+        "0x7E8C": {
             "group": "user",
             "key": "QK_USER_12",
         },
-        "0x7E4D": {
+        "0x7E8D": {
             "group": "user",
             "key": "QK_USER_13",
         },
-        "0x7E4E": {
+        "0x7E8E": {
             "group": "user",
             "key": "QK_USER_14",
         },
-        "0x7E4F": {
+        "0x7E8F": {
             "group": "user",
             "key": "QK_USER_15",
         },
-        "0x7E50": {
+        "0x7E90": {
             "group": "user",
             "key": "QK_USER_16",
         },
-        "0x7E51": {
+        "0x7E91": {
             "group": "user",
             "key": "QK_USER_17",
         },
-         "0x7E52": {
+         "0x7E92": {
             "group": "user",
             "key": "QK_USER_18",
         },
-        "0x7E53": {
+        "0x7E93": {
             "group": "user",
             "key": "QK_USER_19",
         },
-        "0x7E54": {
+        "0x7E94": {
             "group": "user",
             "key": "QK_USER_20",
         },
-        "0x7E55": {
+        "0x7E95": {
             "group": "user",
             "key": "QK_USER_21",
         },
-        "0x7E56": {
+        "0x7E96": {
             "group": "user",
             "key": "QK_USER_22",
         },
-        "0x7E57": {
+        "0x7E97": {
             "group": "user",
             "key": "QK_USER_23",
         },
-        "0x7E58": {
+        "0x7E98": {
             "group": "user",
             "key": "QK_USER_24",
         },
-        "0x7E59": {
+        "0x7E99": {
             "group": "user",
             "key": "QK_USER_25",
         },
-        "0x7E5A": {
+        "0x7E9A": {
             "group": "user",
             "key": "QK_USER_26",
-        },       
-        "0x7E5B": {
+        },
+        "0x7E9B": {
             "group": "user",
             "key": "QK_USER_27",
         },
-        "0x7E5C": {
+        "0x7E9C": {
             "group": "user",
             "key": "QK_USER_28",
         },
-        "0x7E5D": {
+        "0x7E9D": {
             "group": "user",
             "key": "QK_USER_29",
         },
-        "0x7E5E": {
+        "0x7E9E": {
             "group": "user",
             "key": "QK_USER_30",
         },
-        "0x7E5F": {
+        "0x7E9F": {
             "group": "user",
             "key": "QK_USER_31",
         },
