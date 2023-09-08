@@ -32,9 +32,11 @@
         "cols": ["F0", "F1", "F4", "F5", "F6", "F7", "C7", "C6", "B2", "B3"],
         "rows": ["B1", "B0", "D1", "D0", "D5", "D3", "B7", "D2", "D4", "D6", "B4", "D7"]
     },
-
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ansi_split_bs"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ansi_split_bs": {
             "layout": [
                 {"label": "Esc", "matrix": [1,0], "x":0, "y":0},
                 {"label": "F1", "matrix": [0,0], "x":1.25, "y":0}, 
