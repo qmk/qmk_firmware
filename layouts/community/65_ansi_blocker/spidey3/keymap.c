@@ -32,10 +32,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // Glyph Transformation
     [_GLYPH] = LAYOUT_65_ansi_blocker(
-        QK_BOOT,    X(SAD),     X(MEH),     X(HAPPY),   X(ANGRY),   X(THUMBDN), X(THUMBUP), X(SPIDER),  X_BUL,      X(LOL),     X(SURPRISE),X_DASH,     SPI_GFLOCK,             XXXXXXX,    XXXXXXX,
+        QK_BOOT,    UM(SAD),    UM(MEH),    UM(HAPPY),  UM(ANGRY),  UM(THUMBDN),UM(THUMBUP),UM(SPIDER), X_BUL,      UM(LOL),    UM(SURPRISE),X_DASH,     SPI_GFLOCK,             XXXXXXX,    XXXXXXX,
         EE_CLR,     SPI_NORMAL, SPI_WIDE,   SPI_SCRIPT, SPI_BLOCKS, SPI_CIRCLE, SPI_SQUARE, SPI_PARENS, SPI_FRAKTR, SPI_BOLD,   SPI_MATH,   XXXXXXX,    XXXXXXX,                XXXXXXX,    XXXXXXX,
         _______,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                            XXXXXXX,    XXXXXXX,
-        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    X(LARR),    X(RARR),    XXXXXXX,                            XXXXXXX,    XXXXXXX,    XXXXXXX,
+        XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    UM(LARR),   UM(RARR),   XXXXXXX,                            XXXXXXX,    XXXXXXX,    XXXXXXX,
         XXXXXXX,    XXXXXXX,    XXXXXXX,                                    XXXXXXX,                                            XXXXXXX,    _______,                XXXXXXX,    XXXXXXX,    XXXXXXX
     )
 };

@@ -1,4 +1,9 @@
 {
+    "rgblight": {
+        "hue_steps": 10,
+        "led_count": 2,
+        "split_count": [1, 1]
+    },
     "ws2812": {
         "pin": "D2"
     },

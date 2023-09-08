@@ -19,6 +19,20 @@
             {"pin_a": "D1", "pin_b": "D0", "resolution": 1}
         ]
     },
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 10,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
+    },
     "ws2812": {
         "pin": "D5"
     },

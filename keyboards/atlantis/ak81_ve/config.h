@@ -16,9 +16,6 @@
 
 #pragma once
 
-#define ENCODERS_CCW_KEY { { 4, 5 } } // Note:  array is { col, row )
-#define ENCODERS_CW_KEY  { { 3, 5 } } // Note:  array is { col, row )
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 

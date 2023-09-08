@@ -20,9 +20,6 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_DISABLE_WHEN_USB_SUSPENDED              // Turn off effects when suspended
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 130           // Limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
-#define RGB_MATRIX_SAT_STEP 8
-#define RGB_MATRIX_VAL_STEP 8
-#define RGB_MATRIX_SPD_STEP 10
 
 // RGB_MATRIX effects
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS 	            //Enables RGB_MATRIX_ALPHAS_MODS
@@ -46,23 +43,7 @@
 #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH         // Hue & value pulse away from multiple key hits then fades value out
 #endif
 
-#ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 47
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 2)
 
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-#define RGBLIGHT_SLEEP
-#endif
