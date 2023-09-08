@@ -9,13 +9,8 @@
 #define CAPS_LOCK_INDEX 28
 #define WIN_MOD_INDEX 16
 #define MAC_MOD_INDEX 17
-#define WIN_LOCK_INDEX 54
 #define SDB A4
 
-/* RGB Matrix Animation modes. Explicitly enabled
- * For full list of effects, see:
- * https://docs.qmk.fm/#/feature_rgb_matrix?id=rgb-matrix-effects
- */
-
+#define RGB_DISABLE_WHEN_USB_SUSPENDED
 #define RGB_MATRIX_KEYPRESSES
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
