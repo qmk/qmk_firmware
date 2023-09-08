@@ -1,0 +1,11 @@
+// Copyright 2023 Persama (@Persama)
+// SPDX-License-Identifier: GPL-2.0-or-later
+#pragma once
+
+#define EECONFIG_USER_DATA_SIZE 8 // This is the size of the EEPROM for the custom VIA-specific data
+
+#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+
+#define SYS_MODE_PIN             C1  
+#define DC_BOOST_PIN             C2  
+#define DRIVER_LED_CS_PIN        C6  
