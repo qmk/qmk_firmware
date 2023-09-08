@@ -150,7 +150,6 @@
         "midi": true,
         "extrakey": true,
         "encoder": true,
-        "encoder_map": true,
         "bootmagic": false,
         "console": false,
         "mousekey": false,
