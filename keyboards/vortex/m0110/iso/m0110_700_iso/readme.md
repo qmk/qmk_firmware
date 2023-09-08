@@ -1,20 +1,20 @@
-# M0110_700_ISO
- ![m0110_700_ansi](https://imgur.com/hZfwgyZ.png)
- ![m0110_700_ansi](https://imgur.com/N3ezofS.png)
+# M0110_700 ISO
+ ![m0110_700 iso](https://imgur.com/hZfwgyZh.png)
+ ![m0110_700 iso](https://imgur.com/N3ezofSh.png)
 
 An 64 keys keyboard, Equipped with the WestBerry Q95 microcontroller.
 
 * Keyboard Maintainer: [GSKY](https://github.com/gksygithub)
-* Hardware Supported: M0110_700
+* Hardware Supported: M0110_700 iso
 * Hardware Availability: [GSKY](https://github.com/gskygithub/m0110_700_iso)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make vortex/m0110/iso/m0110_700:default
+    make vortex/m0110/iso/m0110_700 iso:default
 
 Flashing example for this keyboard:
 
-    make vortex/m0110/iso/m0110_700:default:flash
+    make vortex/m0110/iso/m0110_700 iso:default:flash
 
 ## Bootloader
 Enter the bootloader in 3 ways:
