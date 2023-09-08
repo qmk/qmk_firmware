@@ -9,7 +9,6 @@
         "bootmagic": false,
         "command": false,
         "console": false,
-        "encoder_map": true,
         "mousekey": false,
         "nkro": false,
         "rgb_matrix": false
