@@ -106,7 +106,7 @@ bool rgb_matrix_indicators_user(void) {
 #if defined(RGB_MATRIX_ENABLE)
 
 #define INDICATOR_RGB_DIVISOR 4
-extern LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
+extern rgb_led_t rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     for (uint8_t i = led_min; i < led_max; i++) {
         if (g_led_config.flags[i] & LED_FLAG_INDICATOR) {

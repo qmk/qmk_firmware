@@ -357,7 +357,7 @@ static void custom_effects(void)
     effect_funcs[rgb_ring.effect]();
 }
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
+void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
 {
     if (rgb_ring.state != RING_STATE_QMK) {
         return;

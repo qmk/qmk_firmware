@@ -22,7 +22,7 @@
 
 static bool alert = false;
 static bool backup = false;
-static LED_TYPE caps_led;
+static rgb_led_t caps_led;
 static uint16_t last_ticks = 0;
 
 #define ALERT_INTERVAL      500
@@ -66,7 +66,7 @@ void housekeeping_task_kb(void)
     housekeeping_task_user();
 }
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
+void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
 {
     start_led[2].r = start_led[0].r;
     start_led[2].g = start_led[0].g;

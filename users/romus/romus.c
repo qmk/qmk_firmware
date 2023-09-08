@@ -1,25 +1,5 @@
 #include "romus.h"
 
-/*---------------*\
-|*-----MOUSE-----*|
-\*---------------*/
-#ifdef MOUSEKEY_ENABLE
-#include "mousekey.h"
-#endif
-
-/*-------------*\
-|*-----RGB-----*|
-\*-------------*/
-#ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
-#endif
-
-/*-------------*\
-|*---UNICODE---*|
-\*-------------*/
-#ifdef UNICODE_ENABLE
-#endif
-
 /*-----------------*\
 |*-----SECRETS-----*|
 \*-----------------*/

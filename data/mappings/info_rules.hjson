@@ -42,6 +42,7 @@
     "STENO_ENABLE": {"info_key": "stenography.enabled", "value_type": "bool"},
     "STENO_PROTOCOL": {"info_key": "stenography.protocol"},
     "WAIT_FOR_USB": {"info_key": "usb.wait_for", "value_type": "bool"},
+    "WEAR_LEVELING_DRIVER": {"info_key": "eeprom.wear_leveling.driver"},
     "WS2812_DRIVER": {"info_key": "ws2812.driver"},
 
     // Items we want flagged in lint

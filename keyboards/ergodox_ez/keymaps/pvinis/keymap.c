@@ -20,7 +20,6 @@
 
 #include QMK_KEYBOARD_H
 #include "pvinis.h"
-#include "mousekey.h"
 
 // layers
 enum {

@@ -23,7 +23,7 @@
 #include "ws2812.h"
 
 #ifdef RGB_MATRIX_ENABLE
-LED_TYPE rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
+rgb_led_t rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
