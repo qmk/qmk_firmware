@@ -1,19 +1,19 @@
-# M0110-625_ANSI 
-![m0110_625_ansi](https://i.imgur.com/mofis1Vh.png)
+# M0110-625 ANSI 
+![m0110_625 ansi](https://i.imgur.com/mofis1Vh.png)
 
 An 61 keys keyboard, Equipped with the WestBerry Q95 microcontroller.
 
 * Keyboard Maintainer: [GSKY](https://github.com/gksygithub)
-* Hardware Supported: M0110-625
+* Hardware Supported: M0110-625_ansi
 * Hardware Availability: [GSKY](https://github.com/gskygithub/M0110_625_ansi)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make vortex/m0110/ansi/m0110_625:default
+    make vortex/m0110/ansi/m0110_625_ansi:default
 
 Flashing example for this keyboard:
 
-    make vortex/m0110/ansi/m0110_625:default:flash
+    make vortex/m0110/ansi/m0110_625_ansi:default:flash
 
 ## Bootloader
 Enter the bootloader in 3 ways:
