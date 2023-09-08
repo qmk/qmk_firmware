@@ -23,7 +23,7 @@ We've tried to make QMK as easy to set up as possible. You only have to prepare 
 
 QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also provides a handy `QMK MSYS` terminal shortcut to boot you directly into the correct environment.
 
-#### Prerequisites
+#### Installation
 
 You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is available [here](https://github.com/qmk/qmk_distro_msys/releases/latest).
 
@@ -68,9 +68,7 @@ Install the QMK CLI on an Apple Silicon Mac by running:
 
     arch -x86_64 brew install qmk/qmk/qmk
 
-### ** Linux/WSL **
-
-?> **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
+### ** Linux **
 
 #### Prerequisites
 
@@ -101,6 +99,22 @@ On Arch-based distros you can install the CLI from the official repositories (NO
 You can also try the `qmk-git` package from AUR:
 
     yay -S qmk-git
+
+### ** WSL **
+
+QMK maintains a WSL distro with the CLI and all necessary dependencies.
+
+#### Prerequisites
+
+You will need to install WSL. Follow the instructions [here](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
+#### Installation
+
+You will need to install the `QMK WSL` distro. The latest release is available at <https://github.com/qmk/qmk_distro_wsl/releases/latest>.
+
+Alternatively, if you'd like to manually install against the WSL distro of your choice, follow the `Linux` part of this guide after installing WSL.
+
+!> **NOTE:** By default, the installation process will clone the QMK repository into your WSL home directory. Manual backup of these files is recommended before performing any WSL unregister/upgrade actions. If you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
 
 ###  ** FreeBSD **
 
@@ -134,7 +148,7 @@ Open Terminal and run the following command:
 
 In most situations you will want to answer `y` to all of the prompts.
 
-### ** Linux/WSL **
+### ** Linux **
 
 Open your preferred terminal app and run the following command:
 
@@ -147,6 +161,15 @@ It's possible, that you will get an error saying something like: `bash: qmk: com
 This is due to a [bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=839155) Debian introduced with their Bash 4.4 release, which removed `$HOME/.local/bin` from the PATH. This bug was later fixed on Debian and Ubuntu.
 Sadly, Ubuntu reintroduced this bug and is [yet to fix it](https://bugs.launchpad.net/ubuntu/+source/bash/+bug/1588562).
 Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`
+
+
+### ** WSL **
+
+After installing QMK you can set it up with this command:
+
+    qmk setup
+
+In most situations you will want to answer `y` to all of the prompts.
 
 ###  ** FreeBSD **
 
