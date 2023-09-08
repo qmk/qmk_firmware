@@ -19,7 +19,6 @@
         "rows": ["GP5", "GP4", "GP3", "GP2", "GP15"]
     },
     "processor": "RP2040",
-   
     "url": "https://carolinamech.com",
     "usb": {
         "device_version": "2.0.1",
