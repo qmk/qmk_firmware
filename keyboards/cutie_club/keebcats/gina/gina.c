@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 static keyboard_config_t keyboard_config;
 
-void keyboard_pre_init_kb(void) {
+void keyboard_post_init_kb(void) {
     i2c_init();
 
     keyboard_config.raw = eeconfig_read_kb();
