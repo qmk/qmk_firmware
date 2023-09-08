@@ -55,7 +55,6 @@
 
 /* RGB Matrix config */
 #define RGB_EN_PIN A8
-#define RGB_DI_PIN B15
 #define RGBLED_NUM 83
 #define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #define RGB_MATRIX_CENTER { 62, 42 }
