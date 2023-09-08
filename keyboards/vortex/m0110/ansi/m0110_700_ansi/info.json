@@ -1,21 +1,17 @@
 {
     "manufacturer": "Vortex",
-    "keyboard_name": "M0110-700_ANSI",
+    "keyboard_name": "M0110-700 ANSI",
     "maintainer": "Gsky",
     "bootloader": "wb32-dfu",
     "bootmagic": {
         "matrix": [1, 6]
     },
     "diode_direction": "COL2ROW",
-    "encoder": {
-        "enabled": false
-    },
     "features": {
         "audio": false,
         "bootmagic": true,
         "command": false,
         "console": false,
-        "encoder": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -36,6 +32,9 @@
         "device_version": "0.0.2",
         "pid": "0xE3A4",
         "vid": "0x342D"
+    },
+    "eeprom": {
+        "driver": "wear_leveling"
     },
     "layouts": {
         "LAYOUT": {
@@ -70,7 +69,7 @@
                 { "label": "P", "matrix": [8, 0], "x": 10.5, "y": 1 },
                 { "label": "[", "matrix": [8, 1], "x": 11.5, "y": 1 },
                 { "label": "]", "matrix": [6, 1], "x": 12.5, "y": 1 },
-                { "label": "Backspace", "matrix": [10, 5], "w": 2, "x": 13, "y": 1 },
+                { "label": "Backspace", "matrix": [10, 5], "w": 1.5, "x": 13.5, "y": 1 },
 
                 { "label": "Caps Lock", "matrix": [2, 1], "w": 1.75, "x": 0, "y": 2 },
                 { "label": "A", "matrix": [1, 2], "x": 1.75, "y": 2 },
@@ -97,16 +96,16 @@
                 { "label": ",", "matrix": [6, 4], "x": 9.25, "y": 3 },
                 { "label": ".", "matrix": [7, 4], "x": 10.25, "y": 3 },
                 { "label": "/", "matrix": [8, 5], "x": 11.25, "y": 3 },
-                { "label": "Shift", "matrix": [9, 1], "w": 1.25, "x": 12.25, "y": 3 },
-                { "label": "FN", "matrix": [9, 2], "x": 14, "y": 4 },
+                { "label": "Shift", "matrix": [9, 1], "w": 1.75, "x": 12.25, "y": 3 },
+                { "label": "FN", "matrix": [9, 2], "x": 14, "y": 3 },
                 
                 { "label": "Ctrl", "matrix": [0, 6], "w": 1.25, "x": 0, "y": 4 },
                 { "label": "Win", "matrix": [9, 0], "w": 1.25, "x": 1.25, "y": 4 },
                 { "label": "Alt", "matrix": [9, 3], "w": 1.25, "x": 2.5, "y": 4 },
-                { "label": "Space", "matrix": [9, 4], "w": 6.25, "x": 3.75, "y": 4 },
-                { "label": "RAlt", "matrix": [9, 5], "x": 10, "y": 4 },
-                { "label": "RWin", "matrix": [8, 4], "x": 11, "y": 4 },
-                { "label": "RCtrl", "matrix": [0, 4], "x": 12, "y": 4 }
+                { "label": "Space", "matrix": [9, 4], "w": 7.5, "x": 3.75, "y": 4 },
+                { "label": "RAlt", "matrix": [9, 5], "w": 1.25, "x": 11.25, "y": 4 },
+                { "label": "RWin", "matrix": [8, 4], "w": 1.25, "x": 12.5, "y": 4 },
+                { "label": "RCtrl", "matrix": [0, 4], "w": 1.25, "x": 13.75, "y": 4 }
             ]
         }
     }
