@@ -43,7 +43,8 @@
         "driver": "spi"
     },
     "layout_aliases": {
-        "LAYOUT_65_iso_tsangan_split_bs": "LAYOUT_iso_split_bs"
+        "LAYOUT_65_iso_tsangan_split_bs": "LAYOUT_iso_split_bs",
+        "LAYOUT_65_ansi_tsangan": "LAYOUT_ansi"
     },
     "layouts": {
         "LAYOUT_iso_split_bs": {
@@ -200,7 +201,7 @@
                 {"matrix": [4, 14], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_65_ansi_tsangan": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
