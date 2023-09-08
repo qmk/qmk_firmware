@@ -1,7 +1,7 @@
 # MontK Cervin Klein
 
 * Keyboard Maintainer: [ERA](https://github.com/eerraa)
-* Hardware supported: Lin EM.8
+* Hardware supported: SIRIND Klein
 * Hardware availability: [Syryan](https://srind.mysoho.com/)
 
 Make example for this keyboard (after setting up your build environment):
