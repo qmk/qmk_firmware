@@ -27,8 +27,12 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "community_layouts": ["75_ansi"],
+    "layout_aliases": {
+        "LAYOUT_denial75_ansi": "LAYOUT_75_ansi"
+    },
     "layouts": {
-        "LAYOUT_denial75_ansi": {
+        "LAYOUT_75_ansi": {
             "layout": [
                 {"x": 0, "y": 0, "matrix": [0, 0]},
                 {"x": 1.25, "y": 0, "matrix": [0, 1]},

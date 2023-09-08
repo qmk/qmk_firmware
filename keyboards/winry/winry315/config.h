@@ -3,25 +3,7 @@
 
 #pragma once
 
-// Encoder mappings (used for VIA).
-#define ENCODERS_CW_KEY  { { 22, 0 }, { 18, 0 }, { 20, 0 } }
-#define ENCODERS_CCW_KEY { { 23, 0 }, { 19, 0 }, { 21, 0 } }
-
 // clang-format on
-
-// RGB Lighting configuration.  This mode is used by the vendor firmware, and
-// can be chosen if the full RGB Matrix support is not desired for some reason.
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_KNIGHT
-#    define RGBLIGHT_EFFECT_CHRISTMAS
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#    define RGBLIGHT_EFFECT_RGB_TEST
-#    define RGBLIGHT_EFFECT_ALTERNATING
-#endif
 
 // RGB Matrix configuration.
 #ifdef RGB_MATRIX_ENABLE

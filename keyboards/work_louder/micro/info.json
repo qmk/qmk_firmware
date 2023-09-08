@@ -44,7 +44,7 @@
         "pin": "D1"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "url": "https://worklouder.cc/",
     "usb": {

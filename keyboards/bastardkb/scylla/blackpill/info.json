@@ -4,11 +4,14 @@
         "device_version": "1.0.0"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "ws2812": {
         "pin": "A1",
         "driver": "pwm"
+    },
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
     },
     "matrix_pins": {
         "cols": ["B0", "B1", "B10", "B3", "B4", "B5"],
