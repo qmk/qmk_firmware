@@ -16,7 +16,6 @@
 #include "quantum.h"
 
 #define LOGO_TIMEOUT 3000
-#define CUSTOM_OLED_TIMEOUT 30000
 
 static uint32_t logo_timer = 0;
 static bool display_logo = true;
@@ -75,15 +74,10 @@ bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    if (timer_elapsed32(logo_timer) > LOGO_TIMEOUT) {
+    if (display_logo && timer_elapsed32(logo_timer) > LOGO_TIMEOUT) {
         display_logo = false;
         oled_clear();
-        logo_timer = timer_read32();
-    }
-    if (last_input_activity_elapsed() > CUSTOM_OLED_TIMEOUT) {
-        oled_off();
-    }else {
-        oled_on();
+        logo_timer = 0;
     }
     if (display_logo) {
         dp3000_logo();
