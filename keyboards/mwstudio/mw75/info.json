@@ -9,7 +9,7 @@
         "device_version": "0.0.1"
     },
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "matrix_pins": {
         "cols": ["D4", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7", "F6", "F5", "F4", "F1", "F0", "E6"],
@@ -23,6 +23,12 @@
     },
     "bootmagic": {
         "matrix": [0, 1]
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 97,
+        "sleep": true
     },
     "ws2812": {
         "pin": "B3"

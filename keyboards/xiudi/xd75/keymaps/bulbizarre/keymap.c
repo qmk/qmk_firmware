@@ -130,16 +130,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
         capslock_led_on();
     } else {
         capslock_led_off();
@@ -149,4 +141,5 @@ void led_set_user(uint8_t usb_led) {
     } else {
         gp100_led_off();
     }
+    return false;
 }

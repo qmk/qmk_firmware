@@ -1,13 +1,9 @@
 {
     // Format for each entry:
     // "<alias>": {
-    //     "target": "<keyboard_folder>",
-    //     "layouts": {
-    //         "<layout_alias>": "<layout_target>"
-    //     }
+    //     "target": "<keyboard_folder>"
     // }
     //
-    // Both target and layouts are optional.
     "2_milk": {
         "target": "spaceman/2_milk"
     },
@@ -140,21 +136,6 @@
     "daisy": {
         "target": "ktec/daisy"
     },
-    "doro67/multi": {
-        "layouts": {
-            "LAYOUT_ansi": "LAYOUT_65_ansi_blocker"
-        }
-    },
-    "doro67/regular": {
-        "layouts": {
-            "LAYOUT": "LAYOUT_65_ansi_blocker"
-        }
-    },
-    "doro67/rgb": {
-        "layouts": {
-            "LAYOUT": "LAYOUT_65_ansi_blocker"
-        }
-    },
     "drakon": {
         "target": "jagdpietr/drakon"
     },
@@ -212,6 +193,12 @@
     "gmmk/pro/iso": {
         "target": "gmmk/pro/rev1/iso"
     },
+    "handwired/dactyl_manuform/3x5_3": {
+        "target": "handwired/dactyl_minidox"
+    },
+    "handwired/dactyl_manuform/6x6_kinesis": {
+        "target": "handwired/dactyl_kinesis"
+    },
     "handwired/ferris": {
         "target": "ferris/0_1"
     },
@@ -220,6 +207,21 @@
     },
     "handwired/p1800fl": {
         "target": "team0110/p1800fl"
+    },
+    "handwired/jscotto/scotto9": {
+        "target": "handwired/scottokeebs/scotto9"
+    },
+    "handwired/jscotto/scotto36": {
+        "target": "handwired/scottokeebs/scotto36"
+    },
+    "handwired/jscotto/scotto40": {
+        "target": "handwired/scottokeebs/scotto40"
+    },
+    "handwired/jscotto/scottocmd": {
+        "target": "handwired/scottokeebs/scottocmd"
+    },
+    "handwired/jscotto/scottostarter": {
+        "target": "handwired/scottokeebs/scottostarter"
     },
     "helix/pico/sc/back": {
         "target": "helix/pico/sc"
@@ -264,10 +266,7 @@
         "target": "keyhive/honeycomb"
     },
     "idb_60": {
-        "target": "idb/idb_60",
-        "layouts": {
-            "LAYOUT": "LAYOUT_all"
-        }
+        "target": "idb/idb_60"
     },
     "idobo": {
         "target": "idobao/id75"
@@ -288,22 +287,19 @@
         "target": "jones/v03_1"
     },
     "kamigakushi": {
-        "target": "jaykeeb/kamigakushi",
-        "layouts": {
-            "LAYOUT": "LAYOUT_65_ansi_blocker_tsangan"
-        }
+        "target": "jaykeeb/kamigakushi"
     },
     "katana60": {
         "target": "rominronin/katana60/rev1"
     },
     "kbdfans/kbd67mkiirgb": {
-        "target": "kbdfans/kbd67/mkiirgb",
-        "layouts": {
-            "LAYOUT": "LAYOUT_65_ansi_blocker"
-        }
+        "target": "kbdfans/kbd67/mkiirgb"
     },
     "kbdfans/kbd67/mkiirgb": {
         "target": "kbdfans/kbd67/mkiirgb/v1"
+    },
+    "keebio/chocopad": {
+        "target": "keebio/chocopad/rev1"
     },
     "keebio/dsp40": {
         "target": "keebio/dsp40/rev1"
@@ -443,11 +439,6 @@
     "mschwingen/modelm": {
         "target": "ibm/model_m/mschwingen"
     },
-    "noxary/268_2": {
-        "layouts": {
-            "LAYOUT": "LAYOUT_65_ansi_blocker"
-        }
-    },
     "oddball": {
         "target": "oddball/v1"
     },
@@ -472,11 +463,6 @@
     "peiorisboards/ixora": {
         "target": "coarse/ixora"
     },
-    "percent/canoe": {
-        "layouts": {
-            "LAYOUT_iso": "LAYOUT_65_iso_blocker"
-        }
-    },
     "plaid": {
         "target": "dm9records/plaid"
     },
@@ -488,21 +474,6 @@
     },
     "polilla": {
         "target": "polilla/rev1"
-    },
-    "preonic/rev1": {
-        "layouts": {
-            "LAYOUT_preonic_grid": "LAYOUT_ortho_5x12"
-        }
-    },
-    "preonic/rev2": {
-        "layouts": {
-            "LAYOUT_preonic_grid": "LAYOUT_ortho_5x12"
-        }
-    },
-    "preonic/rev3": {
-        "layouts": {
-            "LAYOUT_preonic_grid": "LAYOUT_ortho_5x12"
-        }
     },
     "primekb/prime_l": {
         "target": "primekb/prime_l/v1"
@@ -595,10 +566,7 @@
         "target": "underscore33/rev1"
     },
     "vinta": {
-        "target": "coarse/vinta",
-        "layouts": {
-            "LAYOUT_67_ansi": "LAYOUT_65_ansi_blocker"
-        }
+        "target": "coarse/vinta"
     },
     "wasdat": {
         "target": "maartenwut/wasdat"
@@ -867,6 +835,9 @@
     },
     "hecomi/alpha": {
         "target": "takashiski/hecomi/alpha"
+    },
+    "hfdkb/keyboard_sw/k83":{
+        "target": "inland/kb83"
     },
     "hid_liber": {
         "target": "bpiphany/hid_liber"

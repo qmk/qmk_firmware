@@ -7,9 +7,7 @@
 #pragma once
 
 #include "georgi.h"
-#include "mousekey.h"
 #include "keymap_steno.h"
-#include "wait.h"
 
 extern size_t keymapsCount;			// Total keymaps
 extern uint32_t cChord;				// Current Chord

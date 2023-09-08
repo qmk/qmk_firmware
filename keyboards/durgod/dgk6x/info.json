@@ -5,7 +5,7 @@
         "on_state": 0
     },
     "rgb_matrix": {
-        "driver": "IS31FL3733"
+        "driver": "is31fl3733"
     },
     "processor": "STM32F072", // F070
     "bootloader": "stm32-dfu",

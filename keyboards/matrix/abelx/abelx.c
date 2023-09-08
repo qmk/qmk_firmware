@@ -66,7 +66,7 @@ const aw9523b_led g_aw9523b_leds[AW9523B_RGB_NUM] = {
     {AW9523B_P07_PWM, AW9523B_P06_PWM, AW9523B_P05_PWM},
 };
 
-void rgblight_call_driver(LED_TYPE *start_led, uint8_t num_leds)
+void rgblight_call_driver(rgb_led_t *start_led, uint8_t num_leds)
 {
     uint8_t num = num_leds < AW9523B_RGB_NUM ? num_leds : AW9523B_RGB_NUM;
 

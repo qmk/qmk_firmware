@@ -22,7 +22,7 @@
 
 
 extern uint8_t user_rgb_mode;
-extern LED_TYPE shadowed_led[];
+extern rgb_led_t shadowed_led[];
 
 
 #endif //RGBLIGHT_ENABLE

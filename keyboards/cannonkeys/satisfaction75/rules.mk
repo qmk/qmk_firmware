@@ -16,10 +16,6 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 ENCODER_ENABLE = yes
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 #BACKLIGHT_ENABLE = yes
 
 DEFAULT_FOLDER = cannonkeys/satisfaction75/rev1
-
-# Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
