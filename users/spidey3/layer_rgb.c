@@ -61,9 +61,9 @@ const rgblight_segment_t PROGMEM _huh_layer[]    = RGBLIGHT_LAYER_SEGMENTS(CORNE
 
 #define UNICODE_OFFSET 12
 const rgblight_segment_t PROGMEM _uc_mac_layer[]  = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_PURPLE));
-// No indicator for UC_LNX
-// UC_WIN disabled in config.h
-// UC_BSD not implemented
+// No indicator for UNICODE_MODE_LINUX
+// UNICODE_MODE_WINDOWS disabled in config.h
+// UNICODE_MODE_BSD not implemented
 const rgblight_segment_t PROGMEM _uc_winc_layer[] = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_CYAN));
 const rgblight_segment_t PROGMEM _uc_emacs_layer[] = RGBLIGHT_LAYER_SEGMENTS(CORNER_BR(HSV_GREEN));
 
@@ -73,9 +73,9 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [LAYER_OFFSET + _NUMPAD] = _layer1_layer,
     [LAYER_OFFSET + _FN]     = _layer2_layer,
 
-    [LOCK_OFFSET + USB_LED_NUM_LOCK]    = _numlock_layer,
-    [LOCK_OFFSET + USB_LED_CAPS_LOCK]   = _capslock_layer,
-    [LOCK_OFFSET + USB_LED_SCROLL_LOCK] = _scrolllock_layer,
+    [LOCK_OFFSET + 0]    = _numlock_layer,
+    [LOCK_OFFSET + 1]   = _capslock_layer,
+    [LOCK_OFFSET + 2] = _scrolllock_layer,
 
     [MISC_OFFSET + 0] = _gflock_layer,
     [MISC_OFFSET + 1] = _glyphreplace_layer,
@@ -85,21 +85,21 @@ const rgblight_segment_t *const PROGMEM _rgb_layers[] = {
     [ACK_OFFSET + ACK_MEH]    = _meh_layer,
     [ACK_OFFSET + ACK_HUH]    = _huh_layer,
 
-    [UNICODE_OFFSET + UC_MAC]  = _uc_mac_layer,
-    [UNICODE_OFFSET + UC_LNX]  = _none,
-    [UNICODE_OFFSET + UC_WIN]  = _none,
-    [UNICODE_OFFSET + UC_BSD]  = _none,
-    [UNICODE_OFFSET + UC_WINC] = _uc_winc_layer,
-    [UNICODE_OFFSET + UC_EMACS] = _uc_emacs_layer,
+    [UNICODE_OFFSET + UNICODE_MODE_MACOS]      = _uc_mac_layer,
+    [UNICODE_OFFSET + UNICODE_MODE_LINUX]      = _none,
+    [UNICODE_OFFSET + UNICODE_MODE_WINDOWS]    = _none,
+    [UNICODE_OFFSET + UNICODE_MODE_BSD]        = _none,
+    [UNICODE_OFFSET + UNICODE_MODE_WINCOMPOSE] = _uc_winc_layer,
+    [UNICODE_OFFSET + UNICODE_MODE_EMACS]      = _uc_emacs_layer,
 
-    [UNICODE_OFFSET + UC__COUNT] = NULL
+    [UNICODE_OFFSET + UNICODE_MODE_COUNT] = NULL
 };
 
 // clang-format on
 
-const uint8_t PROGMEM _n_rgb_layers = sizeof(_rgb_layers) / sizeof(_rgb_layers[0]) - 1;
+const uint8_t PROGMEM _n_rgb_layers = ARRAY_SIZE(_rgb_layers) - 1;
 
-void clear_rgb_layers() {
+void clear_rgb_layers(void) {
     for (uint8_t i = 0; i < _n_rgb_layers; i++) {
         rgblight_set_layer_state(i, false);
     }
@@ -112,9 +112,8 @@ void do_rgb_layers(layer_state_t state, uint8_t start, uint8_t end) {
     }
 }
 
-void do_rgb_unicode(void) {
-    uint8_t uc_mode = get_unicode_input_mode();
-    for (uint8_t i = 0; i < UC__COUNT; i++) {
+void do_rgb_unicode(uint8_t uc_mode) {
+    for (uint8_t i = 0; i < UNICODE_MODE_COUNT; i++) {
         bool is_on = i == uc_mode;
         rgblight_set_layer_state(UNICODE_OFFSET + i, is_on);
     }
@@ -123,7 +122,7 @@ void do_rgb_unicode(void) {
 void do_rgb_all(void) {
     do_rgb_layers(default_layer_state, LAYER_BASE_DEFAULT, LAYER_BASE_REGULAR);
     do_rgb_layers(layer_state, LAYER_BASE_REGULAR, LAYER_BASE_END);
-    do_rgb_unicode();
+    do_rgb_unicode(get_unicode_input_mode());
     rgblight_set_layer_state(MISC_OFFSET + 0, spi_gflock);
     rgblight_set_layer_state(MISC_OFFSET + 1, spi_replace_mode != SPI_NORMAL);
 }
@@ -148,7 +147,7 @@ extern rgblight_status_t rgblight_status;
 #    define STARTUP_ANIMATION_CYCLE_STEP 2
 #    define STARTUP_ANIMATION_RAMP_TO_STEPS 70
 #    define STARTUP_ANIMATION_STEP_TIME 10
-#    define STARTUP_ANIMATION_INITIAL_DELAY 0  // milliseconds, must be < 255 * STEP_TIME
+#    define STARTUP_ANIMATION_INITIAL_DELAY 0 // milliseconds, must be < 255 * STEP_TIME
 
 // clang-format off
 typedef enum {
@@ -375,12 +374,19 @@ layer_state_t layer_state_set_user_rgb(layer_state_t state) {
 }
 
 bool led_update_user_rgb(led_t led_state) {
-    rgblight_set_layer_state(LOCK_OFFSET + USB_LED_NUM_LOCK, led_state.num_lock);
-    rgblight_set_layer_state(LOCK_OFFSET + USB_LED_CAPS_LOCK, led_state.caps_lock);
-    rgblight_set_layer_state(LOCK_OFFSET + USB_LED_SCROLL_LOCK, led_state.scroll_lock);
+    rgblight_set_layer_state(LOCK_OFFSET + 0, led_state.num_lock);
+    rgblight_set_layer_state(LOCK_OFFSET + 1, led_state.caps_lock);
+    rgblight_set_layer_state(LOCK_OFFSET + 2, led_state.scroll_lock);
 
     return true;
 }
+
+#if defined(UNICODE_COMMON_ENABLE)
+void unicode_input_mode_set_user_rgb(uint8_t input_mode) {
+    rgb_layer_ack(ACK_MEH);
+    do_rgb_unicode(input_mode);
+}
+#endif
 
 void rgb_layer_ack_yn(bool yn) { rgb_layer_ack(yn ? ACK_YES : ACK_NO); }
 
@@ -438,7 +444,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // Acks follow...
-        case DEBUG:
+        case QK_DEBUG_TOGGLE:
             if (debug_matrix || debug_keyboard)
                 rgb_layer_ack(ACK_HUH);
             else if (debug_enable)
@@ -458,13 +464,13 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
             break;
 
         case RGB_TOG:
-            // Hack - we only get called on the press for RGB_TOG, 
+            // Hack - we only get called on the press for RGB_TOG,
             // but the flag is only flipped on the release...
             rgb_layer_ack_yn(!rgblight_config.enable);
             break;
 
 #ifdef VELOCIKEY_ENABLE
-        case VLK_TOG:
+        case QK_VELOCIKEY_TOGGLE:
             rgb_layer_ack_yn(velocikey_enabled());
             break;
 #endif
@@ -474,21 +480,6 @@ void post_process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
         case NK_ON:
         case NK_OFF:
             rgb_layer_ack_yn(keymap_config.nkro);
-            break;
-#endif
-
-#if defined(UNICODE_COMMON_ENABLE)
-        case UC_M_MA:
-        case UC_M_LN:
-        case UC_M_WI:
-        case UC_M_BS:
-        case UC_M_WC:
-        case UC_M_EM:
-
-        case UC_MOD:
-        case UC_RMOD:
-            rgb_layer_ack(ACK_MEH);
-            do_rgb_unicode();
             break;
 #endif
     }

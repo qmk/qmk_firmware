@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
 
 /* key matrix size */
 #define MATRIX_ROWS 14
@@ -45,16 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_MAX_SPEED    MOUSEKEY_MAX_SPEED
 #define MOUSEKEY_WHEEL_TIME_TO_MAX  MOUSEKEY_TIME_TO_MAX
 
-#define DEBOUNCE 30
-
-#define TAPPING_TOGGLE  1
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-#define TAPPING_TERM    200
-#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -66,9 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
-
 #ifndef LED_BRIGHTNESS_LO
 #define LED_BRIGHTNESS_LO       15
 #endif
@@ -76,13 +62,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_BRIGHTNESS_HI       255
 #endif
 #define LED_BRIGHTNESS_DEFAULT (LED_BRIGHTNESS_HI)
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D7
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_HUE_STEP 12
-#define RGBLIGHT_SAT_STEP 255
-#define RGBLIGHT_VAL_STEP 12
 
 // Pick one of the modes
 // Defaults to 15 mirror, for legacy behavior
@@ -95,8 +74,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISABLE_SPACE_CADET_ROLLOVER
 
 #define RGBW
-
-#define RGBLIGHT_SLEEP
 
 /*
  * The debounce filtering reports a key/switch change directly,
@@ -119,7 +96,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 24
 #define DRIVER_2_LED_TOTAL 24
-#define DRIVER_LED_TOTAL (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
+#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
 #define RGB_MATRIX_LED_PROCESS_LIMIT 5
 #define RGB_MATRIX_LED_FLUSH_LIMIT 26
@@ -158,21 +135,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENABLE_RGB_MATRIX_PIXEL_FLOW
 #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 // enabled only if RGB_MATRIX_FRAMEBUFFER_EFFECTS is defined
-#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-#define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+// #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+// #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
 // enabled only of RGB_MATRIX_KEYPRESSES or RGB_MATRIX_KEYRELEASES is defined
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#define ENABLE_RGB_MATRIX_SPLASH
-#define ENABLE_RGB_MATRIX_MULTISPLASH
-#define ENABLE_RGB_MATRIX_SOLID_SPLASH
-#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+// #define ENABLE_RGB_MATRIX_SPLASH
+// #define ENABLE_RGB_MATRIX_MULTISPLASH
+// #define ENABLE_RGB_MATRIX_SOLID_SPLASH
+// #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
 // #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
 /* #define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF */

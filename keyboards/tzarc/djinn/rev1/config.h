@@ -2,11 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-// Limit the backlight brightness
-#ifndef BACKLIGHT_LIMIT_VAL
-#    define BACKLIGHT_LIMIT_VAL 144
-#endif // BACKLIGHT_LIMIT_VAL
-
 // Split configuration
 #define SPLIT_HAND_PIN B11
 #ifdef USE_PLUG_DETECT_PIN
@@ -14,14 +9,12 @@
 #endif
 #define SERIAL_USART_DRIVER SD3
 #define SERIAL_USART_TX_PAL_MODE 7
-#define SOFT_SERIAL_PIN B9
 #ifndef SERIAL_USART_SPEED
 #    define SERIAL_USART_SPEED 640000
 #endif // SERIAL_USART_SPEED
 
 // RGB configuration
-#define RGBLED_NUM 84
-#define DRIVER_LED_TOTAL 84
+#define RGB_MATRIX_LED_COUNT 84
 #define RGB_MATRIX_SPLIT \
     { 42, 42 }
 #define RGB_POWER_ENABLE_PIN B1

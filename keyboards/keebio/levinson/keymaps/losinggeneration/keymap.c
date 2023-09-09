@@ -27,11 +27,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      ||      |      | XXX  | Left | Down |Right |
  * `-----------------------------------------''-----------------------------------------'
  */
-[_ADJUST] = CATMAP( \
-  _______, KC_F1  ,  KC_F2 , KC_F3  , KC_F4  , BL_OFF , QK_BOOT, TO_GAME, TO_NUM , TO_MS  , _______, KC_SLEP, \
-  _______, KC_F5  ,  KC_F6 , KC_F7  , KC_F8  , BL_TOGG, AU_ON  , QWERTY , COLEMAK, WORKMAN, DVORAK , _______, \
-  KC_CAPS, KC_F9  ,  KC_F10, KC_F11 , KC_F12 , BL_ON  , AU_OFF , _______, _______, _______, KC_UP  , _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT  \
+[_ADJUST] = CATMAP(
+  _______, KC_F1  ,  KC_F2 , KC_F3  , KC_F4  , BL_OFF , QK_BOOT, TO_GAME, TO_NUM , TO_MS  , _______, KC_SLEP,
+  _______, KC_F5  ,  KC_F6 , KC_F7  , KC_F8  , BL_TOGG, AU_ON  , QWERTY , COLEMAK, WORKMAN, DVORAK , _______,
+  KC_CAPS, KC_F9  ,  KC_F10, KC_F11 , KC_F12 , BL_ON  , AU_OFF , _______, _______, _______, KC_UP  , _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT
 )
 
 };

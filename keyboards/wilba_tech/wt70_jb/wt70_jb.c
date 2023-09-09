@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "wt70_jb.h"
+#include "quantum.h"
 
 bool g_first_execution = false;
 
@@ -49,7 +49,7 @@ void via_init_kb(void)
     }
 }
 
-void keyboard_post_init_kb() {
+void keyboard_post_init_kb(void) {
     // This is a workaround to ensure "EEPROM cleared" PCBs will
     // start with the RGB test mode, essential for testing LEDs.
     if ( g_first_execution ) {

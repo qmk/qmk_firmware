@@ -19,13 +19,6 @@
 /* #define CBRACK 3 // key ] or left alt */
 /* #define CAPS   4 // caps lock */
 
-// LEDS
-#define USB_LED_NUM_LOCK    0
-#define USB_LED_CAPS_LOCK   1
-#define USB_LED_SCROLL_LOCK 2
-#define USB_LED_COMPOSE     3
-#define USB_LED_KANA        4
-
 // TIMERS
 #define KEY_TAP_FAST 85
 #define KEY_TAP_SLOW 95
@@ -57,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(
         // left hand
         KC_NO,          KC_1,     KC_2,   KC_3,   KC_4,          KC_5,           KC_ESC,
-        KC_TILD,        KC_QUOTE, KC_COMM,KC_DOT, KC_P,          KC_Y,           KC_LBRACKET,
+        KC_TILD,        KC_QUOTE, KC_COMM,KC_DOT, KC_P,          KC_Y,           KC_LBRC,
         KC_TAB,         KC_A,     KC_O,   KC_E,   SFT_T(KC_U),   LT(AUX, KC_I),
         SFT_T(KC_LBRC), KC_SCLN,  KC_Q,   KC_J,   KC_K,          KC_X,           KC_LGUI,
         KC_NO,          KC_NO,    KC_NO,  KC_NO,  MO(AUX),
@@ -66,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       CTL_T(KC_BSPC), ALT_T(KC_DEL), KC_PGDN,
         // right hand
                     KC_ESC,          KC_6,           KC_7,         KC_8,   KC_9,   KC_0,   KC_EQL,
-                    KC_RBRACKET,     KC_F,           KC_G,         KC_C,   KC_R,   KC_L,   KC_SLASH,
+                    KC_RBRC,         KC_F,           KC_G,         KC_C,   KC_R,   KC_L,   KC_SLASH,
                                      LT(AUX, KC_D),  SFT_T(KC_H),  KC_T,   KC_N,   KC_S,   KC_MINUS,
                     KC_LGUI,         KC_B,           KC_M,         KC_W,   KC_V,   KC_Z,   SFT_T(KC_RBRC),
-                                                                 MO(AUX), KC_NO,   KC_NO,  KC_BSLASH, KC_NO,
+                                                                 MO(AUX), KC_NO,   KC_NO,  KC_BSLS, KC_NO,
         KC_LEFT, KC_RIGHT,
         KC_UP,
         KC_DOWN, ALT_T(KC_ENT), CTL_T(KC_SPC)

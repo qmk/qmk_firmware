@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F446 # STM32F446RET6
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,4 +14,4 @@ AUDIO_ENABLE = no           # Audio output
 KEYBOARD_SHARED_EP = yes    # Free up some extra endpoints - needed if console+mouse+extra
 
 HAPTIC_ENABLE = yes
-HAPTIC_DRIVER = SOLENOID
+HAPTIC_DRIVER = solenoid

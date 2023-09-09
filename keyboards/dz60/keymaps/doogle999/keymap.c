@@ -45,9 +45,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT_directional(
       KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, ______, KC_CALC,
       QK_BOOT, KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_0, KC_VOLD, KC_VOLU, KC_MUTE,
-      ______, ______, ______, ______, ______, ______, ______, ______, ______, BL_DEC, BL_INC, BL_TOGG, KC_APP,
+      ______, ______, ______, ______, ______, ______, ______, ______, ______, BL_DOWN,BL_UP,  BL_TOGG, KC_APP,
       KC_LSFT, ______, RGB_MOD, RGB_RMOD, RGB_VAI, RGB_VAD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_TOG, KC_RSFT, KC_PGUP, KC_INSERT,
-      KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_SPC, KC_SPC, TO(2), ______, KC_HOME, KC_PGDOWN, KC_END
+      KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_SPC, KC_SPC, TO(2), ______, KC_HOME, KC_PGDN, KC_END
       ),
 
   /* Hardware calculator layer

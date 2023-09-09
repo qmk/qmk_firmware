@@ -1,4 +1,4 @@
-// Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2021-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp_internal.h"
@@ -25,10 +25,10 @@ typedef struct qgf_image_handle_t {
 static qgf_image_handle_t image_descriptors[QUANTUM_PAINTER_NUM_IMAGES] = {0};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Quantum Painter External API: qp_load_image_mem
+// Helper: load image from stream
 
-painter_image_handle_t qp_load_image_mem(const void *buffer) {
-    qp_dprintf("qp_load_image_mem: entry\n");
+static painter_image_handle_t qp_load_image_internal(bool (*stream_factory)(qgf_image_handle_t *image, void *arg), void *arg) {
+    qp_dprintf("qp_load_image: entry\n");
     qgf_image_handle_t *image = NULL;
 
     // Find a free slot
@@ -41,20 +41,18 @@ painter_image_handle_t qp_load_image_mem(const void *buffer) {
 
     // Drop out if not found
     if (!image) {
-        qp_dprintf("qp_load_image_mem: fail (no free slot)\n");
+        qp_dprintf("qp_load_image: fail (no free slot)\n");
         return NULL;
     }
 
-    // Assume we can read the graphics descriptor
-    image->mem_stream = qp_make_memory_stream((void *)buffer, sizeof(qgf_graphics_descriptor_v1_t));
-
-    // Update the length of the stream to match, and rewind to the start
-    image->mem_stream.length   = qgf_get_total_size(&image->stream);
-    image->mem_stream.position = 0;
+    if (!stream_factory(image, arg)) {
+        qp_dprintf("qp_load_image: fail (could not create stream)\n");
+        return NULL;
+    }
 
     // Now that we know the length, validate the input data
     if (!qgf_validate_stream(&image->stream)) {
-        qp_dprintf("qp_load_image_mem: fail (failed validation)\n");
+        qp_dprintf("qp_load_image: fail (failed validation)\n");
         return NULL;
     }
 
@@ -63,8 +61,28 @@ painter_image_handle_t qp_load_image_mem(const void *buffer) {
 
     // Validation success, we can return the handle
     image->validate_ok = true;
-    qp_dprintf("qp_load_image_mem: ok\n");
+    qp_dprintf("qp_load_image: ok\n");
     return (painter_image_handle_t)image;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Quantum Painter External API: qp_load_image_mem
+
+static inline bool image_mem_stream_factory(qgf_image_handle_t *image, void *arg) {
+    void *buffer = arg;
+
+    // Assume we can read the graphics descriptor
+    image->mem_stream = qp_make_memory_stream((void *)buffer, sizeof(qgf_graphics_descriptor_v1_t));
+
+    // Update the length of the stream to match, and rewind to the start
+    image->mem_stream.length   = qgf_get_total_size(&image->stream);
+    image->mem_stream.position = 0;
+
+    return true;
+}
+
+painter_image_handle_t qp_load_image_mem(const void *buffer) {
+    return qp_load_image_internal(image_mem_stream_factory, (void *)buffer);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,13 +90,14 @@ painter_image_handle_t qp_load_image_mem(const void *buffer) {
 
 bool qp_close_image(painter_image_handle_t image) {
     qgf_image_handle_t *qgf_image = (qgf_image_handle_t *)image;
-    if (!qgf_image->validate_ok) {
+    if (!qgf_image || !qgf_image->validate_ok) {
         qp_dprintf("qp_close_image: fail (invalid image)\n");
         return false;
     }
 
     // Free up this image for use elsewhere.
     qgf_image->validate_ok = false;
+    qp_stream_close(&qgf_image->stream);
     return true;
 }
 
@@ -105,7 +124,7 @@ typedef struct qgf_frame_info_t {
 } qgf_frame_info_t;
 
 static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, qgf_image_handle_t *qgf_image, uint16_t frame_number, qp_pixel_t fg_hsv888, qp_pixel_t bg_hsv888, qgf_frame_info_t *info) {
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
+    painter_driver_t *driver = (painter_driver_t *)device;
 
     // Drop out if we can't actually place the data we read out anywhere
     if (!info) {
@@ -132,7 +151,7 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
     qp_internal_invalidate_palette();
 
     if (!qp_internal_bpp_capable(info->bpp)) {
-        qp_dprintf("qp_drawimage_recolor: fail (image bpp too high (%d), check QUANTUM_PAINTER_SUPPORTS_256_PALETTE)\n", (int)info->bpp);
+        qp_dprintf("qp_drawimage_recolor: fail (image bpp too high (%d), check QUANTUM_PAINTER_SUPPORTS_256_PALETTE or QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS)\n", (int)info->bpp);
         qp_comms_stop(device);
         return false;
     }
@@ -148,8 +167,10 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
 
         needs_pixconvert = true;
     } else {
-        // Interpolate from fg/bg
-        needs_pixconvert = qp_internal_interpolate_palette(fg_hsv888, bg_hsv888, palette_entries);
+        if (info->bpp <= 8) {
+            // Interpolate from fg/bg
+            needs_pixconvert = qp_internal_interpolate_palette(fg_hsv888, bg_hsv888, palette_entries);
+        }
     }
 
     if (needs_pixconvert) {
@@ -188,14 +209,14 @@ static bool qp_drawimage_prepare_frame_for_stream_read(painter_device_t device, 
 
 static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint16_t y, painter_image_handle_t image, int frame_number, qgf_frame_info_t *frame_info, qp_pixel_t fg_hsv888, qp_pixel_t bg_hsv888) {
     qp_dprintf("qp_drawimage_recolor: entry\n");
-    struct painter_driver_t *driver = (struct painter_driver_t *)device;
-    if (!driver->validate_ok) {
+    painter_driver_t *driver = (painter_driver_t *)device;
+    if (!driver || !driver->validate_ok) {
         qp_dprintf("qp_drawimage_recolor: fail (validation_ok == false)\n");
         return false;
     }
 
     qgf_image_handle_t *qgf_image = (qgf_image_handle_t *)image;
-    if (!qgf_image->validate_ok) {
+    if (!qgf_image || !qgf_image->validate_ok) {
         qp_dprintf("qp_drawimage_recolor: fail (invalid image)\n");
         return false;
     }
@@ -233,23 +254,40 @@ static bool qp_drawimage_recolor_impl(painter_device_t device, uint16_t x, uint1
     }
 
     // Set up the input state
-    struct qp_internal_byte_input_state input_state    = {.device = device, .src_stream = &qgf_image->stream};
-    qp_internal_byte_input_callback     input_callback = qp_internal_prepare_input_state(&input_state, frame_info->compression_scheme);
+    qp_internal_byte_input_state_t  input_state    = {.device = device, .src_stream = &qgf_image->stream};
+    qp_internal_byte_input_callback input_callback = qp_internal_prepare_input_state(&input_state, frame_info->compression_scheme);
     if (input_callback == NULL) {
         qp_dprintf("qp_drawimage_recolor: fail (invalid image compression scheme)\n");
         qp_comms_stop(device);
         return false;
     }
 
-    // Set up the output state
-    struct qp_internal_pixel_output_state output_state = {.device = device, .pixel_write_pos = 0, .max_pixels = qp_internal_num_pixels_in_buffer(device)};
+    bool ret = false;
+    if (frame_info->bpp <= 8) {
+        // Set up the output state
+        qp_internal_pixel_output_state_t output_state = {.device = device, .pixel_write_pos = 0, .max_pixels = qp_internal_num_pixels_in_buffer(device)};
 
-    // Decode the pixel data and stream to the display
-    bool ret = qp_internal_decode_palette(device, pixel_count, frame_info->bpp, input_callback, &input_state, qp_internal_global_pixel_lookup_table, qp_internal_pixel_appender, &output_state);
+        // Decode the pixel data and stream to the display
+        ret = qp_internal_decode_palette(device, pixel_count, frame_info->bpp, input_callback, &input_state, qp_internal_global_pixel_lookup_table, qp_internal_pixel_appender, &output_state);
+        // Any leftovers need transmission as well.
+        if (ret && output_state.pixel_write_pos > 0) {
+            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.pixel_write_pos);
+        }
+    } else if (frame_info->bpp != driver->native_bits_per_pixel) {
+        // Prevent stuff like drawing 24bpp images on 16bpp displays
+        qp_dprintf("Image's bpp doesn't match the target display's native_bits_per_pixel\n");
+        return false;
+    } else {
+        // Set up the output state
+        qp_internal_byte_output_state_t output_state = {.device = device, .byte_write_pos = 0, .max_bytes = qp_internal_num_pixels_in_buffer(device) * driver->native_bits_per_pixel / 8};
 
-    // Any leftovers need transmission as well.
-    if (ret && output_state.pixel_write_pos > 0) {
-        ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.pixel_write_pos);
+        // Stream the raw pixel data to the display
+        uint32_t byte_count = pixel_count * frame_info->bpp / 8;
+        ret                 = qp_internal_send_bytes(device, byte_count, input_callback, &input_state, qp_internal_byte_appender, &output_state);
+        // Any leftovers need transmission as well.
+        if (ret && output_state.byte_write_pos > 0) {
+            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.byte_write_pos * 8 / driver->native_bits_per_pixel);
+        }
     }
 
     qp_dprintf("qp_drawimage_recolor: %s\n", ret ? "ok" : "fail");

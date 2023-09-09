@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// #define USE_SERIAL
 #define USE_I2C
 // #define MASTER_LEFT
 // #define MASTER_RIGHT
@@ -29,13 +27,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TOGGLE 3
 #define ONESHOT_TAP_TOGGLE 3
 #define PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT
 #define TAPPING_TERM 300
 #ifdef RGBLED_NUM
 #  undef RGBLED_NUM
 #endif
 #define RGBLED_NUM 54
 #define RGBLIGHT_LIMIT_VAL 200
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define RGBLIGHT_EFFECT_RGB_TEST
+#define RGBLIGHT_EFFECT_ALTERNATING
+#define RGBLIGHT_EFFECT_TWINKLE
 // #define RGBLIGHT_LED_MAP { 11,10,9,8,7,6,5,4,3,2,1,0,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26 }
 #define RGBLIGHT_SPLIT 27

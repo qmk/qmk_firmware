@@ -9,8 +9,8 @@ maintaining a uniform position of keys across devices helps a lot.
 
 The below keymap attempts to maintain a uniform keymap across Linux and Mac.
 
-Avoiding the use of `KC_GESC` as the intention is to use the same layer for mac and linux.
-`KC_GESC` causes `` CMD+` `` to be send which has a default mapping
+Avoiding the use of `QK_GESC` as the intention is to use the same layer for mac and linux.
+`QK_GESC` causes `` CMD+` `` to be send which has a default mapping
 
 Layer: 1
 

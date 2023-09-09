@@ -16,7 +16,9 @@
 
 #include "drashna.h"
 
-enum more_custom_keycodes { KC_SWAP_NUM = NEW_SAFE_RANGE };
+enum more_custom_keycodes {
+    KC_SWAP_NUM = USER_SAFE_RANGE,
+};
 
 // clang-format off
 #define LAYOUT_moonlander_wrapper(...) LAYOUT_moonlander(__VA_ARGS__)
@@ -109,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_MAKE, KC_WIDE,KC_AUSSIE,KC_SCRIPT,KC_ZALGO,KC_NOMODE,_______,   KC_NUKE,KC_NOMODE,KC_BLOCKS,KC_REGIONAL,_______,_______, QK_BOOT,
         VRSN,    _________________ADJUST_L1_________________, TG(_DIABLOII),  _______, _________________ADJUST_R1_________________, EE_CLR,
         KEYLOCK, _________________ADJUST_L2_________________, _______,        _______, _________________ADJUST_R2_________________, RGB_IDL,
-        UC_MOD,  _________________ADJUST_L3_________________,                          _________________ADJUST_R3_________________, TG_MODS,
+        UC_NEXT, _________________ADJUST_L3_________________,                          _________________ADJUST_R3_________________, TG_MODS,
         _______, _______, _______, _______, _______,          _______,        _______,          _______, _______, _______, _______, AUTO_CTN,
                                             QK_RBT,  _______, _______,        _______, _______, _______
     ),
@@ -154,7 +156,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         case KC_SWAP_NUM:
             if (record->event.pressed) {
                 userspace_config.swapped_numbers ^= 1;
-                eeconfig_update_user(userspace_config.raw);
+                eeconfig_update_user_config(&userspace_config.raw);
                 unregister_code(KC_1);
                 unregister_code(KC_2);
             }

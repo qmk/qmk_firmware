@@ -1,6 +1,7 @@
-#include "quantum.h"
 #include "backlight.h"
 #include "backlight_driver_common.h"
+#include "gpio.h"
+#include "util.h"
 
 #if !defined(BACKLIGHT_PIN) && !defined(BACKLIGHT_PINS)
 #    error "Backlight pin/pins not defined. Please configure."
@@ -9,7 +10,7 @@
 #if defined(BACKLIGHT_PINS)
 static const pin_t backlight_pins[] = BACKLIGHT_PINS;
 #    ifndef BACKLIGHT_LED_COUNT
-#        define BACKLIGHT_LED_COUNT (sizeof(backlight_pins) / sizeof(pin_t))
+#        define BACKLIGHT_LED_COUNT ARRAY_SIZE(backlight_pins)
 #    endif
 
 #    define FOR_EACH_LED(x)                                 \

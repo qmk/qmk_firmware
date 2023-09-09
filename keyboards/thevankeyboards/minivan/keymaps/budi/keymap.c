@@ -214,9 +214,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case SWTCH:
         SEND_STRING(SS_DOWN(X_LGUI));
-        SEND_STRING(SS_DOWN(X_LSHIFT));
+        SEND_STRING(SS_DOWN(X_LSFT));
         SEND_STRING(SS_TAP(X_ENTER));
-        SEND_STRING(SS_UP(X_LSHIFT));
+        SEND_STRING(SS_UP(X_LSFT));
         SEND_STRING(SS_UP(X_LGUI));
         return false;
     }

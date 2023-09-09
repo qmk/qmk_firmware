@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -20,6 +14,5 @@ MOUSEKEY_ENABLE = yes       # Mouse keys
 
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 DEFAULT_FOLDER = marksard/treadstone48/rev1

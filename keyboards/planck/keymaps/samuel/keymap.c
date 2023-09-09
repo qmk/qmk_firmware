@@ -57,7 +57,7 @@ KC_T_LGUI, KC_T_LALT, KC_UP, KC_DOWN, KC_SPC, KC_EQL, KC_GRAVE, KC_SPC, KC_LEFT,
 KC_TRANSPARENT, KC_EZUNDO, KC_EZCOPY, KC_EZCUT, KC_EZPSTE, KC_INS, KC_ASTR, KC_7, KC_8, KC_9, KC_TRANSPARENT, KC_TRANSPARENT,
 KC_EZSHFT, KC_ESC, KC_CAPS, KC_PGUP, KC_PGDN, KC_HOME, KC_AMPR, KC_4, KC_5, KC_6, KC_0, KC_EZSHFT,
 KC_EZCTRL, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_1, KC_2, KC_3, KC_COM, KC_EZCTRL,
-KC_EZGUI, KC_EZALT, KC_EZUP, KC_EZDOWN, KC_SPC, KC_PIPE, KC_BSLASH, KC_END, KC_EZLEFT, KC_EZRGHT, KC_EZALT, KC_EZGUI
+KC_EZGUI, KC_EZALT, KC_EZUP, KC_EZDOWN, KC_SPC, KC_PIPE, KC_BSLS, KC_END, KC_EZLEFT, KC_EZRGHT, KC_EZALT, KC_EZGUI
 ),
 [_COMMAND] = LAYOUT_planck_grid(
 KC_TRANSPARENT, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_TRANSPARENT,
@@ -154,17 +154,17 @@ case KC_T_RGUI:
 	break;
 case KC_T_LCTL:
 	if (record->event.pressed) {
-	   mod_press(KC_LBRACKET, KC_LCTL, 4);
+	   mod_press(KC_LEFT_BRACKET, KC_LCTL, 4);
 	} else {
-	   mod_lift(KC_LBRACKET, KC_LCTL, 4);
+	   mod_lift(KC_LEFT_BRACKET, KC_LCTL, 4);
 	}
 	return false;
 	break;
 case KC_T_RCTL:
 	if (record->event.pressed) {
-	   mod_press(KC_RBRACKET, KC_RCTL, 5);
+	   mod_press(KC_RIGHT_BRACKET, KC_RCTL, 5);
 	} else {
-	   mod_lift(KC_RBRACKET, KC_RCTL, 5);
+	   mod_lift(KC_RIGHT_BRACKET, KC_RCTL, 5);
 	}
 	return false;
 	break;
@@ -207,7 +207,7 @@ if (record->event.pressed) {
 } else {
     layer_off(_RISE);
     if (last_mod == 9 && timer_elapsed(tap_timer) < TAPPING_TERM) {
-        tap_code16(KC_BSPACE);
+        tap_code16(KC_BACKSPACE);
         last_mod = 10;
     }
 }

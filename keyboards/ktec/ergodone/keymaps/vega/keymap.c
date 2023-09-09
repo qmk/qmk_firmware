@@ -320,7 +320,7 @@ enum unicode_names {
     nullpic, // Null picture - ␀
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     // MATH
     [neq]          = 0x2260, //≠
     [intgrl]       = 0x222B, //∫
@@ -635,31 +635,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV,
         KC_TAB, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_BSLS,
         KC_EQL, KC_A, KC_O, KC_E, KC_U, KC_I,
-        KC_LSPO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_AMPR,
+        SC_LSPO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_AMPR,
         OSL(FNLR), TT(GREL), TT(MATH), KC_UP, KC_DOWN,
         KC_LBRC, KC_HOME, KC_INS, KC_SPC, KC_LGUI, KC_DEL,
 
         OSL(FNLR), KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
         KC_PGUP, KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLSH,
         KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS,
-        KC_PGDN, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RSPC,
+        KC_PGDN, KC_B, KC_M, KC_W, KC_V, KC_Z, SC_RSPC,
         KC_LEFT, KC_RIGHT, KC_RALT, TT(SYMB), TT(QWER),
         KC_END, KC_RBRC, KC_PSCR, KC_RALT, KC_RCTL, KC_ENT
 ),
 
 [FNLR] = LAYOUT_ergodox(
        // left hand
-       UC_M_LN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
-       UC_M_WC,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
+       UC_LINX,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_NO,
+       UC_WINC,KC_F11, KC_F12, KC_F13,KC_F14, KC_F15,  KC_NO,
        TO(TINY),KC_F21, KC_F22, KC_F23,KC_F24, MAGIC_TOGGLE_NKRO,
-       TO(FULL),KC_PAUSE,KC_PSCR,KC_SLCK,KC_NO,KC_NO,KC_NO,
-          EEP_RST,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
+       TO(FULL),KC_PAUSE,KC_PSCR,KC_SCRL,KC_NO,KC_NO,KC_NO,
+          EE_CLR,TO(BASE),TO(BASE),TO(BASE),TO(BASE),
                                        KC_NO,KC_NO,
                                                KC_NO,
                                KC_NO,KC_NO,KC_NO,
        // right hand
-       TO(BASE), KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  UC_M_LN,
-       KC_NO, KC_F16,  KC_F17,KC_F18,   KC_F19,  KC_F20,  UC_M_WI,
+       TO(BASE), KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  UC_LINX,
+       KC_NO, KC_F16,  KC_F17,KC_F18,   KC_F19,  KC_F20,  UC_WIN,
                 KC_NO, KC_NO,   KC_NO,    KC_NO,    KC_NO, KC_NO,
        KC_NO, KC_NO, KC_NO,   KC_NO,    KC_NO,    KC_NO, KC_NO,
                          KC_NO,KC_NO,  KC_NO,    KC_NO,  KC_NO,
@@ -672,126 +672,126 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_BSLS,
         KC_AMPR, KC_A, KC_S, KC_D, KC_F, KC_G,
-        KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_QUOT,
+        SC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_QUOT,
         KC_BSLS, KC_LCTL, KC_LGUI, KC_RALT, KC_APP,
         KC_LBRC, KC_HOME, KC_PGUP, KC_SPC, KC_LSFT, KC_PGDN,
 
         OSL(FNLR), KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
         KC_MINS, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_SLSH,
         KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_ENT,
-        KC_EQL, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC,
+        KC_EQL, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, SC_RSPC,
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT, TO(BASE),
         KC_END, KC_INS, KC_DEL, KC_RGHT, KC_ENT, KC_SPC
 ),
 
 [MATH] = LAYOUT_ergodox(
 	KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_GRV,
-	KC_TAB,	X(Mc),	X(Munion),	X(arwl),	X(or),	X(exists),	KC_BSLASH,
-	X(arwr), X(root), X(and), X(imply), X(nexists), X(forall),
-	KC_LSPO,	KC_SCLN,	X(intgrl),	X(Mn),	X(Mz),	X(member),	X(arwl),
+	KC_TAB,	UM(Mc),	UM(Munion),	UM(arwl),	UM(or),	UM(exists),	KC_BSLS,
+	UM(arwr), UM(root), UM(and), UM(imply), UM(nexists), UM(forall),
+	SC_LSPO,	KC_SCLN,	UM(intgrl),	UM(Mn),	UM(Mz),	UM(member),	UM(arwl),
 	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
 	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
 
 	TT(FNLR), KC_6, KC_7, KC_8, KC_9, KC_0, KC_BSPC,
-	KC_PGUP, X(plsminus),	X(infin),	X(neleof),	X(equiv),	X(Mq),	KC_EQL,
-	X(sum),	X(emtyset),	X(porp),	X(suprsetof),	X(not),	X(neq),
-	KC_PGDN,	X(subsetof),	X(intersection),	X(angl),	X(nmember),	X(eleof),	KC_RSPC,
+	KC_PGUP, UM(plsminus),	UM(infin),	UM(neleof),	UM(equiv),	UM(Mq),	KC_EQL,
+	UM(sum),	UM(emtyset),	UM(porp),	UM(suprsetof),	UM(not),	UM(neq),
+	KC_PGDN,	UM(subsetof),	UM(intersection),	UM(angl),	UM(nmember),	UM(eleof),	SC_RSPC,
 	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),
 
 [SYMB] = LAYOUT_ergodox(
-	X(Os), X(Oa), X(Ob), X(Oc), X(Od), X(Oe), X(mdot),
-	X(boxemp), X(bbstr), X(bbrtr), X(bbrtl), X(bbstl), X(degree), X(brkdn),
-	X(boxchk), X(bbmbl), X(bbml), X(bbmr), X(bbmbr), X(neteen),
-	X(boxX), X(bbsbr), X(bbrbr), X(bbrbl), X(bbsbl), X(uxclm), X(brkup),
-	X(floppy), TO(BASE), TO(BASE), X(arwu), X(arwd),
-	X(fire), X(lshade), X(mshade), KC_SPC, X(OS), X(dshade),
+	UM(Os), UM(Oa), UM(Ob), UM(Oc), UM(Od), UM(Oe), UM(mdot),
+	UM(boxemp), UM(bbstr), UM(bbrtr), UM(bbrtl), UM(bbstl), UM(degree), UM(brkdn),
+	UM(boxchk), UM(bbmbl), UM(bbml), UM(bbmr), UM(bbmbr), UM(neteen),
+	UM(boxX), UM(bbsbr), UM(bbrbr), UM(bbrbl), UM(bbsbl), UM(uxclm), UM(brkup),
+	UM(floppy), TO(BASE), TO(BASE), UM(arwu), UM(arwd),
+	UM(fire), UM(lshade), UM(mshade), KC_SPC, UM(OS), UM(dshade),
 
-	X(Ox), X(Of), X(Og), X(Oh), X(Oi), X(OA), X(OB),
-	X(numero), X(trade), X(copy), X(cleft), X(cent), X(OED), X(OC),
-	X(Agrave), X(gnd), X(sqr), X(sine), X(opt), X(OD),
-	X(sect), X(Aacute), X(Acircm), X(Adiaer), X(Abreve), X(Atilde), X(OE),
-	X(arwl), X(arwr), X(geq), X(leq), X(OF),
-	X(rang), X(water), X(perup), X(perdn), X(baster), KC_ENT
+	UM(Ox), UM(Of), UM(Og), UM(Oh), UM(Oi), UM(OA), UM(OB),
+	UM(numero), UM(trade), UM(copy), UM(cleft), UM(cent), UM(OED), UM(OC),
+	UM(Agrave), UM(gnd), UM(sqr), UM(sine), UM(opt), UM(OD),
+	UM(sect), UM(Aacute), UM(Acircm), UM(Adiaer), UM(Abreve), UM(Atilde), UM(OE),
+	UM(arwl), UM(arwr), UM(geq), UM(leq), UM(OF),
+	UM(rang), UM(water), UM(perup), UM(perdn), UM(baster), KC_ENT
 ),
 
 [GREL] = LAYOUT_ergodox(
-	KC_ESC, X(Rone), X(Rtwo), X(Rthree), X(Rfour), X(Rfive), KC_GRV,
-	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, X(gp), X(gy), KC_SLSH,
-	KC_SLSH, X(ga), X(go), X(ge), X(gu), X(gi),
-	MO(GREU), KC_SCLN, X(gq), X(gj), X(gk), X(gx), KC_AMPR,
+	KC_ESC, UM(Rone), UM(Rtwo), UM(Rthree), UM(Rfour), UM(Rfive), KC_GRV,
+	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, UM(gp), UM(gy), KC_SLSH,
+	KC_SLSH, UM(ga), UM(go), UM(ge), UM(gu), UM(gi),
+	MO(GREU), KC_SCLN, UM(gq), UM(gj), UM(gk), UM(gx), KC_AMPR,
 	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
 	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
 
-	TO(BASE), X(Rsix), X(Rseven), X(Reight), X(Rnine), X(Rten), KC_BSPC,
-	KC_PGUP, X(gf), X(gg), X(gc), X(gr), X(gl), KC_EQL,
-	X(gd), X(gh), X(gt), X(gn), X(gs), KC_MINS,
-	KC_PGDN, X(gb), X(gm), X(gw), X(gv), X(gz), MO(GREU),
+	TO(BASE), UM(Rsix), UM(Rseven), UM(Reight), UM(Rnine), UM(Rten), KC_BSPC,
+	KC_PGUP, UM(gf), UM(gg), UM(gc), UM(gr), UM(gl), KC_EQL,
+	UM(gd), UM(gh), UM(gt), UM(gn), UM(gs), KC_MINS,
+	KC_PGDN, UM(gb), UM(gm), UM(gw), UM(gv), UM(gz), MO(GREU),
 	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),
 
 [GREU] = LAYOUT_ergodox(
-	KC_ESC, X(Rone), X(Rtwo), X(Rthree), X(Rfour), X(Rfive), KC_GRV,
-	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, X(Gp), X(Gy), KC_SLSH,
-	KC_SLSH, X(Ga), X(Go), X(Ge), X(Gu), X(Gi),
-	KC_TRNS, KC_SCLN, X(Gq), X(Gj), X(Gk), X(Gx), KC_AMPR,
+	KC_ESC, UM(Rone), UM(Rtwo), UM(Rthree), UM(Rfour), UM(Rfive), KC_GRV,
+	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, UM(Gp), UM(Gy), KC_SLSH,
+	KC_SLSH, UM(Ga), UM(Go), UM(Ge), UM(Gu), UM(Gi),
+	KC_TRNS, KC_SCLN, UM(Gq), UM(Gj), UM(Gk), UM(Gx), KC_AMPR,
 	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
 	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
 
-	TO(BASE), X(Rsix), X(Rseven), X(Reight), X(Rnine), X(Rten), KC_BSPC,
-	KC_PGUP, X(Gf), X(Gg), X(Gc), X(Gr), X(Gl), KC_EQL,
-	X(Gd), X(Gh), X(Gt), X(Gn), X(Gs), KC_MINS,
-	KC_PGDN, X(Gb), X(Gm), X(Gw), X(Gv), X(Gz), KC_TRNS,
+	TO(BASE), UM(Rsix), UM(Rseven), UM(Reight), UM(Rnine), UM(Rten), KC_BSPC,
+	KC_PGUP, UM(Gf), UM(Gg), UM(Gc), UM(Gr), UM(Gl), KC_EQL,
+	UM(Gd), UM(Gh), UM(Gt), UM(Gn), UM(Gs), KC_MINS,
+	KC_PGDN, UM(Gb), UM(Gm), UM(Gw), UM(Gv), UM(Gz), KC_TRNS,
 	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),
 
 [TINY] = LAYOUT_ergodox(
-	KC_ESC, X(tone), X(ttwo), X(tthree), X(tfour), X(tfive), KC_GRV,
-	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, X(tp), X(ty), KC_SLSH,
-	KC_SLSH, X(ta), X(to), X(te), X(tu), X(ti),
-	KC_TRNS, KC_SCLN, X(tq), X(tj), X(tk), X(tx), KC_AMPR,
+	KC_ESC, UM(tone), UM(ttwo), UM(tthree), UM(tfour), UM(tfive), KC_GRV,
+	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, UM(tp), UM(ty), KC_SLSH,
+	KC_SLSH, UM(ta), UM(to), UM(te), UM(tu), UM(ti),
+	KC_TRNS, KC_SCLN, UM(tq), UM(tj), UM(tk), UM(tx), KC_AMPR,
 	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
 	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
 
-	TO(BASE), X(tsix), X(tseven), X(teight), X(tnine), X(tzero), KC_BSPC,
-	KC_PGUP, X(tf), X(tg), X(tc), X(tr), X(tl), KC_EQL,
-	X(td), X(th), X(tt), X(tn), X(ts), KC_MINS,
-	KC_PGDN, X(tb), X(tm), X(tw), X(tv), X(tz), KC_TRNS,
+	TO(BASE), UM(tsix), UM(tseven), UM(teight), UM(tnine), UM(tzero), KC_BSPC,
+	KC_PGUP, UM(tf), UM(tg), UM(tc), UM(tr), UM(tl), KC_EQL,
+	UM(td), UM(th), UM(tt), UM(tn), UM(ts), KC_MINS,
+	KC_PGDN, UM(tb), UM(tm), UM(tw), UM(tv), UM(tz), KC_TRNS,
 	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),
 
 [FULL] = LAYOUT_ergodox(
-	KC_ESC, X(fwone), X(fwtwo), X(fwthree), X(fwfour), X(fwfive), KC_GRV,
-	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, X(fwp), X(fwy), KC_SLSH,
-	KC_SLSH, X(fwa), X(fwo), X(fwe), X(fwu), X(fwi),
-	MO(FULU), KC_SCLN, X(fwq), X(fwj), X(fwk), X(fwx), KC_AMPR,
+	KC_ESC, UM(fwone), UM(fwtwo), UM(fwthree), UM(fwfour), UM(fwfive), KC_GRV,
+	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, UM(fwp), UM(fwy), KC_SLSH,
+	KC_SLSH, UM(fwa), UM(fwo), UM(fwe), UM(fwu), UM(fwi),
+	MO(FULU), KC_SCLN, UM(fwq), UM(fwj), UM(fwk), UM(fwx), KC_AMPR,
 	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
 	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
 
-	TO(BASE), X(fwsix), X(fwseven), X(fweight), X(fwnine), X(fwzero), KC_BSPC,
-	KC_PGUP, X(fwf), X(fwg), X(fwc), X(fwr), X(fwl), KC_EQL,
-	X(fwd), X(fwh), X(fwt), X(fwn), X(fws), KC_MINS,
-	KC_PGDN, X(fwb), X(fwm), X(fww), X(fwv), X(fwz), MO(FULU),
+	TO(BASE), UM(fwsix), UM(fwseven), UM(fweight), UM(fwnine), UM(fwzero), KC_BSPC,
+	KC_PGUP, UM(fwf), UM(fwg), UM(fwc), UM(fwr), UM(fwl), KC_EQL,
+	UM(fwd), UM(fwh), UM(fwt), UM(fwn), UM(fws), KC_MINS,
+	KC_PGDN, UM(fwb), UM(fwm), UM(fww), UM(fwv), UM(fwz), MO(FULU),
 	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),
 
 [FULU] = LAYOUT_ergodox(
-	KC_ESC, X(Fwone), X(Fwtwo), X(Fwthree), X(Fwfour), X(Fwfive), KC_GRV,
-	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, X(Fwp), X(Fwy), KC_SLSH,
-	KC_SLSH, X(Fwa), X(Fwo), X(Fwe), X(Fwu), X(Fwi),
-	KC_TRNS, KC_SCLN, X(Fwq), X(Fwj), X(Fwk), X(Fwx), KC_AMPR,
+	KC_ESC, UM(Fwone), UM(Fwtwo), UM(Fwthree), UM(Fwfour), UM(Fwfive), KC_GRV,
+	KC_TAB, KC_QUOT, KC_COMM, KC_DOT, UM(Fwp), UM(Fwy), KC_SLSH,
+	KC_SLSH, UM(Fwa), UM(Fwo), UM(Fwe), UM(Fwu), UM(Fwi),
+	KC_TRNS, KC_SCLN, UM(Fwq), UM(Fwj), UM(Fwk), UM(Fwx), KC_AMPR,
 	KC_MS_L, TO(BASE), TO(BASE), KC_INS, KC_DEL,
 	KC_LBRC, KC_HOME, KC_UP, KC_SPC, KC_LGUI, KC_DOWN,
 
-	TO(BASE), X(Fwsix), X(Fwseven), X(Fweight), X(Fwnine), X(Fwzero), KC_BSPC,
-	KC_PGUP, X(Fwf), X(Fwg), X(Fwc), X(Fwr), X(Fwl), KC_EQL,
-	X(Fwd), X(Fwh), X(Fwt), X(Fwn), X(Fws), KC_MINS,
-	KC_PGDN, X(Fwb), X(Fwm), X(Fww), X(Fwv), X(Fwz), KC_TRNS,
+	TO(BASE), UM(Fwsix), UM(Fwseven), UM(Fweight), UM(Fwnine), UM(Fwzero), KC_BSPC,
+	KC_PGUP, UM(Fwf), UM(Fwg), UM(Fwc), UM(Fwr), UM(Fwl), KC_EQL,
+	UM(Fwd), UM(Fwh), UM(Fwt), UM(Fwn), UM(Fws), KC_MINS,
+	KC_PGDN, UM(Fwb), UM(Fwm), UM(Fww), UM(Fwv), UM(Fwz), KC_TRNS,
 	KC_RCTL, KC_RALT, KC_APP, TO(BASE), TO(BASE),
 	KC_END, KC_RBRC, KC_LEFT, KC_RGHT, KC_ENT, KC_SPC
 ),

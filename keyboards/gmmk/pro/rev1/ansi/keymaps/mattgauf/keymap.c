@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,      _______,
                       _______, _______, _______,                   _______,                   _______, _______, _______,          _______, _______, _______),
 
-  [_DFUMODE] = LAYOUT(QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MG_F19,       DEBUG,
+  [_DFUMODE] = LAYOUT(QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, MG_F19,       DB_TOGG,
                       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,
                       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,
                       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,               _______,
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       _______, _______, _______,                   _______,                   _______, _______, _______,          _______, _______, _______),
 };
 // Runs constantly in the background, in a loop.
-void rgb_matrix_indicators_user(void) {
+bool rgb_matrix_indicators_user(void) {
     if (rgb_matrix_get_flags() & (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER)) {
 
         if (IS_LAYER_ON(_UTILITY)) {
@@ -108,11 +108,12 @@ void rgb_matrix_indicators_user(void) {
         }
 
     }
+    return false;
 }
 
 
 // Called on start
-void dynamic_macro_record_start_user(void) {
+void dynamic_macro_record_start_user(int8_t direction) {
     dprint("-- Recording Started\n");
     layer_on(_UTILITY);
 }
@@ -173,7 +174,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
         }
     }
-    return true;
+    //return true; //set to return false to counteract enabled encoder in pro.c
+    return false;
 }
 
 

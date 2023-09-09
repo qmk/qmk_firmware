@@ -106,7 +106,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_off();
     ergodox_board_led_off();
 
-    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+    if (host_keyboard_led_state().caps_lock) {
         ergodox_right_led_3_on();
     }
 

@@ -1,4 +1,4 @@
-/* Copyright 2021 Harrison Chan (Xelus)
+/* Copyright 2023 Harrison Chan (Xelus)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ void matrix_io_delay(void) { __asm__ volatile("nop\nnop\nnop\n"); }
 #ifdef RGB_MATRIX_ENABLE
 #include "i2c_master.h"
 #include "drivers/led/issi/is31fl3741.h"
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -158,18 +158,18 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
 
 __attribute__ ((weak))
 led_config_t g_led_config = { {
-    { -1+00+3 , -1+26+3 , -1+52+3 , -1+78+3 , -1+104+3, -1+13+1 , -1+39+1 , -1+65+1 , -1+91+1  },
-    { NO_LED  , -1+39+3 , -1+65+3 , -1+91+3 , -1+00+1 , -1+26+1 , -1+52+1 , -1+78+1 , NO_LED   },
-    { -1+00+4 , -1+26+4 , -1+52+4 , -1+78+4 , -1+104+4, -1+13+2 , -1+39+2 , -1+65+2 , -1+91+2  },
-    { -1+13+4 , -1+39+4 , -1+65+4 , -1+91+4 , -1+00+2 , -1+26+2 , -1+52+2 , -1+78+2 , NO_LED   },
-    { -1+00+6 , -1+26+6 , -1+52+6 , -1+78+6 , -1+104+6, -1+13+5 , -1+39+5 , -1+65+5 , -1+91+5  },
-    { -1+13+6 , -1+39+6 , -1+65+6 , -1+91+6 , -1+00+5 , -1+26+5 , -1+52+5 , -1+78+5 , NO_LED   },
-    { -1+00+8 , -1+26+8 , -1+52+8 , -1+78+8 , -1+104+8, -1+13+7 , NO_LED  , NO_LED  , NO_LED   },
-    { -1+13+8 , -1+39+8 , -1+65+8 , -1+91+8 , -1+00+7 , -1+26+7 , -1+52+7 , NO_LED  , NO_LED   },
-    { -1+00+11, -1+26+11, -1+52+11, -1+78+11,-1+104+11, -1+13+10, -1+52+10, NO_LED  , NO_LED   },
-    { -1+13+11, -1+39+11, -1+65+11, -1+91+11, -1+00+10, NO_LED  , NO_LED  , -1+78+10, NO_LED   },
-    { -1+00+9 , -1+26+9 , NO_LED  , NO_LED  , NO_LED  , -1+13+12, -1+39+12, -1+65+12, -1+91+12 },
-    { -1+13+9 , NO_LED  , -1+65+9 , NO_LED  , NO_LED  , NO_LED  , -1+52+12, -1+78+12, NO_LED   }
+    {      2,     28,     54,     80,    106,     13,     39,     65,     91 },
+    { NO_LED,     41,     67,     93,      0,     26,     52,     78, NO_LED },
+    {      3,     29,     55,     81,    107,     14,     40,     66,     92 },
+    {     16,     42,     68,     94,      1,     27,     53,     79, NO_LED },
+    {      5,     31,     57,     83,    109,     17,     43,     69,     95 },
+    {     18,     44,     70,     96,      4,     31,     56,     82, NO_LED },
+    {      7,     33,     59,     85,    111,     19, NO_LED, NO_LED, NO_LED },
+    {     20,     46,     72,     98,      6,     32,     58, NO_LED, NO_LED },
+    {     10,     36,     62,     88,    114,     22,     61, NO_LED, NO_LED },
+    {     23,     49,     75,    101,      9, NO_LED, NO_LED,     87, NO_LED },
+    {      8,     34, NO_LED, NO_LED, NO_LED,     24,     50,     76,    102 },
+    {     21, NO_LED,     73, NO_LED, NO_LED, NO_LED,     63,     89, NO_LED }
 }, {
     {123,  0}, {117, 15}, {0  ,  0}, {0  , 15}, {123, 27}, {3  , 27}, {127, 40}, {5  , 40}, {2  , 64}, {133, 52}, {8  , 52}, {131, 64}, {255,255},
     {143,  0}, {130, 15}, {255,255}, {13 , 15}, {136, 27}, {19 , 27}, {140, 40}, {23 , 40}, {18 , 64}, {146, 52}, {29 , 52}, {148, 64}, {255,255},
@@ -194,7 +194,7 @@ led_config_t g_led_config = { {
 
 static void init(void) {
     i2c_init();
-    IS31FL3741_init(DRIVER_ADDR_1);
+    is31fl3741_init(DRIVER_ADDR_1);
     for (int index = 0; index < ISSI_DRIVER_TOTAL; index++) {
         bool enabled = !(   ( index == -1+0+13) || //A13
                             ( index == -1+13+3) || //B3
@@ -227,19 +227,327 @@ static void init(void) {
                             ( index == -1+104+12) || //I12
                             ( index == -1+104+13) //I13
                         );
-        IS31FL3741_set_led_control_register(index, enabled, enabled, enabled);
+        is31fl3741_set_led_control_register(index, enabled, enabled, enabled);
     }
-    IS31FL3741_update_led_control_registers(DRIVER_ADDR_1, 0);
+    is31fl3741_update_led_control_registers(DRIVER_ADDR_1, 0);
 }
 
 static void flush(void) {
-    IS31FL3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
+    is31fl3741_update_pwm_buffers(DRIVER_ADDR_1, 0);
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
-    .set_color = IS31FL3741_set_color,
-    .set_color_all = IS31FL3741_set_color_all
+    .set_color = is31fl3741_set_color,
+    .set_color_all = is31fl3741_set_color_all
 };
+
+#ifdef VIA_ENABLE
+#include "quantum.h"
+#include "eeprom.h"
+
+indicator_settings_config g_config = {
+    .caps_lock_indicator = {0, 0, 128},
+    .num_lock_indicator = {60, 0, 128},
+    .scroll_lock_indicator = {120, 0, 128},
+    .layer_indicator = {180, 0, 128},
+    .caps_lock_key = 7,
+    .num_lock_key = 0,
+    .scroll_lock_key = 78,
+    .layer_indicator_key = 0,
+    .enable_caps_lock = true,
+    .enable_num_lock = false,
+    .enable_scroll_lock = true,
+    .enable_layer_indicator = false,
+    .caps_override_bl = true,
+    .num_override_bl = true,
+    .scroll_override_bl = true,
+    .layer_override_bl = true
+};
+
+void values_load(void)
+{
+    eeprom_read_block( &g_config, ((void*)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config) );
+}
+
+void values_save(void)
+{
+    eeprom_update_block( &g_config, ((void*)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config) );
+}
+
+void via_init_kb(void)
+{
+    // If the EEPROM has the magic, the data is good.
+    // OK to load from EEPROM
+    if (via_eeprom_is_valid()) {
+        values_load();
+    } else	{
+        values_save();
+        // DO NOT set EEPROM valid here, let caller do this
+    }
+}
+
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    // data = [ command_id, channel_id, value_id, value_data ]
+    uint8_t *command_id        = &(data[0]);
+    uint8_t *channel_id        = &(data[1]);
+    uint8_t *value_id_and_data = &(data[2]);
+
+    if ( *channel_id == id_custom_channel ) {
+        switch ( *command_id )
+        {
+            case id_custom_set_value:
+            {
+                indicator_config_set_value(value_id_and_data);
+                break;
+            }
+            case id_custom_get_value:
+            {
+                indicator_config_get_value(value_id_and_data);
+                break;
+            }
+            case id_custom_save:
+            {
+                values_save();
+                break;
+            }
+            default:
+            {
+                // Unhandled message.
+                *command_id = id_unhandled;
+                break;
+            }
+        }
+        return;
+    }
+
+    // Return the unhandled state
+    *command_id = id_unhandled;
+
+    // DO NOT call raw_hid_send(data,length) here, let caller do this
+}
+
+void indicator_config_set_value( uint8_t *data )
+{
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch ( *value_id )
+    {
+        case id_caps_lock_enable:
+            g_config.enable_caps_lock = *value_data;
+            break;
+        case id_num_lock_enable:
+            g_config.enable_num_lock = *value_data;
+            break;
+        case id_scroll_lock_enable:
+            g_config.enable_scroll_lock = *value_data;
+            break;
+        case id_layer_indicator_enable:
+            g_config.enable_layer_indicator = *value_data;
+            break;
+        case id_caps_lock_brightness:
+            g_config.caps_lock_indicator.v = *value_data;
+            break;
+        case id_num_lock_brightness:
+            g_config.num_lock_indicator.v = *value_data;
+            break;
+        case id_scroll_lock_brightness:
+            g_config.scroll_lock_indicator.v = *value_data;
+            break;
+        case id_layer_indicator_brightness:
+            g_config.layer_indicator.v = *value_data;
+            break;
+        case id_caps_lock_color:
+            _set_color( &(g_config.caps_lock_indicator), value_data );
+            break;
+        case id_num_lock_color:
+            _set_color( &(g_config.num_lock_indicator), value_data );
+            break;
+        case id_scroll_lock_color:
+            _set_color( &(g_config.scroll_lock_indicator), value_data );
+            break;
+        case id_layer_indicator_color:
+            _set_color( &(g_config.layer_indicator), value_data );
+            break;
+        case id_caps_lock_key:
+            g_config.caps_lock_key = *value_data;
+            break;
+        case id_num_lock_key:
+            g_config.num_lock_key = *value_data;
+            break;
+        case id_scroll_lock_key:
+            g_config.scroll_lock_key = *value_data;
+            break;
+        case id_layer_indicator_key:
+            g_config.layer_indicator_key = *value_data;
+            break;
+        case id_caps_lock_override:
+            g_config.caps_override_bl = *value_data;
+            break;
+        case id_num_lock_override:
+            g_config.num_override_bl = *value_data;
+            break;
+        case id_scroll_lock_override:
+            g_config.scroll_override_bl = *value_data;
+            break;
+        case id_layer_indicator_override:
+            g_config.layer_override_bl = *value_data;
+            break;
+    }
+}
+
+void indicator_config_get_value( uint8_t *data )
+{
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch ( *value_id )
+    {
+        case id_caps_lock_enable:
+            *value_data = g_config.enable_caps_lock;
+            break;
+        case id_num_lock_enable:
+            *value_data = g_config.enable_num_lock;
+            break;
+        case id_scroll_lock_enable:
+            *value_data = g_config.enable_scroll_lock;
+            break;
+        case id_layer_indicator_enable:
+            *value_data = g_config.enable_layer_indicator;
+            break;
+        case id_caps_lock_brightness:
+            *value_data = g_config.caps_lock_indicator.v;
+            break;
+        case id_num_lock_brightness:
+            *value_data = g_config.num_lock_indicator.v;
+            break;
+        case id_layer_indicator_brightness:
+            *value_data = g_config.scroll_lock_indicator.v;
+            break;
+        case id_scroll_lock_brightness:
+            *value_data = g_config.layer_indicator.v;
+            break;
+        case id_caps_lock_color:
+            _get_color( &(g_config.caps_lock_indicator), value_data );
+            break;
+        case id_num_lock_color:
+            _get_color( &(g_config.num_lock_indicator), value_data );
+            break;
+        case id_scroll_lock_color:
+            _get_color( &(g_config.scroll_lock_indicator), value_data );
+            break;
+        case id_layer_indicator_color:
+            _get_color( &(g_config.layer_indicator), value_data );
+            break;
+        case id_caps_lock_key:
+            *value_data = g_config.caps_lock_key;
+            break;
+        case id_num_lock_key:
+            *value_data = g_config.num_lock_key;
+            break;
+        case id_scroll_lock_key:
+            *value_data = g_config.scroll_lock_key;
+            break;
+        case id_layer_indicator_key:
+            *value_data = g_config.layer_indicator_key;
+            break;
+        case id_caps_lock_override:
+            *value_data = g_config.caps_override_bl;
+            break;
+        case id_num_lock_override:
+            *value_data = g_config.num_override_bl;
+            break;
+        case id_scroll_lock_override:
+            *value_data = g_config.scroll_override_bl;
+            break;
+        case id_layer_indicator_override:
+            *value_data = g_config.layer_override_bl;
+            break;
+    }
+}
+
+// Some helpers for setting/getting HSV
+void _set_color( HSV *color, uint8_t *data )
+{
+    color->h = data[0];
+    color->s = data[1];
+}
+
+void _get_color( HSV *color, uint8_t *data )
+{
+    data[0] = color->h;
+    data[1] = color->s;
+}
+
+// Set the indicators with RGB Matrix subsystem
+bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    // caps lock cyan
+    if (g_config.enable_caps_lock) {
+        RGB rgb_caps = hsv_to_rgb( (HSV){ .h = g_config.caps_lock_indicator.h,
+                                          .s = g_config.caps_lock_indicator.s,
+                                          .v = g_config.caps_lock_indicator.v } );
+        if (host_keyboard_led_state().caps_lock) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(g_config.caps_lock_key, rgb_caps.r, rgb_caps.g, rgb_caps.b);
+        } else {
+            if (g_config.caps_override_bl) {
+                RGB_MATRIX_INDICATOR_SET_COLOR(g_config.caps_lock_key, 0, 0, 0);
+            }
+        }
+    }
+
+    // num lock cyan
+    if (g_config.enable_num_lock) {
+        RGB rgb_num = hsv_to_rgb( (HSV){ .h = g_config.num_lock_indicator.h,
+                                         .s = g_config.num_lock_indicator.s,
+                                         .v = g_config.num_lock_indicator.v } );
+        if (host_keyboard_led_state().num_lock) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(g_config.num_lock_key, rgb_num.r, rgb_num.g, rgb_num.b);
+        } else {
+            if (g_config.num_override_bl) {
+                RGB_MATRIX_INDICATOR_SET_COLOR(g_config.num_lock_key, 0, 0, 0);
+            }
+        }
+    }
+
+    // scroll lock cyan
+    if (g_config.enable_scroll_lock) {
+        RGB rgb_scroll = hsv_to_rgb( (HSV){ .h = g_config.scroll_lock_indicator.h,
+                                            .s = g_config.scroll_lock_indicator.s,
+                                            .v = g_config.scroll_lock_indicator.v } );
+        if (host_keyboard_led_state().scroll_lock) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(g_config.scroll_lock_key, rgb_scroll.r, rgb_scroll.g, rgb_scroll.b);
+        } else {
+            if (g_config.scroll_override_bl) {
+                RGB_MATRIX_INDICATOR_SET_COLOR(g_config.scroll_lock_key, 0, 0, 0);
+            }
+        }
+    }
+
+    // layer state
+    if (g_config.enable_layer_indicator) {
+        RGB rgb_layer = hsv_to_rgb( (HSV){ .h = g_config.layer_indicator.h,
+                                           .s = g_config.layer_indicator.s,
+                                           .v = g_config.layer_indicator.v } );
+        switch (get_highest_layer(layer_state)) {
+            case 0:
+                if (g_config.layer_override_bl) {
+                    RGB_MATRIX_INDICATOR_SET_COLOR(g_config.layer_indicator_key, 0, 0, 0);
+                }
+                break;
+            case 1:
+                RGB_MATRIX_INDICATOR_SET_COLOR(g_config.layer_indicator_key, rgb_layer.r, rgb_layer.g, rgb_layer.b);
+                break;
+            default:
+                // white
+                RGB_MATRIX_INDICATOR_SET_COLOR(24, 128, 128, 128);
+                break;
+        }
+    }
+    return false;
+}
+
+#endif
 #endif

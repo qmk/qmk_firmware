@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT))
 #define ESC_CTL     CTL_T(KC_ESCAPE)            // Tap for Esc, hold for Ctrl
 
 enum custom_keycodes {
@@ -21,42 +21,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______, KC_DEL,
 		_______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, QK_BOOT,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-		_______, _______, _______, _______, BL_DEC, BL_TOGG, BL_INC, BL_STEP, _______, _______, _______, _______, _______, _______,
+		_______, _______, _______, _______, BL_DOWN,BL_TOGG, BL_UP,  BL_STEP, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
 };
 
-void led_set_user(uint8_t usb_led) {
-
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+	if (led_state.caps_lock) {
 		DDRB |= (1 << 2); PORTB &= ~(1 << 2);
 	} else {
 		DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
 	}
-
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_KANA)) {
-
-	} else {
-
-	}
-
+	return false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)

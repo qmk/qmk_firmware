@@ -73,19 +73,13 @@ static uint32_t math_glyph_exceptions(const uint16_t keycode, const bool shifted
 }
 
 bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uint32_t baseAlphaLower, uint32_t baseAlphaUpper, uint32_t zeroGlyph, uint32_t baseNumberOne, uint32_t spaceGlyph, uint32_t (*exceptions)(const uint16_t keycode, const bool shifted), uint8_t temp_mod, uint8_t temp_osm) {
-    void _register(uint32_t codepoint) {
-        unicode_input_start();
-        register_hex32(codepoint);
-        unicode_input_finish();
-    }
-
     if ((((temp_mod | temp_osm) & (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI))) == 0) {
         bool shifted = ((temp_mod | temp_osm) & MOD_MASK_SHIFT);
         if (exceptions) {
             uint32_t res = exceptions(keycode, shifted);
             if (res) {
                 if (record->event.pressed) {
-                    _register(res);
+                    register_unicode(res);
                 }
                 return false;
             }
@@ -98,31 +92,31 @@ bool process_record_glyph_replacement(uint16_t keycode, keyrecord_t *record, uin
                     clear_oneshot_mods();
 #endif
 
-                    bool caps = host_keyboard_led_state().caps_lock;
+                    bool     caps = host_keyboard_led_state().caps_lock;
                     uint32_t base = ((shifted == caps) ? baseAlphaLower : baseAlphaUpper);
-                    _register(base + (keycode - KC_A));
+                    register_unicode(base + (keycode - KC_A));
                     set_mods(temp_mod);
                 }
                 return false;
             case KC_0:
-                if (shifted) {  // skip shifted numbers, so that we can still use symbols etc.
+                if (shifted) { // skip shifted numbers, so that we can still use symbols etc.
                     return true;
                 }
                 if (record->event.pressed) {
-                    _register(zeroGlyph);
+                    register_unicode(zeroGlyph);
                 }
                 return false;
             case KC_1 ... KC_9:
-                if (shifted) {  // skip shifted numbers, so that we can still use symbols etc.
+                if (shifted) { // skip shifted numbers, so that we can still use symbols etc.
                     return true;
                 }
                 if (record->event.pressed) {
-                    _register(baseNumberOne + (keycode - KC_1));
+                    register_unicode(baseNumberOne + (keycode - KC_1));
                 }
                 return false;
             case KC_SPACE:
                 if (record->event.pressed) {
-                    _register(spaceGlyph);  // em space
+                    register_unicode(spaceGlyph); // em space
                 }
                 return false;
         }
@@ -172,7 +166,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
 #ifndef NO_DEBUG
             // Re-implement this here, but fix the persistence!
-            case DEBUG:
+            case QK_DEBUG_TOGGLE:
                 if (get_mods() & MOD_MASK_SHIFT) {
                     debug_enable   = 0;
                     debug_keyboard = 0;
@@ -199,8 +193,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                 // clang-format off
 
-            case CH_CPNL: host_consumer_send(AL_CONTROL_PANEL); return false;
-            case CH_ASST: host_consumer_send(AL_ASSISTANT); return false;
             case CH_SUSP: tap_code16(LGUI(LSFT(KC_L))); return true;
 
                 // clang-format on
@@ -226,7 +218,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // to determine what Print Screen key should do. The
                 // idea here is to make it consistent across hosts.
                 switch (get_unicode_input_mode()) {
-                    case UC_MAC:
+                    case UNICODE_MODE_MACOS:
                         if ((mods | osm) & MOD_MASK_ALT) {
                             // Window screenshot
                             clear_mods();
@@ -249,8 +241,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         }
                         break;
 
-                    case UC_WIN:
-                    case UC_WINC:
+                    case UNICODE_MODE_WINDOWS:
+                    case UNICODE_MODE_WINCOMPOSE:
                         if ((mods | osm) & MOD_MASK_ALT) {
                             // Window screenshot
                             // Alt+PrintScreen should work as is
@@ -285,11 +277,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
     } else {
         switch (keycode) {
-            case CH_CPNL:
-            case CH_ASST:
-                host_consumer_send(0);
-                return false;
-
             case SPI_KP_00:
                 unregister_code(KC_KP_0);
                 return false;
@@ -338,7 +325,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     set_mods(mods);
                     return false;
                 }
-            } else {  // on release of KC_BSPC
+            } else { // on release of KC_BSPC
                 // In case KC_DEL is still being sent even after the release of KC_BSPC
                 if (delkey_registered) {
                     unregister_code(KC_DEL);
@@ -387,3 +374,11 @@ bool led_update_user(led_t led_state) {
     return true;
 #endif
 }
+
+#if defined(UNICODE_COMMON_ENABLE)
+void unicode_input_mode_set_user(uint8_t input_mode) {
+#    ifdef RGBLIGHT_ENABLE
+    unicode_input_mode_set_user_rgb(input_mode);
+#    endif
+}
+#endif

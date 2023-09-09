@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
-  LOGO_LED_ON = USER00,
-  LOGO_LED_OFF = USER01
+  LOGO_LED_ON = QK_KB_0,
+  LOGO_LED_OFF
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -59,12 +59,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOGO_LED_ON:
         if (record->event.pressed) {
-             writePinHigh(D7);	
+             writePinLow(D7);	
         } 
         break;
     case LOGO_LED_OFF:
         if (record->event.pressed) {
-             writePinLow(D7);	
+             writePinHigh(D7);	
         } 
         break;
   }

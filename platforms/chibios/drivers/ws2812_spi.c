@@ -1,5 +1,7 @@
-#include "quantum.h"
 #include "ws2812.h"
+#include "gpio.h"
+#include "util.h"
+#include "chibios_config.h"
 
 /* Adapted from https://github.com/gamazeps/ws2812b-chibios-SPIDMA/ */
 
@@ -80,7 +82,7 @@
 #    define WS2812_CHANNELS 3
 #endif
 #define BYTES_FOR_LED (BYTES_FOR_LED_BYTE * WS2812_CHANNELS)
-#define DATA_SIZE (BYTES_FOR_LED * RGBLED_NUM)
+#define DATA_SIZE (BYTES_FOR_LED * WS2812_LED_COUNT)
 #define RESET_SIZE (1000 * WS2812_TRST_US / (2 * WS2812_TIMING))
 #define PREAMBLE_SIZE 4
 
@@ -136,7 +138,7 @@ static void set_led_color_rgb(LED_TYPE color, int pos) {
 }
 
 void ws2812_init(void) {
-    palSetLineMode(RGB_DI_PIN, WS2812_MOSI_OUTPUT_MODE);
+    palSetLineMode(WS2812_DI_PIN, WS2812_MOSI_OUTPUT_MODE);
 
 #ifdef WS2812_SPI_SCK_PIN
     palSetLineMode(WS2812_SPI_SCK_PIN, WS2812_SCK_OUTPUT_MODE);
@@ -150,8 +152,8 @@ void ws2812_init(void) {
         WS2812_SPI_BUFFER_MODE,
 #    endif
         NULL, // end_cb
-        PAL_PORT(RGB_DI_PIN),
-        PAL_PAD(RGB_DI_PIN),
+        PAL_PORT(WS2812_DI_PIN),
+        PAL_PAD(WS2812_DI_PIN),
 #    if defined(WB32F3G71xx) || defined(WB32FQ95xx)
         0,
         0,
@@ -170,8 +172,8 @@ void ws2812_init(void) {
 #    endif
         NULL, // data_cb
         NULL, // error_cb
-        PAL_PORT(RGB_DI_PIN),
-        PAL_PAD(RGB_DI_PIN),
+        PAL_PORT(WS2812_DI_PIN),
+        PAL_PAD(WS2812_DI_PIN),
         WS2812_SPI_DIVISOR_CR1_BR_X,
         0
 #endif
@@ -181,7 +183,7 @@ void ws2812_init(void) {
     spiStart(&WS2812_SPI, &spicfg); /* Setup transfer parameters.       */
     spiSelect(&WS2812_SPI);         /* Slave Select assertion.          */
 #ifdef WS2812_SPI_USE_CIRCULAR_BUFFER
-    spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+    spiStartSend(&WS2812_SPI, ARRAY_SIZE(txbuf), txbuf);
 #endif
 }
 
@@ -200,9 +202,9 @@ void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
     // Instead spiSend can be used to send synchronously (or the thread logic can be added back).
 #ifndef WS2812_SPI_USE_CIRCULAR_BUFFER
 #    ifdef WS2812_SPI_SYNC
-    spiSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+    spiSend(&WS2812_SPI, ARRAY_SIZE(txbuf), txbuf);
 #    else
-    spiStartSend(&WS2812_SPI, sizeof(txbuf) / sizeof(txbuf[0]), txbuf);
+    spiStartSend(&WS2812_SPI, ARRAY_SIZE(txbuf), txbuf);
 #    endif
 #endif
 }

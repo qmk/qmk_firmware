@@ -1,4 +1,4 @@
-#include "1up60rgb.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -18,12 +18,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void led_set_user(uint8_t usb_led) {
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+	if (led_state.caps_lock) {
 		setPinOutput(B2);
 		writePinLow(B2);
 	} else {
 		setPinInput(B2);
 		writePinLow(B2);
 	}
+	return false;
 }

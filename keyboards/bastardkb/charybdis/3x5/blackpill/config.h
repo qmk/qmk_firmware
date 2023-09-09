@@ -19,17 +19,10 @@
 
 #pragma once
 
-/* Key matrix configuration. */
-#define MATRIX_ROW_PINS \
-    { A2, B8, A8, B9 }
-#define MATRIX_COL_PINS \
-    { B1, B10, B3, B4, B5 }
-
 /* Handedness. */
 #define SPLIT_HAND_PIN A3 // High -> left, Low -> right.
 
 /* RGB settings. */
-#define RGB_DI_PIN A1
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 2
 #define WS2812_PWM_PAL_MODE 1
@@ -58,5 +51,5 @@
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
 
 /* PMW3360 settings. */
-#define PMW33XX_CS_PIN B14
+#define POINTING_DEVICE_CS_PIN B14
 #define PMW33XX_CS_DIVISOR 64

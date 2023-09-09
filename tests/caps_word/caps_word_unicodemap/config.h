@@ -17,4 +17,4 @@
 
 #include "test_common.h"
 
-#define UNICODE_SELECTED_MODES UC_LNX
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX

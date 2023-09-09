@@ -16,23 +16,30 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
+#include "keyboard.h"
+#include "keycodes.h"
 
 #ifndef AUTO_SHIFT_TIMEOUT
 #    define AUTO_SHIFT_TIMEOUT 175
 #endif
 
-#define IS_LT(kc) ((kc) >= QK_LAYER_TAP && (kc) <= QK_LAYER_TAP_MAX)
-#define IS_MT(kc) ((kc) >= QK_MOD_TAP && (kc) <= QK_MOD_TAP_MAX)
-#define IS_RETRO(kc) (IS_MT(kc) || IS_LT(kc))
+#define IS_RETRO(kc) (IS_QK_MOD_TAP(kc) || IS_QK_LAYER_TAP(kc))
+
 #define DO_GET_AUTOSHIFT_TIMEOUT(keycode, record, ...) record
 // clang-format off
 #define AUTO_SHIFT_ALPHA KC_A ... KC_Z
 #define AUTO_SHIFT_NUMERIC KC_1 ... KC_0
+#define AUTO_SHIFT_SYMBOLS          \
+             KC_MINUS ... KC_SLASH: \
+        case KC_NONUS_BACKSLASH
+
+// Kept to avoid breaking existing keymaps.
 #define AUTO_SHIFT_SPECIAL          \
              KC_TAB:                \
-        case KC_MINUS ... KC_SLASH: \
-        case KC_NONUS_BACKSLASH
+        case AUTO_SHIFT_SYMBOLS
 // clang-format on
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record);

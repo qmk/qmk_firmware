@@ -16,32 +16,9 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
-/* key matrix pins */
-#define MATRIX_ROW_PINS { B7, D0, D1, D2, D3, D5}
-#define MATRIX_COL_PINS { C7, C6, B6, B5, B4, D7, D4, D6, F7, F6, E6, F0, F1, F4, F5 }
-
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 0
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE 5
-
-#define RGB_DI_PIN B3
-#define RGBLIGHT_SLEEP
-
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
-#define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#define DRIVER_LED_TOTAL 21
-#define RGBLED_NUM 21
+#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#define RGB_MATRIX_LED_COUNT 21
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_BREATHING
@@ -63,10 +40,3 @@
 #define ENABLE_RGB_MATRIX_HUE_WAVE
 #define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #define ENABLE_RGB_MATRIX_PIXEL_RAIN
-
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-
-#define ENCODERS_PAD_A { B1 }
-#define ENCODERS_PAD_B { B2 }

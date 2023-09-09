@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [MAC_FN_LAYER] = LAYOUT(
-    QK_BOOT,  KC_BRID,  KC_BRIU,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MRWD,  KC_MPLY,  KC_MFFD,  KC__MUTE,   KC__VOLDOWN,  KC__VOLUP,  KC_TRNS,  KC_TRNS,  KC_INS,
+    QK_BOOT,  KC_BRID,  KC_BRIU,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_MRWD,  KC_MPLY,  KC_MFFD,  KC_MUTE,    KC_VOLD,      KC_VOLU,    KC_TRNS,  KC_TRNS,  KC_INS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,      KC_TRNS,    KC_TRNS,  KC_TRNS,  KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,      KC_TRNS,    KC_TRNS,            KC_TRNS,
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,                            KC_TRNS,  KC_TRNS,
@@ -47,16 +47,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case WINDOWS_LAYER:
-        rgblight_setrgb_blue();
+        rgblight_setrgb(RGB_BLUE);
         break;
     case WINDOWS_FN_LAYER:
-        rgblight_setrgb_blue();
+        rgblight_setrgb(RGB_BLUE);
         break;
     case MAC_LAYER:
-        rgblight_setrgb_white();
+        rgblight_setrgb(RGB_WHITE);
         break;
     case MAC_FN_LAYER:
-        rgblight_setrgb_white();
+        rgblight_setrgb(RGB_WHITE)
         break;
     default:
         rgblight_setrgb (0x00,  0xFF, 0xFF);

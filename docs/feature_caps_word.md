@@ -42,8 +42,8 @@ CAPS_WORD_ENABLE = yes
 
 Next, use one the following methods to activate Caps Word:
 
-* **Activate by pressing a key**: Use the `CAPS_WORD` keycode (short
-  alias `CAPSWRD`) in your keymap.
+* **Activate by pressing a key**: Use the `QK_CAPS_WORD_TOGGLE` keycode (short
+  alias `CW_TOGG`) in your keymap.
 
 * **Activate by pressing Left Shift + Right Shift**: Add `#define
   BOTH_SHIFTS_TURNS_ON_CAPS_WORD` to config.h. You may also need to disable or
@@ -89,6 +89,26 @@ by defining `IS_COMMAND()` in config.h:
 
 
 ## Customizing Caps Word :id=customizing-caps-word
+
+### Invert on shift :id=invert-on-shift
+
+By default, Caps Word turns off when Shift keys are pressed, considering them as
+word-breaking. Alternatively with the `CAPS_WORD_INVERT_ON_SHIFT` option,
+pressing the Shift key continues Caps Word and inverts the shift state. This
+is convenient for uncapitalizing one or a few letters within a word, for
+example with Caps Word on, typing "D, B, Shift+A, Shift+A, S" produces "DBaaS",
+or typing "P, D, F, Shift+S" produces "PDFs".
+
+Enable it by adding in config.h
+
+```c
+#define CAPS_WORD_INVERT_ON_SHIFT
+```
+
+This option works with regular Shift keys `KC_LSFT` and `KC_RSFT`, mod-tap Shift
+keys, and one-shot Shift keys. Note that while Caps Word is on, one-shot Shift
+keys behave like regular Shift keys, and have effect only while they are held.
+
 
 ### Idle timeout :id=idle-timeout
 
