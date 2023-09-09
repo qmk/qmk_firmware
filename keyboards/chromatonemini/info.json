@@ -16,10 +16,7 @@
         "bootmagic": false,
         "console": false,
         "mousekey": false,
-        "nkro": false,
-        "rgblight": false,
-        "rgb_matrix": true,
-        "audio": false
+        "nkro": false
     },
     "ws2812": {
         "pin": "D3"

@@ -18,6 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #ifdef RGB_MATRIX_ENABLE
+
+/* ws2812 RGB MATRIX */
+#   define RGB_MATRIX_LED_COUNT 116
  // reacts to keypresses
 #   define RGB_MATRIX_KEYPRESSES
 
