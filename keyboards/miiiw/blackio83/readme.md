@@ -5,7 +5,7 @@
 
 A customizable 75% keyboard.
 
-* Keyboard Maintainer: [MIIIW](https://github.com/miiiw)
+* Keyboard Maintainer: [MIIIW](https://github.com/miiiw), [Arthur](https://github.com/ArthurCyy)
 * Hardware Supported: BlackIO83 rev_0100
 * Hardware Availability: [MIIIW](https://www.miiiw.com/)
 
