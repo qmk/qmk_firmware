@@ -7,6 +7,16 @@
         "device_version": "0.0.2",
         "max_power": 100
     },
+    "features": {
+        "bootmagic": true,
+        "console": false,
+        "command": false,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "audio": false,
+        "backlight": false
+    },
     "build": {
         "debounce_type": "sym_eager_pk"
     },

@@ -31,7 +31,7 @@
     },
     "processor": "atmega32u4",
     "rgb_matrix": {
-       "driver": "WS2812",
+       "driver": "ws2812",
        "layout": [
          {"flags": 4, "matrix": [0, 3], "x": 3, "y": 0},
          {"flags": 4, "matrix": [0, 2], "x": 2, "y": 0},
@@ -50,8 +50,8 @@
     "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0xC401",
+        "vid": "0x5754"
     },
     "layouts": {
         "LAYOUT": {

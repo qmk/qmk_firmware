@@ -68,10 +68,6 @@
 #    include "process_unicode_common.h"
 #endif
 
-#ifdef UNICODE_ENABLE
-#    include "process_unicode.h"
-#endif
-
 #ifdef VELOCIKEY_ENABLE
 #    include "velocikey.h"
 #endif

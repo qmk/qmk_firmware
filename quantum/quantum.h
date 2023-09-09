@@ -97,16 +97,16 @@ extern layer_state_t layer_state;
 #    include "leader.h"
 #endif
 
+#ifdef UNICODE_COMMON_ENABLE
+#    include "unicode.h"
+#endif
+
 #ifdef UCIS_ENABLE
-#    include "process_ucis.h"
+#    include "ucis.h"
 #endif
 
 #ifdef UNICODEMAP_ENABLE
-#    include "process_unicodemap.h"
-#endif
-
-#ifdef UNICODE_COMMON_ENABLE
-#    include "unicode.h"
+#    include "unicodemap.h"
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
@@ -207,6 +207,10 @@ extern layer_state_t layer_state;
 
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing_device.h"
+#endif
+
+#ifdef MOUSEKEY_ENABLE
+#    include "mousekey.h"
 #endif
 
 #ifdef CAPS_WORD_ENABLE

@@ -28,7 +28,7 @@ For APA102 LEDs, add the following to your `rules.mk`:
 
 ```make
 RGBLIGHT_ENABLE = yes
-RGBLIGHT_DRIVER = APA102
+RGBLIGHT_DRIVER = apa102
 ```
 
 At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
@@ -370,9 +370,9 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 
 Example:
 ```c
-sethsv(HSV_WHITE, (LED_TYPE *)&led[0]); // led 0
-sethsv(HSV_RED,   (LED_TYPE *)&led[1]); // led 1
-sethsv(HSV_GREEN, (LED_TYPE *)&led[2]); // led 2
+sethsv(HSV_WHITE, (rgb_led_t *)&led[0]); // led 0
+sethsv(HSV_RED,   (rgb_led_t *)&led[1]); // led 1
+sethsv(HSV_GREEN, (rgb_led_t *)&led[2]); // led 2
 rgblight_set(); // Utility functions do not call rgblight_set() automatically, so they need to be called explicitly.
 ```
 

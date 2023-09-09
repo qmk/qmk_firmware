@@ -146,7 +146,7 @@ void haptic_buzz_toggle(void) {
 void haptic_mode_increase(void) {
     uint8_t mode = haptic_config.mode + 1;
 #ifdef HAPTIC_DRV2605L
-    if (haptic_config.mode >= drv_effect_max) {
+    if (haptic_config.mode >= DRV2605L_EFFECT_COUNT) {
         mode = 1;
     }
 #endif
@@ -157,7 +157,7 @@ void haptic_mode_decrease(void) {
     uint8_t mode = haptic_config.mode - 1;
 #ifdef HAPTIC_DRV2605L
     if (haptic_config.mode < 1) {
-        mode = (drv_effect_max - 1);
+        mode = (DRV2605L_EFFECT_COUNT - 1);
     }
 #endif
     haptic_set_mode(mode);
