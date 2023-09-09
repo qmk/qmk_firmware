@@ -1,7 +1,6 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-// clang-format off
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     { 0, H_15, G_15, I_15 },
     { 0, K_14, J_14, L_14 },
@@ -92,7 +91,6 @@ led_config_t g_led_config = {
         1, 1, 1,          4,             1, 1, 1
     }
 };
-// clang-format on
 
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
