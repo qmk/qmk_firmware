@@ -16,6 +16,7 @@
  */
 
 #include "is31fl3736.h"
+#include <string.h>
 #include "i2c_master.h"
 #include "wait.h"
 
@@ -270,8 +271,8 @@ void is31fl3736_update_pwm_buffers(uint8_t addr, uint8_t index) {
         is31fl3736_write_register(addr, IS31FL3736_COMMANDREGISTER, IS31FL3736_PAGE_PWM);
 
         is31fl3736_write_pwm_buffer(addr, g_pwm_buffer[index]);
+        g_pwm_buffer_update_required[index] = false;
     }
-    g_pwm_buffer_update_required[index] = false;
 }
 
 void is31fl3736_update_led_control_registers(uint8_t addr1, uint8_t addr2) {
