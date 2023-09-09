@@ -36,11 +36,11 @@ bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
         if ((led_state.num_lock && enabled_indicator_key == NUM_LOCK) || (led_state.scroll_lock && enabled_indicator_key == SCROLL_LOCK) || (led_state.caps_lock && enabled_indicator_key == CAPS_LOCK)) {
-            set_pin_array_state(led_pins, led_pins_count, HIGH);
             rgblight_enable_noeeprom();
+            set_pin_array_state(led_pins, led_pins_count, HIGH);
         } else {
-            set_pin_array_state(led_pins, led_pins_count, LOW);
             rgblight_disable_noeeprom();
+            set_pin_array_state(led_pins, led_pins_count, LOW);
         }
     }
 
