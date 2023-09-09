@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-#include "config_common.h"
+// #include "config_common.h"
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -20,7 +20,7 @@
 //#define NO_ACTION_ONESHOT
 
 /* Enable RGB Lighting*/
-#define RGB_DI_PIN GP19
+#define WS2812_DI_PIN GP19
 #define RGBLED_NUM 108
 #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_DEFAULT_HUE 160
