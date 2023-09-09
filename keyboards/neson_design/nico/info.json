@@ -34,8 +34,11 @@
         "pid": "0x6E65",
         "vid": "0x4E65"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_xt_ansi_blocker_split_bs"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_xt_ansi_blocker_split_bs": {
             "layout": [
                 { "label": "K017", "matrix": [0, 15], "x": 0, "y": 0 },
                 { "label": "K018", "matrix": [0, 16], "x": 1, "y": 0 },
