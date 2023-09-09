@@ -18,6 +18,7 @@
  */
 
 #include "is31fl3731-simple.h"
+#include <string.h>
 #include "i2c_master.h"
 #include "wait.h"
 
