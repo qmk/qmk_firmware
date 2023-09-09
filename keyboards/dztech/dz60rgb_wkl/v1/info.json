@@ -1,7 +1,8 @@
 {
     "usb": {
         "pid": "0x1320",
-        "device_version": "1.0.0"
+        "device_version": "1.0.0",
+        "no_startup_check": false
     },
     "rgb_matrix": {
         "driver": "is31fl3733"
