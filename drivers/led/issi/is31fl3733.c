@@ -18,6 +18,7 @@
  */
 
 #include "is31fl3733.h"
+#include <string.h>
 #include "i2c_master.h"
 #include "wait.h"
 
@@ -119,9 +120,7 @@ bool is31fl3733_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
         // Copy the data from i to i+15.
         // Device will auto-increment register for data after the first byte
         // Thus this sets registers 0x00-0x0F, 0x10-0x1F, etc. in one transfer.
-        for (int j = 0; j < 16; j++) {
-            g_twi_transfer_buffer[1 + j] = pwm_buffer[i + j];
-        }
+        memcpy(g_twi_transfer_buffer + 1, pwm_buffer + i, 16);
 
 #if IS31FL3733_I2C_PERSISTENCE > 0
         for (uint8_t i = 0; i < IS31FL3733_I2C_PERSISTENCE; i++) {
@@ -246,8 +245,8 @@ void is31fl3733_update_pwm_buffers(uint8_t addr, uint8_t index) {
         if (!is31fl3733_write_pwm_buffer(addr, g_pwm_buffer[index])) {
             g_led_control_registers_update_required[index] = true;
         }
+        g_pwm_buffer_update_required[index] = false;
     }
-    g_pwm_buffer_update_required[index] = false;
 }
 
 void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index) {
@@ -258,6 +257,6 @@ void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index) {
         for (int i = 0; i < 24; i++) {
             is31fl3733_write_register(addr, i, g_led_control_registers[index][i]);
         }
+        g_led_control_registers_update_required[index] = false;
     }
-    g_led_control_registers_update_required[index] = false;
 }
