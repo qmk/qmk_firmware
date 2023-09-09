@@ -31,6 +31,6 @@ OPT_DEFS += -DWS2812
 
 # Project specific files
 SRC += matrix.c \
-	   common/shift_register.c \
-       common/ws2812_custom.c
+	   common/shift_register.c
+
 
