@@ -1531,7 +1531,7 @@ bool exec_henshu(uint16_t keycode) {
           ng_up(1);
           unregister_code(KC_LSFT);
           ng_cut();
-          ng_send_unicode_string_P(PSTR("《》")); # 縦式対策
+          ng_send_unicode_string_P(PSTR("《》")); // 縦式対策
           ng_up(1);
           return true;
           break;
