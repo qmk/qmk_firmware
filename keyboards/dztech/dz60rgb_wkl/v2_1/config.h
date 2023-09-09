@@ -1,5 +1,4 @@
 // Copyright 2021 trankimtung
-// Copyright 2023 haunt98 <hauvipapro@gmail.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
