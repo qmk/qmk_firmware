@@ -30,4 +30,7 @@ OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
 OPT_DEFS += -DWS2812
 
 # Project specific files
-SRC += matrix.c
+SRC += matrix.c \
+	   common/shift_register.c \
+       common/ws2812_custom.c
+
