@@ -1,8 +1,7 @@
 {
     "keyboard_name": "Erdnuss65",
     "manufacturer": "Citrus Lab",
-    "processor": "STM32F103",
-    "bootloader": "stm32duino",
+    "development_board": "bluepill",
     "maintainer": "ctt",
     "usb": {
         "vid": "0x636C",
