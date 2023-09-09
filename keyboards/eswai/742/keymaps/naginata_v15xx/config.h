@@ -7,4 +7,4 @@
 // #define NG_NO_HENSHU2
 // #define NG_NO_KOYUMEISHI
 
-#define COMBO_TERM 20
+#define COMBO_TERM 100

@@ -144,27 +144,19 @@ combo_t key_combos[] = {
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case HENSHU1RE ... HENSHU1LK:
-      if (pressed) {
-        layer_on(_NAGINATA);
+  if (pressed) {
+    if (!naginata_state()) layer_on(_NAGINATA);
+    switch(combo_index) {
+      case HENSHU1RE ... HENSHU1LK:
         set_henshu(1);
-      } else {
-        if (!naginata_state())
-          layer_off(_NAGINATA);
-        set_henshu(0);
-      }
-      break;
-    case HENSHU2RE ... HENSHU2LK:
-      if (pressed) {
-        layer_on(_NAGINATA);
+        break;
+      case HENSHU2RE ... HENSHU2LK:
         set_henshu(2);
-      } else {
-        if (!naginata_state())
-          layer_off(_NAGINATA);
-        set_henshu(0);
-      }
-      break;
+        break;
+    }
+  } else {
+    if (!naginata_state()) layer_off(_NAGINATA);
+    set_henshu(0);
   }
 }
 // 薙刀式
