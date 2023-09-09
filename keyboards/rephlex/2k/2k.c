@@ -1,11 +1,12 @@
 /* Copyright 2023 RephlexZero (@RephlexZero)
 SPDX-License-Identifier: GPL-2.0-or-later */
 #include <stdint.h>
+#include <stdbool.h>
 #include "2k.h"
 #include "quantum.h"
 #include "analog.h"
 #include "eeprom.h"
-#include "analogkeys.h"
+#include "scanfunctions.h"
 
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 void         bootmagic_lite(void) {
@@ -14,9 +15,20 @@ void         bootmagic_lite(void) {
     }
 }
 
+uint32_t idle_recalibrate_callback(uint32_t trigger_time, void *cb_arg) {
+    get_sensor_offsets();
+    return 10000;
+}
+
+deferred_token idle_recalibrate_token;
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    extend_deferred_exec(idle_recalibrate_token, 300000);
+    return true;
+}
+
 #ifdef DEBUG_ENABLE
 static uint8_t i = 0;
-void           housekeeping_task_user(void) {
+void           housekeeping_task_kb(void) {
     if (i == 0) {
         char formattedString[]; // Adjust the buffer size as needed
 
@@ -45,6 +57,7 @@ void values_save(void) {
 }
 
 void keyboard_post_init_kb(void) {
+    idle_recalibrate_token = defer_exec(300000, idle_recalibrate_callback, NULL);
     values_load();
 }
 

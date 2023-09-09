@@ -3,9 +3,11 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "quantum.h"
 #include "analogkeys.h"
 #include "analog.h"
+#include "lut.h"
 
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
-void         get_sensor_offsets(uint16_t rest_adc_value) {
+void         get_sensor_offsets(void) {
+    uint16_t rest_adc_value = distance_to_adc(0);
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         for (uint8_t j = 0; j < MATRIX_COLS; j++) {
             keys[i][j].offset = rest_adc_value - analogReadPin(matrix_pins[i][j]);
