@@ -6,6 +6,21 @@
     "usb": {
         "vid": "0x445A"
     },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true,
+        "backlight": false,
+        "rgblight": false,
+        "audio": false,
+        "rgb_matrix": true
+    },
     "community_layouts": ["60_tsangan_hhkb"],
     "layout_aliases": {
         "LAYOUT_HHKB": "LAYOUT_60_tsangan_hhkb"
