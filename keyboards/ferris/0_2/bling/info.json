@@ -4,6 +4,6 @@
         "pid": "0x0002"
     },
     "rgb_matrix": {
-        "driver": "IS31FL3731"
+        "driver": "is31fl3731"
     }
 }

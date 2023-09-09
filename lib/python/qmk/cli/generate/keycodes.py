@@ -96,6 +96,11 @@ def _generate_helpers(lines, keycodes):
 
 
 def _generate_aliases(lines, keycodes):
+    # Work around ChibiOS ch.h include guard
+    if 'CH_H' in [value['key'] for value in keycodes['aliases'].values()]:
+        lines.append('')
+        lines.append('#undef CH_H')
+
     lines.append('')
     lines.append('// Aliases')
     for key, value in keycodes["aliases"].items():

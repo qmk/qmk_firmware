@@ -20,12 +20,49 @@
 #include "crc.h"
 #include "debug.h"
 #include "matrix.h"
-#include "quantum.h"
+#include "host.h"
+#include "action_util.h"
+#include "sync_timer.h"
+#include "wait.h"
 #include "transactions.h"
 #include "transport.h"
 #include "transaction_id_define.h"
 #include "split_util.h"
 #include "synchronization_util.h"
+
+#ifdef BACKLIGHT_ENABLE
+#    include "backlight.h"
+#endif
+#ifdef RGBLIGHT_ENABLE
+#    include "rgblight.h"
+#endif
+#ifdef LED_MATRIX_ENABLE
+#    include "led_matrix.h"
+#endif
+#ifdef RGB_MATRIX_ENABLE
+#    include "rgb_matrix.h"
+#endif
+#ifdef OLED_ENABLE
+#    include "oled_driver.h"
+#endif
+#ifdef ST7565_ENABLE
+#    include "st7565.h"
+#endif
+#ifdef ENCODER_ENABLE
+#    include "encoder.h"
+#endif
+#ifdef HAPTIC_ENABLE
+#    include "haptic.h"
+#endif
+#ifdef POINTING_DEVICE_ENABLE
+#    include "pointing_device.h"
+#endif
+#ifdef OS_DETECTION_ENABLE
+#    include "os_detection.h"
+#endif
+#ifdef WPM_ENABLE
+#    include "wpm.h"
+#endif
 
 #define SYNC_TIMER_OFFSET 2
 
@@ -412,7 +449,7 @@ static void backlight_handlers_slave(matrix_row_t master_matrix[], matrix_row_t 
     uint8_t backlight_level = split_shmem->backlight_level;
     split_shared_memory_unlock();
 
-    backlight_set(backlight_level);
+    backlight_level_noeeprom(backlight_level);
 }
 
 #    define TRANSACTIONS_BACKLIGHT_MASTER() TRANSACTION_HANDLER_MASTER(backlight)

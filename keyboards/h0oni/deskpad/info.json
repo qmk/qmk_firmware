@@ -8,6 +8,9 @@
         "pid": "0x4450",
         "device_version": "0.0.1"
     },
+    "tapping": {
+        "term": 250
+    },
     "matrix_pins": {
         "cols": ["D0", "D4", "D1"],
         "rows": ["D7", "C6"]

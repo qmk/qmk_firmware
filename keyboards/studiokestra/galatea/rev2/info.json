@@ -49,7 +49,7 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
-            }
+        }
     },
     "layouts": {
         "LAYOUT": {

@@ -16,7 +16,9 @@
 
 #pragma once
 
+#include <stdint.h>
 #include <stdbool.h>
+#include "gpio.h"
 
 typedef int16_t spi_status_t;
 
