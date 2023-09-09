@@ -12,16 +12,12 @@
     },
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
-        "rgblight": false
+        "rgb_matrix": true
     },
     "indicators": {
         "caps_lock": "GP16",
