@@ -57,8 +57,6 @@
 // Defining all the custom keycodes.
 enum custom_keycodes {
 #ifdef VIA_ENABLE
-    DEV_BT1 = USER00,
-#else
     DEV_BT1 = SAFE_RANGE,
 #endif
     DEV_BT2,
