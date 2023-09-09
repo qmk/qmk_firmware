@@ -18,6 +18,9 @@
       {"pin_a": "D0", "pin_b": "D1"}
     ]
   },
+  "qmk": {
+    "tap_keycode_delay": 10
+  },
   "processor": "atmega328p",
   "bootloader": "usbasploader",
   "layout_aliases": {

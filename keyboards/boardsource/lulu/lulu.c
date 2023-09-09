@@ -1,6 +1,6 @@
 // Copyright 2022 Cole Smith <cole@boadsource.xyz>
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "encoder.h"
+#include "quantum.h"
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {

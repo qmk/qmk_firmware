@@ -11,6 +11,9 @@
   "indicators": {
     "caps_lock": "F4"
   },
+  "bluetooth": {
+    "driver": "bluefruit_le"
+  },
   "processor": "atmega32u4",
   "bootloader": "lufa-ms",
   "debounce": 0,

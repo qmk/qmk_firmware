@@ -8,6 +8,24 @@
         "pid": "0x1709",
         "device_version": "1.0.1"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 3,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
     "ws2812": {
         "pin": "A1"
     },
@@ -20,6 +38,9 @@
         "rotary": [
             {"pin_a": "A3", "pin_b": "A2"}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 10
     },
     "layouts": {
         "LAYOUT": {
