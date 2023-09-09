@@ -3,7 +3,7 @@
 A pseudo-split keyboard with 2+4x3+2 vertically staggered keys and 4+1 thumb keys for each hand.
 
 * Keyboard Maintainer: [jpsecher](https://github.com/jpsecher)
-* Hardware Supported: https://github.com/jpsecher/keyboards/acacia
+* Hardware Supported: https://github.com/jpsecher/keyboards/tree/master/acacia
 
 Make example for this keyboard (after setting up your build environment):
 

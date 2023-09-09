@@ -19,5 +19,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-//#define TAPPING_TERM 200
+// Cancel one-shot after one second
+#define ONESHOT_TIMEOUT 1000
+
+// Tap three times to toggle layer
+//#define ONESHOT_TAP_TOGGLE 3
+
+// Makes the lower-row tap-mods work better
+#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_TERM 250
 //#define PERMISSIVE_HOLD
+
+// Smart caps lock
+//#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+#define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
+// Cancel after 10 seconds.
+#define CAPS_WORD_IDLE_TIMEOUT 10000
+
+// Turn of Layer Lock after 30 seconds
+// #define LAYER_LOCK_IDLE_TIMEOUT 30000
