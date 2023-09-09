@@ -15,15 +15,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "quantum.h"
 
-#include <stdint.h>
+#ifdef ACTUATION_DEPTH_ADJUSTMENT
+#    include "ad5258.h"
 
 // see keymaps/actuation-point-example to see how these functions can be used.
-uint8_t read_rdac(void);
-uint8_t read_eeprom(void);
 void actuation_point_up(void);
 void actuation_point_down(void);
 
 // be careful with this.
 void adjust_actuation_point(int offset);
+#endif

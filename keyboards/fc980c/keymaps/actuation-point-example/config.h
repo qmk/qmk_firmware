@@ -14,11 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-
-// place overrides here
+#pragma once
 
 // higher value means deeper actuation point, less sensitive
 // be careful and only make small adjustments (steps of 1 or 2).
@@ -27,5 +23,3 @@
 // this should probably stay in the range +/-5.
 #undef ACTUATION_DEPTH_ADJUSTMENT
 #define ACTUATION_DEPTH_ADJUSTMENT +1
-
-#endif
