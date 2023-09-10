@@ -1237,7 +1237,7 @@ void ng_redo() {
       tap_code16(LCTL(KC_Y));
       break;
     case NG_MAC:
-      tap_code16(LCMD(KC_Y));
+      tap_code16(LSFT(LCMD(KC_Z)));
       break;
   }
 }

@@ -1237,7 +1237,7 @@ void ng_redo() {
       tap_code16(LCTL(KC_Y));
       break;
     case NG_MAC:
-      tap_code16(LCMD(KC_Y));
+      tap_code16(LSFT(LCMD(KC_Z)));
       break;
   }
 }
@@ -1332,6 +1332,7 @@ bool exec_henshu(uint32_t keycomb) {
       ng_send_unicode_string_P(PSTR("()"));
       ng_up(1);
       ng_paste();
+      ng_down(1);
       henshu_done = true;
       return true;
       break;
@@ -1362,6 +1363,7 @@ bool exec_henshu(uint32_t keycomb) {
       ng_send_unicode_string_P(PSTR("「」"));
       ng_up(1);
       ng_paste();
+      ng_down(1);
       henshu_done = true;
       return true;
       break;
