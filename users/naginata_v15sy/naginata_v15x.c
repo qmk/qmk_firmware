@@ -532,21 +532,21 @@ void ng_send_unicode_string_P(const char *pstr) {
       break;
     case NG_MAC: // Karabiner-Elementsが必要
       tap_code(KC_LANGUAGE_2); // 未確定文字を確定する
-      wait_ms(50);
+      wait_ms(100);
       register_code(KC_LCTL); // Unicode HEX Inputへ切り替え
-      wait_ms(50);
+      wait_ms(100);
       tap_code(KC_F20);
-      wait_ms(50);
+      wait_ms(100);
       unregister_code(KC_LCTL);
-      wait_ms(50);
+      wait_ms(100);
       send_unicode_string(str);
-      wait_ms(50);
+      wait_ms(100);
       register_code(KC_LSFT); // 日本語入力へ切り替え。再変換にならないように「shift+かな」「かな」の2打にする。
-      wait_ms(50);
+      wait_ms(100);
       tap_code(KC_LANGUAGE_1);
-      wait_ms(50);
+      wait_ms(100);
       unregister_code(KC_LSFT);
-      wait_ms(50);
+      wait_ms(100);
       tap_code(KC_LANGUAGE_1);
       break;
   }
@@ -1301,7 +1301,7 @@ bool exec_henshu(uint32_t keycomb) {
       return true;
       break;
     case B_J|B_K|B_T: // スクショ
-
+      tap_code16(LSFT(LCMD(KC_4))); // Mac
       henshu_done = true;
       return true;
       break;
@@ -1336,12 +1336,12 @@ bool exec_henshu(uint32_t keycomb) {
       return true;
       break;
     // ------------------------------------------------------
-    case B_J|B_K|B_Z: // ・
+    case B_J|B_K|B_Z: // /int
       ng_send_unicode_string_P(PSTR("・"));
       henshu_done = true;
       return true;
       break;
-    case B_J|B_K|B_X: // ○
+    case B_J|B_K|B_X: // /ext
       ng_send_unicode_string_P(PSTR("○"));
       henshu_done = true;
       return true;
@@ -1481,49 +1481,56 @@ bool exec_henshu(uint32_t keycomb) {
       henshu_done = true;
       return true;
       break;
-    case B_M|B_COMM|B_S: // (2)
-      ng_send_unicode_string_P(PSTR("(2) "));
+    case B_M|B_COMM|B_S: // 1.
+      ng_send_unicode_string_P(PSTR("1. "));
       henshu_done = true;
       return true;
       break;
-    case B_M|B_COMM|B_D: // (3)
-      ng_send_unicode_string_P(PSTR("(3) "));
+    case B_M|B_COMM|B_D: // * 
+      ng_send_unicode_string_P(PSTR("* "));
       henshu_done = true;
       return true;
       break;
-    case B_M|B_COMM|B_F: // (4)
-      ng_send_unicode_string_P(PSTR("(4) "));
+    case B_M|B_COMM|B_F: // ・
+      ng_send_unicode_string_P(PSTR("・"));
       henshu_done = true;
       return true;
       break;
-    case B_M|B_COMM|B_G: // (5)
-      ng_send_unicode_string_P(PSTR("(5) "));
+    case B_M|B_COMM|B_G: // -
+      ng_send_unicode_string_P(PSTR("- "));
       henshu_done = true;
       return true;
       break;
     // ------------------------------------------------------
-    case B_M|B_COMM|B_Z: // 　　°
-      ng_send_unicode_string_P(PSTR("°"));
+    case B_M|B_COMM|B_Z: // 　　![]()
+      ng_send_unicode_string_P(PSTR("![]()"));
+      ng_up(3);
       henshu_done = true;
       return true;
       break;
-    case B_M|B_COMM|B_X: // ℃
+    case B_M|B_COMM|B_X: // []()
+      ng_send_unicode_string_P(PSTR("[]()"));
+      ng_up(3);
+      henshu_done = true;
+      return true;
+      break;
+    case B_M|B_COMM|B_C: // 表
+      ng_send_unicode_string_P(PSTR("|   A   |   B   |   C   |"));
+      tap_code(KC_ENTER);
+      ng_send_unicode_string_P(PSTR("|-------|-------|-------|"));
+      tap_code(KC_ENTER);
+      ng_send_unicode_string_P(PSTR("|   A   |   B   |   C   |"));
+      tap_code(KC_ENTER);
+      henshu_done = true;
+      return true;
+      break;
+    case B_M|B_COMM|B_V: // ℃
       ng_send_unicode_string_P(PSTR("℃"));
       henshu_done = true;
       return true;
       break;
-    case B_M|B_COMM|B_C: // ×
-      ng_send_unicode_string_P(PSTR("×"));
-      henshu_done = true;
-      return true;
-      break;
-    case B_M|B_COMM|B_V: // △
-      ng_send_unicode_string_P(PSTR("△"));
-      henshu_done = true;
-      return true;
-      break;
-    case B_M|B_COMM|B_B: // ▽
-      ng_send_unicode_string_P(PSTR("▽"));
+    case B_M|B_COMM|B_B: // °
+      ng_send_unicode_string_P(PSTR("°"));
       henshu_done = true;
       return true;
       break;
