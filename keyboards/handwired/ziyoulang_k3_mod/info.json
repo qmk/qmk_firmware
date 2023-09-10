@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ziyoulang k3 mod",
-    "processor": "STM32F103",
-    "bootloader": "stm32duino",
+    "development_board": "bluepill",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0xE002",
