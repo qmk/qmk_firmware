@@ -445,7 +445,7 @@ ifneq ($(QMK_USERSPACE),)
 .PHONY: distclean_userspace
 distclean: distclean_userspace
 distclean_userspace: clean
-	echo -n 'Deleting user overlay *.bin, *.hex, and *.uf2 ... '
+	echo -n 'Deleting userspace *.bin, *.hex, and *.uf2 ... '
 	rm -f $(QMK_USERSPACE)/*.bin $(QMK_USERSPACE)/*.hex $(QMK_USERSPACE)/*.uf2
 	echo 'done.'
 endif

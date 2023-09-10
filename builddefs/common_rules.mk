@@ -202,7 +202,7 @@ cpfirmware: cpfirmware_qmk
 ifneq ($(QMK_USERSPACE),)
 cpfirmware: cpfirmware_userspace
 cpfirmware_userspace: cpfirmware_qmk
-	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to user overlay folder" | $(AWK_CMD)
+	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to userspace folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(QMK_USERSPACE)/$(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
 endif
 
