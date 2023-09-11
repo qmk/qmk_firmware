@@ -1,0 +1,2 @@
+SERIAL_DRIVER = vendor
+BOOTMAGIC_ENABLE = yes
