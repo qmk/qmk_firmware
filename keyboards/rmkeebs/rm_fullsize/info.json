@@ -29,8 +29,11 @@
             { "pin_a": "GP11", "pin_b": "GP10" }
         ]
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0.25 },
                 { "matrix": [0, 2], "x": 2, "y": 0.25 },
