@@ -27,6 +27,9 @@
         "rgblight": false,
         "sleep_led": false
     },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_64_ansi_split_bs"
+    },
     "community_layouts": ["60_hhkb", "60_ansi", "64_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
@@ -238,7 +241,7 @@
                 {"matrix": [4, 8], "x": 14, "y": 4}
             ]
         },
-        "LAYOUT_all": {
+        "LAYOUT_64_ansi_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x":0, "y":0},
                 {"matrix": [0, 1], "x":1, "y":0},
