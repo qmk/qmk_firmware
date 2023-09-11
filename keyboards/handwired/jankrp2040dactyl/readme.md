@@ -1,12 +1,11 @@
 # handwired/jankrp2040dactyl
 
-![handwired/jankrp2040dactyl](imgur.com image replace me!)
 
-*A short description of the keyboard/project*
+A budget Dactyl-Manuform build using Raspberry Pi Pico. 
 
 * Keyboard Maintainer: [Ethan Perry](https://github.com/wheres-perry)
 * Hardware Supported: RP2040 Community Edition
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: https://www.digikey.com/en/product-highlight/r/raspberry-pi/raspberry-pi-picoboard
 
 Make example for this keyboard (after setting up your build environment):
 
