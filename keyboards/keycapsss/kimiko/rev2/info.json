@@ -129,6 +129,7 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
+        "split_count": [31, 31],
         "layout": [
             { "flags": 4, "matrix": [0, 5], "x": 66, "y": 5 },
             { "flags": 4, "matrix": [0, 4], "x": 53, "y": 4 },
