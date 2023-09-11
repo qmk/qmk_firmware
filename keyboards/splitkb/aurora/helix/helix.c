@@ -232,9 +232,9 @@ bool oled_task_kb(void) {
         // Renders the current keyboard state (layers and mods)
         render_logo();
         render_logo_text();
-        render_space();
+        oled_advance_page(false);
         render_layer_state();
-        render_space();
+        oled_advance_page(false);
         render_mod_status_gui_alt(get_mods()|get_oneshot_mods());
         render_mod_status_ctrl_shift(get_mods()|get_oneshot_mods());
         render_kb_LED_state();
