@@ -14,7 +14,8 @@
     "command": true,
     "nkro": true,
     "rgb_matrix": true,
-    "oled": true
+    "oled": true,
+    "deferred_exec": true
   },
   "build": {
     "lto": true
@@ -37,7 +38,7 @@
     "driver": "vendor"
   },
   "rgb_matrix": {
-    "driver": "WS2812",
+    "driver": "ws2812",
     "layout": [
       { "flags": 4, "matrix": [0, 1], "x": 224, "y": 64 },
       { "flags": 2,  "x": 224, "y": 32 },
