@@ -13,8 +13,8 @@
         "rows": ["B0", "B1", "B2", "B3", "B4", "D7"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "elite_c",
+    "pin_compatible": "elite_c",
     "layout_aliases": {
         "LAYOUT_numpad_6x17": "LAYOUT"
     },

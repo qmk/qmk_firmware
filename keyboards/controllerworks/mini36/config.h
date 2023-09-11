@@ -18,8 +18,7 @@
 #pragma once
 
 #define WS2812_PIO_USE_PIO1
-#define RGBLED_NUM 48
-#define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#define RGB_MATRIX_LED_COUNT 48
 #define RGB_MATRIX_SPLIT \
         { 24, 24 }
 

@@ -13,4 +13,3 @@
 
 // RGB configuration
 #define RGB_MATRIX_LED_COUNT 40
-#define RGBLED_NUM 40
