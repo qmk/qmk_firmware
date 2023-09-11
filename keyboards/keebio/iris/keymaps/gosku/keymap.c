@@ -162,7 +162,7 @@ int ledmap[][DRIVER_LED_TOTAL] = {
         NONE,  GREEN,  GREEN, VIOLET, VIOLET,  GREEN,     NONE, YELLOW, YELLOW, YELLOW, VIOLET, VIOLET,  // R3
         NONE,   NONE,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK, YELLOW,  GREEN,  GREEN,  GREEN,  // R4
                       ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE,                  // Thumb Cluster
-      ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,  // Underglow
+         RED,    RED,    RED,    RED,    RED,    RED,      RED,    RED,    RED,    RED,    RED,    RED,  // Underglow
     },
 
     [_RAISE] = {
@@ -171,7 +171,7 @@ int ledmap[][DRIVER_LED_TOTAL] = {
         NONE, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET,   NONE,   NONE,   NONE,   NONE,   NONE,  // R3
         NONE,   NONE,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK,   NONE,   NONE,   NONE,   NONE,  // R4
                       ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE,                  // Thumb Cluster
-      ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,  // Underglow
+        PINK,   PINK,   PINK,   PINK,   PINK,   PINK,     PINK,   PINK,   PINK,   PINK,   PINK,   PINK,  // Underglow
     },
 
     [_ADJUST] = {
