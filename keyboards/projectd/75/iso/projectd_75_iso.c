@@ -72,7 +72,6 @@ const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS7_SW11,  CS8_SW11,  CS9_SW11},  //  P
     {0, CS7_SW12,  CS8_SW12,  CS9_SW12},  //  [
     {1, CS1_SW8,   CS2_SW8,   CS3_SW8},   //  ]
-    {1, CS1_SW11,  CS2_SW11,  CS3_SW11},   // Enter
     {1, CS4_SW4,   CS5_SW4,   CS6_SW4},   //  PGUP
 
     {0, CS10_SW1,  CS11_SW1,  CS12_SW1},  //  Caps Lock
@@ -88,6 +87,7 @@ const aw_led g_aw_leds[RGB_MATRIX_LED_COUNT] = {
     {0, CS10_SW11, CS11_SW11, CS12_SW11}, //  ;
     {0, CS10_SW12, CS11_SW12, CS12_SW12}, //  '
     {1, CS1_SW9,  CS2_SW9,  CS3_SW9},    //  ||
+    {1, CS1_SW11,  CS2_SW11,  CS3_SW11},   // Enter
     {1, CS4_SW7,   CS5_SW7,   CS6_SW7},   //  PGDN
 
     {0, CS13_SW1,  CS14_SW1,  CS15_SW1},  //  L Shift
