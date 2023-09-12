@@ -6,8 +6,9 @@
 #include "adam0110.h"
 
 #ifdef RGB_MATRIX_ENABLE
-#define xx NO_LED
+#    define xx NO_LED
 
+// clang-format off
 led_config_t g_led_config = {
   {
      //Left Hand
@@ -52,5 +53,6 @@ led_config_t g_led_config = {
     4,    4, 4
     }
 };
+// clang-format on
 
-#endif
+#endif // RGB_MATRIX_ENABLE

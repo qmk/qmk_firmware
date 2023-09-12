@@ -4,14 +4,9 @@
 #include QMK_KEYBOARD_H
 #include "print.h"
 
-enum layers {
-    _BASE = 0,
-    _AAPL,
-    _FN1,
-    _FN2,
-    _FN3
-};
+enum layers { _BASE = 0, _AAPL, _FN1, _FN2, _FN3 };
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_64_ansi(
         KC_GRV,   KC_1,    KC_2,    KC_3,   KC_4,    KC_5,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS, KC_EQL,  KC_BSPC,
@@ -49,13 +44,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,    KC_NO,   KC_NO,                     KC_NO,                              KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO
     ),
 };
+// clang-format on
 
 void eeconfig_init_user(void) {
     rgb_matrix_enable_noeeprom();
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    #ifdef CONSOLE_ENABLE
+#ifdef CONSOLE_ENABLE
     xprintf("Layer State: 0b%0b (%u)\n", state, get_highest_layer(state));
     switch (get_highest_layer(state)) {
         case _BASE:
@@ -77,11 +73,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             xprintf("Layer: ???\n");
             break;
     }
-    #endif // CONSOLE_ENABLE
+#endif // CONSOLE_ENABLE
 
     // Indicate layer with top-left LED color.
     int led_num = 50;
-    rgb_matrix_set_color_all(0,0,0); // all off
+    rgb_matrix_set_color_all(0, 0, 0); // all off
     switch (get_highest_layer(state)) {
         case _BASE:
             rgb_matrix_set_color(led_num, 0x00, 0x00, 0xFF); // blue
@@ -107,7 +103,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode) {
+    switch (keycode) {
         case RGB_TOG:
             if (record->event.pressed) {
                 // When toggling RGB on/off, also switch back to the empty_effect, which allows custom RGB code to take effect.
@@ -121,10 +117,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void keyboard_post_init_user(void) {
-    debug_enable=true;
-    debug_matrix=false;
-    debug_keyboard=false;
-    debug_mouse=false;
+    debug_enable   = true;
+    debug_matrix   = false;
+    debug_keyboard = false;
+    debug_mouse    = false;
 
     // Set to empty_effect on boot.
     rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_empty_effect);
