@@ -27,8 +27,7 @@ SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no 
 MAGIC_ENABLE = no
 ```
-These features are enabled by default, but may not be needed. Double check to make sure, though. 
-Largest in size is "magic" -- the QMK magic keycodes -- which control things like NKRO toggling, GUI and ALT/CTRL swapping, etc. Disabling it will disable those functions.
+These features are enabled by default, but they may not be needed. Double check to make sure. The [Magic Keycodes](keycodes_magic.md) are the largest and control things like NKRO toggling, GUI and ALT/CTRL swapping, etc. Disabling them will disable those functions. See [Magic Functions](#magic-functions) for disabling related functions.
 
 If you use `sprintf` or `snprintf` functions you can save around ~400 Bytes by enabling this option.
 ```make
@@ -88,7 +87,7 @@ Or if you're not using layers at all, you can outright remove the functionality 
 #define NO_ACTION_LAYER
 ```
 
-## Magic keycodes
+## Magic Functions
 
 There are two `__attribute__ ((weak))` placeholder functions available to customize magic keycodes. If you are not using that feature to swap keycodes, such as backslash with backspace, add the following to your `keymap.c` or user space code:
 ```c

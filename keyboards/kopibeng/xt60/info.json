@@ -8,6 +8,19 @@
         "pid": "0x0600",
         "device_version": "0.0.2"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 14,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "static_gradient": true,
+            "rgb_test": true
+        }
+    },
     "ws2812": {
         "pin": "F6"
     },

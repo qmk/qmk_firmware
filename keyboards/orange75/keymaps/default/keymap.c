@@ -52,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         )
 };
 
-void led_set_user(uint8_t usb_led) {
+bool led_update_user(led_t led_state) {
 
-    if (usb_led & (1 << USB_LED_NUM_LOCK)) {
+    if (led_state.num_lock) {
         setPinOutput(B0);
         writePinLow(B0);
     } else {
@@ -62,7 +62,7 @@ void led_set_user(uint8_t usb_led) {
         writePinLow(B0);
     }
 
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+    if (led_state.caps_lock) {
         setPinOutput(B1);
         writePinLow(B1);
     } else {
@@ -70,11 +70,12 @@ void led_set_user(uint8_t usb_led) {
         writePinLow(B1);
     }
 
-    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+    if (led_state.scroll_lock) {
         setPinOutput(B2);
         writePinLow(B2);
     } else {
         setPinInput(B2);
         writePinLow(B2);
     }
+    return false;
 }
