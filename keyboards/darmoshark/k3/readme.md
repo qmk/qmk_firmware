@@ -1,4 +1,3 @@
-
 # K3 QMK
 
 * Keyboard Maintainer: [Proceee](https://github.com/Proceee)
