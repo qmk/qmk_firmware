@@ -2,6 +2,8 @@
 SPDX-License-Identifier: GPL-2.0-or-later */
 #include <stdint.h>
 
+enum analog_key_modes { dynamic_actuation = 0, continuous_dynamic_actuation, static_actuation, flashing };
+
 /* global struct to save keypress logic params */
 typedef struct {
     uint8_t mode;

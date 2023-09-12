@@ -8,6 +8,15 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "eeprom.h"
 #include "scanfunctions.h"
 
+analog_config g_config = {
+    .mode = dynamic_actuation,
+    .actuation_point = 32,
+    .press_sensitivity = 32,
+    .release_sensitivity = 32,
+    .press_hysteresis = 0,
+    .release_hysteresis = 5
+};
+
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 void         bootmagic_lite(void) {
     if (analogReadPin(matrix_pins[BOOTMAGIC_LITE_ROW][BOOTMAGIC_LITE_COLUMN]) < 1350) {
@@ -21,7 +30,7 @@ uint32_t idle_recalibrate_callback(uint32_t trigger_time, void *cb_arg) {
 }
 
 deferred_token idle_recalibrate_token;
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+bool           process_record_kb(uint16_t keycode, keyrecord_t *record) {
     extend_deferred_exec(idle_recalibrate_token, 300000);
     return true;
 }
@@ -53,6 +62,10 @@ void values_load(void) {
 
 void values_save(void) {
     eeconfig_update_kb_datablock(&g_config);
+}
+
+void          eeconfig_init_kb() {
+    values_save();
 }
 
 void keyboard_post_init_kb(void) {
