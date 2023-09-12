@@ -36,8 +36,6 @@
         "driver": "ws2812",
         "center_point": [24, 32],
         "max_brightness": 140,
-        "val_steps": 35,
-        "speed_steps": 64,
         "animations": {
             "solid_color": true,
             "alphas_mods": true,
