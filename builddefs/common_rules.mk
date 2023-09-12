@@ -380,33 +380,9 @@ dump_vars:
 objs-size:
 	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
 
-ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
-SIZE_MARGIN = 1024
 
+# size check optionally implemented in its platform.mk
 check-size:
-	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | $(SED) -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
-	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
-	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
-	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
-	$(eval PERCENT_SIZE=$(shell expr $(CURRENT_SIZE) \* 100 / $(MAX_SIZE)))
-	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
-		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
-		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
-			$(REMOVE) $(TARGET).$(FIRMWARE_FORMAT); \
-			$(REMOVE) $(BUILD_DIR)/$(TARGET).{hex,bin,uf2}; \
-		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
-		else \
-		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
-			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
-		    else \
-			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
-		    fi ; \
-		fi ; \
-	fi
-else
-check-size:
-	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
-endif
 
 check-md5:
 	$(MD5SUM) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)
