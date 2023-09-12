@@ -25,6 +25,12 @@
         "rows": ["C6", "C7", "C8", "C9", "A8"]
     },
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash"
+        }
+    },
     "rgb_matrix": {
         "driver": "is31fl3733",
         "max_brightness": 200,

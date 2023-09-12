@@ -16,6 +16,12 @@
         "rows": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash"
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "C15", "pin_b": "C14"}

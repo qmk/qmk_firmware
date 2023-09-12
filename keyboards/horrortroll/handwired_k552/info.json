@@ -20,6 +20,12 @@
         "rows": ["C12", "C10", "A10", "A8", "C8", "C9"]
     },
     "diode_direction": "ROW2COL",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash"
+        }
+    },
     "community_layouts": ["tkl_ansi"],
     "layouts": {
         "LAYOUT_tkl_ansi": {

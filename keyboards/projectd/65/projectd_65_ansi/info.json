@@ -10,6 +10,12 @@
     "dynamic_keymap": {
         "layer_count": 13
     },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash"
+        }
+    },
     "features": {
         "bootmagic": true,
         "command": false,

@@ -3,6 +3,12 @@
     "usb": {
         "pid": "0xAC15"
     },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash"
+        }
+    },
     "rgb_matrix": {
         "driver": "custom"
     },
