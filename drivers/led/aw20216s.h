@@ -21,6 +21,36 @@
 #include "progmem.h"
 #include "gpio.h"
 
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_COUNT
+#    define AW20216S_DRIVER_COUNT DRIVER_COUNT
+#endif
+#ifdef AW_SCALING_MAX
+#    define AW20216S_SCALING_MAX AW_SCALING_MAX
+#endif
+#ifdef AW_GLOBAL_CURRENT_MAX
+#    define AW20216S_GLOBAL_CURRENT_MAX AW_GLOBAL_CURRENT_MAX
+#endif
+#ifdef AW_SPI_MODE
+#    define AW20216S_SPI_MODE AW_SPI_MODE
+#endif
+#ifdef AW_SPI_DIVISOR
+#    define AW20216S_SPI_DIVISOR AW_SPI_DIVISOR
+#endif
+#ifdef DRIVER_1_CS
+#    define AW20216S_DRIVER_1_CS DRIVER_1_CS
+#endif
+#ifdef DRIVER_2_CS
+#    define AW20216S_DRIVER_2_CS DRIVER_2_CS
+#endif
+#ifdef DRIVER_1_EN
+#    define AW20216S_DRIVER_1_EN DRIVER_1_EN
+#endif
+#ifdef DRIVER_2_EN
+#    define AW20216S_DRIVER_2_EN DRIVER_2_EN
+#endif
+// ========
+
 typedef struct aw20216s_led {
     uint8_t driver : 2;
     uint8_t r;
