@@ -27,3 +27,4 @@
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
 #endif
+#define WAIT_FOR_USB
