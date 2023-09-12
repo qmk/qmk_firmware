@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum planck_layers { _COLEMAK, _QWERTY, _DVORAK, _LOWER, _RAISE, _MOUSE, _PLOVER, _ADJUST };
+enum planck_layers { _COLEMAK, _QWERTY, _DVORAK, _LOWER, _RAISE, _FUNCTION, _MOUSE, _PLOVER, _ADJUST };
 
 enum planck_keycodes { COLEMAK = SAFE_RANGE, QWERTY, DVORAK, PLOVER, BACKLIT, EXT_PLV, ARROW, MACRO_QUOTE, A_CHIQUITA };
 
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,                 KC_Q,               KC_W,               KC_F,               KC_P,               KC_B,           KC_J,           KC_L,               KC_U,               KC_Y,               KC_SCLN,                KC_BSPC,
     MT(MOD_LCTL, KC_QUOTE), MT(MOD_LCTL, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LALT, KC_R), MT(MOD_LSFT, KC_T), KC_G,           KC_M,           MT(MOD_RSFT, KC_N), MT(MOD_RALT, KC_E), MT(MOD_RGUI, KC_I), MT(MOD_RCTL, KC_O),     MACRO_QUOTE,
     CW_TOGG,                MT(MOD_LSFT, KC_Z), KC_X,               KC_C,               KC_D,               KC_V,           KC_K,           KC_H,               KC_COMMA,           KC_DOT,             MT(MOD_RSFT, KC_SLASH), KC_BSLS,
-    TG(_MOUSE),             KC_TRANSPARENT,     KC_TRANSPARENT,     KC_DELETE,          LOWER,              KC_RSFT,        KC_SPC,         RAISE,              KC_TRANSPARENT,     KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT
+    TG(_MOUSE),             KC_TRANSPARENT,     KC_TRANSPARENT,     KC_DELETE,          LOWER,              KC_RSFT,        KC_SPC,         RAISE,              MO(_FUNCTION),     KC_TRANSPARENT,     KC_TRANSPARENT,         KC_TRANSPARENT
 ),
 
 /* Qwerty
@@ -92,21 +92,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Lower
- * ,-----------------------------------------------------------------------------------.
+ * ,-------------------------------------------------------------------------------------.
  * |   ~  |   !  |   @    |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |      |
  * |------+------+--------+------+------+------+------+------+------+------+------+------|
- * | Del  |   1  |   2    |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  '   |
+ * |   `  |   1  |   2    |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |  '   |
  * |------+------+--------+------+------+------+------+------+------+------+------+------|
- * |      |      |Previous| Play | Next |      |      | Mute | Vol+ | Vol- |      |      |
+ * | CAPS |      |Previous| Play | Next |      |      | Mute | Vol+ | Vol- |      | CAPS |
  * |------+------+--------+------+------+------+------+------+------+------+------+------|
- * |      |      |        |      |      |             |      | Next | Vol- | Vol+ | Play |
- * `-----------------------------------------------------------------------------------'
+ * |      |      |        |      |      |             |      |      |      |      |      |
+ * `-------------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
     KC_TILD,        KC_EXLM,            KC_AT,               KC_HASH,             KC_DLR,              KC_PERC,        KC_CIRC,        KC_AMPR,            KC_ASTR,            KC_LPRN,            KC_RPRN,            _______,
     KC_GRAVE,       MT(MOD_LCTL, KC_1), MT(MOD_LGUI, KC_2),  MT(MOD_LALT, KC_3),  MT(MOD_LSFT, KC_4),  KC_5,           KC_6,           MT(MOD_RSFT, KC_7), MT(MOD_LALT, KC_8), MT(MOD_LGUI, KC_9), MT(MOD_LCTL, KC_0), KC_QUOTE,
     KC_CAPS,        KC_TRANSPARENT,     KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_TRANSPARENT, KC_TRANSPARENT, KC_AUDIO_MUTE,      KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,    KC_TRANSPARENT,     KC_CAPS,
-    _______,        _______,            _______,             _______,             _______,             _______,        KC_NO,          _______,            _______,            _______,            _______,            _______
+    _______,        _______,            _______,             _______,             _______,             _______,        _______,        _______,            _______,            _______,            _______,            _______
 ),
 
 /* Raise
@@ -134,6 +134,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______,       _______,     _______,    _______,     _______, _______, _______, _______, _______, _______, _______
 ),
 
+[_FUNCTION] = LAYOUT_planck_grid(
+    _______, _______, _______, _______, _______, _______, _______, KC_F1,   KC_F2,   KC_F3,   KC_F4, _______,
+    _______, _______, _______, _______, _______, _______, _______, KC_F5,   KC_F6,   KC_F7,   KC_F8, _______,
+    _______, _______, _______, _______, _______, _______, _______, KC_F9,   KC_F10,  KC_F11,  KC_F12, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
 /* Plover layer (http://opensteno.org)
  * ,-----------------------------------------------------------------------------------.
  * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
@@ -155,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Adjust (Lower + Raise)
  *                      v------------------------RGB CONTROL--------------------v
  * ,-----------------------------------------------------------------------------------.
- * |Reset |      |Debug | RGB  |RGBMOD| HUE+ | HUE- | SAT+  | SAT- |BRGTH+|BRGTH-|  Del |
+ * |Reset |Reboot|Debug | RGB  |RGBMOD| HUE+ | HUE- | SAT+  | SAT- |BRGTH+|BRGTH-|  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |MUSmod|Aud on|Audoff|AGnorm|AGswap|Colemak|Qwerty|Dvorak|Plover|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -165,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_planck_grid(
-    QK_BOOT, _______, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
+    QK_BOOT, QK_RBT,  DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
     _______, EE_CLR,  MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, COLEMAK, QWERTY,  DVORAK,  PLOVER,  _______,
     _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
