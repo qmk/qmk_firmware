@@ -37,7 +37,7 @@
         "LAYOUT_ansi": "LAYOUT_tkl_nofrow_ansi",
         "LAYOUT_iso": "LAYOUT_tkl_nofrow_iso"
     },
-    "community_layouts": ["LAYOUT_tkl_nofrow_ansi", "LAYOUT_tkl_nofrow_iso"],
+    "community_layouts": ["tkl_nofrow_ansi", "tkl_nofrow_iso"],
     "layouts": {
         "LAYOUT_tkl_nofrow_ansi": {
             "layout": [
