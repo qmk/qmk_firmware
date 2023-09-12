@@ -17,12 +17,12 @@
 #include "ckled2001-simple.h"
 #include "i2c_master.h"
 
-#ifndef CKLED2001_TIMEOUT
-#    define CKLED2001_TIMEOUT 100
+#ifndef CKLED2001_I2C_TIMEOUT
+#    define CKLED2001_I2C_TIMEOUT 100
 #endif
 
-#ifndef CKLED2001_PERSISTENCE
-#    define CKLED2001_PERSISTENCE 0
+#ifndef CKLED2001_I2C_PERSISTENCE
+#    define CKLED2001_I2C_PERSISTENCE 0
 #endif
 
 #ifndef CKLED2001_PHASE_CHANNEL
@@ -54,14 +54,14 @@ bool ckled2001_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
     g_twi_transfer_buffer[0] = reg;
     g_twi_transfer_buffer[1] = data;
 
-#if CKLED2001_PERSISTENCE > 0
-    for (uint8_t i = 0; i < CKLED2001_PERSISTENCE; i++) {
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, CKLED2001_TIMEOUT) != 0) {
+#if CKLED2001_I2C_PERSISTENCE > 0
+    for (uint8_t i = 0; i < CKLED2001_I2C_PERSISTENCE; i++) {
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, CKLED2001_I2C_TIMEOUT) != 0) {
             return false;
         }
     }
 #else
-    if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, CKLED2001_TIMEOUT) != 0) {
+    if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 2, CKLED2001_I2C_TIMEOUT) != 0) {
         return false;
     }
 #endif
@@ -84,14 +84,14 @@ bool ckled2001_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
             g_twi_transfer_buffer[1 + j] = pwm_buffer[i + j];
         }
 
-#if CKLED2001_PERSISTENCE > 0
-        for (uint8_t i = 0; i < CKLED2001_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, CKLED2001_TIMEOUT) != 0) {
+#if CKLED2001_I2C_PERSISTENCE > 0
+        for (uint8_t i = 0; i < CKLED2001_I2C_PERSISTENCE; i++) {
+            if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, CKLED2001_I2C_TIMEOUT) != 0) {
                 return false;
             }
         }
 #else
-        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, CKLED2001_TIMEOUT) != 0) {
+        if (i2c_transmit(addr << 1, g_twi_transfer_buffer, 17, CKLED2001_I2C_TIMEOUT) != 0) {
             return false;
         }
 #endif
