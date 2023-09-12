@@ -23,3 +23,6 @@ Enter the bootloader in 2 ways:
 
 * **Physical reset**: pressing the two reset pads on the back of the PCB with tweezers.
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+
+## Matrix Diagram
+![MatrixCoordinates](https://i.imgur.com/rQfEXyeh.jpeg)
