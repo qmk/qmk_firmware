@@ -12,6 +12,3 @@ RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 DIP_SWITCH_ENABLE = yes
 LED_MATRIX_ENABLE = yes
-EEPROM_DRIVER = wear_leveling
-WEAR_LEVELING_DRIVER = embedded_flash
-
