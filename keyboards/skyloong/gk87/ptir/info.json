@@ -4,7 +4,7 @@
     "bootloader": "stm32duino",
     "features": {
         "bootmagic": true,
-        "command": false,
+        "command": true,
         "console": false,
         "encoder": true,
         "extrakey": true,
@@ -151,7 +151,6 @@
     },
     "url": "https://github.com/JZ-Skyloong",
     "usb": {
-        "force_nkro": true,
         "vid": "0x1EA7",
         "max_power": 380
     },
