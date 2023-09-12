@@ -23,8 +23,11 @@
         "pid": "0x0071",
         "vid": "0x5453"
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_xt_ansi_blocker_tsangan_wkl_split_bs"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_xt_ansi_blocker_tsangan_wkl_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
