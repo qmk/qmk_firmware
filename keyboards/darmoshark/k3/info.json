@@ -136,8 +136,9 @@
             { "flags": 4, "x": 224, "y": 64}
         ]
     },
+    "community_layouts": ["numpad_6x4"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_numpad_6x4": {
             "layout": [
                 { "matrix":[0,0], "x": 0, "y": 0 },
                 { "matrix":[0,1], "x": 1, "y": 0 },
