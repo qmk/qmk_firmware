@@ -13,8 +13,6 @@ AUDIO_ENABLE = no           # Audio output
 DIP_SWITCH_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
 LTO_ENABLE = yes
-EEPROM_DRIVER = wear_leveling
-WEAR_LEVELING_DRIVER = embedded_flash
 
 # custom matrix setup
 CUSTOM_MATRIX = lite
