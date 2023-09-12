@@ -19,6 +19,6 @@ typedef struct {
     uint8_t value;
     uint8_t extremum;
     int16_t offset;
-    bool    continuous_dynamic_actuation;
+    bool    dynamic_actuation_bool;
 } key_t;
 extern key_t keys[MATRIX_ROWS][MATRIX_COLS];

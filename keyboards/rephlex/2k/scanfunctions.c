@@ -1,9 +1,8 @@
 /* Copyright 2023 RephlexZero (@RephlexZero)
 SPDX-License-Identifier: GPL-2.0-or-later */
 #include "quantum.h"
-#include "analogkeys.h"
 #include "analog.h"
-#include "lut.h"
+#include "scanfunctions.h"
 
 extern pin_t matrix_pins[MATRIX_ROWS][MATRIX_COLS];
 void         get_sensor_offsets(void) {
@@ -46,8 +45,7 @@ if the key is pressed, the extremum is the lowest value reached,
 if the key is not pressed, the extremum is the highest value reached. */
 
 void matrix_read_cols_dynamic_actuation(matrix_row_t *current_row, uint8_t current_col, key_t *key) {
-    if (key->value > g_config.actuation_point) {
-        /* In DA zone? */
+    if (key->dynamic_actuation_bool) {
         if (*current_row & (1 << current_col)) {
             /* Key is pressed
             Is key still moving down? */
@@ -69,24 +67,25 @@ void matrix_read_cols_dynamic_actuation(matrix_row_t *current_row, uint8_t curre
                 update_extremum(key);
             }
         }
-    } else {
-        /* Out of DA zone
-        Always deregister key */
-        deregister_key(current_row, current_col);
-        if (key->value > key->extremum) {
+        if (key->value < g_config.actuation_point - 5) {
+            deregister_key(current_row, current_col);
             update_extremum(key);
+            key->dynamic_actuation_bool = false;
         }
+    } else if (key->value > g_config.actuation_point) {
+        register_key(current_row, current_col);
+        update_extremum(key);
+        key->dynamic_actuation_bool = true;
     }
 }
 
 void matrix_read_cols_continuous_dynamic_actuation(matrix_row_t *current_row, uint8_t current_col, key_t *key) {
-    if (key->continuous_dynamic_actuation) {
+    if (key->dynamic_actuation_bool) {
         if (*current_row & (1 << current_col)) {
             /* Key is pressed
             Is key still moving down? */
             if (key->value > key->extremum) {
                 update_extremum(key);
-
             } else if (key->value < key->extremum - g_config.release_sensitivity) {
                 /* Has key moved up enough to be released? */
                 deregister_key(current_row, current_col);
@@ -106,11 +105,11 @@ void matrix_read_cols_continuous_dynamic_actuation(matrix_row_t *current_row, ui
         if (key->value == 0) {
             deregister_key(current_row, current_col);
             update_extremum(key);
-            key->continuous_dynamic_actuation = false;
+            key->dynamic_actuation_bool = false;
         }
     } else if (key->value > g_config.actuation_point) {
         register_key(current_row, current_col);
         update_extremum(key);
-        key->continuous_dynamic_actuation = true;
+        key->dynamic_actuation_bool = true;
     }
 }

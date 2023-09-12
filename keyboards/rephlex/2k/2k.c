@@ -30,13 +30,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 static uint8_t i = 0;
 void           housekeeping_task_kb(void) {
     if (i == 0) {
-        char formattedString[]; // Adjust the buffer size as needed
+        char formattedString[200]; // Adjust the buffer size as needed
 
         snprintf(formattedString, sizeof(formattedString), "Mode: %d Actuation Point: %d Press/Release Sensitivity: %d/%d\n", g_config.mode, g_config.actuation_point, g_config.press_sensitivity, g_config.release_sensitivity);
 
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
             for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-                snprintf(formattedString + strlen(formattedString), sizeof(formattedString) - strlen(formattedString), "%d/%d ", keys[row][col].value, analogReadPin(matrix_pins[row][col]));
+                snprintf(formattedString + strlen(formattedString), sizeof(formattedString) - strlen(formattedString), "%d/%d/%d ", keys[row][col].value, keys[row][col].extremum, analogReadPin(matrix_pins[row][col]));
             }
             strcat(formattedString, "\n\n");
         }
@@ -45,7 +45,6 @@ void           housekeeping_task_kb(void) {
     }
     i++;
 }
-
 #endif
 
 void values_load(void) {

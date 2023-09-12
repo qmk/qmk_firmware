@@ -4,6 +4,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "analogkeys.h"
 #include <stdint.h>
 #include "quantum.h"
+#include "lut.h"
 
 void update_extremum(key_t *key);
 
