@@ -19,6 +19,12 @@
         "rows": ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash"
+        }
+    },
     "processor": "WB32F3G71",
     "bootloader": "wb32-dfu",
     "layouts": {
