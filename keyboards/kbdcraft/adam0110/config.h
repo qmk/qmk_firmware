@@ -4,9 +4,6 @@
 
 #pragma once
 
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 14
-
 #define MATRIX_ROW_PINS_RIGHT \
     { A7, C4, C5, A4, A5 }
 #define MATRIX_COL_PINS_RIGHT \
