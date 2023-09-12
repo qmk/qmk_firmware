@@ -27,10 +27,11 @@
         "rows": ["A7", "A6", "A4", "A5", "A3"]
     },
     "layout_aliases": {
-        "LAYOUT_all": "LAYOUT_split_6u"
+        "LAYOUT_all": "LAYOUT_split_6u",
+        "LAYOUT_2u_6u": "LAYOUT_65_xt_ansi_blocker"
     },
     "layouts": {
-        "LAYOUT_2u_6u": {
+        "LAYOUT_65_xt_ansi_blocker": {
             "layout": [
                 {"label": "K000", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K001", "matrix": [0, 1], "x": 1, "y": 0},
