@@ -121,11 +121,10 @@
     "ws2812": {
         "pin": "D3"
     },
-    "processor": "atmega32u4",
     "qmk": {
         "tap_keycode_delay": 10
     },
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "build": {
         "lto": true
     },
