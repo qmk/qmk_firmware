@@ -38,6 +38,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi_split_bs_rshift",
+        "LAYOUT_iso": "LAYOUT_tkl_f13_iso_split_bs_rshift"
+    },
+    "community_layouts": ["tkl_f13_ansi_split_bs_rshift", "tkl_f13_iso_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -148,7 +153,7 @@
                 {"matrix": [8, 8], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_tkl_f13_ansi_split_bs_rshift": {
             "layout": [
                 {"matrix": [1, 0], "x": 0, "y": 0},
 
@@ -256,7 +261,7 @@
                 {"matrix": [8, 8], "x": 17.25, "y": 5.25}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_tkl_f13_iso_split_bs_rshift": {
             "layout": [
                 {"matrix": [1, 0], "x": 0, "y": 0},
 

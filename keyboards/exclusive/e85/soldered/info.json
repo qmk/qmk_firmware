@@ -41,6 +41,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_ansi_standard": "LAYOUT_tkl_f13_ansi",
+        "LAYOUT_ansi_tsangan": "LAYOUT_tkl_f13_ansi_tsangan"
+    },
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_ansi_tsangan"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -151,7 +156,7 @@
                 {"matrix": [10, 1], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_ansi_standard": {
+        "LAYOUT_tkl_f13_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
@@ -257,7 +262,7 @@
                 {"matrix": [10, 1], "x": 17.25, "y": 5.5}
             ]
         },
-        "LAYOUT_ansi_tsangan": {
+        "LAYOUT_tkl_f13_ansi_tsangan": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 

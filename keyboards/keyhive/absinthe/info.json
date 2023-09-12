@@ -35,6 +35,10 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_tkl_nofrow_ansi"
+    },
+    "community_layouts": ["tkl_nofrow_ansi"],
     "layouts": {
         "LAYOUT_default": {
             "layout": [
@@ -120,7 +124,7 @@
                 {"matrix": [7, 8], "x": 17.25, "y": 4}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_tkl_nofrow_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [1, 0], "x": 1, "y": 0},

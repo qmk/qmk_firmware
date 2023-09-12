@@ -15,6 +15,12 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_ansi": "LAYOUT_65_ansi_blocker",
+        "LAYOUT_ansi_split_bspc": "LAYOUT_65_ansi_blocker_split_bs",
+        "LAYOUT_iso": "LAYOUT_65_iso_blocker",
+        "LAYOUT_iso_split_bspc": "LAYOUT_65_iso_blocker_split_bs"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -95,7 +101,7 @@
                 {"matrix": [4, 15], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -171,7 +177,7 @@
                 {"matrix": [4, 15], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_ansi_split_bspc": {
+        "LAYOUT_65_ansi_blocker_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -248,7 +254,7 @@
                 {"matrix": [4, 15], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_65_iso_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -325,7 +331,7 @@
                 {"matrix": [4, 15], "x": 15, "y": 4}
             ]
         },
-        "LAYOUT_iso_split_bspc": {
+        "LAYOUT_65_iso_blocker_split_bs": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

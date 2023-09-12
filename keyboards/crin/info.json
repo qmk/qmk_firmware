@@ -17,8 +17,11 @@
     "bootloader": "stm32-dfu",
     "layout_aliases": {
         "LAYOUT_default": "LAYOUT_all",
-        "LAYOUT_tsangan": "LAYOUT_ansi_tsangan"
+        "LAYOUT_tsangan": "LAYOUT_ansi_tsangan",
+        "LAYOUT_ansi": "LAYOUT_tkl_nofrow_ansi",
+        "LAYOUT_iso": "LAYOUT_tkl_nofrow_iso"
     },
+    "community_layouts": ["tkl_nofrow_ansi", "tkl_nofrow_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -106,7 +109,7 @@
                 {"matrix": [4, 16], "x": 17.5, "y": 4}
             ]
         },
-        "LAYOUT_ansi": {
+        "LAYOUT_tkl_nofrow_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
@@ -271,7 +274,7 @@
                 {"matrix": [4, 16], "x": 17.5, "y": 4}
             ]
         },
-        "LAYOUT_iso": {
+        "LAYOUT_tkl_nofrow_iso": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
