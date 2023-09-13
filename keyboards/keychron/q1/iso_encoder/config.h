@@ -16,14 +16,6 @@
 
 #pragma once
 
-/* DIP switch */
-#define DIP_SWITCH_MATRIX_GRID  { {0,1} }
-
-/* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1011111
-
 /* RGB Matrix Configuration */
 #define DRIVER_1_LED_TOTAL 59
 #define DRIVER_2_LED_TOTAL 24
