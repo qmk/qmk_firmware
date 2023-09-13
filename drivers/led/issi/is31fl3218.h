@@ -20,6 +20,8 @@
 #include <stdbool.h>
 #include "progmem.h"
 
+#define IS31FL3218_I2C_ADDRESS 0x54
+
 typedef struct is31fl3218_led {
     uint8_t r;
     uint8_t g;

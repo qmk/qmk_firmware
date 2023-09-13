@@ -17,9 +17,6 @@
 #include <string.h>
 #include "i2c_master.h"
 
-// This is the full 8-bit address
-#define IS31FL3218_I2C_ADDRESS 0xA8
-
 // These are the register addresses
 #define IS31FL3218_REG_SHUTDOWN 0x00
 #define IS31FL3218_REG_PWM 0x01
@@ -50,10 +47,10 @@ void is31fl3218_write_register(uint8_t reg, uint8_t data) {
     g_twi_transfer_buffer[1] = data;
 #if IS31FL3218_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3218_I2C_PERSISTENCE; i++) {
-        if (i2c_transmit(IS31FL3218_I2C_ADDRESS, g_twi_transfer_buffer, 2, IS31FL3218_I2C_TIMEOUT) == 0) break;
+        if (i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, g_twi_transfer_buffer, 2, IS31FL3218_I2C_TIMEOUT) == 0) break;
     }
 #else
-    i2c_transmit(IS31FL3218_I2C_ADDRESS, g_twi_transfer_buffer, 2, IS31FL3218_I2C_TIMEOUT);
+    i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, g_twi_transfer_buffer, 2, IS31FL3218_I2C_TIMEOUT);
 #endif
 }
 
@@ -63,10 +60,10 @@ void is31fl3218_write_pwm_buffer(uint8_t *pwm_buffer) {
 
 #if IS31FL3218_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3218_I2C_PERSISTENCE; i++) {
-        i2c_transmit(IS31FL3218_I2C_ADDRESS, g_twi_transfer_buffer, 19, IS31FL3218_I2C_TIMEOUT);
+        i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, g_twi_transfer_buffer, 19, IS31FL3218_I2C_TIMEOUT);
     }
 #else
-    i2c_transmit(IS31FL3218_I2C_ADDRESS, g_twi_transfer_buffer, 19, IS31FL3218_I2C_TIMEOUT);
+    i2c_transmit(IS31FL3218_I2C_ADDRESS << 1, g_twi_transfer_buffer, 19, IS31FL3218_I2C_TIMEOUT);
 #endif
 }
 
