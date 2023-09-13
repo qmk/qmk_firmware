@@ -13,6 +13,11 @@
         "rows": ["C5", "B0", "B14", "B15", "C7", "C9", "A15"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "backlight": {
         "pin": "C6",
         "levels": 20,
