@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* RGB Matrix driver config */
-#define DRIVER_COUNT 2
+#define IS31FL3733_DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010011
 #define DRIVER_1_LED_TOTAL 46

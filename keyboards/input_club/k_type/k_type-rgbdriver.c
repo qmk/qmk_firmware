@@ -15,11 +15,10 @@
  */
 
 #ifdef RGB_MATRIX_ENABLE
-
-#include "rgb_matrix.h"
-#include "i2c_master.h"
-#include "is31fl3733-dual.h"
-#include "gpio.h"
+#    include "rgb_matrix.h"
+#    include "i2c_master.h"
+#    include "is31fl3733-dual.h"
+#    include "gpio.h"
 
 static void init(void) {
     i2c_init(&I2CD1, I2C1_SCL_PIN, I2C1_SDA_PIN);
@@ -52,5 +51,4 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = is31fl3733_set_color,
     .set_color_all = is31fl3733_set_color_all,
 };
-
 #endif
