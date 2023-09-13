@@ -5,9 +5,6 @@
 
 #include "quantum.h"
 
-//for changing layers
-extern uint8_t current_layer;
-
 //for oled key press
 extern bool key_pressed;
 

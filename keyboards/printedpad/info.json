@@ -25,7 +25,7 @@
         "vid": "0x5044"
     },
     "layouts": {
-        "LAYOUT_ortho_4x3": {
+        "LAYOUT": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 

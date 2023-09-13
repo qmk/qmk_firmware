@@ -8,7 +8,7 @@ void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
 }
 
-uint8_t current_layer = 0;
+const uint8_t max_layer = 3;
 uint8_t current_display_mode = 0;
 
 bool key_pressed = false;
@@ -25,17 +25,22 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #endif
     switch(keycode) {
         case LT(0, KC_NO):
-            // on tap
-            if (record->tap.count && record->event.pressed) {
-                current_layer = (current_layer + 1) % 4;
-                layer_move(current_layer);
-            }
+            if (record->event.pressed) {
+                // on tap
+                if (record->tap.count) {
+                    if (get_highest_layer(layer_state) >= max_layer) {
+                        layer_clear(); 
+                    } else { 
+                        layer_move(get_highest_layer(layer_state) + 1);
+                    }
+                }
 #ifdef OLED_ENABLE
-            // on hold
-            else if (record->event.pressed) {
-                current_display_mode = (current_display_mode + 1) % 3;
-            }
+                // on hold
+                else {
+                    current_display_mode = (current_display_mode + 1) % 3;
+                }
 #endif
+            }
             return false;
     }
     return true;

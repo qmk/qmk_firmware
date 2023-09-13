@@ -954,34 +954,7 @@ static void render_animation(void) {
         epd_bitmap_monkeylong26
     };
 
-    uint16_t frame_sizes[26] = {
-        sizeof(epd_bitmap_monkeylong1),
-        sizeof(epd_bitmap_monkeylong2),
-        sizeof(epd_bitmap_monkeylong3),
-        sizeof(epd_bitmap_monkeylong4),
-        sizeof(epd_bitmap_monkeylong5),
-        sizeof(epd_bitmap_monkeylong6),
-        sizeof(epd_bitmap_monkeylong7),
-        sizeof(epd_bitmap_monkeylong8),
-        sizeof(epd_bitmap_monkeylong9),
-        sizeof(epd_bitmap_monkeylong10),
-        sizeof(epd_bitmap_monkeylong11),
-        sizeof(epd_bitmap_monkeylong12),
-        sizeof(epd_bitmap_monkeylong13),
-        sizeof(epd_bitmap_monkeylong14),
-        sizeof(epd_bitmap_monkeylong15),
-        sizeof(epd_bitmap_monkeylong16),
-        sizeof(epd_bitmap_monkeylong17),
-        sizeof(epd_bitmap_monkeylong18),
-        sizeof(epd_bitmap_monkeylong19),
-        sizeof(epd_bitmap_monkeylong20),
-        sizeof(epd_bitmap_monkeylong21),
-        sizeof(epd_bitmap_monkeylong22),
-        sizeof(epd_bitmap_monkeylong23),
-        sizeof(epd_bitmap_monkeylong24),
-        sizeof(epd_bitmap_monkeylong25),
-        sizeof(epd_bitmap_monkeylong26)
-    };
+    uint16_t frame_size = sizeof(epd_bitmap_monkeylong1);
     
     if (layer_changed) // flash_current_layer will change layer_changed to flase after a short time, resuming the animation
         flash_current_layer();
@@ -994,7 +967,7 @@ static void render_animation(void) {
         current_frame = (current_frame + 1) % (sizeof(epd_bitmap_allArray) / sizeof(epd_bitmap_allArray[0]));
 
         // Draw frame to OLED
-        oled_write_raw_P(epd_bitmap_allArray[current_frame], frame_sizes[current_frame]); 
+        oled_write_raw_P(epd_bitmap_allArray[current_frame], frame_size); 
     }
 }
 
