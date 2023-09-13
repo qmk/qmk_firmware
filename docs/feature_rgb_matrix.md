@@ -281,14 +281,14 @@ Here is an example using 2 drivers.
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
-// 0000 <-> GND
-// 0101 <-> SCL
-// 1010 <-> SDA
-// 1111 <-> VCC
+// 0000 ADDR <-> GND
+// 0101 ADDR <-> SCL
+// 1010 ADDR <-> SDA
+// 1111 ADDR <-> VCC
 // ADDR represents A3:A0 of the 7-bit address.
 // The result is: 0b101(ADDR)
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010001
+#define DRIVER_ADDR_1 IS31FL3737_I2C_ADDRESS_GND
+#define DRIVER_ADDR_2 IS31FL3737_I2C_ADDRESS_SCL
 
 #define IS31FL3737_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
@@ -410,7 +410,7 @@ Then Define the array listing all the LEDs you want to override in your `<keyboa
 
 ```c
 const is31_led PROGMEM g_is31_scaling[ISSI_MANUAL_SCALING] = {
- *   LED Index
+/*   LED Index
  *   |  R scaling
  *   |  |    G scaling
  *   |  |    |    B scaling
@@ -657,12 +657,12 @@ enum rgb_matrix_effects {
     RGB_MATRIX_DIGITAL_RAIN,        // That famous computer simulation
     RGB_MATRIX_SOLID_REACTIVE_SIMPLE,   // Pulses keys hit to hue & value then fades value out
     RGB_MATRIX_SOLID_REACTIVE,      // Static single hue, pulses keys hit to shifted hue then fades to current hue
-    RGB_MATRIX_SOLID_REACTIVE_WIDE       // Hue & value pulse near a single key hit then fades value out
-    RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE  // Hue & value pulse near multiple key hits then fades value out
-    RGB_MATRIX_SOLID_REACTIVE_CROSS      // Hue & value pulse the same column and row of a single key hit then fades value out
-    RGB_MATRIX_SOLID_REACTIVE_MULTICROSS // Hue & value pulse the same column and row of multiple key hits then fades value out
-    RGB_MATRIX_SOLID_REACTIVE_NEXUS      // Hue & value pulse away on the same column and row of a single key hit then fades value out
-    RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS // Hue & value pulse away on the same column and row of multiple key hits then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_WIDE,       // Hue & value pulse near a single key hit then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE,  // Hue & value pulse near multiple key hits then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_CROSS,      // Hue & value pulse the same column and row of a single key hit then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_MULTICROSS, // Hue & value pulse the same column and row of multiple key hits then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_NEXUS,      // Hue & value pulse away on the same column and row of a single key hit then fades value out
+    RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS, // Hue & value pulse away on the same column and row of multiple key hits then fades value out
     RGB_MATRIX_SPLASH,              // Full gradient & value pulse away from a single key hit then fades value out
     RGB_MATRIX_MULTISPLASH,         // Full gradient & value pulse away from multiple key hits then fades value out
     RGB_MATRIX_SOLID_SPLASH,        // Hue & value pulse away from a single key hit then fades value out

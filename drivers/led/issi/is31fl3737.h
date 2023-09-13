@@ -19,6 +19,10 @@
 
 #pragma once
 
+#include <stdint.h>
+#include <stdbool.h>
+#include "progmem.h"
+
 // ======== DEPRECATED DEFINES - DO NOT USE ========
 #ifdef DRIVER_COUNT
 #    define IS31FL3737_DRIVER_COUNT DRIVER_COUNT
@@ -52,9 +56,10 @@
 #define PUR_32KR IS31FL3737_PUR_32KR
 // ========
 
-#include <stdint.h>
-#include <stdbool.h>
-#include "progmem.h"
+#define IS31FL3737_I2C_ADDRESS_GND 0x50
+#define IS31FL3737_I2C_ADDRESS_SCL 0x55
+#define IS31FL3737_I2C_ADDRESS_SDA 0x5A
+#define IS31FL3737_I2C_ADDRESS_VCC 0x5F
 
 typedef struct is31_led {
     uint8_t driver : 2;
