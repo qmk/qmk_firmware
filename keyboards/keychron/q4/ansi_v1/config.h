@@ -17,7 +17,7 @@
 #pragma once
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
+#define CKLED2001_DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1110111
 #define DRIVER_ADDR_2 0b1110100
 
@@ -26,8 +26,7 @@
 #define DRIVER_2_LED_TOTAL 30
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define PHASE_CHANNEL MSKPHASE_9CHANNEL
+#define CKLED2001_PHASE_CHANNEL CKLED2001_MSKPHASE_9CHANNEL
 #define CKLED2001_CURRENT_TUNE \
     { 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60 }
 
