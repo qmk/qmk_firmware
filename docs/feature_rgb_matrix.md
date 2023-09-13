@@ -83,13 +83,13 @@ You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` de
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `ISSI_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3733B only | 0 |
-| `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
-| `ISSI_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `ISSI_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `IS31FL3733_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `IS31FL3733_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `IS31FL3733_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3733B only | 0 |
+| `IS31FL3733_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
+| `IS31FL3733_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
+| `IS31FL3733_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
+| `IS31FL3733_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
 | `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
@@ -100,17 +100,17 @@ You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` de
 | `DRIVER_SYNC_3` | (Optional) Sync configuration for the third RGB driver | 0 |
 | `DRIVER_SYNC_4` | (Optional) Sync configuration for the fourth RGB driver | 0 |
 
-The IS31FL3733 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`ISSI_SWPULLUP`/`ISSI_CSPULLUP` are given the value of`PUR_0R`), the values that can be set to enable de-ghosting are as follows:
+The IS31FL3733 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3733_SWPULLUP`/`IS31FL3733_CSPULLUP` are given the value of `IS31FL3733_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
 
-| `ISSI_SWPULLUP/ISSI_CSPULLUP` | Description |
+| `IS31FL3733_SWPULLUP/IS31FL3733_CSPULLUP` | Description |
 |----------------------|-------------|
-| `PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
-| `PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_3KR` | The 3k Ohm resistor used at all times |
-| `PUR_4KR` | The 4k Ohm resistor used at all times |
-| `PUR_8KR` | The 8k Ohm resistor used at all times |
-| `PUR_16KR` | The 16k Ohm resistor used at all times |
-| `PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3733_PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
+| `IS31FL3733_PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3733_PUR_3KR` | The 3k Ohm resistor used at all times |
+| `IS31FL3733_PUR_4KR` | The 4k Ohm resistor used at all times |
+| `IS31FL3733_PUR_8KR` | The 8k Ohm resistor used at all times |
+| `IS31FL3733_PUR_16KR` | The 16k Ohm resistor used at all times |
+| `IS31FL3733_PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
 
 Here is an example using 2 drivers.
 
@@ -128,7 +128,7 @@ Here is an example using 2 drivers.
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010011
 
-#define DRIVER_COUNT 2
+#define IS31FL3733_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 58
 #define DRIVER_2_LED_TOTAL 10
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
