@@ -21,11 +21,7 @@
 #define DRIVER_ADDR_1 0b1110100
 
 /* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 62
-#define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
-
-#define CKLED2001_CURRENT_TUNE \
-    { 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60, 0xCA, 0xCA, 0x60 }
+#define RGB_MATRIX_LED_COUNT 62
 
 /* Enable CapsLcok LED*/
 #define CAPS_LOCK_LED_INDEX 27
