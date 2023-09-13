@@ -14,9 +14,7 @@
         "rows": ["D4", "C6", "D7", "E6", "B4", "B5"]
     },
     "features": {
-        "mousekey": true,
         "oled": true,
-        "extrakey": true,
         "encoder": true,
         "nkro": true
     },
