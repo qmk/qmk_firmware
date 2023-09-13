@@ -100,8 +100,14 @@
         ]
     },
     "diode_direction": "ROW2COL",
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_planck_mit"
+    },
+    "community_layouts": [
+        "planck_mit"
+    ],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_planck_mit": {
             "layout": [
                 { "label": "Esc", "matrix": [0, 0],"x": 0, "y": 0 },
                 { "label": "Q", "matrix": [0, 1], "x": 1, "y": 0 },
