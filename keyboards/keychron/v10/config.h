@@ -31,7 +31,7 @@
 #define DIODE_DIRECTION ROW2COL
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
+#define CKLED2001_DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1110111
 #define DRIVER_ADDR_2 0b1110100
 
@@ -42,8 +42,7 @@
 #define I2C1_TIMINGR_SCLH 15U
 #define I2C1_TIMINGR_SCLL 51U
 
-/* Scan phase of led driver set as MSKPHASE_9CHANNEL(defined as 0x03 in CKLED2001.h) */
-#define PHASE_CHANNEL MSKPHASE_9CHANNEL
+#define CKLED2001_PHASE_CHANNEL CKLED2001_MSKPHASE_9CHANNEL
 #define CKLED2001_CURRENT_TUNE { 0x98, 0x98, 0x4A, 0x98, 0x98, 0x4A, 0x98, 0x98, 0x4A, 0x98, 0x98, 0x4A }
 
 /* DIP switch */

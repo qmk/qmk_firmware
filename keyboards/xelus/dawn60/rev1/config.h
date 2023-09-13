@@ -16,7 +16,7 @@
 #pragma once
 
 // IS31FL3731 driver
-#define DRIVER_COUNT 2
+#define IS31FL3731_DRIVER_COUNT 2
 #define RGB_MATRIX_LED_COUNT 64
 
 // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
