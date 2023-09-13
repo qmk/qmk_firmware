@@ -259,9 +259,9 @@ static void flush(void) {
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = init,
-    .flush = flush,
-    .set_color = is31fl3218_set_color,
+    .init          = init,
+    .flush         = flush,
+    .set_color     = is31fl3218_set_color,
     .set_color_all = is31fl3218_set_color_all,
 };
 
@@ -280,9 +280,9 @@ static void flush(void) {
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init          = init,
-    .flush         = flush,
-    .set_color     = is31fl3731_set_color,
+    .init = init,
+    .flush = flush,
+    .set_color = is31fl3731_set_color,
     .set_color_all = is31fl3731_set_color_all,
 };
 
