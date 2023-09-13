@@ -8,6 +8,11 @@
         "rows": ["B15", "B14", "B12", "B1", "B0"]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "indicators": {
         "caps_lock": "A1",
         "on_state": 0
