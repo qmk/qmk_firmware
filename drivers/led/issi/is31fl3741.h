@@ -93,6 +93,11 @@ void is31fl3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green,
 #define IS31FL3741_PUR_16KR 0x06 // 16k Ohm resistor
 #define IS31FL3741_PUR_32KR 0x07 // 32k Ohm resistor
 
+#define IS31FL3741_PWM_FREQUENCY_29K_HZ 0x00
+#define IS31FL3741_PWM_FREQUENCY_3K6_HZ 0x03
+#define IS31FL3741_PWM_FREQUENCY_1K8_HZ 0x07
+#define IS31FL3741_PWM_FREQUENCY_900_HZ 0x0B
+
 #define CS1_SW1 0x00
 #define CS2_SW1 0x01
 #define CS3_SW1 0x02
