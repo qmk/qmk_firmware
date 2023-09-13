@@ -19,8 +19,22 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <string.h>
 #include "progmem.h"
+
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_COUNT
+#    define IS31FL3731_DRIVER_COUNT DRIVER_COUNT
+#endif
+#ifdef ISSI_TIMEOUT
+#    define IS31FL3731_I2C_TIMEOUT ISSI_TIMEOUT
+#endif
+#ifdef ISSI_PERSISTENCE
+#    define IS31FL3731_I2C_PERSISTENCE ISSI_PERSISTENCE
+#endif
+#ifdef ISSI_3731_DEGHOST
+#    define IS31FL3731_DEGHOST ISSI_3731_DEGHOST
+#endif
+// ========
 
 typedef struct is31_led {
     uint8_t driver : 2;

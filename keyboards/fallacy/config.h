@@ -19,7 +19,7 @@
  * Using the default defines here, but using a custom implementation
  */
 #define LED_DRIVER_ADDR_1 0b1110100
-#define LED_DRIVER_COUNT 1
+#define IS31FL3731_DRIVER_COUNT 1
 #define LED_MATRIX_LED_COUNT 3
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
