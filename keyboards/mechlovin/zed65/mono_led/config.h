@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_DRIVER I2CD2
 #define I2C1_SCL_PIN B10
 #define I2C1_SDA_PIN B11
-#define LED_DRIVER_COUNT 1
+#define IS31FL3731_DRIVER_COUNT 1
 #define LED_MATRIX_LED_COUNT 70
 #define LED_MATRIX_KEYPRESSES // reacts to keypresses
 #define LED_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
