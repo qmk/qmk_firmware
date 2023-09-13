@@ -17,7 +17,7 @@
 #pragma once
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 1
+#define CKLED2001_DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110100
 
 /* Increase I2C speed to 1000 KHz */

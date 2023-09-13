@@ -105,11 +105,11 @@ Configurable options in your keyboard's `config.h`:
 
 `config.h` override                      | Default     | Description
 -----------------------------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-`#define WEAR_LEVELING_EFL_FIRST_SECTOR` | _unset_     | The first sector on the MCU to use. By default this is not defined and calculated at runtime based on the MCU. However, different flash sizes on MCUs may require custom configuration.
-`#define WEAR_LEVELING_EFL_FLASH_SIZE`   | _unset_     | Allows overriding the flash size available for use for wear-leveling. Under normal circumstances this is automatically calculated and should not need to be overridden. Specifying a size larger than the amount actually available in flash will usually prevent the MCU from booting.
-`#define WEAR_LEVELING_LOGICAL_SIZE`     | `1024`      | Number of bytes "exposed" to the rest of QMK and denotes the size of the usable EEPROM.
-`#define WEAR_LEVELING_BACKING_SIZE`     | `2048`      | Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size.
-`#define BACKING_STORE_WRITE_SIZE`       | _automatic_ | The byte width of the underlying write used on the MCU, and is usually automatically determined from the selected MCU family. If an error occurs in the auto-detection, you'll need to consult the MCU's datasheet and determine this value, specifying it directly.
+`#define WEAR_LEVELING_EFL_FIRST_SECTOR` | _unset_            | The first sector on the MCU to use. By default this is not defined and calculated at runtime based on the MCU. However, different flash sizes on MCUs may require custom configuration.
+`#define WEAR_LEVELING_EFL_FLASH_SIZE`   | _unset_            | Allows overriding the flash size available for use for wear-leveling. Under normal circumstances this is automatically calculated and should not need to be overridden. Specifying a size larger than the amount actually available in flash will usually prevent the MCU from booting.
+`#define WEAR_LEVELING_LOGICAL_SIZE`     | `(backing_size/2)` | Number of bytes "exposed" to the rest of QMK and denotes the size of the usable EEPROM.
+`#define WEAR_LEVELING_BACKING_SIZE`     | `2048`             | Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size.
+`#define BACKING_STORE_WRITE_SIZE`       | _automatic_        | The byte width of the underlying write used on the MCU, and is usually automatically determined from the selected MCU family. If an error occurs in the auto-detection, you'll need to consult the MCU's datasheet and determine this value, specifying it directly.
 
 !> If your MCU does not boot after swapping to the EFL wear-leveling driver, it's likely that the flash size is incorrectly detected, usually as an MCU with larger flash and may require overriding.
 
@@ -139,7 +139,7 @@ Configurable options in your keyboard's `config.h`:
 ------------------------------------------|----------------------------|--------------------------------------------------------------------------------------------------------------------------------
 `#define WEAR_LEVELING_RP2040_FLASH_SIZE` | `PICO_FLASH_SIZE_BYTES`    | Number of bytes of flash on the board.
 `#define WEAR_LEVELING_RP2040_FLASH_BASE` | `(flash_size-sector_size)` | The byte-wise location that the backing storage should be located.
-`#define WEAR_LEVELING_LOGICAL_SIZE`      | `4096`                     | Number of bytes "exposed" to the rest of QMK and denotes the size of the usable EEPROM.
+`#define WEAR_LEVELING_LOGICAL_SIZE`      | `(backing_size/2)`         | Number of bytes "exposed" to the rest of QMK and denotes the size of the usable EEPROM.
 `#define WEAR_LEVELING_BACKING_SIZE`      | `8192`                     | Number of bytes used by the wear-leveling algorithm for its underlying storage, and needs to be a multiple of the logical size as well as the sector size.
 `#define BACKING_STORE_WRITE_SIZE`        | `2`                        | The write width used whenever a write is performed on the external flash peripheral.
 
