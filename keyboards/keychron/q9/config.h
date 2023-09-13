@@ -23,7 +23,7 @@
 #define DIP_SWITCH_MATRIX_GRID { { 3, 4 } }
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 1
+#define CKLED2001_DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110100
 
 /* Increase I2C speed to 1000 KHz */
