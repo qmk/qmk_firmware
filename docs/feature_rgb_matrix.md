@@ -204,14 +204,15 @@ Here is an example using 2 drivers.
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 // The address will vary depending on your wiring:
-// 0000 <-> GND
-// 0101 <-> SCL
-// 1010 <-> SDA
-// 1111 <-> VCC
-// ADDR represents A3:A0 of the 7-bit address.
-// The result is: 0b101(ADDR)
-#define DRIVER_ADDR_1 0b1010000
-#define DRIVER_ADDR_2 0b1010001
+// 00 ADDRn <-> GND
+// 01 ADDRn <-> SCL
+// 10 ADDRn <-> SDA
+// 11 ADDRn <-> VCC
+// ADDR1 represents A1:A0 of the 7-bit address.
+// ADDR2 represents A3:A2 of the 7-bit address.
+// The result is: 0b101(ADDR2)(ADDR1)
+#define DRIVER_ADDR_1 IS31FL3736_I2C_ADDRESS_GND_GND
+#define DRIVER_ADDR_2 IS31FL3736_I2C_ADDRESS_GND_SCL
 
 #define IS31FL3736_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
