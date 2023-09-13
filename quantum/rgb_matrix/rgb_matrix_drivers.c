@@ -393,30 +393,30 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 };
 #    endif
 
-#elif defined(AW20216)
+#elif defined(AW20216S)
 #    include "spi_master.h"
 
 static void init(void) {
     spi_init();
 
-    aw20216_init(DRIVER_1_CS, DRIVER_1_EN);
-#    if defined(DRIVER_2_CS)
-    aw20216_init(DRIVER_2_CS, DRIVER_2_EN);
+    aw20216s_init(AW20216S_DRIVER_1_CS, AW20216S_DRIVER_1_EN);
+#    if defined(AW20216S_DRIVER_2_CS)
+    aw20216s_init(AW20216S_DRIVER_2_CS, AW20216S_DRIVER_2_EN);
 #    endif
 }
 
 static void flush(void) {
-    aw20216_update_pwm_buffers(DRIVER_1_CS, 0);
-#    if defined(DRIVER_2_CS)
-    aw20216_update_pwm_buffers(DRIVER_2_CS, 1);
+    aw20216s_update_pwm_buffers(AW20216S_DRIVER_1_CS, 0);
+#    if defined(AW20216S_DRIVER_2_CS)
+    aw20216s_update_pwm_buffers(AW20216S_DRIVER_2_CS, 1);
 #    endif
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init          = init,
     .flush         = flush,
-    .set_color     = aw20216_set_color,
-    .set_color_all = aw20216_set_color_all,
+    .set_color     = aw20216s_set_color,
+    .set_color_all = aw20216s_set_color_all,
 };
 
 #elif defined(WS2812)

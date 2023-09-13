@@ -20,7 +20,7 @@
         ]
     },
     "rgb_matrix": {
-        "driver": "aw20216"
+        "driver": "aw20216s"
     },
     "processor": "WB32F3G71",
     "bootloader": "wb32-dfu",

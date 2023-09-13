@@ -21,19 +21,49 @@
 #include "progmem.h"
 #include "gpio.h"
 
-typedef struct aw_led {
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_COUNT
+#    define AW20216S_DRIVER_COUNT DRIVER_COUNT
+#endif
+#ifdef AW_SCALING_MAX
+#    define AW20216S_SCALING_MAX AW_SCALING_MAX
+#endif
+#ifdef AW_GLOBAL_CURRENT_MAX
+#    define AW20216S_GLOBAL_CURRENT_MAX AW_GLOBAL_CURRENT_MAX
+#endif
+#ifdef AW_SPI_MODE
+#    define AW20216S_SPI_MODE AW_SPI_MODE
+#endif
+#ifdef AW_SPI_DIVISOR
+#    define AW20216S_SPI_DIVISOR AW_SPI_DIVISOR
+#endif
+#ifdef DRIVER_1_CS
+#    define AW20216S_DRIVER_1_CS DRIVER_1_CS
+#endif
+#ifdef DRIVER_2_CS
+#    define AW20216S_DRIVER_2_CS DRIVER_2_CS
+#endif
+#ifdef DRIVER_1_EN
+#    define AW20216S_DRIVER_1_EN DRIVER_1_EN
+#endif
+#ifdef DRIVER_2_EN
+#    define AW20216S_DRIVER_2_EN DRIVER_2_EN
+#endif
+// ========
+
+typedef struct aw20216s_led {
     uint8_t driver : 2;
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} aw_led;
+} aw20216s_led;
 
-extern const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT];
+extern const aw20216s_led PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT];
 
-void aw20216_init(pin_t cs_pin, pin_t en_pin);
-void aw20216_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
-void aw20216_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
-void aw20216_update_pwm_buffers(pin_t cs_pin, uint8_t index);
+void aw20216s_init(pin_t cs_pin, pin_t en_pin);
+void aw20216s_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void aw20216s_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void aw20216s_update_pwm_buffers(pin_t cs_pin, uint8_t index);
 
 #define CS1_SW1 0x00
 #define CS2_SW1 0x01

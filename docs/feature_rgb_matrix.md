@@ -465,41 +465,41 @@ Configure the hardware via your `config.h`:
 ```
 
 ---
-### AW20216 :id=aw20216
-There is basic support for addressable RGB matrix lighting with the SPI AW20216 RGB controller. To enable it, add this to your `rules.mk`:
+### AW20216S :id=aw20216s
+There is basic support for addressable RGB matrix lighting with the SPI AW20216S RGB controller. To enable it, add this to your `rules.mk`:
 
 ```make
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = aw20216
+RGB_MATRIX_DRIVER = aw20216s
 ```
 
-You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+You can use up to 2 AW20216S IC's. Do not specify `DRIVER_<N>_xxx` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DRIVER_1_CS` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
-| `DRIVER_2_CS` | (Optional) MCU pin connected to second RGB driver chip select line  | |
-| `DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
-| `DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
+| `AW20216S_DRIVER_1_CS` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
+| `AW20216S_DRIVER_2_CS` | (Optional) MCU pin connected to second RGB driver chip select line  | |
+| `AW20216S_DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
+| `AW20216S_DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
 | `DRIVER_1_LED_TOTAL` | (Required) How many RGB lights are connected to first RGB driver  | |
 | `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
-| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `AW20216S_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `AW_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
-| `AW_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
-| `AW_SPI_MODE` | (Optional) Mode for SPI communication (0-3, defines polarity and phase of the clock) | 3 |
-| `AW_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
+| `AW20216S_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
+| `AW20216S_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
+| `AW20216S_SPI_MODE` | (Optional) Mode for SPI communication (0-3, defines polarity and phase of the clock) | 3 |
+| `AW20216S_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
 
 Here is an example using 2 drivers.
 
 ```c
-#define DRIVER_1_CS B13
-#define DRIVER_2_CS B14
+#define AW20216S_DRIVER_1_CS B13
+#define AW20216S_DRIVER_2_CS B14
 // Hardware enable lines may be connected to the same pin
-#define DRIVER_1_EN C13
-#define DRIVER_2_EN C13
+#define AW20216S_DRIVER_1_EN C13
+#define AW20216S_DRIVER_2_EN C13
 
-#define DRIVER_COUNT 2
+#define AW20216S_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 32
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -510,10 +510,10 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT] = {
-/* Each AW20216 channel is controlled by a register at some offset between 0x00
+const aw20216s_led PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+/* Each AW20216S channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
- * See drivers/awinic/aw20216.h for the mapping between register offsets and
+ * See drivers/led/aw20216s.h for the mapping between register offsets and
  * driver pin locations.
  *    driver
  *    |  R location
