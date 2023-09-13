@@ -36,6 +36,11 @@
 #endif
 // ========
 
+#define IS31FL3731_I2C_ADDRESS_GND 0x74
+#define IS31FL3731_I2C_ADDRESS_SCL 0x75
+#define IS31FL3731_I2C_ADDRESS_SDA 0x76
+#define IS31FL3731_I2C_ADDRESS_VCC 0x77
+
 typedef struct is31_led {
     uint8_t driver : 2;
     uint8_t r;
