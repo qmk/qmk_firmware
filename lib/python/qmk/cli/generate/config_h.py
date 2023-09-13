@@ -15,7 +15,12 @@ from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
 def generate_define(define, value=None):
+    is_keymap = cli.args.filename
     value = f' {value}' if value is not None else ''
+    if is_keymap:
+        return f"""
+#undef {define}
+#define {define}{value}"""
     return f"""
 #ifndef {define}
 #    define {define}{value}
