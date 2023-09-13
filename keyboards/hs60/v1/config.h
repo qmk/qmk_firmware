@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110101
 
-#define DRIVER_COUNT 2
+#define IS31FL3731_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
 
 #ifdef  HS60_ANSI

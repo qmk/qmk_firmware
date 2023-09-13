@@ -27,7 +27,7 @@
 #define MATRIX_MASKED // actual mask is defined by `matrix_mask` in `q11.c`
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 1
+#define CKLED2001_DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110100
 
 /* Increase I2C speed to 1000 KHz */

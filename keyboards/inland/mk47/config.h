@@ -26,7 +26,7 @@
 #define WEAR_LEVELING_BACKING_SIZE (4 * 1024)
 
 /* I2C Config for LED Driver */
-#define DRIVER_COUNT 1
+#define IS31FL3733_DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1110100
 /* WB32 MCU has no default definition */
 #define I2C1_OPMODE OPMODE_I2C

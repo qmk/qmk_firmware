@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // ADDR2 represents A3:A2 of the 7-bit address.
 // The result is: 0b101(ADDR2)(ADDR1)
 #define DRIVER_ADDR_1 0b1010000
-#define DRIVER_COUNT 1
+#define IS31FL3733_DRIVER_COUNT 1
 #define RGB_MATRIX_LED_COUNT 64
 
 // RGB Matrix Animation modes. Explicitly enabled
