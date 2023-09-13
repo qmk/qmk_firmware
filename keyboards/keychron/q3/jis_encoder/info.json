@@ -112,11 +112,6 @@
             {"matrix": [4, 14], "x": 224, "y": 64, "flags": 1}
         ]
     },
-    "matrix_pins": {
-        "rows": ["B5", "B4", "B3", "A15", "A14", "A13"],
-        "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", null, null, null, null, null, null, null, null],
-        "custom_lite": true
-    },
     "layouts": {
         "LAYOUT_jis_92": {
             "layout": [
