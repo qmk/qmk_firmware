@@ -691,9 +691,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 
 #elif defined(RGB_BACKLIGHT_PORTICO75)
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-#define ISSI_ADDR_1 0x30
+#define ISSI_ADDR_1 IS31FL3741_I2C_ADDRESS_GND
 #define ISSI_ADDR_2
 
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {

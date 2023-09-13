@@ -56,6 +56,11 @@
 #define PUR_32KR IS31FL3741_PUR_32KR
 // ========
 
+#define IS31FL3741_I2C_ADDRESS_GND 0x30
+#define IS31FL3741_I2C_ADDRESS_SCL 0x31
+#define IS31FL3741_I2C_ADDRESS_SDA 0x32
+#define IS31FL3741_I2C_ADDRESS_VCC 0x33
+
 typedef struct is31_led {
     uint32_t driver : 2;
     uint32_t r : 10;
