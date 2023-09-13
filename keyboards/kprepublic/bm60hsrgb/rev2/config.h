@@ -18,7 +18,7 @@
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
-#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_1 IS31FL3733_I2C_ADDRESS_GND_GND
 
 #define RGB_MATRIX_KEYPRESSES
 // RGB Matrix Animation modes. Explicitly enabled
