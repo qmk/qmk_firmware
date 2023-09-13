@@ -23,6 +23,39 @@
 #include <stdbool.h>
 #include "progmem.h"
 
+// ======== DEPRECATED DEFINES - DO NOT USE ========
+#ifdef DRIVER_COUNT
+#    define IS31FL3741_DRIVER_COUNT DRIVER_COUNT
+#endif
+#ifdef ISSI_TIMEOUT
+#    define IS31FL3741_I2C_TIMEOUT ISSI_TIMEOUT
+#endif
+#ifdef ISSI_PERSISTENCE
+#    define IS31FL3741_I2C_PERSISTENCE ISSI_PERSISTENCE
+#endif
+#ifdef ISSI_CONFIGURATION
+#    define IS31FL3741_CONFIGURATION ISSI_CONFIGURATION
+#endif
+#ifdef ISSI_SWPULLUP
+#    define IS31FL3741_SWPULLUP ISSI_SWPULLUP
+#endif
+#ifdef ISSI_CSPULLUP
+#    define IS31FL3741_CSPULLUP ISSI_CSPULLUP
+#endif
+#ifdef ISSI_GLOBALCURRENT
+#    define IS31FL3741_GLOBALCURRENT ISSI_GLOBALCURRENT
+#endif
+
+#define PUR_0R IS31FL3741_PUR_0R
+#define PUR_05KR IS31FL3741_PUR_05KR
+#define PUR_1KR IS31FL3741_PUR_1KR
+#define PUR_2KR IS31FL3741_PUR_2KR
+#define PUR_4KR IS31FL3741_PUR_4KR
+#define PUR_8KR IS31FL3741_PUR_8KR
+#define PUR_16KR IS31FL3741_PUR_16KR
+#define PUR_32KR IS31FL3741_PUR_32KR
+// ========
+
 typedef struct is31_led {
     uint32_t driver : 2;
     uint32_t r : 10;
@@ -51,14 +84,14 @@ void is31fl3741_set_scaling_registers(const is31_led *pled, uint8_t red, uint8_t
 
 void is31fl3741_set_pwm_buffer(const is31_led *pled, uint8_t red, uint8_t green, uint8_t blue);
 
-#define PUR_0R 0x00   // No PUR resistor
-#define PUR_05KR 0x01 // 0.5k Ohm resistor
-#define PUR_1KR 0x02  // 1.0k Ohm resistor
-#define PUR_2KR 0x03  // 2.0k Ohm resistor
-#define PUR_4KR 0x04  // 4.0k Ohm resistor
-#define PUR_8KR 0x05  // 8.0k Ohm resistor
-#define PUR_16KR 0x06 // 16k Ohm resistor
-#define PUR_32KR 0x07 // 32k Ohm resistor
+#define IS31FL3741_PUR_0R 0x00   // No PUR resistor
+#define IS31FL3741_PUR_05KR 0x01 // 0.5k Ohm resistor
+#define IS31FL3741_PUR_1KR 0x02  // 1.0k Ohm resistor
+#define IS31FL3741_PUR_2KR 0x03  // 2.0k Ohm resistor
+#define IS31FL3741_PUR_4KR 0x04  // 4.0k Ohm resistor
+#define IS31FL3741_PUR_8KR 0x05  // 8.0k Ohm resistor
+#define IS31FL3741_PUR_16KR 0x06 // 16k Ohm resistor
+#define IS31FL3741_PUR_32KR 0x07 // 32k Ohm resistor
 
 #define CS1_SW1 0x00
 #define CS2_SW1 0x01
