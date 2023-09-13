@@ -20,6 +20,8 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+#define RGB_MATRIX_LED_COUNT 6
+
 #define RGB_BACKLIGHT_ENABLED 1
 
 // This conditionally compiles the backlight code for M6-B specifics
