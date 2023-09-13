@@ -15,6 +15,13 @@ VPATH :=
 # Helper to return the distinct elements of a list
 uniq = $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
 
+cc-option = $(shell \
+	if $(CC) $(1) -shared -o /dev/null -xc /dev/null > /dev/null 2>&1; \
+	then echo "$(1)"; else echo "$(2)"; fi)
+
+# helper to pass comma character to make functions
+, := ,
+
 # Convert all SRC to OBJ
 define OBJ_FROM_SRC
 $(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.cc,$1/%.o,$(patsubst %.S,$1/%.o,$(patsubst %.clib,$1/%.a,$($1_SRC))))))
@@ -66,9 +73,7 @@ CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
 ifeq ($(COLOR),true)
-ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
-	CFLAGS+= -fdiagnostics-color
-endif
+	CFLAGS+= $(call cc-option, -fdiagnostics-color)
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
