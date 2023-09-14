@@ -9,7 +9,7 @@ from milc import cli
 import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json, build_environment
-from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder, is_all_keyboards
 from qmk.keymap import keymap_completer, locate_keymap
 
 
@@ -40,6 +40,13 @@ def compile(cli):
 
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
+    if is_all_keyboards(cli.args.keyboard):
+        from qmk.cli.mass_compile import mass_compile
+        cli.args.builds = []
+        cli.args.filter = []
+        cli.args.no_temp = False
+        return mass_compile(cli)
+
     # Build the environment vars
     envs = build_environment(cli.args.env)
 
