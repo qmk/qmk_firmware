@@ -15,7 +15,7 @@ from milc import cli, MILC
 from qmk.commands import create_make_command
 from qmk.constants import QMK_FIRMWARE
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder, is_all_keyboards
 from qmk.keymap import keymap_completer
 
 
@@ -90,6 +90,10 @@ def generate_compilation_database(cli: MILC) -> Union[bool, int]:
 
         https://clang.llvm.org/docs/JSONCompilationDatabase.html
     """
+    if is_all_keyboards(cli.args.keyboard):
+        cli.log.error('You must specify a single keyboard.')
+        return 1
+
     command = None
     # check both config domains: the magic decorator fills in `generate_compilation_database` but the user is
     # more likely to have set `compile` in their config file.

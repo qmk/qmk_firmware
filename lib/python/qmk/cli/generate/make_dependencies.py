@@ -6,7 +6,7 @@ from milc import cli
 from argcomplete.completers import FilesCompleter
 
 from qmk.commands import dump_lines
-from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder, is_all_keyboards
 from qmk.keymap import keymap_completer, locate_keymap
 from qmk.path import normpath, FileType
 
@@ -20,6 +20,10 @@ from qmk.path import normpath, FileType
 def generate_make_dependencies(cli):
     """Generates the list of dependent info.json, rules.mk, and config.h files for a keyboard.
     """
+    if is_all_keyboards(cli.args.keyboard):
+        cli.log.error('You must specify a single keyboard.')
+        return 1
+
     interesting_files = [
         'info.json',
         'rules.mk',

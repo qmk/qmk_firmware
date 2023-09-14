@@ -35,7 +35,7 @@ from milc import cli
 
 from qmk.commands import dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
-from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder, is_all_keyboards
 from qmk.keymap import keymap_completer, locate_keymap
 from qmk.path import normpath
 
@@ -256,6 +256,10 @@ def to_hex(b: int) -> str:
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.subcommand('Generate the autocorrection data file from a dictionary file.')
 def generate_autocorrect_data(cli):
+    if is_all_keyboards(cli.args.keyboard):
+        cli.log.error('You must specify a single keyboard.')
+        return 1
+
     autocorrections = parse_file(cli.args.filename)
     trie = make_trie(autocorrections)
     data = serialize_trie(autocorrections, trie)

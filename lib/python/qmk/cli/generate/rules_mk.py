@@ -8,7 +8,7 @@ from milc import cli
 
 from qmk.info import info_json
 from qmk.json_schema import json_load
-from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder, is_all_keyboards
 from qmk.commands import dump_lines, parse_configurator_json
 from qmk.path import normpath, FileType
 from qmk.constants import GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
@@ -49,6 +49,10 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
 def generate_rules_mk(cli):
     """Generates a rules.mk file from info.json.
     """
+    if is_all_keyboards(cli.args.keyboard):
+        cli.log.error('You must specify a single keyboard.')
+        return 1
+
     converter = None
     # Determine our keyboard/keymap
     if cli.args.filename:

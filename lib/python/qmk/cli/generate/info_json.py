@@ -13,7 +13,7 @@ from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import compile_schema_store
-from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder, is_all_keyboards
 from qmk.path import is_keyboard, normpath
 
 
@@ -55,6 +55,10 @@ def strip_info_json(kb_info_json):
 def generate_info_json(cli):
     """Generate an info.json file for a keyboard
     """
+    if is_all_keyboards(cli.args.keyboard):
+        cli.log.error('You must specify a single keyboard.')
+        return 1
+
     # Determine our keyboard(s)
     if not cli.config.generate_info_json.keyboard:
         cli.log.error('Missing parameter: --keyboard')

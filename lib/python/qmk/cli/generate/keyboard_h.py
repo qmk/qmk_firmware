@@ -7,7 +7,7 @@ from milc import cli
 from qmk.path import normpath
 from qmk.info import info_json
 from qmk.commands import dump_lines
-from qmk.keyboard import keyboard_completer, keyboard_folder
+from qmk.keyboard import keyboard_completer, keyboard_folder, is_all_keyboards
 from qmk.constants import COL_LETTERS, ROW_LETTERS, GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
@@ -101,6 +101,10 @@ def _generate_keycodes(kb_info_json):
 def generate_keyboard_h(cli):
     """Generates the keyboard.h file.
     """
+    if is_all_keyboards(cli.args.keyboard):
+        cli.log.error('You must specify a single keyboard.')
+        return 1
+
     # Build the info.json file
     kb_info_json = info_json(cli.args.keyboard)
 
