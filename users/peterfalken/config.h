@@ -14,6 +14,7 @@
 #endif
 
 // Space optimizations
+#define LAYER_STATE_8BIT
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 
