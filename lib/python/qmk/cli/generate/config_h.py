@@ -72,6 +72,12 @@ def generate_matrix_size(kb_info_json, config_h_lines):
         config_h_lines.append(generate_define('MATRIX_ROWS', kb_info_json['matrix_size']['rows']))
 
 
+def generate_matrix_masked(kb_info_json, config_h_lines):
+    """"Enable matrix mask if required"""
+    if 'matrix_grid' in kb_info_json.get('dip_switch', {}):
+        config_h_lines.append(generate_define('MATRIX_MASKED'))
+
+
 def generate_config_items(kb_info_json, config_h_lines):
     """Iterate through the info_config map to generate basic config values.
     """
@@ -195,6 +201,8 @@ def generate_config_h(cli):
     generate_config_items(kb_info_json, config_h_lines)
 
     generate_matrix_size(kb_info_json, config_h_lines)
+
+    generate_matrix_masked(kb_info_json, config_h_lines)
 
     if 'matrix_pins' in kb_info_json:
         config_h_lines.append(matrix_pins(kb_info_json['matrix_pins']))
