@@ -44,8 +44,10 @@
     "layout_aliases": {
         "LAYOUT_65_ansi_7u_wk": "LAYOUT_65_ansi_blocker_tsangan",
         "LAYOUT_65_ansi_7u_wk_splitbs": "LAYOUT_65_ansi_blocker_tsangan_split_bs",
+        "LAYOUT_65_ansi_blocker_splitbs": "LAYOUT_65_ansi_blocker_split_bs",
         "LAYOUT_65_iso_7u_wk": "LAYOUT_65_iso_blocker_tsangan",
-        "LAYOUT_65_iso_7u_wk_splitbs": "LAYOUT_65_iso_blocker_tsangan_split_bs"
+        "LAYOUT_65_iso_7u_wk_splitbs": "LAYOUT_65_iso_blocker_tsangan_split_bs",
+        "LAYOUT_65_iso_blocker_splitbs": "LAYOUT_65_iso_blocker_split_bs"
     },
     "community_layouts": [
         "65_ansi",
