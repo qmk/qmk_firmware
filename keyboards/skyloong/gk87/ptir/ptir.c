@@ -191,7 +191,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     switch (keycode) {
-#    ifdef RGB_MATRIX_ENABLE
+/* #    ifdef RGB_MATRIX_ENABLE
         case RGB_TOG:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
@@ -205,7 +205,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 }
             }
          return false;
-#    endif
+#    endif */
      case TO(0):
       if (record->event.pressed) {
        L_WIN = 1;
