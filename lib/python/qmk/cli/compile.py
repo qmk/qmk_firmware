@@ -41,7 +41,7 @@ def compile(cli):
     If a keyboard and keymap are provided this command will build a firmware based on that.
     """
     if is_all_keyboards(cli.args.keyboard):
-        from qmk.cli.mass_compile import mass_compile
+        from .mass_compile import mass_compile
         cli.args.builds = []
         cli.args.filter = []
         cli.args.no_temp = False
