@@ -177,6 +177,61 @@ __attribute__((weak)) const key_override_t* key_override_get(uint16_t key_overri
 #endif // defined(KEY_OVERRIDE_ENABLE)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Pointing mode mapping
+
+#if defined(POINTING_MODE_MAP_ENABLE)
+
+#    define POINTING_MODE_MAP_COUNT_RAW (uint8_t)(sizeof(pointing_mode_maps) / ((POINTING_NUM_DIRECTIONS) * sizeof(uint16_t)))
+
+uint8_t pointing_mode_map_count_raw(void) {
+    return POINTING_MODE_MAP_COUNT_RAW;
+}
+
+__attribute__((weak)) uint8_t pointing_mode_map_count(void) {
+    return pointing_mode_map_count_raw();
+}
+
+/*
+ * @brief Retrieve keycode from pointing mode map
+ *
+ * Returns keycode from pointing mode map based on 8 bit index location
+ * breakdown of location:
+ * mode id | direction
+ * XXXX XX | XX
+ *
+ * NOTE: silently fails and returns KC_NO if mode map out of range
+ *
+ * @param[in] map_loc uint8_t
+ *
+ * @return uint16_t keycode at pointing mode map location
+ */
+uint16_t keycode_at_pointing_mode_map_location_raw(uint8_t map_loc) {
+    uint8_t map_id = map_loc >> 2;
+    uint8_t dir    = map_loc & 0x03;
+
+    if (map_id < POINTING_MODE_MAP_COUNT) {
+        return pgm_read_word(&pointing_mode_maps[map_id][dir]);
+    }
+    return KC_NO;
+}
+
+/*
+ * @brief Weakly defined function for retreiving keycode from pointing mode map
+ *
+ * Defaults to passing map_loc to raw function, would allow interception of
+ * keycode retrieval process for pointing mode maps
+ *
+ * @param[in] map_loc uint8_t
+ *
+ * @return uint16_t keycode at pointing mode map location
+ */
+__attribute__((weak)) uint16_t keycode_at_pointing_mode_map_location(uint8_t map_loc) {
+    return keycode_at_pointing_mode_map_location_raw(map_loc);
+}
+
+#endif // defined(POINTING_MODE_MAP_ENABLE)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Community modules (must be last in this file!)
 
 #if defined(COMMUNITY_MODULES_ENABLE)
