@@ -834,7 +834,7 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 };
 
 #elif defined(RGB_BACKLIGHT_M6_B)
-const is31fl3218_led PROGMEM g_is31fl3218_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3218_led_t PROGMEM g_is31fl3218_leds[RGB_MATRIX_LED_COUNT] = {
     {OUT1,  OUT2,  OUT3},
     {OUT4,  OUT5,  OUT6},
     {OUT7,  OUT8,  OUT9},

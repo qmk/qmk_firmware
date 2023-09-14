@@ -22,13 +22,13 @@
 
 #define IS31FL3218_I2C_ADDRESS 0x54
 
-typedef struct is31fl3218_led {
+typedef struct is31fl3218_led_t {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-} __attribute__((packed)) is31fl3218_led;
+} __attribute__((packed)) is31fl3218_led_t;
 
-extern const is31fl3218_led PROGMEM g_is31fl3218_leds[RGB_MATRIX_LED_COUNT];
+extern const is31fl3218_led_t PROGMEM g_is31fl3218_leds[RGB_MATRIX_LED_COUNT];
 
 void is31fl3218_init(void);
 

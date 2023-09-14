@@ -89,7 +89,7 @@ void is31fl3218_init(void) {
 }
 
 void is31fl3218_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    is31fl3218_led led;
+    is31fl3218_led_t led;
     if (index >= 0 && index < RGB_MATRIX_LED_COUNT) {
         memcpy_P(&led, (&g_is31fl3218_leds[index]), sizeof(led));
     }
@@ -109,7 +109,7 @@ void is31fl3218_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void is31fl3218_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
-    is31fl3218_led led;
+    is31fl3218_led_t led;
     memcpy_P(&led, (&g_is31fl3218_leds[index]), sizeof(led));
 
     uint8_t control_register_r = (led.r - IS31FL3218_REG_PWM) / 6;
