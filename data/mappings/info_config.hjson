@@ -45,6 +45,10 @@
     // Combos
     "COMBO_TERM": {"info_key": "combo.term", "value_type": "int"},
 
+    "DIP_SWITCH_MATRIX_GRID": {"info_key": "dip_switch.matrix_grid", "value_type": "array.array.int", "to_json": false},
+    "DIP_SWITCH_PINS": {"info_key": "dip_switch.pins", "value_type": "array"},
+    "DIP_SWITCH_PINS_RIGHT": {"info_key": "split.dip_switch.right.pins", "value_type": "array"},
+
     // Dynamic Keymap
     "DYNAMIC_KEYMAP_EEPROM_MAX_ADDR": {"info_key": "dynamic_keymap.eeprom_max_addr", "value_type": "int"},
     "DYNAMIC_KEYMAP_LAYER_COUNT": {"info_key": "dynamic_keymap.layer_count", "value_type": "int"},
