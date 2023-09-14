@@ -311,7 +311,7 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_hkkb": {
+        "LAYOUT_60_hhkb": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [0, 1], "x": 1, "y": 0},
