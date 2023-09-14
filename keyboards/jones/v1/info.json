@@ -21,6 +21,9 @@
     "pin": "F1"
   },
   "diode_direction": "COL2ROW",
+  "eeprom": {
+    "driver": "i2c"
+  },
   "encoder": {
     "rotary": [
       {"pin_a": "F5", "pin_b": "F4"},

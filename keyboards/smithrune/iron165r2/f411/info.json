@@ -1,4 +1,7 @@
 {
+    "eeprom": {
+        "driver": "i2c"
+    },
     "backlight": {
         "pin": "A6",
         "levels": 20,

@@ -14,7 +14,6 @@ AUDIO_DRIVER = dac_additive
 CUSTOM_MATRIX = lite
 SWAP_HANDS_ENABLE = yes
 RGB_MATRIX_ENABLE = yes
-EEPROM_DRIVER = i2c
 
 #project specific files
 SRC += matrix.c

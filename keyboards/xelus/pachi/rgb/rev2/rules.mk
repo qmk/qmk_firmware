@@ -10,8 +10,6 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 
-EEPROM_DRIVER = i2c
-
 RGB_MATRIX_ENABLE = yes
 
 COMMON_VPATH += $(DRIVER_PATH)/issi

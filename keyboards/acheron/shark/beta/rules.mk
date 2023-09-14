@@ -12,6 +12,3 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = no
 ENCODER_ENABLE = yes
-
-EEPROM_DRIVER = i2c
-
