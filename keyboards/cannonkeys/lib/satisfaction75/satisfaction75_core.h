@@ -1,22 +1,19 @@
 #pragma once
 
 #include "quantum.h"
-#include "satisfaction_keycodes.h"
 
 #include "via.h" // only for EEPROM address
-#define EEPROM_ENABLED_ENCODER_MODES (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
-#define EEPROM_CUSTOM_BACKLIGHT (VIA_EEPROM_CUSTOM_CONFIG_ADDR+1)
-#define EEPROM_DEFAULT_OLED (VIA_EEPROM_CUSTOM_CONFIG_ADDR+2)
-#define EEPROM_CUSTOM_ENCODER (VIA_EEPROM_CUSTOM_CONFIG_ADDR+3)
 
-typedef union {
-    uint8_t raw;
-    struct {
-        bool    enable :1;
-        bool    breathing : 1;
-        uint8_t level  :6;
-    };
-} backlight_config_t;
+#define EEPROM_ENABLED_ENCODER_MODES (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
+#define EEPROM_DEFAULT_OLED (VIA_EEPROM_CUSTOM_CONFIG_ADDR+1)
+#define EEPROM_CUSTOM_ENCODER (VIA_EEPROM_CUSTOM_CONFIG_ADDR+2)
+
+// Start these at the USER code range in VIA
+enum my_keycodes {
+  ENC_PRESS = 0x5F80,
+  CLOCK_SET,
+  OLED_TOGG
+};
 
 enum s75_keyboard_value_id {
   id_encoder_modes = 0x80,
@@ -84,8 +81,10 @@ extern int8_t day_config;
 extern uint8_t previous_encoder_mode;
 
 // Backlighting
+#ifdef BACKLIGHT_ENABLE
 extern backlight_config_t kb_backlight_config;
 extern bool kb_backlight_breathing;
+#endif
 
 void pre_encoder_mode_change(void);
 void post_encoder_mode_change(void);
@@ -102,10 +101,4 @@ void oled_request_wakeup(void);
 void oled_request_repaint(void);
 bool oled_task_needs_to_repaint(void);
 
-void backlight_init_ports(void);
-void backlight_set(uint8_t level);
-bool is_breathing(void);
-void breathing_enable(void);
-void breathing_disable(void);
 void custom_config_load(void);
-void backlight_config_save(void);

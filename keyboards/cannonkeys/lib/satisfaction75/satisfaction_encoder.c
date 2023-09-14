@@ -11,8 +11,6 @@ void pre_encoder_mode_change(){
     // timespec.dstflag = last_timespec.dstflag;
     timespec.millisecond = (hour_config * 60 + minute_config) * 60 * 1000;
     rtcSetTime(&RTCD1, &timespec);
-  } else if (encoder_mode == ENC_MODE_BACKLIGHT){
-    backlight_config_save();
   }
 }
 
@@ -101,13 +99,9 @@ uint16_t handle_encoder_clockwise(){
       break;
 #ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
-      kb_backlight_config.level = kb_backlight_config.level + 1;
-      if(kb_backlight_config.level > BACKLIGHT_LEVELS){
-        kb_backlight_config.level = BACKLIGHT_LEVELS;
-      }
-      backlight_set(kb_backlight_config.level);
-      if (kb_backlight_config.level != 0){
-        kb_backlight_config.enable = true;
+      backlight_increase();
+      if(get_backlight_level() != 0){
+        backlight_enable();
       }
       break;
 #endif
@@ -147,13 +141,9 @@ uint16_t handle_encoder_ccw(){
       break;
 #ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
-      // mapped_code = BL_DEC;
-      if(kb_backlight_config.level != 0){
-        kb_backlight_config.level = kb_backlight_config.level - 1;
-      }
-      backlight_set(kb_backlight_config.level);
-      if (kb_backlight_config.level == 0){
-        kb_backlight_config.enable = false;
+      backlight_decrease();
+      if(get_backlight_level() == 0){
+        backlight_disable();
       }
       break;
 #endif
@@ -194,13 +184,7 @@ uint16_t handle_encoder_press(){
       break;
 #ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
-      // mapped_code = BL_TOGG;
-      kb_backlight_config.breathing = !kb_backlight_config.breathing;
-      if(!kb_backlight_config.breathing){
-        breathing_disable();
-      } else{
-        breathing_enable();
-      }
+      breathing_toggle();
       break;
 #endif
 #ifdef DYNAMIC_KEYMAP_ENABLE

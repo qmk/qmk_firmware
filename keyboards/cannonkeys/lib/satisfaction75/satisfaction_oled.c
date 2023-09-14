@@ -1,7 +1,10 @@
 #include "satisfaction75_core.h"
+#include <stdio.h>
 
 void draw_default(void);
 void draw_clock(void);
+
+int init_tries = 0;
 
 #ifdef OLED_ENABLE
 
@@ -15,7 +18,7 @@ bool oled_task_kb(void) {
     oled_clear();
     if (clock_set_mode) {
         draw_clock();
-        return false;;
+        return false;
     }
     switch (oled_mode) {
         default:
@@ -262,6 +265,14 @@ void draw_clock() {
     // bodge extra lines for invert layer and enc mode
     draw_line_v(101, 0, 8);
     draw_line_v(113, 8, 8);
+}
+
+#else
+
+void oled_request_repaint(void){
+}
+
+void oled_request_wakeup(void){
 }
 
 #endif

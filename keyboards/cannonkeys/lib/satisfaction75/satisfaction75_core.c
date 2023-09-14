@@ -42,70 +42,27 @@ int8_t month_config = 0;
 int8_t day_config = 0;
 uint8_t previous_encoder_mode = 0;
 
-#ifdef BACKLIGHT_ENABLE
-backlight_config_t kb_backlight_config = {
-  .enable = true,
-  .breathing = true,
-  .level = BACKLIGHT_LEVELS
-};
-#endif
-
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
   SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
 }
 
+void keyboard_post_init_kb(){
+      /*
+        This is a workaround to some really weird behavior
+        Without this code, the OLED will turn on, but not when you initially plug the keyboard in. 
+        You have to manually trigger a user reset to get the OLED to initialize properly
+        I'm not sure what the root cause is at this time, but this workaround fixes it.
+    */
+    #ifdef OLED_ENABLE
+    if(!is_oled_on()){
+        wait_ms(3000);
+        oled_init(OLED_ROTATION_0);
+    }
+    #endif
+}
+
 #ifdef VIA_ENABLE
-
-#ifdef BACKLIGHT_ENABLE
-void backlight_get_value( uint8_t *data )
-{
-	uint8_t *value_id = &(data[0]);
-	uint8_t *value_data = &(data[1]);
-  switch (*value_id)
-  {
-    case id_qmk_backlight_brightness:
-    {
-      // level / BACKLIGHT_LEVELS * 255
-      value_data[0] = ((uint16_t)kb_backlight_config.level) * 255 / BACKLIGHT_LEVELS;
-      break;
-    }
-    case id_qmk_backlight_effect:
-    {
-      value_data[0] = kb_backlight_config.breathing ? 1 : 0;
-      break;
-    }
-  }
-}
-
-void backlight_set_value( uint8_t *data )
-{
-	uint8_t *value_id = &(data[0]);
-	uint8_t *value_data = &(data[1]);
-  switch (*value_id)
-  {
-    case id_qmk_backlight_brightness:
-    {
-      // level / 255 * BACKLIGHT_LEVELS
-      kb_backlight_config.level = ((uint16_t)value_data[0]) * BACKLIGHT_LEVELS / 255;
-      backlight_set(kb_backlight_config.level);
-      break;
-    }
-    case id_qmk_backlight_effect:
-    {
-      if ( value_data[0] == 0 ) {
-        kb_backlight_config.breathing = false;
-        breathing_disable();
-      } else {
-        kb_backlight_config.breathing = true;
-        breathing_enable();
-      }
-      break;
-    }
-  }
-}
-#endif
-
 
 void raw_hid_receive_kb( uint8_t *data, uint8_t length )
 {
@@ -191,23 +148,6 @@ void raw_hid_receive_kb( uint8_t *data, uint8_t length )
       }
       break;
     }
-#ifdef BACKLIGHT_ENABLE
-    case id_lighting_set_value:
-    {
-      backlight_set_value(command_data);
-      break;
-    }
-    case id_lighting_get_value:
-    {
-      backlight_get_value(command_data);
-      break;
-    }
-    case id_lighting_save:
-    {
-      backlight_config_save();
-      break;
-    }
-#endif
     default:
     {
       // Unhandled message.
@@ -339,24 +279,13 @@ void custom_config_reset(void){
   eeprom_update_byte((uint8_t*)EEPROM_ENABLED_ENCODER_MODES, 0x1F);
 }
 
-
-void backlight_config_save(){
-#ifdef BACKLIGHT_ENABLE
-  eeprom_update_byte((uint8_t*)EEPROM_CUSTOM_BACKLIGHT, kb_backlight_config.raw);
-#endif
-}
-
 void custom_config_load(){
-#ifdef BACKLIGHT_ENABLE
-  kb_backlight_config.raw = eeprom_read_byte((uint8_t*)EEPROM_CUSTOM_BACKLIGHT);
-#endif
 #ifdef DYNAMIC_KEYMAP_ENABLE
   oled_mode = eeprom_read_byte((uint8_t*)EEPROM_DEFAULT_OLED);
   enabled_encoder_modes = eeprom_read_byte((uint8_t*)EEPROM_ENABLED_ENCODER_MODES);
 #endif
 }
 
-// Called from via_init() if VIA_ENABLE
 // Called from matrix_init_kb() if not VIA_ENABLE
 void via_init_kb(void)
 {
@@ -381,9 +310,6 @@ void matrix_init_kb(void)
 #endif // VIA_ENABLE
 
   rtcGetTime(&RTCD1, &last_timespec);
-#ifdef BACKLIGHT_ENABLE
-  backlight_init_ports();
-#endif
   matrix_init_user();
   oled_request_wakeup();
 }

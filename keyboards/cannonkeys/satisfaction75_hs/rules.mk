@@ -2,9 +2,9 @@
 DFU_SUFFIX_ARGS = -v FFFF -p FFFF
 
 VPATH += keyboards/cannonkeys/lib/satisfaction75
-SRC += lib/satisfaction75/satisfaction_encoder.c \
-      lib/satisfaction75/satisfaction_oled.c \
-      lib/satisfaction75/satisfaction75_core.c 
+SRC += satisfaction_encoder.c \
+      satisfaction_oled.c \
+      satisfaction75_core.c 
 
 # Build Options
 #   change yes to no to disable
