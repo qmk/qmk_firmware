@@ -1,4 +1,4 @@
-#include "sat75_hs.h"
+#include "satisfaction75_core.h"
 
 void draw_default(void);
 void draw_clock(void);
@@ -146,7 +146,7 @@ static char* get_time(void) {
     }
 
     static char time_str[8] = "";
-    sprintf(time_str, "%02d:%02d%s", hour, minute, is_pm ? "pm" : "am");
+    snprintf(time_str, sizeof(time_str), "%02hhu:%02hu%s", hour, minute, is_pm ? "pm" : "am");
 
     return time_str;
 }
@@ -163,7 +163,7 @@ static char* get_date(void) {
     }
 
     static char date_str[11] = "";
-    sprintf(date_str, "%04d-%02d-%02d", year, month, day);
+    snprintf(date_str, sizeof(date_str), "%04hd-%02hhd-%02hhd", year, month, day);
 
     return date_str;
 }

@@ -1,4 +1,4 @@
-#include "sat75_hs.h"
+#include "satisfaction75_core.h"
 #include "print.h"
 #include "debug.h"
 
@@ -42,11 +42,13 @@ int8_t month_config = 0;
 int8_t day_config = 0;
 uint8_t previous_encoder_mode = 0;
 
+#ifdef BACKLIGHT_ENABLE
 backlight_config_t kb_backlight_config = {
   .enable = true,
   .breathing = true,
   .level = BACKLIGHT_LEVELS
 };
+#endif
 
 void board_init(void) {
   SYSCFG->CFGR1 |= SYSCFG_CFGR1_I2C1_DMA_RMP;
@@ -55,6 +57,7 @@ void board_init(void) {
 
 #ifdef VIA_ENABLE
 
+#ifdef BACKLIGHT_ENABLE
 void backlight_get_value( uint8_t *data )
 {
 	uint8_t *value_id = &(data[0]);
@@ -101,6 +104,8 @@ void backlight_set_value( uint8_t *data )
     }
   }
 }
+#endif
+
 
 void raw_hid_receive_kb( uint8_t *data, uint8_t length )
 {
@@ -186,6 +191,7 @@ void raw_hid_receive_kb( uint8_t *data, uint8_t length )
       }
       break;
     }
+#ifdef BACKLIGHT_ENABLE
     case id_lighting_set_value:
     {
       backlight_set_value(command_data);
@@ -201,6 +207,7 @@ void raw_hid_receive_kb( uint8_t *data, uint8_t length )
       backlight_config_save();
       break;
     }
+#endif
     default:
     {
       // Unhandled message.
@@ -332,12 +339,17 @@ void custom_config_reset(void){
   eeprom_update_byte((uint8_t*)EEPROM_ENABLED_ENCODER_MODES, 0x1F);
 }
 
+
 void backlight_config_save(){
+#ifdef BACKLIGHT_ENABLE
   eeprom_update_byte((uint8_t*)EEPROM_CUSTOM_BACKLIGHT, kb_backlight_config.raw);
+#endif
 }
 
 void custom_config_load(){
+#ifdef BACKLIGHT_ENABLE
   kb_backlight_config.raw = eeprom_read_byte((uint8_t*)EEPROM_CUSTOM_BACKLIGHT);
+#endif
 #ifdef DYNAMIC_KEYMAP_ENABLE
   oled_mode = eeprom_read_byte((uint8_t*)EEPROM_DEFAULT_OLED);
   enabled_encoder_modes = eeprom_read_byte((uint8_t*)EEPROM_ENABLED_ENCODER_MODES);
@@ -369,7 +381,9 @@ void matrix_init_kb(void)
 #endif // VIA_ENABLE
 
   rtcGetTime(&RTCD1, &last_timespec);
+#ifdef BACKLIGHT_ENABLE
   backlight_init_ports();
+#endif
   matrix_init_user();
   oled_request_wakeup();
 }

@@ -23,30 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LSE clock */
 #define STM32_LSECLK 32768
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xCA04
-#define PRODUCT_ID      0x0011
-#define DEVICE_VER      0x0001
-#define MANUFACTURER CannonKeys
-#define PRODUCT Satisfaction75 HS
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
-#define MATRIX_COL_PINS { A8, C13, B2, B1, B0, B12, B5, B4, B3, A7, A5, A4, A3, A2, A1 }
-#define MATRIX_ROW_PINS { A10, A14, A15, A0, B11, B10 }
-#define DIODE_DIRECTION COL2ROW
-
-#define ENCODERS_PAD_A { B9 }
-#define ENCODERS_PAD_B { B8 }
-
 #define ENCODER_RESOLUTION 2
-
-//LEDS A6, RGB B15
-#define BACKLIGHT_LEVELS 24
-#define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 6
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -91,9 +68,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // VIA lighting is handled by the keyboard-level code
 #define VIA_CUSTOM_LIGHTING_ENABLE
-
-#define LED_CAPS_LOCK_PIN B14
-#define LED_PIN_ON_STATE 0
 
 /*
  * Feature disable options

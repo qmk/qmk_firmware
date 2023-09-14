@@ -18,7 +18,7 @@ bool oled_task_kb(void) {
     oled_clear();
     if (clock_set_mode) {
         draw_clock();
-        return false;;
+        return false;
     }
     switch (oled_mode) {
         default:

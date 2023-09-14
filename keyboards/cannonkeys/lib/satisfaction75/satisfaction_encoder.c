@@ -1,4 +1,4 @@
-#include "sat75_hs.h"
+#include "satisfaction75_core.h"
 #include "eeprom.h"
 
 void pre_encoder_mode_change(){
@@ -99,6 +99,7 @@ uint16_t handle_encoder_clockwise(){
     case ENC_MODE_SCROLL:
       mapped_code = KC_WH_D;
       break;
+#ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
       kb_backlight_config.level = kb_backlight_config.level + 1;
       if(kb_backlight_config.level > BACKLIGHT_LEVELS){
@@ -109,6 +110,7 @@ uint16_t handle_encoder_clockwise(){
         kb_backlight_config.enable = true;
       }
       break;
+#endif
     case ENC_MODE_BRIGHTNESS:
       mapped_code = KC_BRIGHTNESS_UP;
       break;
@@ -143,6 +145,7 @@ uint16_t handle_encoder_ccw(){
     case ENC_MODE_SCROLL:
       mapped_code = KC_WH_U;
       break;
+#ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
       // mapped_code = BL_DEC;
       if(kb_backlight_config.level != 0){
@@ -153,6 +156,7 @@ uint16_t handle_encoder_ccw(){
         kb_backlight_config.enable = false;
       }
       break;
+#endif
     case ENC_MODE_BRIGHTNESS:
       mapped_code = KC_BRIGHTNESS_DOWN;
       break;
@@ -188,6 +192,7 @@ uint16_t handle_encoder_press(){
     case ENC_MODE_SCROLL:
       mapped_code = KC_BTN3;
       break;
+#ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
       // mapped_code = BL_TOGG;
       kb_backlight_config.breathing = !kb_backlight_config.breathing;
@@ -197,6 +202,7 @@ uint16_t handle_encoder_press(){
         breathing_enable();
       }
       break;
+#endif
 #ifdef DYNAMIC_KEYMAP_ENABLE
     case ENC_MODE_CUSTOM0:
       mapped_code = retrieve_custom_encoder_config(0, ENC_CUSTOM_PRESS);
