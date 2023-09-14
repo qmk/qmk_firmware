@@ -73,13 +73,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define DRIVER_ADDR_1 0b0110000
-#    define DRIVER_COUNT 1
+#    define IS31FL3741_DRIVER_COUNT 1
 #    define DRIVER_1_LED_TOTAL 98
 #    define RGB_MATRIX_LED_COUNT DRIVER_1_LED_TOTAL
 #    define DRIVER_INDICATOR_LED_TOTAL 0
 #else
 // WT_RGB IS31FL3741 driver code
-#    define DRIVER_COUNT 1
+#    define IS31FL3741_DRIVER_COUNT 1
 #    define RGB_MATRIX_LED_COUNT 98
 
 #    define RGB_BACKLIGHT_ENABLED 1

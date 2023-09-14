@@ -19,11 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 
-// see keymaps/actuation-point-example to see how these functions can be used.
-uint8_t read_rdac(void);
-uint8_t read_eeprom(void);
-void actuation_point_up(void);
-void actuation_point_down(void);
+void ad5258_init(void);
 
-// be careful with this.
-void adjust_actuation_point(int offset);
+uint8_t ad5258_read_rdac(void);
+
+uint8_t ad5258_read_eeprom(void);
+
+void ad5258_write_rdac(uint8_t rdac);
