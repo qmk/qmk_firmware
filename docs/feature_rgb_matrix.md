@@ -19,10 +19,10 @@ You can use between 1 and 4 IS31FL3731 IC's. Do not specify `DRIVER_ADDR_<N>` de
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `ISSI_3731_DEGHOST` | (Optional) Set this define to enable de-ghosting by halving Vcc during blanking time | |
-| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `IS31FL3731_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `IS31FL3731_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `IS31FL3731_DEGHOST` | (Optional) Set this define to enable de-ghosting by halving Vcc during blanking time | |
+| `IS31FL3731_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
 | `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
@@ -42,7 +42,7 @@ Here is an example using 2 drivers.
 #define DRIVER_ADDR_1 0b1110100
 #define DRIVER_ADDR_2 0b1110110
 
-#define DRIVER_COUNT 2
+#define IS31FL3731_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 25
 #define DRIVER_2_LED_TOTAL 24
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -83,13 +83,13 @@ You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` de
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `ISSI_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3733B only | 0 |
-| `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
-| `ISSI_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `ISSI_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `IS31FL3733_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `IS31FL3733_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `IS31FL3733_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3733B only | 0 |
+| `IS31FL3733_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
+| `IS31FL3733_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
+| `IS31FL3733_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
+| `IS31FL3733_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
 | `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
@@ -100,17 +100,17 @@ You can use between 1 and 4 IS31FL3733 IC's. Do not specify `DRIVER_ADDR_<N>` de
 | `DRIVER_SYNC_3` | (Optional) Sync configuration for the third RGB driver | 0 |
 | `DRIVER_SYNC_4` | (Optional) Sync configuration for the fourth RGB driver | 0 |
 
-The IS31FL3733 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`ISSI_SWPULLUP`/`ISSI_CSPULLUP` are given the value of`PUR_0R`), the values that can be set to enable de-ghosting are as follows:
+The IS31FL3733 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3733_SWPULLUP`/`IS31FL3733_CSPULLUP` are given the value of `IS31FL3733_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
 
-| `ISSI_SWPULLUP/ISSI_CSPULLUP` | Description |
+| `IS31FL3733_SWPULLUP/IS31FL3733_CSPULLUP` | Description |
 |----------------------|-------------|
-| `PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
-| `PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_3KR` | The 3k Ohm resistor used at all times |
-| `PUR_4KR` | The 4k Ohm resistor used at all times |
-| `PUR_8KR` | The 8k Ohm resistor used at all times |
-| `PUR_16KR` | The 16k Ohm resistor used at all times |
-| `PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3733_PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
+| `IS31FL3733_PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3733_PUR_3KR` | The 3k Ohm resistor used at all times |
+| `IS31FL3733_PUR_4KR` | The 4k Ohm resistor used at all times |
+| `IS31FL3733_PUR_8KR` | The 8k Ohm resistor used at all times |
+| `IS31FL3733_PUR_16KR` | The 16k Ohm resistor used at all times |
+| `IS31FL3733_PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
 
 Here is an example using 2 drivers.
 
@@ -128,7 +128,7 @@ Here is an example using 2 drivers.
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010011
 
-#define DRIVER_COUNT 2
+#define IS31FL3733_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 58
 #define DRIVER_2_LED_TOTAL 10
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -170,31 +170,31 @@ Configure the hardware via your `config.h`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `ISSI_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3736B only | 0 |
-| `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
-| `ISSI_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `ISSI_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `IS31FL3736_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `IS31FL3736_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `IS31FL3736_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3736B only | 0 |
+| `IS31FL3736_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
+| `IS31FL3736_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
+| `IS31FL3736_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
+| `IS31FL3736_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
 | `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
 | `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
 | `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
 
-The IS31FL3736 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`ISSI_SWPULLUP`/`ISSI_CSPULLUP` are given the value of`PUR_0R`), the values that can be set to enable de-ghosting are as follows:
+The IS31FL3736 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3736_SWPULLUP`/`IS31FL3736_CSPULLUP` are given the value of `IS31FL3736_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
 
-| `ISSI_SWPULLUP/ISSI_CSPULLUP` | Description |
+| `IS31FL3736_SWPULLUP/IS31FL3736_CSPULLUP` | Description |
 |----------------------|-------------|
-| `PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
-| `PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_1KR` | The 1k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_2KR` | The 2k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_4KR` | The 4k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_8KR` | The 8k Ohm resistor during blanking period (t_NOL) |
-| `PUR_16KR` | The 16k Ohm resistor during blanking period (t_NOL) |
-| `PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3736_PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
+| `IS31FL3736_PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3736_PUR_1KR` | The 1k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3736_PUR_2KR` | The 2k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3736_PUR_4KR` | The 4k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3736_PUR_8KR` | The 8k Ohm resistor during blanking period (t_NOL) |
+| `IS31FL3736_PUR_16KR` | The 16k Ohm resistor during blanking period (t_NOL) |
+| `IS31FL3736_PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
 
 Here is an example using 2 drivers.
 
@@ -211,7 +211,7 @@ Here is an example using 2 drivers.
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010001
 
-#define DRIVER_COUNT 2
+#define IS31FL3736_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
 #define DRIVER_2_LED_TOTAL 32
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -246,31 +246,31 @@ Configure the hardware via your `config.h`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
-| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
-| `ISSI_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3737B only | 0 |
-| `ISSI_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
-| `ISSI_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `ISSI_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
-| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `IS31FL3737_I2C_TIMEOUT` | (Optional) How long to wait for i2c messages, in milliseconds | 100 |
+| `IS31FL3737_I2C_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `IS31FL3737_PWM_FREQUENCY` | (Optional) PWM Frequency Setting - IS31FL3737B only | 0 |
+| `IS31FL3737_GLOBALCURRENT` | (Optional) Configuration for the Global Current Register | 0xFF |
+| `IS31FL3737_SWPULLUP` | (Optional) Set the value of the SWx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
+| `IS31FL3737_CSPULLUP` | (Optional) Set the value of the CSx lines on-chip de-ghosting resistors | PUR_0R (Disabled) |
+| `IS31FL3737_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
 | `DRIVER_ADDR_1` | (Required) Address for the first RGB driver | |
 | `DRIVER_ADDR_2` | (Optional) Address for the second RGB driver | |
 | `DRIVER_ADDR_3` | (Optional) Address for the third RGB driver | |
 | `DRIVER_ADDR_4` | (Optional) Address for the fourth RGB driver | |
 
-The IS31FL3737 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`ISSI_SWPULLUP`/`ISSI_CSPULLUP` are given the value of`PUR_0R`), the values that can be set to enable de-ghosting are as follows:
+The IS31FL3737 IC's have on-chip resistors that can be enabled to allow for de-ghosting of the RGB matrix. By default these resistors are not enabled (`IS31FL3737_SWPULLUP`/`IS31FL3737_CSPULLUP` are given the value of `IS31FL3737_PUR_0R`), the values that can be set to enable de-ghosting are as follows:
 
-| `ISSI_SWPULLUP/ISSI_CSPULLUP` | Description |
+| `IS31FL3737_SWPULLUP/IS31FL3737_CSPULLUP` | Description |
 |----------------------|-------------|
-| `PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
-| `PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_1KR` | The 1k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_2KR` | The 2k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_4KR` | The 4k Ohm resistor used during blanking period (t_NOL) |
-| `PUR_8KR` | The 8k Ohm resistor during blanking period (t_NOL) |
-| `PUR_16KR` | The 16k Ohm resistor during blanking period (t_NOL) |
-| `PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3737_PUR_0R` | (default) Do not use the on-chip resistors/enable de-ghosting |
+| `IS31FL3737_PUR_05KR` | The 0.5k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3737_PUR_1KR` | The 1k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3737_PUR_2KR` | The 2k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3737_PUR_4KR` | The 4k Ohm resistor used during blanking period (t_NOL) |
+| `IS31FL3737_PUR_8KR` | The 8k Ohm resistor during blanking period (t_NOL) |
+| `IS31FL3737_PUR_16KR` | The 16k Ohm resistor during blanking period (t_NOL) |
+| `IS31FL3737_PUR_32KR` | The 32k Ohm resistor used during blanking period (t_NOL) |
 
 Here is an example using 2 drivers.
 
@@ -287,7 +287,7 @@ Here is an example using 2 drivers.
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010001
 
-#define DRIVER_COUNT 2
+#define IS31FL3737_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
 #define DRIVER_2_LED_TOTAL 36
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -465,41 +465,41 @@ Configure the hardware via your `config.h`:
 ```
 
 ---
-### AW20216 :id=aw20216
-There is basic support for addressable RGB matrix lighting with the SPI AW20216 RGB controller. To enable it, add this to your `rules.mk`:
+### AW20216S :id=aw20216s
+There is basic support for addressable RGB matrix lighting with the SPI AW20216S RGB controller. To enable it, add this to your `rules.mk`:
 
 ```make
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = aw20216
+RGB_MATRIX_DRIVER = aw20216s
 ```
 
-You can use up to 2 AW20216 IC's. Do not specify `DRIVER_<N>_xxx` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
+You can use up to 2 AW20216S IC's. Do not specify `DRIVER_<N>_xxx` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DRIVER_1_CS` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
-| `DRIVER_2_CS` | (Optional) MCU pin connected to second RGB driver chip select line  | |
-| `DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
-| `DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
+| `AW20216S_DRIVER_1_CS` | (Required) MCU pin connected to first RGB driver chip select line  | B13 |
+| `AW20216S_DRIVER_2_CS` | (Optional) MCU pin connected to second RGB driver chip select line  | |
+| `AW20216S_DRIVER_1_EN` | (Required) MCU pin connected to first RGB driver hardware enable line  | C13 |
+| `AW20216S_DRIVER_2_EN` | (Optional) MCU pin connected to second RGB driver hardware enable line  | |
 | `DRIVER_1_LED_TOTAL` | (Required) How many RGB lights are connected to first RGB driver  | |
 | `DRIVER_2_LED_TOTAL` | (Optional) How many RGB lights are connected to second RGB driver  | |
-| `DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
+| `AW20216S_DRIVER_COUNT` | (Required) How many RGB driver IC's are present | |
 | `RGB_MATRIX_LED_COUNT` | (Required) How many RGB lights are present across all drivers | |
-| `AW_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
-| `AW_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
-| `AW_SPI_MODE` | (Optional) Mode for SPI communication (0-3, defines polarity and phase of the clock) | 3 |
-| `AW_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
+| `AW20216S_SCALING_MAX` | (Optional) LED current scaling value (0-255, higher values mean LED is brighter at full PWM) | 150 |
+| `AW20216S_GLOBAL_CURRENT_MAX` | (Optional) Driver global current limit (0-255, higher values means the driver may consume more power) | 150 |
+| `AW20216S_SPI_MODE` | (Optional) Mode for SPI communication (0-3, defines polarity and phase of the clock) | 3 |
+| `AW20216S_SPI_DIVISOR` | (Optional) Clock divisor for SPI communication (powers of 2, smaller numbers means faster communication, should not be less than 4) | 4 |
 
 Here is an example using 2 drivers.
 
 ```c
-#define DRIVER_1_CS B13
-#define DRIVER_2_CS B14
+#define AW20216S_DRIVER_1_CS B13
+#define AW20216S_DRIVER_2_CS B14
 // Hardware enable lines may be connected to the same pin
-#define DRIVER_1_EN C13
-#define DRIVER_2_EN C13
+#define AW20216S_DRIVER_1_EN C13
+#define AW20216S_DRIVER_2_EN C13
 
-#define DRIVER_COUNT 2
+#define AW20216S_DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 66
 #define DRIVER_2_LED_TOTAL 32
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
@@ -510,10 +510,10 @@ Here is an example using 2 drivers.
 Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 ```c
-const aw_led PROGMEM g_aw_leds[RGB_MATRIX_LED_COUNT] = {
-/* Each AW20216 channel is controlled by a register at some offset between 0x00
+const aw20216s_led PROGMEM g_aw20216s_leds[RGB_MATRIX_LED_COUNT] = {
+/* Each AW20216S channel is controlled by a register at some offset between 0x00
  * and 0xD7 inclusive.
- * See drivers/awinic/aw20216.h for the mapping between register offsets and
+ * See drivers/led/aw20216s.h for the mapping between register offsets and
  * driver pin locations.
  *    driver
  *    |  R location

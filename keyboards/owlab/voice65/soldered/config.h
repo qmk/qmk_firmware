@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 #    define RGB_MATRIX_DEFAULT_VAL        128
 #    define DRIVER_ADDR_1                 0b0110000
-#    define DRIVER_COUNT                  1
+#    define IS31FL3741_DRIVER_COUNT                  1
 #    define RGB_MATRIX_LED_COUNT              71
 
 // RGB Matrix Animation modes. Explicitly enabled

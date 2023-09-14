@@ -17,7 +17,7 @@
 #pragma once
 
 /* RGB Matrix Driver Configuration */
-#define DRIVER_COUNT 2
+#define CKLED2001_DRIVER_COUNT 2
 #define DRIVER_ADDR_1 0b1110111
 #define DRIVER_ADDR_2 0b1110100
 

@@ -77,7 +77,7 @@
 // are compiled unconditionally).
 
 // Configure the IS31FL3733 driver for per-key RGB LEDs
-#define DRIVER_COUNT 1
+#define IS31FL3733_DRIVER_COUNT 1
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_1_LED_TOTAL 61
 

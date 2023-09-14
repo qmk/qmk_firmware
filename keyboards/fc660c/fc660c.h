@@ -1,5 +1,5 @@
 /*
- Copyright 2020 Álvaro "Gondolindrim" Volpato <alvaro.volpato@usp.br>
+Copyright 2017 Balz Guenat
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,5 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define WEAR_LEVELING_LOGICAL_SIZE 2048
-#define WEAR_LEVELING_BACKING_SIZE 4096
+#include "quantum.h"
+
+#ifdef ACTUATION_DEPTH_ADJUSTMENT
+#    include "ad5258.h"
+
+// see keymaps/actuation-point-example to see how these functions can be used.
+void actuation_point_up(void);
+void actuation_point_down(void);
+
+// be careful with this.
+void adjust_actuation_point(int offset);
+#endif
