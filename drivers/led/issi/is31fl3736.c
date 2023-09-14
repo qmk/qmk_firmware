@@ -48,12 +48,16 @@
 #define IS31FL3736_REG_SWPULLUP 0x0F      // PG3
 #define IS31FL3736_REG_CSPULLUP 0x10      // PG3
 
-#ifndef IS31FL3736_TIMEOUT
+#ifndef IS31FL3736_I2C_TIMEOUT
 #    define IS31FL3736_I2C_TIMEOUT 100
 #endif
 
 #ifndef IS31FL3736_I2C_PERSISTENCE
 #    define IS31FL3736_I2C_PERSISTENCE 0
+#endif
+
+#ifndef IS31FL3736_PWM_FREQUENCY
+#    define IS31FL3736_PWM_FREQUENCY IS31FL3736_PWM_FREQUENCY_8K4_HZ // PFS - IS31FL3736B only
 #endif
 
 #ifndef IS31FL3736_SWPULLUP
@@ -159,7 +163,7 @@ void is31fl3736_init(uint8_t addr) {
     // Set global current to maximum.
     is31fl3736_write_register(addr, IS31FL3736_REG_GLOBALCURRENT, IS31FL3736_GLOBALCURRENT);
     // Disable software shutdown.
-    is31fl3736_write_register(addr, IS31FL3736_REG_CONFIGURATION, 0x01);
+    is31fl3736_write_register(addr, IS31FL3736_REG_CONFIGURATION, ((IS31FL3736_PWM_FREQUENCY & 0b111) << 3) | 0x01);
 
     // Wait 10ms to ensure the device has woken up.
     wait_ms(10);
