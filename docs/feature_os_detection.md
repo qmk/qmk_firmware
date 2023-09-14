@@ -37,11 +37,11 @@ This time is quite short, probably hundreds of milliseconds, but this data may b
 If you want to perform custom actions when the OS is detected, then you can use the `process_detected_host_os_kb` function on the keyboard level source file, or `process_detected_host_os_user` function in the user `keymap.c`.
 
 ```c
-bool process_detected_host_os_kb(os_variant_t os) {
-    if (!process_detected_host_os_user(os)) {
+bool process_detected_host_os_kb(os_variant_t detected_os) {
+    if (!process_detected_host_os_user(detected_os)) {
         return false;
     }
-    switch (os) {
+    switch (detected_os) {
         case OS_MACOS:
         case OS_IOS:
             rgb_matrix_set_color_all(RGB_WHITE);

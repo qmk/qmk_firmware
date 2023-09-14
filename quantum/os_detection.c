@@ -54,7 +54,7 @@ struct setups_data_t setups_data = {
 #        define OS_DETECTION_DEBOUNCE 200
 #    endif
 
-// 2s should always be more than enough
+// 2s should always be more than enough (otherwise, you may have other issues)
 #    if OS_DETECTION_DEBOUNCE > 2000
 #        undef OS_DETECTION_DEBOUNCE
 #        define OS_DETECTION_DEBOUNCE 2000
@@ -98,11 +98,11 @@ void os_detection_task(void) {
 #    endif
 }
 
-__attribute__((weak)) bool process_detected_host_os_kb(os_variant_t os) {
-    return process_detected_host_os_user(os);
+__attribute__((weak)) bool process_detected_host_os_kb(os_variant_t detected_os) {
+    return process_detected_host_os_user(detected_os);
 }
 
-__attribute__((weak)) bool process_detected_host_os_user(os_variant_t os) {
+__attribute__((weak)) bool process_detected_host_os_user(os_variant_t detected_os) {
     return true;
 }
 
