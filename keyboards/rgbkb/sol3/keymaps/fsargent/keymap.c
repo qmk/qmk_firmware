@@ -54,9 +54,9 @@ enum sol_keycodes {
 };
 
 #define FN		MO(_FN)
-#define MEHESC 	LT(_MEH, KC_ESC)
-#define HYPESC 	MT(MOD_HYPR, KC_ESC)
-#define SYMTAB	 	LT(_SYM, KC_TAB)
+#define MEHESC	LT(_MEH, KC_ESC)
+#define HYPESC	MT(MOD_HYPR, KC_ESC)
+#define SYMTAB		LT(_SYM, KC_TAB)
 #define GAME		DF(_GAME)
 #define QWERTY		DF(_MAC)
 #define UP		LT(_SYM, KC_PGUP)
@@ -70,7 +70,7 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 		// Immediately select the hold action when another key is pressed.
 		case CMD_T(KC_BSPC):
 			return true;
-		case CMD_T(KC_BSPC):
+		case CTL_T(KC_BSPC):
 			return true;
 		default:
 			// Do not select the hold action when another key is pressed.
