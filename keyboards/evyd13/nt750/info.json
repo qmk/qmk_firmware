@@ -19,7 +19,7 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "commnuity_layouts": ["tkl_ansi", "tkl_iso"],
+    "community_layouts": ["tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
