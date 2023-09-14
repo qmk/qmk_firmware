@@ -133,6 +133,9 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_auto_mouse.c
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_modes.c
         SRC += $(QUANTUM_DIR)/process_keycode/process_pointing_mode_records.c
+        ifeq ($(strip $(POINTING_MODE_MAP_ENABLE)), yes)
+            OPT_DEFS += -DPOINTING_MODE_MAP_ENABLE
+        endif
         ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
             SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
             OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
