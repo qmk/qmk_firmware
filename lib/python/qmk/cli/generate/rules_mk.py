@@ -51,7 +51,8 @@ def generate_rules_mk(cli):
     """
     if is_all_keyboards(cli.args.keyboard):
         cli.log.error('You must specify a single keyboard.')
-        return 1
+        cli.print_help()
+        return False
 
     converter = None
     # Determine our keyboard/keymap

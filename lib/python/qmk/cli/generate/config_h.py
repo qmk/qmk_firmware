@@ -175,7 +175,8 @@ def generate_config_h(cli):
     """
     if is_all_keyboards(cli.args.keyboard):
         cli.log.error('You must specify a single keyboard.')
-        return 1
+        cli.print_help()
+        return False
 
     # Determine our keyboard/keymap
     if cli.args.filename:

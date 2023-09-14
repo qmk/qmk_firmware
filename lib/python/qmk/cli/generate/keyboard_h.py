@@ -103,7 +103,8 @@ def generate_keyboard_h(cli):
     """
     if is_all_keyboards(cli.args.keyboard):
         cli.log.error('You must specify a single keyboard.')
-        return 1
+        cli.print_help()
+        return False
 
     # Build the info.json file
     kb_info_json = info_json(cli.args.keyboard)

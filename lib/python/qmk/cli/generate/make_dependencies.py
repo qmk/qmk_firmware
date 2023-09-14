@@ -22,7 +22,8 @@ def generate_make_dependencies(cli):
     """
     if is_all_keyboards(cli.args.keyboard):
         cli.log.error('You must specify a single keyboard.')
-        return 1
+        cli.print_help()
+        return False
 
     interesting_files = [
         'info.json',

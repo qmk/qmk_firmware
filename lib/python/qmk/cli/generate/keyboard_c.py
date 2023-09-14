@@ -66,7 +66,8 @@ def generate_keyboard_c(cli):
     """
     if is_all_keyboards(cli.args.keyboard):
         cli.log.error('You must specify a single keyboard.')
-        return 1
+        cli.print_help()
+        return False
 
     kb_info_json = info_json(cli.args.keyboard)
 

@@ -258,7 +258,8 @@ def to_hex(b: int) -> str:
 def generate_autocorrect_data(cli):
     if is_all_keyboards(cli.args.keyboard):
         cli.log.error('You must specify a single keyboard.')
-        return 1
+        cli.print_help()
+        return False
 
     autocorrections = parse_file(cli.args.filename)
     trie = make_trie(autocorrections)

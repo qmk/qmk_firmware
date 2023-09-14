@@ -175,7 +175,7 @@ def info(cli):
     """Compile an info.json for a particular keyboard and pretty-print it.
     """
     if is_all_keyboards(cli.config.info.keyboard):
-        cli.log.error('Mass info is not supported.')
+        cli.log.error('You must specify a single keyboard.')
         cli.print_help()
         return False
 

@@ -92,7 +92,8 @@ def generate_compilation_database(cli: MILC) -> Union[bool, int]:
     """
     if is_all_keyboards(cli.args.keyboard):
         cli.log.error('You must specify a single keyboard.')
-        return 1
+        cli.print_help()
+        return False
 
     command = None
     # check both config domains: the magic decorator fills in `generate_compilation_database` but the user is

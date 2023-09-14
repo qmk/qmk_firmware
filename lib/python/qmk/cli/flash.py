@@ -90,7 +90,7 @@ def flash(cli):
     If bootloader is omitted the make system will use the configured bootloader for that keyboard.
     """
     if is_all_keyboards(cli.args.keyboard):
-        cli.log.error('Mass flashing is not supported.')
+        cli.log.error('You must specify a single keyboard.')
         cli.print_help()
         return False
 
