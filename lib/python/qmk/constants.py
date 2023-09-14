@@ -6,28 +6,50 @@ from pathlib import Path
 
 from milc import cli
 
+import jsonschema
+from qmk.json_schema import validate, json_load
+
 # The root of the qmk_firmware tree.
 QMK_FIRMWARE = Path.cwd()
 
 
 # Helper to detect userspace
 def _detect_qmk_userspace():
-    # If we're already in a directory with a Makefile and a keyboards or layouts directory, interpret it as userspace
+    def _validate_qmk_json(path):
+        try:
+            if (path / 'qmk.json').is_file():
+                qmkjson = json_load(path / 'qmk.json')
+                validate(qmkjson, 'qmk.user_repo.v1')
+                return True
+        except jsonschema.ValidationError:
+            pass
+        return False
+
+    test_dirs = []
+
+    # If we're already in a directory with a qmk.json and a keyboards or layouts directory, interpret it as userspace
     current_dir = Path(environ['ORIG_CWD'])
     while len(current_dir.parts) > 1:
-        if (current_dir / 'Makefile').is_file() and ((current_dir / 'keyboards').is_dir() or (current_dir / 'layouts').is_dir()):
-            if current_dir.resolve() != Path(QMK_FIRMWARE).resolve():
-                return current_dir
+        if (current_dir / 'qmk.json').is_file():
+            test_dirs.append(current_dir)
         current_dir = current_dir.parent
-    # Otherwise, use the environment variable or the configured default
-    return environ.get('QMK_USERSPACE') or cli.config.user.overlay_dir or QMK_FIRMWARE
+
+    test_dirs.append(environ.get('QMK_USERSPACE'))
+    test_dirs.append(cli.config.user.overlay_dir)
+    test_dirs = list([Path(x) for x in filter(lambda x: x is not None and Path(x).is_dir(), test_dirs)])
+
+    for test_dir in test_dirs:
+        if _validate_qmk_json(test_dir):
+            return test_dir
+
+    return None
 
 
 # The detected userspace tree
 QMK_USERSPACE = _detect_qmk_userspace()
 
 # Whether or not we have a separate userspace directory
-HAS_QMK_USERSPACE = True if Path(QMK_USERSPACE).resolve() != Path(QMK_FIRMWARE).resolve() else False
+HAS_QMK_USERSPACE = True if QMK_USERSPACE is not None else False
 
 # Upstream repo url
 QMK_FIRMWARE_UPSTREAM = 'qmk/qmk_firmware'
