@@ -10,7 +10,7 @@ from milc import cli
 import qmk.path
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.commands import compile_configurator_json, create_make_command, parse_configurator_json, build_environment
-from qmk.keyboard import keyboard_completer, keyboard_folder, is_all_keyboards
+from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import keymap_completer, locate_keymap
 from qmk.flashers import flasher
 
@@ -89,11 +89,6 @@ def flash(cli):
 
     If bootloader is omitted the make system will use the configured bootloader for that keyboard.
     """
-    if is_all_keyboards(cli.args.keyboard):
-        cli.log.error('You must specify a single keyboard.')
-        cli.print_help()
-        return False
-
     if cli.args.filename and cli.args.filename.suffix in ['.bin', '.hex', '.uf2']:
         return _flash_binary(cli.args.filename, cli.args.mcu)
 

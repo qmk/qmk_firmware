@@ -88,11 +88,7 @@ def keyboard_folder(keyboard):
     """Returns the actual keyboard folder.
 
     This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
-    If the supplied argument is "all", it returns an AllKeyboards object.
     """
-    if keyboard == 'all':
-        return AllKeyboards()
-
     aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
 
     if keyboard in aliases:
@@ -108,6 +104,18 @@ def keyboard_folder(keyboard):
         raise ValueError(f'Invalid keyboard: {keyboard}')
 
     return keyboard
+
+
+def keyboard_folder_or_all(keyboard):
+    """Returns the actual keyboard folder.
+
+    This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
+    If the supplied argument is "all", it returns an AllKeyboards object.
+    """
+    if keyboard == 'all':
+        return AllKeyboards()
+
+    return keyboard_folder(keyboard)
 
 
 def _find_name(path):

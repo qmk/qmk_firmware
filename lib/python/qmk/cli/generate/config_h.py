@@ -8,7 +8,7 @@ from milc import cli
 
 from qmk.info import info_json
 from qmk.json_schema import json_load
-from qmk.keyboard import keyboard_completer, keyboard_folder, is_all_keyboards
+from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines, parse_configurator_json
 from qmk.path import normpath, FileType
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
@@ -173,11 +173,6 @@ def generate_led_animations_config(led_feature_json, config_h_lines, prefix):
 def generate_config_h(cli):
     """Generates the info_config.h file.
     """
-    if is_all_keyboards(cli.args.keyboard):
-        cli.log.error('You must specify a single keyboard.')
-        cli.print_help()
-        return False
-
     # Determine our keyboard/keymap
     if cli.args.filename:
         user_keymap = parse_configurator_json(cli.args.filename)

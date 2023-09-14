@@ -4,7 +4,7 @@ from milc import cli
 
 from qmk.info import info_json
 from qmk.commands import dump_lines
-from qmk.keyboard import keyboard_completer, keyboard_folder, is_all_keyboards
+from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.path import normpath
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
@@ -64,11 +64,6 @@ def _gen_led_config(info_data):
 def generate_keyboard_c(cli):
     """Generates the keyboard.h file.
     """
-    if is_all_keyboards(cli.args.keyboard):
-        cli.log.error('You must specify a single keyboard.')
-        cli.print_help()
-        return False
-
     kb_info_json = info_json(cli.args.keyboard)
 
     # Build the layouts.h file.
