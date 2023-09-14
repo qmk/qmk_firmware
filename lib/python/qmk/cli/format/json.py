@@ -66,7 +66,7 @@ def format_json(cli):
     output = json.dumps(json_file, cls=json_encoder, sort_keys=True)
 
     if cli.args.inplace:
-        with open(cli.args.json_file, 'w+') as outfile:
+        with open(cli.args.json_file, 'w+', encoding='utf-8') as outfile:
             outfile.write(output)
 
     # Display the results if print was set
