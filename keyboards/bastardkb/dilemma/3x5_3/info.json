@@ -6,6 +6,7 @@
     },
     "processor": "RP2040",
     "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
     "matrix_pins": {
         "cols": ["GP8", "GP9", "GP7", "GP6", "GP28"],
         "rows": ["GP4", "GP5", "GP27", "GP26"]
@@ -16,7 +17,7 @@
         "soft_serial_pin": "GP1",
         "bootmagic": {
             "matrix": [4, 0]
-        },
+        }
     },
     "encoder": {
         "enabled" : true,
@@ -32,7 +33,7 @@
         "rgb_matrix": true
     },
     "caps_word": {
-        "enabled": true,
+        "enabled": true
     },
     "ws2812": {
         "pin": "GP10",
@@ -41,7 +42,7 @@
     "rgb_matrix": {
         "driver": "ws2812",
         "split_count": [36, 36],
-        "max_brightness": 128,
+        "max_brightness": 176,
         "layout": [
             {"x": 82, "y": 0, "flags": 2},
             {"x": 60, "y": 0, "flags": 2},
