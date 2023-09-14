@@ -20,8 +20,8 @@
     "url": "https://cannonkeys.com",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x6B7B",
-        "vid": "0x6369"
+        "pid": "0xCA04",
+        "vid": "0x0028"
     },
     "layouts": {
         "LAYOUT": {
