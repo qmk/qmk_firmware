@@ -183,22 +183,8 @@ void oled_render_boot(bool bootloader) {
     oled_render_dirty(true);
 }
 
-bool reboot = false;
-
-bool uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-  
-        // Display a special message prior to rebooting...
-        if (keycode == QK_BOOT) {
-           reboot = true;
-        }
-    }
-
-    return true;
-}
-
-void shutdown_user(void) {
-    oled_render_boot(reboot);
+bool shutdown_user(bool jump_to_bootloader) {
+    oled_render_boot(jump_to_bootloader);
 }
 
 ```
