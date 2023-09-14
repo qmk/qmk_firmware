@@ -10,7 +10,7 @@ from milc import cli
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, rules_mk
+from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, rules_mk, is_all_keyboards
 from qmk.info import info_json, keymap_json
 from qmk.keymap import locate_keymap
 from qmk.path import is_keyboard
@@ -174,6 +174,11 @@ def print_parsed_rules_mk(keyboard_name):
 def info(cli):
     """Compile an info.json for a particular keyboard and pretty-print it.
     """
+    if is_all_keyboards(cli.config.info.keyboard):
+        cli.log.error('Mass info is not supported.')
+        cli.print_help()
+        return False
+
     # Determine our keyboard(s)
     if not cli.config.info.keyboard:
         cli.log.error('Missing parameter: --keyboard')
