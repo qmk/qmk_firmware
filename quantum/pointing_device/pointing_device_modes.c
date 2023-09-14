@@ -149,11 +149,11 @@ uint8_t get_pointing_mode_device(void) {
 }
 
 /**
- * @brief Allow changing of active side
+ * @brief Change current device
  *
- * will change which side (PM_LEFT_DEVICE, PM_RIGHT_DEVICE, etc.) is controlled by pointing mode framework
+ * Will change which device (PM_LEFT_DEVICE, PM_RIGHT_DEVICE, etc.) is currently being modified
  *
- * NOTE: If mode is set above maximum device number device is set to zero (this allows cycling)
+ * NOTE: If mode is set to out of range device number device is silently set to zero (this allows cycling)
  *
  * @params[in] new side uint8_t
  */
@@ -397,40 +397,20 @@ uint8_t current_pointing_mode_divisor(void) {
 /**
  * @brief Tap keycodes based on mode axis values
  *
- * Will translate internal h & v axes into keycode taps.
- * Uses input ordered DOWN, UP, LEFT, RIGHT and will output 1 keytap/divisor
- * and will update the h and v values.
+ * Will translate current mode x & y values into keycode taps based on divisor value.
+ * Array should be ordered {DOWN, UP, LEFT, RIGHT} and will output 1 keytap/divisor
+ * x and y values will be automatically updated
  *
  * NOTE: favours staying on axis and weakly favours the horizontal over the vertical axis
+ *       and will clear the orthogonal axis
  *
- * @params kc_left[in]  uint16_t keycode for negative h
- * @params kc_down[in]  uint16_t keycode for negative v
- * @params kc_up[in]    uint16_t keycode for positive v
- * @params kc_right[in] uint16_t keycode for positive h
+ * @param[in] uint16_t* array pointer to set of four keycodes
  */
-void pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint16_t kc_right) {
-    uint16_t kc_direction = 0;
-    int16_t  count        = 0;
+static void pointing_tap_keycodes_raw(uint16_t* pm_keycodes) {
+    int16_t count = 0;
+    uint8_t dir   = current_pointing_mode_direction();
 
-    switch (current_pointing_mode_direction()) {
-        case PD_DOWN:
-            kc_direction = kc_down;
-            break;
-
-        case PD_UP:
-            kc_direction = kc_up;
-            break;
-
-        case PD_LEFT:
-            kc_direction = kc_left;
-            break;
-
-        case PD_RIGHT:
-            kc_direction = kc_right;
-            break;
-    }
-
-    switch (current_pointing_mode_direction()) {
+    switch (dir) {
         case PD_DOWN ... PD_UP:
             count = divisor_divide16(pointing_modes[current_device].y);
             if (!count) return; // exit if accumulated y is too low
@@ -445,12 +425,68 @@ void pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint
             break;
     }
     // skip if KC_TRNS or KC_NO (but allow for axes update above)
-    if (kc_direction < 2) return;
+    //if (pm_keycodes[dir] < 2) return;
 
     // tap codes
-    uint8_t taps = abs(count);
+    uint8_t taps = clamp_uint_16_to_8((uint16_t)abs(count));
     do {
-        tap_code16_delay(kc_direction, POINTING_TAP_DELAY);
+        tap_code16_delay(pm_keycodes[dir], POINTING_TAP_DELAY);
+    } while (--taps);
+}
+
+/**
+ * @brief external wrapper for pointing_tap_keycodes to allow easier input
+ *
+ * keycode order follow VIM convention (LEFT, DOWN, UP, RIGHT).s
+ *
+ * @params kc_left[in]  uint16_t keycode for negative x
+ * @params kc_down[in]  uint16_t keycode for negative y
+ * @params kc_up[in]    uint16_t keycode for positive y
+ * @params kc_right[in] uint16_t keycode for positive x
+ */
+void pointing_tap_codes(uint16_t kc_left, uint16_t kc_down, uint16_t kc_up, uint16_t kc_right) {
+    uint16_t pm_keycodes[4] = {kc_down, kc_up, kc_left, kc_right};
+    pointing_tap_keycodes_raw(pm_keycodes);
+}
+
+/**
+ * @brief Tap keycodes from pointing mode maps
+ *
+ * Will translate internal x & y axes into mode map keycode taps.
+ * and will update the x and y values.-
+ *
+ * NOTE: favours staying on axis and favours the horizontal over the vertical axis
+ *       and will clear the orthogonal axis
+ *
+ * @params map_id id of current map
+ */
+static void pointing_exec_mapping(uint8_t map_id) {
+    int16_t count = 0;
+    uint8_t dir   = current_pointing_mode_direction();
+
+    switch (dir) {
+        case PD_DOWN ... PD_UP:
+            count = divisor_divide16(pointing_modes[current_device].y);
+            if (!count) return; // exit if accumulated y is too low
+            pointing_modes[current_device].y -= divisor_multiply16(count);
+            pointing_modes[current_device].x = 0;
+            break;
+        case PD_LEFT ... PD_RIGHT:
+            count = divisor_divide16(pointing_modes[current_device].x);
+            if (!count) return; // exit if accumulated x is too low
+            pointing_modes[current_device].x -= divisor_multiply16(count);
+            pointing_modes[current_device].y = 0;
+            break;
+    }
+
+    // tap codes
+    uint8_t taps = clamp_uint_16_to_8((uint16_t)abs(count));
+    do {
+        action_exec(MAKE_POINTING_MODE_EVENT(map_id, dir, true));
+#    if POINTING_TAP_DELAY > 0
+        wait_ms(POINTING_TAP_DELAY);
+#    endif // POINTING_TAP_DELAY > 0
+        action_exec(MAKE_POINTING_MODE_EVENT(map_id, dir, false));
     } while (--taps);
 }
 
@@ -487,13 +523,6 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
     if (!(process_pointing_mode_user(pointing_mode, &mouse_report) && process_pointing_mode_kb(pointing_mode, &mouse_report))) {
         return mouse_report;
     }
-    // allow overwrite of modes using maps
-#    if (POINTING_MODE_MAP_COUNT > 0)
-    if (pointing_mode.id >= POINTING_MODE_MAP_START && pointing_mode.id <= (POINTING_MODE_MAP_START + POINTING_MODE_MAP_COUNT - 1)) {
-        pointing_tap_codes(POINTING_MODE_MAP(pointing_mode.id - POINTING_MODE_MAP_START));
-        return mouse_report;
-    }
-#    endif
     switch (pointing_mode.id) {
         // precision mode  (reduce x y sensitivity temporarily)
         case PM_PRECISION:
@@ -525,19 +554,24 @@ static report_mouse_t process_pointing_mode(pointing_mode_t pointing_mode, repor
 
         // caret mode (uses arrow keys to move cursor)
         case PM_CARET:
-            pointing_tap_codes(KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT);
+            pointing_tap_codes(KC_DOWN, KC_UP, KC_LEFT, KC_RIGHT);
             break;
 
         // history scroll mode (will scroll through undo/redo history)
         case PM_HISTORY:
-            pointing_tap_codes(C(KC_Z), KC_NO, KC_NO, C(KC_Y));
+            pointing_tap_codes(KC_NO, KC_NO, C(KC_Z), C(KC_Y));
             break;
 
 #    ifdef EXTRAKEY_ENABLE
         // volume scroll mode (adjusts audio volume)
         case PM_VOLUME:
-            pointing_tap_codes(KC_NO, KC_VOLD, KC_VOLU, KC_NO);
+            pointing_tap_codes(KC_VOLD, KC_VOLU, KC_NO, KC_NO);
             break;
+#    endif
+
+#    ifdef POINTING_MODE_MAP_ENABLE
+        default:
+            pointing_exec_mapping(pointing_mode.id - POINTING_MODE_MAP_START);
 #    endif
     }
     return mouse_report;

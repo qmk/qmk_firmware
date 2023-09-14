@@ -1043,7 +1043,7 @@ The easiest way to add pointing device modes that are only using keycode taps (s
 
 ```c
 // Pointing Device Mode Maps Format
-const uint16_t PROGMEM pointing_device_mode_maps[][4] = {
+const uint16_t PROGMEM pointing_device_mode_maps[][POINTING_NUM_DIRECTIONS] = {
     [0] = POINTING_MODE_LAYOUT(
                 <keycode up>,
         <keycode left>,       <keycode right>,
@@ -1082,7 +1082,7 @@ enum keymap_pointing_mode_maps_index {
     _PM_APP   // second mode map [index  1]
 };
 
-const uint16_t PROGMEM pointing_device_mode_maps[][4] = {
+const uint16_t PROGMEM pointing_device_mode_maps[][POINTING_NUM_DIRECTIONS] = {
     [_PM_BROW] = POINTING_MODE_LAYOUT(
                 C(S(KC_PGUP)),
         C(S(KC_TAB)),       C(KC_TAB),
