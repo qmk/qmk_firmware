@@ -11,8 +11,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 
-EEPROM_DRIVER = i2c
-
 # Save hid interface
 KEYBOARD_SHARED_EP = yes
 
