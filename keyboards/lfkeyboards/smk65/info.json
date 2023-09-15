@@ -6,6 +6,5 @@
   "usb": {
     "vid": "0x4C46",
     "device_version": "0.0.6"
-  },
-  "community_layouts": ["65_ansi", "65_iso"]
+  }
 }
