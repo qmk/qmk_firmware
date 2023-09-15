@@ -50,13 +50,6 @@ uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 // Trackball State
 bool     is_drag_scroll    = false;
 
-void encoder_init(void) {
-    return;
-}
-bool encoder_read(void) {
-    return false;
-}
-
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     if (is_drag_scroll) {
         mouse_report.h = mouse_report.x;

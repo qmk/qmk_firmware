@@ -31,5 +31,8 @@
                 {"matrix": [0, 5], "label":"Bottom Right", "x":3, "y":2.25, "w":1.75, "h":2}
             ]
         }
-    }
+    },
+    "dynamic_keymap": {
+        "layer_count": 8
+    },
 }
