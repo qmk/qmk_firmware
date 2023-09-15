@@ -1,4 +1,4 @@
-# Matrix Diagram for Dztech Og60
+# Matrix Diagram for Dztech Tofu60
 
 ```
                                                     ┌───────┐
