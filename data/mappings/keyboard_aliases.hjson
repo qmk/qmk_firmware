@@ -166,6 +166,9 @@
     "dztech/volcano660": {
         "target": "ilumkb/volcano660"
     },
+    "dztech/og60": {
+        "target": "dztech/tofu60"
+    },
     "eek": {
         "target": "eek/silk_down"
     },
