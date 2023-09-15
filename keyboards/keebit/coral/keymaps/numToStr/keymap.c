@@ -26,10 +26,11 @@
 // Custom Keys
 #define KK_COPY LCTL(KC_C)
 #define KK_PASTE RCTL(KC_V)
+#define KK_MOUSE MO(MouseLayer)
 
 // ###### Tap-Dance ######
 
-enum TapDance {
+enum coral_tapdance {
     TD_MNXT_MPREV,
     TD_MPLY_MUTE,
 };
@@ -44,13 +45,14 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // ###### Layers ######
 
-enum Layers {
+enum coral_layers {
     BaseLayer,
+    NavLayer,
+    MouseLayer,
     FnLayer,
-    NavLayer
 };
 
-enum CustomKeycodes {
+enum coral_keycodes {
     KK_LOREM = SAFE_RANGE,
 };
 
@@ -63,10 +65,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         KK_COPY, KC_PSCR, KC_ESC, L_THUMB, L_ROT, /**/ R_ROT, R_THUMB, KC_BSPC, KC_DEL,   KK_PASTE
     ),
     [NavLayer] = LAYOUT(
-        _______, _______, _______, _______, _______, _______,          /**/          KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD, KC_VOLU,
-        _______, _______, _______, _______, _______, _______,          /**/          KC_HOME, KC_PGDN, KC_PGUP, KC_END,   KC_BRID, KC_BRIU,
-        _______, _______, _______, _______, _______, _______,          /**/          KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
-        _______, _______, _______, _______, _______, _______,          /**/          _______, _______, _______, _______,  _______, KK_LOREM,
+        _______, _______, _______, _______, _______, _______,           /**/          KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD, KC_VOLU,
+        _______, _______, _______, _______, _______, _______,           /**/          KC_HOME, KC_PGDN, KC_PGUP, KC_END,   KC_BRID, KC_BRIU,
+        _______, _______, _______, _______, _______, KK_MOUSE,          /**/          KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
+        _______, _______, _______, _______, _______, _______,           /**/          _______, _______, _______, _______,  _______, KK_LOREM,
+                          _______, _______, _______, _______,  _______, /**/ _______, _______, _______, _______, _______
+    ),
+    [MouseLayer] = LAYOUT(
+        _______, _______, _______, _______, _______, _______,          /**/          _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,          /**/          _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,          /**/          KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
+        _______, _______, _______, _______, _______, _______,          /**/          _______, _______, _______, _______, _______, _______,
                           _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______
     ),
     [FnLayer] = LAYOUT(
@@ -75,12 +84,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______,          /**/          _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,          /**/          _______, _______, _______, _______, _______, _______,
                           _______, _______, _______, _______, _______, /**/ _______, _______, _______, _______, _______
-    )
+    ),
 };
 
 // ###### Combos ######
 
-enum combos {
+enum coral_combos {
     CAPS_COMBO,
     COMBO_LENGTH
 };
@@ -98,8 +107,9 @@ combo_t key_combos[] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [BaseLayer] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [BaseLayer] = { ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [NavLayer] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
+    [MouseLayer] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
     [FnLayer] = { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______) },
 };
 #endif
