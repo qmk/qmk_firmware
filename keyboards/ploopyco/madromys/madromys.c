@@ -48,34 +48,11 @@ uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 // Valid options are ACC_NONE, ACC_LINEAR, ACC_CUSTOM, ACC_QUADRATIC
 
 // Trackball State
-bool     is_scroll_clicked = false;
-uint16_t last_scroll       = 0;  // Previous confirmed wheel event
-uint16_t last_mid_click    = 0;  // Stops scrollwheel from being read if it was pressed;
-bool     debug_encoder     = false;
 bool     is_drag_scroll    = false;
-
-// require, since core encoder.c (where is is normally defined isn't present
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return true; }
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
-#ifdef MOUSEKEY_ENABLE
-    tap_code(clockwise ? KC_WH_U : KC_WH_D);
-#else
-    report_mouse_t mouse_report = pointing_device_get_report();
-    mouse_report.v              = clockwise ? 1 : -1;
-    pointing_device_set_report(mouse_report);
-    pointing_device_send();
-#endif
-    return true;
-}
 
 void encoder_init(void) {
     return;
 }
-
 bool encoder_read(void) {
     return false;
 }
@@ -97,12 +74,6 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-    // Update Timer to prevent accidental scrolls
-    if ((record->event.key.col == 1) && (record->event.key.row == 0)) {
-        last_mid_click    = timer_read();
-        is_scroll_clicked = record->event.pressed;
-    }
-
     if (!process_record_user(keycode, record)) {
         return false;
     }
@@ -126,24 +97,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         pointing_device_set_cpi(is_drag_scroll ? (dpi_array[keyboard_config.dpi_config] * PLOOPY_DRAGSCROLL_MULTIPLIER) : dpi_array[keyboard_config.dpi_config]);
 #endif
     }
-
-/* If Mousekeys is disabled, then use handle the mouse button
- * keycodes.  This makes things simpler, and allows usage of
- * the keycodes in a consistent manner.  But only do this if
- * Mousekeys is not enable, so it's not handled twice.
- */
-#ifndef MOUSEKEY_ENABLE
-    if (IS_MOUSEKEY_BUTTON(keycode)) {
-        report_mouse_t currentReport = pointing_device_get_report();
-        if (record->event.pressed) {
-            currentReport.buttons |= 1 << (keycode - KC_MS_BTN1);
-        } else {
-            currentReport.buttons &= ~(1 << (keycode - KC_MS_BTN1));
-        }
-        pointing_device_set_report(currentReport);
-        pointing_device_send();
-    }
-#endif
 
     return true;
 }

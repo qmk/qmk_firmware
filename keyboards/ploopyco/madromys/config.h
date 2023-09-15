@@ -18,11 +18,6 @@
 
 #pragma once
 
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
-
 // #define ROTATIONAL_TRANSFORM_ANGLE 0
 #define POINTING_DEVICE_INVERT_Y
 

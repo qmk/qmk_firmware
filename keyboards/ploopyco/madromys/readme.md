@@ -13,8 +13,6 @@ Make example for this keyboard (after setting up your build environment):
 
 # Triggering the Bootloader
 
-![bootloader pic](boot.jpg)
-
 Do you see those two golden holes in the board? Those are called **vias**. They act exactly like a switch does. Right now, that switch is OFF. However, if you take a paperclip or a pair of metal tweezers and touch those two vias, the two vias will form an electrical connection. Effectively, that switch turns ON.
 
 Go ahead and connect the two vias, and then (while the vias are connected) plug in the Madromys board into your computer.
