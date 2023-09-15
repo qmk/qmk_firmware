@@ -12,7 +12,7 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
+        "command": true,
         "console": false,
         "encoder": true,
         "extrakey": true,
@@ -128,7 +128,6 @@
     "url": "https://github.com/JZ-Skyloong",
     "usb": {
         "device_version": "1.0.0",
-        "force_nkro": true,
         "pid": "0x6A61",
         "vid": "0x1EA7",
         "max_power": 380
