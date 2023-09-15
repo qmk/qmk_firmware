@@ -1,4 +1,4 @@
-![IFo Hancroft HotDox76v2 Layout Image](https://i.imgur.com/mLjOMRH.png)
+![IFo Hancroft HotDox76v2 Layout Image](https://i.imgur.com/YZHy6FC.png)
 
 # IFo Hancroft's HotDox76v2 Layout
 
