@@ -1,4 +1,4 @@
-// Copyright 2018-2022 Nick Brassel (@tzarc)
+// Copyright 2018-2023 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 #include "quantum.h"
@@ -20,7 +20,6 @@ const char* usbpd_str(usbpd_allowance_t allowance);
 #pragma pack(push)
 #pragma pack(1)
 typedef struct kb_runtime_config {
-    unsigned          lcd_power : 1;
     usbpd_allowance_t current_setting : 2;
 } kb_runtime_config;
 #pragma pack(pop)

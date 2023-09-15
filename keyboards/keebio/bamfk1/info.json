@@ -8,6 +8,26 @@
         "pid": "0x1111",
         "device_version": "0.0.1"
     },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 16,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "C7", "pin_b": "B5"},
@@ -18,21 +38,15 @@
     "bootloader": "atmel-dfu",
     "matrix_pins": {
         "direct": [
-            ["E6", "B6", "D6", null],
-            [null, null, null, null]
+            ["E6", "B6", "D6"]
         ]
     },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x": 1.5, "y": 0, "h":2, "w": 2, "matrix": [0, 0]},
-                {"x": 0.5, "y": 2.25, "matrix": [0, 1]},
-                {"x": 3.5, "y": 2.25, "matrix": [0, 2]},
-
-                {"x": 0, "y": 3.5, "matrix": [1, 0]},
-                {"x": 1, "y": 3.5, "matrix": [1, 1]},
-                {"x": 3, "y": 3.5, "matrix": [1, 2]},
-                {"x": 4, "y": 3.5, "matrix": [1, 3]}
+                {"x": 1, "y": 0, "h": 2, "w": 2, "matrix": [0, 0]},
+                {"x": 0, "y": 2.25, "matrix": [0, 1]},
+                {"x": 3, "y": 2.25, "matrix": [0, 2]}
             ]
         }
     }

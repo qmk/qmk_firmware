@@ -15,6 +15,7 @@
  */
 #include "process_steno.h"
 #include "quantum_keycodes.h"
+#include "eeconfig.h"
 #include "keymap_steno.h"
 #include <string.h>
 #ifdef VIRTSER_ENABLE
@@ -173,13 +174,13 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #ifdef STENO_ENABLE_ALL
         case QK_STENO_BOLT:
-            if (IS_PRESSED(record->event)) {
+            if (record->event.pressed) {
                 steno_set_mode(STENO_MODE_BOLT);
             }
             return false;
 
         case QK_STENO_GEMINI:
-            if (IS_PRESSED(record->event)) {
+            if (record->event.pressed) {
                 steno_set_mode(STENO_MODE_GEMINI);
             }
             return false;
@@ -193,7 +194,7 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
         }
 #endif // STENO_COMBINEDMAP
         case STN__MIN ... STN__MAX:
-            if (IS_PRESSED(record->event)) {
+            if (record->event.pressed) {
                 n_pressed_keys++;
                 switch (mode) {
 #ifdef STENO_ENABLE_BOLT

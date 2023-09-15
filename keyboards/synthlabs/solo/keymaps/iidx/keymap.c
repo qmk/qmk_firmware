@@ -62,7 +62,7 @@ void housekeeping_task_user(void) {
     }
 }
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] =   { ENCODER_CCW_CW(
                 CCW_MACRO,
                 CW_MACRO

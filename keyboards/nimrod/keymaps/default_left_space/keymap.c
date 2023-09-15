@@ -59,7 +59,7 @@ const uint16_t PROGMEM combo_tab[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_E, KC_W, COMBO_END};
 const uint16_t PROGMEM combo_del[] = {KC_MINS, KC_EQL, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO_TAB] = COMBO(combo_tab,KC_TAB),
   [COMBO_ESC] = COMBO(combo_esc,KC_ESC),
   [COMBO_DEL] = COMBO(combo_del,KC_DEL),

@@ -7,6 +7,8 @@
  * With this disgusting bodge, you can just edit your .defs and compile!
  */
 
+#pragma once
+
 // Clear all X Macros
 #define PRES BLANK
 #define KEYS BLANK

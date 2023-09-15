@@ -15,13 +15,10 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no           # Audio output
 
-WS2812_DRIVER = pwm
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306    # Enable the OLED Driver
 
 ENCODER_ENABLE = yes
 

@@ -1,4 +1,4 @@
-#include "frosty_flake.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
     setPinOutput(B7); // num lock

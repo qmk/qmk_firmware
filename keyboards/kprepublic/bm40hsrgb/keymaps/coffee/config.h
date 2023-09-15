@@ -5,6 +5,9 @@
 
 #define LAYER_STATE_8BIT
 
+#define TURBO_ENABLE
+#define HOLD_ON_OTHER_KEY_PRESS
+
 // RGB Matrix effects disable
 #ifdef RGB_MATRIX_ENABLE
 #    define UNDERGLOW_DISABLE
@@ -50,14 +53,6 @@
 #    undef ENABLE_RGB_MATRIX_SPLASH
 #    undef ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#endif
-
-// If RGBLight is enabled
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLED_NUM RGB_MATRIX_LED_COUNT
-
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #endif
 
 // Feature disable

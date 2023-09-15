@@ -49,7 +49,7 @@ uint8_t currentWPM;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 static uint32_t key_timer;
-idle_timer = timer_read();
+idle_timer = timer_read32();
 
 
     switch (keycode) {
@@ -146,7 +146,7 @@ idle_timer = timer_read();
 
 void matrix_scan_user(void) {
 //custom idle rbg switch off function
-    if (timer_elapsed(idle_timer) > IDLE_TIMER_DURATION) {
+    if (timer_elapsed32(idle_timer) > IDLE_TIMER_DURATION) {
         idle_timer = 0;
         timer_clear();
         rgbkeyIdle = true;
