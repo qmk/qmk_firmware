@@ -9,6 +9,8 @@ Chouchou (Japanese for butterfly) is a minimalist unibody keyboard designed to b
 
 Make example for this keyboard (after setting up your build environment):
 
+Note: The default layout is mainly for testing. You can change 'default' to 'dlip' for a fully featured layout. 
+
     make chouchou:default
 
 Flashing example for this keyboard:
