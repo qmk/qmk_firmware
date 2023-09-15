@@ -23,8 +23,9 @@
         "pid": "0xCA04",
         "vid": "0x0028"
     },
+    "community_layouts": ["ortho_1x1"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_1x1": {
             "layout": [
                 {"matrix": [0, 0], "x": 0.25, "y": 0, "w": 1.25, "h": 2}
             ]
