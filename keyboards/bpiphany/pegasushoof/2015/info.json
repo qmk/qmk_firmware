@@ -6,9 +6,16 @@
         "scroll_lock": "C5",
         "on_state": 0
     },
-    "community_layouts": ["tkl_ansi", "tkl_iso", "tkl_jis"],
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_all"
+    },
+    "community_layouts": [
+        "tkl_ansi",
+        "tkl_iso",
+        "tkl_jis"
+    ],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"matrix": [6, 9], "x": 0, "y": 0},
 
