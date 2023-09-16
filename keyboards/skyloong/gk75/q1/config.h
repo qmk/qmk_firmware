@@ -3,9 +3,7 @@
 
 #pragma once
 
-#ifdef ENCODER_ENABLE
 #define ENCODER_MAP_KEY_DELAY 20
-#endif
 
 #ifdef RGB_MATRIX_ENABLE
 #define DRIVER_ADDR_2 0b0100011
