@@ -1,18 +1,22 @@
-# The default keymap for lain
+# richdawe keymap for Lain
 
 ## Leds setting
+
+```
 1: CAPS LOCK
 2-3: Layer indicator
+```
 
 ## Changes from default layout
 
-- Tab and ESC swapped - Tab next to Q, ESC next to A (where Caps Lock usually is)
-- TODO: what other changes?
+There are too many changes to list here. I tried to change the layout in a way that felt natural to me. I put Tab next to Q, and moved Esc next to A. Tab next to Q is so engrained, that it's easier to move Esc.
 
-TODO:
+Also, like on many of my kemaps, I've changed the key combination to enter the bootloader. Press the top-left key plus bottom-key together. I prefer an explicit combination than holding e.g.: escape when inserting the USB cable.
 
-- make the spaces mod-tap, shift on hold
-- should B be on the RHS? Answer: no
+```
+qmk compile -km richdawe -kb dm9records/lain
+qmk flash -km richdawe -kb dm9records/lain
+```
 
 ## Inspiration from Other 40% or Split Layouts
 
