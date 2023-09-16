@@ -6,5 +6,3 @@ CAPS_WORD_ENABLE = yes      # Smart caps lock
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # N-Key Rollover
 LTO_ENABLE = yes            # Link-time optimisation for smaller code
-
-# SRC += features/layer_lock.c
