@@ -16,23 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "wait.h"
-
 #include "is31fl3729-simple.h"
 #include <string.h>
 #include "i2c_master.h"
-#include "progmem.h"
-
-// This is a 7-bit address, that gets left-shifted and bit 0
-// set to 0 for write, 1 for read (as per I2C protocol)
-// The address will vary depending on your wiring:
-// 00 <-> GND
-// 01 <-> SCL
-// 10 <-> SDA
-// 11 <-> VCC
-// ADDR represents A2:A1 of the 7-bit address.
-// The result is: 0b01101(ADDR)
-#define IS31FL3729_I2C_ADDRESS_DEFAULT 0x68
+#include "wait.h"
 
 // Registers
 #define IS31FL3729_REG_SCALING 0x90

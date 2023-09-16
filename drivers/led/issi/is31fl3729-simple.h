@@ -22,6 +22,11 @@
 #include <stdbool.h>
 #include "progmem.h"
 
+#define IS31FL3729_I2C_ADDRESS_GND 0x34
+#define IS31FL3729_I2C_ADDRESS_SCL 0x35
+#define IS31FL3729_I2C_ADDRESS_SDA 0x36
+#define IS31FL3729_I2C_ADDRESS_VCC 0x37
+
 typedef struct is31_led {
     uint8_t driver : 2;
     uint8_t v;
