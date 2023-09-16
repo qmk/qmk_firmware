@@ -18,7 +18,11 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes
 
 API_SYSEX_ENABLE = no
-TAP_DANCE_ENABLE = yes
+
+# Note: This doesn't seem to be supported on RP2040?
+# I guess it works in the vial repo?
+#TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = no
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
