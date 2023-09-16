@@ -1,9 +1,3 @@
-# MCU name
-MCU = atmega32u4
-
-# Bootloader selection
-BOOTLOADER = caterina
-
 # Build Options
 #   change yes to no to disable
 #
@@ -21,4 +15,3 @@ OLED_DRIVER = SSD1306    # Enable Support for SSD1306 or SH1106 OLED Displays; C
 ENCODER_ENABLE = yes
 SPLIT_KEYBOARD = yes
 LTO_ENABLE = yes
-RGB_MATRIX_DRIVER = WS2812

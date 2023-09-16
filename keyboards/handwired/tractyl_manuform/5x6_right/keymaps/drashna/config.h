@@ -16,20 +16,21 @@
 
 #pragma once
 
-#define DEBOUNCE 45
-
-#ifdef OLED_DRIVER_SH1107
-#    undef OLED_DISPLAY_128X64
-#endif
+#undef OLED_DISPLAY_128X64
+#define OLED_DISPLAY_128X128
+#define OLED_BRIGHTNESS 200
 
 #define CHARYBDIS_MINIMUM_DEFAULT_DPI 1200
 #define CHARYBDIS_DEFAULT_DPI_CONFIG_STEP 200
 #define CHARYBDIS_MINIMUM_SNIPING_DPI 400
 #define CHARYBDIS_SNIPING_DPI_CONFIG_STEP 200
 
-#define ENCODER_DEFAULT_POS 0x3
+#define BOOTMAGIC_LITE_EEPROM_ROW          1
+#define BOOTMAGIC_LITE_EEPROM_COLUMN       0
+#define BOOTMAGIC_LITE_EEPROM_ROW_RIGHT    7
+#define BOOTMAGIC_LITE_EEPROM_COLUMN_RIGHT 5
 
-#define SECURE_UNLOCK_SEQUENCE \
-    {                          \
-        { 2, 1 }, { 2, 2 }, { 2, 3 }, { 2, 4 } \
-    }
+
+#define FB_ERM_LRA         0
+#define DRV_GREETING       alert_750ms
+#define DRV_MODE_DEFAULT   buzz

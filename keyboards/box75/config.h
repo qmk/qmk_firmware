@@ -17,35 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x7668 // LD for LinDesign
-#define PRODUCT_ID      0xB075 // For BOX75
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Lin Design
-#define PRODUCT         BOX75
-
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
-
-#define MATRIX_COL_PINS { B11, B10, B2 , B1, B0, A7 , A6, A5, A4, A3, A8, B15, B14, B13, A15 }
-#define MATRIX_ROW_PINS { A10, A9 , B12, A2, A1, A0 }
-#define DIODE_DIRECTION COL2ROW
-
-//#define BACKLIGHT_PIN           A6
-//#define BACKLIGHT_PWM_DRIVER    PWMD3
-//#define BACKLIGHT_PWM_CHANNEL   1
-//#define BACKLIGHT_PAL_MODE      1
-//#define BACKLIGHT_LEVELS 6
-//#define BACKLIGHT_BREATHING
-//#define BREATHING_PERIOD 6
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */

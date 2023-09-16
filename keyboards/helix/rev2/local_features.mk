@@ -44,13 +44,6 @@ endif
 # convert Helix-specific options (that represent combinations of standard options)
 #   into QMK standard options.
 
-ifneq ($(strip $(HELIX_ROWS)), 4)
-  ifneq ($(strip $(HELIX_ROWS)), 5)
-    $(error HELIX_ROWS = $(strip $(HELIX_ROWS)) is unexpected value)
-  endif
-endif
-OPT_DEFS += -DHELIX_ROWS=$(strip $(HELIX_ROWS))
-
 ifeq ($(strip $(LED_BACK_ENABLE)), yes)
   RGBLIGHT_ENABLE = yes
   OPT_DEFS += -DRGBLED_BACK

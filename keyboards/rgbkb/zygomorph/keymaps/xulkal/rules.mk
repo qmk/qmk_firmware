@@ -9,7 +9,6 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 RGBLIGHT_ENABLE = no        # Enable global lighting effects. Do not enable with RGB Matrix
-RGBLIGHT_ANIMATIONS = no    # LED animations
 RGBLIGHT_SPLIT_ENABLE = no  # Split RGBLight Support
 RGB_MATRIX_ENABLE = yes  	# Enable per-key coordinate based RGB effects. Do not enable with RGBlight
 RGB_MATRIX_DRIVER = WS2812
@@ -33,10 +32,6 @@ endif
 
 ifeq ($(strip $(RGB_MATRIX_KEYPRESSES)), yes)
     OPT_DEFS += -DRGB_MATRIX_KEYPRESSES
-endif
-
-ifeq ($(strip $(RGBLIGHT_ANIMATIONS)), yes)
-    OPT_DEFS += -DRGBLIGHT_ANIMATIONS
 endif
 
 ifeq ($(strip $(RGBLIGHT_SPLIT_ENABLE)), yes)

@@ -1,7 +1,8 @@
 # Polaris-Compatible Hotswap and Solder PCB's
 
 The following is the QMK Firmware for the Polaris-Compatible Hotswap and Solder PCB's developed by FJLaboratories (FJLabs).
-* Keyboard Maintainer: FJLabs
+
+* Keyboard Maintainer: [mrnoisytiger (FJLabs)](https://github.com/mrnoisytiger)
 * Hardware Supported: Polaris Hotswap and Solder
  
 Make example for this keyboard (after setting up your build environment):

@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "JKB65 RGB R1",
+    "matrix_pins": {
+        "cols": ["F6", "B1", "F1", "C7", "C6", "B6", "B5", "B4", "D7", "B3", "D4", "D5", "D3", "D2", "D1", "D0"],
+        "rows": ["E6", "B7", "F7", "F4", "F5"]
+    },
+    "diode_direction": "COL2ROW",
+    "usb": {
+        "device_version": "0.0.1"
+    }
+}

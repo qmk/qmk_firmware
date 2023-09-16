@@ -19,14 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Copy and worked on with love from the EZ team
 
 #pragma once
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x6B0A
-#define PRODUCT_ID 0x0002
-#define DEVICE_VER 0x0001
-#define MANUFACTURER g Heavy Industries
-#define PRODUCT GergoPlex
 
 /* key matrix size */
 #define MATRIX_ROWS 10
@@ -40,11 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * COLS: AVR pins used for columns, left to right
  * ROWS: AVR pins used for rows, top to bottom
  */
-#define MATRIX_ROW_PINS { F6, F5, F4, F1 }
-#define MATRIX_COL_PINS { B1, B2, B3, D2, D3 }
-#define UNUSED_PINS
-#define IGNORE_MOD_TAP_INTERRUPT
+#define MATRIX_COL_PINS { F6, F5, F4, F1 }
+#define MATRIX_ROW_PINS { B1, B2, B3, D2, D3 }
 
 #define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)))
-
-#define DEBOUNCE 5

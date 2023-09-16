@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_VOLU, KC_DEL,
       _______, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD, KC_INS,
-      _______, _______, _______, _______, _______, _______, _______, KC_SLCK, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
+      _______, _______, _______, _______, _______, _______, _______, KC_SCRL, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -218,20 +218,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * Adjust Layer: Default layer settings, RGB
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * | NumPad |      |      |QWERTY|      |      |                              |      |      |      |      |      | RESET  |
+ * | NumPad |      |      |QWERTY|      |      |                              |      |      |      |      |      |  Boot  |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * | Mouse  |      |      |Dvorak|      |      |                              | TOG  | SAI  | HUI  | VAI  | MOD  | DEBUG  |
+ * | Mouse  |      |      |Dvorak|      |      |                              | TOG  | SAI  | HUI  | VAI  | MOD  | Debug  |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |Nav Perm|      |      |Colmak|      |      |      |      |  |      |      |      | SAD  | HUD  | VAD  | RMOD | EEP_RST|
+ * |Nav Perm|      |      |Colmak|      |      |      |      |  |      |      |      | SAD  | HUD  | VAD  | RMOD | EE_CLR |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_ADJUST] = LAYOUT(
-      NUMPAD , _______, _______, QWERTY , _______, _______,                                    _______, _______, _______, _______,  _______, RESET  ,
-      MOUSE  , _______, _______, DVORAK , _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, DEBUG  ,
-      DNAV   , _______, _______, COLEMAK, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, EEPROM_RESET,
+      NUMPAD , _______, _______, QWERTY , _______, _______,                                    _______, _______, _______, _______,  _______, QK_BOOT,
+      MOUSE  , _______, _______, DVORAK , _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, DB_TOGG,
+      DNAV   , _______, _______, COLEMAK, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, EE_CLR,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
 

@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "Onekey Teensy 3.2",
+    "processor": "MK20DX256",
+    "bootloader": "halfkay",
+    "matrix_pins": {
+        "cols": ["D5"],
+        "rows": ["B2"]
+    }
+}

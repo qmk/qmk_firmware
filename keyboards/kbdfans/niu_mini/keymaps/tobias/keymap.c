@@ -8,7 +8,7 @@
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. 
+ * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FNL1] = LAYOUT_ortho_4x12(
   TBMACRO, KC_MPRV, KC_MPLY, KC_MNXT,  ALT_F4, KC_CAPS,  KC_ESC, KC_PGUP,   KC_UP, KC_PGDN, KC_PSCR, KC_BSPC,
-  TT(_FNL1), _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NLCK, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______,  KC_DEL,
+  TT(_FNL1), _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NUM,  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______,  KC_DEL,
   KC_LSFT,    CTLZ,    CTLX,    CTLC,    CTLV, _______,  KC_END, _______, _______, _______, LSFT(KC_MINS), _______,
   _______, _______, CTALDEL, _______, _______, _______, _______, TO(_MOUSE), _______, _______, LSFT(KC_1), _______
 ),
@@ -103,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_EQL, S(KC_EQL),   RALT(KC_2), RALT(KC_3), RALT(KC_4), RALT(KC_E), KC_RBRC, RALT(KC_7), RALT(KC_8), RALT(KC_9),    RALT(KC_0), RALT(KC_MINS),
   KC_LSFT, KC_NUBS, RALT(KC_NUBS), S(KC_NUBS), DGRMCRO, XXXXXXX, XXXXXXX,   RALT(KC_M),   KC_RBRC,  S(KC_RBRC), RALT(KC_RBRC),       _______,
   _______, _______,       KC_RALT,    _______,TO(_ADJUST), _______, _______,      _______,   _______,     _______,       _______, TO(_QWERTY)
-), 
- 
+),
+
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
@@ -136,8 +136,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_FNL2] = LAYOUT_ortho_4x12(
-  TBMACRO, KC_MPRV, KC_MPLY, KC_MNXT,  ALT_F4, KC_CAPS, _______, KC_PSCR,  KC_INS, KC_HOME, KC_PGUP, KC_SLCK,
-  _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NLCK, _______, _______,  KC_DEL,  KC_END, KC_PGDN, KC_PAUS,
+  TBMACRO, KC_MPRV, KC_MPLY, KC_MNXT,  ALT_F4, KC_CAPS, _______, KC_PSCR,  KC_INS, KC_HOME, KC_PGUP, KC_SCRL,
+  _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NUM,  _______, _______,  KC_DEL,  KC_END, KC_PGDN, KC_PAUS,
   _______,    CTLZ,    CTLX,    CTLC,    CTLV, _______, _______, _______, _______,   KC_UP, _______, KC_ENT,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, TO(_QWERTY)
 ),
@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
-  TO(_GAMEMODE), RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, WRKMOD,
+  TO(_GAMEMODE), QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, WRKMOD,
     _______, BL_TOGG, BL_STEP, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, RGB_TOG, RGB_HUI, RGB_HUD, RGB_MOD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, RGB_MODE_FORWARD,
   _______, _______, _______, _______, _______, _______, _______, _______,  _______, RGB_M_P,  RGB_M_R, TO(_QWERTY)
@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_FNL3] = LAYOUT_ortho_4x12(
   TBMACRO, KC_MPRV, KC_MPLY, KC_MNXT,  ALT_F4, KC_CAPS,  KC_ESC, KC_PGUP,   KC_UP, KC_PGDN, KC_PSCR, KC_BSPC,
-  _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NLCK, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______,  KC_DEL,
+  _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_NUM,  KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, _______,  KC_DEL,
   KC_LSFT, _______, _______, _______, _______, _______,  KC_END, _______, _______, _______, LSFT(KC_MINS), _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, LSFT(KC_1), _______
 ),
@@ -238,13 +238,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
             case TBMACRO:
-                SEND_STRING(SS_TAP(X_TAB) SS_DOWN(X_LSHIFT) SS_TAP(X_HOME) SS_UP(X_LSHIFT) SS_TAP(X_DELETE));
+                SEND_STRING(SS_TAP(X_TAB) SS_DOWN(X_LSFT) SS_TAP(X_HOME) SS_UP(X_LSFT) SS_TAP(X_DELETE));
                 return false;
             case DGRMCRO:
                 if(!bnumlock) {
-                    //register_code(KC_NLCK);
-                    //unregister_code(KC_NLCK);
-                    tap_code(KC_NLCK);
+                    //register_code(KC_NUM);
+                    //unregister_code(KC_NUM);
+                    tap_code(KC_NUM);
                     bnumlock = true;
                 }
                 //SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_P0) SS_TAP(X_P1) SS_TAP(X_P7) SS_TAP(X_P6) SS_UP(X_LALT));
@@ -257,10 +257,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 else {
                     workmode = false;
-                    return false;       
-                }           
+                    return false;
+                }
         }
-        
+
     }
     return true;
 }
@@ -293,7 +293,7 @@ void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 //  if(rgblight_get_mode() == 1) {
-    switch (biton32(state)) {
+    switch (get_highest_layer(state)) {
     case _QWERTY:
         if(!workmode){
             rgblight_mode(9);
@@ -303,36 +303,36 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgbflag(0x00,  0x00, 0x00);
         }
         if(bnumlock) {
-            tap_code(KC_NLCK);
+            tap_code(KC_NUM);
         }
         break;
     case _LOWER:
             rgblight_mode(1);
         if(!bnumlock) {
-            tap_code(KC_NLCK);
+            tap_code(KC_NUM);
         }
         rgbflag(0xFF,  0x00, 0x00);
-        
+
         break;
     case _ADJUST:
         rgblight_mode(1);
         rgbflag(0xFF,  0xFF, 0xFF);
         if(bnumlock) {
-                tap_code(KC_NLCK);
+                tap_code(KC_NUM);
         }
         break;
     case _RAISE:
         rgblight_mode(1);
         rgbflag(0x00,  0xFF, 0x00);
         if(bnumlock) {
-                tap_code(KC_NLCK);
+                tap_code(KC_NUM);
         }
         break;
     case _FNL1:
         rgblight_mode(1);
         rgbflag(0x00,  0x00, 0xFF);
         if(bnumlock) {
-                tap_code(KC_NLCK);
+                tap_code(KC_NUM);
         }
         break;
     case _GAMEMODE:
@@ -343,14 +343,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         rgblight_mode(1);
         rgbflag(0x00,  0xFF, 0xFF);
         if(bnumlock) {
-                tap_code(KC_NLCK);
+                tap_code(KC_NUM);
         }
         break;
     default: //  for any other layers, or the default layer
         rgblight_mode(1);
         if(bnumlock) {
-            tap_code(KC_NLCK);
-        }        
+            tap_code(KC_NUM);
+        }
         rgbflag(0xFF,  0xFF, 0xFF);
         break;
     }
@@ -363,20 +363,20 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     //Layer LED indicators
 
     uint32_t layer = layer_state;
-    
-    
+
+
     if (layer & (1<<2)) {
         if(!bnumlock) {
             numlock_changed = true;
-            register_code(KC_NLCK);
-            unregister_code(KC_NLCK);
+            register_code(KC_NUM);
+            unregister_code(KC_NUM);
             bnumlock = true;
         }
     }
-} 
+}
  */
- 
- 
+
+
 void led_set_user(uint8_t usb_led) {
 
     if (usb_led & (1 << USB_LED_NUM_LOCK)) {

@@ -27,30 +27,24 @@ QMK maintains a Bundle of MSYS2, the CLI and all necessary dependencies. It also
 
 You will need to install [QMK MSYS](https://msys.qmk.fm/). The latest release is available [here](https://github.com/qmk/qmk_distro_msys/releases/latest).
 
-Alternatively, if you'd like to manually install MSYS2, the following section will walk you through the process.
-
 <details>
-  <summary>Manual Install</summary>
+  <summary>Advanced Users</summary>
 
-?> Ignore the following steps if you use `QMK MSYS`.
+!> <b style="font-size:150%">This process is not recommended for new users.</b>
+
+If you'd like to manually install MSYS2, the following sections will walk you through the process.
 
 #### Prerequisites
 
-You will need to install MSYS2, Git and Python. Follow the installation instructions on https://www.msys2.org.
-
-Once MSYS2 is installed, close any open MSYS terminals and open a new MinGW 64-bit terminal.
+You will need to install [MSYS2](https://www.msys2.org). Once installed, close any open MSYS terminals (purple icon) and open a new MinGW 64-bit terminal (blue icon) from the Start Menu.
 
 !> **NOTE:** The MinGW 64-bit terminal is *not* the same as the MSYS terminal that opens when installation is completed. Your prompt should say "MINGW64" in purple text, rather than "MSYS". See [this page](https://www.msys2.org/wiki/MSYS2-introduction/#subsystems) for more information on the differences.
-
-Then run the following command:
-
-    pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-toolchain mingw-w64-x86_64-python3-pip mingw-w64-x86_64-python-pillow
 
 #### Installation
 
 Install the QMK CLI by running:
 
-    python3 -m pip install qmk
+    pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-python-qmk
 
 </details>
 
@@ -62,11 +56,17 @@ QMK maintains a Homebrew tap and formula which will automatically install the CL
 
 You will need to install Homebrew. Follow the instructions on https://brew.sh.
 
+!> **NOTE:** If you are using Apple Silicon, such as the M1, you will need to install a rosetta compatible version of Homebrew. This version does not override the base Homebrew. This can be done by running `arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"`. See here: [Rosetta-compatible Homebrew](https://stackoverflow.com/questions/64882584/how-to-run-the-homebrew-installer-under-rosetta-2-on-m1-macbook)
+
 #### Installation
 
 Install the QMK CLI by running:
 
     brew install qmk/qmk/qmk
+    
+Install the QMK CLI on an Apple Silicon Mac by running:
+
+    arch -x86_64 brew install qmk/qmk/qmk
 
 ### ** Linux/WSL **
 
@@ -120,7 +120,7 @@ NOTE: remember to follow the instructions printed at the end of installation (us
 
 ### ** Windows **
 
-After installing QMK you can set it up with this command:
+Open QMK MSYS and run the following command:
 
     qmk setup
 
@@ -128,7 +128,7 @@ In most situations you will want to answer `y` to all of the prompts.
 
 ### ** macOS **
 
-After installing QMK you can set it up with this command:
+Open Terminal and run the following command:
 
     qmk setup
 
@@ -136,7 +136,7 @@ In most situations you will want to answer `y` to all of the prompts.
 
 ### ** Linux/WSL **
 
-After installing QMK you can set it up with this command:
+Open your preferred terminal app and run the following command:
 
     qmk setup
 
@@ -150,7 +150,7 @@ Luckily, the fix is easy. Run this as your user: `echo 'PATH="$HOME/.local/bin:$
 
 ###  ** FreeBSD **
 
-After installing QMK you can set it up with this command:
+Open your preferred terminal app and run the following command:
 
     qmk setup
 
@@ -171,6 +171,8 @@ Now that your QMK build environment is set up, you can build a firmware for your
 For example, to build a firmware for a Clueboard 66% you would use:
 
     qmk compile -kb clueboard/66/rev3 -km default
+
+?> The keyboard option is the path relative to the keyboard directory, the above example would be found in `qmk_firmware/keyboards/clueboard/66/rev3`. If you're unsure you can view a full list of supported keyboards with `qmk list-keyboards`.
 
 When it is done you should have a lot of output that ends similar to this:
 

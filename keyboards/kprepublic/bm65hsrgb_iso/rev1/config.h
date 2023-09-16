@@ -17,40 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B50 // "KP"
-#define PRODUCT_ID      0x0653
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KP Republic
-#define PRODUCT         BM65HSRGB_ISO
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* Force NKRO */
-#define FORCE_NKRO
-
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
- */
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, E6 }
-#define MATRIX_COL_PINS { D0, D1, D2, D3, D5, D4, D6, D7, B4, B5, B6, C6, C7, F7, F6 }
-
-#define DIODE_DIRECTION COL2ROW
-
-#define RGB_DI_PIN E2
-#define DRIVER_LED_TOTAL 74
-#ifdef RGB_DI_PIN
+#define RGB_MATRIX_LED_COUNT 74
     #define RGBLED_NUM 74
     #define RGB_MATRIX_KEYPRESSES
     #define RGBLIGHT_HUE_STEP 8
@@ -106,7 +73,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_BAND_SAT
+#    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BAND_SAT
 /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 #    define RGBLIGHT_SLEEP 
 /*== all animations enable ==*/
@@ -119,4 +86,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
 #    define RGBLIGHT_EFFECT_RGB_TEST
 #    define RGBLIGHT_EFFECT_ALTERNATING
-#endif

@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "sandbox.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
     if (!oled_task_user()) { return false; }
     switch (get_highest_layer(layer_state)) {
         case 0:

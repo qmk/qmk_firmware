@@ -62,22 +62,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [L01] = LAYOUT_ergodox_wrapper(
   KC_TAB,  KC_1,   KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX,
-  KC_ESC,                 L01_LEFT_01,                 KC_LEAD,
+  KC_ESC,                 L01_LEFT_01,                 QK_LEAD,
   MO(L03),                L01_LEFT_02,
-  KC_LSHIFT,              L01_LEFT_03,                 MO(LFN),
-  KC_LCTRL,KC_LGUI,KC_LALT, MO(L05), MO(L04),
+  KC_LSFT,                L01_LEFT_03,                 MO(LFN),
+  KC_LCTL, KC_LGUI,KC_LALT, MO(L05), MO(L04),
                                               XXXXXXX, XXXXXXX,
                                                        KC_PGUP,
-                                     KC_SPACE,KC_LSHIFT,KC_PGDN,
+                                     KC_SPACE,KC_LSFT, KC_PGDN,
   //--
-  XXXXXXX,  KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPACE,
-  KC_LEAD,                L01_RIGHT_01,                 KC_ENTER,
+  XXXXXXX,  KC_6,   KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  QK_LEAD,                L01_RIGHT_01,                 KC_ENTER,
                           L01_RIGHT_02,                 MO(L03),
-  MO(LFN),                L01_RIGHT_03,                 KC_RSHIFT,
-                    MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTRL,
+  MO(LFN),                L01_RIGHT_03,                 KC_RSFT,
+                    MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTL,
   KC_LEFT, KC_RIGHT,
   KC_UP,
-  KC_DOWN, KC_RSHIFT, KC_SPACE
+  KC_DOWN, KC_RSFT, KC_SPACE
 ),
 
 
@@ -215,7 +215,7 @@ L06 -> <TBD>: UNSPECIFIED
 
 /* LFN -> MO(FN): FUNCTION
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | RESET  |      |      |      |      |      |      |           |      |      |      |      |      |      | RESET  |
+ * | QK_BOOT  |      |      |      |      |      |      |           |      |      |      |      |      |      | QK_BOOT  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |                                  |      |           |      |                                  | BACKSPC|
  * |--------+                                  |      |           |      |                                  +--------|
@@ -234,7 +234,7 @@ L06 -> <TBD>: UNSPECIFIED
  *                                 `--------------------'       `--------------------'
  */
 [LFN] = LAYOUT_ergodox_wrapper(
-  RESET,   _______, _______, _______, _______, _______, _______,
+  QK_BOOT, _______, _______, _______, _______, _______, _______,
   _______,                 L06_LEFT_01,                 _______,
   _______,                 L06_LEFT_02,
   _______,                 L06_LEFT_03,                 _______,
@@ -243,8 +243,8 @@ L06 -> <TBD>: UNSPECIFIED
                                                         _______,
                                       _______, _______, _______,
   //--
-  _______, _______, _______, _______, _______, _______, RESET,
-  _______,                 L06_RIGHT_01,                KC_BSPACE,
+  _______, _______, _______, _______, _______, _______, QK_BOOT,
+  _______,                 L06_RIGHT_01,                KC_BSPC,
                            L06_RIGHT_02,                KC_INSERT,
   _______,                 L06_RIGHT_03,                KC_DELETE,
                     KC_VOLU, KC_VOLD, KC_MUTE, _______, _______,
@@ -255,38 +255,29 @@ L06 -> <TBD>: UNSPECIFIED
 
 };
 
+void leader_end_user(void) {
+  if (leader_sequence_one_key(KC_1)) {
+    // ¯\_(ツ)_/¯
+    unicode_input_start(); register_hex(0xaf); unicode_input_finish();
+    register_code (KC_RALT); TAP_ONCE (KC_MINS); unregister_code (KC_RALT);
+    register_code (KC_RSFT); TAP_ONCE (KC_8); unregister_code (KC_RSFT);
+    unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
+    register_code (KC_RSFT); TAP_ONCE (KC_9); TAP_ONCE(KC_7); unregister_code (KC_RSFT);
+    unicode_input_start (); register_hex(0xaf); unicode_input_finish();
+  }
+
+  if (leader_sequence_one_key(KC_2)) {
+    // 凸(ツ)凸
+    unicode_input_start(); register_hex(0x51F8); unicode_input_finish();
+    register_code (KC_RSFT); TAP_ONCE (KC_8); unregister_code (KC_RSFT);
+    unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
+    register_code (KC_RSFT); TAP_ONCE (KC_9); unregister_code (KC_RSFT);
+    unicode_input_start (); register_hex(0x51F8); unicode_input_finish();
+  }
+}
+
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 };
-
-
-LEADER_EXTERNS();
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_ONE_KEY (KC_1) {
-      // ¯\_(ツ)_/¯
-      unicode_input_start(); register_hex(0xaf); unicode_input_finish();
-      register_code (KC_RALT); TAP_ONCE (KC_MINS); unregister_code (KC_RALT);
-      register_code (KC_RSFT); TAP_ONCE (KC_8); unregister_code (KC_RSFT);
-      unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
-      register_code (KC_RSFT); TAP_ONCE (KC_9); TAP_ONCE(KC_7); unregister_code (KC_RSFT);
-      unicode_input_start (); register_hex(0xaf); unicode_input_finish();
-    }
-
-    SEQ_ONE_KEY (KC_2) {
-      // 凸(ツ)凸
-      unicode_input_start(); register_hex(0x51F8); unicode_input_finish();
-      register_code (KC_RSFT); TAP_ONCE (KC_8); unregister_code (KC_RSFT);
-      unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
-      register_code (KC_RSFT); TAP_ONCE (KC_9); unregister_code (KC_RSFT);
-      unicode_input_start (); register_hex(0x51F8); unicode_input_finish();
-    }
-  }
-}

@@ -1,9 +1,3 @@
-# MCU name
-MCU = STM32F072
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
 # Wildcard to allow APM32 MCU
 DFU_SUFFIX_ARGS = -v FFFF -p FFFF
 
@@ -18,7 +12,6 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
-WS2812_DRIVER = spi
 
 DEFAULT_FOLDER = cannonkeys/db60/rev2
 

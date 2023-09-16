@@ -1,16 +1,36 @@
 {
-    "keyboard_name": "Momokai Tap Trio",
+    "keyboard_name": "Tap Trio",
+    "manufacturer": "Momokai",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "peepeetee",
+    "usb": {
+        "vid": "0x69F9",
+        "pid": "0x0006",
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "F0"
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "matrix_pins": {
+        "cols": ["E6", "B2", "B7", "D1", "D2", "D3"],
+        "rows": ["E0"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                { "label": "K00 (E0,E6)", "x": 0, "y": 0, "w": 1.5, "h": 1.5 },
-                { "label": "K01 (E0,B2)", "x": 2.25, "y": 0, "w": 1.5, "h": 1.5 },
-                { "label": "K02 (E0,B7)", "x": 4.5, "y": 0, "w": 1.5, "h": 1.5 },
-                { "label": "K03 (E0,D1)", "x": 2.25, "y": 2.5 },
-                { "label": "K04 (E0,D2)", "x": 3.75, "y": 2.5 },
-                { "label": "K05 (E0,D3)", "x": 5.25, "y": 2.5 }
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 1.5, "h": 1.5},
+                {"matrix": [0, 1], "x": 2.25, "y": 0, "w": 1.5, "h": 1.5},
+                {"matrix": [0, 2], "x": 4.5, "y": 0, "w": 1.5, "h": 1.5},
+
+                {"matrix": [0, 3], "x": 2.25, "y": 2.5},
+                {"matrix": [0, 4], "x": 3.75, "y": 2.5},
+                {"matrix": [0, 5], "x": 5.25, "y": 2.5}
             ]
         }
     }

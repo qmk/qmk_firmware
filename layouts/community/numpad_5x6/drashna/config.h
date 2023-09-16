@@ -18,7 +18,7 @@
 
 
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
-#    define RGB_DI_PIN B1
+#    define WS2812_DI_PIN B1
 #    define RGBLED_NUM 16  // Number of LEDs
 
 #    define RGBLIGHT_HUE_STEP 12
@@ -32,5 +32,5 @@
 
 #if defined(KEYBOARD_primekb_prime_m)
 #    undef PRODUCT
-#    define PRODUCT Drashna Hacked Prime_M Macro Pad
+#    define PRODUCT "Drashna Hacked Prime_M Macro Pad"
 #endif

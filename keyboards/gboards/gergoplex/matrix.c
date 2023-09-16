@@ -38,10 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // ATmega pin defs
-#define ROW1 (1 << 6)
-#define ROW2 (1 << 5)
-#define ROW3 (1 << 4)
-#define ROW4 (1 << 1)
+#define COL1 (1 << 6)
+#define COL2 (1 << 5)
+#define COL3 (1 << 4)
+#define COL4 (1 << 1)
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -51,9 +51,9 @@ static matrix_row_t matrix[MATRIX_ROWS];
  */
 static matrix_row_t raw_matrix[MATRIX_ROWS];
 
-static const pin_t row_pins[MATRIX_COLS] = MATRIX_ROW_PINS;
+static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 // Right-hand side only pins, the left side is controlled my MCP
-static const pin_t col_pins[MATRIX_ROWS_PER_SIDE] = MATRIX_COL_PINS;
+static const pin_t row_pins[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS;
 
 // Debouncing: store for each key the number of scans until it's eligible to
 // change.  When scanning the matrix, ignore any changes in keys that have
@@ -83,7 +83,7 @@ void matrix_init(void) {
     }
 
     debounce_init(MATRIX_ROWS);
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 void matrix_power_up(void) {
     mcp23018_status = init_mcp23018();
@@ -141,7 +141,7 @@ uint8_t matrix_scan(void) {
     }
 
     debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
 #ifdef DEBUG_MATRIX
     for (uint8_t c = 0; c < MATRIX_COLS; c++)
@@ -167,8 +167,8 @@ void matrix_print(void) {
 
 // Remember this means ROWS
 static void init_cols(void) {
-    for (uint8_t row = 0; row < MATRIX_COLS; row++) {
-      setPinInputHigh(row_pins[row]);
+    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+      setPinInputHigh(col_pins[col]);
     }
 }
 
@@ -193,7 +193,7 @@ static matrix_row_t read_cols(uint8_t row) {
             return data;
         }
     } else {
-        return ~((((PINF & ROW4) >> 1) | ((PINF & (ROW1 | ROW2 | ROW3)) >> 3)) & 0xF);
+        return ~((((PINF & COL4) >> 1) | ((PINF & (COL1 | COL2 | COL3)) >> 3)) & 0xF);
     }
 }
 
@@ -202,9 +202,9 @@ static void unselect_rows(void) {
     // no need to unselect on mcp23018, because the select step sets all
     // the other row bits high, and it's not changing to a different direction
 
-    for (uint8_t col = 0; col < MATRIX_ROWS_PER_SIDE; col++) {
-      setPinInput(col_pins[col]);
-      writePinLow(col_pins[col]);
+    for (uint8_t row = 0; row < MATRIX_ROWS_PER_SIDE; row++) {
+      setPinInput(row_pins[row]);
+      writePinLow(row_pins[row]);
     }
 }
 
@@ -223,7 +223,7 @@ static void select_row(uint8_t row) {
             i2c_stop();
         }
     } else {
-        setPinOutput(col_pins[row - MATRIX_ROWS_PER_SIDE]);
-        writePinLow(col_pins[row - MATRIX_ROWS_PER_SIDE]);
+        setPinOutput(row_pins[row - MATRIX_ROWS_PER_SIDE]);
+        writePinLow(row_pins[row - MATRIX_ROWS_PER_SIDE]);
     }
 }

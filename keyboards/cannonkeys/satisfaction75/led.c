@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led_custom.h"
 #include "satisfaction75.h"
 
+#define BREATHING_PERIOD 6
+
 static void breathing_callback(PWMDriver *pwmp);
 
 static PWMConfig pwmCFG = {

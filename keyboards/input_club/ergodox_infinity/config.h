@@ -17,13 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x1c11
-#define PRODUCT_ID      0xb04d
-#define DEVICE_VER      0x0001
-#define MANUFACTURER Input Club
-#define PRODUCT Infinity_Ergodox/QMK
-
 #define MOUSEKEY_INTERVAL       20
 #define MOUSEKEY_DELAY          0
 #define MOUSEKEY_TIME_TO_MAX    60
@@ -32,11 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TOGGLE  1
 
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
 #define TAPPING_TERM    200
-#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -49,25 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
-/* key matrix size */
-#define MATRIX_ROWS 18
-#define MATRIX_COLS 5
-
-// For some reason, the rows are colums in the schematic, and vice versa
-#define MATRIX_ROW_PINS { B2, B3, B18, B19, C0, C9, C10, C11, D0 }
-#define MATRIX_COL_PINS { D1, D4, D5, D6, D7 }
-#define UNUSED_PINS
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* Serial config (for communication between halves) */
 #define SERIAL_USART_DRIVER SD1  // Only true for the master half
 #define SERIAL_USART_CONFIG { (SERIAL_USART_SPEED), } // Only field is speed
 #define SERIAL_USART_FULL_DUPLEX
-
-/* number of backlight levels */
-#define BACKLIGHT_LEVELS 3
 
 #define LED_BRIGHTNESS_LO       100
 #define LED_BRIGHTNESS_HI       255
@@ -75,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* LED matrix driver */
 #define LED_DRIVER_ADDR_1 0x74
 #define LED_DRIVER_COUNT 1
-#define DRIVER_LED_TOTAL 76
+#define LED_MATRIX_LED_COUNT 76
 #define LED_MATRIX_SPLIT { 38, 38 }
 #define LED_DISABLE_WHEN_USB_SUSPENDED
 
@@ -131,12 +105,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SPI_MISO_PIN A4  // Just an unused pin, the "normal" MISO pin (C7) is used for other things
 #    define SPI_MISO_PAL_MODE PAL_MODE_ALTERNATIVE_7  // Default for A4
 #endif
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
 
 /*
  * Feature disable options

@@ -1,0 +1,15 @@
+{
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D6", "pin_b": "D7"}
+        ]
+    },
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
+    "matrix_pins": {
+        "direct": [
+            ["D4", "D5", "B1"],
+            ["C3", "C2", "C1"]
+        ]
+    }
+}

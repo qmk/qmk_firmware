@@ -1,0 +1,36 @@
+name: PR Regenerate Files
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    paths:
+    - 'data/constants/**'
+    - 'lib/python/**'
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+    - name: Disable safe.directory check
+      run : git config --global --add safe.directory '*'
+
+    - uses: actions/checkout@v3
+
+    - name: Run qmk generators
+      run: |
+        util/regen.sh
+        git diff
+
+    - name: Fail when regeneration required
+      run: |
+        git diff
+        for file in $(git diff --name-only); do
+          echo "File '${file}' Requires Regeneration"
+          echo "::error file=${file}::Requires Regeneration"
+        done
+        test -z "$(git diff --name-only)"

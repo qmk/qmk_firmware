@@ -53,7 +53,7 @@ enum macro_keycodes {
   _30, _31, _32, _33, _34 \
 ) \
 LAYOUT_ortho_5x6( \
-      KC_GESC, _00,     _01,     _02,     _03,     _04, \
+      QK_GESC, _00,     _01,     _02,     _03,     _04, \
       KC_TAB,  _10,     _11,     _12,     _13,     _14, \
       FN_CAPS, _20,     _21,     _22,     _23,     _24, \
       KC_LSFT, _30,     _31,     _32,     _33,     _34, \
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJ] =  LAYOUT_ortho_5x6(
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
-      _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______,
+      _______, RGB_SAD, RGB_VAI, RGB_SAI, QK_BOOT, _______,
       _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______,
       _______, _______, _______, _______, _______, _______,
       _______, _______, _______, RGB_MOD, _______, _______
@@ -109,7 +109,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
+  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
 
   switch (keycode) {
     case QWERTY:

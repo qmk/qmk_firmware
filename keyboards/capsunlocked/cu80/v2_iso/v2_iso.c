@@ -15,7 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "v2_iso.h"
+#include "quantum.h"
+
 #ifdef CU80_RGB
 
 void matrix_init_kb(void) {
@@ -24,13 +25,17 @@ void matrix_init_kb(void) {
 }
 
 /* Set LED 62 (Caps Lock) and LED 14 (Scroll Lock) when key active */
-void rgb_matrix_indicators_kb(void) {
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(62, 255, 255, 255);
     }
     if (host_keyboard_led_state().scroll_lock) {
         rgb_matrix_set_color(14, 255, 255, 255);
     }
+    return true;
 }
 
 /* Leds on the CU80 go ltr > rtl > ltr > rlt > Ltr > rtl */

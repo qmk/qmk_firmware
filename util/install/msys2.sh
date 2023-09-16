@@ -7,17 +7,14 @@ _qmk_install_prepare() {
 _qmk_install() {
     echo "Installing dependencies"
 
-    pacman --needed --noconfirm --disable-download-timeout -S pactoys-git
+    pacman --needed --noconfirm --disable-download-timeout -S pactoys
     pacboy sync --needed --noconfirm --disable-download-timeout \
-        base-devel: toolchain:x clang:x git: unzip: python3-pip:x \
-        avr-binutils:x avr-gcc:x avr-libc:x arm-none-eabi-binutils:x \
-        arm-none-eabi-gcc:x arm-none-eabi-newlib:x avrdude:x bootloadhid:x \
-        dfu-programmer:x dfu-util:x teensy-loader-cli:x hidapi:x \
-        python-appdirs:x python-colorama:x python-jsonschema:x python-pillow:x python-pygments:x
+        base-devel: toolchain:x clang:x python-qmk:x hidapi:x \
+        avr-binutils:x avr-gcc:x avr-libc:x \
+        arm-none-eabi-binutils:x arm-none-eabi-gcc:x arm-none-eabi-newlib:x \
+        avrdude:x bootloadhid:x dfu-programmer:x dfu-util:x hid-bootloader-cli:x mdloader:x teensy-loader-cli:x wb32-dfu-updater:x
 
     _qmk_install_drivers
-
-    python3 -m pip install -r "$QMK_FIRMWARE_DIR/requirements.txt"
 }
 
 _qmk_install_drivers() {

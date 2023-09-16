@@ -26,7 +26,7 @@ static const uint16_t backlight_duty_table[] = {
     0b1110111011101110,
     0b1111111111111111,
 };
-#define backlight_duty_table_size (sizeof(backlight_duty_table) / sizeof(backlight_duty_table[0]))
+#define backlight_duty_table_size ARRAY_SIZE(backlight_duty_table)
 
 // clang-format on
 

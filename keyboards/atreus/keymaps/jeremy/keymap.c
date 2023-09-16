@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_BSPC,        KC_UP,          KC_DEL,  KC_PGUP,                   KC_TRNS, KM_SAVE, KC_TRNS,        KM_OPEN,        KC_TRNS,
     KC_TRNS, KC_LEFT,        KC_DOWN,        KC_RGHT, KC_PGDN,                   KM_UNDO, KC_LALT, KC_TRNS,        KC_LGUI,        KC_TRNS,
     KC_TRNS, KC_VOLD,        KC_MUTE,        KC_VOLU, KC_MPLY,                   KM_REDO, KM_CLSE, KC_TRNS,        KC_TRNS,        KC_TRNS,
-    KC_TRNS, KC_TRNS,        RESET,          KC_TRNS, KC_TAB,  KM_COPY, KM_CUT,  KM_PAST, KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS
+    KC_TRNS, KC_TRNS,        QK_BOOT,        KC_TRNS, KC_TAB,  KM_COPY, KM_CUT,  KM_PAST, KC_TRNS, KC_TRNS,        KC_TRNS,        KC_TRNS
   ),
   [SYMB] = LAYOUT(
     KC_BSLS, KC_EXLM,        KC_LABK,        KC_RABK, CM_COLN,                   KC_UNDS, KC_DLR,  KC_QUES,       KC_TRNS,         KC_PERC,

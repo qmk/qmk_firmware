@@ -25,6 +25,9 @@
 #ifdef SOLENOID_ENABLE
 #    include "solenoid.h"
 #endif
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_HAPTIC_ENABLE)
+extern uint8_t split_haptic_play;
+#endif
 
 haptic_config_t haptic_config;
 
@@ -319,9 +322,15 @@ void haptic_play(void) {
     uint8_t play_eff = 0;
     play_eff         = haptic_config.mode;
     DRV_pulse(play_eff);
+#    if defined(SPLIT_KEYBOARD) && defined(SPLIT_HAPTIC_ENABLE)
+    split_haptic_play = haptic_config.mode;
+#    endif
 #endif
 #ifdef SOLENOID_ENABLE
     solenoid_fire_handler();
+#    if defined(SPLIT_KEYBOARD) && defined(SPLIT_HAPTIC_ENABLE)
+    split_haptic_play = 1;
+#    endif
 #endif
 }
 

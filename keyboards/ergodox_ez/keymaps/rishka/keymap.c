@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BASE] = LAYOUT_ergodox_pretty_wrapper(
   KC_EQL,  ________________NUMBERS_L__________________, TG(WIN),       OSX_LOCK, ________________NUMBERS_R__________________, KC_MINS,
-  KC_DELT, _________________QWERTY_L1_________________, TG(SYMB),      TG(SYMB), _________________QWERTY_R1_________________, KC_BSLS,
+  KC_DEL,  _________________QWERTY_L1_________________, TG(SYMB),      TG(SYMB), _________________QWERTY_R1_________________, KC_BSLS,
   KC_BSPC, _____________MOD_QWERTY_L2_________________,                          _____________MOD_QWERTY_R2_________________, LT(MDIA, KC_QUOT),
   OS_LSFT, _________________QWERTY_L3_________________, ALL_T(KC_NO),  TG(MDIA), _________________QWERTY_R3_________________, OS_RSFT,
   LT(SYMB,KC_GRV), KC_QUOT, LALT(KC_LSFT), KC_LEFT, KC_RGHT,                        KC_UP,   KC_DOWN, KC_LBRC,  KC_RBRC,        OSL(SYMB),
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [SYMB] = LAYOUT_ergodox_pretty_wrapper(
-VRSN,    ______________________F_L__________________, KC_F11,       KC_F12 , ______________________F_R__________________, KC_NLCK,
+VRSN,    ______________________F_L__________________, KC_F11,       KC_F12 , ______________________F_R__________________, KC_NUM,
 _______, _________________SYMBOL_L1_________________, _______,      _______, _________________SYMBOL_R1_________________, _______,
 _______, _________________SYMBOL_L2_________________,                        _________________SYMBOL_R2_________________, _______,
 _______, _________________SYMBOL_L3_________________, _______,      _______, _________________SYMBOL_R3_________________, _______,
@@ -75,12 +75,12 @@ _______, _______, _______, _______, _______,                                    
   // left hand
   KC_ESCAPE, KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5,
   KC_F1, KC_Y, KC_Q, KC_W, KC_E, KC_R, KC_T,
-  KC_TAB, KC_LSHIFT, KC_A, KC_S, KC_D, KC_F,
-  KC_LCTRL, KC_B, KC_Z, KC_X, KC_C, KC_V, KC_G,
+  KC_TAB, KC_LSFT, KC_A, KC_S, KC_D, KC_F,
+  KC_LCTL, KC_B, KC_Z, KC_X, KC_C, KC_V, KC_G,
   LT(BASE, KC_L), KC_J, KC_I, KC_O, KC_M,
                                                KC_ESCAPE, _______,
                                                         KC_ENTER,
-                                      KC_SPACE, KC_LCTRL, KC_LALT,
+                                      KC_SPACE, KC_LCTL, KC_LALT,
  // right hand
   KC_RGHT,      KC_6,    KC_7,    KC_8,    KC_9,              KC_0,           KC_MINS,
   TG(SYMB),     KC_Y,    KC_U,    KC_I,    KC_O,              KC_P,           KC_BSLS,
@@ -101,7 +101,7 @@ _______, _______, _______, _______, _______,                                    
   _______, _______, _______, _______, _______,
                                                _______, _______,
                                                         _______,
-                                      RESET, _______, _______,
+                                      QK_BOOT, _______, _______,
   // right hand
   _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______,
@@ -110,7 +110,7 @@ _______, _______, _______, _______, _______,                                    
                     _______, _______, _______, _______, _______,
   _______, _______,
   _______,
-  _______, _______, EEP_RST
+  _______, _______, EE_CLR
 ),
 };
 
@@ -138,7 +138,7 @@ void keyboard_post_init_user(void) {
 };
 
 // Runs whenever there is a layer state change.
-uint32_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();

@@ -1,13 +1,3 @@
-# MCU name
-MCU = STM32F303
-BOARD = QMK_PROTON_C
-
-# Bootloader selection
-BOOTLOADER = stm32-dfu
-
-# Use SPI for RGB underglow:
-WS2812_DRIVER = spi
-
 # Build Options
 #   change yes to no to disable
 #
@@ -21,5 +11,3 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality
 LEADER_ENABLE = yes
-
-LAYOUTS = 60_ansi 60_ansi_split_bs_rshift 60_iso 60_hhkb

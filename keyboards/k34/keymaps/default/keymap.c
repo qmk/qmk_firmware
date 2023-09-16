@@ -33,7 +33,7 @@ enum layer_names {
 
 /* combos */
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {COMBO(jk_combo, KC_ESC)};
+combo_t key_combos[] = {COMBO(jk_combo, KC_ESC)};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */

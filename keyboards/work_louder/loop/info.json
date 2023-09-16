@@ -1,23 +1,54 @@
 {
-    "keyboard_name": "loop",
-    "url": "",
+    "keyboard_name": "Loop Pad",
+    "manufacturer": "Work Louder",
+    "url": "https://worklouder.cc/",
     "maintainer": "Work Louder",
+    "usb": {
+        "vid": "0x574C",
+        "pid": "0x1DF9",
+        "max_power": 100
+    },
+    "rgb_matrix": {
+        "driver": "WS2812"
+    },
+    "matrix_pins": {
+        "cols": ["B3", "B2", "B1", "D6", "D7", "B4", "B5", "B6", "C6", "C7", "F7", "F6"],
+        "rows": ["F5"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D0", "pin_b": "D1"},
+            {"pin_a": "D2", "pin_b": "D3"},
+            {"pin_a": "D5", "pin_b": "D4"}
+        ]
+    },
+    "bootmagic": {
+        "matrix": [0, 11]
+    },
+    "ws2812": {
+        "pin": "F1"
+    },
+    "rgblight": {
+        "max_brightness": 120
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "k00", "x": 0, "y": 0},
-                {"label": "k01", "x": 1, "y": 0},
-                {"label": "k02", "x": 2, "y": 0},
-
-                {"label": "k03", "x": 3, "y": 1, "w": 0},
-                {"label": "k04", "x": 4, "y": 1, "w": 0},
-                {"label": "k05", "x": 5, "y": 1, "w": 0},
-                {"label": "k06", "x": 6, "y": 1, "w": 0},
-                {"label": "k07", "x": 7, "y": 1, "w": 0},
-                {"label": "k08", "x": 8, "y": 1, "w": 0},
-                {"label": "k09", "x": 9, "y": 1, "w": 0},
-                {"label": "k0a", "x": 10, "y": 1, "w": 0},
-                {"label": "k0b", "x": 11, "y": 1, "w": 0}
+                {"label": "k00", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "k01", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "k02", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "k03", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "k04", "matrix": [0, 4], "x": 4, "y": 0},
+                {"label": "k05", "matrix": [0, 5], "x": 5, "y": 0},
+                {"label": "k06", "matrix": [0, 6], "x": 6, "y": 0},
+                {"label": "k07", "matrix": [0, 7], "x": 7, "y": 0},
+                {"label": "k08", "matrix": [0, 8], "x": 8, "y": 0},
+                {"label": "k09", "matrix": [0, 9], "x": 9, "y": 0},
+                {"label": "k0a", "matrix": [0, 10], "x": 10, "y": 0},
+                {"label": "k0b", "matrix": [0, 11], "x": 11, "y": 0}
             ]
         }
     }

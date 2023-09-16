@@ -10,8 +10,8 @@
 // Shortcut to make keymap more readable
 #define SYM_L    MO(_SYMB)
 #define KC_ALES  LALT_T(KC_ESC)
-#define KC_L1SYM LT(_SYMB, KC_LANG1)
-#define KC_L2SYM LT(_SYMB, KC_LANG2)
+#define KC_L1SYM LT(_SYMB, KC_LNG1)
+#define KC_L2SYM LT(_SYMB, KC_LNG2)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐                ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
      _______ ,_______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,                 KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,KC_F11  ,KC_F12  ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                 KC_LPRN ,KC_RPRN ,KC_PIPE ,KC_ASTR ,KC_TILD ,KC_JYEN ,KC_BSLS ,
+     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                 KC_LPRN ,KC_RPRN ,KC_PIPE ,KC_ASTR ,KC_TILD ,KC_INT3 ,KC_BSLS ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,                 KC_LBRC ,KC_RBRC ,KC_DOT  ,KC_SLSH ,KC_GRV ,KC_MINS  ,_______ ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                ├────────┼────────┼────────┼────────┼────────┼────────┬────────┤

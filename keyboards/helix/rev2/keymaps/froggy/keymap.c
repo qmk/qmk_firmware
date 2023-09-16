@@ -71,7 +71,6 @@ enum macro_keycodes {
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 
-#if MATRIX_ROWS == 10 // HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Base
@@ -87,11 +86,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | Ctrl | Alt  | Gui  | Sym  | Num  | OPT  | Ent  |
    * `------------------------------------------------'
    */
-  [_BASE] = LAYOUT_half( \
-      LCTL(KC_Z),    KC_SCLN,       KC_LBRC,       KC_LPRN,   KC_LT,     KC_LCBR,            \
-      KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,               \
-      KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,               \
-      OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC, \
+  [_BASE] = LAYOUT_half(
+      LCTL(KC_Z),    KC_SCLN,       KC_LBRC,       KC_LPRN,   KC_LT,     KC_LCBR,
+      KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,
+      KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,
+      OSM(MOD_LSFT), KC_Y,          KC_S,          KC_N,      KC_I,      KC_U,       KC_SPC,
       OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), MO(_SYM),  MO(_NUM),  OPT_TAP_SP, KC_ENT ),
 
   /* Opt
@@ -107,12 +106,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |   ,  | DTOP |      |      |
    * `------------------------------------------------'
    */
-  [_OPT] = LAYOUT_half( \
-      KC_ESC,  KC_COLN,KC_RBRC, KC_RPRN,KC_GT,     KC_RCBR,         \
-      EISU,    KC_J,   KC_M,    KC_B,   KC_QUOT,   KC_TAB,          \
-      KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,            \
-      _______, KC_X,   KC_G,    KC_W,   KC_MINUS,  KC_DEL,  KC_ESC, \
-      _______, _______,_______, KC_COMM,DESKTOP,   _______, _______ \
+  [_OPT] = LAYOUT_half(
+      KC_ESC,  KC_COLN,KC_RBRC, KC_RPRN,KC_GT,     KC_RCBR,
+      EISU,    KC_J,   KC_M,    KC_B,   KC_QUOT,   KC_TAB,
+      KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,
+      _______, KC_X,   KC_G,    KC_W,   KC_MINUS,  KC_DEL,  KC_ESC,
+      _______, _______,_______, KC_COMM,DESKTOP,   _______, _______
       ),
 
   /* Func
@@ -128,12 +127,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |RGBOFF|      |      |      |      |      |      |
    * `------------------------------------------------'
    */
-  [_FUNC] = LAYOUT_half( \
-      RGBRST,RGB_HUI, _______, RESET,   MAC,     WIN,               \
-      RGB1,  RGB_VAI, KC_F7,   KC_F8,   KC_F9,   _______,           \
-      RGB2,  RGB_VAD, KC_F4,   KC_F5,   KC_F6,   KC_F12,            \
-      RGB3,  KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F11,   _______, \
-      RGBOFF,_______, _______, _______, _______, _______,  _______  \
+  [_FUNC] = LAYOUT_half(
+      RGBRST,RGB_HUI, _______, QK_BOOT, MAC,     WIN,
+      RGB1,  RGB_VAI, KC_F7,   KC_F8,   KC_F9,   _______,
+      RGB2,  RGB_VAD, KC_F4,   KC_F5,   KC_F6,   KC_F12,
+      RGB3,  KC_F10,  KC_F1,   KC_F2,   KC_F3,   KC_F11,   _______,
+      RGBOFF,_______, _______, _______, _______, _______,  _______
       ),
 
   /* Sym
@@ -149,12 +148,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |  PS  |      |   ~  |      |      |
    * `------------------------------------------------'
    */
-  [_SYM] = LAYOUT_half( \
-      KC_INS,  KC_GRV,  _______, KC_PGUP, KC_PGDN, KC_CIRC,          \
-      _______, KC_BSLS, KC_HASH, KC_EQL,  KC_QUES, KC_PERC,          \
-      _______, KC_DLR,  KC_UP,   KC_AT,   KC_EXLM, KC_PIPE,          \
-      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,KC_UNDS, KC_AMPR, _______, \
-      _______, _______, KC_PSCR, _______, KC_TILD, _______, _______  \
+  [_SYM] = LAYOUT_half(
+      KC_INS,  KC_GRV,  _______, KC_PGUP, KC_PGDN, KC_CIRC,
+      _______, KC_BSLS, KC_HASH, KC_EQL,  KC_QUES, KC_PERC,
+      _______, KC_DLR,  KC_UP,   KC_AT,   KC_EXLM, KC_PIPE,
+      KC_CAPS, KC_LEFT, KC_DOWN, KC_RIGHT,KC_UNDS, KC_AMPR, _______,
+      _______, _______, KC_PSCR, _______, KC_TILD, _______, _______
       ),
 
   /* Raise
@@ -170,18 +169,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |  ,   |      |      |      |
    * `------------------------------------------------'
    */
-  [_NUM] = LAYOUT_half( \
-      _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,                 \
-      _______,  KC_ASTR, KC_P7,      KC_P8,   KC_P9,   KC_MINS,                 \
-      KC_PDOT,  KC_SLSH, KC_P4,      KC_P5,   KC_P6,   KC_PLUS,                 \
-      KC_NLCK,  KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______, \
-      _______,  _______, KC_PDOT,    KC_COMM, _______, _______,        _______  \
+  [_NUM] = LAYOUT_half(
+      _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,
+      _______,  KC_ASTR, KC_P7,      KC_P8,   KC_P9,   KC_MINS,
+      KC_PDOT,  KC_SLSH, KC_P4,      KC_P5,   KC_P6,   KC_PLUS,
+      KC_NUM,   KC_P0,   KC_P1,      KC_P2,   KC_P3,   LCTL(S(KC_F1)), _______,
+      _______,  _______, KC_PDOT,    KC_COMM, _______, _______,        _______
       )
 };
-#else
-#error "undefined keymaps"
-#endif
-
 
 #ifdef AUDIO_ENABLE
 
@@ -347,24 +342,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    case EISU:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG2);
+          register_code(KC_LNG2);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG2);
+        unregister_code(KC_LNG2);
       }
       return false;
       break;
     case KANA:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
-          register_code(KC_LANG1);
+          register_code(KC_LNG1);
         }else{
           SEND_STRING(SS_LALT("`"));
         }
       } else {
-        unregister_code(KC_LANG1);
+        unregister_code(KC_LNG1);
       }
       return false;
       break;
@@ -464,12 +459,12 @@ void matrix_init_user(void) {
 
 #ifdef AUDIO_ENABLE
 
-void startup_user()
+void startup_user(void)
 {
     _delay_ms(20); // gets rid of tick
 }
 
-void shutdown_user()
+void shutdown_user(void)
 {
     _delay_ms(150);
     stop_all_notes();

@@ -45,9 +45,7 @@ void IS31FL3218_write_register(uint8_t reg, uint8_t data) {
 
 void IS31FL3218_write_pwm_buffer(uint8_t *pwm_buffer) {
     g_twi_transfer_buffer[0] = ISSI_REG_PWM;
-    for (int i = 0; i < 18; i++) {
-        g_twi_transfer_buffer[1 + i] = pwm_buffer[i];
-    }
+    memcpy(g_twi_transfer_buffer + 1, pwm_buffer, 18);
 
     i2c_transmit(ISSI_ADDRESS, g_twi_transfer_buffer, 19, ISSI_TIMEOUT);
 }

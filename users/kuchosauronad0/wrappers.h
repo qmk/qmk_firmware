@@ -194,11 +194,11 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________ADJUST_R3_________________       _________________MEDIA_RIGHT_______________
 
 #define _________________RGB_UP____________________       RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
-#define _________________RGB_CENTER________________       MU_TOG ,  CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
+#define _________________RGB_CENTER________________       MU_TOGG,  CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
 #define _________________RGB_DOWN__________________       RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_RGB_T
 
 #define _________________RGB_R1____________________       RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
-#define _________________RGB_R2____________________       MU_TOG ,  CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
+#define _________________RGB_R2____________________       MU_TOGG,  CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
 #define _________________RGB_R3____________________       RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_RGB_T
 
 #define __________________GAMEPAD_L1_______________       _______,  KC_Q,    KC_W,    KC_E,     _______

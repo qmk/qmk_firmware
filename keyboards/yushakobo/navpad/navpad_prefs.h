@@ -19,7 +19,7 @@
 #include "quantum.h"
 
 enum custom_keycodes { 
-  TAP_00 = SAFE_RANGE
+  TAP_00 = QK_KB_0
 };
 
 enum layer_name {

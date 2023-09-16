@@ -24,7 +24,7 @@ const uint16_t PROGMEM superduper_combos[SUPERDUPER_COMBO_COUNT][3] = {
     [_QWOC] = {CM_S, CM_D, COMBO_END},
 };
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     [CB_SUPERDUPER] = COMBO_ACTION(superduper_combos[_QWERTY]),
 };
 

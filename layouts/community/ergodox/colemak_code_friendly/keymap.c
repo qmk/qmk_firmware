@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,         KC_A,          KC_R,          KC_S,     KC_T,            KC_D,
   KC_LSFT,        LCTL_T(KC_Z),  LGUI_T(KC_X),  KC_C,     KC_V,            RALT_T(KC_B),    KC_LCBR,
   KC_LCTL,        KC_LGUI,       KC_LALT,       KC_LBRC,  KC_RBRC,
-  
+
                                                               KC_HOME, KC_END,
                                                                       KC_PSCR,
                                             MO(LAYER_LNUM), KC_ENT,   KC_LGUI,
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   KC_H,          KC_N,          KC_E,     KC_I,            KC_O,             KC_QUOT,
   KC_RCBR,        RALT_T(KC_K),  KC_M,          KC_COMM,  LGUI_T(KC_DOT),  RCTL_T(KC_SLSH),  KC_RSFT,
                                  KC_LEFT,       KC_DOWN,  KC_UP,           KC_RGHT,          KC_DEL,
-  KC_INS,  KC_SLCK,
+  KC_INS,  KC_SCRL,
   KC_PGUP,
   KC_PGDN, KC_SPC, MO(LAYER_RNUM)
 ),
@@ -101,19 +101,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_F8,      KC_F7,   KC_F6,    KC_F5,    M_IN_PRN,
   KC_TRNS, KC_F4,      KC_F3,   KC_F2,    KC_F1,    M_IN_BRC,       KC_TRNS,
   KC_MUTE, KC_VOLD,    KC_VOLU, KC_TRNS,  KC_TRNS,
-  
+
                                                        KC_TRNS,   KC_TRNS,
-                                                           DYN_REC_START1,
-                                        KC_TRNS, KC_TRNS, DYN_MACRO_PLAY1,
+                                                           DM_REC1,
+                                        KC_TRNS, KC_TRNS, DM_PLY1,
   /* right hand */
   KC_TRNS, KC_TRNS,    KC_ASTR, KC_LPRN,  KC_RPRN,  KC_MINS,  KC_TRNS,
   KC_EQL,  M_LAMBDA,   KC_7,    KC_8,     KC_9,     KC_PLUS,  KC_TRNS,
            M_POINER,   KC_4,    KC_5,     KC_6,     KC_0,     KC_TRNS,
   KC_ENT,  M_NOT_EQL,  KC_1,    KC_2,     KC_3,     KC_TRNS,  KC_TRNS,
                        KC_0,    KC_COMM,  KC_DOT,   KC_TRNS,  KC_TRNS,
-  KC_TRNS, DYN_REC_STOP,
-  DYN_REC_START2,
-  DYN_MACRO_PLAY2, KC_TRNS, KC_TRNS
+  KC_TRNS, DM_RSTP,
+  DM_REC2,
+  DM_PLY2, KC_TRNS, KC_TRNS
 ),
 /* Keymap 2: Left side -> LAYER_NUM,                             Right side -> Shift + LAYER_BASE
  *
@@ -126,8 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |  |  }   |------+------+------+------+------+--------|
  * |        |  F4  |  F3  |  F2  |  F1  |  []  |      |  |      |K/RAlt|   M  |   ,  |./Supe|/ RCtl| RShift |
  * '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
- *   | MUTE | VOLD | VOLU |      |      |                              | Left | Down | Up   |Right | Del  |  
- *   '----------------------------------'                              '----------------------------------'  
+ *   | MUTE | VOLD | VOLU |      |      |                              | Left | Down | Up   |Right | Del  |
+ *   '----------------------------------'                              '----------------------------------'
  *                                      .-------------.  .-------------.
  *                                      |      |      |  | Ins  |ScrLck|
  *                               .------+------+------|  |------+------+------.
@@ -143,17 +143,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_F8,      KC_F7,   KC_F6,    KC_F5,    M_IN_PRN,
   KC_TRNS, KC_F4,      KC_F3,   KC_F2,    KC_F1,    M_IN_BRC,       KC_TRNS,
   KC_MUTE, KC_VOLD,    KC_VOLU, KC_TRNS,  KC_TRNS,
-  
+
                                                        KC_TRNS,   KC_TRNS,
-                                                           DYN_REC_START1,
-                                        KC_TRNS, KC_TRNS, DYN_MACRO_PLAY1,
+                                                           DM_REC1,
+                                        KC_TRNS, KC_TRNS, DM_PLY1,
   /* right hand */
   TG(1),          KC_AMPR,       KC_ASTR,       KC_LPRN,    KC_RPRN,    S(KC_MINS),  S(KC_BSPC),
   KC_UNDS,        S(KC_J),       S(KC_L),       S(KC_U),    S(KC_Y),    S(KC_SCLN),  S(KC_BSLS),
                   S(KC_H),       S(KC_N),       S(KC_E),    S(KC_I),    S(KC_O),     S(KC_QUOT),
   KC_RCBR,        S(KC_K),       S(KC_M),       S(KC_COMM), S(KC_DOT),  S(KC_SLSH),  KC_RSFT,
                                  S(KC_LEFT),    S(KC_DOWN), S(KC_UP),   S(KC_RGHT),  S(KC_DEL),
-  S(KC_INS),  S(KC_SLCK),
+  S(KC_INS),  S(KC_SCRL),
   S(KC_PGUP),
   S(KC_PGDN), S(KC_SPC), KC_CAPS
 ),
@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   S(KC_ESC),   S(KC_A),     S(KC_R),     S(KC_S),     S(KC_T),     S(KC_D),
   KC_LSFT,     S(KC_Z),     S(KC_X),     S(KC_C),     S(KC_V),     S(KC_B),    KC_LCBR,
   S(KC_LCTL),  S(KC_LGUI),  S(KC_LALT),  S(KC_LBRC),  S(KC_RBRC),
-  
+
                                                               S(KC_HOME), S(KC_END),
                                                                          S(KC_PSCR),
                                                    KC_CAPS, S(KC_ENT),   S(KC_LGUI),
@@ -195,9 +195,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            M_POINER,    KC_4,    KC_5,     KC_6,     KC_0,     KC_TRNS,
   KC_ENT,  M_NOT_EQL,   KC_1,    KC_2,     KC_3,     KC_TRNS,  KC_TRNS,
                         KC_0,    KC_COMM,  KC_DOT,   KC_TRNS,  KC_TRNS,
-  KC_TRNS, DYN_REC_STOP,
-  DYN_REC_START2,
-  DYN_MACRO_PLAY2, KC_TRNS, KC_TRNS
+  KC_TRNS, DM_RSTP,
+  DM_REC2,
+  DM_PLY2, KC_TRNS, KC_TRNS
 ),
 };
 
@@ -206,13 +206,13 @@ static bool recording_dynamic_macro;
 static bool process_record_dynamic_macro_wrapper(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     /* detect dynamic macro recording state */
-    case DYN_REC_START1:
-    case DYN_REC_START2:
+    case QK_DYNAMIC_MACRO_RECORD_START_1:
+    case QK_DYNAMIC_MACRO_RECORD_START_2:
       if (record->event.pressed) {
         recording_dynamic_macro = true;
       }
       break;
-    case DYN_REC_STOP:
+    case QK_DYNAMIC_MACRO_RECORD_STOP:
       if (record->event.pressed) {
         recording_dynamic_macro = false;
       }
@@ -227,7 +227,7 @@ static bool process_record_dynamic_macro_wrapper(uint16_t keycode, keyrecord_t *
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  
+
   /* the purpose of the ..._wrapper is to detect START/ST0P keys to
      light the blue led during recording */
   if (!process_record_dynamic_macro_wrapper(keycode, record)) {
@@ -308,19 +308,19 @@ void matrix_init_user(void) {
 
 /* Runs constantly in the background, in a loop. */
 void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
+  uint8_t layer = get_highest_layer(layer_state);
 
   //led 1, RED, Caps-Lock ON
   //if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ergodox_right_led_1_on();
 
   //led 2, GREEN
-  if (layer == LAYER_NUM) 
+  if (layer == LAYER_NUM)
       ergodox_right_led_2_on();
   else
       ergodox_right_led_2_off();
 
   //led 3, BLUE
-  if (recording_dynamic_macro) 
+  if (recording_dynamic_macro)
       ergodox_right_led_3_on();
   else
       ergodox_right_led_3_off();

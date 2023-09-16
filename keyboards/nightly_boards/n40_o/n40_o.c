@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "n40_o.h"
+#include "quantum.h"
+#include "encoder_action.h"
 
 void matrix_scan_kb(void) {
     encoder_action_unregister();

@@ -31,15 +31,17 @@ typedef union {
     uint32_t raw;
     struct {
         bool    enable : 1;
-        uint8_t feedback : 2;
         uint8_t mode : 7;
         bool    buzz : 1;
         uint8_t dwell : 7;
-        bool    cont : 1;
         uint8_t amplitude : 8;
+        uint8_t feedback : 2;
+        bool    cont : 1;
         uint8_t reserved : 5;
     };
 } haptic_config_t;
+
+_Static_assert(sizeof(haptic_config_t) == sizeof(uint32_t), "Haptic EECONFIG out of spec.");
 
 typedef enum HAPTIC_FEEDBACK {
     KEY_PRESS,

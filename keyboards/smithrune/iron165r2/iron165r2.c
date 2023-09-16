@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "iron165r2.h"
+#include "quantum.h"
 
 void board_init(void) {
     setPinInput(B6);

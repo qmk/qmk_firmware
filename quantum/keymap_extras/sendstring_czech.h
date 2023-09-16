@@ -96,7 +96,7 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     //       !        "        #        $        %        &        '
     KC_SPC,  CZ_SECT, CZ_URNG, CZ_X,    CZ_URNG, CZ_EQL,  CZ_C,    CZ_DIAE,
     // (     )        *        +        ,        -        .        /
-    CZ_LPRN, CZ_LPRN, CZ_MINS, CZ_PLUS, CZ_COMM, CZ_MINS, CZ_DOT,  CZ_UACU,
+    CZ_RPRN, CZ_RPRN, CZ_MINS, CZ_PLUS, CZ_COMM, CZ_MINS, CZ_DOT,  CZ_UACU,
     // 0     1        2        3        4        5        6        7
     CZ_EACU, CZ_PLUS, CZ_ECAR, CZ_SCAR, CZ_CCAR, CZ_RCAR, CZ_ZCAR, CZ_YACU,
     // 8     9        :        ;        <        =        >        ?

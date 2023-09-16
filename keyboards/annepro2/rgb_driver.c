@@ -16,10 +16,10 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-#include "rgb_matrix.h"
-#include "ap2_led.h"
+#    include "rgb_matrix.h"
+#    include "ap2_led.h"
 
-uint8_t led_pos[DRIVER_LED_TOTAL];
+uint8_t led_pos[RGB_MATRIX_LED_COUNT];
 
 void init(void) {
     unsigned int i = 0;
@@ -33,26 +33,22 @@ void init(void) {
     }
 }
 
-void flush(void) {}
+void flush(void) {
+    for (uint8_t row = 0; row < NUM_ROW; row++)
+        ap2_led_colors_set_row(row);
+}
 
 void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
-    if (r != led_colors[led_pos[index]].p.red   ||
-        g != led_colors[led_pos[index]].p.green ||
-        b != led_colors[led_pos[index]].p.blue)
-        {
-            led_colors[led_pos[index]] = (ap2_led_t){
-                .p.blue  = b,
-                .p.red   = r,
-                .p.green = g,
-                .p.alpha = 0xff,
-            };
-            int row = led_pos[index] / NUM_COLUMN;
-            rgb_row_changed[row] = 1;
-        }
+    led_colors[led_pos[index]] = (ap2_led_t){
+        .p.blue  = b,
+        .p.red   = r,
+        .p.green = g,
+        .p.alpha = 0xff,
+    };
 }
 
 void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i=0; i<DRIVER_LED_TOTAL; i++)
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++)
         set_color(i, r, g, b);
 }
 

@@ -1,0 +1,391 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ ; │ ς │ Ε │ Ρ │ Τ │ Υ │ Θ │ Ι │ Ο │ Π │ [ │ ] │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │ Α │ Σ │ Δ │ Φ │ Γ │ Η │ Ξ │ Κ │ Λ │ ΄ │ ' │ \ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │   │ Ζ │ Χ │ Ψ │ Ω │ Β │ Ν │ Μ │ , │ . │ / │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "KC_GRV": {
+            "key": "GR_GRV",
+            "label": "`",
+        }
+        "KC_1": {
+            "key": "GR_1",
+            "label": "1",
+        }
+        "KC_2": {
+            "key": "GR_2",
+            "label": "2",
+        }
+        "KC_3": {
+            "key": "GR_3",
+            "label": "3",
+        }
+        "KC_4": {
+            "key": "GR_4",
+            "label": "4",
+        }
+        "KC_5": {
+            "key": "GR_5",
+            "label": "5",
+        }
+        "KC_6": {
+            "key": "GR_6",
+            "label": "6",
+        }
+        "KC_7": {
+            "key": "GR_7",
+            "label": "7",
+        }
+        "KC_8": {
+            "key": "GR_8",
+            "label": "8",
+        }
+        "KC_9": {
+            "key": "GR_9",
+            "label": "9",
+        }
+        "KC_0": {
+            "key": "GR_0",
+            "label": "0",
+        }
+        "KC_MINS": {
+            "key": "GR_MINS",
+            "label": "-",
+        }
+        "KC_EQL": {
+            "key": "GR_EQL",
+            "label": "=",
+        }
+        "KC_Q": {
+            "key": "GR_SCLN",
+            "label": ";",
+        }
+        "KC_W": {
+            "key": "GR_FSIG",
+            "label": "ς",
+        }
+        "KC_E": {
+            "key": "GR_EPSL",
+            "label": "Ε",
+        }
+        "KC_R": {
+            "key": "GR_RHO",
+            "label": "Ρ",
+        }
+        "KC_T": {
+            "key": "GR_TAU",
+            "label": "Τ",
+        }
+        "KC_Y": {
+            "key": "GR_UPSL",
+            "label": "Υ",
+        }
+        "KC_U": {
+            "key": "GR_THET",
+            "label": "Θ",
+        }
+        "KC_I": {
+            "key": "GR_IOTA",
+            "label": "Ι",
+        }
+        "KC_O": {
+            "key": "GR_OMCR",
+            "label": "Ο",
+        }
+        "KC_P": {
+            "key": "GR_PI",
+            "label": "Π",
+        }
+        "KC_LBRC": {
+            "key": "GR_LBRC",
+            "label": "[",
+        }
+        "KC_RBRC": {
+            "key": "GR_RBRC",
+            "label": "]",
+        }
+        "KC_A": {
+            "key": "GR_ALPH",
+            "label": "Α",
+        }
+        "KC_S": {
+            "key": "GR_SIGM",
+            "label": "Σ",
+        }
+        "KC_D": {
+            "key": "GR_DELT",
+            "label": "Δ",
+        }
+        "KC_F": {
+            "key": "GR_PHI",
+            "label": "Φ",
+        }
+        "KC_G": {
+            "key": "GR_GAMM",
+            "label": "Γ",
+        }
+        "KC_H": {
+            "key": "GR_ETA",
+            "label": "Η",
+        }
+        "KC_J": {
+            "key": "GR_XI",
+            "label": "Ξ",
+        }
+        "KC_K": {
+            "key": "GR_KAPP",
+            "label": "Κ",
+        }
+        "KC_L": {
+            "key": "GR_LAMB",
+            "label": "Λ",
+        }
+        "KC_SCLN": {
+            "key": "GR_TONS",
+            "label": "΄ (dead)",
+        }
+        "KC_QUOT": {
+            "key": "GR_QUOT",
+            "label": "'",
+        }
+        "KC_NUHS": {
+            "key": "GR_BSLS",
+            "label": "\\",
+        }
+        "KC_Z": {
+            "key": "GR_ZETA",
+            "label": "Ζ",
+        }
+        "KC_X": {
+            "key": "GR_CHI",
+            "label": "Χ",
+        }
+        "KC_C": {
+            "key": "GR_PSI",
+            "label": "Ψ",
+        }
+        "KC_V": {
+            "key": "GR_OMEG",
+            "label": "Ω",
+        }
+        "KC_B": {
+            "key": "GR_BETA",
+            "label": "Β",
+        }
+        "KC_N": {
+            "key": "GR_NU",
+            "label": "Ν",
+        }
+        "KC_M": {
+            "key": "GR_MU",
+            "label": "Μ",
+        }
+        "KC_COMM": {
+            "key": "GR_COMM",
+            "label": ",",
+        }
+        "KC_DOT": {
+            "key": "GR_DOT",
+            "label": ".",
+        }
+        "KC_SLSH": {
+            "key": "GR_SLSH",
+            "label": "/",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ~ │ ! │ @ │ # │ $ │ % │ ^ │ & │ * │ ( │ ) │ _ │ + │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ : │ ΅ │   │   │   │   │   │   │   │   │ { │ } │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │ ¨ │ " │ | │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │   │   │   │   │   │   │   │   │ < │ > │ ? │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "S(GR_GRV)": {
+            "key": "GR_TILD",
+            "label": "~",
+        }
+        "S(GR_1)": {
+            "key": "GR_EXLM",
+            "label": "!",
+        }
+        "S(GR_2)": {
+            "key": "GR_AT",
+            "label": "@",
+        }
+        "S(GR_3)": {
+            "key": "GR_HASH",
+            "label": "#",
+        }
+        "S(GR_4)": {
+            "key": "GR_DLR",
+            "label": "$",
+        }
+        "S(GR_5)": {
+            "key": "GR_PERC",
+            "label": "%",
+        }
+        "S(GR_6)": {
+            "key": "GR_CIRC",
+            "label": "^",
+        }
+        "S(GR_7)": {
+            "key": "GR_AMPR",
+            "label": "&",
+        }
+        "S(GR_8)": {
+            "key": "GR_ASTR",
+            "label": "*",
+        }
+        "S(GR_9)": {
+            "key": "GR_LPRN",
+            "label": "(",
+        }
+        "S(GR_0)": {
+            "key": "GR_RPRN",
+            "label": ")",
+        }
+        "S(GR_MINS)": {
+            "key": "GR_UNDS",
+            "label": "_",
+        }
+        "S(GR_EQL)": {
+            "key": "GR_PLUS",
+            "label": "+",
+        }
+        "S(GR_SCLN)": {
+            "key": "GR_COLN",
+            "label": ":",
+        }
+        "S(GR_FSIG)": {
+            "key": "GR_DIAT",
+            "label": "΅ (dead)",
+        }
+        "S(GR_LBRC)": {
+            "key": "GR_LCBR",
+            "label": "{",
+        }
+        "S(GR_RBRC)": {
+            "key": "GR_RCBR",
+            "label": "}",
+        }
+        "S(GR_TONS)": {
+            "key": "GR_DIAE",
+            "label": "¨ (dead)",
+        }
+        "S(GR_QUOT)": {
+            "key": "GR_DQUO",
+            "label": "\"",
+        }
+        "S(GR_BSLS)": {
+            "key": "GR_PIPE",
+            "label": "|",
+        }
+        "S(GR_COMM)": {
+            "key": "GR_LABK",
+            "label": "<",
+        }
+        "S(GR_DOT)": {
+            "key": "GR_RABK",
+            "label": ">",
+        }
+        "S(GR_SLSH)": {
+            "key": "GR_QUES",
+            "label": "?",
+        }
+/* AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │   │   │ ² │ ³ │ £ │ § │ ¶ │   │ ¤ │ ¦ │ ° │ ± │ ½ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │ € │ ® │   │ ¥ │   │   │   │   │ « │ » │     │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┐    │
+ * │      │   │   │   │   │   │   │   │   │   │   │   │ ¬ │    │
+ * ├────┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┴────┤
+ * │    │   │   │   │ © │   │   │   │   │   │   │   │          │
+ * ├────┼───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "ALGR(GR_2)": {
+            "key": "GR_SUP2",
+            "label": "²",
+        }
+        "ALGR(GR_3)": {
+            "key": "GR_SUP3",
+            "label": "³",
+        }
+        "ALGR(GR_4)": {
+            "key": "GR_PND",
+            "label": "£",
+        }
+        "ALGR(GR_5)": {
+            "key": "GR_SECT",
+            "label": "§",
+        }
+        "ALGR(GR_6)": {
+            "key": "GR_PILC",
+            "label": "¶",
+        }
+        "ALGR(GR_8)": {
+            "key": "GR_CURR",
+            "label": "¤",
+        }
+        "ALGR(GR_9)": {
+            "key": "GR_BRKP",
+            "label": "¦",
+        }
+        "ALGR(GR_0)": {
+            "key": "GR_DEG",
+            "label": "°",
+        }
+        "ALGR(GR_MINS)": {
+            "key": "GR_PLMN",
+            "label": "±",
+        }
+        "ALGR(GR_EQL)": {
+            "key": "GR_HALF",
+            "label": "½",
+        }
+        "ALGR(GR_EPSL)": {
+            "key": "GR_EURO",
+            "label": "€",
+        }
+        "ALGR(GR_RHO)": {
+            "key": "GR_REGD",
+            "label": "®",
+        }
+        "ALGR(GR_UPSL)": {
+            "key": "GR_YEN",
+            "label": "¥",
+        }
+        "ALGR(GR_LBRC)": {
+            "key": "GR_LDAQ",
+            "label": "«",
+        }
+        "ALGR(GR_RBRC)": {
+            "key": "GR_RDAQ",
+            "label": "»",
+        }
+        "ALGR(GR_BSLS)": {
+            "key": "GR_NOT",
+            "label": "¬",
+        }
+        "ALGR(GR_PSI)": {
+            "key": "GR_COPY",
+            "label": "©",
+        }
+    }
+}

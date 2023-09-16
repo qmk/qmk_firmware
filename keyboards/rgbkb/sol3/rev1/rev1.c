@@ -57,10 +57,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
         }
         case 1: {
             // Handle RGB Encoder switch press
-            action_exec((keyevent_t){
-                .key = (keypos_t){.row = isLeftHand ? 4 : 10, .col = 6},
-                .pressed = active, .time = (timer_read() | 1) /* time should not be 0 */
-            });
+            action_exec(MAKE_KEYEVENT(isLeftHand ? 4 : 10, 6, active));
             break;
         }
     }
@@ -68,15 +65,11 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 }
 
 static void process_encoder_matrix(encodermap_t pos) {
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = true, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    action_exec(MAKE_KEYEVENT(pos.r, pos.c, true));
 #if TAP_CODE_DELAY > 0
     wait_ms(TAP_CODE_DELAY);
 #endif
-    action_exec((keyevent_t){
-        .key = (keypos_t){.row = pos.r, .col = pos.c}, .pressed = false, .time = (timer_read() | 1) /* time should not be 0 */
-    });
+    action_exec(MAKE_KEYEVENT(pos.r, pos.c, false));
 }
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -105,7 +98,7 @@ bool touch_encoder_tapped_kb(uint8_t index, uint8_t section) {
     return false;
 }
 
-void matrix_slave_scan_kb() {
+void matrix_slave_scan_kb(void) {
     dip_switch_read(false);
     matrix_slave_scan_user();
 }

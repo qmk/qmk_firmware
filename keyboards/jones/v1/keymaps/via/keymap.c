@@ -73,9 +73,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,                                                                                                                _______,  _______
     ),
     [_ADJUST] = LAYOUT(
-        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,
+        _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
             _______,    DF(_BASE1),DF(_BASE2),DF(_BASE3),_______,  _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
-            _______,    AU_TOG,   CK_TOGG,  MU_TOG,   MU_MOD,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   _______,
+            _______,    AU_TOGG,   CK_TOGG,  MU_TOGG,   MU_NEXT,   _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   _______,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,     _______,        _______,      _______,  _______,      _______,_______,     _______,    _______,  _______,  _______,
         _______,  _______,                                                                                                                _______,  _______
@@ -158,7 +158,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 
 bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(3, IS_HOST_LED_ON(USB_LED_CAPS_LOCK));
+    rgblight_set_layer_state(3, led_state.caps_lock);
 
     return true;
 }
@@ -168,17 +168,18 @@ bool led_update_user(led_t led_state) {
 //------------------------------------------------------------------------------
 // Rotary Encoder
 //------------------------------------------------------------------------------
-static uint8_t  encoder_state[ENCODERS] = {0};
-static keypos_t encoder_cw[ENCODERS]    = ENCODERS_CW_KEY;
-static keypos_t encoder_ccw[ENCODERS]   = ENCODERS_CCW_KEY;
+static uint8_t  encoder_state[NUM_ENCODERS] = {0};
+static keypos_t encoder_cw[NUM_ENCODERS]    = ENCODERS_CW_KEY;
+static keypos_t encoder_ccw[NUM_ENCODERS]   = ENCODERS_CCW_KEY;
 
 void encoder_action_unregister(void) {
-    for (int index = 0; index < ENCODERS; ++index) {
+    for (int index = 0; index < NUM_ENCODERS; ++index) {
         if (encoder_state[index]) {
             keyevent_t encoder_event = (keyevent_t) {
                 .key = encoder_state[index] >> 1 ? encoder_cw[index] : encoder_ccw[index],
                 .pressed = false,
-                .time = (timer_read() | 1)
+                .time = timer_read(),
+                .type = KEY_EVENT
             };
             encoder_state[index] = 0;
             action_exec(encoder_event);
@@ -190,7 +191,8 @@ void encoder_action_register(uint8_t index, bool clockwise) {
     keyevent_t encoder_event = (keyevent_t) {
         .key = clockwise ? encoder_cw[index] : encoder_ccw[index],
         .pressed = true,
-        .time = (timer_read() | 1)
+        .time = timer_read(),
+        .type = KEY_EVENT
     };
     encoder_state[index] = (clockwise ^ 1) | (clockwise << 1);
     action_exec(encoder_event);
@@ -212,7 +214,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 //------------------------------------------------------------------------------
 void keyboard_post_init_user(void) {
 debug_enable=true;
-#ifdef RGB_DI_PIN
   #ifdef RGBLIGHT_LAYERS
     // Enable the LED layers.
     rgblight_layers = my_rgb_layers;
@@ -220,6 +221,5 @@ debug_enable=true;
     // prevent RGB light overrides layer indicator.
     layer_state_set(default_layer_state);
   #endif
-#endif
 
 }

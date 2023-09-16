@@ -62,6 +62,25 @@ def git_get_tag():
         return git_tag.stdout.strip()
 
 
+def git_get_last_log_entry(branch_name):
+    """Retrieves the last log entry for the branch being worked on.
+    """
+    git_lastlog = cli.run(['git', '--no-pager', 'log', '--pretty=format:%ad (%h) -- %s', '--date=iso', '-n1', branch_name])
+
+    if git_lastlog.returncode == 0 and git_lastlog.stdout:
+        return git_lastlog.stdout.strip()
+
+
+def git_get_common_ancestor(branch_a, branch_b):
+    """Retrieves the common ancestor between for the two supplied branches.
+    """
+    git_merge_base = cli.run(['git', 'merge-base', branch_a, branch_b])
+    git_branchpoint_log = cli.run(['git', '--no-pager', 'log', '--pretty=format:%ad (%h) -- %s', '--date=iso', '-n1', git_merge_base.stdout.strip()])
+
+    if git_branchpoint_log.returncode == 0 and git_branchpoint_log.stdout:
+        return git_branchpoint_log.stdout.strip()
+
+
 def git_get_remotes():
     """Returns the current remotes for a repo.
     """
@@ -111,9 +130,17 @@ def git_check_deviation(active_branch):
 
 
 def git_get_ignored_files(check_dir='.'):
-    """Return a list of files that would be captured by the current .gitingore
+    """Return a list of files that would be captured by the current .gitignore
     """
-    invalid = cli.run(['git', 'ls-files', '-c', '-o', '-i', '--exclude-standard', check_dir])
+    invalid = cli.run(['git', 'ls-files', '-c', '-o', '-i', '--exclude-from=.gitignore', check_dir])
     if invalid.returncode != 0:
         return []
     return invalid.stdout.strip().splitlines()
+
+
+def git_get_qmk_hash():
+    output = cli.run(['git', 'rev-parse', '--short', 'HEAD'])
+    if output.returncode != 0:
+        return None
+
+    return output.stdout.strip()

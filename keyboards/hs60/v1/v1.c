@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v1.h"
+#include "quantum.h"
 
 // Please ignore this is for upcoming features
 /*#ifdef RAW_ENABLE
@@ -91,7 +91,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 
 #ifdef HS60_ANSI
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -199,7 +199,7 @@ led_config_t g_led_config = { {
 
 #else
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -305,6 +305,10 @@ led_config_t g_led_config = { {
     1, 1
 } };
 
+#endif
+
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
 #endif
 
 void bootmagic_lite(void)

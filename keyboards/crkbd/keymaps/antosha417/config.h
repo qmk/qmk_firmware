@@ -10,7 +10,7 @@
 #define EE_HANDS
 
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 #ifdef RGBLIGHT_ENABLE
     #undef RGBLED_NUM
@@ -32,6 +32,5 @@
 #endif
 
 #define TAPPING_TERM 200
-#define IGNORE_MOD_TAP_INTERRUPT
 #define COMBO_TERM 30
 

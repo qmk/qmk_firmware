@@ -17,27 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0x525C
-#define PRODUCT_ID   0x9F9E
-#define DEVICE_VER   0x0001
-#define MANUFACTURER DZtech
-#define PRODUCT      Yeti RGB
-
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
-
-/* Keyboard Matrix Assignments */
-
-#define MATRIX_ROW_PINS { E6, C6, B4, B5, B6 }
-#define MATRIX_COL_PINS { C7, F7, F6, F5, F4, F1, F0, B0, B1, B2, B3, B7, D2, D3, D5 }
-
-/* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
 /* RGB Matrix */
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_KEYPRESSES
@@ -81,12 +60,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ENABLE_RGB_MATRIX_MULTISPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #    define RGB_MATRIX_LED_FLUSH_LIMIT 16       // 16 is equivalent to limiting to 60fps
-#    define RGB_DISABLE_AFTER_TIMEOUT 0         // number of ticks to wait until disabling effects
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED      // turn off effects when suspended
 #    define DRIVER_ADDR_1 0b1010000
 #    define DRIVER_COUNT 1
-#    define DRIVER_LED_TOTAL 64
+#    define RGB_MATRIX_LED_COUNT 64
 #endif
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5

@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "staggered.h"
-void dimple_led_on() {
+void dimple_led_on(void) {
     writePinLow(E6);
   }
 
- void dimple_led_off() {
+ void dimple_led_off(void) {
     writePinHigh(E6);
   }

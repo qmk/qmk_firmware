@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "pan.h"
+
 #include "quantum.h"
 #include "rgb_matrix_types.h"
 
@@ -22,13 +22,12 @@
 #        include "ws2812.h"
 
 // LED color buffer
-LED_TYPE rgb_matrix_ws2812_array[DRIVER_LED_TOTAL];
+LED_TYPE rgb_matrix_ws2812_array[RGB_MATRIX_LED_COUNT];
 
 static void init(void) {}
 
 static void flush(void) {
-    // Assumes use of RGB_DI_PIN
-    ws2812_setleds(rgb_matrix_ws2812_array, DRIVER_LED_TOTAL);
+    ws2812_setleds(rgb_matrix_ws2812_array, RGB_MATRIX_LED_COUNT);
 }
 
 // Set an led in the buffer to a color
@@ -51,7 +50,7 @@ static inline void setled(int i, uint8_t r, uint8_t g, uint8_t b) {
 }
 
 static void setled_all(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i = 0; i < sizeof(rgb_matrix_ws2812_array) / sizeof(rgb_matrix_ws2812_array[0]); i++) {
+    for (int i = 0; i < ARRAY_SIZE(rgb_matrix_ws2812_array); i++) {
         setled(i, r, g, b);
     }
 }

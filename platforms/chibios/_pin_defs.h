@@ -21,6 +21,11 @@
 #    include <hal.h>
 #endif
 
+/* Include the vendor specific pin defs */
+#if __has_include_next("_pin_defs.h")
+#    include_next "_pin_defs.h"
+#endif
+
 #define A0 PAL_LINE(GPIOA, 0)
 #define A1 PAL_LINE(GPIOA, 1)
 #define A2 PAL_LINE(GPIOA, 2)

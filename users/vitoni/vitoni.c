@@ -31,17 +31,17 @@ void matrix_scan_user_rgb(void) {
 #endif
 #if defined(RGB_DISABLE_WITH_FADE_OUT)
     const uint32_t fade_out_duration = scale_2_rgb_time(128);
-    const uint32_t start_fade_out_after_millis = (RGB_DISABLE_TIMEOUT) > fade_out_duration
-        ? (RGB_DISABLE_TIMEOUT) - fade_out_duration
+    const uint32_t start_fade_out_after_millis = (RGB_MATRIX_TIMEOUT) > fade_out_duration
+        ? (RGB_MATRIX_TIMEOUT) - fade_out_duration
         : 0;
 
     if (start_fade_out_after_millis <= inactivity_millis) {
         update_value(&state, FADE_OUT, &calc_offset);
     }
-#elif defined(RGB_DISABLE_TIMEOUT)
+#elif defined(RGB_MATRIX_TIMEOUT)
     // having to set brightness "manually" to black as starting point for fade in
     // for the time when returning from suspended state
-    if (RGB_DISABLE_TIMEOUT <= inactivity_millis + 15) {
+    if (RGB_MATRIX_TIMEOUT <= inactivity_millis + 15) {
         rgb_matrix_config.hsv.v = 0;
         state = SUSPENDED;
     }
