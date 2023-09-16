@@ -17,11 +17,6 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-
-#include <string.h>
-#include <math.h>
-#include <lib/lib8tion/lib8tion.h>
-
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case RGB_TOG:
@@ -43,12 +38,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case RGB_MOD:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_mode()) {
-                    case RGB_MATRIX_RAINBOW_PINWHEELS:
-                        rgb_matrix_mode(RGB_MATRIX_CUSTOM_FLOWER_BLOOMING);
-                        return false;
-                    case RGB_MATRIX_CUSTOM_FLOWER_BLOOMING:
-                        rgb_matrix_mode(RGB_MATRIX_RAINDROPS);
-                        return false;
                     case RGB_MATRIX_SOLID_MULTISPLASH:
                         rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
                         return false;
@@ -61,12 +50,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case RGB_RMOD:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_mode()) {
-                    case RGB_MATRIX_CUSTOM_FLOWER_BLOOMING:
-                        rgb_matrix_mode(RGB_MATRIX_RAINBOW_PINWHEELS);
-                        return false;
-                    case RGB_MATRIX_RAINDROPS:
-                        rgb_matrix_mode(RGB_MATRIX_CUSTOM_FLOWER_BLOOMING);
-                        return false;
                     case RGB_MATRIX_SOLID_COLOR:
                         rgb_matrix_mode(RGB_MATRIX_SOLID_MULTISPLASH);
                         return false;
@@ -77,6 +60,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
     }
+
     return process_record_user(keycode, record);
 }
 
@@ -88,7 +72,7 @@ bool rgb_matrix_indicators_kb(void) {
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(30, 0, 75, 75);
     } else if (!(rgb_matrix_get_flags() & LED_FLAG_INDICATOR)) {
-        rgb_matrix_set_color(30, 0, 0, 0);
+        rgb_matrix_set_color(30, RGB_OFF);
     }
     return true;
 }
@@ -99,6 +83,7 @@ void keyboard_post_init_kb(void) {
     } else {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_STARTUP_SWIRL_ANIM);
     }
+
     keyboard_post_init_user();
 }
 #endif
