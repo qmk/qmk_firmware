@@ -15,12 +15,8 @@
   "diode_direction": "ROW2COL",
   "processor": "atmega32u4",
   "bootloader": "caterina",
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_numpad_5x4"
-    },
-  "community_layout": ["numpad_5x4"],
   "layouts": {
-    "LAYOUT_numpad_5x4": {
+    "LAYOUT": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},

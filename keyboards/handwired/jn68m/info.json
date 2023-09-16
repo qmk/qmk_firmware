@@ -100,7 +100,7 @@
         {"matrix": [4, 15], "x": 16.25, "y": 4}
       ]
     },
-    "LAYOUT_all": {
+    "LAYOUT_68_ansi_split_bs": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [0, 1], "x": 1, "y": 0},
