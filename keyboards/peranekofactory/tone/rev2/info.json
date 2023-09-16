@@ -1,8 +1,8 @@
 {
-    "keyboard_name": "tone", 
+    "keyboard_name": "tone",
     "manufacturer": "PeranekoFactory",
-    "url": "https://shop.yushakobo.jp/collections/keyboard-1/products/consign_tone-note", 
-    "maintainer": "PeranekoFactory", 
+    "url": "https://shop.yushakobo.jp/collections/keyboard-1/products/consign_tone-note",
+    "maintainer": "PeranekoFactory",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",
@@ -12,6 +12,9 @@
         "rotary": [
             {"pin_a": "B5", "pin_b": "B4"}
         ]
+    },
+    "qmk": {
+        "tap_keycode_delay": 100
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
@@ -23,14 +26,14 @@
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"x":0, "y":0, "matrix": [0, 0]},
-                {"x":1, "y":0, "matrix": [0, 1]},
-                {"x":2, "y":0, "matrix": [0, 2]},
-                {"x":3, "y":0, "matrix": [0, 3]},
-                {"x":0, "y":1, "matrix": [0, 4]},
-                {"x":1, "y":1, "matrix": [0, 5]},
-                {"x":2, "y":1, "matrix": [0, 6]},
-                {"x":3, "y":1, "matrix": [0, 7]}
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 3, "y": 0, "matrix": [0, 3]},
+                {"x": 0, "y": 1, "matrix": [0, 4]},
+                {"x": 1, "y": 1, "matrix": [0, 5]},
+                {"x": 2, "y": 1, "matrix": [0, 6]},
+                {"x": 3, "y": 1, "matrix": [0, 7]}
             ]
         }
     }

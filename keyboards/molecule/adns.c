@@ -237,11 +237,11 @@ motion_delta_t readSensor(void) {
     return delta;
 }
 
-void pointing_device_task(void) {
+bool pointing_device_task(void) {
     motion_delta_t delta = readSensor();
 
     report_mouse_t report = pointing_device_get_report();
-   
+
     if(delta.motion_ind) {
         // clamp deltas from -127 to 127
         report.x = delta.delta_x < -127 ? -127 : delta.delta_x > 127 ? 127 : delta.delta_x;
@@ -250,5 +250,5 @@ void pointing_device_task(void) {
     }
 
     pointing_device_set_report(report);
-    pointing_device_send();
+    return pointing_device_send();
 }

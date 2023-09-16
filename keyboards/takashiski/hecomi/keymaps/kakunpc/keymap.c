@@ -50,19 +50,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_LGUI,KC_NO,KC_LALT,KC_INT5,KC_NO,KC_SPC,             KC_0,KC_NO,KC_HOME,KC_PGUP,KC_PGDN,KC_END
             ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-void keyboard_post_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}

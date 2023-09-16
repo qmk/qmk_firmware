@@ -91,9 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef ENCODER_ENABLE
-#   ifdef ENCODER_MAP_ENABLE
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+#ifdef ENCODER_MAP_ENABLE
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_DEFAULT_LAYER_1] = { { KC_DOWN, KC_UP   } },
     [_DEFAULT_LAYER_2] = { { _______, _______ } },
     [_DEFAULT_LAYER_3] = { { _______, _______ } },
@@ -107,34 +106,16 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_ADJUST]          = { { CK_DOWN, CK_UP   } },
 };
 // clang-format on
-#    else
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (get_highest_layer(layer_state)) {
-        case _RAISE:
-            clockwise ? rgblight_step() : rgblight_step_reverse();
-            break;
-        case _LOWER:
-            clockwise ? rgb_matrix_step() : rgb_matrix_step_reverse();
-            break;
-        default:
-            clockwise ? tap_code(KC_VOLU) : tap_code(KC_VOLD);
-            break;
-    }
-    return false;
-}
-#    endif  // ENCODER_ENABLE
-
 #endif
 
 bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     uint8_t this_mod = get_mods();
-    uint8_t this_led = host_keyboard_leds();
+    led_t   this_led = host_keyboard_led_state();
     uint8_t this_osm = get_oneshot_mods();
 #define THUMB_LED                                   6
 #define RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(...) RGB_MATRIX_INDICATOR_SET_COLOR(__VA_ARGS__)
 
-    extern bool host_driver_disabled;
-    if (host_driver_disabled) {
+    if (get_keyboard_lock()) {
         RGB_MATRIX_INDICATOR_SET_COLOR_wrapper(THUMB_LED, RGB_OFF);
     } else {
         switch (get_highest_layer(default_layer_state)) {
@@ -153,7 +134,7 @@ bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1 << USB_LED_CAPS_LOCK)) {
+    if ((this_mod | this_osm) & MOD_MASK_SHIFT || this_led.caps_lock) {
         if (!layer_state_is(_ADJUST)) {
             RGB_MATRIX_INDICATOR_SET_COLOR(12, 0x00, 0xFF, 0x00);
             RGB_MATRIX_INDICATOR_SET_COLOR(13, 0x00, 0xFF, 0x00);

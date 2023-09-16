@@ -1,5 +1,7 @@
 #pragma once
 
+#define TAP_CODE_DELAY 10
+
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING

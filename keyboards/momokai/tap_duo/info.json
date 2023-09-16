@@ -2,22 +2,37 @@
     "keyboard_name": "Tap Duo",
     "manufacturer": "Momokai",
     "url": "",
-    "maintainer": "qmk",
+    "maintainer": "peepeetee",
     "usb": {
         "vid": "0x69F9",
         "pid": "0x0005",
         "device_version": "0.0.1"
     },
+    "ws2812": {
+        "pin": "F0"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812"
+    },
+    "matrix_pins": {
+        "cols": ["E6", "B2", "D1", "D2", "D3"],
+        "rows": ["E0"]
+    },
+    "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "bootmagic": {
+        "matrix": [0, 3]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                { "label": "K00 (E0,E6)", "x": 0.25, "y": 0 },
-                { "label": "K01 (E0,B2)", "x": 1.25, "y": 0 },
-                { "label": "K02 (E0,D1)", "x": 0.75, "y": 1.25, "w": 0.5, "h": 0.5 },
-                { "label": "K03 (E0,D2)", "x": 1.25, "y": 1.25, "w": 0.5, "h": 0.5 },
-                { "label": "K04 (E0,D3)", "x": 1.75, "y": 1.25, "w": 0.5, "h": 0.5 }
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+
+                {"matrix": [0, 2], "x": 0.5, "y": 1.25, "w": 0.5, "h": 0.5},
+                {"matrix": [0, 3], "x": 1, "y": 1.25, "w": 0.5, "h": 0.5},
+                {"matrix": [0, 4], "x": 1.5, "y": 1.25, "w": 0.5, "h": 0.5}
             ]
         }
     }

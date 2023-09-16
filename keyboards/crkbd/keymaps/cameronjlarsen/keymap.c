@@ -30,7 +30,7 @@ enum layers {
 
 // One shot mods
 enum keycodes {
-    OS_SHFT = QK_USER,    
+    OS_SHFT = QK_USER,
     OS_CTRL,
     OS_ALT,
     OS_GUI,
@@ -159,11 +159,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 enum combo_events {
-    CAPS_COMBO,
-    // Other combos...
-    COMBO_LENGTH
+    CAPS_COMBO
 };
-uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM caps_combo[] = {KC_F, KC_J, COMBO_END};
 
