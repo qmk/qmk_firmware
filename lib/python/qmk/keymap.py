@@ -491,7 +491,7 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
 
     # walk up the directory tree until keyboards_dir
     # and collect all directories' name with keymap.c file in it
-    for search_dir in [QMK_FIRMWARE, QMK_USERSPACE]:
+    for search_dir in [QMK_FIRMWARE, QMK_USERSPACE] if HAS_QMK_USERSPACE else [QMK_FIRMWARE]:
         keyboards_dir = search_dir / Path('keyboards')
         kb_path = keyboards_dir / keyboard
 

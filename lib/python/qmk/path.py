@@ -5,7 +5,7 @@ import os
 import argparse
 from pathlib import Path
 
-from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE, QMK_USERSPACE
+from qmk.constants import MAX_KEYBOARD_SUBFOLDERS, QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.errors import NoSuchKeyboardError
 
 
@@ -36,9 +36,11 @@ def under_qmk_userspace():
     cwd = Path(os.environ['ORIG_CWD'])
 
     try:
-        return cwd.relative_to(QMK_USERSPACE)
+        if HAS_QMK_USERSPACE:
+            return cwd.relative_to(QMK_USERSPACE)
     except ValueError:
-        return None
+        pass
+    return None
 
 
 def keyboard(keyboard_name):
@@ -58,7 +60,7 @@ def keymaps(keyboard_name):
     keyboard_folder = keyboard(keyboard_name)
     found_dirs = []
 
-    for root_dir in [QMK_USERSPACE, QMK_FIRMWARE]:
+    for root_dir in [QMK_USERSPACE, QMK_FIRMWARE] if HAS_QMK_USERSPACE else [QMK_FIRMWARE]:
         this_keyboard_folder = root_dir / keyboard_folder
         for _ in range(MAX_KEYBOARD_SUBFOLDERS):
             if (this_keyboard_folder / 'keymaps').exists():
