@@ -1,14 +1,15 @@
 Richard Dawe's keymap for ISO HS60 V2. VIA support disabled.
 ============================================================
 
-![Layout image](https://imgur.com/6go4vQV.png)
+This layout is based on the [KBParadise V60 Type-R](https://www.kbparadise.com/store/products/v60-black), with its HHKB-like cursor keys.
 
-Default layer is normal ISO and Fn layer is used for RGB functions, Volume control and arrow cluster
+I did not like how the V60 Type-R put all its features onto one layer. It's too easy to e.g.: change the RGB backlighting with a typo. For this reason, I split the layers out:
 
-TODO: Doc changes:
+ * Layer 1 (FN): navigation and F-keys;
+ * Layer 2 (hold space): further navigation like PgUp/PgDn;
+ * Layer 3 (hold escape): boot loader mode, RGB effects, media keys.
 
-Questions:
-
-Can I make it like the KBP V60 cursor layout? Layout in ~/Dropbox/hardware/kbparadise/
-ESC as mod-tap for layer 2, regular is `/~?
-Set default colour in config
+```
+qmk compile -kb hs60/v2/iso -km richdawe
+qmk flash -kb hs60/v2/iso -km richdawe
+```
