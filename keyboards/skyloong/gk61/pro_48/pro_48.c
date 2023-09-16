@@ -1,10 +1,10 @@
 // Copyright 2023 linlin012 (@linlin012)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
-int FN_WIN = 0;
-int FN_MAC = 0;
-int L_WIN = 0;
-int L_MAC = 0;
+_Bool FN_WIN = 0;
+_Bool FN_MAC = 0;
+_Bool L_WIN = 0;
+_Bool L_MAC = 0;
 
 #if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
