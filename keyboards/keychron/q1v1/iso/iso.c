@@ -16,8 +16,16 @@
 
 #include "quantum.h"
 
-#ifdef RGB_MATRIX_ENABLE
+const matrix_row_t matrix_mask[] = {
+    0b0111111111111101,
+    0b0111111111111111,
+    0b0111111111111111,
+    0b0111111111111111,
+    0b0111111111111111,
+    0b0111111111111111,
+};
 
+#ifdef RGB_MATRIX_ENABLE
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -70,7 +78,6 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, I_11,   G_11,   H_11},
     {0, I_12,   G_12,   H_12},
     {0, I_13,   G_13,   H_13},
-    {0, I_14,   G_14,   H_14},
     {0, I_16,   G_16,   H_16},
 
     {0, L_1,    J_1,    K_1},
@@ -85,10 +92,12 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {0, L_10,   J_10,   K_10},
     {0, L_11,   J_11,   K_11},
     {0, L_12,   J_12,   K_12},
-    {0, L_14,   J_14,   K_14},
+	{0, L_14,   J_14,   K_14},
+	{0, I_14,   G_14,   H_14},
     {0, L_16,   J_16,   K_16},
 
     {1, C_1,    A_1,    B_1},
+    {1, C_2,    A_2,    B_2},
     {1, C_3,    A_3,    B_3},
     {1, C_4,    A_4,    B_4},
     {1, C_5,    A_5,    B_5},
@@ -112,7 +121,6 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {1, F_14,   D_14,   E_14},
     {1, F_15,   D_15,   E_15},
     {1, F_16,   D_16,   E_16}
-
 };
 
 #define __ NO_LED
