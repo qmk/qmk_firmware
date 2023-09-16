@@ -53,12 +53,8 @@
         "pid": "0xC401",
         "vid": "0x5754"
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_ortho_4x4"
-    },
-    "community_layouts": ["ortho_4x4"],
     "layouts": {
-        "LAYOUT_ortho_4x4": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

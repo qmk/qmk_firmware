@@ -1,7 +1,7 @@
 {
     "keyboard": "cxt_studio",
     "keymap": "default",
-    "layout": "LAYOUT_ortho_4x4",
+    "layout": "LAYOUT",
     "layers": [
         [
             "KC_ESC",  "KC_F11",  "KC_NO",   "KC_MSTP",
