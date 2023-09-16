@@ -43,13 +43,14 @@ def detect_qmk_userspace():
 
 
 def userspace_doctor_checks(qmk_firmware, qmk_userspace, has_qmk_userspace):
-    cli.log.info('Checking userspace configuration...')
-    cli.log.info(f'Detected QMK Firmware directory: {{fg_cyan}}{qmk_firmware}{{fg_reset}}')
+    if qmk_firmware:
+        cli.log.info(f'Detected QMK Firmware directory: {{fg_cyan}}{qmk_firmware}{{fg_reset}}')
     cli.log.info(f'Detected QMK Userspace directory: {{fg_cyan}}{qmk_userspace}{{fg_reset}}')
-    cli.log.info(f'QMK Userspace is enabled: {{fg_cyan}}{has_qmk_userspace}{{fg_reset}}')
 
     for path in qmk_userspace_paths():
         if qmk_userspace_validate(path):
-            cli.log.info(f'Testing {{fg_cyan}}{path}{{fg_reset}} -- {{fg_green}}Valid `qmk.json`{{fg_reset}}')
+            cli.log.info(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_green}}Valid `qmk.json`{{fg_reset}}')
         else:
-            cli.log.warn(f'Testing {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Invalid `qmk.json`{{fg_reset}}')
+            cli.log.warn(f'Testing userspace candidate: {{fg_cyan}}{path}{{fg_reset}} -- {{fg_red}}Invalid `qmk.json`{{fg_reset}}')
+
+    cli.log.info(f'QMK Userspace is enabled: {{fg_cyan}}{has_qmk_userspace}{{fg_reset}}')

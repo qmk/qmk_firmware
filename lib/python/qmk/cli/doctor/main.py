@@ -9,10 +9,11 @@ from milc import cli
 from milc.questions import yesno
 
 from qmk import submodules
-from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM
+from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM, QMK_USERSPACE, HAS_QMK_USERSPACE
 from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules
 from qmk.git import git_check_repo, git_get_branch, git_get_tag, git_get_last_log_entry, git_get_common_ancestor, git_is_dirty, git_get_remotes, git_check_deviation
 from qmk.commands import in_virtualenv
+from qmk.userspace import userspace_doctor_checks
 
 
 def os_tests():
@@ -108,6 +109,9 @@ def doctor(cli):
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
     status = os_status = os_tests()
+
+    userspace_doctor_checks(None, QMK_USERSPACE, HAS_QMK_USERSPACE)
+
     git_status = git_tests()
 
     if git_status == CheckStatus.ERROR or (os_status == CheckStatus.OK and git_status == CheckStatus.WARNING):
