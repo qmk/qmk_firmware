@@ -56,7 +56,7 @@ You can overwrite LVGL specific features in your `lv_conf.h` file.
 
 ## Changing the LVGL task frequency
 
-When LVGL is running, your keyboard's responsiveness may decrease, causuing missing keystrokes or encoder rotations, especially during the animation of dynamically-generated content. This occurs because LVGL operates as a scheduled task with a default task rate of five milliseconds. While a fast task rate is advantageous when LVGL is responsible for detecting and processing inputs, it can lead to excessive recalculations of displayed content, which may slow down QMK's matrix scanning. If you rely on QMK instead of LVGL for processing inputs, it can be beneficial to increase the time between calls to the LVGL task handler to better match your preferred display update rate. To do this, add this to your `config.h`:
+When LVGL is running, your keyboard's responsiveness may decrease, causing missing keystrokes or encoder rotations, especially during the animation of dynamically-generated content. This occurs because LVGL operates as a scheduled task with a default task rate of five milliseconds. While a fast task rate is advantageous when LVGL is responsible for detecting and processing inputs, it can lead to excessive recalculations of displayed content, which may slow down QMK's matrix scanning. If you rely on QMK instead of LVGL for processing inputs, it can be beneficial to increase the time between calls to the LVGL task handler to better match your preferred display update rate. To do this, add this to your `config.h`:
 
 ```c
 #define QP_LVGL_TASK_PERIOD 40
