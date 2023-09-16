@@ -15,4 +15,3 @@ AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes        # Unicode
 KEY_LOCK_ENABLE = yes       # Key Lock
 DYNAMIC_MACRO_ENABLE = yes  # Dynamic Macros
-CAPS_WORD_ENABLE = yes      # Caps Word
