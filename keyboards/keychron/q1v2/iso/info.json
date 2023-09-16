@@ -1,6 +1,7 @@
 {
     "usb": {
-        "pid": "0x0108"
+        "pid": "0x0108",
+        "device_version": "2.0.0"
     },
     "layouts": {
         "LAYOUT_iso_83": {

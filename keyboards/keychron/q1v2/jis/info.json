@@ -1,6 +1,7 @@
 {
     "usb": {
-        "pid": "0x010A"
+        "pid": "0x010A",
+        "device_version": "2.0.0"
     },
     "layouts": {
         "LAYOUT": {
