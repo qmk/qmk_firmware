@@ -12,7 +12,20 @@
         "driver": "custom"
     },
     "rgblight": {
-        "max_brightness": 120
+        "led_count": 64,
+        "max_brightness": 120,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "layouts": {
         "LAYOUT_all": {

@@ -95,6 +95,7 @@ secrets.tar
 # Python things
 __pycache__
 .python-version
+.venv
 
 # Prerequisites for updating ChibiOS
 /util/fmpp*

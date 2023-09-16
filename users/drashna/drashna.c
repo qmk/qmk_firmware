@@ -141,7 +141,7 @@ float autocorrect_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 #        endif
 #    endif
 
-bool apply_autocorrect(uint8_t backspaces, const char *str) {
+bool apply_autocorrect(uint8_t backspaces, const char* str, char *typo, char *correct) {
     if (layer_state_is(_GAMEPAD)) {
         return false;
     }
