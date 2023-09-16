@@ -1369,6 +1369,7 @@ bool exec_henshu(uint32_t keycomb) {
       break;
     // ------------------------------------------------------
     case B_D|B_F|B_Y: //
+      tap_code16(LCTL(KC_R));
       henshu_done = true;
       return true;
       break;
