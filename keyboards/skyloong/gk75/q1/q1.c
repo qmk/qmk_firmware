@@ -1,11 +1,12 @@
 //  Copyright 2023 JZ-Skyloong (@JZ-Skyloong)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
-int FN_WIN = 0;
-int FN_MAC = 0;
-int L_WIN = 0;
-int L_MAC = 0;
+_Bool FN_WIN = 0;
+_Bool FN_MAC = 0;
+_Bool L_WIN = 0;
+_Bool L_MAC = 0;
 
+#    ifdef RGB_MATRIX_ENABLE
 const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
@@ -107,8 +108,8 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     {1, CS16_SW3,  CS17_SW3,  CS18_SW3},
     {1, CS16_SW4,  CS17_SW4,  CS18_SW4}
 };
+#    endif
 
-#if defined(RGB_MATRIX_ENABLE)  /*&& defined(CAPS_LOCK_INDEX)*/
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
@@ -168,6 +169,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+#if defined(RGB_MATRIX_ENABLE)
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false;
@@ -230,22 +232,28 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     }
     return false;
 }
+#endif
 
 void suspend_power_down_kb() {
-    rgb_matrix_set_flags(LED_FLAG_NONE);
-    rgb_matrix_set_color_all(0, 0, 0);
+#if defined(RGB_MATRIX_ENABLE)
     writePinLow(SDB);
+#endif
+    suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb() {
+#if defined(RGB_MATRIX_ENABLE)
     writePinHigh(SDB);
-    rgb_matrix_set_flags(LED_FLAG_ALL);
-}
 #endif
+    suspend_wakeup_init_user();
+}
+
 
 void board_init(void) {
     // JTAG-DP Disabled and SW-DP Disabled
     AFIO->MAPR = (AFIO->MAPR & ~AFIO_MAPR_SWJ_CFG_Msk) | AFIO_MAPR_SWJ_CFG_DISABLE;
+#if defined(RGB_MATRIX_ENABLE)
     setPinOutput(SDB);
     writePinHigh(SDB);
+#endif
 }
