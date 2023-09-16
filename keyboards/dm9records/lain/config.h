@@ -1,4 +1,5 @@
 // Copyright 2022 Takuya Urakawa @hsgw (dm9records.com, 5z6p.com)
+// Copyright 2022 Richard Dawe
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -41,3 +42,6 @@
 #define LOCKING_RESYNC_ENABLE
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
+
+/* Longer delay on tap codes, so shifted ones work. */
+#define TAP_CODE_DELAY 100
