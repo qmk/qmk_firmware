@@ -55,6 +55,12 @@ void is31fl3733_update_led_control_registers(uint8_t addr, uint8_t index);
 #define IS31FL3733_PUR_16KR 0x06 // 16k Ohm resistor on all the time
 #define IS31FL3733_PUR_32KR 0x07 // 32k Ohm resistor in t_NOL
 
+#define IS31FL3733_PWM_FREQUENCY_8K4_HZ 0x00
+#define IS31FL3733_PWM_FREQUENCY_4K2_HZ 0x01
+#define IS31FL3733_PWM_FREQUENCY_26K7_HZ 0x02
+#define IS31FL3733_PWM_FREQUENCY_2K1_HZ 0x03
+#define IS31FL3733_PWM_FREQUENCY_1K05_HZ 0x04
+
 #define A_1 0x00
 #define A_2 0x01
 #define A_3 0x02

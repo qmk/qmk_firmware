@@ -37,6 +37,11 @@
         "io_delay": 5
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B8", "pin_b": "A14"},
