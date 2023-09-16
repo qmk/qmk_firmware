@@ -147,20 +147,17 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 
-#endif
 
-void suspend_power_down_kb() {
-#    ifdef RGB_MATRIX_ENABLE
+void suspend_power_down_kb(void) {
     writePinLow(SDB);
-#    endif
+    suspend_power_down_user();
 }
 
-void suspend_wakeup_init_kb() {
-#    ifdef RGB_MATRIX_ENABLE
+void suspend_wakeup_init_kb(void) {
     writePinHigh(SDB);
-    rgb_matrix_set_flags(LED_FLAG_ALL);
-#    endif
+    suspend_wakeup_init_user();
 }
+#endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
