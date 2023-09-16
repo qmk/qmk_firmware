@@ -1398,23 +1398,23 @@ bool exec_henshu(uint32_t keycomb) {
       return true;
       break;
     // ------------------------------------------------------
-    case B_D|B_F|B_H: // 行頭
-      ng_home();
-      henshu_done = true;
-      return true;
-      break;
-    case B_D|B_F|B_J: // 左
+    case B_D|B_F|B_H: // 左
       ng_up(1);
       henshu_done = true;
       return true;
       break;
-    case B_D|B_F|B_K: // 右
-      ng_down(1);
+    case B_D|B_F|B_J: // 下
+      ng_left(1);
       henshu_done = true;
       return true;
       break;
-    case B_D|B_F|B_L: // 行末
-      ng_end();
+    case B_D|B_F|B_K: // 上
+      ng_right(1);
+      henshu_done = true;
+      return true;
+      break;
+    case B_D|B_F|B_L: // 右
+      ng_down(1);
       henshu_done = true;
       return true;
       break;
@@ -1424,33 +1424,30 @@ bool exec_henshu(uint32_t keycomb) {
       return true;
       break;
     // ------------------------------------------------------
-    case B_D|B_F|B_N: // S行頭
-      tap_code(KC_ESC);
-      register_code(KC_LSFT);
-      ng_home();
-      unregister_code(KC_LSFT);
-      henshu_done = true;
-      return true;
-      break;
-    case B_D|B_F|B_M: // S左
+    case B_D|B_F|B_N: // S左
       register_code(KC_LSFT);
       ng_up(1);
       unregister_code(KC_LSFT);
       henshu_done = true;
       return true;
       break;
-    case B_D|B_F|B_COMM: // S右
+    case B_D|B_F|B_M: // S下
       register_code(KC_LSFT);
-      ng_down(1);
+      ng_left(1);
       unregister_code(KC_LSFT);
       henshu_done = true;
       return true;
       break;
-
-    case B_D|B_F|B_DOT: // S行末
-      tap_code(KC_ESC);
+    case B_D|B_F|B_COMM: // S上
       register_code(KC_LSFT);
-      ng_end();
+      ng_right(1);
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+    case B_D|B_F|B_DOT: // S右
+      register_code(KC_LSFT);
+      ng_down(1);
       unregister_code(KC_LSFT);
       henshu_done = true;
       return true;
@@ -1573,23 +1570,23 @@ bool exec_henshu(uint32_t keycomb) {
       return true;
       break;
     // ------------------------------------------------------
-    case B_C|B_V|B_H: // 5上
+    case B_C|B_V|B_H: // 行頭
+      ng_home();
+      henshu_done = true;
+      return true;
+      break;
+    case B_C|B_V|B_J: //  5下
+      ng_left(5);
+      henshu_done = true;
+      return true;
+      break;
+    case B_C|B_V|B_K: // 5上
       ng_right(5);
       henshu_done = true;
       return true;
       break;
-    case B_C|B_V|B_J: // 上
-      ng_right(1);
-      henshu_done = true;
-      return true;
-      break;
-    case B_C|B_V|B_K:// 下
-      ng_left(1);
-      henshu_done = true;
-      return true;
-      break;
-    case B_C|B_V|B_L://  5下
-      ng_left(5);
+    case B_C|B_V|B_L: // 行末
+      ng_end();
       henshu_done = true;
       return true;
       break;
@@ -1602,30 +1599,32 @@ bool exec_henshu(uint32_t keycomb) {
       return true;
       break;
     // ------------------------------------------------------
-    case B_C|B_V|B_N: // S5上
+    case B_C|B_V|B_N: // S行頭
+      tap_code(KC_ESC);
+      register_code(KC_LSFT);
+      ng_home();
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+    case B_C|B_V|B_M: // S5上
       register_code(KC_LSFT);
       ng_right(5);
       unregister_code(KC_LSFT);
       henshu_done = true;
       return true;
       break;
-    case B_C|B_V|B_M: // S上
-      register_code(KC_LSFT);
-      ng_right(1);
-      unregister_code(KC_LSFT);
-      henshu_done = true;
-      return true;
-      break;
-    case B_C|B_V|B_COMM: // S下
-      register_code(KC_LSFT);
-      ng_left(1);
-      unregister_code(KC_LSFT);
-      henshu_done = true;
-      return true;
-      break;
-    case B_C|B_V|B_DOT: // S5下
+    case B_C|B_V|B_COMM: // S5下
       register_code(KC_LSFT);
       ng_left(5);
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+    case B_C|B_V|B_DOT: // S行末
+      tap_code(KC_ESC);
+      register_code(KC_LSFT);
+      ng_end();
       unregister_code(KC_LSFT);
       henshu_done = true;
       return true;

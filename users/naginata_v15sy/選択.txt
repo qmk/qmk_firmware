@@ -71,7 +71,7 @@
       return true;
       break;
 
-M: // S行末
+// S行末
       tap_code(KC_ESC);
       register_code(KC_LSFT);
       ng_end();
