@@ -53,7 +53,7 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 /*
- *   Key LAYOUT_ortho_2x3
+ *   Key Layout
  *   _____   _____   _____
  *  |     | |     | |     |
  *  |  1  | |  2  | |  3  |

@@ -9,7 +9,7 @@ enum custom_keycodes {
 *  Copy of knopps mini default May 16,2018
 *  Added comments in code to more easilly understand it.
 *
-*   Key LAYOUT_ortho_2x3
+*   Key Layout
 *	 _____	 _____	 _____
 *	| 	  | | 	  | | 	  |
 *	|  1  | |  2  | |  3  |
@@ -19,7 +19,7 @@ enum custom_keycodes {
 *	|  4  | |  5  | |  6  |
 *	|_____| |_____| |_____|
 *
-*  Each LAYOUT_ortho_2x3 row below keys. 1,2,3,4,5,6
+*  Each Layout row below keys. 1,2,3,4,5,6
 *
 *  Hold 3 when powering on for DFU Program Mode
 */
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		LT(3, KC_1), KC_2, KC_3, KC_4, M_TGLHF, M_TGG),
 
 /*
-*  Layer 3 Key LAYOUT_ortho_2x3
+*  Layer 3 Key Layout
 *  This Layer does the Layer Selection
 *	 _____	 _____	 _____
 *	| 	  | | 	  | | DFU
