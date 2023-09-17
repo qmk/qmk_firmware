@@ -64,6 +64,7 @@ void ng_eof(void);
 void set_henshu(uint8_t);
 void ng_lprn(void);
 void ng_rprn(void);
+bool get_henshu_executed(void);
 
 // なぜKC_キーコードを使わず、NG_キーコードを定義するのか
 // 1. 英字レイアウトがQWERTYでない場合でもOK

@@ -8,3 +8,4 @@
 // #define NG_NO_KOYUMEISHI
 
 #define COMBO_TERM 100
+#define COMBO_MUST_PRESS_IN_ORDER

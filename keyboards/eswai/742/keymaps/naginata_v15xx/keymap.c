@@ -113,19 +113,46 @@ const uint16_t PROGMEM h2lk[]  = {NG_M, NG_COMM, COMBO_END};
 const uint16_t PROGMEM h2re[]  = {KC_V, KC_C, COMBO_END};
 const uint16_t PROGMEM h2rk[]  = {NG_C, NG_V, COMBO_END};
 
+const uint16_t PROGMEM ngone_[] = {KC_E, KC_Y, COMBO_END};
+const uint16_t PROGMEM ngofe_[] = {KC_G, KC_A, COMBO_END};
+const uint16_t PROGMEM ngonk_[] = {NG_J, NG_H, COMBO_END};
+const uint16_t PROGMEM ngofk_[] = {NG_G, NG_F, COMBO_END};
+const uint16_t PROGMEM h1le_[]  = {KC_T, KC_E, COMBO_END};
+const uint16_t PROGMEM h1lk_[]  = {NG_K, NG_J, COMBO_END};
+const uint16_t PROGMEM h1re_[]  = {KC_A, KC_S, COMBO_END};
+const uint16_t PROGMEM h1rk_[]  = {NG_F, NG_D, COMBO_END};
+const uint16_t PROGMEM h2le_[]  = {KC_COMM, KC_O, COMBO_END};
+const uint16_t PROGMEM h2lk_[]  = {NG_COMM, NG_M, COMBO_END};
+const uint16_t PROGMEM h2re_[]  = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM h2rk_[]  = {NG_V, NG_C, COMBO_END};
+
 enum combo_events {
   CMBON1,
-  CMBON2,
   CMBOF1,
+  CMBON2,
   CMBOF2,
-  HENSHU1RE,
-  HENSHU1RK,
+  CMBON1_,
+  CMBOF1_,
+  CMBON2_,
+  CMBOF2_,
+
   HENSHU1LE,
   HENSHU1LK,
-  HENSHU2RE,
-  HENSHU2RK,
+  HENSHU1RE,
+  HENSHU1RK,
+  HENSHU1LE_,
+  HENSHU1LK_,
+  HENSHU1RE_,
+  HENSHU1RK_,
+
   HENSHU2LE,
   HENSHU2LK,
+  HENSHU2RE,
+  HENSHU2RK,
+  HENSHU2LE_,
+  HENSHU2LK_,
+  HENSHU2RE_,
+  HENSHU2RK_,
 };
 
 combo_t key_combos[] = {
@@ -133,28 +160,94 @@ combo_t key_combos[] = {
   [CMBON2] = COMBO(ngofe, NG_OFF),
   [CMBOF1] = COMBO(ngone, NG_ON),
   [CMBOF2] = COMBO(ngofk, NG_OFF),
-  [HENSHU1RE] = COMBO_ACTION(h1re),
-  [HENSHU1RK] = COMBO_ACTION(h1rk),
+  [CMBON1_] = COMBO(ngone_, NG_ON),
+  [CMBON2_] = COMBO(ngofe_, NG_OFF),
+  [CMBOF1_] = COMBO(ngone_, NG_ON),
+  [CMBOF2_] = COMBO(ngofk_, NG_OFF),
+
   [HENSHU1LE] = COMBO_ACTION(h1le),
   [HENSHU1LK] = COMBO_ACTION(h1lk),
-  [HENSHU2RE] = COMBO_ACTION(h2re),
-  [HENSHU2RK] = COMBO_ACTION(h2rk),
+  [HENSHU1RE] = COMBO_ACTION(h1re),
+  [HENSHU1RK] = COMBO_ACTION(h1rk),
   [HENSHU2LE] = COMBO_ACTION(h2le),
   [HENSHU2LK] = COMBO_ACTION(h2lk),
+  [HENSHU2RE] = COMBO_ACTION(h2re),
+  [HENSHU2RK] = COMBO_ACTION(h2rk),
+
+  [HENSHU1LE_] = COMBO_ACTION(h1le_),
+  [HENSHU1LK_] = COMBO_ACTION(h1lk_),
+  [HENSHU1RE_] = COMBO_ACTION(h1re_),
+  [HENSHU1RK_] = COMBO_ACTION(h1rk_),
+  [HENSHU2LE_] = COMBO_ACTION(h2le_),
+  [HENSHU2LK_] = COMBO_ACTION(h2lk_),
+  [HENSHU2RE_] = COMBO_ACTION(h2re_),
+  [HENSHU2RK_] = COMBO_ACTION(h2rk_),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   if (pressed) {
     if (!naginata_state()) layer_on(_NAGINATA);
     switch(combo_index) {
-      case HENSHU1RE ... HENSHU1LK:
+      case HENSHU1LE ... HENSHU1RK_:
         set_henshu(1);
         break;
-      case HENSHU2RE ... HENSHU2LK:
+      case HENSHU2LE ... HENSHU2LK_:
         set_henshu(2);
         break;
     }
   } else {
+    if (!get_henshu_executed()) {
+      switch(combo_index) {
+      case HENSHU1RE:
+        send_string("sa");
+        break;
+      case HENSHU1RK:
+        send_string("toka");
+        break;
+      case HENSHU1LE:
+        send_string("et");
+        break;
+      case HENSHU1LK:
+        send_string("ai");        
+        break;
+      case HENSHU2RE:
+        send_string("vc");
+        break;
+      case HENSHU2RK:
+        send_string("hako");
+        break;
+      case HENSHU2LE:
+        send_string("o,");
+        break;
+      case HENSHU2LK:
+        send_string("nann");
+        break;
+      case HENSHU1RE_:
+        send_string("as");
+        break;
+      case HENSHU1RK_:
+        send_string("kato");
+        break;
+      case HENSHU1LE_:
+        send_string("te");
+        break;
+      case HENSHU1LK_:
+        send_string("ia");        
+        break;
+      case HENSHU2RE_:
+        send_string("cv");
+        break;
+      case HENSHU2RK_:
+        send_string("koha");
+        break;
+      case HENSHU2LE_:
+        send_string(",o");
+        break;
+      case HENSHU2LK_:
+        send_string("nnna");
+        break;
+      }
+    }
     if (!naginata_state()) layer_off(_NAGINATA);
     set_henshu(0);
   }

@@ -51,6 +51,7 @@ static uint8_t naginata_layer = 0; // NG_*を配置しているレイヤー番�
 static uint8_t keycnt = 0UL; //　押しているキーの数
 static uint32_t keycomb = 0UL; // 同時押しの状態を示す。32bitの各ビットがキーに対応する。
 static uint8_t henshu_mode = 0;
+static bool henshu_executed = false; // 編集モードを実行したか、空打ちか
 
 // 31キーを32bitの各ビットに割り当てる
 #define B_Q    (1UL<<0)
@@ -509,6 +510,11 @@ void set_naginata(uint8_t layer) {
 
 void set_henshu(uint8_t m) {
   henshu_mode = m;
+  henshu_executed = false;
+}
+
+bool get_henshu_executed() {
+  return henshu_executed;
 }
 
 // 薙刀式をオン
@@ -733,7 +739,7 @@ bool process_naginata(uint16_t keycode, keyrecord_t *record) {
 
   if (henshu_mode > 0) {
     if (record->event.pressed) {
-      exec_henshu(keycode);
+      henshu_executed = exec_henshu(keycode);
     }
     return false;
   }
